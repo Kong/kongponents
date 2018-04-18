@@ -1,4 +1,3 @@
-g-button example:
 ```js
 const options = {
   headers: [
