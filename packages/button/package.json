@@ -1,0 +1,19 @@
+{
+  "name": "@kongponents/button",
+  "version": "0.0.1-beta",
+  "description": "Button component",
+  "main": "button.vue",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kong/gruce.git"
+  },
+  "author": "Kong Inc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kong/gruce/issues"
+  },
+  "homepage": "https://github.com/Kong/gruce#readme"
+}
