@@ -1,5 +1,4 @@
 g-button example:
-
 ```js
-<g-button rounded="true">Text</g-button>
+<g-button appearance='primary' :isRounded='false'>button</g-button>
 ```
