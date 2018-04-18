@@ -4,7 +4,7 @@
 
 <script>
   export default {
-    name: 'g-button',
+    name: 'KButton',
     props: {
       isRounded: Boolean,
       handleClick: {

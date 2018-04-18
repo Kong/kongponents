@@ -26,7 +26,7 @@ const options = {
   ]
 }
 
-<g-table :options=options :isStriped='true' :hasHover='true'>
+<KTable :options=options :isStriped='true' :hasHover='true'>
   <template slot="actions" slot-scope="{row, rowKey, rowValue}"><a href="">Edit</a></template>
-</g-table>
+</KTable>
 ```

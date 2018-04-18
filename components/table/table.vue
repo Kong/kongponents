@@ -33,22 +33,32 @@
 
 <script>
   export default {
-    name: 'g-table',
+    name: 'KTable',
     props: {
       /**
-        * Options is the data passed to the table to create rows and columns.
-        * An Array named headers defines the Label, key and if the header is shown or not.
-        * And an Array named data which defines the column data. 
-       */
-      options: Object,
+        * Object containing data which creates rows and columns.
+        * @param {Object} options - Options to initialize the component with
+        * @param {Array} options.headers - Array of Objects defining Table Headers
+        * @param {Array} options.data - Array of Objects defining column data
+        */
+      options: {
+        type: Object,
+        required: true
+      },
       /**
         * Adds zebra striping to the table rows
-       */
-      isStriped: Boolean,
+        */
+      isStriped: {
+        type: Boolean,
+        default: false
+      },
       /**
         * Enables hover highlighting to table rows
         */
-      hasHover: Boolean
+      hasHover: {
+        type: Boolean,
+        default: false
+      }
     }
   }
 </script>
