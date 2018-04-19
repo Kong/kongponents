@@ -1,5 +1,5 @@
-import KButton from '../components/KButton/KButton.vue'
-import KTable from '../components/KTable/KTable.vue'
+import KButton from '../packages/KButton/KButton.vue'
+import KTable from '../packages/KTable/KTable.vue'
 
 export function components (Vue) {
   Vue.component('KButton', KButton),
@@ -7,7 +7,7 @@ export function components (Vue) {
 }
 
 export function stories () {
-  const req = require.context('../components', true, /\.stories\.js$/)
+  const req = require.context('../packages', true, /\.stories\.js$/)
   req
     .keys()
     .forEach((filename) => req(filename))
