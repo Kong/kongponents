@@ -1,11 +1,8 @@
 {
   "name": "@kongponents/ktable",
-  "version": "0.0.1-beta.0",
+  "version": "0.0.1-beta.1",
   "description": "Table component",
   "main": "KTable.vue",
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
