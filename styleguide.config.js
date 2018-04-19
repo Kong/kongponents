@@ -1,6 +1,6 @@
 
 module.exports = {
-  components: 'components/**/*.vue',
+  components: 'packages/**/*.vue',
   editorConfig: {
     theme: 'dracula'
   },
