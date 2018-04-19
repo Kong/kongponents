@@ -1,0 +1,19 @@
+{
+  "name": "@kongponents/kbutton",
+  "version": "0.0.1-beta.1",
+  "description": "Button component",
+  "main": "KButton.vue",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kong/kongponents.git"
+  },
+  "author": "Kong Inc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kong/kongponents/issues"
+  },
+  "homepage": "https://github.com/Kong/kongponents#readme"
+}
