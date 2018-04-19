@@ -1,6 +1,6 @@
 <template>
   <button class="button"
-    :class="[{rounded: isRounded}, appearance]"
+    :class="[{rounded: isRounded}, appearance, buttonAttributes['class']]"
     @click="handleClick">
     <slot></slot>
   </button>
@@ -10,11 +10,20 @@
   export default {
     name: 'KButton',
     props: {
+      /** 
+       * Adds border radius
+       */
       isRounded: Boolean,
+      /** 
+        * Base styling of the button<br>
+        * One of ['primary, default, danger', btn-link']
+        */
       appearance: {
         type: String,
         validator: function (value) {
-          return ['primary',
+          return [
+            'default',
+            'primary',
             'danger',
             'secondary',
             'outline-primary',
@@ -24,7 +33,16 @@
           ].indexOf(value) !== -1
         }
       },
-
+      /**
+        * Add custom attributes or definitions
+        */
+      buttonAttributes: {
+        type: Object,
+        default: {}
+      },
+      /**
+        * Click handler
+        */
       handleClick: {
         default: () => () => null
       }
