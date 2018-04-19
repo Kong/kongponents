@@ -1,6 +1,7 @@
 <template>
   <button class="button"
     :class="[{rounded: isRounded}, appearance, buttonAttributes['class']]"
+    v-bind="buttonAttributes"
     @click="handleClick">
     <slot></slot>
   </button>
