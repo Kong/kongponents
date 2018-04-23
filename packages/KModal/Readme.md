@@ -1,0 +1,34 @@
+```js
+new Vue({
+  data(){
+    return {
+      isVisible: false,
+      modalHeader: 'Create Credential',
+      modalBody: 'Maybe a form or something can go here?'
+    }
+  },
+  methods: {
+    showModal() {
+      this.isVisible = true;
+    },
+    closeModal() {
+      this.isVisible = false;
+    },
+    doAThing() {
+      console.log('A THING!')
+    }
+  },
+  template: `
+    <div>
+      <KButton appearance='primary' :isRounded='true' :handleClick="showModal">Open Modal</KButton>
+      <KModal v-show="isVisible" @close="closeModal">
+        <template slot="header">{{ modalHeader }}</template>
+        <template slot="body">{{ modalBody }}</template>
+        <template slot="footer">
+          <KButton appearance='danger' :isRounded='true' :handleClick='doAThing'>Do A Thing!</KButton>
+        </template>
+      </Kmodal>
+    </div>
+  `
+})
+```
