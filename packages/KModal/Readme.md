@@ -24,7 +24,7 @@ new Vue({
       <KModal :isVisible='isVisible' @close='closeModal'>
         <template slot="header">{{ modalHeader }}</template>
         <template slot="body">{{ modalBody }}</template>
-        <template slot="footer">
+        <template slot="footer-actions">
           <KButton appearance='danger' :isRounded='true' :handleClick='doAThing'>Do A Thing!</KButton>
         </template>
       </Kmodal>
