@@ -1,3 +1,6 @@
 ```js
-<KButton appearance='primary' :isRounded='false'>button</KButton>
+const buttonAttributes = {
+  id: 'someIDName',
+}
+<KButton appearance='primary' :isRounded='true' :buttonAttributes=buttonAttributes>button</KButton>
 ```

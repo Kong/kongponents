@@ -17,13 +17,12 @@
       isRounded: Boolean,
       /** 
         * Base styling of the button<br>
-        * One of ['primary, default, danger', btn-link']
+        * One of ['primary, outline-primary, secondary, outline-secondary, danger', 'outline-danger, btn-link', btn-link-danger ]
         */
       appearance: {
         type: String,
         validator: function (value) {
           return [
-            'default',
             'primary',
             'danger',
             'secondary',
@@ -39,7 +38,11 @@
         */
       buttonAttributes: {
         type: Object,
-        default: {}
+        default: function () {
+          return {
+            class: ''
+          }
+        },
       },
       /**
         * Click handler
@@ -168,6 +171,6 @@
     color: #910a08;
   }
   .rounded {
-    border-radius: 5px;
+    border-radius: 3px;
   }
 </style>
