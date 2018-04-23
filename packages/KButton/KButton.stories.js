@@ -8,9 +8,13 @@ storiesOf('KButton', module)
   .addDecorator(VueInfoAddon)
   .add('Rounded False', () => ({
     components: { KButton },
-    template: `<KButton :rounded="false">not round</KButton>`
+    template: `<KButton :isRounded='false'>button</KButton>`
   }))
   .add('Rounded True', () => ({
     components: { KButton },
-    template: '<KButton :rounded="true">rounded</KButton>'
+    template: `<KButton :isRounded='true'>button</KButton>`
+  }))
+  .add('Primary Styles', () => ({
+    components: { KButton },
+    template: `<KButton appearance='primary'>button</KButton>`
   }))
