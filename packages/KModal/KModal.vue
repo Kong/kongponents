@@ -1,6 +1,6 @@
 <template>
-  <div class="modal" role="dialog" aria-hidden="true" @keyup.esc="close" tabindex="1">
-    <div class="modal-backdrop" @click="close" ></div>
+  <div class="modal" role="dialog" aria-hidden="true" v-if="isVisible">
+    <div class="modal-backdrop" @click="close"></div>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -26,10 +26,29 @@
   
   export default {
     name: 'KModal',
-    component: { KButton },
+    components: { KButton },
+
+    props: {
+      isVisible: {
+        /**
+          *  Pass whether or not the modal should be visible
+          */
+        type: Boolean,
+        default: {}
+      }
+    },
+
+    mounted: function () {
+      const that = this
+      document.addEventListener("keydown", function (e) {
+        if (that.isVisible && e.keyCode === 27) {
+          that.close()
+        }
+      })
+    },
 
     methods: {
-      close() {
+      close () {
         this.$emit('close');
       }
     }
