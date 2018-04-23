@@ -13,8 +13,13 @@
         </div>
         <div class="modal-footer">
           <!-- @slot Use this slot to place items like buttons in the footer -->
-          <slot name="footer">Modal Footer</slot>
-          <KButton appearance='secondary' :isRounded='true' :handleClick="close">Cancel</KButton>
+          <slot name="footer-text"/>
+          <slot name="footer-actions">
+            <KButton appearance='primary' :isRounded='true' :handleClick="proceed">Proceed</KButton>
+          </slot>
+          <slot name="footer-dismiss">
+            <KButton appearance='secondary' :isRounded='true' :handleClick="close">Cancel</KButton>
+          </slot>
         </div>
       </div>
     </div>
@@ -22,7 +27,7 @@
 </template>
 
 <script>
-  import KButton from '../KButton'
+  import KButton from '@kongponents/kbutton'
   
   export default {
     name: 'KModal',
@@ -34,7 +39,7 @@
         */
       isVisible: {
         type: Boolean,
-        default: {}
+        default: false
       }
     },
 
@@ -49,7 +54,10 @@
 
     methods: {
       close () {
-        this.$emit('close');
+        this.$emit('close')
+      },
+      proceed () {
+        this.$emit('proceed')
       }
     }
   }
