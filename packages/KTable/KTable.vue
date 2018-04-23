@@ -18,9 +18,8 @@
             <slot 
               :name="value.key"
               :row="row"
-              :rowKey="value.key"
-              :rowValue="row[value.key]"
-              :item="{row, key: value.key, value: row[value.key] }">
+              :rowKey="rowIndex"
+              :rowValue="row[value.key]">
               {{row[value.key]}}
             </slot>
           </td>
