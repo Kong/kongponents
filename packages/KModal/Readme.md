@@ -21,7 +21,7 @@ new Vue({
   template:`
     <div>
       <KButton appearance='primary' :isRounded='true' :handleClick="showModal">Open Modal</KButton>
-      <KModal :isVisible=isVisible @close="closeModal">
+      <KModal :isVisible='isVisible' @close='closeModal'>
         <template slot="header">{{ modalHeader }}</template>
         <template slot="body">{{ modalBody }}</template>
         <template slot="footer">

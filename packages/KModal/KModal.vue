@@ -29,10 +29,10 @@
     components: { KButton },
 
     props: {
+      /**
+        *  Pass whether or not the modal should be visible
+        */
       isVisible: {
-        /**
-          *  Pass whether or not the modal should be visible
-          */
         type: Boolean,
         default: {}
       }
