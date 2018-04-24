@@ -3,6 +3,7 @@
     <div class="k-toaster" v-show="isVisible" :class="{visible: isVisible}">
       <div class="k-toast" :class="appearance">
         <a class="k-toast-btn-clear" @click="close()"></a>
+        <!-- @slot to add custom message if not passing :message prop -->
         <slot :name="message">{{message}}</slot>
       </div>
     </div>
