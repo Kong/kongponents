@@ -73,6 +73,7 @@
     left: 0;
     right: 0;
     background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1005;
   }
 
   .modal-dialog {
@@ -83,6 +84,7 @@
     padding: 1rem;
     border-radius: 3px;
     background: #fff;
+    z-index: 9999;
   }
 
   .modal-content {
