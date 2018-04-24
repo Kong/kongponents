@@ -144,30 +144,30 @@
     border-color: transparent;
   }
 
-  .button.link {
+  .button.btn-link {
     background-color: transparent;
     color: #0077cc;
   }
 
-  .button.link:hover {
+  .button.btn-link:hover {
     color: #0077cc;
   }
 
-  .button.link:active {
+  .button.btn-link:active {
     color: #003c66;
   }
 
-  .button.link-danger {
+  .button.btn-link-danger {
     background-color: transparent;
     color: #f2110d;
   }
 
-  .button.link-danger:hover {
+  .button.btn-link-danger:hover {
     color: #f2110d;
     text-decoration: underline;
   }
 
-  .button.link-danger:active {
+  .button.btn-link-danger:active {
     color: #910a08;
   }
   .rounded {
