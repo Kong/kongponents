@@ -18,13 +18,13 @@ new Vue({
       console.log('A THING!')
     }
   },
-  template: `
+  template:`
     <div>
       <KButton appearance='primary' :isRounded='true' :handleClick="showModal">Open Modal</KButton>
-      <KModal v-show="isVisible" @close="closeModal">
+      <KModal :isVisible='isVisible' @close='closeModal'>
         <template slot="header">{{ modalHeader }}</template>
         <template slot="body">{{ modalBody }}</template>
-        <template slot="footer">
+        <template slot="footer-actions">
           <KButton appearance='danger' :isRounded='true' :handleClick='doAThing'>Do A Thing!</KButton>
         </template>
       </Kmodal>
