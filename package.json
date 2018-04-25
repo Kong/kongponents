@@ -6,7 +6,7 @@
   "scripts": {
     "styleguide": "vue-styleguidist server",
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "lerna run test"
   },
   "author": "",
   "license": "ISC",
