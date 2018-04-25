@@ -30,9 +30,9 @@ export default {
       default: {}
     },
     /**
-      * Amount of time before toaster hides
+      * Amount of time in milliseconds before toaster hides
       */
-    timeout: {
+    timeoutMilliseconds: {
       type: Number,
       default: 10000,
     },
@@ -53,16 +53,23 @@ export default {
     },
   },
 
+  data () {
+    return {
+      toasterTimeout: null
+    }
+  },
+
   watch: {
-    isVisible: function (newValue, oldValue) {
-      newValue === true && newValue !== oldValue
-        ? setTimeout(() => this.close(), this.timeout)
-        : null
+    isVisible (newValue, oldValue) {
+      if (newValue === true && newValue !== oldValue) {
+        this.toasterTimeout = setTimeout(() => this.close(), this.timeoutMilliseconds)
+      }
     }
   },
 
   methods: {
     close() {
+      clearTimeout(this.toasterTimeout)
       this.$emit('close');
     }
   }
