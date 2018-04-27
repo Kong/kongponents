@@ -1,3 +1,4 @@
+const path = require('path')
 const rhythm = (value = 1, unit = 'rem', basis = 1.5) => (
   `${basis * value}${unit}`
 )
@@ -106,6 +107,9 @@ module.exports = {
         }
       ]
     }
-  }
+  },
+  // styleguideComponents: {
+  //   Logo: path.join(__dirname, 'styleguide/components/Logo')
+  // }
   // vuex: 'store/index',
 }
