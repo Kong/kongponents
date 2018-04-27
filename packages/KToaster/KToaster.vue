@@ -19,7 +19,6 @@ export default {
       */
     isVisible: {
       type: Boolean,
-      default: {},
       required: true,
     },
     /**
@@ -27,7 +26,7 @@ export default {
       */
     message: {
       type: String,
-      default: {}
+      required: true
     },
     /**
       * Amount of time in milliseconds before toaster hides

@@ -1,27 +1,28 @@
 <template>
   <div class="modal" role="dialog" aria-hidden="true" v-if="isVisible">
-    <div class="modal-backdrop" @click="close"></div>
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <!-- @slot Use this slot to add a Modal Header/Title -->
-          <slot name="header-content">Modal Title</slot>
-        </div>
-        <div class="modal-body">
-          <!-- @slot Use this slot to fill the body of the Modal -->
-          <slot name="body-content">Modal Body</slot>
-        </div>
-        <div class="modal-footer">
-          <!-- @slot Use this slot to place items in the footer -->
-          <slot name="footer-content"/>
-          <!-- @slot Use this slot to place action/proceed button --> 
-          <slot name="footer-actions">
-            <KButton appearance="primary" :isRounded="true" :handleClick="proceed">Proceed</KButton>
-          </slot>
-          <!-- @slot Use this slot to override cancel/close button -->
-          <slot name="footer-dismiss">
-            <KButton appearance="secondary" :isRounded="true" :handleClick="close">Cancel</KButton>
-          </slot>
+    <div class="modal-backdrop" @click="close">
+      <div class="modal-dialog" @click.stop>
+        <div class="modal-content">
+          <div class="modal-header">
+            <!-- @slot Use this slot to add a Modal Header/Title -->
+            <slot name="header-content">Modal Title</slot>
+          </div>
+          <div class="modal-body">
+            <!-- @slot Use this slot to fill the body of the Modal -->
+            <slot name="body-content">Modal Body</slot>
+          </div>
+          <div class="modal-footer">
+            <!-- @slot Use this slot to place items in the footer -->
+            <slot name="footer-content"/>
+            <!-- @slot Use this slot to place action/proceed button --> 
+            <slot name="footer-actions">
+              <KButton appearance="primary" :isRounded="true" :handleClick="proceed">Proceed</KButton>
+            </slot>
+            <!-- @slot Use this slot to override cancel/close button -->
+            <slot name="footer-dismiss">
+              <KButton appearance="secondary" :isRounded="true" :handleClick="close">Cancel</KButton>
+            </slot>
+          </div>
         </div>
       </div>
     </div>
