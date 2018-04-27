@@ -19,7 +19,7 @@ module.exports = {
       base: '#505659',
       link: '#0070bf',
       linkHover: '#0052a1',
-      ribbonBackground: '#0052a1',
+      ribbonBackground: '#042943',
       sidebarBackground: '#042943',
       errorBackground: '#d01040'
     }
@@ -30,7 +30,7 @@ module.exports = {
         marginBottom: rhythm(0.5)
       },
       heading3: {
-        borderBottom: `thin solid #eee`,
+        borderBottom: `thin solid #fff`,
         paddingBottom: rhythm(0.25),
         marginBottom: rhythm(1),
         textTransform: 'uppercase',
@@ -39,10 +39,9 @@ module.exports = {
         }
       }
     },
-    Logo: {
+    StyleGuide: {
       logo: {
-        color: 'white',
-        fontSize: 20
+        border: 0
       }
     },
     ComponentsList: {
@@ -79,24 +78,6 @@ module.exports = {
     url: "https://github.com/kong/kongponents",
     text: "Fork me on GitHub"
   },
-  webpackConfig: {
-    module: {
-      rules: [
-        {
-          test: /\.vue$/,
-          loader: 'vue-loader',
-        },
-        {
-          test: /\.css$/,
-          use: ['style-loader', 'css-loader', 'sass-loader'],
-        },
-        {
-          test: /\.scss$/,
-          use: ['style-loader', 'css-loader', 'sass-loader'],
-        },
-      ],
-    },
-  },
   showUsage: true,
   template: {
     head: {
@@ -108,8 +89,41 @@ module.exports = {
       ]
     }
   },
-  // styleguideComponents: {
-  //   Logo: path.join(__dirname, 'styleguide/components/Logo')
-  // }
+  styleguideComponents: {
+    Logo: path.join(__dirname, 'styleguide/components/Logo')
+  },
+  webpackConfig: {
+    module: {
+      rules: [
+        {
+          test: /\.vue$/,
+          loader: 'vue-loader',
+        },
+        {
+          test: /\.jsx?$/,
+          exclude: /node_modules/,
+          loader: 'babel-loader',
+          query: {
+            cacheDirectory: true,
+            presets: ['react', 'es2015']
+          }
+        },
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader', 'sass-loader'],
+        },
+        {
+          test: /\.scss$/,
+          use: ['style-loader', 'css-loader', 'sass-loader'],
+        },
+        {
+          test: /\.(jpe?g|png|gif|svg)$/i,
+          loaders: [
+            'file-loader'
+          ]
+        }
+      ],
+    },
+  }
   // vuex: 'store/index',
 }
