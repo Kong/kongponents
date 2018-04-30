@@ -4,6 +4,24 @@ const rhythm = (value = 1, unit = 'rem', basis = 1.5) => (
 
 module.exports = {
   components: 'packages/**/*.vue',
+  webpackConfig: {
+    module: {
+      rules: [
+        {
+          test: /\.vue$/,
+          loader: 'vue-loader',
+        },
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader', 'sass-loader'],
+        },
+        {
+          test: /\.scss$/,
+          use: ['style-loader', 'css-loader', 'sass-loader'],
+        },
+      ],
+    },
+  },
   editorConfig: {
     theme: 'dracula'
   },
@@ -77,24 +95,6 @@ module.exports = {
   ribbon: {
     url: "https://github.com/kong/kongponents",
     text: "Fork me on GitHub"
-  },
-  webpackConfig: {
-    module: {
-      rules: [
-        {
-          test: /\.vue$/,
-          loader: 'vue-loader',
-        },
-        {
-          test: /\.css$/,
-          use: ['style-loader', 'css-loader', 'sass-loader'],
-        },
-        {
-          test: /\.scss$/,
-          use: ['style-loader', 'css-loader', 'sass-loader'],
-        },
-      ],
-    },
   },
   showUsage: true,
   template: {
