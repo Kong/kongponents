@@ -54,7 +54,7 @@ module.exports = {
         '& a': {
           'color': 'rgba(255, 255, 255, 0.9) !important',
           'fontWeight': 500,
-          'font-size': '1.5em !important',
+          'font-size': '1.25em !important',
           '&:hover': {
             cursor: 'pointer',
             textDecoration: 'underline',
