@@ -1,5 +1,5 @@
 <template>
-  <table class="table" :class="{hover: hasHover, striped: isStriped}">
+  <table class="table" :class="{ hover: hasHover }">
     <thead>
       <tr>
         <template>
@@ -43,13 +43,6 @@ export default {
       type: Object,
       required: true
     },
-    isStriped: {
-      /*
-       * Adds zebra striping to the table rows
-       */
-      type: Boolean,
-      default: false
-    },
     hasHover: {
       /* 
        * Enables hover highlighting to table rows
@@ -61,70 +54,70 @@ export default {
 }
 </script>
 
-<style scope>
+<style scoped lang="scss">
+@import "../../styleguide/globals.scss";
+@import "../../styleguide/base.scss";
+
 table {
   border-collapse: collapse;
 }
 
 .table {
   width: 100%;
-  max-width: 100%;
-  margin-bottom: 1rem;
   background-color: transparent;
+  font-size: 15px;
+  font-weight: normal;
+  color: $black-200;
+}
+
+.table thead {
+  border-top: 1px solid hsla(0, 0%, 0%, .08);
+  border-bottom: 2px solid hsla(0, 0%, 0%, .1);
+}
+.table th {
+  font-size: 13px;
+  font-weight: 500;
+  color: $black-300;
+  text-align: left;
 }
 
 .table th,
 .table td {
-  padding: 0.75rem;
-  vertical-align: top;
-  border-top: 1px solid #dee2e6;
+  padding: .5rem 1rem;
 }
 
-.table thead th {
-  vertical-align: bottom;
-  border-bottom: 1px solid #dee2e6;
-  text-align: left;
+.table td {
+  border-top: 1px solid hsla(0, 0%, 0%, .15);
+  &:last-child {
+    text-align: right;
+  }
 }
 
-.table tbody + tbody {
-  border-top: 1px solid #dee2e6;
+.table tr:hover {
+  background-color: hsla(205, 100%, 95%, .5);
 }
 
-.table .table {
-  background-color: #fff;
-}
-
-.table-sm th,
-.table-sm td {
-  padding: 0.3rem;
+.table td a {
+  display: inline-block;
+  padding: 8px 12px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  color: $blue-400;
+  cursor: pointer;
+  transition: all .075s ease-in-out;
+  &:hover {
+    text-decoration: underline;
+  }
+  &:active {
+    color: darken($blue-400, 20%);
+  }
 }
 
 .table-bordered {
-  border: 1px solid #dee2e6;
+  border: 1px solid hsla(0, 0%, 0%, .15);
 }
 
-.table-bordered th,
-.table-bordered td {
-  border: 1px solid #dee2e6;
-}
-
-.table-bordered thead th,
-.table-bordered thead td {
-  border-bottom-width: 2px;
-}
-
-.table-borderless th,
-.table-borderless td,
-.table-borderless thead th,
-.table-borderless tbody + tbody {
-  border: 0;
-}
-
-.table.striped tbody tr:nth-of-type(odd) {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.table.hover tbody tr:hover {
-  background-color: rgba(0, 0, 0, 0.075);
-}
 </style>
