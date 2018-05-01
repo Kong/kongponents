@@ -1,15 +1,19 @@
+const path = require('path')
 const rhythm = (value = 1, unit = 'rem', basis = 1.5) => (
   `${basis * value}${unit}`
 )
 
 module.exports = {
   components: 'packages/**/*.vue',
+  require: [
+    path.join(__dirname, 'styleguide/globals.scss')
+  ],
   editorConfig: {
     theme: 'dracula'
   },
   theme: {
     fontFamily: {
-      base: '"Roboto"'
+      base: '"Roboto", sans-serif'
     },
     sidebarWidth: 250,
     color: {
@@ -92,6 +96,7 @@ module.exports = {
         {
           test: /\.scss$/,
           use: ['style-loader', 'css-loader', 'sass-loader'],
+          include: path.join(__dirname, 'styleguide/globals.scss')
         },
       ],
     },
