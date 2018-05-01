@@ -93,7 +93,7 @@ table {
   }
 }
 
-.table tr:hover {
+.table tbody tr:hover {
   background-color: hsla(205, 100%, 95%, .5);
 }
 
