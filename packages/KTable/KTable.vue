@@ -61,7 +61,7 @@ export default {
 }
 </script>
 
-<style scope>
+<style scoped>
 table {
   border-collapse: collapse;
 }

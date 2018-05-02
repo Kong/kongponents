@@ -54,7 +54,7 @@
   }
 </script>
 
-<style scope>
+<style scoped>
   .button {
     padding: 10px 20px;
     cursor: pointer;
