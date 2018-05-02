@@ -75,7 +75,7 @@ export default {
 }
 </script>
 
-<style scope>
+<style scoped>
 .k-toaster {
   position: fixed;
   top: 50px;
