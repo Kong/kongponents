@@ -1,5 +1,10 @@
 <template>
-  <div class="k-alert" :class="appearance" role="alert" v-if="show">
+  <div 
+    class="k-alert"
+    :class="[appearance, alertAttributes['class']]" 
+    v-bind="alertAttributes"
+    role="alert" 
+    v-if="show">
     <button v-if="isDismissible" type="button" aria-label="Close" class="close" @click="isShowing()">×</button>
     <slot name="alertMessage">{{alertMessage}}</slot>
   </div>
@@ -29,16 +34,19 @@
         */
       appearance: {
         type: String,
-        validator: function (value) {
-          return [
-            'primary',
-            'danger',
-            'warning',
-            'success'
-          ].indexOf(value) !== -1
-        },
-        required: true
+        default: 'primary'
       },
+      /**
+        * Add custom attributes or definitions
+        */
+      alertAttributes: {
+        type: Object,
+        default: function () {
+          return {
+            class: ''
+          }
+        }
+      }
     },
     data () {
       return {
