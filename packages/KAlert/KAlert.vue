@@ -4,8 +4,8 @@
     :class="[appearance, alertAttributes['class']]" 
     v-bind="alertAttributes"
     role="alert" 
-    v-if="show">
-    <button v-if="isDismissible" type="button" aria-label="Close" class="close" @click="isShowing()">×</button>
+    v-if="isShowing">
+    <button v-if="isDismissible" type="button" aria-label="Close" class="close" @click="dismissAlert()">×</button>
     <slot name="alertMessage">{{alertMessage}}</slot>
   </div>
 </template>
@@ -37,6 +37,13 @@
         default: 'primary'
       },
       /**
+        * Set whether or not the alert box is shown.
+        */
+      isShowing: {
+        type: Boolean,
+        default: false
+      },
+      /**
         * Add custom attributes or definitions
         */
       alertAttributes: {
@@ -48,14 +55,9 @@
         }
       }
     },
-    data () {
-      return {
-        show: true
-      }
-    },
     methods: {
-      isShowing () {
-        this.show = false
+      dismissAlert () {
+        this.isShowing = false
       }
     }
   }
