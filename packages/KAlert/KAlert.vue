@@ -68,7 +68,6 @@
     position: relative;
     display: flex;
     padding: 12px 20px;
-    margin-bottom: 16px;
     border: 1px solid transparent;
     border-radius: .25rem;
   }
