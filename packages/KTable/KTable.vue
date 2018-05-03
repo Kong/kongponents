@@ -119,5 +119,4 @@ table {
 .table-bordered {
   border: 1px solid hsla(0, 0%, 0%, .15);
 }
-
 </style>
