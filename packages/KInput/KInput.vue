@@ -1,31 +1,42 @@
 <template>
-   <input type="text" class="input" id="textfield" placeholder="Textfield">
+  <input
+    v-bind="inputAttributes"
+    :value="value"
+    :class="[inputAttributes['class']]"
+    class="input"
+    @click="onClick"
+    @focus="onFocus">
 </template>
 
 <script>
-  export default {
-    name: 'KInput',
-    props: {
-      /** 
-        * Secondary styling of the input field<br>
-        * One of ['outline-danger', 'disabled']
-        */
-      appearance: {
-        type: String,
-        validator: function (value) {
-          return [
-            'outline-danger',
-            'disabled'
-          ].indexOf(value) !== -1
+export default {
+  name: 'KInput',
+  props: {
+    /**
+     * Pass whether or not the input should be disabled
+     */
+    inputAttributes: {
+      type: Object,
+      default: function () {
+        return {
+          class: ''
         }
-      },
+      }
+    }
+  },
 
+  methods: {
+    onClick () {
 
+    },
+    onFocus () {
+      // do stuff
     }
   }
+}
 </script>
 
-<style scope>
+<style scoped>
   .input{
     display: block;
     width: 100%;
@@ -55,5 +66,12 @@
   .input.input-error{
     outline: none !important;
     border: 1px solid hsla(1, 100%, 75%, 1);
+  }
+
+  .label{
+    display: inline-block;
+    margin: 0px 0px 8px 0px;
+    font-size: 13px;
+    font-weight: 500;
   }
 </style>
