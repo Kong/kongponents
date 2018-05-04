@@ -1,8 +1,8 @@
 {
-  "name": "@kongponents/ktable",
-  "version": "0.0.1-beta.3",
-  "description": "Table component",
-  "main": "KTable.vue",
+  "name": "@kongponents/kalert",
+  "version": "0.0.1-beta.1",
+  "description": "Alert component",
+  "main": "KAlert.vue",
   "scripts": {
     "test": "echo \"Error: no test specified\""
   },
