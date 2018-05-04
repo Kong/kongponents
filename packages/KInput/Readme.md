@@ -1,3 +1,3 @@
 ```js
-<KInput placeholder="Placeholder Text" :inputAttributes=inputAttributes>
+<KInput placeholder="Placeholder Text" :inputAttributes=inputAttributes />
 ```
