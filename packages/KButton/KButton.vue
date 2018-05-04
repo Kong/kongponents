@@ -1,57 +1,63 @@
 <template>
-  <button class="button"
-    :class="[{rounded: isRounded}, appearance, buttonAttributes['class']]"
+  <button
     v-bind="buttonAttributes"
-    @click="handleClick">
-    <slot></slot>
+    :class="[{rounded: isRounded}, appearance, buttonAttributes['class']]"
+    class="button"
+    @click="handle-click">
+    <slot/>
   </button>
 </template>
 
 <script>
-  export default {
-    name: 'KButton',
-    props: {
-      /** 
-       * Adds border radius
-       */
-      isRounded: Boolean,
-      /** 
-        * Base styling of the button<br>
-        * One of ['primary, outline-primary, secondary, outline-secondary, danger', 'outline-danger, btn-link', btn-link-danger ]
-        */
-      appearance: {
-        type: String,
-        validator: function (value) {
-          return [
-            'primary',
-            'danger',
-            'secondary',
-            'outline-primary',
-            'outline-danger',
-            'btn-link',
-            'btn-link-danger'
-          ].indexOf(value) !== -1
-        }
-      },
-      /**
-        * Add custom attributes or definitions
-        */
-      buttonAttributes: {
-        type: Object,
-        default: function () {
-          return {
-            class: ''
-          }
-        },
-      },
-      /**
-        * Click handler
-        */
-      handleClick: {
-        default: () => () => null
+export default {
+  name: 'KButton',
+  props: {
+    /**
+     * Adds border radius
+     */
+    isRounded: {
+      type: Boolean,
+      default: true
+    },
+    /**
+      * Base styling of the button<br>
+      * One of ['primary, outline-primary, secondary, outline-secondary, danger', 'outline-danger, btn-link', btn-link-danger ]
+      */
+    appearance: {
+      type: String,
+      default: 'primary',
+      validator: function (value) {
+        return [
+          'primary',
+          'danger',
+          'secondary',
+          'outline-primary',
+          'outline-danger',
+          'btn-link',
+          'btn-link-danger'
+        ].indexOf(value) !== -1
       }
+    },
+    /**
+      * Add custom attributes or definitions
+      */
+    buttonAttributes: {
+      type: Object,
+      default: function () {
+        return {
+          class: ''
+        }
+      }
+    },
+    /**
+      * Click handler
+      */
+    handleClick: {
+      type: Object,
+      default: () => () => null
     }
   }
+}
 </script>
 
 <style scoped>

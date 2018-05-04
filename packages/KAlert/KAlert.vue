@@ -1,66 +1,71 @@
 <template>
-  <div 
-    class="k-alert"
-    :class="[appearance, alertAttributes['class']]" 
+  <div
+    v-if="isShowing"
     v-bind="alertAttributes"
-    role="alert" 
-    v-if="isShowing">
-    <button v-if="isDismissible" type="button" aria-label="Close" class="close" @click="dismissAlert()">×</button>
-    <slot name="alertMessage">{{alertMessage}}</slot>
+    :class="[appearance, alertAttributes['class']]"
+    class="k-alert"
+    role="alert">
+    <button
+      v-if="isDismissible"
+      type="button"
+      aria-label="Close"
+      class="close"
+      @click="dismissAlert()">×</button>
+    <slot name="alertMessage">{{ alertMessage }}</slot>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'KAlert',
-    props: {
-      /**
-      * Message to show in toaster
+export default {
+  name: 'KAlert',
+  props: {
+    /**
+    * Message to show in toaster
+    */
+    alertMessage: {
+      type: String,
+      required: true
+    },
+    /**
+     * Set if close button is visible
+     */
+    isDismissible: {
+      type: Boolean,
+      default: false
+    },
+    /**
+      * Base styling of the button<br>
+      * One of ['primary, danger, warning, success ]
       */
-      alertMessage: {
-        type: String,
-        required: true
-      },
-      /**
-       * Set if close button is visible
-       */
-      isDismissible: {
-        type: Boolean,
-        default: false
-      },
-      /** 
-        * Base styling of the button<br>
-        * One of ['primary, danger, warning, success ]
-        */
-      appearance: {
-        type: String,
-        default: 'primary'
-      },
-      /**
-        * Set whether or not the alert box is shown.
-        */
-      isShowing: {
-        type: Boolean,
-        default: false
-      },
-      /**
-        * Add custom attributes or definitions
-        */
-      alertAttributes: {
-        type: Object,
-        default: function () {
-          return {
-            class: ''
-          }
+    appearance: {
+      type: String,
+      default: 'primary'
+    },
+    /**
+      * Set whether or not the alert box is shown.
+      */
+    isShowing: {
+      type: Boolean,
+      default: false
+    },
+    /**
+      * Add custom attributes or definitions
+      */
+    alertAttributes: {
+      type: Object,
+      default: function () {
+        return {
+          class: ''
         }
       }
-    },
-    methods: {
-      dismissAlert () {
-        this.isShowing = false
-      }
+    }
+  },
+  methods: {
+    dismissAlert () {
+      this.isShowing = false
     }
   }
+}
 </script>
 
 <style scoped>
