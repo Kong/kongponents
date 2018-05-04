@@ -5,12 +5,15 @@ const rhythm = (value = 1, unit = 'rem', basis = 1.5) => (
 
 module.exports = {
   components: 'packages/**/*.vue',
+  require: [
+    path.join(__dirname, 'styleguide/globals.scss')
+  ],
   editorConfig: {
     theme: 'dracula'
   },
   theme: {
     fontFamily: {
-      base: '"Roboto"'
+      base: '"Roboto", sans-serif'
     },
     sidebarWidth: 250,
     color: {
