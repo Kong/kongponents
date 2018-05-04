@@ -3,7 +3,7 @@
     v-bind="buttonAttributes"
     :class="[{rounded: isRounded}, appearance, buttonAttributes['class']]"
     class="button"
-    @click="handle-click">
+    @click="handleClick">
     <slot/>
   </button>
 </template>
@@ -53,7 +53,6 @@ export default {
       * Click handler
       */
     handleClick: {
-      type: Object,
       default: () => () => null
     }
   }
