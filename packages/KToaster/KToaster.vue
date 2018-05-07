@@ -1,10 +1,17 @@
 <template>
   <transition name="slide">
-    <div class="k-toaster" v-show="isVisible" :class="{visible: isVisible}">
-      <div class="k-toast" :class="appearance">
-        <a class="k-toast-btn-clear" @click="close()"></a>
+    <div
+      v-show="isVisible"
+      :class="{visible: isVisible}"
+      class="k-toaster">
+      <div
+        :class="appearance"
+        class="k-toast">
+        <a
+          class="k-toast-btn-clear"
+          @click="close()"/>
         <!-- @slot to add custom message if not passing :message prop -->
-        <slot :name="message">{{message}}</slot>
+        <slot :name="message">{{ message }}</slot>
       </div>
     </div>
   </transition>
@@ -19,7 +26,7 @@ export default {
       */
     isVisible: {
       type: Boolean,
-      required: true,
+      required: true
     },
     /**
       * Message to show in toaster
@@ -33,7 +40,7 @@ export default {
       */
     timeoutMilliseconds: {
       type: Number,
-      default: 10000,
+      default: 10000
     },
     /**
       * Color variantion of Toaster.<br>
@@ -48,8 +55,8 @@ export default {
           'info'
         ].indexOf(value) !== -1
       },
-      required: true,
-    },
+      required: true
+    }
   },
 
   data () {
@@ -67,9 +74,9 @@ export default {
   },
 
   methods: {
-    close() {
+    close () {
       clearTimeout(this.toasterTimeout)
-      this.$emit('close');
+      this.$emit('close')
     }
   }
 }
@@ -129,7 +136,7 @@ export default {
   background: #fff0f0;
 }
 
-/* Toaster Slide Animation */ 
+/* Toaster Slide Animation */
 .slide-enter-active,
 .slide-leave-active {
   transition: all .4s ease;

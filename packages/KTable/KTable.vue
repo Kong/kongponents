@@ -1,10 +1,17 @@
 <template>
-  <table class="table" :class="{hover: hasHover, striped: isStriped}">
+  <table
+    :class="{hover: hasHover, striped: isStriped}"
+    class="table">
     <thead>
       <tr>
         <template>
-          <th :key="headerIndex" v-for="(column, headerIndex) in options.headers">
-            <slot :name="`column-${column.key}`" :column="column" v-if="!column.hideLabel">
+          <th
+            v-for="(column, headerIndex) in options.headers"
+            :key="headerIndex">
+            <slot
+              v-if="!column.hideLabel"
+              :name="`column-${column.key}`"
+              :column="column">
               {{ column.label ? column.label : column.key }}
             </slot>
           </th>
@@ -12,15 +19,19 @@
       </tr>
     </thead>
     <tbody>
-      <tr :key="rowIndex" v-for="(row, rowIndex) in options.data">
+      <tr
+        v-for="(row, rowIndex) in options.data"
+        :key="rowIndex">
         <template>
-          <td :key="headerIndex" v-for="(value, headerIndex) in options.headers">
-            <slot 
+          <td
+            v-for="(value, headerIndex) in options.headers"
+            :key="headerIndex">
+            <slot
               :name="value.key"
               :row="row"
               :rowKey="rowIndex"
               :rowValue="row[value.key]">
-              {{row[value.key]}}
+              {{ row[value.key] }}
             </slot>
           </td>
         </template>
@@ -51,7 +62,7 @@ export default {
       default: false
     },
     hasHover: {
-      /* 
+      /*
        * Enables hover highlighting to table rows
        */
       type: Boolean,

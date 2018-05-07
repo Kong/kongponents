@@ -1,7 +1,15 @@
 <template>
-  <div class="modal" role="dialog" aria-hidden="true" v-if="isVisible">
-    <div class="modal-backdrop" @click="close">
-      <div class="modal-dialog" @click.stop>
+  <div
+    v-if="isVisible"
+    class="modal"
+    role="dialog"
+    aria-hidden="true">
+    <div
+      class="modal-backdrop"
+      @click="close">
+      <div
+        class="modal-dialog"
+        @click.stop>
         <div class="modal-content">
           <div class="modal-header">
             <!-- @slot Use this slot to add a Modal Header/Title -->
@@ -14,13 +22,19 @@
           <div class="modal-footer">
             <!-- @slot Use this slot to place items in the footer -->
             <slot name="footer-content"/>
-            <!-- @slot Use this slot to place action/proceed button --> 
+            <!-- @slot Use this slot to place action/proceed button -->
             <slot name="footer-actions">
-              <KButton appearance="primary" :isRounded="true" :handleClick="proceed">Proceed</KButton>
+              <KButton
+                :isRounded="true"
+                :handleClick="proceed"
+                appearance="primary">Proceed</KButton>
             </slot>
             <!-- @slot Use this slot to override cancel/close button -->
             <slot name="footer-dismiss">
-              <KButton appearance="secondary" :isRounded="true" :handleClick="close">Cancel</KButton>
+              <KButton
+                :isRounded="true"
+                :handleClick="close"
+                appearance="secondary">Cancel</KButton>
             </slot>
           </div>
         </div>
@@ -30,40 +44,41 @@
 </template>
 
 <script>
-  import KButton from '@kongponents/kbutton'
-  
-  export default {
-    name: 'KModal',
-    components: { KButton },
+import KButton from '@kongponents/kbutton'
 
-    props: {
-      /**
-        *  Pass whether or not the modal should be visible
-        */
-      isVisible: {
-        type: Boolean,
-        default: false
+export default {
+  name: 'KModal',
+  components: { KButton },
+
+  props: {
+    /**
+      *  Pass whether or not the modal should be visible
+      */
+    isVisible: {
+      type: Boolean,
+      default: false
+    }
+  },
+
+  mounted: function () {
+    const that = this
+
+    document.addEventListener('keydown', function (e) {
+      if (that.isVisible && e.keyCode === 27) {
+        that.close()
       }
-    },
+    })
+  },
 
-    mounted: function () {
-      const that = this
-      document.addEventListener("keydown", function (e) {
-        if (that.isVisible && e.keyCode === 27) {
-          that.close()
-        }
-      })
+  methods: {
+    close () {
+      this.$emit('close')
     },
-
-    methods: {
-      close () {
-        this.$emit('close')
-      },
-      proceed () {
-        this.$emit('proceed')
-      }
+    proceed () {
+      this.$emit('proceed')
     }
   }
+}
 </script>
 
 <style scoped>
@@ -124,5 +139,4 @@
   .modal-footer .button:last-child {
     margin-left: 13px;
   }
-  
 </style>
