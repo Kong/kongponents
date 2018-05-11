@@ -17,7 +17,7 @@ export default {
       type: Object,
       default: function () {
         return {
-          class: ' '
+          class: ''
         }
       }
     }
