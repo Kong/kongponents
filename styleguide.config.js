@@ -5,6 +5,7 @@ const rhythm = (value = 1, unit = 'rem', basis = 1.5) => (
 
 module.exports = {
   components: 'packages/**/*.vue',
+  styleguideDir: './docs',
   editorConfig: {
     theme: 'dracula'
   },
