@@ -1,6 +1,6 @@
 # Kongponents 🍌
 
-Kong Component [Vue](https://vuejs.org/) library.
+Kong Component [Vue](https://vuejs.org/) library. [kong.github.io/kongponents/](https://kong.github.io/kongponents/)
 
 ## Installation
 
