@@ -7,11 +7,11 @@ import workspacesCollapsed from './icn-collapse-workspaces.svg'
 import vitals from './icn-vitals.svg'
 
 export default {
-  gateway,
   collapseExpand,
-  workspacesCollapsed,
+  gateway,
   portal,
   security,
   workspaces,
+  workspacesCollapsed,
   vitals
 }
