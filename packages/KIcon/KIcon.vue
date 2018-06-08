@@ -21,7 +21,7 @@ export default {
   name: 'KIcon',
   props: {
     /**
-     * Checks for valid icon name
+     * Checks for valid icon name<br>
      * 'collapseExpand'  | 'gateway' | 'portal' | 'security' | 'workspaces'| 'workspacesCollapsed' | 'vitals'
      */
     icon: {
@@ -50,7 +50,8 @@ export default {
   data () {
     return {
       icons,
-      path: ''
+      path: '',
+      fill: ''
     }
   },
 
@@ -60,8 +61,13 @@ export default {
     let doc = parser.parseFromString(icon, 'image/svg+xml')
     let path = doc.getElementsByTagName('path')[0]
 
-    this.fill = this.color || path.getAttribute('fill')
-    this.path = path.getAttribute('d')
+    // Set path & fill if exist if not throw warning
+    if (path) {
+      this.path = path.getAttribute('d')
+      this.fill = this.color || path.getAttribute('fill')
+    } else {
+      console.warn('Warning: SVG Path not found')
+    }
   }
 }
 </script>
