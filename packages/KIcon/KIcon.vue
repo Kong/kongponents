@@ -37,14 +37,20 @@ export default {
     size: {
       type: Number,
       default: 24
+    },
+    /**
+     * Optional fill color
+     */
+    color: {
+      type: String,
+      default: '#A3BBCC'
     }
   },
 
   data () {
     return {
       icons,
-      path: '',
-      fill: ''
+      path: ''
     }
   },
 
@@ -54,7 +60,7 @@ export default {
     let doc = parser.parseFromString(icon, 'image/svg+xml')
     let path = doc.getElementsByTagName('path')[0]
 
-    this.fill = path.getAttribute('fill')
+    this.fill = this.color || path.getAttribute('fill')
     this.path = path.getAttribute('d')
   }
 }
