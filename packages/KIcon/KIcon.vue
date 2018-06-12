@@ -1,9 +1,9 @@
 <template>
   <svg
-    :height="size"
-    :width="size"
+    :height="setSize"
+    :width="setSize"
+    :viewBox="viewbox"
     class="kong-icon"
-    viewBox="0 0 24 24"
     role="img"
   >
     <title>{{ icon }}</title>
@@ -44,6 +44,13 @@ export default {
     color: {
       type: String,
       default: '#A3BBCC'
+    },
+    /**
+     * Optional viewbox dimensions
+     */
+    viewBox: {
+      type: String,
+      default: '0 0 24 24'
     }
   },
 
@@ -51,7 +58,9 @@ export default {
     return {
       icons,
       path: '',
-      fill: ''
+      fill: '',
+      viewbox: '',
+      setSize: ''
     }
   },
 
@@ -59,12 +68,15 @@ export default {
     let icon = icons[this.icon]
     let parser = new DOMParser()
     let doc = parser.parseFromString(icon, 'image/svg+xml')
+    let svg = doc.getElementsByTagName('svg')[0]
     let path = doc.getElementsByTagName('path')[0]
 
     // Set path & fill if exist if not throw warning
     if (path) {
       this.path = path.getAttribute('d')
+      this.setSize = this.size || svg.getAttribute('width')
       this.fill = this.color || path.getAttribute('fill')
+      this.viewbox = this.viewBox || svg.getAttribute('viewBox')
     } else {
       console.warn('Warning: SVG Path not found')
     }
