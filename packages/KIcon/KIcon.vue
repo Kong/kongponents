@@ -8,7 +8,7 @@
   >
     <title>{{ icon }}</title>
     <path
-      :d="path"
+      v-bind="attributes"
       :fill="fill" />
   </svg>
 </template>
@@ -56,11 +56,11 @@ export default {
 
   data () {
     return {
-      icons,
       path: '',
       fill: '',
       viewbox: '',
-      setSize: ''
+      setSize: '',
+      attributes: {}
     }
   },
 
@@ -70,10 +70,16 @@ export default {
     let doc = parser.parseFromString(icon, 'image/svg+xml')
     let svg = doc.getElementsByTagName('svg')[0]
     let path = doc.getElementsByTagName('path')[0]
+    let attrs = Array.prototype.slice.call(path.attributes)
 
     // Set path & fill if exist if not throw warning
     if (path) {
-      this.path = path.getAttribute('d')
+      attrs.forEach((attr) => {
+        const { value, name } = attr
+
+        this.attributes[name] = value
+      })
+
       this.setSize = this.size || svg.getAttribute('width')
       this.fill = this.color || path.getAttribute('fill')
       this.viewbox = this.viewBox || svg.getAttribute('viewBox')
