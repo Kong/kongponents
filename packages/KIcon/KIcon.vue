@@ -84,7 +84,7 @@ export default {
       this.fill = this.color || path.getAttribute('fill')
       this.viewbox = this.viewBox || svg.getAttribute('viewBox')
     } else {
-      console.warn('Warning: SVG Path not found')
+      console.warn('(KIcon) Warning: SVG Path not found')
     }
   }
 }
