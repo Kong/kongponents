@@ -117,10 +117,14 @@ module.exports = {
           use: ['style-loader', 'css-loader', 'sass-loader']
         },
         {
-          test: /\.(jpe?g|png|gif|svg)$/i,
+          test: /\.(jpe?g|png|gif)$/i,
           loaders: [
             'file-loader'
           ]
+        },
+        {
+          test: /\.svg$/,
+          loader: 'raw-loader'
         }
       ]
     }
