@@ -38,6 +38,29 @@ Follow command output to know which localhost port to navigate to.
 npm test
 ```
 
+## Publishing to NPM
+
+We use [Lerna](https://lernajs.io/) to publish Kongponents. 
+
+> Note: The following instructions are for Kongponent Beta development. These may change when moved out of Beta.
+
+### Publishing Multiple Components
+
+```bash
+npm run publish
+```
+Lerna will check each component for differences and prompt you to select a version for any that have changed. If creating for the first time select `Custom` and enter `0.0.1-beta.<current_version>`. If bumping the version select `Custom` and increase the number after `-beta`
+
+![version](https://dzwonsemrish7.cloudfront.net/items/0x0D0y1O3H3q0P321b3V/Image%202018-06-18%20at%208.54.31%20PM.png)
+
+### Publishing Single Component
+
+To publish a *single* component pass the name of the component as a parameter first and add `:scope`
+```bash
+component=kicon npm run publish:scope
+```
+Follow the prompt as noted before.
+
 ## Directory Structure
 
 Kongponents is a mono repo, managed by Lerna. It follows suggested Lerna directory structure with a root `packages` folder which contain all the components. Lerna allows easier developer experience through a single git repository, managed dependencies, and easy publishing of individual components. It's like blowing up the monolith, but you still have the perks of the monolith during development.
