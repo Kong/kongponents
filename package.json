@@ -7,8 +7,8 @@
     "styleguide": "vue-styleguidist server",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "build:styleguide": "vue-styleguidist build ./build",
-    "publish": "./node_modules/.bin/lerna publish --skip-git --npm-tag=beta",
-    "publish:scope": "./node_modules/.bin/lerna publish --skip-git --npm-tag=beta --scope=@kongponents/${component}",
+    "publish": "lerna publish --skip-git --npm-tag=beta",
+    "publish:scope": "lerna publish --skip-git --npm-tag=beta --scope=@kongponents/${component}",
     "test": "lerna run test"
   },
   "author": "",
