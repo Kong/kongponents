@@ -42,22 +42,24 @@ npm test
 
 We use [Lerna](https://lernajs.io/) to publish Kongponents. 
 
-> Note: The following instructions are for Kongponent Beta development. These may chance when moved out of Beta.
+> Note: The following instructions are for Kongponent Beta development. These may change when moved out of Beta.
 
-**Publishing Single Components**
-To publish a single component we run the following command with these parameters
-- `--skip-git` This ensures there is no commit made to master when published
-- `--npm-tag=beta` This keeps the NPM beta tag even if we've bumped the version
-- `--scope` This command targets the single component vs the entire library. 
+### Publishing Multiple Components
+
 ```bash
-lerna publish --skip-git --npm-tag=beta --scope @kongponents/<KONGPONENT_NAME>
+npm run publish
 ```
+Lerna will check each component for differences and prompt you to select a version for any that have changed. If creating for the first time select `Custom` and enter `0.0.1-beta.<current_version>`. If bumping the version select `Custom` and increase the number after `-beta`
 
-After the above command you will be prompted to select the version. If creating the first time select `Custom` and enter the current version. If bumping the version select `Custom` and increase the number after `-beta`
-![version](https://dzwonsemrish7.cloudfront.net/items/1K2h3k2W1R3A0c0E0j05/Image%202018-06-18%20at%209.14.05%20AM.png)
+![version](https://dzwonsemrish7.cloudfront.net/items/0x0D0y1O3H3q0P321b3V/Image%202018-06-18%20at%208.54.31%20PM.png)
 
-**Publishing Multiple Components**
-Publishing multiple components follows almost exact steps as above however we remove the `--scope` parameter from the command. Lerna will check for any differences in each component and prompt to select a new version for any that have changed. Follow the previous noted steps for each updated component.
+### Publishing Single Component
+
+To publish a *single* component pass the name of the component as a parameter first and add `:scope`
+```bash
+component=kicon npm run publish:scope
+```
+Follow the prompt as noted before.
 
 ## Directory Structure
 
