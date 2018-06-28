@@ -5,6 +5,7 @@ module.exports = {
   },
   extends: [
     "plugin:vue/recommended",
+    "plugin:jest/recommended",
     "standard"
   ],
   rules: {
@@ -17,11 +18,12 @@ module.exports = {
       "error",
       { blankLine: "always", prev: ["block", "block-like"], next: "*" },
       { blankLine: "always", prev: "*", next: "return" },
-      { blankLine: "always", prev: ["const", "let", "var"], next: "*"},
-      { blankLine: "any",    prev: ["const", "let", "var"], next: ["const", "let", "var", "if"]},
+      { blankLine: "always", prev: ["const", "let", "var"], next: "*" },
+      { blankLine: "any", prev: ["const", "let", "var"], next: ["const", "let", "var", "if"] },
       { blankLine: "always", prev: "directive", next: "*" },
-      { blankLine: "any",    prev: "directive", next: "directive" }
+      { blankLine: "any", prev: "directive", next: "directive" }
     ],
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+    "jest/valid-expect": "error"
   }
 }

@@ -2,9 +2,7 @@
 new Vue({
   data(){
     return {
-      isVisible: false,
-      modalHeader: 'Create Credential',
-      modalBody: 'Maybe a form or something can go here?'
+      isVisible: false
     }
   },
   methods: {

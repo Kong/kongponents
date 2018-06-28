@@ -1,9 +1,9 @@
 <template>
   <div
     v-if="isVisible"
+    :aria-hidden="!isVisible ? 'true' : 'false'"
     class="modal"
-    role="dialog"
-    aria-hidden="true">
+    role="dialog">
     <div
       class="modal-backdrop"
       @click="close">
