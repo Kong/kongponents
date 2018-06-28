@@ -99,7 +99,9 @@ export default {
   padding: 1rem;
   border: 1px solid;
   border-radius: 8px;
-  color: #fff;
+  color: #383d41;
+  background-color: #e2e3e5;
+  border-color: #d6d8db;
   transition: all 0.3s ease;
 }
 .k-toaster .k-toast .k-toast-btn-clear {
