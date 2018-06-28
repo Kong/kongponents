@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KModal matches snapshot 1`] = `
+<div aria-hidden="false" role="dialog" class="modal">
+  <div class="modal-backdrop">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">Modal Title</div>
+        <div class="modal-body">Modal Body</div>
+        <div class="modal-footer">
+          <button class="button rounded primary">Proceed</button>
+          <button class="button rounded secondary">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`KModal renders header slot when passed 1`] = `
+<div aria-hidden="false" role="dialog" class="modal">
+  <div class="modal-backdrop">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>This is some header text</div>
+        </div>
+        <div class="modal-body">Modal Body</div>
+        <div class="modal-footer">
+          <button class="button rounded primary">Proceed</button>
+          <button class="button rounded secondary">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

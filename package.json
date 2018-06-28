@@ -16,7 +16,8 @@
     "build:styleguide": "vue-styleguidist build ./build",
     "publish": "lerna publish --skip-git --npm-tag=beta",
     "publish:scope": "lerna publish --skip-git --npm-tag=beta --scope=@kongponents/${component}",
-    "test": "lerna run test"
+    "test": "yarn jest",
+    "test-coverage": "yarn jest --coverage"
   },
   "devDependencies": {
     "@storybook/addon-actions": "3.3.15",
@@ -26,23 +27,28 @@
     "@storybook/vue": "3.3.15",
     "@vue/test-utils": "1.0.0-beta.20",
     "babel-core": "6.26.0",
+    "babel-jest": "^23.2.0",
     "babel-loader": "7.1.4",
     "babel-preset-env": "1.6.1",
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-3": "6.24.1",
     "cross-env": "5.1.4",
     "css-loader": "0.28.11",
-    "eslint": "4.19.1",
+    "eslint": "^5.0.1",
     "eslint-config-standard": "11.0.0",
     "eslint-plugin-import": "2.11.0",
+    "eslint-plugin-jest": "^21.17.0",
     "eslint-plugin-node": "6.0.1",
     "eslint-plugin-promise": "3.7.0",
     "eslint-plugin-standard": "3.1.0",
     "eslint-plugin-vue": "4.5.0",
     "file-loader": "1.1.11",
+    "jest": "^23.2.0",
+    "jest-serializer-vue": "^2.0.2",
     "lerna": "2.10.2",
     "raw-loader": "0.5.1",
     "storybook-addon-vue-info": "0.1.8",
+    "vue-jest": "^2.6.0",
     "vue-loader": "14.2.1",
     "vue-styleguidist": "1.7.5",
     "vue-template-compiler": "2.5.16",
@@ -50,5 +56,22 @@
   },
   "dependencies": {
     "vue": "2.5.16"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+    },
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/packages/$1"
+    },
+    "snapshotSerializers": [
+      "<rootDir>/node_modules/jest-serializer-vue"
+    ]
   }
 }

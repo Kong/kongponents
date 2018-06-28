@@ -19,13 +19,13 @@ npm install
 
 ### Development
 
+Run [Vue Styleguidist](https://github.com/vue-styleguidist/vue-styleguidist)
 ```bash
-# runs vue-styleguidist locally
 npm run styleguide
+```
 
-# -- or --
-
-# runs storybook locally for testing out all iterations of a component.
+Run [Storybook](https://storybook.js.org/)
+```bash
 npm run storybook
 ```
 
@@ -34,8 +34,13 @@ Follow command output to know which localhost port to navigate to.
 ### Tests
 
 ```bash
-# TODO 
-npm test
+# run all tests
+yarn test
+```
+
+```bash
+# run tests for single component
+yarn test packages/Kmodal
 ```
 
 ## Publishing to NPM
@@ -72,14 +77,19 @@ packages                     # root directory of all components
 │   ├── KButton.stories.js
 │   ├── KButton.vue
 │   ├── Readme.md
-│   └── package.json         # each component gets its own package.json
-│                            # which is managed by Lerna.
-├── KTable
-│   ├── KTable.stories.js
-│   ├── KTable.vue
-│   ├── Readme.md
+│   └── package.json             # each component gets its own package.json
+│                                # which is managed by Lerna.
+├── KModal    
+│   ├── KModal.spec.js           # .spec files are picked by test runner
+│   ├── KModal.stories.js        # .stories are picked up by Storybook
+│   ├── KModal.vue    
+│   ├── Readme.md                # Each Readme.md is used by vue-styleguidist
+│   ├── __snapshots__            # Jest snapshots for component diff checks
+│   │   └── KModal.spec.js.snap
 │   └── package.json
-└── KModal
-    ├── ...
-    ├── ...
+├── KIcon
+│   ├── ...
+│   ├── ...
+.   .
+.
 ```
