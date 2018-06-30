@@ -72,7 +72,7 @@ export default {
   .k-alert {
     position: relative;
     display: flex;
-    padding: 12px 20px;
+    padding: 12px 16px;
     border: 1px solid transparent;
     border-radius: .25rem;
   }
@@ -92,7 +92,7 @@ export default {
     border-color: #f5c6cb;
   }
   .k-alert.warning {
-    color: #856404;
+    color: #554700;
     background-color: #fff3cd;
     border-color: #ffeeba;
   }
