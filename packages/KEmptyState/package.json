@@ -1,0 +1,22 @@
+{
+  "name": "@kongponents/kemptystate",
+  "version": "0.0.1-beta.1",
+  "description": "Empty State component",
+  "main": "KEmptyState.vue",
+  "scripts": {
+    "test": "echo \"Error: no test specified\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kong/kongponents.git"
+  },
+  "author": "Kong Inc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kong/kongponents/issues"
+  },
+  "homepage": "https://github.com/Kong/kongponents#readme",
+  "dependencies": {
+    "@kongponents/kbutton": "@latest"
+  }
+}
