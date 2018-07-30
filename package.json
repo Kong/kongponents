@@ -14,8 +14,8 @@
     "styleguide": "vue-styleguidist server",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "build:styleguide": "vue-styleguidist build ./build",
-    "publish": "lerna publish --skip-git --npm-tag=beta",
-    "publish:scope": "lerna publish --skip-git --npm-tag=beta --scope=@kongponents/${component}",
+    "publish": "lerna publish --skip-git --npm-tag=latest",
+    "publish:scope": "lerna publish --skip-git --npm-tag=latest --scope=@kongponents/${component}",
     "test": "yarn jest",
     "test-coverage": "yarn jest --coverage"
   },
