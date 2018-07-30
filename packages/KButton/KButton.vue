@@ -53,6 +53,7 @@ export default {
       * Click handler
       */
     handleClick: {
+      type: Function,
       default: () => () => null
     }
   }
@@ -61,7 +62,13 @@ export default {
 
 <style scoped>
   .button {
-    padding: 10px 20px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    line-height: 1.25;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    padding: .5rem .75rem;
+    transition: all .2s ease-in-out;
     cursor: pointer;
   }
 
@@ -108,7 +115,7 @@ export default {
   }
 
   .button.outline-primary {
-    background-color: transparent;
+    background-color: rgba(255,255,255,.5);
     color: #0077cc;
     border-color: #80caff;
   }
