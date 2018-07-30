@@ -1,10 +1,7 @@
 ```js
 <KEmptyState 
-  :cta="{ 
-    url: 'http://google.com',
-    text: 'Add Plugin',
-    appearance: 'primary'}" >
+  cta-text="Do A Thing">
   <template slot="title">No Enabled Plugins</template>
-  <template slot="message">To enable, click the thing duude</template> 
+  <template slot="message">To enable, click below.</template> 
 </KEmptyState>
 ```
