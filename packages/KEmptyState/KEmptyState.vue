@@ -6,11 +6,13 @@
     <div class="empty-state-content">
       <p><slot name="message">Empty state message</slot></p>
       <p>
-        <a :href="cta.url">
-          <KButton :class="cta.appearance">
-          {{ cta.text }}
-          </KButton>
-        </a>
+        <KButton
+          v-if="!ctaIsHidden"
+          :is-rounded="true"
+          :handle-click="handleClick"
+          appearance="outline-primary">
+          {{ ctaText }}
+        </KButton>
       </p>
     </div>
   </div>
@@ -18,20 +20,21 @@
 
 <script>
 import KButton from '@kongponents/kbutton'
-
 export default {
   name: 'KEmptyState',
   components: { KButton },
   props: {
-    cta: {
-      type: Object,
-      default: () => {
-        return {
-          url: '',
-          text: 'CTA Action',
-          appearance: 'primary'
-        }
-      }
+    ctaIsHidden: {
+      type: Boolean,
+      default: false
+    },
+    ctaText: {
+      type: String,
+      default: 'CTA Text'
+    },
+    handleClick: {
+      type: Function,
+      default: () => () => null
     }
   }
 }
@@ -39,24 +42,29 @@ export default {
 
 <style scoped>
   .empty-state-wrapper {
-    font-family: 'Roboto';
-    font-weight: 400;
-    text-align: center;
-    padding: 2rem 0;
-    border: 1px solid #e4e4e4;
-    border-radius: 3px;
-    background-color: rgba(0, 0, 0, 0.03);
-  }
-  .empty-state-wrapper h5 {
-    font-size: 20px;
-    font-weight: 500;
-    margin: 0 0 .5rem;
-  }
-  .empty-state-wrapper p {
-    font-size: 15px;
-    line-height: 22px;
-    font-weight: 400;
-    color: #636c72;
-    margin: 0 0 1rem;
-  }
+  padding: 4rem 0;
+  text-align: center;
+  color: rgba(0,0,0,.70);
+  border: 1px solid rgba(151,151,151,.1);
+  border-radius: 3px;
+  background-color: rgba(0,0,0,.03);
+}
+.empty-state-wrapper h5 {
+  margin: 0 0 .75rem;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 21px;
+}
+.empty-state-wrapper p {
+  margin: 0 auto 1.5rem;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  max-width: 50%;
+}
+.empty-state-wrapper p:last-child {
+  margin: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>
