@@ -72,12 +72,7 @@ export default {
      */
     size: {
       type: String,
-      default: '',
-      validator: function (value) {
-        return [
-          'small'
-        ].indexOf(value) !== -1
-      }
+      default: ''
     },
     /**
       * Add custom attributes or definitions
