@@ -43,6 +43,24 @@ yarn test
 yarn test packages/Kmodal
 ```
 
+## Kongponents CLI
+
+See CLI usage
+
+```bash
+yarn cli --help
+# or
+./cli/kongponent-cli --help
+```
+
+### Creating Kongponents:
+
+Run the following command to create a new component built from the [template files](cli/template)
+
+```bash
+yarn cli create -n <kongponent_name> -d <kongponent_description>
+```
+
 ## Publishing to NPM
 
 We use [Lerna](https://lernajs.io/) to publish Kongponents. 
