@@ -12,7 +12,9 @@
       class="close"
       @click="dismissAlert()">×</button>
     <!-- @slot Use this slot when passing in an icon -->
-    <slot name="alertIcon" />
+    <span class="alert-icon">
+      <slot name="alertIcon" />
+    </span>
     <slot name="alertMessage">{{ alertMessage }}</slot>
   </div>
 </template>
@@ -100,12 +102,20 @@ export default {
 <style scoped>
   .k-alert {
     font-family: inherit;
-    font-size: 1rem;
     position: relative;
     display: flex;
+    align-items: center;
     padding: 1rem;
     font-size: 1rem;
     border-radius: .1875rem;
+  }
+  .k-alert .alert-icon {
+    margin-right: .5rem;
+    max-height: 1rem;
+  }
+  .k-alert .alert-icon svg,
+  .k-alert .alert-icon img {
+    max-height: 1rem;
   }
   .k-alert.small {
     font-size: .875rem;
