@@ -6,7 +6,7 @@ const chalk = require('chalk')
 const fs = require('fs')
 
 function capitalizeFirstLetters (str, num) {
-  return `${str.substring(0, num).toUpperCase()}${str.substr(num).toLowerCase()}`
+  return `${str.substring(0, num).toUpperCase()}${str.substr(num)}`
 }
 
 function parseName (name) {
@@ -22,7 +22,7 @@ function parseName (name) {
 function createDirectoryContents (templatePath, newProjectPath, transformPath, transformContents) {
   const filesToCreate = fs.readdirSync(templatePath)
 
-  filesToCreate.forEach(file => {
+  return filesToCreate.map(file => {
     const origFilePath = `${templatePath}/${file}`
     const stats = fs.statSync(origFilePath)
 
@@ -32,6 +32,8 @@ function createDirectoryContents (templatePath, newProjectPath, transformPath, t
 
       fs.writeFileSync(transformPath(writePath), transformContents(contents), 'utf8')
     }
+
+    return transformPath(file)
   })
 }
 
@@ -63,7 +65,7 @@ program
 
     fs.mkdirSync(componentPath)
 
-    createDirectoryContents(
+    const files = createDirectoryContents(
       templatePath,
       componentPath,
       path => path.replace(/KTemplate/g, kname),
@@ -71,18 +73,19 @@ program
         .replace(/{%kongponent_name%}/g, kname)
         .replace(/{%kongponent_description%}/g, kdescription))
 
+    console.log(chalk.greenBright('Kongponent created!'))
+
     const { exec } = require('child_process')
 
     exec(`tree packages/${kname}`, (err, stdout, stderr) => {
+      console.log('\nFiles generated:')
       if (err) {
-        // node couldn't execute the command
+        console.log(chalk.blue(files.join('\n')))
+
         return
       }
 
-      // the *entire* stdout and stderr (buffered)
-      console.log(chalk.greenBright('Kongponent created!'))
-      console.log('\nFiles generated:')
-
+      // tree output
       console.log(chalk.blue(stdout))
     })
   })
