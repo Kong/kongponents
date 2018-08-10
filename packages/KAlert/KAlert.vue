@@ -2,7 +2,7 @@
   <div
     v-if="isShowing"
     v-bind="alertAttributes"
-    :class="[appearance, alertAttributes['class']]"
+    :class="[appearance, size, {'border':hasBorder}, alertAttributes['class']]"
     class="k-alert"
     role="alert">
     <button
@@ -11,6 +11,8 @@
       aria-label="Close"
       class="close"
       @click="dismissAlert()">×</button>
+    <!-- @slot Use this slot when passing in an icon -->
+    <slot name="alertIcon" />
     <slot name="alertMessage">{{ alertMessage }}</slot>
   </div>
 </template>
@@ -24,7 +26,7 @@ export default {
     */
     alertMessage: {
       type: String,
-      required: true
+      default: ''
     },
     /**
      * Set if close button is visible
@@ -34,19 +36,46 @@ export default {
       default: false
     },
     /**
-      * Base styling of the button<br>
-      * One of ['primary, danger, warning, success ]
-      */
-    appearance: {
-      type: String,
-      default: 'primary'
-    },
-    /**
       * Set whether or not the alert box is shown.
       */
     isShowing: {
       type: Boolean,
       default: false
+    },
+    /**
+     * Set whether or not left border is visible
+     */
+    hasBorder: {
+      type: Boolean,
+      default: false
+    },
+    /**
+      * Base styling of the button<br>
+      * One of ['primary, danger, warning, success ]
+      */
+    appearance: {
+      type: String,
+      default: 'info',
+      validator: function (value) {
+        return [
+          'info',
+          'success',
+          'danger',
+          'warning'
+        ].indexOf(value) !== -1
+      }
+    },
+    /**
+     * Set whether alert box is the default size or small for context (under form fields, etc),
+     */
+    size: {
+      type: String,
+      default: '',
+      validator: function (value) {
+        return [
+          'small'
+        ].indexOf(value) !== -1
+      }
     },
     /**
       * Add custom attributes or definitions
@@ -70,31 +99,42 @@ export default {
 
 <style scoped>
   .k-alert {
+    -webkit-font-smoothing: antialiased;
+    font-family: 'roboto', sans-serif;
+    font-size: 1rem;
     position: relative;
     display: flex;
-    padding: 12px 16px;
-    border: 1px solid transparent;
-    border-radius: .25rem;
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: .1875rem;
   }
-  .k-alert.primary {
-    color: #004085;
-    background-color: #cce5ff;
-    border-color: #b8daff;
+  .k-alert.small {
+    font-size: .875rem;
+    padding: .5rem;
+  }
+  .k-alert.border {
+    border-left: 3px solid;
+    border-radius: 0 .1875rem .1875rem 0;
+  }
+  .k-alert.info {
+    color: #0E4C7C;
+    border-color: #80CAFF;
+    background-color: #E6F5FF;
   }
   .k-alert.success {
-    color: #155724;
-    background-color: #d4edda;
-    border-color: #c3e6cb;
+    color: #0F5A30;
+    border-color: #8CD9AC;
+    background-color: #E1F5EB;
   }
   .k-alert.danger {
-    color: #721c24;
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
+    color: #D90000;
+    border-color: #FF8280;
+    background-color: #FEE6E6;
   }
   .k-alert.warning {
-    color: #554700;
-    background-color: #fff3cd;
-    border-color: #ffeeba;
+    color: #403624;
+    border-color: #FFDF80;
+    background-color: #FFF7E8;
   }
   .k-alert .alert-link {
     font-weight: 700;
@@ -114,6 +154,9 @@ export default {
     background-color: transparent;
     text-shadow: 0 1px 0 #fff;
     -webkit-appearance: none;
+  }
+  .k-alert.small .close {
+    padding: 4px 7.5px;
   }
   .k-alert .close:hover,
   .k-alert .close:active {

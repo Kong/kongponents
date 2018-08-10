@@ -2,5 +2,5 @@
 const attributes = {
   id: 'someIDName',
 }
-<KAlert isShowing alertMessage="howdy!" appearance="success" isDismissible :alertAttributes=attributes />
+<KAlert isShowing alertMessage="howdy!" isDismissible :alertAttributes=attributes />
 ```
