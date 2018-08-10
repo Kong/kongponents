@@ -99,8 +99,7 @@ export default {
 
 <style scoped>
   .k-alert {
-    -webkit-font-smoothing: antialiased;
-    font-family: 'roboto', sans-serif;
+    font-family: inherit;
     font-size: 1rem;
     position: relative;
     display: flex;
