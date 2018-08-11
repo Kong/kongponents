@@ -41,20 +41,22 @@ program
   .version('0.0.1')
 
 program
-  .command('create')
+  .command('create <name>')
   .description('create a kongponent')
-  .option('-n, --kname <n>', 'Name of you Kongponent', parseName)
+  .usage('[options] <name>')
   .option('-d, --kdescription [description]', 'Description of your Kongponent')
-  .action(function (options) {
-    const { kname } = options
-    const kdescription = options.kdescription || `${kname} description here.`
-
-    if (!kname) {
+  .action(function (name, options) {
+    if (!name) {
       console.error(chalk.red.bold('Missing Option: name. Please specify a name with -n'))
 
       return
     }
 
+    // args
+    const kname = parseName(name)
+    const kdescription = options.kdescription || `${kname} description here.`
+
+    // paths
     const templatePath = `${__dirname}/template`
     const packagesPath = 'packages'
     const componentPath = `${CURR_DIR}/${packagesPath}/${kname}`
@@ -77,7 +79,7 @@ program
 
     const { exec } = require('child_process')
 
-    exec(`tree packages/${kname}`, (err, stdout, stderr) => {
+    exec(`tree packages/${kname}`, (err, stdout) => {
       console.log('\nFiles generated:')
       if (err) {
         console.log(chalk.blue(files.join('\n')))

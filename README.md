@@ -58,7 +58,7 @@ yarn cli --help
 Run the following command to create a new component built from the [template files](cli/template)
 
 ```bash
-yarn cli create -n <kongponent_name> -d <kongponent_description>
+yarn cli create <kongponent_name> -d <kongponent_description>
 ```
 
 ## Publishing to NPM
