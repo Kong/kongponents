@@ -66,6 +66,10 @@
       "json",
       "vue"
     ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/cli/template"
+    ],
     "transform": {
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
       ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
