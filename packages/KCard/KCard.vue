@@ -1,0 +1,92 @@
+<template>
+  <div
+    :class="[borderVariant, {'hover': hasHover }]"
+    class="kong-card">
+    <div class="card-header">
+      <div class="card-title">
+        <h4><slot name="title">{{ title }}</slot></h4>
+      </div>
+      <div class="card-actions">
+        <slot name="actions"/>
+      </div>
+    </div>
+    <div class="card-body">
+      <slot name="body"/>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'KCard',
+
+  props: {
+    title: {
+      type: String,
+      default: ''
+    },
+    body: {
+      type: String,
+      default: ''
+    },
+    /**
+      * Set top border or no border. If neither set defaut will have border<br>
+      * Options: [borderTop, noBorder]
+      */
+    borderVariant: {
+      type: String,
+      default: 'border'
+    },
+    /**
+      * Sets if card has hover state<br>
+      */
+    hasHover: {
+      type: Boolean,
+      default: false
+    }
+  }
+}
+</script>
+
+<style scoped>
+.kong-card {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.kong-card.noBoard {
+  border: none;
+}
+
+.kong-card.border {
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,.12);
+  box-shadow: none;
+}
+
+.kong-card.borderTop {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.kong-card.hover:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,.12);
+}
+
+.kong-card .card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.kong-card .card-title h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: rgba(0,0,0,.85);
+}
+
+.kong-card .card-actions  {
+  margin-left: auto;
+}
+</style>
