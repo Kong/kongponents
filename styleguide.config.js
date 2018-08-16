@@ -41,6 +41,9 @@ module.exports = {
       }
     },
     StyleGuide: {
+      '@global body': {
+        fontFamily: 'Roboto'
+      },
       logo: {
         border: 0
       }
