@@ -4,14 +4,19 @@
     class="kong-card">
     <div class="card-header">
       <div class="card-title">
-        <h4><slot name="title">{{ title }}</slot></h4>
+        <h4>
+          <!-- @slot Use this slot to pass title content -->
+          <slot name="title">{{ title }}</slot>
+        </h4>
       </div>
       <div class="card-actions">
+        <!-- @slot Use this slot to pass actions to right side of header -->
         <slot name="actions"/>
       </div>
     </div>
     <div class="card-body">
-      <slot name="body"/>
+      <!-- @slot Use this slot to pass in body content -->
+      <slot name="body">{{ body }}</slot>
     </div>
   </div>
 </template>
@@ -21,10 +26,16 @@ export default {
   name: 'KCard',
 
   props: {
+    /**
+     * Pass title sting in if slot not used
+     */
     title: {
       type: String,
       default: ''
     },
+    /**
+     * Pass body sting in if slot not used
+     */
     body: {
       type: String,
       default: ''
