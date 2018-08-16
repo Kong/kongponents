@@ -1,5 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`KCard has hover class when passed 1`] = `
+<div class="kong-card border hover">
+  <div class="card-header">
+    <div class="card-title">
+      <h4></h4>
+    </div>
+    <div class="card-actions"></div>
+  </div>
+  <div class="card-body"></div>
+</div>
+`;
+
 exports[`KCard matches snapshot 1`] = `
 <div class="kong-card border">
   <div class="card-header">

@@ -35,6 +35,7 @@ describe('KCard', () => {
     })
 
     expect(wrapper.classes()).toContain('hover')
+    expect(wrapper.html()).toMatchSnapshot()
   })
 
   it('matches snapshot', () => {
