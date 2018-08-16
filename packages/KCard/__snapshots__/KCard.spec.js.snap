@@ -12,7 +12,7 @@ exports[`KCard matches snapshot 1`] = `
 </div>
 `;
 
-exports[`KCard renders header slot when passed 1`] = `
+exports[`KCard renders slots when passed 1`] = `
 <div class="kong-card border">
   <div class="card-header">
     <div class="card-title">
@@ -20,6 +20,8 @@ exports[`KCard renders header slot when passed 1`] = `
     </div>
     <div class="card-actions"></div>
   </div>
-  <div class="card-body"></div>
+  <div class="card-body">
+    <div>Card Body</div>
+  </div>
 </div>
 `;
