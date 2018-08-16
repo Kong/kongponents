@@ -2,19 +2,19 @@
   <div
     :class="[borderVariant, {'hover': hasHover }]"
     class="kong-card">
-    <div class="card-header">
-      <div class="card-title">
+    <div class="k-card-header">
+      <div class="k-card-title">
         <h4>
           <!-- @slot Use this slot to pass title content -->
           <slot name="title">{{ title }}</slot>
         </h4>
       </div>
-      <div class="card-actions">
+      <div class="k-card-actions">
         <!-- @slot Use this slot to pass actions to right side of header -->
         <slot name="actions"/>
       </div>
     </div>
-    <div class="card-body">
+    <div class="k-card-body">
       <!-- @slot Use this slot to pass in body content -->
       <slot name="body">{{ body }}</slot>
     </div>
@@ -84,20 +84,20 @@ export default {
   box-shadow: 0 4px 8px rgba(0,0,0,.12);
 }
 
-.kong-card .card-header {
+.kong-card .k-card-header {
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
 }
 
-.kong-card .card-title h4 {
+.kong-card .k-card-title h4 {
   margin: 0;
   font-size: 18px;
   font-weight: 500;
   color: rgba(0,0,0,.85);
 }
 
-.kong-card .card-actions  {
+.kong-card .k-card-actions  {
   margin-left: auto;
 }
 </style>
