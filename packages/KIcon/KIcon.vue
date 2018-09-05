@@ -6,7 +6,7 @@
     class="kong-icon"
     role="img"
   >
-    <title>{{ iconName }}</title>
+    <title>{{ icon }}</title>
     <path
       v-bind="attributes"
       :fill="fill" />
@@ -56,11 +56,11 @@ export default {
   },
 
   computed: {
-    iconName () {
+    iconSVG () {
       return icons[this.icon]
     },
     doc () {
-      return new DOMParser().parseFromString(this.icon, 'image/svg+xml')
+      return new DOMParser().parseFromString(this.iconSVG, 'image/svg+xml')
     },
     svg () {
       return this.doc.getElementsByTagName('svg')[0]

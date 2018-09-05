@@ -1,3 +1,3 @@
 ```js
-<KIcon iconName="portal" />
+<KIcon icon="portal" />
 ```
