@@ -6,7 +6,7 @@
     class="kong-icon"
     role="img"
   >
-    <title>{{ icon }}</title>
+    <title>{{ iconName }}</title>
     <path
       v-bind="attributes"
       :fill="fill" />
@@ -24,7 +24,7 @@ export default {
      * Checks for valid icon name<br>
      * 'collapseExpand'  | 'gateway' | 'portal' | 'security' | 'workspaces'| 'workspacesCollapsed' | 'vitals' | 'back' | 'search'
      */
-    iconName: {
+    icon: {
       type: String,
       default: '',
       validator: function (value) {
@@ -56,8 +56,8 @@ export default {
   },
 
   computed: {
-    icon () {
-      return icons[this.iconName]
+    iconName () {
+      return icons[this.icon]
     },
     doc () {
       return new DOMParser().parseFromString(this.icon, 'image/svg+xml')
