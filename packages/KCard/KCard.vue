@@ -63,7 +63,6 @@ export default {
 .kong-card {
   padding: 1rem;
   margin-bottom: 1rem;
-  cursor: pointer;
 }
 
 .kong-card.noBoard {
