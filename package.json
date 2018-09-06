@@ -44,6 +44,7 @@
     "eslint-plugin-vue": "4.5.0",
     "file-loader": "1.1.11",
     "jest": "23.5.0",
+    "jest-raw-loader": "^1.0.1",
     "jest-serializer-vue": "2.0.2",
     "lerna": "2.10.2",
     "raw-loader": "0.5.1",
@@ -61,11 +62,13 @@
     "moduleFileExtensions": [
       "js",
       "json",
-      "vue"
+      "vue",
+      "svg"
     ],
     "transform": {
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
-      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest",
+      ".+\\.svg$": "jest-raw-loader"
     },
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/packages/$1"
@@ -74,7 +77,8 @@
       "<rootDir>/node_modules/jest-serializer-vue"
     ],
     "testURL": "http://localhost/",
-    "transformIgnorePatterns": ["<rootDir>/node_modules/]"
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/]"
     ]
   }
 }
