@@ -1,7 +1,7 @@
 <template>
   <svg
-    :height="setSize"
-    :width="setSize"
+    :height="setSize || height"
+    :width="setSize || width"
     :viewBox="viewbox"
     class="kong-icon"
     role="img"
@@ -22,69 +22,80 @@ export default {
   props: {
     /**
      * Checks for valid icon name<br>
-     * 'collapseExpand'  | 'gateway' | 'portal' | 'security' | 'workspaces'| 'workspacesCollapsed' | 'vitals'
+     * 'collapseExpand'  | 'gateway' | 'portal' | 'security' | 'workspaces'| 'workspacesCollapsed' | 'vitals' | 'back' | 'search'
      */
     icon: {
       type: String,
       default: '',
       validator: function (value) {
         return iconNames.indexOf(value) !== -1
-      }
+      },
+      required: true
     },
     /**
-     * Defines the height and width in pixels
+     * Optional - Overrides default height and width with equal value
      */
     size: {
-      type: Number,
-      default: 24
+      type: String,
+      default: null
     },
     /**
-     * Optional fill color
+     * Optional - Sets Fill color
      */
     color: {
       type: String,
-      default: '#A3BBCC'
+      default: null
     },
     /**
-     * Optional viewbox dimensions
+     * Optional - Defines viewbox dimensions
      */
     viewBox: {
       type: String,
-      default: '0 0 24 24'
+      default: null
     }
   },
 
-  data () {
-    return {
-      path: '',
-      fill: '',
-      viewbox: '',
-      setSize: '',
-      attributes: {}
-    }
-  },
+  computed: {
+    iconSVG () {
+      return icons[this.icon]
+    },
+    doc () {
+      return new DOMParser().parseFromString(this.iconSVG, 'image/svg+xml')
+    },
+    svg () {
+      return this.doc.getElementsByTagName('svg')[0]
+    },
+    path () {
+      return this.doc.getElementsByTagName('path')[0] || console.warn('(KIcon) Warning: SVG Path not found')
+    },
+    attributes () {
+      if (this.path) {
+        let attrs = Array.prototype.slice.call(this.path.attributes)
+        let attributes = {}
 
-  created () {
-    let icon = icons[this.icon]
-    let parser = new DOMParser()
-    let doc = parser.parseFromString(icon, 'image/svg+xml')
-    let svg = doc.getElementsByTagName('svg')[0]
-    let path = doc.getElementsByTagName('path')[0]
-    let attrs = Array.prototype.slice.call(path.attributes)
+        attrs.forEach((attr) => {
+          const { value, name } = attr
 
-    // Set path & fill if exist if not throw warning
-    if (path) {
-      attrs.forEach((attr) => {
-        const { value, name } = attr
+          attributes[name] = value
+        })
 
-        this.attributes[name] = value
-      })
-
-      this.setSize = this.size || svg.getAttribute('width')
-      this.fill = this.color || path.getAttribute('fill')
-      this.viewbox = this.viewBox || svg.getAttribute('viewBox')
-    } else {
-      console.warn('(KIcon) Warning: SVG Path not found')
+        return attributes
+      }
+    },
+    width () {
+      return this.svg.getAttribute('width')
+    },
+    height () {
+      return this.svg.getAttribute('height')
+    },
+    setSize () {
+      return this.size || this.svg.getAttribute('width')
+    },
+    fill () {
+      return this.color || this.path.getAttribute('fill')
+    },
+    viewbox () {
+      return this.viewBox || this.svg.getAttribute('viewBox')
     }
   }
 }
