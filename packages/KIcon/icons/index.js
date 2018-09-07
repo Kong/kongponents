@@ -9,13 +9,13 @@ import back from './icn-back.svg'
 import search from './icn-search.svg'
 
 export default {
+  back,
   collapseExpand,
   gateway,
   portal,
+  search,
   security,
   workspaces,
   workspacesCollapsed,
-  vitals,
-  back,
-  search
+  vitals
 }
