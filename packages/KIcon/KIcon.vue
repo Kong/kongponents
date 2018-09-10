@@ -37,7 +37,7 @@ export default {
      */
     size: {
       type: String,
-      default: null
+      default: '24'
     },
     /**
      * Optional - Sets Fill color
@@ -51,7 +51,7 @@ export default {
      */
     viewBox: {
       type: String,
-      default: null
+      default: '0 0 24 24'
     }
   },
 
