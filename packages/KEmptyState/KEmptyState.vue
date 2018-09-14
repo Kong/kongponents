@@ -6,13 +6,15 @@
     <div class="empty-state-content">
       <p><slot name="message">Empty state message</slot></p>
       <p>
-        <KButton
-          v-if="!ctaIsHidden"
-          :is-rounded="true"
-          :handle-click="handleClick"
-          appearance="outline-primary">
-          {{ ctaText }}
-        </KButton>
+        <slot name="cta">
+          <KButton
+            v-if="!ctaIsHidden"
+            :is-rounded="true"
+            :handle-click="handleClick"
+            appearance="outline-primary">
+            {{ ctaText }}
+          </KButton>
+        </slot>
       </p>
     </div>
   </div>
