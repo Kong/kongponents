@@ -1,9 +1,9 @@
 <template>
   <button
-    v-bind="buttonAttributes"
+    v-bind="buttonBindings"
     :class="[{rounded: isRounded}, appearance, buttonAttributes['class']]"
     class="button"
-    @click="handleClick">
+    v-on="listeners">
     <slot/>
   </button>
 </template>
@@ -34,7 +34,8 @@ export default {
           'outline-primary',
           'outline-danger',
           'btn-link',
-          'btn-link-danger'
+          'btn-link-danger',
+          ''
         ].indexOf(value) !== -1
       }
     },
@@ -48,13 +49,20 @@ export default {
           class: ''
         }
       }
+    }
+  },
+
+  computed: {
+    listeners () {
+      return {
+        ...this.$listeners
+      }
     },
-    /**
-      * Click handler
-      */
-    handleClick: {
-      type: Function,
-      default: () => () => null
+
+    buttonBindings () {
+      return {
+        ...this.buttonAttributes
+      }
     }
   }
 }
@@ -184,5 +192,10 @@ export default {
   }
   .rounded {
     border-radius: 3px;
+  }
+
+  .button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
   }
 </style>
