@@ -1,5 +1,6 @@
 import collapseExpand from './icn-collapse-expand.svg'
 import gateway from './icn-gateway.svg'
+import gear from './icn-gear.svg'
 import portal from './icn-dev-portal.svg'
 import security from './icn-security.svg'
 import workspaces from './icn-workspaces.svg'
@@ -12,6 +13,7 @@ export default {
   back,
   collapseExpand,
   gateway,
+  gear,
   portal,
   search,
   security,

@@ -1,43 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`KIcon renders back icon 1`] = `
-<svg height="16" width="16" role="img" class="kong-icon">
+<svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon">
   <title>back</title>
   <path fill="#000" fill-opacity=".25" fill-rule="evenodd" d="M16 5H5v3L0 4l3.371-2.697L5 0v3h11z"></path>
 </svg>
 `;
 
 exports[`KIcon renders collapseExpand icon 1`] = `
-<svg height="16px" width="16px" viewBox="0 0 16 16" role="img" class="kong-icon">
+<svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon">
   <title>collapseExpand</title>
   <path fill="#A3BBCC" fill-rule="evenodd" d="M0 0h2v16H0V0zm16 7v2H9v3L4 8l5-4v3h7z"></path>
 </svg>
 `;
 
 exports[`KIcon renders gateway icon 1`] = `
-<svg height="32" width="32" viewBox="-4 -4 32 32" role="img" class="kong-icon">
+<svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon">
   <title>gateway</title>
   <path fill="#A3BBCC" d="M14 0h-4a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 2v20h-4V2h4zm6 0v2h-3v2h3v2l4-3-4-3zm0 14v2h-3v2h3v2l4-3-4-3zM7 11H4V9l-4 3 4 3v-2h3v-2zm0-7H3v2h4V4zm0 14H3v2h4v-2zm-5 0H0v2h2v-2zm19-7h-4v2h4v-2zm3 0h-2v2h2v-2zM2 4H0v2h2V4z"
     fill-rule="evenodd"></path>
 </svg>
 `;
 
+exports[`KIcon renders gear icon 1`] = `
+<svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon">
+  <title>gear</title>
+  <path fill="#000" fill-opacity=".55" fill-rule="evenodd" d="M11.4765344 3.1092521l1.4732131-1.4732131 1.4142135 1.4142135-1.4732131 1.4732131c.514815.7229326.8733467 1.5648778 1.0262937 2.4765344H16v2h-2.0829584c-.152947.9116566-.5114787 1.7536018-1.0262937 2.4765344l1.4732131 1.4732131-1.4142135 1.4142135-1.4732131-1.4732131c-.7229326.514815-1.5648778.8733467-2.4765344 1.0262937V16H7v-2.0829584c-.9116566-.152947-1.7536018-.5114787-2.4765344-1.0262937L3.0502525 14.363961 1.636039 12.9497475l1.4732131-1.4732131C2.5944371 10.7536018 2.2359054 9.9116566 2.0829584 9H0V7h2.0829584c.152947-.9116566.5114787-1.7536018 1.0262937-2.4765344L1.636039 3.0502525 3.0502525 1.636039l1.4732131 1.4732131C5.2463982 2.5944371 6.0883434 2.2359054 7 2.0829584V0h2v2.0829584c.9116566.152947 1.7536018.5114787 2.4765344 1.0262937zM8 12c2.209139 0 4-1.790861 4-4s-1.790861-4-4-4-4 1.790861-4 4 1.790861 4 4 4z"
+    opacity=".5"></path>
+</svg>
+`;
+
 exports[`KIcon renders portal icon 1`] = `
-<svg height="32" width="32" viewBox="-5 -4 32 32" role="img" class="kong-icon">
+<svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon">
   <title>portal</title>
   <path fill="#A3BBCC" d="M2 24h18a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2zm0-2V2h18v20H2zm3-7h12v-2H5v2zm0-4h5V9H5v2zm7 0h5V9h-5v2zM5 7h12V5H5v2zm0 12h5v-2H5v2zm7 0h5v-2h-5v2z" fill-rule="evenodd"></path>
 </svg>
 `;
 
 exports[`KIcon renders search icon 1`] = `
-<svg height="14" width="14" role="img" class="kong-icon">
+<svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon">
   <title>search</title>
   <path fill="#B9BABB" fill-rule="evenodd" d="M9.1237341 11.1237341C8.2138377 11.6796483 7.1443299 12 6 12c-3.3137085 0-6-2.6862915-6-6s2.6862915-6 6-6 6 2.6862915 6 6c0 1.1443299-.3203517 2.2138377-.8762659 3.1237341L13.5 11.5c.577204.577204.5829926 1.4170074 0 2-.5781647.5781647-1.4256897.5743103-2 0l-2.3762659-2.3762659zM6 10c2.209139 0 4-1.790861 4-4S8.209139 2 6 2 2 3.790861 2 6s1.790861 4 4 4z"></path>
 </svg>
 `;
 
 exports[`KIcon renders security icon 1`] = `
-<svg height="32" width="32" viewBox="-6 -4 32 32" role="img" class="kong-icon">
+<svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon">
   <title>security</title>
   <path fill="#A3BBCC" d="M10 24C5.39 22.156.994 19.54.147 14h2.02c.643 3.577 3.15 5.847 7.832 7.837 4.576-1.955 7.15-4.307 7.822-7.837h2.026c-.869 5.45-5.3 8.181-9.847 10zM20 8h-2V5.862c-2.704-.373-5.375-1.501-8-3.359-2.625 1.858-5.296 2.986-8 3.36V8H0V4c3.333 0 6.667-1.333 10-4 3.333 2.667 6.667 4 10 4v4zM0 10h20v2H0v-2z"
     fill-rule="nonzero"></path>
@@ -45,7 +53,7 @@ exports[`KIcon renders security icon 1`] = `
 `;
 
 exports[`KIcon renders vitals icon 1`] = `
-<svg height="32" width="32" viewBox="-4 -4 32 32" role="img" class="kong-icon">
+<svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon">
   <title>vitals</title>
   <path fill="#A3BBCC" d="M19.593 5.493l-2.842 2.842A6.002 6.002 0 0 1 13 17.917l-.001 4.034c5.053-.502 9-4.766 9-9.951a9.96 9.96 0 0 0-2.407-6.507zM18.146 4.11A9.95 9.95 0 0 0 13 2.05v4.034c.83.14 1.604.45 2.281.893l2.865-2.865zM2.05 13A10.003 10.003 0 0 0 11 21.95v-4.033A6.005 6.005 0 0 1 6.083 13H2.049zm0-2h4.034A6.005 6.005 0 0 1 11 6.083V2.049A10.003 10.003 0 0 0 2.05 11zM12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-8a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"
     fill-rule="evenodd"></path>
@@ -53,14 +61,14 @@ exports[`KIcon renders vitals icon 1`] = `
 `;
 
 exports[`KIcon renders workspaces icon 1`] = `
-<svg height="16px" width="16px" viewBox="0 0 16 16" role="img" class="kong-icon">
+<svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon">
   <title>workspaces</title>
   <path fill="#A3BBCC" fill-rule="evenodd" d="M1 0h5c.55228 0 1 .44772 1 1v5c0 .55228-.44772 1-1 1H1c-.55228 0-1-.44772-1-1V1c0-.55228.44772-1 1-1zm1 2v3h3V2H2zM1 9h5c.55228 0 1 .44772 1 1v5c0 .55228-.44772 1-1 1H1c-.55228 0-1-.44772-1-1v-5c0-.55228.44772-1 1-1zm1 2v3h3v-3H2zm8-11h5c.55228 0 1 .44772 1 1v5c0 .55228-.44772 1-1 1h-5c-.55228 0-1-.44772-1-1V1c0-.55228.44772-1 1-1zm1 2v3h3V2h-3zm-1 7h5c.55228 0 1 .44772 1 1v5c0 .55228-.44772 1-1 1h-5c-.55228 0-1-.44772-1-1v-5c0-.55228.44772-1 1-1zm1 2v3h3v-3h-3z"></path>
 </svg>
 `;
 
 exports[`KIcon renders workspacesCollapsed icon 1`] = `
-<svg height="32" width="32" viewBox="-4 -4 32 32" role="img" class="kong-icon">
+<svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon">
   <title>workspacesCollapsed</title>
   <path fill="#A3BBCC" d="M2 0h6a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm0 2v6h6V2H2zm0 10h6a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2zm0 2v6h6v-6H2zM14 0h6a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-6a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm0 2v6h6V2h-6zm1 10l5 5-5 5V12z"
     fill-rule="evenodd"></path>
