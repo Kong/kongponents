@@ -13,7 +13,9 @@
   "scripts": {
     "styleguide": "vue-styleguidist server",
     "storybook": "start-storybook -p 9001 -c .storybook",
+    "build": "yarn build:styleguide && yarn build:storybook",
     "build:styleguide": "vue-styleguidist build ./build",
+    "build:storybook": "build-storybook -c .storybook -o ./docs/stories",
     "publish": "lerna publish --skip-git --npm-tag=latest",
     "publish:scope": "lerna publish --skip-git --npm-tag=latest --scope=@kongponents/${component}",
     "test": "yarn jest",
@@ -21,16 +23,16 @@
     "cli": "./cli/kongponent-cli"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "3.3.15",
-    "@storybook/addon-knobs": "3.3.15",
-    "@storybook/addon-links": "3.3.15",
-    "@storybook/addon-notes": "3.3.15",
-    "@storybook/vue": "3.3.15",
+    "@storybook/addon-actions": "3.4.10",
+    "@storybook/addon-knobs": "3.4.10",
+    "@storybook/addon-links": "3.4.10",
+    "@storybook/addon-notes": "3.4.10",
+    "@storybook/vue": "3.4.10",
     "@vue/test-utils": "1.0.0-beta.20",
-    "babel-core": "6.26.0",
-    "babel-jest": "^23.2.0",
+    "babel-core": "6.26.3",
+    "babel-jest": "^23.6.0",
     "babel-loader": "7.1.4",
-    "babel-preset-env": "1.6.1",
+    "babel-preset-env": "1.7.0",
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-3": "6.24.1",
     "chalk": "^2.4.1",
@@ -46,20 +48,20 @@
     "eslint-plugin-standard": "3.1.0",
     "eslint-plugin-vue": "4.5.0",
     "file-loader": "1.1.11",
-    "jest": "23.5.0",
+    "jest": "23.6.0",
     "jest-raw-loader": "^1.0.1",
     "jest-serializer-vue": "2.0.2",
     "lerna": "2.10.2",
     "raw-loader": "0.5.1",
-    "storybook-addon-vue-info": "0.1.8",
+    "storybook-addon-vue-info": "0.6.1",
     "vue-jest": "2.6.0",
     "vue-loader": "14.2.1",
     "vue-styleguidist": "1.7.5",
-    "vue-template-compiler": "2.5.16",
+    "vue-template-compiler": "2.5.17",
     "vuex": "3.0.1"
   },
   "dependencies": {
-    "vue": "2.5.16"
+    "vue": "2.5.17"
   },
   "jest": {
     "moduleFileExtensions": [
