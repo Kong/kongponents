@@ -22,7 +22,7 @@ export default {
   props: {
     /**
      * Checks for valid icon name<br>
-     * 'collapseExpand'  | 'gateway' | 'portal' | 'security' | 'workspaces'| 'workspacesCollapsed' | 'vitals' | 'back' | 'search'
+     * 'back' | 'collapseExpand' | 'gateway' | 'gear' | 'info' | 'portal' | 'search' | 'security' | 'workspaces' | 'workspacesCollapsed' | 'vitals'
      */
     icon: {
       type: String,
