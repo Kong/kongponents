@@ -9,10 +9,12 @@ import workspacesCollapsed from './icn-collapse-workspaces.svg'
 import vitals from './icn-vitals.svg'
 import back from './icn-back.svg'
 import search from './icn-search.svg'
+import dashboard from './icn-dashboard.svg'
 
 export default {
   back,
   collapseExpand,
+  dashboard,
   gateway,
   gear,
   info,
