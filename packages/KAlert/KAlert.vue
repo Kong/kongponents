@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="isShowing"
+    v-if="isVisible"
     v-bind="alertAttributes"
     :class="[appearance, size, {'border':hasBorder}, alertAttributes['class']]"
     class="k-alert"
@@ -34,13 +34,6 @@ export default {
      * Set if close button is visible
      */
     isDismissible: {
-      type: Boolean,
-      default: false
-    },
-    /**
-      * Set whether or not the alert box is shown.
-      */
-    isShowing: {
       type: Boolean,
       default: false
     },
@@ -86,9 +79,14 @@ export default {
       }
     }
   },
+  data () {
+    return {
+      isVisible: true
+    }
+  },
   methods: {
     dismissAlert () {
-      this.isShowing = false
+      this.isVisible = false
     }
   }
 }

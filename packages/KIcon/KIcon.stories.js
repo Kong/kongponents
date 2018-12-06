@@ -4,7 +4,7 @@ import KIcon from './KIcon.vue'
 import icons from './icons'
 const iconNames = Object.keys(icons)
 
-storiesOf('KIcon', module)
+storiesOf('Icon', module)
   .addDecorator(VueInfoAddon)
   .add('Icons', () => ({
     components: { KIcon },

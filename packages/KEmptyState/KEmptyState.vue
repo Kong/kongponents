@@ -9,9 +9,8 @@
         <slot name="cta">
           <KButton
             v-if="!ctaIsHidden"
-            :is-rounded="true"
-            :handle-click="handleClick"
-            appearance="outline-primary">
+            appearance="outline-primary"
+            @click="handleClick()()">
             {{ ctaText }}
           </KButton>
         </slot>
@@ -36,7 +35,12 @@ export default {
     },
     handleClick: {
       type: Function,
-      default: () => () => null
+      required: false,
+      default: function () {
+        return () => {
+          this.$emit('cta')
+        }
+      }
     }
   }
 }

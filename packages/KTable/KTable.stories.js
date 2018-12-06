@@ -30,14 +30,21 @@ const options = {
   ]
 }
 
-storiesOf('KTable', module)
+storiesOf('Table', module)
   .addDecorator(VueInfoAddon)
   .add('Default', () => ({
     components: { KTable },
     template: `
     <KTable :options=options>
-      <template slot="actions" slot-scope="{row, rowKey, rowValue}"><a href="">Edit</a></template>
+        <template slot="actions" slot-scope="{row, rowKey, rowValue}"><a href="">Edit</a></template>
     </KTable>
+    <!--
+    data() {
+      return {
+        options: ${JSON.stringify(options, null, 2)}
+      }
+    }
+    -->
     `,
     data () {
       return {
@@ -51,6 +58,13 @@ storiesOf('KTable', module)
     <KTable :options="options" :isStriped='true' :hasHover='true'>
         <template slot="actions" slot-scope="{row, rowKey, rowValue}"> <a href="">Edit</a></template>
     </KTable>
+    <!--
+    data() {
+      return {
+        options: ${JSON.stringify(options, null, 2)}
+      }
+    }
+    -->
     `,
     data () {
       return {

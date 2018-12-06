@@ -4,43 +4,52 @@ import VueInfoAddon from 'storybook-addon-vue-info'
 
 import KModal from './KModal.vue'
 
-let isVisible = true
+const sharedData = function () {
+  return {
+    isVisible: false
+  }
+}
 
-storiesOf('KModal', module)
+const sharedMethods = {
+  toggleModal (isVisible) {
+    return () => {
+      this.isVisible = isVisible
+    }
+  }
+}
+
+storiesOf('Modal', module)
   .addDecorator(VueInfoAddon)
-  .add('Custom Header', () => ({
+  .add('Default', () => ({
     components: { KModal },
-    template:
-    `
-    <KModal :isVisible='true'>
-      <template slot="header">
-        Custom Header
-      </template>
-    </KModal>
-    `
+    template: `
+    <div>
+      <KButton @click="toggleModal(true)()">Toggle Modal</KButton>
+      <KModal @close="toggleModal(false)()" :isVisible='isVisible' />
+    </div>
+    `,
+    data: sharedData,
+    methods: sharedMethods
   }))
-  .add('Custom Body', () => ({
+  .add('Slots', () => ({
     components: { KModal },
-    template:
-    `
-    <KModal :isVisible='true'>
-      <template slot="body">
-        Custom Body
-      </template>
-    </KModal>
-    `
-  }))
-  .add('Custom Footer', () => ({
-    components: { KModal },
-    template:
-    `
-    <KModal :isVisible='true'>
-      <template slot="footer-actions">
-        <button>Custom Proceed</button>
-      </template>
-      <template slot="footer-dismiss">
-        <button>Custom Cancel</button>
-      </template>
-    </KModal>
-    `
+    template: `
+    <div>
+      <KButton @click="toggleModal(true)()">Toggle Modal</KButton>
+      <KModal @close="toggleModal(false)()" :isVisible='isVisible'>
+      <template slot="header-content">
+          ⚠️ Are you sure?
+        </template>
+        <template slot="body-content">
+          This is a destructive action and by clicking this button you will destroy things.
+        </template>
+        <template slot="footer-actions">&#8203;</template>
+        <template slot="footer-dismiss">
+          <KButton style="margin-left: 0;" appearance="danger" @click="toggleModal(false)()">Destroy the things</KButton>
+        </template>
+      </Kmodal>
+    </div>
+    `,
+    data: sharedData,
+    methods: sharedMethods
   }))
