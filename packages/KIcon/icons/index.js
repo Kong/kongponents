@@ -9,7 +9,7 @@ import workspacesCollapsed from './icn-collapse-workspaces.svg'
 import vitals from './icn-vitals.svg'
 import back from './icn-back.svg'
 import search from './icn-search.svg'
-import trashCan from './icn-trash.svg'
+import trash from './icn-trash.svg'
 import dashboard from './icn-dashboard.svg'
 
 export default {
@@ -22,7 +22,7 @@ export default {
   portal,
   search,
   security,
-  trashCan,
+  trash,
   workspaces,
   workspacesCollapsed,
   vitals
