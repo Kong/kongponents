@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kemptystate",
-  "version": "0.0.1-beta.1",
+  "version": "0.0.1-beta.3",
   "description": "Empty State component",
   "main": "KEmptyState.vue",
   "scripts": {

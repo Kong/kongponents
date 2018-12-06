@@ -22,7 +22,7 @@ export default {
   props: {
     /**
      * Checks for valid icon name<br>
-     * 'collapseExpand'  | 'gateway' | 'portal' | 'security' | 'workspaces'| 'workspacesCollapsed' | 'vitals' | 'back' | 'search'
+     * 'back' | 'collapseExpand' | 'gateway' | 'gear' | 'info' | 'portal' | 'search' | 'security' | 'workspaces' | 'workspacesCollapsed' | 'vitals'
      */
     icon: {
       type: String,
@@ -37,7 +37,7 @@ export default {
      */
     size: {
       type: String,
-      default: null
+      default: '24'
     },
     /**
      * Optional - Sets Fill color
@@ -51,7 +51,7 @@ export default {
      */
     viewBox: {
       type: String,
-      default: null
+      default: '0 0 24 24'
     }
   },
 
