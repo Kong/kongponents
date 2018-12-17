@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import KPopover from '@/KPopover/KPopover'
 
-const positions = ['top', 'right', 'bottom', 'right']
+ const positions = ['top', 'right', 'bottom', 'left']
 const alignments = ['left', 'center', 'right']
 
 const rendersCorrectPosition = (variant) => {
