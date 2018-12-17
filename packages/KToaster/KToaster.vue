@@ -44,15 +44,17 @@ export default {
     },
     /**
       * Color variantion of Toaster.<br>
-      * Options: success, danger or info
+      * Options: success, danger, info or warning
       */
     appearance: {
       type: String,
+      default: 'info',
       validator: function (value) {
         return [
           'danger',
           'success',
-          'info'
+          'info',
+          'warning'
         ].indexOf(value) !== -1
       },
       required: true
@@ -131,6 +133,11 @@ export default {
   color: #004a80;
   border-color: #7cc9ff;
   background: #ebf7ff;
+}
+.k-toaster .k-toast.warning {
+  color: #403624;
+  border-color: #FFDF80;
+  background-color: #FFF7E8;
 }
 .k-toaster .k-toast.danger {
   color: #c20d0a;
