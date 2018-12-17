@@ -22,7 +22,7 @@ let rendersCorrectAlignment = (variant) => {
     const wrapper = mount(KPopover, {
       propsData: {
         'alignment': `${variant}`,
-        'message': `Im aligned to the ${variant}!`
+         'message': `I'm aligned to the ${variant}!`
       }
     })
 
