@@ -1,8 +1,13 @@
 <template>
   <div
+    :aria-hidden="isHovering ? 'true' : 'false'"
     :data-message="message"
-    :class="[positionClass, alignmentClass]"
-    class="k-popover">
+    :class="positionClass"
+    :style="{'text-align': alignment}"
+    class="k-popover"
+    role="tooltip"
+    @mouseout="_isHovering(false)"
+    @mouseover="_isHovering(true)">
     <slot/>
   </div>
 </template>
@@ -51,12 +56,21 @@ export default {
     }
   },
 
+  data () {
+    return {
+      isHovering: false
+    }
+  },
+
   computed: {
     positionClass () {
       return `k-popover-${this.position}`
-    },
-    alignmentClass () {
-      return `k-popover-text-${this.alignment}`
+    }
+  },
+
+  methods: {
+    _isHovering (isHovering) {
+      this.isHovering = isHovering
     }
   }
 }
@@ -67,15 +81,6 @@ export default {
   display: inline-block;
   position: relative;
   cursor: pointer;
-}
-.k-popover.text-left {
-  text-align: left;
-}
-.k-popover.text-center {
-  text-align: center;
-}
-.k-popover.text-right {
-  text-align: right;
 }
 .k-popover:before,
 .k-popover:after {
