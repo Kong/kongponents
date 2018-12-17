@@ -16,7 +16,6 @@ export default {
      */
     message: {
       type: String,
-      default: '',
       required: true
     },
     /**
@@ -57,7 +56,7 @@ export default {
       return `k-popover-${this.position}`
     },
     alignmentClass () {
-      return `text-${this.alignment}`
+      return `k-popover-text-${this.alignment}`
     }
   }
 }
@@ -68,6 +67,15 @@ export default {
   display: inline-block;
   position: relative;
   cursor: pointer;
+}
+.k-popover.text-left {
+  text-align: left;
+}
+.k-popover.text-center {
+  text-align: center;
+}
+.k-popover.text-right {
+  text-align: right;
 }
 .k-popover:before,
 .k-popover:after {
@@ -85,7 +93,7 @@ export default {
   font-weight: normal;
   border-radius: 3px;
   background: #fff;
-  box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.15);
   content: attr(data-message);
 }
 .k-popover:after {
