@@ -37,7 +37,7 @@ describe('KPopover', () => {
   it('matches snapshot', () => {
     const wrapper = mount(KPopover, {
       propsData: {
-        'message': 'Im inside the popover!'
+         'message': 'I'm inside the popover!'
       }
     })
 
