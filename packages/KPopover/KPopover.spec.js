@@ -9,7 +9,7 @@ const rendersCorrectPosition = (variant) => {
     const wrapper = mount(KPopover, {
       propsData: {
         'position': `${variant}`,
-        'message': `Im on the ${variant} side!`
+         'message': `I'm on the ${variant} side!`
       }
     })
 
