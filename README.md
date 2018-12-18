@@ -4,7 +4,7 @@ Kong Component [Vue](https://vuejs.org/) library. [kong.github.io/kongponents/](
 
 ## Installation
 
-Install [node + npm + yarn](https://nodejs.org/)
+Install [node + npm](https://nodejs.org/) + [yarn](https://yarnpkg.com/en/)
 
 Clone and install dependencies
 ```bash
