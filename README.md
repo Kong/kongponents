@@ -4,7 +4,7 @@ Kong Component [Vue](https://vuejs.org/) library. [kong.github.io/kongponents/](
 
 ## Installation
 
-Install [node + npm](https://nodejs.org/)
+Install [node + npm + yarn](https://nodejs.org/)
 
 Clone and install dependencies
 ```bash
@@ -12,7 +12,7 @@ Clone and install dependencies
 git clone git@github.com:Kong/kong-portal.git
 
 # Install node modules
-npm install
+yarn
 ```
 
 ## Running
@@ -21,12 +21,12 @@ npm install
 
 Run [Vue Styleguidist](https://github.com/vue-styleguidist/vue-styleguidist)
 ```bash
-npm run styleguide
+yarn styleguide
 ```
 
 Run [Storybook](https://storybook.js.org/)
 ```bash
-npm run storybook
+yarn storybook
 ```
 
 Follow command output to know which localhost port to navigate to.
@@ -70,7 +70,7 @@ We use [Lerna](https://lernajs.io/) to publish Kongponents.
 ### Publishing Multiple Components
 
 ```bash
-npm run publish
+npm publish
 ```
 Lerna will check each component for differences and prompt you to select a version for any that have changed. If creating for the first time select `Custom` and enter `0.0.1-beta.<current_version>`. If bumping the version select `Custom` and increase the number after `-beta`
 
