@@ -48,9 +48,13 @@ yarn test packages/Kmodal
 See CLI usage
 
 ```bash
-yarn cli --help
-# or
-./cli/kongponent-cli --help
+node cli --help
+
+# or install globally
+
+npm install -g
+kpm --help
+
 ```
 
 ### Creating Kongponents:
@@ -58,7 +62,7 @@ yarn cli --help
 Run the following command to create a new component built from the [template files](cli/template)
 
 ```bash
-yarn cli create <kongponent_name> -d <kongponent_description>
+kpm create <kongponent_name> -d <kongponent_description>
 ```
 
 ## Publishing to NPM

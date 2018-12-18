@@ -7,6 +7,9 @@
   "license": "ISC",
   "repository": "git@github.com:Kong/kongponents.git",
   "private": true,
+  "bin": {
+    "kpm": "./cli/index.js" 
+  },
   "workspaces": [
     "packages/*"
   ],

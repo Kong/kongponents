@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const CURR_DIR = process.cwd()
 
 const program = require('commander')
