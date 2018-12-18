@@ -1,8 +1,8 @@
 {
-  "name": "@kongponents/KPopover",
+  "name": "@kongponents/KPop",
   "version": "0.0.1-beta.1",
-  "description": "KPopover description here.",
-  "main": "KPopover.vue",
+  "description": "KPop description here.",
+  "main": "KPop.vue",
   "scripts": {
     "test": "jest"
   },

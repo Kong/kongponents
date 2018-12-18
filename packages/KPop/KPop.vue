@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'KPopover',
+  name: 'KPop',
   props: {
     /**
      * Message to show in popover
