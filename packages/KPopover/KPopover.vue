@@ -6,8 +6,8 @@
     :style="{'text-align': alignment}"
     class="k-popover"
     role="tooltip"
-    @mouseout="_isHovering(false)"
-    @mouseover="_isHovering(true)">
+    @mouseout="isHovering(false)"
+    @mouseover="isHovering(true)">
     <slot/>
   </div>
 </template>
@@ -58,7 +58,7 @@ export default {
 
   data () {
     return {
-      isHovering: false
+      hovering: false
     }
   },
 
@@ -69,8 +69,8 @@ export default {
   },
 
   methods: {
-    _isHovering (isHovering) {
-      this.isHovering = isHovering
+    isHovering (isHovering) {
+      this.hovering = isHovering
     }
   }
 }
