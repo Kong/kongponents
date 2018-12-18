@@ -1,15 +1,15 @@
 import { mount } from '@vue/test-utils'
 import KPopover from '@/KPopover/KPopover'
 
- const positions = ['top', 'right', 'bottom', 'left']
+const positions = ['top', 'right', 'bottom', 'left']
 const alignments = ['left', 'center', 'right']
 
 const rendersCorrectPosition = (variant) => {
   it(`renders popover to the ${variant} side`, () => {
     const wrapper = mount(KPopover, {
       propsData: {
-        'position': `${variant}`,
-         'message': `I'm on the ${variant} side!`
+        'position': variant,
+        'message': `I'm on the ${variant} side!`
       }
     })
 
@@ -21,12 +21,12 @@ let rendersCorrectAlignment = (variant) => {
   it(`renders popover text aligned to the ${variant}`, () => {
     const wrapper = mount(KPopover, {
       propsData: {
-        'alignment': `${variant}`,
-         'message': `I'm aligned to the ${variant}!`
+        'alignment': variant,
+        'message': `I'm aligned to the ${variant}!`
       }
     })
 
-    expect(wrapper.find('.k-popover').classes()).toContain(`text-${variant}`)
+    expect(wrapper.element.style['text-align']).toEqual(variant)
   })
 }
 
@@ -37,7 +37,7 @@ describe('KPopover', () => {
   it('matches snapshot', () => {
     const wrapper = mount(KPopover, {
       propsData: {
-         'message': 'I'm inside the popover!'
+        'message': `I'm inside the popover!`
       }
     })
 
