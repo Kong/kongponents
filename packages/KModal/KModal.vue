@@ -2,7 +2,7 @@
   <div
     v-if="isVisible"
     :aria-hidden="!isVisible ? 'true' : 'false'"
-    class="k-modal"
+    class="modal"
     role="dialog">
     <div
       class="modal-backdrop"
@@ -25,16 +25,14 @@
             <!-- @slot Use this slot to place action/proceed button -->
             <slot name="footer-actions">
               <KButton
-                :is-rounded="true"
-                :handle-click="proceed"
-                appearance="primary">Proceed</KButton>
+                appearance="primary"
+                @click="proceed">Proceed</KButton>
             </slot>
             <!-- @slot Use this slot to override cancel/close button -->
             <slot name="footer-dismiss">
               <KButton
-                :is-rounded="true"
-                :handle-click="close"
-                appearance="secondary">Cancel</KButton>
+                appearance="secondary"
+                @click="close">Cancel</KButton>
             </slot>
           </div>
         </div>
@@ -89,7 +87,7 @@ export default {
     left: 0;
     right: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1100;
+    z-index: 1005;
   }
 
   .modal-dialog {
@@ -108,7 +106,6 @@ export default {
     display: flex;
     flex-direction: column;
     background-color: #fff;
-    border: 0;
     border-radius: .3rem;
     outline: 0;
   }
