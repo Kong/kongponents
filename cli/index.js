@@ -8,7 +8,7 @@ const fs = require('fs')
 
 
 const execSync = require('child_process').execSync;
-// const { exec } = require('child_process');
+const spawn = require('child_process').spawn,
 
 function capitalizeFirstLetters (str, num) {
   return `${str.substring(0, num).toUpperCase()}${str.substr(num)}`
@@ -54,13 +54,11 @@ function publishComponent(kongponent) {
 }
 
 function runTests(cb) {
-  var spawn = require('child_process').spawn,
-      ls    = spawn('yarn', ['test']);
-  
+  ls = spawn('yarn', ['test']);
   ls.stdout.on('data', function (data) {
     console.log(chalk.blue.bold(data.toString()));
   });
-  
+  // spawn swallows the syntax highlighting. This adds it back.
   ls.stderr.on('data', function (data) {
     fail = data.toString().match( /FAIL/ )
     pass = data.toString().match( /PASS/ )
