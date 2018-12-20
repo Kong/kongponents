@@ -8,7 +8,7 @@ const fs = require('fs')
 
 
 const execSync = require('child_process').execSync;
-const spawn = require('child_process').spawn,
+const spawn = require('child_process').spawn;
 
 function capitalizeFirstLetters (str, num) {
   return `${str.substring(0, num).toUpperCase()}${str.substr(num)}`
@@ -109,6 +109,7 @@ program
       componentPath,
       path => path.replace(/KTemplate/g, kname),
       contents => contents
+        .replace(/{%kongponent_name_lower%}/g, kname.toLowerCase())
         .replace(/{%kongponent_name%}/g, kname)
         .replace(/{%kongponent_description%}/g, kdescription))
 
