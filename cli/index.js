@@ -6,6 +6,10 @@ const program = require('commander')
 const chalk = require('chalk')
 const fs = require('fs')
 
+
+const execSync = require('child_process').execSync;
+// const { exec } = require('child_process');
+
 function capitalizeFirstLetters (str, num) {
   return `${str.substring(0, num).toUpperCase()}${str.substr(num)}`
 }
@@ -36,6 +40,40 @@ function createDirectoryContents (templatePath, newProjectPath, transformPath, t
 
     return transformPath(file)
   })
+}
+
+function publishComponent(kongponent) {
+  execSync('lerna publish --skip-git --npm-tag=latest --scope=@kongponents/${kongponent}', (error, stdout, stderr) => {
+      if (error) {
+        console.error(`exec error: ${error}`);
+        return;
+      }
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+    });
+}
+
+function runTests(cb) {
+  var spawn = require('child_process').spawn,
+      ls    = spawn('yarn', ['test']);
+  
+  ls.stdout.on('data', function (data) {
+    console.log(chalk.blue.bold(data.toString()));
+  });
+  
+  ls.stderr.on('data', function (data) {
+    fail = data.toString().match( /FAIL/ )
+    pass = data.toString().match( /PASS/ )
+    if (fail) {
+      console.log(chalk.red.bold(data.toString()));
+    } else if (pass) {
+      console.log(chalk.green.bold(data.toString()));
+    }
+  });
+
+  ls.on('close', function(code) {
+    cb(code);
+  });
 }
 
 program
@@ -93,4 +131,23 @@ program
     })
   })
 
+program
+  .command('publish <kongponent>')
+  .description('publish kongponent')
+  .action(function(kongponent) {
+    if (!kongponent) {
+      console.error(chalk.red.bold('Missing Option: kongponent. Please specify a name'))
+      return
+    }
+    runTests(function(exitCode) {
+      if (exitCode == 0) {
+        console.log(`Tests have passed! Publishing kongponent ${kongponent}`);
+        publishComponent(kongponent)
+      } else {
+        console.log(`Tests have failed! Please check before publishing ${kongponent}`);
+      }
+    })
+
+  });
+  
 program.parse(process.argv)
