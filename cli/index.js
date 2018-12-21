@@ -162,9 +162,7 @@ program
 
   });
   
-
-  
-  program
+program
   .command('find <kongponent>')
   .description('find package')
   .action(function(kongponent) {
