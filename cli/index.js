@@ -42,7 +42,18 @@ function createDirectoryContents (templatePath, newProjectPath, transformPath, t
   })
 }
 
-function listComponent(kongponent) {
+function deprecateKongponent(kongponent, version, message) {
+  execSync(`npm deprecate @kongponents/${kongponent.toLowerCase()}@${version} "${message}"`, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`exec error: ${error}`);
+        return;
+      }
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+    });
+}
+
+function listKongponent(kongponent) {
   execSync(`lerna list --scope=@kongponents/${kongponent.toLowerCase()}`, (error, stdout, stderr) => {
       if (error) {
         console.error(`exec error: ${error}`);
@@ -53,7 +64,7 @@ function listComponent(kongponent) {
     });
 }
 
-function listComponents() {
+function listKongponents() {
   execSync(`lerna list`, (error, stdout, stderr) => {
       if (error) {
         console.error(`exec error: ${error}`);
@@ -107,17 +118,17 @@ program
     // paths
     const templatePath = `${__dirname}/template`
     const packagesPath = 'packages'
-    const componentPath = `${CURR_DIR}/${packagesPath}/${kname}`
+    const kongponentPath = `${CURR_DIR}/${packagesPath}/${kname}`
 
-    if (fs.existsSync(componentPath)) {
-      throw Error(`${componentPath} already exists.`)
+    if (fs.existsSync(kongponentPath)) {
+      throw Error(`${kongponentPath} already exists.`)
     }
 
-    fs.mkdirSync(componentPath)
+    fs.mkdirSync(kongponentPath)
 
     const files = createDirectoryContents(
       templatePath,
-      componentPath,
+      kongponentPath,
       path => path.replace(/KTemplate/g, kname),
       contents => contents
         .replace(/{%kongponent_name_lower%}/g, kname.toLowerCase())
@@ -143,7 +154,7 @@ program
 
 program
   .command('publish <kongponent>')
-  .description('publish kongponent')
+  .description('publish a kongponent')
   .action(function(kongponent) {
     if (!kongponent) {
       console.error(chalk.red.bold('Missing Option: kongponent. Please specify a name'))
@@ -164,16 +175,23 @@ program
   
 program
   .command('find <kongponent>')
-  .description('find package')
+  .description('find a kongponent')
   .action(function(kongponent) {
-    listComponent(kongponent)
+    listKongponent(kongponent)
   });
 
 program
   .command('find-all')
-  .description('find all packages')
+  .description('find all kongponents')
   .action(function() {
-    listComponents()
+    listKongponents()
+  });
+
+program
+  .command('deprecate <kongponent> <version> <message>')
+  .description('deprecate a kongponent')
+  .action(function(kongponent, version, message) {
+    deprecateKongponent(kongponent, version, message)
   });
 
 program.parse(process.argv)
