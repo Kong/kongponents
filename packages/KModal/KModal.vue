@@ -25,16 +25,14 @@
             <!-- @slot Use this slot to place action/proceed button -->
             <slot name="footer-actions">
               <KButton
-                :is-rounded="true"
-                :handle-click="proceed"
-                appearance="primary">Proceed</KButton>
+                appearance="primary"
+                @click="proceed">Proceed</KButton>
             </slot>
             <!-- @slot Use this slot to override cancel/close button -->
             <slot name="footer-dismiss">
               <KButton
-                :is-rounded="true"
-                :handle-click="close"
-                appearance="secondary">Cancel</KButton>
+                appearance="secondary"
+                @click="close">Cancel</KButton>
             </slot>
           </div>
         </div>

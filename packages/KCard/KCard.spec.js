@@ -12,8 +12,8 @@ describe('KCard', () => {
       }
     })
 
-    expect(wrapper.find('.card-title').html()).toEqual(expect.stringContaining(cardTitle))
-    expect(wrapper.find('.card-body').html()).toEqual(expect.stringContaining(cardBody))
+    expect(wrapper.find('.k-card-title').html()).toEqual(expect.stringContaining(cardTitle))
+    expect(wrapper.find('.k-card-body').html()).toEqual(expect.stringContaining(cardBody))
     expect(wrapper.html()).toMatchSnapshot()
   })
 
