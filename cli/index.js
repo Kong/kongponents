@@ -42,8 +42,19 @@ function createDirectoryContents (templatePath, newProjectPath, transformPath, t
   })
 }
 
-function publishComponent(kongponent) {
-  execSync('lerna publish --skip-git --npm-tag=latest --scope=@kongponents/${kongponent}', (error, stdout, stderr) => {
+function listComponent(kongponent) {
+  execSync(`lerna list --scope=@kongponents/${kongponent.toLowerCase()}`, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`exec error: ${error}`);
+        return;
+      }
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+    });
+}
+
+function listComponents() {
+  execSync(`lerna list`, (error, stdout, stderr) => {
       if (error) {
         console.error(`exec error: ${error}`);
         return;
@@ -140,8 +151,10 @@ program
     }
     runTests(function(exitCode) {
       if (exitCode == 0) {
-        console.log(`Tests have passed! Publishing kongponent ${kongponent}`);
-        publishComponent(kongponent)
+        // Currently execSync will barf on the interactive prompt from publishing your kongponent.
+        // spawn and spawnSync will return the result of the child process, but you can't interact with it.
+        console.log(`You did it! Tests have passed! Paste the following command in your prompt to publish your kongponent.`)
+        console.log(chalk.greenBright(`\n lerna publish --npm-tag=latest --skip-git --scope=@kongponents/${kongponent.toLowerCase()}`))
       } else {
         console.log(`Tests have failed! Please check before publishing ${kongponent}`);
       }
@@ -149,4 +162,20 @@ program
 
   });
   
+
+  
+  program
+  .command('find <kongponent>')
+  .description('find package')
+  .action(function(kongponent) {
+    listComponent(kongponent)
+  });
+
+program
+  .command('find-all')
+  .description('find all packages')
+  .action(function() {
+    listComponents()
+  });
+
 program.parse(process.argv)
