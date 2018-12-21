@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kmodal",
-  "version": "0.0.1-beta.5",
+  "version": "0.0.1",
   "description": "Modal component",
   "main": "KModal.vue",
   "scripts": {
@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/Kong/kongponents#readme",
   "dependencies": {
-    "@kongponents/kbutton": "0.0.1-beta.4"
+    "@kongponents/kbutton": "^0.0.1"
   }
 }

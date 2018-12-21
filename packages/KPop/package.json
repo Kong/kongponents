@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kpop",
-  "version": "0.0.1-beta.1",
+  "version": "0.0.1",
   "description": "KPop description here.",
   "main": "KPop.vue",
   "scripts": {
