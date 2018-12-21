@@ -1,5 +1,5 @@
 {
-  "name": "@kongponents/{%kongponent_name%}",
+  "name": "@kongponents/{%kongponent_name_lower%}",
   "version": "0.0.1",
   "description": "{%kongponent_description%}",
   "main": "{%kongponent_name%}.vue",

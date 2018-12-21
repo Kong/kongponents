@@ -6,6 +6,10 @@ const program = require('commander')
 const chalk = require('chalk')
 const fs = require('fs')
 
+
+const execSync = require('child_process').execSync;
+const spawn = require('child_process').spawn;
+
 function capitalizeFirstLetters (str, num) {
   return `${str.substring(0, num).toUpperCase()}${str.substr(num)}`
 }
@@ -36,6 +40,49 @@ function createDirectoryContents (templatePath, newProjectPath, transformPath, t
 
     return transformPath(file)
   })
+}
+
+function listComponent(kongponent) {
+  execSync(`lerna list --scope=@kongponents/${kongponent.toLowerCase()}`, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`exec error: ${error}`);
+        return;
+      }
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+    });
+}
+
+function listComponents() {
+  execSync(`lerna list`, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`exec error: ${error}`);
+        return;
+      }
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+    });
+}
+
+function runTests(cb) {
+  ls = spawn('yarn', ['test']);
+  ls.stdout.on('data', function (data) {
+    console.log(chalk.blue.bold(data.toString()));
+  });
+  // spawn swallows the syntax highlighting. This adds it back.
+  ls.stderr.on('data', function (data) {
+    fail = data.toString().match( /FAIL/ )
+    pass = data.toString().match( /PASS/ )
+    if (fail) {
+      console.log(chalk.red.bold(data.toString()));
+    } else if (pass) {
+      console.log(chalk.green.bold(data.toString()));
+    }
+  });
+
+  ls.on('close', function(code) {
+    cb(code);
+  });
 }
 
 program
@@ -73,6 +120,7 @@ program
       componentPath,
       path => path.replace(/KTemplate/g, kname),
       contents => contents
+        .replace(/{%kongponent_name_lower%}/g, kname.toLowerCase())
         .replace(/{%kongponent_name%}/g, kname)
         .replace(/{%kongponent_description%}/g, kdescription))
 
@@ -92,5 +140,42 @@ program
       console.log(chalk.blue(stdout))
     })
   })
+
+program
+  .command('publish <kongponent>')
+  .description('publish kongponent')
+  .action(function(kongponent) {
+    if (!kongponent) {
+      console.error(chalk.red.bold('Missing Option: kongponent. Please specify a name'))
+      return
+    }
+    runTests(function(exitCode) {
+      if (exitCode == 0) {
+        // Currently execSync will barf on the interactive prompt from publishing your kongponent.
+        // spawn and spawnSync will return the result of the child process, but you can't interact with it.
+        console.log(`You did it! Tests have passed! Paste the following command in your prompt to publish your kongponent.`)
+        console.log(chalk.greenBright(`\n lerna publish --npm-tag=latest --skip-git --scope=@kongponents/${kongponent.toLowerCase()}`))
+      } else {
+        console.log(`Tests have failed! Please check before publishing ${kongponent}`);
+      }
+    })
+
+  });
+  
+
+  
+  program
+  .command('find <kongponent>')
+  .description('find package')
+  .action(function(kongponent) {
+    listComponent(kongponent)
+  });
+
+program
+  .command('find-all')
+  .description('find all packages')
+  .action(function() {
+    listComponents()
+  });
 
 program.parse(process.argv)
