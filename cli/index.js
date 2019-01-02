@@ -79,16 +79,14 @@ program
 
 program
   .command('create <name>')
+  .on('--help', function() {
+    console.log('Example:')
+    console.log('* kpm -d "a cool checklist feature" create KChecklist')
+  })
   .description('create a kongponent')
   .usage('[options] <name>')
   .option('-d, --kdescription [description]', 'Description of your Kongponent')
   .action(function (name, options) {
-    if (!name) {
-      console.error(chalk.red.bold('Missing Option: name. Please specify a name with -n'))
-
-      return
-    }
-
     // args
     const kname = parseName(name)
     const kdescription = options.kdescription || `${kname} description here.`
@@ -132,12 +130,13 @@ program
 
 program
   .command('publish <kongponent>')
+  .on('--help', function() {
+    console.log('Example:')
+    console.log('* kpm publish KChecklist')
+  })
   .description('publish a kongponent')
+  .usage('<kongponent>')
   .action(function(kongponent) {
-    if (!kongponent) {
-      console.error(chalk.red.bold('Missing Option: kongponent. Please specify a name'))
-      return
-    }
     runTests(function(exitCode) {
       if (exitCode == 0) {
         // Currently execSync will barf on the interactive prompt from publishing your kongponent.
@@ -148,26 +147,37 @@ program
         console.log(`Tests have failed! Please check before publishing ${kongponent}`);
       }
     })
-
-  });
-  
-program
-  .command('find <kongponent>')
-  .description('find a kongponent')
-  .action(function(kongponent) {
-    listKongponent(kongponent)
   });
 
 program
-  .command('find-all')
-  .description('find all kongponents')
-  .action(function() {
-    listKongponents()
+  .command('upgrade <kongponent> <version>')
+  .on('--help', function() {
+    console.log('Example:')
+    console.log('* kpm upgrade KChecklist prepatch')
+  })
+  .description('upgrade a kongponent')
+  .usage('<kongponent> <version>')
+  .action(function(kongponent,version) {
+    runTests(function(exitCode) {
+      if (exitCode != 0) {
+        // Currently execSync will barf on the interactive prompt from publishing your kongponent.
+        // spawn and spawnSync will return the result of the child process, but you can't interact with it.
+        console.log(`You did it! Tests have passed! Paste the following command in your prompt to publish your kongponent.`)
+        console.log(chalk.greenBright(`lerna publish --cd-version=${version} --skip-git --scope=@kongponents/${kongponent.toLowerCase()}`))
+      } else {
+        console.log(`Tests have failed! Please check before publishing ${kongponent}`);
+      }
+    })
   });
 
 program
   .command('deprecate <kongponent> <version> <message>')
+  .on('--help', function() {
+    console.log('Example:')
+    console.log('* kpm deprecate KChecklist 0.0.0 "v0.0.0 is deprecated"')
+  })
   .description('deprecate a kongponent')
+  .usage('deprecate <kongponent> <version> <message>')
   .action(function(kongponent, version, message) {
     deprecateKongponent(kongponent, version, message)
   });
