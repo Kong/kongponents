@@ -53,28 +53,6 @@ function deprecateKongponent(kongponent, version, message) {
     });
 }
 
-function listKongponent(kongponent) {
-  execSync(`lerna list --scope=@kongponents/${kongponent.toLowerCase()}`, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`exec error: ${error}`);
-        return;
-      }
-      console.log(`stdout: ${stdout}`);
-      console.log(`stderr: ${stderr}`);
-    });
-}
-
-function listKongponents() {
-  execSync(`lerna list`, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`exec error: ${error}`);
-        return;
-      }
-      console.log(`stdout: ${stdout}`);
-      console.log(`stderr: ${stderr}`);
-    });
-}
-
 function runTests(cb) {
   ls = spawn('yarn', ['test']);
   ls.stdout.on('data', function (data) {
