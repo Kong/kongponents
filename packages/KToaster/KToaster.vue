@@ -57,7 +57,7 @@ export default {
           'warning'
         ].indexOf(value) !== -1
       },
-      required: true
+      required: false
     }
   },
 
