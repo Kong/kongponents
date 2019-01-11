@@ -67,9 +67,6 @@
     "vue": "2.5.17"
   },
   "jest": {
-    "setupFiles": [
-      "./testconfig/jest.overrides.js"
-    ],
     "moduleFileExtensions": [
       "js",
       "json",
