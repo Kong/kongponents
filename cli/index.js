@@ -5,10 +5,9 @@ const CURR_DIR = process.cwd()
 const program = require('commander')
 const chalk = require('chalk')
 const fs = require('fs')
+const execSync = require('child_process').execSync
+const spawn = require('child_process').spawn
 
-
-const execSync = require('child_process').execSync;
-const spawn = require('child_process').spawn;
 
 function capitalizeFirstLetters (str, num) {
   return `${str.substring(0, num).toUpperCase()}${str.substr(num)}`
@@ -53,23 +52,32 @@ function deprecateKongponent(kongponent, version, message) {
     });
 }
 
+function formatTestOutput(data) {
+    data.forEach(element => {
+    if (element.toString().match( /FAIL/ )) {
+      console.log(chalk.red.bold(element.toString()))
+    } else if (element.toString().match( /PASS/ )) {
+      console.log(chalk.green.bold(element.toString()))
+    } else {
+      console.log(chalk.yellow.bold(element.toString()))
+    }
+  });
+}
+
 function runTests(cb) {
+  output = []
   ls = spawn('yarn', ['test']);
   ls.stdout.on('data', function (data) {
-    console.log(chalk.blue.bold(data.toString()));
+    console.log(chalk.blue.bold(data.toString()))
   });
-  // spawn swallows the syntax highlighting. This adds it back.
+
   ls.stderr.on('data', function (data) {
-    fail = data.toString().match( /FAIL/ )
-    pass = data.toString().match( /PASS/ )
-    if (fail) {
-      console.log(chalk.red.bold(data.toString()));
-    } else if (pass) {
-      console.log(chalk.green.bold(data.toString()));
-    }
+    output.push(data.toString())
   });
 
   ls.on('close', function(code) {
+    // spawn swallows the syntax highlighting. This adds it back.
+    formatTestOutput(output)
     cb(code);
   });
 }
@@ -145,6 +153,26 @@ program
         console.log(chalk.greenBright(`\n lerna publish --npm-tag=latest --skip-git --scope=@kongponents/${kongponent.toLowerCase()}`))
       } else {
         console.log(`Tests have failed! Please check before publishing ${kongponent}`);
+      }
+    })
+  });
+
+program
+  .command('publish-all')
+  .on('--help', function() {
+    console.log('Example:')
+    console.log('* kpm publish-all')
+  })
+  .description('publish all kongponents')
+  .action(function(kongponent) {
+    runTests(function(exitCode) {
+      if (exitCode == 0) {
+        // Currently execSync will barf on the interactive prompt from publishing your kongponent.
+        // spawn and spawnSync will return the result of the child process, but you can't interact with it.
+        console.log(`You did it! Tests have passed! Paste the following command in your prompt to publish your kongponent.`)
+        console.log(chalk.greenBright(`\n lerna publish --npm-tag=latest --skip-git --scope=@kongponents/${kongponent.toLowerCase()}`))
+      } else {
+        console.log(`Tests have failed! Please check before publishing kongponents`);
       }
     })
   });
