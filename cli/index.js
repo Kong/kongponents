@@ -8,9 +8,7 @@ const fs = require('fs')
 const execSync = require('child_process').execSync
 const spawn = require('child_process').spawn
 
-
 function capitalizeFirstLetters (str, num) {
-
   return `${str.substring(0, num).toUpperCase()}${str.substr(num)}`
 }
 
@@ -42,23 +40,24 @@ function createDirectoryContents (templatePath, newProjectPath, transformPath, t
   })
 }
 
-function deprecateKongponent(kongponent, version, message) {
+function deprecateKongponent (kongponent, version, message) {
   execSync(`npm deprecate @kongponents/${kongponent.toLowerCase()}@${version} "${message}"`, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`exec error: ${error}`)
+    if (error) {
+      console.error(`exec error: ${error}`)
 
-        return
-      }
-      console.log(`stdout: ${stdout}`)
-      console.log(`stderr: ${stderr}`)
-    })
+      return
+    }
+
+    console.log(`stdout: ${stdout}`)
+    console.log(`stderr: ${stderr}`)
+  })
 }
 
-function formatTestOutput(data) {
-    data.forEach(element => {
-    if (element.toString().match( /FAIL/ )) {
+function formatTestOutput (data) {
+  data.forEach(element => {
+    if (element.toString().match(/FAIL/)) {
       console.log(chalk.red.bold(element.toString()))
-    } else if (element.toString().match( /PASS/ )) {
+    } else if (element.toString().match(/PASS/)) {
       console.log(chalk.green.bold(element.toString()))
     } else {
       console.log(chalk.yellow.bold(element.toString()))
@@ -66,9 +65,10 @@ function formatTestOutput(data) {
   })
 }
 
-function runTests(cb) {
-  output = []
-  ls = spawn('yarn', ['test'])
+function runTests (cb) {
+  const output = []
+  const ls = spawn('yarn', ['test'])
+
   ls.stdout.on('data', function (data) {
     console.log(chalk.blue.bold(data.toString()))
   })
@@ -186,7 +186,7 @@ program
   })
   .description('upgrade a kongponent')
   .usage('<kongponent> <version>')
-  .action(function (kongponent,version) {
+  .action(function (kongponent, version) {
     runTests(function (exitCode) {
       if (exitCode != 0) {
         console.log(`You did it! Tests have passed! Paste the following command in your prompt to publish your kongponent.`)
