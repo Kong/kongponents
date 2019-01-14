@@ -10,6 +10,7 @@ const spawn = require('child_process').spawn
 
 
 function capitalizeFirstLetters (str, num) {
+
   return `${str.substring(0, num).toUpperCase()}${str.substr(num)}`
 }
 
@@ -44,12 +45,13 @@ function createDirectoryContents (templatePath, newProjectPath, transformPath, t
 function deprecateKongponent(kongponent, version, message) {
   execSync(`npm deprecate @kongponents/${kongponent.toLowerCase()}@${version} "${message}"`, (error, stdout, stderr) => {
       if (error) {
-        console.error(`exec error: ${error}`);
-        return;
+        console.error(`exec error: ${error}`)
+
+        return
       }
-      console.log(`stdout: ${stdout}`);
-      console.log(`stderr: ${stderr}`);
-    });
+      console.log(`stdout: ${stdout}`)
+      console.log(`stderr: ${stderr}`)
+    })
 }
 
 function formatTestOutput(data) {
@@ -61,35 +63,35 @@ function formatTestOutput(data) {
     } else {
       console.log(chalk.yellow.bold(element.toString()))
     }
-  });
+  })
 }
 
 function runTests(cb) {
   output = []
-  ls = spawn('yarn', ['test']);
+  ls = spawn('yarn', ['test'])
   ls.stdout.on('data', function (data) {
     console.log(chalk.blue.bold(data.toString()))
-  });
+  })
 
   ls.stderr.on('data', function (data) {
     output.push(data.toString())
-  });
+  })
 
-  ls.on('close', function(code) {
+  ls.on('close', function (code) {
     // spawn swallows the syntax highlighting. This adds it back.
     formatTestOutput(output)
-    cb(code);
-  });
+    cb(code)
+  })
 }
 
 program
-  .version('0.0.1')
+  .version('0.0.2')
 
 program
   .command('create <name>')
-  .on('--help', function() {
+  .on('--help', function () {
     console.log('Example:')
-    console.log('* kpm -d "a cool checklist feature" create KChecklist')
+    console.log('$ kpm create KChecklist -d "Checklist kongponent"')
   })
   .description('create a kongponent')
   .usage('[options] <name>')
@@ -138,76 +140,73 @@ program
 
 program
   .command('publish <kongponent>')
-  .on('--help', function() {
+  .on('--help', function () {
     console.log('Example:')
-    console.log('* kpm publish KChecklist')
+    console.log('$ kpm publish KChecklist')
   })
   .description('publish a kongponent')
   .usage('<kongponent>')
-  .action(function(kongponent) {
-    runTests(function(exitCode) {
+  .action(function (kongponent) {
+    runTests(function (exitCode) {
       if (exitCode == 0) {
         // Currently execSync will barf on the interactive prompt from publishing your kongponent.
         // spawn and spawnSync will return the result of the child process, but you can't interact with it.
+        // TODO: run lerna publish commands for the user instead of instructing to copy paste (applies to publish-all and upgrade)
         console.log(`You did it! Tests have passed! Paste the following command in your prompt to publish your kongponent.`)
         console.log(chalk.greenBright(`\n lerna publish --npm-tag=latest --skip-git --scope=@kongponents/${kongponent.toLowerCase()}`))
       } else {
-        console.log(`Tests have failed! Please check before publishing ${kongponent}`);
+        console.log(`Tests have failed! Please check before publishing ${kongponent}`)
       }
     })
-  });
+  })
 
 program
   .command('publish-all')
-  .on('--help', function() {
+  .on('--help', function () {
     console.log('Example:')
-    console.log('* kpm publish-all')
+    console.log('$ kpm publish-all')
   })
   .description('publish all kongponents')
-  .action(function(kongponent) {
-    runTests(function(exitCode) {
+  .action(function () {
+    runTests(function (exitCode) {
       if (exitCode == 0) {
-        // Currently execSync will barf on the interactive prompt from publishing your kongponent.
-        // spawn and spawnSync will return the result of the child process, but you can't interact with it.
         console.log(`You did it! Tests have passed! Paste the following command in your prompt to publish your kongponent.`)
-        console.log(chalk.greenBright(`\n lerna publish --npm-tag=latest --skip-git --scope=@kongponents/${kongponent.toLowerCase()}`))
+        console.log(chalk.greenBright(`\n lerna publish --skip-git --npm-tag=latest`))
       } else {
-        console.log(`Tests have failed! Please check before publishing kongponents`);
+        console.log(`Tests have failed! Please check before publishing kongponents`)
       }
     })
-  });
+  })
 
 program
   .command('upgrade <kongponent> <version>')
-  .on('--help', function() {
+  .on('--help', function () {
     console.log('Example:')
-    console.log('* kpm upgrade KChecklist prepatch')
+    console.log('$ kpm upgrade KChecklist prepatch')
   })
   .description('upgrade a kongponent')
   .usage('<kongponent> <version>')
-  .action(function(kongponent,version) {
-    runTests(function(exitCode) {
+  .action(function (kongponent,version) {
+    runTests(function (exitCode) {
       if (exitCode != 0) {
-        // Currently execSync will barf on the interactive prompt from publishing your kongponent.
-        // spawn and spawnSync will return the result of the child process, but you can't interact with it.
         console.log(`You did it! Tests have passed! Paste the following command in your prompt to publish your kongponent.`)
         console.log(chalk.greenBright(`lerna publish --cd-version=${version} --skip-git --scope=@kongponents/${kongponent.toLowerCase()}`))
       } else {
-        console.log(`Tests have failed! Please check before publishing ${kongponent}`);
+        console.log(`Tests have failed! Please check before publishing ${kongponent}`)
       }
     })
-  });
+  })
 
 program
   .command('deprecate <kongponent> <version> <message>')
-  .on('--help', function() {
+  .on('--help', function () {
     console.log('Example:')
-    console.log('* kpm deprecate KChecklist 0.0.0 "v0.0.0 is deprecated"')
+    console.log('$ kpm deprecate KChecklist 0.0.0 "v0.0.0 is deprecated"')
   })
   .description('deprecate a kongponent')
   .usage('deprecate <kongponent> <version> <message>')
-  .action(function(kongponent, version, message) {
+  .action(function (kongponent, version, message) {
     deprecateKongponent(kongponent, version, message)
-  });
+  })
 
 program.parse(process.argv)
