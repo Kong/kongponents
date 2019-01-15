@@ -155,7 +155,7 @@ program
         console.log(`You did it! Tests have passed! Paste the following command in your prompt to publish your kongponent.`)
         console.log(chalk.greenBright(`\n lerna publish --npm-tag=latest --skip-git --scope=@kongponents/${kongponent.toLowerCase()}`))
       } else {
-        console.log(`Tests have failed! Please check before publishing ${kongponent}`)
+        console.log(`Tests have failed! Please check before publishing ${kongponent}.`)
       }
     })
   })
@@ -170,10 +170,10 @@ program
   .action(function () {
     runTests(function (exitCode) {
       if (exitCode == 0) {
-        console.log(`You did it! Tests have passed! Paste the following command in your prompt to publish your kongponent.`)
+        console.log(`You did it! Tests have passed! Paste the following command in your prompt to publish your kongponents.`)
         console.log(chalk.greenBright(`\n lerna publish --skip-git --npm-tag=latest`))
       } else {
-        console.log(`Tests have failed! Please check before publishing kongponents`)
+        console.log(`Tests have failed! Please check before publishing kongponents.`)
       }
     })
   })
@@ -189,10 +189,10 @@ program
   .action(function (kongponent, version) {
     runTests(function (exitCode) {
       if (exitCode != 0) {
-        console.log(`You did it! Tests have passed! Paste the following command in your prompt to publish your kongponent.`)
+        console.log(`You did it! Tests have passed! Paste the following command in your prompt to upgrade your kongponent.`)
         console.log(chalk.greenBright(`lerna publish --cd-version=${version} --skip-git --scope=@kongponents/${kongponent.toLowerCase()}`))
       } else {
-        console.log(`Tests have failed! Please check before publishing ${kongponent}`)
+        console.log(`Tests have failed! Please check before upgrading ${kongponent}.`)
       }
     })
   })
