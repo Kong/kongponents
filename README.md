@@ -74,7 +74,7 @@ We use [Lerna](https://lernajs.io/) to publish Kongponents.
 ### Publishing Multiple Components
 
 ```bash
-npm publish
+kpm publish-all
 ```
 Lerna will check each component for differences and prompt you to select a version for any that have changed. If creating for the first time select `Custom` and enter `0.0.1-beta.<current_version>`. If bumping the version select `Custom` and increase the number after `-beta`
 
@@ -82,9 +82,9 @@ Lerna will check each component for differences and prompt you to select a versi
 
 ### Publishing Single Component
 
-To publish a *single* component pass the name of the component as a parameter first and add `:scope`
+To publish a *single* component pass the name of the component as a parameter first
 ```bash
-component=kicon npm run publish:scope
+kpm publish <kongponent>
 ```
 Follow the prompt as noted before.
 
