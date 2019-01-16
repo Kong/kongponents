@@ -61,7 +61,9 @@ kpm --help
 
 ```
 
-### Creating Kongponents:
+## Creating a New Kongponent
+
+If you are interested in contributing to the Kongponents repo, please review CONTRIBUTING.md for git standards.
 
 Run the following command to create a new component built from the [template files](cli/template)
 
