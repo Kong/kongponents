@@ -1,6 +1,10 @@
 # Kongponents 🍌
 
-Kong Component [Vue](https://vuejs.org/) library. [kong.github.io/kongponents/](https://kong.github.io/kongponents/)
+Welcome to Kongponents, Kong's very own [Vue](https://vuejs.org/) [component](https://vuejs.org/v2/guide/components.html#ad) library. [kong.github.io/kongponents/](https://kong.github.io/kongponents/)
+
+Kongponents offer multiple teams the ability to reuse frequently needed UI elements, reducing each team's efforts. They should be simple on the surface and extensible. Kongponents should also be maintainable and easy to compose with others (for example, KButton is reused in KModal and KEmptyState). Unique components that are tightly related to a particular application should not be turned into Kongponents.
+
+If you are interested in contributing to the Kongponents repo, please review CONTRIBUTING.md for git standards and release guidelines.
 
 ## Installation
 
