@@ -157,8 +157,6 @@ Follow the prompt as noted before.
 
 Kongponents is a mono repo, managed by Lerna. It follows suggested Lerna directory structure with a root `packages` folder which contain all the components. Lerna allows easier developer experience through a single git repository, managed dependencies, and easy publishing of individual components. It's like blowing up the monolith, but you still have the perks of the monolith during development.
 
-To see the structure of the Kongponent template created through the CLI, see: https://github.com/Kong/kongponents/tree/master/cli/template
-
 ```
 packages                     # root directory of all components
 ├── KButton                  
@@ -182,3 +180,13 @@ packages                     # root directory of all components
 .   .
 .
 ```
+.
+```
+
+## Asking Questions and Submitting Tickets
+
+If you encounter difficulty working with Kongponents, either in your own codebase or in contributing to this one, post questions in #design-pattern-lib or #team-interfaces. If you discover a problem but are unsure whether it's a bug, it may be resolved faster to ask in the channels first.
+
+In case the problem is an actual bug, create a Jira ticket for Team Interfaces (https://konghq.atlassian.net/secure/RapidBoard.jspa?projectKey=INTF&rapidView=11&view=planning). Document the steps to replicate the bug with screenshots and error messages, if possible. Please also mention the browser, the versions and branches of the applications involved (e.g. kong-admin, kong-ee), and your configuration for Kong.
+
+To request a feature or an improvement, describe use cases for the team to review in #design-pattern-lib or #team-interfaces. If an alternative already exists, mention why a Kongponent would be a better approach. 
