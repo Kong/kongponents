@@ -157,6 +157,8 @@ Follow the prompt as noted before.
 
 Kongponents is a mono repo, managed by Lerna. It follows suggested Lerna directory structure with a root `packages` folder which contain all the components. Lerna allows easier developer experience through a single git repository, managed dependencies, and easy publishing of individual components. It's like blowing up the monolith, but you still have the perks of the monolith during development.
 
+To see the structure of the Kongponent template created through the CLI, see: https://github.com/Kong/kongponents/tree/master/cli/template
+
 ```
 packages                     # root directory of all components
 ├── KButton                  
