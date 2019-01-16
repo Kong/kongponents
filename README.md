@@ -182,8 +182,6 @@ packages                     # root directory of all components
 .   .
 .
 ```
-.
-```
 
 ## Asking Questions and Submitting Tickets
 
