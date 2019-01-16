@@ -107,11 +107,11 @@ Write unit tests for base functionality (e.g. that buttons work correctly, text 
 
 A PR needs at least one approving review before it can be merged. To open a PR for a branch that is still a work in progress, use the WIP tag to let others know that it is not intended for final review. 
 
-Before publishing a new version as detailed in [Publishing to NPM](#publishing-to-npm), update the version in package.json. If creating a new Kongponent, use `0.0.1-beta.1`. If updating, add `1` after `beta`.
+Before publishing a new version as detailed in [Publishing to NPM](#publishing-to-npm), update the version in `package.json`. If creating a new Kongponent, use `0.0.1-beta.1`. If updating, add `1` after `beta`.
 
 Create a release tag for the branch with the matching version number.
 
-The WIP flag should not be removed until tests are passing and the versions in `package.jso`n and the release branch are up to date.
+The WIP flag should not be removed until tests are passing and the versions in `package.json` and the release branch are up to date.
 
 ## Reviewing a PR
 
@@ -119,12 +119,12 @@ To review a PR, check that it meets the following requirements:
 
   * Does not introduce dependencies
   * Functional: all changes do not break existing APIs and if so, bump major version.
-  * Tests pass: check the output of  yarn test packages/<Kongponent>
+  * Tests pass: check the output of  `yarn test packages/<Kongponent>`
   * Naming: the files and the method and prop variables use the same naming conventions as other Kongponents
   * Framework style: abides by the essential rules in Vue's style guide (https://vuejs.org/v2/style-guide/)
   * Cleanliness: does not have formatting issues, unused code (e.g. console.logs), or leftover comments
   * Docs: includes a technically accurate README, uses JSDOC where appropriate
-  * Version: package.json and the release tag both reflect the same, accurate version
+  * Version: `package.json` and the release tag both reflect the same, accurate version
 
 If any of the above are missing, the PR should be blocked until they are resolved. Needless to say, this list is not exhaustive. If the PR introduces anything that would be detrimental to developers or users, it should be blocked. 
 
@@ -185,8 +185,8 @@ packages                     # root directory of all components
 
 ## Asking Questions and Submitting Tickets
 
-If you encounter difficulty working with Kongponents, either in your own codebase or in contributing to this one, post questions in #design-pattern-lib or #team-interfaces. If you discover a problem but are unsure whether it's a bug, it may be resolved faster to ask in the channels first.
+If you encounter difficulty working with Kongponents, either in your own codebase or in contributing to this one, post questions in `#design-pattern-lib` or `#team-interfaces`. If you discover a problem but are unsure whether it's a bug, it may be resolved faster to ask in the channels first.
 
 In case the problem is an actual bug, create a Jira ticket for [Team Interfaces](https://konghq.atlassian.net/secure/RapidBoard.jspa?projectKey=INTF). Document the steps to replicate the bug with screenshots and error messages, if possible. Please also mention the browser, the versions and branches of the applications involved (e.g. kong-admin, kong-ee), and your configuration for Kong.
 
-To request a feature or an improvement, describe use cases for the team to review in #design-pattern-lib or #team-interfaces. If an alternative already exists, mention why a Kongponent would be a better approach. 
+To request a feature or an improvement, describe use cases for the team to review in `#design-pattern-lib` or `#team-interfaces`. If an alternative already exists, mention why a Kongponent would be a better approach. 
