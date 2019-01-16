@@ -71,6 +71,65 @@ Run the following command to create a new component built from the [template fil
 kpm create <kongponent_name> -d <kongponent_description>
 ```
 
+### Style Guidelines
+
+All Kongponents should abide by the essential rules in Vue's [style guide](https://vuejs.org/v2/style-guide/). To maintain consistency, use conventions that already exist in other Kongponents: name the Kongponent with K, use camel case, and be as accurate as possible in naming Kongponents.
+
+Provide as much detail in the [prop definitions](https://vuejs.org/v2/style-guide/#Prop-definitions-essential) as possible to (1) make the code self-documenting and (2) enable Vue to warn developers if they are providing props to the Kongponent incorrectly.  
+
+Use predicates in names of data properties or methods that return booleans. For example, use “isDisabled” and “hasBorder” instead of “disabled” and “border”. Avoid abbreviations unless they are commonly used acronyms, e.g. “Url”, “Http”.
+
+### Avoiding Dependencies
+
+Avoid introducing new dependencies into Kongponents. Part of this library's value is that it reduces the need for external UI libraries such as Vue Bootstrap. More broadly, dependencies in any component library could introduce stability -and- security issues, and it would quickly become difficult to prevent redundant dependencies with different versions in a given application.
+
+### Documenting Kongponents
+
+In addition to detailed prop definitions, each Kongponent must include a `README` that models how the Kongponent and its related attributes would appear from the surface:
+
+```javascript
+const attributes = {
+  description: '{%kongponent_description%}',
+}
+
+<{%kongponent_name%} :description="attributes.description">
+  Hello from a slot
+</{%kongponent_name%}>
+```
+
+VSCode has built-in descriptions and type checking for [JSDOC](https://github.com/jsdoc3/jsdoc) that avoids the need for TypeScript. Generate comments within code on as many methods as possible.
+
+### Test Coverage
+
+Write unit tests for base functionality (e.g. that buttons work correctly, text displays on banners), as well as edge cases (e.g. invalid input, returning to an empty state after clearing the input).
+
+## Submitting a PR
+
+A PR needs at least one approving review before it can be merged. To open a PR for a branch that is still a work in progress, use the WIP tag to let others know that it is not intended for final review. 
+
+Before publishing a new version as detailed in [Publishing to NPM](#publishing-to-npm), update the version in package.json. If creating a new Kongponent, use `0.0.1-beta.1`. If updating, add `1` after `beta`.
+
+Create a release tag for the branch with the matching version number.
+
+The WIP flag should not be removed until tests are passing and the versions in `package.jso`n and the release branch are up to date.
+
+## Reviewing a PR
+
+To review a PR, check that it meets the following requirements:
+
+  * Does not introduce dependencies
+  * Functional: all changes do not break existing APIs and if so, bump major version.
+  * Tests pass: check the output of  yarn test packages/<Kongponent>
+  * Naming: the files and the method and prop variables use the same naming conventions as other Kongponents
+  * Framework style: abides by the essential rules in Vue's style guide (https://vuejs.org/v2/style-guide/)
+  * Cleanliness: does not have formatting issues, unused code (e.g. console.logs), or leftover comments
+  * Docs: includes a technically accurate README, uses JSDOC where appropriate
+  * Version: package.json and the release tag both reflect the same, accurate version
+
+If any of the above are missing, the PR should be blocked until they are resolved. Needless to say, this list is not exhaustive. If the PR introduces anything that would be detrimental to developers or users, it should be blocked. 
+
+There are often times when a suggested change would simply be a “nice-to-have”, and when blocking would simply create friction. The reviewer should note that the comment is a preference, and the PR author has discretion over how to address the request. In such cases, a reviewer's “approval” is simply pending the author's response to the feedback, rather than a change to the code.
+
 ## Publishing to NPM
 
 We use [Lerna](https://lernajs.io/) to publish Kongponents. 
