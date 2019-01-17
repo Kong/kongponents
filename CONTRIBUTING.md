@@ -6,7 +6,7 @@ Thank you for your interest in contributing to Kongponents. Please follow the gu
 
 Branch from master. Name the new branch with a type followed by a brief title, e.g., “fix/broken-button” or “chore/bump-version”. For a list of types, follow the same conventions used in commit messages below. 
 
-Limit the scope of the branch to one particular outcome. If you encounter other improvements you can make during the course of working on the branch, e.g. if you discover another bug you could fix or a dependency version that needs to be increased, please maintain commit atomicity. 
+Limit the scope of the branch to one particular outcome. If you encounter other improvements you can make during the course of working on the branch, e.g., if you discover another bug you could fix or a dependency version that needs to be increased, please maintain commit atomicity. 
 
 Rebase regularly to keep the code history flat and readable. To open a PR, even for a branch that is still in progress, see [submitting a PR](README.md#submitting-a-pr).
 
