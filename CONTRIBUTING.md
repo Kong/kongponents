@@ -4,7 +4,7 @@ Thank you for your interest in contributing to Kongponents. Please follow the gu
 
 ## Branching
 
-Branch from master. Name the new branch with a type followed by a brief title, e.g., “fix/broken-button” or “chore/bump-version”. For a list of types, follow the same conventions used in commit messages below. 
+Branch from `master`. Name the new branch with a type followed by a brief title, e.g., `fix/broken-button` or `chore/bump-version`. For a list of types, follow the same conventions used in commit messages below. 
 
 Limit the scope of the branch to one particular outcome. If you encounter other improvements you can make during the course of working on the branch, e.g., if you discover another bug you could fix or a dependency version that needs to be increased, please maintain commit atomicity. 
 
