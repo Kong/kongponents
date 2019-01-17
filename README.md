@@ -109,7 +109,7 @@ A PR needs at least one approving review before it can be merged. To open a PR f
 
 Before publishing a new version as detailed in [Publishing to NPM](#publishing-to-npm), update the version in `package.json`. If creating a new Kongponent, use `0.0.1-beta.1`. If updating, add `1` after `beta`.
 
-Create a release tag for the branch with the matching version number.
+Create a Git tag for the branch with the matching version number.
 
 The WIP tag should not be removed until tests are passing and the versions in `package.json` and the release branch are up to date.
 
