@@ -111,7 +111,7 @@ Before publishing a new version as detailed in [Publishing to NPM](#publishing-t
 
 Create a release tag for the branch with the matching version number.
 
-The WIP flag should not be removed until tests are passing and the versions in `package.json` and the release branch are up to date.
+The WIP tag should not be removed until tests are passing and the versions in `package.json` and the release branch are up to date.
 
 ## Reviewing a PR
 
