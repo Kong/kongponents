@@ -128,7 +128,7 @@ To review a PR, check that it meets the following requirements:
 
 If any of the above are missing, the PR should be blocked until they are resolved. Needless to say, this list is not exhaustive. If the PR introduces anything that would be detrimental to developers or users, it should be blocked. 
 
-There are often times when a suggested change would simply be a “nice-to-have”, and when blocking would simply create friction. The reviewer should note that the comment is a preference, and the PR author has discretion over how to address the request. In such cases, a reviewer's “approval” is simply pending the author's response to the feedback, rather than a change to the code.
+There are often times when a suggested change would simply be a “nice-to-have”, and when blocking would create friction. The reviewer should note that the comment is a preference, and the PR author has discretion over how to address the request. In such cases, a reviewer's “approval” is pending the author's response to the feedback, rather than a change to the code.
 
 ## Publishing to NPM
 
