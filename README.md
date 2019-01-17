@@ -77,7 +77,7 @@ All Kongponents should abide by the essential rules in Vue's [style guide](https
 
 Provide as much detail in the [prop definitions](https://vuejs.org/v2/style-guide/#Prop-definitions-essential) as possible to (1) make the code self-documenting and (2) enable Vue to warn developers if they are providing props to the Kongponent incorrectly.  
 
-Use predicates in names of data properties or methods that return booleans. For example, use “isDisabled” and “hasBorder” instead of “disabled” and “border”. Avoid abbreviations unless they are commonly used acronyms, e.g. “isUrl”, “http”.
+Use predicates in names of data properties or methods that return booleans. For example, use “isDisabled” and “hasBorder” instead of “disabled” and “border”. Avoid abbreviations unless they are commonly used acronyms, e.g., “isUrl”, “http”.
 
 ### Avoiding Dependencies
 
@@ -101,7 +101,7 @@ VSCode has built-in descriptions and type checking for [JSDOC](https://github.co
 
 ### Test Coverage
 
-Write unit tests for base functionality (e.g. that buttons work correctly, text displays on banners), as well as edge cases (e.g. invalid input, returning to an empty state after clearing the input).
+Write unit tests for base functionality (e.g., that buttons work correctly, text displays on banners), as well as edge cases (e.g., invalid input, returning to an empty state after clearing the input).
 
 ## Submitting a PR
 
@@ -122,7 +122,7 @@ To review a PR, check that it meets the following requirements:
   * Tests pass: check the output of  `yarn test packages/<Kongponent>`
   * Naming: the files and the method and prop variables use the same naming conventions as other Kongponents
   * Framework style: abides by the essential rules in [Vue's style guide](https://vuejs.org/v2/style-guide/)
-  * Cleanliness: does not have formatting issues, unused code (e.g. console.logs), or leftover comments
+  * Cleanliness: does not have formatting issues, unused code (e.g., console.logs), or leftover comments
   * Docs: includes a technically accurate README, uses JSDOC where appropriate
   * Version: `package.json` and the release tag both reflect the same, accurate version
 
@@ -187,6 +187,6 @@ packages                     # root directory of all components
 
 If you encounter difficulty working with Kongponents, either in your own codebase or in contributing to this one, post questions in `#design-pattern-lib` or `#team-interfaces`. If you discover a problem but are unsure whether it's a bug, it may be resolved faster in the channels.
 
-Log bugs with [Team Interfaces](https://konghq.atlassian.net/secure/RapidBoard.jspa?projectKey=INTF). Document the steps to replicate the bug with screenshots and error messages, if possible. Please also mention the browser, the versions and branches of the applications involved (e.g. [`kong-admin`](https://github.com/Kong/kong-admin), [`kong-ee`](https://github.com/Kong/kong-ee)), and your configuration for Kong.
+Log bugs with [Team Interfaces](https://konghq.atlassian.net/secure/RapidBoard.jspa?projectKey=INTF). Document the steps to replicate the bug with screenshots and error messages, if possible. Please also mention the browser, the versions and branches of the applications involved (e.g., [`kong-admin`](https://github.com/Kong/kong-admin), [`kong-ee`](https://github.com/Kong/kong-ee)), and your configuration for Kong.
 
 To request a feature or an improvement, describe use cases for the team to review in `#design-pattern-lib` or `#team-interfaces`. If an alternative already exists, mention why a Kongponent would be a better approach. 
