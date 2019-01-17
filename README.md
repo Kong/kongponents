@@ -185,7 +185,7 @@ packages                     # root directory of all components
 
 ## Asking Questions and Submitting Tickets
 
-If you encounter difficulty working with Kongponents, either in your own codebase or in contributing to this one, post questions in `#design-pattern-lib` or `#team-interfaces`. If you discover a problem but are unsure whether it's a bug, it may be resolved faster to ask in the channels first.
+If you encounter difficulty working with Kongponents, either in your own codebase or in contributing to this one, post questions in `#design-pattern-lib` or `#team-interfaces`. If you discover a problem but are unsure whether it's a bug, it may be resolved faster in the channels.
 
 In case the problem is an actual bug, create a Jira ticket for [Team Interfaces](https://konghq.atlassian.net/secure/RapidBoard.jspa?projectKey=INTF). Document the steps to replicate the bug with screenshots and error messages, if possible. Please also mention the browser, the versions and branches of the applications involved (e.g. [`kong-admin`](https://github.com/Kong/kong-admin), [`kong-ee`](https://github.com/Kong/kong-ee)), and your configuration for Kong.
 
