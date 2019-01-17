@@ -81,7 +81,7 @@ Use predicates in names of data properties or methods that return booleans. For 
 
 ### Avoiding Dependencies
 
-Avoid introducing new dependencies into Kongponents. Part of this library's value is that it reduces the need for external UI libraries such as Vue Bootstrap. More broadly, dependencies in any component library could introduce stability -and- security issues, and it would quickly become difficult to prevent redundant dependencies with different versions in a given application.
+Avoid introducing new dependencies into Kongponents. Part of this library's value is that it reduces the need for external UI libraries such as Vue Bootstrap. More broadly, dependencies in any component library could introduce stability and security issues, and it would quickly become difficult to prevent redundant dependencies with different versions in a given application.
 
 ### Documenting Kongponents
 
