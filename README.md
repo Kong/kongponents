@@ -4,7 +4,7 @@ Welcome to Kongponents, Kong's very own [Vue](https://vuejs.org/) [component](ht
 
 Kongponents offer multiple teams the ability to reuse frequently needed UI elements, reducing each team's efforts. They should be simple on the surface and extensible. Kongponents should also be maintainable and easy to compose with others (for example, KButton is reused in KModal and KEmptyState). Unique components that are tightly related to a particular application should not be turned into Kongponents.
 
-If you are interested in contributing to the Kongponents repo, please review [CONTRIBUTING.md](CONTRIBUTING.md) for git standards and release guidelines.
+If you are interested in contributing to the Kongponents repo, please review [CONTRIBUTING.md](CONTRIBUTING.md) for Git standards and release guidelines.
 
 ## Installation
 
