@@ -1,7 +1,7 @@
 pipeline {
   agent {
     node {
-      label 'docker-compose'
+      label 'build-kongponents'
     }
   }
   options {
