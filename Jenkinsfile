@@ -1,12 +1,6 @@
 pipeline {
-  agent {
-    node {
-      label 'build-kongponents'
-    }
-  }
-  options {
-    timeout(time: 30, unit: 'MINUTES')
-  }
+  agent any
+
   stages {
     stage('Debug') {
       steps {
