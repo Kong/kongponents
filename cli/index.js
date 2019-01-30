@@ -161,6 +161,23 @@ program
   })
 
 program
+  .command('tests')
+  .on('--help', function () {
+    console.log('Example:')
+    console.log('$ kpm tests')
+  })
+  .description('run kongponent tests')
+  .action(function () {
+    runTests(function (exitCode) {
+      if (exitCode === 0) {
+        console.log(`You did it! Tests have passed!`)
+      } else {
+        console.log(`Tests have failed!`)
+      }
+    })
+  })
+
+program
   .command('publish-all')
   .on('--help', function () {
     console.log('Example:')
@@ -169,7 +186,7 @@ program
   .description('publish all kongponents')
   .action(function () {
     runTests(function (exitCode) {
-      if (exitCode == 0) {
+      if (exitCode === 0) {
         console.log(`You did it! Tests have passed! Paste the following command in your prompt to publish your kongponents.`)
         console.log(chalk.greenBright(`\n lerna publish --skip-git --npm-tag=latest`))
       } else {
@@ -188,7 +205,7 @@ program
   .usage('<kongponent> <version>')
   .action(function (kongponent, version) {
     runTests(function (exitCode) {
-      if (exitCode != 0) {
+      if (exitCode !== 0) {
         console.log(`You did it! Tests have passed! Paste the following command in your prompt to upgrade your kongponent.`)
         console.log(chalk.greenBright(`lerna publish --cd-version=${version} --skip-git --scope=@kongponents/${kongponent.toLowerCase()}`))
       } else {

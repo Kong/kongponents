@@ -31,18 +31,7 @@ pipeline {
         }
       }
       steps {
-        sh ''
-      }
-    }
-    stage('Release') {
-      when {
-        buildingTag()
-      }
-      steps {
-      }
-      post {
-        always {
-        }
+        sh 'kpm tests'
       }
     }
   }
