@@ -7,9 +7,6 @@ pipeline {
   options {
     timeout(time: 30, unit: 'MINUTES')
   }
-  environment {
-
-  }
   stages {
     stage('Debug') {
       steps {
