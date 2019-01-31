@@ -6,4 +6,4 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: kongponents
+    container_name: kongponents_one
