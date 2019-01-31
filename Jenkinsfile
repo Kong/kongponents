@@ -30,8 +30,7 @@ pipeline {
       }
       post {
         always {
-          sh 'docker-compose stop'
-          sh 'docker-compose rm -f || true'
+          sh 'docker-compose ps --services'
         }
       }
     }
