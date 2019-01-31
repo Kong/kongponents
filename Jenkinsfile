@@ -17,11 +17,9 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'docker-compose down'
-        sh 'docker-compose rm -f || true'
-        sh 'docker ps -a'
-        sh 'docker stop $(docker-compose ps)'
-        sh 'docker rm $(docker-compose ps)'
+        deleteDir()
+        sh 'docker-compose pull'
+        sh 'docker-compose up -d'
       }
     }
     stage('Tests') {
