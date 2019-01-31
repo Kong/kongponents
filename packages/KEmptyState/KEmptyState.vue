@@ -1,10 +1,10 @@
 <template>
   <div class="empty-state-wrapper">
     <div class="empty-state-title">
-      <h5><slot name="title">Empty state title</slot></h5>
+      <h5><slot name="title"></slot></h5>
     </div>
     <div class="empty-state-content">
-      <p><slot name="message">Empty state message</slot></p>
+      <p><slot name="message"></slot></p>
       <p>
         <slot name="cta">
           <KButton
@@ -32,7 +32,7 @@ export default {
     },
     ctaText: {
       type: String,
-      default: 'CTA Text'
+      default: ''
     },
     handleClick: {
       type: Function,
