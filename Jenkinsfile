@@ -15,18 +15,6 @@ pipeline {
     GITHUB_TOKEN = credentials('GITHUB_TOKEN')
   }
   stages {
-    stage('Debug') {
-      steps {
-        sh 'ls -la .'
-        sh 'ls -la /var/run/docker.sock'
-        sh 'whoami'
-        sh 'id'
-        sh 'printenv'
-        sh 'docker info'
-        sh 'docker version'
-        sh 'docker-compose version'
-      }
-    }
     stage('Build') {
       steps {
         sh 'docker-compose pull'
@@ -35,10 +23,10 @@ pipeline {
     }
     stage('Tests') {
       steps {
-        sh 'docker-compose up -d --force-recreate --no-build'
+        sh 'docker-compose up --force-recreate --no-build -d kongponents'
         sh 'docker ps -a'
         sh 'docker-compose ps'
-        sh 'docker-compose exec -T kongponents kpm tests'
+        sh 'docker-compose exec -T kongponents_kongponents_1 kpm tests'
       }
       post {
         always {
