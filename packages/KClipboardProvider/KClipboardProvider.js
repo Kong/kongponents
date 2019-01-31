@@ -1,6 +1,11 @@
 export default {
   name: 'KClipboardProvider',
   methods: {
+    /**
+     * Copy any text string to the clipboard
+     * @param {string} text - pass in the text to copy to the clipboard
+     * @returns {boolean} success/failure
+     */
     copyTextToClipboard (text) {
       let isSuccess = true
 
@@ -37,6 +42,9 @@ export default {
       return isSuccess
     }
   },
+  /**
+   * @returns {VNode}
+   */
   render () {
     return this.$scopedSlots.default({
       copyToClipboard: this.copyTextToClipboard
