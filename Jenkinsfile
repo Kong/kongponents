@@ -17,7 +17,6 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        deleteDir()
         sh 'docker-compose pull'
         sh 'docker-compose up -d'
       }
@@ -35,6 +34,7 @@ pipeline {
   post {
     always {
       sh 'echo "we did it"'
+      deleteDir()
     }
   }
 }
