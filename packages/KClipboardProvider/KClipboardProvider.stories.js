@@ -14,7 +14,7 @@ storiesOf('KClipboardProvider', module)
       <KClipboardProvider>
         <KButton
           slot-scope="{ copyToClipboard }"
-          @click="()=>{ if(copyToClipboard(dataToCopy)){ alert(dataToCopy) } }">
+          @click="() => { if(copyToClipboard(dataToCopy)){ alert(dataToCopy) } }">
           copy to clipboard
         </KButton>
       </KClipboardProvider>
