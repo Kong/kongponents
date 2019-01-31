@@ -29,11 +29,13 @@ pipeline {
     }
     stage('Build') {
       steps {
-        sh 'docker-compose up -d --force-recreate --build'
+        sh 'docker-compose pull'
+        sh 'docker-compose build'
       }
     }
     stage('Tests') {
       steps {
+        sh 'docker-compose up -d --force-recreate --no-build'
         sh 'docker-compose exec -T kongponents kpm tests'
       }
       post {
