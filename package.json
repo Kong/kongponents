@@ -66,6 +66,9 @@
   "dependencies": {
     "vue": "2.5.17"
   },
+  "engines": {
+    "yarn" : "^1.13.0"
+  },
   "jest": {
     "moduleFileExtensions": [
       "js",

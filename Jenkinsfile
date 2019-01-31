@@ -33,15 +33,14 @@ pipeline {
       }
     }
     stage('Tests') {
-      when {
-        anyOf {
-          branch 'master'
-          changeRequest target: 'master'
-          buildingTag()
-        }
-      }
       steps {
-        sh 'kpm tests'
+        sh 'docker-compose exec -T kongponents kpm tests'
+      }
+      post {
+        always {
+          sh 'docker-compose stop'
+          sh 'docker-compose rm -f || true'
+        }
       }
     }
   }
