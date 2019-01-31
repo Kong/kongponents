@@ -17,6 +17,8 @@ pipeline {
   stages {
     stage('Build') {
       steps {
+        sh 'docker-compose stop'
+        sh 'docker-compose rm -f || true'
         sh 'docker-compose pull'
         sh 'docker-compose build'
       }
