@@ -29,7 +29,7 @@ pipeline {
     }
     stage('Build') {
       steps {
-        sh 'kpm --help'
+        sh 'docker-compose up -d --force-recreate --build'
       }
     }
     stage('Tests') {
