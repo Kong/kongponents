@@ -15,24 +15,22 @@ pipeline {
     GITHUB_TOKEN = credentials('GITHUB_TOKEN')
   }
   stages {
-    stage('Build') {
-      steps {
-        sh 'docker-compose pull'
-        sh 'docker-compose up -d'
-      }
-    }
     stage('Tests') {
       steps {
+        sh 'docker-compose down'
+        sh 'docker-compose rm -f || true'
         sh 'docker-compose pull'
         sh 'docker-compose up -d'
         sh 'docker ps -a'
         sh 'docker-compose ps --services'
-        sh 'docker-compose exec $(docker-compose ps --services) kpm tests'
+        sh 'docker-compose exec kongponents_one kpm tests'
       }
     }
   }
   post {
     always {
+      sh 'docker-compose down'
+      sh 'docker-compose rm -f || true'
       sh 'echo "we did it"'
       deleteDir()
     }
