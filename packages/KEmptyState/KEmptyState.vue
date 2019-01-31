@@ -1,17 +1,17 @@
 <template>
   <div class="empty-state-wrapper">
     <div class="empty-state-title">
-      <h5><slot name="title"></slot></h5>
+      <h5><slot name="title"/></h5>
     </div>
     <div class="empty-state-content">
-      <p><slot name="message"></slot></p>
+      <p><slot name="message"/></p>
       <p>
         <slot name="cta">
           <KButton
             v-if="!ctaIsHidden"
             :is-rounded="true"
-            @click.native="handleClick"
-            appearance="outline-primary">
+            appearance="outline-primary"
+            @click.native="handleClick">
             {{ ctaText }}
           </KButton>
         </slot>
