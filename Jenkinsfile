@@ -20,8 +20,8 @@ pipeline {
         sh 'docker-compose down'
         sh 'docker-compose rm -f || true'
         sh 'docker ps -a'
-        sh 'docker stop $(docker ps -a -q)'
-        sh 'docker rm $(docker ps -a -q)'
+        sh 'docker stop $(docker-compose ps)'
+        sh 'docker rm $(docker-compose ps)'
       }
     }
     stage('Tests') {
