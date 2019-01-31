@@ -25,7 +25,7 @@ pipeline {
     }
     stage('Tests') {
       steps {
-        sh 'docker-compose up -d --force-recreate --no-build'
+        sh 'docker-compose up -d'
         sh 'docker ps -a'
         sh 'docker-compose ps --services'
         sh 'docker-compose exec $(docker-compose ps --services) kpm tests'
