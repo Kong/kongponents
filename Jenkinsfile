@@ -36,6 +36,8 @@ pipeline {
     stage('Tests') {
       steps {
         sh 'docker-compose up -d --force-recreate --no-build'
+        sh 'docker ps -a'
+        sh 'docker-compose ps'
         sh 'docker-compose exec -T kongponents kpm tests'
       }
       post {
