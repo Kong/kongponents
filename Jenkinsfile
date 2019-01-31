@@ -26,7 +26,7 @@ pipeline {
         sh 'docker-compose up -d --force-recreate --no-build'
         sh 'docker ps -a'
         sh 'docker-compose ps --services'
-        sh 'docker-compose exec -T kongponents kpm tests'
+        sh 'docker-compose exec -T $(docker-compose ps --services) kpm tests'
       }
       post {
         always {
