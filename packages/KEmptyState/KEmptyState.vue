@@ -1,17 +1,17 @@
 <template>
   <div class="empty-state-wrapper">
     <div class="empty-state-title">
-      <h5><slot name="title">Empty state title</slot></h5>
+      <h5><slot name="title"/></h5>
     </div>
     <div class="empty-state-content">
-      <p><slot name="message">Empty state message</slot></p>
+      <p><slot name="message"/></p>
       <p>
         <slot name="cta">
           <KButton
             v-if="!ctaIsHidden"
             :is-rounded="true"
-            :handle-click="handleClick"
-            appearance="outline-primary">
+            appearance="outline-primary"
+            @click.native="handleClick">
             {{ ctaText }}
           </KButton>
         </slot>
@@ -32,7 +32,7 @@ export default {
     },
     ctaText: {
       type: String,
-      default: 'CTA Text'
+      default: ''
     },
     handleClick: {
       type: Function,
