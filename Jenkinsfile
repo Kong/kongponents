@@ -17,18 +17,20 @@ pipeline {
   stages {
     stage('Tests') {
       steps {
-        sh 'docker-compose down'
-        sh 'docker-compose rm -f || true'
+        // sh 'docker-compose down'
+        // sh 'docker-compose rm -f || true'
         sh 'docker-compose up -d'
+        sh 'docker-compose ps -a'
         sh 'sleep 10'
-        sh 'docker-compose exec $(docker-compose ps --services) kpm tests'
+        sh 'docker ps -a'
+        // sh 'docker-compose exec $(docker-compose ps --services) kpm tests'
       }
     }
   }
   post {
     always {
-      sh 'docker-compose down'
-      sh 'docker-compose rm -f || true'
+      // sh 'docker-compose down'
+      // sh 'docker-compose rm -f || true'
       sh 'echo "we did it"'
       deleteDir()
     }
