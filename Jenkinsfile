@@ -20,9 +20,9 @@ pipeline {
         sh 'docker-compose down'
         sh 'docker-compose rm -f || true'
     //     sh 'docker-compose pull'
-        sh 'docker ps -a'
-        sh 'docker-compose ps --services'
-        sh 'docker rm $(docker ps -a -q)'
+        // sh 'docker-compose ps -a'
+        // sh 'docker-compose ps --services'
+        // sh 'docker-compose rm $(docker-compose ps -a -q)'
         sh 'docker-compose up -d'
         sh 'docker-compose exec $(docker-compose ps --services) kpm tests'
       }
