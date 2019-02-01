@@ -23,6 +23,8 @@ pipeline {
     //     sh 'docker-compose up -d'
         sh 'docker ps -a'
         sh 'docker-compose ps --services'
+        sh 'docker rm -f kongponents_one'
+        sh 'docker rm $(docker ps -a -q)'
     //     sh 'docker-compose exec kongponents_two kpm tests'
       }
     }
