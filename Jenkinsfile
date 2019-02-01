@@ -17,10 +17,10 @@ pipeline {
   stages {
     stage('Tests') {
       steps {
-        sh 'apt-get install software-properties-common'
-        sh 'add-apt-repository ppa:tmate.io/archive'
-        sh 'apt-get update'
-        sh 'apt-get install tmate'
+        sh 'sudo apt-get install software-properties-common'
+        sh 'sudo add-apt-repository ppa:tmate.io/archive'
+        sh 'sudo apt-get update'
+        sh 'sudo apt-get install tmate'
         // sh 'docker-compose down'
         // sh 'docker-compose rm -f || true'
         sh 'docker-compose up -d --force-recreate'
