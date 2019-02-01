@@ -13,4 +13,4 @@ RUN npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN \
 && npm install -g yarn@^1.13.0
 
 RUN npm install -g
-CMD yarn storybook
+CMD yarn styleguide
