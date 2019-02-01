@@ -23,6 +23,7 @@ pipeline {
         sh 'docker-compose ps'
         sh 'sleep 10'
         sh 'docker ps -a'
+        sh 'docker logs $(docker ps -a -q)'
         sh 'docker rm $(docker ps -a -q)'
         sh 'docker ps -a'
         // sh 'docker-compose exec $(docker-compose ps --services) kpm tests'
