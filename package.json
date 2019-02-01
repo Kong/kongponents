@@ -8,12 +8,13 @@
   "repository": "git@github.com:Kong/kongponents.git",
   "private": true,
   "bin": {
-    "kpm": "./cli/index.js" 
+    "kpm": "./cli/index.js"
   },
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
+    "serve": "yarn vue-cli-service serve",
     "styleguide": "vue-styleguidist server",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "build": "yarn build:styleguide && yarn build:storybook",
@@ -31,6 +32,13 @@
     "@storybook/addon-links": "3.4.10",
     "@storybook/addon-notes": "3.4.10",
     "@storybook/vue": "3.4.10",
+    "@babel/core": "7.2.2",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/polyfill": "^7.2.5",
+    "@babel/register": "^7.0.0",
+    "@vue/babel-preset-app": "^3.3.0",
+    "@vue/cli-plugin-babel": "^3.3.0",
+    "@vue/cli-service": "3.3.1",
     "@vue/test-utils": "1.0.0-beta.20",
     "babel-core": "6.26.3",
     "babel-jest": "^23.6.0",
@@ -54,20 +62,23 @@
     "jest": "23.6.0",
     "jest-raw-loader": "^1.0.1",
     "jest-serializer-vue": "2.0.2",
+    "karma-webpack": "4.0.0-rc.5",
     "lerna": "2.10.2",
-    "raw-loader": "0.5.1",
+    "raw-loader": "1.0.0",
     "storybook-addon-vue-info": "0.6.1",
     "vue-jest": "2.6.0",
     "vue-loader": "14.2.1",
     "vue-styleguidist": "1.7.5",
     "vue-template-compiler": "2.5.17",
-    "vuex": "3.0.1"
+    "vuex": "3.0.1",
+    "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
+    "express": "^4.16.4",
     "vue": "2.5.17"
   },
   "engines": {
-    "yarn" : "^1.13.0"
+    "yarn": "^1.13.0"
   },
   "jest": {
     "moduleFileExtensions": [

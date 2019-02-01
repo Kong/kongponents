@@ -6,3 +6,5 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - NPM_TOKEN

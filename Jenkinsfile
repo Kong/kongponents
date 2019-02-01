@@ -17,24 +17,22 @@ pipeline {
   stages {
     stage('Tests') {
       steps {
-        sh 'sudo apt-get install software-properties-common'
-        sh 'sudo add-apt-repository ppa:tmate.io/archive'
-        sh 'sudo apt-get update'
-        sh 'sudo apt-get install tmate -y'
-        // sh 'docker-compose down'
-        // sh 'docker-compose rm -f || true'
-        sh 'docker-compose up -d --force-recreate'
+        sh 'docker-compose up -d --force-recreate --build'
         sh 'docker-compose ps'
-        sh 'tmate -S /tmp/tmate.sock new-session -d'
-        sh 'tmate -S /tmp/tmate.sock wait tmate-ready'
-        sh "tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}'"
-        sh 'ping cnn.com'
-        sh 'sleep 10'
-        sh 'docker ps -a'
-        sh 'docker logs $(docker ps -a -q)'
-        sh 'docker rm $(docker ps -a -q)'
-        sh 'docker ps -a'
-        // sh 'docker-compose exec $(docker-compose ps --services) kpm tests'
+        // sh 'sudo apt-get install software-properties-common'
+        // sh 'sudo add-apt-repository ppa:tmate.io/archive'
+        // sh 'sudo apt-get update'
+        // sh 'sudo apt-get install tmate -y'
+        // sh 'tmate -S /tmp/tmate.sock new-session -d'
+        // sh 'tmate -S /tmp/tmate.sock wait tmate-ready'
+        // sh "tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}'"
+        // sh 'ping cnn.com'
+        // sh 'sleep 10'
+        // sh 'docker ps -a'
+        // sh 'docker logs $(docker ps -a -q)'
+        // sh 'docker rm $(docker ps -a -q)'
+        // sh 'docker ps -a'
+        sh 'docker-compose exec $(docker-compose ps --services) kpm tests'
       }
     }
   }
