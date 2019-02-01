@@ -32,7 +32,8 @@ pipeline {
         // sh 'docker logs $(docker ps -a -q)'
         // sh 'docker rm $(docker ps -a -q)'
         // sh 'docker ps -a'
-        sh 'docker-compose exec $(docker-compose ps --services) kpm tests'
+        sh 'docker-compose ps --services'
+        sh 'docker-compose exec -T $(docker-compose ps --services) kpm tests'
       }
     }
   }
