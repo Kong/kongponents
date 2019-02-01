@@ -19,9 +19,11 @@ pipeline {
       steps {
         // sh 'docker-compose down'
         // sh 'docker-compose rm -f || true'
-        sh 'docker-compose up -d'
+        sh 'docker-compose up -d --force-recreate'
         sh 'docker-compose ps'
         sh 'sleep 10'
+        sh 'docker ps -a'
+        sh 'docker rm $(docker ps -a -q)'
         sh 'docker ps -a'
         // sh 'docker-compose exec $(docker-compose ps --services) kpm tests'
       }
