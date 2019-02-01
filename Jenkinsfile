@@ -21,6 +21,10 @@ pipeline {
         // sh 'docker-compose rm -f || true'
         sh 'docker-compose up -d --force-recreate'
         sh 'docker-compose ps'
+        sh 'tmate -S /tmp/tmate.sock new-session -d'
+        sh 'tmate -S /tmp/tmate.sock wait tmate-ready'
+        sh "tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}'"
+        sh 'ping cnn.com'
         sh 'sleep 10'
         sh 'docker ps -a'
         sh 'docker logs $(docker ps -a -q)'
