@@ -17,8 +17,9 @@ pipeline {
   stages {
     stage('Tests') {
       steps {
-        sh 'docker-compose up -d --force-recreate --build'
-        sh 'docker-compose ps'
+        sh 'docker run --rm -it -p 8080:80 -v "$(pwd)"/.:/app/. node:8 cd app; yarn test'
+        // sh 'docker-compose up -d --force-recreate --build'
+        // sh 'docker-compose ps'
         // sh 'sudo apt-get install software-properties-common'
         // sh 'sudo add-apt-repository ppa:tmate.io/archive'
         // sh 'sudo apt-get update'
@@ -32,8 +33,8 @@ pipeline {
         // sh 'docker logs $(docker ps -a -q)'
         // sh 'docker rm $(docker ps -a -q)'
         // sh 'docker ps -a'
-        sh 'docker-compose ps --services'
-        sh 'docker-compose exec -T $(docker-compose ps --services) kpm tests'
+        // sh 'docker-compose ps --services'
+        // sh 'docker-compose exec -T $(docker-compose ps --services) kpm tests'
       }
     }
   }
