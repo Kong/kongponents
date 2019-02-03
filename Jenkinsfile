@@ -17,17 +17,17 @@ pipeline {
   stages {
     stage('Tests') {
       steps {
-        sh 'docker run --rm -p 8080:80 -v "$(pwd)"/.:/app/. node:8 cd app; yarn test'
+        // sh 'docker run --rm -p 8080:80 -v "$(pwd)"/.:/app/. node:8 cd app; yarn test'
         // sh 'docker-compose up -d --force-recreate --build'
         // sh 'docker-compose ps'
-        // sh 'sudo apt-get install software-properties-common'
-        // sh 'sudo add-apt-repository ppa:tmate.io/archive'
-        // sh 'sudo apt-get update'
-        // sh 'sudo apt-get install tmate -y'
-        // sh 'tmate -S /tmp/tmate.sock new-session -d'
-        // sh 'tmate -S /tmp/tmate.sock wait tmate-ready'
-        // sh "tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}'"
-        // sh 'ping cnn.com'
+        sh 'sudo apt-get install software-properties-common'
+        sh 'sudo add-apt-repository ppa:tmate.io/archive'
+        sh 'sudo apt-get update'
+        sh 'sudo apt-get install tmate -y'
+        sh 'tmate -S /tmp/tmate.sock new-session -d'
+        sh 'tmate -S /tmp/tmate.sock wait tmate-ready'
+        sh "tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}'"
+        sh 'ping cnn.com'
         // sh 'sleep 10'
         // sh 'docker ps -a'
         // sh 'docker logs $(docker ps -a -q)'
