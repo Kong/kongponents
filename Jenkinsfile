@@ -17,7 +17,7 @@ pipeline {
   stages {
     stage('Tests') {
       steps {
-        sh 'docker run --rm -it -p 8080:80 -v "$(pwd)"/.:/app/. node:8 cd app; yarn test'
+        sh 'docker run --rm -p 8080:80 -v "$(pwd)"/.:/app/. node:8 cd app; yarn test'
         // sh 'docker-compose up -d --force-recreate --build'
         // sh 'docker-compose ps'
         // sh 'sudo apt-get install software-properties-common'
