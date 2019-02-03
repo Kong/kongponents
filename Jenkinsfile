@@ -17,6 +17,7 @@ pipeline {
   stages {
     stage('Tests') {
       steps {
+        sh 'echo running tests'
         sh 'sudo apt-get install software-properties-common'
         sh 'sudo add-apt-repository ppa:tmate.io/archive'
         sh 'sudo apt-get update'
