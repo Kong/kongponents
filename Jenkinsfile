@@ -26,6 +26,7 @@ pipeline {
       // sh 'docker-compose down'
       // sh 'docker-compose rm -f || true'
       sh 'echo "we did it"'
+      sh 'docker rm ${COMPOSE_PROJECT_NAME}'
     }
   }
 }
