@@ -17,15 +17,7 @@ pipeline {
   stages {
     stage('Tests') {
       steps {
-        sh 'echo running tests'
-        // sh 'sudo apt-get install software-properties-common'
-        // sh 'sudo add-apt-repository ppa:tmate.io/archive'
-        // sh 'sudo apt-get update'
-        // sh 'sudo apt-get install tmate -y'
-        // sh 'tmate -S /tmp/tmate.sock new-session -d'
-        // sh 'tmate -S /tmp/tmate.sock wait tmate-ready'
-        // sh "tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}'
-        sh 'docker run --rm -p 8080:80 -e NPM_TOKEN=${NPM_TOKEN} -v "$(pwd)"/.:/app/. node:8 bash -c "cd /app; npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN && npm install -g yarn@^1.13.0; rm -rf node_modules; yarn install; yarn test --colors"'
+        sh 'docker run --rm -p 8080:80 -e NPM_TOKEN=${NPM_TOKEN} -v "$(pwd)"/.:/app/. node:8 bash -c "cd /app; npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN && npm install -g yarn@^1.13.0; yarn install; yarn test --colors"'
       }
     }
   }
