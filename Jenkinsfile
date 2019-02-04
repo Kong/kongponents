@@ -35,7 +35,7 @@ pipeline {
       // sh 'docker-compose down'
       // sh 'docker-compose rm -f || true'
       sh 'echo "we did it"'
-      deleteDir()
+      // deleteDir()
     }
   }
 }
