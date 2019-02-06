@@ -67,7 +67,7 @@ function formatTestOutput (data) {
 
 function runTests (cb) {
   const output = []
-  const ls = spawn('yarn', ['test'])
+  const ls = spawn('yarn', ['test', '--colors'])
 
   ls.stdout.on('data', function (data) {
     console.log(chalk.blue.bold(data.toString()))
@@ -148,7 +148,7 @@ program
   .usage('<kongponent>')
   .action(function (kongponent) {
     runTests(function (exitCode) {
-      if (exitCode == 0) {
+      if (exitCode === 0) {
         // Currently execSync will barf on the interactive prompt from publishing your kongponent.
         // spawn and spawnSync will return the result of the child process, but you can't interact with it.
         // TODO: run lerna publish commands for the user instead of instructing to copy paste (applies to publish-all and upgrade)
@@ -156,6 +156,23 @@ program
         console.log(chalk.greenBright(`\n lerna publish --npm-tag=latest --skip-git --scope=@kongponents/${kongponent.toLowerCase()}`))
       } else {
         console.log(`Tests have failed! Please check before publishing ${kongponent}.`)
+      }
+    })
+  })
+
+program
+  .command('test')
+  .on('--help', function () {
+    console.log('Example:')
+    console.log('$ kpm test')
+  })
+  .description('run kongponent tests')
+  .action(function () {
+    runTests(function (exitCode) {
+      if (exitCode === 0) {
+        console.log(`You did it! Tests have passed!`)
+      } else {
+        console.log(`Tests have failed!`)
       }
     })
   })
@@ -169,7 +186,7 @@ program
   .description('publish all kongponents')
   .action(function () {
     runTests(function (exitCode) {
-      if (exitCode == 0) {
+      if (exitCode === 0) {
         console.log(`You did it! Tests have passed! Paste the following command in your prompt to publish your kongponents.`)
         console.log(chalk.greenBright(`\n lerna publish --skip-git --npm-tag=latest`))
       } else {
@@ -188,7 +205,7 @@ program
   .usage('<kongponent> <version>')
   .action(function (kongponent, version) {
     runTests(function (exitCode) {
-      if (exitCode != 0) {
+      if (exitCode !== 0) {
         console.log(`You did it! Tests have passed! Paste the following command in your prompt to upgrade your kongponent.`)
         console.log(chalk.greenBright(`lerna publish --cd-version=${version} --skip-git --scope=@kongponents/${kongponent.toLowerCase()}`))
       } else {
