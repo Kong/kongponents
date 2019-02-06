@@ -11,10 +11,9 @@ RUN echo Node `node --version` \
   && echo NPM `npm --version`
 
 RUN npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN \
-  && npm install -g yarn@^1.13.0
+  && npm install -g yarn@^1.13.0 \
+  && npm install -g
 
-RUN rm -rf node_modules
 RUN yarn install
 
-RUN yarn test --colors
-# -p 8080:80
+RUN kpm test --colors
