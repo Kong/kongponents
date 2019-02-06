@@ -16,4 +16,4 @@ RUN npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN \
 
 RUN yarn install
 
-RUN kpm test --colors
+RUN kpm test
