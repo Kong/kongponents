@@ -136,6 +136,6 @@ table {
 }
 
 .table.hover tbody tr:hover {
-  background-color: rgba(0, 0, 0, 0.075);
+  background-color: #F5FBFF;
 }
 </style>
