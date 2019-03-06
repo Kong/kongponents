@@ -11444,6 +11444,11 @@ storybook-addon-vue-info@0.7.1:
     marked "^0.3.19"
     vue-template-compiler "^2.5.16"
 
+storybook-vue-router@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/storybook-vue-router/-/storybook-vue-router-1.0.2.tgz#c1ab0eb8a8f9399a5cbf907357457b03e8ecd77c"
+  integrity sha512-ECOBkM8w+duh/Bh/qj+Ysitt0t7v8kwpRsYZ5jb05kgwTlLEuz88zl5gdsZSgszYuvU2jwfpb7Fc/YL2AVRcZQ==
+
 stream-browserify@^2.0.1:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/stream-browserify/-/stream-browserify-2.0.2.tgz#87521d38a44aa7ee91ce1cd2a47df0cb49dd660b"
