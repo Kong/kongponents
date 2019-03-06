@@ -41,7 +41,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .krumbs {
   display: flex;
   -ms-flex-wrap: wrap;
