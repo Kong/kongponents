@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Krumbs renders breadcrumb links 1`] = `
+<ul class="krumbs">
+  <li class="krumb-item"><a href="/services" class="" title="Services">Services</a></li>
+  <li class="krumb-item"><a title="Go to Kong Docs" href="https://docs.konghq.com" target="_blank">External Link</a></li>
+</ul>
+`;
+
+exports[`Krumbs renders breadcrumb links without needing a router 1`] = `
+<ul class="krumbs">
+  <li class="krumb-item"><a title="Go to Kong Docs" href="https://docs.konghq.com" target="_blank">External Link</a></li>
+</ul>
+`;
