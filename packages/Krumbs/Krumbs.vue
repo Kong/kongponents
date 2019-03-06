@@ -22,8 +22,8 @@
 <script>
 /**
  * @typedef {Object} Item - breacrumb item holding router-link properties
- * @property {Object} key - list item key
- * @property {Object} to - router-link "to" object or href string
+ * @property {Object|String} to - router-link "to" object or href string
+ * @property {string} key - list item key
  * @property {string} text - anchor text
  * @property {string} title - anchor title
  */
@@ -51,6 +51,7 @@ export default {
   list-style: none;
   border-radius: 0.25rem;
 }
+
 .krumbs .krumb-item + .krumb-item::before {
   display: inline-block;
   padding-right: 0.5rem;
