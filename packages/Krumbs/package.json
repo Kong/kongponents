@@ -18,5 +18,8 @@
   "peerDependencies": {
     "vue-router": "^3.0.2"
   },
+  "devDependencies": {
+    "vue-router": "^3.0.2"
+  },
   "homepage": "https://github.com/Kong/kongponents#readme"
 }
