@@ -1,10 +1,10 @@
 {
-  "name": "@kongponents/kbutton",
-  "version": "0.0.1-beta.6",
-  "description": "Button component",
-  "main": "KButton.vue",
+  "name": "@kongponents/krumbs",
+  "version": "0.0.1",
+  "description": "Breadcrumbs component",
+  "main": "Krumbs.vue",
   "scripts": {
-    "test": "echo \"Error: no test specified\""
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -14,6 +14,12 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Kong/kongponents/issues"
+  },
+  "peerDependencies": {
+    "vue-router": "^3.0.2"
+  },
+  "devDependencies": {
+    "vue-router": "^3.0.2"
   },
   "homepage": "https://github.com/Kong/kongponents#readme"
 }

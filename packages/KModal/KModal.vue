@@ -2,7 +2,7 @@
   <div
     v-if="isVisible"
     :aria-hidden="!isVisible ? 'true' : 'false'"
-    class="modal"
+    class="k-modal"
     role="dialog">
     <div
       class="modal-backdrop"
@@ -87,7 +87,7 @@ export default {
     left: 0;
     right: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1005;
+    z-index: 1100;
   }
 
   .modal-dialog {
@@ -106,6 +106,7 @@ export default {
     display: flex;
     flex-direction: column;
     background-color: #fff;
+    border: 0;
     border-radius: .3rem;
     outline: 0;
   }

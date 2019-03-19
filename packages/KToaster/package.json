@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/ktoaster",
-  "version": "0.0.1-beta.2",
+  "version": "0.0.1-beta.4",
   "description": "Toaster component",
   "main": "KToaster.vue",
   "scripts": {

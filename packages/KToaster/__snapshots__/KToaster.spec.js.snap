@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KToaster renders danger variant 1`] = `
+<div class="k-toaster visible" name="slide">
+  <div class="k-toast danger"><a class="k-toast-btn-clear"></a> cool test</div>
+</div>
+`;
+
+exports[`KToaster renders info variant 1`] = `
+<div class="k-toaster visible" name="slide">
+  <div class="k-toast info"><a class="k-toast-btn-clear"></a> cool test</div>
+</div>
+`;
+
+exports[`KToaster renders success variant 1`] = `
+<div class="k-toaster visible" name="slide">
+  <div class="k-toast success"><a class="k-toast-btn-clear"></a> cool test</div>
+</div>
+`;
+
+exports[`KToaster renders warning variant 1`] = `
+<div class="k-toaster visible" name="slide">
+  <div class="k-toast warning"><a class="k-toast-btn-clear"></a> cool test</div>
+</div>
+`;

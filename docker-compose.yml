@@ -1,0 +1,10 @@
+version: '3.4'
+
+# Kongponents
+services:
+  kongponents:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NPM_TOKEN

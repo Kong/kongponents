@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KTable matches snapshot 1`] = `
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        Name
+      </th>
+      <th>
+        Type
+      </th>
+      <th>
+        Credentials
+      </th>
+      <th>
+        <!---->
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        iOS App
+      </td>
+      <td>
+        Key
+      </td>
+      <td>
+        xyz
+      </td>
+      <td>
+
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Website Desktop
+      </td>
+      <td>
+        Basic
+      </td>
+      <td>
+        123xyz
+      </td>
+      <td>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
