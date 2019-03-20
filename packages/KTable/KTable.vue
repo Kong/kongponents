@@ -44,27 +44,27 @@
 export default {
   name: 'KTable',
   props: {
+    /**
+     * Object containing data which creates rows and columns.
+     * @param {Object} options - Options to initialize the component with
+     * @param {Array} options.headers - Array of Objects defining Table Headers
+     * @param {Array} options.data - Array of Objects defining column data
+     */
     options: {
-      /**
-       * Object containing data which creates rows and columns.
-       * @param {Object} options - Options to initialize the component with
-       * @param {Array} options.headers - Array of Objects defining Table Headers
-       * @param {Array} options.data - Array of Objects defining column data
-       */
       type: Object,
       required: true
     },
+    /**
+     * Adds zebra striping to the table rows
+     */
     isStriped: {
-      /*
-       * Adds zebra striping to the table rows
-       */
       type: Boolean,
       default: false
     },
+    /**
+     * Enables hover highlighting to table rows
+     */
     hasHover: {
-      /*
-       * Enables hover highlighting to table rows
-       */
       type: Boolean,
       default: false
     }

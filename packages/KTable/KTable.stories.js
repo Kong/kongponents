@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import { storiesOf } from '@storybook/vue'
-import VueInfoAddon from 'storybook-addon-vue-info'
 
 import KTable from './KTable.vue'
 
@@ -30,21 +29,27 @@ const options = {
   ]
 }
 
-storiesOf('KTable', module)
-  .addDecorator(VueInfoAddon)
+storiesOf('Table', module)
   .add('Default', () => ({
     components: { KTable },
     template: `
     <KTable :options=options>
-      <template slot="actions" slot-scope="{row, rowKey, rowValue}"><a href="">Edit</a></template>
+        <template slot="actions" slot-scope="{row, rowKey, rowValue}"><a href="">Edit</a></template>
     </KTable>
+    <!--
+    data() {
+      return {
+        options: ${JSON.stringify(options, null, 2)}
+      }
+    }
+    -->
     `,
     data () {
       return {
         options
       }
     }
-  }))
+  }), {info: {}})
   .add('hasHover', () => ({
     components: { KTable },
     template: `
@@ -57,17 +62,24 @@ storiesOf('KTable', module)
         options
       }
     }
-  }))
+  }), {info: {}})
   .add('isStriped', () => ({
     components: { KTable },
     template: `
     <KTable :options="options" :isStriped='true'>
         <template slot="actions" slot-scope="{row, rowKey, rowValue}"> <a href="">Edit</a></template>
     </KTable>
+    <!--
+    data() {
+      return {
+        options: ${JSON.stringify(options, null, 2)}
+      }
+    }
+    -->
     `,
     data () {
       return {
         options
       }
     }
-  }))
+  }), {info: {}})

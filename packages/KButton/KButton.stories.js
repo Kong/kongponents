@@ -1,23 +1,23 @@
 import Vue from 'vue'
 import { storiesOf } from '@storybook/vue'
 import { action } from '@storybook/addon-actions'
-import VueInfoAddon from 'storybook-addon-vue-info'
+import { withInfo } from 'storybook-addon-vue-info'
 
 import KButton from './KButton.vue'
 
 storiesOf('KButton', module)
-  .addDecorator(VueInfoAddon)
+  .add('Default', () => ({
+    components: { KButton },
+    template: `<KButton>button</KButton>`
+  }), {info: {}})
   .add('Rounded False', () => ({
     components: { KButton },
     template: `<KButton :isRounded='false'>button</KButton>`
-  }))
-  .add('Rounded True', () => ({
-    components: { KButton },
-    template: `<KButton :isRounded='true'>button</KButton>`
-  }))
-  .add('Styles', () => ({
+  }), {info: {}})
+  .add('Appearance', () => ({
     components: { KButton },
     template: `<div>
+      <KButton appearance="secondary">secondary</KButton>  
       <KButton appearance='primary'>primary</KButton>
       <KButton appearance='outline-primary'>outline-primary</KButton>
       <KButton appearance='btn-link'>btn-link</KButton>
@@ -25,10 +25,11 @@ storiesOf('KButton', module)
       <KButton appearance='outline-danger'>outline-danger</KButton>
       <KButton appearance='btn-link-danger'>btn-link-danger</KButton>
     </div>`
-  }))
-  .add('Styles - Disabled', () => ({
+  }), {info: {}})
+  .add('Disabled', () => ({
     components: { KButton },
     template: `<div>
+      <KButton disabled appearance="secondary">secondary</KButton>  
       <KButton disabled appearance='primary'>primary</KButton>
       <KButton disabled appearance='outline-primary'>outline-primary</KButton>
       <KButton disabled appearance='btn-link'>btn-link</KButton>
@@ -36,8 +37,8 @@ storiesOf('KButton', module)
       <KButton disabled appearance='outline-danger'>outline-danger</KButton>
       <KButton disabled appearance='btn-link-danger'>btn-link-danger</KButton>
     </div>`
-  }))
-  .add('Button Actions', () => ({
+  }), {info: {}})
+  .add('Actions', () => ({
     components: { KButton },
     template: `
     <KButton 
@@ -62,4 +63,4 @@ storiesOf('KButton', module)
         action('onDblClick')(e)
       }
     }
-  }))
+  }), {info: {}})
