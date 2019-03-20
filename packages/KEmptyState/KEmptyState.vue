@@ -36,12 +36,7 @@ export default {
     },
     handleClick: {
       type: Function,
-      required: false,
-      default: function () {
-        return () => {
-          this.$emit('cta')
-        }
-      }
+      default: () => () => null
     }
   }
 }
