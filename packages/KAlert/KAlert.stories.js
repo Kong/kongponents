@@ -5,7 +5,7 @@ import KAlert from './KAlert.vue'
 storiesOf('Alert', module)
   .add('Alert - isDismissible', () => ({
     components: { KAlert },
-    template: `<KAlert isDismissible alertMessage="howdy!" />`
+    template: `<KAlert isShowing isDismissible alertMessage="howdy!" />`
   }), {info: {}})
   .add('Alert - not Dismissable', () => ({
     components: { KAlert },
