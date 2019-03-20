@@ -1,12 +1,10 @@
 import Vue from 'vue'
 import { storiesOf } from '@storybook/vue'
 import { action } from '@storybook/addon-actions'
-import VueInfoAddon from 'storybook-addon-vue-info'
 
 import KClipboardProvider from './KClipboardProvider'
 
 storiesOf('KClipboardProvider', module)
-  .addDecorator(VueInfoAddon)
   .add('Copy to Clipboard', () => ({
     components: { KClipboardProvider },
     template: `
@@ -30,4 +28,4 @@ storiesOf('KClipboardProvider', module)
         action('copy-to-clipboard')(`This has been copied to clipboard: "${this.dataToCopy}"`)
       }
     }
-  }))
+  }), {info: {}})

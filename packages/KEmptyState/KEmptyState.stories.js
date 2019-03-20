@@ -1,9 +1,7 @@
 import { storiesOf } from '@storybook/vue'
-import VueInfoAddon from 'storybook-addon-vue-info'
 import KEmptyState from './KEmptyState.vue'
 
 storiesOf('EmptyState', module)
-  .addDecorator(VueInfoAddon)
   .add('Call to action', () => ({
     components: { KEmptyState },
     template: `<div>
@@ -17,4 +15,4 @@ storiesOf('EmptyState', module)
         alert('action thing!')
       }
     }
-  }))
+  }), {info: {}})

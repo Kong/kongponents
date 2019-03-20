@@ -1,20 +1,19 @@
 import Vue from 'vue'
 import { storiesOf } from '@storybook/vue'
 import { action } from '@storybook/addon-actions'
-import VueInfoAddon from 'storybook-addon-vue-info'
+import { withInfo } from 'storybook-addon-vue-info'
 
 import KButton from './KButton.vue'
 
-storiesOf('Button', module)
-  .addDecorator(VueInfoAddon)
+storiesOf('KButton', module)
   .add('Default', () => ({
     components: { KButton },
     template: `<KButton>button</KButton>`
-  }))
+  }), {info: {}})
   .add('Rounded False', () => ({
     components: { KButton },
     template: `<KButton :isRounded='false'>button</KButton>`
-  }))
+  }), {info: {}})
   .add('Appearance', () => ({
     components: { KButton },
     template: `<div>
@@ -26,7 +25,7 @@ storiesOf('Button', module)
       <KButton appearance='outline-danger'>outline-danger</KButton>
       <KButton appearance='btn-link-danger'>btn-link-danger</KButton>
     </div>`
-  }))
+  }), {info: {}})
   .add('Disabled', () => ({
     components: { KButton },
     template: `<div>
@@ -38,7 +37,7 @@ storiesOf('Button', module)
       <KButton disabled appearance='outline-danger'>outline-danger</KButton>
       <KButton disabled appearance='btn-link-danger'>btn-link-danger</KButton>
     </div>`
-  }))
+  }), {info: {}})
   .add('Actions', () => ({
     components: { KButton },
     template: `
@@ -64,4 +63,4 @@ storiesOf('Button', module)
         action('onDblClick')(e)
       }
     }
-  }))
+  }), {info: {}})

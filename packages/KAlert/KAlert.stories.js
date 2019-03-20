@@ -1,18 +1,16 @@
 import { storiesOf } from '@storybook/vue'
-import VueInfoAddon from 'storybook-addon-vue-info'
 
 import KAlert from './KAlert.vue'
 
 storiesOf('Alert', module)
-  .addDecorator(VueInfoAddon)
   .add('Alert - isDismissible', () => ({
     components: { KAlert },
     template: `<KAlert isDismissible alertMessage="howdy!" />`
-  }))
+  }), {info: {}})
   .add('Alert - not Dismissable', () => ({
     components: { KAlert },
     template: `<KAlert isShowing alertMessage="howdy!" />`
-  }))
+  }), {info: {}})
   .add('Alert - Appearances', () => ({
     components: { KAlert },
     template: `
@@ -22,7 +20,7 @@ storiesOf('Alert', module)
       <KAlert isShowing isDismissible alertMessage="Danger" appearance="danger" style="margin-bottom: 10px;" />
       <KAlert isShowing isDismissible alertMessage="Warning" appearance="warning" style="margin-bottom: 10px;" />
     </div>`
-  }))
+  }), {info: {}})
   .add('Alert - Slots', () => ({
     components: { KAlert },
     template: `
@@ -34,4 +32,4 @@ storiesOf('Alert', module)
         </template>
       </KAlert>
     </div>`
-  }))
+  }), {info: {}})

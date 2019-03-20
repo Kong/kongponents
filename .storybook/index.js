@@ -7,7 +7,7 @@ export function components (Vue) {
 }
 
 export function stories () {
-  const req = require.context('../packages', true, /\.stories\.js$/)
+  const req = require.context('../packages', true, /^((?![\\/]node_modules|vendor[\\/]).)*\.stories\.js$/)
   req
     .keys()
     .forEach((filename) => req(filename))

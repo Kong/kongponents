@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import { storiesOf } from '@storybook/vue'
-import VueInfoAddon from 'storybook-addon-vue-info'
 
 import KTable from './KTable.vue'
 
@@ -31,7 +30,6 @@ const options = {
 }
 
 storiesOf('Table', module)
-  .addDecorator(VueInfoAddon)
   .add('Default', () => ({
     components: { KTable },
     template: `
@@ -51,7 +49,7 @@ storiesOf('Table', module)
         options
       }
     }
-  }))
+  }), {info: {}})
   .add('hasHover', () => ({
     components: { KTable },
     template: `
@@ -64,7 +62,7 @@ storiesOf('Table', module)
         options
       }
     }
-  }))
+  }), {info: {}})
   .add('isStriped', () => ({
     components: { KTable },
     template: `
@@ -84,4 +82,4 @@ storiesOf('Table', module)
         options
       }
     }
-  }))
+  }), {info: {}})

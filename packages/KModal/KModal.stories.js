@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import { storiesOf } from '@storybook/vue'
-import VueInfoAddon from 'storybook-addon-vue-info'
 
 import KModal from './KModal.vue'
 
@@ -19,7 +18,6 @@ const sharedMethods = {
 }
 
 storiesOf('Modal', module)
-  .addDecorator(VueInfoAddon)
   .add('Default', () => ({
     components: { KModal },
     template: `
@@ -30,7 +28,7 @@ storiesOf('Modal', module)
     `,
     data: sharedData,
     methods: sharedMethods
-  }))
+  }), {info: {}})
   .add('Slots', () => ({
     components: { KModal },
     template: `
@@ -52,4 +50,4 @@ storiesOf('Modal', module)
     `,
     data: sharedData,
     methods: sharedMethods
-  }))
+  }), {info: {}})
