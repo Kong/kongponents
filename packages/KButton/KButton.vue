@@ -73,6 +73,7 @@ export default {
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
     line-height: 1.25;
+    border-radius: 3px;
     border: 1px solid transparent;
     padding: .5rem .75rem;
     transition: all .2s ease-in-out;
