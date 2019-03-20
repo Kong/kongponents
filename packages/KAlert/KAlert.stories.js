@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/vue'
 
-import KAlert from './KAlert.vue'
+import { default as KAlert, appearances } from './KAlert.vue'
 
 storiesOf('Alert', module)
   .add('Alert - isDismissible', () => ({
@@ -15,10 +15,9 @@ storiesOf('Alert', module)
     components: { KAlert },
     template: `
     <div>
-      <KAlert isShowing isDismissible alertMessage="Info" appearance="info" style="margin-bottom: 10px;"/>
-      <KAlert isShowing isDismissible alertMessage="Success" appearance="success" style="margin-bottom: 10px;" />
-      <KAlert isShowing isDismissible alertMessage="Danger" appearance="danger" style="margin-bottom: 10px;" />
-      <KAlert isShowing isDismissible alertMessage="Warning" appearance="warning" style="margin-bottom: 10px;" />
+      ${Object.keys(appearances).map(type => {
+      return `<KAlert isShowing isDismissible alertMessage="${type}" appearance="${type}" style="margin-bottom: 10px;"/>`
+    }).join('')}
     </div>`
   }), {info: {}})
   .add('Alert - Slots', () => ({

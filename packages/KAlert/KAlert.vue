@@ -20,6 +20,13 @@
 </template>
 
 <script>
+export const appearances = {
+  info: 'info',
+  success: 'success',
+  danger: 'danger',
+  warning: 'warning'
+}
+
 export default {
   name: 'KAlert',
   props: {
@@ -59,12 +66,7 @@ export default {
       type: String,
       default: 'info',
       validator: function (value) {
-        return [
-          'info',
-          'success',
-          'danger',
-          'warning'
-        ].indexOf(value) !== -1
+        return Object.values(appearances).indexOf(value) !== -1
       }
     },
     /**
