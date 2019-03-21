@@ -13,7 +13,7 @@ Install [node + npm](https://nodejs.org/) + [yarn](https://yarnpkg.com/en/)
 Clone and install dependencies
 ```bash
 # clone the repo
-git clone git@github.com:Kong/kong-portal.git
+git clone git@github.com:Kong/kongponents.git
 
 # Install node modules
 yarn
@@ -22,11 +22,6 @@ yarn
 ## Running
 
 ### Development
-
-Run [Vue Styleguidist](https://github.com/vue-styleguidist/vue-styleguidist)
-```bash
-yarn styleguide
-```
 
 Run [Storybook](https://storybook.js.org/)
 ```bash

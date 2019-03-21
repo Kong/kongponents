@@ -14,10 +14,8 @@
     "packages/*"
   ],
   "scripts": {
-    "styleguide": "vue-styleguidist server",
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "build": "yarn build:styleguide && yarn build:storybook",
-    "build:styleguide": "vue-styleguidist build ./build",
+    "build": "yarn build:storybook",
     "build:storybook": "build-storybook -c .storybook -o ./docs/stories",
     "publish": "lerna publish --skip-git --npm-tag=latest",
     "publish:scope": "lerna publish --skip-git --npm-tag=latest --scope=@kongponents/${component}",
@@ -61,7 +59,6 @@
     "storybook-vue-router": "^1.0.3",
     "vue-jest": "3.0.2",
     "vue-loader": "15.6.2",
-    "vue-styleguidist": "1.7.5",
     "vue-template-compiler": "2.5.22",
     "vuex": "3.0.1"
   },
