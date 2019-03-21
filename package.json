@@ -16,7 +16,7 @@
   "scripts": {
     "storybook": "start-storybook -p 9001 -c .storybook",
     "build": "yarn build:storybook",
-    "build:storybook": "build-storybook -c .storybook -o ./docs/stories",
+    "build:storybook": "build-storybook -c .storybook -o ./docs",
     "publish": "lerna publish --skip-git --npm-tag=latest",
     "publish:scope": "lerna publish --skip-git --npm-tag=latest --scope=@kongponents/${component}",
     "test": "yarn jest",

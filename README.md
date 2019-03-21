@@ -167,7 +167,7 @@ packages                     # root directory of all components
 │   ├── KModal.spec.js           # .spec files are picked by test runner
 │   ├── KModal.stories.js        # .stories are picked up by Storybook
 │   ├── KModal.vue    
-│   ├── Readme.md                # Each Readme.md is used by vue-styleguidist
+│   ├── Readme.md                
 │   ├── __snapshots__            # Jest snapshots for component diff checks
 │   │   └── KModal.spec.js.snap
 │   └── package.json
