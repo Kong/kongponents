@@ -13,7 +13,7 @@ Install [node + npm](https://nodejs.org/) + [yarn](https://yarnpkg.com/en/)
 Clone and install dependencies
 ```bash
 # clone the repo
-git clone git@github.com:Kong/kong-portal.git
+git clone git@github.com:Kong/kongponents.git
 
 # Install node modules
 yarn
@@ -22,11 +22,6 @@ yarn
 ## Running
 
 ### Development
-
-Run [Vue Styleguidist](https://github.com/vue-styleguidist/vue-styleguidist)
-```bash
-yarn styleguide
-```
 
 Run [Storybook](https://storybook.js.org/)
 ```bash
@@ -172,7 +167,7 @@ packages                     # root directory of all components
 │   ├── KModal.spec.js           # .spec files are picked by test runner
 │   ├── KModal.stories.js        # .stories are picked up by Storybook
 │   ├── KModal.vue    
-│   ├── Readme.md                # Each Readme.md is used by vue-styleguidist
+│   ├── Readme.md                
 │   ├── __snapshots__            # Jest snapshots for component diff checks
 │   │   └── KModal.spec.js.snap
 │   └── package.json
