@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/{%kongponent_name_lower%}",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "{%kongponent_description%}",
   "main": "{%kongponent_name%}.vue",
   "scripts": {

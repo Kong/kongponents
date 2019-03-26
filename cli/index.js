@@ -85,7 +85,7 @@ function runTests (cb) {
 }
 
 program
-  .version('0.0.2')
+  .version('0.0.3')
 
 program
   .command('create <name>')
@@ -139,12 +139,12 @@ program
   })
 
 program
-  .command('publish <kongponent>')
+  .command('publish')
   .on('--help', function () {
     console.log('Example:')
-    console.log('$ kpm publish KChecklist')
+    console.log('$ kpm publish')
   })
-  .description('publish a kongponent')
+  .description('publish any updated kongponents')
   .usage('<kongponent>')
   .action(function (kongponent) {
     runTests(function (exitCode) {
@@ -153,9 +153,9 @@ program
         // spawn and spawnSync will return the result of the child process, but you can't interact with it.
         // TODO: run lerna publish commands for the user instead of instructing to copy paste (applies to publish-all and upgrade)
         console.log(`You did it! Tests have passed! Paste the following command in your prompt to publish your kongponent.`)
-        console.log(chalk.greenBright(`\n lerna publish --npm-tag=latest --skip-git --scope=@kongponents/${kongponent.toLowerCase()}`))
+        console.log(chalk.greenBright(`\n lerna publish`))
       } else {
-        console.log(`Tests have failed! Please check before publishing ${kongponent}.`)
+        console.log(`Tests have failed! Please check before publishing.`)
       }
     })
   })
@@ -173,43 +173,6 @@ program
         console.log(`You did it! Tests have passed!`)
       } else {
         console.log(`Tests have failed!`)
-      }
-    })
-  })
-
-program
-  .command('publish-all')
-  .on('--help', function () {
-    console.log('Example:')
-    console.log('$ kpm publish-all')
-  })
-  .description('publish all kongponents')
-  .action(function () {
-    runTests(function (exitCode) {
-      if (exitCode === 0) {
-        console.log(`You did it! Tests have passed! Paste the following command in your prompt to publish your kongponents.`)
-        console.log(chalk.greenBright(`\n lerna publish --skip-git --npm-tag=latest`))
-      } else {
-        console.log(`Tests have failed! Please check before publishing kongponents.`)
-      }
-    })
-  })
-
-program
-  .command('upgrade <kongponent> <version>')
-  .on('--help', function () {
-    console.log('Example:')
-    console.log('$ kpm upgrade KChecklist prepatch')
-  })
-  .description('upgrade a kongponent')
-  .usage('<kongponent> <version>')
-  .action(function (kongponent, version) {
-    runTests(function (exitCode) {
-      if (exitCode !== 0) {
-        console.log(`You did it! Tests have passed! Paste the following command in your prompt to upgrade your kongponent.`)
-        console.log(chalk.greenBright(`lerna publish --cd-version=${version} --skip-git --scope=@kongponents/${kongponent.toLowerCase()}`))
-      } else {
-        console.log(`Tests have failed! Please check before upgrading ${kongponent}.`)
       }
     })
   })
