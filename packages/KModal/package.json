@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kmodal",
-  "version": "0.0.1-beta.6",
+  "version": "0.1.0",
   "description": "Modal component",
   "main": "KModal.vue",
   "scripts": {

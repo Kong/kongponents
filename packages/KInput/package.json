@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kinput",
-  "version": "0.0.1-beta.1",
+  "version": "0.1.0",
   "description": "Input component",
   "main": "KInput.vue",
   "scripts": {
