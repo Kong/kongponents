@@ -10,6 +10,12 @@
       "exact": true
     },
     "publish": {
+      "ignoreChanges": [
+        "**/*.md", 
+        "**/*.spec.js", 
+        "**/*.snap",
+        "**/*.stories.js"
+      ],
       "message": "chore(release) publish"
     }
   }
