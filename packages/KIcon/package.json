@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kicon",
-  "version": "0.0.1-beta.7",
+  "version": "0.1.1",
   "description": "Icon component",
   "main": "KIcon.vue",
   "scripts": {

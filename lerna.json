@@ -1,5 +1,4 @@
 {
-  "lerna": "2.10.2",
   "packages": [
     "packages/*"
   ],
@@ -9,6 +8,15 @@
   "command": {
     "init": {
       "exact": true
+    },
+    "publish": {
+      "ignoreChanges": [
+        "**/*.md", 
+        "**/*.spec.js", 
+        "**/*.snap",
+        "**/*.stories.js"
+      ],
+      "message": "chore(release) publish"
     }
   }
 }

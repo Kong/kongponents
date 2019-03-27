@@ -20,8 +20,8 @@
     "build:esm": "rollup -c=rollup.esm.config.js",
     "build:umd": "rollup -c=rollup.umd.config.js",
     "build:cjs": "rollup -c=rollup.cjs.config.js",
-    "publish": "lerna publish --skip-git --npm-tag=latest",
-    "publish:scope": "lerna publish --skip-git --npm-tag=latest --scope=@kongponents/${component}",
+    "publish": "lerna publish",
+    "publish:ci": "lerna publish --yes",
     "test": "yarn jest",
     "test-coverage": "yarn jest --coverage",
     "cli": "./cli/kongponent-cli"
