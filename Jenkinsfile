@@ -21,6 +21,14 @@ pipeline {
         sh 'docker-compose up -d'
       }
     }
+    stage('Publish') {
+      when {
+        branch 'master'
+      }
+      steps {
+        sh 'docker-compose exec -T kongponents yarn publish:ci'
+      }
+    }
   }
   post {
     always {

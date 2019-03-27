@@ -102,7 +102,7 @@ Write unit tests for base functionality (e.g., that buttons work correctly, text
 
 A PR needs at least one approving review before it can be merged. To open a PR for a branch that is still a work in progress, use the WIP tag to let others know that it is not intended for final review. 
 
-Before publishing a new version as detailed in [Publishing to NPM](#publishing-to-npm), update the version in `package.json`. If creating a new Kongponent, use `0.0.1-beta.1`. If updating, add `1` after `beta`.
+Before publishing a new version as detailed in [Publishing to NPM](#publishing-to-npm), update the version in `package.json`. If creating a new Kongponent, use `0.1.0`, as shown in [package.json template file](cli/template/package.json).
 
 Create a Git tag for the branch with the matching version number.
 
@@ -134,19 +134,28 @@ We use [Lerna](https://lernajs.io/) to publish Kongponents.
 ### Publishing Multiple Components
 
 ```bash
-kpm publish-all
+kpm publish
 ```
-Lerna will check each component for differences and prompt you to select a version for any that have changed. If creating for the first time select `Custom` and enter `0.0.1-beta.<current_version>`. If bumping the version select `Custom` and increase the number after `-beta`
+Lerna will check each component for differences and prompt you to select a version for any that have changed. Select the correct version bump following [semver](https://semver.org/).
 
 ![version](https://dzwonsemrish7.cloudfront.net/items/0x0D0y1O3H3q0P321b3V/Image%202018-06-18%20at%208.54.31%20PM.png)
 
 ### Publishing Single Component
 
-To publish a *single* component pass the name of the component as a parameter first
+> Warning: CI should handle publishing of kongponents, so this is more of an escape hatch if you need to publish outside of CI process.
+
+To publish a *single* component, you will need the NPM token or write permissions to the @kongponents package. Then, you can use normal npm publish process via 
+
 ```bash
-kpm publish <kongponent>
+cd packages/<package_name>
+npm publish
+``` 
+
+Or you can pass the name of the component as parameter to `lerna exec` from the root directory of this repo.
+
+```bash
+lerna exec "npm publish" --scope <package_name>
 ```
-Follow the prompt as noted before.
 
 ## Directory Structure
 
