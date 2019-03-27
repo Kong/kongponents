@@ -23,10 +23,11 @@ pipeline {
     }
     stage('Publish') {
       when {
-        branch 'master'
+        branch 'chore/jenkins-publish'
       }
       steps {
-        sh 'docker-compose exec -T kongponents yarn publish:ci'
+        sh 'docker-compose up -d --no-build'
+        sh 'docker-compose exec -T kongponents yarn test'
       }
     }
   }
