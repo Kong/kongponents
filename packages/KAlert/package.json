@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kalert",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Alert component",
   "main": "KAlert.vue",
   "scripts": {
