@@ -56,6 +56,21 @@ kpm --help
 
 ```
 
+## Building Konponents
+
+Use Rollup to bundle Kongponent files. There's support for ESM, UMD, and CJS modules. 
+```bash
+# for browsers (ESM)
+yarn build:esm
+
+# for NodeJS (CJS)
+yarn build:cjs 
+
+# for both (UMD)
+yarn build:umd
+
+```
+
 ## Creating a New Kongponent
 
 If you are interested in contributing to the Kongponents repo, please review [CONTRIBUTING.md](CONTRIBUTING.md) for Git standards.
