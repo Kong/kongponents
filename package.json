@@ -15,11 +15,8 @@
   ],
   "scripts": {
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "build": "build-storybook -c .storybook -o ./docs",
+    "build": "rollup -c=rollup.config.js",
     "build:storybook": "build-storybook -c .storybook -o ./docs",
-    "build:esm": "rollup -c=rollup.esm.config.js",
-    "build:umd": "rollup -c=rollup.umd.config.js",
-    "build:cjs": "rollup -c=rollup.cjs.config.js",
     "publish": "lerna publish",
     "publish:ci": "lerna publish --yes",
     "test": "yarn jest",
