@@ -51,8 +51,7 @@ export default [
         file: `.dist/bundle.cjs.js`,
         format: 'cjs'
       }
-    ],
-    external: ['normalize-component.js']
+    ]
   },
   // UMD modules
   {
@@ -77,7 +76,6 @@ export default [
         file: `.dist/bundle.umd.js`,
         format: 'umd'
       }
-    ],
-    external: ['normalize-component.js']
+    ]
   }
 ]
