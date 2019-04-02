@@ -11,17 +11,21 @@ import back from './icn-back.svg'
 import search from './icn-search.svg'
 import trash from './icn-trash.svg'
 import dashboard from './icn-dashboard.svg'
+import support from './icn-support.svg'
+import featureRequest from './icn-feature-request.svg'
 
 export default {
   back,
   collapseExpand,
   dashboard,
+  featureRequest,
   gateway,
   gear,
   info,
   portal,
   search,
   security,
+  support,
   trash,
   workspaces,
   workspacesCollapsed,
