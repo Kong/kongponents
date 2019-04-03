@@ -2,7 +2,6 @@ import { mount } from '@vue/test-utils'
 import { default as KDropdown, alignments } from './KDropdown.vue'
 
 const Alignments = Object.keys(alignments)
-const items = ['workspaces', 'vitals']
 
 let rendersAlignments = (position) => {
   it(`renders with ${position} class`, () => {
@@ -20,20 +19,6 @@ let rendersAlignments = (position) => {
 describe('KDropdown', () => {
   Alignments.map(position => {
     rendersAlignments(position)
-  })
-
-  it('title updates when item clicked', () => {
-    const wrapper = mount(KDropdown, {
-      propsData: {
-        items,
-        showActive: true
-      }
-    })
-
-    wrapper.find('.k-dropdown').trigger('click')
-    wrapper.find('.k-dropdown-item:nth-of-type(2)').trigger('click')
-
-    expect(wrapper.find('.k-dropdown-toggle').text()).toEqual(items[1])
   })
 
   it('matches snapshot', () => {

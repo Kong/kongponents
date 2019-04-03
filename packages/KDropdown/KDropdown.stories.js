@@ -13,19 +13,6 @@ storiesOf('KDropdown', module)
         toggle-text="Open Dropdown" />
     </div>
   `}), {info: {}})
-  .add('Show Active', () => ({
-    components: { KDropdown },
-    template: `
-    <div style="margin-left: 50px">
-      <KDropdown
-        :items="['workspaces', 'vitals']"
-        show-active>
-        <template slot="workspaces">
-          workspace
-        </template>
-      </KDropdown>
-    </div>
-  `}), {info: {}})
   .add('Alignments', () => ({
     components: { KDropdown },
     template: `
