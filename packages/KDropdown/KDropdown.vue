@@ -1,9 +1,7 @@
 <template>
-  <div
-    :class="{ 'no-toggle-icon': !toggleIcon }"
-    class="k-dropdown">
+  <div class="k-dropdown">
     <a class="k-dropdown-toggle">
-      <slot name="toggle-text">{{ dropdownToggleText }}</slot>
+      {{ dropdownToggleText }}
     </a>
     <ul
       :class="`k-dropdown-menu-${position}`"
@@ -23,12 +21,6 @@
 </template>
 
 <script>
-export const alignments = {
-  left: 'left',
-  center: 'center',
-  right: 'right'
-}
-
 export default {
   name: 'KDropdown',
   props: {
@@ -36,7 +28,11 @@ export default {
       type: String,
       default: 'left',
       validator: function (value) {
-        return Object.values(alignments).indexOf(value) !== -1
+        return [
+          'left',
+          'right',
+          'center'
+        ].indexOf(value) !== -1
       }
     },
     showActive: {
@@ -46,10 +42,6 @@ export default {
     toggleText: {
       type: String,
       default: ''
-    },
-    toggleIcon: {
-      type: Boolean,
-      default: true
     },
     items: {
       type: Array,
@@ -92,7 +84,7 @@ export default {
   position: relative;
   cursor: pointer;
 }
-.k-dropdown:not(.no-toggle-icon) .k-dropdown-toggle:after {
+.k-dropdown .k-dropdown-toggle:after {
   display: inline-block;
   width: 0;
   height: 0;
