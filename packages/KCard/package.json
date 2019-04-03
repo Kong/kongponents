@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kcard",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Card component",
   "main": "KCard.vue",
   "scripts": {
