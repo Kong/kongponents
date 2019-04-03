@@ -1,9 +1,9 @@
 ```js
-const attributes = {
-  description: 'Simple',
-}
-
-<KDropdown :description="attributes.description">
-  Hello from a slot
+<KDropdown
+  :items="['item-1', 'item-2']"
+  show-active>
+  <template slot="item-1">
+    {{ item.value }
+  </template>
 </KDropdown>
 ```

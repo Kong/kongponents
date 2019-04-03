@@ -1,11 +1,9 @@
 import Vue from 'vue'
 import { storiesOf } from '@storybook/vue'
-import StoryRouter from 'storybook-vue-router'
 
-import KDropdown from './KDropdown.vue'
+import { default as KDropdown, alignments } from './KDropdown.vue'
 
 storiesOf('KDropdown', module)
-  .addDecorator(StoryRouter())
   .add('Default', () => ({
     components: { KDropdown },
     template: `
@@ -14,38 +12,43 @@ storiesOf('KDropdown', module)
         :items="['item 1', 'item 2', 'item 3']"
         toggle-text="Open Dropdown" />
     </div>
-  `}))
+  `}), {info: {}})
   .add('Show Active', () => ({
     components: { KDropdown },
     template: `
     <div style="margin-left: 50px">
       <KDropdown
         :items="['workspaces', 'vitals']"
-        show-active
-        toggle-text="workspaces">
+        show-active>
         <template slot="workspaces">
-          <router-link to="/overview">Workspaces</router-link>
+          workspace
         </template>
       </KDropdown>
     </div>
-  `}))
-  .add('Center Aligned', () => ({
+  `}), {info: {}})
+  .add('Alignments', () => ({
+    components: { KDropdown },
+    template: `
+    <div style="display:flex">
+    ${Object.keys(alignments).map(position => {
+      return `<div style="margin: 1rem">
+        <KDropdown
+          :items="['item 1', 'item 2', 'item 3']"
+          position="${position}"
+          toggle-text="Open ${position}" />
+      </div>`
+    }).join('')}
+    </div>
+  `}), {info: {}})
+  .add('Custom Text', () => ({
     components: { KDropdown },
     template: `
     <div style="margin-left: 50px">
       <KDropdown
         :items="['item 1', 'item 2', 'item 3']"
-        position="center"
-        toggle-text="Open Dropdown" />
+        :toggle-icon="false"
+        position="left">
+        <template slot="toggle-text">Look mah, no arrow!</template>
+      </KDropdown>
     </div>
-  `}))
-  .add('Right Aligned', () => ({
-    components: { KDropdown },
-    template: `
-    <div style="margin-left: 50px">
-      <KDropdown
-        :items="['item 1', 'item 2', 'item 3']"
-        position="right"
-        toggle-text="Open Dropdown"/>
-    </div>
-  `}))
+  `}), {info: {}})
