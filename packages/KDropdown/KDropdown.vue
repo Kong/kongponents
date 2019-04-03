@@ -1,7 +1,9 @@
 <template>
-  <div class="k-dropdown">
+  <div
+    :class="{ 'no-toggle-icon': !toggleIcon }"
+    class="k-dropdown">
     <a class="k-dropdown-toggle">
-      {{ dropdownToggleText }}
+      <slot name="toggle-text">{{ toggleText }}</slot>
     </a>
     <ul
       :class="`k-dropdown-menu-${position}`"
@@ -9,18 +11,20 @@
       <li
         v-for="(item, idx) in items"
         :key="idx"
-        :class="{'active-item' : activeItem === item }"
-        class="k-dropdown-item"
-        @click="setActiveItem(item)">
-        <slot :name="item">
-          {{ item }}
-        </slot>
+        class="k-dropdown-item">
+        <slot :name="item">{{ item }}</slot>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+export const alignments = {
+  left: 'left',
+  center: 'center',
+  right: 'right'
+}
+
 export default {
   name: 'KDropdown',
   props: {
@@ -28,20 +32,16 @@ export default {
       type: String,
       default: 'left',
       validator: function (value) {
-        return [
-          'left',
-          'right',
-          'center'
-        ].indexOf(value) !== -1
+        return Object.values(alignments).indexOf(value) !== -1
       }
-    },
-    showActive: {
-      type: Boolean,
-      default: false
     },
     toggleText: {
       type: String,
       default: ''
+    },
+    toggleIcon: {
+      type: Boolean,
+      default: true
     },
     items: {
       type: Array,
@@ -52,15 +52,6 @@ export default {
   data () {
     return {
       activeItem: this.showActive ? this.items[0] : ''
-    }
-  },
-
-  computed: {
-    dropdownToggleText () {
-      return this.showActive
-        ? this.activeItem
-          ? this.activeItem
-          : this.toggleText : this.toggleText
     }
   },
 
@@ -84,7 +75,7 @@ export default {
   position: relative;
   cursor: pointer;
 }
-.k-dropdown .k-dropdown-toggle:after {
+.k-dropdown:not(.no-toggle-icon) .k-dropdown-toggle:after {
   display: inline-block;
   width: 0;
   height: 0;
