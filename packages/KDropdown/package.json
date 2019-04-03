@@ -1,7 +1,7 @@
 {
   "name": "@kongponents/kdropdown",
   "version": "0.1.0",
-  "description": "Simple",
+  "description": "Simple dropdown list",
   "main": "KDropdown.vue",
   "scripts": {
     "test": "jest"
