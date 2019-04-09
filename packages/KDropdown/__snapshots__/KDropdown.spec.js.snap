@@ -1,25 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`KDropdown matches snapshot 1`] = `
-<div class="k-dropdown"><a class="k-dropdown-toggle"></a>
-  <ul class="k-dropdown-menu k-dropdown-menu-left"></ul>
+<div class="k-dropdown"><span id="dropdown" aria-haspopup="listbox" aria-labelledby="exp_elem" class="k-dropdown-toggle"></span>
+  <ul role="listbox" aria-labelledby="dropdown" class="k-dropdown-menu k-dropdown-menu-left"></ul>
 </div>
 `;
 
 exports[`KDropdown renders with center class 1`] = `
-<div class="k-dropdown"><a class="k-dropdown-toggle"></a>
-  <ul class="k-dropdown-menu k-dropdown-menu-center"></ul>
+<div class="k-dropdown"><span id="dropdown" aria-haspopup="listbox" aria-labelledby="exp_elem" class="k-dropdown-toggle"></span>
+  <ul role="listbox" aria-labelledby="dropdown" class="k-dropdown-menu k-dropdown-menu-center"></ul>
 </div>
 `;
 
 exports[`KDropdown renders with left class 1`] = `
-<div class="k-dropdown"><a class="k-dropdown-toggle"></a>
-  <ul class="k-dropdown-menu k-dropdown-menu-left"></ul>
+<div class="k-dropdown"><span id="dropdown" aria-haspopup="listbox" aria-labelledby="exp_elem" class="k-dropdown-toggle"></span>
+  <ul role="listbox" aria-labelledby="dropdown" class="k-dropdown-menu k-dropdown-menu-left"></ul>
 </div>
 `;
 
 exports[`KDropdown renders with right class 1`] = `
-<div class="k-dropdown"><a class="k-dropdown-toggle"></a>
-  <ul class="k-dropdown-menu k-dropdown-menu-right"></ul>
+<div class="k-dropdown"><span id="dropdown" aria-haspopup="listbox" aria-labelledby="exp_elem" class="k-dropdown-toggle"></span>
+  <ul role="listbox" aria-labelledby="dropdown" class="k-dropdown-menu k-dropdown-menu-right"></ul>
 </div>
 `;
