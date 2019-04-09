@@ -5,8 +5,7 @@
     <span
       id="dropdown"
       class="k-dropdown-toggle"
-      aria-haspopup="listbox"
-      aria-labelledby="exp_elem">
+      aria-haspopup="listbox">
       <slot name="toggle-text">{{ toggleText }}</slot>
     </span>
     <ul
