@@ -2,17 +2,27 @@
   <div
     :class="{ 'no-toggle-icon': !toggleIcon }"
     class="k-dropdown">
-    <a class="k-dropdown-toggle">
+    <span
+      id="dropdown"
+      class="k-dropdown-toggle"
+      aria-haspopup="listbox"
+      aria-labelledby="exp_elem">
       <slot name="toggle-text">{{ toggleText }}</slot>
-    </a>
+    </span>
     <ul
-      :class="`k-dropdown-menu-${position}`"
-      class="k-dropdown-menu">
+      :class="[`k-dropdown-menu-${position}`, ulClasses]"
+      class="k-dropdown-menu"
+      role="listbox"
+      aria-labelledby="dropdown">
       <li
         v-for="(item, idx) in items"
         :key="idx"
-        class="k-dropdown-item">
-        <slot :name="item">{{ item }}</slot>
+        :id="item.replace(' ', '-')"
+        :class="liClasses"
+        role="option"
+        class="k-dropdown-item"
+        v-on="$listeners">
+        <slot :name="item.replace(' ', '-')">{{ item }}</slot>
       </li>
     </ul>
   </div>
@@ -44,6 +54,14 @@ export default {
       default: true
     },
     items: {
+      type: Array,
+      default: () => []
+    },
+    ulClasses: {
+      type: Array,
+      default: () => []
+    },
+    liClasses: {
       type: Array,
       default: () => []
     }
@@ -116,7 +134,6 @@ export default {
 }
 .k-dropdown .k-dropdown-menu .k-dropdown-item {
   display: block;
-  width: 100%;
   padding: 0.5rem 1.5rem;
   white-space: nowrap;
   color: inherit;

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import { storiesOf } from '@storybook/vue'
+import { action } from '@storybook/addon-actions'
 
 import { default as KDropdown, alignments } from './KDropdown.vue'
 
@@ -38,4 +39,23 @@ storiesOf('KDropdown', module)
         <template slot="toggle-text">Look mah, no arrow!</template>
       </KDropdown>
     </div>
-  `}), {info: {}})
+  `}), { info: {} })
+  .add('Actions', () => ({
+    components: { KDropdown },
+    template: `
+    <div style="margin-left: 50px">
+      <KDropdown
+        :items="['item 1', 'item 2', 'item 3']"
+        toggle-text="Cool Actions"
+        position="left">
+        <template slot="item-1">
+          <span @click="onClick">Click me!</span>
+        </template>
+      </KDropdown>
+    </div>`,
+    methods: {
+      onClick (e) {
+        action('onClick')(e)
+      }
+    }
+  }), {info: {}})
