@@ -1,0 +1,148 @@
+:root {
+  /*  Colors
+  ========================================================================== */
+  --blue-lightest: hsla(205, 100%, 98%, 1);
+  --blue-light-01: hsla(205, 100%, 82%, 1);
+  --blue-light: hsla(205, 100%, 72%, 1);
+  --blue-base: hsla(205, 100%, 46%, 1);
+  --blue-link: hsla(205, 80%, 45%, 1);
+
+  --red-lightest: hsla(0, 100%, 98%, 1);
+  --red-light-01: hsla(0, 90%, 82%, 1);
+  --red-light: hsla(0, 85%, 70%, 1);
+  --red-base: hsla(0, 80%, 50%, 1);
+  --red-link: hsla(0, 80%, 45%, 1);
+
+  --green-base: hsla(145, 45%, 45%, 1);
+  --yellow-base: hsla(45, 100%, 70%, 1);
+
+  --tblack-70: hsla(0, 0%, 0%, .70);
+  --tblack-25: hsla(0, 0%, 0%, .25);
+
+  --grey-88: hsla(0, 0%, 98%, 1);
+  --grey-98: hsla(0, 0%, 88%, 1);
+
+  --twhite-75: hsla(100, 100%, 100%, .75);
+  --twhite-50: hsla(100, 100%, 100%, .5);
+  --twhite-1: hsla(100, 100%, 100%, 1);
+
+  /*  Inside Spacing
+  ========================================================================== */
+  --space-inset-sm: 12px;
+  --space-inset-md: 16px;
+  --space-inset-lg: 24px;
+  --space-inset-xl: 64px;
+
+  --space-squish-inset-xs: 1px 4px;
+  --space-squish-inset-sm: 4px 8px;
+  --space-squish-inset-md: 8px 12px;
+  --space-squish-inset-lg: 12px 16px;
+
+  /*  Outside Spacing
+  ========================================================================== */
+  --space-stack-xxs: 0 0 4px 0;
+  --space-stack-xs: 0 0 8px 0;
+  --space-stack-sm: 0 0 12px 0;
+  --space-stack-md: 0 0 16px 0;
+  --space-stack-lg: 0 0 24px 0;
+  --space-stack-xl: 0 0 32px 0;
+  --space-stack-xxl: 0 0 48px 0;
+
+  /*  Type
+  ========================================================================== */
+  --font-family-sans: 'Roboto';
+  --font-family-mono: 'Roboto Mono';
+
+  --type-xxxl: 32px;
+  --type-xxl: 28px;
+  --type-xl: 22px;
+  --type-lg: 18px;
+  --type-md: 16px;
+  --type-sm: 14px;
+  --type-xs: 12px;
+}
+
+/* Regular (Sans) Font Sizes
+========================================================================== */
+.xxxl {
+  font-size: var(--type-xxxl);
+  font-weight: normal;
+  line-height: var(--type-xxxl);
+  margin: 0;
+}
+
+.xxl {
+  font-size: var(--type-xxl);
+  font-weight: normal;
+  line-height: 32px;
+  margin: 0;
+}
+
+.xl {
+  font-size: var(--type-xl);
+  font-weight: normal;
+  line-height: 25px;
+  margin: 0;
+}
+
+.lg {
+  font-size: var(--type-lg);
+  font-weight: normal;
+  line-height: 21px;
+  margin: 0;
+}
+
+p, .md {
+  font-size: var(--type-md);
+  font-weight: normal;
+  line-height: 24px;
+  margin: 0;
+}
+
+small, .sm {
+  font-size: var(--type-sm);
+  font-weight: normal;
+  line-height: 16px;
+  margin: 0;
+}
+
+.xs {
+  font-size: var(--type-xs);
+  font-weight: normal;
+  line-height: 14px;
+  margin: 0;
+}
+
+/* Mono Font Sizes
+========================================================================== */
+.mono {
+  font-family: var(--font-family-mono);
+}
+
+.xxxl.mono {
+  font-size: calc(var(--type-xxxl) * .95);
+}
+
+.xxl.mono {
+  font-size: calc(var(--type-xxl) * .95);
+}
+
+.xl.mono {
+  font-size: calc(var(--type-xl) * .95);
+}
+
+.lg.mono {
+  font-size: calc(var(--type-lg) * .95);
+}
+
+.md.mono {
+  font-size: calc(var(--type-md) * .95);
+}
+
+.sm.mono {
+  font-size: calc(var(--type-sm) * .95);
+}
+
+.xs.mono {
+  font-size: calc(var(--type-xs) * .95);
+}
