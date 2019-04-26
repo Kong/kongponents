@@ -17,6 +17,7 @@
     "storybook": "start-storybook -p 9001 -c .storybook",
     "build": "yarn build:storybook",
     "build:storybook": "build-storybook -c .storybook -o ./docs",
+    "docs:dev": "vuepress dev vuepress",
     "publish": "lerna publish",
     "publish:ci": "lerna publish --yes",
     "test": "yarn jest",
@@ -60,6 +61,7 @@
     "vue-jest": "3.0.2",
     "vue-loader": "15.6.2",
     "vue-template-compiler": "2.5.22",
+    "vuepress": "^0.14.11",
     "vuex": "3.0.1"
   },
   "dependencies": {
