@@ -1,9 +1,10 @@
 <template>
   <button
     v-bind="buttonBindings"
-    :class="[{rounded: isRounded}, appearance, buttonAttributes['class']]"
+    :class="[size === 'default' ? '' : size, {'icon-btn': !hasText}, appearance, buttonAttributes['class']]"
     class="button"
     v-on="listeners">
+    <slot name="icon" />
     <slot/>
   </button>
 </template>
@@ -13,19 +14,12 @@ export default {
   name: 'KButton',
   props: {
     /**
-     * Adds border radius
-     */
-    isRounded: {
-      type: Boolean,
-      default: true
-    },
-    /**
       * Base styling of the button<br>
       * One of ['primary, outline-primary, secondary, outline-secondary, danger', 'outline-danger, btn-link', btn-link-danger ]
       */
     appearance: {
       type: String,
-      default: 'primary',
+      default: '',
       validator: function (value) {
         return [
           'primary',
@@ -37,6 +31,20 @@ export default {
           'btn-link-danger',
           ''
         ].indexOf(value) !== -1
+      }
+    },
+    /**
+      * Size variations<br>
+      * One of ['default', 'small' ]
+      */
+    size: {
+      type: String,
+      default: 'default',
+      validator: function (value) {
+        return [
+          'default',
+          'small'
+        ].indexOf(value) !== 1
       }
     },
     /**
@@ -63,139 +71,138 @@ export default {
       return {
         ...this.buttonAttributes
       }
+    },
+    hasIcon () {
+      return this.$slots.icon
+    },
+    hasText () {
+      return this.$slots.default
     }
+  },
+
+  mounted () {
+    this.hasIcon && this.$slots.icon[0].elm.setAttribute('viewBox', '0 0 16 16')
   }
 }
 </script>
 
 <style scoped>
   .button {
-    font-family: 'Roboto', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-family: var(--font-family-sans);
     font-size: 1rem;
+    font-weight: 400;
     line-height: 1.25;
-    border-radius: 3px;
+    color: var(--tblack-70);
     border: 1px solid transparent;
-    padding: .5rem .75rem;
+    border-radius: 3px;
     transition: all .2s ease-in-out;
     cursor: pointer;
+  }
+  .button:focus {
+    outline: none;
+  }
+  .button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  /* Button w/ Icon */
+  .button > svg {
+    width: 1rem;
+    height: 1rem;
+    padding-right: var(--spacing-xs);
+  }
+  .button.icon-btn {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    justify-content: center;
+  }
+  .button.icon-btn > svg {
+    padding-right: 0;
+  }
+
+  /* Size Variations */
+  .button.small {
+    padding: var(--spacing-xxs) var(--spacing-xs);
+    font-size: var(--type-sm);
+  }
+
+  /* Apperance Variations */
+  .button.secondary {
+    border-color: var(--secondaryBorder);
+    background-color: var(--secondaryBase);
+  }
+  .button.secondary:hover {
+    border-color: var(--secondaryHoverBorder);
+    background-color: var(--secondaryHover)
+  }
+  .button.secondary:active {
+    border-color: var(--secondaryActiveBorder);
+    background-color: var(--secondaryActive);
   }
 
   .button.primary {
     font-weight: 500;
-    color: white;
-    background-color: #0095ff;
-    border-color: transparent !important;
+    color: var(--twhite-1);
+    background-color: var(--primaryBase);
   }
-
   .button.primary:hover {
-    background-color: #4db5ff;
+    background-color: var(--primaryHover);
+  }
+  .button.primary:active {
+    background-color: var(--primaryActive);
   }
 
   .button.danger {
     font-weight: 500;
-    background-color: #f2110d;
-    color: white;
-    border-color: transparent !important;
+    color: var(--twhite-1);
+    background-color: var(--dangerBase);
   }
-
   .button.danger:hover {
-    background-color: #f65855;
+    background-color: var(--dangerHover);
   }
-
   .button.danger:active {
-    background-color: #aa0c09;
-  }
-
-  .button.secondary {
-    background-color: #f5f5f5;
-    color: rgba(0, 0, 0, 0.7);
-    border-color: rgba(0, 0, 0, 0.12);
-  }
-
-  .button.secondary:hover {
-    color: rgba(0, 0, 0, 0.85);
-    border-color: rgba(0, 0, 0, 0.25);
-  }
-
-  .button.secondary:active {
-    color: rgba(0, 0, 0, 0.7);
-    background-color: gainsboro;
+    background-color: var(--dangerActive);
   }
 
   .button.outline-primary {
-    background-color: rgba(255,255,255,.5);
-    color: #0077cc;
-    border-color: #80caff;
+    color: var(--btnLink);
+    border-color: var(--outlinePrimaryBorder);
+    background-color: var(--outlineBackground);
   }
-
   .button.outline-primary:hover {
-    font-weight: 500;
-    background-color: #4db5ff;
-    color: #ffffff;
-    border-color: transparent;
+    background-color: var(--outlinePrimaryHover);
   }
-
   .button.outline-primary:active {
-    background-color: #0068b3;
-  }
-
-  .button.outline-primary:active {
-    background-color: #0068b3;
-    color: #ffffff;
-    border-color: transparent;
+    background-color: var(--outlinePrimaryActive);
   }
 
   .button.outline-danger {
-    font-weight: 500;
-    background-color: transparent;
-    color: #f2110d;
-    border-color: #ff8280;
+    color: var(--btnLinkDanger);
+    border-color: var(--outlineDangerBorder);
+    background-color: var(--outlineBackground);
   }
-
   .button.outline-danger:hover {
-    background-color: #f65855;
-    color: #ffffff;
-    border-color: transparent;
+    background-color: var(--outlineDangerHover);
   }
-
   .button.outline-danger:active {
-    background-color: #aa0c09;
-    color: #ffffff;
-    border-color: transparent;
+    background-color: var(--outlineDangerActive);
   }
 
   .button.btn-link {
-    background-color: transparent;
-    color: #0077cc;
+    color: var(--btnLink);
   }
-
   .button.btn-link:hover {
-    color: #0077cc;
-  }
-
-  .button.btn-link:active {
-    color: #003c66;
-  }
-
-  .button.btn-link-danger {
-    background-color: transparent;
-    color: #f2110d;
-  }
-
-  .button.btn-link-danger:hover {
-    color: #f2110d;
     text-decoration: underline;
   }
-
-  .button.btn-link-danger:active {
-    color: #910a08;
+  .button.btn-link-danger {
+    color: var(--btnLinkDanger);
   }
-  .rounded {
-    border-radius: 3px;
-  }
-
-  .button:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
+  .button.btn-link-danger:hover {
+    text-decoration: underline;
   }
 </style>
