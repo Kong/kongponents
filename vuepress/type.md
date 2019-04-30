@@ -1,5 +1,4 @@
 ---
-title: Type
 exampleText: Kong is a Lua application running in Nginx
 sansBlocks:
   - variable: xxxl
@@ -33,17 +32,18 @@ monoBlocks:
   - variable: xs
     label: (12px*.95%) 11.4px
 ---
+# Type
 
 <section>
-  <div>
-    <h2>Sans Fonts</h2>
+  <div class="col">
+    <!-- <h2>Sans Fonts</h2> -->
     <text-block
       v-for="(block, key, i) in $page.frontmatter.sansBlocks"
       :key="i"
       :text="{variable: block.variable, label: block.label, text: $page.frontmatter.exampleText}" />
   </div>
-  <div>
-    <h2>Mono Fonts</h2>
+  <div class="col">
+    <!-- <h2>Mono Fonts</h2> -->
     <text-block
       v-for="(block, key, i) in $page.frontmatter.monoBlocks"
       :key="i"
@@ -57,5 +57,9 @@ monoBlocks:
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-gap: 2rem;
   }
-  section div { min-width: 0; }
+  section .col {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-gap: 2rem;
+  }
 </style>

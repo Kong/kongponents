@@ -1,8 +1,25 @@
 <template>
-  <div class="swatch" :style="{'background-color': background}">
-    <div class="description">
-      {{ colorName }}<br>
-      {{ colorValue }}
+  <div class="swatch-container">
+    <div
+      v-for="(color, i) in colors"
+      class="swatch"
+      :key="i"
+      :style="getBackground(color)"
+      @mouseover="isHovering = {item: i, text: colorValue(color) }"
+      @mouseleave="isHovering = {}">
+      <div class="description">
+        {{ colorName(color) }}</br>
+        {{ colorValue(color) }}
+      </div>
+      <KClipboardProvider>
+        <div
+          v-if="isHovering.item === i"
+          slot-scope="{ copyToClipboard }"
+          @click="copyAlert(isHovering.text)"
+          class="copy-item">
+            copy to clipboard
+        </div>
+      </KClipboardProvider>
     </div>
   </div>
 </template>
@@ -11,35 +28,68 @@
 export default {
   name: 'swatch',
   props: {
-    color: {
-      type: String,
-      default: ''
+    colors: {
+      type: Array,
+      default: () => []
     }
   },
-  computed: {
-    background () {
-      return `var(${this.color})`
+
+  data () {
+    return {
+      isHovering: {},
+      dataToCopy: null
+    }
+  },
+
+  methods: {
+    getBackground (color) {
+      return `background-color: var(${color})`
     },
-    colorName () {
-      return this.color.replace('--', '')
+    colorName (color) {
+      return color.replace('--', '')
     },
-    colorValue () {
-      return getComputedStyle(document.body).getPropertyValue(this.color)
+    colorValue (color) {
+      return getComputedStyle(document.body).getPropertyValue(color)
+    },
+    copyAlert (text) {
+      alert(`${text} copied to clipboard`)
     }
   }
 }
 </script>
 
 <style scoped>
+
+.swatch-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  border-radius: 4px;
+  box-shadow: 0 5px 15px rgba(0,0,0,.15);
+  overflow: hidden;
+}
 .swatch {
+  position: relative;
   display: flex;
+  flex: 1;
+  min-height: 80px;
   align-items: center;
   justify-content: center;
-  height: 80px;
-  padding: 1rem;
-  color: rgba(0,0,0,.75);
   text-align: center;
-  border-radius: 4px;
-  border: 1px rgba(0,0,0,.12) solid;
+  padding: 0 1rem;
+  line-height: 24px;
+  border-bottom: 1px solid rgba(0,0,0,.15);
+  color: #000;
+}
+
+.copy-item {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: rgba(0,0,0, .75);
+  cursor: pointer;
 }
 </style>
