@@ -1,0 +1,127 @@
+/*  Spacing
+========================================================================== */
+$sides: (top, right, bottom, left);
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.mx-0 {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.my-0 {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.px-auto {
+  padding-left: auto;
+  padding-right: auto;
+}
+.py-auto {
+  padding-top: auto;
+  padding-bottom: auto;
+}
+.px-0 {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.py-0 {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+// Loop spacing and create margin classes
+@each $size, $space in $spacing {
+  $i: index($spacing, $size $space);
+  // Create (t, r, b, l) classes
+  @each $marginSide in $sides {
+    // if first add a 0 utility
+    @if $i == 1 {
+      .m#{str-slice($marginSide, 0, 1)}-auto {
+        margin-#{$marginSide}: auto;
+      }
+      .m#{str-slice($marginSide, 0, 1)}-0 {
+        margin-#{$marginSide}: 0px;
+      }
+    }
+  }
+  @each $marginSide in $sides {
+    .m#{str-slice($marginSide, 0, 1)}-#{$i} {
+      margin-#{$marginSide}: #{$space}px;
+    }
+  }
+  // Create X & Y classes
+  .mx-#{$i} {
+    margin-left: #{$space}px;
+    margin-right: #{$space}px
+  }
+  .my-#{$i} {
+    margin-top: #{$space}px;
+    margin-bottom: #{$space}px;
+  }
+}
+
+// Loop spacing and create padding classes
+@each $size, $space in $spacing {
+  $i: index($spacing, $size $space);
+  // Create (t, r, b, l) classes
+  @each $paddingSide in $sides {
+    // if first add a 0 utility
+    @if $i == 1 {
+      .p#{str-slice($paddingSide, 0, 1)}-0 {
+        padding-#{$paddingSide}: 0px;
+      }
+    }
+  }
+  @each $paddingSide in $sides {
+  .p#{str-slice($paddingSide, 0, 1)}-#{$i} {
+      padding-#{$paddingSide}: #{$space}px;
+    }
+  }
+  // Create X & Y classes
+  .px-#{$i} {
+    padding-left: #{$space}px;
+    padding-right: #{$space}px
+  }
+  .py-#{$i} {
+    padding-top: #{$space}px;
+    padding-bottom: #{$space}px;
+  }
+}
+
+/*  Text Utils
+========================================================================== */
+.truncate {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.cursor-pointer	{
+  cursor: pointer;
+}
+
+/*  Display Utils
+========================================================================== */
+.d-none {
+  display: none;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.w-100 {
+  width: 100%;
+}
+
