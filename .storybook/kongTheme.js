@@ -1,5 +1,6 @@
 import { create } from '@storybook/theming';
 import '../styles.css'
+import '../theme.css'
 
 export default create({
   base: 'light',
