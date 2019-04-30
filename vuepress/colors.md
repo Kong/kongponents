@@ -1,17 +1,17 @@
----
-title: Colors
----
-<section
-  class="color-group"
-  v-for="(cat, key, i) in colors"
-  :key="i">
-  <h2>{{ key }}</h2>
-  
-  <div class="colors">
-    <div
-      v-for="(color, i) in cat"
-      :key="i">
-      <swatch :color="color"/>
+# Colors
+
+<section class="">
+  <div
+    v-for="(group, key, i) in colors"
+    :key="i"
+    class="color-group">
+    <h2>{{ key }} colors</h2>
+    <div class="colors">
+      <div
+        v-for="(colors, key, i) in group"
+        :key="i">
+        <swatch :colors="colors"/>
+      </div>
     </div>
   </div>
 </section>
@@ -38,10 +38,17 @@ export default {
         }, [])
 
       return {
-        blues: colors.filter(i => i.includes('blue')),
-        reds: colors.filter(i => i.includes('red')),
-        base: colors.filter(i => i.includes('green') || i.includes('yellow')),
-        text: colors.filter(i => i.includes('black') || i.includes('white') || i.includes('grey'))
+        Brand: {
+          Blues: colors.filter(i => i.includes('blue')),
+          Reds: colors.filter(i => i.includes('red')),
+          Greens: colors.filter(i => i.includes('green')),
+          Yellows: colors.filter(i => i.includes('yellow'))
+        },
+        'Grey and White': {
+          Blacks: colors.filter(i => i.includes('black')),
+          Greys: colors.filter(i => i.includes('grey')),
+          Whites: colors.filter(i => i.includes('white'))
+        }
       }
     }
   }
@@ -50,14 +57,14 @@ export default {
 
 <style>
   .color-group {
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;
   }
   .color-group h2 {
     text-transform: Capitalize;
   }
   .colors {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-gap: 1rem;
   }
 </style>
