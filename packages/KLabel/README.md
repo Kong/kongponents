@@ -1,9 +1,4 @@
 ```js
-const attributes = {
-  description: 'Simple to use dropdown item',
-}
-
-<KLabel :description="attributes.description">
-  Hello from a slot
-</KLabel>
+<KLabel :labelText="Label" :labelFor="name" />
+<KInput type="text" id="name" placeholder="Enter a Name" />
 ```
