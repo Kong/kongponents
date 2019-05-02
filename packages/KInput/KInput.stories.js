@@ -7,21 +7,21 @@ storiesOf('KInput', module)
   .add('Default', () => ({
     components: { KInput, KLabel },
     template: `<div style="display:grid; grid-gap: 1rem">
-      <div><KInput type="email" placeholder="Enter email" /></div>
+      <div><KInput type="email" placeholder="Enter email" value="invalid" /></div>
       <div>
-        <KLabel>Input Label</KLabel>
-        <KInput type="text" placeholder="placeholder" />
+        <KLabel>Label</KLabel>
+        <KInput type="text" placeholder="Focus on me" />
       </div>
       <div>
-        <KLabel>Input Label</KLabel>
-        <KInput type="text" placeholder="placeholder" />
+        <KLabel>Label</KLabel>
+        <KInput type="text" placeholder="I have a label & hint" />
         <p class="hint">Hint</p>
       </div>
       <div>
         <KInput type="search" placeholder="Search..." />
       </div>
       <div>
-        <KInput disabled type="text" placeholder="placeholder" />
+        <KInput disabled type="text" placeholder="Disabled" />
       </div>
     </div>`
   }), { info: {} })
