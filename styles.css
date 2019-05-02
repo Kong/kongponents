@@ -448,7 +448,9 @@
   --red-link: #cf1717;
   --green-base: #3fa66a;
   --yellow-base: #ffd966;
+  --tblack-85: rgba(0, 0, 0, 0.85);
   --tblack-70: rgba(0, 0, 0, 0.7);
+  --tblack-45: rgba(0, 0, 0, 0.45);
   --tblack-25: rgba(0, 0, 0, 0.25);
   --grey-88: #e0e0e0;
   --grey-98: #fafafa;
