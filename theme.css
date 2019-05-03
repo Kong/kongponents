@@ -1,0 +1,30 @@
+:root {
+  --primaryBase: var(--blue-base);
+  --primaryHover: #30AFFF;
+  --primaryActive: #027CCA;
+
+  --secondaryColor: var(--black70);
+  --secondaryBase: var(--grey-98);
+  --secondaryBorder: var(--grey-88);
+  --secondaryHover: #F0F0F0;
+  --secondaryHoverBorder: #D6D6D6;
+  --secondaryActive: #E6E6E6;
+  --secondaryActiveBorder: #CCCCCC;
+
+  --dangerBase: var(--red-base);
+  --dangerHover: #EC5151;
+  --dangerActive: #C11416;
+
+  --outlineBackground: var(--white-50);
+
+  --outlinePrimaryBorder: var(--blue-light-01);
+  --outlinePrimaryHover: var(--blue-lightest);
+  --outlinePrimaryActive: #E1F3FF;
+
+  --outlineDangerBorder: var(--red-light-01);
+  --outlineDangerHover: var(--red-lightest);
+  --outlineDangerActive: #FAE4E4;
+
+  --btnLink: var(--blue-link);
+  --btnLinkDanger: var(--red-link);
+}

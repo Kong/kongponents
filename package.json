@@ -17,6 +17,8 @@
     "storybook": "start-storybook -p 9001 -c .storybook",
     "build": "yarn build:storybook",
     "build:storybook": "build-storybook -c .storybook -o ./docs",
+    "build:styles": "node-sass ./styles/styles.scss -o ./",
+    "docs:dev": "vuepress dev vuepress",
     "publish": "lerna publish",
     "publish:ci": "lerna publish --yes",
     "test": "yarn jest",
@@ -54,12 +56,14 @@
     "jest-raw-loader": "^1.0.1",
     "jest-serializer-vue": "2.0.2",
     "lerna": "3.13.1",
+    "node-sass": "^4.11.0",
     "raw-loader": "0.5.1",
     "storybook-addon-vue-info": "1.0.0",
     "storybook-vue-router": "^1.0.3",
     "vue-jest": "3.0.2",
     "vue-loader": "15.6.2",
     "vue-template-compiler": "2.5.22",
+    "vuepress": "^0.14.11",
     "vuex": "3.0.1"
   },
   "dependencies": {
