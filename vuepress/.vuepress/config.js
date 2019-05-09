@@ -12,7 +12,8 @@ module.exports = {
       '/',
       '/colors',
       '/type',
-      '/spacing'
+      '/spacing',
+      '/theming'
     ],
     nav: [
       { text: 'Home', link: '/' }
