@@ -34,7 +34,7 @@ monoBlocks:
 ---
 # Type
 
-<section>
+<section class="type-wrapper">
   <h2>Sans Fonts</h2>
   <h2>Mono Fonts</h2>
   <div class="col">
@@ -62,13 +62,13 @@ monoBlocks:
 | `.w-100` | Sets element to 100% width | <pre v-pre><code>{ width: 100%; }</code></pre>
 
 <style>
-  section {
+  .type-wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-gap: 2rem;
     margin-bottom: 3rem;
   }
-  section .col {
+  .type-wrapper .col {
     display: grid;
     grid-template-rows: 1fr;
     grid-gap: 2rem;
