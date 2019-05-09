@@ -19,16 +19,3 @@ Example: .pt-2 would add 8px of padding to the top of the element and.mx-0 would
 |             |                | `7` 48px |
 |             |                | `auto` auto |
 
-
-<style>
-  tr, th, td {
-    border: none;
-  }
-  th:not(:last-of-type), 
-  td:not(:last-of-type) {
-    border-right: 1px solid #dfe2e5;
-  }
-  tr:nth-child(2n) {
-    background-color: #fff;
-  }
-</style>
