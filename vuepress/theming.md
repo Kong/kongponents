@@ -1,32 +1,32 @@
 # Custom Theming
 
-Kongponents use styles from our base styleguide.css file by default. You can "theme" some components by setting the following [CSS Custom Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) in your `:root: {}` tag.
+Kongponents use styles from our base styleguide.css file by default. You can "theme" components by setting the following [CSS Custom Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) in your `:root: {}` tag.
 
 ## Buttons
 | Variable | Purpose
 |:-------- |:-------
-| `--btnPrimaryBase `| Primary background
-| `--btnPrimaryHover`| Primary hover state
-| `--btnPrimaryActive`| Primary active state
-| `--btnSecondaryColor`| Secondary text color
-| `--btnSecondaryBase`| Secondary background
-| `--btnSecondaryBorder`| Secondary border
-| `--btnSecondaryHover`| Secondary hover state
-| `--btnSecondaryHoverBorder`| Secondary hover border
-| `--btnSecondaryActive`| Secondary active state 
-| `--btnSecondaryActiveBorder`| Secondary active state border
-| `--btnDangerBase`| Danger background
-| `--btnDangerHover`| Danger hover state
-| `--btnDangerActive`| Danger active state
-| `--btnOutlineBackground`| Primary outline background (white 50%)
-| `--btnOutlinePrimaryBorder`| Primary outline border
-| `--btnOutlinePrimaryHover`| Primary outline hover state
-| `--btnOutlinePrimaryActive`| Primary outline active state
-| `--btnOutlineDangerBorder`| Danger outline border
-| `--btnOutlineDangerHover`| Danger outline hover state
-| `--btnOutlineDangerActive`| Danger outline active state
-| `--btnLink`| Button link variant
-| `--btnLinkDanger`| Button Danger link variant
+| `--kButtonPrimaryBase `| Primary background
+| `--kButtonPrimaryHover`| Primary hover state
+| `--kButtonPrimaryActive`| Primary active state
+| `--kButtonSecondaryColor`| Secondary text color
+| `--kButtonSecondaryBase`| Secondary background
+| `--kButtonSecondaryBorder`| Secondary border
+| `--kButtonSecondaryHover`| Secondary hover state
+| `--kButtonSecondaryHoverBorder`| Secondary hover border
+| `--kButtonSecondaryActive`| Secondary active state 
+| `--kButtonSecondaryActiveBorder`| Secondary active state border
+| `--kButtonDangerBase`| Danger background
+| `--kButtonDangerHover`| Danger hover state
+| `--kButtonDangerActive`| Danger active state
+| `--kButtonOutlineBackground`| Primary outline background (white 50%)
+| `--kButtonOutlinePrimaryBorder`| Primary outline border
+| `--kButtonOutlinePrimaryHover`| Primary outline hover state
+| `--kButtonOutlinePrimaryActive`| Primary outline active state
+| `--kButtonOutlineDangerBorder`| Danger outline border
+| `--kButtonOutlineDangerHover`| Danger outline hover state
+| `--kButtonOutlineDangerActive`| Danger outline active state
+| `--kButtonLink`| Button link variant
+| `--kButtonLinkDanger`| Button Danger link variant
 
 \
 \
@@ -35,9 +35,9 @@ look like
 ```
 <style>
 :root {
-  --btnPrimaryBase: #494ca2;
-  --btnPrimaryHover: #6c6ebd;
-  --btnPrimaryActive: #3c3f86;
+  --kButtonPrimaryBase: #494ca2;
+  --kButtonPrimaryHover: #6c6ebd;
+  --kButtonPrimaryActive: #3c3f86;
 }
 </style>
 
