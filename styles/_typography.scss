@@ -1,3 +1,5 @@
+@import "variables";
+
 /* Regular (Sans) Font Sizes
 ========================================================================== */
 // For each size in the $type-sizes variable
@@ -19,7 +21,6 @@
 @each $name, $size in $type-sizes {
   .mono.#{$name} {
     font-size: calc(var(--type-#{$name}) * .95);
-    font-weight: normal;
   }
 }
 
