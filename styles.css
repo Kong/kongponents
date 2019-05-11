@@ -34,32 +34,25 @@
   font-family: var(--font-family-mono); }
 
 .mono.xxxl {
-  font-size: calc(var(--type-xxxl) * .95);
-  font-weight: normal; }
+  font-size: calc(var(--type-xxxl) * .95); }
 
 .mono.xxl {
-  font-size: calc(var(--type-xxl) * .95);
-  font-weight: normal; }
+  font-size: calc(var(--type-xxl) * .95); }
 
 .mono.xl {
-  font-size: calc(var(--type-xl) * .95);
-  font-weight: normal; }
+  font-size: calc(var(--type-xl) * .95); }
 
 .mono.lg {
-  font-size: calc(var(--type-lg) * .95);
-  font-weight: normal; }
+  font-size: calc(var(--type-lg) * .95); }
 
 .mono.md {
-  font-size: calc(var(--type-md) * .95);
-  font-weight: normal; }
+  font-size: calc(var(--type-md) * .95); }
 
 .mono.sm {
-  font-size: calc(var(--type-sm) * .95);
-  font-weight: normal; }
+  font-size: calc(var(--type-sm) * .95); }
 
 .mono.xs {
-  font-size: calc(var(--type-xs) * .95);
-  font-weight: normal; }
+  font-size: calc(var(--type-xs) * .95); }
 
 /*  Spacing
 ========================================================================== */
