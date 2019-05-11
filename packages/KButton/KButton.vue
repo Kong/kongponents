@@ -86,123 +86,126 @@ export default {
 }
 </script>
 
-<style scoped>
-  .button {
-    display: inline-flex;
-    align-items: center;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    font-family: var(--font-family-sans);
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.25;
-    color: var(--tblack-70);
-    border: 1px solid transparent;
-    border-radius: 3px;
-    transition: all .2s ease-in-out;
-    cursor: pointer;
-  }
-  .button:focus {
+<style scoped lang="scss">
+@import '../../styles/styles';
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-family: var(--font-family-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--tblack-70);
+  border: 1px solid transparent;
+  border-radius: 3px;
+  transition: all .2s ease-in-out;
+  cursor: pointer;
+
+  &:focus {
     outline: none;
   }
-  .button:disabled {
+
+  &:disabled {
     opacity: 0.3;
     cursor: not-allowed;
   }
 
   /* Button w/ Icon */
-  .button > svg {
+  > svg {
     width: 1rem;
     height: 1rem;
     padding-right: var(--spacing-xs);
   }
-  .button.icon-btn {
+
+  .icon-btn {
     width: 38px;
     height: 38px;
     padding: 0;
     justify-content: center;
-  }
-  .button.icon-btn > svg {
-    padding-right: 0;
+    > svg {
+      padding-right: 0;
+    }
   }
 
   /* Size Variations */
-  .button.small {
+  .small {
     padding: var(--spacing-xxs) var(--spacing-xs);
     font-size: var(--type-sm);
   }
 
   /* Apperance Variations */
-  .button.secondary {
-    border-color: var(--secondaryBorder);
-    background-color: var(--secondaryBase);
-  }
-  .button.secondary:hover {
-    border-color: var(--secondaryHoverBorder);
-    background-color: var(--secondaryHover)
-  }
-  .button.secondary:active {
-    border-color: var(--secondaryActiveBorder);
-    background-color: var(--secondaryActive);
-  }
+  &.secondary {
+    border-color: var(--KButtonSecondaryBorder, color(grey-88));
+    background-color: var(--KButtonSecondaryBase, var(--secondary, color(grey-98)));
 
-  .button.primary {
+    &:hover {
+      border-color: var(--KButtonSecondaryHoverBorder, darken(color(grey-88), 4%));
+      background-color: var(--KButtonSecondaryHover, darken(color(grey-98), 4%));
+    }
+
+    &:active {
+      border-color: var(--KButtonSecondaryActiveBorder, darken(color(grey-88), 8%));
+      background-color: var(--KButtonSecondaryActive, darken(color(grey-98), 8%));
+    }
+  }
+  &.primary {
     font-weight: 500;
-    color: var(--twhite-1);
-    background-color: var(--primaryBase);
+    color: var(--twhite-1, #fff);
+    background-color: var(--KButtonPrimaryBase, var(--primary, color(blue-base)));
+    &:hover {
+      background-color: var(--KButtonPrimaryHover, lighten(color(blue-base), 12%));
+    }
+    &:active {
+      background-color: var(--KButtonPrimaryActive, darken(color(blue-base), 8%));
+    }
   }
-  .button.primary:hover {
-    background-color: var(--primaryHover);
-  }
-  .button.primary:active {
-    background-color: var(--primaryActive);
-  }
-
-  .button.danger {
+  &.danger {
     font-weight: 500;
-    color: var(--twhite-1);
-    background-color: var(--dangerBase);
+    color: var(--twhite-1, #fff);
+    background-color: var(--KButtonDangerBase, var(--danger, color(red-base)));
+    &:hover {
+      background-color: var(--KButtonDangerHover, lighten(color(red-base), 12%));
+    }
+    &:active {
+      background-color: var(--KButtonDangerActive, darken(color(red-base), 8%));
+    }
   }
-  .button.danger:hover {
-    background-color: var(--dangerHover);
+  &.outline-primary {
+    color: var(--KButtonLink, var(--btnLink, color(blue-link)));
+    border-color: var(--KButtonOutlinePrimaryBorder, color(blue-light-01));
+    background-color: var(--KButtonOutlineBackground, #fff);
+    &:hover {
+      background-color: var(--KButtonOutlinePrimaryHover, color(blue-lightest));
+    }
+    &:active {
+      background-color: var(--KButtonOutlinePrimaryActive, darken(color(blue-lightest), 4%));
+    }
   }
-  .button.danger:active {
-    background-color: var(--dangerActive);
+  &.outline-danger {
+    color: var(--KButtonLinkDanger, var(--linkDanger, color(red-link)));
+    border-color: var(--KButtonOutlineDangerBorder, color(red-light-01));
+    background-color: var(--KButtonOutlineBackground, #fff);
+    &:hover {
+      background-color: var(--KButtonOutlineDangerHover, color(red-lightest));
+    }
+    &:active {
+      background-color: var(--KbuttonOtlineDangerActive, darken(color(red-lightest), 4%));
+    }
   }
+  &.btn-link {
+    color: var(--KButtonBtnLink, var(--linkPrimary, color(blue-link)));
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &.btn-link-danger {
+    color: var(--KButtonLinkDanger, var(--linkDanger, color(red-link)));
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
 
-  .button.outline-primary {
-    color: var(--btnLink);
-    border-color: var(--outlinePrimaryBorder);
-    background-color: var(--outlineBackground);
-  }
-  .button.outline-primary:hover {
-    background-color: var(--outlinePrimaryHover);
-  }
-  .button.outline-primary:active {
-    background-color: var(--outlinePrimaryActive);
-  }
-
-  .button.outline-danger {
-    color: var(--btnLinkDanger);
-    border-color: var(--outlineDangerBorder);
-    background-color: var(--outlineBackground);
-  }
-  .button.outline-danger:hover {
-    background-color: var(--outlineDangerHover);
-  }
-  .button.outline-danger:active {
-    background-color: var(--outlineDangerActive);
-  }
-
-  .button.btn-link {
-    color: var(--btnLink);
-  }
-  .button.btn-link:hover {
-    text-decoration: underline;
-  }
-  .button.btn-link-danger {
-    color: var(--btnLinkDanger);
-  }
-  .button.btn-link-danger:hover {
-    text-decoration: underline;
-  }
 </style>
