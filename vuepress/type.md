@@ -34,16 +34,16 @@ monoBlocks:
 ---
 # Type
 
-<section>
+<section class="type-wrapper">
+  <h2>Sans Fonts</h2>
+  <h2>Mono Fonts</h2>
   <div class="col">
-    <!-- <h2>Sans Fonts</h2> -->
     <text-block
       v-for="(block, key, i) in $page.frontmatter.sansBlocks"
       :key="i"
       :text="{variable: block.variable, label: block.label, text: $page.frontmatter.exampleText}" />
   </div>
   <div class="col">
-    <!-- <h2>Mono Fonts</h2> -->
     <text-block
       v-for="(block, key, i) in $page.frontmatter.monoBlocks"
       :key="i"
@@ -51,13 +51,24 @@ monoBlocks:
   </div>
 </section>
 
+## Utilites
+
+| Class       | Description |Properties
+| :---------- |:-------------- |:-----------
+| `.truncate` | Truncates text with "..."| <pre v-pre><code>{ <br>white-space: nowrap; <br>text-overflow: ellipsis; <br>overflow: hidden;<br>}</code></pre>
+| `.cursor-pointer` | Sets cursor type | <pre v-pre><code>{ cursor: pointer; } </code></pre>
+| `.d-none` | Sets display to none | <pre v-pre><code>{ display: flex; }</code></pre>
+| `.overflow-hidden` | Sets overflow | <pre v-pre><code>{ overflow: hidden; }</code></pre>
+| `.w-100` | Sets element to 100% width | <pre v-pre><code>{ width: 100%; }</code></pre>
+
 <style>
-  section {
+  .type-wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-gap: 2rem;
+    margin-bottom: 3rem;
   }
-  section .col {
+  .type-wrapper .col {
     display: grid;
     grid-template-rows: 1fr;
     grid-gap: 2rem;
