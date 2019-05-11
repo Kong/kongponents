@@ -2,7 +2,7 @@
 @import "typography";
 @import "utils";
 
-// retrieve color from $colors map ie. `color(primary, base)`
+// Retrieve color from $colors map ie. `color(blue-base)`
 @function color($color-name) {
   @return map-get($colors, $color-name);
 }
