@@ -58,6 +58,7 @@
     "lerna": "3.13.1",
     "node-sass": "^4.11.0",
     "raw-loader": "0.5.1",
+    "sass-loader": "^7.1.0",
     "storybook-addon-vue-info": "1.0.0",
     "storybook-vue-router": "^1.0.3",
     "vue-jest": "3.0.2",
