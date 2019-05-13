@@ -44,7 +44,7 @@ export default {
         return [
           'default',
           'small'
-        ].indexOf(value) !== 1
+        ].indexOf(value) !== -1
       }
     },
     /**
@@ -87,7 +87,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '../../styles/styles';
+@import '../styles/styles';
 
 .button {
   display: inline-flex;
@@ -119,7 +119,7 @@ export default {
     padding-right: var(--spacing-xs);
   }
 
-  .icon-btn {
+  &.icon-btn {
     width: 38px;
     height: 38px;
     padding: 0;
@@ -130,7 +130,7 @@ export default {
   }
 
   /* Size Variations */
-  .small {
+  &.small {
     padding: var(--spacing-xxs) var(--spacing-xs);
     font-size: var(--type-sm);
   }

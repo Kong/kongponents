@@ -2,6 +2,11 @@
 @import "typography";
 @import "utils";
 
+// Retrieve color from $colors map ie. `color(blue-base)`
+@function color($color-name) {
+  @return map-get($colors, $color-name);
+}
+
 // Loop all maps and set to root element
 :root {
   // colors
