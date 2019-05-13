@@ -1,0 +1,19 @@
+{
+  "name": "@kongponents/kooltip",
+  "version": "0.1.0",
+  "description": "A tooltip component",
+  "main": "KoolTip.vue",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kong/kongponents.git"
+  },
+  "author": "Kong Inc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kong/kongponents/issues"
+  },
+  "homepage": "https://github.com/Kong/kongponents#readme"
+}
