@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KoolTip matches snapshot 1`] = `<div aria-hidden="true" data-message="I'm inside the tooltip!" role="tooltip" class="k-tooltip k-tooltip-top" style="text-align: left;"></div>`;
