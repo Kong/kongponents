@@ -17,7 +17,7 @@
     "storybook": "start-storybook -p 9001 -c .storybook",
     "build": "yarn build:storybook",
     "build:storybook": "build-storybook -c .storybook -o ./docs",
-    "build:styles": "node-sass ./styles/styles.scss -o ./",
+    "build:styles": "node-sass packages/styles/styles.scss -o packages/styles",
     "docs:dev": "vuepress dev vuepress",
     "publish": "lerna publish",
     "publish:ci": "lerna publish --yes",
