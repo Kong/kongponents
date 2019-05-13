@@ -1,6 +1,6 @@
 # Colors
 
-<section class="">
+<section>
   <div
     v-for="(group, key, i) in colors"
     :key="i"
