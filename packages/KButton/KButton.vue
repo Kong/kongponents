@@ -87,7 +87,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '../styles/styles';
+@import '../styles/_variables.scss';
 
 .button {
   display: inline-flex;
@@ -139,12 +139,10 @@ export default {
   &.secondary {
     border-color: var(--KButtonSecondaryBorder, color(grey-88));
     background-color: var(--KButtonSecondaryBase, var(--secondary, color(grey-98)));
-
     &:hover {
       border-color: var(--KButtonSecondaryHoverBorder, darken(color(grey-88), 4%));
       background-color: var(--KButtonSecondaryHover, darken(color(grey-98), 4%));
     }
-
     &:active {
       border-color: var(--KButtonSecondaryActiveBorder, darken(color(grey-88), 8%));
       background-color: var(--KButtonSecondaryActive, darken(color(grey-98), 8%));
