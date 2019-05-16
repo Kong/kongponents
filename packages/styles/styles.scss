@@ -1,0 +1,23 @@
+@import "variables";
+@import "typography";
+@import "utils";
+
+// Loop all maps and set to root element
+:root {
+  // colors
+  @each $name, $color in $colors {
+    --#{$name}: #{$color};
+  }
+  // Spacings
+  @each $name, $space in $spacing {
+    --spacing-#{$name}: #{$space};
+  }
+  // Type
+  @each $name, $size in $type-sizes {
+    --type-#{$name}: #{$size};
+  }
+  // Font families
+  @each $name, $font in $fonts {
+    --font-family-#{$name}: #{$font};
+  }
+}

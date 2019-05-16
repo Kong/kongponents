@@ -7,11 +7,13 @@ module.exports = {
     logo: 'https://2tjosk2rxzc21medji3nfn1g-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/kong-logomark-color-64px.png',
     docsDir: 'vuepress',
     editLinks: true,
+    sidebarDepth: 0,
     sidebar: [
       '/',
       '/colors',
       '/type',
-      '/spacing'
+      '/spacing',
+      '/theming'
     ],
     nav: [
       { text: 'Home', link: '/' }
@@ -19,7 +21,7 @@ module.exports = {
   },
   head: [
     ['link', { rel: 'icon', href: 'https://2tjosk2rxzc21medji3nfn1g-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/kong-logomark-color-64px.png' }],
-    ['link', { rel: 'stylesheet', href: `https://fonts.googleapis.com/css?family=Roboto&RobotoMono` }]
+    ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:400,500,700' }]
   ],
   chainWebpack: config => {
     const svgRule = config.module.rule('svg')

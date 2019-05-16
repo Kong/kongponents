@@ -1,6 +1,5 @@
 // Get base stylesheet
-import '../../styles.css'
-import '../../theme.css'
+import '../../packages/styles/styles.css'
 
 // Globally import all Kongponents
 import KAlert from '../../packages/KAlert'

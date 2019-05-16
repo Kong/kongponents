@@ -1,9 +1,10 @@
 <template>
   <button
     v-bind="buttonBindings"
-    :class="[{rounded: isRounded}, appearance, buttonAttributes['class']]"
+    :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance, buttonAttributes['class']]"
     class="button"
     v-on="listeners">
+    <slot name="icon" />
     <slot/>
   </button>
 </template>
@@ -13,19 +14,12 @@ export default {
   name: 'KButton',
   props: {
     /**
-     * Adds border radius
-     */
-    isRounded: {
-      type: Boolean,
-      default: true
-    },
-    /**
-      * Base styling of the button<br>
+      * Base styling of the button
       * One of ['primary, outline-primary, secondary, outline-secondary, danger', 'outline-danger, btn-link', btn-link-danger ]
       */
     appearance: {
       type: String,
-      default: 'primary',
+      default: '',
       validator: function (value) {
         return [
           'primary',
@@ -36,6 +30,20 @@ export default {
           'btn-link',
           'btn-link-danger',
           ''
+        ].indexOf(value) !== -1
+      }
+    },
+    /**
+      * Size variations
+      * One of ['default', 'small' ]
+      */
+    size: {
+      type: String,
+      default: 'default',
+      validator: function (value) {
+        return [
+          'default',
+          'small'
         ].indexOf(value) !== -1
       }
     },
@@ -63,139 +71,139 @@ export default {
       return {
         ...this.buttonAttributes
       }
+    },
+    hasIcon () {
+      return this.$slots.icon
+    },
+    hasText () {
+      return this.$slots.default
     }
+  },
+
+  mounted () {
+    this.hasIcon && this.$slots.icon[0].elm.setAttribute('viewBox', '0 0 16 16')
   }
 }
 </script>
 
-<style scoped>
-  .button {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
-    line-height: 1.25;
-    border-radius: 3px;
-    border: 1px solid transparent;
-    padding: .5rem .75rem;
-    transition: all .2s ease-in-out;
-    cursor: pointer;
+<style scoped lang="scss">
+@import '../styles/_variables.scss';
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-family: var(--font-family-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--tblack-70);
+  border: 1px solid transparent;
+  border-radius: 3px;
+  transition: all .2s ease-in-out;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
   }
 
-  .button.primary {
-    font-weight: 500;
-    color: white;
-    background-color: #0095ff;
-    border-color: transparent !important;
-  }
-
-  .button.primary:hover {
-    background-color: #4db5ff;
-  }
-
-  .button.danger {
-    font-weight: 500;
-    background-color: #f2110d;
-    color: white;
-    border-color: transparent !important;
-  }
-
-  .button.danger:hover {
-    background-color: #f65855;
-  }
-
-  .button.danger:active {
-    background-color: #aa0c09;
-  }
-
-  .button.secondary {
-    background-color: #f5f5f5;
-    color: rgba(0, 0, 0, 0.7);
-    border-color: rgba(0, 0, 0, 0.12);
-  }
-
-  .button.secondary:hover {
-    color: rgba(0, 0, 0, 0.85);
-    border-color: rgba(0, 0, 0, 0.25);
-  }
-
-  .button.secondary:active {
-    color: rgba(0, 0, 0, 0.7);
-    background-color: gainsboro;
-  }
-
-  .button.outline-primary {
-    background-color: rgba(255,255,255,.5);
-    color: #0077cc;
-    border-color: #80caff;
-  }
-
-  .button.outline-primary:hover {
-    font-weight: 500;
-    background-color: #4db5ff;
-    color: #ffffff;
-    border-color: transparent;
-  }
-
-  .button.outline-primary:active {
-    background-color: #0068b3;
-  }
-
-  .button.outline-primary:active {
-    background-color: #0068b3;
-    color: #ffffff;
-    border-color: transparent;
-  }
-
-  .button.outline-danger {
-    font-weight: 500;
-    background-color: transparent;
-    color: #f2110d;
-    border-color: #ff8280;
-  }
-
-  .button.outline-danger:hover {
-    background-color: #f65855;
-    color: #ffffff;
-    border-color: transparent;
-  }
-
-  .button.outline-danger:active {
-    background-color: #aa0c09;
-    color: #ffffff;
-    border-color: transparent;
-  }
-
-  .button.btn-link {
-    background-color: transparent;
-    color: #0077cc;
-  }
-
-  .button.btn-link:hover {
-    color: #0077cc;
-  }
-
-  .button.btn-link:active {
-    color: #003c66;
-  }
-
-  .button.btn-link-danger {
-    background-color: transparent;
-    color: #f2110d;
-  }
-
-  .button.btn-link-danger:hover {
-    color: #f2110d;
-    text-decoration: underline;
-  }
-
-  .button.btn-link-danger:active {
-    color: #910a08;
-  }
-  .rounded {
-    border-radius: 3px;
-  }
-
-  .button:disabled {
-    opacity: 0.4;
+  &:disabled {
+    opacity: 0.3;
     cursor: not-allowed;
   }
+
+  /* Button w/ Icon */
+  > svg {
+    width: 1rem;
+    height: 1rem;
+    padding-right: var(--spacing-xs);
+  }
+
+  &.icon-btn {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    justify-content: center;
+    > svg {
+      padding-right: 0;
+    }
+  }
+
+  /* Size Variations */
+  &.small {
+    padding: var(--spacing-xxs) var(--spacing-xs);
+    font-size: var(--type-sm);
+  }
+
+  /* Apperance Variations */
+  &.secondary {
+    border-color: var(--KButtonSecondaryBorder, color(grey-88));
+    background-color: var(--KButtonSecondaryBase, var(--secondary, color(grey-98)));
+    &:hover {
+      border-color: var(--KButtonSecondaryHoverBorder, darken(color(grey-88), 4%));
+      background-color: var(--KButtonSecondaryHover, darken(color(grey-98), 4%));
+    }
+    &:active {
+      border-color: var(--KButtonSecondaryActiveBorder, darken(color(grey-88), 8%));
+      background-color: var(--KButtonSecondaryActive, darken(color(grey-98), 8%));
+    }
+  }
+  &.primary {
+    font-weight: 500;
+    color: var(--twhite-1, #fff);
+    background-color: var(--KButtonPrimaryBase, var(--primary, color(blue-base)));
+    &:hover {
+      background-color: var(--KButtonPrimaryHover, lighten(color(blue-base), 12%));
+    }
+    &:active {
+      background-color: var(--KButtonPrimaryActive, darken(color(blue-base), 8%));
+    }
+  }
+  &.danger {
+    font-weight: 500;
+    color: var(--twhite-1, #fff);
+    background-color: var(--KButtonDangerBase, var(--danger, color(red-base)));
+    &:hover {
+      background-color: var(--KButtonDangerHover, lighten(color(red-base), 12%));
+    }
+    &:active {
+      background-color: var(--KButtonDangerActive, darken(color(red-base), 8%));
+    }
+  }
+  &.outline-primary {
+    color: var(--KButtonLink, var(--btnLink, color(blue-link)));
+    border-color: var(--KButtonOutlinePrimaryBorder, color(blue-light-01));
+    background-color: var(--KButtonOutlineBackground, #fff);
+    &:hover {
+      background-color: var(--KButtonOutlinePrimaryHover, color(blue-lightest));
+    }
+    &:active {
+      background-color: var(--KButtonOutlinePrimaryActive, darken(color(blue-lightest), 4%));
+    }
+  }
+  &.outline-danger {
+    color: var(--KButtonLinkDanger, var(--linkDanger, color(red-link)));
+    border-color: var(--KButtonOutlineDangerBorder, color(red-light-01));
+    background-color: var(--KButtonOutlineBackground, #fff);
+    &:hover {
+      background-color: var(--KButtonOutlineDangerHover, color(red-lightest));
+    }
+    &:active {
+      background-color: var(--KbuttonOtlineDangerActive, darken(color(red-lightest), 4%));
+    }
+  }
+  &.btn-link {
+    color: var(--KButtonBtnLink, var(--linkPrimary, color(blue-link)));
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &.btn-link-danger {
+    color: var(--KButtonLinkDanger, var(--linkDanger, color(red-link)));
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 </style>

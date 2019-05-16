@@ -4,5 +4,4 @@ node_modules
 lerna-debug.log
 yarn-error.log
 coverage
-
-docs/.vuepress/dist
+docs
