@@ -4,20 +4,17 @@ import { action } from '@storybook/addon-actions'
 import { withInfo } from 'storybook-addon-vue-info'
 
 import KButton from './KButton.vue'
+import KIcon from '../KIcon/KIcon.vue'
 
 storiesOf('KButton', module)
   .add('Default', () => ({
     components: { KButton },
     template: `<KButton>button</KButton>`
   }), {info: {}})
-  .add('Rounded False', () => ({
-    components: { KButton },
-    template: `<KButton :isRounded='false'>button</KButton>`
-  }), {info: {}})
   .add('Appearance', () => ({
     components: { KButton },
     template: `<div>
-      <KButton appearance="secondary">secondary</KButton>  
+      <KButton appearance="secondary">secondary</KButton>
       <KButton appearance='primary'>primary</KButton>
       <KButton appearance='outline-primary'>outline-primary</KButton>
       <KButton appearance='btn-link'>btn-link</KButton>
@@ -29,7 +26,7 @@ storiesOf('KButton', module)
   .add('Disabled', () => ({
     components: { KButton },
     template: `<div>
-      <KButton disabled appearance="secondary">secondary</KButton>  
+      <KButton disabled appearance="secondary">secondary</KButton>
       <KButton disabled appearance='primary'>primary</KButton>
       <KButton disabled appearance='outline-primary'>outline-primary</KButton>
       <KButton disabled appearance='btn-link'>btn-link</KButton>
@@ -38,10 +35,28 @@ storiesOf('KButton', module)
       <KButton disabled appearance='btn-link-danger'>btn-link-danger</KButton>
     </div>`
   }), {info: {}})
+  .add('Sizes', () => ({
+    components: { KButton },
+    template: `<div>
+      <KButton appearance="secondary" size="small">small</KButton>
+    </div>`
+  }), { info: {} })
+  .add('Icons', () => ({
+    components: { KButton, KIcon },
+    template: `<div>
+      <KButton appearance="secondary">
+        <KIcon slot="icon" icon="gear" />
+        With Text
+      </KButton>
+      <KButton appearance="secondary">
+        <KIcon slot="icon" icon="gear" />
+      </KButton>
+    </div>`
+  }), {info: {}})
   .add('Actions', () => ({
     components: { KButton },
     template: `
-    <KButton 
+    <KButton
       @click="onClick"
       @focus="onFocus"
       @blur="onBlur"

@@ -10,7 +10,7 @@
   }
   // Spacings
   @each $name, $space in $spacing {
-    --spacing-#{$name}: #{$space}px;
+    --spacing-#{$name}: #{$space};
   }
   // Type
   @each $name, $size in $type-sizes {

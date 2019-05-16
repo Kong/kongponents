@@ -10,13 +10,22 @@ module.exports = async ({ config }) => {
     rule => rule.loader && rule.loader.indexOf('file-loader') > -1
   )
   rule_file_loader.test = RegExp(rule_file_loader.test.toString().replace('|svg', ''))
-  
-  config.module.rules.push(
-    {
-      test: /\.svg$/,
-      loader: 'raw-loader'
-    }
-  );
+
+  config.module.rules.push({
+    test: /\.svg$/,
+    loader: 'raw-loader'
+  })
+
+  config.module.rules.push({
+    test: /\.scss$/,
+    use: [
+      'style-loader',
+      'css-loader',
+      'postcss-loader',
+      'sass-loader'
+    ],
+    include: path.resolve(__dirname, '../'),
+  })
 
   config.module.rules.push({
     test: /\.vue$/,
