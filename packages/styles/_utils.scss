@@ -55,17 +55,17 @@ $sides: (top, right, bottom, left);
   }
   @each $marginSide in $sides {
     .m#{str-slice($marginSide, 0, 1)}-#{$i} {
-      margin-#{$marginSide}: #{$space}px;
+      margin-#{$marginSide}: #{$space};
     }
   }
   // Create X & Y classes
   .mx-#{$i} {
-    margin-left: #{$space}px;
-    margin-right: #{$space}px
+    margin-left: #{$space};
+    margin-right: #{$space};
   }
   .my-#{$i} {
-    margin-top: #{$space}px;
-    margin-bottom: #{$space}px;
+    margin-top: #{$space};
+    margin-bottom: #{$space};
   }
 }
 
@@ -83,17 +83,17 @@ $sides: (top, right, bottom, left);
   }
   @each $paddingSide in $sides {
   .p#{str-slice($paddingSide, 0, 1)}-#{$i} {
-      padding-#{$paddingSide}: #{$space}px;
+      padding-#{$paddingSide}: #{$space};
     }
   }
   // Create X & Y classes
   .px-#{$i} {
-    padding-left: #{$space}px;
-    padding-right: #{$space}px
+    padding-left: #{$space};
+    padding-right: #{$space};
   }
   .py-#{$i} {
-    padding-top: #{$space}px;
-    padding-bottom: #{$space}px;
+    padding-top: #{$space};
+    padding-bottom: #{$space};
   }
 }
 
