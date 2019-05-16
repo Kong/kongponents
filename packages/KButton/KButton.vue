@@ -1,7 +1,7 @@
 <template>
   <button
     v-bind="buttonBindings"
-    :class="[size === 'default' ? '' : size, {'icon-btn': !hasText}, appearance, buttonAttributes['class']]"
+    :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance, buttonAttributes['class']]"
     class="button"
     v-on="listeners">
     <slot name="icon" />

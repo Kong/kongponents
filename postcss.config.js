@@ -1,4 +1,4 @@
-module.exports = ({ file }) => console.log('me', file) || ({
+module.exports = () => ({
   plugins: {
     'postcss-custom-properties': {
       preserve: true,
