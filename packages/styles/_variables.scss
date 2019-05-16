@@ -1,0 +1,68 @@
+$colors: (
+  blue-lightest: hsla(205, 100%, 98%, 1),
+  blue-light-01: hsla(205, 100%, 82%, 1),
+  blue-light: hsla(205, 100%, 72%, 1),
+  blue-base: hsla(205, 100%, 46%, 1),
+  blue-link: hsla(205, 80%, 45%, 1),
+
+  red-lightest: hsla(0, 100%, 98%, 1),
+  red-light-01: hsla(0, 90%, 82%, 1),
+  red-light: hsla(0, 85%, 70%, 1),
+  red-base: hsla(0, 80%, 50%, 1),
+  red-link: hsla(0, 80%, 45%, 1),
+
+  green-base: hsla(145, 45%, 45%, 1),
+  yellow-base: hsla(45, 100%, 70%, 1),
+
+  tblack-70: hsla(0, 0%, 0%, .70),
+  tblack-25: hsla(0, 0%, 0%, .25),
+
+  grey-88: hsla(0, 0%, 88%, 1),
+  grey-98: hsla(0, 0%, 98%, 1),
+
+  twhite-75: hsla(100, 100%, 100%, .75),
+  twhite-50: hsla(100, 100%, 100%, .5),
+  twhite-1: hsla(100, 100%, 100%, 1)
+);
+$spacing: (
+  xxs: 4px,
+  xs: 8px,
+  sm: 12px,
+  md: 16px,
+  lg: 24px,
+  xl: 32px,
+  xxl: 48px
+);
+$type-sizes: (
+  xxxl: 32px,
+  xxl: 28px,
+  xl: 22px,
+  lg: 18px,
+  md: 16px,
+  sm: 14px,
+  xs: 12px
+);
+$fonts: (
+  sans: 'Roboto',
+  mono: 'Roboto Mono'
+);
+
+// Retrieve color from $colors map ie. `color(blue-base)`
+@function color($color-name) {
+  @return map-get($colors, $color-name);
+}
+
+// Retrieve spacing from $spacings map ie. `spacing(xxs)`
+@function spacing($space-name) {
+  @return map-get($spacing, $space-name);
+}
+
+// Retrieve type-sizes from $type-sizes map ie. `type(md)`
+@function type($size) {
+  @return map-get($type-sizes, $size);
+}
+
+// Retrieve font family from $fonts map ie. `font(sans)`
+@function font($font) {
+  @return map-get($fonts, $font);
+}

@@ -1,0 +1,16 @@
+{
+  "name": "@kongponents/styles",
+  "version": "0.0.1",
+  "description": "Kong Styleguide & css utilities",
+  "main": "styles.css",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kong/kongponents.git"
+  },
+  "author": "Kong Inc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kong/kongponents/issues"
+  },
+  "homepage": "https://github.com/Kong/kongponents#readme"
+}
