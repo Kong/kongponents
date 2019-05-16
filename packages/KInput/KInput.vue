@@ -2,7 +2,7 @@
   <input
     v-bind="inputAttributes"
     :class="[inputAttributes['class']]"
-    class="form-control"
+    class="form-control k-input"
     v-on="listeners">
 </template>
 
@@ -32,43 +32,43 @@ export default {
 }
 </script>
 
-<style>
-input + .hint {
+<style lang="scss">
+input.k-input + .hint {
   margin: var(--spacing-xs) 0 0;
   font-size: var(--type-sm);
   color: var(--tblack-45);
 }
 </style>
 
-<style scoped>
+<style scoped lang="scss">
 input {
   display: block;
   padding: var(--spacing-xs) var(--spacing-sm);
-  color: var(--tblack-70);
+  color: var(--KInputColor, var(--tblack-70));
   font-size: var(--type-md);
   font-weight: normal;
   line-height: 1.25;
-  border: 1px solid var(--grey-88);
-  background-color: var(--twhite-1);
+  border: 1px solid var(--KInputBorder, var(--grey-88));
+  background-color: var(--KInputBackground, var(--twhite-1));
   border-radius: 3px;
 }
 
 input:focus {
   outline: none !important;
-  border: 1px solid var(--blue-light);
+  border: 1px solid var(--KInputFocus, var(--blue-light));
 }
 
 input:disabled {
   cursor: not-allowed;
   font-style: italic;
-  background-color: var(--grey-98);
+  background-color: var(--KInputDisabledBackground, var(--grey-98));
   opacity: 0.5;
 }
 
 input:invalid,
 input.input-error {
   outline: none !important;
-  border: 1px solid var(--red-light);
+  border: 1px solid var(--KInputError, var(--red-light));
 }
 
 input[type="search"] {

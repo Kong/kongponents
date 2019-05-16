@@ -13,6 +13,7 @@ import KPop from '../../packages/KPop'
 import Krumbs from '../../packages/Krumbs'
 import KTable from '../../packages/KTable'
 import KToaster from '../../packages/KToaster'
+import KInput from '../../packages/KInput'
 
 export default ({
   Vue,
@@ -31,4 +32,5 @@ export default ({
   Vue.component('KPop', KPop)
   Vue.component('KClipboardProvider', KClipboardProvider)
   Vue.component('Krumbs', Krumbs)
+  Vue.component('KInput', KInput)
 }
