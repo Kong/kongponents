@@ -14,7 +14,7 @@ export default {
   name: 'KButton',
   props: {
     /**
-      * Base styling of the button<br>
+      * Base styling of the button
       * One of ['primary, outline-primary, secondary, outline-secondary, danger', 'outline-danger, btn-link', btn-link-danger ]
       */
     appearance: {
@@ -34,7 +34,7 @@ export default {
       }
     },
     /**
-      * Size variations<br>
+      * Size variations
       * One of ['default', 'small' ]
       */
     size: {
