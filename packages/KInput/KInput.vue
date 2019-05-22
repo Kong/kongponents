@@ -1,7 +1,5 @@
 <template>
   <input
-    v-bind="inputAttributes"
-    :class="[inputAttributes['class']]"
     class="form-control k-input"
     v-on="listeners">
 </template>
@@ -9,19 +7,6 @@
 <script>
 export default {
   name: 'KInput',
-  props: {
-    /**
-     * Pass whether or not the input should be disabled
-     */
-    inputAttributes: {
-      type: Object,
-      default: function () {
-        return {
-          class: ''
-        }
-      }
-    }
-  },
   computed: {
     listeners () {
       return {
