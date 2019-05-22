@@ -1,30 +1,12 @@
-<template>
-  <label :for="labelFor">
-    <slot>{{ labelText }}</slot>
+<template functional>
+  <label>
+    <slot />
   </label>
 </template>
 
 <script>
 export default {
-  name: 'KLabel',
-  props: {
-    /**
-     * Text for label
-     */
-    labelText: {
-      type: String,
-      required: false,
-      default: ''
-    },
-    /**
-     * Provide id for related input
-     */
-    labelFor: {
-      type: String,
-      required: false,
-      default: null
-    }
-  }
+  name: 'KLabel'
 }
 </script>
 
