@@ -1,6 +1,3 @@
 ```js
-const inputAttributes = {
-  id: 'someIDName',
-}
-<KInput placeholder="Placeholder Text" :inputAttributes=inputAttributes />
+<KInput type="text" placeholder="placeholder" />
 ```

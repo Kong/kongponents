@@ -18,24 +18,22 @@ $colors: (
   tblack-70: hsla(0, 0%, 0%, .70),
   tblack-45: hsla(0, 0%, 0%, .45),
   tblack-25: hsla(0, 0%, 0%, .25),
-  tblack-10: hsla(0, 0%, 0%, .10),
 
-  grey-98: hsla(0, 0%, 98%, 1),
-  grey-92: hsla(0, 0%, 92%, 1),
   grey-88: hsla(0, 0%, 88%, 1),
+  grey-98: hsla(0, 0%, 98%, 1),
 
   twhite-75: hsla(100, 100%, 100%, .75),
   twhite-50: hsla(100, 100%, 100%, .5),
   twhite-1: hsla(100, 100%, 100%, 1)
 );
 $spacing: (
-  xxs: 4px,
-  xs: 8px,
-  sm: 12px,
-  md: 16px,
-  lg: 24px,
-  xl: 32px,
-  xxl: 48px
+  xxs: 4,
+  xs: 8,
+  sm: 12,
+  md: 16,
+  lg: 24,
+  xl: 32,
+  xxl: 48
 );
 $type-sizes: (
   xxxl: 32px,
@@ -50,23 +48,3 @@ $fonts: (
   sans: 'Roboto',
   mono: 'Roboto Mono'
 );
-
-// Retrieve color from $colors map ie. `color(blue-base)`
-@function color($color-name) {
-  @return map-get($colors, $color-name);
-}
-
-// Retrieve spacing from $spacings map ie. `spacing(xxs)`
-@function spacing($space-name) {
-  @return map-get($spacing, $space-name);
-}
-
-// Retrieve type-sizes from $type-sizes map ie. `type(md)`
-@function type($size) {
-  @return map-get($type-sizes, $size);
-}
-
-// Retrieve font family from $fonts map ie. `font(sans)`
-@function font($font) {
-  @return map-get($fonts, $font);
-}
