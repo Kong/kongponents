@@ -23,7 +23,7 @@ module.exports = {
     ],
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Storybook', link: '/storybook/index.html' }
+      { text: 'Storybook', link: 'https://kongponents.netlify.com/storybook/index.html' }
     ]
   },
   head: [
