@@ -1,7 +1,7 @@
 
 module.exports = {
-  title: 'Kong Style Guide',
-  description: 'Kong UI Style Guide',
+  title: 'Kongpontents',
+  description: 'Kong UI Components & Style Guide',
   themeConfig: {
     repo: 'kong/kongponents',
     logo: 'https://2tjosk2rxzc21medji3nfn1g-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/kong-logomark-color-64px.png',
@@ -10,13 +10,20 @@ module.exports = {
     sidebarDepth: 0,
     sidebar: [
       '/',
-      '/colors',
-      '/type',
-      '/spacing',
-      '/theming'
+      {
+        title: 'Style Guide',
+        collapsable: true,
+        children: [
+          '/colors',
+          '/type',
+          '/spacing',
+          '/theming'
+        ]
+      },
     ],
     nav: [
-      { text: 'Home', link: '/' }
+      { text: 'Home', link: '/' },
+      { text: 'Storybook', link: '/storybook/index.html' }
     ]
   },
   head: [
