@@ -4,4 +4,4 @@ node_modules
 lerna-debug.log
 yarn-error.log
 coverage
-docs
+docs/dist
