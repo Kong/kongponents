@@ -1,12 +1,14 @@
 <template>
-  <button
+  <component
     v-bind="buttonBindings"
+    :is="buttonType"
+    :to="to"
     :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance, buttonAttributes['class']]"
     class="button"
     v-on="listeners">
     <slot name="icon" />
     <slot/>
-  </button>
+  </component>
 </template>
 
 <script>
@@ -57,6 +59,11 @@ export default {
           class: ''
         }
       }
+    },
+
+    to: {
+      type: Object,
+      default: () => {}
     }
   },
 
@@ -77,6 +84,11 @@ export default {
     },
     hasText () {
       return this.$slots.default
+    },
+    buttonType () {
+      return this.to && typeof this.to === 'object'
+        ? 'router-link'
+        : 'button'
     }
   },
 
@@ -98,6 +110,7 @@ export default {
   font-weight: 400;
   line-height: 1.25;
   color: var(--tblack-70);
+  text-decoration: none;
   border: 1px solid transparent;
   border-radius: 3px;
   transition: all .2s ease-in-out;

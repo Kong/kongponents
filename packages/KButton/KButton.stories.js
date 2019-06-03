@@ -11,6 +11,10 @@ storiesOf('KButton', module)
     components: { KButton },
     template: `<KButton>button</KButton>`
   }), {info: {}})
+  .add('Router Link', () => ({
+    components: { KButton },
+    template: `<KButton appearance="btn-link" :to="{path: '/'}">Link!</KButton>`
+  }), {info: {}})
   .add('Appearance', () => ({
     components: { KButton },
     template: `<div>
