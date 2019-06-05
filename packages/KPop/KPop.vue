@@ -1,193 +1,605 @@
 <template>
-  <div
-    :aria-hidden="isHovering ? 'true' : 'false'"
-    :data-message="message"
-    :class="positionClass"
-    :style="{'text-align': alignment}"
-    class="k-popover"
-    role="tooltip"
-    @mouseout="isHovering(false)"
-    @mouseover="isHovering(true)">
-    <slot/>
+  <div>
+    <slot></slot>
+    <transition name="fade">
+      <div class="popover k-popover" ref="popper" v-show="isShow" :style="'width:' + this.width + 'px'">
+        <div class="popover-title" v-if="title">{{ title }}</div>
+        <div class="popover-content">
+          <slot name="content"><div v-html="content"></div></slot>
+        </div>
+        <div class="popover-arrow" x-arrow></div>
+      </div>
+    </transition>
   </div>
 </template>
-
 <script>
+import Popper from 'popper.js';
+
 export default {
   name: 'KPop',
   props: {
     /**
-     * Message to show in popover
+     * The title of the Popover header
      */
-    message: {
+    title: {
       type: String,
-      required: true
+      default: '',
     },
     /**
-     * Define which side the popover displays<br>
+     * The contents of the Popover body
+     */
+    content: {
+      type: String,
+      default: '',
+    },
+    /**
+     * The position of the popover 
      * 'top' | 'bottom' | 'left' | 'right'
      */
-    position: {
+    placement: {
       type: String,
       default: 'top',
-      validator: function (value) {
-        return [
-          'top',
-          'bottom',
-          'left',
-          'right'
-        ].indexOf(value) !== -1
-      }
     },
     /**
-     * Sets the text alignment of the popover<br>
-     * 'left' | 'center' | 'right'
+     * An optional custom reference element - either an HTML element or SVG element can be used
      */
-    alignment: {
+    customRef: {
+      type: SVGGraphicsElement | HTMLElement,
+      default: null
+    },
+    /**
+     * How the Popover will trigger
+     * 'click' | 'hover'
+     */
+    trigger: {
       type: String,
-      default: 'left',
-      validator: function (value) {
-        return [
-          'left',
-          'right',
-          'center'
-        ].indexOf(value) !== -1
-      }
+      default: 'click',
+    },
+    /**
+     * The width of the Popover body 
+     */
+    width: {
+      type: String,
+      default: "200"
+    },
+    /** 
+     * An optional flag passed in to trigger the Popover to hide - useful for external events like zooming or panning
+     */
+    hidePopover: {
+      type: Boolean, 
+      default: false
     }
   },
 
-  data () {
+  data() {
     return {
-      hovering: false
-    }
-  },
-
-  computed: {
-    positionClass () {
-      return `k-popover-${this.position}`
-    }
+      popper: null,
+      reference: null,
+      isShow: false,
+    };
   },
 
   methods: {
-    isHovering (isHovering) {
-      this.hovering = isHovering
+    hidePopper() {
+      if (this.trigger !== 'hover') {
+        this.isShow = false
+      }
+      this.timer = setTimeout(() => {
+        this.isShow = false
+        this.popperTimer = setTimeout(() => {
+          this.popper.destroy()
+          this.popper = null
+        }, 300)
+      }, 300)
+    },
+    showPopper() {
+      this.isShow = true
+      if (this.timer) clearTimeout(this.timer)
+      if (this.popperTimer) clearTimeout(this.popperTimer)
+    },
+
+    createInstance() {
+      this.showPopper()
+      // destroy any previous poppers before creating new one
+      this.destroy()
+      const placementMapper = {
+        top: 'top',
+        left: 'left',
+        right: 'right',
+        bottom: 'bottom'
+      }
+      const placement = placementMapper[this.placement] ? placementMapper[this.placement] : 'bottom'
+      const popperEl = this.$refs.popper
+      document.body.appendChild(popperEl)
+      this.popper = new Popper(this.reference, popperEl, { placement })
+    },
+
+    handleClick(e) {
+      e.stopPropagation()
+      if (this.reference && this.reference.contains(e.target)) {
+        if (this.isShow) {
+          this.hidePopper()
+        } else {
+          this.createInstance()
+        }
+      } else if (this.$refs.popper && this.$refs.popper.contains(e.target)) {
+        this.showPopper();
+      } else {
+        if (this.isShow) this.hidePopper()
+      }
+    },
+
+    bindEvents() {
+      const popper = this.$refs.popper;
+      if (this.trigger === 'hover') {
+        this.reference.addEventListener('mouseenter', this.createInstance)
+        this.reference.addEventListener('mouseleave', this.hidePopper)
+        popper.addEventListener('mouseenter', this.showPopper)
+        popper.addEventListener('mouseleave', this.hidePopper)
+      } else {
+        this.reference.addEventListener('click', this.handleClick)
+        popper.addEventListener('click', this.showPopper)
+        document.documentElement.addEventListener('click', this.handleClick)
+      }
+    },
+
+    destroy() {
+      if (this.popper) {
+        this.popper.destroy()
+        this.popper = null
+      }
+    }
+
+  },
+
+  watch: {
+    hidePopover: function () {
+      // whenever this prop gets updated, hide the popper
+      if (this.isShow) {
+        this.hidePopper()
+      }
+    },
+    customRef: function (newRef) {  
+      this.reference = newRef
+      this.bindEvents()
+
+      if (this.isShow) {
+        this.hidePopper()
+      } else {
+        this.createInstance()
+      }
+    }
+  },
+
+  mounted () {
+    if (this.customRef === null) {
+      this.reference = this.$el.children[0];
+      if (!this.reference) return;
+
+      this.bindEvents()
     }
   }
 }
 </script>
-
-<style>
-.k-popover {
-  display: inline-block;
-  position: relative;
-  cursor: pointer;
+<style lang="scss" scoped>
+.popover{
+  z-index: 1060;
+  padding: 1px;
+  max-width: none;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: left;
+  white-space: normal;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
 }
-.k-popover:before,
-.k-popover:after {
-  position: absolute;
-  visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 1090;
-  transition: all 0.15s cubic-bezier(0.5, 1, 0.25, 1);
+.popover-title {
+  padding: 8px 14px;
+  margin: 0;
+  font-size: 14px;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #ebebeb;
+  border-radius: 5px 5px 0 0;
 }
-.k-popover:before {
-  min-width: 275px;
-  padding: .5rem .75rem;
-  font-size: .875rem;
-  font-weight: normal;
-  border-radius: 3px;
-  background: #fff;
-  box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.15);
-  content: attr(data-message);
+.popover-content {
+  padding: 9px 14px;
 }
-.k-popover:after {
+.popover-arrow, .popover-arrow::after{
+  display: block;
   width: 0;
-  border: 8px solid transparent;
+  height: 0;
+  border-style: solid;
+  border-color: transparent;
+  position: absolute;
+}
+.popover-arrow{
+  border-width: 10px;
+  position: absolute;
+}
+.popover-arrow::after {
   content: "";
+  border-width: 9px;
 }
-.k-popover:hover:before,
-.k-popover:hover:after {
-  visibility: visible;
-  opacity: 1;
+.popover[x-placement^="bottom"]{
+  margin-top: 15px;
+  .popover-arrow {
+    border-top-width: 0;
+    border-bottom-color: rgba(0,0,0,.25);
+    top: -10px;
+    left: calc(50% - 5px);
+    margin-top: 0;
+    margin-bottom: 0;
+    &:after{
+      top: 1px;
+      margin-left: -9px;
+      border-top-width: 0;
+      border-bottom-color: #fff;
+    }
+  }
+}
+.popover[x-placement^="top"]{
+  margin-bottom: 15px;
+  .popover-arrow {
+    border-top-color: #999;
+    border-top-color: rgba(0,0,0,.25);
+    border-bottom-width: 0;
+    bottom: -10px;
+    left: calc(50% - 5px);
+    margin-top: 0;
+    margin-bottom: 0;
+    &:after{
+      bottom: 1px;
+      border-top-color: #fff;
+      border-bottom-width: 0;
+      margin-left: -9px;
+    }
+  }
+}
+.popover[x-placement^="left"]{
+  margin-right: 15px;
+  .popover-arrow {
+    border-right-width: 0;
+    border-left-color: #999;
+    border-left-color: rgba(0,0,0,.25);
+    right: -10px;
+    top: calc(50% - 5px);
+    &:after{
+      right: 1px;
+      border-right-width: 0;
+      border-left-color: #fff;
+      margin-top: -9px;
+    }
+  }
+}
+.popover[x-placement^="right"]{
+  margin-left: 15px;
+  .popover-arrow {
+    border-left-width: 0;
+    border-right-color: #999;
+    border-right-color: rgba(0,0,0,.25);
+    left: -10px;
+    top: calc(50% - 5px);
+    &:after{
+      left: 1px;
+      border-left-width: 0;
+      border-right-color: #fff;
+      margin-top: -9px;
+    }
+  }
 }
 
-  /* position styling */
-.k-popover.k-popover-top:before,
-.k-popover.k-popover-top:after {
-  bottom: 100%;
-  transform: translateX(-50%);
+/** Animations */
+$transition-speed: .3s !default;
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
-.k-popover.k-popover-top:before {
-  left: 100%;
-  margin-bottom: 5px;
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
-.k-popover.k-popover-top:after {
-  left: 50%;
-  border-top: 8px solid #fff;
-  border-bottom: none;
-  margin-bottom: -3px;
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
-.k-popover.k-popover-top:hover:before,
-.k-popover.k-popover-top:hover:after {
-  transform: translateX(-50%) translateY(-5px);
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+}
+@keyframes fadeInDownBig {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -2000px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fadeOutDownBig {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, 2000px, 0);
+  }
+}
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fadeOutLeft {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+@keyframes fadeInLeftBig {
+  from {
+    opacity: 0;
+    transform: translate3d(-2000px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fadeOutLeftBig {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(-2000px, 0, 0);
+  }
+}
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fadeOutRight {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+}
+@keyframes fadeInRightBig {
+  from {
+    opacity: 0;
+    transform: translate3d(2000px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fadeOutRightBig {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(2000px, 0, 0);
+  }
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fadeOutUp {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+}
+@keyframes fadeInUpBig {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 2000px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fadeOutUp {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
 }
 
-.k-popover.k-popover-right:before,
-.k-popover.k-popover-right:after {
-  top: 50%;
-  left: 100%;
-  transform: translateY(-50%)
+.fade-enter-active,
+.fadeIn,
+.fade-leave-active,
+.fadeOut {
+  animation-duration: $transition-speed;
+  animation-fill-mode: both;
 }
-.k-popover.k-popover-right:before {
-  margin-left: 5px;
+.fade-enter-active,
+.fadeIn {
+  animation-name: fadeIn;
 }
-.k-popover.k-popover-right:after {
-  border-right: 8px solid #fff;
-  border-left: none;
-  margin-left: -3px;
+.fade-leave-active,
+.fadeOut {
+  animation-name: fadeOut;
 }
-.k-popover.k-popover-right:hover:before,
-.k-popover.k-popover-right:hover:after {
-  transform: translateX(5px) translateY(-50%);
+.fadeUpBig-enter-active,
+.fadeInUpBig,
+.fadeUpBig-leave-active,
+.fadeOutUpBig {
+  animation-duration: $transition-speed;
+  animation-fill-mode: both;
 }
-
-.k-popover.k-popover-bottom:before,
-.k-popover.k-popover-bottom:after {
-  top: 100%;
-  transform: translateX(-50%);
+.fadeUpBig-enter-active,
+.fadeInUpBig {
+  animation-name: fadeInUpBig;
 }
-.k-popover.k-popover-bottom:before {
-  left: 100%;
-  margin-top: 5px;
+.fadeUpBig-leave-active,
+.fadeOutUpBig {
+  animation-name: fadeOutUpBig;
 }
-.k-popover.k-popover-bottom:after {
-  left: 50%;
-  border-bottom: 8px solid #fff;
-  border-top: none;
-  margin-top: -3px;
+.fadeUp-enter-active,
+.fadeInUp,
+.fadeUp-leave-active,
+.fadeOutUp {
+  animation-duration: $transition-speed;
+  animation-fill-mode: both;
 }
-.k-popover.k-popover-bottom:hover:before,
-.k-popover.k-popover-bottom:hover:after {
-  transform: translateX(-50%) translateY(5px);
+.fadeUp-enter-active,
+.fadeInUp {
+  animation-name: fadeInUp;
 }
-
-.k-popover.k-popover-left:before,
-.k-popover.k-popover-left:after {
-  top: 50%;
-  right: 100%;
-  transform: translateY(-50%);
+.fadeUp-leave-active,
+.fadeOutUp {
+  animation-name: fadeOutUp;
 }
-.k-popover.k-popover-left:before {
-  margin-right: 5px;
+.fadeRightBig-enter-active,
+.fadeInRightBig,
+.fadeRightBig-leave-active,
+.fadeOutRightBig {
+  animation-duration: $transition-speed;
+  animation-fill-mode: both;
 }
-.k-popover.k-popover-left:after {
-  border-left: 8px solid #fff;
-  border-right: none;
-  margin-right: -3px;
+.fadeRightBig-enter-active,
+.fadeInRightBig {
+  animation-name: fadeInRightBig;
 }
-.k-popover.k-popover-left:hover:before,
-.k-popover.k-popover-left:hover:after {
-  transform: translateX(-5px) translateY(-50%);
+.fadeRightBig-leave-active,
+.fadeOutRightBig {
+  animation-name: fadeOutRightBig;
+}
+.fadeRight-enter-active,
+.fadeInRight,
+.fadeRight-leave-active,
+.fadeOutRight {
+  animation-duration: $transition-speed;
+  animation-fill-mode: both;
+}
+.fadeRight-enter-active,
+.fadeInRight {
+  animation-name: fadeInRight;
+}
+.fadeRight-leave-active,
+.fadeOutRight {
+  animation-name: fadeOutRight;
+}
+.fadeLeftBig-enter-active,
+.fadeInLeftBig,
+.fadeLeftBig-leave-active,
+.fadeOutLeftBig {
+  animation-duration: $transition-speed;
+  animation-fill-mode: both;
+}
+.fadeLeftBig-enter-active,
+.fadeInLeftBig {
+  animation-name: fadeInLeftBig;
+}
+.fadeLeftBig-leave-active,
+.fadeOutLeftBig {
+  animation-name: fadeOutLeftBig;
+}
+.fadeLeft-enter-active,
+.fadeInLeft,
+.fadeLeft-leave-active,
+.fadeOutLeft {
+  animation-duration: $transition-speed;
+  animation-fill-mode: both;
+}
+.fadeLeft-enter-active,
+.fadeInLeft {
+  animation-name: fadeInLeft;
+}
+.fadeLeft-leave-active,
+.fadeOutLeft {
+  animation-name: fadeOutLeft;
+}
+.fadeDownBig-enter-active,
+.fadeInDownBig,
+.fadeDownBig-leave-active,
+.fadeOutDownBig {
+  animation-duration: $transition-speed;
+  animation-fill-mode: both;
+}
+.fadeDownBig-enter-active,
+.fadeInDownBig {
+  animation-name: fadeInDownBig;
+}
+.fadeDownBig-leave-active,
+.fadeOutDownBig {
+  animation-name: fadeOutDownBig;
+}
+.fadeDown-enter-active,
+.fadeInDown,
+.fadeDown-leave-active,
+.fadeOutDown {
+  animation-duration: $transition-speed;
+  animation-fill-mode: both;
+}
+.fadeDown-enter-active,
+.fadeInDown {
+  animation-name: fadeInDown;
+}
+.fadeDown-leave-active,
+.fadeOutDown {
+  animation-name: fadeOutDown;
 }
 </style>

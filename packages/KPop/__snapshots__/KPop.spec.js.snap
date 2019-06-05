@@ -1,3 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`KPop matches snapshot 1`] = `<div aria-hidden="true" data-message="I'm inside the popover!" role="tooltip" class="k-popover k-popover-top" style="text-align: left;"></div>`;
+exports[`KPop matches snapshot 1`] = `
+<div>
+  <div class="popover k-popover" style="width: 350px; display: none;" name="fade">
+    <div class="popover-title">Cool Beans!</div>
+    <div class="popover-content">
+      <div>I am a cool popover!</div>
+    </div>
+    <div x-arrow="" class="popover-arrow"></div>
+  </div>
+</div>
+`;
