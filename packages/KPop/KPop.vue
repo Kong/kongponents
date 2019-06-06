@@ -1,19 +1,28 @@
 <template>
   <div>
-    <slot></slot>
+    <slot/>
     <transition name="fade">
-      <div class="popover k-popover" ref="popper" v-show="isShow" :style="'width:' + this.width + 'px'">
-        <div class="popover-title" v-if="title">{{ title }}</div>
+      <div
+        v-show="isShow"
+        ref="popper"
+        :style="'width:' + width + 'px'"
+        class="popover k-popover">
+        <div
+          v-if="title"
+          class="popover-title"
+        >{{ title }}</div>
         <div class="popover-content">
-          <slot name="content"><div v-html="content"></div></slot>
+          <slot name="content">
+            <div v-html="content"/>
+          </slot>
         </div>
-        <div class="popover-arrow" x-arrow></div>
+        <div class="popover-arrow"/>
       </div>
     </transition>
   </div>
 </template>
 <script>
-import Popper from 'popper.js';
+import Popper from 'popper.js'
 
 export default {
   name: 'KPop',
@@ -23,22 +32,22 @@ export default {
      */
     title: {
       type: String,
-      default: '',
+      default: ''
     },
     /**
      * The contents of the Popover body
      */
     content: {
       type: String,
-      default: '',
+      default: ''
     },
     /**
-     * The position of the popover 
+     * The position of the popover
      * 'top' | 'bottom' | 'left' | 'right'
      */
     placement: {
       type: String,
-      default: 'top',
+      default: 'top'
     },
     /**
      * An optional custom reference element - either an HTML element or SVG element can be used
@@ -53,103 +62,30 @@ export default {
      */
     trigger: {
       type: String,
-      default: 'click',
+      default: 'click'
     },
     /**
-     * The width of the Popover body 
+     * The width of the Popover body
      */
     width: {
       type: String,
-      default: "200"
+      default: '200'
     },
-    /** 
+    /**
      * An optional flag passed in to trigger the Popover to hide - useful for external events like zooming or panning
      */
     hidePopover: {
-      type: Boolean, 
+      type: Boolean,
       default: false
     }
   },
 
-  data() {
+  data () {
     return {
       popper: null,
       reference: null,
-      isShow: false,
-    };
-  },
-
-  methods: {
-    hidePopper() {
-      if (this.trigger !== 'hover') {
-        this.isShow = false
-      }
-      this.timer = setTimeout(() => {
-        this.isShow = false
-        this.popperTimer = setTimeout(() => {
-          this.popper.destroy()
-          this.popper = null
-        }, 300)
-      }, 300)
-    },
-    showPopper() {
-      this.isShow = true
-      if (this.timer) clearTimeout(this.timer)
-      if (this.popperTimer) clearTimeout(this.popperTimer)
-    },
-
-    createInstance() {
-      this.showPopper()
-      // destroy any previous poppers before creating new one
-      this.destroy()
-      const placementMapper = {
-        top: 'top',
-        left: 'left',
-        right: 'right',
-        bottom: 'bottom'
-      }
-      const placement = placementMapper[this.placement] ? placementMapper[this.placement] : 'bottom'
-      const popperEl = this.$refs.popper
-      document.body.appendChild(popperEl)
-      this.popper = new Popper(this.reference, popperEl, { placement })
-    },
-
-    handleClick(e) {
-      e.stopPropagation()
-      if (this.reference && this.reference.contains(e.target)) {
-        if (this.isShow) {
-          this.hidePopper()
-        } else {
-          this.createInstance()
-        }
-      } else if (this.$refs.popper && this.$refs.popper.contains(e.target)) {
-        this.showPopper();
-      } else {
-        if (this.isShow) this.hidePopper()
-      }
-    },
-
-    bindEvents() {
-      const popper = this.$refs.popper;
-      if (this.trigger === 'hover') {
-        this.reference.addEventListener('mouseenter', this.createInstance)
-        this.reference.addEventListener('mouseleave', this.hidePopper)
-        popper.addEventListener('mouseenter', this.showPopper)
-        popper.addEventListener('mouseleave', this.hidePopper)
-      } else {
-        this.reference.addEventListener('click', this.handleClick)
-        popper.addEventListener('click', this.showPopper)
-        document.documentElement.addEventListener('click', this.handleClick)
-      }
-    },
-
-    destroy() {
-      if (this.popper) {
-        this.popper.destroy()
-        this.popper = null
-      }
+      isShow: false
     }
-
   },
 
   watch: {
@@ -159,7 +95,7 @@ export default {
         this.hidePopper()
       }
     },
-    customRef: function (newRef) {  
+    customRef: function (newRef) {
       this.reference = newRef
       this.bindEvents()
 
@@ -173,11 +109,87 @@ export default {
 
   mounted () {
     if (this.customRef === null) {
-      this.reference = this.$el.children[0];
-      if (!this.reference) return;
+      this.reference = this.$el.children[0]
+      if (!this.reference) return
 
       this.bindEvents()
     }
+  },
+
+  methods: {
+    hidePopper () {
+      if (this.trigger !== 'hover') {
+        this.isShow = false
+      }
+
+      this.timer = setTimeout(() => {
+        this.isShow = false
+        this.popperTimer = setTimeout(() => {
+          this.popper.destroy()
+          this.popper = null
+        }, 300)
+      }, 300)
+    },
+
+    showPopper () {
+      this.isShow = true
+      if (this.timer) clearTimeout(this.timer)
+      if (this.popperTimer) clearTimeout(this.popperTimer)
+    },
+
+    createInstance () {
+      this.showPopper()
+      // destroy any previous poppers before creating new one
+      this.destroy()
+      const placementMapper = {
+        top: 'top',
+        left: 'left',
+        right: 'right',
+        bottom: 'bottom'
+      }
+      const placement = placementMapper[this.placement] ? placementMapper[this.placement] : 'bottom'
+      const popperEl = this.$refs.popper
+
+      document.body.appendChild(popperEl)
+      this.popper = new Popper(this.reference, popperEl, { placement })
+    },
+
+    handleClick (e) {
+      e.stopPropagation()
+      if (this.reference && this.reference.contains(e.target)) {
+        if (this.isShow) {
+          this.hidePopper()
+        } else {
+          this.createInstance()
+        }
+      } else if (this.$refs.popper && this.$refs.popper.contains(e.target)) {
+        this.showPopper()
+      } else {
+        if (this.isShow) this.hidePopper()
+      }
+    },
+
+    bindEvents () {
+      const popper = this.$refs.popper
+      if (this.trigger === 'hover') {
+        this.reference.addEventListener('mouseenter', this.createInstance)
+        this.reference.addEventListener('mouseleave', this.hidePopper)
+        popper.addEventListener('mouseenter', this.showPopper)
+        popper.addEventListener('mouseleave', this.hidePopper)
+      } else {
+        this.reference.addEventListener('click', this.handleClick)
+        popper.addEventListener('click', this.showPopper)
+        document.documentElement.addEventListener('click', this.handleClick)
+      }
+    },
+
+    destroy () {
+      if (this.popper) {
+        this.popper.destroy()
+        this.popper = null
+      }
+    }
+
   }
 }
 </script>
