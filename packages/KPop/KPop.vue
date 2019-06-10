@@ -224,7 +224,7 @@ export default {
     font-size: var(--type-sizes-sm);
     background-color: var(--grey-98);
     border-bottom: 1px solid var(--grey-88);
-    border-radius: 5px 5px 0 0;
+    border-radius: 3px 3px 0 0;
   }
 
   .popover-content {
