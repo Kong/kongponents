@@ -214,7 +214,7 @@ export default {
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
   border: 1px solid var(--grey-98);
-  border-radius: 6px;
+  border-radius: 3px;
   -webkit-box-shadow: 0 5px 10px var(--tblack-25);
   box-shadow: 0 5px 10px var(--tblack-25);
 
