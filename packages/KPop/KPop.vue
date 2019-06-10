@@ -1,20 +1,17 @@
 <template>
-  <div>
+  <div aria-hidden="true">
     <slot/>
     <transition name="fade">
       <div
         v-show="isShow"
         ref="popper"
         :style="'width:' + width + 'px'"
-        class="popover k-popover">
+        class="k-popover">
         <div
           v-if="title"
-          class="popover-title"
-        >{{ title }}</div>
+          class="popover-title">{{ title }}</div>
         <div class="popover-content">
-          <slot name="content">
-            <div v-html="content"/>
-          </slot>
+          <slot name="content"/>
         </div>
         <div class="popover-arrow"/>
       </div>
@@ -97,6 +94,7 @@ export default {
     },
     customRef: function (newRef) {
       this.reference = newRef
+      this.$emit('ref-change', this.reference)
       this.bindEvents()
 
       if (this.isShow) {
@@ -109,10 +107,22 @@ export default {
 
   mounted () {
     if (this.customRef === null) {
+      if (!this.$el.children[0]) return
       this.reference = this.$el.children[0]
-      if (!this.reference) return
 
       this.bindEvents()
+    }
+  },
+
+  destroyed () {
+    const popper = this.$refs.popper;
+    if (this.trigger === 'click') {
+      this.reference.removeEventListener('click', this.handleClick);
+      popper.removeEventListener('click', this.showPopper);
+      document.documentElement.removeEventListener('click', this.handleClick);
+    } else {
+      this.reference.removeEventListener('mouseenter', this.createInstance);
+      this.reference.removeEventListener('mouseleave', this.toggle);
     }
   },
 
@@ -124,10 +134,7 @@ export default {
 
       this.timer = setTimeout(() => {
         this.isShow = false
-        this.popperTimer = setTimeout(() => {
-          this.popper.destroy()
-          this.popper = null
-        }, 300)
+        this.destroy()
       }, 300)
     },
 
@@ -194,115 +201,124 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.popover{
-  z-index: 1060;
-  padding: 1px;
+.k-popover {
+  z-index: 1000;
   max-width: none;
-  font-size: 14px;
+  font-size: var(--type-sizes-sm);
+  font-family: var(--font-family-sans);
   font-weight: 400;
-  line-height: 1.42857143;
+  line-height: 1;
   text-align: left;
   white-space: normal;
-  background-color: #fff;
+  background-color: var(--twhite-1);
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0,0,0,.1);
+  border: 1px solid var(--grey-98);
   border-radius: 6px;
-  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-  box-shadow: 0 5px 10px rgba(0,0,0,.2);
-}
-.popover-title {
-  padding: 8px 14px;
-  margin: 0;
-  font-size: 14px;
-  background-color: #f7f7f7;
-  border-bottom: 1px solid #ebebeb;
-  border-radius: 5px 5px 0 0;
-}
-.popover-content {
-  padding: 9px 14px;
-}
-.popover-arrow, .popover-arrow::after{
-  display: block;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-color: transparent;
-  position: absolute;
-}
-.popover-arrow{
-  border-width: 10px;
-  position: absolute;
-}
-.popover-arrow::after {
-  content: "";
-  border-width: 9px;
-}
-.popover[x-placement^="bottom"]{
-  margin-top: 15px;
+  -webkit-box-shadow: 0 5px 10px var(--tblack-25);
+  box-shadow: 0 5px 10px var(--tblack-25);
+
+  .popover-title {
+    padding: var(--spacing-xs) var(--spacing-md);
+    margin: 0;
+    font-size: var(--type-sizes-sm);
+    background-color: var(--grey-98);
+    border-bottom: 1px solid var(--grey-88);
+    border-radius: 5px 5px 0 0;
+  }
+
+  .popover-content {
+    padding: var(--spacing-xs) var(--spacing-md);
+  }
+
+  .popover-arrow, .popover-arrow::after {
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent;
+    position: absolute;
+  }
+
   .popover-arrow {
-    border-top-width: 0;
-    border-bottom-color: rgba(0,0,0,.25);
-    top: -10px;
-    left: calc(50% - 5px);
-    margin-top: 0;
-    margin-bottom: 0;
-    &:after{
-      top: 1px;
-      margin-left: -9px;
-      border-top-width: 0;
-      border-bottom-color: #fff;
+    border-width: 10px;
+    position: absolute;
+
+    &::after {
+      content: "";
+      border-width: 10px;
     }
   }
-}
-.popover[x-placement^="top"]{
-  margin-bottom: 15px;
+
+  &[x-placement^="bottom"] {
+    margin-top: var(--spacing-md);
+
+    .popover-arrow {
+      border-top-width: 0;
+      top: -10px;
+      left: calc(50% - 12px);
+      margin-top: 0;
+      margin-bottom: 0;
+
+      &:after {
+        top: 1px;
+        margin-left: -var(--spacing-sm);
+        border-top-width: 0;
+        border-bottom-color: var(--twhite-1);
+      }
+    }
+  }
+
+  &[x-placement^="top"] { 
+    margin-bottom: var(--spacing-md);
+
   .popover-arrow {
-    border-top-color: #999;
-    border-top-color: rgba(0,0,0,.25);
     border-bottom-width: 0;
     bottom: -10px;
-    left: calc(50% - 5px);
+    left: calc(50% - 12px);
     margin-top: 0;
     margin-bottom: 0;
-    &:after{
-      bottom: 1px;
-      border-top-color: #fff;
-      border-bottom-width: 0;
-      margin-left: -9px;
+
+      &:after {
+        bottom: 1px;
+        border-top-color: var(--twhite-1);
+        border-bottom-width: 0;
+        margin-left: -var(--spacing-sm);
+      }
     }
   }
-}
-.popover[x-placement^="left"]{
-  margin-right: 15px;
-  .popover-arrow {
-    border-right-width: 0;
-    border-left-color: #999;
-    border-left-color: rgba(0,0,0,.25);
-    right: -10px;
-    top: calc(50% - 5px);
-    &:after{
-      right: 1px;
+
+  &[x-placement^="left"] {
+    margin-right: var(--spacing-md);
+
+    .popover-arrow {
       border-right-width: 0;
-      border-left-color: #fff;
-      margin-top: -9px;
+      right: -10px;
+      top: calc(50% - 12px);
+
+      &:after {
+        right: 1px;
+        border-right-width: 0;
+        border-left-color: var(--twhite-1);
+        margin-top: -var(--spacing-sm);
+      }
     }
   }
-}
-.popover[x-placement^="right"]{
-  margin-left: 15px;
-  .popover-arrow {
-    border-left-width: 0;
-    border-right-color: #999;
-    border-right-color: rgba(0,0,0,.25);
-    left: -10px;
-    top: calc(50% - 5px);
-    &:after{
-      left: 1px;
+
+  &[x-placement^="right"] {
+     margin-left: var(--spacing-md);
+
+    .popover-arrow {
       border-left-width: 0;
-      border-right-color: #fff;
-      margin-top: -9px;
+      left: -10px;
+      top: calc(50% - 12px);
+
+      &:after {
+        left: 1px;
+        border-left-width: 0;
+        border-right-color: var(--twhite-1);
+        margin-top: -var(--spacing-sm);
+      }
     }
   }
 }
