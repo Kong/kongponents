@@ -35,15 +35,4 @@ describe('KPop', () => {
 
     expect(popperTitle.text()).toEqual('Cool Beans!')
   })
-
-  it('renders with correct content', () => {
-    const wrapper = mount(KPop, {
-      propsData: {
-        'content': `I have lots of content!`
-      }
-    })
-    const popperContent = wrapper.find('.popover-content')
-
-    expect(popperContent.text()).toEqual('I have lots of content!')
-  })
 })
