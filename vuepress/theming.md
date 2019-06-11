@@ -87,3 +87,29 @@ look like
 .purple-example:hover { background-color: #6c6ebd !important;}
 .purple-example:active { background-color: #3c3f86 !important;}
 </style>
+
+<br>
+<br>
+
+## Popovers
+| Variable | Purpose
+|:-------- |:-------
+| `--KPopBackground `| Default background
+| `--KPopBorder `| Default border
+| `--KPopColor `| Default font color
+| `--KPopBoxShadow `| Default box shadow color
+
+
+\
+An Example of changing the border of KPopover to a darker red instead would
+look like
+```
+<style>
+:root {
+  --KPopBorder: #922a2a;
+}
+</style>
+
+<KPop title="email"><button>Click me</button><div slot="content">I have a different border</div></KPop>
+```
+<KPop title="email"><button>Click me</button><div slot="content">I have a different border</div></KPop>

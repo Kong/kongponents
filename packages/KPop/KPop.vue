@@ -1,7 +1,28 @@
 <template>
-  <div aria-hidden="true">
+  <component :is="tag">
     <slot/>
-    <transition name="fade">
+    <transition
+      v-if="isSVG"
+      name="fade">
+      <foreignObject>
+        <div
+          v-show="isShow"
+          ref="popper"
+          :style="'width:' + width + 'px'"
+          class="k-popover">
+          <div
+            v-if="title"
+            class="popover-title">{{ title }}</div>
+          <div class="popover-content">
+            <slot name="content"/>
+          </div>
+          <div class="popover-arrow"/>
+        </div>
+      </foreignObject>
+    </transition>
+    <transition
+      v-else
+      name="fade">
       <div
         v-show="isShow"
         ref="popper"
@@ -16,7 +37,7 @@
         <div class="popover-arrow"/>
       </div>
     </transition>
-  </div>
+  </component>
 </template>
 <script>
 import Popper from 'popper.js'
@@ -24,6 +45,20 @@ import Popper from 'popper.js'
 export default {
   name: 'KPop',
   props: {
+    /**
+     * The target element to append the popper to
+     */
+    target: {
+      type: String,
+      default: 'body'
+    },
+    /**
+     * The tag to wrap the popover around
+     */
+    tag: {
+      type: String,
+      default: 'div'
+    },
     /**
      * The title of the Popover header
      */
@@ -47,13 +82,6 @@ export default {
       default: 'top'
     },
     /**
-     * An optional custom reference element - either an HTML element or SVG element can be used
-     */
-    customRef: {
-      type: SVGGraphicsElement | HTMLElement,
-      default: null
-    },
-    /**
      * How the Popover will trigger
      * 'click' | 'hover'
      */
@@ -74,6 +102,20 @@ export default {
     hidePopover: {
       type: Boolean,
       default: false
+    },
+    /**
+     * A flag for disabling the popover
+     */
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    /**
+    * A flag indicating whether or not the element in the slot will be an SVG element
+    */
+    isSVG: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -91,38 +133,24 @@ export default {
       if (this.isShow) {
         this.hidePopper()
       }
-    },
-    customRef: function (newRef) {
-      this.reference = newRef
-      this.$emit('ref-change', this.reference)
-      this.bindEvents()
-
-      if (this.isShow) {
-        this.hidePopper()
-      } else {
-        this.createInstance()
-      }
     }
   },
 
   mounted () {
-    if (this.customRef === null) {
-      if (!this.$el.children[0]) return
-      this.reference = this.$el.children[0]
-
-      this.bindEvents()
-    }
+    if (this.disabled) return
+    this.reference = this.$el.children[0]
+    this.bindEvents()
   },
 
   destroyed () {
-    const popper = this.$refs.popper;
-    if (this.trigger === 'click') {
-      this.reference.removeEventListener('click', this.handleClick);
-      popper.removeEventListener('click', this.showPopper);
-      document.documentElement.removeEventListener('click', this.handleClick);
-    } else {
-      this.reference.removeEventListener('mouseenter', this.createInstance);
-      this.reference.removeEventListener('mouseleave', this.toggle);
+    const popper = this.$refs.popper
+    if (this.popper && this.trigger === 'click') {
+      this.reference.removeEventListener('click', this.handleClick)
+      popper.removeEventListener('click', this.showPopper)
+      document.documentElement.removeEventListener('click', this.handleClick)
+    } else if (this.reference) {
+      this.reference.removeEventListener('mouseenter', this.createInstance)
+      this.reference.removeEventListener('mouseleave', this.toggle)
     }
   },
 
@@ -157,8 +185,16 @@ export default {
       const placement = placementMapper[this.placement] ? placementMapper[this.placement] : 'bottom'
       const popperEl = this.$refs.popper
 
-      document.body.appendChild(popperEl)
-      this.popper = new Popper(this.reference, popperEl, { placement })
+      document.querySelector(this.target).appendChild(popperEl)
+      new Promise((resolve, reject) => {
+        console.log(this.reference)
+        this.popper = new Popper(this.reference, popperEl, { placement, removeOnDestroy: true })
+        resolve()
+      }).then((res) => {
+        setTimeout(() => {
+          this.popper.update()
+        }, 10)
+      })
     },
 
     handleClick (e) {
@@ -178,15 +214,17 @@ export default {
 
     bindEvents () {
       const popper = this.$refs.popper
-      if (this.trigger === 'hover') {
-        this.reference.addEventListener('mouseenter', this.createInstance)
-        this.reference.addEventListener('mouseleave', this.hidePopper)
-        popper.addEventListener('mouseenter', this.showPopper)
-        popper.addEventListener('mouseleave', this.hidePopper)
-      } else {
-        this.reference.addEventListener('click', this.handleClick)
-        popper.addEventListener('click', this.showPopper)
-        document.documentElement.addEventListener('click', this.handleClick)
+      if (popper) {
+        if (this.trigger === 'hover') {
+          this.reference.addEventListener('mouseenter', this.createInstance)
+          this.reference.addEventListener('mouseleave', this.hidePopper)
+          popper.addEventListener('mouseenter', this.showPopper)
+          popper.addEventListener('mouseleave', this.hidePopper)
+        } else {
+          this.reference.addEventListener('click', this.handleClick)
+          popper.addEventListener('click', this.showPopper)
+          document.documentElement.addEventListener('click', this.handleClick)
+        }
       }
     },
 
@@ -210,20 +248,20 @@ export default {
   line-height: 1;
   text-align: left;
   white-space: normal;
-  background-color: var(--twhite-1);
+  background-color: var(--KPopBackground, var(--twhite-1));
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  border: 1px solid var(--grey-98);
+  border: 1px solid var(--KPopBorder, var(--grey-98));
   border-radius: 3px;
-  -webkit-box-shadow: 0 5px 10px var(--tblack-25);
-  box-shadow: 0 5px 10px var(--tblack-25);
+  -webkit-box-shadow: 0 5px 10px var(--KPopBoxShadow, var(--tblack-25));
+  box-shadow: 0 5px 10px var(--KPopBoxShadow, var(--tblack-25));
 
   .popover-title {
     padding: var(--spacing-xs) var(--spacing-md);
     margin: 0;
     font-size: var(--type-sm);
-    background-color: var(--grey-98);
-    border-bottom: 1px solid var(--grey-88);
+    background-color: var(--KPopBackground, var(--grey-98));
+    border-bottom: 1px solid var(--KPopBorder, var(--grey-88));
     border-radius: 3px 3px 0 0;
   }
 
@@ -264,7 +302,7 @@ export default {
         top: 1px;
         margin-left: -var(--spacing-sm);
         border-top-width: 0;
-        border-bottom-color: var(--twhite-1);
+        border-bottom-color: var(--KPopBorder, var(--twhite-1));
       }
     }
   }
@@ -281,7 +319,7 @@ export default {
 
       &:after {
         bottom: 1px;
-        border-top-color: var(--twhite-1);
+        border-top-color: var(--KPopBorder, var(--twhite-1));
         border-bottom-width: 0;
         margin-left: -var(--spacing-sm);
       }
@@ -299,7 +337,7 @@ export default {
       &:after {
         right: 1px;
         border-right-width: 0;
-        border-left-color: var(--twhite-1);
+        border-left-color: var(--KPopBorder, var(--twhite-1));
         margin-top: -var(--spacing-sm);
       }
     }
@@ -316,7 +354,7 @@ export default {
       &:after {
         left: 1px;
         border-left-width: 0;
-        border-right-color: var(--twhite-1);
+        border-right-color: var(--KPopBorder, var(--twhite-1));
         margin-top: -var(--spacing-sm);
       }
     }
