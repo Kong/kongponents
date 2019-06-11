@@ -204,7 +204,7 @@ export default {
 .k-popover {
   z-index: 1000;
   max-width: none;
-  font-size: var(--type-sizes-sm);
+  font-size: var(--type-sm);
   font-family: var(--font-family-sans);
   font-weight: 400;
   line-height: 1;
@@ -221,7 +221,7 @@ export default {
   .popover-title {
     padding: var(--spacing-xs) var(--spacing-md);
     margin: 0;
-    font-size: var(--type-sizes-sm);
+    font-size: var(--type-sm);
     background-color: var(--grey-98);
     border-bottom: 1px solid var(--grey-88);
     border-radius: 3px 3px 0 0;
