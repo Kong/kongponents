@@ -1,6 +1,6 @@
 
 module.exports = {
-  title: 'Kongpontents',
+  title: 'Kongponents',
   description: 'Kong UI Components & Style Guide',
   themeConfig: {
     repo: 'kong/kongponents',
