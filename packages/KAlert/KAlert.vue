@@ -1,8 +1,7 @@
 <template>
   <div
     v-if="isShowing"
-    v-bind="alertAttributes"
-    :class="[appearance, size, {'border':hasBorder}, alertAttributes['class']]"
+    :class="[appearance, size, {'isBordered':isBordered}, {'hasLeftBorder':hasLeftBorder}, {'isCentered': isCentered}, {'isFixed': isFixed}]"
     class="k-alert"
     role="alert">
     <button
@@ -10,12 +9,26 @@
       type="button"
       aria-label="Close"
       class="close"
-      @click="dismissAlert()">×</button>
-    <!-- @slot Use this slot when passing in an icon -->
-    <span class="alert-icon">
+      @click="dismissAlert()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="12"
+        height="12">
+        <path
+          fill="#000"
+          fill-opacity=".25"
+          fill-rule="evenodd"
+          d="M0 1l1-1h.5L6 4.499939 10.5 0h.5l1 1v.5L7.5 6l4.5 4.5v.5l-1 1h-.5L6 7.5 1.5 12H1l-1-1v-.5L4.5 6 0 1.5z"/>
+      </svg>
+    </button>
+    <span
+      v-if="hasIcon"
+      class="alert-icon">
       <slot name="alertIcon" />
     </span>
-    <slot name="alertMessage">{{ alertMessage }}</slot>
+    <span>
+      <slot name="alertMessage">{{ alertMessage }}</slot>
+    </span>
   </div>
 </template>
 
@@ -31,7 +44,7 @@ export default {
   name: 'KAlert',
   props: {
     /**
-    * Message to show in toaster
+    * Message to show in alert
     */
     alertMessage: {
       type: String,
@@ -49,12 +62,33 @@ export default {
      */
     isShowing: {
       type: Boolean,
+      default: true
+    },
+    /**
+     * Fixes alert to top
+     */
+    isFixed: {
+      type: Boolean,
       default: false
     },
     /**
-     * Set whether or not left border is visible
+     * Set whether or not alert has full border is visible
      */
-    hasBorder: {
+    isBordered: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * Sets whether or not alert has left border
+     */
+    hasLeftBorder: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * Center text inside alert
+     */
+    isCentered: {
       type: Boolean,
       default: false
     },
@@ -74,99 +108,113 @@ export default {
      */
     size: {
       type: String,
-      default: ''
-    },
-    /**
-      * Add custom attributes or definitions
-      */
-    alertAttributes: {
-      type: Object,
-      default: function () {
-        return {
-          class: ''
-        }
+      default: '',
+      validator: (value) => {
+        return [
+          '',
+          'small'
+        ].indexOf(value) !== -1
       }
     }
   },
+
+  computed: {
+    hasIcon () {
+      return !!this.$slots.alertIcon
+    }
+  },
+
   methods: {
     dismissAlert () {
-      this.isShowing = false
+      this.$emit('closed')
     }
   }
 }
 </script>
 
-<style scoped>
-  .k-alert {
-    font-family: inherit;
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    font-size: 1rem;
-    border-radius: .1875rem;
+<style scoped lang="scss">
+@import '../styles/_variables.scss';
+
+.k-alert {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-family: inherit;
+  font-size: 1rem;
+  border-radius: 3px;
+  a {
+    text-decoration: underline;
+    color: var(--blue-link);
   }
-  .k-alert .alert-icon {
-    margin-right: .5rem;
+
+  .alert-icon {
+    margin-right: var(--spacing-xs);
     max-height: 1rem;
+    svg,
+    img {
+      max-height: 1rem;
+    }
   }
-  .k-alert .alert-icon svg,
-  .k-alert .alert-icon img {
-    max-height: 1rem;
-  }
-  .k-alert.small {
-    font-size: .875rem;
-    padding: .5rem;
-  }
-  .k-alert.border {
-    border-left: 3px solid;
-    border-radius: 0 .1875rem .1875rem 0;
-  }
-  .k-alert.info {
-    color: #0E4C7C;
-    border-color: #80CAFF;
-    background-color: #E6F5FF;
-  }
-  .k-alert.success {
-    color: #0F5A30;
-    border-color: #8CD9AC;
-    background-color: #E1F5EB;
-  }
-  .k-alert.danger {
-    color: #D90000;
-    border-color: #FF8280;
-    background-color: #FEE6E6;
-  }
-  .k-alert.warning {
-    color: #403624;
-    border-color: #FFDF80;
-    background-color: #FFF7E8;
-  }
-  .k-alert .alert-link {
-    font-weight: 700;
-  }
-  .k-alert .close {
+
+  .close {
     position: absolute;
     top: 0;
-    right: 0;
-    padding: 8px 15px;
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 1;
-    opacity: .5;
-    color: inherit;
-    cursor: pointer;
+    right: 18px;
+    bottom: 0;
     border: 0;
     background-color: transparent;
-    text-shadow: 0 1px 0 #fff;
-    -webkit-appearance: none;
+    transition: all 200ms ease;
+    cursor: pointer;
+    &:hover,
+    &:active {
+      text-decoration: none;
+      opacity: .75;
+    }
   }
-  .k-alert.small .close {
-    padding: 4px 7.5px;
+
+  // Variants
+  &.isFixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
   }
-  .k-alert .close:hover,
-  .k-alert .close:active {
-    text-decoration: none;
-    opacity: .75;
+  &.isBordered {
+    border: 1px solid;
   }
+  &.isCentered {
+    justify-content: center;
+  }
+  &.hasLeftBorder {
+   border-left: 3px solid;
+   border-radius: 0;
+  }
+  &.small {
+    font-size: var(--type-sm);
+    padding: var(--spacing-sm --spacing-xs);
+  }
+
+  // Appearances
+  &.info {
+    color: var(--KAlertInfoColor, var(--blue-dark));
+    border-color: var(--KAlertInfoBorder, var(--blue-light-01));
+    background-color: var(--KAlertInfoBackground, var(--blue-lighter));
+  }
+  &.success {
+    color: var(--KAlertSuccessColor, var(--green-dark));
+    border-color: var(--KAlertSuccessBorder, var(--green-light-01));
+    background-color: var(--KAlertSuccessBackground, var(--green-lighter));
+  }
+  &.danger {
+    color: var(--KAlertDangerColor, var(--red-dark));
+    border-color: var(--KAlertDangerBorder, var(--red-light-01));
+    background-color: var(--KAlertDangerBackground, var(--red-lighter));
+  }
+  &.warning {
+    color: var(--KAlertWarningColor, var(--yellow-darker));
+    border-color: var(--KAlertWarningBorder, var(--yellow-light));
+    background-color: var(--KAlertWarningBackground, var(--yellow-lighter));
+  }
+}
 </style>
