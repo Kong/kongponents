@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KAlert Renders danger variant 1`] = `
+<div role="alert" class="k-alert danger" message="I am danger">
+  <!---->
+  <!----> <span></span></div>
+`;
+
+exports[`KAlert Renders info variant 1`] = `
+<div role="alert" class="k-alert info" message="I am info">
+  <!---->
+  <!----> <span></span></div>
+`;
+
+exports[`KAlert Renders success variant 1`] = `
+<div role="alert" class="k-alert success" message="I am success">
+  <!---->
+  <!----> <span></span></div>
+`;
+
+exports[`KAlert Renders warning variant 1`] = `
+<div role="alert" class="k-alert warning" message="I am warning">
+  <!---->
+  <!----> <span></span></div>
+`;
