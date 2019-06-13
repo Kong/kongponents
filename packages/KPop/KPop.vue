@@ -187,7 +187,6 @@ export default {
 
       document.querySelector(this.target).appendChild(popperEl)
       new Promise((resolve, reject) => {
-        console.log(this.reference)
         this.popper = new Popper(this.reference, popperEl, { placement, removeOnDestroy: true })
         resolve()
       }).then((res) => {
