@@ -97,7 +97,6 @@ look like
 | `--KPopBackground `| Default background
 | `--KPopBorder `| Default border
 | `--KPopColor `| Default font color
-| `--KPopBoxShadow `| Default box shadow color
 
 
 \

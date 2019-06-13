@@ -1,15 +1,15 @@
 <template>
   <component :is="tag">
     <slot/>
-    <transition
+    <div
       v-if="isSVG"
-      name="fade">
+      :name="popoverTransitions">
       <foreignObject>
         <div
           v-show="isShow"
           ref="popper"
-          :style="'width:' + width + 'px'"
-          class="k-popover">
+          :style="popoverStyle"
+          :class="popoverClasses">
           <div
             v-if="title"
             class="popover-title">{{ title }}</div>
@@ -19,7 +19,7 @@
           <div class="popover-arrow"/>
         </div>
       </foreignObject>
-    </transition>
+    </div>
     <transition
       v-else
       name="fade">
@@ -97,6 +97,20 @@ export default {
       default: '200'
     },
     /**
+     * Custom classes that will be applied to the popover
+     */
+    popoverClasses: {
+      type: String, 
+      default: 'k-popover'
+    },
+    /**
+     * Custom transition names that will be applied to the popover
+     */
+    popoverTransitions: {
+      type: String, 
+      default: 'fade'
+    },
+    /**
      * An optional flag passed in to trigger the Popover to hide - useful for external events like zooming or panning
      */
     hidePopover: {
@@ -124,6 +138,12 @@ export default {
       popper: null,
       reference: null,
       isShow: false
+    }
+  },
+
+  computed: {
+    popoverStyle: function () {
+      return 'width=' + this.width + 'px'
     }
   },
 
@@ -172,7 +192,7 @@ export default {
       if (this.popperTimer) clearTimeout(this.popperTimer)
     },
 
-    createInstance () {
+    async createInstance () {
       this.showPopper()
       // destroy any previous poppers before creating new one
       this.destroy()
@@ -186,14 +206,11 @@ export default {
       const popperEl = this.$refs.popper
 
       document.querySelector(this.target).appendChild(popperEl)
-      new Promise((resolve, reject) => {
-        this.popper = new Popper(this.reference, popperEl, { placement, removeOnDestroy: true })
-        resolve()
-      }).then((res) => {
-        setTimeout(() => {
-          this.popper.update()
-        }, 10)
-      })
+      await this.$nextTick()
+      this.popper = new Popper(this.reference, popperEl, { placement, removeOnDestroy: true })
+
+      await this.$nextTick()
+      this.popper.update()
     },
 
     handleClick (e) {
@@ -242,30 +259,22 @@ export default {
   z-index: 1000;
   max-width: none;
   font-size: var(--type-sm);
-  font-family: var(--font-family-sans);
-  font-weight: 400;
-  line-height: 1;
   text-align: left;
   white-space: normal;
+  color: var(--KPopColor, var(--tblack-70));
   background-color: var(--KPopBackground, var(--twhite-1));
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   border: 1px solid var(--KPopBorder, var(--grey-98));
   border-radius: 3px;
-  -webkit-box-shadow: 0 5px 10px var(--KPopBoxShadow, var(--tblack-25));
-  box-shadow: 0 5px 10px var(--KPopBoxShadow, var(--tblack-25));
+  -webkit-box-shadow: 0 0 12px rgba(0,0,0,.12);
+  box-shadow: 0 0 12px rgba(0,0,0,.12);
+  padding: var(--spacing-xxs);
 
   .popover-title {
-    padding: var(--spacing-xs) var(--spacing-md);
-    margin: 0;
-    font-size: var(--type-sm);
-    background-color: var(--KPopBackground, var(--grey-98));
-    border-bottom: 1px solid var(--KPopBorder, var(--grey-88));
-    border-radius: 3px 3px 0 0;
-  }
-
-  .popover-content {
-    padding: var(--spacing-xs) var(--spacing-md);
+    padding-bottom: 1rem;
+    font-size: 14px;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(0,0,0,.10);
+    background: #fff;
   }
 
   .popover-arrow, .popover-arrow::after {
@@ -379,158 +388,6 @@ $transition-speed: .3s !default;
     opacity: 0;
   }
 }
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translate3d(0, -100%, 0);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes fadeOutDown {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    transform: translate3d(0, 100%, 0);
-  }
-}
-@keyframes fadeInDownBig {
-  from {
-    opacity: 0;
-    transform: translate3d(0, -2000px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes fadeOutDownBig {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    transform: translate3d(0, 2000px, 0);
-  }
-}
-@keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    transform: translate3d(-100%, 0, 0);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes fadeOutLeft {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    transform: translate3d(-100%, 0, 0);
-  }
-}
-@keyframes fadeInLeftBig {
-  from {
-    opacity: 0;
-    transform: translate3d(-2000px, 0, 0);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes fadeOutLeftBig {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    transform: translate3d(-2000px, 0, 0);
-  }
-}
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translate3d(100%, 0, 0);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes fadeOutRight {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    transform: translate3d(100%, 0, 0);
-  }
-}
-@keyframes fadeInRightBig {
-  from {
-    opacity: 0;
-    transform: translate3d(2000px, 0, 0);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes fadeOutRightBig {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    transform: translate3d(2000px, 0, 0);
-  }
-}
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 100%, 0);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes fadeOutUp {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    transform: translate3d(0, -100%, 0);
-  }
-}
-@keyframes fadeInUpBig {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 2000px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes fadeOutUp {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    transform: translate3d(0, -100%, 0);
-  }
-}
 
 .fade-enter-active,
 .fadeIn,
@@ -546,125 +403,5 @@ $transition-speed: .3s !default;
 .fade-leave-active,
 .fadeOut {
   animation-name: fadeOut;
-}
-.fadeUpBig-enter-active,
-.fadeInUpBig,
-.fadeUpBig-leave-active,
-.fadeOutUpBig {
-  animation-duration: $transition-speed;
-  animation-fill-mode: both;
-}
-.fadeUpBig-enter-active,
-.fadeInUpBig {
-  animation-name: fadeInUpBig;
-}
-.fadeUpBig-leave-active,
-.fadeOutUpBig {
-  animation-name: fadeOutUpBig;
-}
-.fadeUp-enter-active,
-.fadeInUp,
-.fadeUp-leave-active,
-.fadeOutUp {
-  animation-duration: $transition-speed;
-  animation-fill-mode: both;
-}
-.fadeUp-enter-active,
-.fadeInUp {
-  animation-name: fadeInUp;
-}
-.fadeUp-leave-active,
-.fadeOutUp {
-  animation-name: fadeOutUp;
-}
-.fadeRightBig-enter-active,
-.fadeInRightBig,
-.fadeRightBig-leave-active,
-.fadeOutRightBig {
-  animation-duration: $transition-speed;
-  animation-fill-mode: both;
-}
-.fadeRightBig-enter-active,
-.fadeInRightBig {
-  animation-name: fadeInRightBig;
-}
-.fadeRightBig-leave-active,
-.fadeOutRightBig {
-  animation-name: fadeOutRightBig;
-}
-.fadeRight-enter-active,
-.fadeInRight,
-.fadeRight-leave-active,
-.fadeOutRight {
-  animation-duration: $transition-speed;
-  animation-fill-mode: both;
-}
-.fadeRight-enter-active,
-.fadeInRight {
-  animation-name: fadeInRight;
-}
-.fadeRight-leave-active,
-.fadeOutRight {
-  animation-name: fadeOutRight;
-}
-.fadeLeftBig-enter-active,
-.fadeInLeftBig,
-.fadeLeftBig-leave-active,
-.fadeOutLeftBig {
-  animation-duration: $transition-speed;
-  animation-fill-mode: both;
-}
-.fadeLeftBig-enter-active,
-.fadeInLeftBig {
-  animation-name: fadeInLeftBig;
-}
-.fadeLeftBig-leave-active,
-.fadeOutLeftBig {
-  animation-name: fadeOutLeftBig;
-}
-.fadeLeft-enter-active,
-.fadeInLeft,
-.fadeLeft-leave-active,
-.fadeOutLeft {
-  animation-duration: $transition-speed;
-  animation-fill-mode: both;
-}
-.fadeLeft-enter-active,
-.fadeInLeft {
-  animation-name: fadeInLeft;
-}
-.fadeLeft-leave-active,
-.fadeOutLeft {
-  animation-name: fadeOutLeft;
-}
-.fadeDownBig-enter-active,
-.fadeInDownBig,
-.fadeDownBig-leave-active,
-.fadeOutDownBig {
-  animation-duration: $transition-speed;
-  animation-fill-mode: both;
-}
-.fadeDownBig-enter-active,
-.fadeInDownBig {
-  animation-name: fadeInDownBig;
-}
-.fadeDownBig-leave-active,
-.fadeOutDownBig {
-  animation-name: fadeOutDownBig;
-}
-.fadeDown-enter-active,
-.fadeInDown,
-.fadeDown-leave-active,
-.fadeOutDown {
-  animation-duration: $transition-speed;
-  animation-fill-mode: both;
-}
-.fadeDown-enter-active,
-.fadeInDown {
-  animation-name: fadeInDown;
-}
-.fadeDown-leave-active,
-.fadeOutDown {
-  animation-name: fadeOutDown;
 }
 </style>
