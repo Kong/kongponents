@@ -1,18 +1,30 @@
 $colors: (
-  blue-lightest: hsla(205, 100%, 98%, 1),
+  blue-lightest: hsla(205, 100%, 97%, 1),
+  blue-lighter: hsla(205, 100%, 95%, 1),
   blue-light-01: hsla(205, 100%, 82%, 1),
   blue-light: hsla(205, 100%, 72%, 1),
   blue-base: hsla(205, 100%, 46%, 1),
   blue-link: hsla(205, 80%, 45%, 1),
+  blue-dark: hsla(205, 80%, 30%, 1),
 
   red-lightest: hsla(0, 100%, 98%, 1),
+  red-lighter: hsla(0, 100%, 95%, 1),
   red-light-01: hsla(0, 90%, 82%, 1),
   red-light: hsla(0, 85%, 70%, 1),
   red-base: hsla(0, 80%, 50%, 1),
   red-link: hsla(0, 80%, 45%, 1),
+  red-dark: hsla(0, 80%, 35%, 1),
 
+  green-lighter: hsla(145, 45%, 94%, 1),
+  green-light-01: hsla(145, 45%, 82%, 1),
+  green-light: hsla(145, 45%, 70%, 1),
   green-base: hsla(145, 45%, 45%, 1),
+  green-dark: hsla(145, 45%, 35%, 1),
+
+  yellow-lighter: hsla(42, 100%, 95%, 1),
+  yellow-light: hsla(45, 100%, 82%, 1),
   yellow-base: hsla(45, 100%, 70%, 1),
+  yellow-darker: hsla(45, 100%, 25%, 1),
 
   tblack-85: hsla(0, 0%, 0%, .85),
   tblack-70: hsla(0, 0%, 0%, .70),
