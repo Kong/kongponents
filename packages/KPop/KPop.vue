@@ -99,14 +99,14 @@ export default {
     /**
      * Custom classes that will be applied to the popover
      */
-    popoverClasses: {
+    classes: {
       type: String, 
       default: 'k-popover'
     },
     /**
      * Custom transition names that will be applied to the popover
      */
-    popoverTransitions: {
+    transitions: {
       type: String, 
       default: 'fade'
     },
@@ -144,6 +144,12 @@ export default {
   computed: {
     popoverStyle: function () {
       return 'width=' + this.width + 'px'
+    },
+    popoverClasses: function () {
+      return 'k-popover ' + this.classes
+    },
+    popoverTransitions: function () {
+      return this.transitions || 'fade'
     }
   },
 
