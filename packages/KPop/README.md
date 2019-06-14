@@ -1,8 +1,14 @@
 ```js
 const attributes = {
-  description: 'KPop description text can be as short or as long as you wish.',
+  width: 350,
+  title: 'Cool Beans!'
+  content: 'I have fantastic content!'
 }
-<KPop :message="attributes.description">
-  Hover over me to see popover
+<KPop 
+  :width="attributes.width"
+  :title="attributes.title"
+  :content="attributes.content"
+>
+  Click on me to see popover
 </KPop>
 ```
