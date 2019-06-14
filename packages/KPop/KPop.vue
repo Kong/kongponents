@@ -278,7 +278,7 @@ export default {
   .popover-title {
     padding-bottom: 1rem;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 400;
     border-bottom: 1px solid rgba(0,0,0,.10);
     background-color: var(--KPopBackground, var(--twhite-1));;
   }
