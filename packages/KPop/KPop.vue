@@ -87,7 +87,13 @@ export default {
      */
     trigger: {
       type: String,
-      default: 'click'
+      default: 'click',
+      validator: function (value) {
+        return [
+          'click',
+          'hover'
+        ].indexOf(value) !== -1
+      }
     },
     /**
      * The width of the Popover body
@@ -172,6 +178,7 @@ export default {
       this.reference.removeEventListener('mouseenter', this.createInstance)
       this.reference.removeEventListener('mouseleave', this.toggle)
     }
+    this.destroy()
   },
 
   methods: {
@@ -357,7 +364,7 @@ export default {
       top: calc(50% - 12px);
 
       &:after {
-        right: 3px;
+        right: 2px;
         -webkit-box-shadow: 1px -1px 1px -1px rgba(0,0,0,0.2);
         box-shadow: 1px -1px 1px -1px rgba(0,0,0,0.2);
         border-right-width: 0;
@@ -376,7 +383,7 @@ export default {
       top: calc(50% - 12px);
 
       &:after {
-        left: 3px;
+        left: 2px;
         -webkit-box-shadow: -1px 1px 1px -1px rgba(0,0,0,0.2);
         box-shadow: -1px 1px 1px -1px rgba(0,0,0,0.2);
         border-left-width: 0;
