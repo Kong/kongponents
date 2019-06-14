@@ -59,7 +59,10 @@ export default {
         ].indexOf(value) !== -1
       }
     },
-
+    /**
+     * Route object or path. If obejct will render <router-link>, if string
+     will render <a>
+     */
     to: {
       type: [Object, String],
       default: null
