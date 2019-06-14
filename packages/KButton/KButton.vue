@@ -2,7 +2,7 @@
   <a
     v-if="typeof to === 'string'"
     :href="to"
-    :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance]"
+    :class="buttonClasses"
     class="button"
     v-on="listeners">
     <slot name="icon" />
@@ -12,7 +12,7 @@
     v-else
     :is="buttonType"
     :to="to"
-    :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance]"
+    :class="buttonClasses"
     class="button"
     v-on="listeners">
     <slot name="icon" />
@@ -74,6 +74,13 @@ export default {
       return {
         ...this.$listeners
       }
+    },
+
+    buttonClasses () {
+      const sizeClass = this.size !== 'default' && this.size
+      const iconClass = (!this.hasText && this.hasIcon) && 'icon-btn'
+
+      return `${sizeClass} ${iconClass} ${this.appearance}`
     },
 
     hasIcon () {
