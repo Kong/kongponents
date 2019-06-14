@@ -1,9 +1,18 @@
 <template>
+  <a
+    v-if="typeof to === 'string'"
+    :href="to"
+    :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance]"
+    class="button"
+    v-on="listeners">
+    <slot name="icon" />
+    <slot/>
+  </a>
   <component
-    v-bind="buttonBindings"
+    v-else
     :is="buttonType"
     :to="to"
-    :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance, buttonAttributes['class']]"
+    :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance]"
     class="button"
     v-on="listeners">
     <slot name="icon" />
@@ -12,27 +21,28 @@
 </template>
 
 <script>
+export const appearances = {
+  primary: 'primary',
+  danger: 'danger',
+  secondary: 'secondary',
+  outlinePrimary: 'outline-primary',
+  outlineDanger: 'outline-danger',
+  btnLink: 'btn-link',
+  btnLinkDanger: 'btn-link-danger'
+}
+
 export default {
   name: 'KButton',
   props: {
     /**
       * Base styling of the button
-      * One of ['primary, outline-primary, secondary, outline-secondary, danger', 'outline-danger, btn-link', btn-link-danger ]
+      * One of ['primary, outline-primary, secondary, danger', 'outline-danger, btn-link', btn-link-danger ]
       */
     appearance: {
       type: String,
-      default: '',
+      default: 'secondary',
       validator: function (value) {
-        return [
-          'primary',
-          'danger',
-          'secondary',
-          'outline-primary',
-          'outline-danger',
-          'btn-link',
-          'btn-link-danger',
-          ''
-        ].indexOf(value) !== -1
+        return Object.values(appearances).indexOf(value) !== -1
       }
     },
     /**
@@ -49,21 +59,10 @@ export default {
         ].indexOf(value) !== -1
       }
     },
-    /**
-      * Add custom attributes or definitions
-      */
-    buttonAttributes: {
-      type: Object,
-      default: function () {
-        return {
-          class: ''
-        }
-      }
-    },
 
     to: {
-      type: Object,
-      default: () => {}
+      type: [Object, String],
+      default: null
     }
   },
 
@@ -74,21 +73,16 @@ export default {
       }
     },
 
-    buttonBindings () {
-      return {
-        ...this.buttonAttributes
-      }
-    },
     hasIcon () {
       return this.$slots.icon
     },
+
     hasText () {
       return this.$slots.default
     },
+
     buttonType () {
-      return this.to && typeof this.to === 'object'
-        ? 'router-link'
-        : 'button'
+      return this.to ? 'router-link' : 'button'
     }
   },
 
