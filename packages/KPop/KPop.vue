@@ -168,9 +168,9 @@ export default {
     this.bindEvents()
   },
 
-  destroyed () {
+  beforeDestroy () {
     const popper = this.$refs.popper
-    if (this.popper && this.popper.removeEventListener && this.trigger === 'click') {
+    if (popper && this.trigger === 'click') {
       this.reference.removeEventListener('click', this.handleClick)
       popper.removeEventListener('click', this.showPopper)
       document.documentElement.removeEventListener('click', this.handleClick)
