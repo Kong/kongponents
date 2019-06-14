@@ -31,7 +31,7 @@ describe('KPop', () => {
         'title': 'Cool Beans!'
       }
     })
-    const popperTitle = wrapper.find('.popover-title')
+    const popperTitle = wrapper.find('.k-popover-title')
 
     expect(popperTitle.text()).toEqual('Cool Beans!')
   })

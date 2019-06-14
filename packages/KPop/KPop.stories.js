@@ -9,9 +9,9 @@ storiesOf('KPop', module)
   }), {info: {}})
   .add('Popover with positioning on the right', () => ({
     components: { KPop },
-    template: `<KPop placement="right" title="Cool header"><button>button</button><div slot="content">I am some sample text with right positioning!</div></KPop>`
+    template: `<KPop placement="right" title="Cool header" style="margin-top:100px;"><button>button</button><div slot="content">I am some sample text with right positioning!</div></KPop>`
   }), {info: {}})
   .add('Popover that triggers on hover', () => ({
     components: { KPop },
-    template: `<KPop trigger="hover" title="Cool header"><button>button</button><div slot="content">I am some sample text that triggers on hover!</div></KPop>`
+    template: `<KPop trigger="hover" title="Cool header" style="margin-left:100px;"><button>button</button><div slot="content">I am some sample text that triggers on hover!</div></KPop>`
   }), {info: {}})

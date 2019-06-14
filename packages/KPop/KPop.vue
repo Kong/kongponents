@@ -12,11 +12,11 @@
           :class="popoverClasses">
           <div
             v-if="title"
-            class="popover-title">{{ title }}</div>
-          <div class="popover-content">
+            class="k-popover-title">{{ title }}</div>
+          <div class="k-popover-content">
             <slot name="content"/>
           </div>
-          <div class="popover-arrow"/>
+          <div class="k-popover-arrow"/>
         </div>
       </foreignObject>
     </div>
@@ -30,11 +30,11 @@
         class="k-popover">
         <div
           v-if="title"
-          class="popover-title">{{ title }}</div>
-        <div class="popover-content">
+          class="k-popover-title">{{ title }}</div>
+        <div class="k-popover-content">
           <slot name="content"/>
         </div>
-        <div class="popover-arrow"/>
+        <div class="k-popover-arrow"/>
       </div>
     </transition>
   </component>
@@ -99,14 +99,14 @@ export default {
     /**
      * Custom classes that will be applied to the popover
      */
-    classes: {
+    popoverClasses: {
       type: String, 
       default: 'k-popover'
     },
     /**
      * Custom transition names that will be applied to the popover
      */
-    transitions: {
+    popoverTransitions: {
       type: String, 
       default: 'fade'
     },
@@ -144,12 +144,6 @@ export default {
   computed: {
     popoverStyle: function () {
       return 'width=' + this.width + 'px'
-    },
-    popoverClasses: function () {
-      return 'k-popover ' + this.classes
-    },
-    popoverTransitions: function () {
-      return this.transitions || 'fade'
     }
   },
 
@@ -170,7 +164,7 @@ export default {
 
   destroyed () {
     const popper = this.$refs.popper
-    if (this.popper && this.trigger === 'click') {
+    if (this.popper && this.popper.removeEventListener && this.trigger === 'click') {
       this.reference.removeEventListener('click', this.handleClick)
       popper.removeEventListener('click', this.showPopper)
       document.documentElement.removeEventListener('click', this.handleClick)
@@ -252,6 +246,7 @@ export default {
 
     destroy () {
       if (this.popper) {
+        this.isShow = false
         this.popper.destroy()
         this.popper = null
       }
@@ -273,17 +268,18 @@ export default {
   border-radius: 3px;
   -webkit-box-shadow: 0 0 12px rgba(0,0,0,.12);
   box-shadow: 0 0 12px rgba(0,0,0,.12);
-  padding: var(--spacing-xxs);
+  padding: 1rem;
 
-  .popover-title {
+  .k-popover-title {
     padding-bottom: 1rem;
+    margin-bottom: 1rem;
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 500;
     border-bottom: 1px solid rgba(0,0,0,.10);
-    background-color: var(--KPopBackground, var(--twhite-1));;
+    background-color: var(--KPopBackground, var(--twhite-1));
   }
 
-  .popover-arrow, .popover-arrow::after {
+  .k-popover-arrow, .k-popover-arrow::after {
     display: block;
     width: 0;
     height: 0;
@@ -292,20 +288,28 @@ export default {
     position: absolute;
   }
 
-  .popover-arrow {
+  .k-popover-arrow {
     border-width: 10px;
     position: absolute;
 
     &::after {
       content: "";
-      border-width: 10px;
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: var(--KPopBackground, var(--twhite-1));
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      transform: rotate(45deg);
     }
   }
 
   &[x-placement^="bottom"] {
     margin-top: var(--spacing-md);
 
-    .popover-arrow {
+    .k-popover-arrow {
       border-top-width: 0;
       top: -10px;
       left: calc(50% - 12px);
@@ -313,8 +317,10 @@ export default {
       margin-bottom: 0;
 
       &:after {
-        top: 1px;
-        margin-left: -var(--spacing-sm);
+        top: 2px;
+        -webkit-box-shadow: -1px -1px 1px -1px rgba(0,0,0,0.2);
+        box-shadow: -1px -1px 1px -1px rgba(0,0,0,0.2);
+        margin-left: -(var(--spacing-sm));
         border-top-width: 0;
         border-bottom-color: var(--KPopBorder, var(--twhite-1));
       }
@@ -324,7 +330,7 @@ export default {
   &[x-placement^="top"] { 
     margin-bottom: var(--spacing-md);
 
-  .popover-arrow {
+  .k-popover-arrow {
     border-bottom-width: 0;
     bottom: -10px;
     left: calc(50% - 12px);
@@ -332,10 +338,12 @@ export default {
     margin-bottom: 0;
 
       &:after {
-        bottom: 1px;
+        bottom: 2px;
+        -webkit-box-shadow: 1px 1px 1px -1px rgba(0,0,0,0.2);
+        box-shadow: 1px 1px 1px -1px rgba(0,0,0,0.2);
         border-top-color: var(--KPopBorder, var(--twhite-1));
         border-bottom-width: 0;
-        margin-left: -var(--spacing-sm);
+        margin-left: -(var(--spacing-sm));
       }
     }
   }
@@ -343,16 +351,18 @@ export default {
   &[x-placement^="left"] {
     margin-right: var(--spacing-md);
 
-    .popover-arrow {
+    .k-popover-arrow {
       border-right-width: 0;
       right: -10px;
       top: calc(50% - 12px);
 
       &:after {
-        right: 1px;
+        right: 3px;
+        -webkit-box-shadow: 1px -1px 1px -1px rgba(0,0,0,0.2);
+        box-shadow: 1px -1px 1px -1px rgba(0,0,0,0.2);
         border-right-width: 0;
         border-left-color: var(--KPopBorder, var(--twhite-1));
-        margin-top: -var(--spacing-sm);
+        margin-top: -(var(--spacing-sm));
       }
     }
   }
@@ -360,16 +370,18 @@ export default {
   &[x-placement^="right"] {
      margin-left: var(--spacing-md);
 
-    .popover-arrow {
+    .k-popover-arrow {
       border-left-width: 0;
       left: -10px;
       top: calc(50% - 12px);
 
       &:after {
-        left: 1px;
+        left: 3px;
+        -webkit-box-shadow: -1px 1px 1px -1px rgba(0,0,0,0.2);
+        box-shadow: -1px 1px 1px -1px rgba(0,0,0,0.2);
         border-left-width: 0;
         border-right-color: var(--KPopBorder, var(--twhite-1));
-        margin-top: -var(--spacing-sm);
+        margin-top: -(var(--spacing-sm));
       }
     }
   }
