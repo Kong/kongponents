@@ -280,7 +280,7 @@ export default {
     font-size: 14px;
     font-weight: 500;
     border-bottom: 1px solid rgba(0,0,0,.10);
-    background: #fff;
+    background-color: var(--KPopBackground, var(--twhite-1));;
   }
 
   .popover-arrow, .popover-arrow::after {
