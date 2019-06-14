@@ -106,14 +106,14 @@ export default {
      * Custom classes that will be applied to the popover
      */
     popoverClasses: {
-      type: String, 
+      type: String,
       default: 'k-popover'
     },
     /**
      * Custom transition names that will be applied to the popover
      */
     popoverTransitions: {
-      type: String, 
+      type: String,
       default: 'fade'
     },
     /**
@@ -178,6 +178,7 @@ export default {
       this.reference.removeEventListener('mouseenter', this.createInstance)
       this.reference.removeEventListener('mouseleave', this.toggle)
     }
+
     this.destroy()
   },
 
@@ -334,7 +335,7 @@ export default {
     }
   }
 
-  &[x-placement^="top"] { 
+  &[x-placement^="top"] {
     margin-bottom: var(--spacing-md);
 
   .k-popover-arrow {
