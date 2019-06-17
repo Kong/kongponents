@@ -92,12 +92,12 @@ export default {
 .button {
   display: inline-flex;
   align-items: center;
-  padding: var(--spacing-xs) var(--spacing-sm);
-  font-family: var(--font-family-sans);
+  padding: var(--spacing-xs, spacing(xs)) var(--spacing-sm, spacing(sm));
+  font-family: var(--font-family-sans, font(sans));
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.25;
-  color: var(--tblack-70);
+  color: var(--tblack-70, color(tblack-70));
   border: 1px solid transparent;
   border-radius: 3px;
   transition: all .2s ease-in-out;
@@ -116,7 +116,7 @@ export default {
   > svg {
     width: 1rem;
     height: 1rem;
-    padding-right: var(--spacing-xs);
+    padding-right: var(--spacing-xs, spacing(xs));
   }
 
   &.icon-btn {
@@ -131,8 +131,8 @@ export default {
 
   /* Size Variations */
   &.small {
-    padding: var(--spacing-xxs) var(--spacing-xs);
-    font-size: var(--type-sm);
+    padding: var(--spacing-xxs, spacing(xxs)) var(--spacing-xs, spacing(xs));
+    font-size: var(--type-sm, type(sm));
   }
 
   /* Apperance Variations */
