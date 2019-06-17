@@ -26,8 +26,8 @@
       <div
         v-show="isShow"
         ref="popper"
-        :style="'width:' + width + 'px'"
-        class="k-popover">
+        :style="popoverStyle"
+        :class="popoverClasses">
         <div
           v-if="title"
           class="k-popover-title">{{ title }}</div>
@@ -149,7 +149,9 @@ export default {
 
   computed: {
     popoverStyle: function () {
-      return 'width=' + this.width + 'px'
+      return {
+        width: this.width + 'px'
+      }
     }
   },
 
@@ -264,15 +266,17 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '../styles/_variables.scss';
+
 .k-popover {
   z-index: 1000;
   max-width: none;
-  font-size: var(--type-sm);
+  font-size: var(--type-sm, type(sm));
   text-align: left;
   white-space: normal;
-  color: var(--KPopColor, var(--tblack-70));
-  background-color: var(--KPopBackground, var(--twhite-1));
-  border: 1px solid var(--KPopBorder, var(--grey-98));
+  color: var(--KPopColor, var(--tblack-70, color(tblack-70)));
+  background-color: var(--KPopBackground, var(--twhite-1, color(twhite-1)));
+  border: 1px solid var(--KPopBorder, var(--grey-98, color(grey-98)));
   border-radius: 3px;
   -webkit-box-shadow: 0 0 12px rgba(0,0,0,.12);
   box-shadow: 0 0 12px rgba(0,0,0,.12);
@@ -284,7 +288,7 @@ export default {
     font-size: 14px;
     font-weight: 500;
     border-bottom: 1px solid rgba(0,0,0,.10);
-    background-color: var(--KPopBackground, var(--twhite-1));
+    background-color: var(--KPopBackground, var(--twhite-1, color(twhite-1)));
   }
 
   .k-popover-arrow, .k-popover-arrow::after {
@@ -305,7 +309,7 @@ export default {
       position: absolute;
       width: 15px;
       height: 15px;
-      background: var(--KPopBackground, var(--twhite-1));
+      background: var(--KPopBackground, var(--twhite-1, color(twhite-1)));
       -webkit-transform: rotate(45deg);
       -moz-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
@@ -315,7 +319,7 @@ export default {
   }
 
   &[x-placement^="bottom"] {
-    margin-top: var(--spacing-md);
+    margin-top: var(--spacing-md, spacing(md));
 
     .k-popover-arrow {
       border-top-width: 0;
@@ -328,15 +332,15 @@ export default {
         top: 2px;
         -webkit-box-shadow: -1px -1px 1px -1px rgba(0,0,0,0.2);
         box-shadow: -1px -1px 1px -1px rgba(0,0,0,0.2);
-        margin-left: -(var(--spacing-sm));
+        margin-left: -(var(--spacing-sm, spacing(sm)));
         border-top-width: 0;
-        border-bottom-color: var(--KPopBorder, var(--twhite-1));
+        border-bottom-color: var(--KPopBorder, var(--twhite-1, color(twhite-1)));
       }
     }
   }
 
   &[x-placement^="top"] {
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-md, spacing(md));
 
   .k-popover-arrow {
     border-bottom-width: 0;
@@ -349,15 +353,15 @@ export default {
         bottom: 2px;
         -webkit-box-shadow: 1px 1px 1px -1px rgba(0,0,0,0.2);
         box-shadow: 1px 1px 1px -1px rgba(0,0,0,0.2);
-        border-top-color: var(--KPopBorder, var(--twhite-1));
+        border-top-color: var(--KPopBorder, var(--twhite-1, color(twhite1)));
         border-bottom-width: 0;
-        margin-left: -(var(--spacing-sm));
+        margin-left: -(var(--spacing-sm, spacing(sm)));
       }
     }
   }
 
   &[x-placement^="left"] {
-    margin-right: var(--spacing-md);
+    margin-right: var(--spacing-md, spacing(md));
 
     .k-popover-arrow {
       border-right-width: 0;
@@ -369,14 +373,14 @@ export default {
         -webkit-box-shadow: 1px -1px 1px -1px rgba(0,0,0,0.2);
         box-shadow: 1px -1px 1px -1px rgba(0,0,0,0.2);
         border-right-width: 0;
-        border-left-color: var(--KPopBorder, var(--twhite-1));
-        margin-top: -(var(--spacing-sm));
+        border-left-color: var(--KPopBorder, var(--twhite-1, color(twhite-1)));
+        margin-top: -(var(--spacing-sm, spacing(sm)));
       }
     }
   }
 
   &[x-placement^="right"] {
-     margin-left: var(--spacing-md);
+     margin-left: var(--spacing-md, spacing(md));
 
     .k-popover-arrow {
       border-left-width: 0;
@@ -388,8 +392,8 @@ export default {
         -webkit-box-shadow: -1px 1px 1px -1px rgba(0,0,0,0.2);
         box-shadow: -1px 1px 1px -1px rgba(0,0,0,0.2);
         border-left-width: 0;
-        border-right-color: var(--KPopBorder, var(--twhite-1));
-        margin-top: -(var(--spacing-sm));
+        border-right-color: var(--KPopBorder, var(--twhite-1, color(twhite-1)));
+        margin-top: -(var(--spacing-sm, spacing(sm)));
       }
     }
   }
