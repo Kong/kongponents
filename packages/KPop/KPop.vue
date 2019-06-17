@@ -149,7 +149,9 @@ export default {
 
   computed: {
     popoverStyle: function () {
-      return 'width=' + this.width + 'px'
+      return {
+        width: this.width + 'px'
+      }
     }
   },
 
