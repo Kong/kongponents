@@ -14,17 +14,6 @@ describe('KPop', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 
-  it('renders with correct width', () => {
-    const wrapper = mount(KPop, {
-      propsData: {
-        'width': '350'
-      }
-    })
-    const popper = wrapper.find('.k-popover')
-
-    expect(popper.element.style['width']).toEqual('350px')
-  })
-
   it('renders with correct title', () => {
     const wrapper = mount(KPop, {
       propsData: {

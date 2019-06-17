@@ -26,8 +26,8 @@
       <div
         v-show="isShow"
         ref="popper"
-        :style="'width:' + width + 'px'"
-        class="k-popover">
+        :style="popoverStyle"
+        :class="popoverClasses">
         <div
           v-if="title"
           class="k-popover-title">{{ title }}</div>
