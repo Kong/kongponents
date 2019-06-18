@@ -2,7 +2,7 @@
   <component :is="tag">
     <slot/>
     <div
-      v-if="isSVG"
+      v-if="isSvg"
       :name="popoverTransitions">
       <foreignObject>
         <div
@@ -133,7 +133,7 @@ export default {
     /**
     * A flag indicating whether or not the element in the slot will be an SVG element
     */
-    isSVG: {
+    isSvg: {
       type: Boolean,
       default: false
     }
