@@ -266,7 +266,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '../styles/_variables.scss';
+@import 'node_modules/@kongponents/styles/_variables.scss';
 
 .k-popover {
   z-index: 1000;
