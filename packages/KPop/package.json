@@ -18,5 +18,8 @@
   "homepage": "https://github.com/Kong/kongponents#readme",
   "dependencies": {
     "popper.js": "^1.15.0"
+  },
+  "peerDependencies": {
+    "@kongponents/styles": "0.0.2"
   }
 }
