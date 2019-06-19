@@ -87,7 +87,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import 'node_modules/@kongponents/styles/_variables.scss';
+@import '~@kongponents/styles/_variables.scss';
 
 .button {
   display: inline-flex;
