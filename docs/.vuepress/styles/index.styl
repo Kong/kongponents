@@ -1,0 +1,31 @@
+// Gloabls
+body {
+  font-family: var(--font-family-sans);
+}
+
+// Tables
+tr, th, td {
+  border: none;
+}
+th:not(:last-of-type),
+td:not(:last-of-type) {
+  border-right: 1px solid #dfe2e5;
+}
+tr:nth-child(2n) {
+  background-color: #fff;
+}
+
+// Code
+.preview-code {
+  box-shadow: none !important;
+  border: 2px solid #efefef;
+  border-radius: 6px;
+  overflow hidden;
+  .preview {
+    padding: 1rem !important;
+    background-color: #fff !important;
+  }
+  .editor pre {
+    border-radius: 0 0 6px 6px;
+  }
+}
