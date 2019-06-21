@@ -1,25 +1,11 @@
 <template>
   <div class="swatch-container">
     <div
-      v-for="(color, i) in colors"
-      class="swatch"
-      :key="i"
       :style="getBackground(color)"
-      @mouseover="isHovering = {item: i, text: colorValue(color) }"
-      @mouseleave="isHovering = {}">
-      <div class="description">
-        {{ colorName(color) }}</br>
-        {{ colorValue(color) }}
-      </div>
-      <KClipboardProvider>
-        <div
-          v-if="isHovering.item === i"
-          slot-scope="{ copyToClipboard }"
-          @click="copyAlert(isHovering.text)"
-          class="copy-item">
-            copy to clipboard
-        </div>
-      </KClipboardProvider>
+      class="swatch" />
+    <div class="description">
+      <span>{{ colorName(color) }}</span>
+      <span>{{ colorValue(color) }}</span>
     </div>
   </div>
 </template>
@@ -28,9 +14,9 @@
 export default {
   name: 'swatch',
   props: {
-    colors: {
-      type: Array,
-      default: () => []
+    color: {
+      type: String,
+      required: true
     }
   },
 
@@ -58,38 +44,32 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
 .swatch-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  border-radius: 4px;
-  box-shadow: 0 5px 15px rgba(0,0,0,.15);
-  overflow: hidden;
-}
-.swatch {
-  position: relative;
   display: flex;
-  flex: 1;
-  min-height: 80px;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0 1rem;
-  line-height: 24px;
-  border-bottom: 1px solid rgba(0,0,0,.15);
-  color: #000;
-}
-
-.copy-item {
-  position: absolute;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  background: rgba(0,0,0, .75);
-  cursor: pointer;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #efefef;
+  .swatch {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #efefef;
+    border-radius: 4px;
+  }
+  .description {
+    flex: 1;
+    margin-left: 1rem;
+    span {
+      display: block;
+      &:first-of-type {
+        font-weight: 500;
+        margin-bottom: .25rem;
+      }
+      &:last-of-type {
+        color: var(--tblack-70);
+        font-size: var(--type-sm);
+      }
+    }
+  }
 }
 </style>

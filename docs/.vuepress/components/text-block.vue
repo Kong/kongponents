@@ -1,10 +1,15 @@
-<template>
+<template functional>
   <div class="text-block">
-    <div class="text-title mono">
-      type-{{ text.variable }} <span>{{ text.label }}</span>
+    <div class="label">
+      <strong>Variable Name:</strong> <span>{{ props.variableName }}</span>
     </div>
-    <div class="text-wrapper">
-      <p :class="[text.variable, text.class]">{{ text.text }}</p>
+    <div class="label">
+      <strong>Font Size:</strong> <span>{{ props.fontSize }}</span>
+    </div>
+    <div class="example">
+      <p :class="[props.variableName, props.fontType === 'mono' && 'mono']">
+        Kong is a Lua application running in Nginx
+      </p>
     </div>
   </div>
 </template>
@@ -13,38 +18,40 @@
   export default {
     name: 'text-block',
     props: {
-      text: {
-        type: Object,
-        default: () => ({})
+      fontType: {
+        type: String,
+        default: 'sans'
+      },
+      fontSize: {
+        type: String,
+        default: '16px'
+      },
+      variableName: {
+        type: String,
+        required: true
       }
     }
   }
 </script>
 
-<style>
+<style scoped lang="scss">
 .text-block {
-  overflow: hidden;
-}
-.text-title {
-  color: rgba(0,0,0,.75);
-  font-weight: 500;
-  line-height: 24px;
-  margin-bottom: var(--spacing-xs);
-}
-.text-title span {
-  color: rgba(0,0,0,.45);
-  font-weight: 400;
-  font-size: var(--type-sm);
-}
-.text-wrapper {
-  background: rgba(0,0,0,.03);
-  padding: var(--spacing-md) 0;
-  white-space: nowrap;
-  border-left: 1rem solid transparent;
-  border-right: 1rem solid transparent;
-  overflow: hidden;
-}
-.text-wrapper > * {
-  margin: 0;
+  padding: 1.5rem 0;
+  &:not(:last-child) {
+    border-bottom: 1px solid #efefef;
+  }
+  p {
+    margin: 0;
+  }
+  .label {
+    margin-bottom: .25rem;
+    strong {
+      font-weight: 500;
+    }
+    span {
+      font-size: var(--type-sm);
+      color: var(--tblack-70);
+    }
+  }
 }
 </style>
