@@ -1,4 +1,3 @@
-
 module.exports = {
   title: 'Kongponents',
   description: 'Kong UI Components & Style Guide',
@@ -9,15 +8,22 @@ module.exports = {
     editLinks: true,
     sidebarDepth: 0,
     sidebar: [
-      '/',
+      {
+        title: 'Components',
+        collapsable: false,
+        children: [
+          '/components/',
+          '/components/kbutton',
+        ]
+      },
       {
         title: 'Style Guide',
-        collapsable: true,
+        collapsable: false,
         children: [
-          '/colors',
-          '/type',
-          '/spacing',
-          '/theming'
+          '/style-guide/colors',
+          '/style-guide/type',
+          '/style-guide/spacing',
+          '/style-guide/theming'
         ]
       },
     ],
@@ -29,6 +35,9 @@ module.exports = {
   head: [
     ['link', { rel: 'icon', href: 'https://2tjosk2rxzc21medji3nfn1g-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/kong-logomark-color-64px.png' }],
     ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:400,500,700' }]
+  ],
+  plugins: [
+    ["live"],
   ],
   chainWebpack: config => {
     const svgRule = config.module.rule('svg')

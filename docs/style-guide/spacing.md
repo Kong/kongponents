@@ -6,7 +6,6 @@ Control the padding and margin using the .p{side}-{size},and .m{side}-{size} uti
 
 Example: .pt-2 would add 8px of padding to the top of the element and.mx-0 would make the horizontal margin zero.
 
-
 | Class       | Side           | Space    |
 | :---------- |:-------------- | :------- |
 | `p` Padding | `t` Top        | `0` 0    |
