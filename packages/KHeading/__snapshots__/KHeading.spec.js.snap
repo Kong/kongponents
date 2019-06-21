@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KHeading matches snapshot 1`] = `<h1 class="k-heading xxxl sans"></h1>`;
