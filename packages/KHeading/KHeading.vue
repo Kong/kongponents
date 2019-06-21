@@ -52,5 +52,27 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '~@kongponents/styles/_variables.scss';
+
+.k-heading {
+  font-weight: normal;
+
+  // sizes
+  &.xxxl { font-size: var(--type-xxxl, type(xxxl)); }
+  &.xxl { font-size: var(--type-xxl, type(xxl)); }
+  &.xl { font-size: var(--type-xl, type(xl)); }
+  &.lg { font-size: var(--type-lg, type(lg)); }
+  &.md { font-size: var(--type-md, type(md)); }
+  &.sm { font-size: var(--type-sm, type(sm)); }
+  &.xs { font-size: var(--type-xs, type(xs)); }
+
+  // fonts
+  &.sans {
+    font-family: var(--font-family-sans, font(sans));
+  }
+  &.mono {
+    font-family: var(--font-family-mono, font(mono));
+  }
+}
 </style>
