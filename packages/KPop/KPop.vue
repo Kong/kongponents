@@ -333,8 +333,10 @@ export default {
         -webkit-box-shadow: -1px -1px 1px -1px rgba(0,0,0,0.2);
         box-shadow: -1px -1px 1px -1px rgba(0,0,0,0.2);
         margin-left: -(var(--spacing-sm, spacing(sm)));
-        border-top-width: 0;
-        border-bottom-color: var(--KPopBorder, var(--twhite-1, color(twhite-1)));
+        border-top-color: var(--KPopBorder, var(--twhite-1, color(twhite-1)));
+        border-top-width: 1px;
+        border-left-color: var(--KPopBorder, var(--twhite-1, color(twhite-1)));
+        border-left-width: 1px;
       }
     }
   }
@@ -353,8 +355,10 @@ export default {
         bottom: 2px;
         -webkit-box-shadow: 1px 1px 1px -1px rgba(0,0,0,0.2);
         box-shadow: 1px 1px 1px -1px rgba(0,0,0,0.2);
-        border-top-color: var(--KPopBorder, var(--twhite-1, color(twhite1)));
-        border-bottom-width: 0;
+        border-bottom-color: var(--KPopBorder, var(--twhite-1, color(twhite1)));
+        border-bottom-width: 1px;
+        border-right-color: var(--KPopBorder, var(--twhite-1, color(twhite1)));
+        border-right-width: 1px;
         margin-left: -(var(--spacing-sm, spacing(sm)));
       }
     }
@@ -372,8 +376,10 @@ export default {
         right: 2px;
         -webkit-box-shadow: 1px -1px 1px -1px rgba(0,0,0,0.2);
         box-shadow: 1px -1px 1px -1px rgba(0,0,0,0.2);
-        border-right-width: 0;
-        border-left-color: var(--KPopBorder, var(--twhite-1, color(twhite-1)));
+        border-right-color: var(--KPopBorder, var(--twhite-1, color(twhite-1)));
+        border-right-width: 1px;
+        border-top-color: var(--KPopBorder, var(--twhite-1, color(twhite-1)));
+        border-top-width: 1px;
         margin-top: -(var(--spacing-sm, spacing(sm)));
       }
     }
@@ -391,8 +397,10 @@ export default {
         left: 2px;
         -webkit-box-shadow: -1px 1px 1px -1px rgba(0,0,0,0.2);
         box-shadow: -1px 1px 1px -1px rgba(0,0,0,0.2);
-        border-left-width: 0;
-        border-right-color: var(--KPopBorder, var(--twhite-1, color(twhite-1)));
+        border-left-color: var(--KPopBorder, var(--twhite-1, color(twhite-1)));
+        border-left-width: 1px;
+        border-bottom-color: var(--KPopBorder, var(--twhite-1, color(twhite-1)));
+        border-bottom-width: 1px;
         margin-top: -(var(--spacing-sm, spacing(sm)));
       }
     }
