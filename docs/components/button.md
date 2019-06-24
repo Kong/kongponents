@@ -1,6 +1,6 @@
-# KButton
+# Button
 
-The button is probably the most used Kongponent. It supports a number of variations
+**KButton** is probably the most used Kongponent. It supports a number of variations
 and configuration options.
 
 ```vue live
