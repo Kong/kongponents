@@ -33,8 +33,7 @@ describe('KTable', () => {
       }
     })
 
-    const actions = wrapper.findAll('.table td:last-of-type > *')
-
+    const actions = wrapper.findAll('.k-table td:last-of-type > *')
     expect(actions.at(0).is('a')).toBe(true)
     expect(actions.at(1).is('a')).toBe(true)
   })
@@ -50,15 +49,15 @@ describe('KTable', () => {
     expect(wrapper.classes()).toContain('hover')
   })
 
-  it('has striped class when passed', () => {
+  it('has small class when passed', () => {
     const wrapper = mount(KTable, {
       propsData: {
         options,
-        isStriped: true
+        isSmall: true
       }
     })
 
-    expect(wrapper.classes()).toContain('striped')
+    expect(wrapper.classes()).toContain('small')
   })
 
   it('matches snapshot', () => {
