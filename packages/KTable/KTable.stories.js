@@ -8,7 +8,7 @@ const options = {
     { label: 'Name', key: 'name', sortable: true },
     { label: 'Type', key: 'type', sortable: true },
     { label: 'Credentials', key: 'credentials' },
-    { label: '', key: 'actions', hideLabel: true }
+    { key: 'actions', hideLabel: true }
   ],
   data: [
     {
@@ -19,7 +19,7 @@ const options = {
     {
       name: 'Website Desktop',
       type: 'Basic',
-      credentials: '123xyz'
+      credentials: '721'
     },
     {
       name: 'Android App',
@@ -50,7 +50,7 @@ storiesOf('Table', module)
       }
     }
   }), {info: {}})
-  .add('hasHover', () => ({
+  .add('hover', () => ({
     components: { KTable },
     template: `
     <KTable :options=options :hasHover='true'>
@@ -63,12 +63,10 @@ storiesOf('Table', module)
       }
     }
   }), {info: {}})
-  .add('isStriped', () => ({
+  .add('small', () => ({
     components: { KTable },
     template: `
-    <KTable :options="options" :isStriped='true'>
-        <template slot="actions" slot-scope="{row, rowKey, rowValue}"> <a href="">Edit</a></template>
-    </KTable>
+    <KTable :options="options" is-small />
     <!--
     data() {
       return {
@@ -76,6 +74,19 @@ storiesOf('Table', module)
       }
     }
     -->
+    `,
+    data () {
+      return {
+        options
+      }
+    }
+  }), {info: {}})
+  .add('sortable', () => ({
+    components: { KTable },
+    template: `
+      <KTable :options="options" sort-direction="desc" sort-by="type">
+        <template slot="actions" slot-scope="{row, rowKey, rowValue}"><a href="">Edit</a></template>
+      </KTable>
     `,
     data () {
       return {
