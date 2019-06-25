@@ -60,7 +60,7 @@ export default {
       }
     },
     /**
-     * Route object or path. If obejct will render <router-link>, if string
+     * Route object or path. If object will render <router-link>, if string
      will render <a>
      */
     to: {
