@@ -1,0 +1,24 @@
+{
+  "name": "storybook",
+  "scripts": {
+    "storybook": "start-storybook -p 9001 -c ../.storybook"
+  },
+  "dependencies": {
+    "vue": "^2.6.10"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@storybook/addon-actions": "^5.1.9",
+    "@storybook/addon-knobs": "^5.1.9",
+    "@storybook/addon-links": "^5.1.9",
+    "@storybook/addon-notes": "^5.1.9",
+    "@storybook/addon-storysource": "^5.1.9",
+    "@storybook/vue": "^5.1.9",
+    "babel-loader": "^8.0.6",
+    "babel-preset-vue": "^2.0.2",
+    "storybook-addon-vue-info": "^1.2.1",
+    "storybook-vue-router": "^1.0.3",
+    "vue-loader": "^15.7.0",
+    "vue-template-compiler": "^2.6.10"
+  }
+}
