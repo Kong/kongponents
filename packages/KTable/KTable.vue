@@ -1,13 +1,13 @@
 <template>
   <table
-    :class="{hover: hasHover, striped: isStriped}"
-    class="table">
+    :class="{'has-hover': hasHover, 'is-small': isSmall}"
+    class="k-table">
     <thead>
       <tr>
         <template>
           <th
-            v-for="(column, headerIndex) in options.headers"
-            :key="headerIndex">
+            v-for="(column, index) in options.headers"
+            :key="index">
             <slot
               v-if="!column.hideLabel"
               :name="`column-${column.key}`"
@@ -24,8 +24,8 @@
         :key="rowIndex">
         <template>
           <td
-            v-for="(value, headerIndex) in options.headers"
-            :key="headerIndex">
+            v-for="(value, index) in options.headers"
+            :key="index">
             <slot
               :name="value.key"
               :row="row"
@@ -55,16 +55,16 @@ export default {
       required: true
     },
     /**
-     * Adds zebra striping to the table rows
+     * Enables hover highlighting to table rows
      */
-    isStriped: {
+    hasHover: {
       type: Boolean,
       default: false
     },
     /**
-     * Enables hover highlighting to table rows
+     * Lowers overall table padding
      */
-    hasHover: {
+    isSmall: {
       type: Boolean,
       default: false
     }
@@ -72,70 +72,60 @@ export default {
 }
 </script>
 
-<style scoped>
-table {
+<style scoped lang="scss">
+@import '~@kongponents/styles/_variables.scss';
+
+table.k-table {
   border-collapse: collapse;
 }
 
-.table {
+.k-table {
   width: 100%;
   max-width: 100%;
-  margin-bottom: 1rem;
-  background-color: transparent;
+  th,
+  td {
+    padding: 1rem;
+    vertical-align: middle;
+  }
+  thead {
+    border-top: 1px solid var(--KTableBorder, var(--grey92, color(grey-92)));
+    border-bottom: 2px solid var(--KTableBorder, var(--grey92, color(grey-92)));
+    th {
+      padding: .75rem 1rem;
+      text-align: left;
+      font-size: var(--KTableHeaderSize, var(--type-sm, type(sm)));
+      font-weight: 500;
+    }
+  }
+  tbody {
+    tr {
+      border-bottom: 1px solid var(--KTableBorder, var(--grey92, color(grey-92)));
+      transition: background-color 200ms ease;
+    }
+    td {
+      color: var(--KTableColor, var(--tblack-70, color(tblack-70)));
+      a {
+        color: var(--blue-link, color(blue-link));
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  // Variants
+  &.is-small {
+    th {
+      padding: .5rem .75rem;
+    }
+    td {
+      padding: .75rem;
+    }
+  }
+  &.has-hover tbody tr:hover {
+    background-color: var(--KTableHover, var(--blue-lightest, color(blue-lightest)));
+  }
 }
 
-.table th,
-.table td {
-  padding: 0.75rem;
-  vertical-align: top;
-  border-top: 1px solid #dee2e6;
-}
-
-.table thead th {
-  vertical-align: bottom;
-  border-bottom: 1px solid #dee2e6;
-  text-align: left;
-}
-
-.table tbody + tbody {
-  border-top: 1px solid #dee2e6;
-}
-
-.table .table {
-  background-color: #fff;
-}
-
-.table-sm th,
-.table-sm td {
-  padding: 0.3rem;
-}
-
-.table-bordered {
-  border: 1px solid #dee2e6;
-}
-
-.table-bordered th,
-.table-bordered td {
-  border: 1px solid #dee2e6;
-}
-
-.table-bordered thead th,
-.table-bordered thead td {
-  border-bottom-width: 2px;
-}
-
-.table-borderless th,
-.table-borderless td,
-.table-borderless thead th,
-.table-borderless tbody + tbody {
-  border: 0;
-}
-
-.table.striped tbody tr:nth-of-type(odd) {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.table.hover tbody tr:hover {
-  background-color: #F5FBFF;
-}
 </style>
