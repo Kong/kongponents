@@ -10,13 +10,13 @@ and configuration options.
 ### Appearances
 The Button component can take 1 of 7 appearance values:
 
-`secondary`  
-`primary`  
-`danger`  
-`outline-primary`  
-`outline-danger`  
-`btn-link`  
-`btn-link-danger`
+- `secondary`  
+- `primary`  
+- `danger`
+- `outline-primary`  
+- `outline-danger`  
+- `btn-link`  
+- `btn-link-danger`
 
 ```vue live
 <KButton>default</KButton>
@@ -32,7 +32,7 @@ The Button component can take 1 of 7 appearance values:
 ### Sizes
 Currently we only support small however, larger sizes may be supported later.
 
-`small`
+- `small`
 
 ```vue live
 <KButton appearance="secondary" size="small">Small</KButton>
@@ -51,7 +51,7 @@ Buttons support using an icon either before the text or without text.
 </KButton>
 ```
 
-### Button Props
+## Button Props
 
 | prop         | type   | Description
 | :----------  | :----  | :----------
