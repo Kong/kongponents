@@ -7,6 +7,9 @@ const rendersCorrectAppearance = (variant) => {
     const wrapper = mount(KButton, {
       propsData: {
         'appearance': variant
+      },
+      slots: {
+        default: variant
       }
     })
 
@@ -22,6 +25,9 @@ describe('KButton', () => {
     const wrapper = mount(KButton, {
       propsData: {
         'size': 'small'
+      },
+      slots: {
+        default: 'Small Button'
       }
     })
 
@@ -48,6 +54,9 @@ describe('KButton', () => {
       propsData: {
         'to': { name: 'services', params: { workspace: 'test' } },
         appearance: 'primary'
+      },
+      slots: {
+        default: `I'm a router link`
       }
     })
 
@@ -61,6 +70,9 @@ describe('KButton', () => {
       propsData: {
         'to': 'https://google.com',
         appearance: 'secondary'
+      },
+      slots: {
+        default: `I'm a native link`
       }
     })
 
