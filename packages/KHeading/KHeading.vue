@@ -26,7 +26,7 @@ export default {
      */
     type: {
       type: String,
-      default: 'h1'
+      default: 'h2'
     },
 
     /**
