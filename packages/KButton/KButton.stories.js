@@ -1,7 +1,7 @@
 import Vue from 'vue'
-import { storiesOf } from '@storybook/vue'
-import { action } from '@storybook/addon-actions'
-import { withInfo } from 'storybook-addon-vue-info'
+import { storiesOf } from '../../storybook/node_modules/@storybook/vue'
+import { action } from '../../storybook/node_modules/@storybook/addon-actions'
+import { withInfo } from '../../storybook/node_modules/storybook-addon-vue-info'
 
 import KButton from './KButton.vue'
 import KIcon from '../KIcon/KIcon.vue'

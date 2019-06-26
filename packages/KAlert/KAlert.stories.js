@@ -1,4 +1,4 @@
-import { storiesOf } from '@storybook/vue'
+import { storiesOf } from '../../storybook/node_modules/@storybook/vue'
 
 import { default as KAlert, appearances } from './KAlert.vue'
 

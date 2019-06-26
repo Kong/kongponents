@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import { storiesOf } from '@storybook/vue'
-import StoryRouter from 'storybook-vue-router'
+import { storiesOf } from '../../storybook/node_modules/@storybook/vue'
+import StoryRouter from '../../storybook/node_modules/storybook-vue-router'
 
 import Krumbs from './Krumbs'
 

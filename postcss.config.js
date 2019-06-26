@@ -1,8 +1,11 @@
+const path = require('path')
+
 module.exports = () => ({
   plugins: {
     'postcss-custom-properties': {
       preserve: true,
-      importFrom: './packages/styles/styles.css'
+      importFrom: path.resolve(__dirname, 'packages/styles/styles.css')
+      // importFrom: './packages/styles/styles.css'
     }
   }
 })

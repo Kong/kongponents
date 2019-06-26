@@ -1,4 +1,4 @@
-import { storiesOf } from '@storybook/vue'
+import { storiesOf } from '../../storybook/node_modules/@storybook/vue'
 import KEmptyState from './KEmptyState.vue'
 
 storiesOf('EmptyState', module)

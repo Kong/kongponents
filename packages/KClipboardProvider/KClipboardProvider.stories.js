@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import { storiesOf } from '@storybook/vue'
-import { action } from '@storybook/addon-actions'
+import { storiesOf } from '../../storybook/node_modules/@storybook/vue'
+import { action } from '../../storybook/node_modules/@storybook/addon-actions'
 
 import KClipboardProvider from './KClipboardProvider'
 
