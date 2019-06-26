@@ -13,7 +13,9 @@ module.exports = {
         collapsable: false,
         children: [
           '/components/',
-          '/components/kbutton',
+          '/components/button',
+          '/components/alert',
+          '/components/modal',
         ]
       },
       {
@@ -37,6 +39,9 @@ module.exports = {
     ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:400,500,700' }]
   ],
   plugins: [
+    // [require('../plugins/vuepress-plugin-live'), {
+    //   customLayout: 'yourmom'
+    // }]
     ["live"],
   ],
   chainWebpack: config => {
