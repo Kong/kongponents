@@ -22,7 +22,7 @@ export default {
   name: 'KHeading',
   props: {
     /**
-     * Sets the element type, if not set defaults to h1
+     * Sets the element type
      */
     type: {
       type: String,
