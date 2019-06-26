@@ -3,21 +3,26 @@ import KTable from '@/KTable/KTable'
 
 const options = {
   headers: [
-    { label: 'Name', key: 'name', sortable: true },
-    { label: 'Type', key: 'type', sortable: true },
-    { label: 'Credentials', key: 'credentials' },
+    { label: 'Name', key: 'name' },
+    { label: 'ID', key: 'id' },
+    { label: 'Enabled', key: 'enabled' },
     { key: 'actions', hideLabel: true }
   ],
   data: [
     {
-      name: 'iOS App',
-      type: 'Key',
-      credentials: 'xyz'
+      name: 'Basic Auth',
+      id: '517526354743085',
+      enabled: 'true'
     },
     {
       name: 'Website Desktop',
-      type: 'Basic',
-      credentials: '123xyz'
+      id: '328027447731198',
+      enabled: 'false'
+    },
+    {
+      name: 'Android App',
+      id: '405383051040955',
+      enabled: 'true'
     }
   ]
 }
@@ -34,8 +39,10 @@ describe('KTable', () => {
     })
 
     const actions = wrapper.findAll('.k-table td:last-of-type > *')
+
     expect(actions.at(0).is('a')).toBe(true)
     expect(actions.at(1).is('a')).toBe(true)
+    expect(wrapper.html()).toMatchSnapshot()
   })
 
   it('has hover class when passed', () => {
@@ -46,7 +53,8 @@ describe('KTable', () => {
       }
     })
 
-    expect(wrapper.classes()).toContain('hover')
+    expect(wrapper.classes()).toContain('has-hover')
+    expect(wrapper.html()).toMatchSnapshot()
   })
 
   it('has small class when passed', () => {
@@ -57,16 +65,7 @@ describe('KTable', () => {
       }
     })
 
-    expect(wrapper.classes()).toContain('small')
-  })
-
-  it('matches snapshot', () => {
-    const wrapper = mount(KTable, {
-      propsData: {
-        options
-      }
-    })
-
+    expect(wrapper.classes()).toContain('is-small')
     expect(wrapper.html()).toMatchSnapshot()
   })
 })

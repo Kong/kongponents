@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`KTable matches snapshot 1`] = `
-<table class="k-table hover">
+exports[`KTable has hover class when passed 1`] = `
+<table class="k-table has-hover">
   <thead>
     <tr>
       <th>
         Name
       </th>
       <th>
-        Type
+        ID
       </th>
       <th>
-        Credentials
+        Enabled
       </th>
       <th>
         <!---->
@@ -21,13 +21,13 @@ exports[`KTable matches snapshot 1`] = `
   <tbody>
     <tr>
       <td>
-        iOS App
+        Basic Auth
       </td>
       <td>
-        Key
+        517526354743085
       </td>
       <td>
-        xyz
+        true
       </td>
       <td>
 
@@ -38,14 +38,152 @@ exports[`KTable matches snapshot 1`] = `
         Website Desktop
       </td>
       <td>
-        Basic
+        328027447731198
       </td>
       <td>
-        123xyz
+        false
       </td>
       <td>
 
       </td>
+    </tr>
+    <tr>
+      <td>
+        Android App
+      </td>
+      <td>
+        405383051040955
+      </td>
+      <td>
+        true
+      </td>
+      <td>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`KTable has small class when passed 1`] = `
+<table class="k-table is-small">
+  <thead>
+    <tr>
+      <th>
+        Name
+      </th>
+      <th>
+        ID
+      </th>
+      <th>
+        Enabled
+      </th>
+      <th>
+        <!---->
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        Basic Auth
+      </td>
+      <td>
+        517526354743085
+      </td>
+      <td>
+        true
+      </td>
+      <td>
+
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Website Desktop
+      </td>
+      <td>
+        328027447731198
+      </td>
+      <td>
+        false
+      </td>
+      <td>
+
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Android App
+      </td>
+      <td>
+        405383051040955
+      </td>
+      <td>
+        true
+      </td>
+      <td>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`KTable renders link in action slot 1`] = `
+<table class="k-table">
+  <thead>
+    <tr>
+      <th>
+        Name
+      </th>
+      <th>
+        ID
+      </th>
+      <th>
+        Enabled
+      </th>
+      <th>
+        <!---->
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        Basic Auth
+      </td>
+      <td>
+        517526354743085
+      </td>
+      <td>
+        true
+      </td>
+      <td><a href="#">Link</a></td>
+    </tr>
+    <tr>
+      <td>
+        Website Desktop
+      </td>
+      <td>
+        328027447731198
+      </td>
+      <td>
+        false
+      </td>
+      <td><a href="#">Link</a></td>
+    </tr>
+    <tr>
+      <td>
+        Android App
+      </td>
+      <td>
+        405383051040955
+      </td>
+      <td>
+        true
+      </td>
+      <td><a href="#">Link</a></td>
     </tr>
   </tbody>
 </table>
