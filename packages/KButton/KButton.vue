@@ -1,6 +1,7 @@
 <template>
   <a
     v-if="typeof to === 'string'"
+    :type="type"
     :href="to"
     :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance]"
     class="button"
@@ -10,6 +11,7 @@
   </a>
   <component
     v-else
+    :type="type"
     :is="buttonType"
     :to="to"
     :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance]"
@@ -66,6 +68,10 @@ export default {
     to: {
       type: [Object, String],
       default: null
+    },
+    type: {
+      type: String,
+      default: 'button'
     }
   },
 
