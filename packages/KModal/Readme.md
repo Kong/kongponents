@@ -6,26 +6,18 @@ new Vue({
     }
   },
   methods: {
-    showModal() {
-      this.isVisible = true;
+    toggleModal (isVisible) {
+      this.isVisible = isVisible;
     },
-    closeModal() {
-      this.isVisible = false;
-    },
-    doAThing() {
-      console.log('A THING!')
-    }
   },
   template:`
     <div>
-      <KButton appearance='primary' :isRounded='true' :handleClick="showModal">Open Modal</KButton>
-      <KModal :isVisible='isVisible' @close='closeModal'>
-        <template slot="header">{{ modalHeader }}</template>
-        <template slot="body">{{ modalBody }}</template>
-        <template slot="footer-actions">
-          <KButton appearance='danger' :isRounded='true' :handleClick='doAThing'>Do A Thing!</KButton>
-        </template>
-      </Kmodal>
+      <KButton @click="toggleModal(true)()">Toggle Modal</KButton>
+      <KModal
+        :isVisible='isVisible'
+        action-button-appearance="outline-primary"
+        action-button-text="Custom text"
+        @closed="toggleModal(false)()" />
     </div>
   `
 })
