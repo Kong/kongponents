@@ -100,7 +100,6 @@ table.k-table {
   tbody {
     tr {
       border-bottom: 1px solid var(--KTableBorder, var(--grey92, color(grey-92)));
-      transition: background-color 200ms ease;
     }
     td {
       color: var(--KTableColor, var(--tblack-70, color(tblack-70)));
