@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/Kong/kongponents#readme",
   "dependencies": {
-    "@kongponents/kbutton": "0.1.2"
+    "@kongponents/kbutton": "0.1.6"
   }
 }
