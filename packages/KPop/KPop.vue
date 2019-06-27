@@ -16,7 +16,6 @@
           <div class="k-popover-content">
             <slot name="content"/>
           </div>
-          <div class="k-popover-arrow"/>
         </div>
       </foreignObject>
     </div>
@@ -34,7 +33,6 @@
         <div class="k-popover-content">
           <slot name="content"/>
         </div>
-        <div class="k-popover-arrow"/>
       </div>
     </transition>
   </component>
@@ -63,13 +61,6 @@ export default {
      * The title of the Popover header
      */
     title: {
-      type: String,
-      default: ''
-    },
-    /**
-     * The contents of the Popover body
-     */
-    content: {
       type: String,
       default: ''
     },
@@ -276,7 +267,7 @@ export default {
   white-space: normal;
   color: var(--KPopColor, var(--tblack-70, color(tblack-70)));
   background-color: var(--KPopBackground, var(--twhite-1, color(twhite-1)));
-  border: 1px solid var(--KPopBorder, var(--grey-98, color(grey-98)));
+  border: 1px solid var(--KPopBorder, var(--grey-84, color(grey-84)));
   border-radius: 3px;
   -webkit-box-shadow: 0 0 12px rgba(0,0,0,.12);
   box-shadow: 0 0 12px rgba(0,0,0,.12);
@@ -291,110 +282,119 @@ export default {
     background-color: var(--KPopBackground, var(--twhite-1, color(twhite-1)));
   }
 
-  .k-popover-arrow, .k-popover-arrow::after {
-    display: block;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-color: transparent;
-    position: absolute;
-  }
-
-  .k-popover-arrow {
-    border-width: 10px;
-    position: absolute;
-
-    &::after {
-      content: "";
-      position: absolute;
-      width: 15px;
-      height: 15px;
-      background: var(--KPopBackground, var(--twhite-1, color(twhite-1)));
-      -webkit-transform: rotate(45deg);
-      -moz-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-      -o-transform: rotate(45deg);
-      transform: rotate(45deg);
-    }
-  }
-
   &[x-placement^="bottom"] {
     margin-top: var(--spacing-md, spacing(md));
 
-    .k-popover-arrow {
-      border-top-width: 0;
-      top: -10px;
-      left: calc(50% - 12px);
-      margin-top: 0;
-      margin-bottom: 0;
+    &:after, &:before {
+      bottom: 100%;
+      left: 50%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
 
-      &:after {
-        top: 2px;
-        -webkit-box-shadow: -1px -1px 1px -1px rgba(0,0,0,0.2);
-        box-shadow: -1px -1px 1px -1px rgba(0,0,0,0.2);
-        margin-left: -(var(--spacing-sm, spacing(sm)));
-        border-top-width: 0;
-        border-bottom-color: var(--KPopBorder, var(--twhite-1, color(twhite-1)));
-      }
+    &:after {
+      border-color: rgba(255, 255, 255, 0);
+      border-bottom-color: var(--KPopBackground, var(--twhite-1, color(twhite-1)));
+      border-width: 10px;
+      margin-left: -10px;
+    }
+    
+    &:before {
+      border-color: rgba(250, 250, 250, 0);
+      border-bottom-color: var(--KPopBorder, var(--grey-84, color(grey-84)));
+      border-width: 11px;
+      margin-left: -11px;
     }
   }
 
   &[x-placement^="top"] {
     margin-bottom: var(--spacing-md, spacing(md));
 
-  .k-popover-arrow {
-    border-bottom-width: 0;
-    bottom: -10px;
-    left: calc(50% - 12px);
-    margin-top: 0;
-    margin-bottom: 0;
+    &:after, &:before {
+      top: 100%;
+      left: 50%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
 
-      &:after {
-        bottom: 2px;
-        -webkit-box-shadow: 1px 1px 1px -1px rgba(0,0,0,0.2);
-        box-shadow: 1px 1px 1px -1px rgba(0,0,0,0.2);
-        border-top-color: var(--KPopBorder, var(--twhite-1, color(twhite1)));
-        border-bottom-width: 0;
-        margin-left: -(var(--spacing-sm, spacing(sm)));
-      }
+    &:after {
+      border-color: rgba(255, 255, 255, 0);
+      border-top-color: var(--KPopBackground, var(--twhite-1, color(twhite-1)));
+      border-width: 10px;
+      margin-left: -10px;
+    }
+
+    &:before {
+      border-color: rgba(250, 250, 250, 0);
+      border-top-color: var(--KPopBorder, var(--grey-84, color(grey-84)));
+      border-width: 11px;
+      margin-left: -11px;
     }
   }
 
   &[x-placement^="left"] {
     margin-right: var(--spacing-md, spacing(md));
 
-    .k-popover-arrow {
-      border-right-width: 0;
-      right: -10px;
-      top: calc(50% - 12px);
+    &:after, &:before {
+      left: 100%;
+      top: 50%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
 
-      &:after {
-        right: 2px;
-        -webkit-box-shadow: 1px -1px 1px -1px rgba(0,0,0,0.2);
-        box-shadow: 1px -1px 1px -1px rgba(0,0,0,0.2);
-        border-right-width: 0;
-        border-left-color: var(--KPopBorder, var(--twhite-1, color(twhite-1)));
-        margin-top: -(var(--spacing-sm, spacing(sm)));
-      }
+    &:after {
+      border-color: rgba(255, 255, 255, 0);
+      border-left-color: var(--KPopBackground, var(--twhite-1, color(twhite-1)));
+      border-width: 10px;
+      margin-top: -10px;
+    }
+
+    &:before {
+      border-color: rgba(250, 250, 250, 0);
+      border-left-color: var(--KPopBorder, var(--grey-84, color(grey-84)));
+      border-width: 11px;
+      margin-top: -11px;
     }
   }
 
   &[x-placement^="right"] {
-     margin-left: var(--spacing-md, spacing(md));
+    margin-left: var(--spacing-md, spacing(md));
 
-    .k-popover-arrow {
-      border-left-width: 0;
-      left: -10px;
-      top: calc(50% - 12px);
+    &:after, &:before {
+      right: 100%;
+      top: 50%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
 
-      &:after {
-        left: 2px;
-        -webkit-box-shadow: -1px 1px 1px -1px rgba(0,0,0,0.2);
-        box-shadow: -1px 1px 1px -1px rgba(0,0,0,0.2);
-        border-left-width: 0;
-        border-right-color: var(--KPopBorder, var(--twhite-1, color(twhite-1)));
-        margin-top: -(var(--spacing-sm, spacing(sm)));
-      }
+    &:after {
+      border-color: rgba(255, 255, 255, 0);
+      border-right-color: var(--KPopBackground, var(--twhite-1, color(twhite-1)));
+      border-width: 10px;
+      margin-top: -10px;
+    }
+
+    &:before {
+      border-color: rgba(250, 250, 250, 0);
+      border-right-color: var(--KPopBorder, var(--grey-84, color(grey-84)));
+      border-width: 11px;
+      margin-top: -11px;
     }
   }
 }
