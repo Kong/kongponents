@@ -133,23 +133,23 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '../styles/_variables.scss';
+@import '~@kongponents/styles/_variables.scss';
 
 .k-alert {
   position: relative;
   display: flex;
   align-items: center;
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
   font-family: inherit;
   font-size: 1rem;
   border-radius: 3px;
   a {
     text-decoration: underline;
-    color: var(--blue-link);
+    color: var(--blue-link, color(blue-link));
   }
 
   .alert-icon {
-    margin-right: var(--spacing-xs);
+    margin-right: var(--spacing-xs, spacing(xs));
     max-height: 1rem;
     svg,
     img {
@@ -191,30 +191,30 @@ export default {
    border-radius: 0;
   }
   &.small {
-    font-size: var(--type-sm);
-    padding: var(--spacing-sm --spacing-xs);
+    font-size: var(--type-sm, type(sm));
+    padding: var(--spacing-sm, spacing(sm)) var(--spacing-xs, spacing(xs));
   }
 
   // Appearances
   &.info {
-    color: var(--KAlertInfoColor, var(--blue-dark));
-    border-color: var(--KAlertInfoBorder, var(--blue-light-01));
-    background-color: var(--KAlertInfoBackground, var(--blue-lighter));
+    color: var(--KAlertInfoColor, var(--blue-dark, color(blue-dark)));
+    border-color: var(--KAlertInfoBorder, var(--blue-light-01, color(blue-light-01)));
+    background-color: var(--KAlertInfoBackground, var(--blue-lighter, color(blue-lighter)));
   }
   &.success {
-    color: var(--KAlertSuccessColor, var(--green-dark));
-    border-color: var(--KAlertSuccessBorder, var(--green-light-01));
-    background-color: var(--KAlertSuccessBackground, var(--green-lighter));
+    color: var(--KAlertSuccessColor, var(--green-dark, color(green-dark)));
+    border-color: var(--KAlertSuccessBorder, var(--green-light-01, color(green-light-01)));
+    background-color: var(--KAlertSuccessBackground, var(--green-lighter, color(green-lighter)));
   }
   &.danger {
-    color: var(--KAlertDangerColor, var(--red-dark));
-    border-color: var(--KAlertDangerBorder, var(--red-light-01));
-    background-color: var(--KAlertDangerBackground, var(--red-lighter));
+    color: var(--KAlertDangerColor, var(--red-dark, color(red-dark)));
+    border-color: var(--KAlertDangerBorder, var(--red-light-01, color(red-light-01)));
+    background-color: var(--KAlertDangerBackground, var(--red-lighter, color(red-lighter)));
   }
   &.warning {
-    color: var(--KAlertWarningColor, var(--yellow-darker));
-    border-color: var(--KAlertWarningBorder, var(--yellow-light));
-    background-color: var(--KAlertWarningBackground, var(--yellow-lighter));
+    color: var(--KAlertWarningColor, var(--yellow-darker, color(yellow-dark)));
+    border-color: var(--KAlertWarningBorder, var(--yellow-light, color(yellow-light)));
+    background-color: var(--KAlertWarningBackground, var(--yellow-lighter, color(yellow-ligher)));
   }
 }
 </style>

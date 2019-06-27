@@ -45,10 +45,7 @@ storiesOf('KAlert', module)
       ${Object.keys(appearances).map(type => {
       return `<KAlert isBordered alertMessage="${type}" appearance="${type}" style="margin-bottom: 10px;"/>`
     }).join('')}
-    </div><div>
-      ${Object.keys(appearances).map(type => {
-      return `<KAlert hasLeftBorder alertMessage="${type}" appearance="${type}" style="margin-bottom: 10px;"/>`
-    }).join('')}`
+    </div>`
   }), {info: {}})
   .add('Alert - Small & Left Border', () => ({
     components: { KAlert },
