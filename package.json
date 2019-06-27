@@ -55,7 +55,7 @@
     "vue-loader": "15.7.0",
     "vue-template-compiler": "2.6.10",
     "vuepress": "^1.0",
-    "vuepress-plugin-live": "^1.1.0",
+    "vuepress-plugin-live": "^1.2.0",
     "vuex": "3.0.1"
   },
   "dependencies": {
