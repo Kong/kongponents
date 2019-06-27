@@ -214,7 +214,7 @@ export default {
   &.warning {
     color: var(--KAlertWarningColor, var(--yellow-darker, color(yellow-dark)));
     border-color: var(--KAlertWarningBorder, var(--yellow-light, color(yellow-light)));
-    background-color: var(--KAlertWarningBackground, var(--yellow-lighter, color(yellow-ligher)));
+    background-color: var(--KAlertWarningBackground, var(--yellow-lighter, color(yellow-lighter)));
   }
 }
 </style>
