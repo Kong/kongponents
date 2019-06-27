@@ -84,14 +84,14 @@ table.k-table {
   max-width: 100%;
   th,
   td {
-    padding: 1rem;
+    padding: var(--spacing-md, spacing(md));
     vertical-align: middle;
   }
   thead {
     border-top: 1px solid var(--KTableBorder, var(--grey92, color(grey-92)));
     border-bottom: 2px solid var(--KTableBorder, var(--grey92, color(grey-92)));
     th {
-      padding: .75rem 1rem;
+      padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
       text-align: left;
       font-size: var(--KTableHeaderSize, var(--type-sm, type(sm)));
       font-weight: 500;
@@ -116,10 +116,10 @@ table.k-table {
   // Variants
   &.is-small {
     th {
-      padding: .5rem .75rem;
+      padding: var(--spacing-xs, spacing(xs)) var(--spacing-sm, spacing(sm));
     }
     td {
-      padding: .75rem;
+      padding: var(--spacing-sm, spacing(sm));
     }
   }
   &.has-hover tbody tr:hover {
