@@ -6,8 +6,7 @@
     :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance]"
     class="button"
     v-on="listeners">
-    <slot name="icon" />
-    <slot/>
+    <slot name="icon" /><slot/>
   </a>
   <component
     v-else
@@ -17,8 +16,7 @@
     :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance]"
     class="button"
     v-on="listeners">
-    <slot name="icon" />
-    <slot/>
+    <slot name="icon" /><slot/>
   </component>
 </template>
 
