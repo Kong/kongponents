@@ -18,13 +18,37 @@ describe('KModal', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 
-  it('matches snapshot', () => {
+  it('renders custom close button', () => {
+    const buttonText = 'I should render in dismiss slot'
     const wrapper = mount(KModal, {
       propsData: {
         isVisible: true
+      },
+      slots: {
+        'footer-dismiss': `<button>${buttonText}</button>`
       }
     })
 
+    const buttons = wrapper.findAll('button')
+
+    expect(buttons.at(1).text()).toBe(buttonText)
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
+  it('renders custom proceed button text & appearance', () => {
+    const buttonText = 'click to continue'
+    const wrapper = mount(KModal, {
+      propsData: {
+        isVisible: true,
+        actionButtonAppearance: 'outline-primary',
+        actionButtonText: buttonText
+      }
+    })
+
+    const buttons = wrapper.findAll('button')
+
+    expect(buttons.at(0).text()).toBe(buttonText)
+    expect(buttons.at(0).classes()).toContain('outline-primary')
     expect(wrapper.html()).toMatchSnapshot()
   })
 })
