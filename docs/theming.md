@@ -37,21 +37,24 @@ look like
 ```
 <style>
 :root {
-  --kButtonPrimaryBase: #494ca2;
-  --kButtonPrimaryHover: #6c6ebd;
-  --kButtonPrimaryActive: #3c3f86;
+  --KButtonPrimaryBase: #494ca2;
+  --KButtonPrimaryHover: #6c6ebd;
+  --KButtonPrimaryActive: #3c3f86;
 }
 </style>
 
 <KButton appearance="primary">PURPLE!</KButton>
 ```
-<KButton appearance="primary" class="purple-example">PURPLE!</KButton>
 
 <style>
-.purple-example { background-color: #494ca2 !important;}
-.purple-example:hover { background-color: #6c6ebd !important;}
-.purple-example:active { background-color: #3c3f86 !important;}
+#theme-page-kbutton { 
+  --KButtonPrimaryBase: #494ca2;
+  --KButtonPrimaryHover: #6c6ebd;
+  --KButtonPrimaryActive: #3c3f86;
+}
 </style>
+
+<KButton id="theme-page-kbutton" appearance="primary">PURPLE!</KButton>
 
 <br>
 <br>
@@ -69,21 +72,52 @@ look like
 
 
 \
-An Example of changing the error border of KInput to a darker red instead would
-look like
+An Example of changing the error border of `KInput` to a different red instead 
+would look like
 ```
 <style>
 :root {
-  --KInputError: #922a2a;
+  --KInputError: #f50086;
 }
 </style>
 
 <KInput type="email" value="error"/>
 ```
-<KInput type="email" value="error"/>
 
 <style>
-.purple-example { background-color: #494ca2 !important;}
-.purple-example:hover { background-color: #6c6ebd !important;}
-.purple-example:active { background-color: #3c3f86 !important;}
+#theme-page-kinput {
+  --KInputError: #f50086;
+}
 </style>
+
+<KInput id="theme-page-kinput" type="email" value="error"/>
+
+<br>
+<br>
+
+## Popovers
+| Variable | Purpose
+|:-------- |:-------
+| `--KPopBackground `| Default background
+| `--KPopBorder `| Default border
+| `--KPopColor `| Default font color
+
+
+\
+An Example of changing the color of KPopover text
+```
+<style>
+:root {
+  --KPopColor: orange;
+}
+</style>
+
+<KPop title="email"><button>Click me</button><div slot="content">I have different colored text.</div></KPop>
+```
+
+<style>
+.theme-container {
+  --KPopColor: orange;
+}
+</style>
+<KPop title="email" target=".theme-container"><button>Click me</button><div slot="content">I have different colored text.</div></KPop>
