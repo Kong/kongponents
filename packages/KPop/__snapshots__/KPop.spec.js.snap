@@ -1,11 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`KPop matches snapshot 1`] = `
-<div>
+<div content="I am a cool popover!">
   <div class="k-popover" style="width: 350px; display: none;" name="fade">
     <div class="k-popover-title">Cool Beans!</div>
     <div class="k-popover-content"></div>
-    <div class="k-popover-arrow"></div>
   </div>
 </div>
 `;
