@@ -28,6 +28,7 @@ export default {
 <style lang="scss">
 $lightGry: #eaecef;
 $darkGry: #282c34; // copied from prism class
+
 .preview-code {
   margin: 2rem 0 3rem;
   box-shadow: none !important;
@@ -41,6 +42,10 @@ $darkGry: #282c34; // copied from prism class
     pre {
       margin: 0;
       border-radius: 0;
+      &:focus {
+        outline: none;
+        border: none;
+      }
     }
   }
   .actions {
