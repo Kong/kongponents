@@ -1,3 +1,6 @@
+---
+sidebarDepth: -1
+---
 # Components
 
 Kongponents offer multiple teams the ability to reuse frequently needed UI elements,

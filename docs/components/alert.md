@@ -2,57 +2,172 @@
 
 **KAlert** is used to display contextual information to a user. These are typically used to notify something may be disabled or there may be an error.
 
+<KAlert alert-message="I'm an alert" />
+```vue
+<KAlert alert-message="I'm an alert" />
+```
+
+## Props
+### Appearances
+What color and purpose the Alert should be. Shares similar appearances to those of [KButton](/components/button).
+
+- `info`  
+- `warning`   
+- `success`
+- `danger`
+
 ```vue live
 <KAlert
-  is-showing
-  alert-message="I'm an alert" />
-```  
-
-## Appearances
-KAlert shares similar appeances to those of [KButton](/components/button).
-
-`info` - Default, Used when providing context or general information to a user.  
-`warning`    
-`success`  
-`danger`
-``` vue live
-<KAlert 
-  is-showing
   appearance="info"
   alert-message="Info alert message" />
-<KAlert 
-  is-showing
+<KAlert
   appearance="warning"
   alert-message="Warning alert message" />
-<KAlert 
-  is-showing
+<KAlert
   appearance="success"
   alert-message="Success alert message" />
-<KAlert 
-  is-showing
+<KAlert
   appearance="danger"
   alert-message="Danger alert message" />
 ```
 
-#Dismissible
+### Dismissible
+KAlert allows for dismissal of the banner.
 
-KAlert allows for dismissal of the banner. By providing `is-dismissible` a close
-icon will show and allow the alert to be removed.
+- `is-dismissible`
 
 ```vue live
 <KAlert
   class="dismissible"
-  is-showing
   is-dismissible
   alert-message="I can be dismissed!"/>
-``` 
+```
+
+### Bordered
+Adds border around alert. Used for [KToaster]().
+
+- `is-bordered`
+
+```vue live
+<KAlert
+  is-bordered
+  appearance="info"
+  alert-message="Info bordered"/>
+<KAlert
+  is-bordered
+  appearance="warning"
+  alert-message="Warning bordered"/>
+<KAlert
+  is-bordered
+  appearance="success"
+  alert-message="Success bordered"/>
+<KAlert
+  is-bordered
+  appearance="danger"
+  alert-message="Danger bordered"/>
+```
+
+### Left Border
+Adds border to the left side. Typically used for alerts that show info that may link away like documentation.
+
+- `hasLeftBorder`
+
+```vue live
+<KAlert
+  hasLeftBorder
+  alert-message="Bordered alert"/>
+```
+
+
+### Size
+Controls size of alert. Currently only *small* is supported.
+
+- `small`
+
+```vue live
+<KAlert
+  style="width:250px"
+  size="small"
+  alert-message="Small alert"/>
+```
+
+### Fixed
+Fixes KAlert to the top of the container.
+
+> Note: Not demoed
+
+- `is-fixed`
+
+```vue
+<KAlert
+  is-fixed
+  alert-message="Info bordered"/>
+```
+
+## Slots
+- `alertIcon` - Slot specifically meant for adding an icon
+- `alertMessage` - Default message slot
+
+```vue live
+<KAlert appearance="info">
+  <template slot="alertIcon">
+    <KIcon icon="portal" />
+  </template>
+  <template slot="alertMessage">
+    I have an icon and a <a href="">Link</a>!
+  </template>
+</KAlert>
+```
+
+## Theming
+| Variable | Purpose
+|:-------- |:-------
+| `--KAlertInfoColor `| Info variant text  color
+| `--KAlertInfoBorder`| Info variant border
+| `--KAlertInfoBackground` | Info variant background color
+| `--KAlertSuccessColor `| Success variant text  color
+| `--KAlertSuccessBorder`| Success variant border
+| `--KAlertSuccessBackground` | Success variant background color
+| `--KAlertDangerColor `| Danger variant text  color
+| `--KAlertDangerBorder`| Danger variant border
+| `--KAlertDangerBackground` | Danger variant background color
+| `--KAlertWarningColor `| Warning variant text  color
+| `--KAlertWarningBorder`| Warning variant border
+| `--KAlertWarningBackground` | Warning variant background color
+
+
+\
+An Example of changing the success KAlert variant to lime instead of Kong's green might
+look like.  
+
+> Note: We are scoping the overrides to a wrapper in this example
+
+```vue live
+<template>
+  <div class="alert-wrapper">
+    <KAlert appearance="success" alert-message="Im Lime" />
+  </div>
+</template>
+
+<style>
+.alert-wrapper {
+  --KAlertSuccessBackground: lime;
+  --KAlertSuccessColor: forestgreen;
+}
+</style>
+```
 
 <style lang="scss">
+.preview {
+  max-height: 400px;
+  overflow: scroll;
+  &[id] {
+    height: 1000px;
+  }
   .k-alert {
-    display: block;
-    width: calc(100% - 2rem);;
+    &:not(:last-of-type) {
+      margin-bottom: 1rem;
+    }  
   }
-  .preview .k-alert:not(:last-of-type) {
-    margin-bottom: 1rem;
-  }
+}
 </style>
