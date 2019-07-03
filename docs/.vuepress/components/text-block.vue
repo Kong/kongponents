@@ -1,13 +1,13 @@
-<template functional>
+<template>
   <div class="text-block">
     <div class="label">
-      <strong>Variable Name:</strong> <span>{{ props.variableName }}</span>
+      <strong>Variable Name:</strong> <span>{{ variableName }}</span>
     </div>
     <div class="label">
-      <strong>Font Size:</strong> <span>{{ props.fontSize }}</span>
+      <strong>Font Size:</strong> <span>{{ fontSize }}</span>
     </div>
     <div class="example">
-      <p :class="[props.variableName, props.fontType === 'mono' && 'mono']">
+      <p :class="[variableName, fontType === 'mono' && 'mono']">
         Kong is a Lua application running in Nginx
       </p>
     </div>
