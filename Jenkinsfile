@@ -17,16 +17,8 @@ pipeline {
   stages {
     stage('Tests') {
       steps {
-        sh 'echo "running tests"'
-        sh 'docker-compose up -d'
-      }
-    }
-    stage('Publish') {
-      when {
-        branch 'master'
-      }
-      steps {
-        sh 'docker-compose exec -T kongponents yarn publish:ci'
+        sh script: "make build", label: "start container and install dependencies"
+        sh script: "make unit", label: "run unit tests"
       }
     }
   }
