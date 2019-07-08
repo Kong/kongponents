@@ -12,6 +12,16 @@ module.exports = {
     search: false,
     sidebar: [
       {
+        title: 'Style Guide',
+        collapsable: false,
+        children: [
+          '/style-guide/colors',
+          '/style-guide/type',
+          '/style-guide/spacing',
+          '/style-guide/theming'
+        ]
+      },
+      {
         title: 'Components',
         collapsable: false,
         sidebarDepth: 1,
@@ -20,16 +30,6 @@ module.exports = {
           '/components/button',
           '/components/alert',
           '/components/table',
-        ]
-      },
-      {
-        title: 'Style Guide',
-        collapsable: false,
-        children: [
-          '/style-guide/colors',
-          '/style-guide/type',
-          '/style-guide/spacing',
-          '/style-guide/theming'
         ]
       },
     ],

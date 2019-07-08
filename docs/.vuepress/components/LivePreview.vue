@@ -67,6 +67,3 @@ $darkGry: #282c34; // copied from prism class
   }
 }
 </style>
-
-
-
