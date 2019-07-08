@@ -174,7 +174,7 @@ program
       if (exitCode === 0) {
         console.log(`You did it! Tests have passed!`)
       } else {
-        console.log(`Tests have failedzzzzz!`)
+        console.error(`Tests have failed!`)
       }
 
       process.exit(exitCode)
