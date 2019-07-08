@@ -157,6 +157,8 @@ program
       } else {
         console.log(`Tests have failed! Please check before publishing.`)
       }
+
+      process.exit(exitCode)
     })
   })
 
@@ -172,8 +174,10 @@ program
       if (exitCode === 0) {
         console.log(`You did it! Tests have passed!`)
       } else {
-        console.log(`Tests have failed!`)
+        console.log(`Tests have failedzzzzz!`)
       }
+
+      process.exit(exitCode)
     })
   })
 
