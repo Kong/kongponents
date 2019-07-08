@@ -21,14 +21,6 @@ pipeline {
         sh script: "make unit", label: "run unit tests"
       }
     }
-    stage('Publish') {
-      when {
-        branch 'master'
-      }
-      steps {
-        sh 'docker-compose exec -T kongponents kpm test'
-      }
-    }
   }
   post {
     always {
