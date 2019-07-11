@@ -3,13 +3,15 @@
     :height="setSize || height"
     :width="setSize || width"
     :viewBox="viewbox"
+    :class="`kong-icon-${icon}`"
     class="kong-icon"
     role="img"
   >
     <title>{{ icon }}</title>
     <path
-      v-bind="attributes"
-      :fill="fill" />
+      v-for="(path, idx) in paths"
+      :key="path.d"
+      v-bind="attributes[idx]"/>
   </svg>
 </template>
 
@@ -65,18 +67,29 @@ export default {
     svg () {
       return this.doc.getElementsByTagName('svg')[0]
     },
-    path () {
-      return this.doc.getElementsByTagName('path')[0] || console.warn('(KIcon) Warning: SVG Path not found')
+    paths () {
+      return this.doc.querySelectorAll('path').length ? Array.from(this.doc.querySelectorAll('path')) : console.warn('(KIcon) Warning: SVG Path not found')
     },
     attributes () {
-      if (this.path) {
-        let attrs = Array.prototype.slice.call(this.path.attributes)
-        let attributes = {}
+      if (this.paths) {
+        let attributes = []
 
-        attrs.forEach((attr) => {
-          const { value, name } = attr
+        this.paths.forEach(path => {
+          let pathAttributes = {}
+          let attrs = Array.from(path.attributes)
 
-          attributes[name] = value
+          attrs.forEach((attr) => {
+            const { value, name } = attr
+
+            if (name === 'fill' && this.color) {
+              pathAttributes[name] = this.color
+            } else {
+              pathAttributes[name] = value
+            }
+
+          })
+
+          attributes.push(pathAttributes)
         })
 
         return attributes
@@ -91,12 +104,23 @@ export default {
     setSize () {
       return this.size || this.svg.getAttribute('width')
     },
-    fill () {
-      return this.color || this.path.getAttribute('fill')
-    },
     viewbox () {
       return this.viewBox || this.svg.getAttribute('viewBox')
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.kong-icon {
+  &.kong-icon-spinner {
+    animation: spin 1.2s infinite linear;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(1turn); }
+}
+</style>
+
