@@ -5,7 +5,7 @@ the user without changing UI or page. Typically use when confirming changes or w
 
 ### Default Usage
 &nbsp;
-```vue live
+```vue
 <template>
   <div>
     <KModal
@@ -40,7 +40,7 @@ to replace the buttons
 `footer-dismiss` - The slot which contains just the dismiss button. Can be used to
 override or remove the button.
 
-```vue live
+```vue
 <template>
   <div>
     <KModal

@@ -14,7 +14,11 @@ Short description if needed, followed by an unordered list of prop values. After
 - `appearance2`
 - `appearance3`
 
-```vue live
+<Example appearance=appearance1"/>
+<Example appearance=appearance2"/>
+<Example appearance=appearance3"/>
+
+```vue
 <Example appearance=appearance1"/>
 <Example appearance=appearance2"/>
 <Example appearance=appearance3"/>
@@ -22,7 +26,12 @@ Short description if needed, followed by an unordered list of prop values. After
 
 ## Slots
 ### slot name
-```vue live
+
+<Example>
+  <template slot="slot-name" />
+</Example>
+
+```vue
 <Example>
   <template slot="slot-name" />
 </Example>

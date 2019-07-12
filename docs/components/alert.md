@@ -16,7 +16,20 @@ What color and purpose the Alert should be. Shares similar appearances to those 
 - `success`
 - `danger`
 
-```vue live
+<KAlert
+  appearance="info"
+  alert-message="Info alert message" />
+<KAlert
+  appearance="warning"
+  alert-message="Warning alert message" />
+<KAlert
+  appearance="success"
+  alert-message="Success alert message" />
+<KAlert
+  appearance="danger"
+  alert-message="Danger alert message" />
+
+```vue
 <KAlert
   appearance="info"
   alert-message="Info alert message" />
@@ -34,9 +47,13 @@ What color and purpose the Alert should be. Shares similar appearances to those 
 ### Dismissible
 KAlert allows for dismissal of the banner.
 
-- `is-dismissible`
+- `is-dismissible`  
 
-```vue live
+<KAlert
+  class="dismissible"
+  is-dismissible
+  alert-message="I can be dismissed!"/>
+```vue
 <KAlert
   class="dismissible"
   is-dismissible
@@ -46,45 +63,45 @@ KAlert allows for dismissal of the banner.
 ### Bordered
 Adds border around alert. Used for [KToaster]().
 
-- `is-bordered`
+- `is-bordered`  
 
-```vue live
 <KAlert
   is-bordered
   appearance="info"
   alert-message="Info bordered"/>
+```vue
 <KAlert
   is-bordered
-  appearance="warning"
-  alert-message="Warning bordered"/>
-<KAlert
-  is-bordered
-  appearance="success"
-  alert-message="Success bordered"/>
-<KAlert
-  is-bordered
-  appearance="danger"
-  alert-message="Danger bordered"/>
+  appearance="info"
+  alert-message="Info bordered"/>
 ```
 
 ### Left Border
 Adds border to the left side. Typically used for alerts that show info that may link away like documentation.
 
-- `hasLeftBorder`
+- `hasLeftBorder`  
 
-```vue live
+<KAlert
+  hasLeftBorder
+  alert-message="Bordered alert"/>
+
+```vue
 <KAlert
   hasLeftBorder
   alert-message="Bordered alert"/>
 ```
 
-
 ### Size
 Controls size of alert. Currently only *small* is supported.
 
-- `small`
+- `small`  
 
-```vue live
+<KAlert
+  style="width:250px"
+  size="small"
+  alert-message="Small alert"/>
+
+```vue
 <KAlert
   style="width:250px"
   size="small"
@@ -108,7 +125,16 @@ Fixes KAlert to the top of the container.
 - `alertIcon` - Slot specifically meant for adding an icon
 - `alertMessage` - Default message slot
 
-```vue live
+<KAlert appearance="info">
+  <template slot="alertIcon">
+    <KIcon icon="portal" />
+  </template>
+  <template slot="alertMessage">
+    I have an icon and a <a href="">Link</a>!
+  </template>
+</KAlert>
+
+```vue
 <KAlert appearance="info">
   <template slot="alertIcon">
     <KIcon icon="portal" />
@@ -142,7 +168,13 @@ look like.
 
 > Note: We are scoping the overrides to a wrapper in this example
 
-```vue live
+<template>
+  <div class="alert-wrapper">
+    <KAlert appearance="success" alert-message="Im Lime" />
+  </div>
+</template>
+
+```vue
 <template>
   <div class="alert-wrapper">
     <KAlert appearance="success" alert-message="Im Lime" />
@@ -158,16 +190,13 @@ look like.
 ```
 
 <style lang="scss">
-.preview {
-  max-height: 400px;
-  overflow: scroll;
-  &[id] {
-    height: 1000px;
-  }
-  .k-alert {
-    &:not(:last-of-type) {
-      margin-bottom: 1rem;
-    }  
-  }
+.k-alert {
+  &:not(:last-of-type) {
+    margin-bottom: 1rem;
+  }  
+}
+.alert-wrapper {
+  --KAlertSuccessBackground: lime;
+  --KAlertSuccessColor: forestgreen;
 }
 </style>

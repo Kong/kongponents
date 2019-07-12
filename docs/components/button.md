@@ -23,7 +23,15 @@ The Button component can take 1 of 7 appearance values:
 - `btn-link`  
 - `btn-link-danger`
 
-```vue live
+<KButton appearance='primary'>primary</KButton>
+<KButton appearance='danger'>danger</KButton>
+<KButton appearance="secondary">secondary</KButton>
+<KButton appearance='outline-primary'>outline-primary</KButton>
+<KButton appearance='outline-danger'>outline-danger</KButton>
+<KButton appearance='btn-link'>btn-link</KButton>
+<KButton appearance='btn-link-danger'>btn-link-danger</KButton>
+
+```vue
 <KButton appearance='primary'>primary</KButton>
 <KButton appearance='danger'>danger</KButton>
 <KButton appearance="secondary">secondary</KButton>
@@ -36,9 +44,13 @@ The Button component can take 1 of 7 appearance values:
 ### Sizes
 Currently we only support small however, larger sizes may be supported later.
 
-- `small`
+- `small`  
 
-```vue live
+<KButton
+  appearance="secondary"
+  size="small">Small</KButton>
+
+```vue
 <KButton
   appearance="secondary"
   size="small">Small</KButton>
@@ -47,9 +59,16 @@ Currently we only support small however, larger sizes may be supported later.
 ### Anchor Tag
 KButton can render either a `<a>` or `<router-link>` by simply passing the `to` prop. If it receives an object it will render a router link. If it receives a string it will render an HTML anchor tag
 
-- `to`
+- `to`  
 
-```vue live
+<KButton
+  :to="{path: '/'}"
+  appearance="btn-link">Router Link!</KButton>
+<KButton
+  to="http://google.com"
+  appearance="btn-link">Anchor Link!</KButton>
+
+```vue
 <KButton
   :to="{path: '/'}"
   appearance="btn-link">Router Link!</KButton>
@@ -60,9 +79,19 @@ KButton can render either a `<a>` or `<router-link>` by simply passing the `to` 
 
 ## Slots
 ### Icon
-KButton supports using an icon either before the text or without text.
+KButton supports using an icon either before the text or without text.  
 
-```vue live
+<KButton appearance="secondary">
+  <KIcon
+    slot="icon"
+    icon="gear" />With Text</KButton>
+<KButton appearance="secondary">
+  <KIcon
+    slot="icon"
+    icon="gear" />
+</KButton>
+
+```vue
 <KButton appearance="secondary">
   <KIcon
     slot="icon"
@@ -107,20 +136,18 @@ An Example of changing the primary KButton variant to purple instead of blue mig
 look like.  
 > Note: We are scoping the overrides to a wrapper in this example
 
-```vue live
 <template>
   <div class="button-wrapper">
     <KButton appearance="primary">PURPLE!</KButton>
   </div>
 </template>
 
-<style>
-.button-wrapper {
-  --KButtonPrimaryBase: #494ca2;
-  --KButtonPrimaryHover: #6c6ebd;
-  --KButtonPrimaryActive: #3c3f86;
-}
-</style>
+```vue
+<template>
+  <div class="button-wrapper">
+    <KButton appearance="primary">PURPLE!</KButton>
+  </div>
+</template>
 ```
 
 <style scoped lang="scss">
@@ -131,5 +158,10 @@ look like.
     margin-right: .5rem;
     margin-bottom: .5rem;
   }
+}
+.button-wrapper {
+  --KButtonPrimaryBase: #494ca2;
+  --KButtonPrimaryHover: #6c6ebd;
+  --KButtonPrimaryActive: #3c3f86;
 }
 </style>
