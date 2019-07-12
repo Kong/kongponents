@@ -14,6 +14,7 @@ import dashboard from './icn-dashboard.svg'
 import support from './icn-support.svg'
 import featureRequest from './icn-feature-request.svg'
 import externalLink from './icn-external-link.svg'
+import spinner from './icn-spinner.svg'
 
 export default {
   back,
@@ -27,6 +28,7 @@ export default {
   portal,
   search,
   security,
+  spinner,
   support,
   trash,
   workspaces,
