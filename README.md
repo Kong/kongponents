@@ -127,11 +127,13 @@ There are often times when a suggested change would simply be a â€œnice-to-haveâ
 
 ## Publishing to NPM
 
-We use [Lerna](https://lernajs.io/) to publish Kongponents. 
+We use [Lerna](https://lernajs.io/) to publish Kongponents. Components should be published after merging any changes into master. 
 
 > Note: The following instructions are for Kongponent Beta development. These may change when moved out of Beta.
 
 ### Publishing Multiple Components
+
+> Note: Run from the master branch to cover all changes.
 
 ```bash
 kpm publish
