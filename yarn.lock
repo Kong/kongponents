@@ -675,6 +675,11 @@
   resolved "https://registry.yarnpkg.com/@kongponents/kbutton/-/kbutton-0.1.2.tgz#9cc1bb25a01fdc3fb9bb7051ad11083db3a36a39"
   integrity sha512-BTjTSsvbnvduc+S7SbRzgKOXZHD+b35gKsWlkd6K2y1xOZur9bZitKnQaIdvUm8YGH0EsDbPgkv8+P4e/aDcCA==
 
+"@kongponents/kbutton@0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@kongponents/kbutton/-/kbutton-0.1.2.tgz#9cc1bb25a01fdc3fb9bb7051ad11083db3a36a39"
+  integrity sha512-BTjTSsvbnvduc+S7SbRzgKOXZHD+b35gKsWlkd6K2y1xOZur9bZitKnQaIdvUm8YGH0EsDbPgkv8+P4e/aDcCA==
+
 "@lerna/add@3.13.1":
   version "3.13.1"
   resolved "https://registry.yarnpkg.com/@lerna/add/-/add-3.13.1.tgz#2cd7838857edb3b43ed73e3c21f69a20beb9b702"

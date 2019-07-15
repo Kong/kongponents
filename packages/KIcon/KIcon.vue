@@ -8,10 +8,12 @@
     role="img"
   >
     <title>{{ icon }}</title>
-    <path
-      v-for="(path, idx) in paths"
-      :key="path.d"
-      v-bind="attributes[idx]"/>
+    <g>
+      <path
+        v-for="(path, idx) in paths"
+        :key="path.d"
+        v-bind="attributes[idx]"/>
+    </g>
   </svg>
 </template>
 
@@ -86,7 +88,6 @@ export default {
             } else {
               pathAttributes[name] = value
             }
-
           })
 
           attributes.push(pathAttributes)
@@ -113,7 +114,8 @@ export default {
 
 <style lang="scss" scoped>
 .kong-icon {
-  &.kong-icon-spinner {
+  &.kong-icon-spinner g {
+    transform-origin: 50% 50%;
     animation: spin 1.2s infinite linear;
   }
 }
@@ -123,4 +125,3 @@ export default {
   100% { transform: rotate(1turn); }
 }
 </style>
-
