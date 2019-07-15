@@ -81,16 +81,6 @@ KButton can render either a `<a>` or `<router-link>` by simply passing the `to` 
 ### Icon
 KButton supports using an icon either before the text or without text.  
 
-<KButton appearance="secondary">
-  <KIcon
-    slot="icon"
-    icon="gear" />With Text</KButton>
-<KButton appearance="secondary">
-  <KIcon
-    slot="icon"
-    icon="gear" />
-</KButton>
-
 ```vue
 <KButton appearance="secondary">
   <KIcon
