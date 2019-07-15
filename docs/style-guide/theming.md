@@ -12,23 +12,49 @@ Kongponents use styles from Kong's base styleguide.css file by default. You can 
 | `--KInputDisabledBackground `| Disabled background
 | `--KInputError `| Error border
 
-
-\
 An Example of changing the error border of KInput to a darker red instead would
 look like
-```
+```vue
+<template>
+  <KInput type="email" value="error"/>
+</template>
+
 <style>
 :root {
-  --KInputError: #922a2a;
+  --KInputError: firebrick;
 }
 </style>
-
-<KInput type="email" value="error"/>
 ```
-<KInput type="email" value="error"/>
+<KInput id="theme-page-kinput" type="email" value="error" />
+
+## Popovers
+| Variable | Purpose
+|:-------- |:-------
+| `--KPopBackground `| Default background
+| `--KPopBorder `| Default border
+| `--KPopColor `| Default font color
+
+An Example of changing the color of KPopover text
+
+```vue
+<template>
+  <KPop title="email">
+    <button>Click me</button>
+    <div slot="content">I have different colored text.</div>
+  </KPop>
+</template>
 
 <style>
-.purple-example { background-color: #494ca2 !important;}
-.purple-example:hover { background-color: #6c6ebd !important;}
-.purple-example:active { background-color: #3c3f86 !important;}
+:root {
+  --KPopColor: orange;
+}
+</style>
+```
+<div id="theme-page-kpop">
+<KPop title="email" target="#theme-page-kpop"><button>Click me</button><div slot="content">I have different colored text.</div></KPop>
+</div>
+
+<style scoped>
+#theme-page-kinput { --KInputError: firebrick; }
+#theme-page-kpop  { --KPopColor: orange; }
 </style>
