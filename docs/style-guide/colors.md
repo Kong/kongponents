@@ -6,15 +6,14 @@
     v-for="(group, key, i) in $page.colors"
     :key="i"
     class="color-group">
-    <h2>{{ key }} colors</h2>
+    <h4>{{ key }}</h4>
     <div class="colors">
-      <div
-        v-for="(colors, key, i) in group"
-        :key="i">
-        <swatch :colors="colors"/>
-      </div>
+      <swatch
+        v-for="(color, i) in group"
+        :key="i"
+        :color="color"/>
     </div>
-  </div>
+  </div> 
 </section>
 
 <script>
@@ -38,32 +37,28 @@ export default {
       }, [])
 
     this.$page.colors = {
-      Brand: {
-        Blues: colors.filter(i => i.includes('blue')),
-        Reds: colors.filter(i => i.includes('red')),
-        Greens: colors.filter(i => i.includes('green')),
-        Yellows: colors.filter(i => i.includes('yellow'))
-      },
-      'Grey and White': {
-        Blacks: colors.filter(i => i.includes('black')),
-        Greys: colors.filter(i => i.includes('grey')),
-        Whites: colors.filter(i => i.includes('white'))
-      }
+      Blues: colors.filter(i => i.includes('blue')),
+      Reds: colors.filter(i => i.includes('red')),
+      Greens: colors.filter(i => i.includes('green')),
+      Yellows: colors.filter(i => i.includes('yellow')),
+      Blacks: colors.filter(i => i.includes('black')),
+      Greys: colors.filter(i => i.includes('grey')),
+      Whites: colors.filter(i => i.includes('white'))
     }
   }
 }
 </script>
 
-<style>
-  .color-group {
-    margin-bottom: 4rem;
-  }
-  .color-group h2 {
-    text-transform: Capitalize;
+<style lang="scss">
+.color-group {
+  margin-bottom: 2rem;
+  h4 {
+    margin: 0;
+    border-bottom: 1px solid 
   }
   .colors {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 1rem;
+    grid-template-columns: 1fr 1fr;
   }
+}
 </style>

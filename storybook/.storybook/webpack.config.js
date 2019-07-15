@@ -24,7 +24,7 @@ module.exports = async ({ config }) => {
       'postcss-loader',
       'sass-loader'
     ],
-    include: path.resolve(__dirname, '../'),
+    include: path.resolve(__dirname, '../../'),
   })
 
   config.module.rules.push({

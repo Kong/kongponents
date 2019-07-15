@@ -1,5 +1,5 @@
-import { storiesOf } from '@storybook/vue'
-import { withInfo } from 'storybook-addon-vue-info'
+import { storiesOf } from '../../storybook/node_modules/@storybook/vue'
+import { withInfo } from '../../storybook/node_modules/storybook-addon-vue-info'
 import KIcon from './KIcon.vue'
 import icons from './icons'
 const iconNames = Object.keys(icons)
