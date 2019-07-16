@@ -12,7 +12,9 @@
           :class="popoverClasses">
           <div
             v-if="title"
-            class="k-popover-title">{{ title }}</div>
+            class="k-popover-title">
+            <slot name="title">{{ title }}</slot>
+          </div>
           <div class="k-popover-content">
             <slot name="content"/>
           </div>
@@ -262,7 +264,7 @@ export default {
 .k-popover {
   z-index: 1000;
   max-width: none;
-  font-size: var(--type-sm, type(sm));
+  font-size: var(--KPopBodySize, var(--type-sm, type(sm)));
   text-align: left;
   white-space: normal;
   color: var(--KPopColor, var(--tblack-70, color(tblack-70)));
@@ -276,7 +278,7 @@ export default {
   .k-popover-title {
     padding-bottom: 1rem;
     margin-bottom: 1rem;
-    font-size: 14px;
+    font-size: var(--KPopHeaderSize, var(--type-md, type(md)));
     font-weight: 500;
     border-bottom: 1px solid rgba(0,0,0,.10);
     background-color: var(--KPopBackground, var(--twhite-1, color(twhite-1)));
@@ -302,7 +304,7 @@ export default {
       border-width: 10px;
       margin-left: -10px;
     }
-    
+
     &:before {
       border-color: rgba(250, 250, 250, 0);
       border-bottom-color: var(--KPopBorder, var(--grey-84, color(grey-84)));
