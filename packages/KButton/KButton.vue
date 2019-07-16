@@ -111,6 +111,7 @@ export default {
   font-weight: 400;
   line-height: 1.25;
   text-decoration: none;
+  vertical-align: middle;
   color: var(--tblack-70, color(tblack-70));
   border: 1px solid transparent;
   border-radius: 3px;
