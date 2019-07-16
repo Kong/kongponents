@@ -49,7 +49,7 @@ storiesOf('KButton', module)
         With Text
       </KButton>
       <KButton appearance="primary">
-        <KIcon slot="icon" icon="spinner" />
+        <KIcon slot="icon" icon="spinner"/>
       </KButton>
       <KButton appearance="primary">
         With Text

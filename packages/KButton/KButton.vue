@@ -111,6 +111,7 @@ export default {
   font-weight: 400;
   line-height: 1.25;
   text-decoration: none;
+  vertical-align: middle;
   color: var(--tblack-70, color(tblack-70));
   border: 1px solid transparent;
   border-radius: 3px;
@@ -129,7 +130,7 @@ export default {
   /* Button w/ Icon */
   > svg {
     width: 1rem;
-    height: 0.6rem;
+    height: 1rem;
     padding-right: var(--spacing-xs, spacing(xs));
   }
 
