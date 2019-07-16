@@ -129,7 +129,7 @@ export default {
   /* Button w/ Icon */
   > svg {
     width: 1rem;
-    height: 1rem;
+    height: 0.6rem;
     padding-right: var(--spacing-xs, spacing(xs));
   }
 

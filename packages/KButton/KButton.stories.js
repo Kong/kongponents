@@ -44,12 +44,15 @@ storiesOf('KButton', module)
   .add('Icons', () => ({
     components: { KButton, KIcon },
     template: `<div>
-      <KButton appearance="secondary">
-        <KIcon slot="icon" icon="gear" />
+      <KButton appearance="primary">
+        <KIcon slot="icon" icon="spinner" />
         With Text
       </KButton>
-      <KButton appearance="secondary">
-        <KIcon slot="icon" icon="gear" />
+      <KButton appearance="primary">
+        <KIcon slot="icon" icon="spinner" />
+      </KButton>
+      <KButton appearance="primary">
+        With Text
       </KButton>
     </div>`
   }), {info: {}})
