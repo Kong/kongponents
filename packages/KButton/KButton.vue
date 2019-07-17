@@ -1,36 +1,48 @@
 <template>
-  <button
-    v-bind="buttonBindings"
-    :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance, buttonAttributes['class']]"
+  <a
+    v-if="typeof to === 'string'"
+    :type="type"
+    :href="to"
+    :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance]"
     class="button"
     v-on="listeners">
-    <slot name="icon" />
-    <slot/>
-  </button>
+    <slot name="icon" /><slot/>
+  </a>
+  <component
+    v-else
+    :type="type"
+    :is="buttonType"
+    :to="to"
+    :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance]"
+    class="button"
+    v-on="listeners">
+    <slot name="icon" /><slot/>
+  </component>
 </template>
 
 <script>
+export const appearances = {
+  primary: 'primary',
+  danger: 'danger',
+  secondary: 'secondary',
+  outlinePrimary: 'outline-primary',
+  outlineDanger: 'outline-danger',
+  btnLink: 'btn-link',
+  btnLinkDanger: 'btn-link-danger'
+}
+
 export default {
   name: 'KButton',
   props: {
     /**
       * Base styling of the button
-      * One of ['primary, outline-primary, secondary, outline-secondary, danger', 'outline-danger, btn-link', btn-link-danger ]
+      * One of ['primary, outline-primary, secondary, danger', 'outline-danger, btn-link', btn-link-danger ]
       */
     appearance: {
       type: String,
-      default: '',
+      default: 'secondary',
       validator: function (value) {
-        return [
-          'primary',
-          'danger',
-          'secondary',
-          'outline-primary',
-          'outline-danger',
-          'btn-link',
-          'btn-link-danger',
-          ''
-        ].indexOf(value) !== -1
+        return Object.values(appearances).indexOf(value) !== -1
       }
     },
     /**
@@ -48,15 +60,16 @@ export default {
       }
     },
     /**
-      * Add custom attributes or definitions
-      */
-    buttonAttributes: {
-      type: Object,
-      default: function () {
-        return {
-          class: ''
-        }
-      }
+     * Route object or path. If object will render <router-link>, if string
+     will render <a>
+     */
+    to: {
+      type: [Object, String],
+      default: null
+    },
+    type: {
+      type: String,
+      default: 'button'
     }
   },
 
@@ -67,16 +80,16 @@ export default {
       }
     },
 
-    buttonBindings () {
-      return {
-        ...this.buttonAttributes
-      }
-    },
     hasIcon () {
       return this.$slots.icon
     },
+
     hasText () {
       return this.$slots.default
+    },
+
+    buttonType () {
+      return this.to ? 'router-link' : 'button'
     }
   },
 
@@ -97,6 +110,8 @@ export default {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.25;
+  text-decoration: none;
+  vertical-align: middle;
   color: var(--tblack-70, color(tblack-70));
   border: 1px solid transparent;
   border-radius: 3px;

@@ -1,25 +1,9 @@
 {
   "presets": [
-    [
-      "env",
-      {
-        "modules": false
-      }
-    ],
+    [ "env", { "modules": false } ],
     "stage-3"
   ],
-  "env": {
-    "test": {
-      "presets": [
-        [
-          "env",
-          {
-            "targets": {
-              "node": 8
-            }
-          }
-        ]
-      ]
-    }
-  }
+  "plugins": [
+    "transform-es2015-modules-commonjs",
+  ]
 }

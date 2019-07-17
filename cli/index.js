@@ -153,10 +153,12 @@ program
         // spawn and spawnSync will return the result of the child process, but you can't interact with it.
         // TODO: run lerna publish commands for the user instead of instructing to copy paste (applies to publish-all and upgrade)
         console.log(`You did it! Tests have passed! Paste the following command in your prompt to publish your kongponent.`)
-        console.log(chalk.greenBright(`\n lerna publish`))
+        console.log(chalk.greenBright(`\n yarn lerna publish`))
       } else {
         console.log(`Tests have failed! Please check before publishing.`)
       }
+
+      process.exit(exitCode)
     })
   })
 
@@ -172,8 +174,10 @@ program
       if (exitCode === 0) {
         console.log(`You did it! Tests have passed!`)
       } else {
-        console.log(`Tests have failed!`)
+        console.error(`Tests have failed!`)
       }
+
+      process.exit(exitCode)
     })
   })
 

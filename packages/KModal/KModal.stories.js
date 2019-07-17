@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { storiesOf } from '@storybook/vue'
+import { storiesOf } from '../../storybook/node_modules/@storybook/vue'
 
 import KModal from './KModal.vue'
 

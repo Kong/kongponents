@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KButton renders a native link with KButton styles 1`] = `<a type="button" href="https://google.com" class="button secondary">I'm a native link</a>`;
+
+exports[`KButton renders a router link with KButton styles 1`] = `<a href="/services" class="button primary" type="button">I'm a router link</a>`;
+
+exports[`KButton renders kbutton with the btn-link appearance 1`] = `<button type="button" class="button btn-link">btn-link</button>`;
+
+exports[`KButton renders kbutton with the btn-link-danger appearance 1`] = `<button type="button" class="button btn-link-danger">btn-link-danger</button>`;
+
+exports[`KButton renders kbutton with the danger appearance 1`] = `<button type="button" class="button danger">danger</button>`;
+
+exports[`KButton renders kbutton with the outline-danger appearance 1`] = `<button type="button" class="button outline-danger">outline-danger</button>`;
+
+exports[`KButton renders kbutton with the outline-primary appearance 1`] = `<button type="button" class="button outline-primary">outline-primary</button>`;
+
+exports[`KButton renders kbutton with the primary appearance 1`] = `<button type="button" class="button primary">primary</button>`;
+
+exports[`KButton renders kbutton with the secondary appearance 1`] = `<button type="button" class="button secondary">secondary</button>`;
+
+exports[`KButton sets small class when size passed 1`] = `<button type="button" class="button small secondary">Small Button</button>`;
