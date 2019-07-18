@@ -98,28 +98,28 @@ KButton supports using an icon either before the text or without text.
 ## Theming
 | Variable | Purpose
 |:-------- |:-------
-| `--kButtonPrimaryBase `| Primary background
-| `--kButtonPrimaryHover`| Primary hover state
-| `--kButtonPrimaryActive`| Primary active state
-| `--kButtonSecondaryColor`| Secondary text color
-| `--kButtonSecondaryBase`| Secondary background
-| `--kButtonSecondaryBorder`| Secondary border
-| `--kButtonSecondaryHover`| Secondary hover state
-| `--kButtonSecondaryHoverBorder`| Secondary hover border
-| `--kButtonSecondaryActive`| Secondary active state 
-| `--kButtonSecondaryActiveBorder`| Secondary active state border
-| `--kButtonDangerBase`| Danger background
-| `--kButtonDangerHover`| Danger hover state
-| `--kButtonDangerActive`| Danger active state
-| `--kButtonOutlineBackground`| Primary outline background (white 50%)
-| `--kButtonOutlinePrimaryBorder`| Primary outline border
-| `--kButtonOutlinePrimaryHover`| Primary outline hover state
-| `--kButtonOutlinePrimaryActive`| Primary outline active state
-| `--kButtonOutlineDangerBorder`| Danger outline border
-| `--kButtonOutlineDangerHover`| Danger outline hover state
-| `--kButtonOutlineDangerActive`| Danger outline active state
-| `--kButtonLink`| Button link variant
-| `--kButtonLinkDanger`| Button Danger link variant
+| `--KButtonPrimaryBase `| Primary background
+| `--KButtonPrimaryHover`| Primary hover state
+| `--KButtonPrimaryActive`| Primary active state
+| `--KButtonSecondaryColor`| Secondary text color
+| `--KButtonSecondaryBase`| Secondary background
+| `--KButtonSecondaryBorder`| Secondary border
+| `--KButtonSecondaryHover`| Secondary hover state
+| `--KButtonSecondaryHoverBorder`| Secondary hover border
+| `--KButtonSecondaryActive`| Secondary active state 
+| `--KButtonSecondaryActiveBorder`| Secondary active state border
+| `--KButtonDangerBase`| Danger background
+| `--KButtonDangerHover`| Danger hover state
+| `--KButtonDangerActive`| Danger active state
+| `--KButtonOutlineBackground`| Primary outline background (white 50%)
+| `--KButtonOutlinePrimaryBorder`| Primary outline border
+| `--KButtonOutlinePrimaryHover`| Primary outline hover state
+| `--KButtonOutlinePrimaryActive`| Primary outline active state
+| `--KButtonOutlineDangerBorder`| Danger outline border
+| `--KButtonOutlineDangerHover`| Danger outline hover state
+| `--KButtonOutlineDangerActive`| Danger outline active state
+| `--KButtonLink`| Button link variant
+| `--KButtonLinkDanger`| Button Danger link variant
 
 \
 An Example of changing the primary KButton variant to purple instead of blue might
@@ -138,6 +138,14 @@ look like.
     <KButton appearance="primary">PURPLE!</KButton>
   </div>
 </template>
+
+<style>
+.button-wrapper {
+  --KButtonPrimaryBase: #494ca2;
+  --KButtonPrimaryHover: #6c6ebd;
+  --KButtonPrimaryActive: #3c3f86;
+}
+</style>
 ```
 
 <style scoped lang="scss">
