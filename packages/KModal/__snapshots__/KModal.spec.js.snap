@@ -7,10 +7,10 @@ exports[`KModal renders custom button text & appearance 1`] = `
       <div class="modal-content">
         <div class="modal-header">Modal Title</div>
         <div class="modal-body">Modal Body</div>
-        <div class="modal-footer"><button class="button outline-primary">
+        <div class="modal-footer"><button type="button" class="button outline-primary">
             click to continue
-          </button> <button class="button outline-danger">
-            click to continue
+          </button> <button type="button" class="button outline-danger">
+            click to cancel
           </button></div>
       </div>
     </div>
