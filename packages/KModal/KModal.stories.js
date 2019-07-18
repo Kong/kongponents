@@ -37,7 +37,9 @@ storiesOf('Modal', module)
       <KModal
         :isVisible='isVisible'
         action-button-appearance="outline-primary"
-        action-button-text="Custom text"
+        action-button-text="Custom confirm text"
+        cancel-button-appearance="outline-danger"
+        cancel-button-text="Custom cancel text"
         @closed="toggleModal(false)()" />
     </div>
     `,
@@ -61,8 +63,15 @@ storiesOf('Modal', module)
           <p class="mt-0"><strong>Look Mah</strong></p>
           <p class="mt-0 mb-0">This content is slotted ;)</p>
         </template>
-        <template slot="footer-dismiss">
-          <KButton appearance="danger" @click="toggleModal(false)()">Destroy the things</KButton>
+        <template slot="footer-content">
+          <div style="margin-bottom: .5rem">I want some custom text above the buttons</div>
+          <KButton
+            appearance="primary"
+            @click="doSomething">Submit Modal</KButton>
+          <KButton
+            appearance="secondary"
+            @click="slottedIsOpen = false">Close Modal</KButton>
+          <div style="margin-top: .5rem">I want some custom text below the buttons</div>
         </template>
       </Kmodal>
     </div>

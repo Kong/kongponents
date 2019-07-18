@@ -7,6 +7,7 @@
     <div
       class="modal-backdrop"
       @click="close">
+
       <div
         class="modal-dialog"
         @click.stop>
@@ -14,32 +15,26 @@
           <div class="modal-header">
             <slot name="header-content">Modal Title</slot>
           </div>
-
           <div class="modal-body">
             <slot name="body-content">Modal Body</slot>
           </div>
-
           <div class="modal-footer">
-            <div class="footer-actions">
-              <slot name="footer-actions">
-                <KButton
-                  :appearance="actionButtonAppearance"
-                  @click="proceed">
-                  {{ actionButtonText }}
-                </KButton>
-                <slot name="footer-dismiss">
-                  <KButton
-                    appearance="secondary"
-                    @click="close">
-                    Cancel
-                  </KButton>
-                </slot>
-              </slot>
-            </div>
-
+            <slot name="footer-content">
+              <KButton
+                :appearance="actionButtonAppearance"
+                @click="proceed">
+                {{ actionButtonText }}
+              </KButton>
+              <KButton
+                :appearance="cancelButtonAppearance"
+                @click="close">
+                {{ cancelButtonText }}
+              </KButton>
+            </slot>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </template>
@@ -72,6 +67,20 @@ export default {
     actionButtonAppearance: {
       type: String,
       default: 'primary'
+    },
+    /**
+     * Set the text of the close/cancel button
+     */
+    cancelButtonText: {
+      type: String,
+      default: 'Cancel'
+    },
+    /**
+     * Set the appearnace of the close/cancel button
+     */
+    cancelButtonAppearance: {
+      type: String,
+      default: 'secondary'
     }
   },
 
@@ -105,7 +114,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: var(--tblack-45, color(tblack-45));
+  background-color: var(--KModalBackdrop, var(--tblack-45, color(tblack-45)));
   z-index: 1100;
 }
 
@@ -114,9 +123,9 @@ export default {
   width: auto;
   max-width: 500px;
   margin: 50px auto;
-  padding: 1.5rem 2rem 2rem;
+  padding: spacing(xl);
   border-radius: 3px;
-  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 0px 12px 0px rgba(0,0,0,.15);
   background: #fff;
   z-index: 9999;
 }
@@ -130,8 +139,9 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 1rem;
-    font-size: 18px;
+    padding-bottom: spacing(md);
+    color: var(--KModalHeaderColor, var(--tblack-85, color(tblack-85)));
+    font-size: type(lg);
     font-weight: 500;
     border-bottom: 1px solid var(--grey-92, color(grey-92));
   }
@@ -139,12 +149,14 @@ export default {
   .modal-body {
     position: relative;
     flex: 1 1 auto;
-    margin-bottom: 2rem;
-    padding-top: 1.5rem;
+    margin-bottom: spacing(xl);
+    padding-top: spacing(lg);
+    color: var(--KModalColor, var(--tblack-70, color(tblack-70)));
+    font-size: var(--KModalFontSize, var(--type-md, type(md)));
   }
 
-  .footer-actions .button:last-child {
-    margin-left: .75rem;
+  .modal-footer button:last-of-type {
+    margin-left: spacing(sm);
   }
 }
 </style>

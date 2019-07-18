@@ -1,44 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`KModal renders custom close button 1`] = `
+exports[`KModal renders custom button text & appearance 1`] = `
 <div aria-hidden="false" role="dialog" class="k-modal">
   <div class="modal-backdrop">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">Modal Title</div>
         <div class="modal-body">Modal Body</div>
-        <div class="modal-footer">
-          <div class="footer-actions"><button class="button primary">
-              Proceed
-            </button> <button>I should render in dismiss slot</button></div>
-        </div>
+        <div class="modal-footer"><button class="button outline-primary">
+            click to continue
+          </button> <button class="button outline-danger">
+            click to continue
+          </button></div>
       </div>
     </div>
   </div>
 </div>
 `;
 
-exports[`KModal renders custom proceed button text & appearance 1`] = `
-<div aria-hidden="false" role="dialog" class="k-modal">
-  <div class="modal-backdrop">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">Modal Title</div>
-        <div class="modal-body">Modal Body</div>
-        <div class="modal-footer">
-          <div class="footer-actions"><button class="button outline-primary">
-              click to continue
-            </button> <button class="button secondary">
-              Cancel
-            </button></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`KModal renders header slot when passed 1`] = `
+exports[`KModal renders header slots are passed 1`] = `
 <div aria-hidden="false" role="dialog" class="k-modal">
   <div class="modal-backdrop">
     <div class="modal-dialog">
@@ -46,13 +26,11 @@ exports[`KModal renders header slot when passed 1`] = `
         <div class="modal-header">
           <div>This is some header text</div>
         </div>
-        <div class="modal-body">Modal Body</div>
+        <div class="modal-body">
+          <div>This is some body text</div>
+        </div>
         <div class="modal-footer">
-          <div class="footer-actions"><button class="button primary">
-              Proceed
-            </button> <button class="button secondary">
-              Cancel
-            </button></div>
+          <div>This is some footer text</div>
         </div>
       </div>
     </div>
