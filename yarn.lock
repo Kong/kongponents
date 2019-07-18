@@ -670,15 +670,10 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@kongponents/kbutton@0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@kongponents/kbutton/-/kbutton-0.1.2.tgz#9cc1bb25a01fdc3fb9bb7051ad11083db3a36a39"
-  integrity sha512-BTjTSsvbnvduc+S7SbRzgKOXZHD+b35gKsWlkd6K2y1xOZur9bZitKnQaIdvUm8YGH0EsDbPgkv8+P4e/aDcCA==
-
-"@kongponents/kbutton@0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@kongponents/kbutton/-/kbutton-0.1.2.tgz#9cc1bb25a01fdc3fb9bb7051ad11083db3a36a39"
-  integrity sha512-BTjTSsvbnvduc+S7SbRzgKOXZHD+b35gKsWlkd6K2y1xOZur9bZitKnQaIdvUm8YGH0EsDbPgkv8+P4e/aDcCA==
+"@kongponents/kbutton@0.1.6":
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/@kongponents/kbutton/-/kbutton-0.1.6.tgz#bc49b4f8dceeb24a36c42bbc652b977c2fe5d508"
+  integrity sha512-MvxaEzhS23RDqFxKZWjJGK/UoP+uyjv2SEjaSEL6l0dvPaKVrcptswkJvPE61A3m9xGYq+oJD9bueC9hD1h3aw==
 
 "@lerna/add@3.13.1":
   version "3.13.1"
