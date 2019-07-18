@@ -25,7 +25,7 @@ describe('KModal', () => {
 
   it('renders custom button text & appearance', () => {
     const confirmText = 'click to continue'
-    const cancelText = 'click to continue'
+    const cancelText = 'click to cancel'
     const wrapper = mount(KModal, {
       propsData: {
         isVisible: true,
