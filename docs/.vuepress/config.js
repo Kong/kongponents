@@ -27,8 +27,9 @@ module.exports = {
         sidebarDepth: 1,
         children: [
           '/components/',
-          '/components/button',
           '/components/alert',
+          '/components/button',
+          '/components/modal',
           '/components/table',
           '/components/switch',
           '/components/card',
