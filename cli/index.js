@@ -112,6 +112,15 @@ program
 
     fs.mkdirSync(kongponentPath)
 
+    const docs = createDirectoryContents(
+      `${__dirname}/template/docs`,
+      `${CURR_DIR}/docs/components/${kname}`,
+      path => path.replace('component.template.md', `${kname.toLowerCase()}.md`).replace(`${kname}/`, ''),
+      contents => contents
+        .replace(/{%kongponent_name_lower%}/g, kname.toLowerCase())
+        .replace(/{%kongponent_name%}/g, kname)
+        .replace(/{%kongponent_description%}/g, kdescription))
+
     const files = createDirectoryContents(
       templatePath,
       kongponentPath,
@@ -129,6 +138,18 @@ program
       console.log('\nFiles generated:')
       if (err) {
         console.log(chalk.blue(files.join('\n')))
+
+        return
+      }
+
+      // tree output
+      console.log(chalk.blue(stdout))
+    })
+
+    exec(`tree docs/components/${kname}`, (err, stdout) => {
+      console.log('\nFiles generated:')
+      if (err) {
+        console.log(chalk.blue(docs.join('\n')))
 
         return
       }
