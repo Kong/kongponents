@@ -30,6 +30,7 @@ module.exports = {
           '/components/button',
           '/components/alert',
           '/components/table',
+          '/components/card',
         ]
       },
     ],
