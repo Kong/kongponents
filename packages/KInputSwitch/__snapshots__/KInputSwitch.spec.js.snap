@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KInputSwitch matches snapshot 1`] = `
+<label class="k-toggle"><input type="checkbox" class="toggle_input">
+  <div class="toggle-control"></div> <span>off</span>
+</label>
+`;
