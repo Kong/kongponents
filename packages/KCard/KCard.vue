@@ -1,7 +1,7 @@
 <template>
   <div
     :class="[borderVariant, {'hover': hasHover }]"
-    class="kong-card">
+    class="k-card">
     <div class="k-card-header">
       <div class="k-card-title">
         <h4>
@@ -62,7 +62,7 @@ export default {
 <style scoped lang="scss">
 @import '~@kongponents/styles/_variables.scss';
 
-.kong-card {
+.k-card {
   padding: var(--spacing-md, spacing(md));
   margin-bottom: var(--spacing-md, spacing(md));
   border-radius: 3px;
