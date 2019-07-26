@@ -1,9 +1,9 @@
 <template>
   <label class="k-switch">
     <input
-      :checked="isChecked"
+      :checked="value"
       type="checkbox"
-      @change="handleChange">
+      v-on="listeners">
     <div class="switch-control"/>
     <span>{{ label || toggleText }}</span>
   </label>
@@ -16,7 +16,7 @@ export default {
     /**
      * Sets whether or not toggle is checked
      */
-    isChecked: {
+    value: {
       type: Boolean,
       default: false,
       required: true
@@ -33,21 +33,26 @@ export default {
 
   computed: {
     toggleText () {
-      return this.isChecked
+      return this.value
         ? 'on'
         : 'off'
-    }
-  },
+    },
 
-  methods: {
-    /**
-     * Emit input checked value on change event
-     */
-    handleChange (e) {
-      this.$emit('change', e.target.checked)
+    listeners () {
+      const listeners = {
+        ...this.$listeners,
+        change: e => {
+          this.$emit('change', e.target.checked)
+          this.$emit('input', e.target.checked)
+        }
+      }
+
+      // remove 'input' since it doesn't need to be bound to the checkbox
+      delete listeners['input']
+
+      return listeners
     }
   }
-
 }
 </script>
 
