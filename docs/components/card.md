@@ -91,37 +91,6 @@ Sets if card has hover state (shadow)
 </KCard>
 ```
 
-## Theming
-| Variable | Purpose
-|:-------- |:-------
-| `--KCardTitle `| Card title text color
-| `--KCardBorder`| Card border color
-
-\
-An Example of changing the KCard border color to lime might look like. 
-
-> Note: We are scoping the overrides to a wrapper in this example
-
-<template>
-  <div class="card-wrapper">
-    <KCard title="Card Title" body="Body Content"/>
-  </div>
-</template>
-
-```vue
-<template>
-  <div class="card-wrapper">
-    <KCard title="Card Title" body="Body Content"/>
-  </div>
-</template>
-
-<style>
-.card-wrapper {
-  --KCardBorder: lime;
-}
-</style>
-```
-
 <style lang="scss">
 .borderless-cards {
   padding: 1rem;
@@ -130,8 +99,5 @@ An Example of changing the KCard border color to lime might look like.
   .kong-card {
     background: #fff;
   }
-}
-.card-wrapper {
-  --KCardBorder: lime;
 }
 </style>
