@@ -1,11 +1,10 @@
 <template>
-  <label class="k-toggle">
+  <label class="k-switch">
     <input
       :checked="isChecked"
       type="checkbox"
-      class="toggle_input"
       @change="handleChange">
-    <div class="toggle-control"/>
+    <div class="switch-control"/>
     <span>{{ label || toggleText }}</span>
   </label>
 </template>
@@ -58,13 +57,13 @@ export default {
 $width: 44px;
 $height: 24px;
 $color_checkbox_success: var(--KInputSwitchOn, var(--primary, color(blue-base)));
-$transition: .2s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+$transition: .2s linear;
 
-.k-toggle {
+.k-switch {
   display: flex;
   align-items: center;
   cursor: pointer;
-  .toggle-control {
+  .switch-control {
     position: relative;
     display: block;
     width: $width;
@@ -102,7 +101,7 @@ $transition: .2s cubic-bezier(0.95, 0.05, 0.795, 0.035);
   // Hide default checkbox
   input {
     display: none;
-    &:checked + .toggle-control {
+    &:checked + .switch-control {
       background-color: $color_checkbox_success;
       &:after {
         left: $width / 2;
