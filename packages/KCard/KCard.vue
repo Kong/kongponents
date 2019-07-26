@@ -1,7 +1,7 @@
 <template>
   <div
     :class="[borderVariant, {'hover': hasHover }]"
-    class="k-card">
+    class="kong-card">
     <div class="k-card-header">
       <div class="k-card-title">
         <h4>
@@ -41,7 +41,7 @@ export default {
       default: ''
     },
     /**
-      * Set top border or no border. If neither set default will have border<br>
+      * Set top border or no border. If neither set defaut will have border<br>
       * Options: [borderTop, noBorder]
       */
     borderVariant: {
@@ -59,45 +59,44 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-@import '~@kongponents/styles/_variables.scss';
+<style scoped>
+.kong-card {
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
 
-.k-card {
-  padding: var(--spacing-md, spacing(md));
-  margin-bottom: var(--spacing-md, spacing(md));
+.kong-card.noBoard {
+  border: none;
+}
+
+.kong-card.border {
   border-radius: 3px;
+  border: 1px solid rgba(0,0,0,.12);
+  box-shadow: none;
+}
 
-  .k-card-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: var(--spacing-md, spacing(md));;
-  }
+.kong-card.borderTop {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
 
-  .k-card-title h4 {
-    margin: 0;
-    font-size: type(lg);
-    font-weight: 500;
-    color: var(--KCardTitle, color(tblack-85));
-  }
+.kong-card.hover:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,.12);
+}
 
-  .k-card-actions  {
-    margin-left: auto;
-  }
+.kong-card .k-card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
 
-  // Variants
-  &.noBoard {
-    border: none;
-  }
-  &.border {
-    border: 1px solid var(--KCardBorder, color(tblack-10));
-    box-shadow: none;
-  }
-  &.borderTop {
-    border-top: 1px solid var(--KCardBorder, color(tblack-10));
-  }
+.kong-card .k-card-title h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: rgba(0,0,0,.85);
+}
 
-  &.hover:hover {
-    box-shadow: 0 4px 8px color(tblack-10);
-  }
+.kong-card .k-card-actions  {
+  margin-left: auto;
 }
 </style>
