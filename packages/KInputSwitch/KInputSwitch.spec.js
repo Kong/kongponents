@@ -5,7 +5,7 @@ describe('KInputSwitch', () => {
   it('shows as checked when prop passed', () => {
     const wrapper = mount(KInputSwitch, {
       propsData: {
-        isChecked: true
+        value: true
       }
     })
 
@@ -15,7 +15,7 @@ describe('KInputSwitch', () => {
   it('emits checked value on click', () => {
     const wrapper = mount(KInputSwitch, {
       propsData: {
-        isChecked: true
+        value: true
       }
     })
     const toggle = wrapper.find('input')
@@ -29,7 +29,7 @@ describe('KInputSwitch', () => {
   it('matches snapshot', () => {
     const wrapper = mount(KInputSwitch, {
       propsData: {
-        isChecked: true
+        value: true
       }
     })
 
