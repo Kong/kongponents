@@ -13,7 +13,11 @@ describe('KInputSwitch', () => {
   })
 
   it('emits checked value on click', () => {
-    const wrapper = mount(KInputSwitch)
+    const wrapper = mount(KInputSwitch, {
+      propsData: {
+        isChecked: true
+      }
+    })
     const toggle = wrapper.find('input')
 
     toggle.trigger('click')
@@ -23,7 +27,11 @@ describe('KInputSwitch', () => {
   })
 
   it('matches snapshot', () => {
-    const wrapper = mount(KInputSwitch)
+    const wrapper = mount(KInputSwitch, {
+      propsData: {
+        isChecked: true
+      }
+    })
 
     expect(wrapper.html()).toMatchSnapshot()
   })
