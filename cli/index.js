@@ -114,7 +114,7 @@ program
 
     const docs = createDirectoryContents(
       `${__dirname}/template/docs`,
-      `${CURR_DIR}/docs/components/${kname}`,
+      `${CURR_DIR}/docs/components`,
       path => path.replace('component.template.md', `${kname.toLowerCase()}.md`).replace(`${kname}/`, ''),
       contents => contents
         .replace(/{%kongponent_name_lower%}/g, kname.toLowerCase())
@@ -138,24 +138,16 @@ program
       console.log('\nFiles generated:')
       if (err) {
         console.log(chalk.blue(files.join('\n')))
+        console.log('Docs files generated:')
+        console.log(chalk.blue(docs.map(f => `docs/components/${f}`)))
 
         return
       }
 
       // tree output
       console.log(chalk.blue(stdout))
-    })
-
-    exec(`tree docs/components/${kname}`, (err, stdout) => {
-      console.log('\nFiles generated:')
-      if (err) {
-        console.log(chalk.blue(docs.join('\n')))
-
-        return
-      }
-
-      // tree output
-      console.log(chalk.blue(stdout))
+      console.log('Docs files generated:')
+      console.log(chalk.blue(docs.map(f => `docs/components/${f}`)))
     })
   })
 
