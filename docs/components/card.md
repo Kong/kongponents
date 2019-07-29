@@ -15,6 +15,32 @@ String to be used in the title slot.
 
 - `title`
 
+If the title is ommitted, then KCard acts as a generic Box element.
+
+<KCard>
+  <template slot="body">
+    I am a box. I have padding and a border. Useful for composing other components
+  </template>
+</KCard>
+
+Example composing `KCard` with other Kongponents to make another component:
+
+<KCard :hasHover="true">
+  <template slot="body">
+    <div class="mx-5">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Kong Enterprise Edition</h2>
+        <KButton to="https://docs.konghq.com/enterprise" target="_blank">
+          <KIcon icon="portal" /> Docs
+        </KButton>
+      </div>
+      <div class="mt-2">
+        <p>Kong Enterprise adds features, functionality, and performance to Kong. This documentation doesn’t cover the general practices that are common to both Kong and Kong Enterprise—learn the basics in Kong documentation.</p>
+      </div>
+    </div>
+  </template>
+</KCard>
+
 ### Body
 String to be used in the body slot.
 
