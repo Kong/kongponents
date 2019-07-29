@@ -62,7 +62,7 @@ export default {
       default: 'Proceed'
     },
     /**
-     * Set the appearnace of the action/proceed button
+     * Set the appearance of the action/proceed button
      */
     actionButtonAppearance: {
       type: String,
