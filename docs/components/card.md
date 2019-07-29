@@ -27,11 +27,12 @@ Example composing `KCard` with other Kongponents to make another component:
 
 <KCard :hasHover="true">
   <template slot="body">
-    <div class="mx-5">
+    <KAlert alert-message="Welcome to Kong!" />
+    <div class="mx-4">
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <h2>Kong Enterprise Edition</h2>
         <KButton to="https://docs.konghq.com/enterprise" target="_blank">
-          <KIcon icon="portal" /> Docs
+          Docs
         </KButton>
       </div>
       <div class="mt-2">
