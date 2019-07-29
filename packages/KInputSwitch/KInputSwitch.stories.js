@@ -7,11 +7,17 @@ storiesOf('KInputSwitch', module)
     template: `
       <KInputSwitch
         v-model="checked"
+        :label="labelText"
         @change="handleToggle"/>
     `,
     data: () => ({
       checked: false
     }),
+    computed: {
+      labelText () {
+        return this.checked ? 'on' : 'off'
+      }
+    },
     methods: {
       handleToggle (value) {
         this.checked = value

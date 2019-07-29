@@ -5,7 +5,9 @@
       type="checkbox"
       v-on="listeners">
     <div class="switch-control"/>
-    <span>{{ label || toggleText }}</span>
+    <span v-if="label || $scopedSlots.label">
+      <slot name="label">{{ label }}</slot>
+    </span>
   </label>
 </template>
 
