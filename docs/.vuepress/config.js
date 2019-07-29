@@ -31,6 +31,7 @@ module.exports = {
           '/components/alert',
           '/components/table',
           '/components/switch'
+          '/components/card',
         ]
       },
     ],
