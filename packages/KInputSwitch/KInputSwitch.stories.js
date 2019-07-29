@@ -6,7 +6,7 @@ storiesOf('KInputSwitch', module)
     components: { KInputSwitch },
     template: `
       <KInputSwitch
-        :value="checked"
+        v-model="checked"
         @change="handleToggle"/>
     `,
     data: () => ({
