@@ -13,7 +13,7 @@ const rendersCorrectAppearance = (variant) => {
       }
     })
 
-    expect(wrapper.find('.button').classes()).toContain(`${variant}`)
+    expect(wrapper.find('.k-button').classes()).toContain(`${variant}`)
     expect(wrapper.html()).toMatchSnapshot()
   })
 }
@@ -31,7 +31,7 @@ describe('KButton', () => {
       }
     })
 
-    expect(wrapper.find('.button').classes()).toContain('small')
+    expect(wrapper.find('.k-button').classes()).toContain('small')
     expect(wrapper.html()).toMatchSnapshot()
   })
 
@@ -60,7 +60,7 @@ describe('KButton', () => {
       }
     })
 
-    expect(wrapper.find('a').classes()).toContain('button', 'primary')
+    expect(wrapper.find('a').classes()).toContain('k-button', 'primary')
     expect(wrapper.find('a').attributes('href')).toBe('/services')
     expect(wrapper.html()).toMatchSnapshot()
   })
@@ -76,7 +76,7 @@ describe('KButton', () => {
       }
     })
 
-    expect(wrapper.find('a').classes()).toContain('button', 'secondary')
+    expect(wrapper.find('a').classes()).toContain('k-button', 'secondary')
     expect(wrapper.find('a').attributes('href')).toBe('https://google.com')
     expect(wrapper.html()).toMatchSnapshot()
   })

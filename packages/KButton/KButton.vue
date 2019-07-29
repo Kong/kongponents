@@ -4,7 +4,7 @@
     :type="type"
     :href="to"
     :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance]"
-    class="button"
+    class="k-button"
     v-on="listeners">
     <slot name="icon" /><slot/>
   </a>
@@ -14,7 +14,7 @@
     :is="buttonType"
     :to="to"
     :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance]"
-    class="button"
+    class="k-button"
     v-on="listeners">
     <slot name="icon" /><slot/>
   </component>
@@ -102,7 +102,7 @@ export default {
 <style scoped lang="scss">
 @import '~@kongponents/styles/_variables.scss';
 
-.button {
+.k-button {
   display: inline-flex;
   align-items: center;
   padding: var(--spacing-xs, spacing(xs)) var(--spacing-sm, spacing(sm));
