@@ -3,6 +3,7 @@ import '../../packages/styles/styles.css'
 
 // Globally import all Kongponents
 import KAlert from '../../packages/KAlert'
+import KBadge from '../../packages/KBadge'
 import KButton from '../../packages/KButton'
 import KCard from '../../packages/KCard'
 import KClipboardProvider from '../../packages/KClipboardProvider'
@@ -24,6 +25,7 @@ export default ({
   siteData
 }) => {
   Vue.component('KAlert', KAlert)
+  Vue.component('KBadge', KBadge)
   Vue.component('KButton', KButton)
   Vue.component('KCard', KCard)
   Vue.component('KClipboardProvider', KClipboardProvider)

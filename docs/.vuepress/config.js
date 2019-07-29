@@ -27,10 +27,11 @@ module.exports = {
         sidebarDepth: 1,
         children: [
           '/components/',
-          '/components/button',
           '/components/alert',
-          '/components/table',
+          '/components/badge',
+          '/components/button',
           '/components/card',
+          '/components/table',
         ]
       },
     ],
