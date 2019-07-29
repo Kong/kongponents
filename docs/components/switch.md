@@ -3,13 +3,13 @@
 **KInputSwitch** is used like a checkbox and is meant to toggle settings on and off.
 
 <KInputSwitch
-  :isChecked="defaultChecked"
+  v-model="defaultChecked"
   @change="handleDefaultChecked"/>
 
 ```vue
 <template>
   <KInputSwitch
-    :isChecked="checked"
+    value="checked"
     @change="handleToggle" />
 </template>
 
@@ -41,14 +41,14 @@ Replaces on/off text to right of switch
 - `label`
 
 <KInputSwitch
-  :isChecked="labelChecked"
+  v-model="labelChecked"
   :label="labelText"
   @change="handleLabelChecked"/>
 
 ```vue
 <template>
   <KInputSwitch
-    :isChecked="checked"
+    v-model="checked"
     :label="labelText"
     @change="handleToggle"/>
 </template>
@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     handleToggle (value) {
-      this.checkecd = value
+      this.checked = value
     }
   }
 }
@@ -90,14 +90,14 @@ An Example of changing the success KInputSwitch on color to pink instead of Kong
 
 <template>
   <div class="switch-wrapper">
-    <KInputSwitch :isChecked="true" />
+    <KInputSwitch :value="true" />
   </div>
 </template>
 
 ```vue
 <template>
   <div class="switch-wrapper">
-    <KInputSwitch :isChecked="true" />
+    <KInputSwitch :value="true" />
   </div>
 </template>
 
