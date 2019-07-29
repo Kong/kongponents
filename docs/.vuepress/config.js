@@ -30,7 +30,7 @@ module.exports = {
           '/components/button',
           '/components/alert',
           '/components/table',
-          '/components/switch'
+          '/components/switch',
           '/components/card',
         ]
       },
