@@ -7,8 +7,9 @@ storiesOf('KInputSwitch', module)
     template: `
       <KInputSwitch
         v-model="checked"
-        :label="labelText"
-        @change="handleToggle"/>
+        @change="handleToggle">
+      <template slot="label">{{ labelText}}</template>
+    </KInputSwitch>
     `,
     data: () => ({
       checked: false

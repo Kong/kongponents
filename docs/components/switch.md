@@ -30,27 +30,30 @@ export default {
 ```
 
 ## Props
-### isChecked - required
-Sets current checked state of toggle switch. If not passed you can manually toggle but value will not be emitted.
+### value - required
+It is highly recommended to use `v-model` as demonstrated in these examples. The value prop sets current checked state of toggle switch and is primarily used within the component itself. You can read more about passing values via `v-model` [here](https://vuejs.org/v2/guide/components.html#Using-v-model-on-Components).
 
-- `isChecked`
+- `v-model="value"` | `value`
 
 ### label
-Replaces on/off text to right of switch
+Will place label text to the right of the switch. Can also be [sloted](#slots).
 
 - `label`
 
+## Slots
+- `label`
+
+&nbsp;  
 <KInputSwitch
-  v-model="labelChecked"
-  :label="labelText"
-  @change="handleLabelChecked"/>
+  v-model="labelChecked">
+  <template slot="label">{{ labelText}}</template>
+</KInputSwitch>
 
 ```vue
 <template>
-  <KInputSwitch
-    v-model="checked"
-    :label="labelText"
-    @change="handleToggle"/>
+  <KInputSwitch v-model="checked">
+    <template slot="label">{{ labelText}}</template>
+  </KInputSwitch>
 </template>
 
 <script>
@@ -62,7 +65,7 @@ export default {
   },
   computed: {
     labelText () {
-      return this.labelChecked
+      return this.checked
         ? 'Yay!'
         : 'Boo'
     }
@@ -90,16 +93,26 @@ An Example of changing the success KInputSwitch on color to pink instead of Kong
 
 <template>
   <div class="switch-wrapper">
-    <KInputSwitch :value="true" />
+    <KInputSwitch v-model="themeChecked" />
   </div>
 </template>
 
 ```vue
 <template>
   <div class="switch-wrapper">
-    <KInputSwitch :value="true" />
+    <KInputSwitch v-model="checked" />
   </div>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      checked: true
+    }
+  }
+}
+</script>
 
 <style>
 .switch-wrapper {
@@ -120,6 +133,7 @@ export default {
     return {
       defaultChecked: false,
       labelChecked: false,
+      themeChecked: true
     }
   },
   computed: {
