@@ -2,6 +2,7 @@
 
 exports[`KInputSwitch matches snapshot 1`] = `
 <label class="k-switch"><input type="checkbox">
-  <div class="switch-control"></div> <span>on</span>
+  <div class="switch-control"></div>
+  <!---->
 </label>
 `;
