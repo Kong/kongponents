@@ -30,9 +30,7 @@
               :name="value.key"
               :row="row"
               :rowKey="rowIndex"
-              :rowValue="row[value.key]">
-              {{ row[value.key] }}
-            </slot>
+              :rowValue="row[value.key]">{{ row[value.key] }}</slot>
           </td>
         </template>
       </tr>
