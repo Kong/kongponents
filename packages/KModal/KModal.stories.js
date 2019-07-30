@@ -23,7 +23,24 @@ storiesOf('Modal', module)
     template: `
     <div>
       <KButton @click="toggleModal(true)()">Toggle Modal</KButton>
-      <KModal @close="toggleModal(false)()" :isVisible='isVisible' />
+      <KModal @canceled="toggleModal(false)()" :isVisible='isVisible' />
+    </div>
+    `,
+    data: sharedData,
+    methods: sharedMethods
+  }), {info: {}})
+  .add('Button Props', () => ({
+    components: { KModal },
+    template: `
+    <div>
+      <KButton @click="toggleModal(true)()">Toggle Modal</KButton>
+      <KModal
+        :isVisible='isVisible'
+        action-button-appearance="outline-primary"
+        action-button-text="Custom confirm text"
+        cancel-button-appearance="outline-danger"
+        cancel-button-text="Custom cancel text"
+        @canceled="toggleModal(false)()" />
     </div>
     `,
     data: sharedData,
@@ -34,16 +51,27 @@ storiesOf('Modal', module)
     template: `
     <div>
       <KButton @click="toggleModal(true)()">Toggle Modal</KButton>
-      <KModal @close="toggleModal(false)()" :isVisible='isVisible'>
+      <KModal
+        :isVisible='isVisible'
+        action-button-appearance="outline-primary"
+        action-button-text="Click to move on"
+        @canceled="toggleModal(false)()">
       <template slot="header-content">
-          ⚠️ Are you sure?
+          Custom header
         </template>
         <template slot="body-content">
-          This is a destructive action and by clicking this button you will destroy things.
+          <p class="mt-0"><strong>Look Mah</strong></p>
+          <p class="mt-0 mb-0">This content is slotted ;)</p>
         </template>
-        <template slot="footer-actions">&#8203;</template>
-        <template slot="footer-dismiss">
-          <KButton style="margin-left: 0;" appearance="danger" @click="toggleModal(false)()">Destroy the things</KButton>
+        <template slot="footer-content">
+          <div style="margin-bottom: .5rem">I want some custom text above the buttons</div>
+          <KButton
+            appearance="primary"
+            @click="doSomething">Submit Modal</KButton>
+          <KButton
+            appearance="secondary"
+            @click="slottedIsOpen = false">Close Modal</KButton>
+          <div style="margin-top: .5rem">I want some custom text below the buttons</div>
         </template>
       </Kmodal>
     </div>
