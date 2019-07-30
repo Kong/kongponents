@@ -46,32 +46,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@kongponents/styles/_variables.scss';
+
 .k-badge {
   display: inline-flex;
   justify-content: center;
   font-weight: 500;
+  font-size: var(--KBadgeFontSize, var(--type-sm, type(sm)));
   height: 27px;
   align-items: center;
-  width: var(--KBadgeWidth, 90px);
-  padding: var(--spacing-xxs, spacing(xs)) var(--spacing-sm, spacing(xs));
+  width: var(--KBadgeWidth, 71px);
+  padding: var(--KBadgePaddingY, 2px) var(--KBadgePaddingX, 4px);
   font-family: var(--font-family-sans, font(sans));
   border-radius: var(--KBadgeBorderRadius, 3px);
 
   // Appearances
   &.kbadge-success {
     color: var(--KBadgeSuccessColor, var(--green-dark, color(green-dark)));
-    border-color: var(--KBadgeSuccessBorder, var(--green-light-01, color(green-light-01)));
-    background-color: var(--KBadgeSuccessBackground, var(--green-lighter, color(green-lighter)));
+    border-color: var(--KBadgeSuccessBorder, var(--green-light, color(green-light)));
+    background-color: var(--KBadgeSuccessBackground, var(--green-light, color(green-light)));
   }
   &.kbadge-danger {
     color: var(--KBadgeDangerColor, var(--red-dark, color(red-dark)));
     border-color: var(--KBadgeDangerBorder, var(--red-light-01, color(red-light-01)));
-    background-color: var(--KBadgeDangerBackground, var(--red-lighter, color(red-lighter)));
+    background-color: var(--KBadgeDangerBackground, var(--red-light-01, color(red-light-01)));
   }
   &.kbadge-warning {
-    color: var(--KBadgeWarningColor, var(--yellow-darker, color(yellow-dark)));
+    color: var(--KBadgeWarningColor, var(--yellow-darker, color(yellow-darker)));
     border-color: var(--KBadgeWarningBorder, var(--yellow-light, color(yellow-light)));
-    background-color: var(--KBadgeWarningBackground, var(--yellow-lighter, color(yellow-lighter)));
+    background-color: var(--KBadgeWarningBackground, var(--yellow-light, color(yellow-light)));
   }
 }
 </style>

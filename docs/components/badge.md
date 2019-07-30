@@ -3,7 +3,7 @@
 **KBadge** - Badges, pills, or whatever you wanna call them. Slap it on
 something.
 
-<KBadge appearance="success">SUCCESS</KBadge> <br><br>
+<KBadge appearance="success">SUCCESS</KBadge>
 
 ```vue
 <KBadge appearance="success">SUCCESS</KBadge>
@@ -20,16 +20,15 @@ The Button component can take 1 of 4 appearance values:
 - `warning`
 - `custom`
 
-<KBadge appearance="success">SUCCESS</KBadge>
-<KBadge appearance="warning">WARNING</KBadge>
-<KBadge appearance="danger">DANGER</KBadge>
+<KBadge appearance="success">LOW</KBadge>
+<KBadge appearance="warning">MEDIUM</KBadge>
+<KBadge appearance="danger">HIGH</KBadge>
 
 ```vue
-<KBadge appearance="success">SUCCESS</KBadge>
-<KBadge appearance="warning">WARNING</KBadge>
-<KBadge appearance="danger">DANGER</KBadge>
+<KBadge appearance="success">HIGH</KBadge>
+<KBadge appearance="warning">MEDIUM</KBadge>
+<KBadge appearance="danger">LOW</KBadge>
 ```
-<br>
 
 ### color, background-color
 
