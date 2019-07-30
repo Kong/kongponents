@@ -1,28 +1,25 @@
 # Switch
 
-**KInputSwitch** is used like a checkbox and is meant to toggle settings on and off.
+**KInputSwitch** is used a like checkbox and is meant to toggle settings on and
+off.
 
-<KInputSwitch
-  v-model="defaultChecked"
-  @change="handleDefaultChecked"/>
+<KInputSwitch v-model="defaultChecked" @change="handleToggle" />
 
 ```vue
 <template>
-  <KInputSwitch
-    value="checked"
-    @change="handleToggle" />
+  <KInputSwitch v-model="defaultChecked" @change="handleToggle" />
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       checked: false
     }
   },
   methods: {
-    handleToggle (value) {
-      this.checked = value
+    handleToggle(isChecked) {
+      // do something, make api call?
     }
   }
 }
@@ -30,49 +27,55 @@ export default {
 ```
 
 ## Props
-### value - required
-It is highly recommended to use `v-model` as demonstrated in these examples. The value prop sets current checked state of toggle switch and is primarily used within the component itself. You can read more about passing values via `v-model` [here](https://vuejs.org/v2/guide/components.html#Using-v-model-on-Components).
 
-- `v-model="value"` | `value`
+### v-model - required
+
+Use `v-model` to bind to the `checked` state of the underlying `<input />`. The
+`v-model` binds to the `value` prop of the component and sets current checked
+state of toggle switch. You can read more about passing values via `v-model`
+[here](https://vuejs.org/v2/guide/components.html#Using-v-model-on-Components).
+
+```vue
+<KInputSwitch v-model="isChecked" />
+```
 
 ### label
-Will place label text to the right of the switch. Can also be [sloted](#slots).
+
+Will place label text to the right of the switch. Can also be [slotted](#slots).
 
 - `label`
+
+```vue
+<KInputSwitch v-model="checked" :label="checked ? 'on' : 'off'" />
+```
+
+<KInputSwitch v-model="labelPropChecked" :label="labelPropChecked ? 'on' : 'off'" />
 
 ## Slots
+
 - `label`
 
-&nbsp;  
 <KInputSwitch
-  v-model="labelChecked">
-  <template slot="label">{{ labelText}}</template>
+  v-model="labelChecked"> <template slot="label">{{ labelText}}</template>
 </KInputSwitch>
 
 ```vue
 <template>
   <KInputSwitch v-model="checked">
-    <template slot="label">{{ labelText}}</template>
+    <template slot="label">{{ labelText }}</template>
   </KInputSwitch>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       checked: false
     }
   },
   computed: {
-    labelText () {
-      return this.checked
-        ? 'Yay!'
-        : 'Boo'
-    }
-  },
-  methods: {
-    handleToggle (value) {
-      this.checked = value
+    labelText() {
+      return this.checked ? 'Yay!' : 'Boo'
     }
   }
 }
@@ -80,14 +83,16 @@ export default {
 ```
 
 ## Theming
-| Variable | Purpose
-|:-------- |:-------
-| `--KInputSwitchBackground `| Switch off state background color
-| `--KInputSwitchOn`| Switch on background color
-| `--KInputSwitchLabel` | Label font color
+
+| Variable                   | Purpose                           |
+| :------------------------- | :-------------------------------- |
+| `--KInputSwitchBackground` | Switch off state background color |
+| `--KInputSwitchOn`         | Switch on background color        |
+| `--KInputSwitchLabel`      | Label font color                  |
 
 \
-An Example of changing the success KInputSwitch on color to pink instead of Kong's primary blue might look like.  
+An Example of changing the success KInputSwitch on color to pink instead of Kong's
+primary blue might look like.
 
 > Note: We are scoping the overrides to a wrapper in this example
 
@@ -106,7 +111,7 @@ An Example of changing the success KInputSwitch on color to pink instead of Kong
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       checked: true
     }
@@ -131,6 +136,7 @@ export default {
 export default {
   data () {
     return {
+      labelPropChecked: false,
       defaultChecked: false,
       labelChecked: false,
       themeChecked: true
@@ -141,14 +147,12 @@ export default {
       return this.labelChecked
         ? 'Yay!'
         : 'Boo'
-    }
+    },
+    
   },
   methods: {
-    handleDefaultChecked (value) {
-      this.defaultChecked = value
-    },
-    handleLabelChecked (value) {
-      this.labelChecked = value
+    handleToggle (isChecked) {
+      console.log('Toggled to: ' + isChecked)
     }
   }
 }
