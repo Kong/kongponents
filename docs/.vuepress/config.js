@@ -31,7 +31,9 @@ module.exports = {
           '/components/badge',
           '/components/button',
           '/components/card',
+          '/components/modal',
           '/components/table',
+          '/components/switch'
         ]
       },
     ],
