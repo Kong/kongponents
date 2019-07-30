@@ -28,11 +28,12 @@ module.exports = {
         children: [
           '/components/',
           '/components/alert',
+          '/components/badge',
           '/components/button',
+          '/components/card',
           '/components/modal',
           '/components/table',
-          '/components/switch',
-          '/components/card',
+          '/components/switch'
         ]
       },
     ],
