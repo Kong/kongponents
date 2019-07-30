@@ -2,7 +2,9 @@
   <div
     :class="[borderVariant, {'hover': hasHover }]"
     class="kong-card">
-    <div class="k-card-header">
+    <div
+      v-if="title || $scopedSlots.title || $scopedSlots.actions"
+      class="k-card-header">
       <div class="k-card-title">
         <h4>
           <!-- @slot Use this slot to pass title content -->

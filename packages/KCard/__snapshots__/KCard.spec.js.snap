@@ -2,24 +2,14 @@
 
 exports[`KCard has hover class when passed 1`] = `
 <div class="kong-card border hover">
-  <div class="k-card-header">
-    <div class="k-card-title">
-      <h4></h4>
-    </div>
-    <div class="k-card-actions"></div>
-  </div>
+  <!---->
   <div class="k-card-body"></div>
 </div>
 `;
 
 exports[`KCard matches snapshot 1`] = `
 <div class="kong-card border">
-  <div class="k-card-header">
-    <div class="k-card-title">
-      <h4></h4>
-    </div>
-    <div class="k-card-actions"></div>
-  </div>
+  <!---->
   <div class="k-card-body"></div>
 </div>
 `;
