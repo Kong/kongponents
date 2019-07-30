@@ -457,7 +457,7 @@
   --red-light: #f47171;
   --red-base: #e61a1a;
   --red-link: #cf1717;
-  --red-dark: #a11212;
+  --red-dark: #b30000;
   --green-lighter: #e9f7ef;
   --green-light-01: #bce6ce;
   --green-light: #90d5ad;
@@ -475,6 +475,7 @@
   --grey-98: #fafafa;
   --grey-92: #ebebeb;
   --grey-88: #e0e0e0;
+  --grey-84: #d6d6d6;
   --twhite-75: rgba(255, 255, 255, 0.75);
   --twhite-50: rgba(255, 255, 255, 0.5);
   --twhite-1: white;
