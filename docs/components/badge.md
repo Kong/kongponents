@@ -56,9 +56,21 @@ Using the `custom` appearance in conjunction with `color` and `background-color`
 
 ## Theming
 
-| Variable               | Purpose              |
-| :--------------------- | :------------------- |
-| `--KBadgeBorderRadius` | KBadge border radius |
+| Variable                    | Purpose                       |
+| :---------------------      | :---------------------------- |
+| `--KBadgeBorderRadius`      |                               |
+| `--KBadgeFontSize`          |                               |
+| `--KBadgePaddingY`          | Vertical top/bottom spacing   |
+| `--KBadgePaddingX`          | Horizontal left/right spacing |
+| `--KBadgeSuccessColor`      |                               |
+| `--KBadgeSuccessBorder`     |                               |
+| `--KBadgeSuccessBackground` |                               |
+| `--KBadgeWarningColor`      |                               |
+| `--KBadgeWarningBorder`     |                               |
+| `--KBadgeWarningBackground` |                               |
+| `--KBadgeDangerColor`       |                               |
+| `--KBadgeDangerBorder`      |                               |
+| `--KBadgeDangerBackground`  |                               |
 
 An example of making the badges more like pills
 
