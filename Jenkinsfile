@@ -13,6 +13,7 @@ pipeline {
     DOCKER_HOST = 'unix:///var/run/docker.sock'
     COMPOSE_PROJECT_NAME = "${env.GIT_COMMIT}"
     GITHUB_TOKEN = credentials('GITHUB_TOKEN')
+    SLACK_WEBHOOK = credentials('SLACK_WEBHOOK')
     JENKINS_CREDENTIALS = credentials('JENKINS_API_CREDS')
   }
   stages {
