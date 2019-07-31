@@ -2,7 +2,7 @@
 
 set -e
 
-# If the previous build failed and the current build succeeds, we should notify Team Interfaces slack channel
+# If the previous build failed and the current build succeeds, we should notify the relevant Slack channel
 function evaluate_build_status_and_notify {
   # Get previous build status
   PREVIOUS_BUILD_STATUS=$(curl -s ${JENKINS_URL}/job/kongponents/job/master/lastBuild/api/json --user ${JENKINS_CREDENTIALS_USR}:${JENKINS_CREDENTIALS_PSW} | jq .result)
@@ -14,7 +14,7 @@ function evaluate_build_status_and_notify {
 	  exit 0;
 	fi
 	if [[ $PREVIOUS_BUILD_STATUS != SUCCESS ]]; then
-		echo "The previous build on master failed; this has recovered. We are letting the TI team know.";
+		echo "The previous build on master failed; this has recovered. We're notifying Slack.";
     STAGE_STATUS=recovery
     slack_notify
 	else
