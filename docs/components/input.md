@@ -28,14 +28,14 @@ You can pass any input attribute and it will get properly bound to the element.
 
 Additionally you you can use in conjunction with **KLabel** and or a paragraph with the utility class of `.hint`. These are meant to be used before and after KInput and will be styled appropriately. 
 
-<KLabel>Label</KLabel>
-<KInput type="text" placeholder="I have a label & hint" />
+<KLabel for="my-input">Label</KLabel>
+<KInput id="my-input" type="text" placeholder="I have a label & hint" />
 <p class="hint">Hint</p>
 
 ```vue
 <template>
-  <KLabel>Label</KLabel>
-  <KInput type="text" placeholder="I have a label & hint" />
+  <KLabel for="my-input">Label</KLabel>
+  <KInput id="my-input" type="text" placeholder="I have a label & hint" />
   <p class="hint">Hint</p>
 </template>
 ```
