@@ -40,9 +40,7 @@ input {
   border: 1px solid var(--KInputBorder, var(--grey-88, color(grey-88)));
   background-color: var(--KInputBackground, var(--twhite-1, color(twhite-1)));
   border-radius: 3px;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 
   &:focus {
     outline: none !important;
