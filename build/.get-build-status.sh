@@ -10,16 +10,17 @@ function evaluate_build_status_and_notify {
   PREVIOUS_BUILD_STATUS=$(echo $PREVIOUS_BUILD_STATUS | tr -d '"')
   # In the event that we can't get the status, we should handle the error and not block the build
   if [[ -z "$PREVIOUS_BUILD_STATUS" ]]; then
-	  echo "failed to retrieve Jenkins build status";
-	  exit 0;
-	fi
-	if [[ $PREVIOUS_BUILD_STATUS != SUCCESS ]]; then
+    echo "failed to retrieve Jenkins build status";
+    exit 0;
+  fi
+
+  if [[ $PREVIOUS_BUILD_STATUS != SUCCESS ]]; then
     echo "The previous build on master failed; this has recovered. We're notifying Slack.";
     STAGE_STATUS=recovery
     slack_notify
-	else
+  else
     echo "The previous build on master was a success. So is this one. Nothing to do here."
-	fi
+  fi
 }
 
 function call_slack {
