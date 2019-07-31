@@ -14,11 +14,11 @@ function evaluate_build_status_and_notify {
 	  exit 0;
 	fi
 	if [[ $PREVIOUS_BUILD_STATUS != SUCCESS ]]; then
-		echo "The previous build on master failed; this has recovered. We're notifying Slack.";
+    echo "The previous build on master failed; this has recovered. We're notifying Slack.";
     STAGE_STATUS=recovery
     slack_notify
 	else
-		echo "The previous build on master was a success. So is this one. Nothing to do here."
+    echo "The previous build on master was a success. So is this one. Nothing to do here."
 	fi
 }
 
