@@ -2,9 +2,9 @@
 
 **KInput** provides a wrapper around general `text` input's and provides specific Kong styling and state treatments (error, focus, etc).
 
-<KInput />
+<KInput class="w-100"/>
 ```vue
-<KInput />
+<KInput class="w-100"/>
 ```
 
 ## Props
@@ -16,6 +16,7 @@ You can pass any input attribute and it will get properly bound to the element.
 <KInput class="mb-2" type="email" value="john.doe@konghq.com"/>
 <KInput class="mb-2" disabled value="disabled"/>
 <KInput class="mb-2" type="search" value="search"/>
+<KInput class="mb-2" type="email" value="error"/>
 
 ```vue
 <KInput placeholder="placeholder" />
@@ -24,6 +25,7 @@ You can pass any input attribute and it will get properly bound to the element.
 <KInput type="email" value="john.doe@konghq.com"/>
 <KInput disabled value="disabled"/>
 <KInput type="search" value="search"/>
+<KInput class="mb-2" type="email" value="error"/>
 ```
 
 Additionally you you can use in conjunction with **KLabel** and or a paragraph with the utility class of `.hint`. These are meant to be used before and after KInput and will be styled appropriately. 
