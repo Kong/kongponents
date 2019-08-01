@@ -1,18 +1,27 @@
-# Table of Contents
+# Changelog
 
-- [@kongponents/kbutton@0.1.10](#kongponents-kbutton-0.1.10)
-- [@kongponents/styles@0.0.4](#kongponents-styles-0.0.4)
+### 2019/08/01
 
-## [@kongponents/styles@0.0.4](kongponents-styles-0.0.4)
+- [@kongponents/kbadge@0.1.1][kbadge]
+- [@kongponents/kbutton@0.1.10][kbutton]
+- [@kongponents/kcard@0.1.3][kcard]
+- [@kongponents/kinputswitch@0.1.1][kinputswitch]
+- [@kongponents/kmodal@0.1.4][kmodal]
+- [@kongponents/kpop@0.2.6][kpop]
+- [@kongponents/ktable@0.1.4][ktable]
+- [@kongponents/styles@0.0.4][styles]
 
-- Updated `--red-dark` to 100% saturation.
-- Add `--grey-84`
-
-## [@kongponents/kbutton@0.1.10](kongponents-kbutton-0.1.10)
-> Released on 2019/07/29
-
-💥️**Breaking Change**  
- - This release updates KButton's general `.button` class to a more unique prefixed `k-button`.
-
+### 2019/07/29
+- [@kongponents/kbutton@0.1.10][kbutton]
 
 [Back to TOC](#table-of-contents)
+
+[kbadge]: /packages/KBadge/CHANGELOG.md
+[kbutton]: /packages/KButton/CHANGELOG.md
+[kcard]: /packages/KCard/CHANGELOG.md
+[kemptystate]: /packages/KEmptyState/CHANGELOG.md
+[kinputswitch]: /packages/KInputSwitch/CHANGELOG.md
+[kmodal]: /packages/KModal/CHANGELOG.md
+[kpop]: /packages/KPop/CHANGELOG.md
+[ktable]: /packages/KTable/CHANGELOG.md
+[styles]: /packages/styles/CHANGELOG.md
