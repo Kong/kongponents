@@ -1,5 +1,8 @@
 # Changelog
 
+- [2019/08/01](#2019/08/01)
+- [2019/07/29](#2019/07/29)
+
 ### 2019/08/01
 
 - [@kongponents/kbadge@0.1.1][kbadge]
@@ -14,7 +17,7 @@
 ### 2019/07/29
 - [@kongponents/kbutton@0.1.10][kbutton]
 
-[Back to TOC](#table-of-contents)
+[Back to TOC](#Changelog)
 
 [kbadge]: /packages/KBadge/CHANGELOG.md
 [kbutton]: /packages/KButton/CHANGELOG.md
