@@ -18,6 +18,7 @@ import KPop from '../../packages/KPop'
 import Krumbs from '../../packages/Krumbs'
 import KTable from '../../packages/KTable'
 import KToaster from '../../packages/KToaster'
+import KToggle from '../../packages/KToggle'
 
 export default ({
   Vue,
@@ -41,4 +42,5 @@ export default ({
   Vue.component('Krumbs', Krumbs)
   Vue.component('KTable', KTable)
   Vue.component('KToaster', KToaster)
+  Vue.component('KToggle', KToggle)
 }
