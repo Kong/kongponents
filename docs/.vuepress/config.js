@@ -22,19 +22,26 @@ module.exports = {
         ]
       },
       {
-        title: 'Components',
+        title: 'Kongponents',
         collapsable: false,
         sidebarDepth: 1,
         children: [
           '/components/',
-          '/components/alert',
-          '/components/badge',
-          '/components/button',
-          '/components/card',
-          '/components/input',
-          '/components/modal',
-          '/components/table',
-          '/components/switch',
+          {
+            title: 'Components',
+            collapsable: false,
+            sidebarDepth: 1,
+            children: [
+              '/components/alert',
+              '/components/badge',
+              '/components/button',
+              '/components/card',
+              '/components/input',
+              '/components/modal',
+              '/components/table',
+              '/components/switch'
+            ]
+          },
           {
             title: 'Renderless',
             collapsable: false,
