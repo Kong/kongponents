@@ -43,7 +43,8 @@ Slotting with Vue version >= 2.6 simplifies the syntax:
 ### toggled
 
 The toggled state that the component should begin with.
-  - Default: `false`
+
+- Default: `false`
 
 ## Slots
 
@@ -86,9 +87,9 @@ For instance, here we are toggling the state on `mouseover` and toggling back on
 
 ## Events
 
-| Event     |  returns             |
-| :-------- |  :------------------ |
-| `toggled` |  `isToggled` Boolean |
+| Event     | returns             |
+| :-------- | :------------------ |
+| `toggled` | `isToggled` Boolean |
 
 <KCard>
   <div slot="body">
@@ -108,12 +109,47 @@ For instance, here we are toggling the state on `mouseover` and toggling back on
 <script>
 export default {
   methods: {
-    sayHello (isToggled) {
+    sayHello(isToggled) {
       alert('hello! the toggled is set to: ' + isToggled)
     }
   }
 }
 </script>
+```
+
+### Usage
+
+KToggle is meant to be used to add behavior to other components. For instance,
+we can control `KModal`:
+
+<KCard>
+  <div slot="body">
+    <KToggle>
+      <div slot-scope="{isToggled, toggle}">
+        <KButton @click="toggle">
+          Show Modal
+        </KButton>
+        <KModal
+          :isVisible="isToggled"
+          @proceed="toggle"
+          @canceled="toggle" />
+        </div>
+    </KToggle>
+  </div>
+</KCard>
+
+```vue
+<KToggle>
+  <div slot-scope="{isToggled, toggle}">
+    <KButton @click="toggle">
+      Show Modal
+    </KButton>
+    <KModal
+      :isVisible="isToggled"
+      @proceed="toggle"
+      @canceled="toggle" />
+    </div>
+</KToggle>
 ```
 
 <script>
