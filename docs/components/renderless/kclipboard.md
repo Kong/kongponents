@@ -16,6 +16,7 @@
 </KCard>
 
 ```vue
+<template>
 <KInput
   :value="dataToCopy"
   @input="dataToCopy = $event.target.value"
@@ -29,19 +30,35 @@
     copy to clipboard
   </KButton>
 </KClipboardProvider>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      dataToCopy1: 'copy this to the clipboard'
+    }
+  },
+  methods: {
+    alert(msg) {
+      window.alert(msg)
+    }
+  }
+}
+</script>
 ```
 
-Slotting with Vue version >= 2.6 simplifies the syntax:
+Slotting with Vue version >= 2.6 simplifies the template syntax:
 
 ```vue
 <KInput
-  :value="dataToCopy1"
-  @input="dataToCopy1 = $event.target.value"
+  :value="dataToCopy"
+  @input="dataToCopy = $event.target.value"
   type="text"
   class="mb-2 w-100"
 />
 <KClipboardProvider v-slot="{ copyToClipboard }">
-  <KButton @click="() => { if(copyToClipboard(dataToCopy1)){ alert(`copied to the clipboard: '${dataToCopy}'`) } }">
+  <KButton @click="() => { if(copyToClipboard(dataToCopy)){ alert(`copied to the clipboard: '${dataToCopy}'`) } }">
     copy to clipboard
   </KButton>
 </KClipboardProvider>

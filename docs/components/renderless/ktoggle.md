@@ -117,12 +117,14 @@ export default {
 </script>
 ```
 
-### Usage
+## Usage
 
-KToggle is meant to be used to add behavior to other components. For instance,
-we can control `KModal`:
+KToggle is meant to be used to add behavior to other components, by wrapping
+them and placing them inside `KToggle`'s default slot.
 
-<KCard>
+### KModal
+
+<KCard class="mt-3">
   <div slot="body">
     <KToggle>
       <div slot-scope="{isToggled, toggle}">
@@ -151,6 +153,38 @@ we can control `KModal`:
     </div>
 </KToggle>
 ```
+
+### Collapse/Expand
+
+<KCard class="mt-2">
+  <div slot="body">
+    <KToggle>
+      <div slot-scope="{isToggled, toggle}">
+        <KButton @click="toggle">
+          {{ isToggled ? 'collapse' : 'expand' }}
+        </KButton>
+        <KAlert 
+          v-if="isToggled" 
+          class="mt-3" 
+          alertMessage="Every day, once a day, give yourself a present." />
+      </div>
+    </KToggle>
+  </div>
+</KCard>
+
+```vue
+<KToggle>
+  <div slot-scope="{isToggled, toggle}">
+    <KButton @click="toggle">
+      {{ isToggled ? 'collapse' : 'expand' }}
+    </KButton>
+    <KAlert 
+      v-if="isToggled" 
+      alertMessage="Every day, once a day, give yourself a present." />
+  </div>
+</KToggle>
+```
+
 
 <script>
 export default {
