@@ -1,11 +1,17 @@
 # Changelog
 
+- [2019/08/05](#2019/08/05)
 - [2019/08/01](#2019/08/01)
 - [2019/07/29](#2019/07/29)
 
+### 2019/08/05
+
+- [@kongponents/kcard@0.1.3-1][kcard]
+- [@kongponents/ktoggle@0.1.1][ktoggle] :rocket:
+
 ### 2019/08/01
 
-- [@kongponents/kbadge@0.1.1][kbadge]
+- [@kongponents/kbadge@0.1.1][kbadge] :rocket:
 - [@kongponents/kbutton@0.1.10][kbutton]
 - [@kongponents/kcard@0.1.3][kcard]
 - [@kongponents/kinputswitch@0.1.1][kinputswitch]
@@ -27,4 +33,5 @@
 [kmodal]: /packages/KModal/CHANGELOG.md
 [kpop]: /packages/KPop/CHANGELOG.md
 [ktable]: /packages/KTable/CHANGELOG.md
+[ktoggle]: /packages/KToggle/CHANGELOG.md
 [styles]: /packages/styles/CHANGELOG.md
