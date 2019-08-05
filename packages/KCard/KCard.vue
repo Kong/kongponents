@@ -3,7 +3,7 @@
     :class="[borderVariant, {'hover': hasHover }]"
     class="kong-card">
     <div
-      v-if="title || $scopedSlots.title || $scopedSlots.actions"
+      v-if="title || $scopedSlots.title || $scopedSlots.actions || $slots.title"
       class="k-card-header">
       <div class="k-card-title">
         <h4>
