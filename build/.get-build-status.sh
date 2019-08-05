@@ -5,7 +5,7 @@ set -e
 # If the previous build failed and the current build succeeds, we should notify the relevant Slack channel
 function evaluate_build_status_and_notify {
   # Get previous build status
-  PREVIOUS_BUILD_STATUS=$(curl -s ${JENKINS_URL}job/kongponents/job/master/lastBuild/api/json --user ${JENKINS_CREDENTIALS_USR}:${JENKINS_CREDENTIALS_PSW} | jq .result)
+  PREVIOUS_BUILD_STATUS=$(curl -s ${JENKINS_URL}job/kongponents/job/master/lastCompletedBuild/api/json --user ${JENKINS_CREDENTIALS_USR}:${JENKINS_CREDENTIALS_PSW} | jq .result)
   # Strip quotations for equality evaluation
   PREVIOUS_BUILD_STATUS=$(echo $PREVIOUS_BUILD_STATUS | tr -d '"')
   # In the event that we can't get the status, we should handle the error and not block the build
