@@ -1,7 +1,8 @@
 ---
 sidebarDepth: -1
 ---
-# Components
+
+# Overview
 
 Kongponents offer multiple teams the ability to reuse frequently needed UI elements,
 reducing each team's efforts. They are simple to use and extensible. Kongponents 
