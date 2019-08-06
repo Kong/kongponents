@@ -257,7 +257,7 @@ export default {
       const popper = this.$refs.popper
       if (popper) {
         if (this.trigger === 'hover') {
-          this.reference.addEventListener('click', this.createInstance)
+          this.reference.addEventListener('mouseenter', this.createInstance)
           this.reference.addEventListener('mouseleave', this.hidePopper)
           popper.addEventListener('mouseenter', this.showPopper)
           popper.addEventListener('mouseleave', this.hidePopper)
