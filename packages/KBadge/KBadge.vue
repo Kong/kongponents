@@ -63,18 +63,18 @@ export default {
   // Appearances
   &.kbadge-success {
     color: var(--KBadgeSuccessColor, var(--green-dark, color(green-dark)));
-    border-color: var(--KBadgeSuccessBorder, var(--green-light, color(green-light)));
-    background-color: var(--KBadgeSuccessBackground, var(--green-light, color(green-light)));
+    border-color: var(--KBadgeSuccessBorder, var(--green-lighter, color(green-lighter)));
+    background-color: var(--KBadgeSuccessBackground, var(--green-lighter, color(green-lighter)));
   }
   &.kbadge-danger {
     color: var(--KBadgeDangerColor, var(--red-dark, color(red-dark)));
-    border-color: var(--KBadgeDangerBorder, var(--red-light-01, color(red-light-01)));
-    background-color: var(--KBadgeDangerBackground, var(--red-light-01, color(red-light-01)));
+    border-color: var(--KBadgeDangerBorder, var(--red-lighter, color(red-lighter)));
+    background-color: var(--KBadgeDangerBackground, var(--red-lighter, color(red-lighter)));
   }
   &.kbadge-warning {
     color: var(--KBadgeWarningColor, var(--yellow-darker, color(yellow-darker)));
-    border-color: var(--KBadgeWarningBorder, var(--yellow-light, color(yellow-light)));
-    background-color: var(--KBadgeWarningBackground, var(--yellow-light, color(yellow-light)));
+    border-color: var(--KBadgeWarningBorder, var(--yellow-lighter, color(yellow-lighter)));
+    background-color: var(--KBadgeWarningBackground, var(--yellow-lighter, color(yellow-lighter)));
   }
 }
 </style>
