@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/ktable",
-  "version": "0.1.3",
+  "version": "0.1.4-1",
   "description": "Table component",
   "main": "KTable.vue",
   "scripts": {

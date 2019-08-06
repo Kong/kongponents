@@ -62,7 +62,7 @@ export default {
       default: 'Proceed'
     },
     /**
-     * Set the appearnace of the action/proceed button
+     * Set the appearance of the action/proceed button
      */
     actionButtonAppearance: {
       type: String,
@@ -85,18 +85,16 @@ export default {
   },
 
   mounted () {
-    const _this = this
-
-    document.addEventListener('keydown', function (e) {
-      if (_this.isVisible && e.keyCode === 27) {
-        _this.close()
+    document.addEventListener('keydown', (e) => {
+      if (this.isVisible && e.keyCode === 27) {
+        this.close()
       }
     })
   },
 
   methods: {
     close () {
-      this.$emit('closed')
+      this.$emit('canceled')
     },
     proceed () {
       this.$emit('proceed')

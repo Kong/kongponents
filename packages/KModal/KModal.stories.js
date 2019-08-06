@@ -23,7 +23,7 @@ storiesOf('Modal', module)
     template: `
     <div>
       <KButton @click="toggleModal(true)()">Toggle Modal</KButton>
-      <KModal @closed="toggleModal(false)()" :isVisible='isVisible' />
+      <KModal @canceled="toggleModal(false)()" :isVisible='isVisible' />
     </div>
     `,
     data: sharedData,
@@ -40,7 +40,11 @@ storiesOf('Modal', module)
         action-button-text="Custom confirm text"
         cancel-button-appearance="outline-danger"
         cancel-button-text="Custom cancel text"
+<<<<<<< HEAD
         @closed="toggleModal(false)()" />
+=======
+        @canceled="toggleModal(false)()" />
+>>>>>>> master
     </div>
     `,
     data: sharedData,
@@ -55,7 +59,11 @@ storiesOf('Modal', module)
         :isVisible='isVisible'
         action-button-appearance="outline-primary"
         action-button-text="Click to move on"
+<<<<<<< HEAD
         @closed="toggleModal(false)()">
+=======
+        @canceled="toggleModal(false)()">
+>>>>>>> master
       <template slot="header-content">
           Custom header
         </template>

@@ -7,7 +7,7 @@ The **KModal** component is used to show content on top of existing UI. Typicall
 <template>
   <KModal
     :isVisible="defaultIsOpen"
-    @closed="defaultIsOpen = false" />
+    @canceled="defaultIsOpen = false" />
 </template>
 
 ```vue
@@ -15,7 +15,7 @@ The **KModal** component is used to show content on top of existing UI. Typicall
   <div>
     <KModal
       :isVisible="isVisible"
-      @closed="isVisible = false" />
+      @canceled="isVisible = false" />
     
     <KButton
       appearance="primary"
@@ -39,28 +39,7 @@ export default {
 - `actionButtonAppearance` - Change the [appearance](/components/button.html#props) of the submit/proceed
 - `cancelButtonText` - Change the text content of the close/cancel button
 - `cancelButtonAppearance` - Change the [appearance](/components/button.html#props) of the close/cancel
-- `@closed` - Emitter when cancel/close button is clicked
-
-<KButton @click="propsIsOpen = true">Open Modal</KButton>
-<template>
-  <KModal
-    :isVisible="propsIsOpen"
-    actionButtonText="Click To Proceed"
-    actionButtonAppearance="outline-primary"
-    cancelButtonText="Close Modal"
-    cancelButtonAppearance="btn-link"
-    @closed="propsIsOpen = false" />
-</template>
-
-```vue
-<KModal
-  :isVisible="isVisible"
-  actionButtonText="Click To Proceed"
-  actionButtonAppearance="outline-primary"
-  cancelButtonText="Close Modal"
-  cancelButtonAppearance="btn-link"
-  @closed="isVisible = false" />
-```
+- `@canceled` - Emitted when cancel/close button is clicked
 
 ## Slots
 Although the default is fairly straight forward to use, its not very helpful with the default
@@ -71,43 +50,38 @@ content! There are 5 designated slots you can use to display content in the moda
 `footer-content` - The slot which contains the action buttons by default. Use this
 to replace the buttons
 
+---
+### Usage
+
+Using both the provided props and slot options we will now demonstrate how to customize the modal for a delete confirmation.
+
+<KButton
+  appearance="secondary"
+  @click="slottedIsOpen = true">Open Delete Modal</KButton>
+<template>
+  <KModal
+    :isVisible="slottedIsOpen"
+    actionButtonText="Delete"
+    actionButtonAppearance="danger"
+    @canceled="slottedIsOpen = false">
+    <template slot="header-content">Delete Item</template>
+    <template slot="body-content">Are you sure you wan't to delete this item? This action can not be undone.</template>
+  </KModal>
+</template>
+
 <KButton
   appearance="secondary"
   @click="slottedIsOpen = true">Open Modal</KButton>
 <template>
   <KModal
-    :isVisible="slottedIsOpen"
-    @closed="slottedIsOpen = false">
-    <template slot="header-content">Slotted Header</template>
-    <template slot="body-content">Slotted Content</template>
-    <template slot="footer-content">
-      <div style="margin-bottom: .5rem">I want some custom text above the buttons</div>
-      <KButton appearance="primary">Submit Modal</KButton>
-      <KButton
-        appearance="secondary"
-        @click="slottedIsOpen = false">Close Modal</KButton>
-      <div style="margin-top: .5rem">I want some custom text below the buttons</div>
-    </template>
+    :isVisible="isVisible"
+    actionButtonText="Delete"
+    actionButtonAppearance="danger"
+    @canceled="slottedIsOpen = false">
+    <template slot="header-content">Delete Item</template>
+    <template slot="body-content">Are you sure you wan't to delete this item? This action can not be undone.</template>
   </KModal>
 </template>
-
-```vue
-<KModal
-  :isVisible="isVisible"
-  @closed="isVisible = false">
-  <template slot="header-content">Slotted Header</template>
-  <template slot="body-content">Slotted Content</template>
-  <template slot="footer-content">
-    <div style="margin-bottom: .5rem">I want some custom text above the buttons</div>
-    <KButton
-      appearance="primary"
-      @click="doSomething">Submit Modal</KButton>
-    <KButton
-      appearance="secondary"
-      @click="slottedIsOpen = false">Close Modal</KButton>
-    <div style="margin-top: .5rem">I want some custom text below the buttons</div>
-  </template>
-</KModal>
 ```
 
 ## Theming
@@ -125,7 +99,7 @@ An Example of changing the the colors of KModal might look like.
   <div class="modal-wrapper">
     <KModal
       :isVisible="themeIsOpen"
-      @closed="themeIsOpen = false" />
+      @canceled="themeIsOpen = false" />
     <KButton @click="themeIsOpen = true">Open Modal</KButton>
   </div>
 </template>
@@ -136,7 +110,7 @@ An Example of changing the the colors of KModal might look like.
     <KModal
       class="modal-wrapper
       :isVisible="isVisible"
-      @closed="isVisible = false" />
+      @canceled="isVisible = false" />
   </div>
 </template>
 

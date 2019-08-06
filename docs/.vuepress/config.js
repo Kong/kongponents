@@ -6,7 +6,7 @@ module.exports = {
   themeConfig: {
     repo: 'kong/kongponents',
     logo: 'https://2tjosk2rxzc21medji3nfn1g-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/kong-logomark-color-64px.png',
-    docsDir: 'vuepress',
+    docsDir: 'docs',
     editLinks: true,
     sidebarDepth: 0,
     search: false,
@@ -22,15 +22,35 @@ module.exports = {
         ]
       },
       {
-        title: 'Components',
+        title: 'Kongponents',
         collapsable: false,
         sidebarDepth: 1,
         children: [
           '/components/',
-          '/components/alert',
-          '/components/button',
-          '/components/modal',
-          '/components/table',
+          {
+            title: 'Components',
+            collapsable: false,
+            sidebarDepth: 1,
+            children: [
+              '/components/alert',
+              '/components/badge',
+              '/components/button',
+              '/components/card',
+              '/components/input',
+              '/components/modal',
+              '/components/table',
+              '/components/switch'
+            ]
+          },
+          {
+            title: 'Renderless',
+            collapsable: false,
+            sidebarDepth: 1,
+            children: [
+              '/components/renderless/kclipboard',
+              '/components/renderless/ktoggle'
+            ]
+          }
         ]
       },
     ],
