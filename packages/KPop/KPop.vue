@@ -237,6 +237,7 @@ export default {
     },
 
     handleClick (e) {
+      e.stopPropagation()
       // this.reference.contains(e.target) not supported by IE
       if (this.reference && this.isEleContains(this.reference, e.target)) {
         if (this.isShow) {
