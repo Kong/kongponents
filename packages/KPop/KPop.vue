@@ -145,6 +145,10 @@ export default {
       return {
         width: this.width + 'px'
       }
+    },
+
+    isIE () {
+      return !!window.MSInputMethodContext && !!document.documentMode
     }
   },
 
@@ -159,14 +163,21 @@ export default {
 
   mounted () {
     if (this.disabled) return
-    this.reference = this.$el.children[0]
+
+    // IE returns this.$el.children undefined occasionally
+    if (!this.$el.children) {
+      this.reference = this.$el
+    } else {
+      this.reference = this.$el.children[0]
+    }
+
     this.bindEvents()
   },
 
   beforeDestroy () {
     const popper = this.$refs.popper
     if (popper && this.trigger === 'click') {
-      this.reference.removeEventListener('click', this.handleClick)
+      if (this.reference) this.reference.removeEventListener('click', this.handleClick)
       popper.removeEventListener('click', this.showPopper)
       document.documentElement.removeEventListener('click', this.handleClick)
     } else if (this.reference) {
@@ -178,6 +189,16 @@ export default {
   },
 
   methods: {
+    isEleContains (parent, target) {
+      if (!this.isIE) return parent.contains(target)
+
+      for (let i = 0; i < parent.childNodes.length; i++) {
+        if (target === parent.childNodes[i]) return true
+      }
+
+      return false
+    },
+
     hidePopper () {
       if (this.trigger !== 'hover') {
         this.isShow = false
@@ -218,7 +239,8 @@ export default {
 
     handleClick (e) {
       e.stopPropagation()
-      if (this.reference && this.reference.contains(e.target)) {
+      // this.reference.contains(e.target) not supported by IE
+      if (this.reference && this.isEleContains(this.reference, e.target)) {
         if (this.isShow) {
           this.hidePopper()
         } else {
@@ -235,7 +257,7 @@ export default {
       const popper = this.$refs.popper
       if (popper) {
         if (this.trigger === 'hover') {
-          this.reference.addEventListener('mouseenter', this.createInstance)
+          this.reference.addEventListener('click', this.createInstance)
           this.reference.addEventListener('mouseleave', this.hidePopper)
           popper.addEventListener('mouseenter', this.showPopper)
           popper.addEventListener('mouseleave', this.hidePopper)
