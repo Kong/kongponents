@@ -145,6 +145,10 @@ export default {
       return {
         width: this.width + 'px'
       }
+    },
+
+    isIE () {
+      return !!window.MSInputMethodContext && !!document.documentMode
     }
   },
 
@@ -159,7 +163,13 @@ export default {
 
   mounted () {
     if (this.disabled) return
-    this.reference = this.$el.children[0]
+    // IE returns this.$el.children undefined occasionally
+    if (!this.$el.children) {
+      this.reference = this.$el
+    } else {
+      this.reference = this.$el.children[0]
+    }
+
     this.bindEvents()
   },
 
@@ -178,6 +188,16 @@ export default {
   },
 
   methods: {
+    isEleContains (parent, target) {
+      if (!this.isIE) return parent.contains(target)
+
+      for (let i = 0; i < parent.childNodes.length; i++) {
+        if (target === parent.childNodes[i]) return true
+      }
+
+      return false
+    },
+
     hidePopper () {
       if (this.trigger !== 'hover') {
         this.isShow = false
@@ -217,8 +237,8 @@ export default {
     },
 
     handleClick (e) {
-      e.stopPropagation()
-      if (this.reference && this.reference.contains(e.target)) {
+      // this.reference.contains(e.target) not supported by IE
+      if (this.reference && this.isEleContains(this.reference, e.target)) {
         if (this.isShow) {
           this.hidePopper()
         } else {
