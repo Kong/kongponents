@@ -33,7 +33,7 @@ export default {
 ### v-model - required
 Use `v-model` to bind to the `checked` state of the underlying `<input />`. The
 `v-model` binds to the `value` prop of the component and sets current checked
-state of toggle switch. You can read more about passing values via `v-model`
+state of the input. You can read more about passing values via `v-model`
 [here](https://vuejs.org/v2/guide/components.html#Using-v-model-on-Components).
 
 ```vue
@@ -42,7 +42,7 @@ state of toggle switch. You can read more about passing values via `v-model`
 
 ### label
 
-Will place label text to the right of the switch. Can also be [slotted](#slots).
+Will place label text to the right of the input. Can also be [slotted](#slots).
 
 - `label`
 
@@ -56,7 +56,7 @@ Will place label text to the right of the switch. Can also be [slotted](#slots).
   <KInputCheckbox slot="body" v-model="labelPropChecked" :label="labelPropChecked ? 'on' : 'off'" />
 </KCard>
 
-### attrs
+### html attributes
 
 Any valid attribute will be added to the input. You can read more about `$attrs` [hereh](https://vuejs.org/v2/api/#vm-attrs).
 
