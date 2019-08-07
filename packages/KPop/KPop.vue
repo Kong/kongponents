@@ -163,7 +163,7 @@ export default {
 
   mounted () {
     if (this.disabled) return
-    // IE returns this.$el.children undefined occasionally
+
     if (!this.$el.children) {
       this.reference = this.$el
     } else {
@@ -188,16 +188,6 @@ export default {
   },
 
   methods: {
-    isEleContains (parent, target) {
-      if (!this.isIE) return parent.contains(target)
-
-      for (let i = 0; i < parent.childNodes.length; i++) {
-        if (target === parent.childNodes[i]) return true
-      }
-
-      return false
-    },
-
     hidePopper () {
       if (this.trigger !== 'hover') {
         this.isShow = false
@@ -238,8 +228,7 @@ export default {
 
     handleClick (e) {
       e.stopPropagation()
-      // this.reference.contains(e.target) not supported by IE
-      if (this.reference && this.isEleContains(this.reference, e.target)) {
+      if (this.reference && this.reference.contains(e.target)) {
         if (this.isShow) {
           this.hidePopper()
         } else {
