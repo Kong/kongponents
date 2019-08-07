@@ -11,6 +11,7 @@ import KEmptyState from '../../packages/KEmptyState'
 import KIcon from '../../packages/KIcon'
 import KInput from '../../packages/KInput'
 import KInputSwitch from '../../packages/KInputSwitch'
+import KInputCheckbox from '../../packages/KInputCheckbox'
 import KLabel from '../../packages/KLabel'
 import KModal from '../../packages/KModal'
 import KoolTip from '../../packages/KoolTip'
@@ -35,6 +36,7 @@ export default ({
   Vue.component('KIcon', KIcon)
   Vue.component('KInput', KInput)
   Vue.component('KInputSwitch', KInputSwitch)
+  Vue.component('KInputCheckbox', KInputCheckbox)
   Vue.component('KLabel', KLabel)
   Vue.component('KModal', KModal)
   Vue.component('KoolTip', KoolTip)
