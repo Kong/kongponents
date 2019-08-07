@@ -232,14 +232,20 @@ look like.
 
 <template>
   <div class="kpop-wrapper">
-    <KPop target="kpop-wrapper" title="Cool header"><button>button</button><div slot="content">I am some sample text!</div></KPop>
+    <KPop target="kpop-wrapper" title="Cool header">
+      <KButton>button</KButton>
+      <div slot="content">I am some sample text!</div>
+    </KPop>
   </div>
 </template>
 
 ```vue
 <template>
   <div class="kpop-wrapper">
-    <KPop target="kpop-wrapper" title="Cool header"><button>button</button><div slot="content">I am some sample text!</div></KPop>
+    <KPop target="kpop-wrapper" title="Cool header">
+      <KButton>button</KButton>
+      <div slot="content">I am some sample text!</div>
+    </KPop>
   </div>
 </template>
 
