@@ -3,7 +3,7 @@
 **KInputSwitch** is used a like checkbox and is meant to toggle settings on and
 off.
 
-<KInputSwitch v-model="defaultChecked" @change="handleToggle" />
+<KInputSwitch v-model="checked" @change="handleToggle" />
 
 ```vue
 <template>
