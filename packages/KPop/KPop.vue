@@ -145,10 +145,6 @@ export default {
       return {
         width: this.width + 'px'
       }
-    },
-
-    isIE () {
-      return !!window.MSInputMethodContext && !!document.documentMode
     }
   },
 
