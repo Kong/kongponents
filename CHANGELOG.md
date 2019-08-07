@@ -1,8 +1,13 @@
 # Changelog
 
+- [2019/08/05](#2019/08/07)
 - [2019/08/05](#2019/08/05)
 - [2019/08/01](#2019/08/01)
 - [2019/07/29](#2019/07/29)
+
+### 2019/08/07
+
+- [@kongponents/kinputcheckbox@0.1.1][kinputcheckbox] :rocket:
 
 ### 2019/08/05
 
@@ -30,6 +35,7 @@
 [kcard]: /packages/KCard/CHANGELOG.md
 [kemptystate]: /packages/KEmptyState/CHANGELOG.md
 [kinputswitch]: /packages/KInputSwitch/CHANGELOG.md
+[kinputcheckbox]: /packages/KInputSwitch/CHANGELOG.md
 [kmodal]: /packages/KModal/CHANGELOG.md
 [kpop]: /packages/KPop/CHANGELOG.md
 [ktable]: /packages/KTable/CHANGELOG.md
