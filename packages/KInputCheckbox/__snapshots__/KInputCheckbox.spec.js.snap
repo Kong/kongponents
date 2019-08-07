@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KInputCheckbox matches snapshot 1`] = `<label class="k-inputCheckbox"><input type="checkbox"> </label>`;
