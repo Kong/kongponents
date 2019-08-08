@@ -159,7 +159,13 @@ export default {
 
   mounted () {
     if (this.disabled) return
-    this.reference = this.$el.children[0]
+
+    if (!this.$el.children) {
+      this.reference = this.$el
+    } else {
+      this.reference = this.$el.children[0]
+    }
+
     this.bindEvents()
   },
 
