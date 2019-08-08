@@ -225,44 +225,9 @@ This is the slot that takes in the content of the popover.
 | `--KPopColor`| Text color of the content
 | `--KPopHeaderSize`| Font size of the header content
 
-\
-An Example of changing the primary background variant to purple instead of white might
-look like.  
-> Note: We are scoping the overrides to a wrapper in this example
+## Browser Compatibility
 
-<template>
-  <div class="kpop-wrapper">
-    <KPop target="kpop-wrapper" title="Cool header">
-      <KButton>button</KButton>
-      <div slot="content">I am some sample text!</div>
-    </KPop>
-  </div>
-</template>
-
-```vue
-<template>
-  <div class="kpop-wrapper">
-    <KPop target="kpop-wrapper" title="Cool header">
-      <KButton>button</KButton>
-      <div slot="content">I am some sample text!</div>
-    </KPop>
-  </div>
-</template>
-
-<style>
-.button-wrapper {
-  --KPopBackground: #494ca2;
-}
-</style>
-```
-
-<style scoped lang="scss">
-.preview-code .preview div {
-  display: flex;
-  flex-wrap: wrap;
-}
-.kpop-wrapper {
-  --KPopBackground: #494ca2;
-}
-</style>
-
+::: warning
+For Internet Explorer 11 and below, the Popover component will not work due to `Node.contains` not being supported by the browser. 
+You will have to manually polyfill this functionality if you choose to support IE11 or below.
+:::
