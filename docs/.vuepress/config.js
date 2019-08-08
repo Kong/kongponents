@@ -38,6 +38,8 @@ module.exports = {
               '/components/card',
               '/components/input',
               '/components/modal',
+              '/components/popover',
+              '/components/tooltip',
               '/components/table',
               '/components/switch'
             ]
