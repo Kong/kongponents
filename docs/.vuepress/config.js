@@ -39,6 +39,8 @@ module.exports = {
               '/components/input',
               '/components/input-checkbox',
               '/components/modal',
+              '/components/popover',
+              '/components/tooltip',
               '/components/table',
               '/components/switch'
             ]

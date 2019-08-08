@@ -31,7 +31,9 @@
         :class="popoverClasses">
         <div
           v-if="title"
-          class="k-popover-title">{{ title }}</div>
+          class="k-popover-title">
+          <slot name="title">{{ title }}</slot>
+        </div>
         <div class="k-popover-content">
           <slot name="content"/>
         </div>
@@ -72,6 +74,14 @@ export default {
      */
     placement: {
       type: String,
+      validator: function (value) {
+        return [
+          'top',
+          'bottom',
+          'left',
+          'right'
+        ].indexOf(value) !== -1
+      },
       default: 'top'
     },
     /**
@@ -159,7 +169,13 @@ export default {
 
   mounted () {
     if (this.disabled) return
-    this.reference = this.$el.children[0]
+
+    if (!this.$el.children) {
+      this.reference = this.$el
+    } else {
+      this.reference = this.$el.children[0]
+    }
+
     this.bindEvents()
   },
 
