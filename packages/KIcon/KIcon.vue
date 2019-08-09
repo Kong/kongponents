@@ -115,6 +115,7 @@ export default {
 <style lang="scss" scoped>
 .kong-icon {
   &.kong-icon-spinner g {
+    transform-box: fill-box;
     transform-origin: 50% 50%;
     animation: spin 1.2s infinite linear;
   }
