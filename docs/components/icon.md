@@ -1,6 +1,6 @@
 # Icon
 
-**KIcon** - A list of icons at difference sizes for various uses within UI. 
+**KIcon** - Icon component for displaying SVG symbols.
 
 <KIcon icon="dashboard" />
 
