@@ -1,5 +1,6 @@
 <template>
   <svg
+    v-if="isSSR"
     :height="setSize || height"
     :width="setSize || width"
     :viewBox="viewbox"
@@ -59,6 +60,12 @@ export default {
     }
   },
 
+  data () {
+    return {
+      isSSR: false
+    }
+  },
+
   computed: {
     iconSVG () {
       return icons[this.icon]
@@ -108,6 +115,11 @@ export default {
     viewbox () {
       return this.viewBox || this.svg.getAttribute('viewBox')
     }
+  },
+
+  beforeMount () {
+    // Do not render KIcon until client available
+    this.isSSR = true
   }
 }
 </script>
