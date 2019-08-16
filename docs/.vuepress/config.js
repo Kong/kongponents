@@ -37,6 +37,7 @@ module.exports = {
               '/components/button',
               '/components/card',
               '/components/input',
+              '/components/icon',
               '/components/modal',
               '/components/popover',
               '/components/tooltip',

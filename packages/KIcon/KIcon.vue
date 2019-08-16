@@ -1,5 +1,6 @@
 <template>
   <svg
+    v-if="isSSR"
     :height="setSize || height"
     :width="setSize || width"
     :viewBox="viewbox"
@@ -59,6 +60,12 @@ export default {
     }
   },
 
+  data () {
+    return {
+      isSSR: false
+    }
+  },
+
   computed: {
     iconSVG () {
       return icons[this.icon]
@@ -108,6 +115,11 @@ export default {
     viewbox () {
       return this.viewBox || this.svg.getAttribute('viewBox')
     }
+  },
+
+  beforeMount () {
+    // Do not render KIcon until client is available
+    this.isSSR = true
   }
 }
 </script>
@@ -115,6 +127,7 @@ export default {
 <style lang="scss" scoped>
 .kong-icon {
   &.kong-icon-spinner g {
+    transform-box: fill-box;
     transform-origin: 50% 50%;
     animation: spin 1.2s infinite linear;
   }
