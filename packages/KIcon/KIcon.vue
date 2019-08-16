@@ -118,7 +118,7 @@ export default {
   },
 
   beforeMount () {
-    // Do not render KIcon until client available
+    // Do not render KIcon until client is available
     this.isSSR = true
   }
 }
