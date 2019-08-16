@@ -10,7 +10,8 @@
 
 ## Props
 ### icon - required
-The name of the icon. This required prop will only recognize icons from the following list. It tells KIcon which svg to render.
+The name of the icon. This required prop will only recognize icons from the 
+following list. It tells KIcon which svg to render.
 
 <div class="icon-row">
   <div
@@ -38,7 +39,8 @@ Size will override the default height and width with a single value
 Use the color prop to override the default svg color.
 
 ::: tip Note
-Some SVGs have a set **fill-opacity** and these cannot be overridden and will render at whichever percent opacity of the passed color.
+Some SVGs have a set **fill-opacity** and these cannot be overridden and will 
+render at whichever percent opacity of the passed color.
 :::
 
 - `color`
@@ -49,7 +51,9 @@ Some SVGs have a set **fill-opacity** and these cannot be overridden and will re
 ```
 
 ### viewBox
-This prop takes a formatted string that will replace the SVG default viewBox. You can read more about the viewBox attribute [here](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox)
+This prop takes a formatted string that will replace the SVG default viewBox. 
+You can read more about the viewBox attribute 
+[here](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox)
 
 - `viewBox`
 
@@ -58,6 +62,12 @@ This prop takes a formatted string that will replace the SVG default viewBox. Yo
 ```vue
 <KIcon icon="portal" viewBox="0 0 10 10" />
 ```
+
+## Usage
+:::warning
+KIcon imports .svg file types directly, so a loader is needed such as 
+[raw-loader](https://webpack.js.org/loaders/raw-loader/)
+:::
 
 <style lang="scss" scoped>
 .icon-row {
