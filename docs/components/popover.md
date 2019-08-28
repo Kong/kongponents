@@ -145,6 +145,16 @@ Custom transitions that you want the popover to have - by default it uses a `fad
 </KPop>
 ```
 
+### Popover Timeout
+Custom timeout setting that you want the popover to have - by default it is set to 300 milliseconds.
+
+```vue
+<KPop title="Cool header" popoverTimeout="1000">
+  <KButton>button</KButton>
+  <div slot="content">I have a 1 second timeout!</div>
+</KPop>
+```
+
 ### Hide Popover Flag
 You can pass in an optional flag to trigger the popover to hide - useful for external events like zooming or panning - by default it is set to `false`.
 
