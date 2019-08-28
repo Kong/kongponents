@@ -120,6 +120,13 @@ export default {
       default: 'fade'
     },
     /**
+    * Custom popover timeout setting
+     */
+    popoverTimeout: {
+      type: Number,
+      default: 300
+    },
+    /**
      * An optional flag passed in to trigger the Popover to hide - useful for external events like zooming or panning
      */
     hidePopover: {
@@ -202,7 +209,7 @@ export default {
       this.timer = setTimeout(() => {
         this.isShow = false
         this.destroy()
-      }, 300)
+      }, this.popoverTimeout)
     },
 
     showPopper () {
