@@ -20,7 +20,7 @@
     </thead>
     <tbody>
       <tr
-        v-for="(row, rowIndex) in options.data"
+        v-for="(row, rowIndex) in filteredRows"
         :key="rowIndex">
         <template>
           <td
@@ -65,6 +65,20 @@ export default {
     isSmall: {
       type: Boolean,
       default: false
+    },
+    /**
+     * A function that filters out certain rows that should not be displayed
+     * @param {Object} row - the row to apply the filter function to
+     * @return {Boolean} a true or false condition
+     */
+    rowsToFilter: {
+      type: Function,
+      default: (row) => true
+    }
+  },
+  computed: {
+    filteredRows () {
+      return this.options.data.filter(this.rowsToFilter)
     }
   }
 }

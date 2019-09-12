@@ -84,6 +84,17 @@ Lessen the table cell padding
   isSmall />
 ```
 
+### Custom Filter condition
+If a row has to be excluded for any reason then a custom filter function can be passed in.
+The example below filters out rows which are not enabled.
+
+<KTable :options="$frontmatter.tableOptions" :rows-to-filter="(row) => row.enabled" />
+```vue
+<KTable
+  :options="tableOptions"
+  :rows-to-filter="(row) => row.enabled'" />
+```
+
 ## Slots
 Both column cells & header cells are slottable in KTable. Use `slot-scope` to gain
 access to the row data.
