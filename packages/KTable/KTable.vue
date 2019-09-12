@@ -78,7 +78,7 @@ export default {
   },
   computed: {
     filteredRows () {
-      return this.options.data.filter(this.rowsToFilter)
+      return this.options.data && this.options.data.filter(this.rowsToFilter)
     }
   }
 }
