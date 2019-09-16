@@ -18,6 +18,16 @@ exports[`KIcon renders collapseExpand icon 1`] = `
 </svg>
 `;
 
+exports[`KIcon renders dangerCircle icon 1`] = `
+<svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon kong-icon-dangerCircle">
+  <title>dangerCircle</title>
+  <g>
+    <path fill="#BFBFBF" d="M0,8a8,8 0 1,0 16,0a8,8 0 1,0 -16,0"></path>
+    <path id="preserveColor" d="M9 11v2H7v-2h2zm0-8v6.5H7V3h2z" fill="#FFF"></path>
+  </g>
+</svg>
+`;
+
 exports[`KIcon renders dashboard icon 1`] = `
 <svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon kong-icon-dashboard">
   <title>dashboard</title>
@@ -138,6 +148,16 @@ exports[`KIcon renders vitals icon 1`] = `
   <title>vitals</title>
   <g>
     <path d="M19.593 5.493l-2.842 2.842A6.002 6.002 0 0 1 13 17.917l-.001 4.034c5.053-.502 9-4.766 9-9.951a9.96 9.96 0 0 0-2.407-6.507zM18.146 4.11A9.95 9.95 0 0 0 13 2.05v4.034c.83.14 1.604.45 2.281.893l2.865-2.865zM2.05 13A10.003 10.003 0 0 0 11 21.95v-4.033A6.005 6.005 0 0 1 6.083 13H2.049zm0-2h4.034A6.005 6.005 0 0 1 11 6.083V2.049A10.003 10.003 0 0 0 2.05 11zM12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-8a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" fill="#A3BBCC" fill-rule="evenodd"></path>
+  </g>
+</svg>
+`;
+
+exports[`KIcon renders warning icon 1`] = `
+<svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon kong-icon-warning">
+  <title>warning</title>
+  <g>
+    <path d="M7.926.621a1.24 1.24 0 0 1 2.148 0l7.763 13.535A1.235 1.235 0 0 1 16.763 16H1.237a1.23 1.23 0 0 1-1.074-1.844L7.926.621z" fill="#BFBFBF"></path>
+    <path id="preserveColor" d="M10 11v2H8v-2h2zm0-7v5.5H8V4h2z" fill-opacity=".9" fill="#000"></path>
   </g>
 </svg>
 `;
