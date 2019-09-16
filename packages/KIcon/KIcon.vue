@@ -89,9 +89,9 @@ export default {
 
           attrs.forEach((attr) => {
             const { value, name } = attr
-            const hasFixedColor = attrs.find(x => x.nodeName === 'id' && x.nodeValue === 'fixedColor')
+            const hasPreservedColor = attrs.find(x => x.nodeName === 'id' && x.nodeValue === 'preserveColor')
 
-            if (name === 'fill' && this.color && !hasFixedColor) {
+            if (name === 'fill' && this.color && !hasPreservedColor) {
               pathAttributes[name] = this.color
             } else {
               pathAttributes[name] = value
