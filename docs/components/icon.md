@@ -41,6 +41,11 @@ Use the color prop to override the default svg color.
 ::: tip Note
 Some SVGs have a set **fill-opacity** and these cannot be overridden and will 
 render at whichever percent opacity of the passed color.
+
+
+Prevent color override in an SVG by setting the attribute `id="preserveColor"` 
+within the SVG.
+e.g. `<path id="preserveColor" d="M9 11v2H7v-2h2zm0-8v6.5H7V3h2z" fill="#FFF"/>`
 :::
 
 - `color`
