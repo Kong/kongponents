@@ -18,6 +18,7 @@ module.exports = {
           '/style-guide/colors',
           '/style-guide/type',
           '/style-guide/spacing',
+          '/style-guide/forms',
           '/style-guide/theming'
         ]
       },
@@ -37,6 +38,8 @@ module.exports = {
               '/components/button',
               '/components/card',
               '/components/input',
+              '/components/input-checkbox',
+              '/components/input-radio',
               '/components/modal',
               '/components/popover',
               '/components/tooltip',
