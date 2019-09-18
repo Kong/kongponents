@@ -25,7 +25,7 @@ You can pass any input attribute and it will get properly bound to the element.
 <KInput type="email" value="john.doe@konghq.com"/>
 <KInput disabled value="disabled"/>
 <KInput type="search" value="search"/>
-<KInput class="mb-2" type="email" value="error"/>
+<KInput type="email" value="error"/>
 ```
 
 Additionally you you can use in conjunction with **KLabel** and or a paragraph with the utility class of `.hint`. These are meant to be used before and after KInput and will be styled appropriately. 
