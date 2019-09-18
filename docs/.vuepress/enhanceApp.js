@@ -1,5 +1,6 @@
 // Get base stylesheet
 import '../../packages/styles/styles.css'
+import icons from '../../packages/KIcon/icons' // KIcon icons
 
 // Globally import all Kongponents
 import KAlert from '../../packages/KAlert'
@@ -47,4 +48,6 @@ export default ({
   Vue.component('KTable', KTable)
   Vue.component('KToaster', KToaster)
   Vue.component('KToggle', KToggle)
+
+  Vue.prototype.$icons = Object.keys(icons)
 }

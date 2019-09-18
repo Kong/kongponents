@@ -1,8 +1,24 @@
 # Changelog
 
+- [2019/09/16](#2019/09/16)
+- [2019/08/29](#2019/08/29)
+- [2019/08/16](#2019/08/16)
 - [2019/08/05](#2019/08/05)
 - [2019/08/01](#2019/08/01)
 - [2019/07/29](#2019/07/29)
+
+### 2019/09/16
+
+- [@kongponents/kicon@0.3.0][kicon]
+
+### 2019/08/29
+
+- [@kongponents/kpop@0.2.10][kpop]
+
+### 2019/08/16
+
+- [@kongponents/kicon@0.2.3][kcard]
+- [@kongponents/kpop@0.2.8][kpop]
 
 ### 2019/08/05
 
@@ -34,4 +50,5 @@
 [kpop]: /packages/KPop/CHANGELOG.md
 [ktable]: /packages/KTable/CHANGELOG.md
 [ktoggle]: /packages/KToggle/CHANGELOG.md
+[kicon]: /packages/KIcon/CHANGELOG.md
 [styles]: /packages/styles/CHANGELOG.md

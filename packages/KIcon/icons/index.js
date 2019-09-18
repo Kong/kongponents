@@ -15,6 +15,8 @@ import support from './icn-support.svg'
 import featureRequest from './icn-feature-request.svg'
 import externalLink from './icn-external-link.svg'
 import spinner from './icn-spinner.svg'
+import dangerCircle from './icn-danger-circle.svg'
+import warning from './icn-warning.svg'
 
 export default {
   back,
@@ -31,6 +33,8 @@ export default {
   spinner,
   support,
   trash,
+  warning,
+  dangerCircle,
   workspaces,
   workspacesCollapsed,
   vitals

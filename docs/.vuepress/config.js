@@ -40,6 +40,7 @@ module.exports = {
               '/components/input',
               '/components/input-checkbox',
               '/components/input-radio',
+              '/components/icon',
               '/components/modal',
               '/components/popover',
               '/components/tooltip',

@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kpop",
-  "version": "0.2.7",
+  "version": "0.2.10",
   "description": "A Popover component",
   "main": "KPop.vue",
   "scripts": {
