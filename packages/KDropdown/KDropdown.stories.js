@@ -1,7 +1,7 @@
 import Vue from 'vue'
-import { storiesOf } from '@storybook/vue'
-import { action } from '@storybook/addon-actions'
-import StoryRouter from 'storybook-vue-router'
+import { storiesOf } from '../../storybook/node_modules/@storybook/vue'
+import { action } from '../../storybook/node_modules/@storybook/addon-actions'
+import StoryRouter from '../../storybook/node_modules/storybook-vue-router'
 
 import { default as KDropdown, alignments } from './KDropdown.vue'
 import KIcon from '../KIcon/KIcon.vue'
