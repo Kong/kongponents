@@ -10,14 +10,17 @@ storiesOf('KDropdown', module)
   .add('Default', () => ({
     components: { KDropdown },
     template: `<div>
+  <KDropdown
+    :items="['item 1', 'item 2', 'item 3']"
+    toggle-text="Open Dropdown" />
+    <KDropdown
+    :items="['item 1', 'item 2', 'item 3']"
+    toggle-text="Open Dropdown"
+    button-type="text" />
     <KDropdown
       :items="['item 1', 'item 2', 'item 3']"
-      toggle-text="Open Dropdown" />
-      <KDropdown
-      :items="['item 1', 'item 2', 'item 3']"
-      toggle-text="Open Dropdown"
-      button-type="text" />
-    </div>`
+      toggle-text="Open Dropdown" disabled />
+  </div>`
   }), {info: {}})
   .add('Alignments', () => ({
     components: { KDropdown },

@@ -9,6 +9,7 @@
       @click="isOpen = !isOpen"/>
     <KButton
       :appearance="buttonType === 'btn' ? 'secondary' : 'btn-link'"
+      :disabled="disabled"
       aria-haspopup="true"
       class="k-dropdown-toggle"
       @click="() => isOpen = !isOpen">
@@ -93,6 +94,13 @@ export default {
     items: {
       type: Array,
       default: () => []
+    },
+    /**
+     * Disable dropdown toggle button
+     */
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
 
