@@ -13,7 +13,7 @@ exports[`KIcon renders close icon 1`] = `
 <svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon kong-icon-close">
   <title>close</title>
   <g>
-    <path fill="#FFF" d="M0 1l1-1h.5L6 4.49993896 10.5 0h.5l1 1v.5L7.5 6l4.5 4.5v.5l-1 1h-.5L6 7.5 1.5 12H1l-1-1v-.5L4.5 6 0 1.5z" fill-rule="evenodd"></path>
+    <path fill="#000" d="M0 1l1-1h.5L6 4.49993896 10.5 0h.5l1 1v.5L7.5 6l4.5 4.5v.5l-1 1h-.5L6 7.5 1.5 12H1l-1-1v-.5L4.5 6 0 1.5z" fill-rule="evenodd" fill-opacity=".25"></path>
   </g>
 </svg>
 `;

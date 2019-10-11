@@ -19,7 +19,7 @@ following list. It tells KIcon which svg to render.
     class="icon-cell">
     <KIcon
       :icon="icon"
-      :color="(icon === 'info' || icon === 'spinner' || icon === 'close') ? '#A3BBCC' : ''" />
+      :color="(icon === 'info' || icon === 'spinner') ? '#A3BBCC' : ''" />
     <span>{{ icon }}</span>
   </div>
 </div>
