@@ -9,6 +9,15 @@ exports[`KIcon renders back icon 1`] = `
 </svg>
 `;
 
+exports[`KIcon renders close icon 1`] = `
+<svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon kong-icon-close">
+  <title>close</title>
+  <g>
+    <path fill="#FFF" d="M0 1l1-1h.5L6 4.49993896 10.5 0h.5l1 1v.5L7.5 6l4.5 4.5v.5l-1 1h-.5L6 7.5 1.5 12H1l-1-1v-.5L4.5 6 0 1.5z" fill-rule="evenodd"></path>
+  </g>
+</svg>
+`;
+
 exports[`KIcon renders collapseExpand icon 1`] = `
 <svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon kong-icon-collapseExpand">
   <title>collapseExpand</title>
@@ -78,6 +87,15 @@ exports[`KIcon renders info icon 1`] = `
   <title>info</title>
   <g>
     <path fill="#FFF" fill-rule="evenodd" d="M16 8c0-4.418278-3.58172-8-8-8S0 3.581722 0 8s3.58172 8 8 8 8-3.581722 8-8zm-1.5 0c0 3.5898509-2.91015 6.5-6.5 6.5S1.5 11.5898509 1.5 8 4.41015 1.5 8 1.5s6.5 2.9101491 6.5 6.5zM6 12h4v-1H9V7H6v1h1v3H6v1zm1-6.5046844C7 5.7740451 7.21404 6 7.50468 6h.99064C8.77405 6 9 5.785965 9 5.4953156v-.9906312C9 4.2259549 8.78596 4 8.49532 4h-.99064C7.22595 4 7 4.214035 7 4.5046844v.9906312z" opacity=".60000002"></path>
+  </g>
+</svg>
+`;
+
+exports[`KIcon renders lock icon 1`] = `
+<svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon kong-icon-lock">
+  <title>lock</title>
+  <g>
+    <path d="M6 0c2.76142375 0 5 2.23857625 5 5v3h.5c.2761424 0 .5.22385763.5.5v7c0 .2761424-.2238576.5-.5.5H.5c-.27614237 0-.5-.2238576-.5-.5v-7c0-.27614237.22385763-.5.5-.5H1V5c0-2.76142375 2.23857625-5 5-5zm.5 11h-1c-.27614237 0-.5.2238576-.5.5v1c0 .2761424.22385763.5.5.5h1c.27614237 0 .5-.2238576.5-.5v-1c0-.2761424-.22385763-.5-.5-.5zM6 2C4.34314575 2 3 3.34314575 3 5v3h6V5c0-1.65685425-1.34314575-3-3-3z" fill="#000" fill-rule="evenodd" fill-opacity=".45"></path>
   </g>
 </svg>
 `;
