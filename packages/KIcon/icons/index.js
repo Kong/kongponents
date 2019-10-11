@@ -17,9 +17,12 @@ import externalLink from './icn-external-link.svg'
 import spinner from './icn-spinner.svg'
 import dangerCircle from './icn-danger-circle.svg'
 import warning from './icn-warning.svg'
+import lock from './icn-lock.svg'
+import close from './icn-close.svg'
 
 export default {
   back,
+  close,
   collapseExpand,
   dashboard,
   externalLink,
@@ -27,6 +30,7 @@ export default {
   gateway,
   gear,
   info,
+  lock,
   portal,
   search,
   security,
