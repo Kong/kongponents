@@ -10,16 +10,11 @@
       aria-label="Close"
       class="close"
       @click="dismissAlert()">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="12"
-        height="12">
-        <path
-          fill="#000"
-          fill-opacity=".25"
-          fill-rule="evenodd"
-          d="M0 1l1-1h.5L6 4.499939 10.5 0h.5l1 1v.5L7.5 6l4.5 4.5v.5l-1 1h-.5L6 7.5 1.5 12H1l-1-1v-.5L4.5 6 0 1.5z"/>
-      </svg>
+      <KIcon
+        icon="close"
+        color="#000"
+        size="12"
+        view-box="0 0 12 12" />
     </button>
     <span
       v-if="hasIcon"
@@ -33,6 +28,8 @@
 </template>
 
 <script>
+import KIcon from '@kongponents/kicon'
+
 export const appearances = {
   info: 'info',
   success: 'success',
@@ -42,6 +39,7 @@ export const appearances = {
 
 export default {
   name: 'KAlert',
+  components: { KIcon },
   props: {
     /**
     * Message to show in alert
@@ -166,10 +164,11 @@ export default {
     background-color: transparent;
     transition: all 200ms ease;
     cursor: pointer;
+    opacity: .5;
     &:hover,
     &:active {
       text-decoration: none;
-      opacity: .75;
+      opacity: 1;
     }
   }
 
