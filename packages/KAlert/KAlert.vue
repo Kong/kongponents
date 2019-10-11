@@ -164,11 +164,11 @@ export default {
     background-color: transparent;
     transition: all 200ms ease;
     cursor: pointer;
-    opacity: .25;
+    opacity: .5;
     &:hover,
     &:active {
       text-decoration: none;
-      opacity: .20;
+      opacity: 1;
     }
   }
 
