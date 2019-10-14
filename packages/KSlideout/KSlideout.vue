@@ -85,7 +85,6 @@ export default {
     width: 100%;
     max-width: 500px;
     background-color: var(--twhite-1, color(twhite-1));
-    // overflow: auto;
     z-index: 9999;
     .close-btn {
       position: absolute;
