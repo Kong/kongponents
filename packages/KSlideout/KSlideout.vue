@@ -4,11 +4,13 @@
       v-if="isVisible"
       class="panel-background"
       @click="handleClose"/>
-    <transition name="slide">
+    <transition
+      tag="div"
+      name="slide">
       <div
         v-if="isVisible"
         :class="{isVisible: 'isVisible'}"
-        class="content">
+        class="panel">
         <button
           class="close-btn"
           @click="handleClose">
@@ -17,11 +19,13 @@
             size="16"
             view-box="0 0 12 12" />
         </button>
-        <KCard border-variant="noBorder">
-          <template v-slot:body>
-            <slot />
-          </template>
-        </KCard>
+        <div class="content">
+          <KCard border-variant="noBorder">
+            <template v-slot:body>
+              <slot />
+            </template>
+          </KCard>
+        </div>
       </div>
     </transition>
   </div>
@@ -62,7 +66,7 @@ export default {
 <style lang="scss" scoped>
 .k-slideout {
   --KCardPaddingY: 2rem;
-  --KCardPaddingX: 2rem;
+  --KCardPaddingX: 3rem;
 
   .panel-background {
     position: fixed;
@@ -73,7 +77,7 @@ export default {
     background: var(--tblack-10);
     z-index: 999;
   }
-  .content {
+  .panel {
     position: fixed;
     top: 0;
     right: 0;
@@ -81,7 +85,7 @@ export default {
     width: 100%;
     max-width: 500px;
     background-color: var(--twhite-1, color(twhite-1));
-    overflow: auto;
+    // overflow: auto;
     z-index: 9999;
     .close-btn {
       position: absolute;
@@ -96,6 +100,15 @@ export default {
       outline: inherit;
       transition: 200ms ease;
     }
+
+    .content {
+      height: 100%;
+      overflow: auto;
+      -ms-overflow-style: none;  // IE 10+
+      scrollbar-width: none;  // Firefox
+      &::-webkit-scrollbar { display: none; }
+    }
+
   }
 
   .slide-enter-active { animation: slide .3s cubic-bezier(1.0, 0.5, 0.8, 1.0); }
