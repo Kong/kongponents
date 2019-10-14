@@ -11,7 +11,12 @@
         class="content">
         <button
           class="close-btn"
-          @click="handleClose" />
+          @click="handleClose">
+          <KIcon
+            icon="close"
+            size="16"
+            view-box="0 0 12 12" />
+        </button>
         <KCard border-variant="noBorder">
           <template v-slot:body>
             <slot />
@@ -73,36 +78,23 @@ export default {
     top: 0;
     right: 0;
     height: 100vh;
+    width: 100%;
     max-width: 500px;
     background-color: var(--twhite-1, color(twhite-1));
+    overflow: auto;
     z-index: 9999;
     .close-btn {
       position: absolute;
-      top: 1.5rem;
-      left: 0;
-      height: 34px;
-      width: 34px;
+      top: 1rem;
+      left:  1rem;
+      height: 16px;
+      width: 16px;
       padding: 0;
-      border-radius: 50%;
-      background-color: var(--tblack-45, color(tblack-45));
-      transform: translateX(-4rem);
+      border: none;
+      background: none;
       cursor: pointer;
       outline: inherit;
       transition: 200ms ease;
-      &:before,
-      &:after {
-        position: absolute;
-        content: '';
-        top: 9px;
-        left: 15px;
-        width: 2px;
-        height: 15px;
-        background-color: #fff;
-
-      }
-      &:before { transform: rotate(45deg); }
-      &:after { transform: rotate(-45deg); }
-      &:hover { background-color: var(--tblack-70, color(tblack-70)); }
     }
   }
 
