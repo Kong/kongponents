@@ -1,9 +1,11 @@
 <template>
   <div class="k-slideout">
-    <div
-      v-if="isVisible"
-      class="panel-background"
-      @click="handleClose"/>
+    <transition name="fade">
+      <div
+        v-if="isVisible"
+        class="panel-background"
+        @click="handleClose"/>
+    </transition>
     <transition
       tag="div"
       name="slide">
@@ -74,8 +76,8 @@ export default {
     right: 0;
     bottom: 0;
     left: 0;
-    background: var(--tblack-10);
-    z-index: 999;
+    background: var(--tblack-45);
+    z-index: 9999;
   }
   .panel {
     position: fixed;
@@ -112,6 +114,8 @@ export default {
 
   .slide-enter-active { animation: slide .3s cubic-bezier(1.0, 0.5, 0.8, 1.0); }
   .slide-leave-active { animation: slide .3s ease reverse; }
+  .fade-enter-active, .fade-leave-active { transition: opacity 500ms;}
+  .fade-enter, .fade-leave-to { opacity: 0; }
 }
 
 @keyframes slide {
