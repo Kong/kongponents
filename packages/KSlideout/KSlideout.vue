@@ -54,7 +54,7 @@ export default {
   },
 
   beforeDestroy () {
-    document.removeEventListener('keydown', this.handleClose())
+    document.removeEventListener('keydown', this.handleClose)
   },
 
   methods: {
