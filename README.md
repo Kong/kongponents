@@ -1,5 +1,7 @@
 # Kongponents 🍌
 
+![](https://github.com/Kong/kongponents/workflows/Node%20CI/badge.svg)
+
 Welcome to Kongponents, Kong's very own [Vue](https://vuejs.org/) [component](https://vuejs.org/v2/guide/components.html#ad) library. See the reference documentation for each Kongponent at [https://kongponents.netlify.com](https://kongponents.netlify.com)
 
 Kongponents offer multiple teams the ability to reuse frequently needed UI elements, reducing each team's efforts. They should be simple on the surface and extensible. Kongponents should also be maintainable and easy to compose with others (for example, KButton is reused in KModal and KEmptyState). Unique components that are tightly related to a particular application should not be turned into Kongponents.
