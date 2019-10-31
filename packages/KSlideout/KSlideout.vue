@@ -46,11 +46,7 @@ export default {
   },
 
   mounted () {
-    document.addEventListener('keydown', (e) => {
-      if (this.isVisible && e.keyCode === 27) {
-        this.handleClose()
-      }
-    })
+    document.addEventListener('keydown', this.handleClose)
   },
 
   beforeDestroy () {
@@ -58,8 +54,10 @@ export default {
   },
 
   methods: {
-    handleClose () {
-      this.$emit('close')
+    handleClose (e) {
+      if (this.isVisible && e.keyCode === 27) {
+        this.$emit('close')
+      }
     }
   }
 }
