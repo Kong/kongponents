@@ -4,8 +4,8 @@
 
 Below we demonstrate wrapping KSlideout in the [KToggle](/components/renderless/ktoggle.html) component. This allows us to easily toggle the open state without needing to set a data prop in the parent component.
 
-<KToggle>
-  <div slot-scope="{ isToggled, toggle }">
+<KToggle v-slot="{ isToggled, toggle }">
+  <div>
     <KButton @click="toggle">Toggle Panel</KButton>
     <KSlideout 
       :is-visible="isToggled"
@@ -33,8 +33,8 @@ Below we demonstrate wrapping KSlideout in the [KToggle](/components/renderless/
 </KToggle>
 
 ```vue
-<KToggle>
-  <div slot-scope="{ isToggled, toggle }">
+<KToggle v-slot="{ isToggled, toggle }">
+  <div>
     <KButton @click="toggle">Toggle Panel</KButton>
     <KSlideout 
       :is-visible="isToggled"
