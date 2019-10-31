@@ -36,6 +36,7 @@ module.exports = {
               '/components/badge',
               '/components/button',
               '/components/card',
+              '/components/empty-state',
               '/components/input',
               '/components/icon',
               '/components/modal',
