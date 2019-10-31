@@ -1,4 +1,4 @@
-ame: Node CI
+name: Node CI
 
 on:
   push:
