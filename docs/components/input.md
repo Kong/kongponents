@@ -28,17 +28,17 @@ You can pass any input attribute and it will get properly bound to the element.
 <KInput type="email" value="error"/>
 ```
 
-Additionally you you can use in conjunction with **KLabel** and or a paragraph with the utility class of `.hint`. These are meant to be used before and after KInput and will be styled appropriately. 
+Additionally you you can use in conjunction with **KLabel** and or a paragraph with the utility class of `.help`. These are meant to be used before and after KInput and will be styled appropriately. 
 
 <KLabel for="my-input">Label</KLabel>
-<KInput id="my-input" type="text" placeholder="I have a label & hint" />
-<p class="hint">Hint</p>
+<KInput id="my-input" type="text" placeholder="I have a label & help" />
+<p class="help">Help text</p>
 
 ```vue
 <template>
   <KLabel for="my-input">Label</KLabel>
-  <KInput id="my-input" type="text" placeholder="I have a label & hint" />
-  <p class="hint">Hint</p>
+  <KInput id="my-input" type="text" placeholder="I have a label & help" />
+  <p class="help">help</p>
 </template>
 ```
 
