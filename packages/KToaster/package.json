@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/Kong/kongponents/issues"
   },
-  "homepage": "https://github.com/Kong/kongponents#readme"
+  "homepage": "https://github.com/Kong/kongponents#readme",
+  "dependencies": {
+    "@kongponents/kicon": "^0.3.1",
+    "@kongponents/kalert": "^0.1.4"
+  }
 }
