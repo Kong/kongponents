@@ -1,6 +1,7 @@
 // Get base stylesheet
 import '../../packages/styles/styles.css'
 import icons from '../../packages/KIcon/icons' // KIcon icons
+import { default as ToastManager } from '../../packages/KToaster/ToastManager' // Toaster API
 
 // Globally import all Kongponents
 import KAlert from '../../packages/KAlert'
@@ -18,7 +19,6 @@ import KoolTip from '../../packages/KoolTip'
 import KPop from '../../packages/KPop'
 import Krumbs from '../../packages/Krumbs'
 import KTable from '../../packages/KTable'
-import KToaster from '../../packages/KToaster'
 import KToggle from '../../packages/KToggle'
 
 export default ({
@@ -42,8 +42,8 @@ export default ({
   Vue.component('KPop', KPop)
   Vue.component('Krumbs', Krumbs)
   Vue.component('KTable', KTable)
-  Vue.component('KToaster', KToaster)
   Vue.component('KToggle', KToggle)
 
   Vue.prototype.$icons = Object.keys(icons)
+  Vue.prototype.$toaster = ToastManager
 }

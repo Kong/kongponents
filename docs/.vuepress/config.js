@@ -42,6 +42,7 @@ module.exports = {
               '/components/popover',
               '/components/tooltip',
               '/components/table',
+              '/components/toaster',
               '/components/switch'
             ]
           },
