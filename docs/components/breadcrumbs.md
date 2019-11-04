@@ -66,8 +66,8 @@ export default {
           text: 'Home'
         },
         {
-          key: 'googl',
-          to: 'https://google.com,
+          key: 'google',
+          to: 'https://google.com',
           title: 'Search at Google',
           text: 'Google'
         }
