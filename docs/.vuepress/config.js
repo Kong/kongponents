@@ -34,6 +34,7 @@ module.exports = {
             children: [
               '/components/alert',
               '/components/badge',
+              '/components/breadcrumbs',
               '/components/button',
               '/components/card',
               '/components/input',
