@@ -37,6 +37,7 @@ module.exports = {
               '/components/breadcrumbs',
               '/components/button',
               '/components/card',
+              '/components/empty-state',
               '/components/input',
               '/components/icon',
               '/components/modal',
