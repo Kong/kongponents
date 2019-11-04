@@ -23,7 +23,7 @@ or is... empty.
 ### cta-is-hidden
 - `cta-is-hidden`
 
-Boolean value used to hide the call to action button
+Boolean value used to hide the call to action button.
 
 <template>
   <KEmptyState cta-is-hidden>
@@ -41,10 +41,28 @@ Boolean value used to hide the call to action button
 </template>
 ```
 
+You can also use this to move your call to action into the message text like a lot of empty states in [Kong Manager](https://github.com/Kong/kong-admin)
+
+<template>
+  <KEmptyState cta-is-hidden>
+    <template v-slot:title>No Services</template>
+    <template v-slot:message><router-link to="/">Add a Service</router-link> to begin proxying traffic.</template>
+  </KEmptyState>
+</template>
+
+```vue
+<template>
+  <KEmptyState cta-is-hidden>
+    <template v-slot:title>No Services</template>
+    <template v-slot:message><router-link>Add a Service</router-link> to begin proxying traffic</template>
+  </KEmptyState>
+</template>
+```
+
 ### cta-text
 - `cta-text`
 
-A string to be used as the text content of the call to action button
+A string to be used as the text content of the call to action button.
 
 <template>
   <KEmptyState cta-text="button text">
