@@ -4,7 +4,7 @@
       <div
         v-if="isVisible"
         class="panel-background"
-        @click="handleClose"/>
+        @click="e => handleClose(e, true)"/>
     </transition>
     <transition
       tag="div"
@@ -15,7 +15,7 @@
         class="panel">
         <button
           class="close-btn"
-          @click="handleClose">
+          @click="e => handleClose(e, true)">
           <KIcon
             icon="close"
             size="16"
@@ -35,9 +35,11 @@
 
 <script>
 import KCard from '@kongponents/kcard'
+import KIcon from '@kongponents/kicon'
+
 export default {
   name: 'KSlideout',
-  components: { KCard },
+  components: { KCard, KIcon },
   props: {
     isVisible: {
       type: Boolean,
@@ -54,14 +56,25 @@ export default {
   },
 
   methods: {
-    handleClose (e) {
-      if (this.isVisible && e.keyCode === 27) {
+    handleClose (e, forceClose) {
+      if ((this.isVisible && e.keyCode === 27) || forceClose) {
         this.$emit('close')
       }
     }
   }
 }
 </script>
+
+<style lang="scss">
+.k-slideout .close-btn {
+  svg path {
+    transition: all 200ms ease;
+  }
+  &:hover svg path {
+    fill-opacity: .5;
+  }
+}
+</style>
 
 <style lang="scss" scoped>
 .k-slideout {
