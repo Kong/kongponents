@@ -41,7 +41,7 @@ Boolean value used to hide the call to action button.
 </template>
 ```
 
-You can also use this to move your call to action into the message text like a lot of empty states in [Kong Manager](https://github.com/Kong/kong-admin)
+You can also use this to move your call to action into the message text.
 
 <template>
   <KEmptyState cta-is-hidden>
