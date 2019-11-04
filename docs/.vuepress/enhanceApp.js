@@ -20,6 +20,7 @@ import Krumbs from '../../packages/Krumbs'
 import KTable from '../../packages/KTable'
 import KToaster from '../../packages/KToaster'
 import KToggle from '../../packages/KToggle'
+import KSlideout from '../../packages/KSlideout'
 
 export default ({
   Vue,
@@ -44,6 +45,7 @@ export default ({
   Vue.component('KTable', KTable)
   Vue.component('KToaster', KToaster)
   Vue.component('KToggle', KToggle)
+  Vue.component('KSlideout', KSlideout)
 
   Vue.prototype.$icons = Object.keys(icons)
 }
