@@ -85,14 +85,19 @@ export default {
   },
 
   mounted () {
-    document.addEventListener('keydown', (e) => {
-      if (this.isVisible && e.keyCode === 27) {
-        this.close()
-      }
-    })
+    document.addEventListener('keydown', this.handleKeydown)
+  },
+
+  beforeDestroy () {
+    document.removeEventListener('keydown', this.handleKeydown)
   },
 
   methods: {
+    handleKeydown (e) {
+      if (this.isVisible && e.keyCode === 27) {
+        this.close()
+      }
+    },
     close () {
       this.$emit('canceled')
     },
@@ -153,8 +158,8 @@ export default {
     font-size: var(--KModalFontSize, var(--type-md, type(md)));
   }
 
-  .modal-footer button:last-of-type {
-    margin-left: spacing(sm);
+  .modal-footer button {
+    margin-right: spacing(sm);
   }
 }
 </style>
