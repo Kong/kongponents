@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KTest matches snapshot 1`] = `<div><span>A default description</span> </div>`;
