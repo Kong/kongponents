@@ -32,6 +32,7 @@ jobs:
         node-version: 10.x
     - name: publish
       run: |
+        npm config set scripts-prepend-node-path true
         npm config set "//registry.npmjs.org/:_authToken" "$NPM_AUTH_TOKEN" -g
         yarn install --ignore-scripts
         yarn lerna bootstrap
