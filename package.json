@@ -47,7 +47,7 @@
     "jest": "23.6.0",
     "jest-raw-loader": "^1.0.1",
     "jest-serializer-vue": "2.0.2",
-    "lerna": "3.13.1",
+    "lerna": "3.18.3",
     "node-sass": "^4.11.0",
     "postcss-cli": "^6.1.2",
     "postcss-custom-properties": "^8.0.10",
