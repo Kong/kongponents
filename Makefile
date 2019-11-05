@@ -4,6 +4,9 @@ build:
 unit:
 	docker-compose run kongponents bash -c "kpm test"
 
+lint:
+	yarn lint
+
 clean-up:
 	-docker-compose down
 	-docker-compose rm -f
