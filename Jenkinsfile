@@ -26,7 +26,6 @@ pipeline {
       }
       steps {
         sh script: "make build", label: "start container and install dependencies"
-        sh script: "make lint", label: "run linter test"
         sh script: "make unit", label: "run unit tests"
       }
     }
