@@ -32,8 +32,8 @@ jobs:
         node-version: 10.x
     - name: publish
       run: |
+        npm config set "//registry.npmjs.org/:_authToken" "$NPM_AUTH_TOKEN" -g
         yarn install --ignore-scripts
-        yarn config set "//registry.npmjs.org/:_authToken" "$NPM_AUTH_TOKEN" -g
         yarn lerna bootstrap
         yarn lerna publish from-package --yes
       env:
