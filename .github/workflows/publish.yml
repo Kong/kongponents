@@ -1,13 +1,9 @@
 name: Publish
 
-on:
-  push:
-    branches:
-    - 'chore/intf-1320-ci-publish'
-
+on: push
 jobs:
-  build:
-
+  publish:
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
