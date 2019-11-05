@@ -1,15 +1,12 @@
-name: Node CI
+name: Build & Run Tests
 
 on:
-  push:
-    branches:
-    - master
   pull_request:
     branches:
     - master
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
 
@@ -23,7 +20,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: npm install, build, and test
+    - name: install, build, and test
       run: |
         yarn
         yarn test
