@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "{%kongponent_description%}",
   "main": "{%kongponent_name%}.vue",
+  "componentName": "{%kongponent_name%}",
   "files": [
     "dist",
     "{%kongponent_name%}.vue"
