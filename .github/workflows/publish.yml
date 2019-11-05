@@ -1,8 +1,7 @@
 name: Publish
 
-push:
-    branches:
-    - master
+on: push
+
 jobs:
   publish:
     needs: test
@@ -10,7 +9,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-      uses: actions/setup-node@v1
+    - uses: actions/setup-node@v1
       with:
         node-version: 10.x
     - name: publish
