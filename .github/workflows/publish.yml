@@ -1,0 +1,22 @@
+name: Publish
+
+on:
+  push:
+    branches:
+    - chore/intf-1320-ci-publish
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+    - name: publish
+      run: |
+        yarn install --ignore-scripts
+        yarn lerna bootstrap
+        yarn lerna publish from-git --yes
