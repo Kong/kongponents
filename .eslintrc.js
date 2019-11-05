@@ -20,6 +20,8 @@ module.exports = {
     'arrow-parens': 0,
     'generator-star-spacing': 0,
     'object-property-newline': 'error',
+    'import/no-named-default': 0,
+    'object-curly-spacing': 0,
     'lines-between-class-members': ['error', 'always'],
     'padding-line-between-statements': [
       "error",
