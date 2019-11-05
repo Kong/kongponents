@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "description": "KSlideout description here.",
   "main": "KSlideout.vue",
-  "scripts": {
-    "test": "jest"
-  },
+  "componentName": "KSlideout",
+  "files": [
+    "dist",
+    "KSlideout.vue"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"

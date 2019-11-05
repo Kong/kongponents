@@ -3,9 +3,11 @@
   "version": "0.1.1-1",
   "description": "KInputSwitch description here.",
   "main": "KInputSwitch.vue",
-  "scripts": {
-    "test": "jest"
-  },
+  "componentName": "KInputSwitch",
+  "files": [
+    "dist",
+    "KInputSwitch.vue"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"

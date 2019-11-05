@@ -3,9 +3,11 @@
   "version": "0.1.4-1",
   "description": "Table component",
   "main": "KTable.vue",
-  "scripts": {
-    "test": "echo \"Error: no test specified\""
-  },
+  "componentName": "KTable",
+  "files": [
+    "dist",
+    "KTable.vue"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"

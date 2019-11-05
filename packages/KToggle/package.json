@@ -3,9 +3,11 @@
   "version": "0.1.1",
   "description": "Provide toggle functionality to components.",
   "main": "KToggle.js",
-  "scripts": {
-    "test": "jest"
-  },
+  "componentName": "KToggle",
+  "files": [
+    "dist",
+    "KToggle.js"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"

@@ -1,5 +1,5 @@
 // Get base stylesheet
-import '../../packages/styles/styles.css'
+import '../../styles/styles.css'
 import icons from '../../packages/KIcon/icons' // KIcon icons
 
 // Globally import all Kongponents

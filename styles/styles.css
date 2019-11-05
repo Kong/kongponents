@@ -1,72 +1,57 @@
 /* Regular (Sans) Font Sizes
 ========================================================================== */
 .xxxl {
-  font-size: 32px;
   font-size: var(--type-xxxl);
   font-weight: normal; }
 
 .xxl {
-  font-size: 28px;
   font-size: var(--type-xxl);
   font-weight: normal; }
 
 .xl {
-  font-size: 22px;
   font-size: var(--type-xl);
   font-weight: normal; }
 
 .lg {
-  font-size: 18px;
   font-size: var(--type-lg);
   font-weight: normal; }
 
 .md {
-  font-size: 16px;
   font-size: var(--type-md);
   font-weight: normal; }
 
 .sm {
-  font-size: 14px;
   font-size: var(--type-sm);
   font-weight: normal; }
 
 .xs {
-  font-size: 12px;
   font-size: var(--type-xs);
   font-weight: normal; }
 
 /* Mono Font Sizes
 ========================================================================== */
 .mono {
-  font-family: Roboto Mono;
   font-family: var(--font-family-mono); }
 
 .mono.xxxl {
-  font-size: calc(32px * .95);
   font-size: calc(var(--type-xxxl) * .95); }
 
 .mono.xxl {
-  font-size: calc(28px * .95);
   font-size: calc(var(--type-xxl) * .95); }
 
 .mono.xl {
-  font-size: calc(22px * .95);
   font-size: calc(var(--type-xl) * .95); }
 
 .mono.lg {
-  font-size: calc(18px * .95);
   font-size: calc(var(--type-lg) * .95); }
 
 .mono.md {
-  font-size: calc(16px * .95);
   font-size: calc(var(--type-md) * .95); }
 
 .mono.sm {
-  font-size: calc(14px * .95);
   font-size: calc(var(--type-sm) * .95); }
 
 .mono.xs {
-  font-size: calc(12px * .95);
   font-size: calc(var(--type-xs) * .95); }
 
 /*  Spacing

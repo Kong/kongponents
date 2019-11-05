@@ -3,9 +3,11 @@
   "version": "0.1.4-1",
   "description": "Modal component",
   "main": "KModal.vue",
-  "scripts": {
-    "test": "jest"
-  },
+  "componentName": "KModal",
+  "files": [
+    "dist",
+    "KModal.vue"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"

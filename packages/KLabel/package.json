@@ -3,9 +3,11 @@
   "version": "0.2.0",
   "description": "Form input label",
   "main": "KLabel.vue",
-  "scripts": {
-    "test": "jest"
-  },
+  "componentName": "KLabel",
+  "files": [
+    "dist",
+    "KLabel.vue"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"

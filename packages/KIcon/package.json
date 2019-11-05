@@ -3,9 +3,11 @@
   "version": "0.3.1",
   "description": "Icon component",
   "main": "KIcon.vue",
-  "scripts": {
-    "test": "echo \"Error: no test specified\""
-  },
+  "componentName": "KIcon",
+  "files": [
+    "dist",
+    "KIcon.vue"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"

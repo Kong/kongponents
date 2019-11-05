@@ -3,9 +3,11 @@
   "version": "0.1.9-1",
   "description": "Empty State component",
   "main": "KEmptyState.vue",
-  "scripts": {
-    "test": "echo \"Error: no test specified\""
-  },
+  "componentName": "KEmptyState",
+  "files": [
+    "dist",
+    "KEmptyState.vue"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"

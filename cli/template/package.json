@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "description": "{%kongponent_description%}",
   "main": "{%kongponent_name%}.vue",
-  "scripts": {
-    "test": "jest"
-  },
+  "files": [
+    "dist",
+    "{%kongponent_name%}.vue"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"

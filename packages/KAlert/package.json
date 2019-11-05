@@ -3,9 +3,11 @@
   "version": "0.1.4",
   "description": "Alert component",
   "main": "KAlert.vue",
-  "scripts": {
-    "test": "echo \"Error: no test specified\""
-  },
+  "componentName": "KAlert",
+  "files": [
+    "dist",
+    "KAlert.vue"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"
