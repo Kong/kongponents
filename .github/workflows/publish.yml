@@ -33,7 +33,7 @@ jobs:
     - name: publish
       run: |
         yarn install --ignore-scripts
-        npm set //registry.npmjs.org/:_authToken $NPM_AUTH_TOKEN -g
+        yarn config set registry "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" -g
         yarn lerna bootstrap
         yarn lerna publish from-package --yes
       env:
