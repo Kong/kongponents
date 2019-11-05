@@ -1,171 +1,23 @@
-# Kongponents 🍌
+[docsUrl]: https://kongponents.netlify.com
 
+![](./kongponents-logo.jpg)
+
+---
 ![](https://github.com/Kong/kongponents/workflows/Node%20CI/badge.svg)
 
-Welcome to Kongponents, Kong's very own [Vue](https://vuejs.org/) [component](https://vuejs.org/v2/guide/components.html#ad) library. See the reference documentation for each Kongponent at [https://kongponents.netlify.com](https://kongponents.netlify.com)
+Welcome to Kongponents, Kong's very own [Vue](https://vuejs.org/) component library. Kongponents offer teams the ability to reuse frequently needed UI elements, reducing each team's efforts. They should be simple on the surface and extensible. Kongponents should also be maintainable and easy to compose with others. Unique components that are tightly related to a particular application should not be turned into Kongponents. Kongponents are built and designed with Kong in mind first and may not meet your design requirements.
 
-Kongponents offer multiple teams the ability to reuse frequently needed UI elements, reducing each team's efforts. They should be simple on the surface and extensible. Kongponents should also be maintainable and easy to compose with others (for example, KButton is reused in KModal and KEmptyState). Unique components that are tightly related to a particular application should not be turned into Kongponents.
+### Features
+- **Works out of the box.** Vue components that work right out of the box.
+- **Flexible & composable.** Simple APIs and easy to use theming capabilities.
+- **Enterprise ready.** Designed enterprise web applications.
 
-If you are interested in contributing to the Kongponents repo, please review [CONTRIBUTING.md](CONTRIBUTING.md) for Git standards and release guidelines.
+## Documentation & Community
+- [Documentation](docsUrl)
+- [Forum](https://discuss.konghq.com/)
 
 ## Installation
-
-Install [node + npm](https://nodejs.org/) + [yarn](https://yarnpkg.com/en/)
-
-Clone and install dependencies
-```bash
-# clone the repo
-git clone git@github.com:Kong/kongponents.git
-
-# Install node modules
-yarn
-```
-
-## Running
-
-### Development
-
-Run [Storybook](https://storybook.js.org/)
-```bash
-yarn storybook
-```
-
-Follow command output to know which localhost port to navigate to.
-
-### Tests
-
-```bash
-# run all tests
-yarn test
-```
-
-```bash
-# run tests for single component
-yarn test packages/Kmodal
-```
-
-## Kongponents CLI
-
-See CLI usage
-
-```bash
-node cli --help
-
-# or install globally
-
-npm install -g
-kpm --help
-
-```
-
-## Creating a New Kongponent
-
-If you are interested in contributing to the Kongponents repo, please review [CONTRIBUTING.md](CONTRIBUTING.md) for Git standards.
-
-Run the following command to create a new component built from the [template files](cli/template)
-
-```bash
-kpm create <kongponent_name> -d <kongponent_description>
-```
-
-### Style Guidelines
-
-All Kongponents should abide by the essential rules in Vue's [style guide](https://vuejs.org/v2/style-guide/). To maintain consistency, use conventions that already exist in other Kongponents: name the Kongponent with K, use camel case, and be as accurate as possible in naming Kongponents.
-
-Provide as much detail in the [prop definitions](https://vuejs.org/v2/style-guide/#Prop-definitions-essential) as possible to (1) make the code self-documenting and (2) enable Vue to warn developers if they are providing props to the Kongponent incorrectly.  
-
-Use predicates in names of data properties or methods that return booleans. For example, use “isDisabled” and “hasBorder” instead of “disabled” and “border”. Avoid abbreviations unless they are commonly used acronyms, e.g., “isUrl”, “http”.
-
-### Avoiding Dependencies
-
-Avoid introducing new dependencies into Kongponents. Part of this library's value is that it reduces the need for external UI libraries such as Vue Bootstrap. More broadly, dependencies in any component library could introduce stability and security issues, and it would quickly become difficult to prevent redundant dependencies with different versions in a given application.
-
-### Documenting Kongponents
-
-In addition to detailed prop definitions, each Kongponent must include a `README` that models how the Kongponent and its related attributes would appear from the surface:
-
-```javascript
-const attributes = {
-  description: '{%kongponent_description%}',
-}
-
-<{%kongponent_name%} :description="attributes.description">
-  Hello from a slot
-</{%kongponent_name%}>
-```
-
-VSCode has built-in descriptions and type checking for [JSDOC](https://github.com/jsdoc3/jsdoc) that avoids the need for TypeScript. Generate comments within code on as many methods as possible.
-
-### Test Coverage
-
-Write unit tests for base functionality (e.g., that buttons work correctly, text displays on banners), as well as edge cases (e.g., invalid input, returning to an empty state after clearing the input).
-
-## Submitting a PR
-
-A PR needs at least one approving review before it can be merged. To open a PR for a branch that is still a work in progress, use the WIP tag to let others know that it is not intended for final review. 
-
-Before publishing a new version as detailed in [Publishing to NPM](#publishing-to-npm), update the version in `package.json`. If creating a new Kongponent, use `0.1.0`, as shown in [package.json template file](cli/template/package.json).
-
-Create a Git tag for the branch with the matching version number.
-
-The WIP tag should not be removed until tests are passing and the versions in `package.json` and the release branch are up to date.
-
-## Reviewing a PR
-
-To review a PR, check that it meets the following requirements:
-
-  * Does not introduce dependencies
-  * Functional: all changes do not break existing APIs and if so, bump major version.
-  * Tests pass: check the output of  `yarn test packages/<Kongponent>`
-  * Naming: the files and the method and prop variables use the same naming conventions as other Kongponents
-  * Framework style: abides by the essential rules in [Vue's style guide](https://vuejs.org/v2/style-guide/)
-  * Cleanliness: does not have formatting issues, unused code (e.g., console.logs), or leftover comments
-  * Docs: includes a technically accurate README, uses JSDOC where appropriate
-  * Version: `package.json` and the release tag both reflect the same, accurate version
-
-If any of the above are missing, the PR should be blocked until they are resolved. Needless to say, this list is not exhaustive. If the PR introduces anything that would be detrimental to developers or users, it should be blocked. 
-
-There are often times when a suggested change would simply be a “nice-to-have”, and when blocking would create friction. The reviewer should note that the comment is a preference, and the PR author has discretion over how to address the request. In such cases, a reviewer's “approval” is pending the author's response to the feedback, rather than a change to the code.
-
-## Publishing to NPM
-
-We use [Lerna](https://lernajs.io/) to publish Kongponents. Components should be published after merging any changes into master. 
-
-> Note: The following instructions are for Kongponent Beta development. These may change when moved out of Beta.
-
-### Publishing Multiple Components
-
-> Note: Run from the master branch to cover all changes.
-
-```bash
-kpm publish
-```
-Lerna will check each component for differences and prompt you to select a version for any that have changed. Select the correct version bump following [semver](https://semver.org/).
-
-![version](https://dzwonsemrish7.cloudfront.net/items/0x0D0y1O3H3q0P321b3V/Image%202018-06-18%20at%208.54.31%20PM.png)
-
-### Publishing Single Component
-
-> Warning: CI should handle publishing of kongponents, so this is more of an escape hatch if you need to publish outside of CI process.
-
-To publish a *single* component, you will need the NPM token or write permissions to the @kongponents package. Then, you can use normal npm publish process via 
-
-```bash
-cd packages/<package_name>
-npm publish
-``` 
-
-Or you can pass the name of the component as parameter to `lerna exec` from the root directory of this repo.
-
-```bash
-lerna exec "npm publish" --scope <package_name>
-```
-
-## Directory Structure
-
-Kongponents is a mono repo, managed by Lerna. It follows suggested Lerna directory structure with a root `packages` folder which contain all the components. Lerna allows easier developer experience through a single git repository, managed dependencies, and easy publishing of individual components. It's like blowing up the monolith, but you still have the perks of the monolith during development.
-
-To see the structure of the Kongponent template created through the CLI, see: https://github.com/Kong/kongponents/tree/master/cli/template
+Kongponents is a mono repo, managed by Lerna. It follows suggested Lerna directory structure with a root `packages` folder which contain all the components.
 
 ```
 packages                     # root directory of all components
@@ -191,10 +43,113 @@ packages                     # root directory of all components
 .
 ```
 
+## Usage
+Most packages export a single Vue component, to begin using them you will need to import each component individually. For a list of all components & their features see the [documentation](docsUrl).
+
+
+```bash
+$ yarn add  @kongponents/kbutton
+
+# or
+
+$ npm install --save @kongponents/kbutton
+```
+
+```js
+// Import and register components globally
+import KButton from '@kongponents/kbutton';
+Vue.use(KButton);
+
+// Or
+
+// Import inside a single component
+import KButton from '@kongponents/kbutton';
+export default {
+  ...
+  components: { KButton },
+  ...
+};
+```
+
+## Development
+If you are interested in contributing to the Kongponents repo, please review [CONTRIBUTING.md](CONTRIBUTING.md) for Git standards. We use [VuePress]() to document and locally develop Kongponents. You can start the docs by running the following and then live developing in a `/docs/components/<component>.md`
+
+```bash
+$ yarn docs:dev
+```
+
+### Kongponents CLI
+The Kongponents repo includes a CLI (KPM) to help with common tasks (creating, testing, etc). See the CLI help menu for details
+
+```bash
+$ node cli --help
+
+# or install globally
+
+$ npm install -g
+$ kpm --help
+```
+
+### Creating a New Kongponent
+Run the following command to create a new component. This command will scaffold a new component directory and necessary files from a [template](cli/template). A markdown docs file will also be generated in `/docs/components`.
+
+```bash
+$ kpm create <kongponent_name> -d <kongponent_description>
+```
+
+### Style Guidelines
+All Kongponents should abide by the essential rules in Vue's [style guide](https://vuejs.org/v2/style-guide/). To maintain consistency, use conventions that already exist in other Kongponents: name the Kongponent with K, use camel case, and be as accurate as possible in naming Kongponents.
+
+Provide as much detail in the [prop definitions](https://vuejs.org/v2/style-guide/#Prop-definitions-essential) as possible to (1) make the code self-documenting and (2) enable Vue to warn developers if they are providing props to the Kongponent incorrectly.  
+
+Use predicates in names of data properties or methods that return booleans. For example, use “isDisabled” and “hasBorder” instead of “disabled” and “border”. Avoid abbreviations unless they are commonly used acronyms, e.g., “isUrl”, “http”.
+
+### Avoiding Dependencies
+Avoid introducing new dependencies into Kongponents. Part of this library's value is that it reduces the need for external UI libraries such as Vue Bootstrap. More broadly, dependencies in any component library could introduce stability and security issues, and it would quickly become difficult to prevent redundant dependencies with different versions in a given application.
+
+### Documenting Kongponents
+In addition to detailed prop definitions, each Kongponent must include a doc in the `/docs/components` directory that explains how the Kongponent is used.
+
+```md
+# Button
+
+**KButton** is probably the most used Kongponent. It supports a number of variations
+and configuration options.
+
+<KButton appearance="primary">I'm a button</KButton> 
+
+## Props
+### Appearances
+The Button component can take 1 of 7 appearance values:
+
+- `secondary`  
+- `primary`  
+- `danger`
+- `outline-primary`  
+- `outline-danger`  
+- `btn-link`  
+- `btn-link-danger`
+```
+
+## Running Tests
+Kongponents uses [Jest](https://jestjs.io/) & [Vue Test Utils](https://vue-test-utils.vuejs.org/) for tests.
+
+```bash
+# run all tests
+yarn test
+
+# run tests for single component
+yarn test packages/KButton
+
+# update snapshot for single component
+yarn test packages/KButton --updateSnapshot
+```
+
+### Test Coverage
+Write unit tests for base functionality (e.g., that buttons work correctly, text displays on banners), as well as edge cases (e.g., invalid input, returning to an empty state after clearing the input).
+
 ## Asking Questions and Submitting Tickets
 
-If you encounter difficulty working with Kongponents, either in your own codebase or in contributing to this one, post questions in `#design-pattern-lib` or `#team-interfaces`. If you discover a problem but are unsure whether it's a bug, it may be resolved faster in the channels.
+If you encounter difficulty working with Kongponents, or find a bug please [create a new issue](https://github.com/Kong/kongponents/issues). Document the steps to replicate the bug with screenshots and error messages, & browser version if possible.
 
-Log bugs with [Team Interfaces](https://konghq.atlassian.net/secure/RapidBoard.jspa?projectKey=INTF). Document the steps to replicate the bug with screenshots and error messages, if possible. Please also mention the browser, the versions and branches of the applications involved (e.g., [`kong-admin`](https://github.com/Kong/kong-admin), [`kong-ee`](https://github.com/Kong/kong-ee)), and your configuration for Kong.
-
-To request a feature or an improvement, describe use cases for the team to review in `#design-pattern-lib` or `#team-interfaces`. If an alternative already exists, mention why a Kongponent would be a better approach. 
+You may also open a new issue to request a feature or an improvement. Please describe use cases for the team to review. If an alternative already exists, mention why a Kongponent would be a better approach. 
