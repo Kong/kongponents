@@ -1,6 +1,6 @@
 [docsUrl]: https://kongponents.netlify.com
 
-![](./kongponents-logo.jpg)
+![](kongponents-logo.jpg?raw=true)
 
 ---
 ![](https://github.com/Kong/kongponents/workflows/Node%20CI/badge.svg)
