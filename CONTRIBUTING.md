@@ -42,7 +42,7 @@ accepted types are:
 * *style*: Changes that do not affect the meaning of the code (white-space trimming, formatting, etc...)
 * *perf*: A code change that significantly improves performance
 * *refactor*: A code change that neither fixes a bug nor adds a feature, and is too big to be considered just perf
-* *chore*: Maintenance changes related to code cleaning that isn't considered part of a refactor, build process updates, dependency bumps, or auxiliary tools and libraries updates (e.g. Lerna, Storybook)
+* *chore*: Maintenance changes related to code cleaning that isn't considered part of a refactor, build process updates, dependency bumps, or auxiliary tools and libraries updates (e.g. Lerna)
 
 ### Scope
 
