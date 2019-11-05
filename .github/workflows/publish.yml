@@ -3,7 +3,7 @@ name: Publish
 on:
   push:
     branches:
-    - master
+    - "chore/intf-1320-add-test-component"
 
 jobs:
   test:
@@ -34,4 +34,4 @@ jobs:
       run: |
         yarn install --ignore-scripts
         yarn lerna bootstrap
-        yarn lerna publish from-git --yes
+        yarn lerna publish from-package --yes
