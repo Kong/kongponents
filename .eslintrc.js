@@ -1,5 +1,9 @@
 module.exports = {
   root: true,
+  parserOptions: {
+    parser: 'babel-eslint',
+    sourceType: 'module'
+  },
   env: {
     browser: true,
   },
@@ -7,6 +11,9 @@ module.exports = {
     "plugin:vue/recommended",
     "plugin:jest/recommended",
     "standard"
+  ],
+  plugins: [
+    'vue'
   ],
   rules: {
     'curly': 'error',
