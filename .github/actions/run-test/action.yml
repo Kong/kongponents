@@ -1,7 +1,10 @@
-- name: install and lint
-  run: |
-    yarn
-    yarn lint
-- name: test
-  run: |
-    yarn test
+jobs:
+  run-test:
+  steps:
+    - name: install and lint
+      run: |
+        yarn
+        yarn lint
+    - name: test
+      run: |
+        yarn test
