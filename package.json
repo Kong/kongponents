@@ -26,7 +26,7 @@
     "test": "yarn jest",
     "test-coverage": "yarn jest --coverage",
     "cli": "./cli/kongponent-cli",
-    "lint": "eslint --ext .js,.vue packages/"
+    "lint": "yarn eslint --ext .js,.vue packages/"
   },
   "devDependencies": {
     "@vue/test-utils": "1.0.0-beta.28",

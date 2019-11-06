@@ -12,7 +12,6 @@ RUN echo Node `node --version` \
 
 RUN npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN \
   && npm install -g yarn@^1.13.0 \
-  && npm install -g eslint@^v6.6.0 \
   && npm install -g
 
 RUN yarn install
