@@ -30,12 +30,20 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: 10.x
-    - name: publish
+
+    - name: setup git
+      run: |
+        git checkout chore/intf-1320-add-test-component
+
+    - name: npm build
       run: |
         npm config set scripts-prepend-node-path true
         npm config set "//registry.npmjs.org/:_authToken" "$NPM_AUTH_TOKEN" -g
         yarn install --ignore-scripts
-        yarn lerna bootstrap
-        yarn publish:ci
       env:
         NPM_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
+
+    - name: publish
+      run: |
+        yarn lerna bootstrap
+        yarn publish:ci
