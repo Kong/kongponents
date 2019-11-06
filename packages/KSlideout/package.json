@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kslideout",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "KSlideout description here.",
   "main": "KSlideout.vue",
   "scripts": {
@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/Kong/kongponents#readme",
   "dependencies": {
-    "@kongponents/kcard": "^0.1.3-2",
+    "@kongponents/kcard": "^0.1.3-3",
     "@kongponents/kicon": "^0.3.1"
   }
 }
