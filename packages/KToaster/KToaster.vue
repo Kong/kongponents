@@ -72,26 +72,6 @@ $transition: all .3s;
   border-radius: 3px;
   transition: $transition;
   overflow: hidden;
-  &.info {
-    color: var(--KToasterInfoColor, var(--blue-dark, color(blue-dark)));
-    border-color: var(--KToasterInfoBorder, var(--blue-light, color(blue-light)));
-    background-color: var(--KToasterInfoBackground, var(--blue-lighter, color(blue-lighter)));
-  }
-  &.success {
-    color: var(--KToasterSuccessColor, var(--green-dark, color(green-dark)));
-    border-color: var(--KToasterSuccessBorder, var(--green-light-01, color(green-light-01)));
-    background-color: var(--KToasterSuccessBackground, var(--green-lighter, color(green-lighter)));
-  }
-  &.danger {
-    color: var(--KToasterDangerColor, var(--red-dark, color(red-dark)));
-    border-color: var(--KToasterDangerBorder, var(--red-light-01, color(red-light-01)));
-    background-color: var(--KToasterDangerBackground, var(--red-lighter, color(red-lighter)));
-  }
-  &.warning {
-    color: var(--KToasterWarningColor, var(--yellow-darker, color(yellow-darker)));
-    border-color: var(--KToasterWarningBorder, var(--yellow-light, color(yellow-light)));
-    background-color: var(--KToasterWarningBackground, var(--yellow-lighter, color(yellow-lighter)));
-  }
 
   .k-alert {
     display: flex;

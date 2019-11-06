@@ -12,11 +12,18 @@
 <KButton @click="openNotification({'appearance': 'warning', 'message':':warning: lots of text here to verify that the toaster gets taller as the content grows inside of it. You can really put a book worth of content in here!'})">Warning</KButton>
 <KButton @click="getState">Get State</KButton>
 
+{{ currentState }}
+
 <script>
 export default {
+  data() {
+    return {
+      currentState: null
+    }
+  },
   methods: {
     getState() {
-      this.$toaster.getState()
+      this.currentState = this.$toaster.getState()
     },
     openNotification(options) {
       this.$toaster.open(options);
