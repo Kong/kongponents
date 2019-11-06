@@ -13,11 +13,11 @@ Welcome to Kongponents, Kong's very own [Vue](https://vuejs.org/) component libr
 - **Enterprise ready.** Designed enterprise web applications.
 
 ## Documentation & Community
-- [Documentation](docsUrl)
-- [Forum](https://discuss.konghq.com/)
+- For documentation on developing, publishing & general component usage see the [Documentation](docsUrl).
+- For questions please visit the [issues](https://github.com/Kong/kongponents/issues) tab. 
 
 ## Installation
-Kongponents is a mono repo, managed by Lerna. It follows suggested Lerna directory structure with a root `packages` folder which contain all the components.
+Kongponents is a mono repo, managed by [Lerna](https://lerna.js.org/). It follows suggested Lerna directory structure with a root `packages` folder which contain all the components.
 
 ```
 packages                     # root directory of all components
@@ -52,13 +52,13 @@ $ yarn add  @kongponents/kbutton
 
 # or
 
-$ npm install --save @kongponents/kbutton
+$ npm install @kongponents/kbutton
 ```
 
 ```js
 // Import and register components globally
 import KButton from '@kongponents/kbutton';
-Vue.use(KButton);
+Vue.component('KButton', KButton);
 
 // Or
 
@@ -108,28 +108,8 @@ Use predicates in names of data properties or methods that return booleans. For 
 Avoid introducing new dependencies into Kongponents. Part of this library's value is that it reduces the need for external UI libraries such as Vue Bootstrap. More broadly, dependencies in any component library could introduce stability and security issues, and it would quickly become difficult to prevent redundant dependencies with different versions in a given application.
 
 ### Documenting Kongponents
-In addition to detailed prop definitions, each Kongponent must include a doc in the `/docs/components` directory that explains how the Kongponent is used.
+In addition to detailed prop definitions, each Kongponent must include a doc in the `/docs/components` directory that explains how the Kongponent is used. See an existing [component doc](/docs/components/button.md) for an example.
 
-```md
-# Button
-
-**KButton** is probably the most used Kongponent. It supports a number of variations
-and configuration options.
-
-<KButton appearance="primary">I'm a button</KButton> 
-
-## Props
-### Appearances
-The Button component can take 1 of 7 appearance values:
-
-- `secondary`  
-- `primary`  
-- `danger`
-- `outline-primary`  
-- `outline-danger`  
-- `btn-link`  
-- `btn-link-danger`
-```
 
 ## Running Tests
 Kongponents uses [Jest](https://jestjs.io/) & [Vue Test Utils](https://vue-test-utils.vuejs.org/) for tests.
