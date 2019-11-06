@@ -21,7 +21,7 @@
     "postcss": "postcss packages/styles/styles.css --dir packages/styles",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "publish:ci": "lerna publish from-package --yes",
+    "publish:ci": "lerna publish --conventional-commits --yes",
     "test": "yarn jest",
     "test-coverage": "yarn jest --coverage",
     "cli": "./cli/kongponent-cli"
