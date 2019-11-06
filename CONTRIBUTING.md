@@ -12,7 +12,7 @@ Rebase regularly to keep the code history flat and readable. To open a PR, even 
 
 ## Commit Message Format
 
-To maintain a healthy Git history, please write your commit messages as follows:
+We use [Convential Commits](https://www.conventionalcommits.org/en/v1.0.0/) for our [Lerna](https://lerna.js.org/) process as well as to maintain a healthy Git history. Please write your commit messages as follows:
 
   * Use *present tense*
   * Prefix your message with a [type](#type) and a [scope](#scope)
@@ -23,7 +23,7 @@ To maintain a healthy Git history, please write your commit messages as follows:
 Below is a template of what a commit message should look like:
 
 ```
-<type>(<scope>) <subject>
+<type>(<scope>): <subject>
 <BLANK LINE>
 <body>
 <BLANK LINE>
@@ -32,8 +32,7 @@ Below is a template of what a commit message should look like:
 
 ### Type
 
-The type of your commit indicates what type of change this commit is about. The
-accepted types are:
+The type of your commit indicates what type of change this commit is about and how a component will be version. The accepted types are:
 
 * *feat*: A new feature
 * *fix*: A bug fix
@@ -42,7 +41,8 @@ accepted types are:
 * *style*: Changes that do not affect the meaning of the code (white-space trimming, formatting, etc...)
 * *perf*: A code change that significantly improves performance
 * *refactor*: A code change that neither fixes a bug nor adds a feature, and is too big to be considered just perf
-* *chore*: Maintenance changes related to code cleaning that isn't considered part of a refactor, build process updates, dependency bumps, or auxiliary tools and libraries updates (e.g. Lerna, Storybook)
+* *chore*: Maintenance changes related to code cleaning that isn't considered part of a refactor, build process updates, dependency bumps, or auxiliary tools and libraries updates (e.g. Lerna, VuePress)
+See the [convential commits](https://www.conventionalcommits.org/en/v1.0.0/#summary) site for more details.
 
 ### Scope
 
