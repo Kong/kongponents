@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  title: 'Kong Design System',
+  title: 'Kongponents',
   description: 'Kong UI Components & Style Guide',
   themeConfig: {
     repo: 'kong/kongponents',
@@ -12,13 +12,12 @@ module.exports = {
     search: false,
     sidebar: [
       {
-        title: 'Style Guide',
+        title: 'Development',
         collapsable: false,
         children: [
-          '/style-guide/colors',
-          '/style-guide/type',
-          '/style-guide/spacing',
-          '/style-guide/theming'
+          '/development/getting-started',
+          '/development/local',
+          '/development/publishing'
         ]
       },
       {
@@ -26,7 +25,16 @@ module.exports = {
         collapsable: false,
         sidebarDepth: 1,
         children: [
-          '/components/',
+          {
+            title: 'Utilities & Theming',
+            collapsable: false,
+            children: [
+              '/style-guide/colors',
+              '/style-guide/type',
+              '/style-guide/utilities',
+              '/style-guide/theming'
+            ]
+          },
           {
             title: 'Components',
             collapsable: false,
