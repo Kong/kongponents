@@ -2,8 +2,8 @@ name: Publish
 
 on:
   push:
-      branches:
-      - master
+    branches:
+    - master
 
 jobs:
   test:
@@ -30,8 +30,23 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: 10.x
+
+    - name: setup git
+      run: |
+        git config --global user.name 'kongponents'
+        git config --global user.email 'npm@konghq.com'
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+        git checkout master
+
+    - name: npm build
+      run: |
+        npm config set scripts-prepend-node-path true
+        npm config set "//registry.npmjs.org/:_authToken" "$NPM_AUTH_TOKEN" -g
+        yarn install --ignore-scripts
+      env:
+        NPM_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
+
     - name: publish
       run: |
-        yarn install --ignore-scripts
         yarn lerna bootstrap
-        yarn lerna publish from-git --yes
+        yarn publish:ci
