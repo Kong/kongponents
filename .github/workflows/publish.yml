@@ -33,7 +33,10 @@ jobs:
 
     - name: setup git
       run: |
-        git checkout chore/intf-1320-add-test-component
+        git config --global user.name 'kongponents'
+        git config --global user.email 'npm@konghq.com'
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+        git checkout $GITHUB_REF
 
     - name: npm build
       run: |
