@@ -23,7 +23,7 @@ jobs:
         yarn test
 
   publish:
-    needs: test
+    # needs: test
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
@@ -36,7 +36,7 @@ jobs:
         git config --global user.name 'kongponents'
         git config --global user.email 'npm@konghq.com'
         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-        git checkout $GITHUB_REF
+        git checkout chore/intf-1320-add-test-component
 
     - name: npm build
       run: |
