@@ -16,7 +16,7 @@ export default {
     description: {
       type: String,
       required: false,
-      default: 'A default description.'
+      default: 'A default description...'
     }
   }
 }
