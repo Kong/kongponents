@@ -15,7 +15,7 @@ $ npm install --save @kongponents/kbutton
 ```js
 // Import and register components globally
 import KButton from '@kongponents/kbutton';
-Vue.use(KButton);
+Vue.component('KButton', KButton);
 
 // Or
 

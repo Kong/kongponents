@@ -87,4 +87,21 @@ Although the `kpm create` command will create a file in the docs directory it do
   Last step is to rename the markdown file to the canonical name of the component (i.e. `kalert.md` -> `alert.md`, `kbutton.md` -> `button.md`, etc). For documentation purposes page names should be based on what the component is vs its Kongponent `K` name.
 
 ### Developing
-While actively developing the new Kongponent use the new markdown file to see interactivity. We do not use a component prototyping tool like [storybook](https://storybook.js.org/).
+While actively developing the new Kongponent, use the new vuepress markdown file to test out and develop. You can also link the component locally and develop inside your app by following the below steps. 
+
+1. Navigate into the package you want to develop and run `yarn link`
+  ```bash
+  $ cd packages/{%kongponent_name%}
+  $ yarn link
+  ```
+  If done correctly you will see a success message
+  ```bash
+  success Registered "@kongponents/{%kongponent_name%}".
+  info You can now run `yarn link "@kongponents/{%kongponent_name%}"` in the projects where you want to use this package and it will be used instead.
+  ```
+
+2. Inside the root of your application register the linked component
+  ```bash
+  $ yarn link "@kongponents/{%kongponent_name%}"
+  ```
+  Now you actively develop the new component from the kongponents repo inside your application.  
