@@ -16,13 +16,11 @@ jobs:
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
-    - name: Run Test
-      uses: ./.github/actions/run-test
-    # - name: install and lint
-    #   run: |
-    #     yarn
-    #     yarn lint
-    # - name: test
-    #   run: |
-    #     yarn test
+        node-version: ${{ matrix.node-version }} 
+    - name: install and lint
+      run: |
+        yarn
+        yarn lint
+    - name: test
+      run: |
+        yarn test
