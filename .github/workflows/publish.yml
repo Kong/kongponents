@@ -3,7 +3,7 @@ name: Publish
 on:
   push:
     branches:
-    - "chore/intf-1320-add-test-component"
+    - master
 
 jobs:
   test:
@@ -36,7 +36,7 @@ jobs:
         git config --global user.name 'kongponents'
         git config --global user.email 'npm@konghq.com'
         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-        git checkout chore/intf-1320-add-test-component
+        git checkout master
 
     - name: npm build
       run: |
