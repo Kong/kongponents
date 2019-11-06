@@ -6,8 +6,8 @@ on:
     - master
 
 strategy:
-        matrix:
-          node-version: [8.x, 10.x, 12.x]
+  matrix:
+    node-version: [8.x, 10.x, 12.x]
 
 jobs:
   test:
