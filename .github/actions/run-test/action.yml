@@ -1,5 +1,4 @@
-jobs:
-  run-test:
+run-test:
   steps:
     - name: install and lint
       run: |
