@@ -1,8 +1,7 @@
-steps:
-  - name: install and lint
-    run: |
-      yarn
-      yarn lint
-  - name: test
-    run: |
-      yarn test
+- name: install and lint
+  run: |
+    yarn
+    yarn lint
+- name: test
+  run: |
+    yarn test
