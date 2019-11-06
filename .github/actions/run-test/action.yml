@@ -1,9 +1,11 @@
-run-test:
-  steps:
-    - name: install and lint
-      run: |
-        yarn
-        yarn lint
-    - name: test
-      run: |
-        yarn test
+jobs:
+  run-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: install and lint
+        run: |
+          yarn
+          yarn lint
+      - name: test
+        run: |
+          yarn test
