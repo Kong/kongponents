@@ -1,20 +1,52 @@
 name: Publish
 
-push:
+on:
+  push:
     branches:
     - master
+
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: install, build, and test
+      run: |
+        yarn
+        yarn test
+
   publish:
     needs: test
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v1
-      uses: actions/setup-node@v1
+    - uses: actions/setup-node@v1
       with:
         node-version: 10.x
+
+    - name: setup git
+      run: |
+        git config --global user.name 'kongponents'
+        git config --global user.email 'npm@konghq.com'
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+        git checkout master
+
+    - name: npm build
+      run: |
+        npm config set scripts-prepend-node-path true
+        npm config set "//registry.npmjs.org/:_authToken" "$NPM_AUTH_TOKEN" -g
+        yarn install --ignore-scripts
+      env:
+        NPM_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
+
     - name: publish
       run: |
-        yarn install --ignore-scripts
         yarn lerna bootstrap
-        yarn lerna publish from-git --yes
+        yarn publish:ci

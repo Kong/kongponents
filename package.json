@@ -14,15 +14,12 @@
     "packages/*"
   ],
   "scripts": {
-    "storybook": "cd storybook && yarn storybook",
     "build": "yarn docs:build",
-    "build:storybook": "cd storybook && yarn build:storybook",
     "build:styles": "node-sass packages/styles/styles.scss -o packages/styles",
     "postcss": "postcss packages/styles/styles.css --dir packages/styles",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "publish": "lerna publish",
-    "publish:ci": "lerna publish --yes",
+    "publish:ci": "lerna publish --conventional-commits --yes",
     "test": "yarn jest",
     "test-coverage": "yarn jest --coverage",
     "cli": "./cli/kongponent-cli"
