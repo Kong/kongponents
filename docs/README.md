@@ -1,26 +1,5 @@
----
-home: true
-heroImage: https://2tjosk2rxzc21medji3nfn1g-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/kong-logomark-color.svg
-actionText: Go Explore →
-actionLink: /development/getting-started
-tagline: Kong Component Library & Style Guide
-footer: Copyright © 2018-present Kong
----
+<img src="../kongponents-logo.jpg" />
 
-<style lang="scss">
-.home {
-  height: calc(100vh - 3.6rem);
-  .hero img {
-    max-width: 200px;
-  }
-  .footer {
-    position: absolute;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    border-top: none !important;
-    margin: 0 auto;
-    text-align: center;
-  }
-}
-</style>
+Kongponents offer teams the ability to reuse frequently needed UI elements across applications. They should be simple on the surface and extensible. Kongponents should also be maintainable and easy to compose with others. They were developed to solve Kong's application needs, but are generic enough to use in any Vue web application.
+
+To begin using Kongponents checkout the [getting started docs](/development/getting-started).
