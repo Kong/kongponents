@@ -46,7 +46,6 @@ packages                     # root directory of all components
 ## Usage
 Most packages export a single Vue component, to begin using them you will need to import each component individually. For a list of all components & their features see the [documentation](docsUrl).
 
-
 ```bash
 $ yarn add  @kongponents/kbutton
 
@@ -125,7 +124,7 @@ yarn test packages/KButton
 yarn test packages/KButton --updateSnapshot
 ```
 
-### Test Coverage
+### Test Basics
 Write unit tests for base functionality (e.g., that buttons work correctly, text displays on banners), as well as edge cases (e.g., invalid input, returning to an empty state after clearing the input).
 
 ## Asking Questions and Submitting Tickets
