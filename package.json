@@ -20,7 +20,6 @@
     "build:postcss": "postcss styles/styles.css --dir styles",
     "build:cli": "lerna exec \"yarn vue-cli-service build --target lib .\/\\$(cat package.json | jq -r .main) --name \\$(cat package.json | jq -r .componentName) --dest dist --scope \\$(cat package.json | jq -r .name)\"",
     "build:styles": "node-sass packages/styles/styles.scss -o packages/styles",
-    "postcss": "postcss packages/styles/styles.css --dir packages/styles",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "publish:ci": "lerna publish --conventional-commits --yes",
@@ -29,9 +28,9 @@
     "cli": "./cli/kongponent-cli"
   },
   "devDependencies": {
+    "@kongponents/styles": "^0.0.4-1",
     "@vue/cli-service": "^4.0.5",
     "@vue/test-utils": "1.0.0-beta.28",
-    "@kongponents/styles": "^0.0.4-1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-3": "^6.24.1",
     "chalk": "^2.4.1",
