@@ -6,3 +6,4 @@ yarn-error.log
 coverage
 docs/.vuepress/dist
 packages/*/dist
+packages/styles/styles.css
