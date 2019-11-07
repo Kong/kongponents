@@ -25,11 +25,6 @@ yarn
 
 ### Development
 
-Run [Storybook](https://storybook.js.org/)
-```bash
-yarn storybook
-```
-
 Follow command output to know which localhost port to navigate to.
 
 ### Tests
@@ -178,7 +173,6 @@ packages                     # root directory of all components
 │                                # which is managed by Lerna.
 ├── KModal    
 │   ├── KModal.spec.js           # .spec files are picked by test runner
-│   ├── KModal.stories.js        # .stories are picked up by Storybook
 │   ├── KModal.vue    
 │   ├── Readme.md                
 │   ├── __snapshots__            # Jest snapshots for component diff checks
