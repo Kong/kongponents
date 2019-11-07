@@ -17,7 +17,7 @@
     "storybook": "cd storybook && yarn storybook",
     "build": "yarn build:docs && yarn build:cli && yarn build:styles",
     "build:docs": "vuepress build docs",
-    "build:postcss": "postcss styles/styles.css --dir styles",
+    "build:postcss": "postcss packages/styles/styles.css --dir styles",
     "build:cli": "lerna exec \"yarn vue-cli-service build --target lib .\/\\$(cat package.json | jq -r .main) --name \\$(cat package.json | jq -r .componentName) --dest dist --scope \\$(cat package.json | jq -r .name)\"",
     "build:styles": "node-sass packages/styles/styles.scss -o packages/styles",
     "docs:dev": "vuepress dev docs",

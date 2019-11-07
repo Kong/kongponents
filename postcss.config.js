@@ -4,7 +4,7 @@ module.exports = () => ({
   plugins: {
     'postcss-custom-properties': {
       preserve: true,
-      importFrom: path.resolve(__dirname, 'styles/styles.css')
+      importFrom: path.resolve(__dirname, 'packages/styles/styles.css')
     }
   }
 })
