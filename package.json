@@ -14,7 +14,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "yarn build:docs && yarn build:cli && yarn build:styles",
+    "build": "yarn build:styles && yarn build:docs && yarn build:cli",
     "build:docs": "vuepress build docs",
     "build:postcss": "postcss packages/styles/styles.css --dir packages/styles",
     "build:cli": "lerna exec --ignore @kongponents/styles \"yarn vue-cli-service build --target lib .\/\\$(cat package.json | jq -r .files[1]) --name \\$(cat package.json | jq -r .componentName) --dest dist\"",
