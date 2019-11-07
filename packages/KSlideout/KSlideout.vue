@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import KCard from '@kongponents/kcard'
-import KIcon from '@kongponents/kicon'
+import KCard from '@kongponents/kcard/KCard.vue'
+import KIcon from '@kongponents/kicon/KIcon.vue'
 
 export default {
   name: 'KSlideout',

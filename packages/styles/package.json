@@ -3,11 +3,6 @@
   "version": "0.0.4-1",
   "description": "Kong Styleguide & css utilities",
   "main": "styles.css",
-  "componentName": "Styles",
-  "files": [
-    "styles.css",
-    "styles.scss"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"
