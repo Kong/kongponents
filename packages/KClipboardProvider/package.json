@@ -2,7 +2,7 @@
   "name": "@kongponents/kclipboardprovider",
   "version": "0.1.2",
   "description": "Provide clipboard copy capabilities to any component",
-  "main": "KClipboardProvider.js",
+  "main": "dist/KClipboardProvider.umd.min.js",
   "componentName": "KClipboardProvider",
   "files": [
     "dist",

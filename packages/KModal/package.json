@@ -2,7 +2,7 @@
   "name": "@kongponents/kmodal",
   "version": "0.1.4-3",
   "description": "Modal component",
-  "main": "KModal.vue",
+  "main": "dist/KModal.umd.min.js",
   "componentName": "KModal",
   "files": [
     "dist",

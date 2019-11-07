@@ -2,7 +2,7 @@
   "name": "@kongponents/ktable",
   "version": "0.1.4-1",
   "description": "Table component",
-  "main": "KTable.vue",
+  "main": "dist/KTable.umd.min.js",
   "componentName": "KTable",
   "files": [
     "dist",

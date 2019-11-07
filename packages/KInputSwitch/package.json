@@ -2,7 +2,7 @@
   "name": "@kongponents/kinputswitch",
   "version": "0.1.1-1",
   "description": "KInputSwitch description here.",
-  "main": "KInputSwitch.vue",
+  "main": "dist/KInputSwitch.umd.min.js",
   "componentName": "KInputSwitch",
   "files": [
     "dist",

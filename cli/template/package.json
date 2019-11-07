@@ -2,7 +2,7 @@
   "name": "@kongponents/{%kongponent_name_lower%}",
   "version": "0.1.0",
   "description": "{%kongponent_description%}",
-  "main": "{%kongponent_name%}.vue",
+  "main": "dist/{%kongponent_name%}.umd.min.js",
   "componentName": "{%kongponent_name%}",
   "files": [
     "dist",

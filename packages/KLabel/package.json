@@ -2,7 +2,7 @@
   "name": "@kongponents/klabel",
   "version": "0.2.0",
   "description": "Form input label",
-  "main": "KLabel.vue",
+  "main": "dist/KLabel.umd.min.js",
   "componentName": "KLabel",
   "files": [
     "dist",

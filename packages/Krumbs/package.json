@@ -2,7 +2,7 @@
   "name": "@kongponents/krumbs",
   "version": "0.1.2",
   "description": "Breadcrumbs component",
-  "main": "Krumbs.vue",
+  "main": "dist/Krumbs.umd.min.js",
   "componentName": "Krumbs",
   "files": [
     "dist",

@@ -2,7 +2,7 @@
   "name": "@kongponents/kemptystate",
   "version": "0.1.9-1",
   "description": "Empty State component",
-  "main": "KEmptyState.vue",
+  "main": "dist/KEmptyState.umd.min.js",
   "componentName": "KEmptyState",
   "files": [
     "dist",

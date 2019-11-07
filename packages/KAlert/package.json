@@ -2,7 +2,7 @@
   "name": "@kongponents/kalert",
   "version": "0.1.4",
   "description": "Alert component",
-  "main": "KAlert.vue",
+  "main": "dist/KAlert.umd.min.js",
   "componentName": "KAlert",
   "files": [
     "dist",
