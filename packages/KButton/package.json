@@ -1,7 +1,7 @@
 {
   "name": "@kongponents/kbutton",
   "version": "0.1.10-2",
-  "description": "Button component",
+  "description": "Button component.",
   "main": "dist/KButton.umd.min.js",
   "componentName": "KButton",
   "source": "KButton.vue",

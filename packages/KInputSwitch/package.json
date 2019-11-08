@@ -1,7 +1,7 @@
 {
   "name": "@kongponents/kinputswitch",
   "version": "0.1.1-2",
-  "description": "KInputSwitch description here.",
+  "description": "Switch/Toggle component.",
   "main": "dist/KInputSwitch.umd.min.js",
   "componentName": "KInputSwitch",
   "source": "KInputSwitch.vue",
