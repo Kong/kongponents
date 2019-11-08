@@ -41,15 +41,17 @@ jobs:
         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
         git checkout master
 
-    - name: npm build
+    - name: install
       run: |
         npm config set scripts-prepend-node-path true
         npm config set "//registry.npmjs.org/:_authToken" "$NPM_AUTH_TOKEN" -g
         yarn install --ignore-scripts
-        yarn build
       env:
         NPM_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
 
+    - name: yarn build
+      run: |
+        yarn build
     - name: publish
       run: |
         yarn lerna bootstrap
