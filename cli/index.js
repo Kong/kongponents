@@ -152,30 +152,6 @@ program
   })
 
 program
-  .command('publish')
-  .on('--help', function () {
-    console.log('Example:')
-    console.log('$ kpm publish')
-  })
-  .description('publish any updated kongponents')
-  .usage('<kongponent>')
-  .action(function (kongponent) {
-    runTests(function (exitCode) {
-      if (exitCode === 0) {
-        // Currently execSync will barf on the interactive prompt from publishing your kongponent.
-        // spawn and spawnSync will return the result of the child process, but you can't interact with it.
-        // TODO: run lerna publish commands for the user instead of instructing to copy paste (applies to publish-all and upgrade)
-        console.log(`You did it! Tests have passed! Paste the following command in your prompt to publish your kongponent.`)
-        console.log(chalk.greenBright(`\n yarn lerna publish`))
-      } else {
-        console.log(`Tests have failed! Please check before publishing.`)
-      }
-
-      process.exit(exitCode)
-    })
-  })
-
-program
   .command('test')
   .on('--help', function () {
     console.log('Example:')
