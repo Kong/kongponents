@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/klabel",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Form input label",
   "main": "dist/KLabel.umd.min.js",
   "componentName": "KLabel",
