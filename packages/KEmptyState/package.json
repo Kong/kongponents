@@ -2,10 +2,13 @@
   "name": "@kongponents/kemptystate",
   "version": "0.1.9-1",
   "description": "Empty State component",
-  "main": "KEmptyState.vue",
-  "scripts": {
-    "test": "echo \"Error: no test specified\""
-  },
+  "main": "dist/KEmptyState.umd.min.js",
+  "componentName": "KEmptyState",
+  "source": "KEmptyState.vue",
+  "files": [
+    "dist",
+    "KEmptyState.vue"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"

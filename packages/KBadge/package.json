@@ -2,10 +2,13 @@
   "name": "@kongponents/kbadge",
   "version": "0.1.2",
   "description": "Badges, pills, or whatever you wanna call them.",
-  "main": "KBadge.vue",
-  "scripts": {
-    "test": "jest"
-  },
+  "main": "dist/KBadge.umd.min.js",
+  "componentName": "KBadge",
+  "source": "KBadge.vue",
+  "files": [
+    "dist",
+    "KBadge.vue"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"

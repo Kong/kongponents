@@ -2,10 +2,13 @@
   "name": "@kongponents/kmodal",
   "version": "0.1.4-3",
   "description": "Modal component",
-  "main": "KModal.vue",
-  "scripts": {
-    "test": "jest"
-  },
+  "main": "dist/KModal.umd.min.js",
+  "componentName": "KModal",
+  "source": "KModal.vue",
+  "files": [
+    "dist",
+    "KModal.vue"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"

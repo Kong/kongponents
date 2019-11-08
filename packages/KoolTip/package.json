@@ -2,10 +2,13 @@
   "name": "@kongponents/kooltip",
   "version": "0.2.1",
   "description": "A tooltip component",
-  "main": "KoolTip.vue",
-  "scripts": {
-    "test": "jest"
-  },
+  "main": "dist/KoolTip.umd.min.js",
+  "componentName": "KoolTip",
+  "source": "KoolTip.vue",
+  "files": [
+    "dist",
+    "KoolTip.vue"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"

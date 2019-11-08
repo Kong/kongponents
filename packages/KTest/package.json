@@ -2,10 +2,13 @@
   "name": "@kongponents/ktest",
   "version": "0.2.1",
   "description": "Testing 1, 2, 3...",
-  "main": "KTest.vue",
-  "scripts": {
-    "test": "jest"
-  },
+  "main": "dist/KTest.umd.min.js",
+  "componentName": "KTest",
+  "source": "KTest.vue",
+  "files": [
+    "dist",
+    "KTest.vue"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"

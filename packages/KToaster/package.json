@@ -2,10 +2,13 @@
   "name": "@kongponents/ktoaster",
   "version": "0.1.2",
   "description": "Toaster component",
-  "main": "KToaster.vue",
-  "scripts": {
-    "test": "echo \"Error: no test specified\""
-  },
+  "main": "dist/KToaster.umd.min.js",
+  "componentName": "KToaster",
+  "source": "KToaster.vue",
+  "files": [
+    "dist",
+    "KToaster.vue"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"

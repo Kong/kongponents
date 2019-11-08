@@ -2,10 +2,13 @@
   "name": "@kongponents/ktable",
   "version": "0.1.4-1",
   "description": "Table component",
-  "main": "KTable.vue",
-  "scripts": {
-    "test": "echo \"Error: no test specified\""
-  },
+  "main": "dist/KTable.umd.min.js",
+  "componentName": "KTable",
+  "source": "KTable.vue",
+  "files": [
+    "dist",
+    "KTable.vue"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"
