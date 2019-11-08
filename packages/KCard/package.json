@@ -4,6 +4,7 @@
   "description": "Card component",
   "main": "dist/KCard.umd.min.js",
   "componentName": "KCard",
+  "source": "KCard.vue",
   "files": [
     "dist",
     "KCard.vue"

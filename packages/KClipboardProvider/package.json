@@ -4,6 +4,7 @@
   "description": "Provide clipboard copy capabilities to any component",
   "main": "dist/KClipboardProvider.umd.min.js",
   "componentName": "KClipboardProvider",
+  "source": "KClipboardProvider.js",
   "files": [
     "dist",
     "KClipboardProvider.js"

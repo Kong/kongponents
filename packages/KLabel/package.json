@@ -4,6 +4,7 @@
   "description": "Form input label",
   "main": "dist/KLabel.umd.min.js",
   "componentName": "KLabel",
+  "source": "KLabel.vue",
   "files": [
     "dist",
     "KLabel.vue"

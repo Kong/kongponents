@@ -4,6 +4,7 @@
   "description": "Badges, pills, or whatever you wanna call them.",
   "main": "dist/KBadge.umd.min.js",
   "componentName": "KBadge",
+  "source": "KBadge.vue",
   "files": [
     "dist",
     "KBadge.vue"

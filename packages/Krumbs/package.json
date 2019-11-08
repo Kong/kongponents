@@ -4,6 +4,7 @@
   "description": "Breadcrumbs component",
   "main": "dist/Krumbs.umd.min.js",
   "componentName": "Krumbs",
+  "source": "Krumbs.vue",
   "files": [
     "dist",
     "Krumbs.vue"

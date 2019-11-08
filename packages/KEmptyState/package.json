@@ -4,6 +4,7 @@
   "description": "Empty State component",
   "main": "dist/KEmptyState.umd.min.js",
   "componentName": "KEmptyState",
+  "source": "KEmptyState.vue",
   "files": [
     "dist",
     "KEmptyState.vue"

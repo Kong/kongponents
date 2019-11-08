@@ -4,6 +4,7 @@
   "description": "A tooltip component",
   "main": "dist/KoolTip.umd.min.js",
   "componentName": "KoolTip",
+  "source": "KoolTip.vue",
   "files": [
     "dist",
     "KoolTip.vue"

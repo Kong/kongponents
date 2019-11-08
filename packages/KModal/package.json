@@ -4,6 +4,7 @@
   "description": "Modal component",
   "main": "dist/KModal.umd.min.js",
   "componentName": "KModal",
+  "source": "KModal.vue",
   "files": [
     "dist",
     "KModal.vue"

@@ -4,6 +4,7 @@
   "description": "Input component",
   "main": "dist/KInput.umd.min.js",
   "componentName": "KInput",
+  "source": "KInput.vue",
   "files": [
     "dist",
     "KInput.vue"

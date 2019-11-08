@@ -4,6 +4,7 @@
   "description": "Button component",
   "main": "dist/KButton.umd.min.js",
   "componentName": "KButton",
+  "source": "KButton.vue",
   "files": [
     "dist",
     "KButton.vue"

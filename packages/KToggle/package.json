@@ -4,6 +4,7 @@
   "description": "Provide toggle functionality to components.",
   "main": "dist/KToggle.umd.min.js",
   "componentName": "KToggle",
+  "source": "KToggle.js",
   "files": [
     "dist",
     "KToggle.js"

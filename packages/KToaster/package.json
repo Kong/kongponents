@@ -4,6 +4,7 @@
   "description": "Toaster component",
   "main": "dist/KToaster.umd.min.js",
   "componentName": "KToaster",
+  "source": "KToaster.vue",
   "files": [
     "dist",
     "KToaster.vue"

@@ -4,6 +4,7 @@
   "description": "Table component",
   "main": "dist/KTable.umd.min.js",
   "componentName": "KTable",
+  "source": "KTable.vue",
   "files": [
     "dist",
     "KTable.vue"

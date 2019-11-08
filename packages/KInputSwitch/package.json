@@ -4,6 +4,7 @@
   "description": "KInputSwitch description here.",
   "main": "dist/KInputSwitch.umd.min.js",
   "componentName": "KInputSwitch",
+  "source": "KInputSwitch.vue",
   "files": [
     "dist",
     "KInputSwitch.vue"
