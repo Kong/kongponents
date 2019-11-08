@@ -1,7 +1,7 @@
 {
   "name": "@kongponents/kinput",
   "version": "0.1.3-2",
-  "description": "Input component",
+  "description": "Input component.",
   "main": "dist/KInput.umd.min.js",
   "componentName": "KInput",
   "source": "KInput.vue",

@@ -1,7 +1,7 @@
 {
   "name": "@kongponents/kslideout",
   "version": "0.1.3",
-  "description": "KSlideout description here.",
+  "description": "Slideout component.",
   "main": "dist/KSlideout.umd.min.js",
   "componentName": "KSlideout",
   "source": "KSlideout.vue",
