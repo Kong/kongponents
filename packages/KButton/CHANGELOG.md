@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.10-4](https://github.com/Kong/kongponents/compare/@kongponents/kbutton@0.1.10-3...@kongponents/kbutton@0.1.10-4) (2019-11-11)
+
+**Note:** Version bump only for package @kongponents/kbutton
+
+
+
+
+
 ## [0.1.10-3](https://github.com/Kong/kongponents/compare/@kongponents/kbutton@0.1.10-2...@kongponents/kbutton@0.1.10-3) (2019-11-08)
 
 

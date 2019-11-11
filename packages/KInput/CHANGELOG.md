@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.3-4](https://github.com/Kong/kongponents/compare/@kongponents/kinput@0.1.3-3...@kongponents/kinput@0.1.3-4) (2019-11-11)
+
+**Note:** Version bump only for package @kongponents/kinput
+
+
+
+
+
 ## [0.1.3-3](https://github.com/Kong/kongponents/compare/@kongponents/kinput@0.1.3-2...@kongponents/kinput@0.1.3-3) (2019-11-08)
 
 

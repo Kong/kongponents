@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/ktoaster",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Toaster component",
   "main": "dist/KToaster.umd.min.js",
   "componentName": "KToaster",
