@@ -1,5 +1,9 @@
 module.exports = {
   root: true,
+  parserOptions: {
+    parser: 'babel-eslint',
+    sourceType: 'module'
+  },
   env: {
     browser: true,
   },
@@ -8,11 +12,16 @@ module.exports = {
     "plugin:jest/recommended",
     "standard"
   ],
+  plugins: [
+    'vue'
+  ],
   rules: {
     'curly': 'error',
     'arrow-parens': 0,
     'generator-star-spacing': 0,
     'object-property-newline': 'error',
+    'import/no-named-default': 0,
+    'object-curly-spacing': 0,
     'lines-between-class-members': ['error', 'always'],
     'padding-line-between-statements': [
       "error",

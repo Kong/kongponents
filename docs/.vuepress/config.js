@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  title: 'Kong Design System',
+  title: 'Kongponents',
   description: 'Kong UI Components & Style Guide',
   themeConfig: {
     repo: 'kong/kongponents',
@@ -12,13 +12,11 @@ module.exports = {
     search: false,
     sidebar: [
       {
-        title: 'Style Guide',
+        title: 'Guide',
         collapsable: false,
         children: [
-          '/style-guide/colors',
-          '/style-guide/type',
-          '/style-guide/spacing',
-          '/style-guide/theming'
+          '/',
+          '/guide/theming'
         ]
       },
       {
@@ -26,7 +24,16 @@ module.exports = {
         collapsable: false,
         sidebarDepth: 1,
         children: [
-          '/components/',
+          {
+            title: 'Style Guide',
+            collapsable: false,
+            children: [
+              '/style-guide/colors',
+              '/style-guide/type',
+              '/style-guide/utilities',
+
+            ]
+          },
           {
             title: 'Components',
             collapsable: false,
@@ -34,8 +41,10 @@ module.exports = {
             children: [
               '/components/alert',
               '/components/badge',
+              '/components/breadcrumbs',
               '/components/button',
               '/components/card',
+              '/components/empty-state',
               '/components/input',
               '/components/icon',
               '/components/modal',
@@ -43,6 +52,7 @@ module.exports = {
               '/components/tooltip',
               '/components/table',
               '/components/toaster',
+              '/components/slideout',
               '/components/switch'
             ]
           },
@@ -57,9 +67,13 @@ module.exports = {
           }
         ]
       },
-    ],
-    nav: [
-      { text: 'Home', link: '/' }
+      {
+        title: 'Contributing',
+        collapsable: false,
+        children: [
+          '/contributing/local'
+        ]
+      }
     ]
   },
   head: [

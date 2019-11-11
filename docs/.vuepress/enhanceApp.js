@@ -4,22 +4,24 @@ import icons from '../../packages/KIcon/icons' // KIcon icons
 import { default as ToastManager } from '../../packages/KToaster/ToastManager' // Toaster API
 
 // Globally import all Kongponents
-import KAlert from '../../packages/KAlert'
-import KBadge from '../../packages/KBadge'
-import KButton from '../../packages/KButton'
-import KCard from '../../packages/KCard'
-import KClipboardProvider from '../../packages/KClipboardProvider'
-import KEmptyState from '../../packages/KEmptyState'
-import KIcon from '../../packages/KIcon'
-import KInput from '../../packages/KInput'
-import KInputSwitch from '../../packages/KInputSwitch'
-import KLabel from '../../packages/KLabel'
-import KModal from '../../packages/KModal'
-import KoolTip from '../../packages/KoolTip'
-import KPop from '../../packages/KPop'
-import Krumbs from '../../packages/Krumbs'
-import KTable from '../../packages/KTable'
-import KToggle from '../../packages/KToggle'
+import KAlert from '../../packages/KAlert/KAlert.vue'
+import KBadge from '../../packages/KBadge/KBadge.vue'
+import KButton from '../../packages/KButton/KButton.vue'
+import KCard from '../../packages/KCard/KCard.vue'
+import KClipboardProvider from '../../packages/KClipboardProvider/KClipboardProvider.js'
+import KEmptyState from '../../packages/KEmptyState/KEmptyState.vue'
+import KIcon from '../../packages/KIcon/KIcon.vue'
+import KInput from '../../packages/KInput/KInput.vue'
+import KInputSwitch from '../../packages/KInputSwitch/KInputSwitch.vue'
+import KLabel from '../../packages/KLabel/KLabel.vue'
+import KModal from '../../packages/KModal/KModal.vue'
+import KoolTip from '../../packages/KoolTip/KoolTip.vue'
+import KPop from '../../packages/KPop/KPop.vue'
+import Krumbs from '../../packages/Krumbs/Krumbs.vue'
+import KTable from '../../packages/KTable/KTable.vue'
+import KToaster from '../../packages/KToaster/KToaster.vue'
+import KToggle from '../../packages/KToggle/KToggle.js'
+import KSlideout from '../../packages/KSlideout/KSlideout.vue'
 
 export default ({
   Vue,
@@ -43,6 +45,7 @@ export default ({
   Vue.component('Krumbs', Krumbs)
   Vue.component('KTable', KTable)
   Vue.component('KToggle', KToggle)
+  Vue.component('KSlideout', KSlideout)
 
   Vue.prototype.$icons = Object.keys(icons)
   Vue.prototype.$toaster = ToastManager

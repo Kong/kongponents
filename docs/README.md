@@ -1,14 +1,32 @@
----
-home: true
-heroImage: https://2tjosk2rxzc21medji3nfn1g-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/kong-logomark-color.svg
-actionText: Go Explore →
-actionLink: /style-guide/colors/
-tagline: Kong Style Guide & Component Library
-footer: Copyright © 2018-present Kong
----
+<img src="../kongponents-logo.jpg" />
 
-<style>
-  .home .hero img {
-    max-width: 200px;
-  }
-</style>
+Kongponents is a Vue component library of frequently needed UI elements. They were developed to solve [Kong](https://konghq.com)'s application needs, but are generic enough to use in any web application.
+
+## Installation
+To begin developing Kongponents you will need to import each component individually. For a list of all components & their features see the [components](/components/) section.
+
+```bash
+$ yarn add  @kongponents/kbutton
+
+# or
+
+$ npm install @kongponents/kbutton
+```
+
+Import and register components globally
+
+```js
+import KButton from '@kongponents/kbutton';
+Vue.component('KButton', KButton);
+```
+
+Or locally inside a component
+
+```js
+import KButton from '@kongponents/kbutton';
+export default {
+  ...
+  components: { KButton },
+  ...
+};
+```

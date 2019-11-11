@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import KIcon from '@kongponents/kicon'
+import KIcon from '@kongponents/kicon/KIcon.vue'
 
 export const appearances = {
   info: 'info',

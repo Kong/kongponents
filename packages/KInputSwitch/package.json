@@ -1,11 +1,14 @@
 {
   "name": "@kongponents/kinputswitch",
-  "version": "0.1.1-1",
+  "version": "0.1.1-4",
   "description": "KInputSwitch description here.",
-  "main": "KInputSwitch.vue",
-  "scripts": {
-    "test": "jest"
-  },
+  "main": "dist/KInputSwitch.umd.min.js",
+  "componentName": "KInputSwitch",
+  "source": "KInputSwitch.vue",
+  "files": [
+    "dist",
+    "KInputSwitch.vue"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"

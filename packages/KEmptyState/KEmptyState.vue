@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import KButton from '@kongponents/kbutton'
+import KButton from '@kongponents/kbutton/KButton.vue'
 export default {
   name: 'KEmptyState',
   components: { KButton },

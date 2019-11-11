@@ -61,44 +61,46 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '~@kongponents/styles/_variables.scss';
+
 .kong-card {
-  padding: 1rem;
-  margin-bottom: 1rem;
-}
+  padding: var(--KCardPaddingY, 1rem) var(--KCardPaddingX, 1rem);
+  margin-bottom: 1rvar(--KCardMarginY, 1rem) var(--KCardMarginX, 1rem);
 
-.kong-card.noBoard {
-  border: none;
-}
+  &.noBoard {
+    border: none;
+  }
 
-.kong-card.border {
-  border-radius: 3px;
-  border: 1px solid rgba(0,0,0,.12);
-  box-shadow: none;
-}
+  &.border {
+    border-radius: 3px;
+    border: 1px solid var(--KCardBorder, var(--tblack-10, color(tblack-10)));
+    box-shadow: none;
+  }
 
-.kong-card.borderTop {
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-}
+  &.borderTop {
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+  }
 
-.kong-card.hover:hover {
-  box-shadow: 0 4px 8px rgba(0,0,0,.12);
-}
+  &.hover:hover {
+    box-shadow: 0 4px 8px var(--tblack-10, color(tblack-10));
+  }
 
-.kong-card .k-card-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-}
+  .k-card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
 
-.kong-card .k-card-title h4 {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 500;
-  color: rgba(0,0,0,.85);
-}
+  .k-card-title h4 {
+    margin: 0;
+    font-size: var(--KCardTitleFontSize, var(--type-lg, type(lg)));
+    font-weight: 500;
+    color: var(--KCardTitleColor, var(--tblack-85, color(tblack-85)));
+  }
 
-.kong-card .k-card-actions  {
-  margin-left: auto;
+  .k-card-actions  {
+    margin-left: auto;
+  }
 }
 </style>
