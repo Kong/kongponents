@@ -54,14 +54,3 @@ Kong uses the [Roboto](https://fonts.google.com/specimen/Roboto) font face.
     :font-size="font.size"
     :variable-name="font.variable" /> 
 </div>
-
-## Utility Classes
-&nbsp;
-
-| Class       | Description |Properties
-| :---------- |:-------------- |:-----------
-| `.truncate` | Truncates text with "..."| <pre v-pre><code>{ <br>&nbsp;&nbsp;white-space: nowrap; <br>&nbsp;&nbsp;text-overflow: ellipsis; <br>&nbsp;&nbsp;overflow: hidden;<br>}</code></pre>
-| `.cursor-pointer` | Sets cursor type | <pre v-pre><code>{ cursor: pointer; } </code></pre>
-| `.d-none` | Sets display to none | <pre v-pre><code>{ display: none; }</code></pre>
-| `.overflow-hidden` | Sets overflow | <pre v-pre><code>{ overflow: hidden; }</code></pre>
-| `.w-100` | Sets element to 100% width | <pre v-pre><code>{ width: 100%; }</code></pre>
