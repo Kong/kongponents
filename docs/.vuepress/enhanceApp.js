@@ -1,7 +1,6 @@
 // Get base stylesheet
 import '../../packages/styles/styles.css'
 import icons from '../../packages/KIcon/icons' // KIcon icons
-import ToastManager from '../../packages/KToaster/ToastManager'
 
 // Globally import all Kongponents
 import KAlert from '../../packages/KAlert/KAlert.vue'
@@ -47,5 +46,3 @@ export default ({
   Vue.component('KSlideout', KSlideout)
 
   Vue.prototype.$icons = Object.keys(icons)
-  Vue.prototype.$toaster = new ToastManager()
-}
