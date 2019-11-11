@@ -46,3 +46,4 @@ export default ({
   Vue.component('KSlideout', KSlideout)
 
   Vue.prototype.$icons = Object.keys(icons)
+}
