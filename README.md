@@ -8,5 +8,5 @@ Kongponents is a Vue component library of frequently needed UI elements. They we
 The Kongponents repo is a monorepo, managed by [Lerna](https://lerna.js.org/) that is composed of many [npm packages](https://www.npmjs.com/org/kongponents).
 
 ## Documentation
-[Kongponents Docs](https://kongponents.konghq.co) are powered by VuePress and the source can be viewed [here](docs/README.md).
+[Kongponents Docs](https://kongponents.konghq.com) are powered by VuePress and the source can be viewed [here](docs/README.md).
 
