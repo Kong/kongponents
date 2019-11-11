@@ -1,4 +1,4 @@
-# Contributing to Kongponents 🍌
+# Contributing to Kongponents
 
 Thank you for your interest in contributing to Kongponents. Please follow the guidelines below to keep our respository's commit history clean and consistent.
 
@@ -8,11 +8,11 @@ Branch from `master`. Name the new branch with a type followed by a brief title,
 
 Limit the scope of the branch to one particular outcome. If you encounter other improvements you can make during the course of working on the branch, e.g., if you discover another bug you could fix or a dependency version that needs to be increased, please maintain commit atomicity. 
 
-Rebase regularly to keep the code history flat and readable. To open a PR, even for a branch that is still in progress, see [submitting a PR](README.md#submitting-a-pr).
+Rebase regularly to keep the code history flat and readable. To open a PR, even for a branch that is still in progress, see [submitting a PR](#submitting-a-pr).
 
 ## Commit Message Format
 
-To maintain a healthy Git history, please write your commit messages as follows:
+We use [Convential Commits](https://www.conventionalcommits.org/en/v1.0.0/) for our [Lerna](https://lerna.js.org/) process as well as to maintain a healthy Git history. Please write your commit messages as follows:
 
   * Use *present tense*
   * Prefix your message with a [type](#type) and a [scope](#scope)
@@ -23,7 +23,7 @@ To maintain a healthy Git history, please write your commit messages as follows:
 Below is a template of what a commit message should look like:
 
 ```
-<type>(<scope>) <subject>
+<type>(<scope>): <subject>
 <BLANK LINE>
 <body>
 <BLANK LINE>
@@ -32,8 +32,7 @@ Below is a template of what a commit message should look like:
 
 ### Type
 
-The type of your commit indicates what type of change this commit is about. The
-accepted types are:
+The type of your commit indicates what type of change this commit is about and how a component will be version. The accepted types are:
 
 * *feat*: A new feature
 * *fix*: A bug fix
@@ -42,7 +41,8 @@ accepted types are:
 * *style*: Changes that do not affect the meaning of the code (white-space trimming, formatting, etc...)
 * *perf*: A code change that significantly improves performance
 * *refactor*: A code change that neither fixes a bug nor adds a feature, and is too big to be considered just perf
-* *chore*: Maintenance changes related to code cleaning that isn't considered part of a refactor, build process updates, dependency bumps, or auxiliary tools and libraries updates (e.g. Lerna)
+* *chore*: Maintenance changes related to code cleaning that isn't considered part of a refactor, build process updates, dependency bumps, or auxiliary tools and libraries updates (e.g. Lerna, VuePress)
+See the [convential commits](https://www.conventionalcommits.org/en/v1.0.0/#summary) site for more details.
 
 ### Scope
 
@@ -63,3 +63,8 @@ As previously mentioned, lines in the commit messages should not exceed 72 chara
 ### Footer
 
 The footer is the ideal place to link to related material about the change, e.g. related GitHub issues, Pull Requests, Jira tickets.
+
+## Submitting a PR
+- Please run all tests before crating a PR with your changes. To see how to run tests for Kongponents checkout out the [Running Tests](README.md#running-tests) section of the README.md.
+
+- To open a PR for a branch that is still a work in progress, use the WIP tag to let others know that it is not intended for final review. The WIP tag should not be removed until all tests are passing.
