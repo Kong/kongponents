@@ -45,5 +45,5 @@ export default ({
   Vue.component('KToggle', KToggle)
 
   Vue.prototype.$icons = Object.keys(icons)
-  Vue.prototype.$toaster = ToastManager
+  Vue.prototype.$toaster = new ToastManager()
 }

@@ -1,71 +1,72 @@
-import { default as KToaster, toasterAppearances } from './KToaster.vue'
+import KToaster, { toasterAppearances } from './KToaster.vue'
 import Vue from 'vue'
 
-// Track all instances of notifications currently open
-let toasterState = []
+const APPEARANCES = Object.keys(toasterAppearances)
 
-// Set default values
-const defaultTimeout = 5000
-const defaultAppearance = toasterAppearances['info']
-const appearances = Object.keys(toasterAppearances)
-const toasterContainerID = 'toaster-container'
+const DEFAULTS = {
+  id: 'toaster-container',
+  timeout: 5000,
+  appearance: toasterAppearances['info']
+}
 
-// Create a component container for the notification to bind to
-const notificationContainer = document.createElement('div')
+export default class ToastManager {
+  constructor (id = DEFAULTS.id, timeout = DEFAULTS.timeout, appearance = DEFAULTS.appearance) {
+    this.toasters = []
 
-notificationContainer.id = toasterContainerID
-document.body.appendChild(notificationContainer)
+    this.timeout = timeout
+    this.appearance = appearance
+    this.id = id
 
-// Extend the notification SFC as a class and mount it to the container
-const ComponentClass = Vue.extend(KToaster)
-var notificationInstance = new ComponentClass({
-  data: { toasterState }
-})
-
-notificationInstance.$mount('#' + toasterContainerID).$on('close', key => {
-  closeToaster(key)
-})
-
-// Create a new notification
-function newToaster (args) {
-  // If the only arg is a string, set as toaster message
-  if (typeof args === 'string') {
-    args = {
-      message: args
-    }
+    this.mount()
   }
 
-  // Set Toaster props
-  args.key = args.key || new Date().getTime()
-  args.timeoutMilliseconds = args.timeoutMilliseconds || defaultTimeout
-  args._timer = setTimer(args.key, args.timeoutMilliseconds)
-  // Verify appearance exists & is in allowed appearances. If not use default
-  args.appearance = (args.appearance && appearances.indexOf(args.appearance) !== -1)
-    ? args.appearance
-    : defaultAppearance
+  mount () {
+    // Create a component container for the notification to bind to
+    const notificationContainer = document.createElement('div')
 
-  // Add toaster to state
-  toasterState.push(args)
-}
+    notificationContainer.id = this.id
+    document.body.appendChild(notificationContainer)
 
-// Sets a timer to kill the notification after the specified timeout
-const setTimer = (key, timeout) => setTimeout(() => closeToaster(key), timeout)
+    // Extend the notification SFC as a class and mount it to the container
+    const ComponentClass = Vue.extend(KToaster)
+    var notificationInstance = new ComponentClass({
+      data: {
+        toasterState: this.toasters
+      }
+    })
 
-// Removes the notification from state
-const closeToaster = (key) => {
-  const i = toasterState.findIndex(n => key === n.key)
+    notificationInstance.$mount('#' + this.id).$on('close', key => {
+      this.close(key)
+    })
+  }
 
-  clearTimeout(toasterState[i]._timer)
-  toasterState.splice(i, 1)
-}
+  setTimer (key, timeout) {
+    setTimeout(() => this.close(key), timeout)
+  }
 
-// Create the api
-const toasterApi = {
-  open: newToaster, // Create new toaster
-  close: closeToaster, // Close toaster
-  getState: () => { //  Return all toasters in current state
-    return toasterState
+  open (args) {
+    const { key, timeoutMilliseconds, appearance, message } = args
+
+    const _key = key || new Date().getTime()
+    const _appearance = (appearance && APPEARANCES.indexOf(appearance) !== -1)
+      ? appearance
+      : this.appearance
+    const timer = this.setTimer(_key, timeoutMilliseconds || this.timeout)
+
+    // Add toaster to state
+    this.toasters.push({
+      key: _key,
+      appearance: _appearance,
+      message: message || args,
+      timer: timer,
+      timeoutMilliseconds: timeoutMilliseconds || this.timeout
+    })
+  }
+
+  close (key) {
+    const i = this.toasters.findIndex(n => key === n.key)
+
+    clearTimeout(this.toasters[i].timer)
+    this.toasters.splice(i, 1)
   }
 }
-
-export default toasterApi
