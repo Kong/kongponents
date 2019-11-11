@@ -2,10 +2,13 @@
   "name": "@kongponents/{%kongponent_name_lower%}",
   "version": "0.1.0",
   "description": "{%kongponent_description%}",
-  "main": "{%kongponent_name%}.vue",
-  "scripts": {
-    "test": "jest"
-  },
+  "main": "dist/{%kongponent_name%}.umd.min.js",
+  "componentName": "{%kongponent_name%}",
+  "source": "{%kongponent_name%}.vue",
+  "files": [
+    "dist",
+    "{%kongponent_name%}.vue"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"

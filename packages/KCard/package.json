@@ -1,11 +1,14 @@
 {
   "name": "@kongponents/kcard",
-  "version": "0.1.3-1",
+  "version": "0.1.3-6",
   "description": "Card component",
-  "main": "KCard.vue",
-  "scripts": {
-    "test": "echo \"Error: no test specified\""
-  },
+  "main": "dist/KCard.umd.min.js",
+  "componentName": "KCard",
+  "source": "KCard.vue",
+  "files": [
+    "dist",
+    "KCard.vue"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"

@@ -1,11 +1,14 @@
 {
   "name": "@kongponents/krumbs",
-  "version": "0.1.2",
+  "version": "0.1.5",
   "description": "Breadcrumbs component",
-  "main": "Krumbs.vue",
-  "scripts": {
-    "test": "jest"
-  },
+  "main": "dist/Krumbs.umd.min.js",
+  "componentName": "Krumbs",
+  "source": "Krumbs.vue",
+  "files": [
+    "dist",
+    "Krumbs.vue"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"

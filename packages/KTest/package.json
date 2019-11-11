@@ -1,13 +1,13 @@
 {
-  "name": "@kongponents/ktoaster",
-  "version": "0.1.5",
-  "description": "Toaster component",
-  "main": "dist/KToaster.umd.min.js",
-  "componentName": "KToaster",
-  "source": "KToaster.vue",
+  "name": "@kongponents/ktest",
+  "version": "1.0.0",
+  "description": "Testing 1, 2, 3...",
+  "main": "dist/KTest.umd.min.js",
+  "componentName": "KTest",
+  "source": "KTest.vue",
   "files": [
     "dist",
-    "KToaster.vue"
+    "KTest.vue"
   ],
   "repository": {
     "type": "git",
