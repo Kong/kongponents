@@ -17,7 +17,7 @@
     "build": "yarn build:styles && yarn build:docs && yarn build:cli",
     "build:docs": "vuepress build docs",
     "build:postcss": "postcss packages/styles/styles.css --dir packages/styles",
-    "build:cli": "lerna exec --scope @kongponents/kbutton --ignore @kongponents/styles \"ln ../../vue.config.js ./vue.config.js && yarn vue-cli-service build --target lib .\/\\$(cat package.json | jq -r .source) --name \\$(cat package.json | jq -r .componentName) --dest dist && rm ./vue.config.js\"",
+    "build:cli": "lerna exec --ignore @kongponents/styles \"ln ../../vue.config.js ./vue.config.js && yarn vue-cli-service build --target lib .\/\\$(cat package.json | jq -r .source) --name \\$(cat package.json | jq -r .componentName) --dest dist && rm ./vue.config.js\"",
     "build:styles": "yarn node-sass packages/styles/styles.scss -o packages/styles && yarn build:postcss",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
