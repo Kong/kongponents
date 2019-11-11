@@ -1,5 +1,37 @@
+---
+title: Getting Started
+next: false
+---
+
 <img src="../kongponents-logo.jpg" />
 
-Kongponents offer teams the ability to reuse frequently needed UI elements across applications. They should be simple on the surface and extensible. Kongponents should also be maintainable and easy to compose with others. They were developed to solve Kong's application needs, but are generic enough to use in any Vue web application.
+Kongponents is a Vue component library of frequently needed UI elements. They were developed to solve [Kong](https://konghq.com)'s application needs, but are generic enough to use in any web application.
 
-To begin using Kongponents checkout the [getting started docs](/development/getting-started).
+## Installation
+To begin developing Kongponents you will need to import each component individually. For a list of all components & their features see the [components](/components/) section.
+
+```bash
+$ yarn add  @kongponents/kbutton
+
+# or
+
+$ npm install @kongponents/kbutton
+```
+
+Import and register components globally
+
+```js
+import KButton from '@kongponents/kbutton';
+Vue.component('KButton', KButton);
+```
+
+Or locally inside a component
+
+```js
+import KButton from '@kongponents/kbutton';
+export default {
+  ...
+  components: { KButton },
+  ...
+};
+```

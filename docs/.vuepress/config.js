@@ -12,12 +12,11 @@ module.exports = {
     search: false,
     sidebar: [
       {
-        title: 'Development',
+        title: 'Guide',
         collapsable: false,
         children: [
-          '/development/getting-started',
-          '/development/local',
-          '/development/publishing'
+          '/',
+          '/guide/theming'
         ]
       },
       {
@@ -26,13 +25,13 @@ module.exports = {
         sidebarDepth: 1,
         children: [
           {
-            title: 'Utilities & Theming',
+            title: 'Style Guide',
             collapsable: false,
             children: [
               '/style-guide/colors',
               '/style-guide/type',
               '/style-guide/utilities',
-              '/style-guide/theming'
+
             ]
           },
           {
@@ -67,9 +66,13 @@ module.exports = {
           }
         ]
       },
-    ],
-    nav: [
-      { text: 'Home', link: '/' }
+      {
+        title: 'Contributing',
+        collapsable: false,
+        children: [
+          '/contributing/local'
+        ]
+      }
     ]
   },
   head: [
