@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import KAlert, { appearances } from '@kongponents/kalert'
-import KIcon from '@kongponents/kicon'
+import KAlert, { appearances } from '@kongponents/kalert/KAlert'
+import KIcon from '@kongponents/kicon/KIcon'
 
 export const toasterAppearances = appearances
 

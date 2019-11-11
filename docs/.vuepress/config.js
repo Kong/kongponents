@@ -104,5 +104,8 @@ module.exports = {
       .use('raw')
       .loader('raw-loader')
       .end().end()
-  }
+  },
+  globalUIComponents: [
+    'GlobalUI'
+  ]
 }
