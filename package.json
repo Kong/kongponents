@@ -4,7 +4,7 @@
   "description": "Kong Component library",
   "main": "index.js",
   "author": "Kong Inc.",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "repository": "git@github.com:Kong/kongponents.git",
   "private": true,
   "bin": {
