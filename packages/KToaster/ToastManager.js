@@ -41,7 +41,7 @@ export default class ToastManager {
   }
 
   setTimer (key, timeout) {
-    setTimeout(() => this.close(key), timeout)
+    return setTimeout(() => this.close(key), timeout)
   }
 
   open (args) {
