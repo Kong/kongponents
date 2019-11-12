@@ -1,3 +1,7 @@
+# @kongponents/krumbs
+
+[![](https://img.shields.io/npm/v/@kongponents/krumbs.svg?style=flat-square)](https://www.npmjs.com/package/@kongponents/krumbs)
+
 ```vue
 <template>
   <Krumbs :items="routes" />

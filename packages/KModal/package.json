@@ -1,11 +1,14 @@
 {
   "name": "@kongponents/kmodal",
-  "version": "0.1.4-1",
+  "version": "0.1.4-6",
   "description": "Modal component",
-  "main": "KModal.vue",
-  "scripts": {
-    "test": "jest"
-  },
+  "main": "dist/KModal.umd.min.js",
+  "componentName": "KModal",
+  "source": "KModal.vue",
+  "files": [
+    "dist",
+    "KModal.vue"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"
@@ -17,6 +20,6 @@
   },
   "homepage": "https://github.com/Kong/kongponents#readme",
   "dependencies": {
-    "@kongponents/kbutton": "^0.1.10-1"
+    "@kongponents/kbutton": "^0.1.10-4"
   }
 }

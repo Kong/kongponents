@@ -18,6 +18,12 @@ pipeline {
   }
   stages {
     stage('Tests') {
+      when {
+        anyOf {
+          branch 'master'
+          changeRequest target: 'master'
+        }
+      }
       steps {
         sh script: "make build", label: "start container and install dependencies"
         sh script: "make unit", label: "run unit tests"
