@@ -23,11 +23,21 @@ import KAlert, { appearances } from '@kongponents/kalert/KAlert.vue'
 
 export const toasterAppearances = appearances
 
+/**
+ * @typedef {Object} Toaster - toaster item
+ * @property {String} apperance - 'success', 'info', 'warning', 'danger'
+ * @property {String} key - unique identifier of toaster
+ * @property {String} message - Text to display in toaster
+ */
+
 export default {
   name: 'KToaster',
   components: { KAlert },
   data () {
     return {
+      /**
+      * @type Toaster[]
+      */
       toasterState: []
     }
   }

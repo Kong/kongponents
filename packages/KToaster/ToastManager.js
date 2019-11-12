@@ -47,7 +47,7 @@ export default class ToastManager {
   open (args) {
     const { key, timeoutMilliseconds, appearance, message } = args
 
-    const _key = key || new Date().getTime()
+    const _key = key || (this.toasters.length) + new Date().getTime()
     const _appearance = (appearance && APPEARANCES.indexOf(appearance) !== -1)
       ? appearance
       : this.appearance
