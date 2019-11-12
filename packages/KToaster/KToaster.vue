@@ -7,28 +7,25 @@
       v-for="toaster in toasterState"
       :key="toaster.key"
       class="toaster-item">
-      <slot v-bind="toaster">
-        <KAlert
-          :appearance="toaster.appearance"
-          is-dismissible
-          is-bordered
-          @closed="$emit('close', toaster.key)">
-          <template v-slot:alertMessage>{{ toaster.message }}</template>
-        </KAlert>
-      </slot>
+      <KAlert
+        :appearance="toaster.appearance"
+        is-dismissible
+        is-bordered
+        @closed="$emit('close', toaster.key)">
+        <template v-slot:alertMessage>{{ toaster.message }}</template>
+      </KAlert>
     </div>
   </transition-group>
 </template>
 
 <script>
 import KAlert, { appearances } from '@kongponents/kalert/KAlert.vue'
-import KIcon from '@kongponents/kicon/KIcon.vue'
 
 export const toasterAppearances = appearances
 
 export default {
   name: 'KToaster',
-  components: { KAlert, KIcon },
+  components: { KAlert },
   data () {
     return {
       toasterState: []

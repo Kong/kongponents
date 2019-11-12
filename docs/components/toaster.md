@@ -1,17 +1,22 @@
 # Toaster
 
-**KToaster** - a popup notification typically used to show the result of an action. The toaster will close on its own but can also be manually dismissed.
+**KToaster** - a popup notification typically used to show the result of an 
+action. The toaster can close on its own but can also be manually dismissed.
 
-Before you can begin using KToaster you must globally import and add the `ToastManager` API class to you Vue instance.
+KToaster is used via the a `ToastManager` instance.  All rendering is controlled
+from ToastManager via an intuitive, imperative api. It is recommended that you
+initialize it as a singleton in your app such as `this.$toaster`.
 
 ```js
 import Vue from 'vue';
-import ToastManager from '@kongponents/ToastManager';
+import { ToastManager } from '@kongponents/ktoaster';
 
+// optional singleton to allow any part of your app access ToastManager
 Vue.prototype.$toaster = new ToastManager()
 ```
 
-Once `ToastManager` has been globally registered you begin using it by calling `$toaster.open(args)`.
+Once `ToastManager` is registered as a singleton, you can access it's methods
+via `this.$toaster` e.g.:
 
 <KButton @click="$toaster.open('Basic Notification')">Open Toaster</KButton>
 
@@ -30,7 +35,8 @@ The default argument passed to the toaster is the message.
 ```
 
 ### appearance
-The Toaster uses the same appearance values as [KAlert](/components/alert) and are applied the same way.
+The Toaster uses the same appearance values as [KAlert](/components/alert) and
+are applied the same way.
 
 <KButton appearance="primary" @click="openNotification({'appearance': 'info', 'message':'This toaster is a info appeareance'})">Open Toaster</KButton>
 <KButton class="success" appearance="primary" @click="openNotification({'appearance': 'success', 'message':'This toaster is a success appeareance'})">Open Toaster</KButton>
@@ -62,11 +68,12 @@ export default {
 ```
 
 ### timeout
-The default timeout is 5000ms (5 seconds) however you can change this to by passing an override argument.
+The default timeout is 5000ms (5 seconds) however you can change this to by
+passing an override argument.
 
 - `timeoutMilliseconds`
 
-<KButton @click="openNotification({timeoutMilliseconds: 10000, 'appearance': 'success', 'message':'This toaster has a 10 second timeout'})">Open Toaster</KButton>
+<KButton :disabled="timeLeft <= 3" @click="openNotificationElapse({timeoutMilliseconds: 3000, 'appearance': 'success', 'message': `This toaster has a 3 second timeout`})">{{timeLeft > 3 ? 'Open Toaster' : `Closing in ${timeLeft} seconds` }}</KButton>
 
 ```vue
 <template>
@@ -79,9 +86,9 @@ export default {
     return {
       toasterOptions: {
         appearance: 'success',
-        timeoutMilliseconds: 10000,
-        message: 'This toaster has a 10 second timeout'
-      }
+        timeoutMilliseconds: 3000,
+        message: 'This toaster has a 3 second timeout'
+      },
     }
   },
   methods: {
@@ -93,11 +100,9 @@ export default {
 </script>
 ```
 
-## Slots
-- `default` - There is one slot which wraps KAlert, Slotting will replace it with whatever you want!
-
 ## Toaster State
-You can view the current state of active toasters by calling `this.$toaster.toasters`. Click the buttons below and watch the state change 
+You can view the current state of active toasters by calling
+`this.$toaster.toasters`. Click the buttons below to watch the state change 
 
 <KButton class="success" appearance="primary" @click="openNotification({timeoutMilliseconds: 10000, message: 'Success toaster', appearance: 'success'})">Open Toaster</KButton>
 <KButton appearance="danger" @click="openNotification('Danger Notification')">Open Toaster</KButton>
@@ -136,25 +141,41 @@ export default {
 export default {
   data: function () {
     return {
-      toasters: []
+      toasters: [],
+      timeLeft: 4
     }
   },
   methods: {
     openNotification(options) {
       this.$toaster.open(options)
       this.toasters = this.$toaster.toasters
-    }
+    },
+    
+    openNotificationElapse(options) {
+      this.$toaster.open(options)
+      this.toasters = this.$toaster.toasters
+      this.timeLeft -= 1
+      const interval = setInterval(() => {
+        this.timeLeft -= 1
+        if (this.timeLeft === 0){
+          this.timeLeft = 4
+          clearInterval(interval)
+        }
+      }, 1000)
+    },
   }
 }
 </script>
-<style>
+<style lang="scss">
 .success.k-button {
   --KButtonPrimaryBase: var(--green-base);
   --KButtonPrimaryHover: var(--green-light);
+  --KButtonPrimaryActive: var(--green-dark)
 }
 .warning.k-button {
   --KButtonPrimaryBase: var(--yellow-base);
   --KButtonPrimaryHover: var(--yellow-light);
+  --KButtonPrimaryActive: var(--yellow-darker);
   color: var(--tblack-70) !important;
 }
 </style>
