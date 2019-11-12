@@ -44,4 +44,36 @@ describe('KModal', () => {
     expect(buttons.at(1).classes()).toContain('outline-danger')
     expect(wrapper.html()).toMatchSnapshot()
   })
+
+  it('close when hitting escape', () => {
+    const wrapper = mount(KModal, {
+      propsData: {
+        isVisible: true
+      },
+      attachToDocument: true
+    })
+
+    const mockFn = jest.fn()
+
+    wrapper.setMethods({ close: mockFn })
+
+    wrapper.find('.k-modal').trigger('keydown.esc')
+    expect(mockFn).toBeCalledTimes(1)
+  })
+
+  it('proceeds when clicking action button', () => {
+    const wrapper = mount(KModal, {
+      propsData: {
+        isVisible: true
+      },
+      attachToDocument: true
+    })
+
+    const mockFn = jest.fn()
+
+    wrapper.setMethods({ proceed: mockFn })
+
+    wrapper.find('.modal-footer button').trigger('click')
+    expect(mockFn).toBeCalledTimes(1)
+  })
 })
