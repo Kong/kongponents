@@ -25,6 +25,7 @@ tableOptions:
 Pass an object of headers & data to build a slot-able table.
 
 <KTable :options="$frontmatter.tableOptions" />
+
 ```vue
 <template>
   <KTable :options="tableOptions" />
@@ -85,37 +86,31 @@ Lessen the table cell padding
 ```
 
 ## Slots
-Both column cells & header cells are slottable in KTable. Use `slot-scope` to gain
+Both column cells & header cells are slottable in KTable. Use slots to gain
 access to the row data.
 
 - `column-{column-key}` - Will slot the header cell
 - `{column-key}` - Will slot the column cell of a given row
 
 ### Column Header
+
 <KTable :options="$frontmatter.tableOptions">
-  <template slot="column-name" slot-scope="{ column }">
-    {{ column.label | capitalize }}
+  <template v-slot:column-name="{ column }">
+    {{ column.label.toUpperCase() }}
   </template>
 </KTable>
 
 ```vue
 <template>
   <KTable :options="tableOptions">
-    <!-- Slot column header "name" and pass through Vue Filter -->
-    <template slot="column-name" slot-scope="{ column }">
-      {{ column | capitalize }}
+    <!-- Slot column header "name" -->
+    <template v-slot:column-name="{ column }">
+      {{ column.label.toUpperCase() }}
     </template>
   </KTable>
 </template>
 <script>
 export default {
-  filters: {
-    capitalize: (value) {
-      if (!value) return
-      
-      return value.toUpperCase()
-    }
-  },
   data() {
     return {
       tableOptions: {
@@ -151,23 +146,23 @@ export default {
 
 ### Column Cell
 <KTable :options="$frontmatter.tableOptions">
-  <template slot="enabled" slot-scope="{rowValue}">
-    <span v-if="rowValue === 'true'" style="color: green">&#10003;</span>
+  <template v-slot:enabled="{rowValue}">
+    <span v-if="rowValue" style="color: green">&#10003;</span>
     <span v-else style="color: red">&#10007;</span>
   </template>
-  <template slot="actions"><a href="">Edit</a></template>
+  <template v-slot:actions><a href="">Edit</a></template>
 </KTable>
 
 ```vue
 <template>
   <KTable :options="tableOptions">
     <!-- Slot each "enabled" cell in each row & add icon if matching value -->
-    <template slot="enabled" slot-scope="{rowValue}">
-      <span v-if="rowValue === 'true'" style="color: green">&#10003;</span>
+    <template v-slot:enabled="{rowValue}">
+      <span v-if="rowValue" style="color: green">&#10003;</span>
       <span v-else style="color: red">&#10007;</span>
     </template>
     <!-- Slot each "actions" cell in each row & link -->
-    <template slot="actions"><a href="">Edit</a></template>
+    <template v-slot:actions><a href="">Edit</a></template>
   </KTable>
 </template>
 <script>
@@ -185,12 +180,12 @@ export default {
           {
             name: 'Basic Auth',
             id: '517526354743085',
-            enabled: 'true'
+            enabled: true
           },
           {
             name: 'Website Desktop',
             id: '328027447731198',
-            enabled: 'false'
+            enabled: false
           },
           {
             name: 'Android App',
@@ -234,19 +229,6 @@ An Example of changing the hover background might look like.
 }
 </style>
 ```
-
-<!-- Page settings -->
-<script>
-export default {
-  filters: {
-    capitalize: function (value) {
-      if (!value) return
-      
-      return value.toUpperCase() + '...'
-    }
-  }
-}
-</script>
 
 <style lang="scss">
   .table-docs .k-table {
