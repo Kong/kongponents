@@ -1,14 +1,14 @@
 # Radio
 
-**KInputRadio** - KInputRadio description here.
+**KRadio** - KRadio description here.
 
 <KCard>
   <template slot="body">
     <div>
-      <KInputRadio name="test" :value="true" v-model="radio">Boolean</KInputRadio>
-      <KInputRadio name="test" value="string" v-model="radio">String</KInputRadio>
-      <KInputRadio name="test" :value="objA" v-model="radio">Object A</KInputRadio>
-      <KInputRadio name="test" :value="objB" v-model="radio">Object B</KInputRadio>
+      <KRadio name="test" :value="true" v-model="radio">Boolean</KRadio>
+      <KRadio name="test" value="string" v-model="radio">String</KRadio>
+      <KRadio name="test" :value="objA" v-model="radio">Object A</KRadio>
+      <KRadio name="test" :value="objB" v-model="radio">Object B</KRadio>
     </div>
     <div class="mt-3">Selected: {{ radio }}</div>
   </template>
@@ -16,10 +16,10 @@
 
 ```vue
 <template>
-  <KInputRadio name="test" :value="true" v-model="radio">Boolean</KInputRadio>
-  <KInputRadio name="test" value="string" v-model="radio">String</KInputRadio>
-  <KInputRadio name="test" :value="objA" v-model="radio">Object A</KInputRadio>
-  <KInputRadio name="test" :value="objB" v-model="radio">Object B</KInputRadio>
+  <KRadio name="test" :value="true" v-model="radio">Boolean</KRadio>
+  <KRadio name="test" value="string" v-model="radio">String</KRadio>
+  <KRadio name="test" :value="objA" v-model="radio">Object A</KRadio>
+  <KRadio name="test" :value="objB" v-model="radio">Object B</KRadio>
 <template>
 
 <script>
@@ -49,14 +49,14 @@ Will place label text to the right of the input. Can also be [slotted](#slots).
 - `label`
 
 ```vue
-<KInputRadio
+<KRadio
   :value="true"
   v-model="radioState"
   label="Label passed as prop" />
 ```
 
 <KCard>
-  <KInputRadio
+  <KRadio
     slot="body"
     :value="true"
     v-model="radioState"
@@ -68,7 +68,7 @@ Will place label text to the right of the input. Can also be [slotted](#slots).
 Any valid attribute will be added to the input. You can read more about `$attrs` [here](https://vuejs.org/v2/api/#vm-attrs).
 
 ```vue
-<KInputRadio
+<KRadio
   v-model="checked"
   :value="true"
   label="disabled"
@@ -76,45 +76,45 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 ```
 
 <KCard>
-  <KInputRadio slot="body" v-model="radioState" label="disabled" disabled />
+  <KRadio slot="body" v-model="radioState" label="disabled" disabled />
 </KCard>
 
 ## Slots
 - `default` - Anything passed in to the default slot will replace the label prop text
 
 ```vue
-<KInputRadio v-model="selected" :value="true">
+<KRadio v-model="selected" :value="true">
   Label goes here. The radio is {{ selected ? 'selected' : 'not selected' }}
-</KInputRadio>
+</KRadio>
 ```
 
 ## Theming
 | Variable | Purpose
 |:-------- |:-------
-| `--KInputRadioPrimary `| Radio primary background & border color
-| `--KInputRadioDisabled `| Radio disabled background color
+| `--KRadioPrimary `| Radio primary background & border color
+| `--KRadioDisabled `| Radio disabled background color
 
-An Example of changing the background color of KInputRadio to lime might look 
+An Example of changing the background color of KRadio to lime might look 
 like:
 
 > Note: We are scoping the overrides to a wrapper in this example
 
 <template>
-  <div class="KInputRadio-wrapper">
-    <KInputRadio v-model="radioState" :value="true" />
+  <div class="KRadio-wrapper">
+    <KRadio v-model="radioState" :value="true" />
   </div>
 </template>
 
 ```vue
 <template>
-  <div class="KInputRadio-wrapper">
-    <KInputRadio v-model="selected" :value="true" />
+  <div class="KRadio-wrapper">
+    <KRadio v-model="selected" :value="true" />
   </div>
 </template>
 
 <style>
-.KInputRadio-wrapper {
-  --KInputRadioPrimary: lime;
+.KRadio-wrapper {
+  --KRadioPrimary: lime;
 }
 </style>
 ```
@@ -133,7 +133,7 @@ export default {
 </script>
 
 <style lang="scss">
-.KInputRadio-wrapper {
-  --KInputRadioPrimary: lime;
+.KRadio-wrapper {
+  --KRadioPrimary: lime;
 }
 </style>

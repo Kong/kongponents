@@ -1,5 +1,5 @@
 <template>
-  <label class="k-input-label k-inputCheckbox">
+  <label class="k-radio">
     <input
       :checked="isSelected"
       v-bind="$attrs"
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'KInputRadio',
+  name: 'KRadio',
 
   model: {
     prop: 'model',
