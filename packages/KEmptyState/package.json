@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kemptystate",
-  "version": "0.1.9-4",
+  "version": "0.1.9-5",
   "description": "Empty State component",
   "main": "dist/KEmptyState.umd.min.js",
   "componentName": "KEmptyState",
@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/Kong/kongponents#readme",
   "dependencies": {
-    "@kongponents/kbutton": "^0.1.10-4"
+    "@kongponents/kbutton": "^0.1.10-5"
   }
 }

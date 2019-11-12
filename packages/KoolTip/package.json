@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kooltip",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "A tooltip component",
   "main": "dist/KoolTip.umd.min.js",
   "componentName": "KoolTip",
