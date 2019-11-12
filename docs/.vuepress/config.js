@@ -51,6 +51,7 @@ module.exports = {
               '/components/popover',
               '/components/tooltip',
               '/components/table',
+              '/components/toaster',
               '/components/slideout',
               '/components/switch'
             ]
@@ -103,5 +104,8 @@ module.exports = {
       .use('raw')
       .loader('raw-loader')
       .end().end()
-  }
+  },
+  globalUIComponents: [
+    'GlobalUI'
+  ]
 }

@@ -18,7 +18,6 @@ import KoolTip from '../../packages/KoolTip/KoolTip.vue'
 import KPop from '../../packages/KPop/KPop.vue'
 import Krumbs from '../../packages/Krumbs/Krumbs.vue'
 import KTable from '../../packages/KTable/KTable.vue'
-import KToaster from '../../packages/KToaster/KToaster.vue'
 import KToggle from '../../packages/KToggle/KToggle.js'
 import KSlideout from '../../packages/KSlideout/KSlideout.vue'
 
@@ -43,7 +42,6 @@ export default ({
   Vue.component('KPop', KPop)
   Vue.component('Krumbs', Krumbs)
   Vue.component('KTable', KTable)
-  Vue.component('KToaster', KToaster)
   Vue.component('KToggle', KToggle)
   Vue.component('KSlideout', KSlideout)
 
