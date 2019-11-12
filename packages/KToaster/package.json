@@ -1,12 +1,13 @@
 {
   "name": "@kongponents/ktoaster",
-  "version": "2.0.0",
+  "version": "0.1.5",
   "description": "Toaster component",
   "main": "dist/KToaster.umd.min.js",
   "componentName": "KToaster",
   "source": "index.js",
   "files": [
     "dist",
+    "index.js",
     "KToaster.vue",
     "ToastManager.js"
   ],
