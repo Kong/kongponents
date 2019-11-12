@@ -1,5 +1,5 @@
 <template>
-  <label class="k-inputCheckbox">
+  <label class="k-checkbox">
     <input
       :checked="value"
       v-bind="$attrs"
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'KInputCheckbox',
+  name: 'KCheckbox',
   props: {
     /**
      * Sets whether or not checkbox is checked

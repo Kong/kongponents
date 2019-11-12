@@ -1,14 +1,14 @@
 # Checkbox
 
-**KInputCheckbox** - KInputCheckbox is a wrapper around a Kong styled checkbox input.
+**KCheckbox** - KCheckbox is a wrapper around a Kong styled checkbox input.
 
 <KCard>
-  <KInputCheckbox slot="body" v-model="defaultChecked"/>
+  <KCheckbox slot="body" v-model="defaultChecked"/>
 </KCard>
 
 ```vue
 <template>
-  <KInputCheckbox
+  <KCheckbox
     v-model="checked"
     @change="handleToggle" />
 </template>
@@ -36,7 +36,7 @@ state of the input. You can read more about passing values via `v-model`
 [here](https://vuejs.org/v2/guide/components.html#Using-v-model-on-Components).
 
 ```vue
-<KInputCheckbox v-model="checked" />
+<KCheckbox v-model="checked" />
 ```
 
 ### label
@@ -46,13 +46,13 @@ Will place label text to the right of the input. Can also be [slotted](#slots).
 - `label`
 
 ```vue
-<KInputCheckbox
+<KCheckbox
   v-model="checked"
   :label="checked ? 'on' : 'off'" />
 ```
 
 <KCard>
-  <KInputCheckbox slot="body" v-model="labelPropChecked" :label="labelPropChecked ? 'on' : 'off'" />
+  <KCheckbox slot="body" v-model="labelPropChecked" :label="labelPropChecked ? 'on' : 'off'" />
 </KCard>
 
 ### html attributes
@@ -60,57 +60,57 @@ Will place label text to the right of the input. Can also be [slotted](#slots).
 Any valid attribute will be added to the input. You can read more about `$attrs` [here](https://vuejs.org/v2/api/#vm-attrs).
 
 ```vue
-<KInputCheckbox
+<KCheckbox
   v-model="checked"
   disabled />
 ```
 
 <KCard>
-  <KInputCheckbox slot="body" v-model="defaultChecked" disabled />
+  <KCheckbox slot="body" v-model="defaultChecked" disabled />
 </KCard>
 
 ## Slots
 - `default` - Anything passed in to the default slot will replace the label prop text
 
 ```vue
-<KInputCheckbox v-model="checked">
+<KCheckbox v-model="checked">
   Label goes here. The checkbox is {{ checked ? 'checked' : 'not checked' }}
-  </KInputCheckbox>
+  </KCheckbox>
 ```
 
 ## Theming
 | Variable | Purpose
 |:-------- |:-------
-| `--KInputCheckboxPrimary `| KInputCheckbox checked background color
-| `--KInputCheckboxDisabled `| KInputCheckbox disabled background color
+| `--KCheckboxPrimary `| KCheckbox checked background color
+| `--KCheckboxDisabled `| KCheckbox disabled background color
 
 
-An Example of changing the background color of KInputCheckbox to lime might look 
+An Example of changing the background color of KCheckbox to lime might look 
 like:
 
 > Note: We are scoping the overrides to a wrapper in this example
 <template>
-  <div class="KInputCheckbox-wrapper">
-    <KInputCheckbox v-model="themeChecked"/>
+  <div class="KCheckbox-wrapper">
+    <KCheckbox v-model="themeChecked"/>
   </div>
 </template>
 
 ```vue
 <template>
-  <div class="KInputCheckbox-wrapper">
-    <KInputCheckbox v-model="checked"/>
+  <div class="KCheckbox-wrapper">
+    <KCheckbox v-model="checked"/>
   </div>
 </template>
 <style>
-.KInputCheckbox-wrapper {
-  --KInputCheckboxPrimary: lime;
+.KCheckbox-wrapper {
+  --KCheckboxPrimary: lime;
 }
 </style>
 ```
 
 <style lang="scss">
-.KInputCheckbox-wrapper {
-  --KInputCheckboxPrimary: lime;
+.KCheckbox-wrapper {
+  --KCheckboxPrimary: lime;
 }
 </style>
 

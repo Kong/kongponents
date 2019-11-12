@@ -12,7 +12,7 @@ import KEmptyState from '../../packages/KEmptyState/KEmptyState.vue'
 import KIcon from '../../packages/KIcon/KIcon.vue'
 import KInput from '../../packages/KInput/KInput.vue'
 import KInputSwitch from '../../packages/KInputSwitch/KInputSwitch.vue'
-import KInputCheckbox from '../../packages/KInputCheckbox/KInputCheckbox.vue'
+import KCheckbox from '../../packages/KCheckbox/KCheckbox.vue'
 import KInputRadio from '../../packages/KInputRadio/KInputRadio.vue'
 import KLabel from '../../packages/KLabel/KLabel.vue'
 import KModal from '../../packages/KModal/KModal.vue'
@@ -38,7 +38,7 @@ export default ({
   Vue.component('KIcon', KIcon)
   Vue.component('KInput', KInput)
   Vue.component('KInputSwitch', KInputSwitch)
-  Vue.component('KInputCheckbox', KInputCheckbox)
+  Vue.component('KCheckbox', KCheckbox)
   Vue.component('KInputRadio', KInputRadio)
   Vue.component('KLabel', KLabel)
   Vue.component('KModal', KModal)

@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
-import KInputCheckbox from '@/KInputCheckbox/KInputCheckbox'
+import KInputCheckbox from '@/KCheckbox/KCheckbox'
 
-describe('KInputCheckbox', () => {
+describe('KCheckbox', () => {
   it('shows as checked when prop passed', () => {
     const wrapper = mount(KInputCheckbox, {
       propsData: {
