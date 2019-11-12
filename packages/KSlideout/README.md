@@ -1,4 +1,8 @@
-```js
+# @kongponents/kslideout
+
+[![](https://img.shields.io/npm/v/@kongponents/kslideout.svg?style=flat-square)](https://www.npmjs.com/package/@kongponents/kslideout)
+
+```vue
 <KSlideout 
   :is-visible="isToggled"
   @close="toggle">
