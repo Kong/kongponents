@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/Kong/kongponents/compare/@kongponents/ktoaster@0.1.5...@kongponents/ktoaster@2.0.0) (2019-11-12)
+
+
+### Features
+
+* **ktoaster:** add ToastManager API ([#140](https://github.com/Kong/kongponents/issues/140)) ([63d0a46](https://github.com/Kong/kongponents/commit/63d0a46128d51bc7eb55cd9e5793a4eec76a1322)), closes [#156](https://github.com/Kong/kongponents/issues/156)
+
+
+### BREAKING CHANGES
+
+* **ktoaster:** ktoaster now imported differently
+and does not have since KToaster.vue anymore, as now
+it is managed by ToastManager
+
+* chore(KToaster) update license to apache 2.0
+
+
+
+
+
 # [1.0.0](https://github.com/Kong/kongponents/compare/@kongponents/ktoaster@0.1.5...@kongponents/ktoaster@1.0.0) (2019-11-12)
 
 
