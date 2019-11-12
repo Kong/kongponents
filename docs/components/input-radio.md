@@ -1,6 +1,6 @@
 # Radio
 
-**KRadio** - KRadio description here.
+**KRadio** - KRadio is a wrapper around a Kong styled radio input.
 
 <KCard>
   <template slot="body">
@@ -37,7 +37,7 @@ export default {
 
 ## Props
 ### v-model - required
-Use `v-model` to bind to the `checked` state of the underlying `<input />`. The
+Use `v-model` to bind the `checked` state of the underlying `<input />`. The
 `v-model` binds to the `value` prop of the component and sets current checked
 state of the input. You can read more about passing values via `v-model`
 [here](https://vuejs.org/v2/guide/components.html#Using-v-model-on-Components).
