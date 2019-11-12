@@ -1,3 +1,7 @@
+# @kongponents/ktoaster
+
+[![](https://img.shields.io/npm/v/@kongponents/ktoaster.svg?style=flat-square)](https://www.npmjs.com/package/@kongponents/ktoaster)
+
 ```js
 new Vue({
   data(){
