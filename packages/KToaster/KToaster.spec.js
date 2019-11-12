@@ -20,7 +20,7 @@ describe('KToaster', () => {
       expect(wrapper.findAll('div[role="alert"].danger')).toHaveLength(2)
       expect(wrapper.findAll('.toaster-container-outer span')).toHaveLength(4)
 
-      expect(wrapper.html()).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot()
     })
   })
 
