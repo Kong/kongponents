@@ -1,5 +1,6 @@
 import { mount, config } from '@vue/test-utils'
-import { ToastManager, KToaster } from '@/KToaster'
+import KToaster from '@/KToaster/KToaster.vue'
+import ToastManager from '@/KToaster/ToastManager'
 
 config.silent = true
 jest.useFakeTimers()
