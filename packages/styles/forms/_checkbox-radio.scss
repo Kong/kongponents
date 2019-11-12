@@ -3,8 +3,8 @@
 input.k-input,
 input.form-control {
   $borderColor: var(--KInputBorder, var(--grey-88, color(grey-88)));
-  $primaryCheckboxColor: var(--KInputCheckboxPrimary, var(--blue-base, color(blue-base)));
-  $primaryRadioColor: var(--KInputRadioPrimary, var(--blue-base, color(blue-base)));
+  $primaryCheckboxColor: var(--KCheckboxPrimary, var(--blue-base, color(blue-base)));
+  $primaryRadioColor: var(--KRadioPrimary, var(--blue-base, color(blue-base)));
 
   &[type="checkbox"],
   &[type="radio"] {
