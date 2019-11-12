@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kclipboardprovider",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Provide clipboard copy capabilities to any component",
   "main": "dist/KClipboardProvider.umd.min.js",
   "componentName": "KClipboardProvider",
@@ -14,7 +14,7 @@
     "url": "git+https://github.com/Kong/kongponents.git"
   },
   "author": "Kong Inc",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/Kong/kongponents/issues"
   },

@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kicon",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Icon component",
   "main": "dist/KIcon.umd.min.js",
   "componentName": "KIcon",
@@ -14,7 +14,7 @@
     "url": "git+https://github.com/Kong/kongponents.git"
   },
   "author": "Kong Inc",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/Kong/kongponents/issues"
   },
