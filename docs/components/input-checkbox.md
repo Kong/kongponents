@@ -47,12 +47,20 @@ Will place label text to the right of the input. Can also be [slotted](#slots).
 
 ```vue
 <KCheckbox
-  v-model="checked"
-  :label="checked ? 'on' : 'off'" />
+  v-model="checkbox1"
+  :label="checkbox1 ? 'on' : 'off'" />
+<KCheckbox
+  v-model="checkbox2"
+  :label="checkbox2 ? 'on' : 'off'" />
+<KCheckbox
+  v-model="checkbox3"
+  :label="checkbox3 ? 'on' : 'off'" />
 ```
 
 <KCard>
-  <KCheckbox slot="body" v-model="labelPropChecked" :label="labelPropChecked ? 'on' : 'off'" />
+  <KCheckbox slot="body" v-model="labelPropChecked1" :label="labelPropChecked1 ? 'on' : 'off'" /> 
+  <KCheckbox slot="body" v-model="labelPropChecked2" :label="labelPropChecked2 ? 'on' : 'off'" />
+  <KCheckbox slot="body" v-model="labelPropChecked3" :label="labelPropChecked3 ? 'on' : 'off'" />
 </KCard>
 
 ### html attributes
@@ -103,14 +111,14 @@ like:
 </template>
 <style>
 .KCheckbox-wrapper {
-  --KCheckboxPrimary: lime;
+  --KCheckboxPrimary: blueviolet;
 }
 </style>
 ```
 
 <style lang="scss">
 .KCheckbox-wrapper {
-  --KCheckboxPrimary: lime;
+  --KCheckboxPrimary: blueviolet;
 }
 </style>
 
@@ -118,7 +126,9 @@ like:
 export default {
   data () {
     return {
-      labelPropChecked: false,
+      labelPropChecked1: false,
+      labelPropChecked2: false,
+      labelPropChecked3: false,
       defaultChecked: false,
       themeChecked: true
     }

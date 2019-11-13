@@ -45,16 +45,16 @@ module.exports = {
               '/components/breadcrumbs',
               '/components/button',
               '/components/card',
+              '/components/input-checkbox',
               '/components/empty-state',
               '/components/input',
-              '/components/input-checkbox',
-              '/components/input-radio',
               '/components/icon',
               '/components/modal',
               '/components/popover',
               '/components/tooltip',
               '/components/table',
               '/components/toaster',
+              '/components/input-radio',
               '/components/slideout',
               '/components/switch'
             ]
