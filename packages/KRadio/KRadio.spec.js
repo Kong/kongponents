@@ -28,7 +28,11 @@ describe('KRadio', () => {
   })
 
   it('matches snapshot', () => {
-    const wrapper = mount(KRadio)
+    const wrapper = mount(KRadio, {
+      propsData: {
+        model: false
+      }
+    })
 
     expect(wrapper.html()).toMatchSnapshot()
   })
