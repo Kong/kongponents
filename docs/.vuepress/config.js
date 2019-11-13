@@ -50,6 +50,7 @@ module.exports = {
               '/components/modal',
               '/components/popover',
               '/components/tooltip',
+              '/components/tabs',
               '/components/table',
               '/components/toaster',
               '/components/slideout',
