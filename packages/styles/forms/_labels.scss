@@ -1,0 +1,20 @@
+.k-input-label {
+  display: inline-block;
+  color: var(--KInputLabelColor, var(--tblack-85));
+  font-weight: var(--KInputLabelWeight, 500);
+  font-family: var(--KInputLabelFont, var(--font-family-sans, font(sans)));
+  font-size: var(--KInputLabelSize, var(--type-sm, type(sm)));
+  line-height: var(--KInputLabelLineHeight, var(--type-lg, type(lg)));
+  margin-bottom: var(--KInputLabelMargin, var(--spacing-xs, spacing(xs)));
+}
+
+.k-inputCheckbox,
+.k-inputRadio {
+  &.k-input-label {
+    color: var(--KInputCheckboxLabel, var(--tblack-70, color(tblack-70)));
+    font-size: var(--KInputCheckboxLabelSize, var(--type-md, type(md)));
+    font-weight: normal;
+    font-family: var(--KInputCheckboxLabelFont, var(--font-family-sans, font(sans)));
+    margin-bottom: 0;
+  }
+}
