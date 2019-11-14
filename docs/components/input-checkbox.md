@@ -93,7 +93,7 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 | `--KCheckboxDisabled `| KCheckbox disabled background color
 
 
-An Example of changing the background color of KCheckbox to lime might look 
+An Example of changing the background color of KCheckbox to `blueviolet` might look 
 like:
 
 > Note: We are scoping the overrides to a wrapper in this example
