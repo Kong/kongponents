@@ -51,12 +51,12 @@ module.exports = {
               '/components/icon',
               '/components/modal',
               '/components/popover',
-              '/components/tooltip',
-              '/components/table',
-              '/components/toaster',
               '/components/input-radio',
               '/components/slideout',
-              '/components/switch'
+              '/components/switch',
+              '/components/table',
+              '/components/toaster',
+              '/components/tooltip'
             ]
           },
           {
