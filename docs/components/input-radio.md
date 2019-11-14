@@ -94,8 +94,7 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 | `--KRadioPrimary `| Radio primary background & border color
 | `--KRadioDisabled `| Radio disabled background color
 
-An Example of changing the background color of KRadio to lime might look 
-like:
+An Example of changing the background color of KRadio to mediumpurple might look like:
 
 > Note: We are scoping the overrides to a wrapper in this example
 
@@ -134,6 +133,6 @@ export default {
 
 <style lang="scss">
 .KRadio-wrapper {
-  --KRadioPrimary: lime;
+  --KRadioPrimary: mediumpurple;
 }
 </style>
