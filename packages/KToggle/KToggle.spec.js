@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils'
+import { mount, shallowMount } from '@vue/test-utils'
 import KToggle from '@/KToggle/KToggle'
 
 describe('KToggle', () => {
@@ -24,4 +24,13 @@ describe('KToggle', () => {
     expect(wrapper.vm.isToggled).toBe(true)
     expect(button.text()).toBe('click me yes')
   })
+
+  it('console errors when no slot passed', () => {
+    console.error = jest.fn()
+    console.warn = jest.fn()
+
+    shallowMount(KToggle)
+  })
+  expect(console.error).toBeTruthy()
+  expect(console.warn).toBeTruthy()
 })
