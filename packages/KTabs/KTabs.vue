@@ -1,18 +1,17 @@
 <template>
-  <div>
-    <ul class="nav nav-tabs">
+  <div class="k-tabs">
+    <ul>
       <li
         v-for="tab in tabs"
         :key="tab.hash"
         :aria-selected="activeTab === tab.hash ? 'true' : 'false'"
-        class="nav-item"
+        :class="{ active: activeTab === tab.hash }"
+        class="tab-item"
         @click="handleTabChange(tab.hash)">
         <a
-          :id="`${tab.title.replace(/\s/g,'-').toLowerCase()}`"
-          :class="{active: activeTab === tab.hash}"
-          :aria-controls="`${tab.title.replace(' ','-').toLowerCase()}`"
-          class="nav-link">
-          {{ tab.title }}
+          :aria-controls="tab.hash"
+          class="tab-link">
+          <slot :name="`${tab.hash.replace('#','')}-anchor`">{{ tab.title }}</slot>
         </a>
       </li>
     </ul>
@@ -20,10 +19,11 @@
     <div
       v-for="tab in tabs"
       :key="tab.hash"
-      :id="`${tab.title.toLowerCase()}-tab`">
+      :id="`${tab.hash.replace('#','')}-tab`"
+      class="tab-container">
       <slot
         v-if="activeTab === tab.hash"
-        :name="tab.title"/>
+        :name="tab.hash.replace('#','')" />
     </div>
   </div>
 </template>
@@ -43,13 +43,16 @@ export default {
 
   data () {
     return {
-      activeTab: location.hash || this.tabs[0].hash
+      // Check if window hash and if any tabs match hash
+      activeTab: (window.location.hash && this.tabs.some(tab => tab.hash === window.location.hash))
+        ? this.tabs.find(tab => tab.hash === window.location.hash).hash
+        : this.tabs[0].hash
     }
   },
 
   computed: {
     hash () {
-      return location.hash
+      return window.location.hash
     }
   },
 
@@ -63,37 +66,42 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.nav {
-  display: flex;
-  padding-left: 0;
-  margin-bottom: 0;
-  list-style: none;
-  &.nav-tabs {
-    border-bottom: 1px solid var(--grey-88);
-    .nav-item {
-      margin-bottom: -1px;
+@import '~@kongponents/styles/_variables.scss';
+
+.k-tabs {
+  ul {
+    display: flex;
+    margin-bottom: var(--spacing-lg, spacing(lg));
+    padding-left: 0;
+    list-style: none;
+    border-bottom: 2px solid var(--KTabsBottomBorder, var(--grey-88, color(grey-88)));
+    .tab-item {
+      position: relative;
+      padding: var(--spacing-sm, spacing(sm));
       cursor: pointer;
-    }
-    .nav-link {
-      display: block;
-      color: var(--tblack-45);
-      padding: var(--spacing-xs) var(--spacing-md);
-      border: 1px solid transparent;
-      border-top-right-radius: 3px;
-      border-top-left-radius: 3px;
-      &.active {
-        color: var(--blue-dark);
-        border-color: var(--grey-88) var(--grey-88) #fff;
-        background-color: #fff;
-        &:hover,
-        &:focus {
-          border-color: var(--grey-88) var(--grey-88) #fff;
-        }
+      &:not(:first-of-type) { margin-left: var(--spacing-xs, spacing(xs)); }
+      &:not(:last-of-type) { margin-right: var(--spacing-xs, spacing(xs)); }
+      &:after {
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        display: block;
+        content: '';
       }
-      &:hover,
-      &:focus {
+      &.active,
+      &:hover {
+        &:after { background-color: var(--KTabsActiveColor, var(--blue-base, color(blue-base))); }
+        .tab-link { color: var(--KTabsActiveColor, var(--blue-base, color(blue-base))); }
+      }
+    }
+    .tab-link {
+      display: block;
+      color: var(--KTabsColor, var(--tblack-45, color(tblack-45)));
+      &:hover {
         text-decoration: none;
-        border-color: var(--grey-92) var(--grey-92) var(--grey-88);
+        border: none;
       }
     }
   }
