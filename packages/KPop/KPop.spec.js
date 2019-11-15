@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils'
+import { mount, shallowMount } from '@vue/test-utils'
 import KPop from '@/KPop/KPop'
 
 describe('KPop', () => {
@@ -34,5 +34,46 @@ describe('KPop', () => {
     const popperTitle = wrapper.find('.k-popover-title')
 
     expect(popperTitle.text()).toEqual('Cool Beans!')
+  })
+
+  it('has no title if no prop', () => {
+    const wrapper = mount(KPop)
+
+    expect(wrapper.findAll('.k-popover-title').exists()).toBe(false)
+  })
+
+  it('shows element on click', () => {
+    const wrapper = shallowMount(KPop, {
+      propsData: {
+        title: 'Popover Title'
+      },
+      slots: {
+        default: '<div class="slottedEl">Slotted element</div>'
+      }
+    })
+
+    const slottedEl = wrapper.find('.slottedEl')
+
+    expect(wrapper.vm.isShow).toBe(false)
+    slottedEl.trigger('click')
+    expect(wrapper.vm.isShow).toBe(true)
+  })
+
+  it('shows element on hover', () => {
+    const wrapper = shallowMount(KPop, {
+      propsData: {
+        title: 'Popover Title',
+        trigger: 'hover'
+      },
+      slots: {
+        default: '<div class="slottedEl">Slotted element</div>'
+      }
+    })
+
+    const slottedEl = wrapper.find('.slottedEl')
+
+    expect(wrapper.vm.isShow).toBe(false)
+    slottedEl.trigger('mouseenter')
+    expect(wrapper.vm.isShow).toBe(true)
   })
 })
