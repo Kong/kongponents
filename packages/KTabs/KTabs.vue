@@ -1,5 +1,7 @@
 <template>
-  <div class="k-tabs">
+  <div
+    v-if="isSSR"
+    class="k-tabs">
     <ul>
       <li
         v-for="tab in tabs"
@@ -43,6 +45,7 @@ export default {
 
   data () {
     return {
+      isSSR: false,
       // Check if window hash and if any tabs match hash
       activeTab: (window.location.hash && this.tabs.some(tab => tab.hash === window.location.hash))
         ? this.tabs.find(tab => tab.hash === window.location.hash).hash
@@ -54,6 +57,11 @@ export default {
     hash () {
       return window.location.hash
     }
+  },
+
+  beforeMount () {
+    // Do not render KIcon until client is available
+    this.isSSR = true
   },
 
   methods: {
