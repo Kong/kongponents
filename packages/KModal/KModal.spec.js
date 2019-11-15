@@ -76,4 +76,23 @@ describe('KModal', () => {
     wrapper.find('.modal-footer button').trigger('click')
     expect(mockFn).toBeCalledTimes(1)
   })
+
+  it('emits close when backdrop is clicked', () => {
+    const wrapper = mount(KModal, {
+      propsData: {
+        isVisible: true
+      }
+    })
+
+    const backdrop = wrapper.find('.modal-backdrop')
+
+    backdrop.trigger('click')
+    expect(wrapper.emitted().canceled).toHaveLength(1)
+  })
+
+  it('matches snapshot', () => {
+    const wrapper = mount(KModal)
+
+    expect(wrapper.html()).toMatchSnapshot()
+  })
 })
