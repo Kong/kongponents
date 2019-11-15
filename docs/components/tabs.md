@@ -1,15 +1,16 @@
 # Tabs
 
-**KTabs** - A simple tabs component
-
-<KTabs :tabs="tabs">
-  <template v-slot:tab1>
-    <p>Tab 1 content</p>
-  </template>
-  <template v-slot:tab2>
-    <p>Tab 2 content</p>
-  </template>
-</KTabs>
+**KTabs** - A mindblowing tabs component
+<ClientOnly>
+  <KTabs :tabs="tabs">
+    <template v-slot:tab1>
+      <p>Tab 1 content</p>
+    </template>
+    <template v-slot:tab2>
+      <p>Tab 2 content</p>
+    </template>
+  </KTabs>
+</ClientOnly>
 
 ```vue
 <KTabs :tabs="tabs">
@@ -70,17 +71,19 @@ export default {
 ## Slots
 In order to actually see your tabbed content you must slot it using the tab hash property without the hash mark.
 
-<KTabs :tabs="slottedTabs">
-  <template v-slot:pictures>
-    <p>Wow look Pictures!</p>
-  </template>
-  <template v-slot:movies>
-    <p>Wow look Movies!</p>
-  </template>
-  <template v-slot:books>
-    <p>Wow look Books!</p>
-  </template>
-</KTabs>
+<ClientOnly>
+  <KTabs :tabs="slottedTabs">
+    <template v-slot:pictures>
+      <p>Wow look Pictures!</p>
+    </template>
+    <template v-slot:movies>
+      <p>Wow look Movies!</p>
+    </template>
+    <template v-slot:books>
+      <p>Wow look Books!</p>
+    </template>
+  </KTabs>
+</ClientOnly>
 
 ```vue
 <template>
@@ -109,19 +112,21 @@ export default {
 ### Window Hash
 KTabs emits a `changed` event with the new tab hash when clicked. You can use this to set the window hash. This allows you to control which tab is open by the window hash
 
-<KTabs
-  :tabs="slottedTabs"
-  @changed="handleChange">
-  <template v-slot:pictures>
-    <p>Wow look Pictures!</p>
-  </template>
-  <template v-slot:movies>
-    <p>Wow look Movies!</p>
-  </template>
-  <template v-slot:books>
-    <p>Wow look Books!</p>
-  </template>
-</KTabs>
+<ClientOnly>
+  <KTabs
+    :tabs="slottedTabs"
+    @changed="handleChange">
+    <template v-slot:pictures>
+      <p>Wow look Pictures!</p>
+    </template>
+    <template v-slot:movies>
+      <p>Wow look Movies!</p>
+    </template>
+    <template v-slot:books>
+      <p>Wow look Books!</p>
+    </template>
+  </KTabs>
+</ClientOnly>
 
 ```vue
 <template>
@@ -168,14 +173,16 @@ look like.
 
 <template>
   <div class="KTabs-wrapper">
-    <KTabs :tabs="tabs">
-      <template v-slot:tab1>
-        <p>Tab 1 content</p>
-      </template>
-      <template v-slot:tab2>
-        <p>Tab 2 content</p>
-      </template>
-    </KTabs>
+    <ClientOnly>
+      <KTabs :tabs="tabs">
+        <template v-slot:tab1>
+          <p>Tab 1 content</p>
+        </template>
+        <template v-slot:tab2>
+          <p>Tab 2 content</p>
+        </template>
+      </KTabs>
+    </ClientOnly>
   </div>
 </template>
 
