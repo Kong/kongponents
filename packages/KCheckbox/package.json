@@ -1,13 +1,13 @@
 {
-  "name": "@kongponents/kinput",
-  "version": "0.2.0-0",
-  "description": "Input component",
-  "main": "dist/KInput.umd.min.js",
-  "componentName": "KInput",
-  "source": "KInput.vue",
+  "name": "@kongponents/kcheckbox",
+  "version": "0.2.0",
+  "description": "Checkbox input component",
+  "main": "dist/KCheckbox.umd.min.js",
+  "componentName": "KCheckbox",
+  "source": "KCheckbox.vue",
   "files": [
     "dist",
-    "KInput.vue"
+    "KCheckbox.vue"
   ],
   "repository": {
     "type": "git",
