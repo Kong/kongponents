@@ -1,0 +1,18 @@
+.form-group {
+  $borderColor: var(--KInputBorder, var(--grey-88, color(grey--grey-88)));
+  display: block;
+  width: 100%;
+  margin-bottom: var(--lg, spacing(lg));
+
+  hr {
+    border-color: $borderColor;
+    margin: var(--xl, spacing(xl)) 0;
+  }
+}
+
+.k-input + .help {
+  display: block;
+  margin: var(--spacing-xs, spacing(xs)) 0 0;
+  font-size: var(--type-sm, type(sm));
+  color: var(--tblack-45, color(tblack-45));
+}
