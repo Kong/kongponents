@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KRadio matches snapshot 1`] = `<label class="k-radio"><input type="radio" class="k-input"> </label>`;

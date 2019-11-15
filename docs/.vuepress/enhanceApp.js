@@ -12,13 +12,14 @@ import KEmptyState from '../../packages/KEmptyState/KEmptyState.vue'
 import KIcon from '../../packages/KIcon/KIcon.vue'
 import KInput from '../../packages/KInput/KInput.vue'
 import KInputSwitch from '../../packages/KInputSwitch/KInputSwitch.vue'
+import KCheckbox from '../../packages/KCheckbox/KCheckbox.vue'
+import KRadio from '../../packages/KRadio/KRadio.vue'
 import KLabel from '../../packages/KLabel/KLabel.vue'
 import KModal from '../../packages/KModal/KModal.vue'
 import KoolTip from '../../packages/KoolTip/KoolTip.vue'
 import KPop from '../../packages/KPop/KPop.vue'
 import Krumbs from '../../packages/Krumbs/Krumbs.vue'
 import KTable from '../../packages/KTable/KTable.vue'
-import KToaster from '../../packages/KToaster/KToaster.vue'
 import KToggle from '../../packages/KToggle/KToggle.js'
 import KSlideout from '../../packages/KSlideout/KSlideout.vue'
 
@@ -37,13 +38,14 @@ export default ({
   Vue.component('KIcon', KIcon)
   Vue.component('KInput', KInput)
   Vue.component('KInputSwitch', KInputSwitch)
+  Vue.component('KCheckbox', KCheckbox)
+  Vue.component('KRadio', KRadio)
   Vue.component('KLabel', KLabel)
   Vue.component('KModal', KModal)
   Vue.component('KoolTip', KoolTip)
   Vue.component('KPop', KPop)
   Vue.component('Krumbs', Krumbs)
   Vue.component('KTable', KTable)
-  Vue.component('KToaster', KToaster)
   Vue.component('KToggle', KToggle)
   Vue.component('KSlideout', KSlideout)
 

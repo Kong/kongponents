@@ -8,7 +8,7 @@ next: false
 Kongponents is a Vue component library of frequently needed UI elements. They were developed to solve [Kong](https://konghq.com)'s application needs, but are generic enough to use in any web application.
 
 ## Installation
-To begin developing Kongponents you will need to import each component individually. For a list of all components & their features see the [components](/components/) section.
+To begin developing Kongponents you will need to import each component individually.
 
 ```bash
 $ yarn add  @kongponents/kbutton

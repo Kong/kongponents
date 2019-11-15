@@ -1,22 +1,27 @@
 {
   "name": "@kongponents/ktoaster",
-  "version": "0.1.5",
-  "description": "Toaster component",
+  "version": "1.0.2",
+  "description": "Toaster component.",
   "main": "dist/KToaster.umd.min.js",
   "componentName": "KToaster",
-  "source": "KToaster.vue",
+  "source": "index.js",
   "files": [
     "dist",
-    "KToaster.vue"
+    "index.js",
+    "KToaster.vue",
+    "ToastManager.js"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"
   },
   "author": "Kong Inc",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/Kong/kongponents/issues"
   },
-  "homepage": "https://github.com/Kong/kongponents#readme"
+  "homepage": "https://github.com/Kong/kongponents#readme",
+  "dependencies": {
+    "@kongponents/kalert": "^0.1.8"
+  }
 }

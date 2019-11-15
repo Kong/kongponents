@@ -1,12 +1,11 @@
-```js
-const attributes = {
-  textToCopy: 'Provide clipboard copy capabilities to any component',
-}
+# @kongponents/kclipboardprovider
 
-<KClipboardProvider>
+[![](https://img.shields.io/npm/v/@kongponents/kclipboardprovider.svg?style=flat-square)](https://www.npmjs.com/package/@kongponents/kclipboardprovider)
+
+```vue
+<KClipboardProvider v-slot="{ copyToClipboard }">
   <button
-    slot-scope="{ copyToClipboard }"
-    v-on:click="() => copyToClipboard(attributes.textToCopy)">
+    @click="() => copyToClipboard('copy me!')">
     copy to clipboard
   </button>
 </KClipboardProvider>

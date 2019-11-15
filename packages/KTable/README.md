@@ -1,3 +1,7 @@
+# @kongponents/ktable
+
+[![](https://img.shields.io/npm/v/@kongponents/ktable.svg?style=flat-square)](https://www.npmjs.com/package/@kongponents/ktable)
+
 ```js
 const options = {
   headers: [

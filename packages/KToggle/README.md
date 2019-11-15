@@ -1,4 +1,6 @@
-# KToggle
+# @kongponents/ktoggle
+
+[![](https://img.shields.io/npm/v/@kongponents/ktoggle.svg?style=flat-square)](https://www.npmjs.com/package/@kongponents/ktoggle)
 
 Provide toggle functionality to components.
 

@@ -30,6 +30,7 @@ module.exports = {
             children: [
               '/style-guide/colors',
               '/style-guide/type',
+              '/style-guide/forms',
               '/style-guide/utilities',
 
             ]
@@ -44,15 +45,18 @@ module.exports = {
               '/components/breadcrumbs',
               '/components/button',
               '/components/card',
+              '/components/input-checkbox',
               '/components/empty-state',
               '/components/input',
               '/components/icon',
               '/components/modal',
               '/components/popover',
-              '/components/tooltip',
-              '/components/table',
+              '/components/input-radio',
               '/components/slideout',
-              '/components/switch'
+              '/components/switch',
+              '/components/table',
+              '/components/toaster',
+              '/components/tooltip'
             ]
           },
           {
@@ -103,5 +107,8 @@ module.exports = {
       .use('raw')
       .loader('raw-loader')
       .end().end()
-  }
+  },
+  globalUIComponents: [
+    'GlobalUI'
+  ]
 }

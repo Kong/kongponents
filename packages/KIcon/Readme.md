@@ -1,3 +1,0 @@
-```js
-<KIcon icon="portal" />
-```

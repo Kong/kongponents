@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kbutton",
-  "version": "0.1.10-4",
+  "version": "0.1.10-5",
   "description": "Button component",
   "main": "dist/KButton.umd.min.js",
   "componentName": "KButton",
@@ -14,7 +14,7 @@
     "url": "git+https://github.com/Kong/kongponents.git"
   },
   "author": "Kong Inc",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/Kong/kongponents/issues"
   },

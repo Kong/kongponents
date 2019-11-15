@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kpop",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "description": "A Popover component",
   "main": "dist/KPop.umd.min.js",
   "componentName": "KPop",
@@ -14,7 +14,7 @@
     "url": "git+https://github.com/Kong/kongponents.git"
   },
   "author": "Kong Inc",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/Kong/kongponents/issues"
   },
