@@ -1,3 +1,7 @@
+---
+pageClass: utilities
+sidebarDepth: 1
+---
 
 # Utilities
 
@@ -39,14 +43,80 @@ Example: .pt-2 would add 8px of padding to the top of the element and.mx-0 would
     margin-right: 0px;
   }
   ```
+## Display
+| Class                 | Properties
+| :-------------------- |:-----------
+| .d-none | display: none;
+| .d-inline | display: inline;
+| .d-inline-block | display: inline-block;
+| .d-block | display-block;
+| .d-flex | display: flex;
+| .d-inline-flex | display: inline-flex;
 
-## Utility Helpers
-&nbsp;
+## Width
+| Class                 | Properties
+| :-------------------- |:-----------
+| .w-25 | width: 25%;
+| .w-50 | width: 50%;
+| .w-75 | width: 75%;
+| .w-100 | width: 100%;
+| .w-auto | width: auto;
 
-| Class       | Description |Properties
+## Flex
+### Direction & Growth
+| Class                 | Properties
+| :-------------------- |:-----------
+| .flex-fill | flex: 1 1 auto;
+| .flex-row | flex-direction: row;
+| .flex-column | flex-direction: column;
+| .flex-row-reverse | flex-direction: row-reverse;
+| .flex-column-reverse | flex-direction: column-reverse;
+| .flex-grow-0 | flex-grow: 0;
+| .flex-grow-1 | flex-grow: 1;
+
+
+### Justification
+| Class                   | Properties
+| :---------------------- |:-----------
+| .justify-content-start | justify-content: flex-start;
+| .justify-content-end |  justify-content: flex-end;
+| .justify-content-center |  justify-content: center;
+| .justify-content-between |  justify-content: space-between;
+| .justify-content-around |  justify-content: space-around;
+
+### Alignment
+| Class                   | Properties
+| :---------------------- |:-----------
+| .align-items-start |  align-items: flex-start;
+| .align-items-end |  align-items: flex-end;
+| .align-items-center |  align-items: center;
+| .align-items-baseline |  align-items: baseline;
+| .align-items-stretch |  align-items: stretch;
+| .align-content-start |  align-content: flex-start;
+| .align-content-end |  align-content: flex-end;
+| .align-content-center |  align-content: center;
+| .align-content-between |  align-content: space-between;
+| .align-content-around |  align-content: space-around;
+| .align-content-stretch |  align-content: stretch;
+| .align-self-auto |  align-self: auto;
+| .align-self-start |  align-self: flex-start;
+| .align-self-end |  align-self: flex-end;
+| .align-self-center |  align-self: center;
+| .align-self-baseline |  align-self: baseline;
+| .align-self-stretch |  align-self: stretch;
+
+## General Helpers
+| Class       |Properties
 | :---------- |:-------------- |:-----------
-| `.truncate` | Truncates text with "..."| <pre v-pre><code>{ <br>&nbsp;&nbsp;white-space: nowrap; <br>&nbsp;&nbsp;text-overflow: ellipsis; <br>&nbsp;&nbsp;overflow: hidden;<br>}</code></pre>
-| `.cursor-pointer` | Sets cursor type | <pre v-pre><code>{ cursor: pointer; } </code></pre>
-| `.d-none` | Sets display to none | <pre v-pre><code>{ display: none; }</code></pre>
-| `.overflow-hidden` | Sets overflow | <pre v-pre><code>{ overflow: hidden; }</code></pre>
-| `.w-100` | Sets element to 100% width | <pre v-pre><code>{ width: 100%; }</code></pre>
+| .truncate | white-space: nowrap <br>text-overflow: ellipsis;<br>overflow: hidden;
+| .cursor-pointer | cursor: pointer;
+| .overflow-hidden | overflow: hidden;
+
+<style lang="scss">
+.theme-container.utilities {
+  table:not(:first-of-type) td {
+    &:first-of-type { color: #6b46c1; }
+    &:last-of-type { color: var(--blue-dark); }
+  }
+}
+</style> 
