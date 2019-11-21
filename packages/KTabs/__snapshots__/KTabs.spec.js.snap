@@ -3,16 +3,16 @@
 exports[`KTabs matches snapshot 1`] = `
 <div class="k-tabs">
   <ul>
-    <li aria-selected="false" class="tab-item"><a aria-controls="#pictures" class="tab-link">Pictures</a></li>
+    <li aria-selected="true" class="tab-item active"><a aria-controls="#pictures" class="tab-link">Pictures</a></li>
     <li aria-selected="false" class="tab-item"><a aria-controls="#movies" class="tab-link">Movies</a></li>
-    <li aria-selected="true" class="tab-item active"><a aria-controls="#books" class="tab-link">Books</a></li>
+    <li aria-selected="false" class="tab-item"><a aria-controls="#books" class="tab-link">Books</a></li>
   </ul>
-  <div id="pictures-tab" class="tab-container">
-    <!---->
-  </div>
+  <div id="pictures-tab" class="tab-container"></div>
   <div id="movies-tab" class="tab-container">
     <!---->
   </div>
-  <div id="books-tab" class="tab-container"></div>
+  <div id="books-tab" class="tab-container">
+    <!---->
+  </div>
 </div>
 `;

@@ -9,7 +9,6 @@ const TABS = [
 
 describe('KTabs', () => {
   it('first tab is set if hash not found', () => {
-    window.location.hash = 'wow'
     const wrapper = mount(KTabs, {
       propsData: {
         tabs: TABS
@@ -19,17 +18,17 @@ describe('KTabs', () => {
     expect(wrapper.find('.tab-item').classes()).toContain('active')
   })
 
-  it('correct tab is set if hash is found', () => {
-    window.location.hash = 'books'
+  it('sets correct tab if default tab prop', () => {
     const wrapper = mount(KTabs, {
       propsData: {
-        tabs: TABS
+        tabs: TABS,
+        defaultTab: '#books'
       }
     })
 
-    const booksTab = wrapper.findAll('.tab-item')
+    const tabs = wrapper.findAll('.tab-item')
 
-    expect(booksTab.at(2).classes()).toContain('active')
+    expect(tabs.at(2).classes()).toContain('active')
   })
 
   it('emits change event on click', () => {
