@@ -251,6 +251,7 @@ look like.
 export default {
   data() {
     return {
+      isSSR: false,
       tabs: [
         {
           hash: '#tab1',
@@ -270,8 +271,11 @@ export default {
   },
   computed: {
     activeTab () {
-      return window.location.hash
+      return this.isSSR && window.location.hash
     }
+  },
+  mounted () {
+    this.isSSR = true
   },
   methods: {
     handleChange(newHash) {
