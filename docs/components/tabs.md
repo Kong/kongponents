@@ -1,3 +1,6 @@
+---
+sidebarDepth: 0
+---
 # Tabs
 
 **KTabs** - A mindblowing tabs component
@@ -68,6 +71,34 @@ export default {
 </script>
 ```
 
+### default-tab
+By default the tabs will set the first tab in the array as active. You can override this by passing in the hash of any other tab to be used instead.
+<ClientOnly>
+  <KTabs
+    default-tab="#tab2"
+    :tabs="tabs">
+    <template v-slot:tab1>
+      <p>Tab 1 content</p>
+    </template>
+    <template v-slot:tab2>
+      <p>Tab 2 content</p>
+    </template>
+  </KTabs>
+</ClientOnly>
+
+```vue
+<KTabs
+  default-tab-hash="#tab2"
+  :tabs="tabs">
+  <template v-slot:tab1>
+    <p>Tab 1 content</p>
+  </template>
+  <template v-slot:tab2>
+    <p>Tab 2 content</p>
+  </template>
+</KTabs>
+```
+
 ## Slots
 In order to actually see your tabbed content you must slot it using the tab hash property without the hash mark.
 
@@ -110,11 +141,14 @@ export default {
 
 ## Usage
 ### Window Hash
-KTabs emits a `changed` event with the new tab hash when clicked. You can use this to set the window hash. This allows you to control which tab is open by the window hash
+KTabs emits a `changed` event with the new tab hash when clicked. You can use this to set the window hash as well as the [default-tab](#default-tab) prop.
+
+*Try refreshing the page after clicking a tab below*
 
 <ClientOnly>
   <KTabs
     :tabs="slottedTabs"
+    :default-tab="activeTab"
     @changed="handleChange">
     <template v-slot:pictures>
       <p>Wow look Pictures!</p>
@@ -132,6 +166,7 @@ KTabs emits a `changed` event with the new tab hash when clicked. You can use th
 <template>
   <KTabs
     :tabs="tabs"
+    :default-tab="activeTab"
     @changed="handleChange">
     <template v-slot:pictures>Wow look Pictures!</template>
     <template v-slot:movies>Wow look Movies!</template>
@@ -149,6 +184,11 @@ export default {
       ]
     }
   },
+  computed: {
+    activeTab () {
+      return window.location.hash
+    }
+  }
   methods: {
     handleChange(newHash) {
       window.location.hash = newHash
@@ -225,7 +265,12 @@ export default {
         { hash: '#pictures', title: 'Pictures' },
         { hash: '#movies', title: 'Movies' },
         { hash: '#books', title: 'Books' },
-      ]
+      ],
+    }
+  },
+  computed: {
+    activeTab () {
+      return window.location.hash
     }
   },
   methods: {

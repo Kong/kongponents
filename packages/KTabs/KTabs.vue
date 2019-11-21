@@ -38,21 +38,21 @@ export default {
     tabs: {
       type: Array,
       required: true
+    },
+    /**
+     * A set tab hash to use as default. If set, window hash will not be looked up
+     */
+    defaultTab: {
+      type: String,
+      default: ''
     }
   },
 
   data () {
     return {
-      // Check if window hash and if any tabs match hash
-      activeTab: (window.location.hash && this.tabs.some(tab => tab.hash === window.location.hash))
-        ? this.tabs.find(tab => tab.hash === window.location.hash).hash
+      activeTab: this.defaultTab
+        ? this.defaultTab
         : this.tabs[0].hash
-    }
-  },
-
-  computed: {
-    hash () {
-      return window.location.hash
     }
   },
 
