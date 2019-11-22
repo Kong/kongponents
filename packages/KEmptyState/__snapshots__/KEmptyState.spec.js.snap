@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KEmptyState matches snapshot 1`] = `
+<div class="empty-state-wrapper">
+  <div class="empty-state-title">
+    <h5></h5>
+  </div>
+  <div class="empty-state-content">
+    <p></p>
+    <p><button type="button" class="k-button outline-primary" is-rounded="true">
+
+      </button></p>
+  </div>
+</div>
+`;

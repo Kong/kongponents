@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`KModal matches snapshot 1`] = `undefined`;
+
 exports[`KModal renders custom button text & appearance 1`] = `
 <div aria-hidden="false" role="dialog" class="k-modal">
   <div class="modal-backdrop">

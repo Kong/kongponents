@@ -11,7 +11,7 @@
             v-if="!ctaIsHidden"
             :is-rounded="true"
             appearance="outline-primary"
-            @click.native="handleClick">
+            @click.native="() => handleClick && handleClick()">
             {{ ctaText }}
           </KButton>
         </slot>
@@ -36,7 +36,7 @@ export default {
     },
     handleClick: {
       type: Function,
-      default: () => () => null
+      default: null
     }
   }
 }

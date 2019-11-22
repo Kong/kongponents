@@ -5,7 +5,12 @@ describe('KEmptyState', () => {
   it('renders slots when passed', () => {
     const emptyTitle = 'No Entities Yet'
     const emptyMessage = 'To Add an Entity, Press the Button'
+    const ctaText = 'Click Me!'
+
     const wrapper = mount(KEmptyState, {
+      propsData: {
+        ctaText
+      },
       slots: {
         'title': `<span>${emptyTitle}</span>`,
         'message': `<div>${emptyMessage}</div>`
@@ -14,6 +19,7 @@ describe('KEmptyState', () => {
 
     expect(wrapper.find('.empty-state-title').html()).toEqual(expect.stringContaining(emptyTitle))
     expect(wrapper.find('.empty-state-content').html()).toEqual(expect.stringContaining(emptyMessage))
+    expect(wrapper.find('button.outline-primary').text()).toEqual(expect.stringContaining(ctaText))
   })
 
   it('remains empty when no slots are passed', () => {
@@ -25,5 +31,21 @@ describe('KEmptyState', () => {
 
     expect(wrapper.find('.empty-state-title').html()).toEqual(expect.stringContaining(emptyTitle))
     expect(wrapper.find('.empty-state-content').html()).toEqual(expect.stringContaining(emptyMessage))
+  })
+
+  it('does not render KButton when ctaIsHidden', () => {
+    const wrapper = mount(KEmptyState, {
+      propsData: {
+        ctaIsHidden: true
+      }
+    })
+
+    expect(wrapper.find('button.outline-primary').exists()).toBe(false)
+  })
+
+  it('matches snapshot', () => {
+    const wrapper = mount(KEmptyState)
+
+    expect(wrapper.html()).toMatchSnapshot()
   })
 })
