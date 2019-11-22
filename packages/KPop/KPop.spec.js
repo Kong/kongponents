@@ -75,5 +75,7 @@ describe('KPop', () => {
     expect(wrapper.vm.isShow).toBe(false)
     slottedEl.trigger('mouseenter')
     expect(wrapper.vm.isShow).toBe(true)
+
+    wrapper.destroy()
   })
 })
