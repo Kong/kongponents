@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.10-6](https://github.com/Kong/kongponents/compare/@kongponents/kbutton@0.1.10-5...@kongponents/kbutton@0.1.10-6) (2019-11-22)
+
+
+### Bug Fixes
+
+* **KButton:** resets focus state to default ([#173](https://github.com/Kong/kongponents/issues/173)) ([21a99ee](https://github.com/Kong/kongponents/commit/21a99eeb20f0ca6ec669329bf2e3a05e06443d2b))
+
+
+
+
+
 ## [0.1.10-5](https://github.com/Kong/kongponents/compare/@kongponents/kbutton@0.1.10-4...@kongponents/kbutton@0.1.10-5) (2019-11-12)
 
 **Note:** Version bump only for package @kongponents/kbutton
