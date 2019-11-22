@@ -45,22 +45,6 @@ describe('KModal', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 
-  it('close when hitting escape', () => {
-    const wrapper = mount(KModal, {
-      propsData: {
-        isVisible: true
-      },
-      attachToDocument: true
-    })
-
-    const mockFn = jest.fn()
-
-    wrapper.setMethods({ close: mockFn })
-
-    wrapper.find('.k-modal').trigger('keydown.esc')
-    expect(mockFn).toBeCalledTimes(1)
-  })
-
   it('proceeds when clicking action button', () => {
     const wrapper = mount(KModal, {
       propsData: {
@@ -69,12 +53,9 @@ describe('KModal', () => {
       attachToDocument: true
     })
 
-    const mockFn = jest.fn()
-
-    wrapper.setMethods({ proceed: mockFn })
-
     wrapper.find('.modal-footer button').trigger('click')
-    expect(mockFn).toBeCalledTimes(1)
+
+    expect(wrapper.emitted().proceed).toHaveLength(1)
   })
 
   it('emits close when backdrop is clicked', () => {
@@ -88,6 +69,34 @@ describe('KModal', () => {
 
     backdrop.trigger('click')
     expect(wrapper.emitted().canceled).toHaveLength(1)
+  })
+
+  it('emits close when hitting escape', () => {
+    const wrapper = mount(KModal, {
+      propsData: {
+        isVisible: true
+      },
+      attachToDocument: true
+    })
+
+    wrapper.find('.k-modal').trigger('keydown.esc')
+    expect(wrapper.emitted().canceled).toHaveLength(1)
+  })
+
+  it('tears down event listeners', () => {
+    const AEL = jest.fn()
+    const REL = jest.fn()
+
+    window.document.addEventListener = AEL
+    window.document.removeEventListener = REL
+
+    const wrapper = mount(KModal, {
+      attachToDocument: true
+    })
+
+    wrapper.destroy()
+    expect(AEL).toHaveBeenCalledTimes(1)
+    expect(REL).toHaveBeenCalledTimes(1)
   })
 
   it('matches snapshot', () => {
