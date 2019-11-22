@@ -23,7 +23,7 @@ jobs:
         yarn lint
     - name: test
       run: |
-        yarn test
+        yarn test-coverage
     - uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
