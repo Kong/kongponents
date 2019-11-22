@@ -118,10 +118,6 @@ export default {
   transition: all .2s ease-in-out;
   cursor: pointer;
 
-  &:focus {
-    outline: none;
-  }
-
   &:disabled {
     opacity: 0.3;
     cursor: not-allowed;
