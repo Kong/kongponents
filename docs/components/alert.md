@@ -125,6 +125,15 @@ Fixes KAlert to the top of the container.
 - `alertIcon` - Slot specifically meant for adding an icon
 - `alertMessage` - Default message slot
 
+<KAlert appearance="info">
+  <template slot="alertIcon">
+    <KIcon icon="portal" />
+  </template>
+  <template slot="alertMessage">
+    I have an icon and a <a href="">Link</a>!
+  </template>
+</KAlert>
+
 ```vue
 <KAlert appearance="info">
   <template slot="alertIcon">

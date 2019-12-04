@@ -208,7 +208,7 @@ export default {
 
       this.timer = setTimeout(() => {
         this.isShow = false
-        this.$emit('close')
+        this.$emit('closed')
         this.destroy()
       }, this.popoverTimeout)
     },
@@ -217,7 +217,7 @@ export default {
       this.isShow = true
       if (this.timer) clearTimeout(this.timer)
       if (this.popperTimer) clearTimeout(this.popperTimer)
-      this.$emit('open')
+      this.$emit('opened')
     },
 
     async createInstance () {
