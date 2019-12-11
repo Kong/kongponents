@@ -31,6 +31,11 @@
 <script>
 export default {
   name: 'KTabs',
+  // v-model
+  model: {
+    prop: 'value',
+    event: 'input'
+  },
   props: {
     /**
      * Array of Tab objects [{hash: '#tab1', title: 'tab1'}, {hash: '#tab2', title: 'tab2'}]
@@ -40,9 +45,9 @@ export default {
       required: true
     },
     /**
-     * A set tab hash to use as default. If set, window hash will not be looked up
+     * A set tab hash to use as default
      */
-    defaultTab: {
+    value: {
       type: String,
       default: ''
     }
@@ -50,8 +55,8 @@ export default {
 
   data () {
     return {
-      activeTab: this.defaultTab
-        ? this.defaultTab
+      activeTab: this.value
+        ? this.value
         : this.tabs[0].hash
     }
   },

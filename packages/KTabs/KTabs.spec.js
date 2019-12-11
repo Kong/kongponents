@@ -22,7 +22,7 @@ describe('KTabs', () => {
     const wrapper = mount(KTabs, {
       propsData: {
         tabs: TABS,
-        defaultTab: '#books'
+        value: '#books'
       }
     })
 

@@ -72,11 +72,9 @@ export default {
 ```
 
 ### default-tab
-By default the tabs will set the first tab in the array as active. You can override this by passing in the hash of any other tab to be used instead.
+By default the tabs will set the first tab in the array as active. You can override this by passing in the hash of any other tab to be used instead with v-model.
 <ClientOnly>
-  <KTabs
-    default-tab="#tab2"
-    :tabs="tabs">
+  <KTabs v-model="defaultTab" :tabs="tabs">
     <template v-slot:tab1>
       <p>Tab 1 content</p>
     </template>
@@ -88,7 +86,7 @@ By default the tabs will set the first tab in the array as active. You can overr
 
 ```vue
 <KTabs
-  default-tab-hash="#tab2"
+  v-model="#tab2"
   :tabs="tabs">
   <template v-slot:tab1>
     <p>Tab 1 content</p>
@@ -148,7 +146,7 @@ KTabs emits a `changed` event with the new tab hash when clicked. You can use th
 <ClientOnly>
   <KTabs
     :tabs="slottedTabs"
-    :default-tab="activeTab"
+    v-model="activeTab"
     @changed="handleChange">
     <template v-slot:pictures>
       <p>Wow look Pictures!</p>
@@ -166,7 +164,7 @@ KTabs emits a `changed` event with the new tab hash when clicked. You can use th
 <template>
   <KTabs
     :tabs="tabs"
-    :default-tab="activeTab"
+    v-model="activeTab"
     @changed="handleChange">
     <template v-slot:pictures>Wow look Pictures!</template>
     <template v-slot:movies>Wow look Movies!</template>
@@ -251,7 +249,7 @@ look like.
 export default {
   data() {
     return {
-      isSSR: false,
+      defaultTab: '#tab2',
       tabs: [
         {
           hash: '#tab1',
