@@ -108,6 +108,11 @@ table.k-table {
           text-decoration: underline;
         }
       }
+      button,
+      .k-button {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
     }
   }
 
