@@ -143,29 +143,27 @@ KTabs emits a `changed` event with the new tab hash when clicked. You can use th
 
 *Try refreshing the page after clicking a tab below*
 
-<ClientOnly>
-  <KTabs
-    :tabs="slottedTabs"
-    v-model="activeTab"
-    @changed="handleChange">
-    <template v-slot:pictures>
-      <p>Wow look Pictures!</p>
-    </template>
-    <template v-slot:movies>
-      <p>Wow look Movies!</p>
-    </template>
-    <template v-slot:books>
-      <p>Wow look Books!</p>
-    </template>
-  </KTabs>
-</ClientOnly>
+<KTabs
+  :tabs="slottedTabs"
+  v-model="$route.hash"
+  @changed="hash => $router.replace({hash})">
+  <template v-slot:pictures>
+    <p>Wow look Pictures!</p>
+  </template>
+  <template v-slot:movies>
+    <p>Wow look Movies!</p>
+  </template>
+  <template v-slot:books>
+    <p>Wow look Books!</p>
+  </template>
+</KTabs>
 
 ```vue
 <template>
   <KTabs
     :tabs="tabs"
-    v-model="activeTab"
-    @changed="handleChange">
+    v-model="$route.hash"
+    @changed="hash => $router.replace({hash})">
     <template v-slot:pictures>Wow look Pictures!</template>
     <template v-slot:movies>Wow look Movies!</template>
     <template v-slot:books>Wow look Books!</template>
@@ -173,23 +171,13 @@ KTabs emits a `changed` event with the new tab hash when clicked. You can use th
 </template>
 <script>
 export default {
-  data ) {
+  data () {
     return {
       tabs: [
         { hash: '#pictures', title: 'Pictures' },
         { hash: '#movies', title: 'Movies' },
         { hash: '#books', title: 'Books' },
       ]
-    }
-  },
-  computed: {
-    activeTab () {
-      return window.location.hash
-    }
-  }
-  methods: {
-    handleChange(newHash) {
-      window.location.hash = newHash
     }
   }
 }
