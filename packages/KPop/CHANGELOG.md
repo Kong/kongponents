@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/Kong/kongponents/compare/@kongponents/kpop@0.2.14...@kongponents/kpop@0.3.0) (2019-12-16)
+
+
+### Features
+
+* **kpop:** add opened/closed events ([#175](https://github.com/Kong/kongponents/issues/175)) ([61fa8fb](https://github.com/Kong/kongponents/commit/61fa8fb94d0737db2db9a87ee3da22280fe67cfa))
+
+
+
+
+
 ## [0.2.14](https://github.com/Kong/kongponents/compare/@kongponents/kpop@0.2.13...@kongponents/kpop@0.2.14) (2019-11-12)
 
 **Note:** Version bump only for package @kongponents/kpop
