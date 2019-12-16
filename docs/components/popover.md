@@ -1,10 +1,11 @@
 # Popover
 
-[[toc]]
+**KPop** is a popover component that is used when you need something with more 
+detailed content then fits inside a tooltip. KPop has three slots; only two is 
+necessary is to be filled to populate the component with content. The title prop
+must be passed in and the main slot and the content slot must be populated in 
+for the popover to display anything.
 
-**KPop** is a popover component that is used when you need something with more detailed content then fits inside a tooltip.
-KPop has three slots; only two is necessary is to be filled to populate the component with content.
-The title prop must be passed in and the main slot and the content slot must be populated in for the popover to display anything. 
 For example a button:
 
 <KPop title="Cool header">
@@ -22,12 +23,24 @@ For example a button:
 ## Props
 
 ### Target
-This is the target element that the popover is appended to. By default its the body tag.
+This is the target `element` that the <code>popover</code> is appended to. By default its the body tag.
+
+
+<KPop title="Cool header" target=".theme-default-content">
+  <KButton>button</KButton>
+  <div slot="content">
+    I am a popover, inside the <code>.theme-default-content</code> selector so 
+    I can get some of the stylings inside the theme!
+  </div>
+</KPop>
 
 ```vue
-<KPop title="Cool header" target=".custom-class">
+<KPop title="Cool header" target=".theme-default-content">
   <KButton>button</KButton>
-  <div slot="content">I am appended to the element with class custom-class!</div>
+  <div slot="content">
+  I am a popover, inside the <code>.theme-default-content</code> selector so 
+  I can get some of the stylings inside the theme!
+  </div>
 </KPop>
 ```
 
@@ -35,11 +48,16 @@ This is the target element that the popover is appended to. By default its the b
 This is the tag that the popover is wrapped around. By default its the div tag.
 
 ```vue
-<KPop title="Cool header" tag="main">
+<KPop title="Cool header" tag="details">
   <KButton>button</KButton>
-  <div slot="content">I am appended to the main element!</div>
+  <div slot="content">I am inside a &lt;details/&gt; block!</div>
 </KPop>
 ```
+
+<KPop title="Cool header" tag="details">
+  <KButton>button</KButton>
+  <div slot="content">I am inside a &lt;details/&gt; block!</div>
+</KPop>
 
 ### Title
 This is the Title of the popover. Either this or the title slot needs to be filled.
@@ -302,6 +320,9 @@ triggers)
       
       onClose () {
         clearTimeout(this.timeout)
+        if (this.currentState == 'pending') {
+          this.transition()
+        }
       },
       
       transition() {
@@ -360,6 +381,7 @@ triggers)
       
       onClose () {
         clearTimeout(this.timeout)
+        this.transition()
       },
       
       transition() {
