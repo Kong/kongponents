@@ -1,8 +1,11 @@
 # Popover
 
-**KPop** is a popover component that is used when you need something with more detailed content then fits inside a tooltip.
-KPop has three slots; only two is necessary is to be filled to populate the component with content.
-The title prop must be passed in and the main slot and the content slot must be populated in for the popover to display anything. 
+**KPop** is a popover component that is used when you need something with more 
+detailed content then fits inside a tooltip. KPop has three slots; only two is 
+necessary is to be filled to populate the component with content. The title prop
+must be passed in and the main slot and the content slot must be populated in 
+for the popover to display anything.
+
 For example a button:
 
 <KPop title="Cool header">
@@ -20,12 +23,24 @@ For example a button:
 ## Props
 
 ### Target
-This is the target element that the popover is appended to. By default its the body tag.
+This is the target `element` that the <code>popover</code> is appended to. By default its the body tag.
+
+
+<KPop title="Cool header" target=".theme-default-content">
+  <KButton>button</KButton>
+  <div slot="content">
+    I am a popover, inside the <code>.theme-default-content</code> selector so 
+    I can get some of the stylings inside the theme!
+  </div>
+</KPop>
 
 ```vue
-<KPop title="Cool header" target=".custom-class">
+<KPop title="Cool header" target=".theme-default-content">
   <KButton>button</KButton>
-  <div slot="content">I am appended to the element with class custom-class!</div>
+  <div slot="content">
+  I am a popover, inside the <code>.theme-default-content</code> selector so 
+  I can get some of the stylings inside the theme!
+  </div>
 </KPop>
 ```
 
@@ -33,11 +48,16 @@ This is the target element that the popover is appended to. By default its the b
 This is the tag that the popover is wrapped around. By default its the div tag.
 
 ```vue
-<KPop title="Cool header" tag="main">
+<KPop title="Cool header" tag="details">
   <KButton>button</KButton>
-  <div slot="content">I am appended to the main element!</div>
+  <div slot="content">I am inside a &lt;details/&gt; block!</div>
 </KPop>
 ```
+
+<KPop title="Cool header" tag="details">
+  <KButton>button</KButton>
+  <div slot="content">I am inside a &lt;details/&gt; block!</div>
+</KPop>
 
 ### Title
 This is the Title of the popover. Either this or the title slot needs to be filled.
@@ -146,10 +166,16 @@ Custom transitions that you want the popover to have - by default it uses a `fad
 ```
 
 ### Popover Timeout
-Custom timeout setting that you want the popover to have - by default it is set to 300 milliseconds.
+Custom timeout setting that you want the popover to have - by default it is set 
+to 300 milliseconds.
+
+<KPop title="Cool header" :popover-timeout="1000" trigger="hover">
+  <KButton>button</KButton>
+  <div slot="content">I have a 1 second timeout!</div>
+</KPop>
 
 ```vue
-<KPop title="Cool header" popoverTimeout="1000">
+<KPop title="Cool header" :popover-timeout="1000">
   <KButton>button</KButton>
   <div slot="content">I have a 1 second timeout!</div>
 </KPop>
@@ -176,15 +202,28 @@ You can pass in an optional flag to disable the popover - by default it is set t
 ```
 
 ### isSVG Flag
-For SVGs, the popover needs a special `foreignObject` wrapper in order to function, so you can pass in a flag to tell the popover it is taking in an SVG element - by default it is set to `false`
+To support `<KPop>` being able to be used inside an svg tag, use the `isSvg` prop.
+This will wrap the content of the KPop in a `<foreignObject>` tag, so that normal
+HTML content can be injected into the popover.
+
+<svg style="cursor: pointer; height: 20px; width: 20px; margin-right: 1rem;" v-for="light in ['red', 'yellow', 'green']">
+  <KPop trigger="hover" :title="light" :is-svg="true" tag="g" :popover-timeout="10">
+    <template slot="content">
+      <p>{{ light }} means {{ light == 'green' ? 'GO!' : (light == 'red' ? 'STOP!' : 'SLOW DOWN!') }}</p>
+    </template>
+    <rect :fill="`var(--${light}-base)`" width="20" height="20" rx="20" ry="20"></rect>
+  </KPop>
+</svg>
 
 ```vue
-<KPop title="Cool header" isSVG="true">
-  <g>
-    <text>SVG Element</text>
-  </g>
-  <div slot="content">I am an SVG element so I need to set my flag to true!</div>
-</KPop>
+<svg v-for="light in ['red', 'yellow', 'green']">
+  <KPop trigger="hover" title="Light" :is-svg="true" tag="g" :popover-timeout="10">
+    <template slot="content">
+      <p>{{ light }} means {{ light == 'green' ? 'GO!' : (light == 'red' ? 'STOP!' : 'SLOW DOWN!') }}</p>
+    </template>
+    <rect :fill="`var(--${light}-base)`" width="20" height="20" rx="20" ry="20"></rect>
+  </KPop>
+</svg>
 ```
 
 ## Slots
@@ -192,7 +231,7 @@ For SVGs, the popover needs a special `foreignObject` wrapper in order to functi
 - `Default` There is a main slot that takes in the element you want the popover to be triggered over.
 
 ```vue
-<KPop title="Cool header" isSVG="true">
+<KPop title="Cool header">
   <!-- Your element goes here -->
   <KButton>button</KButton>
 </KPop>
@@ -202,7 +241,7 @@ For SVGs, the popover needs a special `foreignObject` wrapper in order to functi
 There is an optional title slot that can take in an element for the title. The title could alternatively be populated via the prop.
 
 ```vue
-<KPop title="Cool header" isSVG="true">
+<KPop title="Cool header">
   <!-- Your element goes here -->
   <KButton>button</KButton>
   <!-- Your title goes here -->
@@ -216,7 +255,7 @@ There is an optional title slot that can take in an element for the title. The t
 This is the slot that takes in the content of the popover.
 
 ```vue
-<KPop title="Cool header" isSVG="true">
+<KPop title="Cool header">
   <!-- Your element goes here -->
   <KButton>button</KButton>
   <!-- Your content goes here -->
@@ -225,6 +264,134 @@ This is the slot that takes in the content of the popover.
   </div>
 </KPop>
 ```
+
+## Usage
+
+### Events / Loading Content
+
+- `opened` - emitted once the popover has been opened
+- `closed` - emitted when the popover has been triggered closed (emits on all
+triggers)
+
+<KPop @opened="loadSomething" @closed="onClose">
+  <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
+  <div slot="content" style="display: flex; justify-content: center;">
+    <KIcon v-if="currentState == 'pending'" icon="spinner" viewBox="0 0 20 20" size="20" color="var(--tblack90)"/>
+    <div>{{ message }}</div>
+  </div>
+</KPop>
+
+<script>
+  export default {
+    data () {
+      return {
+        currentState: 'idle',
+        states: {
+          'idle': 'pending',
+          'pending': 'idle'
+        },
+        count: 0,
+        timeout: null
+      }
+    },
+    computed: {
+      buttonText () {
+        return {
+          'pending': 'Loading something...',
+          'idle': 'Load something'
+        }[this.currentState]
+      },
+      
+      message () {
+        return {
+          'pending': `Loading ${this.count}...`,
+          'idle': 'Loaded!'
+        }[this.currentState]
+      }
+    },
+    methods: {
+      loadSomething () {
+        this.transition()
+        this.timeout = setTimeout(() => {
+          this.count+=1
+          this.transition()
+        }, 2000)
+      },
+      
+      onClose () {
+        clearTimeout(this.timeout)
+        if (this.currentState == 'pending') {
+          this.transition()
+        }
+      },
+      
+      transition() {
+        this.currentState = this.states[this.currentState]
+      }
+    }
+  }
+</script>
+
+
+```vue
+<KPop @opened="loadSomething" @closed="onClose">
+  <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
+  <div slot="content" style="display: flex; justify-content: center;">
+    <KIcon v-if="currentState == 'pending'" icon="spinner" viewBox="0 0 20 20" size="20" color="var(--tblack90)"/>
+    <div>{{ message }}</div>
+  </div>
+</KPop>
+
+<script>
+  export default {
+    data () {
+      return {
+        currentState: 'idle',
+        states: {
+          'idle': 'pending',
+          'pending': 'idle'
+        },
+        count: 0,
+        timeout: null
+      }
+    },
+    computed: {
+      buttonText () {
+        return {
+          'pending': 'Loading something...',
+          'idle': 'Load something'
+        }[this.currentState]
+      },
+      
+      message () {
+        return {
+          'pending': `Loading ${this.count}...`,
+          'idle': 'Loaded!'
+        }[this.currentState]
+      }
+    },
+    methods: {
+      loadSomething () {
+        this.transition()
+        this.timeout = setTimeout(() => {
+          this.count+=1
+          this.transition()
+        }, 2000)
+      },
+      
+      onClose () {
+        clearTimeout(this.timeout)
+        this.transition()
+      },
+      
+      transition() {
+        this.currentState = this.states[this.currentState]
+      }
+    }
+  }
+</script>
+```
+
 
 ## Theming
 | Variable | Purpose

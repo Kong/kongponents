@@ -38,7 +38,7 @@ module.exports = {
           {
             title: 'Components',
             collapsable: false,
-            sidebarDepth: 1,
+            sidebarDepth: 2,
             children: [
               '/components/alert',
               '/components/badge',
