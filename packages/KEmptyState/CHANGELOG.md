@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.9-8](https://github.com/Kong/kongponents/compare/@kongponents/kemptystate@0.1.9-7...@kongponents/kemptystate@0.1.9-8) (2019-12-16)
+
+**Note:** Version bump only for package @kongponents/kemptystate
+
+
+
+
+
 ## [0.1.9-7](https://github.com/Kong/kongponents/compare/@kongponents/kemptystate@0.1.9-6...@kongponents/kemptystate@0.1.9-7) (2019-11-22)
 
 **Note:** Version bump only for package @kongponents/kemptystate
