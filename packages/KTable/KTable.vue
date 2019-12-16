@@ -110,8 +110,8 @@ table.k-table {
       }
       button,
       .k-button {
-        padding-top: 0;
-        padding-bottom: 0;
+        --KButtonPaddingY: 0;
+        --KButtonPaddingX: 0;
       }
     }
   }
