@@ -110,7 +110,8 @@ table.k-table {
       }
       button,
       .k-button {
-        margin: calc(-1 * var(--KButtonPaddingY, var(--spacing-xs))) 0;
+        margin-top: calc(-1 * var(--KButtonPaddingY, var(--spacing-xs)));
+        margin-bottom: calc(-1 * var(--KButtonPaddingY, var(--spacing-xs)));
       }
     }
   }
