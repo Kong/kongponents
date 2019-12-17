@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.4-7](https://github.com/Kong/kongponents/compare/@kongponents/ktable@0.1.4-6...@kongponents/ktable@0.1.4-7) (2019-12-17)
+
+**Note:** Version bump only for package @kongponents/ktable
+
+
+
+
+
 ## [0.1.4-6](https://github.com/Kong/kongponents/compare/@kongponents/ktable@0.1.4-5...@kongponents/ktable@0.1.4-6) (2019-12-16)
 
 **Note:** Version bump only for package @kongponents/ktable
