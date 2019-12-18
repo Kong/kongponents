@@ -1,19 +1,14 @@
----
-sidebarDepth: 0
----
 # Tabs
 
 **KTabs** - A mindblowing tabs component
-<ClientOnly>
-  <KTabs :tabs="tabs">
-    <template v-slot:tab1>
-      <p>Tab 1 content</p>
-    </template>
-    <template v-slot:tab2>
-      <p>Tab 2 content</p>
-    </template>
-  </KTabs>
-</ClientOnly>
+<KTabs :tabs="tabs">
+  <template v-slot:tab1>
+    <p>Tab 1 content</p>
+  </template>
+  <template v-slot:tab2>
+    <p>Tab 2 content</p>
+  </template>
+</KTabs>
 
 ```vue
 <KTabs :tabs="tabs">
@@ -74,16 +69,14 @@ export default {
 ### v-model
 By default the tabs will set the first tab in the array as active. You can override this by passing in the hash of any other tab to be used with v-model.
 
-<ClientOnly>
-  <KTabs v-model="defaultTab" :tabs="tabs">
-    <template v-slot:tab1>
-      <p>Tab 1 content</p>
-    </template>
-    <template v-slot:tab2>
-      <p>Tab 2 content</p>
-    </template>
-  </KTabs>
-</ClientOnly>
+<KTabs v-model="defaultTab" :tabs="tabs">
+  <template v-slot:tab1>
+    <p>Tab 1 content</p>
+  </template>
+  <template v-slot:tab2>
+    <p>Tab 2 content</p>
+  </template>
+</KTabs>
 
 ```vue
 <KTabs
@@ -136,25 +129,6 @@ export default {
 ### Router Hash
 KTabs emits a `changed` event with the new tab hash when clicked. You can use this to set the router or window hash and in turn use that with [v-model](#v-model).
 
-:::tip
-Try refreshing the page after clicking a tab below
-:::
-
-<KTabs
-  :tabs="slottedTabs"
-  v-model="$route.hash"
-  @changed="hash => $router.replace({hash})">
-  <template v-slot:pictures>
-    <p>Wow look Pictures!</p>
-  </template>
-  <template v-slot:movies>
-    <p>Wow look Movies!</p>
-  </template>
-  <template v-slot:books>
-    <p>Wow look Books!</p>
-  </template>
-</KTabs>
-
 ```vue
 <template>
   <KTabs
@@ -196,16 +170,14 @@ look like.
 
 <template>
   <div class="KTabs-wrapper">
-    <ClientOnly>
-      <KTabs :tabs="tabs">
-        <template v-slot:tab1>
-          <p>Tab 1 content</p>
-        </template>
-        <template v-slot:tab2>
-          <p>Tab 2 content</p>
-        </template>
-      </KTabs>
-    </ClientOnly>
+    <KTabs :tabs="tabs">
+      <template v-slot:tab1>
+        <p>Tab 1 content</p>
+      </template>
+      <template v-slot:tab2>
+        <p>Tab 2 content</p>
+      </template>
+    </KTabs>
   </div>
 </template>
 
@@ -250,19 +222,6 @@ export default {
         { hash: '#movies', title: 'Movies' },
         { hash: '#books', title: 'Books' },
       ],
-    }
-  },
-  computed: {
-    activeTab () {
-      return this.isSSR && window.location.hash
-    }
-  },
-  mounted () {
-    this.isSSR = true
-  },
-  methods: {
-    handleChange(newHash) {
-      window.location.hash = newHash
     }
   }
 }
