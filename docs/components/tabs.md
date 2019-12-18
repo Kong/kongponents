@@ -71,8 +71,9 @@ export default {
 </script>
 ```
 
-### default-tab
-By default the tabs will set the first tab in the array as active. You can override this by passing in the hash of any other tab to be used instead with v-model.
+### v-model
+By default the tabs will set the first tab in the array as active. You can override this by passing in the hash of any other tab to be used with v-model.
+
 <ClientOnly>
   <KTabs v-model="defaultTab" :tabs="tabs">
     <template v-slot:tab1>
@@ -88,31 +89,25 @@ By default the tabs will set the first tab in the array as active. You can overr
 <KTabs
   v-model="#tab2"
   :tabs="tabs">
-  <template v-slot:tab1>
-    <p>Tab 1 content</p>
-  </template>
-  <template v-slot:tab2>
-    <p>Tab 2 content</p>
-  </template>
+  <template v-slot:tab1>Tab 1 content</template>
+  <template v-slot:tab2>Tab 2 content</template>
 </KTabs>
 ```
 
 ## Slots
 In order to actually see your tabbed content you must slot it using the tab hash property without the hash mark.
 
-<ClientOnly>
-  <KTabs :tabs="slottedTabs">
-    <template v-slot:pictures>
-      <p>Wow look Pictures!</p>
-    </template>
-    <template v-slot:movies>
-      <p>Wow look Movies!</p>
-    </template>
-    <template v-slot:books>
-      <p>Wow look Books!</p>
-    </template>
-  </KTabs>
-</ClientOnly>
+<KTabs :tabs="slottedTabs">
+  <template v-slot:pictures>
+    <p>Wow look Pictures!</p>
+  </template>
+  <template v-slot:movies>
+    <p>Wow look Movies!</p>
+  </template>
+  <template v-slot:books>
+    <p>Wow look Books!</p>
+  </template>
+</KTabs>
 
 ```vue
 <template>
@@ -138,10 +133,12 @@ export default {
 ```
 
 ## Usage
-### Window Hash
-KTabs emits a `changed` event with the new tab hash when clicked. You can use this to set the window hash as well as the [default-tab](#default-tab) prop.
+### Router Hash
+KTabs emits a `changed` event with the new tab hash when clicked. You can use this to set the router or window hash and in turn use that with [v-model](#v-model).
 
-*Try refreshing the page after clicking a tab below*
+:::tip
+Try refreshing the page after clicking a tab below
+:::
 
 <KTabs
   :tabs="slottedTabs"
