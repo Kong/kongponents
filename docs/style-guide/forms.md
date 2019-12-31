@@ -12,6 +12,7 @@ Here is an example of html elements being styled using the including css.
 <input class="k-input mb-2" type="number" value="1"/>
 <input class="k-input mb-2" type="email" value="john.doe@konghq.com"/>
 <input class="k-input mb-2" disabled value="disabled"/>
+<input class="k-input mb-2" readonly value="readonly"/>
 <input class="k-input mb-2" type="search" value="search"/>
 <input class="k-input mb-2" type="email" value="error"/>
 
@@ -22,6 +23,7 @@ Here is an example of html elements being styled using the including css.
 <input class="k-input" type="number" value="1"/>
 <input class="k-input" type="email" value="john.doe@konghq.com"/>
 <input class="k-input" disabled value="disabled"/>
+<input class="k-input" readonly value="readonly"/>
 <input class="k-input" type="search" value="search"/>
 <input class="k-input" type="email" value="error"/>
 ```

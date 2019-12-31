@@ -15,6 +15,7 @@ You can pass any input attribute and it will get properly bound to the element.
 <KInput class="mb-2" type="number" value="1"/>
 <KInput class="mb-2" type="email" value="john.doe@konghq.com"/>
 <KInput class="mb-2" disabled value="disabled"/>
+<KInput class="mb-2" readonly value="readonly"/>
 <KInput class="mb-2" type="search" value="search"/>
 <KInput class="mb-2" type="email" value="error"/>
 
@@ -24,6 +25,7 @@ You can pass any input attribute and it will get properly bound to the element.
 <KInput type="number" value="1"/>
 <KInput type="email" value="john.doe@konghq.com"/>
 <KInput disabled value="disabled"/>
+<KInput read-only value="read-only"/>
 <KInput type="search" value="search"/>
 <KInput type="email" value="error"/>
 ```

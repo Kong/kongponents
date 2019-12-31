@@ -30,6 +30,13 @@
       opacity: 0.5;
     }
 
+    &:read-only {
+      background-color: var(--KInputReadonlyBackground, var(--grey-98, color(grey-98)));
+      &:focus {
+        border-color: $borderColor;
+      }
+    }
+
     &.input-error {
       outline: none !important;
       border: 1px solid var(--KInputError, var(--red-light, color(red-light)));
