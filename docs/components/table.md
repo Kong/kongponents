@@ -150,7 +150,7 @@ export default {
     <span v-if="rowValue" style="color: green">&#10003;</span>
     <span v-else style="color: red">&#10007;</span>
   </template>
-  <template v-slot:actions><a href="">Edit</a></template>
+  <template v-slot:actions><KButton appearance="btn-link">Edit</KButton></template>
 </KTable>
 
 ```vue

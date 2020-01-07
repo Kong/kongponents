@@ -44,4 +44,64 @@ describe('KModal', () => {
     expect(buttons.at(1).classes()).toContain('outline-danger')
     expect(wrapper.html()).toMatchSnapshot()
   })
+
+  it('proceeds when clicking action button', () => {
+    const wrapper = mount(KModal, {
+      propsData: {
+        isVisible: true
+      },
+      attachToDocument: true
+    })
+
+    wrapper.find('.modal-footer button').trigger('click')
+
+    expect(wrapper.emitted().proceed).toHaveLength(1)
+  })
+
+  it('emits close when backdrop is clicked', () => {
+    const wrapper = mount(KModal, {
+      propsData: {
+        isVisible: true
+      }
+    })
+
+    const backdrop = wrapper.find('.modal-backdrop')
+
+    backdrop.trigger('click')
+    expect(wrapper.emitted().canceled).toHaveLength(1)
+  })
+
+  it('emits close when hitting escape', () => {
+    const wrapper = mount(KModal, {
+      propsData: {
+        isVisible: true
+      },
+      attachToDocument: true
+    })
+
+    wrapper.find('.k-modal').trigger('keydown.esc')
+    expect(wrapper.emitted().canceled).toHaveLength(1)
+  })
+
+  it('tears down event listeners', () => {
+    const AEL = jest.fn()
+    const REL = jest.fn()
+
+    window.document.addEventListener = AEL
+    window.document.removeEventListener = REL
+
+    const wrapper = mount(KModal, {
+      attachToDocument: true
+    })
+
+    wrapper.destroy()
+    expect(AEL).toHaveBeenCalledTimes(1)
+    expect(REL).toHaveBeenCalledTimes(1)
+  })
+
+  it('matches snapshot', () => {
+    const wrapper = mount(KModal)
+
+    expect(wrapper.html()).toMatchSnapshot()
+  })
 })

@@ -105,7 +105,7 @@ export default {
 .k-button {
   display: inline-flex;
   align-items: center;
-  padding: var(--spacing-xs, spacing(xs)) var(--spacing-sm, spacing(sm));
+  padding: var(--KButtonPaddingY, var(--spacing-xs, spacing(xs))) var(--KButtonPaddingX, var(--spacing-sm, spacing(sm)));
   font-family: var(--font-family-sans, font(sans));
   font-size: 1rem;
   font-weight: 400;
@@ -117,10 +117,6 @@ export default {
   border-radius: 3px;
   transition: all .2s ease-in-out;
   cursor: pointer;
-
-  &:focus {
-    outline: none;
-  }
 
   &:disabled {
     opacity: 0.3;

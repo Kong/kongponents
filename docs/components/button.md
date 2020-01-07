@@ -120,6 +120,8 @@ KButton supports using an icon either before the text or without text.
 | `--KButtonOutlineDangerActive`| Danger outline active state
 | `--KButtonLink`| Button link variant
 | `--KButtonLinkDanger`| Button Danger link variant
+| `--KButtonPaddingY`| Button vertical (top and bottom) padding
+| `--KButtonPaddingX`| Button horizontal (left and right) padding
 
 \
 An Example of changing the primary KButton variant to purple instead of blue might

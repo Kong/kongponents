@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kmodal",
-  "version": "0.1.4-7",
+  "version": "0.1.4-9",
   "description": "Modal component",
   "main": "dist/KModal.umd.min.js",
   "componentName": "KModal",
@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/Kong/kongponents#readme",
   "dependencies": {
-    "@kongponents/kbutton": "^0.1.10-5"
+    "@kongponents/kbutton": "^0.1.10-7"
   }
 }

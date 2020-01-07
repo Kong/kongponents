@@ -108,6 +108,11 @@ table.k-table {
           text-decoration: underline;
         }
       }
+      button,
+      .k-button {
+        margin-top: calc(-1 * var(--KButtonPaddingY, var(--spacing-xs)));
+        margin-bottom: calc(-1 * var(--KButtonPaddingY, var(--spacing-xs)));
+      }
     }
   }
 
