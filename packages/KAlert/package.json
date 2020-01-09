@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kalert",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Alert component",
   "main": "dist/KAlert.umd.min.js",
   "componentName": "KAlert",
@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/Kong/kongponents#readme",
   "dependencies": {
-    "@kongponents/kicon": "^0.3.5"
+    "@kongponents/kicon": "^0.3.6"
   }
 }

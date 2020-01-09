@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/ktoaster",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Toaster component.",
   "main": "dist/KToaster.umd.min.js",
   "componentName": "KToaster",
@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/Kong/kongponents#readme",
   "dependencies": {
-    "@kongponents/kalert": "^0.1.9"
+    "@kongponents/kalert": "^0.1.10"
   }
 }

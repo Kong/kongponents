@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.10](https://github.com/Kong/kongponents/compare/@kongponents/kalert@0.1.9...@kongponents/kalert@0.1.10) (2020-01-09)
+
+**Note:** Version bump only for package @kongponents/kalert
+
+
+
+
+
 ## [0.1.9](https://github.com/Kong/kongponents/compare/@kongponents/kalert@0.1.8...@kongponents/kalert@0.1.9) (2019-12-11)
 
 **Note:** Version bump only for package @kongponents/kalert
