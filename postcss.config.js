@@ -1,5 +1,5 @@
 const path = require('path')
-const config = require('./postcss-custom-properties.config')
+const config = require('./postcss-custom-properties.config.js')
 
 module.exports = () => ({
   plugins: {
