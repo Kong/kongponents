@@ -16,7 +16,7 @@
   "scripts": {
     "build": "yarn build:styles && yarn docs:build && yarn build:cli",
     "build:postcss": "postcss packages/styles/styles.css --dir packages/styles",
-    "build:cli": "lerna exec --ignore @kongponents/styles \"ln ../../vue.config.js ./vue.config.js && yarn vue-cli-service build --target lib .\/\\$(cat package.json | jq -r .source) --name \\$(cat package.json | jq -r .componentName) --dest dist && rm ./vue.config.js\"",
+    "build:cli": "lerna exec --ignore @kongponents/styles \"ln ../../vue.config.js ./vue.config.js && ln ../../postcss-custom-properties.config.js ./postcss.config.js && yarn vue-cli-service build --target lib .\/\\$(cat package.json | jq -r .source) --name \\$(cat package.json | jq -r .componentName) --dest dist && rm ./vue.config.js ./postcss.config.js\"",
     "build:styles": "yarn node-sass packages/styles/styles.scss -o packages/styles && yarn build:postcss",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
