@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kbutton",
-  "version": "0.1.10-7",
+  "version": "0.1.10-7-beta.0",
   "description": "Button component",
   "main": "dist/KButton.umd.min.js",
   "componentName": "KButton",
