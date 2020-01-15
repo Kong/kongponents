@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kalert",
-  "version": "0.1.10",
+  "version": "0.1.10-1",
   "description": "Alert component",
   "main": "dist/KAlert.umd.min.js",
   "componentName": "KAlert",
