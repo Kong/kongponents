@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.2](https://github.com/Kong/kongponents/compare/@kongponents/kradio@0.2.0...@kongponents/kradio@0.2.2) (2020-01-16)
+
+
+### Bug Fixes
+
+* **forms:** fix incorrect build badge link ([#168](https://github.com/Kong/kongponents/issues/168)) ([cb45160](https://github.com/Kong/kongponents/commit/cb4516064fc55abb9f148e501b677a8e2899b9da))
+
+
+
+
+
 # 0.2.0 (2019-11-14)
 
 
