@@ -87,7 +87,7 @@ export default {
     right: 0;
     bottom: 0;
     left: 0;
-    background: var(--tblack-45, color(tback-45));
+    background: var(--tblack-45, hsla(0, 0%, 0%, .45));
     z-index: 9999;
   }
   .panel {
@@ -97,7 +97,7 @@ export default {
     height: 100vh;
     width: 100%;
     max-width: 500px;
-    background-color: var(--twhite-1, color(twhite-1));
+    background-color: var(--twhite-1, hsla(100, 100%, 100%, 1));
     z-index: 9999;
     .close-btn {
       position: absolute;
