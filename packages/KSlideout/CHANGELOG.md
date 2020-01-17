@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.10](https://github.com/Kong/kongponents/compare/@kongponents/kslideout@0.1.9...@kongponents/kslideout@0.1.10) (2020-01-17)
+
+**Note:** Version bump only for package @kongponents/kslideout
+
+
+
+
+
 ## [0.1.9](https://github.com/Kong/kongponents/compare/@kongponents/kslideout@0.1.7...@kongponents/kslideout@0.1.9) (2020-01-16)
 
 **Note:** Version bump only for package @kongponents/kslideout
