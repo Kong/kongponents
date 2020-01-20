@@ -132,7 +132,7 @@ export default {
 
   &.icon-btn {
     width: 38px;
-    height: 38px;
+    height: auto;
     padding: 0;
     justify-content: center;
     > svg {

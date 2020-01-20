@@ -66,7 +66,7 @@ export default {
 
 .kong-card {
   padding: var(--KCardPaddingY, 1rem) var(--KCardPaddingX, 1rem);
-  margin-bottom: 1rvar(--KCardMarginY, 1rem) var(--KCardMarginX, 1rem);
+  margin-bottom: var(--KCardMarginY, 1rem) var(--KCardMarginX, 1rem);
 
   &.noBoard {
     border: none;
