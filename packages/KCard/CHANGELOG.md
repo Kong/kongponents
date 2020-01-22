@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.8](https://github.com/Kong/kongponents/compare/@kongponents/kcard@0.1.6...@kongponents/kcard@0.1.8) (2020-01-22)
+
+**Note:** Version bump only for package @kongponents/kcard
+
+
+
+
+
 ## [0.1.5](https://github.com/Kong/kongponents/compare/@kongponents/kcard@0.1.3-7...@kongponents/kcard@0.1.5) (2020-01-16)
 
 **Note:** Version bump only for package @kongponents/kcard
