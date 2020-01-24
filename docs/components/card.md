@@ -125,21 +125,34 @@ Sets top border or no border. If neither set default will have border
   borderVariant="borderTop"/>
 ```
 
-### Hover
-Sets if card has hover state (shadow)
+### Shadow
+Sets if card has shadow state (shadow)
 
-- `hasHover` 
+- `hasHover` only set shadow on hover
+- `hasShadow` always setShadow
 
 <KCard
-  title="Card Title"
-  body="Body Content"
+  title="hasHover"
+  class="mb-2"
+  body="This card only has a shadow on hover"
   hasHover/>
+
+<KCard
+  title="hasShadow"
+  body="This card always has a shadow"
+  hasShadow/>
 
 ```vue
 <KCard
-  title="Card Title"
-  body="Body Content"
+  title="hasHover"
+  class="mb-2"
+  body="This card only has a shadow on hover"
   hasHover/>
+
+<KCard
+  title="hasShadow"
+  body="This card always has a shadow"
+  hasShadow/>
 ```
 
 ## Slots

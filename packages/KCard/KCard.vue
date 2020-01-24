@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="[borderVariant, {'hover': hasHover }]"
+    :class="[borderVariant, {'hover': hasHover, 'kcard-shadow': hasShadow }]"
     class="kong-card">
     <div
       v-if="title || $scopedSlots.title || $scopedSlots.actions || $slots.title"
@@ -56,6 +56,11 @@ export default {
     hasHover: {
       type: Boolean,
       default: false
+    },
+
+    hasShadow: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -66,7 +71,6 @@ export default {
 
 .kong-card {
   padding: var(--KCardPaddingY, 1rem) var(--KCardPaddingX, 1rem);
-  margin-bottom: var(--KCardMarginY, 1rem) var(--KCardMarginX, 1rem);
 
   &.noBoard {
     border: none;
@@ -82,7 +86,7 @@ export default {
     border-top: 1px solid rgba(0, 0, 0, 0.08);
   }
 
-  &.hover:hover {
+  &.hover:hover, &.kcard-shadow {
     box-shadow: 0 4px 8px var(--tblack-10, color(tblack-10));
   }
 

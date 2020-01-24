@@ -38,6 +38,17 @@ describe('KCard', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 
+  it('has shadow class when passed', () => {
+    const wrapper = mount(KCard, {
+      propsData: {
+        hasShadow: true
+      }
+    })
+
+    expect(wrapper.classes()).toContain('kcard-shadow')
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
   it('matches snapshot', () => {
     const wrapper = mount(KCard)
 
