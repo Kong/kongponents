@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/Kong/kongponents/compare/@kongponents/kcard@0.1.8...@kongponents/kcard@0.2.0) (2020-01-24)
+
+
+### Features
+
+* **kcard:** add permanent shadow property ([#188](https://github.com/Kong/kongponents/issues/188)) ([37dbee7](https://github.com/Kong/kongponents/commit/37dbee7cdac5c99597d02f54cbb25dce54e689ac))
+
+
+
+
+
 ## [0.1.8](https://github.com/Kong/kongponents/compare/@kongponents/kcard@0.1.6...@kongponents/kcard@0.1.8) (2020-01-22)
 
 **Note:** Version bump only for package @kongponents/kcard
