@@ -19,6 +19,7 @@ import KModal from '../../packages/KModal/KModal.vue'
 import KoolTip from '../../packages/KoolTip/KoolTip.vue'
 import KPop from '../../packages/KPop/KPop.vue'
 import Krumbs from '../../packages/Krumbs/Krumbs.vue'
+import KSegmentedControl from '../../packages/KSegmentedControl/KSegmentedControl.vue'
 import KTable from '../../packages/KTable/KTable.vue'
 import KTabs from '../../packages/KTabs/KTabs.vue'
 import KToggle from '../../packages/KToggle/KToggle.js'
@@ -49,6 +50,7 @@ export default ({
   Vue.component('KPop', KPop)
   Vue.component('Krumbs', Krumbs)
   Vue.component('Komponent', Komponent)
+  Vue.component('KSegmentedControl', KSegmentedControl)
   Vue.component('KTabs', KTabs)
   Vue.component('KTable', KTable)
   Vue.component('KToggle', KToggle)

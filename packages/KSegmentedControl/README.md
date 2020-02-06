@@ -1,0 +1,28 @@
+# @kongponents/ksegmentedcontrol
+
+[![](https://img.shields.io/npm/v/@kongponents/ksegmentedcontrol.svg?style=flat-square)](https://www.npmjs.com/package/@kongponents/ksegmentedcontrol)
+
+```vue
+<template>
+<KSegmentedControl
+    :options="['one','two']"
+    :selected="selected"
+    @toggled="handleToggle"
+/>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      selected: 'one'
+    }
+  },
+  methods: {
+    handleToggle(selected) {
+      // do something, make api call?
+    }
+  }
+}
+</script>
+```
