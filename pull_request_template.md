@@ -11,4 +11,3 @@
 - [ ] **Framework style:** abides by the essential rules in Vue's style guide
 - [ ] **Cleanliness:** does not have formatting issues, unused code (e.g., console.logs), or leftover comments
 - [ ] **Docs:** includes a technically accurate README, uses JSDOC where appropriate
-- [ ] **Version:** package.json and the release tag both reflect the same, accurate version
