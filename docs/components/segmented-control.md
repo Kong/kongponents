@@ -2,10 +2,16 @@
 
 **KSegmentedControl** is used a like radio button group and is meant to toggle between mutually exclusive options.
 
-<KSegmentedControl
-    :options="['one','two']"
-    selected='one'
-/>
+<KCard>
+  <template v-slot:body>
+    <KToggle v-slot="{isToggled, toggle}">
+      <KSegmentedControl
+        :options="['yes','no']"
+        :selected='isToggled?:"yes":"no"'
+      />
+    </KToggle>
+  </template>
+</KCard>
 
 ```vue
 <template>
@@ -38,10 +44,15 @@ export default {
 
 The value of the option which is currently selected.
 
+<KSegmentedControl
+    :options="['5m','30m','1h','6h','24h','all']"
+    selected='5m'
+/>
+
 ```vue
 <KSegmentedControl
-    :options="['one','two']"
-    selected='one'
+    :options="['5m','30m','1h','6h','24h','all']"
+    selected='5m'
 />
 ```
 
@@ -75,3 +86,20 @@ option in its argument.
     @toggled="alert"
 />
 ```
+
+### isDisabled
+
+Passes disabled state to buttons and event emitters.
+
+<KSegmentedControl
+    :options="['on','off']"
+    isDisabled="true"
+/>
+
+```vue
+<KSegmentedControl
+    :options="['on','off']"
+    isDisabled="true"
+/>
+```
+
