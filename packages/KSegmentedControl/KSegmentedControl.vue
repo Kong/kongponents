@@ -51,7 +51,6 @@ export default {
       if (this.selectedValue === value) this.selectedValue = ''
       else this.selectedValue = value
       this.$emit('toggled', value)
-      console.log(this.selectedValue, selectedValue, selectedValue.value)
     }
   }
 }
