@@ -2,40 +2,22 @@
 
 **KSegmentedControl** is used a like radio button group and is meant to toggle between mutually exclusive options.
 
-<KCard>
-  <template v-slot:body>
-    <KToggle v-slot="{isToggled, toggle}">
-      <KSegmentedControl
-        :options="['yes','no']"
-        :selected='isToggled?:"yes":"no"'
-      />
-    </KToggle>
-  </template>
-</KCard>
+<KToggle v-slot="{ isToggled, toggle }">
+  <KSegmentedControl
+      :options="['On','Off']"
+      :selected="isToggled?'On':'Off'"
+      @toggled="toggle"
+  />
+</KToggle>
 
 ```vue
-<template>
-<KSegmentedControl
-    :options="['one','two']"
-    :selected="selected"
-    @toggled="handleToggle"
-/>
-</template>
-
-<script>
-export default {
-  data() {
-    return {
-      selected: 'one'
-    }
-  },
-  methods: {
-    handleToggle(selected) {
-      this.selected = selected
-    }
-  }
-}
-</script>
+<KToggle v-slot="{ isToggled, toggle }">
+  <KSegmentedControl
+      :options="['On','Off']"
+      :selected="isToggled?'On':'Off'"
+      @toggled="toggle"
+  />
+</KToggle>
 ```
 
 ## Props
@@ -60,46 +42,61 @@ The value of the option which is currently selected.
 
 An array of options for each button
 
-<KSegmentedControl
-    :options="['on','off']"
-/>
+<KToggle v-slot="{ isToggled, toggle }">
+  <KSegmentedControl
+      :options="['On','Off']"
+      :selected="isToggled?'On':'Off'"
+      @toggled="toggle"
+  />
+</KToggle>
 
 ```vue
-<KSegmentedControl
-    :options="['on','off']"
-/>
+<KToggle v-slot="{ isToggled, toggle }">
+  <KSegmentedControl
+      :options="['On','Off']"
+      :selected="isToggled?'On':'Off'"
+      @toggled="toggle"
+  />
+</KToggle>
 ```
 
 ### toggled
 
-A function which will be called when the control is used providing the selected 
-option in its argument.
+A function which will be called when the control is used providing the selected option in its argument.
 
-<KSegmentedControl
-    :options="['on','off']"
-    @toggled="alert"
-/>
+<KToggle v-slot="{ isToggled, toggle }">
+  <KSegmentedControl
+      :options="['On','Off']"
+      :selected="isToggled?'On':'Off'"
+      @toggled="toggle"
+  />
+</KToggle>
 
 ```vue
-<KSegmentedControl
-    :options="['on','off']"
-    @toggled="alert"
-/>
+<KToggle v-slot="{ isToggled, toggle }">
+  <KSegmentedControl
+      :options="['On','Off']"
+      :selected="isToggled?'On':'Off'"
+      @toggled="toggle"
+  />
+</KToggle>
 ```
 
 ### isDisabled
 
-Passes disabled state to buttons and event emitters.
+You can pass in an optional flag to disable the popover - by default it is set to `false`.
 
 <KSegmentedControl
-    :options="['on','off']"
-    isDisabled="true"
+    :options="['On','Off']"
+    selected="On"
+    :isDisabled="true"
 />
 
 ```vue
 <KSegmentedControl
-    :options="['on','off']"
-    isDisabled="true"
+    :options="['On','Off']"
+    selected="On"
+    :isDisabled="true"
 />
 ```
 

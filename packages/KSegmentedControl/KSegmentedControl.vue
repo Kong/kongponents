@@ -31,7 +31,7 @@ export default {
       required: true
     },
     selected: {
-      type: [String, Number],
+      type: [String, Number, Boolean],
       default: null
     },
     isDisabled: {
@@ -47,9 +47,11 @@ export default {
   methods: {
     toggled (selectedValue) {
       if (this.isDisabled) return
-      if (this.selectedValue === selectedValue) this.selectedValue = ''
-      else this.selectedValue = selectedValue
-      this.$emit('toggled', selectedValue)
+      let value = selectedValue.value || selectedValue
+      if (this.selectedValue === value) this.selectedValue = ''
+      else this.selectedValue = value
+      this.$emit('toggled', value)
+      console.log(this.selectedValue, selectedValue, selectedValue.value)
     }
   }
 }
