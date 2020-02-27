@@ -46,7 +46,7 @@ export default {
     },
     iconSize: {
       type: String,
-      default: '20'
+      default: '50'
     },
     ctaIsHidden: {
       type: Boolean,

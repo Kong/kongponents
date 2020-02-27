@@ -26,7 +26,8 @@ describe('KEmptyState', () => {
     const errorMessage = 'I got a bad feeling about this'
     const wrapper = mount(KEmptyState, {
       propsData: {
-        isError: true
+        isError: true,
+        ctaIsHidden: true
       },
       slots: {
         'message': `<div>${errorMessage}</div>`
