@@ -3,7 +3,7 @@
     <div class="empty-state-title">
       <div
         v-if="isError"
-        class="card-icon mb-4"
+        class="warning-icon card-icon mb-4"
       >
         <KIcon
           :size="iconSize"

@@ -33,7 +33,7 @@ describe('KEmptyState', () => {
       }
     })
 
-    expect(wrapper.find('.card-icon').exists()).toBe(true)
+    expect(wrapper.find('.warning-icon').exists()).toBe(true)
     expect(wrapper.find('.empty-state-content').html()).toEqual(expect.stringContaining(errorMessage))
   })
 

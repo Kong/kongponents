@@ -1,6 +1,6 @@
 # EmptyState
 
-**KEmptyState** is used as a placeholder card when the primary content is not available or empty. It can also optionallybe used as an error state.
+**KEmptyState** is used as a placeholder card when the primary content is not available or empty. It can also optionally be used as an error state.
 
 <template>
   <KEmptyState cta-text="CTA Button">
