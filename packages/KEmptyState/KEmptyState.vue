@@ -1,10 +1,23 @@
 <template>
   <div class="empty-state-wrapper">
     <div class="empty-state-title">
-      <h5><slot name="title"/></h5>
+      <div
+        v-if="isError"
+        class="card-icon mb-4"
+      >
+        <KIcon
+          :size="iconSize"
+          icon="warning"
+          view-box="0 0 18 18" />
+      </div>
+      <h5>
+        <slot name="title"/>
+      </h5>
     </div>
     <div class="empty-state-content">
-      <p><slot name="message"/></p>
+      <p>
+        <slot name="message"/>
+      </p>
       <p>
         <slot name="cta">
           <KButton
@@ -22,10 +35,19 @@
 
 <script>
 import KButton from '@kongponents/kbutton/KButton.vue'
+import KIcon from '@kongponents/kicon/KIcon.vue'
 export default {
   name: 'KEmptyState',
-  components: { KButton },
+  components: { KButton, KIcon },
   props: {
+    isError: {
+      type: Boolean,
+      default: false
+    },
+    iconSize: {
+      type: String,
+      default: '20'
+    },
     ctaIsHidden: {
       type: Boolean,
       default: false

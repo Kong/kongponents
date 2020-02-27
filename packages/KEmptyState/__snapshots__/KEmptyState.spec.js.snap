@@ -3,6 +3,7 @@
 exports[`KEmptyState matches snapshot 1`] = `
 <div class="empty-state-wrapper">
   <div class="empty-state-title">
+    <!---->
     <h5></h5>
   </div>
   <div class="empty-state-content">
