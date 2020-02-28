@@ -91,7 +91,7 @@ This loading state is used for table type components.
 ```
 
 ### rows
--`table-rows`
+- `table-rows`
 
 Used for displaying the number of rows in this loading state. Defaults to 6. The following example shows 3 rows.
 
