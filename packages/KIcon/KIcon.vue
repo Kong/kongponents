@@ -22,8 +22,6 @@
 import icons from './icons'
 const iconNames = Object.keys(icons)
 
-console.log(iconNames)
-
 export default {
   name: 'KIcon',
   props: {
