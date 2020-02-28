@@ -7,8 +7,8 @@
       >
         <KIcon
           :size="iconSize"
-          icon="warning"
-          view-box="0 0 18 18" />
+          icon="warning2"
+          view-box="0 0 50 50" />
       </div>
       <h5>
         <slot name="title"/>

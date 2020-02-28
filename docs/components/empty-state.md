@@ -120,7 +120,7 @@ export default {
 A flag denoting whether or not the message is an error message. If so, a warning icon is displayed above the title slot. Keep in mind that `cta-is-hidden` should also be set to true if you do not want a button to render in the error state.
 
 <template>
-  <KEmptyState cta-is-hidden="true" is-error="true">
+  <KEmptyState :cta-is-hidden="true" :is-error="true">
     <h5 slot="message">
       Error: Something broke
     </h5>
@@ -129,7 +129,7 @@ A flag denoting whether or not the message is an error message. If so, a warning
 
 ```vue
 <template>
-  <KEmptyState cta-is-hidden="true" is-error="true">
+  <KEmptyState :cta-is-hidden="true" :is-error="true">
     <h5 slot="message">
       Error: Something broke
     </h5>
@@ -143,7 +143,7 @@ A flag denoting whether or not the message is an error message. If so, a warning
 A number denoting the size of the warning icon to be displayed above the error message. The default size is 50.
 
 <template>
-  <KEmptyState cta-is-hidden="true" is-error="true" icon-size="40">
+  <KEmptyState :cta-is-hidden="true" :is-error="true" icon-size="40">
     <h5 slot="message">
       Error: Something broke and now this size 40 warning icon is displayed.
     </h5>
@@ -152,7 +152,7 @@ A number denoting the size of the warning icon to be displayed above the error m
 
 ```vue
 <template>
-  <KEmptyState cta-is-hidden="true" is-error="true" icon-size="40">
+  <KEmptyState :cta-is-hidden="true" :is-error="true" icon-size="40">
      <h5 slot="message">
       Error: Something broke and now this size 40 warning icon is displayed.
     </h5>
