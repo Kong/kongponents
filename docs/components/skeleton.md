@@ -21,17 +21,7 @@ There are 5 different types of loading states that KSkeleton supports: Card, Tab
 ### delayMilliseconds
 - `delay-milliseconds`
 
-The number of milliseconds to wait before showing the skeleton state. Defaults to 750. The following example shows a delay of 1 second.
-
-<template>
-  <KSkeleton type="form" delay-milliseconds="1000" />
-</template>
-
-```vue
-<template>
-  <KSkeleton type="form" delay-milliseconds="1000" />
-</template>
-```
+The number of milliseconds to wait before showing the skeleton state. Defaults to 750.
 
 ## Generic Loading State
 By default, **KSkeleton** will load a generic loading state. There are no props for this state.
@@ -65,12 +55,12 @@ This loading state is using for card type components, like **KCard** or similar.
 Used for displaying the number of cards in this loading state. Defaults to 1. The following example shows 3 cards.
 
 <template>
-  <KSkeleton type="card" card-count="3" />
+  <KSkeleton type="card" :card-count="3" />
 </template>
 
 ```vue
 <template>
-  <KSkeleton type="card" card-count="3" />
+  <KSkeleton type="card" :card-count="3" />
 </template>
 ```
 
@@ -106,12 +96,12 @@ This loading state is used for table type components.
 Used for displaying the number of rows in this loading state. Defaults to 6. The following example shows 3 rows.
 
 <template>
-  <KSkeleton type="table" table-rows="3" />
+  <KSkeleton type="table" :table-rows="3" />
 </template>
 
 ```vue
 <template>
-  <KSkeleton type="table" table-rows="3" />
+  <KSkeleton type="table" :table-rows="3" />
 </template>
 ```
 
@@ -121,12 +111,12 @@ Used for displaying the number of rows in this loading state. Defaults to 6. The
 Used for displaying the number of columns in this loading state. Defaults to 6. The following example shows 3 columns.
 
 <template>
-  <KSkeleton type="table" table-columns="3" />
+  <KSkeleton type="table" :table-columns="3" />
 </template>
 
 ```vue
 <template>
-  <KSkeleton type="table" table-columns="3" />
+  <KSkeleton type="table" :table-columns="3" />
 </template>
 ```
 

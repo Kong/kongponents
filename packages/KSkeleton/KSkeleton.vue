@@ -48,12 +48,12 @@ export default {
     tableColumns: {
       type: Number,
       required: false,
-      default: undefined
+      default: 6
     },
     tableRows: {
       type: Number,
       required: false,
-      default: undefined
+      default: 6
     }
   },
   data () {

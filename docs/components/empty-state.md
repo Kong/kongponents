@@ -143,7 +143,7 @@ A flag denoting whether or not the message is an error message. If so, a warning
 A number denoting the size of the warning icon to be displayed above the error message. The default size is 50.
 
 <template>
-  <KEmptyState is-error="true" icon-size="40">
+  <KEmptyState cta-is-hidden="true" is-error="true" icon-size="40">
     <h5 slot="message">
       Error: Something broke and now this size 40 warning icon is displayed.
     </h5>
@@ -152,7 +152,7 @@ A number denoting the size of the warning icon to be displayed above the error m
 
 ```vue
 <template>
-  <KEmptyState is-error="true" icon-size="40">
+  <KEmptyState cta-is-hidden="true" is-error="true" icon-size="40">
      <h5 slot="message">
       Error: Something broke and now this size 40 warning icon is displayed.
     </h5>
