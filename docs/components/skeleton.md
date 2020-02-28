@@ -21,7 +21,7 @@ There are 5 different types of loading states that KSkeleton supports: Card, Tab
 ### delayMilliseconds
 - `delay-milliseconds`
 
-The number of milliseconds to show this skeleton state. Defaults to 750. The following example shows a delay of 1 second.
+The number of milliseconds to wait before showing the skeleton state. Defaults to 750. The following example shows a delay of 1 second.
 
 <template>
   <KSkeleton type="form" delay-milliseconds="1000" />
@@ -142,4 +142,3 @@ This loading state is used for a spinner, which can be used for a wide variety o
   <KSkeleton type="spinner" />
 </template>
 ```
-
