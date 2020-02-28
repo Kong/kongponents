@@ -1,7 +1,6 @@
 # EmptyState
 
-**KEmptyState** is used as a placeholder card when the primary content is not available
-or is... empty.
+**KEmptyState** is used as a placeholder card when the primary content is not available or empty. It can also optionally be used as an error state.
 
 <template>
   <KEmptyState cta-text="CTA Button">
@@ -113,6 +112,52 @@ export default {
   }
 }
 </script>
+```
+
+### is-error
+- `is-error`
+
+A flag denoting whether or not the message is an error message. If so, a warning icon is displayed above the title slot. Keep in mind that `cta-is-hidden` should also be set to true if you do not want a button to render in the error state.
+
+<template>
+  <KEmptyState :cta-is-hidden="true" :is-error="true">
+    <h5 slot="message">
+      Error: Something broke
+    </h5>
+  </KEmptyState>
+</template>
+
+```vue
+<template>
+  <KEmptyState :cta-is-hidden="true" :is-error="true">
+    <h5 slot="message">
+      Error: Something broke
+    </h5>
+  </KEmptyState>
+</template>
+```
+
+### icon-size
+- `icon-size`
+
+A number denoting the size of the warning icon to be displayed above the error message. The default size is 50.
+
+<template>
+  <KEmptyState :cta-is-hidden="true" :is-error="true" icon-size="40">
+    <h5 slot="message">
+      Error: Something broke and now this size 40 warning icon is displayed.
+    </h5>
+  </KEmptyState>
+</template>
+
+```vue
+<template>
+  <KEmptyState :cta-is-hidden="true" :is-error="true" icon-size="40">
+     <h5 slot="message">
+      Error: Something broke and now this size 40 warning icon is displayed.
+    </h5>
+    </KEmptyState>
+</template>
 ```
 
 ## Slots

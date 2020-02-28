@@ -22,6 +22,22 @@ describe('KEmptyState', () => {
     expect(wrapper.find('button.outline-primary').text()).toEqual(expect.stringContaining(ctaText))
   })
 
+  it('renders icon when error flag passed', () => {
+    const errorMessage = 'I got a bad feeling about this'
+    const wrapper = mount(KEmptyState, {
+      propsData: {
+        isError: true,
+        ctaIsHidden: true
+      },
+      slots: {
+        'message': `<div>${errorMessage}</div>`
+      }
+    })
+
+    expect(wrapper.find('.warning-icon').exists()).toBe(true)
+    expect(wrapper.find('.empty-state-content').html()).toEqual(expect.stringContaining(errorMessage))
+  })
+
   it('remains empty when no slots are passed', () => {
     const emptyTitle = ''
     const emptyMessage = ''

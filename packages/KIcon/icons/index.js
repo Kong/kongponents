@@ -17,6 +17,7 @@ import externalLink from './icn-external-link.svg'
 import spinner from './icn-spinner.svg'
 import dangerCircle from './icn-danger-circle.svg'
 import warning from './icn-warning.svg'
+import warning2 from './icn-warning2.svg'
 import lock from './icn-lock.svg'
 import close from './icn-close.svg'
 
@@ -38,6 +39,7 @@ export default {
   support,
   trash,
   warning,
+  warning2,
   dangerCircle,
   workspaces,
   workspacesCollapsed,

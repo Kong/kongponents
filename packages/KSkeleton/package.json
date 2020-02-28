@@ -1,0 +1,22 @@
+{
+  "name": "@kongponents/kskeleton",
+  "version": "1.0.0",
+  "description": "A loading state component",
+  "main": "dist/KSkeleton.umd.min.js",
+  "componentName": "KSkeleton",
+  "source": "KSkeleton.vue",
+  "files": [
+    "dist",
+    "KSkeleton.vue"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kong/kongponents.git"
+  },
+  "author": "Kong Inc",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Kong/kongponents/issues"
+  },
+  "homepage": "https://github.com/Kong/kongponents#readme"
+}
