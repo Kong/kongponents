@@ -106,7 +106,7 @@ Used for displaying the number of rows in this loading state. Defaults to 6. The
 ```
 
 ### columns
--`table-columns`
+- `table-columns`
 
 Used for displaying the number of columns in this loading state. Defaults to 6. The following example shows 3 columns.
 
