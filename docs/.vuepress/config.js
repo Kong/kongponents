@@ -52,6 +52,7 @@ module.exports = {
               '/components/modal',
               '/components/popover',
               '/components/input-radio',
+              '/components/skeleton',
               '/components/slideout',
               '/components/switch',
               '/components/table',

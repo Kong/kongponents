@@ -61,7 +61,11 @@ describe('KSkeleton', () => {
   })
 
   it('matches snapshot', () => {
-    const wrapper = mount(KSkeleton)
+    const wrapper = mount(KSkeleton, {
+      propsData: {
+        delayMilliseconds: 0
+      }
+    })
 
     expect(wrapper.html()).toMatchSnapshot()
   })
