@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.8](https://github.com/Kong/kongponents/compare/@kongponents/kooltip@0.2.7...@kongponents/kooltip@0.2.8) (2020-03-06)
+
+**Note:** Version bump only for package @kongponents/kooltip
+
+
+
+
+
 ## [0.2.7](https://github.com/Kong/kongponents/compare/@kongponents/kooltip@0.2.5...@kongponents/kooltip@0.2.7) (2020-01-16)
 
 **Note:** Version bump only for package @kongponents/kooltip
