@@ -20,6 +20,9 @@ import warning from './icn-warning.svg'
 import warning2 from './icn-warning2.svg'
 import lock from './icn-lock.svg'
 import close from './icn-close.svg'
+import portalV2 from './icn-dev-portal-v2.svg'
+import people from './icn-people.svg'
+import stackedCards from './icn-stacked-cards.svg'
 
 export default {
   back,
@@ -32,10 +35,13 @@ export default {
   gear,
   info,
   lock,
+  people,
   portal,
+  portalV2,
   search,
   security,
   spinner,
+  stackedCards,
   support,
   trash,
   warning,
