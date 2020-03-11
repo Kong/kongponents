@@ -7,7 +7,15 @@
         <template>
           <th
             v-for="(column, index) in options.headers"
-            :key="index">
+            :key="index"
+            @click="sortKey && $emit('sort-field', column.key)"
+          >
+            <KIcon
+              v-if="!column.hideLabel && sortKey && column.key === sortKey"
+              :class="sortState"
+              :view-box="sortState === 'ascending' ? '-5 -5 15 30' : '5 -15 15 30'"
+              icon="back"
+            />
             <slot
               v-if="!column.hideLabel"
               :name="`column-${column.key}`"
@@ -39,6 +47,8 @@
 </template>
 
 <script>
+import KIcon from '@kongponents/kicon/KIcon.vue'
+
 export default {
   name: 'KTable',
   props: {
@@ -65,6 +75,20 @@ export default {
     isSmall: {
       type: Boolean,
       default: false
+    },
+    /**
+     * the sort state for the table.
+     */
+    sortState: {
+      type: String,
+      default: 'ascending'
+    },
+    /**
+     * the key of the column that's currently being sorted
+     */
+    sortKey: {
+      type: String,
+      default: ''
     }
   }
 }
@@ -93,6 +117,19 @@ table.k-table {
       text-align: left;
       font-size: var(--KTableHeaderSize, var(--type-sm, type(sm)));
       font-weight: 500;
+      cursor: pointer;
+
+      .kong-icon {
+        vertical-align: text-bottom;
+
+        &.ascending {
+          transform: rotate(90deg);
+        }
+
+        &.descending {
+          transform: rotate(-90deg);
+        }
+      }
     }
   }
   tbody {

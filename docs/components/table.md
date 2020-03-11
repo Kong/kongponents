@@ -85,6 +85,24 @@ Lessen the table cell padding
   isSmall />
 ```
 
+### Sorting
+There are two props used to make the table sortable; ```sortState```, which is either 'ascending' or 'descending' and ```sortKey```, which tells the table which column is currently being sorted. If a sortKey exists, then clicking the
+table header will emit an Event called ```sortField``` which must be handled by the parent component to implement the
+actual sorting logic. An arrow then appears beside the table header, the state of the arrow depending on the sortState.
+
+<KTable
+  :options="$frontmatter.tableOptions"
+  :sort-state="ascending"
+  :sort-key="name"
+  />
+```vue
+<KTable
+  :options="$frontmatter.tableOptions"
+  :sort-state="ascending"
+  :sort-key="name"
+  />
+```
+
 ## Slots
 Both column cells & header cells are slottable in KTable. Use slots to gain
 access to the row data.
