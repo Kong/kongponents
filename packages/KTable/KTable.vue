@@ -1,6 +1,6 @@
 <template>
   <table
-    :class="{'has-hover': hasHover, 'is-small': isSmall}"
+    :class="{'has-hover': hasHover, 'is-small': isSmall, 'sortable': sortKey !== ''}"
     class="k-table">
     <thead>
       <tr>
@@ -8,15 +8,9 @@
           <th
             v-for="(column, index) in options.headers"
             :key="index"
-            :class="sortKey && 'sortable'"
+            :class="!column.hideLabel && column.key === sortKey && `${sortState}`"
             @click="sortKey && $emit('sort-field', column.key)"
           >
-            <KIcon
-              v-if="!column.hideLabel && sortKey && column.key === sortKey"
-              :class="sortState"
-              :view-box="sortState === 'ascending' ? '-5 -5 15 30' : '5 -15 15 30'"
-              icon="back"
-            />
             <slot
               v-if="!column.hideLabel"
               :name="`column-${column.key}`"
@@ -48,8 +42,6 @@
 </template>
 
 <script>
-import KIcon from '@kongponents/kicon/KIcon.vue'
-
 export default {
   name: 'KTable',
   props: {
@@ -105,6 +97,11 @@ table.k-table {
 .k-table {
   width: 100%;
   max-width: 100%;
+
+  &.sortable th {
+    cursor: pointer;
+  }
+
   th,
   td {
     padding: var(--spacing-md, spacing(md));
@@ -119,8 +116,18 @@ table.k-table {
       font-size: var(--KTableHeaderSize, var(--type-sm, type(sm)));
       font-weight: 500;
 
-      &.sortable {
-        cursor: pointer;
+      &.ascending {
+        &:before {
+          content: '\2191';
+          margin-left: -10px;
+        }
+      }
+
+      &.descending {
+        &:before {
+          content: '\2193';
+          margin-left: -10px;
+        }
       }
 
       .kong-icon {
