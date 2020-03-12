@@ -89,18 +89,74 @@ Lessen the table cell padding
 There are two props used to make the table sortable; ```sortState```, which is either 'ascending' or 'descending' and ```sortKey```, which tells the table which column is currently being sorted. If a sortKey exists, then clicking the
 table header will emit an Event called ```sortField``` which must be handled by the parent component to implement the
 actual sorting logic. An arrow then appears beside the table header, the state of the arrow depending on the sortState.
+In the following example, there's some basic logic in the parent component that implements the sort function, and the table is able to be sorted by the name by clicking the name header.
 
-<KTable
-  :options="$frontmatter.tableOptions"
-  :sort-state="ascending"
-  :sort-key="name"
-  />
+<template>
+  <KTable
+    :options="tableOptions"
+    :sort-state="sortState"
+    sort-key="name"
+    @sort-field="sortField"
+    />
+</template>
+
 ```vue
+<template>
 <KTable
-  :options="$frontmatter.tableOptions"
-  :sort-state="ascending"
-  :sort-key="name"
-  />
+    :options="tableOptions"
+    :sort-state="sortState"
+    sort-key="name"
+    @sort-field="sortField"
+    />
+</template>
+<script>
+export default {
+  data() {
+    return {
+      sortState: 'ascending',
+      tableOptions: {
+        headers: [
+          { label: 'Name', key: 'name' },
+          { label: 'ID', key: 'id' },
+          { label: 'Enabled', key: 'enabled' },
+          { key: 'actions', hideLabel: true }
+        ],
+        data: [
+          {
+            name: 'Basic Auth',
+            id: '517526354743085',
+            enabled: 'true'
+          },
+          {
+            name: 'Website Desktop',
+            id: '328027447731198',
+            enabled: 'false'
+          },
+          {
+            name: 'Android App',
+            id: '405383051040955',
+            enabled: 'true'
+          }
+        ]
+      }
+    }
+  },
+  methods: {
+    sortField (key) {
+      if (this.sortState === 'ascending') {
+        this.tableOptions.data.sort((a, b) => {
+          if (a[key] < b[key]) return -1
+          if (a[key] > b[key]) return 1
+          return 0
+        })
+      } else {
+        this.tableOptions.data.reverse()
+      }
+      this.sortState = this.sortState === 'ascending' ? 'descending' : 'ascending'
+    }
+  }
+}
+</script>
 ```
 
 ## Slots
@@ -247,6 +303,55 @@ An Example of changing the hover background might look like.
 }
 </style>
 ```
+
+<script>
+export default {
+  data() {
+    return {
+      sortState: 'ascending',
+      tableOptions: {
+        headers: [
+          { label: 'Name', key: 'name' },
+          { label: 'ID', key: 'id' },
+          { label: 'Enabled', key: 'enabled' },
+          { key: 'actions', hideLabel: true }
+        ],
+        data: [
+          {
+            name: 'Basic Auth',
+            id: '517526354743085',
+            enabled: 'true'
+          },
+          {
+            name: 'Website Desktop',
+            id: '328027447731198',
+            enabled: 'false'
+          },
+          {
+            name: 'Android App',
+            id: '405383051040955',
+            enabled: 'true'
+          }
+        ]
+      }
+    }
+  },
+  methods: {
+    sortField (key) {
+      if (this.sortState === 'ascending') {
+        this.tableOptions.data.sort((a, b) => {
+          if (a[key] < b[key]) return -1
+          if (a[key] > b[key]) return 1
+          return 0
+        })
+      } else {
+        this.tableOptions.data.reverse()
+      }
+      this.sortState = this.sortState === 'ascending' ? 'descending' : 'ascending'
+    }
+  }
+}
+</script>
 
 <style lang="scss">
   .table-docs .k-table {

@@ -8,6 +8,7 @@
           <th
             v-for="(column, index) in options.headers"
             :key="index"
+            :class="sortKey && 'sortable'"
             @click="sortKey && $emit('sort-field', column.key)"
           >
             <KIcon
@@ -117,7 +118,10 @@ table.k-table {
       text-align: left;
       font-size: var(--KTableHeaderSize, var(--type-sm, type(sm)));
       font-weight: 500;
-      cursor: pointer;
+
+      &.sortable {
+        cursor: pointer;
+      }
 
       .kong-icon {
         vertical-align: text-bottom;
