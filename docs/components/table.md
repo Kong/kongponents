@@ -86,17 +86,18 @@ Lessen the table cell padding
 ```
 
 ### Sorting
-There are two props used to make the table sortable; ```sortState```, which is either 'ascending' or 'descending' and ```sortKey```, which tells the table which column is currently being sorted. If a sortKey exists, then clicking the
+There are two props used to make the table sortable; ```sortOrder```, which is either 'ascending' or 'descending' and ```sortKey```, which tells the table which column is currently being sorted. If a sortKey exists, then clicking the
 table header will emit an Event called ```sortField``` which must be handled by the parent component to implement the
-actual sorting logic. An arrow then appears beside the table header, the state of the arrow depending on the sortState.
-In the following example, there's some basic logic in the parent component that implements the sort function, and the table is able to be sorted by the name by clicking the name header.
+actual sorting logic. A basic implementation of ```sortField``` is included in KTable and can be imported separately and used with a helper function in the parent.
+Once a table column with ```isSortable``` is read, that column header will become clickable. An arrow then appears beside the table header, the state of the arrow depending on the sortOrder.
+In the following example, the sortField from KTable is being imported, and the table is able to be sorted by any of the three columns by clicking on the headers.
 
 <template>
   <KTable
     :options="tableOptions"
-    :sort-state="sortState"
-    sort-key="name"
-    @sort-field="sortField"
+    :sort-order="sortOrder"
+    :sort-key="sortKey"
+    @sort-field="sortFieldHelper"
     />
 </template>
 
@@ -104,21 +105,24 @@ In the following example, there's some basic logic in the parent component that 
 <template>
 <KTable
     :options="tableOptions"
-    :sort-state="sortState"
-    sort-key="name"
-    @sort-field="sortField"
+    :sort-order="sortOrder"
+    :sort-key="sortKey"
+    @sort-field="sortFieldHelper"
     />
 </template>
 <script>
+import { sortField } from '../../packages/KTable/KTable'
 export default {
   data() {
     return {
-      sortState: 'ascending',
+      sortOrder: 'ascending',
+      sortKey: 'name',
+      sortField: sortField,
       tableOptions: {
         headers: [
-          { label: 'Name', key: 'name' },
-          { label: 'ID', key: 'id' },
-          { label: 'Enabled', key: 'enabled' },
+          { label: 'Name', key: 'name', isSortable: true },
+          { label: 'ID', key: 'id', isSortable: true },
+          { label: 'Enabled', key: 'enabled', isSortable: true },
           { key: 'actions', hideLabel: true }
         ],
         data: [
@@ -142,17 +146,10 @@ export default {
     }
   },
   methods: {
-    sortField (key) {
-      if (this.sortState === 'ascending') {
-        this.tableOptions.data.sort((a, b) => {
-          if (a[key] < b[key]) return -1
-          if (a[key] > b[key]) return 1
-          return 0
-        })
-      } else {
-        this.tableOptions.data.reverse()
-      }
-      this.sortState = this.sortState === 'ascending' ? 'descending' : 'ascending'
+    sortFieldHelper (key) {
+      const {sortKey, sortOrder, items } = this.sortField(key, this.sortKey, this.sortOrder, this.tableOptions.data)
+      this.sortKey = sortKey
+      this.sortOrder = sortOrder
     }
   }
 }
@@ -305,15 +302,18 @@ An Example of changing the hover background might look like.
 ```
 
 <script>
+import { sortField } from '../../packages/KTable/KTable'
 export default {
   data() {
     return {
-      sortState: 'ascending',
+      sortOrder: 'ascending',
+      sortKey: 'name',
+      sortField: sortField,
       tableOptions: {
         headers: [
-          { label: 'Name', key: 'name' },
-          { label: 'ID', key: 'id' },
-          { label: 'Enabled', key: 'enabled' },
+          { label: 'Name', key: 'name', isSortable: true },
+          { label: 'ID', key: 'id', isSortable: true },
+          { label: 'Enabled', key: 'enabled', isSortable: true },
           { key: 'actions', hideLabel: true }
         ],
         data: [
@@ -337,17 +337,10 @@ export default {
     }
   },
   methods: {
-    sortField (key) {
-      if (this.sortState === 'ascending') {
-        this.tableOptions.data.sort((a, b) => {
-          if (a[key] < b[key]) return -1
-          if (a[key] > b[key]) return 1
-          return 0
-        })
-      } else {
-        this.tableOptions.data.reverse()
-      }
-      this.sortState = this.sortState === 'ascending' ? 'descending' : 'ascending'
+    sortFieldHelper (key) {
+      const {sortKey, sortOrder, items } = this.sortField(key, this.sortKey, this.sortOrder, this.tableOptions.data)
+      this.sortKey = sortKey
+      this.sortOrder = sortOrder
     }
   }
 }

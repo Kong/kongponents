@@ -1,6 +1,6 @@
 <template>
   <table
-    :class="{'has-hover': hasHover, 'is-small': isSmall, 'sortable': sortKey !== ''}"
+    :class="{'has-hover': hasHover, 'is-small': isSmall}"
     class="k-table">
     <thead>
       <tr>
@@ -8,7 +8,7 @@
           <th
             v-for="(column, index) in options.headers"
             :key="index"
-            :class="!column.hideLabel && column.key === sortKey && `${sortState}`"
+            :class="!column.hideLabel && `${column.isSortable ? 'sortable' : ''} ${column.key === sortKey ? sortOrder : ''}`"
             @click="sortKey && $emit('sort-field', column.key)"
           >
             <slot
@@ -42,6 +42,38 @@
 </template>
 
 <script>
+export const sortField = (key, sortKey, sortOrder, items) => {
+  let comparator = null
+
+  const type = typeof items[0][key]
+
+  if (key !== sortKey) {
+    if (type === 'string') {
+      comparator = (a, b) => {
+        if (a[key] < b[key]) return -1
+        if (a[key] > b[key]) return 1
+
+        return 0
+      }
+    } else {
+      comparator = (a, b) => a[key] - b[key]
+    }
+
+    items.sort(comparator)
+    sortKey = key
+    sortOrder = 'ascending'
+  } else {
+    items.reverse()
+    if (sortOrder === 'descending') {
+      sortOrder = 'ascending'
+    } else {
+      sortOrder = 'descending'
+    }
+  }
+
+  return { sortKey, sortOrder, items }
+}
+
 export default {
   name: 'KTable',
   props: {
@@ -70,11 +102,14 @@ export default {
       default: false
     },
     /**
-     * the sort state for the table.
+     * the sort order for the table.
      */
-    sortState: {
+    sortOrder: {
       type: String,
-      default: 'ascending'
+      default: 'ascending',
+      validator: function (value) {
+        return ['ascending', 'descending'].indexOf(value) > -1
+      }
     },
     /**
      * the key of the column that's currently being sorted
@@ -98,10 +133,6 @@ table.k-table {
   width: 100%;
   max-width: 100%;
 
-  &.sortable th {
-    cursor: pointer;
-  }
-
   th,
   td {
     padding: var(--spacing-md, spacing(md));
@@ -116,17 +147,21 @@ table.k-table {
       font-size: var(--KTableHeaderSize, var(--type-sm, type(sm)));
       font-weight: 500;
 
-      &.ascending {
-        &:before {
-          content: '\2191';
-          margin-left: -10px;
-        }
-      }
+      &.sortable {
+        cursor: pointer;
 
-      &.descending {
-        &:before {
-          content: '\2193';
-          margin-left: -10px;
+        &.ascending {
+          &:before {
+            content: '\2191';
+            margin-left: -12px;
+          }
+        }
+
+        &.descending {
+          &:before {
+            content: '\2193';
+            margin-left: -12px;
+          }
         }
       }
 
