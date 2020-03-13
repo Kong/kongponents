@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import KTable, {sortField} from '@/KTable/KTable'
+import KTable, {defaultSorter} from '@/KTable/KTable'
 
 const options = {
   headers: [
@@ -82,7 +82,7 @@ describe('KTable', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 
-  it('sortField(): sorts the items as expected', () => {
+  it('defaultSorter(): sorts the items as expected', () => {
     const items = [
       {
         custom_id: '1234',
@@ -101,13 +101,13 @@ describe('KTable', () => {
 
     expect(items[0].username).toEqual('henry')
 
-    let {sortKey: sortKey1, sortOrder: sortOrder1} = sortField('username', '', 'ascending', items)
+    let {sortKey: sortKey1, sortOrder: sortOrder1} = defaultSorter('username', '', 'ascending', items)
 
     expect(items[0].username).toEqual('bobby')
     expect(sortKey1).toEqual('username')
     expect(sortOrder1).toEqual('ascending')
 
-    let {sortKey: sortKey2, sortOrder: sortOrder2} = sortField('username', 'username', sortOrder1, items)
+    let {sortKey: sortKey2, sortOrder: sortOrder2} = defaultSorter('username', 'username', sortOrder1, items)
 
     expect(items[0].username).toEqual('zach')
     expect(sortKey2).toEqual('username')

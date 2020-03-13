@@ -87,17 +87,17 @@ Lessen the table cell padding
 
 ### Sorting
 There are two props used to make the table sortable; ```sortOrder```, which is either 'ascending' or 'descending' and ```sortKey```, which tells the table which column is currently being sorted. If a sortKey exists, then clicking the
-table header will emit an Event called ```sortField``` which must be handled by the parent component to implement the
-actual sorting logic. A basic implementation of ```sortField``` is included in KTable and can be imported separately and used with a helper function in the parent.
+table header will emit an Event called ```sort``` which must be handled by the parent component to implement the
+actual sorting logic. A basic implementation of ```sort``` called ```defaultSorter``` is included in KTable and can be imported separately and used with a helper function in the parent.
 Once a table column with ```sortable``` is read, that column header will become clickable. An arrow then appears beside the table header, the state of the arrow depending on the sortOrder.
-In the following example, the sortField from KTable is being imported, and the table is able to be sorted by any of the three columns by clicking on the headers.
+In the following example, the ```defaultSorter``` from KTable is being imported, and the table is able to be sorted by any of the three columns by clicking on the headers.
 
 <template>
   <KTable
     :options="tableOptions"
     :sort-order="sortOrder"
     :sort-key="sortKey"
-    @sort-field="sortFieldHelper"
+    @sort="sortFieldHelper"
     />
 </template>
 
@@ -107,39 +107,38 @@ In the following example, the sortField from KTable is being imported, and the t
     :options="tableOptions"
     :sort-order="sortOrder"
     :sort-key="sortKey"
-    @sort-field="sortFieldHelper"
+    @sort="sortFieldHelper"
     />
 </template>
 <script>
-import { sortField } from '../../packages/KTable/KTable'
+import { defaultSorter } from '@kongponents/KTable'
 export default {
   data() {
     return {
       sortOrder: 'ascending',
       sortKey: 'name',
-      sortField: sortField,
+      defaultSorter: defaultSorter,
       tableOptions: {
         headers: [
           { label: 'Name', key: 'name', sortable: true },
           { label: 'ID', key: 'id', sortable: true },
-          { label: 'Enabled', key: 'enabled', sortable: true },
-          { key: 'actions', hideLabel: true }
+          { label: 'Enabled', key: 'enabled', sortable: true }
         ],
         data: [
           {
             name: 'Basic Auth',
-            id: '517526354743085',
-            enabled: 'true'
+            id: 517526354743085,
+            enabled: true
           },
           {
             name: 'Website Desktop',
-            id: '328027447731198',
-            enabled: 'false'
+            id: 328027447731198,
+            enabled: false
           },
           {
             name: 'Android App',
-            id: '405383051040955',
-            enabled: 'true'
+            id: 405383051040955,
+            enabled: true
           }
         ]
       }
@@ -147,7 +146,7 @@ export default {
   },
   methods: {
     sortFieldHelper (key) {
-      const {sortKey, sortOrder, items } = this.sortField(key, this.sortKey, this.sortOrder, this.tableOptions.data)
+      const {sortKey, sortOrder, items } = this.defaultSorter(key, this.sortKey, this.sortOrder, this.tableOptions.data)
       this.sortKey = sortKey
       this.sortOrder = sortOrder
     }
@@ -302,13 +301,13 @@ An Example of changing the hover background might look like.
 ```
 
 <script>
-import { sortField } from '../../packages/KTable/KTable'
+import { defaultSorter } from '../../packages/KTable/KTable'
 export default {
   data() {
     return {
       sortOrder: 'ascending',
       sortKey: 'name',
-      sortField: sortField,
+      defaultSorter: defaultSorter,
       tableOptions: {
         headers: [
           { label: 'Name', key: 'name', sortable: true },
@@ -338,7 +337,7 @@ export default {
   },
   methods: {
     sortFieldHelper (key) {
-      const {sortKey, sortOrder, items } = this.sortField(key, this.sortKey, this.sortOrder, this.tableOptions.data)
+      const {sortKey, sortOrder, items } = this.defaultSorter(key, this.sortKey, this.sortOrder, this.tableOptions.data)
       this.sortKey = sortKey
       this.sortOrder = sortOrder
     }

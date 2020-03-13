@@ -9,7 +9,7 @@
             v-for="(column, index) in options.headers"
             :key="index"
             :class="!column.hideLabel && `${column.sortable ? 'sortable' : ''} ${column.key === sortKey ? sortOrder : ''}`"
-            @click="sortKey && $emit('sort-field', column.key)"
+            @click="sortKey && $emit('sort', column.key)"
           >
             <slot
               v-if="!column.hideLabel"
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-export const sortField = (key, sortKey, sortOrder, items) => {
+export const defaultSorter = (key, sortKey, sortOrder, items) => {
   let comparator = null
 
   const type = typeof items[0][key]
