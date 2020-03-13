@@ -3,7 +3,7 @@ import KTable, {sortField} from '@/KTable/KTable'
 
 const options = {
   headers: [
-    { label: 'Name', key: 'name', isSortable: true },
+    { label: 'Name', key: 'name', sortable: true },
     { label: 'ID', key: 'id' },
     { label: 'Enabled', key: 'enabled' },
     { key: 'actions', hideLabel: true }

@@ -89,7 +89,7 @@ Lessen the table cell padding
 There are two props used to make the table sortable; ```sortOrder```, which is either 'ascending' or 'descending' and ```sortKey```, which tells the table which column is currently being sorted. If a sortKey exists, then clicking the
 table header will emit an Event called ```sortField``` which must be handled by the parent component to implement the
 actual sorting logic. A basic implementation of ```sortField``` is included in KTable and can be imported separately and used with a helper function in the parent.
-Once a table column with ```isSortable``` is read, that column header will become clickable. An arrow then appears beside the table header, the state of the arrow depending on the sortOrder.
+Once a table column with ```sortable``` is read, that column header will become clickable. An arrow then appears beside the table header, the state of the arrow depending on the sortOrder.
 In the following example, the sortField from KTable is being imported, and the table is able to be sorted by any of the three columns by clicking on the headers.
 
 <template>
@@ -120,9 +120,9 @@ export default {
       sortField: sortField,
       tableOptions: {
         headers: [
-          { label: 'Name', key: 'name', isSortable: true },
-          { label: 'ID', key: 'id', isSortable: true },
-          { label: 'Enabled', key: 'enabled', isSortable: true },
+          { label: 'Name', key: 'name', sortable: true },
+          { label: 'ID', key: 'id', sortable: true },
+          { label: 'Enabled', key: 'enabled', sortable: true },
           { key: 'actions', hideLabel: true }
         ],
         data: [
@@ -311,9 +311,9 @@ export default {
       sortField: sortField,
       tableOptions: {
         headers: [
-          { label: 'Name', key: 'name', isSortable: true },
-          { label: 'ID', key: 'id', isSortable: true },
-          { label: 'Enabled', key: 'enabled', isSortable: true },
+          { label: 'Name', key: 'name', sortable: true },
+          { label: 'ID', key: 'id', sortable: true },
+          { label: 'Enabled', key: 'enabled', sortable: true },
           { key: 'actions', hideLabel: true }
         ],
         data: [

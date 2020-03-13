@@ -8,7 +8,7 @@
           <th
             v-for="(column, index) in options.headers"
             :key="index"
-            :class="!column.hideLabel && `${column.isSortable ? 'sortable' : ''} ${column.key === sortKey ? sortOrder : ''}`"
+            :class="!column.hideLabel && `${column.sortable ? 'sortable' : ''} ${column.key === sortKey ? sortOrder : ''}`"
             @click="sortKey && $emit('sort-field', column.key)"
           >
             <slot
