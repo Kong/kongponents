@@ -117,7 +117,6 @@ export default {
     return {
       sortOrder: 'ascending',
       sortKey: 'name',
-      defaultSorter: defaultSorter,
       tableOptions: {
         headers: [
           { label: 'Name', key: 'name', sortable: true },
@@ -146,10 +145,11 @@ export default {
   },
   methods: {
     sortFieldHelper (key) {
-      const {sortKey, sortOrder, items } = this.defaultSorter(key, this.sortKey, this.sortOrder, this.tableOptions.data)
-      this.sortKey = sortKey
+      const {previousKey, sortOrder } = this.defaultSorter(key, this.sortKey, this.sortOrder, this.tableOptions.data)
+      this.sortKey = previousKey
       this.sortOrder = sortOrder
-    }
+    },
+    defaultSorter
   }
 }
 </script>
@@ -307,7 +307,6 @@ export default {
     return {
       sortOrder: 'ascending',
       sortKey: 'name',
-      defaultSorter: defaultSorter,
       tableOptions: {
         headers: [
           { label: 'Name', key: 'name', sortable: true },
@@ -337,10 +336,11 @@ export default {
   },
   methods: {
     sortFieldHelper (key) {
-      const {sortKey, sortOrder, items } = this.defaultSorter(key, this.sortKey, this.sortOrder, this.tableOptions.data)
-      this.sortKey = sortKey
+      const {previousKey, sortOrder } = this.defaultSorter(key, this.sortKey, this.sortOrder, this.tableOptions.data)
+      this.sortKey = previousKey
       this.sortOrder = sortOrder
-    }
+    },
+    defaultSorter
   }
 }
 </script>

@@ -8,7 +8,7 @@
           <th
             v-for="(column, index) in options.headers"
             :key="index"
-            :class="!column.hideLabel && `${column.sortable ? 'sortable' : ''} ${column.key === sortKey ? sortOrder : ''}`"
+            :class="!column.hideLabel && `${column.sortable ? 'sortable' : ''}${column.key === sortKey ? sortOrder : ''}`"
             @click="sortKey && $emit('sort', column.key)"
           >
             <slot
@@ -42,12 +42,19 @@
 </template>
 
 <script>
-export const defaultSorter = (key, sortKey, sortOrder, items) => {
+/**
+ * @param {String} key - the current key to sort by
+ * @param {String} previousKey - the previous key used to sort by
+ * @param {String} sortOrder - either ascending or descending
+ * @param {Array} items - the list of items to sort
+ * @return {Object} an object containing the previousKey and sortOrder
+ */
+export const defaultSorter = (key, previousKey, sortOrder, items) => {
   let comparator = null
 
   const type = typeof items[0][key]
 
-  if (key !== sortKey) {
+  if (key !== previousKey) {
     if (type === 'string') {
       comparator = (a, b) => {
         if (a[key] < b[key]) return -1
@@ -60,7 +67,7 @@ export const defaultSorter = (key, sortKey, sortOrder, items) => {
     }
 
     items.sort(comparator)
-    sortKey = key
+    previousKey = key
     sortOrder = 'ascending'
   } else {
     items.reverse()
@@ -71,7 +78,7 @@ export const defaultSorter = (key, sortKey, sortOrder, items) => {
     }
   }
 
-  return { sortKey, sortOrder, items }
+  return { previousKey, sortOrder }
 }
 
 export default {

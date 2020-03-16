@@ -4,13 +4,13 @@ exports[`KTable has hover class when passed 1`] = `
 <table class="k-table has-hover">
   <thead>
     <tr>
-      <th class="sortable ">
+      <th class="sortable">
         Name
       </th>
-      <th class=" ">
+      <th class="">
         ID
       </th>
-      <th class=" ">
+      <th class="">
         Enabled
       </th>
       <th class="">
@@ -45,13 +45,13 @@ exports[`KTable has small class when passed 1`] = `
 <table class="k-table is-small">
   <thead>
     <tr>
-      <th class="sortable ">
+      <th class="sortable">
         Name
       </th>
-      <th class=" ">
+      <th class="">
         ID
       </th>
-      <th class=" ">
+      <th class="">
         Enabled
       </th>
       <th class="">
@@ -86,13 +86,13 @@ exports[`KTable renders link in action slot 1`] = `
 <table class="k-table">
   <thead>
     <tr>
-      <th class="sortable ">
+      <th class="sortable">
         Name
       </th>
-      <th class=" ">
+      <th class="">
         ID
       </th>
-      <th class=" ">
+      <th class="">
         Enabled
       </th>
       <th class="">
@@ -127,13 +127,13 @@ exports[`KTable should have sortable class when passed 1`] = `
 <table class="k-table">
   <thead>
     <tr>
-      <th class="sortable ">
+      <th class="sortable">
         Name
       </th>
-      <th class=" ">
+      <th class="">
         ID
       </th>
-      <th class=" ">
+      <th class="">
         Enabled
       </th>
       <th class="">
