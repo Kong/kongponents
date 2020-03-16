@@ -4,16 +4,16 @@ exports[`KTable has hover class when passed 1`] = `
 <table class="k-table has-hover">
   <thead>
     <tr>
-      <th>
+      <th class="sortable">
         Name
       </th>
-      <th>
+      <th class="">
         ID
       </th>
-      <th>
+      <th class="">
         Enabled
       </th>
-      <th>
+      <th class="">
         <!---->
       </th>
     </tr>
@@ -45,16 +45,16 @@ exports[`KTable has small class when passed 1`] = `
 <table class="k-table is-small">
   <thead>
     <tr>
-      <th>
+      <th class="sortable">
         Name
       </th>
-      <th>
+      <th class="">
         ID
       </th>
-      <th>
+      <th class="">
         Enabled
       </th>
-      <th>
+      <th class="">
         <!---->
       </th>
     </tr>
@@ -86,16 +86,16 @@ exports[`KTable renders link in action slot 1`] = `
 <table class="k-table">
   <thead>
     <tr>
-      <th>
+      <th class="sortable">
         Name
       </th>
-      <th>
+      <th class="">
         ID
       </th>
-      <th>
+      <th class="">
         Enabled
       </th>
-      <th>
+      <th class="">
         <!---->
       </th>
     </tr>
@@ -118,6 +118,47 @@ exports[`KTable renders link in action slot 1`] = `
       <td>405383051040955</td>
       <td>true</td>
       <td><a href="#">Link</a></td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`KTable should have sortable class when passed 1`] = `
+<table class="k-table">
+  <thead>
+    <tr>
+      <th class="sortable">
+        Name
+      </th>
+      <th class="">
+        ID
+      </th>
+      <th class="">
+        Enabled
+      </th>
+      <th class="">
+        <!---->
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Basic Auth</td>
+      <td>517526354743085</td>
+      <td>true</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Website Desktop</td>
+      <td>328027447731198</td>
+      <td>false</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Android App</td>
+      <td>405383051040955</td>
+      <td>true</td>
+      <td></td>
     </tr>
   </tbody>
 </table>

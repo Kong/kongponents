@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
-import KTable from '@/KTable/KTable'
+import KTable, {defaultSorter} from '@/KTable/KTable'
 
 const options = {
   headers: [
-    { label: 'Name', key: 'name' },
+    { label: 'Name', key: 'name', sortable: true },
     { label: 'ID', key: 'id' },
     { label: 'Enabled', key: 'enabled' },
     { key: 'actions', hideLabel: true }
@@ -67,5 +67,85 @@ describe('KTable', () => {
 
     expect(wrapper.classes()).toContain('is-small')
     expect(wrapper.html()).toMatchSnapshot()
+  })
+
+  it('should have sortable class when passed', () => {
+    const wrapper = mount(KTable, {
+      propsData: {
+        options
+      }
+    })
+
+    const actions = wrapper.findAll('.k-table th')
+
+    expect(actions.at(0).classes()).toContain('sortable')
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
+  it('defaultSorter(): sorts the items by string', () => {
+    const items = [
+      {
+        custom_id: '1234',
+        id: '410ecd35-696e-4e7a-ad35-c69bd4e14cbb',
+        username: 'henry'
+      }, {
+        custom_id: '1345',
+        id: '410ecd35-696e-4e7a-ad35-c69bd4e14cb3',
+        username: 'bobby'
+      }, {
+        custom_id: '13445',
+        id: '410ecd35-696e-4e7a-ad35-c69bd4e14cb4',
+        username: 'zach'
+      }
+    ]
+
+    expect(items[0].username).toEqual('henry')
+
+    let {previousKey: sortKey1, sortOrder: sortOrder1} = defaultSorter('username', '', 'ascending', items)
+
+    expect(items[0].username).toEqual('bobby')
+    expect(sortKey1).toEqual('username')
+    expect(sortOrder1).toEqual('ascending')
+
+    let {previousKey: sortKey2, sortOrder: sortOrder2} = defaultSorter('username', 'username', sortOrder1, items)
+
+    expect(items[0].username).toEqual('zach')
+    expect(sortKey2).toEqual('username')
+    expect(sortOrder2).toEqual('descending')
+  })
+
+  it('defaultSorter(): sorts the items by number', () => {
+    const items = [
+      {
+        custom_id: 1234,
+        id: '410ecd35-696e-4e7a-ad35-c69bd4e14cbb',
+        username: 'henry'
+      }, {
+        custom_id: 145,
+        id: '410ecd35-696e-4e7a-ad35-c69bd4e14cb3',
+        username: 'bobby'
+      }, {
+        custom_id: 13445,
+        id: '410ecd35-696e-4e7a-ad35-c69bd4e14cb4',
+        username: 'zach'
+      }
+    ]
+
+    expect(items[0].username).toEqual('henry')
+    expect(items[0].custom_id).toEqual(1234)
+
+    let {previousKey: sortKey1, sortOrder: sortOrder1} = defaultSorter('custom_id', '', 'ascending', items)
+
+    expect(items[0].username).toEqual('bobby')
+    expect(items[0].custom_id).toEqual(145)
+    expect(sortKey1).toEqual('custom_id')
+    expect(sortOrder1).toEqual('ascending')
+
+    let {previousKey: sortKey2, sortOrder: sortOrder2} = defaultSorter('custom_id', 'custom_id', sortOrder1, items)
+
+    expect(items[0].username).toEqual('zach')
+    expect(items[0].custom_id).toEqual(13445)
+    expect(sortKey2).toEqual('custom_id')
+    expect(sortOrder2).toEqual('descending')
   })
 })

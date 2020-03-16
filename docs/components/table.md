@@ -85,6 +85,76 @@ Lessen the table cell padding
   isSmall />
 ```
 
+### Sorting
+There are two props used to make the table sortable; ```sortOrder```, which is either 'ascending' or 'descending' and ```sortKey```, which tells the table which column is currently being sorted. If a sortKey exists, then clicking the
+table header will emit an Event called ```sort``` which must be handled by the parent component to implement the
+actual sorting logic. A basic implementation of ```sort``` called ```defaultSorter``` is included in KTable and can be imported separately and used with a helper function in the parent.
+Once a table column with ```sortable``` is read, that column header will become clickable. An arrow then appears beside the table header, the state of the arrow depending on the sortOrder.
+In the following example, the ```defaultSorter``` from KTable is being imported, and the table is able to be sorted by any of the three columns by clicking on the headers.
+
+<template>
+  <KTable
+    :options="tableOptions"
+    :sort-order="sortOrder"
+    :sort-key="sortKey"
+    @sort="sortFieldHelper"
+    />
+</template>
+
+```vue
+<template>
+<KTable
+    :options="tableOptions"
+    :sort-order="sortOrder"
+    :sort-key="sortKey"
+    @sort="sortFieldHelper"
+    />
+</template>
+<script>
+import { defaultSorter } from '@kongponents/KTable'
+export default {
+  data() {
+    return {
+      sortOrder: 'ascending',
+      sortKey: 'name',
+      tableOptions: {
+        headers: [
+          { label: 'Name', key: 'name', sortable: true },
+          { label: 'ID', key: 'id', sortable: true },
+          { label: 'Enabled', key: 'enabled', sortable: true }
+        ],
+        data: [
+          {
+            name: 'Basic Auth',
+            id: 517526354743085,
+            enabled: true
+          },
+          {
+            name: 'Website Desktop',
+            id: 328027447731198,
+            enabled: false
+          },
+          {
+            name: 'Android App',
+            id: 405383051040955,
+            enabled: true
+          }
+        ]
+      }
+    }
+  },
+  methods: {
+    sortFieldHelper (key) {
+      const {previousKey, sortOrder } = this.defaultSorter(key, this.sortKey, this.sortOrder, this.tableOptions.data)
+      this.sortKey = previousKey
+      this.sortOrder = sortOrder
+    },
+    defaultSorter
+  }
+}
+</script>
+```
+
 ## Slots
 Both column cells & header cells are slottable in KTable. Use slots to gain
 access to the row data.
@@ -229,6 +299,51 @@ An Example of changing the hover background might look like.
 }
 </style>
 ```
+
+<script>
+import { defaultSorter } from '../../packages/KTable/KTable'
+export default {
+  data() {
+    return {
+      sortOrder: 'ascending',
+      sortKey: 'name',
+      tableOptions: {
+        headers: [
+          { label: 'Name', key: 'name', sortable: true },
+          { label: 'ID', key: 'id', sortable: true },
+          { label: 'Enabled', key: 'enabled', sortable: true },
+          { key: 'actions', hideLabel: true }
+        ],
+        data: [
+          {
+            name: 'Basic Auth',
+            id: '517526354743085',
+            enabled: 'true'
+          },
+          {
+            name: 'Website Desktop',
+            id: '328027447731198',
+            enabled: 'false'
+          },
+          {
+            name: 'Android App',
+            id: '405383051040955',
+            enabled: 'true'
+          }
+        ]
+      }
+    }
+  },
+  methods: {
+    sortFieldHelper (key) {
+      const {previousKey, sortOrder } = this.defaultSorter(key, this.sortKey, this.sortOrder, this.tableOptions.data)
+      this.sortKey = previousKey
+      this.sortOrder = sortOrder
+    },
+    defaultSorter
+  }
+}
+</script>
 
 <style lang="scss">
   .table-docs .k-table {

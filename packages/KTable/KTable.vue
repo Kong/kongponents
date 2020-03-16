@@ -7,7 +7,10 @@
         <template>
           <th
             v-for="(column, index) in options.headers"
-            :key="index">
+            :key="index"
+            :class="!column.hideLabel && `${column.sortable ? 'sortable' : ''}${column.key === sortKey ? ' ' + sortOrder : ''}`"
+            @click="sortKey && $emit('sort', column.key)"
+          >
             <slot
               v-if="!column.hideLabel"
               :name="`column-${column.key}`"
@@ -39,6 +42,45 @@
 </template>
 
 <script>
+/**
+ * @param {String} key - the current key to sort by
+ * @param {String} previousKey - the previous key used to sort by
+ * @param {String} sortOrder - either ascending or descending
+ * @param {Array} items - the list of items to sort
+ * @return {Object} an object containing the previousKey and sortOrder
+ */
+export const defaultSorter = (key, previousKey, sortOrder, items) => {
+  let comparator = null
+
+  const type = typeof items[0][key]
+
+  if (key !== previousKey) {
+    if (type === 'string') {
+      comparator = (a, b) => {
+        if (a[key] < b[key]) return -1
+        if (a[key] > b[key]) return 1
+
+        return 0
+      }
+    } else {
+      comparator = (a, b) => a[key] - b[key]
+    }
+
+    items.sort(comparator)
+    previousKey = key
+    sortOrder = 'ascending'
+  } else {
+    items.reverse()
+    if (sortOrder === 'descending') {
+      sortOrder = 'ascending'
+    } else {
+      sortOrder = 'descending'
+    }
+  }
+
+  return { previousKey, sortOrder }
+}
+
 export default {
   name: 'KTable',
   props: {
@@ -65,6 +107,23 @@ export default {
     isSmall: {
       type: Boolean,
       default: false
+    },
+    /**
+     * the sort order for the table.
+     */
+    sortOrder: {
+      type: String,
+      default: 'ascending',
+      validator: function (value) {
+        return ['ascending', 'descending'].indexOf(value) > -1
+      }
+    },
+    /**
+     * the key of the column that's currently being sorted
+     */
+    sortKey: {
+      type: String,
+      default: ''
     }
   }
 }
@@ -80,6 +139,7 @@ table.k-table {
 .k-table {
   width: 100%;
   max-width: 100%;
+
   th,
   td {
     padding: var(--spacing-md, spacing(md));
@@ -93,6 +153,36 @@ table.k-table {
       text-align: left;
       font-size: var(--KTableHeaderSize, var(--type-sm, type(sm)));
       font-weight: 500;
+
+      &.sortable {
+        cursor: pointer;
+
+        &.ascending {
+          &:before {
+            content: '\2191';
+            margin-left: -12px;
+          }
+        }
+
+        &.descending {
+          &:before {
+            content: '\2193';
+            margin-left: -12px;
+          }
+        }
+      }
+
+      .kong-icon {
+        vertical-align: text-bottom;
+
+        &.ascending {
+          transform: rotate(90deg);
+        }
+
+        &.descending {
+          transform: rotate(-90deg);
+        }
+      }
     }
   }
   tbody {
