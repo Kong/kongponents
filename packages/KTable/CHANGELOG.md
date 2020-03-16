@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/Kong/kongponents/compare/@kongponents/ktable@0.1.7...@kongponents/ktable@0.2.0) (2020-03-16)
+
+
+### Features
+
+* **ktable:** add sorting for ktable - fti-1291 ([#197](https://github.com/Kong/kongponents/issues/197)) ([19603d4](https://github.com/Kong/kongponents/commit/19603d4d5f7340016ab6c8c7158b12d3019abe49))
+
+
+
+
+
 ## [0.1.7](https://github.com/Kong/kongponents/compare/@kongponents/ktable@0.1.6...@kongponents/ktable@0.1.7) (2020-03-06)
 
 **Note:** Version bump only for package @kongponents/ktable
