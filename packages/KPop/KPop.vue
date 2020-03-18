@@ -9,7 +9,8 @@
           v-show="isShow"
           ref="popper"
           :style="popoverStyle"
-          :class="[popoverClasses, {'hide-caret': hideCaret }]">
+          :class="[popoverClasses, {'hide-caret': hideCaret }]"
+          class="k-popover">
           <div
             v-if="title"
             class="k-popover-title">
@@ -28,7 +29,8 @@
         v-show="isShow"
         ref="popper"
         :style="popoverStyle"
-        :class="[popoverClasses, {'hide-caret': hideCaret }]">
+        :class="[popoverClasses, {'hide-caret': hideCaret }]"
+        class="k-popover">
         <div
           v-if="title"
           class="k-popover-title">
@@ -43,6 +45,21 @@
 </template>
 <script>
 import Popper from 'popper.js'
+
+const positions = {
+  top: 'top',
+  topStart: 'top-start',
+  topEnd: 'top-end',
+  left: 'left',
+  leftStart: 'left-start',
+  leftEnd: 'left-end',
+  right: 'right',
+  rightStart: 'right-start',
+  rightEnd: 'right-end',
+  bottom: 'bottom',
+  bottomStart: 'bottom-start',
+  bottomEnd: 'bottom-end'
+}
 
 export default {
   name: 'KPop',
@@ -75,12 +92,7 @@ export default {
     placement: {
       type: String,
       validator: function (value) {
-        return [
-          'top',
-          'bottom',
-          'left',
-          'right'
-        ].indexOf(value) !== -1
+        return Object.keys(positions).indexOf(value) !== -1
       },
       default: 'top'
     },
@@ -110,7 +122,7 @@ export default {
      */
     popoverClasses: {
       type: String,
-      default: 'k-popover'
+      default: ''
     },
     /**
      * Custom transition names that will be applied to the popover
@@ -231,18 +243,22 @@ export default {
       this.showPopper()
       // destroy any previous poppers before creating new one
       this.destroy()
-      const placementMapper = {
-        top: 'top',
-        left: 'left',
-        right: 'right',
-        bottom: 'bottom'
-      }
-      const placement = placementMapper[this.placement] ? placementMapper[this.placement] : 'bottom'
+      const placement = positions[this.placement] ? positions[this.placement] : 'bottom'
       const popperEl = this.$refs.popper
 
       document.querySelector(this.target).appendChild(popperEl)
       await this.$nextTick()
-      this.popper = new Popper(this.reference, popperEl, { placement, removeOnDestroy: true })
+      this.popper = new Popper(this.reference, popperEl, {
+        placement,
+        removeOnDestroy: true,
+        modifiers: {
+          // Ensures element does not ovflow outside of boundary
+          preventOverflow: {
+            enabled: true,
+            boundariesElement: 'viewport'
+          }
+        }
+      })
 
       await this.$nextTick()
       this.popper.update()
@@ -305,7 +321,7 @@ export default {
   border-radius: 3px;
   -webkit-box-shadow: 0 0 12px rgba(0,0,0,.12);
   box-shadow: 0 0 12px rgba(0,0,0,.12);
-  padding: 1rem;
+  padding: var(--KPopPaddingY, var(--spacing-md, spacing(md))) var(--KPopPaddingX, var(--spacing-md, spacing(md)));
 
   .k-popover-title {
     padding-bottom: 1rem;
