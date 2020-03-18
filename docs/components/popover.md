@@ -201,6 +201,21 @@ You can pass in an optional flag to disable the popover - by default it is set t
 </KPop>
 ```
 
+### Hide Caret
+You can pass in an optional flag to not show the caret on the edge of the popover.
+
+<KPop title="Cool header" hide-caret placement="right">
+  <KButton>button</KButton>
+  <div slot="content">Look ma, no caret!</div>
+</KPop>
+
+```vue
+<KPop title="Cool header" hide-caret placement="right">
+  <KButton>button</KButton>
+  <div slot="content">Look ma, no caret!</div>
+</KPop>
+```
+
 ### isSVG Flag
 To support `<KPop>` being able to be used inside an svg tag, use the `isSvg` prop.
 This will wrap the content of the KPop in a `<foreignObject>` tag, so that normal

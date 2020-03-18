@@ -9,7 +9,7 @@
           v-show="isShow"
           ref="popper"
           :style="popoverStyle"
-          :class="popoverClasses">
+          :class="[popoverClasses, {'hide-caret': hideCaret }]">
           <div
             v-if="title"
             class="k-popover-title">
@@ -28,7 +28,7 @@
         v-show="isShow"
         ref="popper"
         :style="popoverStyle"
-        :class="popoverClasses">
+        :class="[popoverClasses, {'hide-caret': hideCaret }]">
         <div
           v-if="title"
           class="k-popover-title">
@@ -144,6 +144,13 @@ export default {
     * A flag indicating whether or not the element in the slot will be an SVG element
     */
     isSvg: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * A flag to hide the triangle pointing to the trigger element
+     */
+    hideCaret: {
       type: Boolean,
       default: false
     }
@@ -422,6 +429,13 @@ export default {
       border-right-color: var(--KPopBorder, var(--grey-84, color(grey-84)));
       border-width: 11px;
       margin-top: -11px;
+    }
+  }
+
+  &.hide-caret {
+    &:after,
+    &:before {
+      display: none;
     }
   }
 }
