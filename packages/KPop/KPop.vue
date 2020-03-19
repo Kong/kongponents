@@ -46,7 +46,8 @@
 <script>
 import Popper from 'popper.js'
 
-const positions = {
+const placements = {
+  auto: 'auto',
   top: 'top',
   topStart: 'top-start',
   topEnd: 'top-end',
@@ -92,9 +93,9 @@ export default {
     placement: {
       type: String,
       validator: function (value) {
-        return Object.keys(positions).indexOf(value) !== -1
+        return Object.keys(placements).indexOf(value) !== -1
       },
-      default: 'top'
+      default: 'auto'
     },
     /**
      * How the Popover will trigger
@@ -243,7 +244,7 @@ export default {
       this.showPopper()
       // destroy any previous poppers before creating new one
       this.destroy()
-      const placement = positions[this.placement] ? positions[this.placement] : 'bottom'
+      const placement = placements[this.placement] ? placements[this.placement] : 'auto'
       const popperEl = this.$refs.popper
 
       document.querySelector(this.target).appendChild(popperEl)
@@ -446,6 +447,26 @@ export default {
       border-width: 11px;
       margin-top: -11px;
     }
+  }
+
+  &[x-placement^="top-start"],
+  &[x-placement^="bottom-start"] {
+    &:after, &:before { left: 11px; }
+  }
+
+  &[x-placement^="top-end"],
+  &[x-placement^="bottom-end"] {
+    &:after, &:before { left: calc(100% - 11px); }
+  }
+
+  &[x-placement^="right-start"],
+  &[x-placement^="left-start"] {
+    &:after, &:before { top: 11px; }
+  }
+
+  &[x-placement^="right-end"],
+  &[x-placement^="left-end"] {
+    &:after, &:before { top: calc(100% - 11px); }
   }
 
   &.hide-caret {
