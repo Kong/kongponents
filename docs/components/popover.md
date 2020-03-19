@@ -113,21 +113,67 @@ Here are the different options:
 The position of where the popover appears - by default it appears on top.
 Here are the different options:
 
-- `top`
-- `bottom`
-- `left`
-- `right`
+<ul>
+  <li
+    v-for="p in positions"
+    :key="p">
+    <code>{{ p }}</code>
+  </li>
+</ul>
 
-<KPop title="Cool header" placement="bottom">
+<select
+  class="k-input"
+  v-model="selectedPosition">
+  <option
+    v-for="p in positions"
+    :key="p"
+    :value="p">{{ p }}</option> 
+</select>
+
+<KPop title="Cool header" trigger="hover" :placement="selectedPosition">
   <KButton>button</KButton>
-  <div slot="content">I am placed on the bottom!</div>
+  <div slot="content">I am placed on the {{ selectedPosition }}!</div>
 </KPop>
 
 ```vue
-<KPop title="Cool header" placement="bottom">
+<template>
+<select v-model="selectedPosition">
+  <option
+    v-for="p in positions"
+    :key="p"
+    :value="p">{{ p }}</option> 
+</select>
+
+<KPop title="Cool header" trigger="hover" :placement="selectedPosition">
   <KButton>button</KButton>
-  <div slot="content">I am placed on the bottom!</div>
+  <div slot="content">I am placed on the {{ selectedPosition }}!</div>
 </KPop>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      selectedPosition: 'auto',
+      positions: [
+        'auto',
+        'top',
+        'topStart',
+        'topEnd',
+        'left',
+        'leftStart',
+        'leftEnd',
+        'right',
+        'rightStart',
+        'rightEnd',
+        'bottom',
+        'bottomStart',
+        'bottomEnd'
+      ]
+    }
+  }
+}
+</script>
 ```
 
 ### Width
@@ -300,6 +346,22 @@ triggers)
   export default {
     data () {
       return {
+        selectedPosition: 'auto',
+        positions: [
+          'auto',
+          'top',
+          'topStart',
+          'topEnd',
+          'left',
+          'leftStart',
+          'leftEnd',
+          'right',
+          'rightStart',
+          'rightEnd',
+          'bottom',
+          'bottomStart',
+          'bottomEnd'
+        ],
         currentState: 'idle',
         states: {
           'idle': 'pending',
@@ -416,6 +478,8 @@ triggers)
 | `--KPopBodySize`| Font size of the body content
 | `--KPopColor`| Text color of the content
 | `--KPopHeaderSize`| Font size of the header content
+| `--KPopPaddingY`| Vertical top/bottom spacing
+| `--KPopPaddingX`| Horizontal left/right padding
 
 ## Browser Compatibility
 
@@ -423,3 +487,11 @@ triggers)
 For Internet Explorer 11 and below, the Popover component will not work due to `Node.contains` not being supported by the browser. 
 You will have to manually polyfill this functionality if you choose to support IE11 or below.
 :::
+
+<style scoped>
+  select {
+    height: calc(2.25rem + 2px);
+    background-color: #fff !important;
+    width: 250px;
+  }
+</style>
