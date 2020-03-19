@@ -23,6 +23,7 @@ import close from './icn-close.svg'
 import portalV2 from './icn-dev-portal-v2.svg'
 import people from './icn-people.svg'
 import stackedCards from './icn-stacked-cards.svg'
+import profile from './icn-profile.svg'
 
 export default {
   back,
@@ -38,6 +39,7 @@ export default {
   people,
   portal,
   portalV2,
+  profile,
   search,
   security,
   spinner,
