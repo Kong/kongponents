@@ -177,6 +177,45 @@ Sets if card has shadow state (shadow)
 </KCard>
 ```
 
+## Theming
+| Variable | Purpose
+|:-------- |:-------
+| `--KCardPaddingY `| Vertical top/bottom spacing
+| `--KCardPaddingX` | Horizontal left/right padding
+| `--KCardBorderRadius` |
+| `--KCardBorder`| Replaces border size & color
+| `--KCardShadow`| Replaces shadow size and color
+| `--KCardBackground`|
+
+
+\
+An Example of changing the hover background might look like.  
+
+<div class="card-wrapper">
+  <KCard
+    title="Card Title"
+    body="Body Content" 
+    hasShadow />
+</div>
+
+```vue
+<template>
+  <KCard
+    title="Card Title"
+    body="Body Content" 
+    hasShadow />
+</template>
+
+<style>
+:root {
+  --KCardBackground: lavender;
+  --KCardShadow: 0 4px 8px lavender;
+  --KCardBorder: 2px solid purple;
+  --KCardBorderRadius: 12px;
+}
+</style>
+```
+
 <style lang="scss">
 .borderless-cards {
   padding: 1rem;
@@ -185,5 +224,11 @@ Sets if card has shadow state (shadow)
   .kong-card {
     background: #fff;
   }
+}
+.card-wrapper {
+  --KCardBackground: lavender;
+  --KCardShadow: 0 4px 8px lavender;
+  --KCardBorder: 2px solid purple;
+  --KCardBorderRadius: 12px;
 }
 </style>
