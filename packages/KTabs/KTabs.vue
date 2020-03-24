@@ -1,25 +1,33 @@
 <template>
   <div class="k-tabs">
-    <ul>
+    <ul
+      role="tablist"
+      aria-label="ktabs">
       <li
-        v-for="tab in tabs"
+        v-for="(tab, i) in tabs"
         :key="tab.hash"
         :aria-selected="activeTab === tab.hash ? 'true' : 'false'"
+        :aria-controls="`panel-${i}`"
+        :id="`${tab.hash.replace('#','')}-tab`"
         :class="{ active: activeTab === tab.hash }"
+        tabindex="0"
+        role="tab"
         class="tab-item"
+        @keydown.enter.prevent="activeTab = tab.hash"
         @click="handleTabChange(tab.hash)">
-        <a
-          :aria-controls="tab.hash"
-          class="tab-link">
+        <a class="tab-link">
           <slot :name="`${tab.hash.replace('#','')}-anchor`">{{ tab.title }}</slot>
         </a>
       </li>
     </ul>
 
     <div
-      v-for="tab in tabs"
+      v-for="(tab, i) in tabs"
       :key="tab.hash"
-      :id="`${tab.hash.replace('#','')}-tab`"
+      :id="`panel-${i}`"
+      :aria-labelledby="`${tab.hash.replace('#','')}-tab`"
+      role="tabpanel"
+      tabindex="0"
       class="tab-container">
       <slot
         v-if="activeTab === tab.hash"
