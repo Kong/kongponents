@@ -1,7 +1,7 @@
 {
   "name": "@kongponents/ktabs",
   "version": "0.1.1",
-  "description": "Tabs component",
+  "description": "Tabs component.",
   "main": "dist/KTabs.umd.min.js",
   "componentName": "KTabs",
   "source": "KTabs.vue",
@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/Kong/kongponents/issues"
   },
-  "homepage": "https://github.com/Kong/kongponents#readme"
+  "homepage": "https://github.com/Kong/kongponents#readme",
+  "publishConfig": {
+    "access": "public"
+  }
 }
