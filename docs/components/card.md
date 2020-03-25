@@ -189,7 +189,7 @@ Sets if card has shadow state (shadow)
 
 
 \
-An Example of changing the hover background might look like.  
+An Example of changing the background might look like.
 
 <div class="card-wrapper">
   <KCard
