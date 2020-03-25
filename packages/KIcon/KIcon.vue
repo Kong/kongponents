@@ -8,7 +8,7 @@
     class="kong-icon"
     role="img"
   >
-    <title>{{ icon }}</title>
+    <title>{{ title || icon }}</title>
     <g>
       <path
         v-for="(path, idx) in paths"
@@ -57,6 +57,13 @@ export default {
     viewBox: {
       type: String,
       default: '0 0 24 24'
+    },
+    /**
+     * Optional - Replaces default title attribute
+     */
+    title: {
+      type: String,
+      default: ''
     }
   },
 

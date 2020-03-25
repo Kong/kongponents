@@ -45,4 +45,17 @@ describe('KIcon', () => {
     expect(wrapper.attributes().width).toEqual('32')
     expect(wrapper.attributes().height).toEqual('32')
   })
+
+  it('sets title from prop', () => {
+    const wrapper = mount(KIcon, {
+      propsData: {
+        'icon': 'portal',
+        'title': 'My Title'
+      }
+    })
+
+    const title = wrapper.find('title').text()
+
+    expect(title).toEqual('My Title')
+  })
 })
