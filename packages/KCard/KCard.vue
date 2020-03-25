@@ -71,23 +71,24 @@ export default {
 
 .kong-card {
   padding: var(--KCardPaddingY, 1rem) var(--KCardPaddingX, 1rem);
+  border-radius: var(--KCardBorderRadius, 3px);
+  background-color: var(--KCardBackground, var(--twhite-1, color(twhite-1)));
 
-  &.noBoard {
+  &.noBorder {
     border: none;
   }
 
   &.border {
-    border-radius: 3px;
-    border: 1px solid var(--KCardBorder, var(--tblack-10, color(tblack-10)));
+    border: var(--KCardBorder, 1px solid var(--tblack-10, color(tblack-10)));
     box-shadow: none;
   }
 
   &.borderTop {
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    border-top: var(--KCardBorder, 1px solid var(--tblack-10, color(tblack-10)));
   }
 
   &.hover:hover, &.kcard-shadow {
-    box-shadow: 0 4px 8px var(--tblack-10, color(tblack-10));
+    box-shadow: var(--KCardShadow, 0 4px 8px var(--tblack-10, color(tblack-10)));
   }
 
   .k-card-header {
