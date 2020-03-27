@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/Kong/kongponents/compare/@kongponents/ktable@0.2.0...@kongponents/ktable@0.3.0) (2020-03-27)
+
+
+### Features
+
+* **ktable:** add row and cell events ([#205](https://github.com/Kong/kongponents/issues/205)) ([bb7ac1b](https://github.com/Kong/kongponents/commit/bb7ac1bcf70ef29d0c8df264fcfbfbd2b0697e49))
+
+
+
+
+
 # [0.2.0](https://github.com/Kong/kongponents/compare/@kongponents/ktable@0.1.7...@kongponents/ktable@0.2.0) (2020-03-16)
 
 
