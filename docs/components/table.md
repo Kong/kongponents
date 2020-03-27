@@ -114,7 +114,9 @@ various parts of the table.
     </div>
     <div v-else>Waiting</div>
 
-    <KTable :options="tableOptions"
+    <KTable 
+      class="clickable-rows"
+      :options="tableOptions"
       @row:click="actionRow" 
       @cell:mouseover="actionRow"
     />
@@ -137,6 +139,11 @@ export default {
   }
 }
 </script>
+<style>
+.clickable-rows tr {
+  cursor: pointer;
+}
+</style>
 ```
 
 <KCard>
@@ -146,12 +153,21 @@ export default {
   </div>
   <div v-else>Waiting</div>
 
-  <KTable :options="$frontmatter.tableOptions" 
+  <KTable 
+    class="clickable-rows"
+    :options="$frontmatter.tableOptions"
+    has-hover
     @row:click="actionRow" 
     @cell:mouseover="actionRow"
   />
   </div>
 </KCard>
+
+<style>
+  .clickable-rows tr {
+    cursor: pointer;
+  }
+</style>
 
 
 ### Sorting
