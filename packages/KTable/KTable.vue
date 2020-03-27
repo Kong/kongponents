@@ -151,11 +151,11 @@ export default {
   },
 
   computed: {
-    tdlisteners (row) {
+    tdlisteners () {
       return pluckListeners('cell:', this.$listeners)
     },
 
-    trlisteners (entity) {
+    trlisteners () {
       return pluckListeners('row:', this.$listeners)
     }
   }
