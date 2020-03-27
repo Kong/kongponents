@@ -85,12 +85,91 @@ Lessen the table cell padding
   isSmall />
 ```
 
+## Events
+Bind any DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to
+various parts of the table.
+
+### Rows
+- `@row:<event>` - returns the `Event`, the row item, and the type: `row`
+
+```vue
+<KTable @row:click="rowHandler" @row:dblclick="rowHandler">
+```
+
+### Cells
+
+- `@cell:<event>` - returns the `Event`, the cell value, and the type: `cell`
+
+```vue
+<KTable @cell:mouseout="cellHandler" @cell:mousedown="cellHandler">
+```
+
+#### Example
+
+```vue
+<template>
+  <div>
+    <div v-if="eventType">
+      {{eventType}} on: {{row}}
+    </div>
+    <div v-else>Waiting</div>
+
+    <KTable :options="tableOptions"
+      @row:click="actionRow" 
+      @cell:mouseover="actionRow"
+    />
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      row: null,
+      eventType: ''
+    }
+  },
+  methods: {
+    actionRow (e, row, type) {
+      this.eventType = e.type
+      this.row = row
+    }
+  }
+}
+</script>
+```
+
+<KCard>
+  <div slot="body">
+  <div v-if="eventType">
+    {{eventType}} on: {{row}}
+  </div>
+  <div v-else>Waiting</div>
+
+  <KTable :options="$frontmatter.tableOptions" 
+    @row:click="actionRow" 
+    @cell:mouseover="actionRow"
+  />
+  </div>
+</KCard>
+
+
 ### Sorting
-There are two props used to make the table sortable; ```sortOrder```, which is either 'ascending' or 'descending' and ```sortKey```, which tells the table which column is currently being sorted. If a sortKey exists, then clicking the
-table header will emit an Event called ```sort``` which must be handled by the parent component to implement the
-actual sorting logic. A basic implementation of ```sort``` called ```defaultSorter``` is included in KTable and can be imported separately and used with a helper function in the parent.
-Once a table column with ```sortable``` is read, that column header will become clickable. An arrow then appears beside the table header, the state of the arrow depending on the sortOrder.
-In the following example, the ```defaultSorter``` from KTable is being imported, and the table is able to be sorted by any of the three columns by clicking on the headers.
+
+- `@sort` - returns header key that was clicked and current `sortOrder`.
+
+There are two props used to make the table sortable; `sortOrder`, which is
+either 'ascending' or 'descending' and `sortKey`, which tells the table which
+column is currently being sorted. If a sortKey exists, then clicking the table
+header will emit an Event called `sort` which must be handled by the parent
+component to implement the actual sorting logic. A basic implementation of
+`sort` called `defaultSorter` is included in KTable and can be imported
+separately and used with a helper function in the parent. Once a table column
+with `sortable` is read, that column header will become clickable. An arrow then
+appears beside the table header, the state of the arrow depending on the
+sortOrder. In the following example, the `defaultSorter` from KTable is being
+imported, and the table is able to be sorted by any of the three columns by
+clicking on the headers.
 
 <template>
   <KTable
@@ -305,6 +384,8 @@ import { defaultSorter } from '../../packages/KTable/KTable'
 export default {
   data() {
     return {
+      row: null,
+      eventType: '',
       sortOrder: 'ascending',
       sortKey: 'name',
       tableOptions: {
@@ -335,6 +416,10 @@ export default {
     }
   },
   methods: {
+    actionRow (e, row, type) {
+      this.eventType = e.type
+      this.row = row
+    },
     sortFieldHelper (key) {
       const {previousKey, sortOrder } = this.defaultSorter(key, this.sortKey, this.sortOrder, this.tableOptions.data)
       this.sortKey = previousKey

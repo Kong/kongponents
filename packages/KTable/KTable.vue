@@ -9,7 +9,7 @@
             v-for="(column, index) in options.headers"
             :key="index"
             :class="!column.hideLabel && `${column.sortable ? 'sortable' : ''}${column.key === sortKey ? ' ' + sortOrder : ''}`"
-            @click="sortKey && $emit('sort', column.key)"
+            @click="column.sortable && $emit('sort', column.key, sortOrder)"
           >
             <slot
               v-if="!column.hideLabel"
@@ -24,11 +24,13 @@
     <tbody>
       <tr
         v-for="(row, rowIndex) in options.data"
-        :key="rowIndex">
+        :key="rowIndex"
+        v-on="trlisteners(row, 'row')">
         <template>
           <td
             v-for="(value, index) in options.headers"
-            :key="index">
+            :key="index"
+            v-on="tdlisteners(row[value.key], 'cell')">
             <slot
               :name="value.key"
               :row="row"
@@ -81,6 +83,27 @@ export const defaultSorter = (key, previousKey, sortOrder, items) => {
   return { previousKey, sortOrder }
 }
 
+/**
+ * Grabs listeners from this.$listeners matching a prefix to attach the
+ * event that is dynamic. e.g. `v-on:cell:click`, `@row:focus` etc.
+ * @param {String} prefix - event listener prefix e.g. `row:`, `cell:`
+ * @param {any} $listeners - this.$listeners on the vue instance to pluck from
+ * @returns {Function} - returns a function that can pass an entity to the
+                         listener callback function.
+ */
+function pluckListeners (prefix, $listeners) {
+  return (entity, type) =>
+    Object.keys($listeners).reduce((acc, curr) => {
+      if (curr.indexOf(prefix) === 0) {
+        const parts = curr.split(prefix)
+
+        acc[parts[1]] = (e) => $listeners[curr](e, entity, type)
+      }
+
+      return acc
+    }, {})
+}
+
 export default {
   name: 'KTable',
   props: {
@@ -124,6 +147,16 @@ export default {
     sortKey: {
       type: String,
       default: ''
+    }
+  },
+
+  computed: {
+    tdlisteners (row) {
+      return pluckListeners('cell:', this.$listeners)
+    },
+
+    trlisteners (entity) {
+      return pluckListeners('row:', this.$listeners)
     }
   }
 }

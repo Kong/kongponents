@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`KTable has hover class when passed 1`] = `
+exports[`KTable default has hover class when passed 1`] = `
 <table class="k-table has-hover">
   <thead>
     <tr>
@@ -41,7 +41,7 @@ exports[`KTable has hover class when passed 1`] = `
 </table>
 `;
 
-exports[`KTable has small class when passed 1`] = `
+exports[`KTable default has small class when passed 1`] = `
 <table class="k-table is-small">
   <thead>
     <tr>
@@ -82,7 +82,7 @@ exports[`KTable has small class when passed 1`] = `
 </table>
 `;
 
-exports[`KTable renders link in action slot 1`] = `
+exports[`KTable default renders link in action slot 1`] = `
 <table class="k-table">
   <thead>
     <tr>
@@ -123,7 +123,7 @@ exports[`KTable renders link in action slot 1`] = `
 </table>
 `;
 
-exports[`KTable should have sortable class when passed 1`] = `
+exports[`KTable sorting should have sortable class when passed 1`] = `
 <table class="k-table">
   <thead>
     <tr>
