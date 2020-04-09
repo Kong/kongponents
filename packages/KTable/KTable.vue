@@ -53,19 +53,27 @@
  */
 export const defaultSorter = (key, previousKey, sortOrder, items) => {
   let comparator = null
-
   const type = typeof items[0][key]
 
   if (key !== previousKey) {
-    if (type === 'string') {
-      comparator = (a, b) => {
-        if (a[key] < b[key]) return -1
-        if (a[key] > b[key]) return 1
-
-        return 0
-      }
+    if (type === 'number') {
+      comparator = (a, b) => a[key] && b[key] && a[key] - b[key]
     } else {
-      comparator = (a, b) => a[key] - b[key]
+      comparator = (a, b) => {
+        const transformer = (val) => {
+          if (val === undefined || val === null) {
+            return ''
+          }
+
+          if (Array.isArray(val)) {
+            return String(val[0])
+          }
+
+          return String(val)
+        }
+
+        return transformer(a[key]).localeCompare(transformer(b[key]))
+      }
     }
 
     items.sort(comparator)

@@ -210,29 +210,36 @@ import { defaultSorter } from '@kongponents/KTable'
 export default {
   data() {
     return {
+      row: null,
+      eventType: '',
       sortOrder: 'ascending',
       sortKey: 'name',
       tableOptions: {
         headers: [
           { label: 'Name', key: 'name', sortable: true },
           { label: 'ID', key: 'id', sortable: true },
-          { label: 'Enabled', key: 'enabled', sortable: true }
+          { label: 'Enabled', key: 'enabled', sortable: true },
+          { label: 'Theme Colors', key: 'themeColors', sortable: true },
+          { key: 'actions', hideLabel: true }
         ],
         data: [
           {
             name: 'Basic Auth',
-            id: 517526354743085,
-            enabled: true
+            id: '517526354743085',
+            enabled: 'true',
+            themeColors: []
           },
           {
             name: 'Website Desktop',
-            id: 328027447731198,
-            enabled: false
+            id: '328027447731198',
+            enabled: 'false',
+            themeColors: ['blue','violet']
           },
           {
             name: 'Android App',
-            id: 405383051040955,
-            enabled: true
+            id: '405383051040955',
+            enabled: 'true',
+            themeColors: ['green', 'yellow']
           }
         ]
       }
@@ -409,23 +416,27 @@ export default {
           { label: 'Name', key: 'name', sortable: true },
           { label: 'ID', key: 'id', sortable: true },
           { label: 'Enabled', key: 'enabled', sortable: true },
+          { label: 'Theme Colors', key: 'themeColors', sortable: true },
           { key: 'actions', hideLabel: true }
         ],
         data: [
           {
             name: 'Basic Auth',
             id: '517526354743085',
-            enabled: 'true'
+            enabled: 'true',
+            themeColors: []
           },
           {
             name: 'Website Desktop',
             id: '328027447731198',
-            enabled: 'false'
+            enabled: 'false',
+            themeColors: ['blue','violet']
           },
           {
             name: 'Android App',
             id: '405383051040955',
-            enabled: 'true'
+            enabled: 'true',
+            themeColors: ['green', 'yellow']
           }
         ]
       }
