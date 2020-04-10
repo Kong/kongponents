@@ -134,9 +134,6 @@ describe('KTable', () => {
         }
       ]
 
-      expect(items[0].username).toEqual('henry')
-      expect(items[0].custom_id).toEqual(1234)
-
       let { previousKey: sortKey1, sortOrder: sortOrder1 } = defaultSorter('custom_id', '', 'ascending', items)
 
       expect(items[0].username).toEqual('bobby')
@@ -210,9 +207,6 @@ describe('KTable', () => {
         }
       ]
 
-      expect(items[0].usernames[0]).toEqual('henry')
-      expect(items[0].custom_id).toEqual(1234)
-
       let { previousKey: sortKey1, sortOrder: sortOrder1 } = defaultSorter('usernames', '', 'ascending', items)
 
       expect(items[0].usernames[0]).toEqual('bobby')
@@ -225,6 +219,43 @@ describe('KTable', () => {
       expect(items[0].usernames[0]).toEqual('zach')
       expect(items[0].custom_id).toEqual(13445)
       expect(sortKey2).toEqual('usernames')
+      expect(sortOrder2).toEqual('descending')
+    })
+
+    it('defaultSorter(): sorts the items by first item in the array - number', () => {
+      const items = [
+        {
+          id: '410ecd35-696e-4e7a-ad35-c69bd4e14cbb',
+          favoriteNumbers: [1234, 2]
+        }, {
+          id: '410ecd35-696e-4e7a-ad35-c69bd4e14cb3',
+          favoriteNumbers: [145]
+        }, {
+          id: '410ecd35-696e-4e7a-ad35-c69bd4e14cb4',
+          favoriteNumbers: [-1]
+        }
+      ]
+
+      let { previousKey: sortKey1, sortOrder: sortOrder1 } =
+        defaultSorter('favoriteNumbers', '', 'ascending', items)
+
+      expect(items.map(i => ({favoriteNumbers: i.favoriteNumbers}))).toEqual([
+        { favoriteNumbers: [-1] },
+        { favoriteNumbers: [145] },
+        { favoriteNumbers: [1234, 2] }
+      ])
+      expect(sortKey1).toEqual('favoriteNumbers')
+      expect(sortOrder1).toEqual('ascending')
+
+      let { previousKey: sortKey2, sortOrder: sortOrder2 } =
+        defaultSorter('favoriteNumbers', 'favoriteNumbers', sortOrder1, items)
+
+      expect(items.map(i => ({favoriteNumbers: i.favoriteNumbers}))).toEqual([
+        { favoriteNumbers: [1234, 2] },
+        { favoriteNumbers: [145] },
+        { favoriteNumbers: [-1] }
+      ])
+      expect(sortKey2).toEqual('favoriteNumbers')
       expect(sortOrder2).toEqual('descending')
     })
   })
