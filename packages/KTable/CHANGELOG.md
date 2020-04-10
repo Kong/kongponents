@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/Kong/kongponents/compare/@kongponents/ktable@0.3.0...@kongponents/ktable@0.3.1) (2020-04-10)
+
+
+### Bug Fixes
+
+* **ktable:** beef up defaultSorter to handle null, undefined and array values ([#206](https://github.com/Kong/kongponents/issues/206)) ([0cd8c76](https://github.com/Kong/kongponents/commit/0cd8c76c42e4a1c12209b5a041415e963360c905))
+
+
+
+
+
 # [0.3.0](https://github.com/Kong/kongponents/compare/@kongponents/ktable@0.2.0...@kongponents/ktable@0.3.0) (2020-03-27)
 
 
