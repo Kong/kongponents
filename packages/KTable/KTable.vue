@@ -53,19 +53,36 @@
  */
 export const defaultSorter = (key, previousKey, sortOrder, items) => {
   let comparator = null
-
-  const type = typeof items[0][key]
+  const numberComparator = (a, b) => a && b && a - b
+  const stringComparator = (a, b) => a.localeCompare(b)
 
   if (key !== previousKey) {
-    if (type === 'string') {
-      comparator = (a, b) => {
-        if (a[key] < b[key]) return -1
-        if (a[key] > b[key]) return 1
+    comparator = (a, b) => {
+      const transformer = (val) => {
+        if (val === undefined || val === null) {
+          return ''
+        }
 
-        return 0
+        if (typeof val === 'number') {
+          return val
+        }
+
+        if (Array.isArray(val) && val.length && typeof val[0] === 'number') {
+          return val[0]
+        }
+
+        return String(val)
       }
-    } else {
-      comparator = (a, b) => a[key] - b[key]
+
+      const newValA = transformer(a[key])
+      const newValB = transformer(b[key])
+
+      switch (typeof newValA) {
+        case 'number':
+          return numberComparator(newValA, newValB)
+        default:
+          return stringComparator(newValA, newValB)
+      }
     }
 
     items.sort(comparator)
@@ -252,5 +269,4 @@ table.k-table {
     background-color: var(--KTableHover, var(--blue-lightest, color(blue-lightest)));
   }
 }
-
 </style>
