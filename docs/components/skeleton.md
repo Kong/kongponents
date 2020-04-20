@@ -135,9 +135,9 @@ This loading state is used for a spinner, which can be used for a wide variety o
 
 ## Full Screen Loading State
 The full screen loading state is used to display a full screen loader typically 
-during initial render of an app to avoid any FOUC while the app tries to figure
-out if you are able to access the route and also to perform any expensive
-querying on first load.
+during initial render of an app to avoid any FOUC (Flash Of Unstyled Content) 
+while the app tries to figure out if you are able to access the route and also 
+to perform any expensive querying on first load.
 
 <template>
   <div>
