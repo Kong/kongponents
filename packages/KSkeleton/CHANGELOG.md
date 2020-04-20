@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/Kong/kongponents/compare/@kongponents/kskeleton@0.2.0...@kongponents/kskeleton@0.2.1) (2020-04-20)
+
+**Note:** Version bump only for package @kongponents/kskeleton
+
+
+
+
+
 # [0.2.0](https://github.com/Kong/kongponents/compare/@kongponents/kskeleton@0.1.5...@kongponents/kskeleton@0.2.0) (2020-04-20)
 
 
