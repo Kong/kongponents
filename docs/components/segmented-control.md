@@ -6,7 +6,7 @@
   <div slot-scope="{ state, update }">
     <KSegmentedControl
         :options="['Like it?','Love it!']"
-        :selected="state.selected"
+        v-model="state.selected"
         @click="x => update({ selected:x })" />
   </div>
 </KState>
@@ -16,7 +16,7 @@
   <div slot-scope="{ state, update }">
     <KSegmentedControl
         :options="['Like it?','Love it!']"
-        :selected="state.selected"
+        v-model="state.selected"
         @click="x => update({ selected:x })" />
   </div>
 </KState>
@@ -32,7 +32,7 @@ An array of options for each button, can also be provided as a json key value pa
   <div slot-scope="{ state, update }">
     <KSegmentedControl
         :options="[{label:'◀️',value:'left'},{label:'▶️',value:'right'}]"
-        :selected="state.selected"
+        v-model="state.selected"
         @click="x => update({ selected:x })" />
   </div>
 </KState>
@@ -43,7 +43,7 @@ An array of options for each button, can also be provided as a json key value pa
   <div slot-scope="{ state, update }">
     <KSegmentedControl
         :options="[{label:'◀️',value:'left'},{label:'▶️',value:'right'}]"
-        :selected="state.selected"
+        v-model="state.selected"
         @click="x => update({ selected:x })" />
   </div>
 </KState>
@@ -57,7 +57,7 @@ The value of the option which is currently selected.
   <div slot-scope="{ state, update }">
     <KSegmentedControl
         :options="['5m','30m','1h','6h','24h','all']"
-        :selected="state.selected"
+        v-model="state.selected"
         @click="x => update({ selected:x })" />
   </div>
 </KState>
@@ -67,7 +67,7 @@ The value of the option which is currently selected.
   <div slot-scope="{ state, update }">
     <KSegmentedControl
         :options="['5m','30m','1h','6h','24h','all']"
-        :selected="state.selected"
+        v-model="state.selected"
         @click="x => update({ selected:x })" />
   </div>
 </KState>
@@ -82,7 +82,7 @@ A function which will be called when the control is used providing the selected 
   <div slot-scope="{ state, update }">
     <KSegmentedControl
         :options="['On','Off']"
-        :selected="state.selected"
+        v-model="state.selected"
         @click="x => update({ selected:x }) || sayHello(x)" />
   </div>
 </KState>
@@ -102,7 +102,7 @@ export default {
   <div slot-scope="{ state, update }">
     <KSegmentedControl
         :options="['On','Off']"
-        :selected="state.selected"
+        v-model="state.selected"
         @click="x => update({ selected:x }) || sayHello(x)" />
   </div>
 </KState>

@@ -6,7 +6,7 @@
 <template>
 <KSegmentedControl
     :options="['one','two']"
-    :selected="selected"
+    :v-model="selected"
     @click="handleToggle"
 />
 </template>

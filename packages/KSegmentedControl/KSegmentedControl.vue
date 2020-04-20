@@ -24,6 +24,10 @@ import KButton from '@kongponents/kbutton/KButton.vue'
 export default {
   name: 'KSegmentedControl',
   components: { KButton },
+  model: {
+    prop: 'selected',
+    event: 'change'
+  },
   props: {
     options: {
       type: Array,

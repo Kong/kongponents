@@ -58,7 +58,7 @@ them and placing them inside `KState`'s default slot.
         What's your favorite great ape? {{ state.selected.toUpperCase() }}
         <KSegmentedControl
             :options="['gorillas','orangutans','chimpanzees','humans']"
-            :selected="state.selected"
+            v-model="state.selected"
             @click="x => update({ selected:x })" />
       </div>
     </KState>
