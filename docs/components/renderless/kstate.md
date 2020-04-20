@@ -41,7 +41,7 @@ The state that the component should begin with.
 
 | Methods       | Type     | Description                     |
 | :---------- | :------- | :------------------------------ |
-| `state` | Any  | the current value |
+| `state` | Object  | key value pair |
 | `update`    | Function | function to change the current value             |
 
 ## Usage
@@ -59,7 +59,7 @@ them and placing them inside `KState`'s default slot.
         <KSegmentedControl
             :options="['gorillas','orangutans','chimpanzees','humans']"
             :selected="state.selected"
-            @clicked="x => update({ selected:x })" />
+            @click="x => update({ selected:x })" />
       </div>
     </KState>
   </div>
@@ -72,7 +72,7 @@ them and placing them inside `KState`'s default slot.
     <KSegmentedControl
         :options="['gorillas','orangutans','chimpanzees','humans']"
         :selected="state.selected"
-        @clicked="x => update({ selected:x })" />
+        @click="x => update({ selected:x })" />
   </div>
 </KState>
 ```

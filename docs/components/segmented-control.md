@@ -7,7 +7,7 @@
     <KSegmentedControl
         :options="['Like it?','Love it!']"
         :selected="state.selected"
-        @clicked="x => update({ selected:x })" />
+        @click="x => update({ selected:x })" />
   </div>
 </KState>
 
@@ -17,7 +17,7 @@
     <KSegmentedControl
         :options="['Like it?','Love it!']"
         :selected="state.selected"
-        @clicked="x => update({ selected:x })" />
+        @click="x => update({ selected:x })" />
   </div>
 </KState>
 ```
@@ -26,14 +26,14 @@
 
 ### options - required
 
-An array of options for each button, can also be provided as a json object in order to use a custom label.
+An array of options for each button, can also be provided as a json key value pair in order to use a custom label.
 
 <KState :initial-state="{ selected: 'left' }">
   <div slot-scope="{ state, update }">
     <KSegmentedControl
         :options="[{label:'◀️',value:'left'},{label:'▶️',value:'right'}]"
         :selected="state.selected"
-        @clicked="x => update({ selected:x })" />
+        @click="x => update({ selected:x })" />
   </div>
 </KState>
 
@@ -44,7 +44,7 @@ An array of options for each button, can also be provided as a json object in or
     <KSegmentedControl
         :options="[{label:'◀️',value:'left'},{label:'▶️',value:'right'}]"
         :selected="state.selected"
-        @clicked="x => update({ selected:x })" />
+        @click="x => update({ selected:x })" />
   </div>
 </KState>
 ```
@@ -58,7 +58,7 @@ The value of the option which is currently selected.
     <KSegmentedControl
         :options="['5m','30m','1h','6h','24h','all']"
         :selected="state.selected"
-        @clicked="x => update({ selected:x })" />
+        @click="x => update({ selected:x })" />
   </div>
 </KState>
 
@@ -68,12 +68,12 @@ The value of the option which is currently selected.
     <KSegmentedControl
         :options="['5m','30m','1h','6h','24h','all']"
         :selected="state.selected"
-        @clicked="x => update({ selected:x })" />
+        @click="x => update({ selected:x })" />
   </div>
 </KState>
 ```
 
-### clicked
+### click
 
 A function which will be called when the control is used providing the selected option in its argument.
 
@@ -83,7 +83,7 @@ A function which will be called when the control is used providing the selected 
     <KSegmentedControl
         :options="['On','Off']"
         :selected="state.selected"
-        @clicked="x => update({ selected:x }) || sayHello(x)" />
+        @click="x => update({ selected:x }) || sayHello(x)" />
   </div>
 </KState>
 
@@ -103,7 +103,7 @@ export default {
     <KSegmentedControl
         :options="['On','Off']"
         :selected="state.selected"
-        @clicked="x => update({ selected:x }) || sayHello(x)" />
+        @click="x => update({ selected:x }) || sayHello(x)" />
   </div>
 </KState>
 

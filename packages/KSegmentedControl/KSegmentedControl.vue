@@ -10,7 +10,7 @@
           :disabled="isDisabled"
           :appearance="appearance(item)"
           class="justify-content-center"
-          @click="clicked(value(item))"
+          @click="click(value(item))"
         >
           {{ label(item) }}
         </KButton>
@@ -53,18 +53,18 @@ export default {
     appearance (item) {
       return this.selected === this.value(item) ? 'primary' : 'outline-primary'
     },
-    clicked (item) {
+    click (item) {
       if (this.isDisabled) return
       let newValue = this.value(item)
       const isUnselecting = this.selectedValue === newValue
       if (isUnselecting) {
         this.selectedValue = ''
 
-        return this.$emit('clicked', '')
+        return this.$emit('click', '')
       }
 
       this.selectedValue = newValue
-      this.$emit('clicked', newValue)
+      this.$emit('click', newValue)
     }
   }
 }

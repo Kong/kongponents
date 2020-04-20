@@ -7,7 +7,7 @@
 <KSegmentedControl
     :options="['one','two']"
     :selected="selected"
-    @toggled="handleToggle"
+    @click="handleToggle"
 />
 </template>
 
@@ -20,6 +20,7 @@ export default {
   },
   methods: {
     handleToggle(selected) {
+      this.selected = selected
       // do something, make api call?
     }
   }
