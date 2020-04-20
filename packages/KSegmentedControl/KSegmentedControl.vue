@@ -1,30 +1,29 @@
 <template>
-  <div class="segmented-control d-flex justify-content-between">
-    <KToggle
+  <div class="segmented-control d-flex" >
+    <div
       v-for="item in options"
       :key="item.label || item"
-      @toggled="clicked(item.value || item)"
+      class="d-flex flex-grow-1"
     >
-      <template slot-scope="{isToggled, toggle}">
+      <template>
         <KButton
           :disabled="isDisabled"
           :appearance="selected===(item.value || item) ? 'primary' : 'outline-primary'"
           class="justify-content-center"
-          @click="toggle"
+          @click="clicked(item.value || item)"
         >
           {{ item.label || item }}
         </KButton>
       </template>
-    </KToggle>
+    </div>
   </div>
 </template>
 
 <script>
-import KToggle from '@kongponents/ktoggle/KToggle'
 import KButton from '@kongponents/kbutton/KButton.vue'
 export default {
   name: 'KSegmentedControl',
-  components: { KToggle, KButton },
+  components: { KButton },
   props: {
     options: {
       type: Array,

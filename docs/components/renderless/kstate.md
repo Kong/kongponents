@@ -1,6 +1,6 @@
 # KState
 
-Provides state functionality to components.
+Holds state for presentation components.
 
 e.g.
 
@@ -37,14 +37,7 @@ The state that the component should begin with.
 
 - `default` - content to provide state to.
 
-### Slot Props
-
-| Props       | Type     | Description                     |
-| :---------- | :------- | :------------------------------ |
-| `initial-state` | Any  | the starting value |
-
-
-## Methods
+## Slot Methods
 
 | Methods       | Type     | Description                     |
 | :---------- | :------- | :------------------------------ |
@@ -73,12 +66,13 @@ them and placing them inside `KState`'s default slot.
 </KCard>
 
 ```vue
-<KState :initial-state="{ selected: '5m' }">
+<KState :initial-state="{ selected: 'gorillas' }">
   <div slot-scope="{ state, update }">
+    What's your favorite great ape? {{ state.selected.toUpperCase() }}
     <KSegmentedControl
-        :options="['5m','30m','1h','6h','24h','all']"
+        :options="['gorillas','orangutans','chimpanzees','humans']"
         :selected="state.selected"
-        @toggled="x => update({ selected:x })" />
+        @clicked="x => update({ selected:x })" />
   </div>
 </KState>
 ```
