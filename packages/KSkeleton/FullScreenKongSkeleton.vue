@@ -1,6 +1,8 @@
 <template>
-  <div class="loading-container">
-    <div class="items">
+  <div
+    class="fullscreen-loading-container"
+    data-testid="full-screen-loader">
+    <div>
       <img src="./kong-loader.gif">
       <div class="progress">
         <div
@@ -56,7 +58,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.loading-container {
+.fullscreen-loading-container {
   position: fixed;
   top: 0;
   bottom: 0;
