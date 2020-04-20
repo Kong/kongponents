@@ -60,6 +60,32 @@ describe('KSkeleton', () => {
     expect(wrapper.find('.kong-icon').exists()).toBe(true)
   })
 
+  it('renders full screen loader with progress bar', () => {
+    jest.useFakeTimers()
+    const wrapper = mount(KSkeleton, {
+      propsData: {
+        type: 'fullscreen-kong',
+        delayMilliseconds: 0
+      }
+    })
+
+    expect(wrapper.find('[data-testid="full-screen-loader"]').exists()).toBe(true)
+
+    const progressBar = wrapper.find('[role="progressbar"]')
+
+    expect(progressBar.exists()).toBe(true)
+    const getProgressValue = () => parseInt(progressBar.element.style.width.split('%')[0])
+
+    expect(getProgressValue()).toEqual(0)
+
+    jest.advanceTimersByTime(300)
+    expect(getProgressValue()).toBeGreaterThan(0)
+    expect(getProgressValue()).toBeLessThan(100)
+
+    jest.advanceTimersByTime(3000)
+    expect(getProgressValue()).toEqual(100)
+  })
+
   it('matches snapshot', () => {
     const wrapper = mount(KSkeleton, {
       propsData: {

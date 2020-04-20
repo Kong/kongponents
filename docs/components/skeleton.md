@@ -132,3 +132,98 @@ This loading state is used for a spinner, which can be used for a wide variety o
   <KSkeleton type="spinner" />
 </template>
 ```
+
+## Full Screen Loading State
+The full screen loading state is used to display a full screen loader typically 
+during initial render of an app to avoid any FOUC (Flash Of Unstyled Content) 
+while the app tries to figure out if you are able to access the route and also 
+to perform any expensive querying on first load.
+
+<template>
+  <div>
+    <k-button @click="clicked()">click for default progress behavior</k-button>
+    <k-button @click="clickProgress()">click me to simulate progress manually</k-button>
+    <KSkeleton 
+      v-if="loading" 
+      type="fullscreen-kong"  
+      :delay-milliseconds="0" />
+    <KSkeleton 
+      v-if="loadingManually" 
+      type="fullscreen-kong" 
+      :progress="progress"
+      :delay-milliseconds="0" />
+  </div>
+</template>
+
+```vue
+<template>
+  <k-button @click="clicked()">click for default progress behavior</k-button>
+  <KSkeleton 
+    v-if="loading" 
+    type="fullscreen-kong"  
+    :delay-milliseconds="0" />
+</template>
+```
+
+## Theming
+
+| Variable                             | Purpose                                                                                                                                                                    |
+| :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--KSkeletonFullScreenMargin`        | Margin around full screen variant. Useful for when you want to show full screen loader under header or next to sidebar since the full screen component has fixed position. |
+| `--KSkeletonFullScreenProgressColor` | Progress bar fill color.                                                                                                                                                   |
+
+### Examples
+
+To reveal the header on this docs page during full page loader, click the button below.
+
+<div class="mt-4 k-skeleton-full-screen-margin">
+  <k-button @click="clickedTheming()">themed full screen loader</k-button>
+  <KSkeleton v-if="loadingTheming" type="fullscreen-kong" :delay-milliseconds="0" />
+</div>
+
+<script>
+export default {
+  data () {
+    return {
+      loading: false,
+      loadingManually: false,
+      loadingTheming: false,
+      progress: 0
+    }
+  },
+  methods: {
+    clicked() {
+      this.loading = true
+      setTimeout(() => {
+        this.loading = false
+      }, 1000)
+    },
+    
+    clickProgress () {
+      this.progress = 0
+      this.loadingManually = true
+      const interval = setInterval(() => {
+        this.progress = this.progress + 20
+        if (this.progress >= 100) {
+          this.loadingManually = false
+          clearInterval(interval)
+        }
+      }, 500)
+    },
+    
+    clickedTheming() {
+      this.loadingTheming = true
+      setTimeout(() => {
+        this.loadingTheming = false
+      }, 1000)
+    }
+  }
+}
+</script>
+
+<style>
+.k-skeleton-full-screen-margin {
+  --KSkeletonFullScreenMargin: 58px 0 0;
+  --KSkeletonFullScreenProgressColor: var(--tblack-70);
+}
+</style>
