@@ -3,7 +3,7 @@
     <KToggle
       v-for="item in options"
       :key="item.label || item"
-      @toggled="toggled(item.value || item)"
+      @toggled="clicked(item.value || item)"
     >
       <template slot-scope="{isToggled, toggle}">
         <KButton
@@ -45,12 +45,12 @@ export default {
     }
   },
   methods: {
-    toggled (selectedValue) {
+    clicked (selectedValue) {
       if (this.isDisabled) return
       let value = selectedValue.value || selectedValue
-      if (this.selectedValue === value) this.selectedValue = ''
+      if (this.selectedValue === value) value = ''
       else this.selectedValue = value
-      this.$emit('toggled', value)
+      this.$emit('clicked', value)
     }
   }
 }
