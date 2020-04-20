@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/Kong/kongponents/compare/@kongponents/kskeleton@0.1.5...@kongponents/kskeleton@0.2.0) (2020-04-20)
+
+
+### Features
+
+* **kskeleton:** add full screen loader ([#207](https://github.com/Kong/kongponents/issues/207)) ([e41f9d7](https://github.com/Kong/kongponents/commit/e41f9d77e090bb242cb0a1a37bb864a6562e6b60))
+
+
+
+
+
 ## [0.1.5](https://github.com/Kong/kongponents/compare/@kongponents/kskeleton@0.1.4...@kongponents/kskeleton@0.1.5) (2020-03-06)
 
 **Note:** Version bump only for package @kongponents/kskeleton
