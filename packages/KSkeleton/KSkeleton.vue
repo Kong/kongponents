@@ -11,6 +11,9 @@
       :columns="tableColumns"
       :rows="tableRows"/>
     <FormSkeleton v-else-if="type === 'form'"/>
+    <FullScreenKongSkeleton
+      v-else-if="type === 'fullscreen-kong'"
+      :progress="progress"/>
     <KIcon
       v-else-if="type === 'spinner'"
       icon="spinner"
@@ -25,11 +28,19 @@ import Skeleton from './Skeleton'
 import CardSkeleton from './CardSkeleton'
 import TableSkeleton from './TableSkeleton'
 import FormSkeleton from './FormSkeleton'
+import FullScreenKongSkeleton from './FullScreenKongSkeleton'
 import KIcon from '@kongponents/kicon/KIcon.vue'
 
 export default {
   name: 'KSkeleton',
-  components: { Skeleton, CardSkeleton, TableSkeleton, FormSkeleton, KIcon },
+  components: {
+    Skeleton,
+    CardSkeleton,
+    TableSkeleton,
+    FormSkeleton,
+    FullScreenKongSkeleton,
+    KIcon
+  },
   props: {
     delayMilliseconds: {
       type: Number,
@@ -39,7 +50,19 @@ export default {
     type: {
       type: String,
       default: '',
-      validator: (val) => ['table', 'card', 'form', 'spinner', ''].indexOf(val) !== -1
+      validator: (val) => [
+        'table',
+        'card',
+        'form',
+        'spinner',
+        'fullscreen-kong',
+        '' // default Skeleton.vue
+      ].indexOf(val) !== -1
+    },
+    progress: {
+      type: Number,
+      required: false,
+      default: null
     },
     cardCount: {
       type: Number,
@@ -78,32 +101,55 @@ export default {
     display: inline-flex;
     border-radius: 3px;
     background: linear-gradient(
-      -70deg,
-      #f2f2f2 0%,
-      #f2f2f2 40%,
-      #f7f7f7 50%,
-      #f2f2f2 60%,
-      #f2f2f2 100%
-    ) repeat;
+        -70deg,
+        #f2f2f2 0%,
+        #f2f2f2 40%,
+        #f7f7f7 50%,
+        #f2f2f2 60%,
+        #f2f2f2 100%
+      )
+      repeat;
     background-size: 400% 100%;
     animation: gradient 1s ease infinite;
 
     // Provided box widths
     &.width {
-      &-1 { width: 1rem; }
-      &-2 { width: 2rem; }
-      &-5 { width: 5rem; }
-      &-6 { width: 6rem; }
-      &-10 { width: 10rem; }
-      &-12 { width: 12rem; }
-      &-50 { width: 50%; }
-      &-80 { width: 80%; }
-      &-100 { width: 100%; }
+      &-1 {
+        width: 1rem;
+      }
+      &-2 {
+        width: 2rem;
+      }
+      &-5 {
+        width: 5rem;
+      }
+      &-6 {
+        width: 6rem;
+      }
+      &-10 {
+        width: 10rem;
+      }
+      &-12 {
+        width: 12rem;
+      }
+      &-50 {
+        width: 50%;
+      }
+      &-80 {
+        width: 80%;
+      }
+      &-100 {
+        width: 100%;
+      }
     }
     // Provided box heights
     &.height {
-      &-1 { height: 1rem; }
-      &-2 { height: 2rem; }
+      &-1 {
+        height: 1rem;
+      }
+      &-2 {
+        height: 2rem;
+      }
     }
   }
 }
