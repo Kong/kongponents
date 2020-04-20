@@ -1,30 +1,25 @@
 import { mount } from '@vue/test-utils'
 import KState from '@/KState/KState'
+import KButton from '@/KButton/KButton'
 
 describe('KState', () => {
-  it('toggles content', () => {
+  it('has content', () => {
     const wrapper = mount(KState, {
       propsData: {
-        initialValue: 0
+        initialState: {count: 0}
       },
       scopedSlots: {
         default: function (props) {
-          return this.$createElement('button', {
-            props: props,
-            on: { click: props.update }
-          }, 'clicked me ' + props.state + ' times!')
+          return this.$createElement(KButton, {
+            props: props
+          }, 'clicked me ' + props.state.count + ' times!')
         }
       }
     })
 
     const button = wrapper.find('button')
 
-    expect(wrapper.vm.isToggled).toBe(false)
-    expect(button.text()).toBe('click me no')
-
-    button.trigger('click')
-
-    expect(wrapper.vm.isToggled).toBe(true)
-    expect(button.text()).toBe('click me yes')
+    expect(wrapper.vm.state.count).toBe(0)
+    expect(button.text()).toBe('clicked me 0 times!')
   })
 })
