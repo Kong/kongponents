@@ -1,0 +1,25 @@
+{
+  "name": "@kongponents/kstate",
+  "version": "0.1.0",
+  "description": "Provide toggle functionality to components.",
+  "main": "dist/KState.umd.min.js",
+  "componentName": "KState",
+  "source": "KState.js",
+  "files": [
+    "dist",
+    "KState.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kong/kongponents.git"
+  },
+  "author": "Kong Inc",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Kong/kongponents/issues"
+  },
+  "homepage": "https://github.com/Kong/kongponents#readme",
+  "publishConfig": {
+    "access": "public"
+  }
+}
