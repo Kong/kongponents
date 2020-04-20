@@ -2,17 +2,17 @@
   <div class="segmented-control d-flex" >
     <div
       v-for="item in options"
-      :key="item.label || item"
+      :key="label(item)"
       class="d-flex flex-grow-1"
     >
       <template>
         <KButton
           :disabled="isDisabled"
-          :appearance="selected===(item.value || item) ? 'primary' : 'outline-primary'"
+          :appearance="appearance(item)"
           class="justify-content-center"
-          @click="clicked(item.value || item)"
+          @click="clicked(value(item))"
         >
-          {{ item.label || item }}
+          {{ label(item) }}
         </KButton>
       </template>
     </div>
@@ -44,12 +44,27 @@ export default {
     }
   },
   methods: {
-    clicked (selectedValue) {
+    label (item) {
+      return item.label || item
+    },
+    value (item) {
+      return item.value || item
+    },
+    appearance (item) {
+      return this.selected === this.value(item) ? 'primary' : 'outline-primary'
+    },
+    clicked (item) {
       if (this.isDisabled) return
-      let value = selectedValue.value || selectedValue
-      if (this.selectedValue === value) value = ''
-      else this.selectedValue = value
-      this.$emit('clicked', value)
+      let newValue = this.value(item)
+      const isUnselecting = this.selectedValue === newValue
+      if (isUnselecting) {
+        this.selectedValue = ''
+
+        return this.$emit('clicked', '')
+      }
+
+      this.selectedValue = newValue
+      this.$emit('clicked', newValue)
     }
   }
 }
@@ -59,7 +74,6 @@ export default {
   border-radius: 0;
   margin-left: -1px;
   flex: 1;
-  text-transform: capitalize;
 }
 .segmented-control .k-button:first-child {
   border-radius: 3px 0 0 3px;

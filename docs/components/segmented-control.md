@@ -2,20 +2,20 @@
 
 **KSegmentedControl** is used a like radio button group and is meant to toggle between mutually exclusive options.
 
-<KState :initial-state="{ selected: 'yes' }">
+<KState :initial-state="{ selected: 'Like it?' }">
   <div slot-scope="{ state, update }">
     <KSegmentedControl
-        :options="['yes','no']"
+        :options="['Like it?','Love it!']"
         :selected="state.selected"
         @clicked="x => update({ selected:x })" />
   </div>
 </KState>
 
 ```vue
-<KState :initial-state="{ selected: 'yes' }">
+<KState :initial-state="{ selected: 'Like it?' }">
   <div slot-scope="{ state, update }">
     <KSegmentedControl
-        :options="['yes','no']"
+        :options="['Like it?','Love it!']"
         :selected="state.selected"
         @clicked="x => update({ selected:x })" />
   </div>
