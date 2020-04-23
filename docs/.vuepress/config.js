@@ -67,7 +67,8 @@ module.exports = {
             sidebarDepth: 1,
             children: [
               '/components/renderless/kclipboard',
-              '/components/renderless/ktoggle'
+              '/components/renderless/ktoggle',
+              '/components/renderless/kstate'
             ]
           }
         ]
