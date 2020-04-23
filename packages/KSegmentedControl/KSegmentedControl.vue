@@ -1,21 +1,15 @@
 <template>
   <div class="segmented-control d-flex" >
-    <div
+    <KButton
       v-for="item in options"
       :key="label(item)"
-      class="d-flex flex-grow-1"
+      :disabled="isDisabled"
+      :appearance="appearance(item)"
+      class="justify-content-center"
+      @click="click(value(item))"
     >
-      <template>
-        <KButton
-          :disabled="isDisabled"
-          :appearance="appearance(item)"
-          class="justify-content-center"
-          @click="click(value(item))"
-        >
-          {{ label(item) }}
-        </KButton>
-      </template>
-    </div>
+      {{ label(item) }}
+    </KButton>
   </div>
 </template>
 

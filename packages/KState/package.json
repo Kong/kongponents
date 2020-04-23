@@ -1,7 +1,7 @@
 {
   "name": "@kongponents/kstate",
   "version": "0.1.0",
-  "description": "Provide toggle functionality to components.",
+  "description": "Provide state functionality to components.",
   "main": "dist/KState.umd.min.js",
   "componentName": "KState",
   "source": "KState.js",
