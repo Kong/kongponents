@@ -12,7 +12,7 @@ Rebase regularly to keep the code history flat and readable. To open a PR, even 
 
 ## Commit Message Format
 
-We use [Convential Commits](https://www.conventionalcommits.org/en/v1.0.0/) for our [Lerna](https://lerna.js.org/) process as well as to maintain a healthy Git history. Please write your commit messages as follows:
+We use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for our [Lerna](https://lerna.js.org/) process as well as to maintain a healthy Git history. Please write your commit messages as follows:
 
   * Use *present tense*
   * Prefix your message with a [type](#type) and a [scope](#scope)
@@ -42,7 +42,7 @@ The type of your commit indicates what type of change this commit is about and h
 * *perf*: A code change that significantly improves performance
 * *refactor*: A code change that neither fixes a bug nor adds a feature, and is too big to be considered just perf
 * *chore*: Maintenance changes related to code cleaning that isn't considered part of a refactor, build process updates, dependency bumps, or auxiliary tools and libraries updates (e.g. Lerna, VuePress)
-See the [convential commits](https://www.conventionalcommits.org/en/v1.0.0/#summary) site for more details.
+See the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/#summary) site for more details.
 
 ### Scope
 
