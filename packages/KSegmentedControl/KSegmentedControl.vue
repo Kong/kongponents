@@ -3,7 +3,7 @@
     <KButton
       v-for="item in options"
       :key="label(item)"
-      :disabled="isDisabled"
+      :disabled="disabled(item)"
       :appearance="appearance(item)"
       class="justify-content-center"
       @click="click(value(item))"
@@ -50,6 +50,9 @@ export default {
     },
     appearance (item) {
       return this.selected === this.value(item) ? 'primary' : 'outline-primary'
+    },
+    disabled (item) {
+      return item.disabled || this.isDisabled
     },
     click (item) {
       if (this.isDisabled) return

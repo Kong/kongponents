@@ -120,7 +120,7 @@ export default {
 
 ### isDisabled
 
-You can pass in an optional flag to disable the popover - by default it is set to `false`.
+You can pass in an optional flag to disable the control - by default it is set to `false`.
 
 <KSegmentedControl
     :options="['On','Off']"
@@ -136,3 +136,24 @@ You can pass in an optional flag to disable the popover - by default it is set t
 />
 ```
 
+You can also pass in an optional flag to disable one button - by default it is set to `false`.
+
+<KState :initial-state="{ selected: '1' }">
+  <div slot-scope="{ state, update }">
+    <KSegmentedControl
+        :options="[{label:'pick me',value:'1'},{label:'disabled',value:'2',disabled: true},{label:'or me',value:'3'}]"
+        v-model="state.selected"
+        @click="x => update({ selected:x })" />
+  </div>
+</KState>
+
+```vue
+<KState :initial-state="{ selected: '1' }">
+  <div slot-scope="{ state, update }">
+    <KSegmentedControl
+        :options="[{label:'pick me',value:'1'},{label:'disabled',value:'2',disabled: true},{label:'or me',value:'3'}]"
+        v-model="state.selected"
+        @click="x => update({ selected:x })" />
+  </div>
+</KState>
+```
