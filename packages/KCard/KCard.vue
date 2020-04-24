@@ -43,7 +43,7 @@ export default {
       default: ''
     },
     /**
-      * Set top border or no border. If neither set defaut will have border<br>
+      * Set top border or no border. If neither set default will have border<br>
       * Options: [borderTop, noBorder]
       */
     borderVariant: {

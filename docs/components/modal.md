@@ -65,7 +65,7 @@ Using both the provided props and slot options we will now demonstrate how to cu
     actionButtonAppearance="danger"
     @canceled="slottedIsOpen = false">
     <template slot="header-content">Delete Item</template>
-    <template slot="body-content">Are you sure you wan't to delete this item? This action can not be undone.</template>
+    <template slot="body-content">Are you sure you want to delete this item? This action can not be undone.</template>
   </KModal>
 </template>
 
@@ -77,7 +77,7 @@ Using both the provided props and slot options we will now demonstrate how to cu
     actionButtonAppearance="danger"
     @canceled="slottedIsOpen = false">
     <template slot="header-content">Delete Item</template>
-    <template slot="body-content">Are you sure you wan't to delete this item? This action can not be undone.</template>
+    <template slot="body-content">Are you sure you want to delete this item? This action can not be undone.</template>
   </KModal>
 </template>
 ```

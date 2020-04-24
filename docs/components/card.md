@@ -29,7 +29,7 @@ String to be used in the title slot.
 </KCard>
 ```
 
-If the title is ommitted, then KCard acts as a generic Box element.
+If the title is omitted, then KCard acts as a generic Box element.
 
 <KCard>
   <template slot="body">
