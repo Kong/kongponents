@@ -1,6 +1,6 @@
 # Komponent
 
-Holds state for presentation components.
+Handy state abstraction for presentation components.
 
 e.g.
 
@@ -27,7 +27,7 @@ e.g.
 
 ## Props
 
-### initial-state
+### data
 
 The state that the component should begin with.
 
@@ -37,12 +37,11 @@ The state that the component should begin with.
 
 - `default` - content to provide state to.
 
-## Slot Methods
+## Slot Props
 
-| Methods       | Type     | Description                     |
+| Props       | Type     | Description                     |
 | :---------- | :------- | :------------------------------ |
-| `state` | Object  | key value pair |
-| `update`    | Function | function to change the current value             |
+| `data` | Object  | reactive component state |
 
 ## Usage
 
