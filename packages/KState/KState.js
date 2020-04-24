@@ -1,6 +1,6 @@
 export default {
   props: {
-    initialState: {
+    data: {
       type: Object,
       required: true
     }
@@ -8,20 +8,15 @@ export default {
 
   data () {
     return {
-      state: this.initialState
+      ...this.data
     }
   },
-
-  methods: {
-    update (newState) {
-      this.state = Object.assign(this.state, newState)
-    }
-  },
+  created () { this.$emit('created') },
+  mounted () { this.$emit('mounted') },
 
   render () {
     return this.$scopedSlots.default({
-      state: this.state,
-      update: this.update
+      data: this.$data
     })
   }
 }
