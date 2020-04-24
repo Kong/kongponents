@@ -68,7 +68,7 @@ module.exports = {
             children: [
               '/components/renderless/kclipboard',
               '/components/renderless/ktoggle',
-              '/components/renderless/kstate'
+              '/components/renderless/komponent'
             ]
           }
         ]

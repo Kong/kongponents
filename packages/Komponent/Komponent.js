@@ -11,8 +11,6 @@ export default {
       ...this.data
     }
   },
-  created () { this.$emit('created') },
-  mounted () { this.$emit('mounted') },
 
   render () {
     return this.$scopedSlots.default({

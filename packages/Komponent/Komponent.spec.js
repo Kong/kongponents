@@ -1,10 +1,10 @@
 import { mount } from '@vue/test-utils'
-import KState from '@/KState/KState'
+import Komponent from '@/Komponent/Komponent'
 import KButton from '@/KButton/KButton'
 
-describe('KState', () => {
+describe('Komponent', () => {
   it('has content', () => {
-    const wrapper = mount(KState, {
+    const wrapper = mount(Komponent, {
       propsData: {
         initialState: {count: 0}
       },

@@ -1,4 +1,4 @@
-# KState
+# Komponent
 
 Holds state for presentation components.
 
@@ -7,22 +7,22 @@ e.g.
 - counter
 - selected value
 
-<KState :data="{ count: 0 }" v-slot="{ data }">
+<Komponent :data="{ count: 0 }" v-slot="{ data }">
   <div>
     <KButton @click="data.count = data.count - 1">-</KButton>
     {{ data.count }}
     <KButton @click="data.count = data.count + 1">+</KButton>
   </div>
-</KState>
+</Komponent>
 
 ```vue
-<KState :data="{ count: 0 }" v-slot="{ data }">
+<Komponent :data="{ count: 0 }" v-slot="{ data }">
   <div>
     <KButton @click="data.count = data.count - 1">-</KButton>
     {{ data.count }}
     <KButton @click="data.count = data.count + 1">+</KButton>
   </div>
-</KState>
+</Komponent>
 ```
 
 ## Props
@@ -46,15 +46,15 @@ The state that the component should begin with.
 
 ## Usage
 
-KState is meant to be used to add behavior to other components, by wrapping
-them and placing them inside `KState`'s default slot.
+Komponent is meant to be used to add behavior to other components, by wrapping
+them and placing them inside `Komponent`'s default slot.
 
 
 ### Select
 
 <KCard class="mt-2" style="min-height: 100px;">
   <div slot="body">
-    <KState :data="{ selected: '' }" v-slot="{ data }">
+    <Komponent :data="{ selected: '' }" v-slot="{ data }">
       <div>
         <label for="apes">What's your favorite great ape?</label>
         <select id="apes" v-model="data.selected" onchange="s => data.selected = s">
@@ -66,14 +66,14 @@ them and placing them inside `KState`'s default slot.
         </select>
         <i v-if="data.selected">{{ data.selected }} are neat!</i>
       </div>
-    </KState>
+    </Komponent>
   </div>
 </KCard>
 
 ```vue
 <KCard class="mt-2" style="min-height: 100px;">
   <div slot="body">
-    <KState :data="{ selected: '' }" v-slot="{ data }">
+    <Komponent :data="{ selected: '' }" v-slot="{ data }">
       <div>
         <label for="apes">What's your favorite great ape?</label>
         <select id="apes" v-model="data.selected" onchange="s => data.selected = s">
@@ -85,7 +85,7 @@ them and placing them inside `KState`'s default slot.
         </select>
         <i v-if="data.selected">{{ data.selected }} are neat!</i>
       </div>
-    </KState>
+    </Komponent>
   </div>
 </KCard>
 ```

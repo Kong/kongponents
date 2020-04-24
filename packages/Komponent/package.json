@@ -1,13 +1,13 @@
 {
-  "name": "@kongponents/kstate",
+  "name": "@kongponents/komponent",
   "version": "0.1.0",
-  "description": "Provide toggle functionality to components.",
-  "main": "dist/KState.umd.min.js",
-  "componentName": "KState",
-  "source": "KState.js",
+  "description": "Expose reactive state to components.",
+  "main": "dist/Komponent.umd.min.js",
+  "componentName": "Komponent",
+  "source": "Komponent.js",
   "files": [
     "dist",
-    "KState.js"
+    "Komponent.js"
   ],
   "repository": {
     "type": "git",
