@@ -2,24 +2,20 @@
 
 **KSegmentedControl** is used a like radio button group and is meant to toggle between mutually exclusive options.
 
-<KState :initial-state="{ selected: 'Like it?' }">
-  <div slot-scope="{ state, update }">
-    <KSegmentedControl
-        :options="['Like it?','Love it!']"
-        v-model="state.selected"
-        @click="x => update({ selected:x })" />
-  </div>
-</KState>
+<Komponent :data="{ selected: 'Like it?' }" v-slot="{ data }">
+  <KSegmentedControl
+      :options="['Like it?','Love it!']"
+      v-model="data.selected"
+      @click="x => data.selected = x" />
+</Komponent>
 
 ```vue
-<KState :initial-state="{ selected: 'Like it?' }">
-  <div slot-scope="{ state, update }">
-    <KSegmentedControl
-        :options="['Like it?','Love it!']"
-        v-model="state.selected"
-        @click="x => update({ selected:x })" />
-  </div>
-</KState>
+<Komponent :data="{ selected: 'Like it?' }" v-slot="{ data }">
+  <KSegmentedControl
+      :options="['Like it?','Love it!']"
+      v-model="data.selected"
+      @click="x => data.selected = x" />
+</Komponent>
 ```
 
 ## Props
@@ -28,64 +24,52 @@
 
 An array of options for each button, can also be provided as a json key value pair in order to use a custom label.
 
-<KState :initial-state="{ selected: 'left' }">
-  <div slot-scope="{ state, update }">
-    <KSegmentedControl
-        :options="[{label:'◀️',value:'left'},{label:'▶️',value:'right'}]"
-        v-model="state.selected"
-        @click="x => update({ selected:x })" />
-  </div>
-</KState>
-
+<Komponent :data="{ selected: 'left' }" v-slot="{ data }">
+  <KSegmentedControl
+      :options="[{label:'◀️',value:'left'},{label:'▶️',value:'right'}]"
+      v-model="data.selected"
+      @click="x => data.selected = x" />
+</Komponent>
 
 ```vue
-<KState :initial-state="{ selected: 'left' }">
-  <div slot-scope="{ state, update }">
-    <KSegmentedControl
-        :options="[{label:'◀️',value:'left'},{label:'▶️',value:'right'}]"
-        v-model="state.selected"
-        @click="x => update({ selected:x })" />
-  </div>
-</KState>
+<Komponent :data="{ selected: 'left' }" v-slot="{ data }">
+  <KSegmentedControl
+      :options="[{label:'◀️',value:'left'},{label:'▶️',value:'right'}]"
+      v-model="data.selected"
+      @click="x => data.selected = x" />
+</Komponent>
 ```
 
 ### selected
 
 The value of the option which is currently selected.
 
-<KState :initial-state="{ selected: '5m' }">
-  <div slot-scope="{ state, update }">
-    <KSegmentedControl
-        :options="['5m','30m','1h','6h','24h','all']"
-        v-model="state.selected"
-        @click="x => update({ selected:x })" />
-  </div>
-</KState>
+<Komponent :data="{ selected: '5m' }" v-slot="{ data }">
+  <KSegmentedControl
+      :options="['5m','30m','1h','6h','24h','all']"
+      v-model="data.selected"
+      @click="x => data.selected = x" />
+</Komponent>
 
 ```vue
-<KState :initial-state="{ selected: '5m' }">
-  <div slot-scope="{ state, update }">
-    <KSegmentedControl
-        :options="['5m','30m','1h','6h','24h','all']"
-        v-model="state.selected"
-        @click="x => update({ selected:x })" />
-  </div>
-</KState>
+<Komponent :data="{ selected: '5m' }" v-slot="{ data }">
+  <KSegmentedControl
+      :options="['5m','30m','1h','6h','24h','all']"
+      v-model="data.selected"
+      @click="x => data.selected = x" />
+</Komponent>
 ```
 
 ### click
 
 A function which will be called when the control is used providing the selected option in its argument.
 
-
-<KState :initial-state="{ selected: 'On' }">
-  <div slot-scope="{ state, update }">
-    <KSegmentedControl
-        :options="['On','Off']"
-        v-model="state.selected"
-        @click="x => update({ selected:x }) || sayHello(x)" />
-  </div>
-</KState>
+<Komponent :data="{ selected: 'On' }" v-slot="{ data }">
+  <KSegmentedControl
+      :options="['On','Off']"
+      v-model="data.selected"
+      @click="x => sayHello(x) || (data.selected = x)" />
+</Komponent>
 
 <script>
 export default {
@@ -98,14 +82,12 @@ export default {
 </script>
 
 ```vue
-<KState :initial-state="{ selected: 'On' }">
-  <div slot-scope="{ state, update }">
-    <KSegmentedControl
-        :options="['On','Off']"
-        v-model="state.selected"
-        @click="x => update({ selected:x }) || sayHello(x)" />
-  </div>
-</KState>
+<Komponent :data="{ selected: 'On' }" v-slot="{ data }">
+  <KSegmentedControl
+      :options="['On','Off']"
+      v-model="data.selected"
+      @click="x => sayHello(x) || (data.selected = x)" />
+</Komponent>
 
 <script>
 export default {
@@ -138,22 +120,18 @@ You can pass in an optional flag to disable the control - by default it is set t
 
 You can also pass in an optional flag to disable one button - by default it is set to `false`.
 
-<KState :initial-state="{ selected: '1' }">
-  <div slot-scope="{ state, update }">
-    <KSegmentedControl
+<Komponent :data="{ selected: '1' }" v-slot="{ data }">
+  <KSegmentedControl
         :options="[{label:'pick me',value:'1'},{label:'disabled',value:'2',disabled: true},{label:'or me',value:'3'}]"
-        v-model="state.selected"
-        @click="x => update({ selected:x })" />
-  </div>
-</KState>
+      v-model="data.selected"
+      @click="x => data.selected = x" />
+</Komponent>
 
 ```vue
-<KState :initial-state="{ selected: '1' }">
-  <div slot-scope="{ state, update }">
-    <KSegmentedControl
+<Komponent :data="{ selected: '1' }" v-slot="{ data }">
+  <KSegmentedControl
         :options="[{label:'pick me',value:'1'},{label:'disabled',value:'2',disabled: true},{label:'or me',value:'3'}]"
-        v-model="state.selected"
-        @click="x => update({ selected:x })" />
-  </div>
-</KState>
+      v-model="data.selected"
+      @click="x => data.selected = x" />
+</Komponent>
 ```

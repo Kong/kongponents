@@ -51,7 +51,6 @@ export default ({
   Vue.component('Krumbs', Krumbs)
   Vue.component('Komponent', Komponent)
   Vue.component('KSegmentedControl', KSegmentedControl)
-  Vue.component('KState', KState)
   Vue.component('KTabs', KTabs)
   Vue.component('KTable', KTable)
   Vue.component('KToggle', KToggle)
