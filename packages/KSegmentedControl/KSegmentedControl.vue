@@ -3,10 +3,11 @@
     <KButton
       v-for="item in options"
       :key="label(item)"
+      :name="value(item)"
       :disabled="disabled(item)"
       :appearance="appearance(item)"
       class="justify-content-center"
-      @click="click(value(item))"
+      v-on="listeners"
     >
       {{ label(item) }}
     </KButton>
@@ -20,7 +21,7 @@ export default {
   components: { KButton },
   model: {
     prop: 'selected',
-    event: 'change'
+    event: 'click'
   },
   props: {
     options: {
@@ -41,6 +42,16 @@ export default {
       selectedValue: this.selected
     }
   },
+  computed: {
+    listeners () {
+      return {
+        ...this.$listeners,
+        click: e => {
+          this.$emit('click', e.target.name)
+        }
+      }
+    }
+  },
   methods: {
     label (item) {
       return item.label || item
@@ -53,13 +64,6 @@ export default {
     },
     disabled (item) {
       return item.disabled || this.isDisabled
-    },
-    click (item) {
-      if (this.isDisabled) return
-      let newValue = this.value(item)
-
-      this.selectedValue = newValue
-      this.$emit('click', newValue)
     }
   }
 }

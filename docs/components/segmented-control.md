@@ -40,7 +40,7 @@ An array of options for each button, can also be provided as a json key value pa
 </Komponent>
 ```
 
-### selected
+### v-model - required
 
 The value of the option which is currently selected.
 
@@ -60,9 +60,7 @@ The value of the option which is currently selected.
 </Komponent>
 ```
 
-### click
-
-A function which will be called when the control is used providing the selected option in its argument.
+### Listeners
 
 <Komponent :data="{ selected: 'On' }" v-slot="{ data }">
   <KSegmentedControl
@@ -86,13 +84,15 @@ export default {
   <KSegmentedControl
       :options="['On','Off']"
       v-model="data.selected"
-      @click="x => sayHello(x) || (data.selected = x)" />
+      @click="state => sayHello(state, data)" />
 </Komponent>
 
 <script>
 export default {
   methods: {
-    sayHello (state) {
+    sayHello (state, data) {
+      console.log(state,data)
+      data.selected = state
       alert('hello! the state is set to: ' + state)
     }
   }
@@ -102,7 +102,7 @@ export default {
 
 ### isDisabled
 
-You can pass in an optional flag to disable the control - by default it is set to `false`.
+You can pass in an optional flag to disable the control or an individual button - by default it is set to `false`.
 
 <KSegmentedControl
     :options="['On','Off']"
@@ -118,11 +118,9 @@ You can pass in an optional flag to disable the control - by default it is set t
 />
 ```
 
-You can also pass in an optional flag to disable one button - by default it is set to `false`.
-
 <Komponent :data="{ selected: '1' }" v-slot="{ data }">
   <KSegmentedControl
-        :options="[{label:'pick me',value:'1'},{label:'disabled',value:'2',disabled: true},{label:'or me',value:'3'}]"
+      :options="[{label:'pick me',value:'1'},{label:'disabled',value:'2',disabled: true},{label:'or me',value:'3'}]"
       v-model="data.selected"
       @click="x => data.selected = x" />
 </Komponent>
@@ -130,7 +128,7 @@ You can also pass in an optional flag to disable one button - by default it is s
 ```vue
 <Komponent :data="{ selected: '1' }" v-slot="{ data }">
   <KSegmentedControl
-        :options="[{label:'pick me',value:'1'},{label:'disabled',value:'2',disabled: true},{label:'or me',value:'3'}]"
+      :options="[{label:'pick me',value:'1'},{label:'disabled',value:'2',disabled: true},{label:'or me',value:'3'}]"
       v-model="data.selected"
       @click="x => data.selected = x" />
 </Komponent>
