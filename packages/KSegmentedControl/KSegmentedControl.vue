@@ -29,7 +29,7 @@ export default {
     },
     selected: {
       type: [String, Number, Boolean],
-      default: null
+      required: true
     },
     isDisabled: {
       type: Boolean,
@@ -57,12 +57,6 @@ export default {
     click (item) {
       if (this.isDisabled) return
       let newValue = this.value(item)
-      const isUnselecting = this.selectedValue === newValue
-      if (isUnselecting) {
-        this.selectedValue = ''
-
-        return this.$emit('click', '')
-      }
 
       this.selectedValue = newValue
       this.$emit('click', newValue)
