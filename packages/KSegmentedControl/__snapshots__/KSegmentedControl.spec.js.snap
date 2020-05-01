@@ -1,12 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`KSegmentedControl matches snapshot 1`] = `
-<div class="segmented-control d-flex">
-  <div class="d-flex flex-grow-1"><button type="button" class="k-button justify-content-center outline-primary">
-      1
-    </button></div>
-  <div class="d-flex flex-grow-1"><button type="button" class="k-button justify-content-center outline-primary">
-      2
-    </button></div>
-</div>
+<div class="segmented-control d-flex"><button type="button" class="k-button justify-content-center outline-primary" name="1">
+    1
+  </button><button type="button" class="k-button justify-content-center outline-primary" name="2">
+    2
+  </button></div>
 `;
