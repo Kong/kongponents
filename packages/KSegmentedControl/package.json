@@ -1,7 +1,7 @@
 {
   "name": "@kongponents/ksegmentedcontrol",
   "version": "0.1.1",
-  "description": "Segmented Control component",
+  "description": "Segmented Control component.",
   "main": "dist/KSegmentedControl.umd.min.js",
   "componentName": "KSegmentedControl",
   "source": "KSegmentedControl.vue",
@@ -22,5 +22,8 @@
   "dependencies": {
     "@kongponents/kbutton": "^0.1.15",
     "@kongponents/ktoggle": "^0.1.5"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
