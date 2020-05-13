@@ -1,6 +1,5 @@
 import { mount } from '@vue/test-utils'
 import { default as KDropdown, alignments } from './KDropdown.vue'
-import KIcon from '../KIcon/KIcon.vue'
 
 const Alignments = Object.keys(alignments)
 
