@@ -4,10 +4,11 @@
   "description": "Loading/Skeleton state component",
   "main": "dist/KSkeleton.umd.min.js",
   "componentName": "KSkeleton",
-  "source": "KSkeleton.vue",
+  "source": "index.js",
   "files": [
     "dist",
-    "KSkeleton.vue"
+    "*.vue",
+    "index.js"
   ],
   "repository": {
     "type": "git",

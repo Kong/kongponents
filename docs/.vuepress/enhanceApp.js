@@ -26,6 +26,7 @@ import KToggle from '../../packages/KToggle/KToggle.js'
 import Komponent from '../../packages/Komponent/Komponent.js'
 import KSlideout from '../../packages/KSlideout/KSlideout.vue'
 import KSkeleton from '../../packages/KSkeleton/KSkeleton.vue'
+import KSkeletonBox from '../../packages/KSkeleton/KSkeletonBox.vue'
 
 export default ({
   Vue,
@@ -56,6 +57,7 @@ export default ({
   Vue.component('KToggle', KToggle)
   Vue.component('KSlideout', KSlideout)
   Vue.component('KSkeleton', KSkeleton)
+  Vue.component('KSkeletonBox', KSkeletonBox)
 
   Vue.prototype.$icons = Object.keys(icons)
 }

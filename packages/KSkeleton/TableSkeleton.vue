@@ -1,26 +1,33 @@
-<template functional>
+<template>
   <div class="skeleton-table-wrapper">
     <div
-      v-for="row in props.rows"
+      v-for="row in rows"
       :key="row"
       class="skeleton-table-row">
-      <div
-        v-for="cell in props.columns"
-        :key="cell"
-        :class="{
-          'mr-6': cell !== props.columns,
-          'ml-auto': cell === props.columns,
-          'width-10': [3,4].indexOf(cell) === -1 && cell !== props.columns,
-          'width-6': [3,4].indexOf(cell) > -1 || cell === props.columns
-        }"
-        class="box height-1 skeleton-cell"/>
+      <slot>
+        <KSkeletonBox
+          v-for="cell in columns"
+          :key="cell"
+          :width="calcWidth(cell, columns)"
+          :class="{
+            'mr-6': cell !== columns,
+            'ml-auto': cell === columns,
+            'skeleton-cell': true
+          }"
+        />
+      </slot>
     </div>
   </div>
 </template>
 
 <script>
+import KSkeletonBox from './KSkeletonBox'
+
 export default {
   name: 'TableSkeleton',
+  components: {
+    KSkeletonBox
+  },
   props: {
     rows: {
       type: Number,
@@ -29,6 +36,13 @@ export default {
     columns: {
       type: Number,
       default: 6
+    }
+  },
+
+  methods: {
+    calcWidth (cell, columns) {
+      if ([3, 4].indexOf(cell) === -1 && cell !== columns) return '10'
+      if ([3, 4].indexOf(cell) > -1 || cell === columns) return '6'
     }
   }
 }

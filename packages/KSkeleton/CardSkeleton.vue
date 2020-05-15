@@ -1,22 +1,33 @@
-<template functional>
+<template>
   <div class="skeleton-card-wrapper">
     <div
-      v-for="c in props.cardCount"
+      v-for="c in cardCount"
       :key="c"
       class="skeleton-card-column">
       <div class="skeleton-card">
         <div class="skeleton-card-header">
-          <div class="box width-2 height-2" />
-          <div class="box width-10 height-2" />
+          <slot name="card-header">
+            <KSkeletonBox
+              height="2"
+              width="2" />
+            <KSkeletonBox
+              class="ml-2"
+              width="10"
+              height="2" />
+            <hr class="mb-0">
+          </slot>
         </div>
-        <div class="skeleton-card-subheader">
-          <div class="box width-6 height-1" />
-          <div class="box width-6 height-1" />
+        <div class="skeleton-card-content">
+          <slot name="card-content">
+            <KSkeletonBox
+              width="10" />
+          </slot>
         </div>
         <div class="skeleton-card-footer">
-          <div class="box width-5 height-1" />
-          <div class="box width-5 height-1" />
-          <div class="box width-5 height-1" />
+          <slot name="card-footer">
+            <KSkeletonBox width="5" />
+            <KSkeletonBox width="5" />
+          </slot>
         </div>
       </div>
     </div>
@@ -24,8 +35,11 @@
 </template>
 
 <script>
+import KSkeletonBox from './KSkeletonBox'
+
 export default {
   name: 'CardSkeleton',
+  components: { KSkeletonBox },
   props: {
     cardCount: {
       type: Number,
@@ -44,9 +58,9 @@ $borderColor: #e6e6e6;
 }
 
 .skeleton-card-column {
-  width: 33.33%;
   padding: 0 1rem 0 0;
   margin-bottom: 1rem;
+  width: var(--KSkeletonCardWidth, 33%);
 }
 
 .skeleton-card {
@@ -58,14 +72,9 @@ $borderColor: #e6e6e6;
   border: 1px solid $borderColor;
   .skeleton-card-header {
     width: 100%;
-    padding-bottom: 1rem;
     margin-bottom: 1rem;
-    border-bottom: 1px dotted $borderColor;
-    > div:nth-of-type(2) {
-      margin-left: 1rem;
-    }
   }
-  .skeleton-card-subheader {
+  .skeleton-card-content {
     display: flex;
     justify-content: space-between;
   }
@@ -76,7 +85,6 @@ $borderColor: #e6e6e6;
     width: 100%;
     margin-top: auto;
     padding-top: 1rem;
-    border-top: 1px solid $borderColor;
   }
 }
 </style>

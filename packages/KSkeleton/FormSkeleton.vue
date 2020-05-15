@@ -1,27 +1,46 @@
-<template functional>
+<template>
   <div class="skeleton-form-wrapper">
     <div class="skeleton-form-row">
-      <div class="box width-10 height-1" />
-      <div class="box width-100 height-2" />
+      <KSkeletonBox
+        width="10"
+        height="1" />
+      <KSkeletonBox
+        width="100"
+        height="2" />
     </div>
     <div class="skeleton-form-row">
-      <div class="box width-10 height-1" />
-      <div class="box width-100 height-2" />
+      <KSkeletonBox
+        width="10"
+        height="1" />
+      <KSkeletonBox
+        width="100"
+        height="2" />
     </div>
     <div class="skeleton-form-row">
-      <div class="box width-10 height-1" />
-      <div class="box width-100 height-2" />
+      <KSkeletonBox
+        width="10"
+        height="1" />
+      <KSkeletonBox
+        width="100"
+        height="2" />
     </div>
     <div class="skeleton-form-row">
-      <div class="box width-10 height-1" />
-      <div class="box width-100 height-2" />
+      <KSkeletonBox
+        width="10"
+        height="1" />
+      <KSkeletonBox
+        width="100"
+        height="2" />
     </div>
   </div>
 </template>
 
 <script>
+import KSkeletonBox from './KSkeletonBox'
+
 export default {
-  name: 'FormSkeleton'
+  name: 'FormSkeleton',
+  components: { KSkeletonBox }
 }
 </script>
 
