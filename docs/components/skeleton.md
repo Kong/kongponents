@@ -173,6 +173,15 @@ KSkeleton package uses a component to render the placeholder content
 `<KSkeletonBox>`. It can be used as a component primitive to create your own
 custom placeholder components.
 
+### Props
+
+
+| Prop   | Allowed Values                                              | Description                                  |
+| :----- | :---------------------------------------------------------- | -------------------------------------------- |
+| width  | '1' (default), '2', '5', '6', '10', '50', '75', '100'       | Width of the skeleton box in relative units. Values 10, 50, 75, 100 are percentage based. |
+| height | '1' (default), '2'                                          | Height of the skeleton box in relative units |
+
+
 <KSkeletonBox />
 <KSkeletonBox width="2" height="2"/>
 <KSkeletonBox width="5" height="2"/>
@@ -193,8 +202,8 @@ For example, here is a card skeleton with different arrangement of placeholders:
 <template>
   <KSkeleton class="k-skeleton-modified" type="card" :card-count="3">
     <template slot="card-header">
-      <div>
-        <div class="d-flex justify-content-center pb-3">
+      <div class="w-100">
+        <div class="justify-content-center pb-3">
           <KSkeletonBox width="5" />
         </div>
         <hr>
@@ -216,7 +225,7 @@ For example, here is a card skeleton with different arrangement of placeholders:
 ```vue
 <KSkeleton type="card" :card-count="3">
   <template slot="card-header">
-    <div>
+    <div class="w-100">
       <div class="d-flex justify-content-center pb-2">
         <KSkeletonBox width="5" />
       </div>

@@ -9,18 +9,17 @@
           <slot name="card-header">
             <KSkeletonBox
               height="2"
-              width="2" />
+              width="25" />
             <KSkeletonBox
               class="ml-2"
-              width="10"
+              width="75"
               height="2" />
             <hr class="mb-0">
           </slot>
         </div>
         <div class="skeleton-card-content">
           <slot name="card-content">
-            <KSkeletonBox
-              width="10" />
+            <KSkeletonBox width="10" />
           </slot>
         </div>
         <div class="skeleton-card-footer">
@@ -70,9 +69,11 @@ $borderColor: #e6e6e6;
   padding: 1rem;
   border-radius: 3px;
   border: 1px solid $borderColor;
+  overflow: hidden;
   .skeleton-card-header {
     width: 100%;
     margin-bottom: 1rem;
+    display: flex;
   }
   .skeleton-card-content {
     display: flex;

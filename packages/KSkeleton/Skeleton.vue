@@ -8,7 +8,7 @@
         width="100"
         height="1"/>
       <KSkeletonBox
-        width="80"
+        width="75"
         height="1"/>
     </slot>
   </div>

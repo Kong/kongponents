@@ -13,14 +13,14 @@ export default {
       type: String,
       default: '1',
       validator: function (val) {
-        return ['1', '2', '5', '6', '10', '12', '50', '80', '100'].includes(val)
+        return ['1', '2', '5', '6', '10', '12', '25', '50', '75', '100'].includes(val)
       }
     },
     height: {
       type: String,
       default: '1',
       validator: function (val) {
-        return ['1', '2', '100'].includes(val)
+        return ['1', '2'].includes(val)
       }
     }
   }
@@ -58,15 +58,15 @@ export default {
       width: 6rem;
     }
     &-10 {
-      width: 10rem;
+      width: 25%;
     }
-    &-12 {
-      width: 12rem;
+    &-25 {
+      width: 25%;
     }
     &-50 {
       width: 50%;
     }
-    &-80 {
+    &-75 {
       width: 80%;
     }
     &-100 {
@@ -80,9 +80,6 @@ export default {
     }
     &-2 {
       height: 2rem;
-    }
-    &-100 {
-      height: 100%;
     }
   }
 }
