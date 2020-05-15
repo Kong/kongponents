@@ -18,7 +18,8 @@ describe('KSegmentedControl', () => {
   })
 
   it('matches snapshot', () => {
-    const wrapper = mount(KSegmentedControl, {propsData: {options: ['1', '2']}})
+    const wrapper = mount(KSegmentedControl, {
+      propsData: { options: ['1', '2'], selected: '1' }})
 
     expect(wrapper.html()).toMatchSnapshot()
   })
