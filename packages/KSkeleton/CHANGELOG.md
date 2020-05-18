@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/Kong/kongponents/compare/@kongponents/kskeleton@0.2.1...@kongponents/kskeleton@0.3.0) (2020-05-18)
+
+
+### Features
+
+* **skeleton:** add box primitive ([#213](https://github.com/Kong/kongponents/issues/213)) ([dd0681e](https://github.com/Kong/kongponents/commit/dd0681e715df5d92c36bb25304fd69cdcb0e7830))
+
+
+
+
+
 ## [0.2.1](https://github.com/Kong/kongponents/compare/@kongponents/kskeleton@0.2.0...@kongponents/kskeleton@0.2.1) (2020-04-20)
 
 **Note:** Version bump only for package @kongponents/kskeleton
