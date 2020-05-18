@@ -6,7 +6,9 @@
 ### type
 - `type`
 
-There are 5 different types of loading states that KSkeleton supports: Card, Table, Form, Spinner and a generic loading state. Defaults to a generic loading state. The following example shows a Form type KSKeleton.
+There are 5 different types of loading states that KSkeleton supports: Card, 
+Table, Form, Spinner and a generic loading state. Defaults to a generic loading 
+state. The following example shows a Form type KSKeleton.
 
 <template>
   <KSkeleton type="form" />
@@ -165,12 +167,146 @@ to perform any expensive querying on first load.
 </template>
 ```
 
+## KSkeletonBox
+
+KSkeleton package uses a component to render the placeholder content 
+`<KSkeletonBox>`. It can be used as a component primitive to create your own
+custom placeholder components.
+
+### Props
+
+
+| Prop   | Allowed Values                                              | Description                                  |
+| :----- | :---------------------------------------------------------- | -------------------------------------------- |
+| width  | '1' (default), '2', '5', '6', '10', '50', '75', '100'       | Width of the skeleton box in relative units. Values 10, 50, 75, 100 are percentage based. |
+| height | '1' (default), '2'                                          | Height of the skeleton box in relative units |
+
+
+<KSkeletonBox />
+<KSkeletonBox width="2" height="2"/>
+<KSkeletonBox width="5" height="2"/>
+<KSkeletonBox width="50" height="1"/>
+<KSkeletonBox width="100" height="2"/>
+
+```vue
+<KSkeletonBox />
+<KSkeletonBox width="2" height="2"/>
+<KSkeletonBox width="5" height="2"/>
+<KSkeletonBox width="50" height="1"/>
+<KSkeletonBox width="100" height="2"/>
+```
+
+
+For example, here is a card skeleton with different arrangement of placeholders:
+
+<template>
+  <KSkeleton class="k-skeleton-modified" type="card" :card-count="3">
+    <template slot="card-header">
+      <div class="w-100">
+        <div class="justify-content-center pb-3">
+          <KSkeletonBox width="5" />
+        </div>
+        <hr>
+      </div>
+    </template>
+    <template slot="card-content">
+      <KSkeletonBox width="100"/>
+    </template>
+    <template slot="card-footer">
+      <div class="w-100">
+        <div class="d-flex justify-content-center">
+          <KSkeletonBox width="5" />
+        </div>
+      </div>
+    </template>
+  </KSkeleton>
+</template>
+
+```vue
+<KSkeleton type="card" :card-count="3">
+  <template slot="card-header">
+    <div class="w-100">
+      <div class="d-flex justify-content-center pb-2">
+        <KSkeletonBox width="5" />
+      </div>
+      <hr>
+    </div>
+  </template>
+  <template slot="card-footer">
+    <div class="w-100">
+      <div class="d-flex justify-content-center pb-2">
+        <KSkeletonBox width="5" />
+      </div>
+    </div>
+  </template>
+</KSkeleton>
+```
+
+And another example:
+
+<template>
+  <KSkeleton type="card">
+    <template slot="card-header">
+      <div>
+        <div class="d-flex justify-content-center pb-2">
+          <KSkeletonBox width="5" />
+        </div>
+        <hr>
+      </div>
+    </template>
+    <template slot="card-content">
+      <div class="d-block">
+        <template v-for="i in 8">
+          <KSkeletonBox width="5" />
+          <KSkeletonBox width="5" />
+          <KSkeletonBox width="1" />
+          <KSkeletonBox width="2" />
+        </template>
+      </div>
+    </template>
+    <template slot="card-footer">
+      <KSkeletonBox width="100" />
+    </template>
+  </KSkeleton>
+</template>
+
+
+```vue
+<KSkeleton type="card">
+  <template slot="card-header">
+    <div>
+      <div class="d-flex justify-content-center pb-2">
+        <KSkeletonBox width="5" />
+      </div>
+      <hr>
+    </div>
+  </template>
+  <template slot="card-content">
+    <div class="d-block">
+      <template v-for="i in 8">
+        <KSkeletonBox width="5" />
+        <KSkeletonBox width="5" />
+        <KSkeletonBox width="1" />
+        <KSkeletonBox width="2" />
+      </template>
+    </div>
+  </template>
+  <template slot="card-footer">
+    <KSkeletonBox width="100" />
+  </template>
+</KSkeleton>
+```
+
+
+
+
 ## Theming
 
 | Variable                             | Purpose                                                                                                                                                                    |
 | :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--KSkeletonFullScreenMargin`        | Margin around full screen variant. Useful for when you want to show full screen loader under header or next to sidebar since the full screen component has fixed position. |
 | `--KSkeletonFullScreenProgressColor` | Progress bar fill color.                                                                                                                                                   |
+| `--KSkeletonCardWidth`               | Width of the card. Default is 33%                                                                                                                                          |
 
 ### Examples
 
@@ -225,5 +361,8 @@ export default {
 .k-skeleton-full-screen-margin {
   --KSkeletonFullScreenMargin: 58px 0 0;
   --KSkeletonFullScreenProgressColor: var(--tblack-70);
+}
+.k-skeleton-modified {
+  --KSkeletonCardWidth: 30%;
 }
 </style>

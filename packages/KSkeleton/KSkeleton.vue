@@ -2,14 +2,26 @@
   <div
     v-if="isVisible || delayMilliseconds === 0"
     :class="{ 'w-100': type !== 'spinner' }"
-    class="k-loading-state">
+    class="d-flex flex-wrap">
     <CardSkeleton
       v-if="type === 'card'"
-      :card-count="cardCount "/>
+      :card-count="cardCount ">
+      <template slot="card-header">
+        <slot name="card-header" />
+      </template>
+      <template slot="card-content">
+        <slot name="card-content" />
+      </template>
+      <template slot="card-footer">
+        <slot name="card-footer" />
+      </template>
+    </CardSkeleton>
     <TableSkeleton
       v-else-if="type === 'table'"
       :columns="tableColumns"
-      :rows="tableRows"/>
+      :rows="tableRows">
+      <slot />
+    </TableSkeleton>
     <FormSkeleton v-else-if="type === 'form'"/>
     <FullScreenKongSkeleton
       v-else-if="type === 'fullscreen-kong'"
@@ -18,7 +30,7 @@
       v-else-if="type === 'spinner'"
       icon="spinner"
       view-box="0 0 16 16"
-      color="#000" />
+      color="#000"/>
     <Skeleton v-else />
   </div>
 </template>
@@ -92,74 +104,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.k-loading-state {
-  display: flex;
-  flex-wrap: wrap;
-  .box {
-    display: inline-flex;
-    border-radius: 3px;
-    background: linear-gradient(
-        -70deg,
-        #f2f2f2 0%,
-        #f2f2f2 40%,
-        #f7f7f7 50%,
-        #f2f2f2 60%,
-        #f2f2f2 100%
-      )
-      repeat;
-    background-size: 400% 100%;
-    animation: gradient 1s ease infinite;
-
-    // Provided box widths
-    &.width {
-      &-1 {
-        width: 1rem;
-      }
-      &-2 {
-        width: 2rem;
-      }
-      &-5 {
-        width: 5rem;
-      }
-      &-6 {
-        width: 6rem;
-      }
-      &-10 {
-        width: 10rem;
-      }
-      &-12 {
-        width: 12rem;
-      }
-      &-50 {
-        width: 50%;
-      }
-      &-80 {
-        width: 80%;
-      }
-      &-100 {
-        width: 100%;
-      }
-    }
-    // Provided box heights
-    &.height {
-      &-1 {
-        height: 1rem;
-      }
-      &-2 {
-        height: 2rem;
-      }
-    }
-  }
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-</style>
