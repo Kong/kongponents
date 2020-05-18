@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`KDropdown matches snapshot 1`] = `
-<div class="k-dropdown">
-  <!----> <button type="button" class="k-button k-dropdown-toggle secondary" aria-haspopup="true"><span></span></button>
-  <ul role="listbox" aria-labelledby="dropdown" class="k-dropdown-menu k-dropdown-menu-left"></ul>
-</div>
-`;
