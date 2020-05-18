@@ -13,7 +13,7 @@ export default {
       type: String,
       default: '1',
       validator: function (val) {
-        return ['1', '2', '5', '6', '10', '12', '25', '50', '75', '100'].includes(val)
+        return ['1', '2', '5', '6', '10', '25', '50', '75', '100'].includes(val)
       }
     },
     height: {
