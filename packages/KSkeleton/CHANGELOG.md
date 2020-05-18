@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/Kong/kongponents/compare/@kongponents/kskeleton@0.3.0...@kongponents/kskeleton@0.3.1) (2020-05-18)
+
+
+### Bug Fixes
+
+* **skeleton:** correct the width classes ([#216](https://github.com/Kong/kongponents/issues/216)) ([7c08093](https://github.com/Kong/kongponents/commit/7c08093d510b932f3c6ec42e06de3456f9f190ae))
+
+
+
+
+
 # [0.3.0](https://github.com/Kong/kongponents/compare/@kongponents/kskeleton@0.2.1...@kongponents/kskeleton@0.3.0) (2020-05-18)
 
 
