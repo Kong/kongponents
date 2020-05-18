@@ -51,6 +51,7 @@ module.exports = {
               '/components/input',
               '/components/icon',
               '/components/modal',
+              '/components/multiselect',
               '/components/popover',
               '/components/input-radio',
               '/components/segmented-control',
