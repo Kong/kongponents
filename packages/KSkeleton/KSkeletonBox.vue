@@ -58,7 +58,7 @@ export default {
       width: 6rem;
     }
     &-10 {
-      width: 25%;
+      width: 10rem;
     }
     &-25 {
       width: 25%;
@@ -67,7 +67,7 @@ export default {
       width: 50%;
     }
     &-75 {
-      width: 80%;
+      width: 75%;
     }
     &-100 {
       width: 100%;
