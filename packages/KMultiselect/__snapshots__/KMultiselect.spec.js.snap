@@ -9,6 +9,7 @@ exports[`KMultiselect matches snapshot 1`] = `
     <div class="k-popover-content">
       <div class="k-multiselect-dropdown">
         <!---->
+        <!---->
         <div class="k-multiselect-list">
           <ul role="listbox" aria-labelledby="dropdown" class="k-multiselect-menu">
             <li role="option" class="k-multiselect-item is-selected">
