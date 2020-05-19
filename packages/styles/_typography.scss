@@ -3,9 +3,9 @@
 /* Regular (Sans) Font Sizes
 ========================================================================== */
 // For each size in the $type-sizes variable
-// Create class (.xxl)
+// Create class (.type-xxl)
 @each $name, $size in $type-sizes {
-  .#{$name} {
+  .type-#{$name} {
     font-size: var(--type-#{$name});
     font-weight: normal;
   }
@@ -19,9 +19,17 @@
 // For each size in the $type-sizes variable
 // Create class (.mono.xxl)
 @each $name, $size in $type-sizes {
-  .mono.#{$name} {
+  .mono.type-#{$name} {
     font-size: calc(var(--type-#{$name}) * .95);
   }
 }
 
-
+/*  Colors
+========================================================================== */
+// For each color in $colors variable
+// Create class (.color-blue-base)
+@each $name, $color in $colors {
+  .color-#{$name} {
+    color: var(--#{$name})
+  }
+}
