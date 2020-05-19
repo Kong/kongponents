@@ -11,20 +11,27 @@
     @changes="(changedItems) => data.items = changedItems" />
 </Komponent>
 
-> The `Komponent` component is used as an example to create state.
+> The `Komponent` component is used in this example to create state.
 
 ```vue
 <Komponent :data="{ items: [{label: 'item1', selected: false}, {label: 'item2', selected: true}] }" v-slot="{ data }">
   <KMultiselect
     button-text="Select Items"
     :items="data.items"
+    has-filter
     @changes="(changedItems) => data.items = changedItems" />
 </Komponent>
 ```
 
 ## Props
 ### items - required
-An array of objects to be used as the list options. The `label` & `selected` properties are required. You can also add a property of `disabled` disable the specific option.
+An array of objects to be used as the list options. The `label` & `selected` properties are required. You can also add a property of `disabled` to disable the specific option.
+
+<Komponent :data="{ items: [{label: 'item1', selected: false}, {label: 'item2', selected: true, disabled: true}] }" v-slot="{ data }">
+  <KMultiselect
+    button-text="Includes disabled item"
+    :items="data.items" />
+</Komponent>
 
 ```js
 const items = [
@@ -34,14 +41,22 @@ const items = [
 ]
 ```
 
-<Komponent :data="{ items: [{label: 'item1', selected: false}, {label: 'item2', selected: true, disabled: true}] }" v-slot="{ data }">
+### title
+Title shown above the list of items.
+
+<Komponent :data="{ items: [{label: 'item1', selected: false}, {label: 'item2', selected: true}] }" v-slot="{ data }">
   <KMultiselect
-    button-text="Disabled Item"
+    title="Cool Title Dude"
+    button-text="Custom title"
     :items="data.items" />
 </Komponent>
 
-### title
-Title shown above the list of items.
+```vue
+<KMultiselect
+  button-text="Custom Title"
+  title="Cool Title Dude
+  :items="data.items" />
+```
 
 ### width
 Sets the width of the popup container. Defaults to 200px.
@@ -59,11 +74,38 @@ Sets the width of the popup container. Defaults to 200px.
   width="300"
   :items="data.items" />
 ```
+
 ### applyText
 Text of apply action button.
 
+<Komponent :data="{ items: [{label: 'item1', selected: false}, {label: 'item2', selected: false }] }" v-slot="{ data }">
+  <KMultiselect
+    button-text="Custom Apply Text"
+    apply-text="Submit"
+    :items="data.items" />
+</Komponent>
+
+```vue
+<KMultiselect
+  button-text="Custom Apply Text"
+  apply-text="Submit""
+  :items="data.items" />
+```
+
 ### buttonText
 Sets the text of the trigger button.
+
+<Komponent :data="{ items: [{label: 'item1', selected: false}, {label: 'item2', selected: false }] }" v-slot="{ data }">
+  <KMultiselect
+    button-text="Select Items"
+    :items="data.items" />
+</Komponent>
+
+```vue
+<KMultiselect
+  button-text="Select Items"
+  :items="data.items" />
+```
 
 ### buttonAttributes
 An object of attributes to be passed to the trigger button. Any attributes available on [KButton](/components/button.html) will work.
@@ -82,9 +124,29 @@ An object of attributes to be passed to the trigger button. Any attributes avail
   :items="data.items" />
 ```
 
-<Komponent :data="{ items: [{label: 'item1', selected: false}, {label: 'item2', selected: true}] }" v-slot="{ data }">
-  <KMultiselect :items="data.items"><template #title>testtest</template></KMultiselect>
+### hasFilter
+Enables a filter input to search the items
+
+<Komponent :data="{ items: [{ label: 'Toyota', selected: true, disabled: false }, { label: 'Scion', selected: false, disabled: false }, { label: 'VW', selected: false, disabled: false }, { label: 'Mazda', selected: false, disabled: false }, { label: 'Ford', selected: true, disabled: true }, { label: 'Dodge', selected: false, disabled: true }, { label: 'Chevrolet', selected: true, disabled: false }, { label: 'Suzuki', selected: false, disabled: false }, { label: 'Hyundai', selected: true, disabled: true }, { label: 'Honda', selected: true, disabled: false }] }" v-slot="{ data }">
+  <KMultiselect
+    button-text="Car Makers"
+    has-filter
+    title="Select car makers" 
+    :items="data.items" />
 </Komponent>
+
+> The `Komponent` component is used in this example to create state.
+
+```vue
+<Komponent :data="{ items: [{ label: 'Toyota', selected: true, disabled: false }, { label: 'Scion', selected: false, disabled: false }, { label: 'VW', selected: false, disabled: false }, { label: 'Mazda', selected: false, disabled: false }, { label: 'Ford', selected: true, disabled: true }, { label: 'Dodge', selected: false, disabled: true }, { label: 'Chevrolet', selected: true, disabled: false }, { label: 'Suzuki', selected: false, disabled: false }, { label: 'Hyundai', selected: true, disabled: true }, { label: 'Honda', selected: true, disabled: false }] }" v-slot="{ data }">
+  <KMultiselect
+    button-text="Car Makers"
+    has-filter
+    title="Select car makers" 
+    :items="data.items" />
+</Komponent>
+```
+
 
 ## Usage
 KMultiselect will keep internally keep track of the selected changes and will emitted the entire array of items when the `apply` button is clicked. You can then use the emitted data to update your state.
