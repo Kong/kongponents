@@ -24,7 +24,6 @@
   },
   "dependencies": {
     "@kongponents/kbutton": "^0.1.16",
-    "@kongponents/kpop": "^0.3.5",
-    "@kongponents/kinput": "^0.2.2"
+    "@kongponents/kpop": "^0.3.5"
   }
 }

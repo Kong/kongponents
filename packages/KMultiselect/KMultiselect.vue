@@ -4,7 +4,7 @@
     :popover-timeout="0"
     :hide-popover="hidePopover"
     hide-caret
-    placement="bottom"
+    placement="bottomStart"
     popover-classes="k-multiselect mt-0"
     @closed="handleClose">
     <KButton
@@ -25,9 +25,11 @@
         <div
           v-if="hasFilter"
           class="k-multiselect-filter">
-          <KInput
+          <input
+            v-model="filter"
             type="search"
-            class="w-100"/>
+            class="k-input w-100"
+            placeholder="Filter..." >
         </div>
         <div class="k-multiselect-list">
           <ul
@@ -35,7 +37,7 @@
             role="listbox"
             aria-labelledby="dropdown">
             <li
-              v-for="item in internalItems"
+              v-for="item in filteredItems"
               :key="item.label"
               :class="{ 'is-selected': item.selected, 'is-disabled': item.disabled }"
               :disabled="item.disabled"
@@ -47,6 +49,7 @@
           </ul>
           <div class="k-multiselect-footer">
             <KButton
+              :disabled="applyDisabled"
               size="small"
               appearance="secondary"
               class="k-multiselect-apply"
@@ -61,16 +64,14 @@
 <script>
 import KPop from '@kongponents/kpop/KPop'
 import KButton from '@kongponents/kbutton/KButton.vue'
-import KInput from '@kongponents/kinput/KInput.vue'
 
 export default {
   name: 'KMultiselect',
-  components: { KButton, KPop, KInput },
+  components: { KButton, KPop },
   props: {
     width: {
       type: String,
       default: '200'
-
     },
     buttonText: {
       type: String,
@@ -103,8 +104,21 @@ export default {
 
   data () {
     return {
+      filter: '',
       hidePopover: false,
       internalItems: this.copyItems(this.items)
+    }
+  },
+
+  computed: {
+    filteredItems () {
+      const filter = this.filter
+
+      return this.internalItems.filter(i => i.label.toLowerCase().includes(filter.toLowerCase()))
+    },
+
+    applyDisabled () {
+      return this.internalItems.filter(i => i.selected).length === 0
     }
   },
 
@@ -132,6 +146,7 @@ export default {
 
 <style scoped lang="scss">
 @import '~@kongponents/styles/_variables.scss';
+@import '~@kongponents/styles/forms/_inputs.scss';
 
 .k-multiselect {
   &-trigger {
@@ -148,8 +163,19 @@ export default {
       border-right: 0.325em solid transparent;
       border-left: 0.325em solid transparent;
     }
-    &:disabled {
-      pointer-events: none;
+    &:disabled { pointer-events: none; }
+  }
+  &-filter .k-input {
+    --KInputBackground: var(--grey-98, color(grey-98));
+    --KInputBorder: var(--grey-88, color(grey-88));
+    --spacing-xs: .25rem;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    margin-top: .5rem;
+    &:focus {
+      border-color: var(--KInputBorder);
+      border-width: 1px 0 1px 0;
     }
   }
   &-dropdown {
