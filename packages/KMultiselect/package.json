@@ -1,13 +1,13 @@
 {
-  "name": "@kongponents/kdropdown",
+  "name": "@kongponents/KMultiselect",
   "version": "0.1.0",
   "description": "Simple",
-  "main": "dist/KDropdown.umd.min.js",
-  "componentName": "KDropdown",
-  "source": "KDropdown.vue",
+  "main": "dist/KMultiselect.umd.min.js",
+  "componentName": "KMultiselect",
+  "source": "KMultiselect.vue",
   "files": [
     "dist",
-    "KDropdown.vue"
+    "KMultiselect.vue"
   ],
   "repository": {
     "type": "git",

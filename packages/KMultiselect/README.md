@@ -1,9 +1,9 @@
-# @kongponents/kdropdown
+# @kongponents/kmultiselect
 
-[![](https://img.shields.io/npm/v/@kongponents/kdropdown.svg?style=flat-square)](https://www.npmjs.com/package/@kongponents/kdropdown)
+[![](https://img.shields.io/npm/v/@kongponents/kmultiselect.svg?style=flat-square)](https://www.npmjs.com/package/@kongponents/kmultiselect)
 
 ```vue
-<KDropdown
+<KMultiselect
   toggle-text="Items"
-  :items="['one', 'two', 'three']"/>
+  :items="[{label: 'one', selected: false}, {label: 'two', selected: false}, {label: 'three', selected: true }]"/>
 ```
