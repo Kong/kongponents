@@ -73,7 +73,7 @@ export default {
   props: {
     width: {
       type: String,
-      default: '100'
+      default: 'auto'
     },
     buttonText: {
       type: String,

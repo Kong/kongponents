@@ -59,7 +59,7 @@ Title shown above the list of items.
 ```
 
 ### width
-Sets the width of the popup container. Defaults to 200px.
+Sets the width of the popup container. Defaults to auto.
 
 <Komponent :data="{ items: [{label: 'item1', selected: false}, {label: 'item2', selected: true}] }" v-slot="{ data }">
   <KMultiselect
