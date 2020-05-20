@@ -180,7 +180,7 @@ export default {
   computed: {
     popoverStyle: function () {
       return {
-        minWidth: this.width + 'px'
+        width: this.width === 'auto' ? this.width : this.width + 'px'
       }
     }
   },
@@ -313,7 +313,6 @@ export default {
 .k-popover {
   z-index: 1000;
   max-width: none;
-  width: auto;
   font-size: var(--KPopBodySize, var(--type-sm, type(sm)));
   text-align: left;
   white-space: normal;
