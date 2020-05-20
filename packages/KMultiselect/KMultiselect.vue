@@ -120,7 +120,16 @@ export default {
     },
 
     applyDisabled () {
-      return this.internalItems.filter(i => i.selected).length === 0
+      const internalItems = this.internalItems
+      const items = this.items
+
+      for (var i = 0; i < internalItems.length; ++i) {
+        if (internalItems[i].selected !== items.find(item => item.label === internalItems[i].label).selected) {
+          return false
+        }
+      }
+
+      return true
     }
   },
 
