@@ -1,7 +1,7 @@
 @import "labels";
 
 .k-input,
-.form-control{
+.form-control {
   $borderColor: var(--KInputBorder, var(--grey-88, color(grey-88)));
 
   &:not([type="checkbox"]),
