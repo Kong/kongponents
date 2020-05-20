@@ -10,7 +10,7 @@
       <strong>Class:</strong> <code>.type-{{variableName}}</code>
     </div>
     <div class="example">
-      <p :class="[variableName, fontType === 'mono' && 'mono']">
+      <p :class="[`type-${variableName}`, fontType === 'mono' && 'mono']">
         Kong is a Lua application running in Nginx
       </p>
     </div>
