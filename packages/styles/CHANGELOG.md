@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/Kong/kongponents/compare/@kongponents/styles@0.1.3...@kongponents/styles@0.2.0) (2020-05-20)
+
+
+### Features
+
+* **styles:** Add utility classes, fix kbutton svg logic and sizing ([916ac62](https://github.com/Kong/kongponents/commit/916ac62539bf123726270fe9937ac27a5245700d))
+
+
+
+
+
 ## [0.1.3](https://github.com/Kong/kongponents/compare/@kongponents/styles@0.1.2...@kongponents/styles@0.1.3) (2020-03-06)
 
 **Note:** Version bump only for package @kongponents/styles
