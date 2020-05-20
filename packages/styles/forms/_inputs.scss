@@ -67,3 +67,13 @@
     background-position: 12px 50%;
   }
 }
+
+select.k-input {
+  &:not([type="checkbox"]),
+  &:not([type="checkbox"]):read-only,
+  &:not([type="radio"]),
+  &:not([type="radio"]):read-only {
+    height: 38px;
+    background-color: var(--KInputSelectBackground, var(--twhite-1, color(twhite-1)));
+  }
+}

@@ -105,6 +105,21 @@ Example: .pt-2 would add 8px of padding to the top of the element and.mx-0 would
 | .align-self-baseline |  align-self: baseline;
 | .align-self-stretch |  align-self: stretch;
 
+## Colors
+For each color in our [color palette](/style-guide/colors.html) we include a utility class that is prefixed with `color-`.
+
+| Class       | Properties      | Example
+| :---------- |:-------------- |:-----------
+| .type-{color} | color: var(--{color}) | `class="color-blue-base"`
+
+## Type Sizes
+For each size in our [type definitions](/style-guide/type.html) we include a utility class that is prefixed with `type-`. You can also add the class of `.mono` to style as mono
+
+| Class       | Properties      | Example
+| :---------- |:-------------- |:-----------
+| .type-{type-size} | font-size: var(--type-{size}) | `class="type-xl"`
+| .mono | font-size: calc(var(--type-{size}) * .95) | `class="mono type-xl"`
+
 ## General Helpers
 | Class       |Properties
 | :---------- |:-------------- |:-----------

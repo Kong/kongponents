@@ -81,11 +81,11 @@ export default {
     },
 
     hasIcon () {
-      return this.$slots.icon
+      return !!this.$slots.icon
     },
 
     hasText () {
-      return this.$slots.default
+      return !!this.$slots.default
     },
 
     buttonType () {
@@ -131,9 +131,7 @@ export default {
   }
 
   &.icon-btn {
-    width: 38px;
-    height: auto;
-    padding: 0;
+    height: 38px;
     justify-content: center;
     > svg {
       padding-right: 0;
