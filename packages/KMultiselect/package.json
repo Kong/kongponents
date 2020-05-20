@@ -1,0 +1,29 @@
+{
+  "name": "@kongponents/KMultiselect",
+  "version": "0.1.0",
+  "description": "Simple",
+  "main": "dist/KMultiselect.umd.min.js",
+  "componentName": "KMultiselect",
+  "source": "KMultiselect.vue",
+  "files": [
+    "dist",
+    "KMultiselect.vue"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kong/kongponents.git"
+  },
+  "author": "Kong Inc",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Kong/kongponents/issues"
+  },
+  "homepage": "https://github.com/Kong/kongponents#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@kongponents/kbutton": "^0.1.16",
+    "@kongponents/kpop": "^0.3.5"
+  }
+}

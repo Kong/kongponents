@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KMultiselect matches snapshot 1`] = `
+<div><button type="button" class="k-button k-multiselect-trigger secondary">
+
+  </button>
+  <div class="k-popover k-multiselect mt-0 mb-0 hide-caret" style="width: auto; display: none;" name="fade">
+    <!---->
+    <div class="k-popover-content">
+      <div class="k-multiselect-dropdown">
+        <!---->
+        <!---->
+        <div class="k-multiselect-list">
+          <ul role="listbox" aria-labelledby="dropdown" class="k-multiselect-menu">
+            <li role="option" class="k-multiselect-item is-selected">
+              Item 1
+            </li>
+            <li role="option" class="k-multiselect-item">
+              Item 2
+            </li>
+          </ul>
+          <div class="k-multiselect-footer"><button type="button" class="k-button k-multiselect-apply small secondary" disabled="disabled">Apply</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

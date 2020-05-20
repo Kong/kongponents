@@ -180,7 +180,7 @@ export default {
   computed: {
     popoverStyle: function () {
       return {
-        width: this.width + 'px'
+        width: this.width === 'auto' ? this.width : this.width + 'px'
       }
     }
   },
