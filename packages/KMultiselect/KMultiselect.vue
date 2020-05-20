@@ -146,6 +146,7 @@ export default {
     async handleOpen () {
       if (!this.hasFilter) return
 
+      // Wait for popper to open & position itself
       await this.$nextTick()
       await this.$nextTick()
       this.$refs.filterInput.focus()

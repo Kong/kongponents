@@ -1,6 +1,8 @@
 import { mount } from '@vue/test-utils'
 import { default as KMultiselect } from './KMultiselect.vue'
 
+jest.useFakeTimers()
+
 const DEFAULT_PROPS = {
   items: [
     { label: 'Item 1', selected: true },
@@ -17,17 +19,38 @@ describe('KMultiselect', () => {
     expect(wrapper.find('.k-multiselect-menu > li:first-child').classes('is-selected')).toBe(true)
   })
 
-  it('emits proper updates on apply', () => {
+  it('emits proper updates on apply', async () => {
     const wrapper = mount(KMultiselect, {
-      propsData: DEFAULT_PROPS
+      propsData: {
+        items: [
+          { label: 'Item 1', selected: false },
+          { label: 'Item 2', selected: false }
+        ]
+      }
     })
 
-    wrapper.find('.k-multiselect-trigger').trigger('click')
-    wrapper.find('.k-multiselect-menu > li:last-child').trigger('click')
-    wrapper.find('.k-multiselect-apply').trigger('click')
+    const trigger = wrapper.find('.k-multiselect-trigger')
+    const items = wrapper.findAll('.k-multiselect-menu li')
+    const applyBtn = wrapper.find('.k-multiselect-apply')
 
+    // Open multiselect
+    trigger.trigger('click')
+    expect(wrapper.vm.applyDisabled).toBeTruthy()
+
+    // Click first item & confirm apply can be clicked
+    items.at(0).trigger('click')
+    expect(wrapper.vm.applyDisabled).toBeFalsy()
+    expect(wrapper.vm.internalItems[0].selected).toBeTruthy()
+
+    applyBtn.trigger('click')
     expect(wrapper.emitted().changes).toBeTruthy()
-    expect(wrapper.emitted().changes[0][0][1]).toEqual({ label: 'Item 2', selected: true })
+    expect(wrapper.emitted().changes[0][0][0]).toEqual({ label: 'Item 1', selected: true })
+
+    // Open multiselect & deselect
+    trigger.trigger('click')
+    items.at(0).trigger('click')
+    expect(wrapper.vm.internalItems[0].selected).toBeFalsy()
+    expect(wrapper.vm.applyDisabled).toBeTruthy()
   })
 
   it('filters list items', () => {
