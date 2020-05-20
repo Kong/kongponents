@@ -5,7 +5,8 @@
     :hide-popover="hidePopover"
     hide-caret
     placement="bottomStart"
-    popover-classes="k-multiselect mt-0"
+    popover-classes="k-multiselect mt-0 mb-0"
+    @opened="handleOpen"
     @closed="handleClose">
     <KButton
       v-bind="buttonAttributes"
@@ -26,6 +27,7 @@
           v-if="hasFilter"
           class="k-multiselect-filter">
           <input
+            ref="filterInput"
             v-model="filter"
             type="search"
             class="k-input w-100"
@@ -130,6 +132,14 @@ export default {
     handleApply () {
       this.hidePopover = true
       this.$emit('changes', this.copyItems(this.internalItems))
+    },
+
+    async handleOpen () {
+      if (!this.hasFilter) return
+
+      await this.$nextTick()
+      await this.$nextTick()
+      this.$refs.filterInput.focus()
     },
 
     async handleClose () {
