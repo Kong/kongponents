@@ -4,7 +4,7 @@ exports[`KMultiselect matches snapshot 1`] = `
 <div><button type="button" class="k-button k-multiselect-trigger secondary">
 
   </button>
-  <div class="k-popover k-multiselect mt-0 mb-0 hide-caret" style="min-width: 100px; display: none;" name="fade">
+  <div class="k-popover k-multiselect mt-0 mb-0 hide-caret" style="width: auto; display: none;" name="fade">
     <!---->
     <div class="k-popover-content">
       <div class="k-multiselect-dropdown">
