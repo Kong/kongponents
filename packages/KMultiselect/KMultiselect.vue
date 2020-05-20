@@ -73,7 +73,7 @@ export default {
   props: {
     width: {
       type: String,
-      default: '200'
+      default: '100'
     },
     buttonText: {
       type: String,
@@ -178,25 +178,25 @@ export default {
   &-filter .k-input {
     --KInputBackground: var(--grey-98, color(grey-98));
     --KInputBorder: var(--grey-88, color(grey-88));
-    --spacing-xs: .25rem;
+
     border-radius: 0;
     border-left: 0;
     border-right: 0;
-    margin-top: .5rem;
+    margin-bottom: var(--spacing-sm, spacing(sm));
     &:focus {
       border-color: var(--KInputBorder);
       border-width: 1px 0 1px 0;
     }
   }
   &-dropdown {
-    margin: var(--spacing-md, spacing(md)) 0;
+    padding: 1rem 0;
   }
   &-title {
     padding: 0 2rem;
+    margin-bottom: var(--spacing-sm);
     color: var(--KMultiselectTitleColor, var(--tblack-45, color(tblack-45)));
     font-size: var(--KMultiselectTitleSize, var(--type-xs, type(xs)));
   }
-  &-list { margin-top: var(--spacing-sm, spacing(sm)); }
   &-menu {
     padding: 0;
     margin: 0;
@@ -214,7 +214,7 @@ export default {
     cursor: pointer;
     &:hover { background-color: var(--KMultiselectItemHover, var(--blue-lightest, color(blue-lightest)));}
     &.is-selected {
-      color: var(--blue-dark, color(blue-dark));
+      color: var(--KMultiselectItemActiveColor, var(--blue-dark, color(blue-dark)));
       &:before {
         position: absolute;
         top: 10px;
@@ -233,9 +233,7 @@ export default {
       pointer-events: none;
     }
   }
-  &-footer {
-    padding: 1rem 2rem 0;
-  }
+  &-footer { margin: var(--spacing-sm, spacing(sm)) var(--spacing-xl, spacing(xl)) 0; }
 }
 </style>
 
