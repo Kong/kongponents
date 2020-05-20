@@ -6,6 +6,9 @@
     <div class="label">
       <strong>Font Size:</strong> <span>{{ fontSize }}</span>
     </div>
+    <div class="label">
+      <strong>Class:</strong> <code>.type-{{variableName}}</code>
+    </div>
     <div class="example">
       <p :class="[variableName, fontType === 'mono' && 'mono']">
         Kong is a Lua application running in Nginx

@@ -5,7 +5,8 @@
       class="swatch" />
     <div class="description">
       <span>{{ colorName(color) }}</span>
-      <span>{{ colorValue(color) }}</span>
+      <span class="mb-2">{{ colorValue(color) }}</span>
+      <code>.color-{{ colorName(color) }}</code>
     </div>
   </div>
 </template>
@@ -47,7 +48,6 @@ export default {
 <style scoped lang="scss">
 .swatch-container {
   display: flex;
-  align-items: center;
   padding: 1.5rem 0;
   border-bottom: 1px solid #efefef;
   .swatch {
