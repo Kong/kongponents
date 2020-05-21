@@ -789,6 +789,11 @@
     cssnano-preset-default "^4.0.0"
     postcss "^7.0.0"
 
+"@kongponents/kbutton@^0.1.16":
+  version "0.1.16"
+  resolved "https://registry.yarnpkg.com/@kongponents/kbutton/-/kbutton-0.1.16.tgz#954238ab6ca64fc389aae9773469a09e6353fb6a"
+  integrity sha512-CgphZn6b/mIdMfW1dT1nVYh6a0uZ9JstUd3/1sVbetl7YOA78hMQiXEG91D6ZhCu9Uz6vbP5ybC/2J/wxdkhqg==
+
 "@lerna/add@3.18.0":
   version "3.18.0"
   resolved "https://registry.yarnpkg.com/@lerna/add/-/add-3.18.0.tgz#86e38f14d7a0a7c61315dccb402377feb1c9db83"
