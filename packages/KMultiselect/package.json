@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/KMultiselect",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Simple",
   "main": "dist/KMultiselect.umd.min.js",
   "componentName": "KMultiselect",
@@ -24,6 +24,6 @@
   },
   "dependencies": {
     "@kongponents/kbutton": "^0.1.16",
-    "@kongponents/kpop": "^0.3.5"
+    "@kongponents/kpop": "^0.4.0"
   }
 }
