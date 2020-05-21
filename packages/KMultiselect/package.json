@@ -1,5 +1,5 @@
 {
-  "name": "@kongponents/KMultiselect",
+  "name": "@kongponents/kmultiselect",
   "version": "0.2.0",
   "description": "Simple",
   "main": "dist/KMultiselect.umd.min.js",
