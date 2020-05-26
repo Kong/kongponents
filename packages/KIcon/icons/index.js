@@ -1,4 +1,5 @@
 import collapseExpand from './icn-collapse-expand.svg'
+import connections from './icn-connections.svg'
 import gateway from './icn-gateway.svg'
 import gear from './icn-gear.svg'
 import info from './icn-info.svg'
@@ -29,6 +30,7 @@ export default {
   back,
   close,
   collapseExpand,
+  connections,
   dashboard,
   externalLink,
   featureRequest,
