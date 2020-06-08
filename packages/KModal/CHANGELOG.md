@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.12](https://github.com/Kong/kongponents/compare/@kongponents/kmodal@0.1.11...@kongponents/kmodal@0.1.12) (2020-06-08)
+
+**Note:** Version bump only for package @kongponents/kmodal
+
+
+
+
+
 ## [0.1.11](https://github.com/Kong/kongponents/compare/@kongponents/kmodal@0.1.10...@kongponents/kmodal@0.1.11) (2020-05-20)
 
 **Note:** Version bump only for package @kongponents/kmodal
