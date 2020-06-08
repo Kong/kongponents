@@ -118,9 +118,18 @@ export default {
   transition: all .2s ease-in-out;
   cursor: pointer;
 
-  &:disabled {
+  &:disabled,
+  &[disabled] {
     opacity: 0.3;
     cursor: not-allowed;
+    &:hover {
+      // ! is needed to ensure any type (a, button) keeps disabled state
+      text-decoration: none !important;
+    }
+  }
+  // remove pointer events from only <a>
+  &[disabled]:not(:disabled) {
+    pointer-events: none;
   }
 
   /* Button w/ Icon */
@@ -148,7 +157,7 @@ export default {
   &.secondary {
     border-color: var(--KButtonSecondaryBorder, color(grey-88));
     background-color: var(--KButtonSecondaryBase, var(--secondary, color(grey-98)));
-    &:hover {
+    &:hover:not(:disabled) {
       border-color: var(--KButtonSecondaryHoverBorder, darken(color(grey-88), 4%));
       background-color: var(--KButtonSecondaryHover, darken(color(grey-98), 4%));
     }
@@ -161,7 +170,7 @@ export default {
     font-weight: 500;
     color: var(--twhite-1, #fff);
     background-color: var(--KButtonPrimaryBase, var(--primary, color(blue-base)));
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: var(--KButtonPrimaryHover, lighten(color(blue-base), 12%));
     }
     &:active {
@@ -172,7 +181,7 @@ export default {
     font-weight: 500;
     color: var(--twhite-1, #fff);
     background-color: var(--KButtonDangerBase, var(--danger, color(red-base)));
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: var(--KButtonDangerHover, lighten(color(red-base), 12%));
     }
     &:active {
@@ -183,7 +192,7 @@ export default {
     color: var(--KButtonLink, var(--btnLink, color(blue-link)));
     border-color: var(--KButtonOutlinePrimaryBorder, color(blue-light-01));
     background-color: var(--KButtonOutlineBackground, #fff);
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: var(--KButtonOutlinePrimaryHover, color(blue-lightest));
     }
     &:active {
@@ -194,7 +203,7 @@ export default {
     color: var(--KButtonLinkDanger, var(--linkDanger, color(red-link)));
     border-color: var(--KButtonOutlineDangerBorder, color(red-light-01));
     background-color: var(--KButtonOutlineBackground, #fff);
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: var(--KButtonOutlineDangerHover, color(red-lightest));
     }
     &:active {
@@ -203,13 +212,13 @@ export default {
   }
   &.btn-link {
     color: var(--KButtonBtnLink, var(--linkPrimary, color(blue-link)));
-    &:hover {
+    &:hover:not(:disabled) {
       text-decoration: underline;
     }
   }
   &.btn-link-danger {
     color: var(--KButtonLinkDanger, var(--linkDanger, color(red-link)));
-    &:hover {
+    &:hover:not(:disabled) {
       text-decoration: underline;
     }
   }

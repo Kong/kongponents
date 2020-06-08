@@ -77,6 +77,23 @@ KButton can render either a `<a>` or `<router-link>` by simply passing the `to` 
   appearance="btn-link">Anchor Link!</KButton>
 ```
 
+### Disabled HTML Attribute
+KButton also supports the disabled attribute with both Button and Anchor types.
+
+<KButton appearance="danger" disabled>Disabled Danger</KButton>
+<KButton
+  to="http://google.com"
+  appearance="btn-link"
+  disabled>Disabled Native Anchor Link</KButton>
+  
+```vue
+<KButton appearance="danger" disabled>Disabled Danger</KButton>
+<KButton
+  to="http://google.com"
+  appearance="btn-link"
+  disabled>Disabled Native Anchor Link</KButton>
+```
+
 ## Slots
 ### Icon
 KButton supports using an icon either before the text or without text.  
