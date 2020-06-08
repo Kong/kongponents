@@ -122,11 +122,14 @@ export default {
   &[disabled] {
     opacity: 0.3;
     cursor: not-allowed;
-    pointer-events: none;
     &:hover {
       // ! is needed to ensure any type (a, button) keeps disabled state
       text-decoration: none !important;
     }
+  }
+  // remove pointer events from only <a>
+  &[disabled]:not(:disabled) {
+    pointer-events: none;
   }
 
   /* Button w/ Icon */
