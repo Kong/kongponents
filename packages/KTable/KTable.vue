@@ -1,6 +1,6 @@
 <template>
   <table
-    :class="{'has-hover': hasHover, 'is-small': isSmall}"
+    :class="{'has-hover': hasHover, 'is-small': isSmall, 'is-clickable': isClickable}"
     class="k-table">
     <thead>
       <tr>
@@ -149,6 +149,12 @@ export default {
       default: false
     },
     /**
+     */
+    isClickable: {
+      type: Boolean,
+      default: false
+    },
+    /**
      * the sort order for the table.
      */
     sortOrder: {
@@ -173,7 +179,18 @@ export default {
     },
 
     trlisteners () {
-      return pluckListeners('row:', this.$listeners)
+      return (entity, type) => {
+        const pluckedListeners = pluckListeners('row:', this.$listeners)(entity, type)
+
+        return {
+          ...pluckedListeners,
+          mouseup (e) {
+            if (e.target.tagName === 'TD' && pluckedListeners['mouseup']) {
+              pluckedListeners['mouseup'](e, entity, type)
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -267,6 +284,13 @@ table.k-table {
   }
   &.has-hover tbody tr:hover {
     background-color: var(--KTableHover, var(--blue-lightest, color(blue-lightest)));
+  }
+  &.is-clickable {
+    cursor: pointer;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
   }
 }
 </style>

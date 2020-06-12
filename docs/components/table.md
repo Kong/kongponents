@@ -66,7 +66,7 @@ export default {
 ```
 ## Props
 ### Hover
-highlight the table row on hover
+Highlight the table row on hover
 
 <KTable :options="$frontmatter.tableOptions" hasHover />
 ```vue
@@ -83,6 +83,16 @@ Lessen the table cell padding
 <KTable
   :options="tableOptions"
   isSmall />
+```
+
+### Clickable
+Adds `cursor: pointer` and `user-select: none` styling. 
+
+<KTable :options="$frontmatter.tableOptions" isClickable />
+```vue
+<KTable
+  :options="tableOptions"
+  isClickable />
 ```
 
 ## Events
@@ -115,8 +125,8 @@ various parts of the table.
     <div v-else>Waiting</div>
 
     <KTable 
-      class="clickable-rows"
       :options="tableOptions"
+      is-clickable
       @row:click="actionRow" 
       @cell:mouseover="actionRow"
     />
@@ -139,36 +149,24 @@ export default {
   }
 }
 </script>
-<style>
-.clickable-rows tr {
-  cursor: pointer;
-}
-</style>
 ```
 
 <KCard>
   <div slot="body">
-  <div v-if="eventType">
-    {{eventType}} on: {{row}}
-  </div>
-  <div v-else>Waiting</div>
-
-  <KTable 
-    class="clickable-rows"
-    :options="$frontmatter.tableOptions"
-    has-hover
-    @row:click="actionRow" 
-    @cell:mouseover="actionRow"
-  />
+    <div v-if="eventType">
+      {{eventType}} on: {{row}}
+    </div>
+    <div v-else>Waiting</div>
+    
+    <KTable 
+      :options="$frontmatter.tableOptions"
+      is-clickable
+      has-hover
+      @row:click="actionRow"
+      @cell:mouseover="actionRow"
+    />
   </div>
 </KCard>
-
-<style>
-  .clickable-rows tr {
-    cursor: pointer;
-  }
-</style>
-
 
 ### Sorting
 
