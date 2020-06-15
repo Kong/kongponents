@@ -38,16 +38,6 @@ export default {
       styles: {}
     }
   },
-  computed: {
-    listeners () {
-      return {
-        ...this.$listeners,
-        blur: e => {
-          this.handleSave(e)
-        }
-      }
-    }
-  },
 
   mounted () {
     if (this.$slots.default[0].tag === undefined) {
