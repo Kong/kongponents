@@ -121,6 +121,7 @@ Example usage:
   }
   .k-input {
     display: inline-flex;
+    width: 100%;
     padding: var(--padding);
     &:focus,
     &:hover {
