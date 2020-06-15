@@ -95,8 +95,10 @@ Example usage:
   box-sizing: border-box;
   > div {
     display: inline-flex;
+    width: 100%;
     cursor: text;
     > * {
+      width: 100%;
       border: 1px solid transparent;
       border-radius: 3px;
       padding: var(--padding);
@@ -106,7 +108,7 @@ Example usage:
       transition: background-color 200ms ease;
     }
     &:hover > * {
-      background-color: var(--grey-92);
+      background-color: var(--blue-lightest);
     }
   }
   .k-input {
