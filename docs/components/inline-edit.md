@@ -39,15 +39,13 @@ export default {
 </script>
 ```
 
-<Komponent :data="{ inlineText: 'Cool Text', emitedVal: '' }" v-slot="{ data }">
 <KCard>
   <template slot="body">
-    <div class="mb-4">Emit Value: {{ data.emitedVal }}</div>
+    <div class="mb-4">Emit Value: {{ emittedVal }}</div>
     <label class="k-input-label">Click to edit</label>
-    <KInlineEdit @changed="val => data.emitedVal = val"><p class="mt-0 mb-0">{{ data.emitedVal || data.inlineText }}</p></KInlineEdit>
+    <KInlineEdit @changed="handleEmitChange"><p class="mt-0 mb-0">{{ emittedDefault }}</p></KInlineEdit>
   </template>
 </KCard>
-</Komponent>
 
 ## Slots
 - `default` - Content to be edited
@@ -69,4 +67,33 @@ An HTML element must be passed in the slot. An error will be thrown if not passe
 :::
 
 ## Theming
-:lipstick: To theme, reference [KInput](/components/input.html#theming).
+:lipstick: To theme, reference [KInput](/components/input.html#theming). The input takes up 100% of its parent container. To change, add a class or width styling to the wrapping component.
+
+<Komponent :data="{ inlineText: 'Im 50%!' }" v-slot="{ data }">
+  <KInlineEdit class="w-50" @changed="newVal => data.inlineText = newVal"><h3>{{ data.inlineText }}</h3></KInlineEdit>
+</Komponent>
+
+```vue
+<KInlineEdit
+  class="w-50"
+  @changed="newVal => text = newVal">
+  <h3>{{ text }}</h3>
+</KInlineEdit>
+```
+
+<script>
+export default {
+  data() {
+    return {
+      emittedVal: '',
+      emittedDefault: 'Cool Text'
+    }
+  },
+  methods: {
+    handleEmitChange(val) {
+      this.emittedVal = val
+      this.emittedDefault = val
+    }
+  }
+}
+</script>
