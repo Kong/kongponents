@@ -11,6 +11,7 @@
       @blur="handleSave"
       @keyup.enter="handleSave">
     <div
+      v-if="!isEditing"
       id="element-content-wrapper"
       @click="handleClick">
       <slot v-if="!isEditing" />
@@ -103,7 +104,7 @@ Example usage:
       border-radius: 3px;
       padding: var(--padding);
       margin-left: calc(-1 * var(--spacing-xs)); // align the left side of content
-      line-height: 1.20;
+      line-height: 1.25;
       overflow: hidden;
       transition: background-color 200ms ease;
     }
