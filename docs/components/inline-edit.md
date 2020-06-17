@@ -17,35 +17,39 @@
 ```
 
 ## Props
-- `@changed` - Emitted blurred away from the editing input
+- `@changed` - Emitted blurred away from the editing input or when enter is pressed.
 
-When clicking out of the input `@changed` will fire and emit the value. Can be used to reset the outside data
+When clicking out of the input `@changed` will fire and emit the value. Can be used to reset the outside data.
 
-```vue
-<template>
-  <label>Click this text</label>
-  <EditableInput @changed="newValue => editableText = newValue ">
-    <h4>{{ editableText }}</h4>
-  </EditableInput>
-</template>
-<script>
-export default {
-  data() {
-    return {
-      editableText: 'Cool Text'
-    }
-  }
-}
-</script>
-```
+:::tip
+While the component itself does not protect against returning empty an empty value, it is advised to do a check at the implementation layer to ensure empty & validation are accounted for.
+:::
 
 <KCard>
   <template slot="body">
-    <div class="mb-4">Emit Value: {{ emittedVal }}</div>
-    <label class="k-input-label">Click to edit</label>
-    <KInlineEdit @changed="handleEmitChange"><p class="mt-0 mb-0">{{ emittedDefault }}</p></KInlineEdit>
+    <Komponent :data="{ inlineText: 'Click to edit me' }" v-slot="{ data }">
+      <div>
+        Updated: {{ data.inlineText }}
+        <KInlineEdit @changed="newVal => { if(newVal.length) { data.inlineText = newVal } else { alert('cannot be empty') } }">
+          <h3>{{ data.inlineText }}</h3>
+        </KInlineEdit>
+      </div>
+    </Komponent>
   </template>
 </KCard>
+
+> The `Komponent` component is used in this example to create state.
+
+```vue
+<Komponent :data="{ inlineText: 'Click to edit me' }" v-slot="{ data }">
+  <div>
+    Updated: {{ data.inlineText }}
+    <KInlineEdit @changed="newVal => { if(newVal.length) { data.inlineText = newVal } else { alert('cannot be empty') } }">
+      <h3>{{ data.inlineText }}</h3>
+    </KInlineEdit>
+  </div>
+</Komponent>
+```
 
 ## Slots
 - `default` - Content to be edited
@@ -83,16 +87,9 @@ An HTML element must be passed in the slot. An error will be thrown if not passe
 
 <script>
 export default {
-  data() {
-    return {
-      emittedVal: '',
-      emittedDefault: 'Cool Text'
-    }
-  },
   methods: {
-    handleEmitChange(val) {
-      this.emittedVal = val
-      this.emittedDefault = val
+    alert(msg) {
+      window.alert(msg)
     }
   }
 }

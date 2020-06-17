@@ -9,7 +9,7 @@
       v-model="inputText"
       class="k-input"
       @blur="handleSave"
-      @keyup.enter="handleSave">
+      @keyup.enter="$event.target.blur()">
     <div
       v-if="!isEditing"
       id="element-content-wrapper"
