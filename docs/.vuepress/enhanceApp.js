@@ -11,6 +11,7 @@ import KClipboardProvider from '../../packages/KClipboardProvider/KClipboardProv
 import KMultiselect from '../../packages/KMultiselect/KMultiselect.vue'
 import KEmptyState from '../../packages/KEmptyState/KEmptyState.vue'
 import KIcon from '../../packages/KIcon/KIcon.vue'
+import KInlineEdit from '../../packages/KInlineEdit/KInlineEdit.vue'
 import KInput from '../../packages/KInput/KInput.vue'
 import KInputSwitch from '../../packages/KInputSwitch/KInputSwitch.vue'
 import KCheckbox from '../../packages/KCheckbox/KCheckbox.vue'
@@ -43,6 +44,7 @@ export default ({
   Vue.component('KMultiselect', KMultiselect)
   Vue.component('KEmptyState', KEmptyState)
   Vue.component('KIcon', KIcon)
+  Vue.component('KInlineEdit', KInlineEdit)
   Vue.component('KInput', KInput)
   Vue.component('KInputSwitch', KInputSwitch)
   Vue.component('KCheckbox', KCheckbox)
