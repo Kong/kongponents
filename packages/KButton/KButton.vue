@@ -102,6 +102,10 @@ export default {
 <style scoped lang="scss">
 @import '~@kongponents/styles/_variables.scss';
 
+@mixin boxShadow($color) {
+  box-shadow: 0 0 0 3px var(--white, color(white)), 0 0 0px 5px $color;
+}
+
 .k-button {
   display: inline-flex;
   align-items: center;
@@ -112,9 +116,9 @@ export default {
   line-height: 1.25;
   text-decoration: none;
   vertical-align: middle;
-  color: var(--tblack-70, color(tblack-70));
+  color: var(--black-70, color(black-70));
   border: 1px solid transparent;
-  border-radius: 3px;
+  border-radius: var(--KButtonRadius, 3px);
   transition: all .2s ease-in-out;
   cursor: pointer;
 
@@ -130,6 +134,9 @@ export default {
   // remove pointer events from only <a>
   &[disabled]:not(:disabled) {
     pointer-events: none;
+  }
+  &:focus {
+    outline: none;
   }
 
   /* Button w/ Icon */
@@ -155,71 +162,96 @@ export default {
 
   /* Apperance Variations */
   &.secondary {
-    border-color: var(--KButtonSecondaryBorder, color(grey-88));
-    background-color: var(--KButtonSecondaryBase, var(--secondary, color(grey-98)));
+    border-color: var(--KButtonSecondaryBorder, var(--black-10, color(black-1)));
+    background-color: var(--KButtonSecondaryBase, var(--white, color(white)));
     &:hover:not(:disabled) {
-      border-color: var(--KButtonSecondaryHoverBorder, darken(color(grey-88), 4%));
-      background-color: var(--KButtonSecondaryHover, darken(color(grey-98), 4%));
+      border-color: var(--KButtonSecondaryHoverBorder, var(--black-45, color(black-45)));
+      background-color: var(--KButtonSecondaryHover);
     }
     &:active {
-      border-color: var(--KButtonSecondaryActiveBorder, darken(color(grey-88), 8%));
-      background-color: var(--KButtonSecondaryActive, darken(color(grey-98), 8%));
+      border-color: var(--KButtonSecondaryActiveBorder, var(--black-45, color(black-45)));
+      background-color: var(--KButtonSecondaryActive, rgba(0,0,0,.05));
+    }
+    &:focus {
+      @include boxShadow(var(--KButtonSecondaryFocus, var(--black-70, color(black-70))));
     }
   }
   &.primary {
     font-weight: 500;
-    color: var(--twhite-1, #fff);
-    background-color: var(--KButtonPrimaryBase, var(--primary, color(blue-base)));
+    color: var(--white, #fff);
+    background-color: var(--KButtonPrimaryBase, var(--blue-500, color(blue-500)));
     &:hover:not(:disabled) {
-      background-color: var(--KButtonPrimaryHover, lighten(color(blue-base), 12%));
+      $hover: rgba(color(blue-500), .85);
+      background-color: var(--KButtonPrimaryHover, $hover);
     }
     &:active {
-      background-color: var(--KButtonPrimaryActive, darken(color(blue-base), 8%));
+      background-color: var(--KButtonPrimaryActive, var(--blue-600, color(blue-600)));
+    }
+    &:focus {
+      @include boxShadow(var(--KButtonPrimaryBase, var(--blue-500, color(blue-500))));
     }
   }
   &.danger {
     font-weight: 500;
-    color: var(--twhite-1, #fff);
-    background-color: var(--KButtonDangerBase, var(--danger, color(red-base)));
+    color: var(--white, #fff);
+    background-color: var(--KButtonDangerBase, var(--red-500, color(red-500)));
     &:hover:not(:disabled) {
-      background-color: var(--KButtonDangerHover, lighten(color(red-base), 12%));
+      $hover: rgba(color(red-500), .85);
+      background-color: var(--KButtonDangerHover, $hover);
     }
     &:active {
-      background-color: var(--KButtonDangerActive, darken(color(red-base), 8%));
+      background-color: var(--KButtonDangerActive, var(--red-600, color(red-600)));
+    }
+    &:focus {
+      @include boxShadow(var(--KButtonDangerBase, var(--red-500, color(red-500))));
     }
   }
   &.outline-primary {
-    color: var(--KButtonLink, var(--btnLink, color(blue-link)));
-    border-color: var(--KButtonOutlinePrimaryBorder, color(blue-light-01));
-    background-color: var(--KButtonOutlineBackground, #fff);
+    color: var(--KButtonOutlinePrimaryColor, var(--blue-500, color(blue-500)));
+    border-color: var(--KButtonOutlinePrimaryBorder, rgba(color(blue-500), .4));
+    background-color: var(--white, color(white));
     &:hover:not(:disabled) {
-      background-color: var(--KButtonOutlinePrimaryHover, color(blue-lightest));
+      border-color: var(--KButtonOutlinePrimaryHoverBorder, rgba(color(blue-500), 1));
     }
     &:active {
-      background-color: var(--KButtonOutlinePrimaryActive, darken(color(blue-lightest), 4%));
+      border-color: var(--KButtonOutlinePrimaryActiveBorder, rgba(color(blue-500), 1));
+      background-color: var(--KButtonOutlinePrimaryActive, var(--blue-100, color(blue-100)));
+    }
+    &:focus {
+      @include boxShadow(var(--KButtonOutlinePrimaryBorder, var(--blue-500, color(blue-500))));
     }
   }
   &.outline-danger {
-    color: var(--KButtonLinkDanger, var(--linkDanger, color(red-link)));
-    border-color: var(--KButtonOutlineDangerBorder, color(red-light-01));
-    background-color: var(--KButtonOutlineBackground, #fff);
+    color: var(--KButtonOutlineDangerColor, var(--red-600, color(red-600)));
+    border-color: var(--KButtonOutlineDangerBorder, rgba(color(red-500), .4));
+    background-color: var(--white, color(white));
     &:hover:not(:disabled) {
-      background-color: var(--KButtonOutlineDangerHover, color(red-lightest));
+      border-color: var(--KButtonOutlineDangerHoverBorder, rgba(color(red-500), 1));
     }
     &:active {
-      background-color: var(--KbuttonOtlineDangerActive, darken(color(red-lightest), 4%));
+      border-color: var(--KButtonOutlineDangerActiveBorder, rgba(color(red-500), 1));
+      background-color: var(--KbuttonOtlineDangerActive, var(--red-100, color(red-100)));
+    }
+    &:focus {
+      @include boxShadow(var(--KButtonOutlineDangerBorder, var(--red-500, color(red-500))));
     }
   }
   &.btn-link {
-    color: var(--KButtonBtnLink, var(--linkPrimary, color(blue-link)));
+    color: var(--KButtonBtnLink, var(--blue-600, color(blue-600)));
     &:hover:not(:disabled) {
       text-decoration: underline;
     }
+    &:focus {
+      @include boxShadow(var(--blue-500, color(blue-500)));
+    }
   }
   &.btn-link-danger {
-    color: var(--KButtonLinkDanger, var(--linkDanger, color(red-link)));
+    color: var(--KButtonLinkDanger, var(--red-600, color(red-600)));
     &:hover:not(:disabled) {
       text-decoration: underline;
+    }
+    &:focus {
+      @include boxShadow(var(--red-500, color(red-500)));
     }
   }
 }
