@@ -17,7 +17,9 @@ You can pass any input attribute and it will get properly bound to the element.
 <KInput class="mb-2" disabled value="disabled"/>
 <KInput class="mb-2" readonly value="readonly"/>
 <KInput class="mb-2" type="search" value="search"/>
-<KInput class="mb-2" type="email" value="error"/>
+<KInput class="mb-2 input-error" type="email" value="error"/>
+
+> Note: Add the `input-error` class to add custom error styling
 
 ```vue
 <KInput placeholder="placeholder" />
@@ -27,7 +29,7 @@ You can pass any input attribute and it will get properly bound to the element.
 <KInput disabled value="disabled"/>
 <KInput read-only value="read-only"/>
 <KInput type="search" value="search"/>
-<KInput type="email" value="error"/>
+<KInput type="email" value="error" class="input-error"/>
 ```
 
 Additionally you you can use in conjunction with **KLabel** and or a paragraph with the utility class of `.help`. These are meant to be used before and after KInput and will be styled appropriately. 
@@ -57,30 +59,24 @@ Additionally you you can use in conjunction with **KLabel** and or a paragraph w
 
 An Example of changing the error border color of KInput to pink might look like:
 
-> Note: We are scoping the overrides to a wrapper in this example
-
 <template>
-  <div class="KInput-wrapper">
-    <KInput type="email" value="error" />
-  </div>
+  <KInput class="custom-input input-error" type="email" value="error" />
 </template>
 
 ```vue
 <template>
-  <div class="KInput-wrapper">
-    <KInput type="email" value="error" />
-  </div>
+  <KInput class="custom-input input-error" type="email" value="error" />
 </template>
 
 <style>
-.KInput-wrapper {
+.custom-input {
   --KInputError: hotpink;
 }
 </style>
 ```
 
 <style lang="scss">
-.KInput-wrapper {
+.custom-input {
   --KInputError: hotpink;
 }
 </style>

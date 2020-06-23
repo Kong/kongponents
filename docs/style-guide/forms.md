@@ -14,12 +14,14 @@ Here is an example of html elements being styled using the including css.
 <input class="k-input mb-2" disabled value="disabled"/>
 <input class="k-input mb-2" readonly value="readonly"/>
 <input class="k-input mb-2" type="search" value="search"/>
-<input class="k-input mb-2" type="email" value="error"/>
+<input class="k-input mb-2 input-error" type="email" value="error"/>
 <select class="k-input">
   <option value="option1">Option 1</option>
   <option value="option2">Option 2</option>
   <option value="option3">Option 3</option>
 </select>
+
+> Note: Add the `input-error` class to add custom error styling
 
 ```html
 <input class="k-input" placeholder="placeholder" />
@@ -29,7 +31,7 @@ Here is an example of html elements being styled using the including css.
 <input class="k-input" disabled value="disabled"/>
 <input class="k-input" readonly value="readonly"/>
 <input class="k-input" type="search" value="search"/>
-<input class="k-input" type="email" value="error"/>
+<input class="k-input input-error" type="email" value="error"/>
 <select class="k-input">
   <option value="option1">Option 1</option>
   <option value="option2">Option 2</option>

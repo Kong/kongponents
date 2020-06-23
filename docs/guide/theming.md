@@ -12,11 +12,11 @@ Kongponents use styles from Kong's base styleguide.css file by default. You can 
 | `--KInputDisabledBackground `| Disabled background
 | `--KInputError `| Error border
 
-An Example of changing the error border of KInput to a darker red instead would
-look like
+> Note: Add the `input-error` class to add error styling
+
 ```vue
 <template>
-  <KInput type="email" value="error"/>
+  <KInput type="email" value="error" class="input-error" />
 </template>
 
 <style>
@@ -25,7 +25,7 @@ look like
 }
 </style>
 ```
-<KInput id="theme-page-kinput" type="email" value="error" />
+<KInput id="theme-page-kinput" class="input-error" type="email" value="error" />
 
 ## Popovers
 | Variable | Purpose
