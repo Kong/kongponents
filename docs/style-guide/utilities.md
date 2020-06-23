@@ -110,7 +110,7 @@ For each color in our [color palette](/style-guide/colors.html) we include a uti
 
 | Class       | Properties      | Example
 | :---------- |:-------------- |:-----------
-| .type-{color} | color: var(--{color}) | `class="color-blue-base"`
+| .type-{color} | color: var(--{color}) | `class="color-blue-500"`
 
 ## Type Sizes
 For each size in our [type definitions](/style-guide/type.html) we include a utility class that is prefixed with `type-`. You can also add the class of `.mono` to style as mono
@@ -131,7 +131,7 @@ For each size in our [type definitions](/style-guide/type.html) we include a uti
 .theme-container.utilities {
   table:not(:first-of-type) td {
     &:first-of-type { color: #6b46c1; }
-    &:last-of-type { color: var(--blue-dark); }
+    &:last-of-type { color: var(--blue-700); }
   }
 }
 </style> 
