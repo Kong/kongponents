@@ -4,7 +4,7 @@
       v-for="item in props.items"
       :key="item.key || item.text"
       :style="{ maxWidth: item.maxWidth || props.itemMaxWidth }"
-      class="krumb-item"
+      class="krumb-item truncate"
     >
       <router-link
         v-if="typeof item.to === 'object'"
@@ -57,12 +57,6 @@ export default {
   margin-bottom: 1rem;
   list-style: none;
   border-radius: 0.25rem;
-}
-
-.krumb-item {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
 
 .krumbs .krumb-item + .krumb-item::before {
