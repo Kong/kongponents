@@ -36,15 +36,25 @@ export default {
 </script>
 ```
 
-## Usage
-### Breadcrumb object
-A breadcrumb object is comprised of 4 key properties
-- `key` An ID when the list is generated
-- `to` An external URL or a Vue Route object
-- `title` The anchor title shown when hovering the link
-- `text` The anchor text displayed
+## Props
 
-### Breadcrumb link
+### items
+
+An array of Breadcrumb items
+
+```html
+<!--
+ * @typedef {Object} Item - breacrumb item holding router-link properties
+ * @property {RawLocation} to - router-link 'to' object or href string
+ * @property {string} text - The anchor text displayed
+ * @property {string} title - The anchor title shown when hovering the link
+ * @property {string} [key] - An ID when the list is generated. Defaults to text if not set.
+ * @property {string} [maxWidth] - maxWidth of item, overrides itemMaxWidth
+ -->
+<Krumbs :items="[{ key: 'home', to: { path: '/' }, title: 'Home', text: 'Home' }]" />
+ ```
+
+#### Breadcrumb link
 The `to` property can be a Vue route or traditional URL. When using a URL though the target will be blank and a new window will open. In most scenarios you will build your breadcrumb items using your Vue application routes.
 
 <KCard>
@@ -54,6 +64,9 @@ The `to` property can be a Vue route or traditional URL. When using a URL though
 </KCard>
 
 ```vue
+<template>
+  <Krumbs :items="breadcrumbItems" />
+</template>
 <script>
 export default {
   data () {
@@ -77,6 +90,21 @@ export default {
 }
 </script>
 ```
+
+### itemMaxWidth
+
+Maximum width of each breadcrumb item for truncating to ellipsis.
+
+<KCard>
+  <template v-slot:body>
+    <Krumbs :items="longBreadcrumbs" item-max-width="10ch" />
+  </template>
+</KCard>
+
+```vue
+<Krumbs :items="longBreadcrumbs" item-max-width="10ch" />
+```
+
 
 <script>
 export default {
@@ -108,6 +136,23 @@ export default {
           to: 'https://google.com',
           title: 'Search over at Google',
           text: 'Google'
+        }
+      ],
+      longBreadcrumbs: [
+        {
+          to: { path: '/' },
+          title: 'Overview',
+          text: 'Overview'
+        },
+        {
+          to: { path: '/' },
+          title: 'Services',
+          text: 'Services'
+        },
+        {
+          to: { path: '/' },
+          title: 'Go Home',
+          text: 'f67a3ead-dfb9-4ef9-8cda-6646bc4db950'
         }
       ]
     }

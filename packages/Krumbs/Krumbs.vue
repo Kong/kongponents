@@ -2,7 +2,8 @@
   <ul class="krumbs">
     <li
       v-for="item in props.items"
-      :key="item.key"
+      :key="item.key || item.text"
+      :style="{ maxWidth: item.maxWidth || props.itemMaxWidth }"
       class="krumb-item"
     >
       <router-link
@@ -23,9 +24,10 @@
 /**
  * @typedef {Object} Item - breacrumb item holding router-link properties
  * @property {Object|String} to - router-link "to" object or href string
- * @property {string} key - list item key
  * @property {string} text - anchor text
  * @property {string} title - anchor title
+ * @property {string} [key] - list item key
+ * @property {string} [maxWidth] - maxWidth of item, overrides itemMaxWidth
  */
 
 export default {
@@ -36,6 +38,11 @@ export default {
     items: {
       type: Array,
       required: true
+    },
+    itemMaxWidth: {
+      type: String,
+      required: false,
+      default: '38ch' // can handle a monospaced uuid
     }
   }
 }
@@ -50,6 +57,12 @@ export default {
   margin-bottom: 1rem;
   list-style: none;
   border-radius: 0.25rem;
+}
+
+.krumb-item {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .krumbs .krumb-item + .krumb-item::before {
