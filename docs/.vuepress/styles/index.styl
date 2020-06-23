@@ -9,11 +9,15 @@ table {
     border: none;
   }
   td:not(:last-of-type) {
-    border-right: 1px solid #dfe2e5;
+    border-right: 1px solid var(--grey-92);
   }
   tr:nth-child(2n) {
     background-color: #fff;
   }
+}
+
+.theme-default-content code {
+  color: var(--grey-82);
 }
 
 @import "../../../../docs/.vuepress/styles/prism-theme.min.css"

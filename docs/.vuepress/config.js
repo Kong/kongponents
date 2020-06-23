@@ -1,6 +1,7 @@
 const path = require('path')
 
 module.exports = {
+  port: 8082,
   title: 'Kongponents',
   description: 'Kong UI Components & Style Guide',
   themeConfig: {
