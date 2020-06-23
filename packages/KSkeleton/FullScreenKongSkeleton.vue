@@ -70,7 +70,7 @@ export default {
   z-index: 10500;
   flex-direction: column;
   margin: var(--KSkeletonFullScreenMargin, 0);
-  background: var(--twhite-1, color(twhite-1));
+  background: var(--white, color(white));
   .progress {
     margin-top: 1rem;
     max-width: 350px;
@@ -79,7 +79,7 @@ export default {
     .progress-bar {
       border-radius: 0.5rem;
       height: 5px;
-      background-color: var(--KSkeletonFullScreenProgressColor, var(--blue-base, color(blue-base)));
+      background-color: var(--KSkeletonFullScreenProgressColor, var(--blue-500, color(blue-500)));
     }
   }
 }

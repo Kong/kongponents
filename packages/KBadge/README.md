@@ -6,5 +6,5 @@
 <KBadge appearance="success">SUCCESS</KBadge>
 <KBadge appearance="warning">WARNING</KBadge>
 <KBadge appearance="danger">DANGER</KBadge>
-<KBadge color="var(--blue-lighter)" background-color="var(--blue-base)">👋🏻 Hello</KBadge>
+<KBadge color="var(--blue-200)" background-color="var(--blue-500)">👋🏻 Hello</KBadge>
 ```

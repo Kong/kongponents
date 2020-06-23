@@ -316,8 +316,8 @@ export default {
   font-size: var(--KPopBodySize, var(--type-sm, type(sm)));
   text-align: left;
   white-space: normal;
-  color: var(--KPopColor, var(--tblack-70, color(tblack-70)));
-  background-color: var(--KPopBackground, var(--twhite-1, color(twhite-1)));
+  color: var(--KPopColor, var(--black-70, color(black-70)));
+  background-color: var(--KPopBackground, var(--white, color(white)));
   border: 1px solid var(--KPopBorder, var(--grey-84, color(grey-84)));
   border-radius: 3px;
   -webkit-box-shadow: 0 0 12px rgba(0,0,0,.12);
@@ -325,12 +325,9 @@ export default {
   padding: var(--KPopPaddingY, var(--spacing-md, spacing(md))) var(--KPopPaddingX, var(--spacing-md, spacing(md)));
 
   .k-popover-title {
-    padding-bottom: 1rem;
     margin-bottom: 1rem;
     font-size: var(--KPopHeaderSize, var(--type-md, type(md)));
     font-weight: 500;
-    border-bottom: 1px solid rgba(0,0,0,.10);
-    background-color: var(--KPopBackground, var(--twhite-1, color(twhite-1)));
   }
 
   &[x-placement^="bottom"] {
@@ -349,7 +346,7 @@ export default {
 
     &:after {
       border-color: rgba(255, 255, 255, 0);
-      border-bottom-color: var(--KPopBackground, var(--twhite-1, color(twhite-1)));
+      border-bottom-color: var(--KPopBackground, var(--white, color(white)));
       border-width: 10px;
       margin-left: -10px;
     }
@@ -378,7 +375,7 @@ export default {
 
     &:after {
       border-color: rgba(255, 255, 255, 0);
-      border-top-color: var(--KPopBackground, var(--twhite-1, color(twhite-1)));
+      border-top-color: var(--KPopBackground, var(--white, color(white)));
       border-width: 10px;
       margin-left: -10px;
     }
@@ -407,7 +404,7 @@ export default {
 
     &:after {
       border-color: rgba(255, 255, 255, 0);
-      border-left-color: var(--KPopBackground, var(--twhite-1, color(twhite-1)));
+      border-left-color: var(--KPopBackground, var(--white, color(white)));
       border-width: 10px;
       margin-top: -10px;
     }
@@ -436,7 +433,7 @@ export default {
 
     &:after {
       border-color: rgba(255, 255, 255, 0);
-      border-right-color: var(--KPopBackground, var(--twhite-1, color(twhite-1)));
+      border-right-color: var(--KPopBackground, var(--white, color(white)));
       border-width: 10px;
       margin-top: -10px;
     }

@@ -105,13 +105,13 @@ export default {
       }
       &.active,
       &:hover {
-        &:after { background-color: var(--KTabsActiveColor, var(--blue-base, color(blue-base))); }
-        .tab-link { color: var(--KTabsActiveColor, var(--blue-base, color(blue-base))); }
+        &:after { background-color: var(--KTabsActiveColor, var(--blue-500, color(blue-500))); }
+        .tab-link { color: var(--KTabsActiveColor, var(--blue-500, color(blue-500))); }
       }
     }
     .tab-link {
       display: block;
-      color: var(--KTabsColor, var(--tblack-45, color(tblack-45)));
+      color: var(--KTabsColor, var(--black-45, color(black-45)));
       &:hover {
         text-decoration: none;
         border: none;

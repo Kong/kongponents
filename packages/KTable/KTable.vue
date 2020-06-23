@@ -240,9 +240,9 @@ table.k-table {
       border-bottom: 1px solid var(--KTableBorder, var(--grey92, color(grey-92)));
     }
     td {
-      color: var(--KTableColor, var(--tblack-70, color(tblack-70)));
+      color: var(--KTableColor, var(--black-70, color(black-70)));
       a {
-        color: var(--blue-link, color(blue-link));
+        color: var(--blue-600, color(blue-600));
         text-decoration: none;
         &:hover {
           text-decoration: underline;
@@ -266,7 +266,7 @@ table.k-table {
     }
   }
   &.has-hover tbody tr:hover {
-    background-color: var(--KTableHover, var(--blue-lightest, color(blue-lightest)));
+    background-color: var(--KTableHover, var(--blue-100, color(blue-100)));
   }
 }
 </style>

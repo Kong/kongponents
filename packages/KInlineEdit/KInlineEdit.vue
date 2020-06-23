@@ -109,7 +109,7 @@ Example usage:
       transition: background-color 200ms ease;
     }
     &:hover > * {
-      background-color: var(--blue-lightest);
+      background-color: var(--blue-100);
     }
   }
   .k-input {
@@ -118,7 +118,7 @@ Example usage:
     padding: var(--padding);
     &:focus,
     &:hover {
-      background-color: var(--twhite-1);
+      background-color: var(--white);
     }
   }
 }

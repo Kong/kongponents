@@ -27,7 +27,7 @@
 /*  Colors
 ========================================================================== */
 // For each color in $colors variable
-// Create class (.color-blue-base)
+// Create class (.color-blue-500)
 @each $name, $color in $colors {
   .color-#{$name} {
     color: var(--#{$name})
