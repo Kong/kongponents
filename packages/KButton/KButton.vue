@@ -144,6 +144,7 @@ export default {
     width: 1rem;
     height: 1rem;
     padding-right: var(--spacing-xs, spacing(xs));
+    box-sizing: unset;
   }
 
   &.icon-btn {
