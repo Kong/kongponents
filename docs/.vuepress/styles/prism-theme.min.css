@@ -10,7 +10,9 @@
 /*********************************************************
 * General
 */
-
+div[class*="language-"]::before {
+  color: var(--black-70) !important;
+}
 div[class*="language-"],
 pre[class*="language-"],
 code[class*="language-"] {
@@ -129,16 +131,13 @@ pre[class*="language-"] > code[class*="language-"] {
   position: relative;
   z-index: 1;
 }
-.line-highlight {
-  position: absolute;
-  left: 0;
-  right: 0;
-  padding: inherit 0;
-  margin-top: 1em;
-  background: var(--blue-100);
-  box-shadow: inset 5px 0 0 var(--blue-600);
-  z-index: 0;
-  pointer-events: none;
-  line-height: inherit;
-  white-space: pre;
+div[class*="language-"] .highlight-lines .highlighted,
+div[class*="language-"].line-numbers-mode .highlight-lines .highlighted:before {
+  background-color: var(--black-10) !important;
+}
+div[class*="language-"].line-numbers-mode .line-numbers-wrapper {
+  color: var(--black-70) !important;
+}
+div[class*="language-"].line-numbers-mode::after {
+  border-right: 1px solid var(--black-10) !important;
 }
