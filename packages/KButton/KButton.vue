@@ -162,7 +162,7 @@ export default {
 
   /* Apperance Variations */
   &.secondary {
-    border-color: var(--KButtonSecondaryBorder, var(--black-10, color(black-1)));
+    border-color: var(--KButtonSecondaryBorder, var(--black-10, color(black-10)));
     background-color: var(--KButtonSecondaryBase, var(--white, color(white)));
     &:hover:not(:disabled) {
       border-color: var(--KButtonSecondaryHoverBorder, var(--black-45, color(black-45)));
