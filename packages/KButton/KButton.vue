@@ -102,8 +102,8 @@ export default {
 <style scoped lang="scss">
 @import '~@kongponents/styles/_variables.scss';
 
-@mixin boxShadow($color) {
-  box-shadow: 0 0 0 2px var(--white, color(white)), 0 0 0 4px $color;
+@mixin boxShadow($color, $whiteShadowSpred: 2px, $colorShadowSpread: 4px) {
+  box-shadow: 0 0 0 $whiteShadowSpred var(--white, color(white)), 0 0 0 $colorShadowSpread $color;
 }
 
 .k-button {
@@ -239,22 +239,22 @@ export default {
   }
   &.btn-link {
     color: var(--KButtonBtnLink, var(--blue-600, color(blue-600)));
-    background-color: var(--white, color(white));
+    background-color: transparent;
     &:hover:not(:disabled) {
       text-decoration: underline;
     }
     &:focus {
-      @include boxShadow(var(--blue-500, color(blue-500)));
+      @include boxShadow(var(--blue-500, color(blue-500)), 0, 2px);
     }
   }
   &.btn-link-danger {
     color: var(--KButtonLinkDanger, var(--red-600, color(red-600)));
-    background-color: var(--white, color(white));
+    background-color: transparent;
     &:hover:not(:disabled) {
       text-decoration: underline;
     }
     &:focus {
-      @include boxShadow(var(--red-500, color(red-500)));
+      @include boxShadow(var(--red-500, color(red-500)), 0, 2px);
     }
   }
 }
