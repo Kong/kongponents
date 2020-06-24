@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/Kong/kongponents/compare/@kongponents/krumbs@0.1.9...@kongponents/krumbs@0.2.0) (2020-06-24)
+
+
+### Features
+
+* **krumbs:** add maxWidth prop ([#224](https://github.com/Kong/kongponents/issues/224)) ([7dd677d](https://github.com/Kong/kongponents/commit/7dd677d844bd7246fddf261deb3d79b524d24dd0))
+
+
+
+
+
 ## [0.1.9](https://github.com/Kong/kongponents/compare/@kongponents/krumbs@0.1.8...@kongponents/krumbs@0.1.9) (2020-03-06)
 
 **Note:** Version bump only for package @kongponents/krumbs
