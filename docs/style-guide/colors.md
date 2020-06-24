@@ -37,13 +37,14 @@ export default {
       }, [])
 
     this.$page.colors = {
-      Blues: colors.filter(i => i.includes('blue')),
-      Reds: colors.filter(i => i.includes('red')),
-      Greens: colors.filter(i => i.includes('green')),
-      Yellows: colors.filter(i => i.includes('yellow')),
-      Blacks: colors.filter(i => i.includes('black')),
-      Greys: colors.filter(i => i.includes('grey')),
-      Whites: colors.filter(i => i.includes('white'))
+      Blue: colors.filter(i => i.includes('blue')),
+      Steal: colors.filter(i => i.includes('steal')),
+      Red: colors.filter(i => i.includes('red')),
+      Green: colors.filter(i => i.includes('green')),
+      Yellow: colors.filter(i => i.includes('yellow')),
+      Black: colors.filter(i => i.includes('black')),
+      Grey: colors.filter(i => i.includes('grey')),
+      White: colors.filter(i => i.includes('white'))
     }
   }
 }
