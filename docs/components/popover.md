@@ -267,12 +267,12 @@ To support `<KPop>` being able to be used inside an svg tag, use the `isSvg` pro
 This will wrap the content of the KPop in a `<foreignObject>` tag, so that normal
 HTML content can be injected into the popover.
 
-<svg style="cursor: pointer; height: 20px; width: 20px; margin-right: 1rem;" v-for="light in ['red', 'yellow', 'green']">
-  <KPop trigger="hover" :title="light" :is-svg="true" tag="g" :popover-timeout="10">
+<svg style="cursor: pointer; height: 20px; width: 20px; margin-right: 1rem;" v-for="light in [{ color: 'red', value: 'red-500'}, { color: 'yellow', value: 'yellow-200'}, { color: 'green', value: 'green-500'}]">
+  <KPop trigger="hover" :title="light.color" :is-svg="true" tag="g" :popover-timeout="10">
     <template slot="content">
-      <p>{{ light }} means {{ light == 'green' ? 'GO!' : (light == 'red' ? 'STOP!' : 'SLOW DOWN!') }}</p>
+      <p>{{ light.color }} means {{ light.color == 'green' ? 'GO!' : (light.color == 'red' ? 'STOP!' : 'SLOW DOWN!') }}</p>
     </template>
-    <rect :fill="`var(--${light}-base)`" width="20" height="20" rx="20" ry="20"></rect>
+    <rect :fill="`var(--${light.value})`" width="20" height="20" rx="20" ry="20"></rect>
   </KPop>
 </svg>
 
@@ -282,7 +282,7 @@ HTML content can be injected into the popover.
     <template slot="content">
       <p>{{ light }} means {{ light == 'green' ? 'GO!' : (light == 'red' ? 'STOP!' : 'SLOW DOWN!') }}</p>
     </template>
-    <rect :fill="`var(--${light}-base)`" width="20" height="20" rx="20" ry="20"></rect>
+    <rect :fill="`var(--${light})`" width="20" height="20" rx="20" ry="20"></rect>
   </KPop>
 </svg>
 ```
@@ -337,7 +337,7 @@ triggers)
 <KPop @opened="loadSomething" @closed="onClose">
   <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
   <div slot="content" style="display: flex; justify-content: center;">
-    <KIcon v-if="currentState == 'pending'" icon="spinner" viewBox="0 0 20 20" size="20" color="var(--tblack90)"/>
+    <KIcon v-if="currentState == 'pending'" icon="spinner" viewBox="0 0 20 20" size="20" color="var(--black90)"/>
     <div>{{ message }}</div>
   </div>
 </KPop>
@@ -414,7 +414,7 @@ triggers)
 <KPop @opened="loadSomething" @closed="onClose">
   <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
   <div slot="content" style="display: flex; justify-content: center;">
-    <KIcon v-if="currentState == 'pending'" icon="spinner" viewBox="0 0 20 20" size="20" color="var(--tblack90)"/>
+    <KIcon v-if="currentState == 'pending'" icon="spinner" viewBox="0 0 20 20" size="20" color="var(--black90)"/>
     <div>{{ message }}</div>
   </div>
 </KPop>

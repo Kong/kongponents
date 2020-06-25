@@ -1,5 +1,5 @@
 .form-group {
-  $borderColor: var(--KInputBorder, var(--grey-88, color(grey--grey-88)));
+  $borderColor: var(--KInputBorder, var(--grey-300, color(grey--grey-300)));
   display: block;
   width: 100%;
   margin-bottom: var(--lg, spacing(lg));
@@ -14,5 +14,5 @@
   display: block;
   margin: var(--spacing-xs, spacing(xs)) 0 0;
   font-size: var(--type-sm, type(sm));
-  color: var(--tblack-45, color(tblack-45));
+  color: var(--black-45, color(black-45));
 }

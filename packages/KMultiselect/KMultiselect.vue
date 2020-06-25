@@ -186,8 +186,8 @@ export default {
     &:disabled { pointer-events: none; }
   }
   &-filter .k-input {
-    --KInputBackground: var(--grey-98, color(grey-98));
-    --KInputBorder: var(--grey-88, color(grey-88));
+    --KInputBackground: var(--grey-100, color(grey-100));
+    --KInputBorder: var(--grey-300, color(grey-300));
 
     border-radius: 0;
     border-left: 0;
@@ -204,7 +204,7 @@ export default {
   &-title {
     padding: 0 2rem;
     margin-bottom: var(--spacing-sm);
-    color: var(--KMultiselectTitleColor, var(--tblack-45, color(tblack-45)));
+    color: var(--KMultiselectTitleColor, var(--black-45, color(black-45)));
     font-size: var(--KMultiselectTitleSize, var(--type-xs, type(xs)));
   }
   &-menu {
@@ -216,15 +216,15 @@ export default {
     position: relative;
     padding: var(--KMultiselectItemPaddingY, 0) var(--KMultiselectItemPaddingX, var(--spacing-xl, spacing(xl)));
     white-space: nowrap;
-    color: var(--KMultiselectItemColor, var(--tblack-70, color(tblack-70)));
+    color: var(--KMultiselectItemColor, var(--black-70, color(black-70)));
     font-size: 1rem;
     line-height: 2rem;
     overflow: hidden;
     text-overflow: ellipsis;
     cursor: pointer;
-    &:hover { background-color: var(--KMultiselectItemHover, var(--blue-lightest, color(blue-lightest)));}
+    &:hover { background-color: var(--KMultiselectItemHover, var(--blue-100, color(blue-100)));}
     &.is-selected {
-      color: var(--KMultiselectItemActiveColor, var(--blue-dark, color(blue-dark)));
+      color: var(--KMultiselectItemActiveColor, var(--blue-700, color(blue-700)));
       &:before {
         position: absolute;
         top: 10px;
@@ -239,7 +239,7 @@ export default {
       }
     }
     &.is-disabled {
-      color: var(--KMultiselectDisabledColor, var(--tblack-45, color(tblack-45)));
+      color: var(--KMultiselectDisabledColor, var(--black-45, color(black-45)));
       pointer-events: none;
     }
   }

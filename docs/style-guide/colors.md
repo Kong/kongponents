@@ -7,6 +7,7 @@
     :key="i"
     class="color-group">
     <h4>{{ key }}</h4>
+    <p v-if="key === 'Black'">Unlike the other colors which follow a naming style numbered lightest to darkest, blacks are named by their opacity.</p>
     <div class="colors">
       <swatch
         v-for="(color, i) in group"
@@ -37,13 +38,14 @@ export default {
       }, [])
 
     this.$page.colors = {
-      Blues: colors.filter(i => i.includes('blue')),
-      Reds: colors.filter(i => i.includes('red')),
-      Greens: colors.filter(i => i.includes('green')),
-      Yellows: colors.filter(i => i.includes('yellow')),
-      Blacks: colors.filter(i => i.includes('black')),
-      Greys: colors.filter(i => i.includes('grey')),
-      Whites: colors.filter(i => i.includes('white'))
+      Blue: colors.filter(i => i.includes('blue')),
+      Steal: colors.filter(i => i.includes('steal')),
+      Red: colors.filter(i => i.includes('red')),
+      Green: colors.filter(i => i.includes('green')),
+      Yellow: colors.filter(i => i.includes('yellow')),
+      Grey: colors.filter(i => i.includes('grey')),
+      Black: colors.filter(i => i.includes('black')),
+      White: colors.filter(i => i.includes('white'))
     }
   }
 }

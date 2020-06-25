@@ -2,36 +2,36 @@
 
 .k-input,
 .form-control {
-  $borderColor: var(--KInputBorder, var(--grey-88, color(grey-88)));
+  $borderColor: var(--KInputBorder, var(--grey-300, color(grey-300)));
 
   &:not([type="checkbox"]),
   &:not([type="radio"]) {
     display: block;
     padding: var(--spacing-xs, spacing(xs)) var(--spacing-sm, spacing(sm));
-    color: var(--KInputColor, var(--tblack-70, color(tblack-70)));
+    color: var(--KInputColor, var(--black-70, color(black-70)));
     font-size: var(--type-md, type(md));
     font-weight: normal;
     line-height: 1.25;
     border: 1px solid $borderColor;
     border-radius: 3px;
-    background-color: var(--KInputBackground, var(--twhite-1, color(twhite-1)));
+    background-color: var(--KInputBackground, var(--white, color(white)));
     box-shadow: none;
     box-sizing: border-box;
 
     &:focus {
       outline: none !important;
-      border: 1px solid var(--KInputFocus, var(--blue-light, color(blue-light)));
+      border: 1px solid var(--KInputFocus, var(--blue-400, color(blue-400)));
     }
 
     &:disabled {
       cursor: not-allowed;
       font-style: italic;
-      background-color: var(--KInputDisabledBackground, var(--grey-98, color(grey-98)));
+      background-color: var(--KInputDisabledBackground, var(--grey-100, color(grey-100)));
       opacity: 0.5;
     }
 
     &:read-only {
-      background-color: var(--KInputReadonlyBackground, var(--grey-98, color(grey-98)));
+      background-color: var(--KInputReadonlyBackground, var(--grey-100, color(grey-100)));
       &:focus {
         border-color: $borderColor;
       }
@@ -39,7 +39,7 @@
 
     &.input-error {
       outline: none !important;
-      border: 1px solid var(--KInputError, var(--red-light, color(red-light)));
+      border: 1px solid var(--KInputError, var(--red-400, color(red-400)));
     }
 
     &:invalid,
@@ -50,7 +50,7 @@
 
     /* Browser Overrides */
     &::placeholder {
-      color: var(--tblack-45, color(tblack-45));
+      color: var(--black-45, color(black-45));
       font-weight: normal;
       opacity: 1;
     }
@@ -74,6 +74,6 @@ select.k-input {
   &:not([type="radio"]),
   &:not([type="radio"]):read-only {
     height: 38px;
-    background-color: var(--KInputSelectBackground, var(--twhite-1, color(twhite-1)));
+    background-color: var(--KInputSelectBackground, var(--white, color(white)));
   }
 }

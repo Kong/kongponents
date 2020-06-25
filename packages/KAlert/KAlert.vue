@@ -143,7 +143,7 @@ export default {
   border-radius: 3px;
   a {
     text-decoration: underline;
-    color: var(--blue-link, color(blue-link));
+    color: var(--blue-600, color(blue-600));
   }
 
   .alert-icon {
@@ -196,24 +196,24 @@ export default {
 
   // Appearances
   &.info {
-    color: var(--KAlertInfoColor, var(--blue-dark, color(blue-dark)));
-    border-color: var(--KAlertInfoBorder, var(--blue-light-01, color(blue-light-01)));
-    background-color: var(--KAlertInfoBackground, var(--blue-lighter, color(blue-lighter)));
+    color: var(--KAlertInfoColor, var(--blue-700, color(blue-700)));
+    border-color: var(--KAlertInfoBorder, var(--blue-300, color(blue-300)));
+    background-color: var(--KAlertInfoBackground, var(--blue-200, color(blue-200)));
   }
   &.success {
-    color: var(--KAlertSuccessColor, var(--green-dark, color(green-dark)));
-    border-color: var(--KAlertSuccessBorder, var(--green-light-01, color(green-light-01)));
-    background-color: var(--KAlertSuccessBackground, var(--green-lighter, color(green-lighter)));
+    color: var(--KAlertSuccessColor, var(--green-500, color(green-500)));
+    border-color: var(--KAlertSuccessBorder, var(--green-200, color(green-200)));
+    background-color: var(--KAlertSuccessBackground, var(--green-100, color(green-100)));
   }
   &.danger {
-    color: var(--KAlertDangerColor, var(--red-dark, color(red-dark)));
-    border-color: var(--KAlertDangerBorder, var(--red-light-01, color(red-light-01)));
-    background-color: var(--KAlertDangerBackground, var(--red-lighter, color(red-lighter)));
+    color: var(--KAlertDangerColor, var(--red-700, color(red-700)));
+    border-color: var(--KAlertDangerBorder, var(--red-300, color(red-300)));
+    background-color: var(--KAlertDangerBackground, var(--red-200, color(red-200)));
   }
   &.warning {
-    color: var(--KAlertWarningColor, var(--yellow-darker, color(yellow-darker)));
-    border-color: var(--KAlertWarningBorder, var(--yellow-light, color(yellow-light)));
-    background-color: var(--KAlertWarningBackground, var(--yellow-lighter, color(yellow-lighter)));
+    color: var(--KAlertWarningColor, var(--yellow-400, color(yellow-400)));
+    border-color: var(--KAlertWarningBorder, var(--yellow-200, color(yellow-200)));
+    background-color: var(--KAlertWarningBackground, var(--yellow-100, color(yellow-100)));
   }
 }
 </style>

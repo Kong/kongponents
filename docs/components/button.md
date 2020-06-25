@@ -1,6 +1,3 @@
----
-pageClass: docs-kbutton
----
 # Button
 
 **KButton** is probably the most used Kongponent. It supports a number of variations
@@ -23,13 +20,13 @@ The Button component can take 1 of 7 appearance values:
 - `btn-link`  
 - `btn-link-danger`
 
-<KButton appearance='primary'>primary</KButton>
-<KButton appearance='danger'>danger</KButton>
-<KButton appearance="secondary">secondary</KButton>
-<KButton appearance='outline-primary'>outline-primary</KButton>
-<KButton appearance='outline-danger'>outline-danger</KButton>
-<KButton appearance='btn-link'>btn-link</KButton>
-<KButton appearance='btn-link-danger'>btn-link-danger</KButton>
+<KButton class="mr-2 mb-2" appearance='primary'>primary</KButton>
+<KButton class="mr-2 mb-2" appearance='danger'>danger</KButton>
+<KButton class="mr-2 mb-2" appearance="secondary">secondary</KButton>
+<KButton class="mr-2 mb-2" appearance='outline-primary'>outline-primary</KButton>
+<KButton class="mr-2 mb-2" appearance='outline-danger'>outline-danger</KButton>
+<KButton class="mr-2 mb-2" appearance='btn-link'>btn-link</KButton>
+<KButton class="mr-2 mb-2" appearance='btn-link-danger'>btn-link-danger</KButton>
 
 ```vue
 <KButton appearance='primary'>primary</KButton>
@@ -129,48 +126,47 @@ KButton supports using an icon either before the text or without text.
 | `--KButtonPrimaryBase `| Primary background
 | `--KButtonPrimaryHover`| Primary hover state
 | `--KButtonPrimaryActive`| Primary active state
-| `--KButtonSecondaryColor`| Secondary text color
 | `--KButtonSecondaryBase`| Secondary background
 | `--KButtonSecondaryBorder`| Secondary border
 | `--KButtonSecondaryHover`| Secondary hover state
 | `--KButtonSecondaryHoverBorder`| Secondary hover border
 | `--KButtonSecondaryActive`| Secondary active state 
 | `--KButtonSecondaryActiveBorder`| Secondary active state border
+| `--KButtonSecondaryFocus` | Secondary focus box shadow color
 | `--KButtonDangerBase`| Danger background
 | `--KButtonDangerHover`| Danger hover state
 | `--KButtonDangerActive`| Danger active state
-| `--KButtonOutlineBackground`| Primary outline background (white 50%)
+| `--KButtonOutlinePrimaryColor` | Primary outline text color
 | `--KButtonOutlinePrimaryBorder`| Primary outline border
-| `--KButtonOutlinePrimaryHover`| Primary outline hover state
+| `--KButtonOutlinePrimaryHoverBorder`| Primary outline hover state border
 | `--KButtonOutlinePrimaryActive`| Primary outline active state
+| `--KButtonOutlinePrimaryActiveBorder`| Primary outline active state border
+| `--KButtonOutlineDangerColor` | Danger outline text color
 | `--KButtonOutlineDangerBorder`| Danger outline border
-| `--KButtonOutlineDangerHover`| Danger outline hover state
+| `--KButtonOutlineDangerHoverBorder`| Danger outline hover state
 | `--KButtonOutlineDangerActive`| Danger outline active state
+| `--KButtonOutlineDangerActiveBorder`| Danger outline active state border
 | `--KButtonLink`| Button link variant
 | `--KButtonLinkDanger`| Button Danger link variant
 | `--KButtonPaddingY`| Button vertical (top and bottom) padding
 | `--KButtonPaddingX`| Button horizontal (left and right) padding
+| `--KButtonRadius` | Button corner radius
 
 \
 An Example of changing the primary KButton variant to purple instead of blue might
 look like.  
-> Note: We are scoping the overrides to a wrapper in this example
 
 <template>
-  <div class="button-wrapper">
-    <KButton appearance="primary">PURPLE!</KButton>
-  </div>
+  <KButton class="purple-button" appearance="primary">PURPLE!</KButton>
 </template>
 
 ```vue
 <template>
-  <div class="button-wrapper">
-    <KButton appearance="primary">PURPLE!</KButton>
-  </div>
+  <KButton class="purple-button" appearance="primary">PURPLE!</KButton>
 </template>
 
 <style>
-.button-wrapper {
+.purple-button {
   --KButtonPrimaryBase: #494ca2;
   --KButtonPrimaryHover: #6c6ebd;
   --KButtonPrimaryActive: #3c3f86;
@@ -187,7 +183,7 @@ look like.
     margin-bottom: .5rem;
   }
 }
-.button-wrapper {
+.purple-button {
   --KButtonPrimaryBase: #494ca2;
   --KButtonPrimaryHover: #6c6ebd;
   --KButtonPrimaryActive: #3c3f86;

@@ -74,6 +74,9 @@ export default {
   margin-left: -1px;
   flex: 1;
 }
+.segmented-control .k-button:focus {
+  z-index: 1;
+}
 .segmented-control .k-button:first-child {
   border-radius: 3px 0 0 3px;
   margin-left: 0;

@@ -49,11 +49,10 @@ export default {
 .swatch-container {
   display: flex;
   padding: 1.5rem 0;
-  border-bottom: 1px solid #efefef;
   .swatch {
     width: 40px;
     height: 40px;
-    border: 1px solid #efefef;
+    border: 1px solid var(--grey-200);
     border-radius: 4px;
   }
   .description {
@@ -66,7 +65,7 @@ export default {
         margin-bottom: .25rem;
       }
       &:last-of-type {
-        color: var(--tblack-70);
+        color: var(--black-70);
         font-size: var(--type-sm);
       }
     }

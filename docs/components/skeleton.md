@@ -360,7 +360,7 @@ export default {
 <style>
 .k-skeleton-full-screen-margin {
   --KSkeletonFullScreenMargin: 58px 0 0;
-  --KSkeletonFullScreenProgressColor: var(--tblack-70);
+  --KSkeletonFullScreenProgressColor: var(--black-70);
 }
 .k-skeleton-modified {
   --KSkeletonCardWidth: 30%;

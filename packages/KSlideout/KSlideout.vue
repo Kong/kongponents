@@ -77,6 +77,8 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+@import '~@kongponents/styles/_variables.scss';
+
 .k-slideout {
   --KCardPaddingY: 2rem;
   --KCardPaddingX: 3rem;
@@ -87,7 +89,7 @@ export default {
     right: 0;
     bottom: 0;
     left: 0;
-    background: var(--tblack-45, hsla(0, 0%, 0%, .45));
+    background: var(--black-45, color(black-45));
     z-index: 9999;
   }
   .panel {
@@ -97,7 +99,7 @@ export default {
     height: 100vh;
     width: 100%;
     max-width: 500px;
-    background-color: var(--twhite-1, hsla(100, 100%, 100%, 1));
+    background-color: var(--white, color(white));
     z-index: 9999;
     .close-btn {
       position: absolute;
