@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/Kong/kongponents/compare/@kongponents/kalert@0.1.17...@kongponents/kalert@1.0.0) (2020-06-25)
+
+
+### Features
+
+* **style:** Updates Colors & Component Styles ([#225](https://github.com/Kong/kongponents/issues/225)) ([642a26b](https://github.com/Kong/kongponents/commit/642a26b888cbf8b4abbe32965729d44d54f9dfef))
+
+
+### BREAKING CHANGES
+
+* **style:** All new colors and color naming. Various component style improvements.
+
+
+
+
+
 ## [0.1.17](https://github.com/Kong/kongponents/compare/@kongponents/kalert@0.1.16...@kongponents/kalert@0.1.17) (2020-03-25)
 
 **Note:** Version bump only for package @kongponents/kalert

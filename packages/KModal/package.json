@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kmodal",
-  "version": "0.1.12",
+  "version": "1.0.0",
   "description": "Modal component",
   "main": "dist/KModal.umd.min.js",
   "componentName": "KModal",
@@ -23,6 +23,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kbutton": "^0.2.1"
+    "@kongponents/kbutton": "^1.0.0"
   }
 }
