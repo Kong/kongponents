@@ -196,8 +196,8 @@ table.k-table {
     vertical-align: middle;
   }
   thead {
-    border-top: 1px solid var(--KTableBorder, var(--grey92, color(grey-200)));
-    border-bottom: 2px solid var(--KTableBorder, var(--grey92, color(grey-200)));
+    border-top: 1px solid var(--KTableBorder, var(--grey-200, color(grey-200)));
+    border-bottom: 2px solid var(--KTableBorder, var(--grey-200, color(grey-200)));
     th {
       padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
       text-align: left;
