@@ -87,7 +87,7 @@ export default {
     margin-bottom: var(--spacing-lg, spacing(lg));
     padding-left: 0;
     list-style: none;
-    border-bottom: 2px solid var(--KTabsBottomBorder, var(--grey-88, color(grey-88)));
+    border-bottom: 2px solid var(--KTabsBottomBorder, var(--grey-300, color(grey-300)));
     .tab-item {
       position: relative;
       padding: var(--spacing-sm, spacing(sm));

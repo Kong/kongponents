@@ -318,7 +318,7 @@ export default {
   white-space: normal;
   color: var(--KPopColor, var(--black-70, color(black-70)));
   background-color: var(--KPopBackground, var(--white, color(white)));
-  border: 1px solid var(--KPopBorder, var(--grey-84, color(grey-84)));
+  border: 1px solid var(--KPopBorder, var(--grey-400, color(grey-400)));
   border-radius: 3px;
   -webkit-box-shadow: 0 0 12px rgba(0,0,0,.12);
   box-shadow: 0 0 12px rgba(0,0,0,.12);
@@ -353,7 +353,7 @@ export default {
 
     &:before {
       border-color: rgba(250, 250, 250, 0);
-      border-bottom-color: var(--KPopBorder, var(--grey-84, color(grey-84)));
+      border-bottom-color: var(--KPopBorder, var(--grey-400, color(grey-400)));
       border-width: 11px;
       margin-left: -11px;
     }
@@ -382,7 +382,7 @@ export default {
 
     &:before {
       border-color: rgba(250, 250, 250, 0);
-      border-top-color: var(--KPopBorder, var(--grey-84, color(grey-84)));
+      border-top-color: var(--KPopBorder, var(--grey-400, color(grey-400)));
       border-width: 11px;
       margin-left: -11px;
     }
@@ -411,7 +411,7 @@ export default {
 
     &:before {
       border-color: rgba(250, 250, 250, 0);
-      border-left-color: var(--KPopBorder, var(--grey-84, color(grey-84)));
+      border-left-color: var(--KPopBorder, var(--grey-400, color(grey-400)));
       border-width: 11px;
       margin-top: -11px;
     }
@@ -440,7 +440,7 @@ export default {
 
     &:before {
       border-color: rgba(250, 250, 250, 0);
-      border-right-color: var(--KPopBorder, var(--grey-84, color(grey-84)));
+      border-right-color: var(--KPopBorder, var(--grey-400, color(grey-400)));
       border-width: 11px;
       margin-top: -11px;
     }

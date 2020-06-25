@@ -2,7 +2,7 @@
 
 .k-input,
 .form-control {
-  $borderColor: var(--KInputBorder, var(--grey-88, color(grey-88)));
+  $borderColor: var(--KInputBorder, var(--grey-300, color(grey-300)));
 
   &:not([type="checkbox"]),
   &:not([type="radio"]) {
@@ -26,12 +26,12 @@
     &:disabled {
       cursor: not-allowed;
       font-style: italic;
-      background-color: var(--KInputDisabledBackground, var(--grey-98, color(grey-98)));
+      background-color: var(--KInputDisabledBackground, var(--grey-100, color(grey-100)));
       opacity: 0.5;
     }
 
     &:read-only {
-      background-color: var(--KInputReadonlyBackground, var(--grey-98, color(grey-98)));
+      background-color: var(--KInputReadonlyBackground, var(--grey-100, color(grey-100)));
       &:focus {
         border-color: $borderColor;
       }

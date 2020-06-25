@@ -74,7 +74,7 @@ export default {
   .progress {
     margin-top: 1rem;
     max-width: 350px;
-    background-color: var(--grey-92, color(grey-92));
+    background-color: var(--grey-200, color(grey-200));
     border-radius: 0.5rem;
     .progress-bar {
       border-radius: 0.5rem;

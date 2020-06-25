@@ -48,14 +48,14 @@ pre[class*="language-"] {
   padding: 1em;
   margin: .5em 0;
   overflow: auto;
-  background: var(--grey-98);
+  background: var(--grey-100);
 }
 pre[class*="language-"] code,
 :not(pre) > code[class*="language-"] {
   padding: .1em .3em;
   border-radius: .3em;
   color: var(--blue-600) !important;
-  background: var(--grey-92);
+  background: var(--grey-200);
 }
 /*********************************************************
 * Tokens

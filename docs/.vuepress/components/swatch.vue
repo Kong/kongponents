@@ -52,7 +52,7 @@ export default {
   .swatch {
     width: 40px;
     height: 40px;
-    border: 1px solid var(--grey-92);
+    border: 1px solid var(--grey-200);
     border-radius: 4px;
   }
   .description {

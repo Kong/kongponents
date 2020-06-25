@@ -186,8 +186,8 @@ export default {
     &:disabled { pointer-events: none; }
   }
   &-filter .k-input {
-    --KInputBackground: var(--grey-98, color(grey-98));
-    --KInputBorder: var(--grey-88, color(grey-88));
+    --KInputBackground: var(--grey-100, color(grey-100));
+    --KInputBorder: var(--grey-300, color(grey-300));
 
     border-radius: 0;
     border-left: 0;
