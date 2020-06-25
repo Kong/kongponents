@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://github.com/Kong/kongponents/compare/@kongponents/styles@1.0.0...@kongponents/styles@1.0.1) (2020-06-25)
+
+**Note:** Version bump only for package @kongponents/styles
+
+
+
+
+
 # [1.0.0](https://github.com/Kong/kongponents/compare/@kongponents/styles@0.2.0...@kongponents/styles@1.0.0) (2020-06-25)
 
 
