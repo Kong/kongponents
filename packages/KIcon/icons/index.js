@@ -24,21 +24,27 @@ import portalV2 from './icn-dev-portal-v2.svg'
 import people from './icn-people.svg'
 import stackedCards from './icn-stacked-cards.svg'
 import profile from './icn-profile.svg'
+import connections from './icn-connections.svg'
+import portalV3 from './icn-portal-v3.svg'
+import gearFilled from './icn-gear-filled.svg'
 
 export default {
   back,
   close,
   collapseExpand,
+  connections,
   dashboard,
   externalLink,
   featureRequest,
   gateway,
   gear,
+  gearFilled,
   info,
   lock,
   people,
   portal,
   portalV2,
+  portalV3,
   profile,
   search,
   security,
