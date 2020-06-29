@@ -2,9 +2,9 @@
 
 input.k-input,
 input.form-control {
-  $borderColor: var(--KInputBorder, var(--grey-88, color(grey-88)));
-  $primaryCheckboxColor: var(--KCheckboxPrimary, var(--blue-base, color(blue-base)));
-  $primaryRadioColor: var(--KRadioPrimary, var(--blue-base, color(blue-base)));
+  $borderColor: var(--KInputBorder, var(--grey-300, color(grey-300)));
+  $primaryCheckboxColor: var(--KCheckboxPrimary, var(--blue-500, color(blue-500)));
+  $primaryRadioColor: var(--KRadioPrimary, var(--blue-500, color(blue-500)));
 
   &[type="checkbox"],
   &[type="radio"] {
@@ -63,7 +63,7 @@ input.form-control {
     }
 
     &:disabled {
-      background-color: var(--KInputCheckboxDisabled, var(--grey-92, color(grey-92)));
+      background-color: var(--KInputCheckboxDisabled, var(--grey-200, color(grey-200)));
     }
   }
 
@@ -99,7 +99,7 @@ input.form-control {
     }
 
     &:disabled {
-      background-color: var(--KInputRadioDisabled, var(--grey-92, color(grey-92)));
+      background-color: var(--KInputRadioDisabled, var(--grey-200, color(grey-200)));
     }
   }
 }

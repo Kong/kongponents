@@ -54,7 +54,7 @@ Title shown above the list of items.
 ```vue
 <KMultiselect
   button-text="Custom Title"
-  title="Cool Title Dude
+  title="Cool Title Dude"
   :items="data.items" />
 ```
 

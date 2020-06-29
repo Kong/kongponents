@@ -168,14 +168,14 @@ export default {
 </script>
 <style lang="scss">
 .success.k-button {
-  --KButtonPrimaryBase: var(--green-base);
-  --KButtonPrimaryHover: var(--green-light);
-  --KButtonPrimaryActive: var(--green-dark)
+  --KButtonPrimaryBase: var(--green-400);
+  --KButtonPrimaryHover: var(--green-300);
+  --KButtonPrimaryActive: var(--green-500)
 }
 .warning.k-button {
-  --KButtonPrimaryBase: var(--yellow-base);
-  --KButtonPrimaryHover: var(--yellow-light);
-  --KButtonPrimaryActive: var(--yellow-darker);
-  color: var(--tblack-70) !important;
+  --KButtonPrimaryBase: var(--yellow-300);
+  --KButtonPrimaryHover: var(--yellow-200);
+  --KButtonPrimaryActive: var(--yellow-200);
+  color: var(--black-70) !important;
 }
 </style>

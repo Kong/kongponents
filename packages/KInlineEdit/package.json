@@ -1,13 +1,13 @@
 {
-  "name": "@kongponents/ktable",
-  "version": "1.0.1",
-  "description": "Table component",
-  "main": "dist/KTable.umd.min.js",
-  "componentName": "KTable",
-  "source": "KTable.vue",
+  "name": "@kongponents/kinlineedit",
+  "version": "1.0.0",
+  "description": "Inline editable field.",
+  "main": "dist/KInlineEdit.umd.min.js",
+  "componentName": "KInlineEdit",
+  "source": "KInlineEdit.vue",
   "files": [
     "dist",
-    "KTable.vue"
+    "KInlineEdit.vue"
   ],
   "repository": {
     "type": "git",

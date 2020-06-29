@@ -58,8 +58,8 @@
     "vue-loader": "15.7.0",
     "vue-router": "^3.0.7",
     "vue-template-compiler": "2.6.10",
-    "vuepress": "^1.0",
-    "vuepress-plugin-live": "^1.2.0",
+    "vuepress": "^1.5.2",
+    "vuepress-plugin-live": "^1.5.3",
     "vuex": "3.0.1"
   },
   "dependencies": {

@@ -1,14 +1,27 @@
-/* Night Owl + Custom */
-
-code[class*='language-'],
-pre[class*='language-'] {
-  color: #d6deeb;
-  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+/* Generated with http://k88hudson.github.io/syntax-highlighting-theme-generator/www */
+/* http://k88hudson.github.io/react-markdocs */
+/**
+ * @author k88hudson
+ *
+ * Based on prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+/*********************************************************
+* General
+*/
+div[class*="language-"]::before {
+  color: var(--black-70) !important;
+}
+div[class*="language-"],
+pre[class*="language-"],
+code[class*="language-"] {
+  color: var(--black-70);
+  font-family: 'Roboto Mono', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   text-align: left;
   white-space: pre;
   word-spacing: normal;
   word-break: normal;
-  word-wrap: normal;
   line-height: 1.5;
   -moz-tab-size: 4;
   -o-tab-size: 4;
@@ -18,108 +31,113 @@ pre[class*='language-'] {
   -ms-hyphens: none;
   hyphens: none;
 }
-code[class*='language-'] ::-moz-selection,
-code[class*='language-']::-moz-selection,
-pre[class*='language-'] ::-moz-selection,
-pre[class*='language-']::-moz-selection {
+pre[class*="language-"]::selection,
+code[class*="language-"]::selection,
+pre[class*="language-"]::mozselection,
+code[class*="language-"]::mozselection {
   text-shadow: none;
-  background: #011627;
-}
-code[class*='language-'] ::selection,
-code[class*='language-']::selection,
-pre[class*='language-'] ::selection,
-pre[class*='language-']::selection {
-  text-shadow: none;
-  background: #011627;
+  background: var(--blue-100);
 }
 @media print {
-  code[class*='language-'],
-  pre[class*='language-'] {
+  pre[class*="language-"],
+  code[class*="language-"] {
     text-shadow: none;
   }
 }
-pre {
+pre[class*="language-"] {
   padding: 1em;
-  margin: 0.5em 0;
+  margin: .5em 0;
   overflow: auto;
+  background: var(--grey-100);
 }
-:not(pre) > code,
-pre {
-  background: #011627;
+pre[class*="language-"] code,
+:not(pre) > code[class*="language-"] {
+  padding: .1em .3em;
+  border-radius: .3em;
+  color: var(--blue-600) !important;
+  background: var(--grey-200);
 }
-:not(pre) > code {
-  padding: 0.1em;
-  border-radius: 0.3em;
-  white-space: normal;
+/*********************************************************
+* Tokens
+*/
+.namespace {
+  opacity: .7;
 }
-.token.cdata,
 .token.comment,
-.token.prolog {
-  color: #637777;
-  font-style: italic;
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--black-70);
 }
 .token.punctuation {
-  color: #c792ea;
+  color: var(--black-70);
 }
-.namespace {
-  color: #b2ccd6;
-}
-.token.deleted {
-  color: rgba(239, 83, 80, 0.56);
-  font-style: italic;
-}
-.token.property,
-.token.symbol {
-  color: #80cbc4;
-}
-.token.keyword,
-.token.operator,
-.token.tag {
-  color: var(--blue-light-01);
-}
-.token.boolean {
-  color: #ff5874;
-}
-.token.number {
-  color: #f78c6c;
-}
-.token.builtin,
-.token.char,
+.token.tag,
+.token.boolean,
+.token.number,
 .token.constant,
-.token.function {
-  color: #82aaff;
+.token.symbol,
+.token.deleted {
+  color: var(--blue-600);
 }
-.token.doctype,
-.token.selector {
-  color: #c792ea;
-  font-style: italic;
-}
+.token.selector,
 .token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
 .token.inserted {
-  color: #addb67;
-  font-style: italic;
+  color: var(--green-500);
 }
+.token.operator,
+.token.entity,
+.token.url,
 .language-css .token.string,
 .style .token.string,
-.token.entity,
-.token.string,
-.token.url {
-  color: #addb67;
+.token.class-name {
+  color: var(--green-500);
+  background: transparent;
 }
 .token.atrule,
 .token.attr-value,
-.token.class-name {
-  color: #ffcb8b;
+.token.keyword {
+  color: var(--blue-400);
+}
+.token.property,
+.token.function {
+  color: var(--red-600);
+}
+.token.regex,
+.token.important,
+.token.variable {
+  color: var(--green-500);
 }
 .token.important,
-.token.regex,
-.token.variable {
-  color: #d6deeb;
-}
-.token.bold,
-.token.important {
-  font-weight: 700;
+.token.bold {
+  font-weight: bold;
 }
 .token.italic {
   font-style: italic;
+}
+.token.entity {
+  cursor: help;
+}
+/*********************************************************
+* Line highlighting
+*/
+pre[data-line] {
+  position: relative;
+}
+pre[class*="language-"] > code[class*="language-"] {
+  position: relative;
+  z-index: 1;
+}
+div[class*="language-"] .highlight-lines .highlighted,
+div[class*="language-"].line-numbers-mode .highlight-lines .highlighted:before {
+  background-color: var(--black-10) !important;
+}
+div[class*="language-"].line-numbers-mode .line-numbers-wrapper {
+  color: var(--black-70) !important;
+}
+div[class*="language-"].line-numbers-mode::after {
+  border-right: 1px solid var(--black-10) !important;
 }

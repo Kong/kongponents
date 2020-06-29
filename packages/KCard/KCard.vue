@@ -72,23 +72,23 @@ export default {
 .kong-card {
   padding: var(--KCardPaddingY, 1rem) var(--KCardPaddingX, 1rem);
   border-radius: var(--KCardBorderRadius, 3px);
-  background-color: var(--KCardBackground, var(--twhite-1, color(twhite-1)));
+  background-color: var(--KCardBackground, var(--white, color(white)));
 
   &.noBorder {
     border: none;
   }
 
   &.border {
-    border: var(--KCardBorder, 1px solid var(--tblack-10, color(tblack-10)));
+    border: var(--KCardBorder, 1px solid var(--black-10, color(black-10)));
     box-shadow: none;
   }
 
   &.borderTop {
-    border-top: var(--KCardBorder, 1px solid var(--tblack-10, color(tblack-10)));
+    border-top: var(--KCardBorder, 1px solid var(--black-10, color(black-10)));
   }
 
   &.hover:hover, &.kcard-shadow {
-    box-shadow: var(--KCardShadow, 0 4px 8px var(--tblack-10, color(tblack-10)));
+    box-shadow: var(--KCardShadow, 0 4px 8px var(--black-10, color(black-10)));
   }
 
   .k-card-header {
@@ -101,7 +101,7 @@ export default {
     margin: 0;
     font-size: var(--KCardTitleFontSize, var(--type-lg, type(lg)));
     font-weight: 500;
-    color: var(--KCardTitleColor, var(--tblack-85, color(tblack-85)));
+    color: var(--KCardTitleColor, var(--black-85, color(black-85)));
   }
 
   .k-card-actions  {

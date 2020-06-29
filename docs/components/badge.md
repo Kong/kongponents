@@ -34,15 +34,15 @@ The Button component can take 1 of 4 appearance values:
 
 Using the `custom` appearance in conjunction with `color` and `background-color`:
 
-<KBadge color="var(--yellow-darker)" background-color="var(--yellow-base)">Custom</KBadge>
-<KBadge color="var(--red-lightest)" background-color="var(--red-light)">Badge</KBadge>
-<KBadge color="var(--blue-lighter)" background-color="var(--blue-base)">👋🏻 Hello</KBadge>
+<KBadge color="var(--yellow-400)" background-color="var(--yellow-300)">Custom</KBadge>
+<KBadge color="var(--red-100)" background-color="var(--red-400)">Badge</KBadge>
+<KBadge color="var(--blue-200)" background-color="var(--blue-500)">👋🏻 Hello</KBadge>
 <KBadge color="#dfe6e9" background-color="#636e72">Something</KBadge>
 
 ```vue
-<KBadge color="var(--yellow-darker)" background-color="var(--yellow-base)">Custom</KBadge>
-<KBadge color="var(--red-lightest)" background-color="var(--red-light)">Badge</KBadge>
-<KBadge color="var(--blue-lighter)" background-color="var(--blue-base)">👋🏻 Hello</KBadge>
+<KBadge color="var(--yellow-400)" background-color="var(--yellow-300)">Custom</KBadge>
+<KBadge color="var(--red-100)" background-color="var(--red-400)">Badge</KBadge>
+<KBadge color="var(--blue-200)" background-color="var(--blue-500)">👋🏻 Hello</KBadge>
 <KBadge color="#dfe6e9" background-color="#636e72">Something</KBadge>
 ```
 

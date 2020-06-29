@@ -213,8 +213,8 @@ table.k-table {
     vertical-align: middle;
   }
   thead {
-    border-top: 1px solid var(--KTableBorder, var(--grey92, color(grey-92)));
-    border-bottom: 2px solid var(--KTableBorder, var(--grey92, color(grey-92)));
+    border-top: 1px solid var(--KTableBorder, var(--grey-200, color(grey-200)));
+    border-bottom: 2px solid var(--KTableBorder, var(--grey-200, color(grey-200)));
     th {
       padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
       text-align: left;
@@ -254,12 +254,12 @@ table.k-table {
   }
   tbody {
     tr {
-      border-bottom: 1px solid var(--KTableBorder, var(--grey92, color(grey-92)));
+      border-bottom: 1px solid var(--KTableBorder, var(--grey92, color(grey-200)));
     }
     td {
-      color: var(--KTableColor, var(--tblack-70, color(tblack-70)));
+      color: var(--KTableColor, var(--black-70, color(black-70)));
       a {
-        color: var(--blue-link, color(blue-link));
+        color: var(--blue-600, color(blue-600));
         text-decoration: none;
         &:hover {
           text-decoration: underline;
@@ -283,7 +283,7 @@ table.k-table {
     }
   }
   &.has-hover tbody tr:hover {
-    background-color: var(--KTableHover, var(--blue-lightest, color(blue-lightest)));
+    background-color: var(--KTableHover, var(--blue-100, color(blue-100)));
   }
   &.is-clickable {
     cursor: pointer;

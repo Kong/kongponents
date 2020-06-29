@@ -117,7 +117,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: var(--KModalBackdrop, var(--tblack-45, color(tblack-45)));
+  background-color: var(--KModalBackdrop, var(--black-45, color(black-45)));
   z-index: 1100;
 }
 
@@ -126,9 +126,9 @@ export default {
   width: auto;
   max-width: 500px;
   margin: 50px auto;
-  padding: spacing(xl);
+  padding: var(--spacing-xl, spacing(xl));
   border-radius: 3px;
-  box-shadow: 0px 0px 12px 0px rgba(0,0,0,.15);
+  box-shadow: 0px 0px 12px 0px var(--black-10, color(black-10));
   background: #fff;
   z-index: 9999;
 }
@@ -142,24 +142,22 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: spacing(md);
-    color: var(--KModalHeaderColor, var(--tblack-85, color(tblack-85)));
-    font-size: type(lg);
+    margin-bottom: var(--spacing-lg, spacing(lg));
+    color: var(--KModalHeaderColor, var(--black-85, color(black-85)));
+    font-size: var(--type-lg, type(lg));
     font-weight: 500;
-    border-bottom: 1px solid var(--grey-92, color(grey-92));
   }
 
   .modal-body {
     position: relative;
     flex: 1 1 auto;
-    margin-bottom: spacing(xl);
-    padding-top: spacing(lg);
-    color: var(--KModalColor, var(--tblack-70, color(tblack-70)));
+    margin-bottom: var(--spacing-xl, spacing(xl));
+    color: var(--KModalColor, var(--black-70, color(black-70)));
     font-size: var(--KModalFontSize, var(--type-md, type(md)));
   }
 
   .modal-footer button {
-    margin-right: spacing(sm);
+    margin-right: var(--spacing-sm, spacing(sm));
   }
 }
 </style>

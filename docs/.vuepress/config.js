@@ -46,6 +46,7 @@ module.exports = {
               '/components/button',
               '/components/card',
               '/components/empty-state',
+              '/components/inline-edit',
               '/components/input-checkbox',
               '/components/input',
               '/components/icon',

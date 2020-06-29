@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/Kong/kongponents/compare/@kongponents/kmodal@0.1.12...@kongponents/kmodal@1.0.0) (2020-06-25)
+
+
+### Features
+
+* **style:** Updates Colors & Component Styles ([#225](https://github.com/Kong/kongponents/issues/225)) ([642a26b](https://github.com/Kong/kongponents/commit/642a26b888cbf8b4abbe32965729d44d54f9dfef))
+
+
+### BREAKING CHANGES
+
+* **style:** All new colors and color naming. Various component style improvements.
+
+
+
+
+
+## [0.1.12](https://github.com/Kong/kongponents/compare/@kongponents/kmodal@0.1.11...@kongponents/kmodal@0.1.12) (2020-06-08)
+
+**Note:** Version bump only for package @kongponents/kmodal
+
+
+
+
+
 ## [0.1.11](https://github.com/Kong/kongponents/compare/@kongponents/kmodal@0.1.10...@kongponents/kmodal@0.1.11) (2020-05-20)
 
 **Note:** Version bump only for package @kongponents/kmodal

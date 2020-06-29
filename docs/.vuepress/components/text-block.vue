@@ -53,7 +53,7 @@
     }
     span {
       font-size: var(--type-sm);
-      color: var(--tblack-70);
+      color: var(--black-70);
     }
   }
 }
