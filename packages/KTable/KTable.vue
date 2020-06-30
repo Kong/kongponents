@@ -1,6 +1,6 @@
 <template>
   <table
-    :class="{'has-hover': hasHover, 'is-small': isSmall, 'is-clickable': isClickable}"
+    :class="{'has-hover': hasHover, 'is-small': isSmall, 'is-clickable': isClickable, 'side-border': hasSideBorder}"
     class="k-table">
     <thead>
       <tr>
@@ -25,7 +25,7 @@
       <tr
         v-for="(row, rowIndex) in options.data"
         :key="rowIndex"
-        :class="rowClasses(row)"
+        v-bind="rowAttrs(row)"
         v-on="trlisteners(row, 'row')">
         <template>
           <td
@@ -173,11 +173,18 @@ export default {
       default: ''
     },
     /**
-     * A function that conditionally specifies the row classes on the rows
+     * A function that conditionally specifies row attributes on each row
      */
-    rowClasses: {
+    rowAttrs: {
       type: Function,
-      default: null
+      default: () => ({})
+    },
+    /**
+     * A prop that enables a side border with a themable color to it.
+     */
+    hasSideBorder: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -209,6 +216,19 @@ export default {
 
 table.k-table {
   border-collapse: collapse;
+
+  &.side-border {
+    border-collapse: separate;
+    border-spacing: 0 5px;
+
+    tr:hover {
+      background-color: var(--KTableHover, var(--steal-100, color(steal-100)));
+    }
+
+    td:first-child {
+      border-left: 3px solid var(--KTableBorder, var(--steal-200, color(steal-200)));
+    }
+  }
 }
 
 .k-table {

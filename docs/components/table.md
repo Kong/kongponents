@@ -255,6 +255,123 @@ export default {
 </script>
 ```
 
+### Custom Row Attributes
+
+There is a prop called `hasSideBorder` that when passed in, enables a default side border on each row, using the color `steal-200` by default.
+It also adds a default hover color on the row that uses the color `steal-100` by default. These colors can be overridden by themes or by using
+custom row attributes. This prop also causes the row borders to be separate and enables spacing between rows.
+Example using `hasSideBorder` prop:
+
+<template>
+  <KTable
+    :options="tableOptions"
+    hasSideBorder
+    />
+</template>
+
+```vue
+<template>
+  <KTable
+    :options="tableOptions"
+    hasSideBorder
+    />
+</template>
+```
+
+We can also add custom row attributes via a prop called `rowAttrs` - this prop is a Function that returns an object comprising the conditional custom attributes
+that you want the rows to have. In the following example, the rows have a custom green color if enabled is true, and yellow if enabled is false, coming from the
+custom `rowAttrs` function. Also make sure that `hasSideBorder` prop is passed in to enable custom row attributes.
+
+<template>
+  <KTable
+    :options="tableOptions"
+    hasSideBorder
+    :rowAttrs="rowAttrsFn"
+    />
+</template>
+
+```vue
+<template>
+  <KTable
+    :options="tableOptions"
+    :rowAttrs="rowAttrsFn"
+    hasSideBorder
+    />
+</template>
+<script>
+import { defaultSorter } from '@kongponents/KTable'
+export default {
+  data() {
+    return {
+      row: null,
+      eventType: '',
+      tableOptions: {
+        headers: [
+          { label: 'Type', key: 'type' },
+          { label: 'Value', key: 'value' }
+        ],
+        data: [
+          {
+            name: 'Basic Auth',
+            id: '517526354743085',
+            enabled: 'true',
+            themeColors: []
+          },
+          {
+            name: 'Website Desktop',
+            id: '328027447731198',
+            enabled: 'false',
+            themeColors: ['blue','violet']
+          },
+          {
+            name: 'Android App',
+            id: '405383051040955',
+            enabled: 'true',
+            themeColors: ['green', 'yellow']
+          }
+        ]
+      }
+    }
+  },
+  methods: {
+    rowAttrsFn (rowItem) {
+      return {
+        class: {
+          'enabled': rowItem.enabled === 'true',
+          'disabled': rowItem.enabled === 'false'
+        }
+      }
+    }
+  }
+}
+</script>
+<style>
+table.k-table {
+  &.side-border {
+    tr.enabled {
+      &:hover {
+        background-color: var(--green-200, #ccffe1);
+      }
+
+      td:first-child {
+        border-left: 3px solid var(--green-400, #19a654);
+      }
+    }
+
+    tr.disabled {
+      &:hover {
+        background-color: var(--yellow-100, #fff9e6);
+      }
+
+      td:first-child {
+        border-left: 3px solid var(--yellow-200, #ffdc73);
+      }
+    }
+  }
+}
+</style>
+```
+
 ## Slots
 Both column cells & header cells are slottable in KTable. Use slots to gain
 access to the row data.
@@ -378,7 +495,6 @@ export default {
 | `--KTableHover`| Hover variant background color
 | `--KTableHeaderSize`| Font size of header th
 
-
 \
 An Example of changing the hover background might look like.  
 
@@ -450,6 +566,14 @@ export default {
       this.sortKey = previousKey
       this.sortOrder = sortOrder
     },
+    rowAttrsFn (rowItem) {
+      return {
+        class: {
+          'enabled': rowItem.enabled === 'true',
+          'disabled': rowItem.enabled === 'false'
+        }
+      }
+    },
     defaultSorter
   }
 }
@@ -466,4 +590,28 @@ export default {
   .table-wrapper {
   --KTableHover: lavender;
   }
+
+table.k-table {
+  &.side-border {
+    tr.enabled {
+      &:hover {
+        background-color: var(--green-200, #ccffe1);
+      }
+
+      td:first-child {
+        border-left: 3px solid var(--green-400, #19a654);
+      }
+    }
+
+    tr.disabled {
+      &:hover {
+        background-color: var(--yellow-100, #fff9e6);
+      }
+
+      td:first-child {
+        border-left: 3px solid var(--yellow-200, #ffdc73);
+      }
+    }
+  }
+}
 </style>
