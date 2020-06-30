@@ -25,6 +25,7 @@
       <tr
         v-for="(row, rowIndex) in options.data"
         :key="rowIndex"
+        :class="rowClasses(row)"
         v-on="trlisteners(row, 'row')">
         <template>
           <td
@@ -170,6 +171,13 @@ export default {
     sortKey: {
       type: String,
       default: ''
+    },
+    /**
+     * A function that conditionally specifies the row classes on the rows
+     */
+    rowClasses: {
+      type: Function,
+      default: null
     }
   },
 
