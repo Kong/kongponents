@@ -27,6 +27,7 @@ import profile from './icn-profile.svg'
 import connections from './icn-connections.svg'
 import portalV3 from './icn-portal-v3.svg'
 import gearFilled from './icn-gear-filled.svg'
+import services from './icn-services.svg'
 
 export default {
   back,
@@ -48,6 +49,7 @@ export default {
   profile,
   search,
   security,
+  services,
   spinner,
   stackedCards,
   support,
