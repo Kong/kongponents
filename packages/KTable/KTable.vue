@@ -242,7 +242,7 @@ table.k-table {
     td {
       color: var(--KTableColor, var(--black-70, color(black-70)));
       a {
-        color: var(--blue-600, color(blue-600));
+        color: var(--blue-500, color(blue-500));
         text-decoration: none;
         &:hover {
           text-decoration: underline;

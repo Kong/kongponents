@@ -238,7 +238,7 @@ export default {
     }
   }
   &.btn-link {
-    color: var(--KButtonBtnLink, var(--blue-600, color(blue-600)));
+    color: var(--KButtonBtnLink, var(--blue-500, color(blue-500)));
     background-color: transparent;
     &:hover:not(:disabled) {
       text-decoration: underline;
@@ -248,7 +248,7 @@ export default {
     }
   }
   &.btn-link-danger {
-    color: var(--KButtonLinkDanger, var(--red-600, color(red-600)));
+    color: var(--KButtonLinkDanger, var(--red-500, color(red-500)));
     background-color: transparent;
     &:hover:not(:disabled) {
       text-decoration: underline;
