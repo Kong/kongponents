@@ -118,6 +118,15 @@ exports[`KIcon renders lock icon 1`] = `
 </svg>
 `;
 
+exports[`KIcon renders notificationBell icon 1`] = `
+<svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon kong-icon-notificationBell">
+  <title>notificationBell</title>
+  <g>
+    <path d="M29.4166667 23.8421053c-1.6076667 0-2.9166667-1.298-2.9166667-2.8947369v-5.2105263c0-4.21589473-2.6133333-8.04852631-6.5368333-9.63947368C19.5256667 4.28294737 17.9098333 3 16 3c-1.8806667 0-3.528 1.30957895-3.9666667 3.09736842C8.11216667 7.68831579 5.5 11.51978947 5.5 15.7368421v5.2105263c0 1.5967369-1.309 2.8947369-2.91666667 2.8947369-.322 0-.58333333.2593684-.58333333.5789473C2 24.7406316 2.26133333 25 2.58333333 25H29.4166667c.322 0 .5833333-.2593684.5833333-.5789474 0-.3195789-.2613333-.5789473-.5833333-.5789473M19.4285714 25h-6.8571428C12.256 25 12 25.28 12 25.625 12 28.0375 13.7942857 30 16 30s4-1.9625 4-4.375c0-.345-.256-.625-.5714286-.625" fill="none" fill-rule="evenodd" stroke="#A3BBCC" stroke-width="1.5"></path>
+  </g>
+</svg>
+`;
+
 exports[`KIcon renders people icon 1`] = `
 <svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon kong-icon-people">
   <title>people</title>
