@@ -150,6 +150,7 @@ export default {
       default: false
     },
     /**
+     * Adds hover and non selectable styling
      */
     isClickable: {
       type: Boolean,
@@ -184,7 +185,7 @@ export default {
      */
     hasSideBorder: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
 

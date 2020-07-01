@@ -132,7 +132,23 @@ various parts of the table.
     />
   </div>
 </template>
-
+<template>
+  <KCard>
+    <div slot="body">
+      <div v-if="eventType">
+        {{eventType}} on: {{row}}
+      </div>
+      <div v-else>Waiting</div>
+      <KTable
+        :options="$frontmatter.tableOptions"
+        is-clickable
+        has-hover
+        @row:click="actionRow"
+        @cell:mouseover="actionRow"
+      />
+    </div>
+  </KCard>
+</template>
 <script>
 export default {
   data() {
@@ -150,23 +166,6 @@ export default {
 }
 </script>
 ```
-
-<KCard>
-  <div slot="body">
-    <div v-if="eventType">
-      {{eventType}} on: {{row}}
-    </div>
-    <div v-else>Waiting</div>
-    
-    <KTable 
-      :options="$frontmatter.tableOptions"
-      is-clickable
-      has-hover
-      @row:click="actionRow"
-      @cell:mouseover="actionRow"
-    />
-  </div>
-</KCard>
 
 ### Sorting
 
@@ -348,27 +347,15 @@ export default {
 }
 </script>
 <style>
-table.k-table {
-  &.side-border {
-    tr.enabled {
-      &:hover {
-        background-color: var(--green-200, #ccffe1);
-      }
+table.k-table.side-border {
+  tr.enabled {
+    --KTableHover: var(--green-200, #ccffe1);
+    --KTableBorder: var(--green-400, #19a654);
+  }
 
-      td:first-child {
-        border-left: 3px solid var(--green-400, #19a654);
-      }
-    }
-
-    tr.disabled {
-      &:hover {
-        background-color: var(--yellow-100, #fff9e6);
-      }
-
-      td:first-child {
-        border-left: 3px solid var(--yellow-200, #ffdc73);
-      }
-    }
+  tr.disabled {
+    --KTableHover: var(--yellow-100, #fff9e6);
+    --KTableBorder: var(--yellow-200, #ffdc73);
   }
 }
 </style>
