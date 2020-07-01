@@ -581,27 +581,15 @@ export default {
   --KTableHover: lavender;
   }
 
-table.k-table {
-  &.side-border {
+  table.k-table.side-border {
     tr.enabled {
-      &:hover {
-        background-color: var(--green-200, #ccffe1);
-      }
-
-      td:first-child {
-        border-left: 3px solid var(--green-400, #19a654);
-      }
+      --KTableHover: var(--green-200, #ccffe1);
+      --KTableBorder: var(--green-400, #19a654);
     }
 
     tr.disabled {
-      &:hover {
-        background-color: var(--yellow-100, #fff9e6);
-      }
-
-      td:first-child {
-        border-left: 3px solid var(--yellow-200, #ffdc73);
-      }
+      --KTableHover: var(--yellow-100, #fff9e6);
+      --KTableBorder: var(--yellow-200, #ffdc73);
     }
   }
-}
 </style>
