@@ -28,6 +28,7 @@ import connections from './icn-connections.svg'
 import portalV3 from './icn-portal-v3.svg'
 import gearFilled from './icn-gear-filled.svg'
 import services from './icn-services.svg'
+import notificationBell from './icn-notification-bell.svg'
 
 export default {
   back,
@@ -42,6 +43,7 @@ export default {
   gearFilled,
   info,
   lock,
+  notificationBell,
   people,
   portal,
   portalV2,
