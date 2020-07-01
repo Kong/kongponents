@@ -279,8 +279,9 @@ Example using `hasSideBorder` prop:
 ```
 
 We can also add custom row attributes via a prop called `rowAttrs` - this prop is a Function that returns an object comprising the conditional custom attributes
-that you want the rows to have. In the following example, the rows have a custom green color if enabled is true, and yellow if enabled is false, coming from the
-custom `rowAttrs` function. Also make sure that `hasSideBorder` prop is passed in to enable custom row attributes.
+that you want the rows to have. `hasSideBorder` prop must be passed in to enable custom row attributes.
+In the following example, the rows have a custom green color if enabled is true, and yellow if enabled is false, coming from the
+custom `rowAttrs` function. We can also add a custom data-testid onto each row using these attributes (you can inspect it to see there is a custom data-testid attribute with `rowItem` on each row).
 
 <template>
   <KTable
@@ -339,7 +340,8 @@ export default {
         class: {
           'enabled': rowItem.enabled === 'true',
           'disabled': rowItem.enabled === 'false'
-        }
+        },
+        'data-testid': 'row-item'
       }
     }
   }
@@ -571,7 +573,8 @@ export default {
         class: {
           'enabled': rowItem.enabled === 'true',
           'disabled': rowItem.enabled === 'false'
-        }
+        },
+        'data-testid': 'row-item'
       }
     },
     defaultSorter
