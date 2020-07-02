@@ -99,7 +99,7 @@ export default {
             const hasPreservedColor = attrs.find(x => x.nodeName === 'id' && x.nodeValue === 'preserveColor')
 
             if (name === 'fill' && this.color && !hasPreservedColor) {
-              pathAttributes[name] = pathAttributes[name] !== 'none' ? 'none' : this.color
+              pathAttributes[name] = value === 'none' ? 'none' : this.color
             } else if (name === 'stroke' && this.color) {
               pathAttributes[name] = this.color
             } else {
