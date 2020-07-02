@@ -66,13 +66,13 @@ export default {
 ```
 ## Props
 ### Hover
-Highlight the table row on hover
+Highlight the table row on hover. By default this is set to true. In the example we can set it to false as well.
 
-<KTable :options="$frontmatter.tableOptions" hasHover />
+<KTable :options="$frontmatter.tableOptions" :hasHover="false" />
 ```vue
 <KTable
   :options="tableOptions"
-  hasHover />
+  :hasHover="false" />
 ```
 
 ### Small
@@ -110,9 +110,7 @@ various parts of the table.
 
 - `@cell:<event>` - returns the `Event`, the cell value, and the type: `cell`
 
-```vue
-<KTable @cell:mouseout="cellHandler" @cell:mousedown="cellHandler">
-```
+<KTable :options="$frontmatter.tableOptions" @cell:mouseout="actionRow" @cell:mousedown="actionRow" />
 
 #### Example
 
@@ -123,11 +121,10 @@ various parts of the table.
       {{eventType}} on: {{row}}
     </div>
     <div v-else>Waiting</div>
-
-    <KTable 
+    <KTable
       :options="tableOptions"
       is-clickable
-      @row:click="actionRow" 
+      @row:click="actionRow"
       @cell:mouseover="actionRow"
     />
   </div>
@@ -256,15 +253,15 @@ export default {
 
 ### Custom Row Attributes
 
-There is a prop called `hasSideBorder` that when passed in, enables a default side border on each row, using the color `steal-200` by default.
-It also adds a default hover color on the row that uses the color `steal-100` by default. These colors can be overridden by themes or by using
-custom row attributes. This prop also causes the row borders to be separate and enables spacing between rows.
-Example using `hasSideBorder` prop:
+There is a prop called `hasSideBorder` that when passed in, enables a default side border on each row, using the color `steal-300` by default.
+This prop is on by default.
+These colors can be overridden by themes or by using custom row attributes.
+Example with `hasSideBorder` set to false:
 
 <template>
   <KTable
     :options="tableOptions"
-    hasSideBorder
+    :hasSideBorder="false"
     />
 </template>
 
@@ -272,7 +269,7 @@ Example using `hasSideBorder` prop:
 <template>
   <KTable
     :options="tableOptions"
-    hasSideBorder
+    :hasSideBorder="false"
     />
 </template>
 ```
@@ -314,20 +311,17 @@ export default {
           {
             name: 'Basic Auth',
             id: '517526354743085',
-            enabled: 'true',
-            themeColors: []
+            enabled: 'true'
           },
           {
             name: 'Website Desktop',
             id: '328027447731198',
-            enabled: 'false',
-            themeColors: ['blue','violet']
+            enabled: 'false'
           },
           {
             name: 'Android App',
             id: '405383051040955',
-            enabled: 'true',
-            themeColors: ['green', 'yellow']
+            enabled: 'true'
           }
         ]
       }
@@ -347,7 +341,7 @@ export default {
 }
 </script>
 <style>
-table.k-table.side-border {
+.k-table {
   tr.enabled {
     --KTableHover: var(--green-200, #ccffe1);
     --KTableBorder: var(--green-400, #19a654);
@@ -581,7 +575,7 @@ export default {
   --KTableHover: lavender;
   }
 
-  table.k-table.side-border {
+  .k-table {
     tr.enabled {
       --KTableHover: var(--green-200, #ccffe1);
       --KTableBorder: var(--green-400, #19a654);

@@ -140,7 +140,7 @@ export default {
      */
     hasHover: {
       type: Boolean,
-      default: false
+      default: true
     },
     /**
      * Lowers overall table padding
@@ -214,27 +214,20 @@ export default {
 
 <style scoped lang="scss">
 @import '~@kongponents/styles/_variables.scss';
-
-table.k-table {
+.k-table {
+  width: 100%;
+  max-width: 100%;
   border-collapse: collapse;
 
   &.side-border {
     border-collapse: separate;
-    border-spacing: 0 5px;
+    border-spacing: 0 4px;
 
-    tr:hover {
-      background-color: var(--KTableHover, var(--steal-100, color(steal-100)));
-    }
-
-    td:first-child {
-      border-left: 3px solid var(--KTableBorder, var(--steal-200, color(steal-200)));
+    tbody tr {
+      border: none;
+      box-shadow: -2px 0 0 var(--KTableBorder, var(--steal-300, color(steal-300)));
     }
   }
-}
-
-.k-table {
-  width: 100%;
-  max-width: 100%;
 
   th,
   td {
@@ -312,7 +305,7 @@ table.k-table {
     }
   }
   &.has-hover tbody tr:hover {
-    background-color: var(--KTableHover, var(--blue-100, color(blue-100)));
+    background-color: var(--KTableHover, var(--steal-100, color(steal-100)));
   }
   &.is-clickable {
     cursor: pointer;
