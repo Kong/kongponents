@@ -251,7 +251,7 @@ export default {
 </script>
 ```
 
-### Custom Row Attributes
+## Custom Row Attributes
 
 There is a prop called `hasSideBorder` that when passed in, enables a default side border on each row, using the color `steal-300` by default.
 This prop is on by default.
@@ -275,13 +275,13 @@ Example with `hasSideBorder` set to false:
 ```
 
 We can also add custom row attributes via a prop called `rowAttrs` - this prop is a Function that returns an object comprising the conditional custom attributes
-that you want the rows to have. `hasSideBorder` prop must be passed in to enable custom row attributes.
-In the following example, the rows have a custom green color if enabled is true, and yellow if enabled is false, coming from the
-custom `rowAttrs` function. We can also add a custom data-testid onto each row using these attributes (you can inspect it to see there is a custom data-testid attribute with `rowItem` on each row).
+that you want the rows to have.
+In the following example, the rows have a custom green color if enabled is true, and yellow if enabled is false.
+We can also add a custom data-testid onto each row using these attributes (you can inspect it to see there is a custom data-testid attribute with `rowItem` on each row).
 
 <template>
   <KTable
-    :options="tableOptions"
+    :options="tableOptionsRowAttrs"
     hasSideBorder
     :rowAttrs="rowAttrsFn"
     />
@@ -305,22 +305,23 @@ export default {
       tableOptions: {
         headers: [
           { label: 'Type', key: 'type' },
-          { label: 'Value', key: 'value' }
+          { label: 'Value', key: 'value' },
+          { label: 'Enabled', key: 'enabled'}
         ],
         data: [
           {
-            name: 'Basic Auth',
-            id: '517526354743085',
+            type: 'desktop',
+            value: 'Windows 10',
             enabled: 'true'
           },
           {
-            name: 'Website Desktop',
-            id: '328027447731198',
+            type: 'phone',
+            value: 'LineageOS',
             enabled: 'false'
           },
           {
-            name: 'Android App',
-            id: '405383051040955',
+            type: 'tablet',
+            value: 'ipadOS',
             enabled: 'true'
           }
         ]
@@ -534,6 +535,30 @@ export default {
             id: '405383051040955',
             enabled: 'true',
             themeColors: ['green', 'yellow']
+          }
+        ]
+      },
+      tableOptionsRowAttrs: {
+        headers: [
+          { label: 'Type', key: 'type' },
+          { label: 'Value', key: 'value' },
+          { label: 'Enabled', key: 'enabled'}
+        ],
+        data: [
+          {
+            type: 'desktop',
+            value: 'Windows 10',
+            enabled: 'true'
+          },
+          {
+            type: 'phone',
+            value: 'LineageOS',
+            enabled: 'false'
+          },
+          {
+            type: 'tablet',
+            value: 'ipadOS',
+            enabled: 'true'
           }
         ]
       }
