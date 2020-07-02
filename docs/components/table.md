@@ -110,7 +110,20 @@ various parts of the table.
 
 - `@cell:<event>` - returns the `Event`, the cell value, and the type: `cell`
 
-<KTable :options="$frontmatter.tableOptions" @cell:mouseout="actionRow" @cell:mousedown="actionRow" />
+<template>
+  <div>
+    <div v-if="eventType">
+      {{eventType}} on: {{row}}
+    </div>
+    <div v-else>Waiting</div>
+    <KTable
+      :options="tableOptions"
+      is-clickable
+      @row:click="actionRow"
+      @cell:mouseover="actionRow"
+    />
+  </div>
+</template>
 
 #### Example
 
