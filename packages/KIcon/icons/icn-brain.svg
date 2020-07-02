@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="24px" viewBox="0 0 26 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g transform="translate(1 1)" fill="none" fill-rule="evenodd" opacity=".827">
+    <path fill="#A4BBCB" d="M11 4h2v16h-2z"/>
+    <path fill="#A4BBCB" d="M6 7h12v2H6zM2 13h20v2H2zM6 19h12v2H6z"/>
+    <path d="M12 4a2 2 0 100-4 2 2 0 000 4z" stroke="#A4BBCB" stroke-width="2"/>
+    <circle stroke="#A4BBCB" stroke-width="2" fill-rule="nonzero" cx="1.5" cy="13.75" r="1.5"/>
+    <circle stroke="#A4BBCB" stroke-width="2" fill-rule="nonzero" cx="22.5" cy="13.75" r="1.5"/>
+    <path d="M5.25 9.25a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM18.75 9.25a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM5.25 21.25a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM18.75 21.25a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" stroke="#A4BBCB" stroke-width="2"/>
+  </g>
+</svg>
