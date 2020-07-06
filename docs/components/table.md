@@ -95,83 +95,32 @@ Adds `cursor: pointer` and `user-select: none` styling.
   isClickable />
 ```
 
-### Links
-You can add hyperlinks to any table entry by making the value an object with two entries: `href` and `label`.
-The `href` determines the hyperlink and the `label` will be what is displayed.
-Check out the following example where the company name are hyperlinks and can be clicked to go to the company's website.
-
-<template>
-  <div>
-    <KTable
-      :options="tableOptionsLink"
-    />
-  </div>
-</template>
-
-```vue
-<KTable
-  :options="tableOptions">
-<script>
-import { defaultSorter } from '@kongponents/KTable'
-export default {
-  data() {
-    return {
-      row: null,
-      eventType: '',
-      tableOptions: {
-        headers: [
-          { label: 'Company', key: 'company' }
-        ],
-        data: [
-          {
-            company: { href: 'http://www.creative.com', label: 'Creative Labs' }
-          },
-          {
-            company: { href: 'http://www.bang-olufsen.com', label: 'Bang&Olufsen' }
-          },
-          {
-            company: { href: 'http://www.klipsch.com', label: 'Klipsch' }
-          },
-          {
-            company: { href: 'http://www.bose.com', label: 'Bose'}
-          },
-          {
-            company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'}
-          }
-        ]
-      },
-    }
-  }
-}
-</script>
-```
-
 ## Events
 Bind any DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to
 various parts of the table.
 
 ### Rows
 - `@row:<event>` - returns the `Event`, the row item, and the type: `row`
-- Check out the row click event in the example below. We can click the rows to go to each company's website.
-- We combine the Clickable and Links examples above in this example to make both the rows and hyperlinks clickable.
-- Try cmd or ctrl + click on the rows or the hyperlinks to open the websites in a new tab.
+- In the example below, we make use of slots to format the data correctly. The rows can be clicked and metakeys are also supported in the row click handler.
 
-<template>
-  <div>
-    <KTable
-      :options="tableOptionsLink"
-      is-clickable
-      class="row-events"
-      @row:click="handleRowClick"
-    />
-  </div>
-</template>
+<KTable
+  :options="tableOptionsLink"
+  isClickable
+  @row:click="handleRowClick">
+  <template v-slot:company="{rowValue}">
+    <span>{{rowValue.label}}</span>
+  </template>
+</KTable>
 
 ```vue
 <KTable
   :options="tableOptions"
   isClickable
   @row:click="handleRowClick">
+  <template v-slot:company="{rowValue}">
+    <span>{{rowValue.label}}</span>
+  </template>
+</KTable>
 <script>
 import { defaultSorter } from '@kongponents/KTable'
 export default {
@@ -205,20 +154,150 @@ export default {
   },
   methods: {
     handleRowClick(e, row) {
-        const metaKeyPressed = e.metaKey || e.ctrlKey
-        if (e.target.tagName === 'A' && metaKeyPressed) {
-          return window.open(e.target.href)
-        }
+      const metaKeyPressed = e.metaKey || e.ctrlKey
 
-        if (row.company && row.company.href) {
-          if(metaKeyPressed) {
-            return window.open(row.company.href)
-          }
-          else {
-            window.location = row.company.href
-          }
-        }
+      if (metaKeyPressed) {
+        return window.open(row.company.href)
+      } else {
+        window.location = row.company.href
       }
+    }
+  }
+}
+</script>
+```
+
+We can also embed hyperlinks, as in the below example:
+
+<KTable
+  :options="tableOptionsLink"
+  isClickable
+  @row:click="handleRowClick">
+  <template v-slot:company="{rowValue}">
+    <a v-if="rowValue" :href="rowValue.href">{{rowValue.label}}</a>
+    <span v-else>{{rowValue}}</span>
+  </template>
+</Ktable>
+
+```vue
+<KTable
+  :options="tableOptionsLink"
+  isClickable
+  @row:click="handleRowClick">
+  <template v-slot:company="{rowValue}">
+    <a v-if="rowValue" :href="rowValue.href">{{rowValue.label}}</a>
+    <span v-else>{{rowValue}}</span>
+  </template>
+</Ktable>
+<script>
+import { defaultSorter } from '@kongponents/KTable'
+export default {
+  data() {
+    return {
+      row: null,
+      eventType: '',
+      tableOptions: {
+        headers: [
+          { label: 'Company', key: 'company' }
+        ],
+        data: [
+          {
+            company: { href: 'http://www.creative.com', label: 'Creative Labs' }
+          },
+          {
+            company: { href: 'http://www.bang-olufsen.com', label: 'Bang&Olufsen' }
+          },
+          {
+            company: { href: 'http://www.klipsch.com', label: 'Klipsch' }
+          },
+          {
+            company: { href: 'http://www.bose.com', label: 'Bose'}
+          },
+          {
+            company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'}
+          }
+        ]
+      }
+    }
+  },
+  methods: {
+    handleRowClick(e, row) {
+      const metaKeyPressed = e.metaKey || e.ctrlKey
+
+      if (metaKeyPressed) {
+        return window.open(row.company.href)
+      } else {
+        window.location = row.company.href
+      }
+    }
+  }
+}
+</script>
+```
+
+We can also use buttons instead of hyperlinks, as in the example below:
+
+<KTable
+  :options="tableOptionsLink"
+  isClickable
+  @row:click="handleRowClick">
+  <template v-slot:company="{rowValue}">
+    <span>{{rowValue.label}}</span>
+  </template>
+  <template v-slot:actions><KButton appearance="secondary">Visit Website</KButton></template>
+</Ktable>
+
+```vue
+<KTable
+  :options="tableOptionsLink"
+  isClickable
+  @row:click="handleRowClick">
+  <template v-slot:company="{rowValue}">
+    <span>{{rowValue.label}}</span>
+  </template>
+</Ktable>
+<script>
+import { defaultSorter } from '@kongponents/KTable'
+export default {
+  data() {
+    return {
+      row: null,
+      eventType: '',
+      tableOptions: {
+        headers: [
+          { label: 'Company', key: 'company' },
+          { key: 'actions', hideLabel: true }
+        ],
+        data: [
+          {
+            company: { href: 'http://www.creative.com', label: 'Creative Labs' }
+          },
+          {
+            company: { href: 'http://www.bang-olufsen.com', label: 'Bang&Olufsen' }
+          },
+          {
+            company: { href: 'http://www.klipsch.com', label: 'Klipsch' }
+          },
+          {
+            company: { href: 'http://www.bose.com', label: 'Bose'}
+          },
+          {
+            company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'}
+          }
+        ]
+      }
+    }
+  },
+  methods: {
+    handleRowClick(e, row) {
+      const metaKeyPressed = e.metaKey || e.ctrlKey
+
+      if (metaKeyPressed) {
+        return window.open(row.company.href)
+      } else {
+        window.location = row.company.href
+      }
+    }
   }
 }
 </script>
@@ -696,7 +775,8 @@ export default {
       },
       tableOptionsLink: {
         headers: [
-          { label: 'Company', key: 'company' }
+          { label: 'Company', key: 'company' },
+          { key: 'actions', hideLabel: true }
         ],
         data: [
           {
@@ -828,17 +908,11 @@ export default {
     },
     handleRowClick(e, row) {
       const metaKeyPressed = e.metaKey || e.ctrlKey
-      if (e.target.tagName === 'A' && metaKeyPressed) {
-        return window.open(e.target.href)
-      }
 
-      if (row.company && row.company.href) {
-        if(metaKeyPressed) {
-          return window.open(row.company.href)
-        }
-        else {
-          window.location = row.company.href
-        }
+      if (metaKeyPressed) {
+        return window.open(row.company.href)
+      } else {
+        window.location = row.company.href
       }
     },
     sortFieldHelper (key) {
@@ -853,13 +927,6 @@ export default {
           'disabled': rowItem.enabled === 'false'
         },
         'data-testid': 'row-item'
-      }
-    },
-    colAttrsFn (colItem) {
-      return {
-        class: {
-          'link': colItem.website
-        }
       }
     },
     defaultSorter

@@ -36,14 +36,7 @@
               :name="value.key"
               :row="row"
               :rowKey="rowIndex"
-              :rowValue="row[value.key]">
-              <a
-                v-if="row[value.key] && row[value.key].href"
-                :href="row[value.key].href">{{ row[value.key].label }}</a>
-              <span v-else>
-                {{ row[value.key] }}
-              </span>
-            </slot>
+              :rowValue="row[value.key]">{{ row[value.key] }}</slot>
           </td>
         </template>
       </tr>
