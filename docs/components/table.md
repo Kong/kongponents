@@ -95,6 +95,111 @@ Adds `cursor: pointer` and `user-select: none` styling.
   isClickable />
 ```
 
+### Custom Row Attributes
+
+There is a prop called `hasSideBorder` that when passed in, enables a default side border on each row.
+This prop is on by default.
+These colors can be overridden and customized by using theme variables.
+
+Example with `hasSideBorder` set to false:
+
+<template>
+  <KTable
+    :options="tableOptions"
+    :hasSideBorder="false"
+    />
+</template>
+
+```vue
+<template>
+  <KTable
+    :options="tableOptions"
+    :hasSideBorder="false"
+    />
+</template>
+```
+
+Add custom properties to individual rows. The row object is passed as a param.
+
+- `rowAttrs` - is a Function that returns an object comprising the attributes.
+
+Example below:
+
+<template>
+  <KTable
+    :options="tableOptionsRowAttrs"
+    :rowAttrs="rowAttrsFn"
+    />
+</template>
+
+```vue
+<template>
+  <KTable
+    :options="tableOptions"
+    :rowAttrs="rowAttrsFn"
+    />
+</template>
+<script>
+import { defaultSorter } from '@kongponents/KTable'
+export default {
+  data() {
+    return {
+      row: null,
+      eventType: '',
+      tableOptions: {
+        headers: [
+          { label: 'Type', key: 'type' },
+          { label: 'Value', key: 'value' },
+          { label: 'Enabled', key: 'enabled'}
+        ],
+        data: [
+          {
+            type: 'desktop',
+            value: 'Windows 10',
+            enabled: 'true'
+          },
+          {
+            type: 'phone',
+            value: 'LineageOS',
+            enabled: 'false'
+          },
+          {
+            type: 'tablet',
+            value: 'ipadOS',
+            enabled: 'true'
+          }
+        ]
+      }
+    }
+  },
+  methods: {
+    rowAttrsFn (rowItem) {
+      return {
+        class: {
+          'enabled': rowItem.enabled === 'true',
+          'disabled': rowItem.enabled === 'false'
+        },
+        'data-testid': 'row-item'
+      }
+    }
+  }
+}
+</script>
+<style>
+.k-table {
+  tr.enabled {
+    --KTableHover: var(--green-200, #ccffe1);
+    --KTableBorder: var(--green-400, #19a654);
+  }
+
+  tr.disabled {
+    --KTableHover: var(--yellow-100, #fff9e6);
+    --KTableBorder: var(--yellow-200, #ffdc73);
+  }
+}
+</style>
+```
+
 ## Events
 Bind any DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to
 various parts of the table.
@@ -262,111 +367,6 @@ export default {
   }
 }
 </script>
-```
-
-## Custom Row Attributes
-
-There is a prop called `hasSideBorder` that when passed in, enables a default side border on each row, using the color `steal-300` by default.
-This prop is on by default.
-These colors can be overridden by themes or by using custom row attributes.
-Example with `hasSideBorder` set to false:
-
-<template>
-  <KTable
-    :options="tableOptions"
-    :hasSideBorder="false"
-    />
-</template>
-
-```vue
-<template>
-  <KTable
-    :options="tableOptions"
-    :hasSideBorder="false"
-    />
-</template>
-```
-
-We can also add custom row attributes via a prop called `rowAttrs` - this prop is a Function that returns an object comprising the conditional custom attributes
-that you want the rows to have.
-In the following example, the rows have a custom green color if enabled is true, and yellow if enabled is false.
-We can also add a custom data-testid onto each row using these attributes (you can inspect it to see there is a custom data-testid attribute with `rowItem` on each row).
-
-<template>
-  <KTable
-    :options="tableOptionsRowAttrs"
-    hasSideBorder
-    :rowAttrs="rowAttrsFn"
-    />
-</template>
-
-```vue
-<template>
-  <KTable
-    :options="tableOptions"
-    :rowAttrs="rowAttrsFn"
-    hasSideBorder
-    />
-</template>
-<script>
-import { defaultSorter } from '@kongponents/KTable'
-export default {
-  data() {
-    return {
-      row: null,
-      eventType: '',
-      tableOptions: {
-        headers: [
-          { label: 'Type', key: 'type' },
-          { label: 'Value', key: 'value' },
-          { label: 'Enabled', key: 'enabled'}
-        ],
-        data: [
-          {
-            type: 'desktop',
-            value: 'Windows 10',
-            enabled: 'true'
-          },
-          {
-            type: 'phone',
-            value: 'LineageOS',
-            enabled: 'false'
-          },
-          {
-            type: 'tablet',
-            value: 'ipadOS',
-            enabled: 'true'
-          }
-        ]
-      }
-    }
-  },
-  methods: {
-    rowAttrsFn (rowItem) {
-      return {
-        class: {
-          'enabled': rowItem.enabled === 'true',
-          'disabled': rowItem.enabled === 'false'
-        },
-        'data-testid': 'row-item'
-      }
-    }
-  }
-}
-</script>
-<style>
-.k-table {
-  tr.enabled {
-    --KTableHover: var(--green-200, #ccffe1);
-    --KTableBorder: var(--green-400, #19a654);
-  }
-
-  tr.disabled {
-    --KTableHover: var(--yellow-100, #fff9e6);
-    --KTableBorder: var(--yellow-200, #ffdc73);
-  }
-}
-</style>
 ```
 
 ## Slots
