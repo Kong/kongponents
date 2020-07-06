@@ -36,7 +36,15 @@
               :name="value.key"
               :row="row"
               :rowKey="rowIndex"
-              :rowValue="row[value.key]">{{ row[value.key] }}</slot>
+              :rowValue="row[value.key]">
+              <a
+                v-if="row[value.key] && row[value.key].href"
+                :href="row[value.key].href">{{ row[value.key].label }}</a>
+              <span v-else-if="row[value.key] && row[value.key].submenu">&#8230;</span>
+              <span v-else>
+                {{ row[value.key] }}
+              </span>
+            </slot>
           </td>
         </template>
       </tr>

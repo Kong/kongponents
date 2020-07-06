@@ -95,20 +95,139 @@ Adds `cursor: pointer` and `user-select: none` styling.
   isClickable />
 ```
 
+### Links
+You can add hyperlinks to any table entry by making the value an object with two entries: `href` and `label`.
+The `href` determines the hyperlink and the `label` will be what is displayed.
+Check out the following example where the company name are hyperlinks and can be clicked to go to the company's website.
+
+<template>
+  <div>
+    <KTable
+      :options="tableOptionsLink"
+    />
+  </div>
+</template>
+
+```vue
+<KTable
+  :options="tableOptions">
+<script>
+import { defaultSorter } from '@kongponents/KTable'
+export default {
+  data() {
+    return {
+      row: null,
+      eventType: '',
+      tableOptions: {
+        headers: [
+          { label: 'Company', key: 'company' }
+        ],
+        data: [
+          {
+            company: { href: 'http://www.creative.com', label: 'Creative Labs' }
+          },
+          {
+            company: { href: 'http://www.bang-olufsen.com', label: 'Bang&Olufsen' }
+          },
+          {
+            company: { href: 'http://www.klipsch.com', label: 'Klipsch' }
+          },
+          {
+            company: { href: 'http://www.bose.com', label: 'Bose'}
+          },
+          {
+            company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'}
+          }
+        ]
+      },
+    }
+  }
+}
+</script>
+```
+
 ## Events
 Bind any DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to
 various parts of the table.
 
 ### Rows
 - `@row:<event>` - returns the `Event`, the row item, and the type: `row`
+- Check out the row click event in the example below. We can click the rows to go to each company's website.
+- We combine the Clickable and Links examples above in this example to make both the rows and hyperlinks clickable.
+- Try cmd or ctrl + click on the rows or the hyperlinks to open the websites in a new tab.
+
+<template>
+  <div>
+    <KTable
+      :options="tableOptionsLink"
+      is-clickable
+      class="row-events"
+      @row:click="handleRowClick"
+    />
+  </div>
+</template>
 
 ```vue
-<KTable @row:click="rowHandler" @row:dblclick="rowHandler">
+<KTable
+  :options="tableOptions"
+  isClickable
+  @row:click="handleRowClick">
+<script>
+import { defaultSorter } from '@kongponents/KTable'
+export default {
+  data() {
+    return {
+      row: null,
+      eventType: '',
+      tableOptions: {
+        headers: [
+          { label: 'Company', key: 'company' }
+        ],
+        data: [
+          {
+            company: { href: 'http://www.creative.com', label: 'Creative Labs' }
+          },
+          {
+            company: { href: 'http://www.bang-olufsen.com', label: 'Bang&Olufsen' }
+          },
+          {
+            company: { href: 'http://www.klipsch.com', label: 'Klipsch' }
+          },
+          {
+            company: { href: 'http://www.bose.com', label: 'Bose'}
+          },
+          {
+            company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'}
+          }
+        ]
+      }
+    }
+  },
+  methods: {
+    handleRowClick(e, row) {
+        const metaKeyPressed = e.metaKey || e.ctrlKey
+        if (e.target.tagName === 'A' && metaKeyPressed) {
+          return window.open(e.target.href)
+        }
+
+        if (row.company && row.company.href) {
+          if(metaKeyPressed) {
+            return window.open(row.company.href)
+          }
+          else {
+            window.location = row.company.href
+          }
+        }
+      }
+  }
+}
+</script>
 ```
 
 ### Cells
 
 - `@cell:<event>` - returns the `Event`, the cell value, and the type: `cell`
+- Check out the mouse over events on each cell in the example below.
 
 <template>
   <div>
@@ -172,6 +291,79 @@ export default {
       this.eventType = e.type
       this.row = row
     }
+  }
+}
+</script>
+```
+
+### Submenus
+- We can add submenus to a row using the `submenu` property in the data object. 
+- This property is an array of objects containing `label` and `href` just like in the Link example that we have seen already.
+- In the following example we have a submenu for each company with a list of its competitors.
+
+<template>
+  <div>
+    <KTable
+      :options="tableOptionsSubmenu"
+      is-clickable
+      class="row-events"
+      @row:click="handleRowClick"
+    />
+  </div>
+</template>
+
+```vue
+<KTable
+  :options="tableOptions"
+  isClickable
+  @row:click="handleRowClick">
+<script>
+import { defaultSorter } from '@kongponents/KTable'
+export default {
+  data() {
+    return {
+      row: null,
+      eventType: '',
+      tableOptions: {
+        headers: [
+          { label: 'Company', key: 'company' }
+        ],
+        data: [
+          {
+            company: { href: 'http://www.creative.com', label: 'Creative Labs' }
+          },
+          {
+            company: { href: 'http://www.bang-olufsen.com', label: 'Bang&Olufsen' }
+          },
+          {
+            company: { href: 'http://www.klipsch.com', label: 'Klipsch' }
+          },
+          {
+            company: { href: 'http://www.bose.com', label: 'Bose'}
+          },
+          {
+            company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'}
+          }
+        ]
+      }
+    }
+  },
+  methods: {
+    handleRowClick(e, row) {
+        const metaKeyPressed = e.metaKey || e.ctrlKey
+        if (e.target.tagName === 'A' && metaKeyPressed) {
+          return window.open(e.target.href)
+        }
+
+        if (row.company && row.company.href) {
+          if(metaKeyPressed) {
+            return window.open(row.company.href)
+          }
+          else {
+            window.location = row.company.href
+          }
+        }
+      }
   }
 }
 </script>
@@ -294,7 +486,7 @@ We can also add a custom data-testid onto each row using these attributes (you c
 
 <template>
   <KTable
-    :options="tableOptionsRowAttrs"
+    :options="tableOptions"
     hasSideBorder
     :rowAttrs="rowAttrsFn"
     />
@@ -303,7 +495,7 @@ We can also add a custom data-testid onto each row using these attributes (you c
 ```vue
 <template>
   <KTable
-    :options="tableOptions"
+    :options="tableOptionsRowAttrs"
     :rowAttrs="rowAttrsFn"
     hasSideBorder
     />
@@ -502,8 +694,8 @@ An Example of changing the hover background might look like.
 ```vue
 <template>
   <KTable
-    :options="tableOptions" 
-    hasHover /> 
+    :options="tableOptions"
+    hasHover />
 </template>
 
 <style>
@@ -574,6 +766,131 @@ export default {
             enabled: 'true'
           }
         ]
+      },
+      tableOptionsLink: {
+        headers: [
+          { label: 'Company', key: 'company' }
+        ],
+        data: [
+          {
+            company: { href: 'http://www.creative.com', label: 'Creative Labs' }
+          },
+          {
+            company: { href: 'http://www.bang-olufsen.com', label: 'Bang&Olufsen' }
+          },
+          {
+            company: { href: 'http://www.klipsch.com', label: 'Klipsch' }
+          },
+          {
+            company: { href: 'http://www.bose.com', label: 'Bose'}
+          },
+          {
+            company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'}
+          }
+        ]
+      },
+      tableOptionsSubmenu: {
+        headers: [
+          { label: 'Company', key: 'company' },
+          { label: 'Competitors', key: 'competitors' }
+        ],
+        data: [
+          {
+            company: { href: 'http://www.creative.com', label: 'Creative Labs' },
+            competitors: {
+              submenu: [
+                {
+                  href: 'http://www.logitech.com',
+                  label: 'Logitech'
+                },
+                {
+                  href: 'http://www.razer.com',
+                  label: 'Razer'
+                },
+                {
+                  href: 'http://www.shure.com',
+                  label: 'Shure'
+                }
+              ]
+            }
+          },
+          {
+            company: { href: 'http://www.bang-olufsen.com', label: 'Bang&Olufsen' },
+            competitors: {
+              submenu: [
+                {
+                  href: 'http://www.harmankardon.com',
+                  label: 'Harman Kardon'
+                },
+                {
+                  href: 'http://www.bowers-wilkins.com',
+                  label: 'Bowers & Wilkins'
+                },
+                {
+                  href: 'http://www.kef.com',
+                  label: 'KEF'
+                }
+              ]
+            }
+          },
+          {
+            company: { href: 'http://www.klipsch.com', label: 'Klipsch' },
+            competitors: {
+              submenu: [
+                {
+                  href: 'http://www.polkaudio.com',
+                  label: 'Polk Audio'
+                },
+                {
+                  href: 'http://www.sonos.com',
+                  label: 'Sonos'
+                },
+                {
+                  href: 'http://www.focal.com',
+                  label: 'Focal'
+                }
+              ]
+            }
+          },
+          {
+            company: { href: 'http://www.bose.com', label: 'Bose'},
+            competitors: {
+              submenu: [
+                {
+                  href: 'http://www.jbl.com',
+                  label: 'JBL'
+                },
+                {
+                  href: 'http://www.sony.com',
+                  label: 'Sony'
+                },
+                {
+                  href: 'http://www.pioneerelectronics.com',
+                  label: 'Pioneer'
+                }
+              ]
+            }
+          },
+            {
+            company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'},
+            competitors: {
+              submenu: [
+                {
+                  href: 'http://www.grado.com',
+                  label: 'Grado'
+                },
+                {
+                  href: 'http://www.beyerdynamic.com',
+                  label: 'Beyerdynamic'
+                },
+                {
+                  href: 'http://www.akg.com',
+                  label: 'AKG'
+                }
+              ]
+            }
+          }
+        ]
       }
     }
   },
@@ -581,6 +898,21 @@ export default {
     actionRow (e, row, type) {
       this.eventType = e.type
       this.row = row
+    },
+    handleRowClick(e, row) {
+      const metaKeyPressed = e.metaKey || e.ctrlKey
+      if (e.target.tagName === 'A' && metaKeyPressed) {
+        return window.open(e.target.href)
+      }
+
+      if (row.company && row.company.href) {
+        if(metaKeyPressed) {
+          return window.open(row.company.href)
+        }
+        else {
+          window.location = row.company.href
+        }
+      }
     },
     sortFieldHelper (key) {
       const {previousKey, sortOrder } = this.defaultSorter(key, this.sortKey, this.sortOrder, this.tableOptions.data)
@@ -594,6 +926,13 @@ export default {
           'disabled': rowItem.enabled === 'false'
         },
         'data-testid': 'row-item'
+      }
+    },
+    colAttrsFn (colItem) {
+      return {
+        class: {
+          'link': colItem.website
+        }
       }
     },
     defaultSorter
