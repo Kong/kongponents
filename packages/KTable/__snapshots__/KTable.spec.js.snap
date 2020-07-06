@@ -20,46 +20,22 @@ exports[`KTable default has hover class when passed 1`] = `
   </thead>
   <tbody>
     <tr>
-      <td><span>
-              Basic Auth
-            </span></td>
-      <td><span>
-              517526354743085
-            </span></td>
-      <td><span>
-              true
-            </span></td>
-      <td><span>
-
-            </span></td>
+      <td>Basic Auth</td>
+      <td>517526354743085</td>
+      <td>true</td>
+      <td></td>
     </tr>
     <tr>
-      <td><span>
-              Website Desktop
-            </span></td>
-      <td><span>
-              328027447731198
-            </span></td>
-      <td><span>
-              false
-            </span></td>
-      <td><span>
-
-            </span></td>
+      <td>Website Desktop</td>
+      <td>328027447731198</td>
+      <td>false</td>
+      <td></td>
     </tr>
     <tr>
-      <td><span>
-              Android App
-            </span></td>
-      <td><span>
-              405383051040955
-            </span></td>
-      <td><span>
-              true
-            </span></td>
-      <td><span>
-
-            </span></td>
+      <td>Android App</td>
+      <td>405383051040955</td>
+      <td>true</td>
+      <td></td>
     </tr>
   </tbody>
 </table>
@@ -85,46 +61,22 @@ exports[`KTable default has small class when passed 1`] = `
   </thead>
   <tbody>
     <tr>
-      <td><span>
-              Basic Auth
-            </span></td>
-      <td><span>
-              517526354743085
-            </span></td>
-      <td><span>
-              true
-            </span></td>
-      <td><span>
-
-            </span></td>
+      <td>Basic Auth</td>
+      <td>517526354743085</td>
+      <td>true</td>
+      <td></td>
     </tr>
     <tr>
-      <td><span>
-              Website Desktop
-            </span></td>
-      <td><span>
-              328027447731198
-            </span></td>
-      <td><span>
-              false
-            </span></td>
-      <td><span>
-
-            </span></td>
+      <td>Website Desktop</td>
+      <td>328027447731198</td>
+      <td>false</td>
+      <td></td>
     </tr>
     <tr>
-      <td><span>
-              Android App
-            </span></td>
-      <td><span>
-              405383051040955
-            </span></td>
-      <td><span>
-              true
-            </span></td>
-      <td><span>
-
-            </span></td>
+      <td>Android App</td>
+      <td>405383051040955</td>
+      <td>true</td>
+      <td></td>
     </tr>
   </tbody>
 </table>
@@ -150,39 +102,21 @@ exports[`KTable default renders link in action slot 1`] = `
   </thead>
   <tbody>
     <tr>
-      <td><span>
-              Basic Auth
-            </span></td>
-      <td><span>
-              517526354743085
-            </span></td>
-      <td><span>
-              true
-            </span></td>
+      <td>Basic Auth</td>
+      <td>517526354743085</td>
+      <td>true</td>
       <td><a href="#">Link</a></td>
     </tr>
     <tr>
-      <td><span>
-              Website Desktop
-            </span></td>
-      <td><span>
-              328027447731198
-            </span></td>
-      <td><span>
-              false
-            </span></td>
+      <td>Website Desktop</td>
+      <td>328027447731198</td>
+      <td>false</td>
       <td><a href="#">Link</a></td>
     </tr>
     <tr>
-      <td><span>
-              Android App
-            </span></td>
-      <td><span>
-              405383051040955
-            </span></td>
-      <td><span>
-              true
-            </span></td>
+      <td>Android App</td>
+      <td>405383051040955</td>
+      <td>true</td>
       <td><a href="#">Link</a></td>
     </tr>
   </tbody>
@@ -209,46 +143,22 @@ exports[`KTable sorting should have sortable class when passed 1`] = `
   </thead>
   <tbody>
     <tr>
-      <td><span>
-              Basic Auth
-            </span></td>
-      <td><span>
-              517526354743085
-            </span></td>
-      <td><span>
-              true
-            </span></td>
-      <td><span>
-
-            </span></td>
+      <td>Basic Auth</td>
+      <td>517526354743085</td>
+      <td>true</td>
+      <td></td>
     </tr>
     <tr>
-      <td><span>
-              Website Desktop
-            </span></td>
-      <td><span>
-              328027447731198
-            </span></td>
-      <td><span>
-              false
-            </span></td>
-      <td><span>
-
-            </span></td>
+      <td>Website Desktop</td>
+      <td>328027447731198</td>
+      <td>false</td>
+      <td></td>
     </tr>
     <tr>
-      <td><span>
-              Android App
-            </span></td>
-      <td><span>
-              405383051040955
-            </span></td>
-      <td><span>
-              true
-            </span></td>
-      <td><span>
-
-            </span></td>
+      <td>Android App</td>
+      <td>405383051040955</td>
+      <td>true</td>
+      <td></td>
     </tr>
   </tbody>
 </table>
