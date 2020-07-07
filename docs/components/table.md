@@ -118,7 +118,8 @@ The below example demonstrates the disabled state:
 ## Custom Row Attributes
 Add custom properties to individual rows. The row object is passed as a param.
 
-## rowAttrs - Function that returns an object comprising the attributes.
+## rowAttrs
+Function that returns an object comprising the attributes.
 
 Example below:
 
