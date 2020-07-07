@@ -113,6 +113,8 @@ The below example demonstrates the disabled state:
     :hasSideBorder="false"
     />
 </template>
+```
+
 ## rowAttrs
 Add custom properties to individual rows. The row object is passed as a param.
 
@@ -200,50 +202,17 @@ various parts of the table.
 ### Rows
 - `@row:<event>` - returns the `Event`, the row item, and the type: `row`
 
-<template>
-  <div v-if="eventType">
-    {{eventType}} on: {{row.name}}
-  </div>
-  <div v-else>Waiting</div>
-  <KTable
-      :options="tableOptions"
-      @row:click="actionRow"
-      @row:dblclick="actionRow"
-      />
-</template>
-
 ```vue
-<template>
-  <div v-if="eventType">
-    {{eventType}} on: {{row.name}}
-  </div>
-  <div v-else>Waiting</div>
-  <KTable
-      :options="tableOptions"
-      @row:click="actionRow"
-      @row:dblclick="actionRow"
-      />
-</template>
+<KTable @row:click="rowHandler" @row:dblclick="rowHandler">
 ```
 
 ### Cells
 
 - `@cell:<event>` - returns the `Event`, the cell value, and the type: `cell`
 
-<template>
-  <div>
-    <div v-if="eventType">
-      {{eventType}} on: {{row}}
-    </div>
-    <div v-else>Waiting</div>
-    <KTable
-      :options="tableOptions"
-      is-clickable
-      @row:click="actionRow"
-      @cell:mouseover="actionRow"
-    />
-  </div>
-</template>
+```vue
+<KTable @cell:mouseout="cellHandler" @cell:mousedown="cellHandler">
+```
 
 #### Example
 
@@ -296,6 +265,21 @@ export default {
 }
 </script>
 ```
+
+<template>
+  <div>
+    <div v-if="eventType">
+      {{eventType}} on: {{row}}
+    </div>
+    <div v-else>Waiting</div>
+    <KTable
+      :options="tableOptions"
+      is-clickable
+      @row:click="actionRow"
+      @cell:mouseover="actionRow"
+    />
+  </div>
+</template>
 
 ### Sorting
 
