@@ -21,7 +21,7 @@ tableOptions:
       id: 405383051040955
       enabled: true
 ---
-# Table
+# Table 
 Pass an object of headers & data to build a slot-able table.
 
 <KTable :options="$frontmatter.tableOptions" />
