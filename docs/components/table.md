@@ -205,30 +205,8 @@ various parts of the table.
 ### Rows
 - `@row:<event>` - returns the `Event`, the row item, and the type: `row`
 
-<template>
-  <div v-if="eventType">
-    {{eventType}} on: {{row.name}}
-  </div>
-  <div v-else>Waiting</div>
-  <KTable
-      :options="tableOptions"
-      @row:click="actionRow"
-      @row:dblclick="actionRow"
-      />
-</template>
-
 ```vue
-<template>
-  <div v-if="eventType">
-    {{eventType}} on: {{row.name}}
-  </div>
-  <div v-else>Waiting</div>
-  <KTable
-      :options="tableOptions"
-      @row:click="actionRow"
-      @row:dblclick="actionRow"
-      />
-</template>
+<KTable @row:click="rowHandler" @row:dblclick="rowHandler">
 ```
 
 - The rows can be clicked and metakeys are also supported in the row click handler. Hyperlinks and Buttons can also be clicked separately, as in the below example:
@@ -310,7 +288,10 @@ export default {
 ### Cells
 
 - `@cell:<event>` - returns the `Event`, the cell value, and the type: `cell`
-- Check out the mouse over events on each cell in the example below.
+
+```vue
+<KTable @cell:mouseout="cellHandler" @cell:mousedown="cellHandler">
+```
 
 <template>
   <div>
