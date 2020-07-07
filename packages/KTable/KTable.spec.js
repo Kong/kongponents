@@ -269,17 +269,14 @@ describe('KTable', () => {
           options
         },
         listeners: {
-          [`row:click`]: evtTrigger,
           [`row:mouseover`]: evtTrigger
         }
       })
 
       const bodyRow = wrapper.find('.k-table tbody tr')
 
-      bodyRow.trigger('click')
       bodyRow.trigger('mouseover')
-      expect(evtTrigger).toHaveBeenNthCalledWith(1, expect.objectContaining({ type: 'click' }), options.data[0], 'row')
-      expect(evtTrigger).toHaveBeenNthCalledWith(2, expect.objectContaining({ type: 'mouseover' }), options.data[0], 'row')
+      expect(evtTrigger).toHaveBeenNthCalledWith(1, expect.objectContaining({ type: 'mouseover' }), options.data[0], 'row')
     })
 
     it('@cell:event', () => {
