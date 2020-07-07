@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.8](https://github.com/Kong/kongponents/compare/@kongponents/kicon@0.4.7...@kongponents/kicon@0.4.8) (2020-07-06)
+
+**Note:** Version bump only for package @kongponents/kicon
+
+
+
+
+
+## [0.4.7](https://github.com/Kong/kongponents/compare/@kongponents/kicon@0.4.6...@kongponents/kicon@0.4.7) (2020-07-01)
+
+**Note:** Version bump only for package @kongponents/kicon
+
+
+
+
+
+## [0.4.6](https://github.com/Kong/kongponents/compare/@kongponents/kicon@0.4.5...@kongponents/kicon@0.4.6) (2020-06-30)
+
+**Note:** Version bump only for package @kongponents/kicon
+
+
+
+
+
+## [0.4.5](https://github.com/Kong/kongponents/compare/@kongponents/kicon@0.4.4...@kongponents/kicon@0.4.5) (2020-06-29)
+
+**Note:** Version bump only for package @kongponents/kicon
+
+
+
+
+
 ## [0.4.4](https://github.com/Kong/kongponents/compare/@kongponents/kicon@0.4.3...@kongponents/kicon@0.4.4) (2020-03-25)
 
 **Note:** Version bump only for package @kongponents/kicon
