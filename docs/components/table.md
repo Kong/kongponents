@@ -97,11 +97,9 @@ Adds `cursor: pointer` and `user-select: none` styling.
 
 ### Custom Row Attributes
 
-There is a prop called `hasSideBorder` that when passed in, enables a default side border on each row.
-This prop is on by default.
-These colors can be overridden and customized by using theme variables.
-
-Example with `hasSideBorder` set to false:
+## hasSidebar
+Adds left border to each table row. By default set to true. The colors can be overridden by themes.
+The below example demostrates the disabled state:
 
 <template>
   <KTable
@@ -119,9 +117,8 @@ Example with `hasSideBorder` set to false:
 </template>
 ```
 
+## rowAttrs
 Add custom properties to individual rows. The row object is passed as a param.
-
-- `rowAttrs` - is a Function that returns an object comprising the attributes.
 
 Example below:
 
@@ -207,8 +204,30 @@ various parts of the table.
 ### Rows
 - `@row:<event>` - returns the `Event`, the row item, and the type: `row`
 
+<template>
+  <div v-if="eventType">
+    {{eventType}} on: {{row.name}}
+  </div>
+  <div v-else>Waiting</div>
+  <KTable
+      :options="tableOptions"
+      @row:click="actionRow"
+      @row:dblclick="actionRow"
+      />
+</template>
+
 ```vue
-<KTable @row:click="rowHandler" @row:dblclick="rowHandler">
+<template>
+  <div v-if="eventType">
+    {{eventType}} on: {{row.name}}
+  </div>
+  <div v-else>Waiting</div>
+  <KTable
+      :options="tableOptions"
+      @row:click="actionRow"
+      @row:dblclick="actionRow"
+      />
+</template>
 ```
 
 ### Cells

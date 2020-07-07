@@ -219,15 +219,17 @@ export default {
   max-width: 100%;
   border-collapse: collapse;
 
-  &.side-border.has-hover {
+  &.side-border {
     border-collapse: separate;
     border-spacing: 0 4px;
 
     tbody tr {
       border: none;
       box-shadow: -2px 0 0 var(--KTableBorder, var(--steal-200, color(steal-200)));
+    }
 
-      &:hover {
+    &.has-hover {
+      tbody tr:hover {
         box-shadow: -2px 0 0 var(--KTableBorder, var(--steal-300, color(steal-300)));
       }
     }
