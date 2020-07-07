@@ -209,6 +209,82 @@ various parts of the table.
 <KTable @row:click="rowHandler" @row:dblclick="rowHandler">
 ```
 
+On top of the individual row being clickable, we support being able to click elements inside a row, like buttons or hyperlinks without triggering the row event. You can also add logic to check for metakey to support cmd/ctrl clicking a row.
+
+<KTable
+  :options="tableOptionsLink"
+  isClickable
+  @row:click="handleRowClick">
+  <template v-slot:company="{rowValue}">
+    <a v-if="rowValue" @click="linkHander">{{rowValue.label}}</a>
+    <span v-else>{{rowValue}}</span>
+  </template>
+  <template v-slot:actions><KButton appearance="secondary" @click="buttonHandler">Visit Website</KButton></template>
+</KTable>
+
+```vue
+<KTable
+  :options="tableOptionsLink"
+  isClickable
+  @row:click="handleRowClick">
+  <template v-slot:company="{rowValue}">
+    <a v-if="rowValue" @click="linkHander">{{rowValue.label}}</a>
+    <span v-else>{{rowValue}}</span>
+  </template>
+  <template v-slot:actions><KButton appearance="secondary" @click="buttonHandler">Visit Website</KButton></template>
+</KTable>
+<script>
+import { defaultSorter } from '@kongponents/KTable'
+export default {
+  data() {
+    return {
+      row: null,
+      eventType: '',
+      tableOptions: {
+        headers: [
+          { label: 'Company', key: 'company' }
+        ],
+        data: [
+          {
+            company: { href: 'http://www.creative.com', label: 'Creative Labs' }
+          },
+          {
+            company: { href: 'http://www.bang-olufsen.com', label: 'Bang&Olufsen' }
+          },
+          {
+            company: { href: 'http://www.klipsch.com', label: 'Klipsch' }
+          },
+          {
+            company: { href: 'http://www.bose.com', label: 'Bose'}
+          },
+          {
+            company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'}
+          }
+        ]
+      }
+    }
+  },
+  methods: {
+    handleRowClick(e, row) {
+      const metaKeyPressed = e.metaKey || e.ctrlKey
+
+      if (metaKeyPressed) {
+        return window.open(row.company.href)
+      } else {
+        window.location = row.company.href
+      }
+    },
+    linkHander (e) {
+      alert('a link was clicked')
+    },
+    buttonHandler (e) {
+      alert('a button was pressed')
+    }
+  }
+}
+</script>
+```
+
 ### Cells
 
 - `@cell:<event>` - returns the `Event`, the cell value, and the type: `cell`
@@ -216,6 +292,21 @@ various parts of the table.
 ```vue
 <KTable @cell:mouseout="cellHandler" @cell:mousedown="cellHandler">
 ```
+
+<template>
+  <div>
+    <div v-if="eventType">
+      {{eventType}} on: {{row}}
+    </div>
+    <div v-else>Waiting</div>
+    <KTable
+      :options="tableOptions"
+      is-clickable
+      @row:click="actionRow"
+      @cell:mouseover="actionRow"
+    />
+  </div>
+</template>
 
 #### Example
 
@@ -268,21 +359,6 @@ export default {
 }
 </script>
 ```
-
-<template>
-  <div>
-    <div v-if="eventType">
-      {{eventType}} on: {{row}}
-    </div>
-    <div v-else>Waiting</div>
-    <KTable
-      :options="tableOptions"
-      is-clickable
-      @row:click="actionRow"
-      @cell:mouseover="actionRow"
-    />
-  </div>
-</template>
 
 ### Sorting
 
@@ -504,8 +580,8 @@ An Example of changing the hover background might look like.
 ```vue
 <template>
   <KTable
-    :options="tableOptions" 
-    hasHover /> 
+    :options="tableOptions"
+    hasHover />
 </template>
 
 <style>
@@ -576,6 +652,29 @@ export default {
             enabled: 'true'
           }
         ]
+      },
+      tableOptionsLink: {
+        headers: [
+          { label: 'Company', key: 'company' },
+          { key: 'actions', hideLabel: true }
+        ],
+        data: [
+          {
+            company: { href: 'http://www.creative.com', label: 'Creative Labs' }
+          },
+          {
+            company: { href: 'http://www.bang-olufsen.com', label: 'Bang&Olufsen' }
+          },
+          {
+            company: { href: 'http://www.klipsch.com', label: 'Klipsch' }
+          },
+          {
+            company: { href: 'http://www.bose.com', label: 'Bose'}
+          },
+          {
+            company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'}
+          }
+        ]
       }
     }
   },
@@ -584,10 +683,27 @@ export default {
       this.eventType = e.type
       this.row = row
     },
+    handleRowClick(e, row) {
+      const metaKeyPressed = e.metaKey || e.ctrlKey
+
+      if (e.target.tagName !== 'BUTTON') {
+        if (metaKeyPressed) {
+          return window.open(row.company.href)
+        } else {
+          window.location = row.company.href
+        }
+      }
+    },
     sortFieldHelper (key) {
       const {previousKey, sortOrder } = this.defaultSorter(key, this.sortKey, this.sortOrder, this.tableOptions.data)
       this.sortKey = previousKey
       this.sortOrder = sortOrder
+    },
+    linkHander (e) {
+      alert('a link was clicked')
+    },
+    buttonHandler (e) {
+      alert('a button was pressed')
     },
     rowAttrsFn (rowItem) {
       return {
