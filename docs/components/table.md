@@ -209,7 +209,7 @@ various parts of the table.
 <KTable @row:click="rowHandler" @row:dblclick="rowHandler">
 ```
 
-- The rows can be clicked and metakeys are also supported in the row click handler. Hyperlinks and Buttons can also be clicked separately, as in the below example:
+On top of the individual row being clickable, we support being able to click elements inside a row, like buttons or hyperlinks without triggering the row event. You can also add logic to check for metakey to support cmd/ctrl clicking a row.
 
 <KTable
   :options="tableOptionsLink"
