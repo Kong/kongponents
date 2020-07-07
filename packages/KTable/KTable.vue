@@ -225,7 +225,13 @@ export default {
 
     tbody tr {
       border: none;
-      box-shadow: -2px 0 0 var(--KTableBorder, var(--steal-300, color(steal-300)));
+      box-shadow: -2px 0 0 var(--KTableBorder, var(--steal-200, color(steal-200)));
+    }
+
+    &.has-hover {
+      tbody tr:hover {
+        box-shadow: -2px 0 0 var(--KTableBorder, var(--steal-300, color(steal-300)));
+      }
     }
   }
 

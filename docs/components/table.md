@@ -95,32 +95,47 @@ Adds `cursor: pointer` and `user-select: none` styling.
   isClickable />
 ```
 
-## Events
-Bind any DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to
-various parts of the table.
+### Custom Row Attributes
 
-### Rows
-- `@row:<event>` - returns the `Event`, the row item, and the type: `row`
-- In the example below, we make use of slots to format the data correctly. The rows can be clicked and metakeys are also supported in the row click handler.
+## hasSidebar
+Adds left border to each table row. By default set to true. The colors can be overridden by themes.
+The below example demostrates the disabled state:
 
-<KTable
-  :options="tableOptionsLink"
-  isClickable
-  @row:click="handleRowClick">
-  <template v-slot:company="{rowValue}">
-    <span>{{rowValue.label}}</span>
-  </template>
-</KTable>
+<template>
+  <KTable
+    :options="tableOptions"
+    :hasSideBorder="false"
+    />
+</template>
 
 ```vue
-<KTable
-  :options="tableOptions"
-  isClickable
-  @row:click="handleRowClick">
-  <template v-slot:company="{rowValue}">
-    <span>{{rowValue.label}}</span>
-  </template>
-</KTable>
+<template>
+  <KTable
+    :options="tableOptions"
+    :hasSideBorder="false"
+    />
+</template>
+```
+
+## rowAttrs
+Add custom properties to individual rows. The row object is passed as a param.
+
+Example below:
+
+<template>
+  <KTable
+    :options="tableOptionsRowAttrs"
+    :rowAttrs="rowAttrsFn"
+    />
+</template>
+
+```vue
+<template>
+  <KTable
+    :options="tableOptions"
+    :rowAttrs="rowAttrsFn"
+    />
+</template>
 <script>
 import { defaultSorter } from '@kongponents/KTable'
 export default {
@@ -130,44 +145,92 @@ export default {
       eventType: '',
       tableOptions: {
         headers: [
-          { label: 'Company', key: 'company' }
+          { label: 'Type', key: 'type' },
+          { label: 'Value', key: 'value' },
+          { label: 'Enabled', key: 'enabled'}
         ],
         data: [
           {
-            company: { href: 'http://www.creative.com', label: 'Creative Labs' }
+            type: 'desktop',
+            value: 'Windows 10',
+            enabled: 'true'
           },
           {
-            company: { href: 'http://www.bang-olufsen.com', label: 'Bang&Olufsen' }
+            type: 'phone',
+            value: 'LineageOS',
+            enabled: 'false'
           },
           {
-            company: { href: 'http://www.klipsch.com', label: 'Klipsch' }
-          },
-          {
-            company: { href: 'http://www.bose.com', label: 'Bose'}
-          },
-          {
-            company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'}
+            type: 'tablet',
+            value: 'ipadOS',
+            enabled: 'true'
           }
         ]
       }
     }
   },
   methods: {
-    handleRowClick(e, row) {
-      const metaKeyPressed = e.metaKey || e.ctrlKey
-
-      if (metaKeyPressed) {
-        return window.open(row.company.href)
-      } else {
-        window.location = row.company.href
+    rowAttrsFn (rowItem) {
+      return {
+        class: {
+          'enabled': rowItem.enabled === 'true',
+          'disabled': rowItem.enabled === 'false'
+        },
+        'data-testid': 'row-item'
       }
     }
   }
 }
 </script>
+<style>
+.k-table {
+  tr.enabled {
+    --KTableHover: var(--green-200, #ccffe1);
+    --KTableBorder: var(--green-400, #19a654);
+  }
+
+  tr.disabled {
+    --KTableHover: var(--yellow-100, #fff9e6);
+    --KTableBorder: var(--yellow-200, #ffdc73);
+  }
+}
+</style>
 ```
 
-We can also embed hyperlinks and buttons, as in the below example:
+## Events
+Bind any DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to
+various parts of the table.
+
+### Rows
+- `@row:<event>` - returns the `Event`, the row item, and the type: `row`
+
+<template>
+  <div v-if="eventType">
+    {{eventType}} on: {{row.name}}
+  </div>
+  <div v-else>Waiting</div>
+  <KTable
+      :options="tableOptions"
+      @row:click="actionRow"
+      @row:dblclick="actionRow"
+      />
+</template>
+
+```vue
+<template>
+  <div v-if="eventType">
+    {{eventType}} on: {{row.name}}
+  </div>
+  <div v-else>Waiting</div>
+  <KTable
+      :options="tableOptions"
+      @row:click="actionRow"
+      @row:dblclick="actionRow"
+      />
+</template>
+```
+
+- The rows can be clicked and metakeys are also supported in the row click handler. Hyperlinks and Buttons can also be clicked separately, as in the below example:
 
 <KTable
   :options="tableOptionsLink"
