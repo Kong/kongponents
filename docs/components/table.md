@@ -21,7 +21,7 @@ tableOptions:
       id: 405383051040955
       enabled: true
 ---
-# Table
+# Table 
 Pass an object of headers & data to build a slot-able table.
 
 <KTable :options="$frontmatter.tableOptions" />
@@ -66,13 +66,13 @@ export default {
 ```
 ## Props
 ### Hover
-highlight the table row on hover
+Highlight the table row on hover. By default this is set to true. In the example we can set it to false as well.
 
-<KTable :options="$frontmatter.tableOptions" hasHover />
+<KTable :options="$frontmatter.tableOptions" :hasHover="false" />
 ```vue
 <KTable
   :options="tableOptions"
-  hasHover />
+  :hasHover="false" />
 ```
 
 ### Small
@@ -83,6 +83,119 @@ Lessen the table cell padding
 <KTable
   :options="tableOptions"
   isSmall />
+```
+
+### Clickable
+Adds `cursor: pointer` and `user-select: none` styling. 
+
+<KTable :options="$frontmatter.tableOptions" isClickable />
+```vue
+<KTable
+  :options="tableOptions"
+  isClickable />
+```
+
+### hasSidebar
+Adds left border to each table row. By default set to true. The colors can be overridden by themes.
+The below example demonstrates the disabled state:
+
+<template>
+  <KTable
+    :options="tableOptions"
+    :hasSideBorder="false"
+    />
+</template>
+
+```vue
+<template>
+  <KTable
+    :options="tableOptions"
+    :hasSideBorder="false"
+    />
+</template>
+```
+
+## Custom Row Attributes
+Add custom properties to individual rows. The row object is passed as a param.
+
+## rowAttrs
+Function that returns an object comprising the attributes.
+
+Example below:
+
+<template>
+  <KTable
+    :options="tableOptionsRowAttrs"
+    :rowAttrs="rowAttrsFn"
+    />
+</template>
+
+```vue
+<template>
+  <KTable
+    :options="tableOptions"
+    :rowAttrs="rowAttrsFn"
+    />
+</template>
+<script>
+import { defaultSorter } from '@kongponents/KTable'
+export default {
+  data() {
+    return {
+      row: null,
+      eventType: '',
+      tableOptions: {
+        headers: [
+          { label: 'Type', key: 'type' },
+          { label: 'Value', key: 'value' },
+          { label: 'Enabled', key: 'enabled'}
+        ],
+        data: [
+          {
+            type: 'desktop',
+            value: 'Windows 10',
+            enabled: 'true'
+          },
+          {
+            type: 'phone',
+            value: 'LineageOS',
+            enabled: 'false'
+          },
+          {
+            type: 'tablet',
+            value: 'ipadOS',
+            enabled: 'true'
+          }
+        ]
+      }
+    }
+  },
+  methods: {
+    rowAttrsFn (rowItem) {
+      return {
+        class: {
+          'enabled': rowItem.enabled === 'true',
+          'disabled': rowItem.enabled === 'false'
+        },
+        'data-testid': 'row-item'
+      }
+    }
+  }
+}
+</script>
+<style>
+.k-table {
+  tr.enabled {
+    --KTableHover: var(--green-200, #ccffe1);
+    --KTableBorder: var(--green-400, #19a654);
+  }
+
+  tr.disabled {
+    --KTableHover: var(--yellow-100, #fff9e6);
+    --KTableBorder: var(--yellow-200, #ffdc73);
+  }
+}
+</style>
 ```
 
 ## Events
@@ -113,16 +226,31 @@ various parts of the table.
       {{eventType}} on: {{row}}
     </div>
     <div v-else>Waiting</div>
-
-    <KTable 
-      class="clickable-rows"
+    <KTable
       :options="tableOptions"
-      @row:click="actionRow" 
+      is-clickable
+      @row:click="actionRow"
       @cell:mouseover="actionRow"
     />
   </div>
 </template>
-
+<template>
+  <KCard>
+    <div slot="body">
+      <div v-if="eventType">
+        {{eventType}} on: {{row}}
+      </div>
+      <div v-else>Waiting</div>
+      <KTable
+        :options="$frontmatter.tableOptions"
+        is-clickable
+        has-hover
+        @row:click="actionRow"
+        @cell:mouseover="actionRow"
+      />
+    </div>
+  </KCard>
+</template>
 <script>
 export default {
   data() {
@@ -139,36 +267,22 @@ export default {
   }
 }
 </script>
-<style>
-.clickable-rows tr {
-  cursor: pointer;
-}
-</style>
 ```
 
-<KCard>
-  <div slot="body">
-  <div v-if="eventType">
-    {{eventType}} on: {{row}}
+<template>
+  <div>
+    <div v-if="eventType">
+      {{eventType}} on: {{row}}
+    </div>
+    <div v-else>Waiting</div>
+    <KTable
+      :options="tableOptions"
+      is-clickable
+      @row:click="actionRow"
+      @cell:mouseover="actionRow"
+    />
   </div>
-  <div v-else>Waiting</div>
-
-  <KTable 
-    class="clickable-rows"
-    :options="$frontmatter.tableOptions"
-    has-hover
-    @row:click="actionRow" 
-    @cell:mouseover="actionRow"
-  />
-  </div>
-</KCard>
-
-<style>
-  .clickable-rows tr {
-    cursor: pointer;
-  }
-</style>
-
+</template>
 
 ### Sorting
 
@@ -380,7 +494,6 @@ export default {
 | `--KTableHover`| Hover variant background color
 | `--KTableHeaderSize`| Font size of header th
 
-
 \
 An Example of changing the hover background might look like.  
 
@@ -439,6 +552,30 @@ export default {
             themeColors: ['green', 'yellow']
           }
         ]
+      },
+      tableOptionsRowAttrs: {
+        headers: [
+          { label: 'Type', key: 'type' },
+          { label: 'Value', key: 'value' },
+          { label: 'Enabled', key: 'enabled'}
+        ],
+        data: [
+          {
+            type: 'desktop',
+            value: 'Windows 10',
+            enabled: 'true'
+          },
+          {
+            type: 'phone',
+            value: 'LineageOS',
+            enabled: 'false'
+          },
+          {
+            type: 'tablet',
+            value: 'ipadOS',
+            enabled: 'true'
+          }
+        ]
       }
     }
   },
@@ -451,6 +588,15 @@ export default {
       const {previousKey, sortOrder } = this.defaultSorter(key, this.sortKey, this.sortOrder, this.tableOptions.data)
       this.sortKey = previousKey
       this.sortOrder = sortOrder
+    },
+    rowAttrsFn (rowItem) {
+      return {
+        class: {
+          'enabled': rowItem.enabled === 'true',
+          'disabled': rowItem.enabled === 'false'
+        },
+        'data-testid': 'row-item'
+      }
     },
     defaultSorter
   }
@@ -467,5 +613,17 @@ export default {
   
   .table-wrapper {
   --KTableHover: lavender;
+  }
+
+  .k-table {
+    tr.enabled {
+      --KTableHover: var(--green-200, #ccffe1);
+      --KTableBorder: var(--green-400, #19a654);
+    }
+
+    tr.disabled {
+      --KTableHover: var(--yellow-100, #fff9e6);
+      --KTableBorder: var(--yellow-200, #ffdc73);
+    }
   }
 </style>
