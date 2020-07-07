@@ -200,9 +200,9 @@ export default {
 
         return {
           ...pluckedListeners,
-          mouseup (e) {
-            if (e.target.tagName === 'TD' && pluckedListeners['mouseup']) {
-              pluckedListeners['mouseup'](e, entity, type)
+          click (e) {
+            if (e.target.tagName === 'TD' && pluckedListeners['click']) {
+              pluckedListeners['click'](e, entity, type)
             }
           }
         }

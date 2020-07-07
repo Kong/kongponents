@@ -167,17 +167,18 @@ export default {
 </script>
 ```
 
-We can also embed hyperlinks, as in the below example:
+We can also embed hyperlinks and buttons, as in the below example:
 
 <KTable
   :options="tableOptionsLink"
   isClickable
   @row:click="handleRowClick">
   <template v-slot:company="{rowValue}">
-    <a v-if="rowValue" :href="rowValue.href">{{rowValue.label}}</a>
+    <a v-if="rowValue" @click="linkHander">{{rowValue.label}}</a>
     <span v-else>{{rowValue}}</span>
   </template>
-</Ktable>
+  <template v-slot:actions><KButton appearance="secondary" @click="buttonHandler">Visit Website</KButton></template>
+</KTable>
 
 ```vue
 <KTable
@@ -185,10 +186,11 @@ We can also embed hyperlinks, as in the below example:
   isClickable
   @row:click="handleRowClick">
   <template v-slot:company="{rowValue}">
-    <a v-if="rowValue" :href="rowValue.href">{{rowValue.label}}</a>
+    <a v-if="rowValue" @click="linkHander">{{rowValue.label}}</a>
     <span v-else>{{rowValue}}</span>
   </template>
-</Ktable>
+  <template v-slot:actions><KButton appearance="secondary" @click="buttonHandler">Visit Website</KButton></template>
+</KTable>
 <script>
 import { defaultSorter } from '@kongponents/KTable'
 export default {
@@ -229,74 +231,12 @@ export default {
       } else {
         window.location = row.company.href
       }
-    }
-  }
-}
-</script>
-```
-
-We can also use buttons instead of hyperlinks, as in the example below:
-
-<KTable
-  :options="tableOptionsLink"
-  isClickable
-  @row:click="handleRowClick">
-  <template v-slot:company="{rowValue}">
-    <span>{{rowValue.label}}</span>
-  </template>
-  <template v-slot:actions><KButton appearance="secondary">Visit Website</KButton></template>
-</Ktable>
-
-```vue
-<KTable
-  :options="tableOptionsLink"
-  isClickable
-  @row:click="handleRowClick">
-  <template v-slot:company="{rowValue}">
-    <span>{{rowValue.label}}</span>
-  </template>
-</Ktable>
-<script>
-import { defaultSorter } from '@kongponents/KTable'
-export default {
-  data() {
-    return {
-      row: null,
-      eventType: '',
-      tableOptions: {
-        headers: [
-          { label: 'Company', key: 'company' },
-          { key: 'actions', hideLabel: true }
-        ],
-        data: [
-          {
-            company: { href: 'http://www.creative.com', label: 'Creative Labs' }
-          },
-          {
-            company: { href: 'http://www.bang-olufsen.com', label: 'Bang&Olufsen' }
-          },
-          {
-            company: { href: 'http://www.klipsch.com', label: 'Klipsch' }
-          },
-          {
-            company: { href: 'http://www.bose.com', label: 'Bose'}
-          },
-          {
-            company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'}
-          }
-        ]
-      }
-    }
-  },
-  methods: {
-    handleRowClick(e, row) {
-      const metaKeyPressed = e.metaKey || e.ctrlKey
-
-      if (metaKeyPressed) {
-        return window.open(row.company.href)
-      } else {
-        window.location = row.company.href
-      }
+    },
+    linkHander (e) {
+      alert('a link was clicked')
+    },
+    buttonHandler (e) {
+      alert('a button was pressed')
     }
   }
 }
@@ -806,16 +746,24 @@ export default {
     handleRowClick(e, row) {
       const metaKeyPressed = e.metaKey || e.ctrlKey
 
-      if (metaKeyPressed) {
-        return window.open(row.company.href)
-      } else {
-        window.location = row.company.href
+      if (e.target.tagName !== 'BUTTON') {
+        if (metaKeyPressed) {
+          return window.open(row.company.href)
+        } else {
+          window.location = row.company.href
+        }
       }
     },
     sortFieldHelper (key) {
       const {previousKey, sortOrder } = this.defaultSorter(key, this.sortKey, this.sortOrder, this.tableOptions.data)
       this.sortKey = previousKey
       this.sortOrder = sortOrder
+    },
+    linkHander (e) {
+      alert('a link was clicked')
+    },
+    buttonHandler (e) {
+      alert('a button was pressed')
     },
     rowAttrsFn (rowItem) {
       return {
