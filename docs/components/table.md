@@ -95,11 +95,9 @@ Adds `cursor: pointer` and `user-select: none` styling.
   isClickable />
 ```
 
-### Custom Row Attributes
-
-## hasSidebar
+### hasSidebar
 Adds left border to each table row. By default set to true. The colors can be overridden by themes.
-The below example demostrates the disabled state:
+The below example demonstrates the disabled state:
 
 <template>
   <KTable
@@ -115,8 +113,6 @@ The below example demostrates the disabled state:
     :hasSideBorder="false"
     />
 </template>
-```
-
 ## rowAttrs
 Add custom properties to individual rows. The row object is passed as a param.
 
