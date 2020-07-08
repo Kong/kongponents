@@ -2,6 +2,7 @@
   <label class="k-switch">
     <input
       :checked="value"
+      v-bind="$attrs"
       type="checkbox"
       v-on="listeners">
     <div class="switch-control"/>

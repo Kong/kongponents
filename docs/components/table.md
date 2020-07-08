@@ -21,7 +21,7 @@ tableOptions:
       id: 405383051040955
       enabled: true
 ---
-# Table
+# Table 
 Pass an object of headers & data to build a slot-able table.
 
 <KTable :options="$frontmatter.tableOptions" />
@@ -66,13 +66,13 @@ export default {
 ```
 ## Props
 ### Hover
-highlight the table row on hover
+Highlight the table row on hover. By default this is set to true. In the example we can set it to false as well.
 
-<KTable :options="$frontmatter.tableOptions" hasHover />
+<KTable :options="$frontmatter.tableOptions" :hasHover="false" />
 ```vue
 <KTable
   :options="tableOptions"
-  hasHover />
+  :hasHover="false" />
 ```
 
 ### Small
@@ -83,6 +83,119 @@ Lessen the table cell padding
 <KTable
   :options="tableOptions"
   isSmall />
+```
+
+### Clickable
+Adds `cursor: pointer` and `user-select: none` styling. 
+
+<KTable :options="$frontmatter.tableOptions" isClickable />
+```vue
+<KTable
+  :options="tableOptions"
+  isClickable />
+```
+
+### hasSidebar
+Adds left border to each table row. By default set to true. The colors can be overridden by themes.
+The below example demonstrates the disabled state:
+
+<template>
+  <KTable
+    :options="tableOptions"
+    :hasSideBorder="false"
+    />
+</template>
+
+```vue
+<template>
+  <KTable
+    :options="tableOptions"
+    :hasSideBorder="false"
+    />
+</template>
+```
+
+## Custom Row Attributes
+Add custom properties to individual rows. The row object is passed as a param.
+
+## rowAttrs
+Function that returns an object comprising the attributes.
+
+Example below:
+
+<template>
+  <KTable
+    :options="tableOptionsRowAttrs"
+    :rowAttrs="rowAttrsFn"
+    />
+</template>
+
+```vue
+<template>
+  <KTable
+    :options="tableOptions"
+    :rowAttrs="rowAttrsFn"
+    />
+</template>
+<script>
+import { defaultSorter } from '@kongponents/KTable'
+export default {
+  data() {
+    return {
+      row: null,
+      eventType: '',
+      tableOptions: {
+        headers: [
+          { label: 'Type', key: 'type' },
+          { label: 'Value', key: 'value' },
+          { label: 'Enabled', key: 'enabled'}
+        ],
+        data: [
+          {
+            type: 'desktop',
+            value: 'Windows 10',
+            enabled: 'true'
+          },
+          {
+            type: 'phone',
+            value: 'LineageOS',
+            enabled: 'false'
+          },
+          {
+            type: 'tablet',
+            value: 'ipadOS',
+            enabled: 'true'
+          }
+        ]
+      }
+    }
+  },
+  methods: {
+    rowAttrsFn (rowItem) {
+      return {
+        class: {
+          'enabled': rowItem.enabled === 'true',
+          'disabled': rowItem.enabled === 'false'
+        },
+        'data-testid': 'row-item'
+      }
+    }
+  }
+}
+</script>
+<style>
+.k-table {
+  tr.enabled {
+    --KTableHover: var(--green-200, #ccffe1);
+    --KTableBorder: var(--green-400, #19a654);
+  }
+
+  tr.disabled {
+    --KTableHover: var(--yellow-100, #fff9e6);
+    --KTableBorder: var(--yellow-200, #ffdc73);
+  }
+}
+</style>
 ```
 
 ## Events
@@ -96,6 +209,82 @@ various parts of the table.
 <KTable @row:click="rowHandler" @row:dblclick="rowHandler">
 ```
 
+On top of the individual row being clickable, we support being able to click elements inside a row, like buttons or hyperlinks without triggering the row event. You can also add logic to check for metakey to support cmd/ctrl clicking a row.
+
+<KTable
+  :options="tableOptionsLink"
+  isClickable
+  @row:click="handleRowClick">
+  <template v-slot:company="{rowValue}">
+    <a v-if="rowValue" @click="linkHander">{{rowValue.label}}</a>
+    <span v-else>{{rowValue}}</span>
+  </template>
+  <template v-slot:actions><KButton appearance="secondary" @click="buttonHandler">Visit Website</KButton></template>
+</KTable>
+
+```vue
+<KTable
+  :options="tableOptionsLink"
+  isClickable
+  @row:click="handleRowClick">
+  <template v-slot:company="{rowValue}">
+    <a v-if="rowValue" @click="linkHander">{{rowValue.label}}</a>
+    <span v-else>{{rowValue}}</span>
+  </template>
+  <template v-slot:actions><KButton appearance="secondary" @click="buttonHandler">Visit Website</KButton></template>
+</KTable>
+<script>
+import { defaultSorter } from '@kongponents/KTable'
+export default {
+  data() {
+    return {
+      row: null,
+      eventType: '',
+      tableOptions: {
+        headers: [
+          { label: 'Company', key: 'company' }
+        ],
+        data: [
+          {
+            company: { href: 'http://www.creative.com', label: 'Creative Labs' }
+          },
+          {
+            company: { href: 'http://www.bang-olufsen.com', label: 'Bang&Olufsen' }
+          },
+          {
+            company: { href: 'http://www.klipsch.com', label: 'Klipsch' }
+          },
+          {
+            company: { href: 'http://www.bose.com', label: 'Bose'}
+          },
+          {
+            company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'}
+          }
+        ]
+      }
+    }
+  },
+  methods: {
+    handleRowClick(e, row) {
+      const metaKeyPressed = e.metaKey || e.ctrlKey
+
+      if (metaKeyPressed) {
+        return window.open(row.company.href)
+      } else {
+        window.location = row.company.href
+      }
+    },
+    linkHander (e) {
+      alert('a link was clicked')
+    },
+    buttonHandler (e) {
+      alert('a button was pressed')
+    }
+  }
+}
+</script>
+```
+
 ### Cells
 
 - `@cell:<event>` - returns the `Event`, the cell value, and the type: `cell`
@@ -103,6 +292,21 @@ various parts of the table.
 ```vue
 <KTable @cell:mouseout="cellHandler" @cell:mousedown="cellHandler">
 ```
+
+<template>
+  <div>
+    <div v-if="eventType">
+      {{eventType}} on: {{row}}
+    </div>
+    <div v-else>Waiting</div>
+    <KTable
+      :options="tableOptions"
+      is-clickable
+      @row:click="actionRow"
+      @cell:mouseover="actionRow"
+    />
+  </div>
+</template>
 
 #### Example
 
@@ -113,16 +317,31 @@ various parts of the table.
       {{eventType}} on: {{row}}
     </div>
     <div v-else>Waiting</div>
-
-    <KTable 
-      class="clickable-rows"
+    <KTable
       :options="tableOptions"
-      @row:click="actionRow" 
+      is-clickable
+      @row:click="actionRow"
       @cell:mouseover="actionRow"
     />
   </div>
 </template>
-
+<template>
+  <KCard>
+    <div slot="body">
+      <div v-if="eventType">
+        {{eventType}} on: {{row}}
+      </div>
+      <div v-else>Waiting</div>
+      <KTable
+        :options="$frontmatter.tableOptions"
+        is-clickable
+        has-hover
+        @row:click="actionRow"
+        @cell:mouseover="actionRow"
+      />
+    </div>
+  </KCard>
+</template>
 <script>
 export default {
   data() {
@@ -139,36 +358,7 @@ export default {
   }
 }
 </script>
-<style>
-.clickable-rows tr {
-  cursor: pointer;
-}
-</style>
 ```
-
-<KCard>
-  <div slot="body">
-  <div v-if="eventType">
-    {{eventType}} on: {{row}}
-  </div>
-  <div v-else>Waiting</div>
-
-  <KTable 
-    class="clickable-rows"
-    :options="$frontmatter.tableOptions"
-    has-hover
-    @row:click="actionRow" 
-    @cell:mouseover="actionRow"
-  />
-  </div>
-</KCard>
-
-<style>
-  .clickable-rows tr {
-    cursor: pointer;
-  }
-</style>
-
 
 ### Sorting
 
@@ -380,7 +570,6 @@ export default {
 | `--KTableHover`| Hover variant background color
 | `--KTableHeaderSize`| Font size of header th
 
-
 \
 An Example of changing the hover background might look like.  
 
@@ -391,8 +580,8 @@ An Example of changing the hover background might look like.
 ```vue
 <template>
   <KTable
-    :options="tableOptions" 
-    hasHover /> 
+    :options="tableOptions"
+    hasHover />
 </template>
 
 <style>
@@ -439,6 +628,53 @@ export default {
             themeColors: ['green', 'yellow']
           }
         ]
+      },
+      tableOptionsRowAttrs: {
+        headers: [
+          { label: 'Type', key: 'type' },
+          { label: 'Value', key: 'value' },
+          { label: 'Enabled', key: 'enabled'}
+        ],
+        data: [
+          {
+            type: 'desktop',
+            value: 'Windows 10',
+            enabled: 'true'
+          },
+          {
+            type: 'phone',
+            value: 'LineageOS',
+            enabled: 'false'
+          },
+          {
+            type: 'tablet',
+            value: 'ipadOS',
+            enabled: 'true'
+          }
+        ]
+      },
+      tableOptionsLink: {
+        headers: [
+          { label: 'Company', key: 'company' },
+          { key: 'actions', hideLabel: true }
+        ],
+        data: [
+          {
+            company: { href: 'http://www.creative.com', label: 'Creative Labs' }
+          },
+          {
+            company: { href: 'http://www.bang-olufsen.com', label: 'Bang&Olufsen' }
+          },
+          {
+            company: { href: 'http://www.klipsch.com', label: 'Klipsch' }
+          },
+          {
+            company: { href: 'http://www.bose.com', label: 'Bose'}
+          },
+          {
+            company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'}
+          }
+        ]
       }
     }
   },
@@ -447,10 +683,36 @@ export default {
       this.eventType = e.type
       this.row = row
     },
+    handleRowClick(e, row) {
+      const metaKeyPressed = e.metaKey || e.ctrlKey
+
+      if (e.target.tagName !== 'BUTTON') {
+        if (metaKeyPressed) {
+          return window.open(row.company.href)
+        } else {
+          window.location = row.company.href
+        }
+      }
+    },
     sortFieldHelper (key) {
       const {previousKey, sortOrder } = this.defaultSorter(key, this.sortKey, this.sortOrder, this.tableOptions.data)
       this.sortKey = previousKey
       this.sortOrder = sortOrder
+    },
+    linkHander (e) {
+      alert('a link was clicked')
+    },
+    buttonHandler (e) {
+      alert('a button was pressed')
+    },
+    rowAttrsFn (rowItem) {
+      return {
+        class: {
+          'enabled': rowItem.enabled === 'true',
+          'disabled': rowItem.enabled === 'false'
+        },
+        'data-testid': 'row-item'
+      }
     },
     defaultSorter
   }
@@ -467,5 +729,17 @@ export default {
   
   .table-wrapper {
   --KTableHover: lavender;
+  }
+
+  .k-table {
+    tr.enabled {
+      --KTableHover: var(--green-200, #ccffe1);
+      --KTableBorder: var(--green-400, #19a654);
+    }
+
+    tr.disabled {
+      --KTableHover: var(--yellow-100, #fff9e6);
+      --KTableBorder: var(--yellow-200, #ffdc73);
+    }
   }
 </style>

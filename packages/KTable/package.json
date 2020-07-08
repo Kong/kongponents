@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/ktable",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Table component",
   "main": "dist/KTable.umd.min.js",
   "componentName": "KTable",

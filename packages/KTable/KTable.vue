@@ -1,6 +1,6 @@
 <template>
   <table
-    :class="{'has-hover': hasHover, 'is-small': isSmall}"
+    :class="{'has-hover': hasHover, 'is-small': isSmall, 'is-clickable': isClickable, 'side-border': hasSideBorder}"
     class="k-table">
     <thead>
       <tr>
@@ -25,6 +25,7 @@
       <tr
         v-for="(row, rowIndex) in options.data"
         :key="rowIndex"
+        v-bind="rowAttrs(row)"
         v-on="trlisteners(row, 'row')">
         <template>
           <td
@@ -139,12 +140,19 @@ export default {
      */
     hasHover: {
       type: Boolean,
-      default: false
+      default: true
     },
     /**
      * Lowers overall table padding
      */
     isSmall: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * Adds hover and non selectable styling
+     */
+    isClickable: {
       type: Boolean,
       default: false
     },
@@ -164,6 +172,20 @@ export default {
     sortKey: {
       type: String,
       default: ''
+    },
+    /**
+     * A function that conditionally specifies row attributes on each row
+     */
+    rowAttrs: {
+      type: Function,
+      default: () => ({})
+    },
+    /**
+     * A prop that enables a side border with a themable color to it.
+     */
+    hasSideBorder: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -173,7 +195,18 @@ export default {
     },
 
     trlisteners () {
-      return pluckListeners('row:', this.$listeners)
+      return (entity, type) => {
+        const pluckedListeners = pluckListeners('row:', this.$listeners)(entity, type)
+
+        return {
+          ...pluckedListeners,
+          click (e) {
+            if (e.target.tagName === 'TD' && pluckedListeners['click']) {
+              pluckedListeners['click'](e, entity, type)
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -181,14 +214,26 @@ export default {
 
 <style scoped lang="scss">
 @import '~@kongponents/styles/_variables.scss';
-
-table.k-table {
-  border-collapse: collapse;
-}
-
 .k-table {
   width: 100%;
   max-width: 100%;
+  border-collapse: collapse;
+
+  &.side-border {
+    border-collapse: separate;
+    border-spacing: 0 4px;
+
+    tbody tr {
+      border: none;
+      box-shadow: -2px 0 0 var(--KTableBorder, var(--steal-200, color(steal-200)));
+    }
+
+    &.has-hover {
+      tbody tr:hover {
+        box-shadow: -2px 0 0 var(--KTableBorder, var(--steal-300, color(steal-300)));
+      }
+    }
+  }
 
   th,
   td {
@@ -266,7 +311,14 @@ table.k-table {
     }
   }
   &.has-hover tbody tr:hover {
-    background-color: var(--KTableHover, var(--blue-100, color(blue-100)));
+    background-color: var(--KTableHover, var(--steal-100, color(steal-100)));
+  }
+  &.is-clickable {
+    cursor: pointer;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
   }
 }
 </style>

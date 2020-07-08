@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/Kong/kongponents/compare/@kongponents/ktable@1.0.3...@kongponents/ktable@1.1.0) (2020-07-07)
+
+
+### Features
+
+* **ktable:** add clickable rows and links - khcp-106 ([#237](https://github.com/Kong/kongponents/issues/237)) ([a178027](https://github.com/Kong/kongponents/commit/a178027b1841b3725576adfc2331c38c172f11c5))
+
+
+
+
+
+## [1.0.3](https://github.com/Kong/kongponents/compare/@kongponents/ktable@1.0.2...@kongponents/ktable@1.0.3) (2020-07-07)
+
+**Note:** Version bump only for package @kongponents/ktable
+
+
+
+
+
 ## [1.0.2](https://github.com/Kong/kongponents/compare/@kongponents/ktable@1.0.1...@kongponents/ktable@1.0.2) (2020-06-30)
 
 **Note:** Version bump only for package @kongponents/ktable
