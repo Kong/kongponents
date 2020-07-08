@@ -93,6 +93,8 @@ export default {
 
           // color override
           if (name === 'fill' && this.color && !hasPreservedColor) {
+            attr[name] = value === 'none' ? 'none' : this.color
+          } else if (name === 'stroke' && this.color) {
             attr[name] = this.color
           } else {
             attr[name] = value
