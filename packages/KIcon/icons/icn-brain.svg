@@ -1,0 +1,8 @@
+<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+  <path fill="#A4BBCB" d="M11 4h2v16h-2z"/>
+  <path fill="#A4BBCB" d="M6 8h12v2H6zM2 14h20v2H2zM6 20h12v2H6z"/>
+  <path d="M12 4a2 2 0 100-4 2 2 0 000 4z" stroke="#A4BBCB" stroke-width="2" fill="#FFF" />
+  <path d="M0,14.75a1.5,1.5 0 1,0 3,0a1.5,1.5 0 1,0 -3,0" stroke="#A4BBCB" stroke-width="2" fill="#FFF" />
+  <path d="M21,14.75a1.5,1.5 0 1,0 3,0a1.5,1.5 0 1,0 -3,0" stroke="#A4BBCB" stroke-width="2" fill="#FFF" />
+  <path d="M5.25 10.25a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM18.75 10.25a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM5.25 22.25a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM18.75 22.25a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" stroke="#A4BBCB" stroke-width="2" fill="#FFF" />
+</svg>

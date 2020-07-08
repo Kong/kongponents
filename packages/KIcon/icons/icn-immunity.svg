@@ -1,0 +1,6 @@
+<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+    <path transform="rotate(-45 11.7 12)" d="M7.710000000000001,12a4,12 0 1,0 8,0a4,12 0 1,0 -8,0" stroke="#A4BBCB" stroke-width="2" fill="none"/>
+    <path d="M3 5.3a2 2 0 100-4 2 2 0 000 4z" stroke="#A4BBCB" stroke-width="2" fill="#FFF"/>
+    <path transform="rotate(45 11.7 12)" d="M7.710000000000001,12a4,12 0 1,0 8,0a4,12 0 1,0 -8,0" stroke="#A4BBCB" stroke-width="2" fill="none"/>
+    <path d="M21 5.3a2 2 0 100-4 2 2 0 000 4zM21 22.3a2 2 0 100-4 2 2 0 000 4zM3 22.3a2 2 0 100-4 2 2 0 000 4z" stroke="#A4BBCB" stroke-width="2" fill="#FFF"/>
+</svg>

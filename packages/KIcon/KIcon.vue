@@ -87,31 +87,22 @@ export default {
       return this.doc.querySelectorAll('path').length ? Array.from(this.doc.querySelectorAll('path')) : console.warn('(KIcon) Warning: SVG Path not found')
     },
     attributes () {
-      if (this.paths) {
-        let attributes = []
+      return this.paths && this.paths.map(path =>
+        Array.from(path.attributes).reduce((attr, { value, name }) => {
+          const hasPreservedColor = path.attributes.id && path.attributes.id.value === 'preserveColor'
 
-        this.paths.forEach(path => {
-          let pathAttributes = {}
-          let attrs = Array.from(path.attributes)
+          // color override
+          if (name === 'fill' && this.color && !hasPreservedColor) {
+            attr[name] = value === 'none' ? 'none' : this.color
+          } else if (name === 'stroke' && this.color) {
+            attr[name] = this.color
+          } else {
+            attr[name] = value
+          }
 
-          attrs.forEach((attr) => {
-            const { value, name } = attr
-            const hasPreservedColor = attrs.find(x => x.nodeName === 'id' && x.nodeValue === 'preserveColor')
-
-            if (name === 'fill' && this.color && !hasPreservedColor) {
-              pathAttributes[name] = value === 'none' ? 'none' : this.color
-            } else if (name === 'stroke' && this.color) {
-              pathAttributes[name] = this.color
-            } else {
-              pathAttributes[name] = value
-            }
-          })
-
-          attributes.push(pathAttributes)
-        })
-
-        return attributes
-      }
+          return attr
+        }, {})
+      )
     },
     width () {
       return this.svg.getAttribute('width')
