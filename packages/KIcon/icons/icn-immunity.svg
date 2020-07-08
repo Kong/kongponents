@@ -1,7 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="26px" height="24px" viewBox="0 0 26 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <g transform="translate(1 1)" fill="none" fill-rule="evenodd" opacity=".827">
-    <path fill="#A4BBCB" d="M11 4h2v16h-2z"/>
-    <path fill="#A4BBCB" d="M6 7h12v2H6zM2 13h20v2H2zM6 19h12v2H6z"/>
+<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+  <defs/>
+  <g transform="translate(4 4)" stroke="#A4BBCB" stroke-width="2" fill="none" fill-rule="evenodd">
+    <ellipse transform="rotate(-45 11.7 12)" cx="11.71" cy="12" rx="4" ry="12"/>
+    <path d="M3 5.3a2 2 0 100-4 2 2 0 000 4z" fill="#FFF" fill-rule="nonzero"/>
+    <ellipse transform="scale(1 -1) rotate(-45 -17.26 0)" cx="11.71" cy="12" rx="4" ry="12"/>
+    <path d="M21 5.3a2 2 0 100-4 2 2 0 000 4zM21 22.3a2 2 0 100-4 2 2 0 000 4zM3 22.3a2 2 0 100-4 2 2 0 000 4z" fill="#FFF" fill-rule="nonzero"/>
   </g>
 </svg>
