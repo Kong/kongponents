@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/Kong/kongponents/compare/@kongponents/ktable@1.1.0...@kongponents/ktable@1.1.1) (2020-07-10)
+
+
+### Bug Fixes
+
+* **ktable:** update row listeners to support clicking non td elements ([#239](https://github.com/Kong/kongponents/issues/239)) ([1be685d](https://github.com/Kong/kongponents/commit/1be685d341f6eeb6fe2367c0e3ae5e7aa56e0e12))
+
+
+
+
+
 # [1.1.0](https://github.com/Kong/kongponents/compare/@kongponents/ktable@1.0.3...@kongponents/ktable@1.1.0) (2020-07-07)
 
 
