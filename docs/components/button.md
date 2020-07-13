@@ -121,6 +121,24 @@ KButton supports using an icon either before the text or without text.
 ```
 
 ## Theming
+KButton includes a utility class `.has-caret` which displays a dropdown caret to the right hand side. this is useful for buttons that control dropdowns and popovers. You can rotate the caret (active state) by applying `.is-active` as an additional class.
+
+<Komponent :data="{ isActive: false}" v-slot="{ data }">
+  <KButton appearance="primary" class="has-caret" :class="{'is-active': data.isActive}" @click="data.isActive = !data.isActive">I'm a button</KButton> 
+</Komponent>
+
+> The `Komponent` component is used in this example to create state.
+```vue
+<Komponent:data="{ isActive: false}" v-slot="{ data }">
+  <KButton
+    appearance="primary"
+    class="has-caret"
+    :class="{'is-active': data.isActive}"
+    @click="data.isActive = !data.isActive">I'm a button</KButton> 
+</Komponent>
+
+```  
+
 | Variable | Purpose
 |:-------- |:-------
 | `--KButtonPrimaryBase `| Primary background
