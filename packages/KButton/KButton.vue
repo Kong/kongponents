@@ -13,7 +13,7 @@
     :type="type"
     :is="buttonType"
     :to="to"
-    :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance]"
+    :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance, caretClasses]"
     class="k-button"
     v-on="listeners">
     <slot name="icon" /><slot/>
@@ -70,6 +70,10 @@ export default {
     type: {
       type: String,
       default: 'button'
+    },
+    isOpen: {
+      type: Boolean,
+      default: undefined
     }
   },
 
@@ -78,6 +82,12 @@ export default {
       return {
         ...this.$listeners
       }
+    },
+
+    caretClasses () {
+      if (this.isOpen === undefined) return
+
+      return this.isOpen ? 'has-caret is-active' : 'has-caret'
     },
 
     hasIcon () {
@@ -107,6 +117,7 @@ export default {
 }
 
 .k-button {
+  position: relative;
   display: inline-flex;
   align-items: center;
   padding: var(--KButtonPaddingY, var(--spacing-xs, spacing(xs))) var(--KButtonPaddingX, var(--spacing-sm, spacing(sm)));
@@ -159,6 +170,26 @@ export default {
   &.small {
     padding: var(--spacing-xxs, spacing(xxs)) var(--spacing-xs, spacing(xs));
     font-size: var(--type-sm, type(sm));
+  }
+
+  /* class to add for dropdown caret */
+  &.has-caret {
+    &:after {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      margin-left: var(--spacing-xs,8px);
+      vertical-align: middle;
+      content: "";
+      border-top: .325em solid;
+      border-right: .325em solid transparent;
+      border-left: .325em solid transparent;
+      transition: 250ms ease;
+    }
+    &.is-active:after {
+      transform: rotate(-180deg);
+      transition: 250ms ease;
+    }
   }
 
   /* Apperance Variations */

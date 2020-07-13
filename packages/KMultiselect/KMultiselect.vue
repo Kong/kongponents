@@ -11,7 +11,8 @@
     <KButton
       v-bind="buttonAttributes"
       :appearance="buttonAttributes.appearance || 'secondary'"
-      class="k-multiselect-trigger">
+      :is-open="isOpen"
+      class="k-multiselect-trigger has-caret">
       {{ buttonText }}
     </KButton>
     <template
@@ -108,6 +109,7 @@ export default {
     return {
       filter: '',
       hidePopover: false,
+      isOpen: false,
       internalItems: this.copyItems(this.items)
     }
   },
@@ -140,10 +142,12 @@ export default {
 
     handleApply () {
       this.hidePopover = true
+      this.isOpen = false
       this.$emit('changes', this.copyItems(this.internalItems))
     },
 
     async handleOpen () {
+      this.isOpen = true
       if (!this.hasFilter) return
 
       // Wait for popper to open & position itself
@@ -154,6 +158,7 @@ export default {
 
     async handleClose () {
       await this.$nextTick()
+      this.isOpen = false
       this.hidePopover = false
     },
 
@@ -170,19 +175,7 @@ export default {
 
 .k-multiselect {
   &-trigger {
-    position: relative;
     display: inline-block;
-    &:after {
-      display: inline-block;
-      width: 0;
-      height: 0;
-      margin-left: var(--spacing-xs, spacing(xs));
-      vertical-align: middle;
-      content: "";
-      border-top: 0.325em solid;
-      border-right: 0.325em solid transparent;
-      border-left: 0.325em solid transparent;
-    }
     &:disabled { pointer-events: none; }
   }
   &-filter .k-input {
