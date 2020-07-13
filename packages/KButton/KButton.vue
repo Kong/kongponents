@@ -13,7 +13,7 @@
     :type="type"
     :is="buttonType"
     :to="to"
-    :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance]"
+    :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance, caretClasses]"
     class="k-button"
     v-on="listeners">
     <slot name="icon" /><slot/>
@@ -70,6 +70,10 @@ export default {
     type: {
       type: String,
       default: 'button'
+    },
+    isOpen: {
+      type: Boolean,
+      default: undefined
     }
   },
 
@@ -78,6 +82,12 @@ export default {
       return {
         ...this.$listeners
       }
+    },
+
+    caretClasses () {
+      if (this.isOpen === undefined) return
+
+      return this.isOpen ? 'has-caret is-active' : 'has-caret'
     },
 
     hasIcon () {
