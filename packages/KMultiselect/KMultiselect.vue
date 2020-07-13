@@ -11,7 +11,7 @@
     <KButton
       v-bind="buttonAttributes"
       :appearance="buttonAttributes.appearance || 'secondary'"
-      :class="{'is-active': isOpen}"
+      :is-open="isOpen"
       class="k-multiselect-trigger has-caret">
       {{ buttonText }}
     </KButton>
