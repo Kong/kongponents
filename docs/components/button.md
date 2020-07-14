@@ -56,7 +56,7 @@ Currently we only support small however, larger sizes may be supported later.
 ### Caret
 - `isOpen`
 
-KButton includes a utility class `.has-caret` which displays a dropdown caret to the right hand side. This is useful for buttons that control dropdowns and popovers. By adding the prop `isOpen` false the caret will display. You can rotate the caret (active state) by setting `isOpen` to true.
+KButton can display a dropdown caret to the right hand side. This is useful for buttons that control dropdowns and popovers. When the prop `isOpen` is `false`, the caret will display pointing down. You can rotate the caret (active state) to point up by setting `isOpen` to `true`.
 
 <Komponent :data="{ isActive: false}" v-slot="{ data }">
   <KButton appearance="primary" :isOpen="data.isActive" @click="data.isActive = !data.isActive">I'm a button</KButton> 
@@ -64,14 +64,15 @@ KButton includes a utility class `.has-caret` which displays a dropdown caret to
 
 > The `Komponent` component is used in this example to create state.
 ```vue
-<Komponent:data="{ isActive: false}" v-slot="{ data }">
+<Komponent:data="{ isActive: false }" v-slot="{ data }">
   <KButton
     appearance="primary"
-    class="has-caret"
-    :class="{'is-active': data.isActive}"
-    @click="data.isActive = !data.isActive">I'm a button</KButton> 
+    :isOpen="data.isActive"
+    @click="data.isActive = !data.isActive">
+    I'm a button
+  </KButton> 
 </Komponent>
-
+```
 
 ### Anchor Tag
 KButton can render either a `<a>` or `<router-link>` by simply passing the `to` prop. If it receives an object it will render a router link. If it receives a string it will render an HTML anchor tag
