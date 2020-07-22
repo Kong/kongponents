@@ -32,6 +32,54 @@ You can pass any input attribute and it will get properly bound to the element.
 <KInput type="email" value="error" class="input-error"/>
 ```
 
+### v-model
+
+KInput works as regular inputs do using v-model for data binding:
+
+<Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
+  <div>
+    {{ data.myInput }}
+    <KInput 
+      v-model="data.myInput"
+      @blur="e => (data.myInput = 'blurred')" />
+  </div>
+</Komponent>
+
+```vue
+<Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
+  {{ myInput }}
+  <KInput v-model="data.myInput" />
+</Komponent>
+```
+
+### Events
+
+KInput transparently binds to events:
+
+<Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
+  <div>
+    <KInput
+      v-model="data.myInput"
+      @blur="e => (data.myInput = 'blurred')"
+      @focus="e => (data.myInput = 'focused')"
+    />
+  </div>
+</Komponent>
+
+```vue
+<Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
+  <div>
+    <KInput
+      v-model="data.myInput"
+      @blur="e => (data.myInput = 'blurred')"
+      @focus="e => (data.myInput = 'focused')"
+    />
+  </div>
+</Komponent>
+```
+
+## Labels
+
 Additionally you you can use in conjunction with **KLabel** and or a paragraph with the utility class of `.help`. These are meant to be used before and after KInput and will be styled appropriately. 
 
 <KLabel for="my-input">Label</KLabel>
