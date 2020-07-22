@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/Kong/kongponents/compare/@kongponents/kinput@0.2.3...@kongponents/kinput@0.3.0) (2020-07-22)
+
+
+### Features
+
+* **kinput:** add v-model ([#241](https://github.com/Kong/kongponents/issues/241)) ([f2f436f](https://github.com/Kong/kongponents/commit/f2f436f2e90371dbfbd2c233679803591877608b))
+
+
+
+
+
 ## [0.2.3](https://github.com/Kong/kongponents/compare/@kongponents/kinput@0.2.2...@kongponents/kinput@0.2.3) (2020-03-06)
 
 **Note:** Version bump only for package @kongponents/kinput
