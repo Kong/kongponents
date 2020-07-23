@@ -13,7 +13,7 @@
         has-left-border
         @closed="$emit('close', toaster.key)">
         <template v-slot:alertMessage>
-          <span class="message">{{ toaster.message }}</span>
+          <div class="message">{{ toaster.message }}</div>
         </template>
       </KAlert>
     </div>
@@ -109,8 +109,4 @@ $transition: all .3s;
 /* Vue Animations */
 .toaster-enter { transform: translateX(300px); }
 .toaster-leave-to { transform: translateX(100%); }
-</style>
-
-<style lang="scss">
-
 </style>
