@@ -137,6 +137,14 @@ export default {
 </script>
 ```
 
+## Variations
+
+### Long Content
+
+<br>
+<KButton @click="openNotification(`Before you release that email you're writing to spin up a new centralized decision-making group, it's worth talking about the four ways these groups consistently fail. They tend to be domineering, bottlenecked, status-oriented, or inert.`)">Prose</KButton>
+
+<KButton @click="openNotification({message:`Proxy error: Could not proxy request /api/service_packages?fields=&s=%7B%22%24and%22%3A%5B%7B%22name%22%3A%7B%22%24contL%22%3A%22%22%7D%7D%5D%7D&filter=&or=&sort=created_at%2CDESC&join=&limit=100&offset=0&page=1 from localhost:8080 to http://localhost:3000 (ECONNREFUSED).`, appearance: 'danger'})">Raw error message</KButton>
 <script>
 export default {
   data: function () {

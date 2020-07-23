@@ -141,6 +141,7 @@ export default {
   font-family: inherit;
   font-size: 1rem;
   border-radius: 3px;
+  overflow-wrap: anywhere;
   a {
     text-decoration: underline;
     color: var(--blue-600, color(blue-600));
