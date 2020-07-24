@@ -201,7 +201,7 @@ export default {
         return {
           ...pluckedListeners,
           click (e) {
-            if (e.target.tagName !== 'A' && e.target.tagName !== 'BUTTON' && pluckedListeners['click']) {
+            if (e.target.tagName === 'TD' && pluckedListeners['click']) {
               pluckedListeners['click'](e, entity, type)
             }
           }
