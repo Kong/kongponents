@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/Kong/kongponents/compare/@kongponents/ktoaster@1.0.18...@kongponents/ktoaster@1.1.0) (2020-07-24)
+
+
+### Features
+
+* **KToaster:** change to white style, move to bottom ([#243](https://github.com/Kong/kongponents/issues/243)) ([70250af](https://github.com/Kong/kongponents/commit/70250afb513817c861cc4fbe93026f1a45a32fdb))
+
+
+
+
+
 ## [1.0.18](https://github.com/Kong/kongponents/compare/@kongponents/ktoaster@1.0.17...@kongponents/ktoaster@1.0.18) (2020-07-23)
 
 **Note:** Version bump only for package @kongponents/ktoaster
