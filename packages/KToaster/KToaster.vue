@@ -10,9 +10,11 @@
       <KAlert
         :appearance="toaster.appearance"
         is-dismissible
-        is-bordered
+        has-left-border
         @closed="$emit('close', toaster.key)">
-        <template v-slot:alertMessage>{{ toaster.message }}</template>
+        <template v-slot:alertMessage>
+          <div class="message">{{ toaster.message }}</div>
+        </template>
       </KAlert>
     </div>
   </transition-group>
@@ -51,7 +53,7 @@ export default {
     order: 1;
     right: 0;
     padding: 0 0 0 1rem;
-    margin-left: auto;
+    margin-left: 2rem;
     &:focus,
     &:active {
       outline: none;
@@ -66,9 +68,9 @@ $transition: all .3s;
 
 .toaster-container-outer {
   position: fixed;
-  top: 10px;
-  right: 10px;
   width: auto;
+  bottom: 1rem;
+  right: 1rem;
   max-width: 300px;
   z-index: 10000;
   transition: $transition;
@@ -78,24 +80,30 @@ $transition: all .3s;
   display: flex;
   width: 100%;
   margin-bottom: 1rem;
-  border-radius: 3px;
   transition: $transition;
   overflow: hidden;
+  box-shadow: 0 0 12px rgba(0,0,0,.12);
 
   .k-alert {
+    --KAlertInfoBorder: var(--blue-500, color(blue-500));
+    --KAlertSuccessBorder: var(--green-400, color(green-400));
+    --KAlertWarningBorder: var(--yellow-200, color(yellow-200));
+    --KAlertDangerBorder: var(--red-500, color(red-500));
     display: flex;
     justify-content: space-between;
     flex: 1;
     padding: 1rem;
     text-align: left;
+    background-color: #fff;
+    color: var(--black-70);
   }
 
   .message {
-    flex: 1;
-    padding: 1rem;
-    text-align: left;
-    transition: $transition;
-  }
+-webkit-hyphens: auto;
+   -moz-hyphens: auto;
+        hyphens: auto;
+    max-width: 150ch;
+}
 }
 
 /* Vue Animations */
