@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.2](https://github.com/Kong/kongponents/compare/@kongponents/ktable@1.1.1...@kongponents/ktable@1.1.2) (2020-07-24)
+
+
+### Bug Fixes
+
+* **ktable:** revert row click handler to target td again - intf-2543 ([#244](https://github.com/Kong/kongponents/issues/244)) ([0bd7582](https://github.com/Kong/kongponents/commit/0bd758272f919357c02a790cea51b2c5b5aebb50))
+
+
+
+
+
 ## [1.1.1](https://github.com/Kong/kongponents/compare/@kongponents/ktable@1.1.0...@kongponents/ktable@1.1.1) (2020-07-10)
 
 
