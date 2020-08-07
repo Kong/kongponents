@@ -100,7 +100,7 @@ exports[`KIcon renders forward icon 1`] = `
 <svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon kong-icon-forward">
   <title>forward</title>
   <g>
-    <path d="M.293 4.496L4.09.7v3.147h10.3v1.3H4.09v3.147L.293 4.496z" fill="#000" fill-opacity=".25"></path>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 5H11V8L16 4L12.629 1.303L11 0V3H0V5Z" fill="black" fill-opacity="0.25"></path>
   </g>
 </svg>
 `;
@@ -282,7 +282,7 @@ exports[`KIcon renders table icon 1`] = `
 <svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon kong-icon-table">
   <title>table</title>
   <g>
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 2a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H2a2 2 0 01-2-2V2zm9 10h5v-2H9v2zm-2-2v2H2v-2h5zm2-2h5V6H9v2zM7 6v2H2V6h5zm2-2h5V2H9v2zM7 2v2H2V2h5z" fill="#000" fill-opacity=".45"></path>
+    <path fill-rule="evenodd" fill="#A3BBCC" clip-rule="evenodd" d="M0 2a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H2a2 2 0 01-2-2V2zm9 10h5v-2H9v2zm-2-2v2H2v-2h5zm2-2h5V6H9v2zM7 6v2H2V6h5zm2-2h5V2H9v2zM7 2v2H2V2h5z"></path>
   </g>
 </svg>
 `;
