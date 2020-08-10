@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/Kong/kongponents/compare/@kongponents/kicon@0.4.9...@kongponents/kicon@0.5.0) (2020-08-10)
+
+
+### Features
+
+* **KIcon:** Adds filter, forward arrow, and table icons ([#245](https://github.com/Kong/kongponents/issues/245)) ([83882ba](https://github.com/Kong/kongponents/commit/83882baa07d78ff1b39776e0def18cdc516eb10b))
+
+
+
+
+
 ## [0.4.9](https://github.com/Kong/kongponents/compare/@kongponents/kicon@0.4.8...@kongponents/kicon@0.4.9) (2020-07-08)
 
 **Note:** Version bump only for package @kongponents/kicon
