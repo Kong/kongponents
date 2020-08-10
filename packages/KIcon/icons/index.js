@@ -7,6 +7,8 @@ import dangerCircle from './icn-danger-circle.svg'
 import dashboard from './icn-dashboard.svg'
 import externalLink from './icn-external-link.svg'
 import featureRequest from './icn-feature-request.svg'
+import filter from './icn-filter.svg'
+import forward from './icn-forward.svg'
 import gateway from './icn-gateway.svg'
 import gear from './icn-gear.svg'
 import gearFilled from './icn-gear-filled.svg'
@@ -25,6 +27,7 @@ import services from './icn-services.svg'
 import spinner from './icn-spinner.svg'
 import stackedCards from './icn-stacked-cards.svg'
 import support from './icn-support.svg'
+import table from './icn-table.svg'
 import trash from './icn-trash.svg'
 import vitals from './icn-vitals.svg'
 import warning from './icn-warning.svg'
@@ -41,6 +44,8 @@ export default {
   dashboard,
   externalLink,
   featureRequest,
+  filter,
+  forward,
   gateway,
   gear,
   gearFilled,
@@ -59,6 +64,7 @@ export default {
   spinner,
   stackedCards,
   support,
+  table,
   trash,
   warning,
   warning2,

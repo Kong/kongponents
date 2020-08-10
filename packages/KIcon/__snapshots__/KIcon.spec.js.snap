@@ -87,6 +87,24 @@ exports[`KIcon renders featureRequest icon 1`] = `
 </svg>
 `;
 
+exports[`KIcon renders filter icon 1`] = `
+<svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon kong-icon-filter">
+  <title>filter</title>
+  <g>
+    <path d="M8 9v2H6V9h2zm2-3v2H4V6h6zm2-3v2H2V3h10zm2-3v2H0V0h14z" fill="#000" fill-rule="evenodd" fill-opacity=".45"></path>
+  </g>
+</svg>
+`;
+
+exports[`KIcon renders forward icon 1`] = `
+<svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon kong-icon-forward">
+  <title>forward</title>
+  <g>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 5H11V8L16 4L12.629 1.303L11 0V3H0V5Z" fill="black" fill-opacity="0.25"></path>
+  </g>
+</svg>
+`;
+
 exports[`KIcon renders gateway icon 1`] = `
 <svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon kong-icon-gateway">
   <title>gateway</title>
@@ -256,6 +274,15 @@ exports[`KIcon renders support icon 1`] = `
   <title>support</title>
   <g>
     <path fill="#BFBFBF" fill-rule="evenodd" d="M3 12v1c0 .5522847.4477153 1 1 1h4c.5522847 0 1 .4477153 1 1s-.4477153 1-1 1H4c-1.6568542 0-3-1.3431458-3-3v-1c-.5522847 0-1-.4477153-1-1V7c0-.5522847.4477153-1 1-1h.0708889C1.5561185 2.6077059 4.4735281 0 8 0s6.4438815 2.6077059 6.9291111 6H15c.5522847 0 1 .4477153 1 1v4c0 .5522847-.4477153 1-1 1h-2c-.5522847 0-1-.4477153-1-1V7c0-.5188639.3951689-.9454312.9009623-.9951576C12.439565 3.7201899 10.4206685 2 8 2 5.5793315 2 3.560435 3.7201899 3.0990377 6.0048424 3.6048311 6.0545688 4 6.4811361 4 7v4c0 .5522847-.4477153 1-1 1z"></path>
+  </g>
+</svg>
+`;
+
+exports[`KIcon renders table icon 1`] = `
+<svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon kong-icon-table">
+  <title>table</title>
+  <g>
+    <path fill-rule="evenodd" fill="#A3BBCC" clip-rule="evenodd" d="M0 2a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H2a2 2 0 01-2-2V2zm9 10h5v-2H9v2zm-2-2v2H2v-2h5zm2-2h5V6H9v2zM7 6v2H2V6h5zm2-2h5V2H9v2zM7 2v2H2V2h5z"></path>
   </g>
 </svg>
 `;
