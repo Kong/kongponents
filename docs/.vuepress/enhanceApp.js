@@ -29,6 +29,7 @@ import Komponent from '../../packages/Komponent/Komponent.js'
 import KSlideout from '../../packages/KSlideout/KSlideout.vue'
 import KSkeleton from '../../packages/KSkeleton/KSkeleton.vue'
 import KSkeletonBox from '../../packages/KSkeleton/KSkeletonBox.vue'
+import KViewSwitcher from '../../packages/KViewSwitcher/KViewSwitcher.vue'
 
 export default ({
   Vue,
@@ -62,6 +63,7 @@ export default ({
   Vue.component('KSlideout', KSlideout)
   Vue.component('KSkeleton', KSkeleton)
   Vue.component('KSkeletonBox', KSkeletonBox)
+  Vue.component('KViewSwitcher', KViewSwitcher)
 
   Vue.prototype.$icons = Object.keys(icons)
 }
