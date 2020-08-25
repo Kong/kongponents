@@ -12,6 +12,7 @@ import forward from './icn-forward.svg'
 import gateway from './icn-gateway.svg'
 import gear from './icn-gear.svg'
 import gearFilled from './icn-gear-filled.svg'
+import help from './icn-help.svg'
 import immunity from './icn-immunity.svg'
 import info from './icn-info.svg'
 import lock from './icn-lock.svg'
@@ -49,6 +50,7 @@ export default {
   gateway,
   gear,
   gearFilled,
+  help,
   immunity,
   info,
   lock,
