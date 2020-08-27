@@ -34,21 +34,26 @@ export default {
 ```
 
 ## Props
+**Functional**
 -  `isVisible` - Tells the component whether or not to render the open modal
+- `@canceled` - Emitted when cancel/close button is clicked
+
+**Content**
+- `cancelButtonAppearance` - Change the [appearance](/components/button.html#props) of the close/cancel
+- `title` - Text to display in header if not using slot
+- `content` - Text to display in content if not using slot
+
+**Buttons & Appearance**
 - `actionButtonText` - Change the text content of the submit/proceed button
 - `actionButtonAppearance` - Change the [appearance](/components/button.html#props) of the submit/proceed
 - `cancelButtonText` - Change the text content of the close/cancel button
-- `cancelButtonAppearance` - Change the [appearance](/components/button.html#props) of the close/cancel
-- `@canceled` - Emitted when cancel/close button is clicked
 
 ## Slots
-Although the default is fairly straight forward to use, its not very helpful with the default
-content! There are 5 designated slots you can use to display content in the modal.
+There are 3 designated slots you can use to display content in the modal.
 
-`header-content` - Used to update the title  
-`body-content` - Used for the main content section of the modal  
-`footer-content` - The slot which contains the action buttons by default. Use this
-to replace the buttons
+`header-content`
+`body-content`  
+`footer-content` - Contains action buttons by default.
 
 ---
 ### Usage
@@ -85,8 +90,12 @@ Using both the provided props and slot options we will now demonstrate how to cu
 ## Theming
 | Variable | Purpose
 |:-------- |:-------
-| `--KModalBackdrop `| Backgdrop color
-| `--KModalHeaderColor `| Header text color
+| `--KModalBackdrop` | Backgdrop color
+| `--KModalMaxWidth` | Modal max width
+| `--KModalBorder` | Modal border 
+| `--KModalHeaderColor` | Header text color
+| `--KModalHeaderSize` | Header font size
+| `--KModalHeaderWeight` | Header font weight
 | `--KModalColor `| Main content text color
 | `--KModalFontSize `| Main content text size
 
