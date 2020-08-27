@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import KModal from '@/KModal/KModal'
 
 describe('KModal', () => {
-  it('renders header slots are passed', () => {
+  it('renders proper content when using slots', () => {
     const headerText = 'This is some header text'
     const bodyText = 'This is some body text'
     const footerText = 'This is some footer text'
@@ -20,6 +20,22 @@ describe('KModal', () => {
     expect(wrapper.find('.modal-header').html()).toEqual(expect.stringContaining(headerText))
     expect(wrapper.find('.modal-body').html()).toEqual(expect.stringContaining(bodyText))
     expect(wrapper.find('.modal-footer').html()).toEqual(expect.stringContaining(footerText))
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
+  it('renders proper content when using props', () => {
+    const title = 'Sweet prop title'
+    const content = 'Sweet prop content'
+    const wrapper = mount(KModal, {
+      propsData: {
+        isVisible: true,
+        title,
+        content
+      }
+    })
+
+    expect(wrapper.find('.modal-header').html()).toEqual(expect.stringContaining(title))
+    expect(wrapper.find('.modal-body').html()).toEqual(expect.stringContaining(content))
     expect(wrapper.html()).toMatchSnapshot()
   })
 
