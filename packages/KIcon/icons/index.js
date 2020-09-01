@@ -7,6 +7,9 @@ import dangerCircle from './icn-danger-circle.svg'
 import dashboard from './icn-dashboard.svg'
 import externalLink from './icn-external-link.svg'
 import featureRequest from './icn-feature-request.svg'
+import fileJson from './icn-file-json.svg'
+import fileMd from './icn-file-md.svg'
+import fileYaml from './icn-file-yaml.svg'
 import filter from './icn-filter.svg'
 import forward from './icn-forward.svg'
 import gateway from './icn-gateway.svg'
@@ -42,9 +45,13 @@ export default {
   close,
   collapseExpand,
   connections,
+  dangerCircle,
   dashboard,
   externalLink,
   featureRequest,
+  fileJson,
+  fileMd,
+  fileYaml,
   filter,
   forward,
   gateway,
@@ -68,10 +75,9 @@ export default {
   support,
   table,
   trash,
+  vitals,
   warning,
   warning2,
-  dangerCircle,
   workspaces,
-  workspacesCollapsed,
-  vitals
+  workspacesCollapsed
 }
