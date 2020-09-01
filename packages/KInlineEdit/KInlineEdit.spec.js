@@ -21,6 +21,34 @@ describe('KInlineEdit', () => {
     expect(console.warn).toBeTruthy()
   })
 
+  it('applies style overrides when prop passed', () => {
+    const wrapper = mount(KInlineEdit, {
+      propsData: {
+        styleOverrides: { color: 'red' }
+      },
+      slots: { default: '<p style="color: black">text</p>' }
+    })
+
+    wrapper.find('p').trigger('click')
+
+    expect(wrapper.find('.k-input').attributes().style).toBe('color: red;')
+  })
+
+  it('does not pass in initial value when prop passed', async () => {
+    const wrapper = mount(KInlineEdit, {
+      propsData: {
+        ignoreValue: true
+      },
+      slots: { default: '<p>text</p>' }
+    })
+
+    wrapper.find('p').trigger('click')
+
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.vm.inputText).toBe('')
+  })
+
   it('emits updated text on blur', async () => {
     const inputText = 'test'
     const wrapper = mount(KInlineEdit, {
