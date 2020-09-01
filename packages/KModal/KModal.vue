@@ -13,10 +13,10 @@
         @click.stop>
         <div class="modal-content">
           <div class="modal-header">
-            <slot name="header-content">Modal Title</slot>
+            <slot name="header-content">{{ title }}</slot>
           </div>
           <div class="modal-body">
-            <slot name="body-content">Modal Body</slot>
+            <slot name="body-content">{{ content }}</slot>
           </div>
           <div class="modal-footer">
             <slot name="footer-content">
@@ -47,6 +47,20 @@ export default {
   components: { KButton },
 
   props: {
+    title: {
+      /**
+       * Set the text of the title
+       */
+      type: String,
+      default: 'Modal Title'
+    },
+    /**
+     * Set the text of the body content
+     */
+    content: {
+      type: String,
+      default: 'Modal Content'
+    },
     /**
       *  Pass whether or not the modal should be visible
       */
@@ -124,10 +138,11 @@ export default {
 .modal-dialog {
   position: relative;
   width: auto;
-  max-width: 500px;
+  max-width: var(--KModalMaxWidth, 500px);
   margin: 50px auto;
   padding: var(--spacing-xl, spacing(xl));
   border-radius: 3px;
+  border: var(--KModalBorder);
   box-shadow: 0px 0px 12px 0px var(--black-10, color(black-10));
   background: #fff;
   z-index: 9999;
@@ -144,14 +159,14 @@ export default {
     justify-content: space-between;
     margin-bottom: var(--spacing-lg, spacing(lg));
     color: var(--KModalHeaderColor, var(--black-85, color(black-85)));
-    font-size: var(--type-lg, type(lg));
-    font-weight: 500;
+    font-size: var(--KModalHeaderSize, var(--type-lg, type(lg)));
+    font-weight: var(--KModalHeaderWeight, 500);
   }
 
   .modal-body {
     position: relative;
     flex: 1 1 auto;
-    margin-bottom: var(--spacing-xl, spacing(xl));
+    margin-bottom: var(--KModalBottomMargin, var(--spacing-xl, spacing(xl)));
     color: var(--KModalColor, var(--black-70, color(black-70)));
     font-size: var(--KModalFontSize, var(--type-md, type(md)));
   }

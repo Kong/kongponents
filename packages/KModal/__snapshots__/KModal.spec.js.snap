@@ -8,7 +8,7 @@ exports[`KModal renders custom button text & appearance 1`] = `
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">Modal Title</div>
-        <div class="modal-body">Modal Body</div>
+        <div class="modal-body">Modal Content</div>
         <div class="modal-footer"><button type="button" class="k-button outline-primary">
             click to continue
           </button> <button type="button" class="k-button outline-danger">
@@ -20,7 +20,25 @@ exports[`KModal renders custom button text & appearance 1`] = `
 </div>
 `;
 
-exports[`KModal renders header slots are passed 1`] = `
+exports[`KModal renders proper content when using props 1`] = `
+<div aria-hidden="false" role="dialog" class="k-modal">
+  <div class="modal-backdrop">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">Sweet prop title</div>
+        <div class="modal-body">Sweet prop content</div>
+        <div class="modal-footer"><button type="button" class="k-button primary">
+            Proceed
+          </button> <button type="button" class="k-button secondary">
+            Cancel
+          </button></div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`KModal renders proper content when using slots 1`] = `
 <div aria-hidden="false" role="dialog" class="k-modal">
   <div class="modal-backdrop">
     <div class="modal-dialog">
