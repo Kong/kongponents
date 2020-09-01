@@ -17,7 +17,49 @@
 ```
 
 ## Props
-- `@changed` - Emitted blurred away from the editing input or when enter is pressed.
+### ignoreValue
+If true, will not set the value of the input when enabled/clicked. This is useful to control placeholder style text
+
+<Komponent :data="{ inlineText: '' }" v-slot="{ data }">
+  <KInlineEdit :ignore-value="data.inlineText.length === 0" @changed="newVal => data.inlineText = newVal"><p>{{ data.inlineText || 'cool placeholder' }}</p></KInlineEdit>
+</Komponent>
+
+> The `Komponent` component is used in this example to create state.
+
+```vue
+<Komponent :data="{ inlineText: '' }" v-slot="{ data }">
+  <KInlineEdit
+    :ignore-value="data.inlineText.length === 0"
+    @changed="newVal => data.inlineText = newVal">
+    <p>{{ data.inlineText || 'cool placeholder' }}</p>
+  </KInlineEdit>
+</Komponent>
+```
+
+### styleOverrides
+Styles to set when the input is active. Useful when styling the default state differently.
+
+<Komponent :data="{ inlineText: '' }" v-slot="{ data }">
+  <KInlineEdit :ignore-value="data.inlineText.length === 0" :style-overrides="{color: 'var(--black-85)'}" @changed="newVal => data.inlineText = newVal"><p :class="data.inlineText.length > 0 ? 'color-black-85' :'color-black-45 text-italic'">{{ data.inlineText || 'cool placeholder' }}</p></KInlineEdit>
+</Komponent>
+
+> The `Komponent` component is used in this example to create state.
+
+```vue
+<Komponent :data="{ inlineText: '' }" v-slot="{ data }">
+  <KInlineEdit
+    :ignore-value="data.inlineText.length === 0"
+    :style-overrides="{ color: 'var(--black-85)' }"
+    @changed="newVal => data.inlineText = newVal">
+    <p :class="data.inlineText.length > 0 ? 'color-black-85' :'color-black-45 text-italic'">
+      {{ data.inlineText || 'cool placeholder' }}
+    </p>
+  </KInlineEdit>
+</Komponent>
+```
+
+### `@changed`
+Emitted blurred away from the editing input or when enter is pressed.
 
 When clicking out of the input `@changed` will fire and emit the value. Can be used to reset the outside data.
 
@@ -94,3 +136,7 @@ export default {
   }
 }
 </script>
+
+<style>
+.text-italic { font-style: italic; }
+</style>
