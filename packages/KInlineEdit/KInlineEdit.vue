@@ -82,7 +82,7 @@ Example usage:
 
       // Get current STYLES off of the element
       this.styles = { ...this.getStyles(e.target), ...this.styleOverrides }
-      this.inputText = this.ignoreValue ? '' : e.target.textContent
+      this.inputText = this.ignoreValue ? '' : e.target.textContent.trim()
       this.isEditing = true
 
       // Wait for vue to update styles & text
