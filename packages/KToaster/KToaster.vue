@@ -87,7 +87,7 @@ $transition: all .3s;
   .k-alert {
     --KAlertInfoBorder: var(--blue-500, color(blue-500));
     --KAlertSuccessBorder: var(--green-400, color(green-400));
-    --KAlertWarningBorder: var(--yellow-200, color(yellow-200));
+    --KAlertWarningBorder: var(--yellow-300, color(yellow-300));
     --KAlertDangerBorder: var(--red-500, color(red-500));
     display: flex;
     justify-content: space-between;
