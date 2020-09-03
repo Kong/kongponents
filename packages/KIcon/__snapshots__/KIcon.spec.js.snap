@@ -87,6 +87,15 @@ exports[`KIcon renders featureRequest icon 1`] = `
 </svg>
 `;
 
+exports[`KIcon renders fileEmpty icon 1`] = `
+<svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon kong-icon-fileEmpty">
+  <title>fileEmpty</title>
+  <g>
+    <path fill="#A3BBCC" fill-rule="evenodd" clip-rule="evenodd" d="M2 0C.895431 0 0 .89543 0 2v52c0 1.1046.895431 2 2 2h40c1.1046 0 2-.8954 2-2V4l-4-4H2zm37 1H1v54h42V5h-4V1z"></path>
+  </g>
+</svg>
+`;
+
 exports[`KIcon renders fileJson icon 1`] = `
 <svg height="24" width="24" viewBox="0 0 24 24" role="img" class="kong-icon kong-icon-fileJson">
   <title>fileJson</title>

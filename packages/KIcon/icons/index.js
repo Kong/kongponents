@@ -7,6 +7,7 @@ import dangerCircle from './icn-danger-circle.svg'
 import dashboard from './icn-dashboard.svg'
 import externalLink from './icn-external-link.svg'
 import featureRequest from './icn-feature-request.svg'
+import fileEmpty from './icn-file-empty.svg'
 import fileJson from './icn-file-json.svg'
 import fileMd from './icn-file-md.svg'
 import fileYaml from './icn-file-yaml.svg'
@@ -49,6 +50,7 @@ export default {
   dashboard,
   externalLink,
   featureRequest,
+  fileEmpty,
   fileJson,
   fileMd,
   fileYaml,
