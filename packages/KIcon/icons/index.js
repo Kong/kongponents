@@ -5,6 +5,7 @@ import collapseExpand from './icn-collapse-expand.svg'
 import connections from './icn-connections.svg'
 import dangerCircle from './icn-danger-circle.svg'
 import dashboard from './icn-dashboard.svg'
+import document from './icn-document.svg'
 import externalLink from './icn-external-link.svg'
 import featureRequest from './icn-feature-request.svg'
 import fileEmpty from './icn-file-empty.svg'
@@ -22,9 +23,7 @@ import info from './icn-info.svg'
 import lock from './icn-lock.svg'
 import notificationBell from './icn-notification-bell.svg'
 import people from './icn-people.svg'
-import portal from './icn-dev-portal.svg'
-import portalV2 from './icn-dev-portal-v2.svg'
-import portalV3 from './icn-portal-v3.svg'
+import portal from './icn-portal.svg'
 import profile from './icn-profile.svg'
 import search from './icn-search.svg'
 import security from './icn-security.svg'
@@ -36,7 +35,6 @@ import table from './icn-table.svg'
 import trash from './icn-trash.svg'
 import vitals from './icn-vitals.svg'
 import warning from './icn-warning.svg'
-import warning2 from './icn-warning2.svg'
 import workspaces from './icn-workspaces.svg'
 import workspacesCollapsed from './icn-collapse-workspaces.svg'
 
@@ -48,6 +46,7 @@ export default {
   connections,
   dangerCircle,
   dashboard,
+  document,
   externalLink,
   featureRequest,
   fileEmpty,
@@ -66,8 +65,6 @@ export default {
   notificationBell,
   people,
   portal,
-  portalV2,
-  portalV3,
   profile,
   search,
   security,
@@ -79,7 +76,6 @@ export default {
   trash,
   vitals,
   warning,
-  warning2,
   workspaces,
   workspacesCollapsed
 }
