@@ -1,4 +1,4 @@
-<svg width="19" height="16" xmlns="http://www.w3.org/2000/svg">
+<svg width="19" height="16" viewBox="0 0 19 16" xmlns="http://www.w3.org/2000/svg">
   <g transform="translate(.5)" fill-rule="evenodd">
     <path fill="#A3BBCC" d="M6,8a3,3 0 1,0 6,0a3,3 0 1,0 -6,0" />
     <path fill="#A3BBCC" d="M11.5 0h2.9545455l1.1818181 1.6v3.2l1.1818182 1.6H18v3.2h-1.1818182l-1.1818182 1.6v3.2L14.4545455 16H11.5v-2.4h2.3636364v-4L15.0454545 8l-1.1818181-1.6v-4H11.5zM6.5 0H3.54545455L2.36363636 1.6v3.2L1.18181818 6.4H0v3.2h1.18181818l1.18181818 1.6v3.2L3.54545455 16H6.5v-2.4H4.13636364v-4L2.95454545 8l1.18181819-1.6v-4H6.5z"/>
