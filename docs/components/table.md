@@ -115,10 +115,10 @@ The below example demonstrates the disabled state:
 </template>
 ```
 
-## Custom Row Attributes
+## Row Attributes
+Add custom properties to individual rows. The row object is passed as a param.	
 
-### rowAttrs
-Function that returns an object comprising attributes that are added to individual rows. The row item is passed as a param.
+`rowAttrs` - Function that returns an object comprising the attributes.
 
 <template>
   <KTable
