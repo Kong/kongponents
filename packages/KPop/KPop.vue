@@ -6,7 +6,7 @@
       :name="popoverTransitions">
       <foreignObject>
         <div
-          v-show="isShow"
+          v-show="isOpen"
           ref="popper"
           :style="popoverStyle"
           :class="[popoverClasses, {'hide-caret': hideCaret }]"
@@ -26,7 +26,7 @@
       v-else
       name="fade">
       <div
-        v-show="isShow"
+        v-show="isOpen"
         ref="popper"
         :style="popoverStyle"
         :class="[popoverClasses, {'hide-caret': hideCaret }]"
@@ -173,7 +173,7 @@ export default {
     return {
       popper: null,
       reference: null,
-      isShow: false
+      isOpen: false
     }
   },
 
@@ -188,7 +188,7 @@ export default {
   watch: {
     hidePopover: function () {
       // whenever this prop gets updated, hide the popper
-      if (this.isShow) {
+      if (this.isOpen) {
         this.hidePopper()
       }
     }
@@ -223,11 +223,11 @@ export default {
   methods: {
     hidePopper () {
       if (this.trigger !== 'hover') {
-        this.isShow = false
+        this.isOpen = false
       }
 
       this.timer = setTimeout(() => {
-        this.isShow = false
+        this.isOpen = false
         this.$emit('closed')
         this.destroy()
       }, this.popoverTimeout)
@@ -236,8 +236,8 @@ export default {
     showPopper () {
       if (this.timer) clearTimeout(this.timer)
       if (this.popperTimer) clearTimeout(this.popperTimer)
-      this.$emit('opened', this.isShow)
-      this.isShow = true
+      this.$emit('opened', this.isOpen)
+      this.isOpen = true
     },
 
     async createInstance () {
@@ -268,7 +268,7 @@ export default {
     handleClick (e) {
       e.stopPropagation()
       if (this.reference && this.reference.contains(e.target)) {
-        if (this.isShow) {
+        if (this.isOpen) {
           this.hidePopper()
         } else {
           this.createInstance()
@@ -276,7 +276,7 @@ export default {
       } else if (this.$refs.popper && this.$refs.popper.contains(e.target)) {
         this.showPopper()
       } else {
-        if (this.isShow) this.hidePopper()
+        if (this.isOpen) this.hidePopper()
       }
     },
 
@@ -298,7 +298,7 @@ export default {
 
     destroy () {
       if (this.popper) {
-        this.isShow = false
+        this.isOpen = false
         this.popper.destroy()
         this.popper = null
       }

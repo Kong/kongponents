@@ -333,7 +333,7 @@ This is the slot that takes in the content of the popover.
 - `opened` - emitted once the popover has been opened, also passes in whether or not the popover is currently being displayed
 - `closed` - emitted when the popover has been triggered closed (emits on all triggers)
 
-<KPop @opened="(isShow) => loadSomething(isShow)" @closed="onClose">
+<KPop @opened="(isOpen) => loadSomething(isOpen)" @closed="onClose">
   <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
   <div slot="content" style="display: flex; justify-content: center;">
     <KIcon v-if="currentState == 'pending'" icon="spinner" viewBox="0 0 20 20" size="20" color="var(--black90)"/>
@@ -386,9 +386,9 @@ This is the slot that takes in the content of the popover.
       }
     },
     methods: {
-      loadSomething (isShow) {
+      loadSomething (isOpen) {
         this.transition()
-        if (isShow) { alert('this popover is already showing!') }
+        if (isOpen) { alert('this popover is already showing!') }
         this.timeout = setTimeout(() => {
           this.count+=1
           this.transition()
@@ -411,7 +411,7 @@ This is the slot that takes in the content of the popover.
 
 
 ```vue
-<KPop @opened="(isShow) => loadSomething(isShow)" @closed="onClose">
+<KPop @opened="(isOpen) => loadSomething(isOpen)" @closed="onClose">
   <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
   <div slot="content" style="display: flex; justify-content: center;">
     <KIcon v-if="currentState == 'pending'" icon="spinner" viewBox="0 0 20 20" size="20" color="var(--black90)"/>
@@ -448,9 +448,9 @@ This is the slot that takes in the content of the popover.
       }
     },
     methods: {
-      loadSomething (isShow) {
+      loadSomething (isOpen) {
         this.transition()
-        if (isShow) { alert('this popover is already showing!') }
+        if (isOpen) { alert('this popover is already showing!') }
         this.timeout = setTimeout(() => {
           this.count+=1
           this.transition()
