@@ -330,11 +330,10 @@ This is the slot that takes in the content of the popover.
 
 ### Events / Loading Content
 
-- `opened` - emitted once the popover has been opened
-- `closed` - emitted when the popover has been triggered closed (emits on all
-triggers)
+- `opened` - emitted once the popover has been opened, also passes in whether or not the popover is currently being displayed
+- `closed` - emitted when the popover has been triggered closed (emits on all triggers)
 
-<KPop @opened="loadSomething" @closed="onClose">
+<KPop @opened="(isShow) => loadSomething(isShow)" @closed="onClose">
   <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
   <div slot="content" style="display: flex; justify-content: center;">
     <KIcon v-if="currentState == 'pending'" icon="spinner" viewBox="0 0 20 20" size="20" color="var(--black90)"/>
@@ -387,8 +386,9 @@ triggers)
       }
     },
     methods: {
-      loadSomething () {
+      loadSomething (isShow) {
         this.transition()
+        if (isShow) { alert('this popover is already showing!') }
         this.timeout = setTimeout(() => {
           this.count+=1
           this.transition()
@@ -411,7 +411,7 @@ triggers)
 
 
 ```vue
-<KPop @opened="loadSomething" @closed="onClose">
+<KPop @opened="(isShow) => loadSomething(isShow)" @closed="onClose">
   <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
   <div slot="content" style="display: flex; justify-content: center;">
     <KIcon v-if="currentState == 'pending'" icon="spinner" viewBox="0 0 20 20" size="20" color="var(--black90)"/>
@@ -448,8 +448,9 @@ triggers)
       }
     },
     methods: {
-      loadSomething () {
+      loadSomething (isShow) {
         this.transition()
+        if (isShow) { alert('this popover is already showing!') }
         this.timeout = setTimeout(() => {
           this.count+=1
           this.transition()

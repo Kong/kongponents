@@ -234,10 +234,10 @@ export default {
     },
 
     showPopper () {
-      this.isShow = true
       if (this.timer) clearTimeout(this.timer)
       if (this.popperTimer) clearTimeout(this.popperTimer)
-      this.$emit('opened')
+      this.$emit('opened', this.isShow)
+      this.isShow = true
     },
 
     async createInstance () {
