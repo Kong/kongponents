@@ -262,6 +262,17 @@ You can pass in an optional flag to not show the caret on the edge of the popove
 </KPop>
 ```
 
+### onAlreadyOpen
+You can pass in an optional callback function to trigger when the popup is already open (usually when the trigger method is by clicking).
+This can be useful in situations where for example, you need to close the popup.
+
+```vue
+<KPop title="Cool header" on-already-open="closePopup()">
+  <KButton>button</KButton>
+  <div slot="content">I will close when I am clicked while already opened!</div>
+</KPop>
+```
+
 ### isSVG Flag
 To support `<KPop>` being able to be used inside an svg tag, use the `isSvg` prop.
 This will wrap the content of the KPop in a `<foreignObject>` tag, so that normal
@@ -333,7 +344,7 @@ This is the slot that takes in the content of the popover.
 - `opened` - emitted once the popover has been opened, also passes in whether or not the popover is currently being displayed
 - `closed` - emitted when the popover has been triggered closed (emits on all triggers)
 
-<KPop @opened="(isOpen) => loadSomething(isOpen)" @closed="onClose">
+<KPop @opened="loadSomething" @closed="onClose">
   <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
   <div slot="content" style="display: flex; justify-content: center;">
     <KIcon v-if="currentState == 'pending'" icon="spinner" viewBox="0 0 20 20" size="20" color="var(--black90)"/>
@@ -386,9 +397,8 @@ This is the slot that takes in the content of the popover.
       }
     },
     methods: {
-      loadSomething (isOpen) {
+      loadSomething () {
         this.transition()
-        if (isOpen) { alert('this popover is already showing!') }
         this.timeout = setTimeout(() => {
           this.count+=1
           this.transition()
@@ -411,7 +421,7 @@ This is the slot that takes in the content of the popover.
 
 
 ```vue
-<KPop @opened="(isOpen) => loadSomething(isOpen)" @closed="onClose">
+<KPop @opened="loadSomething" @closed="onClose">
   <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
   <div slot="content" style="display: flex; justify-content: center;">
     <KIcon v-if="currentState == 'pending'" icon="spinner" viewBox="0 0 20 20" size="20" color="var(--black90)"/>
@@ -448,9 +458,8 @@ This is the slot that takes in the content of the popover.
       }
     },
     methods: {
-      loadSomething (isOpen) {
+      loadSomething () {
         this.transition()
-        if (isOpen) { alert('this popover is already showing!') }
         this.timeout = setTimeout(() => {
           this.count+=1
           this.transition()

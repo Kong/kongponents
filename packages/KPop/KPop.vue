@@ -166,6 +166,13 @@ export default {
     hideCaret: {
       type: Boolean,
       default: false
+    },
+    /**
+     * A custom callback function to call when the popover is already opened
+     */
+    onAlreadyOpen: {
+      type: Function,
+      default: null
     }
   },
 
@@ -234,10 +241,10 @@ export default {
     },
 
     showPopper () {
+      this.isOpen = true
       if (this.timer) clearTimeout(this.timer)
       if (this.popperTimer) clearTimeout(this.popperTimer)
-      this.$emit('opened', this.isOpen)
-      this.isOpen = true
+      this.$emit('opened')
     },
 
     async createInstance () {
@@ -273,6 +280,8 @@ export default {
         } else {
           this.createInstance()
         }
+      } else if (this.$refs.popper && this.$refs.popper.contains(e.target) && this.onAlreadyOpen) {
+        this.onAlreadyOpen()
       } else if (this.$refs.popper && this.$refs.popper.contains(e.target)) {
         this.showPopper()
       } else {
