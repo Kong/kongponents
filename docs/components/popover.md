@@ -262,14 +262,13 @@ You can pass in an optional flag to not show the caret on the edge of the popove
 </KPop>
 ```
 
-### onAlreadyOpen
-You can pass in an optional callback function to trigger when the popup is already open (usually when the trigger method is by clicking).
-This can be useful in situations where for example, you need to close the popup.
+### onPopoverClick
+You can pass in an optional callback function to trigger when the popup is already open and the trigger method is click.
 
 ```vue
-<KPop title="Cool header" on-already-open="closePopup()">
+<KPop title="Cool header" on-already-open="onPopoverClick()">
   <KButton>button</KButton>
-  <div slot="content">I will close when I am clicked while already opened!</div>
+  <div slot="content">Click me and you will get an alert if I am already opened!</div>
 </KPop>
 ```
 
@@ -473,6 +472,9 @@ This is the slot that takes in the content of the popover.
       
       transition() {
         this.currentState = this.states[this.currentState]
+      },
+      onPopoverClick() {
+        alert('This triggered while the popover is already opened!')
       }
     }
   }

@@ -168,9 +168,9 @@ export default {
       default: false
     },
     /**
-     * A custom callback function to call when the popover is already opened
+     * A custom callback function to call when the popover is already opened and an element inside has been clicked
      */
-    onAlreadyOpen: {
+    onPopoverClick: {
       type: Function,
       default: null
     }
@@ -280,13 +280,11 @@ export default {
         } else {
           this.createInstance()
         }
-      } else if (this.$refs.popper && this.$refs.popper.contains(e.target) && this.onAlreadyOpen) {
-        this.onAlreadyOpen()
+      } else if (this.$refs.popper && this.$refs.popper.contains(e.target) && this.onPopoverClick) {
+        this.onPopoverClick()
       } else if (this.$refs.popper && this.$refs.popper.contains(e.target)) {
         this.showPopper()
-      } else {
-        if (this.isOpen) this.hidePopper()
-      }
+      } else if (this.isOpen) { this.hidePopper() }
     },
 
     bindEvents () {
