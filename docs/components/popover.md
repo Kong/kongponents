@@ -341,7 +341,7 @@ This is the slot that takes in the content of the popover.
 
 ### Events / Loading Content
 
-- `opened` - emitted once the popover has been opened, also passes in whether or not the popover is currently being displayed
+- `opened` - emitted once the popover has been opened
 - `closed` - emitted when the popover has been triggered closed (emits on all triggers)
 
 <KPop @opened="loadSomething" @closed="onClose">
