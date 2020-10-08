@@ -264,12 +264,35 @@ You can pass in an optional flag to not show the caret on the edge of the popove
 
 ### onPopoverClick
 You can pass in an optional callback function to trigger when the popup is already open and the trigger method is click.
+The callback function can optionally return a boolean, which will show or hide the popup depending on the value of the boolean.
+
+<KPop title="Cool header" :on-popover-click="toggle">
+  <KButton>button</KButton>
+  <div slot="content">
+  The first time you click the button, I will close when you click here once.
+  The second time you click the button, I will close when you click here twice.</div>
+</KPop>
 
 ```vue
-<KPop title="Cool header" on-already-open="onPopoverClick()">
+<KPop title="Cool header" :on-popover-click="toggle">
   <KButton>button</KButton>
   <div slot="content">Click me and you will get an alert if I am already opened!</div>
 </KPop>
+<script>
+  export default {
+    data () {
+      return {
+        isToggled: true
+      }
+    },
+    methods: {
+      toggle () {
+        this.isToggled = !this.isToggled
+        return this.isToggled
+      }
+    }
+  }
+</script>
 ```
 
 ### isSVG Flag
@@ -377,6 +400,7 @@ This is the slot that takes in the content of the popover.
           'pending': 'idle'
         },
         count: 0,
+        isToggled: true,
         timeout: null
       }
     },
@@ -387,7 +411,6 @@ This is the slot that takes in the content of the popover.
           'idle': 'Load something'
         }[this.currentState]
       },
-      
       message () {
         return {
           'pending': `Loading ${this.count}...`,
@@ -403,14 +426,16 @@ This is the slot that takes in the content of the popover.
           this.transition()
         }, 2000)
       },
-      
+      toggle () {
+        this.isToggled = !this.isToggled
+        return this.isToggled
+      },
       onClose () {
         clearTimeout(this.timeout)
         if (this.currentState == 'pending') {
           this.transition()
         }
       },
-      
       transition() {
         this.currentState = this.states[this.currentState]
       }
@@ -448,7 +473,6 @@ This is the slot that takes in the content of the popover.
           'idle': 'Load something'
         }[this.currentState]
       },
-      
       message () {
         return {
           'pending': `Loading ${this.count}...`,
@@ -464,17 +488,12 @@ This is the slot that takes in the content of the popover.
           this.transition()
         }, 2000)
       },
-      
       onClose () {
         clearTimeout(this.timeout)
         this.transition()
       },
-      
       transition() {
         this.currentState = this.states[this.currentState]
-      },
-      onPopoverClick() {
-        alert('This triggered while the popover is already opened!')
       }
     }
   }
