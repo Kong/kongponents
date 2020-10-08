@@ -281,7 +281,10 @@ export default {
           this.createInstance()
         }
       } else if (this.$refs.popper && this.$refs.popper.contains(e.target) && this.onPopoverClick) {
-        this.onPopoverClick()
+        const shouldShow = !this.onPopoverClick()
+        if (shouldShow !== undefined) {
+          shouldShow ? this.showPopper() : this.hidePopper()
+        }
       } else if (this.$refs.popper && this.$refs.popper.contains(e.target)) {
         this.showPopper()
       } else if (this.isOpen) { this.hidePopper() }
