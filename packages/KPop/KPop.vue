@@ -6,7 +6,7 @@
       :name="popoverTransitions">
       <foreignObject>
         <div
-          v-show="isShow"
+          v-show="isOpen"
           ref="popper"
           :style="popoverStyle"
           :class="[popoverClasses, {'hide-caret': hideCaret }]"
@@ -26,7 +26,7 @@
       v-else
       name="fade">
       <div
-        v-show="isShow"
+        v-show="isOpen"
         ref="popper"
         :style="popoverStyle"
         :class="[popoverClasses, {'hide-caret': hideCaret }]"
@@ -166,6 +166,13 @@ export default {
     hideCaret: {
       type: Boolean,
       default: false
+    },
+    /**
+     * A custom callback function to call when the popover is already opened and an element inside has been clicked
+     */
+    onPopoverClick: {
+      type: Function,
+      default: null
     }
   },
 
@@ -173,7 +180,7 @@ export default {
     return {
       popper: null,
       reference: null,
-      isShow: false
+      isOpen: false
     }
   },
 
@@ -188,7 +195,7 @@ export default {
   watch: {
     hidePopover: function () {
       // whenever this prop gets updated, hide the popper
-      if (this.isShow) {
+      if (this.isOpen) {
         this.hidePopper()
       }
     }
@@ -223,18 +230,18 @@ export default {
   methods: {
     hidePopper () {
       if (this.trigger !== 'hover') {
-        this.isShow = false
+        this.isOpen = false
       }
 
       this.timer = setTimeout(() => {
-        this.isShow = false
+        this.isOpen = false
         this.$emit('closed')
         this.destroy()
       }, this.popoverTimeout)
     },
 
     showPopper () {
-      this.isShow = true
+      this.isOpen = true
       if (this.timer) clearTimeout(this.timer)
       if (this.popperTimer) clearTimeout(this.popperTimer)
       this.$emit('opened')
@@ -268,16 +275,19 @@ export default {
     handleClick (e) {
       e.stopPropagation()
       if (this.reference && this.reference.contains(e.target)) {
-        if (this.isShow) {
+        if (this.isOpen) {
           this.hidePopper()
         } else {
           this.createInstance()
         }
+      } else if (this.$refs.popper && this.$refs.popper.contains(e.target) && this.onPopoverClick) {
+        const isOpen = this.onPopoverClick()
+        if (isOpen !== undefined) {
+          isOpen ? this.showPopper() : this.hidePopper()
+        }
       } else if (this.$refs.popper && this.$refs.popper.contains(e.target)) {
         this.showPopper()
-      } else {
-        if (this.isShow) this.hidePopper()
-      }
+      } else if (this.isOpen) { this.hidePopper() }
     },
 
     bindEvents () {
@@ -298,7 +308,7 @@ export default {
 
     destroy () {
       if (this.popper) {
-        this.isShow = false
+        this.isOpen = false
         this.popper.destroy()
         this.popper = null
       }
