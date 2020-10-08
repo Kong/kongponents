@@ -276,7 +276,9 @@ The callback function can optionally return a boolean, which will show or hide t
 ```vue
 <KPop title="Cool header" :on-popover-click="toggle">
   <KButton>button</KButton>
-  <div slot="content">Click me and you will get an alert if I am already opened!</div>
+  <div slot="content">
+  The first time you click the button, I will close when you click here once.
+  The second time you click the button, I will close when you click here twice.</div>
 </KPop>
 <script>
   export default {
