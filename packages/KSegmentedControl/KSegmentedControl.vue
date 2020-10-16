@@ -71,11 +71,27 @@ export default {
 <style scoped>
 .segmented-control .k-button {
   border-radius: 0;
-  margin-left: -1px;
   flex: 1;
+  margin-left: -1px;
+  color: var(--blue-600);
+  --KButtonPrimaryBase: var(--blue-100);
+  --KButtonPrimaryHover: var(--blue-100);
+}
+.segmented-control .k-button.primary {
+  z-index: 1;
+  border-color: var(--blue-600);
+}
+.segmented-control .k-button:hover {
+  z-index: 2;
+  border-color: var(--blue-600);
+}.segmented-control .k-button:active {
+  z-index: 2;
+  border-color: var(--blue-600);
 }
 .segmented-control .k-button:focus {
-  z-index: 1;
+  z-index: 3;
+  border-color: var(--blue-600);
+  box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--blue-600);
 }
 .segmented-control .k-button:first-child {
   border-radius: 3px 0 0 3px;
