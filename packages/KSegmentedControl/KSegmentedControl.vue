@@ -69,28 +69,29 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '~@kongponents/styles/_variables.scss';
+
 .segmented-control .k-button {
+  --KButtonPrimaryBase: var(--blue-100);
+  --KButtonPrimaryHover: var(--blue-100);
+
+  color: var(--KSegementedControlPrimary, var(--blue-600, color(blue-600)));
   border-radius: 0;
   margin-left: -1px;
   flex: 1;
-  color: var(--blue-600);
-  --KButtonPrimaryBase: var(--blue-100);
-  --KButtonPrimaryHover: var(--blue-100);
+
   &.primary {
     z-index: 1;
     border-color: var(--blue-600);
   }
   &:hover {
     z-index: 2;
-    border-color: var(--blue-600);
   }
   &:active {
     z-index: 2;
-    border-color: var(--blue-600);
   }
   &:focus {
     z-index: 3;
-    border-color: var(--blue-600);
     box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--blue-600);
   }
   &:first-child {
