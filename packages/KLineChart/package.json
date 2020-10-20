@@ -1,0 +1,29 @@
+{
+  "name": "@kongponents/klinechart",
+  "version": "0.1.0",
+  "description": "Line chart component",
+  "main": "dist/KLineChart.umd.min.js",
+  "componentName": "KLineChart",
+  "source": "KLineChart.vue",
+  "files": [
+    "dist",
+    "KLineChart.vue"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kong/kongponents.git"
+  },
+  "author": "Kong Inc",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Kong/kongponents/issues"
+  },
+  "homepage": "https://github.com/Kong/kongponents#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "chart.js": "2.7.3",
+    "vue-chartjs": "2.8.7"
+  }
+}

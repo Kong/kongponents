@@ -8,6 +8,7 @@ import KBadge from '../../packages/KBadge/KBadge.vue'
 import KButton from '../../packages/KButton/KButton.vue'
 import KCard from '../../packages/KCard/KCard.vue'
 import KClipboardProvider from '../../packages/KClipboardProvider/KClipboardProvider.js'
+import KLineChart from '../../packages/KLineChart/KLineChart.vue'
 import KMultiselect from '../../packages/KMultiselect/KMultiselect.vue'
 import KEmptyState from '../../packages/KEmptyState/KEmptyState.vue'
 import KIcon from '../../packages/KIcon/KIcon.vue'
@@ -41,6 +42,7 @@ export default ({
   Vue.component('KButton', KButton)
   Vue.component('KCard', KCard)
   Vue.component('KClipboardProvider', KClipboardProvider)
+  Vue.component('KLineChart', KLineChart)
   Vue.component('KMultiselect', KMultiselect)
   Vue.component('KEmptyState', KEmptyState)
   Vue.component('KIcon', KIcon)

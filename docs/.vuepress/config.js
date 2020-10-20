@@ -49,6 +49,7 @@ module.exports = {
               '/components/input-checkbox',
               '/components/input',
               '/components/icon',
+              '/components/line-chart',
               '/components/modal',
               '/components/multiselect',
               '/components/popover',
