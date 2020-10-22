@@ -75,14 +75,14 @@ export default {
   --KButtonPrimaryBase: var(--blue-100);
   --KButtonPrimaryHover: var(--blue-100);
 
-  color: var(--KSegementedControlPrimary, var(--blue-600, color(blue-600)));
+  color: var(--KSegementedControlPrimary, var(--blue-500, color(blue-500)));
   border-radius: 0;
   margin-left: -1px;
   flex: 1;
 
   &.primary {
     z-index: 1;
-    border-color: var(--blue-600);
+    border-color: var(--blue-500);
   }
   &:hover {
     z-index: 2;
@@ -92,7 +92,7 @@ export default {
   }
   &:focus {
     z-index: 3;
-    box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--blue-600);
+    box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--blue-500);
   }
   &:first-child {
     border-radius: 3px 0 0 3px;
