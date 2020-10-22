@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.4](https://github.com/Kong/kongponents/compare/@kongponents/ksegmentedcontrol@1.0.3...@kongponents/ksegmentedcontrol@1.0.4) (2020-10-22)
+
+**Note:** Version bump only for package @kongponents/ksegmentedcontrol
+
+
+
+
+
 ## [1.0.3](https://github.com/Kong/kongponents/compare/@kongponents/ksegmentedcontrol@1.0.2...@kongponents/ksegmentedcontrol@1.0.3) (2020-10-19)
 
 **Note:** Version bump only for package @kongponents/ksegmentedcontrol
