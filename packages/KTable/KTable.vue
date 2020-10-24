@@ -225,12 +225,12 @@ export default {
 
     tbody tr {
       border: none;
-      box-shadow: -2px 0 0 var(--KTableBorder, var(--steal-200, color(steal-200)));
+      box-shadow: -2px 0 0 var(--KTableBorder, var(--steel-200, color(steel-200)));
     }
 
     &.has-hover {
       tbody tr:hover {
-        box-shadow: -2px 0 0 var(--KTableBorder, var(--steal-300, color(steal-300)));
+        box-shadow: -2px 0 0 var(--KTableBorder, var(--steel-300, color(steel-300)));
       }
     }
   }
@@ -311,7 +311,7 @@ export default {
     }
   }
   &.has-hover tbody tr:hover {
-    background-color: var(--KTableHover, var(--steal-100, color(steal-100)));
+    background-color: var(--KTableHover, var(--steel-100, color(steel-100)));
   }
   &.is-clickable {
     cursor: pointer;
