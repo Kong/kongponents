@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/Kong/kongponents/compare/@kongponents/styles@1.0.3...@kongponents/styles@2.0.0) (2020-10-28)
+
+
+* fix(colors) fixes color name typo ([f063f17](https://github.com/Kong/kongponents/commit/f063f172f18fe597d681c0421c737189163cb7df))
+
+
+### BREAKING CHANGES
+
+* Color name is now different so any application usage must be updated when pulling latest version
+
+
+
+
+
 ## [1.0.3](https://github.com/Kong/kongponents/compare/@kongponents/styles@1.0.2...@kongponents/styles@1.0.3) (2020-09-03)
 
 **Note:** Version bump only for package @kongponents/styles
