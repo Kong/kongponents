@@ -219,22 +219,6 @@ export default {
   max-width: 100%;
   border-collapse: collapse;
 
-  &.side-border {
-    border-collapse: separate;
-    border-spacing: 0 4px;
-
-    tbody tr {
-      border: none;
-      box-shadow: -2px 0 0 var(--KTableBorder, var(--steel-200, color(steel-200)));
-    }
-
-    &.has-hover {
-      tbody tr:hover {
-        box-shadow: -2px 0 0 var(--KTableBorder, var(--steel-300, color(steel-300)));
-      }
-    }
-  }
-
   th,
   td {
     padding: var(--spacing-md, spacing(md));
@@ -264,18 +248,6 @@ export default {
             content: '\2193';
             margin-left: -12px;
           }
-        }
-      }
-
-      .kong-icon {
-        vertical-align: text-bottom;
-
-        &.ascending {
-          transform: rotate(90deg);
-        }
-
-        &.descending {
-          transform: rotate(-90deg);
         }
       }
     }
@@ -319,6 +291,21 @@ export default {
        -moz-user-select: none;
         -ms-user-select: none;
             user-select: none;
+  }
+  &.side-border {
+    border-collapse: separate;
+    border-spacing: 0 4px;
+
+    tbody tr {
+      border: none;
+      box-shadow: -2px 0 0 var(--KTableBorder, var(--steel-200, color(steal-200)));
+    }
+
+    &.has-hover {
+      tbody tr:hover {
+        box-shadow: -2px 0 0 var(--KTableBorder, var(--steel-300, color(steal-300)));
+      }
+    }
   }
 }
 </style>
