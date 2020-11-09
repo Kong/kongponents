@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/Kong/kongponents/compare/@kongponents/kicon@0.5.5...@kongponents/kicon@0.6.0) (2020-11-09)
+
+
+### Features
+
+* **kicon:** add service document kicon ([#267](https://github.com/Kong/kongponents/issues/267)) ([f7ad461](https://github.com/Kong/kongponents/commit/f7ad46151115b1b9c63e138f966aa88cb977bdda))
+
+
+
+
+
 ## [0.5.5](https://github.com/Kong/kongponents/compare/@kongponents/kicon@0.5.4...@kongponents/kicon@0.5.5) (2020-10-09)
 
 **Note:** Version bump only for package @kongponents/kicon
