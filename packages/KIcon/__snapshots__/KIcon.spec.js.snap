@@ -277,7 +277,7 @@ exports[`KIcon renders security icon 1`] = `
 `;
 
 exports[`KIcon renders serviceDocument icon 1`] = `
-<svg height="12" width="12" viewBox="0 0 10 10" role="img" class="kong-icon kong-icon-serviceDocument">
+<svg height="12" width="12" viewBox="0 0 12 10" role="img" class="kong-icon kong-icon-serviceDocument">
   <title>serviceDocument</title>
   <g>
     <path d="M11.5 0H.5a.5.5 0 00-.5.5v1a.5.5 0 00.5.5h11a.5.5 0 00.5-.5v-1a.5.5 0 00-.5-.5zM3.5 4h-3a.5.5 0 00-.5.5v1a.5.5 0 00.5.5h3a.5.5 0 00.5-.5v-1a.5.5 0 00-.5-.5zM11.5 4h-6a.5.5 0 00-.5.5v1a.5.5 0 00.5.5h6a.5.5 0 00.5-.5v-1a.5.5 0 00-.5-.5zM11.5 8H.5a.5.5 0 00-.5.5v1a.5.5 0 00.5.5h11a.5.5 0 00.5-.5v-1a.5.5 0 00-.5-.5z" fill="#A3B6D9"></path>
