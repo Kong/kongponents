@@ -276,6 +276,13 @@ exports[`KIcon renders security icon 1`] = `
 </svg>
 `;
 
+exports[`KIcon renders serviceDocument icon 1`] = `
+<svg height="12" width="12" viewBox="0 0 12 10" role="img" class="kong-icon kong-icon-serviceDocument">
+  <title>serviceDocument</title>
+  <g></g>
+</svg>
+`;
+
 exports[`KIcon renders services icon 1`] = `
 <svg height="18" width="18" viewBox="0 0 18 18" role="img" class="kong-icon kong-icon-services">
   <title>services</title>
