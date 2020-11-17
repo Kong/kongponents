@@ -16,7 +16,7 @@ turtleOptions:
 **KViewSwitcher** Is used to toggle list views to grid views. 
 
 <Komponent
-  :data="{ currentView: 'list' }"
+  :data="{ currentView: 'table' }"
   v-slot="{ data }">
   <KViewSwitcher
     :view="data.currentView"
@@ -25,7 +25,7 @@ turtleOptions:
 
 ## Props
 ### view
-- `list`
+- `table`
 - `grid`
 
 The current view of your UI. The button will show icons for the opposite. I.E. if your data is currently in a list/table, passing `list` will render the grid icons.
@@ -63,7 +63,7 @@ The current view of your UI. The button will show icons for the opposite. I.E. i
 ## Usage
 KViewSwitcher will emit the new view on click. This then allows you to change the UI to the new view. The button will also toggle to the opposite view for users to switch back.
 
-<Komponent :data="{ currentView: 'list', turtles: [{ name: 'Leonardo', age: 34, color: 'blue' }, { name: 'Michelangelo', age: 32, color: 'orange' }, { name: 'Raphael', age: 32, color: 'red' }, { name: 'Donatello', age: 29, color: 'purple' }] }" v-slot="{ data }"> 
+<Komponent :data="{ currentView: 'table', turtles: [{ name: 'Leonardo', age: 34, color: 'blue' }, { name: 'Michelangelo', age: 32, color: 'orange' }, { name: 'Raphael', age: 32, color: 'red' }, { name: 'Donatello', age: 29, color: 'purple' }] }" v-slot="{ data }"> 
 <template>
 <div>
   <div class="d-flex align-items-center justify-content-between mb-4">
@@ -72,7 +72,7 @@ KViewSwitcher will emit the new view on click. This then allows you to change th
       :view="data.currentView"
       @view-changed="(view) => data.currentView = view"/>
   </div>
-  <div v-if="data.currentView === 'list'">
+  <div v-if="data.currentView === 'table'">
     <KTable
       :hasHover="false"
       :hasSideBorder="false"
