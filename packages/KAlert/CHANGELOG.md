@@ -3,6 +3,54 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.13](https://github.com/Kong/kongponents/compare/@kongponents/kalert@1.0.12...@kongponents/kalert@1.0.13) (2020-11-09)
+
+**Note:** Version bump only for package @kongponents/kalert
+
+
+
+
+
+## [1.0.12](https://github.com/Kong/kongponents/compare/@kongponents/kalert@1.0.11...@kongponents/kalert@1.0.12) (2020-10-09)
+
+**Note:** Version bump only for package @kongponents/kalert
+
+
+
+
+
+## [1.0.11](https://github.com/Kong/kongponents/compare/@kongponents/kalert@1.0.10...@kongponents/kalert@1.0.11) (2020-09-22)
+
+**Note:** Version bump only for package @kongponents/kalert
+
+
+
+
+
+## [1.0.10](https://github.com/Kong/kongponents/compare/@kongponents/kalert@1.0.9...@kongponents/kalert@1.0.10) (2020-09-03)
+
+**Note:** Version bump only for package @kongponents/kalert
+
+
+
+
+
+## [1.0.9](https://github.com/Kong/kongponents/compare/@kongponents/kalert@1.0.8...@kongponents/kalert@1.0.9) (2020-09-01)
+
+**Note:** Version bump only for package @kongponents/kalert
+
+
+
+
+
+## [1.0.8](https://github.com/Kong/kongponents/compare/@kongponents/kalert@1.0.7...@kongponents/kalert@1.0.8) (2020-08-25)
+
+**Note:** Version bump only for package @kongponents/kalert
+
+
+
+
+
 ## [1.0.7](https://github.com/Kong/kongponents/compare/@kongponents/kalert@1.0.6...@kongponents/kalert@1.0.7) (2020-08-10)
 
 **Note:** Version bump only for package @kongponents/kalert

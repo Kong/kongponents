@@ -219,22 +219,6 @@ export default {
   max-width: 100%;
   border-collapse: collapse;
 
-  &.side-border {
-    border-collapse: separate;
-    border-spacing: 0 4px;
-
-    tbody tr {
-      border: none;
-      box-shadow: -2px 0 0 var(--KTableBorder, var(--steal-200, color(steal-200)));
-    }
-
-    &.has-hover {
-      tbody tr:hover {
-        box-shadow: -2px 0 0 var(--KTableBorder, var(--steal-300, color(steal-300)));
-      }
-    }
-  }
-
   th,
   td {
     padding: var(--spacing-md, spacing(md));
@@ -264,18 +248,6 @@ export default {
             content: '\2193';
             margin-left: -12px;
           }
-        }
-      }
-
-      .kong-icon {
-        vertical-align: text-bottom;
-
-        &.ascending {
-          transform: rotate(90deg);
-        }
-
-        &.descending {
-          transform: rotate(-90deg);
         }
       }
     }
@@ -311,7 +283,7 @@ export default {
     }
   }
   &.has-hover tbody tr:hover {
-    background-color: var(--KTableHover, var(--steal-100, color(steal-100)));
+    background-color: var(--KTableHover, var(--steel-100, color(steel-100)));
   }
   &.is-clickable {
     cursor: pointer;
@@ -319,6 +291,21 @@ export default {
        -moz-user-select: none;
         -ms-user-select: none;
             user-select: none;
+  }
+  &.side-border {
+    border-collapse: separate;
+    border-spacing: 0 4px;
+
+    tbody tr {
+      border: none;
+      box-shadow: -2px 0 0 var(--KTableBorder, var(--steel-200, color(steal-200)));
+    }
+
+    &.has-hover {
+      tbody tr:hover {
+        box-shadow: -2px 0 0 var(--KTableBorder, var(--steel-300, color(steal-300)));
+      }
+    }
   }
 }
 </style>

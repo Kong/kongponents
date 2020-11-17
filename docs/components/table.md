@@ -95,7 +95,7 @@ Adds `cursor: pointer` and `user-select: none` styling.
   isClickable />
 ```
 
-### hasSidebar
+### hasSideBorder
 Adds left border to each table row. By default set to true. The colors can be overridden by themes.
 The below example demonstrates the disabled state:
 
@@ -115,13 +115,10 @@ The below example demonstrates the disabled state:
 </template>
 ```
 
-## Custom Row Attributes
-Add custom properties to individual rows. The row object is passed as a param.
+## Row Attributes
+Add custom properties to individual rows. The row object is passed as a param.	
 
-## rowAttrs
-Function that returns an object comprising the attributes.
-
-Example below:
+`rowAttrs` - Function that returns an object comprising the attributes.
 
 <template>
   <KTable
@@ -200,17 +197,15 @@ export default {
 
 ## Events
 Bind any DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to
-various parts of the table.
+various parts of the table. We support events on both table rows and cells in addition to click elements inside a row (ie. buttons or hyperlinks) without triggering the a row or cell event. You can also add logic to check for `metakey` to support cmd/ctrl when clicking. Examples highlighted below.
 
 ### Rows
-- `@row:<event>` - returns the `Event`, the row item, and the type: `row`
+`@row:<event>` - returns the `Event`, the row item, and the type: `row`
 
 ```vue
 <KTable @row:click="rowHandler" @row:dblclick="rowHandler">
 ```
 
-On top of the individual row being clickable, we support being able to click elements inside a row, like buttons or hyperlinks without triggering the row event. You can also add logic to check for metakey to support cmd/ctrl clicking a row.
-
 <KTable
   :options="tableOptionsLink"
   isClickable
@@ -219,10 +214,18 @@ On top of the individual row being clickable, we support being able to click ele
     <a v-if="rowValue" @click="linkHander">{{rowValue.label}}</a>
     <span v-else>{{rowValue}}</span>
   </template>
-  <template v-slot:actions><KButton appearance="secondary" @click="buttonHandler">Visit Website</KButton></template>
+  <template v-slot:actions>
+    <div class="float-right">
+      <KButton
+        appearance="secondary"
+        @click="buttonHandler">
+        Visit Website
+      </KButton>
+    </div>
+  </template>
 </KTable>
 
-```vue
+```vue{4,6,13,40-56}
 <KTable
   :options="tableOptionsLink"
   isClickable
@@ -231,7 +234,15 @@ On top of the individual row being clickable, we support being able to click ele
     <a v-if="rowValue" @click="linkHander">{{rowValue.label}}</a>
     <span v-else>{{rowValue}}</span>
   </template>
-  <template v-slot:actions><KButton appearance="secondary" @click="buttonHandler">Visit Website</KButton></template>
+  <template v-slot:actions>
+    <div class="float-right">
+      <KButton
+        appearance="secondary"
+        @click="buttonHandler">
+        Visit Website
+      </KButton>
+    </div>
+  </template>
 </KTable>
 <script>
 import { defaultSorter } from '@kongponents/KTable'
@@ -245,21 +256,11 @@ export default {
           { label: 'Company', key: 'company' }
         ],
         data: [
-          {
-            company: { href: 'http://www.creative.com', label: 'Creative Labs' }
-          },
-          {
-            company: { href: 'http://www.bang-olufsen.com', label: 'Bang&Olufsen' }
-          },
-          {
-            company: { href: 'http://www.klipsch.com', label: 'Klipsch' }
-          },
-          {
-            company: { href: 'http://www.bose.com', label: 'Bose'}
-          },
-          {
-            company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'}
-          }
+          { company: { href: 'http://www.creative.com', label: 'Creative Labs' } },
+          { company: { href: 'http://www.bang-olufsen.com', label: 'Bang &Olufsen' } },
+          { company: { href: 'http://www.klipsch.com', label: 'Klipsch' } },
+          { company: { href: 'http://www.bose.com', label: 'Bose'} },
+          { company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'} }
         ]
       }
     }
@@ -287,7 +288,7 @@ export default {
 
 ### Cells
 
-- `@cell:<event>` - returns the `Event`, the cell value, and the type: `cell`
+`@cell:<event>` - returns the `Event`, the cell value, and the type: `cell`
 
 ```vue
 <KTable @cell:mouseout="cellHandler" @cell:mousedown="cellHandler">
@@ -362,7 +363,7 @@ export default {
 
 ### Sorting
 
-- `@sort` - returns header key that was clicked and current `sortOrder`.
+`@sort` - returns header key that was clicked and current `sortOrder`.
 
 There are two props used to make the table sortable; `sortOrder`, which is
 either 'ascending' or 'descending' and `sortKey`, which tells the table which
@@ -388,6 +389,13 @@ clicking on the headers.
 
 ```vue
 <template>
+<!--
+  * @param {String} key - the current key to sort by
+  * @param {String} previousKey - the previous key used to sort by
+  * @param {String} sortOrder - either ascending or descending
+  * @param {Array} items - the list of items to sort
+  * @return {Object} an object containing the previousKey and sortOrder
+-->
 <KTable
     :options="tableOptions"
     :sort-order="sortOrder"
@@ -659,21 +667,11 @@ export default {
           { key: 'actions', hideLabel: true }
         ],
         data: [
-          {
-            company: { href: 'http://www.creative.com', label: 'Creative Labs' }
-          },
-          {
-            company: { href: 'http://www.bang-olufsen.com', label: 'Bang&Olufsen' }
-          },
-          {
-            company: { href: 'http://www.klipsch.com', label: 'Klipsch' }
-          },
-          {
-            company: { href: 'http://www.bose.com', label: 'Bose'}
-          },
-          {
-            company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'}
-          }
+          { company: { href: 'http://www.creative.com', label: 'Creative Labs' } },
+          { company: { href: 'http://www.bang-olufsen.com', label: 'Bang&Olufsen' } },
+          { company: { href: 'http://www.klipsch.com', label: 'Klipsch' } },
+          { company: { href: 'http://www.bose.com', label: 'Bose'} },
+          { company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'} }
         ]
       }
     }

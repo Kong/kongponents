@@ -3,7 +3,7 @@
     v-if="isSSR"
     :height="setSize || height"
     :width="setSize || width"
-    :viewBox="viewbox"
+    :viewBox="setViewbox"
     :class="`kong-icon-${icon}`"
     class="kong-icon"
     role="img"
@@ -21,6 +21,10 @@
 <script>
 import icons from './icons'
 const iconNames = Object.keys(icons)
+const DEFAULTS = {
+  size: '24',
+  viewBox: '0 0 24 24'
+}
 
 export default {
   name: 'KIcon',
@@ -42,7 +46,7 @@ export default {
      */
     size: {
       type: String,
-      default: '24'
+      default: ''
     },
     /**
      * Optional - Sets Fill color
@@ -56,7 +60,7 @@ export default {
      */
     viewBox: {
       type: String,
-      default: '0 0 24 24'
+      default: ''
     },
     /**
      * Optional - Replaces default title attribute
@@ -111,10 +115,10 @@ export default {
       return this.svg.getAttribute('height')
     },
     setSize () {
-      return this.size || this.svg.getAttribute('width')
+      return this.size || this.svg.getAttribute('width') || DEFAULTS.size
     },
-    viewbox () {
-      return this.viewBox || this.svg.getAttribute('viewBox')
+    setViewbox () {
+      return this.viewBox || this.svg.getAttribute('viewBox') || DEFAULTS.viewBox
     }
   },
 

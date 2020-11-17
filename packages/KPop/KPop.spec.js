@@ -65,9 +65,9 @@ describe('KPop', () => {
 
     const slottedEl = wrapper.find('.slottedEl')
 
-    expect(wrapper.vm.isShow).toBe(false)
+    expect(wrapper.vm.isOpen).toBe(false)
     slottedEl.trigger('click')
-    expect(wrapper.vm.isShow).toBe(true)
+    expect(wrapper.vm.isOpen).toBe(true)
   })
 
   it('shows element on hover', () => {
@@ -83,9 +83,9 @@ describe('KPop', () => {
 
     const slottedEl = wrapper.find('.slottedEl')
 
-    expect(wrapper.vm.isShow).toBe(false)
+    expect(wrapper.vm.isOpen).toBe(false)
     slottedEl.trigger('mouseenter')
-    expect(wrapper.vm.isShow).toBe(true)
+    expect(wrapper.vm.isOpen).toBe(true)
 
     wrapper.destroy()
   })

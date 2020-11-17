@@ -8,8 +8,7 @@ module.exports = {
     logo: 'https://2tjosk2rxzc21medji3nfn1g-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/kong-logomark-color-64px.png',
     docsDir: 'docs',
     editLinks: true,
-    sidebarDepth: 0,
-    search: false,
+    searchPlaceholder: 'Search...',
     sidebar: [
       {
         title: 'Guide',
@@ -80,8 +79,11 @@ module.exports = {
       {
         title: 'Contributing',
         collapsable: false,
+        sidebarDepth: 1,
         children: [
-          '/contributing/local'
+          '/contributing/getting-started',
+          '/contributing/local-development',
+          '/contributing/adding-icons-to-kicon'
         ]
       }
     ]
@@ -91,11 +93,9 @@ module.exports = {
     ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:400,500,700' }]
   ],
   plugins: [
-    [
-      'live', {
-        layout: path.resolve(__dirname, './components/LivePreview')
-      }
-    ]
+    ['@vuepress/search', {
+      searchHotkeys: ['/']
+    }]
   ],
   chainWebpack: config => {
     const svgRule = config.module.rule('svg')

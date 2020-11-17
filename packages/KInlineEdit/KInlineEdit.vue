@@ -32,6 +32,27 @@ const STYLES = {
 
 export default {
   name: 'KInlineEdit',
+  props: {
+    /**
+     * Sets whether the initial value passed in should be ignored.
+     * Useful for times when you have placeholder text and don't want it passed
+     * in as a value
+     */
+    ignoreValue: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * An object of css styles to override those plucked from the slot element.
+     * Useful if you are styling the default content differently than how the
+     * input should display
+     */
+    styleOverrides: {
+      type: Object,
+      default: () => ({})
+    }
+  },
+
   data () {
     return {
       isEditing: false,
@@ -60,8 +81,8 @@ Example usage:
       if (e.target.id === 'element-content-wrapper') return
 
       // Get current STYLES off of the element
-      this.styles = this.getStyles(e.target)
-      this.inputText = e.target.innerText
+      this.styles = { ...this.getStyles(e.target), ...this.styleOverrides }
+      this.inputText = this.ignoreValue ? '' : e.target.textContent.trim()
       this.isEditing = true
 
       // Wait for vue to update styles & text

@@ -34,19 +34,6 @@ describe('KIcon', () => {
     expect(path.fill).toEqual('red')
   })
 
-  it('renders icon with red stroke', () => {
-    const wrapper = mount(KIcon, {
-      propsData: {
-        'icon': 'notificationBell',
-        'color': 'red'
-      }
-    })
-
-    const path = wrapper.find('path').attributes()
-
-    expect(path.stroke).toEqual('red')
-  })
-
   it('renders 32x32 sized icon', () => {
     const wrapper = mount(KIcon, {
       propsData: {

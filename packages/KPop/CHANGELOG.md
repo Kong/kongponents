@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/Kong/kongponents/compare/@kongponents/kpop@1.0.0...@kongponents/kpop@1.1.0) (2020-10-08)
+
+
+### Features
+
+* **kpop:** kpop adds an optional callback function when popover is already opened ([#258](https://github.com/Kong/kongponents/issues/258)) ([6321cfb](https://github.com/Kong/kongponents/commit/6321cfbc25fd3cbc97dabe2ea71a8fc2b0d9d247)), closes [#259](https://github.com/Kong/kongponents/issues/259)
+
+
+
+
+
 # [1.0.0](https://github.com/Kong/kongponents/compare/@kongponents/kpop@0.4.0...@kongponents/kpop@1.0.0) (2020-06-25)
 
 
