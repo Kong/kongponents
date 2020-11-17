@@ -60,7 +60,8 @@ module.exports = {
               '/components/table',
               '/components/tabs',
               '/components/toaster',
-              '/components/tooltip'
+              '/components/tooltip',
+              '/components/view-switcher'
             ]
           },
           {
