@@ -79,7 +79,7 @@ export default {
       border-radius: 2px;
       width: var(--width, 7px);
       height: var(--height, 7px);
-      background-color: var(--steal-300);
+      background-color: var(--steel-300);
       animation: var(--name, var(--dots-name, none)) var(--duration, var(--dots-duration, .5s)) var(--easing, var(--dots-easing, linear)) forwards var(--delay, var(--dots-delay, 0s));
       transition: background-color 200ms ease;
     }
