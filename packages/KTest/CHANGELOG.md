@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.7](https://github.com/Kong/kongponents/compare/@kongponents/ktest@1.0.6...@kongponents/ktest@1.0.7) (2020-12-01)
+
+
+### Bug Fixes
+
+* **automation:** remove 2FA ([#275](https://github.com/Kong/kongponents/issues/275)) ([ce9ca83](https://github.com/Kong/kongponents/commit/ce9ca83cf763eeeb1ad98535127807e75aa1e109))
+
+
+
+
+
 ## [1.0.6](https://github.com/Kong/kongponents/compare/@kongponents/ktest@1.0.5...@kongponents/ktest@1.0.6) (2020-12-01)
 
 
