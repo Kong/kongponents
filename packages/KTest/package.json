@@ -1,7 +1,7 @@
 {
   "name": "@kongponents/ktest",
   "version": "1.0.6",
-  "description": "Testing 1, 2, 3...",
+  "description": "Testing 1, 2, 3, 4...",
   "main": "dist/KTest.umd.min.js",
   "componentName": "KTest",
   "source": "KTest.vue",
