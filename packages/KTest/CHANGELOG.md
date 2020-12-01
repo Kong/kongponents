@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.6](https://github.com/Kong/kongponents/compare/@kongponents/ktest@1.0.5...@kongponents/ktest@1.0.6) (2020-12-01)
+
+
+### Bug Fixes
+
+* **automation:** add publish token ([#274](https://github.com/Kong/kongponents/issues/274)) ([108899d](https://github.com/Kong/kongponents/commit/108899d17b4c428154133c98400728e9cdcfa4f1))
+
+
+
+
+
 ## [1.0.5](https://github.com/Kong/kongponents/compare/@kongponents/ktest@1.0.4...@kongponents/ktest@1.0.5) (2020-12-01)
 
 
