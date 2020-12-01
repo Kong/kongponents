@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1](https://github.com/Kong/kongponents/compare/@kongponents/styles@2.0.0...@kongponents/styles@2.0.1) (2020-12-01)
+
+
+### Bug Fixes
+
+* **checkbox:** remove blue outline border from disabled checkboxes - INTF-2666 ([#270](https://github.com/Kong/kongponents/issues/270)) ([c366f63](https://github.com/Kong/kongponents/commit/c366f63bac3e9cfa5670fff5b583e51033d2a88c))
+
+
+
+
+
 # [2.0.0](https://github.com/Kong/kongponents/compare/@kongponents/styles@1.0.3...@kongponents/styles@2.0.0) (2020-10-28)
 
 
