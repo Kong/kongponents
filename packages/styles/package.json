@@ -1,7 +1,7 @@
 {
   "name": "@kongponents/styles",
   "version": "2.0.1",
-  "description": "Kong Styleguide & css utilities",
+  "description": "Kong Styleguide & CSS utilities",
   "main": "styles.css",
   "repository": {
     "type": "git",
