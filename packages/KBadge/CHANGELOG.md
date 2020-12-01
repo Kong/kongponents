@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/Kong/kongponents/compare/@kongponents/kbadge@1.0.0...@kongponents/kbadge@1.1.0) (2020-12-01)
+
+
+### Features
+
+* **kbadge:** auto width by default, add vars, truncate ([#271](https://github.com/Kong/kongponents/issues/271)) ([ee6d547](https://github.com/Kong/kongponents/commit/ee6d547f0820141b39535d57e07ad8f624beaf62))
+
+
+
+
+
 # [1.0.0](https://github.com/Kong/kongponents/compare/@kongponents/kbadge@0.1.9...@kongponents/kbadge@1.0.0) (2020-06-25)
 
 
