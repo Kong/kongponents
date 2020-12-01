@@ -64,6 +64,7 @@ input.form-control {
 
     &:disabled {
       background-color: var(--KInputCheckboxDisabled, var(--grey-200, color(grey-200)));
+      border: none;
     }
   }
 
