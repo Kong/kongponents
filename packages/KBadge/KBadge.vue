@@ -50,7 +50,6 @@ export default {
 
 .k-badge {
   display: inline-block;
-  justify-content: center;
   font-weight: 500;
   vertical-align: top;
   font-size: var(--KBadgeFontSize, var(--type-sm, type(sm)));
