@@ -2,7 +2,7 @@
   <div
     :class="[appearance !== 'custom' && `kbadge-${appearance}`]"
     :style="color && backgroundColor && {backgroundColor, color}"
-    class="k-badge"
+    class="k-badge truncate"
   >
     <slot />
   </div>
@@ -49,14 +49,17 @@ export default {
 @import '~@kongponents/styles/_variables.scss';
 
 .k-badge {
-  display: inline-flex;
+  display: inline-block;
   justify-content: center;
   font-weight: 500;
+  vertical-align: top;
   font-size: var(--KBadgeFontSize, var(--type-sm, type(sm)));
-  height: 27px;
-  align-items: center;
-  width: var(--KBadgeWidth, 71px);
-  padding: var(--KBadgePaddingY, 2px) var(--KBadgePaddingX, 4px);
+  height: auto;
+  text-align: center;
+  min-width: var(--KBadgeMinWidth, 71px);
+  max-width: var(--KBadgeMaxWidth, 200px);
+  width: var(--KBadgeWidth, auto);
+  padding: var(--KBadgePaddingY, 4px) var(--KBadgePaddingX, var(--spacing-xxs));
   font-family: var(--font-family-sans, font(sans));
   border-radius: var(--KBadgeBorderRadius, 3px);
 
