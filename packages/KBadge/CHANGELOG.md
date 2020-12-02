@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/Kong/kongponents/compare/@kongponents/kbadge@1.1.0...@kongponents/kbadge@1.1.1) (2020-12-02)
+
+
+### Bug Fixes
+
+* **automation:** remove 2FA, republish KBadge ([#277](https://github.com/Kong/kongponents/issues/277)) ([63a33c6](https://github.com/Kong/kongponents/commit/63a33c6874848243b96bbb17df2f0f4927c629e7))
+
+
+
+
+
 # [1.1.0](https://github.com/Kong/kongponents/compare/@kongponents/kbadge@1.0.0...@kongponents/kbadge@1.1.0) (2020-12-01)
 
 
