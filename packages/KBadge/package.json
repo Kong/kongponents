@@ -1,7 +1,7 @@
 {
   "name": "@kongponents/kbadge",
   "version": "1.1.0",
-  "description": "Badges, pills, or whatever you wanna call them.",
+  "description": "Badges, pills, lozenges, or whatever you wanna call them.",
   "main": "dist/KBadge.umd.min.js",
   "componentName": "KBadge",
   "source": "KBadge.vue",
