@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.3](https://github.com/Kong/kongponents/compare/@kongponents/kbutton@1.0.2...@kongponents/kbutton@1.0.3) (2020-12-04)
+
+
+### Bug Fixes
+
+* **kbutton:** add null check for kicon mounting ([#279](https://github.com/Kong/kongponents/issues/279)) ([933ef2e](https://github.com/Kong/kongponents/commit/933ef2e7fe05031e7d8248f60f8c46fae2a639c4))
+
+
+
+
+
 ## [1.0.2](https://github.com/Kong/kongponents/compare/@kongponents/kbutton@1.0.1...@kongponents/kbutton@1.0.2) (2020-07-13)
 
 **Note:** Version bump only for package @kongponents/kbutton

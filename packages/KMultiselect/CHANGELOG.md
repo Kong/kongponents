@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.4](https://github.com/Kong/kongponents/compare/@kongponents/kmultiselect@1.0.3...@kongponents/kmultiselect@1.0.4) (2020-12-04)
+
+**Note:** Version bump only for package @kongponents/kmultiselect
+
+
+
+
+
 ## [1.0.3](https://github.com/Kong/kongponents/compare/@kongponents/kmultiselect@1.0.2...@kongponents/kmultiselect@1.0.3) (2020-10-08)
 
 **Note:** Version bump only for package @kongponents/kmultiselect
