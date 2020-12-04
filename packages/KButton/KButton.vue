@@ -104,7 +104,7 @@ export default {
   },
 
   mounted () {
-    this.hasIcon && this.$slots.icon[0].elm.setAttribute('viewBox', '0 0 16 16')
+    this.hasIcon && this.$slots.icon[0].elm && this.$slots.icon[0].elm.setAttribute('viewBox', '0 0 16 16')
   }
 }
 </script>
