@@ -157,7 +157,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: var(--spacing-lg, spacing(lg));
+    margin-bottom: var(--spacing-md, spacing(md));
     color: var(--KModalHeaderColor, var(--black-85, color(black-85)));
     font-size: var(--KModalHeaderSize, var(--type-lg, type(lg)));
     font-weight: var(--KModalHeaderWeight, 500);
