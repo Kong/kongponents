@@ -1,7 +1,6 @@
 <template>
   <div
-    v-if="isVisible || delayMilliseconds === 0"
-    :class="{ 'w-100': type !== 'spinner' }"
+    :class="{ 'w-100': type !== 'spinner', 'transparent': !isVisible }"
     class="d-flex flex-wrap">
     <CardSkeleton
       v-if="type === 'card'"
@@ -104,3 +103,8 @@ export default {
   }
 }
 </script>
+<style>
+.transparent .box {
+  background: transparent;
+}
+</style>
