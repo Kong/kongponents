@@ -25,6 +25,32 @@ state. The following example shows a Form type KSKeleton.
 
 The number of milliseconds to wait before showing the skeleton state. Defaults to 750.
 
+<template>
+  <Komponent :data="{ isLoading: false }" v-slot="{ data }">
+    <div>
+      <k-button class="mb-2" @click="()=>(data.isLoading=!data.isLoading)">Toggle loading - {{data.isLoading?'on':'off'}}</k-button>
+        <div v-if="!data.isLoading">
+          <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+        </div>
+        <KSkeleton v-else="data.isLoading" />
+    </div>
+  </Komponent>
+</template>
+
+```vue
+<template>
+  <Komponent :data="{ isLoading: false }" v-slot="{ data }">
+    <div>
+      <k-button class="mb-2" @click="()=>(data.isLoading=!data.isLoading)">Toggle loading - {{data.isLoading?'on':'off'}}</k-button>
+        <div v-if="!data.isLoading">
+          <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+        </div>
+        <KSkeleton v-else="data.isLoading" />
+    </div>
+  </Komponent>
+</template>
+```
+
 ## Generic Loading State
 By default, **KSkeleton** will load a generic loading state. There are no props for this state.
 
