@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="{ 'w-100': type !== 'spinner', 'transparent': !isVisible }"
+    :class="{ 'w-100': type !== 'spinner', 'opacity-0': !isVisible }"
     class="d-flex flex-wrap">
     <CardSkeleton
       v-if="type === 'card'"
@@ -104,7 +104,7 @@ export default {
 }
 </script>
 <style>
-.transparent .box {
-  background: transparent;
+.opacity-0 .box {
+  opacity: 0;
 }
 </style>

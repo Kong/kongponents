@@ -42,6 +42,7 @@ export default {
     repeat;
   background-size: 400% 100%;
   animation: gradient 1s ease infinite;
+  transition: 1s;
 
   // Provided box widths
   &.width {

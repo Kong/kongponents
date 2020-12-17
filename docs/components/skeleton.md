@@ -28,8 +28,10 @@ The number of milliseconds to wait before showing the skeleton state. Defaults t
 <template>
   <Komponent :data="{ isLoading: false }" v-slot="{ data }">
     <div>
-      <k-button @click="()=>(data.isLoading=!data.isLoading)">Toggle loading - {{data.isLoading?'on':'off'}}</k-button>
-        <p v-if="!data.isLoading">lorum ipsum</p>
+      <k-button class="mb-2" @click="()=>(data.isLoading=!data.isLoading)">Toggle loading - {{data.isLoading?'on':'off'}}</k-button>
+        <div v-if="!data.isLoading">
+          <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+        </div>
         <KSkeleton v-else="data.isLoading" />
     </div>
   </Komponent>
@@ -39,8 +41,10 @@ The number of milliseconds to wait before showing the skeleton state. Defaults t
 <template>
   <Komponent :data="{ isLoading: false }" v-slot="{ data }">
     <div>
-      <k-button @click="()=>(data.isLoading=!data.isLoading)">Toggle loading - {{data.isLoading?'on':'off'}}</k-button>
-        <div v-if="!data.isLoading">lorum ipsum</div>
+      <k-button class="mb-2" @click="()=>(data.isLoading=!data.isLoading)">Toggle loading - {{data.isLoading?'on':'off'}}</k-button>
+        <div v-if="!data.isLoading">
+          <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+        </div>
         <KSkeleton v-else="data.isLoading" />
     </div>
   </Komponent>
