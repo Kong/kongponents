@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/Kong/kongponents/compare/@kongponents/kooltip@0.2.8...@kongponents/kooltip@1.0.0) (2020-12-18)
+
+
+* feat(kooltip)!: refactor to kpop and restyle (#283) ([ede3f3c](https://github.com/Kong/kongponents/commit/ede3f3c8250559b81def17c24cebb88fd28e9055)), closes [#283](https://github.com/Kong/kongponents/issues/283)
+
+
+### BREAKING CHANGES
+
+* props and styles completely updated
+
+
+
+
+
 ## [0.2.8](https://github.com/Kong/kongponents/compare/@kongponents/kooltip@0.2.7...@kongponents/kooltip@0.2.8) (2020-03-06)
 
 **Note:** Version bump only for package @kongponents/kooltip
