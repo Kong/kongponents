@@ -71,10 +71,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .kooltip {
-  --KPopColor: var(--KoolTipColor, var(--white));
-  --KPopBackground: var(--KoolTipBackground, var(--black-400));
+  --KPopColor: var(--KoolTipColor, var(--white, color(white)));
+  --KPopBackground: var(--KoolTipBackground, var(--black-400, color(black-400)));
   --KPopBodySize: var(--type-sm);
   --KPopPaddingX: var(--spacing-xs);
   --KPopPaddingY: var(--spacing-xs);

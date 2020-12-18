@@ -7,14 +7,16 @@
     :key="i"
     class="color-group">
     <h4>{{ key }}</h4>
-    <p v-if="key === 'Black'">Unlike the other colors which follow a naming style numbered lightest to darkest, blacks are named by their opacity.</p>
+    <p v-if="key === 'Black'">
+      Unlike the other colors which follow a naming style numbered lightest to darkest, blacks include variants that are
+      named by their opacity that roughly equate their hex counterparts.</p>
     <div class="colors">
       <swatch
         v-for="(color, i) in group"
         :key="i"
         :color="color"/>
     </div>
-  </div> 
+  </div>
 </section>
 
 <script>
@@ -56,7 +58,7 @@ export default {
   margin-bottom: 2rem;
   h4 {
     margin: 0;
-    border-bottom: 1px solid 
+    border-bottom: 1px solid
   }
   .colors {
     display: grid;
