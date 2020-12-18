@@ -6,7 +6,9 @@
     width="auto"
     hide-caret>
     <slot />
-    <div slot="content">
+    <div
+      slot="content"
+      role="tooltip">
       <slot
         :label="label"
         name="content">{{ label }}</slot>
@@ -27,7 +29,8 @@ export default {
      */
     label: {
       type: String,
-      required: true
+      required: false,
+      default: ''
     },
 
     /**
