@@ -1,9 +1,9 @@
 # Popover
 
-**KPop** is a popover component that is used when you need something with more 
-detailed content then fits inside a tooltip. KPop has three slots; only two is 
+**KPop** is a popover component that is used when you need something with more
+detailed content then fits inside a tooltip. KPop has three slots; only two is
 necessary is to be filled to populate the component with content. The title prop
-must be passed in and the main slot and the content slot must be populated in 
+must be passed in and the main slot and the content slot must be populated in
 for the popover to display anything.
 
 For example a button:
@@ -23,13 +23,14 @@ For example a button:
 ## Props
 
 ### Target
+
 This is the target `element` that the <code>popover</code> is appended to. By default its the body tag.
 
 
 <KPop title="Cool header" target=".theme-default-content">
   <KButton>button</KButton>
   <div slot="content">
-    I am a popover, inside the <code>.theme-default-content</code> selector so 
+    I am a popover, inside the <code>.theme-default-content</code> selector so
     I can get some of the stylings inside the theme!
   </div>
 </KPop>
@@ -45,6 +46,7 @@ This is the target `element` that the <code>popover</code> is appended to. By de
 ```
 
 ### Tag
+
 This is the tag that the popover is wrapped around. By default its the div tag.
 
 ```vue
@@ -60,6 +62,7 @@ This is the tag that the popover is wrapped around. By default its the div tag.
 </KPop>
 
 ### Title
+
 This is the Title of the popover. Either this or the title slot needs to be filled.
 
 <KPop title="I am a new sample header">
@@ -91,6 +94,7 @@ or alternatively, via the slot:
 ```
 
 ### Trigger
+
 What the popover is triggered by - by default it's triggered on click.
 Here are the different options:
 
@@ -110,6 +114,7 @@ Here are the different options:
 ```
 
 ### Placement
+
 The position of where the popover appears - by default it appears on top.
 Here are the different options:
 
@@ -127,7 +132,7 @@ Here are the different options:
   <option
     v-for="p in positions"
     :key="p"
-    :value="p">{{ p }}</option> 
+    :value="p">{{ p }}</option>
 </select>
 
 <KPop title="Cool header" trigger="hover" :placement="selectedPosition">
@@ -177,6 +182,7 @@ export default {
 ```
 
 ### Width
+
 The width of the popover body - by default it is 200px.
 
 <KPop title="Cool header" width="300">
@@ -192,16 +198,18 @@ The width of the popover body - by default it is 200px.
 ```
 
 ### Popover Classes
+
 Custom classes that you want to append to the popover - by default it has a `k-popover` class on it.
 
 ```vue
-<KPop title="Cool header" popoverClass="my-class">
+<KPop title="Cool header" popoverClasses="my-class">
   <KButton>button</KButton>
   <div slot="content">I have a custom my-class class on me!</div>
 </KPop>
 ```
 
 ### Popover Transitions
+
 Custom transitions that you want the popover to have - by default it uses a `fade` transition.
 
 ```vue
@@ -212,7 +220,8 @@ Custom transitions that you want the popover to have - by default it uses a `fad
 ```
 
 ### Popover Timeout
-Custom timeout setting that you want the popover to have - by default it is set 
+
+Custom timeout setting that you want the popover to have - by default it is set
 to 300 milliseconds.
 
 <KPop title="Cool header" :popover-timeout="1000" trigger="hover">
@@ -228,6 +237,7 @@ to 300 milliseconds.
 ```
 
 ### Hide Popover Flag
+
 You can pass in an optional flag to trigger the popover to hide - useful for external events like zooming or panning - by default it is set to `false`.
 
 ```vue
@@ -238,6 +248,7 @@ You can pass in an optional flag to trigger the popover to hide - useful for ext
 ```
 
 ### Disabled Flag
+
 You can pass in an optional flag to disable the popover - by default it is set to `false`.
 
 ```vue
@@ -248,6 +259,7 @@ You can pass in an optional flag to disable the popover - by default it is set t
 ```
 
 ### Hide Caret
+
 You can pass in an optional flag to not show the caret on the edge of the popover.
 
 <KPop title="Cool header" hide-caret placement="right">
@@ -263,6 +275,7 @@ You can pass in an optional flag to not show the caret on the edge of the popove
 ```
 
 ### onPopoverClick
+
 You can pass in an optional callback function to trigger when the popup is already open and the trigger method is click.
 The callback function can optionally return a boolean, which will show or hide the popup depending on the value of the boolean.
 
@@ -298,6 +311,7 @@ The callback function can optionally return a boolean, which will show or hide t
 ```
 
 ### isSVG Flag
+
 To support `<KPop>` being able to be used inside an svg tag, use the `isSvg` prop.
 This will wrap the content of the KPop in a `<foreignObject>` tag, so that normal
 HTML content can be injected into the popover.
@@ -504,9 +518,10 @@ This is the slot that takes in the content of the popover.
 
 
 ## Theming
+
 | Variable | Purpose
 |:-------- |:-------
-| `--KPopBackground `| Primary background color
+| `--KPopBackground`| Primary background color
 | `--KPopBorder`| Primary border color
 | `--KPopBodySize`| Font size of the body content
 | `--KPopColor`| Text color of the content
@@ -517,7 +532,7 @@ This is the slot that takes in the content of the popover.
 ## Browser Compatibility
 
 ::: warning
-For Internet Explorer 11 and below, the Popover component will not work due to `Node.contains` not being supported by the browser. 
+For Internet Explorer 11 and below, the Popover component will not work due to `Node.contains` not being supported by the browser.
 You will have to manually polyfill this functionality if you choose to support IE11 or below.
 :::
 
