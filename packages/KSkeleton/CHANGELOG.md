@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/Kong/kongponents/compare/@kongponents/kskeleton@1.0.2...@kongponents/kskeleton@1.2.0) (2020-12-18)
+
+
+### Features
+
+* **kskeleton:** switch from not rendering to transparency ([#281](https://github.com/Kong/kongponents/issues/281)) ([2d44e2d](https://github.com/Kong/kongponents/commit/2d44e2dc3d23c295e55b92570e3c9faedbd959bf))
+
+
+
+
+
 ## [1.0.2](https://github.com/Kong/kongponents/compare/@kongponents/kskeleton@1.0.0...@kongponents/kskeleton@1.0.2) (2020-06-25)
 
 **Note:** Version bump only for package @kongponents/kskeleton
