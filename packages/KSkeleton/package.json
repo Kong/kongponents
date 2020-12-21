@@ -8,7 +8,8 @@
   "files": [
     "dist",
     "*.vue",
-    "index.js"
+    "index.js",
+    "kong-loader.gif"
   ],
   "repository": {
     "type": "git",
