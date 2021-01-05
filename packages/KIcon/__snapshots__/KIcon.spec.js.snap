@@ -294,6 +294,15 @@ exports[`KIcon renders services icon 1`] = `
 </svg>
 `;
 
+exports[`KIcon renders sharedConfig icon 1`] = `
+<svg height="19" width="19" viewBox="0 0 19 19" role="img" class="kong-icon kong-icon-sharedConfig">
+  <title>sharedConfig</title>
+  <g>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M9.09 12.85a4.002 4.002 0 01-2.18 0 3.988 3.988 0 01-.919 1.806 5.989 5.989 0 002.01.344 5.99 5.99 0 002.008-.344 3.988 3.988 0 01-.919-1.806zM13 15a2.99 2.99 0 01-2.026-.788 2.994 2.994 0 01-.941-1.766 3.001 3.001 0 011.963-3.274A3 3 0 1113 15zm-1.09-6.85a4.003 4.003 0 012.024-.04 5.994 5.994 0 00-2.162-3.776A4.006 4.006 0 0110.646 6a3.997 3.997 0 011.264 2.15zm-9.844-.04a4.01 4.01 0 012.024.04A3.997 3.997 0 015.354 6a4.006 4.006 0 01-1.126-1.666A5.994 5.994 0 002.066 8.11zM6 12a3 3 0 11-3.998-2.83A3 3 0 016 12zM8 0a3 3 0 00-2.906 3.75c.175.677.58 1.263 1.127 1.666a2.984 2.984 0 002.026.574A3 3 0 008 0z" fill="#7D91B3"></path>
+  </g>
+</svg>
+`;
+
 exports[`KIcon renders spinner icon 1`] = `
 <svg height="16" width="16" viewBox="0 0 16 16" role="img" class="kong-icon kong-icon-spinner">
   <title>spinner</title>
