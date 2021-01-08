@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/Kong/kongponents/compare/@kongponents/kicon@0.6.0...@kongponents/kicon@0.7.0) (2021-01-08)
+
+
+### Features
+
+* **KIcon:** add sharedConfig icon ([#285](https://github.com/Kong/kongponents/issues/285)) ([1f0ce23](https://github.com/Kong/kongponents/commit/1f0ce2374f1e773421ab4f7eaa4633beb66d0f4b))
+
+
+
+
+
 # [0.6.0](https://github.com/Kong/kongponents/compare/@kongponents/kicon@0.5.5...@kongponents/kicon@0.6.0) (2020-11-09)
 
 
