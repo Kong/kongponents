@@ -29,6 +29,7 @@ import search from './icn-search.svg'
 import security from './icn-security.svg'
 import services from './icn-services.svg'
 import serviceDocument from './icn-service-document.svg'
+import sharedConfig from './icn-shared-config.svg'
 import spinner from './icn-spinner.svg'
 import stackedCards from './icn-stacked-cards.svg'
 import support from './icn-support.svg'
@@ -71,6 +72,7 @@ export default {
   security,
   services,
   serviceDocument,
+  sharedConfig,
   spinner,
   stackedCards,
   support,
