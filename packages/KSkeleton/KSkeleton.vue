@@ -107,4 +107,10 @@ export default {
 .opacity-0 .box {
   opacity: 0;
 }
+.opacity-0 .kong-icon {
+  display: none;
+}
+.opacity-0.mr-2 {
+  margin-right: 0 !important;
+}
 </style>
