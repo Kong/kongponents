@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/Kong/kongponents/compare/@kongponents/kskeleton@1.2.0...@kongponents/kskeleton@1.2.1) (2021-01-22)
+
+
+### Bug Fixes
+
+* **kskeleton:** button spinner ([8c32f9c](https://github.com/Kong/kongponents/commit/8c32f9c948d65517137fd4779200c0d58fe9a729))
+
+
+
+
+
 # [1.2.0](https://github.com/Kong/kongponents/compare/@kongponents/kskeleton@1.0.2...@kongponents/kskeleton@1.2.0) (2020-12-18)
 
 
