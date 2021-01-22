@@ -161,6 +161,24 @@ This loading state is used for a spinner, which can be used for a wide variety o
 </template>
 ```
 
+## Button Loading State
+This loading state is used to show a spinner, while loading its content. There are no props for this state.
+
+<template>
+  <KButton @click="clickedButton" :disabled="loadingButton">
+    <KSkeleton v-if="loadingButton" type="spinner" class="mr-2" :delay-milliseconds="3000" />{{loadingButton ? 'Fetching' : 'Fetch'}}
+  </KButton>
+</template>
+
+```vue
+<template>
+  <KButton @click="clickedButton" :disabled="loadingButton">
+    <KSkeleton v-if="loadingButton" type="spinner" class="mr-2" :delay-milliseconds="3000" />{{loadingButton ? 'Fetching' : 'Fetch'}}
+  </KButton>
+</template>
+```
+
+
 ## Full Screen Loading State
 The full screen loading state is used to display a full screen loader typically 
 during initial render of an app to avoid any FOUC (Flash Of Unstyled Content) 
@@ -348,6 +366,7 @@ export default {
   data () {
     return {
       loading: false,
+      loadingButton: false,
       loadingManually: false,
       loadingTheming: false,
       progress: 0
@@ -378,6 +397,13 @@ export default {
       setTimeout(() => {
         this.loadingTheming = false
       }, 1000)
+    },
+
+    clickedButton() {
+      this.loadingButton = true
+      setTimeout(() => {
+        this.loadingButton = false
+      }, 5000)
     }
   }
 }
