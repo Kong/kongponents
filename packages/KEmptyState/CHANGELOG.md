@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.11](https://github.com/Kong/kongponents/compare/@kongponents/kemptystate@0.2.10...@kongponents/kemptystate@0.2.11) (2021-02-09)
+
+
+### Bug Fixes
+
+* **kempty:** use correct warning icon ([#289](https://github.com/Kong/kongponents/issues/289)) ([c0aa648](https://github.com/Kong/kongponents/commit/c0aa648b35b139b2fd9b0760ef47863c3ff391e5))
+
+
+
+
+
 ## [0.2.10](https://github.com/Kong/kongponents/compare/@kongponents/kemptystate@0.2.9...@kongponents/kemptystate@0.2.10) (2020-12-04)
 
 **Note:** Version bump only for package @kongponents/kemptystate
