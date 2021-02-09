@@ -10,6 +10,7 @@
 
 <script>
 export const appearances = {
+  default: 'default',
   success: 'success',
   danger: 'danger',
   warning: 'warning'
@@ -27,7 +28,7 @@ export default {
       validator: function (value) {
         return Object.keys({...appearances, 'custom': ''}).indexOf(value) !== -1
       },
-      default: 'custom'
+      default: 'default'
     },
 
     color: {
@@ -55,28 +56,32 @@ export default {
   font-size: var(--KBadgeFontSize, var(--type-sm, type(sm)));
   height: auto;
   text-align: center;
-  min-width: var(--KBadgeMinWidth, 71px);
   max-width: var(--KBadgeMaxWidth, 200px);
   width: var(--KBadgeWidth, auto);
-  padding: var(--KBadgePaddingY, 4px) var(--KBadgePaddingX, var(--spacing-xxs));
+  padding: var(--KBadgePaddingY, 2px) var(--KBadgePaddingX, var(--spacing-sm));
   font-family: var(--font-family-sans, font(sans));
-  border-radius: var(--KBadgeBorderRadius, 3px);
+  border-radius: var(--KBadgeBorderRadius, 25px);
 
   // Appearances
+  &.kbadge-default {
+    color: var(--KBadgeDefaultColor, var(--steel-600, color(steel-600)));
+    border-color: var(--KBadgeDefaultBorder, var(--steel-200, color(steel-200)));
+    background-color: var(--KBadgeDefaultBackground, var(--steel-200, color(steel-200)));
+  }
   &.kbadge-success {
     color: var(--KBadgeSuccessColor, var(--green-500, color(green-500)));
-    border-color: var(--KBadgeSuccessBorder, var(--green-100, color(green-100)));
-    background-color: var(--KBadgeSuccessBackground, var(--green-100, color(green-100)));
+    border-color: var(--KBadgeSuccessBorder, var(--green-200, color(green-200)));
+    background-color: var(--KBadgeSuccessBackground, var(--green-200, color(green-200)));
   }
   &.kbadge-danger {
-    color: var(--KBadgeDangerColor, var(--red-700, color(red-700)));
+    color: var(--KBadgeDangerColor, var(--red-600, color(red-600)));
     border-color: var(--KBadgeDangerBorder, var(--red-200, color(red-200)));
     background-color: var(--KBadgeDangerBackground, var(--red-200, color(red-200)));
   }
   &.kbadge-warning {
-    color: var(--KBadgeWarningColor, var(--yellow-400, color(yellow-400)));
-    border-color: var(--KBadgeWarningBorder, var(--yellow-100, color(yellow-100)));
-    background-color: var(--KBadgeWarningBackground, var(--yellow-100, color(yellow-100)));
+    color: var(--KBadgeWarningColor, var(--yellow-500, color(yellow-500)));
+    border-color: var(--KBadgeWarningBorder, var(--yellow-200, color(yellow-200)));
+    background-color: var(--KBadgeWarningBackground, var(--yellow-200, color(yellow-200)));
   }
 }
 </style>
