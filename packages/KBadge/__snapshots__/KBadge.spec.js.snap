@@ -1,10 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`KBadge defaults to default badge 1`] = `<div class="k-badge truncate kbadge-default">Hello!</div>`;
+
 exports[`KBadge handles custom colors 1`] = `<div class="k-badge truncate" style="background-color: red; color: white;">Hello!</div>`;
 
-exports[`KBadge matches snapshot 1`] = `<div class="k-badge truncate"></div>`;
+exports[`KBadge matches snapshot 1`] = `<div class="k-badge truncate kbadge-default"></div>`;
 
 exports[`KBadge renders KBadge with the danger appearance 1`] = `<div class="k-badge truncate kbadge-danger">danger</div>`;
+
+exports[`KBadge renders KBadge with the default appearance 1`] = `<div class="k-badge truncate kbadge-default">default</div>`;
 
 exports[`KBadge renders KBadge with the success appearance 1`] = `<div class="k-badge truncate kbadge-success">success</div>`;
 

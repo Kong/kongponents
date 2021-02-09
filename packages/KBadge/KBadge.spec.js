@@ -26,9 +26,21 @@ describe('KBadge', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 
+  it('defaults to default badge', () => {
+    const wrapper = mount(KBadge, {
+      slots: {
+        default: 'Hello!'
+      }
+    })
+
+    expect(wrapper.find('.k-badge-default')).toBeDefined()
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
   it('handles custom colors', () => {
     const wrapper = mount(KBadge, {
       propsData: {
+        appearance: 'custom',
         color: 'white',
         backgroundColor: 'red'
       },
