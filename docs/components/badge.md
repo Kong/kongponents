@@ -13,11 +13,12 @@ something.
 
 ### appearance
 
-The Button component can take 1 of 4 appearance values:
+The Button component can take the following appearance values:
 
 - `success`
 - `danger`
 - `warning`
+- `default`
 - `custom`
 
 <KBadge appearance="success">LOW</KBadge>
@@ -29,6 +30,7 @@ The Button component can take 1 of 4 appearance values:
 <KBadge appearance="success">HIGH</KBadge>
 <KBadge appearance="warning">MEDIUM</KBadge>
 <KBadge appearance="danger">LOW</KBadge>
+<KBadge>DEFAULT BADGE</KBadge>
 ```
 
 ### color, background-color
