@@ -80,7 +80,7 @@ Using the `custom` appearance in conjunction with `color` and `background-color`
 | `--KBadgeDangerBorder`      |                               |
 | `--KBadgeDangerBackground`  |                               |
 
-An example of making the badges more rad
+An example of theming the danger badge:
 
 > Note: We are scoping the overrides to a wrapper in this example
 
@@ -93,7 +93,7 @@ An example of making the badges more rad
 ```vue
 <template>
   <div class="KBadge-wrapper">
-    <KBadge appearance="danger">DANGER</KBadge>
+    <KBadge appearance="danger">DANGER - RADIOACTIVE MATERIAL</KBadge>
   </div>
 </template>
 
@@ -112,8 +112,8 @@ An example of making the badges more rad
 .KBadge-wrapper {
   --KBadgeBorderRadius: 3px;
   --KBadgePaddingX: var(--spacing-xxs);
-  --KBadgeDangerBackground: purple;
-  --KBadgeDangerColor: lime;
+  --KBadgeDangerBackground: rgb(222, 53, 11);
+  --KBadgeDangerColor: white;
   --KBadgeMaxWidth: auto;
 }
 </style>
