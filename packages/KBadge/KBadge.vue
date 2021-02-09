@@ -10,6 +10,7 @@
 
 <script>
 export const appearances = {
+  default: 'default',
   success: 'success',
   danger: 'danger',
   warning: 'warning'
@@ -27,7 +28,7 @@ export default {
       validator: function (value) {
         return Object.keys({...appearances, 'custom': ''}).indexOf(value) !== -1
       },
-      default: 'custom'
+      default: 'default'
     },
 
     color: {
@@ -57,11 +58,16 @@ export default {
   text-align: center;
   max-width: var(--KBadgeMaxWidth, 200px);
   width: var(--KBadgeWidth, auto);
-  padding: var(--KBadgePaddingY, 4px) var(--KBadgePaddingX, var(--spacing-xxs));
+  padding: var(--KBadgePaddingY, 2px) var(--KBadgePaddingX, var(--spacing-sm));
   font-family: var(--font-family-sans, font(sans));
   border-radius: var(--KBadgeBorderRadius, 3px);
 
   // Appearances
+  &.kbadge-default {
+    color: var(--KBadgeDefaultColor, var(--steel-600, color(steel-600)));
+    border-color: var(--KBadgeDefaultBorder, var(--steel-200, color(steel-200)));
+    background-color: var(--KBadgeDefaultBackground, var(--steel-200, color(steel-200)));
+  }
   &.kbadge-success {
     color: var(--KBadgeSuccessColor, var(--green-500, color(green-500)));
     border-color: var(--KBadgeSuccessBorder, var(--green-200, color(green-200)));

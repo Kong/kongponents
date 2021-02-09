@@ -23,6 +23,7 @@ The Button component can take 1 of 4 appearance values:
 <KBadge appearance="success">LOW</KBadge>
 <KBadge appearance="warning">MEDIUM</KBadge>
 <KBadge appearance="danger">HIGH</KBadge>
+<KBadge>DEFAULT BADGE</KBadge>
 
 ```vue
 <KBadge appearance="success">HIGH</KBadge>
@@ -77,34 +78,40 @@ Using the `custom` appearance in conjunction with `color` and `background-color`
 | `--KBadgeDangerBorder`      |                               |
 | `--KBadgeDangerBackground`  |                               |
 
-An example of making the badges more like pills
+An example of making the badges more rad
 
 > Note: We are scoping the overrides to a wrapper in this example
 
 <template>
   <div class="KBadge-wrapper">
-    <KBadge appearance="danger">HIGH</KBadge>
+    <KBadge appearance="danger">DANGER - RADIOACTIVE MATERIAL</KBadge>
   </div>
 </template>
 
 ```vue
 <template>
   <div class="KBadge-wrapper">
-    <KBadge appearance="danger">HIGH</KBadge>
+    <KBadge appearance="danger">DANGER</KBadge>
   </div>
 </template>
 
 <style>
 .KBadge-wrapper {
-  --KBadgeBorderRadius: 50px;
-  --KBadgePaddingX: 1rem;
+  --KBadgeBorderRadius: 3px;
+  --KBadgePaddingX: var(--spacing-xxs);
+  --KBadgeDangerBackground: purple;
+  --KBadgeDangerColor: lime;
+  --KBadgeMaxWidth: auto;
 }
 </style>
 ```
 
 <style lang="scss">
 .KBadge-wrapper {
-  --KBadgeBorderRadius: 50px;
-  --KBadgePaddingX: 1rem;
+  --KBadgeBorderRadius: 3px;
+  --KBadgePaddingX: var(--spacing-xxs);
+  --KBadgeDangerBackground: purple;
+  --KBadgeDangerColor: lime;
+  --KBadgeMaxWidth: auto;
 }
 </style>
