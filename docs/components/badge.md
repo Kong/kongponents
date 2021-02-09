@@ -97,6 +97,7 @@ An example of making the badges more like pills
 <style>
 .KBadge-wrapper {
   --KBadgeBorderRadius: 50px;
+  --KBadgePaddingX: 1rem;
 }
 </style>
 ```
@@ -104,5 +105,6 @@ An example of making the badges more like pills
 <style lang="scss">
 .KBadge-wrapper {
   --KBadgeBorderRadius: 50px;
+  --KBadgePaddingX: 1rem;
 }
 </style>
