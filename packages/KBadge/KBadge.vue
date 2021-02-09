@@ -60,7 +60,7 @@ export default {
   width: var(--KBadgeWidth, auto);
   padding: var(--KBadgePaddingY, 2px) var(--KBadgePaddingX, var(--spacing-sm));
   font-family: var(--font-family-sans, font(sans));
-  border-radius: var(--KBadgeBorderRadius, 3px);
+  border-radius: var(--KBadgeBorderRadius, 25px);
 
   // Appearances
   &.kbadge-default {
