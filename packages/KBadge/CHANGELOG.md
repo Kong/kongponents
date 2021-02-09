@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/Kong/kongponents/compare/@kongponents/kbadge@1.1.1...@kongponents/kbadge@2.0.0) (2021-02-09)
+
+
+* feat(badge)!: update styles, remove min width, add default (#288) ([5cd2c33](https://github.com/Kong/kongponents/commit/5cd2c33139ade749cf1cb52a9e5c235a0ecb188a)), closes [#288](https://github.com/Kong/kongponents/issues/288)
+
+
+### BREAKING CHANGES
+
+* default appearance updated
+
+
+
+
+
 ## [1.1.1](https://github.com/Kong/kongponents/compare/@kongponents/kbadge@1.1.0...@kongponents/kbadge@1.1.1) (2020-12-02)
 
 
