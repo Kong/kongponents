@@ -23,6 +23,7 @@ describe('KEmptyState', () => {
   })
 
   it('renders icon when error flag passed', () => {
+    const spy = jest.spyOn(console, 'error')
     const errorMessage = 'I got a bad feeling about this'
     const wrapper = mount(KEmptyState, {
       propsData: {
@@ -35,6 +36,7 @@ describe('KEmptyState', () => {
     })
 
     expect(wrapper.find('.warning-icon').exists()).toBe(true)
+    expect(spy).not.toHaveBeenCalledWith(expect.stringContaining('[Vue warn]')) // uses correct kicon
     expect(wrapper.find('.empty-state-content').html()).toEqual(expect.stringContaining(errorMessage))
   })
 

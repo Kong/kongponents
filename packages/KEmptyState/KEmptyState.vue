@@ -7,7 +7,7 @@
       >
         <KIcon
           :size="iconSize"
-          icon="warning2"
+          icon="warning"
           view-box="0 0 50 50" />
       </div>
       <h5>
