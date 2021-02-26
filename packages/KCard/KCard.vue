@@ -29,14 +29,14 @@ export default {
 
   props: {
     /**
-     * Pass title sting in if slot not used
+     * Pass title string in if slot not used
      */
     title: {
       type: String,
       default: ''
     },
     /**
-     * Pass body sting in if slot not used
+     * Pass body string in if slot not used
      */
     body: {
       type: String,
