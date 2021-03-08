@@ -155,6 +155,41 @@ Sets if card has shadow state (shadow)
   hasShadow/>
 ```
 
+### Side by side
+Cards can be arranged with flex box.
+
+<div class="d-flex flex-row">
+  <KCard
+    title="Left"
+    class="w-50"
+    body="This card only has a title"
+  />
+  <KCard
+    title="Right"
+    class="w-50"
+    body="This card always has a button"
+  >
+    <template slot="actions"><KButton href="#">View All</KButton></template>
+  </KCard>
+</div>
+
+```vue
+<div class="d-flex flex-row">
+  <KCard
+    title="Left"
+    class="w-50"
+    body="This card only has a title"
+  />
+  <KCard
+    title="Right"
+    class="w-50"
+    body="This card always has a button"
+  >
+    <template slot="actions"><KButton href="#">View All</KButton></template>
+  </KCard>
+</div>
+```
+
 ## Slots
 - `title`
 - `body`
