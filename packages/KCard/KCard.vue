@@ -95,6 +95,7 @@ export default {
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
+    min-height: 38px;
   }
 
   .k-card-title h4 {
