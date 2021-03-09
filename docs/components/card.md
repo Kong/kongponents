@@ -161,15 +161,31 @@ Cards can be arranged with flex box.
 <div class="d-flex flex-row">
   <KCard
     title="Left"
-    class="w-50"
+    class="w-auto"
     body="This card only has a title"
   />
   <KCard
+    title="Center"
+    class="w-auto"
+    body="This card always has a icon button"
+  >
+    <template slot="actions">
+      <KButton>
+        <KIcon
+            icon="gearFilled"
+            width="16px"
+            view-box="0 0 16 16"
+            class="pr-0"
+          />
+      </KButton>
+    </template>
+  </KCard>
+  <KCard
     title="Right"
-    class="w-50"
+    class="w-auto"
     body="This card always has a button"
   >
-    <template slot="actions"><KButton href="#">View All</KButton></template>
+    <template slot="actions"><KButton>View All</KButton></template>
   </KCard>
 </div>
 
@@ -177,15 +193,31 @@ Cards can be arranged with flex box.
 <div class="d-flex flex-row">
   <KCard
     title="Left"
-    class="w-50"
+    class="w-auto"
     body="This card only has a title"
   />
   <KCard
+    title="Center"
+    class="w-auto"
+    body="This card always has a icon button"
+  >
+    <template slot="actions">
+      <KButton>
+        <KIcon
+            icon="gearFilled"
+            width="16px"
+            view-box="0 0 16 16"
+            class="pr-0"
+          />
+      </KButton>
+    </template>
+  </KCard>
+  <KCard
     title="Right"
-    class="w-50"
+    class="w-auto"
     body="This card always has a button"
   >
-    <template slot="actions"><KButton href="#">View All</KButton></template>
+    <template slot="actions"><KButton>View All</KButton></template>
   </KCard>
 </div>
 ```
