@@ -166,7 +166,7 @@ Cards can be arranged with flex box.
   />
   <KCard
     title="Center"
-    class="w-auto"
+    class="w-auto mx-5"
     body="This card always has a icon button"
   >
     <template slot="actions">
@@ -198,7 +198,7 @@ Cards can be arranged with flex box.
   />
   <KCard
     title="Center"
-    class="w-auto"
+    class="w-auto mx-5"
     body="This card always has a icon button"
   >
     <template slot="actions">
