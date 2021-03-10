@@ -96,7 +96,7 @@ export default {
     align-items: center;
     margin-bottom: 1rem;
     min-height: 38px;
-    
+
     .k-button {
       min-height: 38px;
     }
