@@ -1,5 +1,6 @@
 import back from './icn-back.svg'
 import brain from './icn-brain.svg'
+import clipboard from './icn-clipboard.svg'
 import close from './icn-close.svg'
 import collapseExpand from './icn-collapse-expand.svg'
 import connections from './icn-connections.svg'
@@ -43,6 +44,7 @@ import workspacesCollapsed from './icn-collapse-workspaces.svg'
 export default {
   back,
   brain,
+  clipboard,
   close,
   collapseExpand,
   connections,
