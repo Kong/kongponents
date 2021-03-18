@@ -4,6 +4,7 @@ import clipboard from './icn-clipboard.svg'
 import close from './icn-close.svg'
 import collapseExpand from './icn-collapse-expand.svg'
 import connections from './icn-connections.svg'
+import copy from './icn-copy.svg'
 import dangerCircle from './icn-danger-circle.svg'
 import dashboard from './icn-dashboard.svg'
 import document from './icn-document.svg'
@@ -48,6 +49,7 @@ export default {
   close,
   collapseExpand,
   connections,
+  copy,
   dangerCircle,
   dashboard,
   document,
