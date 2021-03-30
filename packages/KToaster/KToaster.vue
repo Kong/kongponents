@@ -53,7 +53,6 @@ export default {
     order: 1;
     right: 0;
     padding: 0 0 0 1rem;
-    margin-left: 2rem;
     &:focus,
     &:active {
       outline: none;
