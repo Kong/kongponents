@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.11](https://github.com/Kong/kongponents/compare/@kongponents/ktoaster@1.1.10...@kongponents/ktoaster@1.1.11) (2021-03-31)
+
+
+### Bug Fixes
+
+* **KToaster:** remove left margin on close button ([#293](https://github.com/Kong/kongponents/issues/293)) ([45d9be5](https://github.com/Kong/kongponents/commit/45d9be5007dbe4f000dd35b794d03f4d6fe724ba))
+
+
+
+
+
 ## [1.1.10](https://github.com/Kong/kongponents/compare/@kongponents/ktoaster@1.1.9...@kongponents/ktoaster@1.1.10) (2021-03-19)
 
 **Note:** Version bump only for package @kongponents/ktoaster
