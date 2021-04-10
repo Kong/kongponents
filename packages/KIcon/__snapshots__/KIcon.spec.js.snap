@@ -23,6 +23,15 @@ exports[`KIcon renders brain icon 1`] = `
 </svg>
 `;
 
+exports[`KIcon renders check icon 1`] = `
+<svg height="14" width="14" viewBox="0 0 14 10" role="img" class="kong-icon kong-icon-check">
+  <title>check</title>
+  <g>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.67966 6.86538L11.2261 0.318978C11.634 -0.0889488 12.2957 -0.0885802 12.6995 0.315182L12.7909 0.40662C13.1967 0.812454 13.1898 1.47741 12.7868 1.88043L5.41865 9.24853C5.01051 9.65667 4.34285 9.65072 3.9479 9.25578L0.728185 6.03606C0.324048 5.63192 0.327503 4.97325 0.731265 4.56949L0.822671 4.47805C1.2285 4.07222 1.89164 4.07735 2.29742 4.48313L4.67966 6.86538Z" fill="#BFBFBF"></path>
+  </g>
+</svg>
+`;
+
 exports[`KIcon renders clipboard icon 1`] = `
 <svg height="32" width="32" viewBox="0 0 32 32" role="img" class="kong-icon kong-icon-clipboard">
   <title>clipboard</title>
