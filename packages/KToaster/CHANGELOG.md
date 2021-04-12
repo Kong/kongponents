@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.12](https://github.com/Kong/kongponents/compare/@kongponents/ktoaster@1.1.11...@kongponents/ktoaster@1.1.12) (2021-04-12)
+
+**Note:** Version bump only for package @kongponents/ktoaster
+
+
+
+
+
 ## [1.1.11](https://github.com/Kong/kongponents/compare/@kongponents/ktoaster@1.1.10...@kongponents/ktoaster@1.1.11) (2021-03-31)
 
 
