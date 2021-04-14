@@ -135,4 +135,8 @@ export default {
 .KRadio-wrapper {
   --KRadioPrimary: mediumpurple;
 }
+
+.k-radio {
+  margin-right: 10px;
+}
 </style>

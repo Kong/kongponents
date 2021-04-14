@@ -77,7 +77,7 @@ input.form-control {
     width: 20px;
     color: $primaryRadioColor;
     border-radius: 100%;
-    margin-right: 4px;
+    margin: 0 4px 0 0;
 
     &:checked {
       border-color: currentColor;

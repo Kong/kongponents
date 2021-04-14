@@ -120,6 +120,10 @@ like:
 .KCheckbox-wrapper {
   --KCheckboxPrimary: blueviolet;
 }
+
+.k-checkbox {
+  margin-right: 10px;
+}
 </style>
 
 <script>
