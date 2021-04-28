@@ -58,8 +58,8 @@ Will place label text to the right of the input. Can also be [slotted](#slots).
 ```
 
 <KCard>
-  <KCheckbox slot="body" v-model="labelPropChecked1" :label="labelPropChecked1 ? 'on' : 'off'" /> 
-  <KCheckbox slot="body" v-model="labelPropChecked2" :label="labelPropChecked2 ? 'on' : 'off'" />
+  <KCheckbox class="mr-3" slot="body" v-model="labelPropChecked1" :label="labelPropChecked1 ? 'on' : 'off'" /> 
+  <KCheckbox class="mr-3" slot="body" v-model="labelPropChecked2" :label="labelPropChecked2 ? 'on' : 'off'" />
   <KCheckbox slot="body" v-model="labelPropChecked3" :label="labelPropChecked3 ? 'on' : 'off'" />
 </KCard>
 
@@ -81,10 +81,29 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 - `default` - Anything passed in to the default slot will replace the label prop text
 
 ```vue
-<KCheckbox v-model="checked">
-  Label goes here. The checkbox is {{ checked ? 'checked' : 'not checked' }}
-  </KCheckbox>
+<KCheckbox v-model="checkbox1">
+  Label goes here. The checkbox is {{ checkbox1 ? 'checked' : 'not checked' }}
+</KCheckbox>
+
+<KCheckbox v-model="checkbox2">
+  I agree to the <a :href="privacyPolicyURL">privacy policy</a>.
+</KCheckbox>
 ```
+
+<KCard>
+  <template slot="body">
+    <div class="mb-2">
+      <KCheckbox v-model="slots1">
+        Label goes here. The checkbox is {{ slots1 ? 'checked' : 'not checked' }}
+      </KCheckbox>
+    </div>
+    <div>
+      <KCheckbox v-model="slot2">
+        I agree to the <a href="#slots">privacy policy</a>.
+      </KCheckbox>
+    </div>
+  </template>
+</KCard>
 
 ## Theming
 | Variable | Purpose
@@ -120,10 +139,6 @@ like:
 .KCheckbox-wrapper {
   --KCheckboxPrimary: blueviolet;
 }
-
-.k-checkbox {
-  margin-right: 10px;
-}
 </style>
 
 <script>
@@ -134,7 +149,9 @@ export default {
       labelPropChecked2: false,
       labelPropChecked3: false,
       defaultChecked: false,
-      themeChecked: true
+      themeChecked: true,
+      slots1: true,
+      slots2: false
     }
   }
 }
