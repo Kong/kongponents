@@ -31,8 +31,8 @@
           <td
             v-for="(value, index) in options.headers"
             :key="index"
-            v-on="tdlisteners(row[value.key], 'cell')"
-            v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })">
+            v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
+            v-on="tdlisteners(row[value.key], 'cell')">
             <slot
               :name="value.key"
               :row="row"
