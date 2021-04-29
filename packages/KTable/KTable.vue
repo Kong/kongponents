@@ -31,7 +31,8 @@
           <td
             v-for="(value, index) in options.headers"
             :key="index"
-            v-on="tdlisteners(row[value.key], 'cell')">
+            v-on="tdlisteners(row[value.key], 'cell')"
+            v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })">
             <slot
               :name="value.key"
               :row="row"
@@ -186,6 +187,13 @@ export default {
     hasSideBorder: {
       type: Boolean,
       default: true
+    },
+    /**
+     * A function that conditionally specifies cell attributes
+     */
+    cellAttrs: {
+      type: Function,
+      default: () => ({})
     }
   },
 
