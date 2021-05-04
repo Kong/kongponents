@@ -199,11 +199,9 @@ export default {
 
 Add custom properties to individual table cells or groups of cells. The cell attributes object is passed as a param.
 
-### `cellAttrs` Description
+`cellAttrs` - A function that returns an object comprising the attributes.
 
-A function that returns an object comprising the attributes.
-
-### `cellAttrs` Function Parameters
+**Parameters**
 
 | Parameter | Description
 |:-------- |:-------
@@ -304,7 +302,7 @@ export default {
           'truncate': headerKey === 'description' || headerKey === 'name',
         },
         'datatest-id': `row-${rowIndex + 1}-col-${headerKey}`,
-        style : {
+        style: {
           'maxWidth': colWidth(),
           'backgroundColor': backgroundColor(),
         },
@@ -901,7 +899,7 @@ export default {
           'truncate': headerKey === 'description' || headerKey === 'name',
         },
         'datatest-id': `row-${rowIndex + 1}-col-${headerKey}`,
-        style : {
+        style: {
           'maxWidth': colWidth(),
           'backgroundColor': backgroundColor(),
         },
