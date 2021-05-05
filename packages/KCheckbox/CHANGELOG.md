@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.5](https://github.com/Kong/kongponents/compare/@kongponents/kcheckbox@0.2.4...@kongponents/kcheckbox@0.2.5) (2021-05-05)
+
+
+### Bug Fixes
+
+* **KCheckbox:** wrap label slot in span ([#298](https://github.com/Kong/kongponents/issues/298)) ([d9460b2](https://github.com/Kong/kongponents/commit/d9460b25220795cf75bdc83e640cfe0e78873423))
+
+
+
+
+
 ## [0.2.4](https://github.com/Kong/kongponents/compare/@kongponents/kcheckbox@0.2.3...@kongponents/kcheckbox@0.2.4) (2021-04-20)
 
 **Note:** Version bump only for package @kongponents/kcheckbox
