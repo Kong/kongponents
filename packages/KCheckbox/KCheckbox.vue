@@ -6,9 +6,9 @@
       type="checkbox"
       class="k-input"
       v-on="listeners">
-    <slot>
-      <span>{{ label }}</span>
-    </slot>
+    <span>
+      <slot>{{ label }}</slot>
+    </span>
   </label>
 </template>
 
