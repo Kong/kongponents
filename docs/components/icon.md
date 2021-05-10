@@ -76,6 +76,83 @@ You can read more about the viewBox attribute
 <KIcon icon="portal" viewBox="0 0 10 10" />
 ```
 
+
+## Slots
+- `svgElements` - Used to add svg customization elements
+
+<KIcon icon="check" size="50" color="url('#linear-gradient')">
+  <template slot="svgElements">
+    <defs>
+      <linearGradient id="linear-gradient" x1="0" x2="1">
+        <stop offset="0%" stop-color="#16BDCC" />
+        <stop offset="30%" stop-color="#16BDCC" />
+        <stop offset="100%" stop-color="#1BC263" />
+      </linearGradient>
+    </defs>
+  </template>
+</KIcon>
+
+<KIcon icon="services" size="50" color="url('#linear-gradient2')">
+  <template slot="svgElements">
+    <defs>
+      <linearGradient id="linear-gradient2" gradientTransform="rotate(90)">
+        <stop offset="10%"  stop-color="gold" />
+        <stop offset="90%" stop-color="red" />
+      </linearGradient>
+    </defs>
+  </template>
+</KIcon>
+
+<KIcon icon="gear" size="50" color="dark-grey">
+  <template slot="svgElements">
+    <animateTransform
+      attributeName="transform"
+      type="rotate"
+      from="0 0 0"
+      to="360 0 0"
+      dur="5s"
+      repeatCount="indefinite"
+    />
+  </template>
+</KIcon>
+
+```vue
+<KIcon icon="check" size="50" color="url('#linear-gradient')">
+  <template slot="svgElements">
+    <defs>
+      <linearGradient id="linear-gradient" x1="0" x2="1">
+        <stop offset="0%" stop-color="#16BDCC" />
+        <stop offset="30%" stop-color="#16BDCC" />
+        <stop offset="100%" stop-color="#1BC263" />
+      </linearGradient>
+    </defs>
+  </template>
+</KIcon>
+
+<KIcon icon="services" size="50" color="url('#linear-gradient2')">
+  <template slot="svgElements">
+    <defs>
+      <linearGradient id="linear-gradient2" gradientTransform="rotate(90)">
+        <stop offset="10%"  stop-color="gold" />
+        <stop offset="90%" stop-color="red" />
+      </linearGradient>
+    </defs>
+  </template>
+</KIcon>
+
+<KIcon icon="gear" size="50" color="dark-grey">
+  <template slot="svgElements">
+    <animateTransform
+      attributeName="transform"
+      type="rotate"
+      from="0 0 0"
+      to="360 0 0"
+      dur="5s"
+      repeatCount="indefinite"
+    />
+  </template>
+</KIcon>
+```
 ## Usage
 :::warning
 KIcon imports .svg file types directly, so a loader is needed in order to render in your application such as the webpack
