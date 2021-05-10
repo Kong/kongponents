@@ -98,7 +98,7 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
       </KCheckbox>
     </div>
     <div>
-      <KCheckbox v-model="slot2">
+      <KCheckbox v-model="slots2">
         I agree to the <a href="#slots">privacy policy</a>.
       </KCheckbox>
     </div>
