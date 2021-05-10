@@ -282,19 +282,6 @@ export default {
       }
 
       /**
-       * Sets cell max-width based on the column headerKey
-       */
-      const colWidth = () => {
-        if (headerKey === 'description') {
-          return '50ch'
-        } else if (headerKey === 'name') {
-          return '22ch'
-        }
-
-        return '25ch'
-      }
-
-      /**
        * Returns an object of attributes to be applied to cells
        */
       return {
@@ -303,7 +290,7 @@ export default {
         },
         'datatest-id': `row-${rowIndex + 1}-col-${headerKey}`,
         style: {
-          'maxWidth': colWidth(),
+          'maxWidth': headerKey==='description' ? '50ch' : headerKey === 'name' ? '22ch' : '25ch',
           'backgroundColor': backgroundColor(),
         },
       }
@@ -879,19 +866,6 @@ export default {
       }
 
       /**
-       * Sets cell max-width based on the column headerKey
-       */
-      const colWidth = () => {
-        if (headerKey === 'description') {
-          return '50ch'
-        } else if (headerKey === 'name') {
-          return '22ch'
-        }
-
-        return '25ch'
-      }
-
-      /**
        * Returns an object of attributes to be applied to cells
        */
       return {
@@ -900,7 +874,7 @@ export default {
         },
         'datatest-id': `row-${rowIndex + 1}-col-${headerKey}`,
         style: {
-          'maxWidth': colWidth(),
+          'maxWidth': headerKey==='description' ? '50ch' : headerKey === 'name' ? '22ch' : '25ch',
           'backgroundColor': backgroundColor(),
         },
       }
