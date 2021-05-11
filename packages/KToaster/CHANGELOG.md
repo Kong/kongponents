@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/Kong/kongponents/compare/@kongponents/ktoaster@1.1.12...@kongponents/ktoaster@1.2.0) (2021-05-11)
+
+
+### Features
+
+* **KIcon:** add svgElements slot ([#302](https://github.com/Kong/kongponents/issues/302)) ([17fc9c5](https://github.com/Kong/kongponents/commit/17fc9c537027a301780e5946e43e3c0eaeb6a159))
+
+
+
+
+
 ## [1.1.12](https://github.com/Kong/kongponents/compare/@kongponents/ktoaster@1.1.11...@kongponents/ktoaster@1.1.12) (2021-04-12)
 
 **Note:** Version bump only for package @kongponents/ktoaster

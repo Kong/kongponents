@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/Kong/kongponents/compare/@kongponents/kicon@0.8.0...@kongponents/kicon@0.9.0) (2021-05-11)
+
+
+### Features
+
+* **KIcon:** add svgElements slot ([#302](https://github.com/Kong/kongponents/issues/302)) ([17fc9c5](https://github.com/Kong/kongponents/commit/17fc9c537027a301780e5946e43e3c0eaeb6a159))
+
+
+
+
+
 # [0.8.0](https://github.com/Kong/kongponents/compare/@kongponents/kicon@0.7.1...@kongponents/kicon@0.8.0) (2021-04-12)
 
 
