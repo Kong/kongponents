@@ -12,7 +12,7 @@ jobs:
        matrix:
         node-version: [12.x, 14.x]
         include:
-        - node: 16
+        - node-version: 16.x
           experimental: true
     steps:
     - uses: actions/checkout@v1
