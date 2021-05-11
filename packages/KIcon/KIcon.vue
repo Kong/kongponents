@@ -9,6 +9,7 @@
     role="img"
   >
     <title>{{ title || icon }}</title>
+    <slot name="svgElements"/>
     <g>
       <path
         v-for="(path, idx) in paths"
