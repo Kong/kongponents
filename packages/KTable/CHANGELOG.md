@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/Kong/kongponents/compare/@kongponents/ktable@2.0.1...@kongponents/ktable@2.1.0) (2021-05-12)
+
+
+### Features
+
+* **KTable:** add cellAttrs prop for customization ([#301](https://github.com/Kong/kongponents/issues/301)) ([eba5a63](https://github.com/Kong/kongponents/commit/eba5a6335316b0eafddad2c04d7349ba4d7b3874))
+
+
+
+
+
 ## [2.0.1](https://github.com/Kong/kongponents/compare/@kongponents/ktable@2.0.0...@kongponents/ktable@2.0.1) (2020-11-03)
 
 **Note:** Version bump only for package @kongponents/ktable
