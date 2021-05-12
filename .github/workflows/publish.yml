@@ -8,9 +8,11 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
-       matrix:
+      matrix:
         node: [12.x, 14.x]
+        experimental: [false]
         include:
           - node: 16.x
             experimental: true
