@@ -10,16 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
        matrix:
-        node-version: [12.x, 14.x]
+        node: [12.x, 14.x]
         include:
-        - node-version: 16.x
-          experimental: true
+          - node: 16.x
+            experimental: true
     steps:
     - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js ${{ matrix.node }}
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: ${{ matrix.node }}
     - name: install and lint
       run: |
         yarn
