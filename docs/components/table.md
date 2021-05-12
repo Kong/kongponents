@@ -195,6 +195,110 @@ export default {
 </style>
 ```
 
+## Cell Attributes
+
+Add custom properties to individual table cells or groups of cells. The cell attributes object is passed as a param.
+
+`cellAttrs` - A function that returns an object comprising the attributes.
+
+**Parameters**
+
+| Parameter | Description
+|:-------- |:-------
+| `headerKey`| The header key of the column containing the cell
+| `row` | The contents of the row containing the cell
+| `rowIndex` | The zero-based index of the row containing the cell
+| `colIndex`| The zero-based index of the cell within a row
+
+<template>
+  <KTable
+    :options="tableOptionsCellAttrs"
+    :cellAttrs="cellAttrsFn"
+    />
+</template>
+
+```vue
+<template>
+  <KTable
+    :options="tableOptions"
+    :cellAttrs="cellAttrsFn"
+    />
+</template>
+<script>
+export default {
+  data() {
+    return {
+      row: null,
+      eventType: '',
+      tableOptions: {
+        headers: [
+          { label: 'Name', key: 'name' },
+          { label: 'Company', key: 'company' },
+          { label: 'Description', key: 'description' }
+        ],
+        data: [
+          {
+            name: 'SageMaker',
+            company: 'Amazon',
+            description: 'Amazon SageMaker is a fully-managed service that enables developers and data scientists to quickly and easily build, train, and deploy machine learning models at any scale. Amazon SageMaker removes all the barriers that typically slow down developers who want to use machine learning.',
+          },
+          {
+            name: 'Azure Machine Learning Studio',
+            company: 'Microsoft',
+            description: 'Azure Machine Learning Studio is a GUI-based integrated development environment for constructing and operationalizing Machine Learning workflow on Azure.',
+          },
+          {
+            name: 'IBM Watson Machine Learning',
+            company: 'IBM',
+            description: 'IBM Watson Studio accelerates the machine and deep learning workflows required to infuse AI into your business to drive innovation.',
+          },
+          {
+            name: 'TensorFlow',
+            company: 'Google',
+            description: 'TensorFlow is an open source software library for numerical computation using data flow graphs.',
+          },
+        ]
+      }
+    }
+  },
+  methods: {
+    cellAttrsFn ({ headerKey, row, rowIndex, colIndex }) {
+      /**
+       * Sets cell background color based on data returned in
+       * the row parameter and the index of the cell
+       */
+      const backgroundColor = () => {
+        if (row.company && row.company === 'Google') {
+          if (colIndex === 0) {
+            return '#4285F4'
+          } else if (colIndex === 1) {
+            return '#DB4437'
+          } else {
+            return '#F4B400'
+          }
+        }
+
+        return ''
+      }
+
+      /**
+       * Returns an object of attributes to be applied to cells
+       */
+      return {
+        class: {
+          'truncate': headerKey === 'description' || headerKey === 'name',
+        },
+        'datatest-id': `row-${rowIndex + 1}-col-${headerKey}`,
+        style: {
+          'maxWidth': headerKey==='description' ? '50ch' : headerKey === 'name' ? '22ch' : '25ch',
+          'backgroundColor': backgroundColor(),
+        },
+      }
+    }
+  }
+}
+</script>
+```
 ## Events
 Bind any DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to
 various parts of the table. We support events on both table rows and cells in addition to click elements inside a row (ie. buttons or hyperlinks) without triggering the a row or cell event. You can also add logic to check for `metakey` to support cmd/ctrl when clicking. Examples highlighted below.
@@ -673,6 +777,35 @@ export default {
           { company: { href: 'http://www.bose.com', label: 'Bose'} },
           { company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'} }
         ]
+      },
+      tableOptionsCellAttrs: {
+        headers: [
+          { label: 'Name', key: 'name' },
+          { label: 'Company', key: 'company' },
+          { label: 'Description', key: 'description' }
+        ],
+        data: [
+          {
+            name: 'SageMaker',
+            company: 'Amazon',
+            description: 'Amazon SageMaker is a fully-managed service that enables developers and data scientists to quickly and easily build, train, and deploy machine learning models at any scale. Amazon SageMaker removes all the barriers that typically slow down developers who want to use machine learning.',
+          },
+          {
+            name: 'Azure Machine Learning Studio',
+            company: 'Microsoft',
+            description: 'Azure Machine Learning Studio is a GUI-based integrated development environment for constructing and operationalizing Machine Learning workflow on Azure.',
+          },
+          {
+            name: 'IBM Watson Machine Learning',
+            company: 'IBM',
+            description: 'IBM Watson Studio accelerates the machine and deep learning workflows required to infuse AI into your business to drive innovation.',
+          },
+          {
+            name: 'TensorFlow',
+            company: 'Google',
+            description: 'TensorFlow is an open source software library for numerical computation using data flow graphs.',
+          },
+        ]
       }
     }
   },
@@ -712,7 +845,40 @@ export default {
         'data-testid': 'row-item'
       }
     },
-    defaultSorter
+    defaultSorter,
+    cellAttrsFn ({ headerKey, row, rowIndex, colIndex }) {
+      /**
+       * Sets cell background color based on data returned in
+       * the row parameter and the index of the cell
+       */
+      const backgroundColor = () => {
+        if (row.company && row.company === 'Google') {
+          if (colIndex === 0) {
+            return '#4285F4'
+          } else if (colIndex === 1) {
+            return '#DB4437'
+          } else {
+            return '#F4B400'
+          }
+        }
+
+        return ''
+      }
+
+      /**
+       * Returns an object of attributes to be applied to cells
+       */
+      return {
+        class: {
+          'truncate': headerKey === 'description' || headerKey === 'name',
+        },
+        'datatest-id': `row-${rowIndex + 1}-col-${headerKey}`,
+        style: {
+          'maxWidth': headerKey==='description' ? '50ch' : headerKey === 'name' ? '22ch' : '25ch',
+          'backgroundColor': backgroundColor(),
+        },
+      }
+    }
   }
 }
 </script>
