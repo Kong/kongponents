@@ -257,6 +257,15 @@ exports[`KIcon renders notificationBell icon 1`] = `
 </svg>
 `;
 
+exports[`KIcon renders pencil icon 1`] = `
+<svg height="13" width="13" viewBox="0 0 13 12" role="img" class="kong-icon kong-icon-pencil">
+  <title>pencil</title>
+  <g>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M12.813 2l-2-2-2 2 2 2 2-2zm-9 9l6-6-2-2-6 6-1 3 3-1z" fill="#A3B6D9"></path>
+  </g>
+</svg>
+`;
+
 exports[`KIcon renders people icon 1`] = `
 <svg height="18" width="18" viewBox="0 0 18 15" role="img" class="kong-icon kong-icon-people">
   <title>people</title>
@@ -281,6 +290,15 @@ exports[`KIcon renders profile icon 1`] = `
   <title>profile</title>
   <g>
     <path d="M12 0c6.627417 0 12 5.372583 12 12s-5.372583 12-12 12S0 18.627417 0 12 5.372583 0 12 0zm.5 18h-1c-1.89844585 0-3.52231553 1.1756003-4.18333865 2.8385306C8.71442012 21.5798521 10.3081447 22 12 22c1.6918553 0 3.2855799-.4201479 4.6825277-1.1617979l.0613831.1617114C16.1261318 19.2521701 14.4592959 18 12.5 18zM12 2C6.4771525 2 2 6.4771525 2 12c0 3.041301 1.35767114 5.7655009 3.4999962 7.5995824C6.42573925 17.4804809 8.53997721 16 11 16h2c2.4600228 0 4.5742607 1.4804809 5.500341 3.5990697C20.6423289 17.7655009 22 15.041301 22 12c0-5.5228475-4.4771525-10-10-10zm0 2c2.209139 0 4 1.790861 4 4v2c0 2.209139-1.790861 4-4 4s-4-1.790861-4-4V8c0-2.209139 1.790861-4 4-4zm0 2c-1.0543618 0-1.9181651.81587779-1.9945143 1.85073766L10 8v2c0 1.1045695.8954305 2 2 2 1.0543618 0 1.9181651-.8158778 1.9945143-1.8507377L14 10V8c0-1.1045695-.8954305-2-2-2z" fill="#A4BBCB" fill-rule="evenodd"></path>
+  </g>
+</svg>
+`;
+
+exports[`KIcon renders redo icon 1`] = `
+<svg height="17" width="17" viewBox="0 0 17 14" role="img" class="kong-icon kong-icon-redo">
+  <title>redo</title>
+  <g>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M12.466 12.06a6.868 6.868 0 112.196-5.676l.85-.85a.847.847 0 011.201-.017c.327.327.315.869-.017 1.2L14.233 9.18c-.342.342-.88.35-1.208.023L10.654 6.83c-.324-.324-.314-.859.028-1.2.34-.34.881-.348 1.2-.029l.847.846a4.938 4.938 0 10-1.63 4.245l1.367 1.367z" fill="#A3B6D9"></path>
   </g>
 </svg>
 `;

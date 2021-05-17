@@ -26,6 +26,7 @@ following list. It tells KIcon which svg to render.
           class="icon-cell"
           :class="{ hasBg: isToggled }">
           <KIcon
+            size="24"
             :icon="icon"
             :color="(icon === 'info' || icon === 'spinner') ? '#A3BBCC' : ''" />
           <span>{{ icon }}</span>

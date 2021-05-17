@@ -25,13 +25,15 @@ import immunity from './icn-immunity.svg'
 import info from './icn-info.svg'
 import lock from './icn-lock.svg'
 import notificationBell from './icn-notification-bell.svg'
+import pencil from './icn-pencil.svg'
 import people from './icn-people.svg'
 import portal from './icn-portal.svg'
 import profile from './icn-profile.svg'
+import redo from './icn-redo.svg'
 import search from './icn-search.svg'
 import security from './icn-security.svg'
-import services from './icn-services.svg'
 import serviceDocument from './icn-service-document.svg'
+import services from './icn-services.svg'
 import sharedConfig from './icn-shared-config.svg'
 import spinner from './icn-spinner.svg'
 import stackedCards from './icn-stacked-cards.svg'
@@ -71,13 +73,15 @@ export default {
   info,
   lock,
   notificationBell,
+  pencil,
   people,
   portal,
   profile,
+  redo,
   search,
   security,
-  services,
   serviceDocument,
+  services,
   sharedConfig,
   spinner,
   stackedCards,
