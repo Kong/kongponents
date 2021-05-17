@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0](https://github.com/Kong/kongponents/compare/@kongponents/kicon@0.9.0...@kongponents/kicon@0.10.0) (2021-05-17)
+
+
+### Features
+
+* **kicon:** add redo, pencil icon ([#305](https://github.com/Kong/kongponents/issues/305)) ([98cb0b4](https://github.com/Kong/kongponents/commit/98cb0b4244365f34e6f3830be25f7411272844cd))
+
+
+
+
+
 # [0.9.0](https://github.com/Kong/kongponents/compare/@kongponents/kicon@0.8.0...@kongponents/kicon@0.9.0) (2021-05-11)
 
 
