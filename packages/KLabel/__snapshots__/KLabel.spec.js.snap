@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KLabel renders a tooltip when \`help\` is provided 1`] = `<label class="k-input-label" help="This is a tooltip">Full Name</label>`;
+
+exports[`KLabel renders a tooltip when \`info\` is provided 1`] = `<label class="k-input-label" info="This is a tooltip">Full Name</label>`;

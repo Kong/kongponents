@@ -49,6 +49,7 @@ module.exports = {
               '/components/icon',
               '/components/inline-edit',
               '/components/input',
+              '/components/label',
               '/components/modal',
               '/components/multiselect',
               '/components/popover',
