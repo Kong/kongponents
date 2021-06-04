@@ -3,7 +3,9 @@
     v-if="$attrs.disabled !== undefined && disabledTooltipText"
     :label="disabledTooltipText"
   >
-    <label class="k-switch">
+    <label
+      v-bind="$attrs"
+      class="k-switch">
       <input
         :checked="value"
         v-bind="$attrs"
