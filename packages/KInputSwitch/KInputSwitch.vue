@@ -1,5 +1,24 @@
 <template>
-  <label class="k-switch">
+  <KoolTip
+    v-if="$attrs.disabled !== undefined && disabledTooltipText"
+    :label="disabledTooltipText"
+  >
+    <label class="k-switch">
+      <input
+        :checked="value"
+        v-bind="$attrs"
+        type="checkbox"
+        v-on="listeners">
+      <div class="switch-control"/>
+      <span v-if="label || $scopedSlots.label">
+        <slot name="label">{{ label }}</slot>
+      </span>
+    </label>
+  </KoolTip>
+
+  <label
+    v-else
+    class="k-switch">
     <input
       :checked="value"
       v-bind="$attrs"
@@ -13,8 +32,11 @@
 </template>
 
 <script>
+import KoolTip from '@kongponents/kooltip/KoolTip.vue'
+
 export default {
   name: 'KInputSwitch',
+  components: { KoolTip },
   props: {
     /**
      * Sets whether or not toggle is checked
@@ -29,6 +51,14 @@ export default {
      * Overrides default on/off label text
      */
     label: {
+      type: String,
+      default: ''
+    },
+
+    /**
+     * Tooltip text to be displayed if the switch is disabled
+     */
+    disabledTooltipText: {
       type: String,
       default: ''
     }

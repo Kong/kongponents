@@ -41,7 +41,7 @@ state of toggle switch. You can read more about passing values via `v-model`
 
 ### label
 
-Will place label text to the right of the switch. Can also be [slotted](#slots). You can also add `disabled` to the input to disallow interactivity. 
+Will place label text to the right of the switch. Can also be [slotted](#slots).  
 
 - `label`
 
@@ -51,11 +51,29 @@ Will place label text to the right of the switch. Can also be [slotted](#slots).
 
 <KInputSwitch v-model="labelPropChecked" :label="labelPropChecked ? 'on' : 'off'" />
 
+### disabled
+
+You can add `disabled` to the input to disallow interactivity.
+
+- `disabled`
+
 ```vue
 <KInputSwitch v-model="checked" label="disabled" disabled />
 ```
 
 <KInputSwitch v-model="labelPropChecked" label="disabled" disabled />
+
+### disabledTooltipText
+
+You can specify tooltip text to be displayed when the switch is disabled.
+
+- `disabledTooltipText`
+
+```vue
+<KInputSwitch v-model="checked" label="disabled" disabled disabledTooltipText="I'm disabled!" />
+```
+
+<KInputSwitch v-model="labelPropChecked" label="disabled" disabled disabledTooltipText="I'm disabled!" />
 
 ## Slots
 
