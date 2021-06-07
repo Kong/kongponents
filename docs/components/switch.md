@@ -70,10 +70,20 @@ You can specify tooltip text to be displayed when the switch is disabled.
 - `disabledTooltipText`
 
 ```vue
-<KInputSwitch v-model="checked" label="disabled" disabled disabledTooltipText="I'm disabled!" />
+<KInputSwitch 
+  v-model="checked" 
+  label="disabled" 
+  disabled 
+  disabledTooltipText="I'm disabled!" 
+/>
 ```
 
-<KInputSwitch v-model="labelPropChecked" label="disabled" disabled disabledTooltipText="I'm disabled!" />
+<KInputSwitch 
+  v-model="labelPropChecked" 
+  label="disabled" 
+  disabled 
+  disabledTooltipText="I'm disabled!" 
+/>
 
 ## Slots
 
