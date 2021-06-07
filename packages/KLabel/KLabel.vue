@@ -11,7 +11,7 @@
         height="16"
         width="16"
         view-box="0 0 16 16"
-      />
+        hide-title />
     </Kooltip>
     <KoolTip
       v-else-if="props.info"
@@ -24,7 +24,7 @@
         height="16"
         width="16"
         color="black"
-      />
+        hide-title />
     </Kooltip>
     <slot v-else />
   </label>

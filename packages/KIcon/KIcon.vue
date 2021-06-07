@@ -8,7 +8,7 @@
     class="kong-icon"
     role="img"
   >
-    <title>{{ title || icon }}</title>
+    <title v-if="!hideTitle">{{ title || icon }}</title>
     <slot name="svgElements"/>
     <g>
       <path
@@ -69,6 +69,13 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    /**
+     * Optional - Prevents title from being shown on hover. Used by KoolTip
+     */
+    hideTitle: {
+      type: Boolean,
+      default: false
     }
   },
 
