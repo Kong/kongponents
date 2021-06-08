@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/Kong/kongponents/compare/@kongponents/styles@3.0.1...@kongponents/styles@3.1.0) (2021-06-08)
+
+
+### Features
+
+* **klabel:** add help property with icon + tooltip ([#306](https://github.com/Kong/kongponents/issues/306)) ([d6b86d1](https://github.com/Kong/kongponents/commit/d6b86d109712a87da80434270c5cf1fe7ec19e1b))
+
+
+
+
+
 ## [3.0.1](https://github.com/Kong/kongponents/compare/@kongponents/styles@3.0.0...@kongponents/styles@3.0.1) (2021-04-14)
 
 **Note:** Version bump only for package @kongponents/styles

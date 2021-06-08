@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/Kong/kongponents/compare/@kongponents/kicon@0.10.0...@kongponents/kicon@0.11.0) (2021-06-08)
+
+
+### Features
+
+* **klabel:** add help property with icon + tooltip ([#306](https://github.com/Kong/kongponents/issues/306)) ([d6b86d1](https://github.com/Kong/kongponents/commit/d6b86d109712a87da80434270c5cf1fe7ec19e1b))
+
+
+
+
+
 # [0.10.0](https://github.com/Kong/kongponents/compare/@kongponents/kicon@0.9.0...@kongponents/kicon@0.10.0) (2021-05-17)
 
 
