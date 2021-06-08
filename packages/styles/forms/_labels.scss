@@ -6,6 +6,15 @@
   font-size: var(--KInputLabelSize, var(--type-sm, type(sm)));
   line-height: var(--KInputLabelLineHeight, var(--type-lg, type(lg)));
   margin-bottom: var(--KInputLabelMargin, var(--spacing-xs, spacing(xs)));
+
+  .label-tooltip {
+    display: flex;
+    align-items: center;
+  }
+
+  .kong-icon {
+    margin-left: var(--spacing-xxs);
+  }
 }
 
 .k-inputCheckbox,
