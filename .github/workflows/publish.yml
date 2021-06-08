@@ -12,10 +12,6 @@ jobs:
     strategy:
       matrix:
         node: [12.x, 14.x]
-        experimental: [false]
-        include:
-          - node: 16.x
-            experimental: true
     steps:
     - uses: actions/checkout@v1
     - name: Use Node.js ${{ matrix.node }}
