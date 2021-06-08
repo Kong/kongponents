@@ -23,7 +23,6 @@
         icon="info"
         height="16"
         width="16"
-        color="black"
         hide-title />
     </Kooltip>
     <slot v-else />
