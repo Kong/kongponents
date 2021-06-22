@@ -85,6 +85,26 @@ You can specify tooltip text to be displayed when the switch is disabled.
   disabledTooltipText="I'm disabled!"
 />
 
+### enabledIcon
+
+Display a check icon when switch is enabled
+
+- `enabledIcon`
+
+```vue
+<KInputSwitch
+  v-model="enabledIconChecked"
+  :label="enabledIconChecked ? 'Enabled' : 'Disabled'"
+  enabledIcon="true"
+/>
+```
+
+<KInputSwitch
+  v-model="enabledIconChecked"
+  :label="enabledIconChecked ? 'Enabled' : 'Disabled'"
+  enabledIcon="true"
+/>
+
 ## Slots
 
 - `label`
@@ -175,7 +195,8 @@ export default {
       labelPropChecked: false,
       defaultChecked: false,
       labelChecked: false,
-      themeChecked: true
+      themeChecked: true,
+      enabledIconChecked: true,
     }
   },
   computed: {
