@@ -27,6 +27,10 @@
       type="checkbox"
       v-on="listeners">
     <div class="switch-control"/>
+    <KIcon
+      v-if="enabledIcon && value === true"
+      icon="check"
+      color="white"/>
     <span v-if="label || $scopedSlots.label">
       <slot name="label">{{ label }}</slot>
     </span>
@@ -35,10 +39,11 @@
 
 <script>
 import KoolTip from '@kongponents/kooltip/KoolTip.vue'
+import KIcon from '@kongponents/kicon/KIcon.vue'
 
 export default {
   name: 'KInputSwitch',
-  components: { KoolTip },
+  components: { KoolTip, KIcon },
   props: {
     /**
      * Sets whether or not toggle is checked
@@ -63,6 +68,14 @@ export default {
     disabledTooltipText: {
       type: String,
       default: ''
+    },
+
+    /**
+     * Sets whether or not to display a check icon if the switch is enabled
+     */
+    enabledIcon: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -94,4 +107,14 @@ export default {
 <style lang="scss" scoped>
 @import '~@kongponents/styles/_variables.scss';
 @import '~@kongponents/styles/forms/_switch.scss';
+
+.k-switch {
+  position: relative;
+
+  svg {
+    transform: translateX(-54px);
+    position: absolute;
+    left: 60px;
+  }
+}
 </style>
