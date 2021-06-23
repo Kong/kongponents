@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/Kong/kongponents/compare/@kongponents/kinputswitch@0.2.5...@kongponents/kinputswitch@0.3.0) (2021-06-23)
+
+
+### Features
+
+* **KInputSwitch:** add enabled icon ([#308](https://github.com/Kong/kongponents/issues/308)) ([9223c41](https://github.com/Kong/kongponents/commit/9223c41feef2838b0a50b1f39f28712db38a6cec))
+
+
+
+
+
 ## [0.2.5](https://github.com/Kong/kongponents/compare/@kongponents/kinputswitch@0.2.4...@kongponents/kinputswitch@0.2.5) (2021-06-07)
 
 **Note:** Version bump only for package @kongponents/kinputswitch
