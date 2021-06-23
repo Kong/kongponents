@@ -84,6 +84,76 @@ Example composing `KCard` with other Kongponents to make another component:
 </KCard>
 ```
 
+### Help Text
+
+String positioned closely under the title to serve as help text
+
+- `helpText`
+
+<KCard
+  title="Invite a New User"
+  help-text="A confirmation email will be sent to the specified email address"
+>
+  <template slot="body">
+    <div class="mt-5">
+      <KLabel>Email Address</KLabel>
+      <KInput class="mb-6" type="email" placeholder="Enter a valid email"/>
+      <KButton appearance="primary">Invite User</KButton>
+    </div>
+  </template>
+</KCard>
+
+```vue
+<KCard
+  title="Invite a New User"
+  help-text="A confirmation email will be sent to the specified email address"
+>
+  <template slot="body">
+    <div class="mt-5">
+      <KLabel>Email Address</KLabel>
+      <KInput class="mb-6" type="email" placeholder="Enter a valid email"/>
+      <KButton appearance="primary">Invite User</KButton>
+    </div>
+  </template>
+</KCard>
+```
+
+Example of a KCard with both helpText and an action
+
+<KCard
+  title="Invite a New User"
+  help-text="A confirmation email will be sent to the specified email address"
+>
+  <template slot="body">
+    <div class="mt-5">
+      <KLabel>Email Address</KLabel>
+      <KInput class="mb-6" type="email" placeholder="Enter a valid email"/>
+      <KButton appearance="primary">Invite User</KButton>
+    </div>
+  </template>
+  <template slot="actions">
+    <KButton>View Invites</KButton>
+  </template>
+</KCard>
+
+```vue
+<KCard
+  title="Invite a New User"
+  help-text="A confirmation email will be sent to the specified email address"
+>
+  <template slot="body">
+    <div class="mt-54">
+      <KLabel>Email Address</KLabel>
+      <KInput class="mb-6" type="email" placeholder="Enter a valid email"/>
+      <KButton appearance="primary">Invite User</KButton>
+    </div>
+  </template>
+  <template slot="actions">
+    <KButton>View Invites</KButton>
+  </template>
+</KCard>
+```
+
 ### Body
 String to be used in the body slot.
 
