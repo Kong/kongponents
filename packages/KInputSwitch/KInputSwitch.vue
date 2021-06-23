@@ -29,8 +29,8 @@
     <div class="switch-control"/>
     <KIcon
       v-if="enabledIcon && value === true"
-      icon="check"
-     :color="var(--white)" />
+      :color="var(--white)"
+      icon="check" />
     <span v-if="label || $scopedSlots.label">
       <slot name="label">{{ label }}</slot>
     </span>
