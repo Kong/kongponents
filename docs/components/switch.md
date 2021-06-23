@@ -205,7 +205,6 @@ export default {
         ? 'Yay!'
         : 'Boo'
     },
-
   },
   methods: {
     handleToggle (isChecked) {
