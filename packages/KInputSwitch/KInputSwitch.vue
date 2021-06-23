@@ -30,7 +30,7 @@
     <KIcon
       v-if="enabledIcon && value === true"
       icon="check"
-      color="white"/>
+     :color="var(--white)" />
     <span v-if="label || $scopedSlots.label">
       <slot name="label">{{ label }}</slot>
     </span>
