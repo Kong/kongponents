@@ -102,7 +102,7 @@ Display a check icon when switch is enabled
 <KInputSwitch
   v-model="enabledIconChecked"
   :label="enabledIconChecked ? 'Enabled' : 'Disabled'"
-  :enabledIcon="true"
+  enabled-icon
 />
 
 ## Slots
