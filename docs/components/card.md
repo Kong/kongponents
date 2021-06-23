@@ -331,7 +331,7 @@ An Example of changing the background might look like.
 <div class="card-wrapper">
   <KCard
     title="Card Title"
-    body="Body Content" 
+    body="Body Content"
     hasShadow />
 </div>
 
@@ -339,7 +339,7 @@ An Example of changing the background might look like.
 <template>
   <KCard
     title="Card Title"
-    body="Body Content" 
+    body="Body Content"
     hasShadow />
 </template>
 
