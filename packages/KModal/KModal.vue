@@ -15,6 +15,11 @@
           <div class="modal-header">
             <slot name="header-content">{{ title }}</slot>
           </div>
+          <div
+            v-if="$scopedSlots.help || helpText"
+            class="modal-help">
+            <slot name="help">{{ helpText }}</slot>
+          </div>
           <div class="modal-body">
             <slot name="body-content">{{ content }}</slot>
           </div>
@@ -53,6 +58,13 @@ export default {
        */
       type: String,
       default: 'Modal Title'
+    },
+    helpText: {
+      /**
+       * Set help text to be displayed under the title
+       */
+      type: String,
+      default: ''
     },
     /**
      * Set the text of the body content
@@ -161,6 +173,11 @@ export default {
     color: var(--KModalHeaderColor, var(--black-85, color(black-85)));
     font-size: var(--KModalHeaderSize, var(--type-lg, type(lg)));
     font-weight: var(--KModalHeaderWeight, 500);
+  }
+
+  .modal-help {
+    color: var(--black-45);
+    margin-bottom: var(--spacing-xl);
   }
 
   .modal-body {

@@ -41,6 +41,7 @@ export default {
 **Content**
 - `cancelButtonAppearance` - Change the [appearance](/components/button.html#props) of the close/cancel
 - `title` - Text to display in header if not using slot
+- `helpText` - Help text to display below header if not using slot
 - `content` - Text to display in content if not using slot
 
 **Buttons & Appearance**
@@ -53,6 +54,7 @@ There are 3 designated slots you can use to display content in the modal.
 
 `header-content`
 `body-content`  
+`help`
 `footer-content` - Contains action buttons by default.
 
 ---
@@ -70,6 +72,7 @@ Using both the provided props and slot options we will now demonstrate how to cu
     actionButtonAppearance="danger"
     @canceled="slottedIsOpen = false">
     <template slot="header-content">Delete Item</template>
+    <template slot="help">Take this action to delete</template>
     <template slot="body-content">Are you sure you want to delete this item? This action can not be undone.</template>
   </KModal>
 </template>
@@ -82,6 +85,7 @@ Using both the provided props and slot options we will now demonstrate how to cu
     actionButtonAppearance="danger"
     @canceled="slottedIsOpen = false">
     <template slot="header-content">Delete Item</template>
+    <template slot="help">Take this action to delete</template>
     <template slot="body-content">Are you sure you want to delete this item? This action can not be undone.</template>
   </KModal>
 </template>
