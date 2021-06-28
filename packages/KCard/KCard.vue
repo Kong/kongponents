@@ -17,7 +17,9 @@
         <slot name="actions"/>
       </div>
     </div>
-    <div v-if="helpText || $scopedSlots.helpText" class="k-card-help-text">
+    <div
+      v-if="helpText || $scopedSlots.helpText"
+      class="k-card-help-text">
       <!-- @slot Use this slot to pass help text under the title -->
       <slot name="helpText">
         <span>{{ helpText }}</span>
