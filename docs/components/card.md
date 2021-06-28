@@ -142,7 +142,7 @@ Example of a KCard with both helpText and an action
   help-text="A confirmation email will be sent to the specified email address"
 >
   <template slot="body">
-    <div class="mt-54">
+    <div class="mt-4">
       <KLabel>Email Address</KLabel>
       <KInput class="mb-6" type="email" placeholder="Enter a valid email"/>
       <KButton appearance="primary">Invite User</KButton>
