@@ -49,7 +49,7 @@ both the horizontal and vertical margins zero.
   <div class="ma-0"></div>
   ```
   ```css
-  .mx-0 {
+  .ma-0 {
     margin-left: 0px;
     margin-right: 0px;
     margin-top: 0px;
