@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/Kong/kongponents/compare/@kongponents/kmodal@1.0.5...@kongponents/kmodal@1.1.0) (2021-06-29)
+
+
+### Features
+
+* **KModal:** add support for help text ([#310](https://github.com/Kong/kongponents/issues/310)) ([d5a7cfa](https://github.com/Kong/kongponents/commit/d5a7cfa285de2cc8939e703566fb46109b84141e))
+
+
+
+
+
 ## [1.0.5](https://github.com/Kong/kongponents/compare/@kongponents/kmodal@1.0.4...@kongponents/kmodal@1.0.5) (2020-12-11)
 
 **Note:** Version bump only for package @kongponents/kmodal

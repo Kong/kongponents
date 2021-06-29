@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/Kong/kongponents/compare/@kongponents/kcard@1.0.2...@kongponents/kcard@1.1.0) (2021-06-29)
+
+
+### Features
+
+* **KCard:** add help text prop ([#309](https://github.com/Kong/kongponents/issues/309)) ([fc13244](https://github.com/Kong/kongponents/commit/fc132445189be95da6e84ad490d28305b3f3572b))
+
+
+
+
+
 ## [1.0.2](https://github.com/Kong/kongponents/compare/@kongponents/kcard@1.0.1...@kongponents/kcard@1.0.2) (2021-03-10)
 
 **Note:** Version bump only for package @kongponents/kcard

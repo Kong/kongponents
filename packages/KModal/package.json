@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kmodal",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Modal component",
   "main": "dist/KModal.umd.min.js",
   "componentName": "KModal",
