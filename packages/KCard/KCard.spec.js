@@ -4,15 +4,18 @@ import KCard from '@/KCard/KCard'
 describe('KCard', () => {
   it('renders slots when passed', () => {
     const cardTitle = 'Card Title'
+    const cardHelpText = 'Card Help Text'
     const cardBody = 'Card Body'
     const wrapper = mount(KCard, {
       slots: {
         'title': `<span>${cardTitle}</span>`,
+        'helpText': `<span>${cardHelpText}</span>`,
         'body': `<div>${cardBody}</div>`
       }
     })
 
     expect(wrapper.find('.k-card-title').html()).toEqual(expect.stringContaining(cardTitle))
+    expect(wrapper.find('.k-card-help-text').html()).toEqual(expect.stringContaining(cardHelpText))
     expect(wrapper.find('.k-card-body').html()).toEqual(expect.stringContaining(cardBody))
     expect(wrapper.html()).toMatchSnapshot()
   })

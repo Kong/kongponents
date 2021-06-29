@@ -4,6 +4,7 @@
     class="kong-card">
     <div
       v-if="title || $scopedSlots.title || $scopedSlots.actions || $slots.title"
+      :class="helpText && 'mb-0' || 'mb-4'"
       class="k-card-header">
       <div class="k-card-title">
         <h4>
@@ -15,6 +16,14 @@
         <!-- @slot Use this slot to pass actions to right side of header -->
         <slot name="actions"/>
       </div>
+    </div>
+    <div
+      v-if="helpText || $scopedSlots.helpText"
+      class="k-card-help-text">
+      <!-- @slot Use this slot to pass help text under the title -->
+      <slot name="helpText">
+        <span>{{ helpText }}</span>
+      </slot>
     </div>
     <div class="k-card-body">
       <!-- @slot Use this slot to pass in body content -->
@@ -61,6 +70,14 @@ export default {
     hasShadow: {
       type: Boolean,
       default: false
+    },
+
+    /**
+      * Adds help text positioned closely under the card title
+      */
+    helpText: {
+      type: String,
+      default: ''
     }
   }
 }
@@ -111,6 +128,10 @@ export default {
 
   .k-card-actions  {
     margin-left: auto;
+  }
+
+  .k-card-help-text {
+    color: var(--black-45);
   }
 }
 </style>
