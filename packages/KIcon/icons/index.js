@@ -41,6 +41,7 @@ import support from './icn-support.svg'
 import table from './icn-table.svg'
 import trash from './icn-trash.svg'
 import vitals from './icn-vitals.svg'
+import vitalsChart from './icn-vitals-chart.svg'
 import warning from './icn-warning.svg'
 import workspaces from './icn-workspaces.svg'
 import workspacesCollapsed from './icn-collapse-workspaces.svg'
@@ -89,6 +90,7 @@ export default {
   table,
   trash,
   vitals,
+  vitalsChart,
   warning,
   workspaces,
   workspacesCollapsed
