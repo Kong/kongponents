@@ -19,7 +19,7 @@
     </div>
     <div
       v-if="helpText || $scopedSlots.helpText"
-      class="k-card-help-text">
+      class="k-card-help-text mb-4">
       <!-- @slot Use this slot to pass help text under the title -->
       <slot name="helpText">
         <span>{{ helpText }}</span>
