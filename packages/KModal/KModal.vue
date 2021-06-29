@@ -12,7 +12,10 @@
         class="modal-dialog"
         @click.stop>
         <div class="modal-content">
-          <div class="modal-header">
+          <div
+            :class="helpText ? 'mb-3' : 'mb-4'"
+            class="modal-header"
+          >
             <slot name="header-content">{{ title }}</slot>
           </div>
           <div
@@ -169,7 +172,6 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: var(--spacing-md, spacing(md));
     color: var(--KModalHeaderColor, var(--black-85, color(black-85)));
     font-size: var(--KModalHeaderSize, var(--type-lg, type(lg)));
     font-weight: var(--KModalHeaderWeight, 500);
