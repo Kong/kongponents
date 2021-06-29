@@ -10,7 +10,7 @@
 ```
 
 ## Props
-### title
+### Title
 String to be used in the title slot.
 
 - `title`
