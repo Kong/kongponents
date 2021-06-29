@@ -4,6 +4,7 @@ import KModal from '@/KModal/KModal'
 describe('KModal', () => {
   it('renders proper content when using slots', () => {
     const headerText = 'This is some header text'
+    const helpText = 'This is some help text'
     const bodyText = 'This is some body text'
     const footerText = 'This is some footer text'
     const wrapper = mount(KModal, {
@@ -12,12 +13,14 @@ describe('KModal', () => {
       },
       slots: {
         'header-content': `<div>${headerText}</div>`,
+        'help': `<div>${helpText}</div>`,
         'body-content': `<div>${bodyText}</div>`,
         'footer-content': `<div>${footerText}</div>`
       }
     })
 
     expect(wrapper.find('.modal-header').html()).toEqual(expect.stringContaining(headerText))
+    expect(wrapper.find('.modal-help').html()).toEqual(expect.stringContaining(helpText))
     expect(wrapper.find('.modal-body').html()).toEqual(expect.stringContaining(bodyText))
     expect(wrapper.find('.modal-footer').html()).toEqual(expect.stringContaining(footerText))
     expect(wrapper.html()).toMatchSnapshot()
@@ -25,16 +28,19 @@ describe('KModal', () => {
 
   it('renders proper content when using props', () => {
     const title = 'Sweet prop title'
+    const helpText = 'Sweet prop help text'
     const content = 'Sweet prop content'
     const wrapper = mount(KModal, {
       propsData: {
         isVisible: true,
         title,
+        helpText,
         content
       }
     })
 
     expect(wrapper.find('.modal-header').html()).toEqual(expect.stringContaining(title))
+    expect(wrapper.find('.modal-help').html()).toEqual(expect.stringContaining(helpText))
     expect(wrapper.find('.modal-body').html()).toEqual(expect.stringContaining(content))
     expect(wrapper.html()).toMatchSnapshot()
   })
