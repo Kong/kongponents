@@ -9,7 +9,8 @@ sidebarDepth: 1
 We provide a combination of margin and padding classes similar to [bootstrap](https://getbootstrap.com/docs/4.3/utilities/spacing/) and [tailwindcss](https://tailwindcss.com/docs/padding).  
 You can set a padding or margin to any side by providing a class like `p{side}-{size}` or `.m{side}-{size}`. The _space_ coincides with our preset list of spacing. 
 
-Example: .pt-2 would add 8px of padding to the top of the element and.mx-0 would make the horizontal margin zero.
+Example: `.pt-2` would add 8px of padding to the top of the element, `.mx-0` would make the horizontal margin zero, and `.ma-0` would make
+both the horizontal and vertical margins zero.
 
 | Class       | Side           | Space    |
 | :---------- |:-------------- | :------- |
@@ -19,7 +20,7 @@ Example: .pt-2 would add 8px of padding to the top of the element and.mx-0 would
 |             | `l` Left       | `3` 12px |
 |             | `x` Horizontal | `4` 16px |
 |             | `y` Vertical   | `5` 24px |
-|             |                | `6` 32px |
+|             | `a` All        | `6` 32px |
 |             |                | `7` 48px |
 |             |                | `auto` auto |
 
@@ -43,6 +44,18 @@ Example: .pt-2 would add 8px of padding to the top of the element and.mx-0 would
     margin-right: 0px;
   }
   ```
+- Adding margin all (left, right, top, bottom) of 0px
+  ```html
+  <div class="ma-0"></div>
+  ```
+  ```css
+  .ma-0 {
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  ```
 ## Display
 | Class                 | Properties
 | :-------------------- |:-----------
@@ -62,6 +75,13 @@ Example: .pt-2 would add 8px of padding to the top of the element and.mx-0 would
 | .w-100 | width: 100%;
 | .w-auto | width: auto;
 
+## Height
+| Class                 | Properties
+| :-------------------- |:-----------
+| .h-100 | height: 100%;
+| .h-auto | height: auto;
+| .h-screen | min-height: 100vh;
+
 ## Flex
 ### Direction & Growth
 | Class                 | Properties
@@ -73,7 +93,6 @@ Example: .pt-2 would add 8px of padding to the top of the element and.mx-0 would
 | .flex-column-reverse | flex-direction: column-reverse;
 | .flex-grow-0 | flex-grow: 0;
 | .flex-grow-1 | flex-grow: 1;
-
 
 ### Justification
 | Class                   | Properties
@@ -105,6 +124,13 @@ Example: .pt-2 would add 8px of padding to the top of the element and.mx-0 would
 | .align-self-baseline |  align-self: baseline;
 | .align-self-stretch |  align-self: stretch;
 
+## Float
+| Class                   | Properties
+| :---------------------- |:-----------
+| .float-left | float: left;
+| .float-right | float: right;
+| .float-center | float: center;
+
 ## Colors
 For each color in our [color palette](/style-guide/colors.html) we include a utility class that is prefixed with `color-`.
 
@@ -120,12 +146,76 @@ For each size in our [type definitions](/style-guide/type.html) we include a uti
 | .type-{type-size} | font-size: var(--type-{size}) | `class="type-xl"`
 | .mono | font-size: calc(var(--type-{size}) * .95) | `class="mono type-xl"`
 
+## Truncation
+We support both single line truncation as well as multi-line. Multi-line truncation is customizable with the following properties:
+  - `TLineHeight` - the height of each line
+  - `TMaxLines` - the maximum number of allowed lines
+  - `TFontSize` - the size of the font to truncate
+  - `TPosRight` - css property `right` position of the ellipsis
+  - `TPadRight` - the amount of padding on the right side of the container
+
+| Class       |Properties
+| :---------- |:-------------- |:-----------
+| .truncate | white-space: nowrap;<br>text-overflow: ellipsis;<br>overflow: hidden;
+| .truncate-multi | `TLineHeight`, `TMaxLines`, `TFontSize`, `TPosRight`, `TPadRight`
+
+### Example
+  ```html
+  <div class="truncate-multi" style="width: 425px; border: 1px solid black; padding: 8px;">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer condimentum leo a neque tristique faucibus. Praesent at imperdiet elit, vel tincidunt metus. Praesent elementum mollis libero, et semper diam efficitur tristique. Nam aliquam tortor a leo pretium vestibulum. Proin posuere auctor odio, sit amet elementum massa aliquet in. 
+  </div>
+  ```
+  ```css
+  .truncate-multi {
+    --TLineHeight: 24px;
+    --TMaxLines: 5;
+    --TPosRight: 12px;
+    --TPadRight: 8px;
+    --TFontSize: 16px;
+  }
+  ```
+
+  <style type='text/css'>
+    .truncate-multi {
+      --line-height: 24px;
+      --max-lines: 5;
+      --ellipsis-pos: 12px;
+      --pad-right: 8px;
+      --font-size: 16px;
+      line-height: var(--line-height);
+      font-size: var(--font-size);
+      position: relative;
+      max-height: calc(var(--line-height) * var(--max-lines));
+      overflow: hidden;
+      padding-right: calc(var(--ellipsis-pos) + var(--pad-right) + 4px) !important;
+    }
+    .truncate-multi::before {
+      --line-height: 24px;
+      --max-lines: 5;
+      --ellipsis-pos: 12px;
+      --font-size: 16px;
+      position: absolute;
+      content: "...";
+      top: calc(var(--line-height)* (var(--max-lines) - 1) + var(--font-size) * .5);
+      right: var(--ellipsis-pos);
+    }
+  </style>
+  <div class="truncate-multi" style="width: 425px; border: 1px solid black; padding: 8px;">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer condimentum leo a neque tristique faucibus. Praesent at imperdiet elit, vel tincidunt metus. Praesent elementum mollis libero, et semper diam efficitur tristique. Nam aliquam tortor a leo pretium vestibulum. Proin posuere auctor odio, sit amet elementum massa aliquet in. 
+  </div>
+
 ## General Helpers
 | Class       |Properties
 | :---------- |:-------------- |:-----------
-| .truncate | white-space: nowrap <br>text-overflow: ellipsis;<br>overflow: hidden;
+| .capitalize | text-transform: capitalize;
+| .lowercase | text-transform: lowercase;
+| .uppercase | text-transform: uppercase;
+| .bold-500 | font-weight: 500;
+| .bold-600 | font-weight: 600;
+| .bold-700 | font-weight: 700;
 | .cursor-pointer | cursor: pointer;
 | .overflow-hidden | overflow: hidden;
+| .overflow-auto | overflow: auto;
 
 <style lang="scss">
 .theme-container.utilities {

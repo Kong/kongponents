@@ -12,11 +12,24 @@ $sides: (top, right, bottom, left);
   margin-top: auto !important;
   margin-bottom: auto !important;
 }
+.ma-auto {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+}
+
 .mx-0 {
   margin-left: 0px !important;
   margin-right: 0px !important;
 }
 .my-0 {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+.ma-0 {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
   margin-top: 0px !important;
   margin-bottom: 0px !important;
 }
@@ -29,11 +42,24 @@ $sides: (top, right, bottom, left);
   padding-top: auto !important;
   padding-bottom: auto !important;
 }
+.pa-auto {
+  padding-left: auto !important;
+  padding-right: auto !important;
+  padding-top: auto !important;
+  padding-bottom: auto !important;
+}
+
 .px-0 {
   padding-left: 0px !important;
   padding-right: 0px !important;
 }
 .py-0 {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+.pa-0 {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
   padding-left: 0px !important;
   padding-right: 0px !important;
 }
@@ -58,7 +84,7 @@ $sides: (top, right, bottom, left);
       margin-#{$marginSide}: #{$space} !important;
     }
   }
-  // Create X & Y classes
+  // Create X, Y, and A (all) classes
   .mx-#{$i} {
     margin-left: #{$space} !important;
     margin-right: #{$space} !important;
@@ -67,6 +93,13 @@ $sides: (top, right, bottom, left);
     margin-top: #{$space} !important;
     margin-bottom: #{$space} !important;
   }
+  .ma-#{$i} {
+    margin-left: #{$space} !important;
+    margin-right: #{$space} !important;
+    margin-top: #{$space} !important;
+    margin-bottom: #{$space} !important;
+  }
+  
 }
 
 // Loop spacing and create padding classes
@@ -95,6 +128,12 @@ $sides: (top, right, bottom, left);
     padding-top: #{$space} !important;
     padding-bottom: #{$space} !important;
   }
+  .pa-#{$i} {
+    padding-left: #{$space} !important;
+    padding-right: #{$space} !important;
+    padding-top: #{$space} !important;
+    padding-bottom: #{$space} !important;
+  }
 }
 
 /*  Positioning
@@ -110,8 +149,39 @@ $sides: (top, right, bottom, left);
   text-overflow: ellipsis;
   overflow: hidden;
 }
+.truncate-multi {
+  line-height: var(--TLineHeight, 24px);
+  font-size: var(--TFontSize, 16px);
+  position: relative;
+  max-height: calc(var(--TLineHeight, 24px) * var(--TMaxLines, 5));
+  overflow: hidden;
+  padding-right: calc(var(--TPosRight, 12px) * var(--TPadRight, 8px) + 4px) !important;
 
-.cursor-pointer	{ cursor: pointer !important; }
+  .truncate-multi::before {
+    position: absolute;
+    content: "...";
+    top: calc(var(--TLineHeight, 24px) * (var(--TMaxLines, 5) - 1) + var(--TFontSize, 16px) * .5);
+    right: var(--TPosRight, 12px);
+  }
+}
+.capitalize {
+  text-transform: capitalize !important;
+}
+.lowercase {
+  text-transform: lowercase !important;
+}
+.uppercase {
+  text-transform: uppercase !important;
+}
+.bold-500 {
+  font-weight: 500 !important;
+}
+.bold-600 {
+  font-weight: 600 !important;
+}
+.bold-700 {
+  font-weight: 700 !important;
+}
 
 /*  Display
 ========================================================================== */
@@ -156,9 +226,14 @@ $sides: (top, right, bottom, left);
 
 /*  General
 ========================================================================== */
+.cursor-pointer	{ cursor: pointer !important; }
+.overflow-auto { overflow: auto; }
 .overflow-hidden { overflow: hidden; }
 .w-25 { width: 25% !important; }
 .w-50 { width: 50% !important; }
 .w-75 { width: 75% !important; }
-.w-100 { width: 100%; }
+.w-100 { width: 100% !important; }
 .w-auto { width: auto !important; }
+.h-100 { height: 100% !important; }
+.h-auto { height: auto !important; }
+.h-screen { min-height: 100vh !important; }
