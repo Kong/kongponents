@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/Kong/kongponents/compare/@kongponents/styles@3.1.0...@kongponents/styles@3.2.0) (2021-07-06)
+
+
+### Features
+
+* **styles/utilities:** CSS utility class updates ([#311](https://github.com/Kong/kongponents/issues/311)) ([dbd8f7d](https://github.com/Kong/kongponents/commit/dbd8f7dc47cd4eff2566f4e9df0a36b7770cacde))
+
+
+
+
+
 # [3.1.0](https://github.com/Kong/kongponents/compare/@kongponents/styles@3.0.1...@kongponents/styles@3.1.0) (2021-06-08)
 
 
