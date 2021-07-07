@@ -306,12 +306,12 @@ export default {
 
     tbody tr {
       border: none;
-      box-shadow: -2px 0 0 var(--KTableBorder, var(--steel-200, color(steal-200)));
+      box-shadow: -2px 0 0 var(--KTableBorder, var(--steel-200, color(steel-200)));
     }
 
     &.has-hover {
       tbody tr:hover {
-        box-shadow: -2px 0 0 var(--KTableBorder, var(--steel-300, color(steal-300)));
+        box-shadow: -2px 0 0 var(--KTableBorder, var(--steel-300, color(steel-300)));
       }
     }
   }
