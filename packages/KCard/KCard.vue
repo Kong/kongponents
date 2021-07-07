@@ -4,7 +4,7 @@
     class="kong-card">
     <div
       v-if="title || $scopedSlots.title || $scopedSlots.actions || $slots.title"
-      :class="helpText && 'mb-0' || 'mb-4'"
+      :class="(helpText || $scopedSlots.helpText !== undefined) && 'mb-0' || 'mb-4'"
       class="k-card-header">
       <div class="k-card-title">
         <h4>
@@ -19,7 +19,7 @@
     </div>
     <div
       v-if="helpText || $scopedSlots.helpText"
-      class="k-card-help-text mb-4">
+      class="k-card-help-text mb-5">
       <!-- @slot Use this slot to pass help text under the title -->
       <slot name="helpText">
         <span>{{ helpText }}</span>
