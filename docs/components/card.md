@@ -118,6 +118,44 @@ String positioned closely under the title to serve as help text
 </KCard>
 ```
 
+Example of a KCard with helpText slot
+
+<KCard title="Invite a New User">
+  <template slot="helpText">
+    <div class="d-flex align-items-center">
+      A confirmation email will be sent to the specified email address
+      <a class="ml-3 mr-2" href="#help-text">Learn More</a>
+      <KIcon icon="externalLink" color="var(--blue-500)" size="14"/>
+    </div>
+  </template>
+  <template slot="body">
+    <div>
+      <KLabel>Email Address</KLabel>
+      <KInput class="mb-6" type="email" placeholder="Enter a valid email"/>
+      <KButton appearance="primary">Invite User</KButton>
+    </div>
+  </template>
+</KCard>
+
+```vue
+<KCard title="Invite a New User">
+  <template slot="helpText">
+    <div class="d-flex align-items-center">
+      A confirmation email will be sent to the specified email address
+      <a class="ml-3 mr-2" href="#help-text">Learn More</a>
+      <KIcon icon="externalLink" color="var(--blue-500)" size="14"/>
+    </div>
+  </template>
+  <template slot="body">
+    <div>
+      <KLabel>Email Address</KLabel>
+      <KInput class="mb-6" type="email" placeholder="Enter a valid email"/>
+      <KButton appearance="primary">Invite User</KButton>
+    </div>
+  </template>
+</KCard>
+```
+
 Example of a KCard with both helpText and an action
 
 <KCard

@@ -26,13 +26,13 @@ exports[`KCard matches snapshot 1`] = `
 
 exports[`KCard renders slots when passed 1`] = `
 <div class="kong-card border">
-  <div class="k-card-header mb-4">
+  <div class="k-card-header mb-0">
     <div class="k-card-title">
       <h4><span>Card Title</span></h4>
     </div>
     <div class="k-card-actions"></div>
   </div>
-  <div class="k-card-help-text mb-4"><span>Card Help Text</span></div>
+  <div class="k-card-help-text mb-5"><span>Card Help Text</span></div>
   <div class="k-card-body">
     <div>Card Body</div>
   </div>
