@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.2](https://github.com/Kong/kongponents/compare/@kongponents/kcard@1.1.1...@kongponents/kcard@1.1.2) (2021-07-07)
+
+
+### Bug Fixes
+
+* **KCard:** adjust helpText margins ([#315](https://github.com/Kong/kongponents/issues/315)) ([1a09ccd](https://github.com/Kong/kongponents/commit/1a09ccde5e547bc1b78716e3b0648bb65ed388b6))
+
+
+
+
+
 ## [1.1.1](https://github.com/Kong/kongponents/compare/@kongponents/kcard@1.1.0...@kongponents/kcard@1.1.1) (2021-07-01)
 
 
