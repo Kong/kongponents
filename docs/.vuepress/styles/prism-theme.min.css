@@ -133,11 +133,11 @@ pre[class*="language-"] > code[class*="language-"] {
 }
 div[class*="language-"] .highlight-lines .highlighted,
 div[class*="language-"].line-numbers-mode .highlight-lines .highlighted:before {
-  background-color: var(--steal-100) !important;
+  background-color: var(--steel-100) !important;
 }
 div[class*="language-"].line-numbers-mode .line-numbers-wrapper {
   color: var(--black-70) !important;
 }
 div[class*="language-"].line-numbers-mode::after {
-  border-right: 1px solid var(--steal-100) !important;
+  border-right: 1px solid var(--steel-100) !important;
 }
