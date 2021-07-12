@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://github.com/Kong/kongponents/compare/@kongponents/kicon@0.11.1...@kongponents/kicon@0.12.0) (2021-07-12)
+
+
+### Features
+
+* **KIcon:** add dangerCircleOutline icon ([#316](https://github.com/Kong/kongponents/issues/316)) ([685c5e5](https://github.com/Kong/kongponents/commit/685c5e51a102277f703abfa4bdbd84a73fad9658))
+
+
+
+
+
 ## [0.11.1](https://github.com/Kong/kongponents/compare/@kongponents/kicon@0.11.0...@kongponents/kicon@0.11.1) (2021-06-29)
 
 **Note:** Version bump only for package @kongponents/kicon
