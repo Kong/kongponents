@@ -7,6 +7,7 @@ import collapseExpand from './icn-collapse-expand.svg'
 import connections from './icn-connections.svg'
 import copy from './icn-copy.svg'
 import dangerCircle from './icn-danger-circle.svg'
+import dangerCircleOutline from './icn-danger-circle-outline.svg'
 import dashboard from './icn-dashboard.svg'
 import document from './icn-document.svg'
 import externalLink from './icn-external-link.svg'
@@ -56,6 +57,7 @@ export default {
   connections,
   copy,
   dangerCircle,
+  dangerCircleOutline,
   dashboard,
   document,
   externalLink,
