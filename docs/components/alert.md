@@ -79,15 +79,60 @@ Adds border around alert. Used for [KToaster]().
 ### Left Border
 Adds border to the left side. Typically used for alerts that show info that may link away like documentation.
 
-- `hasLeftBorder`  
+- `has-left-border`
 
 <KAlert
-  hasLeftBorder
+  has-left-border
   alert-message="Bordered alert"/>
 
 ```vue
 <KAlert
-  hasLeftBorder
+  has-left-border
+  alert-message="Bordered alert"/>
+```
+
+### Right Border
+Adds border to the right side. Typically used for alerts that show info that may link away like documentation.
+
+- `has-right-border`
+
+<KAlert
+  has-right-border
+  alert-message="Bordered alert"/>
+
+```vue
+<KAlert
+  has-right-border
+  alert-message="Bordered alert"/>
+```
+
+### Top Border
+Adds border to the top.
+
+- `has-top-border`
+
+<KAlert
+  has-top-border
+  alert-message="Bordered alert"/>
+
+```vue
+<KAlert
+  has-top-border
+  alert-message="Bordered alert"/>
+```
+
+### Bottom Border
+Adds border to the bottom.
+
+- `has-bottom-border`
+
+<KAlert
+  has-bottom-border
+  alert-message="Bordered alert"/>
+
+```vue
+<KAlert
+  has-bottom-border
   alert-message="Bordered alert"/>
 ```
 
