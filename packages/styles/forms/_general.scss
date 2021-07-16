@@ -10,8 +10,7 @@
   }
 }
 
-.k-input + .help,
-.k-input-wrapper + .help {
+.k-input + .help {
   display: block;
   margin: var(--spacing-xs, spacing(xs)) 0 0;
   font-size: var(--type-sm, type(sm));
