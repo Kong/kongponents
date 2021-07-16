@@ -1,7 +1,5 @@
 <template>
-  <div
-    v-bind="attrs"
-    class="k-input-wrapper">
+  <div class="k-input-wrapper">
     <input
       v-if="!label"
       :value="value"

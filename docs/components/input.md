@@ -36,10 +36,10 @@ String to be used as the input label. Make sure that if you are using the built 
 
 - `label`
 
-<KInput label="Name" />
+<KInput label="Name" placeholder="I'm labelled!" />
 
 ```vue
-<KInput label="Name" />
+<KInput label="Name" placeholder="I'm labelled!" />
 ```
 
 If the label is omitted it can be handled with another component, like **KLabel**. This is meant to be used before **KInput** and will be styled appropriately. 
@@ -54,7 +54,7 @@ If the label is omitted it can be handled with another component, like **KLabel*
 </template>
 ```
 
-### Bound attributes
+### Attribute Binding
 You can pass any input attribute and it will get properly bound to the element.
 
 <KInput class="mb-2" placeholder="placeholder" />
