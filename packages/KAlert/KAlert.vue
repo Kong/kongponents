@@ -218,20 +218,20 @@ export default {
     justify-content: center;
   }
   &.hasLeftBorder {
-   border-left: 3px solid;
-   border-radius: 0;
+    border-left: 3px solid;
+    border-radius: 0;
   }
   &.hasRightBorder {
-   border-right: 3px solid;
-   border-radius: 0;
+    border-right: 3px solid;
+    border-radius: 0;
   }
   &.hasTopBorder {
-   border-top: 3px solid;
-   border-radius: 0;
+    border-top: 3px solid;
+    border-radius: 0;
   }
   &.hasBottomBorder {
-   border-bottom: 3px solid;
-   border-radius: 0;
+    border-bottom: 3px solid;
+    border-radius: 0;
   }
   &.small {
     font-size: var(--type-sm, type(sm));
