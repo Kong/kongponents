@@ -37,4 +37,36 @@ describe('KAlert', () => {
 
     expect(wrapper.isEmpty()).toBe(true)
   })
+
+  it('renders borders on the expected sides', () => {
+    const wrapperBorderLeft = mount(KAlert, {
+      propsData: {
+        message: 'Hello world',
+        hasLeftBorder: true
+      }
+    })
+    const wrapperBorderRight = mount(KAlert, {
+      propsData: {
+        message: 'Hello world',
+        hasRightBorder: true
+      }
+    })
+    const wrapperBorderBottom = mount(KAlert, {
+      propsData: {
+        message: 'Hello world',
+        hasBottomBorder: true
+      }
+    })
+    const wrapperBorderTop = mount(KAlert, {
+      propsData: {
+        message: 'Hello world',
+        hasTopBorder: true
+      }
+    })
+
+    expect(wrapperBorderLeft.attributes('class')).toContain('hasLeftBorder')
+    expect(wrapperBorderRight.attributes('class')).toContain('hasRightBorder')
+    expect(wrapperBorderBottom.attributes('class')).toContain('hasBottomBorder')
+    expect(wrapperBorderTop.attributes('class')).toContain('hasTopBorder')
+  })
 })
