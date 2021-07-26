@@ -12,6 +12,26 @@ describe('KInput', () => {
     expect(wrapper.find('input').element.value).toBe('Hello')
   })
 
+  it('renders label when value is passed', () => {
+    const wrapper = mount(KInput, {
+      propsData: {
+        label: 'A Label!'
+      }
+    })
+
+    expect(wrapper.find('.text-on-input label').element.innerHTML).toContain('A Label!')
+  })
+
+  it('renders help when value is passed', () => {
+    const wrapper = mount(KInput, {
+      propsData: {
+        help: 'I am helpful'
+      }
+    })
+
+    expect(wrapper.find('.k-input-wrapper .help').element.innerHTML).toContain('I am helpful')
+  })
+
   it('reacts to text changes', () => {
     const wrapper = mount(KInput, {
       propsData: {
