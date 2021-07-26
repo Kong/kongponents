@@ -97,17 +97,6 @@ export default {
     display: inline-block;
     margin-bottom: .5rem;
   }
-
-  &:after {
-    content: " ";
-    background-color: var(--white);
-    width: 100%;
-    height: 13px;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    z-index: -1;
-  }
 }
 
 .form-control {
