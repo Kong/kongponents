@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/Kong/kongponents/compare/@kongponents/kalert@1.0.21...@kongponents/kalert@1.1.0) (2021-07-27)
+
+
+### Features
+
+* **KAlert:** add more border options ([#317](https://github.com/Kong/kongponents/issues/317)) ([fdb93a2](https://github.com/Kong/kongponents/commit/fdb93a2228cff2b2d1faeb571d899bad04ea3056))
+
+
+
+
+
 ## [1.0.21](https://github.com/Kong/kongponents/compare/@kongponents/kalert@1.0.20...@kongponents/kalert@1.0.21) (2021-07-12)
 
 **Note:** Version bump only for package @kongponents/kalert
