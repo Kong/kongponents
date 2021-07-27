@@ -8,6 +8,53 @@
 ```
 
 ## Props
+### Help
+String to be displayed as help text.
+
+- `help`
+
+<KInput help="I can help with that" placeholder="Need help?" />
+
+```
+<KInput help="I can help with that" placeholder="Need help?" />
+```
+
+You also have the option of using the `.help` utility class. This is meant to be used after **KInput** and will be styled appropriately. 
+
+<KInput type="text" placeholder="Need help?" />
+<p class="help">I can help with that</p>
+
+```vue
+<template>
+  <KInput type="text" placeholder="Need help?" />
+  <p class="help">I can help with that</p>
+</template>
+```
+
+### Label
+String to be used as the input label. Make sure that if you are using the built in label you specify the `--KInputBackground` theming variable. This variable is used for the background of the label as well as the input element. 
+
+- `label`
+
+<KInput label="Name" placeholder="I'm labelled!" />
+
+```vue
+<KInput label="Name" placeholder="I'm labelled!" />
+```
+
+If the label is omitted it can be handled with another component, like **KLabel**. This is meant to be used before **KInput** and will be styled appropriately. 
+
+<KLabel for="my-input">Label</KLabel>
+<KInput id="my-input" type="text" placeholder="I have a label" />
+
+```vue
+<template>
+  <KLabel for="my-input">Label</KLabel>
+  <KInput id="my-input" type="text" placeholder="I have a label" />
+</template>
+```
+
+### Attribute Binding
 You can pass any input attribute and it will get properly bound to the element.
 
 <KInput class="mb-2" placeholder="placeholder" />
@@ -78,28 +125,13 @@ KInput transparently binds to events:
 </Komponent>
 ```
 
-## Labels
-
-Additionally you you can use in conjunction with **KLabel** and or a paragraph with the utility class of `.help`. These are meant to be used before and after KInput and will be styled appropriately. 
-
-<KLabel for="my-input">Label</KLabel>
-<KInput id="my-input" type="text" placeholder="I have a label & help" />
-<p class="help">Help text</p>
-
-```vue
-<template>
-  <KLabel for="my-input">Label</KLabel>
-  <KInput id="my-input" type="text" placeholder="I have a label & help" />
-  <p class="help">help</p>
-</template>
-```
-
 ## Theming
 | Variable | Purpose
 |:-------- |:-------
 | `--KInputColor` | Input text color
+| `--KInputLabelColor` | Input label color
 | `--KInputBorder` | Input border color
-| `--KInputBackground` | Input background color
+| `--KInputBackground` | Input and label background color
 | `--KInputFocus` | Input focus border color
 | `--KInputDisabledBackground` | Input disabled background color
 | `--KInputError` | Input error border color

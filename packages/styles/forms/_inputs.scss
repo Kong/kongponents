@@ -1,5 +1,10 @@
 @import "labels";
 
+.k-input-wrapper.input-error .k-input {
+  outline: none !important;
+  border: 1px solid var(--KInputError, var(--red-400, color(red-400)));
+}
+
 .k-input,
 .form-control {
   $borderColor: var(--KInputBorder, var(--grey-300, color(grey-300)));
