@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/Kong/kongponents/compare/@kongponents/styles@3.2.0...@kongponents/styles@3.3.0) (2021-07-27)
+
+
+### Features
+
+* **kinput:** add label support ([#318](https://github.com/Kong/kongponents/issues/318)) ([f81311e](https://github.com/Kong/kongponents/commit/f81311e92e8175a8e4e9fd93d199efdba39f4cb3))
+
+
+
+
+
 # [3.2.0](https://github.com/Kong/kongponents/compare/@kongponents/styles@3.1.0...@kongponents/styles@3.2.0) (2021-07-06)
 
 
