@@ -1,7 +1,17 @@
 <template>
   <div
     v-if="isShowing"
-    :class="[appearance, size, {'isBordered':isBordered}, {'hasLeftBorder':hasLeftBorder}, {'isCentered': isCentered}, {'isFixed': isFixed}]"
+    :class="[
+      appearance,
+      size,
+      {'isBordered':isBordered},
+      {'hasLeftBorder':hasLeftBorder},
+      {'hasRightBorder':hasRightBorder},
+      {'hasTopBorder':hasTopBorder},
+      {'hasBottomBorder':hasBottomBorder},
+      {'isCentered': isCentered},
+      {'isFixed': isFixed}
+    ]"
     class="k-alert"
     role="alert">
     <button
@@ -80,6 +90,27 @@ export default {
      * Sets whether or not alert has left border
      */
     hasLeftBorder: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * Sets whether or not alert has right border
+     */
+    hasRightBorder: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * Sets whether or not alert has top border
+     */
+    hasTopBorder: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * Sets whether or not alert has bottom border
+     */
+    hasBottomBorder: {
       type: Boolean,
       default: false
     },
@@ -187,8 +218,20 @@ export default {
     justify-content: center;
   }
   &.hasLeftBorder {
-   border-left: 3px solid;
-   border-radius: 0;
+    border-left: 3px solid;
+    border-radius: 0;
+  }
+  &.hasRightBorder {
+    border-right: 3px solid;
+    border-radius: 0;
+  }
+  &.hasTopBorder {
+    border-top: 3px solid;
+    border-radius: 0;
+  }
+  &.hasBottomBorder {
+    border-bottom: 3px solid;
+    border-radius: 0;
   }
   &.small {
     font-size: var(--type-sm, type(sm));

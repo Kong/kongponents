@@ -11,8 +11,8 @@
 ### Appearances
 What color and purpose the Alert should be. Shares similar appearances to those of [KButton](/components/button).
 
-- `info`  
-- `warning`   
+- `info`
+- `warning`
 - `success`
 - `danger`
 
@@ -47,7 +47,7 @@ What color and purpose the Alert should be. Shares similar appearances to those 
 ### Dismissible
 KAlert allows for dismissal of the banner.
 
-- `is-dismissible`  
+- `is-dismissible`
 
 <KAlert
   class="dismissible"
@@ -63,7 +63,7 @@ KAlert allows for dismissal of the banner.
 ### Bordered
 Adds border around alert. Used for [KToaster]().
 
-- `is-bordered`  
+- `is-bordered`
 
 <KAlert
   is-bordered
@@ -79,22 +79,67 @@ Adds border around alert. Used for [KToaster]().
 ### Left Border
 Adds border to the left side. Typically used for alerts that show info that may link away like documentation.
 
-- `hasLeftBorder`  
+- `has-left-border`
 
 <KAlert
-  hasLeftBorder
+  has-left-border
   alert-message="Bordered alert"/>
 
 ```vue
 <KAlert
-  hasLeftBorder
+  has-left-border
+  alert-message="Bordered alert"/>
+```
+
+### Right Border
+Adds border to the right side. Typically used for alerts that show info that may link away like documentation.
+
+- `has-right-border`
+
+<KAlert
+  has-right-border
+  alert-message="Bordered alert"/>
+
+```vue
+<KAlert
+  has-right-border
+  alert-message="Bordered alert"/>
+```
+
+### Top Border
+Adds border to the top.
+
+- `has-top-border`
+
+<KAlert
+  has-top-border
+  alert-message="Bordered alert"/>
+
+```vue
+<KAlert
+  has-top-border
+  alert-message="Bordered alert"/>
+```
+
+### Bottom Border
+Adds border to the bottom.
+
+- `has-bottom-border`
+
+<KAlert
+  has-bottom-border
+  alert-message="Bordered alert"/>
+
+```vue
+<KAlert
+  has-bottom-border
   alert-message="Bordered alert"/>
 ```
 
 ### Size
 Controls size of alert. Currently only *small* is supported.
 
-- `small`  
+- `small`
 
 <KAlert
   style="width:250px"
@@ -201,7 +246,7 @@ Fixes KAlert to the top of the container.
 
 \
 An Example of changing the success KAlert variant to lime instead of Kong's green might
-look like.  
+look like.
 
 > Note: We are scoping the overrides to a wrapper in this example
 
@@ -230,7 +275,7 @@ look like.
 .k-alert {
   &:not(:last-of-type) {
     margin-bottom: 1rem;
-  }  
+  }
 }
 .alert-wrapper {
   --KAlertSuccessBackground: lime;
