@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.4](https://github.com/Kong/kongponents/compare/@kongponents/kradio@0.2.3...@kongponents/kradio@0.2.4) (2021-08-04)
+
+
+### Bug Fixes
+
+* copy paste error for kradio ([#320](https://github.com/Kong/kongponents/issues/320)) ([6d8f0ec](https://github.com/Kong/kongponents/commit/6d8f0ec279fd4ea77cb14ebb25dad85133f74f9e)), closes [#319](https://github.com/Kong/kongponents/issues/319)
+
+
+
+
+
 ## [0.2.3](https://github.com/Kong/kongponents/compare/@kongponents/kradio@0.2.2...@kongponents/kradio@0.2.3) (2020-03-06)
 
 **Note:** Version bump only for package @kongponents/kradio
