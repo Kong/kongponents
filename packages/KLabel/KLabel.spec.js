@@ -37,4 +37,17 @@ describe('KLabel', () => {
 
     expect(wrapper.html()).toMatchSnapshot()
   })
+
+  it('passes the `for` attribute to label when `for` is provided', () => {
+    const wrapper = mount(KLabel, {
+      propsData: {
+        for: 'test-id'
+      },
+      slots: {
+        default: 'Full Name'
+      }
+    })
+
+    expect(wrapper.html()).toMatchSnapshot()
+  })
 })

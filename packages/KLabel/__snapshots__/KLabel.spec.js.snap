@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`KLabel passes the \`for\` attribute to label when \`for\` is provided 1`] = `<label class="k-input-label" for="test-id">Full Name</label>`;
+
 exports[`KLabel renders a tooltip when \`help\` is provided 1`] = `<label class="k-input-label" help="This is a tooltip">Full Name</label>`;
 
 exports[`KLabel renders a tooltip when \`info\` is provided 1`] = `<label class="k-input-label" info="This is a tooltip">Full Name</label>`;
