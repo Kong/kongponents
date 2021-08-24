@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/Kong/kongponents/compare/@kongponents/klabel@0.4.0...@kongponents/klabel@0.5.0) (2021-08-24)
+
+
+### Features
+
+* **klabel:** add for attribute for label ([#321](https://github.com/Kong/kongponents/issues/321)) ([05d2b4c](https://github.com/Kong/kongponents/commit/05d2b4c3fcafd42ee26e70d77e2f2e96dd441172))
+
+
+
+
+
 # [0.4.0](https://github.com/Kong/kongponents/compare/@kongponents/klabel@0.3.3...@kongponents/klabel@0.4.0) (2021-06-08)
 
 
