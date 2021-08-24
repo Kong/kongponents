@@ -1,5 +1,7 @@
 <template functional>
-  <label class="k-input-label">
+  <label
+    :for="props.for"
+    class="k-input-label">
     <KoolTip
       v-if="props.help"
       :label="props.help"
@@ -39,6 +41,10 @@ export default {
       default: undefined
     },
     info: {
+      type: String,
+      default: undefined
+    },
+    for: {
       type: String,
       default: undefined
     }

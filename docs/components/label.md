@@ -44,6 +44,18 @@
 <KLabel info="This is an example">Input Title</KLabel>
 ```
 
+## With for attribute
+
+<br />
+
+<KLabel for="service">Service Name</KLabel>
+<KInput id="service"/>
+
+```vue
+<KLabel for="service" help="A service is an API that you want to offer">Service Name</KLabel>
+<KInput id="service"/>
+```
+
 ## Sample input with a tooltip
 
 <br />
@@ -55,3 +67,4 @@
 <KLabel help="A service is an API that you want to offer">Service Name</KLabel>
 <KInput />
 ```
+
