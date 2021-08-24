@@ -6,7 +6,9 @@
       type="radio"
       class="k-input"
       @click="handleClick">
-    <slot>{{ label }}</slot>
+    <span>
+      <slot> {{ label }}</slot>
+    </span>
   </label>
 </template>
 
