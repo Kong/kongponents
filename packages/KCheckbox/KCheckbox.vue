@@ -7,7 +7,7 @@
       class="k-input"
       v-on="listeners">
     <span>
-      <slot>{{ label }}</slot>
+      <slot> {{ label }}</slot>
     </span>
   </label>
 </template>
