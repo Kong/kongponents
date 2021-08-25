@@ -1,5 +1,5 @@
 
-FROM node:8
+FROM node:12
 
 ARG NPM_TOKEN
 ENV NPM_TOKEN=${NPM_TOKEN}
