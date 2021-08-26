@@ -96,7 +96,10 @@ module.exports = {
   plugins: [
     ['@vuepress/search', {
       searchHotkeys: ['/']
-    }]
+    }],
+    ['sitemap', {
+      hostname: 'https://kongponents.konghq.com'
+    }],
   ],
   chainWebpack: config => {
     const svgRule = config.module.rule('svg')
