@@ -82,11 +82,11 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 
 ```vue
 <KCheckbox v-model="checkbox1">
-  Label goes here. The checkbox is {{ checkbox1 ? 'checked' : 'not checked' }}
+  <span>Label goes here. The checkbox is {{ checkbox1 ? 'checked' : 'not checked' }}</span>
 </KCheckbox>
 
 <KCheckbox v-model="checkbox2">
-  I agree to the <a :href="privacyPolicyURL">privacy policy</a>.
+  <span>I agree to the <a :href="privacyPolicyURL">privacy policy</a>.</span>
 </KCheckbox>
 ```
 
@@ -94,12 +94,12 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
   <template slot="body">
     <div class="mb-2">
       <KCheckbox v-model="slots1">
-        Label goes here. The checkbox is {{ slots1 ? 'checked' : 'not checked' }}
+        <span>Label goes here. The checkbox is {{ slots1 ? 'checked' : 'not checked' }}</span>
       </KCheckbox>
     </div>
     <div>
       <KCheckbox v-model="slots2">
-        I agree to the <a href="#slots">privacy policy</a>.
+        <span>I agree to the <a href="#slots">privacy policy</a>.</span>
       </KCheckbox>
     </div>
   </template>
