@@ -84,7 +84,7 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 
 ```vue
 <KRadio v-model="selected" :value="true">
-  <span>Label goes here. The radio is {{ selected ? 'selected' : 'not selected' }}</span>
+  Label goes here. The radio is {{ selected ? 'selected' : 'not selected' }}
 </KRadio>
 ```
 
@@ -92,7 +92,7 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
   <template slot="body">
     <div class="mb-2">
       <KRadio v-model="selected" :value="true">
-        <span>Label goes here. The radio is {{ selected ? 'selected' : 'not selected' }}</span>
+        Label goes here. The radio is {{ selected ? 'selected' : 'not selected' }}
       </KRadio>
     </div>
   </template>

@@ -4,11 +4,8 @@
       :checked="value"
       v-bind="$attrs"
       type="checkbox"
-      class="k-input"
-      v-on="listeners">
-    <slot>
-      <span>{{ label }}</span>
-    </slot>
+      class="k-input float-left"
+      v-on="listeners"><span class="float-left"><slot>{{ label }}</slot></span>
   </label>
 </template>
 
