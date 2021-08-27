@@ -1,5 +1,5 @@
 <template>
-  <label class="k-radio testclass">
+  <label class="k-radio">
     <input
       :checked="isSelected"
       v-bind="$attrs"
