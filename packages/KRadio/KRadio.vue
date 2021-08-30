@@ -1,15 +1,13 @@
 <template>
-  <div class="d-inline-block">
-    <label class="k-radio">
-      <input
-        :checked="isSelected"
-        v-bind="$attrs"
-        type="radio"
-        class="k-input float-left"
-        @click="handleClick">
-      <span class="float-left"><slot>{{ label }}</slot></span>
-    </label>
-  </div>
+  <label class="k-radio d-inline-block">
+    <input
+      :checked="isSelected"
+      v-bind="$attrs"
+      type="radio"
+      class="k-input float-left"
+      @click="handleClick">
+    <span class="float-left"><slot>{{ label }}</slot></span>
+  </label>
 </template>
 
 <script>

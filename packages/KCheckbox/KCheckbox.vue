@@ -1,15 +1,13 @@
 <template>
-  <div class="d-inline-block">
-    <label class="k-checkbox">
-      <input
-        :checked="value"
-        v-bind="$attrs"
-        type="checkbox"
-        class="k-input float-left"
-        v-on="listeners">
-      <span class="float-left label-text"><slot>{{ label }}</slot></span>
-    </label>
-  </div>
+  <label class="k-checkbox d-inline-block">
+    <input
+      :checked="value"
+      v-bind="$attrs"
+      type="checkbox"
+      class="k-input float-left"
+      v-on="listeners">
+    <span class="float-left label-text"><slot>{{ label }}</slot></span>
+  </label>
 </template>
 
 <script>
