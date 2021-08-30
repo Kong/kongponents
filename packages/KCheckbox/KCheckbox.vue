@@ -1,12 +1,15 @@
 <template>
-  <label class="k-checkbox">
-    <input
-      :checked="value"
-      v-bind="$attrs"
-      type="checkbox"
-      class="k-input float-left"
-      v-on="listeners"><span class="float-left"><slot>{{ label }}</slot></span>
-  </label>
+  <div class="d-inline-block">
+    <label class="k-checkbox">
+      <input
+        :checked="value"
+        v-bind="$attrs"
+        type="checkbox"
+        class="k-input float-left"
+        v-on="listeners">
+      <span class="float-left label-text"><slot>{{ label }}</slot></span>
+    </label>
+  </div>
 </template>
 
 <script>
@@ -51,4 +54,9 @@ export default {
 <style lang="scss" scoped>
 @import '~@kongponents/styles/_variables.scss';
 @import '~@kongponents/styles/forms/_checkbox-radio.scss';
+
+.label-text {
+  position: relative;
+  top: 4px;
+}
 </style>
