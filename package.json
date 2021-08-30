@@ -16,7 +16,7 @@
   "scripts": {
     "build": "yarn build:styles && yarn docs:build && yarn build:cli",
     "build:postcss": "postcss packages/styles/styles.css --dir packages/styles",
-    "build:cli": "lerna exec --ignore @kongponents/styles \"ln ../../vue.config.js ./vue.config.js && ln ../../postcss-custom-properties.config.js ./postcss.config.js && yarn vue-cli-service build --target lib .\/\\$(cat package.json | jq -r .source) --name \\$(cat package.json | jq -r .componentName) --dest dist && rm ./vue.config.js ./postcss.config.js\"",
+    "build:cli": "lerna exec --ignore @kongponents/styles \"ln ../../vue.config.js ./vue.config.js && ln ../../postcss-custom-properties.config.js ./postcss.config.js && yarn vue-cli-service build --target lib ./\\$(cat package.json | jq -r .source) --name \\$(cat package.json | jq -r .componentName) --dest dist && rm ./vue.config.js ./postcss.config.js\"",
     "build:styles": "yarn node-sass packages/styles/styles.scss -o packages/styles && yarn build:postcss",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
@@ -24,9 +24,12 @@
     "test": "yarn jest",
     "test-coverage": "yarn jest --coverage",
     "cli": "./cli/kongponent-cli",
-    "lint": "yarn eslint --ext .js,.vue packages/"
+    "lint": "yarn eslint --ext .js,.vue packages/",
+    "postinstall": "husky install"
   },
   "devDependencies": {
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
     "@vue/cli-service": "^4.0.5",
     "@vue/test-utils": "1.0.0-beta.28",
     "@vuepress/plugin-search": "^1.5.4",
@@ -46,6 +49,7 @@
     "eslint-plugin-standard": "3.1.0",
     "eslint-plugin-vue": "4.5.0",
     "file-loader": "1.1.11",
+    "husky": "^7.0.2",
     "jest": "23.6.0",
     "jest-raw-loader": "^1.0.1",
     "jest-serializer-vue": "2.0.2",
