@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.7](https://github.com/Kong/kongponents/compare/@kongponents/kcheckbox@0.2.5...@kongponents/kcheckbox@0.2.7) (2021-08-31)
+
+**Note:** Version bump only for package @kongponents/kcheckbox
+
+
+
+
+
 ## [0.2.5](https://github.com/Kong/kongponents/compare/@kongponents/kcheckbox@0.2.4...@kongponents/kcheckbox@0.2.5) (2021-05-05)
 
 

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.6](https://github.com/Kong/kongponents/compare/@kongponents/kradio@0.2.4...@kongponents/kradio@0.2.6) (2021-08-31)
+
+**Note:** Version bump only for package @kongponents/kradio
+
+
+
+
+
 ## [0.2.4](https://github.com/Kong/kongponents/compare/@kongponents/kradio@0.2.3...@kongponents/kradio@0.2.4) (2021-08-04)
 
 
