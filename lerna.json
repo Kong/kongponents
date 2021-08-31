@@ -16,7 +16,7 @@
         "**/*.snap",
         "**/*.stories.js"
       ],
-      "message": "chore(release) publish"
+      "message": "chore(release): publish"
     }
   }
 }
