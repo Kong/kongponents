@@ -88,6 +88,16 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 </KRadio>
 ```
 
+<KCard>
+  <template slot="body">
+    <div class="mb-2">
+      <KRadio v-model="selected" :value="true">
+        Label goes here. The radio is {{ selected ? 'selected' : 'not selected' }}
+      </KRadio>
+    </div>
+  </template>
+</KCard>
+
 ## Theming
 | Variable | Purpose
 |:-------- |:-------
@@ -126,6 +136,7 @@ export default {
       objB: { name: 'b' },
       radio: true,
       radioState: true,
+      selected: false
     }
   }
 }

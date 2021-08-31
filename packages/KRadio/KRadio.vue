@@ -1,12 +1,12 @@
 <template>
-  <label class="k-radio">
+  <label class="k-radio d-inline-block">
     <input
       :checked="isSelected"
       v-bind="$attrs"
       type="radio"
-      class="k-input"
+      class="k-input float-left"
       @click="handleClick">
-    <slot>{{ label }}</slot>
+    <span class="float-left"><slot>{{ label }}</slot></span>
   </label>
 </template>
 
