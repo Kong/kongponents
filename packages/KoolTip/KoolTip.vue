@@ -6,13 +6,13 @@
     width="auto"
     hide-caret>
     <slot />
-    <div
-      slot="content"
-      role="tooltip">
-      <slot
-        :label="label"
-        name="content">{{ label }}</slot>
-    </div>
+    <template v-slot:content>
+      <div role="tooltip">
+        <slot
+          :label="label"
+          name="content">{{ label }}</slot>
+      </div>
+    </template>
   </KPop>
 </template>
 

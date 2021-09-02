@@ -80,11 +80,11 @@ For instance, here we are toggling the state on `mouseover` and toggling back on
 | `toggled` | `isToggled` Boolean |
 
 <KCard>
-  <div slot="body">
+  <template v-slot:body>
     <KToggle v-slot="{ toggle }" @toggled="sayHello">
       <KButton @click="toggle">keep clicking me</KButton>
     </KToggle>
-  </div>
+  </template>
 </KCard>
 
 ```vue
@@ -113,7 +113,7 @@ them and placing them inside `KToggle`'s default slot.
 ### KModal
 
 <KCard class="mt-3">
-  <div slot="body">
+  <template v-slot:body>
     <KToggle v-slot="{ isToggled, toggle }">
       <div>
         <KButton @click="toggle">
@@ -125,7 +125,7 @@ them and placing them inside `KToggle`'s default slot.
           @canceled="toggle" />
       </div>
     </KToggle>
-  </div>
+  </template>
 </KCard>
 
 ```vue
@@ -145,7 +145,7 @@ them and placing them inside `KToggle`'s default slot.
 ### Collapse/Expand
 
 <KCard class="mt-2" style="min-height: 100px;">
-  <div slot="body">
+  <template v-slot:body>
     <KToggle v-slot="{isToggled, toggle}">
       <div>
         <KButton @click="toggle">
@@ -157,7 +157,7 @@ them and placing them inside `KToggle`'s default slot.
           alertMessage="Every day, once a day, give yourself a present." />
       </div>
     </KToggle>
-  </div>
+  </template>
 </KCard>
 
 ```vue
@@ -177,7 +177,7 @@ them and placing them inside `KToggle`'s default slot.
 #### Toggle with Animation
 
 <KCard class="mt-2" style="min-height: 100px;">
-  <div slot="body">
+  <template v-slot:body>
     <KToggle v-slot="{isToggled, toggle}">
       <div>
         <KButton @click="toggle">
@@ -191,22 +191,22 @@ them and placing them inside `KToggle`'s default slot.
         </transition>
       </div>
     </KToggle>
-  </div>
+  </template>
 </KCard>
 
 ```vue
 <KToggle v-slot="{isToggled, toggle}">
-  <div>
-    <KButton @click="toggle">
-      {{ isToggled ? 'collapse' : 'expand' }}
-    </KButton>
-    <transition name="expand">
-      <KAlert
-        v-if="isToggled" 
-        class="mt-3"
-        alertMessage="Every day, once a day, give yourself a present." />
-    </transition>
-  </div>
+      <div>
+        <KButton @click="toggle">
+          {{ isToggled ? 'collapse' : 'expand' }}
+        </KButton>
+        <transition name="expand">
+          <KAlert
+            v-if="isToggled" 
+            class="mt-3"
+            alertMessage="Every day, once a day, give yourself a present." />
+        </transition>
+      </div>
 </KToggle>
 ```
 

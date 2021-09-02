@@ -432,7 +432,7 @@ export default {
 </template>
 <template>
   <KCard>
-    <div slot="body">
+    <template v-slot:body>
       <div v-if="eventType">
         {{eventType}} on: {{row}}
       </div>
@@ -444,7 +444,7 @@ export default {
         @row:click="actionRow"
         @cell:mouseover="actionRow"
       />
-    </div>
+    </template>
   </KCard>
 </template>
 <script>

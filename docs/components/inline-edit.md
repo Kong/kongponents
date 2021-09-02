@@ -68,7 +68,7 @@ While the component itself does not protect against returning empty an empty val
 :::
 
 <KCard>
-  <template slot="body">
+  <template v-slot:body>
     <Komponent :data="{ inlineText: 'Click to edit me' }" v-slot="{ data }">
       <div>
         Updated: {{ data.inlineText }}

@@ -3,7 +3,7 @@
 **KRadio** - KRadio is a wrapper around a Kong styled radio input.
 
 <KCard>
-  <template slot="body">
+  <template v-slot:body>
     <div>
       <KRadio name="test" :value="true" v-model="radio">Boolean</KRadio>
       <KRadio name="test" value="string" v-model="radio">String</KRadio>
@@ -56,11 +56,12 @@ Will place label text to the right of the input. Can also be [slotted](#slots).
 ```
 
 <KCard>
-  <KRadio
-    slot="body"
-    :value="true"
-    v-model="radioState"
-    label="Label passed as prop" />
+  <template v-slot:body>
+    <KRadio
+      :value="true"
+      v-model="radioState"
+      label="Label passed as prop" />
+  </template>
 </KCard>
 
 ### html attributes
@@ -76,7 +77,9 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 ```
 
 <KCard>
-  <KRadio slot="body" v-model="radioState" label="disabled" disabled />
+  <template v-slot:body>
+    <KRadio v-model="radioState" label="disabled" disabled />
+  </template>
 </KCard>
 
 ## Slots

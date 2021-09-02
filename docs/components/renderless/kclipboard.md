@@ -3,15 +3,15 @@
 `<KClipboardProvider />` Provide clipboard functionality to components.
 
 <KCard>
-<div slot="body">
-  <KInput :value="dataToCopy1" @input="dataToCopy1 = $event.target.value" type="text" class="mb-2 w-100" />
-  <KClipboardProvider v-slot="{ copyToClipboard }">
-    <KButton
-      @click="() => { if(copyToClipboard(dataToCopy1)){ alert(`copied to the clipboard: '${dataToCopy1}'`) } }">
-      copy to clipboard
-    </KButton>
-  </KClipboardProvider>
-</div>
+  <template v-slot:body>
+    <KInput :value="dataToCopy1" @input="dataToCopy1 = $event.target.value" type="text" class="mb-2 w-100" />
+    <KClipboardProvider v-slot="{ copyToClipboard }">
+      <KButton
+        @click="() => { if(copyToClipboard(dataToCopy1)){ alert(`copied to the clipboard: '${dataToCopy1}'`) } }">
+        copy to clipboard
+      </KButton>
+    </KClipboardProvider>
+  </template>
 </KCard>
 
 ```vue

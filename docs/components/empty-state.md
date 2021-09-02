@@ -121,18 +121,22 @@ A flag denoting whether or not the message is an error message. If so, a warning
 
 <template>
   <KEmptyState :cta-is-hidden="true" :is-error="true">
-    <h5 slot="message">
-      Error: Something broke
-    </h5>
+    <template v-slot:message>
+      <h5>
+        Error: Something broke
+      </h5>
+    </template>
   </KEmptyState>
 </template>
 
 ```vue
 <template>
   <KEmptyState :cta-is-hidden="true" :is-error="true">
-    <h5 slot="message">
-      Error: Something broke
-    </h5>
+    <template v-slot:message>
+      <h5>
+        Error: Something broke
+      </h5>
+    </template>
   </KEmptyState>
 </template>
 ```
@@ -144,19 +148,23 @@ A number denoting the size of the warning icon to be displayed above the error m
 
 <template>
   <KEmptyState :cta-is-hidden="true" :is-error="true" icon-size="40">
-    <h5 slot="message">
-      Error: Something broke and now this size 40 warning icon is displayed.
-    </h5>
+    <template v-slot:message>
+      <h5>
+        Error: Something broke and now this size 40 warning icon is displayed.
+      </h5>
+    </template>
   </KEmptyState>
 </template>
 
 ```vue
 <template>
   <KEmptyState :cta-is-hidden="true" :is-error="true" icon-size="40">
-     <h5 slot="message">
-      Error: Something broke and now this size 40 warning icon is displayed.
-    </h5>
-    </KEmptyState>
+    <template v-slot:message>
+      <h5>
+        Error: Something broke and now this size 40 warning icon is displayed.
+      </h5>
+    </template>
+  </KEmptyState>
 </template>
 ```
 
