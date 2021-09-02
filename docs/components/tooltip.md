@@ -79,7 +79,7 @@ Here are the different options:
 
 <KoolTip label="Video Games">
   <KButton>&nbsp;✌🏻</KButton>
-  <template slot="content">
+  <template v-slot:content>
     <span><b>yoyo</b> <span class="color-red-500">kooltip</span></span>
   </template>
 </KoolTip>
@@ -87,7 +87,7 @@ Here are the different options:
 ```vue
 <KoolTip>
   <KButton>&nbsp;✌🏻</KButton>
-  <template slot="content">
+  <template v-slot:content>
     <span><b>yoyo</b> <span class="color-red-500">kooltip</span></span>
   </template>
 </KoolTip>

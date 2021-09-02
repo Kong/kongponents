@@ -245,7 +245,7 @@ For example, here is a card skeleton with different arrangement of placeholders:
 
 <template>
   <KSkeleton class="k-skeleton-modified" type="card" :card-count="3">
-    <template slot="card-header">
+    <template v-slot:card-header>
       <div class="w-100">
         <div class="justify-content-center pb-3">
           <KSkeletonBox width="5" />
@@ -253,10 +253,10 @@ For example, here is a card skeleton with different arrangement of placeholders:
         <hr>
       </div>
     </template>
-    <template slot="card-content">
+    <template v-slot:card-content>
       <KSkeletonBox width="100"/>
     </template>
-    <template slot="card-footer">
+    <template v-slot:card-footer>
       <div class="w-100">
         <div class="d-flex justify-content-center">
           <KSkeletonBox width="5" />
@@ -268,7 +268,7 @@ For example, here is a card skeleton with different arrangement of placeholders:
 
 ```vue
 <KSkeleton type="card" :card-count="3">
-  <template slot="card-header">
+  <template v-slot:card-header>
     <div class="w-100">
       <div class="d-flex justify-content-center pb-2">
         <KSkeletonBox width="5" />
@@ -276,7 +276,7 @@ For example, here is a card skeleton with different arrangement of placeholders:
       <hr>
     </div>
   </template>
-  <template slot="card-footer">
+  <template v-slot:card-footer>
     <div class="w-100">
       <div class="d-flex justify-content-center pb-2">
         <KSkeletonBox width="5" />
@@ -290,7 +290,7 @@ And another example:
 
 <template>
   <KSkeleton type="card">
-    <template slot="card-header">
+    <template v-slot:card-header>
       <div>
         <div class="d-flex justify-content-center pb-2">
           <KSkeletonBox width="5" />
@@ -298,7 +298,7 @@ And another example:
         <hr>
       </div>
     </template>
-    <template slot="card-content">
+    <template v-slot:card-content>
       <div class="d-block">
         <template v-for="i in 8">
           <KSkeletonBox width="5" />
@@ -308,7 +308,7 @@ And another example:
         </template>
       </div>
     </template>
-    <template slot="card-footer">
+    <template v-slot:card-footer>
       <KSkeletonBox width="100" />
     </template>
   </KSkeleton>
@@ -317,7 +317,7 @@ And another example:
 
 ```vue
 <KSkeleton type="card">
-  <template slot="card-header">
+  <template v-slot:card-header>
     <div>
       <div class="d-flex justify-content-center pb-2">
         <KSkeletonBox width="5" />
@@ -325,7 +325,7 @@ And another example:
       <hr>
     </div>
   </template>
-  <template slot="card-content">
+  <template v-slot:card-content>
     <div class="d-block">
       <template v-for="i in 8">
         <KSkeletonBox width="5" />
@@ -335,7 +335,7 @@ And another example:
       </template>
     </div>
   </template>
-  <template slot="card-footer">
+  <template v-slot:card-footer>
     <KSkeletonBox width="100" />
   </template>
 </KSkeleton>

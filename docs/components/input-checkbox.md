@@ -3,7 +3,9 @@
 **KCheckbox** - KCheckbox is a wrapper around a Kong styled checkbox input.
 
 <KCard>
-  <KCheckbox slot="body" v-model="defaultChecked"/>
+  <template v-slot:body>
+    <KCheckbox v-model="defaultChecked"/>
+  </template>
 </KCard>
 
 ```vue
@@ -58,9 +60,11 @@ Will place label text to the right of the input. Can also be [slotted](#slots).
 ```
 
 <KCard>
-  <KCheckbox class="mr-3" slot="body" v-model="labelPropChecked1" :label="labelPropChecked1 ? 'on' : 'off'" /> 
-  <KCheckbox class="mr-3" slot="body" v-model="labelPropChecked2" :label="labelPropChecked2 ? 'on' : 'off'" />
-  <KCheckbox slot="body" v-model="labelPropChecked3" :label="labelPropChecked3 ? 'on' : 'off'" />
+  <template v-slot:body>
+    <KCheckbox class="mr-3" v-model="labelPropChecked1" :label="labelPropChecked1 ? 'on' : 'off'" /> 
+    <KCheckbox class="mr-3" v-model="labelPropChecked2" :label="labelPropChecked2 ? 'on' : 'off'" />
+    <KCheckbox v-model="labelPropChecked3" :label="labelPropChecked3 ? 'on' : 'off'" />
+  </template>
 </KCard>
 
 ### html attributes
@@ -74,7 +78,9 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 ```
 
 <KCard>
-  <KCheckbox slot="body" v-model="defaultChecked" disabled />
+  <template v-slot:body>
+    <KCheckbox v-model="defaultChecked" disabled />
+  </template>
 </KCard>
 
 ## Slots
@@ -91,7 +97,7 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 ```
 
 <KCard>
-  <template slot="body">
+  <template v-slot:body>
     <div class="mb-2">
       <KCheckbox v-model="slots1">
         Label goes here. The checkbox is {{ slots1 ? 'checked' : 'not checked' }}

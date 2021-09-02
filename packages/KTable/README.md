@@ -30,6 +30,6 @@ const options = {
 }
 
 <KTable :options=options :isStriped='true' :hasHover='true'>
-  <template slot="actions" slot-scope="{row, rowKey, rowValue}"><a href="">Edit</a></template>
+  <template v-slot:actions="{row, rowKey, rowValue}"><a href="">Edit</a></template>
 </KTable>
 ```

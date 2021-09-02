@@ -39,7 +39,7 @@ Example usage:
   <button 
       ^------add slotted content
 
-    slot-scope="{isToggled, toggle}"
+    v-slot:default="{isToggled, toggle}"
     @click="toggle">
     {{ isToggled ? 'hello' : 'goodbye' }}
   </button>

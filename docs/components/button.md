@@ -117,27 +117,28 @@ KButton also supports the disabled attribute with both Button and Anchor types.
 KButton supports using an icon either before the text or without text.  
 
 <KButton appearance="secondary">
-  <KIcon
-    slot="icon"
-    icon="gear" />With Text
+  <template v-slot:icon>
+    <KIcon icon="externalLink" />
+  </template>
+  With Text
 </KButton>
 <KButton appearance="secondary">
-  <KIcon
-    slot="icon"
-    icon="gear" />
+  <template v-slot:icon>
+    <KIcon icon="gear" />
+  </template>
 </KButton>
 
 ```vue
 <KButton appearance="secondary">
-  <KIcon
-    slot="icon"
-    icon="gear" />
+  <template v-slot:icon>
+    <KIcon icon="externalLink" />
+  </template>
   With Text
 </KButton>
 <KButton appearance="secondary">
-  <KIcon
-    slot="icon"
-    icon="gear" />
+  <template v-slot:icon>
+    <KIcon icon="gear" />
+  </template>
 </KButton>
 ```
 

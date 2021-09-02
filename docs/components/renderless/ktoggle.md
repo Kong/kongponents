@@ -196,17 +196,17 @@ them and placing them inside `KToggle`'s default slot.
 
 ```vue
 <KToggle v-slot="{isToggled, toggle}">
-  <div>
-    <KButton @click="toggle">
-      {{ isToggled ? 'collapse' : 'expand' }}
-    </KButton>
-    <transition name="expand">
-      <KAlert
-        v-if="isToggled" 
-        class="mt-3"
-        alertMessage="Every day, once a day, give yourself a present." />
-    </transition>
-  </div>
+      <div>
+        <KButton @click="toggle">
+          {{ isToggled ? 'collapse' : 'expand' }}
+        </KButton>
+        <transition name="expand">
+          <KAlert
+            v-if="isToggled" 
+            class="mt-3"
+            alertMessage="Every day, once a day, give yourself a present." />
+        </transition>
+      </div>
 </KToggle>
 ```
 

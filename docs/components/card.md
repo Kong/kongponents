@@ -16,14 +16,14 @@ String to be used in the title slot.
 - `title`
 
 <KCard title="Title">
-  <template slot="body">
+  <template v-slot:body>
     I am the body.
   </template>
 </KCard>
 
 ```vue
 <KCard title="Title">
-  <template slot="body">
+  <template v-slot:body>
     I am the body.
   </template>
 </KCard>
@@ -32,14 +32,14 @@ String to be used in the title slot.
 If the title is omitted, then KCard acts as a generic Box element.
 
 <KCard>
-  <template slot="body">
+  <template v-slot:body>
     I am a box. I have padding and a border. Useful for composing other components
   </template>
 </KCard>
 
 ```vue
 <KCard>
-  <template slot="body">
+  <template v-slot:body>
     I am a box. I have padding and a border. Useful for composing other components
   </template>
 </KCard>
@@ -48,7 +48,7 @@ If the title is omitted, then KCard acts as a generic Box element.
 Example composing `KCard` with other Kongponents to make another component:
 
 <KCard :hasHover="true">
-  <template slot="body">
+  <template v-slot:body>
     <KAlert alert-message="Welcome to Kong!" />
     <div class="mx-4">
       <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -67,7 +67,7 @@ Example composing `KCard` with other Kongponents to make another component:
 
 ```vue
 <KCard :hasHover="true">
-  <template slot="body">
+  <template v-slot:body>
     <KAlert alert-message="Welcome to Kong!" />
     <div class="mx-4">
       <div>
@@ -94,7 +94,7 @@ String positioned closely under the title to serve as help text
   title="Invite a New User"
   help-text="A confirmation email will be sent to the specified email address"
 >
-  <template slot="body">
+  <template v-slot:body>
     <div>
       <KLabel>Email Address</KLabel>
       <KInput class="mb-6" type="email" placeholder="Enter a valid email"/>
@@ -108,7 +108,7 @@ String positioned closely under the title to serve as help text
   title="Invite a New User"
   help-text="A confirmation email will be sent to the specified email address"
 >
-  <template slot="body">
+  <template v-slot:body>
     <div>
       <KLabel>Email Address</KLabel>
       <KInput class="mb-6" type="email" placeholder="Enter a valid email"/>
@@ -121,14 +121,14 @@ String positioned closely under the title to serve as help text
 Example of a KCard with helpText slot
 
 <KCard title="Invite a New User">
-  <template slot="helpText">
+  <template v-slot:helpText>
     <div class="d-flex align-items-center">
       A confirmation email will be sent to the specified email address
       <a class="ml-3 mr-2" href="#help-text">Learn More</a>
       <KIcon icon="externalLink" color="var(--blue-500)" size="14"/>
     </div>
   </template>
-  <template slot="body">
+  <template v-slot:body>
     <div>
       <KLabel>Email Address</KLabel>
       <KInput class="mb-6" type="email" placeholder="Enter a valid email"/>
@@ -139,14 +139,14 @@ Example of a KCard with helpText slot
 
 ```vue
 <KCard title="Invite a New User">
-  <template slot="helpText">
+  <template v-slot:helpText>
     <div class="d-flex align-items-center">
       A confirmation email will be sent to the specified email address
       <a class="ml-3 mr-2" href="#help-text">Learn More</a>
       <KIcon icon="externalLink" color="var(--blue-500)" size="14"/>
     </div>
   </template>
-  <template slot="body">
+  <template v-slot:body>
     <div>
       <KLabel>Email Address</KLabel>
       <KInput class="mb-6" type="email" placeholder="Enter a valid email"/>
@@ -162,14 +162,14 @@ Example of a KCard with both helpText and an action
   title="Invite a New User"
   help-text="A confirmation email will be sent to the specified email address"
 >
-  <template slot="body">
+  <template v-slot:body>
     <div>
       <KLabel>Email Address</KLabel>
       <KInput class="mb-6" type="email" placeholder="Enter a valid email"/>
       <KButton appearance="primary">Invite User</KButton>
     </div>
   </template>
-  <template slot="actions">
+  <template v-slot:actions>
     <KButton>View Invites</KButton>
   </template>
 </KCard>
@@ -179,14 +179,14 @@ Example of a KCard with both helpText and an action
   title="Invite a New User"
   help-text="A confirmation email will be sent to the specified email address"
 >
-  <template slot="body">
+  <template v-slot:body>
     <div>
       <KLabel>Email Address</KLabel>
       <KInput class="mb-6" type="email" placeholder="Enter a valid email"/>
       <KButton appearance="primary">Invite User</KButton>
     </div>
   </template>
-  <template slot="actions">
+  <template v-slot:actions>
     <KButton>View Invites</KButton>
   </template>
 </KCard>
@@ -277,7 +277,7 @@ Cards can be arranged with flex box.
     class="w-auto mx-5"
     body="This card always has a icon button"
   >
-    <template slot="actions">
+    <template v-slot:actions>
       <KButton>
         <KIcon
             icon="gearFilled"
@@ -293,7 +293,7 @@ Cards can be arranged with flex box.
     class="w-auto"
     body="This card always has a button"
   >
-    <template slot="actions"><KButton>View All</KButton></template>
+    <template v-slot:actions><KButton>View All</KButton></template>
   </KCard>
 </div>
 
@@ -309,7 +309,7 @@ Cards can be arranged with flex box.
     class="w-auto mx-5"
     body="This card always has a icon button"
   >
-    <template slot="actions">
+    <template v-slot:actions>
       <KButton>
         <KIcon
             icon="gearFilled"
@@ -325,7 +325,7 @@ Cards can be arranged with flex box.
     class="w-auto"
     body="This card always has a button"
   >
-    <template slot="actions"><KButton>View All</KButton></template>
+    <template v-slot:actions><KButton>View All</KButton></template>
   </KCard>
 </div>
 ```
@@ -337,15 +337,15 @@ Cards can be arranged with flex box.
 
 &nbsp;
 <KCard>
-  <template slot="title">Look Mah!</template>
-  <template slot="actions"><a href="#">View All</a></template>
+  <template v-slot:title>Look Mah!</template>
+  <template v-slot:actions><a href="#">View All</a></template>
   <span slot="body">Body slot content here</span>
 </KCard>
 
 ```vue
 <KCard>
-  <template slot="title">Look Mah!</template>
-  <template slot="actions">
+  <template v-slot:title>Look Mah!</template>
+  <template v-slot:actions>
     <a href="#">View All</a>
   </template>
   <span slot="body">Body slot content here</span>

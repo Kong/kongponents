@@ -82,7 +82,7 @@ You can read more about the viewBox attribute
 - `svgElements` - Used to add svg customization elements
 
 <KIcon icon="check" size="50" color="url('#linear-gradient')">
-  <template slot="svgElements">
+  <template v-slot:svgElements>
     <defs>
       <linearGradient id="linear-gradient" x1="0" x2="1">
         <stop offset="0%" stop-color="#16BDCC" />
@@ -94,7 +94,7 @@ You can read more about the viewBox attribute
 </KIcon>
 
 <KIcon icon="services" size="50" color="url('#linear-gradient2')">
-  <template slot="svgElements">
+  <template v-slot:svgElements>
     <defs>
       <linearGradient id="linear-gradient2" gradientTransform="rotate(90)">
         <stop offset="10%"  stop-color="gold" />
@@ -105,7 +105,7 @@ You can read more about the viewBox attribute
 </KIcon>
 
 <KIcon icon="gear" size="50" color="dark-grey">
-  <template slot="svgElements">
+  <template v-slot:svgElements>
     <animateTransform
       attributeName="transform"
       type="rotate"
@@ -119,7 +119,7 @@ You can read more about the viewBox attribute
 
 ```vue
 <KIcon icon="check" size="50" color="url('#linear-gradient')">
-  <template slot="svgElements">
+  <template v-slot:svgElements>
     <defs>
       <linearGradient id="linear-gradient" x1="0" x2="1">
         <stop offset="0%" stop-color="#16BDCC" />
@@ -131,7 +131,7 @@ You can read more about the viewBox attribute
 </KIcon>
 
 <KIcon icon="services" size="50" color="url('#linear-gradient2')">
-  <template slot="svgElements">
+  <template v-slot:svgElements>
     <defs>
       <linearGradient id="linear-gradient2" gradientTransform="rotate(90)">
         <stop offset="10%"  stop-color="gold" />
@@ -142,7 +142,7 @@ You can read more about the viewBox attribute
 </KIcon>
 
 <KIcon icon="gear" size="50" color="dark-grey">
-  <template slot="svgElements">
+  <template v-slot:svgElements>
     <animateTransform
       attributeName="transform"
       type="rotate"

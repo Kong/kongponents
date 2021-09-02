@@ -318,7 +318,7 @@ HTML content can be injected into the popover.
 
 <svg style="cursor: pointer; height: 20px; width: 20px; margin-right: 1rem;" v-for="light in [{ color: 'red', value: 'red-500'}, { color: 'yellow', value: 'yellow-200'}, { color: 'green', value: 'green-500'}]">
   <KPop trigger="hover" :title="light.color" :is-svg="true" tag="g" :popover-timeout="10">
-    <template slot="content">
+    <template v-slot:content>
       <p>{{ light.color }} means {{ light.color == 'green' ? 'GO!' : (light.color == 'red' ? 'STOP!' : 'SLOW DOWN!') }}</p>
     </template>
     <rect :fill="`var(--${light.value})`" width="20" height="20" rx="20" ry="20"></rect>
@@ -328,7 +328,7 @@ HTML content can be injected into the popover.
 ```vue
 <svg v-for="light in ['red', 'yellow', 'green']">
   <KPop trigger="hover" title="Light" :is-svg="true" tag="g" :popover-timeout="10">
-    <template slot="content">
+    <template v-slot:content>
       <p>{{ light }} means {{ light == 'green' ? 'GO!' : (light == 'red' ? 'STOP!' : 'SLOW DOWN!') }}</p>
     </template>
     <rect :fill="`var(--${light})`" width="20" height="20" rx="20" ry="20"></rect>

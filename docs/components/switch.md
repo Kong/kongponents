@@ -110,13 +110,13 @@ Display a check icon when switch is enabled
 - `label`
 
 <KInputSwitch
-  v-model="labelChecked"> <template slot="label">{{ labelText}}</template>
+  v-model="labelChecked"> <template v-slot:label>{{ labelText}}</template>
 </KInputSwitch>
 
 ```vue
 <template>
   <KInputSwitch v-model="checked">
-    <template slot="label">{{ labelText }}</template>
+    <template v-slot:label>{{ labelText }}</template>
   </KInputSwitch>
 </template>
 

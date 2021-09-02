@@ -432,7 +432,7 @@ export default {
 </template>
 <template>
   <KCard>
-    <div slot="body">
+    <div v-slot:body>
       <div v-if="eventType">
         {{eventType}} on: {{row}}
       </div>
