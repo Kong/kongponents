@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.0.0 (2021-09-03)
+
+
+### Bug Fixes
+
+* **dist:** dist to all packages ([#152](https://github.com/Kong/kongponents/issues/152)) ([217c46b](https://github.com/Kong/kongponents/commit/217c46b02afe960f8fa597ba77410dcf034b1716))
+* **KAlert:** remove validator from size prop ([0080ac4](https://github.com/Kong/kongponents/commit/0080ac40f9b3200d21ccd12e81b85a7979f198a7))
+
+
+### Features
+
+* **KAlert:** add more border options ([#317](https://github.com/Kong/kongponents/issues/317)) ([fdb93a2](https://github.com/Kong/kongponents/commit/fdb93a2228cff2b2d1faeb571d899bad04ea3056))
+* **style:** Updates Colors & Component Styles ([#225](https://github.com/Kong/kongponents/issues/225)) ([642a26b](https://github.com/Kong/kongponents/commit/642a26b888cbf8b4abbe32965729d44d54f9dfef))
+
+
+### BREAKING CHANGES
+
+* **style:** All new colors and color naming. Various component style improvements.
+
+
+
+
+
 # [1.1.0](https://github.com/Kong/kongponents/compare/@kongponents/kalert@1.0.21...@kongponents/kalert@1.1.0) (2021-07-27)
 
 

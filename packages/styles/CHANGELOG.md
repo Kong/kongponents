@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.0.0 (2021-09-03)
+
+
+### Features
+
+* **forms:** Add KRadio & KCheckbox, add form css ([65158f2](https://github.com/Kong/kongponents/commit/65158f26ca6999a6fe47e0c58fe5a64aed8737d6))
+* **kinput:** add label support ([#318](https://github.com/Kong/kongponents/issues/318)) ([f81311e](https://github.com/Kong/kongponents/commit/f81311e92e8175a8e4e9fd93d199efdba39f4cb3))
+* **klabel:** add help property with icon + tooltip ([#306](https://github.com/Kong/kongponents/issues/306)) ([d6b86d1](https://github.com/Kong/kongponents/commit/d6b86d109712a87da80434270c5cf1fe7ec19e1b))
+* **style:** Updates Colors & Component Styles ([#225](https://github.com/Kong/kongponents/issues/225)) ([642a26b](https://github.com/Kong/kongponents/commit/642a26b888cbf8b4abbe32965729d44d54f9dfef))
+* **styles:** Add utility classes, fix kbutton svg logic and sizing ([916ac62](https://github.com/Kong/kongponents/commit/916ac62539bf123726270fe9937ac27a5245700d))
+* **styles/utilities:** CSS utility class updates ([#311](https://github.com/Kong/kongponents/issues/311)) ([dbd8f7d](https://github.com/Kong/kongponents/commit/dbd8f7dc47cd4eff2566f4e9df0a36b7770cacde))
+
+
+* feat(kooltip)!: refactor to kpop and restyle (#283) ([ede3f3c](https://github.com/Kong/kongponents/commit/ede3f3c8250559b81def17c24cebb88fd28e9055)), closes [#283](https://github.com/Kong/kongponents/issues/283)
+* fix(colors) fixes color name typo ([f063f17](https://github.com/Kong/kongponents/commit/f063f172f18fe597d681c0421c737189163cb7df))
+
+
+### Bug Fixes
+
+* **checkbox:** remove blue outline border from disabled checkboxes - INTF-2666 ([#270](https://github.com/Kong/kongponents/issues/270)) ([c366f63](https://github.com/Kong/kongponents/commit/c366f63bac3e9cfa5670fff5b583e51033d2a88c))
+* **forms:** remove invalid selector & fix checkbox hover border ([65b90cf](https://github.com/Kong/kongponents/commit/65b90cfc3cf4e6fd219a3f51f110e5382d5a8fcb))
+* **styles:** adds missing utilities & add important declarations  ([#172](https://github.com/Kong/kongponents/issues/172)) ([2954ecb](https://github.com/Kong/kongponents/commit/2954ecbfd586c2d37b2b0f30dfd6697fbdc4f62d))
+
+
+### BREAKING CHANGES
+
+* props and styles completely updated
+* Color name is now different so any application usage must be updated when pulling latest version
+* **style:** All new colors and color naming. Various component style improvements.
+
+
+
+
+
 # [3.3.0](https://github.com/Kong/kongponents/compare/@kongponents/styles@3.2.0...@kongponents/styles@3.3.0) (2021-07-27)
 
 

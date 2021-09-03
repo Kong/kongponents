@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.0.0 (2021-09-03)
+
+
+### Bug Fixes
+
+* **dist:** dist to all packages ([#152](https://github.com/Kong/kongponents/issues/152)) ([217c46b](https://github.com/Kong/kongponents/commit/217c46b02afe960f8fa597ba77410dcf034b1716))
+* **kbutton:** change height of kbutton icons to be auto - intf-2282 ([#185](https://github.com/Kong/kongponents/issues/185)) ([6f497ba](https://github.com/Kong/kongponents/commit/6f497bab9a26007b51572f0403ab6ce5225f901c))
+* **KCard:** add bottom margin to help text element ([#313](https://github.com/Kong/kongponents/issues/313)) ([744dd02](https://github.com/Kong/kongponents/commit/744dd02c8822251bbecdff920d25c3a541fd481a))
+* **KCard:** adjust helpText margins ([#315](https://github.com/Kong/kongponents/issues/315)) ([1a09ccd](https://github.com/Kong/kongponents/commit/1a09ccde5e547bc1b78716e3b0648bb65ed388b6))
+* **KCard:** Remove default cursor pointer & version ([#35](https://github.com/Kong/kongponents/issues/35)) ([cf01828](https://github.com/Kong/kongponents/commit/cf018282af74c85774db862025a71f23426e3c10))
+
+
+### Features
+
+* **kcard:** add permanent shadow property ([#188](https://github.com/Kong/kongponents/issues/188)) ([37dbee7](https://github.com/Kong/kongponents/commit/37dbee7cdac5c99597d02f54cbb25dce54e689ac))
+* **KCard:** add help text prop ([#309](https://github.com/Kong/kongponents/issues/309)) ([fc13244](https://github.com/Kong/kongponents/commit/fc132445189be95da6e84ad490d28305b3f3572b))
+* **style:** Updates Colors & Component Styles ([#225](https://github.com/Kong/kongponents/issues/225)) ([642a26b](https://github.com/Kong/kongponents/commit/642a26b888cbf8b4abbe32965729d44d54f9dfef))
+
+
+### BREAKING CHANGES
+
+* **style:** All new colors and color naming. Various component style improvements.
+
+
+
+
+
 ## [1.1.2](https://github.com/Kong/kongponents/compare/@kongponents/kcard@1.1.1...@kongponents/kcard@1.1.2) (2021-07-07)
 
 

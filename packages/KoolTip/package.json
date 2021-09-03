@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kooltip",
-  "version": "1.0.0",
+  "version": "4.0.0",
   "description": "A tooltip component",
   "main": "dist/KoolTip.umd.min.js",
   "componentName": "KoolTip",
@@ -23,6 +23,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kpop": "^1.1.0"
+    "@kongponents/kpop": "^4.0.0"
   }
 }

@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.0.0 (2021-09-03)
+
+
+* feat(badge)!: update styles, remove min width, add default (#288) ([5cd2c33](https://github.com/Kong/kongponents/commit/5cd2c33139ade749cf1cb52a9e5c235a0ecb188a)), closes [#288](https://github.com/Kong/kongponents/issues/288)
+
+
+### Bug Fixes
+
+* **automation:** remove 2FA, republish KBadge ([#277](https://github.com/Kong/kongponents/issues/277)) ([63a33c6](https://github.com/Kong/kongponents/commit/63a33c6874848243b96bbb17df2f0f4927c629e7))
+* **dist:** dist to all packages ([#152](https://github.com/Kong/kongponents/issues/152)) ([217c46b](https://github.com/Kong/kongponents/commit/217c46b02afe960f8fa597ba77410dcf034b1716))
+
+
+### Features
+
+* **kbadge:** auto width by default, add vars, truncate ([#271](https://github.com/Kong/kongponents/issues/271)) ([ee6d547](https://github.com/Kong/kongponents/commit/ee6d547f0820141b39535d57e07ad8f624beaf62))
+* **style:** Updates Colors & Component Styles ([#225](https://github.com/Kong/kongponents/issues/225)) ([642a26b](https://github.com/Kong/kongponents/commit/642a26b888cbf8b4abbe32965729d44d54f9dfef))
+
+
+### BREAKING CHANGES
+
+* default appearance updated
+* **style:** All new colors and color naming. Various component style improvements.
+
+
+
+
+
 # [2.0.0](https://github.com/Kong/kongponents/compare/@kongponents/kbadge@1.1.1...@kongponents/kbadge@2.0.0) (2021-02-09)
 
 

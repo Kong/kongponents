@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.0.0 (2021-09-03)
+
+
+### Bug Fixes
+
+* copy paste error for kradio ([#320](https://github.com/Kong/kongponents/issues/320)) ([6d8f0ec](https://github.com/Kong/kongponents/commit/6d8f0ec279fd4ea77cb14ebb25dad85133f74f9e)), closes [#319](https://github.com/Kong/kongponents/issues/319)
+* **forms:** fix incorrect build badge link ([#168](https://github.com/Kong/kongponents/issues/168)) ([cb45160](https://github.com/Kong/kongponents/commit/cb4516064fc55abb9f148e501b677a8e2899b9da))
+
+
+### Features
+
+* **forms:** Add KRadio & KCheckbox, add form css ([65158f2](https://github.com/Kong/kongponents/commit/65158f26ca6999a6fe47e0c58fe5a64aed8737d6))
+
+
+
+
+
 ## [0.2.6](https://github.com/Kong/kongponents/compare/@kongponents/kradio@0.2.4...@kongponents/kradio@0.2.6) (2021-08-31)
 
 **Note:** Version bump only for package @kongponents/kradio

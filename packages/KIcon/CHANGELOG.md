@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.0.0 (2021-09-03)
+
+
+### Bug Fixes
+
+* **dist:** dist to all packages ([#152](https://github.com/Kong/kongponents/issues/152)) ([217c46b](https://github.com/Kong/kongponents/commit/217c46b02afe960f8fa597ba77410dcf034b1716))
+
+
+### Features
+
+* **kemptystate:** make kemptystate support error state, add kskeleton  - intf-2312 ([#191](https://github.com/Kong/kongponents/issues/191)) ([180ff45](https://github.com/Kong/kongponents/commit/180ff45c225589f9736ae2285c81cd0cbd66ce30))
+* **kicon:** add redo, pencil icon ([#305](https://github.com/Kong/kongponents/issues/305)) ([98cb0b4](https://github.com/Kong/kongponents/commit/98cb0b4244365f34e6f3830be25f7411272844cd))
+* **kicon:** add service document kicon ([#267](https://github.com/Kong/kongponents/issues/267)) ([f7ad461](https://github.com/Kong/kongponents/commit/f7ad46151115b1b9c63e138f966aa88cb977bdda))
+* **KIcon:** add check icon ([#295](https://github.com/Kong/kongponents/issues/295)) ([467ac21](https://github.com/Kong/kongponents/commit/467ac212a94d5234c613279b84f2fc0881ddf1fb))
+* **KIcon:** add dangerCircleOutline icon ([#316](https://github.com/Kong/kongponents/issues/316)) ([685c5e5](https://github.com/Kong/kongponents/commit/685c5e51a102277f703abfa4bdbd84a73fad9658))
+* **KIcon:** Add gear icon ([#40](https://github.com/Kong/kongponents/issues/40)) ([04c037a](https://github.com/Kong/kongponents/commit/04c037a8aca7c0c4f7955054b1698f1c37929ed6))
+* **KIcon:** add sharedConfig icon ([#285](https://github.com/Kong/kongponents/issues/285)) ([1f0ce23](https://github.com/Kong/kongponents/commit/1f0ce2374f1e773421ab4f7eaa4633beb66d0f4b))
+* **KIcon:** add svgElements slot ([#302](https://github.com/Kong/kongponents/issues/302)) ([17fc9c5](https://github.com/Kong/kongponents/commit/17fc9c537027a301780e5946e43e3c0eaeb6a159))
+* **KIcon:** Adds filter, forward arrow, and table icons ([#245](https://github.com/Kong/kongponents/issues/245)) ([83882ba](https://github.com/Kong/kongponents/commit/83882baa07d78ff1b39776e0def18cdc516eb10b))
+* **klabel:** add help property with icon + tooltip ([#306](https://github.com/Kong/kongponents/issues/306)) ([d6b86d1](https://github.com/Kong/kongponents/commit/d6b86d109712a87da80434270c5cf1fe7ec19e1b))
+
+
+
+
+
 # [0.12.0](https://github.com/Kong/kongponents/compare/@kongponents/kicon@0.11.1...@kongponents/kicon@0.12.0) (2021-07-12)
 
 

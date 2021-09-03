@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.0.0 (2021-09-03)
+
+
+### Bug Fixes
+
+* **cleanup:** update versions & add scoped to KModal ([#19](https://github.com/Kong/kongponents/issues/19)) ([a16e216](https://github.com/Kong/kongponents/commit/a16e216c27feebce1599c2f68590390f679bbf15))
+* **dist:** dist to all packages ([#152](https://github.com/Kong/kongponents/issues/152)) ([217c46b](https://github.com/Kong/kongponents/commit/217c46b02afe960f8fa597ba77410dcf034b1716))
+* **KToaster:** remove left margin on close button ([#293](https://github.com/Kong/kongponents/issues/293)) ([45d9be5](https://github.com/Kong/kongponents/commit/45d9be5007dbe4f000dd35b794d03f4d6fe724ba))
+* **scoped styles:** updated scoped styles type ([#18](https://github.com/Kong/kongponents/issues/18)) ([ba26b73](https://github.com/Kong/kongponents/commit/ba26b733387ab0f8816c46a127d0fc9532cf7395))
+* **taoster:** add correct default values to toaster ([#12](https://github.com/Kong/kongponents/issues/12)) ([eba5bd2](https://github.com/Kong/kongponents/commit/eba5bd26fb96df87a5c0d74e9d6cd68181784fec))
+
+
+### Features
+
+* 🍞 Add KToaster for all our avocado toast needs ([#7](https://github.com/Kong/kongponents/issues/7)) ([660a1e4](https://github.com/Kong/kongponents/commit/660a1e43d4d3a154051021dc146ea707efd56443))
+* **KIcon:** add svgElements slot ([#302](https://github.com/Kong/kongponents/issues/302)) ([17fc9c5](https://github.com/Kong/kongponents/commit/17fc9c537027a301780e5946e43e3c0eaeb6a159))
+* **ktoaster:** add ToastManager API ([#140](https://github.com/Kong/kongponents/issues/140)) ([63d0a46](https://github.com/Kong/kongponents/commit/63d0a46128d51bc7eb55cd9e5793a4eec76a1322)), closes [#156](https://github.com/Kong/kongponents/issues/156)
+* **KToaster:** change to white style, move to bottom ([#243](https://github.com/Kong/kongponents/issues/243)) ([70250af](https://github.com/Kong/kongponents/commit/70250afb513817c861cc4fbe93026f1a45a32fdb))
+
+
+### BREAKING CHANGES
+
+* **ktoaster:** ktoaster now imported differently
+and does not have since KToaster.vue anymore, as now
+it is managed by ToastManager
+
+* chore(KToaster) update license to apache 2.0
+
+
+
+
+
 ## [1.2.5](https://github.com/Kong/kongponents/compare/@kongponents/ktoaster@1.2.4...@kongponents/ktoaster@1.2.5) (2021-07-27)
 
 **Note:** Version bump only for package @kongponents/ktoaster

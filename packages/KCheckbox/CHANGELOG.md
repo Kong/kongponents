@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.0.0 (2021-09-03)
+
+
+### Bug Fixes
+
+* **forms:** fix incorrect build badge link ([#168](https://github.com/Kong/kongponents/issues/168)) ([cb45160](https://github.com/Kong/kongponents/commit/cb4516064fc55abb9f148e501b677a8e2899b9da))
+* **KCheckbox:** wrap label slot in span ([#298](https://github.com/Kong/kongponents/issues/298)) ([d9460b2](https://github.com/Kong/kongponents/commit/d9460b25220795cf75bdc83e640cfe0e78873423))
+
+
+### Features
+
+* **forms:** Add KRadio & KCheckbox, add form css ([65158f2](https://github.com/Kong/kongponents/commit/65158f26ca6999a6fe47e0c58fe5a64aed8737d6))
+
+
+
+
+
 ## [0.2.7](https://github.com/Kong/kongponents/compare/@kongponents/kcheckbox@0.2.5...@kongponents/kcheckbox@0.2.7) (2021-08-31)
 
 **Note:** Version bump only for package @kongponents/kcheckbox

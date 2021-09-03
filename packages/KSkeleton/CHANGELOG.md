@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.0.0 (2021-09-03)
+
+
+### Bug Fixes
+
+* **kskeleton:** button spinner ([8c32f9c](https://github.com/Kong/kongponents/commit/8c32f9c948d65517137fd4779200c0d58fe9a729))
+* **skeleton:** correct the width classes ([#216](https://github.com/Kong/kongponents/issues/216)) ([7c08093](https://github.com/Kong/kongponents/commit/7c08093d510b932f3c6ec42e06de3456f9f190ae))
+
+
+### Features
+
+* **kemptystate:** make kemptystate support error state, add kskeleton  - intf-2312 ([#191](https://github.com/Kong/kongponents/issues/191)) ([180ff45](https://github.com/Kong/kongponents/commit/180ff45c225589f9736ae2285c81cd0cbd66ce30))
+* **kskeleton:** add full screen loader ([#207](https://github.com/Kong/kongponents/issues/207)) ([e41f9d7](https://github.com/Kong/kongponents/commit/e41f9d77e090bb242cb0a1a37bb864a6562e6b60))
+* **kskeleton:** switch from not rendering to transparency ([#281](https://github.com/Kong/kongponents/issues/281)) ([2d44e2d](https://github.com/Kong/kongponents/commit/2d44e2dc3d23c295e55b92570e3c9faedbd959bf))
+* **skeleton:** add box primitive ([#213](https://github.com/Kong/kongponents/issues/213)) ([dd0681e](https://github.com/Kong/kongponents/commit/dd0681e715df5d92c36bb25304fd69cdcb0e7830))
+* **style:** Updates Colors & Component Styles ([#225](https://github.com/Kong/kongponents/issues/225)) ([642a26b](https://github.com/Kong/kongponents/commit/642a26b888cbf8b4abbe32965729d44d54f9dfef))
+
+
+### BREAKING CHANGES
+
+* **style:** All new colors and color naming. Various component style improvements.
+
+
+
+
+
 ## [1.2.1](https://github.com/Kong/kongponents/compare/@kongponents/kskeleton@1.2.0...@kongponents/kskeleton@1.2.1) (2021-01-22)
 
 

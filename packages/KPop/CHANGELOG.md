@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.0.0 (2021-09-03)
+
+
+### Bug Fixes
+
+* **dist:** dist to all packages ([#152](https://github.com/Kong/kongponents/issues/152)) ([217c46b](https://github.com/Kong/kongponents/commit/217c46b02afe960f8fa597ba77410dcf034b1716))
+
+
+### Features
+
+* **KMultiselect:** Adds multichecklist component ✔️🚀 ([#217](https://github.com/Kong/kongponents/issues/217)) ([f8354e0](https://github.com/Kong/kongponents/commit/f8354e07163a81baba5f68a118bf52acd167542e))
+* **kpop:** add opened/closed events ([#175](https://github.com/Kong/kongponents/issues/175)) ([61fa8fb](https://github.com/Kong/kongponents/commit/61fa8fb94d0737db2db9a87ee3da22280fe67cfa))
+* **kpop:** kpop adds an optional callback function when popover is already opened ([#258](https://github.com/Kong/kongponents/issues/258)) ([6321cfb](https://github.com/Kong/kongponents/commit/6321cfbc25fd3cbc97dabe2ea71a8fc2b0d9d247)), closes [#259](https://github.com/Kong/kongponents/issues/259)
+* **style:** Updates Colors & Component Styles ([#225](https://github.com/Kong/kongponents/issues/225)) ([642a26b](https://github.com/Kong/kongponents/commit/642a26b888cbf8b4abbe32965729d44d54f9dfef))
+
+
+### BREAKING CHANGES
+
+* **style:** All new colors and color naming. Various component style improvements.
+
+
+
+
+
 # [1.1.0](https://github.com/Kong/kongponents/compare/@kongponents/kpop@1.0.0...@kongponents/kpop@1.1.0) (2020-10-08)
 
 

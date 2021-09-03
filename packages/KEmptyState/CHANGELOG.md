@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.0.0 (2021-09-03)
+
+
+### Bug Fixes
+
+* **dist:** dist to all packages ([#152](https://github.com/Kong/kongponents/issues/152)) ([217c46b](https://github.com/Kong/kongponents/commit/217c46b02afe960f8fa597ba77410dcf034b1716))
+* **kempty:** use correct warning icon ([#289](https://github.com/Kong/kongponents/issues/289)) ([c0aa648](https://github.com/Kong/kongponents/commit/c0aa648b35b139b2fd9b0760ef47863c3ff391e5))
+
+
+### Features
+
+* **kemptystate:** make kemptystate support error state, add kskeleton  - intf-2312 ([#191](https://github.com/Kong/kongponents/issues/191)) ([180ff45](https://github.com/Kong/kongponents/commit/180ff45c225589f9736ae2285c81cd0cbd66ce30))
+* **KEmptyState:** bump KButton version ([b65ec5c](https://github.com/Kong/kongponents/commit/b65ec5cca4b3509db139c5bde4c077311a240a40))
+* **KEmptyState:** Creates base empty component ([#30](https://github.com/Kong/kongponents/issues/30)) ([c4092ab](https://github.com/Kong/kongponents/commit/c4092abcd344269959e5dc1a3d13a45e84bc62dd))
+
+
+
+
+
 ## [0.2.11](https://github.com/Kong/kongponents/compare/@kongponents/kemptystate@0.2.10...@kongponents/kemptystate@0.2.11) (2021-02-09)
 
 

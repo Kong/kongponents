@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.0.0 (2021-09-03)
+
+
+### Bug Fixes
+
+* **cleanup:** update versions & add scoped to KModal ([#19](https://github.com/Kong/kongponents/issues/19)) ([a16e216](https://github.com/Kong/kongponents/commit/a16e216c27feebce1599c2f68590390f679bbf15))
+* **dist:** dist to all packages ([#152](https://github.com/Kong/kongponents/issues/152)) ([217c46b](https://github.com/Kong/kongponents/commit/217c46b02afe960f8fa597ba77410dcf034b1716))
+* **modal:** updated button dependency ([#20](https://github.com/Kong/kongponents/issues/20)) ([537dbd4](https://github.com/Kong/kongponents/commit/537dbd4cb6050d7b7d813b632e32a438cc76d6db))
+* **modal:** Wrap modal in backdrop to fix relative positioning ([#11](https://github.com/Kong/kongponents/issues/11)) ([3b06394](https://github.com/Kong/kongponents/commit/3b06394fba46d98c58f812a01eb410e228694421))
+* **scoped styles:** updated scoped styles type ([#18](https://github.com/Kong/kongponents/issues/18)) ([ba26b73](https://github.com/Kong/kongponents/commit/ba26b733387ab0f8816c46a127d0fc9532cf7395))
+
+
+### Features
+
+* **KModal:** add support for help text ([#310](https://github.com/Kong/kongponents/issues/310)) ([d5a7cfa](https://github.com/Kong/kongponents/commit/d5a7cfa285de2cc8939e703566fb46109b84141e))
+* **KModal:** Bump KButton version ([71a50bb](https://github.com/Kong/kongponents/commit/71a50bb91ae5fa69df417191cb46aee1e559f603))
+* **modal:** Update to include esc key listener & add visible prop ([#6](https://github.com/Kong/kongponents/issues/6)) ([7a5e0ef](https://github.com/Kong/kongponents/commit/7a5e0ef38afbde6552fdd1fc8b25b8eefdeee08b))
+* **style:** Updates Colors & Component Styles ([#225](https://github.com/Kong/kongponents/issues/225)) ([642a26b](https://github.com/Kong/kongponents/commit/642a26b888cbf8b4abbe32965729d44d54f9dfef))
+
+
+### BREAKING CHANGES
+
+* **style:** All new colors and color naming. Various component style improvements.
+
+
+
+
+
 # [1.1.0](https://github.com/Kong/kongponents/compare/@kongponents/kmodal@1.0.5...@kongponents/kmodal@1.1.0) (2021-06-29)
 
 

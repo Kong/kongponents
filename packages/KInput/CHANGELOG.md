@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.0.0 (2021-09-03)
+
+
+### Bug Fixes
+
+* **dist:** dist to all packages ([#152](https://github.com/Kong/kongponents/issues/152)) ([217c46b](https://github.com/Kong/kongponents/commit/217c46b02afe960f8fa597ba77410dcf034b1716))
+
+
+### Features
+
+* **forms:** Add KRadio & KCheckbox, add form css ([65158f2](https://github.com/Kong/kongponents/commit/65158f26ca6999a6fe47e0c58fe5a64aed8737d6))
+* **kinput:** add label support ([#318](https://github.com/Kong/kongponents/issues/318)) ([f81311e](https://github.com/Kong/kongponents/commit/f81311e92e8175a8e4e9fd93d199efdba39f4cb3))
+* **kinput:** add v-model ([#241](https://github.com/Kong/kongponents/issues/241)) ([f2f436f](https://github.com/Kong/kongponents/commit/f2f436f2e90371dbfbd2c233679803591877608b))
+* **KInput:** Adds input component ([#17](https://github.com/Kong/kongponents/issues/17)) ([78d325a](https://github.com/Kong/kongponents/commit/78d325a6ff94f660a1ac668a9d18c0b6bbafbd14))
+
+
+
+
+
 # [0.4.0](https://github.com/Kong/kongponents/compare/@kongponents/kinput@0.3.0...@kongponents/kinput@0.4.0) (2021-07-27)
 
 

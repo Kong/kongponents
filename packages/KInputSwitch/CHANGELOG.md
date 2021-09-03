@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.0.0 (2021-09-03)
+
+
+### Bug Fixes
+
+* **dist:** dist to all packages ([#152](https://github.com/Kong/kongponents/issues/152)) ([217c46b](https://github.com/Kong/kongponents/commit/217c46b02afe960f8fa597ba77410dcf034b1716))
+
+
+### Features
+
+* **forms:** Add KRadio & KCheckbox, add form css ([65158f2](https://github.com/Kong/kongponents/commit/65158f26ca6999a6fe47e0c58fe5a64aed8737d6))
+* **KInputSwitch:** add enabled icon ([#308](https://github.com/Kong/kongponents/issues/308)) ([9223c41](https://github.com/Kong/kongponents/commit/9223c41feef2838b0a50b1f39f28712db38a6cec))
+
+
+
+
+
 # [0.3.0](https://github.com/Kong/kongponents/compare/@kongponents/kinputswitch@0.2.5...@kongponents/kinputswitch@0.3.0) (2021-06-23)
 
 
