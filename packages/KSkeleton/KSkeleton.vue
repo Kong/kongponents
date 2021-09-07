@@ -5,13 +5,13 @@
     <CardSkeleton
       v-if="type === 'card'"
       :card-count="cardCount ">
-      <template slot="card-header">
+      <template v-slot:card-header>
         <slot name="card-header" />
       </template>
-      <template slot="card-content">
+      <template v-slot:card-content>
         <slot name="card-content" />
       </template>
-      <template slot="card-footer">
+      <template v-slot:card-footer>
         <slot name="card-footer" />
       </template>
     </CardSkeleton>

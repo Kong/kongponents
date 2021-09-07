@@ -52,7 +52,7 @@ them and placing them inside `Komponent`'s default slot.
 ### Select
 
 <KCard class="mt-2" style="min-height: 100px;">
-  <div slot="body">
+  <template v-slot:body>
     <Komponent :data="{ selected: '' }" v-slot="{ data }">
       <div>
         <label for="apes">What's your favorite great ape?</label>
@@ -66,12 +66,12 @@ them and placing them inside `Komponent`'s default slot.
         <i v-if="data.selected">{{ data.selected }} are neat!</i>
       </div>
     </Komponent>
-  </div>
+  </template>
 </KCard>
 
 ```vue
 <KCard class="mt-2" style="min-height: 100px;">
-  <div slot="body">
+  <template v-slot:body>
     <Komponent :data="{ selected: '' }" v-slot="{ data }">
       <div>
         <label for="apes">What's your favorite great ape?</label>
@@ -85,6 +85,6 @@ them and placing them inside `Komponent`'s default slot.
         <i v-if="data.selected">{{ data.selected }} are neat!</i>
       </div>
     </Komponent>
-  </div>
+  </template>
 </KCard>
 ```

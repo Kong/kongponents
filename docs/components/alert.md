@@ -171,20 +171,20 @@ Fixes KAlert to the top of the container.
 - `alertMessage` - Default message slot
 
 <KAlert appearance="info">
-  <template slot="alertIcon">
+  <template v-slot:alertIcon>
     <KIcon icon="portal" />
   </template>
-  <template slot="alertMessage">
+  <template v-slot:alertMessage>
     I have an icon and a <a href="">Link</a>!
   </template>
 </KAlert>
 
 ```vue
 <KAlert appearance="info">
-  <template slot="alertIcon">
+  <template v-slot:alertIcon>
     <KIcon icon="portal" />
   </template>
-  <template slot="alertMessage">
+  <template v-slot:alertMessage>
     I have an icon and a <a href="">Link</a>!
   </template>
 </KAlert>
@@ -195,7 +195,7 @@ Fixes KAlert to the top of the container.
 ### Long Content / Prose
 
 <KAlert appearance="info" class="mt-5">
-  <template slot="alertMessage">
+  <template v-slot:alertMessage>
     <div class="mt-2 bold">Failure Modes</div>
     <p>Before you release that email you're writing to spin up a new centralized decision-making group, it's worth talking about the four ways these groups consistently fail. They tend to be <b>domineering</b>, <b>bottlenecked</b>, <b>status-oriented</b>, or <b>inert</b>.</p>
   </template>
@@ -203,7 +203,7 @@ Fixes KAlert to the top of the container.
 
 ```vue
 <KAlert appearance="info" class="mt-5">
-  <template slot="alertMessage">
+  <template v-slot:alertMessage>
     <div class="mt-2 bold">Failure Modes</div>
     <p>Before you release that email you're writing to spin up a new centralized decision-making group, it's worth talking about the four ways these groups consistently fail. They tend to be <b>domineering</b>, <b>bottlenecked</b>, <b>status-oriented</b>, or <b>inert</b>.</p>
   </template>
@@ -213,14 +213,14 @@ Fixes KAlert to the top of the container.
 ### Word Wrap long urls
 
 <KAlert appearance="warning" class="mt-5">
-  <template slot="alertMessage">
+  <template v-slot:alertMessage>
     Proxy error: Could not proxy request /api/service_packages?fields=&s=%7B%22%24and%22%3A%5B%7B%22name%22%3A%7B%22%24contL%22%3A%22%22%7D%7D%5D%7D&filter=&or=&sort=created_at%2CDESC&join=&limit=100&offset=0&page=1 from localhost:8080 to http://localhost:3000 (ECONNREFUSED).
   </template>
 </KAlert>
 
 ```vue
 <KAlert appearance="info" class="mt-5">
-  <template slot="alertMessage">
+  <template v-slot:alertMessage>
     <div class="mt-2 bold">Failure Modes</div>
     <p>Before you release that email you're writing to spin up a new centralized decision-making group, it's worth talking about the four ways these groups consistently fail. They tend to be <b>domineering</b>, <b>bottlenecked</b>, <b>status-oriented</b>, or <b>inert</b>.</p>
   </template>

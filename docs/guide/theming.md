@@ -40,7 +40,9 @@ An Example of changing the color of KPopover text
 <template>
   <KPop title="email">
     <button>Click me</button>
-    <div slot="content">I have different colored text.</div>
+    <template v-slot:content>
+      I have different colored text.
+    </template>
   </KPop>
 </template>
 
@@ -51,7 +53,12 @@ An Example of changing the color of KPopover text
 </style>
 ```
 <div id="theme-page-kpop">
-<KPop title="email" target="#theme-page-kpop"><button>Click me</button><div slot="content">I have different colored text.</div></KPop>
+<KPop title="email" target="#theme-page-kpop">
+  <button>Click me</button>
+  <template v-slot:content>
+    I have different colored text.
+  </template>
+  </KPop>
 </div>
 
 <style scoped>
