@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/komponent",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Expose reactive state to components.",
   "main": "dist/Komponent.umd.min.js",
   "componentName": "Komponent",

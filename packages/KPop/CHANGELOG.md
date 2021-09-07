@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.1](https://github.com/Kong/kongponents/compare/v4.0.0...v4.0.1) (2021-09-07)
+
+**Note:** Version bump only for package @kongponents/kpop
+
+
+
+
+
 # 4.0.0 (2021-09-03)
 
 
