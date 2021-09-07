@@ -55,6 +55,15 @@ Overrides the default svg color.
 <KIcon icon="vitals" color="red" />
 ```
 
+### secondaryColor
+Overrides the secondary svg color (if one exists).
+
+<KIcon  icon="warning" color="var(--yellow-400)" secondaryColor="var(--black-75)" />
+
+```vue
+<KIcon  icon="warning" color="var(--yellow-400)" secondaryColor="var(--black-75)" />
+```
+
 ::: tip Note
 Some SVGs have a set **fill-opacity** and these cannot be overridden and will 
 render at whichever percent opacity of the passed color.

@@ -56,6 +56,10 @@ export default {
       type: String,
       default: null
     },
+    secondaryColor: {
+      type: String,
+      default: null
+    },
     /**
      * Optional - Defines viewbox dimensions
      */
@@ -102,9 +106,12 @@ export default {
       return this.paths && this.paths.map(path =>
         Array.from(path.attributes).reduce((attr, { value, name }) => {
           const hasPreservedColor = path.attributes.id && path.attributes.id.value === 'preserveColor'
+          const isSecondary = path.attributes.type && path.attributes.type.value === 'secondary'
 
           // color override
-          if (name === 'fill' && this.color && !hasPreservedColor) {
+          if (!hasPreservedColor && name === 'fill' && this.secondaryColor && isSecondary) {
+            attr[name] = value === 'none' ? 'none' : this.secondaryColor
+          } else if (!hasPreservedColor && !isSecondary && name === 'fill' && this.color) {
             attr[name] = value === 'none' ? 'none' : this.color
           } else if (name === 'stroke' && this.color) {
             attr[name] = this.color

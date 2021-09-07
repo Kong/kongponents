@@ -34,6 +34,22 @@ describe('KIcon', () => {
     expect(path.fill).toEqual('red')
   })
 
+  it('renders icon with secondary color', () => {
+    const wrapper = mount(KIcon, {
+      propsData: {
+        'icon': 'warning',
+        'color': 'yellow',
+        'secondaryColor': 'black'
+      }
+    })
+
+    const path = wrapper.find('#Path').attributes()
+    const secondaryPath = wrapper.find("[type='secondary']").attributes()
+
+    expect(path.fill).toEqual('yellow')
+    expect(secondaryPath.fill).toEqual('black')
+  })
+
   it('renders 32x32 sized icon', () => {
     const wrapper = mount(KIcon, {
       propsData: {
