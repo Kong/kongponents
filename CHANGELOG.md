@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.2](https://github.com/Kong/kongponents/compare/v4.0.1...v4.0.2) (2021-09-09)
+
+
+### Bug Fixes
+
+* **kicon:** secondary color support [kongponents-338] ([#339](https://github.com/Kong/kongponents/issues/339)) ([6246404](https://github.com/Kong/kongponents/commit/6246404cd660a2cb73a054ccc339adba096f0a33))
+
+
+
+
+
 ## [4.0.1](https://github.com/Kong/kongponents/compare/v4.0.0...v4.0.1) (2021-09-07)
 
 **Note:** Version bump only for package kongponents

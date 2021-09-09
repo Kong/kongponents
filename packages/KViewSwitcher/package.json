@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kviewswitcher",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "KViewSwitcher description here.",
   "main": "dist/KViewSwitcher.umd.min.js",
   "componentName": "KViewSwitcher",

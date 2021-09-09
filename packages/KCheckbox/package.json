@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kcheckbox",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "Checkbox input component",
   "main": "dist/KCheckbox.umd.min.js",
   "componentName": "KCheckbox",
