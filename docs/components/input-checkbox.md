@@ -145,6 +145,13 @@ like:
 .KCheckbox-wrapper {
   --KCheckboxPrimary: blueviolet;
 }
+
+span {
+  &.float-left {
+    position: relative;
+    padding: 3px;
+  }
+}
 </style>
 
 <script>

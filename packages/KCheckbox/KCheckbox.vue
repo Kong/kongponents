@@ -6,7 +6,7 @@
       type="checkbox"
       class="k-input float-left"
       v-on="listeners">
-    <span class="float-left label-text"><slot>{{ label }}</slot></span>
+    <span class="float-left"><slot>{{ label }}</slot></span>
   </label>
 </template>
 
