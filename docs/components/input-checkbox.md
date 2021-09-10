@@ -146,10 +146,12 @@ like:
   --KCheckboxPrimary: blueviolet;
 }
 
-span {
-  &.float-left {
-    position: relative;
-    padding: 3px;
+.k-checkbox {
+  .k-input + span {
+    &.float-left {
+      position: relative;
+      padding: 3px;
+    }
   }
 }
 </style>
