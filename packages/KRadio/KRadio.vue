@@ -1,12 +1,12 @@
 <template>
-  <label class="k-radio d-inline-block">
+  <label class="k-radio">
     <input
       :checked="isSelected"
       v-bind="$attrs"
       type="radio"
-      class="k-input float-left"
+      class="k-input"
       @click="handleClick">
-    <span class="float-left"><slot>{{ label }}</slot></span>
+    <slot/>
   </label>
 </template>
 
@@ -30,13 +30,6 @@ export default {
     value: {
       type: [String, Number, Boolean, Object],
       default: 'on'
-    },
-    /**
-     * Sets label text
-     */
-    label: {
-      type: String,
-      default: ''
     }
   },
 

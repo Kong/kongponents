@@ -1,12 +1,12 @@
 <template>
-  <label class="k-checkbox d-inline-block">
+  <label class="k-checkbox">
     <input
       :checked="value"
       v-bind="$attrs"
       type="checkbox"
-      class="k-input float-left"
+      class="k-input"
       v-on="listeners">
-    <span class="float-left"><slot>{{ label }}</slot></span>
+    <slot />
   </label>
 </template>
 
@@ -21,13 +21,6 @@ export default {
       type: Boolean,
       default: false,
       required: true
-    },
-    /**
-     * Sets label text
-     */
-    label: {
-      type: String,
-      default: ''
     }
   },
   computed: {
@@ -52,9 +45,4 @@ export default {
 <style lang="scss" scoped>
 @import '~@kongponents/styles/_variables.scss';
 @import '~@kongponents/styles/forms/_checkbox-radio.scss';
-
-.label-text {
-  position: relative;
-  top: 4px;
-}
 </style>

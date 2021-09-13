@@ -40,33 +40,6 @@ state of the input. You can read more about passing values via `v-model`
 ```vue
 <KCheckbox v-model="checked" />
 ```
-
-### label
-
-Will place label text to the right of the input. Can also be [slotted](#slots).
-
-- `label`
-
-```vue
-<KCheckbox
-  v-model="checkbox1"
-  :label="checkbox1 ? 'on' : 'off'" />
-<KCheckbox
-  v-model="checkbox2"
-  :label="checkbox2 ? 'on' : 'off'" />
-<KCheckbox
-  v-model="checkbox3"
-  :label="checkbox3 ? 'on' : 'off'" />
-```
-
-<KCard>
-  <template v-slot:body>
-    <KCheckbox class="mr-3" v-model="labelPropChecked1" :label="labelPropChecked1 ? 'on' : 'off'" /> 
-    <KCheckbox class="mr-3" v-model="labelPropChecked2" :label="labelPropChecked2 ? 'on' : 'off'" />
-    <KCheckbox v-model="labelPropChecked3" :label="labelPropChecked3 ? 'on' : 'off'" />
-  </template>
-</KCard>
-
 ### html attributes
 
 Any valid attribute will be added to the input. You can read more about `$attrs` [here](https://vuejs.org/v2/api/#vm-attrs).
