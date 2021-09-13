@@ -118,15 +118,6 @@ like:
 .KCheckbox-wrapper {
   --KCheckboxPrimary: blueviolet;
 }
-
-.k-checkbox {
-  .k-input + span {
-    &.float-left {
-      position: relative;
-      padding: 3px;
-    }
-  }
-}
 </style>
 
 <script>
