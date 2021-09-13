@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/Kong/kongponents/compare/v4.0.2...v5.0.0) (2021-09-13)
+
+
+### Styles
+
+* **kcheckbox:** fix label alignment ([#340](https://github.com/Kong/kongponents/issues/340)) ([5f112f9](https://github.com/Kong/kongponents/commit/5f112f97e55c26132e577fb039173487b97cbf45))
+
+
+### BREAKING CHANGES
+
+* **kcheckbox:** refactor to fix the label-button alignment issue
+
+
+
+
+
 ## [4.0.2](https://github.com/Kong/kongponents/compare/v4.0.1...v4.0.2) (2021-09-09)
 
 

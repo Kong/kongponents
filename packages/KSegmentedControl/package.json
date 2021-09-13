@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/ksegmentedcontrol",
-  "version": "4.0.2",
+  "version": "5.0.0",
   "description": "Segmented Control component.",
   "main": "dist/KSegmentedControl.umd.min.js",
   "componentName": "KSegmentedControl",
@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/Kong/kongponents#readme",
   "dependencies": {
-    "@kongponents/kbutton": "^4.0.2"
+    "@kongponents/kbutton": "^5.0.0"
   },
   "publishConfig": {
     "access": "public"

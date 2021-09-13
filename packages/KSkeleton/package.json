@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kskeleton",
-  "version": "4.0.2",
+  "version": "5.0.0",
   "description": "Loading/Skeleton state component.",
   "main": "dist/KSkeleton.umd.min.js",
   "componentName": "KSkeleton",
