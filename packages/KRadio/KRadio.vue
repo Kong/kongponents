@@ -6,7 +6,7 @@
       type="radio"
       class="k-input"
       @click="handleClick">
-    <slot/>
+    <slot />
   </label>
 </template>
 
