@@ -9,6 +9,7 @@ import copy from './icn-copy.svg'
 import dangerCircle from './icn-danger-circle.svg'
 import dangerCircleOutline from './icn-danger-circle-outline.svg'
 import dashboard from './icn-dashboard.svg'
+import devPortal from './icn-dev-portal.svg'
 import document from './icn-document.svg'
 import externalLink from './icn-external-link.svg'
 import featureRequest from './icn-feature-request.svg'
@@ -25,15 +26,19 @@ import help from './icn-help.svg'
 import immunity from './icn-immunity.svg'
 import info from './icn-info.svg'
 import lock from './icn-lock.svg'
+import lgCog from './icn-lg-cog.svg'
 import notificationBell from './icn-notification-bell.svg'
+import organizations from './icn-organizations.svg'
 import pencil from './icn-pencil.svg'
 import people from './icn-people.svg'
 import portal from './icn-portal.svg'
 import profile from './icn-profile.svg'
 import redo from './icn-redo.svg'
+import runtimes from './icn-runtimes.svg'
 import search from './icn-search.svg'
 import security from './icn-security.svg'
 import serviceDocument from './icn-service-document.svg'
+import serviceHub from './icn-servicehub.svg'
 import services from './icn-services.svg'
 import sharedConfig from './icn-shared-config.svg'
 import spinner from './icn-spinner.svg'
@@ -59,6 +64,7 @@ export default {
   dangerCircle,
   dangerCircleOutline,
   dashboard,
+  devPortal,
   document,
   externalLink,
   featureRequest,
@@ -74,16 +80,20 @@ export default {
   help,
   immunity,
   info,
+  lgCog,
   lock,
   notificationBell,
+  organizations,
   pencil,
   people,
   portal,
   profile,
   redo,
+  runtimes,
   search,
   security,
   serviceDocument,
+  serviceHub,
   services,
   sharedConfig,
   spinner,
