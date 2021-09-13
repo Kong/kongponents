@@ -42,28 +42,6 @@ Use `v-model` to bind the `checked` state of the underlying `<input />`. The
 state of the input. You can read more about passing values via `v-model`
 [here](https://vuejs.org/v2/guide/components.html#Using-v-model-on-Components).
 
-### label
-
-Will place label text to the right of the input. Can also be [slotted](#slots).
-
-- `label`
-
-```vue
-<KRadio
-  :value="true"
-  v-model="radioState"
-  label="Label passed as prop" />
-```
-
-<KCard>
-  <template v-slot:body>
-    <KRadio
-      :value="true"
-      v-model="radioState"
-      label="Label passed as prop" />
-  </template>
-</KCard>
-
 ### html attributes
 
 Any valid attribute will be added to the input. You can read more about `$attrs` [here](https://vuejs.org/v2/api/#vm-attrs).
@@ -72,13 +50,16 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 <KRadio
   v-model="checked"
   :value="true"
-  label="disabled"
-  disabled />
+  disabled>
+  {{ label="disabled" }}
+</KRadio> 
 ```
 
 <KCard>
   <template v-slot:body>
-    <KRadio v-model="radioState" label="disabled" disabled />
+    <KRadio v-model="radioState" disabled>
+    {{ label="disabled" }}
+    </KRadio>
   </template>
 </KCard>
 
