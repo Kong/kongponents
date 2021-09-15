@@ -30,7 +30,7 @@ jobs:
     - name: visual-regression-test
       run: |
         yarn build
-        npx percy snapshot --exclude=**/404.html docs/.vuepress/dist/
+        npx percy snapshot docs/.vuepress/dist/ --ignore-files "**/404.html"
       env:
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
