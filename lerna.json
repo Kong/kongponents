@@ -18,6 +18,7 @@
         "**/*.stories.js"
       ],
       "message": "chore(release): publish",
+      "preid": "beta",
       "version": {
         "allowBranch": ["release/*"]
       }
