@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.2](https://github.com/Kong/kongponents/compare/v5.0.1...v5.0.2) (2021-09-15)
+
+
+### Bug Fixes
+
+* don't percy 404 page [khcp-1969] ([#343](https://github.com/Kong/kongponents/issues/343)) ([307eaf8](https://github.com/Kong/kongponents/commit/307eaf8be65b0a994f8761d9f070cb53f8013ab2))
+
+
+
+
+
 ## [5.0.1](https://github.com/Kong/kongponents/compare/v5.0.0...v5.0.1) (2021-09-13)
 
 **Note:** Version bump only for package kongponents
