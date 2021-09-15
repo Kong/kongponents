@@ -8,7 +8,7 @@ exports[`KEmptyState matches snapshot 1`] = `
   </div>
   <div class="empty-state-content">
     <p></p>
-    <p><button type="button" class="k-button outline-primary" is-rounded="true">
+    <p><button type="button" class="k-button medium rounded outline">
 
       </button></p>
   </div>

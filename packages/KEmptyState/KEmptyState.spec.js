@@ -19,7 +19,7 @@ describe('KEmptyState', () => {
 
     expect(wrapper.find('.empty-state-title').html()).toEqual(expect.stringContaining(emptyTitle))
     expect(wrapper.find('.empty-state-content').html()).toEqual(expect.stringContaining(emptyMessage))
-    expect(wrapper.find('button.outline-primary').text()).toEqual(expect.stringContaining(ctaText))
+    expect(wrapper.find('button.outline').text()).toEqual(expect.stringContaining(ctaText))
   })
 
   it('renders icon when error flag passed', () => {
@@ -58,7 +58,7 @@ describe('KEmptyState', () => {
       }
     })
 
-    expect(wrapper.find('button.outline-primary').exists()).toBe(false)
+    expect(wrapper.find('button.outline').exists()).toBe(false)
   })
 
   it('matches snapshot', () => {

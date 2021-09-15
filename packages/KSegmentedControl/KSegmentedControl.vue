@@ -6,6 +6,7 @@
       :name="value(item)"
       :disabled="disabled(item)"
       :appearance="appearance(item)"
+      size="small"
       class="justify-content-center"
       v-on="listeners"
     >
@@ -60,7 +61,7 @@ export default {
       return item.value || item
     },
     appearance (item) {
-      return this.selected === this.value(item) ? 'primary' : 'outline-primary'
+      return this.selected === this.value(item) ? 'primary' : 'outline'
     },
     disabled (item) {
       return item.disabled || this.isDisabled

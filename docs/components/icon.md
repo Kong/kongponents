@@ -17,7 +17,7 @@ following list. It tells KIcon which svg to render.
   <KToggle v-slot="{ isToggled, toggle }">
     <div>
       <KButton
-        appearance="outline-primary"
+        appearance="outline"
         class="mb-4"
         @click="toggle">Toggle viewbox {{ isToggled ? 'off' : 'on' }}</KButton>
       <div class="icon-row">
