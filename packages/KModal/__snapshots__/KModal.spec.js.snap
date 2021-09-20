@@ -10,9 +10,9 @@ exports[`KModal renders custom button text & appearance 1`] = `
         <div class="modal-header mb-4">Modal Title</div>
         <!---->
         <div class="modal-body">Modal Content</div>
-        <div class="modal-footer"><button type="button" class="k-button outline-primary">
+        <div class="modal-footer"><button type="button" class="k-button medium rounded outline">
             click to continue
-          </button> <button type="button" class="k-button outline-danger">
+          </button> <button type="button" class="k-button medium rounded danger">
             click to cancel
           </button></div>
       </div>
@@ -29,9 +29,9 @@ exports[`KModal renders proper content when using props 1`] = `
         <div class="modal-header mb-3">Sweet prop title</div>
         <div class="modal-help">Sweet prop help text</div>
         <div class="modal-body">Sweet prop content</div>
-        <div class="modal-footer"><button type="button" class="k-button primary">
+        <div class="modal-footer"><button type="button" class="k-button medium rounded primary">
             Proceed
-          </button> <button type="button" class="k-button secondary">
+          </button> <button type="button" class="k-button medium rounded secondary">
             Cancel
           </button></div>
       </div>
