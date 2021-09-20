@@ -20,23 +20,21 @@ describe('Krumbs', () => {
     localVue.use(VueRouter)
     const wrapper = mount(Krumbs, {
       localVue,
-      context: {
-        props: {
-          items: [
-            {
-              key: routes[0].name,
-              to: routes[0],
-              title: routes[0].meta.breadcrumb,
-              text: routes[0].meta.breadcrumb
-            },
-            {
-              key: 'docs',
-              to: 'https://docs.konghq.com',
-              title: 'Go to Kong Docs',
-              text: 'External Link'
-            }
-          ]
-        }
+      propsData: {
+        items: [
+          {
+            key: routes[0].name,
+            to: routes[0],
+            title: routes[0].meta.breadcrumb,
+            text: routes[0].meta.breadcrumb
+          },
+          {
+            key: 'docs',
+            to: 'https://docs.konghq.com',
+            title: 'Go to Kong Docs',
+            text: 'External Link'
+          }
+        ]
       },
       router
     })
@@ -47,17 +45,15 @@ describe('Krumbs', () => {
 
   it('renders breadcrumb links without needing a router', () => {
     const wrapper = mount(Krumbs, {
-      context: {
-        props: {
-          items: [
-            {
-              key: 'docs',
-              to: 'https://docs.konghq.com',
-              title: 'Go to Kong Docs',
-              text: 'External Link'
-            }
-          ]
-        }
+      propsData: {
+        items: [
+          {
+            key: 'docs',
+            to: 'https://docs.konghq.com',
+            title: 'Go to Kong Docs',
+            text: 'External Link'
+          }
+        ]
       }
     })
 
