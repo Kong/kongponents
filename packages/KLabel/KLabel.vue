@@ -1,10 +1,10 @@
-<template functional>
+<template>
   <label
-    :for="props.for"
+    v-bind="$attrs"
     class="k-input-label">
     <KoolTip
-      v-if="props.help"
-      :label="props.help"
+      v-if="help"
+      :label="help"
       class="label-tooltip"
     >
       <slot />
@@ -16,8 +16,8 @@
         hide-title />
     </Kooltip>
     <KoolTip
-      v-else-if="props.info"
-      :label="props.info"
+      v-else-if="info"
+      :label="info"
       class="label-tooltip"
     >
       <slot />
@@ -33,18 +33,21 @@
 </template>
 
 <script>
+import KIcon from '@kongponents/kicon/KIcon.vue'
+import KoolTip from '@kongponents/kooltip/KoolTip.vue'
+
 export default {
   name: 'KLabel',
+  components: {
+    KIcon,
+    KoolTip
+  },
   props: {
     help: {
       type: String,
       default: undefined
     },
     info: {
-      type: String,
-      default: undefined
-    },
-    for: {
       type: String,
       default: undefined
     }
