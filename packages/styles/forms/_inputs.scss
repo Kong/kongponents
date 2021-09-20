@@ -12,11 +12,11 @@
   &:not([type="checkbox"]),
   &:not([type="radio"]) {
     display: block;
-    padding: var(--spacing-xs, spacing(xs)) var(--spacing-sm, spacing(sm));
+    padding: var(--spacing-md, spacing(md)) var(--spacing-lg, spacing(lg));
     color: var(--KInputColor, var(--black-70, color(black-70)));
     font-size: var(--type-md, type(md));
     font-weight: normal;
-    line-height: 1.25;
+    line-height: 24px;
     border: 1px solid $borderColor;
     border-radius: 3px;
     background-color: var(--KInputBackground, var(--white, color(white)));
