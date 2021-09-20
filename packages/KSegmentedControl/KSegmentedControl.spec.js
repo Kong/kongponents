@@ -12,7 +12,7 @@ describe('KSegmentedControl', () => {
     const buttons = wrapper.find('.segmented-control').findAll('button')
 
     expect(buttons.at(0).text()).toBe("I'm a segment")
-    expect(buttons.at(0).classes()).toContain('outline-primary')
+    expect(buttons.at(0).classes()).toContain('outline')
     expect(buttons.at(1).text()).toBe('So am I')
     expect(buttons.at(1).classes()).toContain('primary')
   })
