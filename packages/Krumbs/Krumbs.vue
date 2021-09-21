@@ -1,8 +1,8 @@
 <template>
   <ul
     v-bind="$attrs"
-    v-on="$listeners"
     class="krumbs"
+    v-on="$listeners"
   >
     <li
       v-for="item in items"
