@@ -4,12 +4,14 @@
       v-if="!label"
       :value="value"
       v-bind="attrs"
+      :class="`k-input-${size}`"
       class="form-control k-input"
       @input="e => $emit('input', e.target.value)"
       v-on="listeners">
 
     <div
       v-else
+      :class="`k-input-label-${size}`"
       class="col-md-4 mt-5">
       <div class="text-on-input">
         <label :class="{ focused: isFocused }">
@@ -18,6 +20,7 @@
         <input
           :value="value"
           v-bind="attrs"
+          :class="`k-input-${size}`"
           class="form-control k-input"
           @input="e => $emit('input', e.target.value)"
           @focus="() => isFocused = true"
@@ -49,6 +52,10 @@ export default {
     help: {
       type: String,
       default: ''
+    },
+    size: {
+      type: String,
+      default: 'large'
     }
   },
   data () {
