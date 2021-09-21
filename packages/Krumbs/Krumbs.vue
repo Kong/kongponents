@@ -1,6 +1,7 @@
 <template>
   <ul
     v-bind="$attrs"
+    v-on="$listeners"
     class="krumbs"
   >
     <li
