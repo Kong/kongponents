@@ -1,9 +1,13 @@
-<template functional>
-  <ul class="krumbs">
+<template>
+  <ul
+    v-bind="$attrs"
+    class="krumbs"
+    v-on="$listeners"
+  >
     <li
-      v-for="item in props.items"
+      v-for="item in items"
       :key="item.key || item.text"
-      :style="{ maxWidth: item.maxWidth || props.itemMaxWidth }"
+      :style="{ maxWidth: item.maxWidth || itemMaxWidth }"
       class="krumb-item truncate"
     >
       <router-link
