@@ -8,6 +8,19 @@
 ```
 
 ## Props
+### Size
+You can specify `small`, `medium` (default), or `large` for the size.
+
+<KInput placeholder="Small" size="small" class="mb-2" />
+<KInput placeholder="Medium" class="mb-2" />
+<KInput placeholder="Large" size="large" />
+
+```
+<KInput placeholder="Small" size="small" />
+<KInput placeholder="Medium" />
+<KInput placeholder="Large" size="large" />
+```
+
 ### Help
 String to be displayed as help text.
 
