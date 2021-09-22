@@ -5,6 +5,33 @@
   border: 1px solid var(--KInputError, var(--red-400, color(red-400)));
 }
 
+.k-input-wrapper .text-on-input {
+  position: relative;
+
+  .hovered {
+    color: var(--KInputHover, #BDD3F9);
+  }
+
+  .focused {
+    color: var(--KInputFocus, var(--blue-500));
+  }
+
+  label {
+    position: absolute;
+    top: -8px;
+    left: 13px;
+    padding: 2px;
+    z-index: 1;
+
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--KInputBorder, #6F7787);
+    background-color: var(--KInputBackground, var(--white));
+    display: inline-block;
+    margin-bottom: .5rem;
+  }
+}
+
 .k-input,
 .form-control {
   $borderColor: var(--KInputBorder, var(--grey-300, color(grey-300)));
@@ -34,19 +61,19 @@
     }
 
     &:hover {
-      box-shadow: inset 0 0 0 1px #BDD3F9 !important;
+      box-shadow: inset 0 0 0 1px var(--KInputHover, #BDD3F9) !important;
 
       &.k-input-large {
-        box-shadow: inset 0 0 0 2px #BDD3F9 !important;
+        box-shadow: inset 0 0 0 2px var(--KInputHover, #BDD3F9) !important;
       }
     }
 
     &:focus {
       outline: none !important;
-      box-shadow: inset 0 0 0 1px var(--blue-400) !important;
+      box-shadow: inset 0 0 0 1px var(--KInputFocus, var(--blue-400)) !important;
 
       &.k-input-large {
-        box-shadow: inset 0 0 0 2px var(--blue-400) !important;
+        box-shadow: inset 0 0 0 2px var(--KInputFocus, var(--blue-400)) !important;
       }
     }
 
