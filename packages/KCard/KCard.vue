@@ -3,31 +3,51 @@
     :class="[borderVariant, {'hover': hasHover, 'kcard-shadow': hasShadow }]"
     class="kong-card">
     <div
-      v-if="title || $scopedSlots.title || $scopedSlots.actions || $slots.title"
+      v-if="title || $scopedSlots.title || $scopedSlots.actions || $slots.title || status || !$scopedSlots.statusHat"
       :class="(helpText || $scopedSlots.helpText !== undefined) && 'mb-0' || 'mb-4'"
-      class="k-card-header">
-      <div class="k-card-title">
-        <h4>
-          <!-- @slot Use this slot to pass title content -->
-          <slot name="title">{{ title }}</slot>
-        </h4>
+      class="k-card-header d-flex">
+      <div>
+        <div
+          v-if="status || $scopedSlots.statusHat"
+          class="k-card-status-hat mb-3">
+          <KIcon
+            icon="check"
+            color="#07A88D"
+            class="mr-2"
+            size="12" />
+          <!-- @slot Use this slot to pass status text above title -->
+          <slot name="statusHat">{{ status }}</slot>
+        </div>
+        <div class="k-card-title">
+          <h4>
+            <!-- @slot Use this slot to pass title content -->
+            <slot name="title">{{ title }}</slot>
+          </h4>
+        </div>
       </div>
       <div class="k-card-actions">
         <!-- @slot Use this slot to pass actions to right side of header -->
         <slot name="actions"/>
       </div>
     </div>
-    <div
-      v-if="helpText || $scopedSlots.helpText"
-      class="k-card-help-text mb-5">
-      <!-- @slot Use this slot to pass help text under the title -->
-      <slot name="helpText">
-        <span>{{ helpText }}</span>
-      </slot>
-    </div>
-    <div class="k-card-body">
-      <!-- @slot Use this slot to pass in body content -->
-      <slot name="body">{{ body }}</slot>
+    <div class="k-card-content d-flex">
+      <div
+        v-if="helpText || $scopedSlots.helpText"
+        class="k-card-help-text mb-5">
+        <!-- @slot Use this slot to pass help text under the title -->
+        <slot name="helpText">
+          <span>{{ helpText }}</span>
+        </slot>
+      </div>
+      <div class="k-card-body">
+        <!-- @slot Use this slot to pass in body content -->
+        <slot name="body">{{ body }}</slot>
+      </div>
+      <div
+        v-if="$scopedSlots.notifications"
+        class="k-card-notifications">
+        <slot name="notifications" />
+      </div>
     </div>
   </div>
 </template>
@@ -78,6 +98,14 @@ export default {
     helpText: {
       type: String,
       default: ''
+    },
+
+    /**
+     * Add small status text above the card title
+     */
+    status: {
+      type: String,
+      default: 'Published to portal'
     }
   }
 }
@@ -109,14 +137,18 @@ export default {
   }
 
   .k-card-header {
-    display: flex;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 1rem;
     min-height: 38px;
 
     .k-button {
       min-height: 38px;
     }
+  }
+
+  .k-card-status-hat {
+    font-size: var(--type-xs);
+    color: #3C4557; // TODO: Grey-0
   }
 
   .k-card-title h4 {
@@ -132,6 +164,10 @@ export default {
 
   .k-card-help-text {
     color: var(--black-45);
+  }
+
+  .k-card-notifications {
+    margin-left: auto;
   }
 }
 </style>
