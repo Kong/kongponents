@@ -32,10 +32,7 @@
           @mouseenter="() => isHovered = true"
           @mouseleave="() => isHovered = false"
           @focus="() => isFocused = true"
-          @blur="() => {
-            isFocused = false
-            isHovered = false
-          }"
+          @blur="() => isFocused = false"
           v-on="listeners">
       </div>
     </div>
