@@ -22,6 +22,26 @@ describe('KInput', () => {
     expect(wrapper.find('.text-on-input label').element.innerHTML).toContain('A Label!')
   })
 
+  it('renders small when size is passed in', () => {
+    const wrapper = mount(KInput, {
+      propsData: {
+        size: 'small'
+      }
+    })
+
+    expect(wrapper.find('.k-input-wrapper .k-input-small').exists()).toBeTruthy()
+  })
+
+  it('renders large when size is passed in', () => {
+    const wrapper = mount(KInput, {
+      propsData: {
+        size: 'large'
+      }
+    })
+
+    expect(wrapper.find('.k-input-wrapper .k-input-large').exists()).toBeTruthy()
+  })
+
   it('renders help when value is passed', () => {
     const wrapper = mount(KInput, {
       propsData: {

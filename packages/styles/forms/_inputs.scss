@@ -12,9 +12,9 @@
   &:not([type="checkbox"]),
   &:not([type="radio"]) {
     display: block;
-    padding: var(--spacing-md, spacing(md)) var(--spacing-lg, spacing(lg));
+    padding: 10px var(--spacing-md, spacing(md));
     color: var(--KInputColor, var(--black-70, color(black-70)));
-    font-size: var(--type-md, type(md));
+    font-size: var(--type-sm, type(sm));
     font-weight: normal;
     line-height: 24px;
     border: 1px solid $borderColor;
@@ -23,9 +23,31 @@
     box-shadow: none;
     box-sizing: border-box;
 
+    &.k-input-small {
+      font-size: var(--type-xs, type(xs));
+      padding: var(--spacing-xs, spacing(xs)) var(--spacing-sm, spacing(sm));
+    }
+
+    &.k-input-large {
+      font-size: var(--type-md, type(md));
+      padding: var(--spacing-md, spacing(md)) var(--spacing-lg, spacing(lg));
+    }
+
+    &:hover {
+      box-shadow: inset 0 0 0 1px #BDD3F9 !important;
+
+      &.k-input-large {
+        box-shadow: inset 0 0 0 2px #BDD3F9 !important;
+      }
+    }
+
     &:focus {
       outline: none !important;
-      box-shadow: inset 0 0 0 2px var(--blue-400) !important;
+      box-shadow: inset 0 0 0 1px var(--blue-400) !important;
+
+      &.k-input-large {
+        box-shadow: inset 0 0 0 2px var(--blue-400) !important;
+      }
     }
 
     &:disabled {
