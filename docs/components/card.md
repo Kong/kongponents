@@ -337,7 +337,7 @@ Cards can be arranged with flex box.
 ## Slots
 - `statusHat` - Small text directly above the title
 - `title`
-- `helpText` - Description directly underneath the title
+- `helpText` - Description directly underneath the title, generally used when the body is a form
 - `body`
 - `actions` - Right side of the header section. Used for links, buttons, etc
 - `notifications` - Right side of the body section. Used for badges, icons, etc
@@ -353,7 +353,6 @@ Cards can be arranged with flex box.
       Approved
   </template>          
   <template v-slot:title>Look Mah!</template>
-  <template v-slot:helpText>I can help you</template>
   <template v-slot:actions><a href="#">View All</a></template>
   <template v-slot:body>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.</template>
   <template v-slot:notifications>
@@ -375,7 +374,6 @@ Cards can be arranged with flex box.
       Approved
   </template>          
   <template v-slot:title>Look Mah!</template>
-  <template v-slot:helpText>I can help you</template>
   <template v-slot:actions><a href="#">View All</a></template>
   <template v-slot:body>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.</template>
   <template v-slot:notifications>
