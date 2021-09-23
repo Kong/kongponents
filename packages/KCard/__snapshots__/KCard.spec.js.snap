@@ -1,37 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`KCard has hover class when passed 1`] = `
-<div class="kong-card border hover">
+<section class="kong-card border hover">
   <!---->
   <div class="k-card-content d-flex">
     <div class="k-card-body"></div>
     <!---->
   </div>
-</div>
+</section>
 `;
 
 exports[`KCard has shadow class when passed 1`] = `
-<div class="kong-card border kcard-shadow">
+<section class="kong-card border kcard-shadow">
   <!---->
   <div class="k-card-content d-flex">
     <div class="k-card-body"></div>
     <!---->
   </div>
-</div>
+</section>
 `;
 
 exports[`KCard matches snapshot 1`] = `
-<div class="kong-card border">
+<section class="kong-card border">
   <!---->
   <div class="k-card-content d-flex">
     <div class="k-card-body"></div>
     <!---->
   </div>
-</div>
+</section>
 `;
 
 exports[`KCard renders slots when passed 1`] = `
-<div class="kong-card border">
+<section class="kong-card border">
   <div class="k-card-header d-flex mb-4">
     <div>
       <div class="k-card-status-hat mb-4"><span>Card Status Hat</span></div>
@@ -47,5 +47,5 @@ exports[`KCard renders slots when passed 1`] = `
     </div>
     <div class="k-card-notifications"><span>Card Notifications</span></div>
   </div>
-</div>
+</section>
 `;
