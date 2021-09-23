@@ -3,13 +3,13 @@
     :class="[borderVariant, {'hover': hasHover, 'kcard-shadow': hasShadow }]"
     class="kong-card">
     <div
-      v-if="title || $scopedSlots.title || $scopedSlots.actions || $slots.title || status || !$scopedSlots.statusHat"
+      v-if="title || $scopedSlots.title || $slots.title || $scopedSlots.actions || status || $scopedSlots.statusHat"
       :class="(helpText || $scopedSlots.helpText !== undefined) && 'mb-0' || 'mb-4'"
       class="k-card-header d-flex">
       <div>
         <div
           v-if="status || $scopedSlots.statusHat"
-          class="k-card-status-hat mb-3">
+          class="k-card-status-hat mb-4">
           <!-- @slot Use this slot to pass status text above title -->
           <slot name="statusHat">{{ status }}</slot>
         </div>
@@ -27,7 +27,7 @@
     </div>
     <div
       v-if="helpText || $scopedSlots.helpText"
-      class="k-card-help-text mb-5">
+      class="k-card-help-text mb-3">
       <!-- @slot Use this slot to pass help text under the title -->
       <slot name="helpText">
         <span>{{ helpText }}</span>
@@ -110,7 +110,7 @@ export default {
 @import '~@kongponents/styles/_variables.scss';
 
 .kong-card {
-  padding: var(--KCardPaddingY, 1rem) var(--KCardPaddingX, 1rem);
+  padding: var(--KCardPaddingY, var(--spacing-lg)) var(--KCardPaddingX, var(--spacing-lg));
   border-radius: var(--KCardBorderRadius, 3px);
   background-color: var(--KCardBackground, var(--white, color(white)));
 
