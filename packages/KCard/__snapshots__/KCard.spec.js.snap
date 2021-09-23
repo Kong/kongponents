@@ -3,7 +3,6 @@
 exports[`KCard has hover class when passed 1`] = `
 <div class="kong-card border hover">
   <!---->
-  <!---->
   <div class="k-card-content d-flex">
     <div class="k-card-body"></div>
     <!---->
@@ -13,7 +12,6 @@ exports[`KCard has hover class when passed 1`] = `
 
 exports[`KCard has shadow class when passed 1`] = `
 <div class="kong-card border kcard-shadow">
-  <!---->
   <!---->
   <div class="k-card-content d-flex">
     <div class="k-card-body"></div>
@@ -25,7 +23,6 @@ exports[`KCard has shadow class when passed 1`] = `
 exports[`KCard matches snapshot 1`] = `
 <div class="kong-card border">
   <!---->
-  <!---->
   <div class="k-card-content d-flex">
     <div class="k-card-body"></div>
     <!---->
@@ -35,7 +32,7 @@ exports[`KCard matches snapshot 1`] = `
 
 exports[`KCard renders slots when passed 1`] = `
 <div class="kong-card border">
-  <div class="k-card-header d-flex mb-0">
+  <div class="k-card-header d-flex mb-4">
     <div>
       <div class="k-card-status-hat mb-4"><span>Card Status Hat</span></div>
       <div class="k-card-title">
@@ -44,7 +41,6 @@ exports[`KCard renders slots when passed 1`] = `
     </div>
     <div class="k-card-actions"><span>Card Actions</span></div>
   </div>
-  <div class="k-card-help-text mb-3"><span>Card Help Text</span></div>
   <div class="k-card-content d-flex">
     <div class="k-card-body">
       <div>Card Body</div>
