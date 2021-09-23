@@ -1,5 +1,5 @@
 <template>
-  <div
+  <section
     :class="[borderVariant, {'hover': hasHover, 'kcard-shadow': hasShadow }]"
     class="kong-card">
     <div
@@ -36,7 +36,7 @@
         <slot name="notifications" />
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
