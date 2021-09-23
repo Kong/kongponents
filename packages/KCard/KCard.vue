@@ -25,15 +25,15 @@
         <slot name="actions"/>
       </div>
     </div>
+    <div
+      v-if="helpText || $scopedSlots.helpText"
+      class="k-card-help-text mb-5">
+      <!-- @slot Use this slot to pass help text under the title -->
+      <slot name="helpText">
+        <span>{{ helpText }}</span>
+      </slot>
+    </div>
     <div class="k-card-content d-flex">
-      <div
-        v-if="helpText || $scopedSlots.helpText"
-        class="k-card-help-text mb-5">
-        <!-- @slot Use this slot to pass help text under the title -->
-        <slot name="helpText">
-          <span>{{ helpText }}</span>
-        </slot>
-      </div>
       <div class="k-card-body">
         <!-- @slot Use this slot to pass in body content -->
         <slot name="body">{{ body }}</slot>
