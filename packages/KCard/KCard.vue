@@ -10,11 +10,6 @@
         <div
           v-if="status || $scopedSlots.statusHat"
           class="k-card-status-hat mb-3">
-          <KIcon
-            icon="check"
-            color="#07A88D"
-            class="mr-2"
-            size="12" />
           <!-- @slot Use this slot to pass status text above title -->
           <slot name="statusHat">{{ status }}</slot>
         </div>
@@ -105,7 +100,7 @@ export default {
      */
     status: {
       type: String,
-      default: 'Published to portal'
+      default: ''
     }
   }
 }
