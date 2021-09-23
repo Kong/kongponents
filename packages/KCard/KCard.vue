@@ -127,22 +127,28 @@ export default {
 
   .k-card-status-hat {
     font-size: var(--type-xs);
-    color: #3C4557; // TODO: Grey-0
+    color: #3C4557; // TODO: Grey-600
   }
 
   .k-card-title h4 {
     margin: 0;
-    font-size: var(--KCardTitleFontSize, var(--type-lg, type(lg)));
+    font-size: var(--KCardTitleFontSize, 20px);
     font-weight: 500;
-    color: var(--KCardTitleColor, var(--black-85, color(black-85)));
+    color: var(--KCardTitleColor, #0B172D); // TODO: color
   }
 
   .k-card-actions  {
     margin-left: auto;
   }
 
+  .k-card-body {
+    font-size: 13px;
+    color: #3C4557; // TODO: Grey/600
+  }
+
   .k-card-notifications {
     margin-left: auto;
+    margin-top: auto;
   }
 }
 </style>
