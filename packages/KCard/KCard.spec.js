@@ -6,7 +6,6 @@ describe('KCard', () => {
     const cardStatusHat = 'Card Status Hat'
     const cardTitle = 'Card Title'
     const cardActions = 'Card Actions'
-    const cardHelpText = 'Card Help Text'
     const cardBody = 'Card Body'
     const cardNotifications = 'Card Notifications'
     const wrapper = mount(KCard, {
@@ -14,7 +13,6 @@ describe('KCard', () => {
         'statusHat': `<span>${cardStatusHat}</span>`,
         'title': `<span>${cardTitle}</span>`,
         'actions': `<span>${cardActions}</span>`,
-        'helpText': `<span>${cardHelpText}</span>`,
         'body': `<div>${cardBody}</div>`,
         'notifications': `<span>${cardNotifications}</span>`
       }
@@ -23,7 +21,6 @@ describe('KCard', () => {
     expect(wrapper.find('.k-card-status-hat').html()).toEqual(expect.stringContaining(cardStatusHat))
     expect(wrapper.find('.k-card-title').html()).toEqual(expect.stringContaining(cardTitle))
     expect(wrapper.find('.k-card-actions').html()).toEqual(expect.stringContaining(cardActions))
-    expect(wrapper.find('.k-card-help-text').html()).toEqual(expect.stringContaining(cardHelpText))
     expect(wrapper.find('.k-card-body').html()).toEqual(expect.stringContaining(cardBody))
     expect(wrapper.find('.k-card-notifications').html()).toEqual(expect.stringContaining(cardNotifications))
     expect(wrapper.html()).toMatchSnapshot()
