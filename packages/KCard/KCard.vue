@@ -126,14 +126,14 @@ export default {
 
   .k-card-status-hat {
     font-size: var(--type-xs);
-    color: #3C4557; // TODO: Grey-600
+    color: var(--grey-600);
   }
 
   .k-card-title h4 {
     margin: 0;
     font-size: var(--KCardTitleFontSize, 20px);
     font-weight: 500;
-    color: var(--KCardTitleColor, #0B172D); // TODO: color
+    color: var(--KCardTitleColor, var(--black-500));
   }
 
   .k-card-actions  {
@@ -142,7 +142,7 @@ export default {
 
   .k-card-body {
     font-size: 13px;
-    color: #3C4557; // TODO: Grey/600
+    color: var(--grey-600);
   }
 
   .k-card-notifications {
