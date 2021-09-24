@@ -84,112 +84,23 @@ Example composing `KCard` with other Kongponents to make another component:
 </KCard>
 ```
 
-### Help Text
+### Status
+String to be used in the `statusHat` slot.
 
-String positioned closely under the title to serve as help text
+- `status`
 
-- `helpText`
-
-<KCard
-  title="Invite a New User"
-  help-text="A confirmation email will be sent to the specified email address"
->
-  <template v-slot:body>
-    <div>
-      <KLabel>Email Address</KLabel>
-      <KInput class="mb-6" type="email" placeholder="Enter a valid email"/>
-      <KButton appearance="primary">Invite User</KButton>
-    </div>
-  </template>
-</KCard>
+<KCard 
+  status="My status"
+  title="My title"
+  body="My body"
+/>
 
 ```vue
-<KCard
-  title="Invite a New User"
-  help-text="A confirmation email will be sent to the specified email address"
->
-  <template v-slot:body>
-    <div>
-      <KLabel>Email Address</KLabel>
-      <KInput class="mb-6" type="email" placeholder="Enter a valid email"/>
-      <KButton appearance="primary">Invite User</KButton>
-    </div>
-  </template>
-</KCard>
-```
-
-Example of a KCard with helpText slot
-
-<KCard title="Invite a New User">
-  <template v-slot:helpText>
-    <div class="d-flex align-items-center">
-      A confirmation email will be sent to the specified email address
-      <a class="ml-3 mr-2" href="#help-text">Learn More</a>
-      <KIcon icon="externalLink" color="var(--blue-500)" size="14"/>
-    </div>
-  </template>
-  <template v-slot:body>
-    <div>
-      <KLabel>Email Address</KLabel>
-      <KInput class="mb-6" type="email" placeholder="Enter a valid email"/>
-      <KButton appearance="primary">Invite User</KButton>
-    </div>
-  </template>
-</KCard>
-
-```vue
-<KCard title="Invite a New User">
-  <template v-slot:helpText>
-    <div class="d-flex align-items-center">
-      A confirmation email will be sent to the specified email address
-      <a class="ml-3 mr-2" href="#help-text">Learn More</a>
-      <KIcon icon="externalLink" color="var(--blue-500)" size="14"/>
-    </div>
-  </template>
-  <template v-slot:body>
-    <div>
-      <KLabel>Email Address</KLabel>
-      <KInput class="mb-6" type="email" placeholder="Enter a valid email"/>
-      <KButton appearance="primary">Invite User</KButton>
-    </div>
-  </template>
-</KCard>
-```
-
-Example of a KCard with both helpText and an action
-
-<KCard
-  title="Invite a New User"
-  help-text="A confirmation email will be sent to the specified email address"
->
-  <template v-slot:body>
-    <div>
-      <KLabel>Email Address</KLabel>
-      <KInput class="mb-6" type="email" placeholder="Enter a valid email"/>
-      <KButton appearance="primary">Invite User</KButton>
-    </div>
-  </template>
-  <template v-slot:actions>
-    <KButton appearance="outline">View Invites</KButton>
-  </template>
-</KCard>
-
-```vue
-<KCard
-  title="Invite a New User"
-  help-text="A confirmation email will be sent to the specified email address"
->
-  <template v-slot:body>
-    <div>
-      <KLabel>Email Address</KLabel>
-      <KInput class="mb-6" type="email" placeholder="Enter a valid email"/>
-      <KButton appearance="primary">Invite User</KButton>
-    </div>
-  </template>
-  <template v-slot:actions>
-    <KButton appearance="outline">View Invites</KButton>
-  </template>
-</KCard>
+<KCard 
+  status="My status"
+  title="My title"
+  body="My body"
+/>
 ```
 
 ### Body
@@ -335,22 +246,52 @@ Cards can be arranged with flex box.
 ```
 
 ## Slots
+- `statusHat` - Small text directly above the title
 - `title`
 - `body`
-- `actions` - Right side of title. Used for links, buttons, etc
+- `actions` - Right side of the header section. Used for links, buttons, etc
+- `notifications` - Right side of the body section. Used for badges, icons, etc
 
 &nbsp;
 <KCard>
+  <template v-slot:statusHat>
+    <KIcon
+      icon="check"
+      color="#07A88D"
+      class="mr-2"
+      size="12" />
+      Approved
+  </template>          
   <template v-slot:title>Look Mah!</template>
   <template v-slot:actions><a href="#">View All</a></template>
-  <template v-slot:body>Body slot content here</template>
+  <template v-slot:body>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.</template>
+  <template v-slot:notifications>
+    <KIcon
+      icon="profile"
+      color="#7F01FE"
+      size="44" />
+  </template>
 </KCard>
 
 ```vue
 <KCard>
+  <template v-slot:statusHat>
+    <KIcon
+      icon="check"
+      color="#07A88D"
+      class="mr-2"
+      size="12" />
+      Approved
+  </template>          
   <template v-slot:title>Look Mah!</template>
   <template v-slot:actions><a href="#">View All</a></template>
-  <template v-slot:body>Body slot content here</template>
+  <template v-slot:body>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.</template>
+  <template v-slot:notifications>
+    <KIcon
+      icon="profile"
+      color="#7F01FE"
+      size="44" />
+  </template>
 </KCard>
 ```
 
@@ -370,7 +311,7 @@ An Example of changing the background might look like.
 
 <div class="card-wrapper">
   <KCard
-    title="Card Title"
+    title="Colorful Title"
     body="Body Content"
     hasShadow />
 </div>
@@ -378,7 +319,7 @@ An Example of changing the background might look like.
 ```vue
 <template>
   <KCard
-    title="Card Title"
+    title="Colorful Title"
     body="Body Content"
     hasShadow />
 </template>
