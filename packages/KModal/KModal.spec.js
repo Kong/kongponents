@@ -4,25 +4,37 @@ import KModal from '@/KModal/KModal'
 describe('KModal', () => {
   it('renders proper content when using slots', () => {
     const headerText = 'This is some header text'
-    const helpText = 'This is some help text'
     const bodyText = 'This is some body text'
     const footerText = 'This is some footer text'
     const wrapper = mount(KModal, {
       propsData: {
-        isVisible: true
+        isVisible: true,
+        title: headerText
       },
       slots: {
         'header-content': `<div>${headerText}</div>`,
-        'help': `<div>${helpText}</div>`,
         'body-content': `<div>${bodyText}</div>`,
         'footer-content': `<div>${footerText}</div>`
       }
     })
 
     expect(wrapper.find('.k-modal-header').html()).toEqual(expect.stringContaining(headerText))
-    expect(wrapper.find('.k-modal-help').html()).toEqual(expect.stringContaining(helpText))
     expect(wrapper.find('.k-modal-body').html()).toEqual(expect.stringContaining(bodyText))
     expect(wrapper.find('.k-modal-footer').html()).toEqual(expect.stringContaining(footerText))
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
+  it('hides the title when using hideTitle prop', () => {
+    const titleText = "You can't see me"
+    const wrapper = mount(KModal, {
+      propsData: {
+        isVisible: true,
+        title: titleText,
+        hideTitle: true
+      }
+    })
+
+    expect(wrapper.find('.k-modal-header').exists()).toBeFalsy()
     expect(wrapper.html()).toMatchSnapshot()
   })
 
@@ -30,7 +42,8 @@ describe('KModal', () => {
     const actionButtonsText = 'This is some action buttons text'
     const wrapper = mount(KModal, {
       propsData: {
-        isVisible: true
+        isVisible: true,
+        title: 'Test Me'
       },
       slots: {
         'action-buttons': `<div>${actionButtonsText}</div>`
@@ -43,19 +56,16 @@ describe('KModal', () => {
 
   it('renders proper content when using props', () => {
     const title = 'Sweet prop title'
-    const helpText = 'Sweet prop help text'
     const content = 'Sweet prop content'
     const wrapper = mount(KModal, {
       propsData: {
         isVisible: true,
         title,
-        helpText,
         content
       }
     })
 
     expect(wrapper.find('.k-modal-header').html()).toEqual(expect.stringContaining(title))
-    expect(wrapper.find('.k-modal-help').html()).toEqual(expect.stringContaining(helpText))
     expect(wrapper.find('.k-modal-body').html()).toEqual(expect.stringContaining(content))
     expect(wrapper.html()).toMatchSnapshot()
   })
@@ -69,7 +79,8 @@ describe('KModal', () => {
         actionButtonAppearance: 'outline',
         actionButtonText: confirmText,
         cancelButtonAppearance: 'danger',
-        cancelButtonText: cancelText
+        cancelButtonText: cancelText,
+        title: 'Test Me'
       }
     })
 
@@ -85,6 +96,7 @@ describe('KModal', () => {
   it('proceeds when clicking action button', () => {
     const wrapper = mount(KModal, {
       propsData: {
+        title: 'Test Me',
         isVisible: true
       },
       attachToDocument: true
@@ -98,6 +110,7 @@ describe('KModal', () => {
   it('emits close when backdrop is clicked', () => {
     const wrapper = mount(KModal, {
       propsData: {
+        title: 'Test Me',
         isVisible: true
       }
     })
@@ -111,6 +124,7 @@ describe('KModal', () => {
   it('emits close when hitting escape', () => {
     const wrapper = mount(KModal, {
       propsData: {
+        title: 'Test Me',
         isVisible: true
       },
       attachToDocument: true
@@ -128,6 +142,9 @@ describe('KModal', () => {
     window.document.removeEventListener = REL
 
     const wrapper = mount(KModal, {
+      propsData: {
+        title: 'Test Me'
+      },
       attachToDocument: true
     })
 
@@ -137,7 +154,11 @@ describe('KModal', () => {
   })
 
   it('matches snapshot', () => {
-    const wrapper = mount(KModal)
+    const wrapper = mount(KModal, {
+      propsData: {
+        title: 'Test Me'
+      }
+    })
 
     expect(wrapper.html()).toMatchSnapshot()
   })
