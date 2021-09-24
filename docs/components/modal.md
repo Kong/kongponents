@@ -43,8 +43,8 @@ export default {
 - `@canceled` - Emitted when cancel/close button is clicked
 
 **Content**
-- `title` - Text to display in header if not using slot
-- `helpText` - Help text to display below header if not using slot
+- `title` - Text displayed in header if not using slot (**Note**: this field is still required for accessibility reasons even if using the slot)
+- `hideTitle` - If not using the `header-content` slot, tells the component whether or not to display the title
 - `content` - Text to display in content if not using slot
 
 **Buttons & Appearance**
@@ -54,10 +54,9 @@ export default {
 - `cancelButtonAppearance` - Change the [appearance](/components/button.html#props) of the cancel
 
 ## Slots
-There are 5 designated slots you can use to display content in the modal.
+There are 4 designated slots you can use to display content in the modal.
 
 - `header-content`
-- `help` - Light text between title and content.
 - `body-content`  
 - `footer-content` - Contains cancel & action buttons by default.
 - `action-buttons` - Contains action buttons which are right-aligned. This slot will not exist if using `footer-content` slot.
@@ -65,7 +64,8 @@ There are 5 designated slots you can use to display content in the modal.
 ---
 ### Usage
 
-Using both the provided props and slot options we will now demonstrate how to customize the modal for a delete confirmation.
+Using both the provided props and slot options we will now demonstrate how to customize the modal for a delete confirmation. 
+Notice that even though we are using the `header-content` slot we still specify the `title` attribute for accessibility.
 
 <KButton @click="slottedIsOpen = true">Open Delete Modal</KButton>
 <template>
@@ -73,9 +73,12 @@ Using both the provided props and slot options we will now demonstrate how to cu
     :isVisible="slottedIsOpen"
     actionButtonText="Delete"
     actionButtonAppearance="danger"
-    @canceled="slottedIsOpen = false">
-    <template v-slot:header-content>Delete Item</template>
-    <template v-slot:help>Take this action to delete</template>
+    @canceled="slottedIsOpen = false"
+    title="Delete Item">
+    <template v-slot:header-content>
+      <KIcon icon="dangerCircle" color="red" class="mr-2" />
+      Delete Item
+    </template>
     <template v-slot:body-content>Are you sure you want to delete this item? This action can not be undone.</template>
     <template v-slot:action-buttons>
       <KButton appearance="outline" class="mr-2">Back</KButton>
@@ -91,9 +94,12 @@ Using both the provided props and slot options we will now demonstrate how to cu
     :isVisible="isVisible"
     actionButtonText="Delete"
     actionButtonAppearance="danger"
-    @canceled="slottedIsOpen = false">
-    <template v-slot:header-content>Delete Item</template>
-    <template v-slot:help>Take this action to delete</template>
+    @canceled="slottedIsOpen = false"
+    title="Delete Item">
+    <template v-slot:header-content>
+      <KIcon icon="dangerCircle" color="red" class="mr-2" />
+      Delete Item
+    </template>
     <template v-slot:body-content>Are you sure you want to delete this item? This action can not be undone.</template>
     <template v-slot:action-buttons>
       <KButton appearance="outline" class="mr-2">Back</KButton>

@@ -15,15 +15,9 @@
         @click.stop>
         <div class="k-modal-content modal-content">
           <div
-            :class="$scopedSlots.help || helpText ? 'mb-4' : 'mb-5'"
-            class="k-modal-header modal-header"
-          >
+            v-if="$scopedSlots.title || !hideTitle"
+            class="k-modal-header modal-header mb-5">
             <slot name="header-content">{{ title }}</slot>
-          </div>
-          <div
-            v-if="$scopedSlots.help || helpText"
-            class="k-modal-help modal-help">
-            <slot name="help">{{ helpText }}</slot>
           </div>
           <div class="k-modal-body modal-body">
             <slot name="body-content">{{ content }}</slot>
@@ -63,19 +57,19 @@ export default {
   components: { KButton },
 
   props: {
+    /**
+     * Set the text of the title, if using title slot, this text is for the aria-label
+     */
     title: {
-      /**
-       * Set the text of the title
-       */
       type: String,
-      default: ''
+      required: true
     },
-    helpText: {
-      /**
-       * Set help text to be displayed under the title
-       */
-      type: String,
-      default: ''
+    /**
+     * Title is required for aria-labelling, toggle if the title is visible on the modal
+     */
+    hideTitle: {
+      type: Boolean,
+      default: false
     },
     /**
      * Set the text of the body content
@@ -179,16 +173,10 @@ export default {
   .k-modal-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     color: var(--KModalHeaderColor, var(--black-500, color(black-500)));
     font-size: var(--KModalHeaderSize, 20px);
     font-weight: var(--KModalHeaderWeight, 500);
-  }
-
-  .k-modal-help {
-    font-size: var(--KModalFontSize, 13px);
-    color: var(--black-45);
-    margin-bottom: var(--spacing-lg);
   }
 
   .k-modal-body {
