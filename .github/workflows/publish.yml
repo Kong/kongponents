@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - master
+    - 'release/**'
 
 jobs:
   test:
@@ -12,7 +13,7 @@ jobs:
       matrix:
         node: [14.x]
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node }}
       uses: actions/setup-node@v1
       with:
@@ -38,7 +39,7 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
         node-version: 14.x
@@ -47,8 +48,6 @@ jobs:
       run: |
         git config --global user.name 'kongponents'
         git config --global user.email 'npm@konghq.com'
-        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-        git checkout master
 
     - name: install
       run: |

@@ -53,7 +53,7 @@ Example composing `KCard` with other Kongponents to make another component:
     <div class="mx-4">
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <h2>Kong Enterprise Edition</h2>
-        <KButton to="https://docs.konghq.com/enterprise" target="_blank">
+        <KButton appearance="outline" to="https://docs.konghq.com/enterprise" target="_blank">
           Docs
         </KButton>
       </div>
@@ -72,7 +72,7 @@ Example composing `KCard` with other Kongponents to make another component:
     <div class="mx-4">
       <div>
         <h2>Kong Enterprise Edition</h2>
-        <KButton to="https://docs.konghq.com/enterprise" target="_blank">
+        <KButton appearance="outline" to="https://docs.konghq.com/enterprise" target="_blank">
           Docs
         </KButton>
       </div>
@@ -170,7 +170,7 @@ Example of a KCard with both helpText and an action
     </div>
   </template>
   <template v-slot:actions>
-    <KButton>View Invites</KButton>
+    <KButton appearance="outline">View Invites</KButton>
   </template>
 </KCard>
 
@@ -187,7 +187,7 @@ Example of a KCard with both helpText and an action
     </div>
   </template>
   <template v-slot:actions>
-    <KButton>View Invites</KButton>
+    <KButton appearance="outline">View Invites</KButton>
   </template>
 </KCard>
 ```
@@ -278,7 +278,7 @@ Cards can be arranged with flex box.
     body="This card always has a icon button"
   >
     <template v-slot:actions>
-      <KButton>
+      <KButton size="small" appearance="outline">
         <KIcon
             icon="gearFilled"
             width="16px"
@@ -294,7 +294,7 @@ Cards can be arranged with flex box.
     body="This card always has a button"
   >
     <template v-slot:actions>
-      <KButton>View All</KButton>
+      <KButton size="small" appearance="outline">View All</KButton>
     </template>
   </KCard>
 </div>

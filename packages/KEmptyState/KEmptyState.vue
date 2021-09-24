@@ -23,7 +23,7 @@
           <KButton
             v-if="!ctaIsHidden"
             :is-rounded="true"
-            appearance="outline-primary"
+            appearance="outline"
             @click.native="() => handleClick && handleClick()">
             {{ ctaText }}
           </KButton>

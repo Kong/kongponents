@@ -41,9 +41,12 @@ export default {
 
     this.$page.colors = {
       Blue: colors.filter(i => i.includes('blue')),
+      Petrol: colors.filter(i => i.includes('petrol')),
+      Purple: colors.filter(i => i.includes('purple')),
       Steel: colors.filter(i => i.includes('steel')),
       Red: colors.filter(i => i.includes('red')),
       Green: colors.filter(i => i.includes('green')),
+      Teal: colors.filter(i => i.includes('teal')),
       Yellow: colors.filter(i => i.includes('yellow')),
       Grey: colors.filter(i => i.includes('grey')),
       Black: colors.filter(i => i.includes('black')),

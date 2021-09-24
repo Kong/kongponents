@@ -51,9 +51,9 @@ describe('KModal', () => {
     const wrapper = mount(KModal, {
       propsData: {
         isVisible: true,
-        actionButtonAppearance: 'outline-primary',
+        actionButtonAppearance: 'outline',
         actionButtonText: confirmText,
-        cancelButtonAppearance: 'outline-danger',
+        cancelButtonAppearance: 'danger',
         cancelButtonText: cancelText
       }
     })
@@ -61,9 +61,9 @@ describe('KModal', () => {
     const buttons = wrapper.findAll('button')
 
     expect(buttons.at(0).text()).toBe(confirmText)
-    expect(buttons.at(0).classes()).toContain('outline-primary')
+    expect(buttons.at(0).classes()).toContain('outline')
     expect(buttons.at(1).text()).toBe(cancelText)
-    expect(buttons.at(1).classes()).toContain('outline-danger')
+    expect(buttons.at(1).classes()).toContain('danger')
     expect(wrapper.html()).toMatchSnapshot()
   })
 

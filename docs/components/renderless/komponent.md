@@ -9,18 +9,18 @@ e.g.
 
 <Komponent :data="{ count: 0 }" v-slot="{ data }">
   <div>
-    <KButton @click="data.count = data.count - 1">-</KButton>
+    <KButton size="small" appearance="outline" :isRounded="false" @click="data.count = data.count - 1">-</KButton>
     {{ data.count }}
-    <KButton @click="data.count = data.count + 1">+</KButton>
+    <KButton size="small" appearance="outline" :isRounded="false" @click="data.count = data.count + 1">+</KButton>
   </div>
 </Komponent>
 
 ```vue
 <Komponent :data="{ count: 0 }" v-slot="{ data }">
   <div>
-    <KButton @click="data.count = data.count - 1">-</KButton>
+    <KButton size="small" appearance="outline" :isRounded="false" @click="data.count = data.count - 1">-</KButton>
     {{ data.count }}
-    <KButton @click="data.count = data.count + 1">+</KButton>
+    <KButton size="small" appearance="outline" :isRounded="false" @click="data.count = data.count + 1">+</KButton>
   </div>
 </Komponent>
 ```
