@@ -292,7 +292,7 @@ An Example of changing the background might look like.
 
 <div class="card-wrapper">
   <KCard
-    title="Card Title"
+    title="Colorful Title"
     body="Body Content"
     hasShadow />
 </div>
@@ -300,7 +300,7 @@ An Example of changing the background might look like.
 ```vue
 <template>
   <KCard
-    title="Card Title"
+    title="Colorful Title"
     body="Body Content"
     hasShadow />
 </template>

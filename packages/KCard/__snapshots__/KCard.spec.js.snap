@@ -1,48 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`KCard has hover class when passed 1`] = `
-<section class="kong-card border hover">
+<section aria-describedby="5c5b0e61-1d60-11ec-94c4-19459b95d34b" class="kong-card border hover">
   <!---->
   <div class="k-card-content d-flex">
-    <div class="k-card-body"></div>
+    <div id="5c5b0e61-1d60-11ec-94c4-19459b95d34b" class="k-card-body"></div>
     <!---->
   </div>
 </section>
 `;
 
 exports[`KCard has shadow class when passed 1`] = `
-<section class="kong-card border kcard-shadow">
+<section aria-describedby="5c5b8391-1d60-11ec-94c4-19459b95d34b" class="kong-card border kcard-shadow">
   <!---->
   <div class="k-card-content d-flex">
-    <div class="k-card-body"></div>
+    <div id="5c5b8391-1d60-11ec-94c4-19459b95d34b" class="k-card-body"></div>
     <!---->
   </div>
 </section>
 `;
 
 exports[`KCard matches snapshot 1`] = `
-<section class="kong-card border">
+<section aria-describedby="5c5bf8c1-1d60-11ec-94c4-19459b95d34b" class="kong-card border">
   <!---->
   <div class="k-card-content d-flex">
-    <div class="k-card-body"></div>
+    <div id="5c5bf8c1-1d60-11ec-94c4-19459b95d34b" class="k-card-body"></div>
     <!---->
   </div>
 </section>
 `;
 
 exports[`KCard renders slots when passed 1`] = `
-<section class="kong-card border">
+<section aria-labelledby="5c567a80-1d60-11ec-94c4-19459b95d34b" aria-describedby="5c56a190-1d60-11ec-94c4-19459b95d34b" class="kong-card border">
   <div class="k-card-header d-flex mb-4">
     <div>
       <div class="k-card-status-hat mb-4"><span>Card Status Hat</span></div>
-      <div class="k-card-title">
+      <div id="5c567a80-1d60-11ec-94c4-19459b95d34b" class="k-card-title">
         <h4><span>Card Title</span></h4>
       </div>
     </div>
     <div class="k-card-actions"><span>Card Actions</span></div>
   </div>
   <div class="k-card-content d-flex">
-    <div class="k-card-body">
+    <div id="5c56a190-1d60-11ec-94c4-19459b95d34b" class="k-card-body">
       <div>Card Body</div>
     </div>
     <div class="k-card-notifications"><span>Card Notifications</span></div>

@@ -1,6 +1,9 @@
 <template>
   <section
     :class="[borderVariant, {'hover': hasHover, 'kcard-shadow': hasShadow }]"
+    :aria-label="title ? title : null"
+    :aria-labelledby="!title && ($scopedSlots.title || $slots.title) ? titleId : null"
+    :aria-describedby="contentId"
     class="kong-card">
     <div
       v-if="title || $scopedSlots.title || $slots.title || $scopedSlots.actions || status || $scopedSlots.statusHat"
@@ -13,7 +16,9 @@
           <!-- @slot Use this slot to pass status text above title -->
           <slot name="statusHat">{{ status }}</slot>
         </div>
-        <div class="k-card-title">
+        <div
+          :id="title ? null : titleId"
+          class="k-card-title">
           <h4>
             <!-- @slot Use this slot to pass title content -->
             <slot name="title">{{ title }}</slot>
@@ -26,7 +31,9 @@
       </div>
     </div>
     <div class="k-card-content d-flex">
-      <div class="k-card-body">
+      <div
+        :id="contentId"
+        class="k-card-body">
         <!-- @slot Use this slot to pass in body content -->
         <slot name="body">{{ body }}</slot>
       </div>
@@ -40,17 +47,20 @@
 </template>
 
 <script>
+import { uuid } from 'vue-uuid'
+
 export default {
   name: 'KCard',
 
   props: {
     /**
-     * Pass title string in if slot not used
+     * Title string if slot not used, also used for aria-label
      */
     title: {
       type: String,
       default: ''
     },
+
     /**
      * Pass body string in if slot not used
      */
@@ -85,6 +95,13 @@ export default {
     status: {
       type: String,
       default: ''
+    }
+  },
+
+  data () {
+    return {
+      titleId: uuid.v1(),
+      contentId: uuid.v1()
     }
   }
 }
