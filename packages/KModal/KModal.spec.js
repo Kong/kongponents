@@ -19,10 +19,25 @@ describe('KModal', () => {
       }
     })
 
-    expect(wrapper.find('.modal-header').html()).toEqual(expect.stringContaining(headerText))
-    expect(wrapper.find('.modal-help').html()).toEqual(expect.stringContaining(helpText))
-    expect(wrapper.find('.modal-body').html()).toEqual(expect.stringContaining(bodyText))
-    expect(wrapper.find('.modal-footer').html()).toEqual(expect.stringContaining(footerText))
+    expect(wrapper.find('.k-modal-header').html()).toEqual(expect.stringContaining(headerText))
+    expect(wrapper.find('.k-modal-help').html()).toEqual(expect.stringContaining(helpText))
+    expect(wrapper.find('.k-modal-body').html()).toEqual(expect.stringContaining(bodyText))
+    expect(wrapper.find('.k-modal-footer').html()).toEqual(expect.stringContaining(footerText))
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
+  it('renders proper content when using action-buttons slot', () => {
+    const actionButtonsText = 'This is some action buttons text'
+    const wrapper = mount(KModal, {
+      propsData: {
+        isVisible: true
+      },
+      slots: {
+        'action-buttons': `<div>${actionButtonsText}</div>`
+      }
+    })
+
+    expect(wrapper.find('.k-modal-action-buttons').html()).toEqual(expect.stringContaining(actionButtonsText))
     expect(wrapper.html()).toMatchSnapshot()
   })
 
@@ -39,9 +54,9 @@ describe('KModal', () => {
       }
     })
 
-    expect(wrapper.find('.modal-header').html()).toEqual(expect.stringContaining(title))
-    expect(wrapper.find('.modal-help').html()).toEqual(expect.stringContaining(helpText))
-    expect(wrapper.find('.modal-body').html()).toEqual(expect.stringContaining(content))
+    expect(wrapper.find('.k-modal-header').html()).toEqual(expect.stringContaining(title))
+    expect(wrapper.find('.k-modal-help').html()).toEqual(expect.stringContaining(helpText))
+    expect(wrapper.find('.k-modal-body').html()).toEqual(expect.stringContaining(content))
     expect(wrapper.html()).toMatchSnapshot()
   })
 
@@ -60,10 +75,10 @@ describe('KModal', () => {
 
     const buttons = wrapper.findAll('button')
 
-    expect(buttons.at(0).text()).toBe(confirmText)
-    expect(buttons.at(0).classes()).toContain('outline')
-    expect(buttons.at(1).text()).toBe(cancelText)
-    expect(buttons.at(1).classes()).toContain('danger')
+    expect(buttons.at(0).text()).toBe(cancelText)
+    expect(buttons.at(0).classes()).toContain('danger')
+    expect(buttons.at(1).text()).toBe(confirmText)
+    expect(buttons.at(1).classes()).toContain('outline')
     expect(wrapper.html()).toMatchSnapshot()
   })
 
@@ -75,7 +90,7 @@ describe('KModal', () => {
       attachToDocument: true
     })
 
-    wrapper.find('.modal-footer button').trigger('click')
+    wrapper.find('.k-modal-footer .k-modal-action-buttons button').trigger('click')
 
     expect(wrapper.emitted().proceed).toHaveLength(1)
   })
@@ -87,7 +102,7 @@ describe('KModal', () => {
       }
     })
 
-    const backdrop = wrapper.find('.modal-backdrop')
+    const backdrop = wrapper.find('.k-modal-backdrop')
 
     backdrop.trigger('click')
     expect(wrapper.emitted().canceled).toHaveLength(1)

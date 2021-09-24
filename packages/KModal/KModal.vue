@@ -5,39 +5,43 @@
     class="k-modal"
     role="dialog">
     <div
-      class="modal-backdrop"
+      class="k-modal-backdrop modal-backdrop"
       @click="close">
 
       <div
-        class="modal-dialog"
+        class="k-modal-dialog modal-dialog"
         @click.stop>
-        <div class="modal-content">
+        <div class="k-modal-content modal-content">
           <div
-            :class="helpText ? 'mb-3' : 'mb-4'"
-            class="modal-header"
+            :class="$scopedSlots.help || helpText ? 'mb-4' : 'mb-5'"
+            class="k-modal-header modal-header"
           >
             <slot name="header-content">{{ title }}</slot>
           </div>
           <div
             v-if="$scopedSlots.help || helpText"
-            class="modal-help">
+            class="k-modal-help modal-help">
             <slot name="help">{{ helpText }}</slot>
           </div>
-          <div class="modal-body">
+          <div class="k-modal-body modal-body">
             <slot name="body-content">{{ content }}</slot>
           </div>
-          <div class="modal-footer">
+          <div class="k-modal-footer modal-footer d-flex">
             <slot name="footer-content">
-              <KButton
-                :appearance="actionButtonAppearance"
-                @click="proceed">
-                {{ actionButtonText }}
-              </KButton>
               <KButton
                 :appearance="cancelButtonAppearance"
                 @click="close">
                 {{ cancelButtonText }}
               </KButton>
+              <div class="k-modal-action-buttons">
+                <slot name="action-buttons">
+                  <KButton
+                    :appearance="actionButtonAppearance"
+                    @click="proceed">
+                    {{ actionButtonText }}
+                  </KButton>
+                </slot>
+              </div>
             </slot>
           </div>
         </div>
@@ -60,7 +64,7 @@ export default {
        * Set the text of the title
        */
       type: String,
-      default: 'Modal Title'
+      default: ''
     },
     helpText: {
       /**
@@ -74,7 +78,7 @@ export default {
      */
     content: {
       type: String,
-      default: 'Modal Content'
+      default: ''
     },
     /**
       *  Pass whether or not the modal should be visible
@@ -88,7 +92,7 @@ export default {
      */
     actionButtonText: {
       type: String,
-      default: 'Proceed'
+      default: 'Submit'
     },
     /**
      * Set the appearance of the action/proceed button
@@ -109,7 +113,7 @@ export default {
      */
     cancelButtonAppearance: {
       type: String,
-      default: 'secondary'
+      default: 'outline'
     }
   },
 
@@ -140,7 +144,7 @@ export default {
 <style scoped lang="scss">
 @import '~@kongponents/styles/_variables.scss';
 
-.modal-backdrop {
+.k-modal-backdrop {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -150,7 +154,7 @@ export default {
   z-index: 1100;
 }
 
-.modal-dialog {
+.k-modal-dialog {
   position: relative;
   width: auto;
   max-width: var(--KModalMaxWidth, 500px);
@@ -163,35 +167,36 @@ export default {
   z-index: 9999;
 }
 
-.modal-content {
+.k-modal-content {
   position: relative;
   display: flex;
   flex-direction: column;
 
-  .modal-header {
+  .k-modal-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: var(--KModalHeaderColor, var(--black-85, color(black-85)));
-    font-size: var(--KModalHeaderSize, var(--type-lg, type(lg)));
+    color: var(--KModalHeaderColor, var(--black-500, color(black-500)));
+    font-size: var(--KModalHeaderSize, 20px);
     font-weight: var(--KModalHeaderWeight, 500);
   }
 
-  .modal-help {
+  .k-modal-help {
+    font-size: var(--KModalFontSize, 13px);
     color: var(--black-45);
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: var(--spacing-lg);
   }
 
-  .modal-body {
+  .k-modal-body {
     position: relative;
     flex: 1 1 auto;
-    margin-bottom: var(--KModalBottomMargin, var(--spacing-xl, spacing(xl)));
-    color: var(--KModalColor, var(--black-70, color(black-70)));
-    font-size: var(--KModalFontSize, var(--type-md, type(md)));
+    margin-bottom: var(--KModalBottomMargin, var(--spacing-lg, spacing(lg)));
+    color: var(--KModalColor, var(--grey-500, color(grey-500)));
+    font-size: var(--KModalFontSize, 13px);
   }
 
-  .modal-footer button {
-    margin-right: var(--spacing-sm, spacing(sm));
+  .k-modal-footer .k-modal-action-buttons {
+    margin-left: auto;
   }
 }
 </style>
