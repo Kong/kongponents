@@ -2,8 +2,10 @@
   <div
     v-if="isVisible"
     :aria-hidden="!isVisible ? 'true' : 'false'"
+    :aria-label="title"
     class="k-modal"
-    role="dialog">
+    role="dialog"
+    aria-modal>
     <div
       class="k-modal-backdrop modal-backdrop"
       @click="close">
@@ -30,14 +32,16 @@
             <slot name="footer-content">
               <KButton
                 :appearance="cancelButtonAppearance"
-                @click="close">
+                @click="close"
+                @keyup.esc="close">
                 {{ cancelButtonText }}
               </KButton>
               <div class="k-modal-action-buttons">
                 <slot name="action-buttons">
                   <KButton
                     :appearance="actionButtonAppearance"
-                    @click="proceed">
+                    @click="proceed"
+                    @keyup.enter="proceed">
                     {{ actionButtonText }}
                   </KButton>
                 </slot>
