@@ -11,10 +11,14 @@
     <title v-if="!hideTitle">{{ title || icon }}</title>
     <slot name="svgElements"/>
     <g>
+      <circle
+        v-for="(circle, idx) in circles"
+        :key="circle.cx + circle.cy + circle.r"
+        v-bind="circleAttributes[idx]"/>
       <path
         v-for="(path, idx) in paths"
         :key="path.d"
-        v-bind="attributes[idx]"/>
+        v-bind="pathAttributes[idx]"/>
     </g>
   </svg>
 </template>
@@ -100,13 +104,37 @@ export default {
       return this.doc.getElementsByTagName('svg')[0]
     },
     paths () {
-      return this.doc.querySelectorAll('path').length ? Array.from(this.doc.querySelectorAll('path')) : console.warn('(KIcon) Warning: SVG Path not found')
+      return Array.from(this.doc.querySelectorAll('path'))
     },
-    attributes () {
+    circles () {
+      return Array.from(this.doc.querySelectorAll('circle'))
+    },
+    pathAttributes () {
       return this.paths && this.paths.map(path =>
         Array.from(path.attributes).reduce((attr, { value, name }) => {
           const hasPreservedColor = path.attributes.id && path.attributes.id.value === 'preserveColor'
           const isSecondary = path.attributes.type && path.attributes.type.value === 'secondary'
+
+          // color override
+          if (!hasPreservedColor && name === 'fill' && this.secondaryColor && isSecondary) {
+            attr[name] = value === 'none' ? 'none' : this.secondaryColor
+          } else if (!hasPreservedColor && !isSecondary && name === 'fill' && this.color) {
+            attr[name] = value === 'none' ? 'none' : this.color
+          } else if (name === 'stroke' && this.color) {
+            attr[name] = this.color
+          } else {
+            attr[name] = value
+          }
+
+          return attr
+        }, {})
+      )
+    },
+    circleAttributes () {
+      return this.circles && this.circles.map(circle =>
+        Array.from(circle.attributes).reduce((attr, { value, name }) => {
+          const hasPreservedColor = circle.attributes.id && circle.attributes.id.value === 'preserveColor'
+          const isSecondary = circle.attributes.type && circle.attributes.type.value === 'secondary'
 
           // color override
           if (!hasPreservedColor && name === 'fill' && this.secondaryColor && isSecondary) {
