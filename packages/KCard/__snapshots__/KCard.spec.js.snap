@@ -1,48 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`KCard has hover class when passed 1`] = `
-<section aria-describedby="b99da9b1-1d66-11ec-abe6-c31db234ae37" class="kong-card border hover">
+<section aria-describedby="test-content-id-1234" class="kong-card border hover">
   <!---->
   <div class="k-card-content d-flex">
-    <div id="b99da9b1-1d66-11ec-abe6-c31db234ae37" class="k-card-body"></div>
+    <div id="test-content-id-1234" class="k-card-body"></div>
     <!---->
   </div>
 </section>
 `;
 
 exports[`KCard has shadow class when passed 1`] = `
-<section aria-describedby="b99e1ee1-1d66-11ec-abe6-c31db234ae37" class="kong-card border kcard-shadow">
+<section aria-describedby="test-content-id-1234" class="kong-card border kcard-shadow">
   <!---->
   <div class="k-card-content d-flex">
-    <div id="b99e1ee1-1d66-11ec-abe6-c31db234ae37" class="k-card-body"></div>
+    <div id="test-content-id-1234" class="k-card-body"></div>
     <!---->
   </div>
 </section>
 `;
 
 exports[`KCard matches snapshot 1`] = `
-<section aria-describedby="b99e9411-1d66-11ec-abe6-c31db234ae37" class="kong-card border">
+<section aria-describedby="test-content-id-1234" class="kong-card border">
   <!---->
   <div class="k-card-content d-flex">
-    <div id="b99e9411-1d66-11ec-abe6-c31db234ae37" class="k-card-body"></div>
+    <div id="test-content-id-1234" class="k-card-body"></div>
     <!---->
   </div>
 </section>
 `;
 
 exports[`KCard renders slots when passed 1`] = `
-<section aria-labelledby="b99963f0-1d66-11ec-abe6-c31db234ae37" aria-describedby="b99963f1-1d66-11ec-abe6-c31db234ae37" class="kong-card border">
+<section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card border">
   <div class="k-card-header d-flex mb-4">
     <div>
       <div class="k-card-status-hat mb-4"><span>Card Status Hat</span></div>
-      <div id="b99963f0-1d66-11ec-abe6-c31db234ae37" class="k-card-title">
+      <div id="test-title-id-1234" class="k-card-title">
         <h4><span>Card Title</span></h4>
       </div>
     </div>
     <div class="k-card-actions"><span>Card Actions</span></div>
   </div>
   <div class="k-card-content d-flex">
-    <div id="b99963f1-1d66-11ec-abe6-c31db234ae37" class="k-card-body">
+    <div id="test-content-id-1234" class="k-card-body">
       <div>Card Body</div>
     </div>
     <div class="k-card-notifications"><span>Card Notifications</span></div>

@@ -95,13 +95,21 @@ export default {
     status: {
       type: String,
       default: ''
+    },
+
+    /**
+     * Debug mode - for testing only, strips out generated ids
+     */
+    debugMode: {
+      type: Boolean,
+      default: false
     }
   },
 
   data () {
     return {
-      titleId: uuid.v1(),
-      contentId: uuid.v1()
+      titleId: !this.debugMode ? uuid.v1() : 'test-title-id-1234',
+      contentId: !this.debugMode ? uuid.v1() : 'test-content-id-1234'
     }
   }
 }
