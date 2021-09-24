@@ -37,6 +37,26 @@ describe('KCard', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 
+  it('renders proper content when using props', () => {
+    const cardStatus = 'Card Status'
+    const cardTitle = 'Card Title'
+    const cardBody = 'Card Body'
+
+    const wrapper = mount(KCard, {
+      propsData: {
+        debugMode: true,
+        status: cardStatus,
+        title: cardTitle,
+        body: cardBody
+      }
+    })
+
+    expect(wrapper.find('.k-card-status-hat').html()).toEqual(expect.stringContaining(cardStatus))
+    expect(wrapper.find('.k-card-title').html()).toEqual(expect.stringContaining(cardTitle))
+    expect(wrapper.find('.k-card-body').html()).toEqual(expect.stringContaining(cardBody))
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
   it('has border class when passed', () => {
     const wrapper = mount(KCard, {
       propsData: {

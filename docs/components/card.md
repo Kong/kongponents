@@ -84,6 +84,25 @@ Example composing `KCard` with other Kongponents to make another component:
 </KCard>
 ```
 
+### Status
+String to be used in the `statusHat` slot.
+
+- `status`
+
+<KCard 
+  status="My status"
+  title="My title"
+  body="My body"
+/>
+
+```vue
+<KCard 
+  status="My status"
+  title="My title"
+  body="My body"
+/>
+```
+
 ### Body
 String to be used in the body slot.
 

@@ -7,8 +7,8 @@
     class="kong-card">
     <div
       v-if="title || $scopedSlots.title || $slots.title || $scopedSlots.actions || status || $scopedSlots.statusHat"
-      :class="{ 'mb-4': status || $scopedSlots.statusHat }"
-      class="k-card-header d-flex">
+      :class="{ 'has-status': status || $scopedSlots.statusHat }"
+      class="k-card-header d-flex mb-4">
       <div>
         <div
           v-if="status || $scopedSlots.statusHat"
@@ -141,8 +141,12 @@ export default {
   }
 
   .k-card-header {
-    align-items: flex-start;
+    align-items: center;
     min-height: 38px;
+
+    &.has-status {
+      align-items: flex-start;
+    }
 
     .k-button {
       min-height: 38px;
