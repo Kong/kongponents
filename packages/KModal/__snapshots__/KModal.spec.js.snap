@@ -3,7 +3,7 @@
 exports[`KModal matches snapshot 1`] = `undefined`;
 
 exports[`KModal renders custom button text & appearance 1`] = `
-<div aria-hidden="false" role="dialog" class="k-modal">
+<div aria-hidden="false" aria-label="" role="dialog" aria-modal="" class="k-modal">
   <div class="k-modal-backdrop modal-backdrop">
     <div class="k-modal-dialog modal-dialog">
       <div class="k-modal-content modal-content">
@@ -24,7 +24,7 @@ exports[`KModal renders custom button text & appearance 1`] = `
 `;
 
 exports[`KModal renders proper content when using action-buttons slot 1`] = `
-<div aria-hidden="false" role="dialog" class="k-modal">
+<div aria-hidden="false" aria-label="" role="dialog" aria-modal="" class="k-modal">
   <div class="k-modal-backdrop modal-backdrop">
     <div class="k-modal-dialog modal-dialog">
       <div class="k-modal-content modal-content">
@@ -45,7 +45,7 @@ exports[`KModal renders proper content when using action-buttons slot 1`] = `
 `;
 
 exports[`KModal renders proper content when using props 1`] = `
-<div aria-hidden="false" role="dialog" class="k-modal">
+<div aria-hidden="false" aria-label="Sweet prop title" role="dialog" aria-modal="" class="k-modal">
   <div class="k-modal-backdrop modal-backdrop">
     <div class="k-modal-dialog modal-dialog">
       <div class="k-modal-content modal-content">
@@ -66,7 +66,7 @@ exports[`KModal renders proper content when using props 1`] = `
 `;
 
 exports[`KModal renders proper content when using slots 1`] = `
-<div aria-hidden="false" role="dialog" class="k-modal">
+<div aria-hidden="false" aria-label="" role="dialog" aria-modal="" class="k-modal">
   <div class="k-modal-backdrop modal-backdrop">
     <div class="k-modal-dialog modal-dialog">
       <div class="k-modal-content modal-content">
