@@ -2,13 +2,13 @@
   <div class="empty-state-wrapper">
     <div class="empty-state-title">
       <div
-        v-if="isError"
-        class="warning-icon empty-state-icon card-icon mb-4"
+        v-if="isError || icon"
+        :class="{ 'warning-icon': isError }"
+        class="empty-state-icon card-icon mb-4"
       >
         <KIcon
           :size="iconSize"
-          :icon="icon"
-          view-box="0 0 50 50" />
+          :icon="icon ? icon : 'warning'" />
       </div>
       <h5>
         <slot name="title"/>
@@ -49,11 +49,7 @@ export default {
     },
     icon: {
       type: String,
-      default: 'warning'
-    },
-    showIcon: {
-      type: Boolean,
-      default: false
+      default: ''
     },
     ctaIsHidden: {
       type: Boolean,
@@ -75,9 +71,8 @@ export default {
 .empty-state-wrapper {
   padding: 42px 0;
   text-align: center;
-  border: 1px solid rgba(151,151,151,.1);
   border-radius: 3px;
-  background-color: var(--KEmptyBackground, var(--white));
+  background-color: var(--KEmptyBackground);
 }
 .empty-state-wrapper h5 {
   color: var(--KEmptyTitleColor, var(--black-500));
