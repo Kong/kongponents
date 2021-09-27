@@ -72,7 +72,7 @@ export default {
   padding: 42px 0;
   text-align: center;
   border-radius: 3px;
-  background-color: var(--KEmptyBackground);
+  background-color: var(--KEmptyBackground, var(--white));
 }
 .empty-state-wrapper h5 {
   color: var(--KEmptyTitleColor, var(--black-500));
