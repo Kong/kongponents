@@ -49,7 +49,7 @@ export default {
 
 **Buttons & Appearance**
 - `actionButtonText` - Change the text content of the submit/proceed button
-- `actionButtonAppearance` - Change the [appearance](/components/button.html#props) of the submit/proceed
+- `actionButtonAppearance` - Change the [appearance](/components/button.html#props) of the submit/proceed button
 - `cancelButtonText` - Change the text content of the close/cancel button
 - `cancelButtonAppearance` - Change the [appearance](/components/button.html#props) of the cancel
 
