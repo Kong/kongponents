@@ -61,22 +61,34 @@ export default {
   margin-bottom: 1rem;
   list-style: none;
   border-radius: 0.25rem;
+  font-family: "Maison Neue";
+  line-height: 24px;
 }
 
 .krumbs .krumb-item + .krumb-item::before {
   display: inline-block;
-  padding-right: 0.5rem;
-  padding-left: 0.5rem;
-  color: #636c72;
+  padding-right: 0.875rem;
+  padding-left: 0.875rem;
+  color: #6F7787;
   content: "\203A";
 }
 
 .krumbs .krumb-item:last-of-type:after,
 .krumbs .krumb span:after {
   display: inline-block;
-  padding-right: 0.5rem;
-  padding-left: 0.5rem;
-  color: #636c72;
+  padding-right: 0.875rem;
+  padding-left: 0.875rem;
+  color: #6F7787;
   content: "\203A";
+}
+
+.krumbs li a {
+  color: #6F7787;
+  opacity: 0.7;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 </style>
