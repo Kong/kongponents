@@ -3,11 +3,11 @@
     <div class="empty-state-title">
       <div
         v-if="isError"
-        class="warning-icon card-icon mb-4"
+        class="warning-icon empty-state-icon card-icon mb-4"
       >
         <KIcon
           :size="iconSize"
-          icon="warning"
+          :icon="icon"
           view-box="0 0 50 50" />
       </div>
       <h5>
@@ -22,7 +22,6 @@
         <slot name="cta">
           <KButton
             v-if="!ctaIsHidden"
-            :is-rounded="true"
             appearance="outline"
             @click.native="() => handleClick && handleClick()">
             {{ ctaText }}
@@ -48,6 +47,14 @@ export default {
       type: String,
       default: '50'
     },
+    icon: {
+      type: String,
+      default: 'warning'
+    },
+    showIcon: {
+      type: Boolean,
+      default: false
+    },
     ctaIsHidden: {
       type: Boolean,
       default: false
@@ -65,22 +72,23 @@ export default {
 </script>
 
 <style scoped>
-  .empty-state-wrapper {
-  padding: 4rem 0;
+.empty-state-wrapper {
+  padding: 42px 0;
   text-align: center;
-  color: rgba(0,0,0,.70);
   border: 1px solid rgba(151,151,151,.1);
   border-radius: 3px;
-  background-color: rgba(0,0,0,.03);
+  background-color: var(--KEmptyBackground, var(--white));
 }
 .empty-state-wrapper h5 {
-  margin: 0 0 .75rem;
+  color: var(--KEmptyTitleColor, var(--black-500));
+  margin: 0 0 14px;
   font-size: 18px;
   font-weight: 500;
   line-height: 21px;
 }
 .empty-state-wrapper p {
-  margin: 0 auto 1.5rem;
+  color: var(--KEmptyContentColor, var(--black-400));
+  margin: 0 auto 14px;
   font-size: 1rem;
   line-height: 1.375rem;
   font-weight: 400;

@@ -189,6 +189,17 @@ KEmptyState has 3 named slots used, `title`, `message`, and `cta`. You can use t
 </template>
 ```
 
+## Theming
+| Variable | Purpose
+|:-------- |:-------
+| `--KEmptyTitleColor`| Replaces title color
+| `--KEmptyContentColor`| Replaces content color
+| `--KEmptyBackground`| Replaces background color of the empty state
+
+
+\
+An Example of changing the background might look like.
+
 <script>
 export default {
   methods: {
