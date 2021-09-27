@@ -40,6 +40,22 @@ describe('KEmptyState', () => {
     expect(wrapper.find('.empty-state-content').html()).toEqual(expect.stringContaining(errorMessage))
   })
 
+  it('renders custom icon when icon prop passed', () => {
+    const errorMessage = 'Support me'
+    const wrapper = mount(KEmptyState, {
+      propsData: {
+        icon: 'support',
+        ctaIsHidden: true
+      },
+      slots: {
+        'message': `<div>${errorMessage}</div>`
+      }
+    })
+
+    expect(wrapper.find('.kong-icon-support').exists()).toBe(true)
+    expect(wrapper.find('.empty-state-content').html()).toEqual(expect.stringContaining(errorMessage))
+  })
+
   it('remains empty when no slots are passed', () => {
     const emptyTitle = ''
     const emptyMessage = ''
