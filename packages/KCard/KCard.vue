@@ -156,6 +156,8 @@ export default {
   .k-card-status-hat {
     font-size: var(--type-xs);
     color: var(--grey-600);
+    display: flex;
+    align-items: center;
   }
 
   .k-card-title h4 {
