@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`KEmptyState matches snapshot 1`] = `
-<div class="empty-state-wrapper">
+<section class="empty-state-wrapper">
   <div class="empty-state-title">
     <!---->
     <h5></h5>
@@ -12,5 +12,5 @@ exports[`KEmptyState matches snapshot 1`] = `
 
       </button></p>
   </div>
-</div>
+</section>
 `;
