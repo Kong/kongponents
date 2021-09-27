@@ -1,5 +1,5 @@
 <template>
-  <div class="empty-state-wrapper">
+  <section class="empty-state-wrapper">
     <div class="empty-state-title">
       <div
         v-if="isError || icon"
@@ -29,7 +29,7 @@
         </slot>
       </p>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
