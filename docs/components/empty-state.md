@@ -141,6 +141,33 @@ A flag denoting whether or not the message is an error message. If so, a warning
 </template>
 ```
 
+### icon
+- `icon`
+
+A string for the `KIcon` name to be displayed directly above the title. Specifying a value for `icon` will automatically indicate that it should be visible.
+
+<template>
+  <KEmptyState :cta-is-hidden="true" icon="support">
+    <template v-slot:message>
+      <h5>
+        Call me!
+      </h5>
+    </template>
+  </KEmptyState>
+</template>
+
+```vue
+<template>
+  <KEmptyState :cta-is-hidden="true" icon="support">
+    <template v-slot:message>
+      <h5>
+        Call me!
+      </h5>
+    </template>
+  </KEmptyState>
+</template>
+```
+
 ### icon-size
 - `icon-size`
 
@@ -188,6 +215,51 @@ KEmptyState has 3 named slots used, `title`, `message`, and `cta`. You can use t
   </KEmptyState>
 </template>
 ```
+
+## Theming
+| Variable | Purpose
+|:-------- |:-------
+| `--KEmptyTitleColor`| Replaces title text color
+| `--KEmptyContentColor`| Replaces content text color
+| `--KEmptyBackground`| Replaces background color of the empty state
+
+An Example of what using theming might look like.
+
+<template>
+  <div class="custom-empty-state">
+    <KEmptyState cta-text="CTA Button">
+      <template v-slot:title>Title</template>
+      <template v-slot:message>Message</template>
+    </KEmptyState>
+  </div>
+</template>
+
+```vue
+<template>
+  <div class="custom-empty-state">
+    <KEmptyState cta-text="CTA Button">
+      <template v-slot:title>EmptyState Title</template>
+      <template v-slot:message>EmptyState Message</template>
+    </KEmptyState>
+  </div>
+</template>
+
+<style scoped lang="scss">
+.custom-empty-state {
+  --KEmptyTitleColor: red;
+  --KEmptyContentColor: blue;
+  --KEmptyBackground: grey;
+}
+</style>
+```
+
+<style scoped lang="scss">
+.custom-empty-state {
+  --KEmptyTitleColor: red;
+  --KEmptyContentColor: blue;
+  --KEmptyBackground: grey;
+}
+</style>
 
 <script>
 export default {
