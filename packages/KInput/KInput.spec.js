@@ -2,18 +2,18 @@ import { mount } from '@vue/test-utils'
 import KInput from '@/KInput/KInput'
 
 /**
- * ALL TESTS MUST USE debugMode: true
+ * ALL TESTS MUST USE testMode: true
  * We generate unique IDs for reference by aria properties. Debug mode strips these out
  * allowing for successful snapshot verification.
  * propsData: {
- *   debugMode: true
+ *   testMode: true
  * }
  */
 describe('KInput', () => {
   it('renders text when value is passed', () => {
     const wrapper = mount(KInput, {
       propsData: {
-        debugMode: true,
+        testMode: true,
         value: 'Hello' // e.g. v-model
       }
     })
@@ -24,7 +24,7 @@ describe('KInput', () => {
   it('renders label when value is passed', () => {
     const wrapper = mount(KInput, {
       propsData: {
-        debugMode: true,
+        testMode: true,
         label: 'A Label!'
       }
     })
@@ -35,7 +35,7 @@ describe('KInput', () => {
   it('renders small when size is passed in', () => {
     const wrapper = mount(KInput, {
       propsData: {
-        debugMode: true,
+        testMode: true,
         size: 'small'
       }
     })
@@ -46,7 +46,7 @@ describe('KInput', () => {
   it('renders large when size is passed in', () => {
     const wrapper = mount(KInput, {
       propsData: {
-        debugMode: true,
+        testMode: true,
         size: 'large'
       }
     })
@@ -57,7 +57,7 @@ describe('KInput', () => {
   it('renders help when value is passed', () => {
     const wrapper = mount(KInput, {
       propsData: {
-        debugMode: true,
+        testMode: true,
         help: 'I am helpful'
       }
     })
@@ -68,7 +68,7 @@ describe('KInput', () => {
   it('reacts to text changes', () => {
     const wrapper = mount(KInput, {
       propsData: {
-        debugMode: true,
+        testMode: true,
         value: 'hey'
       }
     })
@@ -85,7 +85,7 @@ describe('KInput', () => {
   it('matches snapshot', () => {
     const wrapper = mount(KInput, {
       propsData: {
-        debugMode: true,
+        testMode: true,
         value: 'Full Name',
         placeholder: 'I am a placeholder',
         name: 'custom-input-name',

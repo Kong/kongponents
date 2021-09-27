@@ -71,9 +71,9 @@ export default {
       default: 'medium'
     },
     /**
-     * Debug mode - for testing only, strips out generated ids
+     * Test mode - for testing only, strips out generated ids
      */
-    debugMode: {
+    testMode: {
       type: Boolean,
       default: false
     }
@@ -83,7 +83,7 @@ export default {
       currValue: '', // We need this so that we don't lose the updated value on hover/blur event with label
       isFocused: false,
       isHovered: false,
-      inputId: !this.debugMode ? uuid.v1() : 'test-input-id-1234'
+      inputId: !this.testMode ? uuid.v1() : 'test-input-id-1234'
     }
   },
   computed: {
