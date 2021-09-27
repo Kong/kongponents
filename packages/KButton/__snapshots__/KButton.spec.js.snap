@@ -16,4 +16,4 @@ exports[`KButton renders kbutton with the primary appearance 1`] = `<button type
 
 exports[`KButton renders kbutton with the secondary appearance 1`] = `<button type="button" class="k-button medium rounded secondary">secondary</button>`;
 
-exports[`KButton sets small class when size passed 1`] = `<button type="button" class="k-button small rounded secondary">Small Button</button>`;
+exports[`KButton sets small class when size passed 1`] = `<button type="button" class="k-button small rounded outline">Small Button</button>`;

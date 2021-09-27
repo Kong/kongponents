@@ -45,7 +45,7 @@ export default {
       */
     appearance: {
       type: String,
-      default: 'secondary',
+      default: 'outline',
       validator: function (value) {
         return Object.values(appearances).indexOf(value) !== -1
       }
