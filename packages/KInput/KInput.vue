@@ -17,11 +17,14 @@
       :class="`k-input-label-${size}`"
       class="col-md-4 mt-5">
       <div class="text-on-input">
-        <label :class="{ focused: isFocused, hovered: isHovered }">
+        <label
+          :for="inputId"
+          :class="{ focused: isFocused, hovered: isHovered }">
           {{ label }}
         </label>
         <input
           v-bind="attrs"
+          :id="inputId"
           :value="currValue ? currValue : value"
           :class="`k-input-${size}`"
           class="form-control k-input"
@@ -46,6 +49,8 @@
 </template>
 
 <script>
+import { uuid } from 'vue-uuid'
+
 export default {
   name: 'KInput',
   props: {
@@ -64,13 +69,21 @@ export default {
     size: {
       type: String,
       default: 'medium'
+    },
+    /**
+     * Debug mode - for testing only, strips out generated ids
+     */
+    debugMode: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
     return {
       currValue: '', // We need this so that we don't lose the updated value on hover/blur event with label
       isFocused: false,
-      isHovered: false
+      isHovered: false,
+      inputId: !this.debugMode ? uuid.v1() : 'test-input-id-1234'
     }
   },
   computed: {

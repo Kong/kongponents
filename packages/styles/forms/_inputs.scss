@@ -29,6 +29,10 @@
     background-color: var(--KInputBackground, var(--white));
     display: inline-block;
     margin-bottom: .5rem;
+
+    &:hover {
+      color: var(--KInputHover, #BDD3F9);
+    }
   }
 }
 
