@@ -63,6 +63,7 @@
     "vue-loader": "15.7.0",
     "vue-router": "^3.0.7",
     "vue-template-compiler": "2.6.10",
+    "vue-uuid": "^2.0.2",
     "vuepress": "^1.5.2",
     "vuepress-plugin-live": "^1.5.3",
     "vuepress-plugin-sitemap": "^2.3.1",
