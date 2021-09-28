@@ -356,10 +356,10 @@ export default {
   white-space: normal;
   color: var(--KPopColor, var(--black-400, color(black-400)));
   background-color: var(--KPopBackground, var(--white, color(white)));
-  border: 1px solid var(--KPopBorder, var(--grey-400, color(grey-400)));
+  border: 1px solid var(--KPopBorder, var(--black-10, color(black-10)));
   border-radius: 3px;
-  -webkit-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0px 4px 20px var(--black-10);
+  box-shadow: 0px 4px 20px var(--black-10);
   padding: var(--KPopPaddingY, 28px) var(--KPopPaddingX, var(--spacing-md, spacing(md)));
 
   .k-popover-header {
@@ -404,7 +404,7 @@ export default {
 
     &:before {
       border-color: rgba(250, 250, 250, 0);
-      border-bottom-color: var(--KPopBorder, var(--grey-400, color(grey-400)));
+      border-bottom-color: var(--KPopBorder, var(--black-10, color(black-10)));
       border-width: 11px;
       margin-left: -11px;
     }
@@ -433,7 +433,7 @@ export default {
 
     &:before {
       border-color: rgba(250, 250, 250, 0);
-      border-top-color: var(--KPopBorder, var(--grey-400, color(grey-400)));
+      border-top-color: var(--KPopBorder, var(--black-10, color(black-10)));
       border-width: 11px;
       margin-left: -11px;
     }
@@ -462,7 +462,7 @@ export default {
 
     &:before {
       border-color: rgba(250, 250, 250, 0);
-      border-left-color: var(--KPopBorder, var(--grey-400, color(grey-400)));
+      border-left-color: var(--KPopBorder, var(--black-10, color(black-10)));
       border-width: 11px;
       margin-top: -11px;
     }
@@ -491,7 +491,7 @@ export default {
 
     &:before {
       border-color: rgba(250, 250, 250, 0);
-      border-right-color: var(--KPopBorder, var(--grey-400, color(grey-400)));
+      border-right-color: var(--KPopBorder, var(--black-10, color(black-10)));
       border-width: 11px;
       margin-top: -11px;
     }
