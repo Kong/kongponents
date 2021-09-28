@@ -17,6 +17,7 @@ exports[`KLabel renders a tooltip when \`help\` is provided 1`] = `
       <div class="k-popover-content">
         <div role="tooltip">This is a tooltip</div>
       </div>
+      <!---->
     </div>
   </div>
 </label>
@@ -37,6 +38,7 @@ exports[`KLabel renders a tooltip when \`info\` is provided 1`] = `
       <div class="k-popover-content">
         <div role="tooltip">This is a tooltip</div>
       </div>
+      <!---->
     </div>
   </div>
 </label>

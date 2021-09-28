@@ -7,6 +7,7 @@ exports[`KoolTip matches snapshot 1`] = `
     <div class="k-popover-content">
       <div role="tooltip">I'm inside the tooltip!</div>
     </div>
+    <!---->
   </div>
 </div>
 `;
@@ -18,6 +19,7 @@ exports[`KoolTip renders tooltip to the bottom side 1`] = `
     <div class="k-popover-content">
       <div role="tooltip">I'm on the bottom side!</div>
     </div>
+    <!---->
   </div>
 </div>
 `;
@@ -29,6 +31,7 @@ exports[`KoolTip renders tooltip to the left side 1`] = `
     <div class="k-popover-content">
       <div role="tooltip">I'm on the left side!</div>
     </div>
+    <!---->
   </div>
 </div>
 `;
@@ -40,6 +43,7 @@ exports[`KoolTip renders tooltip to the right side 1`] = `
     <div class="k-popover-content">
       <div role="tooltip">I'm on the right side!</div>
     </div>
+    <!---->
   </div>
 </div>
 `;
@@ -51,6 +55,7 @@ exports[`KoolTip renders tooltip to the top side 1`] = `
     <div class="k-popover-content">
       <div role="tooltip">I'm on the top side!</div>
     </div>
+    <!---->
   </div>
 </div>
 `;
