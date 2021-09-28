@@ -20,6 +20,5 @@
   // Font families
   @each $name, $font in $fonts {
     --font-family-#{$name}: #{$font};
-    font-weight: 200;
   }
 }
