@@ -34,7 +34,7 @@ mono:
 ---
 # Type
 
-Kong uses the [Roboto](https://fonts.google.com/specimen/Roboto) font face.
+Kong uses the [Maison Neue](https://www.milieugrotesque.com/typefaces/maison-neue/) font face.
 
 ## Sans Font Styles
 <div>
