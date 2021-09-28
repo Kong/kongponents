@@ -383,7 +383,7 @@ HTML content can be injected into the popover.
 
 ## Slots
 
-- `Default` There is a main slot that takes in the element you want the popover to be triggered over.
+- `default` There is a main slot that takes in the element you want the popover to be triggered over.
 
 ```vue
 <KPop title="Cool header">
@@ -392,7 +392,7 @@ HTML content can be injected into the popover.
 </KPop>
 ```
 
-- `Title`
+- `title`
 There is an optional title slot that can take in an element for the title. The title could alternatively be populated via the prop.
 
 ```vue
@@ -406,7 +406,21 @@ There is an optional title slot that can take in an element for the title. The t
 </KPop>
 ```
 
-- `Content`
+- `actions`
+An optional slot for an actions button in the upper right corner of the popover.
+
+```vue
+<KPop title="Cool header">
+  <!-- Your element goes here -->
+  <KButton>button</KButton>
+  <!-- Your content goes here -->
+  <template v-slot:actions>
+    View All
+  </template>
+</KPop>
+```
+
+- `content`
 This is the slot that takes in the content of the popover.
 
 ```vue
@@ -419,6 +433,57 @@ This is the slot that takes in the content of the popover.
   </template>
 </KPop>
 ```
+
+- `footer`
+This is an optional slot that takes in content for the footer bar.
+
+```vue
+<KPop title="Cool header">
+  <!-- Your element goes here -->
+  <KButton>button</KButton>
+  <!-- Your content goes here -->
+  <template v-slot:footer>
+    View All
+  </template>
+</KPop>
+```
+
+Example:
+
+<KPop title="Notifications" :on-popover-click="toggle" width="500">
+  <KButton>Fire!</KButton>
+  <template v-slot:title>
+    <div>Notifications</div>
+  </template>
+  <template v-slot:actions>
+    <KButton appearance="btn-link" size="small">Mark all as read</KButton>
+  </template>
+  <template v-slot:content>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eleifend lorem ut ex tempus, a tincidunt elit hendrerit. Nunc eu ex vestibulum, consequat tellus sed, pharetra magna.
+  </template>
+  <template v-slot:footer>
+    <KButton size="small">View all notifications</KButton>
+  </template>
+</KPop>
+
+```vue
+<KPop title="Notifications" :on-popover-click="toggle" width="500">
+  <KButton>Fire!</KButton>
+  <template v-slot:title>
+    <div>Notifications</div>
+  </template>
+  <template v-slot:actions>
+    <KButton appearance="btn-link" size="small">Mark all as read</KButton>
+  </template>
+  <template v-slot:content>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eleifend lorem ut ex tempus, a tincidunt elit hendrerit. Nunc eu ex vestibulum, consequat tellus sed, pharetra magna.
+  </template>
+  <template v-slot:footer>
+    <KButton size="small">View all notifications</KButton>
+  </template>
+</KPop>
+```
+
 
 ## Usage
 

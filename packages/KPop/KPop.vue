@@ -9,15 +9,27 @@
           v-show="isOpen"
           ref="popper"
           :style="popoverStyle"
-          :class="[popoverClasses, {'hide-caret': hideCaret }]"
+          :class="[popoverClasses, {'hide-caret': hideCaret }, { 'pb-0': $scopedSlots.actions }]"
           class="k-popover">
-          <div
-            v-if="title"
-            class="k-popover-title">
-            <slot name="title">{{ title }}</slot>
+          <div class="k-popover-header d-flex">
+            <div
+              v-if="$scopedSlots.title || title"
+              class="k-popover-title">
+              <slot name="title">{{ title }}</slot>
+            </div>
+            <div
+              v-if="$scopedSlots.actions"
+              class="k-popover-actions">
+              <slot name="actions" />
+            </div>
           </div>
           <div class="k-popover-content">
             <slot name="content"/>
+          </div>
+          <div
+            v-if="$scopedSlots.footer"
+            class="k-popover-footer">
+            <slot name="footer" />
           </div>
         </div>
       </foreignObject>
@@ -29,15 +41,27 @@
         v-show="isOpen"
         ref="popper"
         :style="popoverStyle"
-        :class="[popoverClasses, {'hide-caret': hideCaret }]"
+        :class="[popoverClasses, {'hide-caret': hideCaret }, { 'pb-0': $scopedSlots.actions }]"
         class="k-popover">
-        <div
-          v-if="title"
-          class="k-popover-title">
-          <slot name="title">{{ title }}</slot>
+        <div class="k-popover-header d-flex">
+          <div
+            v-if="$scopedSlots.title || title"
+            class="k-popover-title">
+            <slot name="title">{{ title }}</slot>
+          </div>
+          <div
+            v-if="$scopedSlots.actions"
+            class="k-popover-actions">
+            <slot name="actions" />
+          </div>
         </div>
         <div class="k-popover-content">
           <slot name="content"/>
+        </div>
+        <div
+          v-if="$scopedSlots.footer"
+          class="k-popover-footer">
+          <slot name="footer" />
         </div>
       </div>
     </transition>
@@ -326,18 +350,31 @@ export default {
   font-size: var(--KPopBodySize, var(--type-sm, type(sm)));
   text-align: left;
   white-space: normal;
-  color: var(--KPopColor, var(--black-70, color(black-70)));
+  color: var(--KPopColor, var(--black-400, color(black-400)));
   background-color: var(--KPopBackground, var(--white, color(white)));
   border: 1px solid var(--KPopBorder, var(--grey-400, color(grey-400)));
   border-radius: 3px;
   -webkit-box-shadow: 0 0 12px rgba(0,0,0,.12);
   box-shadow: 0 0 12px rgba(0,0,0,.12);
-  padding: var(--KPopPaddingY, var(--spacing-md, spacing(md))) var(--KPopPaddingX, var(--spacing-md, spacing(md)));
+  padding: var(--KPopPaddingY, 28px) var(--KPopPaddingX, var(--spacing-md, spacing(md)));
 
-  .k-popover-title {
-    margin-bottom: 1rem;
-    font-size: var(--KPopHeaderSize, var(--type-md, type(md)));
-    font-weight: 500;
+  .k-popover-header {
+    align-items: baseline;
+    margin-bottom: 28px;
+
+    .k-popover-title {
+      color: var(--KPopColor, var(--black-500, color(black-500)));
+      font-size: var(--KPopHeaderSize, var(--type-md, type(md)));
+      font-weight: 500;
+    }
+
+    .k-popover-actions {
+      margin-left: auto;
+    }
+  }
+
+  .k-popover-footer {
+    margin: 14px 0;
   }
 
   &[x-placement^="bottom"] {

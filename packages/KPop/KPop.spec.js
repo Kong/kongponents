@@ -14,6 +14,28 @@ describe('KPop', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 
+  it('renders slots when passed', () => {
+    const popTitle = 'Card Status Hat'
+    const popActions = 'Card Title'
+    const popContent = 'Card Actions'
+    const popFooter = 'Card Body'
+
+    const wrapper = mount(KPop, {
+      slots: {
+        'title': `<span>${popTitle}</span>`,
+        'actions': `<span>${popActions}</span>`,
+        'content': `<div>${popContent}</div>`,
+        'footer': `<span>${popFooter}</span>`
+      }
+    })
+
+    expect(wrapper.find('.k-popover-title').html()).toEqual(expect.stringContaining(popTitle))
+    expect(wrapper.find('.k-popover-actions').html()).toEqual(expect.stringContaining(popActions))
+    expect(wrapper.find('.k-popover-content').html()).toEqual(expect.stringContaining(popContent))
+    expect(wrapper.find('.k-popover-footer').html()).toEqual(expect.stringContaining(popFooter))
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
   it('renders with correct auto width', () => {
     const wrapper = mount(KPop, {
       propsData: {

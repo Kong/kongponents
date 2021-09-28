@@ -3,8 +3,27 @@
 exports[`KPop matches snapshot 1`] = `
 <div content="I am a cool popover!">
   <div class="k-popover" style="width: 350px; display: none;" name="fade">
-    <div class="k-popover-title">Cool Beans!</div>
+    <div class="k-popover-header d-flex">
+      <div class="k-popover-title">Cool Beans!</div>
+      <!---->
+    </div>
     <div class="k-popover-content"></div>
+    <!---->
+  </div>
+</div>
+`;
+
+exports[`KPop renders slots when passed 1`] = `
+<div>
+  <div class="k-popover pb-0" style="width: 200px; display: none;" name="fade">
+    <div class="k-popover-header d-flex">
+      <div class="k-popover-title"><span>Card Status Hat</span></div>
+      <div class="k-popover-actions"><span>Card Title</span></div>
+    </div>
+    <div class="k-popover-content">
+      <div>Card Actions</div>
+    </div>
+    <div class="k-popover-footer"><span>Card Body</span></div>
   </div>
 </div>
 `;
