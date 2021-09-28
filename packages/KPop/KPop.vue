@@ -11,7 +11,9 @@
           :style="popoverStyle"
           :class="[popoverClasses, {'hide-caret': hideCaret }, { 'pb-0': $scopedSlots.actions }]"
           class="k-popover">
-          <div class="k-popover-header d-flex">
+          <div
+            v-if="$scopedSlots.title || title || $scopedSlots.actions"
+            class="k-popover-header d-flex">
             <div
               v-if="$scopedSlots.title || title"
               class="k-popover-title">
@@ -43,7 +45,9 @@
         :style="popoverStyle"
         :class="[popoverClasses, {'hide-caret': hideCaret }, { 'pb-0': $scopedSlots.actions }]"
         class="k-popover">
-        <div class="k-popover-header d-flex">
+        <div
+          v-if="$scopedSlots.title || title || $scopedSlots.actions"
+          class="k-popover-header d-flex">
           <div
             v-if="$scopedSlots.title || title"
             class="k-popover-title">
@@ -354,8 +358,8 @@ export default {
   background-color: var(--KPopBackground, var(--white, color(white)));
   border: 1px solid var(--KPopBorder, var(--grey-400, color(grey-400)));
   border-radius: 3px;
-  -webkit-box-shadow: 0 0 12px rgba(0,0,0,.12);
-  box-shadow: 0 0 12px rgba(0,0,0,.12);
+  -webkit-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
   padding: var(--KPopPaddingY, 28px) var(--KPopPaddingX, var(--spacing-md, spacing(md)));
 
   .k-popover-header {
