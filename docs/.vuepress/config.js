@@ -62,7 +62,8 @@ module.exports = {
               '/components/tabs',
               '/components/toaster',
               '/components/tooltip',
-              '/components/view-switcher'
+              '/components/view-switcher',
+              '/components/textarea'
             ]
           },
           {
