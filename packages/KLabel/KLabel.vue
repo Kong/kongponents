@@ -12,7 +12,6 @@
         icon="help"
         height="16"
         width="16"
-        view-box="0 0 16 16"
         hide-title />
     </Kooltip>
     <KoolTip
@@ -25,7 +24,7 @@
         icon="info"
         height="16"
         width="16"
-        color="#A3BBCC"
+        view-box="0 0 16 16"
         hide-title />
     </Kooltip>
     <slot v-else />
