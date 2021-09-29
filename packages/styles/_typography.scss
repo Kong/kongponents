@@ -6,8 +6,7 @@
 // Create class (.type-xxl)
 @each $name, $size in $type-sizes {
   .type-#{$name} {
-    font-size: var(--type-#{$name});
-    font-weight: normal;
+    font-size: var(--type-#{$name})
   }
 }
 
