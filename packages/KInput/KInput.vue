@@ -20,7 +20,7 @@
         <label
           :for="inputId"
           :class="{ focused: isFocused, hovered: isHovered }">
-          {{ label }}
+          <span>{{ label }}</span>
         </label>
         <input
           v-bind="attrs"
