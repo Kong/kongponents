@@ -323,14 +323,18 @@ export default {
       if (popper) {
         if (this.trigger === 'hover') {
           this.reference.addEventListener('mouseenter', this.createInstance)
+          this.reference.addEventListener('focus', this.createInstance)
           this.reference.addEventListener('mouseleave', this.hidePopper)
+          this.reference.addEventListener('blur', this.hidePopper)
           popper.addEventListener('mouseenter', this.showPopper)
+          popper.addEventListener('focus', this.showPopper)
           popper.addEventListener('mouseleave', this.hidePopper)
-        } else {
-          this.reference.addEventListener('click', this.handleClick)
-          popper.addEventListener('click', this.showPopper)
-          document.documentElement.addEventListener('click', this.handleClick)
+          popper.addEventListener('blur', this.hidePopper)
         }
+
+        this.reference.addEventListener('click', this.handleClick)
+        popper.addEventListener('click', this.showPopper)
+        document.documentElement.addEventListener('click', this.handleClick)
       }
     },
 
