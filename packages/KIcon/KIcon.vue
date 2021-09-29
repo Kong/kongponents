@@ -11,10 +11,20 @@
     <title v-if="!hideTitle">{{ title || icon }}</title>
     <slot name="svgElements"/>
     <g>
-      <path
-        v-for="(path, idx) in paths"
-        :key="path.d"
-        v-bind="attributes[idx]"/>
+      <template v-for="(elem, idx) in fills">
+        <circle
+          v-if="elem.nodeName === 'circle'"
+          :key="`${elem.cx}-${elem.cy}-${elem.r}-${idx}`"
+          v-bind="fillAttributes[idx]"/>
+        <rect
+          v-if="elem.nodeName === 'rect'"
+          :key="`${elem.x}-${elem.y}-${idx}`"
+          v-bind="fillAttributes[idx]"/>
+        <path
+          v-if="elem.nodeName === 'path'"
+          :key="elem.d"
+          v-bind="fillAttributes[idx]"/>
+      </template>
     </g>
   </svg>
 </template>
@@ -99,14 +109,14 @@ export default {
     svg () {
       return this.doc.getElementsByTagName('svg')[0]
     },
-    paths () {
-      return this.doc.querySelectorAll('path').length ? Array.from(this.doc.querySelectorAll('path')) : console.warn('(KIcon) Warning: SVG Path not found')
+    fills () {
+      return Array.from(this.doc.querySelectorAll(`[fill*="#"], [stroke*="#"]`))
     },
-    attributes () {
-      return this.paths && this.paths.map(path =>
-        Array.from(path.attributes).reduce((attr, { value, name }) => {
-          const hasPreservedColor = path.attributes.id && path.attributes.id.value === 'preserveColor'
-          const isSecondary = path.attributes.type && path.attributes.type.value === 'secondary'
+    fillAttributes () {
+      return this.fills && this.fills.map(fill =>
+        Array.from(fill.attributes).reduce((attr, { value, name }) => {
+          const hasPreservedColor = fill.attributes.id && fill.attributes.id.value === 'preserveColor'
+          const isSecondary = fill.attributes.type && fill.attributes.type.value === 'secondary'
 
           // color override
           if (!hasPreservedColor && name === 'fill' && this.secondaryColor && isSecondary) {
