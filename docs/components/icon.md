@@ -49,10 +49,10 @@ This prop takes a string that will replace the SVG default height and width. If 
 ### color
 Overrides the default svg color.
 
-<KIcon  icon="vitals" color="red" />
+<KIcon  icon="list" color="red" />
 
 ```vue
-<KIcon icon="vitals" color="red" />
+<KIcon icon="list" color="red" />
 ```
 
 ### secondaryColor
@@ -80,10 +80,10 @@ You can read more about the viewBox attribute
 
 - `viewBox`
 
-<KIcon icon="portal" viewBox="0 0 10 10" />
+<KIcon icon="cogwheel" viewBox="0 0 16 16" />
 
 ```vue
-<KIcon icon="portal" viewBox="0 0 10 10" />
+<KIcon icon="cogwheel" viewBox="0 0 16 16" />
 ```
 
 
@@ -102,7 +102,7 @@ You can read more about the viewBox attribute
   </template>
 </KIcon>
 
-<KIcon icon="services" size="50" color="url('#linear-gradient2')">
+<KIcon icon="search" size="50" color="url('#linear-gradient2')">
   <template v-slot:svgElements>
     <defs>
       <linearGradient id="linear-gradient2" gradientTransform="rotate(90)">
@@ -113,7 +113,7 @@ You can read more about the viewBox attribute
   </template>
 </KIcon>
 
-<KIcon icon="gear" size="50" color="dark-grey">
+<KIcon icon="cogwheel" size="50" color="dark-grey">
   <template v-slot:svgElements>
     <animateTransform
       attributeName="transform"
@@ -139,7 +139,7 @@ You can read more about the viewBox attribute
   </template>
 </KIcon>
 
-<KIcon icon="services" size="50" color="url('#linear-gradient2')">
+<KIcon icon="search" size="50" color="url('#linear-gradient2')">
   <template v-slot:svgElements>
     <defs>
       <linearGradient id="linear-gradient2" gradientTransform="rotate(90)">
@@ -150,7 +150,7 @@ You can read more about the viewBox attribute
   </template>
 </KIcon>
 
-<KIcon icon="gear" size="50" color="dark-grey">
+<KIcon icon="cogwheel" size="50" color="dark-grey">
   <template v-slot:svgElements>
     <animateTransform
       attributeName="transform"
