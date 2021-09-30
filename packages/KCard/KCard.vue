@@ -39,7 +39,7 @@
       </div>
       <div
         v-if="$scopedSlots.notifications"
-        class="k-card-notifications">
+        class="k-card-notifications pl-3">
         <slot name="notifications" />
       </div>
     </div>
