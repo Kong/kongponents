@@ -1,0 +1,6 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KTextArea matches snapshot 1`] = `
+<div class="k-input-wrapper"><textarea placeholder="" rows="5" cols="52" class="form-control k-input style-body-lg"></textarea></div>
+`;
+
