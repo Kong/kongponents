@@ -23,7 +23,7 @@
       <KIcon
         icon="chevronRight"
         size="15"
-        color="#6F7787"/>
+        color="var(--grey-500)"/>
     </li>
   </ul>
 </template>
@@ -69,14 +69,13 @@ export default {
 
 .krumbs .krumb-item  svg {
   display: inline-block;
-  padding-right: 14px;
-  padding-left: 14px;
-  color: #6F7787;
+  padding: 0 var(--spacing-xs);
+  color: var(--grey-500);
   vertical-align: middle
 }
 
 .krumbs li a {
-  color: #6F7787;
+  color: var(--grey-500);
   letter-spacing: 1px;
 }
 
