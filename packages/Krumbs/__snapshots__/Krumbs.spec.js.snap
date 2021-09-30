@@ -2,13 +2,13 @@
 
 exports[`Krumbs renders breadcrumb links 1`] = `
 <ul class="krumbs style-body-bc">
-  <li class="krumb-item truncate" style="max-width: 38ch;"><a href="/services" class="" title="Services">Services</a></li>
-  <li class="krumb-item truncate" style="max-width: 38ch;"><a title="Go to Kong Docs" href="https://docs.konghq.com" target="_blank">External Link</a></li>
+  <li class="krumb-item truncate" style="max-width: 38ch;"><a href="/services" class="" title="Services">Services</a><kicon icon="chevronRight" size="15" color="#6F7787"></kicon></li>
+  <li class="krumb-item truncate" style="max-width: 38ch;"><a title="Go to Kong Docs" href="https://docs.konghq.com" target="_blank">External Link</a><kicon icon="chevronRight" size="15" color="#6F7787"></kicon></li>
 </ul>
 `;
 
 exports[`Krumbs renders breadcrumb links without needing a router 1`] = `
 <ul class="krumbs style-body-bc">
-  <li class="krumb-item truncate" style="max-width: 38ch;"><a title="Go to Kong Docs" href="https://docs.konghq.com" target="_blank">External Link</a></li>
+  <li class="krumb-item truncate" style="max-width: 38ch;"><a title="Go to Kong Docs" href="https://docs.konghq.com" target="_blank">External Link</a><kicon icon="chevronRight" size="15" color="#6F7787"></kicon></li>
 </ul>
 `;
