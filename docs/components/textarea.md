@@ -1,68 +1,31 @@
 # TextArea
 
-**KTextArea** - Text area component
-
+**KTextArea** - Text areas are primarily used in modal views (wizards).
 <KTextArea />
 ```vue
 <KTextArea />
 ```
 
-## Props
-### Prop1
-Description of prop1
+### Label
+String to be used as the textarea label. Make sure that if you are using the built in label you specify the `--KInputBackground` theming variable. This variable is used for the background of the label as well as the textarea element. 
 
-Actual component using prop1
-<KTextArea />
+- `label`
 
-```vue
-<KTextArea prop1="variation1" />
-<KTextArea prop1="variation2" />
-<KTextArea prop1="variation3" />
-```
-
-## Slots
-- `default` - default slot description
-- `slot1` - slot1 description
+<KTextArea placeholder="I'm labelled!" />
 
 ```vue
-<KTextArea>
-  here is some slot content
-</KTextArea>
+<KTextArea label="Name" placeholder="I'm labelled!" />
 ```
 
-## Theming
-| Variable | Purpose
-|:-------- |:-------
-| `--KTextAreaBorderColor `| KTextArea border color
+If the label is omitted it can be handled with another component, like **KLabel**. This is meant to be used before **KTextArea** will be styled appropriately. 
 
-
-An Example of changing the border color of KTextArea to lime might look 
-like:
-
-> Note: We are scoping the overrides to a wrapper in this example
-
-<template>
-  <div class="KTextArea-wrapper">
-    <KTextArea />
-  </div>
-</template>
+<KLabel>Label</KLabel>
+<KTextArea placeholder="I have a label" />
 
 ```vue
 <template>
-  <div class="KTextArea-wrapper">
-    <KTextArea />
-  </div>
+  <KLabel>Label</KLabel>
+  <KTextArea placeholder="I have a label" />
 </template>
-
-<style>
-.KTextArea-wrapper {
-  --KTextArea-wrapperBorderColor: lime;
-}
-</style>
 ```
 
-<style lang="scss">
-.KTextArea-wrapper {
-  --KTextArea-wrapperBorderColor: lime;
-}
-</style>

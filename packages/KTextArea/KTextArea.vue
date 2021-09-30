@@ -1,40 +1,57 @@
 <template>
-  <div>
-    <slot name="label">
-      <KLabel>{{ label }}</KLabel>
-    </slot>
-    <div>
-      <textarea
-        :required="required"
-        :placeholder="placeholder"
-        class="form-control k-input"
-        rows="5"
-        cols="52"
-        @input="revalidate"
-        v-on="listeners"
-      />
-    </div>
+  <div class="k-input-wrapper">
+    <textarea
+      v-if="!label"
+      :required="required"
+      v-bind="attrs"
+      :placeholder="placeholder"
+      :value="currValue ? currValue : value"
+      class="form-control k-input style-body-lg"
+      rows="5"
+      cols="52"
+      @input="e => {
+        $emit('input', e.target.value),
+        currValue = e.target.value
+      }"
+      v-on="listeners"
+    />
+
     <div
-      :class="{'over-char-limit': value.length > characterLimit}"
-      class="type-sm color-black-45 float-right"
-    >
-      {{ value.length }} / {{ characterLimit }}
+      v-else
+      class="col-md-4 mt-5">
+      <div class="text-on-input">
+        <label
+
+          :class="{ focused: isFocused, hovered: isHovered }">
+          <span>{{ label }}</span>
+        </label>
+        <textarea
+          v-bind="attrs"
+
+          :value="currValue ? currValue : value"
+          class="form-control k-input style-body-lg"
+          @input="e => {
+            $emit('input', e.target.value),
+            currValue = e.target.value
+          }"
+          @mouseenter="() => isHovered = true"
+          @mouseleave="() => isHovered = false"
+          @focus="() => isFocused = true"
+          @blur="() => isFocused = false"
+          v-on="listeners" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import KLabel from '@kongponents/klabel/KLabel.vue'
-
-const CHARACTER_LIMIT = 2048
 
 export default {
   name: 'KTextArea',
-  components: { KLabel },
   props: {
-    characterLimit: {
-      type: Number,
-      default: CHARACTER_LIMIT
+    value: {
+      type: String,
+      default: ''
     },
     required: {
       type: Boolean,
@@ -51,23 +68,22 @@ export default {
   },
   data: function () {
     return {
-      value: ''
+      currValue: '', // We need this so that we don't lose the updated value on hover/blur event with label
+      isFocused: false,
+      isHovered: false
     }
   },
   computed: {
+    attrs () {
+      return this.$attrs
+    },
     listeners () {
       const listeners = { ...this.$listeners }
 
       // use @input in template for v-model support
-      delete listeners.input
+      delete listeners['input']
 
       return listeners
-    }
-  },
-  methods: {
-    revalidate (e) {
-      this.value = e.target.value
-      this.$emit('input', e.target.value)
     }
   }
 }
@@ -75,19 +91,34 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@kongponents/styles/_variables.scss';
+@import '~@kongponents/styles/forms/_inputs.scss';
 
 textarea.form-control {
-  background: var(--white);
-  border: 2px solid var(--grey-300);
-  box-sizing: border-box;
-  border-radius: 4px;
+  font-family: 'Maison Neue';
+  width: 504px;
+  height: 160px;
+  resize: none;
+  padding: 17px 0 0 22px !important;
+
+  &::placeholder {
+    color: var(--grey-500) !important;
+  }
 
   &:hover {
-    border: 2px solid #BDD3F9;
+    color: var(--grey-600);
   }
 
-  &:focus {
-    border: 2px solid #3972D5;
+  &:hover::placeholder {
+    color: var(--grey-600);
+  }
+
+  &:focus::placeholder  {
+    color: transparent;
   }
 }
+
+.k-input:not([type="checkbox"]):focus, .k-input:not([type="radio"]):focus, .form-control:not([type="checkbox"]):focus, .form-control:not([type="radio"]):focus {
+  box-shadow: inset 0 0 0 2px var(--KInputFocus, var(--blue-400)) !important;
+}
+
 </style>
