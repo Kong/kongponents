@@ -1,7 +1,7 @@
 <template>
   <ul
     v-bind="$attrs"
-    class="krumbs"
+    class="krumbs style-body-bc"
     v-on="$listeners"
   >
     <li
@@ -20,6 +20,10 @@
         :title="item.title"
         :href="item.to"
         target="_blank">{{ item.text }}</a>
+      <KIcon
+        icon="chevronRight"
+        size="15"
+        color="#6F7787"/>
     </li>
   </ul>
 </template>
@@ -61,34 +65,24 @@ export default {
   margin-bottom: 1rem;
   list-style: none;
   border-radius: 0.25rem;
-  font-family: "Maison Neue";
-  line-height: 24px;
 }
 
-.krumbs .krumb-item + .krumb-item::before {
+.krumbs .krumb-item  svg {
   display: inline-block;
-  padding-right: 0.875rem;
-  padding-left: 0.875rem;
+  padding-right: 14px;
+  padding-left: 14px;
   color: #6F7787;
-  content: "\203A";
-}
-
-.krumbs .krumb-item:last-of-type:after,
-.krumbs .krumb span:after {
-  display: inline-block;
-  padding-right: 0.875rem;
-  padding-left: 0.875rem;
-  color: #6F7787;
-  content: "\203A";
+  vertical-align: middle
 }
 
 .krumbs li a {
   color: #6F7787;
-  opacity: 0.7;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
   letter-spacing: 1px;
-  text-transform: uppercase;
+}
+
+.truncate {
+  display: block;
+  align-items: center;
+  justify-content: center;
 }
 </style>
