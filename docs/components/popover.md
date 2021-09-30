@@ -26,6 +26,25 @@ For example a button:
 
 ## Props
 
+### buttonText
+
+This is the text that will be displayed on the button that triggers the popover if not using
+the default slot.
+
+<KPop title="Cool header" buttonText="Click Me!">
+  <template v-slot:content>
+    You clicked me!
+  </template>
+</KPop>
+
+```vue
+<KPop title="Cool header" buttonText="Click Me!">
+  <template v-slot:content>
+    You clicked me!
+  </template>
+</KPop>
+```
+
 ### Target
 
 This is the target `element` that the <code>popover</code> is appended to. By default its the body tag.

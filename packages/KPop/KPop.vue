@@ -1,13 +1,20 @@
 <template>
   <component
     :is="tag"
-    :aria-expanded="isOpen"
-    :aria-controls="popoverId"
-    role="button">
-    <slot/>
+    :id="$scopedSlots.default ? targetId : null"
+    :aria-expanded="$scopedSlots.default ? isOpen : null"
+    :aria-controls="$scopedSlots.default ? popoverId : null"
+    :role="$scopedSlots.default ? 'button' : null"
+    :tab-index="$scopedSlots.default ? '0' : null">
+    <slot>
+      <KButton
+        :id="targetId"
+        :aria-expanded="isOpen"
+        :aria-controls="popoverId"
+        tab-index="0">{{ buttonText }}</KButton>
+    </slot>
     <div
-      v-if="isSvg"
-      :name="popoverTransitions">
+      v-if="isSvg">
       <foreignObject>
         <div
           v-show="isOpen"
@@ -16,10 +23,12 @@
           :style="popoverStyle"
           :class="[popoverClasses, {'hide-caret': hideCaret }, { 'pb-0': $scopedSlots.actions }]"
           role="region"
-          class="k-popover">
+          class="k-popover"
+          tab-index="0">
           <div
             v-if="$scopedSlots.title || title || $scopedSlots.actions"
-            class="k-popover-header d-flex">
+            class="k-popover-header d-flex"
+            tab-index="0">
             <div
               v-if="$scopedSlots.title || title"
               class="k-popover-title">
@@ -52,10 +61,12 @@
         :style="popoverStyle"
         :class="[popoverClasses, {'hide-caret': hideCaret }, { 'pb-0': $scopedSlots.actions }]"
         role="region"
-        class="k-popover">
+        class="k-popover"
+        tab-index="0">
         <div
           v-if="$scopedSlots.title || title || $scopedSlots.actions"
-          class="k-popover-header d-flex">
+          class="k-popover-header d-flex"
+          tab-index="0">
           <div
             v-if="$scopedSlots.title || title"
             class="k-popover-title">
@@ -115,6 +126,14 @@ export default {
     tag: {
       type: String,
       default: 'div'
+    },
+    /**
+     * If not using the default slot, the text on the button
+     * that triggers the popover
+     */
+    buttonText: {
+      type: String,
+      default: 'OK'
     },
     /**
      * The title of the Popover header
@@ -225,7 +244,8 @@ export default {
       popper: null,
       reference: null,
       isOpen: false,
-      popoverId: !this.testMode ? uuid.v1() : 'test-popover-id-1234'
+      popoverId: !this.testMode ? uuid.v1() : 'test-popover-id-1234',
+      targetId: !this.testMode ? uuid.v1() : 'test-target-id-1234'
     }
   },
 
@@ -301,7 +321,10 @@ export default {
       const placement = placements[this.placement] ? placements[this.placement] : 'auto'
       const popperEl = this.$refs.popper
 
-      document.querySelector(this.target).appendChild(popperEl)
+      const theTarget = this.target === 'body' ? document.getElementById(this.targetId) : document.querySelector(this.target)
+
+      theTarget.appendChild(popperEl)
+
       await this.$nextTick()
       this.popper = new Popper(this.reference, popperEl, {
         placement,
