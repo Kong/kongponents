@@ -1,5 +1,9 @@
 <template>
-  <component :is="tag">
+  <component
+    :is="tag"
+    :aria-expanded="isOpen"
+    :aria-controls="popoverId"
+    role="button">
     <slot/>
     <div
       v-if="isSvg"
@@ -8,8 +12,10 @@
         <div
           v-show="isOpen"
           ref="popper"
+          :id="popoverId"
           :style="popoverStyle"
           :class="[popoverClasses, {'hide-caret': hideCaret }, { 'pb-0': $scopedSlots.actions }]"
+          role="region"
           class="k-popover">
           <div
             v-if="$scopedSlots.title || title || $scopedSlots.actions"
@@ -42,8 +48,10 @@
       <div
         v-show="isOpen"
         ref="popper"
+        :id="popoverId"
         :style="popoverStyle"
         :class="[popoverClasses, {'hide-caret': hideCaret }, { 'pb-0': $scopedSlots.actions }]"
+        role="region"
         class="k-popover">
         <div
           v-if="$scopedSlots.title || title || $scopedSlots.actions"
@@ -73,6 +81,7 @@
 </template>
 <script>
 import Popper from 'popper.js'
+import { uuid } from 'vue-uuid'
 
 const placements = {
   auto: 'auto',
@@ -201,6 +210,13 @@ export default {
     onPopoverClick: {
       type: Function,
       default: null
+    },
+    /**
+     * Test mode - for testing only, strips out generated ids
+     */
+    testMode: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -208,7 +224,8 @@ export default {
     return {
       popper: null,
       reference: null,
-      isOpen: false
+      isOpen: false,
+      popoverId: !this.testMode ? uuid.v1() : 'test-popover-id-1234'
     }
   },
 
@@ -250,6 +267,8 @@ export default {
     } else if (this.reference) {
       this.reference.removeEventListener('mouseenter', this.createInstance)
       this.reference.removeEventListener('mouseleave', this.toggle)
+      this.reference.removeEventListener('focus', this.createInstance)
+      this.reference.removeEventListener('blur', this.toggle)
     }
 
     this.destroy()
