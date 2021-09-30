@@ -11,7 +11,10 @@
         :id="targetId"
         :aria-expanded="isOpen"
         :aria-controls="popoverId"
-        tab-index="0">{{ buttonText }}</KButton>
+        tab-index="0"
+        data-testid="kpop-button">
+        {{ buttonText }}
+      </KButton>
     </slot>
     <div
       v-if="isSvg">

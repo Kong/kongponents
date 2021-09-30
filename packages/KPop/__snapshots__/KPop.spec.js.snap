@@ -1,9 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`KPop matches snapshot 1`] = `
-<div content="I am a cool popover!">
-  <div class="k-popover" style="width: 350px; display: none;" name="fade">
-    <div class="k-popover-header d-flex">
+exports[`KPop renders props when passed 1`] = `
+<div>
+  <kbutton id="test-target-id-1234" aria-controls="test-popover-id-1234" tab-index="0" data-testid="kpop-button">
+    Click Me!
+  </kbutton>
+  <div id="test-popover-id-1234" role="region" tab-index="0" class="k-popover" style="width: 200px; display: none;" name="fade">
+    <div tab-index="0" class="k-popover-header d-flex">
       <div class="k-popover-title">Cool Beans!</div>
       <!---->
     </div>
@@ -15,15 +18,18 @@ exports[`KPop matches snapshot 1`] = `
 
 exports[`KPop renders slots when passed 1`] = `
 <div>
-  <div class="k-popover pb-0" style="width: 200px; display: none;" name="fade">
-    <div class="k-popover-header d-flex">
-      <div class="k-popover-title"><span>Card Status Hat</span></div>
-      <div class="k-popover-actions"><span>Card Title</span></div>
+  <kbutton id="test-target-id-1234" aria-controls="test-popover-id-1234" tab-index="0" data-testid="kpop-button">
+    OK
+  </kbutton>
+  <div id="test-popover-id-1234" role="region" tab-index="0" class="k-popover pb-0" style="width: 200px; display: none;" name="fade">
+    <div tab-index="0" class="k-popover-header d-flex">
+      <div class="k-popover-title"><span>Look Mah!</span></div>
+      <div class="k-popover-actions"><span>Pop Actions</span></div>
     </div>
     <div class="k-popover-content">
-      <div>Card Actions</div>
+      <div>Pop Content</div>
     </div>
-    <div class="k-popover-footer"><span>Card Body</span></div>
+    <div class="k-popover-footer"><span>Pop Footer</span></div>
   </div>
 </div>
 `;
