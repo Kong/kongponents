@@ -97,12 +97,12 @@ Maximum width of each breadcrumb item for truncating to ellipsis.
 
 <KCard>
   <template v-slot:body>
-    <Krumbs :items="longBreadcrumbs" item-max-width="10ch" />
+    <Krumbs :items="longBreadcrumbs" item-max-width="16ch" />
   </template>
 </KCard>
 
 ```vue
-<Krumbs :items="longBreadcrumbs" item-max-width="10ch" />
+<Krumbs :items="longBreadcrumbs" item-max-width="16ch" />
 ```
 
 
@@ -159,3 +159,4 @@ export default {
   }
 }
 </script>
+
