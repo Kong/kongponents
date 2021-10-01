@@ -3,6 +3,7 @@
     :width="width"
     :popover-timeout="0"
     :hide-popover="hidePopover"
+    :test-mode="testMode"
     hide-caret
     placement="bottomStart"
     popover-classes="k-multiselect mt-0 mb-0"
@@ -102,6 +103,13 @@ export default {
       // Items must have a label and a selected property
       validator: (items) => items
         .some(i => i.hasOwnProperty('label') && i.hasOwnProperty('selected'))
+    },
+    /**
+     * Test mode - for testing only, strips out generated ids
+     */
+    testMode: {
+      type: Boolean,
+      default: false
     }
   },
 

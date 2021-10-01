@@ -5,6 +5,7 @@
     <KoolTip
       v-if="help"
       :label="help"
+      :test-mode="testMode"
       class="label-tooltip"
     >
       <slot />
@@ -49,6 +50,13 @@ export default {
     info: {
       type: String,
       default: undefined
+    },
+    /**
+     * Test mode - for testing only, strips out generated ids
+     */
+    testMode: {
+      type: Boolean,
+      default: false
     }
   }
 }
