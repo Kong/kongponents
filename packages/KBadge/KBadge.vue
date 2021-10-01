@@ -67,9 +67,9 @@ export default {
 
 .k-badge {
   display: inline-block;
-  font-weight: 500;
+  font-weight: 300;
   vertical-align: top;
-  font-size: var(--KBadgeFontSize, var(--type-xxs, type(xxs)));
+  font-size: var(--KBadgeFontSize, 11px);
   line-height: var(--KBadgeLineHeight, var(--type-md, type(md)));
   height: auto;
   text-align: center;
@@ -82,7 +82,7 @@ export default {
   &.kbadge-default {
     color: var(--KBadgeDefaultColor, var(--blue-500, color(blue-500)));
     border-color: var(--KBadgeDefaultBorder, var(--blue-500, color(blue-500)));
-    background-color: var(--KBadgeDefaultBackground, var(--grey-100, color(grey-100)));
+    background-color: var(--KBadgeDefaultBackground, var(--blue-100, color(blue-100)));
   }
   &.kbadge-success {
     color: var(--KBadgeSuccessColor, var(--green-500, color(green-500)));
