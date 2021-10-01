@@ -24,6 +24,6 @@
   },
   "dependencies": {
     "@kongponents/kicon": "^5.0.3",
-    "@kongponents/ktooltip": "^5.0.3"
+    "@kongponents/kooltip": "^5.0.3"
   }
 }
