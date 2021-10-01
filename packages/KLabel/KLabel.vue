@@ -18,6 +18,7 @@
     <KoolTip
       v-else-if="info"
       :label="info"
+      :test-mode="testMode"
       class="label-tooltip"
     >
       <slot />
