@@ -95,6 +95,7 @@
 </template>
 <script>
 import Popper from 'popper.js'
+import KButton from '@kongponents/kbutton/KButton.vue'
 import { uuid } from 'vue-uuid'
 
 const placements = {
@@ -115,6 +116,7 @@ const placements = {
 
 export default {
   name: 'KPop',
+  components: { KButton },
   props: {
     /**
      * The target element to append the popper to
