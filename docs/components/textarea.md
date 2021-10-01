@@ -39,7 +39,7 @@ You can specify `rows`, `cols` for the textarea size.
 <br>
 <KTextArea :rows=8 :cols=25 placeholder="rows:8, cols:25"  />
 
-```
+```vue
 <KTextArea :rows=2 :cols=15 placeholder="rows:2, cols:15" />
 <br>
 <KTextArea label="Size" :rows=3 :cols=20 placeholder="I'm labelled and customized!" />
