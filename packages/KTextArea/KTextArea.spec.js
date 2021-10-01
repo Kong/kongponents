@@ -40,7 +40,7 @@ describe('KTextArea', () => {
         value: 'hey'
       }
     })
-    const textArea = wrapper.find('textArea')
+    const textArea = wrapper.find('textarea')
 
     expect(textArea.element.value).toBe('hey')
     textArea.setValue('hey, dude')

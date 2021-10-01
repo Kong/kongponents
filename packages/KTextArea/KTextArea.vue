@@ -5,9 +5,9 @@
       :required="required"
       v-bind="attrs"
       :value="currValue ? currValue : value"
+      :rows="rows"
+      :cols="cols"
       class="form-control k-input style-body-lg"
-      rows="5"
-      cols="52"
       @input="e => {
         $emit('input', e.target.value),
         currValue = e.target.value
@@ -61,6 +61,14 @@ export default {
       type: String,
       default: ''
     },
+    rows: {
+      type: Number,
+      default: 5
+    },
+    cols: {
+      type: Number,
+      default: 52
+    },
     /**
      * Test mode - for testing only, strips out generated ids
      */
@@ -99,8 +107,8 @@ export default {
 
 textarea.form-control {
   font-family: 'Maison Neue';
-  width: 504px;
-  height: 160px;
+  // width: 504px;
+  // height: 160px;
   resize: none;
   padding: 17px 0 0 22px !important;
 

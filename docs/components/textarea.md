@@ -28,6 +28,26 @@ If the label is omitted it can be handled with another component, like **KLabel*
   <KTextArea placeholder="I have a label" />
 </template>
 ```
+
+## Props
+### Size
+You can specify `rows`, `cols` for the textarea size.
+
+<KTextArea :rows=3 :cols=20 placeholder="rows:3, cols:20" />
+<br>
+<KTextArea :rows=6 :cols=32 placeholder="rows:6, cols:32"  />
+<br>
+<KTextArea :rows=8 :cols=40 placeholder="rows:8, cols:40"  />
+
+```
+<KTextArea :rows=3 :cols=20 placeholder="rows:3, cols:20" />
+<br>
+<KTextArea :rows=6 :cols=32 placeholder="rows:6, cols:32"  />
+<br>
+<KTextArea :rows=8 :cols=40 placeholder="rows:8, cols:40"  />
+```
+
+
 ## v-model
 
 KTextArea works as regular texarea do using v-model for data binding:
