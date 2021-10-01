@@ -44,6 +44,7 @@ module.exports = {
               '/components/breadcrumbs',
               '/components/button',
               '/components/card',
+              '/components/dropdown',
               '/components/input-checkbox',
               '/components/empty-state',
               '/components/icon',

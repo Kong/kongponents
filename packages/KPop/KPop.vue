@@ -93,7 +93,7 @@ import Popper from 'popper.js'
 import KButton from '@kongponents/kbutton/KButton.vue'
 import { uuid } from 'vue-uuid'
 
-const placements = {
+export const placements = {
   auto: 'auto',
   top: 'top',
   topStart: 'top-start',

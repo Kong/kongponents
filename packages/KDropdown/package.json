@@ -1,0 +1,29 @@
+{
+  "name": "@kongponents/kdropdown",
+  "version": "5.0.3",
+  "description": "Dropdown/Select component",
+  "main": "dist/KDropdown.umd.min.js",
+  "componentName": "KDropdown",
+  "source": "KDropdown.vue",
+  "files": [
+    "dist",
+    "KDropdown.vue"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kong/kongponents.git"
+  },
+  "author": "Kong Inc",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Kong/kongponents/issues"
+  },
+  "homepage": "https://github.com/Kong/kongponents#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@kongponents/kpop": "^5.0.3",
+    "@kongponents/ktoggle": "^5.0.3"
+  }
+}
