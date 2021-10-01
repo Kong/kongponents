@@ -32,25 +32,92 @@ mono:
   - variable: xs
     size: (12px*.95%) 11.4px
 ---
+
 # Type
 
 Kong uses the [Maison Neue](https://www.milieugrotesque.com/typefaces/maison-neue/) font face.
 
-## Sans Font Styles
+## Font size
+
+There are utility classes for `font-size`.
+
+### Sans Font Styles
 <div>
   <text-block
     v-for="(font, key, i) in $page.frontmatter.sans"
     :key="i"
+    prefix="type-"
     :font-size="font.size"
     :variable-name="font.variable" />
 </div>
 
-## Mono Font Styles
+### Mono Font Styles
 <div>
   <text-block
     v-for="(font, key, i) in $page.frontmatter.mono"
     :key="i"
     font-type="mono"
+    prefix="type-"
     :font-size="font.size"
     :variable-name="font.variable" /> 
 </div>
+
+## Content Styles
+
+There are also utility classes for quick styling of different content types.
+
+### Heading
+
+<div>
+  <text-block
+    v-for="className in $page.styles.Heading"
+    :key="className"
+    :styleClasses="className"
+    :variable-name="className" /> 
+</div>
+
+### Body
+
+<div>
+  <text-block
+    v-for="className in $page.styles.Body"
+    :key="className"
+    :styleClasses="className" 
+    :variable-name="className" /> 
+</div>
+
+<script lang="ts">
+export default {
+  beforeMount() {
+    const styles = Array.from(document.styleSheets)
+      .filter(sheet => sheet.href === null || sheet.href.startsWith(window.location.origin))
+      .reduce((acc, sheet) => {
+        const rules = Array.from(sheet.cssRules).filter((rule) => {
+            return rule.selectorText && rule.selectorText.startsWith('.style-')
+          }, [])
+          console.log(rules.reduce((acc, rule) => {
+            return [ ...acc, rule.selectorText ]
+          }, []))
+          console.log("rules", rules)
+        console.log("before", acc)
+        if (rules.length)
+        acc = [
+          ...acc,
+          ...rules.reduce((acc, rule) => {
+            return [ ...acc, rule.selectorText.substring(1, rule.selectorText.length) ]
+          }, [])
+        ]
+        console.log("after", acc)
+
+        return acc
+      }, [])
+      console.log("styles", styles)
+
+    this.$page.styles = {
+      Heading: styles.length ? styles.filter(i => i.includes('heading')) : [],
+      Body: styles.length ? styles.filter(i => i.includes('body')) : []
+    }
+    console.log("yeet", this.$page.styles )
+  }
+}
+</script>
