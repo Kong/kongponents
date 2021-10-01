@@ -8,6 +8,19 @@
 ```
 
 ## Props
+### Size
+You can specify `small`, `medium` (default), or `large` for the size.
+
+<KInput label="Small" size="small" class="mb-2" />
+<KInput label="Medium" class="mb-2" />
+<KInput label="Large" size="large" />
+
+```
+<KInput label="Small" size="small" class="mb-2" />
+<KInput label="Medium" class="mb-2" />
+<KInput label="Large" size="large" />
+```
+
 ### Help
 String to be displayed as help text.
 
@@ -129,10 +142,10 @@ KInput transparently binds to events:
 | Variable | Purpose
 |:-------- |:-------
 | `--KInputColor` | Input text color
-| `--KInputLabelColor` | Input label color
-| `--KInputBorder` | Input border color
+| `--KInputBorder` | Input border / label color
 | `--KInputBackground` | Input and label background color
-| `--KInputFocus` | Input focus border color
+| `--KInputHover` | Input border / label hover color
+| `--KInputFocus` | Input border / label focus color
 | `--KInputDisabledBackground` | Input disabled background color
 | `--KInputError` | Input error border color
 
