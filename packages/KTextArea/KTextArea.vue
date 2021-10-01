@@ -95,7 +95,7 @@ export default {
       const listeners = { ...this.$listeners }
 
       // use @input in template for v-model support
-      delete listeners['textarea']
+      delete listeners['input']
 
       return listeners
     }
@@ -109,8 +109,6 @@ export default {
 
 textarea.form-control {
   font-family: 'Maison Neue';
-  // width: 504px;
-  // height: 160px;
   resize: none;
   padding: 17px 0 0 22px !important;
 
@@ -131,8 +129,8 @@ textarea.form-control {
   }
 }
 
-.k-input:not([type="checkbox"]):focus, .k-input:not([type="radio"]):focus, .form-control:not([type="checkbox"]):focus, .form-control:not([type="radio"]):focus {
-  box-shadow: inset 0 0 0 2px var(--KInputFocus, var(--blue-400)) !important;
-}
+// .k-input:not([type="checkbox"]):focus, .k-input:not([type="radio"]):focus, .form-control:not([type="checkbox"]):focus, .form-control:not([type="radio"]):focus {
+//   box-shadow: inset 0 0 0 2px var(--KInputFocus, var(--blue-400)) !important;
+// }
 
 </style>

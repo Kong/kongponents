@@ -130,6 +130,10 @@
   }
 }
 
+.k-input-wrapper textarea.form-control:focus {
+  box-shadow: inset 0 0 0 2px var(--KInputFocus, var(--blue-400)) !important;
+}
+
 .k-input-wrapper.input-error {
   .k-input {
     outline: none !important;
