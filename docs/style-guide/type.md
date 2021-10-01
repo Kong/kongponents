@@ -62,30 +62,6 @@ There are utility classes for `font-size`.
     :variable-name="font.variable" /> 
 </div>
 
-## Content Styles
-
-There are also utility classes for quick styling of different content types.
-
-### Heading
-
-<div>
-  <text-block
-    v-for="className in $page.styles.Heading"
-    :key="className"
-    :styleClasses="className"
-    :variable-name="className" /> 
-</div>
-
-### Body
-
-<div>
-  <text-block
-    v-for="className in $page.styles.Body"
-    :key="className"
-    :styleClasses="className" 
-    :variable-name="className" /> 
-</div>
-
 <script lang="ts">
 export default {
   beforeMount() {
@@ -115,3 +91,29 @@ export default {
   }
 }
 </script>
+
+## Content Styles
+
+There are also utility classes for quick styling of different content types.
+
+### Heading
+
+<div>
+  <text-block
+    v-if="$page.styles"
+    v-for="className in $page.styles.Heading"
+    :key="className"
+    :styleClasses="className"
+    :variable-name="className" /> 
+</div>
+
+### Body
+
+<div>
+  <text-block
+    v-if="$page.styles"
+    v-for="className in $page.styles.Body"
+    :key="className"
+    :styleClasses="className" 
+    :variable-name="className" /> 
+</div>
