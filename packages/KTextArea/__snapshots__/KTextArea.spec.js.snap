@@ -1,6 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`KTextArea matches snapshot 1`] = `
-<div class="k-input-wrapper"><textarea placeholder="" rows="5" cols="52" class="form-control k-input style-body-lg"></textarea></div>
-`;
-
+exports[`KTextArea matches snapshot 1`] = `<div class="k-input-wrapper" placeholder="I am a placeholder" name="custom-textArea-name" id="custom-textArea-id" data-testid="custom-textArea"><textarea rows="5" cols="52" placeholder="I am a placeholder" name="custom-textArea-name" id="custom-textArea-id" data-testid="custom-textArea" class="form-control k-input style-body-lg"></textarea></div>`;

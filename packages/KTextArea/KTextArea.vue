@@ -4,7 +4,6 @@
       v-if="!label"
       :required="required"
       v-bind="attrs"
-      :placeholder="placeholder"
       :value="currValue ? currValue : value"
       class="form-control k-input style-body-lg"
       rows="5"
@@ -21,13 +20,13 @@
       class="col-md-4 mt-5">
       <div class="text-on-input">
         <label
-
+          :for="textAreaId"
           :class="{ focused: isFocused, hovered: isHovered }">
           <span>{{ label }}</span>
         </label>
         <textarea
           v-bind="attrs"
-
+          :id="textAreaId"
           :value="currValue ? currValue : value"
           class="form-control k-input style-body-lg"
           @input="e => {
@@ -45,6 +44,7 @@
 </template>
 
 <script>
+import { uuid } from 'vue-uuid'
 
 export default {
   name: 'KTextArea',
@@ -61,16 +61,20 @@ export default {
       type: String,
       default: ''
     },
-    placeholder: {
-      type: String,
-      default: ''
+    /**
+     * Test mode - for testing only, strips out generated ids
+     */
+    testMode: {
+      type: Boolean,
+      default: false
     }
   },
   data: function () {
     return {
       currValue: '', // We need this so that we don't lose the updated value on hover/blur event with label
       isFocused: false,
-      isHovered: false
+      isHovered: false,
+      textAreaId: !this.testMode ? uuid.v1() : 'test-textArea-id-1234'
     }
   },
   computed: {
@@ -81,7 +85,7 @@ export default {
       const listeners = { ...this.$listeners }
 
       // use @input in template for v-model support
-      delete listeners['input']
+      delete listeners['textarea']
 
       return listeners
     }
@@ -101,7 +105,7 @@ textarea.form-control {
   padding: 17px 0 0 22px !important;
 
   &::placeholder {
-    color: var(--grey-500) !important;
+    color: var(--grey-500);
   }
 
   &:hover {
