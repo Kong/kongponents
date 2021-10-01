@@ -28,6 +28,8 @@
           v-bind="attrs"
           :id="textAreaId"
           :value="currValue ? currValue : value"
+          :rows="rows"
+          :cols="cols"
           class="form-control k-input style-body-lg"
           @input="e => {
             $emit('input', e.target.value),

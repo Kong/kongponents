@@ -33,18 +33,18 @@ If the label is omitted it can be handled with another component, like **KLabel*
 ### Size
 You can specify `rows`, `cols` for the textarea size.
 
-<KTextArea :rows=3 :cols=20 placeholder="rows:3, cols:20" />
+<KTextArea :rows=2 :cols=15 placeholder="rows:2, cols:15" />
 <br>
-<KTextArea :rows=6 :cols=32 placeholder="rows:6, cols:32"  />
+<KTextArea label="Size" :rows=3 :cols=20 placeholder="I'm labelled and customized!" />
 <br>
-<KTextArea :rows=8 :cols=40 placeholder="rows:8, cols:40"  />
+<KTextArea :rows=8 :cols=25 placeholder="rows:8, cols:25"  />
 
 ```
-<KTextArea :rows=3 :cols=20 placeholder="rows:3, cols:20" />
+<KTextArea :rows=2 :cols=15 placeholder="rows:2, cols:15" />
 <br>
-<KTextArea :rows=6 :cols=32 placeholder="rows:6, cols:32"  />
+<KTextArea label="Size" :rows=3 :cols=20 placeholder="I'm labelled and customized!" />
 <br>
-<KTextArea :rows=8 :cols=40 placeholder="rows:8, cols:40"  />
+<KTextArea :rows=8 :cols=25 placeholder="rows:8, cols:25"  />
 ```
 
 
