@@ -93,31 +93,25 @@ export default {
       .filter(sheet => sheet.href === null || sheet.href.startsWith(window.location.origin))
       .reduce((acc, sheet) => {
         const rules = Array.from(sheet.cssRules).filter((rule) => {
-            return rule.selectorText && rule.selectorText.startsWith('.style-')
-          }, [])
-          console.log(rules.reduce((acc, rule) => {
-            return [ ...acc, rule.selectorText ]
-          }, []))
-          console.log("rules", rules)
-        console.log("before", acc)
-        if (rules.length)
-        acc = [
-          ...acc,
-          ...rules.reduce((acc, rule) => {
-            return [ ...acc, rule.selectorText.substring(1, rule.selectorText.length) ]
-          }, [])
-        ]
-        console.log("after", acc)
+          return rule.selectorText && rule.selectorText.startsWith('.style-')
+        }, [])
+
+        if (rules.length) {
+          acc = [
+            ...acc,
+            ...rules.reduce((acc, rule) => {
+              return [ ...acc, rule.selectorText.substring(1, rule.selectorText.length) ]
+            }, [])
+          ]
+        }
 
         return acc
       }, [])
-      console.log("styles", styles)
 
     this.$page.styles = {
       Heading: styles.length ? styles.filter(i => i.includes('heading')) : [],
       Body: styles.length ? styles.filter(i => i.includes('body')) : []
     }
-    console.log("yeet", this.$page.styles )
   }
 }
 </script>
