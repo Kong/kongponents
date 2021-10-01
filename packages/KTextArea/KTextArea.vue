@@ -9,7 +9,7 @@
       :cols="cols"
       class="form-control k-input style-body-lg"
       @input="e => {
-        $emit('input', e.target.value),
+        $emit('textarea', e.target.value),
         currValue = e.target.value
       }"
       v-on="listeners"
@@ -32,7 +32,7 @@
           :cols="cols"
           class="form-control k-input style-body-lg"
           @input="e => {
-            $emit('input', e.target.value),
+            $emit('textarea', e.target.value),
             currValue = e.target.value
           }"
           @mouseenter="() => isHovered = true"

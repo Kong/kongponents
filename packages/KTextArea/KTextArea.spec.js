@@ -40,14 +40,14 @@ describe('KTextArea', () => {
         value: 'hey'
       }
     })
-    const textArea = wrapper.find('textarea')
+    const textarea = wrapper.find('textarea')
 
-    expect(textArea.element.value).toBe('hey')
-    textArea.setValue('hey, dude')
+    expect(textarea.element.value).toBe('hey')
+    textarea.setValue('hey, dude')
 
-    expect(wrapper.emitted().textArea).toHaveLength(1)
-    expect(wrapper.emitted().textArea[0]).toEqual(['hey, dude'])
-    expect(textArea.element.value).toBe('hey, dude')
+    expect(wrapper.emitted().textarea).toHaveLength(1)
+    expect(wrapper.emitted().textarea[0]).toEqual(['hey, dude'])
+    expect(textarea.element.value).toBe('hey, dude')
   })
 
   it('matches snapshot', () => {
