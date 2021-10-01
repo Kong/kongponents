@@ -13,31 +13,49 @@ something.
 
 ### appearance
 
-The Button component can take the following appearance values:
+The Badge component can take the following appearance values:
 
 - `success`
-- `danger`
 - `warning`
+- `danger`
+- `info`
 - `default`
 - `custom`
 
-<KBadge appearance="success">LOW</KBadge>
-<KBadge appearance="warning">MEDIUM</KBadge>
-<KBadge appearance="danger">HIGH</KBadge>
-<KBadge>DEFAULT BADGE</KBadge>
+<KBadge appearance="success">SUCCESS</KBadge>
+<KBadge appearance="warning">WARNING</KBadge>
+<KBadge appearance="danger">DANGER</KBadge>
+<KBadge appearance="info">INFO</KBadge>
+<KBadge>DEFAULT</KBadge>
 
 ```vue
-<KBadge appearance="success">HIGH</KBadge>
-<KBadge appearance="warning">MEDIUM</KBadge>
-<KBadge appearance="danger">LOW</KBadge>
-<KBadge>DEFAULT BADGE</KBadge>
+<KBadge appearance="success">SUCCESS</KBadge>
+<KBadge appearance="warning">WARNING</KBadge>
+<KBadge appearance="danger">DANGER</KBadge>
+<KBadge appearance="info">INFO</KBadge>
+<KBadge>DEFAULT</KBadge>
+```
+
+### shape
+
+The Badge has two shapes that can be changed with a `shape` property.
+
+- `rounded` - Default
+- `rectangular`
+
+<KBadge appearance="warning">Round</KBadge>
+<KBadge appearance="warning" shape="rectangular">Rectangular</KBadge>
+
+```vue
+<KBadge appearance="warning">Round</KBadge>
+<KBadge appearance="warning" shape="rectangular">Rectangular</KBadge>
 ```
 
 ### color, background-color
 
 Using the `custom` appearance in conjunction with `color` and `background-color`:
 
-<KBadge color="var(--yellow-400)" background-color="var(--yellow-300)">Custom</KBadge>
+<KBadge color="var(--yellow-500)" background-color="var(--yellow-200)">Custom</KBadge>
 <KBadge color="var(--red-100)" background-color="var(--red-400)">Badge</KBadge>
 <KBadge color="var(--blue-200)" background-color="var(--blue-500)">Hello</KBadge>
 <KBadge color="#dfe6e9" background-color="#636e72">Something</KBadge>
@@ -56,7 +74,7 @@ Using the `custom` appearance in conjunction with `color` and `background-color`
 - `default` - innerHTML inside badge
 
 ```vue
-<KBadge type="success">SUCCESS</KBadge>
+<KBadge appearance="success">SUCCESS</KBadge>
 ```
 
 ## Theming
@@ -65,6 +83,7 @@ Using the `custom` appearance in conjunction with `color` and `background-color`
 | :---------------------      | :---------------------------- |
 | `--KBadgeBorderRadius`      |                               |
 | `--KBadgeFontSize`          |                               |
+| `--KBadgeLineHeight`        |                               |
 | `--KBadgeMinWidth`          |                               |
 | `--KBadgeMaxWidth`          |                               |
 | `--KBadgeWidth`             |                               |
@@ -76,6 +95,9 @@ Using the `custom` appearance in conjunction with `color` and `background-color`
 | `--KBadgeWarningColor`      |                               |
 | `--KBadgeWarningBorder`     |                               |
 | `--KBadgeWarningBackground` |                               |
+| `--KBadgeInfoColor`         |                               |
+| `--KBadgeInfoBorder`        |                               |
+| `--KBadgeInfoBackground`    |                               |
 | `--KBadgeDangerColor`       |                               |
 | `--KBadgeDangerBorder`      |                               |
 | `--KBadgeDangerBackground`  |                               |
