@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`KPop renders props when passed 1`] = `
-<div>
-  <kbutton id="test-target-id-1234" aria-controls="test-popover-id-1234" tab-index="0" data-testid="kpop-button">
+<div><button type="button" class="k-button medium rounded outline" id="test-target-id-1234" aria-controls="test-popover-id-1234" tab-index="0" data-testid="kpop-button">
     Click Me!
-  </kbutton>
+  </button>
   <div id="test-popover-id-1234" role="region" tab-index="0" class="k-popover" style="width: 200px; display: none;" name="fade">
     <div tab-index="0" class="k-popover-header d-flex">
       <div class="k-popover-title">Cool Beans!</div>
@@ -17,10 +16,9 @@ exports[`KPop renders props when passed 1`] = `
 `;
 
 exports[`KPop renders slots when passed 1`] = `
-<div>
-  <kbutton id="test-target-id-1234" aria-controls="test-popover-id-1234" tab-index="0" data-testid="kpop-button">
+<div><button type="button" class="k-button medium rounded outline" id="test-target-id-1234" aria-controls="test-popover-id-1234" tab-index="0" data-testid="kpop-button">
     OK
-  </kbutton>
+  </button>
   <div id="test-popover-id-1234" role="region" tab-index="0" class="k-popover pb-0" style="width: 200px; display: none;" name="fade">
     <div tab-index="0" class="k-popover-header d-flex">
       <div class="k-popover-title"><span>Look Mah!</span></div>
