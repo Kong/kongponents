@@ -2,11 +2,11 @@ import { mount } from '@vue/test-utils'
 import KCard from '@/KCard/KCard'
 
 /**
- * ALL TESTS MUST USE debugMode: true
+ * ALL TESTS MUST USE testMode: true
  * We generate unique IDs for reference by aria properties. Debug mode strips these out
  * allowing for successful snapshot verification.
  * propsData: {
- *   debugMode: true
+ *   testMode: true
  * }
  */
 describe('KCard', () => {
@@ -18,7 +18,7 @@ describe('KCard', () => {
     const cardNotifications = 'Card Notifications'
     const wrapper = mount(KCard, {
       propsData: {
-        debugMode: true
+        testMode: true
       },
       slots: {
         'statusHat': `<span>${cardStatusHat}</span>`,
@@ -44,7 +44,7 @@ describe('KCard', () => {
 
     const wrapper = mount(KCard, {
       propsData: {
-        debugMode: true,
+        testMode: true,
         status: cardStatus,
         title: cardTitle,
         body: cardBody
@@ -60,7 +60,7 @@ describe('KCard', () => {
   it('has border class when passed', () => {
     const wrapper = mount(KCard, {
       propsData: {
-        debugMode: true,
+        testMode: true,
         hasBorder: true
       }
     })
@@ -71,7 +71,7 @@ describe('KCard', () => {
   it('has hover class when passed', () => {
     const wrapper = mount(KCard, {
       propsData: {
-        debugMode: true,
+        testMode: true,
         hasHover: true
       }
     })
@@ -83,7 +83,7 @@ describe('KCard', () => {
   it('has shadow class when passed', () => {
     const wrapper = mount(KCard, {
       propsData: {
-        debugMode: true,
+        testMode: true,
         hasShadow: true
       }
     })
@@ -95,7 +95,7 @@ describe('KCard', () => {
   it('matches snapshot', () => {
     const wrapper = mount(KCard, {
       propsData: {
-        debugMode: true
+        testMode: true
       }
     })
 

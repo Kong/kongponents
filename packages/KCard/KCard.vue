@@ -98,9 +98,9 @@ export default {
     },
 
     /**
-     * Debug mode - for testing only, strips out generated ids
+     * Test mode - for testing only, strips out generated ids
      */
-    debugMode: {
+    testMode: {
       type: Boolean,
       default: false
     }
@@ -108,8 +108,8 @@ export default {
 
   data () {
     return {
-      titleId: !this.debugMode ? uuid.v1() : 'test-title-id-1234',
-      contentId: !this.debugMode ? uuid.v1() : 'test-content-id-1234'
+      titleId: !this.testMode ? uuid.v1() : 'test-title-id-1234',
+      contentId: !this.testMode ? uuid.v1() : 'test-content-id-1234'
     }
   }
 }

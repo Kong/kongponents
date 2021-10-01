@@ -1,8 +1,46 @@
 @import "labels";
 
-.k-input-wrapper.input-error .k-input {
-  outline: none !important;
-  border: 1px solid var(--KInputError, var(--red-400, color(red-400)));
+.k-input-wrapper .text-on-input {
+  position: relative;
+
+  .hovered {
+    color: var(--KInputHover, #BDD3F9);
+    transition: color 0.1s ease;
+  }
+
+  .focused {
+    color: var(--KInputFocus, var(--blue-500));
+    transition: color 0.1s ease;
+  }
+
+  label {
+    &:hover {
+      color: var(--KInputHover, #BDD3F9);
+      transition: color 0.1s ease;
+    }
+
+    &.focused {
+      color: var(--KInputFocus, var(--blue-500));
+      transition: color 0.1s ease;
+    }
+  }
+
+  label {
+    position: absolute;
+    top: -8px;
+    left: 13px;
+    width: auto;
+    padding: 2px 4px;
+    z-index: 1;
+
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--KInputBorder, #6F7787);
+    background-color: var(--KInputBackground, var(--white));
+    display: inline-block;
+    margin-bottom: .5rem;
+    transition: color 0.1s ease;
+  }
 }
 
 .k-input,
@@ -12,20 +50,47 @@
   &:not([type="checkbox"]),
   &:not([type="radio"]) {
     display: block;
-    padding: var(--spacing-xs, spacing(xs)) var(--spacing-sm, spacing(sm));
+    padding: 10px var(--spacing-md, spacing(md));
     color: var(--KInputColor, var(--black-70, color(black-70)));
-    font-size: var(--type-md, type(md));
+    font-size: var(--type-sm, type(sm));
     font-weight: normal;
-    line-height: 1.25;
+    line-height: 24px;
     border: 1px solid $borderColor;
     border-radius: 3px;
     background-color: var(--KInputBackground, var(--white, color(white)));
     box-shadow: none;
     box-sizing: border-box;
+    transition: color 0.1s ease, box-shadow 0.1s ease;
+
+    &.k-input-small {
+      font-size: var(--type-xs, type(xs));
+      padding: var(--spacing-xs, spacing(xs)) var(--spacing-sm, spacing(sm));
+    }
+
+    &.k-input-large {
+      font-size: var(--type-md, type(md));
+      padding: var(--spacing-md, spacing(md)) var(--spacing-lg, spacing(lg));
+    }
+
+    &:hover {
+      box-shadow: inset 0 0 0 1px var(--KInputHover, #BDD3F9) !important;
+      transition: all 0.1s ease;
+
+      &.k-input-large {
+        box-shadow: inset 0 0 0 2px var(--KInputHover, #BDD3F9) !important;
+        transition: all 0.1s ease;
+      }
+    }
 
     &:focus {
       outline: none !important;
-      border: 1px solid var(--KInputFocus, var(--blue-400, color(blue-400)));
+      box-shadow: inset 0 0 0 1px var(--KInputFocus, var(--blue-400)) !important;
+      transition: all 0.1s ease;
+
+      &.k-input-large {
+        box-shadow: inset 0 0 0 2px var(--KInputFocus, var(--blue-400)) !important;
+        transition: all 0.1s ease;
+      }
     }
 
     &:disabled {
@@ -37,14 +102,6 @@
 
     &:read-only {
       background-color: var(--KInputReadonlyBackground, var(--grey-100, color(grey-100)));
-      &:focus {
-        border-color: $borderColor;
-      }
-    }
-
-    &.input-error {
-      outline: none !important;
-      border: 1px solid var(--KInputError, var(--red-400, color(red-400)));
     }
 
     &:invalid,
@@ -70,6 +127,24 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpath fill='%23000' fill-opacity='.45' fill-rule='evenodd' d='M6 12c-3.3137085 0-6-2.6862915-6-6s2.6862915-6 6-6 6 2.6862915 6 6c0 1.29583043-.410791 2.49571549-1.1092521 3.47653436l1.2305724 1.23057244 2.8232632 2.8338633c.3897175.3911808.3947266 1.0192147.005164 1.4087774-.3868655.3868655-1.014825.3873148-1.4087774-.005164l-2.8338633-2.8232632-1.23057244-1.2305724C8.49571549 11.589209 7.29583043 12 6 12zm4-6c0-2.209139-1.790861-4-4-4S2 3.790861 2 6s1.790861 4 4 4 4-1.790861 4-4z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: 12px 50%;
+  }
+}
+
+.k-input-wrapper.input-error {
+  .k-input {
+    outline: none !important;
+    box-shadow: inset 0 0 0 1px var(--KInputError, var(--red-500, color(red-500))) !important;
+    transition: color 0.1s ease;
+
+    &.k-input-large {
+      box-shadow: inset 0 0 0 2px var(--KInputError, var(--red-500, color(red-500))) !important;
+      transition: color 0.1s ease;
+    }
+  }
+
+  .text-on-input label {
+    color: var(--KInputError, var(--red-500, color(red-500)));
+    transition: color 0.1s ease;
   }
 }
 
