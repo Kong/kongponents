@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`KMultiselect matches snapshot 1`] = `
-<div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button" tab-index="0"><button type="button" class="k-button k-multiselect-trigger has-caret medium rounded secondary has-caret">
+<div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><button type="button" class="k-button k-multiselect-trigger has-caret medium rounded secondary has-caret">
 
   </button>
   <div id="test-popover-id-1234" role="region" tab-index="0" class="k-popover k-multiselect mt-0 mb-0 hide-caret" style="width: auto; display: none;" name="fade">

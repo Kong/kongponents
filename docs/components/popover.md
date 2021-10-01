@@ -11,6 +11,7 @@ For example a button:
 <KPop title="Cool header">
   <KButton>button</KButton>
   <template v-slot:content>
+  <KButton>text</KButton>
     I am some sample text!
   </template>
 </KPop>
@@ -19,6 +20,7 @@ For example a button:
 <KPop title="Cool header">
   <KButton>button</KButton>
   <template v-slot:content>
+  
     I am some sample text!
   </template>
 </KPop>

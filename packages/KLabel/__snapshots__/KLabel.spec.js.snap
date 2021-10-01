@@ -4,7 +4,7 @@ exports[`KLabel passes the \`for\` attribute to label when \`for\` is provided 1
 
 exports[`KLabel renders a tooltip when \`help\` is provided 1`] = `
 <label class="k-input-label">
-  <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button" tab-index="0" class="label-tooltip">Full Name <svg height="16" width="16" viewBox="0 0 24 24" role="img" class="kong-icon kong-icon-help">
+  <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button" class="label-tooltip">Full Name <svg height="16" width="16" viewBox="0 0 24 24" role="img" class="kong-icon kong-icon-help">
       <!---->
       <g>
         <!---->
@@ -25,7 +25,7 @@ exports[`KLabel renders a tooltip when \`help\` is provided 1`] = `
 
 exports[`KLabel renders a tooltip when \`info\` is provided 1`] = `
 <label class="k-input-label">
-  <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button" tab-index="0" class="label-tooltip">Full Name <svg height="16" width="16" viewBox="0 0 16 16" role="img" class="kong-icon kong-icon-info">
+  <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button" class="label-tooltip">Full Name <svg height="16" width="16" viewBox="0 0 16 16" role="img" class="kong-icon kong-icon-info">
       <!---->
       <g>
         <!---->

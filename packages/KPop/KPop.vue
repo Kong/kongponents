@@ -4,8 +4,7 @@
     :id="$scopedSlots.default ? targetId : null"
     :aria-expanded="$scopedSlots.default ? isOpen : null"
     :aria-controls="$scopedSlots.default ? popoverId : null"
-    :role="$scopedSlots.default ? 'button' : null"
-    :tab-index="$scopedSlots.default ? '0' : null">
+    :role="$scopedSlots.default ? 'button' : null">
     <slot>
       <KButton
         :id="targetId"
@@ -26,12 +25,10 @@
           :style="popoverStyle"
           :class="[popoverClasses, {'hide-caret': hideCaret }, { 'pb-0': $scopedSlots.actions }]"
           role="region"
-          class="k-popover"
-          tab-index="0">
+          class="k-popover">
           <div
             v-if="$scopedSlots.title || title || $scopedSlots.actions"
-            class="k-popover-header d-flex"
-            tab-index="0">
+            class="k-popover-header d-flex">
             <div
               v-if="$scopedSlots.title || title"
               class="k-popover-title">
