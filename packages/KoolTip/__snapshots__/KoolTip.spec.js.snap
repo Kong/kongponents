@@ -2,7 +2,10 @@
 
 exports[`KoolTip matches snapshot 1`] = `
 <div>
-  <div class="k-popover kooltip mt-2  hide-caret" style="width: auto; display: none;" name="fade">
+  <kbutton id="e4117211-22e0-11ec-8f0e-8bf798450446" aria-controls="e4117210-22e0-11ec-8f0e-8bf798450446" tab-index="0" data-testid="kpop-button">
+    OK
+  </kbutton>
+  <div id="e4117210-22e0-11ec-8f0e-8bf798450446" role="region" tab-index="0" class="k-popover kooltip mt-2  hide-caret" style="width: auto; display: none;" name="fade">
     <!---->
     <div class="k-popover-content">
       <div role="tooltip">I'm inside the tooltip!</div>
@@ -14,7 +17,10 @@ exports[`KoolTip matches snapshot 1`] = `
 
 exports[`KoolTip renders tooltip to the bottom side 1`] = `
 <div>
-  <div class="k-popover kooltip mt-2  hide-caret" style="width: auto; display: none;" name="fade">
+  <kbutton id="e4101281-22e0-11ec-8f0e-8bf798450446" aria-controls="e4101280-22e0-11ec-8f0e-8bf798450446" tab-index="0" data-testid="kpop-button">
+    OK
+  </kbutton>
+  <div id="e4101280-22e0-11ec-8f0e-8bf798450446" role="region" tab-index="0" class="k-popover kooltip mt-2  hide-caret" style="width: auto; display: none;" name="fade">
     <!---->
     <div class="k-popover-content">
       <div role="tooltip">I'm on the bottom side!</div>
@@ -26,7 +32,10 @@ exports[`KoolTip renders tooltip to the bottom side 1`] = `
 
 exports[`KoolTip renders tooltip to the left side 1`] = `
 <div>
-  <div class="k-popover kooltip mr-2  hide-caret" style="width: auto; display: none;" name="fade">
+  <kbutton id="e410aec1-22e0-11ec-8f0e-8bf798450446" aria-controls="e410aec0-22e0-11ec-8f0e-8bf798450446" tab-index="0" data-testid="kpop-button">
+    OK
+  </kbutton>
+  <div id="e410aec0-22e0-11ec-8f0e-8bf798450446" role="region" tab-index="0" class="k-popover kooltip mr-2  hide-caret" style="width: auto; display: none;" name="fade">
     <!---->
     <div class="k-popover-content">
       <div role="tooltip">I'm on the left side!</div>
@@ -38,7 +47,10 @@ exports[`KoolTip renders tooltip to the left side 1`] = `
 
 exports[`KoolTip renders tooltip to the right side 1`] = `
 <div>
-  <div class="k-popover kooltip ml-2  hide-caret" style="width: auto; display: none;" name="fade">
+  <kbutton id="e40f2821-22e0-11ec-8f0e-8bf798450446" aria-controls="e40f2820-22e0-11ec-8f0e-8bf798450446" tab-index="0" data-testid="kpop-button">
+    OK
+  </kbutton>
+  <div id="e40f2820-22e0-11ec-8f0e-8bf798450446" role="region" tab-index="0" class="k-popover kooltip ml-2  hide-caret" style="width: auto; display: none;" name="fade">
     <!---->
     <div class="k-popover-content">
       <div role="tooltip">I'm on the right side!</div>
@@ -50,7 +62,10 @@ exports[`KoolTip renders tooltip to the right side 1`] = `
 
 exports[`KoolTip renders tooltip to the top side 1`] = `
 <div>
-  <div class="k-popover kooltip mb-2  hide-caret" style="width: auto; display: none;" name="fade">
+  <kbutton id="e40bf3d1-22e0-11ec-8f0e-8bf798450446" aria-controls="e40bf3d0-22e0-11ec-8f0e-8bf798450446" tab-index="0" data-testid="kpop-button">
+    OK
+  </kbutton>
+  <div id="e40bf3d0-22e0-11ec-8f0e-8bf798450446" role="region" tab-index="0" class="k-popover kooltip mb-2  hide-caret" style="width: auto; display: none;" name="fade">
     <!---->
     <div class="k-popover-content">
       <div role="tooltip">I'm on the top side!</div>

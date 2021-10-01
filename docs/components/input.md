@@ -67,7 +67,7 @@ If the label is omitted it can be handled with another component, like **KLabel*
 </template>
 ```
 
-### Attribute Binding
+## Attribute Binding
 You can pass any input attribute and it will get properly bound to the element.
 
 <KInput class="mb-2" placeholder="placeholder" />
@@ -112,7 +112,7 @@ KInput works as regular inputs do using v-model for data binding:
 </Komponent>
 ```
 
-### Events
+## Events
 
 KInput transparently binds to events:
 
