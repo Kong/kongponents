@@ -3,10 +3,19 @@ import KoolTip from '@/KoolTip/KoolTip'
 
 const positions = ['top', 'right', 'bottom', 'left']
 
+/**
+ * ALL TESTS MUST USE testMode: true
+ * We generate unique IDs for reference by aria properties. Test mode strips these out
+ * allowing for successful snapshot verification.
+ * propsData: {
+ *   testMode: true
+ * }
+ */
 const rendersCorrectPosition = (variant) => {
   it(`renders tooltip to the ${variant} side`, () => {
     const wrapper = mount(KoolTip, {
       propsData: {
+        testMode: true,
         'placement': variant,
         'label': `I'm on the ${variant} side!`
       }
@@ -22,6 +31,7 @@ describe('KoolTip', () => {
   it('matches snapshot', () => {
     const wrapper = mount(KoolTip, {
       propsData: {
+        testMode: true,
         'label': `I'm inside the tooltip!`
       }
     })
@@ -37,6 +47,7 @@ describe('KoolTip', () => {
         </Kooltip>
       `,
       props: {
+        testMode: true,
         theClass: {
           type: String
         }
@@ -45,6 +56,7 @@ describe('KoolTip', () => {
     const wrapper = mount(Component, {
       components: {KoolTip},
       propsData: {
+        testMode: true,
         theClass: 'color-blue'
       }
     })

@@ -3,11 +3,20 @@ import { default as KMultiselect } from './KMultiselect.vue'
 
 jest.useFakeTimers()
 
+/**
+ * ALL TESTS MUST USE testMode: true
+ * We generate unique IDs for reference by aria properties. Test mode strips these out
+ * allowing for successful snapshot verification.
+ * propsData: {
+ *   testMode: true
+ * }
+ */
 const DEFAULT_PROPS = {
   items: [
     { label: 'Item 1', selected: true },
     { label: 'Item 2', selected: false }
-  ]
+  ],
+  testMode: true
 }
 
 describe('KMultiselect', () => {
@@ -26,7 +35,8 @@ describe('KMultiselect', () => {
           { label: 'Item 1', selected: false },
           { label: 'Item 2', selected: false }
         ]
-      }
+      },
+      testMode: true
     })
 
     const trigger = wrapper.find('.k-multiselect-trigger')
