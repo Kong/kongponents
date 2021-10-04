@@ -1,22 +1,61 @@
 import { mount, shallowMount } from '@vue/test-utils'
 import KPop from '@/KPop/KPop'
 
+/**
+ * ALL TESTS MUST USE testMode: true
+ * We generate unique IDs for reference by aria properties. Test mode strips these out
+ * allowing for successful snapshot verification.
+ * propsData: {
+ *   testMode: true
+ * }
+ */
 describe('KPop', () => {
-  it('matches snapshot', () => {
+  it('renders props when passed', () => {
+    const popButtonText = 'Click Me!'
+    const popTitle = 'Cool Beans!'
+
     const wrapper = mount(KPop, {
       propsData: {
-        'width': '350',
-        'title': 'Cool Beans!',
-        'content': `I am a cool popover!`
+        testMode: true,
+        buttonText: popButtonText,
+        title: popTitle
       }
     })
 
+    expect(wrapper.find('[data-testid="kpop-button"]').html()).toEqual(expect.stringContaining(popButtonText))
+    expect(wrapper.find('.k-popover-title').html()).toEqual(expect.stringContaining(popTitle))
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
+  it('renders slots when passed', () => {
+    const popTitle = 'Look Mah!'
+    const popActions = 'Pop Actions'
+    const popContent = 'Pop Content'
+    const popFooter = 'Pop Footer'
+
+    const wrapper = mount(KPop, {
+      propsData: {
+        testMode: true
+      },
+      slots: {
+        'title': `<span>${popTitle}</span>`,
+        'actions': `<span>${popActions}</span>`,
+        'content': `<div>${popContent}</div>`,
+        'footer': `<span>${popFooter}</span>`
+      }
+    })
+
+    expect(wrapper.find('.k-popover-title').html()).toEqual(expect.stringContaining(popTitle))
+    expect(wrapper.find('.k-popover-actions').html()).toEqual(expect.stringContaining(popActions))
+    expect(wrapper.find('.k-popover-content').html()).toEqual(expect.stringContaining(popContent))
+    expect(wrapper.find('.k-popover-footer').html()).toEqual(expect.stringContaining(popFooter))
     expect(wrapper.html()).toMatchSnapshot()
   })
 
   it('renders with correct auto width', () => {
     const wrapper = mount(KPop, {
       propsData: {
+        testMode: true,
         'width': 'auto'
       }
     })
@@ -28,6 +67,7 @@ describe('KPop', () => {
   it('renders with correct px width', () => {
     const wrapper = mount(KPop, {
       propsData: {
+        testMode: true,
         'width': '350'
       }
     })
@@ -39,6 +79,7 @@ describe('KPop', () => {
   it('renders with correct title', () => {
     const wrapper = mount(KPop, {
       propsData: {
+        testMode: true,
         'title': 'Cool Beans!'
       }
     })
@@ -48,7 +89,11 @@ describe('KPop', () => {
   })
 
   it('has no title if no prop', () => {
-    const wrapper = mount(KPop)
+    const wrapper = mount(KPop, {
+      propsData: {
+        testMode: true
+      }
+    })
 
     expect(wrapper.findAll('.k-popover-title').exists()).toBe(false)
   })
@@ -56,6 +101,7 @@ describe('KPop', () => {
   it('shows element on click', () => {
     const wrapper = shallowMount(KPop, {
       propsData: {
+        testMode: true,
         title: 'Popover Title'
       },
       slots: {
@@ -73,6 +119,7 @@ describe('KPop', () => {
   it('shows element on hover', () => {
     const wrapper = shallowMount(KPop, {
       propsData: {
+        testMode: true,
         title: 'Popover Title',
         trigger: 'hover'
       },

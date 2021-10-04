@@ -1,23 +1,52 @@
 <template>
-  <component :is="tag">
-    <slot/>
+  <component
+    :is="tag"
+    :id="$scopedSlots.default ? targetId : null"
+    :aria-expanded="$scopedSlots.default ? isOpen : null"
+    :aria-controls="$scopedSlots.default ? popoverId : null"
+    :role="$scopedSlots.default ? 'button' : null">
+    <slot>
+      <KButton
+        :id="targetId"
+        :aria-expanded="isOpen"
+        :aria-controls="popoverId"
+        tab-index="0"
+        data-testid="kpop-button">
+        {{ buttonText }}
+      </KButton>
+    </slot>
     <div
-      v-if="isSvg"
-      :name="popoverTransitions">
+      v-if="isSvg">
       <foreignObject>
         <div
           v-show="isOpen"
           ref="popper"
+          :id="popoverId"
           :style="popoverStyle"
-          :class="[popoverClasses, {'hide-caret': hideCaret }]"
+          :class="[popoverClasses, {'hide-caret': hideCaret }, { 'pb-0': $scopedSlots.actions }]"
+          role="region"
           class="k-popover">
           <div
-            v-if="title"
-            class="k-popover-title">
-            <slot name="title">{{ title }}</slot>
+            v-if="$scopedSlots.title || title || $scopedSlots.actions"
+            class="k-popover-header d-flex">
+            <div
+              v-if="$scopedSlots.title || title"
+              class="k-popover-title">
+              <slot name="title">{{ title }}</slot>
+            </div>
+            <div
+              v-if="$scopedSlots.actions"
+              class="k-popover-actions">
+              <slot name="actions" />
+            </div>
           </div>
           <div class="k-popover-content">
             <slot name="content"/>
+          </div>
+          <div
+            v-if="$scopedSlots.footer"
+            class="k-popover-footer">
+            <slot name="footer" />
           </div>
         </div>
       </foreignObject>
@@ -28,16 +57,32 @@
       <div
         v-show="isOpen"
         ref="popper"
+        :id="popoverId"
         :style="popoverStyle"
-        :class="[popoverClasses, {'hide-caret': hideCaret }]"
+        :class="[popoverClasses, {'hide-caret': hideCaret }, { 'pb-0': $scopedSlots.actions }]"
+        role="region"
         class="k-popover">
         <div
-          v-if="title"
-          class="k-popover-title">
-          <slot name="title">{{ title }}</slot>
+          v-if="$scopedSlots.title || title || $scopedSlots.actions"
+          class="k-popover-header d-flex">
+          <div
+            v-if="$scopedSlots.title || title"
+            class="k-popover-title">
+            <slot name="title">{{ title }}</slot>
+          </div>
+          <div
+            v-if="$scopedSlots.actions"
+            class="k-popover-actions">
+            <slot name="actions" />
+          </div>
         </div>
         <div class="k-popover-content">
           <slot name="content"/>
+        </div>
+        <div
+          v-if="$scopedSlots.footer"
+          class="k-popover-footer">
+          <slot name="footer" />
         </div>
       </div>
     </transition>
@@ -45,6 +90,8 @@
 </template>
 <script>
 import Popper from 'popper.js'
+import KButton from '@kongponents/kbutton/KButton.vue'
+import { uuid } from 'vue-uuid'
 
 const placements = {
   auto: 'auto',
@@ -64,6 +111,7 @@ const placements = {
 
 export default {
   name: 'KPop',
+  components: { KButton },
   props: {
     /**
      * The target element to append the popper to
@@ -78,6 +126,14 @@ export default {
     tag: {
       type: String,
       default: 'div'
+    },
+    /**
+     * If not using the default slot, the text on the button
+     * that triggers the popover
+     */
+    buttonText: {
+      type: String,
+      default: 'OK'
     },
     /**
      * The title of the Popover header
@@ -173,6 +229,13 @@ export default {
     onPopoverClick: {
       type: Function,
       default: null
+    },
+    /**
+     * Test mode - for testing only, strips out generated ids
+     */
+    testMode: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -180,7 +243,9 @@ export default {
     return {
       popper: null,
       reference: null,
-      isOpen: false
+      isOpen: false,
+      popoverId: !this.testMode ? uuid.v1() : 'test-popover-id-1234',
+      targetId: !this.testMode ? uuid.v1() : 'test-target-id-1234'
     }
   },
 
@@ -222,6 +287,8 @@ export default {
     } else if (this.reference) {
       this.reference.removeEventListener('mouseenter', this.createInstance)
       this.reference.removeEventListener('mouseleave', this.toggle)
+      this.reference.removeEventListener('focus', this.createInstance)
+      this.reference.removeEventListener('blur', this.toggle)
     }
 
     this.destroy()
@@ -255,7 +322,10 @@ export default {
       const placement = placements[this.placement] ? placements[this.placement] : 'auto'
       const popperEl = this.$refs.popper
 
-      document.querySelector(this.target).appendChild(popperEl)
+      const theTarget = this.target === 'body' && !this.isSvg ? document.getElementById(this.targetId) : document.querySelector(this.target)
+
+      theTarget.appendChild(popperEl)
+
       await this.$nextTick()
       this.popper = new Popper(this.reference, popperEl, {
         placement,
@@ -296,14 +366,18 @@ export default {
       if (popper) {
         if (this.trigger === 'hover') {
           this.reference.addEventListener('mouseenter', this.createInstance)
+          this.reference.addEventListener('focus', this.createInstance)
           this.reference.addEventListener('mouseleave', this.hidePopper)
+          this.reference.addEventListener('blur', this.hidePopper)
           popper.addEventListener('mouseenter', this.showPopper)
+          popper.addEventListener('focus', this.showPopper)
           popper.addEventListener('mouseleave', this.hidePopper)
-        } else {
-          this.reference.addEventListener('click', this.handleClick)
-          popper.addEventListener('click', this.showPopper)
-          document.documentElement.addEventListener('click', this.handleClick)
+          popper.addEventListener('blur', this.hidePopper)
         }
+
+        this.reference.addEventListener('click', this.handleClick)
+        popper.addEventListener('click', this.showPopper)
+        document.documentElement.addEventListener('click', this.handleClick)
       }
     },
 
@@ -327,18 +401,31 @@ export default {
   font-size: var(--KPopBodySize, var(--type-sm, type(sm)));
   text-align: left;
   white-space: normal;
-  color: var(--KPopColor, var(--black-70, color(black-70)));
+  color: var(--KPopColor, var(--black-400, color(black-400)));
   background-color: var(--KPopBackground, var(--white, color(white)));
-  border: 1px solid var(--KPopBorder, var(--grey-400, color(grey-400)));
+  border: 1px solid var(--KPopBorder, var(--black-10, color(black-10)));
   border-radius: 3px;
-  -webkit-box-shadow: 0 0 12px rgba(0,0,0,.12);
-  box-shadow: 0 0 12px rgba(0,0,0,.12);
-  padding: var(--KPopPaddingY, var(--spacing-md, spacing(md))) var(--KPopPaddingX, var(--spacing-md, spacing(md)));
+  -webkit-box-shadow: 0px 4px 20px var(--black-10);
+  box-shadow: 0px 4px 20px var(--black-10);
+  padding: var(--KPopPaddingY, 28px) var(--KPopPaddingX, var(--spacing-md, spacing(md)));
 
-  .k-popover-title {
-    margin-bottom: 1rem;
-    font-size: var(--KPopHeaderSize, var(--type-md, type(md)));
-    font-weight: 500;
+  .k-popover-header {
+    align-items: baseline;
+    margin-bottom: 28px;
+
+    .k-popover-title {
+      color: var(--KPopColor, var(--black-500, color(black-500)));
+      font-size: var(--KPopHeaderSize, var(--type-md, type(md)));
+      font-weight: 500;
+    }
+
+    .k-popover-actions {
+      margin-left: auto;
+    }
+  }
+
+  .k-popover-footer {
+    margin: 14px 0;
   }
 
   &[x-placement^="bottom"] {
@@ -364,7 +451,7 @@ export default {
 
     &:before {
       border-color: rgba(250, 250, 250, 0);
-      border-bottom-color: var(--KPopBorder, var(--grey-400, color(grey-400)));
+      border-bottom-color: var(--KPopBorder, var(--black-10, color(black-10)));
       border-width: 11px;
       margin-left: -11px;
     }
@@ -393,7 +480,7 @@ export default {
 
     &:before {
       border-color: rgba(250, 250, 250, 0);
-      border-top-color: var(--KPopBorder, var(--grey-400, color(grey-400)));
+      border-top-color: var(--KPopBorder, var(--black-10, color(black-10)));
       border-width: 11px;
       margin-left: -11px;
     }
@@ -422,7 +509,7 @@ export default {
 
     &:before {
       border-color: rgba(250, 250, 250, 0);
-      border-left-color: var(--KPopBorder, var(--grey-400, color(grey-400)));
+      border-left-color: var(--KPopBorder, var(--black-10, color(black-10)));
       border-width: 11px;
       margin-top: -11px;
     }
@@ -451,7 +538,7 @@ export default {
 
     &:before {
       border-color: rgba(250, 250, 250, 0);
-      border-right-color: var(--KPopBorder, var(--grey-400, color(grey-400)));
+      border-right-color: var(--KPopBorder, var(--black-10, color(black-10)));
       border-width: 11px;
       margin-top: -11px;
     }
