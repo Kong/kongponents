@@ -8,7 +8,6 @@ import KAlert from '../../packages/KAlert/KAlert.vue'
 import KBadge from '../../packages/KBadge/KBadge.vue'
 import KButton from '../../packages/KButton/KButton.vue'
 import KCard from '../../packages/KCard/KCard.vue'
-import KDropdown from '../../packages/KDropdown/KDropdown.vue'
 import KClipboardProvider from '../../packages/KClipboardProvider/KClipboardProvider.js'
 import KMultiselect from '../../packages/KMultiselect/KMultiselect.vue'
 import KEmptyState from '../../packages/KEmptyState/KEmptyState.vue'
@@ -24,6 +23,7 @@ import KoolTip from '../../packages/KoolTip/KoolTip.vue'
 import KPop from '../../packages/KPop/KPop.vue'
 import Krumbs from '../../packages/Krumbs/Krumbs.vue'
 import KSegmentedControl from '../../packages/KSegmentedControl/KSegmentedControl.vue'
+import KSelect from '../../packages/KSelect/KSelect.vue'
 import KTable from '../../packages/KTable/KTable.vue'
 import KTabs from '../../packages/KTabs/KTabs.vue'
 import KTextArea from '../../packages/KTextArea/KTextArea.vue'
@@ -52,7 +52,6 @@ export default ({
   Vue.component('KInput', KInput)
   Vue.component('KInputSwitch', KInputSwitch)
   Vue.component('KCheckbox', KCheckbox)
-  Vue.component('KDropdown', KDropdown)
   Vue.component('KRadio', KRadio)
   Vue.component('KLabel', KLabel)
   Vue.component('KModal', KModal)
@@ -61,6 +60,7 @@ export default ({
   Vue.component('Krumbs', Krumbs)
   Vue.component('Komponent', Komponent)
   Vue.component('KSegmentedControl', KSegmentedControl)
+  Vue.component('KSelect', KSelect)
   Vue.component('KTable', KTable)
   Vue.component('KTabs', KTabs)
   Vue.component('KTextArea', KTextArea) 

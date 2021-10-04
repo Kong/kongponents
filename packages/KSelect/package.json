@@ -1,13 +1,13 @@
 {
-  "name": "@kongponents/kdropdown",
+  "name": "@kongponents/kselect",
   "version": "5.0.3",
   "description": "Dropdown/Select component",
-  "main": "dist/KDropdown.umd.min.js",
-  "componentName": "KDropdown",
-  "source": "KDropdown.vue",
+  "main": "dist/KSelect.umd.min.js",
+  "componentName": "KSelect",
+  "source": "KSelect.vue",
   "files": [
     "dist",
-    "KDropdown.vue"
+    "KSelect.vue"
   ],
   "repository": {
     "type": "git",

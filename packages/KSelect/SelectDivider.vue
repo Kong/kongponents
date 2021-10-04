@@ -9,7 +9,7 @@
 
 <script lang="ts">
 export default {
-  name: 'DropdownDivider',
+  name: 'SelectDivider',
   props: {
     label: {
       type: String,

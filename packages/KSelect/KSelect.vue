@@ -13,13 +13,13 @@
         <KButton>Click Me!</KButton>
       </slot>
       <template v-slot:content>
-        <ul class="k-dropdown-list">
+        <ul class="k-select-list">
           <slot
             :items="items"
             :is-open="isToggled"
             name="items"
           >
-            <DropdownItem
+            <SelectItem
               v-for="item in items"
               :key="item.label"
               :item="item"
@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import DropdownItem from './DropdownItem.vue'
+import SelectItem from './SelectItem.vue'
 import { placements } from '@kongponents/kpop/KPop.vue'
 
 const defaultKPopAttributes = {
@@ -42,8 +42,8 @@ const defaultKPopAttributes = {
 }
 
 export default {
-  name: 'KDropdown',
-  components: { DropdownItem },
+  name: 'KSelect',
+  components: { SelectItem },
   props: {
     kpopAttributes: {
       type: Object,
@@ -101,7 +101,7 @@ export default {
 </script>
 
 <style lang="scss">
-.k-drodpown-trigger:after {
+.k-select-trigger:after {
   display: inline-block;
   width: 0;
   height: 0;
@@ -113,14 +113,14 @@ export default {
   border-left: 0.325em solid transparent;
 }
 
-.k-dropdown-popover {
-  &.k-dropdown-pop-dropdown {
+.k-select-popover {
+  &.k-select-pop-dropdown {
     --KPopPaddingY: 10px;
     --KPopPaddingX: var(--spacing-sm);
     border: 1px solid var(--blue-200);
   }
 
-  &.k-dropdown-pop-select {
+  &.k-select-pop-select {
     --KPopPaddingY: 10px;
     --KPopPaddingX: var(--spacing-sm);
     border: 1px solid var(--black-10);

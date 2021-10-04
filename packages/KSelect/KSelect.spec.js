@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
-import KDropdown from '@/KDropdown/KDropdown'
+import KSelect from '@/KSelect/KSelect'
 
-describe('KDropdown', () => {
+describe('KSelect', () => {
   it('matches snapshot', () => {
-    const wrapper = mount(KDropdown)
+    const wrapper = mount(KSelect)
 
     expect(wrapper.html()).toMatchSnapshot()
   })

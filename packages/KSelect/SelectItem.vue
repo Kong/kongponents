@@ -25,7 +25,7 @@
 
 <script lang="ts">
 export default {
-  name: 'DropdownItem',
+  name: 'SelectItem',
   props: {
     item: {
       type: Object,
