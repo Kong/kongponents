@@ -11,7 +11,6 @@ For example a button:
 <KPop title="Cool header">
   <KButton>button</KButton>
   <template v-slot:content>
-  <KButton>text</KButton>
     I am some sample text!
   </template>
 </KPop>
@@ -383,7 +382,7 @@ This will wrap the content of the KPop in a `<foreignObject>` tag, so that norma
 HTML content can be injected into the popover.
 
 <svg style="cursor: pointer; height: 20px; width: 20px; margin-right: 1rem;" v-for="light in [{ color: 'red', value: 'red-500'}, { color: 'yellow', value: 'yellow-200'}, { color: 'green', value: 'green-500'}]">
-  <KPop trigger="hover" :title="light.color" :is-svg="true" tag="g" :popover-timeout="10">
+  <KPop trigger="hover" :title="light.color" :is-svg="true" tag="svg" :popover-timeout="10">
     <template v-slot:content>
       <p>{{ light.color }} means {{ light.color == 'green' ? 'GO!' : (light.color == 'red' ? 'STOP!' : 'SLOW DOWN!') }}</p>
     </template>

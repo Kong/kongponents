@@ -61,12 +61,10 @@
         :style="popoverStyle"
         :class="[popoverClasses, {'hide-caret': hideCaret }, { 'pb-0': $scopedSlots.actions }]"
         role="region"
-        class="k-popover"
-        tab-index="0">
+        class="k-popover">
         <div
           v-if="$scopedSlots.title || title || $scopedSlots.actions"
-          class="k-popover-header d-flex"
-          tab-index="0">
+          class="k-popover-header d-flex">
           <div
             v-if="$scopedSlots.title || title"
             class="k-popover-title">
@@ -323,7 +321,7 @@ export default {
       const placement = placements[this.placement] ? placements[this.placement] : 'auto'
       const popperEl = this.$refs.popper
 
-      const theTarget = this.target === 'body' ? document.getElementById(this.targetId) : document.querySelector(this.target)
+      const theTarget = this.target === 'body' && !this.isSvg ? document.getElementById(this.targetId) : document.querySelector(this.target)
 
       theTarget.appendChild(popperEl)
 
