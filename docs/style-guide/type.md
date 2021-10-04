@@ -69,7 +69,7 @@ export default {
       .filter(sheet => sheet.href === null || sheet.href.startsWith(window.location.origin))
       .reduce((acc, sheet) => {
         const rules = Array.from(sheet.cssRules).filter((rule) => {
-          return rule.selectorText && rule.selectorText.startsWith('.style-')
+          return rule.selectorText && rule.selectorText.startsWith('.style-') && rule.selectorText.indexOf(',') === -1
         }, [])
 
         if (rules.length) {
