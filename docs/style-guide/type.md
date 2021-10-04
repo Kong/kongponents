@@ -32,25 +32,86 @@ mono:
   - variable: xs
     size: (12px*.95%) 11.4px
 ---
+
 # Type
 
 Kong uses the [Maison Neue](https://www.milieugrotesque.com/typefaces/maison-neue/) font face.
 
-## Sans Font Styles
+## Font size
+
+There are utility classes for `font-size`.
+
+### Sans Font Styles
 <div>
   <text-block
     v-for="(font, key, i) in $page.frontmatter.sans"
     :key="i"
+    prefix="type-"
     :font-size="font.size"
     :variable-name="font.variable" />
 </div>
 
-## Mono Font Styles
+### Mono Font Styles
 <div>
   <text-block
     v-for="(font, key, i) in $page.frontmatter.mono"
     :key="i"
     font-type="mono"
+    prefix="type-"
     :font-size="font.size"
     :variable-name="font.variable" /> 
+</div>
+
+<script lang="ts">
+export default {
+  beforeMount() {
+    const styles = Array.from(document.styleSheets)
+      .filter(sheet => sheet.href === null || sheet.href.startsWith(window.location.origin))
+      .reduce((acc, sheet) => {
+        const rules = Array.from(sheet.cssRules).filter((rule) => {
+          return rule.selectorText && rule.selectorText.startsWith('.style-') && rule.selectorText.indexOf(',') === -1
+        }, [])
+
+        if (rules.length) {
+          acc = [
+            ...acc,
+            ...rules.reduce((acc, rule) => {
+              return [ ...acc, rule.selectorText.substring(1, rule.selectorText.length) ]
+            }, [])
+          ]
+        }
+
+        return acc
+      }, [])
+
+    this.$page.headingStyles = styles.length ? styles.filter(i => i.includes('heading')) : []
+    this.$page.bodyStyles = styles.length ? styles.filter(i => i.includes('body')) : []
+  }
+}
+</script>
+
+## Content Styles
+
+There are also utility classes for quick styling of different content types.
+
+### Heading
+
+<div>
+  <text-block
+    v-if="$page.headingStyles"
+    v-for="className in $page.headingStyles"
+    :key="className"
+    :styleClasses="className"
+    :variable-name="className" /> 
+</div>
+
+### Body
+
+<div>
+  <text-block
+    v-if=" $page.bodyStyles"
+    v-for="className in $page.bodyStyles"
+    :key="className"
+    :styleClasses="className" 
+    :variable-name="className" /> 
 </div>
