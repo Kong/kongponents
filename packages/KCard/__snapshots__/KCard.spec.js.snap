@@ -63,7 +63,7 @@ exports[`KCard renders slots when passed 1`] = `
     <div id="test-content-id-1234" class="k-card-body">
       <div>Card Body</div>
     </div>
-    <div class="k-card-notifications pl-3"><span>Card Notifications</span></div>
+    <div class="k-card-notifications ml-3"><span>Card Notifications</span></div>
   </div>
 </section>
 `;
