@@ -100,7 +100,7 @@ There are also utility classes for quick styling of different content types.
 
 <div>
   <text-block
-    v-if="$page.styles"
+    v-if="$page.styles && $page.styles.Heading && $page.styles.Heading.length"
     v-for="className in $page.styles.Heading"
     :key="className"
     :styleClasses="className"
@@ -111,7 +111,7 @@ There are also utility classes for quick styling of different content types.
 
 <div>
   <text-block
-    v-if="$page.styles"
+    v-if="$page.styles && $page.styles.Body && $page.styles.Body.length"
     v-for="className in $page.styles.Body"
     :key="className"
     :styleClasses="className" 
