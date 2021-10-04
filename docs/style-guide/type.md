@@ -84,10 +84,8 @@ export default {
         return acc
       }, [])
 
-    this.$page.styles = {
-      Heading: styles.length ? styles.filter(i => i.includes('heading')) : [],
-      Body: styles.length ? styles.filter(i => i.includes('body')) : []
-    }
+    this.$page.headingStyles = styles.length ? styles.filter(i => i.includes('heading')) : []
+    this.$page.bodyStyles = styles.length ? styles.filter(i => i.includes('body')) : []
   }
 }
 </script>
@@ -100,8 +98,8 @@ There are also utility classes for quick styling of different content types.
 
 <div>
   <text-block
-    v-if="$page.styles && $page.styles.Heading && $page.styles.Heading.length"
-    v-for="className in $page.styles.Heading"
+    v-if="$page.headingStyles"
+    v-for="className in $page.headingStyles"
     :key="className"
     :styleClasses="className"
     :variable-name="className" /> 
@@ -111,8 +109,8 @@ There are also utility classes for quick styling of different content types.
 
 <div>
   <text-block
-    v-if="$page.styles && $page.styles.Body && $page.styles.Body.length"
-    v-for="className in $page.styles.Body"
+    v-if=" $page.bodyStyles"
+    v-for="className in $page.bodyStyles"
     :key="className"
     :styleClasses="className" 
     :variable-name="className" /> 
