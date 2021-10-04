@@ -515,9 +515,9 @@ Example:
 <KPop @opened="loadSomething" @closed="onClose">
   <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
   <template v-slot:content>
-    <div style="display: flex; justify-content: center;">
-      <KIcon v-if="currentState == 'pending'" icon="spinner" viewBox="0 0 20 20" size="20" color="var(--black90)"/>
-      <div>{{ message }}</div>
+    <div style="justify-content: center;" class="d-flex">
+      <KIcon v-if="currentState == 'pending'" icon="spinner" color="var(--purple-300)" />
+      <div class="pl-2" style="line-height: 24px;">{{ message }}</div>
     </div>
   </template>
 </KPop>
@@ -596,9 +596,9 @@ Example:
 <KPop @opened="loadSomething" @closed="onClose">
   <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
   <template v-slot:content>
-    <div style="display: flex; justify-content: center;">
-      <KIcon v-if="currentState == 'pending'" icon="spinner" viewBox="0 0 20 20" size="20" color="var(--black90)"/>
-      <div>{{ message }}</div>
+    <div style="justify-content: center;" class="d-flex">
+      <KIcon v-if="currentState == 'pending'" icon="spinner" color="var(--purple-300)" />
+      <div class="pl-2" style="line-height: 24px;">{{ message }}</div>
     </div>
   </template>
 </KPop>
