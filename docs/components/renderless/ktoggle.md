@@ -121,6 +121,8 @@ them and placing them inside `KToggle`'s default slot.
         </KButton>
         <KModal
           :isVisible="isToggled"
+          title="Look Mah!"
+          content="I got toggles!"
           @proceed="toggle"
           @canceled="toggle" />
       </div>
@@ -136,6 +138,8 @@ them and placing them inside `KToggle`'s default slot.
     </KButton>
     <KModal
       :isVisible="isToggled"
+      title="Look Mah!"
+      content="I got toggles!"
       @proceed="toggle"
       @canceled="toggle" />
   </div>

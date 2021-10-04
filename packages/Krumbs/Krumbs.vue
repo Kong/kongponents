@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import KIcon from '@kongponents/kicon/KIcon.vue'
+
 /**
  * @typedef {Object} Item - breacrumb item holding router-link properties
  * @property {Object|String} to - router-link "to" object or href string
@@ -37,8 +39,9 @@
  * @property {string} [key] - list item key
  * @property {string} [maxWidth] - maxWidth of item, overrides itemMaxWidth
  */
-
 export default {
+  name: 'Krumbs',
+  components: { KIcon },
   props: {
     /**
      * @type {{ new(): Item[]}}

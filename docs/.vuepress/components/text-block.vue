@@ -3,14 +3,17 @@
     <div class="label">
       <strong>Variable Name:</strong> <span>{{ variableName }}</span>
     </div>
-    <div class="label">
+    <div v-if="fontSize" class="label">
       <strong>Font Size:</strong> <span>{{ fontSize }}</span>
     </div>
     <div class="label">
-      <strong>Class:</strong> <code>.type-{{variableName}}</code>
+      <strong>Class:</strong> <code>.{{prefix}}{{variableName}}</code>
     </div>
     <div class="example">
-      <p :class="[`type-${variableName}`, fontType === 'mono' && 'mono']">
+      <strong>Sample:</strong>
+      <p 
+        class="mt-2"
+        :class="[`${prefix}${variableName}`, fontType === 'mono' && 'mono', styleClasses]">
         Kong is a Lua application running in Nginx
       </p>
     </div>
@@ -21,17 +24,25 @@
   export default {
     name: 'text-block',
     props: {
+      prefix: {
+        type: String,
+        default: ''
+      },
       fontType: {
         type: String,
-        default: 'sans'
+        default: ''
       },
       fontSize: {
         type: String,
-        default: '16px'
+        default: ''
       },
       variableName: {
         type: String,
         required: true
+      },
+      styleClasses: {
+        type: String,
+        default: ''
       }
     }
   }
@@ -45,6 +56,10 @@
   }
   p {
     margin: 0;
+    background-color: var(--grey-100);
+    border: 1px solid var(--grey-300);
+    border-radius: 5px;
+    padding: var(--spacing-xs);
   }
   .label {
     margin-bottom: .25rem;
