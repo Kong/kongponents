@@ -19,7 +19,6 @@ For example a button:
 <KPop title="Cool header">
   <KButton>button</KButton>
   <template v-slot:content>
-  
     I am some sample text!
   </template>
 </KPop>
@@ -455,13 +454,14 @@ This is the slot that takes in the content of the popover.
 ```
 
 - `footer`
-This is an optional slot that takes in content for the footer bar.
+This is an optional slot that takes in content for the footer bar. This typically is an actionable element like
+a button or link.
 
 ```vue
 <KPop title="Cool header">
   <!-- Your element goes here -->
   <KButton>button</KButton>
-  <!-- Your content goes here -->
+  <!-- Your footer content goes here -->
   <template v-slot:footer>
     View All
   </template>

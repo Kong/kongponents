@@ -3,7 +3,7 @@ import KPop from '@/KPop/KPop'
 
 /**
  * ALL TESTS MUST USE testMode: true
- * We generate unique IDs for reference by aria properties. Debug mode strips these out
+ * We generate unique IDs for reference by aria properties. Test mode strips these out
  * allowing for successful snapshot verification.
  * propsData: {
  *   testMode: true
