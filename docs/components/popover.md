@@ -26,6 +26,25 @@ For example a button:
 
 ## Props
 
+### buttonText
+
+This is the text that will be displayed on the button that triggers the popover if not using
+the default slot.
+
+<KPop title="Cool header" buttonText="Click Me!">
+  <template v-slot:content>
+    You clicked me!
+  </template>
+</KPop>
+
+```vue
+<KPop title="Cool header" buttonText="Click Me!">
+  <template v-slot:content>
+    You clicked me!
+  </template>
+</KPop>
+```
+
 ### Target
 
 This is the target `element` that the <code>popover</code> is appended to. By default its the body tag.
@@ -362,7 +381,7 @@ This will wrap the content of the KPop in a `<foreignObject>` tag, so that norma
 HTML content can be injected into the popover.
 
 <svg style="cursor: pointer; height: 20px; width: 20px; margin-right: 1rem;" v-for="light in [{ color: 'red', value: 'red-500'}, { color: 'yellow', value: 'yellow-200'}, { color: 'green', value: 'green-500'}]">
-  <KPop trigger="hover" :title="light.color" :is-svg="true" tag="g" :popover-timeout="10">
+  <KPop trigger="hover" :title="light.color" :is-svg="true" tag="svg" :popover-timeout="10">
     <template v-slot:content>
       <p>{{ light.color }} means {{ light.color == 'green' ? 'GO!' : (light.color == 'red' ? 'STOP!' : 'SLOW DOWN!') }}</p>
     </template>
@@ -383,7 +402,7 @@ HTML content can be injected into the popover.
 
 ## Slots
 
-- `Default` There is a main slot that takes in the element you want the popover to be triggered over.
+- `default` There is a main slot that takes in the element you want the popover to be triggered over.
 
 ```vue
 <KPop title="Cool header">
@@ -392,7 +411,7 @@ HTML content can be injected into the popover.
 </KPop>
 ```
 
-- `Title`
+- `title`
 There is an optional title slot that can take in an element for the title. The title could alternatively be populated via the prop.
 
 ```vue
@@ -406,7 +425,21 @@ There is an optional title slot that can take in an element for the title. The t
 </KPop>
 ```
 
-- `Content`
+- `actions`
+An optional slot for an actions button in the upper right corner of the popover.
+
+```vue
+<KPop title="Cool header">
+  <!-- Your element goes here -->
+  <KButton>button</KButton>
+  <!-- Your content goes here -->
+  <template v-slot:actions>
+    View All
+  </template>
+</KPop>
+```
+
+- `content`
 This is the slot that takes in the content of the popover.
 
 ```vue
@@ -420,6 +453,58 @@ This is the slot that takes in the content of the popover.
 </KPop>
 ```
 
+- `footer`
+This is an optional slot that takes in content for the footer bar. This typically is an actionable element like
+a button or link.
+
+```vue
+<KPop title="Cool header">
+  <!-- Your element goes here -->
+  <KButton>button</KButton>
+  <!-- Your footer content goes here -->
+  <template v-slot:footer>
+    View All
+  </template>
+</KPop>
+```
+
+Example:
+
+<KPop title="Notifications" :on-popover-click="toggle" width="500">
+  <KButton>Fire!</KButton>
+  <template v-slot:title>
+    <div>Notifications</div>
+  </template>
+  <template v-slot:actions>
+    <KButton appearance="btn-link" size="small">Mark all as read</KButton>
+  </template>
+  <template v-slot:content>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eleifend lorem ut ex tempus, a tincidunt elit hendrerit. Nunc eu ex vestibulum, consequat tellus sed, pharetra magna.
+  </template>
+  <template v-slot:footer>
+    <KButton size="small">View all notifications</KButton>
+  </template>
+</KPop>
+
+```vue
+<KPop title="Notifications" :on-popover-click="toggle" width="500">
+  <KButton>Fire!</KButton>
+  <template v-slot:title>
+    <div>Notifications</div>
+  </template>
+  <template v-slot:actions>
+    <KButton appearance="btn-link" size="small">Mark all as read</KButton>
+  </template>
+  <template v-slot:content>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eleifend lorem ut ex tempus, a tincidunt elit hendrerit. Nunc eu ex vestibulum, consequat tellus sed, pharetra magna.
+  </template>
+  <template v-slot:footer>
+    <KButton size="small">View all notifications</KButton>
+  </template>
+</KPop>
+```
+
+
 ## Usage
 
 ### Events / Loading Content
@@ -430,9 +515,9 @@ This is the slot that takes in the content of the popover.
 <KPop @opened="loadSomething" @closed="onClose">
   <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
   <template v-slot:content>
-    <div style="display: flex; justify-content: center;">
-      <KIcon v-if="currentState == 'pending'" icon="spinner" viewBox="0 0 20 20" size="20" color="var(--black90)"/>
-      <div>{{ message }}</div>
+    <div style="justify-content: center;" class="d-flex">
+      <KIcon v-if="currentState == 'pending'" icon="spinner" color="var(--purple-300)" />
+      <div class="pl-2" style="line-height: 24px;">{{ message }}</div>
     </div>
   </template>
 </KPop>
@@ -511,9 +596,9 @@ This is the slot that takes in the content of the popover.
 <KPop @opened="loadSomething" @closed="onClose">
   <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
   <template v-slot:content>
-    <div style="display: flex; justify-content: center;">
-      <KIcon v-if="currentState == 'pending'" icon="spinner" viewBox="0 0 20 20" size="20" color="var(--black90)"/>
-      <div>{{ message }}</div>
+    <div style="justify-content: center;" class="d-flex">
+      <KIcon v-if="currentState == 'pending'" icon="spinner" color="var(--purple-300)" />
+      <div class="pl-2" style="line-height: 24px;">{{ message }}</div>
     </div>
   </template>
 </KPop>

@@ -2,6 +2,7 @@
   <KPop
     :placement="placement"
     :popover-classes="`kooltip ${computedClass} ${className}`"
+    :test-mode="testMode"
     trigger="hover"
     width="auto"
     hide-caret>
@@ -48,6 +49,13 @@ export default {
           'right'
         ].indexOf(value) !== -1
       }
+    },
+    /**
+     * Test mode - for testing only, strips out generated ids
+     */
+    testMode: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
