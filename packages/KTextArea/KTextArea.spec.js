@@ -33,6 +33,18 @@ describe('KTextArea', () => {
     expect(wrapper.find('.text-on-input label').element.innerHTML).toContain('A Label!')
   })
 
+  it('renders textarea when rows and cols are passed in', () => {
+    const wrapper = mount(KTextArea, {
+      propsData: {
+        testMode: true,
+        rows: 2,
+        cols: 15
+      }
+    })
+
+    expect(wrapper.find('textarea').exists()).toBeTruthy()
+  })
+
   it('reacts to text changes', () => {
     const wrapper = mount(KTextArea, {
       propsData: {
@@ -50,6 +62,21 @@ describe('KTextArea', () => {
     expect(textarea.element.value).toBe('hey, dude')
   })
 
+  it('should have style when value exceeds the character limit', () => {
+    const value = 'abc'.repeat(683)
+    const wrapper = mount(KTextArea, {
+      propsData: {
+        testMode: true,
+        value
+      }
+    })
+    const textarea = wrapper.find('textarea')
+
+    textarea.setValue(value)
+    expect(wrapper.find('textarea').element.value).toBe(value)
+    expect(wrapper.find('div.over-char-limit').exists()).toBe(true)
+  })
+
   it('matches snapshot', () => {
     const wrapper = mount(KTextArea, {
       propsData: {
@@ -63,20 +90,5 @@ describe('KTextArea', () => {
     })
 
     expect(wrapper.html()).toMatchSnapshot()
-  })
-
-  it('should have style when value exceeds the character limit', () => {
-    const value = 'abc'.repeat(683)
-    const wrapper = mount(KTextArea, {
-      propsData: {
-        testMode: true,
-        value
-      }
-    })
-
-    const textarea = wrapper.find('textarea')
-
-    textarea.setValue(value)
-    expect(wrapper.find('textarea').element.value).toBe(value)
   })
 })

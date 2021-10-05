@@ -42,10 +42,10 @@
           v-on="listeners" />
       </div>
     </div>
+
     <div
       :class="{'over-char-limit': currValue.length > characterLimit}"
-      class="type-sm color-black-45 float-right"
-    >
+      class="type-sm color-black-45 float-right">
       {{ currValue.length || value.length }} / {{ characterLimit }}
     </div>
   </div>
@@ -121,7 +121,6 @@ export default {
 textarea.form-control {
   font-family: 'Maison Neue';
   resize: none;
-  padding: 17px 0 0 22px !important;
 
   &::placeholder {
     color: var(--grey-500);
@@ -143,5 +142,4 @@ textarea.form-control {
 .over-char-limit {
   color: var(--red-600);
 }
-
 </style>
