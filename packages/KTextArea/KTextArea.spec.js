@@ -64,4 +64,19 @@ describe('KTextArea', () => {
 
     expect(wrapper.html()).toMatchSnapshot()
   })
+
+  it('should have style when value exceeds the character limit', () => {
+    const value = 'abc'.repeat(683)
+    const wrapper = mount(KTextArea, {
+      propsData: {
+        testMode: true,
+        value
+      }
+    })
+
+    const textarea = wrapper.find('textarea')
+
+    textarea.setValue(value)
+    expect(wrapper.find('textarea').element.value).toBe(value)
+  })
 })

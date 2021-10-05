@@ -42,11 +42,18 @@
           v-on="listeners" />
       </div>
     </div>
+    <div
+      :class="{'over-char-limit': currValue.length > characterLimit}"
+      class="type-sm color-black-45 float-right"
+    >
+      {{ currValue.length || value.length }} / {{ characterLimit }}
+    </div>
   </div>
 </template>
 
 <script>
 import { uuid } from 'vue-uuid'
+const CHARACTER_LIMIT = 2048
 
 export default {
   name: 'KTextArea',
@@ -62,6 +69,10 @@ export default {
     label: {
       type: String,
       default: ''
+    },
+    characterLimit: {
+      type: Number,
+      default: CHARACTER_LIMIT
     },
     rows: {
       type: Number,
@@ -124,13 +135,13 @@ textarea.form-control {
     color: var(--grey-600);
   }
 
-  &:focus::placeholder  {
+  &:focus::placeholder {
     color: transparent;
   }
 }
 
-// .k-input:not([type="checkbox"]):focus, .k-input:not([type="radio"]):focus, .form-control:not([type="checkbox"]):focus, .form-control:not([type="radio"]):focus {
-//   box-shadow: inset 0 0 0 2px var(--KInputFocus, var(--blue-400)) !important;
-// }
+.over-char-limit {
+  color: var(--red-600);
+}
 
 </style>
