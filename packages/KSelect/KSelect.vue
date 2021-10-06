@@ -93,7 +93,8 @@ export default {
 
   data: function () {
     return {
-      filterStr: ''
+      filterStr: '',
+      selectedItem: { label: '' }
     }
   },
 
@@ -124,7 +125,11 @@ export default {
   beforeMount () {
     // items need keys
     for (let i = 0; i < this.items.length; i++) {
-      this.items[i].key = this.items[i].label + i
+      this.items[i].key = `${this.items[i].label.replace(' ', '-')}-${i}`
+      if (this.items[i].selected) {
+        this.selectedItem = this.items[i]
+        this.items[i].key += '-selected'
+      }
     }
   },
   methods: {
@@ -133,6 +138,8 @@ export default {
         if (anItem.key === item.key) {
           anItem.selected = true
           anItem.key += '-selected'
+          this.selectedItem = anItem
+          this.filterStr = this.selectedItem.label
         } else {
           delete anItem.selected
           anItem.key = anItem.key.split('-selected')[0]
