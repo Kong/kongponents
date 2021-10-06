@@ -1,24 +1,45 @@
 <template>
-  <div>
-    <li v-if="$scopedSlots.default && $listeners.click">
+  <div
+    class="k-select-item"
+    @click="handleClick">
+    <li
+      v-if="$scopedSlots.default && $listeners.click"
+      :class="{ selected: item.selected }">
       <button
         :disabled="disabled"
         class="btn-link k-button non-visual-button"
         v-on="listeners" >
         <slot />
       </button>
+      <KIcon
+        v-if="item.selected"
+        class="selected-item-icon"
+        icon="check"
+        color="var(--blue-200)" />
     </li>
     <li
       v-else-if="$scopedSlots.default || (item && !item.to)"
-      :class="{ disabled: disabled }">
+      :class="{ disabled, selected: item.selected }">
       <slot>{{ item.label }}</slot>
+      <KIcon
+        v-if="item.selected"
+        class="selected-item-icon"
+        icon="check"
+        color="var(--blue-200)" />
     </li>
-    <li v-else-if="item.to">
+    <li
+      v-else-if="item.to"
+      :class="{ selected: item.selected }">
       <router-link
         :data-testid="item.label"
         :to="item.to">
         {{ item.label }}
       </router-link>
+      <KIcon
+        v-if="item.selected"
+        class="selected-item-icon"
+        icon="check"
+        color="var(--blue-200)" />
     </li>
   </div>
 </template>
@@ -29,34 +50,49 @@ export default {
   props: {
     item: {
       type: Object,
-      required: false,
       default: null,
       // Items must have a label
       validator: (item) => item.hasOwnProperty('label')
     },
     disabled: {
       type: Boolean,
-      default: false,
-      required: false
+      default: false
+    }
+  },
+  methods: {
+    handleClick () {
+      this.$emit('selected', this.item)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-li {
+.k-select-item li {
   display: flex;
   align-items: center;
   font-size: var(--type-xs);
   line-height: 26px;
-  color: var(--grey-600);
+  color: var(--grey-500);
+  padding-left: var(--spacing-xxs);
 
-  svg {
+  svg:not(.selected-item-icon) {
     margin-right: .75rem;
+  }
+
+  .selected-item-icon {
+    margin-left: auto;
   }
 
   &:hover {
     background-color: var(--grey-100);
+    color: var(--grey-600);
+  }
+
+  &.selected {
+    background-color: var(--blue-100);
+    color: var(--blue-500);
+    font-weight: 400;
   }
 
   button, a {

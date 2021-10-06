@@ -2,7 +2,9 @@
 
 **Select** - Dropdown/Select component
 
-<KSelect :items="[{ label: 'test' }]" />
+<KSelect :items="[{ label: 'test', selected: true }, { label: 'test 1' }, { label: 'test 2' }]" />
+
+<KSelect disabled :items="[{ label: 'test' }]" />
 ```vue
 <KSelect />
 ```

@@ -6,14 +6,21 @@
         toggle()
         return isToggled
       }"
+      placement="bottomStart"
+      class="k-select"
       @opened="toggle"
       @closed="toggle"
     >
       <slot :is-open="isToggled">
-        <KButton>Click Me!</KButton>
+        <KInput
+          v-bind="attrs"
+          v-model="filterStr"
+          :style="inputStyle"
+          class="k-select-input"
+          v-on="listeners" />
       </slot>
       <template v-slot:content>
-        <ul class="k-select-list">
+        <ul class="k-select-list ma-0 pa-0">
           <slot
             :items="items"
             :is-open="isToggled"
@@ -21,8 +28,9 @@
           >
             <SelectItem
               v-for="item in items"
-              :key="item.label"
+              :key="item.key"
               :item="item"
+              @selected="handleItemSelect"
             />
           </slot>
         </ul>
@@ -33,12 +41,12 @@
 
 <script lang="ts">
 import SelectItem from './SelectItem.vue'
-import { placements } from '@kongponents/kpop/KPop.vue'
 
 const defaultKPopAttributes = {
   hideCaret: true,
-  popoverClasses: 'k-dropdown-popover mt-1',
-  popoverTimeout: 0
+  popoverClasses: 'k-select-popover mt-0',
+  popoverTimeout: 0,
+  placement: 'bottomLeft'
 }
 
 export default {
@@ -49,23 +57,19 @@ export default {
       type: Object,
       default: () => ({})
     },
+    /**
+     * The width of the select and popover's min-width
+     */
     width: {
       type: String,
-      default: undefined
-    },
-    placement: {
-      type: String,
-      default: 'bottom',
-      validator: function (value) {
-        return Object.keys(placements).indexOf(value) !== -1
-      }
+      default: '170'
     },
     /**
      * The display style, can be either dropdown or select
      */
     appearance: {
       type: String,
-      default: 'dropdown',
+      default: 'select',
       validator: function (value) {
         return ['dropdown', 'select'].indexOf(value) !== -1
       }
@@ -87,58 +91,105 @@ export default {
     }
   },
 
+  data: function () {
+    return {
+      filterStr: ''
+    }
+  },
+
   computed: {
     boundKPopAttributes: function () {
+      const paddingOffset = 10 // 4px (left padding) + 4px (right padding) + 1px (left border) + 1px (right border)
+
       return {
         ...defaultKPopAttributes,
         ...this.kpopAttributes,
-        popoverClasses: `${defaultKPopAttributes.popoverClasses} ${this.kpopAttributes.popoverClasses} k-dropdown-pop-${this.appearance}`,
-        placement: this.placement
+        popoverClasses: `${defaultKPopAttributes.popoverClasses} ${this.kpopAttributes.popoverClasses} k-select-pop-${this.appearance}`,
+        placement: this.placement,
+        width: parseInt(this.width) - paddingOffset + '' // popover and input same width
       }
+    },
+    attrs () {
+      return this.$attrs
+    },
+    listeners () {
+      return this.$listeners
+    },
+    inputStyle: function () {
+      return {
+        width: this.width === 'auto' ? this.width : this.width + 'px'
+      }
+    }
+  },
+  beforeMount () {
+    // items need keys
+    for (let i = 0; i < this.items.length; i++) {
+      this.items[i].key = this.items[i].label + i
+    }
+  },
+  methods: {
+    handleItemSelect (item) {
+      this.items.forEach(anItem => {
+        if (anItem.key === item.key) {
+          anItem.selected = true
+          anItem.key += '-selected'
+        } else {
+          delete anItem.selected
+          anItem.key = anItem.key.split('-selected')[0]
+        }
+      })
     }
   }
 }
 </script>
 
 <style lang="scss">
-.k-select-trigger:after {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  margin-left: var(--spacing-xs, spacing(xs));
-  vertical-align: middle;
-  content: "";
-  border-top: 0.325em solid;
-  border-right: 0.325em solid transparent;
-  border-left: 0.325em solid transparent;
-}
+.k-select {
+  width: fit-content; // necessary for correct placement of popup
 
-.k-select-popover {
-  &.k-select-pop-dropdown {
-    --KPopPaddingY: 10px;
-    --KPopPaddingX: var(--spacing-sm);
-    border: 1px solid var(--blue-200);
+  .k-input {      // need this so input takes the
+    width: 100%;  // k-input-wrapper's width which uses this.width prop
   }
 
-  &.k-select-pop-select {
-    --KPopPaddingY: 10px;
-    --KPopPaddingX: var(--spacing-sm);
-    border: 1px solid var(--black-10);
+  .k-select-trigger:after {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: var(--spacing-xs, spacing(xs));
+    vertical-align: middle;
+    content: "";
+    border-top: 0.325em solid;
+    border-right: 0.325em solid transparent;
+    border-left: 0.325em solid transparent;
   }
 
-  ul {
-    margin: 0;
-    padding: 0;
-  }
+  .k-select-popover {
+    &.k-select-pop-dropdown {
+      --KPopPaddingY: var(--spacing-md);
+      --KPopPaddingX: var(--spacing-xxs);
+      border: 1px solid var(--blue-200);
+    }
 
-  a {
-    flex: 1;
-    color: var(--black-70);
+    &.k-select-popover {
+      --KPopPaddingY: var(--spacing-md);
+      --KPopPaddingX: var(--spacing-xxs);
+      border: 1px solid var(--black-10);
+    }
 
-    &:hover,
-    &:active,
-    &:focus {
-      text-decoration: none;
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    a {
+      flex: 1;
+      color: var(--black-70);
+
+      &:hover,
+      &:active,
+      &:focus {
+        text-decoration: none;
+      }
     }
   }
 }
