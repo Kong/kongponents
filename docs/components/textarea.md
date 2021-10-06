@@ -9,7 +9,7 @@
 ### Label
 String to be used as the textarea label. Make sure that if you are using the built in label you specify the `--KInputBackground` theming variable. This variable is used for the background of the label as well as the textarea element. 
 
-- `label`
+- `label` (**Note**: this field is required for accessibility reasons)
 
 <KTextArea label="Name" placeholder="I'm labelled!" />
 

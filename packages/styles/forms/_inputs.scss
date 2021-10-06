@@ -131,17 +131,12 @@
 }
 
 .k-input-wrapper textarea.form-control {
-  padding: 17px 0 0 22px !important;
+  resize: none;
+  padding: 17px 0 0 22px;
 
   &:focus {
     box-shadow: inset 0 0 0 2px var(--KInputFocus, var(--blue-400)) !important;
   }
-}
-
-textarea.form-control {
-  font-family: 'Maison Neue';
-  resize: none;
-  padding: 17px 0 0 22px !important;
 }
 
 .k-input-wrapper.input-error {

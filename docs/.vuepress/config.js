@@ -60,10 +60,10 @@ module.exports = {
               '/components/switch',
               '/components/table',
               '/components/tabs',
+              '/components/textarea',
               '/components/toaster',
               '/components/tooltip',
-              '/components/view-switcher',
-              '/components/textarea'
+              '/components/view-switcher'
             ]
           },
           {
