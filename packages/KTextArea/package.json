@@ -1,0 +1,28 @@
+{
+  "name": "@kongponents/ktextarea",
+  "version": "5.0.3",
+  "description": "Text area component",
+  "main": "dist/KTextArea.umd.min.js",
+  "componentName": "KTextArea",
+  "source": "KTextArea.vue",
+  "files": [
+    "dist",
+    "KTextArea.vue"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kong/kongponents.git"
+  },
+  "author": "Kong Inc",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Kong/kongponents/issues"
+  },
+  "homepage": "https://github.com/Kong/kongponents#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@kongponents/klabel": "^5.0.3"
+  }
+}
