@@ -25,6 +25,7 @@ import Krumbs from '../../packages/Krumbs/Krumbs.vue'
 import KSegmentedControl from '../../packages/KSegmentedControl/KSegmentedControl.vue'
 import KTable from '../../packages/KTable/KTable.vue'
 import KTabs from '../../packages/KTabs/KTabs.vue'
+import KTextArea from '../../packages/KTextArea/KTextArea.vue'
 import KToggle from '../../packages/KToggle/KToggle.js'
 import Komponent from '../../packages/Komponent/Komponent.js'
 import KSlideout from '../../packages/KSlideout/KSlideout.vue'
@@ -58,13 +59,14 @@ export default ({
   Vue.component('Krumbs', Krumbs)
   Vue.component('Komponent', Komponent)
   Vue.component('KSegmentedControl', KSegmentedControl)
-  Vue.component('KTabs', KTabs)
   Vue.component('KTable', KTable)
+  Vue.component('KTabs', KTabs)
+  Vue.component('KTextArea', KTextArea) 
   Vue.component('KToggle', KToggle)
   Vue.component('KSlideout', KSlideout)
   Vue.component('KSkeleton', KSkeleton)
   Vue.component('KSkeletonBox', KSkeletonBox)
-  Vue.component('KViewSwitcher', KViewSwitcher)
+  Vue.component('KViewSwitcher', KViewSwitcher) 
 
   Vue.prototype.$icons = Object.keys(icons)
 }
