@@ -2,68 +2,174 @@
 
 **Select** - Dropdown/Select component
 
-<KSelect :items="[{ label: 'test', selected: true }, { label: 'test 1' }, { label: 'test 2' }]" />
+<KSelect label="Pick Something:" :items="[{ 
+    label: 'test', 
+    value: 'test' 
+  }, { 
+    label: 'Test 1', 
+    value: 'test1'
+  }, { 
+    label: 'TEST 2', 
+    value: 'test2' 
+  }]" 
+/>
 
-<KSelect disabled :items="[{ label: 'test' }]" />
 ```vue
-<KSelect />
+<KSelect label="Pick Something:" :items="[{ 
+    label: 'test', 
+    value: 'test'
+  }, { 
+    label: 'Test 1', 
+    value: 'test1' 
+  }, { 
+    label: 'TEST 2', 
+    value: 'test2' 
+  }]" 
+/>
 ```
 
 ## Props
-### Prop1
-Description of prop1
+### items
+An array of items containing a `label` and `value`. May also specify that a certain item is `selected`
+by default.
 
-Actual component using prop1
-
-```vue
-<KSelect prop1="variation1" />
-<KSelect prop1="variation2" />
-<KSelect prop1="variation3" />
-```
-
-## Slots
-- `default` - default slot description
-- `slot1` - slot1 description
-
-```vue
-<KSelect>
-  here is some slot content
-</KSelect>
-```
-
-## Theming
-| Variable | Purpose
-|:-------- |:-------
-| `--KSelectBorderColor `| KSelect border color
-
-
-An Example of changing the border color of KSelect to lime might look 
-like:
-
-> Note: We are scoping the overrides to a wrapper in this example
-
-<template>
-  <div class="KSelect-wrapper">
-    <KSelect />
-  </div>
-</template>
+<KSelect :items="[{ 
+    label: 'test', 
+    value: 'test', 
+    selected: true 
+  }, { 
+    label: 'Test 1', 
+    value: 'test1' 
+  }, { 
+    label: 'TEST 2', 
+    value: 'test2' 
+  }]" 
+/>
 
 ```vue
-<template>
-  <div class="KSelect-wrapper">
-    <KSelect />
-  </div>
-</template>
-
-<style>
-.KSelect-wrapper {
-  --KSelect-wrapperBorderColor: lime;
-}
-</style>
+<KSelect :items="[{ 
+    label: 'test', 
+    value: 'test', 
+    selected: true 
+  }, { 
+    label: 'Test 1', 
+    value: 'test1' 
+  }, { 
+    label: 'TEST 2', 
+    value: 'test2' 
+  }]" 
+/>
 ```
 
-<style lang="scss">
-.KSelect-wrapper {
-  --KSelect-wrapperBorderColor: lime;
-}
-</style>
+### label
+The label for the select.
+
+<KSelect label="Cool label" :items="[{ 
+    label: 'test', 
+    value: 'test',
+    selected: true
+  }, { 
+    label: 'Test 1', 
+    value: 'test1' 
+  }]" 
+/>
+
+```vue
+<KSelect label="Cool label" :items="[{ 
+    label: 'test', 
+    value: 'test',
+    selected: true
+  }, { 
+    label: 'Test 1', 
+    value: 'test1'
+  }]" 
+/>
+```
+
+### appearance
+There are two styles of selects, `select` and `dropdown` (default).
+
+The `dropdown` appearance style has a selected item object. You can deselect the item by clicking
+the Clear icon.
+
+<KSelect :items="[{ 
+    label: 'test', 
+    value: 'test',
+    selected: true
+  }, { 
+    label: 'Test 1', 
+    value: 'test1'
+  }]" 
+/>
+
+```vue
+<KSelect :items="[{ 
+    label: 'test', 
+    value: 'test',
+    selected: true
+  }, { 
+    label: 'Test 1', 
+    value: 'test1'
+  }]" 
+/>
+```
+
+The `select` style displays the selected item in the textbox and also displays a chevron. There is no
+way to clear the selection once it is made.
+
+<KSelect appearance='select' :items="[{ 
+    label: 'test', 
+    value: 'test',
+    selected: true
+  }, { 
+    label: 'Test 1', 
+    value: 'test1'
+  }]" 
+/>
+
+```vue
+<KSelect appearance='select' :items="[{ 
+    label: 'test', 
+    value: 'test',
+    selected: true
+  }, { 
+    label: 'Test 1', 
+    value: 'test1'
+  }]" 
+/>
+```
+
+### width
+You can pass a `width` string for dropdown. By default the `width` is `170px`. This is the width
+of the input, dropdown, and selected item.
+
+<KSelect width="100" :items="[{ 
+    label: 'test', 
+    value: 'test',
+    selected: true
+  }, { 
+    label: 'Test 1', 
+    value: 'test1'
+  }]" 
+/>
+
+```vue
+<KSelect width="100" :items="[{ 
+    label: 'test', 
+    value: 'test',
+    selected: true
+  }, { 
+    label: 'Test 1', 
+    value: 'test1'
+  }]" 
+/>
+```
+
+## Attribute Binding
+You can pass any input attribute and it will get properly bound to the element.
+
+<KSelect disabled placeholder="type something" :items="[{ label: 'test', value: 'test' }]" />
+
+```vue
+<KSelect disabled placeholder="type something" :items="[{ label: 'test', value: 'test' }]" />
+```

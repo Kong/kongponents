@@ -1,45 +1,85 @@
 <template>
-  <KToggle v-slot="{toggle, isToggled}">
-    <KPop
-      v-bind="boundKPopAttributes"
-      :on-popover-click="() => {
-        toggle()
-        return isToggled
-      }"
-      placement="bottomStart"
-      class="k-select"
-      @opened="toggle"
-      @closed="toggle"
-    >
-      <slot :is-open="isToggled">
-        <KInput
-          v-bind="attrs"
-          v-model="filterStr"
-          :style="inputStyle"
-          class="k-select-input"
-          v-on="listeners" />
-      </slot>
-      <template v-slot:content>
-        <ul class="k-select-list ma-0 pa-0">
-          <slot
-            :items="items"
-            :is-open="isToggled"
-            name="items"
-          >
-            <SelectItem
-              v-for="item in items"
-              :key="item.key"
-              :item="item"
-              @selected="handleItemSelect"
-            />
-          </slot>
-        </ul>
-      </template>
-    </KPop>
-  </KToggle>
+  <div class="k-select">
+    <KLabel
+      v-if="label"
+      :for="selectId">{{ label }}</KLabel>
+    <div :id="selectId">
+      <div
+        v-if="selectedItem && appearance === 'dropdown'"
+        :style="selectionStyle"
+        class="k-select-item-selection px-3 py-1">
+        <div
+          :value="selectedItem.value"
+          class="selected-item-label">{{ selectedItem.label }}</div>
+        <button
+          class="clear-selection-icon"
+          @click="clearSelection()">
+          <KIcon
+            color="var(--blue-200)"
+            icon="clear"
+          />
+        </button>
+      </div>
+      <KToggle v-slot="{toggle, isToggled}">
+        <KPop
+          v-bind="boundKPopAttributes"
+          :on-popover-click="() => {
+            toggle()
+            return isToggled
+          }"
+          placement="bottomStart"
+          @opened="() => {
+            filterStr = ''
+            toggle()
+          }"
+          @closed="() => {
+            if (selectedItem && appearance === 'select') {
+              filterStr = selectedItem.label
+            }
+            toggle()
+          }"
+        >
+          <div :class="{ 'k-select-input': appearance === 'select'}">
+            <KIcon
+              v-if="appearance === 'select'"
+              icon="chevronDown"
+              color="var(--grey-500)"
+              size="15" />
+            <KInput
+              :is-open="isToggled"
+              v-bind="attrs"
+              v-model="filterStr"
+              :style="inputStyle"
+              class="k-select-input"
+              @keyup.enter="() => {
+                toggle()
+                return isToggled
+            }" />
+          </div>
+          <template v-slot:content>
+            <ul class="k-select-list ma-0 pa-0">
+              <slot
+                :items="items"
+                :is-open="isToggled"
+                name="items"
+              >
+                <SelectItem
+                  v-for="item in filteredItems"
+                  :key="item.key"
+                  :item="item"
+                  @selected="handleItemSelect"
+                />
+              </slot>
+            </ul>
+          </template>
+        </KPop>
+      </KToggle>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
+import { uuid } from 'vue-uuid'
 import SelectItem from './SelectItem.vue'
 
 const defaultKPopAttributes = {
@@ -57,6 +97,10 @@ export default {
       type: Object,
       default: () => ({})
     },
+    label: {
+      type: String,
+      default: ''
+    },
     /**
      * The width of the select and popover's min-width
      */
@@ -69,32 +113,39 @@ export default {
      */
     appearance: {
       type: String,
-      default: 'select',
+      default: 'dropdown',
       validator: function (value) {
         return ['dropdown', 'select'].indexOf(value) !== -1
       }
     },
     /**
-     * Items are JSON objects with required 'label' and optional 'to' property
-     * plugged into a <router-link> for navigation
+     * Items are JSON objects with required 'label' and 'value'
      * {
-     *  label: Item 1,
-     *  to: '/home'
+     *  label: 'Item 1',
+     *  value: 'item1'
      * }
      */
     items: {
       type: Array,
       required: false,
       default: () => [],
-      // Items must have a label
-      validator: (items) => !items.length || items.some(i => i.hasOwnProperty('label'))
+      // Items must have a label & value
+      validator: (items) => !items.length || items.some(i => i.hasOwnProperty('label') && i.hasOwnProperty('value'))
+    },
+    /**
+     * Test mode - for testing only, strips out generated ids
+     */
+    testMode: {
+      type: Boolean,
+      default: false
     }
   },
 
   data: function () {
     return {
       filterStr: '',
-      selectedItem: { label: '' }
+      selectedItem: null,
+      selectId: !this.testMode ? uuid.v1() : 'test-select-id-1234'
     }
   },
 
@@ -107,19 +158,27 @@ export default {
         ...this.kpopAttributes,
         popoverClasses: `${defaultKPopAttributes.popoverClasses} ${this.kpopAttributes.popoverClasses} k-select-pop-${this.appearance}`,
         placement: this.placement,
-        width: parseInt(this.width) - paddingOffset + '' // popover and input same width
+        width: parseInt(this.width) - paddingOffset + '', // popover and input same width
+        disabled: this.$attrs.disabled
       }
     },
     attrs () {
       return this.$attrs
     },
-    listeners () {
-      return this.$listeners
-    },
     inputStyle: function () {
       return {
         width: this.width === 'auto' ? this.width : this.width + 'px'
       }
+    },
+    selectionStyle: function () {
+      const paddingOffset = 24 // 12px (left padding) + 12px (right padding)
+
+      return {
+        width: this.width === 'auto' ? this.width : (this.width - paddingOffset) + 'px'
+      }
+    },
+    filteredItems: function () {
+      return this.items.filter(item => item.label.toLowerCase().includes(this.filterStr.toLowerCase()))
     }
   },
   beforeMount () {
@@ -129,6 +188,10 @@ export default {
       if (this.items[i].selected) {
         this.selectedItem = this.items[i]
         this.items[i].key += '-selected'
+
+        if (this.appearance === 'select') {
+          this.filterStr = this.selectedItem.label
+        }
       }
     }
   },
@@ -139,12 +202,19 @@ export default {
           anItem.selected = true
           anItem.key += '-selected'
           this.selectedItem = anItem
-          this.filterStr = this.selectedItem.label
         } else {
           delete anItem.selected
           anItem.key = anItem.key.split('-selected')[0]
         }
       })
+      this.filterStr = this.appearance === 'dropdown' ? '' : item.label
+    },
+    clearSelection () {
+      this.items.forEach(anItem => {
+        delete anItem.selected
+        anItem.key = anItem.key.split('-selected')[0]
+      })
+      this.selectedItem = null
     }
   }
 }
@@ -153,6 +223,41 @@ export default {
 <style lang="scss">
 .k-select {
   width: fit-content; // necessary for correct placement of popup
+
+  .k-select-item-selection {
+    background-color: var(--blue-100);
+    color: var(--blue-500);
+    font-weight: 400;
+    display: flex;
+
+    .selected-item-label {
+      align-self: center;
+    }
+
+    .clear-selection-icon {
+      display: contents;
+
+      svg {
+        margin-left: auto;
+      }
+    }
+  }
+
+  .k-select-input {
+    position: relative;
+    display: inline-block;
+
+    input.k-input {
+      padding: var(--spacing-xs);
+    }
+
+    svg {
+      position: absolute;
+      top: 15px;
+      right: 6px;
+      z-index: 9;
+    }
+  }
 
   .k-input {      // need this so input takes the
     width: 100%;  // k-input-wrapper's width which uses this.width prop
@@ -177,7 +282,7 @@ export default {
       border: 1px solid var(--blue-200);
     }
 
-    &.k-select-popover {
+    &.k-select-pop-select {
       --KPopPaddingY: var(--spacing-md);
       --KPopPaddingX: var(--spacing-xxs);
       border: 1px solid var(--black-10);
