@@ -22,7 +22,7 @@ import KIcon from '@kongponents/kicon/KIcon.vue'
 
 export default {
   name: 'SelectItem',
-  components: [KIcon],
+  components: { KIcon },
   props: {
     item: {
       type: Object,
