@@ -4,7 +4,8 @@
     class="k-select-item"
     @click="handleClick">
     <button
-      :class="{ disabled, selected: item.selected }">
+      :class="{ disabled, selected: item.selected }"
+      :value="item.value">
       <slot>{{ item.label }}</slot>
       <KIcon
         v-if="item.selected"
