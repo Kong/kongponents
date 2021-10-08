@@ -66,7 +66,7 @@
                 :is-open="isToggled"
                 name="items"
               >
-                <SelectItem
+                <KSelectItem
                   v-for="item in filteredItems"
                   :key="item.key"
                   :item="item"
@@ -83,7 +83,7 @@
 
 <script lang="ts">
 import { uuid } from 'vue-uuid'
-import SelectItem from './SelectItem.vue'
+import KSelectItem from './KSelectItem.vue'
 
 const defaultKPopAttributes = {
   hideCaret: true,
@@ -94,7 +94,7 @@ const defaultKPopAttributes = {
 
 export default {
   name: 'KSelect',
-  components: { SelectItem },
+  components: { KSelectItem },
   props: {
     kpopAttributes: {
       type: Object,
