@@ -27,8 +27,8 @@ export default {
     item: {
       type: Object,
       default: null,
-      // Items must have a label
-      validator: (item) => item.hasOwnProperty('label')
+      // Items must have a label and value
+      validator: (item) => item.hasOwnProperty('label') && item.hasOwnProperty('value')
     },
     disabled: {
       type: Boolean,
