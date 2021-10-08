@@ -2,8 +2,11 @@
   <div class="k-select">
     <KLabel
       v-if="label"
-      :for="selectId">{{ label }}</KLabel>
-    <div :id="selectId">
+      :for="selectId"
+      data-testid="k-select-label">{{ label }}</KLabel>
+    <div
+      :id="selectId"
+      data-testid="k-select-selected-item">
       <div
         v-if="selectedItem && appearance === 'dropdown'"
         :style="selectionStyle"
@@ -42,7 +45,8 @@
         >
           <div
             :id="selectInputId"
-            :class="{ 'k-select-input': appearance === 'select'}">
+            :class="{ 'k-select-input': appearance === 'select'}"
+            data-testid="k-select-input">
             <KIcon
               v-if="appearance === 'select'"
               icon="chevronDown"
@@ -53,11 +57,7 @@
               v-bind="attrs"
               v-model="filterStr"
               :style="inputStyle"
-              class="k-select-input"
-              @keyup.enter="() => {
-                toggle()
-                return isToggled
-            }" />
+              class="k-select-input" />
           </div>
           <template v-slot:content>
             <ul class="k-select-list ma-0 pa-0">
@@ -81,9 +81,17 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
+// import Vue from 'vue'
 import { uuid } from 'vue-uuid'
+import KIcon from '@kongponents/kicon/KIcon.vue'
+import KInput from '@kongponents/kinput/KInput.vue'
+import KLabel from '@kongponents/klabel/KLabel.vue'
+import KPop from '@kongponents/kpop/KPop.vue'
+// import KToggle from '@kongponents/ktoggle'
 import KSelectItem from './KSelectItem.vue'
+
+// Vue.component('KToggle', KToggle)
 
 const defaultKPopAttributes = {
   hideCaret: true,
@@ -94,7 +102,7 @@ const defaultKPopAttributes = {
 
 export default {
   name: 'KSelect',
-  components: { KSelectItem },
+  components: { KIcon, KInput, KLabel, KPop, KSelectItem },
   props: {
     kpopAttributes: {
       type: Object,
