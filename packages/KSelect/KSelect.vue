@@ -57,9 +57,12 @@
               :is-open="isToggled"
               v-bind="attrs"
               v-model="filterStr"
+              :placeholder="placeholder || attrs.placeholder"
               :style="inputStyle"
               class="k-select-input"
-              data-testid="k-select-input-textbox" />
+              data-testid="k-select-input-textbox"
+              v-on="listeners"
+              @focus="toggle()" />
           </div>
           <template v-slot:content>
             <ul class="k-select-list ma-0 pa-0">
@@ -68,12 +71,19 @@
                 :is-open="isToggled"
                 name="items"
               >
+                <div v-if="filteredItems.length">
+                  <KSelectItem
+                    v-for="item in filteredItems"
+                    :key="item.key"
+                    :item="item"
+                    @selected="handleItemSelect"
+                  />
+                </div>
                 <KSelectItem
-                  v-for="item in filteredItems"
-                  :key="item.key"
-                  :item="item"
-                  @selected="handleItemSelect"
-                />
+                  v-else
+                  key="k-select-empty-state"
+                  :item="{ label: 'No results', value: 'no_results' }"
+                  class="k-select-empty-item"/>
               </slot>
             </ul>
           </template>
@@ -117,6 +127,10 @@ export default {
     width: {
       type: String,
       default: '170'
+    },
+    placeholder: {
+      type: String,
+      default: 'Filter...'
     },
     /**
      * The display style, can be either dropdown or select
@@ -175,6 +189,9 @@ export default {
     },
     attrs () {
       return this.$attrs
+    },
+    listeners () {
+      return this.$listeners
     },
     inputStyle: function () {
       return {
@@ -297,6 +314,13 @@ export default {
       --KPopPaddingY: var(--spacing-md);
       --KPopPaddingX: var(--spacing-xxs);
       border: 1px solid var(--black-10);
+    }
+
+    .k-select-empty-item button,
+    .k-select-empty-item button:focus,
+    .k-select-empty-item button:hover {
+      font-style: italic;
+      color: var(--grey-400);
     }
 
     ul {
