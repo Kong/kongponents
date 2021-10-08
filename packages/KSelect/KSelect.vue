@@ -31,6 +31,7 @@
             return isToggled
           }"
           :target="`#${selectInputId}`"
+          :test-mode="testMode"
           placement="bottomStart"
           @opened="() => {
             filterStr = ''
@@ -57,7 +58,8 @@
               v-bind="attrs"
               v-model="filterStr"
               :style="inputStyle"
-              class="k-select-input" />
+              class="k-select-input"
+              data-testid="k-select-input-textbox" />
           </div>
           <template v-slot:content>
             <ul class="k-select-list ma-0 pa-0">
@@ -82,16 +84,13 @@
 </template>
 
 <script>
-// import Vue from 'vue'
 import { uuid } from 'vue-uuid'
 import KIcon from '@kongponents/kicon/KIcon.vue'
 import KInput from '@kongponents/kinput/KInput.vue'
 import KLabel from '@kongponents/klabel/KLabel.vue'
 import KPop from '@kongponents/kpop/KPop.vue'
-// import KToggle from '@kongponents/ktoggle'
+import KToggle from '@kongponents/ktoggle/KToggle'
 import KSelectItem from './KSelectItem.vue'
-
-// Vue.component('KToggle', KToggle)
 
 const defaultKPopAttributes = {
   hideCaret: true,
@@ -102,7 +101,7 @@ const defaultKPopAttributes = {
 
 export default {
   name: 'KSelect',
-  components: { KIcon, KInput, KLabel, KPop, KSelectItem },
+  components: { KIcon, KInput, KLabel, KPop, KSelectItem, KToggle },
   props: {
     kpopAttributes: {
       type: Object,

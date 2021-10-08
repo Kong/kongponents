@@ -1,7 +1,7 @@
 <template>
   <div
     :key="item.key"
-    :data-testid="`k-select-item-${value}`"
+    :data-testid="`k-select-item-${item.value}`"
     class="k-select-item"
     @click="handleClick">
     <button

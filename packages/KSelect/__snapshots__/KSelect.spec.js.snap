@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KSelect matches snapshot 1`] = `
+<div class="k-select">
+  <!---->
+  <div id="test-select-id-1234" data-testid="k-select-selected-item">
+    <!---->
+    <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button">
+      <div id="test-select-input-id-1234" data-testid="k-select-input" class="">
+        <!---->
+        <div class="k-input-wrapper k-select-input" data-testid="k-select-input-textbox" style="width: 170px;"><input data-testid="k-select-input-textbox" class="form-control k-input k-input-medium">
+          <!---->
+        </div>
+      </div>
+      <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-dropdown hide-caret" style="width: 160px; display: none;" name="fade">
+        <!---->
+        <div class="k-popover-content">
+          <ul class="k-select-list ma-0 pa-0">
+            <div data-testid="k-select-item-label1" class="k-select-item"><button value="label1" class="">Label 1
+                <!----></button></div>
+          </ul>
+        </div>
+        <!---->
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`KSelect renders props when passed 1`] = `
+<div class="k-select">
+  <!---->
+  <div id="test-select-id-1234" data-testid="k-select-selected-item">
+    <!---->
+    <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button" aria-expanded="true">
+      <div id="test-select-input-id-1234" data-testid="k-select-input" class="">
+        <!---->
+        <div class="k-input-wrapper k-select-input" data-testid="k-select-input-textbox" style="width: 170px;" is-open="true"><input data-testid="k-select-input-textbox" class="form-control k-input k-input-medium" is-open="true">
+          <!---->
+        </div>
+      </div>
+      <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-dropdown hide-caret" style="width: 160px;" name="fade">
+        <!---->
+        <div class="k-popover-content">
+          <ul class="k-select-list ma-0 pa-0">
+            <div data-testid="k-select-item-label1" class="k-select-item"><button value="label1" class="">Label 1
+                <!----></button></div>
+            <div data-testid="k-select-item-label2" class="k-select-item"><button value="label2" class="">Label 2
+                <!----></button></div>
+            <div data-testid="k-select-item-label3" class="k-select-item"><button value="label3" class="">Label 3
+                <!----></button></div>
+          </ul>
+        </div>
+        <!---->
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`KSelect renders with selected item 1`] = `
+<div class="k-select">
+  <!---->
+  <div id="test-select-id-1234" data-testid="k-select-selected-item">
+    <div class="k-select-item-selection px-3 py-1" style="width: 146px;">
+      <div value="label1" class="selected-item-label">Label 1</div> <button class="clear-selection-icon"><svg height="24" width="24" viewBox="0 0 20 20" role="img" class="kong-icon kong-icon-clear">
+          <title>clear</title>
+          <g>
+            <circle cx="10" cy="10" r="6.25" fill="none" stroke="var(--blue-200)" stroke-width="2" stroke-linecap="round"></circle>
+            <!---->
+            <!---->
+            <!---->
+            <!---->
+            <path d="M12 12 8 8M12 8l-4 4" stroke="var(--blue-200)" stroke-width="2" stroke-linecap="round"></path>
+          </g>
+        </svg></button>
+    </div>
+    <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button">
+      <div id="test-select-input-id-1234" data-testid="k-select-input" class="">
+        <!---->
+        <div class="k-input-wrapper k-select-input" data-testid="k-select-input-textbox" style="width: 170px;"><input data-testid="k-select-input-textbox" class="form-control k-input k-input-medium">
+          <!---->
+        </div>
+      </div>
+      <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-dropdown hide-caret" style="width: 160px; display: none;" name="fade">
+        <!---->
+        <div class="k-popover-content">
+          <ul class="k-select-list ma-0 pa-0">
+            <div data-testid="k-select-item-label1" class="k-select-item"><button value="label1" class="selected">Label 1 <svg height="24" width="24" viewBox="0 0 20 20" role="img" class="kong-icon selected-item-icon kong-icon-check">
+                  <title>check</title>
+                  <g>
+                    <!---->
+                    <!---->
+                    <path d="m14 7-6 6-3-3" fill="none" stroke="var(--blue-200)" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </g>
+                </svg></button></div>
+          </ul>
+        </div>
+        <!---->
+      </div>
+    </div>
+  </div>
+</div>
+`;

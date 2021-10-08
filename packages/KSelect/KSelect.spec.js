@@ -30,9 +30,13 @@ describe('KSelect', () => {
       }
     })
 
-    expect(wrapper.find(`.k-select-item button[value="${vals[0]}"]`).html()).toEqual(expect.stringContaining(labels[0]))
-    expect(wrapper.find(`.k-select-item button[value="${vals[1]}"]`).html()).toEqual(expect.stringContaining(labels[1]))
-    expect(wrapper.find(`.k-select-item button[value="${vals[2]}"]`).html()).toEqual(expect.stringContaining(labels[2]))
+    const input = wrapper.find('[data-testid="k-select-input"]')
+
+    input.trigger('click')
+
+    expect(wrapper.find(`[data-testid="k-select-item-${vals[0]}"]`).html()).toEqual(expect.stringContaining(labels[0]))
+    expect(wrapper.find(`[data-testid="k-select-item-${vals[1]}"]`).html()).toEqual(expect.stringContaining(labels[1]))
+    expect(wrapper.find(`[data-testid="k-select-item-${vals[2]}"]`).html()).toEqual(expect.stringContaining(labels[2]))
     expect(wrapper.find('.k-select-pop-dropdown').exists()).toBe(true)
     expect(wrapper.html()).toMatchSnapshot()
   })
@@ -52,23 +56,26 @@ describe('KSelect', () => {
   })
 
   it('renders with correct px width', () => {
+    const width = 350
+
     const wrapper = mount(KSelect, {
       propsData: {
         testMode: true,
-        'width': '350',
+        'width': width + '',
         items: [{
           label: 'Label 1',
-          value: 'label1'
+          value: 'label1',
+          selected: true
         }]
       }
     })
-    const selectedItem = wrapper.find('.k-select .k-select-item-selection')
-    const input = wrapper.find('.k-input-wrapper .k-select-input')
-    const popover = wrapper.find('.k-popover .k-select-popover')
+    const selectedItem = wrapper.find('.k-select-item-selection')
+    const input = wrapper.find('[data-testid="k-select-input-textbox"]')
+    const popover = wrapper.find('.k-select-popover')
 
-    expect(selectedItem.element.style['width']).toEqual('350px')
+    expect(selectedItem.element.style['width']).toEqual((width - 24) + 'px')
     expect(input.element.style['width']).toEqual('350px')
-    expect(popover.element.style['width']).toEqual('340px') // 10 pixels less with spacing
+    expect(popover.element.style['width']).toEqual((width - 10) + 'px') // 10 pixels less with spacing
   })
 
   it('renders with correct label', () => {
@@ -102,7 +109,7 @@ describe('KSelect', () => {
     expect(wrapper.find('.k-select-pop-select').exists()).toBe(true)
   })
 
-  it('reacts to text change', () => {
+  it('reacts to text change and select', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
 
@@ -118,22 +125,34 @@ describe('KSelect', () => {
         }]
       }
     })
-    const input = wrapper.find('input')
+    const input = wrapper.find('[data-testid="k-select-input"]')
 
-    expect(wrapper.find(`.k-select-item button[value="${vals[0]}"]`).html()).toEqual(expect.stringContaining(labels[0]))
-    expect(wrapper.find(`.k-select-item button[value="${vals[1]}"]`).html()).toEqual(expect.stringContaining(labels[1]))
+    input.trigger('click')
 
-    input.setValue(labels[0])
+    expect(wrapper.find(`[data-testid="k-select-item-${vals[0]}"]`).html()).toEqual(expect.stringContaining(labels[0]))
+    expect(wrapper.find(`[data-testid="k-select-item-${vals[1]}"]`).html()).toEqual(expect.stringContaining(labels[1]))
 
-    expect(wrapper.find(`.k-select-item button[value="${vals[0]}"]`).html()).toEqual(expect.stringContaining(labels[0]))
-    expect(wrapper.find(`.k-select-item button[value="${vals[1]}"]`).html()).toBeFalsy()
+    const input2 = wrapper.find('input')
 
-    wrapper.find(`.k-select-item button[value="${vals[0]}"]`).simulate('click')
+    input2.setValue(labels[0])
+
+    expect(wrapper.find(`[data-testid="k-select-item-${vals[0]}"]`).html()).toEqual(expect.stringContaining(labels[0]))
+    expect(wrapper.find(`[data-testid="k-select-item-${vals[1]}"]`).exists()).toBeFalsy()
+
+    wrapper.find(`[data-testid="k-select-item-${vals[0]}"]`).trigger('click')
     expect(wrapper.find('.selected-item-label').html()).toEqual(expect.stringContaining(labels[0]))
   })
 
   it('matches snapshot', () => {
-    const wrapper = mount(KSelect)
+    const wrapper = mount(KSelect, {
+      propsData: {
+        testMode: true,
+        items: [{
+          label: 'Label 1',
+          value: 'label1'
+        }]
+      }
+    })
 
     expect(wrapper.html()).toMatchSnapshot()
   })
