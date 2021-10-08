@@ -3,7 +3,7 @@
     :key="item.key"
     class="k-select-item"
     @click="handleClick">
-    <li
+    <button
       :class="{ disabled, selected: item.selected }">
       <slot>{{ item.label }}</slot>
       <KIcon
@@ -11,7 +11,7 @@
         class="selected-item-icon"
         icon="check"
         color="var(--blue-200)" />
-    </li>
+    </button>
   </div>
 </template>
 
@@ -39,13 +39,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.k-select-item li {
+.k-select-item button {
   display: flex;
   align-items: center;
   font-size: var(--type-xs);
   line-height: 26px;
   color: var(--grey-500);
   padding-left: var(--spacing-xxs);
+  width: 100%;
+  border: none;
+  font-family: var(--font-family-sans);
+  background-color: var(--white);
 
   svg:not(.selected-item-icon) {
     margin-right: .75rem;

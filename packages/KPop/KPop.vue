@@ -4,7 +4,9 @@
     :id="$scopedSlots.default ? targetId : null"
     :aria-expanded="$scopedSlots.default ? isOpen : null"
     :aria-controls="$scopedSlots.default ? popoverId : null"
-    :role="$scopedSlots.default ? 'button' : null">
+    :role="$scopedSlots.default ? 'button' : null"
+    @keydown.enter="e => handleClick(e)"
+    @keydown.esc="hidePopper">
     <slot>
       <KButton
         :id="targetId"

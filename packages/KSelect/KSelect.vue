@@ -27,6 +27,7 @@
             toggle()
             return isToggled
           }"
+          :target="`#${selectInputId}`"
           placement="bottomStart"
           @opened="() => {
             filterStr = ''
@@ -39,7 +40,9 @@
             toggle()
           }"
         >
-          <div :class="{ 'k-select-input': appearance === 'select'}">
+          <div
+            :id="selectInputId"
+            :class="{ 'k-select-input': appearance === 'select'}">
             <KIcon
               v-if="appearance === 'select'"
               icon="chevronDown"
@@ -145,7 +148,8 @@ export default {
     return {
       filterStr: '',
       selectedItem: null,
-      selectId: !this.testMode ? uuid.v1() : 'test-select-id-1234'
+      selectId: !this.testMode ? uuid.v1() : 'test-select-id-1234',
+      selectInputId: !this.testMode ? uuid.v1() : 'test-select-input-id-1234'
     }
   },
 
