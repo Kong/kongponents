@@ -1,6 +1,7 @@
 <template>
   <div
     :key="item.key"
+    :data-testid="`k-select-item-${value}`"
     class="k-select-item"
     @click="handleClick">
     <button
@@ -16,9 +17,12 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
+import KIcon from '@kongponents/kicon/KIcon.vue'
+
 export default {
   name: 'SelectItem',
+  components: [KIcon],
   props: {
     item: {
       type: Object,
