@@ -4,16 +4,20 @@
     :data-testid="`k-select-item-${item.value}`"
     class="k-select-item"
     @click="handleClick">
-    <button
-      :class="{ disabled, selected: item.selected }"
-      :value="item.value">
-      <slot>{{ item.label }}</slot>
-      <KIcon
-        v-if="item.selected"
-        class="selected-item-icon"
-        icon="check"
-        color="var(--blue-200)" />
-    </button>
+    <li
+      role="option"
+      class="d-block">
+      <button
+        :class="{ disabled, selected: item.selected }"
+        :value="item.value">
+        <slot>{{ item.label }}</slot>
+        <KIcon
+          v-if="item.selected"
+          class="selected-item-icon"
+          icon="check"
+          color="var(--blue-200)" />
+      </button>
+    </li>
   </div>
 </template>
 

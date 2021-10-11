@@ -15,8 +15,9 @@
           :value="selectedItem.value"
           class="selected-item-label">{{ selectedItem.label }}</div>
         <button
-          class="clear-selection-icon"
-          @click="clearSelection()">
+          class="clear-selection-icon cursor-pointer non-visual-button"
+          @click="clearSelection"
+          @keyup.enter="clearSelection">
           <KIcon
             color="var(--blue-200)"
             icon="clear"
@@ -30,8 +31,8 @@
             toggle()
             return isToggled
           }"
-          :target="`#${selectInputId}`"
           :test-mode="testMode"
+          :target="`[id='${selectInputId}']`"
           placement="bottomStart"
           @opened="() => {
             filterStr = ''
@@ -47,7 +48,8 @@
           <div
             :id="selectInputId"
             :class="{ 'k-select-input': appearance === 'select'}"
-            data-testid="k-select-input">
+            data-testid="k-select-input"
+            role="listbox">
             <KIcon
               v-if="appearance === 'select'"
               icon="chevronDown"
@@ -55,14 +57,14 @@
               size="15" />
             <KInput
               :is-open="isToggled"
+              :id="selectTextId"
               v-bind="attrs"
               v-model="filterStr"
               :placeholder="placeholder || attrs.placeholder"
               :style="inputStyle"
               class="k-select-input"
-              data-testid="k-select-input-textbox"
               v-on="listeners"
-              @focus="toggle()" />
+              @keyup="triggerFocus(isToggled)" />
           </div>
           <template v-slot:content>
             <ul class="k-select-list ma-0 pa-0">
@@ -170,7 +172,8 @@ export default {
       filterStr: '',
       selectedItem: null,
       selectId: !this.testMode ? uuid.v1() : 'test-select-id-1234',
-      selectInputId: !this.testMode ? uuid.v1() : 'test-select-input-id-1234'
+      selectInputId: !this.testMode ? uuid.v1() : 'test-select-input-id-1234',
+      selectTextId: !this.testMode ? uuid.v1() : 'test-select-text-id-1234'
     }
   },
 
@@ -243,6 +246,13 @@ export default {
         anItem.key = anItem.key.split('-selected')[0]
       })
       this.selectedItem = null
+    },
+    triggerFocus (isToggled) {
+      const inputElem = document.getElementById(this.selectTextId)
+
+      if (!isToggled && inputElem) { // simulate click to trigger dropdown open
+        inputElem.click()
+      }
     }
   }
 }
@@ -263,7 +273,9 @@ export default {
     }
 
     .clear-selection-icon {
-      display: contents;
+      margin-left: auto;
+      padding: 0;
+      height: 24px;
 
       svg {
         margin-left: auto;

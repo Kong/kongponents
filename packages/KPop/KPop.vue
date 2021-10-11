@@ -12,7 +12,6 @@
         :id="targetId"
         :aria-expanded="isOpen"
         :aria-controls="popoverId"
-        tab-index="0"
         data-testid="kpop-button">
         {{ buttonText }}
       </KButton>
@@ -247,7 +246,7 @@ export default {
       reference: null,
       isOpen: false,
       popoverId: !this.testMode ? uuid.v1() : 'test-popover-id-1234',
-      targetId: !this.testMode ? uuid.v1() : 'test-target-id-1234'
+      targetId: !this.testMode ? this.$scopedSlots.default && this.$scopedSlots.default.id ? this.$scopedSlots.default.id : uuid.v1() : 'test-target-id-1234'
     }
   },
 
@@ -283,7 +282,7 @@ export default {
   beforeDestroy () {
     const popper = this.$refs.popper
     if (popper && this.trigger === 'click') {
-      this.reference.removeEventListener('click', this.handleClick)
+      this.reference && this.reference.removeEventListener('click', this.handleClick)
       popper.removeEventListener('click', this.showPopper)
       document.documentElement.removeEventListener('click', this.handleClick)
     } else if (this.reference) {
@@ -359,7 +358,9 @@ export default {
         }
       } else if (this.$refs.popper && this.$refs.popper.contains(e.target)) {
         this.showPopper()
-      } else if (this.isOpen) { this.hidePopper() }
+      } else if (this.isOpen) {
+        this.hidePopper()
+      }
     },
 
     bindEvents () {
@@ -367,12 +368,12 @@ export default {
       if (popper) {
         if (this.trigger === 'hover') {
           this.reference.addEventListener('mouseenter', this.createInstance)
-          this.reference.addEventListener('focus', this.createInstance)
           this.reference.addEventListener('mouseleave', this.hidePopper)
-          this.reference.addEventListener('blur', this.hidePopper)
           popper.addEventListener('mouseenter', this.showPopper)
-          popper.addEventListener('focus', this.showPopper)
           popper.addEventListener('mouseleave', this.hidePopper)
+          this.reference.addEventListener('focus', this.createInstance)
+          this.reference.addEventListener('blur', this.hidePopper)
+          popper.addEventListener('focus', this.showPopper)
           popper.addEventListener('blur', this.hidePopper)
         }
 

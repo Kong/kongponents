@@ -70,7 +70,7 @@ describe('KSelect', () => {
       }
     })
     const selectedItem = wrapper.find('.k-select-item-selection')
-    const input = wrapper.find('[data-testid="k-select-input-textbox"]')
+    const input = wrapper.find('.k-input-wrapper.k-select-input')
     const popover = wrapper.find('.k-select-popover')
 
     expect(selectedItem.element.style['width']).toEqual((width - 24) + 'px')
