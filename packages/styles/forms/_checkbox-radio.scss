@@ -37,10 +37,10 @@ input.form-control {
     width: 20px;
     color: $primaryCheckboxColor;
     border-radius: 3px;
-    margin-right: 8px;
+    margin: 0 6px 0 0;
 
     &:checked {
-      background-image: url("data:image/svg+xml,%3Csvg width='12' height='10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10.633 0L12 1.397 3.583 10 0 6.337 1.367 4.94l2.216 2.265z' fill='%23FFF' fill-rule='nonzero'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg width='13' height='11' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10.633 0L12 1.397 3.583 10 0 6.337 1.367 4.94l2.216 2.265z' fill='%23FFF' fill-rule='nonzero'/%3E%3C/svg%3E");
       border-color: $primaryCheckboxColor;
       background-color: currentColor;
       background-position: center;
@@ -77,7 +77,7 @@ input.form-control {
     width: 20px;
     color: $primaryRadioColor;
     border-radius: 100%;
-    margin: 0 4px 0 0;
+    margin: 0 6px 0 0;
 
     &:checked {
       border-color: currentColor;
