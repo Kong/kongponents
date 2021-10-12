@@ -66,6 +66,8 @@ export default {
 
   .selected-item-icon {
     margin-left: auto;
+    position: relative;
+    top: 0;
   }
 
   &:hover {
