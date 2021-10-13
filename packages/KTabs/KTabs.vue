@@ -84,13 +84,15 @@ export default {
 .k-tabs {
   ul {
     display: flex;
-    margin-bottom: var(--spacing-lg, spacing(lg));
+    margin-bottom: var(--spacing-md, spacing(md));
     padding-left: 0;
     list-style: none;
-    border-bottom: 2px solid var(--KTabsBottomBorder, var(--grey-300, color(grey-300)));
+    font-size: 18px;
+    line-height: 20px;
+
     .tab-item {
       position: relative;
-      padding: var(--spacing-sm, spacing(sm));
+      padding: var(--spacing-md, spacing(md));
       cursor: pointer;
       &:not(:first-of-type) { margin-left: var(--spacing-xs, spacing(xs)); }
       &:not(:last-of-type) { margin-right: var(--spacing-xs, spacing(xs)); }
@@ -105,8 +107,8 @@ export default {
       }
       &.active,
       &:hover {
-        &:after { background-color: var(--KTabsActiveColor, var(--blue-500, color(blue-500))); }
-        .tab-link { color: var(--KTabsActiveColor, var(--blue-500, color(blue-500))); }
+        border-bottom: 4px solid var(--KTabsBottomBorder, var(--teal-300, color(teal-300)));
+        .tab-link { color: var(--KTabsActiveColor, var(--black-500, color(black-500))); }
       }
     }
     .tab-link {
