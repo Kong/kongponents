@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/ktest",
-  "version": "5.0.4",
+  "version": "5.0.5",
   "description": "Testing 1, 2, 3, 4...",
   "main": "dist/KTest.umd.min.js",
   "componentName": "KTest",

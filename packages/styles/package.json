@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/styles",
-  "version": "5.0.4",
+  "version": "5.0.5",
   "description": "Kong colors & CSS utilities",
   "main": "styles.css",
   "repository": {
