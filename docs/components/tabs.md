@@ -27,11 +27,11 @@ export default {
       tabs: [
         {
           hash: '#tab1',
-          title: 'TAB 1'
+          title: 'Tab 1'
         },
         {
           hash: '#tab2',
-          title: 'TAB 2'
+          title: 'Tab 2'
         }
       ]
     }
@@ -210,11 +210,11 @@ export default {
       tabs: [
         {
           hash: '#tab1',
-          title: 'TAB 1'
+          title: 'Tab 1'
         },
         {
           hash: '#tab2',
-          title: 'TAB 2'
+          title: 'Tab 2'
         }
       ],
       slottedTabs: [

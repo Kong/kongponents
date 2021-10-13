@@ -1,6 +1,6 @@
 $width: 44px;
 $height: 24px;
-$color_checkbox_success: var(--KInputSwitchOn, var(--blue-500, color(blue-500)));
+$color_checkbox_success: var(--KInputSwitchOn, var(--green-500, color(green-500)));
 $transition: .2s linear;
 
 .k-switch {
@@ -14,7 +14,7 @@ $transition: .2s linear;
     height: $height;
     margin-right: 1rem;
     border-radius: 12px;
-    background-color: var(--KInputSwitchBackground, var(--grey-200, color(grey-200)));
+    background-color: var(--KInputSwitchBackground, var(--grey-400, color(grey-400)));
     transition: $transition;
     // Toggle
     &:after {
