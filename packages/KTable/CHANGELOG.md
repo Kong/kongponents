@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.5](https://github.com/Kong/kongponents/compare/v5.0.4...v5.0.5) (2021-10-13)
+
+**Note:** Version bump only for package @kongponents/ktable
+
+
+
+
+
 ## [5.0.4](https://github.com/Kong/kongponents/compare/v5.0.3...v5.0.4) (2021-10-06)
 
 **Note:** Version bump only for package @kongponents/ktable
