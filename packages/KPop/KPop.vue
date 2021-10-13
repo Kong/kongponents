@@ -248,9 +248,10 @@ export default {
     },
 
     async createInstance () {
-      this.showPopper()
       // destroy any previous poppers before creating new one
       this.destroy()
+
+      this.showPopper()
       const placement = placements[this.placement] ? placements[this.placement] : 'auto'
       const popperEl = this.$refs.popper
 
