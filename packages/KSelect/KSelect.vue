@@ -9,7 +9,6 @@
       data-testid="k-select-selected-item">
       <div
         v-if="selectedItem && appearance === 'dropdown'"
-        :style="selectionStyle"
         class="k-select-item-selection px-3 py-1">
         <div
           :value="selectedItem.value"
@@ -49,6 +48,7 @@
             :id="selectInputId"
             :class="{ 'k-select-input': appearance === 'select'}"
             data-testid="k-select-input"
+            style="position: relative;"
             role="listbox">
             <KIcon
               v-if="appearance === 'select'"
@@ -61,7 +61,6 @@
               v-bind="attrs"
               v-model="filterStr"
               :placeholder="placeholder || attrs.placeholder"
-              :style="inputStyle"
               class="k-select-input"
               v-on="listeners"
               @keyup="triggerFocus(isToggled)" />
@@ -128,7 +127,7 @@ export default {
      */
     width: {
       type: String,
-      default: '170'
+      default: '100%'
     },
     placeholder: {
       type: String,
@@ -179,14 +178,12 @@ export default {
 
   computed: {
     boundKPopAttributes: function () {
-      const paddingOffset = 10 // 4px (left padding) + 4px (right padding) + 1px (left border) + 1px (right border)
-
       return {
         ...defaultKPopAttributes,
         ...this.kpopAttributes,
         popoverClasses: `${defaultKPopAttributes.popoverClasses} ${this.kpopAttributes.popoverClasses} k-select-pop-${this.appearance}`,
         placement: this.placement,
-        width: parseInt(this.width) - paddingOffset + '', // popover and input same width
+        width: this.width,
         disabled: this.$attrs.disabled
       }
     },
@@ -195,18 +192,6 @@ export default {
     },
     listeners () {
       return this.$listeners
-    },
-    inputStyle: function () {
-      return {
-        width: this.width === 'auto' ? this.width : this.width + 'px'
-      }
-    },
-    selectionStyle: function () {
-      const paddingOffset = 24 // 12px (left padding) + 12px (right padding)
-
-      return {
-        width: this.width === 'auto' ? this.width : (this.width - paddingOffset) + 'px'
-      }
     },
     filteredItems: function () {
       return this.items.filter(item => item.label.toLowerCase().includes(this.filterStr.toLowerCase()))
@@ -316,6 +301,8 @@ export default {
   }
 
   .k-select-popover {
+    box-sizing: border-box;
+    width: 100%;
     &.k-select-pop-dropdown {
       --KPopPaddingY: var(--spacing-md);
       --KPopPaddingX: var(--spacing-xxs);
