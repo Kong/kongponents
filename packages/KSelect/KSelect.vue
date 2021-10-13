@@ -1,5 +1,8 @@
 <template>
-  <div class="k-select">
+  <div
+    :style="widthStyle"
+    class="k-select"
+  >
     <KLabel
       v-if="label"
       :for="selectId"
@@ -127,7 +130,7 @@ export default {
      */
     width: {
       type: String,
-      default: '100%'
+      default: '170'
     },
     placeholder: {
       type: String,
@@ -192,6 +195,11 @@ export default {
     },
     listeners () {
       return this.$listeners
+    },
+    widthStyle: function () {
+      return {
+        width: this.width === 'auto' ? this.width : this.width + 'px'
+      }
     },
     filteredItems: function () {
       return this.items.filter(item => item.label.toLowerCase().includes(this.filterStr.toLowerCase()))
@@ -271,6 +279,7 @@ export default {
   .k-select-input {
     position: relative;
     display: inline-block;
+    width: 100%;
 
     input.k-input {
       padding: var(--spacing-xs);
