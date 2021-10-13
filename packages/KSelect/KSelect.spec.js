@@ -69,13 +69,11 @@ describe('KSelect', () => {
         }]
       }
     })
-    const selectedItem = wrapper.find('.k-select-item-selection')
-    const input = wrapper.find('.k-input-wrapper.k-select-input')
+    const selectedItem = wrapper.find('.k-select')
     const popover = wrapper.find('.k-select-popover')
 
-    expect(selectedItem.element.style['width']).toEqual((width - 24) + 'px')
-    expect(input.element.style['width']).toEqual('350px')
-    expect(popover.element.style['width']).toEqual((width - 10) + 'px') // 10 pixels less with spacing
+    expect(selectedItem.element.style['width']).toEqual(width + 'px')
+    expect(popover.element.style['width']).toEqual(width + 'px') // 10 pixels less with spacing
   })
 
   it('renders with correct label', () => {
