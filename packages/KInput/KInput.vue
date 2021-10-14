@@ -3,12 +3,11 @@
     <input
       v-if="!label"
       v-bind="attrs"
-      :value="currValue ? currValue : value"
+      :value="value"
       :class="`k-input-${size}`"
       class="form-control k-input"
       @input="e => {
-        $emit('input', e.target.value),
-        currValue = e.target.value
+        $emit('input', e.target.value)
       }"
       v-on="listeners">
 

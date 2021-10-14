@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`KoolTip matches snapshot 1`] = `
-<div><button type="button" class="k-button medium rounded outline" id="test-target-id-1234" aria-controls="test-popover-id-1234" tab-index="0" data-testid="kpop-button">
+<div><button type="button" class="k-button medium rounded outline" id="test-target-id-1234" aria-controls="test-popover-id-1234" data-testid="kpop-button">
     OK
   </button>
   <div id="test-popover-id-1234" role="region" class="k-popover kooltip mt-2  hide-caret" style="width: auto; display: none;" name="fade">
@@ -15,7 +15,7 @@ exports[`KoolTip matches snapshot 1`] = `
 `;
 
 exports[`KoolTip renders tooltip to the bottom side 1`] = `
-<div><button type="button" class="k-button medium rounded outline" id="test-target-id-1234" aria-controls="test-popover-id-1234" tab-index="0" data-testid="kpop-button">
+<div><button type="button" class="k-button medium rounded outline" id="test-target-id-1234" aria-controls="test-popover-id-1234" data-testid="kpop-button">
     OK
   </button>
   <div id="test-popover-id-1234" role="region" class="k-popover kooltip mt-2  hide-caret" style="width: auto; display: none;" name="fade">
@@ -29,7 +29,7 @@ exports[`KoolTip renders tooltip to the bottom side 1`] = `
 `;
 
 exports[`KoolTip renders tooltip to the left side 1`] = `
-<div><button type="button" class="k-button medium rounded outline" id="test-target-id-1234" aria-controls="test-popover-id-1234" tab-index="0" data-testid="kpop-button">
+<div><button type="button" class="k-button medium rounded outline" id="test-target-id-1234" aria-controls="test-popover-id-1234" data-testid="kpop-button">
     OK
   </button>
   <div id="test-popover-id-1234" role="region" class="k-popover kooltip mr-2  hide-caret" style="width: auto; display: none;" name="fade">
@@ -43,7 +43,7 @@ exports[`KoolTip renders tooltip to the left side 1`] = `
 `;
 
 exports[`KoolTip renders tooltip to the right side 1`] = `
-<div><button type="button" class="k-button medium rounded outline" id="test-target-id-1234" aria-controls="test-popover-id-1234" tab-index="0" data-testid="kpop-button">
+<div><button type="button" class="k-button medium rounded outline" id="test-target-id-1234" aria-controls="test-popover-id-1234" data-testid="kpop-button">
     OK
   </button>
   <div id="test-popover-id-1234" role="region" class="k-popover kooltip ml-2  hide-caret" style="width: auto; display: none;" name="fade">
@@ -57,7 +57,7 @@ exports[`KoolTip renders tooltip to the right side 1`] = `
 `;
 
 exports[`KoolTip renders tooltip to the top side 1`] = `
-<div><button type="button" class="k-button medium rounded outline" id="test-target-id-1234" aria-controls="test-popover-id-1234" tab-index="0" data-testid="kpop-button">
+<div><button type="button" class="k-button medium rounded outline" id="test-target-id-1234" aria-controls="test-popover-id-1234" data-testid="kpop-button">
     OK
   </button>
   <div id="test-popover-id-1234" role="region" class="k-popover kooltip mb-2  hide-caret" style="width: auto; display: none;" name="fade">

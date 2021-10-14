@@ -23,6 +23,7 @@ import KoolTip from '../../packages/KoolTip/KoolTip.vue'
 import KPop from '../../packages/KPop/KPop.vue'
 import Krumbs from '../../packages/Krumbs/Krumbs.vue'
 import KSegmentedControl from '../../packages/KSegmentedControl/KSegmentedControl.vue'
+import KSelect from '../../packages/KSelect/KSelect.vue'
 import KTable from '../../packages/KTable/KTable.vue'
 import KTabs from '../../packages/KTabs/KTabs.vue'
 import KTextArea from '../../packages/KTextArea/KTextArea.vue'
@@ -59,6 +60,7 @@ export default ({
   Vue.component('Krumbs', Krumbs)
   Vue.component('Komponent', Komponent)
   Vue.component('KSegmentedControl', KSegmentedControl)
+  Vue.component('KSelect', KSelect)
   Vue.component('KTable', KTable)
   Vue.component('KTabs', KTabs)
   Vue.component('KTextArea', KTextArea) 
