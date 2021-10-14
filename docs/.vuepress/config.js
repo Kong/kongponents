@@ -55,6 +55,7 @@ module.exports = {
               '/components/popover',
               '/components/input-radio',
               '/components/segmented-control',
+              '/components/select',
               '/components/skeleton',
               '/components/slideout',
               '/components/switch',
