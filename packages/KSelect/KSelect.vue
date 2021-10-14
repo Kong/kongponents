@@ -260,6 +260,8 @@ export default {
     color: var(--blue-500);
     font-weight: 400;
     display: flex;
+    border-radius: 4px;
+    margin-bottom: 6px;
 
     .selected-item-label {
       align-self: center;
@@ -280,9 +282,12 @@ export default {
     position: relative;
     display: inline-block;
     width: 100%;
+    height: 32px;
 
     input.k-input {
       padding: var(--spacing-xs);
+      height: 100%;
+      border-radius: 4px 4px 0 0;
     }
 
     svg {
@@ -312,6 +317,9 @@ export default {
   .k-select-popover {
     box-sizing: border-box;
     width: 100%;
+    border-radius: 0 0 4px 4px;
+    top: -.5px !important; // there seems to be a tiny half pixel gap for some reason
+
     &.k-select-pop-dropdown {
       --KPopPaddingY: var(--spacing-md);
       --KPopPaddingX: var(--spacing-xxs);

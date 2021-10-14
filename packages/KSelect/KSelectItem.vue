@@ -48,41 +48,46 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.k-select-item button {
-  display: flex;
-  align-items: center;
-  font-size: var(--type-xs);
-  line-height: 26px;
-  color: var(--grey-500);
-  padding-left: var(--spacing-xxs);
-  width: 100%;
-  border: none;
-  font-family: var(--font-family-sans);
-  background-color: var(--white);
+.k-select-item {
+  border-radius: 4px;
+  margin-bottom: var(--spacing-xxs);
 
-  svg:not(.selected-item-icon) {
-    margin-right: .75rem;
-  }
+  button {
+    display: flex;
+    align-items: center;
+    font-size: var(--type-xs);
+    line-height: 26px;
+    color: var(--grey-500);
+    padding-left: var(--spacing-xxs);
+    width: 100%;
+    border: none;
+    font-family: var(--font-family-sans);
+    background-color: var(--white);
 
-  .selected-item-icon {
-    margin-left: auto;
-    position: relative;
-    top: 0;
-  }
+    svg:not(.selected-item-icon) {
+      margin-right: .75rem;
+    }
 
-  &:hover {
-    background-color: var(--grey-100);
-    color: var(--grey-600);
-  }
+    .selected-item-icon {
+      margin-left: auto;
+      position: relative;
+      top: 0;
+    }
 
-  &.selected {
-    background-color: var(--blue-100);
-    color: var(--blue-500);
-    font-weight: 400;
-  }
+    &:hover {
+      background-color: var(--grey-100);
+      color: var(--grey-600);
+    }
 
-  &.danger {
-    color: var(--red-500);
+    &.selected {
+      background-color: var(--blue-100);
+      color: var(--blue-500);
+      font-weight: 400;
+    }
+
+    &.danger {
+      color: var(--red-500);
+    }
   }
 }
 </style>
