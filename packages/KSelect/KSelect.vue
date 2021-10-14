@@ -265,10 +265,14 @@ export default {
 
     .selected-item-label {
       align-self: center;
+      font-size: var(--type-xs);
+      line-height: 16px;
     }
 
     .clear-selection-icon {
       margin-left: auto;
+      margin-top: auto;
+      margin-bottom: auto;
       padding: 0;
       height: 24px;
 
@@ -295,6 +299,10 @@ export default {
       top: 15px;
       right: 6px;
       z-index: 9;
+    }
+
+    .kong-icon-chevronDown {
+      top: 10px;
     }
   }
 

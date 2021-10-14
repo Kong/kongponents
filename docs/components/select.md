@@ -34,7 +34,7 @@ An array of items containing a `label` and `value`. May also specify that a cert
 by default.
 
 <KSelect :items="[{ 
-    label: 'test', 
+    label: 'test me because I am a super long option with text that wraps', 
     value: 'test', 
     selected: true 
   }, { 

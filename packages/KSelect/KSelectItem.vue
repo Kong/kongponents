@@ -10,12 +10,14 @@
       <button
         :class="{ disabled, selected: item.selected }"
         :value="item.value">
-        <slot>{{ item.label }}</slot>
-        <KIcon
-          v-if="item.selected"
-          class="selected-item-icon"
-          icon="check"
-          color="var(--blue-200)" />
+        <span class="k-select-item-label mr-2"><slot>{{ item.label }}</slot></span>
+        <span class="k-select-selected-icon-container">
+          <KIcon
+            v-if="item.selected"
+            class="selected-item-icon"
+            icon="check"
+            color="var(--blue-200)" />
+        </span>
       </button>
     </li>
   </div>
@@ -49,8 +51,7 @@ export default {
 
 <style lang="scss" scoped>
 .k-select-item {
-  border-radius: 4px;
-  margin-bottom: var(--spacing-xxs);
+  margin-bottom: 6px;
 
   button {
     display: flex;
@@ -63,15 +64,24 @@ export default {
     border: none;
     font-family: var(--font-family-sans);
     background-color: var(--white);
+    border-radius: 4px;
+    text-align: left;
+
+    .k-select-item-label {
+      width: auto;
+      line-height: 16px;
+    }
 
     svg:not(.selected-item-icon) {
       margin-right: .75rem;
     }
 
-    .selected-item-icon {
+    .k-select-selected-icon-container {
       margin-left: auto;
-      position: relative;
-      top: 0;
+      margin-top: auto;
+      margin-bottom: auto;
+      height: 24px;
+      width: 24px;
     }
 
     &:hover {
