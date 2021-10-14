@@ -3,10 +3,10 @@
 
 **KMenu** - Menu component
 
-<KMenu :items="[{ value: 'Updated', itemType: 'String', content:'wefwefwfw' },
-{ value: 'Created', itemType: 'Number' },
-{ value: 'Name and description', itemType: 'Number' },
-{ value: 'Status', itemType: 'Number' }]" />
+<KMenu :items="[{ title: 'Updated', itemType: 'String', value:'Title1' },
+{ title: 'Created', itemType: 'Number', value:'Title2'  },
+{ title: 'Name and description', itemType: 'Number', value:'Title3'  },
+{ title: 'Status', itemType: 'Number', value:'Title4'  }]" />
 ```vue
 <KMenu />
 ```

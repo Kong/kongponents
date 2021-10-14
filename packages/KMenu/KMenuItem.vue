@@ -3,11 +3,20 @@
     :key="item.key"
     :data-testid="`k-menu-item-${item.value}`">
     <li>
-      <slot>{{ item.value }}</slot>
-      <KIcon
-        class="chevronDown"
-        icon="chevronDown"
-        color="var(--blue-200)" /></li>
+      <span
+        class="menu-title">
+        <slot name="menu-title"> {{ item.title }}
+        </slot>
+      </span>
+      <span>
+        <KIcon
+          icon="chevronDown"
+          color="#000"
+          size="16px"
+        />
+      </span>
+      <hr>
+    </li>
   </div>
 </template>
 
@@ -33,4 +42,14 @@ export default {
 /* .chevronDown {
       margin-left: 177px;
 } */
+
+li{
+    list-style: none;
+    padding: 20px 177px 16px 24px;
+    white-space: nowrap;
+  }
+
+  hr{
+    width: 241px;
+  }
 </style>
