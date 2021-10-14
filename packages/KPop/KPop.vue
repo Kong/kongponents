@@ -4,13 +4,14 @@
     :id="$scopedSlots.default ? targetId : null"
     :aria-expanded="$scopedSlots.default ? isOpen : null"
     :aria-controls="$scopedSlots.default ? popoverId : null"
-    :role="$scopedSlots.default ? 'button' : null">
+    :role="$scopedSlots.default ? 'button' : null"
+    @keydown.enter="e => handleClick(e)"
+    @keydown.esc="hidePopper">
     <slot>
       <KButton
         :id="targetId"
         :aria-expanded="isOpen"
         :aria-controls="popoverId"
-        tab-index="0"
         data-testid="kpop-button">
         {{ buttonText }}
       </KButton>
@@ -93,7 +94,7 @@ import Popper from 'popper.js'
 import KButton from '@kongponents/kbutton/KButton.vue'
 import { uuid } from 'vue-uuid'
 
-const placements = {
+export const placements = {
   auto: 'auto',
   top: 'top',
   topStart: 'top-start',
@@ -245,7 +246,7 @@ export default {
       reference: null,
       isOpen: false,
       popoverId: !this.testMode ? uuid.v1() : 'test-popover-id-1234',
-      targetId: !this.testMode ? uuid.v1() : 'test-target-id-1234'
+      targetId: !this.testMode ? this.$scopedSlots.default && this.$scopedSlots.default.id ? this.$scopedSlots.default.id : uuid.v1() : 'test-target-id-1234'
     }
   },
 
@@ -281,7 +282,7 @@ export default {
   beforeDestroy () {
     const popper = this.$refs.popper
     if (popper && this.trigger === 'click') {
-      this.reference.removeEventListener('click', this.handleClick)
+      this.reference && this.reference.removeEventListener('click', this.handleClick)
       popper.removeEventListener('click', this.showPopper)
       document.documentElement.removeEventListener('click', this.handleClick)
     } else if (this.reference) {
@@ -358,7 +359,9 @@ export default {
         }
       } else if (this.$refs.popper && this.$refs.popper.contains(e.target)) {
         this.showPopper()
-      } else if (this.isOpen) { this.hidePopper() }
+      } else if (this.isOpen) {
+        this.hidePopper()
+      }
     },
 
     bindEvents () {

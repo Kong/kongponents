@@ -221,6 +221,15 @@ look like.
 </style>
 ```
 
+There is also a `.non-visual-button` utility class that can be used for buttons that
+should not look like buttons.
+
+<KButton class='non-visual-button'>Click Me</KButton>
+
+```vue
+<KButton class='non-visual-button'>Click Me</KButton>
+```
+
 <style scoped lang="scss">
 .preview-code .preview div {
   display: flex;
