@@ -1,0 +1,25 @@
+{
+  "name": "@kongponents/kmenu",
+  "version": "5.0.3",
+  "description": "<Menu component>",
+  "main": "dist/KMenu.umd.min.js",
+  "componentName": "KMenu",
+  "source": "KMenu.vue",
+  "files": [
+    "dist",
+    "KMenu.vue"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kong/kongponents.git"
+  },
+  "author": "Kong Inc",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Kong/kongponents/issues"
+  },
+  "homepage": "https://github.com/Kong/kongponents#readme",
+  "publishConfig": {
+    "access": "public"
+  }
+}
