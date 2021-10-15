@@ -1,12 +1,11 @@
-
 # Menu
 
 **KMenu** - Menu component
 
-<KMenu :items="[{ title: 'Updated', itemType: 'String', value:'Title1' },
-{ title: 'Created', itemType: 'Number', value:'Title2'  },
-{ title: 'Name and description', itemType: 'Number', value:'Title3'  },
-{ title: 'Status', itemType: 'Number', value:'Title4'  }]" />
+<KMenu :items="[{ title: 'Updated', itemType: 'String', value:'Title1', content:'Some random data to show here' },
+{ title: 'Created', itemType: 'Number', value:'Title2', content:'Some random data to show here'   },
+{ title: 'Name and description', itemType: 'Number', value:'Title3', content:'Some random data to show here'   },
+{ title: 'Status', itemType: 'Number', value:'Title4', content:'Some random data to show here'   }]" />
 ```vue
 <KMenu />
 ```
