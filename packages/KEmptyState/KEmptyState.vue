@@ -4,7 +4,7 @@
       <div
         v-if="isError || icon"
         :class="{ 'warning-icon': isError }"
-        class="empty-state-icon card-icon mb-4"
+        class="k-empty-state-icon card-icon mb-4"
       >
         <KIcon
           :size="iconSize"
