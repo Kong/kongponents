@@ -186,6 +186,7 @@ export default {
     margin-bottom: var(--KModalBottomMargin, var(--spacing-lg, spacing(lg)));
     color: var(--KModalColor, var(--grey-500, color(grey-500)));
     font-size: var(--KModalFontSize, 13px);
+    line-height: 20px;
   }
 
   .k-modal-footer .k-modal-action-buttons {

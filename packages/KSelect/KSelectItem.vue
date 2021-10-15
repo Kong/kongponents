@@ -83,6 +83,11 @@ export default {
       margin-bottom: auto;
       height: 24px;
       width: 24px;
+
+      svg {
+        position: relative;
+        top: 0;
+      }
     }
 
     &:hover {
