@@ -4,13 +4,13 @@ exports[`KEmptyState matches snapshot 1`] = `
 <section class="empty-state-wrapper">
   <div class="empty-state-title">
     <!---->
-    <h5></h5>
+    <div class="k-empty-state-title-header"></div>
   </div>
   <div class="empty-state-content">
-    <p></p>
-    <p><button type="button" class="k-button medium rounded outline">
+    <div class="k-empty-state-message"></div>
+    <div class="k-empty-state-cta"><button type="button" class="k-button small rounded primary">
 
-      </button></p>
+      </button></div>
   </div>
 </section>
 `;
