@@ -6,15 +6,19 @@
     <div
       class="menu-title"
       @click="isOpen = !isOpen">
-      <span class="span-menu-title">
-        <slot name="menu-title"> {{ item.title }}
+      <span
+        :class="isOpen ? 'title-dark' : ''"
+        class="span-menu-title">
+        <slot name="menuTitle"> {{ item.title }}
         </slot>
       </span>
-      <span class="icon-container">
+      <span
+        v-if="item.content"
+        class="span-icon-container">
         <KIcon
           v-if="!expandable"
           :icon="isOpen ? 'chevronUp' : 'chevronDown'"
-          color="#B6B6BD"
+          color="var(--grey-400)"
           size="16"
         />
       </span>
@@ -22,9 +26,9 @@
     <div
       :class="isOpen ? 'd-block' : 'd-none'"
       class="menu-content">
-      <slot name="menu-content"> {{ item.content }}</slot>
+      <slot name="menuContent"> {{ item.content }}
+      </slot>
     </div>
-
   </li>
 </template>
 
@@ -55,56 +59,51 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '~@kongponents/styles/_variables.scss';
-
 li {
   margin: 0;
-  // padding: 20px 7px 16px 24px;
+  cursor: pointer;
   white-space: nowrap;
-  font-family: Maison Neue;
+  font-family: var(--font-family-sans);
   font-style: normal;
   font-weight: 400;
   font-size: 13px;
   line-height: 24px;
-  color: #6F7787;
-
-  &:last-child div {
-    border-bottom: none;
-  }
-}
-
-.menu-title {
-  border-bottom: none;
+  color: var(--grey-500);
   position: relative;
-  height: 20px;
-  padding: 8px 0;
-  text-align: center;
-  padding-bottom: 8px;
-}
 
-.menu-title::after {
-  content: " ";
-  position: absolute;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-56%);
-  bottom: 0;
-  width: 90%;
-  height: 1px;
-  background-color: #E7E7EC;
+  &:not(:last-child):after {
+    content: " ";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-56%);
+    bottom: 0;
+    width: 90%;
+    height: 1px;
+    background-color: var(--grey-300);
+  }
 }
 
 .menu-title {
   width: 100%;
   display: flex;
+  padding: 8px 0;
+  text-align: center;
+
+  &:hover {
+    color: var(--grey-600);
+  }
 }
 
-.icon-container {
+.span-icon-container {
   margin-left: auto;
   margin-top: auto;
   margin-bottom: auto;
   padding-right: 23px;
   height: 24px;
   width: 24px;
+}
+
+.title-dark {
+  color: var(--grey-600);
 }
 </style>

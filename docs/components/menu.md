@@ -2,12 +2,28 @@
 
 **KMenu** - Menu component
 
-<KMenu :items="[{ title: 'Updated', itemType: 'String', value:'Title1', content:'Some random data to show here' },
-{ title: 'Created', itemType: 'Number', value:'Title2', content:'Some random data to show here'   },
-{ title: 'Name and description', itemType: 'Number', value:'Title3', content:'Some random data to show here'   },
-{ title: 'Status', itemType: 'Number', value:'Title4', content:'Some random data to show here'   }]" />
+<KMenu :items="[{ title: 'Updated', itemType: 'String', value:'Title1', content:'Some random data to show here'},
+{ title: 'Created', itemType: 'Number', value:'Title2'},
+{ title: 'Name and description', itemType: 'Number', value:'Title3', content:'Some random data to show here'},
+{ title: 'Status', itemType: 'Number', value:'Title4', hasContent:'false'},
+{ title: 'Avg. Latency', itemType: 'Number', value:'Title4', hasContent:'false'},
+{ title: 'Uptime', itemType: 'Number', value:'Title4', content:'Some random data to show here'},
+{ title: 'Properties', itemType: 'Number', value:'Title4', hasContent:'false'},
+{ title: 'Versions', itemType: 'Number', value:'Title4', content:'Some random data to show here'},
+{ title: 'Owners', itemType: 'Number', value:'Title4', content:'Some random data to show here'}]">
+</KMenu>
+
 ```vue
-<KMenu />
+<KMenu :items="[{ title: 'Updated', itemType: 'String', value:'Title1', content:'Some random data to show here'},
+{ title: 'Created', itemType: 'Number', value:'Title2'},
+{ title: 'Name and description', itemType: 'Number', value:'Title3', content:'Some random data to show here'},
+{ title: 'Status', itemType: 'Number', value:'Title4', hasContent:'false'},
+{ title: 'Avg. Latency', itemType: 'Number', value:'Title4', hasContent:'false'},
+{ title: 'Uptime', itemType: 'Number', value:'Title4', content:'Some random data to show here'},
+{ title: 'Properties', itemType: 'Number', value:'Title4', hasContent:'false'},
+{ title: 'Versions', itemType: 'Number', value:'Title4', content:'Some random data to show here'},
+{ title: 'Owners', itemType: 'Number', value:'Title4', content:'Some random data to show here'}]">
+</KMenu>
 ```
 
 ## Props

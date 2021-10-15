@@ -15,13 +15,13 @@
     <div
       class="clearText">
       <slot
-        name="clearText">{{ clearText }}</slot>
+        name="clearText">{{ clearText }}
+      </slot>
     </div>
   </div>
 </template>
 
 <script>
-
 import KMenuItem from './KMenuItem.vue'
 
 export default {
@@ -46,40 +46,36 @@ export default {
 }
 </script>
 
-  <style scoped>
-  .k-menu{
-    width: 284px;
-    background-color: ghostwhite;
-    background: #FFFFFF;
-/* Grey/300 */
-    border: 1px solid #E7E7EC;
-    box-sizing: border-box;
-    border-radius: 4px;
-  }
-
-  ul {
-       margin: 12px 0px 24px 24px;
-    padding: 0;
-    list-style: none;
-    /* border-bottom: 1px solid #E7E7EC; */
-  }
-
-  .clearText {
-   font-family: Maison Neue;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 24px;
-    color: #1155CB;
-    width: 159px;
-    height: 24px;
-    white-space: nowrap;
-    padding: 20.5px 101px 18.5px 24px;
-
-  }
-
-  .accordion:not(.is-open) > .accordion-body {
-  display: none;
+<style scoped lang="scss">
+.k-menu {
+  width: 284px;
+  background-color: var(--white);
+  border: 1px solid var(--grey-300);
+  box-sizing: border-box;
+  border-radius: 4px;
 }
 
-  </style>
+ul {
+  margin: 11px 0px 24px 23px;
+  padding: 0;
+  list-style: none;
+}
+
+div.clearText {
+  cursor: pointer;
+  font-family: var(--font-family-sans);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 24px;
+  color: var(--blue-300);
+  width: 159px;
+  height: 24px;
+  white-space: nowrap;
+  padding: 0 0 18.5px 24px;
+
+  &:hover {
+    color: var(--blue-500);
+  }
+}
+</style>
