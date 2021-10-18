@@ -1,44 +1,87 @@
 <template>
-  <div
-    v-if="isShowing"
-    :class="[
-      appearance,
-      size,
-      {'isBordered':isBordered},
-      {'hasLeftBorder':hasLeftBorder},
-      {'hasRightBorder':hasRightBorder},
-      {'hasTopBorder':hasTopBorder},
-      {'hasBottomBorder':hasBottomBorder},
-      {'isCentered': isCentered},
-      {'isFixed': isFixed}
-    ]"
-    class="k-alert"
-    role="alert">
-    <button
-      v-if="isDismissible"
-      type="button"
-      aria-label="Close"
-      class="close"
-      @click="dismissAlert()">
-      <KIcon
-        icon="close"
-        color="#000"
-        size="12"
-        view-box="0 0 12 12" />
-    </button>
-    <span
-      v-if="hasIcon"
-      class="alert-icon">
-      <slot name="alertIcon" />
-    </span>
-    <span>
-      <slot name="alertMessage">{{ alertMessage }}</slot>
-    </span>
+  <div>
+    <div
+      v-if="isShowing && !hasButton"
+      :class="[
+        appearance,
+        size,
+        {'isBordered':isBordered},
+        {'hasLeftBorder':hasLeftBorder},
+        {'hasRightBorder':hasRightBorder},
+        {'hasTopBorder':hasTopBorder},
+        {'hasBottomBorder':hasBottomBorder},
+        {'isCentered': isCentered},
+        {'isFixed': isFixed}
+      ]"
+      class="k-alert"
+      role="alert">
+      <button
+        v-if="isDismissible"
+        type="button"
+        aria-label="Close"
+        class="close"
+        @click="dismissAlert()">
+        <KIcon
+          :color="appearance"
+          :class="appearance"
+          icon="close"
+          size="14" />
+      </button>
+      <span
+        v-if="hasIcon"
+        class="alert-icon">
+        <slot name="alertIcon" />
+      </span>
+      <span>
+        <slot name="alertMessage">{{ alertMessage }}</slot>
+      </span>
+    </div>
+    <div
+      v-if="hasButton"
+      :class="[
+        appearance,
+        size,
+        {'isBordered':isBordered},
+        {'hasLeftBorder':hasLeftBorder},
+        {'hasRightBorder':hasRightBorder},
+        {'hasTopBorder':hasTopBorder},
+        {'hasBottomBorder':hasBottomBorder},
+        {'isCentered': isCentered},
+        {'isFixed': isFixed}
+      ]"
+      class="k-alert has-button"
+      role="alert">
+
+      <span
+        v-if="hasRedIcon"
+        class="alert-red">
+        <slot name="alertRedIcon"/>
+      </span>
+      <span
+        v-if="!hasRedIcon"
+        :class="appearance"
+        class="dot"/>
+      <span
+        v-if="hasIcon"
+        class="alert-icon">
+        <slot name="alertIcon" />
+      </span>
+      <span>
+        <slot name="alertMessage">{{ alertMessage }}</slot>
+      </span>
+      <span
+        v-if="hasActionButtons"
+        :class="appearance"
+        class="alert-action">
+        <slot name="actionButtons"/>
+      </span>
+    </div>
   </div>
 </template>
 
 <script>
 import KIcon from '@kongponents/kicon/KIcon.vue'
+import KButton from '@kongponents/kbutton/KButton.vue'
 
 export const appearances = {
   info: 'info',
@@ -49,7 +92,7 @@ export const appearances = {
 
 export default {
   name: 'KAlert',
-  components: { KIcon },
+  components: { KIcon, KButton },
   props: {
     /**
     * Message to show in alert
@@ -71,6 +114,13 @@ export default {
     isShowing: {
       type: Boolean,
       default: true
+    },
+    /**
+     * Set whether or not the alert box shown has button.
+     */
+    hasButton: {
+      type: Boolean,
+      default: false
     },
     /**
      * Fixes alert to top
@@ -148,8 +198,14 @@ export default {
   },
 
   computed: {
+    hasRedIcon () {
+      return !!this.$slots.alertRedIcon
+    },
     hasIcon () {
       return !!this.$slots.alertIcon
+    },
+    hasActionButtons () {
+      return !!this.$slots.actionButtons
     }
   },
 
@@ -168,9 +224,16 @@ export default {
   position: relative;
   display: flex;
   align-items: center;
+  // padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
+  width: 806px;
   padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 16px;
+
   font-family: inherit;
-  font-size: 1rem;
+  // font-size: 1rem;
   border-radius: 3px;
   overflow-wrap: anywhere;
   a {
@@ -190,7 +253,7 @@ export default {
   .close {
     position: absolute;
     top: 0;
-    right: 18px;
+    right: 14.4px;
     bottom: 0;
     border: 0;
     background-color: transparent;
@@ -240,12 +303,12 @@ export default {
 
   // Appearances
   &.info {
-    color: var(--KAlertInfoColor, var(--blue-700, color(blue-700)));
+    color: var(--KAlertInfoColor, var(--blue-600, color(blue-600)));
     border-color: var(--KAlertInfoBorder, var(--blue-300, color(blue-300)));
     background-color: var(--KAlertInfoBackground, var(--blue-200, color(blue-200)));
   }
   &.success {
-    color: var(--KAlertSuccessColor, var(--green-500, color(green-500)));
+    color: var(--KAlertSuccessColor, var(--green-600, color(green-600)));
     border-color: var(--KAlertSuccessBorder, var(--green-200, color(green-200)));
     background-color: var(--KAlertSuccessBackground, var(--green-100, color(green-100)));
   }
@@ -255,9 +318,138 @@ export default {
     background-color: var(--KAlertDangerBackground, var(--red-200, color(red-200)));
   }
   &.warning {
-    color: var(--KAlertWarningColor, var(--yellow-400, color(yellow-400)));
+    color: var(--KAlertWarningColor, var(--yellow-500, color(yellow-500)));
     border-color: var(--KAlertWarningBorder, var(--yellow-200, color(yellow-200)));
     background-color: var(--KAlertWarningBackground, var(--yellow-100, color(yellow-100)));
   }
 }
+
+button.close > svg.info {
+  stroke: var(--KAlertInfoColor, var(--blue-600, color(blue-600)));
+}
+
+button.close > svg.success {
+  stroke: var(--KAlertSuccessColor, var(--green-600, color(green-600)));
+}
+
+button.close > svg.danger {
+  stroke: var(--KAlertDangerColor, var(--red-700, color(red-700)));
+}
+
+button.close > svg.warning {
+  stroke: var(--KAlertWarningColor, var(--yellow-500, color(yellow-500)));
+}
+
+.button-right {
+  position: absolute;
+  right: 14.4px;
+  border: 0;
+  transition: all 200ms ease;
+  cursor: pointer;
+}
+
+// .alert-red {
+//   padding: 23px 19.93px 25px 21px;
+//   width: 32px;
+//   height: 32px;
+// }
+
+.dot {
+  height: 6px;
+  width: 6px;
+  background-color: #d44324;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 24px 26px 26px;
+}
+
+.k-alert.has-button {
+  width: 763px;
+  height: 56px;
+  padding: 0;
+  border-radius: 4px;
+  // background-color: white;
+  background-color: ghostwhite;
+  margin-bottom: 1rem;
+  color: var(--black-500);
+}
+
+// .k-alert.has-button > button.info {
+//   color: var(--blue-500);
+//   background-color: var(--blue-100);
+// }
+
+// .k-alert.has-button > button.success {
+//   color: var(--green-600);
+//   background-color: var(--green-100);
+// }
+
+// .k-alert.has-button > button.warning {
+//   color: var(--yellow-500);
+//   background-color: var(--yellow-100);
+// }
+
+// .k-alert.has-button > button.danger {
+//   color: var(--red-700);
+//   background-color: var(--red-100);
+// }
+
+.k-alert.has-button > .dot.info {
+  background-color: var(--blue-500);
+}
+
+.k-alert.has-button > .dot.success {
+  background-color: var(--green-400);
+}
+
+.k-alert.has-button > .dot.warning {
+  background-color: var(--yellow-400);
+}
+
+.k-alert.has-button > .dot.danger {
+  background-color: var(--red-400);
+}
+
+.alert-action {
+  display: inline-flex;
+  margin-left: auto;
+  margin-right: 14px;
+}
+
+.alert-action button {
+  height: 30px;
+  margin-right: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 13px;
+  position: relative;
+  font-family: var(--font-family-sans, font(sans));
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.alert-action.info button {
+  color: var(--blue-500);
+  background-color: var(--blue-100);
+  border: var(--blue-100);
+}
+
+.alert-action.success button {
+  color: var(--green-600);
+  background-color: var(--green-100);
+  border: var(--green-100);
+}
+
+.alert-action.warning button {
+  color: var(--yellow-500);
+  background-color: var(--yellow-100);
+  border: var(--yellow-100);
+}
+
+.alert-action.danger button {
+  color: var(--red-700);
+  background-color: var(--red-100);
+  border: var(--red-100);
+}
+
 </style>

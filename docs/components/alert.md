@@ -2,6 +2,7 @@
 
 **KAlert** is used to display contextual information to a user. These are typically used to notify something may be disabled or there may be an error.
 
+
 <KAlert alert-message="I'm an alert" />
 ```vue
 <KAlert alert-message="I'm an alert" />
@@ -16,16 +17,60 @@ What color and purpose the Alert should be. Shares similar appearances to those 
 - `success`
 - `danger`
 
+
 <KAlert
+  hasButton
+  appearance="info"
+  alert-message="Info alert message">
+  <template v-slot:actionButtons>
+    <KButton size="small">Review</KButton>
+    <KButton size="small">Dismiss</KButton>
+  </template>
+ </KAlert>
+<KAlert
+  hasButton
+  appearance="warning"
+  alert-message="Warning alert message">
+  <template v-slot:actionButtons>
+    <KButton size="small">Dismiss</KButton>
+  </template>
+</KAlert>
+<KAlert
+  hasButton
+  appearance="success"
+  alert-message="Success alert message">
+  <template v-slot:actionButtons>
+    <KButton size="small">Review</KButton>
+  </template>
+</KAlert>
+<KAlert
+  hasButton
+  appearance="danger"
+  alert-message="Danger alert message">
+  <template v-slot:actionButtons>
+    <KButton size="small">Review</KButton>
+    <KButton size="small">Dismiss</KButton>
+  </template>
+</KAlert> 
+
+<KAlert
+  class="dismissible"
+  is-dismissible
   appearance="info"
   alert-message="Info alert message" />
 <KAlert
   appearance="warning"
+  class="dismissible"
+  is-dismissible
   alert-message="Warning alert message" />
 <KAlert
+class="dismissible"
+  is-dismissible
   appearance="success"
   alert-message="Success alert message" />
 <KAlert
+class="dismissible"
+  is-dismissible
   appearance="danger"
   alert-message="Danger alert message" />
 
