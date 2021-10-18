@@ -2,8 +2,22 @@
 
 **KAlert** is used to display contextual information to a user. These are typically used to notify something may be disabled or there may be an error.
 
+<KAlert isWideBanner>
+  <template v-slot:alertRedIcon>
+    <KIcon icon="notificationInbox" color="#D44324" size="32" />
+  </template>
+  <template v-slot:alertLongMessageFirst>
+   You’ve had 12 new mentions since you last logged in
+  </template>
+  <template v-slot:alertLongMessageSec>
+    across 3 services  
+  </template>
+  <template v-slot:actionButtons>
+    <KButton size="small" appearance='outline'>Review</KButton>
+    <KButton size="small">Dismiss</KButton>
+  </template>
+</KAlert>
 
-<KAlert alert-message="I'm an alert" />
 ```vue
 <KAlert alert-message="I'm an alert" />
 ```
@@ -19,6 +33,7 @@ What color and purpose the Alert should be. Shares similar appearances to those 
 
 
 <KAlert
+hasEllipse
   hasButton
   appearance="info"
   alert-message="Info alert message">
@@ -29,6 +44,7 @@ What color and purpose the Alert should be. Shares similar appearances to those 
  </KAlert>
 <KAlert
   hasButton
+  hasEllipse
   appearance="warning"
   alert-message="Warning alert message">
   <template v-slot:actionButtons>
@@ -37,6 +53,7 @@ What color and purpose the Alert should be. Shares similar appearances to those 
 </KAlert>
 <KAlert
   hasButton
+  hasEllipse
   appearance="success"
   alert-message="Success alert message">
   <template v-slot:actionButtons>
@@ -45,6 +62,7 @@ What color and purpose the Alert should be. Shares similar appearances to those 
 </KAlert>
 <KAlert
   hasButton
+  hasEllipse
   appearance="danger"
   alert-message="Danger alert message">
   <template v-slot:actionButtons>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-if="isShowing && !hasButton"
+      v-if="isShowing && !hasButton && !isWideBanner"
       :class="[
         appearance,
         size,
@@ -36,6 +36,7 @@
         <slot name="alertMessage">{{ alertMessage }}</slot>
       </span>
     </div>
+    <!-- White Background With Buttons -->
     <div
       v-if="hasButton"
       :class="[
@@ -52,13 +53,13 @@
       class="k-alert has-button"
       role="alert">
 
+      <!-- <span
+        v-if="hasEllipse"
+        class="alert-ellipse">
+        <slot name="alertEllipse"/>
+      </span> -->
       <span
-        v-if="hasRedIcon"
-        class="alert-red">
-        <slot name="alertRedIcon"/>
-      </span>
-      <span
-        v-if="!hasRedIcon"
+        v-if="hasEllipse"
         :class="appearance"
         class="dot"/>
       <span
@@ -69,6 +70,31 @@
       <span>
         <slot name="alertMessage">{{ alertMessage }}</slot>
       </span>
+      <span
+        v-if="hasActionButtons"
+        :class="appearance"
+        class="alert-action">
+        <slot name="actionButtons"/>
+      </span>
+    </div>
+    <!-- Wide Banner -->
+    <div
+      v-if="isWideBanner"
+      class="k-alert is-wide-banner"
+      role="alert">
+
+      <span
+        v-if="hasRedIcon"
+        class="alert-red">
+        <slot name="alertRedIcon"/>
+      </span>
+      <span>
+        <slot name="alertMessage">{{ alertMessage }}</slot>
+      </span>
+      <div>
+        <span class="longSpan"><slot name="alertLongMessageFirst">{{ alertLongMessageFirst }}</slot></span>
+        <span class="smallSpan"><slot name="alertLongMessageSec">{{ alertLongMessageSec }}</slot></span>
+      </div>
       <span
         v-if="hasActionButtons"
         :class="appearance"
@@ -119,6 +145,20 @@ export default {
      * Set whether or not the alert box shown has button.
      */
     hasButton: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * Set whether or not the alert box shown has ellipse.
+     */
+    hasEllipse: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * Set whether or not the alert box shown is a banner.
+     */
+    isWideBanner: {
       type: Boolean,
       default: false
     },
@@ -348,11 +388,11 @@ button.close > svg.warning {
   cursor: pointer;
 }
 
-// .alert-red {
-//   padding: 23px 19.93px 25px 21px;
-//   width: 32px;
-//   height: 32px;
-// }
+.alert-red {
+  padding: 23px 19.93px 25px 21px;
+  width: 32px;
+  height: 32px;
+}
 
 .dot {
   height: 6px;
@@ -368,8 +408,8 @@ button.close > svg.warning {
   height: 56px;
   padding: 0;
   border-radius: 4px;
-  // background-color: white;
-  background-color: ghostwhite;
+  background-color: white;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   margin-bottom: 1rem;
   color: var(--black-500);
 }
@@ -450,6 +490,37 @@ button.close > svg.warning {
   color: var(--red-700);
   background-color: var(--red-100);
   border: var(--red-100);
+}
+
+.k-alert.is-wide-banner {
+  width: 1220px;
+  height: 80px;
+  padding: 0;
+  border-radius: 4px;
+  // background-color: white;
+  background-color: white;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  margin-bottom: 1rem;
+  color: var(--black-500);
+}
+
+.longSpan {
+  display: block;
+    font-family: Maison Neue;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.smallSpan {
+    display: block;
+    font-family: Maison Neue;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 24px;
+    color: #6F7787;
 }
 
 </style>
