@@ -1,5 +1,6 @@
 <template>
   <li
+    :class="{'expand-item':!item.expandable}"
     :key="item.key"
     :data-testid="`k-menu-item-${item.value}`"
   >
@@ -7,28 +8,39 @@
       class="menu-title"
       @click="isOpen = !isOpen">
       <span
-        :class="isOpen ? 'title-dark' : ''"
+        :class="isOpen && item.expandable ? 'title-dark' : ''"
         class="span-menu-title">
         <slot name="menuTitle"> {{ item.title }}
         </slot>
       </span>
       <span
-        v-if="item.content"
+
         class="span-icon-container">
         <KIcon
-          v-if="!expandable"
+          v-if="item.expandable"
           :icon="isOpen ? 'chevronUp' : 'chevronDown'"
           color="var(--grey-400)"
           size="16"
         />
       </span>
+      <slot/>
     </div>
     <div
       :class="isOpen ? 'd-block' : 'd-none'"
       class="menu-content">
-      <slot name="menuContent"> {{ item.content }}
+      <slot
+        v-if="item.itemType === 'String'"
+        name="menuContent"> {{ item.itemType }}
+      </slot>
+      <slot
+        v-else
+        name="menuContent"> {{ item.itemType }}
       </slot>
     </div>
+    <slot
+      v-if="!menuDivider"
+      name="menuDivider"><KMenuDivider/>
+    </slot>
   </li>
 </template>
 
@@ -44,7 +56,7 @@ export default {
       type: Object,
       default: null
     },
-    expandable: {
+    menuDivider: {
       type: Boolean,
       default: false
     }
@@ -105,5 +117,9 @@ li {
 
 .title-dark {
   color: var(--grey-600);
+}
+
+li.expand-item {
+  cursor: default;
 }
 </style>

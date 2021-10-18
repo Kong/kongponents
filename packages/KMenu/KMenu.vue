@@ -1,23 +1,25 @@
 <template>
   <div class="k-menu">
-    <ul>
-      <slot
-        :items="items"
-        name="items"
-      >
-        <KMenuItem
-          v-for="(item, index) in items"
-          :key="index"
-          :item="item"
-        />
-      </slot>
-    </ul>
-    <div
-      class="clearText">
-      <slot
-        name="clearText">{{ clearText }}
-      </slot>
-    </div>
+    <template>
+      <ul class="k-menu-list">
+        <slot
+          :items="items"
+          name="items"
+        >
+          <KMenuItem
+            v-for="(item, index) in items"
+            :key="index"
+            :item="item"
+          />
+        </slot>
+      </ul>
+      <div
+        class="clear-filters">
+        <slot
+          name="clearFiltersText">{{ clearFiltersText }}
+        </slot>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -33,9 +35,20 @@ export default {
       required: false,
       default: () => []
     },
-    clearText: {
+    clearFiltersText: {
       type: String,
-      default: 'Clear all filters and sorting'
+      default: ''
+    },
+    expandable: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * Test mode - for testing only, strips out generated ids
+     */
+    testMode: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -55,13 +68,13 @@ export default {
   border-radius: 4px;
 }
 
-ul {
-  margin: 11px 0px 24px 23px;
+.k-menu-list {
+  margin: 11px 0px 11px 23px;
   padding: 0;
   list-style: none;
 }
 
-div.clearText {
+div.clear-filters {
   cursor: pointer;
   font-family: var(--font-family-sans);
   font-style: normal;
@@ -69,8 +82,6 @@ div.clearText {
   font-size: 13px;
   line-height: 24px;
   color: var(--blue-300);
-  width: 159px;
-  height: 24px;
   white-space: nowrap;
   padding: 0 0 18.5px 24px;
 

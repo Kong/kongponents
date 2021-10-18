@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KMenu matches snapshot 1`] = `
+<div class="k-menu">
+  <ul class="k-menu-list">
+    <li data-testid="k-menu-item-undefined" class="">
+      <div class="menu-title"><span class="span-menu-title"> Updated
+      </span> <span class="span-icon-container"><svg height="16" width="16" viewBox="0 0 20 20" role="img" class="kong-icon kong-icon-chevronDown"><title>chevronDown</title>  <g><!----> <!----> <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--grey-400)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></g></svg></span> </div>
+      <div class="menu-content d-none"> String
+      </div>
+    </li>
+  </ul>
+  <div class="clear-filters">Clear all filters and sorting
+  </div>
+</div>
+`;

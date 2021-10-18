@@ -2,27 +2,77 @@
 
 **KMenu** - Menu component
 
-<KMenu :items="[{ title: 'Updated', itemType: 'String', value:'Title1', content:'Some random data to show here'},
-{ title: 'Created', itemType: 'Number', value:'Title2'},
-{ title: 'Name and description', itemType: 'Number', value:'Title3', content:'Some random data to show here'},
-{ title: 'Status', itemType: 'Number', value:'Title4', hasContent:'false'},
-{ title: 'Avg. Latency', itemType: 'Number', value:'Title4', hasContent:'false'},
-{ title: 'Uptime', itemType: 'Number', value:'Title4', content:'Some random data to show here'},
-{ title: 'Properties', itemType: 'Number', value:'Title4', hasContent:'false'},
-{ title: 'Versions', itemType: 'Number', value:'Title4', content:'Some random data to show here'},
-{ title: 'Owners', itemType: 'Number', value:'Title4', content:'Some random data to show here'}]">
+<KMenu :items="[{
+    title: 'Updated',
+    itemType: 'String',
+    expandable:true
+  }, {
+    title: 'Created',
+    expandable:false
+  }, {
+    title: 'Name and description',
+    itemType: 'Number',
+    expandable:true
+  }, {
+    title: 'Status',
+    itemType: 'String',
+    expandable:true
+  }, {
+    title: 'Avg. Latency',
+    expandable:false
+  }, {
+    title: 'Uptime',
+    itemType: 'Number',
+    expandable:true
+  }, {
+    title: 'Properties',
+    itemType: 'Number',
+    expandable:true
+  }, {
+    title: 'Versions',
+    expandable:false
+  }, {
+    title: 'Owners',
+    expandable:false
+  }]"
+  clearFiltersText="Clear all filters and sorting">
 </KMenu>
 
 ```vue
-<KMenu :items="[{ title: 'Updated', itemType: 'String', value:'Title1', content:'Some random data to show here'},
-{ title: 'Created', itemType: 'Number', value:'Title2'},
-{ title: 'Name and description', itemType: 'Number', value:'Title3', content:'Some random data to show here'},
-{ title: 'Status', itemType: 'Number', value:'Title4', hasContent:'false'},
-{ title: 'Avg. Latency', itemType: 'Number', value:'Title4', hasContent:'false'},
-{ title: 'Uptime', itemType: 'Number', value:'Title4', content:'Some random data to show here'},
-{ title: 'Properties', itemType: 'Number', value:'Title4', hasContent:'false'},
-{ title: 'Versions', itemType: 'Number', value:'Title4', content:'Some random data to show here'},
-{ title: 'Owners', itemType: 'Number', value:'Title4', content:'Some random data to show here'}]">
+<KMenu :items="[{
+    title: 'Updated',
+    itemType: 'String',
+    expandable:true
+  }, {
+    title: 'Created',
+    expandable:false
+  }, {
+    title: 'Name and description',
+    itemType: 'Number',
+    expandable:true
+  }, {
+    title: 'Status',
+    itemType: 'String',
+    expandable:true
+  }, {
+    title: 'Avg. Latency',
+    expandable:false
+  }, {
+    title: 'Uptime',
+    itemType: 'Number',
+    expandable:true
+  }, {
+    title: 'Properties',
+    itemType: 'Number',
+    expandable:true
+  }, {
+    title: 'Versions',
+    itemType: 'String',
+    expandable:false
+  }, {
+    title: 'Owners',
+    expandable:false
+  }]">
 </KMenu>
 ```
 
