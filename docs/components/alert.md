@@ -2,10 +2,10 @@
 
 **KAlert** is used to display contextual information to a user. These are typically used to notify something may be disabled or there may be an error.
 
-<KAlert is-showing alert-message="I'm an alert" />
+<KAlert alert-message="I'm an alert" />
 
 ```vue
-<KAlert is-showing alert-message="I'm an alert" />
+<KAlert alert-message="I'm an alert" />
 ```
 
 ## Props
@@ -106,44 +106,36 @@ KAlert allows for dismissal of the banner.
 - `is-dismissible`
 
 <KAlert
-  is-showing
   is-dismissible
   appearance="info"
   alert-message="Info alert message" />
 <KAlert
-  is-showing
   is-dismissible
   appearance="warning"
   alert-message="Warning alert message" />
 <KAlert
-  is-showing
   is-dismissible
   appearance="success"
   alert-message="Success alert message" />
 <KAlert
-  is-showing
   is-dismissible
   appearance="danger"
   alert-message="Danger alert message" />
 
 ```vue
 <KAlert
-  is-showing
   is-dismissible
   appearance="info"
   alert-message="Info alert message" />
 <KAlert
-  is-showing
   is-dismissible
   appearance="warning"
   alert-message="Warning alert message" />
 <KAlert
-  is-showing
   is-dismissible
   appearance="success"
   alert-message="Success alert message" />
 <KAlert
-  is-showing
   is-dismissible
   appearance="danger"
   alert-message="Danger alert message" />
@@ -155,13 +147,11 @@ Adds border around alert. Used for [KToaster]().
 - `is-bordered`
 
 <KAlert
-  is-showing
   is-bordered
   appearance="info"
   alert-message="Info bordered"/>
 ```vue
 <KAlert
-  is-showing
   is-bordered
   appearance="info"
   alert-message="Info bordered"/>
@@ -173,13 +163,11 @@ Adds border to the left side. Typically used for alerts that show info that may 
 - `has-left-border`
 
 <KAlert
-  is-showing
   has-left-border
   alert-message="Bordered alert"/>
 
 ```vue
 <KAlert
-  is-showing
   has-left-border
   alert-message="Bordered alert"/>
 ```
@@ -190,13 +178,11 @@ Adds border to the right side. Typically used for alerts that show info that may
 - `has-right-border`
 
 <KAlert
-  is-showing
   has-right-border
   alert-message="Bordered alert"/>
 
 ```vue
 <KAlert
-  is-showing
   has-right-border
   alert-message="Bordered alert"/>
 ```
@@ -207,13 +193,11 @@ Adds border to the top.
 - `has-top-border`
 
 <KAlert
-  is-showing
   has-top-border
   alert-message="Bordered alert"/>
 
 ```vue
 <KAlert
-  is-showing
   has-top-border
   alert-message="Bordered alert"/>
 ```
@@ -224,13 +208,11 @@ Adds border to the bottom.
 - `has-bottom-border`
 
 <KAlert
-  is-showing
   has-bottom-border
   alert-message="Bordered alert"/>
 
 ```vue
 <KAlert
-  is-showing
   has-bottom-border
   alert-message="Bordered alert"/>
 ```
@@ -241,14 +223,12 @@ Controls size of alert. Currently only *small* is supported.
 - `small`
 
 <KAlert
-  is-showing
   style="width:250px"
   size="small"
   alert-message="Small alert"/>
 
 ```vue
 <KAlert
-  is-showing
   style="width:250px"
   size="small"
   alert-message="Small alert"/>
@@ -263,7 +243,6 @@ Fixes KAlert to the top of the container.
 
 ```vue
 <KAlert
-  is-showing
   is-fixed
   alert-message="Info bordered"/>
 ```

@@ -101,7 +101,7 @@ export default {
      */
     isShowing: {
       type: Boolean,
-      default: false
+      default: true
     },
     /**
      * Set whether or not the alert box shown has button.

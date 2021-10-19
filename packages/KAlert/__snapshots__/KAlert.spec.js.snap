@@ -4,8 +4,7 @@ exports[`KAlert Renders danger variant 1`] = `
 <div role="alert" class="k-alert danger" message="I am danger">
   <!---->
   <!---->
-  <!---->
-  <!----> <span></span>
+  <!----> <span class="alert-msg"></span>
   <!---->
   <!---->
 </div>
@@ -15,8 +14,7 @@ exports[`KAlert Renders info variant 1`] = `
 <div role="alert" class="k-alert info" message="I am info">
   <!---->
   <!---->
-  <!---->
-  <!----> <span></span>
+  <!----> <span class="alert-msg"></span>
   <!---->
   <!---->
 </div>
@@ -26,8 +24,7 @@ exports[`KAlert Renders success variant 1`] = `
 <div role="alert" class="k-alert success" message="I am success">
   <!---->
   <!---->
-  <!---->
-  <!----> <span></span>
+  <!----> <span class="alert-msg"></span>
   <!---->
   <!---->
 </div>
@@ -37,8 +34,7 @@ exports[`KAlert Renders warning variant 1`] = `
 <div role="alert" class="k-alert warning" message="I am warning">
   <!---->
   <!---->
-  <!---->
-  <!----> <span></span>
+  <!----> <span class="alert-msg"></span>
   <!---->
   <!---->
 </div>
@@ -48,8 +44,7 @@ exports[`KAlert show alert with white background and button(s) 1`] = `
 <div role="alert" class="k-alert info hasButton" message="Hello world">
   <!---->
   <!---->
-  <!---->
-  <!----> <span></span>
+  <!----> <span class="alert-msg"></span>
   <!---->
   <!---->
 </div>
@@ -59,8 +54,7 @@ exports[`KAlert show alert/banner with isWideBanner class styles for white backg
 <div role="alert" class="k-alert info isWideBanner" message="Hello world">
   <!---->
   <!---->
-  <!---->
-  <!----> <span></span>
+  <!----> <span class="alert-msg"></span>
   <div><span class="mainMessageText"></span> <span class="secMessageText"></span></div>
   <!---->
 </div>
