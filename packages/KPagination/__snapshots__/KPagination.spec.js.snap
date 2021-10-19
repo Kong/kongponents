@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KPagination matches snapshot 1`] = `
+<nav aria-label="Pagination Navigation">
+  <div class="card-pagination-bar"><span class="pagination-text"><span class="pagination-text-pages">1 to 10</span>
+    of 100
+    </span>
+    <ul class="pagination-button-container">
+      <li aria-label="Go to the previous page" class="pagination-button square disabled"><a><svg height="24" width="16px" viewBox="0 0 16 14" role="img" class="kong-icon kong-icon-arrowLeft" heigth="16px">
+            <title>Back</title>
+            <g>
+              <!---->
+              <!---->
+              <path d="M12.17 8.75H3M6.75 5 3 8.75l3.75 3.75" fill="none" stroke="var(--grey-500)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+          </svg></a></li>
+      <!---->
+      <!---->
+      <li aria-current="page" aria-label="Go to page 1" class="pagination-button active"><a>
+          1
+        </a></li>
+      <li aria-label="Go to page 2" class="pagination-button"><a>
+          2
+        </a></li>
+      <li aria-label="Go to page 3" class="pagination-button"><a>
+          3
+        </a></li>
+      <li aria-label="Go to page 4" class="pagination-button"><a>
+          4
+        </a></li>
+      <li aria-label="Go to page 5" class="pagination-button"><a>
+          5
+        </a></li>
+      <li class="pagination-button placeholder"><a>
+          ...
+        </a></li>
+      <li aria-label="Go to the last page" class="pagination-button"><a>
+          10
+        </a></li>
+      <li aria-label="Go to the next page" class="pagination-button square"><a><svg height="24" width="16px" viewBox="0 0 16 14" role="img" class="kong-icon kong-icon-arrowRight" heigth="16px">
+            <title>Forward</title>
+            <g>
+              <!---->
+              <!---->
+              <path d="M3 8.75h9.17M8.42 5l3.75 3.75-3.75 3.75" fill="none" stroke="var(--blue-400)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+          </svg></a></li>
+    </ul> <span class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;">10 items per page <svg height="24" width="24" viewBox="2 2 15 15" role="img" class="kong-icon kong-icon-chevronDown caret has-caret"><title>Expand</title>  <g><!----> <!----> <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="#A3BBCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></g></svg></button></div> <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="display: none;" name="fade"><!----> <div class="k-popover-content"><ul class="k-select-list ma-0 pa-0"><div><div data-testid="k-select-item-10" class="k-select-item"><li role="option" class="d-block"><button value="10" class=""><span class="k-select-item-label mr-2">10</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
+  </div>
+  <div data-testid="k-select-item-20" class="k-select-item">
+    <li role="option" class="d-block"><button value="20" class=""><span class="k-select-item-label mr-2">20</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
+  </div>
+  <div data-testid="k-select-item-30" class="k-select-item">
+    <li role="option" class="d-block"><button value="30" class=""><span class="k-select-item-label mr-2">30</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
+  </div>
+  </div>
+  </ul>
+  </div>
+  <!---->
+  </div>
+  </div>
+  </div>
+  </div></span></div>
+</nav>
+`;

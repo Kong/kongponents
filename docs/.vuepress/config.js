@@ -53,6 +53,7 @@ module.exports = {
               '/components/label',
               '/components/modal',
               '/components/multiselect',
+              '/components/pagination',
               '/components/popover',
               '/components/input-radio',
               '/components/segmented-control',
