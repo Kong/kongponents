@@ -2,24 +2,10 @@
 
 **KAlert** is used to display contextual information to a user. These are typically used to notify something may be disabled or there may be an error.
 
-<KAlert isWideBanner>
-  <template v-slot:alertRedIcon>
-    <KIcon icon="notificationInbox" color="#D44324" size="32" />
-  </template>
-  <template v-slot:mainMessageText>
-   You’ve had 12 new mentions since you last logged in
-  </template>
-  <template v-slot:secMessageText>
-    across 3 services  
-  </template>
-  <template v-slot:actionButtons>
-    <KButton size="small" appearance='outline'>Review</KButton>
-    <KButton size="small">Dismiss</KButton>
-  </template>
-</KAlert>
+<KAlert is-showing alert-message="I'm an alert" />
 
 ```vue
-<KAlert alert-message="I'm an alert" />
+<KAlert is-showing alert-message="I'm an alert" />
 ```
 
 ## Props
@@ -31,10 +17,52 @@ What color and purpose the Alert should be. Shares similar appearances to those 
 - `success`
 - `danger`
 
-
 <KAlert
-  hasButton
-  hasEllipse
+  has-button
+  has-ellipse
+  appearance="info"
+  alert-message="Info alert message">
+  <template v-slot:actionButtons>
+    <KButton appearance="outline" size="small">Outline</KButton>
+    <KButton appearance="primary" size="small">Dismiss</KButton>
+  </template>
+ </KAlert>
+<KAlert
+  has-button
+  has-ellipse
+  appearance="warning"
+  alert-message="Warning alert message">
+  <template v-slot:actionButtons>
+  <KButton appearance="outline" size="small">Outline</KButton>
+    <KButton size="small">Dismiss</KButton>
+  </template>
+</KAlert>
+<KAlert
+  has-button
+  has-ellipse
+  appearance="success"
+  alert-message="Success alert message">
+  <template v-slot:actionButtons>
+  <KButton appearance="outline" size="small">Outline</KButton>
+    <KButton appearance="creation" size="small">Review</KButton>
+  </template>
+</KAlert>
+<KAlert
+  has-button
+  has-ellipse
+  appearance="danger"
+  alert-message="Danger alert message">
+  <template v-slot:actionButtons>
+    <KButton appearance="outline" size="small">Outline</KButton>
+    <KButton appearance="danger" size="small">Dismiss</KButton>
+  </template>
+</KAlert>
+
+
+```vue
+<KAlert
+  has-button
+  has-ellipse
   appearance="info"
   alert-message="Info alert message">
   <template v-slot:actionButtons>
@@ -43,8 +71,8 @@ What color and purpose the Alert should be. Shares similar appearances to those 
   </template>
  </KAlert>
 <KAlert
-  hasButton
-  hasEllipse
+  has-button
+  has-ellipse
   appearance="warning"
   alert-message="Warning alert message">
   <template v-slot:actionButtons>
@@ -52,8 +80,8 @@ What color and purpose the Alert should be. Shares similar appearances to those 
   </template>
 </KAlert>
 <KAlert
-  hasButton
-  hasEllipse
+  has-button
+  has-ellipse
   appearance="success"
   alert-message="Success alert message">
   <template v-slot:actionButtons>
@@ -61,8 +89,8 @@ What color and purpose the Alert should be. Shares similar appearances to those 
   </template>
 </KAlert>
 <KAlert
-  hasButton
-  hasEllipse
+  has-button
+  has-ellipse
   appearance="danger"
   alert-message="Danger alert message">
   <template v-slot:actionButtons>
@@ -70,41 +98,6 @@ What color and purpose the Alert should be. Shares similar appearances to those 
     <KButton size="small">Dismiss</KButton>
   </template>
 </KAlert> 
-
-<KAlert
-  isShowing
-  is-dismissible
-  appearance="info"
-  alert-message="Info alert message" />
-<KAlert
-  isShowing
-  is-dismissible
-  appearance="warning"
-  alert-message="Warning alert message" />
-<KAlert
-  isShowing
-  is-dismissible
-  appearance="success"
-  alert-message="Success alert message" />
-<KAlert
-  isShowing
-  is-dismissible
-  appearance="danger"
-  alert-message="Danger alert message" />
-
-```vue
-<KAlert
-  appearance="info"
-  alert-message="Info alert message" />
-<KAlert
-  appearance="warning"
-  alert-message="Warning alert message" />
-<KAlert
-  appearance="success"
-  alert-message="Success alert message" />
-<KAlert
-  appearance="danger"
-  alert-message="Danger alert message" />
 ```
 
 ### Dismissible
@@ -113,14 +106,47 @@ KAlert allows for dismissal of the banner.
 - `is-dismissible`
 
 <KAlert
-  class="dismissible"
+  is-showing
   is-dismissible
-  alert-message="I can be dismissed!"/>
+  appearance="info"
+  alert-message="Info alert message" />
+<KAlert
+  is-showing
+  is-dismissible
+  appearance="warning"
+  alert-message="Warning alert message" />
+<KAlert
+  is-showing
+  is-dismissible
+  appearance="success"
+  alert-message="Success alert message" />
+<KAlert
+  is-showing
+  is-dismissible
+  appearance="danger"
+  alert-message="Danger alert message" />
+
 ```vue
 <KAlert
-  class="dismissible"
+  is-showing
   is-dismissible
-  alert-message="I can be dismissed!"/>
+  appearance="info"
+  alert-message="Info alert message" />
+<KAlert
+  is-showing
+  is-dismissible
+  appearance="warning"
+  alert-message="Warning alert message" />
+<KAlert
+  is-showing
+  is-dismissible
+  appearance="success"
+  alert-message="Success alert message" />
+<KAlert
+  is-showing
+  is-dismissible
+  appearance="danger"
+  alert-message="Danger alert message" />
 ```
 
 ### Bordered
@@ -129,11 +155,13 @@ Adds border around alert. Used for [KToaster]().
 - `is-bordered`
 
 <KAlert
+  is-showing
   is-bordered
   appearance="info"
   alert-message="Info bordered"/>
 ```vue
 <KAlert
+  is-showing
   is-bordered
   appearance="info"
   alert-message="Info bordered"/>
@@ -145,11 +173,13 @@ Adds border to the left side. Typically used for alerts that show info that may 
 - `has-left-border`
 
 <KAlert
+  is-showing
   has-left-border
   alert-message="Bordered alert"/>
 
 ```vue
 <KAlert
+  is-showing
   has-left-border
   alert-message="Bordered alert"/>
 ```
@@ -160,11 +190,13 @@ Adds border to the right side. Typically used for alerts that show info that may
 - `has-right-border`
 
 <KAlert
+  is-showing
   has-right-border
   alert-message="Bordered alert"/>
 
 ```vue
 <KAlert
+  is-showing
   has-right-border
   alert-message="Bordered alert"/>
 ```
@@ -175,11 +207,13 @@ Adds border to the top.
 - `has-top-border`
 
 <KAlert
+  is-showing
   has-top-border
   alert-message="Bordered alert"/>
 
 ```vue
 <KAlert
+  is-showing
   has-top-border
   alert-message="Bordered alert"/>
 ```
@@ -190,11 +224,13 @@ Adds border to the bottom.
 - `has-bottom-border`
 
 <KAlert
+  is-showing
   has-bottom-border
   alert-message="Bordered alert"/>
 
 ```vue
 <KAlert
+  is-showing
   has-bottom-border
   alert-message="Bordered alert"/>
 ```
@@ -205,12 +241,14 @@ Controls size of alert. Currently only *small* is supported.
 - `small`
 
 <KAlert
+  is-showing
   style="width:250px"
   size="small"
   alert-message="Small alert"/>
 
 ```vue
 <KAlert
+  is-showing
   style="width:250px"
   size="small"
   alert-message="Small alert"/>
@@ -225,30 +263,71 @@ Fixes KAlert to the top of the container.
 
 ```vue
 <KAlert
+  is-showing
   is-fixed
   alert-message="Info bordered"/>
 ```
 
 ## Slots
 - `alertIcon` - Slot specifically meant for adding an icon
-- `alertMessage` - Default message slot
+- `mainMessageText` - Primary message slot
+- `secMessageText` - Secondary message slot
 
-<KAlert appearance="info">
+<KAlert is-wide-banner>
   <template v-slot:alertIcon>
-    <KIcon icon="portal" />
+    <KIcon icon="notificationInbox" color="var(--red-500)" size="32" />
   </template>
-  <template v-slot:alertMessage>
-    I have an icon and a <a href="">Link</a>!
+  <template v-slot:mainMessageText>
+   You’ve had 12 new mentions since you last logged in
+  </template>
+  <template v-slot:secMessageText>
+    across 3 services  
+  </template>
+  <template v-slot:actionButtons>
+    <KButton size="small" appearance='outline'>Review</KButton>
+    <KButton size="small">Dismiss</KButton>
   </template>
 </KAlert>
 
 ```vue
-<KAlert appearance="info">
-  <template v-slot:alertIcon>
-    <KIcon icon="portal" />
+<KAlert is-wide-banner>
+  <template v-slot:alertNotificationIcon>
+    <KIcon icon="notificationInbox" color: var(--red-500); size="32" />
   </template>
-  <template v-slot:alertMessage>
-    I have an icon and a <a href="">Link</a>!
+  <template v-slot:mainMessageText>
+   You’ve had 12 new mentions since you last logged in
+  </template>
+  <template v-slot:secMessageText>
+    across 3 services  
+  </template>
+  <template v-slot:actionButtons>
+    <KButton size="small" appearance='outline'>Review</KButton>
+    <KButton size="small">Dismiss</KButton>
+  </template>
+</KAlert>
+```
+
+- `alertMessage` - Default message slot
+- `actionButtons` - Default button slot
+
+<KAlert
+  has-button
+  has-ellipse
+  appearance="warning"
+  alert-message="Warning alert message">
+  <template v-slot:actionButtons>
+    <KButton size="small">Dismiss</KButton>
+  </template>
+</KAlert>
+
+```vue
+<KAlert
+  has-button
+  has-ellipse
+  appearance="warning"
+  alert-message="Warning alert message">
+  <template v-slot:actionButtons>
+    <KButton size="small">Dismiss</KButton>
   </template>
 </KAlert>
 ```
@@ -257,7 +336,7 @@ Fixes KAlert to the top of the container.
 
 ### Long Content / Prose
 
-<KAlert appearance="info" class="mt-5">
+<KAlert isShowing appearance="info" class="mt-5">
   <template v-slot:alertMessage>
     <div class="mt-2 bold">Failure Modes</div>
     <p>Before you release that email you're writing to spin up a new centralized decision-making group, it's worth talking about the four ways these groups consistently fail. They tend to be <b>domineering</b>, <b>bottlenecked</b>, <b>status-oriented</b>, or <b>inert</b>.</p>
@@ -265,7 +344,7 @@ Fixes KAlert to the top of the container.
 </KAlert>
 
 ```vue
-<KAlert appearance="info" class="mt-5">
+<KAlert isShowing appearance="info" class="mt-5">
   <template v-slot:alertMessage>
     <div class="mt-2 bold">Failure Modes</div>
     <p>Before you release that email you're writing to spin up a new centralized decision-making group, it's worth talking about the four ways these groups consistently fail. They tend to be <b>domineering</b>, <b>bottlenecked</b>, <b>status-oriented</b>, or <b>inert</b>.</p>
@@ -275,17 +354,16 @@ Fixes KAlert to the top of the container.
 
 ### Word Wrap long urls
 
-<KAlert appearance="warning" class="mt-5">
+<KAlert isShowing appearance="warning" class="mt-5">
   <template v-slot:alertMessage>
     Proxy error: Could not proxy request /api/service_packages?fields=&s=%7B%22%24and%22%3A%5B%7B%22name%22%3A%7B%22%24contL%22%3A%22%22%7D%7D%5D%7D&filter=&or=&sort=created_at%2CDESC&join=&limit=100&offset=0&page=1 from localhost:8080 to http://localhost:3000 (ECONNREFUSED).
   </template>
 </KAlert>
 
 ```vue
-<KAlert appearance="info" class="mt-5">
+<KAlert isShowing appearance="warning" class="mt-5">
   <template v-slot:alertMessage>
-    <div class="mt-2 bold">Failure Modes</div>
-    <p>Before you release that email you're writing to spin up a new centralized decision-making group, it's worth talking about the four ways these groups consistently fail. They tend to be <b>domineering</b>, <b>bottlenecked</b>, <b>status-oriented</b>, or <b>inert</b>.</p>
+    Proxy error: Could not proxy request /api/service_packages?fields=&s=%7B%22%24and%22%3A%5B%7B%22name%22%3A%7B%22%24contL%22%3A%22%22%7D%7D%5D%7D&filter=&or=&sort=created_at%2CDESC&join=&limit=100&offset=0&page=1 from localhost:8080 to http://localhost:3000 (ECONNREFUSED).
   </template>
 </KAlert>
 ```

@@ -75,4 +75,28 @@ describe('KAlert', () => {
     expect(wrapperBorderBottom.attributes('class')).toContain('hasBottomBorder')
     expect(wrapperBorderTop.attributes('class')).toContain('hasTopBorder')
   })
+
+  it('show alert with white background and button(s)', () => {
+    const wrapper = mount(KAlert, {
+      propsData: {
+        'hasButton': true,
+        message: 'Hello world'
+      }
+    })
+
+    expect(wrapper.find('.k-alert').classes()).toContain('hasButton')
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
+  it('show alert/banner with isWideBanner class styles for white background, buttons and notification icon', () => {
+    const wrapper = mount(KAlert, {
+      propsData: {
+        'isWideBanner': true,
+        message: 'Hello world'
+      }
+    })
+
+    expect(wrapper.find('.k-alert').classes()).toContain('isWideBanner')
+    expect(wrapper.html()).toMatchSnapshot()
+  })
 })

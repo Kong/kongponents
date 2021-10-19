@@ -43,3 +43,25 @@ exports[`KAlert Renders warning variant 1`] = `
   <!---->
 </div>
 `;
+
+exports[`KAlert show alert with white background and button(s) 1`] = `
+<div role="alert" class="k-alert info hasButton" message="Hello world">
+  <!---->
+  <!---->
+  <!---->
+  <!----> <span></span>
+  <!---->
+  <!---->
+</div>
+`;
+
+exports[`KAlert show alert/banner with isWideBanner class styles for white background, buttons and notification icon 1`] = `
+<div role="alert" class="k-alert info isWideBanner" message="Hello world">
+  <!---->
+  <!---->
+  <!---->
+  <!----> <span></span>
+  <div><span class="mainMessageText"></span> <span class="secMessageText"></span></div>
+  <!---->
+</div>
+`;

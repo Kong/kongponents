@@ -26,13 +26,8 @@
         :color="appearance"
         :class="appearance"
         icon="close"
-        size="14" />
+        size="20" />
     </button>
-    <span
-      v-if="hasRedIcon"
-      class="alert-red">
-      <slot name="alertRedIcon"/>
-    </span>
     <span
       v-if="hasIcon"
       class="alert-icon">
@@ -41,26 +36,26 @@
     <span
       v-if="hasEllipse"
       :class="appearance"
-      class="dot"/>
-    <span>
+      class="ellipse"/>
+    <span class="alert-msg">
       <slot name="alertMessage">{{ alertMessage }}</slot>
     </span>
     <div v-if="isWideBanner">
-      <span class="longSpan"><slot name="mainMessageText">{{ mainMessageText }}</slot></span>
-      <span class="smallSpan"><slot name="secMessageText">{{ secMessageText }}</slot></span>
+      <span class="mainMessageText"><slot name="mainMessageText">{{ mainMessageText }}</slot></span>
+      <span class="secMessageText"><slot name="secMessageText">{{ secMessageText }}</slot></span>
     </div>
     <span
       v-if="hasActionButtons"
       :class="appearance"
       class="alert-action">
-      <slot name="actionButtons"/>
+      <slot
+        name="actionButtons"/>
     </span>
   </div>
 </template>
 
 <script>
 import KIcon from '@kongponents/kicon/KIcon.vue'
-import KButton from '@kongponents/kbutton/KButton.vue'
 
 export const appearances = {
   info: 'info',
@@ -71,7 +66,7 @@ export const appearances = {
 
 export default {
   name: 'KAlert',
-  components: { KIcon, KButton },
+  components: { KIcon },
   props: {
     /**
     * Message to show in alert
@@ -205,9 +200,6 @@ export default {
   },
 
   computed: {
-    hasRedIcon () {
-      return !!this.$slots.alertRedIcon
-    },
     hasIcon () {
       return !!this.$slots.alertIcon
     },
@@ -231,30 +223,19 @@ export default {
   position: relative;
   display: flex;
   align-items: center;
-  // padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
   width: 806px;
   padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
   font-style: normal;
   font-weight: 300;
   font-size: 16px;
   line-height: 16px;
-
   font-family: inherit;
-  // font-size: 1rem;
   border-radius: 3px;
   overflow-wrap: anywhere;
+  margin-bottom: 1rem;
   a {
     text-decoration: underline;
     color: var(--blue-600, color(blue-600));
-  }
-
-  .alert-icon {
-    margin-right: var(--spacing-xs, spacing(xs));
-    max-height: 1rem;
-    svg,
-    img {
-      max-height: 1rem;
-    }
   }
 
   .close {
@@ -329,22 +310,70 @@ export default {
     border-color: var(--KAlertWarningBorder, var(--yellow-200, color(yellow-200)));
     background-color: var(--KAlertWarningBackground, var(--yellow-100, color(yellow-100)));
   }
+
+  &.isWideBanner {
+    width: 1220px;
+    height: 80px;
+    padding: 0;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-bottom: 1rem;
+    color: var(--black-500);
+  }
+
+  &.hasButton {
+    width: 763px;
+    height: 56px;
+    padding: 0;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-bottom: 1rem;
+    color: var(--black-500);
+
+    & > .ellipse {
+      &.info {
+        background-color: var(--blue-500);
+      }
+
+      &.success {
+        background-color: var(--green-400);
+      }
+
+      &.warning {
+        background-color: var(--yellow-400);
+      }
+
+      &.danger {
+        background-color: var(--red-400);
+      }
+    }
+  }
+    & .alert-msg {
+      padding: 8px 0;
+      font-weight: 500;
+      font-size: 15px;
+      line-height: 20px;
+    }
 }
 
-button.close > svg.info {
-  stroke: var(--KAlertInfoColor, var(--blue-600, color(blue-600)));
-}
+button.close > svg {
+  &.info {
+    stroke: var(--KAlertInfoColor, var(--blue-600, color(blue-600)));
+  }
 
-button.close > svg.success {
-  stroke: var(--KAlertSuccessColor, var(--green-600, color(green-600)));
-}
+  &.success {
+    stroke: var(--KAlertSuccessColor, var(--green-600, color(green-600)));
+  }
 
-button.close > svg.danger {
-  stroke: var(--KAlertDangerColor, var(--red-700, color(red-700)));
-}
+  &.danger {
+    stroke: var(--KAlertDangerColor, var(--red-700, color(red-700)));
+  }
 
-button.close > svg.warning {
-  stroke: var(--KAlertWarningColor, var(--yellow-500, color(yellow-500)));
+  &.warning {
+    stroke: var(--KAlertWarningColor, var(--yellow-500, color(yellow-500)));
+  }
 }
 
 .button-right {
@@ -355,143 +384,114 @@ button.close > svg.warning {
   cursor: pointer;
 }
 
-.alert-red {
-  padding: 23px 19.93px 25px 21px;
+.alert-icon {
+  padding: 23px 20px 25px 21px;
   width: 32px;
   height: 32px;
 }
 
-.dot {
+.ellipse {
   height: 6px;
   width: 6px;
-  background-color: #d44324;
+  background-color: var(--red-500);
   border-radius: 50%;
   display: inline-block;
-  margin: 24px 26px 26px;
-}
-
-.k-alert {
-  margin-bottom: 1rem;
-}
-
-.k-alert.hasButton {
-  width: 763px;
-  height: 56px;
-  padding: 0;
-  border-radius: 4px;
-  background-color: white;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  margin-bottom: 1rem;
-  color: var(--black-500);
-}
-
-// .k-alert.hasButton > button.info {
-//   color: var(--blue-500);
-//   background-color: var(--blue-100);
-// }
-
-// .k-alert.hasButton > button.success {
-//   color: var(--green-600);
-//   background-color: var(--green-100);
-// }
-
-// .k-alert.hasButton > button.warning {
-//   color: var(--yellow-500);
-//   background-color: var(--yellow-100);
-// }
-
-// .k-alert.hasButton > button.danger {
-//   color: var(--red-700);
-//   background-color: var(--red-100);
-// }
-
-.k-alert.hasButton > .dot.info {
-  background-color: var(--blue-500);
-}
-
-.k-alert.hasButton > .dot.success {
-  background-color: var(--green-400);
-}
-
-.k-alert.hasButton > .dot.warning {
-  background-color: var(--yellow-400);
-}
-
-.k-alert.hasButton > .dot.danger {
-  background-color: var(--red-400);
+  margin: 24px 24px 26px;
 }
 
 .alert-action {
   display: inline-flex;
   margin-left: auto;
-  margin-right: 14px;
-}
 
-.alert-action button {
-  height: 30px;
-  margin-right: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 13px;
-  position: relative;
-  font-family: var(--font-family-sans, font(sans));
-  border: 1px solid transparent;
-  cursor: pointer;
-}
+  &.info button {
+    color: var(--blue-500);
+    background-color: var(--blue-100);
+    border: var(--blue-100);
+  }
 
-.alert-action.info button {
-  color: var(--blue-500);
-  background-color: var(--blue-100);
-  border: var(--blue-100);
-}
+  &.success button {
+    color: var(--green-600);
+    background-color: var(--green-100);
+    border: var(--green-100);
+  }
 
-.alert-action.success button {
-  color: var(--green-600);
-  background-color: var(--green-100);
-  border: var(--green-100);
-}
+  &.warning button {
+    color: var(--yellow-500);
+    background-color: var(--yellow-100);
+    border: var(--yellow-100);
+    &:hover:not(:disabled) {
+      background-color: var(--yellow-400);
+      border-color: var(--yellow-400);
+    }
+  }
 
-.alert-action.warning button {
-  color: var(--yellow-500);
-  background-color: var(--yellow-100);
-  border: var(--yellow-100);
-}
+  &.danger button {
+    color: var(--red-700);
+    background-color: var(--red-100);
+    border: var(--red-100);
+  }
 
-.alert-action.danger button {
-  color: var(--red-700);
-  background-color: var(--red-100);
-  border: var(--red-100);
-}
-
-.k-alert.isWideBanner {
-  width: 1220px;
-  height: 80px;
-  padding: 0;
-  border-radius: 4px;
-  // background-color: white;
-  background-color: white;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  margin-bottom: 1rem;
-  color: var(--black-500);
-}
-
-.longSpan {
-  display: block;
-    font-family: Maison Neue;
+  & button {
+    height: 30px;
+    margin-right: 13px;
     font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+    position: relative;
+    cursor: pointer;
+  }
+}
+
+.alert-action.info button.outline {
+  color: var(--KButtonOutlineColor, var(--blue-500));
+  border: 1px solid var(--blue-500);
+  background-color: var(--white, #ffffff);
+}
+
+.alert-action.warning button.outline {
+  color: var(--KButtonOutlineColor, var(--yellow-500));
+  border: 1px solid var(--yellow-500);
+  background-color: var(--white, #ffffff);
+  --KButtonOutlineBorder: var(--yellow-500);
+}
+
+.alert-action.success button.outline {
+  color: var(--KButtonOutlineColor, var(--green-600));
+  border: 1px solid var(--green-600);
+  background-color: var(--white, #ffffff);
+  --KButtonOutlineBorder: var(--green-600);
+}
+.alert-action.danger button.outline {
+  color: var(--KButtonOutlineColor, var(--red-700));
+  border: 1px solid var(--red-700);
+  background-color: var(--white, #ffffff);
+  --KButtonOutlineBorder: var(--red-700);
+}
+
+.k-alert > .close + .alert-msg {
     font-weight: 400;
     font-size: 16px;
-    line-height: 24px;
+    line-height: 16px;
 }
 
-.smallSpan {
-    display: block;
-    font-family: Maison Neue;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 24px;
-    color: #6F7787;
+.mainMessageText {
+  display: block;
+  padding-top: 6px;
+  padding-bottom: 2px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.secMessageText {
+  display: block;
+  padding-top: 2px;
+  padding-bottom: 6px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 24px;
+  color: #6F7787;
 }
 
 </style>
