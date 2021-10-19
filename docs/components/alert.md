@@ -6,10 +6,10 @@
   <template v-slot:alertRedIcon>
     <KIcon icon="notificationInbox" color="#D44324" size="32" />
   </template>
-  <template v-slot:alertLongMessageFirst>
+  <template v-slot:mainMessageText>
    You’ve had 12 new mentions since you last logged in
   </template>
-  <template v-slot:alertLongMessageSec>
+  <template v-slot:secMessageText>
     across 3 services  
   </template>
   <template v-slot:actionButtons>
@@ -33,8 +33,8 @@ What color and purpose the Alert should be. Shares similar appearances to those 
 
 
 <KAlert
-hasEllipse
   hasButton
+  hasEllipse
   appearance="info"
   alert-message="Info alert message">
   <template v-slot:actionButtons>
@@ -72,22 +72,22 @@ hasEllipse
 </KAlert> 
 
 <KAlert
-  class="dismissible"
+  isShowing
   is-dismissible
   appearance="info"
   alert-message="Info alert message" />
 <KAlert
-  appearance="warning"
-  class="dismissible"
+  isShowing
   is-dismissible
+  appearance="warning"
   alert-message="Warning alert message" />
 <KAlert
-class="dismissible"
+  isShowing
   is-dismissible
   appearance="success"
   alert-message="Success alert message" />
 <KAlert
-class="dismissible"
+  isShowing
   is-dismissible
   appearance="danger"
   alert-message="Danger alert message" />
@@ -340,6 +340,11 @@ look like.
     margin-bottom: 1rem;
   }
 }
+
+.k-alert.isWideBanner {
+  right: 20%;
+}
+
 .alert-wrapper {
   --KAlertSuccessBackground: lime;
   --KAlertSuccessColor: forestgreen;

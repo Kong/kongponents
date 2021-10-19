@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-if="isShowing && !hasButton && !isWideBanner"
+      v-if="isShowing || hasButton || isWideBanner"
       :class="[
         appearance,
         size,
@@ -11,7 +11,9 @@
         {'hasTopBorder':hasTopBorder},
         {'hasBottomBorder':hasBottomBorder},
         {'isCentered': isCentered},
-        {'isFixed': isFixed}
+        {'isFixed': isFixed},
+        {'hasButton': hasButton},
+        {'isWideBanner': isWideBanner}
       ]"
       class="k-alert"
       role="alert">
@@ -28,72 +30,25 @@
           size="14" />
       </button>
       <span
-        v-if="hasIcon"
-        class="alert-icon">
-        <slot name="alertIcon" />
-      </span>
-      <span>
-        <slot name="alertMessage">{{ alertMessage }}</slot>
-      </span>
-    </div>
-    <!-- White Background With Buttons -->
-    <div
-      v-if="hasButton"
-      :class="[
-        appearance,
-        size,
-        {'isBordered':isBordered},
-        {'hasLeftBorder':hasLeftBorder},
-        {'hasRightBorder':hasRightBorder},
-        {'hasTopBorder':hasTopBorder},
-        {'hasBottomBorder':hasBottomBorder},
-        {'isCentered': isCentered},
-        {'isFixed': isFixed}
-      ]"
-      class="k-alert has-button"
-      role="alert">
-
-      <!-- <span
-        v-if="hasEllipse"
-        class="alert-ellipse">
-        <slot name="alertEllipse"/>
-      </span> -->
-      <span
-        v-if="hasEllipse"
-        :class="appearance"
-        class="dot"/>
-      <span
-        v-if="hasIcon"
-        class="alert-icon">
-        <slot name="alertIcon" />
-      </span>
-      <span>
-        <slot name="alertMessage">{{ alertMessage }}</slot>
-      </span>
-      <span
-        v-if="hasActionButtons"
-        :class="appearance"
-        class="alert-action">
-        <slot name="actionButtons"/>
-      </span>
-    </div>
-    <!-- Wide Banner -->
-    <div
-      v-if="isWideBanner"
-      class="k-alert is-wide-banner"
-      role="alert">
-
-      <span
         v-if="hasRedIcon"
         class="alert-red">
         <slot name="alertRedIcon"/>
       </span>
+      <span
+        v-if="hasIcon"
+        class="alert-icon">
+        <slot name="alertIcon"/>
+      </span>
+      <span
+        v-if="hasEllipse"
+        :class="appearance"
+        class="dot"/>
       <span>
         <slot name="alertMessage">{{ alertMessage }}</slot>
       </span>
       <div>
-        <span class="longSpan"><slot name="alertLongMessageFirst">{{ alertLongMessageFirst }}</slot></span>
-        <span class="smallSpan"><slot name="alertLongMessageSec">{{ alertLongMessageSec }}</slot></span>
+        <span class="longSpan"><slot name="mainMessageText">{{ mainMessageText }}</slot></span>
+        <span class="smallSpan"><slot name="secMessageText">{{ secMessageText }}</slot></span>
       </div>
       <span
         v-if="hasActionButtons"
@@ -128,6 +83,20 @@ export default {
       default: ''
     },
     /**
+    * Long Message to show in the first line in alert
+    */
+    mainMessageText: {
+      type: String,
+      default: ''
+    },
+    /**
+    * Short Message in the second line to show in alert
+    */
+    secMessageText: {
+      type: String,
+      default: ''
+    },
+    /**
      * Set if close button is visible
      */
     isDismissible: {
@@ -139,7 +108,7 @@ export default {
      */
     isShowing: {
       type: Boolean,
-      default: true
+      default: false
     },
     /**
      * Set whether or not the alert box shown has button.
@@ -403,7 +372,11 @@ button.close > svg.warning {
   margin: 24px 26px 26px;
 }
 
-.k-alert.has-button {
+.k-alert {
+  margin-bottom: 1rem;
+}
+
+.k-alert.hasButton {
   width: 763px;
   height: 56px;
   padding: 0;
@@ -414,39 +387,39 @@ button.close > svg.warning {
   color: var(--black-500);
 }
 
-// .k-alert.has-button > button.info {
+// .k-alert.hasButton > button.info {
 //   color: var(--blue-500);
 //   background-color: var(--blue-100);
 // }
 
-// .k-alert.has-button > button.success {
+// .k-alert.hasButton > button.success {
 //   color: var(--green-600);
 //   background-color: var(--green-100);
 // }
 
-// .k-alert.has-button > button.warning {
+// .k-alert.hasButton > button.warning {
 //   color: var(--yellow-500);
 //   background-color: var(--yellow-100);
 // }
 
-// .k-alert.has-button > button.danger {
+// .k-alert.hasButton > button.danger {
 //   color: var(--red-700);
 //   background-color: var(--red-100);
 // }
 
-.k-alert.has-button > .dot.info {
+.k-alert.hasButton > .dot.info {
   background-color: var(--blue-500);
 }
 
-.k-alert.has-button > .dot.success {
+.k-alert.hasButton > .dot.success {
   background-color: var(--green-400);
 }
 
-.k-alert.has-button > .dot.warning {
+.k-alert.hasButton > .dot.warning {
   background-color: var(--yellow-400);
 }
 
-.k-alert.has-button > .dot.danger {
+.k-alert.hasButton > .dot.danger {
   background-color: var(--red-400);
 }
 
@@ -492,7 +465,7 @@ button.close > svg.warning {
   border: var(--red-100);
 }
 
-.k-alert.is-wide-banner {
+.k-alert.isWideBanner {
   width: 1220px;
   height: 80px;
   padding: 0;
