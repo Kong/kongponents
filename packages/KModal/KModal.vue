@@ -178,14 +178,18 @@ export default {
     color: var(--KModalHeaderColor, var(--black-500, color(black-500)));
     font-size: var(--KModalHeaderSize, 20px);
     font-weight: var(--KModalHeaderWeight, 500);
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .k-modal-body {
+    text-align: center;
     position: relative;
     flex: 1 1 auto;
     margin-bottom: var(--KModalBottomMargin, var(--spacing-lg, spacing(lg)));
     color: var(--KModalColor, var(--grey-500, color(grey-500)));
     font-size: var(--KModalFontSize, 13px);
+    line-height: 20px;
   }
 
   .k-modal-footer .k-modal-action-buttons {
