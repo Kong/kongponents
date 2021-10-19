@@ -20,6 +20,7 @@ import KRadio from '../../packages/KRadio/KRadio.vue'
 import KLabel from '../../packages/KLabel/KLabel.vue'
 import KModal from '../../packages/KModal/KModal.vue'
 import KoolTip from '../../packages/KoolTip/KoolTip.vue'
+import KPagination from '../../packages/KPagination/KPagination.vue'
 import KPop from '../../packages/KPop/KPop.vue'
 import Krumbs from '../../packages/Krumbs/Krumbs.vue'
 import KSegmentedControl from '../../packages/KSegmentedControl/KSegmentedControl.vue'
@@ -56,6 +57,7 @@ export default ({
   Vue.component('KLabel', KLabel)
   Vue.component('KModal', KModal)
   Vue.component('KoolTip', KoolTip)
+  Vue.component('KPagination', KPagination)
   Vue.component('KPop', KPop)
   Vue.component('Krumbs', Krumbs)
   Vue.component('Komponent', Komponent)
