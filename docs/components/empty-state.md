@@ -122,9 +122,9 @@ A flag denoting whether or not the message is an error message. If so, a warning
 <template>
   <KEmptyState :cta-is-hidden="true" :is-error="true">
     <template v-slot:message>
-      <h5>
+      <h3>
         Error: Something broke
-      </h5>
+      </h3>
     </template>
   </KEmptyState>
 </template>
@@ -133,9 +133,9 @@ A flag denoting whether or not the message is an error message. If so, a warning
 <template>
   <KEmptyState :cta-is-hidden="true" :is-error="true">
     <template v-slot:message>
-      <h5>
+      <h3>
         Error: Something broke
-      </h5>
+      </h3>
     </template>
   </KEmptyState>
 </template>
@@ -149,9 +149,9 @@ A string for the `KIcon` name to be displayed directly above the title. Specifyi
 <template>
   <KEmptyState :cta-is-hidden="true" icon="support">
     <template v-slot:message>
-      <h5>
+      <h3>
         Call me!
-      </h5>
+      </h3>
     </template>
   </KEmptyState>
 </template>
@@ -160,9 +160,9 @@ A string for the `KIcon` name to be displayed directly above the title. Specifyi
 <template>
   <KEmptyState :cta-is-hidden="true" icon="support">
     <template v-slot:message>
-      <h5>
+      <h3>
         Call me!
-      </h5>
+      </h3>
     </template>
   </KEmptyState>
 </template>
@@ -176,9 +176,9 @@ A number denoting the size of the warning icon to be displayed above the error m
 <template>
   <KEmptyState :cta-is-hidden="true" :is-error="true" icon-size="40">
     <template v-slot:message>
-      <h5>
+      <h3>
         Error: Something broke and now this size 40 warning icon is displayed.
-      </h5>
+      </h3>
     </template>
   </KEmptyState>
 </template>
@@ -187,9 +187,9 @@ A number denoting the size of the warning icon to be displayed above the error m
 <template>
   <KEmptyState :cta-is-hidden="true" :is-error="true" icon-size="40">
     <template v-slot:message>
-      <h5>
+      <h3>
         Error: Something broke and now this size 40 warning icon is displayed.
-      </h5>
+      </h3>
     </template>
   </KEmptyState>
 </template>
@@ -199,18 +199,22 @@ A number denoting the size of the warning icon to be displayed above the error m
 KEmptyState has 3 named slots used, `title`, `message`, and `cta`. You can use the props outlined about to control the text and click handler of the button or hide it altogether. You can also use the `cta` slot to pass anything you want!
 
 <template>
-  <KEmptyState>
+  <KEmptyState icon="kong">
+    <template v-slot:title>Look Mah!</template>
+    <template v-slot:message>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.</template>
     <template v-slot:cta>
-      <KButton appearance="danger">Danger Button</KButton>
+      <KButton appearance="danger" size="small">Danger Button</KButton>
     </template>
   </KEmptyState>
 </template>
 
 ```vue
 <template>
-  <KEmptyState>
+  <KEmptyState icon="kong">
     <template v-slot:cta>
-      <KButton appearance="danger">Danger Button</KButton>
+    <template v-slot:title>Look Mah!</template>
+    <template v-slot:message>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.</template>
+      <KButton appearance="danger" size="small">Danger Button</KButton>
     </template>
   </KEmptyState>
 </template>

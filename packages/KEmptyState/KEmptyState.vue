@@ -4,30 +4,31 @@
       <div
         v-if="isError || icon"
         :class="{ 'warning-icon': isError }"
-        class="empty-state-icon card-icon mb-4"
+        class="k-empty-state-icon card-icon mb-4"
       >
         <KIcon
           :size="iconSize"
           :icon="icon ? icon : 'warning'" />
       </div>
-      <h5>
+      <div class="k-empty-state-title-header">
         <slot name="title"/>
-      </h5>
+      </div>
     </div>
     <div class="empty-state-content">
-      <p>
+      <div class="k-empty-state-message">
         <slot name="message"/>
-      </p>
-      <p>
+      </div>
+      <div class="k-empty-state-cta">
         <slot name="cta">
           <KButton
             v-if="!ctaIsHidden"
-            appearance="outline"
+            appearance="primary"
+            size="small"
             @click.native="() => handleClick && handleClick()">
             {{ ctaText }}
           </KButton>
         </slot>
-      </p>
+      </div>
     </div>
   </section>
 </template>
@@ -71,25 +72,24 @@ export default {
 .empty-state-wrapper {
   padding: 42px 0;
   text-align: center;
-  border-radius: 3px;
+  border-radius: 4px;
   background-color: var(--KEmptyBackground, var(--white));
 }
-.empty-state-wrapper h5 {
+.empty-state-wrapper .k-empty-state-title-header {
   color: var(--KEmptyTitleColor, var(--black-500));
   margin: 0 0 14px;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 500;
-  line-height: 21px;
+  line-height: 24px;
 }
-.empty-state-wrapper p {
+.empty-state-wrapper .k-empty-state-message {
   color: var(--KEmptyContentColor, var(--black-400));
   margin: 0 auto 14px;
-  font-size: 1rem;
-  line-height: 1.375rem;
-  font-weight: 400;
+  font-size: 13px;
+  line-height: 20px;
   max-width: 50%;
 }
-.empty-state-wrapper p:last-child {
+.empty-state-wrapper .k-empty-state-cta {
   margin: 0;
   margin-left: auto;
   margin-right: auto;

@@ -50,9 +50,13 @@ String to be used as the input label. Make sure that if you are using the built 
 - `label`
 
 <KInput label="Name" placeholder="I'm labelled!" />
+<KInput label="Error" class="input-error" placeholder="I'm erroneous!" />
+<KInput label="Disabled" disabled placeholder="I'm disabled!" />
 
 ```vue
 <KInput label="Name" placeholder="I'm labelled!" />
+<KInput label="Error" class="input-error" placeholder="I'm erroneous!" />
+<KInput label="Disabled" disabled placeholder="I'm disabled!" />
 ```
 
 If the label is omitted it can be handled with another component, like **KLabel**. This is meant to be used before **KInput** and will be styled appropriately. 

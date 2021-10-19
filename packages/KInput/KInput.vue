@@ -18,7 +18,7 @@
       <div class="text-on-input">
         <label
           :for="inputId"
-          :class="{ focused: isFocused, hovered: isHovered }">
+          :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled }">
           <span>{{ label }}</span>
         </label>
         <input
@@ -87,6 +87,12 @@ export default {
     }
   },
   computed: {
+    attrs () {
+      return this.$attrs
+    },
+    isDisabled () {
+      return this.$attrs.hasOwnProperty('disabled')
+    },
     listeners () {
       const listeners = { ...this.$listeners }
 
