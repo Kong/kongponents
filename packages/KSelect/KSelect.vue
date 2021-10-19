@@ -326,7 +326,6 @@ export default {
     box-sizing: border-box;
     width: 100%;
     border-radius: 0 0 4px 4px;
-    top: -.5px !important; // there seems to be a tiny half pixel gap for some reason
 
     &.k-select-pop-dropdown {
       --KPopPaddingY: var(--spacing-md);

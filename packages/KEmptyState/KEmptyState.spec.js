@@ -19,7 +19,8 @@ describe('KEmptyState', () => {
 
     expect(wrapper.find('.empty-state-title').html()).toEqual(expect.stringContaining(emptyTitle))
     expect(wrapper.find('.empty-state-content').html()).toEqual(expect.stringContaining(emptyMessage))
-    expect(wrapper.find('button.outline').text()).toEqual(expect.stringContaining(ctaText))
+    expect(wrapper.find('button.primary').text()).toEqual(expect.stringContaining(ctaText))
+    expect(wrapper.html()).toMatchSnapshot()
   })
 
   it('renders icon when error flag passed', () => {
@@ -38,6 +39,7 @@ describe('KEmptyState', () => {
     expect(wrapper.find('.warning-icon').exists()).toBe(true)
     expect(spy).not.toHaveBeenCalledWith(expect.stringContaining('[Vue warn]')) // uses correct kicon
     expect(wrapper.find('.empty-state-content').html()).toEqual(expect.stringContaining(errorMessage))
+    expect(wrapper.html()).toMatchSnapshot()
   })
 
   it('renders custom icon when icon prop passed', () => {
@@ -54,6 +56,7 @@ describe('KEmptyState', () => {
 
     expect(wrapper.find('.kong-icon-support').exists()).toBe(true)
     expect(wrapper.find('.empty-state-content').html()).toEqual(expect.stringContaining(errorMessage))
+    expect(wrapper.html()).toMatchSnapshot()
   })
 
   it('remains empty when no slots are passed', () => {
