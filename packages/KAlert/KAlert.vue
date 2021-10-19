@@ -1,62 +1,60 @@
 <template>
-  <div>
-    <div
-      v-if="isShowing || hasButton || isWideBanner"
-      :class="[
-        appearance,
-        size,
-        {'isBordered':isBordered},
-        {'hasLeftBorder':hasLeftBorder},
-        {'hasRightBorder':hasRightBorder},
-        {'hasTopBorder':hasTopBorder},
-        {'hasBottomBorder':hasBottomBorder},
-        {'isCentered': isCentered},
-        {'isFixed': isFixed},
-        {'hasButton': hasButton},
-        {'isWideBanner': isWideBanner}
-      ]"
-      class="k-alert"
-      role="alert">
-      <button
-        v-if="isDismissible"
-        type="button"
-        aria-label="Close"
-        class="close"
-        @click="dismissAlert()">
-        <KIcon
-          :color="appearance"
-          :class="appearance"
-          icon="close"
-          size="14" />
-      </button>
-      <span
-        v-if="hasRedIcon"
-        class="alert-red">
-        <slot name="alertRedIcon"/>
-      </span>
-      <span
-        v-if="hasIcon"
-        class="alert-icon">
-        <slot name="alertIcon"/>
-      </span>
-      <span
-        v-if="hasEllipse"
+  <div
+    v-if="isShowing || hasButton || isWideBanner"
+    :class="[
+      appearance,
+      size,
+      {'isBordered':isBordered},
+      {'hasLeftBorder':hasLeftBorder},
+      {'hasRightBorder':hasRightBorder},
+      {'hasTopBorder':hasTopBorder},
+      {'hasBottomBorder':hasBottomBorder},
+      {'isCentered': isCentered},
+      {'isFixed': isFixed},
+      {'hasButton': hasButton},
+      {'isWideBanner': isWideBanner}
+    ]"
+    class="k-alert"
+    role="alert">
+    <button
+      v-if="isDismissible"
+      type="button"
+      aria-label="Close"
+      class="close"
+      @click="dismissAlert()">
+      <KIcon
+        :color="appearance"
         :class="appearance"
-        class="dot"/>
-      <span>
-        <slot name="alertMessage">{{ alertMessage }}</slot>
-      </span>
-      <div>
-        <span class="longSpan"><slot name="mainMessageText">{{ mainMessageText }}</slot></span>
-        <span class="smallSpan"><slot name="secMessageText">{{ secMessageText }}</slot></span>
-      </div>
-      <span
-        v-if="hasActionButtons"
-        :class="appearance"
-        class="alert-action">
-        <slot name="actionButtons"/>
-      </span>
+        icon="close"
+        size="14" />
+    </button>
+    <span
+      v-if="hasRedIcon"
+      class="alert-red">
+      <slot name="alertRedIcon"/>
+    </span>
+    <span
+      v-if="hasIcon"
+      class="alert-icon">
+      <slot name="alertIcon"/>
+    </span>
+    <span
+      v-if="hasEllipse"
+      :class="appearance"
+      class="dot"/>
+    <span>
+      <slot name="alertMessage">{{ alertMessage }}</slot>
+    </span>
+    <div v-if="isWideBanner">
+      <span class="longSpan"><slot name="mainMessageText">{{ mainMessageText }}</slot></span>
+      <span class="smallSpan"><slot name="secMessageText">{{ secMessageText }}</slot></span>
     </div>
+    <span
+      v-if="hasActionButtons"
+      :class="appearance"
+      class="alert-action">
+      <slot name="actionButtons"/>
+    </span>
   </div>
 </template>
 

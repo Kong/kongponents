@@ -5,6 +5,7 @@ let rendersCorrectVariant = (variant) => {
   it(`Renders ${variant} variant`, () => {
     const wrapper = mount(KAlert, {
       propsData: {
+        'isShowing': true,
         'appearance': `${variant}`,
         'message': `I am ${variant}`
       }
@@ -21,6 +22,7 @@ describe('KAlert', () => {
   it('renders info variant when no appearance prop', () => {
     const wrapper = mount(KAlert, {
       propsData: {
+        'isShowing': true,
         'message': 'I should be info!'
       }
     })
@@ -41,24 +43,28 @@ describe('KAlert', () => {
   it('renders borders on the expected sides', () => {
     const wrapperBorderLeft = mount(KAlert, {
       propsData: {
+        'isShowing': true,
         message: 'Hello world',
         hasLeftBorder: true
       }
     })
     const wrapperBorderRight = mount(KAlert, {
       propsData: {
+        'isShowing': true,
         message: 'Hello world',
         hasRightBorder: true
       }
     })
     const wrapperBorderBottom = mount(KAlert, {
       propsData: {
+        'isShowing': true,
         message: 'Hello world',
         hasBottomBorder: true
       }
     })
     const wrapperBorderTop = mount(KAlert, {
       propsData: {
+        'isShowing': true,
         message: 'Hello world',
         hasTopBorder: true
       }
