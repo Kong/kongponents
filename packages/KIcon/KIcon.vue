@@ -8,7 +8,7 @@
     class="kong-icon"
     role="img"
   >
-    <title v-if="!hideTitle">{{ title || icon }}</title>
+    <title v-if="!hideTitle">{{ titleText }}</title>
     <slot name="svgElements"/>
     <g>
       <template v-for="(elem, idx) in fills">
@@ -90,6 +90,13 @@ export default {
     hideTitle: {
       type: Boolean,
       default: false
+    },
+    /**
+     * If testMode enabled use the icon name for the title so we can test
+     */
+    testMode: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -100,6 +107,24 @@ export default {
   },
 
   computed: {
+    titleText () {
+      if (this.title) { // use title prop if they provided
+        return this.title
+      }
+
+      if (this.testMode) {
+        return this.icon
+      }
+
+      const titleElems = this.doc.getElementsByTagName('title')
+      if (titleElems.length) { // use title in SVG if it exists
+        return titleElems[0].innerHTML
+      }
+
+      const icnName = this.icon.split(/(?=[A-Z])/).join(' ') // split on capital letters in icon name and add space
+
+      return this.convertToTitleCase(icnName)
+    },
     iconSVG () {
       return icons[this.icon]
     },
@@ -150,6 +175,12 @@ export default {
   beforeMount () {
     // Do not render KIcon until client is available
     this.isSSR = true
+  },
+
+  methods: {
+    convertToTitleCase (str) {
+      return str.split('-').map(i => i.charAt(0).toUpperCase() + i.substring(1)).join(' ')
+    }
   }
 }
 </script>
