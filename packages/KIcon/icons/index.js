@@ -39,7 +39,6 @@ import immunity from './icn-immunity.svg'
 import info from './icn-info.svg'
 import kong from './icn-kong.svg'
 import lock from './icn-lock.svg'
-import lgCog from './icn-lg-cog.svg'
 import list from './icn-list.svg'
 import more from './icn-more.svg'
 import notificationBell from './icn-notification-bell.svg'
@@ -83,9 +82,9 @@ export default {
   clear,
   clipboard,
   close,
+  cogwheel,
   collapseExpand,
   copy,
-  cogwheel,
   connections,
   dangerCircle,
   dangerCircleOutline,
@@ -113,7 +112,6 @@ export default {
   kong,
   list,
   lock,
-  lgCog,
   more,
   notificationBell,
   notificationInbox,
