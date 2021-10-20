@@ -21,7 +21,7 @@ tableOptions:
       id: 405383051040955
       enabled: true
 ---
-# Table 
+# Table
 Pass an object of headers & data to build a slot-able table.
 
 <KTable :options="$frontmatter.tableOptions" />
@@ -86,7 +86,7 @@ Lessen the table cell padding
 ```
 
 ### Clickable
-Adds `cursor: pointer` and `user-select: none` styling. 
+Adds `cursor: pointer` and `user-select: none` styling.
 
 <KTable :options="$frontmatter.tableOptions" isClickable />
 ```vue
@@ -116,7 +116,7 @@ The below example demonstrates the disabled state:
 ```
 
 ## Row Attributes
-Add custom properties to individual rows. The row object is passed as a param.	
+Add custom properties to individual rows. The row object is passed as a param.
 
 `rowAttrs` - Function that returns an object comprising the attributes.
 
@@ -683,7 +683,7 @@ export default {
 | `--KTableHeaderSize`| Font size of header th
 
 \
-An Example of changing the hover background might look like.  
+An Example of changing the hover background might look like.
 
 <div class="table-wrapper">
   <KTable :options="$frontmatter.tableOptions" hasHover />
@@ -890,7 +890,7 @@ export default {
       border: unset;
     }
   }
-  
+
   .table-wrapper {
   --KTableHover: lavender;
   }
