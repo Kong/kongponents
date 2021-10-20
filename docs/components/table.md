@@ -674,6 +674,34 @@ export default {
 </script>
 ```
 
+## States
+
+### Loading
+Set the `isLoading` prop to `true` to enable the loading state.
+
+<KCard class="pb-0 mt-2">
+  <template v-slot:body>
+    <KTable
+      :options="{}"
+      :isLoading="true"
+      class="my-0"
+    />
+  </template>
+</KCard>
+
+```vue
+<template>
+<KCard>
+  <template v-slot:body>
+    <KTable
+      :options="{}"
+      :isLoading="true"
+    />
+  </template>
+</KCard>
+</template>
+```
+
 ## Theming
 | Variable | Purpose
 |:-------- |:-------

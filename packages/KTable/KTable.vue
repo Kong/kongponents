@@ -1,5 +1,11 @@
 <template>
+  <KSkeleton
+    v-if="isLoading"
+    :delay-milliseconds="0"
+    type="table"
+  />
   <table
+    v-else
     :class="{'has-hover': hasHover, 'is-small': isSmall, 'is-clickable': isClickable, 'side-border': hasSideBorder}"
     class="k-table">
     <thead>
@@ -197,6 +203,13 @@ export default {
     cellAttrs: {
       type: Function,
       default: () => ({})
+    },
+    /**
+     * A prop that enables a loading skeleton
+     */
+    isLoading: {
+      type: Boolean,
+      default: false
     }
   },
 
