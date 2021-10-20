@@ -21,6 +21,7 @@
         :href="item.to"
         target="_blank">{{ item.text }}</a>
       <KIcon
+        hide-title
         icon="chevronRight"
         size="15"
         color="var(--grey-500)"/>
