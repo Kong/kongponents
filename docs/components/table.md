@@ -115,10 +115,6 @@ The below example demonstrates the disabled state:
 </template>
 ```
 
-### isLoading
-
-See [the State section](#loading) about `isLoading`
-
 ### emptyStateTitle
 
 See [the State section](#empty) about `emptyStateTitle`
@@ -138,6 +134,34 @@ See [the State section](#empty) about `emptyStateActionRoute`
 ### emptyStateActionMessage
 
 See [the State section](#empty) about `emptyStateActionMessage`
+
+### hasError
+
+See [the State section](#error) about `hasError`
+
+### errorStateTitle
+
+See [the State section](#error) about `errorStateTitle`
+
+### errorStateMessage
+
+See [the State section](#error) about `errorStateMessage`
+
+### errorStateIcon
+
+See [the State section](#error) about `errorStateIcon`
+
+### errorStateActionRoute
+
+See [the State section](#error) about `errorStateActionRoute`
+
+### errorStateActionMessage
+
+See [the State section](#error) about `errorStateActionMessage`
+
+### isLoading
+
+See [the State section](#loading) about `isLoading`
 
 ## Row Attributes
 Add custom properties to individual rows. The row object is passed as a param.
@@ -710,7 +734,7 @@ Set the following properties to handle empty state:
 - `emptyStateActionRoute` - Route for empty state action
 - `emptyStateActionMessage` - Button text for empty state action
 
-#### Default Messaging
+#### Default Empty State Messaging
 
 <KCard class="my-2">
   <template v-slot:body>
@@ -728,7 +752,7 @@ Set the following properties to handle empty state:
 </template>
 ```
 
-#### Custom Messaging
+#### Custom Empty State Messaging
 
 <KCard class="mt-2">
   <template v-slot:body>
@@ -754,14 +778,14 @@ Set the following properties to handle empty state:
 </template>
 ```
 
-#### Call To Action
+#### Empty State Call To Action
 
 <KCard class="my-2">
   <template v-slot:body>
     <KTable
       :options="{ data: [], headers: [] }"
       emptyStateActionMessage="Create a Service"
-      emptyStateActionRoute="#call-to-action"
+      emptyStateActionRoute="#empty-state-call-to-action"
     />
   </template>
 </KCard>
@@ -797,7 +821,7 @@ Set the following properties to handle empty state:
 </template>
 ```
 
-#### Full Example
+#### Empty State Full Example
 
 <KCard class="my-2">
   <template v-slot:body>
@@ -806,7 +830,7 @@ Set the following properties to handle empty state:
       emptyStateTitle="No Workspaces exist"
       emptyStateMessage="Adding a new Workspace will populate this table."
       emptyStateActionMessage="Create a Workspace"
-      emptyStateActionRoute="#full-example"
+      emptyStateActionRoute="#empty-state-full-example"
       emptyStateIcon="workspaces"
     />
   </template>
@@ -823,6 +847,149 @@ Set the following properties to handle empty state:
         emptyStateActionMessage="Create a Workspace"
         emptyStateActionRoute="create-workspace"
         emptyStateIcon="workspaces"
+      />
+    </template>
+  </KCard>
+</template>
+```
+
+### Error
+
+Set the following properties to handle error state:
+
+- `hasError` - Boolean to toggle error state
+- `errorStateTitle` - Title text for error state
+- `errorStateMessage` - Message for error state
+- `errorStateIcon` - Icon for error state
+- `errorStateActionRoute` - Route for error state action
+- `errorStateActionMessage` - Button text for error state action
+
+#### Default Error State Messaging
+
+<KCard class="my-2">
+  <template v-slot:body>
+    <KTable
+      :options="{ data: [], headers: [] }"
+      :hasError="true"
+    />
+  </template>
+</KCard>
+
+```vue
+<template>
+  <KCard>
+    <template v-slot:body>
+      <KTable
+        :options="{ data: [], headers: [] }"
+        :hasError="true"
+      />
+    </template>
+  </KCard>
+</template>
+```
+
+#### Custom Error State Messaging
+
+<KCard class="mt-2">
+  <template v-slot:body>
+    <KTable
+      :options="{ data: [], headers: [] }"
+      :hasError="true"
+      errorStateTitle="Server Error"
+      errorStateMessage="We're having trouble with our server."
+    />
+  </template>
+</KCard>
+
+```vue
+<template>
+  <KCard>
+    <template v-slot:body>
+      <KTable
+        :options="{ data: [], headers: [] }"
+        :hasError="true"
+        errorStateTitle="Server Error"
+        errorStateMessage="We're having trouble with our server."
+      />
+    </template>
+  </KCard>
+</template>
+```
+
+#### Error State Call To Action
+
+<KCard class="my-2">
+  <template v-slot:body>
+    <KTable
+      :options="{ data: [], headers: [] }"
+      :hasError="true"
+      errorStateActionMessage="Refresh Page"
+      errorStateActionRoute="#error-state-call-to-action"
+    />
+  </template>
+</KCard>
+
+```vue
+<!-- Using a route string -->
+<template>
+  <KCard>
+    <template v-slot:body>
+      <KTable
+        :options="{ data: [], headers: [] }"
+        :hasError="true"
+        errorStateActionMessage="Refresh Page"
+        errorStateActionRoute="services"
+      />
+    </template>
+  </KCard>
+</template>
+
+<!-- Using a route object -->
+<template>
+  <KCard>
+    <template v-slot:body>
+      <KTable
+        :options="{ data: [], headers: [] }"
+        :hasError="true"
+        errorStateActionMessage="Refresh Page"
+        errorStateActionRoute="{
+          name: 'services',
+          params: { organization: '12345-abcd' }
+        }"
+      />
+    </template>
+  </KCard>
+</template>
+```
+
+#### Error State Full Example
+
+<KCard class="my-2">
+  <template v-slot:body>
+    <KTable
+      :options="{ data: [], headers: [] }"
+      :hasError="true"
+      errorStateTitle="Something went wrong"
+      errorStateMessage="We are not able to load the data for this table."
+      errorStateActionMessage="Report an Issue"
+      errorStateActionRoute="#error-state-full-example"
+      errorStateIcon="dangerCircle"
+    />
+  </template>
+</KCard>
+
+```vue
+<template>
+  <KCard>
+    <template v-slot:body>
+      <KTable
+        :options="{ data: [], headers: [] }"
+        :hasError="true"
+        errorStateTitle="Something went wrong"
+        errorStateMessage="We are not able to load the data for this table."
+        errorStateActionMessage="Report an Issue"
+        errorStateActionRoute="report-issue"
+        errorStateIcon="dangerCircle"
       />
     </template>
   </KCard>

@@ -5,7 +5,25 @@
     type="table"
   />
   <KEmptyState
-    v-else-if="!options.data || !options.data.length"
+    v-else-if="hasError"
+    :cta-is-hidden="!errorStateActionMessage || !errorStateActionRoute"
+    :icon="errorStateIcon || ''"
+    :is-error="true"
+  >
+    <template v-slot:title>{{ errorStateTitle }}</template>
+    <template v-slot:message>{{ errorStateMessage }}</template>
+    <template v-slot:cta>
+      <KButton
+        v-if="errorStateActionMessage && errorStateActionRoute"
+        :to="errorStateActionRoute"
+        appearance="primary"
+      >
+        {{ errorStateActionMessage }}
+      </KButton>
+    </template>
+  </KEmptyState>
+  <KEmptyState
+    v-else-if="!hasError && (!options.data || !options.data.length)"
     :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
     :icon="emptyStateIcon || ''"
   >
@@ -260,6 +278,49 @@ export default {
      * A prop to pass in a custom empty state icon
      */
     emptyStateIcon: {
+      type: String,
+      default: ''
+    },
+
+    /**
+     * A prop that enables the error state
+     */
+    hasError: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * A prop to pass in a custom error state title
+     */
+    errorStateTitle: {
+      type: String,
+      default: 'An error occurred'
+    },
+    /**
+     * A prop to pass in a custom error state message
+     */
+    errorStateMessage: {
+      type: String,
+      default: 'Data cannot be displayed due to an error.'
+    },
+    /**
+     * A prop to pass in a custom error state action route
+     */
+    errorStateActionRoute: {
+      type: Object | String,
+      default: ''
+    },
+    /**
+     * A prop to pass in a custom error state action message
+     */
+    errorStateActionMessage: {
+      type: String,
+      default: ''
+    },
+    /**
+     * A prop to pass in a custom error state icon
+     */
+    errorStateIcon: {
       type: String,
       default: ''
     }
