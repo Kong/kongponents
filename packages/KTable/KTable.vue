@@ -4,6 +4,23 @@
     :delay-milliseconds="0"
     type="table"
   />
+  <KEmptyState
+    v-else-if="!options.data || !options.data.length"
+    :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
+    :icon="emptyStateIcon || ''"
+  >
+    <template v-slot:title>{{ emptyStateTitle }}</template>
+    <template v-slot:message>{{ emptyStateMessage }}</template>
+    <template v-slot:cta>
+      <KButton
+        v-if="emptyStateActionMessage && emptyStateActionRoute"
+        :to="emptyStateActionRoute"
+        appearance="primary"
+      >
+        {{ emptyStateActionMessage }}
+      </KButton>
+    </template>
+  </KEmptyState>
   <table
     v-else
     :class="{'has-hover': hasHover, 'is-small': isSmall, 'is-clickable': isClickable, 'side-border': hasSideBorder}"
@@ -210,6 +227,41 @@ export default {
     isLoading: {
       type: Boolean,
       default: false
+    },
+    /**
+     * A prop to pass in a custom empty state title
+     */
+    emptyStateTitle: {
+      type: String,
+      default: 'No Data'
+    },
+    /**
+     * A prop to pass in a custom empty state message
+     */
+    emptyStateMessage: {
+      type: String,
+      default: 'There is no data to display.'
+    },
+    /**
+     * A prop to pass in a custom empty state action route
+     */
+    emptyStateActionRoute: {
+      type: Object | String,
+      default: ''
+    },
+    /**
+     * A prop to pass in a custom empty state action message
+     */
+    emptyStateActionMessage: {
+      type: String,
+      default: ''
+    },
+    /**
+     * A prop to pass in a custom empty state icon
+     */
+    emptyStateIcon: {
+      type: String,
+      default: ''
     }
   },
 

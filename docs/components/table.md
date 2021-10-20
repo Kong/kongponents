@@ -115,6 +115,30 @@ The below example demonstrates the disabled state:
 </template>
 ```
 
+### isLoading
+
+See [the State section](#loading) about `isLoading`
+
+### emptyStateTitle
+
+See [the State section](#empty) about `emptyStateTitle`
+
+### emptyStateMessage
+
+See [the State section](#empty) about `emptyStateMessage`
+
+### emptyStateIcon
+
+See [the State section](#empty) about `emptyStateIcon`
+
+### emptyStateActionRoute
+
+See [the State section](#empty) about `emptyStateActionRoute`
+
+### emptyStateActionMessage
+
+See [the State section](#empty) about `emptyStateActionMessage`
+
 ## Row Attributes
 Add custom properties to individual rows. The row object is passed as a param.
 
@@ -676,7 +700,137 @@ export default {
 
 ## States
 
+### Empty
+
+Set the following properties to handle empty state:
+
+- `emptyStateTitle` - Title text for empty state
+- `emptyStateMessage` - Message for empty state
+- `emptyStateIcon` - Icon for empty state
+- `emptyStateActionRoute` - Route for empty state action
+- `emptyStateActionMessage` - Button text for empty state action
+
+#### Default Messaging
+
+<KCard class="my-2">
+  <template v-slot:body>
+    <KTable :options="{ data: [], headers: [] }" />
+  </template>
+</KCard>
+
+```vue
+<template>
+  <KCard>
+    <template v-slot:body>
+      <KTable :options="{ data: [], headers: [] }" />
+    </template>
+  </KCard>
+</template>
+```
+
+#### Custom Messaging
+
+<KCard class="mt-2">
+  <template v-slot:body>
+    <KTable
+      :options="{ data: [], headers: [] }"
+      emptyStateTitle="No Services"
+      emptyStateMessage="Services will be displayed here when created."
+    />
+  </template>
+</KCard>
+
+```vue
+<template>
+  <KCard>
+    <template v-slot:body>
+      <KTable
+        :options="{ data: [], headers: [] }"
+        emptyStateTitle="No Services"
+        emptyStateMessage="Services will be displayed here when created."
+      />
+    </template>
+  </KCard>
+</template>
+```
+
+#### Call To Action
+
+<KCard class="my-2">
+  <template v-slot:body>
+    <KTable
+      :options="{ data: [], headers: [] }"
+      emptyStateActionMessage="Create a Service"
+      emptyStateActionRoute="#call-to-action"
+    />
+  </template>
+</KCard>
+
+```vue
+<!-- Using a route string -->
+<template>
+  <KCard>
+    <template v-slot:body>
+      <KTable
+        :options="{ data: [], headers: [] }"
+        emptyStateActionMessage="Create a Service"
+        emptyStateActionRoute="create-service"
+      />
+    </template>
+  </KCard>
+</template>
+
+<!-- Using a route object -->
+<template>
+  <KCard>
+    <template v-slot:body>
+      <KTable
+        :options="{ data: [], headers: [] }"
+        emptyStateActionMessage="Create a Service"
+        emptyStateActionRoute="{
+          name: 'create-service',
+          params: { organization: '12345-abcd' }
+        }"
+      />
+    </template>
+  </KCard>
+</template>
+```
+
+#### Full Example
+
+<KCard class="my-2">
+  <template v-slot:body>
+    <KTable
+      :options="{ data: [], headers: [] }"
+      emptyStateTitle="No Workspaces exist"
+      emptyStateMessage="Adding a new Workspace will populate this table."
+      emptyStateActionMessage="Create a Workspace"
+      emptyStateActionRoute="#full-example"
+      emptyStateIcon="workspaces"
+    />
+  </template>
+</KCard>
+
+```vue
+<template>
+  <KCard>
+    <template v-slot:body>
+      <KTable
+        :options="{ data: [], headers: [] }"
+        emptyStateTitle="No Workspaces exist"
+        emptyStateMessage="Adding a new Workspace will populate this table."
+        emptyStateActionMessage="Create a Workspace"
+        emptyStateActionRoute="create-workspace"
+        emptyStateIcon="workspaces"
+      />
+    </template>
+  </KCard>
+</template>
+```
+
 ### Loading
+
 Set the `isLoading` prop to `true` to enable the loading state.
 
 <KCard class="pb-0 mt-2">
