@@ -95,6 +95,7 @@ $transition: all .3s;
     text-align: left;
     background-color: #fff;
     color: var(--black-70);
+    margin-bottom: 0;
   }
 
   .message {

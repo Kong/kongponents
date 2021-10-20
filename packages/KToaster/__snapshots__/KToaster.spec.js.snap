@@ -1,40 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`KToaster KToaster.vue renders toaster 1`] = `
-<span name="toaster" tag="div" class="toaster-container-outer"><div class="toaster-item"><div role="alert" class="k-alert info hasLeftBorder"><button type="button" aria-label="Close" class="close"><svg height="12" width="12" viewBox="0 0 12 12" role="img" class="kong-icon kong-icon-close"><title>Close</title>  <g><!----> <!----> <path d="M16 4 3 17m13 0L3 4" stroke="#000" stroke-width="2" stroke-linecap="round"></path></g></svg></button> <!----> <span><div class="message">hey toasty</div></span></div>
+<span name="toaster" tag="div" class="toaster-container-outer"><div class="toaster-item"><div role="alert" class="k-alert info hasLeftBorder"><button type="button" aria-label="Close" class="close"><svg height="20" width="20" viewBox="0 0 20 20" role="img" class="kong-icon kong-icon-close info"><title>close</title>  <g><!----> <!----> <path d="M16 4 3 17m13 0L3 4" stroke="info" stroke-width="2" stroke-linecap="round"></path></g></svg></button> <!----> <!----> <span class="alert-msg"><div class="message">hey toasty</div></span>
+<!---->
+<!---->
+</div>
 </div>
 <div class="toaster-item">
-  <div role="alert" class="k-alert success hasLeftBorder"><button type="button" aria-label="Close" class="close"><svg height="12" width="12" viewBox="0 0 12 12" role="img" class="kong-icon kong-icon-close">
-        <title>Close</title>
+  <div role="alert" class="k-alert success hasLeftBorder"><button type="button" aria-label="Close" class="close"><svg height="20" width="20" viewBox="0 0 20 20" role="img" class="kong-icon kong-icon-close success">
+        <title>close</title>
         <g>
           <!---->
           <!---->
-          <path d="M16 4 3 17m13 0L3 4" stroke="#000" stroke-width="2" stroke-linecap="round"></path>
+          <path d="M16 4 3 17m13 0L3 4" stroke="success" stroke-width="2" stroke-linecap="round"></path>
         </g>
       </svg></button>
-    <!----> <span><div class="message">hey toasty</div></span></div>
+    <!---->
+    <!----> <span class="alert-msg"><div class="message">hey toasty</div></span>
+    <!---->
+    <!---->
+  </div>
 </div>
 <div class="toaster-item">
-  <div role="alert" class="k-alert danger hasLeftBorder"><button type="button" aria-label="Close" class="close"><svg height="12" width="12" viewBox="0 0 12 12" role="img" class="kong-icon kong-icon-close">
-        <title>Close</title>
+  <div role="alert" class="k-alert danger hasLeftBorder"><button type="button" aria-label="Close" class="close"><svg height="20" width="20" viewBox="0 0 20 20" role="img" class="kong-icon kong-icon-close danger">
+        <title>close</title>
         <g>
           <!---->
           <!---->
-          <path d="M16 4 3 17m13 0L3 4" stroke="#000" stroke-width="2" stroke-linecap="round"></path>
+          <path d="M16 4 3 17m13 0L3 4" stroke="danger" stroke-width="2" stroke-linecap="round"></path>
         </g>
       </svg></button>
-    <!----> <span><div class="message">hey toasty</div></span></div>
+    <!---->
+    <!----> <span class="alert-msg"><div class="message">hey toasty</div></span>
+    <!---->
+    <!---->
+  </div>
 </div>
 <div class="toaster-item">
-  <div role="alert" class="k-alert danger hasLeftBorder"><button type="button" aria-label="Close" class="close"><svg height="12" width="12" viewBox="0 0 12 12" role="img" class="kong-icon kong-icon-close">
-        <title>Close</title>
+  <div role="alert" class="k-alert danger hasLeftBorder"><button type="button" aria-label="Close" class="close"><svg height="20" width="20" viewBox="0 0 20 20" role="img" class="kong-icon kong-icon-close danger">
+        <title>close</title>
         <g>
           <!---->
           <!---->
-          <path d="M16 4 3 17m13 0L3 4" stroke="#000" stroke-width="2" stroke-linecap="round"></path>
+          <path d="M16 4 3 17m13 0L3 4" stroke="danger" stroke-width="2" stroke-linecap="round"></path>
         </g>
       </svg></button>
-    <!----> <span><div class="message">hey toasty</div></span></div>
+    <!---->
+    <!----> <span class="alert-msg"><div class="message">hey toasty</div></span>
+    <!---->
+    <!---->
+  </div>
 </div>
 </span>
 `;
