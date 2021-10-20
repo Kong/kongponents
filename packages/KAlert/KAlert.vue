@@ -285,7 +285,6 @@ export default {
   }
   &.small {
     font-size: var(--type-sm, type(sm));
-    // padding: var(--spacing-sm, spacing(sm)) var(--spacing-xs, spacing(xs));
   }
 
   // Appearances
@@ -313,7 +312,7 @@ export default {
   &.isWideBanner {
     width: 1220px;
     height: 80px;
-    padding: 0;
+    // padding: 0;
     border-radius: 2px;
     background-color: #fff;
     margin-bottom: 1rem;
@@ -323,9 +322,9 @@ export default {
   &.hasButton {
     width: 763px;
     height: 56px;
-    padding: 0;
+    // padding: 0;
     border-radius: 4px;
-    background-color: white;
+    background-color: #fff;
     margin-bottom: 1rem;
     color: var(--black-500);
     & > .alert-ellipse {
@@ -344,8 +343,7 @@ export default {
     }
   }
     & .alert-msg {
-      // padding: 8px 0;
-        padding: 12px 16px;
+      padding: 12px 16px;
       font-weight: 400;
       font-size: 15px;
       line-height: 20px;
@@ -376,9 +374,10 @@ button.close > svg {
 }
 
 .alert-icon {
-  padding: 23px 20px 25px 21px;
+  padding: 23px 0 25px 21px;
   width: 32px;
   height: 32px;
+  margin-right: -8px
 }
 
 .alert-ellipse {
@@ -387,7 +386,7 @@ button.close > svg {
   background-color: var(--red-500);
   border-radius: 50%;
   display: inline-block;
-  margin: 24px 8px 24px 26px;
+  margin: 24px 8px 26px 24px;
 }
 
 .alert-action {
@@ -396,7 +395,6 @@ button.close > svg {
   & button {
     height: 30px;
     margin-right: 13px;
-    font-style: normal;
     font-weight: 400;
     font-size: 13px;
     line-height: 13px;
@@ -409,7 +407,7 @@ button.close > svg {
   font-weight: 400;
   font-size: 16px;
   line-height: 16px;
-  padding: 12px 16px;
+  padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
 }
 
 .mainMessageText {
@@ -428,6 +426,6 @@ button.close > svg {
   font-weight: 400;
   font-size: 13px;
   line-height: 24px;
-  color: #6F7787;
+  color: var(--grey-500);
 }
 </style>
