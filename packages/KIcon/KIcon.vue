@@ -90,6 +90,13 @@ export default {
     hideTitle: {
       type: Boolean,
       default: false
+    },
+    /**
+     * If testMode enabled use the icon name for the title so we can test
+     */
+    testMode: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -103,6 +110,10 @@ export default {
     titleText () {
       if (this.title) { // use title prop if they provided
         return this.title
+      }
+
+      if (this.testMode) {
+        return this.icon
       }
 
       const titleElems = this.doc.getElementsByTagName('title')
