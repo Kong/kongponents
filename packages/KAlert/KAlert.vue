@@ -229,7 +229,7 @@ export default {
   font-size: 16px;
   line-height: 16px;
   font-family: inherit;
-  border-radius: 3px;
+  border-radius: 4px;
   overflow-wrap: anywhere;
   margin-bottom: 1rem;
   a {
@@ -314,7 +314,7 @@ export default {
     width: 1220px;
     height: 80px;
     padding: 0;
-    border-radius: 4px;
+    border-radius: 2px;
     background-color: #fff;
     margin-bottom: 1rem;
     color: var(--black-500);
