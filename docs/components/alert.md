@@ -23,8 +23,8 @@ What color and purpose the Alert should be. Shares similar appearances to those 
   appearance="info"
   alert-message="Info alert message">
   <template v-slot:actionButtons>
+    <KButton appearance="primary" size="small">Primary</KButton>
     <KButton appearance="outline" size="small">Outline</KButton>
-    <KButton appearance="primary" size="small">Dismiss</KButton>
   </template>
  </KAlert>
 <KAlert
@@ -33,8 +33,8 @@ What color and purpose the Alert should be. Shares similar appearances to those 
   appearance="warning"
   alert-message="Warning alert message">
   <template v-slot:actionButtons>
-  <KButton appearance="outline" size="small">Outline</KButton>
-    <KButton size="small">Dismiss</KButton>
+    <KButton appearance="primary" size="small">Warning</KButton>
+    <KButton appearance="outline" size="small">Outline</KButton>
   </template>
 </KAlert>
 <KAlert
@@ -43,8 +43,8 @@ What color and purpose the Alert should be. Shares similar appearances to those 
   appearance="success"
   alert-message="Success alert message">
   <template v-slot:actionButtons>
-  <KButton appearance="outline" size="small">Outline</KButton>
-    <KButton appearance="creation" size="small">Review</KButton>
+    <KButton appearance="primary" size="small">Success</KButton>
+    <KButton appearance="outline" size="small">Outline</KButton>
   </template>
 </KAlert>
 <KAlert
@@ -53,8 +53,8 @@ What color and purpose the Alert should be. Shares similar appearances to those 
   appearance="danger"
   alert-message="Danger alert message">
   <template v-slot:actionButtons>
+    <KButton appearance="primary" size="small">Warning</KButton>
     <KButton appearance="outline" size="small">Outline</KButton>
-    <KButton appearance="danger" size="small">Dismiss</KButton>
   </template>
 </KAlert>
 
@@ -263,7 +263,7 @@ Fixes KAlert to the top of the container.
     across 3 services  
   </template>
   <template v-slot:actionButtons>
-    <KButton size="small" appearance='outline'>Review</KButton>
+    <KButton size="small" appearance='secondary'>Review</KButton>
     <KButton size="small">Dismiss</KButton>
   </template>
 </KAlert>
@@ -393,6 +393,7 @@ look like.
 
 <style lang="scss">
 .k-alert {
+  box-shadow: 0px 0px 12px 0px var(--black-10, color(black-10));
   &:not(:last-of-type) {
     margin-bottom: 1rem;
   }
