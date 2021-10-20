@@ -7,7 +7,8 @@ let rendersIcon = (icon) => {
   it(`renders ${icon} icon`, () => {
     const wrapper = mount(KIcon, {
       propsData: {
-        'icon': `${icon}`
+        'icon': `${icon}`,
+        testMode: true
       }
     })
 
@@ -71,7 +72,7 @@ describe('KIcon', () => {
 
     const title = wrapper.find('title').text()
 
-    expect(title).toEqual('portal')
+    expect(title).toEqual('Dev Portal')
   })
 
   it('sets title from prop', () => {

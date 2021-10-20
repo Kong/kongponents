@@ -73,6 +73,17 @@ within the SVG.
 e.g. `<path id="preserveColor" d="M9 11v2H7v-2h2zm0-8v6.5H7V3h2z" fill="#FFF"/>`
 :::
 
+### title
+The title to be announced by screenreaders and displayed on hover. If not provided, a default title will be used.
+
+<KIcon icon="warning" />
+<KIcon icon="warning" title="Custom Title" />
+
+```vue
+<KIcon icon="warning" />
+<KIcon icon="warning" title="Custom Title" />
+```
+
 ### viewBox
 This prop takes a formatted string that will replace the SVG default viewBox. If one is not present by default `0 0 24 24` is applied.
 You can read more about the viewBox attribute

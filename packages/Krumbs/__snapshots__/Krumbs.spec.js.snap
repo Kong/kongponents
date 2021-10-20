@@ -3,7 +3,7 @@
 exports[`Krumbs renders breadcrumb links 1`] = `
 <ul class="krumbs style-body-bc">
   <li class="krumb-item truncate" style="max-width: 38ch;"><a href="/services" class="" title="Services">Services</a> <svg height="15" width="15" viewBox="0 0 20 20" role="img" class="kong-icon kong-icon-chevronRight">
-      <title>chevronRight</title>
+      <!---->
       <g>
         <!---->
         <!---->
@@ -11,7 +11,7 @@ exports[`Krumbs renders breadcrumb links 1`] = `
       </g>
     </svg></li>
   <li class="krumb-item truncate" style="max-width: 38ch;"><a title="Go to Kong Docs" href="https://docs.konghq.com" target="_blank">External Link</a> <svg height="15" width="15" viewBox="0 0 20 20" role="img" class="kong-icon kong-icon-chevronRight">
-      <title>chevronRight</title>
+      <!---->
       <g>
         <!---->
         <!---->
@@ -24,7 +24,7 @@ exports[`Krumbs renders breadcrumb links 1`] = `
 exports[`Krumbs renders breadcrumb links without needing a router 1`] = `
 <ul class="krumbs style-body-bc">
   <li class="krumb-item truncate" style="max-width: 38ch;"><a title="Go to Kong Docs" href="https://docs.konghq.com" target="_blank">External Link</a> <svg height="15" width="15" viewBox="0 0 20 20" role="img" class="kong-icon kong-icon-chevronRight">
-      <title>chevronRight</title>
+      <!---->
       <g>
         <!---->
         <!---->
