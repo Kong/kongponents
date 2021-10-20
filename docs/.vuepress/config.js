@@ -96,6 +96,7 @@ module.exports = {
     ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:400,500,700' }]
   ],
   plugins: [
+    "@kawarimidoll/tailwind",
     ['@vuepress/search', {
       searchHotkeys: ['/']
     }],
