@@ -33,3 +33,8 @@ jobs:
         npx percy snapshot docs/.vuepress/dist/ --ignore-files "**/404.html"
       env:
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+    - name: Run Lighthouse against a static dist dir
+      uses: treosh/lighthouse-ci-action@v8
+      with:
+        # no urls needed, since it uses local folder to scan .html files
+        configPath: './lighthouserc.json'
