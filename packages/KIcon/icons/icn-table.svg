@@ -1,3 +1,4 @@
 <svg width="16" height="14" viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg">
+  <title>Table</title>
   <path fill-rule="evenodd" fill="#A3BBCC" clip-rule="evenodd" d="M0 2a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H2a2 2 0 01-2-2V2zm9 10h5v-2H9v2zm-2-2v2H2v-2h5zm2-2h5V6H9v2zM7 6v2H2V6h5zm2-2h5V2H9v2zM7 2v2H2V2h5z"/>
 </svg>
