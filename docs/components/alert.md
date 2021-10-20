@@ -2,10 +2,10 @@
 
 **KAlert** is used to display contextual information to a user. These are typically used to notify something may be disabled or there may be an error.
 
-<KAlert alert-message="I'm an alert" />
+<KAlert is-dismissible alert-message="I'm an alert" />
 
 ```vue
-<KAlert alert-message="I'm an alert" />
+<KAlert is-dismissible alert-message="I'm an alert" />
 ```
 
 ## Props
@@ -66,8 +66,8 @@ What color and purpose the Alert should be. Shares similar appearances to those 
   appearance="info"
   alert-message="Info alert message">
   <template v-slot:actionButtons>
-    <KButton size="small">Review</KButton>
-    <KButton size="small">Dismiss</KButton>
+    <KButton appearance="primary" size="small">Primary</KButton>
+    <KButton appearance="outline" size="small">Outline</KButton>
   </template>
  </KAlert>
 <KAlert
@@ -76,7 +76,8 @@ What color and purpose the Alert should be. Shares similar appearances to those 
   appearance="warning"
   alert-message="Warning alert message">
   <template v-slot:actionButtons>
-    <KButton size="small">Dismiss</KButton>
+    <KButton appearance="primary" size="small">Warning</KButton>
+    <KButton appearance="outline" size="small">Outline</KButton>
   </template>
 </KAlert>
 <KAlert
@@ -85,7 +86,8 @@ What color and purpose the Alert should be. Shares similar appearances to those 
   appearance="success"
   alert-message="Success alert message">
   <template v-slot:actionButtons>
-    <KButton size="small">Review</KButton>
+    <KButton appearance="primary" size="small">Success</KButton>
+    <KButton appearance="outline" size="small">Outline</KButton>
   </template>
 </KAlert>
 <KAlert
@@ -94,10 +96,10 @@ What color and purpose the Alert should be. Shares similar appearances to those 
   appearance="danger"
   alert-message="Danger alert message">
   <template v-slot:actionButtons>
-    <KButton size="small">Review</KButton>
-    <KButton size="small">Dismiss</KButton>
+    <KButton appearance="primary" size="small">Warning</KButton>
+    <KButton appearance="outline" size="small">Outline</KButton>
   </template>
-</KAlert> 
+</KAlert>
 ```
 
 ### Dismissible
@@ -270,8 +272,8 @@ Fixes KAlert to the top of the container.
 
 ```vue
 <KAlert is-wide-banner>
-  <template v-slot:alertNotificationIcon>
-    <KIcon icon="notificationInbox" color: var(--red-500); size="32" />
+  <template v-slot:alertIcon>
+    <KIcon icon="notificationInbox" color="var(--red-500)" size="32" />
   </template>
   <template v-slot:mainMessageText>
    You’ve had 12 new mentions since you last logged in
@@ -280,7 +282,7 @@ Fixes KAlert to the top of the container.
     across 3 services  
   </template>
   <template v-slot:actionButtons>
-    <KButton size="small" appearance='outline'>Review</KButton>
+    <KButton size="small" appearance='secondary'>Review</KButton>
     <KButton size="small">Dismiss</KButton>
   </template>
 </KAlert>
@@ -295,7 +297,7 @@ Fixes KAlert to the top of the container.
   appearance="warning"
   alert-message="Warning alert message">
   <template v-slot:actionButtons>
-    <KButton size="small">Dismiss</KButton>
+    <KButton appearance="primary" size="small">Dismiss</KButton>
   </template>
 </KAlert>
 
@@ -306,7 +308,7 @@ Fixes KAlert to the top of the container.
   appearance="warning"
   alert-message="Warning alert message">
   <template v-slot:actionButtons>
-    <KButton size="small">Dismiss</KButton>
+    <KButton appearance="primary" size="small">Dismiss</KButton>
   </template>
 </KAlert>
 ```
@@ -393,7 +395,6 @@ look like.
 
 <style lang="scss">
 .k-alert {
-  box-shadow: 0px 0px 12px 0px var(--black-10, color(black-10));
   &:not(:last-of-type) {
     margin-bottom: 1rem;
   }
@@ -406,5 +407,62 @@ look like.
 .alert-wrapper {
   --KAlertSuccessBackground: lime;
   --KAlertSuccessColor: forestgreen;
+}
+
+.alert-action {
+  &.info button.primary {
+    color: var(--blue-500);
+    background-color: var(--blue-100);
+    --KButtonPrimaryBase: var(--blue-300);
+    --KButtonPrimaryHover: var(--blue-300);
+  }
+  &.info button.outline {
+    color: var(--blue-400);
+    border: 1px solid var(--blue-400);
+    --KButtonOutlineBorder: var(--blue-300);
+    --KButtonOutlineHoverBorder: var(--blue-300);
+    --KButtonOutlineActiveBorder: var(--blue-300);
+  }
+  &.warning button.primary {
+    color: var(--yellow-500);
+    background-color: var(--yellow-100);
+    --KButtonPrimaryBase: var(--yellow-300);
+    --KButtonPrimaryHover: var(--yellow-300);
+  }
+  &.warning button.outline {
+    color: var(--yellow-400);
+    border: 1px solid var(--yellow-400);
+    --KButtonOutlineBorder: var(--yellow-300);
+    --KButtonOutlineHoverBorder: var(--yellow-300);
+    --KButtonOutlineActiveBorder: var(--yellow-300);
+  }
+  &.success button.primary {
+    color: var(--green-600);
+    background-color: var(--green-100);
+    border: var(--green-100);
+    --KButtonPrimaryBase: var(--green-300);
+    --KButtonPrimaryHover: var(--green-300);
+  }
+  &.success button.outline {
+    color: var(--green-600);
+    border: 1px solid var(--green-600);
+    --KButtonOutlineBorder: var(--green-400);
+    --KButtonOutlineHoverBorder: var(--green-400);
+    --KButtonOutlineActiveBorder: var(--green-400);
+  }
+  &.danger button.primary {
+    color: var(--red-700);
+    background-color: var(--red-100);
+    border: var(--red-100);
+    --KButtonPrimaryBase: var(--red-500);
+    --KButtonPrimaryHover: var(--red-500);
+  }
+  &.danger button.outline {
+    color: var(--red-700);
+    border: 1px solid var(--red-700);
+    --KButtonOutlineBorder: var(--red-500);
+    --KButtonOutlineHoverBorder: var(--red-500);
+    --KButtonOutlineActiveBorder: var(--red-500);
+  }
 }
 </style>
