@@ -4,9 +4,9 @@
     class="k-table">
     <thead>
       <tr>
-        <template>
+        <template v-for="(column, index) in options.headers">
           <th
-            v-for="(column, index) in options.headers"
+            v-if="!column.hideLabel"
             :key="index"
             :class="!column.hideLabel && `${column.sortable ? 'sortable' : ''}${column.key === sortKey ? ' ' + sortOrder : ''}`"
             @click="column.sortable && $emit('sort', column.key, sortOrder)"
@@ -18,6 +18,10 @@
               {{ column.label ? column.label : column.key }}
             </slot>
           </th>
+          <td
+            v-else
+            :key="index"
+          />
         </template>
       </tr>
     </thead>
