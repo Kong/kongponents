@@ -1,0 +1,26 @@
+{
+  "name": "utils",
+  "version": "6.0.0-beta.1",
+  "description": "> TODO: description",
+  "author": "Dustin Ryerson <dpryerson@gmail.com>",
+  "homepage": "https://github.com/Kong/kongponents#readme",
+  "license": "ISC",
+  "main": "lib/utils.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kong/kongponents.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/Kong/kongponents/issues"
+  }
+}
