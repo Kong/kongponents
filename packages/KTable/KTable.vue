@@ -10,6 +10,7 @@
     :icon="errorStateIcon || ''"
     :is-error="true"
     :icon-color="errorStateIconColor"
+    :icon-size="errorStateIconSize"
   >
     <template v-slot:title>{{ errorStateTitle }}</template>
     <template v-slot:message>{{ errorStateMessage }}</template>
@@ -28,6 +29,7 @@
     :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
     :icon="emptyStateIcon || ''"
     :icon-color="emptyStateIconColor"
+    :icon-size="emptyStateIconSize"
   >
     <template v-slot:title>{{ emptyStateTitle }}</template>
     <template v-slot:message>{{ emptyStateMessage }}</template>
@@ -291,6 +293,13 @@ export default {
       default: ''
     },
     /**
+     * A prop to pass in a size for the empty state icon
+     */
+    emptyStateIconSize: {
+      type: String,
+      default: '50'
+    },
+    /**
      * A prop that enables the error state
      */
     hasError: {
@@ -338,6 +347,13 @@ export default {
     errorStateIconColor: {
       type: String,
       default: ''
+    },
+    /**
+     * A prop to pass in a size for the error state icon
+     */
+    errorStateIconSize: {
+      type: String,
+      default: '50'
     }
   },
 
