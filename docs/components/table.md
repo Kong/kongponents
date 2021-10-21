@@ -127,6 +127,10 @@ See [the State section](#empty) about `emptyStateMessage`
 
 See [the State section](#empty) about `emptyStateIcon`
 
+### emptyStateIconColor
+
+See [the State section](#empty) about `emptyStateIconColor`
+
 ### emptyStateActionRoute
 
 See [the State section](#empty) about `emptyStateActionRoute`
@@ -150,6 +154,10 @@ See [the State section](#error) about `errorStateMessage`
 ### errorStateIcon
 
 See [the State section](#error) about `errorStateIcon`
+
+### errorStateIconColor
+
+See [the State section](#error) about `errorStateIconColor`
 
 ### errorStateActionRoute
 
@@ -731,6 +739,7 @@ Set the following properties to handle empty state:
 - `emptyStateTitle` - Title text for empty state
 - `emptyStateMessage` - Message for empty state
 - `emptyStateIcon` - Icon for empty state
+- `emptyStateIconColor` - Color for empty state icon
 - `emptyStateActionRoute` - Route for empty state action
 - `emptyStateActionMessage` - Button text for empty state action
 
@@ -832,6 +841,7 @@ Set the following properties to handle empty state:
       emptyStateActionMessage="Create a Workspace"
       emptyStateActionRoute="#empty-state-full-example"
       emptyStateIcon="workspaces"
+      emptyStateIconColor="#5996ff"
     />
   </template>
 </KCard>
@@ -847,6 +857,7 @@ Set the following properties to handle empty state:
         emptyStateActionMessage="Create a Workspace"
         emptyStateActionRoute="create-workspace"
         emptyStateIcon="workspaces"
+        emptyStateIconColor="#5996ff"
       />
     </template>
   </KCard>
@@ -861,6 +872,7 @@ Set the following properties to handle error state:
 - `errorStateTitle` - Title text for error state
 - `errorStateMessage` - Message for error state
 - `errorStateIcon` - Icon for error state
+- `errorStateIconColor` - Color for error state icon
 - `errorStateActionRoute` - Route for error state action
 - `errorStateActionMessage` - Button text for error state action
 
@@ -974,6 +986,7 @@ Set the following properties to handle error state:
       errorStateActionMessage="Report an Issue"
       errorStateActionRoute="#error-state-full-example"
       errorStateIcon="dangerCircle"
+      errorStateIconColor="#e6173a"
     />
   </template>
 </KCard>
@@ -990,6 +1003,7 @@ Set the following properties to handle error state:
         errorStateActionMessage="Report an Issue"
         errorStateActionRoute="report-issue"
         errorStateIcon="dangerCircle"
+        errorStateIconColor="#e6173a"
       />
     </template>
   </KCard>
