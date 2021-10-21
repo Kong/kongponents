@@ -8,7 +8,8 @@
       >
         <KIcon
           :size="iconSize"
-          :icon="icon ? icon : 'warning'" />
+          :icon="icon ? icon : 'warning'"
+          :color="iconColor" />
       </div>
       <div class="k-empty-state-title-header">
         <slot name="title"/>
@@ -63,6 +64,10 @@ export default {
     handleClick: {
       type: Function,
       default: null
+    },
+    iconColor: {
+      type: String,
+      default: ''
     }
   }
 }
