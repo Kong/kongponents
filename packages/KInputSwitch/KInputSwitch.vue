@@ -20,6 +20,7 @@
 
   <label
     v-else
+    :class="{ 'switch-with-icon' : enabledIcon }"
     class="k-switch">
     <input
       :checked="value"
