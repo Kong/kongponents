@@ -7,6 +7,17 @@ $transition: .2s linear;
   display: inline-flex;
   align-items: center;
   cursor: pointer;
+  &.switch-with-icon .switch-control {
+    width: 48px;
+  }
+  &.switch-with-icon svg {
+    height: 20px;
+    width: 22px;
+    left: 57px;
+  }
+  &.switch-with-icon input:checked + .switch-control:after {
+    left: 26px;
+  }
   .switch-control {
     position: relative;
     display: block;
