@@ -175,17 +175,20 @@ export default {
   /* Size Variations */
   &.small {
     padding: var(--spacing-xs, spacing(xs)) var(--spacing-md, spacing(md));
-    font-size: var(--type-sm, type(sm));
+    font-size: 13px;
+    line-height: 13px;
   }
 
   &.medium {
     padding: var(--spacing-sm, spacing(sm)) var(--spacing-lg, spacing(lg)) ;
     font-size: var(--type-md, type(md));
+    line-height: var(--type-md, type(md));
   }
 
   &.large {
     padding: var(--spacing-md, spacing(md)) var(--spacing-xl, spacing(xl)) ;
     font-size: var(--type-md, type(md));
+    line-height: var(--type-md, type(md));
   }
 
   /* class to add for dropdown caret */

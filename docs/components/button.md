@@ -36,7 +36,7 @@ The Button component can take 1 of 6 appearance values:
 ```
 
 ### Sizes
-Currently we only support small however, larger sizes may be supported later.
+We support `small`, `medium`, and `large` sizes, default to `medium`.
 
 - `small`  
 - `medium`
