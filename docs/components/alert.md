@@ -103,9 +103,9 @@ What color and purpose the Alert should be. Shares similar appearances to those 
 ```
 
 ### Dismissible
-KAlert allows for dismissal of the banner.
+KAlert allows for dismissal of the banner. 
 
-- `is-dismissible`
+- `is-dismissible` is `false` by default
 
 <KAlert
   is-dismissible
@@ -254,10 +254,7 @@ Fixes KAlert to the top of the container.
 - `mainMessageText` - Primary message slot
 - `secMessageText` - Secondary message slot
 
-<KAlert is-wide-banner>
-  <template v-slot:alertIcon>
-    <KIcon icon="notificationInbox" color="var(--red-500)" size="32" />
-  </template>
+<KAlert is-wide-banner has-icon>
   <template v-slot:mainMessageText>
    You’ve had 12 new mentions since you last logged in
   </template>
@@ -317,7 +314,7 @@ Fixes KAlert to the top of the container.
 
 ### Long Content / Prose
 
-<KAlert isShowing appearance="info" class="mt-5">
+<KAlert appearance="info" class="mt-5">
   <template v-slot:alertMessage>
     <div class="mt-2 bold">Failure Modes</div>
     <p>Before you release that email you're writing to spin up a new centralized decision-making group, it's worth talking about the four ways these groups consistently fail. They tend to be <b>domineering</b>, <b>bottlenecked</b>, <b>status-oriented</b>, or <b>inert</b>.</p>
@@ -325,7 +322,7 @@ Fixes KAlert to the top of the container.
 </KAlert>
 
 ```vue
-<KAlert isShowing appearance="info" class="mt-5">
+<KAlert appearance="info" class="mt-5">
   <template v-slot:alertMessage>
     <div class="mt-2 bold">Failure Modes</div>
     <p>Before you release that email you're writing to spin up a new centralized decision-making group, it's worth talking about the four ways these groups consistently fail. They tend to be <b>domineering</b>, <b>bottlenecked</b>, <b>status-oriented</b>, or <b>inert</b>.</p>
@@ -335,14 +332,14 @@ Fixes KAlert to the top of the container.
 
 ### Word Wrap long urls
 
-<KAlert isShowing appearance="warning" class="mt-5">
+<KAlert appearance="warning" class="mt-5">
   <template v-slot:alertMessage>
     Proxy error: Could not proxy request /api/service_packages?fields=&s=%7B%22%24and%22%3A%5B%7B%22name%22%3A%7B%22%24contL%22%3A%22%22%7D%7D%5D%7D&filter=&or=&sort=created_at%2CDESC&join=&limit=100&offset=0&page=1 from localhost:8080 to http://localhost:3000 (ECONNREFUSED).
   </template>
 </KAlert>
 
 ```vue
-<KAlert isShowing appearance="warning" class="mt-5">
+<KAlert appearance="warning" class="mt-5">
   <template v-slot:alertMessage>
     Proxy error: Could not proxy request /api/service_packages?fields=&s=%7B%22%24and%22%3A%5B%7B%22name%22%3A%7B%22%24contL%22%3A%22%22%7D%7D%5D%7D&filter=&or=&sort=created_at%2CDESC&join=&limit=100&offset=0&page=1 from localhost:8080 to http://localhost:3000 (ECONNREFUSED).
   </template>
@@ -395,6 +392,7 @@ look like.
 
 <style lang="scss">
 .k-alert {
+  box-shadow: 0px 0px 12px 0px var(--black-10, color(black-10));
   &:not(:last-of-type) {
     margin-bottom: 1rem;
   }
@@ -413,56 +411,58 @@ look like.
   &.info button.primary {
     color: var(--blue-500);
     background-color: var(--blue-100);
-    --KButtonPrimaryBase: var(--blue-300);
-    --KButtonPrimaryHover: var(--blue-300);
+    --KButtonPrimaryBase: var(--blue-500);
+    --KButtonPrimaryHover: var(--blue-200);
   }
   &.info button.outline {
-    color: var(--blue-400);
-    border: 1px solid var(--blue-400);
-    --KButtonOutlineBorder: var(--blue-300);
-    --KButtonOutlineHoverBorder: var(--blue-300);
-    --KButtonOutlineActiveBorder: var(--blue-300);
+    color: var(--blue-500);
+    border: 1px solid var(--blue-200);
+    --KButtonOutlineBorder: var(--blue-500);
+    --KButtonOutlineHoverBorder: var(--blue-500);
+     --KButtonOutlineActive: var(--blue-100);
+    --KButtonOutlineActiveBorder: var(--blue-500);
   }
   &.warning button.primary {
     color: var(--yellow-500);
     background-color: var(--yellow-100);
-    --KButtonPrimaryBase: var(--yellow-300);
-    --KButtonPrimaryHover: var(--yellow-300);
+    --KButtonPrimaryBase: var(--yellow-500);
+    --KButtonPrimaryHover: var(--yellow-200);
   }
   &.warning button.outline {
-    color: var(--yellow-400);
-    border: 1px solid var(--yellow-400);
-    --KButtonOutlineBorder: var(--yellow-300);
-    --KButtonOutlineHoverBorder: var(--yellow-300);
-    --KButtonOutlineActiveBorder: var(--yellow-300);
+    color: var(--yellow-500);
+    border: 1px solid var(--yellow-300);
+    --KButtonOutlineBorder: var(--yellow-500);
+    --KButtonOutlineHoverBorder: var(--yellow-500);
+    --KButtonOutlineActive: var(--yellow-100);
+    --KButtonOutlineActiveBorder: var(--yellow-500);
   }
   &.success button.primary {
     color: var(--green-600);
     background-color: var(--green-100);
-    border: var(--green-100);
-    --KButtonPrimaryBase: var(--green-300);
-    --KButtonPrimaryHover: var(--green-300);
+    --KButtonPrimaryBase: var(--green-600);
+    --KButtonPrimaryHover: var(--green-200);
   }
   &.success button.outline {
     color: var(--green-600);
-    border: 1px solid var(--green-600);
-    --KButtonOutlineBorder: var(--green-400);
-    --KButtonOutlineHoverBorder: var(--green-400);
-    --KButtonOutlineActiveBorder: var(--green-400);
+    border: 1px solid var(--green-400);
+    --KButtonOutlineBorder: var(--green-600);
+    --KButtonOutlineHoverBorder: var(--green-600);
+     --KButtonOutlineActive: var(--green-100);
+    --KButtonOutlineActiveBorder: var(--green-600);
   }
   &.danger button.primary {
     color: var(--red-700);
     background-color: var(--red-100);
-    border: var(--red-100);
-    --KButtonPrimaryBase: var(--red-500);
-    --KButtonPrimaryHover: var(--red-500);
+    --KButtonPrimaryHover: var(--red-200);
+    --KButtonPrimaryBase: var(--red-700);
   }
   &.danger button.outline {
-    color: var(--red-700);
-    border: 1px solid var(--red-700);
-    --KButtonOutlineBorder: var(--red-500);
-    --KButtonOutlineHoverBorder: var(--red-500);
-    --KButtonOutlineActiveBorder: var(--red-500);
+    border: 1px solid var(--red-500);
+    --KButtonOutlineBorder: var(--red-700);
+    --KButtonOutlineColor: var(--red-700);
+    --KButtonOutlineHoverBorder: var(--red-700);
+    --KButtonOutlineActive: var(--red-100);
+    --KButtonOutlineActiveBorder: var(--red-700);
   }
 }
 </style>

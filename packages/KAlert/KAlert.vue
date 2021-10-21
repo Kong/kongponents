@@ -28,10 +28,18 @@
         icon="close"
         size="14" />
     </button>
-    <span
+    <!-- <span
       v-if="hasIcon"
       class="alert-icon">
       <slot name="alertIcon"/>
+    </span> -->
+    <span
+      v-if="hasIcon">
+      <KIcon
+        class="alert-icon"
+        color="var(--red-500)"
+        icon="notificationInbox"
+        size="32" />
     </span>
     <span
       v-if="hasEllipse"
@@ -196,13 +204,18 @@ export default {
           'small'
         ].indexOf(value) !== -1
       }
+    },
+
+    hasIcon: {
+      type: Boolean,
+      default: false
     }
   },
 
   computed: {
-    hasIcon () {
-      return !!this.$slots.alertIcon
-    },
+    // hasIcon () {
+    //   return !!this.$slots.alertIcon
+    // },
     hasActionButtons () {
       return !!this.$slots.actionButtons
     }
@@ -223,8 +236,8 @@ export default {
   position: relative;
   display: flex;
   align-items: center;
-  width: 830px;
-  font-style: normal;
+  // width: 830px;
+  // font-style: normal;
   font-weight: 300;
   font-size: 16px;
   line-height: 16px;
@@ -314,17 +327,17 @@ export default {
     height: 80px;
     // padding: 0;
     border-radius: 2px;
-    background-color: #fff;
+    background-color: var(--white);
     margin-bottom: 1rem;
     color: var(--black-500);
   }
 
   &.hasButton {
-    width: 763px;
-    height: 56px;
+    // width: 763px;
+    // height: 56px;
     // padding: 0;
     border-radius: 4px;
-    background-color: #fff;
+    background-color: var(--white);
     margin-bottom: 1rem;
     color: var(--black-500);
     & > .alert-ellipse {
@@ -375,8 +388,8 @@ button.close > svg {
 
 .alert-icon {
   padding: 23px 0 25px 21px;
-  width: 32px;
-  height: 32px;
+  // width: 32px;
+  // height: 32px;
   margin-right: -8px
 }
 
