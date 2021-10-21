@@ -11,12 +11,12 @@
 * General
 */
 div[class*="language-"]::before {
-  color: var(--black-70) !important;
+  color: var(--black-90) !important;
 }
 div[class*="language-"],
 pre[class*="language-"],
 code[class*="language-"] {
-  color: var(--black-70);
+  color: var(--black-90);
   font-family: 'Roboto Mono', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   text-align: left;
   white-space: pre;
@@ -67,10 +67,10 @@ pre[class*="language-"] code,
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: var(--black-70);
+  color: var(--black-90);
 }
 .token.punctuation {
-  color: var(--black-70);
+  color: var(--black-90);
 }
 .token.tag,
 .token.boolean,
@@ -86,7 +86,7 @@ pre[class*="language-"] code,
 .token.char,
 .token.builtin,
 .token.inserted {
-  color: var(--green-500);
+  color: #0e7c6a;
 }
 .token.operator,
 .token.entity,
@@ -94,7 +94,7 @@ pre[class*="language-"] code,
 .language-css .token.string,
 .style .token.string,
 .token.class-name {
-  color: var(--green-500);
+  color: #0e7c6a;
   background: transparent;
 }
 .token.atrule,
@@ -109,7 +109,7 @@ pre[class*="language-"] code,
 .token.regex,
 .token.important,
 .token.variable {
-  color: var(--green-500);
+  color: #0e7c6a;
 }
 .token.important,
 .token.bold {
@@ -136,8 +136,16 @@ div[class*="language-"].line-numbers-mode .highlight-lines .highlighted:before {
   background-color: var(--steel-100) !important;
 }
 div[class*="language-"].line-numbers-mode .line-numbers-wrapper {
-  color: var(--black-70) !important;
+  color: var(--black-90) !important;
 }
 div[class*="language-"].line-numbers-mode::after {
   border-right: 1px solid var(--steel-100) !important;
+}
+
+/***********************************
+ * Overrides for accessibility
+ */
+.sidebar-group.is-sub-group > .sidebar-heading:not(.clickable) {
+  opacity: .8 !important;
+  text-transform: uppercase;
 }
