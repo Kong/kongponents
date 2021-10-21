@@ -61,7 +61,7 @@ pre[class*="language-"] code,
 * Tokens
 */
 .namespace {
-  opacity: .7;
+  color: #c24747 !important;
 }
 .token.comment,
 .token.prolog,
@@ -100,11 +100,11 @@ pre[class*="language-"] code,
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-  color: var(--blue-400);
+  color: #3b6fc9;
 }
 .token.property,
 .token.function {
-  color: var(--red-600);
+  color: #c24747;
 }
 .token.regex,
 .token.important,
