@@ -8,7 +8,7 @@
           <th
             v-for="(column, index) in options.headers"
             :key="index"
-            :class="!column.hideLabel ? [column.sortable ? 'sortable' : '', column.key === sortKey ? sortOrder : ''].join(' ') : 'hidden-label'"
+            :class="[{'sortable': !column.hideLabel && column.sortable, 'hidden-label': column.hideLabel}, column.key === sortKey && !column.hideLabel ? sortOrder : '']"
             @click="column.sortable && $emit('sort', column.key, sortOrder)"
           >
             <slot
