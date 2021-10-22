@@ -6,5 +6,6 @@ exports[`KViewSwitcher matches snapshot 1`] = `
     <div class="dots"><i></i><i></i><i></i><i></i></div>
     <div class="lines"><i></i><i></i><i></i><i></i></div>
   </div>
+  <!---->
 </button>
 `;

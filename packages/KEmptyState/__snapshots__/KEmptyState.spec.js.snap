@@ -10,7 +10,7 @@ exports[`KEmptyState matches snapshot 1`] = `
     <div class="k-empty-state-message"></div>
     <div class="k-empty-state-cta"><button type="button" class="k-button small rounded primary">
 
-      </button></div>
+        <!----></button></div>
   </div>
 </section>
 `;
@@ -81,7 +81,7 @@ exports[`KEmptyState renders slots when passed 1`] = `
     </div>
     <div class="k-empty-state-cta"><button type="button" class="k-button small rounded primary">
         Click Me!
-      </button></div>
+        <!----></button></div>
   </div>
 </section>
 `;
