@@ -13,7 +13,9 @@ exports[`KTable default has hover class when passed 1`] = `
       <th class="">
         Enabled
       </th>
-      <td></td>
+      <th class="hidden-label">
+        actions
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -52,7 +54,9 @@ exports[`KTable default has small class when passed 1`] = `
       <th class="">
         Enabled
       </th>
-      <td></td>
+      <th class="hidden-label">
+        actions
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -91,7 +95,9 @@ exports[`KTable default renders link in action slot 1`] = `
       <th class="">
         Enabled
       </th>
-      <td></td>
+      <th class="hidden-label">
+        actions
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -130,7 +136,9 @@ exports[`KTable sorting should have sortable class when passed 1`] = `
       <th class="">
         Enabled
       </th>
-      <td></td>
+      <th class="hidden-label">
+        actions
+      </th>
     </tr>
   </thead>
   <tbody>

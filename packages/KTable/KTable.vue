@@ -4,24 +4,19 @@
     class="k-table">
     <thead>
       <tr>
-        <template v-for="(column, index) in options.headers">
+        <template>
           <th
-            v-if="!column.hideLabel"
+            v-for="(column, index) in options.headers"
             :key="index"
-            :class="!column.hideLabel && `${column.sortable ? 'sortable' : ''}${column.key === sortKey ? ' ' + sortOrder : ''}`"
+            :class="`${column.sortable ? 'sortable' : ''}${column.key === sortKey ? ' ' + sortOrder : ''}${column.hideLabel ? 'hidden-label' : ''}`"
             @click="column.sortable && $emit('sort', column.key, sortOrder)"
           >
             <slot
-              v-if="!column.hideLabel"
               :name="`column-${column.key}`"
               :column="column">
               {{ column.label ? column.label : column.key }}
             </slot>
           </th>
-          <td
-            v-else
-            :key="index"
-          />
         </template>
       </tr>
     </thead>
@@ -244,6 +239,10 @@ export default {
       text-align: left;
       font-size: var(--KTableHeaderSize, var(--type-sm, type(sm)));
       font-weight: 500;
+
+      &.hidden-label {
+        display: none;
+      }
 
       &.sortable {
         cursor: pointer;
