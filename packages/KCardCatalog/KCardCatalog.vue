@@ -13,7 +13,6 @@
           v-for="item in items"
           :key="item.key ? item.key : null"
           :item="item"
-          :loading="loading"
           :location-param="item.locationParam ? item.locationParam : ''"
           :truncate="!noTruncation"
           class="catalog-item"

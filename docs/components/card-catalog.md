@@ -84,8 +84,131 @@ to turn it off.
 <KCardCatalog title="No truncation allowed!!" :items="[longItem]" no-truncation />
 
 ```vue
+const longItem = {
+  title: "Item long",
+  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in tempus lorem, et molestie quam. Praesent sapien massa, posuere et volutpat nec, imperdiet a dui. Fusce non leo posuere, molestie neque et, posuere ex. Nullam euismod tortor in est sagittis iaculis. In sodales bibendum nulla nec feugiat. Nunc condimentum, lacus non tincidunt facilisis, ante nisi eleifend est, et tempus sapien tortor nec velit. Nunc porttitor elit lacinia, pellentesque nulla quis, efficitur mi. Mauris a sem non lectus elementum consequat non vitae nibh. Suspendisse nec sem a magna fringilla euismod. Phasellus nec leo elementum, scelerisque diam non, auctor arcu. Proin vehicula cursus quam at semper."
+}
+
 <KCardCatalog title="Truncate me" :items="[longItem]" />
 <KCardCatalog title="No truncation allowed!!" :items="[longItem]" no-truncation />
+```
+
+## KCatalogItem
+**KCatalogItem** is basically a wrapper around `KCard` to display it correctly in `KCardCatalog`. You
+can use the `body` slot of the `KCardCatalog` to manually create your own catalog items.
+
+### Properties
+- `item` - the card content is built from this, it expects a `title` and optionally a `description`.
+  ```json
+  { title: 'some title', description: 'some description' }
+  ```
+- `truncate` - a boolean (default to `true`), whether or not to truncate the `description` text.
+
+```vue
+<KCatalogItem
+  :item="item"
+  :truncate="false"
+  class="catalog-item"
+/>
+```
+
+### Slots
+- `cardTitle` - the title content for the card
+- `cardBody` - the body content for the card
+
+```vue
+<KCatalogItem>       
+  <template v-slot:cardTitle>
+    <KIcon
+      icon="profile"
+      color="#7F01FE"
+      size="44" />
+    Look Mah!
+  </template>
+  <template v-slot:cardBody>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.</template>
+</KCatalogItem>
+```
+
+## Slots
+- `body` - The body of the card catalog, we expect this to be an array of `KCardCatalogItem` widgets,
+this should be used instead of the `items` property.
+
+<KCardCatalog title="I'm slotted baby!" >
+  <template v-slot:body>
+    <KCatalogItem
+      v-for="item in getItems(4)"
+      :key="item.title.replace(' ', '-')"
+      :item="item"
+      class="catalog-item"
+    />
+    <KCatalogItem
+      :item="longItem"
+      :truncate="true"
+      class="catalog-item"
+    />
+    <KCatalogItem>
+      <template v-slot:cardTitle>
+        <h4 class="d-flex">
+          <KIcon
+            icon="profile"
+            color="#7F01FE"
+            size="24" />
+          <span class="ml-2">Call Me!</span>
+        </h4>
+      </template>     
+      <template v-slot:cardBody>
+        <span class="mr-2">Take action!</span>
+        <KButton size="small">
+          <KIcon
+            icon="gearFilled"
+            width="16px"
+            view-box="0 0 16 16"
+            class="pr-0"
+          />
+        </KButton>
+      </template>
+    </KCatalogItem>
+  </template>
+</KCardCatalog>
+
+```vue
+<KCardCatalog title="I'm slotted baby!" >
+  <template v-slot:body>
+    <KCatalogItem
+      v-for="item in getItems(4)"
+      :key="item.title.replace(' ', '-')"
+      :item="item"
+      class="catalog-item"
+    />
+    <KCatalogItem
+      :item="longItem"
+      :truncate="true"
+      class="catalog-item"
+    />
+    <KCatalogItem>
+      <template v-slot:cardTitle>
+        <h4 class="d-flex">
+          <KIcon
+            icon="profile"
+            color="#7F01FE"
+            size="24" />
+          <span class="ml-2">Call Me!</span>
+        </h4>
+      </template>     
+      <template v-slot:cardBody>
+        <span class="mr-2">Take action!</span>
+        <KButton size="small">
+          <KIcon
+            icon="gearFilled"
+            width="16px"
+            view-box="0 0 16 16"
+            class="pr-0"
+          />
+        </KButton>
+      </template>
+    </KCatalogItem>
+  </template>
+</KCardCatalog>
 ```
 
 ## Theming

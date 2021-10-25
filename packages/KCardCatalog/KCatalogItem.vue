@@ -3,28 +3,22 @@
     v-if="locationParam"
     :to="locationParam">
     <KCard
-      :data-testid="`${item.name || item.title || item.id}`"
+      :data-testid="item ? `${item.title.replace(' ', '-')}-catalog-item` : 'catalog-item'"
       class="grid-item d-flex flex-column overflow-hidden k-card-catalog-item"
       has-hover
       role="button"
       tabindex="0"
       @click.native="handleCardClick($event, item)"
     >
-      <template #title>
-        <slot
-          :item="item"
-          name="card-title"
-        >
+      <template v-slot:title>
+        <slot name="cardTitle">
           {{ item.title }}
         </slot>
       </template>
-      <template #body>
+      <template v-slot:body>
         <div
-          :item="item"
           :class="{ 'multi-line-truncate': truncate }">
-          <slot
-            name="card-body"
-          >
+          <slot name="cardBody">
             {{ item.description }}
           </slot>
         </div>
@@ -34,29 +28,23 @@
 
   <KCard
     v-else
-    :data-testid="`${item.name || item.title || item.id}`"
+    :data-testid="item ? `${item.title.replace(' ', '-')}-catalog-item` : 'catalog-item'"
     class="grid-item d-flex flex-column overflow-hidden k-card-catalog-item"
     has-hover
     role="button"
     tabindex="0"
     @click.native="handleCardClick($event, item)"
   >
-    <template #title>
-      <slot
-        :item="item"
-        name="card-title"
-      >
-        {{ item.title }}
+    <template v-slot:title>
+      <slot name="cardTitle">
+        {{ item ? item.title : '' }}
       </slot>
     </template>
-    <template #body>
+    <template v-slot:body>
       <div
-        :item="item"
         :class="{ 'multi-line-truncate': truncate }">
-        <slot
-          name="card-body"
-        >
-          {{ item.description }}
+        <slot name="cardBody">
+          {{ item ? item.description : '' }}
         </slot>
       </div>
     </template>
@@ -71,7 +59,7 @@ export default {
       type: Object,
       default: () => {},
       // Item must have a title
-      validator: (items) => !items.length || items.some(i => i.hasOwnProperty('title'))
+      validator: (item) => item.hasOwnProperty('title')
     },
     locationParam: {
       type: String,
