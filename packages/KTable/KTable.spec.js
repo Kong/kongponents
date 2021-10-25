@@ -302,4 +302,42 @@ describe('KTable', () => {
       expect(evtTrigger).toHaveBeenNthCalledWith(3, expect.objectContaining({ type: 'mouseout' }), '517526354743085', 'cell')
     })
   })
+
+  describe('states', () => {
+    it('displays an empty state when no data is passed to the table', () => {
+      const wrapper = mount(KTable, {
+        propsData: {
+          options: { data: [], headers: [] }
+        }
+      })
+
+      expect(wrapper.classes()).toContain('empty-state-wrapper')
+      expect(wrapper.html()).toMatchSnapshot()
+    })
+
+    it('displays a loading skeletion when the "isLoading" prop is set to true"', () => {
+      const wrapper = mount(KTable, {
+        propsData: {
+          options: { data: [], headers: [] },
+          isLoading: true
+        }
+      })
+
+      expect(wrapper.html()).toContain('skeleton-table-wrapper')
+      expect(wrapper.html()).toMatchSnapshot()
+    })
+
+    it('displays an error state when the "hasError" prop is set to true"', () => {
+      const wrapper = mount(KTable, {
+        propsData: {
+          options: { data: [], headers: [] },
+          hasError: true
+        }
+      })
+
+      expect(wrapper.html()).toContain('empty-state-wrapper')
+      expect(wrapper.html()).toContain('is-error')
+      expect(wrapper.html()).toMatchSnapshot()
+    })
+  })
 })
