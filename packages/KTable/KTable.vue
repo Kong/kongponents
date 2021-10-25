@@ -25,7 +25,7 @@
     </template>
   </KEmptyState>
   <KEmptyState
-    v-else-if="!hasError && (!options.data || !options.data.length)"
+    v-else-if="!hasError && (!options.data || !options.data.length) && (!data || !data.length)"
     :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
     :icon="emptyStateIcon || ''"
     :icon-color="emptyStateIconColor"
@@ -51,10 +51,10 @@
       <tr>
         <template>
           <th
-            v-for="(column, index) in options.headers"
+            v-for="(column, index) in headers"
             :key="index"
             :class="{'sortable': !column.hideLabel && column.sortable, [sortOrder]: column.key === sortKey && !column.hideLabel}"
-            @click="column.sortable && $emit('sort', column.key, sortOrder)"
+            @click="column.sortable && sortClickHandler(column.key)"
           >
             <slot
               :name="`column-${column.key}`"
@@ -71,16 +71,16 @@
     </thead>
     <tbody>
       <tr
-        v-for="(row, rowIndex) in options.data"
+        v-for="(row, rowIndex) in data"
         :key="rowIndex"
         v-bind="rowAttrs(row)"
-        v-on="trlisteners(row, 'row')">
+      >
         <template>
           <td
-            v-for="(value, index) in options.headers"
+            v-for="(value, index) in headers"
             :key="index"
             v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
-            v-on="tdlisteners(row[value.key], 'cell')">
+          >
             <slot
               :name="value.key"
               :row="row"
@@ -96,6 +96,14 @@
 <script>
 import KEmptyState from '@kongponents/kemptystate/KEmptyState.vue'
 import KSkeleton from '@kongponents/kskeleton/KSkeleton.vue'
+import { useRequest, useDebounce } from '../utils/lib/utils'
+
+import { uuid } from 'vue-uuid'
+
+import Vue from 'vue'
+import VueCompositionAPI, { computed, defineComponent, onMounted, ref, watch } from '@vue/composition-api'
+
+Vue.use(VueCompositionAPI)
 
 /**
  * @param {String} key - the current key to sort by
@@ -140,13 +148,13 @@ export const defaultSorter = (key, previousKey, sortOrder, items) => {
 
     items.sort(comparator)
     previousKey = key
-    sortOrder = 'ascending'
+    sortOrder.value = 'ascending'
   } else {
     items.reverse()
-    if (sortOrder === 'descending') {
-      sortOrder = 'ascending'
+    if (sortOrder.value === 'descending') {
+      sortOrder.value = 'ascending'
     } else {
-      sortOrder = 'descending'
+      sortOrder.value = 'descending'
     }
   }
 
@@ -174,7 +182,7 @@ function pluckListeners (prefix, $listeners) {
     }, {})
 }
 
-export default {
+export default defineComponent({
   name: 'KTable',
   components: {
     KEmptyState,
@@ -215,20 +223,20 @@ export default {
     /**
      * the sort order for the table.
      */
-    sortOrder: {
-      type: String,
-      default: 'ascending',
-      validator: function (value) {
-        return ['ascending', 'descending'].indexOf(value) > -1
-      }
-    },
+    // sortOrder: {
+    //   type: String,
+    //   default: 'ascending',
+    //   validator: function (value) {
+    //     return ['ascending', 'descending'].indexOf(value) > -1
+    //   }
+    // },
     /**
      * the key of the column that's currently being sorted
      */
-    sortKey: {
-      type: String,
-      default: ''
-    },
+    // sortKey: {
+    //   type: String,
+    //   default: ''
+    // },
     /**
      * A function that conditionally specifies row attributes on each row
      */
@@ -361,17 +369,38 @@ export default {
     errorStateIconSize: {
       type: String,
       default: '50'
-    }
-  },
-
-  computed: {
-    tdlisteners () {
-      return pluckListeners('cell:', this.$listeners)
     },
 
-    trlisteners () {
+    fetcher: {
+      type: Function,
+      default: undefined
+    },
+    searchInput: {
+      type: String,
+      default: ''
+    },
+    page: {
+      type: Number,
+      default: 1
+    },
+    headers: {
+      type: Array,
+      default: () => []
+    }
+  },
+  setup (props, ctx) {
+    const data = ref([])
+    const pageSize = ref('10')
+    const sortKey = ref('')
+    const sortOrder = ref('desc')
+
+    const tdlisteners = computed(() => {
+      return pluckListeners('cell:', ctx.$listeners)
+    })
+
+    const trlisteners = computed(() => {
       return (entity, type) => {
-        const pluckedListeners = pluckListeners('row:', this.$listeners)(entity, type)
+        const pluckedListeners = pluckListeners('row:', ctx.$listeners)(entity, type)
 
         return {
           ...pluckedListeners,
@@ -382,9 +411,66 @@ export default {
           }
         }
       }
+    })
+
+    const setData = async () => {
+      if (props.fetcher) {
+        const res = await props.fetcher()
+
+        data.value = res.data
+      } else {
+        data.value = props.options.data
+      }
+    }
+
+    const { query, search } = useDebounce('', 350)
+    const { revalidate, data: revalidatedData } = useRequest(
+      () => `k-table_${uuid.v1()}`,
+      () => {
+        return props.fetcher && props.fetcher(
+          pageSize.value,
+          props.page,
+          query.value || props.searchInput,
+          sortKey.value,
+          sortOrder.value
+        )
+      },
+      { revalidateOnFocus: false }
+    )
+
+    watch(() => query.value, () => {
+      revalidate()
+    }, { immediate: true })
+
+    watch(() => props.searchInput, (val) => {
+      search(val)
+    }, { immediate: true })
+
+    watch(() => [props.page], () => {
+      revalidate()
+    }, { immediate: true })
+
+    const sortClickHandler = (key) => {
+      sortKey.value = key
+      sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc'
+
+      revalidate()
+    }
+
+    onMounted(() => {
+      setData()
+    })
+
+    return {
+      data: revalidatedData || data.value,
+      sortClickHandler,
+      sortKey,
+      sortOrder,
+      tdlisteners,
+      trlisteners
     }
   }
-}
+})
 </script>
 
 <style scoped lang="scss">

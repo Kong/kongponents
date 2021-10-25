@@ -64,6 +64,7 @@ export default {
 }
 </script>
 ```
+
 ## Props
 ### Hover
 Highlight the table row on hover. By default this is set to true. In the example we can set it to false as well.
@@ -901,6 +902,25 @@ Set the `isLoading` prop to `true` to enable the loading state.
 </template>
 ```
 
+## Server-side sorting
+
+<KCard class="mt-3">
+  <template v-slot:body>
+    <KInput placeholder="Search..." v-model="search" />
+    <KTable
+      :options="{ data: [], headers: [] }"
+      :fetcher="fetcher"
+      :search-input="search"
+      :page="page"
+      :headers="headers"
+    />
+    <div>
+      <KButton @click="page--" :disabled="page === 1">Prev</KButton>
+      <KButton @click="page++" class="ml-4" :disabled="page === 10">Next</KButton>
+    </div>
+  </template>
+</KCard>
+
 ## Theming
 | Variable | Purpose
 |:-------- |:-------
@@ -932,6 +952,8 @@ An Example of changing the hover background might look like.
 
 <script>
 import { defaultSorter } from '../../packages/KTable/KTable'
+import axios from 'axios'
+
 export default {
   data() {
     return {
@@ -1005,6 +1027,14 @@ export default {
           { company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'} }
         ]
       },
+      search: '',
+      page: 1,
+      headers: [
+        { key: 'name', label: 'Name', sortable: true },
+        { key: 'email', label: 'Email', sortable: true },
+        { key: 'ip', label: 'IP Address', sortable: false },
+        { key: 'job_area', label: 'Job Area', sortable: true }
+      ],
       tableOptionsCellAttrs: {
         headers: [
           { label: 'Name', key: 'name' },
@@ -1105,6 +1135,30 @@ export default {
           'backgroundColor': backgroundColor(),
         },
       }
+    },
+    fetcher(pageSize, page, query, sortKey, sortOrder) {
+      const params = {
+        _page: 1,
+        _limit: 10
+      }
+
+      if (page) {
+        params._page = page
+      }
+
+      if (sortKey) {
+        params._sort = sortKey
+        params._order = sortOrder
+      }
+
+      if (query && query.length) {
+        params.q = query
+      }
+
+      return axios.get('/user_list', {
+        baseURL: 'http://localhost:4001/api',
+        params
+      }).then(res => res)
     }
   }
 }
