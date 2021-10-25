@@ -15,8 +15,8 @@ function getItems(count) {
 }
 
 const longItem = {
-  title: "Item long",
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in tempus lorem, et molestie quam. Praesent sapien massa, posuere et volutpat nec, imperdiet a dui. Fusce non leo posuere, molestie neque et, posuere ex. Nullam euismod tortor in est sagittis iaculis. In sodales bibendum nulla nec feugiat. Nunc condimentum, lacus non tincidunt facilisis, ante nisi eleifend est, et tempus sapien tortor nec velit. Nunc porttitor elit lacinia, pellentesque nulla quis, efficitur mi. Mauris a sem non lectus elementum consequat non vitae nibh. Suspendisse nec sem a magna fringilla euismod. Phasellus nec leo elementum, scelerisque diam non, auctor arcu. Proin vehicula cursus quam at semper."
+  title: "A very long item",
+  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in tempus lorem, et molestie quam. Praesent sapien massa, posuere et volutpat nec, imperdiet a dui. Fusce non leo posuere, molestie neque et, posuere ex. Nullam euismod tortor in est sagittis iaculis. In sodales bibendum nulla nec feugiat."
 }
 
 export default {
@@ -77,7 +77,7 @@ Size of the cards. Supports values `small`, `medium` (default), and `large`.
 ```
 
 ### noTruncation
-By default truncation of items with long descriptions is enabled. Enable `noTruncation`
+By default truncation of items with long descriptions is enabled at 5 lines. Enable `noTruncation`
 to turn it off.
 
 <KCardCatalog title="Truncate me" :items="[longItem]" />
@@ -86,7 +86,7 @@ to turn it off.
 ```vue
 const longItem = {
   title: "Item long",
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in tempus lorem, et molestie quam. Praesent sapien massa, posuere et volutpat nec, imperdiet a dui. Fusce non leo posuere, molestie neque et, posuere ex. Nullam euismod tortor in est sagittis iaculis. In sodales bibendum nulla nec feugiat. Nunc condimentum, lacus non tincidunt facilisis, ante nisi eleifend est, et tempus sapien tortor nec velit. Nunc porttitor elit lacinia, pellentesque nulla quis, efficitur mi. Mauris a sem non lectus elementum consequat non vitae nibh. Suspendisse nec sem a magna fringilla euismod. Phasellus nec leo elementum, scelerisque diam non, auctor arcu. Proin vehicula cursus quam at semper."
+  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in tempus lorem, et molestie quam. Praesent sapien massa, posuere et volutpat nec, imperdiet a dui. Fusce non leo posuere, molestie neque et, posuere ex. Nullam euismod tortor in est sagittis iaculis. In sodales bibendum nulla nec feugiat."
 }
 
 <KCardCatalog title="Truncate me" :items="[longItem]" />
