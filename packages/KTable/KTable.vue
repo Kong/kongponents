@@ -8,7 +8,7 @@
           <th
             v-for="(column, index) in options.headers"
             :key="index"
-            :class="{'sortable': !column.hideLabel && column.sortable, 'hidden-label': column.hideLabel, [sortOrder]: column.key === sortKey && !column.hideLabel}"
+            :class="{'sortable': !column.hideLabel && column.sortable, 'sr-only': column.hideLabel, [sortOrder]: column.key === sortKey && !column.hideLabel}"
             @click="column.sortable && $emit('sort', column.key, sortOrder)"
           >
             <slot
@@ -240,8 +240,16 @@ export default {
       font-size: var(--KTableHeaderSize, var(--type-sm, type(sm)));
       font-weight: 500;
 
-      &.hidden-label {
-        display: none;
+      &.sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
       }
 
       &.sortable {
