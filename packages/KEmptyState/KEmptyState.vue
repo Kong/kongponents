@@ -1,5 +1,8 @@
 <template>
-  <section class="empty-state-wrapper">
+  <section
+    :class="{ 'is-error': isError }"
+    class="empty-state-wrapper"
+  >
     <div class="empty-state-title">
       <div
         v-if="isError || icon"

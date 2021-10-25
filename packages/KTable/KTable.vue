@@ -94,6 +94,9 @@
 </template>
 
 <script>
+import KEmptyState from '@kongponents/kemptystate/KEmptyState.vue'
+import KSkeleton from '@kongponents/kskeleton/KSkeleton.vue'
+
 /**
  * @param {String} key - the current key to sort by
  * @param {String} previousKey - the previous key used to sort by
@@ -173,6 +176,10 @@ function pluckListeners (prefix, $listeners) {
 
 export default {
   name: 'KTable',
+  components: {
+    KEmptyState,
+    KSkeleton
+  },
   props: {
     /**
      * Object containing data which creates rows and columns.
