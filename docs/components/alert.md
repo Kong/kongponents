@@ -2,10 +2,49 @@
 
 **KAlert** is used to display contextual information to a user. These are typically used to notify something may be disabled or there may be an error.
 
-<KAlert is-dismissible alert-message="I'm an alert" />
+<KAlert alert-message="I'm an alert" type="banner"/>
+<KAlert alert-message="I'm an alert" type="alert" dismissType="none" appearance="danger" />
+<KAlert alert-message="I'm an alert" type="alert" dismissType="icon" />
+<KAlert alert-message="I'm an alert" type="alert" dismissType="icon" appearance="warning" />
+<KAlert alert-message="I'm an alert" type="alert" dismissType="icon" appearance="success" />
 
+<KAlert alert-message="I'm an alert" type="banner" dismissType="button" />
+<KAlert alert-message="I'm an alert" type="banner" dismissType="button" appearance="warning"> 
+  <template v-slot:actionButtons>
+    <KButton appearance="primary" size="small">Here</KButton>
+  </template>
+  </KAlert>
+<KAlert alert-message="I'm an alert" type="banner" dismissType="button" appearance="danger" icon="support" >
+  <template v-slot:additionalAlertMessage>
+    across 3 services
+  </template>
+</KAlert>
+<KAlert alert-message="I'm an alert" type="banner" dismissType="button" appearance="success" />
+
+<KAlert alert-message="I'm an alert with multiple buttons" type="banner" appearance="success" >
+ <template>
+    <KButton appearance="primary" size="small">Here</KButton>
+    <KButton size="small">There</KButton>
+    <KButton size="small">Where</KButton>
+  </template>
+  </KAlert>
+<KAlert alert-message="I'm an alert" type="banner" dismissType="button" appearance="warning" is-large />
+<KAlert alert-message="You’ve had 12 new mentions since you last logged in" type="banner" dismissType="button" appearance="warning" is-large icon="support" >
+  <template v-slot:additionalAlertMessage>
+    across 3 services
+  </template>
+</KAlert>
+<KAlert alert-message="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Orci dapibus ultrices in iaculis. Diam maecenas ultricies mi eget mauris pharetra. Facilisis sed odio morbi quis commodo." type="banner" dismissType="button" appearance="warning" is-large icon="support" >
+ <template>
+    <KButton size="small">Review</KButton>
+    <KButton size="small">Dismiss</KButton>
+  </template>
+  <template v-slot:additionalAlertMessage>
+   across 30 services
+  </template>
+</KAlert>
 ```vue
-<KAlert is-dismissible alert-message="I'm an alert" />
+<KAlert alert-message="I'm an alert" />
 ```
 
 ## Props
@@ -18,129 +57,47 @@ What color and purpose the Alert should be. Shares similar appearances to those 
 - `danger`
 
 <KAlert
-  has-button
-  has-ellipse
   appearance="info"
-  alert-message="Info alert message">
-  <template v-slot:actionButtons>
-    <KButton appearance="primary" size="small">Primary</KButton>
-    <KButton appearance="outline" size="small">Outline</KButton>
-  </template>
- </KAlert>
+  alert-message="Info alert message" />
 <KAlert
-  has-button
-  has-ellipse
   appearance="warning"
-  alert-message="Warning alert message">
-  <template v-slot:actionButtons>
-    <KButton appearance="primary" size="small">Warning</KButton>
-    <KButton appearance="outline" size="small">Outline</KButton>
-  </template>
-</KAlert>
+  alert-message="Warning alert message" />
 <KAlert
-  has-button
-  has-ellipse
   appearance="success"
-  alert-message="Success alert message">
-  <template v-slot:actionButtons>
-    <KButton appearance="primary" size="small">Success</KButton>
-    <KButton appearance="outline" size="small">Outline</KButton>
-  </template>
-</KAlert>
+  alert-message="Success alert message" />
 <KAlert
-  has-button
-  has-ellipse
   appearance="danger"
-  alert-message="Danger alert message">
-  <template v-slot:actionButtons>
-    <KButton appearance="primary" size="small">Warning</KButton>
-    <KButton appearance="outline" size="small">Outline</KButton>
-  </template>
-</KAlert>
-
+  alert-message="Danger alert message" />
 
 ```vue
 <KAlert
-  has-button
-  has-ellipse
   appearance="info"
-  alert-message="Info alert message">
-  <template v-slot:actionButtons>
-    <KButton appearance="primary" size="small">Primary</KButton>
-    <KButton appearance="outline" size="small">Outline</KButton>
-  </template>
- </KAlert>
+  alert-message="Info alert message" />
 <KAlert
-  has-button
-  has-ellipse
   appearance="warning"
-  alert-message="Warning alert message">
-  <template v-slot:actionButtons>
-    <KButton appearance="primary" size="small">Warning</KButton>
-    <KButton appearance="outline" size="small">Outline</KButton>
-  </template>
-</KAlert>
+  alert-message="Warning alert message" />
 <KAlert
-  has-button
-  has-ellipse
   appearance="success"
-  alert-message="Success alert message">
-  <template v-slot:actionButtons>
-    <KButton appearance="primary" size="small">Success</KButton>
-    <KButton appearance="outline" size="small">Outline</KButton>
-  </template>
-</KAlert>
+  alert-message="Success alert message" />
 <KAlert
-  has-button
-  has-ellipse
   appearance="danger"
-  alert-message="Danger alert message">
-  <template v-slot:actionButtons>
-    <KButton appearance="primary" size="small">Warning</KButton>
-    <KButton appearance="outline" size="small">Outline</KButton>
-  </template>
-</KAlert>
+  alert-message="Danger alert message" />
 ```
 
 ### Dismissible
-KAlert allows for dismissal of the banner. 
+KAlert allows for dismissal of the banner.
 
-- `is-dismissible` is `false` by default
+- `is-dismissible`
 
 <KAlert
+  class="dismissible"
   is-dismissible
-  appearance="info"
-  alert-message="Info alert message" />
-<KAlert
-  is-dismissible
-  appearance="warning"
-  alert-message="Warning alert message" />
-<KAlert
-  is-dismissible
-  appearance="success"
-  alert-message="Success alert message" />
-<KAlert
-  is-dismissible
-  appearance="danger"
-  alert-message="Danger alert message" />
-
+  alert-message="I can be dismissed!"/>
 ```vue
 <KAlert
+  class="dismissible"
   is-dismissible
-  appearance="info"
-  alert-message="Info alert message" />
-<KAlert
-  is-dismissible
-  appearance="warning"
-  alert-message="Warning alert message" />
-<KAlert
-  is-dismissible
-  appearance="success"
-  alert-message="Success alert message" />
-<KAlert
-  is-dismissible
-  appearance="danger"
-  alert-message="Danger alert message" />
+  alert-message="I can be dismissed!"/>
 ```
 
 ### Bordered
@@ -251,61 +208,24 @@ Fixes KAlert to the top of the container.
 
 ## Slots
 - `alertIcon` - Slot specifically meant for adding an icon
-- `mainMessageText` - Primary message slot
-- `secMessageText` - Secondary message slot
-
-<KAlert is-wide-banner has-icon>
-  <template v-slot:mainMessageText>
-   You’ve had 12 new mentions since you last logged in
-  </template>
-  <template v-slot:secMessageText>
-    across 3 services  
-  </template>
-  <template v-slot:actionButtons>
-    <KButton size="small" appearance='secondary'>Review</KButton>
-    <KButton size="small">Dismiss</KButton>
-  </template>
-</KAlert>
-
-```vue
-<KAlert is-wide-banner>
-  <template v-slot:alertIcon>
-    <KIcon icon="notificationInbox" color="var(--red-500)" size="32" />
-  </template>
-  <template v-slot:mainMessageText>
-   You’ve had 12 new mentions since you last logged in
-  </template>
-  <template v-slot:secMessageText>
-    across 3 services  
-  </template>
-  <template v-slot:actionButtons>
-    <KButton size="small" appearance='secondary'>Review</KButton>
-    <KButton size="small">Dismiss</KButton>
-  </template>
-</KAlert>
-```
-
 - `alertMessage` - Default message slot
-- `actionButtons` - Default button slot
 
-<KAlert
-  has-button
-  has-ellipse
-  appearance="warning"
-  alert-message="Warning alert message">
-  <template v-slot:actionButtons>
-    <KButton appearance="primary" size="small">Dismiss</KButton>
+<KAlert appearance="info">
+  <template v-slot:alertIcon>
+    <KIcon icon="portal" />
+  </template>
+  <template v-slot:alertMessage>
+    I have an icon and a <a href="">Link</a>!
   </template>
 </KAlert>
 
 ```vue
-<KAlert
-  has-button
-  has-ellipse
-  appearance="warning"
-  alert-message="Warning alert message">
-  <template v-slot:actionButtons>
-    <KButton appearance="primary" size="small">Dismiss</KButton>
+<KAlert appearance="info">
+  <template v-slot:alertIcon>
+    <KIcon icon="portal" />
+  </template>
+  <template v-slot:alertMessage>
+    I have an icon and a <a href="">Link</a>!
   </template>
 </KAlert>
 ```
@@ -339,9 +259,10 @@ Fixes KAlert to the top of the container.
 </KAlert>
 
 ```vue
-<KAlert appearance="warning" class="mt-5">
+<KAlert appearance="info" class="mt-5">
   <template v-slot:alertMessage>
-    Proxy error: Could not proxy request /api/service_packages?fields=&s=%7B%22%24and%22%3A%5B%7B%22name%22%3A%7B%22%24contL%22%3A%22%22%7D%7D%5D%7D&filter=&or=&sort=created_at%2CDESC&join=&limit=100&offset=0&page=1 from localhost:8080 to http://localhost:3000 (ECONNREFUSED).
+    <div class="mt-2 bold">Failure Modes</div>
+    <p>Before you release that email you're writing to spin up a new centralized decision-making group, it's worth talking about the four ways these groups consistently fail. They tend to be <b>domineering</b>, <b>bottlenecked</b>, <b>status-oriented</b>, or <b>inert</b>.</p>
   </template>
 </KAlert>
 ```
@@ -397,72 +318,8 @@ look like.
     margin-bottom: 1rem;
   }
 }
-
-.k-alert.isWideBanner {
-  right: 20%;
-}
-
 .alert-wrapper {
   --KAlertSuccessBackground: lime;
   --KAlertSuccessColor: forestgreen;
-}
-
-.alert-action {
-  &.info button.primary {
-    color: var(--blue-500);
-    background-color: var(--blue-100);
-    --KButtonPrimaryBase: var(--blue-500);
-    --KButtonPrimaryHover: var(--blue-200);
-  }
-  &.info button.outline {
-    color: var(--blue-500);
-    border: 1px solid var(--blue-200);
-    --KButtonOutlineBorder: var(--blue-500);
-    --KButtonOutlineHoverBorder: var(--blue-500);
-     --KButtonOutlineActive: var(--blue-100);
-    --KButtonOutlineActiveBorder: var(--blue-500);
-  }
-  &.warning button.primary {
-    color: var(--yellow-500);
-    background-color: var(--yellow-100);
-    --KButtonPrimaryBase: var(--yellow-500);
-    --KButtonPrimaryHover: var(--yellow-200);
-  }
-  &.warning button.outline {
-    color: var(--yellow-500);
-    border: 1px solid var(--yellow-300);
-    --KButtonOutlineBorder: var(--yellow-500);
-    --KButtonOutlineHoverBorder: var(--yellow-500);
-    --KButtonOutlineActive: var(--yellow-100);
-    --KButtonOutlineActiveBorder: var(--yellow-500);
-  }
-  &.success button.primary {
-    color: var(--green-600);
-    background-color: var(--green-100);
-    --KButtonPrimaryBase: var(--green-600);
-    --KButtonPrimaryHover: var(--green-200);
-  }
-  &.success button.outline {
-    color: var(--green-600);
-    border: 1px solid var(--green-400);
-    --KButtonOutlineBorder: var(--green-600);
-    --KButtonOutlineHoverBorder: var(--green-600);
-     --KButtonOutlineActive: var(--green-100);
-    --KButtonOutlineActiveBorder: var(--green-600);
-  }
-  &.danger button.primary {
-    color: var(--red-700);
-    background-color: var(--red-100);
-    --KButtonPrimaryHover: var(--red-200);
-    --KButtonPrimaryBase: var(--red-700);
-  }
-  &.danger button.outline {
-    border: 1px solid var(--red-500);
-    --KButtonOutlineBorder: var(--red-700);
-    --KButtonOutlineColor: var(--red-700);
-    --KButtonOutlineHoverBorder: var(--red-700);
-    --KButtonOutlineActive: var(--red-100);
-    --KButtonOutlineActiveBorder: var(--red-700);
-  }
 }
 </style>

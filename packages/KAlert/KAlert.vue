@@ -1,23 +1,23 @@
 <template>
   <div
-    v-if="isShowing || hasButton || isWideBanner"
+    v-if="isShowing"
     :class="[
       appearance,
       size,
+      type,
+      dismissType,
       {'isBordered':isBordered},
       {'hasLeftBorder':hasLeftBorder},
       {'hasRightBorder':hasRightBorder},
       {'hasTopBorder':hasTopBorder},
       {'hasBottomBorder':hasBottomBorder},
       {'isCentered': isCentered},
-      {'isFixed': isFixed},
-      {'hasButton': hasButton},
-      {'isWideBanner': isWideBanner}
+      {'isFixed': isFixed}
     ]"
     class="k-alert"
     role="alert">
     <button
-      v-if="isDismissible"
+      v-if="dismissType === 'icon'"
       type="button"
       aria-label="Close"
       class="close"
@@ -28,50 +28,55 @@
         icon="close"
         size="14" />
     </button>
-    <!-- <span
-      v-if="hasIcon"
-      class="alert-icon">
-      <slot name="alertIcon"/>
-    </span> -->
-    <span
-      v-if="hasIcon">
-      <KIcon
-        class="alert-icon"
-        color="var(--red-500)"
-        icon="notificationInbox"
-        size="32" />
-    </span>
-    <span
-      v-if="hasEllipse"
+    <div
       :class="appearance"
-      class="alert-ellipse"/>
-    <span class="alert-msg">
-      <slot name="alertMessage">{{ alertMessage }}</slot>
-    </span>
-    <div v-if="isWideBanner">
-      <span class="mainMessageText"><slot name="mainMessageText">{{ mainMessageText }}</slot></span>
-      <span class="secMessageText"><slot name="secMessageText">{{ secMessageText }}</slot></span>
+      class="alert-action ml-3">
+      <slot>
+        <KButton
+          v-if="dismissType === 'button'"
+          size="small"
+          @click="dismissAlert()">
+          Dismiss
+        </KButton>
+      </slot>
     </div>
     <span
-      v-if="hasActionButtons"
+      v-if="type === 'banner' && !isLarge"
       :class="appearance"
-      class="alert-action">
-      <slot
-        name="actionButtons"/>
+      class="alert-ellipse"/>
+    <span v-if="isLarge">
+      <KIcon
+        :size="iconSize"
+        :color="iconColor"
+        :icon="icon ? icon : 'notificationInbox'"
+        class="alert-icon" />
+
     </span>
+    <div class="alert-msg-text">
+      <span
+        :class="type === 'banner' && isLarge ? 'mainMessageText' : ''"
+        class="alert-msg">
+        <slot name="alertMessage">{{ alertMessage }}
+        </slot>
+      </span>
+      <span
+        v-if="type === 'banner' && isLarge"
+        class="additionalAlertMessage">
+        <slot name="additionalAlertMessage">{{ additionalAlertMessage }}
+        </slot>
+      </span>
+    </div>
   </div>
 </template>
 
 <script>
 import KIcon from '@kongponents/kicon/KIcon.vue'
-
 export const appearances = {
   info: 'info',
   success: 'success',
   danger: 'danger',
   warning: 'warning'
 }
-
 export default {
   name: 'KAlert',
   components: { KIcon },
@@ -80,20 +85,6 @@ export default {
     * Message to show in alert
     */
     alertMessage: {
-      type: String,
-      default: ''
-    },
-    /**
-    * Long Message to show in the first line in alert
-    */
-    mainMessageText: {
-      type: String,
-      default: ''
-    },
-    /**
-    * Short Message in the second line to show in alert
-    */
-    secMessageText: {
       type: String,
       default: ''
     },
@@ -110,27 +101,6 @@ export default {
     isShowing: {
       type: Boolean,
       default: true
-    },
-    /**
-     * Set whether or not the alert box shown has button.
-     */
-    hasButton: {
-      type: Boolean,
-      default: false
-    },
-    /**
-     * Set whether or not the alert box shown has ellipse.
-     */
-    hasEllipse: {
-      type: Boolean,
-      default: false
-    },
-    /**
-     * Set whether or not the alert box shown is a banner.
-     */
-    isWideBanner: {
-      type: Boolean,
-      default: false
     },
     /**
      * Fixes alert to top
@@ -205,22 +175,59 @@ export default {
         ].indexOf(value) !== -1
       }
     },
-
-    hasIcon: {
+    dismissType: {
+      type: String,
+      default: 'none',
+      validator: (value) => {
+        return [
+          'none',
+          'icon',
+          'button'
+        ].indexOf(value) !== -1
+      }
+    },
+    type: {
+      type: String,
+      default: 'alert',
+      validator: (value) => {
+        return [
+          'alert',
+          'banner'
+        ].indexOf(value) !== -1
+      }
+    },
+    iconSize: {
+      type: String,
+      default: '32'
+    },
+    icon: {
+      type: String,
+      default: ''
+    },
+    iconColor: {
+      type: String,
+      default: 'var(--red-500)'
+    },
+    isLarge: {
       type: Boolean,
       default: false
+    },
+    /**
+    * Short Message in the second line to show in alert
+    */
+    additionalAlertMessage: {
+      type: String,
+      default: ''
     }
   },
-
   computed: {
-    // hasIcon () {
-    //   return !!this.$slots.alertIcon
-    // },
+    hasIcon () {
+      return !!this.$slots.alertIcon
+    },
     hasActionButtons () {
       return !!this.$slots.actionButtons
     }
   },
-
   methods: {
     dismissAlert () {
       this.$emit('closed')
@@ -231,29 +238,24 @@ export default {
 
 <style scoped lang="scss">
 @import '~@kongponents/styles/_variables.scss';
-
 .k-alert {
   position: relative;
   display: flex;
   align-items: center;
-  // width: 830px;
-  // font-style: normal;
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 16px;
+  // padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
+  padding: 14px;
   font-family: inherit;
-  border-radius: 4px;
+  font-size: 1rem;
+  border-radius: 3px;
   overflow-wrap: anywhere;
-  margin-bottom: 1rem;
   a {
     text-decoration: underline;
     color: var(--blue-600, color(blue-600));
   }
-
   .close {
     position: absolute;
     top: 0;
-    right: 14.4px;
+    right: 18px;
     bottom: 0;
     border: 0;
     background-color: transparent;
@@ -266,7 +268,6 @@ export default {
       opacity: 1;
     }
   }
-
   // Variants
   &.isFixed {
     position: fixed;
@@ -298,16 +299,19 @@ export default {
   }
   &.small {
     font-size: var(--type-sm, type(sm));
+    padding: var(--spacing-sm, spacing(sm)) var(--spacing-xs, spacing(xs));
   }
-
+  //  &.isLarge {
+  //   min-height: 80px;
+  // }
   // Appearances
   &.info {
-    color: var(--KAlertInfoColor, var(--blue-600, color(blue-600)));
+    color: var(--KAlertInfoColor, var(--blue-700, color(blue-700)));
     border-color: var(--KAlertInfoBorder, var(--blue-300, color(blue-300)));
     background-color: var(--KAlertInfoBackground, var(--blue-200, color(blue-200)));
   }
   &.success {
-    color: var(--KAlertSuccessColor, var(--green-600, color(green-600)));
+    color: var(--KAlertSuccessColor, var(--green-500, color(green-500)));
     border-color: var(--KAlertSuccessBorder, var(--green-200, color(green-200)));
     background-color: var(--KAlertSuccessBackground, var(--green-100, color(green-100)));
   }
@@ -317,50 +321,17 @@ export default {
     background-color: var(--KAlertDangerBackground, var(--red-200, color(red-200)));
   }
   &.warning {
-    color: var(--KAlertWarningColor, var(--yellow-500, color(yellow-500)));
+    color: var(--KAlertWarningColor, var(--yellow-400, color(yellow-400)));
     border-color: var(--KAlertWarningBorder, var(--yellow-200, color(yellow-200)));
     background-color: var(--KAlertWarningBackground, var(--yellow-100, color(yellow-100)));
   }
+}
 
-  &.isWideBanner {
-    width: 1220px;
-    height: 80px;
-    // padding: 0;
-    border-radius: 2px;
-    background-color: var(--white);
-    margin-bottom: 1rem;
-    color: var(--black-500);
-  }
-
-  &.hasButton {
-    // width: 763px;
-    // height: 56px;
-    // padding: 0;
-    border-radius: 4px;
-    background-color: var(--white);
-    margin-bottom: 1rem;
-    color: var(--black-500);
-    & > .alert-ellipse {
-      &.info {
-        background-color: var(--blue-400);
-      }
-      &.success {
-        background-color: var(--green-400);
-      }
-      &.warning {
-        background-color: var(--yellow-400);
-      }
-      &.danger {
-        background-color: var(--red-400);
-      }
-    }
-  }
-    & .alert-msg {
-      padding: 12px 16px;
-      font-weight: 400;
-      font-size: 15px;
-      line-height: 20px;
-    }
+div.k-alert.banner {
+  background-color: white;
+  color: black;
+  position: relative;
+  padding: 0;
 }
 
 button.close > svg {
@@ -378,67 +349,142 @@ button.close > svg {
   }
 }
 
-.button-right {
-  position: absolute;
-  right: 14.4px;
-  border: 0;
-  transition: all 200ms ease;
-  cursor: pointer;
-}
-
-.alert-icon {
-  padding: 23px 0 25px 21px;
-  // width: 32px;
-  // height: 32px;
-  margin-right: -8px
-}
-
 .alert-ellipse {
   height: 6px;
   width: 6px;
-  background-color: var(--red-500);
   border-radius: 50%;
   display: inline-block;
   margin: 24px 8px 26px 24px;
+
+  &.info {
+    background-color: var(--blue-400);
+  }
+  &.success {
+    background-color: var(--green-400);
+  }
+  &.warning {
+    background-color: var(--yellow-400);
+  }
+  &.danger {
+    background-color: var(--red-400);
+  }
+}
+
+.alert-icon {
+  padding: 23px 5px 25px 21px;
+}
+
+.k-alert.banner.none > div .alert-msg {
+  // padding: 12px 16px;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+  padding: 2px 0;
+}
+
+.k-alert > div .alert-msg {
+font-weight: 400;
+font-size: 16px;
+line-height: 16px;
+padding: 2px 0;
+}
+
+.k-alert.banner.button > div .alert-msg {
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+  padding: 2px 0;
 }
 
 .alert-action {
   display: inline-flex;
-  margin-left: auto;
+  position: absolute;
+  right: 13px;
   & button {
     height: 30px;
-    margin-right: 13px;
+    margin-left: 13px;
     font-weight: 400;
     font-size: 13px;
     line-height: 13px;
     position: relative;
     cursor: pointer;
   }
+
+  &.info button.primary {
+    color: var(--blue-500);
+    background-color: var(--blue-100);
+    --KButtonPrimaryBase: var(--blue-500);
+    --KButtonPrimaryHover: var(--blue-200);
+  }
+  &.info button.outline {
+    color: var(--blue-500);
+    border: 1px solid var(--blue-200);
+    --KButtonOutlineBorder: var(--blue-500);
+    --KButtonOutlineHoverBorder: var(--blue-500);
+     --KButtonOutlineActive: var(--blue-100);
+    --KButtonOutlineActiveBorder: var(--blue-500);
+  }
+  &.warning button.primary {
+    color: var(--yellow-500);
+    background-color: var(--yellow-100);
+    --KButtonPrimaryBase: var(--yellow-500);
+    --KButtonPrimaryHover: var(--yellow-200);
+  }
+  &.warning button.outline {
+    color: var(--yellow-500);
+    border: 1px solid var(--yellow-300);
+    --KButtonOutlineBorder: var(--yellow-500);
+    --KButtonOutlineHoverBorder: var(--yellow-500);
+    --KButtonOutlineActive: var(--yellow-100);
+    --KButtonOutlineActiveBorder: var(--yellow-500);
+  }
+  &.success button.primary {
+    color: var(--green-600);
+    background-color: var(--green-100);
+    --KButtonPrimaryBase: var(--green-600);
+    --KButtonPrimaryHover: var(--green-200);
+  }
+  &.success button.outline {
+    color: var(--green-600);
+    border: 1px solid var(--green-400);
+    --KButtonOutlineBorder: var(--green-600);
+    --KButtonOutlineHoverBorder: var(--green-600);
+     --KButtonOutlineActive: var(--green-100);
+    --KButtonOutlineActiveBorder: var(--green-600);
+  }
+  &.danger button.primary {
+    color: var(--red-700);
+    background-color: var(--red-100);
+    --KButtonPrimaryHover: var(--red-200);
+    --KButtonPrimaryBase: var(--red-700);
+  }
+  &.danger button.outline {
+    border: 1px solid var(--red-500);
+    --KButtonOutlineBorder: var(--red-700);
+    --KButtonOutlineColor: var(--red-700);
+    --KButtonOutlineHoverBorder: var(--red-700);
+    --KButtonOutlineActive: var(--red-100);
+    --KButtonOutlineActiveBorder: var(--red-700);
+  }
 }
 
-.k-alert > .close + .alert-msg {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 16px;
-  padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
-}
-
-.mainMessageText {
+.additionalAlertMessage {
   display: block;
-  padding-top: 14px;
-  padding-bottom: 2px;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.secMessageText {
-  display: block;
-  padding-top: 2px;
-  padding-bottom: 6px;
+  padding-top: 4px;
   font-weight: 400;
   font-size: 13px;
   line-height: 24px;
   color: var(--grey-500);
+}
+
+.k-alert.banner.button > div .alert-msg.mainMessageText {
+  padding-left: 0;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.k-alert.banner > div.alert-msg-text {
+  padding: 12px 210px 12px 16px;
+  text-align: justify;
 }
 </style>
