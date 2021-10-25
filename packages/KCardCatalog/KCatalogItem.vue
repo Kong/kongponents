@@ -1,5 +1,7 @@
 <template>
-  <router-link :to="locationParam">
+  <router-link
+    v-if="locationParam"
+    :to="locationParam">
     <KCard
       :data-testid="`${item.name || item.title || item.id}`"
       class="grid-item d-flex flex-column overflow-hidden k-card-catalog-item"
@@ -8,35 +10,57 @@
       tabindex="0"
       @click.native="handleCardClick($event, item)"
     >
-      <template slot="title">
-        <p
-          v-if="loading"
-          class="item-card-title"
-        >
-          <KSkeletonBox width="10" />
-        </p>
-        <p
-          v-else
-          class="item-card-title truncate"
+      <template #title>
+        <slot
+          :item="item"
+          name="card-title"
         >
           {{ item.title }}
-        </p>
+        </slot>
       </template>
-      <template slot="body">
-        <p class="multi-line-truncate truncate">
-          <template
-            v-if="loading"
+      <template #body>
+        <div
+          :item="item"
+          :class="{ 'multi-line-truncate': truncate }">
+          <slot
+            name="card-body"
           >
-            <KSkeletonBox width="100" />
-            <KSkeletonBox width="50" />
-          </template>
-          <template v-else>
             {{ item.description }}
-          </template>
-        </p>
+          </slot>
+        </div>
       </template>
     </KCard>
   </router-link>
+
+  <KCard
+    v-else
+    :data-testid="`${item.name || item.title || item.id}`"
+    class="grid-item d-flex flex-column overflow-hidden k-card-catalog-item"
+    has-hover
+    role="button"
+    tabindex="0"
+    @click.native="handleCardClick($event, item)"
+  >
+    <template #title>
+      <slot
+        :item="item"
+        name="card-title"
+      >
+        {{ item.title }}
+      </slot>
+    </template>
+    <template #body>
+      <div
+        :item="item"
+        :class="{ 'multi-line-truncate': truncate }">
+        <slot
+          name="card-body"
+        >
+          {{ item.description }}
+        </slot>
+      </div>
+    </template>
+  </KCard>
 </template>
 
 <script>
@@ -45,69 +69,56 @@ export default {
   props: {
     item: {
       type: Object,
-      default: () => {}
-    },
-    loading: {
-      type: Boolean,
-      default: false
+      default: () => {},
+      // Item must have a title
+      validator: (items) => !items.length || items.some(i => i.hasOwnProperty('title'))
     },
     locationParam: {
       type: String,
       default: ''
+    },
+    truncate: {
+      type: Boolean,
+      default: true
+    }
+  },
+  methods: {
+    handleCardClick (evt, item) {
+      this.$emit('clicked', {
+        evt,
+        item
+      })
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
-.k-card-catalog-item {
-  max-width: 200px;
-}
-
-.item-card-title {
-  font-weight: 600;
-  padding: 2rem 1rem;
-  width: 100%;
-}
-
-.multi-line-truncate {
-  --lh: 1.4rem;
-  --max-lines: 5;
-  --max-lines-less: 4;
-  line-height: var(--lh);
-  position: relative;
-  max-height: calc(var(--lh) * var(--max-lines));
-  overflow: hidden;
-  padding-right: 1rem;
-  white-space: break-spaces;
-}
-
-.multi-line-truncate::before {
-  position: absolute;
-  content: "...";
-  top: calc(var(--lh) * var(--max-lines-less));
-  right: 12px;
-}
-
-.kong-card {
-  &:hover {
-    cursor: pointer;
-    border: 1px solid #A6C6FF;
-    border-radius: 5px;
-  }
-}
-</style>
-
 <style lang="scss">
 .kong-card {
   --KCardBorderRadius: 5px;
+  --KCardPaddingY: var(--spacing-lg);
+  --KCardPaddingX: var(--spacing-md);
+
   display: flex;
   flex-direction: column;
   justify-content: stretch;
 
-  &.relative .k-card-header {
-    margin-bottom: 8px;
-    min-height: 24px;
+  .multi-line-truncate {
+    --lh: 20px;
+    --max-lines: 5;
+    --max-lines-less: 4;
+    line-height: var(--lh);
+    position: relative;
+    max-height: calc(var(--lh) * var(--max-lines));
+    overflow: hidden;
+    padding-right: 8px;
+  }
+
+  .multi-line-truncate::before {
+    position: absolute;
+    content: "...";
+    top: calc(var(--lh) * var(--max-lines-less));
+    right: 12px;
   }
 
   .k-card-body {
@@ -118,6 +129,12 @@ export default {
     .description {
       flex-grow: 1;
     }
+  }
+
+  &:hover {
+    cursor: pointer;
+    --KCardShadow: none;
+    --KCardBorder: 1px solid var(--blue-300);
   }
 }
 </style>
