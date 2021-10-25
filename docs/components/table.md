@@ -115,65 +115,9 @@ The below example demonstrates the disabled state:
 </template>
 ```
 
-### emptyStateTitle
-
-See [the State section](#empty) about `emptyStateTitle`
-
-### emptyStateMessage
-
-See [the State section](#empty) about `emptyStateMessage`
-
-### emptyStateIcon
-
-See [the State section](#empty) about `emptyStateIcon`
-
-### emptyStateIconColor
-
-See [the State section](#empty) about `emptyStateIconColor`
-
-### emptyStateIconSize
-
-See [the State section](#empty) about `emptyStateIconSize`
-
-### emptyStateActionRoute
-
-See [the State section](#empty) about `emptyStateActionRoute`
-
-### emptyStateActionMessage
-
-See [the State section](#empty) about `emptyStateActionMessage`
-
 ### hasError
 
 See [the State section](#error) about `hasError`
-
-### errorStateTitle
-
-See [the State section](#error) about `errorStateTitle`
-
-### errorStateMessage
-
-See [the State section](#error) about `errorStateMessage`
-
-### errorStateIcon
-
-See [the State section](#error) about `errorStateIcon`
-
-### errorStateIconColor
-
-See [the State section](#error) about `errorStateIconColor`
-
-### errorStateIconSize
-
-See [the State section](#error) about `errorStateIconSize`
-
-### errorStateActionRoute
-
-See [the State section](#error) about `errorStateActionRoute`
-
-### errorStateActionMessage
-
-See [the State section](#error) about `errorStateActionMessage`
 
 ### isLoading
 
@@ -770,75 +714,6 @@ Set the following properties to handle empty state:
 </template>
 ```
 
-#### Custom Empty State Messaging
-
-<KCard class="mt-2">
-  <template v-slot:body>
-    <KTable
-      :options="{ data: [], headers: [] }"
-      emptyStateTitle="No Services"
-      emptyStateMessage="Services will be displayed here when created."
-    />
-  </template>
-</KCard>
-
-```vue
-<template>
-  <KCard>
-    <template v-slot:body>
-      <KTable
-        :options="{ data: [], headers: [] }"
-        emptyStateTitle="No Services"
-        emptyStateMessage="Services will be displayed here when created."
-      />
-    </template>
-  </KCard>
-</template>
-```
-
-#### Empty State Call To Action
-
-<KCard class="my-2">
-  <template v-slot:body>
-    <KTable
-      :options="{ data: [], headers: [] }"
-      emptyStateActionMessage="Create a Service"
-      emptyStateActionRoute="#empty-state-call-to-action"
-    />
-  </template>
-</KCard>
-
-```vue
-<!-- Using a route string -->
-<template>
-  <KCard>
-    <template v-slot:body>
-      <KTable
-        :options="{ data: [], headers: [] }"
-        emptyStateActionMessage="Create a Service"
-        emptyStateActionRoute="create-service"
-      />
-    </template>
-  </KCard>
-</template>
-
-<!-- Using a route object -->
-<template>
-  <KCard>
-    <template v-slot:body>
-      <KTable
-        :options="{ data: [], headers: [] }"
-        emptyStateActionMessage="Create a Service"
-        emptyStateActionRoute="{
-          name: 'create-service',
-          params: { organization: '12345-abcd' }
-        }"
-      />
-    </template>
-  </KCard>
-</template>
-```
-
 #### Empty State Full Example
 
 <KCard class="my-2">
@@ -906,80 +781,6 @@ Set the following properties to handle error state:
       <KTable
         :options="{ data: [], headers: [] }"
         :hasError="true"
-      />
-    </template>
-  </KCard>
-</template>
-```
-
-#### Custom Error State Messaging
-
-<KCard class="mt-2">
-  <template v-slot:body>
-    <KTable
-      :options="{ data: [], headers: [] }"
-      :hasError="true"
-      errorStateTitle="Server Error"
-      errorStateMessage="We're having trouble with our server."
-    />
-  </template>
-</KCard>
-
-```vue
-<template>
-  <KCard>
-    <template v-slot:body>
-      <KTable
-        :options="{ data: [], headers: [] }"
-        :hasError="true"
-        errorStateTitle="Server Error"
-        errorStateMessage="We're having trouble with our server."
-      />
-    </template>
-  </KCard>
-</template>
-```
-
-#### Error State Call To Action
-
-<KCard class="my-2">
-  <template v-slot:body>
-    <KTable
-      :options="{ data: [], headers: [] }"
-      :hasError="true"
-      errorStateActionMessage="Refresh Page"
-      errorStateActionRoute="#error-state-call-to-action"
-    />
-  </template>
-</KCard>
-
-```vue
-<!-- Using a route string -->
-<template>
-  <KCard>
-    <template v-slot:body>
-      <KTable
-        :options="{ data: [], headers: [] }"
-        :hasError="true"
-        errorStateActionMessage="Refresh Page"
-        errorStateActionRoute="services"
-      />
-    </template>
-  </KCard>
-</template>
-
-<!-- Using a route object -->
-<template>
-  <KCard>
-    <template v-slot:body>
-      <KTable
-        :options="{ data: [], headers: [] }"
-        :hasError="true"
-        errorStateActionMessage="Refresh Page"
-        errorStateActionRoute="{
-          name: 'services',
-          params: { organization: '12345-abcd' }
-        }"
       />
     </template>
   </KCard>
