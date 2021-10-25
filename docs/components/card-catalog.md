@@ -1,4 +1,4 @@
-# CardCatalog
+# Card Catalog
 
 **KCardCatalog** - A grid view of KCards
 
@@ -94,8 +94,8 @@ const longItem = {
 ```
 
 ## KCatalogItem
-**KCatalogItem** is basically a wrapper around `KCard` to display it correctly in `KCardCatalog`. You
-can use the `body` slot of the `KCardCatalog` to manually create your own catalog items.
+**KCardCatalog** generates a **KCatalogItem** for each item in the `items` property. At the most basic level, **KCatalogItem** is 
+a wrapper around `KCard` to display correctly inside `KCardCatalog`. You can use the `body` slot of the `KCardCatalog` to manually create your own catalog items.
 
 ### Properties
 - `item` - the card content is built from this, it expects a `title` and optionally a `description`.
@@ -130,8 +130,8 @@ can use the `body` slot of the `KCardCatalog` to manually create your own catalo
 ```
 
 ## Slots
-- `body` - The body of the card catalog, we expect this to be an array of `KCardCatalogItem` widgets,
-this should be used instead of the `items` property.
+- `body` - The body of the card catalog, we expect this to be an array of `KCatalogItem` components.
+This should be used instead of the `items` property.
 
 <KCardCatalog title="I'm slotted baby!" >
   <template v-slot:body>

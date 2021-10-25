@@ -3,7 +3,7 @@
     <div
       v-if="title"
       class="k-card-catalog-title">
-      <h2>{{ title }}</h2>
+      <h3>{{ title }}</h3>
     </div>
     <div
       :class="`k-card-${cardSize}`"
@@ -75,6 +75,10 @@ export default {
 <style lang="scss">
 .k-card-catalog {
   $cardHeight: 181px;
+
+  .k-card-catalog-title {
+    color: var(--blue-600);
+  }
 
   .k-skeleton-grid {
     --KSkeletonCardWidth: 25%;
