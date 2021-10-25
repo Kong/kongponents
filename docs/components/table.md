@@ -732,6 +732,7 @@ Set the following properties to handle empty state:
 </KCard>
 
 ```vue
+<!-- Using a route string -->
 <template>
   <KCard>
     <template v-slot:body>
@@ -741,6 +742,29 @@ Set the following properties to handle empty state:
         emptyStateMessage="Adding a new Workspace will populate this table."
         emptyStateActionMessage="Create a Workspace"
         emptyStateActionRoute="create-workspace"
+        emptyStateIcon="workspaces"
+        emptyStateIconColor="#5996ff"
+        emptyStateIconSize="35"
+      />
+    </template>
+  </KCard>
+</template>
+
+<!-- Using a route object -->
+<template>
+  <KCard>
+    <template v-slot:body>
+      <KTable
+        :options="{ data: [], headers: [] }"
+        emptyStateTitle="No Workspaces exist"
+        emptyStateMessage="Adding a new Workspace will populate this table."
+        emptyStateActionMessage="Create a Workspace"
+        emptyStateActionRoute="{
+          name: 'create-workspace',
+          params: {
+            organizationId: 'd27e40e0-c9ac-43e2-8be8-54862fab45ea'
+          }
+        }"
         emptyStateIcon="workspaces"
         emptyStateIconColor="#5996ff"
         emptyStateIconSize="35"
@@ -806,6 +830,7 @@ Set the following properties to handle error state:
 </KCard>
 
 ```vue
+<!-- Using a route string -->
 <template>
   <KCard>
     <template v-slot:body>
@@ -816,6 +841,30 @@ Set the following properties to handle error state:
         errorStateMessage="We are not able to load the data for this table."
         errorStateActionMessage="Report an Issue"
         errorStateActionRoute="report-issue"
+        errorStateIcon="dangerCircle"
+        errorStateIconColor="#e6173a"
+        errorStateIconSize="35"
+      />
+    </template>
+  </KCard>
+</template>
+
+<!-- Using a route object -->
+<template>
+  <KCard>
+    <template v-slot:body>
+      <KTable
+        :options="{ data: [], headers: [] }"
+        :hasError="true"
+        errorStateTitle="Something went wrong"
+        errorStateMessage="We are not able to load the data for this table."
+        errorStateActionMessage="Report an Issue"
+        errorStateActionRoute="{
+          name: 'report-issue',
+          params: {
+            organizationId: 'd27e40e0-c9ac-43e2-8be8-54862fab45ea'
+          }
+        }"
         errorStateIcon="dangerCircle"
         errorStateIconColor="#e6173a"
         errorStateIconSize="35"
