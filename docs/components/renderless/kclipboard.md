@@ -7,7 +7,7 @@
     <KInput :value="dataToCopy1" @input="dataToCopy1 = $event.target.value" type="text" class="mb-2 w-100" />
     <KClipboardProvider v-slot="{ copyToClipboard }">
       <KButton
-        @click="() => { if(copyToClipboard(dataToCopy1)){ alert(`copied to the clipboard: '${dataToCopy1}'`) } }">
+        @click="$toaster.open(`${dataToCopy1}`)">
         copy to clipboard
       </KButton>
     </KClipboardProvider>
