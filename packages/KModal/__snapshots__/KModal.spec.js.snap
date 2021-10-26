@@ -9,10 +9,10 @@ exports[`KModal hides the title when using hideTitle prop 1`] = `
         <div class="k-modal-body modal-body"></div>
         <div class="k-modal-footer modal-footer d-flex"><button type="button" class="k-button medium rounded outline">
             Cancel
-          </button>
+            <!----></button>
           <div class="k-modal-action-buttons"><button type="button" class="k-button medium rounded primary">
               Submit
-            </button></div>
+              <!----></button></div>
         </div>
       </div>
     </div>
@@ -31,10 +31,10 @@ exports[`KModal renders custom button text & appearance 1`] = `
         <div class="k-modal-body modal-body"></div>
         <div class="k-modal-footer modal-footer d-flex"><button type="button" class="k-button medium rounded danger">
             click to cancel
-          </button>
+            <!----></button>
           <div class="k-modal-action-buttons"><button type="button" class="k-button medium rounded outline">
               click to continue
-            </button></div>
+              <!----></button></div>
         </div>
       </div>
     </div>
@@ -51,7 +51,7 @@ exports[`KModal renders proper content when using action-buttons slot 1`] = `
         <div class="k-modal-body modal-body"></div>
         <div class="k-modal-footer modal-footer d-flex"><button type="button" class="k-button medium rounded outline">
             Cancel
-          </button>
+            <!----></button>
           <div class="k-modal-action-buttons">
             <div>This is some action buttons text</div>
           </div>
@@ -71,10 +71,10 @@ exports[`KModal renders proper content when using props 1`] = `
         <div class="k-modal-body modal-body">Sweet prop content</div>
         <div class="k-modal-footer modal-footer d-flex"><button type="button" class="k-button medium rounded outline">
             Cancel
-          </button>
+            <!----></button>
           <div class="k-modal-action-buttons"><button type="button" class="k-button medium rounded primary">
               Submit
-            </button></div>
+              <!----></button></div>
         </div>
       </div>
     </div>

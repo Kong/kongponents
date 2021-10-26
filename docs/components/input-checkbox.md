@@ -18,7 +18,7 @@
 export default {
   data() {
     return {
-      checked: false
+      checked: true
     }
   },
   methods: {
@@ -44,6 +44,7 @@ state of the input. You can read more about passing values via `v-model`
 
 Any valid attribute will be added to the input. You can read more about `$attrs` [here](https://vuejs.org/v2/api/#vm-attrs).
 
+
 ```vue
 <KCheckbox
   v-model="checked"
@@ -52,7 +53,8 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 
 <KCard>
   <template v-slot:body>
-    <KCheckbox v-model="defaultChecked" disabled />
+    <KCheckbox v-model="checked" disabled />
+    <KCheckbox v-model="disabledChecked" disabled />
   </template>
 </KCard>
 
@@ -89,6 +91,7 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 |:-------- |:-------
 | `--KCheckboxPrimary `| KCheckbox checked background color
 | `--KCheckboxDisabled `| KCheckbox disabled background color
+| `--KCheckboxDisabledChecked `| KCheckbox disabled checked background color
 
 
 An Example of changing the background color of KCheckbox to `blueviolet` might look 
@@ -128,6 +131,7 @@ export default {
       labelPropChecked2: false,
       labelPropChecked3: false,
       defaultChecked: false,
+      disabledChecked: true,
       themeChecked: true,
       slots1: true,
       slots2: false
