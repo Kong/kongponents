@@ -8,13 +8,17 @@
           <th
             v-for="(column, index) in options.headers"
             :key="index"
-            :class="{'sortable': !column.hideLabel && column.sortable, 'sr-only': column.hideLabel, [sortOrder]: column.key === sortKey && !column.hideLabel}"
+            :class="{'sortable': !column.hideLabel && column.sortable, [sortOrder]: column.key === sortKey && !column.hideLabel}"
             @click="column.sortable && $emit('sort', column.key, sortOrder)"
           >
             <slot
               :name="`column-${column.key}`"
               :column="column">
-              {{ column.label ? column.label : column.key }}
+              <span
+                :class="{'sr-only': column.hideLabel}"
+              >
+                {{ column.label ? column.label : column.key }}
+              </span>
             </slot>
           </th>
         </template>
@@ -240,7 +244,7 @@ export default {
       font-size: var(--KTableHeaderSize, var(--type-sm, type(sm)));
       font-weight: 500;
 
-      &.sr-only {
+      .sr-only {
         position: absolute;
         width: 1px;
         height: 1px;
