@@ -68,7 +68,6 @@ export default {
 .k-badge {
   display: inline-block;
   font-weight: 300;
-  vertical-align: top;
   font-size: var(--KBadgeFontSize, 11px);
   line-height: var(--KBadgeLineHeight, var(--type-md, type(md)));
   height: auto;

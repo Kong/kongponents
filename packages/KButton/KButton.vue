@@ -7,6 +7,12 @@
     class="k-button"
     v-on="listeners">
     <slot name="icon" /><slot/>
+    <KIcon
+      v-if="isOpen !== undefined"
+      :class="[caretClasses]"
+      color="white"
+      view-box="2 2 15 15"
+      icon="chevronDown"/>
   </a>
   <component
     v-else
@@ -17,10 +23,18 @@
     class="k-button"
     v-on="listeners">
     <slot name="icon" /><slot/>
+    <KIcon
+      v-if="isOpen !== undefined"
+      :class="['caret', caretClasses]"
+      color="white"
+      view-box="2 2 15 15"
+      icon="chevronDown"/>
   </component>
 </template>
 
 <script>
+import KIcon from '@kongponents/kicon/KIcon.vue'
+
 export const appearances = {
   primary: 'primary',
   secondary: 'secondary',
@@ -38,6 +52,7 @@ export const sizes = {
 
 export default {
   name: 'KButton',
+  components: { KIcon },
   props: {
     /**
       * Base styling of the button
@@ -192,20 +207,13 @@ export default {
   }
 
   /* class to add for dropdown caret */
-  &.has-caret {
-    &:after {
-      display: inline-block;
-      width: 0;
-      height: 0;
-      margin-left: var(--spacing-xs,8px);
-      vertical-align: middle;
-      content: "";
-      border-top: .325em solid;
-      border-right: .325em solid transparent;
-      border-left: .325em solid transparent;
-      transition: 250ms ease;
-    }
-    &.is-active:after {
+  & .caret {
+    margin-left: 15px;
+    padding: 0;
+    display: inline-block;
+    transition: 250ms ease;
+
+    &.is-active {
       transform: rotate(-180deg);
       transition: 250ms ease;
     }

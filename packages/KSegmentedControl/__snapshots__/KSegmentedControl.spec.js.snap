@@ -3,7 +3,7 @@
 exports[`KSegmentedControl matches snapshot 1`] = `
 <div class="segmented-control d-flex"><button type="button" class="k-button justify-content-center small rounded primary" name="1">
     1
-  </button><button type="button" class="k-button justify-content-center small rounded outline" name="2">
+    <!----></button><button type="button" class="k-button justify-content-center small rounded outline" name="2">
     2
-  </button></div>
+    <!----></button></div>
 `;
