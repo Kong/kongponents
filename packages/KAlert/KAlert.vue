@@ -258,20 +258,7 @@ export default {
         ].indexOf(value) !== -1
       }
     }
-    /**
-     * Test mode - for testing only, strips out generated ids
-     */
-    // testMode: {
-    //   type: Boolean,
-    //   default: false
-    // }
   },
-
-  // data () {
-  //   return {
-  //     titleId: !this.testMode ? uuid.v1() : 'test-title-id-1234'
-  //   }
-  // },
 
   computed: {
     hasExtraButtons () {
@@ -299,7 +286,6 @@ export default {
   position: relative;
   display: flex;
   align-items: center;
-  // padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
   padding: 14px;
   font-family: inherit;
   font-size: 1rem;
@@ -411,7 +397,7 @@ button.close > svg {
   width: 6px;
   border-radius: 50%;
   display: inline-block;
-  margin: 24px 8px 26px 24px;
+  margin: 24px 8px 26px 22px;
 
   &.info {
     background-color: var(--blue-400);
@@ -431,26 +417,17 @@ button.close > svg {
   padding: 23px 5px 25px 21px;
 }
 
-.k-alert.banner.none > div .k-alert-msg {
-  // padding: 12px 16px;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 20px;
-  padding: 2px 0;
-}
-
 .k-alert > div .k-alert-msg {
-font-weight: 400;
-font-size: 16px;
-line-height: 16px;
-padding: 2px 0;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+  padding: 2px 0;
+  margin-left: 2px;
 }
 
-.k-alert.banner.button > div .k-alert-msg {
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 20px;
-  padding: 2px 0;
+.toaster-item .k-alert .k-alert-msg {
+  padding: 0;
+  margin: 0;
 }
 
 .k-alert-action {
