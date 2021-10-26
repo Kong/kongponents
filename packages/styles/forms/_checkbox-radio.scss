@@ -36,8 +36,14 @@ input.form-control {
     height: 20px;
     width: 20px;
     color: $primaryCheckboxColor;
+    border: none;
     border-radius: 3px;
     margin: 0 6px 0 0;
+    outline: none;
+
+    &:not(:checked) {
+      border: 1px solid $primaryCheckboxColor;
+    }
 
     &:checked {
       background-image: url("data:image/svg+xml,%3Csvg width='13' height='11' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10.633 0L12 1.397 3.583 10 0 6.337 1.367 4.94l2.216 2.265z' fill='%23FFF' fill-rule='nonzero'/%3E%3C/svg%3E");
@@ -63,9 +69,14 @@ input.form-control {
       border-color: $primaryCheckboxColor;
     }
 
-    &:disabled {
-      background-color: var(--KInputCheckboxDisabled, var(--grey-200, color(grey-200)));
-      border: none;
+    &:disabled:not(:checked) {
+      background-color: var(--KInputCheckboxDisabled, var(--grey-100, color(grey-100)));
+      border: 1px solid var(--KCheckboxDisabledChecked, var(--grey-400, color(grey-400)));
+      border-radius: 2px;
+    }
+    &:disabled:checked {
+      background-color: var(--KCheckboxDisabledChecked, var(--grey-400, color(grey-400)));
+      // border: 1px solid var(--KCheckboxDisabledChecked, var(--grey-400, color(grey-400)));;
     }
   }
 
