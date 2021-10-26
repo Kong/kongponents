@@ -32,7 +32,8 @@
     </button>
     <div
       :class="appearance"
-      class="alert-action ml-3">
+      class="k-alert-action ml-3">
+      <!-- @slot Use this slot to pass extra buttons other than Dismiss  -->
       <slot
         v-if="hasExtraButtons && dismissType === 'button'"
         name="extraButtons">
@@ -53,24 +54,26 @@
     <span
       v-if="type === 'banner' && !isLarge"
       :class="appearance"
-      class="alert-ellipse"/>
+      class="k-alert-ellipse"/>
     <span v-if="isLarge">
       <KIcon
         :size="iconSize"
         :color="iconColor"
         :icon="icon ? icon : 'notificationInbox'"
-        class="alert-icon" />
+        class="k-alert-icon" />
     </span>
-    <div class="alert-msg-text">
+    <div class="k-alert-msg-text">
       <span
-        :class="type === 'banner' && isLarge ? 'mainMessageText' : ''"
+        :class="type === 'banner' && isLarge ? 'k-alert-text' : ''"
         class="alert-msg">
+        <!-- @slot Use this slot to pass default alert message  -->
         <slot name="alertMessage">{{ alertMessage }}
         </slot>
       </span>
       <span
-        v-if="type === 'banner' && isLarge"
-        class="additionalAlertMessage">
+        v-if="type === 'banner' && isLarge && hasAdditionalTextMsg"
+        class="k-alert-additional-text">
+        <!-- @slot Use this slot to pass additional alert message for wide alert  -->
         <slot name="additionalAlertMessage">{{ additionalAlertMessage }}
         </slot>
       </span>
@@ -92,6 +95,13 @@ export default {
   name: 'KAlert',
   components: { KIcon, KButton },
   props: {
+    /**
+     * Title string if slot not used, also used for aria-label
+     */
+    title: {
+      type: String,
+      default: ''
+    },
     /**
     * Message to show in alert
     */
@@ -177,14 +187,14 @@ export default {
       default: 'var(--red-500)'
     },
     /**
-     * Set whether alert box has icon on left, is of type banner
+     * Set large alert box with icon/ellipse on left, alertMessage(default/additional) and buttons on right based on other passed props
      */
     isLarge: {
       type: Boolean,
       default: false
     },
     /**
-    * Additional Alert Message
+    * Additional alert message
     */
     additionalAlertMessage: {
       type: String,
@@ -248,10 +258,27 @@ export default {
         ].indexOf(value) !== -1
       }
     }
+    /**
+     * Test mode - for testing only, strips out generated ids
+     */
+    // testMode: {
+    //   type: Boolean,
+    //   default: false
+    // }
   },
+
+  // data () {
+  //   return {
+  //     titleId: !this.testMode ? uuid.v1() : 'test-title-id-1234'
+  //   }
+  // },
+
   computed: {
     hasExtraButtons () {
       return !!this.$slots.extraButtons
+    },
+    hasAdditionalTextMsg () {
+      return !!this.$slots.alertMessage
     }
   },
 
@@ -358,8 +385,8 @@ export default {
 }
 
 div.k-alert.banner {
-  background-color: white;
-  color: black;
+  background-color: var(--white);
+  color: var(--grey-600);
   position: relative;
   padding: 0;
 }
@@ -379,7 +406,7 @@ button.close > svg {
   }
 }
 
-.alert-ellipse {
+.k-alert-ellipse {
   height: 6px;
   width: 6px;
   border-radius: 50%;
@@ -400,7 +427,7 @@ button.close > svg {
   }
 }
 
-.alert-icon {
+.k-alert-icon {
   padding: 23px 5px 25px 21px;
 }
 
@@ -426,7 +453,7 @@ padding: 2px 0;
   padding: 2px 0;
 }
 
-.alert-action {
+.k-alert-action {
   display: inline-flex;
   position: absolute;
   right: 13px;
@@ -498,7 +525,7 @@ padding: 2px 0;
   }
 }
 
-.additionalAlertMessage {
+.k-alert-additional-text {
   display: block;
   padding-top: 4px;
   font-weight: 400;
@@ -507,13 +534,13 @@ padding: 2px 0;
   color: var(--grey-500);
 }
 
-.k-alert.banner.button > div .alert-msg.mainMessageText {
+.k-alert.banner.button > div .alert-msg.k-alert-text {
   padding-left: 0;
   font-size: 16px;
   line-height: 24px;
 }
 
-.k-alert.banner > div.alert-msg-text {
+.k-alert.banner > div.k-alert-msg-text {
   padding: 12px 210px 12px 16px;
 }
 </style>

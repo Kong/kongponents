@@ -70,27 +70,37 @@ describe('KAlert', () => {
     expect(wrapperBorderTop.attributes('class')).toContain('hasTopBorder')
   })
 
-  it('show alert with white background and button(s)', () => {
-    const wrapper = mount(KAlert, {
+  it('renders large alert box', () => {
+    const wrapperLargeAlert = mount(KAlert, {
       propsData: {
-        'hasButton': true,
-        message: 'Hello world'
+        message: 'Hello world',
+        isLarge: true
       }
     })
 
-    expect(wrapper.find('.k-alert').classes()).toContain('hasButton')
-    expect(wrapper.html()).toMatchSnapshot()
+    expect(wrapperLargeAlert.attributes('class')).toContain('isLarge')
   })
 
-  it('show alert/banner with isWideBanner class styles for white background, buttons and notification icon', () => {
-    const wrapper = mount(KAlert, {
-      propsData: {
-        'isWideBanner': true,
-        message: 'Hello world'
-      }
-    })
+  // it('renders slots when passed', () => {
+  //   const alertButtons = 'Extra button'
+  //   const alertMessage = 'Hello World'
+  //   const additionalAlertMessage = 'I am an alert'
+  //   const wrapper = mount(KAlert, {
+  //     propsData: {
+  //       dismissType: 'button',
+  //       isLarge: true,
+  //       hasExtraButtons:
+  //     },
+  //     slots: {
+  //       'alertButtons': `<span>${alertButtons}</span>`,
+  //       'alertMessage': `<span>${alertMessage}</span>`,
+  //       'additionalAlertMessage': `<span>${additionalAlertMessage}</span>`
+  //     }
+  //   })
 
-    expect(wrapper.find('.k-alert').classes()).toContain('isWideBanner')
-    expect(wrapper.html()).toMatchSnapshot()
-  })
+  //   expect(wrapper.find('.k-alert div.alert-action').html()).toEqual(expect.stringContaining(alertButtons))
+  //   expect(wrapper.find('.alert-msg').html()).toEqual(expect.stringContaining(alertMessage))
+  //   expect(wrapper.find('.additionalAlertMessage').html()).toEqual(expect.stringContaining(additionalAlertMessage))
+  //   expect(wrapper.html()).toMatchSnapshot()
+  // })
 })

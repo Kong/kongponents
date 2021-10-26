@@ -1,61 +1,65 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`KAlert Renders danger variant 1`] = `
-<div role="alert" class="k-alert danger" message="I am danger">
+<div role="alert" class="k-alert danger alert none" message="I am danger">
+  <!---->
+  <div class="alert-action ml-3 danger">
+    <!---->
+    <!---->
+  </div>
   <!---->
   <!---->
-  <!----> <span class="alert-msg"></span>
-  <!---->
-  <!---->
+  <div class="alert-msg-text"><span class="alert-msg">
+      </span>
+    <!---->
+  </div>
 </div>
 `;
 
 exports[`KAlert Renders info variant 1`] = `
-<div role="alert" class="k-alert info" message="I am info">
+<div role="alert" class="k-alert info alert none" message="I am info">
+  <!---->
+  <div class="alert-action ml-3 info">
+    <!---->
+    <!---->
+  </div>
   <!---->
   <!---->
-  <!----> <span class="alert-msg"></span>
-  <!---->
-  <!---->
+  <div class="alert-msg-text"><span class="alert-msg">
+      </span>
+    <!---->
+  </div>
 </div>
 `;
 
 exports[`KAlert Renders success variant 1`] = `
-<div role="alert" class="k-alert success" message="I am success">
+<div role="alert" class="k-alert success alert none" message="I am success">
+  <!---->
+  <div class="alert-action ml-3 success">
+    <!---->
+    <!---->
+  </div>
   <!---->
   <!---->
-  <!----> <span class="alert-msg"></span>
-  <!---->
-  <!---->
+  <div class="alert-msg-text"><span class="alert-msg">
+      </span>
+    <!---->
+  </div>
 </div>
 `;
 
 exports[`KAlert Renders warning variant 1`] = `
-<div role="alert" class="k-alert warning" message="I am warning">
+<div role="alert" class="k-alert warning alert none" message="I am warning">
+  <!---->
+  <div class="alert-action ml-3 warning">
+    <!---->
+    <!---->
+  </div>
   <!---->
   <!---->
-  <!----> <span class="alert-msg"></span>
-  <!---->
-  <!---->
-</div>
-`;
-
-exports[`KAlert show alert with white background and button(s) 1`] = `
-<div role="alert" class="k-alert info hasButton" message="Hello world">
-  <!---->
-  <!---->
-  <!----> <span class="alert-msg"></span>
-  <!---->
-  <!---->
-</div>
-`;
-
-exports[`KAlert show alert/banner with isWideBanner class styles for white background, buttons and notification icon 1`] = `
-<div role="alert" class="k-alert info isWideBanner" message="Hello world">
-  <!---->
-  <!---->
-  <!----> <span class="alert-msg"></span>
-  <div><span class="mainMessageText"></span> <span class="secMessageText"></span></div>
-  <!---->
+  <div class="alert-msg-text"><span class="alert-msg">
+      </span>
+    <!---->
+  </div>
 </div>
 `;
