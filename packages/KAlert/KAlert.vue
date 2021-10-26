@@ -65,7 +65,7 @@
     <div class="k-alert-msg-text">
       <span
         :class="type === 'banner' && isLarge ? 'k-alert-text' : ''"
-        class="alert-msg">
+        class="k-alert-msg">
         <!-- @slot Use this slot to pass default alert message  -->
         <slot name="alertMessage">{{ alertMessage }}
         </slot>
@@ -431,7 +431,7 @@ button.close > svg {
   padding: 23px 5px 25px 21px;
 }
 
-.k-alert.banner.none > div .alert-msg {
+.k-alert.banner.none > div .k-alert-msg {
   // padding: 12px 16px;
   font-weight: 400;
   font-size: 15px;
@@ -439,14 +439,14 @@ button.close > svg {
   padding: 2px 0;
 }
 
-.k-alert > div .alert-msg {
+.k-alert > div .k-alert-msg {
 font-weight: 400;
 font-size: 16px;
 line-height: 16px;
 padding: 2px 0;
 }
 
-.k-alert.banner.button > div .alert-msg {
+.k-alert.banner.button > div .k-alert-msg {
   font-weight: 400;
   font-size: 15px;
   line-height: 20px;
@@ -534,7 +534,7 @@ padding: 2px 0;
   color: var(--grey-500);
 }
 
-.k-alert.banner.button > div .alert-msg.k-alert-text {
+.k-alert.banner.button > div .k-alert-msg.k-alert-text {
   padding-left: 0;
   font-size: 16px;
   line-height: 24px;

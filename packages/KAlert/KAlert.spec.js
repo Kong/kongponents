@@ -81,26 +81,27 @@ describe('KAlert', () => {
     expect(wrapperLargeAlert.attributes('class')).toContain('isLarge')
   })
 
-  // it('renders slots when passed', () => {
-  //   const alertButtons = 'Extra button'
-  //   const alertMessage = 'Hello World'
-  //   const additionalAlertMessage = 'I am an alert'
-  //   const wrapper = mount(KAlert, {
-  //     propsData: {
-  //       dismissType: 'button',
-  //       isLarge: true,
-  //       hasExtraButtons:
-  //     },
-  //     slots: {
-  //       'alertButtons': `<span>${alertButtons}</span>`,
-  //       'alertMessage': `<span>${alertMessage}</span>`,
-  //       'additionalAlertMessage': `<span>${additionalAlertMessage}</span>`
-  //     }
-  //   })
+  it('renders slots when passed', () => {
+    const extraButtons = 'Extra button'
+    const alertMessage = 'Hello World'
+    const additionalAlertMessage = 'I am an alert'
+    const wrapper = mount(KAlert, {
+      propsData: {
+        dismissType: 'button',
+        isLarge: true,
+        hasExtraButtons: true,
+        type: 'banner'
+      },
+      slots: {
+        'extraButtons': `<span>${extraButtons}</span>`,
+        'alertMessage': `<span>${alertMessage}</span>`,
+        'additionalAlertMessage': `<span>${additionalAlertMessage}</span>`
+      }
+    })
 
-  //   expect(wrapper.find('.k-alert div.alert-action').html()).toEqual(expect.stringContaining(alertButtons))
-  //   expect(wrapper.find('.alert-msg').html()).toEqual(expect.stringContaining(alertMessage))
-  //   expect(wrapper.find('.additionalAlertMessage').html()).toEqual(expect.stringContaining(additionalAlertMessage))
-  //   expect(wrapper.html()).toMatchSnapshot()
-  // })
+    expect(wrapper.find('.k-alert-action').html()).toEqual(expect.stringContaining(extraButtons))
+    expect(wrapper.find('.k-alert-msg').html()).toEqual(expect.stringContaining(alertMessage))
+    expect(wrapper.find('.k-alert-additional-text').html()).toEqual(expect.stringContaining(additionalAlertMessage))
+    expect(wrapper.html()).toMatchSnapshot()
+  })
 })
