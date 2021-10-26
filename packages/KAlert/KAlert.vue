@@ -12,16 +12,18 @@
       {'hasTopBorder':hasTopBorder},
       {'hasBottomBorder':hasBottomBorder},
       {'isCentered': isCentered},
-      {'isFixed': isFixed}
+      {'isFixed': isFixed},
+      {'isLarge': isLarge}
     ]"
     class="k-alert"
-    role="alert">
+    role="alert"
+    @click.stop>
     <button
       v-if="dismissType === 'icon'"
       type="button"
       aria-label="Close"
       class="close"
-      @click="dismissAlert()">
+      @click="dismissAlert">
       <KIcon
         :color="appearance"
         :class="appearance"
@@ -31,14 +33,22 @@
     <div
       :class="appearance"
       class="alert-action ml-3">
-      <slot>
+      <slot
+        v-if="hasExtraButtons && dismissType === 'button'"
+        name="extraButtons">
         <KButton
-          v-if="dismissType === 'button'"
           size="small"
-          @click="dismissAlert()">
-          Dismiss
+          @click="proceed"
+          @keyup.enter="proceed">
+          {{ buttonText }}
         </KButton>
       </slot>
+      <KButton
+        v-if="dismissType === 'button'"
+        size="small"
+        @click="dismissAlert">
+        Dismiss
+      </KButton>
     </div>
     <span
       v-if="type === 'banner' && !isLarge"
@@ -50,7 +60,6 @@
         :color="iconColor"
         :icon="icon ? icon : 'notificationInbox'"
         class="alert-icon" />
-
     </span>
     <div class="alert-msg-text">
       <span
@@ -70,7 +79,9 @@
 </template>
 
 <script>
+import KButton from '@kongponents/kbutton/KButton.vue'
 import KIcon from '@kongponents/kicon/KIcon.vue'
+
 export const appearances = {
   info: 'info',
   success: 'success',
@@ -79,7 +90,7 @@ export const appearances = {
 }
 export default {
   name: 'KAlert',
-  components: { KIcon },
+  components: { KIcon, KButton },
   props: {
     /**
     * Message to show in alert
@@ -213,24 +224,29 @@ export default {
       default: false
     },
     /**
-    * Short Message in the second line to show in alert
+    * Additional Alert Message
     */
     additionalAlertMessage: {
+      type: String,
+      default: ''
+    },
+    buttonText: {
       type: String,
       default: ''
     }
   },
   computed: {
-    hasIcon () {
-      return !!this.$slots.alertIcon
-    },
-    hasActionButtons () {
-      return !!this.$slots.actionButtons
+    hasExtraButtons () {
+      return !!this.$slots.extraButtons
     }
   },
+
   methods: {
     dismissAlert () {
       this.$emit('closed')
+    },
+    proceed () {
+      this.$emit('proceed')
     }
   }
 }
@@ -301,9 +317,9 @@ export default {
     font-size: var(--type-sm, type(sm));
     padding: var(--spacing-sm, spacing(sm)) var(--spacing-xs, spacing(xs));
   }
-  //  &.isLarge {
-  //   min-height: 80px;
-  // }
+  &.isLarge {
+    min-height: 80px;
+  }
   // Appearances
   &.info {
     color: var(--KAlertInfoColor, var(--blue-700, color(blue-700)));
@@ -485,6 +501,5 @@ padding: 2px 0;
 
 .k-alert.banner > div.alert-msg-text {
   padding: 12px 210px 12px 16px;
-  text-align: justify;
 }
 </style>
