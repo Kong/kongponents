@@ -100,13 +100,6 @@ export default {
       default: ''
     },
     /**
-     * Set if close button is visible
-     */
-    isDismissible: {
-      type: Boolean,
-      default: false
-    },
-    /**
      * Set whether or not the alert box is shown.
      */
     isShowing: {
@@ -163,6 +156,48 @@ export default {
       default: false
     },
     /**
+     * Set alert box icon size
+     */
+    iconSize: {
+      type: String,
+      default: '32'
+    },
+    /**
+     * Set alert box type of icon
+     */
+    icon: {
+      type: String,
+      default: ''
+    },
+    /**
+     * Set alert box icon color
+     */
+    iconColor: {
+      type: String,
+      default: 'var(--red-500)'
+    },
+    /**
+     * Set whether alert box has icon on left, is of type banner
+     */
+    isLarge: {
+      type: Boolean,
+      default: false
+    },
+    /**
+    * Additional Alert Message
+    */
+    additionalAlertMessage: {
+      type: String,
+      default: ''
+    },
+    /**
+    * Set text for extra buttons
+    */
+    buttonText: {
+      type: String,
+      default: ''
+    },
+    /**
       * Base styling of the button<br>
       * One of ['primary, danger, warning, success ]
       */
@@ -186,6 +221,9 @@ export default {
         ].indexOf(value) !== -1
       }
     },
+    /**
+     * Set whether alert box has icon/button to dismiss or none
+     */
     dismissType: {
       type: String,
       default: 'none',
@@ -197,6 +235,9 @@ export default {
         ].indexOf(value) !== -1
       }
     },
+    /**
+     * Set whether alert box is alert or banner
+     */
     type: {
       type: String,
       default: 'alert',
@@ -206,33 +247,6 @@ export default {
           'banner'
         ].indexOf(value) !== -1
       }
-    },
-    iconSize: {
-      type: String,
-      default: '32'
-    },
-    icon: {
-      type: String,
-      default: ''
-    },
-    iconColor: {
-      type: String,
-      default: 'var(--red-500)'
-    },
-    isLarge: {
-      type: Boolean,
-      default: false
-    },
-    /**
-    * Additional Alert Message
-    */
-    additionalAlertMessage: {
-      type: String,
-      default: ''
-    },
-    buttonText: {
-      type: String,
-      default: ''
     }
   },
   computed: {
