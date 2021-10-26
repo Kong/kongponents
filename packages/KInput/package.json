@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kinput",
-  "version": "5.0.5",
+  "version": "5.0.6",
   "description": "Input component",
   "main": "dist/KInput.umd.min.js",
   "componentName": "KInput",

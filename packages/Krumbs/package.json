@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/krumbs",
-  "version": "5.0.5",
+  "version": "5.0.6",
   "description": "Breadcrumbs component",
   "main": "dist/Krumbs.umd.min.js",
   "componentName": "Krumbs",
