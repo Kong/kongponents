@@ -1,64 +1,51 @@
 ---
 pageClass: table-docs
-tableOptions:
-  headers:
-    - label: Name
-      key: name
-    - label: ID
-      key: id
-    - label: Enabled
-      key: enabled
-    - key: actions
-      hideLabel: true
-  data:
-    - name: Basic Auth
-      id: 517526354743085
-      enabled: true
-    - name: Website Desktop
-      id: 328027447731198
-      enabled: false
-    - name: Android App
-      id: 405383051040955
-      enabled: true
 ---
 # Table
-Pass an object of headers & data to build a slot-able table.
 
-<KTable :options="$frontmatter.tableOptions" />
+Pass a fetcher function to build a slot-able table.
+
+<KTable
+  :options="tableOptions" />
 
 ```vue
 <template>
-  <KTable :options="tableOptions" />
+  <KTable
+    :fetcher="fetcher"
+    :headers="headers"
+    :page-size="3" />
 </template>
 <script>
 export default {
   data() {
     return {
-      tableOptions: {
-        headers: [
-          { label: 'Name', key: 'name' },
-          { label: 'ID', key: 'id' },
-          { label: 'Enabled', key: 'enabled' },
-          { key: 'actions', hideLabel: true }
-        ],
-        data: [
-          {
-            name: 'Basic Auth',
-            id: '517526354743085',
-            enabled: 'true'
-          },
-          {
-            name: 'Website Desktop',
-            id: '328027447731198',
-            enabled: 'false'
-          },
-          {
-            name: 'Android App',
-            id: '405383051040955',
-            enabled: 'true'
-          }
-        ]
+      headers: [
+        { key: 'name', label: 'Name', sortable: false },
+        { key: 'id', label: 'ID', sortable: false },
+        { key: 'enabled', label: 'Enabled', sortable: false }
+      ]
+    }
+  },
+  methods: {
+    fetcher(pageSize = 10, page = 1, query = '', sortKey = '', sortOrder = '') {
+      const params = {
+        _limit: pageSize,
+        _page: page
       }
+
+      if (query) {
+        params.q = query
+      }
+
+      if (sortKey) {
+        params._sort = sortKey
+        params._order = sortOrder
+      }
+
+      return axios.get('/user_list', {
+        baseURL: 'https://kongponents.dev/api',
+        params
+      }).then(res => res)
     }
   }
 }
@@ -66,53 +53,77 @@ export default {
 ```
 
 ## Props
+
 ### Hover
+
 Highlight the table row on hover. By default this is set to true. In the example we can set it to false as well.
 
-<KTable :options="$frontmatter.tableOptions" :hasHover="false" />
-```vue
 <KTable
   :options="tableOptions"
   :hasHover="false" />
+
+```vue
+<template>
+  <KTable
+    :fetcher="fetcher"
+    :headers="headers"
+    :page-size="3"
+    :hasHover="false" />
+</template>
 ```
 
 ### Small
+
 Lessen the table cell padding
 
-<KTable :options="$frontmatter.tableOptions" isSmall />
-```vue
 <KTable
   :options="tableOptions"
   isSmall />
+
+```vue
+<template>
+  <KTable
+    :fetcher="fetcher"
+    :headers="headers"
+    :page-size="3"
+    isSmall />
+</template>
 ```
 
 ### Clickable
+
 Adds `cursor: pointer` and `user-select: none` styling.
 
-<KTable :options="$frontmatter.tableOptions" isClickable />
-```vue
 <KTable
   :options="tableOptions"
   isClickable />
-```
-
-### hasSideBorder
-Adds left border to each table row. By default set to true. The colors can be overridden by themes.
-The below example demonstrates the disabled state:
-
-<template>
-  <KTable
-    :options="tableOptions"
-    :hasSideBorder="false"
-    />
-</template>
 
 ```vue
 <template>
   <KTable
-    :options="tableOptions"
-    :hasSideBorder="false"
-    />
+    :fetcher="fetcher"
+    :headers="headers"
+    :page-size="3"
+    isClickable />
+</template>
+```
+
+### hasSideBorder
+
+Adds left border to each table row. By default set to true. The colors can be overridden by themes.
+The below example demonstrates the disabled state:
+
+<KTable
+  :options="tableOptions"
+  :hasSideBorder="false" />
+
+```vue
+<template>
+  <KTable
+    :fetcher="fetcher"
+    :headers="headers"
+    :page-size="3"
+    :hasSideBorder="false" />
 </template>
 ```
 
@@ -125,57 +136,25 @@ See [the State section](#error) about `hasError`
 See [the State section](#loading) about `isLoading`
 
 ## Row Attributes
+
 Add custom properties to individual rows. The row object is passed as a param.
 
 `rowAttrs` - Function that returns an object comprising the attributes.
 
-<template>
-  <KTable
-    :options="tableOptionsRowAttrs"
-    :rowAttrs="rowAttrsFn"
-    />
-</template>
+<KTable
+  :options="tableOptionsRowAttrs"
+  :rowAttrs="rowAttrsFn" />
 
 ```vue
 <template>
   <KTable
-    :options="tableOptions"
-    :rowAttrs="rowAttrsFn"
-    />
+    :fetcher="fetcher"
+    :headers="headers"
+    :page-size="3"
+    :rowAttrs="rowAttrsFn" />
 </template>
 <script>
-import { defaultSorter } from '@kongponents/KTable'
 export default {
-  data() {
-    return {
-      row: null,
-      eventType: '',
-      tableOptions: {
-        headers: [
-          { label: 'Type', key: 'type' },
-          { label: 'Value', key: 'value' },
-          { label: 'Enabled', key: 'enabled'}
-        ],
-        data: [
-          {
-            type: 'desktop',
-            value: 'Windows 10',
-            enabled: 'true'
-          },
-          {
-            type: 'phone',
-            value: 'LineageOS',
-            enabled: 'false'
-          },
-          {
-            type: 'tablet',
-            value: 'ipadOS',
-            enabled: 'true'
-          }
-        ]
-      }
-    }
-  },
   methods: {
     rowAttrsFn (rowItem) {
       return {
@@ -210,8 +189,6 @@ Add custom properties to individual table cells or groups of cells. The cell att
 
 `cellAttrs` - A function that returns an object comprising the attributes.
 
-**Parameters**
-
 | Parameter | Description
 |:-------- |:-------
 | `headerKey`| The header key of the column containing the cell
@@ -219,57 +196,20 @@ Add custom properties to individual table cells or groups of cells. The cell att
 | `rowIndex` | The zero-based index of the row containing the cell
 | `colIndex`| The zero-based index of the cell within a row
 
-<template>
-  <KTable
-    :options="tableOptionsCellAttrs"
-    :cellAttrs="cellAttrsFn"
-    />
-</template>
+<KTable
+  :options="tableOptionsCellAttrs"
+  :cellAttrs="cellAttrsFn" />
 
 ```vue
 <template>
   <KTable
-    :options="tableOptions"
-    :cellAttrs="cellAttrsFn"
-    />
+    :fetcher="fetcher"
+    :headers="headers"
+    :page-size="4"
+    :cellAttrs="cellAttrsFn" />
 </template>
 <script>
 export default {
-  data() {
-    return {
-      row: null,
-      eventType: '',
-      tableOptions: {
-        headers: [
-          { label: 'Name', key: 'name' },
-          { label: 'Company', key: 'company' },
-          { label: 'Description', key: 'description' }
-        ],
-        data: [
-          {
-            name: 'SageMaker',
-            company: 'Amazon',
-            description: 'Amazon SageMaker is a fully-managed service that enables developers and data scientists to quickly and easily build, train, and deploy machine learning models at any scale. Amazon SageMaker removes all the barriers that typically slow down developers who want to use machine learning.',
-          },
-          {
-            name: 'Azure Machine Learning Studio',
-            company: 'Microsoft',
-            description: 'Azure Machine Learning Studio is a GUI-based integrated development environment for constructing and operationalizing Machine Learning workflow on Azure.',
-          },
-          {
-            name: 'IBM Watson Machine Learning',
-            company: 'IBM',
-            description: 'IBM Watson Studio accelerates the machine and deep learning workflows required to infuse AI into your business to drive innovation.',
-          },
-          {
-            name: 'TensorFlow',
-            company: 'Google',
-            description: 'TensorFlow is an open source software library for numerical computation using data flow graphs.',
-          },
-        ]
-      }
-    }
-  },
   methods: {
     cellAttrsFn ({ headerKey, row, rowIndex, colIndex }) {
       /**
@@ -299,7 +239,7 @@ export default {
         },
         'datatest-id': `row-${rowIndex + 1}-col-${headerKey}`,
         style: {
-          'maxWidth': headerKey==='description' ? '50ch' : headerKey === 'name' ? '22ch' : '25ch',
+          'maxWidth': headerKey === 'description' ? '50ch' : headerKey === 'name' ? '22ch' : '25ch',
           'backgroundColor': backgroundColor(),
         },
       }
@@ -308,11 +248,14 @@ export default {
 }
 </script>
 ```
+
 ## Events
+
 Bind any DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to
 various parts of the table. We support events on both table rows and cells in addition to click elements inside a row (ie. buttons or hyperlinks) without triggering the a row or cell event. You can also add logic to check for `metakey` to support cmd/ctrl when clicking. Examples highlighted below.
 
 ### Rows
+
 `@row:<event>` - returns the `Event`, the row item, and the type: `row`
 
 ```vue
@@ -338,9 +281,11 @@ various parts of the table. We support events on both table rows and cells in ad
   </template>
 </KTable>
 
-```vue{4,6,13,40-56}
+```vue{6,8,15,30-46}
 <KTable
-  :options="tableOptionsLink"
+  :fetcher="fetcher"
+  :headers="headers"
+  :page-size="5"
   isClickable
   @row:click="handleRowClick">
   <template v-slot:company="{rowValue}">
@@ -363,19 +308,7 @@ export default {
   data() {
     return {
       row: null,
-      eventType: '',
-      tableOptions: {
-        headers: [
-          { label: 'Company', key: 'company' }
-        ],
-        data: [
-          { company: { href: 'http://www.creative.com', label: 'Creative Labs' } },
-          { company: { href: 'http://www.bang-olufsen.com', label: 'Bang &Olufsen' } },
-          { company: { href: 'http://www.klipsch.com', label: 'Klipsch' } },
-          { company: { href: 'http://www.bose.com', label: 'Bose'} },
-          { company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'} }
-        ]
-      }
+      eventType: ''
     }
   },
   methods: {
@@ -432,7 +365,9 @@ export default {
     </div>
     <div v-else>Waiting</div>
     <KTable
-      :options="tableOptions"
+      :fetcher="fetcher"
+      :headers="headers"
+      :page-size="3"
       is-clickable
       @row:click="actionRow"
       @cell:mouseover="actionRow"
@@ -447,7 +382,9 @@ export default {
       </div>
       <div v-else>Waiting</div>
       <KTable
-        :options="$frontmatter.tableOptions"
+        :fetcher="fetcher"
+        :headers="headers"
+        :page-size="3"
         is-clickable
         has-hover
         @row:click="actionRow"
@@ -474,101 +411,8 @@ export default {
 </script>
 ```
 
-### Sorting
-
-`@sort` - returns header key that was clicked and current `sortOrder`.
-
-There are two props used to make the table sortable; `sortOrder`, which is
-either 'ascending' or 'descending' and `sortKey`, which tells the table which
-column is currently being sorted. If a sortKey exists, then clicking the table
-header will emit an Event called `sort` which must be handled by the parent
-component to implement the actual sorting logic. A basic implementation of
-`sort` called `defaultSorter` is included in KTable and can be imported
-separately and used with a helper function in the parent. Once a table column
-with `sortable` is read, that column header will become clickable. An arrow then
-appears beside the table header, the state of the arrow depending on the
-sortOrder. In the following example, the `defaultSorter` from KTable is being
-imported, and the table is able to be sorted by any of the three columns by
-clicking on the headers.
-
-<template>
-  <KTable
-    :options="tableOptions"
-    :sort-order="sortOrder"
-    :sort-key="sortKey"
-    @sort="sortFieldHelper"
-    />
-</template>
-
-```vue
-<template>
-<!--
-  * @param {String} key - the current key to sort by
-  * @param {String} previousKey - the previous key used to sort by
-  * @param {String} sortOrder - either ascending or descending
-  * @param {Array} items - the list of items to sort
-  * @return {Object} an object containing the previousKey and sortOrder
--->
-<KTable
-    :options="tableOptions"
-    :sort-order="sortOrder"
-    :sort-key="sortKey"
-    @sort="sortFieldHelper"
-    />
-</template>
-<script>
-import { defaultSorter } from '@kongponents/KTable'
-export default {
-  data() {
-    return {
-      row: null,
-      eventType: '',
-      sortOrder: 'ascending',
-      sortKey: 'name',
-      tableOptions: {
-        headers: [
-          { label: 'Name', key: 'name', sortable: true },
-          { label: 'ID', key: 'id', sortable: true },
-          { label: 'Enabled', key: 'enabled', sortable: true },
-          { label: 'Theme Colors', key: 'themeColors', sortable: true },
-          { key: 'actions', hideLabel: true }
-        ],
-        data: [
-          {
-            name: 'Basic Auth',
-            id: '517526354743085',
-            enabled: 'true',
-            themeColors: []
-          },
-          {
-            name: 'Website Desktop',
-            id: '328027447731198',
-            enabled: 'false',
-            themeColors: ['blue','violet']
-          },
-          {
-            name: 'Android App',
-            id: '405383051040955',
-            enabled: 'true',
-            themeColors: ['green', 'yellow']
-          }
-        ]
-      }
-    }
-  },
-  methods: {
-    sortFieldHelper (key) {
-      const {previousKey, sortOrder } = this.defaultSorter(key, this.sortKey, this.sortOrder, this.tableOptions.data)
-      this.sortKey = previousKey
-      this.sortOrder = sortOrder
-    },
-    defaultSorter
-  }
-}
-</script>
-```
-
 ## Slots
+
 Both column cells & header cells are slottable in KTable. Use slots to gain
 access to the row data.
 
@@ -577,7 +421,7 @@ access to the row data.
 
 ### Column Header
 
-<KTable :options="$frontmatter.tableOptions">
+<KTable :options="tableOptions">
   <template v-slot:column-name="{ column }">
     {{ column.label.toUpperCase() }}
   </template>
@@ -585,7 +429,11 @@ access to the row data.
 
 ```vue
 <template>
-  <KTable :options="tableOptions">
+  <KTable
+    :fetcher="fetcher"
+    :headers="headers"
+    :page-size="3"
+  >
     <!-- Slot column header "name" -->
     <template v-slot:column-name="{ column }">
       {{ column.label.toUpperCase() }}
@@ -596,31 +444,11 @@ access to the row data.
 export default {
   data() {
     return {
-      tableOptions: {
-        headers: [
-          { label: 'Name', key: 'name' },
-          { label: 'ID', key: 'id' },
-          { label: 'Enabled', key: 'enabled' },
-          { key: 'actions', hideLabel: true }
-        ],
-        data: [
-          {
-            name: 'Basic Auth',
-            id: '517526354743085',
-            enabled: 'true'
-          },
-          {
-            name: 'Website Desktop',
-            id: '328027447731198',
-            enabled: 'false'
-          },
-          {
-            name: 'Android App',
-            id: '405383051040955',
-            enabled: 'true'
-          }
-        ]
-      }
+      headers: [
+        { key: 'name', label: 'Name', sortable: false },
+        { key: 'id', label: 'ID', sortable: false },
+        { key: 'enabled', label: 'Enabled', sortable: false }
+      ]
     }
   }
 }
@@ -628,7 +456,8 @@ export default {
 ```
 
 ### Column Cell
-<KTable :options="$frontmatter.tableOptions">
+
+<KTable :options="tableOptions">
   <template v-slot:enabled="{rowValue}">
     <span v-if="rowValue" style="color: green">&#10003;</span>
     <span v-else style="color: red">&#10007;</span>
@@ -638,7 +467,11 @@ export default {
 
 ```vue
 <template>
-  <KTable :options="tableOptions">
+  <KTable
+    :fetcher="fetcher"
+    :headers="headers"
+    :page-size="3"
+  >
     <!-- Slot each "enabled" cell in each row & add icon if matching value -->
     <template v-slot:enabled="{rowValue}">
       <span v-if="rowValue" style="color: green">&#10003;</span>
@@ -652,31 +485,11 @@ export default {
 export default {
   data() {
     return {
-      tableOptions: {
-        headers: [
-          { label: 'Name', key: 'name' },
-          { label: 'ID', key: 'id' },
-          { label: 'Enabled', key: 'enabled' },
-          { key: 'actions', hideLabel: true }
-        ],
-        data: [
-          {
-            name: 'Basic Auth',
-            id: '517526354743085',
-            enabled: true
-          },
-          {
-            name: 'Website Desktop',
-            id: '328027447731198',
-            enabled: false
-          },
-          {
-            name: 'Android App',
-            id: '405383051040955',
-            enabled: 'true'
-          }
-        ]
-      }
+      headers: [
+        { key: 'name', label: 'Name', sortable: false },
+        { key: 'id', label: 'ID', sortable: false },
+        { key: 'enabled', label: 'Enabled', sortable: false }
+      ]
     }
   }
 }
@@ -701,7 +514,7 @@ Set the following properties to handle empty state:
 
 <KCard class="my-2">
   <template v-slot:body>
-    <KTable :options="{ data: [], headers: [] }" />
+    <KTable />
   </template>
 </KCard>
 
@@ -709,7 +522,9 @@ Set the following properties to handle empty state:
 <template>
   <KCard>
     <template v-slot:body>
-      <KTable :options="{ data: [], headers: [] }" />
+      <KTable
+        :fetcher="fetcher"
+        :headers="headers" />
     </template>
   </KCard>
 </template>
@@ -720,15 +535,13 @@ Set the following properties to handle empty state:
 <KCard class="my-2">
   <template v-slot:body>
     <KTable
-      :options="{ data: [], headers: [] }"
       emptyStateTitle="No Workspaces exist"
       emptyStateMessage="Adding a new Workspace will populate this table."
       emptyStateActionMessage="Create a Workspace"
       emptyStateActionRoute="#empty-state-full-example"
       emptyStateIcon="workspaces"
       emptyStateIconColor="#5996ff"
-      emptyStateIconSize="35"
-    />
+      emptyStateIconSize="35" />
   </template>
 </KCard>
 
@@ -738,15 +551,15 @@ Set the following properties to handle empty state:
   <KCard>
     <template v-slot:body>
       <KTable
-        :options="{ data: [], headers: [] }"
+        :fetcher="fetcher"
+        :headers="headers"
         emptyStateTitle="No Workspaces exist"
         emptyStateMessage="Adding a new Workspace will populate this table."
         emptyStateActionMessage="Create a Workspace"
         emptyStateActionRoute="create-workspace"
         emptyStateIcon="workspaces"
         emptyStateIconColor="#5996ff"
-        emptyStateIconSize="35"
-      />
+        emptyStateIconSize="35" />
     </template>
   </KCard>
 </template>
@@ -756,7 +569,8 @@ Set the following properties to handle empty state:
   <KCard>
     <template v-slot:body>
       <KTable
-        :options="{ data: [], headers: [] }"
+        :fetcher="fetcher"
+        :headers="headers"
         emptyStateTitle="No Workspaces exist"
         emptyStateMessage="Adding a new Workspace will populate this table."
         emptyStateActionMessage="Create a Workspace"
@@ -768,8 +582,7 @@ Set the following properties to handle empty state:
         }"
         emptyStateIcon="workspaces"
         emptyStateIconColor="#5996ff"
-        emptyStateIconSize="35"
-      />
+        emptyStateIconSize="35" />
     </template>
   </KCard>
 </template>
@@ -792,10 +605,7 @@ Set the following properties to handle error state:
 
 <KCard class="my-2">
   <template v-slot:body>
-    <KTable
-      :options="{ data: [], headers: [] }"
-      :hasError="true"
-    />
+    <KTable :hasError="true" />
   </template>
 </KCard>
 
@@ -804,9 +614,9 @@ Set the following properties to handle error state:
   <KCard>
     <template v-slot:body>
       <KTable
-        :options="{ data: [], headers: [] }"
-        :hasError="true"
-      />
+        :fetcher="fetcher"
+        :headers="headers"
+        :hasError="true" />
     </template>
   </KCard>
 </template>
@@ -817,7 +627,6 @@ Set the following properties to handle error state:
 <KCard class="my-2">
   <template v-slot:body>
     <KTable
-      :options="{ data: [], headers: [] }"
       :hasError="true"
       errorStateTitle="Something went wrong"
       errorStateMessage="We are not able to load the data for this table."
@@ -825,8 +634,7 @@ Set the following properties to handle error state:
       errorStateActionRoute="#error-state-full-example"
       errorStateIcon="dangerCircle"
       errorStateIconColor="#e6173a"
-      errorStateIconSize="35"
-    />
+      errorStateIconSize="35" />
   </template>
 </KCard>
 
@@ -836,7 +644,8 @@ Set the following properties to handle error state:
   <KCard>
     <template v-slot:body>
       <KTable
-        :options="{ data: [], headers: [] }"
+        :fetcher="fetcher"
+        :headers="headers"
         :hasError="true"
         errorStateTitle="Something went wrong"
         errorStateMessage="We are not able to load the data for this table."
@@ -844,8 +653,7 @@ Set the following properties to handle error state:
         errorStateActionRoute="report-issue"
         errorStateIcon="dangerCircle"
         errorStateIconColor="#e6173a"
-        errorStateIconSize="35"
-      />
+        errorStateIconSize="35" />
     </template>
   </KCard>
 </template>
@@ -855,7 +663,8 @@ Set the following properties to handle error state:
   <KCard>
     <template v-slot:body>
       <KTable
-        :options="{ data: [], headers: [] }"
+        :fetcher="fetcher"
+        :headers="headers"
         :hasError="true"
         errorStateTitle="Something went wrong"
         errorStateMessage="We are not able to load the data for this table."
@@ -868,8 +677,7 @@ Set the following properties to handle error state:
         }"
         errorStateIcon="dangerCircle"
         errorStateIconColor="#e6173a"
-        errorStateIconSize="35"
-      />
+        errorStateIconSize="35" />
     </template>
   </KCard>
 </template>
@@ -882,10 +690,8 @@ Set the `isLoading` prop to `true` to enable the loading state.
 <KCard class="pb-0 mt-2">
   <template v-slot:body>
     <KTable
-      :options="{}"
       :isLoading="true"
-      class="my-0"
-    />
+      class="my-0" />
   </template>
 </KCard>
 
@@ -894,37 +700,118 @@ Set the `isLoading` prop to `true` to enable the loading state.
 <KCard>
   <template v-slot:body>
     <KTable
-      :options="{}"
-      :isLoading="true"
-    />
+      :fetcher="fetcher"
+      :headers="headers"
+      :isLoading="true" />
   </template>
 </KCard>
 </template>
 ```
 
-## Server-side sorting
+## Server-side functions
+
+Pass a fetcher function to enable server-side search, sort and pagination.
+The fetcher function should structure the ajax request URL in such a way that
+enables server side sort, search and pagination per the requirements of the API
+being used.
+
+```http
+Example URL
+
+https://kongponents.dev/api/components?_page=1&_limit=10&_sort=name&_order=desc
+```
 
 <KCard class="mt-3">
   <template v-slot:body>
-    <KInput placeholder="Search..." v-model="search" />
+    <KInput placeholder="Search..." v-model="search" type="search" />
     <KTable
-      :options="{ data: [], headers: [] }"
       :fetcher="fetcher"
-      :search-input="search"
-      :page="page"
       :headers="headers"
+      :hasSideBorder="false"
+      :page="page"
+      :search-input="search"
     />
-    <div>
-      <KButton @click="page--" :disabled="page === 1">Prev</KButton>
-      <KButton @click="page++" class="ml-4" :disabled="page === 10">Next</KButton>
+    <!-- Sample pagination until pagination component is complete -->
+    <div class="pagination d-flex align-items-center justify-content-between">
+      <div class="details type-md">
+        Page {{ page }} of 10
+      </div>
+      <div class="buttons">
+        <KButton @click="page--" :disabled="page === 1">Prev</KButton>
+        <KButton @click="page++" class="ml-4" :disabled="page === 10">Next</KButton>
+      </div>
     </div>
   </template>
 </KCard>
 
+```vue
+<KCard class="mt-3">
+  <template v-slot:body>
+    <KInput
+      placeholder="Search..."
+      v-model="search"
+      type="search"
+    />
+    <KTable
+      :fetcher="fetcher"
+      :headers="headers"
+      :hasSideBorder="false"
+      :page="page"
+      :search-input="search"
+    />
+    <!-- Sample pagination until pagination component is complete -->
+    <div class="pagination d-flex align-items-center justify-content-between">
+      <div class="details type-md">
+        Page {{ page }} of 10
+      </div>
+      <div class="buttons">
+        <KButton
+          :disabled="page === 1"
+          @click="page--"
+        >
+          Prev
+        </KButton>
+        <KButton
+          :disabled="page === 10"
+          class="ml-4"
+          @click="page++"
+        >
+          Next
+        </KButton>
+      </div>
+    </div>
+  </template>
+</KCard>
+```
+
+```js
+fetcher(pageSize = 10, page = 1, query = '', sortKey = '', sortOrder = '') {
+  const params = {
+    _limit: pageSize,
+    _page: page
+  }
+
+  if (query) {
+    params.q = query
+  }
+
+  if (sortKey) {
+    params._sort = sortKey
+    params._order = sortOrder
+  }
+
+  return axios.get('/user_list', {
+    baseURL: 'https://kongponents.dev/api',
+    params
+  }).then(res => res)
+}
+```
+
 ## Theming
+
 | Variable | Purpose
 |:-------- |:-------
-| `--KTableBorder `| Sets cell border color
+| `--KTableBorder`| Sets cell border color
 | `--KTableColor` | Font color
 | `--KTableHover`| Hover variant background color
 | `--KTableHeaderSize`| Font size of header th
@@ -933,13 +820,17 @@ Set the `isLoading` prop to `true` to enable the loading state.
 An Example of changing the hover background might look like.
 
 <div class="table-wrapper">
-  <KTable :options="$frontmatter.tableOptions" hasHover />
+  <KTable
+    :options="tableOptions"
+    hasHover />
 </div>
 
 ```vue
 <template>
   <KTable
-    :options="tableOptions"
+    :fetcher="fetcher"
+    :headers="headers"
+    :page-size="3"
     hasHover />
 </template>
 
@@ -966,7 +857,6 @@ export default {
           { label: 'Name', key: 'name', sortable: true },
           { label: 'ID', key: 'id', sortable: true },
           { label: 'Enabled', key: 'enabled', sortable: true },
-          { label: 'Theme Colors', key: 'themeColors', sortable: true },
           { key: 'actions', hideLabel: true }
         ],
         data: [
@@ -974,19 +864,16 @@ export default {
             name: 'Basic Auth',
             id: '517526354743085',
             enabled: 'true',
-            themeColors: []
           },
           {
             name: 'Website Desktop',
             id: '328027447731198',
             enabled: 'false',
-            themeColors: ['blue','violet']
           },
           {
             name: 'Android App',
             id: '405383051040955',
             enabled: 'true',
-            themeColors: ['green', 'yellow']
           }
         ]
       },
@@ -1031,9 +918,9 @@ export default {
       page: 1,
       headers: [
         { key: 'name', label: 'Name', sortable: true },
-        { key: 'email', label: 'Email', sortable: true },
-        { key: 'ip', label: 'IP Address', sortable: false },
-        { key: 'job_area', label: 'Job Area', sortable: true }
+        { key: 'version', label: 'Current Version', sortable: true },
+        { key: 'contributors', label: 'Contributors', sortable: true },
+        { key: 'git_sha', label: 'Latest Commit', sortable: true }
       ],
       tableOptionsCellAttrs: {
         headers: [
@@ -1136,14 +1023,14 @@ export default {
         },
       }
     },
-    fetcher(pageSize, page, query, sortKey, sortOrder) {
+    fetcher(pageSize = 10, page = 1, query = '', sortKey = '', sortOrder = '') {
       const params = {
-        _page: 1,
-        _limit: 10
+        _limit: pageSize,
+        _page: page
       }
 
-      if (page) {
-        params._page = page
+      if (query) {
+        params.q = query
       }
 
       if (sortKey) {
@@ -1151,11 +1038,7 @@ export default {
         params._order = sortOrder
       }
 
-      if (query && query.length) {
-        params.q = query
-      }
-
-      return axios.get('/user_list', {
+      return axios.get('/project_list', {
         baseURL: 'http://localhost:4001/api',
         params
       }).then(res => res)
