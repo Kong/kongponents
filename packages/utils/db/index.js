@@ -1,15 +1,15 @@
 const faker = require('faker')
 
 module.exports = () => {
-  const data = { user_list: [] }
+  const data = { project_list: [] }
 
   for (let i = 0; i < 100; i++) {
-    data.user_list.push({
+    data.project_list.push({
       id: faker.datatype.uuid(),
-      name: faker.internet.userName(),
-      email: faker.internet.email(),
-      ip: faker.internet.ip(),
-      job_area: faker.name.jobArea()
+      name: faker.system.fileName(),
+      version: faker.system.semver(),
+      contributors: faker.datatype.number(1000),
+      git_sha: faker.git.shortSha()
     })
   }
 

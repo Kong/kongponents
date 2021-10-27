@@ -25,7 +25,7 @@
     </template>
   </KEmptyState>
   <KEmptyState
-    v-else-if="!hasError && (!options.data || !options.data.length) && (!data || !data.length)"
+    v-else-if="!hasError && (!options || !options.data || !options.data.length) && (!data || !data.length)"
     :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
     :icon="emptyStateIcon || ''"
     :icon-color="emptyStateIconColor"
@@ -51,7 +51,7 @@
       <tr>
         <template>
           <th
-            v-for="(column, index) in headers"
+            v-for="(column, index) in tableHeaders"
             :key="index"
             :class="{'sortable': !column.hideLabel && column.sortable, [sortOrder]: column.key === sortKey && !column.hideLabel}"
             @click="column.sortable && sortClickHandler(column.key)"
@@ -77,7 +77,7 @@
       >
         <template>
           <td
-            v-for="(value, index) in headers"
+            v-for="(value, index) in tableHeaders"
             :key="index"
             v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
           >
@@ -97,8 +97,6 @@
 import KEmptyState from '@kongponents/kemptystate/KEmptyState.vue'
 import KSkeleton from '@kongponents/kskeleton/KSkeleton.vue'
 import { useRequest, useDebounce } from '../utils/lib/utils'
-
-import { uuid } from 'vue-uuid'
 
 import Vue from 'vue'
 import VueCompositionAPI, { computed, defineComponent, onMounted, ref, watch } from '@vue/composition-api'
@@ -197,7 +195,7 @@ export default defineComponent({
      */
     options: {
       type: Object,
-      required: true
+      required: false
     },
     /**
      * Enables hover highlighting to table rows
@@ -383,6 +381,10 @@ export default defineComponent({
       type: Number,
       default: 1
     },
+    pageSize: {
+      type: Number,
+      default: 10
+    },
     headers: {
       type: Array,
       default: () => []
@@ -390,7 +392,7 @@ export default defineComponent({
   },
   setup (props, ctx) {
     const data = ref([])
-    const pageSize = ref('10')
+    const tableHeaders = ref([])
     const sortKey = ref('')
     const sortOrder = ref('desc')
 
@@ -415,25 +417,39 @@ export default defineComponent({
 
     const setData = async () => {
       if (props.fetcher) {
-        const res = await props.fetcher()
-
-        data.value = res.data
-      } else {
-        data.value = props.options.data
-      }
-    }
-
-    const { query, search } = useDebounce('', 350)
-    const { revalidate, data: revalidatedData } = useRequest(
-      () => `k-table_${uuid.v1()}`,
-      () => {
-        return props.fetcher && props.fetcher(
-          pageSize.value,
+        const { data: fetcherData } = await props.fetcher(
+          props.pageSize,
           props.page,
           query.value || props.searchInput,
           sortKey.value,
           sortOrder.value
         )
+
+        data.value = fetcherData
+      } else if (props.options && props.options.data && props.options.data.length) {
+        data.value = props.options.data
+      }
+
+      if (props.headers && props.headers.length) {
+        tableHeaders.value = props.headers
+      } else if (props.options && props.options.headers && props.options.headers.length) {
+        tableHeaders.value = props.options.headers
+      }
+    }
+
+    const { query, search } = useDebounce('', 350)
+    const { revalidate } = useRequest(
+      () => props.fetcher && `k-table_${Math.floor(Math.random() * 1000)}`,
+      async () => {
+        const { data: fetcherData } = await props.fetcher(
+          props.pageSize,
+          props.page,
+          query.value || props.searchInput,
+          sortKey.value,
+          sortOrder.value
+        )
+
+        data.value = fetcherData
       },
       { revalidateOnFocus: false }
     )
@@ -462,10 +478,11 @@ export default defineComponent({
     })
 
     return {
-      data: revalidatedData || data.value,
+      data,
       sortClickHandler,
       sortKey,
       sortOrder,
+      tableHeaders,
       tdlisteners,
       trlisteners
     }
