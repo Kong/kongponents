@@ -144,7 +144,7 @@ export default {
   padding: var(--KButtonPaddingY, var(--spacing-sm, spacing(sm))) var(--KButtonPaddingX, var(--spacing-lg, spacing(lg)));
   font-family: var(--font-family-sans, font(sans));
   font-size: var(--type-md, type(md));
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.25;
   text-decoration: none;
   vertical-align: middle;
