@@ -9,7 +9,7 @@ export const useRequest = (cacheKey, fetcherFn, config) => {
   )
 
   const data = computed(() => {
-    return response.value?.data
+    return (response && response.value && response.value.data) || []
   })
 
   return {
