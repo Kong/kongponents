@@ -1,5 +1,8 @@
 <template>
-  <section class="empty-state-wrapper">
+  <section
+    :class="{ 'is-error': isError }"
+    class="empty-state-wrapper"
+  >
     <div class="empty-state-title">
       <div
         v-if="isError || icon"
@@ -8,7 +11,8 @@
       >
         <KIcon
           :size="iconSize"
-          :icon="icon ? icon : 'warning'" />
+          :icon="icon ? icon : 'warning'"
+          :color="iconColor" />
       </div>
       <div class="k-empty-state-title-header">
         <slot name="title"/>
@@ -63,6 +67,10 @@ export default {
     handleClick: {
       type: Function,
       default: null
+    },
+    iconColor: {
+      type: String,
+      default: ''
     }
   }
 }

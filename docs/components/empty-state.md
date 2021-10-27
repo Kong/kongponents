@@ -171,7 +171,7 @@ A string for the `KIcon` name to be displayed directly above the title. Specifyi
 ### icon-size
 - `icon-size`
 
-A number denoting the size of the warning icon to be displayed above the error message. The default size is 50.
+A number denoting the size of the icon to be displayed above the empty state message. The default size is 50.
 
 <template>
   <KEmptyState :cta-is-hidden="true" :is-error="true" icon-size="40">
@@ -179,6 +179,35 @@ A number denoting the size of the warning icon to be displayed above the error m
       <h3>
         Error: Something broke and now this size 40 warning icon is displayed.
       </h3>
+    </template>
+  </KEmptyState>
+</template>
+
+```vue
+<template>
+  <KEmptyState :cta-is-hidden="true" :is-error="true" icon-size="40">
+    <template v-slot:message>
+      <h3>
+        Error: Something broke and now this size 40 warning icon is displayed.
+      </h3>
+    </template>
+  </KEmptyState>
+</template>
+```
+
+### icon-color
+- `icon-color`
+
+A string denoting the color of the icon to be displayed above the empty state message.
+
+<template>
+  <KEmptyState icon="people" icon-size="40" icon-color="#5996ff">
+    <template v-slot:title>No users exist</template>
+    <template v-slot:message>
+        Adding new users will populate this table.
+    </template>
+    <template v-slot:cta>
+      <KButton appearance="primary">Add a User</KButton>
     </template>
   </KEmptyState>
 </template>

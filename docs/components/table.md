@@ -21,7 +21,7 @@ tableOptions:
       id: 405383051040955
       enabled: true
 ---
-# Table 
+# Table
 Pass an object of headers & data to build a slot-able table.
 
 <KTable :options="$frontmatter.tableOptions" />
@@ -86,7 +86,7 @@ Lessen the table cell padding
 ```
 
 ### Clickable
-Adds `cursor: pointer` and `user-select: none` styling. 
+Adds `cursor: pointer` and `user-select: none` styling.
 
 <KTable :options="$frontmatter.tableOptions" isClickable />
 ```vue
@@ -115,8 +115,16 @@ The below example demonstrates the disabled state:
 </template>
 ```
 
+### hasError
+
+See [the State section](#error) about `hasError`
+
+### isLoading
+
+See [the State section](#loading) about `isLoading`
+
 ## Row Attributes
-Add custom properties to individual rows. The row object is passed as a param.	
+Add custom properties to individual rows. The row object is passed as a param.
 
 `rowAttrs` - Function that returns an object comprising the attributes.
 
@@ -674,6 +682,225 @@ export default {
 </script>
 ```
 
+## States
+
+### Empty
+
+Set the following properties to handle empty state:
+
+- `emptyStateTitle` - Title text for empty state
+- `emptyStateMessage` - Message for empty state
+- `emptyStateIcon` - Icon for empty state
+- `emptyStateIconColor` - Color for empty state icon
+- `emptyStateIconSize` - Size for empty state icon
+- `emptyStateActionRoute` - Route for empty state action
+- `emptyStateActionMessage` - Button text for empty state action
+
+#### Default Empty State Messaging
+
+<KCard class="my-2">
+  <template v-slot:body>
+    <KTable :options="{ data: [], headers: [] }" />
+  </template>
+</KCard>
+
+```vue
+<template>
+  <KCard>
+    <template v-slot:body>
+      <KTable :options="{ data: [], headers: [] }" />
+    </template>
+  </KCard>
+</template>
+```
+
+#### Empty State Full Example
+
+<KCard class="my-2">
+  <template v-slot:body>
+    <KTable
+      :options="{ data: [], headers: [] }"
+      emptyStateTitle="No Workspaces exist"
+      emptyStateMessage="Adding a new Workspace will populate this table."
+      emptyStateActionMessage="Create a Workspace"
+      emptyStateActionRoute="#empty-state-full-example"
+      emptyStateIcon="workspaces"
+      emptyStateIconColor="#5996ff"
+      emptyStateIconSize="35"
+    />
+  </template>
+</KCard>
+
+```vue
+<!-- Using a route string -->
+<template>
+  <KCard>
+    <template v-slot:body>
+      <KTable
+        :options="{ data: [], headers: [] }"
+        emptyStateTitle="No Workspaces exist"
+        emptyStateMessage="Adding a new Workspace will populate this table."
+        emptyStateActionMessage="Create a Workspace"
+        emptyStateActionRoute="create-workspace"
+        emptyStateIcon="workspaces"
+        emptyStateIconColor="#5996ff"
+        emptyStateIconSize="35"
+      />
+    </template>
+  </KCard>
+</template>
+
+<!-- Using a route object -->
+<template>
+  <KCard>
+    <template v-slot:body>
+      <KTable
+        :options="{ data: [], headers: [] }"
+        emptyStateTitle="No Workspaces exist"
+        emptyStateMessage="Adding a new Workspace will populate this table."
+        emptyStateActionMessage="Create a Workspace"
+        emptyStateActionRoute="{
+          name: 'create-workspace',
+          params: {
+            organizationId: 'd27e40e0-c9ac-43e2-8be8-54862fab45ea'
+          }
+        }"
+        emptyStateIcon="workspaces"
+        emptyStateIconColor="#5996ff"
+        emptyStateIconSize="35"
+      />
+    </template>
+  </KCard>
+</template>
+```
+
+### Error
+
+Set the following properties to handle error state:
+
+- `hasError` - Boolean to toggle error state
+- `errorStateTitle` - Title text for error state
+- `errorStateMessage` - Message for error state
+- `errorStateIcon` - Icon for error state
+- `errorStateIconColor` - Color for error state icon
+- `errorStateIconSize` - Size for error state icon
+- `errorStateActionRoute` - Route for error state action
+- `errorStateActionMessage` - Button text for error state action
+
+#### Default Error State Messaging
+
+<KCard class="my-2">
+  <template v-slot:body>
+    <KTable
+      :options="{ data: [], headers: [] }"
+      :hasError="true"
+    />
+  </template>
+</KCard>
+
+```vue
+<template>
+  <KCard>
+    <template v-slot:body>
+      <KTable
+        :options="{ data: [], headers: [] }"
+        :hasError="true"
+      />
+    </template>
+  </KCard>
+</template>
+```
+
+#### Error State Full Example
+
+<KCard class="my-2">
+  <template v-slot:body>
+    <KTable
+      :options="{ data: [], headers: [] }"
+      :hasError="true"
+      errorStateTitle="Something went wrong"
+      errorStateMessage="We are not able to load the data for this table."
+      errorStateActionMessage="Report an Issue"
+      errorStateActionRoute="#error-state-full-example"
+      errorStateIcon="dangerCircle"
+      errorStateIconColor="#e6173a"
+      errorStateIconSize="35"
+    />
+  </template>
+</KCard>
+
+```vue
+<!-- Using a route string -->
+<template>
+  <KCard>
+    <template v-slot:body>
+      <KTable
+        :options="{ data: [], headers: [] }"
+        :hasError="true"
+        errorStateTitle="Something went wrong"
+        errorStateMessage="We are not able to load the data for this table."
+        errorStateActionMessage="Report an Issue"
+        errorStateActionRoute="report-issue"
+        errorStateIcon="dangerCircle"
+        errorStateIconColor="#e6173a"
+        errorStateIconSize="35"
+      />
+    </template>
+  </KCard>
+</template>
+
+<!-- Using a route object -->
+<template>
+  <KCard>
+    <template v-slot:body>
+      <KTable
+        :options="{ data: [], headers: [] }"
+        :hasError="true"
+        errorStateTitle="Something went wrong"
+        errorStateMessage="We are not able to load the data for this table."
+        errorStateActionMessage="Report an Issue"
+        errorStateActionRoute="{
+          name: 'report-issue',
+          params: {
+            organizationId: 'd27e40e0-c9ac-43e2-8be8-54862fab45ea'
+          }
+        }"
+        errorStateIcon="dangerCircle"
+        errorStateIconColor="#e6173a"
+        errorStateIconSize="35"
+      />
+    </template>
+  </KCard>
+</template>
+```
+
+### Loading
+
+Set the `isLoading` prop to `true` to enable the loading state.
+
+<KCard class="pb-0 mt-2">
+  <template v-slot:body>
+    <KTable
+      :options="{}"
+      :isLoading="true"
+      class="my-0"
+    />
+  </template>
+</KCard>
+
+```vue
+<template>
+<KCard>
+  <template v-slot:body>
+    <KTable
+      :options="{}"
+      :isLoading="true"
+    />
+  </template>
+</KCard>
+</template>
+```
+
 ## Theming
 | Variable | Purpose
 |:-------- |:-------
@@ -683,7 +910,7 @@ export default {
 | `--KTableHeaderSize`| Font size of header th
 
 \
-An Example of changing the hover background might look like.  
+An Example of changing the hover background might look like.
 
 <div class="table-wrapper">
   <KTable :options="$frontmatter.tableOptions" hasHover />
@@ -890,7 +1117,7 @@ export default {
       border: unset;
     }
   }
-  
+
   .table-wrapper {
   --KTableHover: lavender;
   }

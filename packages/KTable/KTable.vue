@@ -1,5 +1,50 @@
 <template>
+  <KSkeleton
+    v-if="isLoading"
+    :delay-milliseconds="0"
+    type="table"
+  />
+  <KEmptyState
+    v-else-if="hasError"
+    :cta-is-hidden="!errorStateActionMessage || !errorStateActionRoute"
+    :icon="errorStateIcon || ''"
+    :is-error="true"
+    :icon-color="errorStateIconColor"
+    :icon-size="errorStateIconSize"
+  >
+    <template v-slot:title>{{ errorStateTitle }}</template>
+    <template v-slot:message>{{ errorStateMessage }}</template>
+    <template v-slot:cta>
+      <KButton
+        v-if="errorStateActionMessage && errorStateActionRoute"
+        :to="errorStateActionRoute"
+        appearance="primary"
+      >
+        {{ errorStateActionMessage }}
+      </KButton>
+    </template>
+  </KEmptyState>
+  <KEmptyState
+    v-else-if="!hasError && (!options.data || !options.data.length)"
+    :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
+    :icon="emptyStateIcon || ''"
+    :icon-color="emptyStateIconColor"
+    :icon-size="emptyStateIconSize"
+  >
+    <template v-slot:title>{{ emptyStateTitle }}</template>
+    <template v-slot:message>{{ emptyStateMessage }}</template>
+    <template v-slot:cta>
+      <KButton
+        v-if="emptyStateActionMessage && emptyStateActionRoute"
+        :to="emptyStateActionRoute"
+        appearance="primary"
+      >
+        {{ emptyStateActionMessage }}
+      </KButton>
+    </template>
+  </KEmptyState>
   <table
+    v-else
     :class="{'has-hover': hasHover, 'is-small': isSmall, 'is-clickable': isClickable, 'side-border': hasSideBorder}"
     class="k-table">
     <thead>
@@ -49,6 +94,9 @@
 </template>
 
 <script>
+import KEmptyState from '@kongponents/kemptystate/KEmptyState.vue'
+import KSkeleton from '@kongponents/kskeleton/KSkeleton.vue'
+
 /**
  * @param {String} key - the current key to sort by
  * @param {String} previousKey - the previous key used to sort by
@@ -128,6 +176,10 @@ function pluckListeners (prefix, $listeners) {
 
 export default {
   name: 'KTable',
+  components: {
+    KEmptyState,
+    KSkeleton
+  },
   props: {
     /**
      * Object containing data which creates rows and columns.
@@ -197,6 +249,118 @@ export default {
     cellAttrs: {
       type: Function,
       default: () => ({})
+    },
+    /**
+     * A prop that enables a loading skeleton
+     */
+    isLoading: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * A prop to pass in a custom empty state title
+     */
+    emptyStateTitle: {
+      type: String,
+      default: 'No Data'
+    },
+    /**
+     * A prop to pass in a custom empty state message
+     */
+    emptyStateMessage: {
+      type: String,
+      default: 'There is no data to display.'
+    },
+    /**
+     * A prop to pass in a custom empty state action route
+     */
+    emptyStateActionRoute: {
+      type: Object | String,
+      default: ''
+    },
+    /**
+     * A prop to pass in a custom empty state action message
+     */
+    emptyStateActionMessage: {
+      type: String,
+      default: ''
+    },
+    /**
+     * A prop to pass in a custom empty state icon
+     */
+    emptyStateIcon: {
+      type: String,
+      default: ''
+    },
+    /**
+     * A prop to pass in a color for the empty state icon
+     */
+    emptyStateIconColor: {
+      type: String,
+      default: ''
+    },
+    /**
+     * A prop to pass in a size for the empty state icon
+     */
+    emptyStateIconSize: {
+      type: String,
+      default: '50'
+    },
+    /**
+     * A prop that enables the error state
+     */
+    hasError: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * A prop to pass in a custom error state title
+     */
+    errorStateTitle: {
+      type: String,
+      default: 'An error occurred'
+    },
+    /**
+     * A prop to pass in a custom error state message
+     */
+    errorStateMessage: {
+      type: String,
+      default: 'Data cannot be displayed due to an error.'
+    },
+    /**
+     * A prop to pass in a custom error state action route
+     */
+    errorStateActionRoute: {
+      type: Object | String,
+      default: ''
+    },
+    /**
+     * A prop to pass in a custom error state action message
+     */
+    errorStateActionMessage: {
+      type: String,
+      default: ''
+    },
+    /**
+     * A prop to pass in a custom error state icon
+     */
+    errorStateIcon: {
+      type: String,
+      default: ''
+    },
+    /**
+     * A prop to pass in a color for the error state icon
+     */
+    errorStateIconColor: {
+      type: String,
+      default: ''
+    },
+    /**
+     * A prop to pass in a size for the error state icon
+     */
+    errorStateIconSize: {
+      type: String,
+      default: '50'
     }
   },
 
