@@ -84,8 +84,8 @@ export default {
     background-color: var(--KBadgeDefaultBackground, var(--blue-100, color(blue-100)));
   }
   &.kbadge-success {
-    color: var(--KBadgeSuccessColor, var(--green-500, color(green-500)));
-    border-color: var(--KBadgeSuccessBorder, var(--green-500, color(green-500)));
+    color: var(--KBadgeSuccessColor, var(--green-700, color(green-700)));
+    border-color: var(--KBadgeSuccessBorder, var(--green-700, color(green-700)));
     background-color: var(--KBadgeSuccessBackground, var(--green-100, color(green-100)));
   }
   &.kbadge-danger {
@@ -99,8 +99,8 @@ export default {
     background-color: var(--KBadgeInfoBackground, var(--petrol-100, color(petrol-100)));
   }
   &.kbadge-warning {
-    color: var(--KBadgeWarningColor, var(--yellow-500, color(yellow-500)));
-    border-color: var(--KBadgeWarningBorder, var(--yellow-500, color(yellow-500)));
+    color: var(--KBadgeWarningColor, var(--yellow-600, color(yellow-600)));
+    border-color: var(--KBadgeWarningBorder, var(--yellow-600, color(yellow-600)));
     background-color: var(--KBadgeWarningBackground, var(--yellow-100, color(yellow-100)));
   }
 
