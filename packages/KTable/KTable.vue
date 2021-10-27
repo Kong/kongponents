@@ -74,12 +74,14 @@
         v-for="(row, rowIndex) in data"
         :key="rowIndex"
         v-bind="rowAttrs(row)"
+        v-on="trlisteners(row, 'row')"
       >
         <template>
           <td
             v-for="(value, index) in tableHeaders"
             :key="index"
             v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
+            v-on="tdlisteners(row[value.key], 'cell')"
           >
             <slot
               :name="value.key"
@@ -356,12 +358,12 @@ export default defineComponent({
     const sortOrder = ref('desc')
 
     const tdlisteners = computed(() => {
-      return pluckListeners('cell:', ctx.$listeners)
+      return pluckListeners('cell:', ctx.listeners)
     })
 
     const trlisteners = computed(() => {
       return (entity, type) => {
-        const pluckedListeners = pluckListeners('row:', ctx.$listeners)(entity, type)
+        const pluckedListeners = pluckListeners('row:', ctx.listeners)(entity, type)
 
         return {
           ...pluckedListeners,
