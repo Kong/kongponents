@@ -375,7 +375,6 @@ various parts of the table. We support events on both table rows and cells in ad
   </template>
 </KTable>
 <script>
-import { defaultSorter } from '@kongponents/KTable'
 export default {
   data() {
     return {
@@ -914,7 +913,6 @@ An Example of changing the hover background might look like.
 ```
 
 <script>
-import { defaultSorter } from '../../packages/KTable/KTable'
 import axios from 'axios'
 
 export default {
@@ -1041,11 +1039,6 @@ export default {
         }
       }
     },
-    sortFieldHelper (key) {
-      const {previousKey, sortOrder } = this.defaultSorter(key, this.sortKey, this.sortOrder, this.tableOptions.data)
-      this.sortKey = previousKey
-      this.sortOrder = sortOrder
-    },
     linkHander (e) {
       alert('a link was clicked')
     },
@@ -1061,7 +1054,6 @@ export default {
         'data-testid': 'row-item'
       }
     },
-    defaultSorter,
     cellAttrsFn ({ headerKey, row, rowIndex, colIndex }) {
       /**
        * Sets cell background color based on data returned in
