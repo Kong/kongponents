@@ -104,62 +104,6 @@ import VueCompositionAPI, { computed, defineComponent, onMounted, ref, watch } f
 Vue.use(VueCompositionAPI)
 
 /**
- * @param {String} key - the current key to sort by
- * @param {String} previousKey - the previous key used to sort by
- * @param {String} sortOrder - either ascending or descending
- * @param {Array} items - the list of items to sort
- * @return {Object} an object containing the previousKey and sortOrder
- */
-export const defaultSorter = (key, previousKey, sortOrder, items) => {
-  let comparator = null
-  const numberComparator = (a, b) => a && b && a - b
-  const stringComparator = (a, b) => a.localeCompare(b)
-
-  if (key !== previousKey) {
-    comparator = (a, b) => {
-      const transformer = (val) => {
-        if (val === undefined || val === null) {
-          return ''
-        }
-
-        if (typeof val === 'number') {
-          return val
-        }
-
-        if (Array.isArray(val) && val.length && typeof val[0] === 'number') {
-          return val[0]
-        }
-
-        return String(val)
-      }
-
-      const newValA = transformer(a[key])
-      const newValB = transformer(b[key])
-
-      switch (typeof newValA) {
-        case 'number':
-          return numberComparator(newValA, newValB)
-        default:
-          return stringComparator(newValA, newValB)
-      }
-    }
-
-    items.sort(comparator)
-    previousKey = key
-    sortOrder.value = 'ascending'
-  } else {
-    items.reverse()
-    if (sortOrder.value === 'descending') {
-      sortOrder.value = 'ascending'
-    } else {
-      sortOrder.value = 'descending'
-    }
-  }
-
-  return { previousKey, sortOrder }
-}
-
-/**
  * Grabs listeners from this.$listeners matching a prefix to attach the
  * event that is dynamic. e.g. `v-on:cell:click`, `@row:focus` etc.
  * @param {String} prefix - event listener prefix e.g. `row:`, `cell:`
