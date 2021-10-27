@@ -26,7 +26,7 @@
     "cli": "./cli/kongponent-cli",
     "lint": "yarn eslint --ext .js,.vue packages/",
     "postinstall": "husky install",
-    "server": "json-server --watch packages/utils/db/index.js --routes packages/utils/db/routes.json --port 4001 &"
+    "server": "json-server --watch packages/KTable/db/index.js --routes packages/KTable/db/routes.json --port 4001 &"
   },
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
