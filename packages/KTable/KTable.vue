@@ -368,23 +368,38 @@ export default defineComponent({
       type: String,
       default: '50'
     },
-
+    /**
+     * A prop to pass in a fetcher function to enable server-side search, sort
+     * and pagination
+     */
     fetcher: {
       type: Function,
       default: undefined
     },
+    /**
+     * A prop to pass in a search string for server-side search
+     */
     searchInput: {
       type: String,
       default: ''
     },
+    /**
+     * A prop to pass in a page number for server-side pagination
+     */
     page: {
       type: Number,
       default: 1
     },
+    /**
+     * A prop to pass in a page size number for server-side pagination
+     */
     pageSize: {
       type: Number,
       default: 10
     },
+    /**
+     * A prop to pass in a an array of headers for the table
+     */
     headers: {
       type: Array,
       default: () => []

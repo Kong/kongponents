@@ -135,6 +135,78 @@ See [the State section](#error) about `hasError`
 
 See [the State section](#loading) about `isLoading`
 
+### fetcher
+
+Use a custom fetcher function to fetch table data and leverage server-side search, sort and pagination.
+
+Example fetcher function:
+
+```js
+fetcher(pageSize = 10, page = 1, query = '', sortKey = '', sortOrder = '') {
+  const params = {
+    _limit: pageSize,
+    _page: page
+  }
+
+  if (query) {
+    params.q = query
+  }
+
+  if (sortKey) {
+    params._sort = sortKey
+    params._order = sortOrder
+  }
+
+  return axios.get('/user_list', {
+    baseURL: 'https://kongponents.dev/api',
+    params
+  }).then(res => res)
+}
+```
+
+### searchInput
+
+Pass in a string of search input for server-side table filtering.
+
+### page
+
+Pass in a page number for server-side pagination.
+
+### pageSize
+
+Pass in a page size limit for server-side pagination.
+
+### headers
+
+Pass in an array of header objects for the table.
+
+| Parameter | Type | Description
+|:-------- |:------- |:-------
+| `key` | string | A unique key for the column
+| `label` | string | The label displayed on the table for the column
+| `sortable` | boolean | Enables or disables server-side sorting for the column
+| `hideLabel`| boolean | Hides or displays the column label (useful for actions columns)
+
+Example headers array:
+
+```vue
+<script>
+  export default {
+    data() {
+      return {
+        headers: [
+          { key: 'name', label: 'Name', sortable: true },
+          { key: 'email', label: 'Email', sortable: true },
+          { key: 'department', label: 'department', sortable: true },
+          { key: 'start_date', label: 'Start Date', sortable: true },
+          { key: 'actions', label: '', sortable: false, hideLabel: true },
+        ]
+      }
+    }
+  }
+</script>
+```
+
 ## Row Attributes
 
 Add custom properties to individual rows. The row object is passed as a param.
