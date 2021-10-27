@@ -174,6 +174,7 @@ export default {
   .k-card-body {
     font-size: 13px;
     color: var(--grey-600);
+    width: 100%;
   }
 
   .k-card-notifications {

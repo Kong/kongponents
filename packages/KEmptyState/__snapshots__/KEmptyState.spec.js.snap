@@ -40,7 +40,7 @@ exports[`KEmptyState renders custom icon when icon prop passed 1`] = `
 `;
 
 exports[`KEmptyState renders icon when error flag passed 1`] = `
-<section class="empty-state-wrapper">
+<section class="empty-state-wrapper is-error">
   <div class="empty-state-title">
     <div class="k-empty-state-icon card-icon mb-4 warning-icon"><svg height="50" width="50" viewBox="0 0 48 42" role="img" class="kong-icon kong-icon-warning">
         <title>Warning</title>
