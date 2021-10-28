@@ -47,23 +47,18 @@ describe('KCardCatalog', () => {
     })
 
     it('renders slots when passed', async () => {
+      const slotContent = 'Look mah! No props (except testMode)'
+
       const wrapper = await mount(KCardCatalog, {
         propsData: {
           testMode: true
         },
         scopedSlots: {
-          'body': `
-            <KCatalogItem
-              :item="{
-                title: 'Item 2',
-                description: 'item description'
-              }"
-              class="catalog-item"
-            />`
+          'body': `<span>${slotContent}</span>`
         }
       })
 
-      // expect(wrapper.findAll('.k-card-catalog-item')).toHaveLength(1)
+      expect(wrapper.find('.k-catalog-page').html()).toEqual(expect.stringContaining(slotContent))
       expect(wrapper.html()).toMatchSnapshot()
     })
 

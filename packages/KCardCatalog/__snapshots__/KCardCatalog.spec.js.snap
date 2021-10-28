@@ -420,9 +420,7 @@ exports[`KCardCatalog general renders proper cards when using props 1`] = `
 exports[`KCardCatalog general renders slots when passed 1`] = `
 <div class="k-card-catalog">
   <!---->
-  <div class="k-catalog-page k-card-medium">
-    <kcatalogitem item="[object Object]" class="catalog-item"></kcatalogitem>
-  </div>
+  <div class="k-catalog-page k-card-medium"><span>Look mah! No props (except testMode)</span></div>
 </div>
 `;
 
