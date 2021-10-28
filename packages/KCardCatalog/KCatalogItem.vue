@@ -52,8 +52,13 @@
 </template>
 
 <script>
+import KCard from '@kongponents/kcard/KCard.vue'
+
 export default {
   name: 'KCatalogItem',
+  components: {
+    KCard
+  },
   props: {
     item: {
       type: Object,

@@ -5,9 +5,74 @@
       class="k-card-catalog-title">
       <h3>{{ title }}</h3>
     </div>
+    <KSkeleton
+      v-if="isLoading"
+      :card-count="4"
+      class="k-skeleton-grid"
+      type="card"
+    >
+      <template slot="card-header">
+        <KSkeletonBox
+          class="w-100 justify-content-center mb-3"
+          width="6"
+        />
+      </template>
+      <template slot="card-content">
+        <KSkeletonBox width="75" />
+      </template>
+      <template slot="card-footer">
+        <div class="d-flex justify-content-start">
+          <KSkeletonBox
+            width="2"
+            class="mr-2"
+          />
+          <KSkeletonBox width="5" />
+        </div>
+      </template>
+    </KSkeleton>
+    <KEmptyState
+      v-else-if="hasError"
+      :cta-is-hidden="!errorStateActionMessage || !errorStateActionRoute"
+      :icon="errorStateIcon || ''"
+      :is-error="true"
+      :icon-color="errorStateIconColor"
+      :icon-size="errorStateIconSize"
+    >
+      <template v-slot:title>{{ errorStateTitle }}</template>
+      <template v-slot:message>{{ errorStateMessage }}</template>
+      <template v-slot:cta>
+        <KButton
+          v-if="errorStateActionMessage && errorStateActionRoute"
+          :to="errorStateActionRoute"
+          appearance="primary"
+        >
+          {{ errorStateActionMessage }}
+        </KButton>
+      </template>
+    </KEmptyState>
+    <KEmptyState
+      v-else-if="!hasError && !items.length"
+      :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
+      :icon="emptyStateIcon || ''"
+      :icon-color="emptyStateIconColor"
+      :icon-size="emptyStateIconSize"
+    >
+      <template v-slot:title>{{ emptyStateTitle }}</template>
+      <template v-slot:message>{{ emptyStateMessage }}</template>
+      <template v-slot:cta>
+        <KButton
+          v-if="emptyStateActionMessage && emptyStateActionRoute"
+          :to="emptyStateActionRoute"
+          appearance="primary"
+        >
+          {{ emptyStateActionMessage }}
+        </KButton>
+      </template>
+    </KEmptyState>
     <div
+      v-else
       :class="`k-card-${cardSize}`"
-      class="k-catalog k-catalog-page">
+      class="k-catalog-page">
       <slot name="body">
         <KCatalogItem
           v-for="item in items"
@@ -23,11 +88,15 @@
 </template>
 
 <script>
+import KEmptyState from '@kongponents/kemptystate/KEmptyState.vue'
+import KSkeleton from '@kongponents/kskeleton/KSkeleton.vue'
 import KCatalogItem from './KCatalogItem.vue'
 
 export default {
   name: 'KCardCatalog',
   components: {
+    KEmptyState,
+    KSkeleton,
     KCatalogItem
   },
   props: {
@@ -46,11 +115,11 @@ export default {
     searchTriggered: {
       type: Boolean,
       default: false
-    },
-    loading: {
+    }, */
+    isLoading: {
       type: Boolean,
       default: false
-    }, */
+    },
     cardSize: {
       type: String,
       default: 'medium'
@@ -62,6 +131,111 @@ export default {
     noTruncation: {
       type: Boolean,
       default: false
+    },
+    /**
+     * A prop to pass in a custom empty state title
+     */
+    emptyStateTitle: {
+      type: String,
+      default: 'No Data'
+    },
+    /**
+     * A prop to pass in a custom empty state message
+     */
+    emptyStateMessage: {
+      type: String,
+      default: 'There is no data to display.'
+    },
+    /**
+     * A prop to pass in a custom empty state action route
+     */
+    emptyStateActionRoute: {
+      type: Object | String,
+      default: ''
+    },
+    /**
+     * A prop to pass in a custom empty state action message
+     */
+    emptyStateActionMessage: {
+      type: String,
+      default: ''
+    },
+    /**
+     * A prop to pass in a custom empty state icon
+     */
+    emptyStateIcon: {
+      type: String,
+      default: ''
+    },
+    /**
+     * A prop to pass in a color for the empty state icon
+     */
+    emptyStateIconColor: {
+      type: String,
+      default: ''
+    },
+    /**
+     * A prop to pass in a size for the empty state icon
+     */
+    emptyStateIconSize: {
+      type: String,
+      default: '50'
+    },
+    /**
+     * A prop that enables the error state
+     */
+    hasError: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * A prop to pass in a custom error state title
+     */
+    errorStateTitle: {
+      type: String,
+      default: 'An error occurred'
+    },
+    /**
+     * A prop to pass in a custom error state message
+     */
+    errorStateMessage: {
+      type: String,
+      default: 'Data cannot be displayed due to an error.'
+    },
+    /**
+     * A prop to pass in a custom error state action route
+     */
+    errorStateActionRoute: {
+      type: Object | String,
+      default: ''
+    },
+    /**
+     * A prop to pass in a custom error state action message
+     */
+    errorStateActionMessage: {
+      type: String,
+      default: ''
+    },
+    /**
+     * A prop to pass in a custom error state icon
+     */
+    errorStateIcon: {
+      type: String,
+      default: ''
+    },
+    /**
+     * A prop to pass in a color for the error state icon
+     */
+    errorStateIconColor: {
+      type: String,
+      default: ''
+    },
+    /**
+     * A prop to pass in a size for the error state icon
+     */
+    errorStateIconSize: {
+      type: String,
+      default: '50'
     }
   },
   methods: {
@@ -91,7 +265,7 @@ export default {
     }
   }
 
-  .k-catalog {
+  .k-catalog-page {
     display: grid;
     grid-gap: var(--spacing-lg);
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

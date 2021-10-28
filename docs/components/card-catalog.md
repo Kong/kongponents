@@ -93,6 +93,14 @@ const longItem = {
 <KCardCatalog title="No truncation allowed!!" :items="[longItem]" no-truncation />
 ```
 
+### hasError
+
+See [the State section](#error) about `hasError`
+
+### isLoading
+
+See [the State section](#loading) about `isLoading`
+
 ## KCatalogItem
 **KCardCatalog** generates a **KCatalogItem** for each item in the `items` property. At the most basic level, **KCatalogItem** is 
 a wrapper around `KCard` to display correctly inside `KCardCatalog`. You can use the `body` slot of the `KCardCatalog` to manually create your own catalog items.
@@ -127,6 +135,149 @@ a wrapper around `KCard` to display correctly inside `KCardCatalog`. You can use
   </template>
   <template v-slot:cardBody>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.</template>
 </KCatalogItem>
+```
+
+## States
+
+### Empty
+
+<KCardCatalog title="Empty catalog" :items="getItems(0)" />
+
+```vue
+<KCardCatalog title="Empty catalog" :items="getItems(0)" />
+```
+
+Set the following properties to handle empty state:
+
+- `emptyStateTitle` - Title text for empty state
+- `emptyStateMessage` - Message for empty state
+- `emptyStateIcon` - Icon for empty state
+- `emptyStateIconColor` - Color for empty state icon
+- `emptyStateIconSize` - Size for empty state icon
+- `emptyStateActionRoute` - Route for empty state action
+- `emptyStateActionMessage` - Button text for empty state action
+
+<KCardCatalog 
+  title="Customized empty catalog"
+  :items="getItems(0)"
+  emptyStateTitle="No Workspaces exist"
+  emptyStateMessage="Adding a new Workspace will populate this table."
+  emptyStateActionMessage="Create a Workspace"
+  emptyStateActionRoute="#empty-state-full-example"
+  emptyStateIcon="workspaces"
+  emptyStateIconColor="#5996ff"
+  emptyStateIconSize="35"
+/>
+
+```vue
+<!-- Using a route string -->
+<KCardCatalog 
+  title="Customized empty catalog"
+  :items="getItems(0)"
+  emptyStateTitle="No Workspaces exist"
+  emptyStateMessage="Adding a new Workspace will populate this table."
+  emptyStateActionMessage="Create a Workspace"
+  emptyStateActionRoute="#empty-state-full-example"
+  emptyStateIcon="workspaces"
+  emptyStateIconColor="#5996ff"
+  emptyStateIconSize="35"
+/>
+
+<!-- Using a route object -->
+<KCardCatalog 
+  title="Customized empty catalog"
+  :items="getItems(0)"
+  emptyStateTitle="No Workspaces exist"
+  emptyStateMessage="Adding a new Workspace will populate this table."
+  emptyStateActionMessage="Create a Workspace"
+  emptyStateActionRoute="{
+    name: 'create-workspace',
+    params: {
+      organizationId: 'd27e40e0-c9ac-43e2-8be8-54862fab45ea'
+    }
+  }"
+  emptyStateIcon="workspaces"
+  emptyStateIconColor="#5996ff"
+  emptyStateIconSize="35"
+/>
+```
+
+### Error
+
+Set the `hasError` prop to `true` to enable the error state.
+
+<KCardCatalog title="Catalog with error" :items="getItems(6)" :hasError="true" />
+
+```vue
+<KCardCatalog title="Empty catalog" :items="getItems(6)" :hasError="true" />
+```
+
+Set the following properties to customize error state:
+
+- `errorStateTitle` - Title text for error state
+- `errorStateMessage` - Message for error state
+- `errorStateIcon` - Icon for error state
+- `errorStateIconColor` - Color for error state icon
+- `errorStateIconSize` - Size for error state icon
+- `errorStateActionRoute` - Route for error state action
+- `errorStateActionMessage` - Button text for error state action
+
+<KCardCatalog 
+  title="Catalog with error" 
+  :items="getItems(6)" 
+  :hasError="true"
+  errorStateTitle="Something went wrong"
+  errorStateMessage="We are not able to load the data for this table."
+  errorStateActionMessage="Report an Issue"
+  errorStateActionRoute="#error-state-full-example"
+  errorStateIcon="dangerCircle"
+  errorStateIconColor="#e6173a"
+  errorStateIconSize="35"
+/>
+
+```vue
+<!-- Using a route string -->
+<KCardCatalog 
+  title="Catalog with error" 
+  :items="getItems(6)" 
+  :hasError="true"
+  errorStateTitle="Something went wrong"
+  errorStateMessage="We are not able to load the data for this table."
+  errorStateActionMessage="Report an Issue"
+  errorStateActionRoute="#error-state-full-example"
+  errorStateIcon="dangerCircle"
+  errorStateIconColor="#e6173a"
+  errorStateIconSize="35"
+/>
+
+<!-- Using a route object -->
+<KCardCatalog 
+  title="Catalog with error" 
+  :items="getItems(6)" 
+  :hasError="true"
+  errorStateTitle="Something went wrong"
+  errorStateMessage="We are not able to load the data for this table."
+  errorStateActionMessage="Report an Issue"
+  errorStateActionRoute="{
+    name: 'report-issue',
+    params: {
+      organizationId: 'd27e40e0-c9ac-43e2-8be8-54862fab45ea'
+    }
+  }"
+  errorStateIcon="dangerCircle"
+  errorStateIconColor="#e6173a"
+  errorStateIconSize="35"
+/>
+```
+
+### Loading
+
+Set the `isLoading` prop to `true` to enable the loading state.
+
+<KCardCatalog title="Loading catalog" :items="getItems(6)" :isLoading="true" />
+
+```vue
+<KCardCatalog title="Loading catalog" :items="getItems(6)" :isLoading="true" />
 ```
 
 ## Slots
