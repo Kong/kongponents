@@ -115,46 +115,54 @@ The display type of the alert.
 
 <KAlert
   alert-message="I'm an alert"
+  dismissType="button"
   type="alert" />
 
 ```vue
 <KAlert
   alert-message="I'm an alert"
+  dismissType="button"
   type="alert" />
 ```
 
 <KAlert
   alert-message="I'm an alert"
+  dismissType="button"
   appearance="success"
   type="alert" />
 
 ```vue
 <KAlert
   alert-message="I'm an alert"
+  dismissType="button"
   appearance="success"
   type="alert" />
 ```
 
 <KAlert
   alert-message="I'm an alert"
+  dismissType="button"
   appearance="danger"
   type="alert" />
 
 ```vue
 <KAlert 
   alert-message="I'm an alert"
+  dismissType="button"
   appearance="danger"
   type="alert" />
 ```
 
 <KAlert
   alert-message="I'm an alert"
+  dismissType="button"
   appearance="warning"
   type="alert" />
 
 ```vue
 <KAlert
   alert-message="I'm an alert"
+  dismissType="button"
   appearance="warning"
   type="alert" />
 ```

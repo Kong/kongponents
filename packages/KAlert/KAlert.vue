@@ -266,7 +266,7 @@ export default {
   padding: 14px;
   font-family: inherit;
   font-size: 1rem;
-  border-radius: 3px;
+  border-radius: 4px;
   overflow-wrap: anywhere;
   a {
     text-decoration: underline;
@@ -275,7 +275,7 @@ export default {
   .close {
     position: absolute;
     top: 0;
-    right: 18px;
+    right: 8px;
     bottom: 0;
     border: 0;
     background-color: transparent;
@@ -323,6 +323,7 @@ export default {
   }
   &.large {
     min-height: 80px;
+    border-radius: 2px;
   }
   // Appearances
   &.info {
@@ -350,13 +351,12 @@ export default {
 div.k-alert.banner {
   background-color: var(--white);
   color: var(--grey-600);
-  position: relative;
   padding: 0;
 }
 
 button.close > svg {
   &.info {
-    stroke: var(--KAlertInfoColor, var(--blue-600, color(blue-600)));
+    stroke: var(--KAlertInfoColor, var(--blue-500, color(blue-500)));
   }
   &.success {
     stroke: var(--KAlertSuccessColor, var(--green-600, color(green-600)));
@@ -396,8 +396,8 @@ button.close > svg {
 
 .k-alert > div .k-alert-msg {
   font-weight: 400;
-  font-size: 16px;
-  line-height: 16px;
+  font-size: var(--type-md, type(md));
+  line-height: var(--type-md, type(md));
   padding: 2px 0;
   margin-left: 2px;
 }
@@ -417,8 +417,6 @@ button.close > svg {
     font-weight: 400;
     font-size: 13px;
     line-height: 13px;
-    position: relative;
-    cursor: pointer;
   }
 
   &.info button.primary {
@@ -429,9 +427,9 @@ button.close > svg {
   }
   &.info button.outline {
     color: var(--blue-500);
-    border: 1px solid var(--blue-200);
+    border: 1px solid var(--blue-400);
     --KButtonOutlineBorder: var(--blue-500);
-    --KButtonOutlineHoverBorder: var(--blue-500);
+    --KButtonOutlineHoverBorder: var(--blue-600);
      --KButtonOutlineActive: var(--blue-100);
     --KButtonOutlineActiveBorder: var(--blue-500);
   }
@@ -460,7 +458,7 @@ button.close > svg {
     border: 1px solid var(--green-400);
     --KButtonOutlineBorder: var(--green-600);
     --KButtonOutlineHoverBorder: var(--green-600);
-     --KButtonOutlineActive: var(--green-100);
+    --KButtonOutlineActive: var(--green-100);
     --KButtonOutlineActiveBorder: var(--green-600);
   }
   &.danger button.primary {
@@ -490,7 +488,7 @@ button.close > svg {
 
 .k-alert.banner.button > div .k-alert-msg.k-alert-text {
   padding-left: 0;
-  font-size: 16px;
+  font-size: var(--type-md, type(md));
   line-height: 24px;
 }
 
