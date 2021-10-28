@@ -115,6 +115,7 @@
 
 <script>
 import { uuid } from 'vue-uuid'
+import KButton from '@kongponents/kbutton/KButton.vue'
 import KIcon from '@kongponents/kicon/KIcon.vue'
 import KInput from '@kongponents/kinput/KInput.vue'
 import KLabel from '@kongponents/klabel/KLabel.vue'
@@ -131,7 +132,7 @@ const defaultKPopAttributes = {
 
 export default {
   name: 'KSelect',
-  components: { KIcon, KInput, KLabel, KPop, KSelectItem, KToggle },
+  components: { KButton, KIcon, KInput, KLabel, KPop, KSelectItem, KToggle },
   props: {
     kpopAttributes: {
       type: Object,
