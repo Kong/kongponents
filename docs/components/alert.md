@@ -13,7 +13,9 @@
 
 ### Appearances
 
-What color and purpose the Alert should be. Shares similar appearances to those of [KButton](/components/button).
+What color and purpose the Alert should be. Shares similar appearances to those of [KButton](/components/button).  
+
+> Note: `appearance` is `info` by default.
 
 - `info`
 - `warning`
@@ -159,7 +161,7 @@ The display type of the alert.
 
 ### Dismiss Type
 
-KAlert allows for dismissal of the banner using an icon or button. An alert is not dismissible if "none" is passed
+KAlert allows for dismissal of the banner using an icon or button. An alert is not dismissible if "none" is passed.
 
 - `none`
 - `icon`
@@ -251,7 +253,7 @@ KAlert allows for dismissal of the banner using an icon or button. An alert is n
 ```
 
 <KAlert 
-  alert-message="Alert with dismiss type as button TEST"
+  alert-message="Alert with dismiss type as button"
   type="banner" dismissType="button"
   :isShowing="dismissTypeBtn"
   @closed="dismissTypeBtn = false"/>
@@ -267,7 +269,9 @@ KAlert allows for dismissal of the banner using an icon or button. An alert is n
 
 ### Hide/Display
 
-Hides/display the alert. By default isShowing is set to true.  
+Set whether or not the alert box is shown.
+
+> Note: By default isShowing is set to true.  
 
 - `isShowing`
 
@@ -389,7 +393,7 @@ Controls size of alert.
 
 - `large`
 
-`size="large" type="banner"` allows further customization options. You can specify an icon to be displayed on the left in place of the colored ellipse using the `icon` property, description text to be displayed below the main alert message using the `description` property/slot and additional buttons using the `actionButtons` slot.
+`size="large" type="banner"` allows further customization options. You can specify an icon to be displayed on the left in place of the colored ellipse using the `icon` property, description text to be displayed below the main alert message using the `description` slot and additional buttons using the `actionButtons` slot.
 
 <KAlert
   type="banner"
@@ -409,6 +413,26 @@ Controls size of alert.
   </template>
 </KAlert>
 
+```vue
+<KAlert
+  type="banner"
+  dismissType="button"
+  appearance="warning"
+  icon="support"
+  size="large"
+  :isShowing="extraMsg"
+  @closed="extraMsg = false">
+  <template v-slot:actionButtons>
+    <KButton appearance="primary" size="small">Review</KButton></template>
+  <template v-slot:alertMessage>
+    You’ve had 12 new mentions since you last logged in
+  </template>
+  <template v-slot:description>
+    across 3 services
+  </template>
+</KAlert>
+```
+
 ### Fixed
 
 Fixes KAlert to the top of the container.
@@ -427,7 +451,7 @@ Fixes KAlert to the top of the container.
 
 - `actionButtons` - Slot specifically meant for adding buttons other than Dismiss button
 - `alertMessage` - Default message slot
-- `description` - Additional message slot available when alert type is banner, has *is-large* prop and the alertMessage slot is rendered
+- `description` - Additional message slot available when these conditions are met: `type='banner'`, `size='large'` and `alertMessage` slot is rendered
 
 
 <KAlert
@@ -460,26 +484,6 @@ Fixes KAlert to the top of the container.
     <KButton appearance="primary" size="small">Downgrade</KButton>
   </template>
 </KAlert>
-```
-
-```vue
-<KAlert 
-  type="banner" 
-  dismissType="button" 
-  appearance="warning" 
-  is-large 
-  :isShowing="extraMsg" 
-  @closed="extraMsg = false">
-  <template v-slot:actionButtons>
-    <KButton appearance="primary" size="small">Review</KButton>
-  </template>
-  <template v-slot:alertMessage>
-    You’ve had 12 new mentions since you last logged in
-  </template>
-  <template v-slot:description>
-    across 3 services
-  </template>
-</KAlert> 
 ```
 
 ## Variations
