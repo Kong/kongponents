@@ -69,8 +69,8 @@
       </span>
       <span
         v-if="type === 'banner' && (size === 'large') && hasAlertDescription"
-        class="k-alert-additional-text">
-        <!-- @slot Use this slot to pass additional alert message for wide alert  -->
+        class="k-alert-description-text">
+        <!-- @slot Use this slot to pass alert message description for large banner type alert  -->
         <slot name="description">{{ description }}
         </slot>
       </span>
@@ -177,7 +177,7 @@ export default {
       default: 'var(--red-500)'
     },
     /**
-    * Additional alert message
+    * Alert message description
     */
     description: {
       type: String,
@@ -346,6 +346,13 @@ export default {
     border-color: var(--KAlertWarningBorder, var(--yellow-200, color(yellow-200)));
     background-color: var(--KAlertWarningBackground, var(--yellow-100, color(yellow-100)));
   }
+  & > div .k-alert-msg {
+    font-weight: 400;
+    font-size: var(--type-md, type(md));
+    line-height: var(--type-md, type(md));
+    padding: 2px 0;
+    margin-left: 2px;
+  }
 }
 
 div.k-alert.banner {
@@ -392,14 +399,6 @@ button.close > svg {
 
 .k-alert-icon {
   padding: 23px 5px 25px 21px;
-}
-
-.k-alert > div .k-alert-msg {
-  font-weight: 400;
-  font-size: var(--type-md, type(md));
-  line-height: var(--type-md, type(md));
-  padding: 2px 0;
-  margin-left: 2px;
 }
 
 .toaster-item .k-alert .k-alert-msg {

@@ -101,7 +101,7 @@ describe('KAlert', () => {
 
     expect(wrapper.find('.k-alert-action').html()).toEqual(expect.stringContaining(actionButtons))
     expect(wrapper.find('.k-alert-msg').html()).toEqual(expect.stringContaining(alertMessage))
-    expect(wrapper.find('.k-alert-additional-text').html()).toEqual(expect.stringContaining(description))
+    expect(wrapper.find('.k-alert-description-text').html()).toEqual(expect.stringContaining(description))
     expect(wrapper.html()).toMatchSnapshot()
   })
 })

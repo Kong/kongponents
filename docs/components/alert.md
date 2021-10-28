@@ -459,7 +459,7 @@ Fixes KAlert to the top of the container.
 
 - `actionButtons` - Slot specifically meant for adding buttons other than Dismiss button
 - `alertMessage` - Default message slot
-- `description` - Additional message slot available when these conditions are met: `type='banner'`, `size='large'` and `alertMessage` slot is rendered
+- `description` - Alert message description slot available when these conditions are met: `type='banner'`, `size='large'` and `alertMessage` slot is rendered
 
 
 <KAlert
@@ -469,7 +469,7 @@ Fixes KAlert to the top of the container.
   :isShowing="extraBtnSlot"
   @closed="extraBtnSlot = false">
   <template v-slot:alertMessage>
-    I'm an alert with multiple buttons
+    I'm an alert with action buttons
   </template>
  <template v-slot:actionButtons>
     <KButton appearance="primary" size="small">Upgrade</KButton>
@@ -485,7 +485,7 @@ Fixes KAlert to the top of the container.
   :isShowing="extraBtnSlot" 
   @closed="extraBtnSlot = false">
     <template v-slot:alertMessage>
-    I'm an alert with multiple buttons
+    I'm an alert with action buttons
   </template>
  <template v-slot:actionButtons>
     <KButton appearance="primary" size="small">Upgrade</KButton>
