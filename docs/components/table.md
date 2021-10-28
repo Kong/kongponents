@@ -168,10 +168,6 @@ fetcher(pageSize = 10, page = 1, query = '', sortKey = '', sortOrder = '') {
 
 Pass in a string of search input for server-side table filtering.
 
-### page
-
-Pass in a page number for server-side pagination.
-
 ### pageSize
 
 Pass in a page size limit for server-side pagination.
@@ -794,24 +790,15 @@ https://kongponents.dev/api/components?_page=1&_limit=10&_sort=name&_order=desc
 
 <KCard class="mt-3">
   <template v-slot:body>
-    <KInput placeholder="Search..." v-model="search" type="search" />
+    <div class="table-heading d-flex align-items-center justify-content-between">
+      <div class="style-heading-2 flex-shrink-0 mr-4">Open Source Projects</div>
+      <KInput class="w-50" v-model="search" type="search" placeholder="Search..." />
+    </div>
     <KTable
       :fetcher="fetcher"
       :headers="headers"
-      :hasSideBorder="false"
-      :page="page"
       :search-input="search"
     />
-    <!-- Sample pagination until pagination component is complete -->
-    <div class="pagination d-flex align-items-center justify-content-between">
-      <div class="details type-md">
-        Page {{ page }} of 10
-      </div>
-      <div class="buttons">
-        <KButton @click="page--" :disabled="page === 1">Prev</KButton>
-        <KButton @click="page++" class="ml-4" :disabled="page === 10">Next</KButton>
-      </div>
-    </div>
   </template>
 </KCard>
 
@@ -827,30 +814,8 @@ https://kongponents.dev/api/components?_page=1&_limit=10&_sort=name&_order=desc
       :fetcher="fetcher"
       :headers="headers"
       :hasSideBorder="false"
-      :page="page"
       :search-input="search"
     />
-    <!-- Sample pagination until pagination component is complete -->
-    <div class="pagination d-flex align-items-center justify-content-between">
-      <div class="details type-md">
-        Page {{ page }} of 10
-      </div>
-      <div class="buttons">
-        <KButton
-          :disabled="page === 1"
-          @click="page--"
-        >
-          Prev
-        </KButton>
-        <KButton
-          :disabled="page === 10"
-          class="ml-4"
-          @click="page++"
-        >
-          Next
-        </KButton>
-      </div>
-    </div>
   </template>
 </KCard>
 ```
@@ -988,7 +953,7 @@ export default {
       page: 1,
       headers: [
         { key: 'name', label: 'Name', sortable: true },
-        { key: 'version', label: 'Current Version', sortable: true },
+        { key: 'version', label: 'Version', sortable: true },
         { key: 'contributors', label: 'Contributors', sortable: true },
         { key: 'git_sha', label: 'Latest Commit', sortable: true }
       ],
@@ -1105,7 +1070,12 @@ export default {
       return axios.get('/project_list', {
         baseURL: 'http://localhost:4001/api',
         params
-      }).then(res => res)
+      }).then(res => {
+        // Return total count in response object for pagination
+        res.total = Number(res.headers['x-total-count'])
+
+        return res
+      })
     }
   }
 }
@@ -1132,6 +1102,12 @@ export default {
     tr.disabled {
       --KTableHover: var(--yellow-100, #fff9e6);
       --KTableBorder: var(--yellow-200, #ffdc73);
+    }
+  }
+
+  .table-heading {
+    input {
+      width: 100%;
     }
   }
 </style>
