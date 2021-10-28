@@ -87,7 +87,7 @@ The label for the select.
 ```
 
 ### appearance
-There are two styles of selects, `select` and `dropdown` (default).
+There are three styles of selects, `select` and `dropdown` (default) which are filterable, and lastly `button` which is not.
 
 The `dropdown` appearance style has a selected item object. You can deselect the item by clicking
 the Clear icon.
@@ -139,6 +139,28 @@ way to clear the selection once it is made.
 />
 ```
 
+The `button` style triggers the dropdown on click and you cannot filter the entries.
+
+<KSelect appearance='button' width="250" :items="[{ 
+    label: 'Show 25 per page', 
+    value: '25'
+  }, { 
+    label: 'Show 50 per page', 
+    value: '50'
+  }]" 
+/>
+
+```vue
+<KSelect appearance='button' width="250" :items="[{ 
+    label: 'Show 25 per page', 
+    value: '25'
+  }, { 
+    label: 'Show 50 per page', 
+    value: '50'
+  }]" 
+/>
+```
+
 ### width
 You can pass a `width` string for dropdown. By default the `width` is `170px`. This is the width
 of the input, dropdown, and selected item.
@@ -173,3 +195,9 @@ You can pass any input attribute and it will get properly bound to the element.
 ```vue
 <KSelect disabled placeholder="type something" :items="[{ label: 'test', value: 'test' }]" />
 ```
+
+## Events
+
+| Event     | returns             |
+| :-------- | :------------------ |
+| `selected` | `selectedItem` Object |

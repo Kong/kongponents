@@ -92,7 +92,7 @@ describe('KSelect', () => {
     expect(selectLabel.text()).toEqual('Cool Beans!')
   })
 
-  it('renders with correct appearance', () => {
+  it('renders with correct appearance - select', () => {
     const wrapper = mount(KSelect, {
       propsData: {
         testMode: true,
@@ -105,6 +105,21 @@ describe('KSelect', () => {
     })
 
     expect(wrapper.find('.k-select-pop-select').exists()).toBe(true)
+  })
+
+  it('renders with correct appearance - button', () => {
+    const wrapper = mount(KSelect, {
+      propsData: {
+        testMode: true,
+        appearance: 'button',
+        items: [{
+          label: 'Label 1',
+          value: 'label1'
+        }]
+      }
+    })
+
+    expect(wrapper.find('.k-select-button').exists()).toBe(true)
   })
 
   it('reacts to text change and select', () => {

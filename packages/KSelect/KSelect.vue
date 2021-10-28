@@ -44,10 +44,26 @@
             if (selectedItem && appearance === 'select') {
               filterStr = selectedItem.label
             }
-            toggle()
+            if (isToggled) {
+              toggle()
+            }
           }"
         >
           <div
+            v-if="appearance === 'button'"
+            :id="selectInputId"
+            class="k-select-button"
+            data-testid="k-select-input"
+            style="position: relative;"
+            role="listbox">
+            <KButton
+              :is-open="isToggled"
+              :placeholder="placeholderText"
+              appearance="btn-link"
+              v-on="listeners">{{ selectedItem ? selectedItem.label : placeholderText }}</KButton>
+          </div>
+          <div
+            v-else
             :id="selectInputId"
             :class="{ 'k-select-input': appearance === 'select'}"
             data-testid="k-select-input"
@@ -63,7 +79,7 @@
               :id="selectTextId"
               v-bind="attrs"
               v-model="filterStr"
-              :placeholder="placeholder || attrs.placeholder"
+              :placeholder="placeholderText"
               class="k-select-input"
               v-on="listeners"
               @keyup="triggerFocus(isToggled)" />
@@ -134,7 +150,7 @@ export default {
     },
     placeholder: {
       type: String,
-      default: 'Filter...'
+      default: ''
     },
     /**
      * The display style, can be either dropdown or select
@@ -143,7 +159,7 @@ export default {
       type: String,
       default: 'dropdown',
       validator: function (value) {
-        return ['dropdown', 'select'].indexOf(value) !== -1
+        return ['dropdown', 'select', 'button'].indexOf(value) !== -1
       }
     },
     /**
@@ -203,6 +219,19 @@ export default {
     },
     filteredItems: function () {
       return this.items.filter(item => item.label.toLowerCase().includes(this.filterStr.toLowerCase()))
+    },
+    placeholderText () {
+      if (this.placeholder) {
+        return this.placeholder
+      } else if (this.attrs.placeholder) {
+        return this.attrs.placeholder
+      }
+
+      if (this.appearance === 'button') {
+        return 'Select an item'
+      }
+
+      return 'Filter...'
     }
   },
   beforeMount () {
@@ -232,6 +261,7 @@ export default {
         }
       })
       this.filterStr = this.appearance === 'dropdown' ? '' : item.label
+      this.$emit('selected', item)
     },
     clearSelection () {
       this.items.forEach(anItem => {
