@@ -12,8 +12,7 @@
       {'hasTopBorder':hasTopBorder},
       {'hasBottomBorder':hasBottomBorder},
       {'isCentered': isCentered},
-      {'isFixed': isFixed},
-      {'isLarge': isLarge}
+      {'isFixed': isFixed}
     ]"
     class="k-alert"
     role="alert"
@@ -35,14 +34,12 @@
       class="k-alert-action ml-3">
       <!-- @slot Use this slot to pass extra buttons other than Dismiss  -->
       <slot
-        v-if="hasExtraButtons && dismissType === 'button'"
-        name="extraButtons">
+        v-if="hasActionButtons && (dismissType === 'button' || dismissType ==='none')"
+        name="actionButtons">
         <KButton
           size="small"
           @click="proceed"
-          @keyup.enter="proceed">
-          {{ buttonText }}
-        </KButton>
+          @keyup.enter="proceed"/>
       </slot>
       <KButton
         v-if="dismissType === 'button'"
@@ -52,10 +49,10 @@
       </KButton>
     </div>
     <span
-      v-if="type === 'banner' && !isLarge"
+      v-if="(type === 'banner' && (size !== 'large'))"
       :class="appearance"
       class="k-alert-ellipse"/>
-    <span v-if="isLarge">
+    <span v-if="size === 'large'">
       <KIcon
         :size="iconSize"
         :color="iconColor"
@@ -64,17 +61,17 @@
     </span>
     <div class="k-alert-msg-text">
       <span
-        :class="type === 'banner' && isLarge ? 'k-alert-text' : ''"
+        :class="type === 'banner' && (size === 'large') ? 'k-alert-text' : ''"
         class="k-alert-msg">
         <!-- @slot Use this slot to pass default alert message  -->
         <slot name="alertMessage">{{ alertMessage }}
         </slot>
       </span>
       <span
-        v-if="type === 'banner' && isLarge && hasAdditionalTextMsg"
+        v-if="type === 'banner' && (size === 'large') && hasAlertDescription"
         class="k-alert-additional-text">
         <!-- @slot Use this slot to pass additional alert message for wide alert  -->
-        <slot name="additionalAlertMessage">{{ additionalAlertMessage }}
+        <slot name="description">{{ description }}
         </slot>
       </span>
     </div>
@@ -95,13 +92,6 @@ export default {
   name: 'KAlert',
   components: { KIcon, KButton },
   props: {
-    /**
-     * Title string if slot not used, also used for aria-label
-     */
-    title: {
-      type: String,
-      default: ''
-    },
     /**
     * Message to show in alert
     */
@@ -187,23 +177,9 @@ export default {
       default: 'var(--red-500)'
     },
     /**
-     * Set large alert box with icon/ellipse on left, alertMessage(default/additional) and buttons on right based on other passed props
-     */
-    isLarge: {
-      type: Boolean,
-      default: false
-    },
-    /**
     * Additional alert message
     */
-    additionalAlertMessage: {
-      type: String,
-      default: ''
-    },
-    /**
-    * Set text for extra buttons
-    */
-    buttonText: {
+    description: {
       type: String,
       default: ''
     },
@@ -227,7 +203,8 @@ export default {
       validator: (value) => {
         return [
           '',
-          'small'
+          'small',
+          'large'
         ].indexOf(value) !== -1
       }
     },
@@ -261,10 +238,10 @@ export default {
   },
 
   computed: {
-    hasExtraButtons () {
-      return !!this.$slots.extraButtons
+    hasActionButtons () {
+      return !!this.$slots.actionButtons
     },
-    hasAdditionalTextMsg () {
+    hasAlertDescription () {
       return !!this.$slots.alertMessage
     }
   },
@@ -344,7 +321,7 @@ export default {
     font-size: var(--type-sm, type(sm));
     padding: var(--spacing-sm, spacing(sm)) var(--spacing-xs, spacing(xs));
   }
-  &.isLarge {
+  &.large {
     min-height: 80px;
   }
   // Appearances

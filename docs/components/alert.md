@@ -46,23 +46,67 @@ What color and purpose the Alert should be. Shares similar appearances to those 
 ```
 
 ### Type
-What purpose the Alert should be.
+The display type of the alert.
 
 - `banner`
+
+`type="banner"` will have a white background and display an ellipse on the left to indicate appearance.
+
+> Note: By default `appearance="info"`. `appearance` will influence the colors of action/dismiss buttons.
+
+<KAlert alert-message="I'm a banner type alert" type="banner" />
+
+```vue
+<KAlert alert-message="I'm a banner type alert" type="banner" />
+```
+
+<KAlert alert-message="I'm a banner type alert" appearance="success" type="banner" />
+
+```vue
+<KAlert alert-message="I'm a banner type alert" appearance="success" type="banner" />
+```
+
+<KAlert alert-message="I'm a banner type alert" appearance="danger" type="banner" />
+
+```vue
+<KAlert alert-message="I'm a banner type alert" appearance="danger" type="banner" />
+```
+
+
+<KAlert alert-message="I'm a banner type alert" appearance="warning" type="banner" />
+
+```vue
+<KAlert alert-message="I'm a banner type alert" appearance="warning" type="banner" />
+```
+
 - `alert`
 
-<KAlert alert-message="I'm a banner type alert" type="banner" />
+`type="alert"` will have a background based on `appearance`.
 
-```vue
-<KAlert alert-message="I'm a banner type alert" type="banner" />
-```
+> Note: By default `appearance="info"`. `appearance` will influence the colors of action/dismiss buttons.
 
 <KAlert alert-message="I'm an alert" type="alert" />
 
 ```vue
 <KAlert alert-message="I'm an alert" type="alert" />
 ```
+<KAlert alert-message="I'm an alert" appearance="success" type="alert" />
 
+```vue
+<KAlert alert-message="I'm an alert" appearance="success" type="alert" />
+```
+
+<KAlert alert-message="I'm an alert" appearance="danger" type="alert" />
+
+```vue
+<KAlert alert-message="I'm an alert" appearance="danger" type="alert" />
+```
+
+<KAlert alert-message="I'm an alert" appearance="warning" type="alert" />
+
+```vue
+<KAlert alert-message="I'm an alert" appearance="warning" type="alert" />
+```
 ### Dismiss Type
 KAlert allows for dismissal of the banner using an icon or button. An alert is not dismissible if "none" is passed
 
@@ -100,7 +144,7 @@ KAlert allows for dismissal of the banner using an icon or button. An alert is n
   alert-message="Warning alert message that is dismissible" 
   appearance="warning" 
   type="alert" 
-  ismissType="icon" 
+  dismissType="icon" 
   :isShowing="warningIsOpen" 
   @closed="warningIsOpen = false" />
 
@@ -109,7 +153,7 @@ KAlert allows for dismissal of the banner using an icon or button. An alert is n
   alert-message="Warning alert message that is dismissible" 
   appearance="warning" 
   type="alert" 
-  ismissType="icon" 
+  dismissType="icon" 
   :isShowing="warningIsOpen" 
   @closed="warningIsOpen = false" />
 ```
@@ -151,7 +195,7 @@ KAlert allows for dismissal of the banner using an icon or button. An alert is n
   @closed="dangerIsOpen = false" />
 ```
 
-<KAlert alert-message="Alert with dismiss type as button" type="banner" dismissType="button" :isShowing="dismissTypeBtn" @closed="dismissTypeBtn = false"/>
+<KAlert alert-message="Alert with dismiss type as button TEST" type="banner" dismissType="button" :isShowing="dismissTypeBtn" @closed="dismissTypeBtn = false"/>
 
 ```vue
 <KAlert 
@@ -160,6 +204,25 @@ KAlert allows for dismissal of the banner using an icon or button. An alert is n
   dismissType="button" 
   :isShowing="dismissTypeBtn" 
   @closed="defaultIdismissTypeBtnsOpen = false"/>
+```
+
+### Hide/Display
+Hides/display the alert. By default isShowing is set to true.  
+- `isShowing` 
+
+<KAlert
+  alert-message="isShowing: true by default"/>
+```vue
+<KAlert
+  alert-message="isShowing: true by default"/>
+```
+
+<KAlert
+  :is-showing=false
+  alert-message="isShowing set to false"/>
+```vue
+<KAlert
+  alert-message="isShowing set to false"/>
 ```
 
 ### Bordered
@@ -239,7 +302,7 @@ Adds border to the bottom.
 ```
 
 ### Size
-Controls size of alert. Currently only *small* is supported.
+Controls size of alert.
 
 - `small`
 
@@ -255,6 +318,29 @@ Controls size of alert. Currently only *small* is supported.
   alert-message="Small alert"/>
 ```
 
+- `large`
+
+`size="large" type="banner"` allows further customization options. You can specify an icon to be displayed on the left in place of the colored ellipse using the `icon` property, description text to be displayed below the main alert message using the `description` property/slot and additional buttons using the `actionButtons` slot.
+
+<KAlert 
+  type="banner" 
+  dismissType="button" 
+  appearance="warning" 
+  icon="support" 
+  size="large"
+  :isShowing="extraMsg" 
+  @closed="extraMsg = false">
+  <template v-slot:actionButtons>
+    <KButton appearance="primary" size="small">Review</KButton>
+  </template>
+  <template v-slot:alertMessage>
+    You’ve had 12 new mentions since you last logged in
+  </template>
+  <template v-slot:description>
+    across 3 services
+  </template>
+</KAlert>
+
 ### Fixed
 Fixes KAlert to the top of the container.
 
@@ -268,54 +354,10 @@ Fixes KAlert to the top of the container.
   alert-message="Info bordered"/>
 ```
 
-### Large
-To have an icon on the left(customizable), alertmessage(default/additional), along with the buttons on right, KAlert has to have: <br>*is-large**<br>*dismissType="button"*<br>*type="banner"* <br><br>
-To have an ellipse on left, alertmessage(default), along with the buttons on right, KAlert has to have: <br>*is-large*<br>*type="banner"*
-
-- `is-large`
-
-<KAlert 
-  type="banner" 
-  dismissType="button" 
-  appearance="warning" 
-  icon="support" 
-  is-large
-  :isShowing="extraMsg" 
-  @closed="extraMsg = false">
-  <template v-slot:extraButtons>
-    <KButton appearance="primary" size="small">Review</KButton>
-  </template>
-  <template v-slot:alertMessage>
-    You’ve had 12 new mentions since you last logged in
-  </template>
-  <template v-slot:additionalAlertMessage>
-    across 3 services
-  </template>
-</KAlert>
-
-```vue
-<KAlert 
-  type="banner" 
-  dismissType="button" 
-  appearance="warning" 
-  is-large 
-  icon="support" >
-  <template v-slot:extraButtons>
-    <KButton appearance="primary" size="small">Review</KButton>
-  </template>
-  <template v-slot:alertMessage>
-    You’ve had 12 new mentions since you last logged in
-  </template>
-  <template v-slot:additionalAlertMessage>
-    across 3 services
-  </template>
-</KAlert> 
-```
-
 ## Slots
-- `extraButtons` - Slot specifically meant for adding buttons other than Dismiss button
+- `actionButtons` - Slot specifically meant for adding buttons other than Dismiss button
 - `alertMessage` - Default message slot
-- `additionalAlertMessage` - Additional message slot available when alert type is banner, has *is-large* prop and the alertMessage slot is rendered
+- `description` - Additional message slot available when alert type is banner, has *is-large* prop and the alertMessage slot is rendered
 
 
 <KAlert 
@@ -327,7 +369,7 @@ To have an ellipse on left, alertmessage(default), along with the buttons on rig
   <template v-slot:alertMessage>
     I'm an alert with multiple buttons
   </template>
- <template v-slot:extraButtons>
+ <template v-slot:actionButtons>
     <KButton appearance="primary" size="small">Upgrade</KButton>
     <KButton appearance="primary" size="small">Downgrade</KButton>
   </template>
@@ -343,30 +385,30 @@ To have an ellipse on left, alertmessage(default), along with the buttons on rig
     <template v-slot:alertMessage>
     I'm an alert with multiple buttons
   </template>
- <template v-slot:extraButtons>
+ <template v-slot:actionButtons>
     <KButton appearance="primary" size="small">Upgrade</KButton>
     <KButton appearance="primary" size="small">Downgrade</KButton>
   </template>
 </KAlert>
 ```
 
-<KAlert 
+<!-- <KAlert 
   type="banner" 
   dismissType="button" 
   appearance="warning" 
   is-large 
   :isShowing="extraMsg" 
   @closed="extraMsg = false">
-  <template v-slot:extraButtons>
+  <template v-slot:actionButtons>
     <KButton appearance="primary" size="small">Review</KButton>
   </template>
   <template v-slot:alertMessage>
     You’ve had 12 new mentions since you last logged in
   </template>
-  <template v-slot:additionalAlertMessage>
+  <template v-slot:description>
     across 3 services
   </template>
-</KAlert>
+</KAlert> -->
 
 ```vue
 <KAlert 
@@ -376,13 +418,13 @@ To have an ellipse on left, alertmessage(default), along with the buttons on rig
   is-large 
   :isShowing="extraMsg" 
   @closed="extraMsg = false">
-  <template v-slot:extraButtons>
+  <template v-slot:actionButtons>
     <KButton appearance="primary" size="small">Review</KButton>
   </template>
   <template v-slot:alertMessage>
     You’ve had 12 new mentions since you last logged in
   </template>
-  <template v-slot:additionalAlertMessage>
+  <template v-slot:description>
     across 3 services
   </template>
 </KAlert> 
