@@ -74,34 +74,34 @@ describe('KAlert', () => {
     const wrapperLargeAlert = mount(KAlert, {
       propsData: {
         message: 'Hello world',
-        isLarge: true
+        size: 'large'
       }
     })
 
-    expect(wrapperLargeAlert.attributes('class')).toContain('isLarge')
+    expect(wrapperLargeAlert.attributes('class')).toContain('large')
   })
 
   it('renders slots when passed', () => {
-    const extraButtons = 'Extra button'
+    const actionButtons = 'Action button'
     const alertMessage = 'Hello World'
-    const additionalAlertMessage = 'I am an alert'
+    const description = 'I am an alert'
     const wrapper = mount(KAlert, {
       propsData: {
         dismissType: 'button',
-        isLarge: true,
-        hasExtraButtons: true,
+        size: 'large',
+        hasActionButtons: true,
         type: 'banner'
       },
       slots: {
-        'extraButtons': `<span>${extraButtons}</span>`,
+        'actionButtons': `<span>${actionButtons}</span>`,
         'alertMessage': `<span>${alertMessage}</span>`,
-        'additionalAlertMessage': `<span>${additionalAlertMessage}</span>`
+        'description': `<span>${description}</span>`
       }
     })
 
-    expect(wrapper.find('.k-alert-action').html()).toEqual(expect.stringContaining(extraButtons))
+    expect(wrapper.find('.k-alert-action').html()).toEqual(expect.stringContaining(actionButtons))
     expect(wrapper.find('.k-alert-msg').html()).toEqual(expect.stringContaining(alertMessage))
-    expect(wrapper.find('.k-alert-additional-text').html()).toEqual(expect.stringContaining(additionalAlertMessage))
+    expect(wrapper.find('.k-alert-additional-text').html()).toEqual(expect.stringContaining(description))
     expect(wrapper.html()).toMatchSnapshot()
   })
 })
