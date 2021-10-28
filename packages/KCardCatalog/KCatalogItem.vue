@@ -96,7 +96,7 @@ export default {
 </script>
 
 <style lang="scss">
-.kong-card {
+.k-card-catalog-item.kong-card {
   --KCardBorderRadius: 5px;
   --KCardPaddingY: var(--spacing-lg);
   --KCardPaddingX: var(--spacing-md);
