@@ -57,10 +57,13 @@
             style="position: relative;"
             role="listbox">
             <KButton
+              :id="selectTextId"
               :is-open="isToggled"
               :placeholder="placeholderText"
+              :is-rounded="false"
               appearance="btn-link"
-              v-on="listeners">{{ selectedItem ? selectedItem.label : placeholderText }}</KButton>
+              v-on="listeners"
+              @keyup="triggerFocus(isToggled)">{{ selectedItem ? selectedItem.label : placeholderText }}</KButton>
           </div>
           <div
             v-else
