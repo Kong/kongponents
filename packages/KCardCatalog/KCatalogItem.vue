@@ -4,6 +4,7 @@
     :to="locationParam">
     <KCard
       :data-testid="item ? `${item.title.replace(' ', '-')}-catalog-item` : 'catalog-item'"
+      :test-mode="testMode"
       class="grid-item d-flex flex-column overflow-hidden k-card-catalog-item"
       has-hover
       role="button"
@@ -29,6 +30,7 @@
   <KCard
     v-else
     :data-testid="item ? `${item.title.replace(' ', '-')}-catalog-item` : 'catalog-item'"
+    :test-mode="testMode"
     class="grid-item d-flex flex-column overflow-hidden k-card-catalog-item"
     has-hover
     role="button"
@@ -73,6 +75,13 @@ export default {
     truncate: {
       type: Boolean,
       default: true
+    },
+    /**
+     * Test mode - for testing only, strips out generated ids
+     */
+    testMode: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {

@@ -51,7 +51,7 @@
       </template>
     </KEmptyState>
     <KEmptyState
-      v-else-if="!hasError && !items.length"
+      v-else-if="!hasError && !items.length && !$scopedSlots.body"
       :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
       :icon="emptyStateIcon || ''"
       :icon-color="emptyStateIconColor"
@@ -80,6 +80,7 @@
           :item="item"
           :location-param="item.locationParam ? item.locationParam : ''"
           :truncate="!noTruncation"
+          :test-mode="testMode"
           class="catalog-item"
         />
       </slot>
@@ -116,18 +117,30 @@ export default {
       type: Boolean,
       default: false
     }, */
+    /**
+     * A prop to pass in to display skeleton to indicate loading
+     */
     isLoading: {
       type: Boolean,
       default: false
     },
     cardSize: {
       type: String,
-      default: 'medium'
+      default: 'medium',
+      validator: function (value) {
+        return ['small', 'medium', 'large'].indexOf(value) !== -1
+      }
     },
+    /**
+     * Card catalog title
+     */
     title: {
       type: String,
       default: ''
     },
+    /**
+     * Disable truncation of the KCard's 'description'
+     */
     noTruncation: {
       type: Boolean,
       default: false
@@ -236,6 +249,14 @@ export default {
     errorStateIconSize: {
       type: String,
       default: '50'
+    },
+
+    /**
+     * Test mode - for testing only, strips out generated ids
+     */
+    testMode: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {

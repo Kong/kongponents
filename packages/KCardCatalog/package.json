@@ -21,5 +21,10 @@
   "homepage": "https://github.com/Kong/kongponents#readme",
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@kongponents/kcard": "^5.0.5",
+    "@kongponents/kemptystate": "^5.0.5",
+    "@kongponents/kskeleton": "^5.0.5"
   }
 }
