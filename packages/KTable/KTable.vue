@@ -98,7 +98,7 @@
 <script>
 import KEmptyState from '@kongponents/kemptystate/KEmptyState.vue'
 import KSkeleton from '@kongponents/kskeleton/KSkeleton.vue'
-import { useRequest, useDebounce } from '../utils/utils'
+import { useRequest, useDebounce } from '../../utils/utils'
 
 import Vue from 'vue'
 import VueCompositionAPI, { computed, defineComponent, onMounted, ref, watch } from '@vue/composition-api'
