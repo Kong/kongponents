@@ -1,5 +1,7 @@
 <template>
-  <div class="k-input-wrapper">
+  <div
+    :class="{'input-error' : hasError}"
+    class="k-input-wrapper">
     <input
       v-if="!label"
       v-bind="attrs"
@@ -18,7 +20,7 @@
       <div class="text-on-input">
         <label
           :for="inputId"
-          :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled }">
+          :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, error: hasError }">
           <span>{{ label }}</span>
         </label>
         <input
@@ -38,11 +40,15 @@
           v-on="listeners">
       </div>
     </div>
-
     <p
       v-if="help"
       class="help">
       {{ help }}
+    </p>
+    <p
+      v-if="hasError"
+      class="has-error">
+      {{ errorMessage }}
     </p>
   </div>
 </template>
@@ -53,6 +59,14 @@ import { uuid } from 'vue-uuid'
 export default {
   name: 'KInput',
   props: {
+    hasError: {
+      type: Boolean,
+      default: false
+    },
+    errorMessage: {
+      type: String,
+      default: ''
+    },
     value: {
       type: String,
       default: ''
@@ -117,5 +131,46 @@ export default {
   margin: var(--spacing-xs, spacing(xs)) 0 0;
   font-size: var(--type-sm, type(sm));
   color: var(--black-45, color(black-45));
+}
+
+.has-error {
+  font-weight: 500;
+  color: var(--red-500);
+}
+
+.k-input-wrapper > .k-input-label-large + .has-error {
+  font-size: 12px;
+  line-height: 15px;
+  margin-top: 4px;
+}
+
+.k-input-wrapper > .k-input-label-medium + .has-error {
+  font-size: 10px;
+  line-height: 13px;
+  margin-top: 3px;
+}
+
+.k-input-wrapper > .k-input-label-small + .has-error {
+  font-size: 9px;
+  line-height: 11px;
+  margin-top: 2px;
+}
+
+.k-input-wrapper > .k-input-large + .has-error {
+  font-size: 12px;
+  line-height: 15px;
+  margin-top: 4px;
+}
+
+.k-input-wrapper > .k-input-medium + .has-error {
+  font-size: 10px;
+  line-height: 13px;
+  margin-top: 3px;
+}
+
+.k-input-wrapper > .k-input-small + .has-error {
+  font-size: 9px;
+  line-height: 11px;
+  margin-top: 2px;
 }
 </style>
