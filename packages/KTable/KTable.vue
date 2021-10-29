@@ -53,7 +53,7 @@
             <th
               v-for="(column, index) in tableHeaders"
               :key="index"
-              :class="{'sortable': !column.hideLabel && column.sortable, [sortOrder]: column.key === sortKey && !column.hideLabel}"
+              :class="{'sortable': !column.hideLabel && column.sortable, [sortColumnOrder]: column.key === sortColumnKey && !column.hideLabel}"
               @click="column.sortable && sortClickHandler(column.key)"
             >
               <slot
@@ -120,7 +120,7 @@
 <script>
 import KEmptyState from '@kongponents/kemptystate/KEmptyState.vue'
 import KSkeleton from '@kongponents/kskeleton/KSkeleton.vue'
-import { useRequest, useDebounce } from '../../utils/utils'
+import { clientSideSorter, useDebounce, useRequest } from '../../utils/utils'
 
 import Vue from 'vue'
 import VueCompositionAPI, { computed, defineComponent, onMounted, ref, watch } from '@vue/composition-api'
@@ -128,24 +128,15 @@ import VueCompositionAPI, { computed, defineComponent, onMounted, ref, watch } f
 Vue.use(VueCompositionAPI)
 
 /**
- * Grabs listeners from this.$listeners matching a prefix to attach the
- * event that is dynamic. e.g. `v-on:cell:click`, `@row:focus` etc.
- * @param {String} prefix - event listener prefix e.g. `row:`, `cell:`
- * @param {any} $listeners - this.$listeners on the vue instance to pluck from
- * @returns {Function} - returns a function that can pass an entity to the
-                         listener callback function.
+ * @deprecated
+ * @param {String} key - the current key to sort by
+ * @param {String} previousKey - the previous key used to sort by
+ * @param {String} sortOrder - either ascending or descending
+ * @param {Array} items - the list of items to sort
+ * @return {Object} an object containing the previousKey and sortOrder
  */
-function pluckListeners (prefix, $listeners) {
-  return (entity, type) =>
-    Object.keys($listeners).reduce((acc, curr) => {
-      if (curr.indexOf(prefix) === 0) {
-        const parts = curr.split(prefix)
-
-        acc[parts[1]] = (e) => $listeners[curr](e, entity, type)
-      }
-
-      return acc
-    }, {})
+export const defaultSorter = (key, previousKey, sortOrder, items) => {
+  return clientSideSorter(key, previousKey, sortOrder, items)
 }
 
 export default defineComponent({
@@ -156,6 +147,7 @@ export default defineComponent({
   },
   props: {
     /**
+     * @deprecated in favor of the "fetcher" prop
      * Object containing data which creates rows and columns.
      * @param {Object} options - Options to initialize the component with
      * @param {Array} options.headers - Array of Objects defining Table Headers
@@ -187,22 +179,24 @@ export default defineComponent({
       default: false
     },
     /**
+     * @deprecated
      * the sort order for the table.
      */
-    // sortOrder: {
-    //   type: String,
-    //   default: 'ascending',
-    //   validator: function (value) {
-    //     return ['ascending', 'descending'].indexOf(value) > -1
-    //   }
-    // },
+    sortOrder: {
+      type: String,
+      default: 'ascending',
+      validator: function (value) {
+        return ['ascending', 'descending'].indexOf(value) > -1
+      }
+    },
     /**
+     * @deprecated
      * the key of the column that's currently being sorted
      */
-    // sortKey: {
-    //   type: String,
-    //   default: ''
-    // },
+    sortKey: {
+      type: String,
+      default: ''
+    },
     /**
      * A function that conditionally specifies row attributes on each row
      */
@@ -369,10 +363,32 @@ export default defineComponent({
   setup (props, ctx) {
     const data = ref([])
     const tableHeaders = ref([])
-    const sortKey = ref('')
-    const sortOrder = ref('desc')
+    // Need to rename the following two based on conflicting props
+    const sortColumnKey = ref('')
+    const sortColumnOrder = ref('desc')
     const page = ref(1)
     const total = ref(10)
+
+    /**
+     * Grabs listeners from this.$listeners matching a prefix to attach the
+     * event that is dynamic. e.g. `v-on:cell:click`, `@row:focus` etc.
+     * @param {String} prefix - event listener prefix e.g. `row:`, `cell:`
+     * @param {any} $listeners - this.$listeners on the vue instance to pluck from
+     * @returns {Function} - returns a function that can pass an entity to the
+                             listener callback function.
+    */
+    function pluckListeners (prefix, $listeners) {
+      return (entity, type) =>
+        Object.keys($listeners).reduce((acc, curr) => {
+          if (curr.indexOf(prefix) === 0) {
+            const parts = curr.split(prefix)
+
+            acc[parts[1]] = (e) => $listeners[curr](e, entity, type)
+          }
+
+          return acc
+        }, {})
+    }
 
     const tdlisteners = computed(() => {
       return pluckListeners('cell:', ctx.listeners)
@@ -398,8 +414,8 @@ export default defineComponent({
         props.pageSize,
         page.value,
         query.value || props.searchInput,
-        sortKey.value,
-        sortOrder.value
+        sortColumnKey.value,
+        sortColumnOrder.value
       )
 
       data.value = fetcherData
@@ -407,6 +423,14 @@ export default defineComponent({
     }
 
     const initData = async () => {
+      if (props.sortKey) {
+        sortColumnKey.value = props.sortKey
+      }
+
+      if (props.sortOrder) {
+        sortColumnOrder.value = props.sortOrder
+      }
+
       if (props.fetcher) {
         fetchData()
       } else if (props.options && props.options.data && props.options.data.length) {
@@ -428,8 +452,8 @@ export default defineComponent({
     )
 
     const sortClickHandler = (key) => {
-      sortKey.value = key
-      sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc'
+      sortColumnKey.value = key
+      sortColumnOrder.value = sortColumnOrder.value === 'asc' ? 'desc' : 'asc'
 
       revalidate()
     }
@@ -462,8 +486,8 @@ export default defineComponent({
       page,
       paginationClickHandler,
       sortClickHandler,
-      sortKey,
-      sortOrder,
+      sortColumnKey,
+      sortColumnOrder,
       tableHeaders,
       tdlisteners,
       total,
