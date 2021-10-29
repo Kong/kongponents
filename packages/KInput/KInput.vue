@@ -20,7 +20,7 @@
       <div class="text-on-input">
         <label
           :for="inputId"
-          :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, error: hasError }">
+          :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled }">
           <span>{{ label }}</span>
         </label>
         <input
