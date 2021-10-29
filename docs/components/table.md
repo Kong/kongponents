@@ -168,10 +168,6 @@ fetcher(pageSize = 10, page = 1, query = '', sortKey = '', sortOrder = '') {
 
 Pass in a string of search input for server-side table filtering.
 
-### page
-
-Pass in a page number for server-side pagination.
-
 ### pageSize
 
 Pass in a page size limit for server-side pagination.
@@ -798,20 +794,8 @@ https://kongponents.dev/api/components?_page=1&_limit=10&_sort=name&_order=desc
     <KTable
       :fetcher="fetcher"
       :headers="headers"
-      :hasSideBorder="false"
-      :page="page"
       :search-input="search"
     />
-    <!-- Sample pagination until pagination component is complete -->
-    <div class="pagination d-flex align-items-center justify-content-between">
-      <div class="details type-md">
-        Page {{ page }} of 10
-      </div>
-      <div class="buttons">
-        <KButton @click="page--" :disabled="page === 1">Prev</KButton>
-        <KButton @click="page++" class="ml-4" :disabled="page === 10">Next</KButton>
-      </div>
-    </div>
   </template>
 </KCard>
 
@@ -826,8 +810,6 @@ https://kongponents.dev/api/components?_page=1&_limit=10&_sort=name&_order=desc
     <KTable
       :fetcher="fetcher"
       :headers="headers"
-      :hasSideBorder="false"
-      :page="page"
       :search-input="search"
     />
     <!-- Sample pagination until pagination component is complete -->
@@ -1105,7 +1087,12 @@ export default {
       return axios.get('/project_list', {
         baseURL: 'http://localhost:4001/api',
         params
-      }).then(res => res)
+      }).then(res => {
+        // return total count in response for pagination
+        res.total = res.headers['x-total-count']
+
+        return res
+      })
     }
   }
 }

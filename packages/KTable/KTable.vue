@@ -43,56 +43,78 @@
       </KButton>
     </template>
   </KEmptyState>
-  <table
-    v-else
-    :class="{'has-hover': hasHover, 'is-small': isSmall, 'is-clickable': isClickable, 'side-border': hasSideBorder}"
-    class="k-table">
-    <thead>
-      <tr>
-        <template>
-          <th
-            v-for="(column, index) in tableHeaders"
-            :key="index"
-            :class="{'sortable': !column.hideLabel && column.sortable, [sortOrder]: column.key === sortKey && !column.hideLabel}"
-            @click="column.sortable && sortClickHandler(column.key)"
-          >
-            <slot
-              :name="`column-${column.key}`"
-              :column="column">
-              <span
-                :class="{'sr-only': column.hideLabel}"
-              >
-                {{ column.label ? column.label : column.key }}
-              </span>
-            </slot>
-          </th>
-        </template>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        v-for="(row, rowIndex) in data"
-        :key="rowIndex"
-        v-bind="rowAttrs(row)"
-        v-on="trlisteners(row, 'row')"
-      >
-        <template>
-          <td
-            v-for="(value, index) in tableHeaders"
-            :key="index"
-            v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
-            v-on="tdlisteners(row[value.key], 'cell')"
-          >
-            <slot
-              :name="value.key"
-              :row="row"
-              :rowKey="rowIndex"
-              :rowValue="row[value.key]">{{ row[value.key] }}</slot>
-          </td>
-        </template>
-      </tr>
-    </tbody>
-  </table>
+  <section v-else>
+    <table
+      :class="{'has-hover': hasHover, 'is-small': isSmall, 'is-clickable': isClickable, 'side-border': hasSideBorder}"
+      class="k-table">
+      <thead>
+        <tr>
+          <template>
+            <th
+              v-for="(column, index) in tableHeaders"
+              :key="index"
+              :class="{'sortable': !column.hideLabel && column.sortable, [sortOrder]: column.key === sortKey && !column.hideLabel}"
+              @click="column.sortable && sortClickHandler(column.key)"
+            >
+              <slot
+                :name="`column-${column.key}`"
+                :column="column">
+                <span
+                  :class="{'sr-only': column.hideLabel}"
+                >
+                  {{ column.label ? column.label : column.key }}
+                </span>
+              </slot>
+            </th>
+          </template>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="(row, rowIndex) in data"
+          :key="rowIndex"
+          v-bind="rowAttrs(row)"
+          v-on="trlisteners(row, 'row')"
+        >
+          <template>
+            <td
+              v-for="(value, index) in tableHeaders"
+              :key="index"
+              v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
+              v-on="tdlisteners(row[value.key], 'cell')"
+            >
+              <slot
+                :name="value.key"
+                :row="row"
+                :rowKey="rowIndex"
+                :rowValue="row[value.key]">{{ row[value.key] }}</slot>
+            </td>
+          </template>
+        </tr>
+      </tbody>
+    </table>
+    <!-- Temp pagination until pagination component is complete -->
+    <div class="pagination d-flex align-items-center justify-content-between">
+      <div class="details type-md">
+        Page {{ page }} of {{ totalPages }}
+      </div>
+      <div class="buttons">
+        <KButton
+          :disabled="page === 1"
+          @click="paginationClickHandler('prev')"
+        >
+          Prev
+        </KButton>
+        <KButton
+          :disabled="page === 10 || page === totalPages"
+          class="ml-4"
+          @click="paginationClickHandler('next')"
+        >
+          Next
+        </KButton>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -330,13 +352,6 @@ export default defineComponent({
       default: ''
     },
     /**
-     * A prop to pass in a page number for server-side pagination
-     */
-    page: {
-      type: Number,
-      default: 1
-    },
-    /**
      * A prop to pass in a page size number for server-side pagination
      */
     pageSize: {
@@ -356,6 +371,8 @@ export default defineComponent({
     const tableHeaders = ref([])
     const sortKey = ref('')
     const sortOrder = ref('desc')
+    const page = ref(1)
+    const total = ref(10)
 
     const tdlisteners = computed(() => {
       return pluckListeners('cell:', ctx.listeners)
@@ -376,17 +393,22 @@ export default defineComponent({
       }
     })
 
-    const setData = async () => {
-      if (props.fetcher) {
-        const { data: fetcherData } = await props.fetcher(
-          props.pageSize,
-          props.page,
-          query.value || props.searchInput,
-          sortKey.value,
-          sortOrder.value
-        )
+    const fetchData = async () => {
+      const { data: fetcherData, total: totalCount } = await props.fetcher(
+        props.pageSize,
+        page.value,
+        query.value || props.searchInput,
+        sortKey.value,
+        sortOrder.value
+      )
 
-        data.value = fetcherData
+      data.value = fetcherData
+      total.value = totalCount
+    }
+
+    const initData = async () => {
+      if (props.fetcher) {
+        fetchData()
       } else if (props.options && props.options.data && props.options.data.length) {
         data.value = props.options.data
       }
@@ -401,31 +423,9 @@ export default defineComponent({
     const { query, search } = useDebounce('', 350)
     const { revalidate } = useRequest(
       () => props.fetcher && `k-table_${Math.floor(Math.random() * 1000)}`,
-      async () => {
-        const { data: fetcherData } = await props.fetcher(
-          props.pageSize,
-          props.page,
-          query.value || props.searchInput,
-          sortKey.value,
-          sortOrder.value
-        )
-
-        data.value = fetcherData
-      },
+      () => fetchData(),
       { revalidateOnFocus: false }
     )
-
-    watch(() => query.value, () => {
-      revalidate()
-    }, { immediate: true })
-
-    watch(() => props.searchInput, (val) => {
-      search(val)
-    }, { immediate: true })
-
-    watch(() => [props.page], () => {
-      revalidate()
-    }, { immediate: true })
 
     const sortClickHandler = (key) => {
       sortKey.value = key
@@ -434,17 +434,40 @@ export default defineComponent({
       revalidate()
     }
 
+    const paginationClickHandler = (direction) => {
+      if (direction === 'next' && page.value < 10) {
+        page.value++
+      } else if (direction === 'prev' && page.value > 1) {
+        page.value--
+      }
+    }
+
+    // TEMP
+    const totalPages = computed(() => Math.ceil(total.value / props.pageSize))
+
+    watch(() => props.searchInput, (val) => {
+      search(val)
+    }, { immediate: true })
+
+    watch(() => [page.value, query.value], () => {
+      revalidate()
+    }, { immediate: true })
+
     onMounted(() => {
-      setData()
+      initData()
     })
 
     return {
       data,
+      page,
+      paginationClickHandler,
       sortClickHandler,
       sortKey,
       sortOrder,
       tableHeaders,
       tdlisteners,
+      total,
+      totalPages,
       trlisteners
     }
   }
