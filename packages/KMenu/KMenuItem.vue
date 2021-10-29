@@ -1,56 +1,59 @@
 <template>
-  <li
-    :class="{'expand-item':!item.expandable}"
+  <div
+    :class="{'expand-item':item.expandable}"
     :key="item.key"
-    :data-testid="`k-menu-item-${item.value}`"
-  >
-    <div
-      class="menu-title"
-      @click="isOpen = !isOpen">
-      <span
-        :class="isOpen && item.expandable ? 'title-dark' : ''"
-        class="span-menu-title">
-        <slot name="menuTitle"> {{ item.title }}
+    class="k-menu-item">
+    <li>
+      <div
+        class="menu-title"
+        @click="isOpen = !isOpen">
+        <span
+          :class="isOpen && item.expandable ? 'title-dark' : ''"
+          class="span-menu-title">
+          <slot name="menuTitle"> {{ item.title }}
+          </slot>
+        </span>
+        <span
+          class="span-icon-container">
+          <KIcon
+            v-if="item.expandable"
+            :icon="isOpen ? 'chevronUp' : 'chevronDown'"
+            color="var(--grey-400)"
+            size="16"
+          />
+        </span>
+        <slot/>
+      </div>
+      <div
+        :class="isOpen ? 'd-block' : 'd-none'"
+        class="menu-content">
+        <slot
+          v-if="item.type === 'string'"
+          name="stringMenuItem">
+          <KEmptyState cta-is-hidden>
+            <template v-slot:title>{{ `String Content` }}</template>
+          </KEmptyState>
         </slot>
-      </span>
-      <span
-
-        class="span-icon-container">
-        <KIcon
-          v-if="item.expandable"
-          :icon="isOpen ? 'chevronUp' : 'chevronDown'"
-          color="var(--grey-400)"
-          size="16"
-        />
-      </span>
-      <slot/>
-    </div>
-    <div
-      :class="isOpen ? 'd-block' : 'd-none'"
-      class="menu-content">
-      <slot
-        v-if="item.itemType === 'String'"
-        name="menuContent"> {{ item.itemType }}
-      </slot>
-      <slot
-        v-else
-        name="menuContent"> {{ item.itemType }}
-      </slot>
-    </div>
-    <slot
-      v-if="!menuDivider"
-      name="menuDivider"><KMenuDivider/>
-    </slot>
-  </li>
+        <slot
+          v-if="item.type === 'number'"
+          name="numberMenuItem">
+          <KEmptyState cta-is-hidden>
+            <template v-slot:title>{{ `Number Content` }}</template>
+          </KEmptyState>
+        </slot>
+      </div>
+    </li>
+  </div>
 </template>
 
 <script>
+import KEmptyState from '@kongponents/kemptystate/KEmptyState.vue'
 import KMenuDivider from './KMenuDivider.vue'
 import KIcon from '@kongponents/kicon/KIcon.vue'
 
 export default {
   name: 'KMenuItem',
-  components: { KMenuDivider, KIcon },
+  components: { KMenuDivider, KIcon, KEmptyState },
   props: {
     item: {
       type: Object,
@@ -71,9 +74,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-li {
+.k-menu-item {
   margin: 0;
-  cursor: pointer;
   white-space: nowrap;
   font-family: var(--font-family-sans);
   font-style: normal;
@@ -100,10 +102,6 @@ li {
   display: flex;
   padding: 8px 0;
   text-align: center;
-
-  &:hover {
-    color: var(--grey-600);
-  }
 }
 
 .span-icon-container {
@@ -119,7 +117,10 @@ li {
   color: var(--grey-600);
 }
 
-li.expand-item {
-  cursor: default;
+.k-menu-item.expand-item {
+  cursor: pointer;
+  &:hover {
+    color: var(--grey-600);
+  }
 }
 </style>

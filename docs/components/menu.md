@@ -4,75 +4,79 @@
 
 <KMenu :items="[{
     title: 'Updated',
-    itemType: 'String',
-    expandable:true
+    type: 'string',
+    expandable: true
   }, {
     title: 'Created',
-    expandable:false
+    expandable: false
   }, {
     title: 'Name and description',
-    itemType: 'Number',
-    expandable:true
+    type: 'number',
+    expandable: true
   }, {
     title: 'Status',
-    itemType: 'String',
-    expandable:true
+    type: 'number',
+    expandable: true
   }, {
     title: 'Avg. Latency',
-    expandable:false
+    expandable: false
   }, {
     title: 'Uptime',
-    itemType: 'Number',
-    expandable:true
+    type: 'number',
+    expandable: true
   }, {
     title: 'Properties',
-    itemType: 'Number',
-    expandable:true
+    type: 'string',
+    expandable: true
   }, {
     title: 'Versions',
-    expandable:false
+    expandable: false
   }, {
     title: 'Owners',
-    expandable:false
-  }]"
-  clearFiltersText="Clear all filters and sorting">
+    expandable: false
+  }]">
+  <template v-slot:actionButton>
+    <KButton>Clear all sorting and filters</KButton>
+  </template>
 </KMenu>
 
 ```vue
 <KMenu :items="[{
     title: 'Updated',
-    itemType: 'String',
-    expandable:true
+    type: 'string',
+    expandable: true
   }, {
     title: 'Created',
-    expandable:false
+    expandable: false
   }, {
     title: 'Name and description',
-    itemType: 'Number',
-    expandable:true
+    type: 'number',
+    expandable: true
   }, {
     title: 'Status',
-    itemType: 'String',
-    expandable:true
+    type: 'number',
+    expandable: true
   }, {
     title: 'Avg. Latency',
-    expandable:false
+    expandable: false
   }, {
     title: 'Uptime',
-    itemType: 'Number',
-    expandable:true
+    type: 'number',
+    expandable: true
   }, {
     title: 'Properties',
-    itemType: 'Number',
-    expandable:true
+    type: 'string',
+    expandable: true
   }, {
     title: 'Versions',
-    itemType: 'String',
-    expandable:false
+    expandable: false
   }, {
     title: 'Owners',
-    expandable:false
+    expandable: false
   }]">
+  <template v-slot:actionButton>
+    <KButton>Clear all sorting and filters</KButton>
+  </template>
 </KMenu>
 ```
 

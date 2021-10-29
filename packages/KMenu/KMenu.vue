@@ -1,5 +1,7 @@
 <template>
-  <div class="k-menu">
+  <div
+    :style="widthStyle"
+    class="k-menu">
     <template>
       <ul class="k-menu-list">
         <slot
@@ -7,16 +9,20 @@
           name="items"
         >
           <KMenuItem
-            v-for="(item, index) in items"
-            :key="index"
+            v-for="item in items"
+            :key="item.key"
             :item="item"
           />
         </slot>
       </ul>
       <div
-        class="clear-filters">
+        v-if="hasActionButton"
+        class="clear-cta-button">
         <slot
-          name="clearFiltersText">{{ clearFiltersText }}
+          name="actionButton">
+          <KButton
+            @click="proceed"
+            @keyup.enter="proceed"/>
         </slot>
       </div>
     </template>
@@ -35,25 +41,25 @@ export default {
       required: false,
       default: () => []
     },
-    clearFiltersText: {
+    actionButton: {
       type: String,
       default: ''
     },
-    expandable: {
-      type: Boolean,
-      default: false
-    },
-    /**
-     * Test mode - for testing only, strips out generated ids
-     */
-    testMode: {
-      type: Boolean,
-      default: false
+    width: {
+      type: String,
+      default: '284'
     }
   },
 
-  data: function () {
-    return {
+  computed: {
+    widthStyle: function () {
+      return {
+        width: this.width === 'auto' ? this.width : this.width + 'px'
+      }
+    },
+
+    hasActionButton () {
+      return !!this.$slots.actionButton
     }
   }
 }
@@ -61,11 +67,10 @@ export default {
 
 <style scoped lang="scss">
 .k-menu {
-  width: 284px;
   background-color: var(--white);
   border: 1px solid var(--grey-300);
-  box-sizing: border-box;
   border-radius: 4px;
+  box-shadow: 0px 0px 12px 0px var(--black-10, color(black-10));
 }
 
 .k-menu-list {
@@ -74,19 +79,22 @@ export default {
   list-style: none;
 }
 
-div.clear-filters {
-  cursor: pointer;
-  font-family: var(--font-family-sans);
-  font-style: normal;
+.clear-cta-button > button.k-button {
+  border: none;
+  color: var(--blue-300);
   font-weight: 500;
   font-size: 13px;
-  line-height: 24px;
-  color: var(--blue-300);
-  white-space: nowrap;
-  padding: 0 0 18.5px 24px;
-
-  &:hover {
+  line-height: 13px;
+  margin-bottom: 6px;
+  padding-top: 2px;
+  &:active, &:hover {
     color: var(--blue-500);
+    background-color: transparent;
+  }
+  &:focus {
+    box-shadow: none;
+    color: var(--blue-500);
+    background-color: transparent;
   }
 }
 </style>
