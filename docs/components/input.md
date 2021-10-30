@@ -2,7 +2,7 @@
 
 **KInput** provides a wrapper around general `text` input's and provides specific Kong styling and state treatments (error, focus, etc).
 
-<KInput class="w-100" hasError errorMessage="Service name should not contain “_”"/>
+<KInput class="w-100" />
 ```vue
 <KInput class="w-100"/>
 ```
@@ -11,9 +11,9 @@
 ### Size
 You can specify `small`, `medium` (default), or `large` for the size.
 
-<KInput label="Small" size="small" class="mb-2" hasError errorMessage="Service name should not contain “_”" />
-<KInput label="Medium" class="mb-2" hasError errorMessage="Service name should not contain “_”" />
-<KInput label="Large" size="large" hasError errorMessage="Service name should not contain “_”" />
+<KInput label="Small" size="small" class="mb-2" />
+<KInput label="Medium" class="mb-2" />
+<KInput label="Large" size="large" />
 
 ```
 <KInput label="Small" size="small" class="mb-2" />

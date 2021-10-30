@@ -59,14 +59,6 @@ import { uuid } from 'vue-uuid'
 export default {
   name: 'KInput',
   props: {
-    hasError: {
-      type: Boolean,
-      default: false
-    },
-    errorMessage: {
-      type: String,
-      default: ''
-    },
     value: {
       type: String,
       default: ''
@@ -82,6 +74,14 @@ export default {
     size: {
       type: String,
       default: 'medium'
+    },
+    hasError: {
+      type: Boolean,
+      default: false
+    },
+    errorMessage: {
+      type: String,
+      default: ''
     },
     /**
      * Test mode - for testing only, strips out generated ids
