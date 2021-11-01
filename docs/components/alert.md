@@ -576,7 +576,6 @@ look like.
 
 <style lang="scss">
 .k-alert {
-  box-shadow: 0px 0px 12px 0px var(--black-10, color(black-10));
   &:not(:last-of-type) {
     margin-bottom: 1rem;
   }
