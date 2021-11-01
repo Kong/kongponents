@@ -1,0 +1,30 @@
+{
+  "name": "@kongponents/kcardcatalog",
+  "version": "0.1.0",
+  "description": "A grid view of KCards",
+  "main": "dist/KCardCatalog.umd.min.js",
+  "componentName": "KCardCatalog",
+  "source": "KCardCatalog.vue",
+  "files": [
+    "dist",
+    "KCardCatalog.vue"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kong/kongponents.git"
+  },
+  "author": "Kong Inc",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Kong/kongponents/issues"
+  },
+  "homepage": "https://github.com/Kong/kongponents#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@kongponents/kcard": "^5.0.5",
+    "@kongponents/kemptystate": "^5.0.5",
+    "@kongponents/kskeleton": "^5.0.5"
+  }
+}
