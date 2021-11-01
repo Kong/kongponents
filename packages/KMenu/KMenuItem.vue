@@ -88,10 +88,10 @@ export default {
   &:not(:last-child):after {
     content: " ";
     position: absolute;
-    left: 50%;
-    transform: translateX(-56%);
+    // left: 50%;
+    // transform: translateX(-56%);
     bottom: 0;
-    width: 90%;
+    width: 95%;
     height: 1px;
     background-color: var(--grey-300);
   }
@@ -108,7 +108,8 @@ export default {
   margin-left: auto;
   margin-top: auto;
   margin-bottom: auto;
-  padding-right: 23px;
+  padding-right: 18px;
+  // padding-top: 8px;
   height: 24px;
   width: 24px;
 }

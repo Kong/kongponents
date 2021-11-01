@@ -1,6 +1,46 @@
 # Menu
 
+
 **KMenu** - Menu component
+
+<script>
+function getItems(count) {
+  let myItems = []
+  for (let i = 0; i < count; i++) {
+    myItems.push({
+      title: "Item " + i,
+      description: "The item's description for number " + i,
+      expandable: `${Math.random() < 0.5}`,
+      type: `${Math.random() < 0.5}` ? 'string' : 'number'
+    })
+  }
+  return myItems
+}
+
+export default {
+  data () {
+    return {
+      getItems
+    }
+  }
+}
+</script>
+
+<KMenu :items="getItems(5)" />
+```vue
+<KMenu :items="items" />
+```
+
+<KMenu :items="getItems(5)">
+  <template v-slot:actionButton>
+    <KButton>Clear all sorting and filters</KButton>
+  </template>
+</KMenu>
+
+
+```vue
+<KMenu :items="items" />
+```
 
 <KMenu :items="[{
     title: 'Updated',
@@ -32,7 +72,7 @@
     title: 'Versions',
     expandable: false
   }, {
-    title: 'Owners',
+    title: 'Owner',
     expandable: false
   }]">
   <template v-slot:actionButton>
@@ -84,24 +124,9 @@
 ### Prop1
 Description of prop1
 
-Actual component using prop1
-<KMenu />
-
-```vue
-<KMenu prop1="variation1" />
-<KMenu prop1="variation2" />
-<KMenu prop1="variation3" />
-```
-
 ## Slots
 - `default` - default slot description
 - `slot1` - slot1 description
-
-```vue
-<KMenu>
-  here is some slot content
-</KMenu>
-```
 
 ## Theming
 | Variable | Purpose
