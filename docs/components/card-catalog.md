@@ -45,7 +45,7 @@ The catalog title.
 ```
 
 ### items
-The content of the cards. Expects a `title` (required) and a `description`.
+The content of the cards. Expects a `title` and a `description`.
 
 <KCardCatalog :items="getItems(6)" />
 ```vue
@@ -161,7 +161,7 @@ Set the following properties to handle empty state:
   title="Customized empty catalog"
   :items="getItems(0)"
   emptyStateTitle="No Workspaces exist"
-  emptyStateMessage="Adding a new Workspace will populate this table."
+  emptyStateMessage="Adding a new Workspace will populate this catalog."
   emptyStateActionMessage="Create a Workspace"
   emptyStateActionRoute="#empty-state-full-example"
   emptyStateIcon="workspaces"
@@ -175,7 +175,7 @@ Set the following properties to handle empty state:
   title="Customized empty catalog"
   :items="getItems(0)"
   emptyStateTitle="No Workspaces exist"
-  emptyStateMessage="Adding a new Workspace will populate this table."
+  emptyStateMessage="Adding a new Workspace will populate this catalog."
   emptyStateActionMessage="Create a Workspace"
   emptyStateActionRoute="#empty-state-full-example"
   emptyStateIcon="workspaces"
@@ -188,7 +188,7 @@ Set the following properties to handle empty state:
   title="Customized empty catalog"
   :items="getItems(0)"
   emptyStateTitle="No Workspaces exist"
-  emptyStateMessage="Adding a new Workspace will populate this table."
+  emptyStateMessage="Adding a new Workspace will populate this catalog."
   emptyStateActionMessage="Create a Workspace"
   emptyStateActionRoute="{
     name: 'create-workspace',
@@ -227,7 +227,7 @@ Set the following properties to customize error state:
   :items="getItems(6)" 
   :hasError="true"
   errorStateTitle="Something went wrong"
-  errorStateMessage="We are not able to load the data for this table."
+  errorStateMessage="Error loading data."
   errorStateActionMessage="Report an Issue"
   errorStateActionRoute="#error-state-full-example"
   errorStateIcon="dangerCircle"
@@ -242,9 +242,9 @@ Set the following properties to customize error state:
   :items="getItems(6)" 
   :hasError="true"
   errorStateTitle="Something went wrong"
-  errorStateMessage="We are not able to load the data for this table."
+  errorStateMessage="Error loading data."
   errorStateActionMessage="Report an Issue"
-  errorStateActionRoute="#error-state-full-example"
+  errorStateActionRoute="create-workspace"
   errorStateIcon="dangerCircle"
   errorStateIconColor="#e6173a"
   errorStateIconSize="35"
@@ -256,7 +256,7 @@ Set the following properties to customize error state:
   :items="getItems(6)" 
   :hasError="true"
   errorStateTitle="Something went wrong"
-  errorStateMessage="We are not able to load the data for this table."
+  errorStateMessage="Error loading data."
   errorStateActionMessage="Report an Issue"
   errorStateActionRoute="{
     name: 'report-issue',

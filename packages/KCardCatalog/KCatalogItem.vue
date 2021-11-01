@@ -64,9 +64,7 @@ export default {
   props: {
     item: {
       type: Object,
-      default: () => {},
-      // Item must have a title
-      validator: (item) => item.hasOwnProperty('title')
+      default: () => {}
     },
     locationParam: {
       type: String,
