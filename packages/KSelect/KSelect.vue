@@ -57,6 +57,7 @@
             style="position: relative;"
             role="listbox">
             <KButton
+              :style="widthStyle"
               :id="selectTextId"
               :is-open="isToggled"
               :is-rounded="false"
@@ -150,7 +151,7 @@ export default {
      */
     width: {
       type: String,
-      default: '170'
+      default: ''
     },
     placeholder: {
       type: String,
@@ -224,9 +225,23 @@ export default {
     listeners () {
       return this.$listeners
     },
+    widthValue: function () {
+      let w
+
+      if (!this.width) {
+        w = 170
+        if (this.appearance === 'button') {
+          w = 200
+        }
+      } else {
+        w = this.width
+      }
+
+      return w === 'auto' ? w : w + 'px'
+    },
     widthStyle: function () {
       return {
-        width: this.width === 'auto' ? this.width : this.width + 'px'
+        width: this.widthValue
       }
     },
     filteredItems: function () {
@@ -355,6 +370,10 @@ export default {
     .kong-icon-chevronDown {
       top: 10px;
     }
+  }
+
+  .k-select-button .has-caret svg {
+    margin-left: auto;
   }
 
   .k-input {      // need this so input takes the

@@ -316,7 +316,7 @@ export default {
 </style>
 
 <style lang="scss">
-.k-button.btn-link.has-caret .caret path {
+.k-button.btn-link.has-caret .caret.has-caret path {
   stroke: var(--KButtonBtnLink, var(--blue-500, color(blue-500)));
 }
 </style>

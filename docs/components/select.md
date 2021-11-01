@@ -141,7 +141,7 @@ way to clear the selection once it is made.
 
 The `button` style triggers the dropdown on click and you cannot filter the entries.
 
-<KSelect appearance='button' width="250" :items="[{ 
+<KSelect appearance='button' :items="[{ 
     label: 'test', 
     value: 'test'
   }, { 
@@ -151,7 +151,7 @@ The `button` style triggers the dropdown on click and you cannot filter the entr
 />
 
 ```vue
-<KSelect appearance='button' width="250" :items="[{ 
+<KSelect appearance='button' :items="[{ 
     label: 'test', 
     value: 'test'
   }, { 
@@ -164,7 +164,7 @@ The `button` style triggers the dropdown on click and you cannot filter the entr
 ### buttonText
 You can configure the button text when an item is selected, if `appearance` is type `button`.
 
-<KSelect appearance='button' width="250" @selected="item => handleItemSelect(item)" :buttonText="`Show ${mySelect} per page`" :items="items" />
+<KSelect appearance='button' width="225" @selected="item => handleItemSelect(item)" :buttonText="`Show ${mySelect} per page`" :items="items" />
 
 <script>
 export default {
@@ -191,7 +191,7 @@ export default {
 ```vue
 <KSelect 
   appearance='button' 
-  width="250" 
+  width="225" 
   @selected="item => handleItemSelect(item)" 
   :buttonText="`Show ${mySelect} per page`" 
   :items="items" 
