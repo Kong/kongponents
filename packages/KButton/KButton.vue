@@ -26,7 +26,7 @@
     <KIcon
       v-if="isOpen !== undefined"
       :class="['caret', caretClasses]"
-      color="white"
+      :color="appearance !== 'btn-link' ? 'white' : null"
       view-box="2 2 15 15"
       icon="chevronDown"/>
   </component>
@@ -313,5 +313,10 @@ export default {
     border-radius: 100px;
   }
 }
+</style>
 
+<style lang="scss">
+.k-button.btn-link.has-caret .caret.has-caret path {
+  stroke: var(--KButtonBtnLink, var(--blue-500, color(blue-500)));
+}
 </style>

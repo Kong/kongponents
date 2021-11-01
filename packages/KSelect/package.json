@@ -23,6 +23,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@kongponents/kbutton": "^5.0.4",
     "@kongponents/kicon": "^5.0.4",
     "@kongponents/kinput": "^5.0.4",
     "@kongponents/klabel": "^5.0.4",
