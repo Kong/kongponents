@@ -64,43 +64,33 @@ The display type of the alert.
   alert-message="I'm a banner type alert"
   type="banner" />
 
-```vue
-<KAlert 
-  alert-message="I'm a banner type alert" 
-  type="banner" />
-```
-
 <KAlert
   alert-message="I'm a banner type alert"
   appearance="success"
   type="banner" />
 
-```vue
-<KAlert 
-  alert-message="I'm a banner type alert" 
-  appearance="success" 
-  type="banner" />
-```
-
-<KAlert
+  <KAlert
   alert-message="I'm a banner type alert"
   appearance="danger"
   type="banner" />
 
-```vue
-<KAlert 
-  alert-message="I'm a banner type alert" 
-  appearance="danger" 
-  type="banner" />
-```
-
-
-<KAlert
+  <KAlert
   alert-message="I'm a banner type alert" 
   appearance="warning" 
   type="banner" />
 
 ```vue
+<KAlert 
+  alert-message="I'm a banner type alert" 
+  type="banner" />
+<KAlert 
+  alert-message="I'm a banner type alert" 
+  appearance="success" 
+  type="banner" />
+<KAlert 
+  alert-message="I'm a banner type alert" 
+  appearance="danger" 
+  type="banner" />
 <KAlert 
   alert-message="I'm a banner type alert" 
   appearance="warning" 
@@ -116,55 +106,65 @@ The display type of the alert.
 <KAlert
   alert-message="I'm an alert"
   dismissType="button"
-  type="alert" />
-
-```vue
-<KAlert
-  alert-message="I'm an alert"
-  dismissType="button"
-  type="alert" />
-```
+  type="alert" 
+  :isShowing="alert1IsOpen"
+  @closed="alert1IsOpen = false" />
 
 <KAlert
   alert-message="I'm an alert"
   dismissType="button"
   appearance="success"
-  type="alert" />
+  type="alert"
+  :isShowing="alert2IsOpen"
+  @closed="alert2IsOpen = false" />
+
+<KAlert
+  alert-message="I'm an alert"
+  dismissType="button"
+  appearance="danger"
+  type="alert" 
+  :isShowing="alert3IsOpen"
+  @closed="alert3IsOpen = false" />
+
+<KAlert
+  alert-message="I'm an alert"
+  dismissType="button"
+  appearance="warning"
+  type="alert" 
+  :isShowing="alert4IsOpen"
+  @closed="alert4IsOpen = false" />
 
 ```vue
+<KAlert
+  alert-message="I'm an alert"
+  dismissType="button"
+  type="alert" 
+  :isShowing="alert1IsOpen"
+  @closed="alert1IsOpen = false" />
+
 <KAlert
   alert-message="I'm an alert"
   dismissType="button"
   appearance="success"
-  type="alert" />
-```
+  type="alert"
+  :isShowing="alert2IsOpen"
+  @closed="alert2IsOpen = false" />
 
 <KAlert
   alert-message="I'm an alert"
   dismissType="button"
   appearance="danger"
-  type="alert" />
-
-```vue
-<KAlert 
-  alert-message="I'm an alert"
-  dismissType="button"
-  appearance="danger"
-  type="alert" />
-```
+  type="alert" 
+  :isShowing="alert3IsOpen"
+  @closed="alert4IsOpen = false" />
 
 <KAlert
   alert-message="I'm an alert"
   dismissType="button"
   appearance="warning"
-  type="alert" />
-
-```vue
-<KAlert
-  alert-message="I'm an alert"
-  dismissType="button"
-  appearance="warning"
-  type="alert" />
+  type="alert" 
+  :isShowing="alert5IsOpen"
+  @closed="alert5IsOpen = false" />
 ```
 
 ### Dismiss Type
@@ -180,13 +180,6 @@ KAlert allows for dismissal of the banner using an icon or button. An alert is n
   type="alert"
   dismissType="none" />
 
-```vue
-<KAlert
-  alert-message="Alert that can not be dismissed"
-  type="alert"
-  dismissType="none" />
-```
-
 <KAlert 
   alert-message="Info alert message that is dismissible"
   appearance="info"
@@ -194,16 +187,6 @@ KAlert allows for dismissal of the banner using an icon or button. An alert is n
   dismissType="icon"
   :isShowing="infoIsOpen"
   @closed="infoIsOpen = false" />
-
-```vue
-<KAlert 
-  alert-message="Info alert message that is dismissible" 
-  appearance="info" 
-  type="alert" 
-  dismissType="icon" 
-  :isShowing="infoIsOpen" 
-  @closed="infoIsOpen = false" />
-```
 
 <KAlert
   alert-message="Warning alert message that is dismissible"
@@ -213,16 +196,6 @@ KAlert allows for dismissal of the banner using an icon or button. An alert is n
   :isShowing="warningIsOpen"
   @closed="warningIsOpen = false" />
 
-```vue
-<KAlert 
-  alert-message="Warning alert message that is dismissible" 
-  appearance="warning" 
-  type="alert" 
-  dismissType="icon" 
-  :isShowing="warningIsOpen" 
-  @closed="warningIsOpen = false" />
-```
-
 <KAlert 
   alert-message="Success alert message that is dismissible"
   appearance="success"
@@ -230,16 +203,6 @@ KAlert allows for dismissal of the banner using an icon or button. An alert is n
   dismissType="icon"
   :isShowing="successIsOpen"
   @closed="successIsOpen = false" />
-
-```vue
-<KAlert 
-  alert-message="Success alert message that is dismissible" 
-  appearance="success" 
-  type="alert" 
-  dismissType="icon" 
-  :isShowing="successIsOpen" 
-  @closed="successIsOpen = false" />
-```
 
 <KAlert 
   alert-message="Danger alert message that is dismissible"
@@ -249,17 +212,6 @@ KAlert allows for dismissal of the banner using an icon or button. An alert is n
   :isShowing="dangerIsOpen"
   @closed="dangerIsOpen = false" />
 
-
-```vue
-<KAlert 
-  alert-message="Danger alert message that is dismissible" 
-  appearance="danger" 
-  type="alert" 
-  dismissType="icon" 
-  :isShowing="dangerIsOpen" 
-  @closed="dangerIsOpen = false" />
-```
-
 <KAlert 
   alert-message="Alert with dismiss type as button"
   type="banner" dismissType="button"
@@ -267,6 +219,43 @@ KAlert allows for dismissal of the banner using an icon or button. An alert is n
   @closed="dismissTypeBtn = false"/>
 
 ```vue
+<KAlert
+  alert-message="Alert that can not be dismissed"
+  type="alert"
+  dismissType="none" />
+
+<KAlert 
+  alert-message="Info alert message that is dismissible" 
+  appearance="info" 
+  type="alert" 
+  dismissType="icon" 
+  :isShowing="infoIsOpen" 
+  @closed="infoIsOpen = false" />
+
+<KAlert 
+  alert-message="Warning alert message that is dismissible" 
+  appearance="warning" 
+  type="alert" 
+  dismissType="icon" 
+  :isShowing="warningIsOpen" 
+  @closed="warningIsOpen = false" />
+
+<KAlert 
+  alert-message="Success alert message that is dismissible" 
+  appearance="success" 
+  type="alert" 
+  dismissType="icon" 
+  :isShowing="successIsOpen" 
+  @closed="successIsOpen = false" />
+
+<KAlert 
+  alert-message="Danger alert message that is dismissible" 
+  appearance="danger" 
+  type="alert" 
+  dismissType="icon" 
+  :isShowing="dangerIsOpen" 
+  @closed="dangerIsOpen = false" />
+
 <KAlert 
   alert-message="Alert with dismiss type as button" 
   type="banner" 
@@ -283,20 +272,9 @@ Set whether or not the alert box is shown.
 
 - `isShowing`
 
-<KAlert
-  alert-message="isShowing: true by default"/>
-
 ```vue
 <KAlert
-  alert-message="isShowing: true by default"/>
-```
-
-<KAlert
-  :is-showing=false
-  alert-message="isShowing set to false"/>
-
-```vue
-<KAlert
+  :is-showing="false"
   alert-message="isShowing set to false"/>
 ```
 
@@ -586,7 +564,11 @@ look like.
       defaultClosed: true,
       dismissTypeBtn: true,
       extraBtnSlot: true,
-      extraMsg: true
+      extraMsg: true,
+      alert1IsOpen: true,
+      alert2IsOpen: true,
+      alert3IsOpen: true,
+      alert4IsOpen: true
     }
   }
 }

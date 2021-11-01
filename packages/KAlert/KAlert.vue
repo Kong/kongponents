@@ -34,7 +34,7 @@
       class="k-alert-action ml-3">
       <!-- @slot Use this slot to pass extra buttons other than Dismiss  -->
       <slot
-        v-if="hasActionButtons && (dismissType === 'button' || dismissType ==='none')"
+        v-if="hasActionButtons"
         name="actionButtons">
         <KButton
           size="small"
@@ -61,7 +61,7 @@
     </span>
     <div class="k-alert-msg-text">
       <span
-        :class="type === 'banner' && (size === 'large') ? 'k-alert-text' : ''"
+        :class="type === 'banner' && size === 'large' ? 'k-alert-text' : ''"
         class="k-alert-msg">
         <!-- @slot Use this slot to pass default alert message  -->
         <slot name="alertMessage">{{ alertMessage }}
