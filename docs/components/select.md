@@ -142,23 +142,82 @@ way to clear the selection once it is made.
 The `button` style triggers the dropdown on click and you cannot filter the entries.
 
 <KSelect appearance='button' width="250" :items="[{ 
-    label: 'Show 25 per page', 
-    value: '25'
+    label: 'test', 
+    value: 'test'
   }, { 
-    label: 'Show 50 per page', 
-    value: '50'
+    label: 'Test 1', 
+    value: 'test1'
   }]" 
 />
 
 ```vue
 <KSelect appearance='button' width="250" :items="[{ 
-    label: 'Show 25 per page', 
-    value: '25'
+    label: 'test', 
+    value: 'test'
   }, { 
-    label: 'Show 50 per page', 
-    value: '50'
+    label: 'Test 1', 
+    value: 'test1'
   }]" 
 />
+```
+
+### buttonText
+You can configure the button text when an item is selected, if `appearance` is type `button`.
+
+<KSelect appearance='button' width="250" @selected="item => handleItemSelect(item)" :buttonText="`Show ${mySelect} per page`" :items="items" />
+
+<script>
+export default {
+  data() {
+    return {
+      mySelect: '',
+      items: [{ 
+        label: '25', 
+        value: '25'
+      }, { 
+        label: '50', 
+        value: '50'
+      }]
+    }
+  },
+  methods: {
+    handleItemSelect (item) {
+      this.mySelect = item.label
+    }
+  }
+}
+</script>
+
+```vue
+<KSelect 
+  appearance='button' 
+  width="250" 
+  @selected="item => handleItemSelect(item)" 
+  :buttonText="`Show ${mySelect} per page`" 
+  :items="items" 
+/>
+
+<script>
+export default {
+  data() {
+    return {
+      mySelect: '',
+      items: [{ 
+        label: '25', 
+        value: '25'
+      }, { 
+        label: '50', 
+        value: '50'
+      }]
+    }
+  },
+  methods: {
+    handleItemSelect (item) {
+      this.mySelect = item.label
+    }
+  }
+}
+</script>
 ```
 
 ### width

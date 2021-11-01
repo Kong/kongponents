@@ -59,11 +59,11 @@
             <KButton
               :id="selectTextId"
               :is-open="isToggled"
-              :placeholder="placeholderText"
               :is-rounded="false"
+              v-bind="attrs"
               appearance="btn-link"
               v-on="listeners"
-              @keyup="triggerFocus(isToggled)">{{ selectedItem ? selectedItem.label : placeholderText }}</KButton>
+              @keyup="triggerFocus(isToggled)">{{ selectButtonText }}</KButton>
           </div>
           <div
             v-else
@@ -157,7 +157,7 @@ export default {
       default: ''
     },
     /**
-     * The display style, can be either dropdown or select
+     * The display style, can be either dropdown, select, or button
      */
     appearance: {
       type: String,
@@ -165,6 +165,14 @@ export default {
       validator: function (value) {
         return ['dropdown', 'select', 'button'].indexOf(value) !== -1
       }
+    },
+    /**
+     * Override the text displayed on the button if `appearance` is `button` after an item
+     * has been selected. By default display the selected item's label
+     */
+    buttonText: {
+      type: String,
+      default: ''
     },
     /**
      * Items are JSON objects with required 'label' and 'value'
@@ -236,6 +244,15 @@ export default {
       }
 
       return 'Filter...'
+    },
+    selectButtonText () {
+      if (this.buttonText && this.selectedItem) {
+        return this.buttonText
+      } else if (this.selectedItem) {
+        return this.selectedItem.label
+      }
+
+      return this.placeholderText
     }
   },
   beforeMount () {
@@ -360,6 +377,13 @@ export default {
     box-sizing: border-box;
     width: 100%;
     border-radius: 0 0 4px 4px;
+
+    &.k-select-pop-button {
+      --KPopPaddingY: var(--spacing-md);
+      --KPopPaddingX: var(--spacing-xxs);
+      border-radius: 4px;
+      border: 1px solid var(--blue-200);
+    }
 
     &.k-select-pop-dropdown {
       --KPopPaddingY: var(--spacing-md);
