@@ -1,34 +1,5 @@
 <template>
-  <router-link
-    v-if="locationParam"
-    :to="locationParam">
-    <KCard
-      :data-testid="item ? `${item.title.replace(' ', '-')}-catalog-item` : 'catalog-item'"
-      :test-mode="testMode"
-      class="grid-item d-flex flex-column overflow-hidden k-card-catalog-item"
-      has-hover
-      role="button"
-      tabindex="0"
-      @click.native="handleCardClick($event, item)"
-    >
-      <template v-slot:title>
-        <slot name="cardTitle">
-          {{ item.title }}
-        </slot>
-      </template>
-      <template v-slot:body>
-        <div
-          :class="{ 'multi-line-truncate': truncate }">
-          <slot name="cardBody">
-            {{ item.description }}
-          </slot>
-        </div>
-      </template>
-    </KCard>
-  </router-link>
-
   <KCard
-    v-else
     :data-testid="item ? `${item.title.replace(' ', '-')}-catalog-item` : 'catalog-item'"
     :test-mode="testMode"
     class="grid-item d-flex flex-column overflow-hidden k-card-catalog-item"

@@ -74,15 +74,27 @@
       :class="`k-card-${cardSize}`"
       class="k-catalog-page">
       <slot name="body">
-        <KCatalogItem
-          v-for="item in items"
-          :key="item.key ? item.key : null"
-          :item="item"
-          :location-param="item.locationParam ? item.locationParam : ''"
-          :truncate="!noTruncation"
-          :test-mode="testMode"
-          class="catalog-item"
-        />
+        <template v-for="item in items">
+          <router-link
+            v-if="item.locationParam"
+            :key="item.key ? item.key : null">
+            <KCatalogItem
+              :item="item"
+              :location-param="item.locationParam"
+              :truncate="!noTruncation"
+              :test-mode="testMode"
+              class="catalog-item"
+            />
+          </router-link>
+          <KCatalogItem
+            v-else
+            :key="item.key ? item.key : null"
+            :item="item"
+            :truncate="!noTruncation"
+            :test-mode="testMode"
+            class="catalog-item"
+          />
+        </template>
       </slot>
     </div>
   </div>
