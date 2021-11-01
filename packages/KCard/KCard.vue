@@ -173,6 +173,7 @@ export default {
 
   .k-card-body {
     font-size: 13px;
+    line-height: 20px;
     color: var(--grey-600);
     width: 100%;
   }

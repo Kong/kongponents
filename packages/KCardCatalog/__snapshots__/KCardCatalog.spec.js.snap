@@ -1,0 +1,548 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KCardCatalog general can change card sizes - large 1`] = `
+<div class="k-card-catalog">
+  <!---->
+  <div class="k-catalog-page k-card-large">
+    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-0-catalog-item" role="button" tabindex="0">
+      <div class="k-card-header d-flex mb-4">
+        <div>
+          <!---->
+          <div id="test-title-id-1234" class="k-card-title">
+            <h4>
+              Item 0
+            </h4>
+          </div>
+        </div>
+        <div class="k-card-actions"></div>
+      </div>
+      <div class="k-card-content d-flex">
+        <div id="test-content-id-1234" class="k-card-body">
+          <div class="multi-line-truncate">
+            The item's description for number 0
+          </div>
+        </div>
+        <!---->
+      </div>
+    </section>
+    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-1-catalog-item" role="button" tabindex="0">
+      <div class="k-card-header d-flex mb-4">
+        <div>
+          <!---->
+          <div id="test-title-id-1234" class="k-card-title">
+            <h4>
+              Item 1
+            </h4>
+          </div>
+        </div>
+        <div class="k-card-actions"></div>
+      </div>
+      <div class="k-card-content d-flex">
+        <div id="test-content-id-1234" class="k-card-body">
+          <div class="multi-line-truncate">
+            The item's description for number 1
+          </div>
+        </div>
+        <!---->
+      </div>
+    </section>
+    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-2-catalog-item" role="button" tabindex="0">
+      <div class="k-card-header d-flex mb-4">
+        <div>
+          <!---->
+          <div id="test-title-id-1234" class="k-card-title">
+            <h4>
+              Item 2
+            </h4>
+          </div>
+        </div>
+        <div class="k-card-actions"></div>
+      </div>
+      <div class="k-card-content d-flex">
+        <div id="test-content-id-1234" class="k-card-body">
+          <div class="multi-line-truncate">
+            The item's description for number 2
+          </div>
+        </div>
+        <!---->
+      </div>
+    </section>
+    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-3-catalog-item" role="button" tabindex="0">
+      <div class="k-card-header d-flex mb-4">
+        <div>
+          <!---->
+          <div id="test-title-id-1234" class="k-card-title">
+            <h4>
+              Item 3
+            </h4>
+          </div>
+        </div>
+        <div class="k-card-actions"></div>
+      </div>
+      <div class="k-card-content d-flex">
+        <div id="test-content-id-1234" class="k-card-body">
+          <div class="multi-line-truncate">
+            The item's description for number 3
+          </div>
+        </div>
+        <!---->
+      </div>
+    </section>
+    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-4-catalog-item" role="button" tabindex="0">
+      <div class="k-card-header d-flex mb-4">
+        <div>
+          <!---->
+          <div id="test-title-id-1234" class="k-card-title">
+            <h4>
+              Item 4
+            </h4>
+          </div>
+        </div>
+        <div class="k-card-actions"></div>
+      </div>
+      <div class="k-card-content d-flex">
+        <div id="test-content-id-1234" class="k-card-body">
+          <div class="multi-line-truncate">
+            The item's description for number 4
+          </div>
+        </div>
+        <!---->
+      </div>
+    </section>
+  </div>
+</div>
+`;
+
+exports[`KCardCatalog general can change card sizes - small 1`] = `
+<div class="k-card-catalog">
+  <!---->
+  <div class="k-catalog-page k-card-small">
+    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-0-catalog-item" role="button" tabindex="0">
+      <div class="k-card-header d-flex mb-4">
+        <div>
+          <!---->
+          <div id="test-title-id-1234" class="k-card-title">
+            <h4>
+              Item 0
+            </h4>
+          </div>
+        </div>
+        <div class="k-card-actions"></div>
+      </div>
+      <div class="k-card-content d-flex">
+        <div id="test-content-id-1234" class="k-card-body">
+          <div class="multi-line-truncate">
+            The item's description for number 0
+          </div>
+        </div>
+        <!---->
+      </div>
+    </section>
+    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-1-catalog-item" role="button" tabindex="0">
+      <div class="k-card-header d-flex mb-4">
+        <div>
+          <!---->
+          <div id="test-title-id-1234" class="k-card-title">
+            <h4>
+              Item 1
+            </h4>
+          </div>
+        </div>
+        <div class="k-card-actions"></div>
+      </div>
+      <div class="k-card-content d-flex">
+        <div id="test-content-id-1234" class="k-card-body">
+          <div class="multi-line-truncate">
+            The item's description for number 1
+          </div>
+        </div>
+        <!---->
+      </div>
+    </section>
+    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-2-catalog-item" role="button" tabindex="0">
+      <div class="k-card-header d-flex mb-4">
+        <div>
+          <!---->
+          <div id="test-title-id-1234" class="k-card-title">
+            <h4>
+              Item 2
+            </h4>
+          </div>
+        </div>
+        <div class="k-card-actions"></div>
+      </div>
+      <div class="k-card-content d-flex">
+        <div id="test-content-id-1234" class="k-card-body">
+          <div class="multi-line-truncate">
+            The item's description for number 2
+          </div>
+        </div>
+        <!---->
+      </div>
+    </section>
+    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-3-catalog-item" role="button" tabindex="0">
+      <div class="k-card-header d-flex mb-4">
+        <div>
+          <!---->
+          <div id="test-title-id-1234" class="k-card-title">
+            <h4>
+              Item 3
+            </h4>
+          </div>
+        </div>
+        <div class="k-card-actions"></div>
+      </div>
+      <div class="k-card-content d-flex">
+        <div id="test-content-id-1234" class="k-card-body">
+          <div class="multi-line-truncate">
+            The item's description for number 3
+          </div>
+        </div>
+        <!---->
+      </div>
+    </section>
+    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-4-catalog-item" role="button" tabindex="0">
+      <div class="k-card-header d-flex mb-4">
+        <div>
+          <!---->
+          <div id="test-title-id-1234" class="k-card-title">
+            <h4>
+              Item 4
+            </h4>
+          </div>
+        </div>
+        <div class="k-card-actions"></div>
+      </div>
+      <div class="k-card-content d-flex">
+        <div id="test-content-id-1234" class="k-card-body">
+          <div class="multi-line-truncate">
+            The item's description for number 4
+          </div>
+        </div>
+        <!---->
+      </div>
+    </section>
+  </div>
+</div>
+`;
+
+exports[`KCardCatalog general can disable truncation 1`] = `
+<div class="k-card-catalog">
+  <!---->
+  <div class="k-catalog-page k-card-medium">
+    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="A-very long item-catalog-item" role="button" tabindex="0">
+      <div class="k-card-header d-flex mb-4">
+        <div>
+          <!---->
+          <div id="test-title-id-1234" class="k-card-title">
+            <h4>
+              A very long item
+            </h4>
+          </div>
+        </div>
+        <div class="k-card-actions"></div>
+      </div>
+      <div class="k-card-content d-flex">
+        <div id="test-content-id-1234" class="k-card-body">
+          <div class="">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in tempus lorem, et molestie quam. Praesent sapien massa, posuere et volutpat nec, imperdiet a dui. Fusce non leo posuere, molestie neque et, posuere ex. Nullam euismod tortor in est sagittis iaculis. In sodales bibendum nulla nec feugiat.
+          </div>
+        </div>
+        <!---->
+      </div>
+    </section>
+  </div>
+</div>
+`;
+
+exports[`KCardCatalog general handles truncation 1`] = `
+<div class="k-card-catalog">
+  <!---->
+  <div class="k-catalog-page k-card-medium">
+    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="A-very long item-catalog-item" role="button" tabindex="0">
+      <div class="k-card-header d-flex mb-4">
+        <div>
+          <!---->
+          <div id="test-title-id-1234" class="k-card-title">
+            <h4>
+              A very long item
+            </h4>
+          </div>
+        </div>
+        <div class="k-card-actions"></div>
+      </div>
+      <div class="k-card-content d-flex">
+        <div id="test-content-id-1234" class="k-card-body">
+          <div class="multi-line-truncate">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in tempus lorem, et molestie quam. Praesent sapien massa, posuere et volutpat nec, imperdiet a dui. Fusce non leo posuere, molestie neque et, posuere ex. Nullam euismod tortor in est sagittis iaculis. In sodales bibendum nulla nec feugiat.
+          </div>
+        </div>
+        <!---->
+      </div>
+    </section>
+  </div>
+</div>
+`;
+
+exports[`KCardCatalog general matches snapshot 1`] = `
+<div class="k-card-catalog">
+  <!---->
+  <section class="empty-state-wrapper">
+    <div class="empty-state-title">
+      <!---->
+      <div class="k-empty-state-title-header">No Data</div>
+    </div>
+    <div class="empty-state-content">
+      <div class="k-empty-state-message">There is no data to display.</div>
+      <div class="k-empty-state-cta">
+        <!---->
+      </div>
+    </div>
+  </section>
+</div>
+`;
+
+exports[`KCardCatalog general renders proper cards when using props 1`] = `
+<div class="k-card-catalog">
+  <div class="k-card-catalog-title">
+    <h3>Cool beans!</h3>
+  </div>
+  <div class="k-catalog-page k-card-medium">
+    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-0-catalog-item" role="button" tabindex="0">
+      <div class="k-card-header d-flex mb-4">
+        <div>
+          <!---->
+          <div id="test-title-id-1234" class="k-card-title">
+            <h4>
+              Item 0
+            </h4>
+          </div>
+        </div>
+        <div class="k-card-actions"></div>
+      </div>
+      <div class="k-card-content d-flex">
+        <div id="test-content-id-1234" class="k-card-body">
+          <div class="multi-line-truncate">
+            The item's description for number 0
+          </div>
+        </div>
+        <!---->
+      </div>
+    </section>
+    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-1-catalog-item" role="button" tabindex="0">
+      <div class="k-card-header d-flex mb-4">
+        <div>
+          <!---->
+          <div id="test-title-id-1234" class="k-card-title">
+            <h4>
+              Item 1
+            </h4>
+          </div>
+        </div>
+        <div class="k-card-actions"></div>
+      </div>
+      <div class="k-card-content d-flex">
+        <div id="test-content-id-1234" class="k-card-body">
+          <div class="multi-line-truncate">
+            The item's description for number 1
+          </div>
+        </div>
+        <!---->
+      </div>
+    </section>
+    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-2-catalog-item" role="button" tabindex="0">
+      <div class="k-card-header d-flex mb-4">
+        <div>
+          <!---->
+          <div id="test-title-id-1234" class="k-card-title">
+            <h4>
+              Item 2
+            </h4>
+          </div>
+        </div>
+        <div class="k-card-actions"></div>
+      </div>
+      <div class="k-card-content d-flex">
+        <div id="test-content-id-1234" class="k-card-body">
+          <div class="multi-line-truncate">
+            The item's description for number 2
+          </div>
+        </div>
+        <!---->
+      </div>
+    </section>
+    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-3-catalog-item" role="button" tabindex="0">
+      <div class="k-card-header d-flex mb-4">
+        <div>
+          <!---->
+          <div id="test-title-id-1234" class="k-card-title">
+            <h4>
+              Item 3
+            </h4>
+          </div>
+        </div>
+        <div class="k-card-actions"></div>
+      </div>
+      <div class="k-card-content d-flex">
+        <div id="test-content-id-1234" class="k-card-body">
+          <div class="multi-line-truncate">
+            The item's description for number 3
+          </div>
+        </div>
+        <!---->
+      </div>
+    </section>
+    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-4-catalog-item" role="button" tabindex="0">
+      <div class="k-card-header d-flex mb-4">
+        <div>
+          <!---->
+          <div id="test-title-id-1234" class="k-card-title">
+            <h4>
+              Item 4
+            </h4>
+          </div>
+        </div>
+        <div class="k-card-actions"></div>
+      </div>
+      <div class="k-card-content d-flex">
+        <div id="test-content-id-1234" class="k-card-body">
+          <div class="multi-line-truncate">
+            The item's description for number 4
+          </div>
+        </div>
+        <!---->
+      </div>
+    </section>
+  </div>
+</div>
+`;
+
+exports[`KCardCatalog general renders slots when passed 1`] = `
+<div class="k-card-catalog">
+  <!---->
+  <div class="k-catalog-page k-card-medium"><span>Look mah! No props (except testMode)</span></div>
+</div>
+`;
+
+exports[`KCardCatalog states displays a loading skeletion when the "isLoading" prop is set to true" 1`] = `
+<div class="k-card-catalog">
+  <!---->
+  <div class="d-flex flex-wrap k-skeleton-grid w-100 opacity-0">
+    <div class="skeleton-card-wrapper">
+      <div class="skeleton-card-column">
+        <div class="skeleton-card">
+          <div class="skeleton-card-header">
+            <kskeletonbox width="6" class="w-100 justify-content-center mb-3"></kskeletonbox>
+          </div>
+          <div class="skeleton-card-content">
+            <kskeletonbox width="75"></kskeletonbox>
+          </div>
+          <div class="skeleton-card-footer">
+            <div class="d-flex justify-content-start">
+              <kskeletonbox width="2" class="mr-2"></kskeletonbox>
+              <kskeletonbox width="5"></kskeletonbox>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="skeleton-card-column">
+        <div class="skeleton-card">
+          <div class="skeleton-card-header">
+            <kskeletonbox width="6" class="w-100 justify-content-center mb-3"></kskeletonbox>
+          </div>
+          <div class="skeleton-card-content">
+            <kskeletonbox width="75"></kskeletonbox>
+          </div>
+          <div class="skeleton-card-footer">
+            <div class="d-flex justify-content-start">
+              <kskeletonbox width="2" class="mr-2"></kskeletonbox>
+              <kskeletonbox width="5"></kskeletonbox>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="skeleton-card-column">
+        <div class="skeleton-card">
+          <div class="skeleton-card-header">
+            <kskeletonbox width="6" class="w-100 justify-content-center mb-3"></kskeletonbox>
+          </div>
+          <div class="skeleton-card-content">
+            <kskeletonbox width="75"></kskeletonbox>
+          </div>
+          <div class="skeleton-card-footer">
+            <div class="d-flex justify-content-start">
+              <kskeletonbox width="2" class="mr-2"></kskeletonbox>
+              <kskeletonbox width="5"></kskeletonbox>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="skeleton-card-column">
+        <div class="skeleton-card">
+          <div class="skeleton-card-header">
+            <kskeletonbox width="6" class="w-100 justify-content-center mb-3"></kskeletonbox>
+          </div>
+          <div class="skeleton-card-content">
+            <kskeletonbox width="75"></kskeletonbox>
+          </div>
+          <div class="skeleton-card-footer">
+            <div class="d-flex justify-content-start">
+              <kskeletonbox width="2" class="mr-2"></kskeletonbox>
+              <kskeletonbox width="5"></kskeletonbox>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`KCardCatalog states displays an empty state when no data is passed to the table 1`] = `
+<div class="k-card-catalog">
+  <!---->
+  <section class="empty-state-wrapper">
+    <div class="empty-state-title">
+      <!---->
+      <div class="k-empty-state-title-header">No Data</div>
+    </div>
+    <div class="empty-state-content">
+      <div class="k-empty-state-message">There is no data to display.</div>
+      <div class="k-empty-state-cta">
+        <!---->
+      </div>
+    </div>
+  </section>
+</div>
+`;
+
+exports[`KCardCatalog states displays an error state when the "hasError" prop is set to true" 1`] = `
+<div class="k-card-catalog" options="">
+  <!---->
+  <section class="empty-state-wrapper is-error">
+    <div class="empty-state-title">
+      <div class="k-empty-state-icon card-icon mb-4 warning-icon"><svg height="50" width="50" viewBox="0 0 48 42" role="img" class="kong-icon kong-icon-warning">
+          <title>Warning</title>
+          <g>
+            <!---->
+            <!---->
+            <path d="M25.129733,2.64556484 C25.0166566,2.45204254 24.8546193,2.29069544 24.6593031,2.17754095 C24.0339615,1.81525556 23.2314423,2.02651215 22.8697255,2.64556484 L2.17517915,38.0628158 C2.06036961,38.2593042 2,38.4821557 2,38.7088951 C2,39.4200371 2.58244376,40 3.30518292,40 L44.6942755,40 C44.9262204,40 45.1538685,39.9388552 45.3538494,39.8229983 C45.9741835,39.4636139 46.1830669,38.6768553 45.8242793,38.0628158 L25.129733,2.64556484 Z M26.8565586,1.63656862 L47.5511049,37.0538196 C48.4690879,38.6248825 47.9342141,40.6394832 46.3564308,41.5535561 C45.8517121,41.8459599 45.2782053,42 44.6942755,42 L3.30518292,42 C1.4797808,42 3.66949018e-16,40.5265221 0,38.7088951 C0,38.1274525 0.154699044,37.5563885 0.448353557,37.0538196 L21.1428999,1.63656862 C22.0608829,0.0655056975 24.0841012,-0.467089888 25.6618845,0.446983085 C26.1568841,0.733756171 26.5685588,1.14367738 26.8565586,1.63656862 Z" id="Triangle" fill="#A3BBCC" fill-rule="nonzero" type="secondary"></path>
+            <!---->
+            <!---->
+            <path d="M25.129733,2.64556484 C25.0166566,2.45204254 24.8546193,2.29069544 24.6593031,2.17754095 C24.0339615,1.81525556 23.2314423,2.02651215 22.8697255,2.64556484 L2.17517915,38.0628158 C2.06036961,38.2593042 2,38.4821557 2,38.7088951 C2,39.4200371 2.58244376,40 3.30518292,40 L44.6942755,40 C44.9262204,40 45.1538685,39.9388552 45.3538494,39.8229983 C45.9741835,39.4636139 46.1830669,38.6768553 45.8242793,38.0628158 L25.129733,2.64556484 Z" id="Path" fill="#FFFFFF" fill-rule="nonzero"></path>
+            <!---->
+            <!---->
+            <path d="M23,13 L25,13 C25.5522847,13 26,13.4477153 26,14 C26,16 26,18 26,20 C26,22.6594889 25.7904331,25.0570193 25.3712994,27.192591 C25.2792336,27.6616739 24.8680521,28 24.3900199,28 L23.6099609,27.9999816 C23.1319364,27.9999816 22.7207615,27.6616608 22.6286994,27.1925851 C22.2095665,25.0570148 22,22.6594864 22,20 C22,18 22,16 22,14 C22,13.4477153 22.4477153,13 23,13 Z M24,31 C25.1045695,31 26,31.8954305 26,33 C26,34.1045695 25.1045695,35 24,35 C22.8954305,35 22,34.1045695 22,33 C22,31.8954305 22.8954305,31 24,31 Z" id="!" fill="#A3BBCC" type="secondary"></path>
+          </g>
+        </svg></div>
+      <div class="k-empty-state-title-header">An error occurred</div>
+    </div>
+    <div class="empty-state-content">
+      <div class="k-empty-state-message">Data cannot be displayed due to an error.</div>
+      <div class="k-empty-state-cta">
+        <!---->
+      </div>
+    </div>
+  </section>
+</div>
+`;
