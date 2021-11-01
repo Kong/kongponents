@@ -476,7 +476,7 @@ button.close > svg {
   }
 }
 
-.k-alert-additional-text {
+.k-alert-description-text {
   display: block;
   padding-top: 4px;
   font-weight: 400;
