@@ -44,10 +44,30 @@
             if (selectedItem && appearance === 'select') {
               filterStr = selectedItem.label
             }
-            toggle()
+            if (isToggled) {
+              toggle()
+            }
           }"
         >
           <div
+            v-if="appearance === 'button'"
+            :id="selectInputId"
+            class="k-select-button"
+            data-testid="k-select-input"
+            style="position: relative;"
+            role="listbox">
+            <KButton
+              :style="widthStyle"
+              :id="selectTextId"
+              :is-open="isToggled"
+              :is-rounded="false"
+              v-bind="attrs"
+              appearance="btn-link"
+              v-on="listeners"
+              @keyup="triggerFocus(isToggled)">{{ selectButtonText }}</KButton>
+          </div>
+          <div
+            v-else
             :id="selectInputId"
             :class="{ 'k-select-input': appearance === 'select'}"
             data-testid="k-select-input"
@@ -63,7 +83,7 @@
               :id="selectTextId"
               v-bind="attrs"
               v-model="filterStr"
-              :placeholder="placeholder || attrs.placeholder"
+              :placeholder="placeholderText"
               class="k-select-input"
               v-on="listeners"
               @keyup="triggerFocus(isToggled)" />
@@ -99,6 +119,7 @@
 
 <script>
 import { uuid } from 'vue-uuid'
+import KButton from '@kongponents/kbutton/KButton.vue'
 import KIcon from '@kongponents/kicon/KIcon.vue'
 import KInput from '@kongponents/kinput/KInput.vue'
 import KLabel from '@kongponents/klabel/KLabel.vue'
@@ -115,7 +136,7 @@ const defaultKPopAttributes = {
 
 export default {
   name: 'KSelect',
-  components: { KIcon, KInput, KLabel, KPop, KSelectItem, KToggle },
+  components: { KButton, KIcon, KInput, KLabel, KPop, KSelectItem, KToggle },
   props: {
     kpopAttributes: {
       type: Object,
@@ -130,21 +151,29 @@ export default {
      */
     width: {
       type: String,
-      default: '170'
+      default: ''
     },
     placeholder: {
       type: String,
-      default: 'Filter...'
+      default: ''
     },
     /**
-     * The display style, can be either dropdown or select
+     * The display style, can be either dropdown, select, or button
      */
     appearance: {
       type: String,
       default: 'dropdown',
       validator: function (value) {
-        return ['dropdown', 'select'].indexOf(value) !== -1
+        return ['dropdown', 'select', 'button'].indexOf(value) !== -1
       }
+    },
+    /**
+     * Override the text displayed on the button if `appearance` is `button` after an item
+     * has been selected. By default display the selected item's label
+     */
+    buttonText: {
+      type: String,
+      default: ''
     },
     /**
      * Items are JSON objects with required 'label' and 'value'
@@ -196,13 +225,49 @@ export default {
     listeners () {
       return this.$listeners
     },
+    widthValue: function () {
+      let w
+
+      if (!this.width) {
+        w = 170
+        if (this.appearance === 'button') {
+          w = 200
+        }
+      } else {
+        w = this.width
+      }
+
+      return w === 'auto' ? w : w + 'px'
+    },
     widthStyle: function () {
       return {
-        width: this.width === 'auto' ? this.width : this.width + 'px'
+        width: this.widthValue
       }
     },
     filteredItems: function () {
       return this.items.filter(item => item.label.toLowerCase().includes(this.filterStr.toLowerCase()))
+    },
+    placeholderText () {
+      if (this.placeholder) {
+        return this.placeholder
+      } else if (this.attrs.placeholder) {
+        return this.attrs.placeholder
+      }
+
+      if (this.appearance === 'button') {
+        return 'Select an item'
+      }
+
+      return 'Filter...'
+    },
+    selectButtonText () {
+      if (this.buttonText && this.selectedItem) {
+        return this.buttonText
+      } else if (this.selectedItem) {
+        return this.selectedItem.label
+      }
+
+      return this.placeholderText
     }
   },
   beforeMount () {
@@ -232,6 +297,7 @@ export default {
         }
       })
       this.filterStr = this.appearance === 'dropdown' ? '' : item.label
+      this.$emit('selected', item)
     },
     clearSelection () {
       this.items.forEach(anItem => {
@@ -306,6 +372,10 @@ export default {
     }
   }
 
+  .k-select-button .has-caret svg {
+    margin-left: auto;
+  }
+
   .k-input {      // need this so input takes the
     width: 100%;  // k-input-wrapper's width which uses this.width prop
   }
@@ -326,6 +396,13 @@ export default {
     box-sizing: border-box;
     width: 100%;
     border-radius: 0 0 4px 4px;
+
+    &.k-select-pop-button {
+      --KPopPaddingY: var(--spacing-md);
+      --KPopPaddingX: var(--spacing-xxs);
+      border-radius: 4px;
+      border: 1px solid var(--blue-200);
+    }
 
     &.k-select-pop-dropdown {
       --KPopPaddingY: var(--spacing-md);
