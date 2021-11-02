@@ -7,6 +7,7 @@
       v-bind="attrs"
       :value="value"
       :class="`k-input-${size}`"
+      :aria-invalid="hasError ? hasError : null"
       class="form-control k-input"
       @input="e => {
         $emit('input', e.target.value)
@@ -28,6 +29,7 @@
           :id="inputId"
           :value="currValue ? currValue : value"
           :class="`k-input-${size}`"
+          :aria-invalid="hasError ? hasError : null"
           class="form-control k-input"
           @input="e => {
             $emit('input', e.target.value),
