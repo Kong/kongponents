@@ -10,6 +10,7 @@ exports[`KSelect matches snapshot 1`] = `
         <!---->
         <div class="k-input-wrapper k-select-input" id="test-select-text-id-1234" placeholder="Filter..."><input id="test-select-text-id-1234" placeholder="Filter..." class="form-control k-input k-input-medium">
           <!---->
+          <!---->
         </div>
       </div>
       <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-dropdown hide-caret" style="width: 170px; display: none;" name="fade">
@@ -39,6 +40,7 @@ exports[`KSelect renders props when passed 1`] = `
       <div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="" style="position: relative;">
         <!---->
         <div class="k-input-wrapper k-select-input" id="test-select-text-id-1234" placeholder="Filter..." is-open="true"><input id="test-select-text-id-1234" placeholder="Filter..." class="form-control k-input k-input-medium" is-open="true">
+          <!---->
           <!---->
         </div>
       </div>
@@ -87,6 +89,7 @@ exports[`KSelect renders with selected item 1`] = `
       <div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="" style="position: relative;">
         <!---->
         <div class="k-input-wrapper k-select-input" id="test-select-text-id-1234" placeholder="Filter..."><input id="test-select-text-id-1234" placeholder="Filter..." class="form-control k-input k-input-medium">
+          <!---->
           <!---->
         </div>
       </div>
