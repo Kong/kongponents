@@ -138,39 +138,42 @@ export default {
   color: var(--red-500);
 }
 
-.k-input-wrapper > .k-input-label-large + .has-error {
-  font-size: 12px;
-  line-height: 15px;
-  margin-top: 4px;
+.k-input-wrapper {
+  & .k-input-label-large + .has-error {
+    font-size: 12px;
+    line-height: 15px;
+    margin-top: 4px;
+  }
+
+  & .k-input-label-medium + .has-error {
+    font-size: 10px;
+    line-height: 13px;
+    margin-top: 3px;
+  }
+
+  & .k-input-label-small + .has-error {
+    font-size: 9px;
+    line-height: 11px;
+    margin-top: 2px;
+  }
+
+  & .k-input-large + .has-error {
+    font-size: 12px;
+    line-height: 15px;
+    margin-top: 4px;
+  }
+
+  & .k-input-medium + .has-error {
+    font-size: 10px;
+    line-height: 13px;
+    margin-top: 3px;
+  }
+
+  & .k-input-small + .has-error {
+    font-size: 9px;
+    line-height: 11px;
+    margin-top: 2px;
+  }
 }
 
-.k-input-wrapper > .k-input-label-medium + .has-error {
-  font-size: 10px;
-  line-height: 13px;
-  margin-top: 3px;
-}
-
-.k-input-wrapper > .k-input-label-small + .has-error {
-  font-size: 9px;
-  line-height: 11px;
-  margin-top: 2px;
-}
-
-.k-input-wrapper > .k-input-large + .has-error {
-  font-size: 12px;
-  line-height: 15px;
-  margin-top: 4px;
-}
-
-.k-input-wrapper > .k-input-medium + .has-error {
-  font-size: 10px;
-  line-height: 13px;
-  margin-top: 3px;
-}
-
-.k-input-wrapper > .k-input-small + .has-error {
-  font-size: 9px;
-  line-height: 11px;
-  margin-top: 2px;
-}
 </style>

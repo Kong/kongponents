@@ -46,6 +46,14 @@ You also have the option of using the `.help` utility class. This is meant to be
 
 ### Error State
 
+- `hasError`
+
+Boolean value that is by default false.
+
+- `errorMessage`
+
+String to be displayed as error message.
+
 <KInput class="w-100" hasError errorMessage="Service name should not contain “_”"/>
 ```vue
 <KInput class="w-100" 
