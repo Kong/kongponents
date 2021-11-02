@@ -2,7 +2,7 @@
 
 **KInput** provides a wrapper around general `text` input's and provides specific Kong styling and state treatments (error, focus, etc).
 
-<KInput class="w-100"/>
+<KInput class="w-100" />
 ```vue
 <KInput class="w-100"/>
 ```
@@ -44,6 +44,42 @@ You also have the option of using the `.help` utility class. This is meant to be
 </template>
 ```
 
+### Error State
+
+- `hasError`
+
+Boolean value that is by default false.
+
+- `errorMessage`
+
+String to be displayed as error message.
+
+<KInput class="w-100" hasError errorMessage="Service name should not contain “_”"/>
+```vue
+<KInput class="w-100" 
+  hasError errorMessage="Service name should not contain “_”"/>
+```
+
+<KInput label="Small" size="small" class="mb-2" hasError errorMessage="Service name should not contain “_”" />
+<KInput label="Medium" class="mb-2" hasError errorMessage="Service name should not contain “_”" />
+<KInput label="Large" size="large" hasError errorMessage="Service name should not contain “_”" />
+
+```
+<KInput 
+  label="Small" size="small" class="mb-2" 
+  hasError 
+  errorMessage="Service name should not contain “_”" />
+<KInput 
+  label="Medium" 
+  class="mb-2" 
+  hasError 
+  errorMessage="Service name should not contain “_”" />
+<KInput 
+  label="Large" 
+  size="large" 
+  hasError 
+  errorMessage="Service name should not contain “_”" />
+```
 ### Label
 String to be used as the input label. Make sure that if you are using the built in label you specify the `--KInputBackground` theming variable. This variable is used for the background of the label as well as the input element. 
 
