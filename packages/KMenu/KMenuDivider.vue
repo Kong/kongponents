@@ -1,5 +1,5 @@
 <template>
-  <hr>
+  <hr class="k-menu-item-divider">
 </template>
 
 <script>
@@ -9,7 +9,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-hr{
+.k-menu-item-divider{
   position: relative;
   left: -22px;
   width: calc(100% + 20px);

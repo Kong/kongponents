@@ -25,10 +25,10 @@ describe('KMenu', () => {
     return myItems
   }
 
-  // const customItem = {
-  //   title: 'Item #',
-  //   description: 'Cras aliquet auctor ex ut hendrerit. Donec sagittis est nec aliquet semper. Quisque feugiat metus orci, at ullamcorper odio molestie non. Nam dignissim sed ligula ut commodo.'
-  // }
+  const customItem = {
+    title: 'Item #',
+    description: 'Cras aliquet auctor ex ut hendrerit. Donec sagittis est nec aliquet semper. Quisque feugiat metus orci, at ullamcorper odio molestie non. Nam dignissim sed ligula ut commodo.'
+  }
 
   describe('general', () => {
     it('renders proper menu when using props', () => {
@@ -41,6 +41,19 @@ describe('KMenu', () => {
 
       expect(wrapper.find('.k-menu').exists()).toBeTruthy()
       expect(wrapper.findAll('.k-menu-item')).toHaveLength(5)
+    })
+
+    it('shows chevron down icon', () => {
+      const wrapper = mount(KMenu, {
+        propsData: {
+          items: [customItem],
+          expandable: true,
+          testMode: true
+        }
+      })
+
+      expect(wrapper.find('.k-menu').exists()).toBeTruthy()
+      expect(wrapper.find('.k-menu-item .menu-title .span-icon-container').exists()).toBeTruthy()
       expect(wrapper.html()).toMatchSnapshot()
     })
   })
