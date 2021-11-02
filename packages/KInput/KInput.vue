@@ -1,10 +1,13 @@
 <template>
-  <div class="k-input-wrapper">
+  <div
+    :class="{'input-error' : hasError}"
+    class="k-input-wrapper">
     <input
       v-if="!label"
       v-bind="attrs"
       :value="value"
       :class="`k-input-${size}`"
+      :aria-invalid="hasError ? hasError : null"
       class="form-control k-input"
       @input="e => {
         $emit('input', e.target.value)
@@ -26,6 +29,7 @@
           :id="inputId"
           :value="currValue ? currValue : value"
           :class="`k-input-${size}`"
+          :aria-invalid="hasError ? hasError : null"
           class="form-control k-input"
           @input="e => {
             $emit('input', e.target.value),
@@ -38,11 +42,15 @@
           v-on="listeners">
       </div>
     </div>
-
     <p
       v-if="help"
       class="help">
       {{ help }}
+    </p>
+    <p
+      v-if="hasError"
+      class="has-error">
+      {{ errorMessage }}
     </p>
   </div>
 </template>
@@ -68,6 +76,14 @@ export default {
     size: {
       type: String,
       default: 'medium'
+    },
+    hasError: {
+      type: Boolean,
+      default: false
+    },
+    errorMessage: {
+      type: String,
+      default: ''
     },
     /**
      * Test mode - for testing only, strips out generated ids
@@ -118,4 +134,48 @@ export default {
   font-size: var(--type-sm, type(sm));
   color: var(--black-45, color(black-45));
 }
+
+.has-error {
+  font-weight: 500;
+  color: var(--red-500);
+}
+
+.k-input-wrapper {
+  & .k-input-label-large + .has-error {
+    font-size: 12px;
+    line-height: 15px;
+    margin-top: 4px;
+  }
+
+  & .k-input-label-medium + .has-error {
+    font-size: 10px;
+    line-height: 13px;
+    margin-top: 3px;
+  }
+
+  & .k-input-label-small + .has-error {
+    font-size: 9px;
+    line-height: 11px;
+    margin-top: 2px;
+  }
+
+  & .k-input-large + .has-error {
+    font-size: 12px;
+    line-height: 15px;
+    margin-top: 4px;
+  }
+
+  & .k-input-medium + .has-error {
+    font-size: 10px;
+    line-height: 13px;
+    margin-top: 3px;
+  }
+
+  & .k-input-small + .has-error {
+    font-size: 9px;
+    line-height: 11px;
+    margin-top: 2px;
+  }
+}
+
 </style>
