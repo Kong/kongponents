@@ -58,10 +58,6 @@ export default {
       type: Object,
       default: null
     },
-    menuDivider: {
-      type: Boolean,
-      default: false
-    },
     expandable: {
       type: Boolean,
       default: false
@@ -121,8 +117,6 @@ export default {
 .k-menu ul:not(:last-child):after {
     content: " ";
     position: absolute;
-    // left: 50%;
-    // transform: translateX(-56%);
     bottom: 0;
     width: 95%;
     height: 1px;

@@ -30,10 +30,6 @@ export default {
       required: false,
       default: () => []
     },
-    actionButton: {
-      type: String,
-      default: ''
-    },
     width: {
       type: String,
       default: '284'
@@ -52,10 +48,6 @@ export default {
       return {
         width: this.width === 'auto' ? this.width : this.width + 'px'
       }
-    },
-
-    hasActionButton () {
-      return !!this.$slots.actionButton
     }
   }
 }
@@ -66,24 +58,5 @@ export default {
   background-color: var(--white);
   border: 1px solid var(--grey-300);
   border-radius: 4px;
-}
-
-.clear-cta-button > button.k-button {
-  border: none;
-  color: var(--blue-300);
-  font-weight: 500;
-  font-size: 13px;
-  line-height: 13px;
-  margin-bottom: 6px;
-  padding-top: 2px;
-  &:active, &:hover {
-    color: var(--blue-500);
-    background-color: transparent;
-  }
-  &:focus {
-    box-shadow: none;
-    color: var(--blue-500);
-    background-color: transparent;
-  }
 }
 </style>
