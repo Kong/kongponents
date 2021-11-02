@@ -10,7 +10,7 @@
             :expandable="item.expandable"
             :key="item.key"
             :type="item.type"
-
+            :test-mode="testMode"
           />
         </template>
       </div>
@@ -37,6 +37,13 @@ export default {
     width: {
       type: String,
       default: '284'
+    },
+    /**
+     * Test mode - for testing only, strips out generated ids
+     */
+    testMode: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -59,7 +66,6 @@ export default {
   background-color: var(--white);
   border: 1px solid var(--grey-300);
   border-radius: 4px;
-  box-shadow: 0px 0px 12px 0px var(--black-10, color(black-10));
 }
 
 .clear-cta-button > button.k-button {

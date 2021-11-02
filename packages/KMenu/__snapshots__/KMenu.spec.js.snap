@@ -1,19 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`KMenu matches snapshot 1`] = `
-<div class="k-menu" style="width: 284px;" testmode="true">
-  <ul class="k-menu-list">
-    <div class="k-menu-item expand-item">
-      <li>
-        <div class="menu-title"><span class="span-menu-title"> Updated
-        </span> <span class="span-icon-container"><svg height="16" width="16" viewBox="0 0 20 20" role="img" class="kong-icon kong-icon-chevronDown"><title>Expand</title>  <g><!----> <!----> <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--grey-400)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></g></svg></span> </div>
-        <div class="menu-content d-none">
-          <!---->
-          <!---->
+exports[`KMenu general renders proper menu when using props 1`] = `
+<div class="k-menu" style="width: 284px;">
+  <div>
+    <div data-testid="Item-0-menu-item" test-mode="true" class="k-menu-item expand-item">
+      <div class="menu-title"><span class="span-menu-title">
+        Item 0
+      </span> <span class="span-icon-container"><svg height="16" width="16" viewBox="0 0 20 20" role="img" class="kong-icon kong-icon-chevronDown"><title>Expand</title>  <g><!----> <!----> <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--grey-400)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></g></svg></span></div>
+      <div class="menu-content d-none">
+        <div>
+          The item's description for number 0
         </div>
-      </li>
+      </div>
+      <!---->
     </div>
-  </ul>
-  <!---->
+    <div data-testid="Item-1-menu-item" test-mode="true" class="k-menu-item">
+      <div class="menu-title"><span class="span-menu-title">
+        Item 1
+      </span> <span class="span-icon-container"><!----></span></div>
+      <div class="menu-content d-none">
+        <!---->
+      </div>
+      <!---->
+    </div>
+    <div data-testid="Item-2-menu-item" test-mode="true" class="k-menu-item">
+      <div class="menu-title"><span class="span-menu-title">
+        Item 2
+      </span> <span class="span-icon-container"><!----></span></div>
+      <div class="menu-content d-none">
+        <!---->
+      </div>
+      <!---->
+    </div>
+    <div data-testid="Item-3-menu-item" test-mode="true" class="k-menu-item expand-item">
+      <div class="menu-title"><span class="span-menu-title">
+        Item 3
+      </span> <span class="span-icon-container"><svg height="16" width="16" viewBox="0 0 20 20" role="img" class="kong-icon kong-icon-chevronDown"><title>Expand</title>  <g><!----> <!----> <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--grey-400)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></g></svg></span></div>
+      <div class="menu-content d-none">
+        <div>
+          The item's description for number 3
+        </div>
+      </div>
+      <!---->
+    </div>
+    <div data-testid="Item-4-menu-item" test-mode="true" class="k-menu-item">
+      <div class="menu-title"><span class="span-menu-title">
+        Item 4
+      </span> <span class="span-icon-container"><!----></span></div>
+      <div class="menu-content d-none">
+        <!---->
+      </div>
+      <!---->
+    </div>
+  </div>
 </div>
 `;

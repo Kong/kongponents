@@ -1,5 +1,7 @@
 <template>
   <div
+    :data-testid="item ? `${item.title.replace(' ', '-')}-menu-item` : 'menu-item'"
+    :test-mode="testMode"
     :class="[isOpen && expandable ? 'title-dark' : '', {'expand-item' : expandable}]"
     class="k-menu-item">
     <div
@@ -74,6 +76,13 @@ export default {
           'divider'
         ].indexOf(value) !== -1
       }
+    },
+    /**
+     * Test mode - for testing only, strips out generated ids
+     */
+    testMode: {
+      type: Boolean,
+      default: false
     }
   },
 

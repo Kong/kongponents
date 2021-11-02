@@ -9,20 +9,39 @@ import KMenu from '@/KMenu/KMenu'
  *   testMode: true
  * }
  */
-
 describe('KMenu', () => {
-  it('matches snapshot', () => {
-    const wrapper = mount(KMenu, {
-      propsData: {
-        testMode: true,
-        items: [{
-          title: 'Updated',
-          itemType: 'String',
-          expandable: true
-        }]
-      }
-    })
+  function getItems (count) {
+    let myItems = []
 
-    expect(wrapper.html()).toMatchSnapshot()
+    for (let i = 0; i < count; i++) {
+      myItems.push({
+        title: 'Item ' + i,
+        type: Math.random() < 0.5 ? 'string' : 'number',
+        expandable: Math.random() < 0.5,
+        description: "The item's description for number " + i
+      })
+    }
+
+    return myItems
+  }
+
+  // const customItem = {
+  //   title: 'Item #',
+  //   description: 'Cras aliquet auctor ex ut hendrerit. Donec sagittis est nec aliquet semper. Quisque feugiat metus orci, at ullamcorper odio molestie non. Nam dignissim sed ligula ut commodo.'
+  // }
+
+  describe('general', () => {
+    it('renders proper menu when using props', () => {
+      const wrapper = mount(KMenu, {
+        propsData: {
+          items: getItems(5),
+          testMode: true
+        }
+      })
+
+      expect(wrapper.find('.k-menu').exists()).toBeTruthy()
+      expect(wrapper.findAll('.k-menu-item')).toHaveLength(5)
+      expect(wrapper.html()).toMatchSnapshot()
+    })
   })
 })
