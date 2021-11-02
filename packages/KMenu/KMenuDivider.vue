@@ -13,6 +13,7 @@ hr{
   position: relative;
   left: -22px;
   width: calc(100% + 20px);
+  margin: 0;
 }
 
 </style>

@@ -4,122 +4,90 @@
 **KMenu** - Menu component
 
 <script>
-function getItems(count) {
-  let myItems = []
+function getMenuItems(count) {
+  let menuItems = []
   for (let i = 0; i < count; i++) {
-    myItems.push({
+    menuItems.push({
       title: "Item " + i,
-      description: "The item's description for number " + i,
-      expandable: `${Math.random() < 0.5}`,
-      type: `${Math.random() < 0.5}` ? 'string' : 'number'
+      type: Math.random() < 0.5 ? 'string' : 'number',
+      expandable: Math.random() < 0.5 ? true : false,
+      description: "The item's description for number " + i
     })
   }
-  return myItems
+  return menuItems
+}
+const customItem = {
+  title: "Sample Item",
+  description: "Cras aliquet auctor ex ut hendrerit. Donec sagittis est nec aliquet semper. Quisque feugiat metus orci, at ullamcorper odio molestie non. Nam dignissim sed ligula ut commodo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ac accumsan nunc. Praesent pulvinar felis nec nunc rutrum, eu malesuada augue tincidunt. Proin vel porttitor erat. Vestibulum consequat consequat ornare."
+
 }
 
 export default {
   data () {
     return {
-      getItems
+      getMenuItems,
+      customItem
     }
   }
 }
 </script>
 
-<KMenu :items="getItems(5)" />
+<KMenu :items="getMenuItems(3)" />
+
 ```vue
-<KMenu :items="items" />
+<KMenu :items="getMenuItems(3)" />
 ```
 
-<KMenu :items="getItems(5)">
-  <template v-slot:actionButton>
-    <KButton>Clear all sorting and filters</KButton>
+<KMenu title="I'm slotted baby!">
+  <template v-slot:body>
+    <KMenuItem
+      v-for="item in getMenuItems(3)"
+      :item="item"
+    />
+    <KMenuItem
+      :item="customItem"
+      class="catalog-item"
+      :expandable="true"
+      type="divider" 
+    />
+    <KMenuItem :expandable="true" :item="customItem" type="divider" />
+    <KMenuItem :expandable="true" >
+      <template v-slot:itemTitle>
+          <span>Updated</span>
+      </template>
+      <template v-slot:itemBody>
+        <div>Vivamus blandit metus eu nisi venenatis, vel convallis neque mollis. In enim lectus, dignissim nec iaculis id, sodales quis nulla. Mauris pellentesque bibendum dui sed dictum.</div>
+      </template>
+    </KMenuItem>
   </template>
 </KMenu>
 
 
 ```vue
-<KMenu :items="items" />
-```
-
-<KMenu :items="[{
-    title: 'Updated',
-    type: 'string',
-    expandable: true
-  }, {
-    title: 'Created',
-    expandable: false
-  }, {
-    title: 'Name and description',
-    type: 'number',
-    expandable: true
-  }, {
-    title: 'Status',
-    type: 'number',
-    expandable: true
-  }, {
-    title: 'Avg. Latency',
-    expandable: false
-  }, {
-    title: 'Uptime',
-    type: 'number',
-    expandable: true
-  }, {
-    title: 'Properties',
-    type: 'string',
-    expandable: true
-  }, {
-    title: 'Versions',
-    expandable: false
-  }, {
-    title: 'Owner',
-    expandable: false
-  }]">
-  <template v-slot:actionButton>
-    <KButton>Clear all sorting and filters</KButton>
-  </template>
-</KMenu>
-
-```vue
-<KMenu :items="[{
-    title: 'Updated',
-    type: 'string',
-    expandable: true
-  }, {
-    title: 'Created',
-    expandable: false
-  }, {
-    title: 'Name and description',
-    type: 'number',
-    expandable: true
-  }, {
-    title: 'Status',
-    type: 'number',
-    expandable: true
-  }, {
-    title: 'Avg. Latency',
-    expandable: false
-  }, {
-    title: 'Uptime',
-    type: 'number',
-    expandable: true
-  }, {
-    title: 'Properties',
-    type: 'string',
-    expandable: true
-  }, {
-    title: 'Versions',
-    expandable: false
-  }, {
-    title: 'Owners',
-    expandable: false
-  }]">
-  <template v-slot:actionButton>
-    <KButton>Clear all sorting and filters</KButton>
+<KMenu title="I'm slotted baby!">
+  <template v-slot:body>
+    <KMenuItem
+      v-for="item in getMenuItems(3)"
+      :item="item"
+    />
+    <KMenuItem
+      :item="customItem"
+      class="catalog-item"
+      :expandable="true"
+      type="divider" 
+    />
+    <KMenuItem :expandable="true" :item="customItem" type="divider" />
+    <KMenuItem :expandable="true" >
+      <template v-slot:itemTitle>
+          <span>Updated</span>
+      </template>
+      <template v-slot:itemBody>
+        <div>Vivamus blandit metus eu nisi venenatis, vel convallis neque mollis. In enim lectus, dignissim nec iaculis id, sodales quis nulla. Mauris pellentesque bibendum dui sed dictum.</div>
+      </template>
+    </KMenuItem>
   </template>
 </KMenu>
 ```
-
 ## Props
 ### Prop1
 Description of prop1
@@ -162,5 +130,11 @@ like:
 <style lang="scss">
 .KMenu-wrapper {
   --KMenu-wrapperBorderColor: lime;
+}
+
+div.menu-content div {
+  white-space: normal;
+  margin-right: 22px;
+  text-align: justify;
 }
 </style>

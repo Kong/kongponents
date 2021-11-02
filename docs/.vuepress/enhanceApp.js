@@ -21,6 +21,7 @@ import KCheckbox from '../../packages/KCheckbox/KCheckbox.vue'
 import KRadio from '../../packages/KRadio/KRadio.vue'
 import KLabel from '../../packages/KLabel/KLabel.vue'
 import KMenu from '../../packages/KMenu/KMenu.vue'
+import KMenuItem from '../../packages/KMenu/KMenuItem.vue'
 import KModal from '../../packages/KModal/KModal.vue'
 import KoolTip from '../../packages/KoolTip/KoolTip.vue'
 import KPop from '../../packages/KPop/KPop.vue'
@@ -60,6 +61,7 @@ export default ({
   Vue.component('KRadio', KRadio)
   Vue.component('KLabel', KLabel)
   Vue.component('KMenu', KMenu)
+  Vue.component('KMenuItem', KMenuItem)
   Vue.component('KModal', KModal)
   Vue.component('KoolTip', KoolTip)
   Vue.component('KPop', KPop)

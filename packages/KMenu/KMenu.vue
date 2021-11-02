@@ -2,30 +2,19 @@
   <div
     :style="widthStyle"
     class="k-menu">
-    <template>
-      <ul class="k-menu-list">
-        <slot
-          :items="items"
-          name="items"
-        >
+    <slot name="body">
+      <div>
+        <template v-for="item in items">
           <KMenuItem
-            v-for="item in items"
-            :key="item.key"
             :item="item"
+            :expandable="item.expandable"
+            :key="item.key"
+            :type="item.type"
+
           />
-        </slot>
-      </ul>
-      <div
-        v-if="hasActionButton"
-        class="clear-cta-button">
-        <slot
-          name="actionButton">
-          <KButton
-            @click="proceed"
-            @keyup.enter="proceed"/>
-        </slot>
+        </template>
       </div>
-    </template>
+    </slot>
   </div>
 </template>
 
@@ -71,12 +60,6 @@ export default {
   border: 1px solid var(--grey-300);
   border-radius: 4px;
   box-shadow: 0px 0px 12px 0px var(--black-10, color(black-10));
-}
-
-.k-menu-list {
-  margin: 11px 0px 11px 23px;
-  padding: 0;
-  list-style: none;
 }
 
 .clear-cta-button > button.k-button {

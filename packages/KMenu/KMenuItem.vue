@@ -1,48 +1,45 @@
 <template>
   <div
-    :class="{'expand-item':item.expandable}"
-    :key="item.key"
+    :class="[isOpen && expandable ? 'title-dark' : '', {'expand-item' : expandable}]"
     class="k-menu-item">
-    <li>
-      <div
-        class="menu-title"
-        @click="isOpen = !isOpen">
-        <span
-          :class="isOpen && item.expandable ? 'title-dark' : ''"
-          class="span-menu-title">
-          <slot name="menuTitle"> {{ item.title }}
-          </slot>
-        </span>
-        <span
-          class="span-icon-container">
-          <KIcon
-            v-if="item.expandable"
-            :icon="isOpen ? 'chevronUp' : 'chevronDown'"
-            color="var(--grey-400)"
-            size="16"
-          />
-        </span>
-        <slot/>
-      </div>
-      <div
-        :class="isOpen ? 'd-block' : 'd-none'"
-        class="menu-content">
-        <slot
-          v-if="item.type === 'string'"
-          name="stringMenuItem">
-          <KEmptyState cta-is-hidden>
-            <template v-slot:title>{{ `String Content` }}</template>
-          </KEmptyState>
+    <div
+      class="menu-title"
+      @click="isOpen = !isOpen">
+      <span
+        :class="isOpen && expandable ? 'title-dark' : ''"
+        class="span-menu-title">
+        <slot name="itemTitle">
+          {{ item ? item.title : '' }}
         </slot>
-        <slot
-          v-if="item.type === 'number'"
-          name="numberMenuItem">
-          <KEmptyState cta-is-hidden>
-            <template v-slot:title>{{ `Number Content` }}</template>
-          </KEmptyState>
-        </slot>
-      </div>
-    </li>
+      </span>
+      <span
+        class="span-icon-container">
+        <KIcon
+          v-if="expandable"
+          :icon="isOpen ? 'chevronUp' : 'chevronDown'"
+          color="var(--grey-400)"
+          size="16"
+        />
+      </span>
+    </div>
+    <div
+      :class="isOpen ? 'd-flex' : 'd-none'"
+      class="menu-content">
+      <slot name="itemBody">
+        <div
+          v-if="(type === 'string' || 'divider') && expandable">
+          {{ item ? item.description : '' }}
+        </div>
+        <div
+          v-else-if="(type === 'number' || 'divider') && expandable">
+          {{ item ? item.description : '' }}
+        </div>
+      </slot>
+    </div>
+    <slot
+      v-if="type === 'divider'">
+      <KMenuDivider />
+    </slot>
   </div>
 </template>
 
@@ -62,6 +59,21 @@ export default {
     menuDivider: {
       type: Boolean,
       default: false
+    },
+    expandable: {
+      type: Boolean,
+      default: false
+    },
+    type: {
+      type: String,
+      default: 'string',
+      validator: (value) => {
+        return [
+          'string',
+          'number',
+          'divider'
+        ].indexOf(value) !== -1
+      }
     }
   },
 
@@ -75,17 +87,29 @@ export default {
 
 <style scoped lang="scss">
 .k-menu-item {
+  list-style: none;
   margin: 0;
   white-space: nowrap;
-  font-family: var(--font-family-sans);
-  font-style: normal;
   font-weight: 400;
   font-size: 13px;
   line-height: 24px;
   color: var(--grey-500);
   position: relative;
-
+  padding-left: 24px;
+  padding-top: 20px;
   &:not(:last-child):after {
+    content: " ";
+    position: absolute;
+    left: 56%;
+    transform: translateX(-57%);
+    bottom: 0;
+    width: 88%;
+    height: 1px;
+    background-color: var(--grey-300);
+  }
+}
+
+.k-menu ul:not(:last-child):after {
     content: " ";
     position: absolute;
     // left: 50%;
@@ -95,7 +119,6 @@ export default {
     height: 1px;
     background-color: var(--grey-300);
   }
-}
 
 .menu-title {
   width: 100%;
@@ -109,7 +132,6 @@ export default {
   margin-top: auto;
   margin-bottom: auto;
   padding-right: 18px;
-  // padding-top: 8px;
   height: 24px;
   width: 24px;
 }
@@ -123,5 +145,9 @@ export default {
   &:hover {
     color: var(--grey-600);
   }
+}
+
+.menu-content {
+  color: var(--grey-500);
 }
 </style>
