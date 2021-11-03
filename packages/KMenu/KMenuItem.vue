@@ -159,12 +159,7 @@ export default {
 }
 
 .k-button.menu-button {
-  // background-color: transparent;
   width: 100%;
-  // display: flex;
-  // padding: 8px 0;
-  // text-align: center;
-  // border: none;
   color: var(--KButtonOutlineColor, var(--grey-500));
   font-weight: 400 !important;
   cursor: default !important;
