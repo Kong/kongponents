@@ -4,13 +4,14 @@
     class="k-menu">
     <slot name="body">
       <div>
-        <template v-for="item in items">
+        <template v-for="(item,index) in items">
           <KMenuItem
             :item="item"
             :expandable="item.expandable"
             :key="item.key"
             :type="item.type"
             :test-mode="testMode"
+            :class="{ 'last-menu-item': index===items.length-1 }"
           />
         </template>
       </div>

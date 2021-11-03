@@ -3,7 +3,7 @@
     :id="menuItemId"
     :data-testid="item ? `${item.title.replace(' ', '-')}-menu-item` : 'menu-item'"
     :test-mode="testMode"
-    :class="[isOpen && expandable ? 'title-dark' : '', {'expand-item' : expandable}]"
+    :class="isOpen ? 'title-dark' : ''"
     class="k-menu-item">
     <KButton
       :aria-expanded="isOpen && expandable"
@@ -114,31 +114,15 @@ export default {
   line-height: 24px;
   color: var(--grey-500);
   position: relative;
-  padding-left: 24px;
-  &:not(:last-child):after {
-    content: " ";
-    position: absolute;
-    left: 56%;
-    transform: translateX(-57%);
-    bottom: 0;
-    width: 88%;
-    height: 1px;
-    background-color: var(--grey-300);
+  padding-left: 2px;
+  &:not(.last-menu-item) {
+    border-bottom: 1px solid var(--grey-300);
+    margin: 0 19px 0 24px;
   }
 }
 
-.k-menu ul:not(:last-child):after {
-  content: " ";
-  position: absolute;
-  bottom: 0;
-  width: 95%;
-  height: 1px;
-  background-color: var(--grey-300);
-  }
-
 .span-icon-container {
   margin-left: auto;
-  padding-right: 14px;
   height: 24px;
   width: 24px;
 }
@@ -147,7 +131,7 @@ export default {
   color: var(--grey-600);
 }
 
-.k-menu-item.expand-item .menu-button {
+.k-menu-item .menu-button {
   cursor: pointer !important;
   &:hover {
     color: var(--grey-600);
@@ -162,7 +146,6 @@ export default {
   width: 100%;
   color: var(--KButtonOutlineColor, var(--grey-500));
   font-weight: 400 !important;
-  cursor: default !important;
   padding-left: 0;
   padding-right: 0;
   font-family: var(--font-family-sans);
@@ -176,5 +159,14 @@ export default {
 .k-button.medium {
   padding-top: 8px;
   padding-bottom: 8px;
+}
+
+.last-menu-item {
+  & .k-button {
+    padding-left: 22px;
+  }
+  & .span-icon-container {
+    padding-right: 18px;
+  }
 }
 </style>

@@ -11,8 +11,8 @@ export default {
 <style lang="scss" scoped>
 .k-menu-item-divider{
   position: relative;
-  left: -22px;
-  width: calc(100% + 20px);
+  left: -24px;
+  width: calc(100% + 24px);
   margin: 0;
 }
 
