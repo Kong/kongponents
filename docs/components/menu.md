@@ -92,7 +92,8 @@ export default {
 ```
 ## Props
 
-items
+### items
+
 The content of the menu item. Expects a `title`, `type(string,number,divider)`, `expandable` and a `description`.
 
 > Note: `type='divider'` adds a full width horizontal line between the menu items.

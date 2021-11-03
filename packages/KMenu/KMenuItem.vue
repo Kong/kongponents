@@ -1,16 +1,17 @@
 <template>
   <div
+    :id="menuItemId"
     :data-testid="item ? `${item.title.replace(' ', '-')}-menu-item` : 'menu-item'"
     :test-mode="testMode"
     :class="[isOpen && expandable ? 'title-dark' : '', {'expand-item' : expandable}]"
-    aria-labelledby="menu-item"
     class="k-menu-item">
-    <button
+    <KButton
       :aria-expanded="isOpen && expandable"
       type="button"
-      class="menu-title menu-button"
-      @click="openMenuItem"
-      @keyup.enter="openMenuItem">
+      class="menu-title menu-button non-visual-button"
+      aria-labelledby="menuItemId"
+      @click="toggleMenuItem"
+      @keyup.enter="toggleMenuItem">
       <span
         :class="isOpen && expandable ? 'title-dark' : ''"
         class="span-menu-title">
@@ -27,7 +28,7 @@
           size="16"
         />
       </span>
-    </button>
+    </KButton>
     <div
       :class="isOpen ? 'd-flex' : 'd-none'"
       class="menu-content">
@@ -50,13 +51,14 @@
 </template>
 
 <script>
-import KEmptyState from '@kongponents/kemptystate/KEmptyState.vue'
+import KButton from '@kongponents/kbutton/KButton.vue'
 import KMenuDivider from './KMenuDivider.vue'
 import KIcon from '@kongponents/kicon/KIcon.vue'
+import { uuid } from 'vue-uuid'
 
 export default {
   name: 'KMenuItem',
-  components: { KMenuDivider, KIcon, KEmptyState },
+  components: { KButton, KMenuDivider, KIcon },
   props: {
     item: {
       type: Object,
@@ -86,14 +88,15 @@ export default {
     }
   },
 
-  data: () => {
+  data () {
     return {
-      isOpen: false
+      isOpen: false,
+      menuItemId: !this.testMode ? uuid.v1() : 'test-menuitem-id-1234'
     }
   },
 
   methods: {
-    openMenuItem () {
+    toggleMenuItem () {
       this.isOpen = !this.isOpen
     }
   }
@@ -139,9 +142,6 @@ export default {
   padding: 8px 0;
   text-align: center;
   font-family: var(--font-family-sans);
-  font-size: 13px;
-  line-height: 24px;
-  font-weight: 500;
   color: var(--grey-500);
 }
 
@@ -157,7 +157,7 @@ export default {
 }
 
 .k-menu-item.expand-item .menu-title {
-  cursor: pointer;
+  cursor: pointer !important;
   &:hover {
     color: var(--grey-600);
   }
@@ -167,8 +167,24 @@ export default {
   color: var(--grey-500);
 }
 
-.menu-button {
+.k-button.menu-button {
   background-color: transparent;
   border: none;
+  color: var(--KButtonOutlineColor, var(--grey-500));
+  font-weight: 400 !important;
+  cursor: default !important;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 13px;
+  line-height: 24px;
+  font-weight: 500;
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.k-button.medium {
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 </style>
