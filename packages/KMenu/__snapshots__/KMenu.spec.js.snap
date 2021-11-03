@@ -3,15 +3,15 @@
 exports[`KMenu general shows chevron down icon 1`] = `
 <div class="k-menu" style="width: 284px;" expandable="true">
   <div>
-    <div data-testid="Item-#-menu-item" test-mode="true" class="k-menu-item">
-      <div class="menu-title"><span class="span-menu-title">
+    <div data-testid="Item-#-menu-item" test-mode="true" aria-labelledby="menu-item" class="k-menu-item"><button type="button" class="menu-title menu-button"><span class="span-menu-title">
         Item #
-      </span> <span class="span-icon-container"><!----></span></div>
+      </span> <span class="span-icon-container"><!----></span></button>
       <div class="menu-content d-none">
         <!---->
       </div>
       <!---->
     </div>
   </div>
+  <!---->
 </div>
 `;

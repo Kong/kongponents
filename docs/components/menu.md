@@ -19,7 +19,6 @@ function getMenuItems(count) {
 const customItem = {
   title: "Item #",
   description: "Cras aliquet auctor ex ut hendrerit. Donec sagittis est nec aliquet semper. Quisque feugiat metus orci, at ullamcorper odio molestie non. Nam dignissim sed ligula ut commodo."
-
 }
 
 export default {
@@ -42,7 +41,6 @@ export default {
   <template v-slot:body>
     <KMenuItem
       :item="customItem"
-      :expandable="true"
     />
     <KMenuItem
       :item="customItem"
@@ -51,10 +49,9 @@ export default {
     <KMenuItem
       :item="customItem"
       :expandable="true"
-      type="divider"
     />
-    <KMenuItem :expandable="true" :item="customItem" type="divider" />
-    <KMenuItem :expandable="true" >
+    <KMenuItem :expandable="true" :item="customItem" />
+    <KMenuItem :expandable="true" type="divider"  >
       <template v-slot:itemTitle>
           <span>Updated</span>
       </template>
@@ -62,6 +59,9 @@ export default {
         <div>Vivamus blandit metus eu nisi venenatis, vel convallis neque mollis. In enim lectus, dignissim nec iaculis id, sodales quis nulla. Mauris pellentesque bibendum dui sed dictum.</div>
       </template>
     </KMenuItem>
+  </template>
+  <template v-slot:actionButton>
+    <KButton>Clear all sorting and filters</KButton>
   </template>
 </KMenu>
 
@@ -95,6 +95,9 @@ export default {
 items
 The content of the menu item. Expects a `title`, `type(string,number,divider)`, `expandable` and a `description`.
 
+> Note: `type='divider'` adds a full width horizontal line between the menu items.
+
+
 <KMenu :items="getMenuItems(6)" />
 ```vue
 function getMenuItems(count) {
@@ -117,7 +120,7 @@ function getMenuItems(count) {
 **KMenu** generates a **KMenuItem** for each item in the `items` property.
 
 ### Properties
-- `item` - the menu item content is built from this, it expects a `title`, optionally a `description`, `type`, and `expandable`.
+- `item` - the menu item content is built from this, it expects a `title`, optionally a `description`, `type`, and `expandable` (sets whether the menu item would have an icon on the right or not, and is clickable or not).
   ```json
   { title: 'some title', 
     description: 'some description', 
@@ -136,6 +139,7 @@ function getMenuItems(count) {
 ### Slots
 - `itemTitle` - the title content for the menu item
 - `itemBody` - the body content for the menu item
+- `actionButton` - the button at the bottom of the menu
 
 ```vue
 <KMenuItem>       
@@ -146,6 +150,20 @@ function getMenuItems(count) {
     Vivamus blandit metus eu nisi venenatis, vel convallis neque mollis. In enim lectus.
   </template>
 </KMenuItem>
+```
+
+<KMenu :items="getMenuItems(3)">
+  <template v-slot:actionButton>
+    <KButton>Clear all the filters</KButton>
+  </template>
+</KMenu>  
+
+```vue
+<KMenu :items="getMenuItems(3)">
+  <template v-slot:actionButton>
+    <KButton>Clear all the filters</KButton>
+  </template>
+</KMenu> 
 ```
 
 ## Slots

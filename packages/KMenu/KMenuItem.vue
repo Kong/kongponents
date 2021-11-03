@@ -3,10 +3,14 @@
     :data-testid="item ? `${item.title.replace(' ', '-')}-menu-item` : 'menu-item'"
     :test-mode="testMode"
     :class="[isOpen && expandable ? 'title-dark' : '', {'expand-item' : expandable}]"
+    aria-labelledby="menu-item"
     class="k-menu-item">
-    <div
-      class="menu-title"
-      @click="isOpen = !isOpen">
+    <button
+      :aria-expanded="isOpen && expandable"
+      type="button"
+      class="menu-title menu-button"
+      @click="openMenuItem"
+      @keyup.enter="openMenuItem">
       <span
         :class="isOpen && expandable ? 'title-dark' : ''"
         class="span-menu-title">
@@ -23,7 +27,7 @@
           size="16"
         />
       </span>
-    </div>
+    </button>
     <div
       :class="isOpen ? 'd-flex' : 'd-none'"
       class="menu-content">
@@ -86,7 +90,14 @@ export default {
     return {
       isOpen: false
     }
+  },
+
+  methods: {
+    openMenuItem () {
+      this.isOpen = !this.isOpen
+    }
   }
+
 }
 </script>
 
@@ -101,7 +112,6 @@ export default {
   color: var(--grey-500);
   position: relative;
   padding-left: 24px;
-  padding-top: 20px;
   &:not(:last-child):after {
     content: " ";
     position: absolute;
@@ -115,12 +125,12 @@ export default {
 }
 
 .k-menu ul:not(:last-child):after {
-    content: " ";
-    position: absolute;
-    bottom: 0;
-    width: 95%;
-    height: 1px;
-    background-color: var(--grey-300);
+  content: " ";
+  position: absolute;
+  bottom: 0;
+  width: 95%;
+  height: 1px;
+  background-color: var(--grey-300);
   }
 
 .menu-title {
@@ -128,6 +138,11 @@ export default {
   display: flex;
   padding: 8px 0;
   text-align: center;
+  font-family: var(--font-family-sans);
+  font-size: 13px;
+  line-height: 24px;
+  font-weight: 500;
+  color: var(--grey-500);
 }
 
 .span-icon-container {
@@ -143,7 +158,7 @@ export default {
   color: var(--grey-600);
 }
 
-.k-menu-item.expand-item {
+.k-menu-item.expand-item .menu-title {
   cursor: pointer;
   &:hover {
     color: var(--grey-600);
@@ -152,5 +167,10 @@ export default {
 
 .menu-content {
   color: var(--grey-500);
+}
+
+.menu-button {
+  background-color: transparent;
+  border: none;
 }
 </style>
