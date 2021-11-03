@@ -1,11 +1,11 @@
 <template>
   <KSkeleton
-    v-if="isLoading"
+    v-if="[STATE.PENDING].includes(currentState) || isLoading"
     :delay-milliseconds="0"
     type="table"
   />
   <KEmptyState
-    v-else-if="hasError"
+    v-else-if="[STATE.ERROR, STATE.STALE_IF_ERROR].includes(currentState) || hasError"
     :cta-is-hidden="!errorStateActionMessage || !errorStateActionRoute"
     :icon="errorStateIcon || ''"
     :is-error="true"
@@ -25,7 +25,7 @@
     </template>
   </KEmptyState>
   <KEmptyState
-    v-else-if="!hasError && (!options || !options.data || !options.data.length) && (!data || !data.length)"
+    v-else-if="[STATE.SUCCESS].includes(currentState) && !hasError && (!data || !data.length)"
     :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
     :icon="emptyStateIcon || ''"
     :icon-color="emptyStateIconColor"
@@ -121,6 +121,7 @@
 import KEmptyState from '@kongponents/kemptystate/KEmptyState.vue'
 import KSkeleton from '@kongponents/kskeleton/KSkeleton.vue'
 import { clientSideSorter, useDebounce, useRequest } from '../../utils/utils'
+import useSwrvState from '../../utils/useSwrvState'
 
 import Vue from 'vue'
 import VueCompositionAPI, { computed, defineComponent, onMounted, ref, watch } from '@vue/composition-api'
@@ -410,7 +411,7 @@ export default defineComponent({
     })
 
     const fetchData = async () => {
-      const { data: fetcherData, total: totalCount } = await props.fetcher(
+      const res = await props.fetcher(
         props.pageSize,
         page.value,
         query.value || props.searchInput,
@@ -418,8 +419,10 @@ export default defineComponent({
         sortColumnOrder.value
       )
 
-      data.value = fetcherData
-      total.value = totalCount
+      data.value = res.data
+      total.value = res.total
+
+      return res
     }
 
     const initData = async () => {
@@ -445,11 +448,13 @@ export default defineComponent({
     }
 
     const { query, search } = useDebounce('', 350)
-    const { revalidate } = useRequest(
+    const { revalidate, response, error, isValidating } = useRequest(
       () => props.fetcher && `k-table_${Math.floor(Math.random() * 1000)}`,
       () => fetchData(),
       { revalidateOnFocus: false }
     )
+
+    const { state: currentState, swrvState: STATE } = useSwrvState(response, error, isValidating)
 
     const sortClickHandler = (key) => {
       sortColumnKey.value = key
@@ -466,7 +471,7 @@ export default defineComponent({
       }
     }
 
-    // TEMP
+    // Temp until pagination component is ready
     const totalPages = computed(() => Math.ceil(total.value / props.pageSize))
 
     watch(() => props.searchInput, (val) => {
@@ -492,7 +497,11 @@ export default defineComponent({
       tdlisteners,
       total,
       totalPages,
-      trlisteners
+      trlisteners,
+
+      // state
+      currentState,
+      STATE
     }
   }
 })

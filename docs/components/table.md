@@ -35,6 +35,7 @@ export default {
 
       if (query) {
         params.q = query
+        params._page = 1
       }
 
       if (sortKey) {
@@ -150,6 +151,7 @@ fetcher(pageSize = 10, page = 1, query = '', sortKey = '', sortOrder = '') {
 
   if (query) {
     params.q = query
+    params._page = 1
   }
 
   if (sortKey) {
@@ -846,6 +848,7 @@ fetcher(pageSize = 10, page = 1, query = '', sortKey = '', sortOrder = '') {
 
   if (query) {
     params.q = query
+    params._page = 1
   }
 
   if (sortKey) {
@@ -1077,6 +1080,7 @@ export default {
 
       if (query) {
         params.q = query
+        params._page = 1
       }
 
       if (sortKey) {
