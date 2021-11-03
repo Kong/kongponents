@@ -53,7 +53,7 @@ describe('KMenu', () => {
       })
 
       expect(wrapper.find('.k-menu').exists()).toBeTruthy()
-      expect(wrapper.find('.k-menu-item .menu-title .span-icon-container').exists()).toBeTruthy()
+      expect(wrapper.find('.k-menu-item .k-button > .span-icon-container').exists()).toBeTruthy()
       expect(wrapper.html()).toMatchSnapshot()
     })
   })
