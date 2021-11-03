@@ -8,7 +8,7 @@
     <KButton
       :aria-expanded="isOpen && expandable"
       type="button"
-      class="menu-title menu-button non-visual-button"
+      class="menu-button non-visual-button"
       aria-labelledby="menuItemId"
       @click="toggleMenuItem"
       @keyup.enter="toggleMenuItem">
@@ -136,15 +136,6 @@ export default {
   background-color: var(--grey-300);
   }
 
-.menu-title {
-  width: 100%;
-  display: flex;
-  padding: 8px 0;
-  text-align: center;
-  font-family: var(--font-family-sans);
-  color: var(--grey-500);
-}
-
 .span-icon-container {
   margin-left: auto;
   padding-right: 14px;
@@ -156,7 +147,7 @@ export default {
   color: var(--grey-600);
 }
 
-.k-menu-item.expand-item .menu-title {
+.k-menu-item.expand-item .menu-button {
   cursor: pointer !important;
   &:hover {
     color: var(--grey-600);
@@ -168,16 +159,20 @@ export default {
 }
 
 .k-button.menu-button {
-  background-color: transparent;
-  border: none;
+  // background-color: transparent;
+  width: 100%;
+  // display: flex;
+  // padding: 8px 0;
+  // text-align: center;
+  // border: none;
   color: var(--KButtonOutlineColor, var(--grey-500));
   font-weight: 400 !important;
   cursor: default !important;
   padding-left: 0;
   padding-right: 0;
+  font-family: var(--font-family-sans);
   font-size: 13px;
   line-height: 24px;
-  font-weight: 500;
   &:focus {
     box-shadow: none;
   }
