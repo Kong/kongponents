@@ -147,9 +147,7 @@ export default {
 
 .span-icon-container {
   margin-left: auto;
-  margin-top: auto;
-  margin-bottom: auto;
-  padding-right: 18px;
+  padding-right: 14px;
   height: 24px;
   width: 24px;
 }
