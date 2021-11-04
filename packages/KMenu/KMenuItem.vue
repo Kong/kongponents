@@ -3,7 +3,7 @@
     :id="menuItemId"
     :data-testid="item ? `${item.title.replace(' ', '-')}-menu-item` : 'menu-item'"
     :test-mode="testMode"
-    :class="isOpen ? 'title-dark' : ''"
+    :class="[isOpen ? 'title-dark' : '', {'expando-item' : expandable}]"
     class="k-menu-item">
     <KButton
       :aria-expanded="isOpen && expandable"
@@ -44,7 +44,7 @@
       </slot>
     </div>
     <slot
-      v-if="type === 'divider'">
+      v-if="type === 'divider' || ('last-menu-item' && !expandable)">
       <KMenuDivider />
     </slot>
   </div>
@@ -115,10 +115,7 @@ export default {
   color: var(--grey-500);
   position: relative;
   padding-left: 2px;
-  &:not(.last-menu-item) {
-    border-bottom: 1px solid var(--grey-300);
-    margin: 0 19px 0 24px;
-  }
+  margin: 0 19px 0 24px;
 }
 
 .span-icon-container {
@@ -161,12 +158,15 @@ export default {
   padding-bottom: 8px;
 }
 
-.last-menu-item {
-  & .k-button {
-    padding-left: 22px;
-  }
-  & .span-icon-container {
-    padding-right: 18px;
-  }
+.expando-item {
+   border-bottom: 1px solid var(--grey-300);
+    margin: 0 19px 0 24px;
+}
+
+.k-menu-item.expando-item > button + div + hr,
+.last-menu-item,
+.last-menu-item > button + div + hr,
+.k-menu-item:last-of-type {
+  border: 0;
 }
 </style>

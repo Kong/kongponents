@@ -12,5 +12,4 @@ export default {
 .k-menu-item-divider{
   margin: 0 -20px 0 -26px;
 }
-
 </style>

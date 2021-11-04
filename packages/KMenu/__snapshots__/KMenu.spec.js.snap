@@ -10,7 +10,7 @@ exports[`KMenu general shows chevron down icon 1`] = `
       <div class="menu-content d-none">
         <!---->
       </div>
-      <!---->
+      <hr class="k-menu-item-divider">
     </div>
   </div>
   <!---->
