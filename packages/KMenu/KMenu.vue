@@ -11,7 +11,7 @@
             :key="item.key"
             :type="item.type"
             :test-mode="testMode"
-            :class="{'last-menu-item': index===items.length-1 }"
+            :class="{ 'last-menu-item': index === items.length-1 }"
           />
         </template>
       </div>
