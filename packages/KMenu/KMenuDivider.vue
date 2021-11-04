@@ -1,5 +1,7 @@
 <template>
-  <hr class="k-menu-item-divider">
+  <div class="k-menu-item-divider">
+    <hr >
+  </div>
 </template>
 
 <script>
@@ -10,6 +12,6 @@ export default {
 
 <style lang="scss" scoped>
 .k-menu-item-divider{
-  margin: 0 -20px 0 -26px;
+  padding: 0 19px 0 19px;
 }
 </style>

@@ -6,12 +6,13 @@
     :class="[isOpen ? 'title-dark' : '', {'expando-item' : expandable}]"
     class="k-menu-item">
     <KButton
+      v-if="type !== 'divider'"
       :aria-expanded="isOpen && expandable"
+      :aria-labelledby="menuItemId"
+      :is-rounded="false"
       type="button"
       class="menu-button non-visual-button"
-      aria-labelledby="menuItemId"
-      @click="toggleMenuItem"
-      @keyup.enter="toggleMenuItem">
+      @click="toggleMenuItem">
       <span
         :class="isOpen && expandable ? 'title-dark' : ''"
         class="span-menu-title">
@@ -20,9 +21,9 @@
         </slot>
       </span>
       <span
+        v-if="expandable"
         class="span-icon-container">
         <KIcon
-          v-if="expandable"
           :icon="isOpen ? 'chevronUp' : 'chevronDown'"
           color="var(--grey-400)"
           size="16"
@@ -30,23 +31,23 @@
       </span>
     </KButton>
     <div
+      v-if="expandable"
       :class="isOpen ? 'd-flex' : 'd-none'"
       class="menu-content">
       <slot name="itemBody">
         <div
-          v-if="(type === 'string' || 'divider') && expandable">
+          v-if="(type === 'string' || type === 'divider') && expandable">
           {{ item ? item.description : '' }}
         </div>
         <div
-          v-else-if="(type === 'number' || 'divider') && expandable">
+          v-else-if="(type === 'number' || type === 'divider') && expandable">
           {{ item ? item.description : '' }}
         </div>
       </slot>
     </div>
-    <slot
-      v-if="type === 'divider' || ('last-menu-item' && !expandable)">
+    <div v-if="!lastMenuItem && (type === 'divider' || expandable)">
       <KMenuDivider />
-    </slot>
+    </div>
   </div>
 </template>
 
@@ -79,6 +80,10 @@ export default {
         ].indexOf(value) !== -1
       }
     },
+    lastMenuItem: {
+      type: Boolean,
+      default: false
+    },
     /**
      * Test mode - for testing only, strips out generated ids
      */
@@ -97,7 +102,12 @@ export default {
 
   methods: {
     toggleMenuItem () {
-      this.isOpen = !this.isOpen
+      if (this.expandable) {
+        this.isOpen = !this.isOpen
+        this.$emit('toggled', this.isOpen)
+      } else {
+        this.$emit('clicked', (this.$slots.itemTitle || this.item))
+      }
     }
   }
 
@@ -115,7 +125,6 @@ export default {
   color: var(--grey-500);
   position: relative;
   padding-left: 2px;
-  margin: 0 19px 0 24px;
 }
 
 .span-icon-container {
@@ -129,13 +138,18 @@ export default {
 }
 
 .k-menu-item .menu-button {
+  padding-left: 19px;
+  padding-right: 24px;
   cursor: pointer !important;
+
   &:hover {
     color: var(--grey-600);
   }
 }
 
 .menu-content {
+  padding-left: 19px;
+  padding-right: 24px;
   color: var(--grey-500);
 }
 
@@ -143,24 +157,17 @@ export default {
   width: 100%;
   color: var(--KButtonOutlineColor, var(--grey-500));
   font-weight: 400 !important;
-  padding-left: 0;
-  padding-right: 0;
   font-family: var(--font-family-sans);
   font-size: 13px;
   line-height: 24px;
   &:focus {
-    box-shadow: none;
+    box-shadow: 0 0 0 1px var(--blue-200);
   }
 }
 
 .k-button.medium {
   padding-top: 8px;
   padding-bottom: 8px;
-}
-
-.expando-item {
-   border-bottom: 1px solid var(--grey-300);
-    margin: 0 19px 0 24px;
 }
 
 .k-menu-item.expando-item > button + div + hr,

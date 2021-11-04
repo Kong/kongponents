@@ -10,6 +10,7 @@
             :expandable="item.expandable"
             :key="item.key"
             :type="item.type"
+            :last-menu-item="index === items.length-1"
             :test-mode="testMode"
             :class="{ 'last-menu-item': index === items.length-1 }"
           />
@@ -19,6 +20,7 @@
     <div
       v-if="hasActionButton"
       class="clear-cta-button">
+      <KMenuDivider />
       <slot
         name="actionButton">
         <KButton
@@ -31,10 +33,11 @@
 
 <script>
 import KMenuItem from './KMenuItem.vue'
+import KMenuDivider from './KMenuDivider.vue'
 
 export default {
   name: 'KMenu',
-  components: { KMenuItem },
+  components: { KMenuDivider, KMenuItem },
   props: {
     items: {
       type: Array,
@@ -83,6 +86,7 @@ export default {
   border: 1px solid var(--grey-300);
   border-radius: 4px;
   padding-top: 11px;
+  padding-bottom: 8px;
 }
 
 .clear-cta-button > button.k-button {
