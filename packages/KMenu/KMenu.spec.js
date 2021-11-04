@@ -27,7 +27,8 @@ describe('KMenu', () => {
 
   const customItem = {
     title: 'Item #',
-    description: 'Cras aliquet auctor ex ut hendrerit. Donec sagittis est nec aliquet semper. Quisque feugiat metus orci, at ullamcorper odio molestie non. Nam dignissim sed ligula ut commodo.'
+    description: 'Cras aliquet auctor ex ut hendrerit. Donec sagittis est nec aliquet semper. Quisque feugiat metus orci, at ullamcorper odio molestie non. Nam dignissim sed ligula ut commodo.',
+    expandable: true
   }
 
   describe('general', () => {
@@ -47,13 +48,12 @@ describe('KMenu', () => {
       const wrapper = mount(KMenu, {
         propsData: {
           items: [customItem],
-          expandable: true,
           testMode: true
         }
       })
 
       expect(wrapper.find('.k-menu').exists()).toBeTruthy()
-      expect(wrapper.find('.k-menu-item .k-button > .span-icon-container').exists()).toBeTruthy()
+      expect(wrapper.find('.k-menu-item .k-button .span-icon-container').exists()).toBeTruthy()
       expect(wrapper.html()).toMatchSnapshot()
     })
   })
