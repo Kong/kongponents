@@ -127,7 +127,7 @@ You can pass a `width` string for menu. By default the `width` is `284px`.
 </KMenu> 
 
 ```
-<KMenu :items="getMenuItems(3)" width="600">
+<KMenu :items="getMenuItems(3)" width="735">
   <template v-slot:actionButton>
     <KButton>Clear all sorting and filters</KButton>
   </template>
