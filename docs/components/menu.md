@@ -117,6 +117,23 @@ function getMenuItems(count) {
 <KMenu :items="getMenuItems(6)" />
 ```
 
+### width
+You can pass a `width` string for menu. By default the `width` is `284px`.
+
+<KMenu :items="getMenuItems(3)" width="735">
+  <template v-slot:actionButton>
+    <KButton>Clear all sorting and filters</KButton>
+  </template>
+</KMenu> 
+
+```
+<KMenu :items="getMenuItems(3)" width="600">
+  <template v-slot:actionButton>
+    <KButton>Clear all sorting and filters</KButton>
+  </template>
+</KMenu> 
+```
+
 ## KMenuItem
 **KMenu** generates a **KMenuItem** for each item in the `items` property.
 
