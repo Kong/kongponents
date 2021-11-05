@@ -143,7 +143,7 @@ export default {
   align-items: center;
   padding: var(--KButtonPaddingY, var(--spacing-sm, spacing(sm))) var(--KButtonPaddingX, var(--spacing-lg, spacing(lg)));
   font-family: var(--font-family-sans, font(sans));
-  font-size: var(--type-md, type(md));
+  font-size: var(--KButtonFontSize, var(--type-md, type(md)));
   font-weight: 400;
   line-height: 1.25;
   text-decoration: none;
@@ -190,19 +190,19 @@ export default {
   /* Size Variations */
   &.small {
     padding: var(--spacing-xs, spacing(xs)) var(--spacing-md, spacing(md));
-    font-size: 13px;
+    font-size: var(--KButtonFontSize, 13px);
     line-height: 13px;
   }
 
   &.medium {
     padding: var(--spacing-sm, spacing(sm)) var(--spacing-lg, spacing(lg)) ;
-    font-size: var(--type-md, type(md));
+    font-size: var(--KButtonFontSize, var(--type-md, type(md)));
     line-height: var(--type-md, type(md));
   }
 
   &.large {
     padding: var(--spacing-md, spacing(md)) var(--spacing-xl, spacing(xl)) ;
-    font-size: var(--type-md, type(md));
+    font-size: var(--KButtonFontSize, var(--type-md, type(md)));
     line-height: var(--type-md, type(md));
   }
 
