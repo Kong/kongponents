@@ -54,6 +54,7 @@ module.exports = {
               '/components/menu',
               '/components/modal',
               '/components/multiselect',
+              '/components/pagination',
               '/components/popover',
               '/components/input-radio',
               '/components/segmented-control',
