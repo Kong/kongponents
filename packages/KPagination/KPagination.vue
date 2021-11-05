@@ -10,69 +10,79 @@
       <ul class="pagination-button-container">
         <li
           :class="{ disabled: backDisabled }"
-          class="pagination-button square"
-          aria-label="Go to the previous page"
-          @click="pageBack"
-        ><a>
-          <KIcon
-            :color="backDisabled ? 'var(--grey-500)' : 'var(--blue-400)'"
-            icon="arrowLeft"
-            width="16px"
-            heigth="16px"
-            view-box="0 0 16 14"
-          />
-        </a></li>
+          class="pagination-button square">
+          <a
+            href="#"
+            aria-label="Go to the previous page"
+            @click="pageBack">
+            <KIcon
+              :color="backDisabled ? 'var(--grey-500)' : 'var(--blue-400)'"
+              icon="arrowLeft"
+              width="16px"
+              heigth="16px"
+              view-box="0 0 16 14"
+            />
+          </a>
+        </li>
         <li
           v-if="firstDetached"
-          class="pagination-button"
-          aria-label="Go to the first page"
-          @click="changePage(1)"
-        ><a>
-          1
-        </a></li>
+          class="pagination-button">
+          <a
+            href="#"
+            aria-label="Go to the first page"
+            @click="changePage(1)">
+            1
+          </a>
+        </li>
         <li
           v-if="firstDetached"
-          class="pagination-button placeholder"><a>
-            ...
-        </a></li>
+          class="pagination-button placeholder">
+          ...
+        </li>
         <li
           v-for="page in pagesVisible"
           :key="page"
           :class="{ active: page == currentPage }"
-          :aria-current="page == currentPage && 'page'"
-          :aria-label="`Go to page ${page}`"
-          class="pagination-button"
-          @click="changePage(page)"
-        ><a>
-          {{ page }}
-        </a></li>
+          class="pagination-button">
+          <a
+            :aria-label="`Go to page ${page}`"
+            :aria-current="page == currentPage && 'page'"
+            href="#"
+            @click="changePage(page)">
+            {{ page }}
+          </a>
+        </li>
         <li
           v-if="lastDetached"
-          class="pagination-button placeholder"><a>
-            ...
-        </a></li>
+          class="pagination-button placeholder">
+          ...
+        </li>
         <li
           v-if="lastDetached"
-          class="pagination-button"
-          aria-label="Go to the last page"
-          @click="changePage(pageCount)"
-        ><a>
-          {{ pageCount }}
-        </a></li>
+          class="pagination-button">
+          <a
+            href="#"
+            aria-label="Go to the last page"
+            @click="changePage(pageCount)">
+            {{ pageCount }}
+          </a>
+        </li>
         <li
           :class="{ disabled: forwardDisabled }"
-          class="pagination-button square"
-          aria-label="Go to the next page"
-          @click="pageForward"
-        ><a>
-          <KIcon
-            :color="forwardDisabled ? 'var(--grey-500)' : 'var(--blue-400)'"
-            icon="arrowRight"
-            width="16px"
-            heigth="16px"
-            view-box="0 0 16 14"
-          />
-        </a></li>
+          class="pagination-button square">
+          <a
+            href="#"
+            aria-label="Go to the next page"
+            @click="pageForward">
+            <KIcon
+              :color="forwardDisabled ? 'var(--grey-500)' : 'var(--blue-400)'"
+              icon="arrowRight"
+              width="16px"
+              heigth="16px"
+              view-box="0 0 16 14"
+            />
+          </a>
+        </li>
       </ul>
       <span class="page-size-select">
         <KSelect
