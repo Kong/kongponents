@@ -21,5 +21,9 @@
   "homepage": "https://github.com/Kong/kongponents#readme",
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@kongponents/kemptystate": "^5.0.5",
+    "@kongponents/kskeleton": "^5.0.5"
   }
 }

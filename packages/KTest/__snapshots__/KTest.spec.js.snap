@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`KTest matches snapshot 1`] = `<div style="color: rgb(0, 137, 235); font-family: monospace; font-size: 2rem;"></div>`;
