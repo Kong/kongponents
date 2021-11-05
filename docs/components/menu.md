@@ -9,8 +9,8 @@ function getMenuItems(count) {
   for (let i = 0; i < count; i++) {
     menuItems.push({
       title: "Item " + i,
-      type: Math.random() < 0.5 ? 'string' : 'number',
-      expandable: Math.random() < 0.5 ? true : false,
+      type: 'string',
+      expandable: false,
       description: "The item's description for number " + i
     })
   }
@@ -59,8 +59,8 @@ function getMenuItems(count) {
   for (let i = 0; i < count; i++) {
     menuItems.push({
       title: "Item " + i,
-      type: Math.random() < 0.5 ? 'string' : 'number',
-      expandable: Math.random() < 0.5 ? true : false,
+      type: 'string',
+      expandable: false,
       description: "The item's description for number " + i
     })
   }
