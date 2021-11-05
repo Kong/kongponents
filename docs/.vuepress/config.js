@@ -51,6 +51,7 @@ module.exports = {
               '/components/inline-edit',
               '/components/input',
               '/components/label',
+              '/components/menu',
               '/components/modal',
               '/components/multiselect',
               '/components/popover',
