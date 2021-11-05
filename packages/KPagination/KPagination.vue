@@ -79,6 +79,7 @@
           :placeholder="`${currentPageSize} items per page`"
           :items="pageSizeOptions"
           :test-mode="testMode"
+          :button-text="pageSizeText"
           appearance="button"
           @selected="updatePageSize"
         />
@@ -144,6 +145,7 @@ export default {
       pageSizeOptions,
       backDisabled: true,
       forwardDisabled: this.totalCount === 1,
+      pageSizeText: '',
       pagesVisible: this.getVisiblePages(
         currentPage,
         pageCount,
@@ -233,6 +235,7 @@ export default {
     },
     updatePageSize (event) {
       this.currentPageSize = event.value
+      this.pageSizeText = this.currentPageSize + ' items per page'
       this.pageCount = Math.ceil(this.totalCount / this.currentPageSize)
 
       this.$emit('pageSizeChanged', {
