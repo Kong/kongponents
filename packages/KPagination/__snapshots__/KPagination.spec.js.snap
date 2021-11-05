@@ -6,7 +6,7 @@ exports[`KPagination matches snapshot 1`] = `
     of 100
     </span>
     <ul class="pagination-button-container">
-      <li aria-label="Go to the previous page" class="pagination-button square disabled"><a><svg height="24" width="16px" viewBox="0 0 16 14" role="img" class="kong-icon kong-icon-arrowLeft" heigth="16px">
+      <li class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><svg height="24" width="16px" viewBox="0 0 16 14" role="img" class="kong-icon kong-icon-arrowLeft" heigth="16px">
             <title>Back</title>
             <g>
               <!---->
@@ -16,28 +16,28 @@ exports[`KPagination matches snapshot 1`] = `
           </svg></a></li>
       <!---->
       <!---->
-      <li aria-current="page" aria-label="Go to page 1" class="pagination-button active"><a>
+      <li class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
           1
         </a></li>
-      <li aria-label="Go to page 2" class="pagination-button"><a>
+      <li class="pagination-button"><a aria-label="Go to page 2" href="#">
           2
         </a></li>
-      <li aria-label="Go to page 3" class="pagination-button"><a>
+      <li class="pagination-button"><a aria-label="Go to page 3" href="#">
           3
         </a></li>
-      <li aria-label="Go to page 4" class="pagination-button"><a>
+      <li class="pagination-button"><a aria-label="Go to page 4" href="#">
           4
         </a></li>
-      <li aria-label="Go to page 5" class="pagination-button"><a>
+      <li class="pagination-button"><a aria-label="Go to page 5" href="#">
           5
         </a></li>
-      <li class="pagination-button placeholder"><a>
-          ...
-        </a></li>
-      <li aria-label="Go to the last page" class="pagination-button"><a>
+      <li class="pagination-button placeholder">
+        ...
+      </li>
+      <li class="pagination-button"><a href="#" aria-label="Go to the last page">
           10
         </a></li>
-      <li aria-label="Go to the next page" class="pagination-button square"><a><svg height="24" width="16px" viewBox="0 0 16 14" role="img" class="kong-icon kong-icon-arrowRight" heigth="16px">
+      <li class="pagination-button square"><a href="#" aria-label="Go to the next page"><svg height="24" width="16px" viewBox="0 0 16 14" role="img" class="kong-icon kong-icon-arrowRight" heigth="16px">
             <title>Forward</title>
             <g>
               <!---->
