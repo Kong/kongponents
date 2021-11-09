@@ -78,6 +78,50 @@ A number that sets the neighboring pages visible to the left and right of the ce
 <KPagination :totalCount="1000" :pageSize="15" neighbors="2"/>
 ```
 
+### Current Page
+Manually control the current page instead of using native handling. If using this prop you MUST keep it up-to-date using
+the `@pageChanged` event in order to remain reactive to clicking the prev, next, and specific page buttons.
+
+<Komponent :data="{ letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], visibleLetters: ['d', 'e', 'f'], currPage: 2}" v-slot="{ data }">
+  <div>
+    <span><b>Visible letters: </b></span>
+    <span v-for="number in data.visibleLetters">{{ number }} </span>
+    <KPagination 
+      :items="data.letters"
+      :totalCount="data.letters.length" 
+      :pageSizes="[3]" 
+      :currentPage="data.currPage"
+      @pageChanged="({visibleItems, page}) => { data.visibleLetters = visibleItems; data.currPage = page }"/>
+  </div>
+</Komponent>
+
+```vue
+<template>
+  <div>
+    <span><b>Visible letters: </b></span>
+    <span v-for="number in data.visibleLetters">{{ number }} </span>
+    <KPagination 
+      :items="data.letters"
+      :totalCount="data.letters.length" 
+      :pageSizes="[3]" 
+      :currentPage="currPage"
+      @pageChanged="({visibleItems, page}) => { 
+        data.visibleLetters = visibleItems 
+        currPage = page 
+      }"/>
+  </div>
+</template>
+
+export default {
+  data () {
+    return {
+      currPage: 2
+    }
+  }
+}
+</script>
+```
+
 ## Usage
 
 ### Events
