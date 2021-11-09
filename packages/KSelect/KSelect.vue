@@ -62,7 +62,6 @@
               :is-rounded="false"
               v-bind="attrs"
               appearance="btn-link"
-              v-on="listeners"
               @keyup="triggerFocus(isToggled)">{{ selectButtonText }}</KButton>
           </div>
           <div
@@ -130,7 +129,7 @@ const defaultKPopAttributes = {
   hideCaret: true,
   popoverClasses: 'k-select-popover mt-0',
   popoverTimeout: 0,
-  placement: 'bottomLeft'
+  placement: 'bottomStart'
 }
 
 export default {
@@ -139,7 +138,9 @@ export default {
   props: {
     kpopAttributes: {
       type: Object,
-      default: () => ({})
+      default: () => ({
+        popoverClasses: ''
+      })
     },
     label: {
       type: String,

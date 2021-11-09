@@ -1,16 +1,21 @@
 <template>
-  <nav aria-label="Pagination Navigation">
+  <nav
+    aria-label="Pagination Navigation"
+    data-testid="k-pagination-container">
     <div
       v-if="totalCount > currentPageSize"
       class="card-pagination-bar">
-      <span class="pagination-text">
+      <span
+        class="pagination-text"
+        data-testid="visible-items">
         <span class="pagination-text-pages">{{ pagesString }}</span>
         {{ pageCountString }}
       </span>
       <ul class="pagination-button-container">
         <li
           :class="{ disabled: backDisabled }"
-          class="pagination-button square">
+          class="pagination-button square"
+          data-testid="prev-btn">
           <a
             href="#"
             aria-label="Go to the previous page"
@@ -26,7 +31,8 @@
         </li>
         <li
           v-if="firstDetached"
-          class="pagination-button">
+          class="pagination-button"
+          data-testid="page-1-btn">
           <a
             href="#"
             aria-label="Go to the first page"
@@ -43,6 +49,7 @@
           v-for="page in pagesVisible"
           :key="page"
           :class="{ active: page == currentlySelectedPage }"
+          :data-testid="`page-${page}-btn`"
           class="pagination-button">
           <a
             :aria-label="`Go to page ${page}`"
@@ -63,13 +70,15 @@
           <a
             href="#"
             aria-label="Go to the last page"
+            data-testid="last-btn"
             @click="changePage(pageCount)">
             {{ pageCount }}
           </a>
         </li>
         <li
           :class="{ disabled: forwardDisabled }"
-          class="pagination-button square">
+          class="pagination-button square"
+          data-testid="next-btn">
           <a
             href="#"
             aria-label="Go to the next page"
@@ -84,7 +93,9 @@
           </a>
         </li>
       </ul>
-      <span class="page-size-select">
+      <span
+        class="page-size-select"
+        data-testid="page-size-dropdown">
         <KSelect
           :placeholder="`${currentPageSize} items per page`"
           :items="pageSizeOptions"
