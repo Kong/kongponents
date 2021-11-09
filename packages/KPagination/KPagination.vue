@@ -42,11 +42,11 @@
         <li
           v-for="page in pagesVisible"
           :key="page"
-          :class="{ active: page == currentPage }"
+          :class="{ active: page == currentlySelectedPage }"
           class="pagination-button">
           <a
             :aria-label="`Go to page ${page}`"
-            :aria-current="page == currentPage && 'page'"
+            :aria-current="page == currentlySelectedPage && 'page'"
             href="#"
             @click="changePage(page)">
             {{ page }}
@@ -90,6 +90,7 @@
           :items="pageSizeOptions"
           :test-mode="testMode"
           :button-text="pageSizeText"
+          :kpop-attributes="kpopAttrs"
           appearance="button"
           @selected="updatePageSize"
         />
@@ -129,6 +130,10 @@ export default {
       type: Boolean,
       default: false
     },
+    currentPage: {
+      type: Number,
+      default: null
+    },
     /**
      * Test mode - for testing only, strips out generated ids
      */
@@ -138,7 +143,7 @@ export default {
     }
   },
   data () {
-    const currentPage = 1
+    const currPage = this.currentPage ? this.currentPage : 1
     const currentPageSize = this.pageSizes[0]
     const pageCount = Math.ceil(this.totalCount / currentPageSize)
 
@@ -149,7 +154,10 @@ export default {
     }))
 
     return {
-      currentPage,
+      kpopAttrs: {
+        placement: 'top'
+      },
+      currPage,
       currentPageSize,
       pageCount,
       pageSizeOptions,
@@ -157,7 +165,7 @@ export default {
       forwardDisabled: this.totalCount === 1,
       pageSizeText: '',
       pagesVisible: this.getVisiblePages(
-        currentPage,
+        currPage,
         pageCount,
         false,
         pageCount > 5 + 2 * this.neighbors
@@ -168,7 +176,7 @@ export default {
   },
   computed: {
     startCount () {
-      return (this.currentPage - 1) * this.currentPageSize + 1
+      return (this.currPage - 1) * this.currentPageSize + 1
     },
     endCount () {
       let calculatedEndCount = this.startCount - 1 + this.currentPageSize
@@ -182,6 +190,13 @@ export default {
     },
     pageCountString () {
       return ` of ${this.totalCount}`
+    },
+    currentlySelectedPage () {
+      if (this.currentPage) {
+        return this.currentPage
+      } else {
+        return this.currPage
+      }
     }
   },
   watch: {
@@ -197,7 +212,7 @@ export default {
         return
       }
 
-      this.currentPage++
+      this.currPage++
       this.updatePage()
     },
     pageBack () {
@@ -205,19 +220,19 @@ export default {
         return
       }
 
-      this.currentPage--
+      this.currPage--
       this.updatePage()
     },
     changePage (page) {
-      this.currentPage = page
+      this.currPage = page
       this.updatePage()
     },
     updatePage () {
       const lastEntry =
-        (this.currentPage - 1) * this.currentPageSize + this.currentPageSize
+        (this.currPage - 1) * this.currentPageSize + this.currentPageSize
 
       this.forwardDisabled = lastEntry >= this.totalCount
-      this.backDisabled = this.currentPage === 1
+      this.backDisabled = this.currPage === 1
 
       // The view will hold
       // Selected page, first page, last page, 2 placeholders and 2 * neighbors
@@ -228,15 +243,15 @@ export default {
         this.firstDetached = false
         this.lastDetached = false
       } else {
-        this.firstDetached = this.currentPage >= this.neighbors + 4
+        this.firstDetached = this.currPage >= this.neighbors + 4
         this.lastDetached =
-          this.currentPage <= this.pageCount - this.neighbors - 3
+          this.currPage <= this.pageCount - this.neighbors - 3
       }
 
       this.pagesVisible = this.getVisiblePages()
 
       this.$emit('pageChanged', {
-        page: this.currentPage,
+        page: this.currPage,
         pageCount: this.pageCount,
         firstItem: this.startCount,
         lastItem: this.endCount,
@@ -256,7 +271,7 @@ export default {
       this.changePage(1)
     },
     getVisiblePages (
-      currentPage = this.currentPage,
+      currPage = this.currPage,
       pageCount = this.pageCount,
       firstDetached = this.firstDetached,
       lastDetached = this.lastDetached
@@ -276,8 +291,8 @@ export default {
         // Middle pages (if they do not fit on one screen)
         pages = pages.filter(
           (n) =>
-            n > currentPage - this.neighbors - 1 &&
-            n < currentPage + this.neighbors + 1
+            n > currPage - this.neighbors - 1 &&
+            n < currPage + this.neighbors + 1
         )
       } else if (firstDetached && !lastDetached) {
         // Last pages
@@ -320,6 +335,7 @@ export default {
   a {
     text-decoration: none !important;
     font-weight: initial;
+    display: block;
   }
 
   .pagination-button {
@@ -363,6 +379,14 @@ export default {
       border-radius: 4px;
       background-color: var(--blue-100);
     }
+  }
+}
+</style>
+
+<style lang="scss">
+.page-size-select {
+  .k-select-pop-button[x-placement^="top"] {
+    margin-bottom: 2px;
   }
 }
 </style>

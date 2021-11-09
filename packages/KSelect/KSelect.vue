@@ -35,7 +35,6 @@
           }"
           :test-mode="testMode"
           :target="`[id='${selectInputId}']`"
-          placement="bottomStart"
           @opened="() => {
             filterStr = ''
             toggle()
@@ -214,7 +213,6 @@ export default {
         ...defaultKPopAttributes,
         ...this.kpopAttributes,
         popoverClasses: `${defaultKPopAttributes.popoverClasses} ${this.kpopAttributes.popoverClasses} k-select-pop-${this.appearance}`,
-        placement: this.placement,
         width: this.width,
         disabled: this.$attrs.disabled
       }

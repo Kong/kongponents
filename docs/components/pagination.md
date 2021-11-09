@@ -78,6 +78,49 @@ A number that sets the neighboring pages visible to the left and right of the ce
 <KPagination :totalCount="1000" :pageSize="15" neighbors="2"/>
 ```
 
+### currentPage
+Manually control the current page instead of using native handling.
+
+<Komponent :data="{ letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], visibleLetters: ['a', 'b', 'c'], currPage: 2}" v-slot="{ data }">
+  <div>
+    <span><b>Visible letters: </b></span>
+    <span v-for="number in data.visibleLetters">{{ number }} </span>
+    <KPagination 
+      :items="data.letters"
+      :totalCount="data.letters.length" 
+      :pageSizes="[3]" 
+      :currentPage="data.currPage"
+      @pageChanged="({visibleItems, page}) => { data.visibleLetters = visibleItems, data.currPage = page }"/>
+  </div>
+</Komponent>
+
+```vue
+<template>
+  <div>
+    <span><b>Visible letters: </b></span>
+    <span v-for="number in data.visibleLetters">{{ number }} </span>
+    <KPagination 
+      :items="data.letters"
+      :totalCount="data.letters.length" 
+      :pageSizes="[3]" 
+      :currentPage="currPage"
+      @pageChanged="({visibleItems, page}) => { 
+        data.visibleLetters = visibleItems, 
+        currPage = page 
+      }"/>
+  </div>
+</template>
+
+export default {
+  data () {
+    return {
+      currPage: 2
+    }
+  }
+}
+</script>
+```
+
 ## Usage
 
 ### Events
@@ -149,7 +192,8 @@ export default {
     return {
       names
       visibleNames: names.slice(0,3);
-      page: 1
+      page: 1,
+      currPage: 2
     }
   }
 }
