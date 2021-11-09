@@ -161,11 +161,11 @@ export default {
       currentPageSize,
       pageCount,
       pageSizeOptions,
-      backDisabled: true,
+      backDisabled: currPage === 1,
       forwardDisabled: this.totalCount === 1,
       pageSizeText: '',
       pagesVisible: this.getVisiblePages(
-        currPage,
+        this.currentlySelectedPage,
         pageCount,
         false,
         pageCount > 5 + 2 * this.neighbors

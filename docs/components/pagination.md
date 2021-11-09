@@ -81,7 +81,7 @@ A number that sets the neighboring pages visible to the left and right of the ce
 ### currentPage
 Manually control the current page instead of using native handling.
 
-<Komponent :data="{ letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], visibleLetters: ['a', 'b', 'c'], currPage: 2}" v-slot="{ data }">
+<Komponent :data="{ letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], visibleLetters: ['d', 'e', 'f'], currPage: 2}" v-slot="{ data }">
   <div>
     <span><b>Visible letters: </b></span>
     <span v-for="number in data.visibleLetters">{{ number }} </span>
@@ -90,7 +90,7 @@ Manually control the current page instead of using native handling.
       :totalCount="data.letters.length" 
       :pageSizes="[3]" 
       :currentPage="data.currPage"
-      @pageChanged="({visibleItems, page}) => { data.visibleLetters = visibleItems, data.currPage = page }"/>
+      @pageChanged="({visibleItems, page}) => { data.visibleLetters = visibleItems; data.currPage = page }"/>
   </div>
 </Komponent>
 
@@ -105,7 +105,7 @@ Manually control the current page instead of using native handling.
       :pageSizes="[3]" 
       :currentPage="currPage"
       @pageChanged="({visibleItems, page}) => { 
-        data.visibleLetters = visibleItems, 
+        data.visibleLetters = visibleItems 
         currPage = page 
       }"/>
   </div>
@@ -192,8 +192,7 @@ export default {
     return {
       names
       visibleNames: names.slice(0,3);
-      page: 1,
-      currPage: 2
+      page: 1
     }
   }
 }
