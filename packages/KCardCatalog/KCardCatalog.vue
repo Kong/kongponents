@@ -51,7 +51,7 @@
       </template>
     </KEmptyState>
     <KEmptyState
-      v-else-if="!hasError && !items.length && !$scopedSlots.body"
+      v-else-if="!hasError && !data.length && !$scopedSlots.body"
       :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
       :icon="emptyStateIcon || ''"
       :icon-color="emptyStateIconColor"
@@ -74,7 +74,7 @@
       :class="`k-card-${cardSize}`"
       class="k-catalog-page">
       <slot name="body">
-        <template v-for="item in items">
+        <template v-for="item in data">
           <router-link
             v-if="item.locationParam"
             :key="item.key ? item.key : null">
@@ -105,7 +105,13 @@ import KEmptyState from '@kongponents/kemptystate/KEmptyState.vue'
 import KSkeleton from '@kongponents/kskeleton/KSkeleton.vue'
 import KCatalogItem from './KCatalogItem.vue'
 
-export default {
+import { useRequest } from '../../utils/utils'
+import Vue from 'vue'
+import VueCompositionAPI, { computed, defineComponent, ref, onMounted, watch } from '@vue/composition-api'
+
+Vue.use(VueCompositionAPI)
+
+export default defineComponent({
   name: 'KCardCatalog',
   components: {
     KEmptyState,
@@ -269,14 +275,78 @@ export default {
     testMode: {
       type: Boolean,
       default: false
+    },
+    /**
+     * A prop to pass in a fetcher function to enable server-side search, sort
+     * and pagination
+     */
+    fetcher: {
+      type: Function,
+      default: undefined
+    },
+    /**
+     * A prop to pass in a page size number for server-side pagination
+     */
+    pageSize: {
+      type: Number,
+      default: 10
     }
   },
   methods: {
     /* onPageChanged (page) {
       this.$emit('page-changed', page)
     } */
+  },
+
+  setup (props, ctx) {
+    const data = ref([])
+    const page = ref(1)
+    const total = ref(10)
+
+    const fetchData = async () => {
+      const { data: fetcherData, total: totalCount } = await props.fetcher(
+        props.pageSize,
+        page.value
+      )
+
+      data.value = fetcherData
+      console.log('fetcher')
+      total.value = totalCount
+    }
+
+    const initData = async () => {
+      if (props.fetcher) {
+        fetchData()
+      } else if (props.items && props.items.length) {
+        data.value = props.items
+      }
+    }
+
+    const { revalidate } = useRequest(
+      () => props.fetcher && `catalog-item_${Math.floor(Math.random() * 1000)}`,
+      () => fetchData(),
+      { revalidateOnFocus: false }
+    )
+
+    // TEMP
+    const totalPages = computed(() => Math.ceil(total.value / props.pageSize))
+
+    watch(() => [page.value], () => {
+      revalidate()
+    }, { immediate: true })
+
+    onMounted(() => {
+      initData()
+    })
+
+    return {
+      data,
+      page,
+      total,
+      totalPages
+    }
   }
-}
+})
 </script>
 
 <style lang="scss">
