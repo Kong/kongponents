@@ -19,7 +19,7 @@
           <a
             href="#"
             aria-label="Go to the previous page"
-            @click="pageBack">
+            @click.prevent="pageBack">
             <KIcon
               :color="backDisabled ? 'var(--grey-500)' : 'var(--blue-400)'"
               icon="arrowLeft"
@@ -36,7 +36,7 @@
           <a
             href="#"
             aria-label="Go to the first page"
-            @click="changePage(1)">
+            @click.prevent="changePage(1)">
             1
           </a>
         </li>
@@ -55,7 +55,7 @@
             :aria-label="`Go to page ${page}`"
             :aria-current="page == currentlySelectedPage && 'page'"
             href="#"
-            @click="changePage(page)">
+            @click.prevent="changePage(page)">
             {{ page }}
           </a>
         </li>
@@ -71,7 +71,7 @@
             href="#"
             aria-label="Go to the last page"
             data-testid="last-btn"
-            @click="changePage(pageCount)">
+            @click.prevent="changePage(pageCount)">
             {{ pageCount }}
           </a>
         </li>
@@ -82,7 +82,7 @@
           <a
             href="#"
             aria-label="Go to the next page"
-            @click="pageForward">
+            @click.prevent="pageForward">
             <KIcon
               :color="forwardDisabled ? 'var(--grey-500)' : 'var(--blue-400)'"
               icon="arrowRight"
