@@ -97,6 +97,12 @@
         </template>
       </slot>
     </div>
+    <KPagination
+      :total-count="totalCount"
+      :page-size="pageSize"
+      :neighbours="2"
+      @pageChanged="pageChangeHandler"
+    />
   </div>
 </template>
 
@@ -104,6 +110,7 @@
 import KEmptyState from '@kongponents/kemptystate/KEmptyState.vue'
 import KSkeleton from '@kongponents/kskeleton/KSkeleton.vue'
 import KCatalogItem from './KCatalogItem.vue'
+import KPagination from '@kongponents/kpagination/KPagination.vue'
 
 import { useRequest } from '../../utils/utils'
 import Vue from 'vue'
@@ -116,7 +123,8 @@ export default defineComponent({
   components: {
     KEmptyState,
     KSkeleton,
-    KCatalogItem
+    KCatalogItem,
+    KPagination
   },
   props: {
     items: {
@@ -290,6 +298,10 @@ export default defineComponent({
     pageSize: {
       type: Number,
       default: 10
+    },
+    totalCount: {
+      type: Number,
+      default: 9
     }
   },
   methods: {
@@ -328,6 +340,10 @@ export default defineComponent({
       { revalidateOnFocus: false }
     )
 
+    const pageChangeHandler = ({ page: newPage }) => {
+      page.value = newPage
+    }
+
     // TEMP
     const totalPages = computed(() => Math.ceil(total.value / props.pageSize))
 
@@ -343,7 +359,8 @@ export default defineComponent({
       data,
       page,
       total,
-      totalPages
+      totalPages,
+      pageChangeHandler
     }
   }
 })
