@@ -2,35 +2,14 @@
 
 **KCardCatalog** - A grid view of KCards
 
-<script>
-function getItems(count) {
-  let myItems = []
-  for (let i = 0; i < count; i++) {
-    myItems.push({
-      title: "Item " + i,
-      description: "The item's description for number " + i
-    })
-  }
-  return myItems
-}
+<KCardCatalog :fetcher="fetcher" :page-size="3" />
 
-const longItem = {
-  title: "A very long item",
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in tempus lorem, et molestie quam. Praesent sapien massa, posuere et volutpat nec, imperdiet a dui. Fusce non leo posuere, molestie neque et, posuere ex. Nullam euismod tortor in est sagittis iaculis. In sodales bibendum nulla nec feugiat."
-}
-
-export default {
-  data () {
-    return {
-      getItems,
-      longItem
-    }
-  }
-}
-</script>
-
+```vue
+<KCardCatalog :fetcher="fetcher" :page-size="3" />
+```
 
 <KCardCatalog :items="getItems(5)" />
+
 ```vue
 <KCardCatalog :items="items" />
 ```
@@ -365,3 +344,60 @@ This should be used instead of the `items` property.
 ## Theming
 **KCardCatalog** is for the most part a collection of KCards. To theme the cards, use
 the existing **KCard** theming variables [here](./card.md#theming).
+
+
+<script>
+
+function getItems(count) {
+  let myItems = []
+    for (let i = 0; i < count; i++) {
+      myItems.push({
+      title: "Item " + i,
+      description: "The item's description for number " + i
+      })
+    }
+  return myItems
+}
+
+const longItem = {
+  title: "A very long item",
+  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in tempus lorem, et molestie quam. Praesent sapien massa, posuere et volutpat nec, imperdiet a dui. Fusce non leo posuere, molestie neque et, posuere ex. Nullam euismod tortor in est sagittis iaculis. In sodales bibendum nulla nec feugiat."
+}
+
+export default {
+  data() {
+    return {
+      getItems,
+      longItem
+    }
+  },
+
+methods: {
+  resolveAfter5MiliSec(count) {
+    let myItems = []
+      for (let i = 0; i < count; i++) {
+        myItems.push({
+        title: "Item " + i,
+        description: "The item's description for number " + i
+      })
+    }
+    return new Promise(resolve => {
+      setTimeout(() => {
+      resolve(myItems);
+    }, 500);
+  });
+},
+
+  async fetcher(pageSize = 9, page = 1) {
+    const fetcherData =  { title: "Long Item", description: "Lorem Ipsum" }
+    const params = {
+      _limit: pageSize,
+      _page: page,
+      data: await this.resolveAfter5MiliSec(4)
+    }
+    console.log(params)
+      return params
+    }
+  }
+}
+</script>
