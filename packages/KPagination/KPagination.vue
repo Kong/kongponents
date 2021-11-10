@@ -23,8 +23,7 @@
             <KIcon
               :color="backDisabled ? 'var(--grey-500)' : 'var(--blue-400)'"
               icon="arrowLeft"
-              width="16px"
-              heigth="16px"
+              size="16px"
               view-box="0 0 16 14"
             />
           </a>
@@ -86,8 +85,7 @@
             <KIcon
               :color="forwardDisabled ? 'var(--grey-500)' : 'var(--blue-400)'"
               icon="arrowRight"
-              width="16px"
-              heigth="16px"
+              size="16px"
               view-box="0 0 16 14"
             />
           </a>
@@ -354,7 +352,7 @@ export default {
     width: 32px;
     height: 32px;
 
-    line-height: 32px;
+    line-height: 36px;
     font-weight: initial;
     color: var(--grey-500);
     border: 1px solid var(--grey-200);
