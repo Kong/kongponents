@@ -87,6 +87,7 @@ input.form-control {
     height: 20px;
     width: 20px;
     color: $primaryRadioColor;
+    border: 2px solid $borderColor;
     border-radius: 100%;
     margin: 0 6px 0 0;
 
@@ -108,7 +109,7 @@ input.form-control {
 
     // IE11
     &:checked::-ms-check {
-      border: 1px solid currentColor;
+      border: 2px solid currentColor;
       color: currentColor;
     }
 
