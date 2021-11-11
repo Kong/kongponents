@@ -713,10 +713,6 @@ export default defineComponent({
     tr {
       border-bottom: 1px solid var(--KTableBorder, var(--grey-200, color(grey-200)));
       height: 44px;
-
-      &:hover {
-        background-color: var(--KTableHover, var(--blue-100, color(blue-100)));
-      }
     }
     td {
       color: var(--KTableColor, var(--black-70, color(black-70)));
@@ -739,6 +735,12 @@ export default defineComponent({
   }
 
   // Variants
+  &.has-hover {
+     tbody tr:hover {
+        background-color: var(--KTableHover, var(--blue-100, color(blue-100)));
+      }
+  }
+
   &.is-clickable {
     -webkit-user-select: none;
     -moz-user-select: none;

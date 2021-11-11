@@ -5,9 +5,6 @@ pageClass: table-docs
 
 Pass a fetcher function to build a slot-able table.
 
-<KTable
-  :options="tableOptions" />
-
 ```vue
   <KTable
     :fetcher="fetcher"
@@ -126,7 +123,8 @@ fetcher(payload) {
 
 ### searchInput
 
-Pass in a string of search input for server-side table filtering.
+Pass in a string of search input for server-side table filtering. See [the Server-side function section](#server-side-functions) 
+for an example.
 
 
 ### headers
@@ -171,8 +169,13 @@ will default to the following values:
 
 ### paginationTotalItems
 
-Pass the total number of items in the set to populate the pagination text: ex. `1 to 20 of <paginationTotalItems>`. If
-not provided the fetcher response should return a top-level property `total` or return a `data` property that is an array.
+Pass the total number of items in the set to populate the pagination text: 
+
+```
+1 to 20 of <paginationTotalItems>
+```
+
+If not provided the fetcher response should return a top-level property `total` or return a `data` property that is an array.
 
 ### paginationNeighbors
 
