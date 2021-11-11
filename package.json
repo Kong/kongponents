@@ -18,15 +18,14 @@
     "build:postcss": "postcss packages/styles/styles.css --dir packages/styles",
     "build:cli": "lerna exec --ignore @kongponents/styles \"ln ../../vue.config.js ./vue.config.js && ln ../../postcss-custom-properties.config.js ./postcss.config.js && yarn vue-cli-service build --target lib ./\\$(cat package.json | jq -r .source) --name \\$(cat package.json | jq -r .componentName) --dest dist && rm ./vue.config.js ./postcss.config.js\"",
     "build:styles": "yarn node-sass packages/styles/styles.scss -o packages/styles && yarn build:postcss",
-    "docs:dev": "yarn build:styles && yarn server && vuepress dev docs",
+    "docs:dev": "yarn build:styles && vuepress dev docs",
     "docs:build": "vuepress build docs",
     "publish:ci": "lerna publish --canary --conventional-commits --conventional-prerelease --yes --force-publish",
     "test": "yarn jest",
     "test-coverage": "yarn jest --coverage",
     "cli": "./cli/kongponent-cli",
     "lint": "yarn eslint --ext .js,.vue packages/",
-    "postinstall": "husky install",
-    "server": "json-server --watch packages/KTable/db/index.js --routes packages/KTable/db/routes.json --port 4001 &"
+    "postinstall": "husky install"
   },
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
@@ -50,13 +49,11 @@
     "eslint-plugin-promise": "3.7.0",
     "eslint-plugin-standard": "3.1.0",
     "eslint-plugin-vue": "4.5.0",
-    "faker": "^5.5.3",
     "file-loader": "1.1.11",
     "husky": "^7.0.2",
     "jest": "23.6.0",
     "jest-raw-loader": "^1.0.1",
     "jest-serializer-vue": "2.0.2",
-    "json-server": "^0.17.0",
     "lerna": "4.0.0",
     "node-sass": "^4.11.0",
     "postcss-cli": "^6.1.2",
@@ -76,7 +73,6 @@
   },
   "dependencies": {
     "@vue/composition-api": "^1.2.4",
-    "axios": "^0.23.0",
     "swrv": "^0.9.4",
     "vue": "2.6.10"
   },
