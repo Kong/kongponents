@@ -9,48 +9,9 @@ Pass a fetcher function to build a slot-able table.
   :options="tableOptions" />
 
 ```vue
-<template>
   <KTable
     :fetcher="fetcher"
-    :headers="headers"
-    :page-size="3" />
-</template>
-<script>
-export default {
-  data() {
-    return {
-      headers: [
-        { key: 'name', label: 'Name', sortable: false },
-        { key: 'id', label: 'ID', sortable: false },
-        { key: 'enabled', label: 'Enabled', sortable: false }
-      ]
-    }
-  },
-  methods: {
-    fetcher(pageSize = 10, page = 1, query = '', sortKey = '', sortOrder = '') {
-      const params = {
-        _limit: pageSize,
-        _page: page
-      }
-
-      if (query) {
-        params.q = query
-        params._page = 1
-      }
-
-      if (sortKey) {
-        params._sort = sortKey
-        params._order = sortOrder
-      }
-
-      return axios.get('/user_list', {
-        baseURL: 'https://kongponents.dev/api',
-        params
-      }).then(res => res)
-    }
-  }
-}
-</script>
+    :headers="headers" />
 ```
 
 ## Props
@@ -68,32 +29,13 @@ Highlight the table row on hover. By default this is set to true. In the example
   <KTable
     :fetcher="fetcher"
     :headers="headers"
-    :page-size="3"
     :hasHover="false" />
-</template>
-```
-
-### Small
-
-Lessen the table cell padding
-
-<KTable
-  :options="tableOptions"
-  isSmall />
-
-```vue
-<template>
-  <KTable
-    :fetcher="fetcher"
-    :headers="headers"
-    :page-size="3"
-    isSmall />
 </template>
 ```
 
 ### Clickable
 
-Adds `cursor: pointer` and `user-select: none` styling.
+Adds `user-select: none` styling and emits `row-clicked` event with `row` data as the payload.
 
 <KTable
   :options="tableOptions"
@@ -104,7 +46,6 @@ Adds `cursor: pointer` and `user-select: none` styling.
   <KTable
     :fetcher="fetcher"
     :headers="headers"
-    :page-size="3"
     isClickable />
 </template>
 ```
@@ -116,15 +57,14 @@ The below example demonstrates the disabled state:
 
 <KTable
   :options="tableOptions"
-  :hasSideBorder="false" />
+  :hasSideBorder="true" />
 
 ```vue
 <template>
   <KTable
     :fetcher="fetcher"
     :headers="headers"
-    :page-size="3"
-    :hasSideBorder="false" />
+    :hasSideBorder="true" />
 </template>
 ```
 
@@ -139,30 +79,48 @@ See [the State section](#loading) about `isLoading`
 ### fetcher
 
 Use a custom fetcher function to fetch table data and leverage server-side search, sort and pagination.
+::: tip Note: 
+All fetcher functions should take a single param. This parameter is a JSON
+object supporting the following properties: 
+  - Pagination support: `page`, `pageSize`
+  - Sort support: `sortColumnKey`, `sortColumnOrder`
+  - Search support: `query`
+:::
+
+::: tip Note: 
+All fetcher functions should return a JSON object. This JSON object should contain the following properties: 
+  - `total` - the total count of items (if using pagination)
+  - `data` - an array of JSON objects to populate the table with
+:::
 
 Example fetcher function:
 
 ```js
-fetcher(pageSize = 10, page = 1, query = '', sortKey = '', sortOrder = '') {
+fetcher(payload) {
   const params = {
-    _limit: pageSize,
-    _page: page
+    _limit: payload.pageSize,
+    _page: payload.page
   }
 
   if (query) {
-    params.q = query
+    params.q = payload.query
     params._page = 1
   }
 
   if (sortKey) {
-    params._sort = sortKey
-    params._order = sortOrder
+    params._sort = payload.sortColumnKey
+    params._order = payload.sortColumnOrder
   }
 
   return axios.get('/user_list', {
     baseURL: 'https://kongponents.dev/api',
     params
-  }).then(res => res)
+  }).then(res => {
+    return {
+      total: res.total,
+      data: res.data
+    }
+  })
 }
 ```
 
@@ -170,9 +128,6 @@ fetcher(pageSize = 10, page = 1, query = '', sortKey = '', sortOrder = '') {
 
 Pass in a string of search input for server-side table filtering.
 
-### pageSize
-
-Pass in a page size limit for server-side pagination.
 
 ### headers
 
@@ -207,11 +162,17 @@ Example headers array:
 
 ### initialFetcherParams
 
-Pass in an object of parameters for the initial fetcher function call
+Pass in an object of parameters for the initial fetcher function call. If not provided,
+will default to the following values:
 
 ```js
-{ pageSize: 15, page: 1, filterQuery: '', sortColumKey: '', sortColumOrder: '' }
+{ pageSize: 15, page: 1, query: '', sortColumKey: '', sortColumOrder: '' }
 ```
+
+### paginationTotalItems
+
+Pass the total number of items in the set to populate the pagination text: ex. `1 to 20 of <paginationTotalItems>`. If
+not provided the fetcher response should return a top-level property `total` or return a `data` property that is an array.
 
 ### paginationNeighbors
 
@@ -219,10 +180,11 @@ Pass in a number of pagination neighbors to be used by the pagination component
 
 ### paginationPageSizes
 
-Pass in a number of pagination neighbors to be used by the pagination component
+Pass in a number of pagination neighbors to be used by the pagination component. If not provided
+will default to the following:
 
 ```js
-[15, 30, 45, 60, 75]
+[15, 25, 50, 75, 100]
 ```
 
 ## Row Attributes
@@ -240,7 +202,6 @@ Add custom properties to individual rows. The row object is passed as a param.
   <KTable
     :fetcher="fetcher"
     :headers="headers"
-    :page-size="3"
     :rowAttrs="rowAttrsFn" />
 </template>
 <script>
@@ -295,7 +256,6 @@ Add custom properties to individual table cells or groups of cells. The cell att
   <KTable
     :fetcher="fetcher"
     :headers="headers"
-    :page-size="4"
     :cellAttrs="cellAttrsFn" />
 </template>
 <script>
@@ -375,7 +335,6 @@ various parts of the table. We support events on both table rows and cells in ad
 <KTable
   :fetcher="fetcher"
   :headers="headers"
-  :page-size="5"
   isClickable
   @row:click="handleRowClick">
   <template v-slot:company="{rowValue}">
@@ -456,7 +415,6 @@ export default {
     <KTable
       :fetcher="fetcher"
       :headers="headers"
-      :page-size="3"
       is-clickable
       @row:click="actionRow"
       @cell:mouseover="actionRow"
@@ -473,7 +431,6 @@ export default {
       <KTable
         :fetcher="fetcher"
         :headers="headers"
-        :page-size="3"
         is-clickable
         has-hover
         @row:click="actionRow"
@@ -521,7 +478,6 @@ access to the row data.
   <KTable
     :fetcher="fetcher"
     :headers="headers"
-    :page-size="3"
   >
     <!-- Slot column header "name" -->
     <template v-slot:column-name="{ column }">
@@ -559,7 +515,6 @@ export default {
   <KTable
     :fetcher="fetcher"
     :headers="headers"
-    :page-size="3"
   >
     <!-- Slot each "enabled" cell in each row & add icon if matching value -->
     <template v-slot:enabled="{rowValue}">
@@ -804,6 +759,10 @@ The fetcher function should structure the ajax request URL in such a way that
 enables server side sort, search and pagination per the requirements of the API
 being used.
 
+<KTable
+  :fetcher="fetcher"
+  :headers="headers" />
+
 ```http
 Example URL
 
@@ -819,13 +778,17 @@ https://kongponents.dev/api/components?_page=1&_limit=10&_sort=name&_order=desc
     <KTable
       :fetcher="fetcher"
       :initial-fetcher-params="{
-        pageSize: 10,
+        pageSize: 15,
         page: 1,
-        filterQuery: '',
+        query: '',
         sortColumnKey: '',
         sortColumnOrder: ''
       }"
-      :headers="headers"
+      :headers="[
+        { label: 'Title', key: 'title', sortable: true },
+        { label: 'Description', key: 'description', sortable: true },
+        { label: 'Enabled', key: 'enabled', sortable: false }
+      ]"
       :search-input="search"
     />
   </template>
@@ -835,26 +798,31 @@ https://kongponents.dev/api/components?_page=1&_limit=10&_sort=name&_order=desc
 ```js
 // Example Fetcher Function
 
-fetcher(pageSize = 10, page = 1, query = '', sortKey = '', sortOrder = '') {
+fetcher(payload) {
   const params = {
-    _limit: pageSize,
-    _page: page
+    _limit: payload.pageSize,
+    _page: payload.page
   }
 
   if (query) {
-    params.q = query
+    params.q = payload.query
     params._page = 1
   }
 
   if (sortKey) {
-    params._sort = sortKey
-    params._order = sortOrder
+    params._sort = payload.sortColumnKey
+    params._order = payload.sortColumnOrder
   }
 
   return axios.get('/user_list', {
     baseURL: 'https://kongponents.dev/api',
     params
-  }).then(res => res)
+  }).then(res => {
+    return {
+      total: res.total,
+      data: res.data
+    }
+  })
 }
 ```
 
@@ -881,7 +849,6 @@ An Example of changing the hover background might look like.
   <KTable
     :fetcher="fetcher"
     :headers="headers"
-    :page-size="3"
     hasHover />
 </template>
 
@@ -900,6 +867,11 @@ export default {
       eventType: '',
       sortOrder: 'ascending',
       sortKey: 'name',
+      headers: [
+          { label: 'Title', key: 'title', sortable: true },
+          { label: 'Description', key: 'description', sortable: true },
+          { label: 'Enabled', key: 'enabled', sortable: false }
+      ],
       tableOptions: {
         headers: [
           { label: 'Name', key: 'name', sortable: true },
@@ -911,17 +883,17 @@ export default {
           {
             name: 'Basic Auth',
             id: '517526354743085',
-            enabled: 'true',
+            enabled: 'true'
           },
           {
             name: 'Website Desktop',
             id: '328027447731198',
-            enabled: 'false',
+            enabled: 'false'
           },
           {
             name: 'Android App',
             id: '405383051040955',
-            enabled: 'true',
+            enabled: 'true'
           }
         ]
       },
@@ -994,6 +966,39 @@ export default {
     }
   },
   methods: {
+    resolveAfter5MiliSec(count, pageSize, page, sortKey, sortOrder) {
+      // simulate pagination and sort
+      let limit = count
+      if ((pageSize * page) < count) {
+        limit = pageSize
+      } 
+      let myItems = []
+        for (let i = ((page-1) * pageSize); i < limit; i++) {
+          let offset = sortOrder === 'asc' ? count-i : i+1
+          myItems.push({
+            title: "Item " + offset,
+            description: "The item's description for number " + offset,
+            enabled: offset % 2 === 0
+          })
+        }
+
+      return new Promise(resolve => {
+        setTimeout(() => {
+          resolve(myItems);
+        }, 500);
+      });
+    },
+
+    async fetcher(payload) {
+      const params = {
+        _limit: payload.pageSize,
+        _page: payload.page,
+        data: await this.resolveAfter5MiliSec(20, payload.pageSize, payload.page, payload.sortColumnKey, payload.sortColumnOrder),
+        total: 20
+      }
+      return params
+    },
+
     actionRow (e, row, type) {
       this.eventType = e.type
       this.row = row

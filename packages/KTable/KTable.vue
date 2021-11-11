@@ -1,6 +1,6 @@
 <template>
   <KSkeleton
-    v-if="isTableLoading && !hasError && (!data || !data.length)"
+    v-if="(isTableLoading || isLoading) && !hasError"
     :delay-milliseconds="0"
     type="table"
   />
@@ -25,7 +25,7 @@
     </template>
   </KEmptyState>
   <KEmptyState
-    v-else-if="!hasError && !isTableLoading && (data && !data.length)"
+    v-else-if="!hasError && (!isTableLoading && !isLoading) && (data && !data.length)"
     :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
     :icon="emptyStateIcon || ''"
     :icon-color="emptyStateIconColor"
@@ -49,7 +49,7 @@
     @scroll.passive="scrollHandler"
   >
     <table
-      :class="{'has-hover': hasHover, 'is-small': isSmall, 'is-clickable': isClickable, 'side-border': hasSideBorder}"
+      :class="{'has-hover': hasHover, 'is-clickable': isClickable, 'side-border': hasSideBorder}"
       class="k-table">
       <thead :class="{ 'is-scrolled': isScrolled }">
         <tr :class="{ 'is-scrolled': isScrolled }">
@@ -76,7 +76,7 @@
                   </span>
                 </slot>
                 <KIcon
-                  v-if="!column.hideLabel"
+                  v-if="!column.hideLabel && column.sortable"
                   class="caret ml-2"
                   color="var(--KTableColor, var(--black-70, color(black-70)))"
                   width="12"
@@ -95,7 +95,27 @@
           v-bind="rowAttrs(row)"
           v-on="trlisteners(row, 'row')"
         >
-          <template>
+          <a
+            v-if="isClickable"
+            href="#"
+            class="k-table-row-click"
+            @click.prevent="handleRowClick(row)">
+            <template>
+              <td
+                v-for="(value, index) in tableHeaders"
+                :key="index"
+                v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
+                v-on="tdlisteners(row[value.key], 'cell')"
+              >
+                <slot
+                  :name="value.key"
+                  :row="row"
+                  :rowKey="rowIndex"
+                  :rowValue="row[value.key]">{{ row[value.key] }}</slot>
+              </td>
+            </template>
+          </a>
+          <template v-else>
             <td
               v-for="(value, index) in tableHeaders"
               :key="index"
@@ -115,8 +135,9 @@
     <KPagination
       v-if="fetcher"
       :total-count="total"
+      :current-page="page"
       :neighbors="paginationNeighbors"
-      :page-sizes="pageSizes"
+      :page-sizes="paginationPageSizes"
       class="pa-1"
       @pageChanged="pageChangeHandler"
       @pageSizeChanged="pageSizeChangeHandler"
@@ -177,13 +198,6 @@ export default defineComponent({
     hasHover: {
       type: Boolean,
       default: true
-    },
-    /**
-     * Lowers overall table padding
-     */
-    isSmall: {
-      type: Boolean,
-      default: false
     },
     /**
      * Adds hover and non selectable styling
@@ -385,17 +399,32 @@ export default defineComponent({
      */
     paginationPageSizes: {
       type: Array,
+      default: () => ([15, 25, 50, 75, 100])
+    },
+    /**
+     * A prop to pass the total number of items in the set for the pagination text
+     */
+    paginationTotalItems: {
+      type: Number,
       default: null
     }
   },
   setup (props, ctx) {
+    const defaultFetcherProps = {
+      pageSize: 15,
+      page: 1,
+      query: '',
+      sortColumnKey: '',
+      sortColumnOrder: ''
+    }
+
     const data = ref([])
     const tableHeaders = ref([])
     const total = ref(0)
     const isScrolled = ref(false)
     const isTableLoading = ref(true)
     const page = ref(1)
-    const pageSize = ref(10)
+    const pageSize = ref(15)
     const filterQuery = ref('')
     const sortColumnKey = ref('')
     const sortColumnOrder = ref('desc')
@@ -421,7 +450,7 @@ export default defineComponent({
         }, {})
     }
 
-    const tdlisteners = computed(() => {
+    const tdlisteners = computed(() => { // TODO: can we replace with something else??
       return pluckListeners('cell:', ctx.listeners)
     })
 
@@ -440,59 +469,53 @@ export default defineComponent({
       }
     })
 
-    const pageSizes = computed(() => {
-      if (props.paginationPageSizes) {
-        return props.paginationPageSizes
-      }
-
-      return [
-        pageSize.value,
-        pageSize.value * 2,
-        pageSize.value * 3,
-        pageSize.value * 4,
-        pageSize.value * 5
-      ]
-    })
-
     const fetchData = async () => {
+      isTableLoading.value = true
       const searchInput = props.searchInput
-      const res = await props.fetcher(
-        pageSize.value,
-        page.value,
-        searchInput || filterQuery.value,
-        sortColumnKey.value,
-        sortColumnOrder.value
-      )
+      const res = await props.fetcher({
+        pageSize: pageSize.value,
+        page: page.value,
+        query: searchInput || filterQuery.value,
+        sortColumnKey: sortColumnKey.value,
+        sortColumnOrder: sortColumnOrder.value
+      })
 
       data.value = res.data
-      total.value = res.total
+      total.value = props.paginationTotalItems || res.total || res.data.length
+      isTableLoading.value = false
 
       return res
     }
 
     const initData = async () => {
-      if (props.initialFetcherParams) {
-        page.value = props.initialFetcherParams.page
-        pageSize.value = props.initialFetcherParams.pageSize
-        filterQuery.value = props.initialFetcherParams.query
-        sortColumnKey.value = props.initialFetcherParams.sortColumnKey
-        sortColumnOrder.value = props.initialFetcherParams.sortColumnOrder
+      // set up fetcher props
+      const fetcherParams = {
+        ...defaultFetcherProps,
+        ...props.initialFetcherParams
       }
 
+      page.value = fetcherParams.page
+      pageSize.value = fetcherParams.pageSize
+      filterQuery.value = fetcherParams.query
+      sortColumnKey.value = fetcherParams.sortColumnKey
+      sortColumnOrder.value = fetcherParams.sortColumnOrder
+
+      // get data
       if (props.fetcher) {
         await fetchData()
-      } else if (props.options && props.options.data && props.options.data.length) {
+      } else if (props.options?.data?.length) {
         data.value = props.options.data
         total.value = props.options.data.length
       }
 
-      if (props.headers && props.headers.length) {
+      // get table headers
+      if (props.headers?.length) {
         tableHeaders.value = props.headers
-      } else if (props.options && props.options.headers && props.options.headers.length) {
+      } else if (props.options?.headers?.length) {
         tableHeaders.value = props.options.headers
       }
 
-      if (!props.isLoading) {
+      if (props.isLoading === false) {
         isTableLoading.value = false
       }
     }
@@ -549,6 +572,10 @@ export default defineComponent({
       }
     }
 
+    const handleRowClick = (item) => {
+      ctx.emit('row-clicked', item)
+    }
+
     watch(() => props.searchInput, (newValue) => {
       search(newValue)
     }, { immediate: true })
@@ -569,11 +596,11 @@ export default defineComponent({
       pageChangeHandler,
       pageSizeChangeHandler,
       pageSize,
-      pageSizes,
       scrollHandler,
       sortClickHandler,
       sortColumnKey,
       sortColumnOrder,
+      handleRowClick,
       tableHeaders,
       tdlisteners,
       total,
@@ -712,33 +739,35 @@ export default defineComponent({
   }
 
   // Variants
-  &.is-small {
-    th {
-      padding: var(--spacing-xs, spacing(xs)) var(--spacing-sm, spacing(sm));
-    }
-    td {
-      padding: var(--spacing-sm, spacing(sm));
-    }
-  }
   &.is-clickable {
-    cursor: pointer;
     -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    .k-table-row-click {
+      font-weight: inherit;
+      color: var(--KTableColor, var(--black-70, color(black-70)));;
+      text-decoration: inherit;
+      display: contents;
+      vertical-align: inherit;
+    }
   }
   &.side-border {
     border-collapse: separate;
-    border-spacing: 0 4px;
+    border-spacing: 0 2px;
 
     tbody tr {
-      border: none;
-      box-shadow: -2px 0 0 var(--KTableBorder, var(--steel-200, color(steel-200)));
+      border-bottom: none;
+    }
+
+    tbody tr td:first-child {
+      border-left: 3px solid var(--KTableBorder, var(--steel-200, color(steel-200)));
     }
 
     &.has-hover {
-      tbody tr:hover {
-        box-shadow: -2px 0 0 var(--KTableBorder, var(--steel-300, color(steel-300)));
+      tbody tr:hover td:first-child {
+        border-left: 3px solid var(--KTableBorder, var(--steel-300, color(steel-300)));
       }
     }
   }
