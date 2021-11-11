@@ -1,11 +1,11 @@
 <template>
   <KSkeleton
-    v-if="[STATE.PENDING].includes(currentState) || isLoading"
+    v-if="isTableLoading && !hasError && (!data || !data.length)"
     :delay-milliseconds="0"
     type="table"
   />
   <KEmptyState
-    v-else-if="[STATE.ERROR, STATE.STALE_IF_ERROR].includes(currentState) || hasError"
+    v-else-if="hasError"
     :cta-is-hidden="!errorStateActionMessage || !errorStateActionRoute"
     :icon="errorStateIcon || ''"
     :is-error="true"
@@ -25,7 +25,7 @@
     </template>
   </KEmptyState>
   <KEmptyState
-    v-else-if="[STATE.SUCCESS].includes(currentState) && !hasError && (!data || !data.length)"
+    v-else-if="!hasError && !isTableLoading && (data && !data.length)"
     :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
     :icon="emptyStateIcon || ''"
     :icon-color="emptyStateIconColor"
@@ -43,28 +43,45 @@
       </KButton>
     </template>
   </KEmptyState>
-  <section v-else>
+  <section
+    v-else
+    class="k-table-wrapper"
+    @scroll.passive="scrollHandler"
+  >
     <table
       :class="{'has-hover': hasHover, 'is-small': isSmall, 'is-clickable': isClickable, 'side-border': hasSideBorder}"
       class="k-table">
-      <thead>
-        <tr>
+      <thead :class="{ 'is-scrolled': isScrolled }">
+        <tr :class="{ 'is-scrolled': isScrolled }">
           <template>
             <th
               v-for="(column, index) in tableHeaders"
               :key="index"
-              :class="{'sortable': !column.hideLabel && column.sortable, [sortColumnOrder]: column.key === sortColumnKey && !column.hideLabel}"
+              :class="{
+                'sortable': !column.hideLabel && column.sortable,
+                [sortColumnOrder]: column.key === sortColumnKey && !column.hideLabel,
+                'is-scrolled': isScrolled
+              }"
               @click="column.sortable && sortClickHandler(column.key)"
             >
-              <slot
-                :name="`column-${column.key}`"
-                :column="column">
-                <span
-                  :class="{'sr-only': column.hideLabel}"
-                >
-                  {{ column.label ? column.label : column.key }}
-                </span>
-              </slot>
+              <span class="d-flex align-items-center">
+                <slot
+                  :name="`column-${column.key}`"
+                  :column="column">
+                  <span
+                    :class="{'sr-only': column.hideLabel}"
+                  >
+                    {{ column.label ? column.label : column.key }}
+                  </span>
+                </slot>
+                <KIcon
+                  class="caret ml-2"
+                  color="var(--KTableColor, var(--black-70, color(black-70)))"
+                  width="12"
+                  height="12"
+                  icon="chevronDown"
+                />
+              </span>
             </th>
           </template>
         </tr>
@@ -93,38 +110,29 @@
         </tr>
       </tbody>
     </table>
-    <!-- Temp pagination until pagination component is complete -->
-    <div class="pagination d-flex align-items-center justify-content-between">
-      <div class="details type-md">
-        Page {{ page }} of {{ totalPages }}
-      </div>
-      <div class="buttons">
-        <KButton
-          :disabled="page === 1"
-          @click="paginationClickHandler('prev')"
-        >
-          Prev
-        </KButton>
-        <KButton
-          :disabled="page === 10 || page === totalPages"
-          class="ml-4"
-          @click="paginationClickHandler('next')"
-        >
-          Next
-        </KButton>
-      </div>
-    </div>
+    <KPagination
+      v-if="total > pageSize"
+      :total-count="total"
+      :neighbors="paginationNeighbors"
+      :page-sizes="pageSizes"
+      class="pa-1"
+      @pageChanged="pageChangeHandler"
+      @pageSizeChanged="pageSizeChangeHandler"
+    />
   </section>
 </template>
 
 <script>
 import KEmptyState from '@kongponents/kemptystate/KEmptyState.vue'
 import KSkeleton from '@kongponents/kskeleton/KSkeleton.vue'
+import KPagination from '@kongponents/kpagination/KPagination.vue'
+import KIcon from '@kongponents/kicon/KIcon.vue'
 import { clientSideSorter, useDebounce, useRequest } from '../../utils/utils'
-import useSwrvState from '../../utils/useSwrvState'
 
 import Vue from 'vue'
-import VueCompositionAPI, { computed, defineComponent, onMounted, ref, watch } from '@vue/composition-api'
+import VueCompositionAPI, { computed, defineComponent, onMounted, reactive, ref, watch } from '@vue/composition-api'
+
+import KButton from '@kongponents/kbutton/KButton.vue'
 
 Vue.use(VueCompositionAPI)
 
@@ -144,7 +152,10 @@ export default defineComponent({
   name: 'KTable',
   components: {
     KEmptyState,
-    KSkeleton
+    KSkeleton,
+    KPagination,
+    KIcon,
+    KButton
   },
   props: {
     /**
@@ -185,9 +196,9 @@ export default defineComponent({
      */
     sortOrder: {
       type: String,
-      default: 'ascending',
+      default: '',
       validator: function (value) {
-        return ['ascending', 'descending'].indexOf(value) > -1
+        return ['ascending', 'descending', ''].indexOf(value) > -1
       }
     },
     /**
@@ -210,7 +221,7 @@ export default defineComponent({
      */
     hasSideBorder: {
       type: Boolean,
-      default: true
+      default: false
     },
     /**
      * A function that conditionally specifies cell attributes
@@ -347,28 +358,47 @@ export default defineComponent({
       default: ''
     },
     /**
-     * A prop to pass in a page size number for server-side pagination
-     */
-    pageSize: {
-      type: Number,
-      default: 10
-    },
-    /**
      * A prop to pass in a an array of headers for the table
      */
     headers: {
       type: Array,
       default: () => []
+    },
+    /**
+     * A prop to pass in a an object of intial params for the initial fetcher function call
+     */
+    initialFetcherParams: {
+      type: Object,
+      default: null
+    },
+    /**
+     * A prop to pass in a the number of pagination neighbors used by the pagination component
+     */
+    paginationNeighbors: {
+      type: Number,
+      default: 1
+    },
+    /**
+     * A prop to pass in an array of page sizes used by the pagination component
+     */
+    paginationPageSizes: {
+      type: Array,
+      default: null
     }
   },
   setup (props, ctx) {
     const data = ref([])
     const tableHeaders = ref([])
-    // Need to rename the following two based on conflicting props
-    const sortColumnKey = ref('')
-    const sortColumnOrder = ref('desc')
-    const page = ref(1)
-    const total = ref(10)
+    const total = ref(0)
+    const isScrolled = ref(false)
+    const isTableLoading = ref(true)
+    const fetcherParams = reactive({
+      page: 1,
+      pageSize: 10,
+      query: '',
+      key: '',
+      order: 'desc'
+    })
 
     /**
      * Grabs listeners from this.$listeners matching a prefix to attach the
@@ -410,14 +440,24 @@ export default defineComponent({
       }
     })
 
+    const pageSizes = computed(() => {
+      if (props.paginationPageSizes) {
+        return props.paginationPageSizes
+      }
+
+      return [
+        fetcherParams.pageSize,
+        fetcherParams.pageSize * 2,
+        fetcherParams.pageSize * 3,
+        fetcherParams.pageSize * 4,
+        fetcherParams.pageSize * 5
+      ]
+    })
+
     const fetchData = async () => {
-      const res = await props.fetcher(
-        props.pageSize,
-        page.value,
-        query.value || props.searchInput,
-        sortColumnKey.value,
-        sortColumnOrder.value
-      )
+      const { pageSize, page, query, key, order } = fetcherParams
+      const searchInput = props.searchInput
+      const res = await props.fetcher(pageSize, page, searchInput || query, key, order)
 
       data.value = res.data
       total.value = res.total
@@ -426,18 +466,15 @@ export default defineComponent({
     }
 
     const initData = async () => {
-      if (props.sortKey) {
-        sortColumnKey.value = props.sortKey
-      }
-
-      if (props.sortOrder) {
-        sortColumnOrder.value = props.sortOrder
+      if (props.initialFetcherParams) {
+        Object.assign(fetcherParams, props.initialFetcherParams)
       }
 
       if (props.fetcher) {
-        fetchData()
+        await fetchData()
       } else if (props.options && props.options.data && props.options.data.length) {
         data.value = props.options.data
+        total.value = props.options.data.length
       }
 
       if (props.headers && props.headers.length) {
@@ -445,40 +482,63 @@ export default defineComponent({
       } else if (props.options && props.options.headers && props.options.headers.length) {
         tableHeaders.value = props.options.headers
       }
+
+      if (!props.isLoading) {
+        isTableLoading.value = false
+      }
     }
 
     const { query, search } = useDebounce('', 350)
-    const { revalidate, response, error, isValidating } = useRequest(
+    const { revalidate } = useRequest(
       () => props.fetcher && `k-table_${Math.floor(Math.random() * 1000)}`,
       () => fetchData(),
       { revalidateOnFocus: false }
     )
 
-    const { state: currentState, swrvState: STATE } = useSwrvState(response, error, isValidating)
-
     const sortClickHandler = (key) => {
-      sortColumnKey.value = key
-      sortColumnOrder.value = sortColumnOrder.value === 'asc' ? 'desc' : 'asc'
+      fetcherParams.page = 1
+
+      if (fetcherParams.key) {
+        if (key === fetcherParams.key) {
+          if (fetcherParams.order === 'asc') {
+            fetcherParams.order = 'desc'
+          } else {
+            fetcherParams.order = 'asc'
+          }
+        } else {
+          fetcherParams.key = key
+          fetcherParams.order = 'desc'
+        }
+      } else {
+        fetcherParams.key = key
+      }
 
       revalidate()
     }
 
-    const paginationClickHandler = (direction) => {
-      if (direction === 'next' && page.value < 10) {
-        page.value++
-      } else if (direction === 'prev' && page.value > 1) {
-        page.value--
+    const pageChangeHandler = ({ page: newPage }) => {
+      fetcherParams.page = newPage
+    }
+
+    const pageSizeChangeHandler = ({ pageSize: newPageSize }) => {
+      fetcherParams.pageSize = newPageSize
+    }
+
+    const scrollHandler = (event) => {
+      if (event && event.target && event.target.scrollTop) {
+        if (event.target.scrollTop > 1) {
+          isScrolled.value = true
+        } else if (event.target.scrollTop) {
+          isScrolled.value = !isScrolled.value
+        }
       }
     }
 
-    // Temp until pagination component is ready
-    const totalPages = computed(() => Math.ceil(total.value / props.pageSize))
-
-    watch(() => props.searchInput, (val) => {
-      search(val)
+    watch(() => props.searchInput, (newValue) => {
+      search(newValue)
     }, { immediate: true })
 
-    watch(() => [page.value, query.value], () => {
+    watch(() => [query.value, fetcherParams.page, fetcherParams.pageSize], () => {
       revalidate()
     }, { immediate: true })
 
@@ -488,20 +548,21 @@ export default defineComponent({
 
     return {
       data,
-      page,
-      paginationClickHandler,
+      isScrolled,
+      isTableLoading,
+      page: fetcherParams.page,
+      pageChangeHandler,
+      pageSizeChangeHandler,
+      pageSize: fetcherParams.pageSize,
+      pageSizes,
+      scrollHandler,
       sortClickHandler,
-      sortColumnKey,
-      sortColumnOrder,
+      sortColumnKey: fetcherParams.key,
+      sortColumnOrder: fetcherParams.order,
       tableHeaders,
       tdlisteners,
       total,
-      totalPages,
-      trlisteners,
-
-      // state
-      currentState,
-      STATE
+      trlisteners
     }
   }
 })
@@ -509,19 +570,66 @@ export default defineComponent({
 
 <style scoped lang="scss">
 @import '~@kongponents/styles/_variables.scss';
+
+.k-table-wrapper {
+  width: 100%;
+  // max-height: 400px;
+  overflow: auto;
+}
+
 .k-table {
   width: 100%;
   max-width: 100%;
-  border-collapse: collapse;
+  margin-top: 0;
 
   th,
   td {
-    padding: var(--spacing-md, spacing(md));
+    padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
     vertical-align: middle;
+    white-space: nowrap;
   }
   thead {
-    border-top: 1px solid var(--KTableBorder, var(--grey-200, color(grey-200)));
+    height: 60px;
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
     border-bottom: 2px solid var(--KTableBorder, var(--grey-200, color(grey-200)));
+
+    &.is-scrolled {
+      border-bottom: none;
+    }
+
+    tr {
+      position: relative;
+
+      &:after {
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+        content: '';
+        position: absolute;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        box-shadow: none;
+        left: 0;
+      }
+
+      &.is-scrolled {
+        border-bottom: none;
+
+        &:after {
+          box-shadow:
+            0px 0.2px 0.6px rgba(0, 0, 0, 0.031),
+            0px 0.6px 1.8px rgba(0, 0, 0, 0.045),
+            0px 1.5px 4.2px rgba(0, 0, 0, 0.059),
+            0px 5px 14px rgba(0, 0, 0, 0.09)
+          ;
+          opacity: 1;
+          transition: opacity 0.2s ease-in-out;
+        }
+      }
+    }
+
     th {
       padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
       text-align: left;
@@ -540,34 +648,45 @@ export default defineComponent({
         border-width: 0;
       }
 
+      .caret {
+        opacity: 0;
+        transform: rotate(0deg);
+        transition: 450ms ease;
+      }
+
       &.sortable {
         cursor: pointer;
 
-        &.ascending {
-          &:before {
-            content: '\2191';
-            margin-left: -12px;
-          }
+        &.asc .caret {
+          opacity: 1;
+          transform: rotate(-180deg);
+          transition: 450ms ease;
         }
 
-        &.descending {
-          &:before {
-            content: '\2193';
-            margin-left: -12px;
-          }
+        &.desc .caret {
+          opacity: 1;
+          transition: 450ms ease;
         }
       }
     }
   }
   tbody {
     tr {
-      border-bottom: 1px solid var(--KTableBorder, var(--grey92, color(grey-200)));
+      // Does this allow rows to be different sizes?
+      min-height: 44px;
+
+      &:hover {
+        background-color: var(--KTableHover, var(--blue-100, color(blue-100)));
+      }
     }
     td {
       color: var(--KTableColor, var(--black-70, color(black-70)));
+      white-space: nowrap;
+
       a {
         color: var(--blue-500, color(blue-500));
         text-decoration: none;
+
         &:hover {
           text-decoration: underline;
         }
@@ -588,9 +707,6 @@ export default defineComponent({
     td {
       padding: var(--spacing-sm, spacing(sm));
     }
-  }
-  &.has-hover tbody tr:hover {
-    background-color: var(--KTableHover, var(--steel-100, color(steel-100)));
   }
   &.is-clickable {
     cursor: pointer;

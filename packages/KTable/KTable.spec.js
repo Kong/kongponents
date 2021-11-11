@@ -1,6 +1,75 @@
 import { mount } from '@vue/test-utils'
 import KTable from '@/KTable/KTable'
 
+const tick = async (vm, times) => {
+  for (let i = 0; i < times; ++i) {
+    await vm.$nextTick()
+  }
+}
+
+const largeDataSet = [
+  {
+    name: 'Basic Auth',
+    id: '517526354743085',
+    enabled: 'true'
+  },
+  {
+    name: 'Website Desktop',
+    id: '328027447731198',
+    enabled: 'false'
+  },
+  {
+    name: 'Android App',
+    id: '405383051040955',
+    enabled: 'true'
+  },
+  {
+    name: 'Basic Auth',
+    id: '517526354743085',
+    enabled: 'true'
+  },
+  {
+    name: 'Website Desktop',
+    id: '328027447731198',
+    enabled: 'false'
+  },
+  {
+    name: 'Android App',
+    id: '405383051040955',
+    enabled: 'true'
+  },
+  {
+    name: 'Basic Auth',
+    id: '517526354743085',
+    enabled: 'true'
+  },
+  {
+    name: 'Website Desktop',
+    id: '328027447731198',
+    enabled: 'false'
+  },
+  {
+    name: 'Android App',
+    id: '405383051040955',
+    enabled: 'true'
+  },
+  {
+    name: 'Basic Auth',
+    id: '517526354743085',
+    enabled: 'true'
+  },
+  {
+    name: 'Website Desktop',
+    id: '328027447731198',
+    enabled: 'false'
+  },
+  {
+    name: 'Android App',
+    id: '405383051040955',
+    enabled: 'true'
+  }
+]
+
 const options = {
   headers: [
     { label: 'Name', key: 'name', sortable: true, hideLabel: false },
@@ -54,7 +123,7 @@ describe('KTable', () => {
         }
       })
 
-      expect(wrapper.classes()).toContain('has-hover')
+      expect(wrapper.find('.k-table').classes()).toContain('has-hover')
       expect(wrapper.html()).toMatchSnapshot()
     })
 
@@ -66,7 +135,7 @@ describe('KTable', () => {
         }
       })
 
-      expect(wrapper.classes()).toContain('is-small')
+      expect(wrapper.find('.k-table').classes()).toContain('is-small')
       expect(wrapper.html()).toMatchSnapshot()
     })
   })
@@ -130,10 +199,19 @@ describe('KTable', () => {
   })
 
   describe('states', () => {
-    it('displays an empty state when no data is passed to the table', () => {
-      const wrapper = mount(KTable)
+    it('displays an empty state when no data is available', async () => {
+      const fetcher = () => new Promise(resolve => resolve({ data: [] }))
+      const wrapper = mount(KTable, {
+        propsData: {
+          fetcher: fetcher,
+          headers: options.headers,
+          pageSize: 4
+        }
+      })
 
-      expect(wrapper.classes()).toContain('empty-state-wrapper')
+      await tick(wrapper.vm, 1)
+
+      expect(wrapper.html()).toContain('empty-state-wrapper')
       expect(wrapper.html()).toMatchSnapshot()
     })
 
@@ -154,6 +232,58 @@ describe('KTable', () => {
       expect(wrapper.html()).toContain('empty-state-wrapper')
       expect(wrapper.html()).toContain('is-error')
       expect(wrapper.html()).toMatchSnapshot()
+    })
+
+    it('displays a loading state and not an empty state when pending response', () => {
+      const slowFetcher = () => {
+        return setTimeout(() => {
+          return new Promise(resolve => resolve({ data: options.data }))
+        }, 1000)
+      }
+      const wrapper = mount(KTable, {
+        propsData: {
+          fetcher: slowFetcher,
+          headers: options.headers,
+          pageSize: 4
+        }
+      })
+
+      expect(wrapper.find('.skeleton-table-wrapper').exists()).toBe(true)
+      expect(wrapper.find('.empty-state-wrapper').exists()).toBe(false)
+    })
+  })
+
+  describe('pagination', () => {
+    it('displays pagination when total results are greater than page size', async () => {
+      const wrapper = mount(KTable, {
+        propsData: {
+          options: {
+            data: largeDataSet,
+            headers: options.headers
+          },
+          paginationPageSizes: [10, 20, 30, 40]
+        }
+      })
+
+      await tick(wrapper.vm, 1)
+
+      expect(wrapper.find('[data-testid="k-pagination-container"]').exists()).toBe(true)
+    })
+
+    it('does not display pagination when total results are less than page size', async () => {
+      const wrapper = mount(KTable, {
+        propsData: {
+          options: {
+            data: options.data,
+            headers: options.headers
+          },
+          paginationPageSizes: [10, 20, 30, 40]
+        }
+      })
+
+      await tick(wrapper.vm, 1)
+
+      expect(wrapper.find('[data-testid="k-pagination-container"]').exists()).toBe(false)
     })
   })
 })

@@ -1,167 +1,291 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`KTable default has hover class when passed 1`] = `
-<table class="k-table has-hover side-border">
-  <thead>
-    <tr>
-      <th class="sortable"><span class="">
-              Name
-            </span></th>
-      <th class=""><span class="">
-              ID
-            </span></th>
-      <th class=""><span class="">
-              Enabled
-            </span></th>
-      <th class=""><span class="sr-only">
-              actions
-            </span></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Basic Auth</td>
-      <td>517526354743085</td>
-      <td>true</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>Website Desktop</td>
-      <td>328027447731198</td>
-      <td>false</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>Android App</td>
-      <td>405383051040955</td>
-      <td>true</td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
+<section class="k-table-wrapper">
+  <table class="k-table has-hover">
+    <thead class="">
+      <tr class="">
+        <th class="sortable"><span class="d-flex align-items-center"><span class="">
+                  Name
+                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
+            <title>Expand</title>
+            <g>
+              <!---->
+              <!---->
+              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+          </svg></span></th>
+        <th class=""><span class="d-flex align-items-center"><span class="">
+                  ID
+                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
+            <title>Expand</title>
+            <g>
+              <!---->
+              <!---->
+              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+          </svg></span></th>
+        <th class=""><span class="d-flex align-items-center"><span class="">
+                  Enabled
+                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
+            <title>Expand</title>
+            <g>
+              <!---->
+              <!---->
+              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+          </svg></span></th>
+        <th class=""><span class="d-flex align-items-center"><span class="sr-only">
+                  actions
+                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
+            <title>Expand</title>
+            <g>
+              <!---->
+              <!---->
+              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+          </svg></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Basic Auth</td>
+        <td>517526354743085</td>
+        <td>true</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Website Desktop</td>
+        <td>328027447731198</td>
+        <td>false</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Android App</td>
+        <td>405383051040955</td>
+        <td>true</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <!---->
+</section>
 `;
 
 exports[`KTable default has small class when passed 1`] = `
-<table class="k-table has-hover is-small side-border">
-  <thead>
-    <tr>
-      <th class="sortable"><span class="">
-              Name
-            </span></th>
-      <th class=""><span class="">
-              ID
-            </span></th>
-      <th class=""><span class="">
-              Enabled
-            </span></th>
-      <th class=""><span class="sr-only">
-              actions
-            </span></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Basic Auth</td>
-      <td>517526354743085</td>
-      <td>true</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>Website Desktop</td>
-      <td>328027447731198</td>
-      <td>false</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>Android App</td>
-      <td>405383051040955</td>
-      <td>true</td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
+<section class="k-table-wrapper">
+  <table class="k-table has-hover is-small">
+    <thead class="">
+      <tr class="">
+        <th class="sortable"><span class="d-flex align-items-center"><span class="">
+                  Name
+                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
+            <title>Expand</title>
+            <g>
+              <!---->
+              <!---->
+              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+          </svg></span></th>
+        <th class=""><span class="d-flex align-items-center"><span class="">
+                  ID
+                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
+            <title>Expand</title>
+            <g>
+              <!---->
+              <!---->
+              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+          </svg></span></th>
+        <th class=""><span class="d-flex align-items-center"><span class="">
+                  Enabled
+                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
+            <title>Expand</title>
+            <g>
+              <!---->
+              <!---->
+              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+          </svg></span></th>
+        <th class=""><span class="d-flex align-items-center"><span class="sr-only">
+                  actions
+                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
+            <title>Expand</title>
+            <g>
+              <!---->
+              <!---->
+              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+          </svg></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Basic Auth</td>
+        <td>517526354743085</td>
+        <td>true</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Website Desktop</td>
+        <td>328027447731198</td>
+        <td>false</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Android App</td>
+        <td>405383051040955</td>
+        <td>true</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <!---->
+</section>
 `;
 
 exports[`KTable default renders link in action slot 1`] = `
-<table class="k-table has-hover side-border">
-  <thead>
-    <tr>
-      <th class="sortable"><span class="">
-              Name
-            </span></th>
-      <th class=""><span class="">
-              ID
-            </span></th>
-      <th class=""><span class="">
-              Enabled
-            </span></th>
-      <th class=""><span class="sr-only">
-              actions
-            </span></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Basic Auth</td>
-      <td>517526354743085</td>
-      <td>true</td>
-      <td><a href="#">Link</a></td>
-    </tr>
-    <tr>
-      <td>Website Desktop</td>
-      <td>328027447731198</td>
-      <td>false</td>
-      <td><a href="#">Link</a></td>
-    </tr>
-    <tr>
-      <td>Android App</td>
-      <td>405383051040955</td>
-      <td>true</td>
-      <td><a href="#">Link</a></td>
-    </tr>
-  </tbody>
-</table>
+<section class="k-table-wrapper">
+  <table class="k-table has-hover">
+    <thead class="">
+      <tr class="">
+        <th class="sortable"><span class="d-flex align-items-center"><span class="">
+                  Name
+                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
+            <title>Expand</title>
+            <g>
+              <!---->
+              <!---->
+              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+          </svg></span></th>
+        <th class=""><span class="d-flex align-items-center"><span class="">
+                  ID
+                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
+            <title>Expand</title>
+            <g>
+              <!---->
+              <!---->
+              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+          </svg></span></th>
+        <th class=""><span class="d-flex align-items-center"><span class="">
+                  Enabled
+                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
+            <title>Expand</title>
+            <g>
+              <!---->
+              <!---->
+              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+          </svg></span></th>
+        <th class=""><span class="d-flex align-items-center"><span class="sr-only">
+                  actions
+                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
+            <title>Expand</title>
+            <g>
+              <!---->
+              <!---->
+              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+          </svg></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Basic Auth</td>
+        <td>517526354743085</td>
+        <td>true</td>
+        <td><a href="#">Link</a></td>
+      </tr>
+      <tr>
+        <td>Website Desktop</td>
+        <td>328027447731198</td>
+        <td>false</td>
+        <td><a href="#">Link</a></td>
+      </tr>
+      <tr>
+        <td>Android App</td>
+        <td>405383051040955</td>
+        <td>true</td>
+        <td><a href="#">Link</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <!---->
+</section>
 `;
 
 exports[`KTable sorting should have sortable class when passed 1`] = `
-<table class="k-table has-hover side-border">
-  <thead>
-    <tr>
-      <th class="sortable"><span class="">
-              Name
-            </span></th>
-      <th class=""><span class="">
-              ID
-            </span></th>
-      <th class=""><span class="">
-              Enabled
-            </span></th>
-      <th class=""><span class="sr-only">
-              actions
-            </span></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Basic Auth</td>
-      <td>517526354743085</td>
-      <td>true</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>Website Desktop</td>
-      <td>328027447731198</td>
-      <td>false</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>Android App</td>
-      <td>405383051040955</td>
-      <td>true</td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
+<section class="k-table-wrapper">
+  <table class="k-table has-hover">
+    <thead class="">
+      <tr class="">
+        <th class="sortable"><span class="d-flex align-items-center"><span class="">
+                  Name
+                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
+            <title>Expand</title>
+            <g>
+              <!---->
+              <!---->
+              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+          </svg></span></th>
+        <th class=""><span class="d-flex align-items-center"><span class="">
+                  ID
+                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
+            <title>Expand</title>
+            <g>
+              <!---->
+              <!---->
+              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+          </svg></span></th>
+        <th class=""><span class="d-flex align-items-center"><span class="">
+                  Enabled
+                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
+            <title>Expand</title>
+            <g>
+              <!---->
+              <!---->
+              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+          </svg></span></th>
+        <th class=""><span class="d-flex align-items-center"><span class="sr-only">
+                  actions
+                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
+            <title>Expand</title>
+            <g>
+              <!---->
+              <!---->
+              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+          </svg></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Basic Auth</td>
+        <td>517526354743085</td>
+        <td>true</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Website Desktop</td>
+        <td>328027447731198</td>
+        <td>false</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Android App</td>
+        <td>405383051040955</td>
+        <td>true</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <!---->
+</section>
 `;
 
 exports[`KTable states displays a loading skeletion when the "isLoading" prop is set to true" 1`] = `
@@ -219,8 +343,8 @@ exports[`KTable states displays a loading skeletion when the "isLoading" prop is
 </div>
 `;
 
-exports[`KTable states displays an empty state when no data is passed to the table 1`] = `
-<section class="empty-state-wrapper">
+exports[`KTable states displays an empty state when no data is available 1`] = `
+<section class="empty-state-wrapper" pagesize="4">
   <div class="empty-state-title">
     <!---->
     <div class="k-empty-state-title-header">No Data</div>
