@@ -126,18 +126,6 @@ describe('KTable', () => {
       expect(wrapper.find('.k-table').classes()).toContain('has-hover')
       expect(wrapper.html()).toMatchSnapshot()
     })
-
-    it('has small class when passed', async () => {
-      const wrapper = await mount(KTable, {
-        propsData: {
-          options,
-          isSmall: true
-        }
-      })
-
-      expect(wrapper.find('.k-table').classes()).toContain('is-small')
-      expect(wrapper.html()).toMatchSnapshot()
-    })
   })
 
   describe('sorting', () => {
@@ -254,13 +242,15 @@ describe('KTable', () => {
   })
 
   describe('pagination', () => {
-    it('displays pagination when total results are greater than page size', async () => {
+    it('displays pagination when fetcher provided', async () => {
       const wrapper = mount(KTable, {
         propsData: {
-          options: {
-            data: largeDataSet,
-            headers: options.headers
+          fetcher: () => {
+            return largeDataSet
           },
+          isLoading: false,
+          testMode: true,
+          headers: options.headers,
           paginationPageSizes: [10, 20, 30, 40]
         }
       })
@@ -270,7 +260,7 @@ describe('KTable', () => {
       expect(wrapper.find('[data-testid="k-pagination-container"]').exists()).toBe(true)
     })
 
-    it('does not display pagination when total results are less than page size', async () => {
+    it('does not display pagination when no fetcher', async () => {
       const wrapper = mount(KTable, {
         propsData: {
           options: {

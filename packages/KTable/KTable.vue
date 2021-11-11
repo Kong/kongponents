@@ -1,6 +1,6 @@
 <template>
   <KSkeleton
-    v-if="(isTableLoading || isLoading) && !hasError"
+    v-if="!testMode && (isTableLoading || isLoading) && !hasError"
     :delay-milliseconds="0"
     type="table"
   />
@@ -25,7 +25,7 @@
     </template>
   </KEmptyState>
   <KEmptyState
-    v-else-if="!hasError && (!isTableLoading && !isLoading) && (data && !data.length)"
+    v-else-if="!hasError && (!testMode && !isTableLoading && !isLoading) && (data && !data.length)"
     :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
     :icon="emptyStateIcon || ''"
     :icon-color="emptyStateIconColor"
@@ -407,6 +407,13 @@ export default defineComponent({
     paginationTotalItems: {
       type: Number,
       default: null
+    },
+    /**
+     * Use to avoid loading state in tests
+     */
+    testMode: {
+      type: Boolean,
+      default: false
     }
   },
   setup (props, ctx) {
@@ -503,15 +510,15 @@ export default defineComponent({
       // get data
       if (props.fetcher) {
         await fetchData()
-      } else if (props.options?.data?.length) {
+      } else if (props.options && props.options.data && props.options.data.length) {
         data.value = props.options.data
         total.value = props.options.data.length
       }
 
       // get table headers
-      if (props.headers?.length) {
+      if (props.headers && props.headers.length) {
         tableHeaders.value = props.headers
-      } else if (props.options?.headers?.length) {
+      } else if (props.options && props.options.headers && props.options.headers.length) {
         tableHeaders.value = props.options.headers
       }
 

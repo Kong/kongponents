@@ -17,106 +17,16 @@ exports[`KTable default has hover class when passed 1`] = `
           </svg></span></th>
         <th class=""><span class="d-flex align-items-center"><span class="">
                   ID
-                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
-            <title>Expand</title>
-            <g>
-              <!---->
-              <!---->
-              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            </g>
-          </svg></span></th>
+                </span>
+          <!----></span></th>
         <th class=""><span class="d-flex align-items-center"><span class="">
                   Enabled
-                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
-            <title>Expand</title>
-            <g>
-              <!---->
-              <!---->
-              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            </g>
-          </svg></span></th>
+                </span>
+          <!----></span></th>
         <th class=""><span class="d-flex align-items-center"><span class="sr-only">
                   actions
-                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
-            <title>Expand</title>
-            <g>
-              <!---->
-              <!---->
-              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            </g>
-          </svg></span></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Basic Auth</td>
-        <td>517526354743085</td>
-        <td>true</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>Website Desktop</td>
-        <td>328027447731198</td>
-        <td>false</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>Android App</td>
-        <td>405383051040955</td>
-        <td>true</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <!---->
-</section>
-`;
-
-exports[`KTable default has small class when passed 1`] = `
-<section class="k-table-wrapper">
-  <table class="k-table has-hover is-small">
-    <thead class="">
-      <tr class="">
-        <th class="sortable"><span class="d-flex align-items-center"><span class="">
-                  Name
-                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
-            <title>Expand</title>
-            <g>
-              <!---->
-              <!---->
-              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            </g>
-          </svg></span></th>
-        <th class=""><span class="d-flex align-items-center"><span class="">
-                  ID
-                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
-            <title>Expand</title>
-            <g>
-              <!---->
-              <!---->
-              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            </g>
-          </svg></span></th>
-        <th class=""><span class="d-flex align-items-center"><span class="">
-                  Enabled
-                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
-            <title>Expand</title>
-            <g>
-              <!---->
-              <!---->
-              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            </g>
-          </svg></span></th>
-        <th class=""><span class="d-flex align-items-center"><span class="sr-only">
-                  actions
-                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
-            <title>Expand</title>
-            <g>
-              <!---->
-              <!---->
-              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            </g>
-          </svg></span></th>
+                </span>
+          <!----></span></th>
       </tr>
     </thead>
     <tbody>
@@ -161,34 +71,16 @@ exports[`KTable default renders link in action slot 1`] = `
           </svg></span></th>
         <th class=""><span class="d-flex align-items-center"><span class="">
                   ID
-                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
-            <title>Expand</title>
-            <g>
-              <!---->
-              <!---->
-              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            </g>
-          </svg></span></th>
+                </span>
+          <!----></span></th>
         <th class=""><span class="d-flex align-items-center"><span class="">
                   Enabled
-                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
-            <title>Expand</title>
-            <g>
-              <!---->
-              <!---->
-              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            </g>
-          </svg></span></th>
+                </span>
+          <!----></span></th>
         <th class=""><span class="d-flex align-items-center"><span class="sr-only">
                   actions
-                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
-            <title>Expand</title>
-            <g>
-              <!---->
-              <!---->
-              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            </g>
-          </svg></span></th>
+                </span>
+          <!----></span></th>
       </tr>
     </thead>
     <tbody>
@@ -233,34 +125,16 @@ exports[`KTable sorting should have sortable class when passed 1`] = `
           </svg></span></th>
         <th class=""><span class="d-flex align-items-center"><span class="">
                   ID
-                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
-            <title>Expand</title>
-            <g>
-              <!---->
-              <!---->
-              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            </g>
-          </svg></span></th>
+                </span>
+          <!----></span></th>
         <th class=""><span class="d-flex align-items-center"><span class="">
                   Enabled
-                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
-            <title>Expand</title>
-            <g>
-              <!---->
-              <!---->
-              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            </g>
-          </svg></span></th>
+                </span>
+          <!----></span></th>
         <th class=""><span class="d-flex align-items-center"><span class="sr-only">
                   actions
-                </span> <svg height="12" width="12" viewBox="0 0 20 20" role="img" class="kong-icon caret ml-2 kong-icon-chevronDown">
-            <title>Expand</title>
-            <g>
-              <!---->
-              <!---->
-              <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KTableColor, var(--black-70, color(black-70)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            </g>
-          </svg></span></th>
+                </span>
+          <!----></span></th>
       </tr>
     </thead>
     <tbody>
