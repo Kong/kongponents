@@ -59,6 +59,7 @@
               :key="index"
               :class="{
                 'sortable': !column.hideLabel && column.sortable,
+                'active-sort': !column.hideLabel && column.sortable && column.key === sortColumnKey,
                 [sortColumnOrder]: column.key === sortColumnKey && !column.hideLabel,
                 'is-scrolled': isScrolled
               }"
@@ -75,6 +76,7 @@
                   </span>
                 </slot>
                 <KIcon
+                  v-if="!column.hideLabel"
                   class="caret ml-2"
                   color="var(--KTableColor, var(--black-70, color(black-70)))"
                   width="12"
@@ -111,7 +113,7 @@
       </tbody>
     </table>
     <KPagination
-      v-if="total > pageSize"
+      v-if="fetcher"
       :total-count="total"
       :neighbors="paginationNeighbors"
       :page-sizes="pageSizes"
@@ -130,7 +132,7 @@ import KIcon from '@kongponents/kicon/KIcon.vue'
 import { clientSideSorter, useDebounce, useRequest } from '../../utils/utils'
 
 import Vue from 'vue'
-import VueCompositionAPI, { computed, defineComponent, onMounted, reactive, ref, watch } from '@vue/composition-api'
+import VueCompositionAPI, { computed, defineComponent, onMounted, ref, watch } from '@vue/composition-api'
 
 import KButton from '@kongponents/kbutton/KButton.vue'
 
@@ -392,13 +394,11 @@ export default defineComponent({
     const total = ref(0)
     const isScrolled = ref(false)
     const isTableLoading = ref(true)
-    const fetcherParams = reactive({
-      page: 1,
-      pageSize: 10,
-      query: '',
-      key: '',
-      order: 'desc'
-    })
+    const page = ref(1)
+    const pageSize = ref(10)
+    const filterQuery = ref('')
+    const sortColumnKey = ref('')
+    const sortColumnOrder = ref('desc')
 
     /**
      * Grabs listeners from this.$listeners matching a prefix to attach the
@@ -446,18 +446,23 @@ export default defineComponent({
       }
 
       return [
-        fetcherParams.pageSize,
-        fetcherParams.pageSize * 2,
-        fetcherParams.pageSize * 3,
-        fetcherParams.pageSize * 4,
-        fetcherParams.pageSize * 5
+        pageSize.value,
+        pageSize.value * 2,
+        pageSize.value * 3,
+        pageSize.value * 4,
+        pageSize.value * 5
       ]
     })
 
     const fetchData = async () => {
-      const { pageSize, page, query, key, order } = fetcherParams
       const searchInput = props.searchInput
-      const res = await props.fetcher(pageSize, page, searchInput || query, key, order)
+      const res = await props.fetcher(
+        pageSize.value,
+        page.value,
+        searchInput || filterQuery.value,
+        sortColumnKey.value,
+        sortColumnOrder.value
+      )
 
       data.value = res.data
       total.value = res.total
@@ -467,7 +472,11 @@ export default defineComponent({
 
     const initData = async () => {
       if (props.initialFetcherParams) {
-        Object.assign(fetcherParams, props.initialFetcherParams)
+        page.value = props.initialFetcherParams.page
+        pageSize.value = props.initialFetcherParams.pageSize
+        filterQuery.value = props.initialFetcherParams.query
+        sortColumnKey.value = props.initialFetcherParams.sortColumnKey
+        sortColumnOrder.value = props.initialFetcherParams.sortColumnOrder
       }
 
       if (props.fetcher) {
@@ -496,32 +505,38 @@ export default defineComponent({
     )
 
     const sortClickHandler = (key) => {
-      fetcherParams.page = 1
+      page.value = 1
 
-      if (fetcherParams.key) {
-        if (key === fetcherParams.key) {
-          if (fetcherParams.order === 'asc') {
-            fetcherParams.order = 'desc'
+      if (sortColumnKey.value) {
+        if (key === sortColumnKey.value) {
+          if (sortColumnOrder.value === 'asc') {
+            sortColumnOrder.value = 'desc'
           } else {
-            fetcherParams.order = 'asc'
+            sortColumnOrder.value = 'asc'
           }
         } else {
-          fetcherParams.key = key
-          fetcherParams.order = 'desc'
+          sortColumnKey.value = key
+          sortColumnOrder.value = 'desc'
         }
       } else {
-        fetcherParams.key = key
+        sortColumnKey.value = key
+      }
+
+      // Use deprecated sort function to sort data passed in via
+      // the deprecated options.data prop
+      if (props.options && props.options.data) {
+        defaultSorter(key, sortColumnKey.value, sortColumnOrder.value, data.value)
       }
 
       revalidate()
     }
 
     const pageChangeHandler = ({ page: newPage }) => {
-      fetcherParams.page = newPage
+      page.value = newPage
     }
 
     const pageSizeChangeHandler = ({ pageSize: newPageSize }) => {
-      fetcherParams.pageSize = newPageSize
+      pageSize.value = newPageSize
     }
 
     const scrollHandler = (event) => {
@@ -538,7 +553,7 @@ export default defineComponent({
       search(newValue)
     }, { immediate: true })
 
-    watch(() => [query.value, fetcherParams.page, fetcherParams.pageSize], () => {
+    watch(() => [query.value, page.value, pageSize.value], () => {
       revalidate()
     }, { immediate: true })
 
@@ -550,15 +565,15 @@ export default defineComponent({
       data,
       isScrolled,
       isTableLoading,
-      page: fetcherParams.page,
+      page,
       pageChangeHandler,
       pageSizeChangeHandler,
-      pageSize: fetcherParams.pageSize,
+      pageSize,
       pageSizes,
       scrollHandler,
       sortClickHandler,
-      sortColumnKey: fetcherParams.key,
-      sortColumnOrder: fetcherParams.order,
+      sortColumnKey,
+      sortColumnOrder,
       tableHeaders,
       tdlisteners,
       total,
@@ -593,7 +608,7 @@ export default defineComponent({
     position: sticky;
     top: 0;
     background-color: #ffffff;
-    border-bottom: 2px solid var(--KTableBorder, var(--grey-200, color(grey-200)));
+    border-bottom: 1px solid var(--KTableBorder, var(--grey-200, color(grey-200)));
 
     &.is-scrolled {
       border-bottom: none;
@@ -649,31 +664,28 @@ export default defineComponent({
       }
 
       .caret {
-        opacity: 0;
         transform: rotate(0deg);
-        transition: 450ms ease;
+        transition: 250ms ease;
       }
 
       &.sortable {
         cursor: pointer;
 
         &.asc .caret {
-          opacity: 1;
           transform: rotate(-180deg);
-          transition: 450ms ease;
+          transition: 250ms ease;
         }
 
         &.desc .caret {
-          opacity: 1;
-          transition: 450ms ease;
+          transition: 250ms ease;
         }
       }
     }
   }
   tbody {
     tr {
-      // Does this allow rows to be different sizes?
-      min-height: 44px;
+      border-bottom: 1px solid var(--KTableBorder, var(--grey-200, color(grey-200)));
+      height: 44px;
 
       &:hover {
         background-color: var(--KTableHover, var(--blue-100, color(blue-100)));

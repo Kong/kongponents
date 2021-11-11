@@ -111,7 +111,7 @@ Adds `cursor: pointer` and `user-select: none` styling.
 
 ### hasSideBorder
 
-Adds left border to each table row. By default set to true. The colors can be overridden by themes.
+Adds left border to each table row. By default set to false. The colors can be overridden by themes.
 The below example demonstrates the disabled state:
 
 <KTable
@@ -203,6 +203,26 @@ Example headers array:
     }
   }
 </script>
+```
+
+### initialFetcherParams
+
+Pass in an object of parameters for the initial fetcher function call
+
+```js
+{ pageSize: 15, page: 1, filterQuery: '', sortColumKey: '', sortColumOrder: '' }
+```
+
+### paginationNeighbors
+
+Pass in a number of pagination neighbors to be used by the pagination component
+
+### paginationPageSizes
+
+Pass in a number of pagination neighbors to be used by the pagination component
+
+```js
+[15, 30, 45, 60, 75]
 ```
 
 ## Row Attributes
@@ -790,56 +810,31 @@ Example URL
 https://kongponents.dev/api/components?_page=1&_limit=10&_sort=name&_order=desc
 ```
 
-<KCard class="mt-3">
+```vue
+<!-- Example Component Usage -->
+
+<KCard>
   <template v-slot:body>
     <KInput placeholder="Search..." v-model="search" type="search" />
     <KTable
       :fetcher="fetcher"
+      :initial-fetcher-params="{
+        pageSize: 10,
+        page: 1,
+        filterQuery: '',
+        sortColumnKey: '',
+        sortColumnOrder: ''
+      }"
       :headers="headers"
       :search-input="search"
     />
-  </template>
-</KCard>
-
-```vue
-<KCard class="mt-3">
-  <template v-slot:body>
-    <KInput
-      placeholder="Search..."
-      v-model="search"
-      type="search"
-    />
-    <KTable
-      :fetcher="fetcher"
-      :headers="headers"
-      :search-input="search"
-    />
-    <!-- Sample pagination until pagination component is complete -->
-    <div class="pagination d-flex align-items-center justify-content-between">
-      <div class="details type-md">
-        Page {{ page }} of 10
-      </div>
-      <div class="buttons">
-        <KButton
-          :disabled="page === 1"
-          @click="page--"
-        >
-          Prev
-        </KButton>
-        <KButton
-          :disabled="page === 10"
-          class="ml-4"
-          @click="page++"
-        >
-          Next
-        </KButton>
-      </div>
-    </div>
   </template>
 </KCard>
 ```
 
 ```js
+// Example Fetcher Function
+
 fetcher(pageSize = 10, page = 1, query = '', sortKey = '', sortOrder = '') {
   const params = {
     _limit: pageSize,
@@ -898,8 +893,6 @@ An Example of changing the hover background might look like.
 ```
 
 <script>
-import axios from 'axios'
-
 export default {
   data() {
     return {
@@ -969,14 +962,6 @@ export default {
           { company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'} }
         ]
       },
-      search: '',
-      page: 1,
-      headers: [
-        { key: 'name', label: 'Name', sortable: true },
-        { key: 'version', label: 'Current Version', sortable: true },
-        { key: 'contributors', label: 'Contributors', sortable: true },
-        { key: 'git_sha', label: 'Latest Commit', sortable: true }
-      ],
       tableOptionsCellAttrs: {
         headers: [
           { label: 'Name', key: 'name' },
@@ -1072,32 +1057,6 @@ export default {
         },
       }
     },
-    fetcher(pageSize = 10, page = 1, query = '', sortKey = '', sortOrder = '') {
-      const params = {
-        _limit: pageSize,
-        _page: page
-      }
-
-      if (query) {
-        params.q = query
-        params._page = 1
-      }
-
-      if (sortKey) {
-        params._sort = sortKey
-        params._order = sortOrder
-      }
-
-      return axios.get('/project_list', {
-        baseURL: 'http://localhost:4001/api',
-        params
-      }).then(res => {
-        // return total count in response for pagination
-        res.total = res.headers['x-total-count']
-
-        return res
-      })
-    }
   }
 }
 </script>
