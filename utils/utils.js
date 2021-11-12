@@ -21,23 +21,6 @@ export const useRequest = (cacheKey, fetcherFn, config) => {
   }
 }
 
-// export const useDebounce = (initialQuery, delay = 300) => {
-//   let timeout
-//   const query = ref(initialQuery)
-
-//   function search (q) {
-//     clearTimeout(timeout)
-//     timeout = setTimeout(() => {
-//       query.value = q
-//     }, delay)
-//   }
-
-//   return {
-//     query,
-//     search
-//   }
-// }
-
 export default {
   useRequest
   // useDebounce

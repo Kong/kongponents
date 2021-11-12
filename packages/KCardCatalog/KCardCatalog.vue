@@ -6,7 +6,7 @@
       <h3>{{ title }}</h3>
     </div>
     <KSkeleton
-      v-if="isLoading"
+      v-if="!testMode && (isCardLoading || isLoading) && !hasError"
       :card-count="4"
       class="k-skeleton-grid"
       type="card"
@@ -51,7 +51,7 @@
       </template>
     </KEmptyState>
     <KEmptyState
-      v-else-if="!hasError && (!testMode && !isLoading) && (data && !data.length)"
+      v-else-if="!hasError && (!testMode && !isCardLoading && !isLoading) && (data && !data.length)"
       :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
       :icon="emptyStateIcon || ''"
       :icon-color="emptyStateIconColor"
@@ -103,6 +103,7 @@
       :current-page="page"
       :neighbors="paginationNeighbors"
       :page-sizes="paginationPageSizes"
+      class="pa-1"
       @pageChanged="pageChangeHandler"
       @pageSizeChanged="pageSizeChangeHandler"
     />
@@ -323,8 +324,10 @@ export default defineComponent({
     const total = ref(0)
     const page = ref(1)
     const pageSize = ref(15)
+    const isCardLoading = ref(true)
 
     const fetchData = async () => {
+      isCardLoading.value = true
       const res = await props.fetcher({
         pageSize: pageSize.value,
         page: page.value
@@ -332,6 +335,7 @@ export default defineComponent({
 
       data.value = res.data
       total.value = props.paginationTotalItems || res.total || res.data.length
+      isCardLoading.value = false
 
       return res
     }
@@ -383,7 +387,8 @@ export default defineComponent({
       pageChangeHandler,
       pageSizeChangeHandler,
       pageSize,
-      total
+      total,
+      isCardLoading
     }
   }
 })
