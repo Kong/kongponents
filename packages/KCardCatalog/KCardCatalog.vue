@@ -51,7 +51,7 @@
       </template>
     </KEmptyState>
     <KEmptyState
-      v-else-if="!hasError && !data.length && !$scopedSlots.body"
+      v-else-if="!hasError && (!testMode && !isLoading) && (data && !data.length)"
       :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
       :icon="emptyStateIcon || ''"
       :icon-color="emptyStateIconColor"

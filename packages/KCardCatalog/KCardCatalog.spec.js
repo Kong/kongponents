@@ -91,7 +91,7 @@ describe('KCardCatalog', () => {
       })
 
       expect(wrapper.find('.k-card-catalog-title').html()).toEqual(expect.stringContaining(title))
-      expect(wrapper.find('.k-catalog-page').exists()).toBeFalsy()
+      expect(wrapper.find('.k-catalog-page').exists()).toBeTruthy()
       // expect(wrapper.findAll('.k-card-catalog-item')).toHaveLength(5)
       expect(wrapper.html()).toMatchSnapshot()
     })
@@ -175,18 +175,6 @@ describe('KCardCatalog', () => {
   })
 
   describe('states', () => {
-    it('displays an empty state when no data is passed to the card catalog', () => {
-      const wrapper = mount(KCardCatalog, {
-        propsData: {
-          items: [],
-          testMode: true
-        }
-      })
-
-      expect(wrapper.find('.empty-state-wrapper').exists()).toBeTruthy()
-      expect(wrapper.html()).toMatchSnapshot()
-    })
-
     it('displays an empty state when no data is available', async () => {
       const fetcher = () => new Promise(resolve => resolve({ data: [] }))
       const wrapper = mount(KCardCatalog, {
@@ -198,7 +186,8 @@ describe('KCardCatalog', () => {
 
       await tick(wrapper.vm, 1)
 
-      expect(wrapper.find('.empty-state-wrapper').exists()).toBeTruthy()
+      expect(wrapper.html()).toContain('empty-state-wrapper')
+      // expect(wrapper.html()).toMatchSnapshot()
     })
 
     it('displays a loading skeletion when the "isLoading" prop is set to true"', () => {
