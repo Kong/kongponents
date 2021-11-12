@@ -68,7 +68,7 @@ object supporting the following properties:
     - `pageSize`: the number of items to display per page
   - Sort support: 
     - `sortColumnKey`: the column to sort by's `key` defined in the `headers` prop
-    - `sortColumnOrder`: can be 'ascending' or 'descending'
+    - `sortColumnOrder`: can be 'asc' or 'desc'
   - Search support: 
     - `query`: a text string to filter table data on
 :::
@@ -860,8 +860,6 @@ export default {
     return {
       row: null,
       eventType: '',
-      sortOrder: 'ascending',
-      sortKey: 'name',
       headers: [
           { label: 'Title', key: 'title', sortable: true },
           { label: 'Description', key: 'description', sortable: true },
