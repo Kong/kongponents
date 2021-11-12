@@ -25,7 +25,7 @@
           <span>{{ label }}</span>
         </label>
         <textarea
-          v-bind="$attrs"
+          v-bind="attrs"
           :id="textAreaId"
           :value="currValue ? currValue : value"
           :rows="rows"
