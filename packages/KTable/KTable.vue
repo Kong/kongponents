@@ -50,6 +50,7 @@
   >
     <table
       :class="{'has-hover': hasHover, 'is-clickable': isClickable, 'side-border': hasSideBorder}"
+      :data-tableid="tableId"
       class="k-table">
       <thead :class="{ 'is-scrolled': isScrolled }">
         <tr :class="{ 'is-scrolled': isScrolled }">
@@ -373,7 +374,8 @@ export default defineComponent({
      */
     paginationPageSizes: {
       type: Array,
-      default: () => ([15, 25, 50, 75, 100])
+      default: () => ([15, 25, 50, 75, 100]),
+      validator: (pageSizes) => pageSizes.length && pageSizes.some(i => typeof i === 'number')
     },
     /**
      * A prop to pass the total number of items in the set for the pagination text

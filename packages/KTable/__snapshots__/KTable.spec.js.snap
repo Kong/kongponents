@@ -2,7 +2,7 @@
 
 exports[`KTable default has hover class when passed 1`] = `
 <section class="k-table-wrapper">
-  <table class="k-table has-hover">
+  <table data-tableid="test-table-id-1234" class="k-table has-hover">
     <thead class="">
       <tr class="">
         <th class="sortable"><span class="d-flex align-items-center"><span class="">
@@ -56,7 +56,7 @@ exports[`KTable default has hover class when passed 1`] = `
 
 exports[`KTable default renders link in action slot 1`] = `
 <section class="k-table-wrapper">
-  <table class="k-table has-hover">
+  <table data-tableid="test-table-id-1234" class="k-table has-hover">
     <thead class="">
       <tr class="">
         <th class="sortable"><span class="d-flex align-items-center"><span class="">
@@ -110,7 +110,7 @@ exports[`KTable default renders link in action slot 1`] = `
 
 exports[`KTable sorting should have sortable class when passed 1`] = `
 <section class="k-table-wrapper">
-  <table class="k-table has-hover">
+  <table data-tableid="test-table-id-1234" class="k-table has-hover">
     <thead class="">
       <tr class="">
         <th class="sortable"><span class="d-flex align-items-center"><span class="">
