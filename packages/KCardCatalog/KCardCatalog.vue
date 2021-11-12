@@ -51,7 +51,7 @@
       </template>
     </KEmptyState>
     <KEmptyState
-      v-else-if="!hasError && (!testMode && !isCardLoading && !isLoading) && (data && !data.length)"
+      v-else-if="!hasError && (!isCardLoading && !isLoading) && (data && !data.length)"
       :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
       :icon="emptyStateIcon || ''"
       :icon-color="emptyStateIconColor"
@@ -111,15 +111,14 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import VueCompositionAPI, { defineComponent, ref, onMounted, watch } from '@vue/composition-api'
 import KEmptyState from '@kongponents/kemptystate/KEmptyState.vue'
 import KSkeleton from '@kongponents/kskeleton/KSkeleton.vue'
 import KCatalogItem from './KCatalogItem.vue'
 import KPagination from '@kongponents/kpagination/KPagination.vue'
 import KSkeletonBox from '@kongponents/kskeleton/KSkeletonBox.vue'
-
 import { useRequest } from '../../utils/utils'
-import Vue from 'vue'
-import VueCompositionAPI, { defineComponent, ref, onMounted, watch } from '@vue/composition-api'
 
 Vue.use(VueCompositionAPI)
 

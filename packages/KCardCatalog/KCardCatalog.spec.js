@@ -96,10 +96,10 @@ describe('KCardCatalog', () => {
       expect(wrapper.html()).toMatchSnapshot()
     })
 
-    it('renders slots when passed', async () => {
+    it('renders slots when passed', () => {
       const slotContent = 'Look mah! No props (except testMode)'
 
-      const wrapper = await mount(KCardCatalog, {
+      const wrapper = mount(KCardCatalog, {
         propsData: {
           testMode: true
         },

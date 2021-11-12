@@ -519,9 +519,10 @@ methods: {
       const params = {
         _limit: payload.pageSize,
         _page: payload.page,
-        data: await this.resolveAfter5MiliSec(20, payload.pageSize, payload.page),
-        total: 20
+        data: await this.resolveAfter5MiliSec(25, payload.pageSize, payload.page),
+        total: 25
       }
+
       return params
     }
   }
