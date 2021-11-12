@@ -17,7 +17,7 @@
         </label>
         <input
           :value="value"
-          v-bind="$attrs"
+          v-bind="attrs"
           class="form-control k-input"
           @input="e => $emit('input', e.target.value)"
           @focus="() => isFocused = true"
