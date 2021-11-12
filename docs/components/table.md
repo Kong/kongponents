@@ -15,7 +15,7 @@ Pass a fetcher function to build a slot-able table.
 
 ### hasHover
 
-Highlight the table row on hover. By default this is set to true. In the example we can set it to false as well.
+Highlight the table row on hover. By default this is set to `true`. In the example we can set it to false as well.
 
 <KTable
   :options="tableOptions"
@@ -32,7 +32,7 @@ Highlight the table row on hover. By default this is set to true. In the example
 
 ### hasSideBorder
 
-Adds left border to each table row. By default set to false. The colors can be overridden by themes.
+Adds left border to each table row. By default set to `false`. The colors can be overridden by themes.
 The below example demonstrates the disabled state:
 
 <KTable
@@ -124,7 +124,7 @@ Pass in an array of header objects for the table.
 |:-------- |:------- |:-------
 | `key` | string | A unique key for the column
 | `label` | string | The label displayed on the table for the column
-| `sortable` | boolean | Enables or disables server-side sorting for the column
+| `sortable` | boolean | Enables or disables server-side sorting for the column (`false` by default)
 | `hideLabel`| boolean | Hides or displays the column label (useful for actions columns)
 
 Example headers array:
