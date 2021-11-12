@@ -3,7 +3,6 @@
     aria-label="Pagination Navigation"
     data-testid="k-pagination-container">
     <div
-      v-if="totalCount > currentPageSize"
       class="card-pagination-bar">
       <span
         class="pagination-text"

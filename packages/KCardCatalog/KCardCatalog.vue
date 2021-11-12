@@ -98,10 +98,13 @@
       </slot>
     </div>
     <KPagination
-      :total-count="totalCount"
-      :page-size="pageSize"
-      :neighbours="2"
+      v-if="fetcher"
+      :total-count="total"
+      :current-page="page"
+      :neighbors="paginationNeighbors"
+      :page-sizes="paginationPageSizes"
       @pageChanged="pageChangeHandler"
+      @pageSizeChanged="pageSizeChangeHandler"
     />
   </div>
 </template>
@@ -111,10 +114,11 @@ import KEmptyState from '@kongponents/kemptystate/KEmptyState.vue'
 import KSkeleton from '@kongponents/kskeleton/KSkeleton.vue'
 import KCatalogItem from './KCatalogItem.vue'
 import KPagination from '@kongponents/kpagination/KPagination.vue'
+import KSkeletonBox from '@kongponents/kskeleton/KSkeletonBox.vue'
 
 import { useRequest } from '../../utils/utils'
 import Vue from 'vue'
-import VueCompositionAPI, { computed, defineComponent, ref, onMounted, watch } from '@vue/composition-api'
+import VueCompositionAPI, { defineComponent, ref, onMounted, watch } from '@vue/composition-api'
 
 Vue.use(VueCompositionAPI)
 
@@ -124,25 +128,14 @@ export default defineComponent({
     KEmptyState,
     KSkeleton,
     KCatalogItem,
-    KPagination
+    KPagination,
+    KSkeletonBox
   },
   props: {
     items: {
       type: Array,
       default: () => []
     },
-    /* pageSize: {
-      type: Number,
-      default: 12
-    },
-    totalCount: {
-      type: Number,
-      default: 0
-    },
-    searchTriggered: {
-      type: Boolean,
-      default: false
-    }, */
     /**
      * A prop to pass in to display skeleton to indicate loading
      */
@@ -285,52 +278,80 @@ export default defineComponent({
       default: false
     },
     /**
-     * A prop to pass in a fetcher function to enable server-side search, sort
-     * and pagination
+     * A prop to pass in a fetcher function to enable server-side pagination
      */
     fetcher: {
       type: Function,
       default: undefined
     },
     /**
-     * A prop to pass in a page size number for server-side pagination
+     * A prop to pass in a an object of intial params for the initial fetcher function call
      */
-    pageSize: {
-      type: Number,
-      default: 10
+    initialFetcherParams: {
+      type: Object,
+      default: null
     },
-    totalCount: {
+    /**
+     * A prop to pass in a the number of pagination neighbors used by the pagination component
+     */
+    paginationNeighbors: {
       type: Number,
-      default: 9
+      default: 1
+    },
+    /**
+     * A prop to pass in an array of page sizes used by the pagination component
+     */
+    paginationPageSizes: {
+      type: Array,
+      default: () => ([15, 25, 50, 75, 100])
+    },
+    /**
+     * A prop to pass the total number of items in the set for the pagination text
+     */
+    paginationTotalItems: {
+      type: Number,
+      default: null
     }
   },
-  methods: {
-    /* onPageChanged (page) {
-      this.$emit('page-changed', page)
-    } */
-  },
-
   setup (props, ctx) {
+    const defaultFetcherProps = {
+      pageSize: 15,
+      page: 1
+    }
+
     const data = ref([])
+    const total = ref(0)
     const page = ref(1)
-    const total = ref(10)
+    const pageSize = ref(15)
 
     const fetchData = async () => {
-      const { data: fetcherData, total: totalCount } = await props.fetcher(
-        props.pageSize,
-        page.value
-      )
+      const res = await props.fetcher({
+        pageSize: pageSize.value,
+        page: page.value
+      })
 
-      data.value = fetcherData
-      console.log('fetcher')
-      total.value = totalCount
+      data.value = res.data
+      total.value = props.paginationTotalItems || res.total || res.data.length
+
+      return res
     }
 
     const initData = async () => {
+      // set up fetcher props
+      const fetcherParams = {
+        ...defaultFetcherProps,
+        ...props.initialFetcherParams
+      }
+
+      page.value = fetcherParams.page
+      pageSize.value = fetcherParams.pageSize
+
+      // get data
       if (props.fetcher) {
-        fetchData()
+        await fetchData()
       } else if (props.items && props.items.length) {
         data.value = props.items
+        total.value = props.items.length
       }
     }
 
@@ -344,10 +365,11 @@ export default defineComponent({
       page.value = newPage
     }
 
-    // TEMP
-    const totalPages = computed(() => Math.ceil(total.value / props.pageSize))
+    const pageSizeChangeHandler = ({ pageSize: newPageSize }) => {
+      pageSize.value = newPageSize
+    }
 
-    watch(() => [page.value], () => {
+    watch(() => [page.value, pageSize.value], () => {
       revalidate()
     }, { immediate: true })
 
@@ -358,9 +380,10 @@ export default defineComponent({
     return {
       data,
       page,
-      total,
-      totalPages,
-      pageChangeHandler
+      pageChangeHandler,
+      pageSizeChangeHandler,
+      pageSize,
+      total
     }
   }
 })
