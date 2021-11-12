@@ -13,7 +13,7 @@ Pass a fetcher function to build a slot-able table.
 
 ## Props
 
-### Hover
+### hasHover
 
 Highlight the table row on hover. By default this is set to true. In the example we can set it to false as well.
 
@@ -27,23 +27,6 @@ Highlight the table row on hover. By default this is set to true. In the example
     :fetcher="fetcher"
     :headers="headers"
     :hasHover="false" />
-</template>
-```
-
-### Clickable
-
-Adds `user-select: none` styling and emits `row-clicked` event with `row` data as the payload.
-
-<KTable
-  :options="tableOptions"
-  isClickable />
-
-```vue
-<template>
-  <KTable
-    :fetcher="fetcher"
-    :headers="headers"
-    isClickable />
 </template>
 ```
 
@@ -76,12 +59,18 @@ See [the State section](#loading) about `isLoading`
 ### fetcher
 
 Use a custom fetcher function to fetch table data and leverage server-side search, sort and pagination.
+
 ::: tip Note: 
 All fetcher functions should take a single param. This parameter is a JSON
 object supporting the following properties: 
-  - Pagination support: `page`, `pageSize`
-  - Sort support: `sortColumnKey`, `sortColumnOrder`
-  - Search support: `query`
+  - Pagination support: 
+    - `page`: the currently visible page - starts at `1` 
+    - `pageSize`: the number of items to display per page
+  - Sort support: 
+    - `sortColumnKey`: the column to sort by's `key` defined in the `headers` prop
+    - `sortColumnOrder`: can be 'ascending' or 'descending'
+  - Search support: 
+    - `query`: a text string to filter table data on
 :::
 
 ::: tip Note: 
@@ -179,12 +168,11 @@ If not provided the fetcher response should return a top-level property `total` 
 
 ### paginationNeighbors
 
-Pass in a number of pagination neighbors to be used by the pagination component
+Pass in a number of pagination neighbors to be used by the pagination component. See more detail in the [Pagination](/components/pagination.html#neighbors) docs.
 
 ### paginationPageSizes
 
-Pass in a number of pagination neighbors to be used by the pagination component. If not provided
-will default to the following:
+Pass in an array of page sizes for the page size dropdown. If not provided will default to the following:
 
 ```js
 [15, 25, 50, 75, 100]
@@ -192,9 +180,9 @@ will default to the following:
 
 ## Row Attributes
 
-Add custom properties to individual rows. The row object is passed as a param.
+A prop to add custom properties to individual rows. The row object is passed as a param.
 
-`rowAttrs` - Function that returns an object comprising the attributes.
+`rowAttrs` - This prop takes a function that returns an object comprising the attributes.
 
 <KTable
   :options="tableOptionsRowAttrs"
@@ -239,9 +227,9 @@ export default {
 
 ## Cell Attributes
 
-Add custom properties to individual table cells or groups of cells. The cell attributes object is passed as a param.
+A prop to add custom properties to individual table cells or groups of cells. The cell attributes object is passed as a param.
 
-`cellAttrs` - A function that returns an object comprising the attributes.
+`cellAttrs` - This prop takes a function that returns an object comprising the attributes.
 
 | Parameter | Description
 |:-------- |:-------
@@ -317,7 +305,6 @@ various parts of the table. We support events on both table rows and cells in ad
 
 <KTable
   :options="tableOptionsLink"
-  isClickable
   @row:click="handleRowClick">
   <template v-slot:company="{rowValue}">
     <a v-if="rowValue" @click="linkHander">{{rowValue.label}}</a>
@@ -338,7 +325,6 @@ various parts of the table. We support events on both table rows and cells in ad
 <KTable
   :fetcher="fetcher"
   :headers="headers"
-  isClickable
   @row:click="handleRowClick">
   <template v-slot:company="{rowValue}">
     <a v-if="rowValue" @click="linkHander">{{rowValue.label}}</a>
@@ -761,6 +747,12 @@ Pass a fetcher function to enable server-side search, sort and pagination.
 The fetcher function should structure the ajax request URL in such a way that
 enables server side sort, search and pagination per the requirements of the API
 being used.
+
+::: tip Note
+The loading state is handled automatically. When the `fetcher` is called the internal loading state
+is triggered and will be resolved when the fetcher returns. You can override this behavior using the
+`isLoading` prop.
+:::
 
 <KTable
   :fetcher="fetcher"

@@ -96,11 +96,20 @@ const options = {
   ]
 }
 
+/**
+ * ALL TESTS MUST USE testMode
+ * We generate unique IDs for reference by aria properties. Test mode strips these out
+ * allowing for successful snapshot verification.
+ * propsData: {
+ *   testMode: 'true' || 'loading'
+ * }
+ */
 describe('KTable', () => {
   describe('default', () => {
     it('renders link in action slot', async () => {
       const wrapper = await mount(KTable, {
         propsData: {
+          testMode: 'true',
           options
         },
         scopedSlots: {
@@ -118,6 +127,7 @@ describe('KTable', () => {
     it('has hover class when passed', async () => {
       const wrapper = await mount(KTable, {
         propsData: {
+          testMode: 'true',
           options,
           hasHover: true
         }
@@ -132,6 +142,7 @@ describe('KTable', () => {
     it('should have sortable class when passed', async () => {
       const wrapper = await mount(KTable, {
         propsData: {
+          testMode: 'true',
           options
         }
       })
@@ -149,6 +160,7 @@ describe('KTable', () => {
       const wrapper = await mount(KTable, {
         attachToDocument: true,
         propsData: {
+          testMode: 'true',
           options
         },
         listeners: {
@@ -166,7 +178,10 @@ describe('KTable', () => {
       const evtTrigger = jest.fn()
       const wrapper = await mount(KTable, {
         attachToDocument: true,
-        propsData: { options },
+        propsData: {
+          testMode: 'true',
+          options
+        },
         listeners: {
           [`cell:click`]: evtTrigger,
           [`cell:mouseover`]: evtTrigger,
@@ -191,6 +206,7 @@ describe('KTable', () => {
       const fetcher = () => new Promise(resolve => resolve({ data: [] }))
       const wrapper = mount(KTable, {
         propsData: {
+          testMode: 'true',
           fetcher: fetcher,
           headers: options.headers,
           pageSize: 4
@@ -205,7 +221,10 @@ describe('KTable', () => {
 
     it('displays a loading skeletion when the "isLoading" prop is set to true"', () => {
       const wrapper = mount(KTable, {
-        propsData: { isLoading: true }
+        propsData: {
+          testMode: 'loading',
+          isLoading: true
+        }
       })
 
       expect(wrapper.html()).toContain('skeleton-table-wrapper')
@@ -214,7 +233,10 @@ describe('KTable', () => {
 
     it('displays an error state when the "hasError" prop is set to true"', () => {
       const wrapper = mount(KTable, {
-        propsData: { hasError: true }
+        propsData: {
+          testMode: 'true',
+          hasError: true
+        }
       })
 
       expect(wrapper.html()).toContain('empty-state-wrapper')
@@ -228,8 +250,10 @@ describe('KTable', () => {
           return new Promise(resolve => resolve({ data: options.data }))
         }, 1000)
       }
+
       const wrapper = mount(KTable, {
         propsData: {
+          testMode: 'loading',
           fetcher: slowFetcher,
           headers: options.headers,
           pageSize: 4
@@ -245,11 +269,11 @@ describe('KTable', () => {
     it('displays pagination when fetcher provided', async () => {
       const wrapper = mount(KTable, {
         propsData: {
+          testMode: 'true',
           fetcher: () => {
             return largeDataSet
           },
           isLoading: false,
-          testMode: true,
           headers: options.headers,
           paginationPageSizes: [10, 20, 30, 40]
         }
@@ -263,6 +287,7 @@ describe('KTable', () => {
     it('does not display pagination when no fetcher', async () => {
       const wrapper = mount(KTable, {
         propsData: {
+          testMode: 'true',
           options: {
             data: options.data,
             headers: options.headers

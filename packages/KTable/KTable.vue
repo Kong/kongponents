@@ -1,6 +1,6 @@
 <template>
   <KSkeleton
-    v-if="!testMode && (isTableLoading || isLoading) && !hasError"
+    v-if="(!testMode || testMode === 'loading') && (isTableLoading || isLoading) && !hasError"
     :delay-milliseconds="0"
     type="table"
   />
@@ -25,7 +25,7 @@
     </template>
   </KEmptyState>
   <KEmptyState
-    v-else-if="!hasError && (!testMode && !isTableLoading && !isLoading) && (data && !data.length)"
+    v-else-if="!hasError && (!isTableLoading && !isLoading) && (data && !data.length)"
     :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
     :icon="emptyStateIcon || ''"
     :icon-color="emptyStateIconColor"
@@ -56,7 +56,7 @@
           <template>
             <th
               v-for="(column, index) in tableHeaders"
-              :key="index"
+              :key="`k-table-${tableId}-headers-${index}`"
               :class="{
                 'sortable': !column.hideLabel && column.sortable,
                 'active-sort': !column.hideLabel && column.sortable && column.key === sortColumnKey,
@@ -91,34 +91,16 @@
       <tbody>
         <tr
           v-for="(row, rowIndex) in data"
-          :key="rowIndex"
+          :key="`k-table-${tableId}-row-${rowIndex}`"
+          :tabindex="isClickable ? 0 : null"
+          :role="isClickable ? 'link' : null"
           v-bind="rowAttrs(row)"
           v-on="trlisteners(row, 'row')"
         >
-          <a
-            v-if="isClickable"
-            href="#"
-            class="k-table-row-click"
-            @click.prevent="handleRowClick(row)">
-            <template>
-              <td
-                v-for="(value, index) in tableHeaders"
-                :key="index"
-                v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
-                v-on="tdlisteners(row[value.key], 'cell')"
-              >
-                <slot
-                  :name="value.key"
-                  :row="row"
-                  :rowKey="rowIndex"
-                  :rowValue="row[value.key]">{{ row[value.key] }}</slot>
-              </td>
-            </template>
-          </a>
-          <template v-else>
+          <template>
             <td
               v-for="(value, index) in tableHeaders"
-              :key="index"
+              :key="`k-table-${tableId}-cell-${index}`"
               v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
               v-on="tdlisteners(row[value.key], 'cell')"
             >
@@ -146,16 +128,15 @@
 </template>
 
 <script>
+import { uuid } from 'vue-uuid'
+import Vue from 'vue'
+import VueCompositionAPI, { computed, defineComponent, onMounted, ref, watch } from '@vue/composition-api'
+import KButton from '@kongponents/kbutton/KButton.vue'
 import KEmptyState from '@kongponents/kemptystate/KEmptyState.vue'
 import KSkeleton from '@kongponents/kskeleton/KSkeleton.vue'
 import KPagination from '@kongponents/kpagination/KPagination.vue'
 import KIcon from '@kongponents/kicon/KIcon.vue'
 import { clientSideSorter, useDebounce, useRequest } from '../../utils/utils'
-
-import Vue from 'vue'
-import VueCompositionAPI, { computed, defineComponent, onMounted, ref, watch } from '@vue/composition-api'
-
-import KButton from '@kongponents/kbutton/KButton.vue'
 
 Vue.use(VueCompositionAPI)
 
@@ -198,13 +179,6 @@ export default defineComponent({
     hasHover: {
       type: Boolean,
       default: true
-    },
-    /**
-     * Adds hover and non selectable styling
-     */
-    isClickable: {
-      type: Boolean,
-      default: false
     },
     /**
      * @deprecated
@@ -409,11 +383,18 @@ export default defineComponent({
       default: null
     },
     /**
-     * Use to avoid loading state in tests
+     * for testing only, strips out generated ids and avoid loading state in tests.
+     * 'true' - no id's no loading
+     * 'loading' - no id's but allow loading
      */
     testMode: {
-      type: Boolean,
-      default: false
+      type: String,
+      default: ''
+    }
+  },
+  data: function () {
+    return {
+      tableId: !this.testMode ? uuid.v1() : 'test-table-id-1234'
     }
   },
   setup (props, ctx) {
@@ -435,6 +416,7 @@ export default defineComponent({
     const filterQuery = ref('')
     const sortColumnKey = ref('')
     const sortColumnOrder = ref('desc')
+    const isClickable = ref(false)
 
     /**
      * Grabs listeners from this.$listeners matching a prefix to attach the
@@ -444,7 +426,7 @@ export default defineComponent({
      * @returns {Function} - returns a function that can pass an entity to the
                              listener callback function.
     */
-    function pluckListeners (prefix, $listeners) {
+    const pluckListeners = (prefix, $listeners) => {
       return (entity, type) =>
         Object.keys($listeners).reduce((acc, curr) => {
           if (curr.indexOf(prefix) === 0) {
@@ -464,6 +446,10 @@ export default defineComponent({
     const trlisteners = computed(() => {
       return (entity, type) => {
         const pluckedListeners = pluckListeners('row:', ctx.listeners)(entity, type)
+
+        if (pluckedListeners.click) {
+          isClickable.value = true
+        }
 
         return {
           ...pluckedListeners,
@@ -579,10 +565,6 @@ export default defineComponent({
       }
     }
 
-    const handleRowClick = (item) => {
-      ctx.emit('row-clicked', item)
-    }
-
     watch(() => props.searchInput, (newValue) => {
       search(newValue)
     }, { immediate: true })
@@ -607,7 +589,7 @@ export default defineComponent({
       sortClickHandler,
       sortColumnKey,
       sortColumnOrder,
-      handleRowClick,
+      isClickable,
       tableHeaders,
       tdlisteners,
       total,
@@ -754,14 +736,11 @@ export default defineComponent({
     -ms-user-select: none;
     user-select: none;
 
-    .k-table-row-click {
-      font-weight: inherit;
-      color: var(--KTableColor, var(--black-70, color(black-70)));;
-      text-decoration: inherit;
-      display: contents;
-      vertical-align: inherit;
+    tbody tr {
+      cursor: pointer;
     }
   }
+
   &.side-border {
     border-collapse: separate;
     border-spacing: 0 2px;
