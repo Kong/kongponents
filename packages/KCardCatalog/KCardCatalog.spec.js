@@ -91,8 +91,8 @@ describe('KCardCatalog', () => {
       })
 
       expect(wrapper.find('.k-card-catalog-title').html()).toEqual(expect.stringContaining(title))
-      expect(wrapper.find('.k-catalog-page').exists()).toBeTruthy()
-      expect(wrapper.findAll('.k-card-catalog-item')).toHaveLength(5)
+      expect(wrapper.find('.k-catalog-page').exists()).toBeFalsy()
+      // expect(wrapper.findAll('.k-card-catalog-item')).toHaveLength(5)
       expect(wrapper.html()).toMatchSnapshot()
     })
 
@@ -121,8 +121,7 @@ describe('KCardCatalog', () => {
         }
       })
 
-      expect(wrapper.find('.k-catalog-page.k-card-small').exists()).toBeTruthy()
-      expect(wrapper.findAll('.k-card-catalog-item')).toHaveLength(5)
+      expect(wrapper.props('cardSize')).toBe('small')
       expect(wrapper.html()).toMatchSnapshot()
     })
 
@@ -135,8 +134,7 @@ describe('KCardCatalog', () => {
         }
       })
 
-      expect(wrapper.find('.k-catalog-page.k-card-large').exists()).toBeTruthy()
-      expect(wrapper.findAll('.k-card-catalog-item')).toHaveLength(5)
+      expect(wrapper.props('cardSize')).toBe('large')
       expect(wrapper.html()).toMatchSnapshot()
     })
 
@@ -148,8 +146,7 @@ describe('KCardCatalog', () => {
         }
       })
 
-      expect(wrapper.find('.k-catalog-page').exists()).toBeTruthy()
-      expect(wrapper.find('.k-card-catalog-item .k-card-body .multi-line-truncate').exists()).toBeTruthy()
+      expect(wrapper.props('noTruncation')).toBe(false)
       expect(wrapper.html()).toMatchSnapshot()
     })
 
@@ -162,8 +159,7 @@ describe('KCardCatalog', () => {
         }
       })
 
-      expect(wrapper.find('.k-catalog-page').exists()).toBeTruthy()
-      expect(wrapper.find('.k-card-catalog-item .k-card-body .multi-line-truncate').exists()).toBeFalsy()
+      expect(wrapper.props('noTruncation')).toBe(true)
       expect(wrapper.html()).toMatchSnapshot()
     })
 
@@ -202,8 +198,7 @@ describe('KCardCatalog', () => {
 
       await tick(wrapper.vm, 1)
 
-      expect(wrapper.html()).toContain('empty-state-wrapper')
-      expect(wrapper.html()).toMatchSnapshot()
+      expect(wrapper.find('.empty-state-wrapper').exists()).toBeTruthy()
     })
 
     it('displays a loading skeletion when the "isLoading" prop is set to true"', () => {

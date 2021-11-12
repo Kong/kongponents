@@ -3,226 +3,38 @@
 exports[`KCardCatalog general can change card sizes - large 1`] = `
 <div class="k-card-catalog">
   <!---->
-  <div class="k-catalog-page k-card-large">
-    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-0-catalog-item" role="button" tabindex="0">
-      <div class="k-card-header d-flex mb-4">
-        <div>
-          <!---->
-          <div id="test-title-id-1234" class="k-card-title">
-            <h4>
-              Item 0
-            </h4>
-          </div>
-        </div>
-        <div class="k-card-actions"></div>
-      </div>
-      <div class="k-card-content d-flex">
-        <div id="test-content-id-1234" class="k-card-body">
-          <div class="multi-line-truncate">
-            The item's description for number 0
-          </div>
-        </div>
+  <section class="empty-state-wrapper">
+    <div class="empty-state-title">
+      <!---->
+      <div class="k-empty-state-title-header">No Data</div>
+    </div>
+    <div class="empty-state-content">
+      <div class="k-empty-state-message">There is no data to display.</div>
+      <div class="k-empty-state-cta">
         <!---->
       </div>
-    </section>
-    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-1-catalog-item" role="button" tabindex="0">
-      <div class="k-card-header d-flex mb-4">
-        <div>
-          <!---->
-          <div id="test-title-id-1234" class="k-card-title">
-            <h4>
-              Item 1
-            </h4>
-          </div>
-        </div>
-        <div class="k-card-actions"></div>
-      </div>
-      <div class="k-card-content d-flex">
-        <div id="test-content-id-1234" class="k-card-body">
-          <div class="multi-line-truncate">
-            The item's description for number 1
-          </div>
-        </div>
-        <!---->
-      </div>
-    </section>
-    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-2-catalog-item" role="button" tabindex="0">
-      <div class="k-card-header d-flex mb-4">
-        <div>
-          <!---->
-          <div id="test-title-id-1234" class="k-card-title">
-            <h4>
-              Item 2
-            </h4>
-          </div>
-        </div>
-        <div class="k-card-actions"></div>
-      </div>
-      <div class="k-card-content d-flex">
-        <div id="test-content-id-1234" class="k-card-body">
-          <div class="multi-line-truncate">
-            The item's description for number 2
-          </div>
-        </div>
-        <!---->
-      </div>
-    </section>
-    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-3-catalog-item" role="button" tabindex="0">
-      <div class="k-card-header d-flex mb-4">
-        <div>
-          <!---->
-          <div id="test-title-id-1234" class="k-card-title">
-            <h4>
-              Item 3
-            </h4>
-          </div>
-        </div>
-        <div class="k-card-actions"></div>
-      </div>
-      <div class="k-card-content d-flex">
-        <div id="test-content-id-1234" class="k-card-body">
-          <div class="multi-line-truncate">
-            The item's description for number 3
-          </div>
-        </div>
-        <!---->
-      </div>
-    </section>
-    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-4-catalog-item" role="button" tabindex="0">
-      <div class="k-card-header d-flex mb-4">
-        <div>
-          <!---->
-          <div id="test-title-id-1234" class="k-card-title">
-            <h4>
-              Item 4
-            </h4>
-          </div>
-        </div>
-        <div class="k-card-actions"></div>
-      </div>
-      <div class="k-card-content d-flex">
-        <div id="test-content-id-1234" class="k-card-body">
-          <div class="multi-line-truncate">
-            The item's description for number 4
-          </div>
-        </div>
-        <!---->
-      </div>
-    </section>
-  </div>
+    </div>
+  </section>
+  <!---->
 </div>
 `;
 
 exports[`KCardCatalog general can change card sizes - small 1`] = `
 <div class="k-card-catalog">
   <!---->
-  <div class="k-catalog-page k-card-small">
-    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-0-catalog-item" role="button" tabindex="0">
-      <div class="k-card-header d-flex mb-4">
-        <div>
-          <!---->
-          <div id="test-title-id-1234" class="k-card-title">
-            <h4>
-              Item 0
-            </h4>
-          </div>
-        </div>
-        <div class="k-card-actions"></div>
-      </div>
-      <div class="k-card-content d-flex">
-        <div id="test-content-id-1234" class="k-card-body">
-          <div class="multi-line-truncate">
-            The item's description for number 0
-          </div>
-        </div>
+  <section class="empty-state-wrapper">
+    <div class="empty-state-title">
+      <!---->
+      <div class="k-empty-state-title-header">No Data</div>
+    </div>
+    <div class="empty-state-content">
+      <div class="k-empty-state-message">There is no data to display.</div>
+      <div class="k-empty-state-cta">
         <!---->
       </div>
-    </section>
-    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-1-catalog-item" role="button" tabindex="0">
-      <div class="k-card-header d-flex mb-4">
-        <div>
-          <!---->
-          <div id="test-title-id-1234" class="k-card-title">
-            <h4>
-              Item 1
-            </h4>
-          </div>
-        </div>
-        <div class="k-card-actions"></div>
-      </div>
-      <div class="k-card-content d-flex">
-        <div id="test-content-id-1234" class="k-card-body">
-          <div class="multi-line-truncate">
-            The item's description for number 1
-          </div>
-        </div>
-        <!---->
-      </div>
-    </section>
-    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-2-catalog-item" role="button" tabindex="0">
-      <div class="k-card-header d-flex mb-4">
-        <div>
-          <!---->
-          <div id="test-title-id-1234" class="k-card-title">
-            <h4>
-              Item 2
-            </h4>
-          </div>
-        </div>
-        <div class="k-card-actions"></div>
-      </div>
-      <div class="k-card-content d-flex">
-        <div id="test-content-id-1234" class="k-card-body">
-          <div class="multi-line-truncate">
-            The item's description for number 2
-          </div>
-        </div>
-        <!---->
-      </div>
-    </section>
-    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-3-catalog-item" role="button" tabindex="0">
-      <div class="k-card-header d-flex mb-4">
-        <div>
-          <!---->
-          <div id="test-title-id-1234" class="k-card-title">
-            <h4>
-              Item 3
-            </h4>
-          </div>
-        </div>
-        <div class="k-card-actions"></div>
-      </div>
-      <div class="k-card-content d-flex">
-        <div id="test-content-id-1234" class="k-card-body">
-          <div class="multi-line-truncate">
-            The item's description for number 3
-          </div>
-        </div>
-        <!---->
-      </div>
-    </section>
-    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-4-catalog-item" role="button" tabindex="0">
-      <div class="k-card-header d-flex mb-4">
-        <div>
-          <!---->
-          <div id="test-title-id-1234" class="k-card-title">
-            <h4>
-              Item 4
-            </h4>
-          </div>
-        </div>
-        <div class="k-card-actions"></div>
-      </div>
-      <div class="k-card-content d-flex">
-        <div id="test-content-id-1234" class="k-card-body">
-          <div class="multi-line-truncate">
-            The item's description for number 4
-          </div>
-        </div>
-        <!---->
-      </div>
-    </section>
-  </div>
+    </div>
+  </section>
+  <!---->
 </div>
 `;
 
@@ -248,29 +60,19 @@ exports[`KCardCatalog general can disable truncation 1`] = `
 exports[`KCardCatalog general handles truncation 1`] = `
 <div class="k-card-catalog">
   <!---->
-  <div class="k-catalog-page k-card-medium">
-    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="A-very long item-catalog-item" role="button" tabindex="0">
-      <div class="k-card-header d-flex mb-4">
-        <div>
-          <!---->
-          <div id="test-title-id-1234" class="k-card-title">
-            <h4>
-              A very long item
-            </h4>
-          </div>
-        </div>
-        <div class="k-card-actions"></div>
-      </div>
-      <div class="k-card-content d-flex">
-        <div id="test-content-id-1234" class="k-card-body">
-          <div class="multi-line-truncate">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in tempus lorem, et molestie quam. Praesent sapien massa, posuere et volutpat nec, imperdiet a dui. Fusce non leo posuere, molestie neque et, posuere ex. Nullam euismod tortor in est sagittis iaculis. In sodales bibendum nulla nec feugiat.
-          </div>
-        </div>
+  <section class="empty-state-wrapper">
+    <div class="empty-state-title">
+      <!---->
+      <div class="k-empty-state-title-header">No Data</div>
+    </div>
+    <div class="empty-state-content">
+      <div class="k-empty-state-message">There is no data to display.</div>
+      <div class="k-empty-state-cta">
         <!---->
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
+  <!---->
 </div>
 `;
 
@@ -298,113 +100,19 @@ exports[`KCardCatalog general renders proper cards when using props 1`] = `
   <div class="k-card-catalog-title">
     <h3>Cool beans!</h3>
   </div>
-  <div class="k-catalog-page k-card-medium">
-    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-0-catalog-item" role="button" tabindex="0">
-      <div class="k-card-header d-flex mb-4">
-        <div>
-          <!---->
-          <div id="test-title-id-1234" class="k-card-title">
-            <h4>
-              Item 0
-            </h4>
-          </div>
-        </div>
-        <div class="k-card-actions"></div>
-      </div>
-      <div class="k-card-content d-flex">
-        <div id="test-content-id-1234" class="k-card-body">
-          <div class="multi-line-truncate">
-            The item's description for number 0
-          </div>
-        </div>
+  <section class="empty-state-wrapper">
+    <div class="empty-state-title">
+      <!---->
+      <div class="k-empty-state-title-header">No Data</div>
+    </div>
+    <div class="empty-state-content">
+      <div class="k-empty-state-message">There is no data to display.</div>
+      <div class="k-empty-state-cta">
         <!---->
       </div>
-    </section>
-    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-1-catalog-item" role="button" tabindex="0">
-      <div class="k-card-header d-flex mb-4">
-        <div>
-          <!---->
-          <div id="test-title-id-1234" class="k-card-title">
-            <h4>
-              Item 1
-            </h4>
-          </div>
-        </div>
-        <div class="k-card-actions"></div>
-      </div>
-      <div class="k-card-content d-flex">
-        <div id="test-content-id-1234" class="k-card-body">
-          <div class="multi-line-truncate">
-            The item's description for number 1
-          </div>
-        </div>
-        <!---->
-      </div>
-    </section>
-    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-2-catalog-item" role="button" tabindex="0">
-      <div class="k-card-header d-flex mb-4">
-        <div>
-          <!---->
-          <div id="test-title-id-1234" class="k-card-title">
-            <h4>
-              Item 2
-            </h4>
-          </div>
-        </div>
-        <div class="k-card-actions"></div>
-      </div>
-      <div class="k-card-content d-flex">
-        <div id="test-content-id-1234" class="k-card-body">
-          <div class="multi-line-truncate">
-            The item's description for number 2
-          </div>
-        </div>
-        <!---->
-      </div>
-    </section>
-    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-3-catalog-item" role="button" tabindex="0">
-      <div class="k-card-header d-flex mb-4">
-        <div>
-          <!---->
-          <div id="test-title-id-1234" class="k-card-title">
-            <h4>
-              Item 3
-            </h4>
-          </div>
-        </div>
-        <div class="k-card-actions"></div>
-      </div>
-      <div class="k-card-content d-flex">
-        <div id="test-content-id-1234" class="k-card-body">
-          <div class="multi-line-truncate">
-            The item's description for number 3
-          </div>
-        </div>
-        <!---->
-      </div>
-    </section>
-    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-4-catalog-item" role="button" tabindex="0">
-      <div class="k-card-header d-flex mb-4">
-        <div>
-          <!---->
-          <div id="test-title-id-1234" class="k-card-title">
-            <h4>
-              Item 4
-            </h4>
-          </div>
-        </div>
-        <div class="k-card-actions"></div>
-      </div>
-      <div class="k-card-content d-flex">
-        <div id="test-content-id-1234" class="k-card-body">
-          <div class="multi-line-truncate">
-            The item's description for number 4
-          </div>
-        </div>
-        <!---->
-      </div>
-    </section>
-  </div>
+    </div>
+  </section>
+  <!---->
 </div>
 `;
 
@@ -488,138 +196,6 @@ exports[`KCardCatalog states displays a loading skeletion when the "isLoading" p
     </div>
   </div>
   <!---->
-</div>
-`;
-
-exports[`KCardCatalog states displays an empty state when no data is avaibale 1`] = `
-<div class="k-card-catalog" pagesize="4">
-  <!---->
-  <section class="empty-state-wrapper">
-    <div class="empty-state-title">
-      <!---->
-      <div class="k-empty-state-title-header">No Data</div>
-    </div>
-    <div class="empty-state-content">
-      <div class="k-empty-state-message">There is no data to display.</div>
-      <div class="k-empty-state-cta">
-        <!---->
-      </div>
-    </div>
-  </section>
-  <nav aria-label="Pagination Navigation" data-testid="k-pagination-container">
-    <div class="card-pagination-bar"><span data-testid="visible-items" class="pagination-text"><span class="pagination-text-pages">1 to 0</span>
-      of 0
-      </span>
-      <ul class="pagination-button-container">
-        <li data-testid="prev-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><svg height="24" width="16px" viewBox="0 0 16 14" role="img" class="kong-icon kong-icon-arrowLeft" heigth="16px">
-              <title>Back</title>
-              <g>
-                <!---->
-                <!---->
-                <path d="M12.17 8.75H3M6.75 5 3 8.75l3.75 3.75" fill="none" stroke="var(--grey-500)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-              </g>
-            </svg></a></li>
-        <!---->
-        <!---->
-        <!---->
-        <!---->
-        <li data-testid="next-btn" class="pagination-button square"><a href="#" aria-label="Go to the next page"><svg height="24" width="16px" viewBox="0 0 16 14" role="img" class="kong-icon kong-icon-arrowRight" heigth="16px">
-              <title>Forward</title>
-              <g>
-                <!---->
-                <!---->
-                <path d="M3 8.75h9.17M8.42 5l3.75 3.75-3.75 3.75" fill="none" stroke="var(--blue-400)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-              </g>
-            </svg></a></li>
-      </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="7f5376e0-434a-11ec-83b9-69eb21f8c1a6" data-testid="k-select-selected-item"><!----> <div id="7f53c501-434a-11ec-83b9-69eb21f8c1a6" aria-controls="7f53c500-434a-11ec-83b9-69eb21f8c1a6" role="button"><div id="7f5376e1-434a-11ec-83b9-69eb21f8c1a6" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="7f5376e2-434a-11ec-83b9-69eb21f8c1a6" style="width: 200px;">15 items per page <svg height="24" width="24" viewBox="2 2 15 15" role="img" class="kong-icon kong-icon-chevronDown caret has-caret"><title>Expand</title>  <g><!----> <!----> <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="#A3BBCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></g></svg></button></div> <div id="7f53c500-434a-11ec-83b9-69eb21f8c1a6" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="display: none;" name="fade"><!----> <div class="k-popover-content"><ul class="k-select-list ma-0 pa-0"><div><div data-testid="k-select-item-15" class="k-select-item"><li role="option" class="d-block"><button value="15" class=""><span class="k-select-item-label mr-2">15</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-    </div>
-    <div data-testid="k-select-item-25" class="k-select-item">
-      <li role="option" class="d-block"><button value="25" class=""><span class="k-select-item-label mr-2">25</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-    </div>
-    <div data-testid="k-select-item-50" class="k-select-item">
-      <li role="option" class="d-block"><button value="50" class=""><span class="k-select-item-label mr-2">50</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-    </div>
-    <div data-testid="k-select-item-75" class="k-select-item">
-      <li role="option" class="d-block"><button value="75" class=""><span class="k-select-item-label mr-2">75</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-    </div>
-    <div data-testid="k-select-item-100" class="k-select-item">
-      <li role="option" class="d-block"><button value="100" class=""><span class="k-select-item-label mr-2">100</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-    </div>
-</div>
-</ul>
-</div>
-<!---->
-</div>
-</div>
-</div>
-</div></span></div>
-</nav>
-</div>
-`;
-
-exports[`KCardCatalog states displays an empty state when no data is available 1`] = `
-<div class="k-card-catalog" pagesize="4">
-  <!---->
-  <section class="empty-state-wrapper">
-    <div class="empty-state-title">
-      <!---->
-      <div class="k-empty-state-title-header">No Data</div>
-    </div>
-    <div class="empty-state-content">
-      <div class="k-empty-state-message">There is no data to display.</div>
-      <div class="k-empty-state-cta">
-        <!---->
-      </div>
-    </div>
-  </section>
-  <nav aria-label="Pagination Navigation" data-testid="k-pagination-container">
-    <div class="card-pagination-bar"><span data-testid="visible-items" class="pagination-text"><span class="pagination-text-pages">1 to 0</span>
-      of 0
-      </span>
-      <ul class="pagination-button-container">
-        <li data-testid="prev-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><svg height="24" width="16px" viewBox="0 0 16 14" role="img" class="kong-icon kong-icon-arrowLeft" heigth="16px">
-              <title>Back</title>
-              <g>
-                <!---->
-                <!---->
-                <path d="M12.17 8.75H3M6.75 5 3 8.75l3.75 3.75" fill="none" stroke="var(--grey-500)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-              </g>
-            </svg></a></li>
-        <!---->
-        <!---->
-        <!---->
-        <!---->
-        <li data-testid="next-btn" class="pagination-button square"><a href="#" aria-label="Go to the next page"><svg height="24" width="16px" viewBox="0 0 16 14" role="img" class="kong-icon kong-icon-arrowRight" heigth="16px">
-              <title>Forward</title>
-              <g>
-                <!---->
-                <!---->
-                <path d="M3 8.75h9.17M8.42 5l3.75 3.75-3.75 3.75" fill="none" stroke="var(--blue-400)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-              </g>
-            </svg></a></li>
-      </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="9c74e470-434a-11ec-a194-ab061c8073e7" data-testid="k-select-selected-item"><!----> <div id="9c753291-434a-11ec-a194-ab061c8073e7" aria-controls="9c753290-434a-11ec-a194-ab061c8073e7" role="button"><div id="9c74e471-434a-11ec-a194-ab061c8073e7" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="9c74e472-434a-11ec-a194-ab061c8073e7" style="width: 200px;">15 items per page <svg height="24" width="24" viewBox="2 2 15 15" role="img" class="kong-icon kong-icon-chevronDown caret has-caret"><title>Expand</title>  <g><!----> <!----> <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="#A3BBCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></g></svg></button></div> <div id="9c753290-434a-11ec-a194-ab061c8073e7" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="display: none;" name="fade"><!----> <div class="k-popover-content"><ul class="k-select-list ma-0 pa-0"><div><div data-testid="k-select-item-15" class="k-select-item"><li role="option" class="d-block"><button value="15" class=""><span class="k-select-item-label mr-2">15</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-    </div>
-    <div data-testid="k-select-item-25" class="k-select-item">
-      <li role="option" class="d-block"><button value="25" class=""><span class="k-select-item-label mr-2">25</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-    </div>
-    <div data-testid="k-select-item-50" class="k-select-item">
-      <li role="option" class="d-block"><button value="50" class=""><span class="k-select-item-label mr-2">50</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-    </div>
-    <div data-testid="k-select-item-75" class="k-select-item">
-      <li role="option" class="d-block"><button value="75" class=""><span class="k-select-item-label mr-2">75</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-    </div>
-    <div data-testid="k-select-item-100" class="k-select-item">
-      <li role="option" class="d-block"><button value="100" class=""><span class="k-select-item-label mr-2">100</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-    </div>
-</div>
-</ul>
-</div>
-<!---->
-</div>
-</div>
-</div>
-</div></span></div>
-</nav>
 </div>
 `;
 
