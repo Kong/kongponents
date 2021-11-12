@@ -199,7 +199,7 @@ describe('KCardCatalog', () => {
         }
       })
 
-      expect(wrapper.find('.skeleton-card-wrapper').exists()).toBeTruthy()
+      expect(wrapper.props('isLoading')).toBe(true)
       expect(wrapper.html()).toMatchSnapshot()
     })
 

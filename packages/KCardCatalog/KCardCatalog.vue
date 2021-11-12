@@ -357,6 +357,10 @@ export default defineComponent({
         data.value = props.items
         total.value = props.items.length
       }
+
+      if (props.isLoading === false) {
+        isCardLoading.value = false
+      }
     }
 
     const { revalidate } = useRequest(
