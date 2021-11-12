@@ -135,6 +135,7 @@ const defaultKPopAttributes = {
 export default {
   name: 'KSelect',
   components: { KButton, KIcon, KInput, KLabel, KPop, KSelectItem, KToggle },
+  inheritAttrs: false,
   props: {
     kpopAttributes: {
       type: Object,

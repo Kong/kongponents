@@ -1,6 +1,5 @@
 <template>
   <ul
-    v-bind="$attrs"
     class="krumbs style-body-bc"
     v-on="$listeners"
   >

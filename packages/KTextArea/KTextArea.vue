@@ -25,7 +25,7 @@
           <span>{{ label }}</span>
         </label>
         <textarea
-          v-bind="attrs"
+          v-bind="$attrs"
           :id="textAreaId"
           :value="currValue ? currValue : value"
           :rows="rows"
@@ -57,6 +57,7 @@ const CHARACTER_LIMIT = 2048
 
 export default {
   name: 'KTextArea',
+  inheritAttrs: false,
   props: {
     value: {
       type: String,
