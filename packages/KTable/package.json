@@ -26,7 +26,6 @@
     "@kongponents/kbutton": "^5.0.5",
     "@kongponents/kemptystate": "^5.0.5",
     "@kongponents/kicon": "^5.0.5",
-    "@kongponents/kpagination": "^5.0.5",
     "@kongponents/kskeleton": "^5.0.5"
   }
 }
