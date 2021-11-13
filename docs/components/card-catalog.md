@@ -83,11 +83,13 @@ See [the State section](#loading) about `isLoading`
 
 ### fetcher
 
-Use a custom fetcher function to fetch card catalog items and leverage pagination.
+Use a custom fetcher function to fetch card catalog items and leverage server-side pagination.
 ::: tip Note:
 All fetcher functions should take a single param. This parameter is a JSON
 object supporting the following properties:
-  - Pagination support: `page`, `pageSize`
+  - Pagination support: 
+    - `page`: the currently visible page - starts at `1` 
+    - `pageSize`: the number of items to display per page
 :::
 
 ::: tip Note:
@@ -138,12 +140,11 @@ If not provided the fetcher response should return a top-level property `total` 
 
 ### paginationNeighbors
 
-Pass in a number of pagination neighbors to be used by the pagination component
+Pass in a number of pagination neighbors to be used by the pagination component. See more detail in the [Pagination](/components/pagination.html#neighbors) docs.
 
 ### paginationPageSizes
 
-Pass in a number of pagination neighbors to be used by the pagination component. If not provided
-will default to the following:
+Pass in an array of page sizes for the page size dropdown. If not provided will default to the following:
 
 ```js
 [15, 25, 50, 75, 100]
@@ -415,6 +416,12 @@ This should be used instead of the `items` property.
 Pass a fetcher function to enable server-side pagination.
 The fetcher function should structure the ajax request URL in such a way that
 enables server side pagination per the requirements of the API being used.
+
+::: tip Note
+The loading state is handled automatically. When the `fetcher` is called the internal loading state
+is triggered and will be resolved when the fetcher returns. You can override this behavior using the
+`isLoading` prop.
+:::
 
 <KCardCatalog
   :fetcher="fetcher" />
