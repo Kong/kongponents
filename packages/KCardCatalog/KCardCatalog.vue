@@ -96,17 +96,21 @@
           />
         </template>
       </slot>
+      <div
+        v-if="fetcher"
+        class="card-pagination">
+        <KPagination
+          :total-count="total"
+          :current-page="page"
+          :neighbors="paginationNeighbors"
+          :page-sizes="paginationPageSizes"
+          class="pa-1"
+          @pageChanged="pageChangeHandler"
+          @pageSizeChanged="pageSizeChangeHandler"
+        />
+      </div>
     </div>
-    <KPagination
-      v-if="fetcher"
-      :total-count="total"
-      :current-page="page"
-      :neighbors="paginationNeighbors"
-      :page-sizes="paginationPageSizes"
-      class="pa-1"
-      @pageChanged="pageChangeHandler"
-      @pageSizeChanged="pageSizeChangeHandler"
-    />
+
   </div>
 </template>
 
@@ -434,4 +438,8 @@ export default defineComponent({
     }
   }
 }
+
+  .card-pagination {
+    grid-column: 1 / -1;
+  }
 </style>
