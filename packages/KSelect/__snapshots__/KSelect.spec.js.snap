@@ -8,7 +8,7 @@ exports[`KSelect matches snapshot 1`] = `
     <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button">
       <div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="" style="position: relative;">
         <!---->
-        <div class="k-input-wrapper k-select-input" id="test-select-text-id-1234" placeholder="Filter..."><input id="test-select-text-id-1234" placeholder="Filter..." class="form-control k-input k-input-medium">
+        <div class="k-input-wrapper k-select-input"><input id="test-select-text-id-1234" placeholder="Filter..." class="form-control k-input k-input-medium">
           <!---->
           <!---->
         </div>
@@ -39,7 +39,7 @@ exports[`KSelect renders props when passed 1`] = `
     <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button" aria-expanded="true">
       <div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="" style="position: relative;">
         <!---->
-        <div class="k-input-wrapper k-select-input" id="test-select-text-id-1234" placeholder="Filter..." is-open="true"><input id="test-select-text-id-1234" placeholder="Filter..." class="form-control k-input k-input-medium" is-open="true">
+        <div class="k-input-wrapper k-select-input"><input id="test-select-text-id-1234" placeholder="Filter..." class="form-control k-input k-input-medium" is-open="true">
           <!---->
           <!---->
         </div>
@@ -88,7 +88,7 @@ exports[`KSelect renders with selected item 1`] = `
     <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button">
       <div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="" style="position: relative;">
         <!---->
-        <div class="k-input-wrapper k-select-input" id="test-select-text-id-1234" placeholder="Filter..."><input id="test-select-text-id-1234" placeholder="Filter..." class="form-control k-input k-input-medium">
+        <div class="k-input-wrapper k-select-input"><input id="test-select-text-id-1234" placeholder="Filter..." class="form-control k-input k-input-medium">
           <!---->
           <!---->
         </div>

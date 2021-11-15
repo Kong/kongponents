@@ -14,6 +14,8 @@
 export default {
   name: 'KRadio',
 
+  inheritAttrs: false,
+
   model: {
     prop: 'model',
     event: 'change'

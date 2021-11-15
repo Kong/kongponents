@@ -1,23 +1,23 @@
 # TextArea
 
 **KTextArea** - Text areas are primarily used in modal views (wizards).
-<KTextArea />
+<KTextArea/>
 ```vue
 <KTextArea />
 ```
 
 ### Label
-String to be used as the textarea label. Make sure that if you are using the built in label you specify the `--KInputBackground` theming variable. This variable is used for the background of the label as well as the textarea element. 
+String to be used as the textarea label. Make sure that if you are using the built in label you specify the `--KInputBackground` theming variable. This variable is used for the background of the label as well as the textarea element.
 
 - `label` (**Note**: this field is required for accessibility reasons)
 
-<KTextArea label="Name" placeholder="I'm labelled!" />
+<KTextArea label="Name" placeholder="I'm labelled!" id="adam"/>
 
 ```vue
 <KTextArea label="Name" placeholder="I'm labelled!" />
 ```
 
-If the label is omitted it can be handled with another component, like **KLabel**. This is meant to be used before **KTextArea** will be styled appropriately. 
+If the label is omitted it can be handled with another component, like **KLabel**. This is meant to be used before **KTextArea** will be styled appropriately.
 
 <KLabel>Label</KLabel>
 <KTextArea placeholder="I have a label" />
@@ -55,7 +55,7 @@ KTextArea works as regular texarea do using v-model for data binding:
 <Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
   <div>
     {{ data.myInput }}
-    <KTextArea 
+    <KTextArea
       v-model="data.myInput"
       @blur="e => (data.myInput = 'blurred')" />
   </div>
