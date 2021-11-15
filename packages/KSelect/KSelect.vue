@@ -60,7 +60,7 @@
               :id="selectTextId"
               :is-open="isToggled"
               :is-rounded="false"
-              v-bind="attrs"
+              v-bind="$attrs"
               appearance="btn-link"
               @keyup="triggerFocus(isToggled)">{{ selectButtonText }}</KButton>
           </div>
@@ -79,7 +79,7 @@
             <KInput
               :is-open="isToggled"
               :id="selectTextId"
-              v-bind="attrs"
+              v-bind="$attrs"
               v-model="filterStr"
               :placeholder="placeholderText"
               class="k-select-input"
@@ -219,9 +219,6 @@ export default {
         disabled: this.$attrs.disabled
       }
     },
-    attrs () {
-      return this.$attrs
-    },
     listeners () {
       return this.$listeners
     },
@@ -250,8 +247,8 @@ export default {
     placeholderText () {
       if (this.placeholder) {
         return this.placeholder
-      } else if (this.attrs.placeholder) {
-        return this.attrs.placeholder
+      } else if (this.$attrs.placeholder) {
+        return this.$attrs.placeholder
       }
 
       if (this.appearance === 'button') {

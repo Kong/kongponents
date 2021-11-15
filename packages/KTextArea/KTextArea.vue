@@ -3,7 +3,7 @@
     <textarea
       v-if="!label"
       :required="required"
-      v-bind="attrs"
+      v-bind="$attrs"
       :value="currValue ? currValue : value"
       :rows="rows"
       :cols="cols"
@@ -25,7 +25,7 @@
           <span>{{ label }}</span>
         </label>
         <textarea
-          v-bind="attrs"
+          v-bind="$attrs"
           :id="textAreaId"
           :value="currValue ? currValue : value"
           :rows="rows"
@@ -95,13 +95,12 @@ export default {
     return {
       currValue: '', // We need this so that we don't lose the updated value on hover/blur event with label
       isFocused: false,
-      isHovered: false,
-      textAreaId: !this.testMode ? uuid.v1() : 'test-textArea-id-1234'
+      isHovered: false
     }
   },
   computed: {
-    attrs () {
-      return this.$attrs
+    textAreaId () {
+      return this.$attrs.id ? this.$attrs.id : !this.testMode ? uuid.v1() : 'test-textArea-id-1234'
     },
     listeners () {
       const listeners = { ...this.$listeners }

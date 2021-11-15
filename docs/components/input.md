@@ -2,7 +2,7 @@
 
 **KInput** provides a wrapper around general `text` input's and provides specific Kong styling and state treatments (error, focus, etc).
 
-<KInput class="w-100" />
+<KInput class="w-100"/>
 ```vue
 <KInput class="w-100"/>
 ```
@@ -32,7 +32,7 @@ String to be displayed as help text.
 <KInput help="I can help with that" placeholder="Need help?" />
 ```
 
-You also have the option of using the `.help` utility class. This is meant to be used after **KInput** and will be styled appropriately. 
+You also have the option of using the `.help` utility class. This is meant to be used after **KInput** and will be styled appropriately.
 
 <KInput type="text" placeholder="Need help?" />
 <p class="help">I can help with that</p>
@@ -56,7 +56,7 @@ String to be displayed as error message.
 
 <KInput class="w-100" hasError errorMessage="Service name should not contain “_”"/>
 ```vue
-<KInput class="w-100" 
+<KInput class="w-100"
   hasError errorMessage="Service name should not contain “_”"/>
 ```
 
@@ -65,27 +65,27 @@ String to be displayed as error message.
 <KInput label="Large" size="large" hasError errorMessage="Service name should not contain “_”" />
 
 ```
-<KInput 
-  label="Small" size="small" class="mb-2" 
-  hasError 
+<KInput
+  label="Small" size="small" class="mb-2"
+  hasError
   errorMessage="Service name should not contain “_”" />
-<KInput 
-  label="Medium" 
-  class="mb-2" 
-  hasError 
+<KInput
+  label="Medium"
+  class="mb-2"
+  hasError
   errorMessage="Service name should not contain “_”" />
-<KInput 
-  label="Large" 
-  size="large" 
-  hasError 
+<KInput
+  label="Large"
+  size="large"
+  hasError
   errorMessage="Service name should not contain “_”" />
 ```
 ### Label
-String to be used as the input label. Make sure that if you are using the built in label you specify the `--KInputBackground` theming variable. This variable is used for the background of the label as well as the input element. 
+String to be used as the input label. Make sure that if you are using the built in label you specify the `--KInputBackground` theming variable. This variable is used for the background of the label as well as the input element.
 
 - `label`
 
-<KInput label="Name" placeholder="I'm labelled!" />
+<KInput label="Name" placeholder="I'm labelled!"/>
 <KInput label="Error" class="input-error" placeholder="I'm erroneous!" />
 <KInput label="Disabled" disabled placeholder="I'm disabled!" />
 
@@ -95,7 +95,7 @@ String to be used as the input label. Make sure that if you are using the built 
 <KInput label="Disabled" disabled placeholder="I'm disabled!" />
 ```
 
-If the label is omitted it can be handled with another component, like **KLabel**. This is meant to be used before **KInput** and will be styled appropriately. 
+If the label is omitted it can be handled with another component, like **KLabel**. This is meant to be used before **KInput** and will be styled appropriately.
 
 <KLabel for="my-input">Label</KLabel>
 <KInput id="my-input" type="text" placeholder="I have a label" />
@@ -139,7 +139,7 @@ KInput works as regular inputs do using v-model for data binding:
 <Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
   <div>
     {{ data.myInput }}
-    <KInput 
+    <KInput
       v-model="data.myInput"
       @blur="e => (data.myInput = 'blurred')" />
   </div>
