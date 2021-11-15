@@ -18,7 +18,8 @@ Pass a fetcher function to build a slot-able table.
 Highlight the table row on hover. By default this is set to `true`. In the example we can set it to false as well.
 
 <KTable
-  :options="tableOptions"
+  :fetcher="tableOptionsFetcher"
+  :headers="tableOptionsHeaders"
   :hasHover="false" />
 
 ```vue
@@ -36,7 +37,8 @@ Adds left border to each table row. By default set to `false`. The colors can be
 The below example demonstrates the disabled state:
 
 <KTable
-  :options="tableOptions"
+  :fetcher="tableOptionsFetcher"
+  :headers="tableOptionsHeaders"
   :hasSideBorder="true" />
 
 ```vue
@@ -108,6 +110,30 @@ fetcher(payload) {
     }
   })
 }
+```
+
+### disablePagination
+
+Set this as `true` to remove the pagination bar when using a fetcher.
+
+### disableSorting
+
+Set this to `true` to disable ablity to sort.
+
+<KTable
+  :fetcher="tableOptionsFetcher"
+  :headers="tableOptionsHeaders"
+  disablePagination
+  disableSorting />
+
+```vue
+<template>
+  <KTable
+    :fetcher="fetcher"
+    :headers="headers"
+    disablePagination
+    disableSorting />
+</template>
 ```
 
 ### searchInput
@@ -185,7 +211,8 @@ A prop to add custom properties to individual rows. The row object is passed as 
 `rowAttrs` - This prop takes a function that returns an object comprising the attributes.
 
 <KTable
-  :options="tableOptionsRowAttrs"
+  :fetcher="tableOptionsRowAttrsFetcher"
+  :headers="tableOptionsRowAttrsHeaders"
   :rowAttrs="rowAttrsFn" />
 
 ```vue
@@ -195,6 +222,7 @@ A prop to add custom properties to individual rows. The row object is passed as 
     :headers="headers"
     :rowAttrs="rowAttrsFn" />
 </template>
+
 <script>
 export default {
   methods: {
@@ -210,6 +238,7 @@ export default {
   }
 }
 </script>
+
 <style>
 .k-table {
   tr.enabled {
@@ -239,7 +268,8 @@ A prop to add custom properties to individual table cells or groups of cells. Th
 | `colIndex`| The zero-based index of the cell within a row
 
 <KTable
-  :options="tableOptionsCellAttrs"
+  :headers="tableOptionsCellAttrsHeaders"
+  :fetcher="tableOptionsCellAttrsFetcher"
   :cellAttrs="cellAttrsFn" />
 
 ```vue
@@ -304,7 +334,8 @@ various parts of the table. We support events on both table rows and cells in ad
 ```
 
 <KTable
-  :options="tableOptionsLink"
+  :headers="tableOptionsLinkHeaders"
+  :fetcher="tableOptionsLinkFetcher"
   @row:click="handleRowClick">
   <template v-slot:company="{rowValue}">
     <a v-if="rowValue" @click="linkHander">{{rowValue.label}}</a>
@@ -384,7 +415,8 @@ export default {
     </div>
     <div v-else>Waiting</div>
     <KTable
-      :options="tableOptions"
+      :headers="tableOptionsHeaders"
+      :fetcher="tableOptionsFetcher"
       is-clickable
       @row:click="actionRow"
       @cell:mouseover="actionRow"
@@ -410,6 +442,7 @@ export default {
     />
   </div>
 </template>
+
 <template>
   <KCard>
     <template v-slot:body>
@@ -428,6 +461,7 @@ export default {
     </template>
   </KCard>
 </template>
+
 <script>
 export default {
   data() {
@@ -456,7 +490,9 @@ access to the row data.
 
 ### Column Header
 
-<KTable :options="tableOptions">
+<KTable 
+  :headers="tableOptionsHeaders"
+  :fetcher="tableOptionsFetcher">
   <template v-slot:column-name="{ column }">
     {{ column.label.toUpperCase() }}
   </template>
@@ -474,6 +510,7 @@ access to the row data.
     </template>
   </KTable>
 </template>
+
 <script>
 export default {
   data() {
@@ -491,7 +528,9 @@ export default {
 
 ### Column Cell
 
-<KTable :options="tableOptions">
+<KTable 
+  :headers="tableOptionsHeaders"
+  :fetcher="tableOptionsFetcher">
   <template v-slot:enabled="{rowValue}">
     <span v-if="rowValue" style="color: green">&#10003;</span>
     <span v-else style="color: red">&#10007;</span>
@@ -835,7 +874,8 @@ An Example of changing the hover background might look like.
 
 <div class="table-wrapper">
   <KTable
-    :options="tableOptions"
+    :headers="tableOptionsHeaders"
+    :fetcher="tableOptionsFetcher"
     hasHover />
 </div>
 
@@ -861,101 +901,30 @@ export default {
       row: null,
       eventType: '',
       headers: [
-          { label: 'Title', key: 'title', sortable: true },
-          { label: 'Description', key: 'description', sortable: true },
-          { label: 'Enabled', key: 'enabled', sortable: false }
+        { label: 'Title', key: 'title', sortable: true },
+        { label: 'Description', key: 'description', sortable: true },
+        { label: 'Enabled', key: 'enabled', sortable: false }
       ],
-      tableOptions: {
-        headers: [
-          { label: 'Name', key: 'name', sortable: true },
-          { label: 'ID', key: 'id', sortable: true },
-          { label: 'Enabled', key: 'enabled', sortable: true },
-          { key: 'actions', hideLabel: true }
-        ],
-        data: [
-          {
-            name: 'Basic Auth',
-            id: '517526354743085',
-            enabled: 'true'
-          },
-          {
-            name: 'Website Desktop',
-            id: '328027447731198',
-            enabled: 'false'
-          },
-          {
-            name: 'Android App',
-            id: '405383051040955',
-            enabled: 'true'
-          }
-        ]
-      },
-      tableOptionsRowAttrs: {
-        headers: [
-          { label: 'Type', key: 'type' },
-          { label: 'Value', key: 'value' },
-          { label: 'Enabled', key: 'enabled'}
-        ],
-        data: [
-          {
-            type: 'desktop',
-            value: 'Windows 10',
-            enabled: 'true'
-          },
-          {
-            type: 'phone',
-            value: 'LineageOS',
-            enabled: 'false'
-          },
-          {
-            type: 'tablet',
-            value: 'ipadOS',
-            enabled: 'true'
-          }
-        ]
-      },
-      tableOptionsLink: {
-        headers: [
-          { label: 'Company', key: 'company' },
-          { key: 'actions', hideLabel: true }
-        ],
-        data: [
-          { company: { href: 'http://www.creative.com', label: 'Creative Labs' } },
-          { company: { href: 'http://www.bang-olufsen.com', label: 'Bang&Olufsen' } },
-          { company: { href: 'http://www.klipsch.com', label: 'Klipsch' } },
-          { company: { href: 'http://www.bose.com', label: 'Bose'} },
-          { company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'} }
-        ]
-      },
-      tableOptionsCellAttrs: {
-        headers: [
-          { label: 'Name', key: 'name' },
-          { label: 'Company', key: 'company' },
-          { label: 'Description', key: 'description' }
-        ],
-        data: [
-          {
-            name: 'SageMaker',
-            company: 'Amazon',
-            description: 'Amazon SageMaker is a fully-managed service that enables developers and data scientists to quickly and easily build, train, and deploy machine learning models at any scale. Amazon SageMaker removes all the barriers that typically slow down developers who want to use machine learning.',
-          },
-          {
-            name: 'Azure Machine Learning Studio',
-            company: 'Microsoft',
-            description: 'Azure Machine Learning Studio is a GUI-based integrated development environment for constructing and operationalizing Machine Learning workflow on Azure.',
-          },
-          {
-            name: 'IBM Watson Machine Learning',
-            company: 'IBM',
-            description: 'IBM Watson Studio accelerates the machine and deep learning workflows required to infuse AI into your business to drive innovation.',
-          },
-          {
-            name: 'TensorFlow',
-            company: 'Google',
-            description: 'TensorFlow is an open source software library for numerical computation using data flow graphs.',
-          },
-        ]
-      }
+      tableOptionsHeaders: [
+        { label: 'Name', key: 'name', sortable: true },
+        { label: 'ID', key: 'id', sortable: true },
+        { label: 'Enabled', key: 'enabled', sortable: true },
+        { key: 'actions', hideLabel: true }
+      ],
+      tableOptionsRowAttrsHeaders: [
+        { label: 'Type', key: 'type' },
+        { label: 'Value', key: 'value' },
+        { label: 'Enabled', key: 'enabled'}
+      ],
+      tableOptionsLinkHeaders: [
+        { label: 'Company', key: 'company' },
+        { key: 'actions', hideLabel: true }
+      ],
+      tableOptionsCellAttrsHeaders: [
+        { label: 'Name', key: 'name' },
+        { label: 'Company', key: 'company' },
+        { label: 'Description', key: 'description' }
+      ]
     }
   },
   methods: {
@@ -990,6 +959,89 @@ export default {
         total: 20
       }
       return params
+    },
+
+    tableOptionsFetcher () {
+      return {
+        data: [
+          {
+            name: 'Basic Auth',
+            id: '517526354743085',
+            enabled: 'true'
+          },
+          {
+            name: 'Website Desktop',
+            id: '328027447731198',
+            enabled: 'false'
+          },
+          {
+            name: 'Android App',
+            id: '405383051040955',
+            enabled: 'true'
+          }
+        ]
+      }
+    },
+
+    tableOptionsLinkFetcher () {
+      return {
+        data: [
+          { company: { href: 'http://www.creative.com', label: 'Creative Labs' } },
+          { company: { href: 'http://www.bang-olufsen.com', label: 'Bang&Olufsen' } },
+          { company: { href: 'http://www.klipsch.com', label: 'Klipsch' } },
+          { company: { href: 'http://www.bose.com', label: 'Bose'} },
+          { company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'} }
+        ]
+      }
+    },
+
+    tableOptionsRowAttrsFetcher () {
+      return {
+        data: [
+          {
+            type: 'desktop',
+            value: 'Windows 10',
+            enabled: 'true'
+          },
+          {
+            type: 'phone',
+            value: 'LineageOS',
+            enabled: 'false'
+          },
+          {
+            type: 'tablet',
+            value: 'ipadOS',
+            enabled: 'true'
+          }
+        ]
+      }
+    },
+
+    tableOptionsCellAttrsFetcher() {
+      return {
+        data: [
+          {
+            name: 'SageMaker',
+            company: 'Amazon',
+            description: 'Amazon SageMaker is a fully-managed service that enables developers and data scientists to quickly and easily build, train, and deploy machine learning models at any scale. Amazon SageMaker removes all the barriers that typically slow down developers who want to use machine learning.',
+          },
+          {
+            name: 'Azure Machine Learning Studio',
+            company: 'Microsoft',
+            description: 'Azure Machine Learning Studio is a GUI-based integrated development environment for constructing and operationalizing Machine Learning workflow on Azure.',
+          },
+          {
+            name: 'IBM Watson Machine Learning',
+            company: 'IBM',
+            description: 'IBM Watson Studio accelerates the machine and deep learning workflows required to infuse AI into your business to drive innovation.',
+          },
+          {
+            name: 'TensorFlow',
+            company: 'Google',
+            description: 'TensorFlow is an open source software library for numerical computation using data flow graphs.',
+          },
+        ]
+      }
     },
 
     actionRow (e, row, type) {

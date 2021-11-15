@@ -110,12 +110,16 @@ describe('KTable', () => {
       const wrapper = await mount(KTable, {
         propsData: {
           testMode: 'true',
-          options
+          headers: options.headers,
+          fetcher: () => { return { data: options.data } },
+          disablePagination: true
         },
         scopedSlots: {
           actions: '<a href="#" slot-scope="actions">Link</a>'
         }
       })
+
+      await tick(wrapper.vm, 1)
 
       const actions = wrapper.findAll('.k-table td:last-of-type > *')
 
@@ -128,10 +132,13 @@ describe('KTable', () => {
       const wrapper = await mount(KTable, {
         propsData: {
           testMode: 'true',
-          options,
+          headers: options.headers,
+          fetcher: () => { return { data: options.data } },
           hasHover: true
         }
       })
+
+      await tick(wrapper.vm, 1)
 
       expect(wrapper.find('.k-table').classes()).toContain('has-hover')
       expect(wrapper.html()).toMatchSnapshot()
@@ -143,13 +150,34 @@ describe('KTable', () => {
       const wrapper = await mount(KTable, {
         propsData: {
           testMode: 'true',
-          options
+          headers: options.headers,
+          fetcher: () => { return { data: options.data } }
         }
       })
+
+      await tick(wrapper.vm, 1)
 
       const actions = wrapper.findAll('th')
 
       expect(actions.at(0).classes()).toContain('sortable')
+      expect(wrapper.html()).toMatchSnapshot()
+    })
+
+    it('should allow disabling sorting', async () => {
+      const wrapper = await mount(KTable, {
+        propsData: {
+          testMode: 'true',
+          headers: options.headers,
+          fetcher: () => { return { data: options.data } },
+          disableSorting: true
+        }
+      })
+
+      await tick(wrapper.vm, 1)
+
+      const actions = wrapper.findAll('th')
+
+      expect(actions.at(0).classes()).not.toContain('sortable')
       expect(wrapper.html()).toMatchSnapshot()
     })
   })
@@ -161,12 +189,15 @@ describe('KTable', () => {
         attachToDocument: true,
         propsData: {
           testMode: 'true',
-          options
+          headers: options.headers,
+          fetcher: () => { return { data: options.data } }
         },
         listeners: {
           [`row:mouseover`]: evtTrigger
         }
       })
+
+      await tick(wrapper.vm, 1)
 
       const bodyRow = wrapper.find('.k-table tbody tr')
 
@@ -180,7 +211,8 @@ describe('KTable', () => {
         attachToDocument: true,
         propsData: {
           testMode: 'true',
-          options
+          headers: options.headers,
+          fetcher: () => { return { data: options.data } }
         },
         listeners: {
           [`cell:click`]: evtTrigger,
@@ -188,6 +220,8 @@ describe('KTable', () => {
           [`cell:mouseout`]: evtTrigger
         }
       })
+
+      await tick(wrapper.vm, 1)
 
       const bodyCell1 = wrapper.find('.k-table tbody td')
       const bodyCell2 = wrapper.find('.k-table tbody td:nth-child(2)')
@@ -284,14 +318,30 @@ describe('KTable', () => {
       expect(wrapper.find('[data-testid="k-pagination-container"]').exists()).toBe(true)
     })
 
+    it('does not display pagination when pagination disabled', async () => {
+      const wrapper = mount(KTable, {
+        propsData: {
+          testMode: 'true',
+          fetcher: () => {
+            return largeDataSet
+          },
+          isLoading: false,
+          headers: options.headers,
+          paginationPageSizes: [10, 20, 30, 40],
+          disablePagination: true
+        }
+      })
+
+      await tick(wrapper.vm, 1)
+
+      expect(wrapper.find('[data-testid="k-pagination-container"]').exists()).toBe(false)
+    })
+
     it('does not display pagination when no fetcher', async () => {
       const wrapper = mount(KTable, {
         propsData: {
           testMode: 'true',
-          options: {
-            data: options.data,
-            headers: options.headers
-          },
+          options,
           paginationPageSizes: [10, 20, 30, 40]
         }
       })

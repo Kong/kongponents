@@ -59,12 +59,12 @@
               v-for="(column, index) in tableHeaders"
               :key="`k-table-${tableId}-headers-${index}`"
               :class="{
-                'sortable': !column.hideLabel && column.sortable,
-                'active-sort': !column.hideLabel && column.sortable && column.key === sortColumnKey,
-                [sortColumnOrder]: column.key === sortColumnKey && !column.hideLabel,
+                'sortable': !disableSorting && !column.hideLabel && column.sortable,
+                'active-sort': !disableSorting && !column.hideLabel && column.sortable && column.key === sortColumnKey,
+                [sortColumnOrder]: !disableSorting && column.key === sortColumnKey && !column.hideLabel,
                 'is-scrolled': isScrolled
               }"
-              @click="column.sortable && sortClickHandler(column.key)"
+              @click="!disableSorting && column.sortable && sortClickHandler(column.key)"
             >
               <span class="d-flex align-items-center">
                 <slot
@@ -77,7 +77,7 @@
                   </span>
                 </slot>
                 <KIcon
-                  v-if="!column.hideLabel && column.sortable"
+                  v-if="!disableSorting && !column.hideLabel && column.sortable"
                   class="caret ml-2"
                   color="var(--KTableColor, var(--black-70, color(black-70)))"
                   width="12"
@@ -116,7 +116,7 @@
       </tbody>
     </table>
     <KPagination
-      v-if="fetcher"
+      v-if="fetcher && !disablePagination"
       :total-count="total"
       :current-page="page"
       :neighbors="paginationNeighbors"
@@ -383,6 +383,14 @@ export default defineComponent({
     paginationTotalItems: {
       type: Number,
       default: null
+    },
+    disableSorting: {
+      type: Boolean,
+      default: false
+    },
+    disablePagination: {
+      type: Boolean,
+      default: false
     },
     /**
      * for testing only, strips out generated ids and avoid loading state in tests.
