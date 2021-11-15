@@ -3,7 +3,6 @@
     aria-label="Pagination Navigation"
     data-testid="k-pagination-container">
     <div
-      v-if="totalCount > currentPageSize"
       class="card-pagination-bar">
       <span
         class="pagination-text"
@@ -131,7 +130,8 @@ export default {
     },
     pageSizes: {
       type: Array,
-      default: () => [15, 25, 50, 75, 100]
+      default: () => [15, 25, 50, 75, 100],
+      validator: (pageSizes) => pageSizes.length && pageSizes.every(i => typeof i === 'number')
     },
     neighbors: {
       type: Number,

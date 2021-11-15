@@ -2,39 +2,18 @@
 
 **KCardCatalog** - A grid view of KCards
 
-<script>
-function getItems(count) {
-  let myItems = []
-  for (let i = 0; i < count; i++) {
-    myItems.push({
-      title: "Item " + i,
-      description: "The item's description for number " + i
-    })
-  }
-  return myItems
-}
-
-const longItem = {
-  title: "A very long item",
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in tempus lorem, et molestie quam. Praesent sapien massa, posuere et volutpat nec, imperdiet a dui. Fusce non leo posuere, molestie neque et, posuere ex. Nullam euismod tortor in est sagittis iaculis. In sodales bibendum nulla nec feugiat."
-}
-
-export default {
-  data () {
-    return {
-      getItems,
-      longItem
-    }
-  }
-}
-</script>
-
-
 <KCardCatalog :items="getItems(5)" />
+
+
 ```vue
 <KCardCatalog :items="items" />
 ```
 
+Pass a fetcher function to build a slot-able card catalog.
+
+```vue
+<KCardCatalog :fetcher="fetcher" />
+```
 ## Props
 ### title
 The catalog title.
@@ -100,6 +79,75 @@ See [the State section](#error) about `hasError`
 ### isLoading
 
 See [the State section](#loading) about `isLoading`
+
+### fetcher
+
+Use a custom fetcher function to fetch card catalog items and leverage server-side pagination.
+::: tip Note:
+All fetcher functions should take a single param. This parameter is a JSON
+object supporting the following properties:
+  - Pagination support: 
+    - `page`: the currently visible page - starts at `1` 
+    - `pageSize`: the number of items to display per page
+:::
+
+::: tip Note:
+All fetcher functions should return a JSON object. This JSON object should contain the following properties:
+  - `total` - the total count of catalog items (if using pagination)
+  - `data` - an array of JSON objects to populate the card catalog with
+:::
+
+Example fetcher function:
+
+```js
+fetcher(payload) {
+  const params = {
+    _limit: payload.pageSize,
+    _page: payload.page
+  }
+
+  return axios.get('/user_list', {
+    baseURL: 'https://kongponents.dev/api',
+    params
+  }).then(res => {
+    return {
+      total: res.total,
+      data: res.data
+    }
+  })
+}
+```
+
+### initialFetcherParams
+
+Pass in an object of parameters for the initial fetcher function call. If not provided,
+will default to the following values:
+
+```js
+{ pageSize: 15, page: 1 }
+```
+
+### paginationTotalItems
+
+Pass the total number of items in the set to populate the pagination text:
+
+```
+1 to 20 of <paginationTotalItems>
+```
+
+If not provided the fetcher response should return a top-level property `total` or return a `data` property that is an array.
+
+### paginationNeighbors
+
+Pass in a number of pagination neighbors to be used by the pagination component. See more detail in the [Pagination](/components/pagination.html#neighbors) docs.
+
+### paginationPageSizes
+
+Pass in an array of page sizes for the page size dropdown. If not provided will default to the following:
+
+```js
+[15, 25, 50, 75, 100]
+```
 
 ## KCatalogItem
 **KCardCatalog** generates a **KCatalogItem** for each item in the `items` property. At the most basic level, **KCatalogItem** is 
@@ -362,6 +410,127 @@ This should be used instead of the `items` property.
 </KCardCatalog>
 ```
 
+## Server-side functions
+
+Pass a fetcher function to enable server-side pagination.
+The fetcher function should structure the ajax request URL in such a way that
+enables server side pagination per the requirements of the API being used.
+
+::: tip Note
+The loading state is handled automatically. When the `fetcher` is called the internal loading state
+is triggered and will be resolved when the fetcher returns. You can override this behavior using the
+`isLoading` prop.
+:::
+
+<KCardCatalog
+  :fetcher="fetcher" />
+
+```http
+Example URL
+
+https://kongponents.dev/api/components?_page=1&_limit=10
+```
+
+```vue
+<!-- Example Component Usage -->
+
+<KCard>
+  <template v-slot:body>
+    <KCardCatalog
+      :fetcher="fetcher"
+      :initial-fetcher-params="{
+        pageSize: 15,
+        page: 1
+      }"
+    />
+  </template>
+</KCard>
+```
+
+```js
+// Example Fetcher Function
+
+fetcher(payload) {
+  const params = {
+    _limit: payload.pageSize,
+    _page: payload.page
+  }
+
+  return axios.get('/user_list', {
+    baseURL: 'https://kongponents.dev/api',
+    params
+  }).then(res => {
+    return {
+      total: res.total,
+      data: res.data
+    }
+  })
+}
+```
+
 ## Theming
 **KCardCatalog** is for the most part a collection of KCards. To theme the cards, use
 the existing **KCard** theming variables [here](./card.md#theming).
+
+
+<script>
+
+function getItems(count) {
+  let myItems = []
+    for (let i = 0; i < count; i++) {
+      myItems.push({
+      title: "Item " + i,
+      description: "The item's description for number " + i
+      })
+    }
+  return myItems
+}
+
+const longItem = {
+  title: "A very long item",
+  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in tempus lorem, et molestie quam. Praesent sapien massa, posuere et volutpat nec, imperdiet a dui. Fusce non leo posuere, molestie neque et, posuere ex. Nullam euismod tortor in est sagittis iaculis. In sodales bibendum nulla nec feugiat."
+}
+
+export default {
+  data() {
+    return {
+      getItems,
+      longItem
+    }
+  },
+
+methods: {
+  resolveAfter5MiliSec(count, pageSize, page) {
+    // simulate pagination
+    let limit = count
+    if ((pageSize * page) < count) {
+      limit = pageSize
+    }
+    let myItems = []
+      for (let i = ((page-1) * pageSize); i < limit; i++) {
+        myItems.push({
+          title: "Item " + `${i+1}`,
+          description: "The item's description for number " + `${i+1}`
+        })
+      }
+
+    return new Promise(resolve => {
+      setTimeout(() => {
+      resolve(myItems);
+    }, 500);
+  });
+},
+
+    async fetcher(payload) {
+      const params = {
+        _limit: payload.pageSize,
+        _page: payload.page,
+        data: await this.resolveAfter5MiliSec(25, payload.pageSize, payload.page),
+        total: 25
+      }
+
+      return params
+    }
+  }
+}
+</script>
