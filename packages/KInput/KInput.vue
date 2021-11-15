@@ -3,7 +3,7 @@
     <input
       v-if="!label"
       :value="value"
-      v-bind="attrs"
+      v-bind="$attrs"
       class="form-control k-input"
       @input="e => $emit('input', e.target.value)"
       v-on="listeners">
@@ -12,12 +12,14 @@
       v-else
       class="col-md-4 mt-5">
       <div class="text-on-input">
-        <label :class="{ focused: isFocused }">
+        <label
+          :for="$attrs.id ? $attrs.id : null"
+          :class="{ focused: isFocused }">
           {{ label }}
         </label>
         <input
           :value="value"
-          v-bind="attrs"
+          v-bind="$attrs"
           class="form-control k-input"
           @input="e => $emit('input', e.target.value)"
           @focus="() => isFocused = true"
@@ -37,6 +39,7 @@
 <script>
 export default {
   name: 'KInput',
+  inheritAttrs: false,
   props: {
     value: {
       type: String,
@@ -57,9 +60,6 @@ export default {
     }
   },
   computed: {
-    attrs () {
-      return this.$attrs
-    },
     listeners () {
       const listeners = { ...this.$listeners }
 
