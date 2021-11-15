@@ -121,6 +121,7 @@
       :current-page="page"
       :neighbors="paginationNeighbors"
       :page-sizes="paginationPageSizes"
+      :test-mode="testMode ? true : false"
       class="pa-1"
       @pageChanged="pageChangeHandler"
       @pageSizeChanged="pageSizeChangeHandler"
