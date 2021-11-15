@@ -13,6 +13,7 @@
 <script>
 export default {
   name: 'KCheckbox',
+  inheritAttrs: false,
   props: {
     /**
      * Sets whether or not checkbox is checked
