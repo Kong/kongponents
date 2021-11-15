@@ -12,8 +12,7 @@
 Pass a fetcher function to build a slot-able card catalog.
 
 ```vue
-<KCardCatalog 
-   :fetcher="fetcher" />
+<KCardCatalog :fetcher="fetcher" />
 ```
 ## Props
 ### title
