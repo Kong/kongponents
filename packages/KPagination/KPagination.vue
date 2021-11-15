@@ -170,7 +170,7 @@ export default {
       pageCount,
       pageSizeOptions,
       backDisabled: currPage === 1,
-      forwardDisabled: this.totalCount === 1,
+      forwardDisabled: currPage === pageCount,
       pageSizeText: '',
       pagesVisible: this.getVisiblePages(
         this.currentlySelectedPage,
