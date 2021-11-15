@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kpop",
-  "version": "5.0.7",
+  "version": "5.0.8",
   "description": "A Popover component",
   "main": "dist/KPop.umd.min.js",
   "componentName": "KPop",

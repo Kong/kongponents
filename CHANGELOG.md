@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.8](https://github.com/Kong/kongponents/compare/v5.0.7...v5.0.8) (2021-11-15)
+
+
+### Bug Fixes
+
+* **kinput:** apply attributes to input [KHCP-2108] ([#397](https://github.com/Kong/kongponents/issues/397)) ([cba7d04](https://github.com/Kong/kongponents/commit/cba7d04949d1933688d5c85cb369aa04962d30ef))
+
+
+
+
+
 ## [5.0.7](https://github.com/Kong/kongponents/compare/v5.0.6...v5.0.7) (2021-10-26)
 
 **Note:** Version bump only for package kongponents
