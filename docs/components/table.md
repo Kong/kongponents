@@ -58,6 +58,14 @@ See [the State section](#error) about `hasError`
 
 See [the State section](#loading) about `isLoading`
 
+### disablePagination
+
+Set this as `true` to remove the pagination bar when using a fetcher.
+
+### disableSorting
+
+Set this to `true` to disable ablity to sort.
+
 ### fetcher
 
 Use a custom fetcher function to fetch table data and leverage server-side search, sort and pagination.
@@ -112,27 +120,79 @@ fetcher(payload) {
 }
 ```
 
-### disablePagination
+The `fetcher` function does not actually need to make an API call. Tables that can get their data synchronously can
+be modified to use a `fetcher` that returns the static data object. 
 
-Set this as `true` to remove the pagination bar when using a fetcher.
+::: tip Note
+Remember that the `fetcher` function is responsible for managing pagination/sort/search. So if returning a static data
+object these features should be explicitly disabled.
+:::
 
-### disableSorting
-
-Set this to `true` to disable ablity to sort.
-
-<KTable
-  :fetcher="tableOptionsFetcher"
-  :headers="tableOptionsHeaders"
-  disablePagination
-  disableSorting />
+<template>
+  <KTable
+    :fetcher="() => {
+      return {
+        data: [
+          {
+            name: 'Basic Auth',
+            id: '517526354743085',
+            enabled: 'true'
+          },
+          {
+            name: 'Website Desktop',
+            id: '328027447731198',
+            enabled: 'false'
+          },
+          {
+            name: 'Android App',
+            id: '405383051040955',
+            enabled: 'true'
+          }
+        ]
+      }
+    }"
+    :headers="[
+      { label: 'Name', key: 'name', sortable: true },
+      { label: 'Id', key: 'id', sortable: true },
+      { label: 'Enabled', key: 'enabled', sortable: false }
+    ]" 
+    disablePagination
+    disableSorting
+  />
+</template>
 
 ```vue
 <template>
   <KTable
-    :fetcher="fetcher"
-    :headers="headers"
+    :fetcher="() => {
+      return {
+        data: [
+          {
+            name: 'Basic Auth',
+            id: '517526354743085',
+            enabled: 'true'
+          },
+          {
+            name: 'Website Desktop',
+            id: '328027447731198',
+            enabled: 'false'
+          },
+          {
+            name: 'Android App',
+            id: '405383051040955',
+            enabled: 'true'
+          }
+        ]
+      }
+    }"
+    :headers="[
+      { label: 'Title', key: 'title', sortable: true },
+      { label: 'Description', key: 'description', sortable: true },
+      { label: 'Enabled', key: 'enabled', sortable: false }
+    ]" 
     disablePagination
-    disableSorting />
+    disableSorting
+  />
 </template>
 ```
 
