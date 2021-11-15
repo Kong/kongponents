@@ -6,7 +6,7 @@
       <h3>{{ title }}</h3>
     </div>
     <KSkeleton
-      v-if="isLoading"
+      v-if="!testMode && (isCardLoading || isLoading) && !hasError"
       :card-count="4"
       class="k-skeleton-grid"
       type="card"
@@ -51,7 +51,7 @@
       </template>
     </KEmptyState>
     <KEmptyState
-      v-else-if="!hasError && !items.length && !$scopedSlots.body"
+      v-else-if="!hasError && (!isCardLoading && !isLoading) && (data && !data.length)"
       :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
       :icon="emptyStateIcon || ''"
       :icon-color="emptyStateIconColor"
@@ -74,7 +74,7 @@
       :class="`k-card-${cardSize}`"
       class="k-catalog-page">
       <slot name="body">
-        <template v-for="item in items">
+        <template v-for="item in data">
           <router-link
             v-if="item.locationParam"
             :key="item.key ? item.key : null">
@@ -96,39 +96,50 @@
           />
         </template>
       </slot>
+      <div
+        v-if="fetcher"
+        class="card-pagination">
+        <KPagination
+          :total-count="total"
+          :current-page="page"
+          :neighbors="paginationNeighbors"
+          :page-sizes="paginationPageSizes"
+          class="pa-1"
+          @pageChanged="pageChangeHandler"
+          @pageSizeChanged="pageSizeChangeHandler"
+        />
+      </div>
     </div>
+
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
+import VueCompositionAPI, { defineComponent, ref, onMounted, watch } from '@vue/composition-api'
 import KEmptyState from '@kongponents/kemptystate/KEmptyState.vue'
 import KSkeleton from '@kongponents/kskeleton/KSkeleton.vue'
 import KCatalogItem from './KCatalogItem.vue'
+import KPagination from '@kongponents/kpagination/KPagination.vue'
+import KSkeletonBox from '@kongponents/kskeleton/KSkeletonBox.vue'
+import { useRequest } from '../../utils/utils'
 
-export default {
+Vue.use(VueCompositionAPI)
+
+export default defineComponent({
   name: 'KCardCatalog',
   components: {
     KEmptyState,
     KSkeleton,
-    KCatalogItem
+    KCatalogItem,
+    KPagination,
+    KSkeletonBox
   },
   props: {
     items: {
       type: Array,
       default: () => []
     },
-    /* pageSize: {
-      type: Number,
-      default: 12
-    },
-    totalCount: {
-      type: Number,
-      default: 0
-    },
-    searchTriggered: {
-      type: Boolean,
-      default: false
-    }, */
     /**
      * A prop to pass in to display skeleton to indicate loading
      */
@@ -269,14 +280,126 @@ export default {
     testMode: {
       type: Boolean,
       default: false
+    },
+    /**
+     * A prop to pass in a fetcher function to enable server-side pagination
+     */
+    fetcher: {
+      type: Function,
+      default: undefined
+    },
+    /**
+     * A prop to pass in a an object of intial params for the initial fetcher function call
+     */
+    initialFetcherParams: {
+      type: Object,
+      default: null
+    },
+    /**
+     * A prop to pass in a the number of pagination neighbors used by the pagination component
+     */
+    paginationNeighbors: {
+      type: Number,
+      default: 1
+    },
+    /**
+     * A prop to pass in an array of page sizes used by the pagination component
+     */
+    paginationPageSizes: {
+      type: Array,
+      default: () => ([15, 25, 50, 75, 100]),
+      validator: (pageSizes) => pageSizes.length && pageSizes.every(i => typeof i === 'number')
+    },
+    /**
+     * A prop to pass the total number of items in the set for the pagination text
+     */
+    paginationTotalItems: {
+      type: Number,
+      default: null
     }
   },
-  methods: {
-    /* onPageChanged (page) {
-      this.$emit('page-changed', page)
-    } */
+  setup (props, ctx) {
+    const defaultFetcherProps = {
+      pageSize: 15,
+      page: 1
+    }
+
+    const data = ref([])
+    const total = ref(0)
+    const page = ref(1)
+    const pageSize = ref(15)
+    const isCardLoading = ref(true)
+
+    const fetchData = async () => {
+      isCardLoading.value = true
+      const res = await props.fetcher({
+        pageSize: pageSize.value,
+        page: page.value
+      })
+
+      data.value = res.data
+      total.value = props.paginationTotalItems || res.total || res.data.length
+      isCardLoading.value = false
+
+      return res
+    }
+
+    const initData = async () => {
+      // set up fetcher props
+      const fetcherParams = {
+        ...defaultFetcherProps,
+        ...props.initialFetcherParams
+      }
+
+      page.value = fetcherParams.page
+      pageSize.value = fetcherParams.pageSize
+
+      // get data
+      if (props.fetcher) {
+        await fetchData()
+      } else if (props.items && props.items.length) {
+        data.value = props.items
+        total.value = props.items.length
+      }
+
+      if (props.isLoading === false) {
+        isCardLoading.value = false
+      }
+    }
+
+    const { revalidate } = useRequest(
+      () => props.fetcher && `catalog-item_${Math.floor(Math.random() * 1000)}`,
+      () => fetchData(),
+      { revalidateOnFocus: false }
+    )
+
+    const pageChangeHandler = ({ page: newPage }) => {
+      page.value = newPage
+    }
+
+    const pageSizeChangeHandler = ({ pageSize: newPageSize }) => {
+      pageSize.value = newPageSize
+    }
+
+    watch(() => [page.value, pageSize.value], () => {
+      revalidate()
+    }, { immediate: true })
+
+    onMounted(() => {
+      initData()
+    })
+
+    return {
+      data,
+      page,
+      pageChangeHandler,
+      pageSizeChangeHandler,
+      pageSize,
+      total,
+      isCardLoading
+    }
   }
-}
+})
 </script>
 
 <style lang="scss">
@@ -316,4 +439,8 @@ export default {
     }
   }
 }
+
+  .card-pagination {
+    grid-column: 1 / -1;
+  }
 </style>
