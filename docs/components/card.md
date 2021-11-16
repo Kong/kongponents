@@ -259,7 +259,7 @@ Cards can be arranged with flex box.
       icon="check"
       color="#07A88D"
       class="mr-2"
-      size="12" />
+      size="24" />
       Approved
   </template>
   <template v-slot:title>Look Mah!</template>
@@ -280,7 +280,7 @@ Cards can be arranged with flex box.
       icon="check"
       color="#07A88D"
       class="mr-2"
-      size="12" />
+      size="24" />
       Approved
   </template>
   <template v-slot:title>Look Mah!</template>

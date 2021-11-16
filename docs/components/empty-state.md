@@ -214,11 +214,13 @@ A string denoting the color of the icon to be displayed above the empty state me
 
 ```vue
 <template>
-  <KEmptyState :cta-is-hidden="true" :is-error="true" icon-size="40">
+  <KEmptyState :cta-is-hidden="true" :is-error="true" icon-size="40" icon-color="#5996ff">
+    <template v-slot:title>No users exist</template>
     <template v-slot:message>
-      <h3>
-        Error: Something broke and now this size 40 warning icon is displayed.
-      </h3>
+        Adding new users will populate this table.
+    </template>
+    <template v-slot:cta>
+      <KButton appearance="primary">Add a User</KButton>
     </template>
   </KEmptyState>
 </template>
