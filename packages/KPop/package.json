@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kpop",
-  "version": "6.0.1-alpha.0",
+  "version": "6.0.1-alpha.1",
   "description": "A Popover component",
   "main": "dist/KPop.umd.min.js",
   "componentName": "KPop",
@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kbutton": "^6.0.1-alpha.0",
+    "@kongponents/kbutton": "^6.0.1-alpha.1",
     "popper.js": "^1.15.0"
   }
 }
