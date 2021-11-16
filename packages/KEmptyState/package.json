@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kemptystate",
-  "version": "5.0.8",
+  "version": "6.0.0",
   "description": "Empty state component",
   "main": "dist/KEmptyState.umd.min.js",
   "componentName": "KEmptyState",

@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kslideout",
-  "version": "5.0.8",
+  "version": "6.0.0",
   "description": "KSlideout description here.",
   "main": "dist/KSlideout.umd.min.js",
   "componentName": "KSlideout",

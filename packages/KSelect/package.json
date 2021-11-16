@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kselect",
-  "version": "5.0.3",
+  "version": "6.0.0",
   "description": "Dropdown/Select component",
   "main": "dist/KSelect.umd.min.js",
   "componentName": "KSelect",

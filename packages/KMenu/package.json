@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kmenu",
-  "version": "5.0.3",
+  "version": "6.0.0",
   "description": "<Menu component>",
   "main": "dist/KMenu.umd.min.js",
   "componentName": "KMenu",
