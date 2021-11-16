@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kinputswitch",
-  "version": "5.0.8",
+  "version": "5.0.9-alpha.0",
   "description": "KInputSwitch description here.",
   "main": "dist/KInputSwitch.umd.min.js",
   "componentName": "KInputSwitch",

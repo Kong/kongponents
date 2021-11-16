@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kmenu",
-  "version": "5.0.3",
+  "version": "5.0.4-alpha.0",
   "description": "<Menu component>",
   "main": "dist/KMenu.umd.min.js",
   "componentName": "KMenu",
@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kicon": "^5.0.7",
-    "@kongponents/kbutton": "^5.0.7"
+    "@kongponents/kbutton": "^5.0.9-alpha.0",
+    "@kongponents/kicon": "^5.0.9-alpha.0"
   }
 }

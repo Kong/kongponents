@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/krumbs",
-  "version": "5.0.8",
+  "version": "5.0.9-alpha.0",
   "description": "Breadcrumbs component",
   "main": "dist/Krumbs.umd.min.js",
   "componentName": "Krumbs",
@@ -29,6 +29,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kicon": "^5.0.3"
+    "@kongponents/kicon": "^5.0.9-alpha.0"
   }
 }

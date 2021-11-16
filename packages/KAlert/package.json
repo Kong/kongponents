@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kalert",
-  "version": "5.0.8",
+  "version": "5.0.9-alpha.0",
   "description": "Alert component",
   "main": "dist/KAlert.umd.min.js",
   "componentName": "KAlert",
@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kicon": "^5.0.5",
-    "@kongponents/kbutton": "^5.0.5"
+    "@kongponents/kbutton": "^5.0.9-alpha.0",
+    "@kongponents/kicon": "^5.0.9-alpha.0"
   }
 }
