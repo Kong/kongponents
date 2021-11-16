@@ -121,6 +121,7 @@
       :current-page="page"
       :neighbors="paginationNeighbors"
       :page-sizes="paginationPageSizes"
+      :disable-page-jump="disablePaginationPageJump"
       :test-mode="testMode ? true : false"
       class="pa-1"
       @pageChanged="pageChangeHandler"
@@ -384,6 +385,10 @@ export default defineComponent({
     paginationTotalItems: {
       type: Number,
       default: null
+    },
+    disablePaginationPageJump: {
+      type: Boolean,
+      default: false
     },
     disableSorting: {
       type: Boolean,

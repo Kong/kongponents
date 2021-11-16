@@ -97,13 +97,14 @@
         </template>
       </slot>
       <div
-        v-if="fetcher"
+        v-if="!disablePagination && fetcher"
         class="card-pagination">
         <KPagination
           :total-count="total"
           :current-page="page"
           :neighbors="paginationNeighbors"
           :page-sizes="paginationPageSizes"
+          :disable-page-jump="disablePaginationPageJump"
           class="pa-1"
           @pageChanged="pageChangeHandler"
           @pageSizeChanged="pageSizeChangeHandler"
@@ -273,14 +274,6 @@ export default defineComponent({
       type: String,
       default: '50'
     },
-
-    /**
-     * Test mode - for testing only, strips out generated ids
-     */
-    testMode: {
-      type: Boolean,
-      default: false
-    },
     /**
      * A prop to pass in a fetcher function to enable server-side pagination
      */
@@ -316,6 +309,21 @@ export default defineComponent({
     paginationTotalItems: {
       type: Number,
       default: null
+    },
+    disablePaginationPageJump: {
+      type: Boolean,
+      default: false
+    },
+    disablePagination: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * Test mode - for testing only, strips out generated ids
+     */
+    testMode: {
+      type: Boolean,
+      default: false
     }
   },
   setup (props, ctx) {

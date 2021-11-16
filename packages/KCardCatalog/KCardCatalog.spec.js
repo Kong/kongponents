@@ -235,6 +235,24 @@ describe('KCardCatalog', () => {
       expect(wrapper.find('[data-testid="k-pagination-container"]').exists()).toBe(true)
     })
 
+    it('allows disabling pagination', async () => {
+      const wrapper = mount(KCardCatalog, {
+        propsData: {
+          fetcher: () => {
+            return largeDataSet
+          },
+          isLoading: false,
+          testMode: true,
+          paginationPageSizes: [10, 20, 30, 40],
+          disablePagination: true
+        }
+      })
+
+      await tick(wrapper.vm, 1)
+
+      expect(wrapper.find('[data-testid="k-pagination-container"]').exists()).toBe(false)
+    })
+
     it('does not display pagination when no fetcher', async () => {
       const wrapper = mount(KCardCatalog, {
         propsData: {
