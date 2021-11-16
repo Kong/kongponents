@@ -71,8 +71,8 @@ export default {
   border-radius: 0.25rem;
 }
 
-.krumbs .krumb-item  svg {
-  display: inline-block;
+.krumbs .krumb-item .kong-icon {
+  display: inline-flex;
   padding: 0 var(--spacing-xs);
   color: var(--grey-500);
   vertical-align: middle

@@ -73,7 +73,7 @@ export default {
       line-height: 16px;
     }
 
-    svg:not(.selected-item-icon) {
+    .kong-icon:not(.selected-item-icon) {
       margin-right: .75rem;
     }
 
@@ -84,7 +84,7 @@ export default {
       height: 24px;
       width: 24px;
 
-      svg {
+      .kong-icon {
         position: relative;
         top: 0;
       }

@@ -23,7 +23,8 @@
               :color="backDisabled ? 'var(--grey-500)' : 'var(--blue-400)'"
               icon="arrowLeft"
               width="16px"
-              heigth="16px"
+              height="16px"
+              size="16"
               view-box="0 0 16 14"
             />
           </a>
@@ -86,7 +87,8 @@
               :color="forwardDisabled ? 'var(--grey-500)' : 'var(--blue-400)'"
               icon="arrowRight"
               width="16px"
-              heigth="16px"
+              height="16px"
+              size="16"
               view-box="0 0 16 14"
             />
           </a>

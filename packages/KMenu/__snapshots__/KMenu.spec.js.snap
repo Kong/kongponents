@@ -5,7 +5,7 @@ exports[`KMenu general shows chevron down icon 1`] = `
   <div>
     <div id="test-menuitem-id-1234" data-testid="Item-#-menu-item" test-mode="true" class="k-menu-item expando-item last-menu-item"><button type="button" class="k-button menu-button non-visual-button medium outline" aria-labelledby="test-menuitem-id-1234"><span class="span-menu-title">
         Item #
-      </span> <span class="span-icon-container"><svg height="16" width="16" viewBox="0 0 20 20" role="img" class="kong-icon kong-icon-chevronDown"><title>Expand</title>  <g><!----> <!----> <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--grey-400)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></g></svg></span>
+      </span> <span class="span-icon-container"><span class="kong-icon kong-icon-chevronDown"><!----></span></span>
         <!----></button>
       <div class="menu-content d-none">
         <div>

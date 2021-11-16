@@ -361,7 +361,7 @@ div.k-alert.banner {
   padding: 0;
 }
 
-button.close > svg {
+button.close .kong-icon {
   &.info {
     stroke: var(--KAlertInfoColor, var(--blue-500, color(blue-500)));
   }

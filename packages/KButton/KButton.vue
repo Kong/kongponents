@@ -12,6 +12,7 @@
       :class="[caretClasses]"
       color="white"
       view-box="2 2 15 15"
+      size="16"
       icon="chevronDown"/>
   </a>
   <component
@@ -28,6 +29,7 @@
       :class="['caret', caretClasses]"
       :color="appearance !== 'btn-link' ? 'white' : null"
       view-box="2 2 15 15"
+      size="16"
       icon="chevronDown"/>
   </component>
 </template>
@@ -172,17 +174,21 @@ export default {
   }
 
   /* Button w/ Icon */
-  > svg {
-    width: 1rem;
-    height: 1rem;
+  .kong-icon {
     padding-right: var(--spacing-xs, spacing(xs));
     box-sizing: unset;
+  }
+
+  .kong-icon,
+  .kong-icon > svg {
+    width: 1rem;
+    height: 1rem;
   }
 
   &.icon-btn {
     height: 38px;
     justify-content: center;
-    > svg {
+    .kong-icon {
       padding-right: 0;
     }
   }

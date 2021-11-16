@@ -112,10 +112,11 @@ export default {
 .k-switch {
   position: relative;
 
-  svg {
+  .kong-icon {
     transform: translateX(-54px);
     position: absolute;
-    left: 60px;
+    left: 57px;
+    top: 2px;
   }
 }
 </style>
