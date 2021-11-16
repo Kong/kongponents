@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [6.1.0](https://github.com/Kong/kongponents/compare/v5.0.8...v6.1.0) (2021-11-16)
+## [6.0.0](https://github.com/Kong/kongponents/compare/v5.0.8...v6.0.0) (2021-11-16)
 
 ### New Dependencies Added
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * `vue-uuid` package added as `devDependency` for accessibility/ARIA standards
 * `tailwindcss` and `@kawarimidoll/vuepress-plugin-tailwind` added as `devDependencies` for utility classes
 
-### Breaking Changes
+### BREAKING CHANGES
 * `KAlert` 
   - new props `type` and `dismissType` added (`is-dismissable` prop removed)
   - `size` prop now supports `large` and `small` 
