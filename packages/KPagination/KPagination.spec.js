@@ -87,6 +87,22 @@ describe('KPagination', () => {
     expect(wrapper.find('[data-testid="k-select-input"] .k-button').html()).toEqual(expect.stringContaining('4 items per page'))
   })
 
+  it('allows disabling page jump', () => {
+    const wrapper = mount(KPagination, {
+      propsData: {
+        totalCount: 9,
+        pageSizes: [2, 4, 6],
+        items: myItems,
+        disablePageJump: true,
+        testMode: true
+      }
+    })
+
+    expect(wrapper.find('[data-testid="page-1-btn"]').exists()).toBe(false)
+    expect(wrapper.find('[data-testid="prev-btn"]').exists()).toBe(true)
+    expect(wrapper.find('[data-testid="next-btn"]').exists()).toBe(true)
+  })
+
   it('matches snapshot', () => {
     const wrapper = mount(KPagination, {
       propsData: {
