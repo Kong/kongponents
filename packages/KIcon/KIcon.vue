@@ -193,6 +193,8 @@ export default {
 
 <style lang="scss" scoped>
 .kong-icon {
+  display: inline-block;
+
   &.kong-icon-spinner g {
     transform-box: fill-box;
     transform-origin: 50% 50%;
