@@ -6,7 +6,8 @@
     :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance]"
     class="k-button"
     v-on="listeners">
-    <slot name="icon" /><slot/>
+    <slot name="icon" />
+    <slot/>
     <KIcon
       v-if="isOpen !== undefined"
       :class="[caretClasses]"
@@ -23,11 +24,12 @@
     :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance, caretClasses]"
     class="k-button"
     v-on="listeners">
-    <slot name="icon" /><slot/>
+    <slot name="icon" />
+    <slot/>
     <KIcon
       v-if="isOpen !== undefined"
       :class="['caret', caretClasses]"
-      :color="appearance !== 'btn-link' ? 'white' : null"
+      :color="iconColor"
       view-box="2 2 15 15"
       size="16"
       icon="chevronDown"/>
@@ -123,6 +125,20 @@ export default {
 
     buttonType () {
       return this.to ? 'router-link' : 'button'
+    },
+
+    iconColor () {
+      if (['primary', 'danger', 'creation'].includes(this.appearance)) {
+        return 'white'
+      } else if (this.appearance === 'secondary') {
+        return 'var(--KButtonSecondaryColor, var(--blue-600, color(blue-600)))'
+      } else if (this.appearance === 'outline') {
+        return 'var(--KButtonOutlineColor, var(--blue-500, color(blue-500)))'
+      } else if (this.appearance === 'btn-link-danger') {
+        return 'var(--KButtonLinkDanger, var(--red-500, color(red-500)))'
+      } else {
+        return null
+      }
     }
   },
 
