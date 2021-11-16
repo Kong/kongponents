@@ -10,8 +10,6 @@
       <slot />
       <KIcon
         icon="help"
-        height="16"
-        width="16"
         size="16"
         hide-title />
     </Kooltip>
@@ -24,8 +22,7 @@
       <slot />
       <KIcon
         icon="info"
-        height="16"
-        width="16"
+        size="16"
         view-box="0 0 16 16"
         hide-title />
     </Kooltip>
