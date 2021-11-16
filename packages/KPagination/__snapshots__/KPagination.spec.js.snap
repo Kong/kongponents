@@ -27,7 +27,7 @@ exports[`KPagination correctly renders props 1`] = `
       <!---->
       <!---->
       <li data-testid="next-btn" class="pagination-button square"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><!----></span></a></li>
-    </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;">2 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><!----></span></button>
+    </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"> 2 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><!----></span></button>
   </div>
   <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="display: none;" name="fade">
     <!---->
@@ -91,7 +91,7 @@ exports[`KPagination matches snapshot 1`] = `
           10
         </a></li>
       <li data-testid="next-btn" class="pagination-button square"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><!----></span></a></li>
-    </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;">10 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><!----></span></button>
+    </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"> 10 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><!----></span></button>
   </div>
   <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="display: none;" name="fade">
     <!---->
