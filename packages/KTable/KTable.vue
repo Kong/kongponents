@@ -80,8 +80,7 @@
                   v-if="!disableSorting && !column.hideLabel && column.sortable"
                   class="caret ml-2"
                   color="var(--KTableColor, var(--black-70, color(black-70)))"
-                  width="12"
-                  height="12"
+                  size="12"
                   icon="chevronDown"
                 />
               </span>

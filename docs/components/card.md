@@ -89,14 +89,14 @@ String to be used in the `statusHat` slot.
 
 - `status`
 
-<KCard 
+<KCard
   status="My status"
   title="My title"
   body="My body"
 />
 
 ```vue
-<KCard 
+<KCard
   status="My status"
   title="My title"
   body="My body"
@@ -192,7 +192,7 @@ Cards can be arranged with flex box.
       <KButton size="small" appearance="outline">
         <KIcon
             icon="gearFilled"
-            width="16px"
+            size="16"
             view-box="0 0 16 16"
             class="pr-0"
           />
@@ -226,7 +226,7 @@ Cards can be arranged with flex box.
       <KButton>
         <KIcon
             icon="gearFilled"
-            width="16px"
+            size="16"
             view-box="0 0 16 16"
             class="pr-0"
           />
@@ -259,9 +259,9 @@ Cards can be arranged with flex box.
       icon="check"
       color="#07A88D"
       class="mr-2"
-      size="12" />
+      size="24" />
       Approved
-  </template>          
+  </template>
   <template v-slot:title>Look Mah!</template>
   <template v-slot:actions><a href="#">View All</a></template>
   <template v-slot:body>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.</template>
@@ -280,9 +280,9 @@ Cards can be arranged with flex box.
       icon="check"
       color="#07A88D"
       class="mr-2"
-      size="12" />
+      size="24" />
       Approved
-  </template>          
+  </template>
   <template v-slot:title>Look Mah!</template>
   <template v-slot:actions><a href="#">View All</a></template>
   <template v-slot:body>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.</template>

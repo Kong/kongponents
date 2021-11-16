@@ -9,7 +9,7 @@
       class="toaster-item">
       <KAlert
         :appearance="toaster.appearance"
-        dismiss-type = "icon"
+        dismiss-type="icon"
         has-left-border
         @closed="$emit('close', toaster.key)">
         <template v-slot:alertMessage>

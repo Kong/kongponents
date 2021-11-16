@@ -12,7 +12,8 @@
         <KIcon
           :size="iconSize"
           :icon="icon ? icon : 'warning'"
-          :color="iconColor" />
+          :color="isError ? iconColor || 'var(--yellow-400)' : iconColor"
+          :secondary-color="isError ? 'var(--black-75)' : null" />
       </div>
       <div class="k-empty-state-title-header">
         <slot name="title"/>

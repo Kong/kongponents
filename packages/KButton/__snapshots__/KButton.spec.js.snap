@@ -1,46 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`KButton renders a native link with KButton styles 1`] = `
-<a type="button" href="https://google.com" class="k-button medium rounded secondary">I'm a native link
+<a type="button" href="https://google.com" class="k-button medium rounded secondary"> I'm a native link
   <!----></a>
 `;
 
 exports[`KButton renders a router link with KButton styles 1`] = `
-<a href="/services" class="k-button medium rounded primary" type="button">I'm a router link
+<a href="/services" class="k-button medium rounded primary" type="button"> I'm a router link
   <!----></a>
 `;
 
 exports[`KButton renders kbutton with the btn-link appearance 1`] = `
-<button type="button" class="k-button medium rounded btn-link">btn-link
+<button type="button" class="k-button medium rounded btn-link"> btn-link
   <!----></button>
 `;
 
 exports[`KButton renders kbutton with the creation appearance 1`] = `
-<button type="button" class="k-button medium rounded creation">creation
+<button type="button" class="k-button medium rounded creation"> creation
   <!----></button>
 `;
 
 exports[`KButton renders kbutton with the danger appearance 1`] = `
-<button type="button" class="k-button medium rounded danger">danger
+<button type="button" class="k-button medium rounded danger"> danger
   <!----></button>
 `;
 
 exports[`KButton renders kbutton with the outline appearance 1`] = `
-<button type="button" class="k-button medium rounded outline">outline
+<button type="button" class="k-button medium rounded outline"> outline
   <!----></button>
 `;
 
 exports[`KButton renders kbutton with the primary appearance 1`] = `
-<button type="button" class="k-button medium rounded primary">primary
+<button type="button" class="k-button medium rounded primary"> primary
   <!----></button>
 `;
 
 exports[`KButton renders kbutton with the secondary appearance 1`] = `
-<button type="button" class="k-button medium rounded secondary">secondary
+<button type="button" class="k-button medium rounded secondary"> secondary
   <!----></button>
 `;
 
 exports[`KButton sets small class when size passed 1`] = `
-<button type="button" class="k-button small rounded outline">Small Button
+<button type="button" class="k-button small rounded outline"> Small Button
   <!----></button>
 `;

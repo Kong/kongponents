@@ -86,8 +86,8 @@ Use a custom fetcher function to fetch card catalog items and leverage server-si
 ::: tip Note:
 All fetcher functions should take a single param. This parameter is a JSON
 object supporting the following properties:
-  - Pagination support: 
-    - `page`: the currently visible page - starts at `1` 
+  - Pagination support:
+    - `page`: the currently visible page - starts at `1`
     - `pageSize`: the number of items to display per page
 :::
 
@@ -178,7 +178,7 @@ Set this to `true` to limit pagination navigation to `previous` / `next` page on
 Set this to `true` to remove the pagination bar when using a fetcher.
 
 ## KCatalogItem
-**KCardCatalog** generates a **KCatalogItem** for each item in the `items` property. At the most basic level, **KCatalogItem** is 
+**KCardCatalog** generates a **KCatalogItem** for each item in the `items` property. At the most basic level, **KCatalogItem** is
 a wrapper around `KCard` to display correctly inside `KCardCatalog`. You can use the `body` slot of the `KCardCatalog` to manually create your own catalog items.
 
 ### Properties
@@ -201,7 +201,7 @@ a wrapper around `KCard` to display correctly inside `KCardCatalog`. You can use
 - `cardBody` - the body content for the card
 
 ```vue
-<KCatalogItem>       
+<KCatalogItem>
   <template v-slot:cardTitle>
     <KIcon
       icon="profile"
@@ -233,7 +233,7 @@ Set the following properties to handle empty state:
 - `emptyStateActionRoute` - Route for empty state action
 - `emptyStateActionMessage` - Button text for empty state action
 
-<KCardCatalog 
+<KCardCatalog
   title="Customized empty catalog"
   :items="getItems(0)"
   emptyStateTitle="No Workspaces exist"
@@ -247,7 +247,7 @@ Set the following properties to handle empty state:
 
 ```vue
 <!-- Using a route string -->
-<KCardCatalog 
+<KCardCatalog
   title="Customized empty catalog"
   :items="getItems(0)"
   emptyStateTitle="No Workspaces exist"
@@ -260,7 +260,7 @@ Set the following properties to handle empty state:
 />
 
 <!-- Using a route object -->
-<KCardCatalog 
+<KCardCatalog
   title="Customized empty catalog"
   :items="getItems(0)"
   emptyStateTitle="No Workspaces exist"
@@ -298,9 +298,9 @@ Set the following properties to customize error state:
 - `errorStateActionRoute` - Route for error state action
 - `errorStateActionMessage` - Button text for error state action
 
-<KCardCatalog 
-  title="Catalog with error" 
-  :items="getItems(6)" 
+<KCardCatalog
+  title="Catalog with error"
+  :items="getItems(6)"
   :hasError="true"
   errorStateTitle="Something went wrong"
   errorStateMessage="Error loading data."
@@ -313,9 +313,9 @@ Set the following properties to customize error state:
 
 ```vue
 <!-- Using a route string -->
-<KCardCatalog 
-  title="Catalog with error" 
-  :items="getItems(6)" 
+<KCardCatalog
+  title="Catalog with error"
+  :items="getItems(6)"
   :hasError="true"
   errorStateTitle="Something went wrong"
   errorStateMessage="Error loading data."
@@ -327,9 +327,9 @@ Set the following properties to customize error state:
 />
 
 <!-- Using a route object -->
-<KCardCatalog 
-  title="Catalog with error" 
-  :items="getItems(6)" 
+<KCardCatalog
+  title="Catalog with error"
+  :items="getItems(6)"
   :hasError="true"
   errorStateTitle="Something went wrong"
   errorStateMessage="Error loading data."
@@ -382,13 +382,13 @@ This should be used instead of the `items` property.
             size="24" />
           <span class="ml-2">Call Me!</span>
         </h4>
-      </template>     
+      </template>
       <template v-slot:cardBody>
         <span class="mr-2">Take action!</span>
         <KButton size="small">
           <KIcon
             icon="gearFilled"
-            width="16px"
+            size="16"
             view-box="0 0 16 16"
             class="pr-0"
           />
@@ -421,13 +421,13 @@ This should be used instead of the `items` property.
             size="24" />
           <span class="ml-2">Call Me!</span>
         </h4>
-      </template>     
+      </template>
       <template v-slot:cardBody>
         <span class="mr-2">Take action!</span>
         <KButton size="small">
           <KIcon
             icon="gearFilled"
-            width="16px"
+            size="16"
             view-box="0 0 16 16"
             class="pr-0"
           />

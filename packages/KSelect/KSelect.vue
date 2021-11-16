@@ -339,7 +339,7 @@ export default {
       padding: 0;
       height: 24px;
 
-      svg {
+      .kong-icon {
         margin-left: auto;
       }
     }
@@ -357,7 +357,7 @@ export default {
       border-radius: 4px 4px 0 0;
     }
 
-    svg {
+    .kong-icon {
       position: absolute;
       top: 15px;
       right: 6px;
@@ -369,7 +369,7 @@ export default {
     }
   }
 
-  .k-select-button .has-caret svg {
+  .k-select-button .has-caret .kong-icon {
     margin-left: auto;
   }
 

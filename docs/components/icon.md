@@ -1,6 +1,6 @@
 # Icon
 
-**KIcon** - Icon component for displaying SVG symbols. Currently Size, color and viewbox vary between icons, so the implementor must be mindful when using. 
+**KIcon** - Icon component for displaying SVG symbols. Currently Size, color and viewbox vary between icons, so the implementor must be mindful when using.
 
 <KIcon icon="dashboard" />
 
@@ -10,7 +10,7 @@
 
 ## Props
 ### icon - required
-The name of the icon. This required prop will only recognize icons from the 
+The name of the icon. This required prop will only recognize icons from the
 following list. It tells KIcon which svg to render.
 
 <div>
@@ -65,10 +65,10 @@ Overrides the secondary svg color (if one exists).
 ```
 
 ::: tip Note
-Some SVGs have a set **fill-opacity** and these cannot be overridden and will 
+Some SVGs have a set **fill-opacity** and these cannot be overridden and will
 render at whichever percent opacity of the passed color.
 
-Prevent color override in an SVG by setting the attribute `id="preserveColor"` 
+Prevent color override in an SVG by setting the attribute `id="preserveColor"`
 within the SVG.
 e.g. `<path id="preserveColor" d="M9 11v2H7v-2h2zm0-8v6.5H7V3h2z" fill="#FFF"/>`
 :::
@@ -190,7 +190,7 @@ Check out the [contributing](/contributing/adding-an-icon.html) docs to learn ab
   .icon-cell {
     display: flex;
     align-items: center;
-    &.hasBg svg {
+    &.hasBg .kong-icon {
       background-color: var(--blue-200);
     }
   }
@@ -198,4 +198,4 @@ Check out the [contributing](/contributing/adding-an-icon.html) docs to learn ab
     margin: 0 .5rem;
   }
 }
-</style> 
+</style>

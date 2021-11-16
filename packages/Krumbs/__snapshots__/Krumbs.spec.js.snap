@@ -2,34 +2,13 @@
 
 exports[`Krumbs renders breadcrumb links 1`] = `
 <ul class="krumbs style-body-bc">
-  <li class="krumb-item truncate" style="max-width: 38ch;"><a href="/services" class="" title="Services">Services</a> <svg height="15" width="15" viewBox="0 0 20 20" role="img" class="kong-icon kong-icon-chevronRight">
-      <!---->
-      <g>
-        <!---->
-        <!---->
-        <path d="m7.3 14.7 5-5.2-5-5.2" fill="none" stroke="var(--grey-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-      </g>
-    </svg></li>
-  <li class="krumb-item truncate" style="max-width: 38ch;"><a title="Go to Kong Docs" href="https://docs.konghq.com" target="_blank">External Link</a> <svg height="15" width="15" viewBox="0 0 20 20" role="img" class="kong-icon kong-icon-chevronRight">
-      <!---->
-      <g>
-        <!---->
-        <!---->
-        <path d="m7.3 14.7 5-5.2-5-5.2" fill="none" stroke="var(--grey-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-      </g>
-    </svg></li>
+  <li class="krumb-item truncate" style="max-width: 38ch;"><a href="/services" class="" title="Services">Services</a> <span class="kong-icon kong-icon-chevronRight"><!----></span></li>
+  <li class="krumb-item truncate" style="max-width: 38ch;"><a title="Go to Kong Docs" href="https://docs.konghq.com" target="_blank">External Link</a> <span class="kong-icon kong-icon-chevronRight"><!----></span></li>
 </ul>
 `;
 
 exports[`Krumbs renders breadcrumb links without needing a router 1`] = `
 <ul class="krumbs style-body-bc">
-  <li class="krumb-item truncate" style="max-width: 38ch;"><a title="Go to Kong Docs" href="https://docs.konghq.com" target="_blank">External Link</a> <svg height="15" width="15" viewBox="0 0 20 20" role="img" class="kong-icon kong-icon-chevronRight">
-      <!---->
-      <g>
-        <!---->
-        <!---->
-        <path d="m7.3 14.7 5-5.2-5-5.2" fill="none" stroke="var(--grey-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-      </g>
-    </svg></li>
+  <li class="krumb-item truncate" style="max-width: 38ch;"><a title="Go to Kong Docs" href="https://docs.konghq.com" target="_blank">External Link</a> <span class="kong-icon kong-icon-chevronRight"><!----></span></li>
 </ul>
 `;
