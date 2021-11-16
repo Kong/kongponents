@@ -1,3 +1,4 @@
 <svg width="44" height="56" viewBox="0 0 44 56" xmlns="http://www.w3.org/2000/svg">
+  <title>File</title>
   <path fill="#A3BBCC" fill-rule="evenodd" clip-rule="evenodd" d="M2 0C.895431 0 0 .89543 0 2v52c0 1.1046.895431 2 2 2h40c1.1046 0 2-.8954 2-2V4l-4-4H2zm37 1H1v54h42V5h-4V1z"/>
 </svg>

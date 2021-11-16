@@ -1,5 +1,6 @@
 // Get base stylesheet
 import '../../packages/styles/styles.css'
+import '../../packages/styles/fonts.css'
 import icons from '../../packages/KIcon/icons' // KIcon icons
 
 // Globally import all Kongponents
@@ -7,6 +8,8 @@ import KAlert from '../../packages/KAlert/KAlert.vue'
 import KBadge from '../../packages/KBadge/KBadge.vue'
 import KButton from '../../packages/KButton/KButton.vue'
 import KCard from '../../packages/KCard/KCard.vue'
+import KCardCatalog from '../../packages/KCardCatalog/KCardCatalog.vue'
+import KCatalogItem from '../../packages/KCardCatalog/KCatalogItem.vue'
 import KClipboardProvider from '../../packages/KClipboardProvider/KClipboardProvider.js'
 import KMultiselect from '../../packages/KMultiselect/KMultiselect.vue'
 import KEmptyState from '../../packages/KEmptyState/KEmptyState.vue'
@@ -17,13 +20,18 @@ import KInputSwitch from '../../packages/KInputSwitch/KInputSwitch.vue'
 import KCheckbox from '../../packages/KCheckbox/KCheckbox.vue'
 import KRadio from '../../packages/KRadio/KRadio.vue'
 import KLabel from '../../packages/KLabel/KLabel.vue'
+import KMenu from '../../packages/KMenu/KMenu.vue'
+import KMenuItem from '../../packages/KMenu/KMenuItem.vue'
 import KModal from '../../packages/KModal/KModal.vue'
 import KoolTip from '../../packages/KoolTip/KoolTip.vue'
+import KPagination from '../../packages/KPagination/KPagination.vue'
 import KPop from '../../packages/KPop/KPop.vue'
 import Krumbs from '../../packages/Krumbs/Krumbs.vue'
 import KSegmentedControl from '../../packages/KSegmentedControl/KSegmentedControl.vue'
+import KSelect from '../../packages/KSelect/KSelect.vue'
 import KTable from '../../packages/KTable/KTable.vue'
 import KTabs from '../../packages/KTabs/KTabs.vue'
+import KTextArea from '../../packages/KTextArea/KTextArea.vue'
 import KToggle from '../../packages/KToggle/KToggle.js'
 import Komponent from '../../packages/Komponent/Komponent.js'
 import KSlideout from '../../packages/KSlideout/KSlideout.vue'
@@ -41,6 +49,8 @@ export default ({
   Vue.component('KBadge', KBadge)
   Vue.component('KButton', KButton)
   Vue.component('KCard', KCard)
+  Vue.component('KCardCatalog', KCardCatalog)
+  Vue.component('KCatalogItem', KCatalogItem)
   Vue.component('KClipboardProvider', KClipboardProvider)
   Vue.component('KMultiselect', KMultiselect)
   Vue.component('KEmptyState', KEmptyState)
@@ -51,19 +61,24 @@ export default ({
   Vue.component('KCheckbox', KCheckbox)
   Vue.component('KRadio', KRadio)
   Vue.component('KLabel', KLabel)
+  Vue.component('KMenu', KMenu)
+  Vue.component('KMenuItem', KMenuItem)
   Vue.component('KModal', KModal)
   Vue.component('KoolTip', KoolTip)
+  Vue.component('KPagination', KPagination)
   Vue.component('KPop', KPop)
   Vue.component('Krumbs', Krumbs)
   Vue.component('Komponent', Komponent)
   Vue.component('KSegmentedControl', KSegmentedControl)
-  Vue.component('KTabs', KTabs)
+  Vue.component('KSelect', KSelect)
   Vue.component('KTable', KTable)
+  Vue.component('KTabs', KTabs)
+  Vue.component('KTextArea', KTextArea) 
   Vue.component('KToggle', KToggle)
   Vue.component('KSlideout', KSlideout)
   Vue.component('KSkeleton', KSkeleton)
   Vue.component('KSkeletonBox', KSkeletonBox)
-  Vue.component('KViewSwitcher', KViewSwitcher)
+  Vue.component('KViewSwitcher', KViewSwitcher) 
 
   Vue.prototype.$icons = Object.keys(icons)
 }

@@ -1,6 +1,10 @@
+@tailwind components;
+@tailwind utilities;
+
 // Gloabls
 body {
   font-family: var(--font-family-sans);
+  font-weight: 200;
 }
 
 // Tables
@@ -8,10 +12,8 @@ table {
   tr, th, td {
     border: none;
   }
-  td:not(:last-of-type) {
-    border-right: 1px solid var(--grey-200);
-  }
-  tr:nth-child(2n) {
+
+  tr, tr:nth-child(2n) {
     background-color: #fff;
   }
 }
@@ -50,3 +52,15 @@ table {
 }
 
 @import "../../../../docs/.vuepress/styles/prism-theme.min.css"
+
+/**
+ * Overrides for a11y
+ */
+blockquote,
+.page-edit .edit-link a  {
+  color: #7d7373 !important;
+}
+
+blockquote {
+  font-weight: 300;
+}

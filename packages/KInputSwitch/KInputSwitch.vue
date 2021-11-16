@@ -4,7 +4,8 @@
     :label="disabledTooltipText"
   >
     <label
-      v-bind="$attrs"
+      :for="$attrs.id ? $attrs.id : null"
+      :disabled="$attrs.disabled"
       class="k-switch">
       <input
         :checked="value"
@@ -20,6 +21,9 @@
 
   <label
     v-else
+    :for="$attrs.id ? $attrs.id : null"
+    :disabled="$attrs.disabled"
+    :class="{ 'switch-with-icon' : enabledIcon }"
     class="k-switch">
     <input
       :checked="value"
@@ -44,6 +48,7 @@ import KIcon from '@kongponents/kicon/KIcon.vue'
 export default {
   name: 'KInputSwitch',
   components: { KoolTip, KIcon },
+  inheritAttrs: false,
   props: {
     /**
      * Sets whether or not toggle is checked
@@ -111,10 +116,11 @@ export default {
 .k-switch {
   position: relative;
 
-  svg {
+  .kong-icon {
     transform: translateX(-54px);
     position: absolute;
-    left: 60px;
+    left: 57px;
+    top: 0;
   }
 }
 </style>

@@ -1,6 +1,6 @@
 # Icon
 
-**KIcon** - Icon component for displaying SVG symbols. Currently Size, color and viewbox vary between icons, so the implementor must be mindful when using. 
+**KIcon** - Icon component for displaying SVG symbols. Currently Size, color and viewbox vary between icons, so the implementor must be mindful when using.
 
 <KIcon icon="dashboard" />
 
@@ -10,14 +10,14 @@
 
 ## Props
 ### icon - required
-The name of the icon. This required prop will only recognize icons from the 
+The name of the icon. This required prop will only recognize icons from the
 following list. It tells KIcon which svg to render.
 
 <div>
   <KToggle v-slot="{ isToggled, toggle }">
     <div>
       <KButton
-        appearance="outline-primary"
+        appearance="outline"
         class="mb-4"
         @click="toggle">Toggle viewbox {{ isToggled ? 'off' : 'on' }}</KButton>
       <div class="icon-row">
@@ -49,10 +49,10 @@ This prop takes a string that will replace the SVG default height and width. If 
 ### color
 Overrides the default svg color.
 
-<KIcon  icon="vitals" color="red" />
+<KIcon  icon="list" color="red" />
 
 ```vue
-<KIcon icon="vitals" color="red" />
+<KIcon icon="list" color="red" />
 ```
 
 ### secondaryColor
@@ -65,13 +65,24 @@ Overrides the secondary svg color (if one exists).
 ```
 
 ::: tip Note
-Some SVGs have a set **fill-opacity** and these cannot be overridden and will 
+Some SVGs have a set **fill-opacity** and these cannot be overridden and will
 render at whichever percent opacity of the passed color.
 
-Prevent color override in an SVG by setting the attribute `id="preserveColor"` 
+Prevent color override in an SVG by setting the attribute `id="preserveColor"`
 within the SVG.
 e.g. `<path id="preserveColor" d="M9 11v2H7v-2h2zm0-8v6.5H7V3h2z" fill="#FFF"/>`
 :::
+
+### title
+The title to be announced by screenreaders and displayed on hover. If not provided, a default title will be used.
+
+<KIcon icon="warning" />
+<KIcon icon="warning" title="Custom Title" />
+
+```vue
+<KIcon icon="warning" />
+<KIcon icon="warning" title="Custom Title" />
+```
 
 ### viewBox
 This prop takes a formatted string that will replace the SVG default viewBox. If one is not present by default `0 0 24 24` is applied.
@@ -80,10 +91,10 @@ You can read more about the viewBox attribute
 
 - `viewBox`
 
-<KIcon icon="portal" viewBox="0 0 10 10" />
+<KIcon icon="cogwheel" viewBox="0 0 16 16" />
 
 ```vue
-<KIcon icon="portal" viewBox="0 0 10 10" />
+<KIcon icon="cogwheel" viewBox="0 0 16 16" />
 ```
 
 
@@ -102,7 +113,7 @@ You can read more about the viewBox attribute
   </template>
 </KIcon>
 
-<KIcon icon="services" size="50" color="url('#linear-gradient2')">
+<KIcon icon="search" size="50" color="url('#linear-gradient2')">
   <template v-slot:svgElements>
     <defs>
       <linearGradient id="linear-gradient2" gradientTransform="rotate(90)">
@@ -113,7 +124,7 @@ You can read more about the viewBox attribute
   </template>
 </KIcon>
 
-<KIcon icon="gear" size="50" color="dark-grey">
+<KIcon icon="cogwheel" size="50" color="dark-grey">
   <template v-slot:svgElements>
     <animateTransform
       attributeName="transform"
@@ -139,7 +150,7 @@ You can read more about the viewBox attribute
   </template>
 </KIcon>
 
-<KIcon icon="services" size="50" color="url('#linear-gradient2')">
+<KIcon icon="search" size="50" color="url('#linear-gradient2')">
   <template v-slot:svgElements>
     <defs>
       <linearGradient id="linear-gradient2" gradientTransform="rotate(90)">
@@ -150,7 +161,7 @@ You can read more about the viewBox attribute
   </template>
 </KIcon>
 
-<KIcon icon="gear" size="50" color="dark-grey">
+<KIcon icon="cogwheel" size="50" color="dark-grey">
   <template v-slot:svgElements>
     <animateTransform
       attributeName="transform"
@@ -179,7 +190,7 @@ Check out the [contributing](/contributing/adding-an-icon.html) docs to learn ab
   .icon-cell {
     display: flex;
     align-items: center;
-    &.hasBg svg {
+    &.hasBg .kong-icon {
       background-color: var(--blue-200);
     }
   }
@@ -187,4 +198,4 @@ Check out the [contributing](/contributing/adding-an-icon.html) docs to learn ab
     margin: 0 .5rem;
   }
 }
-</style> 
+</style>

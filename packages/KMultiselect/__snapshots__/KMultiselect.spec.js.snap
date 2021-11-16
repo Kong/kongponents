@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`KMultiselect matches snapshot 1`] = `
-<div><button type="button" class="k-button k-multiselect-trigger has-caret secondary has-caret">
+<div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><button type="button" class="k-button k-multiselect-trigger has-caret medium rounded secondary has-caret">
 
-  </button>
-  <div class="k-popover k-multiselect mt-0 mb-0 hide-caret" style="width: auto; display: none;" name="fade">
+    <span class="kong-icon kong-icon-chevronDown caret has-caret"><!----></span></button>
+  <div id="test-popover-id-1234" role="region" class="k-popover k-multiselect mt-0 mb-0 hide-caret" style="width: auto; display: none;" name="fade">
     <!---->
     <div class="k-popover-content">
       <div class="k-multiselect-dropdown">
@@ -19,10 +19,12 @@ exports[`KMultiselect matches snapshot 1`] = `
               Item 2
             </li>
           </ul>
-          <div class="k-multiselect-footer"><button type="button" class="k-button k-multiselect-apply small secondary" disabled="disabled">Apply</button></div>
+          <div class="k-multiselect-footer"><button type="button" class="k-button k-multiselect-apply small rounded secondary" disabled="disabled"> Apply
+              <!----></button></div>
         </div>
       </div>
     </div>
+    <!---->
   </div>
 </div>
 `;

@@ -2,6 +2,7 @@
 @import "typography";
 @import "utils";
 @import "forms/forms";
+@import "./assets/tailwind.css";
 
 // Loop all maps and set to root element
 :root {
@@ -20,5 +21,9 @@
   // Font families
   @each $name, $font in $fonts {
     --font-family-#{$name}: #{$font};
+  }
+  // Font weight
+  body {
+    font-weight: 200;
   }
 }

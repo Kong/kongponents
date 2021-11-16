@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KCardCatalog general can change card sizes - large 1`] = `
+<div class="k-card-catalog">
+  <!---->
+  <div class="k-catalog-page k-card-large">
+    <!---->
+  </div>
+</div>
+`;
+
+exports[`KCardCatalog general can change card sizes - small 1`] = `
+<div class="k-card-catalog">
+  <!---->
+  <div class="k-catalog-page k-card-small">
+    <!---->
+  </div>
+</div>
+`;
+
+exports[`KCardCatalog general can disable truncation 1`] = `
+<div class="k-card-catalog">
+  <!---->
+  <div class="k-catalog-page k-card-medium">
+    <!---->
+  </div>
+</div>
+`;
+
+exports[`KCardCatalog general handles truncation 1`] = `
+<div class="k-card-catalog">
+  <!---->
+  <div class="k-catalog-page k-card-medium">
+    <!---->
+  </div>
+</div>
+`;
+
+exports[`KCardCatalog general matches snapshot 1`] = `
+<div class="k-card-catalog">
+  <!---->
+  <div class="k-catalog-page k-card-medium">
+    <!---->
+  </div>
+</div>
+`;
+
+exports[`KCardCatalog general renders proper cards when using props 1`] = `
+<div class="k-card-catalog">
+  <div class="k-card-catalog-title">
+    <h3>Cool beans!</h3>
+  </div>
+  <div class="k-catalog-page k-card-medium">
+    <!---->
+  </div>
+</div>
+`;
+
+exports[`KCardCatalog general renders slots when passed 1`] = `
+<div class="k-card-catalog">
+  <!---->
+  <div class="k-catalog-page k-card-medium"><span>Look mah! No props (except testMode)</span>
+    <!---->
+  </div>
+</div>
+`;
+
+exports[`KCardCatalog states displays a loading skeletion when the "isLoading" prop is set to true" 1`] = `
+<div class="k-card-catalog">
+  <!---->
+  <div class="k-catalog-page k-card-medium">
+    <!---->
+  </div>
+</div>
+`;
+
+exports[`KCardCatalog states displays an error state when the "hasError" prop is set to true" 1`] = `
+<div class="k-card-catalog" options="">
+  <!---->
+  <section class="empty-state-wrapper is-error">
+    <div class="empty-state-title">
+      <div class="k-empty-state-icon card-icon mb-4 warning-icon"><span class="kong-icon kong-icon-warning"><!----></span></div>
+      <div class="k-empty-state-title-header">An error occurred</div>
+    </div>
+    <div class="empty-state-content">
+      <div class="k-empty-state-message">Data cannot be displayed due to an error.</div>
+      <div class="k-empty-state-cta">
+        <!---->
+      </div>
+    </div>
+  </section>
+</div>
+`;

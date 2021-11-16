@@ -23,6 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "popper.js": "^1.15.0"
+    "popper.js": "^1.15.0",
+    "@kongponents/kbutton": "^5.0.3"
   }
 }

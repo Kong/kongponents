@@ -1,22 +1,35 @@
 <template>
-  <svg
-    v-if="isSSR"
-    :height="setSize || height"
-    :width="setSize || width"
-    :viewBox="setViewbox"
+  <span
     :class="`kong-icon-${icon}`"
-    class="kong-icon"
-    role="img"
-  >
-    <title v-if="!hideTitle">{{ title || icon }}</title>
-    <slot name="svgElements"/>
-    <g>
-      <path
-        v-for="(path, idx) in paths"
-        :key="path.d"
-        v-bind="attributes[idx]"/>
-    </g>
-  </svg>
+    class="kong-icon">
+    <svg
+      v-if="isSSR"
+      v-bind="$attrs"
+      :height="setSize || height"
+      :width="setSize || width"
+      :viewBox="setViewbox"
+      role="img"
+    >
+      <title v-if="!hideTitle">{{ titleText }}</title>
+      <slot name="svgElements"/>
+      <g>
+        <template v-for="(elem, idx) in fills">
+          <circle
+            v-if="elem.nodeName === 'circle'"
+            :key="`${elem.cx}-${elem.cy}-${elem.r}-${idx}`"
+            v-bind="fillAttributes[idx]"/>
+          <rect
+            v-if="elem.nodeName === 'rect'"
+            :key="`${elem.x}-${elem.y}-${idx}`"
+            v-bind="fillAttributes[idx]"/>
+          <path
+            v-if="elem.nodeName === 'path'"
+            :key="elem.d"
+            v-bind="fillAttributes[idx]"/>
+        </template>
+      </g>
+    </svg>
+  </span>
 </template>
 
 <script>
@@ -29,6 +42,7 @@ const DEFAULTS = {
 
 export default {
   name: 'KIcon',
+  inheritAttrs: false,
   props: {
     /**
      * Checks for valid icon name<br>
@@ -80,6 +94,13 @@ export default {
     hideTitle: {
       type: Boolean,
       default: false
+    },
+    /**
+     * If testMode enabled use the icon name for the title so we can test
+     */
+    testMode: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -90,6 +111,24 @@ export default {
   },
 
   computed: {
+    titleText () {
+      if (this.title) { // use title prop if they provided
+        return this.title
+      }
+
+      if (this.testMode) {
+        return this.icon
+      }
+
+      const titleElems = this.doc.getElementsByTagName('title')
+      if (titleElems.length) { // use title in SVG if it exists
+        return titleElems[0].innerHTML
+      }
+
+      const icnName = this.icon.split(/(?=[A-Z])/).join(' ') // split on capital letters in icon name and add space
+
+      return this.convertToTitleCase(icnName)
+    },
     iconSVG () {
       return icons[this.icon]
     },
@@ -99,14 +138,14 @@ export default {
     svg () {
       return this.doc.getElementsByTagName('svg')[0]
     },
-    paths () {
-      return this.doc.querySelectorAll('path').length ? Array.from(this.doc.querySelectorAll('path')) : console.warn('(KIcon) Warning: SVG Path not found')
+    fills () {
+      return Array.from(this.doc.querySelectorAll(`[fill*="#"], [stroke*="#"]`))
     },
-    attributes () {
-      return this.paths && this.paths.map(path =>
-        Array.from(path.attributes).reduce((attr, { value, name }) => {
-          const hasPreservedColor = path.attributes.id && path.attributes.id.value === 'preserveColor'
-          const isSecondary = path.attributes.type && path.attributes.type.value === 'secondary'
+    fillAttributes () {
+      return this.fills && this.fills.map(fill =>
+        Array.from(fill.attributes).reduce((attr, { value, name }) => {
+          const hasPreservedColor = fill.attributes.id && fill.attributes.id.value === 'preserveColor'
+          const isSecondary = fill.attributes.type && fill.attributes.type.value === 'secondary'
 
           // color override
           if (!hasPreservedColor && name === 'fill' && this.secondaryColor && isSecondary) {
@@ -137,15 +176,25 @@ export default {
     }
   },
 
-  beforeMount () {
-    // Do not render KIcon until client is available
-    this.isSSR = true
+  mounted () {
+    this.$nextTick(function () {
+      // Do not render KIcon until client is available
+      this.isSSR = true
+    })
+  },
+
+  methods: {
+    convertToTitleCase (str) {
+      return str.split('-').map(i => i.charAt(0).toUpperCase() + i.substring(1)).join(' ')
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .kong-icon {
+  display: inline-block;
+
   &.kong-icon-spinner g {
     transform-box: fill-box;
     transform-origin: 50% 50%;

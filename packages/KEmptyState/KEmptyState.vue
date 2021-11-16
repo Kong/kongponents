@@ -1,36 +1,41 @@
 <template>
-  <div class="empty-state-wrapper">
+  <section
+    :class="{ 'is-error': isError }"
+    class="empty-state-wrapper"
+  >
     <div class="empty-state-title">
       <div
-        v-if="isError"
-        class="warning-icon card-icon mb-4"
+        v-if="isError || icon"
+        :class="{ 'warning-icon': isError }"
+        class="k-empty-state-icon card-icon mb-4"
       >
         <KIcon
           :size="iconSize"
-          icon="warning"
-          view-box="0 0 50 50" />
+          :icon="icon ? icon : 'warning'"
+          :color="isError ? iconColor || 'var(--yellow-400)' : iconColor"
+          :secondary-color="isError ? 'var(--black-75)' : null" />
       </div>
-      <h5>
+      <div class="k-empty-state-title-header">
         <slot name="title"/>
-      </h5>
+      </div>
     </div>
     <div class="empty-state-content">
-      <p>
+      <div class="k-empty-state-message">
         <slot name="message"/>
-      </p>
-      <p>
+      </div>
+      <div class="k-empty-state-cta">
         <slot name="cta">
           <KButton
             v-if="!ctaIsHidden"
-            :is-rounded="true"
-            appearance="outline-primary"
+            appearance="primary"
+            size="small"
             @click.native="() => handleClick && handleClick()">
             {{ ctaText }}
           </KButton>
         </slot>
-      </p>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -48,6 +53,10 @@ export default {
       type: String,
       default: '50'
     },
+    icon: {
+      type: String,
+      default: ''
+    },
     ctaIsHidden: {
       type: Boolean,
       default: false
@@ -59,34 +68,37 @@ export default {
     handleClick: {
       type: Function,
       default: null
+    },
+    iconColor: {
+      type: String,
+      default: ''
     }
   }
 }
 </script>
 
 <style scoped>
-  .empty-state-wrapper {
-  padding: 4rem 0;
+.empty-state-wrapper {
+  padding: 42px 0;
   text-align: center;
-  color: rgba(0,0,0,.70);
-  border: 1px solid rgba(151,151,151,.1);
-  border-radius: 3px;
-  background-color: rgba(0,0,0,.03);
+  border-radius: 4px;
+  background-color: var(--KEmptyBackground, var(--white));
 }
-.empty-state-wrapper h5 {
-  margin: 0 0 .75rem;
-  font-size: 18px;
+.empty-state-wrapper .k-empty-state-title-header {
+  color: var(--KEmptyTitleColor, var(--black-500));
+  margin: 0 0 14px;
+  font-size: 20px;
   font-weight: 500;
-  line-height: 21px;
+  line-height: 24px;
 }
-.empty-state-wrapper p {
-  margin: 0 auto 1.5rem;
-  font-size: 1rem;
-  line-height: 1.375rem;
-  font-weight: 400;
+.empty-state-wrapper .k-empty-state-message {
+  color: var(--KEmptyContentColor, var(--black-400));
+  margin: 0 auto 14px;
+  font-size: 13px;
+  line-height: 20px;
   max-width: 50%;
 }
-.empty-state-wrapper p:last-child {
+.empty-state-wrapper .k-empty-state-cta {
   margin: 0;
   margin-left: auto;
   margin-right: auto;

@@ -3,54 +3,71 @@
 **KButton** is probably the most used Kongponent. It supports a number of variations
 and configuration options.
 
-<KButton appearance="primary">I'm a button</KButton> 
+<KButton appearance="primary">I'm a button</KButton>
 ```vue
-<KButton appearance="primary">I'm a button</KButton> 
-```  
+<KButton appearance="primary">I'm a button</KButton>
+```
 
 ## Props
 ### Appearances
-The Button component can take 1 of 7 appearance values:
+The Button component can take 1 of 6 appearance values:
 
-- `secondary`  
-- `primary`  
+- `primary`
+- `secondary`
+- `outline`
 - `danger`
-- `outline-primary`  
-- `outline-danger`  
-- `btn-link`  
-- `btn-link-danger`
+- `creation`
+- `btn-link`
 
-<KButton class="mr-2 mb-2" appearance='primary'>primary</KButton>
-<KButton class="mr-2 mb-2" appearance='danger'>danger</KButton>
-<KButton class="mr-2 mb-2" appearance="secondary">secondary</KButton>
-<KButton class="mr-2 mb-2" appearance='outline-primary'>outline-primary</KButton>
-<KButton class="mr-2 mb-2" appearance='outline-danger'>outline-danger</KButton>
+<KButton class="mr-2 mb-2" appearance='primary'>Primary</KButton>
+<KButton class="mr-2 mb-2" appearance="secondary">Secondary</KButton>
+<KButton class="mr-2 mb-2" appearance='outline'>Outline</KButton>
+<KButton class="mr-2 mb-2" appearance='danger'>Danger</KButton>
+<KButton class="mr-2 mb-2" appearance="creation">Creation</KButton>
 <KButton class="mr-2 mb-2" appearance='btn-link'>btn-link</KButton>
-<KButton class="mr-2 mb-2" appearance='btn-link-danger'>btn-link-danger</KButton>
 
 ```vue
-<KButton appearance='primary'>primary</KButton>
-<KButton appearance='danger'>danger</KButton>
-<KButton appearance="secondary">secondary</KButton>
-<KButton appearance='outline-primary'>outline-primary</KButton>
-<KButton appearance='outline-danger'>outline-danger</KButton>
-<KButton appearance='btn-link'>btn-link</KButton>
-<KButton appearance='btn-link-danger'>btn-link-danger</KButton>
+<KButton class="mr-2 mb-2" appearance='primary'>Primary</KButton>
+<KButton class="mr-2 mb-2" appearance="secondary">Secondary</KButton>
+<KButton class="mr-2 mb-2" appearance='outline'>Outline</KButton>
+<KButton class="mr-2 mb-2" appearance='danger'>Danger</KButton>
+<KButton class="mr-2 mb-2" appearance="creation">Creation</KButton>
+<KButton class="mr-2 mb-2" appearance='btn-link'>btn-link</KButton>
 ```
 
 ### Sizes
-Currently we only support small however, larger sizes may be supported later.
+We support `small`, `medium`, and `large` sizes, default to `medium`.
 
-- `small`  
+- `small`
+- `medium`
+- `large`
 
 <KButton
   appearance="secondary"
   size="small">Small</KButton>
+
+<KButton
+  appearance="secondary"
+  size="medium">Medium</KButton>
+
+<KButton
+  appearance="secondary"
+  size="large">Large</KButton>
 
 ```vue
+
 <KButton
   appearance="secondary"
   size="small">Small</KButton>
+
+<KButton
+  appearance="secondary"
+  size="medium">Medium</KButton>
+
+<KButton
+  appearance="secondary"
+  size="large">Large</KButton>
+
 ```
 
 ### Caret
@@ -59,7 +76,7 @@ Currently we only support small however, larger sizes may be supported later.
 KButton can display a dropdown caret to the right hand side. This is useful for buttons that control dropdowns and popovers. When the prop `isOpen` is `false`, the caret will display pointing down. You can rotate the caret (active state) to point up by setting `isOpen` to `true`.
 
 <Komponent :data="{ isActive: false}" v-slot="{ data }">
-  <KButton appearance="primary" :isOpen="data.isActive" @click="data.isActive = !data.isActive">I'm a button</KButton> 
+  <KButton appearance="primary" :isOpen="data.isActive" @click="data.isActive = !data.isActive">I'm a button</KButton>
 </Komponent>
 
 > The `Komponent` component is used in this example to create state.
@@ -67,17 +84,29 @@ KButton can display a dropdown caret to the right hand side. This is useful for 
 <Komponent:data="{ isActive: false }" v-slot="{ data }">
   <KButton
     appearance="primary"
+    size="medium"
     :isOpen="data.isActive"
     @click="data.isActive = !data.isActive">
     I'm a button
-  </KButton> 
+  </KButton>
 </Komponent>
+```
+### Rounded
+- `isRounded`
+
+The buttons are rounded by default. This can be disabled by setting `isRounded` prop to `false`.
+
+<KButton appearance="primary" :isRounded="false">I'm a button</KButton>
+<KButton appearance="primary" >I'm a button</KButton>
+```vue
+<KButton appearance="primary" :isRounded="false">I'm a button</KButton>
+<KButton appearance="primary" >I'm a button</KButton>
 ```
 
 ### Anchor Tag
 KButton can render either a `<a>` or `<router-link>` by simply passing the `to` prop. If it receives an object it will render a router link. If it receives a string it will render an HTML anchor tag
 
-- `to`  
+- `to`
 
 <KButton
   :to="{path: '/'}"
@@ -103,7 +132,7 @@ KButton also supports the disabled attribute with both Button and Anchor types.
   to="http://google.com"
   appearance="btn-link"
   disabled>Disabled Native Anchor Link</KButton>
-  
+
 ```vue
 <KButton appearance="danger" disabled>Disabled Danger</KButton>
 <KButton
@@ -114,17 +143,17 @@ KButton also supports the disabled attribute with both Button and Anchor types.
 
 ## Slots
 ### Icon
-KButton supports using an icon either before the text or without text.  
+KButton supports using an icon either before the text or without text.
 
 <KButton appearance="secondary">
   <template v-slot:icon>
-    <KIcon icon="externalLink" />
+    <KIcon icon="externalLink" color="var(--KButtonSecondaryColor, #003694)"/>
   </template>
   With Text
 </KButton>
-<KButton appearance="secondary">
+<KButton appearance="secondary" size="small">
   <template v-slot:icon>
-    <KIcon icon="gear" />
+    <KIcon icon="gear" color="var(--KButtonSecondaryColor, #003694)"/>
   </template>
 </KButton>
 
@@ -135,7 +164,7 @@ KButton supports using an icon either before the text or without text.
   </template>
   With Text
 </KButton>
-<KButton appearance="secondary">
+<KButton appearance="secondary" size="small">
   <template v-slot:icon>
     <KIcon icon="gear" />
   </template>
@@ -150,25 +179,20 @@ KButton supports using an icon either before the text or without text.
 | `--KButtonPrimaryHover`| Primary hover state
 | `--KButtonPrimaryActive`| Primary active state
 | `--KButtonSecondaryBase`| Secondary background
-| `--KButtonSecondaryBorder`| Secondary border
 | `--KButtonSecondaryHover`| Secondary hover state
-| `--KButtonSecondaryHoverBorder`| Secondary hover border
-| `--KButtonSecondaryActive`| Secondary active state 
-| `--KButtonSecondaryActiveBorder`| Secondary active state border
+| `--KButtonSecondaryActive`| Secondary active state
 | `--KButtonSecondaryFocus` | Secondary focus box shadow color
 | `--KButtonDangerBase`| Danger background
 | `--KButtonDangerHover`| Danger hover state
 | `--KButtonDangerActive`| Danger active state
-| `--KButtonOutlinePrimaryColor` | Primary outline text color
-| `--KButtonOutlinePrimaryBorder`| Primary outline border
-| `--KButtonOutlinePrimaryHoverBorder`| Primary outline hover state border
-| `--KButtonOutlinePrimaryActive`| Primary outline active state
-| `--KButtonOutlinePrimaryActiveBorder`| Primary outline active state border
-| `--KButtonOutlineDangerColor` | Danger outline text color
-| `--KButtonOutlineDangerBorder`| Danger outline border
-| `--KButtonOutlineDangerHoverBorder`| Danger outline hover state
-| `--KButtonOutlineDangerActive`| Danger outline active state
-| `--KButtonOutlineDangerActiveBorder`| Danger outline active state border
+| `--KButtonCreationBase` | Creation background
+| `--KButtonCreationHover`| Creation hover state
+| `--KButtonCreationActive`| Creation active state
+| `--KButtonOutlineColor` | Outline text color
+| `--KButtonOutlineBorder`| Outline border
+| `--KButtonOutlineHoverBorder`| Outline hover state border
+| `--KButtonOutlineActive`| Outline active state
+| `--KButtonOutlineActiveBorder`| Outline active state border
 | `--KButtonLink`| Button link variant
 | `--KButtonLinkDanger`| Button Danger link variant
 | `--KButtonPaddingY`| Button vertical (top and bottom) padding
@@ -177,7 +201,7 @@ KButton supports using an icon either before the text or without text.
 
 \
 An Example of changing the primary KButton variant to purple instead of blue might
-look like.  
+look like.
 
 <template>
   <KButton class="purple-button" appearance="primary">PURPLE!</KButton>
@@ -195,6 +219,15 @@ look like.
   --KButtonPrimaryActive: #3c3f86;
 }
 </style>
+```
+
+There is also a `.non-visual-button` utility class that can be used for buttons that
+should not look like buttons.
+
+<KButton class='non-visual-button'>Click Me</KButton>
+
+```vue
+<KButton class='non-visual-button'>Click Me</KButton>
 ```
 
 <style scoped lang="scss">

@@ -1,13 +1,13 @@
 {
-  "name": "@kongponents/ktest",
-  "version": "5.0.8",
-  "description": "Testing 1, 2, 3, 4...",
-  "main": "dist/KTest.umd.min.js",
-  "componentName": "KTest",
-  "source": "KTest.vue",
+  "name": "@kongponents/kpagination",
+  "version": "0.1.0",
+  "description": "Pagination component",
+  "main": "dist/KPagination.umd.min.js",
+  "componentName": "KPagination",
+  "source": "KPagination.vue",
   "files": [
     "dist",
-    "KTest.vue"
+    "KPagination.vue"
   ],
   "repository": {
     "type": "git",
@@ -21,5 +21,9 @@
   "homepage": "https://github.com/Kong/kongponents#readme",
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@kongponents/kselect": "^5.0.3",
+    "@kongponents/kicon": "^5.0.7"
   }
 }

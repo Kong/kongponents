@@ -18,8 +18,8 @@
           @click="e => handleClose(e, true)">
           <KIcon
             icon="close"
-            size="16"
-            view-box="0 0 12 12" />
+            size="24"
+            view-box="0 0 24 24" />
         </button>
         <div class="content">
           <KCard border-variant="noBorder">

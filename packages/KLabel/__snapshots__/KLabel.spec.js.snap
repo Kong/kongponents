@@ -1,21 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`KLabel passes the \`for\` attribute to label when \`for\` is provided 1`] = `<label for="test-id" class="k-input-label">Full Name</label>`;
+exports[`KLabel passes the \`for\` attribute to label when \`for\` is provided 1`] = `<label class="k-input-label" for="test-id">Full Name</label>`;
 
 exports[`KLabel renders a tooltip when \`help\` is provided 1`] = `
 <label class="k-input-label">
-  <div class="label-tooltip">Full Name <svg height="16" width="16" viewBox="0 0 16 16" role="img" class="kong-icon kong-icon-help">
-      <!---->
-      <g>
-        <path d="M0 8c0 2.1217.842855 4.1566 2.34315 5.6569C3.84344 15.1571 5.87827 16 8 16c2.1217 0 4.1566-.8429 5.6569-2.3431C15.1571 12.1566 16 10.1217 16 8c0-2.12173-.8429-4.15656-2.3431-5.65685C12.1566.842855 10.1217 0 8 0 5.87827 0 3.84344.842855 2.34315 2.34315.842855 3.84344 0 5.87827 0 8" fill="#A3BBCC"></path>
-        <path d="M7.0645 10.0342c0-.63807.0774-1.14617.2324-1.52447.1549-.3782.4375-.7496.8476-1.11422.4147-.36914.6905-.66764.8272-.89551.1367-.23242.2051-.47624.2051-.73144 0-.77019-.3555-1.15528-1.0665-1.15528-.3372 0-.6083.10482-.8134.31446-.2005.20507-.30537.48991-.31448.85449H5c.00911-.87044.28939-1.55176.84082-2.04395C6.39681 3.2461 7.1533 3 8.1103 3c.9662 0 1.7159.2347 2.2491.7041.5332.46485.7998 1.12338.7998 1.97559 0 .38737-.0866.75423-.2598 1.10059-.1732.34179-.4762.72233-.9092 1.14155l-.5537.5264c-.3463.3327-.5446.7223-.5947 1.169l-.0273.41697h-1.75zm-.19829 2.0986c0-.3054.10254-.556.30759-.752.2097-.2005.4763-.3007.7998-.3007.3236 0 .5879.1002.793.3007.2096.196.3145.4466.3145.752 0 .3008-.1026.5491-.3077.7451-.2005.196-.4671.2939-.7998.2939-.3327 0-.6015-.0979-.8066-.2939-.20053-.196-.30079-.4443-.30079-.7451z" fill="#fff"></path>
-      </g>
-    </svg>
-    <div class="k-popover kooltip mt-2  hide-caret" style="width: auto; display: none;" name="fade">
+  <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button" class="label-tooltip">Full Name <span class="kong-icon kong-icon-help"><!----></span>
+    <div id="test-popover-id-1234" role="region" class="k-popover kooltip mt-2  hide-caret" style="width: auto; display: none;" name="fade">
       <!---->
       <div class="k-popover-content">
         <div role="tooltip">This is a tooltip</div>
       </div>
+      <!---->
     </div>
   </div>
 </label>
@@ -23,17 +18,13 @@ exports[`KLabel renders a tooltip when \`help\` is provided 1`] = `
 
 exports[`KLabel renders a tooltip when \`info\` is provided 1`] = `
 <label class="k-input-label">
-  <div class="label-tooltip">Full Name <svg height="16" width="16" viewBox="0 0 16 16" role="img" class="kong-icon kong-icon-info">
-      <!---->
-      <g>
-        <path fill="#A3BBCC" fill-rule="evenodd" d="M16 8c0-4.418278-3.58172-8-8-8S0 3.581722 0 8s3.58172 8 8 8 8-3.581722 8-8zm-1.5 0c0 3.5898509-2.91015 6.5-6.5 6.5S1.5 11.5898509 1.5 8 4.41015 1.5 8 1.5s6.5 2.9101491 6.5 6.5zM6 12h4v-1H9V7H6v1h1v3H6v1zm1-6.5046844C7 5.7740451 7.21404 6 7.50468 6h.99064C8.77405 6 9 5.785965 9 5.4953156v-.9906312C9 4.2259549 8.78596 4 8.49532 4h-.99064C7.22595 4 7 4.214035 7 4.5046844v.9906312z" opacity=".60000002"></path>
-      </g>
-    </svg>
-    <div class="k-popover kooltip mt-2  hide-caret" style="width: auto; display: none;" name="fade">
+  <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button" class="label-tooltip">Full Name <span class="kong-icon kong-icon-info"><!----></span>
+    <div id="test-popover-id-1234" role="region" class="k-popover kooltip mt-2  hide-caret" style="width: auto; display: none;" name="fade">
       <!---->
       <div class="k-popover-content">
         <div role="tooltip">This is a tooltip</div>
       </div>
+      <!---->
     </div>
   </div>
 </label>

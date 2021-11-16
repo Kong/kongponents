@@ -4,7 +4,7 @@
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "version": "5.0.8",
+  "version": "6.1.1",
   "command": {
     "init": {
       "exact": true
@@ -16,7 +16,10 @@
         "**/*.snap",
         "**/*.stories.js"
       ],
-      "message": "chore(release): publish"
+      "message": "chore(release): publish",
+      "version": {
+        "allowBranch": ["release/*"]
+      }
     }
   }
 }

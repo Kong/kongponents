@@ -2,10 +2,12 @@
 
 The **KModal** component is used to show content on top of existing UI. Typically used when confirming changes or while during a delete action. 
 
-<KButton @click="defaultIsOpen = true">Open Modal</KButton>
+<KButton appearance="primary" @click="defaultIsOpen = true">Open Modal</KButton>
 
 <template>
   <KModal
+    title="Look Mah!"
+    content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris accumsan tincidunt velit ac vulputate. Aliquam turpis odio, elementum a hendrerit id, pellentesque quis ligula. Nulla ultricies sit amet nisi vitae congue. Quisque vitae ullamcorper leo, id pretium mi. Nam sed odio dapibus, dapibus augue at, pulvinar est."
     :isVisible="defaultIsOpen"
     @canceled="defaultIsOpen = false" />
 </template>
@@ -14,6 +16,8 @@ The **KModal** component is used to show content on top of existing UI. Typicall
 <template>
   <div>
     <KModal
+      title="Look Mah!"
+      content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris accumsan tincidunt velit ac vulputate. Aliquam turpis odio, elementum a hendrerit id, pellentesque quis ligula. Nulla ultricies sit amet nisi vitae congue. Quisque vitae ullamcorper leo, id pretium mi. Nam sed odio dapibus, dapibus augue at, pulvinar est."
       :isVisible="isVisible"
       @canceled="isVisible = false" />
     
@@ -39,41 +43,48 @@ export default {
 - `@canceled` - Emitted when cancel/close button is clicked
 
 **Content**
-- `cancelButtonAppearance` - Change the [appearance](/components/button.html#props) of the close/cancel
-- `title` - Text to display in header if not using slot
-- `helpText` - Help text to display below header if not using slot
+- `title` - Text displayed in header if not using slot (**Note**: this field is still required for accessibility reasons even if using the slot)
+- `hideTitle` - If not using the `header-content` slot, tells the component whether or not to display the title
 - `content` - Text to display in content if not using slot
 
 **Buttons & Appearance**
 - `actionButtonText` - Change the text content of the submit/proceed button
-- `actionButtonAppearance` - Change the [appearance](/components/button.html#props) of the submit/proceed
+- `actionButtonAppearance` - Change the [appearance](/components/button.html#props) of the submit/proceed button
 - `cancelButtonText` - Change the text content of the close/cancel button
+- `cancelButtonAppearance` - Change the [appearance](/components/button.html#props) of the cancel button
 
 ## Slots
-There are 3 designated slots you can use to display content in the modal.
+There are 4 designated slots you can use to display content in the modal.
 
-`header-content`
-`body-content`  
-`help`
-`footer-content` - Contains action buttons by default.
+- `header-content`
+- `body-content`  
+- `footer-content` - Contains cancel & action buttons by default.
+- `action-buttons` - Contains action buttons which are right-aligned. This slot will not exist if using `footer-content` slot.
 
 ---
 ### Usage
 
-Using both the provided props and slot options we will now demonstrate how to customize the modal for a delete confirmation.
+Using both the provided props and slot options we will now demonstrate how to customize the modal for a delete confirmation. 
+Notice that even though we are using the `header-content` slot we still specify the `title` attribute for accessibility.
 
-<KButton
-  appearance="secondary"
-  @click="slottedIsOpen = true">Open Delete Modal</KButton>
+<KButton @click="slottedIsOpen = true">Open Delete Modal</KButton>
 <template>
   <KModal
     :isVisible="slottedIsOpen"
     actionButtonText="Delete"
     actionButtonAppearance="danger"
-    @canceled="slottedIsOpen = false">
-    <template v-slot:header-content>Delete Item</template>
-    <template v-slot:help>Take this action to delete</template>
+    @canceled="slottedIsOpen = false"
+    title="Delete Item">
+    <template v-slot:header-content>
+      <KIcon icon="dangerCircle" color="red" class="mr-2" />
+      Delete Item
+    </template>
     <template v-slot:body-content>Are you sure you want to delete this item? This action can not be undone.</template>
+    <template v-slot:action-buttons>
+      <KButton appearance="outline" class="mr-2">Back</KButton>
+      <KButton appearance="secondary" class="mr-2">Skip</KButton>
+      <KButton appearance="danger">Delete</KButton>
+    </template>
   </KModal>
 </template>
 
@@ -83,10 +94,18 @@ Using both the provided props and slot options we will now demonstrate how to cu
     :isVisible="isVisible"
     actionButtonText="Delete"
     actionButtonAppearance="danger"
-    @canceled="slottedIsOpen = false">
-    <template v-slot:header-content>Delete Item</template>
-    <template v-slot:help>Take this action to delete</template>
+    @canceled="slottedIsOpen = false"
+    title="Delete Item">
+    <template v-slot:header-content>
+      <KIcon icon="dangerCircle" color="red" class="mr-2" />
+      Delete Item
+    </template>
     <template v-slot:body-content>Are you sure you want to delete this item? This action can not be undone.</template>
+    <template v-slot:action-buttons>
+      <KButton appearance="outline" class="mr-2">Back</KButton>
+      <KButton appearance="secondary" class="mr-2">Skip</KButton>
+      <KButton appearance="danger">Delete</KButton>
+    </template>
   </KModal>
 </template>
 ```
@@ -110,6 +129,8 @@ An Example of changing the the colors of KModal might look like.
   <div class="modal-wrapper">
     <KModal
       :isVisible="themeIsOpen"
+      title="Look Mah!"
+      content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris accumsan tincidunt velit ac vulputate. Aliquam turpis odio, elementum a hendrerit id, pellentesque quis ligula."
       @canceled="themeIsOpen = false" />
     <KButton @click="themeIsOpen = true">Open Modal</KButton>
   </div>
@@ -119,7 +140,9 @@ An Example of changing the the colors of KModal might look like.
 <template>
   <div class="modal-wrapper">
     <KModal
-      class="modal-wrapper
+      class="modal-wrapper"
+      title="Look Mah!"
+      content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris accumsan tincidunt velit ac vulputate. Aliquam turpis odio, elementum a hendrerit id, pellentesque quis ligula."
       :isVisible="isVisible"
       @canceled="isVisible = false" />
   </div>

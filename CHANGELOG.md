@@ -3,6 +3,82 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.0](https://github.com/Kong/kongponents/compare/v5.0.8...v6.1.0) (2021-11-16)
+
+### New Dependencies Added
+
+* `@vue/composition-api` and `swrv` added as `dependencies` for state management in table and card catalog
+* `vue-uuid` package added as `devDependency` for accessibility/ARIA standards
+* `tailwindcss` and `@kawarimidoll/vuepress-plugin-tailwind` added as `devDependencies` for utility classes
+
+### Breaking Changes
+* `KAlert` 
+  - new props `type` and `dismissType` added (`is-dismissable` prop removed)
+  - `size` prop now supports `large` and `small` 
+  - new slots associated with "banner" `type` and `size` `large` (icon, description, actionButtons)
+
+* `KBadge` 
+  - add `info` option for `appearance` prop
+  - add `shape` property to support rectangular badges
+
+* `KButton` 
+  - `size` prop now supports `small`, `medium`, and `large` 
+  - `isRounded` property added and defaults to `true`
+  - Buttons default to a rounded appearance
+
+* `KCard` 
+  - `helpText` property removed, 
+  - `status` / `statusHat` prop and slot added 
+  - `notifications` slot added
+
+* `KCheckbox` / `KRadio` 
+  - `label` property removed
+
+* `KEmptyState` 
+  - `icon` prop added
+
+* `KIcon` 
+  - new icons added 
+  - `secondaryColor` prop added
+
+* `KInput` 
+  - `size` prop added
+
+* `KModal` 
+  - `title` prop is now required
+  - `hideTitle` prop added
+  - `helpText` / `help` prop and slot removed
+  - `action-buttons` slot added
+
+* `KPop` 
+  - `actions` and `footer` slots added
+  - `buttonText` prop added so `default` slot use is no longer required
+
+* `KTable` 
+  - support added for configuring error, loading, and empty states
+  - support for `fetcher` function to populate table data added
+  - pagination support added 
+  - `options` prop deprecated
+  - client-side sort (deprecated) is flaky
+  - removed `isSmall` and `isClickable` props
+
+* `styles` 
+  - added `petrol`, `purple`, and `teal` color codes
+
+* `typography` 
+  - new `Maison Neue` font support added
+  - defaults to `Maison Neue` instead of `Roboto`
+  - multiple new utility classes added for font styling
+
+### New Kongponents Added
+
+* `KCardCatalog`
+* `KMenu`
+* `KPagination`
+* `KSelect`
+* `KTextArea`
+
+
 ## [5.0.8](https://github.com/Kong/kongponents/compare/v5.0.7...v5.0.8) (2021-11-15)
 
 

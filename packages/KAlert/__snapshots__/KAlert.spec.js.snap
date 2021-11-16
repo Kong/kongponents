@@ -1,25 +1,76 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`KAlert Renders danger variant 1`] = `
-<div role="alert" class="k-alert danger" message="I am danger">
+<div role="alert" class="k-alert danger alert none" message="I am danger">
   <!---->
-  <!----> <span></span></div>
+  <div class="k-alert-action ml-3 danger">
+    <!---->
+    <!---->
+  </div>
+  <!---->
+  <!---->
+  <div class="k-alert-msg-text"><span class="k-alert-msg">
+      </span>
+    <!---->
+  </div>
+</div>
 `;
 
 exports[`KAlert Renders info variant 1`] = `
-<div role="alert" class="k-alert info" message="I am info">
+<div role="alert" class="k-alert info alert none" message="I am info">
   <!---->
-  <!----> <span></span></div>
+  <div class="k-alert-action ml-3 info">
+    <!---->
+    <!---->
+  </div>
+  <!---->
+  <!---->
+  <div class="k-alert-msg-text"><span class="k-alert-msg">
+      </span>
+    <!---->
+  </div>
+</div>
 `;
 
 exports[`KAlert Renders success variant 1`] = `
-<div role="alert" class="k-alert success" message="I am success">
+<div role="alert" class="k-alert success alert none" message="I am success">
   <!---->
-  <!----> <span></span></div>
+  <div class="k-alert-action ml-3 success">
+    <!---->
+    <!---->
+  </div>
+  <!---->
+  <!---->
+  <div class="k-alert-msg-text"><span class="k-alert-msg">
+      </span>
+    <!---->
+  </div>
+</div>
 `;
 
 exports[`KAlert Renders warning variant 1`] = `
-<div role="alert" class="k-alert warning" message="I am warning">
+<div role="alert" class="k-alert warning alert none" message="I am warning">
   <!---->
-  <!----> <span></span></div>
+  <div class="k-alert-action ml-3 warning">
+    <!---->
+    <!---->
+  </div>
+  <!---->
+  <!---->
+  <div class="k-alert-msg-text"><span class="k-alert-msg">
+      </span>
+    <!---->
+  </div>
+</div>
+`;
+
+exports[`KAlert renders slots when passed 1`] = `
+<div role="alert" class="k-alert info large banner button" hasactionbuttons="true">
+  <!---->
+  <div class="k-alert-action ml-3 info"><span>Action button</span> <button type="button" class="k-button small rounded outline">
+      Dismiss
+      <!----></button></div>
+  <!----> <span><span class="kong-icon k-alert-icon kong-icon-notificationInbox"><!----></span></span>
+  <div class="k-alert-msg-text"><span class="k-alert-msg k-alert-text"><span>Hello World</span></span> <span class="k-alert-description-text"><span>I am an alert</span></span></div>
+</div>
 `;

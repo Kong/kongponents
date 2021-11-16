@@ -1,7 +1,6 @@
 <template>
   <ul
-    v-bind="$attrs"
-    class="krumbs"
+    class="krumbs style-body-bc"
     v-on="$listeners"
   >
     <li
@@ -20,11 +19,18 @@
         :title="item.title"
         :href="item.to"
         target="_blank">{{ item.text }}</a>
+      <KIcon
+        hide-title
+        icon="chevronRight"
+        size="15"
+        color="var(--grey-500)"/>
     </li>
   </ul>
 </template>
 
 <script>
+import KIcon from '@kongponents/kicon/KIcon.vue'
+
 /**
  * @typedef {Object} Item - breacrumb item holding router-link properties
  * @property {Object|String} to - router-link "to" object or href string
@@ -33,8 +39,9 @@
  * @property {string} [key] - list item key
  * @property {string} [maxWidth] - maxWidth of item, overrides itemMaxWidth
  */
-
 export default {
+  name: 'Krumbs',
+  components: { KIcon },
   props: {
     /**
      * @type {{ new(): Item[]}}
@@ -63,20 +70,21 @@ export default {
   border-radius: 0.25rem;
 }
 
-.krumbs .krumb-item + .krumb-item::before {
-  display: inline-block;
-  padding-right: 0.5rem;
-  padding-left: 0.5rem;
-  color: #636c72;
-  content: "\203A";
+.krumbs .krumb-item .kong-icon {
+  display: inline-flex;
+  padding: 0 var(--spacing-xs);
+  color: var(--grey-500);
+  vertical-align: middle
 }
 
-.krumbs .krumb-item:last-of-type:after,
-.krumbs .krumb span:after {
-  display: inline-block;
-  padding-right: 0.5rem;
-  padding-left: 0.5rem;
-  color: #636c72;
-  content: "\203A";
+.krumbs li a {
+  color: var(--grey-500);
+  letter-spacing: 1px;
+}
+
+.truncate {
+  display: block;
+  align-items: center;
+  justify-content: center;
 }
 </style>

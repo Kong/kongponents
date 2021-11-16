@@ -1,16 +1,67 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`KEmptyState matches snapshot 1`] = `
-<div class="empty-state-wrapper">
+<section class="empty-state-wrapper">
   <div class="empty-state-title">
     <!---->
-    <h5></h5>
+    <div class="k-empty-state-title-header"></div>
   </div>
   <div class="empty-state-content">
-    <p></p>
-    <p><button type="button" class="k-button outline-primary" is-rounded="true">
+    <div class="k-empty-state-message"></div>
+    <div class="k-empty-state-cta"><button type="button" class="k-button small rounded primary">
 
-      </button></p>
+        <!----></button></div>
   </div>
-</div>
+</section>
+`;
+
+exports[`KEmptyState renders custom icon when icon prop passed 1`] = `
+<section class="empty-state-wrapper">
+  <div class="empty-state-title">
+    <div class="k-empty-state-icon card-icon mb-4"><span class="kong-icon kong-icon-support"><!----></span></div>
+    <div class="k-empty-state-title-header"></div>
+  </div>
+  <div class="empty-state-content">
+    <div class="k-empty-state-message">
+      <div>Support me</div>
+    </div>
+    <div class="k-empty-state-cta">
+      <!---->
+    </div>
+  </div>
+</section>
+`;
+
+exports[`KEmptyState renders icon when error flag passed 1`] = `
+<section class="empty-state-wrapper is-error">
+  <div class="empty-state-title">
+    <div class="k-empty-state-icon card-icon mb-4 warning-icon"><span class="kong-icon kong-icon-warning"><!----></span></div>
+    <div class="k-empty-state-title-header"></div>
+  </div>
+  <div class="empty-state-content">
+    <div class="k-empty-state-message">
+      <div>I got a bad feeling about this</div>
+    </div>
+    <div class="k-empty-state-cta">
+      <!---->
+    </div>
+  </div>
+</section>
+`;
+
+exports[`KEmptyState renders slots when passed 1`] = `
+<section class="empty-state-wrapper">
+  <div class="empty-state-title">
+    <!---->
+    <div class="k-empty-state-title-header"><span>No Entities Yet</span></div>
+  </div>
+  <div class="empty-state-content">
+    <div class="k-empty-state-message">
+      <div>To Add an Entity, Press the Button</div>
+    </div>
+    <div class="k-empty-state-cta"><button type="button" class="k-button small rounded primary">
+        Click Me!
+        <!----></button></div>
+  </div>
+</section>
 `;

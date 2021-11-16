@@ -1,49 +1,66 @@
 <template>
-  <div
+  <section
     :class="[borderVariant, {'hover': hasHover, 'kcard-shadow': hasShadow }]"
+    :aria-label="title ? title : null"
+    :aria-labelledby="!title && ($scopedSlots.title || $slots.title) ? titleId : null"
+    :aria-describedby="contentId"
     class="kong-card">
     <div
-      v-if="title || $scopedSlots.title || $scopedSlots.actions || $slots.title"
-      :class="(helpText || $scopedSlots.helpText !== undefined) && 'mb-0' || 'mb-4'"
-      class="k-card-header">
-      <div class="k-card-title">
-        <h4>
-          <!-- @slot Use this slot to pass title content -->
-          <slot name="title">{{ title }}</slot>
-        </h4>
+      v-if="title || $scopedSlots.title || $slots.title || $scopedSlots.actions || status || $scopedSlots.statusHat"
+      :class="{ 'has-status': status || $scopedSlots.statusHat }"
+      class="k-card-header d-flex mb-4">
+      <div>
+        <div
+          v-if="status || $scopedSlots.statusHat"
+          class="k-card-status-hat mb-4">
+          <!-- @slot Use this slot to pass status text above title -->
+          <slot name="statusHat">{{ status }}</slot>
+        </div>
+        <div
+          :id="title ? null : titleId"
+          class="k-card-title">
+          <h4>
+            <!-- @slot Use this slot to pass title content -->
+            <slot name="title">{{ title }}</slot>
+          </h4>
+        </div>
       </div>
       <div class="k-card-actions">
         <!-- @slot Use this slot to pass actions to right side of header -->
         <slot name="actions"/>
       </div>
     </div>
-    <div
-      v-if="helpText || $scopedSlots.helpText"
-      class="k-card-help-text mb-5">
-      <!-- @slot Use this slot to pass help text under the title -->
-      <slot name="helpText">
-        <span>{{ helpText }}</span>
-      </slot>
+    <div class="k-card-content d-flex">
+      <div
+        :id="contentId"
+        class="k-card-body">
+        <!-- @slot Use this slot to pass in body content -->
+        <slot name="body">{{ body }}</slot>
+      </div>
+      <div
+        v-if="$scopedSlots.notifications"
+        class="k-card-notifications ml-3">
+        <slot name="notifications" />
+      </div>
     </div>
-    <div class="k-card-body">
-      <!-- @slot Use this slot to pass in body content -->
-      <slot name="body">{{ body }}</slot>
-    </div>
-  </div>
+  </section>
 </template>
 
 <script>
+import { uuid } from 'vue-uuid'
+
 export default {
   name: 'KCard',
 
   props: {
     /**
-     * Pass title string in if slot not used
+     * Title string if slot not used, also used for aria-label
      */
     title: {
       type: String,
       default: ''
     },
+
     /**
      * Pass body string in if slot not used
      */
@@ -73,11 +90,26 @@ export default {
     },
 
     /**
-      * Adds help text positioned closely under the card title
-      */
-    helpText: {
+     * Add small status text above the card title
+     */
+    status: {
       type: String,
       default: ''
+    },
+
+    /**
+     * Test mode - for testing only, strips out generated ids
+     */
+    testMode: {
+      type: Boolean,
+      default: false
+    }
+  },
+
+  data () {
+    return {
+      titleId: !this.testMode ? uuid.v1() : 'test-title-id-1234',
+      contentId: !this.testMode ? uuid.v1() : 'test-content-id-1234'
     }
   }
 }
@@ -87,7 +119,7 @@ export default {
 @import '~@kongponents/styles/_variables.scss';
 
 .kong-card {
-  padding: var(--KCardPaddingY, 1rem) var(--KCardPaddingX, 1rem);
+  padding: var(--KCardPaddingY, var(--spacing-lg)) var(--KCardPaddingX, var(--spacing-lg));
   border-radius: var(--KCardBorderRadius, 3px);
   background-color: var(--KCardBackground, var(--white, color(white)));
 
@@ -109,29 +141,46 @@ export default {
   }
 
   .k-card-header {
-    display: flex;
     align-items: center;
-    margin-bottom: 1rem;
     min-height: 38px;
+
+    &.has-status {
+      align-items: flex-start;
+    }
 
     .k-button {
       min-height: 38px;
     }
   }
 
+  .k-card-status-hat {
+    font-size: var(--type-xs);
+    color: var(--grey-600);
+    display: flex;
+    align-items: center;
+  }
+
   .k-card-title h4 {
     margin: 0;
-    font-size: var(--KCardTitleFontSize, var(--type-lg, type(lg)));
+    font-size: var(--KCardTitleFontSize, 20px);
     font-weight: 500;
-    color: var(--KCardTitleColor, var(--black-85, color(black-85)));
+    color: var(--KCardTitleColor, var(--black-500));
   }
 
   .k-card-actions  {
     margin-left: auto;
   }
 
-  .k-card-help-text {
-    color: var(--black-45);
+  .k-card-body {
+    font-size: 13px;
+    line-height: 20px;
+    color: var(--grey-600);
+    width: 100%;
+  }
+
+  .k-card-notifications {
+    margin-left: auto;
+    margin-top: auto;
   }
 }
 </style>

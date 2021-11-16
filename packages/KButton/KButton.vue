@@ -3,60 +3,81 @@
     v-if="typeof to === 'string'"
     :type="type"
     :href="to"
-    :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance]"
+    :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance]"
     class="k-button"
     v-on="listeners">
-    <slot name="icon" /><slot/>
+    <slot name="icon" />
+    <slot/>
+    <KIcon
+      v-if="isOpen !== undefined"
+      :class="[caretClasses]"
+      color="white"
+      view-box="2 2 15 15"
+      size="16"
+      icon="chevronDown"/>
   </a>
   <component
     v-else
     :type="type"
     :is="buttonType"
     :to="to"
-    :class="[size === 'default' ? '' : size, {'icon-btn': !hasText && hasIcon}, appearance, caretClasses]"
+    :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance, caretClasses]"
     class="k-button"
     v-on="listeners">
-    <slot name="icon" /><slot/>
+    <slot name="icon" />
+    <slot/>
+    <KIcon
+      v-if="isOpen !== undefined"
+      :class="['caret', caretClasses]"
+      :color="iconColor"
+      view-box="2 2 15 15"
+      size="16"
+      icon="chevronDown"/>
   </component>
 </template>
 
 <script>
+import KIcon from '@kongponents/kicon/KIcon.vue'
+
 export const appearances = {
   primary: 'primary',
-  danger: 'danger',
   secondary: 'secondary',
-  outlinePrimary: 'outline-primary',
-  outlineDanger: 'outline-danger',
-  btnLink: 'btn-link',
-  btnLinkDanger: 'btn-link-danger'
+  danger: 'danger',
+  creation: 'creation',
+  outline: 'outline',
+  btnLink: 'btn-link'
+}
+
+export const sizes = {
+  small: 'small',
+  medium: 'medium',
+  large: 'large'
 }
 
 export default {
   name: 'KButton',
+  components: { KIcon },
   props: {
     /**
       * Base styling of the button
-      * One of ['primary, outline-primary, secondary, danger', 'outline-danger, btn-link', btn-link-danger ]
+      * One of ['primary, secondary, 'danger', 'creation', 'outline, btn-link' ]
       */
     appearance: {
       type: String,
-      default: 'secondary',
+      default: 'outline',
       validator: function (value) {
         return Object.values(appearances).indexOf(value) !== -1
       }
     },
     /**
       * Size variations
-      * One of ['default', 'small' ]
+      * One of ['default', 'small', 'medium', 'large' ]
       */
     size: {
       type: String,
-      default: 'default',
+      default: 'medium',
       validator: function (value) {
-        return [
-          'default',
-          'small'
-        ].indexOf(value) !== -1
+        return Object.values(sizes).indexOf(value) !== -1
       }
     },
     /**
@@ -74,6 +95,10 @@ export default {
     isOpen: {
       type: Boolean,
       default: undefined
+    },
+    isRounded: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -100,6 +125,20 @@ export default {
 
     buttonType () {
       return this.to ? 'router-link' : 'button'
+    },
+
+    iconColor () {
+      if (['primary', 'danger', 'creation'].includes(this.appearance)) {
+        return 'white'
+      } else if (this.appearance === 'secondary') {
+        return 'var(--KButtonSecondaryColor, var(--blue-600, color(blue-600)))'
+      } else if (this.appearance === 'outline') {
+        return 'var(--KButtonOutlineColor, var(--blue-500, color(blue-500)))'
+      } else if (this.appearance === 'btn-link-danger') {
+        return 'var(--KButtonLinkDanger, var(--red-500, color(red-500)))'
+      } else {
+        return null
+      }
     }
   },
 
@@ -120,9 +159,9 @@ export default {
   position: relative;
   display: inline-flex;
   align-items: center;
-  padding: var(--KButtonPaddingY, var(--spacing-xs, spacing(xs))) var(--KButtonPaddingX, var(--spacing-sm, spacing(sm)));
+  padding: var(--KButtonPaddingY, var(--spacing-sm, spacing(sm))) var(--KButtonPaddingX, var(--spacing-lg, spacing(lg)));
   font-family: var(--font-family-sans, font(sans));
-  font-size: 1rem;
+  font-size: var(--KButtonFontSize, var(--type-md, type(md)));
   font-weight: 400;
   line-height: 1.25;
   text-decoration: none;
@@ -151,42 +190,52 @@ export default {
   }
 
   /* Button w/ Icon */
-  > svg {
-    width: 1rem;
-    height: 1rem;
+  > .kong-icon {
     padding-right: var(--spacing-xs, spacing(xs));
     box-sizing: unset;
+  }
+
+  .kong-icon,
+  .kong-icon > svg {
+    width: 1rem !important;
+    height: 1rem !important;
   }
 
   &.icon-btn {
     height: 38px;
     justify-content: center;
-    > svg {
+    > .kong-icon {
       padding-right: 0;
     }
   }
 
   /* Size Variations */
   &.small {
-    padding: var(--spacing-xxs, spacing(xxs)) var(--spacing-xs, spacing(xs));
-    font-size: var(--type-sm, type(sm));
+    padding: var(--spacing-xs, spacing(xs)) var(--spacing-md, spacing(md));
+    font-size: var(--KButtonFontSize, 13px);
+    line-height: 13px;
+  }
+
+  &.medium {
+    padding: var(--spacing-sm, spacing(sm)) var(--spacing-lg, spacing(lg)) ;
+    font-size: var(--KButtonFontSize, var(--type-md, type(md)));
+    line-height: var(--type-md, type(md));
+  }
+
+  &.large {
+    padding: var(--spacing-md, spacing(md)) var(--spacing-xl, spacing(xl)) ;
+    font-size: var(--KButtonFontSize, var(--type-md, type(md)));
+    line-height: var(--type-md, type(md));
   }
 
   /* class to add for dropdown caret */
-  &.has-caret {
-    &:after {
-      display: inline-block;
-      width: 0;
-      height: 0;
-      margin-left: var(--spacing-xs,8px);
-      vertical-align: middle;
-      content: "";
-      border-top: .325em solid;
-      border-right: .325em solid transparent;
-      border-left: .325em solid transparent;
-      transition: 250ms ease;
-    }
-    &.is-active:after {
+  & .caret {
+    margin-left: 15px;
+    padding: 0;
+    display: inline-block;
+    transition: 250ms ease;
+
+    &.is-active {
       transform: rotate(-180deg);
       transition: 250ms ease;
     }
@@ -194,27 +243,23 @@ export default {
 
   /* Apperance Variations */
   &.secondary {
-    border-color: var(--KButtonSecondaryBorder, var(--black-10, color(black-10)));
-    background-color: var(--KButtonSecondaryBase, var(--white, color(white)));
+    color: var(--KButtonSecondaryColor, var(--blue-600, color(blue-600)));
+    background-color: var(--KButtonSecondaryBase, var(--blue-200, color(blue-200)));
     &:hover:not(:disabled) {
-      border-color: var(--KButtonSecondaryHoverBorder, var(--black-45, color(black-45)));
-      background-color: var(--KButtonSecondaryHover);
+      background-color: var(--KButtonSecondaryHover, var(--blue-300));
     }
     &:active {
-      border-color: var(--KButtonSecondaryActiveBorder, var(--black-45, color(black-45)));
-      background-color: var(--KButtonSecondaryActive, rgba(0,0,0,.05));
+      background-color: var(--KButtonSecondaryActive, var(--blue-300, color(blue-300)));
     }
     &:focus {
-      @include boxShadow(var(--KButtonSecondaryFocus, var(--black-70, color(black-70))));
+      @include boxShadow(var(--KButtonSecondaryBase, var(--blue-300, color(blue-300))));
     }
   }
   &.primary {
-    font-weight: 500;
     color: var(--white, #fff);
     background-color: var(--KButtonPrimaryBase, var(--blue-500, color(blue-500)));
     &:hover:not(:disabled) {
-      $hover: rgba(color(blue-500), .85);
-      background-color: var(--KButtonPrimaryHover, $hover);
+      background-color: var(--KButtonPrimaryHover, var(--blue-600));
     }
     &:active {
       background-color: var(--KButtonPrimaryActive, var(--blue-600, color(blue-600)));
@@ -224,7 +269,6 @@ export default {
     }
   }
   &.danger {
-    font-weight: 500;
     color: var(--white, #fff);
     background-color: var(--KButtonDangerBase, var(--red-500, color(red-500)));
     &:hover:not(:disabled) {
@@ -238,34 +282,33 @@ export default {
       @include boxShadow(var(--KButtonDangerBase, var(--red-500, color(red-500))));
     }
   }
-  &.outline-primary {
-    color: var(--KButtonOutlinePrimaryColor, var(--blue-500, color(blue-500)));
-    border-color: var(--KButtonOutlinePrimaryBorder, rgba(color(blue-500), .4));
-    background-color: var(--white, color(white));
+  &.creation {
+    color: var(--white, #fff);
+    background-color: var(--KButtonCreationBase, var(--green-400, color(green-400)));
     &:hover:not(:disabled) {
-      border-color: var(--KButtonOutlinePrimaryHoverBorder, rgba(color(blue-500), 1));
+      $hover: rgba(color(green-500), .85);
+      background-color: var(--KButtonCreationHover, $hover);
     }
     &:active {
-      border-color: var(--KButtonOutlinePrimaryActiveBorder, rgba(color(blue-500), 1));
-      background-color: var(--KButtonOutlinePrimaryActive, var(--blue-100, color(blue-100)));
+      background-color: var(--KButtonCreationActive, var(--green-400, color(green-400)));
     }
     &:focus {
-      @include boxShadow(var(--KButtonOutlinePrimaryBorder, var(--blue-500, color(blue-500))));
+      @include boxShadow(var(--KButtonCreationBase, var(--green-500, color(green-500))));
     }
   }
-  &.outline-danger {
-    color: var(--KButtonOutlineDangerColor, var(--red-600, color(red-600)));
-    border-color: var(--KButtonOutlineDangerBorder, rgba(color(red-500), .4));
+  &.outline {
+    color: var(--KButtonOutlineColor, var(--blue-500, color(blue-500)));
+    border-color: var(--KButtonOutlineBorder, rgba(color(blue-500), .4));
     background-color: var(--white, color(white));
     &:hover:not(:disabled) {
-      border-color: var(--KButtonOutlineDangerHoverBorder, rgba(color(red-500), 1));
+      border-color: var(--KButtonOutlineHoverBorder, rgba(color(blue-500), 1));
     }
     &:active {
-      border-color: var(--KButtonOutlineDangerActiveBorder, rgba(color(red-500), 1));
-      background-color: var(--KbuttonOtlineDangerActive, var(--red-100, color(red-100)));
+      border-color: var(--KButtonOutlineActiveBorder, rgba(color(blue-500), 1));
+      background-color: var(--KButtonOutlineActive, var(--blue-100, color(blue-100)));
     }
     &:focus {
-      @include boxShadow(var(--KButtonOutlineDangerBorder, var(--red-500, color(red-500))));
+      @include boxShadow(var(--KButtonOutlineBorder, var(--blue-500, color(blue-500))));
     }
   }
   &.btn-link {
@@ -288,6 +331,14 @@ export default {
       @include boxShadow(var(--red-500, color(red-500)), 0, 2px);
     }
   }
+  &.rounded {
+    border-radius: 100px;
+  }
 }
+</style>
 
+<style lang="scss">
+.k-button.btn-link.has-caret .caret.has-caret path {
+  stroke: var(--KButtonBtnLink, var(--blue-500, color(blue-500)));
+}
 </style>

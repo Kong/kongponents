@@ -69,4 +69,39 @@ describe('KAlert', () => {
     expect(wrapperBorderBottom.attributes('class')).toContain('hasBottomBorder')
     expect(wrapperBorderTop.attributes('class')).toContain('hasTopBorder')
   })
+
+  it('renders large alert box', () => {
+    const wrapperLargeAlert = mount(KAlert, {
+      propsData: {
+        message: 'Hello world',
+        size: 'large'
+      }
+    })
+
+    expect(wrapperLargeAlert.attributes('class')).toContain('large')
+  })
+
+  it('renders slots when passed', () => {
+    const actionButtons = 'Action button'
+    const alertMessage = 'Hello World'
+    const description = 'I am an alert'
+    const wrapper = mount(KAlert, {
+      propsData: {
+        dismissType: 'button',
+        size: 'large',
+        hasActionButtons: true,
+        type: 'banner'
+      },
+      slots: {
+        'actionButtons': `<span>${actionButtons}</span>`,
+        'alertMessage': `<span>${alertMessage}</span>`,
+        'description': `<span>${description}</span>`
+      }
+    })
+
+    expect(wrapper.find('.k-alert-action').html()).toEqual(expect.stringContaining(actionButtons))
+    expect(wrapper.find('.k-alert-msg').html()).toEqual(expect.stringContaining(alertMessage))
+    expect(wrapper.find('.k-alert-description-text').html()).toEqual(expect.stringContaining(description))
+    expect(wrapper.html()).toMatchSnapshot()
+  })
 })

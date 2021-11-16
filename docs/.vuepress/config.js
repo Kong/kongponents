@@ -44,22 +44,27 @@ module.exports = {
               '/components/breadcrumbs',
               '/components/button',
               '/components/card',
+              '/components/card-catalog',
               '/components/input-checkbox',
               '/components/empty-state',
               '/components/icon',
               '/components/inline-edit',
               '/components/input',
               '/components/label',
+              '/components/menu',
               '/components/modal',
               '/components/multiselect',
+              '/components/pagination',
               '/components/popover',
               '/components/input-radio',
               '/components/segmented-control',
+              '/components/select',
               '/components/skeleton',
               '/components/slideout',
               '/components/switch',
               '/components/table',
               '/components/tabs',
+              '/components/textarea',
               '/components/toaster',
               '/components/tooltip',
               '/components/view-switcher'
@@ -94,6 +99,7 @@ module.exports = {
     ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:400,500,700' }]
   ],
   plugins: [
+    "@kawarimidoll/tailwind",
     ['@vuepress/search', {
       searchHotkeys: ['/']
     }],

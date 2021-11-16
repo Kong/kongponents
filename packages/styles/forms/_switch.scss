@@ -1,12 +1,23 @@
 $width: 44px;
 $height: 24px;
-$color_checkbox_success: var(--KInputSwitchOn, var(--blue-500, color(blue-500)));
-$transition: .2s linear;
+$color_checkbox_success: var(--KInputSwitchOn, var(--green-500, color(green-500)));
+$transition: 0.2s linear;
 
 .k-switch {
   display: inline-flex;
   align-items: center;
   cursor: pointer;
+  &.switch-with-icon .switch-control {
+    width: 48px;
+  }
+  &.switch-with-icon .kong-icon {
+    height: 20px;
+    width: 22px;
+    left: 57px;
+  }
+  &.switch-with-icon input:checked + .switch-control:after {
+    left: 26px;
+  }
   .switch-control {
     position: relative;
     display: block;
@@ -14,7 +25,7 @@ $transition: .2s linear;
     height: $height;
     margin-right: 1rem;
     border-radius: 12px;
-    background-color: var(--KInputSwitchBackground, var(--grey-200, color(grey-200)));
+    background-color: var(--KInputSwitchBackground, var(--grey-400, color(grey-400)));
     transition: $transition;
     // Toggle
     &:after {
@@ -26,7 +37,7 @@ $transition: .2s linear;
       height: 20px;
       border-radius: 50%;
       background-color: var(--white, color(white));
-      content: '';
+      content: "";
       transition: $transition;
     }
   }
@@ -34,7 +45,7 @@ $transition: .2s linear;
   &[disabled] {
     cursor: not-allowed;
     .switch-control {
-      opacity: .3;
+      opacity: 0.3;
       pointer-events: none;
     }
   }

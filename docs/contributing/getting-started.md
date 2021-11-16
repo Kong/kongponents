@@ -47,7 +47,8 @@ Once ran, a new directory will be created in `/packages/{%kongponent_name%}` and
 Each component has an associated file in the `/docs/components` directory. After scaffolding the new component file a doc file named the same as your component. Below are the steps to add the file to the docs site and how to get started editing.
 
 1) **Renaming the file**  
-First we rename the file to what type of component it is. `kbutton.md` &rarr; `button.md`, `kcard.md` &rarr; `card.md`
+First we rename the file to what type of component it is. For documentation purposes page names should be based on what the component is vs its Kongponent `K` name.
+    - ex. `kbutton.md` &rarr; `button.md` ; `kcard.md` &rarr; `card.md`
 
 1) **Update the page title**  
 Update the first line of the doc to match the file name. This is what is displayed as the page title & in the sidebar.  
@@ -98,7 +99,3 @@ Although the `kpm create` command will create a file in the docs directory it do
       ]
     }
     ```
-
-    - Rename the markdown file
-    Last step is to rename the markdown file to the canonical name of the component (i.e. `kalert.md` -> `alert.md`, `kbutton.md` -> `button.md`, etc). For documentation purposes page names should be based on what the component is vs its Kongponent `K` name.
-

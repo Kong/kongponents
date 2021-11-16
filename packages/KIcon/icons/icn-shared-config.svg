@@ -1,1 +1,4 @@
-<svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.268 2 4.804 8h10.393L10 17 4.804 8l-3.546 6.142L3.055 17H17.69l1.352-2.34L11.732 2H8.269Z" fill="#A3BBCC"/></svg>
+<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>Shared Config</title>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M8.27 2 4.8 8h10.4L10 17 4.8 8l-3.54 6.14L3.06 17H17.7l1.34-2.34L11.74 2H8.26Z" fill="#A3BBCC"/>
+</svg>
