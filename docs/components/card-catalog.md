@@ -149,6 +149,26 @@ Pass in an array of page sizes for the page size dropdown. If not provided will 
 [15, 25, 50, 75, 100]
 ```
 
+### disablePaginationPageJump
+
+Set this to `true` to limit pagination navigation to `previous` / `next` page only.
+
+<KCardCatalog
+  :fetcher="fetcher" 
+  :disablePaginationPageJump="true" />
+
+```vue
+<template>
+  <KCardCatalog
+    :fetcher="fetcher" 
+    :disablePaginationPageJump="true" />
+</template>
+```
+
+### disablePagination
+
+Set this to `true` to remove the pagination bar when using a fetcher.
+
 ## KCatalogItem
 **KCardCatalog** generates a **KCatalogItem** for each item in the `items` property. At the most basic level, **KCatalogItem** is 
 a wrapper around `KCard` to display correctly inside `KCardCatalog`. You can use the `body` slot of the `KCardCatalog` to manually create your own catalog items.

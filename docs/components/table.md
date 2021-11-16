@@ -58,9 +58,27 @@ See [the State section](#error) about `hasError`
 
 See [the State section](#loading) about `isLoading`
 
+### disablePaginationPageJump
+
+Set this to `true` to limit pagination navigation to `previous` / `next` page only.
+
+<KTable
+  :fetcher="tableOptionsFetcher"
+  :headers="tableOptionsHeaders"
+  :disablePaginationPageJump="true" />
+
+```vue
+<template>
+  <KTable
+    :fetcher="fetcher"
+    :headers="headers"
+    :disablePaginationPageJump="true" />
+</template>
+```
+
 ### disablePagination
 
-Set this as `true` to remove the pagination bar when using a fetcher.
+Set this to `true` to remove the pagination bar when using a fetcher.
 
 ### disableSorting
 
