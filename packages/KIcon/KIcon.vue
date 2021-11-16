@@ -1,32 +1,35 @@
 <template>
-  <svg
-    v-if="isSSR"
-    :height="setSize || height"
-    :width="setSize || width"
-    :viewBox="setViewbox"
+  <span
     :class="`kong-icon-${icon}`"
-    class="kong-icon"
-    role="img"
-  >
-    <title v-if="!hideTitle">{{ titleText }}</title>
-    <slot name="svgElements"/>
-    <g>
-      <template v-for="(elem, idx) in fills">
-        <circle
-          v-if="elem.nodeName === 'circle'"
-          :key="`${elem.cx}-${elem.cy}-${elem.r}-${idx}`"
-          v-bind="fillAttributes[idx]"/>
-        <rect
-          v-if="elem.nodeName === 'rect'"
-          :key="`${elem.x}-${elem.y}-${idx}`"
-          v-bind="fillAttributes[idx]"/>
-        <path
-          v-if="elem.nodeName === 'path'"
-          :key="elem.d"
-          v-bind="fillAttributes[idx]"/>
-      </template>
-    </g>
-  </svg>
+    class="kong-icon">
+    <svg
+      v-if="isSSR"
+      v-bind="$attrs"
+      :height="setSize || height"
+      :width="setSize || width"
+      :viewBox="setViewbox"
+      role="img"
+    >
+      <title v-if="!hideTitle">{{ titleText }}</title>
+      <slot name="svgElements"/>
+      <g>
+        <template v-for="(elem, idx) in fills">
+          <circle
+            v-if="elem.nodeName === 'circle'"
+            :key="`${elem.cx}-${elem.cy}-${elem.r}-${idx}`"
+            v-bind="fillAttributes[idx]"/>
+          <rect
+            v-if="elem.nodeName === 'rect'"
+            :key="`${elem.x}-${elem.y}-${idx}`"
+            v-bind="fillAttributes[idx]"/>
+          <path
+            v-if="elem.nodeName === 'path'"
+            :key="elem.d"
+            v-bind="fillAttributes[idx]"/>
+        </template>
+      </g>
+    </svg>
+  </span>
 </template>
 
 <script>
@@ -39,6 +42,7 @@ const DEFAULTS = {
 
 export default {
   name: 'KIcon',
+  inheritAttrs: false,
   props: {
     /**
      * Checks for valid icon name<br>
@@ -172,9 +176,11 @@ export default {
     }
   },
 
-  beforeMount () {
-    // Do not render KIcon until client is available
-    this.isSSR = true
+  mounted () {
+    this.$nextTick(function () {
+      // Do not render KIcon until client is available
+      this.isSSR = true
+    })
   },
 
   methods: {

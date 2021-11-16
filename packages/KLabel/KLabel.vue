@@ -12,6 +12,7 @@
         icon="help"
         height="16"
         width="16"
+        size="16"
         hide-title />
     </Kooltip>
     <KoolTip

@@ -73,17 +73,7 @@ exports[`KSelect renders with selected item 1`] = `
   <!---->
   <div id="test-select-id-1234" data-testid="k-select-selected-item">
     <div class="k-select-item-selection px-3 py-1">
-      <div value="label1" class="selected-item-label">Label 1</div> <button class="clear-selection-icon cursor-pointer non-visual-button"><svg height="24" width="24" viewBox="0 0 20 20" role="img" class="kong-icon kong-icon-clear">
-          <title>Clear</title>
-          <g>
-            <circle cx="10" cy="10" r="6.25" fill="none" stroke="var(--blue-200)" stroke-width="2" stroke-linecap="round"></circle>
-            <!---->
-            <!---->
-            <!---->
-            <!---->
-            <path d="M12 12 8 8M12 8l-4 4" stroke="var(--blue-200)" stroke-width="2" stroke-linecap="round"></path>
-          </g>
-        </svg></button>
+      <div value="label1" class="selected-item-label">Label 1</div> <button class="clear-selection-icon cursor-pointer non-visual-button"><span class="kong-icon kong-icon-clear"><!----></span></button>
     </div>
     <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button">
       <div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="" style="position: relative;">
@@ -99,7 +89,7 @@ exports[`KSelect renders with selected item 1`] = `
           <ul class="k-select-list ma-0 pa-0">
             <div>
               <div data-testid="k-select-item-label1" class="k-select-item">
-                <li role="option" class="d-block"><button value="label1" class="selected"><span class="k-select-item-label mr-2">Label 1</span> <span class="k-select-selected-icon-container"><svg height="24" width="24" viewBox="0 0 20 20" role="img" class="kong-icon selected-item-icon kong-icon-check"><title>Check</title>  <g><!----> <!----> <path d="m14 7-6 6-3-3" fill="none" stroke="var(--blue-200)" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"></path></g></svg></span></button></li>
+                <li role="option" class="d-block"><button value="label1" class="selected"><span class="k-select-item-label mr-2">Label 1</span> <span class="k-select-selected-icon-container"><span class="kong-icon selected-item-icon kong-icon-check"><!----></span></span></button></li>
               </div>
             </div>
           </ul>

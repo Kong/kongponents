@@ -6,14 +6,7 @@ exports[`KPagination correctly renders props 1`] = `
     of 9
     </span>
     <ul class="pagination-button-container">
-      <li data-testid="prev-btn" class="pagination-button square"><a href="#" aria-label="Go to the previous page"><svg height="16px" width="16px" viewBox="0 0 16 14" role="img" class="kong-icon kong-icon-arrowLeft">
-            <title>Back</title>
-            <g>
-              <!---->
-              <!---->
-              <path d="M12.17 8.75H3M6.75 5 3 8.75l3.75 3.75" fill="none" stroke="var(--blue-400)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-            </g>
-          </svg></a></li>
+      <li data-testid="prev-btn" class="pagination-button square"><a href="#" aria-label="Go to the previous page"><span class="kong-icon kong-icon-arrowLeft"><!----></span></a></li>
       <!---->
       <!---->
       <li data-testid="page-1-btn" class="pagination-button"><a aria-label="Go to page 1" href="#">
@@ -33,26 +26,27 @@ exports[`KPagination correctly renders props 1`] = `
         </a></li>
       <!---->
       <!---->
-      <li data-testid="next-btn" class="pagination-button square"><a href="#" aria-label="Go to the next page"><svg height="16px" width="16px" viewBox="0 0 16 14" role="img" class="kong-icon kong-icon-arrowRight">
-            <title>Forward</title>
-            <g>
-              <!---->
-              <!---->
-              <path d="M3 8.75h9.17M8.42 5l3.75 3.75-3.75 3.75" fill="none" stroke="var(--blue-400)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-            </g>
-          </svg></a></li>
-    </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;">2 items per page <svg height="24" width="24" viewBox="2 2 15 15" role="img" class="kong-icon kong-icon-chevronDown caret has-caret"><title>Expand</title>  <g><!----> <!----> <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="#A3BBCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></g></svg></button></div> <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="display: none;" name="fade"><!----> <div class="k-popover-content"><ul class="k-select-list ma-0 pa-0"><div><div data-testid="k-select-item-2" class="k-select-item"><li role="option" class="d-block"><button value="2" class=""><span class="k-select-item-label mr-2">2</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
+      <li data-testid="next-btn" class="pagination-button square"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><!----></span></a></li>
+    </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;">2 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><!----></span></button>
   </div>
-  <div data-testid="k-select-item-4" class="k-select-item">
-    <li role="option" class="d-block"><button value="4" class=""><span class="k-select-item-label mr-2">4</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-  </div>
-  <div data-testid="k-select-item-6" class="k-select-item">
-    <li role="option" class="d-block"><button value="6" class=""><span class="k-select-item-label mr-2">6</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-  </div>
-  </div>
-  </ul>
-  </div>
-  <!---->
+  <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="display: none;" name="fade">
+    <!---->
+    <div class="k-popover-content">
+      <ul class="k-select-list ma-0 pa-0">
+        <div>
+          <div data-testid="k-select-item-2" class="k-select-item">
+            <li role="option" class="d-block"><button value="2" class=""><span class="k-select-item-label mr-2">2</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
+          </div>
+          <div data-testid="k-select-item-4" class="k-select-item">
+            <li role="option" class="d-block"><button value="4" class=""><span class="k-select-item-label mr-2">4</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
+          </div>
+          <div data-testid="k-select-item-6" class="k-select-item">
+            <li role="option" class="d-block"><button value="6" class=""><span class="k-select-item-label mr-2">6</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
+          </div>
+        </div>
+      </ul>
+    </div>
+    <!---->
   </div>
   </div>
   </div>
@@ -66,14 +60,7 @@ exports[`KPagination matches snapshot 1`] = `
     of 100
     </span>
     <ul class="pagination-button-container">
-      <li data-testid="prev-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><svg height="16px" width="16px" viewBox="0 0 16 14" role="img" class="kong-icon kong-icon-arrowLeft">
-            <title>Back</title>
-            <g>
-              <!---->
-              <!---->
-              <path d="M12.17 8.75H3M6.75 5 3 8.75l3.75 3.75" fill="none" stroke="var(--grey-500)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-            </g>
-          </svg></a></li>
+      <li data-testid="prev-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><span class="kong-icon kong-icon-arrowLeft"><!----></span></a></li>
       <!---->
       <!---->
       <li data-testid="page-1-btn" class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
@@ -103,26 +90,27 @@ exports[`KPagination matches snapshot 1`] = `
       <li class="pagination-button"><a href="#" aria-label="Go to the last page" data-testid="last-btn">
           10
         </a></li>
-      <li data-testid="next-btn" class="pagination-button square"><a href="#" aria-label="Go to the next page"><svg height="16px" width="16px" viewBox="0 0 16 14" role="img" class="kong-icon kong-icon-arrowRight">
-            <title>Forward</title>
-            <g>
-              <!---->
-              <!---->
-              <path d="M3 8.75h9.17M8.42 5l3.75 3.75-3.75 3.75" fill="none" stroke="var(--blue-400)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-            </g>
-          </svg></a></li>
-    </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;">10 items per page <svg height="24" width="24" viewBox="2 2 15 15" role="img" class="kong-icon kong-icon-chevronDown caret has-caret"><title>Expand</title>  <g><!----> <!----> <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="#A3BBCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></g></svg></button></div> <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="display: none;" name="fade"><!----> <div class="k-popover-content"><ul class="k-select-list ma-0 pa-0"><div><div data-testid="k-select-item-10" class="k-select-item"><li role="option" class="d-block"><button value="10" class=""><span class="k-select-item-label mr-2">10</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
+      <li data-testid="next-btn" class="pagination-button square"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><!----></span></a></li>
+    </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;">10 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><!----></span></button>
   </div>
-  <div data-testid="k-select-item-20" class="k-select-item">
-    <li role="option" class="d-block"><button value="20" class=""><span class="k-select-item-label mr-2">20</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-  </div>
-  <div data-testid="k-select-item-30" class="k-select-item">
-    <li role="option" class="d-block"><button value="30" class=""><span class="k-select-item-label mr-2">30</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-  </div>
-  </div>
-  </ul>
-  </div>
-  <!---->
+  <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="display: none;" name="fade">
+    <!---->
+    <div class="k-popover-content">
+      <ul class="k-select-list ma-0 pa-0">
+        <div>
+          <div data-testid="k-select-item-10" class="k-select-item">
+            <li role="option" class="d-block"><button value="10" class=""><span class="k-select-item-label mr-2">10</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
+          </div>
+          <div data-testid="k-select-item-20" class="k-select-item">
+            <li role="option" class="d-block"><button value="20" class=""><span class="k-select-item-label mr-2">20</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
+          </div>
+          <div data-testid="k-select-item-30" class="k-select-item">
+            <li role="option" class="d-block"><button value="30" class=""><span class="k-select-item-label mr-2">30</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
+          </div>
+        </div>
+      </ul>
+    </div>
+    <!---->
   </div>
   </div>
   </div>
