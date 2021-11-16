@@ -1,12 +1,81 @@
 import { mount } from '@vue/test-utils'
-import KTable, { defaultSorter } from '@/KTable/KTable'
+import KTable from '@/KTable/KTable'
+
+const tick = async (vm, times) => {
+  for (let i = 0; i < times; ++i) {
+    await vm.$nextTick()
+  }
+}
+
+const largeDataSet = [
+  {
+    name: 'Basic Auth',
+    id: '517526354743085',
+    enabled: 'true'
+  },
+  {
+    name: 'Website Desktop',
+    id: '328027447731198',
+    enabled: 'false'
+  },
+  {
+    name: 'Android App',
+    id: '405383051040955',
+    enabled: 'true'
+  },
+  {
+    name: 'Basic Auth',
+    id: '517526354743085',
+    enabled: 'true'
+  },
+  {
+    name: 'Website Desktop',
+    id: '328027447731198',
+    enabled: 'false'
+  },
+  {
+    name: 'Android App',
+    id: '405383051040955',
+    enabled: 'true'
+  },
+  {
+    name: 'Basic Auth',
+    id: '517526354743085',
+    enabled: 'true'
+  },
+  {
+    name: 'Website Desktop',
+    id: '328027447731198',
+    enabled: 'false'
+  },
+  {
+    name: 'Android App',
+    id: '405383051040955',
+    enabled: 'true'
+  },
+  {
+    name: 'Basic Auth',
+    id: '517526354743085',
+    enabled: 'true'
+  },
+  {
+    name: 'Website Desktop',
+    id: '328027447731198',
+    enabled: 'false'
+  },
+  {
+    name: 'Android App',
+    id: '405383051040955',
+    enabled: 'true'
+  }
+]
 
 const options = {
   headers: [
-    { label: 'Name', key: 'name', sortable: true },
-    { label: 'ID', key: 'id' },
-    { label: 'Enabled', key: 'enabled' },
-    { key: 'actions', hideLabel: true }
+    { label: 'Name', key: 'name', sortable: true, hideLabel: false },
+    { label: 'ID', key: 'id', sortable: false, hideLabel: false },
+    { label: 'Enabled', key: 'enabled', sortable: false, hideLabel: false },
+    { label: '', key: 'actions', sortable: false, hideLabel: true }
   ],
   data: [
     {
@@ -27,17 +96,30 @@ const options = {
   ]
 }
 
+/**
+ * ALL TESTS MUST USE testMode
+ * We generate unique IDs for reference by aria properties. Test mode strips these out
+ * allowing for successful snapshot verification.
+ * propsData: {
+ *   testMode: 'true' || 'loading'
+ * }
+ */
 describe('KTable', () => {
   describe('default', () => {
-    it('renders link in action slot', () => {
-      const wrapper = mount(KTable, {
+    it('renders link in action slot', async () => {
+      const wrapper = await mount(KTable, {
         propsData: {
-          options
+          testMode: 'true',
+          headers: options.headers,
+          fetcher: () => { return { data: options.data } },
+          disablePagination: true
         },
         scopedSlots: {
           actions: '<a href="#" slot-scope="actions">Link</a>'
         }
       })
+
+      await tick(wrapper.vm, 1)
 
       const actions = wrapper.findAll('.k-table td:last-of-type > *')
 
@@ -46,232 +128,76 @@ describe('KTable', () => {
       expect(wrapper.html()).toMatchSnapshot()
     })
 
-    it('has hover class when passed', () => {
-      const wrapper = mount(KTable, {
+    it('has hover class when passed', async () => {
+      const wrapper = await mount(KTable, {
         propsData: {
-          options,
+          testMode: 'true',
+          headers: options.headers,
+          fetcher: () => { return { data: options.data } },
           hasHover: true
         }
       })
 
-      expect(wrapper.classes()).toContain('has-hover')
-      expect(wrapper.html()).toMatchSnapshot()
-    })
+      await tick(wrapper.vm, 1)
 
-    it('has small class when passed', () => {
-      const wrapper = mount(KTable, {
-        propsData: {
-          options,
-          isSmall: true
-        }
-      })
-
-      expect(wrapper.classes()).toContain('is-small')
+      expect(wrapper.find('.k-table').classes()).toContain('has-hover')
       expect(wrapper.html()).toMatchSnapshot()
     })
   })
 
   describe('sorting', () => {
-    it('should have sortable class when passed', () => {
-      const wrapper = mount(KTable, {
+    it('should have sortable class when passed', async () => {
+      const wrapper = await mount(KTable, {
         propsData: {
-          options
+          testMode: 'true',
+          headers: options.headers,
+          fetcher: () => { return { data: options.data } }
         }
       })
 
-      const actions = wrapper.findAll('.k-table th')
+      await tick(wrapper.vm, 1)
+
+      const actions = wrapper.findAll('th')
 
       expect(actions.at(0).classes()).toContain('sortable')
       expect(wrapper.html()).toMatchSnapshot()
     })
 
-    it('defaultSorter(): sorts the items by string', () => {
-      const items = [
-        {
-          custom_id: '1234',
-          id: '410ecd35-696e-4e7a-ad35-c69bd4e14cbb',
-          username: 'henry'
-        }, {
-          custom_id: '1345',
-          id: '410ecd35-696e-4e7a-ad35-c69bd4e14cb3',
-          username: 'bobby'
-        }, {
-          custom_id: '13445',
-          id: '410ecd35-696e-4e7a-ad35-c69bd4e14cb4',
-          username: 'zach'
+    it('should allow disabling sorting', async () => {
+      const wrapper = await mount(KTable, {
+        propsData: {
+          testMode: 'true',
+          headers: options.headers,
+          fetcher: () => { return { data: options.data } },
+          disableSorting: true
         }
-      ]
+      })
 
-      expect(items[0].username).toEqual('henry')
+      await tick(wrapper.vm, 1)
 
-      let { previousKey: sortKey1, sortOrder: sortOrder1 } = defaultSorter('username', '', 'ascending', items)
+      const actions = wrapper.findAll('th')
 
-      expect(items[0].username).toEqual('bobby')
-      expect(sortKey1).toEqual('username')
-      expect(sortOrder1).toEqual('ascending')
-
-      let { previousKey: sortKey2, sortOrder: sortOrder2 } = defaultSorter('username', 'username', sortOrder1, items)
-
-      expect(items[0].username).toEqual('zach')
-      expect(sortKey2).toEqual('username')
-      expect(sortOrder2).toEqual('descending')
-    })
-
-    it('defaultSorter(): sorts the items by number', () => {
-      const items = [
-        {
-          custom_id: 1234,
-          id: '410ecd35-696e-4e7a-ad35-c69bd4e14cbb',
-          username: 'henry'
-        }, {
-          custom_id: 145,
-          id: '410ecd35-696e-4e7a-ad35-c69bd4e14cb3',
-          username: 'bobby'
-        }, {
-          custom_id: 13445,
-          id: '410ecd35-696e-4e7a-ad35-c69bd4e14cb4',
-          username: 'zach'
-        }
-      ]
-
-      let { previousKey: sortKey1, sortOrder: sortOrder1 } = defaultSorter('custom_id', '', 'ascending', items)
-
-      expect(items[0].username).toEqual('bobby')
-      expect(items[0].custom_id).toEqual(145)
-      expect(sortKey1).toEqual('custom_id')
-      expect(sortOrder1).toEqual('ascending')
-
-      let { previousKey: sortKey2, sortOrder: sortOrder2 } = defaultSorter('custom_id', 'custom_id', sortOrder1, items)
-
-      expect(items[0].username).toEqual('zach')
-      expect(items[0].custom_id).toEqual(13445)
-      expect(sortKey2).toEqual('custom_id')
-      expect(sortOrder2).toEqual('descending')
-    })
-
-    it('defaultSorter(): sorts undefined and null values', () => {
-      const items = [
-        {
-          custom_id: 2145,
-          id: '410ecd35-696e-4e7a-ad35-c69bd4e14cb3',
-          username: 'bobby'
-        }, {
-          custom_id: 13445,
-          id: '410ecd35-696e-4e7a-ad35-c69bd4e14cb4',
-          username: 'zach'
-        },
-        {
-          custom_id: 3145,
-          id: '410ecd35-696e-4e7a-ad35-c69bd4e14cb5',
-          username: undefined
-        },
-        {
-          custom_id: 1234,
-          id: '410ecd35-696e-4e7a-ad35-c69bd4e14cbb',
-          username: null
-        }
-      ]
-
-      expect(items[0].username).toEqual('bobby')
-      expect(items[0].custom_id).toEqual(2145)
-
-      let { previousKey: sortKey1, sortOrder: sortOrder1 } = defaultSorter('username', '', 'ascending', items)
-
-      expect(items[0].username).toBeUndefined()
-      expect(items[0].custom_id).toEqual(3145)
-      expect(sortKey1).toEqual('username')
-      expect(sortOrder1).toEqual('ascending')
-
-      let { previousKey: sortKey2, sortOrder: sortOrder2 } = defaultSorter('username', 'username', sortOrder1, items)
-
-      expect(items[0].username).toEqual('zach')
-      expect(items[0].custom_id).toEqual(13445)
-      expect(sortKey2).toEqual('username')
-      expect(sortOrder2).toEqual('descending')
-    })
-
-    it('defaultSorter(): sorts the items by first item in the array', () => {
-      const items = [
-        {
-          custom_id: 1234,
-          id: '410ecd35-696e-4e7a-ad35-c69bd4e14cbb',
-          usernames: ['henry', 'jacob']
-        }, {
-          custom_id: 145,
-          id: '410ecd35-696e-4e7a-ad35-c69bd4e14cb3',
-          usernames: ['bobby', 'jones']
-        }, {
-          custom_id: 13445,
-          id: '410ecd35-696e-4e7a-ad35-c69bd4e14cb4',
-          usernames: ['zach', 'hondo']
-        }
-      ]
-
-      let { previousKey: sortKey1, sortOrder: sortOrder1 } = defaultSorter('usernames', '', 'ascending', items)
-
-      expect(items[0].usernames[0]).toEqual('bobby')
-      expect(items[0].custom_id).toEqual(145)
-      expect(sortKey1).toEqual('usernames')
-      expect(sortOrder1).toEqual('ascending')
-
-      let { previousKey: sortKey2, sortOrder: sortOrder2 } = defaultSorter('usernames', 'usernames', sortOrder1, items)
-
-      expect(items[0].usernames[0]).toEqual('zach')
-      expect(items[0].custom_id).toEqual(13445)
-      expect(sortKey2).toEqual('usernames')
-      expect(sortOrder2).toEqual('descending')
-    })
-
-    it('defaultSorter(): sorts the items by first item in the array - number', () => {
-      const items = [
-        {
-          id: '410ecd35-696e-4e7a-ad35-c69bd4e14cbb',
-          favoriteNumbers: [1234, 2]
-        }, {
-          id: '410ecd35-696e-4e7a-ad35-c69bd4e14cb3',
-          favoriteNumbers: [145]
-        }, {
-          id: '410ecd35-696e-4e7a-ad35-c69bd4e14cb4',
-          favoriteNumbers: [-1]
-        }
-      ]
-
-      let { previousKey: sortKey1, sortOrder: sortOrder1 } =
-        defaultSorter('favoriteNumbers', '', 'ascending', items)
-
-      expect(items.map(i => ({favoriteNumbers: i.favoriteNumbers}))).toEqual([
-        { favoriteNumbers: [-1] },
-        { favoriteNumbers: [145] },
-        { favoriteNumbers: [1234, 2] }
-      ])
-      expect(sortKey1).toEqual('favoriteNumbers')
-      expect(sortOrder1).toEqual('ascending')
-
-      let { previousKey: sortKey2, sortOrder: sortOrder2 } =
-        defaultSorter('favoriteNumbers', 'favoriteNumbers', sortOrder1, items)
-
-      expect(items.map(i => ({favoriteNumbers: i.favoriteNumbers}))).toEqual([
-        { favoriteNumbers: [1234, 2] },
-        { favoriteNumbers: [145] },
-        { favoriteNumbers: [-1] }
-      ])
-      expect(sortKey2).toEqual('favoriteNumbers')
-      expect(sortOrder2).toEqual('descending')
+      expect(actions.at(0).classes()).not.toContain('sortable')
+      expect(wrapper.html()).toMatchSnapshot()
     })
   })
 
   describe('events', () => {
-    it('@row:event', () => {
+    it('@row:event', async () => {
       const evtTrigger = jest.fn()
-      const wrapper = mount(KTable, {
+      const wrapper = await mount(KTable, {
         attachToDocument: true,
         propsData: {
-          options
+          testMode: 'true',
+          headers: options.headers,
+          fetcher: () => { return { data: options.data } }
         },
         listeners: {
           [`row:mouseover`]: evtTrigger
         }
       })
+
+      await tick(wrapper.vm, 1)
 
       const bodyRow = wrapper.find('.k-table tbody tr')
 
@@ -279,17 +205,23 @@ describe('KTable', () => {
       expect(evtTrigger).toHaveBeenNthCalledWith(1, expect.objectContaining({ type: 'mouseover' }), options.data[0], 'row')
     })
 
-    it('@cell:event', () => {
+    it('@cell:event', async () => {
       const evtTrigger = jest.fn()
-      const wrapper = mount(KTable, {
+      const wrapper = await mount(KTable, {
         attachToDocument: true,
-        propsData: { options },
+        propsData: {
+          testMode: 'true',
+          headers: options.headers,
+          fetcher: () => { return { data: options.data } }
+        },
         listeners: {
           [`cell:click`]: evtTrigger,
           [`cell:mouseover`]: evtTrigger,
           [`cell:mouseout`]: evtTrigger
         }
       })
+
+      await tick(wrapper.vm, 1)
 
       const bodyCell1 = wrapper.find('.k-table tbody td')
       const bodyCell2 = wrapper.find('.k-table tbody td:nth-child(2)')
@@ -304,21 +236,27 @@ describe('KTable', () => {
   })
 
   describe('states', () => {
-    it('displays an empty state when no data is passed to the table', () => {
+    it('displays an empty state when no data is available', async () => {
+      const fetcher = () => new Promise(resolve => resolve({ data: [] }))
       const wrapper = mount(KTable, {
         propsData: {
-          options: { data: [], headers: [] }
+          testMode: 'true',
+          fetcher: fetcher,
+          headers: options.headers,
+          pageSize: 4
         }
       })
 
-      expect(wrapper.classes()).toContain('empty-state-wrapper')
+      await tick(wrapper.vm, 1)
+
+      expect(wrapper.html()).toContain('empty-state-wrapper')
       expect(wrapper.html()).toMatchSnapshot()
     })
 
     it('displays a loading skeletion when the "isLoading" prop is set to true"', () => {
       const wrapper = mount(KTable, {
         propsData: {
-          options: { data: [], headers: [] },
+          testMode: 'loading',
           isLoading: true
         }
       })
@@ -330,7 +268,7 @@ describe('KTable', () => {
     it('displays an error state when the "hasError" prop is set to true"', () => {
       const wrapper = mount(KTable, {
         propsData: {
-          options: { data: [], headers: [] },
+          testMode: 'true',
           hasError: true
         }
       })
@@ -338,6 +276,79 @@ describe('KTable', () => {
       expect(wrapper.html()).toContain('empty-state-wrapper')
       expect(wrapper.html()).toContain('is-error')
       expect(wrapper.html()).toMatchSnapshot()
+    })
+
+    it('displays a loading state and not an empty state when pending response', () => {
+      const slowFetcher = () => {
+        return setTimeout(() => {
+          return new Promise(resolve => resolve({ data: options.data }))
+        }, 1000)
+      }
+
+      const wrapper = mount(KTable, {
+        propsData: {
+          testMode: 'loading',
+          fetcher: slowFetcher,
+          headers: options.headers,
+          pageSize: 4
+        }
+      })
+
+      expect(wrapper.find('.skeleton-table-wrapper').exists()).toBe(true)
+      expect(wrapper.find('.empty-state-wrapper').exists()).toBe(false)
+    })
+  })
+
+  describe('pagination', () => {
+    it('displays pagination when fetcher provided', async () => {
+      const wrapper = mount(KTable, {
+        propsData: {
+          testMode: 'true',
+          fetcher: () => {
+            return largeDataSet
+          },
+          isLoading: false,
+          headers: options.headers,
+          paginationPageSizes: [10, 20, 30, 40]
+        }
+      })
+
+      await tick(wrapper.vm, 1)
+
+      expect(wrapper.find('[data-testid="k-pagination-container"]').exists()).toBe(true)
+    })
+
+    it('does not display pagination when pagination disabled', async () => {
+      const wrapper = mount(KTable, {
+        propsData: {
+          testMode: 'true',
+          fetcher: () => {
+            return largeDataSet
+          },
+          isLoading: false,
+          headers: options.headers,
+          paginationPageSizes: [10, 20, 30, 40],
+          disablePagination: true
+        }
+      })
+
+      await tick(wrapper.vm, 1)
+
+      expect(wrapper.find('[data-testid="k-pagination-container"]').exists()).toBe(false)
+    })
+
+    it('does not display pagination when no fetcher', async () => {
+      const wrapper = mount(KTable, {
+        propsData: {
+          testMode: 'true',
+          options,
+          paginationPageSizes: [10, 20, 30, 40]
+        }
+      })
+
+      await tick(wrapper.vm, 1)
+
+      expect(wrapper.find('[data-testid="k-pagination-container"]').exists()).toBe(false)
     })
   })
 })

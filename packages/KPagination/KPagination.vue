@@ -2,8 +2,7 @@
   <nav
     aria-label="Pagination Navigation"
     data-testid="k-pagination-container">
-    <div
-      class="card-pagination-bar">
+    <div class="card-pagination-bar">
       <span
         class="pagination-text"
         data-testid="visible-items">
@@ -18,12 +17,11 @@
           <a
             href="#"
             aria-label="Go to the previous page"
-            @click="pageBack">
+            @click.prevent="pageBack">
             <KIcon
               :color="backDisabled ? 'var(--grey-500)' : 'var(--blue-400)'"
               icon="arrowLeft"
-              width="16px"
-              heigth="16px"
+              size="16px"
               view-box="0 0 16 14"
             />
           </a>
@@ -35,7 +33,7 @@
           <a
             href="#"
             aria-label="Go to the first page"
-            @click="changePage(1)">
+            @click.prevent="changePage(1)">
             1
           </a>
         </li>
@@ -54,7 +52,7 @@
             :aria-label="`Go to page ${page}`"
             :aria-current="page == currentlySelectedPage && 'page'"
             href="#"
-            @click="changePage(page)">
+            @click.prevent="changePage(page)">
             {{ page }}
           </a>
         </li>
@@ -70,7 +68,7 @@
             href="#"
             aria-label="Go to the last page"
             data-testid="last-btn"
-            @click="changePage(pageCount)">
+            @click.prevent="changePage(pageCount)">
             {{ pageCount }}
           </a>
         </li>
@@ -81,12 +79,11 @@
           <a
             href="#"
             aria-label="Go to the next page"
-            @click="pageForward">
+            @click.prevent="pageForward">
             <KIcon
               :color="forwardDisabled ? 'var(--grey-500)' : 'var(--blue-400)'"
               icon="arrowRight"
-              width="16px"
-              heigth="16px"
+              size="16px"
               view-box="0 0 16 14"
             />
           </a>
@@ -173,7 +170,7 @@ export default {
       pageCount,
       pageSizeOptions,
       backDisabled: currPage === 1,
-      forwardDisabled: this.totalCount === 1,
+      forwardDisabled: currPage === pageCount,
       pageSizeText: '',
       pagesVisible: this.getVisiblePages(
         this.currentlySelectedPage,
@@ -354,7 +351,7 @@ export default {
     width: 32px;
     height: 32px;
 
-    line-height: 32px;
+    line-height: 36px;
     font-weight: initial;
     color: var(--grey-500);
     border: 1px solid var(--grey-200);
