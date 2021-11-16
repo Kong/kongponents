@@ -3,16 +3,24 @@ import KIcon from '@/KIcon/KIcon'
 import icons from './icons'
 const iconNames = Object.keys(icons)
 
+const tick = async (vm, times) => {
+  for (let i = 0; i < times; ++i) {
+    await vm.$nextTick()
+  }
+}
+
 let rendersIcon = (icon) => {
-  it(`renders ${icon} icon`, () => {
-    const wrapper = mount(KIcon, {
+  it(`renders ${icon} icon`, async () => {
+    const wrapper = await mount(KIcon, {
       propsData: {
         'icon': `${icon}`,
         testMode: true
       }
     })
 
-    expect(wrapper.find('title').text()).toEqual(expect.stringContaining(`${icon}`))
+    await tick(wrapper.vm, 1)
+
+    expect(wrapper.find('svg title').text()).toEqual(expect.stringContaining(`${icon}`))
     expect(wrapper.html()).toMatchSnapshot()
   })
 }
@@ -22,21 +30,23 @@ describe('KIcon', () => {
     rendersIcon(icon)
   })
 
-  it('renders icon with red fill', () => {
-    const wrapper = mount(KIcon, {
+  it('renders icon with red fill', async () => {
+    const wrapper = await mount(KIcon, {
       propsData: {
         'icon': 'portal',
         'color': 'red'
       }
     })
 
-    const path = wrapper.find('path').attributes()
+    await tick(wrapper.vm, 1)
+
+    const path = wrapper.find('svg path').attributes()
 
     expect(path.fill).toEqual('red')
   })
 
-  it('renders icon with secondary color', () => {
-    const wrapper = mount(KIcon, {
+  it('renders icon with secondary color', async () => {
+    const wrapper = await mount(KIcon, {
       propsData: {
         'icon': 'warning',
         'color': 'yellow',
@@ -44,46 +54,54 @@ describe('KIcon', () => {
       }
     })
 
-    const path = wrapper.find('#Path').attributes()
+    await tick(wrapper.vm, 1)
+
+    const path = wrapper.find('svg #Path').attributes()
     const secondaryPath = wrapper.find("[type='secondary']").attributes()
 
     expect(path.fill).toEqual('yellow')
     expect(secondaryPath.fill).toEqual('black')
   })
 
-  it('renders 32x32 sized icon', () => {
-    const wrapper = mount(KIcon, {
+  it('renders 32x32 sized icon', async () => {
+    const wrapper = await mount(KIcon, {
       propsData: {
         'icon': 'portal',
         'size': '32'
       }
     })
 
-    expect(wrapper.attributes().width).toEqual('32')
-    expect(wrapper.attributes().height).toEqual('32')
+    await tick(wrapper.vm, 1)
+
+    expect(wrapper.find('svg').attributes().width).toEqual('32')
+    expect(wrapper.find('svg').attributes().height).toEqual('32')
   })
 
-  it('default title is set from icon', () => {
-    const wrapper = mount(KIcon, {
+  it('default title is set from icon', async () => {
+    const wrapper = await mount(KIcon, {
       propsData: {
         'icon': 'portal'
       }
     })
 
-    const title = wrapper.find('title').text()
+    await tick(wrapper.vm, 1)
+
+    const title = wrapper.find('svg title').text()
 
     expect(title).toEqual('Dev Portal')
   })
 
-  it('sets title from prop', () => {
-    const wrapper = mount(KIcon, {
+  it('sets title from prop', async () => {
+    const wrapper = await mount(KIcon, {
       propsData: {
         'icon': 'portal',
         'title': 'My Title'
       }
     })
 
-    const title = wrapper.find('title').text()
+    await tick(wrapper.vm, 1)
+
+    const title = wrapper.find('svg title').text()
 
     expect(title).toEqual('My Title')
   })
