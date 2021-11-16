@@ -4,7 +4,7 @@
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "version": "6.0.0",
+  "version": "6.0.1-alpha.0",
   "command": {
     "init": {
       "exact": true
@@ -18,7 +18,9 @@
       ],
       "message": "chore(release): publish",
       "version": {
-        "allowBranch": ["release/*"]
+        "allowBranch": [
+          "release/*"
+        ]
       }
     }
   }

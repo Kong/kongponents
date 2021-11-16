@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.1-alpha.0 (2021-11-16)
+
+**Note:** Version bump only for package kongponents
+
+
+
+
+
 ## [6.1.0](https://github.com/Kong/kongponents/compare/v5.0.8...v6.1.0) (2021-11-16)
 
 ### New Dependencies Added

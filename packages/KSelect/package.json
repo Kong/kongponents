@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kselect",
-  "version": "5.0.4-alpha.0",
+  "version": "6.0.1-alpha.0",
   "description": "Dropdown/Select component",
   "main": "dist/KSelect.umd.min.js",
   "componentName": "KSelect",
@@ -23,11 +23,11 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kbutton": "^5.0.9-alpha.0",
-    "@kongponents/kicon": "^5.0.9-alpha.0",
-    "@kongponents/kinput": "^5.0.9-alpha.0",
-    "@kongponents/klabel": "^5.0.9-alpha.0",
-    "@kongponents/kpop": "^5.0.9-alpha.0",
-    "@kongponents/ktoggle": "^5.0.9-alpha.0"
+    "@kongponents/kbutton": "^6.0.1-alpha.0",
+    "@kongponents/kicon": "^6.0.1-alpha.0",
+    "@kongponents/kinput": "^6.0.1-alpha.0",
+    "@kongponents/klabel": "^6.0.1-alpha.0",
+    "@kongponents/kpop": "^6.0.1-alpha.0",
+    "@kongponents/ktoggle": "^6.0.1-alpha.0"
   }
 }
