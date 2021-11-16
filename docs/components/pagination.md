@@ -7,14 +7,14 @@
 </template>
 
 ## Props
-### Total count - required
+### totalCount - required
 A total number of items inside the paginated data source.
 
 ```vue
 <KPagination :totalCount="50"/>
 ```
 
-### Page sizes
+### pageSizes
 A list of page sizes that the user can choose from.
 
 Prop is an Array of numbers. The default page sizes are: [15, 25, 50, 75, 100].
@@ -27,7 +27,7 @@ You can provide custom page sizes. The first one in the array will be the initia
 <KPagination :totalCount="100" :pageSizes="[10, 20, 30, 40]"/>
 ```
 
-### Items
+### items
 Optional array of items that can be provided for easy pagination. Slice of this array with visible items is returned as `visibleItems` inside the `pageChanged` event.
 
 <Komponent :data="{ letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], visibleLetters: ['a', 'b', 'c']}" v-slot="{ data }">
@@ -63,11 +63,9 @@ export default {
     };
   }
 }
-
 ```
 
-
-### Neighbors
+### neighbors
 A number that sets the neighboring pages visible to the left and right of the center page when ellipsis are visible on both sides. By default, 1 neighbor is shown. For bigger sets of data we want user to see more pages to go through the pagination faster.
 
 <template>
@@ -78,7 +76,47 @@ A number that sets the neighboring pages visible to the left and right of the ce
 <KPagination :totalCount="1000" :pageSize="15" neighbors="2"/>
 ```
 
-### Current Page
+### disablePageJump
+Restrict navigation to only `previous` / `next` page. Defaults to `false`.
+
+<Komponent :data="{ letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], visibleLetters: ['a', 'b', 'c']}" v-slot="{ data }">
+  <div>
+    <span><b>Visible letters: </b></span>
+    <span v-for="number in data.visibleLetters">{{ number }} </span>
+    <KPagination 
+      :items="data.letters"
+      :totalCount="data.letters.length" 
+      :pageSizes="[3]" 
+      :disablePageJump="true"
+      @pageChanged="({visibleItems}) => data.visibleLetters = visibleItems"/>
+  </div>
+</Komponent>
+
+```vue
+<template>
+  <div>
+    <span><b>Visible letters: </b></span>
+    <span v-for="number in data.visibleLetters">{{ number }} </span>
+    <KPagination 
+      :items="data.letters"
+      :totalCount="data.letters.length" 
+      :pageSizes="[3]" 
+      :disablePageJump="true"
+      @pageChanged="({visibleItems}) => data.visibleLetters = visibleItems"/>
+  </div>
+</template>
+
+export default {
+  data: {
+    return {
+      letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], 
+      visibleLetters: ['a', 'b', 'c']
+    };
+  }
+}
+```
+
+### currentPage
 Manually control the current page instead of using native handling. If using this prop you MUST keep it up-to-date using
 the `@pageChanged` event in order to remain reactive to clicking the prev, next, and specific page buttons.
 

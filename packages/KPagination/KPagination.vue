@@ -27,7 +27,7 @@
           </a>
         </li>
         <li
-          v-if="firstDetached"
+          v-if="!disablePageJump && firstDetached"
           class="pagination-button"
           data-testid="page-1-btn">
           <a
@@ -38,7 +38,7 @@
           </a>
         </li>
         <li
-          v-if="firstDetached"
+          v-if="!disablePageJump && firstDetached"
           class="pagination-button placeholder">
           ...
         </li>
@@ -57,12 +57,12 @@
           </a>
         </li>
         <li
-          v-if="lastDetached"
+          v-if="!disablePageJump && lastDetached"
           class="pagination-button placeholder">
           ...
         </li>
         <li
-          v-if="lastDetached"
+          v-if="!disablePageJump && lastDetached"
           class="pagination-button">
           <a
             href="#"
@@ -141,6 +141,10 @@ export default {
     currentPage: {
       type: Number,
       default: null
+    },
+    disablePageJump: {
+      type: Boolean,
+      default: false
     },
     /**
      * Test mode - for testing only, strips out generated ids
@@ -284,6 +288,10 @@ export default {
       firstDetached = this.firstDetached,
       lastDetached = this.lastDetached
     ) {
+      if (this.disablePageJump) {
+        return 0
+      }
+
       let pages = [...Array(pageCount).keys()].map((n) => n + 1)
 
       const visiblePages = 5 + 2 * this.neighbors
@@ -323,6 +331,8 @@ export default {
 .pagination-text {
   font-size: 13px;
   color: var(--grey-500);
+  min-width: 115px;
+
   &-pages {
     color: black;
   }

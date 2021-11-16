@@ -6,7 +6,7 @@
       <h3>{{ title }}</h3>
     </div>
     <KSkeleton
-      v-if="!testMode && (isCardLoading || isLoading) && !hasError"
+      v-if="!testMode && !$scopedSlots.body && (isCardLoading || isLoading) && !hasError"
       :card-count="4"
       class="k-skeleton-grid"
       type="card"
@@ -51,7 +51,7 @@
       </template>
     </KEmptyState>
     <KEmptyState
-      v-else-if="!hasError && (!isCardLoading && !isLoading) && (data && !data.length)"
+      v-else-if="!$scopedSlots.body && !hasError && (!isCardLoading && !isLoading) && (data && !data.length)"
       :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
       :icon="emptyStateIcon || ''"
       :icon-color="emptyStateIconColor"
@@ -97,20 +97,20 @@
         </template>
       </slot>
       <div
-        v-if="fetcher"
+        v-if="!disablePagination && fetcher"
         class="card-pagination">
         <KPagination
           :total-count="total"
           :current-page="page"
           :neighbors="paginationNeighbors"
           :page-sizes="paginationPageSizes"
+          :disable-page-jump="disablePaginationPageJump"
           class="pa-1"
           @pageChanged="pageChangeHandler"
           @pageSizeChanged="pageSizeChangeHandler"
         />
       </div>
     </div>
-
   </div>
 </template>
 
@@ -273,14 +273,6 @@ export default defineComponent({
       type: String,
       default: '50'
     },
-
-    /**
-     * Test mode - for testing only, strips out generated ids
-     */
-    testMode: {
-      type: Boolean,
-      default: false
-    },
     /**
      * A prop to pass in a fetcher function to enable server-side pagination
      */
@@ -316,6 +308,21 @@ export default defineComponent({
     paginationTotalItems: {
       type: Number,
       default: null
+    },
+    disablePaginationPageJump: {
+      type: Boolean,
+      default: false
+    },
+    disablePagination: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * Test mode - for testing only, strips out generated ids
+     */
+    testMode: {
+      type: Boolean,
+      default: false
     }
   },
   setup (props, ctx) {
