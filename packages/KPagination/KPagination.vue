@@ -331,6 +331,8 @@ export default {
 .pagination-text {
   font-size: 13px;
   color: var(--grey-500);
+  min-width: 115px;
+
   &-pages {
     color: black;
   }
