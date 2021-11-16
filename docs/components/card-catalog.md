@@ -155,7 +155,15 @@ Set this to `true` to limit pagination navigation to `previous` / `next` page on
 
 <KCardCatalog
   :fetcher="fetcher" 
-  :disablePaginationPageJump="true" />
+  :disablePaginationPageJump="true"
+  :paginationPageSizes="[4, 5, 6]"
+  :initial-fetcher-params="{
+    pageSize: 4,
+    page: 1,
+    query: '',
+    sortColumnKey: '',
+    sortColumnOrder: ''
+  }" />
 
 ```vue
 <template>
@@ -518,15 +526,15 @@ export default {
       longItem
     }
   },
+  methods: {
+    resolveAfter5MiliSec(count, pageSize, page) {
+      // simulate pagination
+      let limit = count
+      if ((pageSize * page) < count) {
+        limit = pageSize
+      }
 
-methods: {
-  resolveAfter5MiliSec(count, pageSize, page) {
-    // simulate pagination
-    let limit = count
-    if ((pageSize * page) < count) {
-      limit = pageSize
-    }
-    let myItems = []
+      let myItems = []
       for (let i = ((page-1) * pageSize); i < limit; i++) {
         myItems.push({
           title: "Item " + `${i+1}`,
@@ -534,13 +542,12 @@ methods: {
         })
       }
 
-    return new Promise(resolve => {
-      setTimeout(() => {
-      resolve(myItems);
-    }, 500);
-  });
-},
-
+      return new Promise(resolve => {
+        setTimeout(() => {
+          resolve(myItems);
+        }, 500)      
+      })
+    },
     async fetcher(payload) {
       const params = {
         _limit: payload.pageSize,
