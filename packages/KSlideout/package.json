@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kcard": "^5.0.9-alpha.0",
-    "@kongponents/kicon": "^5.0.9-alpha.0"
+    "@kongponents/kcard": "^6.0.0",
+    "@kongponents/kicon": "^6.0.0"
   }
 }

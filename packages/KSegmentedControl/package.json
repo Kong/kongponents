@@ -19,10 +19,10 @@
     "url": "https://github.com/Kong/kongponents/issues"
   },
   "homepage": "https://github.com/Kong/kongponents#readme",
-  "dependencies": {
-    "@kongponents/kbutton": "^5.0.9-alpha.0"
-  },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@kongponents/kbutton": "^6.0.0"
   }
 }

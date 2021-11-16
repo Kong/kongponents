@@ -21,5 +21,8 @@
   "homepage": "https://github.com/Kong/kongponents#readme",
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@kongponents/kbutton": "^6.0.0"
   }
 }

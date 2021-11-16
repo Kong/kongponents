@@ -23,8 +23,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kcard": "^5.0.9-alpha.0",
-    "@kongponents/kemptystate": "^5.0.9-alpha.0",
-    "@kongponents/kskeleton": "^5.0.9-alpha.0"
+    "@kongponents/kcard": "^6.0.0",
+    "@kongponents/kemptystate": "^6.0.0",
+    "@kongponents/kpagination": "^6.0.0",
+    "@kongponents/kskeleton": "^6.0.0"
   }
 }
