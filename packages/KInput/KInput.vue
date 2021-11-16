@@ -4,7 +4,7 @@
     class="k-input-wrapper">
     <input
       v-if="!label"
-      v-bind="attrs"
+      v-bind="$attrs"
       :value="value"
       :class="`k-input-${size}`"
       :aria-invalid="hasError ? hasError : null"
@@ -25,7 +25,7 @@
           <span>{{ label }}</span>
         </label>
         <input
-          v-bind="attrs"
+          v-bind="$attrs"
           :id="inputId"
           :value="currValue ? currValue : value"
           :class="`k-input-${size}`"
@@ -60,6 +60,7 @@ import { uuid } from 'vue-uuid'
 
 export default {
   name: 'KInput',
+  inheritAttrs: false,
   props: {
     value: {
       type: String,
@@ -97,13 +98,12 @@ export default {
     return {
       currValue: '', // We need this so that we don't lose the updated value on hover/blur event with label
       isFocused: false,
-      isHovered: false,
-      inputId: !this.testMode ? uuid.v1() : 'test-input-id-1234'
+      isHovered: false
     }
   },
   computed: {
-    attrs () {
-      return this.$attrs
+    inputId () {
+      return this.$attrs.id ? this.$attrs.id : !this.testMode ? uuid.v1() : 'test-input-id-1234'
     },
     isDisabled () {
       return this.$attrs.hasOwnProperty('disabled')

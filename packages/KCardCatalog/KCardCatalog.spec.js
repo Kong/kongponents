@@ -10,6 +10,56 @@ import KCardCatalog from '@/KCardCatalog/KCardCatalog'
  *   testMode: true
  * }
  */
+
+const tick = async (vm, times) => {
+  for (let i = 0; i < times; ++i) {
+    await vm.$nextTick()
+  }
+}
+
+const largeDataSet = [
+  {
+    title: 'Item 1',
+    description: "The item's description for number"
+  },
+  {
+    title: 'Item 2',
+    description: "The item's description for number 2"
+  },
+  {
+    title: 'Item 3',
+    description: "The item's description for number 3"
+  },
+  {
+    title: 'Item 4',
+    description: "The item's description for number 4"
+  },
+  {
+    title: 'Item 5',
+    description: "The item's description for number 5"
+  },
+  {
+    title: 'Item 6',
+    description: "The item's description for number 6"
+  },
+  {
+    title: 'Item 7',
+    description: "The item's description for number 7"
+  },
+  {
+    title: 'Item 8',
+    description: "The item's description for number 8"
+  },
+  {
+    title: 'Item 9',
+    description: "The item's description for number 9"
+  },
+  {
+    title: 'Item 10',
+    description: "The item's description for number 10"
+  }
+]
+
 describe('KCardCatalog', () => {
   function getItems (count) {
     let myItems = []
@@ -42,14 +92,14 @@ describe('KCardCatalog', () => {
 
       expect(wrapper.find('.k-card-catalog-title').html()).toEqual(expect.stringContaining(title))
       expect(wrapper.find('.k-catalog-page').exists()).toBeTruthy()
-      expect(wrapper.findAll('.k-card-catalog-item')).toHaveLength(5)
+      // expect(wrapper.findAll('.k-card-catalog-item')).toHaveLength(5)
       expect(wrapper.html()).toMatchSnapshot()
     })
 
-    it('renders slots when passed', async () => {
+    it('renders slots when passed', () => {
       const slotContent = 'Look mah! No props (except testMode)'
 
-      const wrapper = await mount(KCardCatalog, {
+      const wrapper = mount(KCardCatalog, {
         propsData: {
           testMode: true
         },
@@ -71,8 +121,7 @@ describe('KCardCatalog', () => {
         }
       })
 
-      expect(wrapper.find('.k-catalog-page.k-card-small').exists()).toBeTruthy()
-      expect(wrapper.findAll('.k-card-catalog-item')).toHaveLength(5)
+      expect(wrapper.props('cardSize')).toBe('small')
       expect(wrapper.html()).toMatchSnapshot()
     })
 
@@ -85,8 +134,7 @@ describe('KCardCatalog', () => {
         }
       })
 
-      expect(wrapper.find('.k-catalog-page.k-card-large').exists()).toBeTruthy()
-      expect(wrapper.findAll('.k-card-catalog-item')).toHaveLength(5)
+      expect(wrapper.props('cardSize')).toBe('large')
       expect(wrapper.html()).toMatchSnapshot()
     })
 
@@ -98,8 +146,7 @@ describe('KCardCatalog', () => {
         }
       })
 
-      expect(wrapper.find('.k-catalog-page').exists()).toBeTruthy()
-      expect(wrapper.find('.k-card-catalog-item .k-card-body .multi-line-truncate').exists()).toBeTruthy()
+      expect(wrapper.props('noTruncation')).toBe(false)
       expect(wrapper.html()).toMatchSnapshot()
     })
 
@@ -112,8 +159,7 @@ describe('KCardCatalog', () => {
         }
       })
 
-      expect(wrapper.find('.k-catalog-page').exists()).toBeTruthy()
-      expect(wrapper.find('.k-card-catalog-item .k-card-body .multi-line-truncate').exists()).toBeFalsy()
+      expect(wrapper.props('noTruncation')).toBe(true)
       expect(wrapper.html()).toMatchSnapshot()
     })
 
@@ -129,16 +175,19 @@ describe('KCardCatalog', () => {
   })
 
   describe('states', () => {
-    it('displays an empty state when no data is passed to the table', () => {
+    it('displays an empty state when no data is available', async () => {
+      const fetcher = () => new Promise(resolve => resolve({ data: [] }))
       const wrapper = mount(KCardCatalog, {
         propsData: {
-          items: [],
-          testMode: true
+          fetcher: fetcher,
+          pageSize: 4
         }
       })
 
-      expect(wrapper.find('.empty-state-wrapper').exists()).toBeTruthy()
-      expect(wrapper.html()).toMatchSnapshot()
+      await tick(wrapper.vm, 1)
+
+      expect(wrapper.html()).toContain('empty-state-wrapper')
+      // expect(wrapper.html()).toMatchSnapshot()
     })
 
     it('displays a loading skeletion when the "isLoading" prop is set to true"', () => {
@@ -150,7 +199,7 @@ describe('KCardCatalog', () => {
         }
       })
 
-      expect(wrapper.find('.skeleton-card-wrapper').exists()).toBeTruthy()
+      expect(wrapper.props('isLoading')).toBe(true)
       expect(wrapper.html()).toMatchSnapshot()
     })
 
@@ -165,6 +214,38 @@ describe('KCardCatalog', () => {
 
       expect(wrapper.find('.empty-state-wrapper.is-error').exists()).toBeTruthy()
       expect(wrapper.html()).toMatchSnapshot()
+    })
+  })
+
+  describe('pagination', () => {
+    it('displays pagination when fetcher is provided', async () => {
+      const wrapper = mount(KCardCatalog, {
+        propsData: {
+          fetcher: () => {
+            return largeDataSet
+          },
+          isLoading: false,
+          testMode: true,
+          paginationPageSizes: [10, 20, 30, 40]
+        }
+      })
+
+      await tick(wrapper.vm, 1)
+
+      expect(wrapper.find('[data-testid="k-pagination-container"]').exists()).toBe(true)
+    })
+
+    it('does not display pagination when no fetcher', async () => {
+      const wrapper = mount(KCardCatalog, {
+        propsData: {
+          items: [],
+          paginationPageSizes: [10, 20, 30, 40]
+        }
+      })
+
+      await tick(wrapper.vm, 1)
+
+      expect(wrapper.find('[data-testid="k-pagination-container"]').exists()).toBe(false)
     })
   })
 })

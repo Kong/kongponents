@@ -1,6 +1,5 @@
 <template>
   <label
-    v-bind="$attrs"
     class="k-input-label">
     <KoolTip
       v-if="help"
