@@ -86,7 +86,14 @@ KTextArea works as regular texarea do using v-model for data binding:
 
 ## Events
 
-KTextArea transparently binds to events:
+KTextArea has a couple of natural event bindings.
+
+| Event     | returns             |
+| :-------- | :------------------ |
+| `ktextarea` | The content of the textarea when it is changed |
+| `char-limit-exceeded` | A warning message if the character limit is exceeded when it's enabled |
+
+KTextArea also transparently binds to events:
 
 <Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
   <div>
