@@ -8,6 +8,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### BREAKING CHANGES
   * `label` prop removed
 
+### Fixes
+  * Fix issue where bound attributes were being applied to both the parent and child
+
 ### Features
   * look and feel slightly adjusted
 

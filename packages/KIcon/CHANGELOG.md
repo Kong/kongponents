@@ -7,10 +7,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### BREAKING CHANGES
   * changed the way the svg is rendered
-  * HTML layout changed
+  * HTML layout changed - SVGs are now wrapped with `<span>` and `KIcon`-specific classes are now applied to the wrapper
 
 ### Features
-  * new icons added 
+  * new icons added
   * `secondaryColor` prop added
 
 ## [5.0.8](https://github.com/Kong/kongponents/compare/v5.0.7...v5.0.8) (2021-11-15)

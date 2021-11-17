@@ -5,6 +5,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [6.1.2](https://github.com/Kong/kongponents/compare/@kongponents/kinputswitch@5.0.8...@kongponents/kinputswitch@6.1.2) (2021-11-17)
 
+### Fixes
+  * Fix issue where bound attributes were being applied to both the parent and child
+
 ### Features
   * `enabledIcon` prop added
 

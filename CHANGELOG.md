@@ -13,27 +13,27 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * `tailwindcss` and `@kawarimidoll/vuepress-plugin-tailwind` added as `devDependencies` for utility classes
 
 ### BREAKING CHANGES
-* `KAlert` 
+* `KAlert`
   * `is-dismissable` prop removed
 
-* `KBadge` 
+* `KBadge`
   * look and feel changed to match redesign
 
-* `KButton` 
+* `KButton`
   * Buttons default to a rounded appearance
 
-* `KCard` 
+* `KCard`
   * `helpText` property removed
   * changes to look and feel
 
-* `KCheckbox` 
+* `KCheckbox`
   * `label` property removed
 
-* `KIcon` 
+* `KIcon`
   * changed the way SVGs are rendered
-  * HTML layout changed
+  * HTML layout changed - SVGs are now wrapped with `<span>` and `KIcon`-specific classes are now applied to the wrapper
 
-* `KModal` 
+* `KModal`
   * `title` prop is now required
   * `helpText` / `help` prop and slot removed
   * slight changes to look and feel
@@ -41,65 +41,73 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * `KMultiselect`
   * look and feel changed to match redesign
 
-`KRadio` 
+`KRadio`
   * `label` property removed
 
-* `KTable` 
+* `KTable`
   * DEPRECATED: `options` prop
   * DEPRECATED: sorting with `options` prop enabled is flaky
   * removed `isSmall` and `isClickable` props
   * look and feel changed to match redesign
   * HTML layout changed
 
-* `typography` 
+* `typography`
   * `Roboto` font no longer used / included
 
-### Features 
+### Fixes
 
-* `KAlert` 
+* Fix issue where bound attributes were being applied to both the parent and child. Affected components:
+  * `KCheckbox`
+  * `KInput`
+  * `KInputSwitch`
+  * `KRadio`
+
+### Features
+
+* `KAlert`
   * new props `type` and `dismissType` added
-  * `size` prop now supports `large` and `small` 
+  * `size` prop now supports `large` and `small`
   * new slots associated with "banner" `type` and `size` `large` (icon, description, actionButtons)
 
-* `KBadge` 
+* `KBadge`
   * `info` option for `appearance` prop added
   * `shape` property to support rectangular badges added
 
-* `KButton` 
-  * `size` prop now supports `small`, `medium`, and `large` 
+* `KButton`
+  * `size` prop now supports `small`, `medium`, and `large`
   * `isRounded` property added
 
-* `KCard` 
-  * `status` / `statusHat` prop and slot added 
+* `KCard`
+  * `status` / `statusHat` prop and slot added
   * `notifications` slot added
 
-* `KEmptyState` 
+* `KEmptyState`
   * `icon` prop added
 
-* `KIcon` 
-  * new icons added 
+* `KIcon`
+  * new icons added
   * `secondaryColor` prop added
 
-* `KInput` 
+* `KInput`
   * `size` prop added
 
-* `KModal` 
+* `KModal`
   * `hideTitle` prop added
   * `action-buttons` slot added
 
-* `KPop` 
+* `KPop`
   * `actions` and `footer` slots added
   * `buttonText` prop added so `default` slot use is no longer required
 
-* `KTable` 
+* `KTable`
   * support added for configuring error, loading, and empty states
   * support for `fetcher` function to populate table data added
-  * pagination support added 
+  * pagination support added
 
-* `styles` 
+* `styles`
   * added `petrol`, `purple`, and `teal` color codes
 
-* `typography` 
+* `typography`
   * new `Maison Neue` font support added
   * multiple new utility classes added for font styling
 
