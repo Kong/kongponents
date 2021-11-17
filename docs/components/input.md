@@ -67,7 +67,7 @@ String to be displayed as error message.
 <KInput label="Medium" class="mb-2" hasError errorMessage="Service name should not contain “_”" />
 <KInput label="Large" size="large" hasError errorMessage="Service name should not contain “_”" />
 
-```html
+```vue
 <KInput
   label="Small" size="small" class="mb-2"
   hasError
