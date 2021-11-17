@@ -123,7 +123,7 @@ export default {
   display: grid;
 
   textarea.form-control {
-    font-family: 'Maison Neue';
+    font-family: var(--font-family-sans);
     resize: none;
 
     &::placeholder {

@@ -58,10 +58,10 @@ Use this prop to specify a character limit for the textarea, defaults to `2048`.
 
 Use this prop to remove the character limit on the textarea. Defaults to `false`.
 
-<KTextArea :disableCharacterLimit="true" />
+<KTextArea disable-character-limit />
 
 ```vue
-<KTextArea :disableCharacterLimit="true" />
+<KTextArea disable-character-limit />
 ```
 
 ## v-model
