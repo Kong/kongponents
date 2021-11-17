@@ -1,6 +1,5 @@
 # Menu
 
-
 **KMenu** - Menu component
 
 <script>
@@ -41,13 +40,14 @@ export default {
 
 ### items
 
-An array of items to populate the menu with. 
+An array of items to populate the menu with.
 
 Properties:
-  - `title` - menu item label 
-  - `description` - text displayed when `expandable` item is expanded
-  - `expandable` - boolean of whether or not this item is expandable
-  - `type` - supported values: `string`, `number`, `divider`
+
+- `title` - menu item label
+- `description` - text displayed when `expandable` item is expanded
+- `expandable` - boolean of whether or not this item is expandable
+- `type` - supported values: `string`, `number`, `divider`
 
 > Note: `type='divider'` will insert an empty item that is just an `<hr>`.
 
@@ -71,21 +71,24 @@ function getMenuItems(count) {
 ```
 
 ### width
+
 You can pass a `width` string for menu. By default the `width` is `284px`.
 
 <KMenu :items="getMenuItems(3)" width="735" />
 
-```
+```vue
 <KMenu :items="getMenuItems(3)" width="735" /> 
 ```
 
 ## KMenuItem
+
 **KMenu** generates a **KMenuItem** for each item in the `items` property.
 
 ### Properties
+
 - `item` - the menu item content is built from this.
   - Properties:
-    - `title` - menu item label 
+    - `title` - menu item label
     - `description` - text displayed when `expandable` item is expanded
 - `type` - supported values: `string`, `number`, `divider`
 - `expandable` - boolean of whether or not this item is expandable
@@ -102,7 +105,8 @@ You can pass a `width` string for menu. By default the `width` is `284px`.
   />
 ```
 
-### Slots
+### Item Slots
+
 - `itemTitle` - the title content for the menu item
 - `itemBody` - the body content for the menu item
 
@@ -118,6 +122,7 @@ You can pass a `width` string for menu. By default the `width` is `284px`.
 ```
 
 ## Slots
+
 - `body` - The body of the menu, we expect this to be an array of `KMenuItem` components.
 This should be used instead of the `items` property.
 - `actionButton` - the button at the bottom of the menu
@@ -137,8 +142,8 @@ This should be used instead of the `items` property.
       </template>
     </KMenuItem>
     <KMenuItem type="divider" />
-    <KMenuItem :expandable="true" 
-      :item="customItem" 
+    <KMenuItem :expandable="true"
+      :item="customItem"
       type="string"
      />
     <KMenuItem :expandable="true" last-menu-item >
@@ -154,7 +159,6 @@ This should be used instead of the `items` property.
     <KButton>Clear all the filters</KButton>
   </template>
 </KMenu>
-
 
 ```vue
 <KMenu>

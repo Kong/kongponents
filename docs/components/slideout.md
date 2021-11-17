@@ -7,7 +7,7 @@ Below we demonstrate wrapping KSlideout in the [KToggle](/components/renderless/
 <KToggle v-slot="{ isToggled, toggle }">
   <div>
     <KButton @click="toggle">Toggle Panel</KButton>
-    <KSlideout 
+    <KSlideout
       :is-visible="isToggled"
       @close="toggle">
       <div>
@@ -24,8 +24,8 @@ Below we demonstrate wrapping KSlideout in the [KToggle](/components/renderless/
           Something in a KCard
         </template>
       </KCard>
-      <KAlert 
-        appearance="info" 
+      <KAlert
+        appearance="info"
         alert-message="Or even an alert!"
         class="mt-2" />
     </KSlideout>
@@ -63,10 +63,12 @@ Below we demonstrate wrapping KSlideout in the [KToggle](/components/renderless/
 ```
 
 ## Props
--  `isVisible` - Tells the component whether or not to render the open panel
+
+- `isVisible` - Tells the component whether or not to render the open panel
 - `@close` - Emitted when the close button is clicked, anything outside the panel is clicked, or the `esc` key is pressed.
 
 ## Slots
+
 There is one default slot which is used to place content into the slideout panel.
 
 ```vue

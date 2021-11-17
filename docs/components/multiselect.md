@@ -24,7 +24,9 @@
 ```
 
 ## Props
+
 ### items - required
+
 An array of objects to be used as the list options. The `label` & `selected` properties are required. You can also add a property of `disabled` to disable the specific option.
 
 <Komponent :data="{ items: [{label: 'item1', selected: false}, {label: 'item2', selected: true, disabled: true}] }" v-slot="{ data }">
@@ -42,6 +44,7 @@ const items = [
 ```
 
 ### title
+
 Title shown above the list of items.
 
 <Komponent :data="{ items: [{label: 'item1', selected: false}, {label: 'item2', selected: true}] }" v-slot="{ data }">
@@ -59,6 +62,7 @@ Title shown above the list of items.
 ```
 
 ### width
+
 Sets the width of the popup container. Defaults to auto.
 
 <Komponent :data="{ items: [{label: 'item1', selected: false}, {label: 'item2', selected: true}] }" v-slot="{ data }">
@@ -76,6 +80,7 @@ Sets the width of the popup container. Defaults to auto.
 ```
 
 ### applyText
+
 Text of apply action button.
 
 <Komponent :data="{ items: [{label: 'item1', selected: false}, {label: 'item2', selected: false }] }" v-slot="{ data }">
@@ -93,6 +98,7 @@ Text of apply action button.
 ```
 
 ### buttonText
+
 Sets the text of the trigger button.
 
 <Komponent :data="{ items: [{label: 'item1', selected: false}, {label: 'item2', selected: false }] }" v-slot="{ data }">
@@ -108,6 +114,7 @@ Sets the text of the trigger button.
 ```
 
 ### buttonAttributes
+
 An object of attributes to be passed to the trigger button. Any attributes available on [KButton](/components/button.html) will work.
 
 <Komponent :data="{ items: [{label: 'item1', selected: false}, {label: 'item2', selected: true}] }" v-slot="{ data }">
@@ -125,13 +132,14 @@ An object of attributes to be passed to the trigger button. Any attributes avail
 ```
 
 ### hasFilter
+
 Enables a filter input to search the items
 
 <Komponent :data="{ items: [{ label: 'Toyota', selected: true, disabled: false }, { label: 'Scion', selected: false, disabled: false }, { label: 'VW', selected: false, disabled: false }, { label: 'Mazda', selected: false, disabled: false }, { label: 'Ford', selected: true, disabled: true }, { label: 'Dodge', selected: false, disabled: true }, { label: 'Chevrolet', selected: true, disabled: false }, { label: 'Suzuki', selected: false, disabled: false }, { label: 'Hyundai', selected: true, disabled: true }, { label: 'Honda', selected: true, disabled: false }] }" v-slot="{ data }">
   <KMultiselect
     button-text="Car Makers"
     has-filter
-    title="Select car makers" 
+    title="Select car makers"
     :items="data.items" />
 </Komponent>
 
@@ -147,8 +155,8 @@ Enables a filter input to search the items
 </Komponent>
 ```
 
-
 ## Usage
+
 KMultiselect will keep internally keep track of the selected changes and will emitted the entire array of items when the `apply` button is clicked. You can then use the emitted data to update your state.
 
 <Komponent :data="{ items: [{label: 'item1', selected: false}, {label: 'item2', selected: false}] }" v-slot="{ data }">

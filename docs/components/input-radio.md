@@ -36,7 +36,9 @@ export default {
 ```
 
 ## Props
+
 ### v-model - required
+
 Use `v-model` to bind the `checked` state of the underlying `<input />`. The
 `v-model` binds to the `value` prop of the component and sets current checked
 state of the input. You can read more about passing values via `v-model`
@@ -64,6 +66,7 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 </KCard>
 
 ## Slots
+
 - `default` - Anything passed in to the default slot will replace the label prop text
 
 ```vue
@@ -83,10 +86,11 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 </KCard>
 
 ## Theming
+
 | Variable | Purpose
 |:-------- |:-------
-| `--KRadioPrimary `| Radio primary background & border color
-| `--KRadioDisabled `| Radio disabled background color
+| `--KRadioPrimary`| Radio primary background & border color
+| `--KRadioDisabled`| Radio disabled background color
 
 An Example of changing the background color of KRadio to mediumpurple might look like:
 

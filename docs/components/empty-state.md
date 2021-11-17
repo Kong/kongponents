@@ -19,7 +19,9 @@
 ```
 
 ## Props
+
 ### cta-is-hidden
+
 - `cta-is-hidden`
 
 Boolean value used to hide the call to action button.
@@ -59,6 +61,7 @@ You can also use this to move your call to action into the message text.
 ```
 
 ### cta-text
+
 - `cta-text`
 
 A string to be used as the text content of the call to action button.
@@ -80,6 +83,7 @@ A string to be used as the text content of the call to action button.
 ```
 
 ### handle-click
+
 - `handle-click`
 
 A function that is passed as the click handler for the call to action button
@@ -115,6 +119,7 @@ export default {
 ```
 
 ### is-error
+
 - `is-error`
 
 A flag denoting whether or not the message is an error message. If so, a warning icon is displayed above the title slot. Keep in mind that `cta-is-hidden` should also be set to true if you do not want a button to render in the error state.
@@ -142,6 +147,7 @@ A flag denoting whether or not the message is an error message. If so, a warning
 ```
 
 ### icon
+
 - `icon`
 
 A string for the `KIcon` name to be displayed directly above the title. Specifying a value for `icon` will automatically indicate that it should be visible.
@@ -169,6 +175,7 @@ A string for the `KIcon` name to be displayed directly above the title. Specifyi
 ```
 
 ### icon-size
+
 - `icon-size`
 
 A number denoting the size of the icon to be displayed above the empty state message. The default size is 50.
@@ -196,6 +203,7 @@ A number denoting the size of the icon to be displayed above the empty state mes
 ```
 
 ### icon-color
+
 - `icon-color`
 
 A string denoting the color of the icon to be displayed above the empty state message.
@@ -227,6 +235,7 @@ A string denoting the color of the icon to be displayed above the empty state me
 ```
 
 ## Slots
+
 KEmptyState has 3 named slots used, `title`, `message`, and `cta`. You can use the props outlined about to control the text and click handler of the button or hide it altogether. You can also use the `cta` slot to pass anything you want!
 
 <template>
@@ -252,6 +261,7 @@ KEmptyState has 3 named slots used, `title`, `message`, and `cta`. You can use t
 ```
 
 ## Theming
+
 | Variable | Purpose
 |:-------- |:-------
 | `--KEmptyTitleColor`| Replaces title text color

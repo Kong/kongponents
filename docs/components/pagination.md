@@ -7,7 +7,9 @@
 </template>
 
 ## Props
+
 ### totalCount - required
+
 A total number of items inside the paginated data source.
 
 ```vue
@@ -15,6 +17,7 @@ A total number of items inside the paginated data source.
 ```
 
 ### pageSizes
+
 A list of page sizes that the user can choose from.
 
 Prop is an Array of numbers. The default page sizes are: [15, 25, 50, 75, 100].
@@ -28,16 +31,17 @@ You can provide custom page sizes. The first one in the array will be the initia
 ```
 
 ### items
+
 Optional array of items that can be provided for easy pagination. Slice of this array with visible items is returned as `visibleItems` inside the `pageChanged` event.
 
 <Komponent :data="{ letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], visibleLetters: ['a', 'b', 'c']}" v-slot="{ data }">
   <div>
     <span><b>Visible letters: </b></span>
     <span v-for="number in data.visibleLetters">{{ number }} </span>
-    <KPagination 
+    <KPagination
       :items="data.letters"
-      :totalCount="data.letters.length" 
-      :pageSizes="[3]" 
+      :totalCount="data.letters.length"
+      :pageSizes="[3]"
       @pageChanged="({visibleItems}) => data.visibleLetters = visibleItems"/>
   </div>
 </Komponent>
@@ -66,6 +70,7 @@ export default {
 ```
 
 ### neighbors
+
 A number that sets the neighboring pages visible to the left and right of the center page when ellipsis are visible on both sides. By default, 1 neighbor is shown. For bigger sets of data we want user to see more pages to go through the pagination faster.
 
 <template>
@@ -77,16 +82,17 @@ A number that sets the neighboring pages visible to the left and right of the ce
 ```
 
 ### disablePageJump
+
 Restrict navigation to only `previous` / `next` page. Defaults to `false`.
 
 <Komponent :data="{ letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], visibleLetters: ['a', 'b', 'c']}" v-slot="{ data }">
   <div>
     <span><b>Visible letters: </b></span>
     <span v-for="number in data.visibleLetters">{{ number }} </span>
-    <KPagination 
+    <KPagination
       :items="data.letters"
-      :totalCount="data.letters.length" 
-      :pageSizes="[3]" 
+      :totalCount="data.letters.length"
+      :pageSizes="[3]"
       :disablePageJump="true"
       @pageChanged="({visibleItems}) => data.visibleLetters = visibleItems"/>
   </div>
@@ -117,6 +123,7 @@ export default {
 ```
 
 ### currentPage
+
 Manually control the current page instead of using native handling. If using this prop you MUST keep it up-to-date using
 the `@pageChanged` event in order to remain reactive to clicking the prev, next, and specific page buttons.
 
@@ -124,10 +131,10 @@ the `@pageChanged` event in order to remain reactive to clicking the prev, next,
   <div>
     <span><b>Visible letters: </b></span>
     <span v-for="number in data.visibleLetters">{{ number }} </span>
-    <KPagination 
+    <KPagination
       :items="data.letters"
-      :totalCount="data.letters.length" 
-      :pageSizes="[3]" 
+      :totalCount="data.letters.length"
+      :pageSizes="[3]"
       :currentPage="data.currPage"
       @pageChanged="({visibleItems, page}) => { data.visibleLetters = visibleItems; data.currPage = page }"/>
   </div>
@@ -163,8 +170,10 @@ export default {
 ## Usage
 
 ### Events
+
 - `pageChanged` - emitted when the page has been changed. The event provides following information. All of the numbers are sent in a human-understandable base (starting at 1 instead of 0) to be used directly in UI.
-  ```
+
+  ```json
   {
     page,         // Current page
     pageCount,    // Max number of pages
@@ -173,8 +182,10 @@ export default {
     visibleItems  // A slice of `items` array visible on the current page
   }
   ```
+
 - `pageSizeChanged` - emitted when the number of items per page has been changed
-  ```
+
+  ```json
   {
     pageSize,     // Number of items on a single page
     pageCount,    // Max number of pages
@@ -193,10 +204,10 @@ export default {
       </template>
     </KCard>
 
-  <KPagination 
+  <KPagination
     :items="data.names"
-    :totalCount="data.names.length" 
-    :pageSizes="[3, 4, 5]" 
+    :totalCount="data.names.length"
+    :pageSizes="[3, 4, 5]"
     @pageChanged="({visibleItems}) => data.visibleNames = visibleItems"/>
   </div>
 </Komponent>
@@ -239,12 +250,12 @@ export default {
 ```
 
 ## Theming
+
 | Variable | Purpose
 |:-------- |:-------
-| `--KPaginationBorderColor `| KPagination border color
+| `--KPaginationBorderColor`| KPagination border color
 
-
-An Example of changing the border color of KPagination to lime might look 
+An Example of changing the border color of KPagination to lime might look
 like:
 
 > Note: We are scoping the overrides to a wrapper in this example

@@ -6,8 +6,9 @@ sidebarDepth: 1
 # Utilities
 
 ## Spacing
+
 We provide a combination of margin and padding classes similar to [bootstrap](https://getbootstrap.com/docs/4.3/utilities/spacing/) and [tailwindcss](https://tailwindcss.com/docs/padding).  
-You can set a padding or margin to any side by providing a class like `p{side}-{size}` or `.m{side}-{size}`. The _space_ coincides with our preset list of spacing. 
+You can set a padding or margin to any side by providing a class like `p{side}-{size}` or `.m{side}-{size}`. The _space_ coincides with our preset list of spacing.
 
 Example: `.pt-2` would add 8px of padding to the top of the element, `.mx-0` would make the horizontal margin zero, and `.ma-0` would make
 both the horizontal and vertical margins zero.
@@ -25,29 +26,38 @@ both the horizontal and vertical margins zero.
 |             |                | `auto` auto |
 
 ### Examples
+
 - Adding top of 8px
+
   ```html
   <div class="pt-2"></div>
   ```
+
   ```css
   .pt-2 {
     padding-top: 8px;
   }
   ```
+
 - Adding margin x (left and right) of 0px
+
   ```html
   <div class="mx-0"></div>
   ```
+
   ```css
   .mx-0 {
     margin-left: 0px;
     margin-right: 0px;
   }
   ```
+
 - Adding margin all (left, right, top, bottom) of 0px
+
   ```html
   <div class="ma-0"></div>
   ```
+
   ```css
   .ma-0 {
     margin-left: 0px;
@@ -56,7 +66,9 @@ both the horizontal and vertical margins zero.
     margin-bottom: 0px;
   }
   ```
+
 ## Display
+
 | Class                 | Properties
 | :-------------------- |:-----------
 | .d-none | display: none;
@@ -67,6 +79,7 @@ both the horizontal and vertical margins zero.
 | .d-inline-flex | display: inline-flex;
 
 ## Width
+
 | Class                 | Properties
 | :-------------------- |:-----------
 | .w-25 | width: 25%;
@@ -76,6 +89,7 @@ both the horizontal and vertical margins zero.
 | .w-auto | width: auto;
 
 ## Height
+
 | Class                 | Properties
 | :-------------------- |:-----------
 | .h-100 | height: 100%;
@@ -83,7 +97,9 @@ both the horizontal and vertical margins zero.
 | .h-screen | min-height: 100vh;
 
 ## Flex
+
 ### Direction & Growth
+
 | Class                 | Properties
 | :-------------------- |:-----------
 | .flex-fill | flex: 1 1 auto;
@@ -95,6 +111,7 @@ both the horizontal and vertical margins zero.
 | .flex-grow-1 | flex-grow: 1;
 
 ### Justification
+
 | Class                   | Properties
 | :---------------------- |:-----------
 | .justify-content-start | justify-content: flex-start;
@@ -104,6 +121,7 @@ both the horizontal and vertical margins zero.
 | .justify-content-around |  justify-content: space-around;
 
 ### Alignment
+
 | Class                   | Properties
 | :---------------------- |:-----------
 | .align-items-start |  align-items: flex-start;
@@ -125,6 +143,7 @@ both the horizontal and vertical margins zero.
 | .align-self-stretch |  align-self: stretch;
 
 ## Float
+
 | Class                   | Properties
 | :---------------------- |:-----------
 | .float-left | float: left;
@@ -132,6 +151,7 @@ both the horizontal and vertical margins zero.
 | .float-center | float: center;
 
 ## Colors
+
 For each color in our [color palette](/style-guide/colors.html) we include a utility class that is prefixed with `color-`.
 
 | Class       | Properties      | Example
@@ -139,6 +159,7 @@ For each color in our [color palette](/style-guide/colors.html) we include a uti
 | .type-{color} | color: var(--{color}) | `class="color-blue-500"`
 
 ## Type Sizes
+
 For each size in our [type definitions](/style-guide/type.html) we include a utility class that is prefixed with `type-`. You can also add the class of `.mono` to style as mono
 
 | Class       | Properties      | Example
@@ -147,12 +168,14 @@ For each size in our [type definitions](/style-guide/type.html) we include a uti
 | .mono | font-size: calc(var(--type-{size}) * .95) | `class="mono type-xl"`
 
 ## Truncation
+
 We support both single line truncation as well as multi-line. Multi-line truncation is customizable with the following properties:
-  - `TLineHeight` - the height of each line
-  - `TMaxLines` - the maximum number of allowed lines
-  - `TFontSize` - the size of the font to truncate
-  - `TPosRight` - css property `right` position of the ellipsis
-  - `TPadRight` - the amount of padding on the right side of the container
+
+- `TLineHeight` - the height of each line
+- `TMaxLines` - the maximum number of allowed lines
+- `TFontSize` - the size of the font to truncate
+- `TPosRight` - css property `right` position of the ellipsis
+- `TPadRight` - the amount of padding on the right side of the container
 
 | Class       |Properties
 | :---------- |:-------------- |:-----------
@@ -160,11 +183,13 @@ We support both single line truncation as well as multi-line. Multi-line truncat
 | .truncate-multi | `TLineHeight`, `TMaxLines`, `TFontSize`, `TPosRight`, `TPadRight`
 
 ### Example
+
   ```html
   <div class="truncate-multi" style="width: 425px; border: 1px solid black; padding: 8px;">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer condimentum leo a neque tristique faucibus. Praesent at imperdiet elit, vel tincidunt metus. Praesent elementum mollis libero, et semper diam efficitur tristique. Nam aliquam tortor a leo pretium vestibulum. Proin posuere auctor odio, sit amet elementum massa aliquet in. 
   </div>
   ```
+
   ```css
   .truncate-multi {
     --TLineHeight: 24px;
@@ -185,7 +210,7 @@ We support both single line truncation as well as multi-line. Multi-line truncat
       line-height: var(--line-height);
       font-size: var(--font-size);
       position: relative;
-      max-height: calc(var(--line-height) * var(--max-lines));
+      max-height: calc(var(--line-height) *var(--max-lines));
       overflow: hidden;
       padding-right: calc(var(--ellipsis-pos) + var(--pad-right) + 4px) !important;
     }
@@ -201,10 +226,11 @@ We support both single line truncation as well as multi-line. Multi-line truncat
     }
   </style>
   <div class="truncate-multi" style="width: 425px; border: 1px solid black; padding: 8px;">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer condimentum leo a neque tristique faucibus. Praesent at imperdiet elit, vel tincidunt metus. Praesent elementum mollis libero, et semper diam efficitur tristique. Nam aliquam tortor a leo pretium vestibulum. Proin posuere auctor odio, sit amet elementum massa aliquet in. 
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer condimentum leo a neque tristique faucibus. Praesent at imperdiet elit, vel tincidunt metus. Praesent elementum mollis libero, et semper diam efficitur tristique. Nam aliquam tortor a leo pretium vestibulum. Proin posuere auctor odio, sit amet elementum massa aliquet in.
   </div>
 
 ## General Helpers
+
 | Class       |Properties
 | :---------- |:-------------- |:-----------
 | .capitalize | text-transform: capitalize;
@@ -224,4 +250,4 @@ We support both single line truncation as well as multi-line. Multi-line truncat
     &:last-of-type { color: var(--blue-700); }
   }
 }
-</style> 
+</style>

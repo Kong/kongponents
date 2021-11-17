@@ -3,11 +3,13 @@
 **KSkeleton** is used as a placeholder component while the primary content is still loading.
 
 ## Props
+
 ### type
+
 - `type`
 
-There are 5 different types of loading states that KSkeleton supports: Card, 
-Table, Form, Spinner and a generic loading state. Defaults to a generic loading 
+There are 5 different types of loading states that KSkeleton supports: Card,
+Table, Form, Spinner and a generic loading state. Defaults to a generic loading
 state. The following example shows a Form type KSKeleton.
 
 <template>
@@ -21,6 +23,7 @@ state. The following example shows a Form type KSKeleton.
 ```
 
 ### delayMilliseconds
+
 - `delay-milliseconds`
 
 The number of milliseconds to wait before showing the skeleton state. Defaults to 750.
@@ -52,6 +55,7 @@ The number of milliseconds to wait before showing the skeleton state. Defaults t
 ```
 
 ## Generic Loading State
+
 By default, **KSkeleton** will load a generic loading state. There are no props for this state.
 
 <template>
@@ -65,6 +69,7 @@ By default, **KSkeleton** will load a generic loading state. There are no props 
 ```
 
 ## Card Loading State
+
 This loading state is using for card type components, like **KCard** or similar.
 
 <template>
@@ -78,6 +83,7 @@ This loading state is using for card type components, like **KCard** or similar.
 ```
 
 ### cardCount
+
 - `card-count`
 
 Used for displaying the number of cards in this loading state. Defaults to 1. The following example shows 3 cards.
@@ -93,6 +99,7 @@ Used for displaying the number of cards in this loading state. Defaults to 1. Th
 ```
 
 ## Form Loading State
+
 This loading state is used for form type components. There are no props for this state.
 
 <template>
@@ -106,6 +113,7 @@ This loading state is used for form type components. There are no props for this
 ```
 
 ## Table Loading State
+
 This loading state is used for table type components.
 
 <template>
@@ -119,6 +127,7 @@ This loading state is used for table type components.
 ```
 
 ### rows
+
 - `table-rows`
 
 Used for displaying the number of rows in this loading state. Defaults to 6. The following example shows 3 rows.
@@ -134,6 +143,7 @@ Used for displaying the number of rows in this loading state. Defaults to 6. The
 ```
 
 ### columns
+
 - `table-columns`
 
 Used for displaying the number of columns in this loading state. Defaults to 6. The following example shows 3 columns.
@@ -149,6 +159,7 @@ Used for displaying the number of columns in this loading state. Defaults to 6. 
 ```
 
 ## Spinner Loading State
+
 This loading state is used for a spinner, which can be used for a wide variety of situations. There are no props for this state.
 
 <template>
@@ -162,6 +173,7 @@ This loading state is used for a spinner, which can be used for a wide variety o
 ```
 
 ## Button Loading State
+
 This loading state is used to show a spinner, while loading its content. There are no props for this state.
 
 <template>
@@ -178,24 +190,24 @@ This loading state is used to show a spinner, while loading its content. There a
 </template>
 ```
 
-
 ## Full Screen Loading State
-The full screen loading state is used to display a full screen loader typically 
-during initial render of an app to avoid any FOUC (Flash Of Unstyled Content) 
-while the app tries to figure out if you are able to access the route and also 
+
+The full screen loading state is used to display a full screen loader typically
+during initial render of an app to avoid any FOUC (Flash Of Unstyled Content)
+while the app tries to figure out if you are able to access the route and also
 to perform any expensive querying on first load.
 
 <template>
   <div>
     <k-button @click="clicked()">click for default progress behavior</k-button>
     <k-button @click="clickProgress()">click me to simulate progress manually</k-button>
-    <KSkeleton 
-      v-if="loading" 
+    <KSkeleton
+      v-if="loading"
       type="fullscreen-kong"  
       :delay-milliseconds="0" />
-    <KSkeleton 
-      v-if="loadingManually" 
-      type="fullscreen-kong" 
+    <KSkeleton
+      v-if="loadingManually"
+      type="fullscreen-kong"
       :progress="progress"
       :delay-milliseconds="0" />
   </div>
@@ -213,18 +225,16 @@ to perform any expensive querying on first load.
 
 ## KSkeletonBox
 
-KSkeleton package uses a component to render the placeholder content 
+KSkeleton package uses a component to render the placeholder content
 `<KSkeletonBox>`. It can be used as a component primitive to create your own
 custom placeholder components.
 
-### Props
-
+### Box Props
 
 | Prop   | Allowed Values                                              | Description                                  |
 | :----- | :---------------------------------------------------------- | -------------------------------------------- |
 | width  | '1' (default), '2', '5', '6', '10', '50', '75', '100'       | Width of the skeleton box in relative units. Values 10, 50, 75, 100 are percentage based. |
 | height | '1' (default), '2'                                          | Height of the skeleton box in relative units |
-
 
 <KSkeletonBox />
 <KSkeletonBox width="2" height="2"/>
@@ -239,7 +249,6 @@ custom placeholder components.
 <KSkeletonBox width="50" height="1"/>
 <KSkeletonBox width="100" height="2"/>
 ```
-
 
 For example, here is a card skeleton with different arrangement of placeholders:
 
@@ -314,7 +323,6 @@ And another example:
   </KSkeleton>
 </template>
 
-
 ```vue
 <KSkeleton type="card">
   <template v-slot:card-header>
@@ -340,9 +348,6 @@ And another example:
   </template>
 </KSkeleton>
 ```
-
-
-
 
 ## Theming
 
@@ -379,7 +384,7 @@ export default {
         this.loading = false
       }, 1000)
     },
-    
+
     clickProgress () {
       this.progress = 0
       this.loadingManually = true
@@ -391,7 +396,7 @@ export default {
         }
       }, 500)
     },
-    
+
     clickedTheming() {
       this.loadingTheming = true
       setTimeout(() => {

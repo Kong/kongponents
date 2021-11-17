@@ -4,7 +4,6 @@
 
 <KCardCatalog :items="getItems(5)" />
 
-
 ```vue
 <KCardCatalog :items="items" />
 ```
@@ -14,8 +13,11 @@ Pass a fetcher function to build a slot-able card catalog.
 ```vue
 <KCardCatalog :fetcher="fetcher" />
 ```
+
 ## Props
+
 ### title
+
 The catalog title.
 
 <KCardCatalog title="Look Mah!" :items="getItems(5)" />
@@ -24,6 +26,7 @@ The catalog title.
 ```
 
 ### items
+
 The content of the cards. Expects a `title` and a `description`.
 
 <KCardCatalog :items="getItems(6)" />
@@ -43,6 +46,7 @@ function getItems(count) {
 ```
 
 ### cardSize
+
 Size of the cards. Supports values `small`, `medium` (default), and `large`.
 
 <KCardCatalog title="Small Cards" :items="getItems(6)" cardSize="small" />
@@ -56,6 +60,7 @@ Size of the cards. Supports values `small`, `medium` (default), and `large`.
 ```
 
 ### noTruncation
+
 By default truncation of items with long descriptions is enabled at 5 lines. Enable `noTruncation`
 to turn it off.
 
@@ -86,15 +91,17 @@ Use a custom fetcher function to fetch card catalog items and leverage server-si
 ::: tip Note:
 All fetcher functions should take a single param. This parameter is a JSON
 object supporting the following properties:
-  - Pagination support:
-    - `page`: the currently visible page - starts at `1`
-    - `pageSize`: the number of items to display per page
+
+- Pagination support:
+  - `page`: the currently visible page - starts at `1`
+  - `pageSize`: the number of items to display per page
 :::
 
 ::: tip Note:
 All fetcher functions should return a JSON object. This JSON object should contain the following properties:
-  - `total` - the total count of catalog items (if using pagination)
-  - `data` - an array of JSON objects to populate the card catalog with
+
+- `total` - the total count of catalog items (if using pagination)
+- `data` - an array of JSON objects to populate the card catalog with
 :::
 
 Example fetcher function:
@@ -131,7 +138,7 @@ will default to the following values:
 
 Pass the total number of items in the set to populate the pagination text:
 
-```
+```html
 1 to 20 of <paginationTotalItems>
 ```
 
@@ -154,7 +161,7 @@ Pass in an array of page sizes for the page size dropdown. If not provided will 
 Set this to `true` to limit pagination navigation to `previous` / `next` page only.
 
 <KCardCatalog
-  :fetcher="fetcher" 
+  :fetcher="fetcher"
   :disablePaginationPageJump="true"
   :paginationPageSizes="[4, 5, 6]"
   :initial-fetcher-params="{
@@ -178,14 +185,18 @@ Set this to `true` to limit pagination navigation to `previous` / `next` page on
 Set this to `true` to remove the pagination bar when using a fetcher.
 
 ## KCatalogItem
+
 **KCardCatalog** generates a **KCatalogItem** for each item in the `items` property. At the most basic level, **KCatalogItem** is
 a wrapper around `KCard` to display correctly inside `KCardCatalog`. You can use the `body` slot of the `KCardCatalog` to manually create your own catalog items.
 
 ### Properties
+
 - `item` - the card content is built from this, it expects a `title` and optionally a `description`.
+
   ```json
   { title: 'some title', description: 'some description' }
   ```
+
 - `truncate` - a boolean (default to `true`), whether or not to truncate the `description` text.
 
 ```vue
@@ -196,7 +207,8 @@ a wrapper around `KCard` to display correctly inside `KCardCatalog`. You can use
 />
 ```
 
-### Slots
+### Card Slots
+
 - `cardTitle` - the title content for the card
 - `cardBody` - the body content for the card
 
@@ -357,6 +369,7 @@ Set the `isLoading` prop to `true` to enable the loading state.
 ```
 
 ## Slots
+
 - `body` - The body of the card catalog, we expect this to be an array of `KCatalogItem` components.
 This should be used instead of the `items` property.
 
@@ -497,9 +510,9 @@ fetcher(payload) {
 ```
 
 ## Theming
+
 **KCardCatalog** is for the most part a collection of KCards. To theme the cards, use
 the existing **KCard** theming variables [here](./card.md#theming).
-
 
 <script>
 
@@ -545,7 +558,7 @@ export default {
       return new Promise(resolve => {
         setTimeout(() => {
           resolve(myItems);
-        }, 500)      
+        }, 500)
       })
     },
     async fetcher(payload) {

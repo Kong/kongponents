@@ -75,8 +75,8 @@ The display type of the alert.
   type="banner" />
 
   <KAlert
-  alert-message="I'm a banner type alert" 
-  appearance="warning" 
+  alert-message="I'm a banner type alert"
+  appearance="warning"
   type="banner" />
 
 ```vue
@@ -106,7 +106,7 @@ The display type of the alert.
 <KAlert
   alert-message="I'm an alert"
   dismissType="button"
-  type="alert" 
+  type="alert"
   :isShowing="alert1IsOpen"
   @closed="alert1IsOpen = false" />
 
@@ -122,7 +122,7 @@ The display type of the alert.
   alert-message="I'm an alert"
   dismissType="button"
   appearance="danger"
-  type="alert" 
+  type="alert"
   :isShowing="alert3IsOpen"
   @closed="alert3IsOpen = false" />
 
@@ -130,7 +130,7 @@ The display type of the alert.
   alert-message="I'm an alert"
   dismissType="button"
   appearance="warning"
-  type="alert" 
+  type="alert"
   :isShowing="alert4IsOpen"
   @closed="alert4IsOpen = false" />
 
@@ -180,7 +180,7 @@ KAlert allows for dismissal of the banner using an icon or button. An alert is n
   type="alert"
   dismissType="none" />
 
-<KAlert 
+<KAlert
   alert-message="Info alert message that is dismissible"
   appearance="info"
   type="alert"
@@ -196,7 +196,7 @@ KAlert allows for dismissal of the banner using an icon or button. An alert is n
   :isShowing="warningIsOpen"
   @closed="warningIsOpen = false" />
 
-<KAlert 
+<KAlert
   alert-message="Success alert message that is dismissible"
   appearance="success"
   type="alert"
@@ -204,7 +204,7 @@ KAlert allows for dismissal of the banner using an icon or button. An alert is n
   :isShowing="successIsOpen"
   @closed="successIsOpen = false" />
 
-<KAlert 
+<KAlert
   alert-message="Danger alert message that is dismissible"
   appearance="danger"
   type="alert"
@@ -212,7 +212,7 @@ KAlert allows for dismissal of the banner using an icon or button. An alert is n
   :isShowing="dangerIsOpen"
   @closed="dangerIsOpen = false" />
 
-<KAlert 
+<KAlert
   alert-message="Alert with dismiss type as button"
   type="banner" dismissType="button"
   :isShowing="dismissTypeBtn"
@@ -279,7 +279,8 @@ Set whether or not the alert box is shown.
 ```
 
 ### Bordered
-Adds border around alert. Used for [KToaster]().
+
+Adds border around alert. Used for [KToaster](/components/toaster.html).
 
 - `is-bordered`
 
@@ -439,7 +440,6 @@ Fixes KAlert to the top of the container.
 - `alertMessage` - Default message slot
 - `description` - Alert message description slot available when these conditions are met: `type='banner'`, `size='large'` and `alertMessage` slot is rendered
 
-
 <KAlert
   type="banner"
   dismissType="button"
@@ -510,18 +510,19 @@ Fixes KAlert to the top of the container.
 ```
 
 ## Theming
+
 | Variable | Purpose
 |:-------- |:-------
-| `--KAlertInfoColor `| Info variant text  color
+| `--KAlertInfoColor`| Info variant text  color
 | `--KAlertInfoBorder`| Info variant border
 | `--KAlertInfoBackground` | Info variant background color
-| `--KAlertSuccessColor `| Success variant text  color
+| `--KAlertSuccessColor`| Success variant text  color
 | `--KAlertSuccessBorder`| Success variant border
 | `--KAlertSuccessBackground` | Success variant background color
-| `--KAlertDangerColor `| Danger variant text  color
+| `--KAlertDangerColor`| Danger variant text  color
 | `--KAlertDangerBorder`| Danger variant border
 | `--KAlertDangerBackground` | Danger variant background color
-| `--KAlertWarningColor `| Warning variant text  color
+| `--KAlertWarningColor`| Warning variant text  color
 | `--KAlertWarningBorder`| Warning variant border
 | `--KAlertWarningBackground` | Warning variant background color
 

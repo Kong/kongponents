@@ -1,6 +1,6 @@
 # Toaster
 
-**KToaster** - a popup notification typically used to show the result of an 
+**KToaster** - a popup notification typically used to show the result of an
 action. The toaster can close on its own but can also be manually dismissed.
 
 KToaster is used via the a `ToastManager` instance.  All rendering is controlled
@@ -25,7 +25,9 @@ via `this.$toaster` e.g.:
 ```
 
 ## Arguments
+
 ### message
+
 The default argument passed to the toaster is the message.
 
 <KButton @click="$toaster.open('Default message here')">Open Toaster</KButton>
@@ -35,6 +37,7 @@ The default argument passed to the toaster is the message.
 ```
 
 ### appearance
+
 The Toaster uses the same appearance values as [KAlert](/components/alert) and
 are applied the same way.
 
@@ -68,6 +71,7 @@ export default {
 ```
 
 ### timeout
+
 The default timeout is 5000ms (5 seconds) however you can change this to by
 passing an override argument.
 
@@ -101,8 +105,9 @@ export default {
 ```
 
 ## Toaster State
+
 You can view the current state of active toasters by calling
-`this.$toaster.toasters`. Click the buttons below to watch the state change 
+`this.$toaster.toasters`. Click the buttons below to watch the state change
 
 <KButton class="success" appearance="primary" @click="openNotification({timeoutMilliseconds: 10000, message: 'Success Notification', appearance: 'success'})">Open Toaster</KButton>
 <KButton appearance="danger" @click="openNotification({'appearance': 'danger', 'message': 'Danger Notification'})">Open Toaster</KButton>
@@ -158,7 +163,7 @@ export default {
       this.$toaster.open(options)
       this.toasters = this.$toaster.toasters
     },
-    
+
     openNotificationElapse(options) {
       this.$toaster.open(options)
       this.toasters = this.$toaster.toasters

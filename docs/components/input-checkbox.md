@@ -31,7 +31,9 @@ export default {
 ```
 
 ## Props
+
 ### v-model - required
+
 Use `v-model` to bind the `checked` state of the underlying `<input />`. The
 `v-model` binds to the `value` prop of the component and sets current checked
 state of the input. You can read more about passing values via `v-model`
@@ -40,10 +42,10 @@ state of the input. You can read more about passing values via `v-model`
 ```vue
 <KCheckbox v-model="checked" />
 ```
+
 ### html attributes
 
 Any valid attribute will be added to the input. You can read more about `$attrs` [here](https://vuejs.org/v2/api/#vm-attrs).
-
 
 ```vue
 <KCheckbox
@@ -59,6 +61,7 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 </KCard>
 
 ## Slots
+
 - `default` - Anything passed in to the default slot will replace the label prop text
 
 ```vue
@@ -87,14 +90,14 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 </KCard>
 
 ## Theming
+
 | Variable | Purpose
 |:-------- |:-------
-| `--KCheckboxPrimary `| KCheckbox checked background color
-| `--KCheckboxDisabled `| KCheckbox disabled background color
-| `--KCheckboxDisabledChecked `| KCheckbox disabled checked background color
+| `--KCheckboxPrimary`| KCheckbox checked background color
+| `--KCheckboxDisabled`| KCheckbox disabled background color
+| `--KCheckboxDisabledChecked`| KCheckbox disabled checked background color
 
-
-An Example of changing the background color of KCheckbox to `blueviolet` might look 
+An Example of changing the background color of KCheckbox to `blueviolet` might look
 like:
 
 > Note: We are scoping the overrides to a wrapper in this example

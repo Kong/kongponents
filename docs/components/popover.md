@@ -49,7 +49,6 @@ the default slot.
 
 This is the target `element` that the <code>popover</code> is appended to. By default its the body tag.
 
-
 <KPop title="Cool header" target=".theme-default-content">
   <KButton>button</KButton>
   <template v-slot:content>
@@ -504,7 +503,6 @@ Example:
 </KPop>
 ```
 
-
 ## Usage
 
 ### Events / Loading Content
@@ -591,7 +589,6 @@ Example:
   }
 </script>
 
-
 ```vue
 <KPop @opened="loadSomething" @closed="onClose">
   <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
@@ -649,7 +646,6 @@ Example:
   }
 </script>
 ```
-
 
 ## Theming
 

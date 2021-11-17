@@ -48,7 +48,6 @@ The state that the component should begin with.
 Komponent is meant to be used to add behavior to other components, by wrapping
 them and placing them inside `Komponent`'s default slot.
 
-
 ### Select
 
 <KCard class="mt-2" style="min-height: 100px;">

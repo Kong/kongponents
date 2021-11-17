@@ -96,20 +96,22 @@ Use a custom fetcher function to fetch table data and leverage server-side searc
 ::: tip Note:
 All fetcher functions should take a single param. This parameter is a JSON
 object supporting the following properties:
-  - Pagination support:
-    - `page`: the currently visible page - starts at `1`
-    - `pageSize`: the number of items to display per page
-  - Sort support:
-    - `sortColumnKey`: the column to sort by's `key` defined in the `headers` prop
-    - `sortColumnOrder`: can be 'asc' or 'desc'
-  - Search support:
-    - `query`: a text string to filter table data on
+
+- Pagination support:
+  - `page`: the currently visible page - starts at `1`
+  - `pageSize`: the number of items to display per page
+- Sort support:
+  - `sortColumnKey`: the column to sort by's `key` defined in the `headers` prop
+  - `sortColumnOrder`: can be 'asc' or 'desc'
+- Search support:
+  - `query`: a text string to filter table data on
 :::
 
 ::: tip Note:
 All fetcher functions should return a JSON object. This JSON object should contain the following properties:
-  - `total` - the total count of items (if using pagination)
-  - `data` - an array of JSON objects to populate the table with
+
+- `total` - the total count of items (if using pagination)
+- `data` - an array of JSON objects to populate the table with
 :::
 
 Example fetcher function:
@@ -224,7 +226,6 @@ object these features should be explicitly disabled.
 Pass in a string of search input for server-side table filtering. See [the Server-side function section](#server-side-functions)
 for an example.
 
-
 ### headers
 
 Pass in an array of header objects for the table.
@@ -269,7 +270,7 @@ will default to the following values:
 
 Pass the total number of items in the set to populate the pagination text:
 
-```
+```html
 1 to 20 of <paginationTotalItems>
 ```
 
@@ -1014,11 +1015,11 @@ export default {
     resolveAfter5MiliSec(count, pageSize, page, sortKey, sortOrder) {
       // simulate pagination and sort
       let limit = count
-      if ((pageSize * page) < count) {
+      if ((pageSize *page) < count) {
         limit = pageSize
       }
       let myItems = []
-        for (let i = ((page-1) * pageSize); i < limit; i++) {
+for (let i = ((page-1)* pageSize); i < limit; i++) {
           let offset = sortOrder === 'asc' ? count-i : i+1
           myItems.push({
             title: "Item " + offset,

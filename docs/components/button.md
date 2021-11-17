@@ -4,12 +4,15 @@
 and configuration options.
 
 <KButton appearance="primary">I'm a button</KButton>
+
 ```vue
 <KButton appearance="primary">I'm a button</KButton>
 ```
 
 ## Props
+
 ### Appearances
+
 The Button component can take 1 of 6 appearance values:
 
 - `primary`
@@ -36,6 +39,7 @@ The Button component can take 1 of 6 appearance values:
 ```
 
 ### Sizes
+
 We support `small`, `medium`, and `large` sizes, default to `medium`.
 
 - `small`
@@ -71,6 +75,7 @@ We support `small`, `medium`, and `large` sizes, default to `medium`.
 ```
 
 ### Caret
+
 - `isOpen`
 
 KButton can display a dropdown caret to the right hand side. This is useful for buttons that control dropdowns and popovers. When the prop `isOpen` is `false`, the caret will display pointing down. You can rotate the caret (active state) to point up by setting `isOpen` to `true`.
@@ -80,6 +85,7 @@ KButton can display a dropdown caret to the right hand side. This is useful for 
 </Komponent>
 
 > The `Komponent` component is used in this example to create state.
+
 ```vue
 <Komponent:data="{ isActive: false }" v-slot="{ data }">
   <KButton
@@ -91,19 +97,23 @@ KButton can display a dropdown caret to the right hand side. This is useful for 
   </KButton>
 </Komponent>
 ```
+
 ### Rounded
+
 - `isRounded`
 
 The buttons are rounded by default. This can be disabled by setting `isRounded` prop to `false`.
 
 <KButton appearance="primary" :isRounded="false">I'm a button</KButton>
 <KButton appearance="primary" >I'm a button</KButton>
+
 ```vue
 <KButton appearance="primary" :isRounded="false">I'm a button</KButton>
 <KButton appearance="primary" >I'm a button</KButton>
 ```
 
 ### Anchor Tag
+
 KButton can render either a `<a>` or `<router-link>` by simply passing the `to` prop. If it receives an object it will render a router link. If it receives a string it will render an HTML anchor tag
 
 - `to`
@@ -125,6 +135,7 @@ KButton can render either a `<a>` or `<router-link>` by simply passing the `to` 
 ```
 
 ### Disabled HTML Attribute
+
 KButton also supports the disabled attribute with both Button and Anchor types.
 
 <KButton appearance="danger" disabled>Disabled Danger</KButton>
@@ -142,7 +153,9 @@ KButton also supports the disabled attribute with both Button and Anchor types.
 ```
 
 ## Slots
+
 ### Icon
+
 KButton supports using an icon either before the text or without text.
 
 <KButton appearance="secondary">
@@ -175,7 +188,7 @@ KButton supports using an icon either before the text or without text.
 
 | Variable | Purpose
 |:-------- |:-------
-| `--KButtonPrimaryBase `| Primary background
+| `--KButtonPrimaryBase`| Primary background
 | `--KButtonPrimaryHover`| Primary hover state
 | `--KButtonPrimaryActive`| Primary active state
 | `--KButtonSecondaryBase`| Secondary background

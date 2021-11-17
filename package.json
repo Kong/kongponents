@@ -24,7 +24,10 @@
     "test": "yarn jest",
     "test-coverage": "yarn jest --coverage",
     "cli": "./cli/kongponent-cli",
-    "lint": "yarn eslint --ext .js,.vue packages/",
+    "lint": "yarn run lint:js && yarn run lint:markdown",
+    "lint:js": "yarn eslint --ext .js,.vue packages/",
+    "lint:markdown": "yarn markdownlint ./docs/**/*.md",
+    "lint:markdown:fix": "yarn markdownlint ./docs/**/*.md --fix",
     "postinstall": "husky install"
   },
   "devDependencies": {
@@ -55,6 +58,7 @@
     "jest-raw-loader": "^1.0.1",
     "jest-serializer-vue": "2.0.2",
     "lerna": "4.0.0",
+    "markdownlint-cli": "^0.29.0",
     "node-sass": "^4.11.0",
     "postcss-cli": "^6.1.2",
     "postcss-custom-properties": "^8.0.10",

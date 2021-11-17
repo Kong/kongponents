@@ -42,6 +42,7 @@ Kong uses the [Maison Neue](https://www.milieugrotesque.com/typefaces/maison-neu
 There are utility classes for `font-size`.
 
 ### Sans Font Styles
+
 <div>
   <text-block
     v-for="(font, key, i) in $page.frontmatter.sans"
@@ -52,6 +53,7 @@ There are utility classes for `font-size`.
 </div>
 
 ### Mono Font Styles
+
 <div>
   <text-block
     v-for="(font, key, i) in $page.frontmatter.mono"
@@ -59,7 +61,7 @@ There are utility classes for `font-size`.
     font-type="mono"
     prefix="type-"
     :font-size="font.size"
-    :variable-name="font.variable" /> 
+    :variable-name="font.variable" />
 </div>
 
 <script lang="ts">
@@ -102,7 +104,7 @@ There are also utility classes for quick styling of different content types.
     v-for="className in $page.headingStyles"
     :key="className"
     :styleClasses="className"
-    :variable-name="className" /> 
+    :variable-name="className" />
 </div>
 
 ### Body
@@ -112,6 +114,6 @@ There are also utility classes for quick styling of different content types.
     v-if=" $page.bodyStyles"
     v-for="className in $page.bodyStyles"
     :key="className"
-    :styleClasses="className" 
-    :variable-name="className" /> 
+    :styleClasses="className"
+    :variable-name="className" />
 </div>

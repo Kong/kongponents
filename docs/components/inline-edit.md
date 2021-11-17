@@ -17,7 +17,9 @@
 ```
 
 ## Props
+
 ### ignoreValue
+
 If true, will not set the value of the input when enabled/clicked. This is useful to control placeholder style text
 
 <Komponent :data="{ inlineText: '' }" v-slot="{ data }">
@@ -37,6 +39,7 @@ If true, will not set the value of the input when enabled/clicked. This is usefu
 ```
 
 ### styleOverrides
+
 Styles to set when the input is active. Useful when styling the default state differently.
 
 <Komponent :data="{ inlineText: '' }" v-slot="{ data }">
@@ -59,6 +62,7 @@ Styles to set when the input is active. Useful when styling the default state di
 ```
 
 ### `@changed`
+
 Emitted blurred away from the editing input or when enter is pressed.
 
 When clicking out of the input `@changed` will fire and emit the value. Can be used to reset the outside data.
@@ -94,6 +98,7 @@ While the component itself does not protect against returning empty an empty val
 ```
 
 ## Slots
+
 - `default` - Content to be edited
 
 :::warning
@@ -110,9 +115,11 @@ An HTML element must be passed in the slot. An error will be thrown if not passe
   Some text
 </KInlineEdit>
 ```
+
 :::
 
 ## Theming
+
 :lipstick: To theme, reference [KInput](/components/input.html#theming). The input takes up 100% of its parent container. To change, add a class or width styling to the wrapping component.
 
 <Komponent :data="{ inlineText: 'Im 50%!' }" v-slot="{ data }">

@@ -9,7 +9,9 @@
 ```
 
 ## Props
+
 ### icon - required
+
 The name of the icon. This required prop will only recognize icons from the
 following list. It tells KIcon which svg to render.
 
@@ -37,6 +39,7 @@ following list. It tells KIcon which svg to render.
 &nbsp;
 
 ### size
+
 This prop takes a string that will replace the SVG default height and width. If height and width is not present by default `24` is applied.
 
 <KIcon icon="gear" size="50" />
@@ -46,6 +49,7 @@ This prop takes a string that will replace the SVG default height and width. If 
 ```
 
 ### color
+
 Overrides the default svg color.
 
 <KIcon  icon="list" color="red" />
@@ -55,6 +59,7 @@ Overrides the default svg color.
 ```
 
 ### secondaryColor
+
 Overrides the secondary svg color (if one exists).
 
 <KIcon  icon="warning" color="var(--yellow-400)" secondaryColor="var(--black-75)" />
@@ -73,6 +78,7 @@ e.g. `<path id="preserveColor" d="M9 11v2H7v-2h2zm0-8v6.5H7V3h2z" fill="#FFF"/>`
 :::
 
 ### title
+
 The title to be announced by screenreaders and displayed on hover. If not provided, a default title will be used.
 
 <KIcon icon="warning" />
@@ -84,6 +90,7 @@ The title to be announced by screenreaders and displayed on hover. If not provid
 ```
 
 ### viewBox
+
 This prop takes a formatted string that will replace the SVG default viewBox. If one is not present by default `0 0 24 24` is applied.
 You can read more about the viewBox attribute
 [here](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox)
@@ -96,8 +103,8 @@ You can read more about the viewBox attribute
 <KIcon icon="cogwheel" viewBox="0 0 16 16" />
 ```
 
-
 ## Slots
+
 - `svgElements` - Used to add svg customization elements
 
 <KIcon icon="check" size="50" color="url('#linear-gradient')">
@@ -173,7 +180,9 @@ You can read more about the viewBox attribute
   </template>
 </KIcon>
 ```
+
 ## Usage
+
 :::warning
 KIcon imports .svg file types directly, so a loader is needed in order to render in your application such as the webpack
 [raw-loader](https://webpack.js.org/loaders/raw-loader/)
