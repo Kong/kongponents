@@ -10,6 +10,10 @@
       @input="e => {
         $emit('textarea', e.target.value),
         currValue = e.target.value
+
+        if (!disableCharacterLimit && currValue.length > characterLimit) {
+          $emit('char-limit-exceed', `Character limit of ${characterLimit} execeeded by ${currValue.length - characterLimit} characters`)
+        }
       }"
       v-on="listeners"
     />
@@ -33,6 +37,10 @@
           @input="e => {
             $emit('textarea', e.target.value),
             currValue = e.target.value
+
+            if (!disableCharacterLimit && currValue.length > characterLimit) {
+              $emit('char-limit-exceed', `Character limit of ${characterLimit} execeeded by ${currValue.length - characterLimit} characters`)
+            }
           }"
           @mouseenter="() => isHovered = true"
           @mouseleave="() => isHovered = false"
@@ -44,7 +52,7 @@
 
     <div
       v-if="!disableCharacterLimit"
-      :class="{'over-char-limit': currValue.length > characterLimit}"
+      :class="{ 'over-char-limit': currValue.length > characterLimit }"
       class="char-limit type-sm color-black-45 mt-2">
       {{ currValue.length || value.length }} / {{ characterLimit }}
     </div>
