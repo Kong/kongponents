@@ -5,58 +5,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [6.1.2](https://github.com/Kong/kongponents/compare/@kongponents/kinlineedit@6.1.1...@kongponents/kinlineedit@6.1.2) (2021-11-17)
 
-**Note:** Version bump only for package @kongponents/kinlineedit
-
-
-
-
-
-## [6.1.1](https://github.com/Kong/kongponents/compare/@kongponents/kinlineedit@6.0.1-alpha.3...@kongponents/kinlineedit@6.1.1) (2021-11-17)
-
-**Note:** Version bump only for package @kongponents/kinlineedit
-
-
-
-
-
-## [6.0.1-alpha.3](https://github.com/Kong/kongponents/compare/@kongponents/kinlineedit@6.0.1-alpha.2...@kongponents/kinlineedit@6.0.1-alpha.3) (2021-11-17)
-
-**Note:** Version bump only for package @kongponents/kinlineedit
-
-
-
-
-
-## 6.0.1-alpha.2 (2021-11-17)
-
-**Note:** Version bump only for package @kongponents/kinlineedit
-
-
-
-
-
-## 6.0.1-alpha.1 (2021-11-16)
-
-**Note:** Version bump only for package @kongponents/kinlineedit
-
-
-
-
-
-## 6.0.1-alpha.0 (2021-11-16)
-
-**Note:** Version bump only for package @kongponents/kinlineedit
-
-
-
-
-
-## 5.0.9-alpha.0 (2021-11-16)
-
-**Note:** Version bump only for package @kongponents/kinlineedit
-
-
-
+Kongponents redesign - no changes to this component
 
 
 ## [5.0.8](https://github.com/Kong/kongponents/compare/v5.0.7...v5.0.8) (2021-11-15)

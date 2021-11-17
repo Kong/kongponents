@@ -117,6 +117,7 @@
 <script>
 import Vue from 'vue'
 import VueCompositionAPI, { defineComponent, ref, onMounted, watch } from '@vue/composition-api'
+import KButton from '@kongponents/kbutton/KButton.vue'
 import KEmptyState from '@kongponents/kemptystate/KEmptyState.vue'
 import KSkeleton from '@kongponents/kskeleton/KSkeleton.vue'
 import KCatalogItem from './KCatalogItem.vue'
@@ -129,6 +130,7 @@ Vue.use(VueCompositionAPI)
 export default defineComponent({
   name: 'KCardCatalog',
   components: {
+    KButton,
     KEmptyState,
     KSkeleton,
     KCatalogItem,

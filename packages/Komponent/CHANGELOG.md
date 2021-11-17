@@ -3,60 +3,9 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [6.1.2](https://github.com/Kong/kongponents/compare/@kongponents/komponent@6.1.1...@kongponents/komponent@6.1.2) (2021-11-17)
+## [6.1.2](https://github.com/Kong/kongponents/compare/@kongponents/komponent@5.0.8...@kongponents/komponent@6.1.2) (2021-11-17)
 
-**Note:** Version bump only for package @kongponents/komponent
-
-
-
-
-
-## [6.1.1](https://github.com/Kong/kongponents/compare/@kongponents/komponent@6.0.1-alpha.3...@kongponents/komponent@6.1.1) (2021-11-17)
-
-**Note:** Version bump only for package @kongponents/komponent
-
-
-
-
-
-## [6.0.1-alpha.3](https://github.com/Kong/kongponents/compare/@kongponents/komponent@6.0.1-alpha.2...@kongponents/komponent@6.0.1-alpha.3) (2021-11-17)
-
-**Note:** Version bump only for package @kongponents/komponent
-
-
-
-
-
-## 6.0.1-alpha.2 (2021-11-17)
-
-**Note:** Version bump only for package @kongponents/komponent
-
-
-
-
-
-## 6.0.1-alpha.1 (2021-11-16)
-
-**Note:** Version bump only for package @kongponents/komponent
-
-
-
-
-
-## 6.0.1-alpha.0 (2021-11-16)
-
-**Note:** Version bump only for package @kongponents/komponent
-
-
-
-
-
-## 5.0.9-alpha.0 (2021-11-16)
-
-**Note:** Version bump only for package @kongponents/komponent
-
-
-
+Kongponents redesign - no changes to this component
 
 
 ## [5.0.8](https://github.com/Kong/kongponents/compare/v5.0.7...v5.0.8) (2021-11-15)

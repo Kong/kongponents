@@ -3,61 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [6.1.2](https://github.com/Kong/kongponents/compare/@kongponents/kradio@6.1.1...@kongponents/kradio@6.1.2) (2021-11-17)
+## [6.1.2](https://github.com/Kong/kongponents/compare/@kongponents/kradio@5.0.8...@kongponents/kradio@6.1.2) (2021-11-17)
 
-**Note:** Version bump only for package @kongponents/kradio
+### Fixes
+  * Fix issue where bound attributes were being applied to both the parent and child
 
+### BREAKING CHANGES
+  * `label` prop removed
 
-
-
-
-## [6.1.1](https://github.com/Kong/kongponents/compare/@kongponents/kradio@6.0.1-alpha.3...@kongponents/kradio@6.1.1) (2021-11-17)
-
-**Note:** Version bump only for package @kongponents/kradio
-
-
-
-
-
-## [6.0.1-alpha.3](https://github.com/Kong/kongponents/compare/@kongponents/kradio@6.0.1-alpha.2...@kongponents/kradio@6.0.1-alpha.3) (2021-11-17)
-
-**Note:** Version bump only for package @kongponents/kradio
-
-
-
-
-
-## 6.0.1-alpha.2 (2021-11-17)
-
-**Note:** Version bump only for package @kongponents/kradio
-
-
-
-
-
-## 6.0.1-alpha.1 (2021-11-16)
-
-**Note:** Version bump only for package @kongponents/kradio
-
-
-
-
-
-## 6.0.1-alpha.0 (2021-11-16)
-
-**Note:** Version bump only for package @kongponents/kradio
-
-
-
-
-
-## 5.0.9-alpha.0 (2021-11-16)
-
-**Note:** Version bump only for package @kongponents/kradio
-
-
-
-
+### Features
+  * slight change to look and feel
 
 ## [5.0.8](https://github.com/Kong/kongponents/compare/v5.0.7...v5.0.8) (2021-11-15)
 
