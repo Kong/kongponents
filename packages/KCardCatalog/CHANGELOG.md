@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.3](https://github.com/Kong/kongponents/compare/@kongponents/kcardcatalog@6.0.1-alpha.2...@kongponents/kcardcatalog@6.0.3) (2021-11-17)
+
+**Note:** Version bump only for package @kongponents/kcardcatalog
+
+
+
+
+
 ## 6.0.1-alpha.2 (2021-11-17)
 
 **Note:** Version bump only for package @kongponents/kcardcatalog
