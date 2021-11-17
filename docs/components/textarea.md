@@ -91,10 +91,17 @@ KTextArea works as regular texarea do using v-model for data binding:
 
 KTextArea has a couple of natural event bindings.
 
-| Event     | returns             |
-| :-------- | :------------------ |
-| `ktextarea` | The content of the textarea when it is changed |
-| `char-limit-exceeded` | A warning message if the character limit is exceeded when it's enabled |
+- `ktextarea` - Fired on change, returns the content of the textarea
+- `char-limit-exceeded` - Fired when the text starts or stops exceeding the limit, returns an object:
+
+    ```json
+    {
+        value,          // current value
+        length,         // length of current value
+        characterLimit, // character limit
+        limitExceeded   // whether or not the limit has been exceeded
+    }
+    ```
 
 KTextArea also transparently binds to events:
 

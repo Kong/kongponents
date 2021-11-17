@@ -10,10 +10,6 @@
       @input="e => {
         $emit('textarea', e.target.value),
         currValue = e.target.value
-
-        if (!disableCharacterLimit && currValue.length > characterLimit) {
-          $emit('char-limit-exceed', `Character limit of ${characterLimit} execeeded by ${currValue.length - characterLimit} characters`)
-        }
       }"
       v-on="listeners"
     />
@@ -37,10 +33,6 @@
           @input="e => {
             $emit('textarea', e.target.value),
             currValue = e.target.value
-
-            if (!disableCharacterLimit && currValue.length > characterLimit) {
-              $emit('char-limit-exceed', `Character limit of ${characterLimit} execeeded by ${currValue.length - characterLimit} characters`)
-            }
           }"
           @mouseenter="() => isHovered = true"
           @mouseleave="() => isHovered = false"
@@ -117,6 +109,21 @@ export default {
       delete listeners['input']
 
       return listeners
+    },
+    charLimitExceeded () {
+      return !this.disableCharacterLimit && this.currValue.length > this.characterLimit
+    }
+  },
+  watch: {
+    charLimitExceeded (newval, oldval) {
+      if (newval !== oldval) {
+        this.$emit('char-limit-exceeded', {
+          value: this.currValue,
+          length: this.currValue.length,
+          characterLimit: this.characterLimit,
+          limitExceeded: newval
+        })
+      }
     }
   }
 }
