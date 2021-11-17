@@ -87,7 +87,7 @@ Set this to `true` to disable ablity to sort.
 ### enableClientSort
 
 **Experimental** - set this prop to `true` to enable client side sorting if using a fetcher that returns static data.
-This function is flaky currently.
+This functionality may be flaky.
 
 ### fetcher
 
