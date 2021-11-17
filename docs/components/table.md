@@ -84,6 +84,11 @@ Set this to `true` to remove the pagination bar when using a fetcher.
 
 Set this to `true` to disable ablity to sort.
 
+### enableClientSort
+
+**Experimental** - set this prop to `true` to enable client side sorting if using a fetcher that returns static data.
+This function is flaky currently.
+
 ### fetcher
 
 Use a custom fetcher function to fetch table data and leverage server-side search, sort and pagination.
@@ -175,7 +180,7 @@ object these features should be explicitly disabled.
       { label: 'Enabled', key: 'enabled', sortable: false }
     ]"
     disablePagination
-    disableSorting
+    :enableClientSort="true"
   />
 </template>
 
@@ -209,7 +214,7 @@ object these features should be explicitly disabled.
       { label: 'Enabled', key: 'enabled', sortable: false }
     ]"
     disablePagination
-    disableSorting
+    :enableClientSort="true"
   />
 </template>
 ```
