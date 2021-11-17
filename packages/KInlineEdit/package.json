@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kinlineedit",
-  "version": "6.1.4",
+  "version": "6.1.5",
   "description": "Inline editable field.",
   "main": "dist/KInlineEdit.umd.min.js",
   "componentName": "KInlineEdit",
