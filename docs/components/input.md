@@ -17,7 +17,7 @@ You can specify `small`, `medium` (default), or `large` for the size.
 <KInput label="Medium" class="mb-2" />
 <KInput label="Large" size="large" />
 
-```html
+```vue
 <KInput label="Small" size="small" class="mb-2" />
 <KInput label="Medium" class="mb-2" />
 <KInput label="Large" size="large" />
