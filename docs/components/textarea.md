@@ -2,11 +2,13 @@
 
 **KTextArea** - Text areas are primarily used in modal views (wizards).
 <KTextArea/>
+
 ```vue
 <KTextArea />
 ```
 
-### Label
+## Label
+
 String to be used as the textarea label. Make sure that if you are using the built in label you specify the `--KInputBackground` theming variable. This variable is used for the background of the label as well as the textarea element.
 
 - `label` (**Note**: this field is required for accessibility reasons)
@@ -30,7 +32,9 @@ If the label is omitted it can be handled with another component, like **KLabel*
 ```
 
 ## Props
+
 ### Size
+
 You can specify `rows`, `cols` for the textarea size.
 
 <KTextArea :rows=2 :cols=15 placeholder="rows:2, cols:15" />
@@ -46,7 +50,6 @@ You can specify `rows`, `cols` for the textarea size.
 <br>
 <KTextArea :rows=8 :cols=25 placeholder="rows:8, cols:25"  />
 ```
-
 
 ## v-model
 
@@ -94,9 +97,8 @@ KTextArea transparently binds to events:
 </Komponent>
 ```
 
-
-
 ## Theming
+
 | Variable | Purpose
 |:-------- |:-------
 | `--KInputColor` | Input text color
@@ -106,7 +108,6 @@ KTextArea transparently binds to events:
 | `--KInputFocus` | Input border / label focus color
 | `--KInputDisabledBackground` | Input disabled background color
 | `--KInputError` | Input error border color
-
 
 An Example of changing the error border color of KInput to pink might look like:
 

@@ -55,6 +55,7 @@ An array of Breadcrumb items
  ```
 
 #### Breadcrumb link
+
 The `to` property can be a Vue route or traditional URL. When using a URL though the target will be blank and a new window will open. In most scenarios you will build your breadcrumb items using your Vue application routes.
 
 <KCard>
@@ -104,7 +105,6 @@ Maximum width of each breadcrumb item for truncating to ellipsis.
 ```vue
 <Krumbs :items="longBreadcrumbs" item-max-width="16ch" />
 ```
-
 
 <script>
 export default {
@@ -159,4 +159,3 @@ export default {
   }
 }
 </script>
-

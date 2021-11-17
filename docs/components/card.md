@@ -10,7 +10,9 @@
 ```
 
 ## Props
+
 ### Title
+
 String to be used in the title slot.
 
 - `title`
@@ -64,7 +66,6 @@ Example composing `KCard` with other Kongponents to make another component:
   </template>
 </KCard>
 
-
 ```vue
 <KCard :hasHover="true">
   <template v-slot:body>
@@ -85,6 +86,7 @@ Example composing `KCard` with other Kongponents to make another component:
 ```
 
 ### Status
+
 String to be used in the `statusHat` slot.
 
 - `status`
@@ -104,6 +106,7 @@ String to be used in the `statusHat` slot.
 ```
 
 ### Body
+
 String to be used in the body slot.
 
 - `body`
@@ -115,6 +118,7 @@ String to be used in the body slot.
 ```
 
 ### Border Variants
+
 Sets top border or no border. If neither set default will have border
 
 - `borderTop`
@@ -145,6 +149,7 @@ Sets top border or no border. If neither set default will have border
 ```
 
 ### Shadow
+
 Sets if card has shadow state (shadow)
 
 - `hasHover` only set shadow on hover
@@ -175,6 +180,7 @@ Sets if card has shadow state (shadow)
 ```
 
 ### Side by side
+
 Cards can be arranged with flex box.
 
 <div class="d-flex flex-row">
@@ -246,6 +252,7 @@ Cards can be arranged with flex box.
 ```
 
 ## Slots
+
 - `statusHat` - Small text directly above the title
 - `title`
 - `body`
@@ -296,15 +303,15 @@ Cards can be arranged with flex box.
 ```
 
 ## Theming
+
 | Variable | Purpose
 |:-------- |:-------
-| `--KCardPaddingY `| Vertical top/bottom spacing
+| `--KCardPaddingY`| Vertical top/bottom spacing
 | `--KCardPaddingX` | Horizontal left/right padding
 | `--KCardBorderRadius` |
 | `--KCardBorder`| Replaces border size & color
 | `--KCardShadow`| Replaces shadow size and color
 | `--KCardBackground`|
-
 
 \
 An Example of changing the background might look like.

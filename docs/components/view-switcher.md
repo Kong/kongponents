@@ -13,7 +13,7 @@ turtleOptions:
 ---
 # View Switcher
 
-**KViewSwitcher** Is used to toggle list views to grid views. 
+**KViewSwitcher** Is used to toggle list views to grid views.
 
 <Komponent
   :data="{ currentView: 'table' }"
@@ -24,7 +24,9 @@ turtleOptions:
 </Komponent>
 
 ## Props
+
 ### view
+
 - `table`
 - `grid`
 
@@ -61,9 +63,10 @@ The current view of your UI. The button will show icons for the opposite. I.E. i
 ```
 
 ## Usage
+
 KViewSwitcher will emit the new view on click. This then allows you to change the UI to the new view. The button will also toggle to the opposite view for users to switch back.
 
-<Komponent :data="{ currentView: 'table', turtles: [{ name: 'Leonardo', age: 34, color: 'blue' }, { name: 'Michelangelo', age: 32, color: 'orange' }, { name: 'Raphael', age: 32, color: 'red' }, { name: 'Donatello', age: 29, color: 'purple' }] }" v-slot="{ data }"> 
+<Komponent :data="{ currentView: 'table', turtles: [{ name: 'Leonardo', age: 34, color: 'blue' }, { name: 'Michelangelo', age: 32, color: 'orange' }, { name: 'Raphael', age: 32, color: 'red' }, { name: 'Donatello', age: 29, color: 'purple' }] }" v-slot="{ data }">
 <template>
 <div>
   <div class="d-flex align-items-center justify-content-between mb-4">
@@ -96,7 +99,7 @@ KViewSwitcher will emit the new view on click. This then allows you to change th
         <div class="mb-2">
           <KBadge :background-color="turtle.color" color="var(--white)">{{ turtle.color }}</KBadge>
         </div>
-        <div><strong>Age: </strong>{{ turtle.age }}</div> 
+        <div><strong>Age: </strong>{{ turtle.age }}</div>
       </template>
     </KCard>
   </div>
@@ -112,7 +115,7 @@ export default {
     }
   }
 }
-</script> 
+</script>
 <style lang="scss">
 .table-docs .k-table {
   display: table;

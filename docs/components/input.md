@@ -8,27 +8,30 @@
 ```
 
 ## Props
+
 ### Size
+
 You can specify `small`, `medium` (default), or `large` for the size.
 
 <KInput label="Small" size="small" class="mb-2" />
 <KInput label="Medium" class="mb-2" />
 <KInput label="Large" size="large" />
 
-```
+```html
 <KInput label="Small" size="small" class="mb-2" />
 <KInput label="Medium" class="mb-2" />
 <KInput label="Large" size="large" />
 ```
 
 ### Help
+
 String to be displayed as help text.
 
 - `help`
 
 <KInput help="I can help with that" placeholder="Need help?" />
 
-```
+```html
 <KInput help="I can help with that" placeholder="Need help?" />
 ```
 
@@ -64,7 +67,7 @@ String to be displayed as error message.
 <KInput label="Medium" class="mb-2" hasError errorMessage="Service name should not contain “_”" />
 <KInput label="Large" size="large" hasError errorMessage="Service name should not contain “_”" />
 
-```
+```html
 <KInput
   label="Small" size="small" class="mb-2"
   hasError
@@ -80,7 +83,9 @@ String to be displayed as error message.
   hasError
   errorMessage="Service name should not contain “_”" />
 ```
+
 ### Label
+
 String to be used as the input label. Make sure that if you are using the built in label you specify the `--KInputBackground` theming variable. This variable is used for the background of the label as well as the input element.
 
 - `label`
@@ -108,6 +113,7 @@ If the label is omitted it can be handled with another component, like **KLabel*
 ```
 
 ## Attribute Binding
+
 You can pass any input attribute and it will get properly bound to the element.
 
 <KInput class="mb-2" placeholder="placeholder" />
@@ -179,6 +185,7 @@ KInput transparently binds to events:
 ```
 
 ## Theming
+
 | Variable | Purpose
 |:-------- |:-------
 | `--KInputColor` | Input text color
@@ -188,7 +195,6 @@ KInput transparently binds to events:
 | `--KInputFocus` | Input border / label focus color
 | `--KInputDisabledBackground` | Input disabled background color
 | `--KInputError` | Input error border color
-
 
 An Example of changing the error border color of KInput to pink might look like:
 

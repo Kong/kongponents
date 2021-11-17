@@ -41,7 +41,9 @@ export default {
 ```
 
 ## Props
+
 ### tabs
+
 KTabs takes one required prop which is an array of tab objects.
 
 - `tabs`
@@ -67,6 +69,7 @@ export default {
 ```
 
 ### v-model
+
 By default the tabs will set the first tab in the array as active. You can override this by passing in the hash of any other tab to be used with v-model.
 
 <KTabs v-model="defaultTab" :tabs="tabs">
@@ -88,6 +91,7 @@ By default the tabs will set the first tab in the array as active. You can overr
 ```
 
 ## Slots
+
 In order to actually see your tabbed content you must slot it using the tab hash property without the hash mark.
 
 <KTabs :tabs="slottedTabs">
@@ -126,7 +130,9 @@ export default {
 ```
 
 ## Usage
+
 ### Router Hash
+
 KTabs emits a `changed` event with the new tab hash when clicked. You can use this to set the router or window hash and in turn use that with [v-model](#v-model).
 
 ```vue
@@ -155,11 +161,11 @@ export default {
 </script>
 ```
 
-
 ## Theming
+
 | Variable | Purpose
 |:-------- |:-------
-| `--KTabsBottomBorder `| Border between the tabs items and the tab content
+| `--KTabsBottomBorder`| Border between the tabs items and the tab content
 | `--KTabsActiveColor`| Active color of tab and underline
 | `--KTabsColor`| Default text color of the tab items
 

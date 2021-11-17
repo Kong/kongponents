@@ -6,6 +6,7 @@ By default all form styles are included in the stylesheet however, you can impor
 Here is an example of html elements being styled using the including css.
 
 ## Text Inputs
+
 <br>
 <input class="k-input mb-2" placeholder="placeholder" />
 <input class="k-input mb-2" type="password" value="123" />
@@ -40,6 +41,7 @@ Here is an example of html elements being styled using the including css.
 ```
 
 ## Checkboxes & Radios
+
 <br>
 <input class="k-input" type="checkbox" />
 <input class="k-input" type="checkbox" disabled />
@@ -56,6 +58,7 @@ Here is an example of html elements being styled using the including css.
 ```
 
 ## Labels & Help text
+
 By default labels inherit body styles however you can add the `.k-input-label` class for kong styles
 Additionally you can add block level hint text by using the `.help` class.
 <br>

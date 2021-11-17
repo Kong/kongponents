@@ -54,7 +54,7 @@ For instance, here we are toggling the state on `mouseover` and toggling back on
     <KToggle :toggled="true" v-slot="{isToggled, toggle}">
       <div
         :style="{color: isToggled ? 'green' : 'red'}"
-        @mouseover="toggle" 
+        @mouseover="toggle"
         @mouseout="toggle">
         {{ isToggled ? 'yes' : 'no' }}
       </div>
@@ -155,9 +155,9 @@ them and placing them inside `KToggle`'s default slot.
         <KButton @click="toggle">
           {{ isToggled ? 'collapse' : 'expand' }}
         </KButton>
-        <KAlert 
-          v-if="isToggled" 
-          class="mt-3" 
+        <KAlert
+          v-if="isToggled"
+          class="mt-3"
           alertMessage="Every day, once a day, give yourself a present." />
       </div>
     </KToggle>
@@ -189,7 +189,7 @@ them and placing them inside `KToggle`'s default slot.
         </KButton>
         <transition name="expand">
           <KAlert
-            v-if="isToggled" 
+            v-if="isToggled"
             class="mt-3"
             alertMessage="Every day, once a day, give yourself a present." />
         </transition>

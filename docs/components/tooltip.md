@@ -57,7 +57,6 @@ Here are the different options:
 </KoolTip>
 </div>
 
-
 ```vue
 <KoolTip position="bottom" label="A label that appears on the bottom">
   <KButton>Sample Button</KButton>
