@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/ktable",
-  "version": "6.1.2",
+  "version": "6.1.3",
   "description": "Table component",
   "main": "dist/KTable.umd.min.js",
   "componentName": "KTable",
@@ -23,10 +23,10 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kbutton": "^6.1.2",
-    "@kongponents/kemptystate": "^6.1.2",
-    "@kongponents/kicon": "^6.1.2",
-    "@kongponents/kpagination": "^6.1.2",
-    "@kongponents/kskeleton": "^6.1.2"
+    "@kongponents/kbutton": "^6.1.3",
+    "@kongponents/kemptystate": "^6.1.3",
+    "@kongponents/kicon": "^6.1.3",
+    "@kongponents/kpagination": "^6.1.3",
+    "@kongponents/kskeleton": "^6.1.3"
   }
 }
