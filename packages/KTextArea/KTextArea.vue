@@ -117,7 +117,7 @@ export default {
   watch: {
     charLimitExceeded (newval, oldval) {
       if (newval !== oldval) {
-        this.$emit('char-limit-exceed', {
+        this.$emit('char-limit-exceeded', {
           value: this.currValue,
           length: this.currValue.length,
           characterLimit: this.characterLimit,
