@@ -21,7 +21,6 @@ export const useRequest = (cacheKey, fetcherFn, config) => {
   }
 }
 
-
 export const useDebounce = (initialQuery, delay = 300) => {
   let timeout
   const query = ref(initialQuery)
@@ -48,8 +47,17 @@ export const useDebounce = (initialQuery, delay = 300) => {
  */
 export const clientSideSorter = (key, previousKey, sortOrder, items) => {
   let comparator = null
-  const numberComparator = (a, b) => a && b && a - b
-  const stringComparator = (a, b) => a.localeCompare(b)
+
+  const numberComparator = (a, b) => {
+    if (a && b) {
+      return a - b
+    }
+
+    return 0
+  }
+  const stringComparator = (a, b) => {
+    return a.localeCompare(b)
+  }
 
   if (key !== previousKey) {
     comparator = (a, b) => {

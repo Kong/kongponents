@@ -1,8 +1,7 @@
 <template>
-  <div class="k-input-wrapper">
+  <div class="k-input-wrapper mb-2">
     <textarea
       v-if="!label"
-      :required="required"
       v-bind="$attrs"
       :value="currValue ? currValue : value"
       :rows="rows"
@@ -11,6 +10,10 @@
       @input="e => {
         $emit('textarea', e.target.value),
         currValue = e.target.value
+
+        if (!disableCharacterLimit && currValue.length > characterLimit) {
+          $emit('char-limit-exceed', `Character limit of ${characterLimit} execeeded by ${currValue.length - characterLimit} characters`)
+        }
       }"
       v-on="listeners"
     />
@@ -34,6 +37,10 @@
           @input="e => {
             $emit('textarea', e.target.value),
             currValue = e.target.value
+
+            if (!disableCharacterLimit && currValue.length > characterLimit) {
+              $emit('char-limit-exceed', `Character limit of ${characterLimit} execeeded by ${currValue.length - characterLimit} characters`)
+            }
           }"
           @mouseenter="() => isHovered = true"
           @mouseleave="() => isHovered = false"
@@ -44,8 +51,9 @@
     </div>
 
     <div
-      :class="{'over-char-limit': currValue.length > characterLimit}"
-      class="type-sm color-black-45 float-right">
+      v-if="!disableCharacterLimit"
+      :class="{ 'over-char-limit': currValue.length > characterLimit }"
+      class="char-limit type-sm color-black-45 mt-2">
       {{ currValue.length || value.length }} / {{ characterLimit }}
     </div>
   </div>
@@ -63,10 +71,6 @@ export default {
       type: String,
       default: ''
     },
-    required: {
-      type: Boolean,
-      default: false
-    },
     label: {
       type: String,
       default: ''
@@ -74,6 +78,10 @@ export default {
     characterLimit: {
       type: Number,
       default: CHARACTER_LIMIT
+    },
+    disableCharacterLimit: {
+      type: Boolean,
+      default: false
     },
     rows: {
       type: Number,
@@ -118,28 +126,37 @@ export default {
 @import '~@kongponents/styles/_variables.scss';
 @import '~@kongponents/styles/forms/_inputs.scss';
 
-textarea.form-control {
-  font-family: 'Maison Neue';
-  resize: none;
+.k-input-wrapper {
+  width: fit-content;
+  display: grid;
 
-  &::placeholder {
-    color: var(--grey-500);
+  textarea.form-control {
+    font-family: var(--font-family-sans);
+    resize: none;
+
+    &::placeholder {
+      color: var(--grey-500);
+    }
+
+    &:hover {
+      color: var(--grey-600);
+    }
+
+    &:hover::placeholder {
+      color: var(--grey-600);
+    }
+
+    &:focus::placeholder {
+      color: transparent;
+    }
   }
 
-  &:hover {
-    color: var(--grey-600);
+  .char-limit {
+    margin-left: auto;
   }
 
-  &:hover::placeholder {
-    color: var(--grey-600);
+  .over-char-limit {
+    color: var(--red-600);
   }
-
-  &:focus::placeholder {
-    color: transparent;
-  }
-}
-
-.over-char-limit {
-  color: var(--red-600);
 }
 </style>

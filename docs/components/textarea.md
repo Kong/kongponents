@@ -31,22 +31,38 @@ If the label is omitted it can be handled with another component, like **KLabel*
 
 ## Props
 ### Size
+
 You can specify `rows`, `cols` for the textarea size.
 
-<KTextArea :rows=2 :cols=15 placeholder="rows:2, cols:15" />
-<br>
 <KTextArea label="Size" :rows=3 :cols=20 placeholder="I'm labelled and customized!" />
 <br>
 <KTextArea :rows=8 :cols=25 placeholder="rows:8, cols:25"  />
 
 ```vue
-<KTextArea :rows=2 :cols=15 placeholder="rows:2, cols:15" />
-<br>
 <KTextArea label="Size" :rows=3 :cols=20 placeholder="I'm labelled and customized!" />
 <br>
 <KTextArea :rows=8 :cols=25 placeholder="rows:8, cols:25"  />
 ```
 
+### characterLimit
+
+Use this prop to specify a character limit for the textarea, defaults to `2048`.
+
+<KTextArea :characterLimit="500" />
+
+```vue
+<KTextArea :characterLimit="500" />
+```
+
+### disableCharacterLimit
+
+Use this prop to remove the character limit on the textarea. Defaults to `false`.
+
+<KTextArea disable-character-limit />
+
+```vue
+<KTextArea disable-character-limit />
+```
 
 ## v-model
 
@@ -70,7 +86,14 @@ KTextArea works as regular texarea do using v-model for data binding:
 
 ## Events
 
-KTextArea transparently binds to events:
+KTextArea has a couple of natural event bindings.
+
+| Event     | returns             |
+| :-------- | :------------------ |
+| `ktextarea` | The content of the textarea when it is changed |
+| `char-limit-exceeded` | A warning message if the character limit is exceeded when it's enabled |
+
+KTextArea also transparently binds to events:
 
 <Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
   <div>

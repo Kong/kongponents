@@ -84,25 +84,30 @@ Set this to `true` to remove the pagination bar when using a fetcher.
 
 Set this to `true` to disable ablity to sort.
 
+### enableClientSort
+
+**Experimental** - set this prop to `true` to enable client side sorting if using a fetcher that returns static data.
+This functionality may be flaky.
+
 ### fetcher
 
 Use a custom fetcher function to fetch table data and leverage server-side search, sort and pagination.
 
-::: tip Note: 
+::: tip Note:
 All fetcher functions should take a single param. This parameter is a JSON
-object supporting the following properties: 
-  - Pagination support: 
-    - `page`: the currently visible page - starts at `1` 
+object supporting the following properties:
+  - Pagination support:
+    - `page`: the currently visible page - starts at `1`
     - `pageSize`: the number of items to display per page
-  - Sort support: 
+  - Sort support:
     - `sortColumnKey`: the column to sort by's `key` defined in the `headers` prop
     - `sortColumnOrder`: can be 'asc' or 'desc'
-  - Search support: 
+  - Search support:
     - `query`: a text string to filter table data on
 :::
 
-::: tip Note: 
-All fetcher functions should return a JSON object. This JSON object should contain the following properties: 
+::: tip Note:
+All fetcher functions should return a JSON object. This JSON object should contain the following properties:
   - `total` - the total count of items (if using pagination)
   - `data` - an array of JSON objects to populate the table with
 :::
@@ -139,7 +144,7 @@ fetcher(payload) {
 ```
 
 The `fetcher` function does not actually need to make an API call. Tables that can get their data synchronously can
-be modified to use a `fetcher` that returns the static data object. 
+be modified to use a `fetcher` that returns the static data object.
 
 ::: tip Note
 Remember that the `fetcher` function is responsible for managing pagination/sort/search. So if returning a static data
@@ -173,9 +178,9 @@ object these features should be explicitly disabled.
       { label: 'Name', key: 'name', sortable: true },
       { label: 'Id', key: 'id', sortable: true },
       { label: 'Enabled', key: 'enabled', sortable: false }
-    ]" 
+    ]"
     disablePagination
-    disableSorting
+    :enableClientSort="true"
   />
 </template>
 
@@ -207,16 +212,16 @@ object these features should be explicitly disabled.
       { label: 'Title', key: 'title', sortable: true },
       { label: 'Description', key: 'description', sortable: true },
       { label: 'Enabled', key: 'enabled', sortable: false }
-    ]" 
+    ]"
     disablePagination
-    disableSorting
+    :enableClientSort="true"
   />
 </template>
 ```
 
 ### searchInput
 
-Pass in a string of search input for server-side table filtering. See [the Server-side function section](#server-side-functions) 
+Pass in a string of search input for server-side table filtering. See [the Server-side function section](#server-side-functions)
 for an example.
 
 
@@ -262,7 +267,7 @@ will default to the following values:
 
 ### paginationTotalItems
 
-Pass the total number of items in the set to populate the pagination text: 
+Pass the total number of items in the set to populate the pagination text:
 
 ```
 1 to 20 of <paginationTotalItems>
@@ -568,7 +573,7 @@ access to the row data.
 
 ### Column Header
 
-<KTable 
+<KTable
   :headers="tableOptionsHeaders"
   :fetcher="tableOptionsFetcher">
   <template v-slot:column-name="{ column }">
@@ -606,7 +611,7 @@ export default {
 
 ### Column Cell
 
-<KTable 
+<KTable
   :headers="tableOptionsHeaders"
   :fetcher="tableOptionsFetcher">
   <template v-slot:enabled="{rowValue}">
@@ -984,9 +989,9 @@ export default {
         { label: 'Enabled', key: 'enabled', sortable: false }
       ],
       tableOptionsHeaders: [
-        { label: 'Name', key: 'name', sortable: true },
-        { label: 'ID', key: 'id', sortable: true },
-        { label: 'Enabled', key: 'enabled', sortable: true },
+        { label: 'Name', key: 'name' },
+        { label: 'ID', key: 'id' },
+        { label: 'Enabled', key: 'enabled' },
         { key: 'actions', hideLabel: true }
       ],
       tableOptionsRowAttrsHeaders: [
@@ -1011,7 +1016,7 @@ export default {
       let limit = count
       if ((pageSize * page) < count) {
         limit = pageSize
-      } 
+      }
       let myItems = []
         for (let i = ((page-1) * pageSize); i < limit; i++) {
           let offset = sortOrder === 'asc' ? count-i : i+1
