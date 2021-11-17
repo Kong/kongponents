@@ -76,7 +76,7 @@ You can pass a `width` string for menu. By default the `width` is `284px`.
 
 <KMenu :items="getMenuItems(3)" width="735" />
 
-```html
+```vue
 <KMenu :items="getMenuItems(3)" width="735" /> 
 ```
 
