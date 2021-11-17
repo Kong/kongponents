@@ -3,60 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [6.1.2](https://github.com/Kong/kongponents/compare/@kongponents/styles@6.1.1...@kongponents/styles@6.1.2) (2021-11-17)
+## [6.1.2](https://github.com/Kong/kongponents/compare/@kongponents/styles@5.0.8...@kongponents/styles@6.1.2) (2021-11-17)
 
-**Note:** Version bump only for package @kongponents/styles
+### BREAKING CHANGES
+* existing color codes updated
+* Roboto font no longer included
 
-
-
-
-
-## [6.1.1](https://github.com/Kong/kongponents/compare/@kongponents/styles@6.0.1-alpha.3...@kongponents/styles@6.1.1) (2021-11-17)
-
-**Note:** Version bump only for package @kongponents/styles
-
-
-
-
-
-## [6.0.1-alpha.3](https://github.com/Kong/kongponents/compare/@kongponents/styles@6.0.1-alpha.2...@kongponents/styles@6.0.1-alpha.3) (2021-11-17)
-
-**Note:** Version bump only for package @kongponents/styles
-
-
-
-
-
-## 6.0.1-alpha.2 (2021-11-17)
-
-**Note:** Version bump only for package @kongponents/styles
-
-
-
-
-
-## 6.0.1-alpha.1 (2021-11-16)
-
-**Note:** Version bump only for package @kongponents/styles
-
-
-
-
-
-## 6.0.1-alpha.0 (2021-11-16)
-
-**Note:** Version bump only for package @kongponents/styles
-
-
-
-
-
-## 5.0.9-alpha.0 (2021-11-16)
-
-**Note:** Version bump only for package @kongponents/styles
-
-
-
+### Features
+* added `petrol`, `purple`, and `teal` color codes
+* typography
+  * new `Maison Neue` font support added
+  * defaults to `Maison Neue` instead of `Roboto`
+  * multiple new utility classes added for font styling
 
 
 ## [5.0.8](https://github.com/Kong/kongponents/compare/v5.0.7...v5.0.8) (2021-11-15)

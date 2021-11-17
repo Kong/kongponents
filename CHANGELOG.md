@@ -3,15 +3,8 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## 6.0.1-alpha.0 (2021-11-16)
 
-**Note:** Version bump only for package kongponents
-
-
-
-
-
-## [6.1.0](https://github.com/Kong/kongponents/compare/v5.0.8...v6.1.0) (2021-11-16)
+## [6.1.2](https://github.com/Kong/kongponents/compare/v5.0.8...v6.1.2) (2021-11-16)
 
 ### New Dependencies Added
 
@@ -19,72 +12,103 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * `vue-uuid` package added as `devDependency` for accessibility/ARIA standards
 * `tailwindcss` and `@kawarimidoll/vuepress-plugin-tailwind` added as `devDependencies` for utility classes
 
-### Breaking Changes
+### BREAKING CHANGES
 * `KAlert` 
-  - new props `type` and `dismissType` added (`is-dismissable` prop removed)
-  - `size` prop now supports `large` and `small` 
-  - new slots associated with "banner" `type` and `size` `large` (icon, description, actionButtons)
+  * `is-dismissable` prop removed
 
 * `KBadge` 
-  - add `info` option for `appearance` prop
-  - add `shape` property to support rectangular badges
+  * look and feel changed to match redesign
 
 * `KButton` 
-  - `size` prop now supports `small`, `medium`, and `large` 
-  - `isRounded` property added and defaults to `true`
-  - Buttons default to a rounded appearance
+  * Buttons default to a rounded appearance
 
 * `KCard` 
-  - `helpText` property removed, 
-  - `status` / `statusHat` prop and slot added 
-  - `notifications` slot added
+  * `helpText` property removed
+  * changes to look and feel
 
-* `KCheckbox` / `KRadio` 
-  - `label` property removed
-
-* `KEmptyState` 
-  - `icon` prop added
+* `KCheckbox` 
+  * `label` property removed
 
 * `KIcon` 
-  - new icons added 
-  - `secondaryColor` prop added
-
-* `KInput` 
-  - `size` prop added
+  * changed the way SVGs are rendered
+  * HTML layout changed
 
 * `KModal` 
-  - `title` prop is now required
-  - `hideTitle` prop added
-  - `helpText` / `help` prop and slot removed
-  - `action-buttons` slot added
+  * `title` prop is now required
+  * `helpText` / `help` prop and slot removed
+  * slight changes to look and feel
 
-* `KPop` 
-  - `actions` and `footer` slots added
-  - `buttonText` prop added so `default` slot use is no longer required
+* `KMultiselect`
+  * look and feel changed to match redesign
+
+`KRadio` 
+  * `label` property removed
 
 * `KTable` 
-  - support added for configuring error, loading, and empty states
-  - support for `fetcher` function to populate table data added
-  - pagination support added 
-  - `options` prop deprecated
-  - client-side sort (deprecated) is flaky
-  - removed `isSmall` and `isClickable` props
-
-* `styles` 
-  - added `petrol`, `purple`, and `teal` color codes
+  * DEPRECATED: `options` prop
+  * DEPRECATED: sorting with `options` prop enabled is flaky
+  * removed `isSmall` and `isClickable` props
+  * look and feel changed to match redesign
+  * HTML layout changed
 
 * `typography` 
-  - new `Maison Neue` font support added
-  - defaults to `Maison Neue` instead of `Roboto`
-  - multiple new utility classes added for font styling
+  * `Roboto` font no longer used / included
 
-### New Kongponents Added
+### Features 
 
-* `KCardCatalog`
-* `KMenu`
-* `KPagination`
-* `KSelect`
-* `KTextArea`
+* `KAlert` 
+  * new props `type` and `dismissType` added
+  * `size` prop now supports `large` and `small` 
+  * new slots associated with "banner" `type` and `size` `large` (icon, description, actionButtons)
+
+* `KBadge` 
+  * `info` option for `appearance` prop added
+  * `shape` property to support rectangular badges added
+
+* `KButton` 
+  * `size` prop now supports `small`, `medium`, and `large` 
+  * `isRounded` property added
+
+* `KCard` 
+  * `status` / `statusHat` prop and slot added 
+  * `notifications` slot added
+
+* `KEmptyState` 
+  * `icon` prop added
+
+* `KIcon` 
+  * new icons added 
+  * `secondaryColor` prop added
+
+* `KInput` 
+  * `size` prop added
+
+* `KModal` 
+  * `hideTitle` prop added
+  * `action-buttons` slot added
+
+* `KPop` 
+  * `actions` and `footer` slots added
+  * `buttonText` prop added so `default` slot use is no longer required
+
+* `KTable` 
+  * support added for configuring error, loading, and empty states
+  * support for `fetcher` function to populate table data added
+  * pagination support added 
+
+* `styles` 
+  * added `petrol`, `purple`, and `teal` color codes
+
+* `typography` 
+  * new `Maison Neue` font support added
+  * multiple new utility classes added for font styling
+
+* New Kongponents Added
+  * `KCardCatalog`
+  * `KMenu`
+  * `KPagination`
+  * `KSelect`
+  * `KTextArea`
 
 
 ## [5.0.8](https://github.com/Kong/kongponents/compare/v5.0.7...v5.0.8) (2021-11-15)
@@ -244,7 +268,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **kbadge:** auto width by default, add vars, truncate ([#271](https://github.com/Kong/kongponents/issues/271)) ([ee6d547](https://github.com/Kong/kongponents/commit/ee6d547f0820141b39535d57e07ad8f624beaf62))
 * **kcard:** add permanent shadow property ([#188](https://github.com/Kong/kongponents/issues/188)) ([37dbee7](https://github.com/Kong/kongponents/commit/37dbee7cdac5c99597d02f54cbb25dce54e689ac))
 * **KCard:** add help text prop ([#309](https://github.com/Kong/kongponents/issues/309)) ([fc13244](https://github.com/Kong/kongponents/commit/fc132445189be95da6e84ad490d28305b3f3572b))
-* **kemptystate:** make kemptystate support error state, add kskeleton  - intf-2312 ([#191](https://github.com/Kong/kongponents/issues/191)) ([180ff45](https://github.com/Kong/kongponents/commit/180ff45c225589f9736ae2285c81cd0cbd66ce30))
+* **kemptystate:** make kemptystate support error state, add kskeleton  * intf-2312 ([#191](https://github.com/Kong/kongponents/issues/191)) ([180ff45](https://github.com/Kong/kongponents/commit/180ff45c225589f9736ae2285c81cd0cbd66ce30))
 * **KEmptyState:** bump KButton version ([b65ec5c](https://github.com/Kong/kongponents/commit/b65ec5cca4b3509db139c5bde4c077311a240a40))
 * **KEmptyState:** Creates base empty component ([#30](https://github.com/Kong/kongponents/issues/30)) ([c4092ab](https://github.com/Kong/kongponents/commit/c4092abcd344269959e5dc1a3d13a45e84bc62dd))
 * **kicon:** add redo, pencil icon ([#305](https://github.com/Kong/kongponents/issues/305)) ([98cb0b4](https://github.com/Kong/kongponents/commit/98cb0b4244365f34e6f3830be25f7411272844cd))

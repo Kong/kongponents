@@ -23,8 +23,10 @@
     "access": "public"
   },
   "dependencies": {
+    "@kongponents/kbutton": "^6.1.2",
     "@kongponents/kcard": "^6.1.2",
     "@kongponents/kemptystate": "^6.1.2",
+    "@kongponents/kpagination": "^6.1.2",
     "@kongponents/kskeleton": "^6.1.2"
   }
 }
