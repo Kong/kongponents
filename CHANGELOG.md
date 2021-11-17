@@ -268,7 +268,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **kbadge:** auto width by default, add vars, truncate ([#271](https://github.com/Kong/kongponents/issues/271)) ([ee6d547](https://github.com/Kong/kongponents/commit/ee6d547f0820141b39535d57e07ad8f624beaf62))
 * **kcard:** add permanent shadow property ([#188](https://github.com/Kong/kongponents/issues/188)) ([37dbee7](https://github.com/Kong/kongponents/commit/37dbee7cdac5c99597d02f54cbb25dce54e689ac))
 * **KCard:** add help text prop ([#309](https://github.com/Kong/kongponents/issues/309)) ([fc13244](https://github.com/Kong/kongponents/commit/fc132445189be95da6e84ad490d28305b3f3572b))
-* **kemptystate:** make kemptystate support error state, add kskeleton  * intf-2312 ([#191](https://github.com/Kong/kongponents/issues/191)) ([180ff45](https://github.com/Kong/kongponents/commit/180ff45c225589f9736ae2285c81cd0cbd66ce30))
+* **kemptystate:** make kemptystate support error state, add kskeleton  - intf-2312 ([#191](https://github.com/Kong/kongponents/issues/191)) ([180ff45](https://github.com/Kong/kongponents/commit/180ff45c225589f9736ae2285c81cd0cbd66ce30))
 * **KEmptyState:** bump KButton version ([b65ec5c](https://github.com/Kong/kongponents/commit/b65ec5cca4b3509db139c5bde4c077311a240a40))
 * **KEmptyState:** Creates base empty component ([#30](https://github.com/Kong/kongponents/issues/30)) ([c4092ab](https://github.com/Kong/kongponents/commit/c4092abcd344269959e5dc1a3d13a45e84bc62dd))
 * **kicon:** add redo, pencil icon ([#305](https://github.com/Kong/kongponents/issues/305)) ([98cb0b4](https://github.com/Kong/kongponents/commit/98cb0b4244365f34e6f3830be25f7411272844cd))
