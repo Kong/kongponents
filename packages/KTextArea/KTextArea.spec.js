@@ -62,6 +62,18 @@ describe('KTextArea', () => {
     expect(textarea.element.value).toBe('hey, dude')
   })
 
+  it('can configure character limit', () => {
+    const charLimit = 500
+    const wrapper = mount(KTextArea, {
+      propsData: {
+        testMode: true,
+        characterLimit: charLimit
+      }
+    })
+
+    expect(wrapper.find('.char-limit').html()).toContain(charLimit)
+  })
+
   it('should have style when value exceeds the character limit', () => {
     const value = 'abc'.repeat(683)
     const wrapper = mount(KTextArea, {
@@ -75,6 +87,17 @@ describe('KTextArea', () => {
     textarea.setValue(value)
     expect(wrapper.find('textarea').element.value).toBe(value)
     expect(wrapper.find('div.over-char-limit').exists()).toBe(true)
+  })
+
+  it('should allow disabling character limit', () => {
+    const wrapper = mount(KTextArea, {
+      propsData: {
+        testMode: true,
+        disableCharacterLimit: true
+      }
+    })
+
+    expect(wrapper.find('.char-limit').exists()).toBe(false)
   })
 
   it('matches snapshot', () => {
