@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.1.6 (2021-11-17)
+
+
+### Bug Fixes
+
+* **ktextarea:** limit exceeded event ([#418](https://github.com/Kong/kongponents/issues/418)) ([f7cf421](https://github.com/Kong/kongponents/commit/f7cf421a4ded7f5b99eaa5a18d02a27d450020b7))
+
+
+
+
+
 ## 6.1.5 (2021-11-17)
 
 **Note:** Version bump only for package @kongponents/kslideout
