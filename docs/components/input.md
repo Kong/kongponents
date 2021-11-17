@@ -31,7 +31,7 @@ String to be displayed as help text.
 
 <KInput help="I can help with that" placeholder="Need help?" />
 
-```html
+```vue
 <KInput help="I can help with that" placeholder="Need help?" />
 ```
 
