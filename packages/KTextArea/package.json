@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/ktextarea",
-  "version": "6.0.1-alpha.3",
+  "version": "6.1.1",
   "description": "Text area component",
   "main": "dist/KTextArea.umd.min.js",
   "componentName": "KTextArea",
@@ -23,6 +23,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/klabel": "^6.0.1-alpha.3"
+    "@kongponents/klabel": "^6.1.1"
   }
 }
