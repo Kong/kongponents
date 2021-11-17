@@ -176,6 +176,17 @@ export default defineComponent({
       required: false
     },
     /**
+     * TODO: this is experimental until we figure out what's wrong with the client
+     * side sort function
+     *
+     * Enable client side sort - only do this if using a fetcher
+     * that returns static data
+     */
+    enableClientSort: {
+      type: Boolean,
+      default: false
+    },
+    /**
      * Enables hover highlighting to table rows
      */
     hasHover: {
@@ -537,6 +548,7 @@ export default defineComponent({
 
     const sortClickHandler = (key) => {
       page.value = 1
+      let prevKey = sortColumnKey.value + '' // avoid pass by ref
 
       if (sortColumnKey.value) {
         if (key === sortColumnKey.value) {
@@ -555,11 +567,11 @@ export default defineComponent({
 
       // Use deprecated sort function to sort data passed in via
       // the deprecated options.data prop
-      if (props.options && props.options.data) {
-        defaultSorter(key, sortColumnKey.value, sortColumnOrder.value, data.value)
+      if ((props.options && props.options.data) || props.enableClientSort) {
+        defaultSorter(key, prevKey, sortColumnOrder.value, data.value)
+      } else {
+        revalidate()
       }
-
-      revalidate()
     }
 
     const pageChangeHandler = ({ page: newPage }) => {
