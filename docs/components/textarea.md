@@ -93,6 +93,7 @@ KTextArea has a couple of natural event bindings.
 
 - `ktextarea` - Fired on change, returns the content of the textarea
 - `char-limit-exceeded` - Fired when the text starts or stops exceeding the limit, returns an object:
+
     ```json
     {
         value,          // current value
