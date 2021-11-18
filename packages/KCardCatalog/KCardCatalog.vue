@@ -123,7 +123,7 @@ import KSkeleton from '@kongponents/kskeleton/KSkeleton.vue'
 import KCatalogItem from './KCatalogItem.vue'
 import KPagination from '@kongponents/kpagination/KPagination.vue'
 import KSkeletonBox from '@kongponents/kskeleton/KSkeletonBox.vue'
-import { useRequest } from '@kongponents/utils'
+import { useRequest } from '@kongponents/utils/utils.js'
 
 Vue.use(VueCompositionAPI)
 
