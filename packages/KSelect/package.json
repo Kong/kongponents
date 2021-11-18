@@ -4,10 +4,11 @@
   "description": "Dropdown/Select component",
   "main": "dist/KSelect.umd.min.js",
   "componentName": "KSelect",
-  "source": "KSelect.vue",
+  "source": "index.js",
   "files": [
     "dist",
-    "KSelect.vue"
+    "*.vue",
+    "index.js"
   ],
   "repository": {
     "type": "git",
