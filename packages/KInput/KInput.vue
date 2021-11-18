@@ -141,6 +141,11 @@ export default {
 }
 
 .k-input-wrapper {
+
+  input.k-input {
+    -webkit-appearance: none;
+  }
+
   & .k-input-label-large + .has-error {
     font-size: 12px;
     line-height: 15px;

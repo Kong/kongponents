@@ -137,6 +137,10 @@ export default {
   width: fit-content;
   display: grid;
 
+  textarea.k-input {
+    -webkit-appearance: none;
+  }
+
   textarea.form-control {
     font-family: var(--font-family-sans);
     resize: none;
