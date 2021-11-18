@@ -1,0 +1,24 @@
+{
+  "name": "@kongponents/utils",
+  "version": "6.1.8",
+  "description": "Kongponent utilities",
+  "main": "dist/utils.umd.min.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kong/kongponents.git"
+  },
+  "author": "Kong Inc",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Kong/kongponents/issues"
+  },
+  "homepage": "https://github.com/Kong/kongponents#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@vue/composition-api": "^1.2.4",
+    "swrv": "^0.9.4",
+    "vue": "2.6.10"
+  }
+}
