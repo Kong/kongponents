@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.1.8 (2021-11-18)
+
+
+### Bug Fixes
+
+* **css:** box-shadow does not render on ios ([#420](https://github.com/Kong/kongponents/issues/420)) ([c0ba7cb](https://github.com/Kong/kongponents/commit/c0ba7cb90bf3c158a1baa6b879d33230359db830))
+
+
+
+
+
 ## 6.1.7 (2021-11-17)
 
 **Note:** Version bump only for package @kongponents/kmodal
