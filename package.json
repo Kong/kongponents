@@ -18,7 +18,7 @@
     "build:postcss": "postcss packages/styles/styles.css --dir packages/styles",
     "build:cli": "lerna exec --ignore @kongponents/{styles,utils} \"ln ../../vue.config.js ./vue.config.js && ln ../../postcss-custom-properties.config.js ./postcss.config.js && yarn vue-cli-service build --target lib ./\\$(cat package.json | jq -r .source) --name \\$(cat package.json | jq -r .componentName) --dest dist && rm ./vue.config.js ./postcss.config.js\"",
     "build:styles": "yarn node-sass packages/styles/styles.scss -o packages/styles && yarn build:postcss",
-    "build:utils": "yarn vue-cli-service build --target lib --entry ./packages/utils/utils.js --dest ./packages/utils/dist && rm ./packages/utils/dist/demo.html",
+    "build:utils": "yarn vue-cli-service build --target lib --name utils --entry ./packages/utils/utils.js --dest ./packages/utils/dist && rm ./packages/utils/dist/demo.html",
     "docs:dev": "yarn build:styles && vuepress dev docs",
     "docs:build": "vuepress build docs",
     "publish:ci": "lerna publish --conventional-commits --yes --force-publish",
@@ -65,12 +65,10 @@
     "postcss-custom-properties": "^8.0.10",
     "raw-loader": "0.5.1",
     "sass-loader": "^7.1.0",
-    "tailwindcss": "^1.4.6",
     "vue-jest": "3.0.2",
     "vue-loader": "15.7.0",
     "vue-router": "^3.0.7",
     "vue-template-compiler": "2.6.10",
-    "vue-uuid": "^2.0.2",
     "vuepress": "^1.5.2",
     "vuepress-plugin-live": "^1.5.3",
     "vuepress-plugin-sitemap": "^2.3.1",
@@ -79,7 +77,9 @@
   "dependencies": {
     "@vue/composition-api": "^1.2.4",
     "swrv": "^0.9.4",
-    "vue": "2.6.10"
+    "tailwindcss": "^1.4.6",
+    "vue": "2.6.10",
+    "vue-uuid": "^2.0.2"
   },
   "jest": {
     "moduleFileExtensions": [

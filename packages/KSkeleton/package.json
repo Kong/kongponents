@@ -22,5 +22,8 @@
   "homepage": "https://github.com/Kong/kongponents#readme",
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@kongponents/kicon": "^6.1.7"
   }
 }

@@ -23,6 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/klabel": "^6.1.9"
+    "@kongponents/klabel": "^6.1.9",
+    "@kongponents/styles": "^6.1.9"
   }
 }
