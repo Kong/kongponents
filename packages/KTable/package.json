@@ -29,6 +29,8 @@
     "@kongponents/kpagination": "^6.1.13",
     "@kongponents/kskeleton": "^6.1.13",
     "@kongponents/utils": "^6.1.13",
+    "@vue/composition-api": "^1.2.4",
+    "vue": "2.6.10",
     "vue-uuid": "^2.0.2"
   }
 }
