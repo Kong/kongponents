@@ -76,7 +76,7 @@
   },
   "dependencies": {
     "@vue/composition-api": "^1.2.4",
-    "swrv": "^0.9.4",
+    "swrv": "0.9.4",
     "tailwindcss": "^1.4.6",
     "vue": "2.6.10",
     "vue-uuid": "^2.0.2"

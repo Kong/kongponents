@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@vue/composition-api": "^1.2.4",
-    "swrv": "^0.9.4",
+    "swrv": "0.9.4",
     "vue": "2.6.10"
   }
 }
