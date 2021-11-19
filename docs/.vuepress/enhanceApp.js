@@ -1,6 +1,5 @@
 // Get base stylesheet
 import '../../packages/styles/styles.css'
-import '../../packages/styles/fonts.css'
 import icons from '../../packages/KIcon/icons' // KIcon icons
 
 // Globally import all Kongponents
@@ -73,12 +72,12 @@ export default ({
   Vue.component('KSelect', KSelect)
   Vue.component('KTable', KTable)
   Vue.component('KTabs', KTabs)
-  Vue.component('KTextArea', KTextArea) 
+  Vue.component('KTextArea', KTextArea)
   Vue.component('KToggle', KToggle)
   Vue.component('KSlideout', KSlideout)
   Vue.component('KSkeleton', KSkeleton)
   Vue.component('KSkeletonBox', KSkeletonBox)
-  Vue.component('KViewSwitcher', KViewSwitcher) 
+  Vue.component('KViewSwitcher', KViewSwitcher)
 
   Vue.prototype.$icons = Object.keys(icons)
 }

@@ -5,9 +5,11 @@ In this section we will focus on the steps and nuances of developing Kongponents
 ## Installation
 
 - Git clone the Kongponents repository: `git clone https://github.com/Kong/kongponents.git`
-- Install dependencies in the root of the directory: `cd kongponents && yarn install`
+- Install dependencies in the root of the directory: `cd kongponents && yarn`
 - Build the latest css changes, as the built file is gitignored: `yarn build:styles`
+- Build the utils package, as the built file is gitignored: `yarn build:utils`
 - Run the docs locally: `yarn docs:dev`
+- For a full build, install `jq` on your system. If on a Mac, you can run `brew install jq` (this allows for utilizing the `yarn build:cli` command).
 
 ## CLI
 
@@ -50,20 +52,20 @@ Once ran, a new directory will be created in `/packages/{%kongponent_name%}` and
 
 Each component has an associated file in the `/docs/components` directory. After scaffolding the new component file a doc file named the same as your component. Below are the steps to add the file to the docs site and how to get started editing.
 
-1) **Renaming the file**  
+1) **Renaming the file**
 First we rename the file to what type of component it is. For documentation purposes page names should be based on what the component is vs its Kongponent `K` name.
     - ex. `kbutton.md` &rarr; `button.md` ; `kcard.md` &rarr; `card.md`
 
-1) **Update the page title**  
-Update the first line of the doc to match the file name. This is what is displayed as the page title & in the sidebar.  
+1) **Update the page title**
+Update the first line of the doc to match the file name. This is what is displayed as the page title & in the sidebar.
 
     ```md
     # {%kongponent_name%}
 
     **{%kongponent_name%}** - description
-    ```  
+    ```
 
-1) **Add to sidebar**  
+1) **Add to sidebar**
 Although the `kpm create` command will create a file in the docs directory it does not import the component into VuePress nor does it add it to the sidebar.
 
     - In `/docs/.vuepress/enhanceApp.js` import & use the component
