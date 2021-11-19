@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/utils",
-  "version": "6.1.15",
+  "version": "6.1.16",
   "description": "Kongponent utilities",
   "main": "dist/utils.umd.min.js",
   "repository": {

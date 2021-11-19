@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.1.16 (2021-11-19)
+
+
+### Bug Fixes
+
+* **publish:** update node version in publish ([#433](https://github.com/Kong/kongponents/issues/433)) ([26cfe34](https://github.com/Kong/kongponents/commit/26cfe34b6fd9fbb3d61ffdb95412804bac88ba36))
+
+
+
+
+
 ## 6.1.15 (2021-11-19)
 
 
