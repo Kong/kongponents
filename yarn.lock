@@ -14923,7 +14923,7 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-swrv@^0.9.4:
+swrv@0.9.4:
   version "0.9.4"
   resolved "https://registry.yarnpkg.com/swrv/-/swrv-0.9.4.tgz#8c8d34aa321add1b821158c5b16acda91d166f59"
   integrity sha512-1ztLWp4XAPLBAyl3jUvAoIjVcXUxEY5U/FyDyvpCcSB/9jemq6Ay3Gp+NpFBLT4DmPkNcO8aIjTfmxnSAp0r1A==

@@ -1,7 +1,6 @@
 # Forms
 
-Kong supplies default form styling in the built [styles.css](/packages/styles/styles.css) which can be used to style inputs using the style guide in places where a Kongponent can't be used.
-By default all form styles are included in the stylesheet however, you can import [individual scss files](/packages/styles/forms) as needed if preferred.
+Kong supplies default form styling in the built `styles.css` which can be used to style inputs using the style guide in places where a Kongponent can't be used. By default, all form styles are included in the stylesheet.
 
 Here is an example of html elements being styled using the including css.
 

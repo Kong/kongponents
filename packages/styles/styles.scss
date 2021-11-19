@@ -1,8 +1,11 @@
 @import "variables";
+@import "fonts";
 @import "typography";
 @import "utils";
 @import "forms/forms";
-@import "./assets/tailwind.css";
+// @import "./assets/tailwind.css";
+@tailwind components;
+@tailwind utilities;
 
 // Loop all maps and set to root element
 :root {

@@ -27,6 +27,7 @@ module.exports = {
             title: 'Style Guide',
             collapsable: false,
             children: [
+              '/style-guide/usage',
               '/style-guide/colors',
               '/style-guide/type',
               '/style-guide/forms',
