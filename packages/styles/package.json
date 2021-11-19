@@ -3,10 +3,6 @@
   "version": "6.1.12",
   "description": "Kong colors & CSS utilities",
   "main": "styles.css",
-  "files": [
-    "assets",
-    "styles.css"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kong/kongponents.git"
