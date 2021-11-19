@@ -4,7 +4,8 @@
   "description": "Kong colors & CSS utilities",
   "main": "styles.css",
   "files": [
-    "assets"
+    "assets",
+    "styles.css"
   ],
   "repository": {
     "type": "git",
