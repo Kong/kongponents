@@ -61,8 +61,10 @@
     "lerna": "4.0.0",
     "markdownlint-cli": "^0.29.0",
     "node-sass": "^4.11.0",
-    "postcss-cli": "^6.1.2",
+    "postcss": "^8.0.0",
+    "postcss-cli": "^8.0.0",
     "postcss-custom-properties": "^8.0.10",
+    "postcss-import": "^14.0.2",
     "raw-loader": "0.5.1",
     "sass-loader": "^7.1.0",
     "vue-jest": "3.0.2",
@@ -77,7 +79,7 @@
   "dependencies": {
     "@vue/composition-api": "^1.2.4",
     "swrv": "0.9.4",
-    "tailwindcss": "^1.4.6",
+    "tailwindcss": "^2.2.16",
     "vue": "2.6.10",
     "vue-uuid": "^2.0.2"
   },
