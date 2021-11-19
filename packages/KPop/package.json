@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@kongponents/kbutton": "^6.1.10",
-    "popper.js": "^1.15.0"
+    "popper.js": "^1.15.0",
+    "vue-uuid": "^2.0.2"
   }
 }
