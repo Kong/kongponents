@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@kongponents/kbutton": "^6.1.10",
-    "@kongponents/kicon": "^6.1.10"
+    "@kongponents/kicon": "^6.1.10",
+    "vue-uuid": "^2.0.2"
   }
 }
