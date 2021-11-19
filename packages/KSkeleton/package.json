@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kskeleton",
-  "version": "6.1.12",
+  "version": "6.1.13",
   "description": "Loading/Skeleton state component.",
   "main": "dist/KSkeleton.umd.min.js",
   "componentName": "KSkeleton",
@@ -8,7 +8,8 @@
   "files": [
     "dist",
     "*.vue",
-    "index.js"
+    "index.js",
+    "kong-loader.gif"
   ],
   "repository": {
     "type": "git",
@@ -24,6 +25,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kicon": "^6.1.12"
+    "@kongponents/kicon": "^6.1.13"
   }
 }
