@@ -3,7 +3,7 @@
     class="fullscreen-loading-container"
     data-testid="full-screen-loader">
     <div>
-      <img src="./kong-loader.gif">
+      <img src="@kongponents/styles/assets/kong-loader.gif">
       <div class="progress">
         <div
           :style="{ width: `${progression}%` }"
