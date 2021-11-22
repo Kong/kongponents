@@ -1,5 +1,14 @@
 # Card Catalog
 
+:::tip Note
+The `KCardCatalog` component requires the [`@vue/composition-api`](https://github.com/vuejs/composition-api) package as a `peerDependency`. You must **manually** add the package to your host project by running the following
+
+``` shell
+yarn add @vue/composition-api
+```
+
+:::
+
 **KCardCatalog** - A grid view of KCards
 
 <KCardCatalog :items="getItems(5)" />
@@ -88,7 +97,7 @@ See [the State section](#loading) about `isLoading`
 ### fetcher
 
 Use a custom fetcher function to fetch card catalog items and leverage server-side pagination.
-::: tip Note:
+::: tip Note
 All fetcher functions should take a single param. This parameter is a JSON
 object supporting the following properties:
 
@@ -97,7 +106,7 @@ object supporting the following properties:
   - `pageSize`: the number of items to display per page
 :::
 
-::: tip Note:
+::: tip Note
 All fetcher functions should return a JSON object. This JSON object should contain the following properties:
 
 - `total` - the total count of catalog items (if using pagination)
@@ -175,7 +184,7 @@ Set this to `true` to limit pagination navigation to `previous` / `next` page on
 ```vue
 <template>
   <KCardCatalog
-    :fetcher="fetcher" 
+    :fetcher="fetcher"
     :disablePaginationPageJump="true" />
 </template>
 ```

@@ -3,6 +3,15 @@ pageClass: table-docs
 ---
 # Table
 
+:::tip Note
+The `KTable` component requires the [`@vue/composition-api`](https://github.com/vuejs/composition-api) package as a `peerDependency`. You must **manually** add the package to your host project by running the following
+
+``` shell
+yarn add @vue/composition-api
+```
+
+:::
+
 Pass a fetcher function to build a slot-able table.
 
 ```vue
@@ -93,7 +102,7 @@ This functionality may be flaky.
 
 Use a custom fetcher function to fetch table data and leverage server-side search, sort and pagination.
 
-::: tip Note:
+::: tip Note
 All fetcher functions should take a single param. This parameter is a JSON
 object supporting the following properties:
 
@@ -107,7 +116,7 @@ object supporting the following properties:
   - `query`: a text string to filter table data on
 :::
 
-::: tip Note:
+::: tip Note
 All fetcher functions should return a JSON object. This JSON object should contain the following properties:
 
 - `total` - the total count of items (if using pagination)
@@ -211,8 +220,8 @@ object these features should be explicitly disabled.
       }
     }"
     :headers="[
-      { label: 'Title', key: 'title', sortable: true },
-      { label: 'Description', key: 'description', sortable: true },
+      { label: 'Name', key: 'name', sortable: true },
+      { label: 'Id', key: 'id', sortable: true },
       { label: 'Enabled', key: 'enabled', sortable: false }
     ]"
     disablePagination
