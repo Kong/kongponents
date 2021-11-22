@@ -29,7 +29,6 @@
     "@kongponents/kpagination": "^6.1.16",
     "@kongponents/kskeleton": "^6.1.16",
     "@kongponents/utils": "^6.1.16",
-    "vue": "2.6.10",
     "vue-uuid": "^2.0.2"
   },
   "peerDependencies": {
