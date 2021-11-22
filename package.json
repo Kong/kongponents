@@ -16,9 +16,11 @@
   "scripts": {
     "build": "yarn build:styles && yarn build:utils && yarn docs:build && yarn build:cli",
     "build:postcss": "postcss packages/styles/styles.css --dir packages/styles",
-    "build:cli": "lerna exec --ignore @kongponents/styles --ignore @kongponents/utils \"ln -f ../../vue.config.js ./vue.config.js && ln -f ../../postcss-custom-properties.config.js ./postcss.config.js && yarn vue-cli-service build --target lib ./\\$(cat package.json | jq -r .source) --name \\$(cat package.json | jq -r .componentName) --dest dist && rm ./vue.config.js ./postcss.config.js\"",
+    "build:cli": "yarn create:package-configs && lerna exec --ignore @kongponents/styles --ignore @kongponents/utils \"yarn vue-cli-service build --target lib ./\\$(cat package.json | jq -r .source) --name \\$(cat package.json | jq -r .componentName) --dest ./dist\" && yarn delete:package-configs",
     "build:styles": "yarn node-sass packages/styles/styles.scss -o packages/styles && yarn build:postcss",
     "build:utils": "yarn vue-cli-service build --target lib --name utils --entry ./packages/utils/utils.js --dest ./packages/utils/dist && rm ./packages/utils/dist/demo.html",
+    "create:package-configs": "lerna exec --ignore @kongponents/styles --ignore @kongponents/utils \"ln -f ../../vue.config.js ./vue.config.js && ln -f ../../postcss-custom-properties.config.js ./postcss.config.js && ln -f ../../tailwind-custom-properties.config.js ./tailwind.config.js\"",
+    "delete:package-configs": "lerna exec --ignore @kongponents/styles --ignore @kongponents/utils \"rm -f ./vue.config.js ./postcss.config.js ./tailwind.config.js\"",
     "docs:dev": "yarn build:styles && vuepress dev docs",
     "docs:build": "vuepress build docs",
     "publish:ci": "lerna publish --conventional-commits --yes --force-publish",
