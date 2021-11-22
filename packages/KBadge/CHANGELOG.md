@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.1.17 (2021-11-22)
+
+
+### Bug Fixes
+
+* fix deps and build process ([#434](https://github.com/Kong/kongponents/issues/434)) ([9fdd180](https://github.com/Kong/kongponents/commit/9fdd180c9816bd4a43d4cd9229fc45b180ba5eed))
+
+
+
+
+
 ## 6.1.16 (2021-11-19)
 
 
