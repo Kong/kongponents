@@ -80,7 +80,16 @@
                   [sortColumnOrder]: !disableSorting && column.key === sortColumnKey && !column.hideLabel,
                   'is-scrolled': isScrolled
                 }"
-                @click="!disableSorting && column.sortable && sortClickHandler(column.key)"
+                @click="() => {
+                  if (!disableSorting && column.sortable) {
+                    $emit('sort', {
+                      prevKey: sortColumnKey,
+                      sortColumnKey: column.key,
+                      sortColumnOrder: sortColumnOrder === 'desc' ? 'asc' : 'desc' // display opposite because sortColumnOrder outdated
+                    })
+                    sortClickHandler(column.key)
+                  }
+                }"
               >
                 <span class="d-flex align-items-center">
                   <slot
@@ -447,7 +456,7 @@ export default defineComponent({
       page: 1,
       query: '',
       sortColumnKey: '',
-      sortColumnOrder: ''
+      sortColumnOrder: 'desc'
     }
 
     const data = ref([])

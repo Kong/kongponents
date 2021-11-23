@@ -246,6 +246,19 @@ Pass in an array of header objects for the table.
 | `sortable` | boolean | Enables or disables server-side sorting for the column (`false` by default)
 | `hideLabel`| boolean | Hides or displays the column label (useful for actions columns)
 
+:::tip Note
+`sortable` columns emit a `sort` event when clicked, returns:
+
+  ```json
+  {
+    prevKey,        // the previously sorted column
+    sortColumnKey,  // the column being sorted now
+    sortColumnOrder // the sort direction (asc/desc)
+  }
+  ```
+
+:::
+
 Example headers array:
 
 ```vue
