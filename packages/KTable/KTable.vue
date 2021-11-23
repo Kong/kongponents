@@ -639,6 +639,7 @@ export default defineComponent({
   width: 100%;
   max-width: 100%;
   margin-top: 0;
+  border-collapse: collapse;
 
   th,
   td {
