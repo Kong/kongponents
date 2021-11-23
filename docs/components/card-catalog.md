@@ -464,7 +464,7 @@ This should be used instead of the `items` property.
 </KCardCatalog>
 ```
 
-KCardCatalog has built in state management for loading, empty, and error states. You can either use the props described in
+KCardCatalog has built-in state management for loading, empty, and error states. You can either use the props described in
 the section above or completely slot in your own content.
 
 - `empty-state` - Slot content to be displayed when empty
