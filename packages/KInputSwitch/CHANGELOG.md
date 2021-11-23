@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.3.0 (2021-11-23)
+
+
+### Features
+
+* **ktable/kcardcatalog:** make states slottable ([#438](https://github.com/Kong/kongponents/issues/438)) ([43eac93](https://github.com/Kong/kongponents/commit/43eac9337193fe47b28b27576d727e6cbbabad50))
+
+
+
+
+
 # 6.2.0 (2021-11-23)
 
 
