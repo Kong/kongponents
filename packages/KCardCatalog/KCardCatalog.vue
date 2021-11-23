@@ -42,8 +42,8 @@
       <template v-slot:message>{{ errorStateMessage }}</template>
       <template v-slot:cta>
         <KButton
-          v-if="errorStateActionMessage && errorStateActionRoute"
-          :to="errorStateActionRoute"
+          v-if="errorStateActionMessage"
+          :to="errorStateActionRoute ? errorStateActionRoute : null"
           appearance="primary"
           @click="$emit('kcardcatalog-error-cta-clicked')"
         >
@@ -62,8 +62,8 @@
       <template v-slot:message>{{ emptyStateMessage }}</template>
       <template v-slot:cta>
         <KButton
-          v-if="emptyStateActionMessage && emptyStateActionRoute"
-          :to="emptyStateActionRoute"
+          v-if="emptyStateActionMessage"
+          :to="emptyStateActionRoute ? emptyStateActionRoute : null"
           appearance="primary"
           @click="$emit('kcardcatalog-empty-state-cta-clicked')"
         >
