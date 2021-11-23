@@ -45,6 +45,7 @@
           v-if="errorStateActionMessage && errorStateActionRoute"
           :to="errorStateActionRoute"
           appearance="primary"
+          @click="$emit('kcardcatalog-error-cta-clicked')"
         >
           {{ errorStateActionMessage }}
         </KButton>
@@ -64,6 +65,7 @@
           v-if="emptyStateActionMessage && emptyStateActionRoute"
           :to="emptyStateActionRoute"
           appearance="primary"
+          @click="$emit('kcardcatalog-empty-state-cta-clicked')"
         >
           {{ emptyStateActionMessage }}
         </KButton>

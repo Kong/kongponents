@@ -675,6 +675,8 @@ Set the following properties to handle empty state:
 - `emptyStateActionRoute` - Route for empty state action
 - `emptyStateActionMessage` - Button text for empty state action
 
+If using a CTA button, a `ktable-empty-state-cta-clicked` event is fired when clicked.
+
 #### Default Empty State Messaging
 
 <KCard class="my-2">
@@ -765,6 +767,8 @@ Set the following properties to handle error state:
 - `errorStateIconSize` - Size for error state icon
 - `errorStateActionRoute` - Route for error state action
 - `errorStateActionMessage` - Button text for error state action
+
+If using a CTA button, a `ktable-error-cta-clicked` event is fired when clicked.
 
 #### Default Error State Messaging
 
