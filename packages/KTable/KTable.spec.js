@@ -253,6 +253,27 @@ describe('KTable', () => {
       expect(wrapper.html()).toMatchSnapshot()
     })
 
+    it('displays an empty state when no data is available (slot)', async () => {
+      const emptySlotContent = 'Look mah! I am empty! (except testMode)'
+      const fetcher = () => new Promise(resolve => resolve({ data: [] }))
+      const wrapper = mount(KTable, {
+        propsData: {
+          testMode: 'true',
+          fetcher: fetcher,
+          headers: options.headers,
+          pageSize: 4
+        },
+        scopedSlots: {
+          'empty-state': `<span>${emptySlotContent}</span>`
+        }
+      })
+
+      await tick(wrapper.vm, 1)
+
+      expect(wrapper.find('[data-testid="k-table-empty-state"]').html()).toEqual(expect.stringContaining(emptySlotContent))
+      expect(wrapper.html()).toMatchSnapshot()
+    })
+
     it('displays a loading skeletion when the "isLoading" prop is set to true"', () => {
       const wrapper = mount(KTable, {
         propsData: {
@@ -275,6 +296,25 @@ describe('KTable', () => {
 
       expect(wrapper.html()).toContain('empty-state-wrapper')
       expect(wrapper.html()).toContain('is-error')
+      expect(wrapper.html()).toMatchSnapshot()
+    })
+
+    it('displays an error state (slot)', async () => {
+      const errorSlotContent = 'Look mah! I am erroneous! (except testMode)'
+      const wrapper = mount(KTable, {
+        propsData: {
+          testMode: 'true',
+          hasError: true
+        },
+        scopedSlots: {
+          'error-state': `<span>${errorSlotContent}</span>`
+        }
+      })
+
+      await tick(wrapper.vm, 1)
+      console.log(wrapper.html())
+
+      expect(wrapper.find('[data-testid="k-table-error-state"]').html()).toEqual(expect.stringContaining(errorSlotContent))
       expect(wrapper.html()).toMatchSnapshot()
     })
 

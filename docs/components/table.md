@@ -661,6 +661,52 @@ export default {
 </script>
 ```
 
+### State Slots
+
+KTable has built in state management for loading, empty, and error states. You can either use the props described in
+the section below or completely slot in your own content.
+
+- `empty-state` - Slot content to be displayed when empty
+- `error-state` - Slot content to be displayed when in an error state
+
+<KCard>
+  <template v-slot:body>
+    <KTable
+      :fetcher="emptyFetcher"
+      :headers="headers"
+    >
+      <template v-slot:empty-state>
+        <div class="w-100" style="text-align: center;">
+          <KIcon icon="warning" />
+          <div>No Content!!!</div>
+        </div>
+      </template>
+      <template v-slot:error-state>
+        <KIcon icon="error" />
+        Something went wrong
+      </template>
+    </KTable>
+  </template>
+</KCard>
+
+```vue
+<template>
+  <KTable
+    :fetcher="() => { return { data: [] } }"
+    :headers="headers"
+  >
+    <template v-slot:empty-state>
+      <KIcon icon="warning" />
+      No Content!!!
+    </template>
+    <template v-slot:error-state>
+      <KIcon icon="error" />
+      Something went wrong
+    </template>
+  </KTable>
+</template>
+```
+
 ## States
 
 ### Empty
@@ -1078,6 +1124,10 @@ for (let i = ((page-1)* pageSize); i < limit; i++) {
           }
         ]
       }
+    },
+
+    emptyFetcher () {
+      return { data: [] }
     },
 
     tableOptionsLinkFetcher () {

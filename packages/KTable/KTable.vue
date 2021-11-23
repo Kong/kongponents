@@ -1,135 +1,150 @@
 <template>
-  <KSkeleton
-    v-if="(!testMode || testMode === 'loading') && (isTableLoading || isLoading) && !hasError"
-    :delay-milliseconds="0"
-    type="table"
-  />
-  <KEmptyState
-    v-else-if="hasError"
-    :cta-is-hidden="!errorStateActionMessage || !errorStateActionRoute"
-    :icon="errorStateIcon || ''"
-    :is-error="true"
-    :icon-color="errorStateIconColor"
-    :icon-size="errorStateIconSize"
-  >
-    <template v-slot:title>{{ errorStateTitle }}</template>
-    <template v-slot:message>{{ errorStateMessage }}</template>
-    <template v-slot:cta>
-      <KButton
-        v-if="errorStateActionMessage"
-        :to="errorStateActionRoute ? errorStateActionRoute : null"
-        appearance="primary"
-        @click="$emit('ktable-error-cta-clicked')"
-      >
-        {{ errorStateActionMessage }}
-      </KButton>
-    </template>
-  </KEmptyState>
-  <KEmptyState
-    v-else-if="!hasError && (!isTableLoading && !isLoading) && (data && !data.length)"
-    :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
-    :icon="emptyStateIcon || ''"
-    :icon-color="emptyStateIconColor"
-    :icon-size="emptyStateIconSize"
-  >
-    <template v-slot:title>{{ emptyStateTitle }}</template>
-    <template v-slot:message>{{ emptyStateMessage }}</template>
-    <template v-slot:cta>
-      <KButton
-        v-if="emptyStateActionMessage"
-        :to="emptyStateActionRoute ? emptyStateActionRoute : null"
-        appearance="primary"
-        @click="$emit('ktable-empty-state-cta-clicked')"
-      >
-        {{ emptyStateActionMessage }}
-      </KButton>
-    </template>
-  </KEmptyState>
-  <section
-    v-else
-    class="k-table-wrapper"
-    @scroll.passive="scrollHandler"
-  >
-    <table
-      :class="{'has-hover': hasHover, 'is-clickable': isClickable, 'side-border': hasSideBorder}"
-      :data-tableid="tableId"
-      class="k-table">
-      <thead :class="{ 'is-scrolled': isScrolled }">
-        <tr :class="{ 'is-scrolled': isScrolled }">
-          <template>
-            <th
-              v-for="(column, index) in tableHeaders"
-              :key="`k-table-${tableId}-headers-${index}`"
-              :class="{
-                'sortable': !disableSorting && !column.hideLabel && column.sortable,
-                'active-sort': !disableSorting && !column.hideLabel && column.sortable && column.key === sortColumnKey,
-                [sortColumnOrder]: !disableSorting && column.key === sortColumnKey && !column.hideLabel,
-                'is-scrolled': isScrolled
-              }"
-              @click="!disableSorting && column.sortable && sortClickHandler(column.key)"
-            >
-              <span class="d-flex align-items-center">
-                <slot
-                  :name="`column-${column.key}`"
-                  :column="column">
-                  <span
-                    :class="{'sr-only': column.hideLabel}"
-                  >
-                    {{ column.label ? column.label : column.key }}
-                  </span>
-                </slot>
-                <KIcon
-                  v-if="!disableSorting && !column.hideLabel && column.sortable"
-                  class="caret ml-2"
-                  color="var(--KTableColor, var(--black-70, color(black-70)))"
-                  size="12"
-                  icon="chevronDown"
-                />
-              </span>
-            </th>
-          </template>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="(row, rowIndex) in data"
-          :key="`k-table-${tableId}-row-${rowIndex}`"
-          :tabindex="isClickable ? 0 : null"
-          :role="isClickable ? 'link' : null"
-          v-bind="rowAttrs(row)"
-          v-on="trlisteners(row, 'row')"
-        >
-          <template>
-            <td
-              v-for="(value, index) in tableHeaders"
-              :key="`k-table-${tableId}-cell-${index}`"
-              v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
-              v-on="tdlisteners(row[value.key], 'cell')"
-            >
-              <slot
-                :name="value.key"
-                :row="row"
-                :rowKey="rowIndex"
-                :rowValue="row[value.key]">{{ row[value.key] }}</slot>
-            </td>
-          </template>
-        </tr>
-      </tbody>
-    </table>
-    <KPagination
-      v-if="fetcher && !disablePagination"
-      :total-count="total"
-      :current-page="page"
-      :neighbors="paginationNeighbors"
-      :page-sizes="paginationPageSizes"
-      :initial-page-size="pageSize"
-      :disable-page-jump="disablePaginationPageJump"
-      :test-mode="testMode ? true : false"
-      class="pa-1"
-      @pageChanged="pageChangeHandler"
-      @pageSizeChanged="pageSizeChangeHandler"
+  <div>
+    <KSkeleton
+      v-if="(!testMode || testMode === 'loading') && (isTableLoading || isLoading) && !hasError"
+      :delay-milliseconds="0"
+      type="table"
     />
-  </section>
+
+    <div
+      v-else-if="hasError"
+      data-testid="k-table-error-state">
+      <slot name="error-state">
+        <KEmptyState
+          :cta-is-hidden="!errorStateActionMessage || !errorStateActionRoute"
+          :icon="errorStateIcon || ''"
+          :is-error="true"
+          :icon-color="errorStateIconColor"
+          :icon-size="errorStateIconSize"
+        >
+          <template v-slot:title>{{ errorStateTitle }}</template>
+          <template v-slot:message>{{ errorStateMessage }}</template>
+          <template v-slot:cta>
+            <KButton
+              v-if="errorStateActionMessage"
+              :to="errorStateActionRoute ? errorStateActionRoute : null"
+              appearance="primary"
+              @click="$emit('ktable-error-cta-clicked')"
+            >
+              {{ errorStateActionMessage }}
+            </KButton>
+          </template>
+        </KEmptyState>
+      </slot>
+    </div>
+
+    <div
+      v-else-if="!hasError && (!isTableLoading && !isLoading) && (data && !data.length)"
+      data-testid="k-table-empty-state">
+      <slot name="empty-state">
+        <KEmptyState
+          :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
+          :icon="emptyStateIcon || ''"
+          :icon-color="emptyStateIconColor"
+          :icon-size="emptyStateIconSize"
+        >
+          <template v-slot:title>{{ emptyStateTitle }}</template>
+          <template v-slot:message>{{ emptyStateMessage }}</template>
+          <template v-slot:cta>
+            <KButton
+              v-if="emptyStateActionMessage"
+              :to="emptyStateActionRoute ? emptyStateActionRoute : null"
+              appearance="primary"
+              @click="$emit('ktable-empty-state-cta-clicked')"
+            >
+              {{ emptyStateActionMessage }}
+            </KButton>
+          </template>
+        </KEmptyState>
+      </slot>
+    </div>
+
+    <section
+      v-else
+      class="k-table-wrapper"
+      @scroll.passive="scrollHandler"
+    >
+      <table
+        :class="{'has-hover': hasHover, 'is-clickable': isClickable, 'side-border': hasSideBorder}"
+        :data-tableid="tableId"
+        class="k-table">
+        <thead :class="{ 'is-scrolled': isScrolled }">
+          <tr :class="{ 'is-scrolled': isScrolled }">
+            <template>
+              <th
+                v-for="(column, index) in tableHeaders"
+                :key="`k-table-${tableId}-headers-${index}`"
+                :class="{
+                  'sortable': !disableSorting && !column.hideLabel && column.sortable,
+                  'active-sort': !disableSorting && !column.hideLabel && column.sortable && column.key === sortColumnKey,
+                  [sortColumnOrder]: !disableSorting && column.key === sortColumnKey && !column.hideLabel,
+                  'is-scrolled': isScrolled
+                }"
+                @click="!disableSorting && column.sortable && sortClickHandler(column.key)"
+              >
+                <span class="d-flex align-items-center">
+                  <slot
+                    :name="`column-${column.key}`"
+                    :column="column">
+                    <span
+                      :class="{'sr-only': column.hideLabel}"
+                    >
+                      {{ column.label ? column.label : column.key }}
+                    </span>
+                  </slot>
+                  <KIcon
+                    v-if="!disableSorting && !column.hideLabel && column.sortable"
+                    class="caret ml-2"
+                    color="var(--KTableColor, var(--black-70, color(black-70)))"
+                    size="12"
+                    icon="chevronDown"
+                  />
+                </span>
+              </th>
+            </template>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="(row, rowIndex) in data"
+            :key="`k-table-${tableId}-row-${rowIndex}`"
+            :tabindex="isClickable ? 0 : null"
+            :role="isClickable ? 'link' : null"
+            v-bind="rowAttrs(row)"
+            v-on="trlisteners(row, 'row')"
+          >
+            <template>
+              <td
+                v-for="(value, index) in tableHeaders"
+                :key="`k-table-${tableId}-cell-${index}`"
+                v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
+                v-on="tdlisteners(row[value.key], 'cell')"
+              >
+                <slot
+                  :name="value.key"
+                  :row="row"
+                  :rowKey="rowIndex"
+                  :rowValue="row[value.key]">{{ row[value.key] }}</slot>
+              </td>
+            </template>
+          </tr>
+        </tbody>
+      </table>
+      <KPagination
+        v-if="fetcher && !disablePagination"
+        :total-count="total"
+        :current-page="page"
+        :neighbors="paginationNeighbors"
+        :page-sizes="paginationPageSizes"
+        :initial-page-size="pageSize"
+        :disable-page-jump="disablePaginationPageJump"
+        :test-mode="testMode ? true : false"
+        class="pa-1"
+        @pageChanged="pageChangeHandler"
+        @pageSizeChanged="pageSizeChangeHandler"
+      />
+    </section>
+  </div>
 </template>
 
 <script>

@@ -56,6 +56,20 @@ exports[`KCardCatalog general renders proper cards when using props 1`] = `
 </div>
 `;
 
+exports[`KCardCatalog general renders slots when passed (with empty) 1`] = `
+<div class="k-card-catalog">
+  <!---->
+  <div class="" data-testid="k-card-catalog-empty-state"><span>Look mah! I am empty! (except testMode)</span></div>
+</div>
+`;
+
+exports[`KCardCatalog general renders slots when passed (with error) 1`] = `
+<div class="k-card-catalog">
+  <!---->
+  <div data-testid="k-card-catalog-error-state"><span>Look mah! I am erroneous! (except testMode)</span></div>
+</div>
+`;
+
 exports[`KCardCatalog general renders slots when passed 1`] = `
 <div class="k-card-catalog">
   <!---->
@@ -77,17 +91,19 @@ exports[`KCardCatalog states displays a loading skeletion when the "isLoading" p
 exports[`KCardCatalog states displays an error state when the "hasError" prop is set to true" 1`] = `
 <div class="k-card-catalog" options="">
   <!---->
-  <section class="empty-state-wrapper is-error">
-    <div class="empty-state-title">
-      <div class="k-empty-state-icon card-icon mb-4 warning-icon"><span class="kong-icon kong-icon-warning"><!----></span></div>
-      <div class="k-empty-state-title-header">An error occurred</div>
-    </div>
-    <div class="empty-state-content">
-      <div class="k-empty-state-message">Data cannot be displayed due to an error.</div>
-      <div class="k-empty-state-cta">
-        <!---->
+  <div data-testid="k-card-catalog-error-state">
+    <section class="empty-state-wrapper is-error">
+      <div class="empty-state-title">
+        <div class="k-empty-state-icon card-icon mb-4 warning-icon"><span class="kong-icon kong-icon-warning"><!----></span></div>
+        <div class="k-empty-state-title-header">An error occurred</div>
       </div>
-    </div>
-  </section>
+      <div class="empty-state-content">
+        <div class="k-empty-state-message">Data cannot be displayed due to an error.</div>
+        <div class="k-empty-state-cta">
+          <!---->
+        </div>
+      </div>
+    </section>
+  </div>
 </div>
 `;
