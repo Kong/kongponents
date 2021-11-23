@@ -254,6 +254,8 @@ Set the following properties to handle empty state:
 - `emptyStateActionRoute` - Route for empty state action
 - `emptyStateActionMessage` - Button text for empty state action
 
+If using a CTA button, a `kcardcatalog-empty-state-cta-clicked` event is fired when clicked.
+
 <KCardCatalog
   title="Customized empty catalog"
   :items="getItems(0)"
@@ -318,6 +320,8 @@ Set the following properties to customize error state:
 - `errorStateIconSize` - Size for error state icon
 - `errorStateActionRoute` - Route for error state action
 - `errorStateActionMessage` - Button text for error state action
+
+If using a CTA button, a `kcardcatalog-error-cta-clicked` event is fired when clicked.
 
 <KCardCatalog
   title="Catalog with error"
