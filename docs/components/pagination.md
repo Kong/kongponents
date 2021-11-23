@@ -22,12 +22,24 @@ A list of page sizes that the user can choose from.
 
 Prop is an Array of numbers. The default page sizes are: [15, 25, 50, 75, 100].
 
-You can provide custom page sizes. The first one in the array will be the initial page size.
+You can provide custom page sizes. The first one in the array will be the initial page size unless custom initialPageSize is set.
 
 <KPagination :totalCount="100" :pageSizes="[10, 20, 30, 40]"/>
 
 ```vue
 <KPagination :totalCount="100" :pageSizes="[10, 20, 30, 40]"/>
+```
+
+### initialPageSize
+
+An optional initial page size.
+
+Prop is a Number. If the value is not set, the first one of the available pageSizes is selected as a page size.
+
+<KPagination :totalCount="100" :pageSizes="[10, 20, 30, 40]" :initialPageSize="20"/>
+
+```vue
+<KPagination :totalCount="100" :pageSizes="[10, 20, 30, 40]" :initialPageSize="20"/>
 ```
 
 ### items

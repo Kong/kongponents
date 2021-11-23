@@ -130,6 +130,10 @@ export default {
       default: () => [15, 25, 50, 75, 100],
       validator: (pageSizes) => pageSizes.length && pageSizes.every(i => typeof i === 'number')
     },
+    initialPageSize: {
+      type: Number,
+      default: null
+    },
     neighbors: {
       type: Number,
       default: 1
@@ -156,7 +160,7 @@ export default {
   },
   data () {
     const currPage = this.currentPage ? this.currentPage : 1
-    const currentPageSize = this.pageSizes[0]
+    const currentPageSize = this.initialPageSize ? this.initialPageSize : this.pageSizes[0]
     const pageCount = Math.ceil(this.totalCount / currentPageSize)
 
     const pageSizeOptions = this.pageSizes.map((size, i) => ({
@@ -280,7 +284,9 @@ export default {
         pageCount: this.pageCount
       })
 
-      this.changePage(1)
+      if (this.currentPage !== 1) {
+        this.changePage(1)
+      }
     },
     getVisiblePages (
       currPage = this.currPage,

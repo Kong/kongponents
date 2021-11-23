@@ -120,6 +120,7 @@
       :current-page="page"
       :neighbors="paginationNeighbors"
       :page-sizes="paginationPageSizes"
+      :initial-page-size="pageSize"
       :disable-page-jump="disablePaginationPageJump"
       :test-mode="testMode ? true : false"
       class="pa-1"
