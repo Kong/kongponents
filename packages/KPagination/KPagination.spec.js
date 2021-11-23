@@ -12,6 +12,7 @@ import KPagination from '@/KPagination/KPagination'
 describe('KPagination', () => {
   const myItems = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
   const pageSizes = [2, 4, 6]
+  const initialPageSize = 2
 
   it('correctly renders props', () => {
     const currPage = 2
@@ -19,6 +20,7 @@ describe('KPagination', () => {
       propsData: {
         totalCount: 9,
         pageSizes: pageSizes,
+        initialPageSize: initialPageSize,
         currentPage: currPage,
         items: myItems,
         testMode: true
@@ -59,6 +61,7 @@ describe('KPagination', () => {
       propsData: {
         totalCount: 9,
         pageSizes: [2, 4, 6],
+        initialPageSize: 2,
         items: myItems,
         testMode: true
       }
@@ -76,6 +79,7 @@ describe('KPagination', () => {
       propsData: {
         totalCount: 9,
         pageSizes: [2, 4, 6],
+        initialPageSize: 2,
         items: myItems,
         testMode: true
       }
@@ -92,6 +96,7 @@ describe('KPagination', () => {
       propsData: {
         totalCount: 100,
         pageSizes: [10, 20, 30],
+        initialPageSize: 2,
         neighbors: 2,
         testMode: true
       }
