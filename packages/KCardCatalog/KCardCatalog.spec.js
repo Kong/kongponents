@@ -112,6 +112,43 @@ describe('KCardCatalog', () => {
       expect(wrapper.html()).toMatchSnapshot()
     })
 
+    it('renders slots when passed (with empty)', async () => {
+      const emptySlotContent = 'Look mah! I am empty! (except testMode)'
+
+      const wrapper = mount(KCardCatalog, {
+        propsData: {
+          testMode: true,
+          isLoading: false,
+          fetcher: () => { return { data: [] } }
+        },
+        scopedSlots: {
+          'empty-state': `<span>${emptySlotContent}</span>`
+        }
+      })
+
+      await tick(wrapper.vm, 1)
+
+      expect(wrapper.find('[data-testid="k-card-catalog-empty-state"]').html()).toEqual(expect.stringContaining(emptySlotContent))
+      expect(wrapper.html()).toMatchSnapshot()
+    })
+
+    it('renders slots when passed (with error)', () => {
+      const errorSlotContent = 'Look mah! I am erroneous! (except testMode)'
+
+      const wrapper = mount(KCardCatalog, {
+        propsData: {
+          testMode: true,
+          hasError: true
+        },
+        scopedSlots: {
+          'error-state': `<span>${errorSlotContent}</span>`
+        }
+      })
+
+      expect(wrapper.find('[data-testid="k-card-catalog-error-state"]').html()).toEqual(expect.stringContaining(errorSlotContent))
+      expect(wrapper.html()).toMatchSnapshot()
+    })
+
     it('can change card sizes - small', () => {
       const wrapper = mount(KCardCatalog, {
         propsData: {

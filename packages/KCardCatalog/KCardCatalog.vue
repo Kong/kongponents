@@ -30,47 +30,60 @@
         </div>
       </template>
     </KSkeleton>
-    <KEmptyState
+
+    <div
       v-else-if="hasError"
-      :cta-is-hidden="!errorStateActionMessage || !errorStateActionRoute"
-      :icon="errorStateIcon || ''"
-      :is-error="true"
-      :icon-color="errorStateIconColor"
-      :icon-size="errorStateIconSize"
-    >
-      <template v-slot:title>{{ errorStateTitle }}</template>
-      <template v-slot:message>{{ errorStateMessage }}</template>
-      <template v-slot:cta>
-        <KButton
-          v-if="errorStateActionMessage"
-          :to="errorStateActionRoute ? errorStateActionRoute : null"
-          appearance="primary"
-          @click="$emit('kcardcatalog-error-cta-clicked')"
+      data-testid="k-card-catalog-error-state">
+      <slot name="error-state">
+        <KEmptyState
+          :cta-is-hidden="!errorStateActionMessage || !errorStateActionRoute"
+          :icon="errorStateIcon || ''"
+          :is-error="true"
+          :icon-color="errorStateIconColor"
+          :icon-size="errorStateIconSize"
         >
-          {{ errorStateActionMessage }}
-        </KButton>
-      </template>
-    </KEmptyState>
-    <KEmptyState
+          <template v-slot:title>{{ errorStateTitle }}</template>
+          <template v-slot:message>{{ errorStateMessage }}</template>
+          <template v-slot:cta>
+            <KButton
+              v-if="errorStateActionMessage"
+              :to="errorStateActionRoute ? errorStateActionRoute : null"
+              appearance="primary"
+              @click="$emit('kcardcatalog-error-cta-clicked')"
+            >
+              {{ errorStateActionMessage }}
+            </KButton>
+          </template>
+        </KEmptyState>
+      </slot>
+    </div>
+
+    <div
       v-else-if="!$scopedSlots.body && !hasError && (!isCardLoading && !isLoading) && (data && !data.length)"
-      :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
-      :icon="emptyStateIcon || ''"
-      :icon-color="emptyStateIconColor"
-      :icon-size="emptyStateIconSize"
-    >
-      <template v-slot:title>{{ emptyStateTitle }}</template>
-      <template v-slot:message>{{ emptyStateMessage }}</template>
-      <template v-slot:cta>
-        <KButton
-          v-if="emptyStateActionMessage"
-          :to="emptyStateActionRoute ? emptyStateActionRoute : null"
-          appearance="primary"
-          @click="$emit('kcardcatalog-empty-state-cta-clicked')"
+      data-testid="k-card-catalog-empty-state">
+      <slot name="empty-state">
+        <KEmptyState
+          :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
+          :icon="emptyStateIcon || ''"
+          :icon-color="emptyStateIconColor"
+          :icon-size="emptyStateIconSize"
         >
-          {{ emptyStateActionMessage }}
-        </KButton>
-      </template>
-    </KEmptyState>
+          <template v-slot:title>{{ emptyStateTitle }}</template>
+          <template v-slot:message>{{ emptyStateMessage }}</template>
+          <template v-slot:cta>
+            <KButton
+              v-if="emptyStateActionMessage"
+              :to="emptyStateActionRoute ? emptyStateActionRoute : null"
+              appearance="primary"
+              @click="$emit('kcardcatalog-empty-state-cta-clicked')"
+            >
+              {{ emptyStateActionMessage }}
+            </KButton>
+          </template>
+        </KEmptyState>
+      </slot>
+    </div>
+
     <div
       v-else
       :class="`k-card-${cardSize}`"
