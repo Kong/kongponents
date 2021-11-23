@@ -49,18 +49,18 @@ describe('KIcon', () => {
     const wrapper = await mount(KIcon, {
       propsData: {
         'icon': 'warning',
-        'color': 'yellow',
-        'secondaryColor': 'black'
+        'color': 'black',
+        'secondaryColor': 'yellow'
       }
     })
 
     await tick(wrapper.vm, 1)
 
-    const path = wrapper.find('svg #Path').attributes()
-    const secondaryPath = wrapper.find("[type='secondary']").attributes()
+    const path = wrapper.find('svg #Triangle').attributes()
+    const secondaryPath = wrapper.find("path[type='secondary']").attributes()
 
-    expect(path.fill).toEqual('yellow')
-    expect(secondaryPath.fill).toEqual('black')
+    expect(path.fill).toEqual('black')
+    expect(secondaryPath.fill).toEqual('yellow')
   })
 
   it('renders 32x32 sized icon', async () => {
