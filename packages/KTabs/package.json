@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/ktabs",
-  "version": "6.1.17",
+  "version": "6.1.18",
   "description": "Tabs component.",
   "main": "dist/KTabs.umd.min.js",
   "componentName": "KTabs",

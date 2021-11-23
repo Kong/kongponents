@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kemptystate",
-  "version": "6.1.17",
+  "version": "6.1.18",
   "description": "Empty state component",
   "main": "dist/KEmptyState.umd.min.js",
   "componentName": "KEmptyState",
@@ -23,6 +23,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kbutton": "^6.1.17"
+    "@kongponents/kbutton": "^6.1.18"
   }
 }

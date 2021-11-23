@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.1.18 (2021-11-23)
+
+
+### Bug Fixes
+
+* **ktable:** add missing style ([#435](https://github.com/Kong/kongponents/issues/435)) ([8782dee](https://github.com/Kong/kongponents/commit/8782dee82dafc68c1f956149a249b950359401b1))
+
+
+
+
+
 ## 6.1.17 (2021-11-22)
 
 
