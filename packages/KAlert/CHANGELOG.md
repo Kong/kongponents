@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.2.0 (2021-11-23)
+
+
+### Features
+
+* **ktable/kcardcatalog:** emit cta click events ([#437](https://github.com/Kong/kongponents/issues/437)) ([29eb2a5](https://github.com/Kong/kongponents/commit/29eb2a53cf180935afee1ee10f1b88b462dc29ad))
+
+
+
+
+
 ## 6.1.19 (2021-11-23)
 
 **Note:** Version bump only for package @kongponents/kalert
