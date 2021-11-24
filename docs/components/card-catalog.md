@@ -143,6 +143,35 @@ will default to the following values:
 { pageSize: 15, page: 1 }
 ```
 
+### fetcherCacheKey
+
+The fetcher functionality makes use of [SWRV](https://docs-swrv.netlify.app/) to handle caching of response data. Whenever the cache key is changed the fetcher will automatically
+refire and repopulate the table data.
+
+```vue
+<template>
+  <KCardCatalog
+    :fetcher="fetcher"
+    :fetcherCacheKey="cacheKey" />
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      cacheKey: 1
+    }
+  },
+  methods: {
+    itemDeleted () {
+      // take an action on the DOM
+      cacheKey++ // triggers refetch
+    }
+  }
+}
+</script>
+```
+
 ### paginationTotalItems
 
 Pass the total number of items in the set to populate the pagination text:

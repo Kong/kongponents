@@ -381,6 +381,14 @@ export default defineComponent({
       default: undefined
     },
     /**
+     * A prop to trigger a revalidate of the fetcher function. Modifying this value
+     * will trigger a manual refetch of the table data.
+     */
+    fetcherCacheKey: {
+      type: String,
+      default: ''
+    },
+    /**
      * A prop to pass in a search string for server-side search
      */
     searchInput: {
@@ -568,7 +576,7 @@ export default defineComponent({
 
     const { query, search } = useDebounce('', 350)
     const { revalidate } = useRequest(
-      () => props.fetcher && `k-table_${Math.floor(Math.random() * 1000)}`,
+      () => props.fetcher && `k-table_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}`,
       () => fetchData(),
       { revalidateOnFocus: false }
     )

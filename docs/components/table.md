@@ -230,6 +230,36 @@ object these features should be explicitly disabled.
 </template>
 ```
 
+### fetcherCacheKey
+
+The fetcher functionality makes use of [SWRV](https://docs-swrv.netlify.app/) to handle caching of response data. Whenever the cache key is changed the fetcher will automatically
+refire and repopulate the table data.
+
+```vue
+<template>
+  <KTable
+    :fetcher="fetcher"
+    :headers="headers"
+    :fetcherCacheKey="cacheKey" />
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      cacheKey: 1
+    }
+  },
+  methods: {
+    itemDeleted () {
+      // take an action on the DOM
+      cacheKey++ // triggers refetch
+    }
+  }
+}
+</script>
+```
+
 ### searchInput
 
 Pass in a string of search input for server-side table filtering. See [the Server-side function section](#server-side-functions)
