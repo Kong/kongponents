@@ -93,7 +93,7 @@ export const clientSideSorter = (key, previousKey, sortOrder, items) => {
     sortOrder = 'ascending'
   } else {
     items.reverse()
-    if (sortOrder === 'descending') {
+    if (sortOrder === 'descending' || sortOrder === 'desc') {
       sortOrder = 'ascending'
     } else {
       sortOrder = 'descending'

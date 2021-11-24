@@ -85,7 +85,7 @@
                     $emit('sort', {
                       prevKey: sortColumnKey,
                       sortColumnKey: column.key,
-                      sortColumnOrder: sortColumnOrder === 'desc' ? 'asc' : 'desc' // display opposite because sortColumnOrder outdated
+                      sortColumnOrder: sortColumnOrder === 'asc' ? 'desc' : 'asc' // display opposite because sortColumnOrder outdated
                     })
                     sortClickHandler(column.key)
                   }
@@ -586,10 +586,11 @@ export default defineComponent({
           }
         } else {
           sortColumnKey.value = key
-          sortColumnOrder.value = 'desc'
+          sortColumnOrder.value = 'asc'
         }
       } else {
         sortColumnKey.value = key
+        sortColumnOrder.value = 'asc'
       }
 
       // Use deprecated sort function to sort data passed in via
