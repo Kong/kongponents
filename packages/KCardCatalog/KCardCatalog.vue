@@ -305,6 +305,14 @@ export default defineComponent({
       default: null
     },
     /**
+     * A prop to trigger a revalidate of the fetcher function. Modifying this value
+     * will trigger a manual refetch of the table data.
+     */
+    fetcherCacheKey: {
+      type: String,
+      default: ''
+    },
+    /**
      * A prop to pass in a the number of pagination neighbors used by the pagination component
      */
     paginationNeighbors: {
@@ -392,7 +400,7 @@ export default defineComponent({
     }
 
     const { revalidate } = useRequest(
-      () => props.fetcher && `catalog-item_${Math.floor(Math.random() * 1000)}`,
+      () => props.fetcher && `catalog-item_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}`,
       () => fetchData(),
       { revalidateOnFocus: false }
     )
