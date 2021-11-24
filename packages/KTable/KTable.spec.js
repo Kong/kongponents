@@ -119,7 +119,7 @@ describe('KTable', () => {
         }
       })
 
-      await tick(wrapper.vm, 1)
+      await tick(wrapper.vm, 2)
 
       const actions = wrapper.findAll('.k-table td:last-of-type > *')
 
@@ -138,7 +138,7 @@ describe('KTable', () => {
         }
       })
 
-      await tick(wrapper.vm, 1)
+      await tick(wrapper.vm, 2)
 
       expect(wrapper.find('.k-table').classes()).toContain('has-hover')
       expect(wrapper.html()).toMatchSnapshot()
@@ -155,7 +155,7 @@ describe('KTable', () => {
         }
       })
 
-      await tick(wrapper.vm, 1)
+      await tick(wrapper.vm, 2)
 
       const actions = wrapper.findAll('th')
 

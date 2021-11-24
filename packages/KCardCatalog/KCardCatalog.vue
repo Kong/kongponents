@@ -361,6 +361,7 @@ export default defineComponent({
     const page = ref(1)
     const pageSize = ref(15)
     const isCardLoading = ref(true)
+    const hasInitialized = ref(false)
 
     const fetchData = async () => {
       isCardLoading.value = true
@@ -385,6 +386,7 @@ export default defineComponent({
 
       page.value = fetcherParams.page
       pageSize.value = fetcherParams.pageSize
+      hasInitialized.value = true
 
       // get data
       if (props.fetcher) {
@@ -400,7 +402,7 @@ export default defineComponent({
     }
 
     const { revalidate } = useRequest(
-      () => props.fetcher && `catalog-item_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}`,
+      () => props.fetcher && hasInitialized.value && `catalog-item_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}`,
       () => fetchData(),
       { revalidateOnFocus: false }
     )
