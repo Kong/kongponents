@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.5.1 (2021-11-24)
+
+
+### Bug Fixes
+
+* **ktable/kcardcatalog:** fetch after init ([#442](https://github.com/Kong/kongponents/issues/442)) ([4a053ae](https://github.com/Kong/kongponents/commit/4a053ae4e39e7df7acc798510c8a2fa9e5ab3f6c))
+
+
+
+
+
 # 6.5.0 (2021-11-24)
 
 
