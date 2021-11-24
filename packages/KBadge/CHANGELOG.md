@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.4.0 (2021-11-24)
+
+
+### Features
+
+* **ktable:** default sort to asc ([#440](https://github.com/Kong/kongponents/issues/440)) ([95f2e91](https://github.com/Kong/kongponents/commit/95f2e9164c09e50b25f2e334ff30231ab0984503))
+
+
+
+
+
 # 6.3.0 (2021-11-23)
 
 
