@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.5.0 (2021-11-24)
+
+
+### Features
+
+* **ktable:** add cacheKey prop ([#441](https://github.com/Kong/kongponents/issues/441)) ([743082d](https://github.com/Kong/kongponents/commit/743082df383699b8016d3b6d85497ec77563aaec))
+
+
+
+
+
 # 6.4.0 (2021-11-24)
 
 
