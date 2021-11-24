@@ -150,9 +150,8 @@ refire and repopulate the table data.
 
 ```vue
 <template>
-  <KTable
+  <KCardCatalog
     :fetcher="fetcher"
-    :headers="headers"
     :fetcherCacheKey="cacheKey" />
 </template>
 
