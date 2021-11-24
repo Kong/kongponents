@@ -145,7 +145,7 @@ will default to the following values:
 
 ### fetcherCacheKey
 
-The fetcher functionality makes use of SWRV to handle caching of response data. Whenever the cache key is changed the fetcher will automatically
+The fetcher functionality makes use of [SWRV](https://docs-swrv.netlify.app/) to handle caching of response data. Whenever the cache key is changed the fetcher will automatically
 refire and repopulate the table data.
 
 ```vue
