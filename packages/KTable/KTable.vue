@@ -478,6 +478,7 @@ export default defineComponent({
     const sortColumnKey = ref('')
     const sortColumnOrder = ref('desc')
     const isClickable = ref(false)
+    const hasInitialized = ref(false)
 
     /**
      * Grabs listeners from this.$listeners matching a prefix to attach the
@@ -553,6 +554,7 @@ export default defineComponent({
       filterQuery.value = fetcherParams.query
       sortColumnKey.value = fetcherParams.sortColumnKey
       sortColumnOrder.value = fetcherParams.sortColumnOrder
+      hasInitialized.value = true
 
       // get data
       if (props.fetcher) {
@@ -576,7 +578,7 @@ export default defineComponent({
 
     const { query, search } = useDebounce('', 350)
     const { revalidate } = useRequest(
-      () => props.fetcher && `k-table_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}`,
+      () => props.fetcher && hasInitialized.value && `k-table_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}`,
       () => fetchData(),
       { revalidateOnFocus: false }
     )
