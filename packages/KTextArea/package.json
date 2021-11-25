@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/ktextarea",
-  "version": "6.5.1",
+  "version": "6.5.2",
   "description": "Text area component",
   "main": "dist/KTextArea.umd.min.js",
   "componentName": "KTextArea",
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@kongponents/klabel": "^6.5.1",
-    "@kongponents/styles": "^6.5.1",
+    "@kongponents/styles": "^6.5.2",
     "vue-uuid": "^2.0.2"
   }
 }
