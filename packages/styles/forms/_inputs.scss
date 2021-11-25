@@ -115,7 +115,7 @@
 
     /* Browser Overrides */
     &::placeholder {
-      color: var(--black-45, color(black-45));
+      color: var(--KInputPlaceholderColor, var(--black-45, color(black-45)));
       font-weight: normal;
       opacity: 1;
     }
