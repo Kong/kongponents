@@ -12,6 +12,7 @@ You can override or "theme" some parts of components by setting [CSS Custom Prop
 | `--KInputFocus`| Focus color
 | `--KInputDisabledBackground`| Disabled background
 | `--KInputError`| Error border
+| `--KInputPlaceholderColor`| Placeholder text color
 
 > Note: Add the `input-error` class to add error styling
 
