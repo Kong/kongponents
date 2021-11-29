@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.5.2 (2021-11-29)
+
+
+### Bug Fixes
+
+* **ktable:** allow init client sort ([c3e2a69](https://github.com/Kong/kongponents/commit/c3e2a693974d6aae7f829841af89391c5dd357b2))
+
+
+
+
+
 ## 6.5.1 (2021-11-24)
 
 
