@@ -16,7 +16,8 @@
           <div
             v-if="$scopedSlots.title || !hideTitle"
             class="k-modal-header modal-header mb-5"
-            role="heading">
+            role="heading"
+            aria-level="2">
             <slot name="header-content">{{ title }}</slot>
           </div>
           <div class="k-modal-body modal-body">
