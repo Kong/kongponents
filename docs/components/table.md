@@ -95,7 +95,7 @@ Set this to `true` to disable ablity to sort.
 
 ### enableClientSort
 
-**Experimental** - set this prop to `true` to enable client side sorting if using a fetcher that returns static data.
+**Experimental** - set this prop to `true` to enable client side sorting if using a fetcher that returns unpaginatinated data.
 This functionality may be flaky.
 
 ### fetcher
@@ -185,6 +185,10 @@ object these features should be explicitly disabled.
         ]
       }
     }"
+    :initial-fetcher-params="{
+      sortColumnKey: 'name',
+      sortColumnOrder: 'asc'
+    }"
     :headers="[
       { label: 'Name', key: 'name', sortable: true },
       { label: 'Id', key: 'id', sortable: true },
@@ -218,6 +222,10 @@ object these features should be explicitly disabled.
           }
         ]
       }
+    }"
+    :initial-fetcher-params="{
+      sortColumnKey: 'name',
+      sortColumnOrder: 'asc'
     }"
     :headers="[
       { label: 'Name', key: 'name', sortable: true },

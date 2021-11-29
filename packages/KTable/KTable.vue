@@ -559,6 +559,10 @@ export default defineComponent({
       // get data
       if (props.fetcher) {
         await fetchData()
+
+        if (props.enableClientSort && fetcherParams.sortColumnKey && fetcherParams.sortColumnOrder) {
+          defaultSorter(fetcherParams.sortColumnKey, '', fetcherParams.sortColumnOrder, data.value)
+        }
       } else if (props.options && props.options.data && props.options.data.length) {
         data.value = props.options.data
         total.value = props.options.data.length
