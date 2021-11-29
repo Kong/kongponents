@@ -1,7 +1,6 @@
 <template>
   <div
     v-if="isVisible"
-    :aria-hidden="!isVisible ? 'true' : 'false'"
     :aria-label="title"
     class="k-modal"
     role="dialog"

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`KModal hides the title when using hideTitle prop 1`] = `
-<div aria-hidden="false" aria-label="You can't see me" role="dialog" aria-modal="" class="k-modal">
+<div aria-label="You can't see me" role="dialog" aria-modal="" class="k-modal">
   <div class="k-modal-backdrop modal-backdrop">
     <div class="k-modal-dialog modal-dialog">
       <div class="k-modal-content modal-content">
@@ -23,7 +23,7 @@ exports[`KModal hides the title when using hideTitle prop 1`] = `
 exports[`KModal matches snapshot 1`] = `undefined`;
 
 exports[`KModal renders custom button text & appearance 1`] = `
-<div aria-hidden="false" aria-label="Test Me" role="dialog" aria-modal="" class="k-modal">
+<div aria-label="Test Me" role="dialog" aria-modal="" class="k-modal">
   <div class="k-modal-backdrop modal-backdrop">
     <div class="k-modal-dialog modal-dialog">
       <div class="k-modal-content modal-content">
@@ -43,7 +43,7 @@ exports[`KModal renders custom button text & appearance 1`] = `
 `;
 
 exports[`KModal renders proper content when using action-buttons slot 1`] = `
-<div aria-hidden="false" aria-label="Test Me" role="dialog" aria-modal="" class="k-modal">
+<div aria-label="Test Me" role="dialog" aria-modal="" class="k-modal">
   <div class="k-modal-backdrop modal-backdrop">
     <div class="k-modal-dialog modal-dialog">
       <div class="k-modal-content modal-content">
@@ -63,7 +63,7 @@ exports[`KModal renders proper content when using action-buttons slot 1`] = `
 `;
 
 exports[`KModal renders proper content when using props 1`] = `
-<div aria-hidden="false" aria-label="Sweet prop title" role="dialog" aria-modal="" class="k-modal">
+<div aria-label="Sweet prop title" role="dialog" aria-modal="" class="k-modal">
   <div class="k-modal-backdrop modal-backdrop">
     <div class="k-modal-dialog modal-dialog">
       <div class="k-modal-content modal-content">
@@ -83,7 +83,7 @@ exports[`KModal renders proper content when using props 1`] = `
 `;
 
 exports[`KModal renders proper content when using slots 1`] = `
-<div aria-hidden="false" aria-label="This is some header text" role="dialog" aria-modal="" class="k-modal">
+<div aria-label="This is some header text" role="dialog" aria-modal="" class="k-modal">
   <div class="k-modal-backdrop modal-backdrop">
     <div class="k-modal-dialog modal-dialog">
       <div class="k-modal-content modal-content">
