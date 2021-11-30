@@ -14,8 +14,6 @@ jobs:
         node: [12.x]
     steps:
     - uses: actions/checkout@v2
-      with:
-        persist-credentials: false
     - name: Use Node.js ${{ matrix.node }}
       uses: actions/setup-node@v1
       with:
@@ -42,8 +40,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-      with:
-          persist-credentials: false
     - uses: actions/setup-node@v1
       with:
         node-version: 12.x
@@ -68,6 +64,3 @@ jobs:
       run: |
         yarn lerna bootstrap
         yarn publish:ci
-      env:
-        #lerna uses GH_TOKEN to 
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
