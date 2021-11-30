@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.5.3 (2021-11-30)
+
+**Note:** Version bump only for package @kongponents/ktoaster
+
+
+
+
+
 ## 6.5.2 (2021-11-29)
 
 
