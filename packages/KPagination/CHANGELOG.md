@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.5.8](https://github.com/Kong/kongponents/compare/@kongponents/kpagination@6.5.7...@kongponents/kpagination@6.5.8) (2021-12-01)
+
+**Note:** Version bump only for package @kongponents/kpagination
+
+
+
+
+
 ## [6.5.7](https://github.com/Kong/kongponents/compare/@kongponents/kpagination@6.5.6...@kongponents/kpagination@6.5.7) (2021-12-01)
 
 **Note:** Version bump only for package @kongponents/kpagination
