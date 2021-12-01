@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kcard",
-  "version": "6.5.6",
+  "version": "6.5.7",
   "description": "Card component",
   "main": "dist/KCard.umd.min.js",
   "componentName": "KCard",
