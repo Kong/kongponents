@@ -40,14 +40,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+          token: ${{ secrets.KONGPONENTS_BOT_PAT }}
     - uses: actions/setup-node@v1
       with:
         node-version: 12.x
 
     - name: setup git
       run: |
-        git config --global user.name 'kongponents'
-        git config --global user.email 'npm@konghq.com'
+        git config --global user.name 'kongponents-bot'
+        git config --global user.email '95302551+kongponents-bot@users.noreply.github.com'
 
     - name: install
       run: |
@@ -64,3 +66,6 @@ jobs:
       run: |
         yarn lerna bootstrap
         yarn publish:ci
+      env:
+        # lerna uses GH_TOKEN to init it's gh lib
+        GH_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
