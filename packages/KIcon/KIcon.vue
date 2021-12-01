@@ -127,10 +127,10 @@ export default {
       return this.svg ? this.svg.getAttribute('height') : null
     },
     setSize () {
-      return this.size || (this.svg && this.svg.getAttribute('width')) || DEFAULTS.size
+      return this.svg ? (this.size || (this.svg && this.svg.getAttribute('width')) || DEFAULTS.size) : DEFAULTS.size
     },
     setViewbox () {
-      return this.viewBox || (this.svg && this.svg.getAttribute('viewBox')) || DEFAULTS.viewBox
+      return this.svg ? (this.viewBox || (this.svg && this.svg.getAttribute('viewBox')) || DEFAULTS.viewBox) : DEFAULTS.viewBox
     }
   },
 
