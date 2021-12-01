@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.5.9 (2021-12-01)
+
+
+### Bug Fixes
+
+* infinite publish ([d3f275b](https://github.com/Kong/kongponents/commit/d3f275bb668dd95782f6150232cc22a5b95b1bcf))
+
+
+
+
+
 ## [6.5.8](https://github.com/Kong/kongponents/compare/@kongponents/kemptystate@6.5.7...@kongponents/kemptystate@6.5.8) (2021-12-01)
 
 **Note:** Version bump only for package @kongponents/kemptystate
