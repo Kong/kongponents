@@ -1,12 +1,6 @@
 module.exports = {
   css: { extract: false },
   chainWebpack: config => {
-    config.module
-      .rule('images')
-      .use('url-loader')
-      .loader('url-loader')
-      .tap(options => Object.assign(options, { limit: 14000 }))
-
     const svgRule = config.module.rule('svg')
 
     svgRule.uses.clear()
@@ -23,5 +17,11 @@ module.exports = {
       .use('raw')
       .loader('raw-loader')
       .end().end()
+
+    config.module
+      .rule('images')
+      .use('url-loader')
+      .loader('url-loader')
+      .tap(options => Object.assign(options, { limit: 14000 }))
   }
 }
