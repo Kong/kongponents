@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.6.0 (2021-12-08)
+
+
+### Features
+
+* **comment:** add global comment in output file ([#451](https://github.com/Kong/kongponents/issues/451)) ([b2f6154](https://github.com/Kong/kongponents/commit/b2f6154c37be30a3d364337f3d87fe40a64fc753))
+
+
+
+
+
 ## 6.5.9 (2021-12-01)
 
 
