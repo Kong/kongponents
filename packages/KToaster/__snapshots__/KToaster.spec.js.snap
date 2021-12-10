@@ -8,7 +8,10 @@ exports[`KToaster KToaster.vue renders toaster 1`] = `
 </div>
 <!---->
 <!---->
-<div class="k-alert-msg-text"><span class="k-alert-msg"><div class="message">hey toasty</div></span>
+<div class="k-alert-msg-text">
+  <div class="k-alert-msg">
+    <div class="message">hey toasty</div>
+  </div>
   <!---->
 </div>
 </div>
@@ -21,7 +24,10 @@ exports[`KToaster KToaster.vue renders toaster 1`] = `
     </div>
     <!---->
     <!---->
-    <div class="k-alert-msg-text"><span class="k-alert-msg"><div class="message">hey toasty</div></span>
+    <div class="k-alert-msg-text">
+      <div class="k-alert-msg">
+        <div class="message">hey toasty</div>
+      </div>
       <!---->
     </div>
   </div>
@@ -34,7 +40,10 @@ exports[`KToaster KToaster.vue renders toaster 1`] = `
     </div>
     <!---->
     <!---->
-    <div class="k-alert-msg-text"><span class="k-alert-msg"><div class="message">hey toasty</div></span>
+    <div class="k-alert-msg-text">
+      <div class="k-alert-msg">
+        <div class="message">hey toasty</div>
+      </div>
       <!---->
     </div>
   </div>
@@ -47,7 +56,10 @@ exports[`KToaster KToaster.vue renders toaster 1`] = `
     </div>
     <!---->
     <!---->
-    <div class="k-alert-msg-text"><span class="k-alert-msg"><div class="message">hey toasty</div></span>
+    <div class="k-alert-msg-text">
+      <div class="k-alert-msg">
+        <div class="message">hey toasty</div>
+      </div>
       <!---->
     </div>
   </div>

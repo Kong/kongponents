@@ -19,7 +19,7 @@ describe('KToaster', () => {
 
       expect(wrapper.findAll('div[role="alert"].success')).toHaveLength(1)
       expect(wrapper.findAll('div[role="alert"].danger')).toHaveLength(2)
-      expect(wrapper.findAll('.toaster-container-outer span.k-alert-msg')).toHaveLength(4)
+      expect(wrapper.findAll('.toaster-container-outer div.k-alert-msg')).toHaveLength(4)
 
       expect(wrapper).toMatchSnapshot()
     })
