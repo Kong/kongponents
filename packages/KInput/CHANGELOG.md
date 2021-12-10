@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.6.1 (2021-12-10)
+
+
+### Bug Fixes
+
+* **kalert:** fix invalid html structure ([#452](https://github.com/Kong/kongponents/issues/452)) ([15eade8](https://github.com/Kong/kongponents/commit/15eade87d0661ae7716a6e32f1fa63279dbf8743))
+
+
+
+
+
 # 6.6.0 (2021-12-08)
 
 
