@@ -60,20 +60,20 @@
         class="k-alert-icon" />
     </span>
     <div class="k-alert-msg-text">
-      <span
+      <div
         :class="type === 'banner' && size === 'large' ? 'k-alert-text' : ''"
         class="k-alert-msg">
         <!-- @slot Use this slot to pass default alert message  -->
         <slot name="alertMessage">{{ alertMessage }}
         </slot>
-      </span>
-      <span
+      </div>
+      <div
         v-if="type === 'banner' && (size === 'large') && hasAlertDescription"
         class="k-alert-description-text">
         <!-- @slot Use this slot to pass alert message description for large banner type alert  -->
         <slot name="description">{{ description }}
         </slot>
-      </span>
+      </div>
     </div>
   </div>
 </template>
@@ -352,6 +352,10 @@ export default {
     line-height: var(--type-md, type(md));
     padding: 2px 0;
     margin-left: 2px;
+
+    p:last-of-type {
+      margin-bottom: 0;
+    }
   }
 }
 
