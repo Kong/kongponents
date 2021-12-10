@@ -9,8 +9,9 @@ exports[`KAlert Renders danger variant 1`] = `
   </div>
   <!---->
   <!---->
-  <div class="k-alert-msg-text"><span class="k-alert-msg">
-      </span>
+  <div class="k-alert-msg-text">
+    <div class="k-alert-msg">
+    </div>
     <!---->
   </div>
 </div>
@@ -25,8 +26,9 @@ exports[`KAlert Renders info variant 1`] = `
   </div>
   <!---->
   <!---->
-  <div class="k-alert-msg-text"><span class="k-alert-msg">
-      </span>
+  <div class="k-alert-msg-text">
+    <div class="k-alert-msg">
+    </div>
     <!---->
   </div>
 </div>
@@ -41,8 +43,9 @@ exports[`KAlert Renders success variant 1`] = `
   </div>
   <!---->
   <!---->
-  <div class="k-alert-msg-text"><span class="k-alert-msg">
-      </span>
+  <div class="k-alert-msg-text">
+    <div class="k-alert-msg">
+    </div>
     <!---->
   </div>
 </div>
@@ -57,8 +60,9 @@ exports[`KAlert Renders warning variant 1`] = `
   </div>
   <!---->
   <!---->
-  <div class="k-alert-msg-text"><span class="k-alert-msg">
-      </span>
+  <div class="k-alert-msg-text">
+    <div class="k-alert-msg">
+    </div>
     <!---->
   </div>
 </div>
@@ -71,6 +75,9 @@ exports[`KAlert renders slots when passed 1`] = `
       Dismiss
       <!----></button></div>
   <!----> <span><span class="kong-icon k-alert-icon kong-icon-notificationInbox"><!----></span></span>
-  <div class="k-alert-msg-text"><span class="k-alert-msg k-alert-text"><span>Hello World</span></span> <span class="k-alert-description-text"><span>I am an alert</span></span></div>
+  <div class="k-alert-msg-text">
+    <div class="k-alert-msg k-alert-text"><span>Hello World</span></div>
+    <div class="k-alert-description-text"><span>I am an alert</span></div>
+  </div>
 </div>
 `;
