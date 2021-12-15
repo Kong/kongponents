@@ -52,7 +52,7 @@ This prop takes a string that will replace the SVG default height and width. If 
 
 Overrides the default svg color.
 
-<KIcon  icon="list" color="red" />
+<KIcon icon="list" color="red" />
 
 ```vue
 <KIcon icon="list" color="red" />
@@ -62,10 +62,10 @@ Overrides the default svg color.
 
 Overrides the secondary svg color (if one exists).
 
-<KIcon  icon="warning" color="var(--yellow-400)" secondaryColor="var(--black-75)" />
+<KIcon icon="warning" color="var(--black-70)" secondaryColor="var(--yellow-400)" />
 
 ```vue
-<KIcon  icon="warning" color="var(--yellow-400)" secondaryColor="var(--black-75)" />
+<KIcon icon="warning" color="var(--black-70)" secondaryColor="var(--yellow-400)" />
 ```
 
 ::: tip Note

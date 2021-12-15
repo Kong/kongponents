@@ -1,34 +1,21 @@
 <template>
   <span
+    v-if="!$slots.svgElements"
+    ref="svgWrapper"
+    :class="`kong-icon-${icon}`"
+    class="kong-icon"
+    v-html="icons[icon]"/>
+  <span
+    v-else
+    ref="svgWrapper"
     :class="`kong-icon-${icon}`"
     class="kong-icon">
-    <svg
-      v-if="isSSR"
-      v-bind="$attrs"
-      :height="setSize || height"
-      :width="setSize || width"
-      :viewBox="setViewbox"
-      role="img"
-    >
-      <title v-if="!hideTitle">{{ titleText }}</title>
+    <svg class="slot-content">
       <slot name="svgElements"/>
-      <g>
-        <template v-for="(elem, idx) in fills">
-          <circle
-            v-if="elem.nodeName === 'circle'"
-            :key="`${elem.cx}-${elem.cy}-${elem.r}-${idx}`"
-            v-bind="fillAttributes[idx]"/>
-          <rect
-            v-if="elem.nodeName === 'rect'"
-            :key="`${elem.x}-${elem.y}-${idx}`"
-            v-bind="fillAttributes[idx]"/>
-          <path
-            v-if="elem.nodeName === 'path'"
-            :key="elem.d"
-            v-bind="fillAttributes[idx]"/>
-        </template>
-      </g>
     </svg>
+    <span
+      :class="{ 'svg-with-slot-is-hidden': svgWithSlotIsHidden }"
+      v-html="icons[icon]"/>
   </span>
 </template>
 
@@ -45,14 +32,13 @@ export default {
   inheritAttrs: false,
   props: {
     /**
-     * Checks for valid icon name<br>
-     * 'back' | 'collapseExpand' | 'gateway' | 'gear' | 'info' | 'portal' | 'search' | 'security' | 'workspaces' | 'workspacesCollapsed' | 'vitals'
+     * Checks for valid icon name
      */
     icon: {
       type: String,
       default: '',
       validator: function (value) {
-        return iconNames.indexOf(value) !== -1
+        return iconNames.includes(value)
       },
       required: true
     },
@@ -106,7 +92,9 @@ export default {
 
   data () {
     return {
-      isSSR: false
+      svg: null,
+      icons: icons,
+      svgWithSlotIsHidden: true
     }
   },
 
@@ -120,8 +108,8 @@ export default {
         return this.icon
       }
 
-      const titleElems = this.doc.getElementsByTagName('title')
-      if (titleElems.length) { // use title in SVG if it exists
+      const titleElems = this.svg && this.svg.getElementsByTagName('title')
+      if (titleElems && titleElems.length) { // use title in SVG if it exists
         return titleElems[0].innerHTML
       }
 
@@ -129,63 +117,112 @@ export default {
 
       return this.convertToTitleCase(icnName)
     },
-    iconSVG () {
-      return icons[this.icon]
-    },
-    doc () {
-      return new DOMParser().parseFromString(this.iconSVG, 'image/svg+xml')
-    },
-    svg () {
-      return this.doc.getElementsByTagName('svg')[0]
-    },
     fills () {
-      return Array.from(this.doc.querySelectorAll(`[fill*="#"], [stroke*="#"]`))
-    },
-    fillAttributes () {
-      return this.fills && this.fills.map(fill =>
-        Array.from(fill.attributes).reduce((attr, { value, name }) => {
-          const hasPreservedColor = fill.attributes.id && fill.attributes.id.value === 'preserveColor'
-          const isSecondary = fill.attributes.type && fill.attributes.type.value === 'secondary'
-
-          // color override
-          if (!hasPreservedColor && name === 'fill' && this.secondaryColor && isSecondary) {
-            attr[name] = value === 'none' ? 'none' : this.secondaryColor
-          } else if (!hasPreservedColor && !isSecondary && name === 'fill' && this.color) {
-            attr[name] = value === 'none' ? 'none' : this.color
-          } else if (name === 'stroke' && this.color) {
-            attr[name] = this.color
-          } else {
-            attr[name] = value
-          }
-
-          return attr
-        }, {})
-      )
+      return this.svg ? Array.from(this.svg.querySelectorAll(`[fill*="#"], [stroke*="#"]`)) : null
     },
     width () {
-      return this.svg.getAttribute('width')
+      return this.svg ? this.svg.getAttribute('width') : null
     },
     height () {
-      return this.svg.getAttribute('height')
+      return this.svg ? this.svg.getAttribute('height') : null
     },
     setSize () {
-      return this.size || this.svg.getAttribute('width') || DEFAULTS.size
+      return this.svg ? (this.size || (this.svg && this.svg.getAttribute('width')) || DEFAULTS.size) : DEFAULTS.size
     },
     setViewbox () {
-      return this.viewBox || this.svg.getAttribute('viewBox') || DEFAULTS.viewBox
+      return this.svg ? (this.viewBox || (this.svg && this.svg.getAttribute('viewBox')) || DEFAULTS.viewBox) : DEFAULTS.viewBox
     }
   },
 
   mounted () {
     this.$nextTick(function () {
-      // Do not render KIcon until client is available
-      this.isSSR = true
+      // Set svg
+      this.svg = this.$refs.svgWrapper ? this.$refs.svgWrapper.querySelector('svg:not(.slot-content)') : null
+
+      if (this.svg) {
+        // Check for slot content
+        if (this.$slots.svgElements && this.$slots.svgElements.length) {
+          this.addSlotContent()
+        }
+
+        // Bind attributes
+        for (const [attributeName, attributeValue] of Object.entries(this.$attrs)) {
+          this.svg.setAttribute(attributeName, attributeValue)
+        }
+
+        // Add role
+        this.svg.setAttribute('role', 'img')
+
+        // Set size
+        this.svg.setAttribute('width', this.setSize || this.width)
+        this.svg.setAttribute('height', this.setSize || this.height)
+        this.svg.setAttribute('viewBox', this.setViewbox)
+
+        // Set title
+        this.setSvgTitle()
+
+        // Customize icon colors
+        this.recursivelyCustomizeIconColors(this.svg)
+      }
     })
   },
 
   methods: {
     convertToTitleCase (str) {
       return str.split('-').map(i => i.charAt(0).toUpperCase() + i.substring(1)).join(' ')
+    },
+    addSlotContent () {
+      // Get slot content
+      const slotContent = this.$refs.svgWrapper.querySelector('.slot-content').innerHTML
+
+      this.$refs.svgWrapper.removeChild(this.$refs.svgWrapper.querySelector('.slot-content'))
+
+      // Move slot content inside svg
+      this.svg.innerHTML += slotContent
+
+      // Done rendering slot, so set display to true
+      this.svgWithSlotIsHidden = false
+    },
+    setSvgTitle () {
+      let svgTitle = this.svg.querySelector('title')
+      // Hide title
+      if (svgTitle && this.hideTitle) {
+        this.svg.removeChild(svgTitle)
+      } else if (!this.hideTitle) {
+        if (!svgTitle) {
+          // No title element exists, create one
+          svgTitle = document.createElement('title')
+          // Set title
+          const svgTitleText = document.createTextNode(this.titleText)
+
+          svgTitle.appendChild(svgTitleText)
+          this.svg.append(svgTitle)
+        } else {
+          svgTitle.textContent = this.titleText
+        }
+      }
+    },
+    recursivelyCustomizeIconColors (el) {
+      if (!el) {
+        return
+      }
+
+      const fillValue = el.hasAttribute('fill')
+      const strokeValue = el.getAttribute('stroke') && el.getAttribute('stroke') !== 'none' ? el.getAttribute('stroke') : null
+      const hasPreservedColor = el.attributes.id && el.attributes.id.value === 'preserveColor'
+      const isSecondary = el.attributes.type && el.attributes.type.value === 'secondary'
+
+      if (!hasPreservedColor && fillValue && isSecondary && this.secondaryColor) {
+        el.setAttribute('fill', this.secondaryColor)
+      } else if (!hasPreservedColor && !isSecondary && fillValue && !strokeValue && this.color) {
+        el.setAttribute('fill', this.color)
+      } else if (strokeValue && this.color) {
+        el.setAttribute('stroke', this.color)
+      }
+
+      [].forEach.call(el.children, child => {
+        this.recursivelyCustomizeIconColors(child)
+      })
     }
   }
 }
@@ -195,15 +232,24 @@ export default {
 .kong-icon {
   display: inline-block;
 
-  &.kong-icon-spinner g {
-    transform-box: fill-box;
-    transform-origin: 50% 50%;
-    animation: spin 1.2s infinite linear;
+  .slot-content,
+  .svg-with-slot-is-hidden {
+    display: none !important;
+    visibility: hidden !important;
   }
 }
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(1turn); }
+}
+</style>
+
+<style lang="scss">
+// unscoped, so the svg <g> element can be accessed from the imported file
+.kong-icon.kong-icon-spinner svg g {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: spin 1.2s infinite linear;
 }
 </style>

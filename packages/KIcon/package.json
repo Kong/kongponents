@@ -22,5 +22,8 @@
   "homepage": "https://github.com/Kong/kongponents#readme",
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "raw-loader": "^4.0.2"
   }
 }
