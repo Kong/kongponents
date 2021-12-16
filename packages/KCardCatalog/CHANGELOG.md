@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.6.4 (2021-12-16)
+
+
+### Bug Fixes
+
+* **ktextarea:** fix v-model ([#454](https://github.com/Kong/kongponents/issues/454)) ([35f581f](https://github.com/Kong/kongponents/commit/35f581f5c1be13fdebf1a63b8742181de8e19a8b))
+
+
+
+
+
 ## 6.6.3 (2021-12-15)
 
 **Note:** Version bump only for package @kongponents/kcardcatalog
