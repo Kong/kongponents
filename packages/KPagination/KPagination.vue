@@ -220,6 +220,11 @@ export default {
       if (newval === true) {
         this.returnToFirstPage()
       }
+    },
+    currentPage (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.changePage(newVal)
+      }
     }
   },
   methods: {

@@ -87,6 +87,28 @@ describe('KPagination', () => {
     expect(wrapper.find('[data-testid="k-select-input"] .k-button').html()).toEqual(expect.stringContaining('4 items per page'))
   })
 
+  it('correctly updates text and active page button when currentPage prop is updated', () => {
+    const wrapper = mount(KPagination, {
+      propsData: {
+        totalCount: 9,
+        pageSizes,
+        currentPage: 1,
+        items: myItems,
+        testMode: true
+      }
+    })
+
+    expect(wrapper.find('[data-testid="visible-items"]').html()).toEqual(expect.stringContaining('1 to 2'))
+    expect(wrapper.find('[data-testid="visible-items"]').html()).toEqual(expect.stringContaining('of 9'))
+    expect(wrapper.find('.pagination-button.active a').html()).toEqual(expect.stringContaining('1'))
+
+    wrapper.setProps({ currentPage: 2 })
+
+    expect(wrapper.find('[data-testid="visible-items"]').html()).toEqual(expect.stringContaining('3 to 4'))
+    expect(wrapper.find('[data-testid="visible-items"]').html()).toEqual(expect.stringContaining('of 9'))
+    expect(wrapper.find('.pagination-button.active a').html()).toEqual(expect.stringContaining('2'))
+  })
+
   it('matches snapshot', () => {
     const wrapper = mount(KPagination, {
       propsData: {
