@@ -7,10 +7,7 @@
       :rows="rows"
       :cols="cols"
       class="form-control k-input style-body-lg"
-      @input="e => {
-        $emit('textarea', e.target.value),
-        currValue = e.target.value
-      }"
+      @input="inputHandler"
       v-on="listeners"
     />
 
@@ -30,10 +27,7 @@
           :rows="rows"
           :cols="cols"
           class="form-control k-input style-body-lg"
-          @input="e => {
-            $emit('textarea', e.target.value),
-            currValue = e.target.value
-          }"
+          @input="inputHandler"
           @mouseenter="() => isHovered = true"
           @mouseleave="() => isHovered = false"
           @focus="() => isFocused = true"
@@ -124,6 +118,13 @@ export default {
           limitExceeded: newval
         })
       }
+    }
+  },
+  methods: {
+    inputHandler (e) {
+      // this 'input' event must be emitted for v-model binding to work properly
+      this.$emit('input', e.target.value)
+      this.currValue = e.target.value
     }
   }
 }

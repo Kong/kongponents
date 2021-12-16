@@ -57,8 +57,8 @@ describe('KTextArea', () => {
     expect(textarea.element.value).toBe('hey')
     textarea.setValue('hey, dude')
 
-    expect(wrapper.emitted().textarea).toHaveLength(1)
-    expect(wrapper.emitted().textarea[0]).toEqual(['hey, dude'])
+    expect(wrapper.emitted().input).toHaveLength(1)
+    expect(wrapper.emitted().input[0]).toEqual(['hey, dude'])
     expect(textarea.element.value).toBe('hey, dude')
   })
 
