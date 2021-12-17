@@ -62,7 +62,6 @@
     "jest-serializer-vue": "2.0.2",
     "lerna": "4.0.0",
     "markdownlint-cli": "^0.29.0",
-    "node-sass": "^4.11.0",
     "postcss-cli": "^6.1.2",
     "postcss-custom-properties": "^8.0.10",
     "raw-loader": "0.5.1",
