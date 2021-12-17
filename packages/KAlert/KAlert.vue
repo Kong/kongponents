@@ -259,6 +259,7 @@ export default {
 
 <style scoped lang="scss">
 @import '~@kongponents/styles/_variables.scss';
+
 .k-alert {
   position: relative;
   display: flex;

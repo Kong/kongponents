@@ -59,7 +59,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '~@kongponents/styles/variables';
+
 .krumbs {
   display: flex;
   -ms-flex-wrap: wrap;

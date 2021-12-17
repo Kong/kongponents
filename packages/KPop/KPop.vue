@@ -89,6 +89,7 @@
     </transition>
   </component>
 </template>
+
 <script>
 import Popper from 'popper.js'
 import KButton from '@kongponents/kbutton/KButton.vue'
@@ -395,8 +396,9 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
-@import '~@kongponents/styles/_variables.scss';
+@import '~@kongponents/styles/variables';
 
 .k-popover {
   z-index: 1000;

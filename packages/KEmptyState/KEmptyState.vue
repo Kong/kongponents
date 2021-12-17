@@ -41,6 +41,7 @@
 <script>
 import KButton from '@kongponents/kbutton/KButton.vue'
 import KIcon from '@kongponents/kicon/KIcon.vue'
+
 export default {
   name: 'KEmptyState',
   components: { KButton, KIcon },
@@ -77,7 +78,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '~@kongponents/styles/variables';
+
 .empty-state-wrapper {
   padding: 42px 0;
   text-align: center;

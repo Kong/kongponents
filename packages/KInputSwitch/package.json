@@ -21,5 +21,10 @@
   "homepage": "https://github.com/Kong/kongponents#readme",
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@kongponents/kicon": "^6.6.3",
+    "@kongponents/kooltip": "^6.6.3",
+    "@kongponents/styles": "^6.6.3"
   }
 }

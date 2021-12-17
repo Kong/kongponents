@@ -178,8 +178,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '~@kongponents/styles/_variables.scss';
-@import '~@kongponents/styles/forms/_inputs.scss';
+@import '~@kongponents/styles/variables';
+@import '~@kongponents/styles/forms/inputs';
 
 .k-multiselect {
   &-trigger {

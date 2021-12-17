@@ -77,7 +77,7 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-@import '~@kongponents/styles/_variables.scss';
+@import '~@kongponents/styles/variables';
 
 .k-slideout {
   --KCardPaddingY: 2rem;

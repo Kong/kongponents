@@ -204,10 +204,7 @@ Set this to `true` to limit pagination navigation to `previous` / `next` page on
   :paginationPageSizes="[4, 5, 6]"
   :initial-fetcher-params="{
     pageSize: 4,
-    page: 1,
-    query: '',
-    sortColumnKey: '',
-    sortColumnOrder: ''
+    page: 1
   }" />
 
 ```vue
@@ -501,10 +498,7 @@ the section above or completely slot in your own content.
 
 <KCard>
   <template v-slot:body>
-    <KCardCatalog
-      :fetcher="emptyFetcher"
-      :headers="headers"
-    >
+    <KCardCatalog :fetcher="emptyFetcher">
       <template v-slot:empty-state>
         <div class="w-100" style="text-align: center;">
           <KIcon icon="warning" />
@@ -521,10 +515,7 @@ the section above or completely slot in your own content.
 
 ```vue
 <template>
-  <KCardCatalog
-    :fetcher="() => { return { data: [] } }"
-    :headers="headers"
-  >
+  <KCardCatalog :fetcher="() => { return { data: [] } }">
     <template v-slot:empty-state>
       <KIcon icon="warning" />
       No Content!!!
@@ -629,9 +620,7 @@ export default {
     resolveAfter5MiliSec(count, pageSize, page) {
       // simulate pagination
       let limit = count
-      if ((pageSize * page) < count) {
-        limit = pageSize
-      }
+      if ((pageSize * page) < count) { limit = pageSize * page }
 
       let myItems = []
       for (let i = ((page-1) * pageSize); i < limit; i++) {
@@ -656,7 +645,10 @@ export default {
       }
 
       return params
-    }
+    },
+    emptyFetcher () {
+      return { data: [] }
+    },
   }
 }
 </script>

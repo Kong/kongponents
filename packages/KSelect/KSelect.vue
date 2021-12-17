@@ -295,6 +295,7 @@ export default {
       })
       this.filterStr = this.appearance === 'dropdown' ? '' : item.label
       this.$emit('selected', item)
+      this.$emit('input', item)
     },
     clearSelection () {
       this.items.forEach(anItem => {
@@ -315,6 +316,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~@kongponents/styles/variables';
+
 .k-select {
   width: fit-content; // necessary for correct placement of popup
 

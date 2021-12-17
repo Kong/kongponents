@@ -50,6 +50,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '~@kongponents/styles/_variables.scss';
-  @import '~@kongponents/styles/forms/_checkbox-radio.scss';
+  @import '~@kongponents/styles/variables';
+  @import '~@kongponents/styles/forms/checkbox-radio';
 </style>

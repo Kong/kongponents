@@ -60,7 +60,9 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~@kongponents/styles/variables';
 // Originally forked and modified from https://codepen.io/aaroniker/pen/dyoKeMP
+
 .view-switch-button {
   --KButtonPaddingY: 6px;
   --KButtonPaddingX: 6px;

@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.k-menu-item-divider{
+.k-menu-item-divider {
   padding: 0 19px 0 19px;
 }
 </style>

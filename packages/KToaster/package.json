@@ -25,6 +25,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kalert": "^6.7.2"
+    "@kongponents/kalert": "^6.7.2",
+    "@kongponents/styles": "^6.7.2"
   }
 }

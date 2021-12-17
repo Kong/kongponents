@@ -437,6 +437,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import '~@kongponents/styles/variables';
+
 .k-card-catalog {
   $cardHeight: 181px;
 
