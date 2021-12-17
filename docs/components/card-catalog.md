@@ -620,6 +620,7 @@ export default {
     resolveAfter5MiliSec(count, pageSize, page) {
       // simulate pagination
       let limit = count
+      // <!-- markdownlint-disable-next-line MD037 -->
       if ((pageSize * page) < count) { limit = pageSize * page }
 
       let myItems = []
