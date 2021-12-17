@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.7.0 (2021-12-17)
+
+
+### Features
+
+* **kinput:** add css variable for optional kinput placeholder text color overrides ([#443](https://github.com/Kong/kongponents/issues/443)) ([3b40207](https://github.com/Kong/kongponents/commit/3b40207eabd87b21568ec2697ad39961c2a91b40))
+
+
+
+
+
 ## 6.6.5 (2021-12-17)
 
 
