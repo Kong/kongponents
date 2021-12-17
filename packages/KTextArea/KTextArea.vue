@@ -147,7 +147,7 @@ export default {
     resize: none;
 
     &::placeholder {
-      color: var(--grey-500);
+      color: var(--KInputPlaceholderColor, var(--grey-500, color(grey-500)));
     }
 
     &:hover {
@@ -155,7 +155,7 @@ export default {
     }
 
     &:hover::placeholder {
-      color: var(--grey-600);
+      color: var(--KInputPlaceholderColor, var(--grey-600, color(grey-600)));
     }
 
     &:focus::placeholder {
