@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.7.2 (2021-12-17)
+
+
+### Bug Fixes
+
+* **actions:** fix actions ([#459](https://github.com/Kong/kongponents/issues/459)) ([9bb5ad5](https://github.com/Kong/kongponents/commit/9bb5ad57272f9f57c140646eb9d4413d595115d6))
+
+
+
+
+
 ## 6.7.1 (2021-12-17)
 
 **Note:** Version bump only for package @kongponents/ktextarea
