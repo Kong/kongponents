@@ -11,14 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
-        node: [14.x]
     steps:
     - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node }}
+    - name: Read .nvmrc
+       run: echo ::set-output name=NVMRC::$(cat .nvmrc)
+        id: nvm
+    - name: Use Node.js
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node }}
+        node-version: '${{ steps.nvm.outputs.NVMRC }}'
     - name: install, lint
       run: |
         yarn install
