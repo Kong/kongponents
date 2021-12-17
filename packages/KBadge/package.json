@@ -23,6 +23,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/styles": "^6.6.3"
+    "@kongponents/styles": "^6.7.0"
   }
 }
