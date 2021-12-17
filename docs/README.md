@@ -84,20 +84,6 @@ module.exports = () => ({
 })
 ```
 
-### Without Bundle System
-
-You can also use Kongponents in a project where there is no build system as long as Vue is included on the page. Each Kongponent is packaged as a `umd.js` file, so as long as you have loaded Vue in your project the Kongponent will work as intended.
-
-:::tip Note
-You must import the CSS from the `@kongponents/styles` package along with Vue.
-:::
-
-<iframe width="100%" height="300" style="width: 100%;" scrolling="no" title="Vue 2 with Kongponents" src="https://codepen.io/adamdehaven/embed/RwLVQLw?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/adamdehaven/pen/RwLVQLw">
-  Vue 2 with Kongponents</a> by Adam DeHaven (<a href="https://codepen.io/adamdehaven">@adamdehaven</a>)
-  on <a href="https://codepen.io">CodePen</a>.
-</iframe>
-
 ## Usage
 
 You can import and register components globally (e.g. in your Vue entry file, like `main.js`)
@@ -117,3 +103,17 @@ export default {
   ...
 };
 ```
+
+## Without Bundle System
+
+You can also use Kongponents in a project where there is no build system as long as Vue is included on the page. Each Kongponent is packaged as a `umd.js` file, so as long as you have loaded Vue in your project the Kongponent will work as intended.
+
+:::tip Note
+You must import the CSS from the `@kongponents/styles` package along with Vue.
+:::
+
+<iframe width="100%" height="300" style="width: 100%;" scrolling="no" title="Vue 2 with Kongponents" src="https://codepen.io/adamdehaven/embed/RwLVQLw?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/adamdehaven/pen/RwLVQLw">
+  Vue 2 with Kongponents</a> by Adam DeHaven (<a href="https://codepen.io/adamdehaven">@adamdehaven</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
