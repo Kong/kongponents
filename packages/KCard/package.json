@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/styles": "^6.7.0",
+    "@kongponents/styles": "^6.7.1",
     "vue-uuid": "^2.0.2"
   }
 }
