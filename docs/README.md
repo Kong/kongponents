@@ -33,7 +33,7 @@ module.exports = {
 }
 ```
 
-If your project does not have a `vue.config.js` file and instead uses webpack config files, you can add a loadcer rule (for example, for `babel-loader`) similar to the following (only showing the relevant entries)
+If your project does not have a `vue.config.js` file and instead uses webpack config files, you can add a loader rule (for example, for `babel-loader`) similar to the following (only showing the relevant entries)
 
 ```js
 // webpack.config.js
