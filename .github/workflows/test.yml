@@ -13,23 +13,29 @@ jobs:
       fail-fast: false
     steps:
     - uses: actions/checkout@v1
+
     - name: Read .nvmrc
       run: echo ::set-output name=NVMRC::$(cat .nvmrc)
       id: nvm
+
     - name: Use Node.js
       uses: actions/setup-node@v2
       with:
         node-version: '${{ steps.nvm.outputs.NVMRC }}'
+
     - name: install, lint
       run: |
         yarn install
         yarn lint
+
     - name: build
       run: |
         yarn build
+
     - name: test
       run: |
         yarn test
+
     - name: visual-regression-test
       run: |
         npx percy snapshot docs/.vuepress/dist/ --ignore-files "**/404.html"
