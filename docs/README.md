@@ -84,6 +84,12 @@ module.exports = () => ({
 })
 ```
 
+### Without Bundle System
+
+You can also use Kongponents in a project where there is no build system as long as Vue is included on the page. Each Kongponent is packaged as a `umd.js` file, so as long as you have loaded Vue in your project the Kongponent will work as intended. You will still need to [install the base styles package](./style-guide/usage.md).
+
+<iframe width="100%" height="300" src="//jsfiddle.net/darrenjennings/khesrbLc/embedded/js,html,result/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+
 ## Usage
 
 You can import and register components globally (e.g. in your Vue entry file, like `main.js`)
@@ -103,9 +109,3 @@ export default {
   ...
 };
 ```
-
-### Without Bundle System
-
-You can also use Kongponents in a project where there is no build system as long as Vue is included on the page. Each Kongponent is packaged as a `umd.js` file, so as long as you have loaded Vue in your project the Kongponent will work as intended. You will still need to [install the base styles package](./style-guide/usage.md).
-
-<iframe width="100%" height="300" src="//jsfiddle.net/darrenjennings/khesrbLc/embedded/js,html,result/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
