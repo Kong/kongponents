@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.6.5 (2021-12-17)
+
+
+### Bug Fixes
+
+* **kpagination:** fix currentPage prop ([#455](https://github.com/Kong/kongponents/issues/455)) ([5e1a801](https://github.com/Kong/kongponents/commit/5e1a801114d2357a2d49dca3bb2571dd055b4119))
+
+
+
+
+
 ## 6.6.4 (2021-12-16)
 
 
