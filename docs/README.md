@@ -106,7 +106,7 @@ export default {
 
 ## Without Bundle System
 
-You can also use Kongponents in a project where there is no build system as long as Vue is included on the page. Each Kongponent is packaged as a `umd.js` file, so as long as you have loaded Vue in your project the Kongponent will work as intended.
+You can also use Kongponents in a project where there is no build system as long as Vue is included on the page. Each Kongponent [is packaged as a `umd.js` file](https://cli.vuejs.org/guide/build-targets.html#library), so as long as you have loaded Vue in your project the Kongponent will work as intended.
 
 :::tip Note
 You must import the CSS from the `@kongponents/styles` package along with Vue.
