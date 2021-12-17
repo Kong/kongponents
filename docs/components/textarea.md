@@ -138,6 +138,7 @@ KTextArea also transparently binds to events:
 | `--KInputFocus` | Input border / label focus color
 | `--KInputDisabledBackground` | Input disabled background color
 | `--KInputError` | Input error border color
+| `--KInputPlaceholderColor`| Placeholder text color
 
 An Example of changing the error border color of KInput to pink might look like:
 
