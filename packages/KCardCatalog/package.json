@@ -29,6 +29,7 @@
     "@kongponents/kemptystate": "^6.7.2",
     "@kongponents/kpagination": "^6.7.2",
     "@kongponents/kskeleton": "^6.7.2",
+    "@kongponents/styles": "^6.7.2",
     "@kongponents/utils": "^6.7.2"
   },
   "peerDependencies": {

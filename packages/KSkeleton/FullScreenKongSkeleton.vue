@@ -58,6 +58,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@kongponents/styles/variables';
+
 .fullscreen-loading-container {
   position: fixed;
   top: 0;

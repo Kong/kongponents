@@ -103,6 +103,7 @@ export default {
   }
 }
 </script>
+
 <style>
 .opacity-0 .box {
   opacity: 0;

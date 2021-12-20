@@ -80,6 +80,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~@kongponents/styles/variables';
+
 .kooltip {
   --KPopColor: var(--KoolTipColor, var(--white, color(white)));
   --KPopBackground: var(--KoolTipBackground, var(--black-400, color(black-400)));

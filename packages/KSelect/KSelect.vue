@@ -205,7 +205,8 @@ export default {
       selectedItem: null,
       selectId: !this.testMode ? uuid.v1() : 'test-select-id-1234',
       selectInputId: !this.testMode ? uuid.v1() : 'test-select-input-id-1234',
-      selectTextId: !this.testMode ? uuid.v1() : 'test-select-text-id-1234'
+      selectTextId: !this.testMode ? uuid.v1() : 'test-select-text-id-1234',
+      selectItems: []
     }
   },
 
@@ -242,7 +243,7 @@ export default {
       }
     },
     filteredItems: function () {
-      return this.items.filter(item => item.label.toLowerCase().includes(this.filterStr.toLowerCase()))
+      return this.selectItems.filter(item => item.label.toLowerCase().includes(this.filterStr.toLowerCase()))
     },
     placeholderText () {
       if (this.placeholder) {
@@ -269,11 +270,13 @@ export default {
   },
   beforeMount () {
     // items need keys
-    for (let i = 0; i < this.items.length; i++) {
-      this.items[i].key = `${this.items[i].label.replace(' ', '-')}-${i}`
-      if (this.items[i].selected) {
-        this.selectedItem = this.items[i]
-        this.items[i].key += '-selected'
+    this.selectItems = this.items
+
+    for (let i = 0; i < this.selectItems.length; i++) {
+      this.selectItems[i].key = `${this.selectItems[i].label.replace(' ', '-')}-${i}`
+      if (this.selectItems[i].selected) {
+        this.selectedItem = this.selectItems[i]
+        this.selectItems[i].key += '-selected'
 
         if (this.appearance === 'select') {
           this.filterStr = this.selectedItem.label
@@ -283,25 +286,31 @@ export default {
   },
   methods: {
     handleItemSelect (item) {
-      this.items.forEach(anItem => {
+      this.selectItems.forEach(anItem => {
         if (anItem.key === item.key) {
           anItem.selected = true
           anItem.key += '-selected'
           this.selectedItem = anItem
-        } else {
+        } else if (anItem.selected) {
           delete anItem.selected
           anItem.key = anItem.key.split('-selected')[0]
         }
       })
       this.filterStr = this.appearance === 'dropdown' ? '' : item.label
       this.$emit('selected', item)
+      // this 'input' event must be emitted for v-model binding to work properly
+      this.$emit('input', item)
+      this.$emit('change', item)
     },
     clearSelection () {
-      this.items.forEach(anItem => {
+      this.selectItems.forEach(anItem => {
         delete anItem.selected
         anItem.key = anItem.key.split('-selected')[0]
       })
       this.selectedItem = null
+      // this 'input' event must be emitted for v-model binding to work properly
+      this.$emit('input', null)
+      this.$emit('change', null)
     },
     triggerFocus (isToggled) {
       const inputElem = document.getElementById(this.selectTextId)
@@ -315,6 +324,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~@kongponents/styles/variables';
+
 .k-select {
   width: fit-content; // necessary for correct placement of popup
 

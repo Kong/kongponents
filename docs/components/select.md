@@ -15,16 +15,16 @@
 />
 
 ```vue
-<KSelect label="Pick Something:" :items="[{ 
-    label: 'test', 
+<KSelect label="Pick Something:" :items="[{
+    label: 'test',
     value: 'test'
-  }, { 
-    label: 'Test 1', 
-    value: 'test1' 
-  }, { 
-    label: 'TEST 2', 
-    value: 'test2' 
-  }]" 
+  }, {
+    label: 'Test 1',
+    value: 'test1'
+  }, {
+    label: 'TEST 2',
+    value: 'test2'
+  }]"
 />
 ```
 
@@ -49,17 +49,17 @@ by default.
 />
 
 ```vue
-<KSelect :items="[{ 
-    label: 'test', 
-    value: 'test', 
-    selected: true 
-  }, { 
-    label: 'Test 1', 
-    value: 'test1' 
-  }, { 
-    label: 'TEST 2', 
-    value: 'test2' 
-  }]" 
+<KSelect :items="[{
+    label: 'test',
+    value: 'test',
+    selected: true
+  }, {
+    label: 'Test 1',
+    value: 'test1'
+  }, {
+    label: 'TEST 2',
+    value: 'test2'
+  }]"
 />
 ```
 
@@ -78,14 +78,14 @@ The label for the select.
 />
 
 ```vue
-<KSelect label="Cool label" :items="[{ 
-    label: 'test', 
+<KSelect label="Cool label" :items="[{
+    label: 'test',
     value: 'test',
     selected: true
-  }, { 
-    label: 'Test 1', 
+  }, {
+    label: 'Test 1',
     value: 'test1'
-  }]" 
+  }]"
 />
 ```
 
@@ -107,14 +107,14 @@ the Clear icon.
 />
 
 ```vue
-<KSelect :items="[{ 
-    label: 'test', 
+<KSelect :items="[{
+    label: 'test',
     value: 'test',
     selected: true
-  }, { 
-    label: 'Test 1', 
+  }, {
+    label: 'Test 1',
     value: 'test1'
-  }]" 
+  }]"
 />
 ```
 
@@ -132,14 +132,14 @@ way to clear the selection once it is made.
 />
 
 ```vue
-<KSelect appearance='select' :items="[{ 
-    label: 'test', 
+<KSelect appearance='select' :items="[{
+    label: 'test',
     value: 'test',
     selected: true
-  }, { 
-    label: 'Test 1', 
+  }, {
+    label: 'Test 1',
     value: 'test1'
-  }]" 
+  }]"
 />
 ```
 
@@ -155,13 +155,13 @@ The `button` style triggers the dropdown on click and you cannot filter the entr
 />
 
 ```vue
-<KSelect appearance='button' :items="[{ 
-    label: 'test', 
+<KSelect appearance='button' :items="[{
+    label: 'test',
     value: 'test'
-  }, { 
-    label: 'Test 1', 
+  }, {
+    label: 'Test 1',
     value: 'test1'
-  }]" 
+  }]"
 />
 ```
 
@@ -194,12 +194,12 @@ export default {
 </script>
 
 ```vue
-<KSelect 
-  appearance='button' 
-  width="225" 
-  @selected="item => handleItemSelect(item)" 
-  :buttonText="`Show ${mySelect} per page`" 
-  :items="items" 
+<KSelect
+  appearance='button'
+  width="225"
+  @selected="item => handleItemSelect(item)"
+  :buttonText="`Show ${mySelect} per page`"
+  :items="items"
 />
 
 <script>
@@ -207,11 +207,11 @@ export default {
   data() {
     return {
       mySelect: '',
-      items: [{ 
-        label: '25', 
+      items: [{
+        label: '25',
         value: '25'
-      }, { 
-        label: '50', 
+      }, {
+        label: '50',
         value: '50'
       }]
     }
@@ -241,14 +241,14 @@ of the input, dropdown, and selected item.
 />
 
 ```vue
-<KSelect width="100" :items="[{ 
-    label: 'test', 
+<KSelect width="100" :items="[{
+    label: 'test',
     value: 'test',
     selected: true
-  }, { 
-    label: 'Test 1', 
+  }, {
+    label: 'Test 1',
     value: 'test1'
-  }]" 
+  }]"
 />
 ```
 
@@ -267,3 +267,5 @@ You can pass any input attribute and it will get properly bound to the element.
 | Event     | returns             |
 | :-------- | :------------------ |
 | `selected` | `selectedItem` Object |
+| `input` | `selectedItem` Object or null |
+| `change` | `selectedItem` Object or null |

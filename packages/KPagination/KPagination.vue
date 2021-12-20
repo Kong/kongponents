@@ -333,6 +333,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@kongponents/styles/variables';
+
 .card-pagination-bar {
   display: flex;
   align-items: center;

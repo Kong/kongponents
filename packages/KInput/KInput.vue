@@ -121,8 +121,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '~@kongponents/styles/_variables.scss';
-@import '~@kongponents/styles/forms/_inputs.scss';
+@import '~@kongponents/styles/variables';
+@import '~@kongponents/styles/forms/inputs';
 
 .form-control {
   box-shadow: none !important;
@@ -141,7 +141,6 @@ export default {
 }
 
 .k-input-wrapper {
-
   input.k-input {
     -webkit-appearance: none;
   }

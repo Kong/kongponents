@@ -669,7 +669,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-@import '~@kongponents/styles/_variables.scss';
+@import '~@kongponents/styles/variables';
 
 .k-table-wrapper {
   width: 100%;

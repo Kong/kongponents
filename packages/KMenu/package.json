@@ -4,10 +4,11 @@
   "description": "<Menu component>",
   "main": "dist/KMenu.umd.min.js",
   "componentName": "KMenu",
-  "source": "KMenu.vue",
+  "source": "index.js",
   "files": [
     "dist",
-    "KMenu.vue"
+    "*.vue",
+    "index.js"
   ],
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
   "dependencies": {
     "@kongponents/kbutton": "^6.7.2",
     "@kongponents/kicon": "^6.7.2",
+    "@kongponents/styles": "^6.7.2",
     "vue-uuid": "^2.0.2"
   }
 }

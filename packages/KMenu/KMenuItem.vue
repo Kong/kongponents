@@ -115,6 +115,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '~@kongponents/styles/variables';
+
 .k-menu-item {
   list-style: none;
   margin: 0;

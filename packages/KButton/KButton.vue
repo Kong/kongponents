@@ -149,7 +149,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '~@kongponents/styles/_variables.scss';
+@import '~@kongponents/styles/variables';
 
 @mixin boxShadow($color, $whiteShadowSpred: 2px, $colorShadowSpread: 4px) {
   box-shadow: 0 0 0 $whiteShadowSpred var(--white, color(white)), 0 0 0 $colorShadowSpread $color;

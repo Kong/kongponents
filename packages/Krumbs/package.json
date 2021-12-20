@@ -29,6 +29,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kicon": "^6.7.2"
+    "@kongponents/kicon": "^6.7.2",
+    "@kongponents/styles": "^6.7.2"
   }
 }

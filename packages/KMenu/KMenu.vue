@@ -81,6 +81,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '~@kongponents/styles/variables';
+
 .k-menu {
   background-color: var(--white);
   border: 1px solid var(--grey-300);

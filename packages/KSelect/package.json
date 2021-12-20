@@ -29,6 +29,7 @@
     "@kongponents/kinput": "^6.7.2",
     "@kongponents/klabel": "^6.7.2",
     "@kongponents/kpop": "^6.7.2",
+    "@kongponents/styles": "^6.7.2",
     "@kongponents/ktoggle": "^6.7.2",
     "vue-uuid": "^2.0.2"
   }

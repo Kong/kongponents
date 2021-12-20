@@ -62,7 +62,8 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-@import '~@kongponents/styles/_variables.scss';
+@import '~@kongponents/styles/variables';
+
 $transition: all .3s;
 
 .toaster-container-outer {

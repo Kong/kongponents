@@ -61,6 +61,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '~@kongponents/styles/_variables.scss';
-  @import '~@kongponents/styles/forms/_labels.scss';
+  @import '~@kongponents/styles/variables';
+  @import '~@kongponents/styles/forms/labels';
 </style>

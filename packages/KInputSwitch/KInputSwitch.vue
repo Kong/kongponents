@@ -110,8 +110,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@kongponents/styles/_variables.scss';
-@import '~@kongponents/styles/forms/_switch.scss';
+@import '~@kongponents/styles/variables';
+@import '~@kongponents/styles/forms/switch';
 
 .k-switch {
   position: relative;

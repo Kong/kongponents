@@ -50,6 +50,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@kongponents/styles/variables';
+
 .k-select-item {
   margin-bottom: 6px;
 

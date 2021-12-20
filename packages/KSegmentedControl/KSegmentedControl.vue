@@ -17,6 +17,7 @@
 
 <script>
 import KButton from '@kongponents/kbutton/KButton.vue'
+
 export default {
   name: 'KSegmentedControl',
   components: { KButton },
@@ -69,8 +70,9 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
-@import '~@kongponents/styles/_variables.scss';
+@import '~@kongponents/styles/variables';
 
 .segmented-control .k-button {
   --KButtonPrimaryBase: var(--blue-100);
