@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.7.3 (2021-12-20)
+
+**Note:** Version bump only for package @kongponents/kmodal
+
+
+
+
+
 ## 6.7.2 (2021-12-17)
 
 
