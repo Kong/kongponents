@@ -300,6 +300,7 @@ export default {
       this.$emit('selected', item)
       // this 'input' event must be emitted for v-model binding to work properly
       this.$emit('input', item)
+      this.$emit('change', item)
     },
     clearSelection () {
       this.selectItems.forEach(anItem => {
@@ -309,6 +310,7 @@ export default {
       this.selectedItem = null
       // this 'input' event must be emitted for v-model binding to work properly
       this.$emit('input', null)
+      this.$emit('change', null)
     },
     triggerFocus (isToggled) {
       const inputElem = document.getElementById(this.selectTextId)
