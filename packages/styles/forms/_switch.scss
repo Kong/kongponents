@@ -1,3 +1,6 @@
+// For division
+@use "sass:math";
+
 $width: 44px;
 $height: 24px;
 $color_checkbox_success: var(--KInputSwitchOn, var(--green-500, color(green-500)));
@@ -56,7 +59,7 @@ $transition: 0.2s linear;
     &:checked + .switch-control {
       background-color: $color_checkbox_success;
       &:after {
-        left: $width / 2;
+        left: math.div($width, 2);
       }
     }
   }

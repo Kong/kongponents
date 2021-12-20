@@ -14,7 +14,8 @@
 :root {
   // colors
   @each $name, $color in $colors {
-    --#{$name}: #{$color};
+    // add empty string so dart-sass will properly interpret class name from variable
+    --#{"" + $name}: #{$color};
   }
   // Spacings
   @each $name, $space in $spacing {
