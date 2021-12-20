@@ -16,12 +16,7 @@ In this section we will focus on the steps and nuances of developing Kongponents
 It is recommended to use the CLI (KPM) when creating new components as it will scaffold all the required files. You can run it locally we suggest installing it globally.
 
 ```bash
-$ node cli --help
-
-# or install globally
-
-$ npm install -g
-$ kpm --help
+node cli --help
 ```
 
 ## Creating a new Kongponent
@@ -32,7 +27,7 @@ When creating a new component with the CLI it will scaffold up a number of files
 # Passing the -d flag allows you to specify a description
 # for the package.json file as well as a default prop message.
 
-$ kpm create <kongponent_name> -d "<kongponent_description>"
+$ node cli create <kongponent_name> -d "<kongponent_description>"
 ```
 
 Once ran, a new directory will be created in `/packages/{%kongponent_name%}` and in `/docs/{%kongponent_name%}`
@@ -66,7 +61,7 @@ Update the first line of the doc to match the file name. This is what is display
     ```
 
 1) **Add to sidebar**
-Although the `kpm create` command will create a file in the docs directory it does not import the component into VuePress nor does it add it to the sidebar.
+Although the `node cli create` command will create a file in the docs directory it does not import the component into VuePress nor does it add it to the sidebar.
 
     - In `/docs/.vuepress/enhanceApp.js` import & use the component
 
