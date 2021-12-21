@@ -45,10 +45,10 @@ The number of milliseconds to wait before showing the skeleton state. Defaults t
   <Komponent :data="{ isLoading: false }" v-slot="{ data }">
     <div>
       <k-button class="mb-2" @click="()=>(data.isLoading=!data.isLoading)">Toggle loading - {{data.isLoading?'on':'off'}}</k-button>
-        <div v-if="!data.isLoading">
-          <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-        </div>
-        <KSkeleton v-else="data.isLoading" />
+      <div v-if="!data.isLoading">
+        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+      </div>
+      <KSkeleton v-else="data.isLoading" />
     </div>
   </Komponent>
 </template>
@@ -216,10 +216,10 @@ to perform any expensive querying on first load.
 ```vue
 <template>
   <k-button @click="clicked()">click for default progress behavior</k-button>
-  <KSkeleton 
-    v-if="loading" 
-    type="fullscreen-kong"  
-    :delay-milliseconds="0" />
+  <KSkeleton
+      v-if="loading"
+      type="fullscreen-kong"
+      :delay-milliseconds="0" />
 </template>
 ```
 
@@ -253,7 +253,7 @@ custom placeholder components.
 For example, here is a card skeleton with different arrangement of placeholders:
 
 <template>
-  <KSkeleton class="k-skeleton-modified" type="card" :card-count="3">
+  <KSkeleton type="card" :card-count="3">
     <template v-slot:card-header>
       <div class="w-100">
         <div class="justify-content-center pb-3">
@@ -418,8 +418,5 @@ export default {
 .k-skeleton-full-screen-margin {
   --KSkeletonFullScreenMargin: 58px 0 0;
   --KSkeletonFullScreenProgressColor: var(--black-70);
-}
-.k-skeleton-modified {
-  --KSkeletonCardWidth: 30%;
 }
 </style>
