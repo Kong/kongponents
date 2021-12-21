@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.7.7 (2021-12-21)
+
+
+### Reverts
+
+* **version:** revert independent version fix ([#469](https://github.com/Kong/kongponents/issues/469)) ([b647e56](https://github.com/Kong/kongponents/commit/b647e56b5c05c25e55362a845e1c4a30fe40d910))
+
+
+
+
+
 ## 6.7.6 (2021-12-21)
 
 **Note:** Version bump only for package @kongponents/kalert
