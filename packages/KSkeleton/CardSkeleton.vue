@@ -50,6 +50,17 @@ export default {
 
 <style lang="scss" scoped>
 $borderColor: #e6e6e6;
+.skeleton-card-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 1rem;
+}
+
+.skeleton-card-column {
+  margin-bottom: 1rem;
+  width: var(--KSkeletonCardWidth, calc(33% - 1rem));
+}
 
 .skeleton-card {
   display: flex;
@@ -59,31 +70,16 @@ $borderColor: #e6e6e6;
   border-radius: 3px;
   border: 1px solid $borderColor;
   overflow: hidden;
-
-  &-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    gap: 1rem;
-    justify-content: space-between;
-  }
-
-  &-column {
-    margin-bottom: 1rem;
-    width: var(--KSkeletonCardWidth, calc(33% - 1rem));
-  }
-
-  &-header {
+  .skeleton-card-header {
     width: 100%;
     margin-bottom: 1rem;
     display: flex;
   }
-
-  &-content {
+  .skeleton-card-content {
     display: flex;
     justify-content: space-between;
   }
-  &-footer {
+  .skeleton-card-footer {
     display: flex;
     align-self: flex-end;
     justify-content: space-between;
