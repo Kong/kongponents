@@ -54,12 +54,12 @@ $borderColor: #e6e6e6;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  gap: 1rem;
 }
 
 .skeleton-card-column {
-  padding: 0 1rem 0 0;
   margin-bottom: 1rem;
-  width: var(--KSkeletonCardWidth, 33%);
+  width: var(--KSkeletonCardWidth, calc(33% - 1rem));
 }
 
 .skeleton-card {

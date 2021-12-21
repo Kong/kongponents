@@ -203,7 +203,7 @@ to perform any expensive querying on first load.
     <k-button @click="clickProgress()">click me to simulate progress manually</k-button>
     <KSkeleton
       v-if="loading"
-      type="fullscreen-kong"  
+      type="fullscreen-kong"
       :delay-milliseconds="0" />
     <KSkeleton
       v-if="loadingManually"
@@ -216,9 +216,9 @@ to perform any expensive querying on first load.
 ```vue
 <template>
   <k-button @click="clicked()">click for default progress behavior</k-button>
-  <KSkeleton 
-    v-if="loading" 
-    type="fullscreen-kong"  
+  <KSkeleton
+    v-if="loading"
+    type="fullscreen-kong"
     :delay-milliseconds="0" />
 </template>
 ```
@@ -420,6 +420,6 @@ export default {
   --KSkeletonFullScreenProgressColor: var(--black-70);
 }
 .k-skeleton-modified {
-  --KSkeletonCardWidth: 30%;
+  --KSkeletonCardWidth: calc(33% - 1rem);
 }
 </style>
