@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.7.8 (2022-01-07)
+
+
+### Bug Fixes
+
+* **kinput:** allow numbers to be passed in as value ([#470](https://github.com/Kong/kongponents/issues/470)) ([fbf4c00](https://github.com/Kong/kongponents/commit/fbf4c00291383707770076110dcfa9519d31faef))
+
+
+
+
+
 ## 6.7.7 (2021-12-21)
 
 
