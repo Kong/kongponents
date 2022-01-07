@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.7.9 (2022-01-07)
+
+**Note:** Version bump only for package @kongponents/kskeleton
+
+
+
+
+
 ## 6.7.8 (2022-01-07)
 
 
