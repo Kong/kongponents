@@ -737,6 +737,10 @@ export default defineComponent({
       font-size: var(--KTableHeaderSize, var(--type-sm, type(sm)));
       font-weight: 500;
 
+      &.active-sort {
+        color: var(--blue-500);
+      }
+
       .sr-only {
         position: absolute;
         width: 1px;
@@ -750,20 +754,16 @@ export default defineComponent({
       }
 
       .caret {
+        position: relative;
         transform: rotate(0deg);
-        transition: 250ms ease;
       }
 
       &.sortable {
         cursor: pointer;
 
         &.asc .caret {
+          top: -4px;
           transform: rotate(-180deg);
-          transition: 250ms ease;
-        }
-
-        &.desc .caret {
-          transition: 250ms ease;
         }
       }
     }
