@@ -754,6 +754,7 @@ export default defineComponent({
       }
 
       .caret {
+        top: 2px;
         position: relative;
         transform: rotate(0deg);
       }
