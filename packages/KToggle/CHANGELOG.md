@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.7.10 (2022-01-12)
+
+
+### Bug Fixes
+
+* **ktable:** update sort styling ([#473](https://github.com/Kong/kongponents/issues/473)) ([d2d242f](https://github.com/Kong/kongponents/commit/d2d242fbeaf92db112f699cbe8eed163b066feff))
+
+
+
+
+
 ## 6.7.9 (2022-01-07)
 
 **Note:** Version bump only for package @kongponents/ktoggle
