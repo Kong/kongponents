@@ -29,6 +29,7 @@ import Krumbs from '../../packages/Krumbs/Krumbs.vue'
 import KSegmentedControl from '../../packages/KSegmentedControl/KSegmentedControl.vue'
 import KSelect from '../../packages/KSelect/KSelect.vue'
 import KTable from '../../packages/KTable/KTable.vue'
+import KTableLegacy from '../../packages/KTableLegacy/KTableLegacy.vue'
 import KTabs from '../../packages/KTabs/KTabs.vue'
 import KTextArea from '../../packages/KTextArea/KTextArea.vue'
 import KToggle from '../../packages/KToggle/KToggle.js'
@@ -71,6 +72,7 @@ export default ({
   Vue.component('KSegmentedControl', KSegmentedControl)
   Vue.component('KSelect', KSelect)
   Vue.component('KTable', KTable)
+  Vue.component('KTableLegacy', KTableLegacy)
   Vue.component('KTabs', KTabs)
   Vue.component('KTextArea', KTextArea)
   Vue.component('KToggle', KToggle)

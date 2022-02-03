@@ -64,6 +64,7 @@ module.exports = {
               '/components/slideout',
               '/components/switch',
               '/components/table',
+              '/components/table-legacy',
               '/components/tabs',
               '/components/textarea',
               '/components/toaster',
