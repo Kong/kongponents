@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.8.0 (2022-02-03)
+
+
+### Features
+
+* **ktable:** add legacy ktable component ([#477](https://github.com/Kong/kongponents/issues/477)) ([4454617](https://github.com/Kong/kongponents/commit/445461705d25b27426e2b542e65e8ad9a351a921))
+
+
+
+
+
 ## 6.7.11 (2022-01-21)
 
 **Note:** Version bump only for package @kongponents/styles
