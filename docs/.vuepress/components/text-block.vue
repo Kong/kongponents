@@ -11,7 +11,7 @@
     </div>
     <div class="example">
       <strong>Sample:</strong>
-      <p 
+      <p
         class="mt-2"
         :class="[`${prefix}${variableName}`, fontType === 'mono' && 'mono', styleClasses]">
         Kong is a Lua application running in Nginx
@@ -21,34 +21,36 @@
 </template>
 
 <script>
-  export default {
-    name: 'text-block',
-    props: {
-      prefix: {
-        type: String,
-        default: ''
-      },
-      fontType: {
-        type: String,
-        default: ''
-      },
-      fontSize: {
-        type: String,
-        default: ''
-      },
-      variableName: {
-        type: String,
-        required: true
-      },
-      styleClasses: {
-        type: String,
-        default: ''
-      }
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  name: 'text-block',
+  props: {
+    prefix: {
+      type: String,
+      default: ''
+    },
+    fontType: {
+      type: String,
+      default: ''
+    },
+    fontSize: {
+      type: String,
+      default: ''
+    },
+    variableName: {
+      type: String,
+      required: true
+    },
+    styleClasses: {
+      type: String,
+      default: ''
     }
   }
+})
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .text-block {
   padding: 1.5rem 0;
   &:not(:last-child) {

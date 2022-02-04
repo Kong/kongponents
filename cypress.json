@@ -1,0 +1,17 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "defaultCommandTimeout": 7000,
+  "requestTimeout": 10000,
+  "component": {
+    "componentFolder": "src/components",
+    "testFiles": "**/*KButton.spec.ts",
+    "viewportWidth": 768,
+    "viewportHeight": 1024
+  },
+  "includeShadowDom": true,
+  "pluginsFile": "cypress/plugins/index.ts",
+  "fixturesFolder": "cypress/fixtures",
+  "screenshotsFolder": "cypress/screenshots",
+  "videosFolder": "cypress/videos",
+  "supportFile": "cypress/support/index.ts"
+}

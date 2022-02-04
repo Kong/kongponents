@@ -11,8 +11,10 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
+
+export default defineComponent({
   name: 'swatch',
   props: {
     color: {
@@ -21,31 +23,39 @@ export default {
     }
   },
 
-  data () {
-    return {
-      isHovering: {},
-      dataToCopy: null
-    }
-  },
+  setup(props) {
+    const isHovering = ref({})
+    const dataToCopy = ref()
 
-  methods: {
-    getBackground (color) {
+    const getBackground = (color: string):string => {
       return `background-color: var(${color})`
-    },
-    colorName (color) {
+    }
+
+    const colorName = (color: string): string => {
       return color.replace('--', '')
-    },
-    colorValue (color) {
+    }
+
+    const colorValue = (color: string): string => {
       return getComputedStyle(document.body).getPropertyValue(color)
-    },
-    copyAlert (text) {
+    }
+
+    const copyAlert = (text: string): void => {
       alert(`${text} copied to clipboard`)
     }
+
+    return {
+      isHovering,
+      dataToCopy,
+      getBackground,
+      colorName,
+      colorValue,
+      copyAlert,
+    }
   }
-}
+})
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .swatch-container {
   display: flex;
   padding: 1.5rem 0;

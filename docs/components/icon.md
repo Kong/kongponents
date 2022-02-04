@@ -16,7 +16,7 @@ The name of the icon. This required prop will only recognize icons from the
 following list. It tells KIcon which svg to render.
 
 <div>
-  <KToggle v-slot="{ isToggled, toggle }">
+  <!-- <KToggle v-slot="{ isToggled, toggle }"> -->
     <div>
       <KButton
         appearance="outline"
@@ -34,7 +34,7 @@ following list. It tells KIcon which svg to render.
         </div>
       </div>
     </div>
-  </KToggle>
+  <!-- </KToggle> -->
 </div>
 &nbsp;
 

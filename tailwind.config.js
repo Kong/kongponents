@@ -1,17 +1,17 @@
 module.exports = {
-  purge: [
-    './packages/**/*.vue'
+  content: [
+    './src/**/*.{js,jsx,ts,tsx,vue}',
   ],
   theme: {
     extend: {
       screens: {
-        '2xl': '1390px'
+        '2xl': '1390px',
       },
       maxWidth: {
-        'screen-2xl': '1390px'
-      }
-    }
+        'screen-2xl': '1390px',
+      },
+    },
   },
   variants: {},
-  plugins: []
+  plugins: [],
 }

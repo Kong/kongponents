@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`KTextArea matches snapshot 1`] = `
-<div class="k-input-wrapper mb-2"><textarea rows="5" cols="52" placeholder="I am a placeholder" name="custom-textArea-name" id="custom-textArea-id" data-testid="custom-textArea" class="form-control k-input style-body-lg"></textarea>
-  <div class="char-limit type-sm color-black-45 mt-2">
-    9 / 2048
-  </div>
-</div>
-`;

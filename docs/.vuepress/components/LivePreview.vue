@@ -15,17 +15,22 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
+
+export default defineComponent({
+  name: 'LivePreview',
+  setup() {
+    const isOpen = ref(true)
+
     return {
-      isOpen: true
+      isOpen,
     }
   }
-}
+})
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 $lightGry: #eaecef;
 $darkGry: #282c34; // copied from prism class
 
