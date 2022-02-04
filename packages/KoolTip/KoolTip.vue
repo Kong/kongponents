@@ -2,6 +2,7 @@
   <KPop
     :placement="placement"
     :popover-classes="`kooltip ${computedClass} ${className}`"
+    :position-fixed="positionFixed"
     :test-mode="testMode"
     trigger="hover"
     width="auto"
@@ -49,6 +50,13 @@ export default {
           'right'
         ].indexOf(value) !== -1
       }
+    },
+    /**
+     * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
+     */
+    positionFixed: {
+      type: Boolean,
+      default: false
     },
     /**
      * Test mode - for testing only, strips out generated ids

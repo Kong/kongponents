@@ -233,6 +233,13 @@ export default {
       default: null
     },
     /**
+     * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
+     */
+    positionFixed: {
+      type: Boolean,
+      default: false
+    },
+    /**
      * Test mode - for testing only, strips out generated ids
      */
     testMode: {
@@ -331,6 +338,8 @@ export default {
       await this.$nextTick()
       this.popper = new Popper(this.reference, popperEl, {
         placement,
+        // Use positionFixed to avoid popover content being cut off by parent boundaries
+        positionFixed: this.positionFixed,
         removeOnDestroy: true,
         modifiers: {
           // Ensures element does not ovflow outside of boundary
