@@ -12,6 +12,7 @@
 <template>
   <Krumbs :items="breadcrumbItems" />
 </template>
+
 <script>
 export default {
   data () {
@@ -21,7 +22,8 @@ export default {
           key: 'home',
           to: { path: '/' },
           title: 'Go Home',
-          text: 'Home'
+          text: 'Home',
+          icon: 'kong'
         },
         {
           key: 'button',
@@ -44,15 +46,20 @@ An array of Breadcrumb items
 
 ```html
 <!--
- * @typedef {Object} Item - breacrumb item holding router-link properties
+ * @typedef {Object} Item - breadcrumb item holding router-link properties
  * @property {RawLocation} to - router-link 'to' object or href string
- * @property {string} text - The anchor text displayed
+ * @property {string} text - The anchor text displayed (optional, can be used with or without 'icon')
  * @property {string} title - The anchor title shown when hovering the link
+ * @property {string} icon - Display a KIcon before the anchor title (optional, can be used with or without 'text')
  * @property {string} [key] - An ID when the list is generated. Defaults to text if not set.
  * @property {string} [maxWidth] - maxWidth of item, overrides itemMaxWidth
  -->
-<Krumbs :items="[{ key: 'home', to: { path: '/' }, title: 'Home', text: 'Home' }]" />
+<Krumbs :items="[{ key: 'home', to: { path: '/' }, title: 'Home', icon: 'kong', text: 'Home' }]" />
  ```
+
+#### Breadcrumb content
+
+Each breadcrumb item can display `text`, an `icon`, or both.
 
 #### Breadcrumb link
 
@@ -68,6 +75,7 @@ The `to` property can be a Vue route or traditional URL. When using a URL though
 <template>
   <Krumbs :items="breadcrumbItems" />
 </template>
+
 <script>
 export default {
   data () {
@@ -115,7 +123,8 @@ export default {
           key: 'home',
           to: { path: '/' },
           title: 'Go Home',
-          text: 'Home'
+          text: 'Home',
+          icon: 'kong'
         },
         {
           key: 'button',

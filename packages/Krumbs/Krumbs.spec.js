@@ -43,6 +43,25 @@ describe('Krumbs', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 
+  it('renders an icon breadcrumb', () => {
+    const wrapper = mount(Krumbs, {
+      propsData: {
+        items: [
+          {
+            key: 'docs',
+            to: 'https://docs.konghq.com',
+            title: 'Go to Kong Docs',
+            icon: 'kong'
+          }
+        ]
+      }
+    })
+
+    expect(wrapper.findAll(`ul li`)).toHaveLength(1)
+    expect(wrapper.findAll(`li .breadcrumb-icon`)).toHaveLength(1)
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
   it('renders breadcrumb links without needing a router', () => {
     const wrapper = mount(Krumbs, {
       propsData: {
