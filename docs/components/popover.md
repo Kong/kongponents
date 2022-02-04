@@ -184,7 +184,7 @@ Here are the different options:
   <option
     v-for="p in positions"
     :key="p"
-    :value="p">{{ p }}</option> 
+    :value="p">{{ p }}</option>
 </select>
 
 <KPop title="Cool header" trigger="hover" :placement="selectedPosition">
@@ -219,6 +219,68 @@ export default {
   }
 }
 </script>
+```
+
+### PositionFixed
+
+Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `false`.
+
+<div style="width: 300px; height: 125px; position: relative; overflow: hidden; z-index: 1; background-color: var(--red-100);">
+  <KPop
+    title="Look Mah!"
+    width="170"
+    placement="right"
+  >
+    <KButton>Click</KButton>
+    <template v-slot:content>
+      My parent is too small 😭
+    </template>
+  </KPop>
+</div>
+
+```vue
+<div style="width: 300px; height: 125px; position: relative; overflow: hidden; z-index: 1; background-color: var(--red-100);">
+  <KPop
+    title="Look Mah!"
+    width="170"
+    placement="right"
+  >
+    <KButton>Click</KButton>
+    <template v-slot:content>
+      My parent is too small 😭
+    </template>
+  </KPop>
+</div>
+```
+
+<div style="width: 300px; height: 125px; position: relative; overflow: hidden; z-index: 1; background-color: var(--blue-100);">
+  <KPop
+    title="Look Mah!"
+    width="170"
+    placement="right"
+    :position-fixed="true"
+  >
+    <KButton>Click</KButton>
+    <template v-slot:content>
+      My parent is too small, but I don't care 😎
+    </template>
+  </KPop>
+</div>
+
+```vue
+<div style="width: 300px; height: 125px; position: relative; overflow: hidden; z-index: 1; background-color: var(--blue-100);">
+  <KPop
+    title="Look Mah!"
+    width="170"
+    placement="right"
+    :position-fixed="true"
+  >
+    <KButton>Click</KButton>
+    <template v-slot:content>
+      My parent is too small, but I don't care 😎
+    </template>
+  </KPop>
+</div>
 ```
 
 ### Width

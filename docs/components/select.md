@@ -252,6 +252,10 @@ of the input, dropdown, and selected item.
 />
 ```
 
+### positionFixed
+
+Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `false`. See [`KPop` docs](popover.html#positionfixed) for more information.
+
 ## Attribute Binding
 
 You can pass any input attribute and it will get properly bound to the element.
