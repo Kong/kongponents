@@ -1,4 +1,4 @@
-import { defineComponent, reactive, h } from 'vue'
+import { defineComponent, reactive } from 'vue'
 
 export default defineComponent({
   // eslint-disable-next-line vue/multi-word-component-names
@@ -13,8 +13,8 @@ export default defineComponent({
   setup(props, { slots }) {
     const slotData = reactive(props.data)
 
-    return () => h('span', slots?.default && slots.default({
+    return () => slots?.default && slots.default({
       data: slotData,
-    }))
+    })
   },
 })
