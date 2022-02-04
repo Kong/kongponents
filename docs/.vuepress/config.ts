@@ -25,6 +25,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
     repo: 'kong/kongponents',
     logo: 'https://2tjosk2rxzc21medji3nfn1g-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/kong-logomark-color-64px.png',
     docsDir: 'docs',
+    docsBranch: 'next',
     editLinks: true,
     searchPlaceholder: 'Search...',
     sidebar: [
@@ -52,6 +53,14 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
 
   // plugins
   plugins: [
+    ['@vuepress/search', {
+      hotKeys: ['/'],
+      locales: {
+        '/': {
+          placeholder: 'Search...',
+        },
+      },
+    }],
     ['sitemap', {
       hostname: 'https://kongponents.konghq.com'
     }],

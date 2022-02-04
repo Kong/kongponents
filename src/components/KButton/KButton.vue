@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onMounted } from 'vue'
+import { defineComponent, computed } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 
 export const appearances = {
@@ -135,11 +135,6 @@ export default defineComponent({
       } else {
         return null
       }
-    })
-
-    onMounted(() => {
-      // hasIcon.value && slots.icon[0].elm && slots.icon[0].elm.setAttribute('viewBox', '0 0 16 16')
-      hasIcon.value && slots?.icon[0]?.elm?.setAttribute('viewBox', '0 0 16 16')
     })
 
     return {
@@ -236,6 +231,7 @@ export default defineComponent({
   }
 
   /* class to add for dropdown caret */
+
   & .caret {
     margin-left: 15px;
     padding: 0;
