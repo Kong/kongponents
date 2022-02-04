@@ -21,7 +21,11 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed, onMounted, nextTick } from 'vue'
-import * as icons from './icons'
+import * as allIcons from './icons'
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+const icons: Array<string, any[]> = allIcons
 
 const iconNames = Object.keys(icons)
 const DEFAULTS = {
@@ -90,10 +94,9 @@ export default defineComponent({
       default: false,
     },
   },
-  setup(props, { attrs }) {
-    const svgWrapper = ref(null)
-    const svgElements = ref(null)
-    const svg = ref(null)
+  setup(props, { attrs, slots }) {
+    const svgWrapper = ref<HTMLElement>()
+    const svg = ref<any>()
     const svgWithSlotIsHidden = ref(true)
 
     const titleText = computed((): string => {
@@ -105,7 +108,7 @@ export default defineComponent({
         return props.icon
       }
 
-      const titleElems = svg.value && svg.value.getElementsByTagName('title')
+      const titleElems: any = svg.value && svg.value.getElementsByTagName('title')
       if (titleElems && titleElems.length) { // use title in SVG if it exists
         return titleElems[0].innerHTML
       }
@@ -115,13 +118,11 @@ export default defineComponent({
       return convertToTitleCase(icnName)
     })
 
-    const fills = computed((): any => svg.value ? Array.from(svg.value.querySelectorAll('[fill*="#"], [stroke*="#"]')) : null)
-
     const width = computed((): string | null => svg.value ? svg.value.getAttribute('width') : null)
 
     const height = computed((): string | null => svg.value ? svg.value.getAttribute('height') : null)
 
-    const setSize = computed((): number => svg.value ? (props.size || (svg.value && svg.value.getAttribute('width')) || DEFAULTS.size) : DEFAULTS.size)
+    const setSize = computed((): string => svg.value ? (props.size || (svg.value && svg.value.getAttribute('width')) || DEFAULTS.size) : DEFAULTS.size)
 
     const setViewbox = computed((): string => svg.value ? (props.viewBox || (svg.value && svg.value.getAttribute('viewBox')) || DEFAULTS.viewBox) : DEFAULTS.viewBox)
 
@@ -131,9 +132,11 @@ export default defineComponent({
 
     const addSlotContent = (): void => {
       // Get slot content
-      const slotContent = svgWrapper.value.querySelector('.slot-content').innerHTML
+      const slotContent = svgWrapper?.value?.querySelector('.slot-content')?.innerHTML
 
-      svgWrapper.value.removeChild(svgWrapper.value.querySelector('.slot-content'))
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      svgWrapper.value?.removeChild(svgWrapper?.value?.querySelector('.slot-content'))
 
       // Move slot content inside svg
       svg.value.innerHTML += slotContent
@@ -193,12 +196,14 @@ export default defineComponent({
 
       if (svg.value) {
         // Check for slot content
-        if (svgElements.value && svgElements.value.length) {
+        if (!!slots.svgElements && slots.svgElements.length) {
           addSlotContent()
         }
 
         // Bind attributes
         for (const [attributeName, attributeValue] of Object.entries(attrs)) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           svg.value.setAttribute(attributeName, attributeValue)
         }
 
@@ -221,7 +226,6 @@ export default defineComponent({
     return {
       icons,
       svgWrapper,
-      svgElements,
       svgWithSlotIsHidden,
     }
   },
