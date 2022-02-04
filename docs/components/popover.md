@@ -45,7 +45,7 @@ the default slot.
 </KPop>
 ```
 
-### Target
+### target
 
 This is the target `element` that the <code>popover</code> is appended to. By default its the body tag.
 
@@ -67,7 +67,7 @@ This is the target `element` that the <code>popover</code> is appended to. By de
 </KPop>
 ```
 
-### Tag
+### tag
 
 This is the tag that the popover is wrapped around. By default its the div tag.
 
@@ -85,7 +85,7 @@ This is the tag that the popover is wrapped around. By default its the div tag.
   </template>
 </KPop>
 
-### Title
+### title
 
 This is the Title of the popover. Either this or the title slot needs to be filled.
 
@@ -125,7 +125,7 @@ or alternatively, via the slot:
 </KPop>
 ```
 
-### Trigger
+### trigger
 
 What the popover is triggered by - by default it's triggered on click.
 Here are the different options:
@@ -149,7 +149,7 @@ Here are the different options:
 </KPop>
 ```
 
-### Placement
+### placement
 
 The position of where the popover appears - by default it appears on top.
 Here are the different options:
@@ -184,7 +184,7 @@ Here are the different options:
   <option
     v-for="p in positions"
     :key="p"
-    :value="p">{{ p }}</option> 
+    :value="p">{{ p }}</option>
 </select>
 
 <KPop title="Cool header" trigger="hover" :placement="selectedPosition">
@@ -221,7 +221,69 @@ export default {
 </script>
 ```
 
-### Width
+### positionFixed
+
+Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `false`.
+
+<div style="width: 300px; height: 125px; position: relative; overflow: hidden; z-index: 1; background-color: var(--red-100);">
+  <KPop
+    title="Look Mah!"
+    width="170"
+    placement="right"
+  >
+    <KButton>Click</KButton>
+    <template v-slot:content>
+      My parent is too small 😭
+    </template>
+  </KPop>
+</div>
+
+```vue
+<div style="width: 300px; height: 125px; position: relative; overflow: hidden; z-index: 1; background-color: var(--red-100);">
+  <KPop
+    title="Look Mah!"
+    width="170"
+    placement="right"
+  >
+    <KButton>Click</KButton>
+    <template v-slot:content>
+      My parent is too small 😭
+    </template>
+  </KPop>
+</div>
+```
+
+<div style="width: 300px; height: 125px; position: relative; overflow: hidden; z-index: 1; background-color: var(--blue-100);">
+  <KPop
+    title="Look Mah!"
+    width="170"
+    placement="right"
+    :position-fixed="true"
+  >
+    <KButton>Click</KButton>
+    <template v-slot:content>
+      My parent is too small, but I don't care 😎
+    </template>
+  </KPop>
+</div>
+
+```vue
+<div style="width: 300px; height: 125px; position: relative; overflow: hidden; z-index: 1; background-color: var(--blue-100);">
+  <KPop
+    title="Look Mah!"
+    width="170"
+    placement="right"
+    :position-fixed="true"
+  >
+    <KButton>Click</KButton>
+    <template v-slot:content>
+      My parent is too small, but I don't care 😎
+    </template>
+  </KPop>
+</div>
+```
+
+### width
 
 The width of the popover body - by default it is 200px.
 
@@ -241,7 +303,7 @@ The width of the popover body - by default it is 200px.
 </KPop>
 ```
 
-### Popover Classes
+### popoverClasses
 
 Custom classes that you want to append to the popover - by default it has a `k-popover` class on it.
 
@@ -254,7 +316,7 @@ Custom classes that you want to append to the popover - by default it has a `k-p
 </KPop>
 ```
 
-### Popover Transitions
+### popoverTransitions
 
 Custom transitions that you want the popover to have - by default it uses a `fade` transition.
 
@@ -267,7 +329,7 @@ Custom transitions that you want the popover to have - by default it uses a `fad
 </KPop>
 ```
 
-### Popover Timeout
+### popoverTimeout
 
 Custom timeout setting that you want the popover to have - by default it is set
 to 300 milliseconds.
@@ -288,7 +350,7 @@ to 300 milliseconds.
 </KPop>
 ```
 
-### Hide Popover Flag
+### hidePopover
 
 You can pass in an optional flag to trigger the popover to hide - useful for external events like zooming or panning - by default it is set to `false`.
 
@@ -301,7 +363,7 @@ You can pass in an optional flag to trigger the popover to hide - useful for ext
 </KPop>
 ```
 
-### Disabled Flag
+### disabled
 
 You can pass in an optional flag to disable the popover - by default it is set to `false`.
 
@@ -314,7 +376,7 @@ You can pass in an optional flag to disable the popover - by default it is set t
 </KPop>
 ```
 
-### Hide Caret
+### hideCaret
 
 You can pass in an optional flag to not show the caret on the edge of the popover.
 
@@ -373,7 +435,7 @@ The callback function can optionally return a boolean, which will show or hide t
 </script>
 ```
 
-### isSVG Flag
+### isSVG
 
 To support `<KPop>` being able to be used inside an svg tag, use the `isSvg` prop.
 This will wrap the content of the KPop in a `<foreignObject>` tag, so that normal

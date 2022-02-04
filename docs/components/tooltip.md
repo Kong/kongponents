@@ -16,7 +16,7 @@ At least the label prop must be passed in for the tooltip to display anything. F
 
 ## Props
 
-### Label
+### label
 
 Here you can pass in the text to display in the toolip.
 
@@ -32,13 +32,13 @@ Here you can pass in the text to display in the toolip.
 </KoolTip>
 ```
 
-### Position
+### position
 
 This is where the tooltip will appear - by default it appears on top.
 Here are the different options:
 
-- `top`  
-- `bottom`  
+- `top`
+- `bottom`
 - `left`
 - `right`
 
@@ -63,6 +63,10 @@ Here are the different options:
 </KoolTip>
 ```
 
+### positionFixed
+
+Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `false`. See [`KPop` docs](popover.html#positionfixed) for more information.
+
 ## Slots
 
 - `Default` There is a main slot that takes in the element you want the popover to be triggered over.
@@ -71,7 +75,7 @@ Here are the different options:
 <KoolTip label="a cool label">
   <!-- Your element goes here -->
   <KButton>button</KButton>
-</KPop>
+</KoolTip>
 ```
 
 - `Content` This allows you to slot in any html content
@@ -96,7 +100,7 @@ Here are the different options:
 
 | Variable | Purpose
 |:-------- |:-------
-| `--KPopBackground`| Background color
+| `--KoolTipBackground`| Background color
 | `--KoolTipColor`| Color of text
 
 Example:
@@ -113,7 +117,7 @@ Example:
 </template>
 <style>
 .tooltip-blue {
-  --KPopBackground: var(--blue-300);
+  --KoolTipBackground: var(--blue-300);
   --KoolTipColor: var(--blue-500);
 }
 </style>

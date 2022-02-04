@@ -61,6 +61,10 @@ Title shown above the list of items.
   :items="data.items" />
 ```
 
+### positionFixed
+
+Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `false`. See [`KPop` docs](popover.html#positionfixed) for more information.
+
 ### width
 
 Sets the width of the popup container. Defaults to auto.
@@ -150,7 +154,7 @@ Enables a filter input to search the items
   <KMultiselect
     button-text="Car Makers"
     has-filter
-    title="Select car makers" 
+    title="Select car makers"
     :items="data.items" />
 </Komponent>
 ```

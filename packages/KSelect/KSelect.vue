@@ -33,6 +33,7 @@
             toggle()
             return isToggled
           }"
+          :position-fixed="positionFixed"
           :test-mode="testMode"
           :target="`[id='${selectInputId}']`"
           @opened="() => {
@@ -189,6 +190,13 @@ export default {
       default: () => [],
       // Items must have a label & value
       validator: (items) => !items.length || items.some(i => i.hasOwnProperty('label') && i.hasOwnProperty('value'))
+    },
+    /**
+     * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
+     */
+    positionFixed: {
+      type: Boolean,
+      default: false
     },
     /**
      * Test mode - for testing only, strips out generated ids

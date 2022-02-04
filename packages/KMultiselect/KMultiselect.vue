@@ -3,6 +3,7 @@
     :width="width"
     :popover-timeout="0"
     :hide-popover="hidePopover"
+    :position-fixed="positionFixed"
     :test-mode="testMode"
     hide-caret
     placement="bottomStart"
@@ -103,6 +104,13 @@ export default {
       // Items must have a label and a selected property
       validator: (items) => items
         .some(i => i.hasOwnProperty('label') && i.hasOwnProperty('selected'))
+    },
+    /**
+     * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
+     */
+    positionFixed: {
+      type: Boolean,
+      default: false
     },
     /**
      * Test mode - for testing only, strips out generated ids
