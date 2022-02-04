@@ -58,6 +58,7 @@
     "@vue/eslint-config-standard": "^6.1.0",
     "@vue/eslint-config-typescript": "^10.0.0",
     "@vuepress/plugin-search": "^2.0.0-beta.35",
+    "autoprefixer": "^10.4.2",
     "boxen": "^5.1.2",
     "chalk": "^4.1.2",
     "cypress": "^9.4.1",

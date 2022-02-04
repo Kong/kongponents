@@ -111,8 +111,8 @@ export default defineComponent({
   },
 
   setup(props, { slots }) {
-    const caretClasses = computed((): string => {
-      if (props.isOpen === undefined) return
+    const caretClasses = computed((): string | null => {
+      if (props.isOpen === undefined) return null
 
       return props.isOpen ? 'has-caret is-active' : 'has-caret'
     })
@@ -123,7 +123,7 @@ export default defineComponent({
 
     const buttonType = computed((): string => props.to ? 'router-link' : 'button')
 
-    const iconColor = computed((): string => {
+    const iconColor = computed((): string | null => {
       if (['primary', 'danger', 'creation'].includes(props.appearance)) {
         return 'white'
       } else if (props.appearance === 'secondary') {
@@ -192,21 +192,15 @@ export default defineComponent({
   }
 
   /* Button w/ Icon */
-  > .kong-icon {
+  > :deep(.kong-icon) {
     padding-right: var(--spacing-xs, spacing(xs));
     box-sizing: unset;
-  }
-
-  .kong-icon,
-  .kong-icon > svg {
-    width: 1rem !important;
-    height: 1rem !important;
   }
 
   &.icon-btn {
     height: 38px;
     justify-content: center;
-    > .kong-icon {
+    > :deep(.kong-icon) {
       padding-right: 0;
     }
   }
@@ -232,16 +226,16 @@ export default defineComponent({
 
   /* class to add for dropdown caret */
 
-  & .caret {
+  :deep(.caret) {
     margin-left: 15px;
     padding: 0;
     display: inline-block;
     transition: 250ms ease;
+  }
 
-    &.is-active {
-      transform: rotate(-180deg);
-      transition: 250ms ease;
-    }
+  &.is-active :deep(.caret) {
+    transform: rotate(-180deg);
+    transition: 250ms ease;
   }
 
   /* Apperance Variations */

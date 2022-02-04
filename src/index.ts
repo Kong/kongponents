@@ -1,8 +1,6 @@
 import { App, Plugin } from 'vue'
-// Import all components
-import * as components from './components'
-// Import all styles
-import './styles/styles.scss'
+import * as components from './components' // Import all components
+import './styles/styles.scss' // Import all styles
 
 const install: Plugin = (app: App) => {
   for (const key in components) {

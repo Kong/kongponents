@@ -12,7 +12,18 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
   // because vite is the default bundler
   bundler: '@vuepress/bundler-vite',
   // options for vite bundler
-  bundlerConfig: {},
+  bundlerConfig: {
+    viteOptions: {
+      css: {
+        postcss: {
+          plugins: [
+            require('tailwindcss')('./tailwind.config.js'),
+            require('autoprefixer'),
+          ]
+        },
+      }
+    }
+  },
 
   // site config
   lang: 'en-US',
