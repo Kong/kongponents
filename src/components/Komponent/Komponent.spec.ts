@@ -1,36 +1,30 @@
 import { mount } from '@cypress/vue'
-import Komponent from './'
+import Komponent from '@/components/Komponent'
+import KButton from '@/components/KButton/KButton.vue'
+import { h } from 'vue'
 
-describe('KComponent.vue', () => {
-  it('TODO: This is just an example test', () => {
-    mount(Komponent)
+describe('Komponent', () => {
+  it('can update reactive data object', () => {
+    mount(Komponent, {
+      props: {
+        data: { count: 0 },
+      },
+      slots: {
+        default: (props) => {
+          return h(KButton,
+            {
+              ...props,
+              // bind emits onClick = @click, onUpdate = @update, etc.
+              onClick: () => props.data.count = props.data.count + 1,
+            }, 'clicked me ' + props.data.count + ' times!',
+          )
+        },
+      },
+    })
+
+    const button = cy.get('.k-button')
+    button.should('contain.text', 'clicked me 0 times!')
+    button.click()
+    button.should('contain.text', 'clicked me 1 times!')
   })
 })
-
-// import { mount } from '@vue/test-utils'
-// import Komponent from '@/Komponent/Komponent'
-// import KButton from '@/KButton/KButton'
-
-// describe('Komponent', () => {
-//   it('can update reactive data object', () => {
-//     const wrapper = mount(Komponent, {
-//       propsData: {
-//         data: {count: 0}
-//       },
-//       scopedSlots: {
-//         default: function (props) {
-//           return this.$createElement(KButton, {
-//             props: props,
-//             on: { click: () => (props.data.count = props.data.count + 1) }
-//           }, 'clicked me ' + props.data.count + ' times!')
-//         }
-//       }
-//     })
-
-//     const button = wrapper.find('button')
-
-//     expect(button.text()).toBe('clicked me 0 times!')
-//     button.trigger('click')
-//     expect(button.text()).toBe('clicked me 1 times!')
-//   })
-// })
