@@ -16,7 +16,7 @@ At least the label prop must be passed in for the tooltip to display anything. F
 
 ## Props
 
-### Label
+### label
 
 Here you can pass in the text to display in the toolip.
 
@@ -32,7 +32,7 @@ Here you can pass in the text to display in the toolip.
 </KoolTip>
 ```
 
-### Position
+### position
 
 This is where the tooltip will appear - by default it appears on top.
 Here are the different options:
