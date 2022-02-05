@@ -1,7 +1,24 @@
 ### Summary
 
+  
 #### Changes made:
 *
+
+### Vue 3 Upgrade
+
+We are currently in the process of upgrading Kongponents to Vue 3. If changes are made to a component or doc file on the `main` branch, a corresponding PR needs to be made into the `next` branch that includes:
+
+- The component feature/fix, updated for Vue 3 and the Composition API
+- Doc updates, again, for Vue 3 and the Composition API
+- Updates to the corresponding `.spec.ts` test file(s) to utilize Cypress Component Tests. 
+
+If you have questions, tag `@adamdehaven` or `@kaiarrowood`.
+
+**Does your PR modify a component [that already exists on the `next` branch](https://github.com/Kong/kongponents/tree/next/src/components)?**
+
+  - [ ] **Yes**, and there is a corresponding PR to update the component on the `next` branch
+    - `LINK_TO_PR_ON_NEXT_BRANCH` (**required**)
+  - [ ] **No**, the component does not yet exist on `next` branch.
 
 ### PR Checklist
 - [ ] Does not introduce dependencies
