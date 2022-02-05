@@ -60,7 +60,7 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
-import { uuid } from 'vue-uuid'
+import { v1 as uuidv1 } from 'uuid'
 
 export default defineComponent({
   name: 'KCard',
@@ -120,8 +120,8 @@ export default defineComponent({
   },
 
   setup(props) {
-    const titleId = computed((): string => props.testMode ? uuid.v1() : 'test-title-id-1234')
-    const contentId = computed((): string => props.testMode ? uuid.v1() : 'test-content-id-1234')
+    const titleId = computed((): string => props.testMode ? uuidv1() : 'test-title-id-1234')
+    const contentId = computed((): string => props.testMode ? uuidv1() : 'test-content-id-1234')
 
     return {
       titleId,
