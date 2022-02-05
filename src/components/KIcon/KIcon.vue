@@ -1,21 +1,25 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <span
     v-if="!$slots.svgElements"
     ref="svgWrapper"
     :class="`kong-icon-${icon}`"
     class="kong-icon"
-    v-html="icons[icon]"/>
+    v-html="icons[icon]"
+  />
   <span
     v-else
     ref="svgWrapper"
     :class="`kong-icon-${icon}`"
-    class="kong-icon">
+    class="kong-icon"
+  >
     <svg class="slot-content">
-      <slot name="svgElements"/>
+      <slot name="svgElements" />
     </svg>
     <span
       :class="{ 'svg-with-slot-is-hidden': svgWithSlotIsHidden }"
-      v-html="icons[icon]"/>
+      v-html="icons[icon]"
+    />
   </span>
 </template>
 

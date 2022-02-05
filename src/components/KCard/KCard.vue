@@ -4,41 +4,54 @@
     :aria-label="title ? title : ''"
     :aria-labelledby="!title && ($slots.title || $slots.title) ? titleId : ''"
     :aria-describedby="contentId"
-    class="kong-card">
+    class="kong-card"
+  >
     <div
       v-if="title || $slots.title || $slots.title || $slots.actions || status || $slots.statusHat"
       :class="{ 'has-status': status || $slots.statusHat }"
-      class="k-card-header d-flex mb-4">
+      class="k-card-header d-flex mb-4"
+    >
       <div>
         <div
           v-if="status || $slots.statusHat"
-          class="k-card-status-hat mb-4">
+          class="k-card-status-hat mb-4"
+        >
           <!-- @slot Use this slot to pass status text above title -->
-          <slot name="statusHat">{{ status }}</slot>
+          <slot name="statusHat">
+            {{ status }}
+          </slot>
         </div>
-        <div :id="title ? '' : titleId"
-          class="k-card-title">
+        <div
+          :id="title ? '' : titleId"
+          class="k-card-title"
+        >
           <h4>
             <!-- @slot Use this slot to pass title content -->
-            <slot name="title">{{ title }}</slot>
+            <slot name="title">
+              {{ title }}
+            </slot>
           </h4>
         </div>
       </div>
       <div class="k-card-actions">
         <!-- @slot Use this slot to pass actions to right side of header -->
-        <slot name="actions"/>
+        <slot name="actions" />
       </div>
     </div>
     <div class="k-card-content d-flex">
       <div
         :id="contentId"
-        class="k-card-body">
+        class="k-card-body"
+      >
         <!-- @slot Use this slot to pass in body content -->
-        <slot name="body">{{ body }}</slot>
+        <slot name="body">
+          {{ body }}
+        </slot>
       </div>
       <div
         v-if="$slots.notifications"
-        class="k-card-notifications ml-3">
+        class="k-card-notifications ml-3"
+      >
         <slot name="notifications" />
       </div>
     </div>

@@ -1,6 +1,6 @@
 # {%%KONGPONENT_NAME_TITLE_CASE%%}
 
-**{%%KONGPONENT_NAME%%}** - {%%KONGPONENT_DESCRIPTION%%}
+**{%%KONGPONENT_NAME%%}** - This should be a description of the Kongponent.
 
 <{%%KONGPONENT_NAME%%} />
 

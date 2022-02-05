@@ -46,31 +46,18 @@ We support `small`, `medium`, and `large` sizes, default to `medium`.
 - `medium`
 - `large`
 
-<KButton
-  appearance="secondary"
-  size="small">Small</KButton>
+<KButton appearance="secondary" size="small">Small</KButton>
 
-<KButton
-  appearance="secondary"
-  size="medium">Medium</KButton>
+<KButton appearance="secondary" size="medium">Medium</KButton>
 
-<KButton
-  appearance="secondary"
-  size="large">Large</KButton>
+<KButton appearance="secondary" size="large">Large</KButton>
 
 ```vue
+<KButton appearance="secondary" size="small">Small</KButton>
 
-<KButton
-  appearance="secondary"
-  size="small">Small</KButton>
+<KButton appearance="secondary" size="medium">Medium</KButton>
 
-<KButton
-  appearance="secondary"
-  size="medium">Medium</KButton>
-
-<KButton
-  appearance="secondary"
-  size="large">Large</KButton>
+<KButton appearance="secondary" size="large">Large</KButton>
 
 ```
 
@@ -87,12 +74,8 @@ KButton can display a dropdown caret to the right hand side. This is useful for 
 > The `Komponent` component is used in this example to create state.
 
 ```vue
-<Komponent:data="{ isActive: false }" v-slot="{ data }">
-  <KButton
-    appearance="primary"
-    size="medium"
-    :isOpen="data.isActive"
-    @click="data.isActive = !data.isActive">
+<Komponent :data="{ isActive: false }" v-slot="{ data }">
+  <KButton appearance="primary" size="medium" :isOpen="data.isActive" @click="data.isActive = !data.isActive">
     I'm a button
   </KButton>
 </Komponent>
@@ -118,20 +101,12 @@ KButton can render either a `<a>` or `<router-link>` by simply passing the `to` 
 
 - `to`
 
-<KButton
-  :to="{path: '/'}"
-  appearance="btn-link">Router Link!</KButton>
-<KButton
-  to="http://google.com"
-  appearance="btn-link">Anchor Link!</KButton>
+<KButton :to="{path: '/'}" appearance="btn-link">Router Link!</KButton>
+<KButton to="http://google.com" appearance="btn-link">Anchor Link!</KButton>
 
 ```vue
-<KButton
-  :to="{path: '/'}"
-  appearance="btn-link">Router Link!</KButton>
-<KButton
-  to="http://google.com"
-  appearance="btn-link">Anchor Link!</KButton>
+<KButton :to="{path: '/'}" appearance="btn-link">Router Link!</KButton>
+<KButton to="http://google.com" appearance="btn-link">Anchor Link!</KButton>
 ```
 
 ### Disabled HTML Attribute
@@ -139,17 +114,11 @@ KButton can render either a `<a>` or `<router-link>` by simply passing the `to` 
 KButton also supports the disabled attribute with both Button and Anchor types.
 
 <KButton appearance="danger" disabled>Disabled Danger</KButton>
-<KButton
-  to="http://google.com"
-  appearance="btn-link"
-  disabled>Disabled Native Anchor Link</KButton>
+<KButton to="http://google.com" appearance="btn-link" disabled>Disabled Native Anchor Link</KButton>
 
 ```vue
 <KButton appearance="danger" disabled>Disabled Danger</KButton>
-<KButton
-  to="http://google.com"
-  appearance="btn-link"
-  disabled>Disabled Native Anchor Link</KButton>
+<KButton to="http://google.com" appearance="btn-link" disabled>Disabled Native Anchor Link</KButton>
 ```
 
 ## Slots

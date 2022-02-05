@@ -6,10 +6,9 @@ import { createSpinner, Spinner } from 'nanospinner'
 /**
  * @description Create new files for Kongponent
  * @param {string} name Component name
- * @param {string} description Component description
  * @return {*}
  */
-export async function createComponentFiles(name: string, description: string): Promise<void> {
+export async function createComponentFiles(name: string): Promise<void> {
   const spinner: Spinner = createSpinner('Creating new Kongponent...').start({ color: 'cyan' })
   await sleep()
 
@@ -50,7 +49,8 @@ export async function createComponentFiles(name: string, description: string): P
   })
 
   // Create new files in src/component/{KComponentName}
-  componentFilesToCreate.map(filename => {
+  // eslint-disable-next-line array-callback-return
+  componentFilesToCreate.map((filename: string): void => {
     const originalFilePath = `${componentFilesTemplatePath}/${filename}`
     const stats = fs.statSync(originalFilePath)
 
@@ -76,7 +76,7 @@ export async function createComponentFiles(name: string, description: string): P
   if (fs.existsSync('src/components/index.ts')) {
     if (!fs.readFileSync('src/components/index.ts').includes(componentName)) {
       // Add export to file
-      fs.appendFileSync('src/components/index.ts', `export { default as ${ componentName } } from './${ componentName }/${ componentName }.vue'\n`)
+      fs.appendFileSync('src/components/index.ts', `export { default as ${componentName} } from './${componentName}/${componentName}.vue'\n`)
 
       spinner.success({
         text: `Added ${chalk.cyan(componentName + '.vue')} to the exports in src/components/index.ts.`,
@@ -128,7 +128,7 @@ export async function createComponentFiles(name: string, description: string): P
 
     // If template file exists
     if (stats.isFile()) {
-      const newFilePath = `docs/components/${ filename.replace(/Template/g, kongponentDocFilename(name)) }`
+      const newFilePath = `docs/components/${filename.replace(/Template/g, kongponentDocFilename(name))}`
 
       // Check to ensure docs/components/{name} file does not already exist
       if (fs.existsSync(newFilePath)) {
@@ -142,7 +142,6 @@ export async function createComponentFiles(name: string, description: string): P
         const fileContent = fs.readFileSync(originalFilePath, 'utf8')
           .replace(/{%%KONGPONENT_NAME%%}/g, componentName)
           .replace(/{%%KONGPONENT_NAME_TITLE_CASE%%}/g, componentNameTitleCase)
-          .replace(/{%%KONGPONENT_DESCRIPTION%%}/g, description)
 
         fs.writeFileSync(newFilePath, fileContent, 'utf8')
 
@@ -158,20 +157,20 @@ export async function createComponentFiles(name: string, description: string): P
       const docsFile = docsFileExists === false ? `${kongponentDocFilename(name)}.md` : chalk.yellow(`${kongponentDocFilename(name)}.md (already existed, not modified)`)
 
       spinner.success({
-        text: `Created the new '${ componentName }' Kongponent and its related files:
+        text: `Created the new '${componentName}' Kongponent and its related files:
 
     ├── docs/
     │   └── components/
     │       └── ${docsFile}
     └── src/
         └── components/
-            └── ${ componentName }/
-              ├── ${ componentName }.spec.ts
-              └── ${ componentName }.vue
+            └── ${componentName}/
+              ├── ${componentName}.spec.ts
+              └── ${componentName}.vue
     `,
       })
 
-      console.log(`${ chalk.bold('Note') }: You will need to manually add the new ${ chalk.cyan(kongponentDocFilename(name) + '.md') } file to the VuePress sidebar.`)
+      console.log(`${chalk.bold('Note')}: You will need to manually add the new ${chalk.cyan(kongponentDocFilename(name) + '.md')} file to the VuePress sidebar.`)
       // Empty line
       console.log('')
     }

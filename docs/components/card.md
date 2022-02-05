@@ -91,18 +91,10 @@ String to be used in the `statusHat` slot.
 
 - `status`
 
-<KCard
-  status="My status"
-  title="My title"
-  body="My body"
-/>
+<KCard status="My status" title="My title" body="My body" />
 
 ```vue
-<KCard
-  status="My status"
-  title="My title"
-  body="My body"
-/>
+<KCard status="My status" title="My title" body="My body" />
 ```
 
 ### Body
@@ -125,27 +117,15 @@ Sets top border or no border. If neither set default will have border
 - `noBorder`
 
 <div class="borderless-cards">
-  <KCard
-    title="Card without border"
-    body="Body Content"
-    borderVariant="noBorder"/>
+  <KCard title="Card without border" body="Body Content" borderVariant="noBorder"/>
 
-  <KCard
-    title="Card with top border"
-    body="Body Content"
-    borderVariant="borderTop"/>
+  <KCard title="Card with top border" body="Body Content" borderVariant="borderTop"/>
 </div>
 
 ```vue
-<KCard
-  title="Card without border"
-  body="Body Content"
-  borderVariant="noBorder"/>
+<KCard title="Card without border" body="Body Content" borderVariant="noBorder"/>
 
-<KCard
-  title="Card with top border"
-  body="Body Content"
-  borderVariant="borderTop"/>
+<KCard title="Card with top border" body="Body Content" borderVariant="borderTop"/>
 ```
 
 ### Shadow
@@ -155,28 +135,14 @@ Sets if card has shadow state (shadow)
 - `hasHover` only set shadow on hover
 - `hasShadow` always setShadow
 
-<KCard
-  title="hasHover"
-  class="mb-2"
-  body="This card only has a shadow on hover"
-  hasHover/>
+<KCard title="hasHover" class="mb-2" body="This card only has a shadow on hover" hasHover />
 
-<KCard
-  title="hasShadow"
-  body="This card always has a shadow"
-  hasShadow/>
+<KCard title="hasShadow" body="This card always has a shadow" hasShadow />
 
 ```vue
-<KCard
-  title="hasHover"
-  class="mb-2"
-  body="This card only has a shadow on hover"
-  hasHover/>
+<KCard title="hasHover" class="mb-2" body="This card only has a shadow on hover" hasHover />
 
-<KCard
-  title="hasShadow"
-  body="This card always has a shadow"
-  hasShadow/>
+<KCard title="hasShadow" body="This card always has a shadow" hasShadow />
 ```
 
 ### Side by side
@@ -218,16 +184,8 @@ Cards can be arranged with flex box.
 
 ```vue
 <div class="d-flex flex-row">
-  <KCard
-    title="Left"
-    class="w-auto"
-    body="This card only has a title"
-  />
-  <KCard
-    title="Center"
-    class="w-auto mx-5"
-    body="This card always has a icon button"
-  >
+  <KCard title="Left" class="w-auto" body="This card only has a title" />
+  <KCard title="Center" class="w-auto mx-5" body="This card always has a icon button">
     <template v-slot:actions>
       <KButton>
         <KIcon
@@ -239,11 +197,7 @@ Cards can be arranged with flex box.
       </KButton>
     </template>
   </KCard>
-  <KCard
-    title="Right"
-    class="w-auto"
-    body="This card always has a button"
-  >
+  <KCard title="Right" class="w-auto" body="This card always has a button">
     <template v-slot:actions>
       <KButton>View All</KButton>
     </template>

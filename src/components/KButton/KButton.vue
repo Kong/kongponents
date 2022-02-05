@@ -5,10 +5,11 @@
     :href="to"
     :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance]"
     class="k-button"
-    v-bind="$attrs">
+    v-bind="$attrs"
+  >
 
     <slot name="icon" />
-    <slot/>
+    <slot />
 
     <KIcon
       v-if="isOpen !== undefined"
@@ -16,20 +17,21 @@
       color="white"
       view-box="2 2 15 15"
       size="16"
-      icon="chevronDown"/>
+      icon="chevronDown"
+    />
   </a>
 
   <component
+    :is="buttonType"
     v-else
     :type="type"
-    :is="buttonType"
     :to="to"
     :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance, caretClasses]"
     class="k-button"
-    v-bind="$attrs">
-
+    v-bind="$attrs"
+  >
     <slot name="icon" />
-    <slot/>
+    <slot />
 
     <KIcon
       v-if="isOpen !== undefined"
@@ -37,8 +39,8 @@
       :color="iconColor"
       view-box="2 2 15 15"
       size="16"
-      icon="chevronDown"/>
-
+      icon="chevronDown"
+    />
   </component>
 </template>
 
@@ -63,8 +65,8 @@ export const sizes = {
 
 export default defineComponent({
   name: 'KButton',
-  inheritAttrs: false,
   components: { KIcon },
+  inheritAttrs: false,
   props: {
     /**
       * Base styling of the button

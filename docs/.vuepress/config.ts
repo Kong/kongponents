@@ -46,6 +46,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
           {
             text: 'Components',
             children: [
+              '/components/alert',
               '/components/button',
               '/components/card',
               '/components/icon',

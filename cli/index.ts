@@ -27,11 +27,6 @@ const questions = [
       return true
     },
   },
-  {
-    type: 'input',
-    name: 'description',
-    message: 'Provide a description for the new component',
-  },
 ]
 
 const createKongponent = async (): Promise<void> => {
@@ -45,7 +40,7 @@ const createKongponent = async (): Promise<void> => {
   console.log('')
 
   // Create src/component files
-  await createComponentFiles(answers.name, answers.description)
+  await createComponentFiles(answers.name)
 }
 
 createKongponent()

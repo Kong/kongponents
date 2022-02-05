@@ -1,5 +1,6 @@
 import { mount } from '@cypress/vue'
 import KCard from '@/components/KCard/KCard.vue'
+import { h } from 'vue'
 
 /**
  * ALL TESTS MUST USE testMode: true
@@ -22,11 +23,11 @@ describe('KCard', () => {
         testMode: true,
       },
       slots: {
-        statusHat: () => `<span>${cardStatusHat}</span>`,
-        title: () => `<span>${cardTitle}</span>`,
-        actions: () => `<span>${cardActions}</span>`,
-        body: () => `<div>${cardBody}</div>`,
-        notifications: () => `<span>${cardNotifications}</span>`,
+        statusHat: () => h('span', {}, cardStatusHat),
+        title: () => h('span', {}, cardTitle),
+        actions: () => h('span', {}, cardActions),
+        body: () => h('span', {}, cardBody),
+        notifications: () => h('span', {}, cardNotifications),
       },
     })
 

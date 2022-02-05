@@ -15,7 +15,9 @@ describe('Komponent', () => {
             {
               ...props,
               // bind emits onClick = @click, onUpdate = @update, etc.
-              onClick: () => props.data.count = props.data.count + 1,
+              onClick: function() {
+                props.data.count = props.data.count + 1
+              },
             }, 'clicked me ' + props.data.count + ' times!',
           )
         },
