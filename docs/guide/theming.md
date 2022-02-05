@@ -1,6 +1,6 @@
 # Theming
 
-You can override or "theme" some parts of components by setting [CSS Custom Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) in your `:root: {}` tag. Take a look at individual [components](/components/) to see what properties are themable.
+You can override or "theme" some parts of components by setting [CSS Custom Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) in your `:root: {}` tag. Take a look at individual components to see what properties are themable.
 
 ## Inputs
 
@@ -14,7 +14,9 @@ You can override or "theme" some parts of components by setting [CSS Custom Prop
 | `--KInputError`| Error border
 | `--KInputPlaceholderColor`| Placeholder text color
 
-> Note: Add the `input-error` class to add error styling
+:::tip TIP
+Add the `input-error` class to add error styling
+:::
 
 ```vue
 <template>
@@ -28,7 +30,7 @@ You can override or "theme" some parts of components by setting [CSS Custom Prop
 </style>
 ```
 
-<KInput id="theme-page-kinput" class="input-error" type="email" value="error" />
+<!-- <KInput id="theme-page-kinput" class="input-error" type="email" value="error" /> -->
 
 ## Popovers
 
@@ -42,12 +44,12 @@ An Example of changing the color of KPopover text
 
 ```vue
 <template>
-  <KPop title="email">
+  <!-- <KPop title="email">
     <button>Click me</button>
     <template v-slot:content>
       I have different colored text.
     </template>
-  </KPop>
+  </KPop> -->
 </template>
 
 <style>
@@ -58,15 +60,20 @@ An Example of changing the color of KPopover text
 ```
 
 <div id="theme-page-kpop">
-  <KPop title="email" target="#theme-page-kpop">
+  <!-- <KPop title="email" target="#theme-page-kpop">
     <button>Click me</button>
     <template v-slot:content>
       I have different colored text.
     </template>
-  </KPop>
+  </KPop> -->
 </div>
 
 <style scoped>
-# theme-page-kinput { --KInputError: firebrick; }
-# theme-page-kpop  { --KPopColor: orange; }
+#theme-page-kinput {
+  --KInputError: firebrick;
+}
+
+#theme-page-kpop {
+  --KPopColor: orange;
+}
 </style>
