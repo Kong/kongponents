@@ -56,6 +56,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
             text: 'Renderless',
             children: [
               '/components/renderless/komponent',
+              '/components/renderless/toggle',
             ]
           }
         ]

@@ -16,17 +16,17 @@ The name of the icon. This required prop will only recognize icons from the
 following list. It tells KIcon which svg to render.
 
 <div>
-  <!-- <KToggle v-slot="{ isToggled, toggle }"> -->
+  <KToggle v-slot="{ isToggled, toggle }">
     <div>
       <KButton
         appearance="outline"
         class="mb-4"
-        @click="toggle">Toggle viewbox {{ isToggled ? 'off' : 'on' }}</KButton>
+        @click="toggle">Toggle viewbox {{ isToggled.value ? 'off' : 'on' }}</KButton>
       <div class="icon-row">
         <div
           v-for="icon in $icons"
           class="icon-cell"
-          :class="{ hasBg: isToggled }">
+          :class="{ hasBg: isToggled.value }">
           <KIcon
             size="24"
             :icon="icon" />
@@ -34,7 +34,7 @@ following list. It tells KIcon which svg to render.
         </div>
       </div>
     </div>
-  <!-- </KToggle> -->
+  </KToggle>
 </div>
 &nbsp;
 
