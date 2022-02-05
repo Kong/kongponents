@@ -54,11 +54,8 @@ We support `small`, `medium`, and `large` sizes, default to `medium`.
 
 ```vue
 <KButton appearance="secondary" size="small">Small</KButton>
-
 <KButton appearance="secondary" size="medium">Medium</KButton>
-
 <KButton appearance="secondary" size="large">Large</KButton>
-
 ```
 
 ### Caret

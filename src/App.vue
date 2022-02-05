@@ -1,8 +1,5 @@
 <template>
   <h1>Kongponents Vite</h1>
-  <KLabel required>
-    This is a label
-  </KLabel>
   <br>
   <KButton>Button content</KButton>
 

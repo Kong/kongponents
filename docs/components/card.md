@@ -2,7 +2,6 @@
 
 **KCard** is meant to highlight content in grids or group relative information together.
 
-&nbsp;
 <KCard title="Card Title" body="Body Content"/>
 
 ```vue

@@ -41,8 +41,26 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
     searchPlaceholder: 'Search...',
     sidebar: [
       {
+        text: 'Guide',
+        children: [
+          '/',
+          '/guide/theming'
+        ]
+      },
+      {
         text: 'Kongponents',
         children: [
+          {
+            text: 'Style Guide',
+            children: [
+              '/style-guide/usage',
+              '/style-guide/colors',
+              '/style-guide/type',
+              '/style-guide/forms',
+              '/style-guide/utilities',
+
+            ]
+          },
           {
             text: 'Components',
             children: [
@@ -60,6 +78,14 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
               '/components/renderless/toggle',
             ]
           }
+        ]
+      },
+      {
+        text: 'Contributing',
+        children: [
+          '/contributing/getting-started',
+          // '/contributing/local-development',
+          '/contributing/adding-icons-to-kicon'
         ]
       }
     ],

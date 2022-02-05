@@ -6,7 +6,6 @@ import * as icons from '../../src/components/KIcon/icons' // KIcon icons
 // import ToastManager from '../../src/components/KToaster/ToastManager.vue'
 
 // Import global VuePress components
-import LivePreview from './components/LivePreview.vue'
 import swatch from './components/swatch.vue'
 import textBlock from './components/text-block.vue'
 
@@ -21,7 +20,6 @@ export default defineClientAppEnhance(({ app, router, siteData }) => {
   app.use(Kongponents)
 
   // Register other components
-  app.component('LivePreview', LivePreview)
   app.component('swatch', swatch)
   app.component('textBlock', textBlock)
 })

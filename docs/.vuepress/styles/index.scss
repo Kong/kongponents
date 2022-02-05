@@ -1,34 +1,4 @@
-// Override predefined CSS variables of the default VuePress theme
-// https://v2.vuepress.vuejs.org/reference/default-theme/styles.html#style-file
-:root {
-  // brand colors
-  --c-brand: #1456cb; // blue-500
-
-  // text colors
-  --c-text: rgba(0, 0, 0, 0.7); // black-70
-
-  // code blocks vars
-  --code-bg-color: rgb(242, 246, 254);
-
-  // font vars
-  --font-family: var(
-    --font-family-sans,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    "Fira Sans",
-    "Droid Sans",
-    "Helvetica Neue",
-    sans-serif
-  );
-
-  // layout vars
-  --sidebar-width: 14rem;
-}
+@import "./default-theme-overrides";
 
 // plugin-search
 .search-box {
@@ -48,16 +18,6 @@ table {
   tr,
   tr:nth-child(2n) {
     background-color: #fff;
-  }
-}
-
-.theme-default-content {
-  code {
-    color: var(--black-70);
-  }
-
-  td code {
-    white-space: nowrap;
   }
 }
 
@@ -91,8 +51,6 @@ table {
     background-position: 10px 50%;
   }
 }
-
-@import "./prism-theme.scss";
 
 /**
  * Overrides for a11y
