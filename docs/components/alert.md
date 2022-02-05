@@ -10,6 +10,16 @@
 
 ## Props
 
+### Alert Message
+
+You can pass in the alert message (as a `string`) if you are not utilizing the [`alertMessage` slot](#slots).
+
+<KAlert alert-message="This is the alert message." />
+
+```vue
+<KAlert alert-message="This is the alert message." />
+```
+
 ### Appearances
 
 What color and purpose the Alert should be. Shares similar appearances to those of [KButton](/components/button).
