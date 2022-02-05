@@ -36,7 +36,7 @@
     "build:docs": "vuepress build docs",
     "docs:build": "vuepress build docs",
     "create-kongponent": "node ./bin/index.js",
-    "lint": "eslint '**/*.{js,ts,vue,md}' --fix",
+    "lint": "eslint '**/*.{js,ts,vue}' --fix",
     "prepare": "husky install",
     "postinstall": "yarn build:cli"
   },
@@ -66,7 +66,6 @@
     "eslint": "^8.8.0",
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-markdown": "^2.2.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-standard": "^5.0.0",

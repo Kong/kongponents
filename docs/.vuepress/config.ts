@@ -50,6 +50,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
               '/components/button',
               '/components/card',
               '/components/icon',
+              '/components/modal',
             ]
           },
           {
