@@ -434,7 +434,7 @@ button.close > .kong-icon {
 .k-alert-ellipse {
   height: 6px;
   width: 6px;
-  border-radius: 50%;
+  border-radius: 100%;
   display: inline-block;
   margin: 24px 8px 26px 22px;
 
