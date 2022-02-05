@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kinput",
-  "version": "6.9.2",
+  "version": "6.9.3",
   "description": "Input component",
   "main": "dist/KInput.umd.min.js",
   "componentName": "KInput",
@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/styles": "^6.9.2",
+    "@kongponents/styles": "^6.9.3",
     "vue-uuid": "^2.0.2"
   }
 }
