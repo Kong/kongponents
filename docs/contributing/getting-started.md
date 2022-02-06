@@ -10,7 +10,7 @@ In this section we will focus on the steps and nuances of developing Kongponents
     <CodeGroup>
       <CodeGroupItem title="yarn" active>
 
-    ```sh:no-line-numbers
+    ```sh
     cd kongponents && yarn
     ```
 
@@ -18,7 +18,7 @@ In this section we will focus on the steps and nuances of developing Kongponents
 
       <CodeGroupItem title="npm">
 
-    ```sh:no-line-numbers
+    ```sh
     cd kongponents && npm install
     ```
 
@@ -30,7 +30,7 @@ In this section we will focus on the steps and nuances of developing Kongponents
     <CodeGroup>
       <CodeGroupItem title="yarn" active>
 
-    ```sh:no-line-numbers
+    ```sh
     yarn build:cli
     ```
 
@@ -38,7 +38,7 @@ In this section we will focus on the steps and nuances of developing Kongponents
 
       <CodeGroupItem title="npm">
 
-    ```sh:no-line-numbers
+    ```sh
     npm run build:cli
     ```
 
@@ -50,7 +50,7 @@ In this section we will focus on the steps and nuances of developing Kongponents
     <CodeGroup>
       <CodeGroupItem title="yarn" active>
 
-    ```sh:no-line-numbers
+    ```sh
     yarn docs:dev
     ```
 
@@ -58,7 +58,7 @@ In this section we will focus on the steps and nuances of developing Kongponents
 
       <CodeGroupItem title="npm">
 
-    ```sh:no-line-numbers
+    ```sh
     npm run docs:dev
     ```
 
@@ -70,7 +70,7 @@ In this section we will focus on the steps and nuances of developing Kongponents
     <CodeGroup>
       <CodeGroupItem title="yarn" active>
 
-    ```sh:no-line-numbers
+    ```sh
     yarn build
     ```
 
@@ -78,7 +78,7 @@ In this section we will focus on the steps and nuances of developing Kongponents
 
       <CodeGroupItem title="npm">
 
-    ```sh:no-line-numbers
+    ```sh
     npm run build
     ```
 
@@ -94,7 +94,7 @@ It is recommended to use the CLI (`create-kongponent`) when creating new compone
 <CodeGroup>
   <CodeGroupItem title="yarn" active>
 
-  ```sh:no-line-numbers
+  ```sh
   yarn create-kongponent
   ```
 
@@ -102,7 +102,7 @@ It is recommended to use the CLI (`create-kongponent`) when creating new compone
 
   <CodeGroupItem title="npm">
 
-  ```sh:no-line-numbers
+  ```sh
   npm run create-kongponent
   ```
 
@@ -114,7 +114,7 @@ It is recommended to use the CLI (`create-kongponent`) when creating new compone
 <CodeGroup>
   <CodeGroupItem title="yarn" active>
 
-  ```sh:no-line-numbers
+  ```sh
   # Link the package
   yarn link
 
@@ -126,7 +126,7 @@ It is recommended to use the CLI (`create-kongponent`) when creating new compone
 
   <CodeGroupItem title="npm">
 
-  ```sh:no-line-numbers
+  ```sh
   # Link the package
   npm link
 

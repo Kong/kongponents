@@ -5,7 +5,7 @@ To utilize Kongponent styles on their own, add the package into your project as 
 <CodeGroup>
   <CodeGroupItem title="yarn" active>
 
-```sh:no-line-numbers
+```sh
 yarn add @kong/kongponents
 ```
 
@@ -13,7 +13,7 @@ yarn add @kong/kongponents
 
   <CodeGroupItem title="npm">
 
-```sh:no-line-numbers
+```sh
 npm install @kong/kongponents
 ```
 

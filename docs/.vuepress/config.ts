@@ -91,8 +91,11 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
     ],
     contributors: false,
   },
-
-  // plugins
+  markdown: {
+    code: {
+      lineNumbers: false,
+    }
+  },
   plugins: [
     ['@vuepress/search', {
       hotKeys: ['/'],
@@ -105,5 +108,5 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
     ['sitemap', {
       hostname: 'https://kongponents.konghq.com'
     }],
-  ]
+  ],
 })

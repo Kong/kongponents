@@ -10,12 +10,12 @@ Kongponents is a Vue component library of frequently needed UI elements. They we
 
 ## Installation
 
-To begin using Kongponents, just install the package into your project using `yarn` or `npm`.
+To begin using Kongponents, being by installing the package into your project using `yarn` or `npm`.
 
 <CodeGroup>
   <CodeGroupItem title="yarn" active>
 
-```sh:no-line-numbers
+```sh
 yarn add @kong/kongponents
 ```
 
@@ -23,7 +23,7 @@ yarn add @kong/kongponents
 
   <CodeGroupItem title="npm">
 
-```sh:no-line-numbers
+```sh
 npm install @kong/kongponents
 ```
 
@@ -32,7 +32,7 @@ npm install @kong/kongponents
 
 You will likely need to transpile the `@kong/kongponents` package in your project. If your project already has a `vue.config.ts` file, just add the following `transpileDependencies` entry
 
-```ts:no-line-numbers
+```ts
 // vue.config.ts
 
 module.exports = {
@@ -44,7 +44,7 @@ module.exports = {
 
 If your project does not have a `vue.config.ts` file and instead uses webpack config files, you can add a loader rule (for example, for `babel-loader`) similar to the following (only showing the relevant entries)
 
-```js:no-line-numbers
+```js
 // webpack.config.js
 
 module.exports = (env) => {
@@ -74,7 +74,7 @@ If you choose to utilize any of the [CSS custom properties (variables)](https://
 <CodeGroup>
   <CodeGroupItem title="yarn" active>
 
-```sh:no-line-numbers
+```sh
 yarn add postcss-custom-properties --dev
 ```
 
@@ -82,7 +82,7 @@ yarn add postcss-custom-properties --dev
 
   <CodeGroupItem title="npm">
 
-```sh:no-line-numbers
+```sh
 npm install postcss-custom-properties --save-dev
 ```
 
@@ -91,7 +91,7 @@ npm install postcss-custom-properties --save-dev
 
 Next, add a `postcss.config.js` file to your project with the following content
 
-```js:no-line-numbers
+```js
 // postcss.config.js
 
 module.exports = () => ({
@@ -113,7 +113,7 @@ If you plan to use a majority of the Kongponent components, you can import the p
 
 This method is only ideal if you are using a majority of the Kongponents in your project, as the unused components will not be tree-shaken.
 
-```ts:no-line-numbers
+```ts
 // main.ts (or Vue entry file)
 
 import { createApp } from 'vue'
@@ -131,7 +131,7 @@ app.mount('#app')
 
 Alternatively, you can import and register just the components you intend to use. Import and registration can be done either globally in your Vue entry file, or locally in the component where they will be used.
 
-```vue:no-line-numbers
+```vue
 // YourComponent.vue
 
 <script lang="ts">
