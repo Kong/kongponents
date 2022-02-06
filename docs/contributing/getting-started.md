@@ -4,92 +4,97 @@ In this section we will focus on the steps and nuances of developing Kongponents
 
 ## Installation
 
-1. Git clone the Kongponents repository: `git clone https://github.com/Kong/kongponents.git`
-2. Install dependencies in the root directory
+Clone the Kongponents repository
 
-    <CodeGroup>
-      <CodeGroupItem title="yarn" active>
+```sh
+git clone https://github.com/Kong/kongponents.git
+```
 
-    ```sh
-    cd kongponents && yarn
-    ```
+Install dependencies with `yarn` or `npm`
 
-      </CodeGroupItem>
+<CodeGroup>
+  <CodeGroupItem title="yarn" active>
 
-      <CodeGroupItem title="npm">
+  ```sh
+  cd kongponents && yarn
+  ```
 
-    ```sh
-    cd kongponents && npm install
-    ```
+  </CodeGroupItem>
 
-      </CodeGroupItem>
-    </CodeGroup>
+  <CodeGroupItem title="npm">
 
-3. The CLI should have been built for you after installation. In case it failed (you won't see a `/bin` folder in the project), manually generate the CLI
+  ```sh
+  cd kongponents && npm install
+  ```
 
-    <CodeGroup>
-      <CodeGroupItem title="yarn" active>
+  </CodeGroupItem>
+</CodeGroup>
 
-    ```sh
-    yarn build:cli
-    ```
+The CLI should have been built for you after installation. In case it failed (you won't see a `/bin` folder in the project), manually generate the CLI
 
-      </CodeGroupItem>
+<CodeGroup>
+  <CodeGroupItem title="yarn" active>
 
-      <CodeGroupItem title="npm">
+  ```sh
+  yarn build:cli
+  ```
 
-    ```sh
-    npm run build:cli
-    ```
+  </CodeGroupItem>
 
-      </CodeGroupItem>
-    </CodeGroup>
+  <CodeGroupItem title="npm">
 
-4. Run the docs locally
+  ```sh
+  npm run build:cli
+  ```
 
-    <CodeGroup>
-      <CodeGroupItem title="yarn" active>
+  </CodeGroupItem>
+</CodeGroup>
 
-    ```sh
-    yarn docs:dev
-    ```
+Run the docs locally
 
-      </CodeGroupItem>
+<CodeGroup>
+  <CodeGroupItem title="yarn" active>
 
-      <CodeGroupItem title="npm">
+  ```sh
+  yarn docs:dev
+  ```
 
-    ```sh
-    npm run docs:dev
-    ```
+  </CodeGroupItem>
 
-      </CodeGroupItem>
-    </CodeGroup>
+  <CodeGroupItem title="npm">
 
-5. Perform a full build
+  ```sh
+  npm run docs:dev
+  ```
 
-    <CodeGroup>
-      <CodeGroupItem title="yarn" active>
+  </CodeGroupItem>
+</CodeGroup>
 
-    ```sh
-    yarn build
-    ```
+Perform a full build
 
-      </CodeGroupItem>
+<CodeGroup>
+  <CodeGroupItem title="yarn" active>
 
-      <CodeGroupItem title="npm">
+  ```sh
+  yarn build
+  ```
 
-    ```sh
-    npm run build
-    ```
+  </CodeGroupItem>
 
-      </CodeGroupItem>
-    </CodeGroup>
+  <CodeGroupItem title="npm">
+
+  ```sh
+  npm run build
+  ```
+
+  </CodeGroupItem>
+</CodeGroup>
 
 ## CLI
 
 It is recommended to use the CLI (`create-kongponent`) when creating new components as it will scaffold all the required files. You can run it locally from the package or install it globally.
 
-### Run locally
+### Run local CLI
 
 <CodeGroup>
   <CodeGroupItem title="yarn" active>
@@ -109,7 +114,7 @@ It is recommended to use the CLI (`create-kongponent`) when creating new compone
   </CodeGroupItem>
 </CodeGroup>
 
-### Install globally
+### Install global CLI
 
 <CodeGroup>
   <CodeGroupItem title="yarn" active>
@@ -137,7 +142,7 @@ It is recommended to use the CLI (`create-kongponent`) when creating new compone
   </CodeGroupItem>
 </CodeGroup>
 
-## Creating a new Kongponent
+## Create a new Kongponent
 
 When creating a new component with the CLI it will perform the following actions:
 
@@ -164,44 +169,47 @@ Once ran, this will be the resulting file structure:
           └── {KongponentName}.vue
 ```
 
-## Editing Doc file
+## Edit the Doc file
 
 Each component has an associated file in the `/docs/components` directory. After scaffolding the new component file, a doc file should be present named the same as your new component. Below are the steps to add the file to the docs site and how to get started editing.
 
-1. **Renaming the file** (if needed)
+### Renaming the file (if needed)
 
-    Rename the file to correspond to what type of component it is. For documentation purposes page names should be based on what the component is vs its Kongponent `K` name.
-    - ex. `kbutton.md` &rarr; `button.md` ; `kcard.md` &rarr; `card.md`
+Rename the file to correspond to what type of component it is. For documentation purposes page names should be based on what the component is vs its Kongponent `K` name.
 
-2. **Update the page title**
+e.g. `kbutton.md` &rarr; `button.md` ; `kcard.md` &rarr; `card.md`
 
-    Update the first line of the doc to match the file name. This is what is displayed as the page title & in the sidebar.
+### Update the page title
 
-    ```md
-    # {Name}
+Update the first line of the doc to match the file name. This is what is displayed as the page title & in the sidebar.
 
-    **{KongponentName}** - description
-    ```
+```md
+# {Name}
 
-3. **Add to sidebar**
+**{KongponentName}** - description
+```
 
-    Although the CLI will create a file in the docs directory it does not add it to the sidebar.
+### Add the doc file to the sidebar
 
-    - In `/docs/.vuepress/config.ts` add the component to the correct place in the sidebar.
+Although the CLI will create a file in the docs directory, it does not add it to the sidebar config.
 
-    ```ts
+Add the component to the desired location in the sidebar
+
+```ts
+// docs/.vuepress/config.ts
+
+{
+  text: 'Kongponents',
+  children: [
+    '/components/',
     {
-      text: 'Kongponents',
+      text: 'Components',
       children: [
-        '/components/',
-        {
-          text: 'Components',
-          children: [
-            ...
-            '/components/{komponent}' // Should be the name of the `.md` markdown file, without the extension
-            ...
-          ]
-        }
+        ...
+        '/components/{komponent}', // Should be the name of the `.md` markdown file, without the extension
+        ...
       ]
     }
-    ```
+  ]
+}
+```

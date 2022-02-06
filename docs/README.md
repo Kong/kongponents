@@ -127,9 +127,11 @@ app.use(Kongponents)
 app.mount('#app')
 ```
 
-### Individual Kongponents
+### Register individual Kongponents
 
-Alternatively, you can import and register just the components you intend to use. Import and registration can be done globally in your Vue entry file (e.g. `main.ts`), or locally in the component where they will be used.
+Alternatively, you can import and register just the components you intend to use.
+
+Import and registration can be done globally in your Vue entry file (e.g. `main.ts`), or locally, just in the component where it will be used.
 
 <CodeGroup>
   <CodeGroupItem title="Global Registration" active>
