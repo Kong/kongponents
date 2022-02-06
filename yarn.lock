@@ -810,7 +810,7 @@
     vue "^3.2.28"
     vue-router "^4.0.12"
 
-"@vuepress/plugin-back-to-top@2.0.0-beta.35":
+"@vuepress/plugin-back-to-top@2.0.0-beta.35", "@vuepress/plugin-back-to-top@^2.0.0-beta.35":
   version "2.0.0-beta.35"
   resolved "https://registry.yarnpkg.com/@vuepress/plugin-back-to-top/-/plugin-back-to-top-2.0.0-beta.35.tgz#5b5e6cb4e2c5a7c49e8c0604c1151faacf4ee89b"
   integrity sha512-8gAZBZhUML9/nNXirInI7qZhQkIeTrqp30IcpteoyFWCOM8XAE5I9zH7PxG5zNm4YN0k5WkLK0VICybPODyjEA==

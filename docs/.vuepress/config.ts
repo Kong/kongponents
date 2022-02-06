@@ -3,7 +3,18 @@ import type { DefaultThemeOptions } from 'vuepress'
 import { path } from '@vuepress/utils'
 import type { ViteBundlerOptions } from '@vuepress/bundler-vite'
 
+const isProd = process.env.NODE_ENV === 'production'
+
 export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
+  base: '/',
+
+  head: [
+    ['meta', { name: 'theme-color', content: '#1456cb' }],
+    ['meta', { name: 'msapplication-TileColor', content: '#1456cb' }],
+    ['meta', { name: 'application-name', content: 'Kongponents' }],
+    ['meta', { name: 'apple-mobile-web-app-title', content: 'Kongponents' }],
+  ],
+
   alias: {
     // Alias src directory for @/components/{KongponentName} imports
     '@': path.resolve(__dirname, '../../src'),
@@ -34,11 +45,17 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
   theme: '@vuepress/theme-default',
   themeConfig: {
     repo: 'kong/kongponents',
+
     logo: 'https://2tjosk2rxzc21medji3nfn1g-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/kong-logomark-color-64px.png',
+
     docsDir: 'docs',
+
     docsBranch: 'next',
+
     editLinks: true,
+
     searchPlaceholder: 'Search...',
+
     sidebar: [
       {
         text: 'Guide',
@@ -89,13 +106,21 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
         ]
       }
     ],
+
     contributors: false,
+
+    themePlugins: {
+      // only enable git plugin in production mode
+      git: isProd,
+    },
   },
+
   markdown: {
     code: {
       lineNumbers: false,
     }
   },
+
   plugins: [
     ['@vuepress/search', {
       hotKeys: ['/'],

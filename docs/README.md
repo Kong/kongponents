@@ -15,17 +15,17 @@ To begin using Kongponents, being by installing the package into your project us
 <CodeGroup>
   <CodeGroupItem title="yarn" active>
 
-```sh
-yarn add @kong/kongponents
-```
+  ```sh
+  yarn add @kong/kongponents
+  ```
 
   </CodeGroupItem>
 
   <CodeGroupItem title="npm">
 
-```sh
-npm install @kong/kongponents
-```
+  ```sh
+  npm install @kong/kongponents
+  ```
 
   </CodeGroupItem>
 </CodeGroup>
@@ -74,17 +74,17 @@ If you choose to utilize any of the [CSS custom properties (variables)](https://
 <CodeGroup>
   <CodeGroupItem title="yarn" active>
 
-```sh
-yarn add postcss-custom-properties --dev
-```
+  ```sh
+  yarn add postcss-custom-properties --dev
+  ```
 
   </CodeGroupItem>
 
   <CodeGroupItem title="npm">
 
-```sh
-npm install postcss-custom-properties --save-dev
-```
+  ```sh
+  npm install postcss-custom-properties --save-dev
+  ```
 
   </CodeGroupItem>
 </CodeGroup>
@@ -107,7 +107,7 @@ module.exports = () => ({
 
 There are two ways to use Kongponents in your project
 
-### Import Kongponents as a plugin and globally register all components
+### Globally install all Kongponents
 
 If you plan to use a majority of the Kongponent components, you can import the package and install as a Vue Plugin to register all components and make them globally available in your app.
 
@@ -127,23 +127,45 @@ app.use(Kongponents)
 app.mount('#app')
 ```
 
-### Import and register only the needed Kongponents
+### Individual Kongponents
 
-Alternatively, you can import and register just the components you intend to use. Import and registration can be done either globally in your Vue entry file, or locally in the component where they will be used.
+Alternatively, you can import and register just the components you intend to use. Import and registration can be done globally in your Vue entry file (e.g. `main.ts`), or locally in the component where they will be used.
 
-```vue
-// YourComponent.vue
+<CodeGroup>
+  <CodeGroupItem title="Global Registration" active>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { KButton } from '@kong/kongponents'
+  ```ts
+  // main.ts (or Vue entry file)
 
-export default defineComponent({
-  name: 'YourComponent',
-  components: { KButton },
-})
-</script>
-```
+  import { createApp } from 'vue'
+  import { KButton } from '@kong/kongponents'
+
+  const app = createApp(App)
+
+  // Register an individual Kongponent
+  app.component('KButton', KButton)
+
+  app.mount('#app')
+  ```
+
+  </CodeGroupItem>
+
+  <CodeGroupItem title="In-Component Registration">
+
+  ```ts
+  // YourComponent.vue
+
+  import { defineComponent } from 'vue'
+  import { KButton } from '@kong/kongponents'
+
+  export default defineComponent({
+    name: 'YourComponent',
+    components: { KButton },
+  })
+  ```
+
+  </CodeGroupItem>
+</CodeGroup>
 
 ## Without Bundle System
 

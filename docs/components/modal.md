@@ -4,7 +4,7 @@ The **KModal** component is used to show content on top of existing UI. Typicall
 
 <KButton appearance="primary" @click="defaultIsOpen = true">Open Modal</KButton>
 
-<KModal title="Look Mah!" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris accumsan tincidunt velit ac vulputate. Aliquam turpis odio, elementum a hendrerit id, pellentesque quis ligula. Nulla ultricies sit amet nisi vitae congue. Quisque vitae ullamcorper leo, id pretium mi. Nam sed odio dapibus, dapibus augue at, pulvinar est." :isVisible="defaultIsOpen" @canceled="defaultIsOpen = false" />
+<KModal title="Look Mah!" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris accumsan tincidunt velit ac vulputate. Aliquam turpis odio, elementum a hendrerit id, pellentesque quis ligula. Nulla ultricies sit amet nisi vitae congue. Quisque vitae ullamcorper leo, id pretium mi. Nam sed odio dapibus, dapibus augue at, pulvinar est." :isVisible="defaultIsOpen" @proceed="defaultIsOpen = false" @canceled="defaultIsOpen = false" />
 
 ```vue
 <template>
@@ -13,11 +13,10 @@ The **KModal** component is used to show content on top of existing UI. Typicall
       title="Look Mah!"
       content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris accumsan tincidunt velit ac vulputate. Aliquam turpis odio, elementum a hendrerit id, pellentesque quis ligula. Nulla ultricies sit amet nisi vitae congue. Quisque vitae ullamcorper leo, id pretium mi. Nam sed odio dapibus, dapibus augue at, pulvinar est."
       :isVisible="isVisible"
+      @proceed="isVisible = false"
       @canceled="isVisible = false" />
 
-    <KButton
-      appearance="primary"
-      @click="isVisible = true">Open Modal</KButton>
+    <KButton appearance="primary" @click="isVisible = true">Open Modal</KButton>
   </div>
 </template>
 <script>
