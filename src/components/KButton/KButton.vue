@@ -302,6 +302,7 @@ export default defineComponent({
     color: var(--KButtonOutlineColor, var(--blue-500, color(blue-500)));
     border-color: var(--KButtonOutlineBorder, rgba(color(blue-500), .4));
     background-color: var(--white, color(white));
+    outline-style: auto;
     &:hover:not(:disabled) {
       border-color: var(--KButtonOutlineHoverBorder, rgba(color(blue-500), 1));
     }

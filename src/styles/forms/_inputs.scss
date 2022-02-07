@@ -42,7 +42,7 @@
     color: var(--KInputBorder, var(--grey-600));
     background-color: var(--KInputBackground, var(--white));
     display: inline-block;
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
     transition: color 0.1s ease;
   }
 }
@@ -95,7 +95,7 @@
       }
     }
 
-     &:read-only {
+    &:read-only {
       background-color: var(--KInputReadonlyBackground, var(--grey-100, color(grey-100)));
       box-shadow: inset 0 0 0 1px var(--KInputBorder, var(--grey-300)) !important;
     }
@@ -142,8 +142,8 @@
   }
 }
 
-.k-input-wrapper.input-error {
-  .k-input {
+.k-input-wrapper .input-error {
+  &.k-input {
     outline: none !important;
     box-shadow: inset 0 0 0 1.5px var(--KInputError, var(--red-500, color(red-500))) !important;
     transition: color 0.1s ease;
