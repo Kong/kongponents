@@ -60,12 +60,12 @@ An Example of changing the color of KPopover text
 ```
 
 <div id="theme-page-kpop">
-  <!-- <KPop title="email" target="#theme-page-kpop">
+  <KPop title="email" target="#theme-page-kpop">
     <button>Click me</button>
     <template v-slot:content>
       I have different colored text.
     </template>
-  </KPop> -->
+  </KPop>
 </div>
 
 <style scoped>

@@ -86,6 +86,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
               '/components/card',
               '/components/icon',
               '/components/modal',
+              '/components/popover',
             ]
           },
           {
