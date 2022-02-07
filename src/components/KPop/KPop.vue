@@ -110,6 +110,8 @@
 </template>
 
 <script lang="ts">
+// TODO: Popper.js needs to be updated/replaced. For now, leave as-is without Composition API implementation
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import { defineComponent } from 'vue'
