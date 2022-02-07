@@ -1,4 +1,4 @@
-# Komponent
+# KComponent
 
 Handy state abstraction for presentation components.
 
@@ -7,22 +7,22 @@ e.g.
 - counter
 - selected value
 
-<Komponent :data="{ count: 0 }" v-slot="{ data }">
+<KComponent :data="{ count: 0 }" v-slot="{ data }">
   <div>
     <KButton size="small" appearance="outline" :isRounded="false" @click="data.count = data.count - 1">-</KButton>
     {{ data.count }}
     <KButton size="small" appearance="outline" :isRounded="false" @click="data.count = data.count + 1">+</KButton>
   </div>
-</Komponent>
+</KComponent>
 
 ```vue
-<Komponent :data="{ count: 0 }" v-slot="{ data }">
+<KComponent :data="{ count: 0 }" v-slot="{ data }">
   <div>
     <KButton size="small" appearance="outline" :isRounded="false" @click="data.count = data.count - 1">-</KButton>
     {{ data.count }}
     <KButton size="small" appearance="outline" :isRounded="false" @click="data.count = data.count + 1">+</KButton>
   </div>
-</Komponent>
+</KComponent>
 ```
 
 ## Props
@@ -45,14 +45,14 @@ The state that the component should begin with.
 
 ## Usage
 
-Komponent is meant to be used to add behavior to other components, by wrapping
-them and placing them inside `Komponent`'s default slot.
+KComponent is meant to be used to add behavior to other components, by wrapping
+them and placing them inside `KComponent`'s default slot.
 
 ### Select
 
 <KCard class="mt-2" style="min-height: 100px;">
   <template v-slot:body>
-    <Komponent :data="{ selected: '' }" v-slot="{ data }">
+    <KComponent :data="{ selected: '' }" v-slot="{ data }">
       <div>
         <label for="apes">What's your favorite great ape?</label>
         <select id="apes" v-model="data.selected" onchange="s => data.selected = s">
@@ -64,14 +64,14 @@ them and placing them inside `Komponent`'s default slot.
         </select>
         <i v-if="data.selected">{{ data.selected }} are neat!</i>
       </div>
-    </Komponent>
+    </KComponent>
   </template>
 </KCard>
 
 ```vue
 <KCard class="mt-2" style="min-height: 100px;">
   <template v-slot:body>
-    <Komponent :data="{ selected: '' }" v-slot="{ data }">
+    <KComponent :data="{ selected: '' }" v-slot="{ data }">
       <div>
         <label for="apes">What's your favorite great ape?</label>
         <select id="apes" v-model="data.selected" onchange="s => data.selected = s">
@@ -83,7 +83,7 @@ them and placing them inside `Komponent`'s default slot.
         </select>
         <i v-if="data.selected">{{ data.selected }} are neat!</i>
       </div>
-    </Komponent>
+    </KComponent>
   </template>
 </KCard>
 ```

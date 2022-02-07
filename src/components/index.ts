@@ -2,7 +2,8 @@
 // NOTE: The 'create-kongponent' CLI automatically appends exports to the bottom of the list
 
 // Renderless
-export { default as Komponent } from './Komponent'
+export { default as KComponent } from './KComponent'
+export { default as Komponent } from './KComponent' // Komponent alias (backwards-compatible)
 export { default as KToggle } from './KToggle'
 // Regular Kongponents (ensure you import from '*.vue`)
 export { default as KIcon } from './KIcon/KIcon.vue'
@@ -14,3 +15,4 @@ export { default as KPop } from './KPop/KPop.vue'
 export { default as KInput } from './KInput/KInput.vue'
 export { default as KLabel } from './KLabel/KLabel.vue'
 export { default as KTooltip } from './KTooltip/KTooltip.vue'
+export { default as KoolTip } from './KTooltip/KTooltip.vue' // KTooltip alias (backwards-compatible)

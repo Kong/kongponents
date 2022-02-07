@@ -142,25 +142,25 @@ You can pass any input attribute and it will get properly bound to the element.
 
 KInput works as regular inputs do using v-model for data binding:
 
-<Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
+<KComponent :data="{myInput: 'hello'}" v-slot="{ data }">
   <div>
     {{ data.myInput }}
     <KInput v-model="data.myInput" />
   </div>
-</Komponent>
+</KComponent>
 
 ```vue
-<Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
+<KComponent :data="{myInput: 'hello'}" v-slot="{ data }">
   {{ myInput }}
   <KInput v-model="data.myInput" />
-</Komponent>
+</KComponent>
 ```
 
 ## Events
 
 To listen for changes to the `KInput` value, you can bind to the `@update:modelValue` event:
 
-<Komponent :data="{inputValue: 'This is the input value'}" v-slot="{ data }">
+<KComponent :data="{inputValue: 'This is the input value'}" v-slot="{ data }">
   <div>
     <KLabel>{{ data.inputValue }}</KLabel>
     <KInput v-model="data.inputValue"/>
@@ -170,18 +170,18 @@ To listen for changes to the `KInput` value, you can bind to the `@update:modelV
   <KLabel>{{ inputText }}</KLabel>
   <KInput model-value="This is the input value" @update:modelValue="inputText = $event" />
   ```
-</Komponent>
+</KComponent>
 
 `KInput` transparently binds to events:
 
-<Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
+<KComponent :data="{myInput: 'hello'}" v-slot="{ data }">
   <div>
     <KInput v-model="data.myInput" @blur="e => (data.myInput = 'blurred')" @focus="e => (data.myInput = 'focused')" />
   </div>
-</Komponent>
+</KComponent>
 
 ```vue
-<Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
+<KComponent :data="{myInput: 'hello'}" v-slot="{ data }">
   <div>
     <KInput
       v-model="data.myInput"
@@ -189,7 +189,7 @@ To listen for changes to the `KInput` value, you can bind to the `@update:modelV
       @focus="e => (data.myInput = 'focused')"
     />
   </div>
-</Komponent>
+</KComponent>
 ```
 
 ## Theming

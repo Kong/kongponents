@@ -1,11 +1,11 @@
 import { mount } from '@cypress/vue'
-import Komponent from '@/components/Komponent'
+import KComponent from '@/components/KComponent'
 import KButton from '@/components/KButton/KButton.vue'
 import { h } from 'vue'
 
-describe('Komponent', () => {
+describe('KComponent', () => {
   it('can update reactive data object', () => {
-    mount(Komponent, {
+    mount(KComponent, {
       props: {
         data: { count: 0 },
       },

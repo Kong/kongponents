@@ -64,18 +64,18 @@ We support `small`, `medium`, and `large` sizes, default to `medium`.
 
 KButton can display a dropdown caret to the right hand side. This is useful for buttons that control dropdowns and popovers. When the prop `isOpen` is `false`, the caret will display pointing down. You can rotate the caret (active state) to point up by setting `isOpen` to `true`.
 
-<Komponent :data="{ isActive: false}" v-slot="{ data }">
+<KComponent :data="{ isActive: false}" v-slot="{ data }">
   <KButton appearance="primary" :isOpen="data.isActive" @click="data.isActive = !data.isActive">I'm a button</KButton>
-</Komponent>
+</KComponent>
 
-> The `Komponent` component is used in this example to create state.
+> The `KComponent` component is used in this example to create state.
 
 ```vue
-<Komponent :data="{ isActive: false }" v-slot="{ data }">
+<KComponent :data="{ isActive: false }" v-slot="{ data }">
   <KButton appearance="primary" size="medium" :isOpen="data.isActive" @click="data.isActive = !data.isActive">
     I'm a button
   </KButton>
-</Komponent>
+</KComponent>
 ```
 
 ### Rounded

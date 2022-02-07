@@ -96,7 +96,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
           {
             text: 'Renderless',
             children: [
-              '/components/renderless/komponent',
+              '/components/renderless/k-component',
               '/components/renderless/toggle',
             ]
           }
