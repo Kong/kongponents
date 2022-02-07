@@ -16,3 +16,5 @@ export { default as KInput } from './KInput/KInput.vue'
 export { default as KLabel } from './KLabel/KLabel.vue'
 export { default as KTooltip } from './KTooltip/KTooltip.vue'
 export { default as KoolTip } from './KTooltip/KTooltip.vue' // KTooltip alias (backwards-compatible)
+export { default as KBreadcrumbs } from './KBreadcrumbs/KBreadcrumbs.vue'
+export { default as Krumbs } from './KBreadcrumbs/KBreadcrumbs.vue' // KBreadcrumbs alias (backwards-compatible)
