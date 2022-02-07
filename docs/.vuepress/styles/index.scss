@@ -6,6 +6,7 @@
   // brand colors
   --c-brand: #1456cb; // blue-500
   --c-brand-light: #286eea;
+  --c-brand-scrollbar-thumb: rgba(20, 86, 203, 0.3);
 
   // text colors
   --c-text: rgba(0, 0, 0, 0.7); // black-70
@@ -54,6 +55,12 @@ html.dark {
     font-weight: 700;
     border-color: #fff;
     border-bottom-width: 2px;
+  }
+}
+
+.sidebar {
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--c-brand-scrollbar-thumb, rgba(20, 86, 203, 0.3));
   }
 }
 

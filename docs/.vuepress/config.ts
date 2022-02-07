@@ -13,6 +13,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
     ['meta', { name: 'msapplication-TileColor', content: '#1456cb' }],
     ['meta', { name: 'application-name', content: 'Kongponents' }],
     ['meta', { name: 'apple-mobile-web-app-title', content: 'Kongponents' }],
+    ['link', { rel: 'icon', href: '/favicon.ico' }],
   ],
 
   alias: {
