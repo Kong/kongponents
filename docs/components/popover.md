@@ -192,8 +192,10 @@ Here are the different options:
 </KPop>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   data () {
     return {
       selectedPosition: 'auto',
@@ -214,7 +216,7 @@ export default {
       ]
     }
   }
-}
+})
 </script>
 ```
 
@@ -415,20 +417,20 @@ The callback function can optionally return a boolean, which will show or hide t
   </template>
 </KPop>
 
-<script>
-  export default {
-    data () {
-      return {
-        isToggled: true
-      }
-    },
-    methods: {
-      toggle () {
-        this.isToggled = !this.isToggled
-        return this.isToggled
-      }
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
+
+export default defineComponent({
+  setup() {
+    const isToggled = ref(true)
+    const toggle = (): void => {
+      isToggled.value = !isToggled.value
+      return isToggled.value
     }
+
+    return { isToggled }
   }
+})
 </script>
 ```
 
@@ -581,73 +583,75 @@ Example:
   </template>
 </KPop>
 
-<script>
-  export default {
-    data () {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  data () {
+    return {
+      selectedPosition: 'auto',
+      positions: [
+        'auto',
+        'top',
+        'topStart',
+        'topEnd',
+        'left',
+        'leftStart',
+        'leftEnd',
+        'right',
+        'rightStart',
+        'rightEnd',
+        'bottom',
+        'bottomStart',
+        'bottomEnd'
+      ],
+      currentState: 'idle',
+      states: {
+        'idle': 'pending',
+        'pending': 'idle'
+      },
+      count: 0,
+      isToggled: true,
+      timeout: null
+    }
+  },
+  computed: {
+    buttonText () {
       return {
-        selectedPosition: 'auto',
-        positions: [
-          'auto',
-          'top',
-          'topStart',
-          'topEnd',
-          'left',
-          'leftStart',
-          'leftEnd',
-          'right',
-          'rightStart',
-          'rightEnd',
-          'bottom',
-          'bottomStart',
-          'bottomEnd'
-        ],
-        currentState: 'idle',
-        states: {
-          'idle': 'pending',
-          'pending': 'idle'
-        },
-        count: 0,
-        isToggled: true,
-        timeout: null
-      }
+        'pending': 'Loading something...',
+        'idle': 'Load something'
+      }[this.currentState]
     },
-    computed: {
-      buttonText () {
-        return {
-          'pending': 'Loading something...',
-          'idle': 'Load something'
-        }[this.currentState]
-      },
-      message () {
-        return {
-          'pending': `Loading ${this.count}...`,
-          'idle': 'Loaded!'
-        }[this.currentState]
-      }
-    },
-    methods: {
-      loadSomething () {
+    message () {
+      return {
+        'pending': `Loading ${this.count}...`,
+        'idle': 'Loaded!'
+      }[this.currentState]
+    }
+  },
+  methods: {
+    loadSomething () {
+      this.transition()
+      this.timeout = setTimeout(() => {
+        this.count+=1
         this.transition()
-        this.timeout = setTimeout(() => {
-          this.count+=1
-          this.transition()
-        }, 2000)
-      },
-      toggle () {
-        this.isToggled = !this.isToggled
-        return this.isToggled
-      },
-      onClose () {
-        clearTimeout(this.timeout)
-        if (this.currentState == 'pending') {
-          this.transition()
-        }
-      },
-      transition() {
-        this.currentState = this.states[this.currentState]
+      }, 2000)
+    },
+    toggle () {
+      this.isToggled = !this.isToggled
+      return this.isToggled
+    },
+    onClose () {
+      clearTimeout(this.timeout)
+      if (this.currentState == 'pending') {
+        this.transition()
       }
+    },
+    transition() {
+      this.currentState = this.states[this.currentState]
     }
   }
+})
 </script>
 
 ```vue
@@ -661,50 +665,52 @@ Example:
   </template>
 </KPop>
 
-<script>
-  export default {
-    data () {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  data () {
+    return {
+      currentState: 'idle',
+      states: {
+        'idle': 'pending',
+        'pending': 'idle'
+      },
+      count: 0,
+      timeout: null
+    }
+  },
+  computed: {
+    buttonText () {
       return {
-        currentState: 'idle',
-        states: {
-          'idle': 'pending',
-          'pending': 'idle'
-        },
-        count: 0,
-        timeout: null
-      }
+        'pending': 'Loading something...',
+        'idle': 'Load something'
+      }[this.currentState]
     },
-    computed: {
-      buttonText () {
-        return {
-          'pending': 'Loading something...',
-          'idle': 'Load something'
-        }[this.currentState]
-      },
-      message () {
-        return {
-          'pending': `Loading ${this.count}...`,
-          'idle': 'Loaded!'
-        }[this.currentState]
-      }
+    message () {
+      return {
+        'pending': `Loading ${this.count}...`,
+        'idle': 'Loaded!'
+      }[this.currentState]
+    }
+  },
+  methods: {
+    loadSomething () {
+      this.transition()
+      this.timeout = setTimeout(() => {
+        this.count+=1
+        this.transition()
+      }, 2000)
     },
-    methods: {
-      loadSomething () {
-        this.transition()
-        this.timeout = setTimeout(() => {
-          this.count+=1
-          this.transition()
-        }, 2000)
-      },
-      onClose () {
-        clearTimeout(this.timeout)
-        this.transition()
-      },
-      transition() {
-        this.currentState = this.states[this.currentState]
-      }
+    onClose () {
+      clearTimeout(this.timeout)
+      this.transition()
+    },
+    transition() {
+      this.currentState = this.states[this.currentState]
     }
   }
+})
 </script>
 ```
 

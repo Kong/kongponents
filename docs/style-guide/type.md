@@ -65,7 +65,9 @@ There are utility classes for `font-size`.
 </div>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   beforeMount() {
     const styles = Array.from(document.styleSheets)
       .filter(sheet => sheet.href === null || sheet.href.startsWith(window.location.origin))
@@ -89,7 +91,7 @@ export default {
     this.$page.headingStyles = styles.length ? styles.filter(i => i.includes('heading')) : []
     this.$page.bodyStyles = styles.length ? styles.filter(i => i.includes('body')) : []
   }
-}
+})
 </script>
 
 ## Content Styles

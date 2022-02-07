@@ -19,14 +19,17 @@ The **KModal** component is used to show content on top of existing UI. Typicall
     <KButton appearance="primary" @click="isVisible = true">Open Modal</KButton>
   </div>
 </template>
-<script>
-export default {
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   data () {
     return {
       isVisible: false
     }
   }
-}
+})
 </script>
 ```
 
