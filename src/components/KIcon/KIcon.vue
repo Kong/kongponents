@@ -84,7 +84,7 @@ export default defineComponent({
       default: '',
     },
     /**
-     * Optional - Prevents title from being shown on hover. Used by KoolTip
+     * Optional - Prevents title from being shown on hover. Used by KTooltip
      */
     hideTitle: {
       type: Boolean,

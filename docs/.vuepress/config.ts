@@ -87,8 +87,10 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
               '/components/card',
               '/components/icon',
               '/components/input',
+              '/components/label',
               '/components/modal',
               '/components/popover',
+              '/components/tooltip',
             ]
           },
           {
