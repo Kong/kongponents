@@ -34,6 +34,7 @@
     </button>
 
     <div
+
       :class="appearance"
       class="k-alert-action ml-3"
     >
@@ -73,7 +74,7 @@
       />
     </span>
 
-    <div class="k-alert-msg-text">
+    <div :class="['k-alert-msg-text', {'has-dismiss-icon': dismissType === 'icon'}, {'has-dismiss-button': dismissType === 'button'}]">
       <div
         :class="type === 'banner' && size === 'large' ? 'k-alert-text' : ''"
         class="k-alert-msg"
@@ -212,7 +213,7 @@ export default defineComponent({
       type: String,
       default: 'info',
       validator: (value: string): boolean => {
-        return Object.values(appearances).indexOf(value) !== -1
+        return Object.values(appearances).includes(value)
       },
     },
     /**
@@ -399,7 +400,7 @@ export default defineComponent({
     font-weight: 400;
     font-size: var(--type-md, type(md));
     line-height: var(--type-md, type(md));
-    padding: 2px 0;
+    padding: 2px 0 0;
     margin-left: 2px;
 
     p:last-of-type {
@@ -414,20 +415,20 @@ div.k-alert.banner {
   padding: 0;
 }
 
-button.close > .kong-icon {
-  &.info {
+button.close > :deep(.kong-icon) {
+  svg.info {
     stroke: var(--KAlertInfoColor, var(--blue-500, color(blue-500)));
   }
 
-  &.success {
+  svg.success {
     stroke: var(--KAlertSuccessColor, var(--green-600, color(green-600)));
   }
 
-  &.danger {
+  svg.danger {
     stroke: var(--KAlertDangerColor, var(--red-700, color(red-700)));
   }
 
-  &.warning {
+  svg.warning {
     stroke: var(--KAlertWarningColor, var(--yellow-500, color(yellow-500)));
   }
 }
@@ -552,6 +553,10 @@ button.close > .kong-icon {
   color: var(--grey-500);
 }
 
+.k-alert-msg-text.has-dismiss-icon {
+  padding-right: 16px;
+}
+
 .k-alert.banner.button > div .k-alert-msg.k-alert-text {
   padding-left: 0;
   font-size: var(--type-md, type(md));
@@ -559,6 +564,10 @@ button.close > .kong-icon {
 }
 
 .k-alert.banner > div.k-alert-msg-text {
-  padding: 12px 210px 12px 16px;
+  padding: 12px 100px 12px 8px;
+
+  @media (min-width: 959px) {
+    padding: 12px 210px 12px 16px;
+  }
 }
 </style>

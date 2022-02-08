@@ -102,7 +102,7 @@ KAlert allows for dismissal of the banner using an icon or button. An alert is n
 
 <KAlert alert-message="Alert that can not be dismissed" type="alert" dismissType="none" />
 
-<KAlert alert-message="Info alert message that is dismissible" appearance="info" type="alert" dismissType="icon" :isShowing="infoIsOpen" @closed="infoIsOpen = false" />
+<KAlert alert-message="Info alert message that is dismissible" appearance="info" type="alert" dismiss-type="icon" :isShowing="infoIsOpen" @closed="infoIsOpen = false" />
 
 <KAlert alert-message="Warning alert message that is dismissible" appearance="warning" type="alert" dismissType="icon" :isShowing="warningIsOpen" @closed="warningIsOpen = false" />
 

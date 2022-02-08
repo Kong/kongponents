@@ -109,7 +109,7 @@ export default defineComponent({
   line-height: 24px !important;
 }
 
-.k-breadcrumbs .k-breadcrumbs-item .kong-icon {
+.k-breadcrumbs .k-breadcrumbs-item :deep(.kong-icon) {
   display: inline-flex;
   padding: 0 12px 0 var(--spacing-xs);
   color: var(--grey-500);
