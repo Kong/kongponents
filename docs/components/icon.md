@@ -10,10 +10,9 @@
 
 ## Props
 
-### icon - required
+### icon
 
-The name of the icon. This required prop will only recognize icons from the
-following list. It tells KIcon which svg to render.
+The name of the icon. This required prop will only recognize icons from the following list. It tells KIcon which svg to render.
 
 <div>
   <KToggle v-slot="{ isToggled, toggle }">

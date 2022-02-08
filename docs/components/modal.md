@@ -35,23 +35,37 @@ export default defineComponent({
 
 ## Props
 
-### Functional
+### isVisible
 
-- `isVisible` - Tells the component whether or not to render the open modal
-- `@canceled` - Emitted when cancel/close button is clicked
+Tells the component whether or not to render the open modal.
 
-### Content
+### title
 
-- `title` - Text displayed in header if not using slot (**Note**: this field is still required for accessibility reasons even if using the slot)
-- `hideTitle` - If not using the `header-content` slot, tells the component whether or not to display the title
-- `content` - Text to display in content if not using slot
+Text displayed in header if not using slot (**Note**: this field is still required for accessibility reasons even if using the slot).
 
-### Buttons & Appearance
+### hideTitle
 
-- `actionButtonText` - Change the text content of the submit/proceed button
-- `actionButtonAppearance` - Change the [appearance](/components/button.html#props) of the submit/proceed button
-- `cancelButtonText` - Change the text content of the close/cancel button
-- `cancelButtonAppearance` - Change the [appearance](/components/button.html#props) of the cancel button
+If not using the `header-content` slot, tells the component whether or not to display the title.
+
+### content
+
+Text to display in content if not using slot.
+
+### actionButtonText
+
+Change the text content of the submit/proceed button.
+
+### actionButtonAppearance
+
+Change the [appearance](/components/button.html#props) of the submit/proceed button.
+
+### cancelButtonText
+
+Change the text content of the close/cancel button.
+
+### cancelButtonAppearance
+
+Change the [appearance](/components/button.html#props) of the cancel button.
 
 ## Slots
 
@@ -62,7 +76,11 @@ There are 4 designated slots you can use to display content in the modal.
 - `footer-content` - Contains cancel & action buttons by default.
 - `action-buttons` - Contains action buttons which are right-aligned. This slot will not exist if using `footer-content` slot.
 
----
+## Events
+
+| Event     | Description             |
+| :-------- | :------------------ |
+| `cancelled` | Emitted when cancel/close button is clicked |
 
 ### Usage
 

@@ -10,7 +10,7 @@
 
 ## Props
 
-### Model Value
+### modelValue
 
 To set the value of the input element without using `v-model`, you can set the `model-value` attribute on the input:
 
@@ -20,7 +20,7 @@ To set the value of the input element without using `v-model`, you can set the `
 <KInput model-value="This is the input value" />
 ```
 
-### Size
+### size
 
 You can specify `small`, `medium` (default), or `large` for the size.
 
@@ -34,11 +34,9 @@ You can specify `small`, `medium` (default), or `large` for the size.
 <KInput label="Large" size="large" />
 ```
 
-### Help
+### help
 
 String to be displayed as help text.
-
-- `help`
 
 <KInput help="I can help with that" placeholder="Need help?" />
 
@@ -58,13 +56,11 @@ You also have the option of using the `.help` utility class. This is meant to be
 </template>
 ```
 
-### Error State
-
-- `hasError`
+### hasError
 
 Boolean value that is by default false.
 
-- `errorMessage`
+### errorMessage
 
 String to be displayed as error message.
 
@@ -84,11 +80,9 @@ String to be displayed as error message.
 <KInput label="Large" size="large" hasError errorMessage="Service name should not contain “_”" />
 ```
 
-### Label
+### label
 
 String to be used as the input label. Make sure that if you are using the built in label you specify the `--KInputBackground` theming variable. This variable is used for the background of the label as well as the input element.
-
-- `label`
 
 <KInput label="Name" placeholder="I'm labelled!"/>
 <KInput label="Error" class="input-error" placeholder="I'm erroneous!" />

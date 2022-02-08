@@ -11,7 +11,7 @@ and configuration options.
 
 ## Props
 
-### Appearances
+### appearance
 
 The Button component can take 1 of 6 appearance values:
 
@@ -38,7 +38,7 @@ The Button component can take 1 of 6 appearance values:
 <KButton class="mr-2 mb-2" appearance='btn-link'>btn-link</KButton>
 ```
 
-### Sizes
+### size
 
 We support `small`, `medium`, and `large` sizes, default to `medium`.
 
@@ -58,9 +58,7 @@ We support `small`, `medium`, and `large` sizes, default to `medium`.
 <KButton appearance="secondary" size="large">Large</KButton>
 ```
 
-### Caret
-
-- `isOpen`
+### isOpen
 
 KButton can display a dropdown caret to the right hand side. This is useful for buttons that control dropdowns and popovers. When the prop `isOpen` is `false`, the caret will display pointing down. You can rotate the caret (active state) to point up by setting `isOpen` to `true`.
 
@@ -78,9 +76,7 @@ KButton can display a dropdown caret to the right hand side. This is useful for 
 </KComponent>
 ```
 
-### Rounded
-
-- `isRounded`
+### isRounded
 
 The buttons are rounded by default. This can be disabled by setting `isRounded` prop to `false`.
 
@@ -92,9 +88,9 @@ The buttons are rounded by default. This can be disabled by setting `isRounded` 
 <KButton appearance="primary" >I'm a button</KButton>
 ```
 
-### Anchor Tag
+### to
 
-KButton can render either a `<a>` or `<router-link>` by simply passing the `to` prop. If it receives an object it will render a router link. If it receives a string it will render an HTML anchor tag
+KButton can render either an anchor tag via `<a>` or `<router-link>` by simply passing the `to` prop. If it receives an object it will render a router link. If it receives a string it will render an HTML anchor tag
 
 - `to`
 

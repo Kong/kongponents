@@ -10,11 +10,9 @@
 
 ## Props
 
-### Title
+### title
 
 String to be used in the title slot.
-
-- `title`
 
 <KCard title="Title">
   <template v-slot:body>
@@ -84,31 +82,27 @@ Example composing `KCard` with other Kongponents to make another component:
 </KCard>
 ```
 
-### Status
+### status
 
 String to be used in the `statusHat` slot.
 
-- `status`
-
 <KCard status="My status" title="My title" body="My body" />
 
 ```vue
 <KCard status="My status" title="My title" body="My body" />
 ```
 
-### Body
+### body
 
 String to be used in the body slot.
 
-- `body`
-
 <KCard body="I am the body."/>
 
 ```vue
 <KCard body="I am the body."/>
 ```
 
-### Border Variants
+### borderVariant
 
 Sets top border or no border. If neither set default will have border
 
@@ -127,7 +121,7 @@ Sets top border or no border. If neither set default will have border
 <KCard title="Card with top border" body="Body Content" borderVariant="borderTop"/>
 ```
 
-### Shadow
+### hasHover, hasShadow
 
 Sets if card has shadow state (shadow)
 
@@ -144,7 +138,7 @@ Sets if card has shadow state (shadow)
 <KCard title="hasShadow" body="This card always has a shadow" hasShadow />
 ```
 
-### Side by side
+## Side by side
 
 Cards can be arranged with flex box.
 
