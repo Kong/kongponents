@@ -1,3 +1,6 @@
+// This file is a shim to support deprecated components while properly mapping to the new component.
+// If this deprecated component is used, it will warn the user to upgrade to the new component in the browser console.
+
 import { defineComponent, h } from 'vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 
