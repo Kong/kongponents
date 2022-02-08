@@ -333,11 +333,9 @@ look like.
 
 > Note: We are scoping the overrides to a wrapper in this example
 
-<template>
-  <div class="alert-wrapper">
-    <KAlert appearance="success" alert-message="Im Lime" />
-  </div>
-</template>
+<div class="alert-wrapper">
+  <KAlert appearance="success" alert-message="Im Lime" />
+</div>
 
 ```vue
 <template>
