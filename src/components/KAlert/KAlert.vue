@@ -282,6 +282,7 @@ export default defineComponent({
   font-size: 1rem;
   border-radius: 4px;
   overflow-wrap: anywhere;
+  word-break: break-word; // Word-wrapping in Safari
 
   a {
     text-decoration: underline;
