@@ -3,7 +3,7 @@
 
 // Renderless
 export { default as KComponent } from './KComponent'
-export { default as Komponent } from './KComponent' // Komponent alias (backwards-compatible)
+export { default as Komponent } from './KComponent' // Komponent alias (backwards-compatible with console warning)
 export { default as KToggle } from './KToggle'
 // Regular Kongponents (ensure you import from '*.vue`)
 export { default as KIcon } from './KIcon/KIcon.vue'
@@ -15,7 +15,7 @@ export { default as KPop } from './KPop/KPop.vue'
 export { default as KInput } from './KInput/KInput.vue'
 export { default as KLabel } from './KLabel/KLabel.vue'
 export { default as KTooltip } from './KTooltip/KTooltip.vue'
-export { default as KoolTip } from './KTooltip/KTooltip.vue' // KTooltip alias (backwards-compatible)
+export { default as Kooltip } from './Kooltip' // KTooltip alias (backwards-compatible with console warning)
 export { default as KBreadcrumbs } from './KBreadcrumbs/KBreadcrumbs.vue'
-export { default as Krumbs } from './KBreadcrumbs/KBreadcrumbs.vue' // KBreadcrumbs alias (backwards-compatible)
+export { default as Krumbs } from './Krumbs' // KBreadcrumbs alias (backwards-compatible with console warning)
 export { default as KBadge } from './KBadge/KBadge.vue'
