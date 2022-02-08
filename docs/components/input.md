@@ -5,7 +5,7 @@
 <KInput class="w-100" placeholder="Placeholder text..."/>
 
 ```vue
-<KInput class="w-100"/>
+<KInput class="w-100" placeholder="Placeholder text..." />
 ```
 
 ## Props
