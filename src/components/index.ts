@@ -19,3 +19,4 @@ export { default as Kooltip } from './Kooltip' // KTooltip alias (backwards-comp
 export { default as KBreadcrumbs } from './KBreadcrumbs/KBreadcrumbs.vue'
 export { default as Krumbs } from './Krumbs' // KBreadcrumbs alias (backwards-compatible with console warning)
 export { default as KBadge } from './KBadge/KBadge.vue'
+export { default as KClipboardProvider } from './KClipboardProvider'

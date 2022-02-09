@@ -92,7 +92,6 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
               '/components/label',
               '/components/modal',
               '/components/popover',
-              '/components/toaster',
               '/components/tooltip',
             ]
           },
