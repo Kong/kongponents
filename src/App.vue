@@ -1,7 +1,9 @@
 <template>
   <h1>Kongponents Vite</h1>
   <br>
-  <KButton>Button content</KButton>
+  <Kooltip label="Tooltip">
+    <KButton>Button content</KButton>
+  </Kooltip>
 
   <div class="text-white bg-indigo-500 mx-auto my-4 px-4 py-4 rounded-xl max-w-sm">
     <p>This text block lets you know TailwindCSS is being properly imported.</p>
