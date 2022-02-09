@@ -105,11 +105,9 @@ An example of theming the danger badge:
 
 > Note: We are scoping the overrides to a wrapper in this example
 
-<template>
-  <div class="KBadge-wrapper">
-    <KBadge appearance="danger">DANGER - RADIOACTIVE MATERIAL</KBadge>
-  </div>
-</template>
+<div class="KBadge-wrapper">
+  <KBadge appearance="danger">DANGER - RADIOACTIVE MATERIAL</KBadge>
+</div>
 
 ```vue
 <template>
