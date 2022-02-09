@@ -96,7 +96,7 @@ export default defineComponent({
     },
   },
 
-  emits: ['update:modelValue'],
+  emits: ['input', 'update:modelValue'],
 
   setup(props, { attrs, emit }) {
     const currValue = ref('') // We need this so that we don't lose the updated value on hover/blur event with label
@@ -115,6 +115,7 @@ export default defineComponent({
     })
 
     const handleInput = (updateValue: boolean, $event: any):void => {
+      emit('input', $event.target.value)
       emit('update:modelValue', $event.target.value)
       if (updateValue) {
         currValue.value = $event.target.value

@@ -152,7 +152,7 @@ KInput works as regular inputs do using v-model for data binding:
 
 ## Events
 
-To listen for changes to the `KInput` value, you can bind to the `@update:modelValue` event:
+To listen for changes to the `KInput` value, you can bind to the `@input` or `@update:modelValue` events:
 
 <KComponent :data="{inputValue: 'This is the input value'}" v-slot="{ data }">
   <div>
@@ -161,8 +161,10 @@ To listen for changes to the `KInput` value, you can bind to the `@update:modelV
   </div>
 
   ```vue
-  <KLabel>{{ inputText }}</KLabel>
-  <KInput model-value="This is the input value" @update:modelValue="inputText = $event" />
+  <template>
+    <KLabel>{{ inputText }}</KLabel>
+    <KInput model-value="This is the input value" @update:modelValue="newValue => inputText = newValue" />
+  </template>
   ```
 </KComponent>
 

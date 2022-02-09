@@ -92,14 +92,16 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
               '/components/label',
               '/components/modal',
               '/components/popover',
+              '/components/toaster',
               '/components/tooltip',
             ]
           },
           {
             text: 'Renderless',
             children: [
-              '/components/renderless/k-component',
+              '/components/renderless/clipboard-provider',
               '/components/renderless/toggle',
+              '/components/renderless/k-component',
             ]
           }
         ]

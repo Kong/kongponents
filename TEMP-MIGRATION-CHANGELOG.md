@@ -6,7 +6,7 @@ This file is a temporary list of changes that will be referenced to create a Mig
 
 ### KInput
 
-- `v-model` is now mapped to `modelValue` prop, and emits an `update:modelValue` event.
+- `v-model` is now mapped to `modelValue` prop, and emits `input` and `update:modelValue` events.
 
 ### KBreadcrumbs
 
