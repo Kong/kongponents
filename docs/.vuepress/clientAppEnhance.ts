@@ -3,7 +3,7 @@ import Kongponents from '../../src'
 
 // Import component-specific files
 import * as icons from '../../src/components/KIcon/icons' // KIcon icons
-// import ToastManager from '../../src/components/KToaster/ToastManager'
+import ToastManager from '../../src/components/KToaster/ToastManager'
 
 // Import global VuePress components
 import ColorSwatch from './components/ColorSwatch.vue'
@@ -14,7 +14,7 @@ export default defineClientAppEnhance(({ app, router, siteData }) => {
   app.config.globalProperties.$icons = Object.keys(icons)
 
   // Register ToastManager
-  // app.config.globalProperties.$toaster = new ToastManager()
+  app.config.globalProperties.$toaster = new ToastManager()
 
   // Register all Kongponents
   app.use(Kongponents)
