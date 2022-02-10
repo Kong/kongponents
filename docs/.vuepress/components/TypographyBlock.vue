@@ -1,5 +1,5 @@
 <template>
-  <div class="text-block">
+  <div class="typography-block">
     <div class="label">
       <strong>Variable Name:</strong> <span>{{ variableName }}</span>
     </div>
@@ -24,7 +24,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'text-block',
+  name: 'TypographyBlock',
   props: {
     prefix: {
       type: String,
@@ -51,13 +51,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.text-block {
+.typography-block {
   padding: 1.5rem 0;
   &:not(:last-child) {
     border-bottom: 1px solid #efefef;
   }
   p {
     margin: 0;
+    color: var(--black-70);
     background-color: var(--grey-100);
     border: 1px solid var(--grey-300);
     border-radius: 5px;
@@ -70,7 +71,7 @@ export default defineComponent({
     }
     span {
       font-size: var(--type-sm);
-      color: var(--black-70);
+      color: var(--c-text, var(--black-70));
     }
   }
 }

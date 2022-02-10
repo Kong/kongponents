@@ -6,8 +6,8 @@ import * as icons from '../../src/components/KIcon/icons' // KIcon icons
 // import ToastManager from '../../src/components/KToaster/ToastManager'
 
 // Import global VuePress components
-import swatch from './components/swatch.vue'
-import textBlock from './components/text-block.vue'
+import ColorSwatch from './components/ColorSwatch.vue'
+import TypographyBlock from './components/TypographyBlock.vue'
 
 export default defineClientAppEnhance(({ app, router, siteData }) => {
   // Register KIcon icons
@@ -20,6 +20,6 @@ export default defineClientAppEnhance(({ app, router, siteData }) => {
   app.use(Kongponents)
 
   // Register other components
-  app.component('swatch', swatch)
-  app.component('textBlock', textBlock)
+  app.component('ColorSwatch', ColorSwatch)
+  app.component('TypographyBlock', TypographyBlock)
 })

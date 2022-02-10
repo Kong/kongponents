@@ -15,7 +15,7 @@
 import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
-  name: 'swatch',
+  name: 'ColorSwatch',
   props: {
     color: {
       type: String,

@@ -11,7 +11,7 @@
       Unlike the other colors which follow a naming style numbered lightest to darkest, blacks include variants that are
       named by their opacity that roughly equate their hex counterparts.</p>
     <div class="colors">
-      <swatch
+      <ColorSwatch
         v-for="(color, i) in group"
         :key="i"
         :color="color"/>

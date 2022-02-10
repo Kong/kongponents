@@ -44,7 +44,7 @@ There are utility classes for `font-size`.
 ### Sans Font Styles
 
 <div>
-  <text-block
+  <TypographyBlock
     v-for="(font, key, i) in $page.frontmatter.sans"
     :key="i"
     prefix="type-"
@@ -55,7 +55,7 @@ There are utility classes for `font-size`.
 ### Mono Font Styles
 
 <div>
-  <text-block
+  <TypographyBlock
     v-for="(font, key, i) in $page.frontmatter.mono"
     :key="i"
     font-type="mono"
@@ -101,7 +101,7 @@ There are also utility classes for quick styling of different content types.
 ### Heading
 
 <div>
-  <text-block
+  <TypographyBlock
     v-if="$page.headingStyles"
     v-for="className in $page.headingStyles"
     :key="className"
@@ -112,7 +112,7 @@ There are also utility classes for quick styling of different content types.
 ### Body
 
 <div>
-  <text-block
+  <TypographyBlock
     v-if=" $page.bodyStyles"
     v-for="className in $page.bodyStyles"
     :key="className"
