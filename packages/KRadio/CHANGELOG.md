@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.9.5 (2022-02-10)
+
+
+### Bug Fixes
+
+* **styles:** remove tailwind from styles package ([#484](https://github.com/Kong/kongponents/issues/484)) ([1f1ee36](https://github.com/Kong/kongponents/commit/1f1ee36ea15b25f491b25872c01f6ba6f4a499c1))
+
+
+
+
+
 ## 6.9.4 (2022-02-07)
 
 **Note:** Version bump only for package @kongponents/kradio
