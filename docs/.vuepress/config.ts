@@ -29,7 +29,6 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
       css: {
         postcss: {
           plugins: [
-            require('tailwindcss')('./tailwind.config.js'),
             require('autoprefixer'),
           ]
         },
