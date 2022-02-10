@@ -10,21 +10,23 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "baseUrl": ".",
     "lib": [
       "esnext",
-      "dom"
+      "dom",
+      "dom.iterable"
     ],
     "outDir": "dist",
     "declaration": true,
     "declarationDir": "dist/types",
     "types": [
       "vite/client"
-    ]
-  },
-  "paths": {
-    "@/*": [
-      "src/*"
-    ]
+    ],
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
   },
   "include": [
     "src/**/*.ts",

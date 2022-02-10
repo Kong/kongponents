@@ -9,12 +9,15 @@ import ToastManager from '../../src/components/KToaster/ToastManager'
 import ColorSwatch from './components/ColorSwatch.vue'
 import TypographyBlock from './components/TypographyBlock.vue'
 
-export default defineClientAppEnhance(({ app, router, siteData }) => {
+export default defineClientAppEnhance(async ({ app, router, siteData }) => {
   // Register KIcon icons
   app.config.globalProperties.$icons = Object.keys(icons)
 
-  // Register ToastManager
-  app.config.globalProperties.$toaster = new ToastManager()
+  // @ts-ignore
+  if (!__VUEPRESS_SSR__) {
+    // Register ToastManager
+    app.config.globalProperties.$toaster = new ToastManager()
+  }
 
   // Register all Kongponents
   app.use(Kongponents)

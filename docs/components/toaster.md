@@ -101,7 +101,7 @@ export default defineComponent({
     }
   },
   methods: {
-    openNotification(options: Record<string, any>) {
+    openNotification(options: Record<string, any> | string) {
       this.$toaster.open(options)
     }
   },
@@ -136,7 +136,7 @@ export default defineComponent({
     }
   },
   methods: {
-    openNotification(options) {
+    openNotification(options: Record<string, any> | string) {
       this.$toaster.open(options)
     }
   }
@@ -175,7 +175,7 @@ export default defineComponent({
     }
   },
   methods: {
-    openNotification(options) {
+    openNotification(options: Record<string, any> | string) {
       this.$toaster.open(options)
       this.toasters = this.$toaster.toasters
     }
@@ -202,12 +202,12 @@ export default defineComponent({
     const toasters = ref([])
     const timeLeft = ref(4)
 
-    const openNotification = (options): void => {
+    const openNotification = (options: Record<string, any> | string): void => {
       $toaster.open(options)
       toasters.value = $toaster.toasters.value
     }
 
-    const openNotificationElapse = (options): void => {
+    const openNotificationElapse = (options: Record<string, any> | string): void => {
       $toaster.open(options)
       toasters.value = $toaster.toasters.value
       timeLeft.value -= 1

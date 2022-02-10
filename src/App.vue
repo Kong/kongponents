@@ -1,5 +1,22 @@
 <template>
   <h1>Kongponents Vite</h1>
+  <Krumbs
+    :items="[
+      {
+        key: 'home',
+        to: { path: '/' },
+        title: 'Go Home',
+        text: 'Home',
+        icon: 'kong'
+      },
+      {
+        key: 'button',
+        to: { path: '/components/breadcrumbs.html' },
+        title: 'Go to Button',
+        text: 'Breadcrumbs'
+      }
+    ]"
+  />
   <br>
   <Kooltip label="Tooltip">
     <KButton>Button content</KButton>
@@ -22,7 +39,7 @@ export default defineComponent({
   setup() {
     const $toaster = getCurrentInstance()?.appContext.config.globalProperties.$toaster
 
-    const openNotification = (options): void => {
+    const openNotification = (options: Record<string, any> | string): void => {
       $toaster.open(options)
     }
 

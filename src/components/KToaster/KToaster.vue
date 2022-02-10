@@ -32,9 +32,11 @@ import KAlert, { appearances } from '@/components/KAlert/KAlert.vue'
 export const toasterAppearances = appearances
 
 export interface Toast {
-  appearance?: string // 'success', 'info', 'warning', 'danger'
   key?: any // unique identifier of toaster
+  appearance?: string // 'success', 'info', 'warning', 'danger'
   message: string // Text to display in toaster
+  timer?: any
+  timeoutMilliseconds?: number
 }
 
 export default defineComponent({

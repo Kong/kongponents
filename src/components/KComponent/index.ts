@@ -1,11 +1,11 @@
 import { defineComponent, reactive } from 'vue'
 
 export default defineComponent({
-  // eslint-disable-next-line vue/multi-word-component-names
   name: 'KComponent',
   props: {
     data: {
       type: Object,
+      default: {} as Record<string, any>,
       required: true,
     },
   },

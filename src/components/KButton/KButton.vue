@@ -125,7 +125,7 @@ export default defineComponent({
 
     const buttonType = computed((): string => props.to ? 'router-link' : 'button')
 
-    const iconColor = computed((): string | null => {
+    const iconColor = computed((): string => {
       if (['primary', 'danger', 'creation'].includes(props.appearance)) {
         return 'white'
       } else if (props.appearance === 'secondary') {
@@ -134,9 +134,8 @@ export default defineComponent({
         return 'var(--KButtonOutlineColor, var(--blue-500, color(blue-500)))'
       } else if (props.appearance === 'btn-link-danger') {
         return 'var(--KButtonLinkDanger, var(--red-500, color(red-500)))'
-      } else {
-        return null
       }
+      return ''
     })
 
     return {

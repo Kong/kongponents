@@ -82,7 +82,11 @@ export default defineComponent({
   props: {
     items: {
       type: Array as PropType<BreadcrumbItem[]>,
+      default: [] as BreadcrumbItem[],
       required: true,
+      validator: (items: BreadcrumbItem[]): boolean => {
+        return items && items.length > 0
+      },
     },
     itemMaxWidth: {
       type: String,

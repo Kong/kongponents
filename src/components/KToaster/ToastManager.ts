@@ -39,11 +39,13 @@ export default class ToastManager {
     createApp(Toast).mount(`#${this.id}`)
   }
 
-  setTimer(key, timeout) {
+  setTimer(key: any, timeout: number) {
     return setTimeout(() => this.close(key), timeout)
   }
 
-  open(args) {
+  open(args: Record<string, any> | string) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const { key, timeoutMilliseconds, appearance, message } = args
 
     const _key = key || (this.toasters.value.length) + new Date().getTime()
@@ -60,7 +62,7 @@ export default class ToastManager {
     })
   }
 
-  close(key) {
+  close(key: any) {
     const i = this.toasters.value?.findIndex(n => key === n.key)
     clearTimeout(this.toasters.value[i]?.timer)
     this.toasters.value.splice(i, 1)
