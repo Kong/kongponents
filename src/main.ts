@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import App from './App.vue'
+import Kongponents, { ToastManager } from './index'
 
 // Import a single component
 // import { KButton } from './index'
@@ -8,7 +9,7 @@ import App from './App.vue'
 // OR
 
 // Import plugin (all components)
-import Kongponents from './index'
+// import Kongponents from './index'
 
 const app = createApp(App)
 
@@ -19,6 +20,8 @@ const app = createApp(App)
 
 // Install plugin (all components)
 app.use(Kongponents)
+
+app.config.globalProperties.$toaster = new ToastManager()
 
 // 1. Define route components.
 // These can be imported from other files

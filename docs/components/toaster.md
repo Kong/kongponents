@@ -2,23 +2,65 @@
 
 **KToaster** - a popup notification typically used to show the result of an action. The toaster can close on its own but can also be manually dismissed.
 
-KToaster is used via the a `ToastManager` instance. All rendering is controlled from ToastManager via an intuitive, imperative api. It is recommended that you initialize it as a singleton in your app such as `this.$toaster`.
+KToaster is used via the `ToastManager` instance. All rendering is controlled from ToastManager via an intuitive, imperative api. It is recommended that you initialize `ToastManager` in your app via [`app.config.globalProperties`](https://vuejs.org/api/application.html#app-config-globalproperties) to allow you to access it on any component instance inside your application.
 
-```js
-import Vue from 'vue';
-import { ToastManager } from '@kongponents/ktoaster';
+```ts
+// main.ts
 
-// optional singleton to allow any part of your app access ToastManager
-Vue.prototype.$toaster = new ToastManager()
+import { createApp } from 'vue'
+import { ToastManager } from '@kong/kongponents'
+
+const app = createApp()
+
+// Available inside any component template in the application, and also on 'this' of any component instance
+app.config.globalProperties.$toaster = new ToastManager()
 ```
 
-Once `ToastManager` is registered as a singleton, you can access it's methods via `this.$toaster` e.g.:
+For TypeScript, you should also augment the global property in your vue declaration file
+
+```ts
+import { ToastManager } from '@kong/kongponents'
+
+declare module 'vue' {
+  interface ComponentCustomProperties {
+    $toaster: typeof ToastManager
+  }
+}
+```
+
+Once `ToastManager` is added as a global property, you can access it's methods via `this.$toaster`
 
 <KButton @click="$toaster.open('Basic Notification')">Open Toaster</KButton>
 
 ```vue
 <KButton @click="$toaster.open('Basic Toaster')">Open Toaster</KButton>
 ```
+
+or within the `setup()` function in your component
+
+```vue
+<script lang="ts">
+import { defineComponent, getCurrentInstance } from 'vue'
+
+export default defineComponent({
+  setup() {
+    const $toaster = getCurrentInstance()?.appContext.config.globalProperties.$toaster
+
+    const showToast = (name: string) => {
+      $toaster.open(`Wow, ${name} is looking toasty!`)
+    }
+
+    return { showToast }
+  }
+})
+</script>
+```
+
+:::warning NOTE
+Using `getCurrentInstance` is a replacement of Vue 2's Vue.prototype which is no longer present in Vue 3. As with anything global, this should be used sparingly.
+
+If a global property conflicts with a component’s own property, the component's own property will have higher priority.
+:::
 
 ## Arguments
 
@@ -46,28 +88,30 @@ The Toaster uses the same appearance values as [KAlert](/components/alert) and a
   <KButton @click="openNotification(toasterOptions)">Open Toaster</KButton>
 </template>
 
-<script>
-export default {
-  data () {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  data() {
     return {
       toasterOptions: {
         appearance: 'danger',
-        message: 'This toaster is a danger appearance'
-      }
+        message: 'This toaster is a danger appearance',
+      },
     }
   },
   methods: {
-    openNotification(options) {
+    openNotification(options: Record<string, any>) {
       this.$toaster.open(options)
     }
-  }
-}
+  },
+})
 </script>
 ```
 
 ### timeout
 
-The default timeout is 5000ms (5 seconds) however you can change this to by passing an override argument.
+The default timeout, in milliseconds, is `5000` (5 seconds) however you can change this to by passing an override argument.
 
 - `timeoutMilliseconds`
 
@@ -78,9 +122,11 @@ The default timeout is 5000ms (5 seconds) however you can change this to by pass
   <KButton @click="openNotification(toasterOptions)">Open Toaster</KButton>
 </template>
 
-<script>
-export default {
-  data () {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  data() {
     return {
       toasterOptions: {
         appearance: 'success',
@@ -94,7 +140,7 @@ export default {
       this.$toaster.open(options)
     }
   }
-}
+})
 </script>
 ```
 
@@ -118,9 +164,12 @@ You can view the current state of active toasters by calling `this.$toaster.toas
   <KButton appearance="danger" @click="openNotification({'appearance': 'danger', 'message': 'Danger Notification'})">Open Toaster</KButton>
   <KButton @click="openNotification('Basic Notification')">Open Toaster</KButton>
 </template>
-<script>
-export default {
-  data: function () {
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  data() {
     return {
       toasters: []
     }
@@ -131,7 +180,7 @@ export default {
       this.toasters = this.$toaster.toasters
     }
   }
-}
+})
 </script>
 ```
 
@@ -145,33 +194,39 @@ export default {
 <KButton @click="openNotification({message:`Proxy error: Could not proxy request /api/service_packages?fields=&s=%7B%22%24and%22%3A%5B%7B%22name%22%3A%7B%22%24contL%22%3A%22%22%7D%7D%5D%7D&filter=&or=&sort=created_at%2CDESC&join=&limit=100&offset=0&page=1 from localhost:8080 to http://localhost:3000 (ECONNREFUSED).`, appearance: 'danger'})">Raw error message</KButton>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, getCurrentInstance, ref } from 'vue'
 
 export default defineComponent({
-  data: function () {
-    return {
-      toasters: [],
-      timeLeft: 4
+  setup() {
+    const $toaster = getCurrentInstance()?.appContext.config.globalProperties.$toaster
+    const toasters = ref([])
+    const timeLeft = ref(4)
+
+    const openNotification = (options): void => {
+      $toaster.open(options)
+      toasters.value = $toaster.toasters.value
     }
-  },
-  methods: {
-    openNotification(options) {
-      this.$toaster.open(options)
-      this.toasters = this.$toaster.toasters
-    },
-    openNotificationElapse(options) {
-      this.$toaster.open(options)
-      this.toasters = this.$toaster.toasters
-      this.timeLeft -= 1
+
+    const openNotificationElapse = (options): void => {
+      $toaster.open(options)
+      toasters.value = $toaster.toasters.value
+      timeLeft.value -= 1
       const interval = setInterval(() => {
-        this.timeLeft -= 1
-        if (this.timeLeft === 0){
-          this.timeLeft = 4
+        timeLeft.value -= 1
+        if (timeLeft.value === 0){
+          timeLeft.value = 4
           clearInterval(interval)
         }
       }, 1000)
-    },
-  }
+    }
+
+    return {
+      toasters,
+      timeLeft,
+      openNotification,
+      openNotificationElapse,
+    }
+  },
 })
 </script>
 

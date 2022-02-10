@@ -47,9 +47,7 @@ export default class ToastManager {
     const { key, timeoutMilliseconds, appearance, message } = args
 
     const _key = key || (this.toasters.value.length) + new Date().getTime()
-    const _appearance = (appearance && APPEARANCES.indexOf(appearance) !== -1)
-      ? appearance
-      : this.appearance
+    const _appearance = (appearance && APPEARANCES.indexOf(appearance) !== -1) ? appearance : this.appearance
     const timer = this.setTimer(_key, timeoutMilliseconds || this.timeout)
 
     // Add toaster to state
@@ -63,9 +61,13 @@ export default class ToastManager {
   }
 
   close(key) {
-    const i = this.toasters.value.findIndex(n => key === n.key)
-
-    clearTimeout(this.toasters.value[i].timer)
+    const i = this.toasters.value?.findIndex(n => key === n.key)
+    clearTimeout(this.toasters.value[i]?.timer)
     this.toasters.value.splice(i, 1)
+  }
+
+  closeAll() {
+    this.toasters.value.forEach(toast => clearTimeout(toast?.timer))
+    this.toasters.value.length = 0
   }
 }

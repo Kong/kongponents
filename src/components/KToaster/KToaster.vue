@@ -31,22 +31,15 @@ import KAlert, { appearances } from '@/components/KAlert/KAlert.vue'
 
 export const toasterAppearances = appearances
 
-/**
- * @typedef {Object} Toaster - toaster item
- * @property {String} apperance - 'success', 'info', 'warning', 'danger'
- * @property {String} key - unique identifier of toaster
- * @property {String} message - Text to display in toaster
- */
 export interface Toast {
-  appearance: string
-  key: any
-  message: string
+  appearance?: string // 'success', 'info', 'warning', 'danger'
+  key?: any // unique identifier of toaster
+  message: string // Text to display in toaster
 }
 
 export default defineComponent({
   name: 'KToaster',
   components: { KAlert },
-  // Changed the implementation to a prop to make it easier to utilize a render function in ./ToastManager.ts
   props: {
     toasterState: {
       type: Array as PropType<Toast[]>,
@@ -54,6 +47,7 @@ export default defineComponent({
       required: true,
     },
   },
+  emits: ['close'],
 })
 </script>
 

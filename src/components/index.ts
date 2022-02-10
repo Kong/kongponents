@@ -21,3 +21,4 @@ export { default as Krumbs } from './Krumbs' // KBreadcrumbs alias (backwards-co
 export { default as KBadge } from './KBadge/KBadge.vue'
 export { default as KClipboardProvider } from './KClipboardProvider'
 export { default as KToaster } from './KToaster/KToaster.vue'
+export { default as ToastManager } from './KToaster/ToastManager'

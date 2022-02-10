@@ -2,89 +2,96 @@ import { mount } from '@cypress/vue'
 import KToaster from '@/components/KToaster/KToaster.vue'
 import ToastManager from '@/components/KToaster/ToastManager'
 
+// Instance for all tests
+const tm = new ToastManager()
+
+// Close all existing toasts before each test, and delay to allow animation to complete
+beforeEach(() => {
+  tm.closeAll()
+  cy.wait(500)
+})
+
 describe('KToaster', () => {
-  // describe('KToaster.vue', () => {
-  //   it('renders toaster', () => {
-  //     const wrapper = mount(KToaster)
+  describe('KToaster.vue', () => {
+    it('renders toaster', () => {
+      const toasts = []
+      toasts.push({ message: 'hey toasty' })
+      toasts.push({ appearance: 'success', message: 'hey toasty' })
+      toasts.push({ appearance: 'danger', message: 'hey toasty' })
+      toasts.push({ appearance: 'danger', message: 'hey toasty' })
 
-  //     expect(wrapper.findAll('.toaster-container-outer span')).toHaveLength(0)
+      mount(KToaster, {
+        props: {
+          toasterState: toasts,
+        },
+      })
 
-  //     wrapper.vm.toasterState.push({ message: 'hey toasty' })
-  //     wrapper.vm.toasterState.push({ appearance: 'success', message: 'hey toasty' })
-  //     wrapper.vm.toasterState.push({ appearance: 'danger', message: 'hey toasty' })
-  //     wrapper.vm.toasterState.push({ appearance: 'danger', message: 'hey toasty' })
+      cy.get('body').find('div[role="alert"].success').its('length').should('eq', 1)
+      cy.get('body').find('div[role="alert"].danger').its('length').should('eq', 2)
+      cy.get('body').find('.toaster-item div.k-alert-msg').its('length').should('eq', 4)
+    })
+  })
 
-  //     expect(wrapper.findAll('div[role="alert"].success')).toHaveLength(1)
-  //     expect(wrapper.findAll('div[role="alert"].danger')).toHaveLength(2)
-  //     expect(wrapper.findAll('.toaster-container-outer div.k-alert-msg')).toHaveLength(4)
+  describe('ToastManager', () => {
+    it('opens toasters', () => {
+      tm.open('hey toasty')
+      tm.open({ message: 'yo toasty' })
+      tm.open({ key: 2, message: 'there has been an alert' })
+      cy.get('body .toaster-item').its('length').should('eq', 3)
+    })
 
-  //     expect(wrapper).toMatchSnapshot()
-  //   })
-  // })
+    it('opens toasters - invalid appearance', () => {
+      tm.open({ message: 'invalid appearance', appearance: 'info' })
+      cy.get('body .toaster-item').its('length').should('eq', 1)
 
-  // describe('ToastManager', () => {
-  //   it('opens toasters', () => {
-  //     const tm = new ToastManager()
+      cy.wrap(tm.toasters.value).its('length').should('eq', 1)
+      cy.wrap(tm.toasters.value[0].appearance).should('eq', 'info')
+    })
 
-  //     tm.open('hey toasty')
-  //     tm.open({message: 'yo toasty'})
-  //     tm.open({key: 2, message: 'there has been an alert'})
-  //     expect(tm.toasters).toHaveLength(3)
-  //   })
+    it('dismisses toasters after default timeout', () => {
+      tm.open('hey toasty')
+      tm.open('hey toasty')
 
-  //   it('opens toasters - invalid appearance', () => {
-  //     const tm = new ToastManager()
+      cy.wrap(tm.toasters.value).its('length').should('eq', 2).then(() => {
+        cy.wait(4900)
+        return cy.wrap(tm.toasters.value).its('length').should('eq', 2)
+      }).then(() => {
+        cy.wait(100)
+        return cy.wrap(tm.toasters.value).its('length').should('eq', 0)
+      })
+    })
 
-  //     tm.open({message: 'yo', appearance: 'ugly'})
-  //     expect(tm.toasters).toHaveLength(1)
-  //     expect(tm.toasters[0].appearance).toBe('info')
-  //   })
+    it('dismisses toasters after timeout per toast', () => {
+      tm.open({ message: 'hey toasty', timeoutMilliseconds: 1000 })
+      tm.open({ message: 'hey toasty', timeoutMilliseconds: 2000 })
+      tm.open({ message: 'hey toasty', timeoutMilliseconds: 3000 })
+      tm.open({ message: 'hey toasty' }) // default 5000 milliseconds
 
-  //   it('dismisses toasters after default timeout', () => {
-  //     const tm = new ToastManager()
+      cy.wrap(tm.toasters.value).its('length').should('eq', 4).then(() => {
+        cy.wait(1000)
+        return cy.wrap(tm.toasters.value).its('length').should('eq', 3)
+      }).then(() => {
+        cy.wait(1000)
+        return cy.wrap(tm.toasters.value).its('length').should('eq', 2)
+      }).then(() => {
+        cy.wait(1000)
+        return cy.wrap(tm.toasters.value).its('length').should('eq', 1)
+      }).then(() => {
+        cy.wait(1000)
+        return cy.wrap(tm.toasters.value).its('length').should('eq', 0)
+      })
+    })
 
-  //     tm.open('hey toasty')
-  //     tm.open('hey toasty')
-  //     expect(tm.toasters).toHaveLength(2)
-  //     jest.advanceTimersByTime(4999)
-  //     expect(tm.toasters).toHaveLength(2)
-  //     jest.advanceTimersByTime(1)
-  //     expect(tm.toasters).toHaveLength(0)
-  //   })
+    it('closes toasters', () => {
+      tm.open({ key: '#123', message: 'hey toasty' })
+      tm.open({ key: '#345', message: 'another toasty message' })
 
-  //   it('dismisses toasters after timeout per toast', () => {
-  //     const tm = new ToastManager()
+      cy.wrap(tm.toasters.value).its('length').should('eq', 2).then(() => {
+        tm.close('#345')
 
-  //     tm.open({ message: 'hey toasty', timeoutMilliseconds: 1000 })
-  //     tm.open({ message: 'hey toasty', timeoutMilliseconds: 2000 })
-  //     tm.open({ message: 'hey toasty', timeoutMilliseconds: 3000 })
-  //     tm.open({ message: 'hey toasty' }) // default 5000 milliseconds
-
-  //     expect(tm.toasters).toHaveLength(4)
-  //     jest.advanceTimersByTime(1000)
-  //     expect(tm.toasters).toHaveLength(3)
-  //     jest.advanceTimersByTime(1000)
-  //     expect(tm.toasters).toHaveLength(2)
-  //     jest.advanceTimersByTime(1000)
-  //     expect(tm.toasters).toHaveLength(1)
-  //     jest.advanceTimersByTime(1000)
-  //     expect(tm.toasters).toHaveLength(1)
-  //     jest.advanceTimersByTime(1000)
-  //     expect(tm.toasters).toHaveLength(0)
-  //   })
-
-  //   it('closes toasters', () => {
-  //     const tm = new ToastManager()
-
-  //     tm.open({ key: '#123', message: 'hey toasty' })
-  //     tm.open({ key: '#345', message: 'hey toasty' })
-
-  //     expect(tm.toasters).toHaveLength(2)
-
-  //     tm.close('#345')
-
-  //     expect(tm.toasters).toHaveLength(1)
-  //     expect(tm.toasters[0].key).toBe('#123')
-  //   })
-  // })
+        cy.wrap(tm.toasters.value).its('length').should('eq', 1)
+        cy.wrap(tm.toasters.value[0].key).should('eq', '#123')
+      })
+    })
+  })
 })

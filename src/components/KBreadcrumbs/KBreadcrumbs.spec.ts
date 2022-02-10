@@ -16,8 +16,8 @@ describe('KBreadcrumbs', () => {
       },
     })
 
-    cy.get('.k-breadcrumbs').find('li').should('have.length', 1)
-    cy.get('.k-breadcrumbs').find('li .k-breadcrumb-icon').should('have.length', 1)
+    cy.get('.k-breadcrumbs').find('li').its('length').should('eq', 1)
+    cy.get('.k-breadcrumbs').find('li .k-breadcrumb-icon').its('length').should('eq', 1)
   })
 
   it.only('renders breadcrumb links without needing a router', () => {
@@ -34,6 +34,6 @@ describe('KBreadcrumbs', () => {
       },
     })
 
-    cy.get('.k-breadcrumbs').find('li').should('have.length', 1)
+    cy.get('.k-breadcrumbs').find('li').its('length').should('eq', 1)
   })
 })
