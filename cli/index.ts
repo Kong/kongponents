@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import chalk from 'chalk'
+import pc from 'picocolors'
 import boxen from 'boxen'
 import inquirer from 'inquirer'
 import emoji from 'node-emoji'
@@ -32,7 +32,7 @@ const questions = [
 const createKongponent = async (): Promise<void> => {
   console.clear()
 
-  console.log(boxen(chalk.cyanBright.bold(`${emoji.get('sparkles')} Create a new Kongponent ${emoji.get('sparkles')}`), { margin: 1, padding: 2 }))
+  console.log(boxen(pc.cyan(pc.bold(`${emoji.get('sparkles')} Create a new Kongponent ${emoji.get('sparkles')}`)), { margin: 1, padding: 2 }))
 
   const answers = await inquirer.prompt(questions)
 

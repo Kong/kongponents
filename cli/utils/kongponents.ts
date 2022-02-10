@@ -1,4 +1,4 @@
-import chalk from 'chalk'
+import pc from 'picocolors'
 import fs from 'fs'
 import { pascalCase, sleep, kongponentSrcPath, titleCaseComponentName, kongponentDocFilename } from './'
 import { createSpinner, Spinner } from 'nanospinner'
@@ -41,7 +41,7 @@ export async function createComponentFiles(name: string): Promise<void> {
   fs.mkdirSync(kongponentSrcPath(name))
 
   spinner.success({
-    text: `Created src/components/${chalk.cyan(componentName)} directory.`,
+    text: `Created src/components/${pc.cyan(componentName)} directory.`,
   })
 
   spinner.start({
@@ -65,7 +65,7 @@ export async function createComponentFiles(name: string): Promise<void> {
   })
 
   spinner.success({
-    text: `Created the ${chalk.cyan(componentName + '.vue')} and ${chalk.cyan(componentName + '.spec.ts')} files.`,
+    text: `Created the ${pc.cyan(componentName + '.vue')} and ${pc.cyan(componentName + '.spec.ts')} files.`,
   })
 
   spinner.start({
@@ -79,18 +79,18 @@ export async function createComponentFiles(name: string): Promise<void> {
       fs.appendFileSync('src/components/index.ts', `export { default as ${componentName} } from './${componentName}/${componentName}.vue'\n`)
 
       spinner.success({
-        text: `Added ${chalk.cyan(componentName + '.vue')} to the exports in src/components/index.ts.`,
+        text: `Added ${pc.cyan(componentName + '.vue')} to the exports in src/components/index.ts.`,
       })
     } else {
       // File already includes export
       spinner.error({
-        text: chalk.red(`Warning: ${componentName} is already exported from src/components/index.ts.`) + chalk.yellow('\n  - Skipped adding the duplicate export to src/components/index.ts'),
+        text: pc.red(`Warning: ${componentName} is already exported from src/components/index.ts.`) + pc.yellow('\n  - Skipped adding the duplicate export to src/components/index.ts'),
       })
     }
   } else {
     // src/components/index.ts does not exist
     spinner.error({
-      text: chalk.red('Warning: src/components/index.ts does not exist.') + chalk.yellow('\n  - You will need to manually add the new component to the export file.'),
+      text: pc.red('Warning: src/components/index.ts does not exist.') + pc.yellow('\n  - You will need to manually add the new component to the export file.'),
     })
   }
 
@@ -135,7 +135,7 @@ export async function createComponentFiles(name: string): Promise<void> {
         docsFileExists = true
 
         spinner.error({
-          text: chalk.red(`Warning: ${newFilePath} already exists.`) + chalk.yellow('\n  - Skipped docs markdown file generation as to not overwrite the existing file.'),
+          text: pc.red(`Warning: ${newFilePath} already exists.`) + pc.yellow('\n  - Skipped docs markdown file generation as to not overwrite the existing file.'),
         })
       } else {
         // Replace template strings
@@ -146,7 +146,7 @@ export async function createComponentFiles(name: string): Promise<void> {
         fs.writeFileSync(newFilePath, fileContent, 'utf8')
 
         spinner.success({
-          text: `Created the docs/components/${chalk.cyan(kongponentDocFilename(name) + '.md')} file.`,
+          text: `Created the docs/components/${pc.cyan(kongponentDocFilename(name) + '.md')} file.`,
         })
       }
 
@@ -154,7 +154,7 @@ export async function createComponentFiles(name: string): Promise<void> {
         text: 'Verifying file structure...',
       })
 
-      const docsFile = docsFileExists === false ? `${kongponentDocFilename(name)}.md` : chalk.yellow(`${kongponentDocFilename(name)}.md (already existed, not modified)`)
+      const docsFile = docsFileExists === false ? `${kongponentDocFilename(name)}.md` : pc.yellow(`${kongponentDocFilename(name)}.md (already existed, not modified)`)
 
       spinner.success({
         text: `Created the new '${componentName}' Kongponent and its related files:
@@ -170,7 +170,7 @@ export async function createComponentFiles(name: string): Promise<void> {
     `,
       })
 
-      console.log(`${chalk.bold('Note')}: You will need to manually add the new ${chalk.cyan(kongponentDocFilename(name) + '.md')} file to \n      the VuePress sidebar in docs/.vuepress/config.ts.`)
+      console.log(`${pc.bold('Note')}: You will need to manually add the new ${pc.cyan(kongponentDocFilename(name) + '.md')} file to \n      the VuePress sidebar in docs/.vuepress/config.ts.`)
       // Empty line
       console.log('')
     }
