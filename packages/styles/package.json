@@ -15,8 +15,5 @@
   "homepage": "https://github.com/Kong/kongponents#readme",
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "tailwindcss": "^1.4.6"
   }
 }
