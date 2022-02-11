@@ -1,6 +1,6 @@
 import { mount, createLocalVue } from '@vue/test-utils'
-import KTable from '@/KTable/KTable'
 import VueCompositionAPI from '@vue/composition-api'
+import KTable from '@/KTable/KTable'
 
 const tick = async (vm, times) => {
   for (let i = 0; i < times; ++i) {
