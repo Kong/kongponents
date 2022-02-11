@@ -270,6 +270,17 @@ of the input, dropdown, and selected item.
 
 Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `false`. See [`KPop` docs](popover.html#positionfixed) for more information.
 
+### filterFunc
+
+Use this prop to override the default filter function if you want to do something like filter on an attribute other than `label`. Your filter function
+should take as parameter a JSON object containing the items to filter on (`items`) and the query string (`query`) and return the filtered items. See [Slots](#slots) for an example.
+
+```js
+myCustomFilter ({ items, query }) {
+  return items.filter(anItem => anItem.label.includes(query))
+}
+```
+
 ### v-model
 
 KSelect works as regular inputs do using v-model for data binding:
@@ -316,18 +327,18 @@ You can pass any input attribute and it will get properly bound to the element.
 
 ## Slots
 
-You can use the `item-template` slot to customize the look and feel of your items. Use slots to gain access to the item data.
+You can use the `item-template` slot to customize the look and feel of your items. Use slots to gain access to the `item` data.
 
-<KSelect :items="myItems">
-  <template v-slot:item-template="{item}" width="500">
-    <div class="select-item-label">{{item.label}}</div>
-    <div class="select-item-desc">{{item.description}}</div>
+<KSelect :items="myItems" width="500" :filterFunc="customFilter">
+  <template v-slot:item-template="{ item }">
+    <div class="select-item-label">{{ item.label }}</div>
+    <div class="select-item-desc">{{ item.description }}</div>
   </template>
 </KSelect>
 
 ```vue
-<KSelect :items="myItems">
-  <template v-slot:item-template="{item}" width="500">
+<KSelect :items="myItems" width="500" :filterFunc="customFilter">
+  <template v-slot:item-template="{ item }">
     <div class="select-item-label">{{item.label}}</div>
     <div class="select-item-desc">{{item.description}}</div>
   </template>
@@ -351,6 +362,12 @@ export default {
           })
         }
       return myItems
+    },
+    customFilter (items, queryStr) {
+      return items.filter(item => {
+        return item.label.toLowerCase().includes(queryStr.toLowerCase()) ||
+          item.description.toLowerCase().includes(queryStr.toLowerCase())
+      })
     }
   }
 }
@@ -395,6 +412,9 @@ export default {
   methods: {
     handleItemSelect (item) {
       this.mySelect = item.label
+    },
+    customFilter ({items, query}) {
+      return items.filter(item => item.label.toLowerCase().includes(query.toLowerCase()) || item.description.toLowerCase().includes(query.toLowerCase()))
     }
   }
 }

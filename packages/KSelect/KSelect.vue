@@ -210,6 +210,13 @@ export default {
       default: false
     },
     /**
+     * Override default filter functionality of case-insensitive search on label
+     */
+    filterFunc: {
+      type: Function,
+      default: ({ items, query }) => items.filter(item => item.label.toLowerCase().includes(query.toLowerCase()))
+    },
+    /**
      * Test mode - for testing only, strips out generated ids
      */
     testMode: {
@@ -262,7 +269,7 @@ export default {
       }
     },
     filteredItems: function () {
-      return this.selectItems.filter(item => item.label.toLowerCase().includes(this.filterStr.toLowerCase()))
+      return this.filterFunc({ items: this.selectItems, query: this.filterStr })
     },
     placeholderText () {
       if (this.placeholder) {
