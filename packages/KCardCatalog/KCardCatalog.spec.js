@@ -1,4 +1,5 @@
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
+import VueCompositionAPI from '@vue/composition-api'
 import KCardCatalog from '@/KCardCatalog/KCardCatalog'
 // import KCatalogItem from '@/KCardCatalog/KCatalogItem'
 
@@ -59,6 +60,13 @@ const largeDataSet = [
     description: "The item's description for number 10"
   }
 ]
+
+// Use the Composition API
+beforeEach(() => {
+  const localVue = createLocalVue()
+
+  localVue.use(VueCompositionAPI)
+})
 
 describe('KCardCatalog', () => {
   function getItems (count) {

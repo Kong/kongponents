@@ -1,5 +1,6 @@
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import KTable from '@/KTable/KTable'
+import VueCompositionAPI from '@vue/composition-api'
 
 const tick = async (vm, times) => {
   for (let i = 0; i < times; ++i) {
@@ -104,6 +105,14 @@ const options = {
  *   testMode: 'true' || 'loading'
  * }
  */
+
+// Use the Composition API
+beforeEach(() => {
+  const localVue = createLocalVue()
+
+  localVue.use(VueCompositionAPI)
+})
+
 describe('KTable', () => {
   describe('default', () => {
     it('renders link in action slot', async () => {
