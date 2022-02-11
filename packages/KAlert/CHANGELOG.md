@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.9.6 (2022-02-11)
+
+
+### Bug Fixes
+
+* **composition-api:** fix usage of composition api ([#487](https://github.com/Kong/kongponents/issues/487)) ([c0827ca](https://github.com/Kong/kongponents/commit/c0827caec64bf055e1cc6a54b4f26ced5f811795))
+
+
+
+
+
 ## 6.9.5 (2022-02-10)
 
 
