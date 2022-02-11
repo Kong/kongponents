@@ -207,28 +207,6 @@ You can configure the button text when an item is selected, if `appearance` is t
 
 <KSelect appearance='button' width="225" @selected="item => handleItemSelect(item)" :buttonText="`Show ${mySelect} per page`" :items="items" />
 
-<script>
-export default {
-  data() {
-    return {
-      mySelect: '',
-      items: [{
-        label: '25',
-        value: '25'
-      }, {
-        label: '50',
-        value: '50'
-      }]
-    }
-  },
-  methods: {
-    handleItemSelect (item) {
-      this.mySelect = item.label
-    }
-  }
-}
-</script>
-
 ```vue
 <KSelect
   appearance='button'
@@ -263,10 +241,10 @@ export default {
 
 ### width
 
-You can pass a `width` string for dropdown. By default the `width` is `170px`. This is the width
+You can pass a `width` string for dropdown. By default the `width` is `200px`. This is the width
 of the input, dropdown, and selected item.
 
-<KSelect width="100" :items="[{
+<KSelect width="250" :items="[{
     label: 'test',
     value: 'test',
     selected: true
@@ -336,6 +314,49 @@ You can pass any input attribute and it will get properly bound to the element.
 <KSelect disabled placeholder="type something" :items="[{ label: 'test', value: 'test' }]" />
 ```
 
+## Slots
+
+You can use the `item-template` slot to customize the look and feel of your items. Use slots to gain access to the item data.
+
+<KSelect :items="myItems">
+  <template v-slot:item-template="{item}" width="500">
+    <div class="select-item-label">{{item.label}}</div>
+    <div class="select-item-desc">{{item.description}}</div>
+  </template>
+</KSelect>
+
+```vue
+<KSelect :items="myItems">
+  <template v-slot:item-template="{item}" width="500">
+    <div class="select-item-label">{{item.label}}</div>
+    <div class="select-item-desc">{{item.description}}</div>
+  </template>
+</KSelect>
+
+<script>
+export default {
+  data() {
+    return {
+      myItems: this.getItems(5),
+    }
+  },
+  methods: {
+    getItems(count) {
+      let myItems = []
+        for (let i = 0; i < count; i++) {
+          myItems.push({
+            label: "Item " + i,
+            value: "item_" + i,
+            description: "The item's description for number " + i
+          })
+        }
+      return myItems
+    }
+  }
+}
+</script>
+```
+
 ## Events
 
 | Event     | returns             |
@@ -343,3 +364,49 @@ You can pass any input attribute and it will get properly bound to the element.
 | `selected` | `selectedItem` Object |
 | `input` | `selectedItem` Object or null |
 | `change` | `selectedItem` Object or null |
+
+<script>
+function getItems(count) {
+  let myItems = []
+    for (let i = 0; i < count; i++) {
+      myItems.push({
+        label: "Item " + i,
+        value: "item_" + i,
+        description: "The item's description for number " + i
+      })
+    }
+  return myItems
+}
+
+export default {
+  data() {
+    return {
+      myItems: getItems(5),
+      mySelect: '',
+      items: [{
+        label: '25',
+        value: '25'
+      }, {
+        label: '50',
+        value: '50'
+      }]
+    }
+  },
+  methods: {
+    handleItemSelect (item) {
+      this.mySelect = item.label
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+  .select-item-label {
+    color: blue;
+    font-weight: bold;
+  }
+
+  .select-item-desc {
+    color: red;
+  }
+</style>

@@ -93,16 +93,20 @@
                 :is-open="isToggled"
                 name="items"
               >
-                <div v-if="filteredItems.length">
-                  <KSelectItem
-                    v-for="item in filteredItems"
-                    :key="item.key"
-                    :item="item"
-                    @selected="handleItemSelect"
-                  />
-                </div>
                 <KSelectItem
-                  v-else
+                  v-for="item in filteredItems"
+                  :key="item.key"
+                  :item="item"
+                  @selected="handleItemSelect">
+                  <template v-slot:content>
+                    <slot
+                      :item="item"
+                      name="item-template"
+                    />
+                  </template>
+                </KSelectItem>
+                <KSelectItem
+                  v-if="!filteredItems.length"
                   key="k-select-empty-state"
                   :item="{ label: 'No results', value: 'no_results' }"
                   class="k-select-empty-item"/>
@@ -242,9 +246,9 @@ export default {
       let w
 
       if (!this.width) {
-        w = 170
+        w = 200
         if (this.appearance === 'button') {
-          w = 200
+          w = 230
         }
       } else {
         w = this.width
