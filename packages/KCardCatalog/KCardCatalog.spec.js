@@ -1,4 +1,5 @@
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
+import VueCompositionAPI from '@vue/composition-api'
 import KCardCatalog from '@/KCardCatalog/KCardCatalog'
 // import KCatalogItem from '@/KCardCatalog/KCatalogItem'
 
@@ -60,6 +61,15 @@ const largeDataSet = [
   }
 ]
 
+let localVue
+
+// Use the Composition API
+beforeEach(() => {
+  localVue = createLocalVue()
+
+  localVue.use(VueCompositionAPI)
+})
+
 describe('KCardCatalog', () => {
   function getItems (count) {
     let myItems = []
@@ -83,6 +93,7 @@ describe('KCardCatalog', () => {
     it('renders proper cards when using props', () => {
       const title = 'Cool beans!'
       const wrapper = mount(KCardCatalog, {
+        localVue,
         propsData: {
           title,
           items: getItems(5),
@@ -100,6 +111,7 @@ describe('KCardCatalog', () => {
       const slotContent = 'Look mah! No props (except testMode)'
 
       const wrapper = mount(KCardCatalog, {
+        localVue,
         propsData: {
           testMode: true
         },
@@ -116,6 +128,7 @@ describe('KCardCatalog', () => {
       const emptySlotContent = 'Look mah! I am empty! (except testMode)'
 
       const wrapper = mount(KCardCatalog, {
+        localVue,
         propsData: {
           testMode: true,
           isLoading: false,
@@ -136,6 +149,7 @@ describe('KCardCatalog', () => {
       const errorSlotContent = 'Look mah! I am erroneous! (except testMode)'
 
       const wrapper = mount(KCardCatalog, {
+        localVue,
         propsData: {
           testMode: true,
           hasError: true
@@ -151,6 +165,7 @@ describe('KCardCatalog', () => {
 
     it('can change card sizes - small', () => {
       const wrapper = mount(KCardCatalog, {
+        localVue,
         propsData: {
           items: getItems(5),
           cardSize: 'small',
@@ -164,6 +179,7 @@ describe('KCardCatalog', () => {
 
     it('can change card sizes - large', () => {
       const wrapper = mount(KCardCatalog, {
+        localVue,
         propsData: {
           items: getItems(5),
           cardSize: 'large',
@@ -177,6 +193,7 @@ describe('KCardCatalog', () => {
 
     it('handles truncation', () => {
       const wrapper = mount(KCardCatalog, {
+        localVue,
         propsData: {
           items: [longItem],
           testMode: true
@@ -189,6 +206,7 @@ describe('KCardCatalog', () => {
 
     it('can disable truncation', () => {
       const wrapper = mount(KCardCatalog, {
+        localVue,
         propsData: {
           items: [longItem],
           noTruncation: true,
@@ -202,6 +220,7 @@ describe('KCardCatalog', () => {
 
     it('matches snapshot', () => {
       const wrapper = mount(KCardCatalog, {
+        localVue,
         propsData: {
           testMode: true
         }
@@ -215,6 +234,7 @@ describe('KCardCatalog', () => {
     it('displays an empty state when no data is available', async () => {
       const fetcher = () => new Promise(resolve => resolve({ data: [] }))
       const wrapper = mount(KCardCatalog, {
+        localVue,
         propsData: {
           fetcher: fetcher,
           pageSize: 4
@@ -229,6 +249,7 @@ describe('KCardCatalog', () => {
 
     it('displays a loading skeletion when the "isLoading" prop is set to true"', () => {
       const wrapper = mount(KCardCatalog, {
+        localVue,
         propsData: {
           items: [],
           isLoading: true,
@@ -242,6 +263,7 @@ describe('KCardCatalog', () => {
 
     it('displays an error state when the "hasError" prop is set to true"', () => {
       const wrapper = mount(KCardCatalog, {
+        localVue,
         propsData: {
           options: [],
           hasError: true,
@@ -257,6 +279,7 @@ describe('KCardCatalog', () => {
   describe('pagination', () => {
     it('displays pagination when fetcher is provided', async () => {
       const wrapper = mount(KCardCatalog, {
+        localVue,
         propsData: {
           fetcher: () => {
             return largeDataSet
@@ -274,6 +297,7 @@ describe('KCardCatalog', () => {
 
     it('allows disabling pagination', async () => {
       const wrapper = mount(KCardCatalog, {
+        localVue,
         propsData: {
           fetcher: () => {
             return largeDataSet
@@ -292,6 +316,7 @@ describe('KCardCatalog', () => {
 
     it('does not display pagination when no fetcher', async () => {
       const wrapper = mount(KCardCatalog, {
+        localVue,
         propsData: {
           items: [],
           paginationPageSizes: [10, 20, 30, 40]

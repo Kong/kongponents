@@ -1,4 +1,5 @@
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
+import VueCompositionAPI from '@vue/composition-api'
 import KTable from '@/KTable/KTable'
 
 const tick = async (vm, times) => {
@@ -104,10 +105,21 @@ const options = {
  *   testMode: 'true' || 'loading'
  * }
  */
+
+let localVue
+
+// Use the Composition API
+beforeEach(() => {
+  localVue = createLocalVue()
+
+  localVue.use(VueCompositionAPI)
+})
+
 describe('KTable', () => {
   describe('default', () => {
     it('renders link in action slot', async () => {
       const wrapper = await mount(KTable, {
+        localVue,
         propsData: {
           testMode: 'true',
           headers: options.headers,
@@ -130,6 +142,7 @@ describe('KTable', () => {
 
     it('has hover class when passed', async () => {
       const wrapper = await mount(KTable, {
+        localVue,
         propsData: {
           testMode: 'true',
           headers: options.headers,
@@ -148,6 +161,7 @@ describe('KTable', () => {
   describe('sorting', () => {
     it('should have sortable class when passed', async () => {
       const wrapper = await mount(KTable, {
+        localVue,
         propsData: {
           testMode: 'true',
           headers: options.headers,
@@ -165,6 +179,7 @@ describe('KTable', () => {
 
     it('should allow disabling sorting', async () => {
       const wrapper = await mount(KTable, {
+        localVue,
         propsData: {
           testMode: 'true',
           headers: options.headers,
@@ -186,6 +201,7 @@ describe('KTable', () => {
     it('@row:event', async () => {
       const evtTrigger = jest.fn()
       const wrapper = await mount(KTable, {
+        localVue,
         attachToDocument: true,
         propsData: {
           testMode: 'true',
@@ -208,6 +224,7 @@ describe('KTable', () => {
     it('@cell:event', async () => {
       const evtTrigger = jest.fn()
       const wrapper = await mount(KTable, {
+        localVue,
         attachToDocument: true,
         propsData: {
           testMode: 'true',
@@ -239,6 +256,7 @@ describe('KTable', () => {
     it('displays an empty state when no data is available', async () => {
       const fetcher = () => new Promise(resolve => resolve({ data: [] }))
       const wrapper = mount(KTable, {
+        localVue,
         propsData: {
           testMode: 'true',
           fetcher: fetcher,
@@ -257,6 +275,7 @@ describe('KTable', () => {
       const emptySlotContent = 'Look mah! I am empty! (except testMode)'
       const fetcher = () => new Promise(resolve => resolve({ data: [] }))
       const wrapper = mount(KTable, {
+        localVue,
         propsData: {
           testMode: 'true',
           fetcher: fetcher,
@@ -276,6 +295,7 @@ describe('KTable', () => {
 
     it('displays a loading skeletion when the "isLoading" prop is set to true"', () => {
       const wrapper = mount(KTable, {
+        localVue,
         propsData: {
           testMode: 'loading',
           isLoading: true
@@ -288,6 +308,7 @@ describe('KTable', () => {
 
     it('displays an error state when the "hasError" prop is set to true"', () => {
       const wrapper = mount(KTable, {
+        localVue,
         propsData: {
           testMode: 'true',
           hasError: true
@@ -302,6 +323,7 @@ describe('KTable', () => {
     it('displays an error state (slot)', async () => {
       const errorSlotContent = 'Look mah! I am erroneous! (except testMode)'
       const wrapper = mount(KTable, {
+        localVue,
         propsData: {
           testMode: 'true',
           hasError: true
@@ -326,6 +348,7 @@ describe('KTable', () => {
       }
 
       const wrapper = mount(KTable, {
+        localVue,
         propsData: {
           testMode: 'loading',
           fetcher: slowFetcher,
@@ -342,6 +365,7 @@ describe('KTable', () => {
   describe('pagination', () => {
     it('displays pagination when fetcher provided', async () => {
       const wrapper = mount(KTable, {
+        localVue,
         propsData: {
           testMode: 'true',
           fetcher: () => {
@@ -360,6 +384,7 @@ describe('KTable', () => {
 
     it('does not display pagination when pagination disabled', async () => {
       const wrapper = mount(KTable, {
+        localVue,
         propsData: {
           testMode: 'true',
           fetcher: () => {
@@ -379,6 +404,7 @@ describe('KTable', () => {
 
     it('does not display pagination when no fetcher', async () => {
       const wrapper = mount(KTable, {
+        localVue,
         propsData: {
           testMode: 'true',
           options,
