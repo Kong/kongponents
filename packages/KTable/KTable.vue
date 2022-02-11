@@ -158,16 +158,13 @@
 
 <script>
 import { uuid } from 'vue-uuid'
-import Vue from 'vue'
-import VueCompositionAPI, { computed, defineComponent, onMounted, ref, watch } from '@vue/composition-api'
+import { computed, defineComponent, onMounted, ref, watch } from '@vue/composition-api'
 import KButton from '@kongponents/kbutton/KButton.vue'
 import KEmptyState from '@kongponents/kemptystate/KEmptyState.vue'
 import KSkeleton from '@kongponents/kskeleton/KSkeleton.vue'
 import KPagination from '@kongponents/kpagination/KPagination.vue'
 import KIcon from '@kongponents/kicon/KIcon.vue'
 import { clientSideSorter, useDebounce, useRequest } from '@kongponents/utils/utils.js'
-
-Vue.use(VueCompositionAPI)
 
 /**
  * @deprecated
