@@ -6,7 +6,7 @@ sidebarDepth: 1
 
 ![Kongponents Logo](/img/kongponents-logo.jpg)
 
-Kongponents is a Vue component library of frequently needed UI elements. They were developed to solve [Kong](https://konghq.com)'s application needs, but are generic enough to use in any web application.
+Kongponents is a Vue component library of frequently needed UI elements. They were developed to solve [Kong's](https://konghq.com) application needs, but are generic enough to use in any web application.
 
 ## Installation
 
