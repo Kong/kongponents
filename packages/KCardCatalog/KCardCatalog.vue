@@ -131,12 +131,11 @@
 
 <script>
 import { defineComponent, ref, onMounted, watch } from '@vue/composition-api'
-import KButton from '@kongponents/kbutton/KButton.vue'
-import KEmptyState from '@kongponents/kemptystate/KEmptyState.vue'
-import KSkeleton from '@kongponents/kskeleton/KSkeleton.vue'
+import KButton from '@kongponents/kbutton'
+import KEmptyState from '@kongponents/kemptystate'
+import { KSkeleton, KSkeletonBox } from '@kongponents/kskeleton'
 import KCatalogItem from './KCatalogItem.vue'
-import KPagination from '@kongponents/kpagination/KPagination.vue'
-import KSkeletonBox from '@kongponents/kskeleton/KSkeletonBox.vue'
+import KPagination from '@kongponents/kpagination'
 import { useRequest } from '@kongponents/utils/utils.js'
 
 export default defineComponent({

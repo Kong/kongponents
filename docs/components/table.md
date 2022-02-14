@@ -10,6 +10,12 @@ The `KTable` component requires the [`@vue/composition-api`](https://github.com/
 yarn add @vue/composition-api
 ```
 
+When importing `KTable` into your project, you will likely need to explicity import the vue file as shown below
+
+```js
+import KTable from '@kongponents/ktable/KTable.vue'
+```
+
 :::
 
 Pass a fetcher function to build a slot-able table.

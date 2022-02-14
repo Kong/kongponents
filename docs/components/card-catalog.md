@@ -7,6 +7,12 @@ The `KCardCatalog` component requires the [`@vue/composition-api`](https://githu
 yarn add @vue/composition-api
 ```
 
+When importing `KCardCatalog` into your project, you will likely need to explicity import the vue file as shown below
+
+```js
+import KCardCatalog from '@kongponents/kcardcatalog/KCardCatalog.vue'
+```
+
 :::
 
 **KCardCatalog** - A grid view of KCards
