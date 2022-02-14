@@ -3,6 +3,7 @@
   "version": "6.9.6",
   "description": "Icon component.",
   "main": "dist/KIcon.umd.min.js",
+  "module": "KIcon",
   "componentName": "KIcon",
   "source": "KIcon.vue",
   "files": [

@@ -3,6 +3,7 @@
   "version": "6.9.6",
   "description": "Empty state component",
   "main": "dist/KEmptyState.umd.min.js",
+  "module": "KEmptyState.vue",
   "componentName": "KEmptyState",
   "source": "KEmptyState.vue",
   "files": [

@@ -3,6 +3,7 @@
   "version": "6.9.6",
   "description": "Pagination component",
   "main": "dist/KPagination.umd.min.js",
+  "module": "KPagination.vue",
   "componentName": "KPagination",
   "source": "KPagination.vue",
   "files": [

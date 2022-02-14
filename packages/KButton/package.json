@@ -3,6 +3,7 @@
   "version": "6.9.6",
   "description": "Button component",
   "main": "dist/KButton.umd.min.js",
+  "module": "KButton.vue",
   "componentName": "KButton",
   "source": "KButton.vue",
   "files": [

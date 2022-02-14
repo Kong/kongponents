@@ -3,6 +3,7 @@
   "version": "6.9.6",
   "description": "Loading/Skeleton state component.",
   "main": "dist/KSkeleton.umd.min.js",
+  "module": "KSkeleton.vue",
   "componentName": "KSkeleton",
   "source": "index.js",
   "files": [
