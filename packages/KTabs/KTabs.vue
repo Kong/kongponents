@@ -89,6 +89,7 @@ export default {
     list-style: none;
     font-size: 18px;
     line-height: 20px;
+    border-bottom: 2px solid var(--KTabsBottomBorderColor, var(--grey-300, color(grey-300)));
 
     .tab-item {
       position: relative;
@@ -107,7 +108,7 @@ export default {
       }
       &.active,
       &:hover {
-        border-bottom: 4px solid var(--KTabsBottomBorder, var(--teal-300, color(teal-300)));
+        border-bottom: 4px solid var(--KTabBottomBorderColor, var(--teal-300, color(teal-300)));
         .tab-link { color: var(--KTabsActiveColor, var(--black-500, color(black-500))); }
       }
     }
