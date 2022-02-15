@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.10.3 (2022-02-15)
+
+
+### Bug Fixes
+
+* **krumbs:** fix kicon prop ([#497](https://github.com/Kong/kongponents/issues/497)) ([b31218f](https://github.com/Kong/kongponents/commit/b31218f5af2bcb6159be408cb43aa46e373ae82f))
+
+
+
+
+
 ## 6.10.2 (2022-02-15)
 
 **Note:** Version bump only for package @kongponents/ktextarea
