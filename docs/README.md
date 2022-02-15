@@ -1,6 +1,7 @@
 ---
 title: Getting Started
 next: false
+sidebarDepth: 2
 ---
 
 <img src="../kongponents-logo.jpg" />
@@ -20,6 +21,8 @@ $ yarn add @kongponents/styles @kongponents/kbutton
 
 $ npm install @kongponents/styles @kongponents/kbutton
 ```
+
+### Transpile dependencies
 
 You will likely need to transpile all of the `@kongponents` packages in your project. If your project already has a `vue.config.js` file, just add the following `transpileDependencies` entry
 
@@ -59,6 +62,60 @@ module.exports = (env) => {
   }
 }
 ```
+
+### Raw loader
+
+The `KIcon` component, utilized within many other components, imports .svg files directly, so a loader is needed in order to render these in your application such as the webpack [raw-loader](https://webpack.js.org/loaders/raw-loader/).
+
+Start by installing `raw-loader`
+
+```sh
+yarn add --dev raw-loader
+```
+
+To utilize the loader, in your `vue.config.js` file, add the following inside `chainWebpack`
+
+```js
+module.exports = {
+  chainWebpack: (config) => {
+    // SVG Loader
+    // With the following SVG rules, svg files may be imported from packages, Vue, etc. normally.
+    // If referencing a SVG file from src/assets/img (local) you MUST add '.svg?local' suffix to the file path
+    // for the webpack loader to properly render the file.
+
+    const svgRule = config.module.rule('svg')
+
+    svgRule.uses.clear()
+    svgRule
+      .oneOf('local')
+      .resourceQuery(/local/)
+      .use('url')
+      .loader('url-loader')
+      .options({
+        limit: 10000,
+        name: 'img/[name].[hash:7].[ext]'
+      }).end().end()
+      .oneOf('normal')
+      .use('raw')
+      .loader('raw-loader')
+      .end().end()
+  },
+}
+```
+
+If you need to reference local SVG files (e.g. image assets for CSS background images) you will need to add the suffix `?local` to the end of the image filename. For example:
+
+```html
+<img src="/path/to/img/picture.svg?local">
+
+<style>
+  .image {
+    background-image: url('../img/picture.svg?local');
+  }
+</style>
+```
+
+### CSS variables
 
 If you choose to utilize any of the [CSS custom properties (variables)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) included in the `@kongponents` packages and your project uses [PostCSS](https://postcss.org/), you will likely need use the [`postcss-custom-properties` PostCSS plugin](https://github.com/postcss/postcss-custom-properties) so that the variables are preserved in their original form.
 

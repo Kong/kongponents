@@ -184,8 +184,8 @@ You can read more about the viewBox attribute
 ## Usage
 
 :::warning
-KIcon imports .svg file types directly, so a loader is needed in order to render in your application such as the webpack
-[raw-loader](https://webpack.js.org/loaders/raw-loader/)
+KIcon imports .svg files directly, so a loader is needed in order to render these in your application such as the webpack
+[raw-loader](https://webpack.js.org/loaders/raw-loader/). [See here for more information](/#raw-loader).
 :::
 
 Check out the [contributing](/contributing/adding-an-icon.html) docs to learn about adding new icons to `KIcon`.
