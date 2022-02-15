@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.4.1 (2022-02-15)
+
+
+### Bug Fixes
+
+* **ktabs:** add bottom border for tabs ([#494](https://github.com/Kong/kongponents/issues/494)) ([5a6510c](https://github.com/Kong/kongponents/commit/5a6510cd902ef2c8e443f6b999e068bbee10278f))
+
+
+
+
+
 # 0.4.0 (2022-02-15)
 
 
