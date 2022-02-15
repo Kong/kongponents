@@ -111,5 +111,9 @@
     "transformIgnorePatterns": [
       "<rootDir>/node_modules"
     ]
+  },
+  "volta": {
+    "node": "14.19.0",
+    "yarn": "1.22.17"
   }
 }
