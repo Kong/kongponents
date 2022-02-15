@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.10.0 (2022-02-15)
+
+
+### Features
+
+* **ktable:** add empty-state-action-button-icon ([#493](https://github.com/Kong/kongponents/issues/493)) ([d889728](https://github.com/Kong/kongponents/commit/d8897286a571c4fd6ac5abaa86e09c1e2e1b0b75))
+
+
+
+
+
 ## 6.9.7 (2022-02-15)
 
 **Note:** Version bump only for package @kongponents/utils

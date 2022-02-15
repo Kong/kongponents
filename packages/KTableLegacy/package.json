@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/ktablelegacy",
-  "version": "0.3.7",
+  "version": "0.4.0",
   "description": "Legacy version of KTable prior to fetcher support",
   "main": "dist/KTableLegacy.umd.min.js",
   "componentName": "KTableLegacy",
@@ -23,6 +23,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/styles": "^6.9.7"
+    "@kongponents/styles": "^6.10.0"
   }
 }
