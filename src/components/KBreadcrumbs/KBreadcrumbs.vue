@@ -20,7 +20,7 @@
           :class="[ 'k-breadcrumb-icon', {'has-no-text': !item.text} ]"
           hide-title
           size="16"
-          viewbox="0 0 16 16"
+          view-box="0 0 16 16"
           color="var(--grey-500)"
         />
         <span
