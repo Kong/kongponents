@@ -238,15 +238,15 @@ export default {
     visibility: hidden !important;
   }
 }
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(1turn); }
-}
 </style>
 
 <style lang="scss">
 // unscoped, so the svg <g> element can be accessed from the imported file
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(1turn); }
+}
+
 .kong-icon.kong-icon-spinner svg g {
   transform-box: fill-box;
   transform-origin: 50% 50%;

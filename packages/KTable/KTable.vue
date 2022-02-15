@@ -52,6 +52,15 @@
               appearance="primary"
               @click="$emit('ktable-empty-state-cta-clicked')"
             >
+              <template
+                v-slot:icon
+                v-if="emptyStateActionButtonIcon">
+                <KIcon
+                  :icon="emptyStateActionButtonIcon"
+                  color="white"
+                  view-box="0 0 20 20"
+                  size="16" />
+              </template>
               {{ emptyStateActionMessage }}
             </KButton>
           </template>
@@ -289,6 +298,13 @@ export default defineComponent({
      * A prop to pass in a custom empty state action message
      */
     emptyStateActionMessage: {
+      type: String,
+      default: ''
+    },
+    /**
+     * A prop to pass in a custom empty state action message
+     */
+    emptyStateActionButtonIcon: {
       type: String,
       default: ''
     },

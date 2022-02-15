@@ -780,6 +780,7 @@ Set the following properties to handle empty state:
 - `emptyStateIconSize` - Size for empty state icon
 - `emptyStateActionRoute` - Route for empty state action
 - `emptyStateActionMessage` - Button text for empty state action
+- `emptyStateActionButtonIcon` - Icon for the empty state action button
 
 If using a CTA button, a `ktable-empty-state-cta-clicked` event is fired when clicked.
 
@@ -811,6 +812,7 @@ If using a CTA button, a `ktable-empty-state-cta-clicked` event is fired when cl
       emptyStateTitle="No Workspaces exist"
       emptyStateMessage="Adding a new Workspace will populate this table."
       emptyStateActionMessage="Create a Workspace"
+      emptyStateActionButtonIcon="plus"
       emptyStateActionRoute="#empty-state-full-example"
       emptyStateIcon="workspaces"
       emptyStateIconColor="#5996ff"
@@ -829,6 +831,7 @@ If using a CTA button, a `ktable-empty-state-cta-clicked` event is fired when cl
         emptyStateTitle="No Workspaces exist"
         emptyStateMessage="Adding a new Workspace will populate this table."
         emptyStateActionMessage="Create a Workspace"
+        emptyStateActionButtonIcon="plus"
         emptyStateActionRoute="create-workspace"
         emptyStateIcon="workspaces"
         emptyStateIconColor="#5996ff"
@@ -847,6 +850,7 @@ If using a CTA button, a `ktable-empty-state-cta-clicked` event is fired when cl
         emptyStateTitle="No Workspaces exist"
         emptyStateMessage="Adding a new Workspace will populate this table."
         emptyStateActionMessage="Create a Workspace"
+        emptyStateActionButtonIcon="plus"
         emptyStateActionRoute="{
           name: 'create-workspace',
           params: {
