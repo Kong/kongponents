@@ -165,7 +165,8 @@ export default {
 
 | Variable | Purpose
 |:-------- |:-------
-| `--KTabsBottomBorder`| Border between the tabs items and the tab content
+| `--KTabsBottomBorderColor`| Border between the tabs and the tab content
+| `--KTabBottomBorderColor`| Border on the bottom of each tab
 | `--KTabsActiveColor`| Active color of tab and underline
 | `--KTabsColor`| Default text color of the tab items
 
