@@ -20,7 +20,7 @@ A total number of items inside the paginated data source.
 
 A list of page sizes that the user can choose from.
 
-Prop is an Array of numbers. The default page sizes are: [15, 25, 50, 75, 100].
+Prop is an Array of numbers. The default page sizes are: [15, 30, 50, 75, 100].
 
 You can provide custom page sizes. The first one in the array will be the initial page size unless custom initialPageSize is set.
 
