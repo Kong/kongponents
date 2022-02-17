@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.6.0 (2022-02-17)
+
+
+### Features
+
+* **kinputswitch:** add label-position prop ([#502](https://github.com/Kong/kongponents/issues/502)) ([95a2904](https://github.com/Kong/kongponents/commit/95a2904862f12823dd1f2e0113f1751f366ca8ef))
+
+
+
+
+
 # 0.5.0 (2022-02-17)
 
 
