@@ -332,7 +332,7 @@ Pass in an object of parameters for the initial fetcher function call. If not pr
 will default to the following values:
 
 ```js
-{ pageSize: 15, page: 1, query: '', sortColumKey: '', sortColumOrder: '' }
+{ pageSize: 15, page: 1, query: '', sortColumnKey: '', sortColumnOrder: '' }
 ```
 
 ### paginationTotalItems
