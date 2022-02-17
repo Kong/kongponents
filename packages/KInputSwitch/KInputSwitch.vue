@@ -7,13 +7,16 @@
       :for="$attrs.id ? $attrs.id : null"
       :disabled="$attrs.disabled"
       class="k-switch">
+      <span v-if="(label || $scopedSlots.label) && labelPosition === 'left'">
+        <slot name="label">{{ label }}</slot>
+      </span>
       <input
         :checked="value"
         v-bind="$attrs"
         type="checkbox"
         v-on="listeners">
-      <div class="switch-control"/>
-      <span v-if="label || $scopedSlots.label">
+      <div :class="['switch-control', labelPosition === 'right' ? 'has-label-right' : 'has-label-left' ]" />
+      <span v-if="(label || $scopedSlots.label) && labelPosition === 'right'">
         <slot name="label">{{ label }}</slot>
       </span>
     </label>
@@ -25,17 +28,20 @@
     :disabled="$attrs.disabled"
     :class="{ 'switch-with-icon' : enabledIcon }"
     class="k-switch">
+    <span v-if="(label || $scopedSlots.label) && labelPosition === 'left'">
+      <slot name="label">{{ label }}</slot>
+    </span>
     <input
       :checked="value"
       v-bind="$attrs"
       type="checkbox"
       v-on="listeners">
-    <div class="switch-control"/>
+    <div :class="['switch-control', labelPosition === 'right' ? 'has-label-right' : 'has-label-left' ]" />
     <KIcon
       v-if="enabledIcon && value === true"
       color="var(--white)"
       icon="check" />
-    <span v-if="label || $scopedSlots.label">
+    <span v-if="(label || $scopedSlots.label) && labelPosition === 'right'">
       <slot name="label">{{ label }}</slot>
     </span>
   </label>
@@ -65,6 +71,17 @@ export default {
     label: {
       type: String,
       default: ''
+    },
+
+    /**
+     * Should the switch be positioned to the left or right of the label
+     */
+    labelPosition: {
+      type: String,
+      default: 'right',
+      validator: (position) => {
+        return ['left', 'right'].includes(position)
+      }
     },
 
     /**
