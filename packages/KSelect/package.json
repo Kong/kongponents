@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kselect",
-  "version": "6.10.5",
+  "version": "6.11.0",
   "description": "Dropdown/Select component",
   "main": "dist/KSelect.umd.min.js",
   "componentName": "KSelect",
@@ -24,13 +24,13 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kbutton": "^6.10.5",
-    "@kongponents/kicon": "^6.10.5",
-    "@kongponents/kinput": "^6.10.5",
-    "@kongponents/klabel": "^6.10.5",
-    "@kongponents/kpop": "^6.10.5",
-    "@kongponents/ktoggle": "^6.10.5",
-    "@kongponents/styles": "^6.10.5",
+    "@kongponents/kbutton": "^6.11.0",
+    "@kongponents/kicon": "^6.11.0",
+    "@kongponents/kinput": "^6.11.0",
+    "@kongponents/klabel": "^6.11.0",
+    "@kongponents/kpop": "^6.11.0",
+    "@kongponents/ktoggle": "^6.11.0",
+    "@kongponents/styles": "^6.11.0",
     "vue-uuid": "^2.0.2"
   }
 }

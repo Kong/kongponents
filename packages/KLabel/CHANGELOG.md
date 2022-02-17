@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.11.0 (2022-02-17)
+
+
+### Features
+
+* set default page sizes from [15, 25, 50, 75, 100] to [15, 30, 50, 75, 100] [KHCP-2841] ([#498](https://github.com/Kong/kongponents/issues/498)) ([d2ab2e5](https://github.com/Kong/kongponents/commit/d2ab2e5ed0ef2447fafa3cae6737bcf94393d626))
+
+
+
+
+
 ## 6.10.5 (2022-02-17)
 
 
