@@ -51,6 +51,22 @@ Will place label text to the right of the switch. Can also be [slotted](#slots).
 
 <KInputSwitch v-model="labelPropChecked" :label="labelPropChecked ? 'on' : 'off'" />
 
+### labelPosition
+
+- `label-position`
+
+Position the label to the left or right of the switch, default to `right`.
+
+<KInputSwitch v-model="labelPropChecked" label="Label on the right" />
+<br>
+<br>
+<KInputSwitch v-model="labelPropChecked" label="Label on the left" labelPosition="left" />
+
+```vue
+<KInputSwitch label="Label on the right" />
+<KInputSwitch label="Label on the left" label-position="left" />
+```
+
 ### disabled
 
 You can add `disabled` to the input to disallow interactivity.
