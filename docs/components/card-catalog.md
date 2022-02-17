@@ -202,7 +202,7 @@ Pass in a number of pagination neighbors to be used by the pagination component.
 Pass in an array of page sizes for the page size dropdown. If not provided will default to the following:
 
 ```js
-[15, 25, 50, 75, 100]
+[15, 30, 50, 75, 100]
 ```
 
 ### disablePaginationPageJump

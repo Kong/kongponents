@@ -81,8 +81,8 @@ exports[`KTable default has hover class when passed 1`] = `
               <div data-testid="k-select-item-15" class="k-select-item">
                 <li role="option" class="d-block"><button value="15" class=""><span class="k-select-item-label mr-2">15</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
               </div>
-              <div data-testid="k-select-item-25" class="k-select-item">
-                <li role="option" class="d-block"><button value="25" class=""><span class="k-select-item-label mr-2">25</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
+              <div data-testid="k-select-item-30" class="k-select-item">
+                <li role="option" class="d-block"><button value="30" class=""><span class="k-select-item-label mr-2">30</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
               </div>
               <div data-testid="k-select-item-50" class="k-select-item">
                 <li role="option" class="d-block"><button value="50" class=""><span class="k-select-item-label mr-2">50</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
@@ -237,8 +237,8 @@ exports[`KTable sorting should allow disabling sorting 1`] = `
               <div data-testid="k-select-item-15" class="k-select-item">
                 <li role="option" class="d-block"><button value="15" class=""><span class="k-select-item-label mr-2">15</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
               </div>
-              <div data-testid="k-select-item-25" class="k-select-item">
-                <li role="option" class="d-block"><button value="25" class=""><span class="k-select-item-label mr-2">25</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
+              <div data-testid="k-select-item-30" class="k-select-item">
+                <li role="option" class="d-block"><button value="30" class=""><span class="k-select-item-label mr-2">30</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
               </div>
               <div data-testid="k-select-item-50" class="k-select-item">
                 <li role="option" class="d-block"><button value="50" class=""><span class="k-select-item-label mr-2">50</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
@@ -343,8 +343,8 @@ exports[`KTable sorting should have sortable class when passed 1`] = `
               <div data-testid="k-select-item-15" class="k-select-item">
                 <li role="option" class="d-block"><button value="15" class=""><span class="k-select-item-label mr-2">15</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
               </div>
-              <div data-testid="k-select-item-25" class="k-select-item">
-                <li role="option" class="d-block"><button value="25" class=""><span class="k-select-item-label mr-2">25</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
+              <div data-testid="k-select-item-30" class="k-select-item">
+                <li role="option" class="d-block"><button value="30" class=""><span class="k-select-item-label mr-2">30</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
               </div>
               <div data-testid="k-select-item-50" class="k-select-item">
                 <li role="option" class="d-block"><button value="50" class=""><span class="k-select-item-label mr-2">50</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
