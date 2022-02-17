@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.10.4 (2022-02-17)
+
+
+### Bug Fixes
+
+* **krumbs:** fix breadcrumb icon viewbox ([#500](https://github.com/Kong/kongponents/issues/500)) ([82bf05d](https://github.com/Kong/kongponents/commit/82bf05d29c475669e117c91d16fc78456c81cbb6))
+
+
+
+
+
 ## 6.10.3 (2022-02-15)
 
 
