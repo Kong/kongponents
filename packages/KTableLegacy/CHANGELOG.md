@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.4.5 (2022-02-17)
+
+
+### Bug Fixes
+
+* **docs:** ktable docs have a typo in initialFetcherParams [KHCP-2863] ([#501](https://github.com/Kong/kongponents/issues/501)) ([0aa0d34](https://github.com/Kong/kongponents/commit/0aa0d34ca6ab5ef9bcb0e73e65f88388c54fd8eb))
+
+
+
+
+
 ## 0.4.4 (2022-02-17)
 
 
