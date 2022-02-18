@@ -39,16 +39,17 @@ export default {
 
 ## Props
 
-### Functional
+### isVisible
 
-- `isVisible` - Tells the component whether or not to render the open prompt
-- `@canceled` - Emitted when cancel/close button is clicked
-- `@proceed` - Emitted when action button is clicked
+Tells the component whether or not to render the open prompt.
 
-### Content
+### title
 
-- `title` - Text displayed in header if not using slot. If no title provided, the prompt `type` is used
-- `message` - Text to display in body section if not using slot
+Text displayed in header if not using slot. If no title is provided, the prompt `type` is used.
+
+### message
+
+Text to display in body section if not using slot.
 
 <KButton appearance="primary" @click="contentIsOpen = true">Prompt</KButton>
 
@@ -61,13 +62,6 @@ export default {
 />
 
 ```vue
-<KButton
-  appearance="primary"
-  @click="contentIsOpen = true"
->
-  Prompt
-</KButton>
-
 <KPrompt
   :is-visible="contentIsOpen"
   title="Look Mah!"
@@ -77,15 +71,19 @@ export default {
 />
 ```
 
-### Buttons
+### actionButtonText
 
-- `actionButtonText` - Change the text content of the submit/proceed button
-- `cancelButtonText` - Change the text content of the close/cancel button
+Change the text content of the submit/proceed button.
+
+### cancelButtonText
+
+Change the text content of the close/cancel button.
 
 <KButton appearance="primary" @click="buttonsIsOpen = true">Prompt</KButton>
 
 <KPrompt
   :is-visible="buttonsIsOpen"
+  message="Look at my button customizations"
   actionButtonText="Let's do it!"
   cancelButtonText="Abort"
   @canceled="buttonsIsOpen = false"
@@ -93,13 +91,6 @@ export default {
 />
 
 ```vue
-<KButton
-  appearance="primary"
-  @click="buttonsIsOpen = true"
->
-  Prompt
-</KButton>
-
 <KPrompt
   :is-visible="contentIsOpen"
   actionButtonText="Let's do it!"
@@ -109,10 +100,9 @@ export default {
 />
 ```
 
-### Variations
+### type
 
-- `type` - Can be `danger`, `warning`, or `info`. Defaults to `info`
-- `confirmationText` - Provide a string the user must type before the action button becomes enabled
+This prompt determines the look and feel of the dialog. Can be `danger`, `warning`, or `info`. Defaults to `info`.
 
 Use the `info` prompt type to notify the user about general information associated with the action about
 to be taken.
@@ -168,7 +158,6 @@ type in conjuction with `confirmationText` to further restrict the action.
   :is-visible="dangerIsOpen"
   type="danger"
   message="This is dangerous ☠️"
-  confirmationText="I Agree"
   @canceled="dangerIsOpen = false"
   @proceed="dangerIsOpen = false"
 />
@@ -178,9 +167,34 @@ type in conjuction with `confirmationText` to further restrict the action.
   :is-visible="dangerIsOpen"
   type="danger"
   message="This is dangerous ☠️"
-  confirmationText="I Agree"
   @canceled="dangerIsOpen = false"
   @proceed="dangerIsOpen = false"
+/>
+```
+
+### confirmationText
+
+Provide a string the user must type before the action button becomes enabled
+
+<KButton appearance="primary" @click="dangerConfirmIsOpen = true">Prompt</KButton>
+
+<KPrompt
+  :is-visible="dangerConfirmIsOpen"
+  type="danger"
+  message="This is dangerous ☠️"
+  confirmationText="I Agree"
+  @canceled="dangerConfirmIsOpen = false"
+  @proceed="dangerConfirmIsOpen = false"
+/>
+
+```vue
+<KPrompt
+  :is-visible="dangerConfirmIsOpen"
+  type="danger"
+  message="This is dangerous ☠️"
+  confirmationText="I Agree"
+  @canceled="dangerConfirmIsOpen = false"
+  @proceed="dangerConfirmIsOpen = false"
 />
 ```
 
@@ -236,6 +250,11 @@ There are 3 designated slots you can use to display content in the modal.
 </KPrompt>
 ```
 
+## Events
+
+- `@canceled` - Emitted when cancel/close button is clicked or the Escape key is pressed
+- `@proceed` - Emitted when action button is clicked or the Enter key is pressed
+
 <script>
 export default {
   data () {
@@ -243,6 +262,7 @@ export default {
       buttonsIsOpen: false,
       contentIsOpen: false,
       dangerIsOpen: false,
+      dangerConfirmIsOpen: false,
       defaultIsOpen: false,
       infoIsOpen: false,
       slotsIsOpen: false,
