@@ -104,6 +104,8 @@ Change the text content of the close/cancel button.
 
 This prompt determines the look and feel of the dialog. Can be `danger`, `warning`, or `info`. Defaults to `info`.
 
+#### Information
+
 Use the `info` prompt type to notify the user about general information associated with the action about
 to be taken.
 
@@ -124,6 +126,8 @@ to be taken.
   @proceed="infoIsOpen = false"
 />
 ```
+
+#### Warning
 
 Use the `warning` prompt type if the user needs to be notified that there is a risk associated with the action
 about to be taken. We will display a warning icon and prepend the 'Warning:' in the title for this flavor.
@@ -148,6 +152,8 @@ about to be taken. We will display a warning icon and prepend the 'Warning:' in 
   @proceed="warningIsOpen = false"
 />
 ```
+
+#### Danger
 
 Use the `danger` prompt type if the user is taking an irreversible action, like deleting an item. You can use this
 type in conjuction with `confirmationText` to further restrict the action.
