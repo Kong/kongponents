@@ -4,7 +4,12 @@ The **KPrompt** component is used to display a dialog that prompts a user to tak
 
 <KButton appearance="primary" @click="defaultIsOpen = true">Prompt</KButton>
 
-<KPrompt :is-visible="defaultIsOpen" @canceled="defaultIsOpen = false" @proceed="defaultIsOpen = false" />
+<KPrompt
+  :is-visible="defaultIsOpen"
+  message="Hello, World?"
+  @canceled="defaultIsOpen = false"
+  @proceed="defaultIsOpen = false"
+/>
 
 ```vue
 <KButton
@@ -16,6 +21,7 @@ The **KPrompt** component is used to display a dialog that prompts a user to tak
 
 <KPrompt
   :is-visible="defaultIsOpen"
+  message="Hello, World?"
   @canceled="defaultIsOpen = false"
   @proceed="defaultIsOpen = false"
 />
@@ -105,10 +111,10 @@ export default {
 
 ### Variations
 
-- `type` - Can be `danger`, `warning`, or `information`. Defaults to `information`
+- `type` - Can be `danger`, `warning`, or `info`. Defaults to `info`
 - `confirmationText` - Provide a string the user must type before the action button becomes enabled
 
-Use the `information` prompt type to notify the user abbout general information associated with the action about
+Use the `info` prompt type to notify the user about general information associated with the action about
 to be taken.
 
 <KButton appearance="primary" @click="infoIsOpen = true">Prompt</KButton>

@@ -3,7 +3,8 @@
     :is-visible="isVisible"
     :title="displayTitle"
     class="k-prompt"
-    @keyup.esc="close">
+    @keyup.esc="close"
+    @keyup.enter="proceed">
     <template v-slot:header-content>
       <div class="k-prompt-header w-100">
         <div class="k-prompt-header-content d-flex w-100">
@@ -44,7 +45,7 @@
             Type "<span class="bold-600">{{ confirmationText }}</span>" to confirm your action.
 
             <KInput
-              v-model.trim="confirmationInput"
+              v-model="confirmationInput"
               class="pt-2" />
           </div>
         </div>
@@ -57,14 +58,16 @@
           <KButton
             appearance="outline"
             class="k-prompt-cancel mr-2"
-            @click="close"
-            @keyup.esc="close">{{ cancelButtonText }}</KButton>
+            @click="close">
+            {{ cancelButtonText }}
+          </KButton>
           <KButton
             :appearance="type === 'danger' ? 'danger' : 'primary'"
             :disabled="disableProceedButton"
             class="k-prompt-proceed"
-            @keyup.enter="proceed"
-            @click="proceed">{{ actionButtonText }}</KButton>
+            @click="proceed">
+            {{ actionButtonText }}
+          </KButton>
         </slot>
       </div>
     </template>
@@ -87,18 +90,18 @@ export default {
     },
     type: {
       type: String,
-      default: 'information',
+      default: 'info',
       validator: (value) => {
         return [
-          'information',
+          'info',
           'warning',
           'danger'
-        ].indexOf(value) !== -1
+        ].includes(value)
       }
     },
     message: {
       type: String,
-      default: 'Body content'
+      default: ''
     },
     actionButtonText: {
       type: String,
@@ -134,6 +137,8 @@ export default {
         }
 
         return this.title
+      } else if (this.type === 'info') {
+        return 'Information'
       }
 
       return this.capitalize(this.type)
@@ -146,16 +151,38 @@ export default {
       return this.confirmationText !== this.confirmationInput
     }
   },
+  mounted () {
+    document.addEventListener('keydown', this.handleKeydown)
+  },
+
+  beforeDestroy () {
+    document.removeEventListener('keydown', this.handleKeydown)
+  },
   methods: {
+    handleKeydown (e) {
+      if (this.isVisible) {
+        if (e.keyCode === 27) { // `esc` key
+          this.close()
+        } else if (e.keyCode === 13) { // `enter` key
+          this.proceed()
+        }
+      }
+    },
     capitalize (str) {
       const capitalizeRegEx = /(?:^|[\s-:'"])\w/g
 
       return str.replace(capitalizeRegEx, (a) => a.toUpperCase())
     },
     close () {
+      this.confirmationInput = ''
       this.$emit('canceled')
     },
     proceed () {
+      if (this.disableProceedButton) {
+        return
+      }
+
+      this.confirmationInput = ''
       this.$emit('proceed')
     }
   }
