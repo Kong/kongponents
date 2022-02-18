@@ -40,11 +40,11 @@
 
           <div
             v-if="confirmationText"
-            class="k-prompt-confirm-text">
+            class="k-prompt-confirm-text w-100">
             Type "<span class="bold-600">{{ confirmationText }}</span>" to confirm your action.
 
             <KInput
-              v-model="confirmationInput"
+              v-model.trim="confirmationInput"
               class="pt-2" />
           </div>
         </div>
@@ -205,6 +205,10 @@ export default {
 
           .k-prompt-confirm-text {
             margin-top: var(--spacing-lg);
+
+            .k-input {
+              width: 100%;
+            }
           }
         }
       }

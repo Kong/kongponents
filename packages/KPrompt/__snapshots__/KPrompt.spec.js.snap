@@ -29,7 +29,7 @@ exports[`KPrompt renders custom button text 1`] = `
             <hr class="divider">
           </div>
         </div>
-        <div class="k-modal-footer modal-footer d-flex w-100">
+        <div class="k-modal-footer modal-footer d-flex">
           <div class="k-prompt-action-buttons"><button type="button" class="k-button k-prompt-cancel mr-2 medium rounded outline"> Sweet prop cancel button
               <!----></button> <button type="button" class="k-button k-prompt-proceed medium rounded primary"> Sweet prop action button
               <!----></button></div>
@@ -69,7 +69,7 @@ exports[`KPrompt renders proper content when using props 1`] = `
             <hr class="divider">
           </div>
         </div>
-        <div class="k-modal-footer modal-footer d-flex w-100">
+        <div class="k-modal-footer modal-footer d-flex">
           <div class="k-prompt-action-buttons"><button type="button" class="k-button k-prompt-cancel mr-2 medium rounded outline"> Cancel
               <!----></button> <button type="button" class="k-button k-prompt-proceed medium rounded primary"> OK
               <!----></button></div>
@@ -108,7 +108,7 @@ exports[`KPrompt renders proper content when using slots 1`] = `
             <hr class="divider">
           </div>
         </div>
-        <div class="k-modal-footer modal-footer d-flex w-100">
+        <div class="k-modal-footer modal-footer d-flex">
           <div class="k-prompt-action-buttons">
             <div>This is some footer text</div>
           </div>
