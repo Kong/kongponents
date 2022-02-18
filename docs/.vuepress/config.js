@@ -57,6 +57,7 @@ module.exports = {
               '/components/multiselect',
               '/components/pagination',
               '/components/popover',
+              '/components/prompt',
               '/components/input-radio',
               '/components/segmented-control',
               '/components/select',

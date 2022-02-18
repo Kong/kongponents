@@ -27,6 +27,7 @@ import KModal from '../../packages/KModal/KModal.vue'
 import KoolTip from '../../packages/KoolTip/KoolTip.vue'
 import KPagination from '../../packages/KPagination/KPagination.vue'
 import KPop from '../../packages/KPop/KPop.vue'
+import KPrompt from '../../packages/KPrompt/KPrompt.vue'
 import Krumbs from '../../packages/Krumbs/Krumbs.vue'
 import KSegmentedControl from '../../packages/KSegmentedControl/KSegmentedControl.vue'
 import KSelect from '../../packages/KSelect/KSelect.vue'
@@ -70,6 +71,7 @@ export default ({
   Vue.component('KoolTip', KoolTip)
   Vue.component('KPagination', KPagination)
   Vue.component('KPop', KPop)
+  Vue.component('KPrompt', KPrompt)
   Vue.component('Krumbs', Krumbs)
   Vue.component('Komponent', Komponent)
   Vue.component('KSegmentedControl', KSegmentedControl)
