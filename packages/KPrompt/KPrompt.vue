@@ -46,6 +46,7 @@
 
             <KInput
               v-model="confirmationInput"
+              data-testid="confirmation-input"
               class="pt-2" />
           </div>
         </div>
@@ -66,6 +67,12 @@
             :disabled="disableProceedButton"
             class="k-prompt-proceed"
             @click="proceed">
+            <KIcon
+              v-if="actionPending"
+              slot="icon"
+              icon="spinner"
+              size="16"
+            />
             {{ actionButtonText }}
           </KButton>
         </slot>
@@ -111,6 +118,14 @@ export default {
       type: String,
       default: 'Cancel'
     },
+    /**
+     * Boolean to disable action buttons while a submission is occurring. Display
+     * spinner on action button.
+     */
+    actionPending: {
+      type: Boolean,
+      default: false
+    },
     isVisible: {
       type: Boolean,
       default: false
@@ -144,6 +159,10 @@ export default {
       return this.capitalize(this.type)
     },
     disableProceedButton () {
+      if (this.actionPending) {
+        return true
+      }
+
       if (!this.confirmationText.length) {
         return false
       }
