@@ -204,9 +204,10 @@ export default {
     }
 
     .divider {
-      /** subtract parents padding from margin to take full width of modal */
-      margin-left: calc(var(--spacing-lg) * -1);
-      margin-right: calc(var(--spacing-lg) * -1);
+      /* subtract parents padding from margin to take full width of modal */
+      /* use interpolation for the var in calc to not break postcss */
+      margin-left: calc(#{var(--spacing-lg)} * -1);
+      margin-right: calc(#{var(--spacing-lg)}  * -1);
       color: var(--grey-300);
     }
 
