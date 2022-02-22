@@ -72,6 +72,7 @@
               slot="icon"
               icon="spinner"
               size="16"
+              color="var(--white)"
             />
             {{ actionButtonText }}
           </KButton>
