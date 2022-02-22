@@ -1,13 +1,13 @@
 {
-  "name": "@kongponents/ktablelegacy",
+  "name": "@kongponents/kprompt",
   "version": "6.12.0",
-  "description": "Legacy version of KTable prior to fetcher support",
-  "main": "dist/KTableLegacy.umd.min.js",
-  "componentName": "KTableLegacy",
-  "source": "KTableLegacy.vue",
+  "description": "A dialog that prompts a user to take an action",
+  "main": "dist/KPrompt.umd.min.js",
+  "componentName": "KPrompt",
+  "source": "KPrompt.vue",
   "files": [
     "dist",
-    "KTableLegacy.vue"
+    "KPrompt.vue"
   ],
   "repository": {
     "type": "git",
@@ -23,6 +23,10 @@
     "access": "public"
   },
   "dependencies": {
+    "@kongponents/kbutton": "^6.12.0",
+    "@kongponents/kicon": "^6.12.0",
+    "@kongponents/kinput": "^6.12.0",
+    "@kongponents/kmodal": "^6.12.0",
     "@kongponents/styles": "^6.12.0"
   }
 }
