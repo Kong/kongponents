@@ -106,7 +106,7 @@ describe('KPrompt', () => {
     })
 
     wrapper.destroy()
-    expect(AEL).toHaveBeenCalledTimes(1)
-    expect(REL).toHaveBeenCalledTimes(1)
+    expect(AEL).toHaveBeenCalled()
+    expect(REL).toHaveBeenCalled()
   })
 })
