@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.14.0 (2022-02-23)
+
+
+### Features
+
+* **kprompt:** add actionPending prop ([#504](https://github.com/Kong/kongponents/issues/504)) ([c59df0b](https://github.com/Kong/kongponents/commit/c59df0b95830ca1fdd0d798d16027dbe008dfeef))
+
+
+
+
+
 # 6.13.0 (2022-02-22)
 
 

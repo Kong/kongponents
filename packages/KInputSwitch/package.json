@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kinputswitch",
-  "version": "6.13.0",
+  "version": "6.14.0",
   "description": "KInputSwitch description here.",
   "main": "dist/KInputSwitch.umd.min.js",
   "componentName": "KInputSwitch",
@@ -23,8 +23,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kicon": "^6.13.0",
-    "@kongponents/kooltip": "^6.13.0",
-    "@kongponents/styles": "^6.13.0"
+    "@kongponents/kicon": "^6.14.0",
+    "@kongponents/kooltip": "^6.14.0",
+    "@kongponents/styles": "^6.14.0"
   }
 }
