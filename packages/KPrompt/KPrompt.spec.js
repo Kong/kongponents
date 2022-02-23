@@ -62,6 +62,45 @@ describe('KPrompt', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 
+  it('has a pending state', () => {
+    const wrapper = mount(KPrompt, {
+      propsData: {
+        isVisible: true,
+        actionPending: true
+      }
+    })
+
+    expect(wrapper.find('.k-prompt-proceed .kong-icon-spinner').exists()).toBe(true)
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
+  it('enables correctly with confirmationText', () => {
+    const confirmationText = 'I Agree'
+
+    const wrapper = mount(KPrompt, {
+      propsData: {
+        isVisible: true,
+        confirmationText
+      },
+      attachToDocument: true
+    })
+
+    // disabled
+    expect(wrapper.find('.k-prompt-action-buttons .k-prompt-proceed[disabled="disabled"]').exists()).toBe(true)
+
+    const input = wrapper.find('[data-testid="confirmation-input"]')
+
+    // bad input, still disabled
+    input.setValue(confirmationText + 'x')
+    // enable
+    input.setValue(confirmationText)
+    expect(wrapper.find('.k-prompt-action-buttons .k-prompt-proceed[disabled="disabled"]').exists()).toBe(false)
+    wrapper.find('.k-prompt-action-buttons .k-prompt-proceed').trigger('click')
+
+    expect(wrapper.emitted().proceed).toHaveLength(1)
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
   it('proceeds when clicking action button', () => {
     const wrapper = mount(KPrompt, {
       propsData: {

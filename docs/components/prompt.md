@@ -100,6 +100,31 @@ Change the text content of the close/cancel button.
 />
 ```
 
+### actionPending
+
+This boolean indicates if an action is being taken on the dialog and we should disable the action button
+to prevent spam clicking.
+
+<KButton appearance="primary" @click="pendingIsOpen = true">Prompt</KButton>
+
+<KPrompt
+  :is-visible="pendingIsOpen"
+  message="Click Cancel to close me"
+  :action-pending="true"
+  @canceled="pendingIsOpen = false"
+  @proceed="pendingIsOpen = false"
+/>
+
+```vue
+<KPrompt
+  :is-visible="pendingIsOpen"
+  message="Click Cancel to close me"
+  :action-pending="true"
+  @canceled="pendingIsOpen = false"
+  @proceed="pendingIsOpen = false"
+/>
+```
+
 ### type
 
 This prompt determines the look and feel of the dialog. Can be `danger`, `warning`, or `info`. Defaults to `info`.
@@ -271,6 +296,7 @@ export default {
       dangerConfirmIsOpen: false,
       defaultIsOpen: false,
       infoIsOpen: false,
+      pendingIsOpen: false,
       slotsIsOpen: false,
       warningIsOpen: false
     }
