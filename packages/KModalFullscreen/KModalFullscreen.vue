@@ -125,7 +125,6 @@ export default {
 
   watch: {
     isVisible: function () {
-      // whenever this prop gets updated, hide the popper
       if (this.isOpen) {
         document.querySelector('body').style.overflow = 'hidden'
         window.scrollTo(0, 0)
@@ -192,7 +191,7 @@ export default {
     position: relative;
     flex: 1 1 auto;
     // margin-bottom: var(--KModalFullscreenBottomMargin, var(--spacing-lg, spacing(lg)));
-    font-size: var(--KModalFontSize, 13px);
+    font-size: var(--KModalFullscreenFontSize, 13px);
     line-height: 20px;
   }
 }
