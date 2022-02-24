@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KModalFullscreen hides the title when using hideTitle prop 1`] = `
+<div aria-label="You can't see me" role="dialog" aria-modal="true" class="k-modal isOpen">
+  <div class="k-modal-dialog">
+    <div class="k-modal-header">
+      <!---->
+      <div class="divider">
+        <hr>
+      </div>
+    </div>
+    <div class="k-modal-body-description"></div>
+    <div class="k-modal-body"></div>
+  </div>
+</div>
+`;
+
+exports[`KModalFullscreen matches snapshot 1`] = `undefined`;
+
+exports[`KModalFullscreen renders proper content when using action-buttons slot 1`] = `
+<div aria-label="Test Me" role="dialog" aria-modal="true" class="k-modal isOpen">
+  <div class="k-modal-dialog">
+    <div class="k-modal-header">
+      <div role="heading" aria-level="2" class="k-modal-header-description mb-5">
+        <div class="k-modal-title"><span class="header-icon"></span> <span class="header-content">Test Me</span></div>
+        <div class="k-modal-action ml-3"><button type="button" class="k-button medium rounded outline">
+            Cancel
+            <!----></button>
+          <div>This is some action buttons text</div>
+        </div>
+      </div>
+      <div class="divider">
+        <hr>
+      </div>
+    </div>
+    <div class="k-modal-body-description"></div>
+    <div class="k-modal-body"></div>
+  </div>
+</div>
+`;
+
+exports[`KModalFullscreen renders proper content when using props 1`] = `
+<div aria-label="Sweet prop title" role="dialog" aria-modal="true" class="k-modal isOpen">
+  <div class="k-modal-dialog">
+    <div class="k-modal-header">
+      <div role="heading" aria-level="2" class="k-modal-header-description mb-5">
+        <div class="k-modal-title"><span class="header-icon"></span> <span class="header-content">Sweet prop title</span></div>
+        <div class="k-modal-action ml-3"><button type="button" class="k-button medium rounded outline">
+            Cancel
+            <!----></button>
+          <!---->
+        </div>
+      </div>
+      <div class="divider">
+        <hr>
+      </div>
+    </div>
+    <div class="k-modal-body-description"></div>
+    <div class="k-modal-body">Sweet prop content</div>
+  </div>
+</div>
+`;
+
+exports[`KModalFullscreen renders proper content when using slots 1`] = `
+<div aria-label="This is some header text" role="dialog" aria-modal="true" class="k-modal isOpen">
+  <div class="k-modal-dialog">
+    <div class="k-modal-header">
+      <div role="heading" aria-level="2" class="k-modal-header-description mb-5">
+        <div class="k-modal-title"><span class="header-icon"></span> <span class="header-content"><div>This is some header text</div></span></div>
+        <div class="k-modal-action ml-3"><button type="button" class="k-button medium rounded outline">
+            Cancel
+            <!----></button>
+          <!---->
+        </div>
+      </div>
+      <div class="divider">
+        <hr>
+      </div>
+    </div>
+    <div class="k-modal-body-description"></div>
+    <div class="k-modal-body">
+      <div>This is some body text</div>
+    </div>
+  </div>
+</div>
+`;
