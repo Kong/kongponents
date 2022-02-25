@@ -1,6 +1,6 @@
 <template>
   <KoolTip
-    v-if="$attrs.disabled !== undefined && disabledTooltipText"
+    v-if="($attrs.disabled === true || $attrs.disabled === '') && disabledTooltipText"
     :label="disabledTooltipText"
   >
     <label

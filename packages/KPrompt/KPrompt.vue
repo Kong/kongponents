@@ -247,6 +247,7 @@ export default {
         text-align: start;
         color: var(--grey-600);
         line-height: 24px;
+        white-space: normal; // in case inside KTable
 
         .k-prompt-body-content {
           padding-bottom: var(--spacing-lg);
