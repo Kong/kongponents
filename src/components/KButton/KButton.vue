@@ -271,14 +271,14 @@ export default defineComponent({
     color: var(--white, #fff);
     background-color: var(--KButtonDangerBase, var(--red-500, color(red-500)));
     &:hover:not(:disabled) {
-      $hover: rgba(color(red-500), .85);
+      $hover: rgba(color(red-700), .85);
       background-color: var(--KButtonDangerHover, $hover);
     }
     &:active {
-      background-color: var(--KButtonDangerActive, var(--red-600, color(red-600)));
+      background-color: var(--KButtonDangerActive, var(--red-700, color(red-700)));
     }
     &:focus {
-      @include boxShadow(var(--KButtonDangerBase, var(--red-500, color(red-500))));
+      @include boxShadow(var(--KButtonDangerBase, var(--red-700, color(red-700))));
     }
   }
 
@@ -331,7 +331,7 @@ export default defineComponent({
       text-decoration: underline;
     }
     &:focus {
-      @include boxShadow(var(--red-500, color(red-500)), 0, 2px);
+      @include boxShadow(var(--red-700, color(red-700)), 0, 2px);
     }
   }
 
