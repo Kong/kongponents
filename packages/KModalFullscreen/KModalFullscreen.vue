@@ -126,10 +126,10 @@ export default {
   watch: {
     isVisible: function () {
       if (this.isOpen) {
-        document.querySelector('body').style.overflow = 'hidden'
+        document.body.style.overflow = this.isOpen ? 'hidden' : ''
         window.scrollTo(0, 0)
       } else {
-        document.querySelector('body').style.overflow = 'visible'
+        document.body.style.overflow = this.isOpen ? 'hidden' : ''
       }
     }
   },
@@ -141,6 +141,10 @@ export default {
   beforeDestroy () {
     document.removeEventListener('keydown', this.handleKeydown)
   },
+  destroyed () {
+    document.body.style.overflow = ''
+  },
+
   methods: {
     handleKeydown (e) {
       if (this.isVisible && e.keyCode === 27) {
