@@ -106,7 +106,7 @@ export default {
       default: 'Cancel'
     },
     /**
-     * Set the appearnace of the close/cancel button
+     * Set the appearance of the close/cancel button
      */
     cancelButtonAppearance: {
       type: String,
@@ -181,8 +181,8 @@ export default {
   .k-modal-header-description {
     display: flex;
     align-items: center;
-    font-size: var(--KModalHeaderSize, 20px);
-    font-weight: var(--KModalHeaderWeight, 500);
+    font-size: var(--KModalFullscreenHeaderSize, 20px);
+    font-weight: var(--KModalFullscreenHeaderWeight, 500);
     color: var(--KModalFullscreenHeaderColor, var(--black-500, color(black-500)));
   }
 
@@ -190,7 +190,6 @@ export default {
     text-align: center;
     position: relative;
     flex: 1 1 auto;
-    // margin-bottom: var(--KModalFullscreenBottomMargin, var(--spacing-lg, spacing(lg)));
     font-size: var(--KModalFullscreenFontSize, 13px);
     line-height: 20px;
   }
@@ -225,14 +224,32 @@ export default {
   margin-top: 56px;
   margin-left: 230px;
   margin-right: 230px;
-  color: var(--KModalFullscreenColor, var(--grey-500, color(grey-500)));
+  color: var(--KModalFullscreenColor, var(--black-500, color(black-500)));
+}
+
+.k-modal-body-description {
+  font-size: 32px;
+  line-height: 32px;
+  font-weight: 600;
+
+    p:first-child {
+      margin-bottom: -4px;
+    }
+
+    p:last-child {
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 22px;
+      color: var(--grey-600);
+      margin-top: 20px;
+    }
 }
 
 .k-modal-body-description h2 {
   border: none;
 }
 
-.k-modal.isOpen .k-modal-dialog{
+.k-modal.isOpen .k-modal-dialog {
   overflow-y: auto;
 }
 
