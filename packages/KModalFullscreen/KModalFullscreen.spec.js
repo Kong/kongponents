@@ -21,20 +21,6 @@ describe('KModalFullscreen', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 
-  it('hides the title when using hideTitle prop', () => {
-    const titleText = "You can't see me"
-    const wrapper = mount(KModalFullscreen, {
-      propsData: {
-        isVisible: true,
-        title: titleText,
-        hideTitle: true
-      }
-    })
-
-    expect(wrapper.find('.k-modal-title').exists()).toBeFalsy()
-    expect(wrapper.html()).toMatchSnapshot()
-  })
-
   it('renders proper content when using action-buttons slot', () => {
     const actionButtonsText = 'This is some action buttons text'
     const wrapper = mount(KModalFullscreen, {
@@ -43,7 +29,7 @@ describe('KModalFullscreen', () => {
         title: 'Test Me'
       },
       slots: {
-        'actionButtons': `<div>${actionButtonsText}</div>`
+        'action-buttons': `<div>${actionButtonsText}</div>`
       }
     })
 
@@ -76,7 +62,7 @@ describe('KModalFullscreen', () => {
       attachToDocument: true
     })
 
-    wrapper.find('.k-modal').trigger('keydown.esc')
+    wrapper.find('.k-modal-fullscreen').trigger('keydown.esc')
     expect(wrapper.emitted().canceled).toHaveLength(1)
   })
 
