@@ -16,7 +16,9 @@ Kongponents is a Vue component library of frequently needed UI elements. They we
 
 ### Committing Changes
 
-This repo uses [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). [Commitizen](https://github.com/commitizen/cz-cli) and [Commitlint](https://github.com/conventional-changelog/commitlint) are used to help build and enforce commit messages.
+This repo uses [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
+
+[Commitizen](https://github.com/commitizen/cz-cli) and [Commitlint](https://github.com/conventional-changelog/commitlint) are used to help build and enforce commit messages.
 
 It is __highly recommended__ to use the following command in order to create your commits:
 
@@ -32,7 +34,7 @@ This will trigger the Commitizen interactive prompt for building your commit mes
 
 ## Recommended IDE Setup
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+We recommend using [VSCode](https://code.visualstudio.com/) along with the [Volar extension](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
 
 ## Type Support For `.vue` Imports in TS
 
