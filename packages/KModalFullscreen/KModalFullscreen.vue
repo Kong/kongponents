@@ -2,7 +2,7 @@
   <div
     v-if="isVisible"
     :aria-label="title"
-    class="k-modal isOpen"
+    class="k-modal-fullscreen isOpen"
     role="dialog"
     aria-modal="true">
     <div
@@ -10,38 +10,38 @@
     >
       <div class="k-modal-header">
         <div
-          v-if="$scopedSlots.title || !hideTitle"
+          v-if="!$scopedSlots.title"
           class="k-modal-header-description mb-5"
           role="heading"
           aria-level="2">
           <div class="k-modal-title">
-            <span class="header-icon">
-              <slot name="header-icon"/>
+            <span
+              class="header-icon">
+              <KIcon
+                :icon="iconHeader"
+                class="mr-2" />
             </span>
             <span class="header-content">
               <slot name="header-content">{{ title }}</slot>
             </span>
           </div>
-          <div
-            class="k-modal-action ml-3">
-            <KButton
-              :appearance="cancelButtonAppearance"
-              @click="close"
-              @keyup.esc="close">
-              {{ cancelButtonText }}
-            </KButton>
-            <!-- @slot Use this slot to pass extra buttons other than Cancel  -->
-            <slot
-              v-if="hasActionButtons"
-              name="actionButtons">
+          <div class="k-modal-action ml-3">
+            <slot name="action-buttons">
               <KButton
-                size="small"
-                @click="proceed"
-                @keyup.enter="proceed"/>
+                appearance="outline"
+                class=" mr-2"
+                @click="close">
+                {{ cancelButtonText }}
+              </KButton>
+              <KButton
+                :appearance="type === 'danger' ? 'danger' : 'primary'"
+                @click="proceed">
+                {{ actionButtonText }}
+              </KButton>
             </slot>
           </div>
         </div>
-        <div class="divider">
+        <div>
           <hr>
         </div>
       </div>
@@ -57,32 +57,37 @@
 
 <script>
 import KButton from '@kongponents/kbutton/KButton.vue'
+import KIcon from '@kongponents/kicon/KIcon.vue'
 
 export default {
   name: 'KModalfullscreen',
-  components: { KButton },
+  components: { KButton, KIcon },
 
   props: {
     /**
-     * Set the text of the title, if using title slot, this text is for the aria-label
+     * Set the text of the title, if using title slot
      */
     title: {
       type: String,
       required: true
     },
     /**
-     * Title is required for aria-labelling, toggle if the title is visible on the modal
-     */
-    hideTitle: {
-      type: Boolean,
-      default: false
-    },
-    /**
-     * NEW
+     * Text to display Page title and description
      */
     bodyHeaderDescription: {
       type: String,
       default: ''
+    },
+    type: {
+      type: String,
+      default: 'info',
+      validator: (value) => {
+        return [
+          'info',
+          'warning',
+          'danger'
+        ].includes(value)
+      }
     },
     /**
      * Set the text of the body content
@@ -105,19 +110,27 @@ export default {
       type: String,
       default: 'Cancel'
     },
+    actionButtonText: {
+      type: String,
+      default: 'Save'
+    },
     /**
      * Set the appearance of the close/cancel button
      */
     cancelButtonAppearance: {
       type: String,
       default: 'outline'
+    },
+    /**
+      *  Pass whether or not the modal should have icon in the header on the left
+      */
+    iconHeader: {
+      type: String,
+      default: 'kong'
     }
   },
 
   computed: {
-    hasActionButtons () {
-      return !!this.$slots.actionButtons
-    },
     isOpen () {
       return !!this.isVisible
     }
@@ -136,6 +149,20 @@ export default {
 
   mounted () {
     document.addEventListener('keydown', this.handleKeydown)
+    // window.onbeforeunload = function () {
+    //   return self.form_dirty ? 'If you leave this page you will lose your unsaved changes.' : null
+    // }
+
+    // window.onbeforeunload = function () {
+    //   return 'handle your events or msgs here'
+    // }
+
+    // window.addEventListener('beforeunload', function (e) {
+    //   // Cancel the event
+    //   e.preventDefault() // If you prevent default behavior in Mozilla Firefox prompt will always be shown
+    //   // Chrome requires returnValue to be set
+    //   e.returnValue = ''
+    // })
   },
 
   beforeDestroy () {
@@ -147,8 +174,12 @@ export default {
 
   methods: {
     handleKeydown (e) {
-      if (this.isVisible && e.keyCode === 27) {
-        this.close()
+      if (this.isVisible) {
+        if (e.keyCode === 27) { // `esc` key
+          this.close()
+        } else if (e.keyCode === 13) { // `enter` key
+          this.proceed()
+        }
       }
     },
     close () {
@@ -163,10 +194,11 @@ export default {
 
 <style scoped lang="scss">
 @import '~@kongponents/styles/variables';
+$screen-md: 992px;
 
 .k-modal-dialog {
-  padding: 32px 0px 14px 0;
-  background: #fff;
+  padding: var(--spacing-xl, spacing(xl)) 0 14px 0;
+  background: var(--white);
   z-index: 9999;
   position: absolute;
   top: 0;
@@ -180,11 +212,10 @@ export default {
   position: relative;
   display: flex;
   flex-direction: column;
-  margin-top: 15px;
 
   .k-modal-header-description {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
     font-size: var(--KModalFullscreenHeaderSize, 20px);
     font-weight: var(--KModalFullscreenHeaderWeight, 500);
     color: var(--KModalFullscreenHeaderColor, var(--black-500, color(black-500)));
@@ -199,28 +230,27 @@ export default {
   }
 }
 
+.k-modal-title {
+  display: inline-flex;
+  position: relative;
+  margin-left: 36px;
+}
+
 .k-modal-action {
   display: inline-flex;
-  position: absolute;
-  right: 32px;
-  & button {
-    height: 30px;
-    margin-left: 16px;
+  margin-right: var(--spacing-xl, spacing(xl));
+   & button {
+    height: 40px;
+    margin-left: var(--spacing-md, spacing(md));
     font-weight: 400;
     font-size: 13px;
     line-height: 13px;
   }
 }
 
-.k-modal-title {
-  display: inline-flex;
-  position: absolute;
-  left: 36px;
-  margin-top: 7px;
-}
-
 .header-icon {
   margin-right: 6px;
+  border-right: 1px solid var(--grey-300);
 }
 
 .k-modal-body-description,
@@ -253,16 +283,23 @@ export default {
   border: none;
 }
 
-.k-modal.isOpen .k-modal-dialog {
+.k-modal-fullscreen.isOpen .k-modal-dialog {
   overflow-y: auto;
 }
 
 .header-content {
   display: inline-block;
-  margin-top: 4px;
+  margin-top: var(--spacing-xxs, spacing(xxs))
 }
 
-.divider hr {
-  margin-top: 26px;
+@media only screen and (max-width: $screen-md) {
+  .k-modal-dialog {
+    .k-modal-body-description,
+    .k-modal-body {
+      padding: 0 10%;
+      margin: 0 auto;
+    }
+  }
 }
+
 </style>

@@ -158,7 +158,7 @@ export default {
   width: auto;
   max-width: var(--KModalMaxWidth, 500px);
   margin: 50px auto;
-  padding: var(--spacing-xl, spacing(xl));
+  padding: var(--spacing-xl, spacing(xl)) 0 15px 0;
   border-radius: 3px;
   border: var(--KModalBorder);
   box-shadow: 0px 0px 12px 0px var(--black-10, color(black-10));
