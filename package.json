@@ -24,21 +24,21 @@
     }
   },
   "scripts": {
-    "dev": "vite",
-    "docs:dev": "vuepress dev docs",
-    "test": "cypress run-ct",
-    "test:open": "cypress open-ct",
-    "build": "yarn build:kongponents && yarn build:docs && yarn build:cli",
-    "preview": "vite preview",
-    "build:kongponents": "vue-tsc --noEmit && vite build && vue-tsc --emitDeclarationOnly",
-    "build:styles-NOT-NEEDED??": "sass --no-source-map ./src/styles/styles.scss ./src/styles/kongponents.css && postcss ./src/styles/kongponents.css --dir ./dist",
     "build:cli": "rm -rf ./bin && tsc --project ./cli/tsconfig.json && chmod u+x ./bin/index.js",
     "build:docs": "vuepress build docs",
-    "docs:build": "vuepress build docs",
+    "build:kongponents": "vue-tsc --noEmit && vite build && vue-tsc --emitDeclarationOnly",
+    "build:styles-NOT-NEEDED??": "sass --no-source-map ./src/styles/styles.scss ./src/styles/kongponents.css && postcss ./src/styles/kongponents.css --dir ./dist",
+    "build": "yarn build:kongponents && yarn build:docs && yarn build:cli",
+    "commit": "cz",
     "create-kongponent": "node ./bin/index.js",
+    "dev": "vite",
+    "docs:build": "vuepress build docs",
+    "docs:dev": "vuepress dev docs",
     "lint": "eslint '**/*.{js,ts,vue}' --fix",
-    "prepare": "husky install",
-    "postinstall": "yarn build:cli"
+    "postinstall": "yarn build:cli",
+    "preview": "vite preview",
+    "test:open": "cypress open-ct",
+    "test": "cypress run-ct"
   },
   "dependencies": {
     "popper.js": "^1.15.0",
@@ -50,10 +50,12 @@
     "vue-router": "4.0.12"
   },
   "devDependencies": {
+    "@arkweid/lefthook": "^0.7.7",
     "@commitlint/cli": "^16.1.0",
     "@commitlint/config-conventional": "^16.0.0",
     "@cypress/vite-dev-server": "^2.2.2",
     "@cypress/vue": "^3.1.0",
+    "@digitalroute/cz-conventional-changelog-for-jira": "^7.2.0",
     "@types/inquirer": "^8.2.0",
     "@types/node": "^17.0.14",
     "@types/node-emoji": "^1.8.1",
@@ -67,7 +69,9 @@
     "@vuepress/plugin-search": "^2.0.0-beta.35",
     "autoprefixer": "^10.4.2",
     "boxen": "^5.1.2",
+    "commitizen": "^4.2.4",
     "cypress": "^9.4.1",
+    "cz-conventional-changelog": "3.3.0",
     "eslint": "^8.8.0",
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.25.4",
@@ -75,7 +79,6 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-vue": "^8.4.0",
-    "husky": "^7.0.4",
     "inquirer": "^8.2.0",
     "nanospinner": "^1.0.0",
     "node-emoji": "^1.11.0",
@@ -102,5 +105,15 @@
   "volta": {
     "node": "16.14.0",
     "yarn": "1.22.17"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/@digitalroute/cz-conventional-changelog-for-jira",
+      "skipScope": false,
+      "jiraOptional": true,
+      "jiraLocation": "post-description",
+      "jiraPrepend": "[",
+      "jiraAppend": "]"
+    }
   }
 }
