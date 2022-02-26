@@ -116,7 +116,7 @@ Change the text content of the save/proceed button.
 
 There are 5 designated slots you can use to display content in the fullscreen modal.
 
-- `header-content` 
+- `header-content`
 - `action-buttons` - Contains action buttons which are right-aligned.
 - `body-header-description`
 - `body-content`
