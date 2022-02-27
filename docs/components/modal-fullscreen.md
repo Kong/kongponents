@@ -270,29 +270,42 @@ There are 5 designated slots you can use to display content in the fullscreen mo
   <template v-slot:body-content>
     <div class="display">
       <KInputSwitch v-model="checked" label="This plugin is enabled" class="display-items" />
-      <KInput label="Tags" class="mb-2 trial-items" placeholder="Enter list of tags" />
-      <p class="help trial-items">e.g., tag1, tag2, tag3</p>
-      <KInput label="Configure Anonymous" class="mb-2 trial-items" :style="{ width: '20px' }"  />
       <br><br>
-      <KCheckbox v-model="checkedBox1" class="checked trial-items">
+      <div class="wrapper display-items">
+        <input type="text" placeholder="Enter list of tags">
+        <label for="">Tags</label>
+      </div>
+      <!-- <KInput label="Tags" class="mb-2 display-items" placeholder="Enter list of tags" /> -->
+      <p class="help display-items">e.g., tag1, tag2, tag3</p>
+      <div class="wrapper display-items">
+        <input type="text" >
+        <label for="">Config anonymous</label>
+      </div>
+      <!-- <KInput label="Configure Anonymous" class="mb-2 display-items" :style="{ width: '20px' }"  /> -->
+      <br><br>
+      <KCheckbox v-model="checkedBox1" class="checked display-items">
         Config key in body
       </KCheckbox>
       <br><br>
-      <KCheckbox v-model="checkedBox2" class="checked trial-items">
+      <KCheckbox v-model="checkedBox2" class="checked display-items">
         Config key in header
       </KCheckbox>
       <br><br>
-      <KCheckbox v-model="checkedBox3" class="checked trial-items">
+      <KCheckbox v-model="checkedBox3" class="checked display-items">
         Config key in query
       </KCheckbox>
       <br><br>
-      <KCheckbox v-model="checkedBox4" class="checked trial-items">
+      <KCheckbox v-model="checkedBox4" class="checked display-items">
         Config hide credentials
       </KCheckbox>
       <br><br>
-      <KInput label="Health checks active healthy interval" class="mb-2 trial-items" placeholder="0" />
+      <div class="wrapper display-items">
+        <input type="text" placeholder="0" />
+        <label for="">Health checks active healthy interval</label>
+      </div>
+      <!-- <KInput label="Health checks active healthy interval" class="mb-2 display-items" placeholder="0" /> -->
       <br><br>
-      <KCheckbox v-model="checkedBox5" class="checked trial-items">
+      <KCheckbox v-model="checkedBox5" class="checked display-items">
         Config run on preflight
       </KCheckbox>
     </div>
