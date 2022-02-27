@@ -421,31 +421,31 @@ export default {
 }
 
 .display-items {
-  min-width: 30%;
+  min-width: 70%;
 }
 
 .wrapper {
   position: relative;
   height: 56px;
 
-}
-.wrapper input {
-  width: 100%;
-  height: 80%;
-  border-radius: 4px;
-  border: 1px solid var(--grey-300);
-  background-color: var(--white);
-  text-indent: 10px;
-}
+  input {
+    width: 100%;
+    height: 80%;
+    border-radius: 4px;
+    border: 1px solid var(--grey-300);
+    background-color: var(--white);
+    text-indent: 10px;
+  }
 
-.wrapper label {
-  position: absolute;
-  top: -10px;
-  left: 15px;
-  padding: 5px;
-  background-color: var(--white);
-  color: var(--grey-500);
-  font-size: 11px;
+  label {
+    position: absolute;
+    top: -10px;
+    left: 15px;
+    padding: 5px;
+    background-color: var(--white);
+    color: var(--grey-500);
+    font-size: 11px;
+  }
 }
 
 </style>
