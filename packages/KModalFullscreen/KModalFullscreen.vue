@@ -255,7 +255,6 @@ $screen-md: 992px;
 
 .k-modal-body-description,
 .k-modal-body {
-  margin-top: 56px;
   margin-left: 230px;
   margin-right: 230px;
   color: var(--KModalFullscreenColor, var(--black-500, color(black-500)));

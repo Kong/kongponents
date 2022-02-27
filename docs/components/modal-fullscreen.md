@@ -201,9 +201,18 @@ There are 5 designated slots you can use to display content in the fullscreen mo
   <template v-slot:body-content>
     <div class="display">
       <KInputSwitch v-model="checked" label="This plugin is enabled" class="display-items" />
-      <KInput label="Tags" class="mb-2 display-items" placeholder="Enter list of tags" />
+      <br><br>
+      <div class="wrapper display-items">
+        <input type="text" placeholder="Enter list of tags">
+        <label for="">Tags</label>
+      </div>
+      <!-- <KInput label="Tags" class="mb-2 display-items" placeholder="Enter list of tags" /> -->
       <p class="help display-items">e.g., tag1, tag2, tag3</p>
-      <KInput label="Configure Anonymous" class="mb-2 display-items" :style="{ width: '20px' }"  />
+      <div class="wrapper display-items">
+        <input type="text" >
+        <label for="">Config anonymous</label>
+      </div>
+      <!-- <KInput label="Configure Anonymous" class="mb-2 display-items" :style="{ width: '20px' }"  /> -->
       <br><br>
       <KCheckbox v-model="checkedBox1" class="checked display-items">
         Config key in body
@@ -221,7 +230,11 @@ There are 5 designated slots you can use to display content in the fullscreen mo
         Config hide credentials
       </KCheckbox>
       <br><br>
-      <KInput label="Health checks active healthy interval" class="mb-2 display-items" placeholder="0" />
+      <div class="wrapper display-items">
+        <input type="text" placeholder="0" />
+        <label for="">Health checks active healthy interval</label>
+      </div>
+      <!-- <KInput label="Health checks active healthy interval" class="mb-2 display-items" placeholder="0" /> -->
       <br><br>
       <KCheckbox v-model="checkedBox5" class="checked display-items">
         Config run on preflight
@@ -355,6 +368,7 @@ An Example of changing the the colors of KModalFullscreen might look like.
 ```
 
 <script>
+
   function getItems(count) {
   let myItems = []
     for (let i = 0; i < count; i++) {
@@ -393,11 +407,6 @@ export default {
   --KModalFullscreenColor: green;
 }
 
-.divider {
-  margin-top: 21px;
-  margin-bottom: 25px;
-}
-
 .k-switch {
   border-top: 1px solid #eaecef;
   padding-top: 26px;
@@ -414,4 +423,29 @@ export default {
 .display-items {
   min-width: 30%;
 }
+
+.wrapper {
+  position: relative;
+  height: 56px;
+
+}
+.wrapper input {
+  width: 100%;
+  height: 80%;
+  border-radius: 4px;
+  border: 1px solid var(--grey-300);
+  background-color: var(--white);
+  text-indent: 10px;
+}
+
+.wrapper label {
+  position: absolute;
+  top: -10px;
+  left: 15px;
+  padding: 5px;
+  background-color: var(--white);
+  color: var(--grey-500);
+  font-size: 11px;
+}
+
 </style>
