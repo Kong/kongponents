@@ -26,19 +26,22 @@
             </span>
           </div>
           <div class="k-modal-action ml-3">
-            <slot name="action-buttons">
-              <KButton
-                appearance="outline"
-                class=" mr-2"
-                @click="close">
-                {{ cancelButtonText }}
-              </KButton>
-              <KButton
-                :appearance="type === 'danger' ? 'danger' : 'primary'"
-                @click="proceed">
-                {{ actionButtonText }}
-              </KButton>
-            </slot>
+            <KButton
+              :appearance="cancelButtonAppearance"
+              @click="close"
+              @keyup.esc="close">
+              {{ cancelButtonText }}
+            </KButton>
+            <div class="k-modal-action-buttons">
+              <slot name="action-buttons">
+                <KButton
+                  :appearance="actionButtonAppearance"
+                  @click="proceed"
+                  @keyup.enter="proceed">
+                  {{ actionButtonText }}
+                </KButton>
+              </slot>
+            </div>
           </div>
         </div>
         <div>
@@ -78,17 +81,6 @@ export default {
       type: String,
       default: ''
     },
-    type: {
-      type: String,
-      default: 'info',
-      validator: (value) => {
-        return [
-          'info',
-          'warning',
-          'danger'
-        ].includes(value)
-      }
-    },
     /**
      * Set the text of the body content
      */
@@ -110,9 +102,19 @@ export default {
       type: String,
       default: 'Cancel'
     },
+    /**
+     * Set the text of the action/proceed button
+     */
     actionButtonText: {
       type: String,
       default: 'Save'
+    },
+    /**
+     * Set the appearance of the action/proceed button
+     */
+    actionButtonAppearance: {
+      type: String,
+      default: 'primary'
     },
     /**
      * Set the appearance of the close/cancel button
@@ -149,20 +151,6 @@ export default {
 
   mounted () {
     document.addEventListener('keydown', this.handleKeydown)
-    // window.onbeforeunload = function () {
-    //   return self.form_dirty ? 'If you leave this page you will lose your unsaved changes.' : null
-    // }
-
-    // window.onbeforeunload = function () {
-    //   return 'handle your events or msgs here'
-    // }
-
-    // window.addEventListener('beforeunload', function (e) {
-    //   // Cancel the event
-    //   e.preventDefault() // If you prevent default behavior in Mozilla Firefox prompt will always be shown
-    //   // Chrome requires returnValue to be set
-    //   e.returnValue = ''
-    // })
   },
 
   beforeDestroy () {
@@ -289,6 +277,10 @@ $screen-md: 992px;
 .header-content {
   display: inline-block;
   margin-top: var(--spacing-xxs, spacing(xxs))
+}
+
+.k-modal-action-buttons {
+    margin-left: auto;
 }
 
 @media only screen and (max-width: $screen-md) {

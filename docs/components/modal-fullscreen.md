@@ -76,11 +76,15 @@ Change the text content of the close/cancel button.
 
 ### cancelButtonAppearance
 
-Sets the appearance of the close/cancel button.
+Sets the [appearance](/components/button.html#props) of the close/cancel button.
 
 ### actionButtonText
 
 Change the text content of the save/proceed button.
+
+### actionButtonAppearance
+
+Change the [appearance](/components/button.html#props) of the save/proceed button.
 
 <KButton appearance="primary" @click="contentIsOpen = true">Open Modal</KButton>
 
@@ -181,7 +185,10 @@ There are 5 designated slots you can use to display content in the fullscreen mo
   :isVisible="sampleIsOpen"
   title="Install Plugin"
   @canceled="sampleIsOpen = false"
-  @proceed="sampleIsOpen = false" >
+  @proceed="sampleIsOpen = false"
+  cancelButtonAppearance="creation"
+  actionButtonText="Delete"
+  actionButtonAppearance="danger" >
   <template v-slot:header-icon>
     <KIcon icon="kong" class="mr-2" />
   </template>
@@ -196,7 +203,7 @@ There are 5 designated slots you can use to display content in the fullscreen mo
   </template>
   <template v-slot:action-buttons>
     <KButton appearance="secondary" size="medium" @click="sampleIsOpen = false">Back</KButton>
-    <KButton appearance="primary" size="medium" @click="sampleIsOpen = false">Save</KButton>
+    <KButton appearance="outline" size="medium" @click="sampleIsOpen = false">Save</KButton>
   </template>
   <template v-slot:body-content>
     <div class="display">
@@ -206,13 +213,11 @@ There are 5 designated slots you can use to display content in the fullscreen mo
         <input type="text" placeholder="Enter list of tags">
         <label for="">Tags</label>
       </div>
-      <!-- <KInput label="Tags" class="mb-2 display-items" placeholder="Enter list of tags" /> -->
       <p class="help display-items">e.g., tag1, tag2, tag3</p>
       <div class="wrapper display-items">
         <input type="text" >
         <label for="">Config anonymous</label>
       </div>
-      <!-- <KInput label="Configure Anonymous" class="mb-2 display-items" :style="{ width: '20px' }"  /> -->
       <br><br>
       <KCheckbox v-model="checkedBox1" class="checked display-items">
         Config key in body
@@ -234,7 +239,6 @@ There are 5 designated slots you can use to display content in the fullscreen mo
         <input type="text" placeholder="0" />
         <label for="">Health checks active healthy interval</label>
       </div>
-      <!-- <KInput label="Health checks active healthy interval" class="mb-2 display-items" placeholder="0" /> -->
       <br><br>
       <KCheckbox v-model="checkedBox5" class="checked display-items">
         Config run on preflight
@@ -250,7 +254,10 @@ There are 5 designated slots you can use to display content in the fullscreen mo
   :isVisible="sampleIsOpen"
   title="Install Plugin"
   @canceled="sampleIsOpen = false"
-  @proceed="sampleIsOpen = false" >
+  @proceed="sampleIsOpen = false"
+  cancelButtonAppearance="creation"
+  actionButtonText="Delete"
+  actionButtonAppearance="danger" >
   <template v-slot:header-icon>
     <KIcon icon="kong" class="mr-2" />
   </template>
@@ -265,7 +272,7 @@ There are 5 designated slots you can use to display content in the fullscreen mo
   </template>
   <template v-slot:action-buttons>
     <KButton appearance="secondary" size="medium" @click="sampleIsOpen = false">Back</KButton>
-    <KButton appearance="primary" size="medium" @click="sampleIsOpen = false">Save</KButton>
+    <KButton appearance="outline" size="medium" @click="sampleIsOpen = false">Save</KButton>
   </template>
   <template v-slot:body-content>
     <div class="display">
@@ -275,13 +282,11 @@ There are 5 designated slots you can use to display content in the fullscreen mo
         <input type="text" placeholder="Enter list of tags">
         <label for="">Tags</label>
       </div>
-      <!-- <KInput label="Tags" class="mb-2 display-items" placeholder="Enter list of tags" /> -->
       <p class="help display-items">e.g., tag1, tag2, tag3</p>
       <div class="wrapper display-items">
         <input type="text" >
         <label for="">Config anonymous</label>
       </div>
-      <!-- <KInput label="Configure Anonymous" class="mb-2 display-items" :style="{ width: '20px' }"  /> -->
       <br><br>
       <KCheckbox v-model="checkedBox1" class="checked display-items">
         Config key in body
@@ -303,7 +308,6 @@ There are 5 designated slots you can use to display content in the fullscreen mo
         <input type="text" placeholder="0" />
         <label for="">Health checks active healthy interval</label>
       </div>
-      <!-- <KInput label="Health checks active healthy interval" class="mb-2 display-items" placeholder="0" /> -->
       <br><br>
       <KCheckbox v-model="checkedBox5" class="checked display-items">
         Config run on preflight
