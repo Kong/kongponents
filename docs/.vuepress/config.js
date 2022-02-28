@@ -54,6 +54,7 @@ module.exports = {
               '/components/label',
               '/components/menu',
               '/components/modal',
+              '/components/modal-fullscreen',
               '/components/multiselect',
               '/components/pagination',
               '/components/popover',

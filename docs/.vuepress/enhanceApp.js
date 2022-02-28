@@ -24,6 +24,7 @@ import KLabel from '../../packages/KLabel/KLabel.vue'
 import KMenu from '../../packages/KMenu/KMenu.vue'
 import KMenuItem from '../../packages/KMenu/KMenuItem.vue'
 import KModal from '../../packages/KModal/KModal.vue'
+import KModalFullscreen from '../../packages/KModalFullscreen/KModalFullscreen.vue'
 import KoolTip from '../../packages/KoolTip/KoolTip.vue'
 import KPagination from '../../packages/KPagination/KPagination.vue'
 import KPop from '../../packages/KPop/KPop.vue'
@@ -68,6 +69,7 @@ export default ({
   Vue.component('KMenu', KMenu)
   Vue.component('KMenuItem', KMenuItem)
   Vue.component('KModal', KModal)
+  Vue.component('KModalFullscreen', KModalFullscreen)
   Vue.component('KoolTip', KoolTip)
   Vue.component('KPagination', KPagination)
   Vue.component('KPop', KPop)
