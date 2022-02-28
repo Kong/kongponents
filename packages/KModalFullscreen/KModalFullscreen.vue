@@ -145,10 +145,10 @@ export default {
   watch: {
     isVisible: function () {
       if (this.isOpen) {
-        document.body.style.overflow = this.isOpen ? 'hidden' : ''
+        document.body.style.overflow = 'hidden'
         window.scrollTo(0, 0)
       } else {
-        document.body.style.overflow = this.isOpen ? 'hidden' : ''
+        document.body.style.overflow = ''
       }
     }
   },
