@@ -58,10 +58,6 @@ Text displayed in header.
 
 Text to display Page title and description.
 
-### type
-
-This prompt determines the look and feel of the dialog. Can be `danger`, `warning`, or `info`. Defaults to `info`.
-
 ### content
 
 Sets the text of the body content if not using slot.
@@ -141,7 +137,6 @@ There are 5 designated slots you can use to display content in the fullscreen mo
   <template v-slot:action-buttons>
     <KButton appearance="secondary" size="medium" @click="exampleIsOpen = false">Back</KButton>
     <KButton appearance="primary" size="medium" @click="exampleIsOpen = false">Save</KButton>
-    <KButton appearance="outline" size="medium" @click="exampleIsOpen = false">Do It</KButton>
   </template>
   <template v-slot:body-content>
     <h3>Security</h3>
@@ -168,7 +163,6 @@ There are 5 designated slots you can use to display content in the fullscreen mo
   <template v-slot:action-buttons>
     <KButton appearance="secondary" size="medium" @click="exampleIsOpen = false">Back</KButton>
     <KButton appearance="primary" size="medium" @click="exampleIsOpen = false">Save</KButton>
-    <KButton appearance="outline" size="medium" @click="exampleIsOpen = false">Do It</KButton>
   </template>
   <template v-slot:body-content>
     <h3>Security</h3>
@@ -186,7 +180,7 @@ There are 5 designated slots you can use to display content in the fullscreen mo
   title="Install Plugin"
   @canceled="sampleIsOpen = false"
   @proceed="sampleIsOpen = false"
-  cancelButtonAppearance="creation"
+  cancelButtonAppearance="secondary"
   actionButtonText="Delete"
   actionButtonAppearance="danger" >
   <template v-slot:header-icon>
@@ -202,8 +196,8 @@ There are 5 designated slots you can use to display content in the fullscreen mo
     </div>
   </template>
   <template v-slot:action-buttons>
-    <KButton appearance="secondary" size="medium" @click="sampleIsOpen = false">Back</KButton>
-    <KButton appearance="outline" size="medium" @click="sampleIsOpen = false">Save</KButton>
+    <KButton size="medium" @click="sampleIsOpen = false">Back</KButton>
+    <KButton appearance="creation" size="medium" @click="sampleIsOpen = false">Save</KButton>
   </template>
   <template v-slot:body-content>
     <div class="display">
@@ -255,7 +249,7 @@ There are 5 designated slots you can use to display content in the fullscreen mo
   title="Install Plugin"
   @canceled="sampleIsOpen = false"
   @proceed="sampleIsOpen = false"
-  cancelButtonAppearance="creation"
+  cancelButtonAppearance="secondary"
   actionButtonText="Delete"
   actionButtonAppearance="danger" >
   <template v-slot:header-icon>
@@ -271,8 +265,8 @@ There are 5 designated slots you can use to display content in the fullscreen mo
     </div>
   </template>
   <template v-slot:action-buttons>
-    <KButton appearance="secondary" size="medium" @click="sampleIsOpen = false">Back</KButton>
-    <KButton appearance="outline" size="medium" @click="sampleIsOpen = false">Save</KButton>
+    <KButton size="medium" @click="sampleIsOpen = false">Back</KButton>
+    <KButton appearance="creation" size="medium" @click="sampleIsOpen = false">Save</KButton>
   </template>
   <template v-slot:body-content>
     <div class="display">
