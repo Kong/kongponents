@@ -16,8 +16,8 @@ describe('KModalFullscreen', () => {
       }
     })
 
-    expect(wrapper.find('.k-modal-header').html()).toEqual(expect.stringContaining(headerText))
-    expect(wrapper.find('.k-modal-body').html()).toEqual(expect.stringContaining(bodyText))
+    expect(wrapper.find('.k-modal-fullscreen-header').html()).toEqual(expect.stringContaining(headerText))
+    expect(wrapper.find('.k-modal-fullscreen-body').html()).toEqual(expect.stringContaining(bodyText))
     expect(wrapper.html()).toMatchSnapshot()
   })
 
@@ -33,7 +33,7 @@ describe('KModalFullscreen', () => {
       }
     })
 
-    expect(wrapper.find('.k-modal-action').html()).toEqual(expect.stringContaining(actionButtonsText))
+    expect(wrapper.find('.k-modal-fullscreen-action').html()).toEqual(expect.stringContaining(actionButtonsText))
     expect(wrapper.html()).toMatchSnapshot()
   })
 
@@ -48,8 +48,8 @@ describe('KModalFullscreen', () => {
       }
     })
 
-    expect(wrapper.find('.k-modal-header').html()).toEqual(expect.stringContaining(title))
-    expect(wrapper.find('.k-modal-body').html()).toEqual(expect.stringContaining(content))
+    expect(wrapper.find('.k-modal-fullscreen-header').html()).toEqual(expect.stringContaining(title))
+    expect(wrapper.find('.k-modal-fullscreen-body').html()).toEqual(expect.stringContaining(content))
     expect(wrapper.html()).toMatchSnapshot()
   })
 

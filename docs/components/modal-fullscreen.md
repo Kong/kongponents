@@ -126,7 +126,7 @@ There are 5 designated slots you can use to display content in the fullscreen mo
 <KModalFullscreen
   :isVisible="exampleIsOpen"
   title="Install Plugin"
-  @canceled="exampleIsOpen = false" iconHeader="immunity">
+  @canceled="exampleIsOpen = false" iconString="immunity">
   <template v-slot:header-content>
     Install Plugin
   </template>
@@ -152,7 +152,7 @@ There are 5 designated slots you can use to display content in the fullscreen mo
 <KModalFullscreen
   :isVisible="exampleIsOpen"
   title="Install Plugin"
-  @canceled="exampleIsOpen = false" iconHeader="immunity">
+  @canceled="exampleIsOpen = false" iconString="immunity">
   <template v-slot:header-content>
     Install Plugin
   </template>

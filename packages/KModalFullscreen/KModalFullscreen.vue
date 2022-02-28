@@ -6,38 +6,42 @@
     role="dialog"
     aria-modal="true">
     <div
-      class="k-modal-dialog"
+      class="k-modal-fullscreen-dialog"
     >
-      <div class="k-modal-header">
+      <div class="k-modal-fullscreen-header">
         <div
           v-if="!$scopedSlots.title"
-          class="k-modal-header-description mb-5"
+          class="k-modal-fullscreen-header-description mb-5"
           role="heading"
           aria-level="2">
-          <div class="k-modal-title">
+          <div class="k-modal-fullscreen-title">
             <span
               class="header-icon">
               <KIcon
-                :icon="iconHeader"
+                :icon="iconString"
                 class="mr-2" />
             </span>
             <span class="header-content">
               <slot name="header-content">{{ title }}</slot>
             </span>
           </div>
-          <div class="k-modal-action ml-3">
+          <div
+            class="k-modal-fullscreen-action ml-3"
+            @click="close"
+            @keyup.esc="close" >
             <KButton
               :appearance="cancelButtonAppearance"
-              @click="close"
-              @keyup.esc="close">
+            >
               {{ cancelButtonText }}
             </KButton>
-            <div class="k-modal-action-buttons">
+            <div
+              class="k-modal-fullscreen-action-buttons"
+              @click="proceed"
+              @keyup.enter="proceed" >
               <slot name="action-buttons">
                 <KButton
                   :appearance="actionButtonAppearance"
-                  @click="proceed"
-                  @keyup.enter="proceed">
+                >
                   {{ actionButtonText }}
                 </KButton>
               </slot>
@@ -48,10 +52,10 @@
           <hr>
         </div>
       </div>
-      <div class="k-modal-body-description">
+      <div class="k-modal-fullscreen-body-description">
         <slot name="body-header-description">{{ bodyHeaderDescription }}</slot>
       </div>
-      <div class="k-modal-body">
+      <div class="k-modal-fullscreen-body">
         <slot name="body-content">{{ content }}</slot>
       </div>
     </div>
@@ -124,9 +128,9 @@ export default {
       default: 'outline'
     },
     /**
-      *  Pass whether or not the modal should have icon in the header on the left
+      *  Pass the type of icon for the header on the left
       */
-    iconHeader: {
+    iconString: {
       type: String,
       default: 'kong'
     }
@@ -184,7 +188,7 @@ export default {
 @import '~@kongponents/styles/variables';
 $screen-md: 992px;
 
-.k-modal-dialog {
+.k-modal-fullscreen-dialog {
   padding: var(--spacing-xl, spacing(xl)) 0 14px 0;
   background: var(--white);
   z-index: 9999;
@@ -196,12 +200,12 @@ $screen-md: 992px;
   width: 100vw;
 }
 
-.k-modal-header {
+.k-modal-fullscreen-header {
   position: relative;
   display: flex;
   flex-direction: column;
 
-  .k-modal-header-description {
+  .k-modal-fullscreen-header-description {
     display: flex;
     justify-content: space-between;
     font-size: var(--KModalFullscreenHeaderSize, 20px);
@@ -209,7 +213,7 @@ $screen-md: 992px;
     color: var(--KModalFullscreenHeaderColor, var(--black-500, color(black-500)));
   }
 
-  .k-modal-body {
+  .k-modal-fullscreen-body {
     text-align: center;
     position: relative;
     flex: 1 1 auto;
@@ -218,13 +222,13 @@ $screen-md: 992px;
   }
 }
 
-.k-modal-title {
+.k-modal-fullscreen-title {
   display: inline-flex;
   position: relative;
   margin-left: 36px;
 }
 
-.k-modal-action {
+.k-modal-fullscreen-action {
   display: inline-flex;
   margin-right: var(--spacing-xl, spacing(xl));
    & button {
@@ -241,14 +245,14 @@ $screen-md: 992px;
   border-right: 1px solid var(--grey-300);
 }
 
-.k-modal-body-description,
-.k-modal-body {
+.k-modal-fullscreen-body-description,
+.k-modal-fullscreen-body {
   margin-left: 230px;
   margin-right: 230px;
   color: var(--KModalFullscreenColor, var(--black-500, color(black-500)));
 }
 
-.k-modal-body-description {
+.k-modal-fullscreen-body-description {
   font-size: 32px;
   line-height: 32px;
   font-weight: 600;
@@ -266,11 +270,11 @@ $screen-md: 992px;
     }
 }
 
-.k-modal-body-description h2 {
+.k-modal-fullscreen-body-description h2 {
   border: none;
 }
 
-.k-modal-fullscreen.isOpen .k-modal-dialog {
+.k-modal-fullscreen.isOpen .k-modal-fullscreen-dialog {
   overflow-y: auto;
 }
 
@@ -279,14 +283,14 @@ $screen-md: 992px;
   margin-top: var(--spacing-xxs, spacing(xxs))
 }
 
-.k-modal-action-buttons {
+.k-modal-fullscreen-action-buttons {
     margin-left: auto;
 }
 
 @media only screen and (max-width: $screen-md) {
-  .k-modal-dialog {
-    .k-modal-body-description,
-    .k-modal-body {
+  .k-modal-fullscreen-dialog {
+    .k-modal-fullscreen-body-description,
+    .k-modal-fullscreen-body {
       padding: 0 10%;
       margin: 0 auto;
     }
