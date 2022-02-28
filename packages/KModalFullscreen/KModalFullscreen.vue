@@ -4,7 +4,9 @@
     :aria-label="title"
     class="k-modal-fullscreen isOpen"
     role="dialog"
-    aria-modal="true">
+    aria-modal="true"
+    @keyup.esc="close"
+    @keyup.enter="proceed" >
     <div
       class="k-modal-fullscreen-dialog"
     >
@@ -27,20 +29,20 @@
           </div>
           <div
             class="k-modal-fullscreen-action ml-3"
-            @click="close"
-            @keyup.esc="close" >
+          >
             <KButton
               :appearance="cancelButtonAppearance"
+              @click="close"
             >
               {{ cancelButtonText }}
             </KButton>
             <div
               class="k-modal-fullscreen-action-buttons"
-              @click="proceed"
-              @keyup.enter="proceed" >
+            >
               <slot name="action-buttons">
                 <KButton
                   :appearance="actionButtonAppearance"
+                  @click="proceed"
                 >
                   {{ actionButtonText }}
                 </KButton>
