@@ -127,7 +127,7 @@ to prevent spam clicking.
 
 ### type
 
-This prompt determines the look and feel of the dialog. Can be `danger`, `warning`, or `info`. Defaults to `info`.
+This prop determines the look and feel of the dialog. Can be `danger`, `warning`, or `info`. Defaults to `info`.
 
 #### Information
 

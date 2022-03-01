@@ -12,7 +12,7 @@
     />
 
     <div
-      v-else
+      v-else-if="label && overlayLabel"
       class="col-md-4 mt-5">
       <div class="text-on-input">
         <label
@@ -37,6 +37,28 @@
     </div>
 
     <div
+      v-else
+      class="col-md-4 mt-5">
+      <KLabel
+        :for="textAreaId">
+        {{ label }}
+      </KLabel>
+      <textarea
+        v-bind="$attrs"
+        :id="textAreaId"
+        :value="currValue ? currValue : value"
+        :rows="rows"
+        :cols="cols"
+        class="form-control k-input style-body-lg"
+        @input="inputHandler"
+        @mouseenter="() => isHovered = true"
+        @mouseleave="() => isHovered = false"
+        @focus="() => isFocused = true"
+        @blur="() => isFocused = false"
+        v-on="listeners" />
+    </div>
+
+    <div
       v-if="!disableCharacterLimit"
       :class="{ 'over-char-limit': currValue.length > characterLimit }"
       class="char-limit type-sm color-black-45 mt-2">
@@ -46,11 +68,13 @@
 </template>
 
 <script>
+import KLabel from '@kongponents/klabel/KLabel.vue'
 import { uuid } from 'vue-uuid'
 const CHARACTER_LIMIT = 2048
 
 export default {
   name: 'KTextArea',
+  components: { KLabel },
   inheritAttrs: false,
   props: {
     value: {
@@ -60,6 +84,10 @@ export default {
     label: {
       type: String,
       default: ''
+    },
+    overlayLabel: {
+      type: Boolean,
+      default: false
     },
     characterLimit: {
       type: Number,

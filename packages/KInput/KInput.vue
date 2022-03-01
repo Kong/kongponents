@@ -2,21 +2,9 @@
   <div
     :class="{'input-error' : hasError}"
     class="k-input-wrapper">
-    <input
-      v-if="!label"
-      v-bind="$attrs"
-      :value="value"
-      :class="`k-input-${size}`"
-      :aria-invalid="hasError ? hasError : null"
-      class="form-control k-input"
-      @input="e => {
-        $emit('input', e.target.value)
-      }"
-      v-on="listeners">
-
     <div
-      v-else
-      :class="`k-input-label-${size}`"
+      v-if="label && overlayLabel"
+      :class="`k-input-label-wrapper-${size}`"
       class="col-md-4 mt-5">
       <div class="text-on-input">
         <label
@@ -41,25 +29,71 @@
           @blur="() => isFocused = false"
           v-on="listeners">
       </div>
+      <p
+        v-if="hasError"
+        class="has-error">
+        {{ errorMessage }}
+      </p>
     </div>
+
+    <div
+      v-else-if="label"
+      :class="`k-input-label-wrapper-${size}`">
+      <KLabel
+        for="inputId">
+        {{ label }}
+      </KLabel>
+      <input
+        v-bind="$attrs"
+        :id="inputId"
+        :value="value"
+        :class="`k-input-${size}`"
+        :aria-invalid="hasError ? hasError : null"
+        class="form-control k-input"
+        @input="e => {
+          $emit('input', e.target.value)
+        }"
+        v-on="listeners">
+      <p
+        v-if="hasError"
+        class="has-error">
+        {{ errorMessage }}
+      </p>
+    </div>
+
+    <input
+      v-else
+      v-bind="$attrs"
+      :value="value"
+      :class="`k-input-${size}`"
+      :aria-invalid="hasError ? hasError : null"
+      class="form-control k-input"
+      @input="e => {
+        $emit('input', e.target.value)
+      }"
+      v-on="listeners">
+
+    <p
+      v-if="hasError && !label"
+      class="has-error">
+      {{ errorMessage }}
+    </p>
+
     <p
       v-if="help"
       class="help">
       {{ help }}
     </p>
-    <p
-      v-if="hasError"
-      class="has-error">
-      {{ errorMessage }}
-    </p>
   </div>
 </template>
 
 <script>
+import KLabel from '@kongponents/klabel/KLabel.vue'
 import { uuid } from 'vue-uuid'
 
 export default {
   name: 'KInput',
+  components: { KLabel },
   inheritAttrs: false,
   props: {
     value: {
@@ -69,6 +103,13 @@ export default {
     label: {
       type: String,
       default: ''
+    },
+    /**
+     * Overlay the label on the input's border
+     */
+    overlayLabel: {
+      type: Boolean,
+      default: false
     },
     help: {
       type: String,
@@ -145,36 +186,21 @@ export default {
     -webkit-appearance: none;
   }
 
-  & .k-input-label-large + .has-error {
-    font-size: 12px;
-    line-height: 15px;
-    margin-top: 4px;
-  }
-
-  & .k-input-label-medium + .has-error {
-    font-size: 10px;
-    line-height: 13px;
-    margin-top: 3px;
-  }
-
-  & .k-input-label-small + .has-error {
-    font-size: 9px;
-    line-height: 11px;
-    margin-top: 2px;
-  }
-
+  & .k-input-label-wrapper-large .has-error,
   & .k-input-large + .has-error {
     font-size: 12px;
     line-height: 15px;
     margin-top: 4px;
   }
 
+  & .k-input-label-wrapper-medium .has-error,
   & .k-input-medium + .has-error {
     font-size: 10px;
     line-height: 13px;
     margin-top: 3px;
   }
 
+  & .k-input-label-wrapper-small .has-error,
   & .k-input-small + .has-error {
     font-size: 9px;
     line-height: 11px;
