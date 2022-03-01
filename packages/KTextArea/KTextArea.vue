@@ -68,11 +68,13 @@
 </template>
 
 <script>
+import KLabel from '@kongponents/klabel/KLabel.vue'
 import { uuid } from 'vue-uuid'
 const CHARACTER_LIMIT = 2048
 
 export default {
   name: 'KTextArea',
+  components: { KLabel },
   inheritAttrs: false,
   props: {
     value: {

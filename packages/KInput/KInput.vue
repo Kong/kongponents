@@ -88,10 +88,12 @@
 </template>
 
 <script>
+import KLabel from '@kongponents/klabel/KLabel.vue'
 import { uuid } from 'vue-uuid'
 
 export default {
   name: 'KInput',
+  components: { KLabel },
   inheritAttrs: false,
   props: {
     value: {

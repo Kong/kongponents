@@ -29,6 +29,18 @@ describe('KInput', () => {
       }
     })
 
+    expect(wrapper.find('.k-input-label').element.innerHTML).toContain('A Label!')
+  })
+
+  it('renders overlayed label when value is passed', () => {
+    const wrapper = mount(KInput, {
+      propsData: {
+        testMode: true,
+        label: 'A Label!',
+        overlayLabel: true
+      }
+    })
+
     expect(wrapper.find('.text-on-input label').element.innerHTML).toContain('A Label!')
   })
 
