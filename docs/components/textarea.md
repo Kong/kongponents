@@ -36,10 +36,10 @@ If the label is omitted it can be handled with another component, like **KLabel*
 Enable this prop to overlay the label on the input element's border. Defaults to `false`.
 Make sure that if you are using the built in label you specify the `--KInputBackground` theming variable. This variable is used for the background of the label as well as the input element.
 
-<KTextArea label="Name" placeholder="I'm labelled!" :overlayLabel="true" />
+<KTextArea label="Name" placeholder="I'm labelled!" :overlay-label="true" />
 
 ```vue
-<KTextArea label="Name" placeholder="I'm labelled!" :overlayLabel="true" />
+<KTextArea label="Name" placeholder="I'm labelled!" :overlay-label="true" />
 ```
 
 ### size
