@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.17.0 (2022-03-02)
+
+
+### Features
+
+* **kmodal:** fix overlay color [khcp-2929] ([#510](https://github.com/Kong/kongponents/issues/510)) ([41ea9aa](https://github.com/Kong/kongponents/commit/41ea9aa5a0a6507e2c8c893fed763549c11f67bc))
+
+
+
+
+
 # 6.16.0 (2022-03-01)
 
 
