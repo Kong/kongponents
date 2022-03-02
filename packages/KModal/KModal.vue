@@ -149,7 +149,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgb(11, 23, 45, .6);
+  background-color: var(--KModalBackdrop, rgb(11, 23, 45, .6));
   z-index: 1100;
 }
 
