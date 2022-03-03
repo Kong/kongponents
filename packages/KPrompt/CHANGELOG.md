@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.18.0 (2022-03-03)
+
+
+### Features
+
+* **kicon:** add new team-member icon for teams-user [khcp-2977] ([#513](https://github.com/Kong/kongponents/issues/513)) ([e6dbebb](https://github.com/Kong/kongponents/commit/e6dbebbc5bfa781fca078a431dd187a7b4e38564))
+
+
+
+
+
 ## 6.17.2 (2022-03-03)
 
 
