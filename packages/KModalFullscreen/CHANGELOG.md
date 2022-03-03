@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.16.1 (2022-03-03)
+
+
+### Bug Fixes
+
+* **kinput:** properly bind variable to attribute ([#511](https://github.com/Kong/kongponents/issues/511)) ([164475f](https://github.com/Kong/kongponents/commit/164475fcee37dcb806bd94a2a4c452405a57bca2))
+
+
+
+
+
 # 6.16.0 (2022-03-02)
 
 
