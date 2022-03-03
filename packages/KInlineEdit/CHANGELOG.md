@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.17.2 (2022-03-03)
+
+
+### Bug Fixes
+
+* **kmodal:** fix background rgba ([#512](https://github.com/Kong/kongponents/issues/512)) ([27f0639](https://github.com/Kong/kongponents/commit/27f0639241dbed52609d7725eab706f2c9bb0258))
+
+
+
+
+
 ## 6.17.1 (2022-03-03)
 
 
