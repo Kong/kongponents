@@ -62,6 +62,7 @@ import spinner from './icn-spinner.svg'
 import stackedCards from './icn-stacked-cards.svg'
 import support from './icn-support.svg'
 import table from './icn-table.svg'
+import teamMember from './icn-team-member.svg'
 import trash from './icn-trash.svg'
 import vitals from './icn-vitals.svg'
 import vitalsChart from './icn-vitals-chart.svg'
@@ -134,6 +135,7 @@ export default {
   stackedCards,
   support,
   table,
+  teamMember,
   trash,
   vitals,
   vitalsChart,
