@@ -40,7 +40,7 @@
       v-else-if="label"
       :class="`k-input-label-wrapper-${size}`">
       <KLabel
-        for="inputId">
+        :for="inputId">
         {{ label }}
       </KLabel>
       <input
