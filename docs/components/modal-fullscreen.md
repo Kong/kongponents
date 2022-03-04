@@ -50,13 +50,21 @@ export default {
 
 ## Props
 
+### iconString
+
+Name of KIcon to be displayed in the header.
+
 ### title
 
-Text displayed in header.
+Title displayed in header. This prop is required for accessibility purposes even if you are slotting the title.
+
+### bodyHeader
+
+Text to display for the title in the body section.
 
 ### bodyHeaderDescription
 
-Text to display Page title and description.
+Text to display beneath the `bodyHeader` as a description.
 
 ### content
 
@@ -116,9 +124,11 @@ Change the [appearance](/components/button.html#props) of the save/proceed butto
 
 There are 5 designated slots you can use to display content in the fullscreen modal.
 
-- `header-content`
-- `action-buttons` - Contains action buttons which are right-aligned. If not used, provide default Cancel/Submit buttons
-- `body-header-description`
+- `header-icon`
+- `header-content` - title text in the header
+- `action-buttons` - contains action buttons which are right-aligned. If not used, provide default Cancel/Submit buttons
+- `body-header` - title to display in the body section
+- `body-header-description` - description text displayed beneath the `body-header`
 - `body-content`
 
 <KButton appearance="primary" @click="exampleIsOpen = true">Open Fullscreen Modal</KButton>
@@ -126,13 +136,18 @@ There are 5 designated slots you can use to display content in the fullscreen mo
 <KModalFullscreen
   :isVisible="exampleIsOpen"
   title="Install Plugin"
-  @canceled="exampleIsOpen = false" iconString="immunity">
+  @canceled="exampleIsOpen = false">
+  <template v-slot:header-icon>
+    <KIcon icon="immunity" />
+  </template>
   <template v-slot:header-content>
     Install Plugin
   </template>
+  <template v-slot:body-header>
+    Select a plugin
+  </template>
   <template v-slot:body-header-description>
-    <p>Select a plugin</p>
-    <p>Choose a plugin from our catalog to install for your organization. <a>View documentation</a></p>
+    Choose a plugin from our catalog to install for your organization. <a>View documentation</a>
   </template>
   <template v-slot:action-buttons>
     <KButton appearance="secondary" size="medium" @click="exampleIsOpen = false">Back</KButton>
@@ -152,13 +167,18 @@ There are 5 designated slots you can use to display content in the fullscreen mo
 <KModalFullscreen
   :isVisible="exampleIsOpen"
   title="Install Plugin"
-  @canceled="exampleIsOpen = false" iconString="immunity">
+  @canceled="exampleIsOpen = false">
+  <template v-slot:header-icon>
+    <KIcon icon="immunity" />
+  </template>
   <template v-slot:header-content>
     Install Plugin
   </template>
+  <template v-slot:body-header>
+    Select a plugin
+  </template>
   <template v-slot:body-header-description>
-    <p>Select a plugin</p>
-    <p>Choose a plugin from our catalog to install for your organization. <a>View documentation</a></p>
+    Choose a plugin from our catalog to install for your organization. <a>View documentation</a>
   </template>
   <template v-slot:action-buttons>
     <KButton appearance="secondary" size="medium" @click="exampleIsOpen = false">Back</KButton>
@@ -182,18 +202,15 @@ There are 5 designated slots you can use to display content in the fullscreen mo
   @proceed="sampleIsOpen = false"
   cancelButtonAppearance="secondary"
   actionButtonText="Delete"
-  actionButtonAppearance="danger" >
-  <template v-slot:header-icon>
-    <KIcon icon="kong" class="mr-2" />
-  </template>
+  actionButtonAppearance="danger">
   <template v-slot:header-content>
     Install Plugin
   </template>
+   <template v-slot:body-header>
+    Configure a key auth plugin
+  </template>
   <template v-slot:body-header-description>
-    <div class="display">
-      <p>Configure a key auth plugin</p>
-      <p>Lorem ipsum factum. <a>View documentation</a></p>
-    </div>
+    Lorem ipsum factum. <a>View documentation</a>
   </template>
   <template v-slot:action-buttons>
     <KButton size="medium" @click="sampleIsOpen = false">Back</KButton>
@@ -251,18 +268,15 @@ There are 5 designated slots you can use to display content in the fullscreen mo
   @proceed="sampleIsOpen = false"
   cancelButtonAppearance="secondary"
   actionButtonText="Delete"
-  actionButtonAppearance="danger" >
-  <template v-slot:header-icon>
-    <KIcon icon="kong" class="mr-2" />
-  </template>
+  actionButtonAppearance="danger">
   <template v-slot:header-content>
     Install Plugin
   </template>
+   <template v-slot:body-header>
+    Configure a key auth plugin
+  </template>
   <template v-slot:body-header-description>
-    <div class="display">
-      <p>Configure a key auth plugin</p>
-      <p>Lorem ipsum factum. <a>View documentation</a></p>
-    </div>
+    Lorem ipsum factum. <a>View documentation</a>
   </template>
   <template v-slot:action-buttons>
     <KButton size="medium" @click="sampleIsOpen = false">Back</KButton>
