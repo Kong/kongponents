@@ -6,7 +6,7 @@
     role="dialog"
     aria-modal="true"
     @keyup.esc="close"
-    @keyup.enter="proceed" >
+    @keyup.enter="proceed">
     <div
       class="k-modal-fullscreen-dialog"
     >
@@ -27,19 +27,15 @@
               <slot name="header-content">{{ title }}</slot>
             </span>
           </div>
-          <div
-            class="k-modal-fullscreen-action ml-3"
-          >
-            <KButton
-              :appearance="cancelButtonAppearance"
-              @click="close"
-            >
-              {{ cancelButtonText }}
-            </KButton>
-            <div
-              class="k-modal-fullscreen-action-buttons"
-            >
+          <div class="k-modal-fullscreen-action ml-3">
+            <div class="k-modal-fullscreen-action-buttons">
               <slot name="action-buttons">
+                <KButton
+                  :appearance="cancelButtonAppearance"
+                  @click="close"
+                >
+                  {{ cancelButtonText }}
+                </KButton>
                 <KButton
                   :appearance="actionButtonAppearance"
                   @click="proceed"
@@ -194,7 +190,7 @@ $screen-md: 992px;
   padding: var(--spacing-xl, spacing(xl)) 0 14px 0;
   background: var(--white);
   z-index: 9999;
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;

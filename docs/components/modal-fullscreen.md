@@ -117,7 +117,7 @@ Change the [appearance](/components/button.html#props) of the save/proceed butto
 There are 5 designated slots you can use to display content in the fullscreen modal.
 
 - `header-content`
-- `action-buttons` - Contains action buttons which are right-aligned.
+- `action-buttons` - Contains action buttons which are right-aligned. If not used, provide default Cancel/Submit buttons
 - `body-header-description`
 - `body-content`
 
@@ -327,7 +327,7 @@ There are 5 designated slots you can use to display content in the fullscreen mo
 | `--KModalFullscreenColor`| Main content text color
 | `--KModalFullscreenFontSize`| Main content text size
 
-An Example of changing the the colors of KModalFullscreen might look like.  
+An Example of changing the the colors of KModalFullscreen might look like.
 > Note: We are scoping the overrides to a wrapper in this example
 
 <KButton appearance="primary" @click="themeIsOpen = true">Open Modal</KButton>
@@ -408,7 +408,7 @@ export default {
       contentIsOpen: false
     }
   },
-  
+
 }
 </script>
 
