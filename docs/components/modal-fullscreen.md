@@ -207,17 +207,17 @@ There are 5 designated slots you can use to display content in the fullscreen mo
     Install Plugin
   </template>
    <template v-slot:body-header>
-    Configure a key auth plugin
+    <div class="ml-25">Configure a key auth plugin</div>
   </template>
   <template v-slot:body-header-description>
-    Lorem ipsum factum. <a>View documentation</a>
+    <div class="ml-25">Lorem ipsum factum. <a>View documentation</a></div>
   </template>
   <template v-slot:action-buttons>
     <KButton size="medium" @click="sampleIsOpen = false">Back</KButton>
     <KButton appearance="creation" size="medium" @click="sampleIsOpen = false">Save</KButton>
   </template>
   <template v-slot:body-content>
-    <div class="display">
+    <div class="ml-25">
       <KInputSwitch v-model="checked" label="This plugin is enabled" class="display-items" />
       <br><br>
       <div class="wrapper display-items">
@@ -273,17 +273,17 @@ There are 5 designated slots you can use to display content in the fullscreen mo
     Install Plugin
   </template>
    <template v-slot:body-header>
-    Configure a key auth plugin
+    <div class="ml-25">Configure a key auth plugin</div>
   </template>
   <template v-slot:body-header-description>
-    Lorem ipsum factum. <a>View documentation</a>
+    <div class="ml-25">Lorem ipsum factum. <a>View documentation</a></div>
   </template>
   <template v-slot:action-buttons>
     <KButton size="medium" @click="sampleIsOpen = false">Back</KButton>
     <KButton appearance="creation" size="medium" @click="sampleIsOpen = false">Save</KButton>
   </template>
   <template v-slot:body-content>
-    <div class="display">
+    <div class="ml-25">
       <KInputSwitch v-model="checked" label="This plugin is enabled" class="display-items" />
       <br><br>
       <div class="wrapper display-items">
@@ -432,6 +432,10 @@ export default {
   --KModalFullscreenColor: green;
 }
 
+.ml-25 {
+  margin-left: 25%;
+}
+
 .k-switch {
   border-top: 1px solid #eaecef;
   padding-top: 26px;
@@ -446,7 +450,7 @@ export default {
 }
 
 .display-items {
-  min-width: 70%;
+  width: 50%;
 }
 
 .wrapper {
