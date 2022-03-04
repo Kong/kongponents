@@ -258,6 +258,7 @@ $screen-md: 992px;
   border-right: 1px solid var(--grey-300);
 }
 
+.k-modal-fullscreen-body-header,
 .k-modal-fullscreen-body-description,
 .k-modal-fullscreen-body {
   margin-left: 230px;
@@ -268,9 +269,6 @@ $screen-md: 992px;
 .k-modal-fullscreen-body-header {
   margin-top: 64px;
   margin-bottom: 54px;
-  margin-left: auto;
-  margin-right: auto;
-  width: fit-content;
 
   .body-header {
     font-size: 32px;
