@@ -284,16 +284,16 @@ export default {
   }
   &.creation {
     color: var(--white, #fff);
-    background-color: var(--KButtonCreationBase, var(--green-400, color(green-400)));
+    background-color: var(--KButtonCreationBase, var(--green-500, color(green-500)));
     &:hover:not(:disabled) {
-      $hover: rgba(color(green-500), .85);
+      $hover: rgba(color(green-600), .85);
       background-color: var(--KButtonCreationHover, $hover);
     }
     &:active {
-      background-color: var(--KButtonCreationActive, var(--green-400, color(green-400)));
+      background-color: var(--KButtonCreationActive, var(--green-600, color(green-600)));
     }
     &:focus {
-      @include boxShadow(var(--KButtonCreationBase, var(--green-500, color(green-500))));
+      @include boxShadow(var(--KButtonCreationBase, var(--green-600, color(green-600))));
     }
   }
   &.outline {
