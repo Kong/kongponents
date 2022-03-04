@@ -12,18 +12,16 @@
     >
       <div class="k-modal-fullscreen-header">
         <div
-          v-if="!$scopedSlots.title"
           class="k-modal-fullscreen-header-description mb-5"
           role="heading"
           aria-level="2">
           <div class="k-modal-fullscreen-title">
-            <span
-              class="header-icon">
-              <KIcon
-                :icon="iconString"
-                class="mr-2" />
+            <span class="header-icon pr-2 my-auto">
+              <slot name="header-icon">
+                <KIcon :icon="iconString" />
+              </slot>
             </span>
-            <span class="header-content">
+            <span class="header-content my-auto">
               <slot name="header-content">{{ title }}</slot>
             </span>
           </div>
@@ -32,12 +30,14 @@
               <slot name="action-buttons">
                 <KButton
                   :appearance="cancelButtonAppearance"
+                  class="cancel-button"
                   @click="close"
                 >
                   {{ cancelButtonText }}
                 </KButton>
                 <KButton
                   :appearance="actionButtonAppearance"
+                  class="proceed-button"
                   @click="proceed"
                 >
                   {{ actionButtonText }}
@@ -50,9 +50,16 @@
           <hr>
         </div>
       </div>
-      <div class="k-modal-fullscreen-body-description">
-        <slot name="body-header-description">{{ bodyHeaderDescription }}</slot>
+
+      <div class="k-modal-fullscreen-body-header">
+        <div class="body-header">
+          <slot name="body-header">{{ bodyHeader }}</slot>
+        </div>
+        <div class="body-header-description">
+          <slot name="body-header-description">{{ bodyHeaderDescription }}</slot>
+        </div>
       </div>
+
       <div class="k-modal-fullscreen-body">
         <slot name="body-content">{{ content }}</slot>
       </div>
@@ -77,7 +84,14 @@ export default {
       required: true
     },
     /**
-     * Text to display Page title and description
+     * Set the title in the body
+     */
+    bodyHeader: {
+      type: String,
+      default: ''
+    },
+    /**
+     * Text to display as a description of the body's title
      */
     bodyHeaderDescription: {
       type: String,
@@ -229,7 +243,8 @@ $screen-md: 992px;
 .k-modal-fullscreen-action {
   display: inline-flex;
   margin-right: var(--spacing-xl, spacing(xl));
-   & button {
+
+  & button {
     height: 40px;
     margin-left: var(--spacing-md, spacing(md));
     font-weight: 400;
@@ -250,22 +265,27 @@ $screen-md: 992px;
   color: var(--KModalFullscreenColor, var(--black-500, color(black-500)));
 }
 
-.k-modal-fullscreen-body-description {
-  font-size: 32px;
-  line-height: 32px;
-  font-weight: 600;
+.k-modal-fullscreen-body-header {
+  margin-top: 64px;
+  margin-bottom: 54px;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
 
-    p:first-child {
-      margin-bottom: -4px;
-    }
+  .body-header {
+    font-size: 32px;
+    line-height: 32px;
+    font-weight: 600;
+    margin-bottom: -4px;
+  }
 
-    p:last-child {
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 22px;
-      color: var(--grey-600);
-      margin-top: 20px;
-    }
+  .body-header-description {
+    font-weight: 200;
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--grey-600);
+    margin-top: var(--spacing-md);
+  }
 }
 
 .k-modal-fullscreen-body-description h2 {
