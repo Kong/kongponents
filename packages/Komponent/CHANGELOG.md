@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.18.4 (2022-03-04)
+
+
+### Bug Fixes
+
+* **kmodalfullscreen:** fix body header alignment ([#518](https://github.com/Kong/kongponents/issues/518)) ([c591661](https://github.com/Kong/kongponents/commit/c591661023048734ec521d20e86d1582d6b6522c))
+
+
+
+
+
 ## 6.18.3 (2022-03-04)
 
 **Note:** Version bump only for package @kongponents/komponent
