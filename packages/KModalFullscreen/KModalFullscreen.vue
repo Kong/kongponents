@@ -10,6 +10,7 @@
     <div
       ref="modalBodyContent"
       class="k-modal-fullscreen-dialog"
+      tabindex="0"
     >
       <div class="k-modal-fullscreen-body-header">
         <div
