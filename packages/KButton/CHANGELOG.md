@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.18.6 (2022-03-07)
+
+
+### Bug Fixes
+
+* **kmodalfullscreen:** add tabindex ([#520](https://github.com/Kong/kongponents/issues/520)) ([12836e4](https://github.com/Kong/kongponents/commit/12836e49de16e7062bd973a8a2ddf2bd6faac95b))
+
+
+
+
+
 ## 6.18.5 (2022-03-07)
 
 
