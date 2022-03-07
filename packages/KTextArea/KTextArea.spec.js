@@ -33,6 +33,22 @@ describe('KTextArea', () => {
     expect(wrapper.find('.k-input-label').element.innerHTML).toContain('A Label!')
   })
 
+  it('renders label with labelAttributes applied', () => {
+    const labelText = 'A Label'
+    const wrapper = mount(KTextArea, {
+      propsData: {
+        testMode: true,
+        label: labelText,
+        labelAttributes: {
+          help: 'some help text'
+        }
+      }
+    })
+
+    expect(wrapper.find('.k-input-label').element.innerHTML).toContain(labelText)
+    expect(wrapper.find('.k-input-label .kong-icon-help').exists()).toBeTruthy()
+  })
+
   it('renders overlayed label when value is passed', () => {
     const wrapper = mount(KTextArea, {
       propsData: {
