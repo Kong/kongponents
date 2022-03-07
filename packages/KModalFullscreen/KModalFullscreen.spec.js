@@ -18,7 +18,7 @@ describe('KModalFullscreen', () => {
         'header-content': `<div>${headerText}</div>`,
         'body-header': `<div>${bodyHeader}</div>`,
         'body-header-description': `<div>${bodyHeaderDescription}</div>`,
-        'body-content': `<div>${bodyText}</div>`
+        'default': `<div>${bodyText}</div>`
       }
     })
 
@@ -52,7 +52,6 @@ describe('KModalFullscreen', () => {
     const cancelButtonText = 'Sweet prop cancelButton'
     const bodyHeader = 'Sweet prop bodyHeader'
     const bodyHeaderDescription = 'Sweet prop bodyHeaderDescription'
-    const content = 'Sweet prop content'
     const wrapper = mount(KModalFullscreen, {
       propsData: {
         isVisible: true,
@@ -61,7 +60,6 @@ describe('KModalFullscreen', () => {
         cancelButtonText,
         bodyHeader,
         bodyHeaderDescription,
-        content,
         iconString: 'immunity'
       }
     })
@@ -72,7 +70,6 @@ describe('KModalFullscreen', () => {
     expect(wrapper.find('.k-modal-fullscreen-header').html()).toEqual(expect.stringContaining(title))
     expect(wrapper.find('.k-modal-fullscreen-body-header .body-header').html()).toEqual(expect.stringContaining(bodyHeader))
     expect(wrapper.find('.k-modal-fullscreen-body-header .body-header-description').html()).toEqual(expect.stringContaining(bodyHeaderDescription))
-    expect(wrapper.find('.k-modal-fullscreen-body').html()).toEqual(expect.stringContaining(content))
     expect(wrapper.html()).toMatchSnapshot()
   })
 

@@ -13,7 +13,7 @@
 
     <div
       v-else-if="label && overlayLabel"
-      class="col-md-4 mt-5">
+      class="mt-5">
       <div class="text-on-input">
         <label
           :for="textAreaId"
@@ -38,7 +38,7 @@
 
     <div
       v-else
-      class="col-md-4 mt-5">
+      class="mt-5">
       <KLabel
         :for="textAreaId">
         {{ label }}
