@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.18.5 (2022-03-07)
+
+
+### Bug Fixes
+
+* **kmodalfullscreen:** fix props styles and slots ([#519](https://github.com/Kong/kongponents/issues/519)) ([6d80de4](https://github.com/Kong/kongponents/commit/6d80de494a72a1a7f27f43679219ca7ba2e9ce7b))
+
+
+
+
+
 ## 6.18.4 (2022-03-04)
 
 
