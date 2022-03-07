@@ -8,11 +8,30 @@
     @keyup.esc="close"
     @keyup.enter="proceed">
     <div
+      ref="modalBodyContent"
       class="k-modal-fullscreen-dialog"
     >
+      <div class="k-modal-fullscreen-body-header">
+        <div
+          v-if="$slots['body-header'] || bodyHeader"
+          class="body-header">
+          <slot name="body-header">{{ bodyHeader }}</slot>
+        </div>
+        <div
+          v-if="$slots['body-header-description'] || bodyHeaderDescription"
+          class="body-header-description">
+          <slot name="body-header-description">{{ bodyHeaderDescription }}</slot>
+        </div>
+      </div>
+
+      <div class="k-modal-fullscreen-body">
+        <slot name="default" />
+      </div>
+
+      <!-- Header at the bottom to allow proper tabindex -->
       <div class="k-modal-fullscreen-header">
         <div
-          class="k-modal-fullscreen-header-description mb-5"
+          class="k-modal-fullscreen-header-description"
           role="heading"
           aria-level="2">
           <div class="k-modal-fullscreen-title">
@@ -46,22 +65,6 @@
             </div>
           </div>
         </div>
-        <div>
-          <hr>
-        </div>
-      </div>
-
-      <div class="k-modal-fullscreen-body-header">
-        <div class="body-header">
-          <slot name="body-header">{{ bodyHeader }}</slot>
-        </div>
-        <div class="body-header-description">
-          <slot name="body-header-description">{{ bodyHeaderDescription }}</slot>
-        </div>
-      </div>
-
-      <div class="k-modal-fullscreen-body">
-        <slot name="body-content">{{ content }}</slot>
       </div>
     </div>
   </div>
@@ -94,13 +97,6 @@ export default {
      * Text to display as a description of the body's title
      */
     bodyHeaderDescription: {
-      type: String,
-      default: ''
-    },
-    /**
-     * Set the text of the body content
-     */
-    content: {
       type: String,
       default: ''
     },
@@ -158,7 +154,10 @@ export default {
     isVisible: function () {
       if (this.isOpen) {
         document.body.style.overflow = 'hidden'
-        window.scrollTo(0, 0)
+
+        this.$nextTick(() => {
+          this.$refs.modalBodyContent.focus()
+        })
       } else {
         document.body.style.overflow = ''
       }
@@ -198,10 +197,12 @@ export default {
 
 <style scoped lang="scss">
 @import '~@kongponents/styles/variables';
+$screen-sm: 768px;
 $screen-md: 992px;
+$fullscreen-modal-padding: 64px;
 
 .k-modal-fullscreen-dialog {
-  padding: var(--spacing-xl, spacing(xl)) 0 14px 0;
+  padding-top: $fullscreen-modal-padding * 2;
   background: var(--white);
   z-index: 9999;
   position: fixed;
@@ -210,12 +211,21 @@ $screen-md: 992px;
   left: 0;
   right: 0;
   width: 100vw;
+
+  @media only screen and (min-width: ($screen-sm + 1px)) {
+    padding-top: $fullscreen-modal-padding;
+  }
 }
 
 .k-modal-fullscreen-header {
-  position: relative;
+  position: fixed;
   display: flex;
+  top: 0;
+  width: 100%;
   flex-direction: column;
+  padding: var(--spacing-lg) 0;
+  background-color: var(--white);
+  border-bottom: 1px solid var(--grey-300);
 
   .k-modal-fullscreen-header-description {
     display: flex;
@@ -259,15 +269,37 @@ $screen-md: 992px;
 }
 
 .k-modal-fullscreen-body-header,
-.k-modal-fullscreen-body-description,
 .k-modal-fullscreen-body {
-  margin-left: 230px;
-  margin-right: 230px;
   color: var(--KModalFullscreenColor, var(--black-500, color(black-500)));
+  padding-left: var(--spacing-lg);
+  padding-right: var(--spacing-lg);
+
+  @media only screen and (min-width: ($screen-sm + 1px)) {
+    padding-left: 120px;
+    padding-right: 120px;
+  }
+
+  @media only screen and (min-width: ($screen-md + 1px)) {
+    padding-left: 230px;
+    padding-right: 230px;
+  }
 }
 
 .k-modal-fullscreen-body-header {
-  margin-top: 64px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.k-modal-fullscreen-body {
+  padding-bottom: var(--spacing-lg);
+
+  @media only screen and (min-width: ($screen-sm + 1px)) {
+    padding-bottom: $fullscreen-modal-padding;
+  }
+}
+
+.k-modal-fullscreen-body-header {
+  margin-top: $fullscreen-modal-padding;
   margin-bottom: 54px;
 
   .body-header {
@@ -302,15 +334,4 @@ $screen-md: 992px;
 .k-modal-fullscreen-action-buttons {
     margin-left: auto;
 }
-
-@media only screen and (max-width: $screen-md) {
-  .k-modal-fullscreen-dialog {
-    .k-modal-fullscreen-body-description,
-    .k-modal-fullscreen-body {
-      padding: 0 10%;
-      margin: 0 auto;
-    }
-  }
-}
-
 </style>

@@ -5,8 +5,13 @@ exports[`KModalFullscreen matches snapshot 1`] = `undefined`;
 exports[`KModalFullscreen renders proper content when using action-buttons slot 1`] = `
 <div aria-label="Test Me" role="dialog" aria-modal="true" class="k-modal-fullscreen isOpen">
   <div class="k-modal-fullscreen-dialog">
+    <div class="k-modal-fullscreen-body-header">
+      <!---->
+      <!---->
+    </div>
+    <div class="k-modal-fullscreen-body"></div>
     <div class="k-modal-fullscreen-header">
-      <div role="heading" aria-level="2" class="k-modal-fullscreen-header-description mb-5">
+      <div role="heading" aria-level="2" class="k-modal-fullscreen-header-description">
         <div class="k-modal-fullscreen-title"><span class="header-icon pr-2 my-auto"><span class="kong-icon kong-icon-kong"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
   <title>Kong</title>
   <path fill-rule="evenodd" clip-rule="evenodd" d="m16.28 36.66 1-1.3h7.45l3.88 4.96-.7 1.68h-9.6l.24-1.68-2.27-3.66Z" fill="#169FCC"></path>
@@ -21,15 +26,7 @@ exports[`KModalFullscreen renders proper content when using action-buttons slot 
           </div>
         </div>
       </div>
-      <div>
-        <hr>
-      </div>
     </div>
-    <div class="k-modal-fullscreen-body-header">
-      <div class="body-header"></div>
-      <div class="body-header-description"></div>
-    </div>
-    <div class="k-modal-fullscreen-body"></div>
   </div>
 </div>
 `;
@@ -37,8 +34,13 @@ exports[`KModalFullscreen renders proper content when using action-buttons slot 
 exports[`KModalFullscreen renders proper content when using props 1`] = `
 <div aria-label="Sweet prop title" role="dialog" aria-modal="true" class="k-modal-fullscreen isOpen">
   <div class="k-modal-fullscreen-dialog">
+    <div class="k-modal-fullscreen-body-header">
+      <div class="body-header">Sweet prop bodyHeader</div>
+      <div class="body-header-description">Sweet prop bodyHeaderDescription</div>
+    </div>
+    <div class="k-modal-fullscreen-body"></div>
     <div class="k-modal-fullscreen-header">
-      <div role="heading" aria-level="2" class="k-modal-fullscreen-header-description mb-5">
+      <div role="heading" aria-level="2" class="k-modal-fullscreen-header-description">
         <div class="k-modal-fullscreen-title"><span class="header-icon pr-2 my-auto"><span class="kong-icon kong-icon-immunity"><svg width="32" height="32" viewBox="-2 -2 28 28" xmlns="http://www.w3.org/2000/svg">
   <title>Immunity</title>
   <path transform="rotate(-45 11.7 12)" d="M7.710000000000001,12a4,12 0 1,0 8,0a4,12 0 1,0 -8,0" stroke="#A3BBCC" stroke-width="2" fill="none"></path>
@@ -55,15 +57,7 @@ exports[`KModalFullscreen renders proper content when using props 1`] = `
               <!----></button></div>
         </div>
       </div>
-      <div>
-        <hr>
-      </div>
     </div>
-    <div class="k-modal-fullscreen-body-header">
-      <div class="body-header">Sweet prop bodyHeader</div>
-      <div class="body-header-description">Sweet prop bodyHeaderDescription</div>
-    </div>
-    <div class="k-modal-fullscreen-body">Sweet prop content</div>
   </div>
 </div>
 `;
@@ -71,21 +65,6 @@ exports[`KModalFullscreen renders proper content when using props 1`] = `
 exports[`KModalFullscreen renders proper content when using slots 1`] = `
 <div aria-label="This is some header text" role="dialog" aria-modal="true" class="k-modal-fullscreen isOpen">
   <div class="k-modal-fullscreen-dialog">
-    <div class="k-modal-fullscreen-header">
-      <div role="heading" aria-level="2" class="k-modal-fullscreen-header-description mb-5">
-        <div class="k-modal-fullscreen-title"><span class="header-icon pr-2 my-auto"><div>This is some header icon text</div></span> <span class="header-content my-auto"><div>This is some header text</div></span></div>
-        <div class="k-modal-fullscreen-action ml-3">
-          <div class="k-modal-fullscreen-action-buttons"><button type="button" class="k-button cancel-button medium rounded outline">
-              Cancel
-              <!----></button> <button type="button" class="k-button proceed-button medium rounded primary">
-              Save
-              <!----></button></div>
-        </div>
-      </div>
-      <div>
-        <hr>
-      </div>
-    </div>
     <div class="k-modal-fullscreen-body-header">
       <div class="body-header">
         <div>This is some body header text</div>
@@ -96,6 +75,18 @@ exports[`KModalFullscreen renders proper content when using slots 1`] = `
     </div>
     <div class="k-modal-fullscreen-body">
       <div>This is some body text</div>
+    </div>
+    <div class="k-modal-fullscreen-header">
+      <div role="heading" aria-level="2" class="k-modal-fullscreen-header-description">
+        <div class="k-modal-fullscreen-title"><span class="header-icon pr-2 my-auto"><div>This is some header icon text</div></span> <span class="header-content my-auto"><div>This is some header text</div></span></div>
+        <div class="k-modal-fullscreen-action ml-3">
+          <div class="k-modal-fullscreen-action-buttons"><button type="button" class="k-button cancel-button medium rounded outline">
+              Cancel
+              <!----></button> <button type="button" class="k-button proceed-button medium rounded primary">
+              Save
+              <!----></button></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

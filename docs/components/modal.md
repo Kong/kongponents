@@ -20,7 +20,7 @@ The **KModal** component is used to show content on top of existing UI. Typicall
       content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris accumsan tincidunt velit ac vulputate. Aliquam turpis odio, elementum a hendrerit id, pellentesque quis ligula. Nulla ultricies sit amet nisi vitae congue. Quisque vitae ullamcorper leo, id pretium mi. Nam sed odio dapibus, dapibus augue at, pulvinar est."
       :isVisible="isVisible"
       @canceled="isVisible = false" />
-    
+
     <KButton
       appearance="primary"
       @click="isVisible = true">Open Modal</KButton>
@@ -62,7 +62,7 @@ export default {
 There are 4 designated slots you can use to display content in the modal.
 
 - `header-content`
-- `body-content`  
+- `body-content`
 - `footer-content` - Contains cancel & action buttons by default.
 - `action-buttons` - Contains action buttons which are right-aligned. This slot will not exist if using `footer-content` slot.
 
@@ -120,7 +120,7 @@ Notice that even though we are using the `header-content` slot we still specify 
 
 | Variable | Purpose
 |:-------- |:-------
-| `--KModalBackdrop` | Backgdrop color
+| `--KModalBackdrop` | Backdrop color
 | `--KModalMaxWidth` | Modal max width
 | `--KModalBorder` | Modal border
 | `--KModalHeaderColor` | Header text color
@@ -129,7 +129,7 @@ Notice that even though we are using the `header-content` slot we still specify 
 | `--KModalColor`| Main content text color
 | `--KModalFontSize`| Main content text size
 
-An Example of changing the the colors of KModal might look like.  
+An Example of changing the the colors of KModal might look like.
 > Note: We are scoping the overrides to a wrapper in this example
 
 <template>
