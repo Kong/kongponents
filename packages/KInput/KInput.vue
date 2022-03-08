@@ -9,6 +9,7 @@
       <div class="text-on-input">
         <label
           :for="inputId"
+          v-bind="labelAttributes"
           :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled }">
           <span>{{ label }}</span>
         </label>
@@ -40,7 +41,8 @@
       v-else-if="label"
       :class="`k-input-label-wrapper-${size}`">
       <KLabel
-        :for="inputId">
+        :for="inputId"
+        v-bind="labelAttributes">
         {{ label }}
       </KLabel>
       <input
@@ -110,6 +112,10 @@ export default {
     overlayLabel: {
       type: Boolean,
       default: false
+    },
+    labelAttributes: {
+      type: Object,
+      default: () => ({})
     },
     help: {
       type: String,

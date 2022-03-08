@@ -17,6 +17,7 @@
       <div class="text-on-input">
         <label
           :for="textAreaId"
+          v-bind="labelAttributes"
           :class="{ focused: isFocused, hovered: isHovered }">
           <span>{{ label }}</span>
         </label>
@@ -40,7 +41,8 @@
       v-else
       class="mt-5">
       <KLabel
-        :for="textAreaId">
+        :for="textAreaId"
+        v-bind="labelAttributes">
         {{ label }}
       </KLabel>
       <textarea
@@ -88,6 +90,10 @@ export default {
     overlayLabel: {
       type: Boolean,
       default: false
+    },
+    labelAttributes: {
+      type: Object,
+      default: () => ({})
     },
     characterLimit: {
       type: Number,
