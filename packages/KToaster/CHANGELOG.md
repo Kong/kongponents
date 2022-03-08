@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.19.0 (2022-03-08)
+
+
+### Features
+
+* **kinput:** support label attrs ([#521](https://github.com/Kong/kongponents/issues/521)) ([1eeb9b3](https://github.com/Kong/kongponents/commit/1eeb9b3308fc575cd22589ac04888f6237d94b46))
+
+
+
+
+
 ## 6.18.6 (2022-03-07)
 
 
