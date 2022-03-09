@@ -176,6 +176,27 @@ describe('KSelect', () => {
     expect(wrapper.find('.selected-item-label').html()).toEqual(expect.stringContaining(labels[0]))
   })
 
+  it('allows slotting content into the items', async () => {
+    const itemSlotContent = 'I am slotted baby!'
+    const itemLabel = 'Label 1'
+    const itemValue = 'label1'
+    const wrapper = mount(KSelect, {
+      propsData: {
+        testMode: true,
+        appearance: 'button',
+        items: [{
+          label: itemLabel,
+          value: itemValue
+        }]
+      },
+      scopedSlots: {
+        'item-template': `<span>${itemSlotContent}</span>`
+      }
+    })
+
+    expect(wrapper.find(`[data-testid="k-select-item-${itemValue}"]`).html()).toEqual(expect.stringContaining(itemSlotContent))
+  })
+
   it('matches snapshot', () => {
     const wrapper = mount(KSelect, {
       propsData: {
