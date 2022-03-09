@@ -383,6 +383,12 @@ export default {
     }
   }
 
+  .k-select-button {
+    .k-button.btn-link:hover {
+      text-decoration: none;
+    }
+  }
+
   .k-select-input {
     position: relative;
     display: inline-block;
