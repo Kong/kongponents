@@ -35,13 +35,13 @@ exports[`KPagination correctly renders props 1`] = `
   <path d="M3 8.75h9.17M8.42 5l3.75 3.75-3.75 3.75" fill="none" stroke="#A3BBCC" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
-    </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 230px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 230px;"> 2 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"> 2 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
   <title>Expand</title>
   <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="#A3BBCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></button>
   </div>
-  <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="display: none;" name="fade">
+  <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 200px; display: none;" name="fade">
     <!---->
     <div class="k-popover-content">
       <ul class="k-select-list ma-0 pa-0">
@@ -110,13 +110,13 @@ exports[`KPagination matches snapshot 1`] = `
   <path d="M3 8.75h9.17M8.42 5l3.75 3.75-3.75 3.75" fill="none" stroke="#A3BBCC" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
-    </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 230px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 230px;"> 10 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"> 10 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
   <title>Expand</title>
   <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="#A3BBCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></button>
   </div>
-  <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="display: none;" name="fade">
+  <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 200px; display: none;" name="fade">
     <!---->
     <div class="k-popover-content">
       <ul class="k-select-list ma-0 pa-0">
