@@ -98,6 +98,7 @@
           :test-mode="testMode"
           :button-text="pageSizeText"
           :kpop-attributes="kpopAttrs"
+          width="200"
           appearance="button"
           @selected="updatePageSize"
         />
