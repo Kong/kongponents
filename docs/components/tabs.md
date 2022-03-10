@@ -47,7 +47,7 @@ export default {
 KTabs takes one required prop which is an array of tab objects.
 
 - `tabs`
-- `@change` - Emitted when a tab is changed
+- `@changed` - Emitted when a tab is changed
 
 ```vue
 <template>
@@ -88,6 +88,36 @@ By default the tabs will set the first tab in the array as active. You can overr
   <template v-slot:tab1>Tab 1 content</template>
   <template v-slot:tab2>Tab 2 content</template>
 </KTabs>
+```
+
+If you want to keep your `v-model` in sync so that you can programatically change the active tab after initialization, you also must respond to the `@changed` emitted event.
+
+<KTabs v-model="defaultProgrammaticTab" :tabs="tabs" @changed="hash => defaultProgrammaticTab = hash">
+  <template v-slot:tab1>
+    <p>Tab 1 content</p>
+  </template>
+  <template v-slot:tab2>
+    <p>Tab 2 content</p>
+  </template>
+</KTabs>
+
+<hr />
+
+<KButton @click="defaultProgrammaticTab = '#tab1'">Activate Tab 1</KButton>
+<KButton @click="defaultProgrammaticTab = '#tab2'">Activate Tab 2</KButton>
+
+```vue
+<KTabs v-model="defaultTab" :tabs="tabs" @changed="hash => defaultTab = hash">
+  <template v-slot:tab1>
+    <p>Tab 1 content</p>
+  </template>
+  <template v-slot:tab2>
+    <p>Tab 2 content</p>
+  </template>
+</KTabs>
+
+<KButton @click="defaultTab = '#tab1'">Activate Tab 1</KButton>
+<KButton @click="defaultTab = '#tab2'">Activate Tab 2</KButton>
 ```
 
 ## Slots
@@ -172,7 +202,7 @@ export default {
 
 \
 An Example of changing the primary KButton variant to green instead of blue might
-look like.  
+look like.
 > Note: We are scoping the overrides to a wrapper in this example
 
 <template>
@@ -214,6 +244,7 @@ export default {
   data() {
     return {
       defaultTab: '#tab2',
+      defaultProgrammaticTab: '#tab2',
       tabs: [
         {
           hash: '#tab1',
