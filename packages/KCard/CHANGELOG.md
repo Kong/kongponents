@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.19.2 (2022-03-10)
+
+
+### Bug Fixes
+
+* **ktabs:** emit changed event with keyboard input ([#523](https://github.com/Kong/kongponents/issues/523)) ([f80bab6](https://github.com/Kong/kongponents/commit/f80bab61db108bfb78612999aa0903830ea3016e))
+
+
+
+
+
 ## 6.19.1 (2022-03-10)
 
 
