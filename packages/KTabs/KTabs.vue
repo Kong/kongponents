@@ -13,8 +13,8 @@
         tabindex="0"
         role="tab"
         class="tab-item"
-        @keydown.enter.prevent="activeTab = tab.hash"
-        @keydown.space.prevent="activeTab = tab.hash"
+        @keydown.enter.prevent="handleTabChange(tab.hash)"
+        @keydown.space.prevent="handleTabChange(tab.hash)"
         @click="handleTabChange(tab.hash)">
         <a class="tab-link">
           <slot :name="`${tab.hash.replace('#','')}-anchor`">{{ tab.title }}</slot>
