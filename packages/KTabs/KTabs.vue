@@ -14,6 +14,7 @@
         role="tab"
         class="tab-item"
         @keydown.enter.prevent="activeTab = tab.hash"
+        @keydown.space.prevent="activeTab = tab.hash"
         @click="handleTabChange(tab.hash)">
         <a class="tab-link">
           <slot :name="`${tab.hash.replace('#','')}-anchor`">{{ tab.title }}</slot>
@@ -39,11 +40,6 @@
 <script>
 export default {
   name: 'KTabs',
-  // v-model
-  model: {
-    prop: 'value',
-    event: 'input'
-  },
   props: {
     /**
      * Array of Tab objects [{hash: '#tab1', title: 'tab1'}, {hash: '#tab2', title: 'tab2'}]
@@ -57,7 +53,10 @@ export default {
      */
     value: {
       type: String,
-      default: ''
+      default: '',
+      validator (value) {
+        return value === '' || (value.includes('#') && !value.includes(' '))
+      }
     }
   },
 
@@ -66,6 +65,13 @@ export default {
       activeTab: this.value
         ? this.value
         : this.tabs[0].hash
+    }
+  },
+
+  watch: {
+    value (newTabHash) {
+      this.activeTab = newTabHash
+      this.$emit('changed', newTabHash)
     }
   },
 
