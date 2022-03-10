@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.19.1 (2022-03-10)
+
+
+### Bug Fixes
+
+* **ktabs:** allow changing the active tab programmatically ([#522](https://github.com/Kong/kongponents/issues/522)) ([213ba8a](https://github.com/Kong/kongponents/commit/213ba8aa81a055f2351ae4820997c7ac96fbb8f7))
+
+
+
+
+
 # 6.19.0 (2022-03-08)
 
 
