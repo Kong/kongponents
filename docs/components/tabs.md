@@ -90,7 +90,7 @@ By default the tabs will set the first tab in the array as active. You can overr
 </KTabs>
 ```
 
-If you want to keep your `v-model` in sync so that you can programatically change the active tab after initialization, you also must respond t o the `@changed` emitted event.
+If you want to keep your `v-model` in sync so that you can programatically change the active tab after initialization, you also must respond to the `@changed` emitted event.
 
 <KTabs v-model="defaultProgrammaticTab" :tabs="tabs" @changed="hash => defaultProgrammaticTab = hash">
   <template v-slot:tab1>
