@@ -89,6 +89,42 @@ The label for the select.
 />
 ```
 
+### labelAttributes
+
+Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label.html) if using the `label` prop.
+
+<KSelect
+  label="Name"
+  :label-attributes="{
+    help: 'I use the KLabel `help` prop',
+    'data-testid': 'test'
+  }"
+  :items="[{
+    label: 'test',
+    value: 'test'
+  }, {
+    label: 'Test 1',
+    value: 'test1'
+  }]"
+/>
+
+```vue
+<KSelect
+  label="Name"
+  :label-attributes="{
+    help: 'I use the KLabel `help` prop',
+    'data-testid': 'test'
+  }"
+  :items="[{
+    label: 'test',
+    value: 'test'
+  }, {
+    label: 'Test 1',
+    value: 'test1'
+  }]"
+/>
+```
+
 ### appearance
 
 There are three styles of selects, `select` and `dropdown` (default) which are filterable, and lastly `button` which is not.

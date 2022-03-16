@@ -92,6 +92,26 @@ describe('KSelect', () => {
     expect(selectLabel.text()).toEqual('Cool Beans!')
   })
 
+  it('renders label with labelAttributes applied', () => {
+    const labelText = 'A Label'
+    const wrapper = mount(KSelect, {
+      propsData: {
+        testMode: true,
+        label: labelText,
+        labelAttributes: {
+          help: 'some help text'
+        },
+        items: [{
+          label: 'Label 1',
+          value: 'label1'
+        }]
+      }
+    })
+
+    expect(wrapper.find('.k-input-label').element.innerHTML).toContain(labelText)
+    expect(wrapper.find('.k-input-label .kong-icon-help').exists()).toBeTruthy()
+  })
+
   it('renders with correct appearance - select', () => {
     const wrapper = mount(KSelect, {
       propsData: {

@@ -6,6 +6,7 @@
     <KLabel
       v-if="label"
       :for="selectId"
+      v-bind="labelAttributes"
       data-testid="k-select-label">{{ label }}</KLabel>
     <div
       :id="selectId"
@@ -147,6 +148,10 @@ export default {
     label: {
       type: String,
       default: ''
+    },
+    labelAttributes: {
+      type: Object,
+      default: () => ({})
     },
     /**
      * The width of the select and popover's min-width
