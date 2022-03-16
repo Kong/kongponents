@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.20.0 (2022-03-16)
+
+
+### Features
+
+* **kselect:** add support for labelattrs ([#524](https://github.com/Kong/kongponents/issues/524)) ([dc73be2](https://github.com/Kong/kongponents/commit/dc73be2a29c8490688634179972988e8d7a0349d))
+
+
+
+
+
 ## 6.19.2 (2022-03-10)
 
 
