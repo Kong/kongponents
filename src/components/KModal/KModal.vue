@@ -161,7 +161,7 @@ export default defineComponent({
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: var(--KModalBackdrop, var(--black-45, color(black-45)));
+  background-color: var(--KModalBackdrop, rgba(11, 23, 45, .6));
   z-index: 1100;
 }
 
