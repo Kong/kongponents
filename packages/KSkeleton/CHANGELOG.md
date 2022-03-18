@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.20.1 (2022-03-18)
+
+
+### Bug Fixes
+
+* **kselect:** set up v-model ([#525](https://github.com/Kong/kongponents/issues/525)) ([4be1970](https://github.com/Kong/kongponents/commit/4be19705f661eb76bd85714727db38c19f974f1a))
+
+
+
+
+
 # 6.20.0 (2022-03-16)
 
 
