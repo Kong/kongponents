@@ -73,7 +73,7 @@ exports[`KSelect renders with selected item 1`] = `
   <!---->
   <div id="test-select-id-1234" data-testid="k-select-selected-item">
     <div class="k-select-item-selection px-3 py-1">
-      <div value="label1" class="selected-item-label">Label 1</div> <button class="clear-selection-icon cursor-pointer non-visual-button"><span class="kong-icon kong-icon-clear"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <div class="selected-item-label">Label 1</div> <button class="clear-selection-icon cursor-pointer non-visual-button"><span class="kong-icon kong-icon-clear"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
   <title>Clear</title>
   <circle cx="10" cy="10" r="6.25" fill="none" stroke="#A3BBCC" stroke-width="2" stroke-linecap="round"></circle>
   <path d="M12 12 8 8M12 8l-4 4" stroke="#A3BBCC" stroke-width="2" stroke-linecap="round"></path>

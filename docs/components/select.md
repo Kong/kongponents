@@ -292,6 +292,40 @@ of the input, dropdown, and selected item.
 
 Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `false`. See [`KPop` docs](popover.html#positionfixed) for more information.
 
+### v-model
+
+KSelect works as regular inputs do using v-model for data binding:
+
+<Komponent :data="{myVal: 'test'}" v-slot="{ data }">
+  <div>
+    <KLabel>Value:</KLabel> {{ data.myVal }}
+    <KSelect width="100" v-model="data.myVal" :items="[{
+        label: 'test',
+        value: 'test'
+      }, {
+        label: 'Test 1',
+        value: 'test1'
+      }]"
+    />
+  </div>
+</Komponent>
+
+```vue
+<Komponent :data="{myVal: 'test'}" v-slot="{ data }">
+  <div>
+    <KLabel>Value:</KLabel> {{ data.myVal }}
+    <KSelect width="100" v-model="data.myVal" :items="[{
+        label: 'test',
+        value: 'test'
+      }, {
+        label: 'Test 1',
+        value: 'test1'
+      }]"
+    />
+  </div>
+</Komponent>
+```
+
 ## Attribute Binding
 
 You can pass any input attribute and it will get properly bound to the element.
