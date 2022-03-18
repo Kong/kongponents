@@ -84,7 +84,6 @@
               v-model="filterStr"
               :placeholder="placeholderText"
               class="k-select-input"
-              v-on="listeners"
               @keyup="triggerFocus(isToggled)" />
           </div>
           <template v-slot:content>
