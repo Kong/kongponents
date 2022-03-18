@@ -15,7 +15,6 @@
         v-if="selectedItem && appearance === 'dropdown'"
         class="k-select-item-selection px-3 py-1">
         <div
-          :value="selectedItem.value"
           class="selected-item-label">{{ selectedItem.label }}</div>
         <button
           class="clear-selection-icon cursor-pointer non-visual-button"
@@ -139,6 +138,10 @@ export default {
   components: { KButton, KIcon, KInput, KLabel, KPop, KSelectItem, KToggle },
   inheritAttrs: false,
   props: {
+    value: {
+      type: [String, Number],
+      default: ''
+    },
     kpopAttributes: {
       type: Object,
       default: () => ({
@@ -287,7 +290,8 @@ export default {
 
     for (let i = 0; i < this.selectItems.length; i++) {
       this.selectItems[i].key = `${this.selectItems[i].label.replace(' ', '-')}-${i}`
-      if (this.selectItems[i].selected) {
+      if (this.selectItems[i].value === this.value || this.selectItems[i].selected) {
+        this.selectItems[i].selected = true
         this.selectedItem = this.selectItems[i]
         this.selectItems[i].key += '-selected'
 
@@ -312,7 +316,7 @@ export default {
       this.filterStr = this.appearance === 'dropdown' ? '' : item.label
       this.$emit('selected', item)
       // this 'input' event must be emitted for v-model binding to work properly
-      this.$emit('input', item)
+      this.$emit('input', item.value)
       this.$emit('change', item)
     },
     clearSelection () {
