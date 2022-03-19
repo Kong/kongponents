@@ -15,6 +15,7 @@ module.exports = {
     ecmaVersion: 2020,
   },
   rules: {
+    indent: 'off',
     'space-before-function-paren': 'off',
     quotes: ['error', 'single', { avoidEscape: true }],
     'no-multi-spaces': 'error',
