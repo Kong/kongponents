@@ -34,7 +34,7 @@
     "dev": "vite",
     "docs:build": "vuepress build docs",
     "docs:dev": "vuepress dev docs",
-    "lint": "eslint '**/*.{js,ts,vue}' --fix",
+    "lint": "eslint '**/*.{js,ts,vue}'",
     "postinstall": "yarn build:cli",
     "preview": "vite preview",
     "test:open": "cypress open-ct",
