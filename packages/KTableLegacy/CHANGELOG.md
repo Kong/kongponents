@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.20.2 (2022-03-25)
+
+
+### Bug Fixes
+
+* **ktable:** allow table clicks to pass through ([#527](https://github.com/Kong/kongponents/issues/527)) ([c7fb58e](https://github.com/Kong/kongponents/commit/c7fb58e4f5b3b440a484aee7e9835e4bc47603a5))
+
+
+
+
+
 ## 6.20.1 (2022-03-18)
 
 
