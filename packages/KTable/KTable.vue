@@ -726,6 +726,9 @@ export default defineComponent({
         height: 100%;
         box-shadow: none;
         left: 0;
+        // Super-important to allow clicking on table rows in Safari.
+        // This allows clicks to pass through the "invisible" :after layer
+        pointer-events: none;
       }
 
       &.is-scrolled {
