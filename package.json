@@ -27,7 +27,6 @@
     "build:cli": "rm -rf ./bin && tsc --project ./cli/tsconfig.json && chmod u+x ./bin/index.js",
     "build:docs": "vuepress build docs",
     "build:kongponents": "vue-tsc --noEmit && vite build && vue-tsc --emitDeclarationOnly",
-    "build:styles-NOT-NEEDED??": "sass --no-source-map ./src/styles/styles.scss ./src/styles/kongponents.css && postcss ./src/styles/kongponents.css --dir ./dist",
     "build": "yarn build:kongponents && yarn build:docs && yarn build:cli",
     "commit": "cz",
     "create-kongponent": "node ./bin/index.js",
@@ -35,7 +34,6 @@
     "docs:build": "vuepress build docs",
     "docs:dev": "vuepress dev docs",
     "lint": "eslint '**/*.{js,ts,vue}'",
-    "postinstall": "yarn build:cli",
     "preview": "vite preview",
     "test:open": "cypress open-ct",
     "test": "cypress run-ct"
