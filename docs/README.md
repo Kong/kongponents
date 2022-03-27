@@ -30,7 +30,7 @@ To begin using Kongponents, being by installing the package into your project us
   </CodeGroupItem>
 </CodeGroup>
 
-You will likely need to transpile the `@kong/kongponents` package in your project. If your project already has a `vue.config.ts` file, just add the following `transpileDependencies` entry
+Depending on your project setup, you may need to transpile the `@kong/kongponents` package in your project. If your project already has a `vue.config.ts` file, just add the following `transpileDependencies` entry
 
 ```ts
 // vue.config.ts
@@ -105,7 +105,11 @@ module.exports = () => ({
 
 ## Usage
 
-There are two ways to use Kongponents in your project
+There are two ways to use Kongponents in your project: [globally install all Kongponents](#globally-install-all-kongponents), or [register individual Kongponents](#register-individual-kongponents) as needed.
+
+**Regardless of which method you choose** you will first need to import the Kongponents CSS ([Vite](https://vitejs.dev/guide/build.html#library-mode) does not currently support CSS in JS when building in library mode).
+
+The easiest place to import the styles is inside your Vue entry file (e.g. `main.ts`).
 
 ### Globally install all Kongponents
 
@@ -118,6 +122,9 @@ This method is only ideal if you are using a majority of the Kongponents in your
 
 import { createApp } from 'vue'
 import Kongponents from '@kong/kongponents'
+
+// Import Kongponents styles (path may vary)
+import '/node_modules/@kong/kongponents/dist/style.css'
 
 const app = createApp(App)
 
@@ -142,6 +149,10 @@ Import and registration can be done globally in your Vue entry file (e.g. `main.
   import { createApp } from 'vue'
   import { KButton } from '@kong/kongponents'
 
+  // Import Kongponents styles (path may vary, shown here for Vite)
+  import '/node_modules/@kong/kongponents/dist/style.css'
+  // If using Vue-CLI and webpack, you can likely use this path instead: import '~@kong/kongponents/dist/style.css'
+
   const app = createApp(App)
 
   // Register an individual Kongponent
@@ -154,7 +165,8 @@ Import and registration can be done globally in your Vue entry file (e.g. `main.
 
   <CodeGroupItem title="In-Component Registration">
 
-  ```ts
+  ```html
+  <script lang="ts">
   // YourComponent.vue
 
   import { defineComponent } from 'vue'
@@ -164,6 +176,13 @@ Import and registration can be done globally in your Vue entry file (e.g. `main.
     name: 'YourComponent',
     components: { KButton },
   })
+  </script>
+
+  <style>
+  /* Import Kongponents styles (path may vary, shown here for Vite) */
+  @import "../../node_modules/@kong/kongponents/dist/style.css";
+  /* If using Vue-CLI and webpack, you can likely use this path instead: import '~@kong/kongponents/dist/style.css' */
+  </style>
   ```
 
   </CodeGroupItem>

@@ -22,6 +22,8 @@
     <KButton>Button content</KButton>
   </Kooltip>
 
+  <br>
+
   <KButton @click="openNotification('Adam message')">
     Show toaster
   </KButton>

@@ -1,7 +1,8 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import App from './App.vue'
-import Kongponents, { ToastManager } from './index'
+import Kongponents from './index'
+import ToastManager from './components/KToaster/ToastManager'
 
 // Import a single component
 // import { KButton } from './index'
