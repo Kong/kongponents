@@ -39,6 +39,7 @@
     "test": "cypress run-ct"
   },
   "dependencies": {
+    "@vueuse/core": "^8.2.0",
     "popper.js": "^1.15.0",
     "swrv": "^0.9.6",
     "uuid": "^8.3.2"
