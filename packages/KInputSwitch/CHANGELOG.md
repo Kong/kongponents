@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.20.4 (2022-03-29)
+
+
+### Bug Fixes
+
+* metalab fixes ([#537](https://github.com/Kong/kongponents/issues/537)) ([df313ea](https://github.com/Kong/kongponents/commit/df313ea3d92bdc64587aae05a9029f1488f3ff91))
+
+
+
+
+
 ## 6.20.3 (2022-03-29)
 
 
