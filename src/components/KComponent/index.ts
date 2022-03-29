@@ -1,3 +1,6 @@
+// Import types for custom commands
+/// <reference types="../../cypress/support" />
+
 import { defineComponent, reactive } from 'vue'
 
 export default defineComponent({

@@ -1,3 +1,6 @@
+// Import types for custom commands
+/// <reference types="../../cypress/support" />
+
 import { defineComponent } from 'vue'
 
 export default defineComponent({
