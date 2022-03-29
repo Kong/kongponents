@@ -8,6 +8,7 @@ updates:
     directory: /
     schedule:
       interval: daily
+    target-branch: "next"
     commit-message:
       # Prefix commit messages with "fix" (to trigger a release from semantic-versioning)
       prefix: fix
@@ -23,3 +24,4 @@ updates:
     directory: /
     schedule:
       interval: daily
+    target-branch: "next"
