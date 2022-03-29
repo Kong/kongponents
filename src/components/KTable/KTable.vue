@@ -603,9 +603,8 @@ export default defineComponent({
     }
     const { query, search } = useDebounce('', 350)
     const { revalidate } = useRequest(
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      () => props.fetcher && hasInitialized.value && `k-table_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}`,
+      props.fetcher ? `k-table_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}` : '',
+      // (props.fetcher && hasInitialized.value && `k-table_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}`) || '',
       () => fetchData(),
       { revalidateOnFocus: false },
     )
@@ -789,8 +788,11 @@ export default defineComponent({
 
   tbody {
     tr {
-      border-bottom: 1px solid var(--KTableBorder, var(--grey-200, color(grey-200)));
       height: 44px;
+
+      &:not(:last-of-type) {
+        border-bottom: 1px solid var(--KTableBorder, var(--grey-200, color(grey-200)));
+      }
     }
 
     td {
