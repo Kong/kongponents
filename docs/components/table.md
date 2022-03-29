@@ -10,8 +10,8 @@ Pass a fetcher function to build a slot-able table.
 ```
 
 :::warning NOTE
-`KTable` implements `KIcon` which imports .svg files directly, so a loader is needed in order to render these in your application such as the webpack
-[raw-loader](https://webpack.js.org/loaders/raw-loader/). [See here for more information](/#raw-loader).
+`KTable` implements `KIcon` which imports .svg files directly, so a loader may be needed in order to render these in your application such as the webpack
+[raw-loader](https://webpack.js.org/loaders/raw-loader/). [See here for more information](/#installation).
 :::
 
 ## Props
@@ -440,7 +440,7 @@ Bind any DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to va
   </template>
 </KTable>
 
-```vue{6,8,15,30-46}
+```vue
 <KTable
   :fetcher="fetcher"
   :headers="headers"
