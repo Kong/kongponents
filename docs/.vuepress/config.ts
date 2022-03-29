@@ -95,6 +95,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
               '/components/popover',
               '/components/select',
               '/components/skeleton',
+              '/components/table',
               '/components/toaster',
               '/components/tooltip',
             ]
