@@ -1,43 +1,57 @@
-name: Build & Run Tests
+# Already updated for `next` branch
+
+name: Tests
 
 on:
   pull_request:
-    branches:
-    - main
-    - 'release/**'
+    branches: [next]
+  # Allow workflow to be called by another workflow
+  workflow_call:
+  # Allow workflow to be called manually
+  workflow_dispatch:
 
 jobs:
   test:
+    name: Run Tests
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
     steps:
-    - uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Read .nvmrc
-      run: echo ::set-output name=NVMRC::$(cat .nvmrc)
-      id: nvm
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
 
-    - name: Use Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '${{ steps.nvm.outputs.NVMRC }}'
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
 
-    - name: install, lint
-      run: |
-        yarn install
-        yarn lint
+      - name: Lint
+        run: yarn lint
 
-    - name: build
-      run: |
-        yarn build
+      - name: Run Cypress component tests
+        uses: cypress-io/github-action@v2
+        with:
+          install: false
+          command: yarn test
 
-    - name: test
-      run: |
-        yarn test
+      - name: Upload Cypress screenshots (on failure)
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress_screenshots
+          path: cypress/screenshots/
 
-    - name: visual-regression-test
-      run: |
-        npx percy snapshot docs/.vuepress/dist/ --ignore-files "**/404.html"
-      env:
-        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+      - name: Upload Cypress videos (always)
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: cypress_videos
+          path: cypress/videos/
+
+      # Percy - disabled on `next` branch for now
+      # - name: visual-regression-test
+      #   run: |
+      #     npx percy snapshot docs/.vuepress/dist/ --ignore-files "**/404.html"
+      #   env:
+      #     PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
