@@ -260,7 +260,7 @@ describe('KTable', () => {
         },
       })
 
-      // cy.get('.skeleton-table-wrapper').should('be.visible')
+      cy.get('.skeleton-table-wrapper').should('be.visible')
     })
 
     it('displays an error state when the "hasError" prop is set to true"', () => {
@@ -306,7 +306,7 @@ describe('KTable', () => {
         },
       })
 
-      // cy.get('.skeleton-table-wrapper').should('be.visible')
+      cy.get('.skeleton-table-wrapper').should('be.visible')
       cy.get('.empty-state-wrapper').should('not.exist')
     })
   })

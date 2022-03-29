@@ -1,11 +1,10 @@
 <template>
   <div>
-    <div v-if="(!testMode || testMode === 'loading') && (isTableLoading || isLoading) && !hasError" />
-    <!-- <KSkeleton
+    <KSkeleton
       v-if="(!testMode || testMode === 'loading') && (isTableLoading || isLoading) && !hasError"
       :delay-milliseconds="0"
       type="table"
-    /> -->
+    />
 
     <div
       v-else-if="hasError"
@@ -184,7 +183,7 @@ import { defineComponent, ref, Ref, watch, computed, onMounted, PropType } from 
 import { v1 as uuidv1 } from 'uuid'
 import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
-// import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
+import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
@@ -217,7 +216,7 @@ export default defineComponent({
     KEmptyState,
     KIcon,
     KPagination,
-    // KSkeleton,
+    KSkeleton,
   },
   props: {
     /**
