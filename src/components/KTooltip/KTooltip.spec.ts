@@ -12,7 +12,7 @@ const positions = ['top', 'right', 'bottom', 'left']
  * }
  */
 const rendersCorrectPosition = (variant) => {
-  it.only(`renders tooltip to the ${variant} side`, () => {
+  it(`renders tooltip to the ${variant} side`, () => {
     mount(KTooltip, {
       props: {
         testMode: true,
