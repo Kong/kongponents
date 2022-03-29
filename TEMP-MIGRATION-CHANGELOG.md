@@ -63,4 +63,5 @@ export default defineConfig({
 
 ### KSelect
 
-- `positoinFixed` now defaults to `true`
+- `positionFixed` now defaults to `true`
+- TODO: Noticing a weird page scroll when clicking on the select item

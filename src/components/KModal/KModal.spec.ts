@@ -1,3 +1,6 @@
+// Import types for custom commands
+/// <reference types="../../cypress/support" />
+
 import { mount } from '@cypress/vue'
 import KModal from '@/components/KModal/KModal.vue'
 import { h } from 'vue'
