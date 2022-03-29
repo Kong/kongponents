@@ -204,10 +204,10 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 const { clientSideSorter, useDebounce, useRequest } = useUtilities()
 
 export interface TableHeader {
-  hideLabel: boolean
-  label: string
   key: string
+  label: string
   sortable: boolean
+  hideLabel: boolean
 }
 
 export default defineComponent({
