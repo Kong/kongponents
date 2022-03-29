@@ -86,6 +86,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
               '/components/breadcrumbs',
               '/components/button',
               '/components/card',
+              '/components/empty-state',
               '/components/icon',
               '/components/input',
               '/components/label',
