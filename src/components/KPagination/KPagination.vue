@@ -118,13 +118,13 @@
 <script lang="ts">
 import { defineComponent, ref, Ref, computed, watch, PropType } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-// import KSelect from '@/components/KSelect/KSelect.vue'
+import KSelect from '@/components/KSelect/KSelect.vue'
 
 export default defineComponent({
   name: 'KPagination',
   components: {
     KIcon,
-    // KSelect,
+    KSelect,
   },
   props: {
     items: {
