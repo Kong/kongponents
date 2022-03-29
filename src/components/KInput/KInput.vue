@@ -3,24 +3,15 @@
     :class="{'input-error' : hasError}"
     class="k-input-wrapper"
   >
-    <input
-      v-if="!label"
-      v-bind="modifiedAttrs"
-      :value="modelValue"
-      :class="`k-input-${size}`"
-      :aria-invalid="hasError ? hasError : 'false'"
-      class="form-control k-input"
-      @input="handleInput(false, $event)"
-    >
-
     <div
-      v-else
-      :class="`k-input-label-${size}`"
-      class="col-md-4 mt-5"
+      v-if="label && overlayLabel"
+      :class="`k-input-label-wrapper-${size}`"
+      class="mt-5"
     >
       <div class="text-on-input">
         <label
           :for="inputId"
+          v-bind="labelAttributes"
           :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled }"
         >
           <span>{{ label }}</span>
@@ -39,28 +30,75 @@
           @blur="() => isFocused = false"
         >
       </div>
+      <p
+        v-if="hasError"
+        class="has-error"
+      >
+        {{ errorMessage }}
+      </p>
     </div>
+
+    <div
+      v-else-if="label"
+      :class="`k-input-label-wrapper-${size}`"
+    >
+      <KLabel
+        :for="inputId"
+        v-bind="labelAttributes"
+      >
+        {{ label }}
+      </KLabel>
+      <input
+        v-bind="modifiedAttrs"
+        :id="inputId"
+        :value="modelValue"
+        :class="`k-input-${size}`"
+        :aria-invalid="hasError ? hasError : 'false'"
+        class="form-control k-input"
+        @input="handleInput(false, $event)"
+      >
+      <p
+        v-if="hasError"
+        class="has-error"
+      >
+        {{ errorMessage }}
+      </p>
+    </div>
+
+    <input
+      v-else
+      v-bind="modifiedAttrs"
+      :value="modelValue"
+      :class="`k-input-${size}`"
+      :aria-invalid="hasError ? hasError : 'false'"
+      class="form-control k-input"
+      @input="handleInput(false, $event)"
+    >
+
+    <p
+      v-if="hasError && !label"
+      class="has-error"
+    >
+      {{ errorMessage }}
+    </p>
+
     <p
       v-if="help"
       class="help"
     >
       {{ help }}
     </p>
-    <p
-      v-if="hasError"
-      class="has-error"
-    >
-      {{ errorMessage }}
-    </p>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed, ref } from 'vue'
+import KLabel from '@/components/KLabel/KLabel.vue'
 import { v1 as uuidv1 } from 'uuid'
 
 export default defineComponent({
   name: 'KInput',
+  components: { KLabel },
   inheritAttrs: false,
   props: {
     modelValue: {
@@ -70,6 +108,17 @@ export default defineComponent({
     label: {
       type: String,
       default: '',
+    },
+    /**
+     * Overlay the label on the input's border
+     */
+    overlayLabel: {
+      type: Boolean,
+      default: false,
+    },
+    labelAttributes: {
+      type: Object,
+      default: () => ({}),
     },
     help: {
       type: String,
@@ -159,36 +208,21 @@ export default defineComponent({
     -webkit-appearance: none;
   }
 
-  & .k-input-label-large + .has-error {
-    font-size: 12px;
-    line-height: 15px;
-    margin-top: 4px;
-  }
-
-  & .k-input-label-medium + .has-error {
-    font-size: 10px;
-    line-height: 13px;
-    margin-top: 3px;
-  }
-
-  & .k-input-label-small + .has-error {
-    font-size: 9px;
-    line-height: 11px;
-    margin-top: 2px;
-  }
-
+  & .k-input-label-wrapper-large .has-error,
   & .k-input-large + .has-error {
     font-size: 12px;
     line-height: 15px;
     margin-top: 4px;
   }
 
+  & .k-input-label-wrapper-medium .has-error,
   & .k-input-medium + .has-error {
     font-size: 10px;
     line-height: 13px;
     margin-top: 3px;
   }
 
+  & .k-input-label-wrapper-small .has-error,
   & .k-input-small + .has-error {
     font-size: 9px;
     line-height: 11px;

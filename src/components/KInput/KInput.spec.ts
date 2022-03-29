@@ -31,7 +31,39 @@ describe('KInput', () => {
       },
     })
 
-    cy.get('.text-on-input label').should('have.text', label)
+    cy.get('.k-input-label').should('contain.text', label)
+  })
+
+  it('renders label with labelAttributes applied', () => {
+    const label = 'A label'
+    mount(KInput, {
+      props: {
+        testMode: true,
+        label: label,
+        labelAttributes: {
+          help: 'some help text',
+        },
+      },
+    })
+
+    cy.get('.k-input-label').should('contain.text', label)
+    cy.get('.k-input-label .kong-icon-help').should('exist').and('be.visible')
+
+    // expect(wrapper.find('.k-input-label').element.innerHTML).toContain(labelText)
+    // expect(wrapper.find('.k-input-label .kong-icon-help').exists()).toBeTruthy()
+  })
+
+  it('renders overlayed label when value is passed', () => {
+    const label = 'A label'
+    mount(KInput, {
+      props: {
+        testMode: true,
+        label: label,
+        overlayLabel: true,
+      },
+    })
+
+    cy.get('.text-on-input label').should('contain.text', label)
   })
 
   it('renders small when size is passed in', () => {
@@ -65,7 +97,7 @@ describe('KInput', () => {
       },
     })
 
-    cy.get('.k-input-wrapper .help').should('have.text', helpText)
+    cy.get('.k-input-wrapper .help').should('contain.text', helpText)
   })
 
   it('reacts to text changes', () => {

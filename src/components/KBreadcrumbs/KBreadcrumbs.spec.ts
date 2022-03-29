@@ -20,7 +20,7 @@ describe('KBreadcrumbs', () => {
     cy.get('.k-breadcrumbs').find('li .k-breadcrumb-icon').its('length').should('eq', 1)
   })
 
-  it.only('renders breadcrumb links without needing a router', () => {
+  it('renders breadcrumb links without needing a router', () => {
     mount(KBreadcrumbs, {
       props: {
         items: [

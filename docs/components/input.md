@@ -20,6 +20,50 @@ To set the value of the input element without using `v-model`, you can set the `
 <KInput model-value="This is the input value" />
 ```
 
+### label
+
+String to be used as the input label.
+
+<KInput label="Name" placeholder="I'm labelled!" class="mb-2" />
+<KInput label="Disabled" disabled placeholder="I'm disabled!" />
+
+```vue
+<KInput label="Name" placeholder="I'm labelled!" class="mb-2" />
+<KInput label="Disabled" disabled placeholder="I'm disabled!" />
+```
+
+If the label is omitted it can be handled with another component, like **KLabel**. This is meant to be used before **KInput** and will be styled appropriately.
+
+<KLabel for="my-input">Label</KLabel>
+<KInput id="my-input" type="text" placeholder="I have a label" />
+
+```vue
+<KLabel for="my-input">Label</KLabel>
+<KInput id="my-input" type="text" placeholder="I have a label" />
+```
+
+### labelAttributes
+
+Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label.html) if using the `label` prop.
+
+<KInput label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop', 'data-testid': 'test' }" />
+
+```vue
+<KInput label="Name" :label-attributes="{   help: 'I use the KLabel `help` prop' }" />
+```
+### overlayLabel
+
+Enable this prop to overlay the label on the input element's border. Defaults to `false`.
+Make sure that if you are using the built in label you specify the `--KInputBackground` theming variable. This variable is used for the background of the label as well as the input element.
+
+<KInput label="Name" placeholder="I'm labelled!" :overlay-label="true" />
+<KInput label="Disabled" disabled placeholder="I'm disabled!" :overlay-label="true" />
+
+```vue
+<KInput label="Name" placeholder="I'm labelled!" :overlay-label="true" />
+<KInput label="Disabled" disabled placeholder="I'm disabled!" :overlay-label="true" />
+```
+
 ### size
 
 You can specify `small`, `medium` (default), or `large` for the size.
@@ -58,52 +102,36 @@ You also have the option of using the `.help` utility class. This is meant to be
 
 ### hasError
 
-Boolean value that is by default false.
+Boolean value to indicate whether the element has an error and should apply error styling. By default this is `false`.
 
 ### errorMessage
 
-String to be displayed as error message.
+String to be displayed as error message if `hasError` prop is `true`.
 
-<KInput class="w-100" hasError errorMessage="Service name should not contain “_”"/>
+<KInput class="w-100" hasError errorMessage="Service name should not contain '_'"/>
 
 ```vue
-<KInput class="w-100" hasError errorMessage="Service name should not contain “_”"/>
+<KInput class="w-100" hasError errorMessage="Service name should not contain '_'"/>
 ```
 
-<KInput label="Small" size="small" class="mb-2" hasError errorMessage="Service name should not contain “_”" />
-<KInput label="Medium" class="mb-2" hasError errorMessage="Service name should not contain “_”" />
-<KInput label="Large" size="large" hasError errorMessage="Service name should not contain “_”" />
+<KInput label="Small" size="small" class="mb-2" hasError errorMessage="Service name should not contain '_'" />
+<KInput label="Medium" class="mb-2" hasError errorMessage="Service name should not contain '_'" />
+<KInput label="Large" size="large" hasError errorMessage="Service name should not contain '_'" />
 
 ```vue
-<KInput label="Small" size="small" class="mb-2" hasError errorMessage="Service name should not contain “_”" />
-<KInput label="Medium" class="mb-2" hasError errorMessage="Service name should not contain “_”" />
-<KInput label="Large" size="large" hasError errorMessage="Service name should not contain “_”" />
+<KInput label="Small" size="small" class="mb-2" hasError errorMessage="Service name should not contain '_'" />
+<KInput label="Medium" class="mb-2" hasError errorMessage="Service name should not contain '_'" />
+<KInput label="Large" size="large" hasError errorMessage="Service name should not contain '_'" />
 ```
 
-### label
-
-String to be used as the input label. Make sure that if you are using the built in label you specify the `--KInputBackground` theming variable. This variable is used for the background of the label as well as the input element.
-
-<KInput label="Name" placeholder="I'm labelled!"/>
-<KInput label="Error" class="input-error" placeholder="I'm erroneous!" />
-<KInput label="Disabled" disabled placeholder="I'm disabled!" />
+<KInput label="Small" size="small" class="mb-2" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
+<KInput label="Medium" class="mb-2" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
+<KInput label="Large" size="large" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
 
 ```vue
-<KInput label="Name" placeholder="I'm labelled!" />
-<KInput label="Error" class="input-error" placeholder="I'm erroneous!" />
-<KInput label="Disabled" disabled placeholder="I'm disabled!" />
-```
-
-If the label is omitted it can be handled with another component, like **KLabel**. This is meant to be used before **KInput** and will be styled appropriately.
-
-<KLabel for="my-input">Label</KLabel>
-<KInput id="my-input" type="text" placeholder="I have a label" />
-
-```vue
-<template>
-  <KLabel for="my-input">Label</KLabel>
-  <KInput id="my-input" type="text" placeholder="I have a label" />
-</template>
+<KInput label="Small" size="small" class="mb-2" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
+<KInput label="Medium" class="mb-2" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
+<KInput label="Large" size="large" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
 ```
 
 ## Attribute Binding
