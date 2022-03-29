@@ -344,3 +344,12 @@ $sides: (top, right, bottom, left);
   cursor: pointer !important;
   font-weight: 200 !important;
 }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(1turn);
+  }
+}

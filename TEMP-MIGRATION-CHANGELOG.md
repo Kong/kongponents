@@ -65,3 +65,6 @@ export default defineConfig({
 
 - `positionFixed` now defaults to `true`
 - TODO: Noticing a weird page scroll when clicking on the select item
+
+### KSkeleton
+- Renamed internal component from `Skeleton` to `SkeletonBase`
