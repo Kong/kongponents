@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.20.3 (2022-03-29)
+
+
+### Bug Fixes
+
+* **kbreadcrumbs:** icon size ([#530](https://github.com/Kong/kongponents/issues/530)) ([40b38df](https://github.com/Kong/kongponents/commit/40b38df507ac45ef340a4d643e8c040da11423db))
+
+
+
+
+
 ## 6.20.2 (2022-03-25)
 
 
