@@ -14,7 +14,7 @@
     <KIcon
       v-if="isOpen !== undefined"
       :class="[caretClasses]"
-      color="white"
+      :color="iconColor"
       view-box="2 2 15 15"
       size="16"
       icon="chevronDown"
@@ -112,7 +112,7 @@ export default defineComponent({
     },
   },
 
-  setup(props, { slots }) {
+  setup(props, { attrs, slots }) {
     const caretClasses = computed((): string | null => {
       if (props.isOpen === undefined) return null
 
@@ -126,12 +126,16 @@ export default defineComponent({
     const buttonType = computed((): string => props.to ? 'router-link' : 'button')
 
     const iconColor = computed((): string => {
-      if (['primary', 'danger', 'creation'].includes(props.appearance)) {
+      if (attrs.disabled !== undefined) {
+        return 'var(--grey-400)'
+      } else if (['primary', 'danger', 'creation'].includes(props.appearance)) {
         return 'white'
       } else if (props.appearance === 'secondary') {
         return 'var(--KButtonSecondaryColor, var(--blue-600, color(blue-600)))'
       } else if (props.appearance === 'outline') {
         return 'var(--KButtonOutlineColor, var(--blue-500, color(blue-500)))'
+      } else if (props.appearance === 'btn-link') {
+        return 'var(--KButtonBtnLink, var(--blue-500, color(blue-500)))'
       } else if (props.appearance === 'btn-link-danger') {
         return 'var(--KButtonLinkDanger, var(--red-500, color(red-500)))'
       }
@@ -252,6 +256,11 @@ export default defineComponent({
     &:focus {
       @include boxShadow(var(--KButtonSecondaryBase, var(--blue-300, color(blue-300))));
     }
+    &:disabled,
+    &[disabled] {
+      background-color: var(--grey-300);
+      color: var(--grey-400);
+    }
   }
 
   &.primary {
@@ -265,6 +274,11 @@ export default defineComponent({
     }
     &:focus {
       @include boxShadow(var(--KButtonPrimaryBase, var(--blue-500, color(blue-500))));
+    }
+    &:disabled,
+    &[disabled] {
+      background-color: var(--grey-300);
+      color: var(--grey-400);
     }
   }
   &.danger {
@@ -280,6 +294,11 @@ export default defineComponent({
     &:focus {
       @include boxShadow(var(--KButtonDangerBase, var(--red-700, color(red-700))));
     }
+    &:disabled,
+    &[disabled] {
+      background-color: var(--grey-300);
+      color: var(--grey-400);
+    }
   }
 
   &.creation {
@@ -294,6 +313,11 @@ export default defineComponent({
     }
     &:focus {
       @include boxShadow(var(--KButtonCreationBase, var(--green-600, color(green-600))));
+    }
+    &:disabled,
+    &[disabled] {
+      background-color: var(--grey-300);
+      color: var(--grey-400);
     }
   }
 
@@ -312,6 +336,11 @@ export default defineComponent({
     &:focus {
       @include boxShadow(var(--KButtonOutlineBorder, var(--blue-500, color(blue-500))));
     }
+    &:disabled,
+    &[disabled] {
+      border-color: var(--grey-400);
+      color: var(--grey-400);
+    }
   }
   &.btn-link {
     color: var(--KButtonBtnLink, var(--blue-500, color(blue-500)));
@@ -321,6 +350,10 @@ export default defineComponent({
     }
     &:focus {
       @include boxShadow(var(--blue-500, color(blue-500)), 0, 2px);
+    }
+    &:disabled,
+    &[disabled] {
+      color: var(--grey-400);
     }
   }
 

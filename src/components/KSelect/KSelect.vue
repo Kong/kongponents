@@ -146,7 +146,6 @@ import KToggle from '@/components/KToggle'
 import KSelectItem from '@/components/KSelect/KSelectItem.vue'
 
 const defaultKPopAttributes = {
-  hideCaret: true,
   popoverClasses: 'k-select-popover mt-0',
   popoverTimeout: 0,
   placement: 'bottomStart',
@@ -154,7 +153,7 @@ const defaultKPopAttributes = {
 
 interface SelectItem {
   label: string
-  value: string
+  value: string | number
   key?: string
   selected?: boolean
 }
@@ -255,7 +254,7 @@ export default defineComponent({
     const selectTextId = computed((): string => props.testMode ? uuidv1() : 'test-select-text-id-1234')
     const selectItems: Ref<SelectItem[]> = ref([])
 
-    const boundKPopAttributes = computed(() => {
+    const createKPopAttributes = computed(() => {
       return {
         ...defaultKPopAttributes,
         ...props.kpopAttributes,
@@ -264,6 +263,9 @@ export default defineComponent({
         disabled: attrs.disabled,
       }
     })
+
+    // TypeScript complains if I bind the original object
+    const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
 
     const widthValue = computed(() => {
       let w
