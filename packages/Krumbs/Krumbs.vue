@@ -18,7 +18,7 @@
           :icon="item.icon"
           :class="[ 'breadcrumb-icon', {'has-no-text': !item.text} ]"
           hide-title
-          size="20"
+          size="18"
           color="var(--grey-500)"
         />
         <span
@@ -39,7 +39,7 @@
           :icon="item.icon"
           :class="[ 'breadcrumb-icon', {'has-no-text': !item.text} ]"
           hide-title
-          size="20"
+          size="18"
           color="var(--grey-500)"
         />
         <span
