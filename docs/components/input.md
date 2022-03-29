@@ -42,6 +42,15 @@ If the label is omitted it can be handled with another component, like **KLabel*
 <KInput id="my-input" type="text" placeholder="I have a label" />
 ```
 
+### labelAttributes
+
+Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label.html) if using the `label` prop.
+
+<KInput label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop', 'data-testid': 'test' }" />
+
+```vue
+<KInput label="Name" :label-attributes="{   help: 'I use the KLabel `help` prop' }" />
+```
 ### overlayLabel
 
 Enable this prop to overlay the label on the input element's border. Defaults to `false`.
