@@ -2,7 +2,7 @@
 /// <reference types="../../cypress/support" />
 
 import { mount } from '@cypress/vue'
-import { h } from 'vue'
+import { h, nextTick } from 'vue'
 import KTable from '@/components/KTable/KTable.vue'
 
 const largeDataSet = [
@@ -252,7 +252,7 @@ describe('KTable', () => {
       cy.getTestId('k-table-empty-state').should('contain.text', emptySlotContent)
     })
 
-    it('displays a loading skeletion when the "isLoading" prop is set to true"', () => {
+    it('displays a loading skeletion when the "isLoading" prop is set to true"', async () => {
       mount(KTable, {
         props: {
           testMode: 'loading',
@@ -290,7 +290,7 @@ describe('KTable', () => {
       cy.getTestId('k-table-error-state').should('contain.text', errorSlotContent)
     })
 
-    it('displays a loading state and not an empty state when pending response', () => {
+    it('displays a loading state and not an empty state when pending response', async () => {
       const slowFetcher = () => {
         return setTimeout(() => {
           return new Promise(resolve => resolve({ data: options.data }))
@@ -305,6 +305,9 @@ describe('KTable', () => {
           pageSize: 4,
         },
       })
+
+      // Wait for loading state
+      await nextTick()
 
       cy.get('.skeleton-table-wrapper').should('be.visible')
       cy.get('.empty-state-wrapper').should('not.exist')
