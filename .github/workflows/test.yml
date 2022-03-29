@@ -12,7 +12,7 @@ on:
 
 jobs:
   test:
-    name: Run Tests
+    name: Run Component Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
