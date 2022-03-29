@@ -787,8 +787,11 @@ export default defineComponent({
   }
   tbody {
     tr {
-      border-bottom: 1px solid var(--KTableBorder, var(--grey-200, color(grey-200)));
       height: 44px;
+
+      &:not(:last-of-type) {
+        border-bottom: 1px solid var(--KTableBorder, var(--grey-200, color(grey-200)));
+      }
     }
     td {
       color: var(--KTableColor, var(--black-70, color(black-70)));

@@ -11,7 +11,7 @@
     <KIcon
       v-if="isOpen !== undefined"
       :class="[caretClasses]"
-      color="white"
+      :color="iconColor"
       view-box="2 2 15 15"
       size="16"
       icon="chevronDown"/>
@@ -109,6 +109,12 @@ export default {
       }
     },
 
+    attrs () {
+      return {
+        ...this.$attrs
+      }
+    },
+
     caretClasses () {
       if (this.isOpen === undefined) return
 
@@ -128,14 +134,16 @@ export default {
     },
 
     iconColor () {
-      if (['primary', 'danger', 'creation'].includes(this.appearance)) {
+      if (this.$attrs.disabled !== undefined) {
+        return 'var(--grey-400)'
+      } else if (['primary', 'danger', 'creation'].includes(this.appearance)) {
         return 'white'
       } else if (this.appearance === 'secondary') {
         return 'var(--KButtonSecondaryColor, var(--blue-600, color(blue-600)))'
       } else if (this.appearance === 'outline') {
         return 'var(--KButtonOutlineColor, var(--blue-500, color(blue-500)))'
-      } else if (this.appearance === 'btn-link-danger') {
-        return 'var(--KButtonLinkDanger, var(--red-500, color(red-500)))'
+      } else if (this.appearance === 'btn-link') {
+        return 'var(--KButtonBtnLink, var(--blue-500, color(blue-500)))'
       } else {
         return null
       }
@@ -174,7 +182,6 @@ export default {
 
   &:disabled,
   &[disabled] {
-    opacity: 0.3;
     cursor: not-allowed;
     &:hover {
       // ! is needed to ensure any type (a, button) keeps disabled state
@@ -254,6 +261,11 @@ export default {
     &:focus {
       @include boxShadow(var(--KButtonSecondaryBase, var(--blue-300, color(blue-300))));
     }
+    &:disabled,
+    &[disabled] {
+      background-color: var(--grey-300);
+      color: var(--grey-400);
+    }
   }
   &.primary {
     color: var(--white, #fff);
@@ -266,6 +278,11 @@ export default {
     }
     &:focus {
       @include boxShadow(var(--KButtonPrimaryBase, var(--blue-500, color(blue-500))));
+    }
+    &:disabled,
+    &[disabled] {
+      background-color: var(--grey-300);
+      color: var(--grey-400);
     }
   }
   &.danger {
@@ -281,6 +298,11 @@ export default {
     &:focus {
       @include boxShadow(var(--KButtonDangerBase, var(--red-700, color(red-700))));
     }
+    &:disabled,
+    &[disabled] {
+      background-color: var(--grey-300);
+      color: var(--grey-400);
+    }
   }
   &.creation {
     color: var(--white, #fff);
@@ -294,6 +316,11 @@ export default {
     }
     &:focus {
       @include boxShadow(var(--KButtonCreationBase, var(--green-600, color(green-600))));
+    }
+    &:disabled,
+    &[disabled] {
+      background-color: var(--grey-300);
+      color: var(--grey-400);
     }
   }
   &.outline {
@@ -310,6 +337,11 @@ export default {
     &:focus {
       @include boxShadow(var(--KButtonOutlineBorder, var(--blue-500, color(blue-500))));
     }
+    &:disabled,
+    &[disabled] {
+      border-color: var(--grey-400);
+      color: var(--grey-400);
+    }
   }
   &.btn-link {
     color: var(--KButtonBtnLink, var(--blue-500, color(blue-500)));
@@ -320,15 +352,9 @@ export default {
     &:focus {
       @include boxShadow(var(--blue-500, color(blue-500)), 0, 2px);
     }
-  }
-  &.btn-link-danger {
-    color: var(--KButtonLinkDanger, var(--red-500, color(red-500)));
-    background-color: transparent;
-    &:hover:not(:disabled) {
-      text-decoration: underline;
-    }
-    &:focus {
-      @include boxShadow(var(--red-700, color(red-700)), 0, 2px);
+    &:disabled,
+    &[disabled] {
+      color: var(--grey-400);
     }
   }
   &.rounded {

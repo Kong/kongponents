@@ -108,5 +108,8 @@ export default {
     border-radius: 3px;
     margin-left: 0;
   }
+  &:disabled {
+    border-color: var(--grey-500);
+  }
 }
 </style>
