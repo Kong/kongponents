@@ -265,7 +265,7 @@ export default defineComponent({
     })
 
     // TypeScript complains if I bind the original object
-    const boundKPopAttributes = computed(() => ({ ...createKPopAttributes }))
+    const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
 
     const widthValue = computed(() => {
       let w
