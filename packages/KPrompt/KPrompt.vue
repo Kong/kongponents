@@ -248,7 +248,7 @@ export default {
         color: var(--grey-600);
         line-height: 24px;
         white-space: normal; // in case inside KTable
-        max-height: 300px;
+        max-height: var(--KPromptMaxHeight, 300px);
         overflow-y: auto;
         overflow-x: hidden;
 

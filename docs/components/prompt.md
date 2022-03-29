@@ -286,6 +286,12 @@ There are 3 designated slots you can use to display content in the modal.
 - `@canceled` - Emitted when cancel/close button is clicked or the Escape key is pressed
 - `@proceed` - Emitted when action button is clicked or the Enter key is pressed
 
+## Theming
+
+| Variable | Purpose
+|:-------- |:-------
+| `--KPromptMaxHeight` | Max height of body content in prompt
+
 <script>
 export default {
   data () {
