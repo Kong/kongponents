@@ -248,9 +248,13 @@ export default {
         color: var(--grey-600);
         line-height: 24px;
         white-space: normal; // in case inside KTable
+        max-height: 300px;
+        overflow-y: auto;
+        overflow-x: hidden;
 
         .k-prompt-body-content {
           padding-bottom: var(--spacing-lg);
+          width: 99%;
 
           .k-prompt-confirm-text {
             margin-top: var(--spacing-lg);
