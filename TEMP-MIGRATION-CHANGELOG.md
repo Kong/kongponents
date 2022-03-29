@@ -60,3 +60,7 @@ export default defineConfig({
 ### KTooltip
 
 - `Kooltip` component is now `KTooltip`
+
+### KSelect
+
+- `positoinFixed` now defaults to `true`
