@@ -57,6 +57,10 @@ export default defineConfig({
 
 - `Komponent` component is now `KComponent`
 
+### KTable
+
+- `fetcher` is now a required prop
+
 ### KTooltip
 
 - `Kooltip` component is now `KTooltip`

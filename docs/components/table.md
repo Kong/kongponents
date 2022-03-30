@@ -702,7 +702,7 @@ If using a CTA button, a `ktable-empty-state-cta-clicked` event is fired when cl
 
 <KCard class="my-2">
   <template v-slot:body>
-    <KTable />
+    <KTable :fetcher="() => { return { data: [] } }" />
   </template>
 </KCard>
 
@@ -721,6 +721,7 @@ If using a CTA button, a `ktable-empty-state-cta-clicked` event is fired when cl
 <KCard class="my-2">
   <template v-slot:body>
     <KTable
+      :fetcher="() => { return { data: [] } }"
       emptyStateTitle="No Workspaces exist"
       emptyStateMessage="Adding a new Workspace will populate this table."
       emptyStateActionMessage="Create a Workspace"
@@ -796,7 +797,7 @@ If using a CTA button, a `ktable-error-cta-clicked` event is fired when clicked.
 
 <KCard class="my-2">
   <template v-slot:body>
-    <KTable :hasError="true" />
+    <KTable :fetcher="() => { return { data: [] } }" :hasError="true" />
   </template>
 </KCard>
 
@@ -815,6 +816,7 @@ If using a CTA button, a `ktable-error-cta-clicked` event is fired when clicked.
 <KCard class="my-2">
   <template v-slot:body>
     <KTable
+      :fetcher="() => { return { data: [] } }"
       :hasError="true"
       errorStateTitle="Something went wrong"
       errorStateMessage="We are not able to load the data for this table."
@@ -878,6 +880,7 @@ Set the `isLoading` prop to `true` to enable the loading state.
 <KCard class="pb-0 mt-2">
   <template v-slot:body>
     <KTable
+      :fetcher="() => { return { data: [] } }"
       :isLoading="true"
       class="my-0" />
   </template>

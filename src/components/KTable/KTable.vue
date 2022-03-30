@@ -413,6 +413,7 @@ export default defineComponent({
     fetcher: {
       type: Function,
       default: undefined,
+      required: true,
     },
     /**
      * A prop to trigger a revalidate of the fetcher function. Modifying this value
@@ -578,6 +579,7 @@ export default defineComponent({
       sortColumnKey.value = fetcherParams.sortColumnKey
       sortColumnOrder.value = fetcherParams.sortColumnOrder
       hasInitialized.value = true
+
       // get data
       if (props.fetcher) {
         await fetchData()
@@ -604,8 +606,7 @@ export default defineComponent({
     }
     const { query, search } = useDebounce('', 350)
     const { revalidate } = useRequest(
-      props.fetcher ? `k-table_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}` : '',
-      // (props.fetcher && hasInitialized.value && `k-table_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}`) || '',
+      () => (props.fetcher && hasInitialized.value && `k-table_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}`) as string,
       () => fetchData(),
       { revalidateOnFocus: false },
     )
@@ -652,15 +653,19 @@ export default defineComponent({
         }
       }
     }
+
     watch(() => props.searchInput, (newValue) => {
       search(newValue)
     }, { immediate: true })
+
     watch(() => [query.value, page.value, pageSize.value], () => {
       revalidate()
     }, { immediate: true })
+
     onMounted(() => {
       initData()
     })
+
     return {
       data,
       isScrolled,

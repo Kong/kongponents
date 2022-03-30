@@ -1,5 +1,7 @@
 import { ref, Ref, computed, watchEffect } from 'vue'
-import useSWRV from 'swrv'
+import useSWRV, { IConfig } from 'swrv'
+import { AxiosResponse, AxiosError } from 'axios'
+import { IKey, fetcherFn } from 'swrv/dist/types'
 
 const swrvState = {
   VALIDATING: 'VALIDATING',
@@ -12,15 +14,14 @@ const swrvState = {
 }
 
 export default function useUtilities() {
-  const useRequest = (cacheKey: string, fetcherFn: any, config: any) => {
-    const { data: response, error, isValidating, mutate: revalidate } = useSWRV(
-      cacheKey,
-      fetcherFn,
-      { revalidateDebounce: 500, dedupingInterval: 100, ...config },
-    )
+  const useRequest = <Data = unknown, Error = { message: string }> (key: IKey, fn?: fetcherFn<AxiosResponse<Data>>, config?: IConfig) => {
+    const { data: response, error, isValidating, mutate: revalidate } = useSWRV<
+    AxiosResponse<Data>,
+    AxiosError<Error>
+    >(key, fn, { revalidateDebounce: 500, dedupingInterval: 100, ...config })
 
     const data = computed(() => {
-      return (response && response.value && response.value.data) || []
+      return response.value?.data
     })
 
     return {
