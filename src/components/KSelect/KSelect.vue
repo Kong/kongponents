@@ -40,7 +40,7 @@
           v-bind="boundKPopAttributes"
           :on-popover-click="() => {
             toggle()
-            return isToggled
+            return isToggled.value
           }"
           :position-fixed="positionFixed"
           :test-mode="testMode"
@@ -53,7 +53,7 @@
             if (selectedItem && appearance === 'select') {
               filterStr = selectedItem.label
             }
-            if (isToggled) {
+            if (isToggled.value) {
               toggle()
             }
           }"
@@ -69,11 +69,11 @@
             <KButton
               :id="selectTextId"
               :style="widthStyle"
-              :is-open="isToggled"
+              :is-open="isToggled.value"
               :is-rounded="false"
               v-bind="$attrs"
               appearance="btn-link"
-              @keyup="triggerFocus(isToggled)"
+              @keyup="triggerFocus(isToggled.value)"
             >
               {{ selectButtonText }}
             </KButton>
@@ -96,19 +96,19 @@
               :id="selectTextId"
               v-bind="$attrs"
               v-model="filterStr"
-              :is-open="isToggled"
+              :is-open="isToggled.value"
               :placeholder="placeholderText"
               class="k-select-input"
               autocomplete="off"
               autocapitalize="off"
-              @keyup="triggerFocus(isToggled)"
+              @keyup="triggerFocus(isToggled.value)"
             />
           </div>
           <template #content>
             <ul class="k-select-list ma-0 pa-0">
               <slot
                 :items="items"
-                :is-open="isToggled"
+                :is-open="isToggled.value"
                 name="items"
               >
                 <div v-if="filteredItems.length">

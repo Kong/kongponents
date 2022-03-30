@@ -3,7 +3,7 @@
   "defaultCommandTimeout": 7000,
   "requestTimeout": 10000,
   "component": {
-    "componentFolder": "src/components",
+    "componentFolder": "src",
     "testFiles": "**/*.spec.ts",
     "viewportWidth": 768,
     "viewportHeight": 1024
