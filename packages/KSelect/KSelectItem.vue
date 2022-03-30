@@ -2,7 +2,7 @@
   <div
     :key="item.key"
     :data-testid="`k-select-item-${item.value}`"
-    class="k-select-item"
+    class="k-select-item mx-4"
     @click="handleClick">
     <li
       role="option"
@@ -10,7 +10,9 @@
       <button
         :class="{ disabled, selected: item.selected }"
         :value="item.value">
-        <span class="k-select-item-label mr-2"><slot>{{ item.label }}</slot></span>
+        <span class="k-select-item-label mr-2">
+          <slot name="content">{{ item.label }}</slot>
+        </span>
         <span class="k-select-selected-icon-container">
           <KIcon
             v-if="item.selected"

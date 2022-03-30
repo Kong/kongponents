@@ -41,21 +41,20 @@ exports[`KPagination correctly renders props 1`] = `
 </svg>
 </span></button>
   </div>
-  <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="display: none;" name="fade">
+  <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 200px; display: none;" name="fade">
     <!---->
     <div class="k-popover-content">
       <ul class="k-select-list ma-0 pa-0">
-        <div>
-          <div data-testid="k-select-item-2" class="k-select-item">
-            <li role="option" class="d-block"><button value="2" class=""><span class="k-select-item-label mr-2">2</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-          </div>
-          <div data-testid="k-select-item-4" class="k-select-item">
-            <li role="option" class="d-block"><button value="4" class=""><span class="k-select-item-label mr-2">4</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-          </div>
-          <div data-testid="k-select-item-6" class="k-select-item">
-            <li role="option" class="d-block"><button value="6" class=""><span class="k-select-item-label mr-2">6</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-          </div>
+        <div data-testid="k-select-item-2" class="k-select-item mx-4">
+          <li role="option" class="d-block"><button value="2" class=""><span class="k-select-item-label mr-2">2</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
         </div>
+        <div data-testid="k-select-item-4" class="k-select-item mx-4">
+          <li role="option" class="d-block"><button value="4" class=""><span class="k-select-item-label mr-2">4</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
+        </div>
+        <div data-testid="k-select-item-6" class="k-select-item mx-4">
+          <li role="option" class="d-block"><button value="6" class=""><span class="k-select-item-label mr-2">6</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
+        </div>
+        <!---->
       </ul>
     </div>
     <!---->
@@ -117,21 +116,20 @@ exports[`KPagination matches snapshot 1`] = `
 </svg>
 </span></button>
   </div>
-  <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="display: none;" name="fade">
+  <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 200px; display: none;" name="fade">
     <!---->
     <div class="k-popover-content">
       <ul class="k-select-list ma-0 pa-0">
-        <div>
-          <div data-testid="k-select-item-10" class="k-select-item">
-            <li role="option" class="d-block"><button value="10" class=""><span class="k-select-item-label mr-2">10</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-          </div>
-          <div data-testid="k-select-item-20" class="k-select-item">
-            <li role="option" class="d-block"><button value="20" class=""><span class="k-select-item-label mr-2">20</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-          </div>
-          <div data-testid="k-select-item-30" class="k-select-item">
-            <li role="option" class="d-block"><button value="30" class=""><span class="k-select-item-label mr-2">30</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-          </div>
+        <div data-testid="k-select-item-10" class="k-select-item mx-4">
+          <li role="option" class="d-block"><button value="10" class=""><span class="k-select-item-label mr-2">10</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
         </div>
+        <div data-testid="k-select-item-20" class="k-select-item mx-4">
+          <li role="option" class="d-block"><button value="20" class=""><span class="k-select-item-label mr-2">20</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
+        </div>
+        <div data-testid="k-select-item-30" class="k-select-item mx-4">
+          <li role="option" class="d-block"><button value="30" class=""><span class="k-select-item-label mr-2">30</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
+        </div>
+        <!---->
       </ul>
     </div>
     <!---->
