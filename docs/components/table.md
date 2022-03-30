@@ -340,14 +340,12 @@ export default {
 
 <style lang="scss">
 .k-table {
-  tr.enabled {
+  tr.enabled:hover {
     --KTableHover: var(--green-200, #ccffe1);
-    --KTableBorder: var(--green-400, #19a654);
   }
 
   tr.disabled {
     --KTableHover: var(--yellow-100, #fff9e6);
-    --KTableBorder: var(--yellow-200, #ffdc73);
   }
 }
 </style>
@@ -1235,15 +1233,13 @@ export default defineComponent({
   --KTableHover: lavender;
 }
 
-/* .k-table {
-  tr.enabled {
+.k-table {
+  tr.enabled:hover {
     --KTableHover: var(--green-200, #ccffe1);
-    --KTableBorder: var(--green-400, #19a654);
   }
 
   tr.disabled {
     --KTableHover: var(--yellow-100, #fff9e6);
-    --KTableBorder: var(--yellow-200, #ffdc73);
   }
-} */
+}
 </style>
