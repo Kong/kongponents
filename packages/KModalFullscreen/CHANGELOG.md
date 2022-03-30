@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.21.0 (2022-03-30)
+
+
+### Features
+
+* **kselect:** allow custom item content and filter ([#488](https://github.com/Kong/kongponents/issues/488)) ([3e558e4](https://github.com/Kong/kongponents/commit/3e558e43db80e05cd2035afb5233683644c3a798))
+
+
+
+
+
 ## 6.20.5 (2022-03-30)
 
 **Note:** Version bump only for package @kongponents/kmodalfullscreen
