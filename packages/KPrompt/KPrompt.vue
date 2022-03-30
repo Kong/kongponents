@@ -7,7 +7,7 @@
     @keyup.enter="proceed">
     <template v-slot:header-content>
       <div class="k-prompt-header w-100">
-        <div class="k-prompt-header-content d-flex w-100">
+        <div class="k-prompt-header-content d-flex align-items-center w-100">
           <slot name="header-content">
             <KIcon
               v-if="type === 'warning'"
