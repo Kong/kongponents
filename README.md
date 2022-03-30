@@ -12,3 +12,5 @@ The Kongponents repo is a monorepo, managed by [Lerna](https://lerna.js.org/) th
 [Kongponents Docs][docsUrl] are powered by VuePress and the source can be viewed [here](docs/README.md).
 
 [docsUrl]: https://kongponents.konghq.com
+
+Note: test edit, will not deploy
