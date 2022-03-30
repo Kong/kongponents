@@ -344,7 +344,7 @@ export default {
     --KTableHover: var(--green-200, #ccffe1);
   }
 
-  tr.disabled {
+  tr.disabled:hover {
     --KTableHover: var(--yellow-100, #fff9e6);
   }
 }
@@ -1241,7 +1241,7 @@ export default defineComponent({
     --KTableHover: var(--green-200, #ccffe1);
   }
 
-  tr.disabled {
+  tr.disabled:hover {
     --KTableHover: var(--yellow-100, #fff9e6);
   }
 }
