@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.21.1 (2022-03-30)
+
+
+### Bug Fixes
+
+* **kprompt:** fix prompt icon alignment ([#541](https://github.com/Kong/kongponents/issues/541)) ([288040c](https://github.com/Kong/kongponents/commit/288040c63e0f025ee836415a14d116c072008947))
+
+
+
+
+
 # 6.21.0 (2022-03-30)
 
 
