@@ -260,7 +260,7 @@ export default defineComponent({
         ...props.kpopAttributes,
         popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses} k-select-pop-${props.appearance}`,
         width: props.width,
-        disabled: attrs.disabled,
+        disabled: typeof attrs.disabled === 'boolean' ? attrs.disabled : false,
       }
     })
 

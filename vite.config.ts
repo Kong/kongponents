@@ -17,6 +17,7 @@ export default defineConfig({
       name: 'Kongponents',
       fileName: (format) => `kongponents.${format}.js`,
     },
+    minify: true,
     rollupOptions: {
       external: ['vue'],
       output: {
