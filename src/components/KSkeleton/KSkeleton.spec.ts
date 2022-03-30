@@ -3,7 +3,6 @@
 
 import { mount } from '@cypress/vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
-import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
 
 describe('KSkeleton', () => {
   describe('variants', () => {
