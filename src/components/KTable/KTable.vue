@@ -483,8 +483,9 @@ export default defineComponent({
      * 'loading' - no id's but allow loading
      */
     testMode: {
-      type: String,
+      type: String as PropType<'true' | 'loading'>,
       default: '',
+      validator: (val: string): boolean => ['true', 'loading', ''].includes(val),
     },
   },
   emits: ['sort', 'ktable-error-cta-clicked', 'ktable-empty-state-cta-clicked'],
