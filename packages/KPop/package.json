@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kpop",
-  "version": "6.20.4",
+  "version": "6.20.5",
   "description": "A Popover component",
   "main": "dist/KPop.umd.min.js",
   "componentName": "KPop",
@@ -23,8 +23,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kbutton": "^6.20.4",
-    "@kongponents/styles": "^6.20.4",
+    "@kongponents/kbutton": "^6.20.5",
+    "@kongponents/styles": "^6.20.5",
     "popper.js": "^1.15.0",
     "vue-uuid": "^2.0.2"
   }
