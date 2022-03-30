@@ -179,7 +179,6 @@ export default defineComponent({
 
   &:disabled,
   &[disabled] {
-    opacity: 0.3;
     cursor: not-allowed;
     &:hover {
       // ! is needed to ensure any type (a, button) keeps disabled state
