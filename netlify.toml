@@ -1,12 +1,12 @@
 # Settings in the [build] context are global and are applied to all contexts
 # unless otherwise overridden by more specific contexts.
-# 
+#
 # Defaulting to the same settings as the `main` branch
 [build]
   base = "/"
   command = "yarn build:styles && yarn docs:build"
   publish = "docs/.vuepress/dist"
-  environment = { NODE_VERSION = "14.18.2" }
+  environment = { NODE_VERSION = "14.19.1" }
 
 # ##############################
 # 'main' branch
@@ -17,8 +17,8 @@
   base = "/"
   command = "yarn build:styles && yarn docs:build"
   publish = "docs/.vuepress/dist"
-  environment = { NODE_VERSION = "14.18.2" }
-  
+  environment = { NODE_VERSION = "14.19.1" }
+
 # ##############################
 # 'next' branch
 # ##############################
