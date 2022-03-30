@@ -10,4 +10,4 @@
   base = "/"
   command = "yarn docs:build"
   publish = "docs/.vuepress/dist"
-  environment = { NODE_VERSION = "14.18.2" }
+  environment = { NODE_VERSION = "16.14.0" }
