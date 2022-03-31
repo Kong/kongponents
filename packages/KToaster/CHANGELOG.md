@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.21.5 (2022-03-31)
+
+
+### Bug Fixes
+
+* **kmodal:** fix overflow to apply on mounted ([#545](https://github.com/Kong/kongponents/issues/545)) ([b889b86](https://github.com/Kong/kongponents/commit/b889b86095f0d9c05f796364c694cc46f8ff1ff2))
+
+
+
+
+
 ## 6.21.4 (2022-03-31)
 
 
