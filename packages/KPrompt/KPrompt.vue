@@ -21,6 +21,7 @@
           <div class="close-button">
             <KButton
               class="non-visual-button"
+              aria-label="Close"
               @click="close">
               <KIcon
                 icon="close"
@@ -138,6 +139,10 @@ export default {
     confirmationText: {
       type: String,
       default: ''
+    },
+    preventProceedOnEnter: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -184,7 +189,9 @@ export default {
         if (e.keyCode === 27) { // `esc` key
           this.close()
         } else if (e.keyCode === 13) { // `enter` key
-          this.proceed()
+          if (!this.preventProceedOnEnter) {
+            this.proceed(e)
+          }
         }
       }
     },
@@ -197,13 +204,13 @@ export default {
       this.confirmationInput = ''
       this.$emit('canceled')
     },
-    proceed () {
+    proceed (evt) {
       if (this.disableProceedButton) {
         return
       }
 
       this.confirmationInput = ''
-      this.$emit('proceed')
+      this.$emit('proceed', evt)
     }
   }
 }
@@ -237,8 +244,8 @@ export default {
         display: flex;
 
         .close-button .k-button {
-          padding-right: 0;
-          padding-top: 0;
+          padding: 8px 0 8px 8px;
+          margin-top: -8px;
         }
       }
 
@@ -248,9 +255,13 @@ export default {
         color: var(--grey-600);
         line-height: 24px;
         white-space: normal; // in case inside KTable
-        max-height: var(--KPromptMaxHeight, 300px);
         overflow-y: auto;
         overflow-x: hidden;
+        max-height: var(--KPromptMaxHeight, 300px);
+
+        @media screen and (min-width: 768px) {
+          max-height: var(--KPromptMaxHeight, 500px);
+        }
 
         .k-prompt-body-content {
           padding-bottom: var(--spacing-lg);

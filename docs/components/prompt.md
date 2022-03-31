@@ -229,6 +229,32 @@ Provide a string the user must type before the action button becomes enabled
 />
 ```
 
+### preventProceedOnEnter
+
+If you don't want to `emit` the `proceed` event upon pressing the `Enter` key, you can prevent it using this prop. Defaults to `false`.
+
+<KButton appearance="primary" @click="preventProceed = true">Prompt</KButton>
+
+<KPrompt
+  :is-visible="preventProceed"
+  type="danger"
+  message="I don't care if you press Enter"
+  prevent-proceed-on-enter
+  @canceled="preventProceed = false"
+  @proceed="preventProceed = false"
+/>
+
+```vue
+<KPrompt
+  :is-visible="preventProceed"
+  type="danger"
+  message="I don't care if you press Enter"
+  prevent-proceed-on-enter
+  @canceled="preventProceed = false"
+  @proceed="preventProceed = false"
+/>
+```
+
 ## Slots
 
 There are 3 designated slots you can use to display content in the modal.
@@ -304,7 +330,8 @@ export default {
       infoIsOpen: false,
       pendingIsOpen: false,
       slotsIsOpen: false,
-      warningIsOpen: false
+      warningIsOpen: false,
+      preventProceed: false
     }
   }
 }

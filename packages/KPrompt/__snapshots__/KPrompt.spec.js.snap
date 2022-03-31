@@ -10,7 +10,8 @@ exports[`KPrompt enables correctly with confirmationText 1`] = `
             <div class="k-prompt-header-content d-flex align-items-center w-100">
               <!---->
               Information
-              <div class="close-button"><button type="button" class="k-button non-visual-button medium rounded outline"> <span class="kong-icon kong-icon-close"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <div class="close-button"><button type="button" class="k-button non-visual-button medium rounded outline" aria-label="Close">
+                  <!----> <span class="kong-icon kong-icon-close"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
   <title>Close</title>
   <path d="M16 4 3 17m13 0L3 4" stroke="#A3BBCC" stroke-width="2" stroke-linecap="round"></path>
 </svg>
@@ -38,8 +39,10 @@ exports[`KPrompt enables correctly with confirmationText 1`] = `
         </div>
         <div class="k-modal-footer modal-footer d-flex">
           <div class="k-prompt-action-buttons"><button type="button" class="k-button k-prompt-cancel mr-2 medium rounded outline">
+              <!---->
               Cancel
               <!----></button> <button type="button" class="k-button k-prompt-proceed medium rounded primary" disabled="disabled">
+              <!---->
               <!---->
               OK
               <!----></button></div>
@@ -60,7 +63,8 @@ exports[`KPrompt has a pending state 1`] = `
             <div class="k-prompt-header-content d-flex align-items-center w-100">
               <!---->
               Information
-              <div class="close-button"><button type="button" class="k-button non-visual-button medium rounded outline"> <span class="kong-icon kong-icon-close"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <div class="close-button"><button type="button" class="k-button non-visual-button medium rounded outline" aria-label="Close">
+                  <!----> <span class="kong-icon kong-icon-close"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
   <title>Close</title>
   <path d="M16 4 3 17m13 0L3 4" stroke="#A3BBCC" stroke-width="2" stroke-linecap="round"></path>
 </svg>
@@ -81,6 +85,7 @@ exports[`KPrompt has a pending state 1`] = `
         </div>
         <div class="k-modal-footer modal-footer d-flex">
           <div class="k-prompt-action-buttons"><button type="button" class="k-button k-prompt-cancel mr-2 medium rounded outline">
+              <!---->
               Cancel
               <!----></button> <button type="button" class="k-button k-prompt-proceed medium rounded primary" disabled="disabled"><span class="kong-icon kong-icon-spinner" viewbox="0 0 16 16"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
   <title>Loading</title>
@@ -108,7 +113,8 @@ exports[`KPrompt renders custom button text 1`] = `
             <div class="k-prompt-header-content d-flex align-items-center w-100">
               <!---->
               Information
-              <div class="close-button"><button type="button" class="k-button non-visual-button medium rounded outline"> <span class="kong-icon kong-icon-close"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <div class="close-button"><button type="button" class="k-button non-visual-button medium rounded outline" aria-label="Close">
+                  <!----> <span class="kong-icon kong-icon-close"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
   <title>Close</title>
   <path d="M16 4 3 17m13 0L3 4" stroke="#A3BBCC" stroke-width="2" stroke-linecap="round"></path>
 </svg>
@@ -129,8 +135,10 @@ exports[`KPrompt renders custom button text 1`] = `
         </div>
         <div class="k-modal-footer modal-footer d-flex">
           <div class="k-prompt-action-buttons"><button type="button" class="k-button k-prompt-cancel mr-2 medium rounded outline">
+              <!---->
               Sweet prop cancel button
               <!----></button> <button type="button" class="k-button k-prompt-proceed medium rounded primary">
+              <!---->
               <!---->
               Sweet prop action button
               <!----></button></div>
@@ -151,7 +159,8 @@ exports[`KPrompt renders proper content when using props 1`] = `
             <div class="k-prompt-header-content d-flex align-items-center w-100">
               <!---->
               Sweet prop title
-              <div class="close-button"><button type="button" class="k-button non-visual-button medium rounded outline"> <span class="kong-icon kong-icon-close"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <div class="close-button"><button type="button" class="k-button non-visual-button medium rounded outline" aria-label="Close">
+                  <!----> <span class="kong-icon kong-icon-close"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
   <title>Close</title>
   <path d="M16 4 3 17m13 0L3 4" stroke="#A3BBCC" stroke-width="2" stroke-linecap="round"></path>
 </svg>
@@ -172,8 +181,10 @@ exports[`KPrompt renders proper content when using props 1`] = `
         </div>
         <div class="k-modal-footer modal-footer d-flex">
           <div class="k-prompt-action-buttons"><button type="button" class="k-button k-prompt-cancel mr-2 medium rounded outline">
+              <!---->
               Cancel
               <!----></button> <button type="button" class="k-button k-prompt-proceed medium rounded primary">
+              <!---->
               <!---->
               OK
               <!----></button></div>
@@ -193,7 +204,8 @@ exports[`KPrompt renders proper content when using slots 1`] = `
           <div class="k-prompt-header w-100">
             <div class="k-prompt-header-content d-flex align-items-center w-100">
               <div>This is some header text</div>
-              <div class="close-button"><button type="button" class="k-button non-visual-button medium rounded outline"> <span class="kong-icon kong-icon-close"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <div class="close-button"><button type="button" class="k-button non-visual-button medium rounded outline" aria-label="Close">
+                  <!----> <span class="kong-icon kong-icon-close"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
   <title>Close</title>
   <path d="M16 4 3 17m13 0L3 4" stroke="#A3BBCC" stroke-width="2" stroke-linecap="round"></path>
 </svg>
