@@ -128,13 +128,19 @@ export default {
             document.body.classList.remove('k-modal-overflow-hidden')
           }
         }
-      },
-      immediate: true
+      }
     }
   },
 
   mounted () {
     document.addEventListener('keydown', this.handleKeydown)
+
+    if (this.isVisible) {
+      this.nextTick(() => {
+        // Hide body overflow
+        document.body.classList.add('k-modal-overflow-hidden')
+      })
+    }
   },
 
   beforeDestroy () {
