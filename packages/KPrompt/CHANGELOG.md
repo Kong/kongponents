@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.21.6 (2022-03-31)
+
+
+### Bug Fixes
+
+* **kpop:** fix kpop toggle behavior [khcp-3244] ([#546](https://github.com/Kong/kongponents/issues/546)) ([1d275b3](https://github.com/Kong/kongponents/commit/1d275b3d088b97e8c5909d5dedd635946800007e))
+
+
+
+
+
 ## 6.21.5 (2022-03-31)
 
 

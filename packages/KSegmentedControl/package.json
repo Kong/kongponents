@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/ksegmentedcontrol",
-  "version": "6.21.5",
+  "version": "6.21.6",
   "description": "Segmented Control component.",
   "main": "dist/KSegmentedControl.umd.min.js",
   "componentName": "KSegmentedControl",
@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kbutton": "^6.21.5",
-    "@kongponents/styles": "^6.21.5"
+    "@kongponents/kbutton": "^6.21.6",
+    "@kongponents/styles": "^6.21.6"
   }
 }
