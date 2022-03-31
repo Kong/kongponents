@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.21.3 (2022-03-31)
+
+
+### Bug Fixes
+
+* **kmodal:** hide body overflow ([#542](https://github.com/Kong/kongponents/issues/542)) ([6e08669](https://github.com/Kong/kongponents/commit/6e08669f5fbdf36405eb61c09e88d49f35240037))
+
+
+
+
+
 ## 6.21.2 (2022-03-30)
 
 **Note:** Version bump only for package @kongponents/kinlineedit
