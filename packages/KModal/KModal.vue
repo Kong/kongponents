@@ -119,12 +119,14 @@ export default {
   watch: {
     isVisible: {
       handler (visible) {
-        if (visible) {
-          // Hide body overflow
-          document.body.classList.add('k-modal-overflow-hidden')
-        } else {
-          // Reset body overflow
-          document.body.classList.remove('k-modal-overflow-hidden')
+        if (typeof document !== 'undefined') {
+          if (visible) {
+            // Hide body overflow
+            document.body.classList.add('k-modal-overflow-hidden')
+          } else {
+            // Reset body overflow
+            document.body.classList.remove('k-modal-overflow-hidden')
+          }
         }
       },
       immediate: true
