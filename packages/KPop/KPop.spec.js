@@ -113,7 +113,7 @@ describe('KPop', () => {
 
     expect(wrapper.vm.isOpen).toBe(false)
     slottedEl.trigger('click')
-    expect(wrapper.vm.isOpen).toBe(true)
+    expect(wrapper.vm.isOpen).toBe(false)
   })
 
   it('shows element on hover', () => {

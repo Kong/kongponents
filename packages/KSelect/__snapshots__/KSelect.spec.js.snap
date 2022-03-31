@@ -35,15 +35,15 @@ exports[`KSelect renders props when passed 1`] = `
   <!---->
   <div id="test-select-id-1234" data-testid="k-select-selected-item">
     <!---->
-    <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button" aria-expanded="true">
+    <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button">
       <div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="" style="position: relative;">
         <!---->
-        <div class="k-input-wrapper k-select-input"><input id="test-select-text-id-1234" placeholder="Filter..." class="form-control k-input k-input-medium" is-open="true">
+        <div class="k-input-wrapper k-select-input"><input id="test-select-text-id-1234" placeholder="Filter..." class="form-control k-input k-input-medium">
           <!---->
           <!---->
         </div>
       </div>
-      <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0  k-select-pop-dropdown hide-caret" style="" name="fade">
+      <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0  k-select-pop-dropdown hide-caret" style="display: none;" name="fade">
         <!---->
         <div class="k-popover-content">
           <ul class="k-select-list ma-0 pa-0">

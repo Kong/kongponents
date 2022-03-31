@@ -388,7 +388,6 @@ export default {
           popper.addEventListener('blur', this.hidePopper)
         }
 
-        this.reference.addEventListener('click', this.handleClick)
         popper.addEventListener('click', this.showPopper)
         document.documentElement.addEventListener('click', this.handleClick)
       }
