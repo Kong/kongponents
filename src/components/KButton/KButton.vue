@@ -8,7 +8,16 @@
     v-bind="$attrs"
   >
 
-    <slot name="icon" />
+    <slot name="icon">
+      <KIcon
+        v-if="icon"
+        :color="iconColor"
+        :icon="icon"
+        class="k-button-icon"
+        size="16"
+      />
+    </slot>
+
     <slot />
 
     <KIcon
@@ -30,7 +39,15 @@
     class="k-button"
     v-bind="$attrs"
   >
-    <slot name="icon" />
+    <slot name="icon">
+      <KIcon
+        v-if="icon"
+        :color="iconColor"
+        :icon="icon"
+        class="k-button-icon"
+        size="16"
+      />
+    </slot>
     <slot />
 
     <KIcon
@@ -109,6 +126,10 @@ export default defineComponent({
     isRounded: {
       type: Boolean,
       default: true,
+    },
+    icon: {
+      type: String,
+      default: '',
     },
   },
 
