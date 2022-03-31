@@ -110,7 +110,7 @@ The buttons are rounded by default. This can be disabled by setting `isRounded` 
 
 ### icon
 
-A string for the `KIcon` name to be displayed directly above the title. Specifying a value for `icon` will automatically indicate that it should be visible.
+A string for the `KIcon` name to be displayed to the left of the button's content. Specifying a value for `icon` will automatically indicate that it should be visible.
 
 If the disable state of the button can be changed, it is recommended to use the `icon` property instead of the slot, as using the prop will apply correct
 coloring to the icon depending on the `disabled` state of the button.

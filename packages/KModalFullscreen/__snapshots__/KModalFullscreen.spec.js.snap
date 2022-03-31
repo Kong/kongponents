@@ -51,8 +51,10 @@ exports[`KModalFullscreen renders proper content when using props 1`] = `
 </span></span> <span class="header-content my-auto">Sweet prop title</span></div>
         <div class="k-modal-fullscreen-action ml-3">
           <div class="k-modal-fullscreen-action-buttons"><button type="button" class="k-button cancel-button medium rounded outline">
+              <!---->
               Sweet prop cancelButton
               <!----></button> <button type="button" class="k-button proceed-button medium rounded primary">
+              <!---->
               Sweet prop actionButton
               <!----></button></div>
         </div>
@@ -81,8 +83,10 @@ exports[`KModalFullscreen renders proper content when using slots 1`] = `
         <div class="k-modal-fullscreen-title"><span class="header-icon pr-2 my-auto"><div>This is some header icon text</div></span> <span class="header-content my-auto"><div>This is some header text</div></span></div>
         <div class="k-modal-fullscreen-action ml-3">
           <div class="k-modal-fullscreen-action-buttons"><button type="button" class="k-button cancel-button medium rounded outline">
+              <!---->
               Cancel
               <!----></button> <button type="button" class="k-button proceed-button medium rounded primary">
+              <!---->
               Save
               <!----></button></div>
         </div>

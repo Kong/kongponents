@@ -2,6 +2,7 @@
 
 exports[`KMultiselect matches snapshot 1`] = `
 <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><button type="button" class="k-button k-multiselect-trigger has-caret medium rounded secondary has-caret">
+    <!---->
 
     <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
   <title>Expand</title>
@@ -23,7 +24,8 @@ exports[`KMultiselect matches snapshot 1`] = `
               Item 2
             </li>
           </ul>
-          <div class="k-multiselect-footer"><button type="button" class="k-button k-multiselect-apply small rounded secondary" disabled="disabled"> Apply
+          <div class="k-multiselect-footer"><button type="button" class="k-button k-multiselect-apply small rounded secondary" disabled="disabled">
+              <!----> Apply
               <!----></button></div>
         </div>
       </div>

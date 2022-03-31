@@ -2,6 +2,7 @@
 
 exports[`KPop renders props when passed 1`] = `
 <div><button type="button" class="k-button medium rounded outline" id="test-target-id-1234" aria-controls="test-popover-id-1234" data-testid="kpop-button">
+    <!---->
     Click Me!
     <!----></button>
   <div id="test-popover-id-1234" role="region" class="k-popover" style="width: 200px; display: none;" name="fade">
@@ -17,6 +18,7 @@ exports[`KPop renders props when passed 1`] = `
 
 exports[`KPop renders slots when passed 1`] = `
 <div><button type="button" class="k-button medium rounded outline" id="test-target-id-1234" aria-controls="test-popover-id-1234" data-testid="kpop-button">
+    <!---->
     OK
     <!----></button>
   <div id="test-popover-id-1234" role="region" class="k-popover pb-0" style="width: 200px; display: none;" name="fade">

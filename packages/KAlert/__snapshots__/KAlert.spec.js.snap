@@ -72,6 +72,7 @@ exports[`KAlert renders slots when passed 1`] = `
 <div role="alert" class="k-alert info large banner button" hasactionbuttons="true">
   <!---->
   <div class="k-alert-action ml-3 info"><span>Action button</span> <button type="button" class="k-button small rounded outline">
+      <!---->
       Dismiss
       <!----></button></div>
   <!----> <span><span class="kong-icon k-alert-icon kong-icon-notificationInbox"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
