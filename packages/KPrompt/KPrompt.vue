@@ -21,6 +21,7 @@
           <div class="close-button">
             <KButton
               class="non-visual-button"
+              aria-label="Close"
               @click="close">
               <KIcon
                 icon="close"
