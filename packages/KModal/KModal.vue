@@ -116,12 +116,31 @@ export default {
     }
   },
 
+  watch: {
+    isVisible: {
+      handler (visible) {
+        if (typeof document !== 'undefined') {
+          if (visible) {
+            // Hide body overflow
+            document.body.classList.add('k-modal-overflow-hidden')
+          } else {
+            // Reset body overflow
+            document.body.classList.remove('k-modal-overflow-hidden')
+          }
+        }
+      },
+      immediate: true
+    }
+  },
+
   mounted () {
     document.addEventListener('keydown', this.handleKeydown)
   },
 
   beforeDestroy () {
     document.removeEventListener('keydown', this.handleKeydown)
+    // Reset body overflow
+    document.body.classList.remove('k-modal-overflow-hidden')
   },
 
   methods: {
@@ -151,6 +170,11 @@ export default {
   right: 0;
   background-color: var(--KModalBackdrop, rgba(11, 23, 45, .6));
   z-index: 1100;
+}
+
+// Allow modal backdrop to scroll if viewport is shorter than modal
+.k-modal-overflow-hidden .k-modal-backdrop {
+  overflow: auto;
 }
 
 .k-modal-dialog {
@@ -195,5 +219,12 @@ export default {
   .k-modal-footer .k-modal-action-buttons {
     margin-left: auto;
   }
+}
+</style>
+
+<style lang="scss">
+// Leave unscoped to target 'body' element
+body.k-modal-overflow-hidden {
+  overflow: hidden;
 }
 </style>
