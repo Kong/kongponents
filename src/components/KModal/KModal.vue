@@ -142,16 +142,26 @@ export default defineComponent({
     }
 
     watchEffect(() => {
-      if (props.isVisible) {
-        // Hide body overflow
-        document?.body?.classList.add('k-modal-overflow-hidden')
-      } else {
-        // Reset body overflow
-        document?.body?.classList.remove('k-modal-overflow-hidden')
+      if (typeof document !== 'undefined') {
+        if (props.isVisible) {
+          // Hide body overflow
+          document?.body?.classList.add('k-modal-overflow-hidden')
+        } else {
+          // Reset body overflow
+          document?.body?.classList.remove('k-modal-overflow-hidden')
+        }
       }
     })
 
-    onMounted(() => document.addEventListener('keydown', handleKeydown))
+    onMounted(() => {
+      document.addEventListener('keydown', handleKeydown)
+
+      if (props.isVisible) {
+        // Hide body overflow
+        document?.body?.classList.add('k-modal-overflow-hidden')
+      }
+    })
+
     onUnmounted(() => {
       document.removeEventListener('keydown', handleKeydown)
       // Reset body overflow
