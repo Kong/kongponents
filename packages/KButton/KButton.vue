@@ -6,7 +6,14 @@
     :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance]"
     class="k-button"
     v-on="listeners">
-    <slot name="icon" />
+    <slot name="icon">
+      <KIcon
+        v-if="icon"
+        :color="iconColor"
+        :icon="icon"
+        class="k-button-icon"
+        size="16" />
+    </slot>
     <slot/>
     <KIcon
       v-if="isOpen !== undefined"
@@ -24,7 +31,14 @@
     :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance, caretClasses]"
     class="k-button"
     v-on="listeners">
-    <slot name="icon" />
+    <slot name="icon">
+      <KIcon
+        v-if="icon"
+        :color="iconColor"
+        :icon="icon"
+        class="k-button-icon"
+        size="16" />
+    </slot>
     <slot/>
     <KIcon
       v-if="isOpen !== undefined"
@@ -99,6 +113,10 @@ export default {
     isRounded: {
       type: Boolean,
       default: true
+    },
+    icon: {
+      type: String,
+      default: ''
     }
   },
 

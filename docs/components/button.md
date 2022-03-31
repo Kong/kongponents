@@ -11,7 +11,7 @@ and configuration options.
 
 ## Props
 
-### Appearances
+### appearance
 
 The Button component can take 1 of 6 appearance values:
 
@@ -38,7 +38,7 @@ The Button component can take 1 of 6 appearance values:
 <KButton class="mr-2 mb-2" appearance='btn-link'>btn-link</KButton>
 ```
 
-### Sizes
+### size
 
 We support `small`, `medium`, and `large` sizes, default to `medium`.
 
@@ -74,9 +74,7 @@ We support `small`, `medium`, and `large` sizes, default to `medium`.
 
 ```
 
-### Caret
-
-- `isOpen`
+### isOpen
 
 KButton can display a dropdown caret to the right hand side. This is useful for buttons that control dropdowns and popovers. When the prop `isOpen` is `false`, the caret will display pointing down. You can rotate the caret (active state) to point up by setting `isOpen` to `true`.
 
@@ -98,9 +96,7 @@ KButton can display a dropdown caret to the right hand side. This is useful for 
 </Komponent>
 ```
 
-### Rounded
-
-- `isRounded`
+### isRounded
 
 The buttons are rounded by default. This can be disabled by setting `isRounded` prop to `false`.
 
@@ -112,11 +108,24 @@ The buttons are rounded by default. This can be disabled by setting `isRounded` 
 <KButton appearance="primary" >I'm a button</KButton>
 ```
 
-### Anchor Tag
+### icon
+
+A string for the `KIcon` name to be displayed directly above the title. Specifying a value for `icon` will automatically indicate that it should be visible.
+
+If the disable state of the button can be changed, it is recommended to use the `icon` property instead of the slot, as using the prop will apply correct
+coloring to the icon depending on the `disabled` state of the button.
+
+<KButton appearance="primary" icon="spinner">I'm a button</KButton>
+<KButton appearance="primary" icon="spinner" disabled>I'm a button</KButton>
+
+```vue
+<KButton appearance="primary" icon="spinner">I'm a button</KButton>
+<KButton appearance="primary" icon="spinner" disabled>I'm a button</KButton>
+```
+
+### to
 
 KButton can render either a `<a>` or `<router-link>` by simply passing the `to` prop. If it receives an object it will render a router link. If it receives a string it will render an HTML anchor tag
-
-- `to`
 
 <KButton
   :to="{path: '/'}"
@@ -134,7 +143,7 @@ KButton can render either a `<a>` or `<router-link>` by simply passing the `to` 
   appearance="btn-link">Anchor Link!</KButton>
 ```
 
-### Disabled HTML Attribute
+### disabled
 
 KButton also supports the disabled attribute with both Button and Anchor types.
 
@@ -156,7 +165,8 @@ KButton also supports the disabled attribute with both Button and Anchor types.
 
 ### Icon
 
-KButton supports using an icon either before the text or without text.
+KButton supports using an icon either before the text or without text. If you are using the slot you must maintain
+the icon color yourself when the button is enabled or disabled.
 
 <KButton appearance="secondary">
   <template v-slot:icon>

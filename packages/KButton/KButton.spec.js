@@ -35,6 +35,34 @@ describe('KButton', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 
+  it('sets medium class when size passed', () => {
+    const wrapper = mount(KButton, {
+      propsData: {
+        'size': 'medium'
+      },
+      slots: {
+        default: 'Medium Button'
+      }
+    })
+
+    expect(wrapper.find('.k-button').classes()).toContain('medium')
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
+  it('sets large class when size passed', () => {
+    const wrapper = mount(KButton, {
+      propsData: {
+        'size': 'large'
+      },
+      slots: {
+        default: 'Large Button'
+      }
+    })
+
+    expect(wrapper.find('.k-button').classes()).toContain('large')
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
   it('renders a router link with KButton styles', () => {
     const localVue = createLocalVue()
     const router = new VueRouter({
@@ -78,6 +106,33 @@ describe('KButton', () => {
 
     expect(wrapper.find('a').classes()).toContain('k-button', 'secondary')
     expect(wrapper.find('a').attributes('href')).toBe('https://google.com')
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
+  it('renders an icon when using icon prop', () => {
+    const wrapper = mount(KButton, {
+      propsData: {
+        icon: 'spinner'
+      },
+      slots: {
+        default: `Click Me`
+      }
+    })
+
+    expect(wrapper.find('.k-button .k-button-icon.kong-icon-spinner').exists()).toBeTruthy()
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
+  it('renders an icon when using icon slot', () => {
+    const iconText = 'Pretend I am an icon'
+    const wrapper = mount(KButton, {
+      slots: {
+        default: `Click Me`,
+        icon: 'Pretend I am an icon'
+      }
+    })
+
+    expect(wrapper.find('.k-button').html()).toContain(iconText)
     expect(wrapper.html()).toMatchSnapshot()
   })
 })
