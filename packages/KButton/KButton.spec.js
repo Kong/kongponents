@@ -128,7 +128,7 @@ describe('KButton', () => {
     const wrapper = mount(KButton, {
       slots: {
         default: `Click Me`,
-        icon: 'Pretend I am an icon'
+        icon: iconText
       }
     })
 
