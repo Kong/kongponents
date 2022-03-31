@@ -136,10 +136,8 @@ export default {
     document.addEventListener('keydown', this.handleKeydown)
 
     if (this.isVisible) {
-      this.nextTick(() => {
-        // Hide body overflow
-        document.body.classList.add('k-modal-overflow-hidden')
-      })
+      // Hide body overflow
+      document.body.classList.add('k-modal-overflow-hidden')
     }
   },
 
