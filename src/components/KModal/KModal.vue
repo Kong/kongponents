@@ -59,7 +59,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onUnmounted } from 'vue'
+import { defineComponent, onMounted, onUnmounted, watchEffect } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 
 export default defineComponent({
@@ -141,8 +141,22 @@ export default defineComponent({
       emit('proceed')
     }
 
+    watchEffect(() => {
+      if (props.isVisible) {
+        // Hide body overflow
+        document?.body?.classList.add('k-modal-overflow-hidden')
+      } else {
+        // Reset body overflow
+        document?.body?.classList.remove('k-modal-overflow-hidden')
+      }
+    })
+
     onMounted(() => document.addEventListener('keydown', handleKeydown))
-    onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
+    onUnmounted(() => {
+      document.removeEventListener('keydown', handleKeydown)
+      // Reset body overflow
+      document?.body?.classList.remove('k-modal-overflow-hidden')
+    })
 
     return {
       close,
@@ -163,6 +177,11 @@ export default defineComponent({
   right: 0;
   background-color: var(--KModalBackdrop, rgba(11, 23, 45, .6));
   z-index: 1100;
+}
+
+// Allow modal backdrop to scroll if viewport is shorter than modal
+.k-modal-overflow-hidden .k-modal-backdrop {
+  overflow: auto;
 }
 
 .k-modal-dialog {
@@ -207,5 +226,12 @@ export default defineComponent({
   .k-modal-footer .k-modal-action-buttons {
     margin-left: auto;
   }
+}
+</style>
+
+<style lang="scss">
+// Leave unscoped to target 'body' element
+body.k-modal-overflow-hidden {
+  overflow: hidden;
 }
 </style>
