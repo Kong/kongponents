@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.23.0 (2022-04-01)
+
+
+### Features
+
+* **kcardcatalog:** fix item slotting ([#548](https://github.com/Kong/kongponents/issues/548)) ([edfb0f6](https://github.com/Kong/kongponents/commit/edfb0f6a07b49bbcf2235c9e6a1acf38bcba101a))
+
+
+
+
+
 # 6.22.0 (2022-04-01)
 
 
