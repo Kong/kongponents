@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.22.0 (2022-04-01)
+
+
+### Features
+
+* **kviewswitcher:** metalab style updates ([#547](https://github.com/Kong/kongponents/issues/547)) ([42e5b30](https://github.com/Kong/kongponents/commit/42e5b30ba591b5e67d7d74540135892676784b80))
+
+
+
+
+
 ## 6.21.6 (2022-03-31)
 
 
