@@ -47,7 +47,7 @@ The catalog title.
 
 ### items
 
-The content of the cards. Expects a `title` and a `description`.
+**DEPRECATED -** The content of the cards. Expects a `title` and a `description`.
 
 <KCardCatalog :items="getItems(6)" />
 ```vue
