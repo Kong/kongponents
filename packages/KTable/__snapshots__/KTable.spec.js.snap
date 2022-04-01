@@ -60,11 +60,14 @@ exports[`KTable default has hover class when passed 1`] = `
 </span></a></li>
           <!---->
           <!---->
+          <li data-testid="page-1-btn" class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
+              1
+            </a></li>
           <!---->
           <!---->
-          <li data-testid="next-btn" class="pagination-button square"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 14" fill="var(--blue-400)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+          <li data-testid="next-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Forward</title>
-  <path d="M3 8.75h9.17M8.42 5l3.75 3.75-3.75 3.75" fill="none" stroke="var(--blue-400)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M3 8.75h9.17M8.42 5l3.75 3.75-3.75 3.75" fill="none" stroke="var(--grey-500)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
         </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"><!----> 15 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="2 2 15 15" fill="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
@@ -215,11 +218,14 @@ exports[`KTable sorting should allow disabling sorting 1`] = `
 </span></a></li>
           <!---->
           <!---->
+          <li data-testid="page-1-btn" class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
+              1
+            </a></li>
           <!---->
           <!---->
-          <li data-testid="next-btn" class="pagination-button square"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 14" fill="var(--blue-400)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+          <li data-testid="next-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Forward</title>
-  <path d="M3 8.75h9.17M8.42 5l3.75 3.75-3.75 3.75" fill="none" stroke="var(--blue-400)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M3 8.75h9.17M8.42 5l3.75 3.75-3.75 3.75" fill="none" stroke="var(--grey-500)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
         </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"><!----> 15 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="2 2 15 15" fill="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
@@ -320,11 +326,14 @@ exports[`KTable sorting should have sortable class when passed 1`] = `
 </span></a></li>
           <!---->
           <!---->
+          <li data-testid="page-1-btn" class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
+              1
+            </a></li>
           <!---->
           <!---->
-          <li data-testid="next-btn" class="pagination-button square"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 14" fill="var(--blue-400)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+          <li data-testid="next-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Forward</title>
-  <path d="M3 8.75h9.17M8.42 5l3.75 3.75-3.75 3.75" fill="none" stroke="var(--blue-400)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M3 8.75h9.17M8.42 5l3.75 3.75-3.75 3.75" fill="none" stroke="var(--grey-500)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
         </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"><!----> 15 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="2 2 15 15" fill="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
