@@ -51,7 +51,7 @@ Use `v-model` to bind the `checked` state of the underlying `<input />`. The `v-
 
 ```vue
 <KCheckbox v-model="checked">
-  {{ defaultChecked ? 'Checked!' : 'Unchecked' }}
+  {{ checked ? 'Checked!' : 'Unchecked' }}
 </KCheckbox>
 ```
 
