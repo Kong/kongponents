@@ -26,7 +26,7 @@ Actual component using prop1
 ## Slots
 
 - `default` - default slot description
-- `slot1` - slot1 description
+- `slotName` - slot description
 
 ```vue
 <{%%KONGPONENT_NAME%%}>
