@@ -162,7 +162,7 @@ export default {
   data () {
     const currPage = this.currentPage ? this.currentPage : 1
     const currentPageSize = this.initialPageSize ? this.initialPageSize : this.pageSizes[0]
-    const pageCount = Math.ceil(this.totalCount / currentPageSize)
+    const pageCount = Math.ceil(this.totalCount / currentPageSize) || 1
 
     const pageSizeOptions = this.pageSizes.map((size, i) => ({
       label: `${size}`,

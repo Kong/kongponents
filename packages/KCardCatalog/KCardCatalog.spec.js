@@ -124,6 +124,29 @@ describe('KCardCatalog', () => {
       expect(wrapper.html()).toMatchSnapshot()
     })
 
+    it('renders slotted cards when passed', async () => {
+      const slotHeader = 'Look mah!'
+      const slotBody = 'My body'
+
+      const wrapper = mount(KCardCatalog, {
+        localVue,
+        propsData: {
+          testMode: true,
+          items: getItems(1)
+        },
+        scopedSlots: {
+          'cardTitle': `<span>${slotHeader}</span>`,
+          'cardBody': `<span>${slotBody}</span>`
+        }
+      })
+
+      await tick(wrapper.vm, 1)
+
+      expect(wrapper.find('.k-card-header').html()).toEqual(expect.stringContaining(slotHeader))
+      expect(wrapper.find('.k-card-body').html()).toEqual(expect.stringContaining(slotBody))
+      expect(wrapper.html()).toMatchSnapshot()
+    })
+
     it('renders slots when passed (with empty)', async () => {
       const emptySlotContent = 'Look mah! I am empty! (except testMode)'
 

@@ -88,7 +88,9 @@
       v-else
       :class="`k-card-${cardSize}`"
       class="k-catalog-page">
-      <slot name="body">
+      <slot
+        :data="data"
+        name="body">
         <template v-for="item in data">
           <router-link
             v-if="item.locationParam"
@@ -99,7 +101,22 @@
               :truncate="!noTruncation"
               :test-mode="testMode"
               class="catalog-item"
-            />
+            >
+              <template #cardTitle>
+                <slot
+                  :item="item"
+                  name="cardTitle">
+                  {{ item.title }}
+                </slot>
+              </template>
+              <template #cardBody>
+                <slot
+                  :item="item"
+                  name="cardBody">
+                  {{ item.description }}
+                </slot>
+              </template>
+            </KCatalogItem>
           </router-link>
           <KCatalogItem
             v-else
@@ -108,7 +125,22 @@
             :truncate="!noTruncation"
             :test-mode="testMode"
             class="catalog-item"
-          />
+          >
+            <template #cardTitle>
+              <slot
+                :item="item"
+                name="cardTitle">
+                {{ item.title }}
+              </slot>
+            </template>
+            <template #cardBody>
+              <slot
+                :item="item"
+                name="cardBody">
+                {{ item.description }}
+              </slot>
+            </template>
+          </KCatalogItem>
         </template>
       </slot>
       <div
@@ -119,6 +151,7 @@
           :current-page="page"
           :neighbors="paginationNeighbors"
           :page-sizes="paginationPageSizes"
+          :initial-page-size="pageSize"
           :disable-page-jump="disablePaginationPageJump"
           class="pa-1"
           @pageChanged="pageChangeHandler"
