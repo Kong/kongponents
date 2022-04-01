@@ -5,7 +5,7 @@
     :title="`Toggle to ${view === 'table' ? 'grid' : 'table'} view`"
     size="small"
     appearance="outline"
-    class="view-switch-button"
+    class="view-switch-button non-visual-button"
     @click="toggleView"
   >
     <div class="icon">
@@ -84,7 +84,7 @@ export default {
       border-radius: 2px;
       width: var(--width, 7px);
       height: var(--height, 7px);
-      background-color: var(--steel-300);
+      background-color: var(--grey-500);
       animation: var(--name, var(--dots-name, none)) var(--duration, var(--dots-duration, .5s)) var(--easing, var(--dots-easing, linear)) forwards var(--delay, var(--dots-delay, 0s));
       transition: background-color 200ms ease;
     }
