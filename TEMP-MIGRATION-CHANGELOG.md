@@ -60,6 +60,7 @@ export default defineConfig({
 ### KTable
 
 - `fetcher` is now a required prop
+- TODO: Should we completely remove the `options` prop for this major release?
 
 ### KTooltip
 
