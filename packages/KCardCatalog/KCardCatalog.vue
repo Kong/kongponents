@@ -151,6 +151,7 @@
           :current-page="page"
           :neighbors="paginationNeighbors"
           :page-sizes="paginationPageSizes"
+          :initial-page-size="pageSize"
           :disable-page-jump="disablePaginationPageJump"
           class="pa-1"
           @pageChanged="pageChangeHandler"
