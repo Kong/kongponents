@@ -420,8 +420,11 @@ Set the `isLoading` prop to `true` to enable the loading state.
 
 ## Slots
 
-- `body` - The body of the card catalog, we expect this to be an array of `KCatalogItem` components.
-This should be used instead of the `items` property.
+Both the `title` & `description` of the card items as well as the entire catalog `body` are slottable.
+
+- `body` - The body of the card catalog, if you do not want to use `KCatalogItem` components for the children.
+- `cardHeader` - Will slot the card title for each entry
+- `cardBody` - Will slot the card body for each entry
 
 <KCardCatalog title="I'm slotted baby!" >
   <template v-slot:body>
@@ -431,33 +434,6 @@ This should be used instead of the `items` property.
       :item="item"
       class="catalog-item"
     />
-    <KCatalogItem
-      :item="longItem"
-      :truncate="true"
-      class="catalog-item"
-    />
-    <KCatalogItem>
-      <template v-slot:cardTitle>
-        <h4 class="d-flex">
-          <KIcon
-            icon="profile"
-            color="#7F01FE"
-            size="24" />
-          <span class="ml-2">Call Me!</span>
-        </h4>
-      </template>
-      <template v-slot:cardBody>
-        <span class="mr-2">Take action!</span>
-        <KButton size="small">
-          <KIcon
-            icon="gearFilled"
-            size="16"
-            view-box="0 0 16 16"
-            class="pr-0"
-          />
-        </KButton>
-      </template>
-    </KCatalogItem>
   </template>
 </KCardCatalog>
 
@@ -470,33 +446,58 @@ This should be used instead of the `items` property.
       :item="item"
       class="catalog-item"
     />
-    <KCatalogItem
-      :item="longItem"
-      :truncate="true"
-      class="catalog-item"
-    />
-    <KCatalogItem>
-      <template v-slot:cardTitle>
-        <h4 class="d-flex">
-          <KIcon
-            icon="profile"
-            color="#7F01FE"
-            size="24" />
-          <span class="ml-2">Call Me!</span>
-        </h4>
-      </template>
-      <template v-slot:cardBody>
-        <span class="mr-2">Take action!</span>
-        <KButton size="small">
-          <KIcon
-            icon="gearFilled"
-            size="16"
-            view-box="0 0 16 16"
-            class="pr-0"
-          />
-        </KButton>
-      </template>
-    </KCatalogItem>
+  </template>
+</KCardCatalog>
+```
+
+If used in conjuction with a `fetcher` you have the option of using the returned `data`.
+
+<KCardCatalog :fetcher="fetcherSm" title="Customized body">
+  <template v-slot:body="{ data }">
+    <div v-for="item in data">
+      <h4>{{ item.title }}</h4>
+      <p>{{ item.description }}</p>
+    </div>
+  </template>
+</KCardCatalog>
+
+```vue
+<KCardCatalog :fetcher="fetcher" title="Customized body">
+  <template v-slot:body="{ data }">
+    <div v-for="item in data">
+      <h4>{{ item.title }}</h4>
+      <p>{{ item.description }}</p>
+    </div>
+  </template>
+</KCardCatalog>
+```
+
+Use the `cardTitle` and `cardBody` slots to access `item` specific data.
+
+<KCardCatalog :fetcher="fetcherSm" title="Customized cards">
+  <template v-slot:cardTitle="{ item }">
+    <div class="color-blue-500">
+      {{ item.title }}
+    </div>
+  </template>
+  <template v-slot:cardBody="{ item }">
+    <span class="color-purple-400">
+    {{ item.description }}
+    </span>
+  </template>
+</KCardCatalog>
+
+```vue
+<KCardCatalog :fetcher="fetcher" title="Customized cards">
+  <template v-slot:cardTitle="{ item }">
+    <div class="color-blue-500">
+      {{ item.title }}
+    </div>
+  </template>
+  <template v-slot:cardBody="{ item }">
+    <span class="color-purple-400">
+    {{ item.description }}
+    </span>
   </template>
 </KCardCatalog>
 ```
@@ -552,7 +553,12 @@ is triggered and will be resolved when the fetcher returns. You can override thi
 :::
 
 <KCardCatalog
-  :fetcher="fetcher" />
+  :fetcher="fetcher"
+  :initial-fetcher-params="{
+    pageSize: 15,
+    page: 1
+  }"
+/>
 
 ```http
 Example URL
@@ -654,6 +660,16 @@ export default {
         _page: payload.page,
         data: await this.resolveAfter5MiliSec(25, payload.pageSize, payload.page),
         total: 25
+      }
+
+      return params
+    },
+    async fetcherSm(payload) {
+      const params = {
+        _limit: payload.pageSize,
+        _page: payload.page,
+        data: await this.resolveAfter5MiliSec(6, payload.pageSize, payload.page),
+        total: 6
       }
 
       return params
