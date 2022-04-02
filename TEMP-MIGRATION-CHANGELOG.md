@@ -49,6 +49,25 @@ export default defineConfig({
 
 - `v-model` is now mapped to `modelValue` prop, and emits `input` and `update:modelValue` events.
 
+### KTextArea
+
+- `v-model` is now mapped to `modelValue` prop, and emits `input`, `update:modelValue`, `char-limit-exceeded` events.
+
+### KCheckbox
+
+- `v-model` is now mapped to `modelValue` prop, and emits `input`, `change`, and `update:modelValue` events.
+
+### KRadio
+
+- `v-model` is now mapped to `modelValue` prop, and emits `change`, and `update:modelValue` events.
+- `value` prop has been renamed to `selectedValue`
+
+### KSelect
+
+- `v-model` is now mapped to `modelValue` prop, and emits `input`, `change`, and `update:modelValue` events.
+- `positionFixed` now defaults to `true`
+- TODO: Noticing a weird page scroll when clicking on the select item
+
 ### KBreadcrumbs
 
 - `Kcrumbs` component is now `KBreadcrumbs`
@@ -65,11 +84,6 @@ export default defineConfig({
 ### KTooltip
 
 - `Kooltip` component is now `KTooltip`
-
-### KSelect
-
-- `positionFixed` now defaults to `true`
-- TODO: Noticing a weird page scroll when clicking on the select item
 
 ### KSkeleton
 - Renamed internal component from `Skeleton` to `SkeletonBase`
