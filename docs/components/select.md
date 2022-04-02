@@ -296,7 +296,7 @@ Use fixed positioning of the popover to avoid content being clipped by parental 
 
 KSelect works as regular inputs do using v-model for data binding:
 
-<Komponent :data="{ myVal: 'test' }" v-slot="{ data }">
+<KComponent :data="{ myVal: 'test' }" v-slot="{ data }">
   <div>
     <KLabel>Value:</KLabel> {{ data.myVal }}
     <KSelect width="100" v-model="data.myVal" :items="[{
@@ -308,10 +308,10 @@ KSelect works as regular inputs do using v-model for data binding:
       }]"
     />
   </div>
-</Komponent>
+</KComponent>
 
 ```html
-<Komponent :data="{myVal: 'test'}" v-slot="{ data }">
+<KComponent :data="{myVal: 'test'}" v-slot="{ data }">
   <div>
     <KLabel>Value:</KLabel> {{ data.myVal }}
     <KSelect width="100" v-model="data.myVal" :items="[{
@@ -323,7 +323,7 @@ KSelect works as regular inputs do using v-model for data binding:
       }]"
     />
   </div>
-</Komponent>
+</KComponent>
 ```
 
 ## Attribute Binding
