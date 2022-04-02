@@ -95,6 +95,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
               '/components/modal',
               '/components/pagination',
               '/components/popover',
+              '/components/radio',
               '/components/select',
               '/components/skeleton',
               '/components/table',
