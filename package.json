@@ -35,9 +35,11 @@
     "docs:dev": "vuepress dev docs",
     "lint": "eslint '**/*.{js,ts,vue}'",
     "preview": "vite preview",
-    "test": "cypress run-ct",
+    "test": "cypress run-ct --reporter cypress-image-snapshot/reporter",
     "test:open": "cypress open-ct",
-    "test:spec": "cypress run-ct --spec"
+    "test:spec": "cypress run-ct --spec",
+    "test:spec:update-snapshot": "cypress run-ct --env updateSnapshots=true --spec",
+    "test:update-snapshots": "cypress run-ct --env updateSnapshots=true"
   },
   "dependencies": {
     "axios": "^0.26.1",
@@ -72,6 +74,7 @@
     "boxen": "^5.1.2",
     "commitizen": "^4.2.4",
     "cypress": "^9.5.3",
+    "cypress-image-snapshot": "^4.0.1",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "^8.12.0",
     "eslint-plugin-cypress": "^2.12.1",

@@ -27,7 +27,7 @@ describe('KTextArea', () => {
   })
 
   it('renders label when value is passed', () => {
-    const labelText = 'A Label!'
+    const labelText = 'Another Label!'
     mount(KTextArea, {
       props: {
         testMode: true,

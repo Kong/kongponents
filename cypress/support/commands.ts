@@ -1,3 +1,7 @@
+import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command'
+
+addMatchImageSnapshotCommand()
+
 Cypress.Commands.add('getTestId', (dataTestId: string): any => {
   return cy.get(`[data-testid=${dataTestId}]`)
 })
