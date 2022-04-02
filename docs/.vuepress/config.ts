@@ -89,6 +89,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
               '/components/checkbox',
               '/components/empty-state',
               '/components/icon',
+              '/components/inline-edit',
               '/components/input',
               '/components/label',
               '/components/modal',

@@ -20,7 +20,7 @@ There are 5 different types of loading states that KSkeleton supports: Card, Tab
 
 The number of milliseconds to wait before showing the skeleton state. Defaults to 750.
 
-<Komponent :data="{ isLoading: false }" v-slot="{ data }">
+<KComponent :data="{ isLoading: false }" v-slot="{ data }">
   <div>
     <KButton class="mb-2" @click="()=>(data.isLoading=!data.isLoading)">Toggle loading - {{data.isLoading?'on':'off'}}</KButton>
       <div v-if="!data.isLoading">
@@ -28,10 +28,10 @@ The number of milliseconds to wait before showing the skeleton state. Defaults t
       </div>
       <KSkeleton v-else="data.isLoading" />
   </div>
-</Komponent>
+</KComponent>
 
 ```vue
-<Komponent :data="{ isLoading: false }" v-slot="{ data }">
+<KComponent :data="{ isLoading: false }" v-slot="{ data }">
   <div>
     <KButton class="mb-2" @click="()=>(data.isLoading=!data.isLoading)">Toggle loading - {{data.isLoading?'on':'off'}}</KButton>
       <div v-if="!data.isLoading">
@@ -39,7 +39,7 @@ The number of milliseconds to wait before showing the skeleton state. Defaults t
       </div>
       <KSkeleton v-else="data.isLoading" />
   </div>
-</Komponent>
+</KComponent>
 ```
 
 ## Generic Loading State

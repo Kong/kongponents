@@ -44,7 +44,7 @@ Prop is a Number. If the value is not set, the first one of the available pageSi
 
 Optional array of items that can be provided for easy pagination. Slice of this array with visible items is returned as `visibleItems` inside the `pageChanged` event.
 
-<Komponent :data="{ letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], visibleLetters: ['a', 'b', 'c']}" v-slot="{ data }">
+<KComponent :data="{ letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], visibleLetters: ['a', 'b', 'c']}" v-slot="{ data }">
   <div>
     <span><b>Visible letters: </b></span>
     <span v-for="number in data.visibleLetters">{{ number }} </span>
@@ -54,7 +54,7 @@ Optional array of items that can be provided for easy pagination. Slice of this 
       :pageSizes="[3]"
       @pageChanged="({visibleItems}) => data.visibleLetters = visibleItems"/>
   </div>
-</Komponent>
+</KComponent>
 
 ```vue
 <template>
@@ -100,13 +100,13 @@ A number that sets the neighboring pages visible to the left and right of the ce
 
 Restrict navigation to only `previous` / `next` page. Defaults to `false`.
 
-<Komponent :data="{ letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], visibleLetters: ['a', 'b', 'c']}" v-slot="{ data }">
+<KComponent :data="{ letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], visibleLetters: ['a', 'b', 'c']}" v-slot="{ data }">
   <div>
     <span><b>Visible letters: </b></span>
     <span v-for="number in data.visibleLetters">{{ number }} </span>
     <KPagination :items="data.letters" :totalCount="data.letters.length" :pageSizes="[3]" :disablePageJump="true" @pageChanged="({visibleItems}) => data.visibleLetters = visibleItems"/>
   </div>
-</Komponent>
+</KComponent>
 
 ```vue
 <template>
@@ -143,7 +143,7 @@ export default defineComponent({
 
 Manually control the current page instead of using native handling. If using this prop you MUST keep it up-to-date using the `@pageChanged` event in order to remain reactive to clicking the prev, next, and specific page buttons.
 
-<Komponent :data="{ letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], visibleLetters: ['d', 'e', 'f'], currPage: 2}" v-slot="{ data }">
+<KComponent :data="{ letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], visibleLetters: ['d', 'e', 'f'], currPage: 2}" v-slot="{ data }">
   <div>
     <span><b>Visible letters: </b></span>
     <span v-for="number in data.visibleLetters">{{ number }} </span>
@@ -154,7 +154,7 @@ Manually control the current page instead of using native handling. If using thi
       :currentPage="data.currPage"
       @pageChanged="({visibleItems, page}) => { data.visibleLetters = visibleItems; data.currPage = page }"/>
   </div>
-</Komponent>
+</KComponent>
 
 ```vue
 <template>
@@ -215,7 +215,7 @@ export default defineComponent({
 
 ### Example
 
-<Komponent :data="{ names: ['Alice', 'Bob', 'Charlie', 'Derek', 'Ellie', 'Frank', 'George', 'Helen', 'Ingrid'], visibleNames: ['Alice', 'Bob', 'Charlie'], page: 1}" v-slot="{ data }">
+<KComponent :data="{ names: ['Alice', 'Bob', 'Charlie', 'Derek', 'Ellie', 'Frank', 'George', 'Helen', 'Ingrid'], visibleNames: ['Alice', 'Bob', 'Charlie'], page: 1}" v-slot="{ data }">
   <div>
     <KCard title="Cool names list" class="mb-4">
       <template #body>
@@ -231,7 +231,7 @@ export default defineComponent({
     :pageSizes="[3, 4, 5]"
     @pageChanged="({visibleItems}) => data.visibleNames = visibleItems"/>
   </div>
-</Komponent>
+</KComponent>
 
 ```vue
 <template>

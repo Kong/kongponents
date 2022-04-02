@@ -90,20 +90,20 @@ Use this prop to remove the character limit on the textarea. Defaults to `false`
 
 `KTextArea` works as regular texarea do using v-model for data binding:
 
-<Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
+<KComponent :data="{myInput: 'hello'}" v-slot="{ data }">
   <div>
     {{ data.myInput }}
     <KTextArea
       v-model="data.myInput"
       @blur="e => (data.myInput = 'blurred')" />
   </div>
-</Komponent>
+</KComponent>
 
 ```vue
-<Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
+<KComponent :data="{myInput: 'hello'}" v-slot="{ data }">
   {{ myInput }}
   <KTextArea v-model="data.myInput" />
-</Komponent>
+</KComponent>
 ```
 
 ## Events
@@ -124,7 +124,7 @@ Use this prop to remove the character limit on the textarea. Defaults to `false`
 
 `KTextArea` also transparently binds to events:
 
-<Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
+<KComponent :data="{myInput: 'hello'}" v-slot="{ data }">
   <div>
     <KTextArea
       v-model="data.myInput"
@@ -132,10 +132,10 @@ Use this prop to remove the character limit on the textarea. Defaults to `false`
       @focus="e => (data.myInput = 'focused')"
     />
   </div>
-</Komponent>
+</KComponent>
 
 ```vue
-<Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
+<KComponent :data="{myInput: 'hello'}" v-slot="{ data }">
   <div>
     <KTextArea
       v-model="data.myInput"
@@ -143,7 +143,7 @@ Use this prop to remove the character limit on the textarea. Defaults to `false`
       @focus="e => (data.myInput = 'focused')"
     />
   </div>
-</Komponent>
+</KComponent>
 ```
 
 ## Theming
