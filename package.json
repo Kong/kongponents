@@ -66,8 +66,8 @@
     "@vitejs/plugin-vue": "^2.2.4",
     "@vue/eslint-config-standard": "^6.1.0",
     "@vue/eslint-config-typescript": "^10.0.0",
-    "@vuepress/plugin-back-to-top": "^2.0.0-beta.36",
-    "@vuepress/plugin-search": "^2.0.0-beta.36",
+    "@vuepress/plugin-back-to-top": "^2.0.0-beta.37",
+    "@vuepress/plugin-search": "^2.0.0-beta.37",
     "autoprefixer": "^10.4.4",
     "boxen": "^5.1.2",
     "commitizen": "^4.2.4",
@@ -92,7 +92,7 @@
     "vue": "^3.2.31",
     "vue-router": "4.0.12",
     "vue-tsc": "^0.29.8",
-    "vuepress": "^2.0.0-beta.36",
+    "vuepress": "^2.0.0-beta.37",
     "vuepress-plugin-sitemap": "^2.0.0-alpha.0"
   },
   "author": {

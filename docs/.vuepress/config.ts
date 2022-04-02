@@ -52,9 +52,23 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
 
     docsBranch: 'next',
 
-    editLinks: true,
+    editLink: false,
+
+    lastUpdated: true,
 
     searchPlaceholder: 'Search...',
+
+    navbar: [
+      {
+        text: 'Vue 3 (v7.0.0-alpha.1)',
+        children: [
+          {
+            text: 'Vue 2 (v6.x)',
+            link: 'https://kongponents.konghq.com',
+          },
+        ],
+      },
+    ],
 
     sidebar: [
       {
