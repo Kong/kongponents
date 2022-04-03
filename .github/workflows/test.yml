@@ -42,6 +42,13 @@ jobs:
           name: cypress-screenshots
           path: cypress/screenshots/
 
+      - name: Upload Cypress snapshots (on failure)
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-snapshots
+          path: cypress/snapshots/**/__diff_output__/
+
       - name: Upload Cypress videos (always)
         uses: actions/upload-artifact@v3
         if: always()
@@ -49,9 +56,3 @@ jobs:
           name: cypress-videos
           path: cypress/videos/
 
-      # Percy - disabled on `next` branch for now
-      # - name: visual-regression-test
-      #   run: |
-      #     npx percy snapshot docs/.vuepress/dist/ --ignore-files "**/404.html"
-      #   env:
-      #     PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
