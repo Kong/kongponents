@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.24.1 (2022-04-04)
+
+**Note:** Version bump only for package @kongponents/ktable
+
+
+
+
+
 # 6.24.0 (2022-04-04)
 
 
