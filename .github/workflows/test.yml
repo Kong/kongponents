@@ -36,17 +36,17 @@ jobs:
           command: yarn test
 
       - name: Upload Cypress screenshots (on failure)
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: failure()
         with:
-          name: cypress_screenshots
+          name: cypress-screenshots
           path: cypress/screenshots/
 
       - name: Upload Cypress videos (always)
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: cypress_videos
+          name: cypress-videos
           path: cypress/videos/
 
       # Percy - disabled on `next` branch for now
