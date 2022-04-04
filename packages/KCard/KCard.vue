@@ -6,30 +6,32 @@
     :aria-describedby="contentId"
     class="kong-card">
     <div
-      v-if="title || $scopedSlots.title || $slots.title || $scopedSlots.actions || status || $scopedSlots.statusHat"
+      v-if="$scopedSlots.actions || status || $scopedSlots.statusHat"
       :class="{ 'has-status': status || $scopedSlots.statusHat }"
-      class="k-card-header d-flex mb-4">
-      <div>
-        <div
-          v-if="status || $scopedSlots.statusHat"
-          class="k-card-status-hat mb-4">
-          <!-- @slot Use this slot to pass status text above title -->
-          <slot name="statusHat">{{ status }}</slot>
-        </div>
-        <div
-          :id="title ? null : titleId"
-          class="k-card-title">
-          <h4>
-            <!-- @slot Use this slot to pass title content -->
-            <slot name="title">{{ title }}</slot>
-          </h4>
-        </div>
+      class="k-card-header d-flex mb-3">
+      <div
+        v-if="status || $scopedSlots.statusHat"
+        class="k-card-status-hat">
+        <!-- @slot Use this slot to pass status text above title -->
+        <slot name="statusHat">{{ status }}</slot>
       </div>
+
       <div class="k-card-actions">
         <!-- @slot Use this slot to pass actions to right side of header -->
         <slot name="actions"/>
       </div>
     </div>
+
+    <div
+      v-if="title || $scopedSlots.title || $slots.title"
+      :id="title ? null : titleId"
+      class="k-card-title mb-3">
+      <h4>
+        <!-- @slot Use this slot to pass title content -->
+        <slot name="title">{{ title }}</slot>
+      </h4>
+    </div>
+
     <div class="k-card-content d-flex">
       <div
         :id="contentId"
@@ -37,6 +39,7 @@
         <!-- @slot Use this slot to pass in body content -->
         <slot name="body">{{ body }}</slot>
       </div>
+
       <div
         v-if="$scopedSlots.notifications"
         class="k-card-notifications ml-3">
@@ -142,7 +145,6 @@ export default {
 
   .k-card-header {
     align-items: center;
-    min-height: 38px;
 
     &.has-status {
       align-items: flex-start;
