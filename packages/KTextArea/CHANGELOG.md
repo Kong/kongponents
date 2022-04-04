@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.24.0 (2022-04-04)
+
+
+### Features
+
+* **kcard:** dom fix ([#554](https://github.com/Kong/kongponents/issues/554)) ([d4a437c](https://github.com/Kong/kongponents/commit/d4a437c4522aab014b86d040dd01593a122893ef))
+
+
+
+
+
 # 6.23.0 (2022-04-01)
 
 
