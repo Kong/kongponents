@@ -1,9 +1,9 @@
 {
-  "name": "@kongponents/kcardcatalog",
+  "name": "@kongponents/kcatalog",
   "version": "6.23.0",
   "description": "A grid view of KCards",
-  "main": "dist/KCardCatalog.umd.min.js",
-  "componentName": "KCardCatalog",
+  "main": "dist/KCatalog.umd.min.js",
+  "componentName": "KCatalog",
   "source": "index.js",
   "files": [
     "dist",

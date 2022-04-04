@@ -1,7 +1,7 @@
 import { mount, createLocalVue } from '@vue/test-utils'
 import VueCompositionAPI from '@vue/composition-api'
-import KCardCatalog from '@/KCardCatalog/KCardCatalog'
-// import KCatalogItem from '@/KCardCatalog/KCatalogItem'
+import KCatalog from '@/KCatalog/KCatalog'
+// import KCatalogItem from '@/KCatalog/KCatalogItem'
 
 /**
  * ALL TESTS MUST USE testMode: true
@@ -70,7 +70,7 @@ beforeEach(() => {
   localVue.use(VueCompositionAPI)
 })
 
-describe('KCardCatalog', () => {
+describe('KCatalog', () => {
   function getItems (count) {
     let myItems = []
 
@@ -90,16 +90,20 @@ describe('KCardCatalog', () => {
   }
 
   describe('general', () => {
-    it('renders proper cards when using props', () => {
+    it('renders proper cards when using props', async () => {
       const title = 'Cool beans!'
-      const wrapper = mount(KCardCatalog, {
+      const wrapper = mount(KCatalog, {
         localVue,
         propsData: {
           title,
-          items: getItems(5),
+          fetcher: () => {
+            return { data: getItems(5), total: 5 }
+          },
           testMode: true
         }
       })
+
+      await tick(wrapper.vm, 1)
 
       expect(wrapper.find('.k-card-catalog-title').html()).toEqual(expect.stringContaining(title))
       expect(wrapper.find('.k-catalog-page').exists()).toBeTruthy()
@@ -110,10 +114,11 @@ describe('KCardCatalog', () => {
     it('renders slots when passed', () => {
       const slotContent = 'Look mah! No props (except testMode)'
 
-      const wrapper = mount(KCardCatalog, {
+      const wrapper = mount(KCatalog, {
         localVue,
         propsData: {
-          testMode: true
+          testMode: true,
+          fetcher: () => { return { data: [], total: 0 } }
         },
         scopedSlots: {
           'body': `<span>${slotContent}</span>`
@@ -128,11 +133,13 @@ describe('KCardCatalog', () => {
       const slotHeader = 'Look mah!'
       const slotBody = 'My body'
 
-      const wrapper = mount(KCardCatalog, {
+      const wrapper = mount(KCatalog, {
         localVue,
         propsData: {
           testMode: true,
-          items: getItems(1)
+          fetcher: () => {
+            return { data: getItems(1), total: 1 }
+          }
         },
         scopedSlots: {
           'cardTitle': `<span>${slotHeader}</span>`,
@@ -142,7 +149,7 @@ describe('KCardCatalog', () => {
 
       await tick(wrapper.vm, 1)
 
-      expect(wrapper.find('.k-card-header').html()).toEqual(expect.stringContaining(slotHeader))
+      expect(wrapper.find('.k-card-title').html()).toEqual(expect.stringContaining(slotHeader))
       expect(wrapper.find('.k-card-body').html()).toEqual(expect.stringContaining(slotBody))
       expect(wrapper.html()).toMatchSnapshot()
     })
@@ -150,12 +157,12 @@ describe('KCardCatalog', () => {
     it('renders slots when passed (with empty)', async () => {
       const emptySlotContent = 'Look mah! I am empty! (except testMode)'
 
-      const wrapper = mount(KCardCatalog, {
+      const wrapper = mount(KCatalog, {
         localVue,
         propsData: {
           testMode: true,
           isLoading: false,
-          fetcher: () => { return { data: [] } }
+          fetcher: () => { return { data: [], total: 0 } }
         },
         scopedSlots: {
           'empty-state': `<span>${emptySlotContent}</span>`
@@ -168,84 +175,104 @@ describe('KCardCatalog', () => {
       expect(wrapper.html()).toMatchSnapshot()
     })
 
-    it('renders slots when passed (with error)', () => {
+    it('renders slots when passed (with error)', async () => {
       const errorSlotContent = 'Look mah! I am erroneous! (except testMode)'
 
-      const wrapper = mount(KCardCatalog, {
+      const wrapper = mount(KCatalog, {
         localVue,
         propsData: {
           testMode: true,
-          hasError: true
+          hasError: true,
+          fetcher: () => { return { data: [], total: 0 } }
         },
         scopedSlots: {
           'error-state': `<span>${errorSlotContent}</span>`
         }
       })
 
+      await tick(wrapper.vm, 1)
+
       expect(wrapper.find('[data-testid="k-card-catalog-error-state"]').html()).toEqual(expect.stringContaining(errorSlotContent))
       expect(wrapper.html()).toMatchSnapshot()
     })
 
-    it('can change card sizes - small', () => {
-      const wrapper = mount(KCardCatalog, {
+    it('can change card sizes - small', async () => {
+      const wrapper = mount(KCatalog, {
         localVue,
         propsData: {
-          items: getItems(5),
+          fetcher: () => {
+            return { data: getItems(5), total: 5 }
+          },
           cardSize: 'small',
           testMode: true
         }
       })
 
+      await tick(wrapper.vm, 1)
+
       expect(wrapper.props('cardSize')).toBe('small')
       expect(wrapper.html()).toMatchSnapshot()
     })
 
-    it('can change card sizes - large', () => {
-      const wrapper = mount(KCardCatalog, {
+    it('can change card sizes - large', async () => {
+      const wrapper = mount(KCatalog, {
         localVue,
         propsData: {
-          items: getItems(5),
+          fetcher: () => {
+            return { data: getItems(5), total: 5 }
+          },
           cardSize: 'large',
           testMode: true
         }
       })
 
+      await tick(wrapper.vm, 1)
+
       expect(wrapper.props('cardSize')).toBe('large')
       expect(wrapper.html()).toMatchSnapshot()
     })
 
-    it('handles truncation', () => {
-      const wrapper = mount(KCardCatalog, {
+    it('handles truncation', async () => {
+      const wrapper = mount(KCatalog, {
         localVue,
         propsData: {
-          items: [longItem],
+          fetcher: () => {
+            return { data: [longItem], total: 1 }
+          },
           testMode: true
         }
       })
+
+      await tick(wrapper.vm, 1)
 
       expect(wrapper.props('noTruncation')).toBe(false)
       expect(wrapper.html()).toMatchSnapshot()
     })
 
-    it('can disable truncation', () => {
-      const wrapper = mount(KCardCatalog, {
+    it('can disable truncation', async () => {
+      const wrapper = mount(KCatalog, {
         localVue,
         propsData: {
-          items: [longItem],
+          fetcher: () => {
+            return { data: [longItem], total: 1 }
+          },
           noTruncation: true,
           testMode: true
         }
       })
+
+      await tick(wrapper.vm, 1)
 
       expect(wrapper.props('noTruncation')).toBe(true)
       expect(wrapper.html()).toMatchSnapshot()
     })
 
     it('matches snapshot', () => {
-      const wrapper = mount(KCardCatalog, {
+      const wrapper = mount(KCatalog, {
         localVue,
         propsData: {
-          testMode: true
+          testMode: true,
+          fetcher: () => { return { data: [], total: 0 } }
         }
       })
 
@@ -256,7 +283,7 @@ describe('KCardCatalog', () => {
   describe('states', () => {
     it('displays an empty state when no data is available', async () => {
       const fetcher = () => new Promise(resolve => resolve({ data: [] }))
-      const wrapper = mount(KCardCatalog, {
+      const wrapper = mount(KCatalog, {
         localVue,
         propsData: {
           fetcher: fetcher,
@@ -270,29 +297,33 @@ describe('KCardCatalog', () => {
       // expect(wrapper.html()).toMatchSnapshot()
     })
 
-    it('displays a loading skeletion when the "isLoading" prop is set to true"', () => {
-      const wrapper = mount(KCardCatalog, {
+    it('displays a loading skeletion when the "isLoading" prop is set to true"', async () => {
+      const wrapper = mount(KCatalog, {
         localVue,
         propsData: {
-          items: [],
+          fetcher: () => { return { data: [], total: 0 } },
           isLoading: true,
           testMode: true
         }
       })
 
+      await tick(wrapper.vm, 1)
+
       expect(wrapper.props('isLoading')).toBe(true)
       expect(wrapper.html()).toMatchSnapshot()
     })
 
-    it('displays an error state when the "hasError" prop is set to true"', () => {
-      const wrapper = mount(KCardCatalog, {
+    it('displays an error state when the "hasError" prop is set to true"', async () => {
+      const wrapper = mount(KCatalog, {
         localVue,
         propsData: {
-          options: [],
+          fetcher: () => { return { data: [], total: 0 } },
           hasError: true,
           testMode: true
         }
       })
+
+      await tick(wrapper.vm, 1)
 
       expect(wrapper.find('.empty-state-wrapper.is-error').exists()).toBeTruthy()
       expect(wrapper.html()).toMatchSnapshot()
@@ -301,11 +332,11 @@ describe('KCardCatalog', () => {
 
   describe('pagination', () => {
     it('displays pagination when fetcher is provided', async () => {
-      const wrapper = mount(KCardCatalog, {
+      const wrapper = mount(KCatalog, {
         localVue,
         propsData: {
           fetcher: () => {
-            return largeDataSet
+            return { data: largeDataSet, total: 10 }
           },
           isLoading: false,
           testMode: true,
@@ -319,11 +350,11 @@ describe('KCardCatalog', () => {
     })
 
     it('allows disabling pagination', async () => {
-      const wrapper = mount(KCardCatalog, {
+      const wrapper = mount(KCatalog, {
         localVue,
         propsData: {
           fetcher: () => {
-            return largeDataSet
+            return { data: largeDataSet, total: 10 }
           },
           isLoading: false,
           testMode: true,
@@ -338,10 +369,10 @@ describe('KCardCatalog', () => {
     })
 
     it('does not display pagination when no fetcher', async () => {
-      const wrapper = mount(KCardCatalog, {
+      const wrapper = mount(KCatalog, {
         localVue,
         propsData: {
-          items: [],
+          fetcher: () => { return { data: [], total: 0 } },
           paginationPageSizes: [10, 20, 30, 40]
         }
       })

@@ -8,7 +8,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **kcardcatalog:** fix item slotting ([#548](https://github.com/Kong/kongponents/issues/548)) ([edfb0f6](https://github.com/Kong/kongponents/commit/edfb0f6a07b49bbcf2235c9e6a1acf38bcba101a))
+* **KCatalog:** fix item slotting ([#548](https://github.com/Kong/kongponents/issues/548)) ([edfb0f6](https://github.com/Kong/kongponents/commit/edfb0f6a07b49bbcf2235c9e6a1acf38bcba101a))
 
 
 
@@ -71,7 +71,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.21.2 (2022-03-30)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -101,7 +101,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.20.5 (2022-03-30)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -230,7 +230,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.18.3 (2022-03-04)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -414,7 +414,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.10.2 (2022-02-15)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -444,7 +444,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.9.7 (2022-02-15)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -474,7 +474,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.9.4 (2022-02-07)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -482,7 +482,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.9.3 (2022-02-05)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -490,7 +490,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.9.2 (2022-02-04)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -498,7 +498,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.9.1 (2022-02-04)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -517,7 +517,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.8.1 (2022-02-03)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -536,7 +536,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.7.11 (2022-01-21)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -555,7 +555,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.7.9 (2022-01-07)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -585,7 +585,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.7.6 (2021-12-21)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -593,7 +593,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.7.3 (2021-12-20)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -612,7 +612,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.7.1 (2021-12-17)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -653,7 +653,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.6.3 (2021-12-15)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -661,7 +661,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.6.2 (2021-12-10)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -700,33 +700,33 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [6.5.8](https://github.com/Kong/kongponents/compare/@kongponents/kcardcatalog@6.5.7...@kongponents/kcardcatalog@6.5.8) (2021-12-01)
+## [6.5.8](https://github.com/Kong/kongponents/compare/@kongponents/KCatalog@6.5.7...@kongponents/KCatalog@6.5.8) (2021-12-01)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
-
-
-
-
-
-## [6.5.7](https://github.com/Kong/kongponents/compare/@kongponents/kcardcatalog@6.5.6...@kongponents/kcardcatalog@6.5.7) (2021-12-01)
-
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
 
 
-## [6.5.6](https://github.com/Kong/kongponents/compare/@kongponents/kcardcatalog@6.5.5...@kongponents/kcardcatalog@6.5.6) (2021-12-01)
+## [6.5.7](https://github.com/Kong/kongponents/compare/@kongponents/KCatalog@6.5.6...@kongponents/KCatalog@6.5.7) (2021-12-01)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
-
-
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
-## [6.5.5](https://github.com/Kong/kongponents/compare/@kongponents/kcardcatalog@6.5.4...@kongponents/kcardcatalog@6.5.5) (2021-12-01)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+
+## [6.5.6](https://github.com/Kong/kongponents/compare/@kongponents/KCatalog@6.5.5...@kongponents/KCatalog@6.5.6) (2021-12-01)
+
+**Note:** Version bump only for package @kongponents/KCatalog
+
+
+
+
+
+## [6.5.5](https://github.com/Kong/kongponents/compare/@kongponents/KCatalog@6.5.4...@kongponents/KCatalog@6.5.5) (2021-12-01)
+
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -734,7 +734,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.5.4 (2021-12-01)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -742,7 +742,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.5.3 (2021-11-30)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -764,7 +764,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **ktable/kcardcatalog:** fetch after init ([#442](https://github.com/Kong/kongponents/issues/442)) ([4a053ae](https://github.com/Kong/kongponents/commit/4a053ae4e39e7df7acc798510c8a2fa9e5ab3f6c))
+* **ktable/KCatalog:** fetch after init ([#442](https://github.com/Kong/kongponents/issues/442)) ([4a053ae](https://github.com/Kong/kongponents/commit/4a053ae4e39e7df7acc798510c8a2fa9e5ab3f6c))
 
 
 
@@ -797,7 +797,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **ktable/kcardcatalog:** make states slottable ([#438](https://github.com/Kong/kongponents/issues/438)) ([43eac93](https://github.com/Kong/kongponents/commit/43eac9337193fe47b28b27576d727e6cbbabad50))
+* **ktable/KCatalog:** make states slottable ([#438](https://github.com/Kong/kongponents/issues/438)) ([43eac93](https://github.com/Kong/kongponents/commit/43eac9337193fe47b28b27576d727e6cbbabad50))
 
 
 
@@ -808,7 +808,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **ktable/kcardcatalog:** emit cta click events ([#437](https://github.com/Kong/kongponents/issues/437)) ([29eb2a5](https://github.com/Kong/kongponents/commit/29eb2a53cf180935afee1ee10f1b88b462dc29ad))
+* **ktable/KCatalog:** emit cta click events ([#437](https://github.com/Kong/kongponents/issues/437)) ([29eb2a5](https://github.com/Kong/kongponents/commit/29eb2a53cf180935afee1ee10f1b88b462dc29ad))
 
 
 
@@ -816,7 +816,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.1.19 (2021-11-23)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -868,7 +868,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.1.14 (2021-11-19)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -876,7 +876,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.1.13 (2021-11-19)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -884,7 +884,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.1.12 (2021-11-19)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -892,7 +892,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.1.11 (2021-11-19)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -900,7 +900,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.1.10 (2021-11-18)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -908,7 +908,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.1.9 (2021-11-18)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -927,7 +927,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.1.7 (2021-11-17)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -946,7 +946,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.1.5 (2021-11-17)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
 
 
 
@@ -965,4 +965,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 6.1.3 (2021-11-17)
 
-**Note:** Version bump only for package @kongponents/kcardcatalog
+**Note:** Version bump only for package @kongponents/KCatalog
