@@ -1,7 +1,8 @@
-import '@/styles/cypress-tests.scss'
-
 // Import Kongponent styles
 import '@/styles/styles.scss'
+
+// Import Cypress test styles
+import './cypress-tests.css'
 
 // Import custom Cypress commands
 import './commands'
