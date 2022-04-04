@@ -142,7 +142,7 @@ describe('KCardCatalog', () => {
 
       await tick(wrapper.vm, 1)
 
-      expect(wrapper.find('.k-card-header').html()).toEqual(expect.stringContaining(slotHeader))
+      expect(wrapper.find('.k-card-title').html()).toEqual(expect.stringContaining(slotHeader))
       expect(wrapper.find('.k-card-body').html()).toEqual(expect.stringContaining(slotBody))
       expect(wrapper.html()).toMatchSnapshot()
     })
