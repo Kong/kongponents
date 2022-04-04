@@ -1,15 +1,15 @@
-import KCardCatalog from './KCardCatalog'
-import KCatalogItem from './KCatalogItem'
+import KCatalog from './KCatalog.vue'
+import KCatalogItem from './KCatalogItem.vue'
 
 const Plugin = {
   install (Vue) {
-    Vue.component('KCardCatalog', KCardCatalog)
+    Vue.component('KCardCatalog', KCatalog)
     Vue.component('KCatalogItem', KCatalogItem)
   }
 }
 
 export default Plugin
-export { KCardCatalog, KCatalogItem }
+export { KCatalog, KCatalogItem }
 
 if (typeof window !== 'undefined' && window.Vue) {
   window.Vue.use(Plugin)

@@ -146,9 +146,9 @@ There are 6 designated slots you can use to display content in the fullscreen mo
     <KButton appearance="primary" size="medium" @click="exampleIsOpen = false">Save</KButton>
   </template>
   <h3>Security</h3>
-  <KCardCatalog :items="getItems(8)" />
+  <KCatalog :items="getItems(8)" />
   <h3>Authentication</h3>
-  <KCardCatalog :items="getItems(16)" />
+  <KCatalog :items="getItems(16)" />
 </KModalFullscreen>
 
 ```vue
@@ -175,9 +175,9 @@ There are 6 designated slots you can use to display content in the fullscreen mo
     <KButton appearance="primary" size="medium" @click="exampleIsOpen = false">Save</KButton>
   </template>
   <h3>Security</h3>
-  <KCardCatalog :items="getItems(8)" />
+  <KCatalog :items="getItems(8)" />
   <h3>Authentication</h3>
-  <KCardCatalog :items="getItems(16)" />
+  <KCatalog :items="getItems(16)" />
 </KModalFullscreen>
 ```
 
