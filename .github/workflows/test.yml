@@ -42,11 +42,11 @@ jobs:
           name: cypress-screenshots
           path: cypress/screenshots/
 
-      - name: Upload Cypress snapshots (on failure)
+      - name: Upload Cypress visual regression snapshots (on failure)
         uses: actions/upload-artifact@v3
         if: failure()
         with:
-          name: cypress-snapshots
+          name: cypress-snapshot-diffs
           path: cypress/snapshots/**/__diff_output__/
 
       - name: Upload Cypress videos (always)
