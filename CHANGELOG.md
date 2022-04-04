@@ -120,7 +120,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
   * multiple new utility classes added for font styling
 
 * New Kongponents Added
-  * `KCatalog`
+  * `KCardCatalog`
   * `KMenu`
   * `KPagination`
   * `KSelect`

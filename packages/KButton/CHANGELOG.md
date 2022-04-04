@@ -8,7 +8,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **KCatalog:** fix item slotting ([#548](https://github.com/Kong/kongponents/issues/548)) ([edfb0f6](https://github.com/Kong/kongponents/commit/edfb0f6a07b49bbcf2235c9e6a1acf38bcba101a))
+* **kcardcatalog:** fix item slotting ([#548](https://github.com/Kong/kongponents/issues/548)) ([edfb0f6](https://github.com/Kong/kongponents/commit/edfb0f6a07b49bbcf2235c9e6a1acf38bcba101a))
 
 
 
@@ -764,7 +764,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **ktable/KCatalog:** fetch after init ([#442](https://github.com/Kong/kongponents/issues/442)) ([4a053ae](https://github.com/Kong/kongponents/commit/4a053ae4e39e7df7acc798510c8a2fa9e5ab3f6c))
+* **ktable/kcardcatalog:** fetch after init ([#442](https://github.com/Kong/kongponents/issues/442)) ([4a053ae](https://github.com/Kong/kongponents/commit/4a053ae4e39e7df7acc798510c8a2fa9e5ab3f6c))
 
 
 
@@ -797,7 +797,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **ktable/KCatalog:** make states slottable ([#438](https://github.com/Kong/kongponents/issues/438)) ([43eac93](https://github.com/Kong/kongponents/commit/43eac9337193fe47b28b27576d727e6cbbabad50))
+* **ktable/kcardcatalog:** make states slottable ([#438](https://github.com/Kong/kongponents/issues/438)) ([43eac93](https://github.com/Kong/kongponents/commit/43eac9337193fe47b28b27576d727e6cbbabad50))
 
 
 
@@ -808,7 +808,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **ktable/KCatalog:** emit cta click events ([#437](https://github.com/Kong/kongponents/issues/437)) ([29eb2a5](https://github.com/Kong/kongponents/commit/29eb2a53cf180935afee1ee10f1b88b462dc29ad))
+* **ktable/kcardcatalog:** emit cta click events ([#437](https://github.com/Kong/kongponents/issues/437)) ([29eb2a5](https://github.com/Kong/kongponents/commit/29eb2a53cf180935afee1ee10f1b88b462dc29ad))
 
 
 
@@ -977,7 +977,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
   * Buttons default to a rounded appearance
 
 ### Features
-  * `size` prop now supports `small`, `medium`, and `large`
+  * `size` prop now supports `small`, `medium`, and `large` 
   * `isRounded` property added
 
 

@@ -49,7 +49,7 @@
               v-if="errorStateActionMessage"
               :to="errorStateActionRoute ? errorStateActionRoute : null"
               appearance="primary"
-              @click="$emit('KCatalog-error-cta-clicked')"
+              @click="$emit('kcardcatalog-error-cta-clicked')"
             >
               {{ errorStateActionMessage }}
             </KButton>
@@ -75,7 +75,7 @@
               v-if="emptyStateActionMessage"
               :to="emptyStateActionRoute ? emptyStateActionRoute : null"
               appearance="primary"
-              @click="$emit('KCatalog-empty-state-cta-clicked')"
+              @click="$emit('kcardcatalog-empty-state-cta-clicked')"
             >
               {{ emptyStateActionMessage }}
             </KButton>
@@ -153,7 +153,6 @@
           :page-sizes="paginationPageSizes"
           :initial-page-size="pageSize"
           :disable-page-jump="disablePaginationPageJump"
-          :test-mode="testMode"
           class="pa-1"
           @pageChanged="pageChangeHandler"
           @pageSizeChanged="pageSizeChangeHandler"
@@ -174,7 +173,7 @@ import KSkeletonBox from '@kongponents/kskeleton/KSkeletonBox.vue'
 import { useRequest } from '@kongponents/utils/utils.js'
 
 export default defineComponent({
-  name: 'KCatalog',
+  name: 'KCardCatalog',
   components: {
     KButton,
     KEmptyState,
@@ -184,6 +183,10 @@ export default defineComponent({
     KSkeletonBox
   },
   props: {
+    items: {
+      type: Array,
+      default: () => []
+    },
     /**
      * A prop to pass in to display skeleton to indicate loading
      */
@@ -418,6 +421,9 @@ export default defineComponent({
       // get data
       if (props.fetcher) {
         await fetchData()
+      } else if (props.items && props.items.length) {
+        data.value = props.items
+        total.value = props.items.length
       }
 
       if (props.isLoading === false) {
