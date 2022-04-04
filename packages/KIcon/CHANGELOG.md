@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.24.2 (2022-04-04)
+
+
+### Bug Fixes
+
+* **kcatalog:** fix state display with body slot ([#558](https://github.com/Kong/kongponents/issues/558)) ([09d8f0d](https://github.com/Kong/kongponents/commit/09d8f0da7f6bbdaae8fa0800d51763f45189afb6))
+
+
+
+
+
 ## 6.24.1 (2022-04-04)
 
 **Note:** Version bump only for package @kongponents/kicon
