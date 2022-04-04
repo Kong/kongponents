@@ -16,6 +16,6 @@ declare namespace Cypress {
        */
     findTestId(dataTestId: string): Chainable<Element>
 
-    matchImageSnapshot(): any
+    matchImageSnapshot(name?: string, options?: Record<string, any>): any
   }
 }

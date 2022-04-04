@@ -15,7 +15,7 @@ import KTextArea from '@/components/KTextArea/KTextArea.vue'
 
 describe('KTextArea', () => {
   it('renders text when value is passed', () => {
-    const value = 'Howdy partner!' // TODO: change back to default text
+    const value = 'Howdy Konger!' // TODO: change back to default text
     mount(KTextArea, {
       props: {
         testMode: true,
