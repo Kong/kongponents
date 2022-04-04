@@ -8,7 +8,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **KCatalog:** fix item slotting ([#548](https://github.com/Kong/kongponents/issues/548)) ([edfb0f6](https://github.com/Kong/kongponents/commit/edfb0f6a07b49bbcf2235c9e6a1acf38bcba101a))
+* **kcardcatalog:** fix item slotting ([#548](https://github.com/Kong/kongponents/issues/548)) ([edfb0f6](https://github.com/Kong/kongponents/commit/edfb0f6a07b49bbcf2235c9e6a1acf38bcba101a))
 
 
 

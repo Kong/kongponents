@@ -45,7 +45,7 @@ module.exports = {
               '/components/breadcrumbs',
               '/components/button',
               '/components/card',
-              '/components/catalog',
+              '/components/card-catalog',
               '/components/input-checkbox',
               '/components/empty-state',
               '/components/icon',

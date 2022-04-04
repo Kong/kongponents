@@ -9,8 +9,8 @@ import KAlert from '../../packages/KAlert/KAlert.vue'
 import KBadge from '../../packages/KBadge/KBadge.vue'
 import KButton from '../../packages/KButton/KButton.vue'
 import KCard from '../../packages/KCard/KCard.vue'
-import KCatalog from '../../packages/KCatalog/KCatalog.vue'
-import KCatalogItem from '../../packages/KCatalog/KCatalogItem.vue'
+import KCardCatalog from '../../packages/KCardCatalog/KCardCatalog.vue'
+import KCatalogItem from '../../packages/KCardCatalog/KCatalogItem.vue'
 import KClipboardProvider from '../../packages/KClipboardProvider/KClipboardProvider.js'
 import KMultiselect from '../../packages/KMultiselect/KMultiselect.vue'
 import KEmptyState from '../../packages/KEmptyState/KEmptyState.vue'
@@ -54,7 +54,7 @@ export default ({
   Vue.component('KBadge', KBadge)
   Vue.component('KButton', KButton)
   Vue.component('KCard', KCard)
-  Vue.component('KCatalog', KCatalog)
+  Vue.component('KCardCatalog', KCardCatalog)
   Vue.component('KCatalogItem', KCatalogItem)
   Vue.component('KClipboardProvider', KClipboardProvider)
   Vue.component('KMultiselect', KMultiselect)
