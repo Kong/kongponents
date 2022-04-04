@@ -6,7 +6,7 @@
       <h3>{{ title }}</h3>
     </div>
     <KSkeleton
-      v-if="!testMode && !$scopedSlots.body && (isCardLoading || isLoading) && !hasError"
+      v-if="!testMode && (isCardLoading || isLoading) && !hasError"
       :card-count="4"
       class="k-skeleton-grid"
       type="card"
@@ -59,7 +59,7 @@
     </div>
 
     <div
-      v-else-if="!$scopedSlots.body && !hasError && (!isCardLoading && !isLoading) && (data && !data.length)"
+      v-else-if="!hasError && (!isCardLoading && !isLoading) && (data && !data.length)"
       data-testid="k-card-catalog-empty-state">
       <slot name="empty-state">
         <KEmptyState
