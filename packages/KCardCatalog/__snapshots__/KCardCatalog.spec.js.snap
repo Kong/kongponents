@@ -84,14 +84,9 @@ exports[`KCardCatalog general renders slotted cards when passed 1`] = `
   <!---->
   <div class="k-catalog-page k-card-medium">
     <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-0-catalog-item" role="button" tabindex="0">
-      <div class="k-card-header d-flex mb-4">
-        <div>
-          <!---->
-          <div id="test-title-id-1234" class="k-card-title">
-            <h4><span>Look mah!</span></h4>
-          </div>
-        </div>
-        <div class="k-card-actions"></div>
+      <!---->
+      <div id="test-title-id-1234" class="k-card-title mb-3">
+        <h4><span>Look mah!</span></h4>
       </div>
       <div class="k-card-content d-flex">
         <div id="test-content-id-1234" class="k-card-body">
