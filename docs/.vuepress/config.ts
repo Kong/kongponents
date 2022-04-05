@@ -116,6 +116,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
               '/components/textarea',
               '/components/toaster',
               '/components/tooltip',
+              '/components/view-switcher',
             ]
           },
           {

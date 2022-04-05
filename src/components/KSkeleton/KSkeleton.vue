@@ -22,7 +22,7 @@
       :columns="tableColumns"
       :rows="tableRows"
     >
-      <slot />
+      <slot name="default" />
     </TableSkeleton>
     <FormSkeleton v-else-if="type === 'form'" />
     <FullScreenKongSkeleton
