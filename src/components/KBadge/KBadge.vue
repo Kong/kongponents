@@ -96,9 +96,9 @@ export default defineComponent({
     background-color: var(--KBadgeDangerBackground, var(--red-100, color(red-100)));
   }
   &.k-badge-info {
-    color: var(--KBadgeInfoColor, var(--petrol-200, color(petrol-200)));
-    border-color: var(--KBadgeInfoBorder, var(--petrol-200, color(petrol-200)));
-    background-color: var(--KBadgeInfoBackground, var(--petrol-100, color(petrol-100)));
+    color: var(--KBadgeInfoColor, var(--blue-500, color(blue-500)));
+    border-color: var(--KBadgeInfoBorder, var(--blue-500, color(blue-500)));
+    background-color: var(--KBadgeInfoBackground, var(--blue-200, color(blue-200)));
   }
   &.k-badge-warning {
     color: var(--KBadgeWarningColor, var(--yellow-600, color(yellow-600)));
