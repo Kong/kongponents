@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/ktoggle",
-  "version": "6.24.2",
+  "version": "6.24.3",
   "description": "Provide toggle functionality to components.",
   "main": "dist/KToggle.umd.min.js",
   "componentName": "KToggle",

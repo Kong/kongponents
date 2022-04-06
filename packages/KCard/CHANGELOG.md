@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.24.3 (2022-04-06)
+
+
+### Bug Fixes
+
+* **kbadge:** adjust info colors ([#559](https://github.com/Kong/kongponents/issues/559)) ([19ac200](https://github.com/Kong/kongponents/commit/19ac20038771145d93019cdfca9b4cef395d64bc))
+
+
+
+
+
 ## 6.24.2 (2022-04-04)
 
 
