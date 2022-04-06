@@ -1,43 +1,45 @@
 <template>
   <section
     :class="[borderVariant, {'hover': hasHover, 'kcard-shadow': hasShadow }]"
-    :aria-label="title ? title : ''"
-    :aria-labelledby="!title && ($slots.title || $slots.title) ? titleId : ''"
+    :aria-label="title ? title : null"
+    :aria-labelledby="!title && ($slots.title || $slots.title) ? titleId : null"
     :aria-describedby="contentId"
     class="kong-card"
   >
     <div
-      v-if="title || $slots.title || $slots.title || $slots.actions || status || $slots.statusHat"
+      v-if="$slots.actions || status || $slots.statusHat"
       :class="{ 'has-status': status || $slots.statusHat }"
-      class="k-card-header d-flex mb-4"
+      class="k-card-header d-flex mb-3"
     >
-      <div>
-        <div
-          v-if="status || $slots.statusHat"
-          class="k-card-status-hat mb-4"
-        >
-          <!-- @slot Use this slot to pass status text above title -->
-          <slot name="statusHat">
-            {{ status }}
-          </slot>
-        </div>
-        <div
-          :id="title ? '' : titleId"
-          class="k-card-title"
-        >
-          <h4>
-            <!-- @slot Use this slot to pass title content -->
-            <slot name="title">
-              {{ title }}
-            </slot>
-          </h4>
-        </div>
+      <div
+        v-if="status || $slots.statusHat"
+        class="k-card-status-hat"
+      >
+        <!-- @slot Use this slot to pass status text above title -->
+        <slot name="statusHat">
+          {{ status }}
+        </slot>
       </div>
+
       <div class="k-card-actions">
         <!-- @slot Use this slot to pass actions to right side of header -->
         <slot name="actions" />
       </div>
     </div>
+
+    <div
+      v-if="title || $slots.title || $slots.title"
+      :id="title ? null : titleId"
+      class="k-card-title mb-3"
+    >
+      <h4>
+        <!-- @slot Use this slot to pass title content -->
+        <slot name="title">
+          {{ title }}
+        </slot>
+      </h4>
+    </div>
+
     <div class="k-card-content d-flex">
       <div
         :id="contentId"
@@ -48,6 +50,7 @@
           {{ body }}
         </slot>
       </div>
+
       <div
         v-if="$slots.notifications"
         class="k-card-notifications ml-3"
@@ -158,7 +161,6 @@ export default defineComponent({
 
   .k-card-header {
     align-items: center;
-    min-height: 38px;
 
     &.has-status {
       align-items: flex-start;
