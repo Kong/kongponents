@@ -5,12 +5,16 @@ exports[`KCatalog general can change card sizes - large 1`] = `
   <!---->
   <div class="k-catalog-page k-card-large">
     <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-0-catalog-item" role="button" tabindex="0">
-      <!---->
-      <div id="test-title-id-1234" class="k-card-title mb-3">
-        <h4>
-          Item 0
-        </h4>
+      <div class="k-card-header d-flex mb-3">
+        <!---->
+        <div id="test-title-id-1234" class="k-card-title mb-3">
+          <h4>
+            Item 0
+          </h4>
+        </div>
+        <div class="k-card-actions"></div>
       </div>
+      <!---->
       <div class="k-card-content d-flex">
         <div id="test-content-id-1234" class="k-card-body">
           <div class="multi-line-truncate">
@@ -21,12 +25,16 @@ exports[`KCatalog general can change card sizes - large 1`] = `
       </div>
     </section>
     <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-1-catalog-item" role="button" tabindex="0">
-      <!---->
-      <div id="test-title-id-1234" class="k-card-title mb-3">
-        <h4>
-          Item 1
-        </h4>
+      <div class="k-card-header d-flex mb-3">
+        <!---->
+        <div id="test-title-id-1234" class="k-card-title mb-3">
+          <h4>
+            Item 1
+          </h4>
+        </div>
+        <div class="k-card-actions"></div>
       </div>
+      <!---->
       <div class="k-card-content d-flex">
         <div id="test-content-id-1234" class="k-card-body">
           <div class="multi-line-truncate">
@@ -37,12 +45,16 @@ exports[`KCatalog general can change card sizes - large 1`] = `
       </div>
     </section>
     <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-2-catalog-item" role="button" tabindex="0">
-      <!---->
-      <div id="test-title-id-1234" class="k-card-title mb-3">
-        <h4>
-          Item 2
-        </h4>
+      <div class="k-card-header d-flex mb-3">
+        <!---->
+        <div id="test-title-id-1234" class="k-card-title mb-3">
+          <h4>
+            Item 2
+          </h4>
+        </div>
+        <div class="k-card-actions"></div>
       </div>
+      <!---->
       <div class="k-card-content d-flex">
         <div id="test-content-id-1234" class="k-card-body">
           <div class="multi-line-truncate">
@@ -53,12 +65,16 @@ exports[`KCatalog general can change card sizes - large 1`] = `
       </div>
     </section>
     <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-3-catalog-item" role="button" tabindex="0">
-      <!---->
-      <div id="test-title-id-1234" class="k-card-title mb-3">
-        <h4>
-          Item 3
-        </h4>
+      <div class="k-card-header d-flex mb-3">
+        <!---->
+        <div id="test-title-id-1234" class="k-card-title mb-3">
+          <h4>
+            Item 3
+          </h4>
+        </div>
+        <div class="k-card-actions"></div>
       </div>
+      <!---->
       <div class="k-card-content d-flex">
         <div id="test-content-id-1234" class="k-card-body">
           <div class="multi-line-truncate">
@@ -69,12 +85,16 @@ exports[`KCatalog general can change card sizes - large 1`] = `
       </div>
     </section>
     <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-4-catalog-item" role="button" tabindex="0">
-      <!---->
-      <div id="test-title-id-1234" class="k-card-title mb-3">
-        <h4>
-          Item 4
-        </h4>
+      <div class="k-card-header d-flex mb-3">
+        <!---->
+        <div id="test-title-id-1234" class="k-card-title mb-3">
+          <h4>
+            Item 4
+          </h4>
+        </div>
+        <div class="k-card-actions"></div>
       </div>
+      <!---->
       <div class="k-card-content d-flex">
         <div id="test-content-id-1234" class="k-card-body">
           <div class="multi-line-truncate">
@@ -151,12 +171,16 @@ exports[`KCatalog general can change card sizes - small 1`] = `
   <!---->
   <div class="k-catalog-page k-card-small">
     <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-0-catalog-item" role="button" tabindex="0">
-      <!---->
-      <div id="test-title-id-1234" class="k-card-title mb-3">
-        <h4>
-          Item 0
-        </h4>
+      <div class="k-card-header d-flex mb-3">
+        <!---->
+        <div id="test-title-id-1234" class="k-card-title mb-3">
+          <h4>
+            Item 0
+          </h4>
+        </div>
+        <div class="k-card-actions"></div>
       </div>
+      <!---->
       <div class="k-card-content d-flex">
         <div id="test-content-id-1234" class="k-card-body">
           <div class="multi-line-truncate">
@@ -167,12 +191,16 @@ exports[`KCatalog general can change card sizes - small 1`] = `
       </div>
     </section>
     <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-1-catalog-item" role="button" tabindex="0">
-      <!---->
-      <div id="test-title-id-1234" class="k-card-title mb-3">
-        <h4>
-          Item 1
-        </h4>
+      <div class="k-card-header d-flex mb-3">
+        <!---->
+        <div id="test-title-id-1234" class="k-card-title mb-3">
+          <h4>
+            Item 1
+          </h4>
+        </div>
+        <div class="k-card-actions"></div>
       </div>
+      <!---->
       <div class="k-card-content d-flex">
         <div id="test-content-id-1234" class="k-card-body">
           <div class="multi-line-truncate">
@@ -183,12 +211,16 @@ exports[`KCatalog general can change card sizes - small 1`] = `
       </div>
     </section>
     <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-2-catalog-item" role="button" tabindex="0">
-      <!---->
-      <div id="test-title-id-1234" class="k-card-title mb-3">
-        <h4>
-          Item 2
-        </h4>
+      <div class="k-card-header d-flex mb-3">
+        <!---->
+        <div id="test-title-id-1234" class="k-card-title mb-3">
+          <h4>
+            Item 2
+          </h4>
+        </div>
+        <div class="k-card-actions"></div>
       </div>
+      <!---->
       <div class="k-card-content d-flex">
         <div id="test-content-id-1234" class="k-card-body">
           <div class="multi-line-truncate">
@@ -199,12 +231,16 @@ exports[`KCatalog general can change card sizes - small 1`] = `
       </div>
     </section>
     <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-3-catalog-item" role="button" tabindex="0">
-      <!---->
-      <div id="test-title-id-1234" class="k-card-title mb-3">
-        <h4>
-          Item 3
-        </h4>
+      <div class="k-card-header d-flex mb-3">
+        <!---->
+        <div id="test-title-id-1234" class="k-card-title mb-3">
+          <h4>
+            Item 3
+          </h4>
+        </div>
+        <div class="k-card-actions"></div>
       </div>
+      <!---->
       <div class="k-card-content d-flex">
         <div id="test-content-id-1234" class="k-card-body">
           <div class="multi-line-truncate">
@@ -215,12 +251,16 @@ exports[`KCatalog general can change card sizes - small 1`] = `
       </div>
     </section>
     <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-4-catalog-item" role="button" tabindex="0">
-      <!---->
-      <div id="test-title-id-1234" class="k-card-title mb-3">
-        <h4>
-          Item 4
-        </h4>
+      <div class="k-card-header d-flex mb-3">
+        <!---->
+        <div id="test-title-id-1234" class="k-card-title mb-3">
+          <h4>
+            Item 4
+          </h4>
+        </div>
+        <div class="k-card-actions"></div>
       </div>
+      <!---->
       <div class="k-card-content d-flex">
         <div id="test-content-id-1234" class="k-card-body">
           <div class="multi-line-truncate">
@@ -296,13 +336,17 @@ exports[`KCatalog general can disable truncation 1`] = `
 <div class="k-card-catalog">
   <!---->
   <div class="k-catalog-page k-card-medium">
-    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="A-very long item-catalog-item" role="button" tabindex="0">
-      <!---->
-      <div id="test-title-id-1234" class="k-card-title mb-3">
-        <h4>
-          A very long item
-        </h4>
+    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="A-very-long-item-catalog-item" role="button" tabindex="0">
+      <div class="k-card-header d-flex mb-3">
+        <!---->
+        <div id="test-title-id-1234" class="k-card-title mb-3">
+          <h4>
+            A very long item
+          </h4>
+        </div>
+        <div class="k-card-actions"></div>
       </div>
+      <!---->
       <div class="k-card-content d-flex">
         <div id="test-content-id-1234" class="k-card-body">
           <div class="">
@@ -378,13 +422,17 @@ exports[`KCatalog general handles truncation 1`] = `
 <div class="k-card-catalog">
   <!---->
   <div class="k-catalog-page k-card-medium">
-    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="A-very long item-catalog-item" role="button" tabindex="0">
-      <!---->
-      <div id="test-title-id-1234" class="k-card-title mb-3">
-        <h4>
-          A very long item
-        </h4>
+    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="A-very-long-item-catalog-item" role="button" tabindex="0">
+      <div class="k-card-header d-flex mb-3">
+        <!---->
+        <div id="test-title-id-1234" class="k-card-title mb-3">
+          <h4>
+            A very long item
+          </h4>
+        </div>
+        <div class="k-card-actions"></div>
       </div>
+      <!---->
       <div class="k-card-content d-flex">
         <div id="test-content-id-1234" class="k-card-body">
           <div class="multi-line-truncate">
@@ -529,12 +577,16 @@ exports[`KCatalog general renders proper cards when using props 1`] = `
   </div>
   <div class="k-catalog-page k-card-medium">
     <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-0-catalog-item" role="button" tabindex="0">
-      <!---->
-      <div id="test-title-id-1234" class="k-card-title mb-3">
-        <h4>
-          Item 0
-        </h4>
+      <div class="k-card-header d-flex mb-3">
+        <!---->
+        <div id="test-title-id-1234" class="k-card-title mb-3">
+          <h4>
+            Item 0
+          </h4>
+        </div>
+        <div class="k-card-actions"></div>
       </div>
+      <!---->
       <div class="k-card-content d-flex">
         <div id="test-content-id-1234" class="k-card-body">
           <div class="multi-line-truncate">
@@ -545,12 +597,16 @@ exports[`KCatalog general renders proper cards when using props 1`] = `
       </div>
     </section>
     <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-1-catalog-item" role="button" tabindex="0">
-      <!---->
-      <div id="test-title-id-1234" class="k-card-title mb-3">
-        <h4>
-          Item 1
-        </h4>
+      <div class="k-card-header d-flex mb-3">
+        <!---->
+        <div id="test-title-id-1234" class="k-card-title mb-3">
+          <h4>
+            Item 1
+          </h4>
+        </div>
+        <div class="k-card-actions"></div>
       </div>
+      <!---->
       <div class="k-card-content d-flex">
         <div id="test-content-id-1234" class="k-card-body">
           <div class="multi-line-truncate">
@@ -561,12 +617,16 @@ exports[`KCatalog general renders proper cards when using props 1`] = `
       </div>
     </section>
     <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-2-catalog-item" role="button" tabindex="0">
-      <!---->
-      <div id="test-title-id-1234" class="k-card-title mb-3">
-        <h4>
-          Item 2
-        </h4>
+      <div class="k-card-header d-flex mb-3">
+        <!---->
+        <div id="test-title-id-1234" class="k-card-title mb-3">
+          <h4>
+            Item 2
+          </h4>
+        </div>
+        <div class="k-card-actions"></div>
       </div>
+      <!---->
       <div class="k-card-content d-flex">
         <div id="test-content-id-1234" class="k-card-body">
           <div class="multi-line-truncate">
@@ -577,12 +637,16 @@ exports[`KCatalog general renders proper cards when using props 1`] = `
       </div>
     </section>
     <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-3-catalog-item" role="button" tabindex="0">
-      <!---->
-      <div id="test-title-id-1234" class="k-card-title mb-3">
-        <h4>
-          Item 3
-        </h4>
+      <div class="k-card-header d-flex mb-3">
+        <!---->
+        <div id="test-title-id-1234" class="k-card-title mb-3">
+          <h4>
+            Item 3
+          </h4>
+        </div>
+        <div class="k-card-actions"></div>
       </div>
+      <!---->
       <div class="k-card-content d-flex">
         <div id="test-content-id-1234" class="k-card-body">
           <div class="multi-line-truncate">
@@ -593,12 +657,16 @@ exports[`KCatalog general renders proper cards when using props 1`] = `
       </div>
     </section>
     <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-4-catalog-item" role="button" tabindex="0">
-      <!---->
-      <div id="test-title-id-1234" class="k-card-title mb-3">
-        <h4>
-          Item 4
-        </h4>
+      <div class="k-card-header d-flex mb-3">
+        <!---->
+        <div id="test-title-id-1234" class="k-card-title mb-3">
+          <h4>
+            Item 4
+          </h4>
+        </div>
+        <div class="k-card-actions"></div>
       </div>
+      <!---->
       <div class="k-card-content d-flex">
         <div id="test-content-id-1234" class="k-card-body">
           <div class="multi-line-truncate">
@@ -755,10 +823,14 @@ exports[`KCatalog general renders slotted cards when passed 1`] = `
   <!---->
   <div class="k-catalog-page k-card-medium">
     <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="Item-0-catalog-item" role="button" tabindex="0">
-      <!---->
-      <div id="test-title-id-1234" class="k-card-title mb-3">
-        <h4><span>Look mah!</span></h4>
+      <div class="k-card-header d-flex mb-3">
+        <!---->
+        <div id="test-title-id-1234" class="k-card-title mb-3">
+          <h4><span>Look mah!</span></h4>
+        </div>
+        <div class="k-card-actions"></div>
       </div>
+      <!---->
       <div class="k-card-content d-flex">
         <div id="test-content-id-1234" class="k-card-body">
           <div class="multi-line-truncate"><span>My body</span></div>

@@ -6,7 +6,7 @@
     :aria-describedby="contentId"
     class="kong-card">
     <div
-      v-if="$scopedSlots.actions || status || $scopedSlots.statusHat"
+      v-if="$scopedSlots.actions || useStatusHatLayout || (!useStatusHatLayout && (title || $scopedSlots.title || $slots.title))"
       :class="{ 'has-status': status || $scopedSlots.statusHat }"
       class="k-card-header d-flex mb-3">
       <div
@@ -16,6 +16,16 @@
         <slot name="statusHat">{{ status }}</slot>
       </div>
 
+      <div
+        v-if="!useStatusHatLayout && (title || $scopedSlots.title || $slots.title)"
+        :id="title ? null : titleId"
+        class="k-card-title mb-3">
+        <h4>
+          <!-- @slot Use this slot to pass title content -->
+          <slot name="title">{{ title }}</slot>
+        </h4>
+      </div>
+
       <div class="k-card-actions">
         <!-- @slot Use this slot to pass actions to right side of header -->
         <slot name="actions"/>
@@ -23,7 +33,7 @@
     </div>
 
     <div
-      v-if="title || $scopedSlots.title || $slots.title"
+      v-if="useStatusHatLayout && (title || $scopedSlots.title || $slots.title)"
       :id="title ? null : titleId"
       class="k-card-title mb-3">
       <h4>
@@ -113,6 +123,12 @@ export default {
     return {
       titleId: !this.testMode ? uuid.v1() : 'test-title-id-1234',
       contentId: !this.testMode ? uuid.v1() : 'test-content-id-1234'
+    }
+  },
+
+  computed: {
+    useStatusHatLayout () {
+      return this.status || this.$scopedSlots.statusHat
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <KCard
-    :data-testid="item ? `${item.title.replace(' ', '-')}-catalog-item` : 'catalog-item'"
+    :data-testid="item && item.title ? `${item.title.replace(/[^0-9a-z]/gi, '-')}-catalog-item` : 'catalog-item'"
     :test-mode="testMode"
     class="grid-item d-flex flex-column overflow-hidden k-card-catalog-item"
     has-hover
