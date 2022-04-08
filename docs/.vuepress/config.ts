@@ -38,7 +38,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
 
   // site config
   lang: 'en-US',
-  title: 'Kongponents (Vue 3 Alpha)',
+  title: 'Kongponents (Vue 3 Beta)',
   description: 'Kong UI Components & Style Guide',
 
   // theme and its config
@@ -60,7 +60,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
 
     navbar: [
       {
-        text: 'Vue 3 (v7.0.0-alpha.1)',
+        text: 'Vue 3 (v7.x)',
         children: [
           {
             text: 'Vue 2 (v6.x)',

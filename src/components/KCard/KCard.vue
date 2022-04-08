@@ -24,10 +24,13 @@
       <div
         v-if="!useStatusHatLayout && (title || $slots.title)"
         :id="title ? null : titleId"
-        class="k-card-title mb-3">
+        class="k-card-title mb-3"
+      >
         <h4>
           <!-- @slot Use this slot to pass title content -->
-          <slot name="title">{{ title }}</slot>
+          <slot name="title">
+            {{ title }}
+          </slot>
         </h4>
       </div>
 
