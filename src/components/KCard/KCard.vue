@@ -136,7 +136,7 @@ export default defineComponent({
     const titleId = computed((): string => props.testMode ? uuidv1() : 'test-title-id-1234')
     const contentId = computed((): string => props.testMode ? uuidv1() : 'test-content-id-1234')
     const useStatusHatLayout = computed((): boolean => {
-      return !!(props.status || slots.statusHat)
+      return !!(props.status || !!slots.statusHat)
     })
 
     return {
