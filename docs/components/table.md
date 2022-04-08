@@ -107,6 +107,131 @@ Set this to `true` to disable ablity to sort.
 **Experimental** - set this prop to `true` to enable client side sorting if using a fetcher that returns unpaginatinated data.
 This functionality may be flaky.
 
+### sortHandlerFn
+
+Use a custom sort handler function to handle sorting table data for specific columns
+
+::: tip Notes
+
+1. In order for a column to use the custom sort handler function, `useSortHandlerFn` must be set to `true` in the [headers](#headers) object
+
+2. Sort handler functions can take four params:
+
+- `key`: the key of the column to be sorted
+- `prevKey`: the key of the column previously sorted
+- `sortColumnOrder`: the order in which to sort the column (`asc` or `desc`)
+- `data`: the data returned from the fetcher function response
+:::
+
+#### sortHandlerFn Example
+
+Here the `last_seen` column is set to use the custom sort handler function via the `useSortHandlerFn` property set in the table header object. The function passed into the `sortHandlerFn` prop sorts and returns the table data. The other columns use the default built-in client side sort function because the `useSortHandlerFn` property is not set in the header objects.
+
+<KTable
+  :fetcher="sortHandlerFnFetcher"
+  :headers="sortHandlerFnHeaders"
+  :sortHandlerFn="sortHandlerFn"
+  enable-client-sort
+/>
+
+```vue
+<template>
+  <KTable
+    :fetcher="fetcher"
+    :headers="headers"
+    :sortHandlerFn="sortHandlerFn"
+    enable-client-sort
+  />
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      headers: [
+        { label: 'Host', key: 'hostname', sortable: true },
+        { label: 'Version', key: 'version', sortable: true },
+        { label: 'Connected', key: 'connected', sortable: true },
+        { label: 'Last Seen', key: 'last_seen', sortable: true, useSortHandlerFn: true }
+      ],
+    }
+  },
+  methods: {
+    sortHandlerFn({ key, prevKey, sortColumnOrder, data}) {
+      return data.sort((a, b) => {
+        if (key === 'last_seen') {
+          if (sortColumnOrder === 'asc') {
+            if (a.last_ping > b.last_ping) {
+              return 1
+            } else if (a.last_ping < b.last_ping) {
+              return -1
+            }
+
+            return 0
+          } else {
+            if (a.last_ping > b.last_ping) {
+              return -1
+            } else if (a.last_ping < b.last_ping) {
+              return 1
+            }
+
+            return 0
+          }
+        }
+      })
+    },
+
+    fetcher() {
+      return {
+        data: [
+          {
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+            version: '2.8.0.0-enterprise-edition',
+            hostname: '99e591ae3776',
+            last_ping: 1648855072,
+            connected: 'Disconnected',
+            last_seen: '6 days ago'
+          },
+          {
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+            version: '2.7.0.0-enterprise-edition',
+            hostname: '19e591ae3776',
+            last_ping: 1649362660,
+            connected: 'Connected',
+            last_seen: '3 hours ago',
+          },
+          {
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+            version: '2.8.1.0-enterprise-edition',
+            hostname: '79e591ae3776',
+            last_ping: 1649355460,
+            connected: 'Connected',
+            last_seen: '5 hours ago',
+          },
+          {
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+            version: '2.6.0.0-enterprise-edition',
+            hostname: '89e591ae3776',
+            last_ping: 1648155072,
+            connected: 'Disconnected',
+            last_seen: '14 days ago'
+          },
+          {
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+            version: '2.8.2.0-enterprise-edition',
+            hostname: '59e591ae3776',
+            last_ping: 1649855072,
+            connected: 'Connected',
+            last_seen: 'Just now'
+          },
+        ]
+      }
+    },
+  }
+}
+</script>
+```
+
 ### fetcher
 
 Use a custom fetcher function to fetch table data and leverage server-side search, sort and pagination.
@@ -292,6 +417,7 @@ Pass in an array of header objects for the table.
 | `label` | string | The label displayed on the table for the column
 | `sortable` | boolean | Enables or disables server-side sorting for the column (`false` by default)
 | `hideLabel`| boolean | Hides or displays the column label (useful for actions columns)
+| `useSortHandlerFn` | boolean | Uses the function passed in the [sortHandlerFn](#sorthandlerfn) prop to sort the column data instead of the default client sorter function
 
 :::tip Note
 `sortable` columns emit a `sort` event when clicked, returns:
@@ -1131,7 +1257,13 @@ export default {
         { label: 'Name', key: 'name' },
         { label: 'Company', key: 'company' },
         { label: 'Description', key: 'description' }
-      ]
+      ],
+      sortHandlerFnHeaders: [
+        { label: 'Host', key: 'hostname', sortable: true },
+        { label: 'Version', key: 'version', sortable: true },
+        { label: 'Connected', key: 'connected', sortable: true },
+        { label: 'Last Seen', key: 'last_seen', sortable: true, useSortHandlerFn: true }
+      ],
     }
   },
   methods: {
@@ -1250,6 +1382,77 @@ for (let i = ((page-1)* pageSize); i < limit; i++) {
             name: 'TensorFlow',
             company: 'Google',
             description: 'TensorFlow is an open source software library for numerical computation using data flow graphs.',
+          },
+        ]
+      }
+    },
+
+    sortHandlerFn({ key, prevKey, sortColumnOrder, data}) {
+      return data.sort((a, b) => {
+        if (key === 'last_seen') {
+          if (sortColumnOrder === 'asc') {
+            if (a.last_ping > b.last_ping) {
+              return 1
+            } else if (a.last_ping < b.last_ping) {
+              return -1
+            }
+
+            return 0
+          } else {
+            if (a.last_ping > b.last_ping) {
+              return -1
+            } else if (a.last_ping < b.last_ping) {
+              return 1
+            }
+
+            return 0
+          }
+        }
+      })
+    },
+
+    sortHandlerFnFetcher() {
+      return {
+        data: [
+          {
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+            version: '2.8.0.0-enterprise-edition',
+            hostname: '99e591ae3776',
+            last_ping: 1648855072,
+            connected: 'Disconnected',
+            last_seen: '6 days ago'
+          },
+          {
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+            version: '2.7.0.0-enterprise-edition',
+            hostname: '19e591ae3776',
+            last_ping: 1649362660,
+            connected: 'Connected',
+            last_seen: '3 hours ago',
+          },
+          {
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+            version: '2.8.1.0-enterprise-edition',
+            hostname: '79e591ae3776',
+            last_ping: 1649355460,
+            connected: 'Connected',
+            last_seen: '5 hours ago',
+          },
+          {
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+            version: '2.6.0.0-enterprise-edition',
+            hostname: '89e591ae3776',
+            last_ping: 1648155072,
+            connected: 'Disconnected',
+            last_seen: '14 days ago'
+          },
+          {
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+            version: '2.8.2.0-enterprise-edition',
+            hostname: '59e591ae3776',
+            last_ping: 1649855072,
+            connected: 'Connected',
+            last_seen: 'Just now'
           },
         ]
       }

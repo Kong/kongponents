@@ -96,7 +96,7 @@
                       sortColumnKey: column.key,
                       sortColumnOrder: sortColumnOrder === 'asc' ? 'desc' : 'asc' // display opposite because sortColumnOrder outdated
                     })
-                    sortClickHandler(column.key)
+                    sortClickHandler(column)
                   }
                 }"
               >
@@ -464,6 +464,10 @@ export default defineComponent({
     testMode: {
       type: String,
       default: ''
+    },
+    sortHandlerFn: {
+      type: Function,
+      default: () => ({})
     }
   },
   data: function () {
@@ -600,7 +604,9 @@ export default defineComponent({
       { revalidateOnFocus: false }
     )
 
-    const sortClickHandler = (key) => {
+    const sortClickHandler = (header) => {
+      const { key, useSortHandlerFn } = header
+
       page.value = 1
       let prevKey = sortColumnKey.value + '' // avoid pass by ref
 
@@ -623,7 +629,16 @@ export default defineComponent({
       // Use deprecated sort function to sort data passed in via
       // the deprecated options.data prop
       if ((props.options && props.options.data) || props.enableClientSort) {
-        defaultSorter(key, prevKey, sortColumnOrder.value, data.value)
+        if (useSortHandlerFn && props.sortHandlerFn) {
+          props.sortHandlerFn({
+            key,
+            prevKey,
+            sortColumnOrder: sortColumnOrder.value,
+            data: data.value
+          })
+        } else {
+          defaultSorter(key, prevKey, sortColumnOrder.value, data.value)
+        }
       } else {
         revalidate()
       }
