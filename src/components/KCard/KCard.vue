@@ -142,7 +142,7 @@ export default defineComponent({
     return {
       titleId,
       contentId,
-      useStatusHatLayout
+      useStatusHatLayout,
     }
   },
 })
