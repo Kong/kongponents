@@ -292,6 +292,7 @@ Pass in an array of header objects for the table.
 | `label` | string | The label displayed on the table for the column
 | `sortable` | boolean | Enables or disables server-side sorting for the column (`false` by default)
 | `hideLabel`| boolean | Hides or displays the column label (useful for actions columns)
+| `sortKey` | string | A key returned in fetcher response data used to sort column
 
 :::tip Note
 `sortable` columns emit a `sort` event when clicked, returns:
@@ -320,6 +321,86 @@ Example headers array:
           { key: 'start_date', label: 'Start Date', sortable: true },
           { key: 'actions', label: '', sortable: false, hideLabel: true },
         ]
+      }
+    }
+  }
+</script>
+```
+
+#### Note about the `sortKey` option
+
+There may be times when data returned in a fetcher is not human-readable, but still needs to be displayed and  sorted in a table in a human-readble format. We cannot depend on the human-readable format sorting the column correctly - in these cases it is useful to specify which key in the data should be used to sort the column. An example of this would be when a date/time is returned in milliseconds.
+
+#### Using `sortKey` sorts the `Last Seen` column correctly
+
+<KTable
+  :fetcher="fetcherSortKeyExample"
+  :headers="headersSortKey"
+  enable-client-sort
+/>
+
+#### Sorting the `Last Seen` column does not work correclty without `sortKey`
+
+<KTable
+  :fetcher="fetcherSortKeyExample"
+  :headers="headersNoSortKey"
+  enable-client-sort
+/>
+
+```vue
+<template>
+  <KTable
+    :fetcher="fetcher"
+    :headers="headers"
+    enable-client-sort
+  />
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        headers: [
+          { label: 'Host', key: 'hostname', sortable: true },
+          { label: 'Version', key: 'version', sortable: true },
+          { label: 'Connected', key: 'connected', sortable: true },
+          { label: 'Last Seen', key: 'last_seen', sortable: true, sortKey: 'last_ping' }
+          { key: 'actions', label: '', sortable: false, hideLabel: true },
+        ]
+      }
+    },
+    methods: {
+      fetcher() {
+        const data = [
+          {
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+            version: '2.8.0.0-enterprise-edition',
+            hostname: '99e591ae3776',
+            last_ping: 1648855072
+          },
+          {
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+            version: '2.8.0.0-enterprise-edition',
+            hostname: '99e591ae3776',
+            last_ping: 1649362660
+          },
+          {
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+            version: '2.8.0.0-enterprise-edition',
+            hostname: '99e591ae3776',
+            last_ping: 1649355460
+          },
+          {
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+            version: '2.8.0.0-enterprise-edition',
+            hostname: '99e591ae3776',
+            last_ping: 1648155072
+          },
+        ]
+
+        return data.map(item => {
+          item.last_seen = // get a human-readable time from last_ping, such as '2 hours ago'
+        })
       }
     }
   }
@@ -1131,6 +1212,18 @@ export default {
         { label: 'Name', key: 'name' },
         { label: 'Company', key: 'company' },
         { label: 'Description', key: 'description' }
+      ],
+      headersSortKey: [
+        { label: 'Host', key: 'hostname', sortable: true },
+        { label: 'Version', key: 'version', sortable: true },
+        { label: 'Connected', key: 'connected', sortable: true },
+        { label: 'Last Seen', key: 'last_seen', sortable: true, sortKey: 'last_ping' }
+      ],
+      headersNoSortKey: [
+        { label: 'Host', key: 'hostname', sortable: true },
+        { label: 'Version', key: 'version', sortable: true },
+        { label: 'Connected', key: 'connected', sortable: true },
+        { label: 'Last Seen', key: 'last_seen', sortable: true }
       ]
     }
   },
@@ -1192,6 +1285,53 @@ for (let i = ((page-1)* pageSize); i < limit; i++) {
 
     emptyFetcher () {
       return { data: [] }
+    },
+
+    fetcherSortKeyExample() {
+      return {
+        data: [
+          {
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+            version: '2.8.0.0-enterprise-edition',
+            hostname: '99e591ae3776',
+            last_ping: 1648855072,
+            connected: 'Disconnected',
+            last_seen: '6 days ago'
+          },
+          {
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+            version: '2.7.0.0-enterprise-edition',
+            hostname: '19e591ae3776',
+            last_ping: 1649362660,
+            connected: 'Connected',
+            last_seen: '3 hours ago',
+          },
+          {
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+            version: '2.8.1.0-enterprise-edition',
+            hostname: '79e591ae3776',
+            last_ping: 1649355460,
+            connected: 'Connected',
+            last_seen: '5 hours ago',
+          },
+          {
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+            version: '2.6.0.0-enterprise-edition',
+            hostname: '89e591ae3776',
+            last_ping: 1648155072,
+            connected: 'Disconnected',
+            last_seen: '14 days ago'
+          },
+          {
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+            version: '2.8.2.0-enterprise-edition',
+            hostname: '59e591ae3776',
+            last_ping: 1649855072,
+            connected: 'Connected',
+            last_seen: 'Just now'
+          },
+        ]
+      }
     },
 
     tableOptionsLinkFetcher () {
