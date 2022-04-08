@@ -336,7 +336,7 @@ exports[`KCatalog general can disable truncation 1`] = `
 <div class="k-card-catalog">
   <!---->
   <div class="k-catalog-page k-card-medium">
-    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="A-very long item-catalog-item" role="button" tabindex="0">
+    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="A-very-long-item-catalog-item" role="button" tabindex="0">
       <div class="k-card-header d-flex mb-3">
         <!---->
         <div id="test-title-id-1234" class="k-card-title mb-3">
@@ -422,7 +422,7 @@ exports[`KCatalog general handles truncation 1`] = `
 <div class="k-card-catalog">
   <!---->
   <div class="k-catalog-page k-card-medium">
-    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="A-very long item-catalog-item" role="button" tabindex="0">
+    <section aria-labelledby="test-title-id-1234" aria-describedby="test-content-id-1234" class="kong-card grid-item d-flex flex-column overflow-hidden k-card-catalog-item catalog-item border hover" data-testid="A-very-long-item-catalog-item" role="button" tabindex="0">
       <div class="k-card-header d-flex mb-3">
         <!---->
         <div id="test-title-id-1234" class="k-card-title mb-3">
