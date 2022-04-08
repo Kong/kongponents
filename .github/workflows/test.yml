@@ -32,6 +32,9 @@ jobs:
       - name: Lint
         run: yarn lint
 
+      - name: Check Types
+        run: yarn typecheck
+
       - name: Run Cypress component tests
         uses: cypress-io/github-action@v2
         with:
