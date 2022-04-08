@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.24.5 (2022-04-08)
+
+
+### Bug Fixes
+
+* **kcard:** title positioning ([#561](https://github.com/Kong/kongponents/issues/561)) ([33df03f](https://github.com/Kong/kongponents/commit/33df03f1cd0213fedf2c5f5933cf3698f10d10eb))
+
+
+
+
+
 ## 6.24.4 (2022-04-07)
 
 **Note:** Version bump only for package @kongponents/kemptystate
