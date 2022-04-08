@@ -37,7 +37,8 @@
     "preview": "vite preview",
     "test": "cypress run-ct",
     "test:open": "cypress open-ct",
-    "test:spec": "cypress run-ct --spec"
+    "test:spec": "cypress run-ct --spec",
+    "semantic-release": "semantic-release"
   },
   "dependencies": {
     "axios": "^0.26.1",
@@ -57,6 +58,8 @@
     "@cypress/vite-dev-server": "^2.2.2",
     "@cypress/vue": "^3.1.1",
     "@digitalroute/cz-conventional-changelog-for-jira": "^7.2.1",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
     "@types/inquirer": "^8.2.1",
     "@types/node": "^17.0.23",
     "@types/node-emoji": "^1.8.1",
@@ -87,6 +90,7 @@
     "postcss-cli": "^9.1.0",
     "postcss-custom-properties": "^12.1.5",
     "sass": "^1.49.11",
+    "semantic-release": "^19.0.2",
     "typescript": "^4.4.4",
     "vite": "^2.9.1",
     "vue": "^3.2.31",
@@ -102,6 +106,33 @@
   "license": "Apache-2.0",
   "publishConfig": {
     "access": "public"
+  },
+  "release": {
+    "branches": [
+      "next",
+      "ci/semantic-release"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "CHANGELOG.md"
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "CHANGELOG.md"
+          ]
+        }
+      ],
+      "@semantic-release/npm",
+      "@semantic-release/github"
+    ],
+    "dryRun": true
   },
   "volta": {
     "node": "16.14.0",

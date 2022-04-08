@@ -50,7 +50,11 @@ jobs:
           path: cypress/videos/
 
       # Percy - disabled on `next` branch for now
-      # - name: visual-regression-test
+      # - name: Build docs for Percy
+      #   run: yarn build
+
+      # Percy - disabled on `next` branch for now
+      # - name: Percy visual regression test for docs
       #   run: |
       #     npx percy snapshot docs/.vuepress/dist/ --ignore-files "**/404.html"
       #   env:
