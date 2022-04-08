@@ -109,8 +109,7 @@
   },
   "release": {
     "branches": [
-      "next",
-      "ci/semantic-release"
+      "next"
     ],
     "plugins": [
       "@semantic-release/commit-analyzer",

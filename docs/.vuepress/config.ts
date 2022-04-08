@@ -60,7 +60,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
 
     navbar: [
       {
-        text: 'Vue 3 (v7.0.0-alpha.1)',
+        text: 'Vue 3 (v7.x)',
         children: [
           {
             text: 'Vue 2 (v6.x)',

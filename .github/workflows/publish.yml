@@ -2,13 +2,12 @@ name: Publish
 
 on:
   push:
-    branches:
-    - main
+    branches: [main]
 
 jobs:
   run-tests:
     name: Tests
-    # Update `@next` branch to `@main` once branches are finalized and we are deploying Vue 3 from main
+    # Update `@next` branch to `@beta`
     uses: Kong/kongponents/.github/workflows/test.yml@next
     # Must pass in secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
     secrets:
@@ -50,8 +49,8 @@ jobs:
         - name: Build
           run: yarn build
 
-        - name: Semantic Release
-          uses: cycjimmy/semantic-release-action@v2
-          env:
-             # if branch protections are on (Pushing commits) you need to use ${{ secrets.KONGPONENTS_BOT_PAT }} instead
-            GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
+        # - name: Semantic Release
+        #   uses: cycjimmy/semantic-release-action@v2
+        #   env:
+        #      # if branch protections are on (Pushing commits) you need to use ${{ secrets.KONGPONENTS_BOT_PAT }} instead
+        #     GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
