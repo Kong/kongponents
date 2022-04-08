@@ -5,6 +5,11 @@ on:
     branches: [beta]
   # Allow workflow to be called by another workflow
   workflow_call:
+    # Must define secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
+    secrets:
+      PERCY_TOKEN:
+        description: 'The PERCY_TOKEN passed from the caller workflow as it is not available within workflow_call.'
+        required: true
   # Allow workflow to be called manually
   workflow_dispatch:
 

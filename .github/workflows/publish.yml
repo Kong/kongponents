@@ -11,7 +11,7 @@ jobs:
     uses: Kong/kongponents/.github/workflows/test.yml@beta
     # Must pass in secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
     secrets:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
   publish:
       needs: run-tests
