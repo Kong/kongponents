@@ -1,8 +1,8 @@
 <template>
   <section
     :class="[borderVariant, {'hover': hasHover, 'kcard-shadow': hasShadow }]"
-    :aria-label="title ? title : null"
-    :aria-labelledby="!title && ($slots.title || $slots.title) ? titleId : null"
+    :aria-label="title ? title : undefined"
+    :aria-labelledby="!title && ($slots.title || $slots.title) ? titleId : undefined"
     :aria-describedby="contentId"
     class="kong-card"
   >
@@ -23,7 +23,7 @@
 
       <div
         v-if="!useStatusHatLayout && (title || $slots.title)"
-        :id="title ? null : titleId"
+        :id="title ? undefined : titleId"
         class="k-card-title mb-3"
       >
         <h4>
@@ -42,7 +42,7 @@
 
     <div
       v-if="useStatusHatLayout && (title || $slots.title)"
-      :id="title ? null : titleId"
+      :id="title ? undefined : titleId"
       class="k-card-title mb-3"
     >
       <h4>
