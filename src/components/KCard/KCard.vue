@@ -7,7 +7,7 @@
     class="kong-card"
   >
     <div
-      v-if="$slots.actions || status || $slots.statusHat"
+      v-if="$slots.actions || useStatusHatLayout || (!useStatusHatLayout && (title || $slots.title))"
       :class="{ 'has-status': status || $slots.statusHat }"
       class="k-card-header d-flex mb-3"
     >
@@ -21,6 +21,16 @@
         </slot>
       </div>
 
+      <div
+        v-if="!useStatusHatLayout && (title || $slots.title)"
+        :id="title ? null : titleId"
+        class="k-card-title mb-3">
+        <h4>
+          <!-- @slot Use this slot to pass title content -->
+          <slot name="title">{{ title }}</slot>
+        </h4>
+      </div>
+
       <div class="k-card-actions">
         <!-- @slot Use this slot to pass actions to right side of header -->
         <slot name="actions" />
@@ -28,7 +38,7 @@
     </div>
 
     <div
-      v-if="title || $slots.title || $slots.title"
+      v-if="useStatusHatLayout && (title || $slots.title)"
       :id="title ? null : titleId"
       class="k-card-title mb-3"
     >
@@ -122,13 +132,17 @@ export default defineComponent({
     },
   },
 
-  setup(props) {
+  setup(props, { slots }) {
     const titleId = computed((): string => props.testMode ? uuidv1() : 'test-title-id-1234')
     const contentId = computed((): string => props.testMode ? uuidv1() : 'test-content-id-1234')
+    const useStatusHatLayout = computed((): boolean => {
+      return !!(props.status || !!slots.statusHat)
+    })
 
     return {
       titleId,
       contentId,
+      useStatusHatLayout,
     }
   },
 })

@@ -110,35 +110,38 @@ Sets top border or no border. If neither set default will have border
 - `noBorder`
 
 <div class="borderless-cards">
-  <KCard title="Card without border" body="Body Content" borderVariant="noBorder"/>
+  <KCard title="Card without border" body="Body Content" border-variant="noBorder"/>
 
-  <KCard title="Card with top border" body="Body Content" borderVariant="borderTop"/>
+  <KCard title="Card with top border" body="Body Content" border-variant="borderTop"/>
 </div>
 
 ```vue
-<KCard title="Card without border" body="Body Content" borderVariant="noBorder"/>
+<KCard title="Card without border" body="Body Content" border-variant="noBorder"/>
 
-<KCard title="Card with top border" body="Body Content" borderVariant="borderTop"/>
+<KCard title="Card with top border" body="Body Content" border-variant="borderTop"/>
 ```
 
-### hasHover, hasShadow
+### hasHover
 
-Sets if card has shadow state (shadow)
+Set if card should have shadow state (shadow) on hover
 
-- `hasHover` only set shadow on hover
-- `hasShadow` always setShadow
-
-<KCard title="hasHover" class="mb-2" body="This card only has a shadow on hover" hasHover />
-
-<KCard title="hasShadow" body="This card always has a shadow" hasShadow />
+<KCard title="hasHover" class="mb-2" body="This card only has a shadow on hover" has-hover />
 
 ```vue
-<KCard title="hasHover" class="mb-2" body="This card only has a shadow on hover" hasHover />
-
-<KCard title="hasShadow" body="This card always has a shadow" hasShadow />
+<KCard title="hasHover" class="mb-2" body="This card only has a shadow on hover" has-hover />
 ```
 
-## Side by side
+### hasShadow
+
+Set if the card should always have shadow state (shadow)
+
+<KCard title="hasShadow" body="This card always has a shadow" has-shadow />
+
+```vue
+<KCard title="hasShadow" body="This card always has a shadow" has-shadow />
+```
+
+## Using flex box
 
 Cards can be arranged with flex box.
 
