@@ -2,13 +2,13 @@ name: Publish
 
 on:
   push:
-    branches: [main]
+    branches: [beta]
 
 jobs:
   run-tests:
     name: Tests
-    # Update `@next` branch to `@beta`
-    uses: Kong/kongponents/.github/workflows/test.yml@next
+    # Update `@beta` branch to `@main` once 6.x branch is created
+    uses: Kong/kongponents/.github/workflows/test.yml@beta
     # Must pass in secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -49,8 +49,8 @@ jobs:
         - name: Build
           run: yarn build
 
-        # - name: Semantic Release
-        #   uses: cycjimmy/semantic-release-action@v2
-        #   env:
-        #      # if branch protections are on (Pushing commits) you need to use ${{ secrets.KONGPONENTS_BOT_PAT }} instead
-        #     GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
+        - name: Semantic Release
+          uses: cycjimmy/semantic-release-action@v2
+          env:
+             # Since branch protections are on (pushing commits) you need to use a bot PAT
+            GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}

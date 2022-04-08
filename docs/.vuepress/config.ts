@@ -50,7 +50,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
 
     docsDir: 'docs',
 
-    docsBranch: 'next',
+    docsBranch: 'beta',
 
     editLink: false,
 

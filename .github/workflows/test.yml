@@ -1,10 +1,8 @@
-# Already updated for `next` branch
-
 name: Tests
 
 on:
   pull_request:
-    branches: [next]
+    branches: [beta]
   # Allow workflow to be called by another workflow
   workflow_call:
   # Allow workflow to be called manually
@@ -49,11 +47,11 @@ jobs:
           name: cypress-videos
           path: cypress/videos/
 
-      # Percy - disabled on `next` branch for now
+      # Percy - disabled on `beta` branch for now
       # - name: Build docs for Percy
       #   run: yarn build
 
-      # Percy - disabled on `next` branch for now
+      # Percy - disabled on `beta` branch for now
       # - name: Percy visual regression test for docs
       #   run: |
       #     npx percy snapshot docs/.vuepress/dist/ --ignore-files "**/404.html"

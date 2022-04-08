@@ -1,12 +1,9 @@
 ### Summary
 
-#### Changes made
-
-*
 
 ### Vue 3 Upgrade
 
-We are currently in the process of upgrading Kongponents to Vue 3. Any changes on the `next` branch should ensure that:
+We are currently in the process of upgrading Kongponents to Vue 3. Any changes on the `beta` branch should ensure that:
 
 * The component, component tests, and docs have been updated for Vue 3 and the Composition API.
 * The test file(s) should be migrated from `vue-test-utils` and should utilize [Cypress Component Testing](https://docs.cypress.io/guides/component-testing/introduction).

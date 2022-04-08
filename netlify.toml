@@ -1,7 +1,7 @@
 # Settings in the [build] context are global and are applied to all contexts
 # unless otherwise overridden by more specific contexts.
 #
-# Defaulting to the same settings as the `next` branch
+# Defaulting to the settings for the `beta` branch
 [build]
   base = "/"
   command = "yarn docs:build"
@@ -9,11 +9,11 @@
   environment = { NODE_VERSION = "16.14.0", YARN_FLAGS="--frozen-lockfile --ignore-optional" }
 
 # ##############################
-# 'next' branch
+# 'beta' branch
 # ##############################
 
-# 'next' branch context
-[context.next]
+# 'beta' branch context
+[context.beta]
   base = "/"
   command = "yarn docs:build"
   publish = "docs/.vuepress/dist"
