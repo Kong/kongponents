@@ -38,7 +38,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
 
   // site config
   lang: 'en-US',
-  title: 'Kongponents (Vue 3 Alpha)',
+  title: 'Kongponents (Vue 3 Beta)',
   description: 'Kong UI Components & Style Guide',
 
   // theme and its config
