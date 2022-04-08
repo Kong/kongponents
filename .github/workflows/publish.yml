@@ -2,81 +2,55 @@ name: Publish
 
 on:
   push:
-    branches:
-    - main
-    - 'release/**'
+    branches: [main]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Read .nvmrc
-      run: echo ::set-output name=NVMRC::$(cat .nvmrc)
-      id: nvm
-
-    - name: Use Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '${{ steps.nvm.outputs.NVMRC }}'
-
-    - name: install and lint
-      run: |
-        yarn
-        yarn lint
-
-    - name: test
-      run: |
-        yarn test-coverage
-
-    - uses: codecov/codecov-action@v1
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-
-    - name: visual-regression-test
-      run: |
-        yarn build
-        npx percy snapshot docs/.vuepress/dist/ --ignore-files "**/404.html"
-      env:
-        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+  run-tests:
+    name: Tests
+    # Update `@next` branch to `@beta`
+    uses: Kong/kongponents/.github/workflows/test.yml@next
+    # Must pass in secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   publish:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-      with:
-          token: ${{ secrets.KONGPONENTS_BOT_PAT }}
-
-    - name: Read .nvmrc
-      run: echo ::set-output name=NVMRC::$(cat .nvmrc)
-      id: nvm
-
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '${{ steps.nvm.outputs.NVMRC }}'
-
-    - name: setup git
-      run: |
-        git config --global user.name 'kongponents-bot'
-        git config --global user.email '95302551+kongponents-bot@users.noreply.github.com'
-
-    - name: install
-      run: |
-        npm config set scripts-prepend-node-path true
-        npm config set "//registry.npmjs.org/:_authToken" "$NPM_AUTH_TOKEN" -g
-        yarn install
+      needs: run-tests
+      name: Build and Publish
+      runs-on: ubuntu-latest
       env:
-        NPM_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+          with:
+            token: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
-    - name: yarn build
-      run: |
-        yarn build
-    - name: publish
-      run: |
-        yarn lerna bootstrap
-        yarn publish:ci
-      env:
-        # lerna uses GH_TOKEN to init it's gh lib
-        GH_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
+        - name: setup git
+          run: |
+            git config --global user.name 'kongponents-bot'
+            git config --global user.email '95302551+kongponents-bot@users.noreply.github.com'
+
+        - name: Create .npmrc
+          run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+
+        - name: Use Node.js
+          uses: actions/setup-node@v3
+          with:
+            node-version-file: '.nvmrc'
+
+        - name: Install dependencies
+          run: yarn install --frozen-lockfile
+          env:
+            NPM_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
+
+        - name: Lint
+          run: yarn lint
+
+        - name: Build
+          run: yarn build
+
+        # - name: Semantic Release
+        #   uses: cycjimmy/semantic-release-action@v2
+        #   env:
+        #      # if branch protections are on (Pushing commits) you need to use ${{ secrets.KONGPONENTS_BOT_PAT }} instead
+        #     GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
