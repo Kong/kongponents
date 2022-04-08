@@ -157,7 +157,7 @@ Sets if card should only display shadow state (shadow) on hover
   title="hasHover"
   class="mb-2"
   body="This card only has a shadow on hover"
-  hasHover/>
+  has-hover/>
 ```
 
 ### hasShadow
