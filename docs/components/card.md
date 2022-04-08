@@ -11,11 +11,9 @@
 
 ## Props
 
-### Title
+### title
 
 String to be used in the title slot.
-
-- `title`
 
 <KCard title="Title">
   <template v-slot:body>
@@ -85,12 +83,10 @@ Example composing `KCard` with other Kongponents to make another component:
 </KCard>
 ```
 
-### Status
+### status
 
 String to be used in the `statusHat` slot.
 
-- `status`
-
 <KCard
   status="My status"
   title="My title"
@@ -105,19 +101,17 @@ String to be used in the `statusHat` slot.
 />
 ```
 
-### Body
+### body
 
 String to be used in the body slot.
 
-- `body`
-
 <KCard body="I am the body."/>
 
 ```vue
 <KCard body="I am the body."/>
 ```
 
-### Border Variants
+### borderVariant
 
 Sets top border or no border. If neither set default will have border
 
@@ -128,43 +122,35 @@ Sets top border or no border. If neither set default will have border
   <KCard
     title="Card without border"
     body="Body Content"
-    borderVariant="noBorder"/>
+    border-variant="noBorder"/>
 
   <KCard
     title="Card with top border"
     body="Body Content"
-    borderVariant="borderTop"/>
+    border-variant="borderTop"/>
 </div>
 
 ```vue
 <KCard
   title="Card without border"
   body="Body Content"
-  borderVariant="noBorder"/>
+  border-variant="noBorder"/>
 
 <KCard
   title="Card with top border"
   body="Body Content"
-  borderVariant="borderTop"/>
+  border-variant="borderTop"/>
 ```
 
-### Shadow
+### hasHover
 
-Sets if card has shadow state (shadow)
-
-- `hasHover` only set shadow on hover
-- `hasShadow` always setShadow
+Sets if card should only display shadow state (shadow) on hover
 
 <KCard
   title="hasHover"
   class="mb-2"
   body="This card only has a shadow on hover"
-  hasHover/>
-
-<KCard
-  title="hasShadow"
-  body="This card always has a shadow"
-  hasShadow/>
+  has-hover />
 
 ```vue
 <KCard
@@ -172,14 +158,25 @@ Sets if card has shadow state (shadow)
   class="mb-2"
   body="This card only has a shadow on hover"
   hasHover/>
+```
+
+### hasShadow
+
+Set so the card always has shadow state (shadow)
 
 <KCard
   title="hasShadow"
   body="This card always has a shadow"
-  hasShadow/>
+  has-shadow />
+
+```vue
+<KCard
+  title="hasShadow"
+  body="This card always has a shadow"
+  has-shadow />
 ```
 
-### Side by side
+## Using flex box
 
 Cards can be arranged with flex box.
 
