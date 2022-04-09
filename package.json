@@ -111,7 +111,11 @@
   },
   "release": {
     "branches": [
-      "beta"
+      "main",
+      {
+        "name": "beta",
+        "prerelease": true
+      }
     ],
     "plugins": [
       "@semantic-release/commit-analyzer",
