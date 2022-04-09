@@ -50,7 +50,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
 
     docsDir: 'docs',
 
-    docsBranch: 'next',
+    docsBranch: 'beta',
 
     editLink: false,
 
@@ -60,10 +60,10 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
 
     navbar: [
       {
-        text: 'Vue 3 (v7.x)',
+        text: 'Vue 3 (v7)',
         children: [
           {
-            text: 'Vue 2 (v6.x)',
+            text: 'Vue 2 (v6)',
             link: 'https://kongponents.konghq.com',
           },
         ],

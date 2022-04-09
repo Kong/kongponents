@@ -1,56 +1,57 @@
-name: Publish
+# name: Publish
 
-on:
-  push:
-    branches: [main]
+# on:
+#   push:
+#     branches:
+#       - beta
 
-jobs:
-  run-tests:
-    name: Tests
-    # Update `@next` branch to `@beta`
-    uses: Kong/kongponents/.github/workflows/test.yml@next
-    # Must pass in secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
-    secrets:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+# jobs:
+#   run-tests:
+#     name: Tests
+#     # Update `@beta` branch to `@main` once 6.x branch is created
+#     uses: Kong/kongponents/.github/workflows/test.yml@beta
+#     # Must pass in secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
+#     secrets:
+#       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
-  publish:
-      needs: run-tests
-      name: Build and Publish
-      runs-on: ubuntu-latest
-      env:
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v3
-          with:
-            token: ${{ secrets.KONGPONENTS_BOT_PAT }}
+#   publish:
+#       needs: run-tests
+#       name: Build and Publish
+#       runs-on: ubuntu-latest
+#       env:
+#         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+#       steps:
+#         - name: Checkout
+#           uses: actions/checkout@v3
+#           with:
+#             token: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
-        - name: setup git
-          run: |
-            git config --global user.name 'kongponents-bot'
-            git config --global user.email '95302551+kongponents-bot@users.noreply.github.com'
+#         - name: setup git
+#           run: |
+#             git config --global user.name 'kongponents-bot'
+#             git config --global user.email '95302551+kongponents-bot@users.noreply.github.com'
 
-        - name: Create .npmrc
-          run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+#         - name: Create .npmrc
+#           run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
 
-        - name: Use Node.js
-          uses: actions/setup-node@v3
-          with:
-            node-version-file: '.nvmrc'
+#         - name: Use Node.js
+#           uses: actions/setup-node@v3
+#           with:
+#             node-version-file: '.nvmrc'
 
-        - name: Install dependencies
-          run: yarn install --frozen-lockfile
-          env:
-            NPM_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
+#         - name: Install dependencies
+#           run: yarn install --frozen-lockfile
+#           env:
+#             NPM_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
 
-        - name: Lint
-          run: yarn lint
+#         - name: Lint
+#           run: yarn lint
 
-        - name: Build
-          run: yarn build
+#         - name: Build
+#           run: yarn build
 
-        # - name: Semantic Release
-        #   uses: cycjimmy/semantic-release-action@v2
-        #   env:
-        #      # if branch protections are on (Pushing commits) you need to use ${{ secrets.KONGPONENTS_BOT_PAT }} instead
-        #     GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
+#         - name: Semantic Release
+#           uses: cycjimmy/semantic-release-action@v2
+#           env:
+#              # Since branch protections are on (pushing commits) you need to use a bot PAT
+#             GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}

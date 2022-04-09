@@ -1,13 +1,16 @@
-# Already updated for `next` branch
-
 name: Tests
 
 on:
   pull_request:
-    branches: [next]
+    branches:
+      - beta
   # Allow workflow to be called by another workflow
   workflow_call:
-  # Allow workflow to be called manually
+    # Must define secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
+    secrets:
+      PERCY_TOKEN:
+        description: 'The PERCY_TOKEN passed from the caller workflow as it is not available within workflow_call.'
+        required: true
   workflow_dispatch:
 
 jobs:
@@ -29,6 +32,9 @@ jobs:
       - name: Lint
         run: yarn lint
 
+      - name: Check Types
+        run: yarn typecheck
+
       - name: Run Cypress component tests
         uses: cypress-io/github-action@v2
         with:
@@ -49,11 +55,11 @@ jobs:
           name: cypress-videos
           path: cypress/videos/
 
-      # Percy - disabled on `next` branch for now
+      # Percy - disabled on `beta` branch for now
       # - name: Build docs for Percy
       #   run: yarn build
 
-      # Percy - disabled on `next` branch for now
+      # Percy - disabled on `beta` branch for now
       # - name: Percy visual regression test for docs
       #   run: |
       #     npx percy snapshot docs/.vuepress/dist/ --ignore-files "**/404.html"

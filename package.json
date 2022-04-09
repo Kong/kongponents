@@ -111,7 +111,11 @@
   },
   "release": {
     "branches": [
-      "next"
+      "main",
+      {
+        "name": "beta",
+        "prerelease": true
+      }
     ],
     "plugins": [
       "@semantic-release/commit-analyzer",
@@ -132,8 +136,7 @@
       ],
       "@semantic-release/npm",
       "@semantic-release/github"
-    ],
-    "dryRun": true
+    ]
   },
   "volta": {
     "node": "16.14.0",
