@@ -132,8 +132,7 @@
       ],
       "@semantic-release/npm",
       "@semantic-release/github"
-    ],
-    "dryRun": true
+    ]
   },
   "volta": {
     "node": "16.14.0",
