@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.24.7 (2022-04-09)
+
+
+### Bug Fixes
+
+* **release:** bump tags to test release ([dac6e3a](https://github.com/Kong/kongponents/commit/dac6e3a05a8b4ed8d49d53730b2c78610a74c7c7))
+
+
+
+
+
 ## 6.24.6 (2022-04-09)
 
 **Note:** Version bump only for package @kongponents/kclipboardprovider
