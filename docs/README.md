@@ -10,7 +10,7 @@ Kongponents is a Vue component library of frequently needed UI elements. They we
 
 ## Installation
 
-To begin using Kongponents, being by installing the package into your project using `yarn` or `npm`.
+To begin using Kongponents, start by installing the package into your project using `yarn` or `npm`.
 
 <CodeGroup>
   <CodeGroupItem title="yarn" active>
