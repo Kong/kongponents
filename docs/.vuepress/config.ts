@@ -50,7 +50,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
 
     docsDir: 'docs',
 
-    docsBranch: 'beta',
+    docsBranch: 'beta', // TODO: update to `main` once 'beta' branch is switched
 
     editLink: false,
 

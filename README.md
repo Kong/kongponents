@@ -12,7 +12,7 @@ Kongponents is a Vue component library of frequently needed UI elements. They we
 
 [Kongponents Docs][docsUrl] are powered by VuePress and the source can be viewed [here](docs/README.md).
 
-[docsUrl]: https://next.kongponents.konghq.com
+[docsUrl]: https://kongponents.konghq.com
 
 ### Committing Changes
 
