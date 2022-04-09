@@ -7,9 +7,6 @@ on:
 
 jobs:
   run-tests:
-    # Temporarily disable publish
-    if: ${{ false }}
-
     name: Tests
     # Update `@beta` branch to `@main` once 6.x branch is created
     uses: Kong/kongponents/.github/workflows/test.yml@beta
@@ -18,6 +15,9 @@ jobs:
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
   publish:
+      # Temporarily disable publish
+      if: ${{ false }}
+
       needs: run-tests
       name: Build and Publish
       runs-on: ubuntu-latest
