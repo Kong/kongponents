@@ -2,14 +2,14 @@
 
 
 #### Changes made:
-*
+
 
 ### Vue 3 Upgrade
 
-**If your PR contains code that needs to be ported to the `next` branch, please add the [`port to next branch`](https://github.com/Kong/kongponents/labels/port%20to%20next%20branch) label to your PR.**
+**If your PR contains code that needs to be ported to the `beta` branch, please add the [`port to beta branch`](https://github.com/Kong/kongponents/labels/port%20to%20beta%20branch) label to your PR.**
 
 <!--
-We are currently in the process of upgrading Kongponents to Vue 3. If changes are made to a component or doc file on the `main` branch, a corresponding PR needs to be made into the `next` branch that includes:
+We are currently in the process of upgrading Kongponents to Vue 3. If changes are made to a component or doc file on the `main` branch, a corresponding PR needs to be made into the `beta` branch that includes:
 
 - The component feature/fix, updated for Vue 3 and the Composition API.
 - Documentation updates for the component changes, as well as updating examples and usage to Vue 3 and the Composition API.
