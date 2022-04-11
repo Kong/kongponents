@@ -55,7 +55,7 @@
               autocomplete="off"
               autocapitalize="off"
               data-testid="confirmation-input"
-              class="pt-2"
+              class="mt-2"
             />
           </div>
         </div>
