@@ -84,7 +84,7 @@ export default defineComponent({
 
 ### v-model
 
-By default the `KTabs` will set the first tab in the array as active. You can override this by passing in the hash of any other tab to be used with v-model.
+By default the `KTabs` will set the first tab in the array as active. You can override this by passing in the hash of any other tab to be used with `v-model`.
 
 <KTabs v-model="defaultTab" :tabs="tabs">
   <template v-slot:tab1>
@@ -180,7 +180,7 @@ export default defineComponent({
 
 ### Router Hash
 
-`KTabs` emits a `changed` event with the new tab hash when clicked. You can use this to set the router or window hash and in turn use that with [v-model](#v-model).
+`KTabs` emits a `changed` event with the new tab hash when clicked. You can use this to set the router or window hash and in turn use that with [`v-model`](#v-model).
 
 ```vue
 <template>
