@@ -39,7 +39,7 @@ export default defineComponent ({
 
 ### v-model - required
 
-Use `v-model` to bind the `checked` state of the underlying `<input />`. The `v-model` binds to the `value` prop of the component and sets current checked state of the input. You can read more about passing values via `v-model` [here](https://vuejs.org/v2/guide/components.html#Using-v-model-on-Components).
+Use `v-model` to bind the `checked` state of the underlying `<input />`. The `v-model` binds to the `value` prop of the component and sets current checked state of the input. You can read more about passing values via `v-model` [here](https://vuejs.org/guide/components/events.html#usage-with-v-model).
 
 <KCard>
   <template v-slot:body>

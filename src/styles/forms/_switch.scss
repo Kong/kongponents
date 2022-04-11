@@ -30,6 +30,12 @@ $transition: 0.2s linear;
     border-radius: 12px;
     background-color: var(--KInputSwitchBackground, var(--grey-400, color(grey-400)));
     transition: $transition;
+
+    &.has-label-left {
+      margin-right: 0;
+      margin-left: 1rem;
+    }
+
     // Toggle
     &:after {
       position: absolute;

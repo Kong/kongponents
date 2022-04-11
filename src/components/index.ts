@@ -5,7 +5,7 @@
 export { default as KComponent } from './KComponent'
 export { default as Komponent } from './KComponent' // Komponent alias (backwards-compatible with console warning)
 export { default as KToggle } from './KToggle'
-// Regular Kongponents (ensure you import from '*.vue`)
+// Regular Kongponents (ensure you import from '*.vue` unless the component is "special" with an index.ts file, etc.)
 export { default as KIcon } from './KIcon/KIcon.vue'
 export { default as KButton } from './KButton/KButton.vue'
 export { default as KCard } from './KCard/KCard.vue'
@@ -34,3 +34,4 @@ export { default as KInlineEdit } from './KInlineEdit/KInlineEdit.vue'
 export { default as KRadio } from './KRadio/KRadio.vue'
 export { default as KViewSwitcher } from './KViewSwitcher/KViewSwitcher.vue'
 export { default as KPrompt } from './KPrompt/KPrompt.vue'
+export { default as KInputSwitch } from './KInputSwitch/KInputSwitch.vue'
