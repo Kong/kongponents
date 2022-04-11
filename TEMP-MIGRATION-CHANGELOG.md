@@ -108,3 +108,7 @@ export default defineConfig({
 ### KTabs
 
 - `v-model` is now mapped to `modelValue` prop instead of `value`.
+
+### KSlideout
+
+- Changed `isVisible` class to `is-visible`

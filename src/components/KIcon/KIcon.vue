@@ -246,14 +246,17 @@ export default defineComponent({
     visibility: hidden !important;
   }
 }
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(1turn); }
-}
 </style>
 
 <style lang="scss">
+// @keyframes animations need to be un-scoped
+.kong-icon {
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(1turn); }
+  }
+}
+
 // unscoped, so the svg <g> element can be accessed from the imported file
 .kong-icon.kong-icon-spinner svg g {
   transform-box: fill-box;

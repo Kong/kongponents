@@ -85,12 +85,19 @@ export default defineComponent({
     }
   }
 }
-@keyframes gradient {
-  0% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
+</style>
+
+<style lang="scss">
+// @keyframes animations need to be un-scoped
+
+.box {
+  @keyframes gradient {
+    0% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
 }
 </style>

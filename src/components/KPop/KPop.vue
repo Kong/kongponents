@@ -589,8 +589,11 @@ export default defineComponent({
     }
   }
 }
+</style>
 
-/** Animations */
+<style lang="scss">
+// @keyframes animations need to be un-scoped
+
 $transition-speed: .3s !default;
 
 @keyframes fadeIn {
