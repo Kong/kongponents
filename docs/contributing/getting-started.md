@@ -210,7 +210,7 @@ Add the component to the desired location in the sidebar
       text: 'Components',
       children: [
         ...
-        '/components/{komponent}', // Should be the name of the `.md` markdown file, without the extension
+        '/components/{component-name}', // Should be the name of the `.md` markdown file, without the extension
         ...
       ]
     }

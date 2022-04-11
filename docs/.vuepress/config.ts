@@ -104,6 +104,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
               '/components/icon',
               '/components/inline-edit',
               '/components/input',
+              '/components/input-switch',
               '/components/label',
               '/components/modal',
               '/components/pagination',
