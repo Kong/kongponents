@@ -5,22 +5,35 @@
 <{%%KONGPONENT_NAME%%} />
 
 ```vue
-<{%%KONGPONENT_NAME%%} />
+<template>
+  <{%%KONGPONENT_NAME%%} />
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  setup (props) {
+    // ... code goes here
+  }
+})
+</script>
 ```
 
 ## Props
 
-### Prop1
+### examplePropName
 
-Description of prop1
+Description of `examplePropName`
 
-Actual component using prop1
-<{%%KONGPONENT_NAME%%} />
+Actual component using examplePropName
+
+<{%%KONGPONENT_NAME%%} :examplePropName="true" />
 
 ```vue
-<{%%KONGPONENT_NAME%%} prop1="variation1" />
-<{%%KONGPONENT_NAME%%} prop1="variation2" />
-<{%%KONGPONENT_NAME%%} prop1="variation3" />
+<{%%KONGPONENT_NAME%%} examplePropName="variation1" />
+<{%%KONGPONENT_NAME%%} examplePropName="variation2" />
+<{%%KONGPONENT_NAME%%} examplePropName="variation3" />
 ```
 
 ## Slots
@@ -33,6 +46,10 @@ Actual component using prop1
   here is some slot content
 </{%%KONGPONENT_NAME%%}>
 ```
+
+## Events
+
+- `@changed` - Emitted when...
 
 ## Theming
 
@@ -58,7 +75,17 @@ like:
   </div>
 </template>
 
-<style>
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  setup (props) {
+    // ... code goes here
+  }
+})
+</script>
+
+<style lang="scss">
 .{%%KONGPONENT_NAME%%}-wrapper {
   --{%%KONGPONENT_NAME%%}-wrapperBorderColor: lime;
 }
