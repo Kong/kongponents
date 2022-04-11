@@ -47,19 +47,25 @@ export default defineComponent({
   setup(props, { emit }) {
     const selectedValue = ref(props.modelValue)
 
-    const label = (option: SegmentedControlOption): string | number | boolean | SegmentedControlOption => {
+    // Have to allow passing a `string` or `SegmentedControlOption` for each method
+
+    const label = (option: SegmentedControlOption | string): string | number | boolean | SegmentedControlOption => {
       return typeof option === 'string' ? option : option.label || option.value || option
     }
 
-    const value = (option: SegmentedControlOption): string | number | boolean | SegmentedControlOption => {
+    const value = (option: SegmentedControlOption | string): string | number | boolean | SegmentedControlOption => {
       return typeof option === 'string' ? option : option.value || option.label || option
     }
 
-    const appearance = (option: SegmentedControlOption): 'primary' | 'outline' => {
+    const appearance = (option: SegmentedControlOption | string): 'primary' | 'outline' => {
       return props.modelValue === value(option) ? 'primary' : 'outline'
     }
 
-    const disabled = (option: SegmentedControlOption): boolean => {
+    const disabled = (option: SegmentedControlOption | string): boolean => {
+      if (typeof option === 'string') {
+        return false
+      }
+
       return option.disabled || props.isDisabled
     }
 
