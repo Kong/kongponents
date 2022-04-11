@@ -111,6 +111,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
               '/components/popover',
               '/components/prompt',
               '/components/radio',
+              '/components/segmented-control',
               '/components/select',
               '/components/skeleton',
               '/components/slideout',
