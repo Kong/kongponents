@@ -89,3 +89,7 @@ export default defineConfig({
 
 ### KSkeleton
 - Renamed internal component from `Skeleton` to `SkeletonBase`
+
+### KPrompt
+
+- Added `autcomplete="off"` and `autocapitalize="off"` to the confirmation text input.
