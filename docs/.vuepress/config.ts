@@ -114,6 +114,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
               '/components/select',
               '/components/skeleton',
               '/components/table',
+              '/components/tabs',
               '/components/textarea',
               '/components/toaster',
               '/components/tooltip',
