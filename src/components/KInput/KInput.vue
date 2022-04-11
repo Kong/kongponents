@@ -217,7 +217,7 @@ export default defineComponent({
 
   & .k-input-label-wrapper-medium .has-error,
   & .k-input-medium + .has-error {
-    font-size: 10px;
+    font-size: 11px;
     line-height: 13px;
     margin-top: 3px;
   }

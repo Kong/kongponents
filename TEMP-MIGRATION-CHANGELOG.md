@@ -48,6 +48,8 @@ export default defineConfig({
 ### KInput
 
 - `v-model` is now mapped to `modelValue` prop, and emits `input` and `update:modelValue` events.
+- Default font size for all inputs and textareas is now `16px` for a11y and to prevent page zoom in Safari.
+- `.k-input-medium + .has-error` font-size is now `11px`
 
 ### KTextArea
 

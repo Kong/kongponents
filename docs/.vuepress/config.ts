@@ -75,23 +75,22 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
         text: 'Guide',
         children: [
           '/',
-          '/guide/theming'
+          '/guide/theming',
+          {
+            text: 'Styles',
+            children: [
+              '/style-guide/colors',
+              '/style-guide/type',
+              '/style-guide/forms',
+              '/style-guide/utilities',
+              '/style-guide/usage',
+            ]
+          },
         ]
       },
       {
         text: 'Kongponents',
         children: [
-          {
-            text: 'Style Guide',
-            children: [
-              '/style-guide/usage',
-              '/style-guide/colors',
-              '/style-guide/type',
-              '/style-guide/forms',
-              '/style-guide/utilities',
-
-            ]
-          },
           {
             text: 'Components',
             children: [
@@ -133,7 +132,6 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
         text: 'Contributing',
         children: [
           '/contributing/getting-started',
-          // '/contributing/local-development',
           '/contributing/adding-icons-to-kicon'
         ]
       }

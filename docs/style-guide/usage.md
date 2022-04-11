@@ -23,15 +23,21 @@ To utilize Kongponent styles on their own, add the package into your project as 
 Next, add the following to your Vue app entry file (e.g. `main.ts`)
 
 ```ts
-import '@kong/kongponents/style.css'
+import '/node_modules/@kong/kongponents/dist/style.css'
+// If using Vue-CLI and webpack, you can likely use this path instead:
+// import '~@kong/kongponents/dist/style.css'
 ```
 
 <hr/>
 
 Alternatively, you can import styles into your `SCSS`
 
-``` scss
-@import "~@kong/kongponents/style.css";
+```scss
+@import "../../node_modules/@kong/kongponents/dist/style.css";
+/*
+If using Vue-CLI and webpack, you can likely use this path instead:
+import '~@kong/kongponents/dist/style.css'
+*/
 ```
 
 :::tip TIP

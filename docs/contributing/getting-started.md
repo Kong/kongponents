@@ -34,7 +34,7 @@ Install dependencies with `yarn` or `npm`
   </CodeGroupItem>
 </CodeGroup>
 
-The CLI should have been built for you after installation. In case it failed (you won't see a `/bin` folder in the project), manually generate the CLI
+Next, let's generate [the CLI](#cli) that can be used to easy scaffold new Kongponent components
 
 <CodeGroup>
   <CodeGroupItem title="yarn" active>
@@ -74,7 +74,7 @@ Run the docs locally
   </CodeGroupItem>
 </CodeGroup>
 
-Perform a full build
+Perform a full build of all Kongponents and the Docs site
 
 <CodeGroup>
   <CodeGroupItem title="yarn" active>
@@ -179,7 +179,7 @@ Each component has an associated file in the `/docs/components` directory. After
 
 ### Renaming the file (if needed)
 
-Rename the file to correspond to what type of component it is. For documentation purposes page names should be based on what the component is vs its Kongponent `K` name.
+The docs markdown file should be named correctly if generated from the [`create-kongponent` CLI](#cli). If necessary, rename the file to correspond to what type of component it is. For documentation purposes page names should be based on what the component is vs its Kongponent `K` name.
 
 e.g. `kbutton.md` &rarr; `button.md` ; `kcard.md` &rarr; `card.md`
 
@@ -195,7 +195,7 @@ Update the first line of the doc to match the file name. This is what is display
 
 ### Add the doc file to the sidebar
 
-Although the CLI will create a file in the docs directory, it does not add it to the sidebar config.
+Although the CLI will create a file in the docs directory, the new doc file **is not automatically added to the docs sidebar config**.
 
 Add the component to the desired location in the sidebar
 
@@ -230,7 +230,7 @@ It is __highly recommended__ to use the following command in order to create you
 yarn commit
 ```
 
-This will trigger the Commitizen interactive prompt for building your commit message.
+This will trigger the Commitizen interactive prompt for building your commit message and will allow you to preview your commit.
 
 ### Enforcing Commit Format
 
