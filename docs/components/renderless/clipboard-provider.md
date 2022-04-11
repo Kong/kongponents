@@ -1,4 +1,4 @@
-# KClipboard
+# KClipboardProvider
 
 `<KClipboardProvider />` Provide clipboard functionality to components.
 
