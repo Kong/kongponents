@@ -47,13 +47,13 @@ export default defineConfig({
 
 ### KInput
 
-- `v-model` is now mapped to `modelValue` prop, and emits `input` and `update:modelValue` events.
+- `v-model` is now mapped to `modelValue` prop instead of `value`, and emits `input` and `update:modelValue` events.
 - Default font size for all inputs and textareas is now `16px` for a11y and to prevent page zoom in Safari.
 - `.k-input-medium + .has-error` font-size is now `11px`
 
 ### KInputSwitch
 
-- `v-model` is now mapped to `modelValue` prop, and emits `input`, `change`, and `update:modelValue` events.
+- `v-model` is now mapped to `modelValue` prop instead of `value`, and emits `input`, `change`, and `update:modelValue` events.
 - Added the following CSS rule for label alignment
     ```scss
     &.has-label-left {
@@ -64,20 +64,20 @@ export default defineConfig({
 
 ### KTextArea
 
-- `v-model` is now mapped to `modelValue` prop, and emits `input`, `update:modelValue`, `char-limit-exceeded` events.
+- `v-model` is now mapped to `modelValue` prop instead of `value`, and emits `input`, `update:modelValue`, `char-limit-exceeded` events.
 
 ### KCheckbox
 
-- `v-model` is now mapped to `modelValue` prop, and emits `input`, `change`, and `update:modelValue` events.
+- `v-model` is now mapped to `modelValue` prop instead of `value`, and emits `input`, `change`, and `update:modelValue` events.
 
 ### KRadio
 
-- `v-model` is now mapped to `modelValue` prop, and emits `change`, and `update:modelValue` events.
+- `v-model` is now mapped to `modelValue` prop instead of `value`, and emits `change`, and `update:modelValue` events.
 - `value` prop has been renamed to `selectedValue`
 
 ### KSelect
 
-- `v-model` is now mapped to `modelValue` prop, and emits `input`, `change`, and `update:modelValue` events.
+- `v-model` is now mapped to `modelValue` prop instead of `value`, and emits `input`, `change`, and `update:modelValue` events.
 - `positionFixed` now defaults to `true`
 - TODO: Noticing a weird page scroll when clicking on the select item
 
@@ -104,3 +104,7 @@ export default defineConfig({
 ### KPrompt
 
 - Added `autcomplete="off"` and `autocapitalize="off"` to the confirmation text input.
+
+### KTabs
+
+- `v-model` is now mapped to `modelValue` prop instead of `value`.
