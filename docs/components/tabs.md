@@ -176,6 +176,10 @@ export default defineComponent({
 </script>
 ```
 
+## Events
+
+- `@changed` - Emitted when the active tab is updated, and includes the new active `hash` value
+
 ## Usage
 
 ### Router Hash

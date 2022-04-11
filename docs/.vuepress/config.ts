@@ -113,6 +113,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
               '/components/radio',
               '/components/select',
               '/components/skeleton',
+              '/components/slideout',
               '/components/table',
               '/components/tabs',
               '/components/textarea',
