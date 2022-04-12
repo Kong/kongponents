@@ -118,3 +118,7 @@ export default defineConfig({
 
 - `v-model` is now mapped to `modelValue` prop instead of `selected` prop.
 - Added type interface for `options` prop.
+
+### KMenu & KMenuItem
+
+- Added type interface for `items` prop.
