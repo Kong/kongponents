@@ -1391,17 +1391,17 @@ for (let i = ((page-1)* pageSize); i < limit; i++) {
       return data.sort((a, b) => {
         if (key === 'last_seen') {
           if (sortColumnOrder === 'asc') {
-            if (a.last_ping > b.last_ping) {
+            if (a.last_ping < b.last_ping) {
               return 1
-            } else if (a.last_ping < b.last_ping) {
+            } else if (a.last_ping > b.last_ping) {
               return -1
             }
 
             return 0
           } else {
-            if (a.last_ping > b.last_ping) {
+            if (a.last_ping < b.last_ping) {
               return -1
-            } else if (a.last_ping < b.last_ping) {
+            } else if (a.last_ping > b.last_ping) {
               return 1
             }
 
