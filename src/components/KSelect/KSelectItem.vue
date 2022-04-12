@@ -66,6 +66,7 @@ export default defineComponent({
 
 .k-select-item {
   margin-bottom: 6px;
+  list-style: none !important;
 
   button {
     display: flex;
