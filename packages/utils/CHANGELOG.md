@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.24.10 (2022-04-12)
+
+
+### Bug Fixes
+
+* **ktable:** add sortHandlerFn prop ([#566](https://github.com/Kong/kongponents/issues/566)) ([f29a745](https://github.com/Kong/kongponents/commit/f29a745bc6a4137cd11bfa165bfab569c8b8ed62))
+
+
+
+
+
 ## 6.24.9 (2022-04-12)
 
 
