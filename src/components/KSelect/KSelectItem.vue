@@ -1,11 +1,11 @@
 <template>
-  <div
+  <li
     :key="item.key"
     :data-testid="`k-select-item-${item.value}`"
     class="k-select-item"
     @click="handleClick"
   >
-    <li
+    <div
       role="option"
       class="d-block"
     >
@@ -25,8 +25,8 @@
           />
         </span>
       </button>
-    </li>
-  </div>
+    </div>
+  </li>
 </template>
 
 <script lang="ts">
@@ -81,6 +81,11 @@ export default defineComponent({
     border-radius: 4px;
     text-align: left;
     font-weight: 200;
+
+    &:not(:disabled),
+    &:not(.disabled) {
+      cursor: pointer;
+    }
 
     .k-select-item-label {
       width: auto;
