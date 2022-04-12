@@ -393,7 +393,7 @@ export default {
     position: relative;
     display: inline-block;
     width: 100%;
-    height: 32px;
+    height: 44px;
 
     input.k-input {
       padding: var(--spacing-xs);
@@ -406,10 +406,6 @@ export default {
       top: 15px;
       right: 6px;
       z-index: 9;
-    }
-
-    .kong-icon-chevronDown {
-      top: 10px;
     }
   }
 

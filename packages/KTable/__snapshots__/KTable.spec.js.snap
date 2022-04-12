@@ -80,21 +80,21 @@ exports[`KTable default has hover class when passed 1`] = `
         <!---->
         <div class="k-popover-content">
           <ul class="k-select-list ma-0 pa-0">
-            <div data-testid="k-select-item-15" class="k-select-item mx-4">
-              <li role="option" class="d-block"><button value="15" class=""><span class="k-select-item-label mr-2">15</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-            </div>
-            <div data-testid="k-select-item-30" class="k-select-item mx-4">
-              <li role="option" class="d-block"><button value="30" class=""><span class="k-select-item-label mr-2">30</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-            </div>
-            <div data-testid="k-select-item-50" class="k-select-item mx-4">
-              <li role="option" class="d-block"><button value="50" class=""><span class="k-select-item-label mr-2">50</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-            </div>
-            <div data-testid="k-select-item-75" class="k-select-item mx-4">
-              <li role="option" class="d-block"><button value="75" class=""><span class="k-select-item-label mr-2">75</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-            </div>
-            <div data-testid="k-select-item-100" class="k-select-item mx-4">
-              <li role="option" class="d-block"><button value="100" class=""><span class="k-select-item-label mr-2">100</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-            </div>
+            <li data-testid="k-select-item-15" class="k-select-item">
+              <div role="option" class="d-block"><button value="15" class=""><span class="k-select-item-label mr-2">15</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-30" class="k-select-item">
+              <div role="option" class="d-block"><button value="30" class=""><span class="k-select-item-label mr-2">30</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-50" class="k-select-item">
+              <div role="option" class="d-block"><button value="50" class=""><span class="k-select-item-label mr-2">50</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-75" class="k-select-item">
+              <div role="option" class="d-block"><button value="75" class=""><span class="k-select-item-label mr-2">75</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-100" class="k-select-item">
+              <div role="option" class="d-block"><button value="100" class=""><span class="k-select-item-label mr-2">100</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
             <!---->
           </ul>
         </div>
@@ -238,21 +238,21 @@ exports[`KTable sorting should allow disabling sorting 1`] = `
         <!---->
         <div class="k-popover-content">
           <ul class="k-select-list ma-0 pa-0">
-            <div data-testid="k-select-item-15" class="k-select-item mx-4">
-              <li role="option" class="d-block"><button value="15" class=""><span class="k-select-item-label mr-2">15</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-            </div>
-            <div data-testid="k-select-item-30" class="k-select-item mx-4">
-              <li role="option" class="d-block"><button value="30" class=""><span class="k-select-item-label mr-2">30</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-            </div>
-            <div data-testid="k-select-item-50" class="k-select-item mx-4">
-              <li role="option" class="d-block"><button value="50" class=""><span class="k-select-item-label mr-2">50</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-            </div>
-            <div data-testid="k-select-item-75" class="k-select-item mx-4">
-              <li role="option" class="d-block"><button value="75" class=""><span class="k-select-item-label mr-2">75</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-            </div>
-            <div data-testid="k-select-item-100" class="k-select-item mx-4">
-              <li role="option" class="d-block"><button value="100" class=""><span class="k-select-item-label mr-2">100</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-            </div>
+            <li data-testid="k-select-item-15" class="k-select-item">
+              <div role="option" class="d-block"><button value="15" class=""><span class="k-select-item-label mr-2">15</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-30" class="k-select-item">
+              <div role="option" class="d-block"><button value="30" class=""><span class="k-select-item-label mr-2">30</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-50" class="k-select-item">
+              <div role="option" class="d-block"><button value="50" class=""><span class="k-select-item-label mr-2">50</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-75" class="k-select-item">
+              <div role="option" class="d-block"><button value="75" class=""><span class="k-select-item-label mr-2">75</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-100" class="k-select-item">
+              <div role="option" class="d-block"><button value="100" class=""><span class="k-select-item-label mr-2">100</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
             <!---->
           </ul>
         </div>
@@ -346,21 +346,21 @@ exports[`KTable sorting should have sortable class when passed 1`] = `
         <!---->
         <div class="k-popover-content">
           <ul class="k-select-list ma-0 pa-0">
-            <div data-testid="k-select-item-15" class="k-select-item mx-4">
-              <li role="option" class="d-block"><button value="15" class=""><span class="k-select-item-label mr-2">15</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-            </div>
-            <div data-testid="k-select-item-30" class="k-select-item mx-4">
-              <li role="option" class="d-block"><button value="30" class=""><span class="k-select-item-label mr-2">30</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-            </div>
-            <div data-testid="k-select-item-50" class="k-select-item mx-4">
-              <li role="option" class="d-block"><button value="50" class=""><span class="k-select-item-label mr-2">50</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-            </div>
-            <div data-testid="k-select-item-75" class="k-select-item mx-4">
-              <li role="option" class="d-block"><button value="75" class=""><span class="k-select-item-label mr-2">75</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-            </div>
-            <div data-testid="k-select-item-100" class="k-select-item mx-4">
-              <li role="option" class="d-block"><button value="100" class=""><span class="k-select-item-label mr-2">100</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-            </div>
+            <li data-testid="k-select-item-15" class="k-select-item">
+              <div role="option" class="d-block"><button value="15" class=""><span class="k-select-item-label mr-2">15</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-30" class="k-select-item">
+              <div role="option" class="d-block"><button value="30" class=""><span class="k-select-item-label mr-2">30</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-50" class="k-select-item">
+              <div role="option" class="d-block"><button value="50" class=""><span class="k-select-item-label mr-2">50</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-75" class="k-select-item">
+              <div role="option" class="d-block"><button value="75" class=""><span class="k-select-item-label mr-2">75</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-100" class="k-select-item">
+              <div role="option" class="d-block"><button value="100" class=""><span class="k-select-item-label mr-2">100</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
             <!---->
           </ul>
         </div>

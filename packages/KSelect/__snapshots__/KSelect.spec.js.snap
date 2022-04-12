@@ -17,9 +17,9 @@ exports[`KSelect matches snapshot 1`] = `
         <!---->
         <div class="k-popover-content">
           <ul class="k-select-list ma-0 pa-0">
-            <div data-testid="k-select-item-label1" class="k-select-item mx-4">
-              <li role="option" class="d-block"><button value="label1" class=""><span class="k-select-item-label mr-2">Label 1</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-            </div>
+            <li data-testid="k-select-item-label1" class="k-select-item">
+              <div role="option" class="d-block"><button value="label1" class=""><span class="k-select-item-label mr-2">Label 1</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
             <!---->
           </ul>
         </div>
@@ -47,15 +47,15 @@ exports[`KSelect renders props when passed 1`] = `
         <!---->
         <div class="k-popover-content">
           <ul class="k-select-list ma-0 pa-0">
-            <div data-testid="k-select-item-label1" class="k-select-item mx-4">
-              <li role="option" class="d-block"><button value="label1" class=""><span class="k-select-item-label mr-2">Label 1</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-            </div>
-            <div data-testid="k-select-item-label2" class="k-select-item mx-4">
-              <li role="option" class="d-block"><button value="label2" class=""><span class="k-select-item-label mr-2">Label 2</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-            </div>
-            <div data-testid="k-select-item-label3" class="k-select-item mx-4">
-              <li role="option" class="d-block"><button value="label3" class=""><span class="k-select-item-label mr-2">Label 3</span> <span class="k-select-selected-icon-container"><!----></span></button></li>
-            </div>
+            <li data-testid="k-select-item-label1" class="k-select-item">
+              <div role="option" class="d-block"><button value="label1" class=""><span class="k-select-item-label mr-2">Label 1</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-label2" class="k-select-item">
+              <div role="option" class="d-block"><button value="label2" class=""><span class="k-select-item-label mr-2">Label 2</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-label3" class="k-select-item">
+              <div role="option" class="d-block"><button value="label3" class=""><span class="k-select-item-label mr-2">Label 3</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
             <!---->
           </ul>
         </div>
@@ -90,12 +90,12 @@ exports[`KSelect renders with selected item 1`] = `
         <!---->
         <div class="k-popover-content">
           <ul class="k-select-list ma-0 pa-0">
-            <div data-testid="k-select-item-label1" class="k-select-item mx-4">
-              <li role="option" class="d-block"><button value="label1" class="selected"><span class="k-select-item-label mr-2">Label 1</span> <span class="k-select-selected-icon-container"><span class="kong-icon selected-item-icon kong-icon-check"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <li data-testid="k-select-item-label1" class="k-select-item">
+              <div role="option" class="d-block"><button value="label1" class="selected"><span class="k-select-item-label mr-2">Label 1</span> <span class="k-select-selected-icon-container"><span class="kong-icon selected-item-icon kong-icon-check"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="m14 7-6 6-3-3" fill="none" stroke="#A3BBCC" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
-</span></span></button></li>
-            </div>
+</span></span></button></div>
+            </li>
             <!---->
           </ul>
         </div>

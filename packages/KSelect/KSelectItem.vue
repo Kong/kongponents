@@ -1,10 +1,10 @@
 <template>
-  <div
+  <li
     :key="item.key"
     :data-testid="`k-select-item-${item.value}`"
-    class="k-select-item mx-4"
+    class="k-select-item"
     @click="handleClick">
-    <li
+    <div
       role="option"
       class="d-block">
       <button
@@ -21,8 +21,8 @@
             color="var(--blue-200)" />
         </span>
       </button>
-    </li>
-  </div>
+    </div>
+  </li>
 </template>
 
 <script>
@@ -71,6 +71,11 @@ export default {
     border-radius: 4px;
     text-align: left;
     font-weight: 200;
+
+    &:not(:disabled),
+    &:not(.disabled) {
+      cursor: pointer;
+    }
 
     .k-select-item-label {
       width: auto;
