@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.24.9 (2022-04-12)
+
+
+### Bug Fixes
+
+* **kselect:** remove list style ([966f87f](https://github.com/Kong/kongponents/commit/966f87fbc70e8da22d95d03418726c587ae45752))
+
+
+
+
+
 ## 6.24.8 (2022-04-12)
 
 **Note:** Version bump only for package @kongponents/kcatalog
