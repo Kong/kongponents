@@ -254,19 +254,6 @@ export default defineComponent({
     const selectTextId = computed((): string => props.testMode ? uuidv1() : 'test-select-text-id-1234')
     const selectItems: Ref<SelectItem[]> = ref([])
 
-    const createKPopAttributes = computed(() => {
-      return {
-        ...defaultKPopAttributes,
-        ...props.kpopAttributes,
-        popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses} k-select-pop-${props.appearance}`,
-        width: props.width,
-        disabled: typeof attrs.disabled === 'boolean' ? attrs.disabled : false,
-      }
-    })
-
-    // TypeScript complains if I bind the original object
-    const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
-
     const widthValue = computed(() => {
       let w
       if (!props.width) {
@@ -285,6 +272,21 @@ export default defineComponent({
         width: widthValue.value,
       }
     })
+
+    console.log('width', widthValue.value.replace(/px/i, ''))
+
+    const createKPopAttributes = computed(() => {
+      return {
+        ...defaultKPopAttributes,
+        ...props.kpopAttributes,
+        popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses} k-select-pop-${props.appearance}`,
+        width: String(widthValue.value.replace(/px/i, '')),
+        disabled: typeof attrs.disabled === 'boolean' ? attrs.disabled : false,
+      }
+    })
+
+    // TypeScript complains if I bind the original object
+    const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
 
     const filteredItems = computed(() => selectItems.value.filter((item: SelectItem) => item.label.toLowerCase().includes(filterStr.value.toLowerCase())))
 
@@ -412,7 +414,7 @@ export default defineComponent({
       padding: 0;
       height: 24px;
 
-      .kong-icon {
+      :deep(.kong-icon) {
         margin-left: auto;
       }
     }
@@ -424,13 +426,13 @@ export default defineComponent({
     width: 100%;
     height: 44px;
 
-    input.k-input {
+    :deep(input.k-input) {
       padding: var(--spacing-xs);
       height: 100%;
       border-radius: 4px 4px 0 0;
     }
 
-    .kong-icon {
+    :deep(.kong-icon) {
       position: absolute;
       top: 15px;
       right: 6px;
@@ -442,7 +444,7 @@ export default defineComponent({
     margin-left: auto;
   }
 
-  .k-input {      // need this so input takes the
+  :deep(.k-input) {      // need this so input takes the
     width: 100%;  // k-input-wrapper's width which uses this.width prop
   }
 
@@ -458,9 +460,9 @@ export default defineComponent({
     border-left: 0.325em solid transparent;
   }
 
-  .k-select-popover {
+  :deep(.k-select-popover) {
     box-sizing: border-box;
-    width: 100%;
+    // width: 100%;
     border-radius: 0 0 4px 4px;
 
     &.k-select-pop-button {
