@@ -30,45 +30,6 @@ To begin using Kongponents, start by installing the package into your project us
   </CodeGroupItem>
 </CodeGroup>
 
-Depending on your project setup, you may need to transpile the `@kong/kongponents` package in your project. If your project already has a `vue.config.ts` file, just add the following `transpileDependencies` entry
-
-```ts
-// vue.config.ts
-
-module.exports = {
-  transpileDependencies: [
-    /@kong\/kongponents/
-  ]
-}
-```
-
-If your project does not have a `vue.config.ts` file and instead uses webpack config files, you can add a loader rule (for example, for `babel-loader`) similar to the following (only showing the relevant entries)
-
-```js
-// webpack.config.js
-
-module.exports = (env) => {
-  return {
-    module: {
-      loaders: [
-        // transpile @kongponents packages
-        {
-          test: /\.js$/,
-          include: /(node_modules)\/(@kong\/kongponents)/,
-          loader: 'babel-loader',
-        },
-        // process all .js files, but ignore all other node_modules not listed above
-        {
-          test: /\.js$/,
-          exclude: /(node_modules)/,
-          loader: 'babel-loader'
-        },
-      ]
-    }
-  }
-}
-```
-
 If you choose to utilize any of the [CSS custom properties (variables)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) included in the `@kong/kongponents` package and your project uses [PostCSS](https://postcss.org/), you will likely need use the [`postcss-custom-properties` PostCSS plugin](https://github.com/postcss/postcss-custom-properties) so that the variables are preserved in their original form.
 
 <CodeGroup>
@@ -187,6 +148,47 @@ Import and registration can be done globally in your Vue entry file (e.g. `main.
 
   </CodeGroupItem>
 </CodeGroup>
+
+## Webpack
+
+Depending on your project setup, you may need to transpile the `@kong/kongponents` package in your project. If your project already has a `vue.config.ts` file, just add the following `transpileDependencies` entry
+
+```ts
+// vue.config.ts
+
+module.exports = {
+  transpileDependencies: [
+    /@kong\/kongponents/
+  ]
+}
+```
+
+If your project does not have a `vue.config.ts` file and instead uses webpack config files, you can add a loader rule (for example, for `babel-loader`) similar to the following (only showing the relevant entries)
+
+```js
+// webpack.config.js
+
+module.exports = (env) => {
+  return {
+    module: {
+      loaders: [
+        // transpile @kongponents packages
+        {
+          test: /\.js$/,
+          include: /(node_modules)\/(@kong\/kongponents)/,
+          loader: 'babel-loader',
+        },
+        // process all .js files, but ignore all other node_modules not listed above
+        {
+          test: /\.js$/,
+          exclude: /(node_modules)/,
+          loader: 'babel-loader'
+        },
+      ]
+    }
+  }
+}
+```
 
 ## Without Bundle System
 

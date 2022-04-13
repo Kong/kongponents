@@ -1,11 +1,10 @@
-import { App } from 'vue'
+import { App, Plugin } from 'vue'
 import * as components from './components' // Import all components
 import './styles/styles.scss' // Import all styles
 
 // Export install function
-export default {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  install: (app: App, options: Record<string, any>) => {
+const plugin: Plugin = {
+  install: (app: App): void => {
     for (const key in components) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
@@ -13,6 +12,8 @@ export default {
     }
   },
 }
+
+export default plugin
 
 // Export all components
 export * from './components'
