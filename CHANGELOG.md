@@ -1,3 +1,10 @@
+# [7.0.0-beta.2](https://github.com/Kong/kongponents/compare/v7.0.0-beta.1...v7.0.0-beta.2) (2022-04-13)
+
+
+### Bug Fixes
+
+* **release:** trigger release ([d21a824](https://github.com/Kong/kongponents/commit/d21a824325937634313f7a2975474e3150f9b805))
+
 # [7.0.0-beta.1](https://github.com/Kong/kongponents/compare/v6.7.6...v7.0.0-beta.1) (2022-04-13)
 
 
