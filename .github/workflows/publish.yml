@@ -15,6 +15,9 @@ jobs:
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
   publish:
+      # Temporarily disable publish
+      if: ${{ false }}
+
       needs: run-tests
       name: Build and Publish
       runs-on: ubuntu-latest
