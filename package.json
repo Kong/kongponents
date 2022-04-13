@@ -13,7 +13,7 @@
     "dist",
     "bin"
   ],
-  "typings": "./dist/types",
+  "typings": "dist/types",
   "bin": {
     "create-kongponent": "./bin/index.js"
   },
