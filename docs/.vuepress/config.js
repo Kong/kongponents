@@ -9,6 +9,17 @@ module.exports = {
     docsDir: 'docs',
     editLinks: true,
     searchPlaceholder: 'Search...',
+    nav: [
+      {
+        text: 'v6 for Vue 2',
+        items: [
+          {
+            text: 'v7-beta for Vue 3',
+            link: 'https://beta.kongponents.konghq.com',
+          },
+        ],
+      },
+    ],
     sidebar: [
       {
         title: 'Guide',
