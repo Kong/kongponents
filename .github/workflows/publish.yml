@@ -14,9 +14,32 @@ jobs:
     secrets:
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
+  get-changed-files:
+    name: Check for component changes
+    runs-on: ubuntu-20.04
+    outputs:
+      changed-files: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
+      component-files-changed: ${{ steps.component-files-changed.outputs.only_modified }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - name: Get list of all changes
+        uses: tj-actions/changed-files@v18
+        id: changed-files
+      - name: Check if component (`src` directory) files have changed
+        uses: tj-actions/changed-files@v18
+        id: component-files-changed
+        with:
+          files: |
+            src
+
   publish:
-      needs: run-tests
       name: Build and Publish
+      needs:
+        # - get-changed-files
+        - run-tests
+      # if: needs.get-changed-files.outputs.component-files-changed == 'true'
       runs-on: ubuntu-latest
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
