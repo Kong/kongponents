@@ -90,15 +90,7 @@
 * publish v7-beta [KHCP-3330] ([27b3bcf](https://github.com/Kong/kongponents/commit/27b3bcf61aac6591155bbbe23a59ba085c00e7a4))
 
 
-### Reverts
-
-* revert beta release ([d1851e5](https://github.com/Kong/kongponents/commit/d1851e51e21e6ea26dd80239451dbd526cd952be))
-* **version:** revert independent version fix ([#469](https://github.com/Kong/kongponents/issues/469)) ([b647e56](https://github.com/Kong/kongponents/commit/b647e56b5c05c25e55362a845e1c4a30fe40d910))
-
-
 ### BREAKING CHANGES
 
-* Update Kongponents to v7.0.0-beta.* for usage with Vue 3. If your project still
+* Update Kongponents to v7.0.0-beta.2 for usage with Vue 3. If your project still
 uses Vue 2, use the @kongponents/* packages instead.
-* Update Kongponents to v7 for usage with Vue v3. If your project uses Vue 2, you
-should check out the @kongponents/* packages.
