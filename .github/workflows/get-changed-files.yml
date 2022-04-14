@@ -12,9 +12,9 @@ on:
       docs-files-changed:
         description: Check if docs (`docs` directory) files have changed
         value: ${{ jobs.get-changed-files.outputs.docs-files-changed }}
-      src-or-docs-files-changed:
+      components-or-docs-or-cypress-files-changed:
         description: Check if src or docs (`src` or `docs` directories) files have changed
-        value: ${{ jobs.get-changed-files.outputs.src-or-docs-files-changed }}
+        value: ${{ jobs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed }}
 
 jobs:
   get-changed-files:
@@ -24,7 +24,7 @@ jobs:
       changed-files: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
       component-files-changed: ${{ steps.component-files-changed.outputs.only_modified }}
       docs-files-changed: ${{ steps.docs-files-changed.outputs.only_modified }}
-      src-or-docs-files-changed: ${{ steps.src-or-docs-files-changed.outputs.only_modified }}
+      components-or-docs-or-cypress-files-changed: ${{ steps.components-or-docs-or-cypress-files-changed.outputs.only_modified }}
 
     steps:
       - uses: actions/checkout@v3
@@ -51,11 +51,12 @@ jobs:
           files: |
             docs
 
-      - name: Check if src or docs (`src` or `docs` directories) files have changed
+      - name: Check if files changed in `src/`, `docs/`, or `cypress/` directories
         uses: tj-actions/changed-files@v18
-        id: src-or-docs-files-changed
+        id: components-or-docs-or-cypress-files-changed
         # Return 'true' for any directories listed here that changed
         with:
           files: |
             src
             docs
+            cypress

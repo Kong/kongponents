@@ -13,8 +13,12 @@ jobs:
 
   run-tests:
     name: Tests
+    needs:
+      - get-changed-files
     # Update `@beta` branch to `@main` once 6.x branch is created
     uses: Kong/kongponents/.github/workflows/test.yml@beta
+    # Should only run if files changed in `src/`, `docs/`, or `cypress/` directories
+    if: needs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed == 'true'
     # Must pass in secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
     secrets:
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
@@ -27,7 +31,7 @@ jobs:
         - get-changed-files
         - run-tests
       # Only run the publish action (including semantic-release) if files in the /src/ directory changed.
-      # Changes to the docs/ directory or other files should not trigger a release.
+      # Should only run if files in the `src/` directory were changed
       if: needs.get-changed-files.outputs.component-files-changed == 'true'
       runs-on: ubuntu-latest
       env:
