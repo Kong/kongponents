@@ -62,6 +62,7 @@ jobs:
       - name: Build components and docs
         run: yarn build
 
+      # This step will be skipped if being ran from the publish action with PREVENT_PERCY_TESTS: 'true'
       - name: Trigger Percy visual regression test for docs
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
