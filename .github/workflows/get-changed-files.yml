@@ -1,0 +1,62 @@
+name: Get Changed files
+
+on:
+  workflow_call:
+    outputs:
+      changed-files:
+        description: Get list of all changes
+        value: ${{ jobs.get-changed-files.outputs.changed-files }}
+      component-files-changed:
+        description: Check if component (`src` directory) files have changed
+        value: ${{ jobs.get-changed-files.outputs.component-files-changed }}
+      docs-files-changed:
+        description: Check if docs (`docs` directory) files have changed
+        value: ${{ jobs.get-changed-files.outputs.docs-files-changed }}
+      src-or-docs-files-changed:
+        description: Check if src or docs (`src` or `docs` directories) files have changed
+        value: ${{ jobs.get-changed-files.outputs.src-or-docs-files-changed }}
+
+
+jobs:
+  get-changed-files:
+    name: Check changed files
+    runs-on: ubuntu-20.04
+    outputs:
+      changed-files: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
+      component-files-changed: ${{ steps.component-files-changed.outputs.only_modified }}
+      docs-files-changed: ${{ steps.docs-files-changed.outputs.only_modified }}
+      src-or-docs-files-changed: ${{ steps.src-or-docs-files-changed.outputs.only_modified }}
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Get list of all changes
+        uses: tj-actions/changed-files@v18
+        id: changed-files
+
+      - name: Check if component (`src` directory) files have changed
+        uses: tj-actions/changed-files@v18
+        id: component-files-changed
+        # Return 'true' for any directories listed here that changed
+        with:
+          files: |
+            src
+
+      - name: Check if docs (`docs` directory) files have changed
+        uses: tj-actions/changed-files@v18
+        id: docs-files-changed
+        # Return 'true' for any directories listed here that changed
+        with:
+          files: |
+            docs
+
+      - name: Check if src or docs (`src` or `docs` directories) files have changed
+        uses: tj-actions/changed-files@v18
+        id: src-or-docs-files-changed
+        # Return 'true' for any directories listed here that changed
+        with:
+          files: |
+            src
+            docs
