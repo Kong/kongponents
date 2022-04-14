@@ -6,34 +6,16 @@ on:
       - beta
 
 jobs:
+  get-changed-files:
+    name: Get Changed Files
+    uses: ./.github/workflows/get-changed-files.yml
+
   run-tests:
     name: Tests
-    # Update `@beta` branch to `@main` once 6.x branch is created
-    uses: Kong/kongponents/.github/workflows/test.yml@beta
+    uses: ./.github/workflows/test.yml
     # Must pass in secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
     secrets:
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-
-  get-changed-files:
-    name: Check for component changes
-    runs-on: ubuntu-20.04
-    outputs:
-      changed-files: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
-      component-files-changed: ${{ steps.component-files-changed.outputs.only_modified }}
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
-      - name: Get list of all changes
-        uses: tj-actions/changed-files@v18
-        id: changed-files
-      - name: Check if component (`src` directory) files have changed
-        uses: tj-actions/changed-files@v18
-        id: component-files-changed
-        # Return 'true' for any directories listed here that changed
-        with:
-          files: |
-            src
 
   publish:
       name: Build and Publish Kongponents
@@ -81,3 +63,13 @@ jobs:
           env:
              # Since branch protections are on (pushing commits) you need to use a bot PAT
             GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
+
+  no-publish-required:
+    name: No Components Changed - Skipping New Release
+    needs:
+      - get-changed-files
+    if: needs.get-changed-files.outputs.component-files-changed == 'false'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Skip new release
+        run: echo "No files changed in the `src/` directory, so no new release is required."
