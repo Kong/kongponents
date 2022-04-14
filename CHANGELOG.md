@@ -1,3 +1,14 @@
+# [7.0.0-beta.4](https://github.com/Kong/kongponents/compare/v7.0.0-beta.3...v7.0.0-beta.4) (2022-04-14)
+
+
+### Bug Fixes
+
+* **kmenu:** add comment ([92dbbc7](https://github.com/Kong/kongponents/commit/92dbbc7f3a2d56be22824337c6f98eee4af4e45c))
+* **kmenu:** add comment ([91ad9d3](https://github.com/Kong/kongponents/commit/91ad9d36c0ef83b01e28671538e75ce99270b8d3))
+* **kmenu:** add comment ([9ee0ab2](https://github.com/Kong/kongponents/commit/9ee0ab2be5cdb538153317e0258ccdcec3af5e63))
+* **kmenu:** type interface ([#578](https://github.com/Kong/kongponents/issues/578)) ([01d3e10](https://github.com/Kong/kongponents/commit/01d3e105fe89901ed782a1937bae52c2acfdbae3))
+* **kmenu:** update type comment ([#579](https://github.com/Kong/kongponents/issues/579)) ([3a050ea](https://github.com/Kong/kongponents/commit/3a050eaf7afaeb047023f239837906f00084f5d7))
+
 # [7.0.0-beta.3](https://github.com/Kong/kongponents/compare/v7.0.0-beta.2...v7.0.0-beta.3) (2022-04-14)
 
 
