@@ -1,3 +1,10 @@
+# [7.0.0-beta.5](https://github.com/Kong/kongponents/compare/v7.0.0-beta.4...v7.0.0-beta.5) (2022-04-14)
+
+
+### Bug Fixes
+
+* **kmenu:** properly extend type ([38b87ee](https://github.com/Kong/kongponents/commit/38b87ee4ba759c90de9b1567d91fd40009983c2e))
+
 # [7.0.0-beta.4](https://github.com/Kong/kongponents/compare/v7.0.0-beta.3...v7.0.0-beta.4) (2022-04-14)
 
 
