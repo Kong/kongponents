@@ -16,7 +16,8 @@ To begin using Kongponents, start by installing the package into your project us
   <CodeGroupItem title="yarn" active>
 
   ```sh
-  yarn add @kong/kongponents
+  # Make sure you pass the beta tag
+  yarn add @kong/kongponents@beta
   ```
 
   </CodeGroupItem>
@@ -24,7 +25,8 @@ To begin using Kongponents, start by installing the package into your project us
   <CodeGroupItem title="npm">
 
   ```sh
-  npm install @kong/kongponents
+  # Make sure you pass the beta tag
+  npm install @kong/kongponents@beta
   ```
 
   </CodeGroupItem>
