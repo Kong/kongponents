@@ -6,23 +6,28 @@ on:
       - beta
   # Allow workflow to be called by another workflow
   workflow_call:
+    inputs:
+      trigger_percy:
+        type: boolean
+        description: Should a Percy visual regression test be initialized?
+        default: false
+        required: false
     # Must define secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
     secrets:
       PERCY_TOKEN:
         description: 'The PERCY_TOKEN passed from the caller workflow as it is not available within workflow_call.'
         required: true
   workflow_dispatch:
+    inputs:
+      trigger_percy:
+        type: boolean
+        description: Should a Percy visual regression test be initialized?
+        default: false
+        required: false
 
 jobs:
-  get-changed-files:
-    name: Get Changed Files
-    # Update `@beta` branch to `@main` once 6.x branch is created
-    uses: Kong/kongponents/.github/workflows/get-changed-files.yml@beta
-
   test:
     name: Run Component Tests
-    needs:
-      - get-changed-files
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -63,10 +68,10 @@ jobs:
         run: yarn build
 
       # Percy - disabled on `beta` branch for now
-      # - name: Percy visual regression test for docs
-      #   # Only test with Percy if files in the /src/ or /docs/ directory changed.
-      #   if: needs.get-changed-files.outputs.src-or-docs-files-changed == 'true'
-      #   run: |
-      #     npx percy snapshot docs/.vuepress/dist/ --ignore-files "**/404.html"
-      #   env:
-      #     PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+      - name: Percy visual regression test for docs
+        # Only test with Percy if triggered
+        if: ${{ inputs.trigger_percy }} != 'false'
+        run: |
+          npx percy snapshot docs/.vuepress/dist/ --ignore-files "**/404.html"
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
