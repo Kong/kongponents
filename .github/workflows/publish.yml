@@ -11,6 +11,14 @@ jobs:
     # Update `@beta` branch to `@main` once 6.x branch is created
     uses: Kong/kongponents/.github/workflows/get-changed-files.yml@beta
 
+  echo-changed-files:
+    needs:
+      - get-changed-files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo value
+        run: echo "value is ${needs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed}"
+
   run-tests:
     name: Tests
     needs:
