@@ -72,11 +72,21 @@ jobs:
              # Since branch protections are on (pushing commits) you need to use a bot PAT
             GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
-  no-publish-required:
-    name: No npm release needed
+  no-tests-required:
+    name: No Component Tests needed
     needs:
       - get-changed-files
     if: needs.get-changed-files.outputs.component-files-changed == 'false'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Skip new release
+        run: echo "No files changed in the `src/` directory, so no new release is required."
+
+  no-publish-required:
+    name: No Build and Publish needed
+    needs:
+      - get-changed-files
+    if: needs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed == 'false'
     runs-on: ubuntu-latest
     steps:
       - name: Skip new release
