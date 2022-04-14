@@ -62,12 +62,19 @@ jobs:
       - name: Build components and docs
         run: yarn build
 
+      - name: Check if Percy should be triggered
+        id: should-prevent-percy
+        env:
+          PREVENT_PERCY_TESTS: ${{ secrets.PREVENT_PERCY_TESTS }}
+        if: "${{ env.PREVENT_PERCY_TESTS == 'true' }}"
+        run: echo "::set-output name=defined::true"
+
   percy:
-    name: Percy visual regression tests for docs
+    name: Create a Percy visual regression run for docs
     needs: test
-    runs-on: ubuntu-latest
     # Only test with Percy if triggered
-    if: secrets.PERCY_TOKEN && secrets.PREVENT_PERCY_TESTS != 'true'
+    if: needs.test.outputs.should-prevent-percy != 'true'
+    runs-on: ubuntu-latest
     env:
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
     steps:
