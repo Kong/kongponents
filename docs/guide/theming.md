@@ -1,6 +1,6 @@
 # Theming
 
-You can override or "theme" some parts of components by setting corresponding [CSS Custom Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) in your `:root: {}` tag.
+You can override or "theme" some parts of components by setting corresponding [CSS Custom Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) in your `:root: {}` CSS rule, or within scoped classes (e.g. `.button-container {}`.
 
 Take a look at individual components to see what properties are themable. Two examples are listed below.
 
