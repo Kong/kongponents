@@ -41,6 +41,7 @@ import KMenuItem from '@/components/KMenu/KMenuItem.vue'
 import KMenuDivider from '@/components/KMenu/KMenuDivider.vue'
 
 // Uses KMenuItem type for 'title' and 'description'
+// Should likely extend that type instead of duplicating those fields.
 export interface KMenuItemType {
   title: string
   description?: string
