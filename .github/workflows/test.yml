@@ -7,26 +7,18 @@ on:
 
   # Allow calling manually from GitHub
   workflow_dispatch:
-    inputs:
-      PREVENT_PERCY_TESTS:
-        description: 'Pass false to trigger the Percy visual regression tests to run. (rare)'
-        type: boolean
-        required: true
-        default: true
 
   # Allow workflow to be called by another workflow
   workflow_call:
     # Must define secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
     secrets:
+      # Normally, this should not be passed as Percy should only run on PR
       PERCY_TOKEN:
         description: 'The PERCY_TOKEN passed from the caller workflow as it is not available within workflow_call.'
         required: true
-    inputs:
       PREVENT_PERCY_TESTS:
         description: 'Pass false to prevent the Percy visual regression tests from running.'
-        type: boolean
         required: true
-        default: true
 
 jobs:
   test:
@@ -73,7 +65,7 @@ jobs:
       # Percy - disabled on `beta` branch for now
       - name: Percy visual regression test for docs
         # Only test with Percy if triggered
-        if: ${{ inputs.PREVENT_PERCY_TESTS }} === true
+        if: ${{ secrets.PERCY_TOKEN }} && ${{ secrets.PREVENT_PERCY_TESTS }} != 'true'
         run: |
           npx percy snapshot docs/.vuepress/dist/ --ignore-files "**/404.html"
         env:
