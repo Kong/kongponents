@@ -16,7 +16,7 @@ jobs:
       - get-changed-files
     runs-on: ubuntu-latest
     env:
-      CHANGED_FILES_VALUE: ${{ needs.get-changed-files.outputs.component-files-changed == 'true' }}
+      CHANGED_FILES_VALUE: ${{ needs.get-changed-files.outputs.component-files-changed }}
     steps:
       - name: Echo value
         run: echo "component-files-changed value is ${CHANGED_FILES_VALUE}"
