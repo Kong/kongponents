@@ -62,28 +62,10 @@ jobs:
       - name: Build components and docs
         run: yarn build
 
-      - name: Check if Percy should be triggered
-        id: should-prevent-percy
+      - name: Trigger Percy visual regression test for docs
         env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
           PREVENT_PERCY_TESTS: ${{ secrets.PREVENT_PERCY_TESTS }}
-        if: "${{ env.PREVENT_PERCY_TESTS == 'true' }}"
-        run: echo "::set-output name=defined::true"
-
-  percy:
-    name: Create a Percy visual regression run for docs
-    needs: test
-    # Only test with Percy if triggered
-    if: needs.test.outputs.should-prevent-percy != 'true'
-    runs-on: ubuntu-latest
-    env:
-      PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-    steps:
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: '.nvmrc'
-
-      - name: Trigger Percy tests
+        if: "${{ env.PREVENT_PERCY_TESTS != 'true' }}"
         run: |
           npx percy snapshot docs/.vuepress/dist/ --ignore-files "**/404.html"
-
