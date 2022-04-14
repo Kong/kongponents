@@ -8,11 +8,13 @@ on:
 jobs:
   get-changed-files:
     name: Get Changed Files
-    uses: ./.github/workflows/get-changed-files.yml
+    # Update `@beta` branch to `@main` once 6.x branch is created
+    uses: Kong/kongponents/.github/workflows/get-changed-files.yml@beta
 
   run-tests:
     name: Tests
-    uses: ./.github/workflows/test.yml
+    # Update `@beta` branch to `@main` once 6.x branch is created
+    uses: Kong/kongponents/.github/workflows/test.yml@beta
     # Must pass in secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
     secrets:
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
