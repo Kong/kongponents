@@ -16,6 +16,8 @@ jobs:
     # Update `@beta` branch to `@main` once 6.x branch is created
     uses: Kong/kongponents/.github/workflows/test.yml@beta
     # Must pass in secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
+    with:
+      PREVENT_PERCY_TESTS: true
     secrets:
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
