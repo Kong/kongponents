@@ -30,6 +30,7 @@ jobs:
       - name: Check if component (`src` directory) files have changed
         uses: tj-actions/changed-files@v18
         id: component-files-changed
+        # Return 'true' for any directories listed here that changed
         with:
           files: |
             src
@@ -39,7 +40,9 @@ jobs:
       needs:
         - get-changed-files
         - run-tests
-      # if: needs.get-changed-files.outputs.component-files-changed == 'true'
+      # Only run the publish action (including semantic-release) if files in the /src/ directory changed.
+      # Changes to the docs/ directory or other files should not trigger a release.
+      if: needs.get-changed-files.outputs.component-files-changed == 'true'
       runs-on: ubuntu-latest
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

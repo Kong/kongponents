@@ -60,10 +60,10 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
 
     navbar: [
       {
-        text: 'Vue 3 (v7)',
+        text: 'v7-beta for Vue 3',
         children: [
           {
-            text: 'Vue 2 (v6)',
+            text: 'v6 for Vue 2',
             link: 'https://kongponents.konghq.com',
           },
         ],
