@@ -67,7 +67,7 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     # Only test with Percy if triggered
-    if: ${{ secrets.PERCY_TOKEN }} && ${{ secrets.PREVENT_PERCY_TESTS }} != 'true'
+    if: ${{ secrets.PERCY_TOKEN && secrets.PREVENT_PERCY_TESTS != 'true' }}
     env:
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
     steps:
