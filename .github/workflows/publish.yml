@@ -15,9 +15,11 @@ jobs:
     needs:
       - get-changed-files
     runs-on: ubuntu-latest
+    env:
+      CHANGED_FILES_VALUE: ${{ needs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed }}
     steps:
       - name: Echo value
-        run: echo "value is ${needs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed}"
+        run: echo "value is ${CHANGED_FILES_VALUE}"
 
   run-tests:
     name: Tests
