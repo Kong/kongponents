@@ -18,9 +18,9 @@ jobs:
     name: Check changed files
     runs-on: ubuntu-20.04
     outputs:
-      component-files-changed: ${{ steps.component-files-changed.outputs.only_modified }}
-      docs-files-changed: ${{ steps.docs-files-changed.outputs.only_modified }}
-      components-or-docs-or-cypress-files-changed: ${{ steps.components-or-docs-or-cypress-files-changed.outputs.only_modified }}
+      component-files-changed: ${{ steps.component-files-changed.outputs.any_modified }}
+      docs-files-changed: ${{ steps.docs-files-changed.outputs.any_modified }}
+      components-or-docs-or-cypress-files-changed: ${{ steps.components-or-docs-or-cypress-files-changed.outputs.any_modified }}
 
     steps:
       - uses: actions/checkout@v3
