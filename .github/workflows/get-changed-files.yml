@@ -24,8 +24,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-        # with:
-          # fetch-depth: 2
+        with:
+          fetch-depth: 2
 
       - name: Check if component (`src` directory) files have changed
         uses: tj-actions/changed-files@v18

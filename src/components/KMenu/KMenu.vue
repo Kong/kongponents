@@ -38,10 +38,11 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 import KMenuItem from '@/components/KMenu/KMenuItem.vue'
-import type { MenuItem } from '@/components/KMenu/KMenuItem.vue'
 import KMenuDivider from '@/components/KMenu/KMenuDivider.vue'
 
-export interface KMenuItemType extends MenuItem {
+export interface KMenuItemType {
+  title: string
+  description?: string
   expandable: boolean
   type: 'string' | 'number' | 'divider'
 }
