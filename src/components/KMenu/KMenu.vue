@@ -40,6 +40,7 @@ import { defineComponent, computed, PropType } from 'vue'
 import KMenuItem from '@/components/KMenu/KMenuItem.vue'
 import KMenuDivider from '@/components/KMenu/KMenuDivider.vue'
 
+// Uses KMenuItem type for 'title' and 'description'
 export interface KMenuItemType {
   title: string
   description?: string

@@ -33,7 +33,7 @@ jobs:
         # Return 'true' for any directories listed here that changed
         with:
           files: |
-            src
+            src/**
 
       - name: Check if docs (`docs` directory) files have changed
         uses: tj-actions/changed-files@v18
@@ -41,7 +41,7 @@ jobs:
         # Return 'true' for any directories listed here that changed
         with:
           files: |
-            docs
+            docs/**
 
       - name: Check if files changed in `src/`, `docs/`, or `cypress/` directories
         uses: tj-actions/changed-files@v18
@@ -49,6 +49,6 @@ jobs:
         # Return 'true' for any directories listed here that changed
         with:
           files: |
-            src
-            docs
-            cypress
+            src/**
+            docs/**
+            cypress/**
