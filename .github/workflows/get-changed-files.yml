@@ -3,9 +3,6 @@ name: Get Changed files
 on:
   workflow_call:
     outputs:
-      changed-files:
-        description: Get list of all changes
-        value: ${{ jobs.get-changed-files.outputs.changed-files }}
       component-files-changed:
         description: Check if component (`src` directory) files have changed
         value: ${{ jobs.get-changed-files.outputs.component-files-changed }}
@@ -21,19 +18,14 @@ jobs:
     name: Check changed files
     runs-on: ubuntu-20.04
     outputs:
-      changed-files: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
       component-files-changed: ${{ steps.component-files-changed.outputs.only_modified }}
       docs-files-changed: ${{ steps.docs-files-changed.outputs.only_modified }}
       components-or-docs-or-cypress-files-changed: ${{ steps.components-or-docs-or-cypress-files-changed.outputs.only_modified }}
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
-
-      - name: Get list of all changes
-        uses: tj-actions/changed-files@v18
-        id: changed-files
+        # with:
+          # fetch-depth: 2
 
       - name: Check if component (`src` directory) files have changed
         uses: tj-actions/changed-files@v18
