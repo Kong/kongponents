@@ -4,10 +4,10 @@ You can override or "theme" some parts of components by setting corresponding [C
 
 ```scss
 :root {
-  --KInputBorder: #000;
+  --KInputError: firebrick;
 }
 
-.button-container {
+.custom-input-container {
   --KInputBackground: #007ac1;
 }
 ```
