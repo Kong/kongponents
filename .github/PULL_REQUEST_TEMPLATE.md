@@ -1,6 +1,5 @@
 ### Summary
 
-#### Changes made
 
 ### Vue 3 Upgrade
 

@@ -69,4 +69,4 @@ jobs:
           PREVENT_PERCY_TESTS: ${{ secrets.PREVENT_PERCY_TESTS }}
         if: "${{ env.PREVENT_PERCY_TESTS != 'true' }}"
         run: |
-          npx percy snapshot docs/.vuepress/dist/ --ignore-files "**/404.html"
+          npx @percy/cli snapshot docs/.vuepress/dist/
