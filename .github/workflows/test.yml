@@ -16,8 +16,7 @@ on:
 jobs:
   get-changed-files:
     name: Get Changed Files
-    # Update `@beta` branch to `@main` once 6.x branch is created
-    uses: Kong/kongponents/.github/workflows/get-changed-files.yml@beta
+    uses: ./.github/workflows/get-changed-files.yml
 
   test:
     name: Run Component Tests

@@ -16,7 +16,6 @@ on:
         description: Check if src or docs (`src` or `docs` directories) files have changed
         value: ${{ jobs.get-changed-files.outputs.src-or-docs-files-changed }}
 
-
 jobs:
   get-changed-files:
     name: Check changed files
