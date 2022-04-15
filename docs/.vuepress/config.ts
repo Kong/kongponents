@@ -99,6 +99,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
               '/components/breadcrumbs',
               '/components/button',
               '/components/card',
+              '/components/catalog',
               '/components/checkbox',
               '/components/empty-state',
               '/components/icon',
