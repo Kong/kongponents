@@ -108,7 +108,7 @@
                     sortColumnKey: column.key,
                     sortColumnOrder: sortColumnOrder === 'asc' ? 'desc' : 'asc' // display opposite because sortColumnOrder outdated
                   })
-                  sortClickHandler(column.key)
+                  sortClickHandler(column)
                 }
               }"
             >
@@ -207,6 +207,8 @@ export interface TableHeader {
   label: string
   sortable: boolean
   hideLabel: boolean
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  useSortHandlerFn: Function
 }
 
 export default defineComponent({
@@ -232,9 +234,6 @@ export default defineComponent({
       required: false,
     },
     /**
-     * TODO: this is experimental until we figure out what's wrong with the client
-     * side sort function
-     *
      * Enable client side sort - only do this if using a fetcher
      * that returns static data
      */
@@ -265,6 +264,10 @@ export default defineComponent({
     sortKey: {
       type: String,
       default: '',
+    },
+    sortHandlerFn: {
+      type: Function,
+      default: () => ({}),
     },
     /**
      * A function that conditionally specifies row attributes on each row
@@ -610,9 +613,12 @@ export default defineComponent({
       () => fetchData(),
       { revalidateOnFocus: false },
     )
-    const sortClickHandler = (key: string) => {
+    const sortClickHandler = (header: TableHeader) => {
+      const { key, useSortHandlerFn } = header
+
       page.value = 1
       const prevKey = sortColumnKey.value + '' // avoid pass by ref
+
       if (sortColumnKey.value) {
         if (key === sortColumnKey.value) {
           if (sortColumnOrder.value === 'asc') {
@@ -631,9 +637,18 @@ export default defineComponent({
       // Use deprecated sort function to sort data passed in via
       // the deprecated options.data prop
       if ((props.options && props.options.data) || props.enableClientSort) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        defaultSorter(key, prevKey, sortColumnOrder.value, data.value)
+        if (useSortHandlerFn && props.sortHandlerFn) {
+          props.sortHandlerFn({
+            key,
+            prevKey,
+            sortColumnOrder: sortColumnOrder.value,
+            data: data.value,
+          })
+        } else {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          defaultSorter(key, prevKey, sortColumnOrder.value, data.value)
+        }
       } else {
         revalidate()
       }
@@ -696,6 +711,7 @@ export default defineComponent({
   width: 100%;
   overflow: auto;
 }
+
 .k-table {
   width: 100%;
   max-width: 100%;
@@ -722,6 +738,7 @@ export default defineComponent({
 
     tr {
       position: relative;
+
       &:after {
         opacity: 0;
         transition: opacity 0.2s ease-in-out;
@@ -775,19 +792,8 @@ export default defineComponent({
         border-width: 0;
       }
 
-      .caret {
-        top: 2px;
-        position: relative;
-        transform: rotate(0deg);
-      }
-
       &.sortable {
         cursor: pointer;
-
-        &.asc .caret {
-          top: -4px;
-          transform: rotate(-180deg);
-        }
       }
     }
   }
@@ -812,44 +818,37 @@ export default defineComponent({
           text-decoration: underline;
         }
       }
+    }
+  }
+}
+</style>
 
+<style lang="scss">
+@import '@/styles/variables';
+
+.k-table {
+  thead {
+    th {
+      .caret {
+        top: 2px;
+        position: relative;
+        transform: rotate(0deg);
+      }
+
+      &.sortable {
+        &.asc .caret {
+          transform: rotate(-180deg);
+        }
+      }
+    }
+  }
+
+  tbody {
+    td {
       button,
       .k-button {
         margin-top: calc(-1 * var(--KButtonPaddingY, var(--spacing-xs)));
         margin-bottom: calc(-1 * var(--KButtonPaddingY, var(--spacing-xs)));
-      }
-    }
-  }
-  // Variants
-  &.has-hover {
-     tbody tr:hover {
-        background-color: var(--KTableHover, var(--blue-100, color(blue-100)));
-      }
-  }
-  &.is-clickable {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    tbody tr {
-      cursor: pointer;
-    }
-  }
-  &.side-border {
-    border-collapse: separate;
-    border-spacing: 0 2px;
-
-    tbody tr {
-      border-bottom: none;
-    }
-
-    tbody tr td:first-child {
-      border-left: 3px solid var(--KTableBorder, var(--steel-200, color(steel-200)));
-    }
-
-    &.has-hover {
-      tbody tr:hover td:first-child {
-        border-left: 3px solid var(--KTableBorder, var(--steel-300, color(steel-300)));
       }
     }
   }
