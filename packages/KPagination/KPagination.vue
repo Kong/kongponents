@@ -40,7 +40,7 @@
         <li
           v-if="!disablePageJump && firstDetached"
           class="pagination-button placeholder">
-          ...
+          <div>...</div>
         </li>
         <li
           v-for="page in pagesVisible"
@@ -59,7 +59,7 @@
         <li
           v-if="!disablePageJump && lastDetached"
           class="pagination-button placeholder">
-          ...
+          <div>...</div>
         </li>
         <li
           v-if="!disablePageJump && lastDetached"
@@ -385,7 +385,7 @@ export default {
     margin: 0 6px;
     cursor: pointer;
 
-    a {
+    a, div {
       padding: 6px;
     }
 
