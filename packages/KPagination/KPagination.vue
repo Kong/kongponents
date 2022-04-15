@@ -343,9 +343,10 @@ export default {
 }
 
 .pagination-text {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--grey-500);
   min-width: 115px;
+  font-weight: 400;
 
   &-pages {
     color: black;
@@ -374,15 +375,19 @@ export default {
     align-self: center;
     width: 32px;
     height: 32px;
-
-    line-height: 36px;
+    line-height: 20px;
+    font-size: 12px;
     font-weight: initial;
     color: var(--grey-500);
-    border: 1px solid var(--grey-200);
+    border: 1px solid var(--grey-300);
     background-color: white;
     border-radius: 4px;
     margin: 0 6px;
     cursor: pointer;
+
+    a {
+      padding: 6px;
+    }
 
     &.square {
       border: none;
@@ -398,6 +403,7 @@ export default {
       border-color: var(--blue-500);
       border-radius: 4px;
     }
+
     &.disabled:focus:not(.placeholder),
     &.disabled:hover:not(.placeholder) {
       color: var(--black-45);
