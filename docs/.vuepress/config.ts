@@ -109,6 +109,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
               '/components/label',
               '/components/menu',
               '/components/modal',
+              '/components/kmodalfullscreen',
               '/components/pagination',
               '/components/popover',
               '/components/prompt',
