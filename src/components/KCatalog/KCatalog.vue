@@ -479,6 +479,7 @@ export default defineComponent({
 
       page.value = fetcherParams.page
       pageSize.value = fetcherParams.pageSize
+      filterQuery.value = fetcherParams.query
       hasInitialized.value = true
 
       // get data
