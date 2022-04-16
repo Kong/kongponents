@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.24.12 (2022-04-16)
+
+
+### Bug Fixes
+
+* **kpagination:** style updates ([#583](https://github.com/Kong/kongponents/issues/583)) ([6312670](https://github.com/Kong/kongponents/commit/6312670c422c46d87b29352b9d4ea22a5abe7374))
+
+
+
+
+
 ## 6.24.11 (2022-04-13)
 
 **Note:** Version bump only for package @kongponents/kpagination

@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/klabel",
-  "version": "6.24.11",
+  "version": "6.24.12",
   "description": "Form input label",
   "main": "dist/KLabel.umd.min.js",
   "componentName": "KLabel",
@@ -23,8 +23,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kicon": "^6.24.11",
-    "@kongponents/kooltip": "^6.24.11",
-    "@kongponents/styles": "^6.24.11"
+    "@kongponents/kicon": "^6.24.12",
+    "@kongponents/kooltip": "^6.24.12",
+    "@kongponents/styles": "^6.24.12"
   }
 }
