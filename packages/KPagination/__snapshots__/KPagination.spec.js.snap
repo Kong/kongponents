@@ -100,7 +100,7 @@ exports[`KPagination matches snapshot 1`] = `
           7
         </a></li>
       <li class="pagination-button placeholder">
-        ...
+        <div>...</div>
       </li>
       <li class="pagination-button"><a href="#" aria-label="Go to the last page" data-testid="last-btn">
           10
