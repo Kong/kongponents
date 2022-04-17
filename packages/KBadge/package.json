@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kbadge",
-  "version": "6.24.12",
+  "version": "6.24.13",
   "description": "Badges, pills, lozenges, or whatever you wanna call them.",
   "main": "dist/KBadge.umd.min.js",
   "componentName": "KBadge",
@@ -23,6 +23,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/styles": "^6.24.12"
+    "@kongponents/styles": "^6.24.13"
   }
 }
