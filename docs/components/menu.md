@@ -74,7 +74,7 @@ You can pass a `width` string for **KMenu**. Either the string `auto` or a strin
 
 By default the `width` is set to `284px`.
 
-<KMenu :items="getMenuItems(3)" />
+<KMenu :items="getMenuItems(3)" width="735" />
 
 ```vue
 <KMenu :items="getMenuItems(3)" width="735" />
