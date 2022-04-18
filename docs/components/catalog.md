@@ -15,10 +15,6 @@
 
 Pass a fetcher function to build a slot-able card catalog.
 
-```vue
-<KCatalog :fetcher="fetcher" />
-```
-
 ## Props
 
 ### title
@@ -396,31 +392,7 @@ Both the `title` & `description` of the card items as well as the entire catalog
 - `cardHeader` - Will slot the card title for each entry
 - `cardBody` - Will slot the card body for each entry
 
-<KCatalog title="I'm slotted baby!" >
-  <template v-slot:body>
-    <KCatalogItem
-      v-for="item in getItems(4)"
-      :key="item.title.replace(' ', '-')"
-      :item="item"
-      class="catalog-item"
-    />
-  </template>
-</KCatalog>
-
-```vue
-<KCatalog title="I'm slotted baby!" >
-  <template v-slot:body>
-    <KCatalogItem
-      v-for="item in getItems(4)"
-      :key="item.title.replace(' ', '-')"
-      :item="item"
-      class="catalog-item"
-    />
-  </template>
-</KCatalog>
-```
-
-If used in conjuction with a `fetcher` you have the option of using the returned `data`.
+If used in conjuction with a `fetcher` you have the option of using the returned `data` in the `body` slot.
 
 <KCatalog :fetcher="fetcherSm" title="Customized body">
   <template v-slot:body="{ data }">
