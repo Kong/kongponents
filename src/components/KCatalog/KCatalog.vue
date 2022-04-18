@@ -237,8 +237,8 @@ export default defineComponent({
     cardSize: {
       type: String,
       default: 'medium',
-      validator: function(value: string) {
-        return ['small', 'medium', 'large'].indexOf(value) !== -1
+      validator: (value: string): boolean => {
+        return ['small', 'medium', 'large'].includes(value)
       },
     },
     /**
