@@ -62,11 +62,11 @@ export default defineComponent({
     }
 
     const disabled = (option: SegmentedControlOption | string): boolean => {
-      if (typeof option === 'string') {
-        return false
+      if (typeof option === 'object') {
+        return !!option.disabled
       }
 
-      return option.disabled || props.isDisabled
+      return props.isDisabled
     }
 
     const handleClick = (evt: any): void => {
