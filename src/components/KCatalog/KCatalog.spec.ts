@@ -77,7 +77,7 @@ describe('KCatalog', () => {
   }
 
   describe('general', () => {
-    it('renders proper cards when using props', async () => {
+    it('renders proper cards when using props', () => {
       const title = 'Cool beans!'
       const total = 5
       mount(KCatalog, {
@@ -113,7 +113,7 @@ describe('KCatalog', () => {
       cy.get('.k-catalog-page').should('contain', slotContent)
     })
 
-    it('renders slotted cards when passed', async () => {
+    it('renders slotted cards when passed', () => {
       const slotHeader = 'Look mah!'
       const slotBody = 'My body'
 
@@ -134,7 +134,7 @@ describe('KCatalog', () => {
       cy.get('.k-card-body').should('contain', slotBody)
     })
 
-    it('renders slots when passed (with empty)', async () => {
+    it('renders slots when passed (with empty)', () => {
       const emptySlotContent = 'Look mah! I am empty! (except testMode)'
 
       mount(KCatalog, {
@@ -151,7 +151,7 @@ describe('KCatalog', () => {
       cy.get('[data-testid="k-card-catalog-empty-state"]').should('contain', emptySlotContent)
     })
 
-    it('renders slots when passed (with error)', async () => {
+    it('renders slots when passed (with error)', () => {
       const errorSlotContent = 'Look mah! I am erroneous! (except testMode)'
 
       mount(KCatalog, {
@@ -168,7 +168,7 @@ describe('KCatalog', () => {
       cy.getTestId('k-card-catalog-error-state').should('contain', errorSlotContent)
     })
 
-    it('can change card sizes - small', async () => {
+    it('can change card sizes - small', () => {
       const total = 5
 
       mount(KCatalog, {
@@ -184,7 +184,7 @@ describe('KCatalog', () => {
       cy.get('.k-card-small').should('have.length', total)
     })
 
-    it('can change card sizes - large', async () => {
+    it('can change card sizes - large', () => {
       const total = 5
 
       mount(KCatalog, {
@@ -200,7 +200,7 @@ describe('KCatalog', () => {
       cy.get('.k-card-small').should('have.length', total)
     })
 
-    it('handles truncation', async () => {
+    it('handles truncation', () => {
       mount(KCatalog, {
         props: {
           testMode: 'true',
@@ -213,7 +213,7 @@ describe('KCatalog', () => {
       cy.get('.multi-line-truncate').should('exist')
     })
 
-    it('can disable truncation', async () => {
+    it('can disable truncation', () => {
       mount(KCatalog, {
         props: {
           testMode: 'true',
@@ -229,7 +229,7 @@ describe('KCatalog', () => {
   })
 
   describe('states', () => {
-    it('displays an empty state when no data is available', async () => {
+    it('displays an empty state when no data is available', () => {
       const fetcher = () => new Promise(resolve => resolve({ data: [] }))
 
       mount(KCatalog, {
@@ -260,7 +260,7 @@ describe('KCatalog', () => {
       cy.getTestId('k-card-catalog-empty-state').should('contain.text', emptySlotContent)
     })
 
-    it('displays a loading skeletion when the "isLoading" prop is set to true"', async () => {
+    it('displays a loading skeletion when the "isLoading" prop is set to true"', () => {
       mount(KCatalog, {
         props: {
           testMode: 'loading',
@@ -272,7 +272,7 @@ describe('KCatalog', () => {
       cy.get('.skeleton-card-wrapper').should('be.visible')
     })
 
-    it('displays an error state when the "hasError" prop is set to true"', async () => {
+    it('displays an error state when the "hasError" prop is set to true"', () => {
       mount(KCatalog, {
         props: {
           testMode: 'true',
@@ -319,7 +319,7 @@ describe('KCatalog', () => {
   })
 
   describe('pagination', () => {
-    it('displays pagination when fetcher is provided', async () => {
+    it('displays pagination when fetcher is provided', () => {
       mount(KCatalog, {
         props: {
           testMode: 'true',
@@ -334,7 +334,7 @@ describe('KCatalog', () => {
       cy.getTestId('k-pagination-container').should('be.visible')
     })
 
-    it('allows disabling pagination', async () => {
+    it('allows disabling pagination', () => {
       mount(KCatalog, {
         props: {
           testMode: 'true',
@@ -350,7 +350,7 @@ describe('KCatalog', () => {
       cy.getTestId('k-pagination-container').should('not.exist')
     })
 
-    it('does not display pagination when no fetcher', async () => {
+    it('does not display pagination when no fetcher', () => {
       mount(KCatalog, {
         props: {
           testMode: 'true',
