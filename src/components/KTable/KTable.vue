@@ -205,9 +205,9 @@ const { clientSideSorter, useDebounce, useRequest } = useUtilities()
 export interface TableHeader {
   key: string
   label: string
-  sortable: boolean
-  hideLabel: boolean
-  useSortHandlerFn: (payload: Record<string, any>) => void
+  sortable?: boolean
+  hideLabel?: boolean
+  useSortHandlerFn?: boolean
 }
 
 export default defineComponent({
