@@ -105,7 +105,8 @@ Here the `last_seen` column is set to use the custom sort handler function via t
     enable-client-sort
   />
 </template>
-<script>
+
+<script lang="ts">
 export default {
   data () {
     return {

@@ -207,8 +207,7 @@ export interface TableHeader {
   label: string
   sortable: boolean
   hideLabel: boolean
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  useSortHandlerFn: Function
+  useSortHandlerFn: (payload: Record<string, any>) => void
 }
 
 export default defineComponent({
