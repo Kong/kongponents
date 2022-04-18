@@ -1,3 +1,10 @@
+# [7.0.0-beta.6](https://github.com/Kong/kongponents/compare/v7.0.0-beta.5...v7.0.0-beta.6) (2022-04-16)
+
+
+### Bug Fixes
+
+* **kpagination:** style updates ([#581](https://github.com/Kong/kongponents/issues/581)) ([5b2f54d](https://github.com/Kong/kongponents/commit/5b2f54d899f6faf02933eda9c2f5acf6ff6b06c8))
+
 # [7.0.0-beta.5](https://github.com/Kong/kongponents/compare/v7.0.0-beta.4...v7.0.0-beta.5) (2022-04-14)
 
 
