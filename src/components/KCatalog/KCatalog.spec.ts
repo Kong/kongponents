@@ -181,7 +181,7 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.get('.k-card-small').should('have.length', total)
+      cy.get('.k-card-small .catalog-item').should('have.length', total)
     })
 
     it('can change card sizes - large', () => {
@@ -197,7 +197,7 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.get('.k-card-small').should('have.length', total)
+      cy.get('.k-card-large .catalog-item').should('have.length', total)
     })
 
     it('handles truncation', () => {
