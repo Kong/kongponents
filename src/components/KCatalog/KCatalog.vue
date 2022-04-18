@@ -8,7 +8,7 @@
     </div>
 
     <KSkeleton
-      v-if="(!testMode || testMode === 'loading') && (isCardLoading || isLoading) && !hasError"
+      v-if="(testMode === false || testMode === 'loading') && (isCardLoading || isLoading) && !hasError"
       :card-count="4"
       type="card"
       class="k-skeleton-grid"
@@ -58,7 +58,7 @@
           <template #cta>
             <KButton
               v-if="errorStateActionMessage"
-              :to="errorStateActionRoute ? errorStateActionRoute : null"
+              :to="errorStateActionRoute ? errorStateActionRoute : undefined"
               appearance="primary"
               @click="$emit('kcatalog-error-cta-clicked')"
             >
@@ -91,7 +91,7 @@
           <template #cta>
             <KButton
               v-if="emptyStateActionMessage"
-              :to="emptyStateActionRoute ? emptyStateActionRoute : null"
+              :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
               appearance="primary"
               @click="$emit('kcatalog-empty-state-cta-clicked')"
             >
@@ -131,7 +131,7 @@
               :item="item"
               :location-param="item.locationParam"
               :truncate="!noTruncation"
-              :test-mode="testMode"
+              :test-mode="!!testMode"
               class="catalog-item"
             >
               <template #cardTitle>
@@ -159,7 +159,7 @@
             :key="item.key ? item.key : null"
             :item="item"
             :truncate="!noTruncation"
-            :test-mode="testMode"
+            :test-mode="!!testMode"
             class="catalog-item"
           >
             <template #cardTitle>
@@ -194,7 +194,7 @@
           :neighbors="paginationNeighbors"
           :total-count="total"
           :disable-page-jump="disablePaginationPageJump"
-          :test-mode="testMode ? true : false"
+          :test-mode="!!testMode"
           class="pa-1"
           @page-changed="pageChangeHandler"
           @page-size-changed="pageSizeChangeHandler"
@@ -432,7 +432,7 @@ export default defineComponent({
      * 'loading' - no id's but allow loading
      */
     testMode: {
-      type: Boolean,
+      type: [String, Boolean],
       default: false,
     },
   },
@@ -444,7 +444,7 @@ export default defineComponent({
       query: '',
     }
 
-    const data = ref([])
+    const data = ref<any[]>([])
     const total = ref(0)
     const filterQuery = ref('')
     const page = ref(1)
