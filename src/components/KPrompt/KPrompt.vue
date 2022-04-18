@@ -83,7 +83,7 @@
                 v-if="actionPending"
                 icon="spinner"
                 size="16"
-                color="var(--white)"
+                color="var(--grey-400)"
               />
             </template>
             {{ actionButtonText }}
@@ -172,7 +172,7 @@ export default defineComponent({
         if (e.keyCode === 27) { // 'esc' key
           close()
         } else if (e.keyCode === 13) { // 'enter' key
-          if (props.preventProceedOnEnter) {
+          if (!props.preventProceedOnEnter) {
             proceed(e)
           }
         }
