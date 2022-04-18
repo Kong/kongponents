@@ -88,8 +88,8 @@ export default defineComponent({
         return acc
       }, [])
 
-    this.$page.headingStyles = styles.length ? styles.filter(i => i.includes('heading')) : []
-    this.$page.bodyStyles = styles.length ? styles.filter(i => i.includes('body')) : []
+    this.$page.headingStyles = styles.length ? styles.filter(i => i.includes('heading') && !i.includes('data-v')) : []
+    this.$page.bodyStyles = styles.length ? styles.filter(i => i.includes('body') && !i.includes('data-v')) : []
   }
 })
 </script>
