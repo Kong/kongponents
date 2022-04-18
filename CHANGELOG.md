@@ -1,3 +1,10 @@
+# [7.0.0-beta.10](https://github.com/Kong/kongponents/compare/v7.0.0-beta.9...v7.0.0-beta.10) (2022-04-18)
+
+
+### Bug Fixes
+
+* **kbadge:** add min width theming variable ([94aef53](https://github.com/Kong/kongponents/commit/94aef532d5138653d58b027dd0e46b1c54791038))
+
 # [7.0.0-beta.9](https://github.com/Kong/kongponents/compare/v7.0.0-beta.8...v7.0.0-beta.9) (2022-04-18)
 
 
