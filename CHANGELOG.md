@@ -1,3 +1,10 @@
+# [7.0.0-beta.8](https://github.com/Kong/kongponents/compare/v7.0.0-beta.7...v7.0.0-beta.8) (2022-04-18)
+
+
+### Features
+
+* **ktable:** add sortHandlerFn ([#580](https://github.com/Kong/kongponents/issues/580)) ([ebc7202](https://github.com/Kong/kongponents/commit/ebc7202317783f3a4787ffab67151d596db3dc20))
+
 # [7.0.0-beta.7](https://github.com/Kong/kongponents/compare/v7.0.0-beta.6...v7.0.0-beta.7) (2022-04-18)
 
 
