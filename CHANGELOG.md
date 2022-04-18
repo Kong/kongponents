@@ -1,3 +1,17 @@
+# [7.0.0-beta.7](https://github.com/Kong/kongponents/compare/v7.0.0-beta.6...v7.0.0-beta.7) (2022-04-18)
+
+
+### Features
+
+* **kicon:** horizontal dots ([#582](https://github.com/Kong/kongponents/issues/582)) ([a60ae2f](https://github.com/Kong/kongponents/commit/a60ae2f5e2eb9c95cb6550e7d91cdc714bfa5fca))
+
+# [7.0.0-beta.6](https://github.com/Kong/kongponents/compare/v7.0.0-beta.5...v7.0.0-beta.6) (2022-04-16)
+
+
+### Bug Fixes
+
+* **kpagination:** style updates ([#581](https://github.com/Kong/kongponents/issues/581)) ([5b2f54d](https://github.com/Kong/kongponents/commit/5b2f54d899f6faf02933eda9c2f5acf6ff6b06c8))
+
 # [7.0.0-beta.5](https://github.com/Kong/kongponents/compare/v7.0.0-beta.4...v7.0.0-beta.5) (2022-04-14)
 
 
