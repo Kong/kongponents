@@ -102,7 +102,7 @@ describe('KCatalog', () => {
         props: {
           testMode: 'true',
           fetcher: () => {
-            return { data: getItems(1), 1 }
+            return { data: getItems(1), total: 1 }
           },
         },
         slots: {
