@@ -83,7 +83,7 @@
                 v-if="actionPending"
                 icon="spinner"
                 size="16"
-                color="var(--white)"
+                color="var(--grey-400)"
               />
             </template>
             {{ actionButtonText }}
