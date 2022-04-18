@@ -75,6 +75,7 @@ export default defineComponent({
   height: auto;
   text-align: center;
   max-width: var(--KBadgeMaxWidth, 200px);
+  min-width: var(--KBadgeMinWidth, 8px);
   width: var(--KBadgeWidth, auto);
   padding: var(--KBadgePaddingY, 2px) var(--KBadgePaddingX, 6px);
   font-family: var(--font-family-sans, font(sans));
