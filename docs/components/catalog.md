@@ -8,7 +8,6 @@
 <KCatalog :fetcher="fetcher" />
 ```
 
-
 :::warning NOTE
 `KCatalog` implements `KIcon` which imports .svg files directly, so a loader is needed in order to render these in your application such as the webpack
 [raw-loader](https://webpack.js.org/loaders/raw-loader/). [See here for more information](/#raw-loader).
@@ -27,6 +26,7 @@ Pass a fetcher function to build a slot-able card catalog.
 The catalog title.
 
 <KCatalog title="Look Mah!" :fetcher="fetcherXs" />
+
 ```vue
 <KCatalog title="Look Mah!" :fetcher="fetcher" />
 ```
@@ -584,8 +584,8 @@ fetcher(payload) {
 
 ## Events
 
-- 'kcatalog-empty-state-cta-clicked' - If using a CTA button in the empty state, this event is fired when clicked.
-- 'kcatalog-error-cta-clicked' - If using a CTA button in the error state, this event is fired when clicked.
+- `kcatalog-empty-state-cta-clicked` - If using a CTA button in the empty state, this event is fired when clicked.
+- `kcatalog-error-cta-clicked` - If using a CTA button in the error state, this event is fired when clicked.
 
 ## Theming
 
