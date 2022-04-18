@@ -83,30 +83,10 @@ describe('KModalFullscreen', () => {
         title: 'Test Me',
         isVisible: true,
       },
-      // attachToDocument: true,
     })
 
-    cy.get('.k-modal-fullscreen').type('{esc}').then(() => {
+    cy.get('body').type('{esc}').then(() => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'canceled')
     })
   })
-
-  /*  it('tears down event listeners', () => {
-    const AEL = jest.fn()
-    const REL = jest.fn()
-
-    window.document.addEventListener = AEL
-    window.document.removeEventListener = REL
-
-    const wrapper = mount(KModalFullscreen, {
-      props: {
-        title: 'Test Me',
-      },
-      // attachToDocument: true,
-    })
-
-    wrapper.destroy()
-    expect(AEL).toHaveBeenCalledTimes(1)
-    expect(REL).toHaveBeenCalledTimes(1)
-  }) */
 })
