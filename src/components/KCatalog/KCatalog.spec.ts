@@ -101,7 +101,9 @@ describe('KCatalog', () => {
       mount(KCatalog, {
         props: {
           testMode: 'true',
-          fetcher: () => { return { data: [], total: 0 } },
+          fetcher: () => {
+            return { data: getItems(1), 1 }
+          },
         },
         slots: {
           body: h('span', {}, slotContent),
@@ -255,7 +257,7 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.getTestId('k-catalog-empty-state').should('contain.text', emptySlotContent)
+      cy.getTestId('k-card-catalog-empty-state').should('contain.text', emptySlotContent)
     })
 
     it('displays a loading skeletion when the "isLoading" prop is set to true"', async () => {
@@ -295,7 +297,7 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.getTestId('k-catalog-error-state').should('contain.text', errorSlotContent)
+      cy.getTestId('k-card-catalog-error-state').should('contain.text', errorSlotContent)
     })
 
     it('displays a loading state and not an empty state when pending response', () => {
