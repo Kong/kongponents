@@ -1,3 +1,20 @@
+# [7.0.0-beta.9](https://github.com/Kong/kongponents/compare/v7.0.0-beta.8...v7.0.0-beta.9) (2022-04-18)
+
+
+### Bug Fixes
+
+* **kbadge:** doc issues [khcp-3409] ([#588](https://github.com/Kong/kongponents/issues/588)) ([55f87d5](https://github.com/Kong/kongponents/commit/55f87d59bcd14f80235fa51f38fe832e080cae17))
+* **kmenu:** docs width prop [khcp-3409] ([#587](https://github.com/Kong/kongponents/issues/587)) ([9ca2ad2](https://github.com/Kong/kongponents/commit/9ca2ad2a0fc335b489b5e3250236360a70eaa16d))
+* **kprompt:** docs fixes [khcp-3438] ([#591](https://github.com/Kong/kongponents/issues/591)) ([7ed8aaa](https://github.com/Kong/kongponents/commit/7ed8aaa80c80b85c3d341321f0f2da54f465b3cb))
+* **ksegmentedcontrol:** disabled logic [khcp-3433] ([#589](https://github.com/Kong/kongponents/issues/589)) ([997508b](https://github.com/Kong/kongponents/commit/997508bcfbad7d6b3d3e70648af82f5ab6f6be72))
+* **typography:** text display [khcp-3407] ([#590](https://github.com/Kong/kongponents/issues/590)) ([36c3a35](https://github.com/Kong/kongponents/commit/36c3a358672ede2461bd5d936fc4f194d85a9caf))
+
+
+### Features
+
+* **kcatalog:** vue3 upgrade ([#584](https://github.com/Kong/kongponents/issues/584)) ([e76362e](https://github.com/Kong/kongponents/commit/e76362e2a18d05de872a11962f12a5bb36bdff70))
+* **kmodalfullscreen:** vue 3 upgrade ([#585](https://github.com/Kong/kongponents/issues/585)) ([a63121e](https://github.com/Kong/kongponents/commit/a63121e947c802c95cb02f880129e7e5314438b6))
+
 # [7.0.0-beta.8](https://github.com/Kong/kongponents/compare/v7.0.0-beta.7...v7.0.0-beta.8) (2022-04-18)
 
 
