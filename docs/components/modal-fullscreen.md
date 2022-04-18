@@ -32,7 +32,7 @@ The **KModalFullscreen** component is used to show content in a full screen moda
 export default {
   data () {
     return {
-      isVisible: false
+      defaultIsOpen: false
     }
   }
 }
