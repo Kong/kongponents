@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.24.14 (2022-04-18)
+
+
+### Bug Fixes
+
+* **kbadge:** kbadge should support --KBadgeMinWidth ([#592](https://github.com/Kong/kongponents/issues/592)) ([abfd063](https://github.com/Kong/kongponents/commit/abfd063fcbe2262beffe3f20c808711b6c1769e9))
+
+
+
+
+
 ## 6.24.13 (2022-04-17)
 
 **Note:** Version bump only for package @kongponents/kbadge
