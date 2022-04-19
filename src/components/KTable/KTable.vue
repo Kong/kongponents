@@ -2,7 +2,6 @@
   <div>
     <KSkeleton
       v-if="(!testMode || testMode === 'loading') && (isTableLoading || isLoading) && !hasError"
-      :delay-milliseconds="0"
       type="table"
     />
 
