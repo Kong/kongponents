@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.24.15 (2022-04-19)
+
+**Note:** Version bump only for package @kongponents/ktextarea
+
+
+
+
+
 ## 6.24.14 (2022-04-18)
 
 
