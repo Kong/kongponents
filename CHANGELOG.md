@@ -1,3 +1,10 @@
+# [7.0.0-beta.12](https://github.com/Kong/kongponents/compare/v7.0.0-beta.11...v7.0.0-beta.12) (2022-04-19)
+
+
+### Bug Fixes
+
+* doc fixes ([#593](https://github.com/Kong/kongponents/issues/593)) ([23b38fc](https://github.com/Kong/kongponents/commit/23b38fc327cca4f9f2248c9983a8afced1c83071))
+
 # [7.0.0-beta.11](https://github.com/Kong/kongponents/compare/v7.0.0-beta.10...v7.0.0-beta.11) (2022-04-19)
 
 
