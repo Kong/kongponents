@@ -1,3 +1,11 @@
+# [7.0.0-beta.13](https://github.com/Kong/kongponents/compare/v7.0.0-beta.12...v7.0.0-beta.13) (2022-04-19)
+
+
+### Bug Fixes
+
+* **kskeleton:** delay-milliseconds default to 0 ([7ffa180](https://github.com/Kong/kongponents/commit/7ffa180ff48b3f6679772da135037773e4333d70))
+* **ktable:** remove unneeded prop ([7660abe](https://github.com/Kong/kongponents/commit/7660abeb95834f5ad053062388abf3d93f4e352a))
+
 # [7.0.0-beta.12](https://github.com/Kong/kongponents/compare/v7.0.0-beta.11...v7.0.0-beta.12) (2022-04-19)
 
 
