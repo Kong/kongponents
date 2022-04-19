@@ -62,7 +62,7 @@ export default defineComponent({
     delayMilliseconds: {
       type: Number,
       required: false,
-      default: 750,
+      default: 0,
     },
     type: {
       type: String,

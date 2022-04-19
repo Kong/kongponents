@@ -18,7 +18,7 @@ There are 5 different types of loading states that KSkeleton supports: Card, Tab
 
 ### delayMilliseconds
 
-The number of milliseconds to wait before showing the skeleton state. Defaults to 750.
+The number of milliseconds to wait before showing the skeleton state. Defaults to `0`.
 
 <KComponent :data="{ isLoading: false }" v-slot="{ data }">
   <div>
@@ -26,7 +26,7 @@ The number of milliseconds to wait before showing the skeleton state. Defaults t
       <div v-if="!data.isLoading">
         <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
       </div>
-      <KSkeleton v-else="data.isLoading" />
+      <KSkeleton v-else="data.isLoading" delay-milliseconds="200" />
   </div>
 </KComponent>
 
@@ -37,7 +37,7 @@ The number of milliseconds to wait before showing the skeleton state. Defaults t
       <div v-if="!data.isLoading">
         <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
       </div>
-      <KSkeleton v-else="data.isLoading" />
+      <KSkeleton v-else="data.isLoading" delay-milliseconds="200" />
   </div>
 </KComponent>
 ```

@@ -100,6 +100,7 @@ export default defineConfig({
 
 ### KSkeleton
 - Renamed internal component from `Skeleton` to `SkeletonBase`
+- `delayMilliseconds` prop defaults to `0`
 
 ### KPrompt
 

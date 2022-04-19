@@ -7,11 +7,7 @@ import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 describe('KSkeleton', () => {
   describe('variants', () => {
     it('renders generic skeleton state by default', () => {
-      mount(KSkeleton, {
-        props: {
-          delayMilliseconds: 0,
-        },
-      })
+      mount(KSkeleton)
 
       cy.get('.skeleton-loader').should('exist')
     })
@@ -20,7 +16,6 @@ describe('KSkeleton', () => {
       mount(KSkeleton, {
         props: {
           type: 'form',
-          delayMilliseconds: 0,
         },
       })
 
@@ -33,7 +28,6 @@ describe('KSkeleton', () => {
         props: {
           type: 'card',
           cardCount: 2,
-          delayMilliseconds: 0,
         },
       })
 
@@ -45,7 +39,6 @@ describe('KSkeleton', () => {
       mount(KSkeleton, {
         props: {
           type: 'table',
-          delayMilliseconds: 0,
         },
       })
 
@@ -57,7 +50,6 @@ describe('KSkeleton', () => {
       mount(KSkeleton, {
         props: {
           type: 'spinner',
-          delayMilliseconds: 0,
         },
       })
 
@@ -68,7 +60,6 @@ describe('KSkeleton', () => {
       mount(KSkeleton, {
         props: {
           type: 'fullscreen-kong',
-          delayMilliseconds: 0,
         },
       })
 
