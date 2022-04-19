@@ -342,7 +342,7 @@ export default defineComponent({
       const theTarget = this.target === 'body' && !this.isSvg ? document.getElementById(this.targetId) : document.querySelector(this.target)
       theTarget.appendChild(popperEl)
       // Hide overflow to prevent page jump
-      theTarget.style.overflow = 'hidden'
+      theTarget.style.overflow = 'auto'
       await this.$nextTick()
       this.popper = new Popper(this.reference, popperEl, {
         placement,
@@ -358,6 +358,8 @@ export default defineComponent({
         },
       })
       await this.$nextTick()
+      // Remove overflow attribute now that rendering is complete
+      theTarget.style.removeProperty('overflow')
       this.popper.update()
     },
     handleClick(e) {
@@ -399,8 +401,6 @@ export default defineComponent({
     },
     destroy() {
       if (this.popper) {
-        const theTarget = this.target === 'body' && !this.isSvg ? document.getElementById(this.targetId) : document.querySelector(this.target)
-        theTarget.style.removeProperty('overflow')
         this.isOpen = false
         this.popper.destroy()
         this.popper = null
