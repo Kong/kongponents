@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.25.0 (2022-04-19)
+
+
+### Features
+
+* **kcatalog:** add searchInput prop ([#596](https://github.com/Kong/kongponents/issues/596)) ([3be534c](https://github.com/Kong/kongponents/commit/3be534c24683e921f63fcde54829544db5deedc4))
+
+
+
+
+
 ## 6.24.15 (2022-04-19)
 
 **Note:** Version bump only for package @kongponents/kskeleton
