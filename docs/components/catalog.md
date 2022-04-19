@@ -163,6 +163,10 @@ export default {
 </script>
 ```
 
+### searchInput
+
+Pass in a string of search input for server-side table filtering. See [the Server-side function section](#server-side-functions) for an example.
+
 ### paginationTotalItems
 
 Pass the total number of items in the set to populate the pagination text:
@@ -535,6 +539,7 @@ is triggered and will be resolved when the fetcher returns. You can override thi
 <KCatalog
   :fetcher="fetcher"
   :initial-fetcher-params="{
+    query: '',
     pageSize: 15,
     page: 1
   }"
@@ -551,12 +556,15 @@ https://kongponents.dev/api/components?_page=1&_limit=10
 
 <KCard>
   <template v-slot:body>
+    <KInput placeholder="Search..." v-model="search" type="search" />
     <KCatalog
       :fetcher="fetcher"
       :initial-fetcher-params="{
+        query: '',
         pageSize: 15,
         page: 1
       }"
+      :search-input="search"
     />
   </template>
 </KCard>
@@ -569,6 +577,11 @@ fetcher(payload) {
   const params = {
     _limit: payload.pageSize,
     _page: payload.page
+  }
+
+  if (query) {
+    params.q = payload.query
+    params._page = 1
   }
 
   return axios.get('/user_list', {

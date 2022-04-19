@@ -171,7 +171,7 @@ import KSkeleton from '@kongponents/kskeleton/KSkeleton.vue'
 import KCatalogItem from './KCatalogItem.vue'
 import KPagination from '@kongponents/kpagination/KPagination.vue'
 import KSkeletonBox from '@kongponents/kskeleton/KSkeletonBox.vue'
-import { useRequest } from '@kongponents/utils/utils.js'
+import { useRequest, useDebounce } from '@kongponents/utils/utils.js'
 
 export default defineComponent({
   name: 'KCatalog',
@@ -340,6 +340,13 @@ export default defineComponent({
       default: ''
     },
     /**
+     * A prop to pass in a search string for server-side search
+     */
+    searchInput: {
+      type: String,
+      default: ''
+    },
+    /**
      * A prop to pass in a the number of pagination neighbors used by the pagination component
      */
     paginationNeighbors: {
@@ -380,11 +387,13 @@ export default defineComponent({
   setup (props, ctx) {
     const defaultFetcherProps = {
       pageSize: 15,
-      page: 1
+      page: 1,
+      query: ''
     }
 
     const data = ref([])
     const total = ref(0)
+    const filterQuery = ref('')
     const page = ref(1)
     const pageSize = ref(15)
     const isCardLoading = ref(true)
@@ -392,7 +401,9 @@ export default defineComponent({
 
     const fetchData = async () => {
       isCardLoading.value = true
+      const searchInput = props.searchInput
       const res = await props.fetcher({
+        query: searchInput || filterQuery.value,
         pageSize: pageSize.value,
         page: page.value
       })
@@ -411,6 +422,7 @@ export default defineComponent({
         ...props.initialFetcherParams
       }
 
+      filterQuery.value = fetcherParams.query
       page.value = fetcherParams.page
       pageSize.value = fetcherParams.pageSize
       hasInitialized.value = true
@@ -425,6 +437,7 @@ export default defineComponent({
       }
     }
 
+    const { query, search } = useDebounce('', 350)
     const { revalidate } = useRequest(
       () => props.fetcher && hasInitialized.value && `catalog-item_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}`,
       () => fetchData(),
@@ -439,7 +452,11 @@ export default defineComponent({
       pageSize.value = newPageSize
     }
 
-    watch(() => [page.value, pageSize.value], () => {
+    watch(() => props.searchInput, (newValue) => {
+      search(newValue)
+    }, { immediate: true })
+
+    watch(() => [query.value, page.value, pageSize.value], () => {
       revalidate()
     }, { immediate: true })
 
