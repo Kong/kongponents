@@ -1,3 +1,10 @@
+# [7.0.0-beta.11](https://github.com/Kong/kongponents/compare/v7.0.0-beta.10...v7.0.0-beta.11) (2022-04-19)
+
+
+### Bug Fixes
+
+* **styles:** fix input error css ([215ebcc](https://github.com/Kong/kongponents/commit/215ebcc669c7c1abcb4641b444cf0da5d3f0ea69))
+
 # [7.0.0-beta.10](https://github.com/Kong/kongponents/compare/v7.0.0-beta.9...v7.0.0-beta.10) (2022-04-18)
 
 
