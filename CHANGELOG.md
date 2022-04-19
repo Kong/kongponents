@@ -1,3 +1,10 @@
+# [7.0.0-beta.14](https://github.com/Kong/kongponents/compare/v7.0.0-beta.13...v7.0.0-beta.14) (2022-04-19)
+
+
+### Bug Fixes
+
+* **kicon:** remove help icon unneeded path ([e85e24e](https://github.com/Kong/kongponents/commit/e85e24e9055f87b6e73555347eb46eb03f47157a))
+
 # [7.0.0-beta.13](https://github.com/Kong/kongponents/compare/v7.0.0-beta.12...v7.0.0-beta.13) (2022-04-19)
 
 
