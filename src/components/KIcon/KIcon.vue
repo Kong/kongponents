@@ -147,7 +147,7 @@ export default defineComponent({
       // Move slot content inside svg
       svg.value.innerHTML += slotContent
 
-      // Done rendering slot, so set display to true
+      // Done rendering slot, so set hidden to false
       svgWithSlotIsHidden.value = false
     }
 
@@ -202,7 +202,7 @@ export default defineComponent({
 
       if (svg.value) {
         // Check for slot content
-        if (!!slots.svgElements && slots.svgElements.length) {
+        if (slots.svgElements) {
           addSlotContent()
         }
 
