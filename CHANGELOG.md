@@ -1,3 +1,10 @@
+# [7.0.0-beta.15](https://github.com/Kong/kongponents/compare/v7.0.0-beta.14...v7.0.0-beta.15) (2022-04-19)
+
+
+### Bug Fixes
+
+* **kicon:** properly check for slot content ([#595](https://github.com/Kong/kongponents/issues/595)) ([1d155e5](https://github.com/Kong/kongponents/commit/1d155e50d13d63db39266dcf1688e98ef1bb27fe))
+
 # [7.0.0-beta.14](https://github.com/Kong/kongponents/compare/v7.0.0-beta.13...v7.0.0-beta.14) (2022-04-19)
 
 
