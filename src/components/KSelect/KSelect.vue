@@ -273,8 +273,6 @@ export default defineComponent({
       }
     })
 
-    console.log('width', widthValue.value.replace(/px/i, ''))
-
     const createKPopAttributes = computed(() => {
       return {
         ...defaultKPopAttributes,
