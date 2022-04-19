@@ -341,7 +341,8 @@ export default defineComponent({
       const popperEl = this.$refs.popper
       const theTarget = this.target === 'body' && !this.isSvg ? document.getElementById(this.targetId) : document.querySelector(this.target)
       theTarget.appendChild(popperEl)
-      theTarget.style.overflow = 'auto'
+      // Hide overflow to prevent page jump
+      theTarget.style.overflow = 'hidden'
       await this.$nextTick()
       this.popper = new Popper(this.reference, popperEl, {
         placement,
