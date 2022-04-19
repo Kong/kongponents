@@ -139,6 +139,47 @@ export default defineComponent({
 </script>
 ```
 
+## Events
+
+To listen for changes to the `KInputSwitch` value, you can bind to the `@input`, `@change`, or `@update:modelValue` events:
+
+<KComponent :data="{eventsSwitchEnabled: false}" v-slot="{ data }">
+  <div>
+    <KInputSwitch
+      v-model="data.eventsSwitchEnabled"
+      :label="data.eventsSwitchEnabled ? 'Enabled' : 'Disabled'"
+    />
+  </div>
+</KComponent>
+
+```vue
+<template>
+  <KInputSwitch
+    :model-value="false"
+    :label="eventsSwitchEnabled ? 'Enabled' : 'Disabled'"
+    @update:modelValue="newValue => eventsSwitchEnabled = newValue"
+  />
+</template>
+```
+
+`KInputSwitch` transparently binds to events:
+
+<KComponent :data="{eventsSwitchEnabled2: true, changeCount: 0}" v-slot="{ data }">
+  <div>
+    <KInputSwitch v-model="data.eventsSwitchEnabled2" @change="e => (data.changeCount++)" label="Toggle Me" />
+    <div class="mt-2">You've toggled me {{ data.changeCount }} time(s)</div>
+  </div>
+</KComponent>
+
+```vue
+<template>
+  <div>
+    <KInputSwitch v-model="eventsSwitchEnabled2" @change="e => (changeCount++)" label="Toggle Me" />
+    <div>You've toggled me {{ changeCount }} time(s)</div>
+  </div>
+</template>
+```
+
 ## Theming
 
 | Variable                   | Purpose                           |

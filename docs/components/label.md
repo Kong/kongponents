@@ -2,27 +2,23 @@
 
 **KLabel** provides a wrapper around general `label` tags.
 
-## Standard Input
-
-<br />
-
 <KLabel>Input Title</KLabel>
 
 ```vue
 <KLabel>Input Title</KLabel>
 ```
 
-## With Help
+## Props
 
-<br />
+### help
+
+Use the `help` prop to display helper tooltip text.
 
 <KLabel help="This is an example">Input Title</KLabel>
 
 ```vue
 <KLabel help="This is an example">Input Title</KLabel>
 ```
-
-<br />
 
 <KLabel help="This is a really long tooltip. Hopefully we won't have anything this long but we might. I wonder how it handles long inputs">Long Input Title</KLabel>
 
@@ -32,9 +28,9 @@
 </KLabel>
 ```
 
-## With Info
+### info
 
-<br />
+Use the `info` prop to display information help text.
 
 <KLabel info="This is an example">Input Title</KLabel>
 
@@ -42,9 +38,11 @@
 <KLabel info="This is an example">Input Title</KLabel>
 ```
 
-## With for attribute
+## Attribute Binding
 
-<br />
+### for
+
+Use the `for` attribute to bind a label to an input element for accessibility.
 
 <KLabel for="service">Service Name</KLabel>
 <KInput id="service"/>
@@ -52,16 +50,4 @@
 ```vue
 <KLabel for="service" help="A service is an API that you want to offer">Service Name</KLabel>
 <KInput id="service"/>
-```
-
-## Sample input with a tooltip
-
-<br />
-
-<KLabel help="A service is an API that you want to offer">Service Name</KLabel>
-<KInput />
-
-```vue
-<KLabel help="A service is an API that you want to offer">Service Name</KLabel>
-<KInput />
 ```
