@@ -80,7 +80,7 @@ e.g. `<path id="preserveColor" d="M9 11v2H7v-2h2zm0-8v6.5H7V3h2z" fill="#FFF"/>`
 
 The title to be announced by screenreaders and displayed on hover. If not provided, a default title will be used.
 
-<KIcon icon="warning" />
+<KIcon icon="warning" class="mr-2"/>
 <KIcon icon="warning" title="Custom Title" />
 
 ```vue
@@ -106,7 +106,7 @@ You can read more about the viewBox attribute
 
 - `svgElements` - Used to add svg customization elements
 
-<KIcon icon="check" size="50" color="url('#linear-gradient')">
+<KIcon icon="check" size="50" color="url('#linear-gradient')" class="mr-2">
   <template v-slot:svgElements>
     <defs>
       <linearGradient id="linear-gradient" x1="0" x2="1">
@@ -118,7 +118,7 @@ You can read more about the viewBox attribute
   </template>
 </KIcon>
 
-<KIcon icon="search" size="50" color="url('#linear-gradient2')">
+<KIcon icon="search" size="50" color="url('#linear-gradient2')" class="mr-2">
   <template v-slot:svgElements>
     <defs>
       <linearGradient id="linear-gradient2" gradientTransform="rotate(90)">
