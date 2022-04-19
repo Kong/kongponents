@@ -142,8 +142,8 @@
   }
 }
 
-.k-input-wrapper .input-error {
-  &.k-input {
+.k-input-wrapper.input-error {
+  .k-input {
     outline: none !important;
     box-shadow: inset 0 0 0 1.5px var(--KInputError, var(--red-500, color(red-500))) !important;
     transition: color 0.1s ease;
