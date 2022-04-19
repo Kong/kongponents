@@ -182,10 +182,6 @@ export default defineComponent({
     &.has-status {
       align-items: flex-start;
     }
-
-    .k-button {
-      min-height: 38px;
-    }
   }
 
   .k-card-status-hat {
@@ -216,6 +212,18 @@ export default defineComponent({
   .k-card-notifications {
     margin-left: auto;
     margin-top: auto;
+  }
+}
+</style>
+
+<style lang="scss">
+@import '@/styles/variables';
+
+.kong-card {
+  .k-card-header {
+    .k-button {
+      min-height: 38px;
+    }
   }
 }
 </style>

@@ -109,9 +109,11 @@ export default defineComponent({
     })
 
     const handleChange = (e: any): void => {
-      emit('change', e.target.checked)
-      emit('input', e.target.checked)
-      emit('update:modelValue', e.target.checked)
+      if (props.modelValue !== e.target.checked) {
+        emit('change', e.target.checked)
+        emit('input', e.target.checked)
+        emit('update:modelValue', e.target.checked)
+      }
     }
 
     return {

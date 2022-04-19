@@ -30,12 +30,12 @@ The Button component can take 1 of 6 appearance values:
 <KButton class="mr-2 mb-2" appearance='btn-link'>btn-link</KButton>
 
 ```vue
-<KButton class="mr-2 mb-2" appearance='primary'>Primary</KButton>
-<KButton class="mr-2 mb-2" appearance="secondary">Secondary</KButton>
-<KButton class="mr-2 mb-2" appearance='outline'>Outline</KButton>
-<KButton class="mr-2 mb-2" appearance='danger'>Danger</KButton>
-<KButton class="mr-2 mb-2" appearance="creation">Creation</KButton>
-<KButton class="mr-2 mb-2" appearance='btn-link'>btn-link</KButton>
+<KButton appearance='primary'>Primary</KButton>
+<KButton appearance="secondary">Secondary</KButton>
+<KButton appearance='outline'>Outline</KButton>
+<KButton appearance='danger'>Danger</KButton>
+<KButton appearance="creation">Creation</KButton>
+<KButton appearance='btn-link'>btn-link</KButton>
 ```
 
 ### size
@@ -46,9 +46,9 @@ We support `small`, `medium`, and `large` sizes, default to `medium`.
 - `medium`
 - `large`
 
-<KButton appearance="secondary" size="small">Small</KButton>
+<KButton class="mr-2" appearance="secondary" size="small">Small</KButton>
 
-<KButton appearance="secondary" size="medium">Medium</KButton>
+<KButton class="mr-2" appearance="secondary" size="medium">Medium</KButton>
 
 <KButton appearance="secondary" size="large">Large</KButton>
 
@@ -80,7 +80,7 @@ KButton can display a dropdown caret to the right hand side. This is useful for 
 
 The buttons are rounded by default. This can be disabled by setting `isRounded` prop to `false`.
 
-<KButton appearance="primary" :isRounded="false">I'm a button</KButton>
+<KButton class="mr-2" appearance="primary" :isRounded="false">I'm a button</KButton>
 <KButton appearance="primary" >I'm a button</KButton>
 
 ```vue
@@ -95,7 +95,7 @@ A string for the `KIcon` name to be displayed to the left of the button's conten
 If the disable state of the button can be changed, it is recommended to use the `icon` property instead of the slot, as using the prop will apply correct
 coloring to the icon depending on the `disabled` state of the button.
 
-<KButton appearance="primary" icon="spinner">I'm a button</KButton>
+<KButton class="mr-2" appearance="primary" icon="spinner">I'm a button</KButton>
 <KButton appearance="primary" icon="spinner" disabled>I'm a button</KButton>
 
 ```vue
@@ -133,7 +133,7 @@ KButton also supports the disabled attribute with both Button and Anchor types.
 
 KButton supports using an icon either before the text or without text. If you are using the slot you must maintain the icon color yourself when the button is enabled or disabled.
 
-<KButton appearance="secondary">
+<KButton class="mr-2" appearance="secondary">
   <template v-slot:icon>
     <KIcon icon="externalLink" color="var(--KButtonSecondaryColor, #003694)"/>
   </template>
@@ -187,13 +187,10 @@ KButton supports using an icon either before the text or without text. If you ar
 | `--KButtonPaddingX`| Button horizontal (left and right) padding
 | `--KButtonRadius` | Button corner radius
 
-\
 An Example of changing the primary KButton variant to purple instead of blue might
 look like.
 
-<template>
-  <KButton class="purple-button" appearance="primary">PURPLE!</KButton>
-</template>
+<KButton class="purple-button" appearance="primary">PURPLE!</KButton>
 
 ```vue
 <template>

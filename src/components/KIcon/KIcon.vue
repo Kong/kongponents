@@ -2,6 +2,7 @@
 <template>
   <span
     v-if="!$slots.svgElements"
+    v-bind="$attrs"
     ref="svgWrapper"
     :class="`kong-icon-${icon}`"
     class="kong-icon"
@@ -9,6 +10,7 @@
   />
   <span
     v-else
+    v-bind="$attrs"
     ref="svgWrapper"
     :class="`kong-icon-${icon}`"
     class="kong-icon"
@@ -206,9 +208,11 @@ export default defineComponent({
 
         // Bind attributes
         for (const [attributeName, attributeValue] of Object.entries(attrs)) {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          svg.value.setAttribute(attributeName, attributeValue)
+          if (!['class', 'id', 'style'].includes(attributeName)) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            svg.value.setAttribute(attributeName, attributeValue)
+          }
         }
 
         // Add role

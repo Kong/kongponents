@@ -300,6 +300,7 @@ export default defineComponent({
     transition: all 200ms ease;
     cursor: pointer;
     opacity: 0.5;
+
     &:hover,
     &:active {
       text-decoration: none;
@@ -415,24 +416,6 @@ div.k-alert.banner {
   padding: 0;
 }
 
-button.close > :deep(.kong-icon) {
-  svg.info {
-    stroke: var(--KAlertInfoColor, var(--blue-500, color(blue-500)));
-  }
-
-  svg.success {
-    stroke: var(--KAlertSuccessColor, var(--green-600, color(green-600)));
-  }
-
-  svg.danger {
-    stroke: var(--KAlertDangerColor, var(--red-700, color(red-700)));
-  }
-
-  svg.warning {
-    stroke: var(--KAlertWarningColor, var(--yellow-500, color(yellow-500)));
-  }
-}
-
 .k-alert-ellipse {
   height: 6px;
   width: 6px;
@@ -457,10 +440,6 @@ button.close > :deep(.kong-icon) {
   }
 }
 
-.k-alert-icon {
-  padding: 23px 5px 25px 21px;
-}
-
 .toaster-item .k-alert .k-alert-msg {
   padding: 0;
   margin: 0;
@@ -470,78 +449,6 @@ button.close > :deep(.kong-icon) {
   display: inline-flex;
   position: absolute;
   right: 13px;
-
-  & button {
-    height: 30px;
-    margin-left: 13px;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 13px;
-  }
-
-  &.info button.primary {
-    color: var(--blue-500);
-    background-color: var(--blue-100);
-    --KButtonPrimaryBase: var(--blue-500);
-    --KButtonPrimaryHover: var(--blue-200);
-  }
-
-  &.info button.outline {
-    color: var(--blue-500);
-    border: 1px solid var(--blue-400);
-    --KButtonOutlineBorder: var(--blue-500);
-    --KButtonOutlineHoverBorder: var(--blue-600);
-    --KButtonOutlineActive: var(--blue-100);
-    --KButtonOutlineActiveBorder: var(--blue-500);
-  }
-
-  &.warning button.primary {
-    color: var(--yellow-500);
-    background-color: var(--yellow-100);
-    --KButtonPrimaryBase: var(--yellow-500);
-    --KButtonPrimaryHover: var(--yellow-200);
-  }
-
-  &.warning button.outline {
-    color: var(--yellow-500);
-    border: 1px solid var(--yellow-300);
-    --KButtonOutlineBorder: var(--yellow-500);
-    --KButtonOutlineHoverBorder: var(--yellow-500);
-    --KButtonOutlineActive: var(--yellow-100);
-    --KButtonOutlineActiveBorder: var(--yellow-500);
-  }
-
-  &.success button.primary {
-    color: var(--green-600);
-    background-color: var(--green-100);
-    --KButtonPrimaryBase: var(--green-600);
-    --KButtonPrimaryHover: var(--green-200);
-  }
-
-  &.success button.outline {
-    color: var(--green-600);
-    border: 1px solid var(--green-400);
-    --KButtonOutlineBorder: var(--green-600);
-    --KButtonOutlineHoverBorder: var(--green-600);
-    --KButtonOutlineActive: var(--green-100);
-    --KButtonOutlineActiveBorder: var(--green-600);
-  }
-
-  &.danger button.primary {
-    color: var(--red-700);
-    background-color: var(--red-100);
-    --KButtonPrimaryHover: var(--red-200);
-    --KButtonPrimaryBase: var(--red-700);
-  }
-
-  &.danger button.outline {
-    border: 1px solid var(--red-500);
-    --KButtonOutlineBorder: var(--red-700);
-    --KButtonOutlineColor: var(--red-700);
-    --KButtonOutlineHoverBorder: var(--red-700);
-    --KButtonOutlineActive: var(--red-100);
-    --KButtonOutlineActiveBorder: var(--red-700);
-  }
 }
 
 .k-alert-description-text {
@@ -568,6 +475,114 @@ button.close > :deep(.kong-icon) {
 
   @media (min-width: 959px) {
     padding: 12px 210px 12px 16px;
+  }
+}
+</style>
+
+<style lang="scss">
+@import "@/styles/variables";
+
+.k-alert {
+  button.close > .kong-icon {
+    svg.info {
+      stroke: var(--KAlertInfoColor, var(--blue-500, color(blue-500)));
+    }
+
+    svg.success {
+      stroke: var(--KAlertSuccessColor, var(--green-600, color(green-600)));
+    }
+
+    svg.danger {
+      stroke: var(--KAlertDangerColor, var(--red-700, color(red-700)));
+    }
+
+    svg.warning {
+      stroke: var(--KAlertWarningColor, var(--yellow-500, color(yellow-500)));
+    }
+  }
+
+  .k-alert-icon {
+    padding: 23px 5px 25px 21px;
+  }
+
+  .k-alert-action {
+    & button {
+      height: 30px;
+      margin-left: 13px;
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 13px;
+    }
+
+    &.info button.primary {
+      color: var(--blue-500);
+      background-color: var(--blue-100);
+      --KButtonPrimaryBase: var(--blue-500);
+      --KButtonPrimaryHover: var(--blue-200);
+    }
+
+    &.info button.outline {
+      color: var(--blue-500);
+      border: 1px solid var(--blue-400);
+      --KButtonOutlineBorder: var(--blue-500);
+      --KButtonOutlineHoverBorder: var(--blue-600);
+      --KButtonOutlineActive: var(--blue-100);
+      --KButtonOutlineActiveBorder: var(--blue-500);
+    }
+
+    &.warning button.primary {
+      color: var(--yellow-500);
+      background-color: var(--yellow-100);
+      --KButtonPrimaryBase: var(--yellow-500);
+      --KButtonPrimaryHover: var(--yellow-200);
+    }
+
+    &.warning button.outline {
+      color: var(--yellow-500);
+      border: 1px solid var(--yellow-300);
+      --KButtonOutlineBorder: var(--yellow-500);
+      --KButtonOutlineHoverBorder: var(--yellow-500);
+      --KButtonOutlineActive: var(--yellow-100);
+      --KButtonOutlineActiveBorder: var(--yellow-500);
+    }
+
+    &.success button.primary {
+      color: var(--green-600);
+      background-color: var(--green-100);
+      --KButtonPrimaryBase: var(--green-600);
+      --KButtonPrimaryHover: var(--green-200);
+    }
+
+    &.success button.outline {
+      color: var(--green-600);
+      border: 1px solid var(--green-400);
+      --KButtonOutlineBorder: var(--green-600);
+      --KButtonOutlineHoverBorder: var(--green-600);
+      --KButtonOutlineActive: var(--green-100);
+      --KButtonOutlineActiveBorder: var(--green-600);
+    }
+
+    &.danger button.primary {
+      color: var(--red-700);
+      background-color: var(--red-100);
+      --KButtonPrimaryHover: var(--red-200);
+      --KButtonPrimaryBase: var(--red-700);
+    }
+
+    &.danger button.outline {
+      border: 1px solid var(--red-500);
+      --KButtonOutlineBorder: var(--red-700);
+      --KButtonOutlineColor: var(--red-700);
+      --KButtonOutlineHoverBorder: var(--red-700);
+      --KButtonOutlineActive: var(--red-100);
+      --KButtonOutlineActiveBorder: var(--red-700);
+    }
+  }
+
+  .banner.button > div .k-alert-msg.k-alert-text {
+    padding-left: 0;
+    font-size: var(--type-md, type(md));
+    line-height: 24px;
   }
 }
 </style>

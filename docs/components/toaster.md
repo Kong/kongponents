@@ -78,10 +78,10 @@ The default argument passed to the toaster is the message.
 
 The Toaster uses the same appearance values as [KAlert](/components/alert) and are applied the same way.
 
-<KButton appearance="primary" @click="openNotification({'appearance': 'info', 'message':'This toaster is a info appeareance'})">Open Toaster</KButton>
-<KButton class="success" appearance="primary" @click="openNotification({'appearance': 'success', 'message':'This toaster is a success appeareance'})">Open Toaster</KButton>
-<KButton appearance="danger" @click="openNotification({'appearance': 'danger', 'message':'This toaster is a danger appeareance'})">Open Toaster</KButton>
-<KButton class="warning" appearance="primary" @click="openNotification({'appearance': 'warning', 'message':'This toaster is a warning appeareance'})">Open Toaster</KButton>
+<KButton class="mr-2" appearance="primary" @click="openNotification({'appearance': 'info', 'message':'This toaster has info appearance'})">Open Toaster</KButton>
+<KButton class="success mr-2" appearance="primary" @click="openNotification({'appearance': 'success', 'message':'This toaster has success appearance'})">Open Toaster</KButton>
+<KButton class="mr-2" appearance="danger" @click="openNotification({'appearance': 'danger', 'message':'This toaster has danger appearance'})">Open Toaster</KButton>
+<KButton class="warning mr-2" appearance="primary" @click="openNotification({'appearance': 'warning', 'message':'This toaster has warning appearance'})">Open Toaster</KButton>
 
 ```vue
 <template>
@@ -148,8 +148,8 @@ export default defineComponent({
 
 You can view the current state of active toasters by calling `this.$toaster.toasters`. Click the buttons below to watch the state change
 
-<KButton class="success" appearance="primary" @click="openNotification({timeoutMilliseconds: 10000, message: 'Success Notification', appearance: 'success'})">Open Toaster</KButton>
-<KButton appearance="danger" @click="openNotification({'appearance': 'danger', 'message': 'Danger Notification'})">Open Toaster</KButton>
+<KButton class="success mr-2" appearance="primary" @click="openNotification({timeoutMilliseconds: 10000, message: 'Success Notification', appearance: 'success'})">Open Toaster</KButton>
+<KButton appearance="danger" @click="openNotification({'appearance': 'danger', 'message': 'Danger Notification'})" class="mr-2">Open Toaster</KButton>
 <KButton @click="openNotification('Basic Notification')">Open Toaster</KButton>
 
 <pre class="language-json">
@@ -189,7 +189,7 @@ export default defineComponent({
 ### Long Content
 
 <br>
-<KButton @click="openNotification(`Before you release that email you're writing to spin up a new centralized decision-making group, it's worth talking about the four ways these groups consistently fail. They tend to be domineering, bottlenecked, status-oriented, or inert.`)">Prose</KButton>
+<KButton @click="openNotification(`Before you release that email you're writing to spin up a new centralized decision-making group, it's worth talking about the four ways these groups consistently fail. They tend to be domineering, bottlenecked, status-oriented, or inert.`)" class="mr-2">Prose</KButton>
 
 <KButton @click="openNotification({message:`Proxy error: Could not proxy request /api/service_packages?fields=&s=%7B%22%24and%22%3A%5B%7B%22name%22%3A%7B%22%24contL%22%3A%22%22%7D%7D%5D%7D&filter=&or=&sort=created_at%2CDESC&join=&limit=100&offset=0&page=1 from localhost:8080 to http://localhost:3000 (ECONNREFUSED).`, appearance: 'danger'})">Raw error message</KButton>
 

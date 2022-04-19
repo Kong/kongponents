@@ -140,16 +140,15 @@ Notice that even though we are using the `header-content` slot we still specify 
 An Example of changing the the colors of KModal might look like.
 > Note: We are scoping the overrides to a wrapper in this example
 
-<template>
-  <div class="modal-wrapper">
-    <KModal
-      :isVisible="themeIsOpen"
-      title="Look Mah!"
-      content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris accumsan tincidunt velit ac vulputate. Aliquam turpis odio, elementum a hendrerit id, pellentesque quis ligula."
-      @canceled="themeIsOpen = false" />
-    <KButton @click="themeIsOpen = true">Open Modal</KButton>
-  </div>
-</template>
+<KButton @click="themeIsOpen = true">Open Modal</KButton>
+
+<div class="modal-wrapper">
+  <KModal
+    :isVisible="themeIsOpen"
+    title="Look Mah!"
+    content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris accumsan tincidunt velit ac vulputate. Aliquam turpis odio, elementum a hendrerit id, pellentesque quis ligula."
+    @canceled="themeIsOpen = false" />
+</div>
 
 ```vue
 <template>

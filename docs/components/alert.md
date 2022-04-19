@@ -263,6 +263,11 @@ Fixes KAlert to the top of the container.
 </KAlert>
 ```
 
+## Events
+
+- `@closed` - emitted when the dismiss button is clicked
+- `@proceed` - emitted when a default action button is clicked
+
 ## Variations
 
 ### Long Content / Prose
