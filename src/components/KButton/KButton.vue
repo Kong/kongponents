@@ -369,7 +369,7 @@ export default defineComponent({
       text-decoration: underline;
     }
     &:focus {
-      @include boxShadow(var(--blue-500, color(blue-500)), 0, 2px);
+      @include boxShadow(var(--KButtonOutlineBorder, var(--blue-500, color(blue-500))), 0, 2px);
     }
     &:disabled,
     &[disabled] {

@@ -492,7 +492,7 @@ export default defineComponent({
   },
   emits: ['sort', 'ktable-error-cta-clicked', 'ktable-empty-state-cta-clicked'],
   setup(props, { attrs }) {
-    const tableId = computed((): string => props.testMode ? uuidv1() : 'test-table-id-1234')
+    const tableId = computed((): string => props.testMode ? 'test-table-id-1234' : uuidv1())
     const defaultFetcherProps = {
       pageSize: 15,
       page: 1,

@@ -275,32 +275,54 @@ export default defineComponent({
 
 | Variable | Purpose
 |:-------- |:-------
-| `--KPaginationBorderColor`| KPagination border color
+| `--KPaginationColor`| KPagination button text color
+| `--KPaginationBackgroundColor`| KPagination button background color
+| `--KPaginationBorderColor`| KPagination button border color
+| `--KPaginationPageSizeColor`| KPagination page size button text color
+| `--KPaginationActiveColor`| KPagination active button text color
+| `--KPaginationActiveBackgroundColor`| KPagination active button background color
+| `--KPaginationActiveBorderColor`| KPagination active button border color
+| `--KPaginationDisabledColor`| KPagination disabled button text color
+
 
 An Example of changing the border color of KPagination to lime might look like:
 
 > Note: We are scoping the overrides to a wrapper in this example
 
 <div class="KPagination-wrapper">
-  <KPagination />
+  <KPagination :totalCount="100" :pageSizes="[10, 20, 30, 40]"/>
 </div>
 
 ```vue
 <template>
   <div class="KPagination-wrapper">
-    <KPagination />
+    <KPagination :totalCount="100" :pageSizes="[10, 20, 30, 40]"/>
   </div>
 </template>
 
 <style>
 .KPagination-wrapper {
-  --KPagination-wrapperBorderColor: lime;
+  --KPaginationColor: black;
+  --KPaginationBackgroundColor: lightgreen;
+  --KPaginationBorderColor: black;
+  --KPaginationPageSizeColor: red;
+  --KPaginationActiveColor: purple;
+  --KPaginationActiveBackgroundColor: violet;
+  --KPaginationActiveBorderColor: purple;
+  --KPaginationDisabledColor: darkgrey;
 }
 </style>
 ```
 
 <style lang="scss">
 .KPagination-wrapper {
-  --KPagination-wrapperBorderColor: lime;
+  --KPaginationColor: black;
+  --KPaginationBackgroundColor: lightgreen;
+  --KPaginationBorderColor: black;
+  --KPaginationPageSizeColor: red;
+  --KPaginationActiveColor: purple;
+  --KPaginationActiveBackgroundColor: violet;
+  --KPaginationActiveBorderColor: purple;
+  --KPaginationDisabledColor: darkgrey;
 }
 </style>

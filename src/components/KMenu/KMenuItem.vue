@@ -98,7 +98,7 @@ export default defineComponent({
   emits: ['clicked'],
   setup(props, { emit, slots }) {
     const isOpen = ref(false)
-    const menuItemId = computed((): string => !props.testMode ? uuidv1() : 'test-menuitem-id-1234')
+    const menuItemId = computed((): string => props.testMode ? 'test-menuitem-id-1234' : uuidv1())
 
     const toggleMenuItem = (): void => {
       if (props.expandable) {
