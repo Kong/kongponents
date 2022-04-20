@@ -86,6 +86,16 @@ Use this prop to remove the character limit on the textarea. Defaults to `false`
 <KTextArea disable-character-limit />
 ```
 
+### hasError
+
+Boolean value to indicate whether the element has an error and should apply error styling. By default this is `false`.
+
+<KTextArea has-error />
+
+```vue
+<KTextArea has-error />
+```
+
 ## v-model
 
 `KTextArea` works as regular texarea do using v-model for data binding:
@@ -93,9 +103,7 @@ Use this prop to remove the character limit on the textarea. Defaults to `false`
 <KComponent :data="{myInput: 'hello'}" v-slot="{ data }">
   <div>
     {{ data.myInput }}
-    <KTextArea
-      v-model="data.myInput"
-      @blur="e => (data.myInput = 'blurred')" />
+    <KTextArea v-model="data.myInput" />
   </div>
 </KComponent>
 
@@ -124,12 +132,12 @@ Use this prop to remove the character limit on the textarea. Defaults to `false`
 
 `KTextArea` also transparently binds to events:
 
-<KComponent :data="{myInput: 'hello'}" v-slot="{ data }">
+<KComponent :data="{myInput2: 'hello'}" v-slot="{ data }">
   <div>
     <KTextArea
-      v-model="data.myInput"
-      @blur="e => (data.myInput = 'blurred')"
-      @focus="e => (data.myInput = 'focused')"
+      v-model="data.myInput2"
+      @blur="e => (data.myInput2 = 'blurred')"
+      @focus="e => (data.myInput2 = 'focused')"
     />
   </div>
 </KComponent>
@@ -161,11 +169,11 @@ Use this prop to remove the character limit on the textarea. Defaults to `false`
 
 An Example of changing the error border color of KInput to pink might look like:
 
-<KTextArea class="custom-input input-error" type="email" value="error" />
+<KTextArea class="custom-input" has-error type="email" />
 
 ```vue
 <template>
-  <KTextArea class="custom-input input-error" type="email" value="error" />
+  <KTextArea class="custom-input" has-error type="email" />
 </template>
 
 <style>

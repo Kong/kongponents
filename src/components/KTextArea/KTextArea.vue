@@ -1,5 +1,8 @@
 <template>
-  <div class="k-input-wrapper mb-2">
+  <div
+    :class="{'input-error' : hasError || charLimitExceeded}"
+    class="k-input-wrapper mb-2"
+  >
     <textarea
       v-if="!label"
       v-bind="$attrs"
@@ -28,6 +31,7 @@
           :value="currValue ? currValue : modelValue"
           :rows="rows"
           :cols="cols"
+          :aria-invalid="hasError ? hasError : 'false'"
           class="form-control k-input style-body-lg"
           @input="inputHandler"
           @mouseenter="() => isHovered = true"
@@ -54,6 +58,7 @@
         :value="currValue ? currValue : modelValue"
         :rows="rows"
         :cols="cols"
+        :aria-invalid="hasError ? hasError : 'false'"
         class="form-control k-input style-body-lg"
         @input="inputHandler"
         @mouseenter="() => isHovered = true"
@@ -116,6 +121,10 @@ export default defineComponent({
     cols: {
       type: Number,
       default: 52,
+    },
+    hasError: {
+      type: Boolean,
+      default: false,
     },
     /**
      * Test mode - for testing only, strips out generated ids
@@ -203,6 +212,11 @@ export default defineComponent({
 
   .over-char-limit {
     color: var(--red-600);
+  }
+
+  .text-on-input label.hovered,
+  .text-on-input label:hover {
+    color: var(--KInputHover, var(--blue-500));
   }
 }
 </style>
