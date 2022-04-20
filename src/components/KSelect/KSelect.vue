@@ -446,7 +446,6 @@ export default defineComponent({
     position: relative;
     display: inline-block;
     width: 100%;
-    height: 44px;
 
     :deep(input.k-input) {
       padding: var(--spacing-xs);
@@ -456,7 +455,7 @@ export default defineComponent({
 
     :deep(.kong-icon) {
       position: absolute;
-      top: 45%;
+      top: 60%;
       right: 6px;
       transform: translateY(-50%);
       z-index: 9;

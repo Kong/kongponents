@@ -2,7 +2,7 @@
   <li
     :key="item.key"
     :data-testid="`k-select-item-${item.value}`"
-    class="k-select-item mx-4"
+    class="k-select-item mx-2"
     @click="handleClick"
   >
     <div
