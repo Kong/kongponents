@@ -149,6 +149,7 @@ const defaultKPopAttributes = {
   popoverClasses: 'k-select-popover mt-0',
   popoverTimeout: 0,
   placement: 'bottomStart',
+  hideCaret: true,
 }
 
 interface SelectItem {
