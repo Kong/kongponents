@@ -266,7 +266,7 @@ export default defineComponent({
 
 You can pass a `width` string for dropdown. By default the `width` is `170px`. This is the width of the input, dropdown, and selected item.
 
-<KSelect width="100" :items="[{
+<KSelect width="350" :items="[{
     label: 'test',
     value: 'test',
     selected: true
@@ -277,7 +277,7 @@ You can pass a `width` string for dropdown. By default the `width` is `170px`. T
 />
 
 ```html
-<KSelect width="100" :items="[{
+<KSelect width="350" :items="[{
     label: 'test',
     value: 'test',
     selected: true
@@ -299,7 +299,7 @@ KSelect works as regular inputs do using v-model for data binding:
 <KComponent :data="{ myVal: 'test' }" v-slot="{ data }">
   <div>
     <KLabel>Value:</KLabel> {{ data.myVal }}
-    <KSelect width="100" v-model="data.myVal" :items="[{
+    <KSelect v-model="data.myVal" :items="[{
         label: 'test',
         value: 'test'
       }, {
@@ -314,7 +314,7 @@ KSelect works as regular inputs do using v-model for data binding:
 <KComponent :data="{myVal: 'test'}" v-slot="{ data }">
   <div>
     <KLabel>Value:</KLabel> {{ data.myVal }}
-    <KSelect width="100" v-model="data.myVal" :items="[{
+    <KSelect v-model="data.myVal" :items="[{
         label: 'test',
         value: 'test'
       }, {

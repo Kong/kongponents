@@ -433,8 +433,9 @@ export default defineComponent({
 
     :deep(.kong-icon) {
       position: absolute;
-      top: 15px;
+      top: 45%;
       right: 6px;
+      transform: translateY(-50%);
       z-index: 9;
     }
   }
