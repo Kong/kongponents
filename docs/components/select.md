@@ -204,30 +204,6 @@ You can configure the button text when an item is selected, if `appearance` is t
 
 <KSelect appearance='button' width="225" @selected="item => handleItemSelect(item)" :buttonText="`Show ${mySelect} per page`" :items="items" />
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  data() {
-    return {
-      mySelect: '',
-      items: [{
-        label: '25',
-        value: '25'
-      }, {
-        label: '50',
-        value: '50'
-      }]
-    }
-  },
-  methods: {
-    handleItemSelect (item) {
-      this.mySelect = item.label
-    }
-  }
-})
-</script>
-
 ```html
 <KSelect
   appearance='button'
@@ -264,7 +240,7 @@ export default defineComponent({
 
 ### width
 
-You can pass a `width` string for dropdown. By default the `width` is `170px`. This is the width of the input, dropdown, and selected item.
+You can pass a `width` string for dropdown. By default the `width` is `200px`. This is the width of the input, dropdown, and selected item.
 
 <KSelect width="350" :items="[{
     label: 'test',
@@ -291,6 +267,17 @@ You can pass a `width` string for dropdown. By default the `width` is `170px`. T
 ### positionFixed
 
 Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `true`. See [`KPop` docs](popover.html#positionfixed) for more information.
+
+### filterFunc
+
+Use this prop to override the default filter function if you want to do something like filter on an attribute other than `label`. Your filter function
+should take as parameter a JSON object containing the items to filter on (`items`) and the query string (`query`) and return the filtered items. See [Slots](#slots) for an example.
+
+```js
+myCustomFilter ({ items, query }) {
+  return items.filter(anItem => anItem.label.includes(query))
+}
+```
 
 ### v-model
 
@@ -336,6 +323,54 @@ You can pass any input attribute and it will get properly bound to the element.
 <KSelect disabled placeholder="type something" :items="[{ label: 'test', value: 'test' }]" />
 ```
 
+## Slots
+
+You can use the `item-template` slot to customize the look and feel of your items. Use slots to gain access to the `item` data.
+
+<KSelect :items="myItems" width="500" :filterFunc="customFilter">
+  <template v-slot:item-template="{ item }">
+    <div class="select-item-label">{{ item.label }}</div>
+    <div class="select-item-desc">{{ item.description }}</div>
+  </template>
+</KSelect>
+
+```vue
+<KSelect :items="myItems" width="500" :filterFunc="customFilter">
+  <template v-slot:item-template="{ item }">
+    <div class="select-item-label">{{item.label}}</div>
+    <div class="select-item-desc">{{item.description}}</div>
+  </template>
+</KSelect>
+<script>
+export default {
+  data() {
+    return {
+      myItems: this.getItems(5),
+    }
+  },
+  methods: {
+    getItems(count) {
+      let myItems = []
+        for (let i = 0; i < count; i++) {
+          myItems.push({
+            label: "Item " + i,
+            value: "item_" + i,
+            description: "The item's description for number " + i
+          })
+        }
+      return myItems
+    },
+    customFilter (items, queryStr) {
+      return items.filter(item => {
+        return item.label.toLowerCase().includes(queryStr.toLowerCase()) ||
+          item.description.toLowerCase().includes(queryStr.toLowerCase())
+      })
+    }
+  }
+}
+</script>
+```
+
 ## Events
 
 | Event     | returns             |
@@ -343,3 +378,54 @@ You can pass any input attribute and it will get properly bound to the element.
 | `selected` | `selectedItem` Object |
 | `input` | `selectedItem` Object or null |
 | `change` | `selectedItem` Object or null |
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+function getItems(count) {
+  let myItems = []
+    for (let i = 0; i < count; i++) {
+      myItems.push({
+        label: "Item " + i,
+        value: "item_" + i,
+        description: "The item's description for number " + i
+      })
+    }
+  return myItems
+}
+
+export default defineComponent({
+  data() {
+    return {
+      myItems: getItems(5),
+      mySelect: '',
+      items: [{
+        label: '25',
+        value: '25'
+      }, {
+        label: '50',
+        value: '50'
+      }]
+    }
+  },
+  methods: {
+    handleItemSelect (item) {
+      this.mySelect = item.label
+    },
+    customFilter ({items, query}) {
+      return items.filter(item => item.label.toLowerCase().includes(query.toLowerCase()) || item.description.toLowerCase().includes(query.toLowerCase()))
+    }
+  }
+})
+</script>
+
+<style lang="scss">
+  .select-item-label {
+    color: blue;
+    font-weight: bold;
+  }
+
+  .select-item-desc {
+    color: red;
+  }
+</style>

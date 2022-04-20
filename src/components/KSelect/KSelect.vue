@@ -111,16 +111,21 @@
                 :is-open="isToggled.value"
                 name="items"
               >
-                <div v-if="filteredItems.length">
-                  <KSelectItem
-                    v-for="item in filteredItems"
-                    :key="item.key"
-                    :item="item"
-                    @selected="handleItemSelect"
-                  />
-                </div>
                 <KSelectItem
-                  v-else
+                  v-for="item in filteredItems"
+                  :key="item.key"
+                  :item="item"
+                  @selected="handleItemSelect"
+                >
+                  <template #content>
+                    <slot
+                      :item="item"
+                      name="item-template"
+                    />
+                  </template>
+                </KSelectItem>
+                <KSelectItem
+                  v-if="!filteredItems.length"
                   key="k-select-empty-state"
                   :item="{ label: 'No results', value: 'no_results' }"
                   class="k-select-empty-item"
@@ -152,11 +157,16 @@ const defaultKPopAttributes = {
   hideCaret: true,
 }
 
-interface SelectItem {
+export interface SelectItem {
   label: string
   value: string | number
   key?: string
   selected?: boolean
+}
+
+export interface SelectFilterFnParams {
+  items: SelectItem[]
+  query: string
 }
 
 export default defineComponent({
@@ -239,6 +249,13 @@ export default defineComponent({
       default: true,
     },
     /**
+     * Override default filter functionality of case-insensitive search on label
+     */
+    filterFunc: {
+      type: Function,
+      default: (params: SelectFilterFnParams) => params.items.filter((item: SelectItem) => item.label.toLowerCase().includes(params.query.toLowerCase())),
+    },
+    /**
      * Test mode - for testing only, strips out generated ids
      */
     testMode: {
@@ -258,9 +275,9 @@ export default defineComponent({
     const widthValue = computed(() => {
       let w
       if (!props.width) {
-        w = 170
+        w = 205
         if (props.appearance === 'button') {
-          w = 200
+          w = 230
         }
       } else {
         w = props.width
@@ -287,7 +304,7 @@ export default defineComponent({
     // TypeScript complains if I bind the original object
     const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
 
-    const filteredItems = computed(() => selectItems.value.filter((item: SelectItem) => item.label.toLowerCase().includes(filterStr.value.toLowerCase())))
+    const filteredItems = computed(() => props.filterFunc({ items: selectItems.value, query: filterStr.value }))
 
     const placeholderText = computed((): string => {
       if (props.placeholder) {
@@ -442,6 +459,12 @@ export default defineComponent({
 
   .k-select-button .has-caret :deep(.kong-icon) {
     margin-left: auto;
+  }
+
+  .k-select-button {
+    :deep(.k-button.btn-link):hover {
+      text-decoration: none;
+    }
   }
 
   :deep(.k-input) {      // need this so input takes the
