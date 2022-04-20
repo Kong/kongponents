@@ -13,7 +13,7 @@
           :width="calcWidth(cell, columns)"
           :class="{
             'mr-6': cell !== columns,
-            'ml-auto': cell === columns,
+            'w-100': cell === columns, // take the rest of the space
             'skeleton-cell': true
           }"
         />
