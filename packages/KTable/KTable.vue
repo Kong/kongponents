@@ -23,6 +23,7 @@
             <KButton
               v-if="errorStateActionMessage"
               :to="errorStateActionRoute ? errorStateActionRoute : null"
+              :data-testid="getTestIdString(errorStateActionMessage)"
               appearance="primary"
               @click="$emit('ktable-error-cta-clicked')"
             >
@@ -49,6 +50,7 @@
             <KButton
               v-if="emptyStateActionMessage"
               :to="emptyStateActionRoute ? emptyStateActionRoute : null"
+              :data-testid="getTestIdString(emptyStateActionMessage)"
               appearance="primary"
               @click="$emit('ktable-empty-state-cta-clicked')"
             >
@@ -662,6 +664,10 @@ export default defineComponent({
       }
     }
 
+    const getTestIdString = (message) => {
+      return message.toLowerCase().replace(/[^[a-z0-9]/gi, '-')
+    }
+
     watch(() => props.searchInput, (newValue) => {
       search(newValue)
     }, { immediate: true })
@@ -690,7 +696,8 @@ export default defineComponent({
       tableHeaders,
       tdlisteners,
       total,
-      trlisteners
+      trlisteners,
+      getTestIdString
     }
   }
 })
