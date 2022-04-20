@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.25.1 (2022-04-20)
+
+
+### Bug Fixes
+
+* **ktable:** add data-testid to empty/error state buttons ([#603](https://github.com/Kong/kongponents/issues/603)) ([566c517](https://github.com/Kong/kongponents/commit/566c517bfa7d27bcced8c5ecfb052fe0631b2c44))
+
+
+
+
+
 # 6.25.0 (2022-04-19)
 
 
