@@ -1,3 +1,10 @@
+# [7.0.0-beta.20](https://github.com/Kong/kongponents/compare/v7.0.0-beta.19...v7.0.0-beta.20) (2022-04-20)
+
+
+### Bug Fixes
+
+* **kskeleton:** docs cleanup ([#602](https://github.com/Kong/kongponents/issues/602)) ([b400be0](https://github.com/Kong/kongponents/commit/b400be071254a70cb08f7a5b4f55263a36aff702))
+
 # [7.0.0-beta.19](https://github.com/Kong/kongponents/compare/v7.0.0-beta.18...v7.0.0-beta.19) (2022-04-20)
 
 
