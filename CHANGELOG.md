@@ -1,3 +1,10 @@
+# [7.0.0-beta.18](https://github.com/Kong/kongponents/compare/v7.0.0-beta.17...v7.0.0-beta.18) (2022-04-20)
+
+
+### Bug Fixes
+
+* **ktextarea:** docs cleanup ([#600](https://github.com/Kong/kongponents/issues/600)) ([8cc36fb](https://github.com/Kong/kongponents/commit/8cc36fb0f96a7f8274a2113978736b011c22d458))
+
 # [7.0.0-beta.17](https://github.com/Kong/kongponents/compare/v7.0.0-beta.16...v7.0.0-beta.17) (2022-04-20)
 
 
