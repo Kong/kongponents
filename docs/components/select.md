@@ -334,15 +334,18 @@ You can use the `item-template` slot to customize the look and feel of your item
   </template>
 </KSelect>
 
-```vue
+```html
 <KSelect :items="myItems" width="500" :filterFunc="customFilter">
   <template v-slot:item-template="{ item }">
     <div class="select-item-label">{{item.label}}</div>
     <div class="select-item-desc">{{item.description}}</div>
   </template>
 </KSelect>
-<script>
-export default {
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   data() {
     return {
       myItems: this.getItems(5),
@@ -367,7 +370,7 @@ export default {
       })
     }
   }
-}
+})
 </script>
 ```
 
