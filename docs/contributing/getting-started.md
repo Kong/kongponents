@@ -74,6 +74,26 @@ Run the docs locally
   </CodeGroupItem>
 </CodeGroup>
 
+Build the docs and preview the build locally
+
+<CodeGroup>
+  <CodeGroupItem title="yarn" active>
+
+  ```sh
+  yarn docs:preview
+  ```
+
+  </CodeGroupItem>
+
+  <CodeGroupItem title="npm">
+
+  ```sh
+  npm run docs:preview
+  ```
+
+  </CodeGroupItem>
+</CodeGroup>
+
 Perform a full build of all Kongponents and the Docs site
 
 <CodeGroup>
