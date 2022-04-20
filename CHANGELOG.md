@@ -1,3 +1,10 @@
+# [7.0.0-beta.19](https://github.com/Kong/kongponents/compare/v7.0.0-beta.18...v7.0.0-beta.19) (2022-04-20)
+
+
+### Bug Fixes
+
+* **kselect:** select popover pos ([#601](https://github.com/Kong/kongponents/issues/601)) ([a117713](https://github.com/Kong/kongponents/commit/a117713f27287b9f8ee0919b6b0fd58a1b539d3d))
+
 # [7.0.0-beta.18](https://github.com/Kong/kongponents/compare/v7.0.0-beta.17...v7.0.0-beta.18) (2022-04-20)
 
 
