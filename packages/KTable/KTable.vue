@@ -665,7 +665,7 @@ export default defineComponent({
     }
 
     const getTestIdString = (message) => {
-      return message.toLowerCase().replaceAll(' ', '-')
+      return message.toLowerCase().replace(/[^[a-z0-9]/gi, '-')
     }
 
     watch(() => props.searchInput, (newValue) => {
