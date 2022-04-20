@@ -2,6 +2,7 @@
 /// <reference types="../../cypress/support" />
 
 import { mount } from '@cypress/vue'
+import { h } from 'vue'
 import KSelect from '@/components/KSelect/KSelect.vue'
 
 /**
@@ -169,5 +170,27 @@ describe('KSelect', () => {
 
     cy.getTestId(`k-select-item-${vals[0]}`).click({ multiple: true, force: true })
     cy.get('.selected-item-label').should('contain.text', labels[0])
+  })
+
+  it('allows slotting content into the items', async () => {
+    const itemSlotContent = 'I am slotted baby!'
+    const itemLabel = 'Label 1'
+    const itemValue = 'label1'
+
+    mount(KSelect, {
+      props: {
+        testMode: true,
+        appearance: 'button',
+        items: [{
+          label: itemLabel,
+          value: itemValue,
+        }],
+      },
+      slots: {
+        'item-template': h('span', {}, itemSlotContent),
+      },
+    })
+
+    cy.getTestId(`k-select-item-${itemValue}`).should('contain.text', itemSlotContent)
   })
 })

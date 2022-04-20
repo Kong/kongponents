@@ -2,7 +2,7 @@
   <li
     :key="item.key"
     :data-testid="`k-select-item-${item.value}`"
-    class="k-select-item"
+    class="k-select-item mx-4"
     @click="handleClick"
   >
     <div
@@ -14,7 +14,7 @@
         :value="item.value"
       >
         <span class="k-select-item-label mr-2">
-          <slot>{{ item.label }}</slot>
+          <slot name="content">{{ item.label }}</slot>
         </span>
         <span class="k-select-selected-icon-container">
           <KIcon
