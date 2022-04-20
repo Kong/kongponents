@@ -122,22 +122,6 @@ This loading state is used for a spinner, which can be used for a wide variety o
 <KSkeleton type="spinner" />
 ```
 
-## Button Loading State
-
-This loading state is used to show a spinner, while loading its content. There are no props for this state.
-
-<KButton @click="clickedButton" :disabled="loadingButton">
-  <KSkeleton v-if="loadingButton" type="spinner" class="mr-2" :delay-milliseconds="3000" />{{ loadingButton ? 'Fetching' : 'Fetch' }}
-</KButton>
-
-```vue
-<template>
-  <KButton @click="clickedButton" :disabled="loadingButton">
-    <KSkeleton v-if="loadingButton" type="spinner" class="mr-2" :delay-milliseconds="3000" />{{ loadingButton ? 'Fetching' : 'Fetch' }}
-  </KButton>
-</template>
-```
-
 ## Full Screen Loading State
 
 The full screen loading state is used to display a full screen loader typically during initial render of an app to avoid any FOUC (Flash Of Unstyled Content) while the app tries to figure out if you are able to access the route and also to perform any expensive querying on first load.
@@ -299,6 +283,13 @@ To reveal the header on this docs page during full page loader, click the button
   <KButton @click="clickedTheming()">themed full screen loader</KButton>
   <KSkeleton v-if="loadingTheming" type="fullscreen-kong" :delay-milliseconds="0" />
 </div>
+
+```vue
+<div class="mt-4 k-skeleton-full-screen-margin">
+  <KButton @click="clickedTheming()">themed full screen loader</KButton>
+  <KSkeleton v-if="loadingTheming" type="fullscreen-kong" :delay-milliseconds="0" />
+</div>
+```
 
 <script lang="ts">
 import { defineComponent } from 'vue'
