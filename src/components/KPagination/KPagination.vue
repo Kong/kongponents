@@ -23,7 +23,7 @@
             @click.prevent="pageBack"
           >
             <KIcon
-              :color="backDisabled ? 'var(--grey-500)' : 'var(--blue-400)'"
+              :color="backDisabled ? 'var(--KPaginationDisabledColor, var(--grey-500))' : 'var(--KPaginationColor, var(--blue-400))'"
               icon="arrowLeft"
               size="16"
               view-box="0 0 16 14"
@@ -89,7 +89,7 @@
             @click.prevent="pageForward"
           >
             <KIcon
-              :color="forwardDisabled ? 'var(--grey-500)' : 'var(--blue-400)'"
+              :color="forwardDisabled ? 'var(--KPaginationDisabledColor, var(--grey-500))' : 'var(--KPaginationColor, var(--blue-400))'"
               icon="arrowRight"
               size="16"
               view-box="0 0 16 14"
@@ -342,8 +342,9 @@ export default defineComponent({
 }
 
 .page-size-select {
+  --KButtonBtnLink: var(--KPaginationPageSizeColor, var(--blue-400));
+  --KButtonOutlineBorder: var(--KPaginationPageSizeColor, var(--blue-400));
   --KButtonFontSize: var(--type-sm);
-  color: var(--blue-400);
   font-weight: 500;
   line-height: 20px;
 }
@@ -366,15 +367,22 @@ export default defineComponent({
     line-height: 20px;
     font-size: 12px;
     font-weight: initial;
-    color: var(--grey-500);
-    border: 1px solid var(--grey-300);
-    background-color: white;
+    color: var(--KPaginationColor, var(--grey-500));
+    border: 1px solid var(--KPaginationBorderColor, var(--grey-300));
     border-radius: 4px;
     margin: 0 6px;
     cursor: pointer;
 
+    &:not(.square) {
+      background-color: var(--KPaginationBackgroundColor, white);
+    }
+
     a {
       padding: 6px;
+    }
+
+    &:not(.active) a {
+      color: var(--KPaginationColor, var(--grey-500));
     }
 
     &.square {
@@ -382,14 +390,24 @@ export default defineComponent({
     }
 
     &.placeholder {
+      color: var(--KPaginationColor, var(--grey-500));
+      display: flex;
+      justify-content: center;
+      align-items: center;
       cursor: initial;
     }
 
     &:focus:not(.placeholder),
     &:hover:not(.placeholder) {
-      color: var(--blue-500);
-      border-color: var(--blue-500);
+      color: var(--KPaginationActiveColor, var(--blue-500));
+      border-color: var(--KPaginationActiveColor, var(--blue-500));
       border-radius: 4px;
+    }
+
+    &.disabled {
+      a {
+        cursor: not-allowed !important;
+      }
     }
 
     &.disabled:focus:not(.placeholder),
@@ -400,10 +418,14 @@ export default defineComponent({
 
     &.active {
       outline: none;
-      color: var(--blue-500);
-      border-color: var(--blue-200);
+      color: var(--KPaginationActiveColor, var(--blue-500));
+      border-color: var(--KPaginationActiveBorderColor, var(--blue-200));
+      background-color: var(--KPaginationActiveBackgroundColor, var(--blue-100));
       border-radius: 4px;
-      background-color: var(--blue-100);
+
+      a {
+        color: var(--KPaginationActiveColor, var(--blue-500));
+      }
     }
   }
 }

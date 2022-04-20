@@ -106,6 +106,18 @@ export default defineConfig({
 
 - Added `autcomplete="off"` and `autocapitalize="off"` to the confirmation text input.
 
+### KPagination
+
+- Added new CSS theming variables
+
+    | `--KPaginationColor`| KPagination button text color
+    | `--KPaginationBackgroundColor`| KPagination button background color
+    | `--KPaginationBorderColor`| KPagination button border color
+    | `--KPaginationPageSizeColor`| KPagination page size button text color
+    | `--KPaginationActiveColor`| KPagination active button text color
+    | `--KPaginationActiveBackgroundColor`| KPagination active button background color
+    | `--KPaginationActiveBorderColor`| KPagination active button border color
+    | `--KPaginationDisabledColor`| KPagination disabled button text color
 ### KTabs
 
 - `v-model` is now mapped to `modelValue` prop instead of `value` prop.
