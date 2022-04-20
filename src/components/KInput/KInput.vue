@@ -152,7 +152,7 @@ export default defineComponent({
     const isFocused = ref(false)
     const isHovered = ref(false)
     const isDisabled = computed((): boolean => !!attrs?.disabled)
-    const inputId = computed((): string => attrs.id ? String(attrs.id) : !props.testMode ? uuidv1() : 'test-input-id-1234')
+    const inputId = computed((): string => attrs.id ? String(attrs.id) : props.testMode ? 'test-input-id-1234' : uuidv1())
 
     const modifiedAttrs = computed(() => {
       const $attrs = { ...attrs }

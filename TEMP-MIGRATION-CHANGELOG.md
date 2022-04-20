@@ -110,6 +110,8 @@ export default defineConfig({
 
 - Added new CSS theming variables
 
+    | Variable | Purpose
+    |:-------- |:-------
     | `--KPaginationColor`| KPagination button text color
     | `--KPaginationBackgroundColor`| KPagination button background color
     | `--KPaginationBorderColor`| KPagination button border color

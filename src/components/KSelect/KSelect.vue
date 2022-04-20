@@ -73,7 +73,7 @@
               :is-rounded="false"
               v-bind="$attrs"
               appearance="btn-link"
-              @keyup="triggerFocus(isToggled.value)"
+              @keyup="evt => triggerFocus(evt, isToggled)"
             >
               {{ selectButtonText }}
             </KButton>
@@ -101,7 +101,7 @@
               class="k-select-input"
               autocomplete="off"
               autocapitalize="off"
-              @keyup="triggerFocus(isToggled.value)"
+              @keyup="evt => triggerFocus(evt, isToggled)"
             />
           </div>
           <template #content>
@@ -250,9 +250,9 @@ export default defineComponent({
   setup(props, { attrs, emit }) {
     const filterStr = ref('')
     const selectedItem = ref<SelectItem|null>(null)
-    const selectId = computed((): string => props.testMode ? uuidv1() : 'test-select-id-1234')
-    const selectInputId = computed((): string => props.testMode ? uuidv1() : 'test-select-input-id-1234')
-    const selectTextId = computed((): string => props.testMode ? uuidv1() : 'test-select-text-id-1234')
+    const selectId = computed((): string => props.testMode ? 'test-select-id-1234' : uuidv1())
+    const selectInputId = computed((): string => props.testMode ? 'test-select-input-id-1234' : uuidv1())
+    const selectTextId = computed((): string => props.testMode ? 'test-select-text-id-1234' : uuidv1())
     const selectItems: Ref<SelectItem[]> = ref([])
 
     const widthValue = computed(() => {
@@ -341,9 +341,15 @@ export default defineComponent({
       emit('update:modelValue', null)
     }
 
-    const triggerFocus = (isToggled: boolean):void => {
+    const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
+      // Ignore `esc` key
+      if (evt.keyCode === 27) {
+        isToggled.value = false
+        return
+      }
+
       const inputElem = document.getElementById(selectTextId.value)
-      if (!isToggled && inputElem) { // simulate click to trigger dropdown open
+      if (!isToggled.value && inputElem) { // simulate click to trigger dropdown open
         inputElem.click()
       }
     }

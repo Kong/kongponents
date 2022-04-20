@@ -107,6 +107,7 @@ export default defineComponent({
       .kong-icon {
         position: relative;
         top: 0;
+        transform: none;
       }
     }
 

@@ -131,7 +131,7 @@ export default defineComponent({
     const isFocused = ref(false)
     const isHovered = ref(false)
 
-    const textAreaId = computed((): string => (attrs.id ? String(attrs.id) : !props.testMode ? uuidv1() : 'test-textArea-id-1234'))
+    const textAreaId = computed((): string => (attrs.id ? String(attrs.id) : props.testMode ? 'test-textArea-id-1234' : uuidv1()))
 
     const charLimitExceeded = computed((): boolean => !props.disableCharacterLimit && currValue.value.length > props.characterLimit)
 
