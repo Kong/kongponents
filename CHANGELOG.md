@@ -1,3 +1,10 @@
+# [7.0.0-beta.16](https://github.com/Kong/kongponents/compare/v7.0.0-beta.15...v7.0.0-beta.16) (2022-04-20)
+
+
+### Bug Fixes
+
+* **kselect:** page jump, caret, and docs ([#597](https://github.com/Kong/kongponents/issues/597)) ([4110bcc](https://github.com/Kong/kongponents/commit/4110bcc7b4035a8062f458fd480465477a2befc7))
+
 # [7.0.0-beta.15](https://github.com/Kong/kongponents/compare/v7.0.0-beta.14...v7.0.0-beta.15) (2022-04-19)
 
 
