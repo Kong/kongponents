@@ -69,27 +69,27 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   beforeMount() {
-    const styles = Array.from(document.styleSheets)
-      .filter(sheet => sheet.href === null || sheet.href.startsWith(window.location.origin))
-      .reduce((acc, sheet) => {
-        const rules = Array.from(sheet.cssRules).filter((rule) => {
-          return rule.selectorText && rule.selectorText.startsWith('.style-') && rule.selectorText.indexOf(',') === -1
-        }, [])
+    const styles = [
+      // heading
+      'style-heading-1',
+      'style-heading-2',
+      'style-heading-3',
+      'style-heading-4',
+      // body
+      'style-body-lg-bold',
+      'style-body-lg',
+      'style-body-md-bold',
+      'style-body-md',
+      'style-body-sm-bold',
+      'style-body-sm',
+      'style-body-link',
+      'style-body-bc',
+      'style-body-code',
+      'style-body-tiny',
+    ]
 
-        if (rules.length) {
-          acc = [
-            ...acc,
-            ...rules.reduce((acc, rule) => {
-              return [ ...acc, rule.selectorText.substring(1, rule.selectorText.length) ]
-            }, [])
-          ]
-        }
-
-        return acc
-      }, [])
-
-    this.$page.headingStyles = styles.length ? styles.filter(i => i.includes('heading') && !i.includes('data-v')) : []
-    this.$page.bodyStyles = styles.length ? styles.filter(i => i.includes('body') && !i.includes('data-v')) : []
+    this.$page.headingStyles = styles.filter(i => i.includes('heading'))
+    this.$page.bodyStyles = styles.filter(i => i.includes('body'))
   }
 })
 </script>
