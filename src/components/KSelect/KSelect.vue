@@ -149,6 +149,7 @@ const defaultKPopAttributes = {
   popoverClasses: 'k-select-popover mt-0',
   popoverTimeout: 0,
   placement: 'bottomStart',
+  hideCaret: true,
 }
 
 interface SelectItem {
@@ -272,8 +273,6 @@ export default defineComponent({
         width: widthValue.value,
       }
     })
-
-    console.log('width', widthValue.value.replace(/px/i, ''))
 
     const createKPopAttributes = computed(() => {
       return {
@@ -434,8 +433,9 @@ export default defineComponent({
 
     :deep(.kong-icon) {
       position: absolute;
-      top: 15px;
+      top: 45%;
       right: 6px;
+      transform: translateY(-50%);
       z-index: 9;
     }
   }
