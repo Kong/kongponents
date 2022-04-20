@@ -1,3 +1,15 @@
+# [7.0.0-beta.17](https://github.com/Kong/kongponents/compare/v7.0.0-beta.16...v7.0.0-beta.17) (2022-04-20)
+
+
+### Bug Fixes
+
+* **kpagination:** theming [KHCP-3431] ([#599](https://github.com/Kong/kongponents/issues/599)) ([b9adcde](https://github.com/Kong/kongponents/commit/b9adcded1e016e19ecbc8434c19c66abca085f44))
+
+
+### Features
+
+* **kselect:** filterfunc support ([#598](https://github.com/Kong/kongponents/issues/598)) ([c69de57](https://github.com/Kong/kongponents/commit/c69de57e35f1e898c8473f407a4d96d2b4d30c35))
+
 # [7.0.0-beta.16](https://github.com/Kong/kongponents/compare/v7.0.0-beta.15...v7.0.0-beta.16) (2022-04-20)
 
 
