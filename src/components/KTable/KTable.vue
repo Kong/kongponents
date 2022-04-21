@@ -137,13 +137,13 @@
             :key="`k-table-${tableId}-row-${rowIndex}`"
             :tabindex="isClickable ? 0 : null"
             :role="isClickable ? 'link' : null"
-            v-on="trlisteners(row, 'row')"
+            v-on="hasSideBorder ? tdlisteners(row[value.key]) : null"
           >
             <td
               v-for="(value, index) in tableHeaders"
               v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
               :key="`k-table-${tableId}-cell-${index}`"
-              v-on="tdlisteners(row[value.key], 'cell')"
+              v-on="tdlisteners(row[value.key], row)"
             >
               <slot
                 :name="value.key"
@@ -515,44 +515,60 @@ export default defineComponent({
      * Grabs listeners from attrs matching a prefix to attach the
      * event that is dynamic. e.g. `v-on:cell:click`, `@row:focus` etc.
      * @param {String} prefix - event listener prefix e.g. `row:`, `cell:`
-     * @param {any} listeners - attrs on the vue instance to pluck from
+     * @param {any} attrs - attrs on the vue instance to pluck from
      * @returns {Function} - returns a function that can pass an entity to the
                              listener callback function.
     */
-    const pluckListeners = (prefix: any, listeners: any): any => {
-      return (entity: any, type: any) =>
-        Object.keys(listeners).reduce((acc: any, curr) => {
+    const pluckListeners = (prefix: any, attrs: any): any => {
+      return (entity: any, type: any) => {
+        const onRE = /^on[^a-z]/
+        const listeners = {} as any
+
+        for (const property in attrs) {
+          if (onRE.test(property)) {
+            listeners[property] = attrs[property]
+          }
+        }
+
+        return Object.keys(listeners).reduce((acc: any, curr) => {
           if (curr.indexOf(prefix) === 0) {
             const parts = curr.split(prefix)
             acc[parts[1]] = (e: any) => listeners[curr](e, entity, type)
           }
           return acc
         }, {})
+      }
     }
 
-    const tdlisteners = computed(() => { // TODO: can we replace with something else??
-      return pluckListeners('cell:', attrs)
-    })
+    const tdlisteners = computed(() => {
+      return (entity: any, rowData: any) => {
+        const rowListeners = pluckListeners('onRow:', attrs)(rowData, 'row')
+        const cellListeners = pluckListeners('onCell:', attrs)(entity, 'cell')
 
-    const trlisteners = computed(() => {
-      return (entity: any, type: any) => {
-        const pluckedListeners = pluckListeners('row:', attrs)(entity, type)
-        if (pluckedListeners.click) {
+        if (rowListeners.click) {
           isClickable.value = true
         }
+
         return {
-          ...pluckedListeners,
+          ...rowListeners,
+          ...cellListeners,
           click(e: any) {
-            if (e.target.tagName === 'TD' && pluckedListeners.click) {
-              pluckedListeners.click(e, entity, type)
+            if (e.target.tagName === 'TD' && (rowListeners.click || cellListeners.click)) {
+              if (cellListeners.click) {
+                cellListeners.click(e, entity, 'cell')
+              } else {
+                rowListeners.click(e, rowData, 'row')
+              }
             }
           },
         }
       }
     })
+
     const fetchData = async () => {
-      isTableLoading.value = true
       const searchInput = props.searchInput
+
+      isTableLoading.value = true
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       const res = await props.fetcher({
@@ -564,7 +580,21 @@ export default defineComponent({
       })
       data.value = res.data
       total.value = props.paginationTotalItems || res.total || res.data?.length
+
+      // get data
+      if (props.fetcher) {
+        if (props.enableClientSort && sortColumnKey.value && sortColumnOrder.value) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          defaultSorter(sortColumnKey.value, '', sortColumnOrder.value, data.value)
+        }
+      } else if (props.options && props.options.data && props.options.data.length) {
+        data.value = props.options.data
+        total.value = props.options.data.length
+      }
+
       isTableLoading.value = false
+
       return res
     }
     const initData = async () => {
@@ -578,20 +608,7 @@ export default defineComponent({
       filterQuery.value = fetcherParams.query
       sortColumnKey.value = fetcherParams.sortColumnKey
       sortColumnOrder.value = fetcherParams.sortColumnOrder
-      hasInitialized.value = true
 
-      // get data
-      if (props.fetcher) {
-        await fetchData()
-        if (props.enableClientSort && fetcherParams.sortColumnKey && fetcherParams.sortColumnOrder) {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          defaultSorter(fetcherParams.sortColumnKey, '', fetcherParams.sortColumnOrder, data.value)
-        }
-      } else if (props.options && props.options.data && props.options.data.length) {
-        data.value = props.options.data
-        total.value = props.options.data.length
-      }
       // get table headers
       if (props.headers && props.headers.length) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -600,21 +617,29 @@ export default defineComponent({
       } else if (props.options && props.options.headers && props.options.headers.length) {
         tableHeaders.value = props.options.headers
       }
-      if (props.isLoading === false) {
-        isTableLoading.value = false
-      }
+
+      hasInitialized.value = true
     }
+
+    // once `initData()` finishes fetch data
+    const tableFetcherCacheKey = computed(() => {
+      if (!props.fetcher || !hasInitialized.value) {
+        return ''
+      }
+
+      return `k-table_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}` as string
+    })
     const { query, search } = useDebounce('', 350)
     const { revalidate } = useRequest(
-      () => (props.fetcher && hasInitialized.value && `k-table_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}`) as string,
+      () => tableFetcherCacheKey.value,
       () => fetchData(),
       { revalidateOnFocus: false },
     )
     const sortClickHandler = (header: TableHeader) => {
       const { key, useSortHandlerFn } = header
+      const prevKey = sortColumnKey.value + '' // avoid pass by ref
 
       page.value = 1
-      const prevKey = sortColumnKey.value + '' // avoid pass by ref
 
       if (sortColumnKey.value) {
         if (key === sortColumnKey.value) {
@@ -698,7 +723,6 @@ export default defineComponent({
       tableHeaders,
       tdlisteners,
       total,
-      trlisteners,
       tableId,
       getTestIdString,
     }
@@ -819,6 +843,43 @@ export default defineComponent({
         &:hover {
           text-decoration: underline;
         }
+      }
+    }
+  }
+
+  // Variants
+  &.has-hover {
+     tbody tr:hover {
+        background-color: var(--KTableHover, var(--blue-100, color(blue-100)));
+      }
+  }
+
+  &.is-clickable {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    tbody tr {
+      cursor: pointer;
+    }
+  }
+
+  &.side-border {
+    border-collapse: separate;
+    border-spacing: 0 2px;
+
+    tbody tr {
+      border-bottom: none;
+    }
+
+    tbody tr td:first-child {
+      border-left: 3px solid var(--KTableBorder, var(--steel-200, color(steel-200)));
+    }
+
+    &.has-hover {
+      tbody tr:hover td:first-child {
+        border-left: 3px solid var(--KTableBorder, var(--steel-300, color(steel-300)));
       }
     }
   }
