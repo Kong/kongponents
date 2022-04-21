@@ -137,7 +137,7 @@
             :key="`k-table-${tableId}-row-${rowIndex}`"
             :tabindex="isClickable ? 0 : null"
             :role="isClickable ? 'link' : null"
-            v-on="hasSideBorder ? tdlisteners(row[value.key]) : null"
+            v-on="hasSideBorder ? tdlisteners(row, row) : null"
           >
             <td
               v-for="(value, index) in tableHeaders"
