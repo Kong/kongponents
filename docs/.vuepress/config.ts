@@ -86,6 +86,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
               '/style-guide/usage',
             ]
           },
+          '/guide/vue-3-migration-guide',
         ]
       },
       {
