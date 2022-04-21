@@ -209,16 +209,16 @@ describe('KTable', () => {
           fetcher: () => { return { data: options.data } }
         },
         listeners: {
-          [`row:mouseover`]: evtTrigger
+          [`row:click`]: evtTrigger
         }
       })
 
       await tick(wrapper.vm, 1)
 
-      const bodyRow = wrapper.find('.k-table tbody tr')
+      const bodyRow = wrapper.find('.k-table tbody tr td')
 
-      bodyRow.trigger('mouseover')
-      expect(evtTrigger).toHaveBeenNthCalledWith(1, expect.objectContaining({ type: 'mouseover' }), options.data[0], 'row')
+      bodyRow.trigger('click')
+      expect(evtTrigger).toHaveBeenNthCalledWith(1, expect.objectContaining({ type: 'click' }), options.data[0], 'row')
     })
 
     it('@cell:event', async () => {
@@ -334,7 +334,6 @@ describe('KTable', () => {
       })
 
       await tick(wrapper.vm, 1)
-      console.log(wrapper.html())
 
       expect(wrapper.find('[data-testid="k-table-error-state"]').html()).toEqual(expect.stringContaining(errorSlotContent))
       expect(wrapper.html()).toMatchSnapshot()
