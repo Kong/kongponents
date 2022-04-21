@@ -535,7 +535,7 @@ export default defineComponent({
         return {
           ...pluckedListeners,
           click (e) {
-            if (e.target.tagName === 'TD' && pluckedListeners['click']) {
+            if (pluckedListeners['click']) {
               pluckedListeners['click'](e, entity, type)
             }
           }
