@@ -323,7 +323,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-pagination-container').should('be.visible')
+      cy.getTestId('k-table-pagination').should('be.visible')
     })
 
     it('does not display pagination when pagination disabled', () => {
@@ -340,7 +340,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-pagination-container').should('not.exist')
+      cy.getTestId('k-table-pagination').should('not.exist')
     })
 
     it('does not display pagination when no fetcher', () => {
@@ -352,7 +352,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-pagination-container').should('not.exist')
+      cy.getTestId('k-table-pagination').should('not.exist')
     })
   })
 })

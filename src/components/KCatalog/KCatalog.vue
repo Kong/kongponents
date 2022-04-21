@@ -3,6 +3,7 @@
     <div
       v-if="title"
       class="k-card-catalog-title"
+      data-testid="k-catalog-title"
     >
       <h3>{{ title }}</h3>
     </div>
@@ -12,6 +13,7 @@
       :card-count="4"
       type="card"
       class="k-skeleton-grid"
+      data-testid="k-catalog-skeleton"
     >
       <template #card-header>
         <KSkeletonBox
@@ -41,7 +43,7 @@
     >
       <slot name="error-state">
         <KEmptyState
-          :is-error="true"
+          is-error
           :cta-is-hidden="!errorStateActionMessage || !errorStateActionRoute"
           :icon="errorStateIcon || ''"
           :icon-color="errorStateIconColor"
@@ -60,6 +62,7 @@
               v-if="errorStateActionMessage"
               :to="errorStateActionRoute ? errorStateActionRoute : undefined"
               appearance="primary"
+              :data-testid="getTestIdString(errorStateActionMessage)"
               @click="$emit('kcatalog-error-cta-clicked')"
             >
               {{ errorStateActionMessage }}
@@ -92,20 +95,11 @@
             <KButton
               v-if="emptyStateActionMessage"
               :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
+              :icon="emptyStateActionButtonIcon"
               appearance="primary"
+              :data-testid="getTestIdString(errorStateActionMessage)"
               @click="$emit('kcatalog-empty-state-cta-clicked')"
             >
-              <template
-                v-if="emptyStateActionButtonIcon"
-                #icon
-              >
-                <KIcon
-                  :icon="emptyStateActionButtonIcon"
-                  color="white"
-                  view-box="0 0 20 20"
-                  size="16"
-                />
-              </template>
               {{ emptyStateActionMessage }}
             </KButton>
           </template>
@@ -122,10 +116,11 @@
         :data="data"
         name="body"
       >
-        <template v-for="item in data">
+        <template v-for="(item, idx) in data">
           <router-link
             v-if="item.locationParam"
-            :key="item.key ? item.key : null"
+            :key="item.key ? item.key : `k-catalog-item-${idx}`"
+            :data-testid="item.id ? item.id : `k-catalog-item-${idx}`"
           >
             <KCatalogItem
               :item="item"
@@ -156,11 +151,12 @@
 
           <KCatalogItem
             v-else
-            :key="item.key ? item.key : null"
+            :key="item.key ? item.key : `k-catalog-item-${idx}`"
             :item="item"
             :truncate="!noTruncation"
             :test-mode="!!testMode"
             class="catalog-item"
+            :data-testid="item.id ? item.id : `k-catalog-item-${idx}`"
           >
             <template #cardTitle>
               <slot
@@ -186,6 +182,7 @@
       <div
         v-if="!disablePagination && fetcher"
         class="card-pagination"
+        data-testid="k-catalog-pagination"
       >
         <KPagination
           :initial-page-size="pageSize"
@@ -507,6 +504,10 @@ export default defineComponent({
       pageSize.value = newPageSize
     }
 
+    const getTestIdString = (message: string) => {
+      return message.toLowerCase().replace(/[^[a-z0-9]/gi, '-')
+    }
+
     watch(() => props.searchInput, (newValue: string) => {
       search(newValue)
     }, { immediate: true })
@@ -527,6 +528,7 @@ export default defineComponent({
       pageSize,
       pageSizeChangeHandler,
       total,
+      getTestIdString,
     }
   },
 })

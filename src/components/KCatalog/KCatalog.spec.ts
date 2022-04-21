@@ -331,7 +331,7 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.getTestId('k-pagination-container').should('be.visible')
+      cy.getTestId('k-catalog-pagination').should('be.visible')
     })
 
     it('allows disabling pagination', () => {
@@ -347,7 +347,7 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.getTestId('k-pagination-container').should('not.exist')
+      cy.getTestId('k-catalog-pagination').should('not.exist')
     })
 
     it('does not display pagination when no fetcher', () => {
@@ -359,7 +359,7 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.getTestId('k-pagination-container').should('not.exist')
+      cy.getTestId('k-catalog-pagination').should('not.exist')
     })
   })
 })

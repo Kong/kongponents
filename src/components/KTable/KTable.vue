@@ -3,6 +3,7 @@
     <KSkeleton
       v-if="(!testMode || testMode === 'loading') && (isTableLoading || isLoading) && !hasError"
       type="table"
+      data-testid="k-table-skeleton"
     />
 
     <div
@@ -11,23 +12,26 @@
     >
       <slot name="error-state">
         <KEmptyState
+          is-error
           :cta-is-hidden="!errorStateActionMessage || !errorStateActionRoute"
           :icon="errorStateIcon || ''"
-          :is-error="true"
           :icon-color="errorStateIconColor"
           :icon-size="errorStateIconSize"
         >
           <template #title>
             {{ errorStateTitle }}
           </template>
+
           <template #message>
             {{ errorStateMessage }}
           </template>
+
           <template #cta>
             <KButton
               v-if="errorStateActionMessage"
               :to="errorStateActionRoute ? errorStateActionRoute : undefined"
               appearance="primary"
+              :data-testid="getTestIdString(errorStateActionMessage)"
               @click="$emit('ktable-error-cta-clicked')"
             >
               {{ errorStateActionMessage }}
@@ -51,27 +55,20 @@
           <template #title>
             {{ emptyStateTitle }}
           </template>
+
           <template #message>
             {{ emptyStateMessage }}
           </template>
+
           <template #cta>
             <KButton
               v-if="emptyStateActionMessage"
               :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
+              :icon="emptyStateActionButtonIcon"
               appearance="primary"
+              :data-testid="getTestIdString(errorStateActionMessage)"
               @click="$emit('ktable-empty-state-cta-clicked')"
             >
-              <template
-                v-if="emptyStateActionButtonIcon"
-                #icon
-              >
-                <KIcon
-                  :icon="emptyStateActionButtonIcon"
-                  color="white"
-                  view-box="0 0 20 20"
-                  size="16"
-                />
-              </template>
               {{ emptyStateActionMessage }}
             </KButton>
           </template>
@@ -86,8 +83,8 @@
     >
       <table
         :class="{'has-hover': hasHover, 'is-clickable': isClickable, 'side-border': hasSideBorder}"
-        :data-tableid="tableId"
         class="k-table"
+        :data-tableid="tableId"
       >
         <thead :class="{ 'is-scrolled': isScrolled }">
           <tr :class="{ 'is-scrolled': isScrolled }">
@@ -116,36 +113,36 @@
                   :name="`column-${column.key}`"
                   :column="column"
                 >
-                  <span
-                    :class="{'sr-only': column.hideLabel}"
-                  >
+                  <span :class="{'sr-only': column.hideLabel}">
                     {{ column.label ? column.label : column.key }}
                   </span>
                 </slot>
+
                 <KIcon
                   v-if="!disableSorting && !column.hideLabel && column.sortable"
-                  class="caret ml-2"
+                  icon="chevronDown"
                   color="var(--KTableColor, var(--black-70, color(black-70)))"
                   size="12"
-                  icon="chevronDown"
+                  class="caret ml-2"
                 />
               </span>
             </th>
           </tr>
         </thead>
+
         <tbody>
           <tr
             v-for="(row, rowIndex) in data"
+            v-bind="rowAttrs(row)"
             :key="`k-table-${tableId}-row-${rowIndex}`"
             :tabindex="isClickable ? 0 : null"
             :role="isClickable ? 'link' : null"
-            v-bind="rowAttrs(row)"
             v-on="trlisteners(row, 'row')"
           >
             <td
               v-for="(value, index) in tableHeaders"
-              :key="`k-table-${tableId}-cell-${index}`"
               v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
+              :key="`k-table-${tableId}-cell-${index}`"
               v-on="tdlisteners(row[value.key], 'cell')"
             >
               <slot
@@ -160,6 +157,7 @@
           </tr>
         </tbody>
       </table>
+
       <KPagination
         v-if="fetcher && !disablePagination"
         :total-count="total"
@@ -170,6 +168,7 @@
         :disable-page-jump="disablePaginationPageJump"
         :test-mode="testMode ? true : false"
         class="pa-1"
+        data-testid="k-table-pagination"
         @page-changed="pageChangeHandler"
         @page-size-changed="pageSizeChangeHandler"
       />
@@ -667,6 +666,10 @@ export default defineComponent({
       }
     }
 
+    const getTestIdString = (message: string) => {
+      return message.toLowerCase().replace(/[^[a-z0-9]/gi, '-')
+    }
+
     watch(() => props.searchInput, (newValue) => {
       search(newValue)
     }, { immediate: true })
@@ -697,6 +700,7 @@ export default defineComponent({
       total,
       trlisteners,
       tableId,
+      getTestIdString,
     }
   },
 })
