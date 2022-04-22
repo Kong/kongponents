@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.25.2 (2022-04-22)
+
+
+### Bug Fixes
+
+* **ktable,kcatalog:** fix issues ([#608](https://github.com/Kong/kongponents/issues/608)) ([3ce0520](https://github.com/Kong/kongponents/commit/3ce052005c9c12d160e5bea713523944833f3678))
+
+
+
+
+
 ## 6.25.1 (2022-04-20)
 
 
