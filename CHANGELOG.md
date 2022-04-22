@@ -1,3 +1,12 @@
+# [7.0.0-beta.21](https://github.com/Kong/kongponents/compare/v7.0.0-beta.20...v7.0.0-beta.21) (2022-04-22)
+
+
+### Bug Fixes
+
+* **ktable,kcatalog:** data-testid additions ([#605](https://github.com/Kong/kongponents/issues/605)) ([6ea25ed](https://github.com/Kong/kongponents/commit/6ea25ed8126371c6e65e89f500306ae47690cf3c)), closes [#603](https://github.com/Kong/kongponents/issues/603)
+* **ktable,kcatalog:** fix issues ([#607](https://github.com/Kong/kongponents/issues/607)) ([950c058](https://github.com/Kong/kongponents/commit/950c058e2dd1a3c53d2b7e0669ff3f85f4764a4b))
+* **typography:** docs display ([#604](https://github.com/Kong/kongponents/issues/604)) ([d0bca1f](https://github.com/Kong/kongponents/commit/d0bca1fcc0180a795b518d34834611cd81cd9b01))
+
 # [7.0.0-beta.20](https://github.com/Kong/kongponents/compare/v7.0.0-beta.19...v7.0.0-beta.20) (2022-04-20)
 
 
