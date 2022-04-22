@@ -131,7 +131,6 @@
             :tabindex="isClickable ? 0 : null"
             :role="isClickable ? 'link' : null"
             v-bind="rowAttrs(row)"
-            v-on="hasSideBorder ? tdlisteners(row, row) : null"
           >
             <template>
               <td
