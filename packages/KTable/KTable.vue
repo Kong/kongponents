@@ -131,14 +131,13 @@
             :tabindex="isClickable ? 0 : null"
             :role="isClickable ? 'link' : null"
             v-bind="rowAttrs(row)"
-            v-on="trlisteners(row, 'row')"
           >
             <template>
               <td
                 v-for="(value, index) in tableHeaders"
                 :key="`k-table-${tableId}-cell-${index}`"
                 v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
-                v-on="tdlisteners(row[value.key], 'cell')"
+                v-on="tdlisteners(row[value.key], row)"
               >
                 <slot
                   :name="value.key"
@@ -520,23 +519,25 @@ export default defineComponent({
         }, {})
     }
 
-    const tdlisteners = computed(() => { // TODO: can we replace with something else??
-      return pluckListeners('cell:', ctx.listeners)
-    })
+    const tdlisteners = computed(() => {
+      return (entity, rowData) => {
+        const rowListeners = pluckListeners('row:', ctx.listeners)(rowData, 'row')
+        const cellListeners = pluckListeners('cell:', ctx.listeners)(entity, 'cell')
 
-    const trlisteners = computed(() => {
-      return (entity, type) => {
-        const pluckedListeners = pluckListeners('row:', ctx.listeners)(entity, type)
-
-        if (pluckedListeners.click) {
+        if (rowListeners.click) {
           isClickable.value = true
         }
 
         return {
-          ...pluckedListeners,
+          ...rowListeners,
+          ...cellListeners,
           click (e) {
-            if (e.target.tagName === 'TD' && pluckedListeners['click']) {
-              pluckedListeners['click'](e, entity, type)
+            if (e.target.tagName === 'TD' && (rowListeners.click || cellListeners.click)) {
+              if (cellListeners.click) {
+                cellListeners.click(e, entity, 'cell')
+              } else {
+                rowListeners.click(e, rowData, 'row')
+              }
             }
           }
         }
@@ -556,6 +557,16 @@ export default defineComponent({
 
       data.value = res.data
       total.value = props.paginationTotalItems || res.total || res.data.length
+
+      if (props.fetcher) {
+        if (props.enableClientSort && sortColumnKey.value && sortColumnOrder.value) {
+          defaultSorter(sortColumnKey.value, '', sortColumnOrder.value, data.value)
+        }
+      } else if (props.options && props.options.data && props.options.data.length) {
+        data.value = props.options.data
+        total.value = props.options.data.length
+      }
+
       isTableLoading.value = false
 
       return res
@@ -573,19 +584,6 @@ export default defineComponent({
       filterQuery.value = fetcherParams.query
       sortColumnKey.value = fetcherParams.sortColumnKey
       sortColumnOrder.value = fetcherParams.sortColumnOrder
-      hasInitialized.value = true
-
-      // get data
-      if (props.fetcher) {
-        await fetchData()
-
-        if (props.enableClientSort && fetcherParams.sortColumnKey && fetcherParams.sortColumnOrder) {
-          defaultSorter(fetcherParams.sortColumnKey, '', fetcherParams.sortColumnOrder, data.value)
-        }
-      } else if (props.options && props.options.data && props.options.data.length) {
-        data.value = props.options.data
-        total.value = props.options.data.length
-      }
 
       // get table headers
       if (props.headers && props.headers.length) {
@@ -594,23 +592,30 @@ export default defineComponent({
         tableHeaders.value = props.options.headers
       }
 
-      if (props.isLoading === false) {
-        isTableLoading.value = false
-      }
+      hasInitialized.value = true
     }
+
+    // once `initData()` finishes fetch data
+    const tableFetcherCacheKey = computed(() => {
+      if (!props.fetcher || !hasInitialized.value) {
+        return ''
+      }
+
+      return `k-table_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}`
+    })
 
     const { query, search } = useDebounce('', 350)
     const { revalidate } = useRequest(
-      () => props.fetcher && hasInitialized.value && `k-table_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}`,
+      () => tableFetcherCacheKey.value,
       () => fetchData(),
       { revalidateOnFocus: false }
     )
 
     const sortClickHandler = (header) => {
       const { key, useSortHandlerFn } = header
+      let prevKey = sortColumnKey.value + '' // avoid pass by ref
 
       page.value = 1
-      let prevKey = sortColumnKey.value + '' // avoid pass by ref
 
       if (sortColumnKey.value) {
         if (key === sortColumnKey.value) {
@@ -696,7 +701,6 @@ export default defineComponent({
       tableHeaders,
       tdlisteners,
       total,
-      trlisteners,
       getTestIdString
     }
   }
