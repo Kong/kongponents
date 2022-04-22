@@ -202,7 +202,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, onMounted, watch } from 'vue'
+import { defineComponent, PropType, ref, computed, onMounted, watch } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
@@ -478,20 +478,19 @@ export default defineComponent({
       pageSize.value = fetcherParams.pageSize
       filterQuery.value = fetcherParams.query
       hasInitialized.value = true
-
-      // get data
-      if (props.fetcher) {
-        await fetchData()
-      }
-
-      if (props.isLoading === false) {
-        isCardLoading.value = false
-      }
     }
 
+    // once `initData()` finishes fetch data
+    const catalogFetcherCacheKey = computed(() => {
+      if (!props.fetcher || !hasInitialized.value) {
+        return ''
+      }
+
+      return `catalog-item_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}` as string
+    })
     const { query, search } = useDebounce('', 350)
     const { revalidate } = useRequest(
-      () => (props.fetcher && hasInitialized.value && `catalog-item_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}`) as string,
+      () => catalogFetcherCacheKey.value,
       () => fetchData(),
       { revalidateOnFocus: false },
     )
