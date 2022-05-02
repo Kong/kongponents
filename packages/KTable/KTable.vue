@@ -532,7 +532,7 @@ export default defineComponent({
           ...rowListeners,
           ...cellListeners,
           click (e) {
-            if (e.target.tagName === 'TD' && (rowListeners.click || cellListeners.click)) {
+            if (rowListeners.click || cellListeners.click) {
               if (cellListeners.click) {
                 cellListeners.click(e, entity, 'cell')
               } else {
