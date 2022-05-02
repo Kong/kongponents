@@ -1,3 +1,10 @@
+# [7.0.0-beta.23](https://github.com/Kong/kongponents/compare/v7.0.0-beta.22...v7.0.0-beta.23) (2022-05-02)
+
+
+### Bug Fixes
+
+* **ktable:** row click slotted content ([#610](https://github.com/Kong/kongponents/issues/610)) ([0c550b8](https://github.com/Kong/kongponents/commit/0c550b86ecc28a1f65943d97cd78079f2769a332))
+
 # [7.0.0-beta.22](https://github.com/Kong/kongponents/compare/v7.0.0-beta.21...v7.0.0-beta.22) (2022-05-02)
 
 
