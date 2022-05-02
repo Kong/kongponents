@@ -33,6 +33,19 @@ mono:
     size: (12px*.95%) 11.4px
 ---
 
+# Type
+
+## Font family
+
+Kongponents defaults to the system font for `sans-serif` and `monospace`. You can customize the `font-family` by setting the CSS variables as shown here:
+
+```css
+:root {
+  --font-familyy-sans: 'Roboto';
+  --font-family-mono: 'Roboto Mono';
+}
+```
+
 ## Font size
 
 There are utility classes for `font-size`.
