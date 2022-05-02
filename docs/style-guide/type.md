@@ -39,13 +39,26 @@ mono:
 
 Kongponents defaults to the system font for `sans-serif` and `monospace`. You can customize the `font-family` by setting the CSS variables as shown here:
 
-```css
+```scss
 :root {
-  --font-family-sans: 'Roboto';
-  --font-family-mono: 'Roboto Mono';
+  --font-family-sans: 'Roboto'; // custom font-family
+  --font-family-mono: 'Roboto Mono'; // custom font-family
 }
 ```
 
+## Font weight
+
+The default font-weight (for `body`) is set to `400`. You may customize the `font-weight` by setting the CSS variable as shown here:
+
+```scss
+:root {
+  --font-weight-normal: 200; // custom font-weight
+}
+```
+
+:::tip
+This only applies to the `body` element and inherited font weights. Individual style rules still have varying `font-weight` attributes.
+:::
 ## Font size
 
 There are utility classes for `font-size`.

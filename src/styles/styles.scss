@@ -27,6 +27,6 @@
   }
   // Font weight
   body {
-    font-weight: 400;
+    font-weight: var(--font-weight-normal, 400);
   }
 }
