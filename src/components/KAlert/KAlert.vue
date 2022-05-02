@@ -484,19 +484,19 @@ div.k-alert.banner {
 
 .k-alert {
   button.close > .kong-icon {
-    svg.info {
+    &.info svg {
       stroke: var(--KAlertInfoColor, var(--blue-500, color(blue-500)));
     }
 
-    svg.success {
+    &.success svg {
       stroke: var(--KAlertSuccessColor, var(--green-600, color(green-600)));
     }
 
-    svg.danger {
+    &.danger svg {
       stroke: var(--KAlertDangerColor, var(--red-700, color(red-700)));
     }
 
-    svg.warning {
+    &.warning svg {
       stroke: var(--KAlertWarningColor, var(--yellow-500, color(yellow-500)));
     }
   }
