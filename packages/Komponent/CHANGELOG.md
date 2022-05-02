@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.25.3 (2022-05-02)
+
+
+### Bug Fixes
+
+* **ktable:** create listeners even when td is not clicked target ([#609](https://github.com/Kong/kongponents/issues/609)) ([581c460](https://github.com/Kong/kongponents/commit/581c4601e5ee7bc6d3e9a46d073f55e41ddf909e))
+
+
+
+
+
 ## 6.25.2 (2022-04-22)
 
 
