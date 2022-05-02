@@ -33,10 +33,6 @@ mono:
     size: (12px*.95%) 11.4px
 ---
 
-# Type
-
-Kong uses the [Maison Neue](https://www.milieugrotesque.com/typefaces/maison-neue/) font face.
-
 ## Font size
 
 There are utility classes for `font-size`.
