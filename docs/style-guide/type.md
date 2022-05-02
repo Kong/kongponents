@@ -41,7 +41,7 @@ Kongponents defaults to the system font for `sans-serif` and `monospace`. You ca
 
 ```css
 :root {
-  --font-familyy-sans: 'Roboto';
+  --font-family-sans: 'Roboto';
   --font-family-mono: 'Roboto Mono';
 }
 ```
