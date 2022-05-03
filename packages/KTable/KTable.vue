@@ -523,7 +523,7 @@ export default defineComponent({
       return (entity, rowData) => {
         const rowListeners = pluckListeners('row:', ctx.listeners)(rowData, 'row')
         const cellListeners = pluckListeners('cell:', ctx.listeners)(entity, 'cell')
-        const ignoredElements = ['button', 'input', 'a']
+        const ignoredElements = ['a', 'button', 'input', 'select']
 
         if (rowListeners.click) {
           isClickable.value = true

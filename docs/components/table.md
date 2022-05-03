@@ -611,7 +611,7 @@ Bind any DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to va
 <KTable @row:click="rowHandler">
 ```
 
-To avoid firing row clicks by accident, the row click handler ignores events coming from `button`, `input`, and `a` tags. As such click handlers attached to these element types do not require stopping propagation via `@click.stop`.
+To avoid firing row clicks by accident, the row click handler ignores events coming from `a`, `button`, `input`, and `select` elements. As such click handlers attached to these element types do not require stopping propagation via `@click.stop`.
 
 <KTable
   :headers="tableOptionsLinkHeaders"
@@ -688,7 +688,7 @@ export default {
 </script>
 ```
 
-Click events tied to non-ignored elements (not `a`, `button`, `input`) must use the `.stop` keyword to stop propagation firing the row click handler.
+Click events tied to non-ignored elements (not `a`, `button`, `input`, `select`) must use the `.stop` keyword to stop propagation firing the row click handler.
 
 Using a `KPop` inside of a clickable row requires some special handling. Non-clickable content must be wrapped in a `div` with the `@click.stop` attribute to prevent the row click handler from firing if a user clicks content inside of the popover. Any handlers on non-ignored elements will need to have `.stop`.
 
