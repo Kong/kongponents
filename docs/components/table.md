@@ -601,24 +601,24 @@ export default {
 
 ## Events
 
-Bind any DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to
-various parts of the table. We support events on both table rows and cells in addition to click elements inside a row (ie. buttons or hyperlinks) without triggering the a row or cell event. You can also add logic to check for `metakey` to support cmd/ctrl when clicking. Examples highlighted below.
+Bind any DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to various parts of the table. We support events on both table rows and cells, but must be careful with clickable content in rows when row click is enabled. You can also add logic to check for `metakey` to support cmd/ctrl when clicking. Examples highlighted below.
 
 ### Rows
 
 `@row:<event>` - returns the `Event`, the row item, and the type: `row`
 
 ```vue
-<KTable @row:click="rowHandler" @row:dblclick="rowHandler">
+<KTable @row:click="rowHandler">
 ```
+
+To avoid firing row clicks by accident, the row click handler ignores events coming from `button`, `input`, and `a` tags. As such click handlers attached to these element types do not require stopping propagation via `@click.stop`.
 
 <KTable
   :headers="tableOptionsLinkHeaders"
   :fetcher="tableOptionsLinkFetcher"
   @row:click="handleRowClick">
   <template v-slot:company="{rowValue}">
-    <a v-if="rowValue" @click="linkHander">{{rowValue.label}}</a>
-    <span v-else>{{rowValue}}</span>
+    <a @click="linkHander">{{rowValue.label}}</a>
   </template>
   <template v-slot:actions>
     <div class="float-right">
@@ -629,19 +629,23 @@ various parts of the table. We support events on both table rows and cells in ad
       </KButton>
     </div>
   </template>
+  <template v-slot:input>
+    <KInput type="text" placeholder="Need help?" />
+  </template>
 </KTable>
 
-```vue{6,8,15,30-46}
+```html
 <KTable
   :fetcher="fetcher"
   :headers="headers"
   @row:click="handleRowClick">
   <template v-slot:company="{rowValue}">
-    <a v-if="rowValue" @click="linkHander">{{rowValue.label}}</a>
-    <span v-else>{{rowValue}}</span>
+    <!-- .stop not needed on @click because we ignore clicks from anchors -->
+    <a @click="linkHander">{{rowValue.label}}</a>
   </template>
   <template v-slot:actions>
     <div class="float-right">
+      <!-- .stop not needed on @click because we ignore clicks from buttons -->
       <KButton
         appearance="secondary"
         @click="buttonHandler">
@@ -649,7 +653,12 @@ various parts of the table. We support events on both table rows and cells in ad
       </KButton>
     </div>
   </template>
+  <template v-slot:input>
+    <!-- no special handling needed because click events on input elements are ignored -->
+    <KInput type="text" placeholder="Need help?" />
+  </template>
 </KTable>
+
 <script>
 export default {
   data() {
@@ -677,6 +686,61 @@ export default {
   }
 }
 </script>
+```
+
+Click events tied to non-ignored elements (not `a`, `button`, `input`) must use the `.stop` keyword to stop propagation firing the row click handler.
+
+Using a `KPop` inside of a clickable row requires some special handling. Non-clickable content must be wrapped in a `div` with the `@click.stop` attribute to prevent the row click handler from firing if a user clicks content inside of the popover. Any handlers on non-ignored elements will need to have `.stop`.
+
+<KTable
+  :headers="tableOptionsLinkHeaders2"
+  :fetcher="tableOptionsLinkFetcher"
+  @row:click="handleRowClick">
+  <template v-slot:company="{rowValue}">
+    <a @click="linkHander">{{rowValue.label}}</a>
+  </template>
+  <template v-slot:wrapped>
+    <div>Row click event? <div @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div></div>
+  </template>
+  <template v-slot:other>
+    <div>
+      <KPop title="Cool header">
+        <KButton>Popover!</KButton>
+        <template v-slot:content>
+          <div @click.stop>Clicking me does nothing!</div>
+          <div @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div>
+        </template>
+      </KPop>
+    </div>
+  </template>
+</KTable>
+
+```vue
+<KTable
+  :fetcher="fetcher"
+  :headers="headers"
+  @row:click="handleRowClick">
+  <template v-slot:company="{rowValue}">
+    <a @click="linkHander">{{rowValue.label}}</a>
+  </template>
+  <template v-slot:wrapped>
+    <!-- We have a click event on a div, div clicks are not ignored so we need .stop -->
+    <div>Row click event? <div @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div></div>
+  </template>
+  <template v-slot:other>
+    <div>
+      <KPop title="Cool header">
+        <KButton>Popover!</KButton>
+        <template v-slot:content>
+          <!-- non-clickable content in a KPop MUST be wrapped in a div with @click.stop to prevent row click firing on content click -->
+          <div @click.stop>Clicking me does nothing!</div>
+          <!-- an example where we want a click event to fire from the popover, requires .stop on the @click -->
+          <div @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div>
+        </template>
+      </KPop>
+    </div>
+  </template>
+</KTable>
 ```
 
 ### Cells
@@ -1251,7 +1315,13 @@ export default {
       ],
       tableOptionsLinkHeaders: [
         { label: 'Company', key: 'company' },
-        { key: 'actions', hideLabel: true }
+        { key: 'actions', hideLabel: true },
+        { lable: 'Input', key: 'input' }
+      ],
+      tableOptionsLinkHeaders2: [
+        { label: 'Company', key: 'company' },
+        { label: 'Wrapped', key: 'wrapped' },
+        { label: 'Pop', key: 'other' }
       ],
       tableOptionsCellAttrsHeaders: [
         { label: 'Name', key: 'name' },

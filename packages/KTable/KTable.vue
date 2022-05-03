@@ -523,6 +523,7 @@ export default defineComponent({
       return (entity, rowData) => {
         const rowListeners = pluckListeners('row:', ctx.listeners)(rowData, 'row')
         const cellListeners = pluckListeners('cell:', ctx.listeners)(entity, 'cell')
+        const ignoredElements = ['button', 'input', 'a']
 
         if (rowListeners.click) {
           isClickable.value = true
@@ -532,7 +533,8 @@ export default defineComponent({
           ...rowListeners,
           ...cellListeners,
           click (e) {
-            if (e.target.tagName === 'TD' && (rowListeners.click || cellListeners.click)) {
+            const isPopoverContent = e.target.className.includes('k-popover')
+            if (!ignoredElements.includes(e.target.tagName.toLowerCase()) && !isPopoverContent && (rowListeners.click || cellListeners.click)) {
               if (cellListeners.click) {
                 cellListeners.click(e, entity, 'cell')
               } else {
