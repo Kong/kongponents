@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.25.4 (2022-05-03)
+
+
+### Bug Fixes
+
+* **ktable:** revert [#609](https://github.com/Kong/kongponents/issues/609) ([#612](https://github.com/Kong/kongponents/issues/612)) ([a54fb3f](https://github.com/Kong/kongponents/commit/a54fb3f1629f891b2dec6a3cffea73ddefab0602))
+
+
+
+
+
 ## 6.25.3 (2022-05-02)
 
 
