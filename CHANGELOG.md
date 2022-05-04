@@ -1,3 +1,10 @@
+# [7.0.0-beta.24](https://github.com/Kong/kongponents/compare/v7.0.0-beta.23...v7.0.0-beta.24) (2022-05-04)
+
+
+### Bug Fixes
+
+* **ktable:** fix row click handling ([#615](https://github.com/Kong/kongponents/issues/615)) ([ea47300](https://github.com/Kong/kongponents/commit/ea473006bc85a581a4c263012b8c5999d2cfaab1))
+
 # [7.0.0-beta.23](https://github.com/Kong/kongponents/compare/v7.0.0-beta.22...v7.0.0-beta.23) (2022-05-02)
 
 
