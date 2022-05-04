@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kprompt",
-  "version": "6.25.4",
+  "version": "6.26.0",
   "description": "A dialog that prompts a user to take an action",
   "main": "dist/KPrompt.umd.min.js",
   "componentName": "KPrompt",
@@ -23,10 +23,10 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kbutton": "^6.25.4",
-    "@kongponents/kicon": "^6.25.4",
-    "@kongponents/kinput": "^6.25.4",
-    "@kongponents/kmodal": "^6.25.4",
-    "@kongponents/styles": "^6.25.4"
+    "@kongponents/kbutton": "^6.26.0",
+    "@kongponents/kicon": "^6.26.0",
+    "@kongponents/kinput": "^6.26.0",
+    "@kongponents/kmodal": "^6.26.0",
+    "@kongponents/styles": "^6.26.0"
   }
 }

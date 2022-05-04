@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.26.0 (2022-05-04)
+
+
+### Features
+
+* **fonts:** default to non-licensed font-family ([#614](https://github.com/Kong/kongponents/issues/614)) ([5824888](https://github.com/Kong/kongponents/commit/5824888d240161f55d5a9ab2f48604a8fd75360a))
+
+
+
+
+
 ## 6.25.4 (2022-05-03)
 
 
