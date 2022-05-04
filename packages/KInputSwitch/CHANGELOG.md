@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.26.1 (2022-05-04)
+
+
+### Bug Fixes
+
+* **ktable:** row click handling ([#613](https://github.com/Kong/kongponents/issues/613)) ([e55cd42](https://github.com/Kong/kongponents/commit/e55cd42c478b79693aedf999f6c392793157b0ff))
+
+
+
+
+
 # 6.26.0 (2022-05-04)
 
 
