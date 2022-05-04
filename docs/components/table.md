@@ -607,11 +607,7 @@ Bind any DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to va
 
 `@row:<event>` - returns the `Event`, the row item, and the type: `row`
 
-```vue
-<KTable @row:click="rowHandler">
-```
-
-To avoid firing row clicks by accident, the row click handler ignores events coming from `a`, `button`, `input`, and `select` elements. As such click handlers attached to these element types do not require stopping propagation via `@click.stop`.
+To avoid firing row clicks by accident, the row click handler ignores events coming from `a`, `button`, `input`, and `select` elements (unless they are `disabled`). As such click handlers attached to these element types do not require stopping propagation via `@click.stop`.
 
 <KTable
   :headers="tableOptionsLinkHeaders"
@@ -631,6 +627,7 @@ To avoid firing row clicks by accident, the row click handler ignores events com
   </template>
   <template v-slot:input>
     <KInput type="text" placeholder="Need help?" />
+    <KInput type="text" placeholder="Row click me" disabled />
   </template>
 </KTable>
 
@@ -656,6 +653,8 @@ To avoid firing row clicks by accident, the row click handler ignores events com
   <template v-slot:input>
     <!-- no special handling needed because click events on input elements are ignored -->
     <KInput type="text" placeholder="Need help?" />
+    <!-- row click is triggered when clicking disabled elements -->
+    <KInput type="text" placeholder="Row click me" disabled />
   </template>
 </KTable>
 
@@ -746,10 +745,6 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
 ### Cells
 
 `@cell:<event>` - returns the `Event`, the cell value, and the type: `cell`
-
-```vue
-<KTable @cell:mouseout="cellHandler" @cell:mousedown="cellHandler">
-```
 
 <template>
   <div>
@@ -1315,8 +1310,8 @@ export default {
       ],
       tableOptionsLinkHeaders: [
         { label: 'Company', key: 'company' },
-        { key: 'actions', hideLabel: true },
-        { lable: 'Input', key: 'input' }
+        { label: 'Input', key: 'input' },
+        { key: 'actions', hideLabel: true }
       ],
       tableOptionsLinkHeaders2: [
         { label: 'Company', key: 'company' },

@@ -534,7 +534,9 @@ export default defineComponent({
           ...cellListeners,
           click (e) {
             const isPopoverContent = e.target.className.includes('k-popover')
-            if (!ignoredElements.includes(e.target.tagName.toLowerCase()) && !isPopoverContent && (rowListeners.click || cellListeners.click)) {
+            // ignore click if it is from the popover, or is a non-disabled ignored element
+            if ((!ignoredElements.includes(e.target.tagName.toLowerCase()) || e.target.hasAttribute('disabled')) &&
+                 !isPopoverContent && (rowListeners.click || cellListeners.click)) {
               if (cellListeners.click) {
                 cellListeners.click(e, entity, 'cell')
               } else {
