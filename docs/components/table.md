@@ -699,7 +699,7 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
     <a @click="linkHander">{{rowValue.label}}</a>
   </template>
   <template v-slot:wrapped>
-    <div>Row click event <div @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div></div>
+    <div>Row click event <div class="d-inline-block" @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div></div>
   </template>
   <template v-slot:other>
     <div>
@@ -707,7 +707,7 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
         <KButton>Popover!</KButton>
         <template v-slot:content>
           <div @click.stop>Clicking me does nothing!</div>
-          <div @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div>
+          <div class="d-inline-block" @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div>
         </template>
       </KPop>
     </div>
