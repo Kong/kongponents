@@ -621,7 +621,7 @@ To avoid firing row clicks by accident, the row click handler ignores events com
       <KButton
         appearance="secondary"
         @click="buttonHandler">
-        Visit Website
+        Fire Button Handler!
       </KButton>
     </div>
   </template>
@@ -646,7 +646,7 @@ To avoid firing row clicks by accident, the row click handler ignores events com
       <KButton
         appearance="secondary"
         @click="buttonHandler">
-        Visit Website
+        Fire Button Handler!
       </KButton>
     </div>
   </template>
@@ -671,9 +671,9 @@ export default {
       const metaKeyPressed = e.metaKey || e.ctrlKey
 
       if (metaKeyPressed) {
-        return window.open(row.company.href)
+        $toaster.open('MetaKey row click')
       } else {
-        window.location = row.company.href
+        $toaster.open('Row click event fired!')
       }
     },
     linkHander (e) {
@@ -699,7 +699,7 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
     <a @click="linkHander">{{rowValue.label}}</a>
   </template>
   <template v-slot:wrapped>
-    <div>Row click event? <div @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div></div>
+    <div>Row click event <div @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div></div>
   </template>
   <template v-slot:other>
     <div>
@@ -724,7 +724,7 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
   </template>
   <template v-slot:wrapped>
     <!-- We have a click event on a div, div clicks are not ignored so we need .stop -->
-    <div>Row click event? <div @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div></div>
+    <div>Row click event <div @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div></div>
   </template>
   <template v-slot:other>
     <div>
@@ -1287,6 +1287,11 @@ An Example of changing the hover background might look like.
 ```
 
 <script>
+import Vue from 'vue';
+import { ToastManager } from '@kongponents/ktoaster';
+
+Vue.prototype.$toaster = new ToastManager()
+
 export default {
   data() {
     return {
@@ -1530,12 +1535,10 @@ for (let i = ((page-1)* pageSize); i < limit; i++) {
     handleRowClick(e, row) {
       const metaKeyPressed = e.metaKey || e.ctrlKey
 
-      if (e.target.tagName !== 'BUTTON') {
-        if (metaKeyPressed) {
-          return window.open(row.company.href)
-        } else {
-          window.location = row.company.href
-        }
+      if (metaKeyPressed) {
+        this.$toaster.open('MetaKey row click')
+      } else {
+        this.$toaster.open('Row click event fired!')
       }
     },
     linkHander (e) {
