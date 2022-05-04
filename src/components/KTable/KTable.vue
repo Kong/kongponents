@@ -544,6 +544,7 @@ export default defineComponent({
       return (entity: any, rowData: any) => {
         const rowListeners = pluckListeners('onRow:', attrs)(rowData, 'row')
         const cellListeners = pluckListeners('onCell:', attrs)(entity, 'cell')
+        const ignoredElements = ['a', 'button', 'input', 'select']
 
         if (rowListeners.click) {
           isClickable.value = true
@@ -553,7 +554,10 @@ export default defineComponent({
           ...rowListeners,
           ...cellListeners,
           click(e: any) {
-            if (rowListeners.click || cellListeners.click) {
+            const isPopoverContent = e.target.className.includes('k-popover')
+            // ignore click if it is from the popover, or is a non-disabled ignored element
+            if ((!ignoredElements.includes(e.target.tagName.toLowerCase()) || e.target.hasAttribute('disabled')) &&
+                 !isPopoverContent && (rowListeners.click || cellListeners.click)) {
               if (cellListeners.click) {
                 cellListeners.click(e, entity, 'cell')
               } else {
