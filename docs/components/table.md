@@ -607,7 +607,7 @@ Bind any DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to va
 
 `@row:<event>` - returns the `Event`, the row item, and the type: `row`
 
-To avoid firing row clicks by accident, the row click handler ignores events coming from `a`, `button`, `input`, and `select` elements (unless they are `disabled`). As such click handlers attached to these element types do not require stopping propagation via `@click.stop`.
+To avoid firing row clicks by accident, the row click handler ignores events coming from `a`, `button`, `input`, and `select` elements (unless they have the `disabled` attribute). As such click handlers attached to these element types do not require stopping propagation via `@click.stop`.
 
 <KTable
   :headers="tableOptionsLinkHeaders"
