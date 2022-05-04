@@ -95,7 +95,7 @@ export default {
   border: none;
   color: var(--blue-300);
   font-weight: 500;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 13px;
   margin-bottom: 6px;
   margin-top: 10px;

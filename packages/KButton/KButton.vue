@@ -237,7 +237,7 @@ export default {
   /* Size Variations */
   &.small {
     padding: var(--spacing-xs, spacing(xs)) var(--spacing-md, spacing(md));
-    font-size: var(--KButtonFontSize, 14px);
+    font-size: var(--KButtonFontSize, 13px);
     line-height: 13px;
   }
 

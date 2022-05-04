@@ -122,7 +122,7 @@ export default {
   margin: 0;
   white-space: nowrap;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 24px;
   color: var(--grey-500);
   position: relative;
@@ -160,7 +160,7 @@ export default {
   color: var(--KButtonOutlineColor, var(--grey-500));
   font-weight: 400 !important;
   font-family: var(--font-family-sans);
-  font-size: 14px;
+  font-size: 13px;
   line-height: 24px;
   &:focus {
     box-shadow: 0 0 0 1px var(--blue-200);

@@ -216,7 +216,7 @@ export default {
     flex: 1 1 auto;
     margin-bottom: var(--KModalBottomMargin, var(--spacing-lg, spacing(lg)));
     color: var(--KModalColor, var(--grey-500, color(grey-500)));
-    font-size: var(--KModalFontSize, 14px);
+    font-size: var(--KModalFontSize, 13px);
     line-height: 20px;
   }
 
