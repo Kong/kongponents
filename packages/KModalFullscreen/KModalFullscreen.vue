@@ -240,7 +240,7 @@ $fullscreen-modal-padding: 64px;
     text-align: center;
     position: relative;
     flex: 1 1 auto;
-    font-size: var(--KModalFullscreenFontSize, 13px);
+    font-size: var(--KModalFullscreenFontSize, 14px);
     line-height: 20px;
   }
 }
@@ -259,7 +259,7 @@ $fullscreen-modal-padding: 64px;
     height: 40px;
     margin-left: var(--spacing-md, spacing(md));
     font-weight: 400;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 13px;
   }
 }

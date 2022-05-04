@@ -419,7 +419,7 @@ button.close > .kong-icon {
     height: 30px;
     margin-left: 13px;
     font-weight: 400;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 13px;
   }
 
@@ -485,7 +485,7 @@ button.close > .kong-icon {
   display: block;
   padding-top: 4px;
   font-weight: 400;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 24px;
   color: var(--grey-500);
 }

@@ -97,7 +97,7 @@ export default {
 .empty-state-wrapper .k-empty-state-message {
   color: var(--KEmptyContentColor, var(--black-400));
   margin: 0 auto 14px;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 20px;
   max-width: 50%;
 }
