@@ -2,7 +2,6 @@
 // Do not remove the comment above - allows other apps to identify the style block
 
 @import "variables";
-@import "fonts";
 @import "typography";
 @import "utils";
 @import "forms/forms";
@@ -28,6 +27,6 @@
   }
   // Font weight
   body {
-    font-weight: 200;
+    font-weight: var(--font-weight-normal, 400);
   }
 }
