@@ -671,9 +671,9 @@ export default {
       const metaKeyPressed = e.metaKey || e.ctrlKey
 
       if (metaKeyPressed) {
-        $toaster.open('MetaKey row click')
+        this.$toaster.open('MetaKey row click')
       } else {
-        $toaster.open('Row click event fired!')
+        this.$toaster.open('Row click event fired!')
       }
     },
     linkHander (e) {
@@ -1287,11 +1287,6 @@ An Example of changing the hover background might look like.
 ```
 
 <script>
-import Vue from 'vue';
-import { ToastManager } from '@kongponents/ktoaster';
-
-Vue.prototype.$toaster = new ToastManager()
-
 export default {
   data() {
     return {
