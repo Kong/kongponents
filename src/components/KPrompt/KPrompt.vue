@@ -38,8 +38,8 @@
       </div>
     </template>
     <template #body-content>
-      <div class="k-prompt-body">
-        <div class="k-prompt-body-content">
+      <div class="k-prompt-body w-100">
+        <div class="k-prompt-body-content w-100">
           <slot name="body-content">
             {{ message }}
           </slot>
@@ -261,7 +261,7 @@ export default defineComponent({
         }
       }
 
-      .k-modal-body.modal-body .k-prompt-body {
+      .k-modal-body.modal-body .k-prompt-body .k-prompt-body-content {
         font-size: var(--type-md);
         text-align: start;
         color: var(--grey-600);
@@ -270,20 +270,17 @@ export default defineComponent({
         overflow-y: auto;
         overflow-x: hidden;
         max-height: var(--KPromptMaxHeight, 300px);
+        padding-bottom: var(--spacing-lg);
+        width: 99%;
 
         @media screen and (min-width: 768px) {
           max-height: var(--KPromptMaxHeight, 500px);
         }
 
-        .k-prompt-body-content {
-          padding-bottom: var(--spacing-lg);
-          width: 99%;
-
-          .k-prompt-confirm-text {
-            margin-top: var(--spacing-lg);
-            .k-input {
-              width: 100%;
-            }
+        .k-prompt-confirm-text {
+          margin-top: var(--spacing-lg);
+          .k-input {
+            width: 100%;
           }
         }
       }
