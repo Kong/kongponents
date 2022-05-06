@@ -554,9 +554,32 @@ export default defineComponent({
           ...rowListeners,
           ...cellListeners,
           click(e: any) {
-            const isPopoverContent = e.target.className.includes('k-popover')
+            const targetClasses = e.target.className
+            let isIgnored = ignoredElements.includes(e.target.tagName.toLowerCase())
+            let isPopoverContent = false
+
+            // check for popover class
+            if (typeof targetClasses === 'string' || Array.isArray(targetClasses)) {
+              isPopoverContent = targetClasses.includes('k-popover')
+            } else if (typeof targetClasses === 'object') {
+              isPopoverContent = Object.keys(targetClasses).includes('k-popover')
+            }
+
+            // check parent for popover class
+            if (e.target.closest('.k-popover-content') !== null) {
+              isPopoverContent = true
+            }
+
+            // check parent of target is not an ignored elem
+            for (let i = 0; i < ignoredElements.length; i++) {
+              if (e.target.closest(ignoredElements[i]) !== null) {
+                isIgnored = true
+                break
+              }
+            }
+
             // ignore click if it is from the popover, or is a non-disabled ignored element
-            if ((!ignoredElements.includes(e.target.tagName.toLowerCase()) || e.target.hasAttribute('disabled')) &&
+            if ((!isIgnored || e.target.hasAttribute('disabled')) &&
                  !isPopoverContent && (rowListeners.click || cellListeners.click)) {
               if (cellListeners.click) {
                 cellListeners.click(e, entity, 'cell')
