@@ -704,7 +704,15 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
   <template v-slot:other>
     <div>
       <KPop title="Cool header">
-        <KButton>Popover!</KButton>
+        <KButton>
+          <template #icon>
+            <KIcon
+              icon="more"
+              color="var(--black-400)"
+              size="16"
+            />
+          </template>
+        </KButton>
         <template v-slot:content>
           <div @click.stop>Clicking me does nothing!</div>
           <div class="d-inline-block" @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div>
