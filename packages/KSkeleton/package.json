@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kskeleton",
-  "version": "6.26.1",
+  "version": "6.26.2",
   "description": "Loading/Skeleton state component.",
   "main": "dist/KSkeleton.umd.min.js",
   "componentName": "KSkeleton",
@@ -25,7 +25,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kicon": "^6.26.1",
-    "@kongponents/styles": "^6.26.1"
+    "@kongponents/kicon": "^6.26.2",
+    "@kongponents/styles": "^6.26.2"
   }
 }

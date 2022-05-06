@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.26.2 (2022-05-06)
+
+
+### Bug Fixes
+
+* **kprompt:** bottom divider ([#617](https://github.com/Kong/kongponents/issues/617)) ([3ebe332](https://github.com/Kong/kongponents/commit/3ebe332368a5a669f2c30ef890384c8be221193d))
+
+
+
+
+
 ## 6.26.1 (2022-05-04)
 
 
