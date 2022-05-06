@@ -51,18 +51,10 @@
               v-if="emptyStateActionMessage"
               :to="emptyStateActionRoute ? emptyStateActionRoute : null"
               :data-testid="getTestIdString(emptyStateActionMessage)"
+              :icon="emptyStateActionButtonIcon ? emptyStateActionButtonIcon : null"
               appearance="primary"
               @click="$emit('ktable-empty-state-cta-clicked')"
             >
-              <template
-                v-slot:icon
-                v-if="emptyStateActionButtonIcon">
-                <KIcon
-                  :icon="emptyStateActionButtonIcon"
-                  color="white"
-                  view-box="0 0 20 20"
-                  size="16" />
-              </template>
               {{ emptyStateActionMessage }}
             </KButton>
           </template>
