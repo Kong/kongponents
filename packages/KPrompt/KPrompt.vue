@@ -249,7 +249,7 @@ export default {
         }
       }
 
-      .k-modal-body.modal-body .k-prompt-body {
+      .k-modal-body.modal-body .k-prompt-body .k-prompt-body-content {
         font-size: var(--type-md);
         text-align: start;
         color: var(--grey-600);
@@ -258,23 +258,21 @@ export default {
         overflow-y: auto;
         overflow-x: hidden;
         max-height: var(--KPromptMaxHeight, 300px);
+        padding-bottom: var(--spacing-lg);
+        width: 99%;
 
         @media screen and (min-width: 768px) {
           max-height: var(--KPromptMaxHeight, 500px);
         }
 
-        .k-prompt-body-content {
-          padding-bottom: var(--spacing-lg);
-          width: 99%;
+        .k-prompt-confirm-text {
+          margin-top: var(--spacing-lg);
 
-          .k-prompt-confirm-text {
-            margin-top: var(--spacing-lg);
-
-            .k-input {
-              width: 100%;
-            }
+          .k-input {
+            width: 100%;
           }
         }
+
       }
 
       .k-modal-footer.modal-footer {
