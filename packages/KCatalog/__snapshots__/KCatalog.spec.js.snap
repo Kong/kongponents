@@ -741,14 +741,14 @@ exports[`KCatalog general renders proper cards when using props 1`] = `
 exports[`KCatalog general renders slots when passed (with empty) 1`] = `
 <div class="k-card-catalog">
   <!---->
-  <div class="" data-testid="k-card-catalog-empty-state"><span>Look mah! I am empty! (except testMode)</span></div>
+  <div class="k-catalog-error-state" data-testid="k-card-catalog-empty-state"><span>Look mah! I am empty! (except testMode)</span></div>
 </div>
 `;
 
 exports[`KCatalog general renders slots when passed (with error) 1`] = `
 <div class="k-card-catalog">
   <!---->
-  <div data-testid="k-card-catalog-error-state"><span>Look mah! I am erroneous! (except testMode)</span></div>
+  <div data-testid="k-card-catalog-error-state" class="k-catalog-empty-state"><span>Look mah! I am erroneous! (except testMode)</span></div>
 </div>
 `;
 
@@ -969,7 +969,7 @@ exports[`KCatalog states displays a loading skeletion when the "isLoading" prop 
 exports[`KCatalog states displays an error state when the "hasError" prop is set to true" 1`] = `
 <div class="k-card-catalog">
   <!---->
-  <div data-testid="k-card-catalog-error-state">
+  <div data-testid="k-card-catalog-error-state" class="k-catalog-empty-state">
     <section class="empty-state-wrapper is-error">
       <div class="empty-state-title">
         <div class="k-empty-state-icon card-icon mb-4 warning-icon"><span class="kong-icon kong-icon-warning"><svg width="50" height="50" viewBox="0 0 48 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img">

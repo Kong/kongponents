@@ -433,13 +433,13 @@ exports[`KTable states displays a loading skeletion when the "isLoading" prop is
 
 exports[`KTable states displays an empty state when no data is available (slot) 1`] = `
 <div pagesize="4">
-  <div data-testid="k-table-empty-state"><span>Look mah! I am empty! (except testMode)</span></div>
+  <div data-testid="k-table-empty-state" class="k-table-empty-state"><span>Look mah! I am empty! (except testMode)</span></div>
 </div>
 `;
 
 exports[`KTable states displays an empty state when no data is available 1`] = `
 <div pagesize="4">
-  <div data-testid="k-table-empty-state">
+  <div data-testid="k-table-empty-state" class="k-table-empty-state">
     <section class="empty-state-wrapper">
       <div class="empty-state-title">
         <!---->
@@ -458,13 +458,13 @@ exports[`KTable states displays an empty state when no data is available 1`] = `
 
 exports[`KTable states displays an error state (slot) 1`] = `
 <div>
-  <div data-testid="k-table-error-state"><span>Look mah! I am erroneous! (except testMode)</span></div>
+  <div data-testid="k-table-error-state" class="k-table-error-state"><span>Look mah! I am erroneous! (except testMode)</span></div>
 </div>
 `;
 
 exports[`KTable states displays an error state when the "hasError" prop is set to true" 1`] = `
 <div>
-  <div data-testid="k-table-error-state">
+  <div data-testid="k-table-error-state" class="k-table-error-state">
     <section class="empty-state-wrapper is-error">
       <div class="empty-state-title">
         <div class="k-empty-state-icon card-icon mb-4 warning-icon"><span class="kong-icon kong-icon-warning"><svg width="48px" height="42px" viewBox="0 0 48 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
