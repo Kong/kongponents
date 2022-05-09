@@ -8,6 +8,7 @@
 
     <div
       v-else-if="hasError"
+      class="k-table-error-state"
       data-testid="k-table-error-state">
       <slot name="error-state">
         <KEmptyState
@@ -36,6 +37,7 @@
 
     <div
       v-else-if="!hasError && (!isTableLoading && !isLoading) && (data && !data.length)"
+      class="k-table-empty-state"
       data-testid="k-table-empty-state">
       <slot name="empty-state">
         <KEmptyState
@@ -51,18 +53,10 @@
               v-if="emptyStateActionMessage"
               :to="emptyStateActionRoute ? emptyStateActionRoute : null"
               :data-testid="getTestIdString(emptyStateActionMessage)"
+              :icon="emptyStateActionButtonIcon ? emptyStateActionButtonIcon : null"
               appearance="primary"
               @click="$emit('ktable-empty-state-cta-clicked')"
             >
-              <template
-                v-slot:icon
-                v-if="emptyStateActionButtonIcon">
-                <KIcon
-                  :icon="emptyStateActionButtonIcon"
-                  color="white"
-                  view-box="0 0 20 20"
-                  size="16" />
-              </template>
               {{ emptyStateActionMessage }}
             </KButton>
           </template>

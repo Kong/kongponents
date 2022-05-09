@@ -33,6 +33,7 @@
 
     <div
       v-else-if="hasError"
+      class="k-catalog-empty-state"
       data-testid="k-card-catalog-error-state">
       <slot name="error-state">
         <KEmptyState
@@ -48,6 +49,7 @@
             <KButton
               v-if="errorStateActionMessage"
               :to="errorStateActionRoute ? errorStateActionRoute : null"
+              :data-testid="getTestIdString(errorStateActionMessage)"
               appearance="primary"
               @click="$emit('KCatalog-error-cta-clicked')"
             >
@@ -60,6 +62,7 @@
 
     <div
       v-else-if="!hasError && (!isCardLoading && !isLoading) && (data && !data.length)"
+      class="k-catalog-error-state"
       data-testid="k-card-catalog-empty-state">
       <slot name="empty-state">
         <KEmptyState
@@ -74,6 +77,8 @@
             <KButton
               v-if="emptyStateActionMessage"
               :to="emptyStateActionRoute ? emptyStateActionRoute : null"
+              :data-testid="getTestIdString(emptyStateActionMessage)"
+              :icon="emptyStateActionButtonIcon ? emptyStateActionButtonIcon : null"
               appearance="primary"
               @click="$emit('KCatalog-empty-state-cta-clicked')"
             >
@@ -237,6 +242,13 @@ export default defineComponent({
      * A prop to pass in a custom empty state action message
      */
     emptyStateActionMessage: {
+      type: String,
+      default: ''
+    },
+    /**
+     * A prop to pass in a custom empty state action message
+     */
+    emptyStateActionButtonIcon: {
       type: String,
       default: ''
     },
@@ -452,6 +464,10 @@ export default defineComponent({
       pageSize.value = newPageSize
     }
 
+    const getTestIdString = (message) => {
+      return message.toLowerCase().replace(/[^[a-z0-9]/gi, '-')
+    }
+
     watch(() => props.searchInput, (newValue) => {
       search(newValue)
     }, { immediate: true })
@@ -471,7 +487,8 @@ export default defineComponent({
       pageSizeChangeHandler,
       pageSize,
       total,
-      isCardLoading
+      isCardLoading,
+      getTestIdString
     }
   }
 })
