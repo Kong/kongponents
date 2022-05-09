@@ -1,3 +1,10 @@
+# [7.0.0-beta.25](https://github.com/Kong/kongponents/compare/v7.0.0-beta.24...v7.0.0-beta.25) (2022-05-09)
+
+
+### Bug Fixes
+
+* **kcatalog,ktables:** docs and classes ([#621](https://github.com/Kong/kongponents/issues/621)) ([5282363](https://github.com/Kong/kongponents/commit/52823638ace5426c7276fb3b7fbdcbd4c9258659))
+
 # [7.0.0-beta.24](https://github.com/Kong/kongponents/compare/v7.0.0-beta.23...v7.0.0-beta.24) (2022-05-04)
 
 
