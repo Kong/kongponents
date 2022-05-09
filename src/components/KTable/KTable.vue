@@ -8,6 +8,7 @@
 
     <div
       v-else-if="hasError"
+      class="k-table-error-state"
       data-testid="k-table-error-state"
     >
       <slot name="error-state">
@@ -43,6 +44,7 @@
 
     <div
       v-else-if="!hasError && (!isTableLoading && !isLoading) && (data && !data.length)"
+      class="k-table-empty-state"
       data-testid="k-table-empty-state"
     >
       <slot name="empty-state">
