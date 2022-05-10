@@ -152,7 +152,7 @@ export default {
     },
 
     iconColor () {
-      if (this.$attrs.disabled !== undefined) {
+      if (this.$attrs.disabled !== undefined && this.$attrs.disabled !== false) {
         return 'var(--grey-400)'
       } else if (['primary', 'danger', 'creation'].includes(this.appearance)) {
         return 'white'
