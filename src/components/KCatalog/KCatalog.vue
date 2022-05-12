@@ -537,6 +537,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 .k-card-catalog {
   .k-card-catalog-title {
@@ -553,6 +554,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 .k-card-catalog {
   $cardHeight: 181px;

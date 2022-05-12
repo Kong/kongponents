@@ -411,6 +411,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 .k-select {
   width: fit-content; // necessary for correct placement of popup

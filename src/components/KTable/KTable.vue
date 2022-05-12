@@ -738,6 +738,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 .k-table-wrapper {
   width: 100%;
@@ -894,6 +895,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 .k-table {
   thead {

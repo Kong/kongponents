@@ -66,6 +66,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/functions';
 .fullscreen-loading-container {
   position: fixed;
   top: 0;

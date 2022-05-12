@@ -27,7 +27,7 @@
     "build:cli": "rm -rf ./bin && tsc --project ./cli/tsconfig.json && chmod u+x ./bin/index.js",
     "build:docs": "vuepress build docs",
     "build:kongponents": "yarn typecheck && vite build && yarn copy:css-variables && vue-tsc --emitDeclarationOnly",
-    "copy:css-variables": "copyfiles -f src/styles/_kongponents-css-variables.scss dist",
+    "copy:css-variables": "copyfiles -f src/styles/_variables.scss dist",
     "build": "yarn build:kongponents && yarn build:docs && yarn build:cli",
     "commit": "cz",
     "create-kongponent": "node ./bin/index.js",

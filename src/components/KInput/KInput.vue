@@ -186,6 +186,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 .form-control {
   box-shadow: none !important;

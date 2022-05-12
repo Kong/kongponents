@@ -63,6 +63,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 .k-select-item {
   margin-bottom: 6px;

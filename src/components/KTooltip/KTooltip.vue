@@ -90,6 +90,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 .k-tooltip {
   --KPopColor: var(--KTooltipColor, var(--white, color(white)));

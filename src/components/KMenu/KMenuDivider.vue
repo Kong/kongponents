@@ -15,6 +15,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 .k-menu-item-divider {
   padding: 0 19px 0 19px;

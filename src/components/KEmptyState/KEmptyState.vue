@@ -83,6 +83,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 .empty-state-wrapper {
   padding: 42px 0;

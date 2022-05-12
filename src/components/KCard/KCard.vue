@@ -153,6 +153,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 .kong-card {
   padding: var(--KCardPaddingY, var(--spacing-lg)) var(--KCardPaddingX, var(--spacing-lg));
@@ -218,6 +219,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 .kong-card {
   .k-card-header {

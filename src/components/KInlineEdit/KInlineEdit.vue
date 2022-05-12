@@ -145,6 +145,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 .k-inline-edit {
   --padding: var(--spacing-xxs) var(--spacing-xs);
