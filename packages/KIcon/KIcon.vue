@@ -137,7 +137,6 @@ export default {
     // Ensure icon color is updated when color prop value changes
     color: {
       handler () {
-        this.svg = this.$refs.svgWrapper ? this.$refs.svgWrapper.querySelector('svg:not(.slot-content)') : null
         this.recursivelyCustomizeIconColors(this.svg)
       }
     }
