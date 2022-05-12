@@ -155,7 +155,8 @@ $sides: (top, right, bottom, left);
   position: relative;
   max-height: calc(var(--TLineHeight, 24px) * var(--TMaxLines, 5));
   overflow: hidden;
-  padding-right: calc(var(--TPosRight, 12px) * var(--TPadRight, 8px) + 4px) !important;
+  // You cannot multiply {number}px * {number}px in Sass, so we are removing the "px" from the --TPadRight variable
+  padding-right: calc(var(--TPosRight, 12px) * str-replace(var(--TPadRight, 8px), "px", "") + 4px) !important;
 
   .truncate-multi::before {
     position: absolute;
