@@ -1,3 +1,10 @@
+# [7.0.0-beta.30](https://github.com/Kong/kongponents/compare/v7.0.0-beta.29...v7.0.0-beta.30) (2022-05-12)
+
+
+### Bug Fixes
+
+* **kbutton,kicon:** fix button icon color [beta] ([#627](https://github.com/Kong/kongponents/issues/627)) ([33a59b6](https://github.com/Kong/kongponents/commit/33a59b6aede24622ff9503b494d6f03bd058a1d7))
+
 # [7.0.0-beta.29](https://github.com/Kong/kongponents/compare/v7.0.0-beta.28...v7.0.0-beta.29) (2022-05-12)
 
 
