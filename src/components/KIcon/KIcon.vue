@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted, nextTick } from 'vue'
+import { defineComponent, ref, computed, onMounted, nextTick, watch } from 'vue'
 import * as allIcons from './icons'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -193,6 +193,10 @@ export default defineComponent({
         recursivelyCustomizeIconColors(child)
       })
     }
+
+    watch(() => props.color, () => {
+      recursivelyCustomizeIconColors(svg.value)
+    })
 
     onMounted(async () => {
       await nextTick()
