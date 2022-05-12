@@ -147,7 +147,7 @@ export default defineComponent({
     const buttonType = computed((): string => props.to ? 'router-link' : 'button')
 
     const iconColor = computed((): string => {
-      if (attrs.disabled !== undefined) {
+      if (attrs.disabled) {
         return 'var(--grey-400)'
       } else if (['primary', 'danger', 'creation'].includes(props.appearance)) {
         return 'white'
