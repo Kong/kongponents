@@ -133,6 +133,14 @@ export default {
       return this.svg ? (this.viewBox || (this.svg && this.svg.getAttribute('viewBox')) || DEFAULTS.viewBox) : DEFAULTS.viewBox
     }
   },
+  watch: {
+    // Ensure icon color is updated when color prop value changes
+    color: {
+      handler () {
+        this.recursivelyCustomizeIconColors(this.svg)
+      }
+    }
+  },
 
   mounted () {
     this.$nextTick(function () {
