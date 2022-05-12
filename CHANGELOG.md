@@ -1,3 +1,10 @@
+# [7.0.0-beta.26](https://github.com/Kong/kongponents/compare/v7.0.0-beta.25...v7.0.0-beta.26) (2022-05-12)
+
+
+### Bug Fixes
+
+* **truncate-multi:** fix pixel multiplication ([#624](https://github.com/Kong/kongponents/issues/624)) ([0b08062](https://github.com/Kong/kongponents/commit/0b08062eaff50803c01e25bd4694944e9f644127))
+
 # [7.0.0-beta.25](https://github.com/Kong/kongponents/compare/v7.0.0-beta.24...v7.0.0-beta.25) (2022-05-09)
 
 
