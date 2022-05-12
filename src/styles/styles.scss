@@ -8,8 +8,8 @@
 @import "utils";
 @import "forms/forms";
 
-// Loop all maps and set to root element
 :root {
+  // Utilize mixin to bind CSS variables to the root element
   @include kongponents-css-variables;
 
   // Font weight
