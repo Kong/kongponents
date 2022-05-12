@@ -1,4 +1,6 @@
-// Include as a mixin so consuming packages can import if they desire
+// @kong/kongponents CSS Variables
+// Include as a mixin so consuming packages can import if they desire and add to scoped styles
+
 @mixin css-variables {
   // colors
   @each $name, $color in $colors {
