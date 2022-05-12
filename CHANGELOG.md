@@ -1,3 +1,11 @@
+# [7.0.0-beta.27](https://github.com/Kong/kongponents/compare/v7.0.0-beta.26...v7.0.0-beta.27) (2022-05-12)
+
+
+### Bug Fixes
+
+* **css-variables:** move to separate mixin ([#626](https://github.com/Kong/kongponents/issues/626)) ([7a1b0c9](https://github.com/Kong/kongponents/commit/7a1b0c98a59c25d83b29f34748d5038cd94c8f4e))
+* **sass:** restructure files ([1d27287](https://github.com/Kong/kongponents/commit/1d272870a6cb10c8e2a25869c2a188361d8a713e))
+
 # [7.0.0-beta.26](https://github.com/Kong/kongponents/compare/v7.0.0-beta.25...v7.0.0-beta.26) (2022-05-12)
 
 
