@@ -89,7 +89,7 @@ $fonts: (
 
 // Set up CSS variables as a mixin so consuming packages can import if they desire and add to scoped styles
 // This mixin MUST stay in the _variables.scss file so consuming packages may import it
-@mixin css-variables {
+@mixin kongponents-css-variables {
   // colors
   @each $name, $color in $colors {
     // add empty string so dart-sass will properly interpret class name from variable

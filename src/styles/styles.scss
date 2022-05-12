@@ -10,7 +10,7 @@
 
 // Loop all maps and set to root element
 :root {
-  @include css-variables;
+  @include kongponents-css-variables;
 
   // Font weight
   body {
