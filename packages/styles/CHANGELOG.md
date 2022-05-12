@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.26.4 (2022-05-12)
+
+
+### Bug Fixes
+
+* **truncate-multi:** fix pixel multiplication ([#625](https://github.com/Kong/kongponents/issues/625)) ([9a99f0d](https://github.com/Kong/kongponents/commit/9a99f0d0aa0db08e35a1c7ccba06c7432bd375b6))
+
+
+
+
+
 ## 6.26.3 (2022-05-09)
 
 **Note:** Version bump only for package @kongponents/styles
