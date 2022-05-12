@@ -26,7 +26,8 @@
   "scripts": {
     "build:cli": "rm -rf ./bin && tsc --project ./cli/tsconfig.json && chmod u+x ./bin/index.js",
     "build:docs": "vuepress build docs",
-    "build:kongponents": "yarn typecheck && vite build && vue-tsc --emitDeclarationOnly",
+    "build:kongponents": "yarn typecheck && vite build && yarn copy:css-variables && vue-tsc --emitDeclarationOnly",
+    "copy:css-variables": "copyfiles -f src/styles/_kongponents-css-variables.scss dist",
     "build": "yarn build:kongponents && yarn build:docs && yarn build:cli",
     "commit": "cz",
     "create-kongponent": "node ./bin/index.js",
@@ -77,6 +78,7 @@
     "autoprefixer": "^10.4.4",
     "boxen": "^5.1.2",
     "commitizen": "^4.2.4",
+    "copyfiles": "^2.4.1",
     "cypress": "^9.5.3",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "^8.12.0",

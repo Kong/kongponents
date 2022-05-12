@@ -1,0 +1,24 @@
+// @kong/kongponents CSS Variables
+// Include as a mixin so consuming packages can import if they desire and add to scoped styles
+
+@mixin css-variables {
+  // colors
+  @each $name, $color in $colors {
+    // add empty string so dart-sass will properly interpret class name from variable
+    --#{"" + $name}: #{$color};
+  }
+  // Spacings
+  @each $name, $space in $spacing {
+    --spacing-#{$name}: #{$space};
+  }
+  // Type
+  @each $name, $size in $type-sizes {
+    --type-#{$name}: #{$size};
+  }
+  // Font families
+  @each $name, $font in $fonts {
+    --font-family-#{$name}: #{$font};
+  }
+
+  font-weight: var(--font-weight-normal, 400);
+}
