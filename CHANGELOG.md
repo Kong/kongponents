@@ -1,3 +1,10 @@
+# [7.0.0-beta.28](https://github.com/Kong/kongponents/compare/v7.0.0-beta.27...v7.0.0-beta.28) (2022-05-12)
+
+
+### Bug Fixes
+
+* **variables:** rename mixin ([544c762](https://github.com/Kong/kongponents/commit/544c76281678bb79466125eb65bc778b1b799afb))
+
 # [7.0.0-beta.27](https://github.com/Kong/kongponents/compare/v7.0.0-beta.26...v7.0.0-beta.27) (2022-05-12)
 
 
