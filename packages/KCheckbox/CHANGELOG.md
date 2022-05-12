@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.26.5 (2022-05-12)
+
+
+### Bug Fixes
+
+* **klabel:** default font-weight to 600 ([0297712](https://github.com/Kong/kongponents/commit/02977121b7b609bf451456e504fdd8414036a9cf))
+
+
+
+
+
 ## 6.26.4 (2022-05-12)
 
 
