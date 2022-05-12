@@ -1,3 +1,10 @@
+# [7.0.0-beta.29](https://github.com/Kong/kongponents/compare/v7.0.0-beta.28...v7.0.0-beta.29) (2022-05-12)
+
+
+### Bug Fixes
+
+* **klabel:** default font weight to 600 ([f23282d](https://github.com/Kong/kongponents/commit/f23282da02e92654ebbfac3062d7305f25023b3f))
+
 # [7.0.0-beta.28](https://github.com/Kong/kongponents/compare/v7.0.0-beta.27...v7.0.0-beta.28) (2022-05-12)
 
 
