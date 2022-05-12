@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.26.6 (2022-05-12)
+
+
+### Bug Fixes
+
+* **kbutton:** account for when disabled is false ([#622](https://github.com/Kong/kongponents/issues/622)) ([8f83196](https://github.com/Kong/kongponents/commit/8f83196e31dc41b8bb579148b1adef3ad89fa44d))
+
+
+
+
+
 ## 6.26.5 (2022-05-12)
 
 
