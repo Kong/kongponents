@@ -1,11 +1,12 @@
 <template>
   <div class="segmented-control d-flex" >
     <KButton
-      v-for="item in options"
+      v-for="(item, index) in options"
       :key="label(item)"
       :name="value(item)"
       :disabled="disabled(item)"
       :appearance="appearance(item)"
+      :data-testid="`k-segmented-control-item-${index}`"
       size="small"
       class="justify-content-center"
       v-on="listeners"

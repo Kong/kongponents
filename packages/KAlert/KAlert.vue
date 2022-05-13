@@ -21,6 +21,7 @@
       v-if="dismissType === 'icon'"
       type="button"
       aria-label="Close"
+      data-testid="k-alert-close-button"
       class="close"
       @click="dismissAlert">
       <KIcon
@@ -38,12 +39,14 @@
         name="actionButtons">
         <KButton
           size="small"
+          data-testid="k-alert-proceed-button"
           @click="proceed"
           @keyup.enter="proceed"/>
       </slot>
       <KButton
         v-if="dismissType === 'button'"
         size="small"
+        data-testid="k-alert-dismiss-button"
         @click="dismissAlert">
         Dismiss
       </KButton>

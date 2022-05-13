@@ -29,6 +29,7 @@
             v-if="!ctaIsHidden"
             appearance="primary"
             size="small"
+            data-testid="k-empty-state-cta-button"
             @click.native="() => handleClick && handleClick()">
             {{ ctaText }}
           </KButton>

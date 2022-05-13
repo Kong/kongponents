@@ -27,6 +27,7 @@
             <slot name="footer-content">
               <KButton
                 :appearance="cancelButtonAppearance"
+                data-testid="k-modal-cancel-button"
                 @click="close"
                 @keyup.esc="close">
                 {{ cancelButtonText }}
@@ -35,6 +36,7 @@
                 <slot name="action-buttons">
                   <KButton
                     :appearance="actionButtonAppearance"
+                    data-testid="k-modal-proceed-button"
                     @click="proceed"
                     @keyup.enter="proceed">
                     {{ actionButtonText }}

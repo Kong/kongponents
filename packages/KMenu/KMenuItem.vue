@@ -11,6 +11,7 @@
       :aria-labelledby="menuItemId"
       :is-rounded="false"
       type="button"
+      data-testid="k-menu-item-button"
       class="menu-button non-visual-button"
       @click="toggleMenuItem">
       <span

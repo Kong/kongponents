@@ -22,6 +22,7 @@
             <KButton
               class="non-visual-button"
               aria-label="Close"
+              data-testid="k-prompt-close-button"
               @click="close">
               <KIcon
                 icon="close"
@@ -59,6 +60,7 @@
         <slot name="action-buttons">
           <KButton
             appearance="outline"
+            data-testid="k-prompt-cancel-button"
             class="k-prompt-cancel mr-2"
             @click="close">
             {{ cancelButtonText }}
@@ -66,6 +68,7 @@
           <KButton
             :appearance="type === 'danger' ? 'danger' : 'primary'"
             :disabled="disableProceedButton"
+            data-testid="k-prompt-proceed-button"
             class="k-prompt-proceed"
             @click="proceed">
             <KIcon

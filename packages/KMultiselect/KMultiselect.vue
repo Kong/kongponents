@@ -14,6 +14,7 @@
       v-bind="buttonAttributes"
       :appearance="buttonAttributes.appearance || 'secondary'"
       :is-open="isOpen"
+      data-testid="k-multiselect-trigger-button"
       class="k-multiselect-trigger has-caret">
       {{ buttonText }}
     </KButton>
@@ -57,6 +58,7 @@
               :disabled="applyDisabled"
               size="small"
               appearance="secondary"
+              data-testid="k-multiselect-apply-button"
               class="k-multiselect-apply"
               @click="handleApply">{{ applyText }}</KButton>
           </div>

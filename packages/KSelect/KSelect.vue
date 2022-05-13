@@ -63,6 +63,7 @@
               :is-rounded="false"
               v-bind="$attrs"
               appearance="btn-link"
+              data-testid="k-select-button"
               @keyup="triggerFocus(isToggled)">{{ selectButtonText }}</KButton>
           </div>
           <div

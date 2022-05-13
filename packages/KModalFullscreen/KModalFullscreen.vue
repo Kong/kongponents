@@ -50,6 +50,7 @@
               <slot name="action-buttons">
                 <KButton
                   :appearance="cancelButtonAppearance"
+                  data-testid="k-modal-fullscreen-cancel-button"
                   class="cancel-button"
                   @click="close"
                 >
@@ -57,6 +58,7 @@
                 </KButton>
                 <KButton
                   :appearance="actionButtonAppearance"
+                  data-testid="k-modal-fullscreen-proceed-button"
                   class="proceed-button"
                   @click="proceed"
                 >

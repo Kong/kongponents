@@ -24,6 +24,7 @@
       <slot
         name="actionButton">
         <KButton
+          data-testid="k-menu-proceed-button"
           @click="proceed"
           @keyup.enter="proceed"/>
       </slot>

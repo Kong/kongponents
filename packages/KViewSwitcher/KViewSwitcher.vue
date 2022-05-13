@@ -5,6 +5,7 @@
     :title="`Toggle to ${view === 'table' ? 'grid' : 'table'} view`"
     size="small"
     appearance="outline"
+    data-testid="k-view-switcher-toggle-button"
     class="view-switch-button non-visual-button"
     @click="toggleView"
   >
