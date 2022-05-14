@@ -1,3 +1,10 @@
+# [7.0.0-beta.31](https://github.com/Kong/kongponents/compare/v7.0.0-beta.30...v7.0.0-beta.31) (2022-05-14)
+
+
+### Bug Fixes
+
+* **kbutton:** add important to button disabled styles ([ddddf3c](https://github.com/Kong/kongponents/commit/ddddf3c0a74b276141f8c6717c5eb72f9e2cc397))
+
 # [7.0.0-beta.30](https://github.com/Kong/kongponents/compare/v7.0.0-beta.29...v7.0.0-beta.30) (2022-05-12)
 
 
