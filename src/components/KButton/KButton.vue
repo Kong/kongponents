@@ -279,8 +279,9 @@ export default defineComponent({
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300);
-      color: var(--grey-400);
+      // Use !important to override conflicting styles
+      background-color: var(--grey-300) !important;
+      color: var(--grey-400) !important;
     }
   }
 
@@ -298,8 +299,8 @@ export default defineComponent({
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300);
-      color: var(--grey-400);
+      background-color: var(--grey-300) !important;
+      color: var(--grey-400) !important;
     }
   }
   &.danger {
@@ -317,8 +318,8 @@ export default defineComponent({
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300);
-      color: var(--grey-400);
+      background-color: var(--grey-300) !important;
+      color: var(--grey-400) !important;
     }
   }
 
@@ -337,8 +338,8 @@ export default defineComponent({
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300);
-      color: var(--grey-400);
+      background-color: var(--grey-300) !important;
+      color: var(--grey-400) !important;
     }
   }
 
@@ -359,8 +360,8 @@ export default defineComponent({
     }
     &:disabled,
     &[disabled] {
-      border-color: var(--grey-400);
-      color: var(--grey-400);
+      border-color: var(--grey-400) !important;
+      color: var(--grey-400) !important;
     }
   }
   &.btn-link {
@@ -374,7 +375,7 @@ export default defineComponent({
     }
     &:disabled,
     &[disabled] {
-      color: var(--grey-400);
+      color: var(--grey-400) !important;
     }
   }
 
