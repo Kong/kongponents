@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.26.7 (2022-05-15)
+
+**Note:** Version bump only for package @kongponents/kcard
+
+
+
+
+
 ## 6.26.6 (2022-05-12)
 
 
