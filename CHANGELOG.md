@@ -1,3 +1,10 @@
+# [7.0.0-beta.32](https://github.com/Kong/kongponents/compare/v7.0.0-beta.31...v7.0.0-beta.32) (2022-05-17)
+
+
+### Bug Fixes
+
+* **colors:** update hex for steel-500 ([a88d185](https://github.com/Kong/kongponents/commit/a88d1851f262cf1c60d5e9748f41716365b8ffe2))
+
 # [7.0.0-beta.31](https://github.com/Kong/kongponents/compare/v7.0.0-beta.30...v7.0.0-beta.31) (2022-05-14)
 
 
