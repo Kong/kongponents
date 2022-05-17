@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.26.8 (2022-05-17)
+
+
+### Bug Fixes
+
+* **variables:** update hex color code ([#629](https://github.com/Kong/kongponents/issues/629)) ([d40fc6c](https://github.com/Kong/kongponents/commit/d40fc6c01c08eb3fcf3f39dd98c32eeac55f6404))
+
+
+
+
+
 ## 6.26.7 (2022-05-15)
 
 **Note:** Version bump only for package @kongponents/kclipboardprovider
