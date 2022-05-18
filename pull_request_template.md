@@ -1,35 +1,21 @@
-### Summary
+# Summary
 
+<!-- Add a summary of your changes, and include a link to JIRA as necessary. -->
 
-#### Changes made:
+## Vue 3
 
+**Did you create a corresponding PR to add this change to the `beta` branch? (required)**
 
-### Vue 3 Upgrade
-
-**If your PR contains code that needs to be ported to the `beta` branch, please add the [`port to beta branch`](https://github.com/Kong/kongponents/labels/port%20to%20beta%20branch) label to your PR.**
-
-<!--
-We are currently in the process of upgrading Kongponents to Vue 3. If changes are made to a component or doc file on the `main` branch, a corresponding PR needs to be made into the `beta` branch that includes:
-
-- The component feature/fix, updated for Vue 3 and the Composition API.
-- Documentation updates for the component changes, as well as updating examples and usage to Vue 3 and the Composition API.
-- Updates to the corresponding `.spec.ts` test file(s) to utilize [Cypress Component Testing](https://docs.cypress.io/guides/component-testing/introduction).
-
--->
+- [ ] **Yes**, here is a link to the PR: `[link to beta branch PR]`
+- [ ] **No**, I did not create a PR for the `beta` branch and I have added the `port to beta branch` tag to this PR.
+- [ ] **No**, because `[type your reasons]`
 
 If you have questions, tag `@adamdehaven` or `@kaiarrowood`.
 
-<!--
+---
 
-**Does your PR modify a component [that already exists on the `next` branch](https://github.com/Kong/kongponents/tree/next/src/components)?**
+## PR Checklist
 
-  - [ ] **Yes**, and there is a corresponding PR to update the component on the `next` branch
-    - `LINK_TO_PR_ON_NEXT_BRANCH` (**required**)
-  - [ ] **No**, the component does not yet exist on `next` branch.
-
--->
-
-### PR Checklist
 - [ ] Does not introduce dependencies
 - [ ] **Functional:** all changes do not break existing APIs and if so, bump major version.
 - [ ] **Tests pass:** check the output of yarn test packages/<Kongponent>
