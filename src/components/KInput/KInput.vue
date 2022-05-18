@@ -21,7 +21,7 @@
           :id="inputId"
           :value="currValue || modelValueChanged ? currValue : modelValue"
           :class="`k-input-${size}`"
-          :aria-invalid="hasError ? hasError : charLimitExceeded ? 'true' : 'false'"
+          :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
           class="form-control k-input"
           @input="handleInput"
           @mouseenter="() => isHovered = true"
@@ -53,7 +53,7 @@
         :id="inputId"
         :value="currValue || modelValueChanged ? currValue : modelValue"
         :class="`k-input-${size}`"
-        :aria-invalid="hasError ? hasError : 'false'"
+        :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
         class="form-control k-input"
         @input="handleInput"
       >
@@ -70,7 +70,7 @@
       v-bind="modifiedAttrs"
       :value="currValue || modelValueChanged ? currValue : modelValue"
       :class="`k-input-${size}`"
-      :aria-invalid="hasError ? hasError : 'false'"
+      :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
       class="form-control k-input"
       @input="handleInput"
     >

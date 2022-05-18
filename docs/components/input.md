@@ -2,7 +2,7 @@
 
 **KInput** provides a wrapper around general `text` input's and provides specific Kong styling and state treatments (error, focus, etc).
 
-<KInput class="w-100" placeholder="Placeholder text" :maxlength="10" character-limit="10" label="Test label" help="This is help text"/>
+<KInput class="w-100" placeholder="Placeholder text" />
 
 ```vue
 <KInput class="w-100" placeholder="Placeholder text" />
@@ -14,7 +14,7 @@
 
 To set the value of the input element without using `v-model`, you can set the `model-value` attribute on the input:
 
-<KInput model-value="This is the input value" character-limit="10" placeholder="Placeholder text" />
+<KInput model-value="This is the input value" placeholder="Placeholder text" />
 
 ```vue
 <KInput model-value="This is the input value" placeholder="Placeholder text" />
@@ -110,6 +110,8 @@ Use this prop to specify a character limit for the input.
 <KInput model-value="This field has too many characters" :character-limit="10" class="w-100" placeholder="Placeholder text" />
 ```
 
+The character counter will only display below the input if the `characterLimit` is exceeded.
+
 If the `characterLimit` is exceeded, the character counter below the `KInput` will override the display of a provided `errorMessage` until the character count is within the acceptable range.
 
 :::tip
@@ -131,7 +133,7 @@ Boolean value to indicate whether the element has an error and should apply erro
 
 String to be displayed as error message if `hasError` prop is `true`.
 
-<KInput class="w-100" hasError errorMessage="Service name should not contain '_'" character-limit="10"/>
+<KInput class="w-100" hasError errorMessage="Service name should not contain '_'" />
 
 ```vue
 <KInput class="w-100" hasError errorMessage="Service name should not contain '_'"/>
