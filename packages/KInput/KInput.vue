@@ -20,10 +20,7 @@
           :class="`k-input-${size}`"
           :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
           class="form-control k-input"
-          @input="e => {
-            $emit('input', e.target.value),
-            currValue = e.target.value
-          }"
+          @input="handleInput"
           @mouseenter="() => isHovered = true"
           @mouseleave="() => isHovered = false"
           @focus="() => isFocused = true"
@@ -52,9 +49,7 @@
         :class="`k-input-${size}`"
         :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
         class="form-control k-input"
-        @input="e => {
-          $emit('input', e.target.value)
-        }"
+        @input="handleInput"
         v-on="listeners">
       <p
         v-if="charLimitExceeded || hasError"
@@ -70,9 +65,7 @@
       :class="`k-input-${size}`"
       :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
       class="form-control k-input"
-      @input="e => {
-        $emit('input', e.target.value)
-      }"
+      @input="handleInput"
       v-on="listeners">
 
     <p
@@ -159,6 +152,16 @@ export default {
     inputId () {
       return this.$attrs.id ? this.$attrs.id : !this.testMode ? uuid.v1() : 'test-input-id-1234'
     },
+    charLimitExceeded () {
+      return !!this.characterLimit && (this.currValue.toString().length || (!this.modelValueChanged && this.value.toString().length)) > this.characterLimit
+    },
+    charLimitExceededError () {
+      if (!this.charLimitExceeded) {
+        return ''
+      }
+
+      return this.modelValueChanged ? `${this.currValue.toString().length} / ${this.characterLimit}` : `${this.value.toString().length} / ${this.characterLimit}`
+    },
     isDisabled () {
       return this.$attrs.hasOwnProperty('disabled')
     },
@@ -169,6 +172,25 @@ export default {
       delete listeners['input']
 
       return listeners
+    }
+  },
+  watch: {
+    charLimitExceeded (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.$emit('char-limit-exceeded', {
+          value: this.currValue,
+          length: this.currValue.toString().length,
+          characterLimit: this.characterLimit,
+          limitExceeded: newVal
+        })
+      }
+    }
+  },
+  methods: {
+    handleInput ($event) {
+      this.currValue = $event.target.value
+      this.modelValueChanged = true
+      this.$emit('input', $event.target.value)
     }
   }
 }
@@ -199,6 +221,26 @@ export default {
     -webkit-appearance: none;
   }
 
+  &.w-auto .k-input {
+    width: auto;
+  }
+
+  &.w-100 .k-input {
+    width: 100%;
+  }
+
+  &.w-75 .k-input {
+    width: 75%;
+  }
+
+  &.w-50 .k-input {
+    width: 50%;
+  }
+
+  &.w-25 .k-input {
+    width: 25%;
+  }
+
   & .k-input-label-wrapper-large .has-error,
   & .k-input-large + .has-error {
     font-size: 12px;
@@ -218,6 +260,18 @@ export default {
     font-size: 9px;
     line-height: 11px;
     margin-top: 2px;
+  }
+
+  .text-on-input label.hovered,
+  .text-on-input label:hover {
+    color: var(--KInputHover, var(--blue-500));
+  }
+
+  &.input-error {
+    .text-on-input label.hovered,
+    .text-on-input label:hover {
+      color: var(--red-500);
+    }
   }
 }
 
