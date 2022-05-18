@@ -265,5 +265,12 @@ export default defineComponent({
   .text-on-input label:hover {
     color: var(--KInputHover, var(--blue-500));
   }
+
+  &.input-error {
+    .text-on-input label.hovered,
+    .text-on-input label:hover {
+      color: var(--red-500);
+    }
+  }
 }
 </style>
