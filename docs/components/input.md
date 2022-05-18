@@ -40,12 +40,7 @@ Use the `labelAttributes` prop to configure the **KLabel's** [props](/components
 <KInput label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop', 'data-testid': 'test' }" />
 
 ```vue
-<KInput
-  label="Name"
-  :label-attributes="{
-    help: 'I use the KLabel `help` prop'
-  }"
-/>
+<KInput label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop' }" />
 ```
 
 ### overlayLabel
@@ -74,6 +69,31 @@ You can specify `small`, `medium` (default), or `large` for the size.
 <KInput label="Medium" class="mb-2" />
 <KInput label="Large" size="large" />
 ```
+
+### characterLimit
+
+Use this prop to specify a character limit for the input.
+
+<KInput value="This field has too many characters" :character-limit="10" class="w-100" placeholder="Placeholder text" />
+
+```vue
+<KInput value="This field has too many characters" :character-limit="10" class="w-100" placeholder="Placeholder text" />
+```
+
+The character counter will only display below the input if the `characterLimit` is exceeded.
+
+If the `characterLimit` is exceeded, the character counter below the `KInput` will override the display of a provided `errorMessage` until the character count is within the acceptable range.
+
+:::tip
+You may also specify a native `maxlength` attribute on the `KInput` to actually limit the number of characters the user is allowed to type in the field. This will prevent the user from exceeding the character limit so the error state will not be shown.
+
+<KInput :character-limit="10" maxlength="10" placeholder="Type..."/>
+
+```vue
+<KInput :character-limit="10" maxlength="10" placeholder="Type..."/>
+```
+
+:::
 
 ### help
 
