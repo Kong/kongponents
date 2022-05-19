@@ -1,3 +1,10 @@
+# [7.0.0-beta.36](https://github.com/Kong/kongponents/compare/v7.0.0-beta.35...v7.0.0-beta.36) (2022-05-19)
+
+
+### Bug Fixes
+
+* **kbutton:** disallow pointer-events for disabled button icon ([dcc6712](https://github.com/Kong/kongponents/commit/dcc67120e4ad5165b269e9fc1dcdfce3ffbf48f5))
+
 # [7.0.0-beta.35](https://github.com/Kong/kongponents/compare/v7.0.0-beta.34...v7.0.0-beta.35) (2022-05-19)
 
 
