@@ -227,26 +227,6 @@ export default {
     -webkit-appearance: none;
   }
 
-  &.w-auto .k-input {
-    width: auto;
-  }
-
-  &.w-100 .k-input {
-    width: 100%;
-  }
-
-  &.w-75 .k-input {
-    width: 75%;
-  }
-
-  &.w-50 .k-input {
-    width: 50%;
-  }
-
-  &.w-25 .k-input {
-    width: 25%;
-  }
-
   & .k-input-label-wrapper-large .has-error,
   & .k-input-large + .has-error {
     font-size: 12px;
