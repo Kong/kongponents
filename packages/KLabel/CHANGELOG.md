@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.27.7 (2022-05-19)
+
+
+### Bug Fixes
+
+* **icons:** update icon-spinner stroke width ([8d68c6f](https://github.com/Kong/kongponents/commit/8d68c6ff0fb415ce0e3b4ab48504155570317d5b))
+
+
+
+
+
 ## 6.27.6 (2022-05-19)
 
 
