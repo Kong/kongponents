@@ -9,7 +9,7 @@
     v-html="icons[icon]"
   />
   <span
-    v-else
+    v-else-if="svg"
     v-bind="$attrs"
     ref="svgWrapper"
     :class="`kong-icon-${icon}`"
@@ -195,11 +195,15 @@ export default defineComponent({
     }
 
     // Re-render the svg if the icon prop changes
-    watch(() => [props.icon, props.size, props.color, props.secondaryColor, props.viewBox, props.hideTitle], () => {
+    watch(() => [props.icon, props.size, props.color, props.secondaryColor, props.viewBox, props.hideTitle], async () => {
+      await nextTick()
+
       renderIcon()
     })
 
     const renderIcon = (): void => {
+      svg.value = null
+
       // Set svg
       svg.value = svgWrapper.value ? svgWrapper.value.querySelector('svg:not(.slot-content)') : null
 
