@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.27.3 (2022-05-19)
+
+
+### Bug Fixes
+
+* **kicon:** re-render svg on icon prop change ([#633](https://github.com/Kong/kongponents/issues/633)) ([8bc04c2](https://github.com/Kong/kongponents/commit/8bc04c272521ee1f040d4eaa8047eaca8f7d9964))
+
+
+
+
+
 ## 6.27.2 (2022-05-19)
 
 **Note:** Version bump only for package @kongponents/utils
