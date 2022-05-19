@@ -205,6 +205,8 @@ KInput works as regular inputs do using v-model for data binding:
 
 ## Events
 
+### `@input` and `@update:modelValue`
+
 To listen for changes to the `KInput` value, you can bind to the `@input` or `@update:modelValue` events:
 
 <KComponent :data="{inputValue: 'This is the input value'}" v-slot="{ data }">
@@ -220,6 +222,19 @@ To listen for changes to the `KInput` value, you can bind to the `@input` or `@u
   </template>
   ```
 </KComponent>
+
+### `@char-limit-exceeded`
+
+Fired when the text starts or stops exceeding the limit, returns an object:
+
+```json
+{
+    value,          // current value
+    length,         // length of current value
+    characterLimit, // character limit
+    limitExceeded   // whether or not the limit has been exceeded
+}
+```
 
 `KInput` transparently binds to events:
 
