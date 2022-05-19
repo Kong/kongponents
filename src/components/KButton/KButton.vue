@@ -206,6 +206,11 @@ export default defineComponent({
       // ! is needed to ensure any type (a, button) keeps disabled state
       text-decoration: none !important;
     }
+
+    .kong-icon,
+    :deep(.kong-icon) {
+      pointer-events: none;
+    }
   }
 
   // remove pointer events from only <a>
