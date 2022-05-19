@@ -1,3 +1,10 @@
+# [7.0.0-beta.33](https://github.com/Kong/kongponents/compare/v7.0.0-beta.32...v7.0.0-beta.33) (2022-05-19)
+
+
+### Features
+
+* **kinput:** add characterLimit ([#630](https://github.com/Kong/kongponents/issues/630)) ([18ae326](https://github.com/Kong/kongponents/commit/18ae3263767738c062646ee50b899004d1353e1a))
+
 # [7.0.0-beta.32](https://github.com/Kong/kongponents/compare/v7.0.0-beta.31...v7.0.0-beta.32) (2022-05-17)
 
 
