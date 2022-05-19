@@ -93,6 +93,21 @@ describe('KInput', () => {
     expect(wrapper.find('.k-input-wrapper .help').element.innerHTML).toContain('I am helpful')
   })
 
+  it('shows a character count if the characterLimit prop is set and exceeded', () => {
+    const wrapper = mount(KInput, {
+      propsData: {
+        testMode: true,
+        characterLimit: 5
+      }
+    })
+
+    expect(wrapper.find('.k-input-wrapper .over-char-limit').exists()).toBeFalsy()
+
+    wrapper.find('input.k-input').setValue('This input has too many characters')
+
+    expect(wrapper.find('.k-input-wrapper .over-char-limit').exists()).toBeTruthy()
+  })
+
   it('reacts to text changes', () => {
     const wrapper = mount(KInput, {
       propsData: {

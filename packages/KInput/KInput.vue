@@ -29,7 +29,9 @@
       </div>
       <p
         v-if="charLimitExceeded || hasError"
-        class="has-error">
+        :class="{ 'over-char-limit': charLimitExceeded }"
+        class="has-error"
+      >
         {{ charLimitExceededError || errorMessage }}
       </p>
     </div>
@@ -53,7 +55,9 @@
         v-on="listeners">
       <p
         v-if="charLimitExceeded || hasError"
-        class="has-error">
+        :class="{ 'over-char-limit': charLimitExceeded }"
+        class="has-error"
+      >
         {{ charLimitExceededError || errorMessage }}
       </p>
     </div>
@@ -70,7 +74,9 @@
 
     <p
       v-if="(charLimitExceeded || hasError) && !label"
-      class="has-error">
+      :class="{ 'over-char-limit': charLimitExceeded }"
+      class="has-error"
+    >
       {{ charLimitExceededError || errorMessage }}
     </p>
 
