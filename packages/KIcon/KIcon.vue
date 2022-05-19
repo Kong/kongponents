@@ -6,7 +6,7 @@
     class="kong-icon"
     v-html="icons[icon]"/>
   <span
-    v-else
+    v-else-if="svg"
     ref="svgWrapper"
     :class="`kong-icon-${icon}`"
     class="kong-icon">
@@ -136,33 +136,45 @@ export default {
   watch: {
     icon: {
       handler () {
-        this.renderIcon()
+        this.$nextTick(function () {
+          this.renderIcon()
+        })
       }
     },
     size: {
       handler () {
-        this.renderIcon()
+        this.$nextTick(function () {
+          this.renderIcon()
+        })
       }
     },
     title: {
       handler () {
-        this.renderIcon()
+        this.$nextTick(function () {
+          this.renderIcon()
+        })
       }
     },
     viewBox: {
       handler () {
-        this.renderIcon()
+        this.$nextTick(function () {
+          this.renderIcon()
+        })
       }
     },
     // Ensure icon colors are updated when color prop value changes
     color: {
       handler () {
-        this.recursivelyCustomizeIconColors(this.svg)
+        this.$nextTick(function () {
+          this.renderIcon()
+        })
       }
     },
     secondaryColor: {
       handler () {
-        this.recursivelyCustomizeIconColors(this.svg)
+        this.$nextTick(function () {
+          this.renderIcon()
+        })
       }
     }
   },
@@ -231,6 +243,8 @@ export default {
       })
     },
     renderIcon () {
+      this.svg = null
+
       // Set svg
       this.svg = this.$refs.svgWrapper ? this.$refs.svgWrapper.querySelector('svg:not(.slot-content)') : null
 
