@@ -194,13 +194,12 @@ export default defineComponent({
       })
     }
 
-    watch(() => props.color, () => {
-      recursivelyCustomizeIconColors(svg.value)
+    // Re-render the svg if the icon prop changes
+    watch(() => [props.icon, props.size, props.color, props.secondaryColor, props.viewBox, props.hideTitle], () => {
+      renderIcon()
     })
 
-    onMounted(async () => {
-      await nextTick()
-
+    const renderIcon = (): void => {
       // Set svg
       svg.value = svgWrapper.value ? svgWrapper.value.querySelector('svg:not(.slot-content)') : null
 
@@ -233,6 +232,12 @@ export default defineComponent({
         // Customize icon colors
         recursivelyCustomizeIconColors(svg.value)
       }
+    }
+
+    onMounted(async () => {
+      await nextTick()
+
+      renderIcon()
     })
 
     return {
