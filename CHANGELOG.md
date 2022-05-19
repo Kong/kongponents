@@ -1,3 +1,11 @@
+# [7.0.0-beta.37](https://github.com/Kong/kongponents/compare/v7.0.0-beta.36...v7.0.0-beta.37) (2022-05-19)
+
+
+### Bug Fixes
+
+* **kicon:** update svg if icon props change ([#636](https://github.com/Kong/kongponents/issues/636)) ([2db921e](https://github.com/Kong/kongponents/commit/2db921e05e7d38d04e49455d8c53b97cf959b0c7))
+* **kinput:** add character limit event to docs ([f6413a9](https://github.com/Kong/kongponents/commit/f6413a9eaa35780b43cbdd666ff2e1fecc66b049))
+
 # [7.0.0-beta.36](https://github.com/Kong/kongponents/compare/v7.0.0-beta.35...v7.0.0-beta.36) (2022-05-19)
 
 
