@@ -72,7 +72,7 @@ You can specify `small`, `medium` (default), or `large` for the size.
 
 ### characterLimit
 
-Use this prop to specify a character limit for the input.
+Use this prop to specify a character limit for the input. See the [`@char-limit-exceeded` event](#char-limit-exceeded) for more details.
 
 <KInput value="This field has too many characters" :character-limit="10" class="w-100" placeholder="Placeholder text" />
 
@@ -255,6 +255,19 @@ KInput transparently binds to events:
     />
   </div>
 </Komponent>
+```
+
+### `@char-limit-exceeded`
+
+Fired when the text starts or stops exceeding the limit, returns an object:
+
+```json
+{
+    value,          // current value
+    length,         // length of current value
+    characterLimit, // character limit
+    limitExceeded   // whether or not the limit has been exceeded
+}
 ```
 
 ## Theming
