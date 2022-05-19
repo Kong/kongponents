@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.27.0 (2022-05-19)
+
+
+### Features
+
+* **kinput:** add character limit to kinput [KHCP-3687] ([#632](https://github.com/Kong/kongponents/issues/632)) ([cfd194e](https://github.com/Kong/kongponents/commit/cfd194e324484a2b20a18e8f6b30d3fce96a053e))
+
+
+
+
+
 ## 6.26.8 (2022-05-17)
 
 
