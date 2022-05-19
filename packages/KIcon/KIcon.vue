@@ -139,39 +139,17 @@ export default {
       handler () {
         this.recursivelyCustomizeIconColors(this.svg)
       }
+    },
+    icon: {
+      handler () {
+        this.renderIcon()
+      }
     }
   },
 
   mounted () {
     this.$nextTick(function () {
-      // Set svg
-      this.svg = this.$refs.svgWrapper ? this.$refs.svgWrapper.querySelector('svg:not(.slot-content)') : null
-
-      if (this.svg) {
-        // Check for slot content
-        if (this.$slots.svgElements && this.$slots.svgElements.length) {
-          this.addSlotContent()
-        }
-
-        // Bind attributes
-        for (const [attributeName, attributeValue] of Object.entries(this.$attrs)) {
-          this.svg.setAttribute(attributeName, attributeValue)
-        }
-
-        // Add role
-        this.svg.setAttribute('role', 'img')
-
-        // Set size
-        this.svg.setAttribute('width', this.setSize || this.width)
-        this.svg.setAttribute('height', this.setSize || this.height)
-        this.svg.setAttribute('viewBox', this.setViewbox)
-
-        // Set title
-        this.setSvgTitle()
-
-        // Customize icon colors
-        this.recursivelyCustomizeIconColors(this.svg)
-      }
+      this.renderIcon()
     })
   },
 
@@ -231,6 +209,36 @@ export default {
       [].forEach.call(el.children, child => {
         this.recursivelyCustomizeIconColors(child)
       })
+    },
+    renderIcon () {
+      // Set svg
+      this.svg = this.$refs.svgWrapper ? this.$refs.svgWrapper.querySelector('svg:not(.slot-content)') : null
+
+      if (this.svg) {
+        // Check for slot content
+        if (this.$slots.svgElements && this.$slots.svgElements.length) {
+          this.addSlotContent()
+        }
+
+        // Bind attributes
+        for (const [attributeName, attributeValue] of Object.entries(this.$attrs)) {
+          this.svg.setAttribute(attributeName, attributeValue)
+        }
+
+        // Add role
+        this.svg.setAttribute('role', 'img')
+
+        // Set size
+        this.svg.setAttribute('width', this.setSize || this.width)
+        this.svg.setAttribute('height', this.setSize || this.height)
+        this.svg.setAttribute('viewBox', this.setViewbox)
+
+        // Set title
+        this.setSvgTitle()
+
+        // Customize icon colors
+        this.recursivelyCustomizeIconColors(this.svg)
+      }
     }
   }
 }
