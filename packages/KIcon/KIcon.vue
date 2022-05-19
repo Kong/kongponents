@@ -134,15 +134,35 @@ export default {
     }
   },
   watch: {
-    // Ensure icon color is updated when color prop value changes
+    icon: {
+      handler () {
+        this.renderIcon()
+      }
+    },
+    size: {
+      handler () {
+        this.renderIcon()
+      }
+    },
+    title: {
+      handler () {
+        this.renderIcon()
+      }
+    },
+    viewBox: {
+      handler () {
+        this.renderIcon()
+      }
+    },
+    // Ensure icon colors are updated when color prop value changes
     color: {
       handler () {
         this.recursivelyCustomizeIconColors(this.svg)
       }
     },
-    icon: {
+    secondaryColor: {
       handler () {
-        this.renderIcon()
+        this.recursivelyCustomizeIconColors(this.svg)
       }
     }
   },
