@@ -385,4 +385,7 @@ export default {
 .k-button.btn-link.has-caret .caret.has-caret path {
   stroke: var(--KButtonBtnLink, var(--blue-500, color(blue-500)));
 }
+.k-button:disabled .kong-icon {
+  pointer-events: none;
+}
 </style>
