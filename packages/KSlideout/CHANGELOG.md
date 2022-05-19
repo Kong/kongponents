@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.27.5 (2022-05-19)
+
+
+### Bug Fixes
+
+* **kicon:** not updating reactively ([ce03d17](https://github.com/Kong/kongponents/commit/ce03d17dec62bc8b063daa63f458961999d887f2))
+
+
+
+
+
 ## 6.27.4 (2022-05-19)
 
 
