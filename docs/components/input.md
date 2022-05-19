@@ -102,7 +102,7 @@ You also have the option of using the `.help` utility class. This is meant to be
 
 ### characterLimit
 
-Use this prop to specify a character limit for the input.
+Use this prop to specify a character limit for the input. See the [`@char-limit-exceeded` event](#char-limit-exceeded) for more details.
 
 <KInput model-value="This field has too many characters" :character-limit="10" class="w-100" placeholder="Placeholder text" />
 
