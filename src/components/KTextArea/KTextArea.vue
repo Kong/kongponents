@@ -31,7 +31,7 @@
           :value="currValue ? currValue : modelValue"
           :rows="rows"
           :cols="cols"
-          :aria-invalid="hasError ? hasError : 'false'"
+          :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
           class="form-control k-input style-body-lg"
           @input="inputHandler"
           @mouseenter="() => isHovered = true"
@@ -58,7 +58,7 @@
         :value="currValue ? currValue : modelValue"
         :rows="rows"
         :cols="cols"
-        :aria-invalid="hasError ? hasError : 'false'"
+        :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
         class="form-control k-input style-body-lg"
         @input="inputHandler"
         @mouseenter="() => isHovered = true"
@@ -70,7 +70,7 @@
 
     <div
       v-if="!disableCharacterLimit"
-      :class="{ 'over-char-limit': currValue.length > characterLimit }"
+      :class="{ 'over-char-limit': charLimitExceeded }"
       class="char-limit type-sm color-black-45 mt-2"
     >
       {{ currValue.length || modelValue.length }} / {{ characterLimit }}
@@ -109,6 +109,8 @@ export default defineComponent({
     characterLimit: {
       type: Number,
       default: CHARACTER_LIMIT,
+      // Ensure the characterLimit is greater than zero
+      validator: (limit: number):boolean => limit > 0,
     },
     disableCharacterLimit: {
       type: Boolean,
@@ -179,8 +181,8 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .k-input-wrapper {
-  width: fit-content;
   display: grid;
+  width: fit-content;
 
   textarea.k-input {
     -webkit-appearance: none;

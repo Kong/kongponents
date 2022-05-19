@@ -515,7 +515,7 @@ https://kongponents.dev/api/components?_page=1&_limit=10
 
 <KCard>
   <template v-slot:body>
-    <KInput placeholder="Search..." v-model="search" type="search" />
+    <KInput placeholder="Search" v-model="search" type="search" />
     <KCatalog
       :fetcher="fetcher"
       :initial-fetcher-params="{

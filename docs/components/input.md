@@ -2,10 +2,10 @@
 
 **KInput** provides a wrapper around general `text` input's and provides specific Kong styling and state treatments (error, focus, etc).
 
-<KInput class="w-100" placeholder="Placeholder text..."/>
+<KInput class="w-100" placeholder="Placeholder text" />
 
 ```vue
-<KInput class="w-100" placeholder="Placeholder text..." />
+<KInput class="w-100" placeholder="Placeholder text" />
 ```
 
 ## Props
@@ -14,10 +14,10 @@
 
 To set the value of the input element without using `v-model`, you can set the `model-value` attribute on the input:
 
-<KInput model-value="This is the input value" />
+<KInput model-value="This is the input value" placeholder="Placeholder text" />
 
 ```vue
-<KInput model-value="This is the input value" />
+<KInput model-value="This is the input value" placeholder="Placeholder text" />
 ```
 
 ### label
@@ -46,7 +46,7 @@ If the label is omitted it can be handled with another component, like **KLabel*
 
 Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label.html) if using the `label` prop.
 
-<KInput label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop', 'data-testid': 'test' }" />
+<KInput label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop', 'data-testid': 'test' }"/>
 
 ```vue
 <KInput label="Name" :label-attributes="{   help: 'I use the KLabel `help` prop' }" />
@@ -100,6 +100,31 @@ You also have the option of using the `.help` utility class. This is meant to be
 </template>
 ```
 
+### characterLimit
+
+Use this prop to specify a character limit for the input.
+
+<KInput model-value="This field has too many characters" :character-limit="10" class="w-100" placeholder="Placeholder text" />
+
+```vue
+<KInput model-value="This field has too many characters" :character-limit="10" class="w-100" placeholder="Placeholder text" />
+```
+
+The character counter will only display below the input if the `characterLimit` is exceeded.
+
+If the `characterLimit` is exceeded, the character counter below the `KInput` will override the display of a provided `errorMessage` until the character count is within the acceptable range.
+
+:::tip
+You may also specify a native `maxlength` attribute on the `KInput` to actually limit the number of characters the user is allowed to type in the field. This will prevent the user from exceeding the character limit so the error state will not be shown.
+
+<KInput :character-limit="10" maxlength="10" placeholder="Type..."/>
+
+```vue
+<KInput :character-limit="10" maxlength="10" placeholder="Type..."/>
+```
+
+:::
+
 ### hasError
 
 Boolean value to indicate whether the element has an error and should apply error styling. By default this is `false`.
@@ -108,13 +133,13 @@ Boolean value to indicate whether the element has an error and should apply erro
 
 String to be displayed as error message if `hasError` prop is `true`.
 
-<KInput class="w-100" hasError errorMessage="Service name should not contain '_'"/>
+<KInput class="w-100" hasError errorMessage="Service name should not contain '_'" />
 
 ```vue
 <KInput class="w-100" hasError errorMessage="Service name should not contain '_'"/>
 ```
 
-<KInput label="Small" size="small" class="mb-2" hasError errorMessage="Service name should not contain '_'" />
+<KInput label="Small" size="small" class="mb-2" hasError errorMessage="Service name should not contain '_'"/>
 <KInput label="Medium" class="mb-2" hasError errorMessage="Service name should not contain '_'" />
 <KInput label="Large" size="large" hasError errorMessage="Service name should not contain '_'" />
 
