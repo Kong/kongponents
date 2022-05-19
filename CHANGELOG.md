@@ -1,3 +1,11 @@
+# [7.0.0-beta.38](https://github.com/Kong/kongponents/compare/v7.0.0-beta.37...v7.0.0-beta.38) (2022-05-19)
+
+
+### Bug Fixes
+
+* **kicon:** fix var reference ([158031f](https://github.com/Kong/kongponents/commit/158031f416e6c1fff3d99e95e20142f2e8322946))
+* **kicon:** not updating reactively ([8cbaf8e](https://github.com/Kong/kongponents/commit/8cbaf8e7c90ced3e0c39d67fd4b915ec26988103))
+
 # [7.0.0-beta.37](https://github.com/Kong/kongponents/compare/v7.0.0-beta.36...v7.0.0-beta.37) (2022-05-19)
 
 
