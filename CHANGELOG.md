@@ -1,3 +1,10 @@
+# [7.0.0-beta.34](https://github.com/Kong/kongponents/compare/v7.0.0-beta.33...v7.0.0-beta.34) (2022-05-19)
+
+
+### Bug Fixes
+
+* **kprompt:** bottom divider ([#616](https://github.com/Kong/kongponents/issues/616)) ([829a692](https://github.com/Kong/kongponents/commit/829a69259f31df9f7d48893e44052a088554caab))
+
 # [7.0.0-beta.33](https://github.com/Kong/kongponents/compare/v7.0.0-beta.32...v7.0.0-beta.33) (2022-05-19)
 
 
