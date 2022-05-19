@@ -6,7 +6,7 @@
     class="kong-icon"
     v-html="icons[icon]"/>
   <span
-    v-else-if="svg"
+    v-else
     ref="svgWrapper"
     :class="`kong-icon-${icon}`"
     class="kong-icon">
