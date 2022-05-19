@@ -9,7 +9,7 @@
     v-html="icons[icon]"
   />
   <span
-    v-else-if="svg"
+    v-else
     v-bind="$attrs"
     ref="svgWrapper"
     :class="`kong-icon-${icon}`"
