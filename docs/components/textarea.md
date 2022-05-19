@@ -75,10 +75,10 @@ You can specify `rows`, `cols` for the textarea size.
 
 Use this prop to specify a character limit for the textarea, defaults to `2048`.
 
-<KTextArea :characterLimit="500" />
+<KTextArea :characterLimit="20" />
 
 ```vue
-<KTextArea :characterLimit="500" />
+<KTextArea :characterLimit="20" />
 ```
 
 ### disableCharacterLimit

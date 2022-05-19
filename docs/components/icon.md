@@ -89,6 +89,10 @@ The title to be announced by screenreaders and displayed on hover. If not provid
 <KIcon icon="warning" title="Custom Title" />
 ```
 
+### hideTitle
+
+Remove the `<title>` element from within the `KIcon` `svg` element. Set to `true` to prevent the title text from appearing in the browser on svg hover, defaults to `false`.
+
 ### viewBox
 
 This prop takes a formatted string that will replace the SVG default viewBox. If one is not present by default `0 0 24 24` is applied.

@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="{'input-error' : hasError}"
+    :class="{'input-error' : charLimitExceeded || hasError}"
     class="k-input-wrapper">
     <div
       v-if="label && overlayLabel"
@@ -16,14 +16,11 @@
         <input
           v-bind="$attrs"
           :id="inputId"
-          :value="currValue ? currValue : value"
+          :value="currValue || modelValueChanged ? currValue : value"
           :class="`k-input-${size}`"
-          :aria-invalid="hasError ? hasError : null"
+          :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
           class="form-control k-input"
-          @input="e => {
-            $emit('input', e.target.value),
-            currValue = e.target.value
-          }"
+          @input="handleInput"
           @mouseenter="() => isHovered = true"
           @mouseleave="() => isHovered = false"
           @focus="() => isFocused = true"
@@ -31,9 +28,11 @@
           v-on="listeners">
       </div>
       <p
-        v-if="hasError"
-        class="has-error">
-        {{ errorMessage }}
+        v-if="charLimitExceeded || hasError"
+        :class="{ 'over-char-limit': charLimitExceeded }"
+        class="has-error"
+      >
+        {{ charLimitExceededError || errorMessage }}
       </p>
     </div>
 
@@ -48,37 +47,37 @@
       <input
         v-bind="$attrs"
         :id="inputId"
-        :value="value"
+        :value="currValue || modelValueChanged ? currValue : value"
         :class="`k-input-${size}`"
-        :aria-invalid="hasError ? hasError : null"
+        :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
         class="form-control k-input"
-        @input="e => {
-          $emit('input', e.target.value)
-        }"
+        @input="handleInput"
         v-on="listeners">
       <p
-        v-if="hasError"
-        class="has-error">
-        {{ errorMessage }}
+        v-if="charLimitExceeded || hasError"
+        :class="{ 'over-char-limit': charLimitExceeded }"
+        class="has-error"
+      >
+        {{ charLimitExceededError || errorMessage }}
       </p>
     </div>
 
     <input
       v-else
       v-bind="$attrs"
-      :value="value"
+      :value="currValue || modelValueChanged ? currValue : value"
       :class="`k-input-${size}`"
-      :aria-invalid="hasError ? hasError : null"
+      :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
       class="form-control k-input"
-      @input="e => {
-        $emit('input', e.target.value)
-      }"
+      @input="handleInput"
       v-on="listeners">
 
     <p
-      v-if="hasError && !label"
-      class="has-error">
-      {{ errorMessage }}
+      v-if="(charLimitExceeded || hasError) && !label"
+      :class="{ 'over-char-limit': charLimitExceeded }"
+      class="has-error"
+    >
+      {{ charLimitExceededError || errorMessage }}
     </p>
 
     <p
@@ -133,6 +132,12 @@ export default {
       type: String,
       default: ''
     },
+    characterLimit: {
+      type: Number,
+      default: null,
+      // Ensure the characterLimit is greater than zero
+      validator: (limit) => limit > 0
+    },
     /**
      * Test mode - for testing only, strips out generated ids
      */
@@ -144,6 +149,7 @@ export default {
   data () {
     return {
       currValue: '', // We need this so that we don't lose the updated value on hover/blur event with label
+      modelValueChanged: false, // Determine if the original value was modified by the user
       isFocused: false,
       isHovered: false
     }
@@ -151,6 +157,16 @@ export default {
   computed: {
     inputId () {
       return this.$attrs.id ? this.$attrs.id : !this.testMode ? uuid.v1() : 'test-input-id-1234'
+    },
+    charLimitExceeded () {
+      return !!this.characterLimit && (this.currValue.toString().length || (!this.modelValueChanged && this.value.toString().length)) > this.characterLimit
+    },
+    charLimitExceededError () {
+      if (!this.charLimitExceeded) {
+        return ''
+      }
+
+      return this.modelValueChanged ? `${this.currValue.toString().length} / ${this.characterLimit}` : `${this.value.toString().length} / ${this.characterLimit}`
     },
     isDisabled () {
       return this.$attrs.hasOwnProperty('disabled')
@@ -162,6 +178,25 @@ export default {
       delete listeners['input']
 
       return listeners
+    }
+  },
+  watch: {
+    charLimitExceeded (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.$emit('char-limit-exceeded', {
+          value: this.currValue,
+          length: this.currValue.toString().length,
+          characterLimit: this.characterLimit,
+          limitExceeded: newVal
+        })
+      }
+    }
+  },
+  methods: {
+    handleInput ($event) {
+      this.currValue = $event.target.value
+      this.modelValueChanged = true
+      this.$emit('input', $event.target.value)
     }
   }
 }
@@ -192,6 +227,26 @@ export default {
     -webkit-appearance: none;
   }
 
+  &.w-auto .k-input {
+    width: auto;
+  }
+
+  &.w-100 .k-input {
+    width: 100%;
+  }
+
+  &.w-75 .k-input {
+    width: 75%;
+  }
+
+  &.w-50 .k-input {
+    width: 50%;
+  }
+
+  &.w-25 .k-input {
+    width: 25%;
+  }
+
   & .k-input-label-wrapper-large .has-error,
   & .k-input-large + .has-error {
     font-size: 12px;
@@ -211,6 +266,18 @@ export default {
     font-size: 9px;
     line-height: 11px;
     margin-top: 2px;
+  }
+
+  .text-on-input label.hovered,
+  .text-on-input label:hover {
+    color: var(--KInputHover, var(--blue-500));
+  }
+
+  &.input-error {
+    .text-on-input label.hovered,
+    .text-on-input label:hover {
+      color: var(--red-500);
+    }
   }
 }
 
