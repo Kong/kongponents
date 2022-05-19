@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/ktoaster",
-  "version": "6.27.0",
+  "version": "6.27.1",
   "description": "Toaster component.",
   "main": "dist/KToaster.umd.min.js",
   "componentName": "KToaster",
@@ -25,7 +25,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kalert": "^6.27.0",
-    "@kongponents/styles": "^6.27.0"
+    "@kongponents/kalert": "^6.27.1",
+    "@kongponents/styles": "^6.27.1"
   }
 }

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.27.1 (2022-05-19)
+
+
+### Bug Fixes
+
+* **kbutton:** disable pointer-events on icon when button is disabled ([#631](https://github.com/Kong/kongponents/issues/631)) ([ae88127](https://github.com/Kong/kongponents/commit/ae881272cc6cf62288909fb44b237d83e184e82b))
+
+
+
+
+
 # 6.27.0 (2022-05-19)
 
 
