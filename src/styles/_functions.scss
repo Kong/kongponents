@@ -1,0 +1,21 @@
+@import "./variables";
+
+// Retrieve color from $colors map ie. `color(blue-500)`
+@function color($color-name) {
+  @return map-get($colors, $color-name);
+}
+
+// Retrieve spacing from $spacings map ie. `spacing(xxs)`
+@function spacing($space-name) {
+  @return map-get($spacing, $space-name);
+}
+
+// Retrieve type-sizes from $type-sizes map ie. `type(md)`
+@function type($size) {
+  @return map-get($type-sizes, $size);
+}
+
+// Retrieve font family from $fonts map ie. `font(sans)`
+@function font($font) {
+  @return map-get($fonts, $font);
+}

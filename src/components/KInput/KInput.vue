@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="{'input-error' : hasError}"
+    :class="{'input-error' : charLimitExceeded || hasError}"
     class="k-input-wrapper"
   >
     <div
@@ -19,11 +19,11 @@
         <input
           v-bind="modifiedAttrs"
           :id="inputId"
-          :value="currValue ? currValue : modelValue"
+          :value="currValue || modelValueChanged ? currValue : modelValue"
           :class="`k-input-${size}`"
-          :aria-invalid="hasError ? hasError : 'false'"
+          :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
           class="form-control k-input"
-          @input="handleInput(true, $event)"
+          @input="handleInput"
           @mouseenter="() => isHovered = true"
           @mouseleave="() => isHovered = false"
           @focus="() => isFocused = true"
@@ -31,10 +31,11 @@
         >
       </div>
       <p
-        v-if="hasError"
+        v-if="charLimitExceeded || hasError"
+        :class="{ 'over-char-limit': charLimitExceeded }"
         class="has-error"
       >
-        {{ errorMessage }}
+        {{ charLimitExceededError || errorMessage }}
       </p>
     </div>
 
@@ -51,35 +52,37 @@
       <input
         v-bind="modifiedAttrs"
         :id="inputId"
-        :value="modelValue"
+        :value="currValue || modelValueChanged ? currValue : modelValue"
         :class="`k-input-${size}`"
-        :aria-invalid="hasError ? hasError : 'false'"
+        :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
         class="form-control k-input"
-        @input="handleInput(false, $event)"
+        @input="handleInput"
       >
       <p
-        v-if="hasError"
+        v-if="charLimitExceeded || hasError"
+        :class="{ 'over-char-limit': charLimitExceeded }"
         class="has-error"
       >
-        {{ errorMessage }}
+        {{ charLimitExceededError || errorMessage }}
       </p>
     </div>
 
     <input
       v-else
       v-bind="modifiedAttrs"
-      :value="modelValue"
+      :value="currValue || modelValueChanged ? currValue : modelValue"
       :class="`k-input-${size}`"
-      :aria-invalid="hasError ? hasError : 'false'"
+      :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
       class="form-control k-input"
-      @input="handleInput(false, $event)"
+      @input="handleInput"
     >
 
     <p
-      v-if="hasError && !label"
+      v-if="(charLimitExceeded || hasError) && !label"
       class="has-error"
+      :class="{ 'over-char-limit': charLimitExceeded }"
     >
-      {{ errorMessage }}
+      {{ charLimitExceededError || errorMessage }}
     </p>
 
     <p
@@ -92,7 +95,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from 'vue'
+import { defineComponent, computed, ref, watch } from 'vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import { v1 as uuidv1 } from 'uuid'
 
@@ -136,6 +139,12 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    characterLimit: {
+      type: Number,
+      default: null,
+      // Ensure the characterLimit is greater than zero
+      validator: (limit: number):boolean => limit > 0,
+    },
     /**
      * Test mode - for testing only, strips out generated ids
      */
@@ -145,10 +154,11 @@ export default defineComponent({
     },
   },
 
-  emits: ['input', 'update:modelValue'],
+  emits: ['input', 'update:modelValue', 'char-limit-exceeded'],
 
   setup(props, { attrs, emit }) {
     const currValue = ref('') // We need this so that we don't lose the updated value on hover/blur event with label
+    const modelValueChanged = ref(false) // Determine if the original value was modified by the user
     const isFocused = ref(false)
     const isHovered = ref(false)
     const isDisabled = computed((): boolean => !!attrs?.disabled)
@@ -159,24 +169,48 @@ export default defineComponent({
 
       // use @input in template for v-model support
       delete $attrs.input
+      delete $attrs.onInput
 
       return $attrs
     })
 
-    const handleInput = (updateValue: boolean, $event: any):void => {
+    const charLimitExceeded = computed((): boolean => !!props.characterLimit && (currValue.value.toString().length || (!modelValueChanged.value && props.modelValue.toString().length)) > props.characterLimit)
+
+    const charLimitExceededError = computed((): string => {
+      if (!charLimitExceeded.value) {
+        return ''
+      }
+
+      return modelValueChanged.value ? `${currValue.value.toString().length} / ${props.characterLimit}` : `${props.modelValue.toString().length} / ${props.characterLimit}`
+    })
+
+    watch(charLimitExceeded, (newVal, oldVal) => {
+      if (newVal !== oldVal) {
+        emit('char-limit-exceeded', {
+          value: currValue.value,
+          length: currValue.value.length,
+          characterLimit: props.characterLimit,
+          limitExceeded: newVal,
+        })
+      }
+    })
+
+    const handleInput = ($event: any):void => {
+      currValue.value = $event.target.value
+      modelValueChanged.value = true
       emit('input', $event.target.value)
       emit('update:modelValue', $event.target.value)
-      if (updateValue) {
-        currValue.value = $event.target.value
-      }
     }
 
     return {
       currValue,
+      modelValueChanged,
       isFocused,
       isHovered,
       isDisabled,
       inputId,
+      charLimitExceeded,
+      charLimitExceededError,
       modifiedAttrs,
       handleInput,
     }
@@ -186,6 +220,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 .form-control {
   box-shadow: none !important;
@@ -224,9 +259,21 @@ export default defineComponent({
 
   & .k-input-label-wrapper-small .has-error,
   & .k-input-small + .has-error {
-    font-size: 9px;
+    font-size: 11px;
     line-height: 11px;
     margin-top: 2px;
+  }
+
+  .text-on-input label.hovered,
+  .text-on-input label:hover {
+    color: var(--KInputHover, var(--blue-500));
+  }
+
+  &.input-error {
+    .text-on-input label.hovered,
+    .text-on-input label:hover {
+      color: var(--red-500);
+    }
   }
 }
 </style>

@@ -218,6 +218,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/functions';
 $screen-sm: 768px;
 $screen-md: 992px;
 $fullscreen-modal-padding: 64px;

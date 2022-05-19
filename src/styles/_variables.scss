@@ -16,7 +16,7 @@ $colors: (
   steel-200: #dae3f2,
   steel-300: #a3b6d9,
   steel-400: #7d91b3,
-  steel-500: #727e94,
+  steel-500: #5c7299,
   steel-600: #395380,
   steel-700: #273c61,
   red-100: #ffdede,
@@ -87,22 +87,26 @@ $fonts: (
   mono: monospace,
 );
 
-// Retrieve color from $colors map ie. `color(blue-500)`
-@function color($color-name) {
-  @return map-get($colors, $color-name);
-}
+// Set up CSS variables as a mixin so consuming packages can import if they desire and add to scoped styles
+// This mixin MUST stay in the _variables.scss file so consuming packages may import it
+@mixin kongponents-css-variables {
+  // colors
+  @each $name, $color in $colors {
+    // add empty string so dart-sass will properly interpret class name from variable
+    --#{"" + $name}: #{$color};
+  }
+  // Spacings
+  @each $name, $space in $spacing {
+    --spacing-#{$name}: #{$space};
+  }
+  // Type
+  @each $name, $size in $type-sizes {
+    --type-#{$name}: #{$size};
+  }
+  // Font families
+  @each $name, $font in $fonts {
+    --font-family-#{$name}: #{$font};
+  }
 
-// Retrieve spacing from $spacings map ie. `spacing(xxs)`
-@function spacing($space-name) {
-  @return map-get($spacing, $space-name);
-}
-
-// Retrieve type-sizes from $type-sizes map ie. `type(md)`
-@function type($size) {
-  @return map-get($type-sizes, $size);
-}
-
-// Retrieve font family from $fonts map ie. `font(sans)`
-@function font($font) {
-  @return map-get($fonts, $font);
+  font-weight: var(--font-weight-normal, 400);
 }

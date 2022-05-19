@@ -272,7 +272,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "@/styles/variables";
+@import '@/styles/variables';
+@import '@/styles/functions';
 
 .k-alert {
   position: relative;
@@ -480,7 +481,8 @@ div.k-alert.banner {
 </style>
 
 <style lang="scss">
-@import "@/styles/variables";
+@import '@/styles/variables';
+@import '@/styles/functions';
 
 .k-alert {
   button.close > .kong-icon {

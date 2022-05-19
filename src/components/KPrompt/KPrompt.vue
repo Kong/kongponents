@@ -230,6 +230,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 .k-prompt {
   --KModalBottomMargin: var(--spacing-md);

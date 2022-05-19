@@ -2,29 +2,16 @@
 // Do not remove the comment above - allows other apps to identify the style block
 
 @import "variables";
+@import "mixins";
+@import "functions";
 @import "typography";
 @import "utils";
 @import "forms/forms";
 
-// Loop all maps and set to root element
 :root {
-  // colors
-  @each $name, $color in $colors {
-    // add empty string so dart-sass will properly interpret class name from variable
-    --#{"" + $name}: #{$color};
-  }
-  // Spacings
-  @each $name, $space in $spacing {
-    --spacing-#{$name}: #{$space};
-  }
-  // Type
-  @each $name, $size in $type-sizes {
-    --type-#{$name}: #{$size};
-  }
-  // Font families
-  @each $name, $font in $fonts {
-    --font-family-#{$name}: #{$font};
-  }
+  // Utilize mixin to bind CSS variables to the root element
+  @include kongponents-css-variables;
+
   // Font weight
   body {
     font-weight: var(--font-weight-normal, 400);
