@@ -1,3 +1,10 @@
+# [7.0.0-beta.39](https://github.com/Kong/kongponents/compare/v7.0.0-beta.38...v7.0.0-beta.39) (2022-05-19)
+
+
+### Bug Fixes
+
+* **kicon:** update spinner stroke width ([4230808](https://github.com/Kong/kongponents/commit/42308083f591bfac6c7a6f776246d309857aabf5))
+
 # [7.0.0-beta.38](https://github.com/Kong/kongponents/compare/v7.0.0-beta.37...v7.0.0-beta.38) (2022-05-19)
 
 
