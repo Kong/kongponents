@@ -8,6 +8,7 @@
 
     <div
       v-else-if="hasError"
+      class="k-table-error-state"
       data-testid="k-table-error-state"
     >
       <slot name="error-state">
@@ -43,6 +44,7 @@
 
     <div
       v-else-if="!hasError && (!isTableLoading && !isLoading) && (data && !data.length)"
+      class="k-table-empty-state"
       data-testid="k-table-empty-state"
     >
       <slot name="empty-state">
@@ -759,6 +761,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 .k-table-wrapper {
   width: 100%;
@@ -915,6 +918,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 .k-table {
   thead {

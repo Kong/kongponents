@@ -29,6 +29,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/functions';
 .skeleton-loader {
   width: 80%;
 }

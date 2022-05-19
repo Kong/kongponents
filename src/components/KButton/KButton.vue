@@ -147,7 +147,7 @@ export default defineComponent({
     const buttonType = computed((): string => props.to ? 'router-link' : 'button')
 
     const iconColor = computed((): string => {
-      if (attrs.disabled !== undefined) {
+      if (attrs.disabled) {
         return 'var(--grey-400)'
       } else if (['primary', 'danger', 'creation'].includes(props.appearance)) {
         return 'white'
@@ -176,6 +176,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 @mixin boxShadow($color, $whiteShadowSpred: 2px, $colorShadowSpread: 4px) {
   box-shadow: 0 0 0 $whiteShadowSpred var(--white, color(white)), 0 0 0 $colorShadowSpread $color;
@@ -278,8 +279,9 @@ export default defineComponent({
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300);
-      color: var(--grey-400);
+      // Use !important to override conflicting styles
+      background-color: var(--grey-300) !important;
+      color: var(--grey-400) !important;
     }
   }
 
@@ -297,8 +299,8 @@ export default defineComponent({
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300);
-      color: var(--grey-400);
+      background-color: var(--grey-300) !important;
+      color: var(--grey-400) !important;
     }
   }
   &.danger {
@@ -316,8 +318,8 @@ export default defineComponent({
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300);
-      color: var(--grey-400);
+      background-color: var(--grey-300) !important;
+      color: var(--grey-400) !important;
     }
   }
 
@@ -336,8 +338,8 @@ export default defineComponent({
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300);
-      color: var(--grey-400);
+      background-color: var(--grey-300) !important;
+      color: var(--grey-400) !important;
     }
   }
 
@@ -358,8 +360,8 @@ export default defineComponent({
     }
     &:disabled,
     &[disabled] {
-      border-color: var(--grey-400);
-      color: var(--grey-400);
+      border-color: var(--grey-400) !important;
+      color: var(--grey-400) !important;
     }
   }
   &.btn-link {
@@ -373,7 +375,7 @@ export default defineComponent({
     }
     &:disabled,
     &[disabled] {
-      color: var(--grey-400);
+      color: var(--grey-400) !important;
     }
   }
 

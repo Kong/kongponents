@@ -114,6 +114,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 .opacity-0 .box {
   opacity: 0;

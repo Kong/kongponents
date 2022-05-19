@@ -57,6 +57,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 $screen-lg: 1256px;
 $screen-md: 756px;

@@ -39,6 +39,7 @@
 
     <div
       v-else-if="hasError"
+      class="k-catalog-error-state"
       data-testid="k-card-catalog-error-state"
     >
       <slot name="error-state">
@@ -74,6 +75,7 @@
 
     <div
       v-else-if="!hasError && (!isCardLoading && !isLoading) && (data && !data.length)"
+      class="k-catalog-empty-state"
       data-testid="k-card-catalog-empty-state"
     >
       <slot name="empty-state">
@@ -535,6 +537,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 .k-card-catalog {
   .k-card-catalog-title {
@@ -551,6 +554,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 .k-card-catalog {
   $cardHeight: 181px;

@@ -32,6 +32,7 @@ If you notice other breaking changes we missed, we invite you to [open an issue]
 - Emits `input` and `update:modelValue` events
 - Default font size is now `16px` for accessibility and to prevent page zoom in some browsers
 - `.k-input-medium + .has-error` font-size is now `11px`
+- `.k-input-small + .has-error` font-size is now `11px`
 
 ### KInputSwitch
 

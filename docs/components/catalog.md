@@ -256,6 +256,7 @@ Set the following properties to handle empty state:
 - `emptyStateIconSize` - Size for empty state icon
 - `emptyStateActionRoute` - Route for empty state action
 - `emptyStateActionMessage` - Button text for empty state action
+- `emptyStateActionButtonIcon` - Icon for the empty state action button
 
 If using a CTA button, a `KCatalog-empty-state-cta-clicked` event is fired when clicked.
 
@@ -514,7 +515,7 @@ https://kongponents.dev/api/components?_page=1&_limit=10
 
 <KCard>
   <template v-slot:body>
-    <KInput placeholder="Search..." v-model="search" type="search" />
+    <KInput placeholder="Search" v-model="search" type="search" />
     <KCatalog
       :fetcher="fetcher"
       :initial-fetcher-params="{

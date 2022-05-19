@@ -44,7 +44,7 @@ Add the `input-error` class to add error styling
 </style>
 ```
 
-## Popover Example
+## `KPop` Example
 
 | Variable | Purpose
 |:-------- |:-------

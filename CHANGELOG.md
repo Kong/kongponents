@@ -1,3 +1,74 @@
+# [7.0.0-beta.34](https://github.com/Kong/kongponents/compare/v7.0.0-beta.33...v7.0.0-beta.34) (2022-05-19)
+
+
+### Bug Fixes
+
+* **kprompt:** bottom divider ([#616](https://github.com/Kong/kongponents/issues/616)) ([829a692](https://github.com/Kong/kongponents/commit/829a69259f31df9f7d48893e44052a088554caab))
+
+# [7.0.0-beta.33](https://github.com/Kong/kongponents/compare/v7.0.0-beta.32...v7.0.0-beta.33) (2022-05-19)
+
+
+### Features
+
+* **kinput:** add characterLimit ([#630](https://github.com/Kong/kongponents/issues/630)) ([18ae326](https://github.com/Kong/kongponents/commit/18ae3263767738c062646ee50b899004d1353e1a))
+
+# [7.0.0-beta.32](https://github.com/Kong/kongponents/compare/v7.0.0-beta.31...v7.0.0-beta.32) (2022-05-17)
+
+
+### Bug Fixes
+
+* **colors:** update hex for steel-500 ([a88d185](https://github.com/Kong/kongponents/commit/a88d1851f262cf1c60d5e9748f41716365b8ffe2))
+
+# [7.0.0-beta.31](https://github.com/Kong/kongponents/compare/v7.0.0-beta.30...v7.0.0-beta.31) (2022-05-14)
+
+
+### Bug Fixes
+
+* **kbutton:** add important to button disabled styles ([ddddf3c](https://github.com/Kong/kongponents/commit/ddddf3c0a74b276141f8c6717c5eb72f9e2cc397))
+
+# [7.0.0-beta.30](https://github.com/Kong/kongponents/compare/v7.0.0-beta.29...v7.0.0-beta.30) (2022-05-12)
+
+
+### Bug Fixes
+
+* **kbutton,kicon:** fix button icon color [beta] ([#627](https://github.com/Kong/kongponents/issues/627)) ([33a59b6](https://github.com/Kong/kongponents/commit/33a59b6aede24622ff9503b494d6f03bd058a1d7))
+
+# [7.0.0-beta.29](https://github.com/Kong/kongponents/compare/v7.0.0-beta.28...v7.0.0-beta.29) (2022-05-12)
+
+
+### Bug Fixes
+
+* **klabel:** default font weight to 600 ([f23282d](https://github.com/Kong/kongponents/commit/f23282da02e92654ebbfac3062d7305f25023b3f))
+
+# [7.0.0-beta.28](https://github.com/Kong/kongponents/compare/v7.0.0-beta.27...v7.0.0-beta.28) (2022-05-12)
+
+
+### Bug Fixes
+
+* **variables:** rename mixin ([544c762](https://github.com/Kong/kongponents/commit/544c76281678bb79466125eb65bc778b1b799afb))
+
+# [7.0.0-beta.27](https://github.com/Kong/kongponents/compare/v7.0.0-beta.26...v7.0.0-beta.27) (2022-05-12)
+
+
+### Bug Fixes
+
+* **css-variables:** move to separate mixin ([#626](https://github.com/Kong/kongponents/issues/626)) ([7a1b0c9](https://github.com/Kong/kongponents/commit/7a1b0c98a59c25d83b29f34748d5038cd94c8f4e))
+* **sass:** restructure files ([1d27287](https://github.com/Kong/kongponents/commit/1d272870a6cb10c8e2a25869c2a188361d8a713e))
+
+# [7.0.0-beta.26](https://github.com/Kong/kongponents/compare/v7.0.0-beta.25...v7.0.0-beta.26) (2022-05-12)
+
+
+### Bug Fixes
+
+* **truncate-multi:** fix pixel multiplication ([#624](https://github.com/Kong/kongponents/issues/624)) ([0b08062](https://github.com/Kong/kongponents/commit/0b08062eaff50803c01e25bd4694944e9f644127))
+
+# [7.0.0-beta.25](https://github.com/Kong/kongponents/compare/v7.0.0-beta.24...v7.0.0-beta.25) (2022-05-09)
+
+
+### Bug Fixes
+
+* **kcatalog,ktables:** docs and classes ([#621](https://github.com/Kong/kongponents/issues/621)) ([5282363](https://github.com/Kong/kongponents/commit/52823638ace5426c7276fb3b7fbdcbd4c9258659))
+
 # [7.0.0-beta.24](https://github.com/Kong/kongponents/compare/v7.0.0-beta.23...v7.0.0-beta.24) (2022-05-04)
 
 

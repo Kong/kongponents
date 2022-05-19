@@ -177,7 +177,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "@/styles/variables";
+@import '@/styles/variables';
+@import '@/styles/functions';
 
 .k-modal-backdrop {
   position: fixed;

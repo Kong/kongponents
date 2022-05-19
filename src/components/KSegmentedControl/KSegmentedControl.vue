@@ -87,6 +87,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 .segmented-control .k-button {
   --KButtonPrimaryBase: var(--blue-100);
