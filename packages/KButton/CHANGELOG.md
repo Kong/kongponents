@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.27.6 (2022-05-19)
+
+
+### Bug Fixes
+
+* **kinput:** input widths ([a2c0c4e](https://github.com/Kong/kongponents/commit/a2c0c4eca8611a16acf6053366a43792d65c2280))
+
+
+
+
+
 ## 6.27.5 (2022-05-19)
 
 
