@@ -32,6 +32,7 @@
       </div>
       <p
         v-if="charLimitExceeded || hasError"
+        :class="{ 'over-char-limit': charLimitExceeded }"
         class="has-error"
       >
         {{ charLimitExceededError || errorMessage }}
@@ -59,6 +60,7 @@
       >
       <p
         v-if="charLimitExceeded || hasError"
+        :class="{ 'over-char-limit': charLimitExceeded }"
         class="has-error"
       >
         {{ charLimitExceededError || errorMessage }}
@@ -78,6 +80,7 @@
     <p
       v-if="(charLimitExceeded || hasError) && !label"
       class="has-error"
+      :class="{ 'over-char-limit': charLimitExceeded }"
     >
       {{ charLimitExceededError || errorMessage }}
     </p>

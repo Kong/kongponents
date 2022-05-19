@@ -103,6 +103,19 @@ describe('KInput', () => {
     cy.get('.k-input-wrapper .help').should('contain.text', helpText)
   })
 
+  it('shows character count when characterLimit prop is set and exceeded', () => {
+    mount(KInput, {
+      props: {
+        testMode: true,
+        characterLimit: 5,
+      },
+    })
+
+    cy.get('.k-input-wrapper .over-char-limit').should('not.exist')
+    cy.get('.k-input-wrapper input.k-input').type('This input has too many characters')
+    cy.get('.k-input-wrapper .over-char-limit').should('be.visible')
+  })
+
   it('reacts to text changes', () => {
     const inputValue = 'hey'
     const newValue = 'hey, dude'
