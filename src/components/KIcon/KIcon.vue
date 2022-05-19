@@ -194,13 +194,8 @@ export default defineComponent({
       })
     }
 
-    // Customize colors if the color prop changes
-    watch(() => [props.color, props.secondaryColor], () => {
-      recursivelyCustomizeIconColors(svg.value)
-    })
-
     // Re-render the svg if the icon prop changes
-    watch(() => props.icon, () => {
+    watch(() => [props.icon, props.size, props.color, props.secondaryColor, props.viewBox, props.hideTitle], () => {
       renderIcon()
     })
 
