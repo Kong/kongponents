@@ -537,7 +537,7 @@ export default {
 
 ## Events
 
-Bind any DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to various parts of the table. We support events on both table rows and cells, but must be careful with clickable content in rows when row click is enabled. You can also add logic to check for `metakey` to support cmd/ctrl when clicking. Examples highlighted below.
+Bind DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to various parts of the table. We support events on both table rows and cells, but must be careful with clickable content in rows when row click is enabled. You can also add logic to check for `metakey` to support cmd/ctrl when clicking. Examples highlighted below.
 
 ::: tip Note
 Styles and other accessibility-related attributes to indicate whether a row can be clicked are automatically applied when a value that does not evaluate to `undefined` is provided for an event handler.
