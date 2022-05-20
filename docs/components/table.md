@@ -89,12 +89,7 @@ Use a custom sort handler function to handle sorting table data for specific col
 
 Here the `last_seen` column is set to use the custom sort handler function via the `useSortHandlerFn` property set in the table header object. The function passed into the `sortHandlerFn` prop sorts and returns the table data. The other columns use the default built-in client side sort function because the `useSortHandlerFn` property is not set in the header objects.
 
-<KTable
-  :fetcher="sortHandlerFnFetcher"
-  :headers="sortHandlerFnHeaders"
-  :sortHandlerFn="sortHandlerFn"
-  enable-client-sort
-/>
+<KTable :fetcher="sortHandlerFnFetcher" :headers="sortHandlerFnHeaders" :sortHandlerFn="sortHandlerFn" enable-client-sort />
 
 ```vue
 <template>
@@ -253,28 +248,26 @@ The `fetcher` function does not actually need to make an API call. Tables that c
 Remember that the `fetcher` function is responsible for managing pagination/sort/search. So if returning a static data object these features should be explicitly disabled.
 :::
 
-<KTable
-  :fetcher="() => {
-    return {
-      data: [
-        {
-          name: 'Basic Auth',
-          id: '517526354743085',
-          enabled: 'true'
-        },
-        {
-          name: 'Website Desktop',
-          id: '328027447731198',
-          enabled: 'false'
-        },
-        {
-          name: 'Android App',
-          id: '405383051040955',
-          enabled: 'true'
-        }
-      ]
-    }
-  }"
+<KTable :fetcher="() => {
+  return {
+    data: [
+      {
+        name: 'Basic Auth',
+        id: '517526354743085',
+        enabled: 'true'
+      },
+      {
+        name: 'Website Desktop',
+        id: '328027447731198',
+        enabled: 'false'
+      },
+      {
+        name: 'Android App',
+        id: '405383051040955',
+        enabled: 'true'
+      }
+    ]
+  }}"
   :initial-fetcher-params="{
     sortColumnKey: 'name',
     sortColumnOrder: 'asc'

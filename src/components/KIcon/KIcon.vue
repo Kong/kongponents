@@ -189,9 +189,9 @@ export default defineComponent({
         el.setAttribute('stroke', props.color)
       }
 
-      [].forEach.call(el.children, child => {
+      for (const child of el.children) {
         recursivelyCustomizeIconColors(child)
-      })
+      }
     }
 
     // Re-render the svg if the icon prop changes

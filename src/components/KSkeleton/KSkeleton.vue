@@ -1,11 +1,12 @@
 <template>
   <div
+    v-if="isVisible"
     :class="{ 'w-100': type !== 'spinner', 'opacity-0': !isVisible }"
     class="d-flex flex-wrap"
   >
     <CardSkeleton
       v-if="type === 'card'"
-      :card-count="cardCount "
+      :card-count="cardCount"
     >
       <template #card-header>
         <slot name="card-header" />

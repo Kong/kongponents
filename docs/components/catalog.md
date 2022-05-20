@@ -175,20 +175,11 @@ Pass in an array of page sizes for the page size dropdown. If not provided will 
 
 Set this to `true` to limit pagination navigation to `previous` / `next` page only.
 
-<KCatalog
-  :fetcher="fetcher"
-  :disablePaginationPageJump="true"
-  :paginationPageSizes="[4, 5, 6]"
-  :initial-fetcher-params="{
-    pageSize: 4,
-    page: 1
-  }" />
+<KCatalog :fetcher="fetcher" :disablePaginationPageJump="true" :paginationPageSizes="[4, 5, 6]" :initial-fetcher-params="{ pageSize: 4, page: 1 }" />
 
 ```vue
 <template>
-  <KCatalog
-    :fetcher="fetcher"
-    :disablePaginationPageJump="true" />
+  <KCatalog :fetcher="fetcher" :disablePaginationPageJump="true" />
 </template>
 ```
 
@@ -212,11 +203,7 @@ a wrapper around `KCard` to display correctly inside `KCatalog`. You can use the
 - `truncate` - a boolean (default to `true`), whether or not to truncate the `description` text.
 
 ```vue
-<KCatalogItem
-  :item="item"
-  :truncate="false"
-  class="catalog-item"
-/>
+<KCatalogItem :item="item" :truncate="false" class="catalog-item" />
 ```
 
 ### Card Slots
@@ -260,17 +247,7 @@ Set the following properties to handle empty state:
 
 If using a CTA button, a `KCatalog-empty-state-cta-clicked` event is fired when clicked.
 
-<KCatalog
-  title="Customized empty catalog"
-  :fetcher="emptyFetcher"
-  emptyStateTitle="No Workspaces exist"
-  emptyStateMessage="Adding a new Workspace will populate this catalog."
-  emptyStateActionMessage="Create a Workspace"
-  emptyStateActionRoute="#empty-state-full-example"
-  emptyStateIcon="workspaces"
-  emptyStateIconColor="#5996ff"
-  emptyStateIconSize="35"
-/>
+<KCatalog :fetcher="emptyFetcher" title="Customized empty catalog" emptyStateTitle="No Workspaces exist" emptyStateMessage="Adding a new Workspace will populate this catalog." emptyStateActionMessage="Create a Workspace" emptyStateActionRoute="#empty-state-full-example" emptyStateIcon="workspaces" emptyStateIconColor="#5996ff" emptyStateIconSize="35" />
 
 ```vue
 <!-- Using a route string -->
