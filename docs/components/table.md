@@ -542,7 +542,7 @@ Bind DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to variou
 ::: tip Note
 Styles and other accessibility-related attributes to indicate whether a row can be clicked are automatically applied when a value that does not evaluate to `undefined` is provided for an event handler.
 
-If you want to conditionally apply an event handler to `@row:click`, the value must evaluate to either a callback function, or `undefined`. 
+If you want to conditionally apply an event handler to `@row:click`, the value must evaluate to either a callback function, or `undefined`.
 
 If you always provide a function as the value for `@row:click` the table will not be able to correctly determine whether the row should be clickable without executing the callback.
 
@@ -566,7 +566,7 @@ If you always provide a function as the value for `@row:click` the table will no
 
 To avoid firing row clicks by accident, the row click handler ignores events coming from `a`, `button`, `input`, and `select` elements (unless they have the `disabled` attribute). As such click handlers attached to these element types do not require stopping propagation via `@click.stop`.
 
-<KInputSwitch v-model="enableRowClick" label="Enable row clicks" />
+<KInputSwitch v-model="enableRowClick" :label="enableRowClick ? 'Disable row clicks' : 'Enable row clicks'" />
 
 <KTable :headers="tableOptionsLinkHeaders" :fetcher="tableOptionsLinkFetcher" @row:click="enableRowClick ? handleRowClick : undefined">
   <template v-slot:company="{ rowValue }">
@@ -586,7 +586,7 @@ To avoid firing row clicks by accident, the row click handler ignores events com
 </KTable>
 
 ```html
-<KInputSwitch v-model="enableRowClick" label="Enable row clicks" />
+<KInputSwitch v-model="enableRowClick" :label="enableRowClick ? 'Disable row clicks' : 'Enable row clicks'" />
 
 <KTable
   :fetcher="fetcher"
