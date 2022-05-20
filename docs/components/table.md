@@ -566,7 +566,7 @@ If you always provide a function as the value for `@row:click` the table will no
 
 To avoid firing row clicks by accident, the row click handler ignores events coming from `a`, `button`, `input`, and `select` elements (unless they have the `disabled` attribute). As such click handlers attached to these element types do not require stopping propagation via `@click.stop`.
 
-<KInputSwitch v-model="enableRowClick" :label="enableRowClick ? 'Disable row clicks' : 'Enable row clicks'" />
+<KInputSwitch v-model="enableRowClick" :label="enableRowClick ? 'Row clicks enabled' : 'Row clicks disabled'" />
 
 <KTable :headers="tableOptionsLinkHeaders" :fetcher="tableOptionsLinkFetcher" @row:click="enableRowClick ? handleRowClick : undefined">
   <template v-slot:company="{ rowValue }">
