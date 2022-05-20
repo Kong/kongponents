@@ -527,7 +527,7 @@ export default defineComponent({
         const listeners = {} as any
 
         for (const property in attrs) {
-          if (onRE.test(property)) {
+          if (onRE.test(property) && !!attrs[property]) {
             listeners[property] = attrs[property]
           }
         }
@@ -583,10 +583,33 @@ export default defineComponent({
             // ignore click if it is from the popover, or is a non-disabled ignored element
             if ((!isIgnored || e.target.hasAttribute('disabled')) &&
                  !isPopoverContent && (rowListeners.click || cellListeners.click)) {
+              // In order to support conditional eventing we need to be able to handle the following
+              // logics:
+              //    - @row:click="aFunction"
+              //    - @row:click="(evt, row) => aFunction(evt, row)"
+              //    - @row:click="isAllowedBool ? aFunction : undefined"
+              //
+              // We cannot correctly evaluate isClickable with syntax like:
+              //    - @row:click="(evt, row) => isAllowedBool ? aFunction(evt, row) : undefined"
+              // because this always returns a function and we can't evaluate the function to determine
+              // if aFunction or undefined is returned without executing it (which we don't want
+              // to do until they click)
+              //
+              // If using the conditional syntax:
+              //    @row:click="isAllowedBool ? aFunction : undefined"
+              // calling rowListeners.click() will return aFunction but not execute it.
+              // This means that we need to check if the result is a function - if it is,
+              // we need to manually call it with the event and data params.
               if (cellListeners.click) {
-                cellListeners.click(e, entity, 'cell')
+                const result = cellListeners.click(e, entity, 'cell')
+                if (typeof result === 'function') {
+                  result(e, entity)
+                }
               } else {
-                rowListeners.click(e, rowData, 'row')
+                const result = rowListeners.click(e, rowData, 'row')
+                if (typeof result === 'function') {
+                  result(e, rowData)
+                }
               }
             }
           },

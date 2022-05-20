@@ -539,13 +539,34 @@ export default {
 
 Bind any DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to various parts of the table. We support events on both table rows and cells, but must be careful with clickable content in rows when row click is enabled. You can also add logic to check for `metakey` to support cmd/ctrl when clicking. Examples highlighted below.
 
+::: tip Note
+Styles and other accessibility related attributes to indicate clickability are set automatically when a non-`undefined` value is provided for an event.
+
+This means that if you want to conditionally apply an event the value of `@row:click` must be either the callback function or `undefined`. If you always provide a function as the value for `@row:click` the table will not be able to correctly determine the clickability without executing the callback.
+
+<h4><KIcon icon="check" size="22" color="var(--green-500)" style="vertical-align: sub;" class="mr-1" />Example: Correct</h4>
+
+```
+@row:click="isAllowedBool ? handleRowClick : undefined"
+```
+
+<h4><KIcon icon="disabled" size="22" color="var(--red-500)" style="vertical-align: sub;" class="mr-1" />Example: Wrong</h4>
+
+```
+@row:click="(evt, row) => isAllowedBool ? handleRowClick(evt, row) : undefined"
+```
+
+:::
+
 ### Rows
 
 `@row:{event}` - returns the `Event`, the row item, and the type: `row`
 
 To avoid firing row clicks by accident, the row click handler ignores events coming from `a`, `button`, `input`, and `select` elements (unless they have the `disabled` attribute). As such click handlers attached to these element types do not require stopping propagation via `@click.stop`.
 
-<KTable :headers="tableOptionsLinkHeaders" :fetcher="tableOptionsLinkFetcher" @row:click="handleRowClick">
+<KInputSwitch v-model="enableRowClick" label="Enable row clicks" />
+
+<KTable :headers="tableOptionsLinkHeaders" :fetcher="tableOptionsLinkFetcher" @row:click="enableRowClick ? handleRowClick : undefined">
   <template v-slot:company="{ rowValue }">
     <a @click="linkHander">{{rowValue.label}}</a>
   </template>
@@ -563,10 +584,12 @@ To avoid firing row clicks by accident, the row click handler ignores events com
 </KTable>
 
 ```html
+<KInputSwitch v-model="enableRowClick" label="Enable row clicks" />
+
 <KTable
   :fetcher="fetcher"
   :headers="headers"
-  @row:click="handleRowClick">
+  @row:click="enableRowClick ? handleRowClick : undefined">
   <template v-slot:company="{rowValue}">
     <!-- .stop not needed on @click because we ignore clicks from anchors -->
     <a @click="linkHander">{{rowValue.label}}</a>
@@ -1204,6 +1227,7 @@ export default defineComponent({
     return {
       row: null,
       eventType: '',
+      enableRowClick: true,
       headers: [
         { label: 'Title', key: 'title', sortable: true },
         { label: 'Description', key: 'description', sortable: true },
