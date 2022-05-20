@@ -1,3 +1,10 @@
+# [7.0.0-beta.40](https://github.com/Kong/kongponents/compare/v7.0.0-beta.39...v7.0.0-beta.40) (2022-05-20)
+
+
+### Features
+
+* **ktable:** support for conditional events [beta] ([#637](https://github.com/Kong/kongponents/issues/637)) ([e77f02f](https://github.com/Kong/kongponents/commit/e77f02f25ced9ec5fc805a7aee6a5fc68943bc99))
+
 # [7.0.0-beta.39](https://github.com/Kong/kongponents/compare/v7.0.0-beta.38...v7.0.0-beta.39) (2022-05-19)
 
 
