@@ -540,7 +540,7 @@ export default {
 Bind any DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to various parts of the table. We support events on both table rows and cells, but must be careful with clickable content in rows when row click is enabled. You can also add logic to check for `metakey` to support cmd/ctrl when clicking. Examples highlighted below.
 
 ::: tip Note
-Styles and other accessibility related attributes to indicate clickability are set automatically when a non-`undefined` value is provided for an event.
+Styles and other accessibility-related attributes to indicate whether a row can be clicked are automatically applied when a value that does not evaluate to `undefined` is provided for an event handler.
 
 This means that if you want to conditionally apply an event the value of `@row:click` must be either the callback function or `undefined`. If you always provide a function as the value for `@row:click` the table will not be able to correctly determine the clickability without executing the callback.
 
