@@ -586,7 +586,7 @@ To avoid firing row clicks by accident, the row click handler ignores events com
 </KTable>
 
 ```html
-<KInputSwitch v-model="enableRowClick" :label="enableRowClick ? 'Disable row clicks' : 'Enable row clicks'" />
+<KInputSwitch v-model="enableRowClick" :label="enableRowClick ? 'Row clicks enabled' : 'Row clicks disabled'" />
 
 <KTable
   :fetcher="fetcher"
