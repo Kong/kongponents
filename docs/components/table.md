@@ -544,7 +544,7 @@ Styles and other accessibility related attributes to indicate clickability are s
 
 This means that if you want to conditionally apply an event the value of `@row:click` must be either the callback function or `undefined`. If you always provide a function as the value for `@row:click` the table will not be able to correctly determine the clickability without executing the callback.
 
-<h4><KIcon icon="check" size="22" color="var(--green-500)" style="vertical-align: sub;" class="mr-1" />Example: Correct</h4>
+<h4><KIcon icon="check" size="22" color="var(--green-500)" style="vertical-align: sub;" class="mr-1" />Correct Usage</h4>
 
 ```
 @row:click="isAllowedBool ? handleRowClick : undefined"
