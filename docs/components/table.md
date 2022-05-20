@@ -550,7 +550,7 @@ This means that if you want to conditionally apply an event the value of `@row:c
 @row:click="isAllowedBool ? handleRowClick : undefined"
 ```
 
-<h4><KIcon icon="disabled" size="22" color="var(--red-500)" style="vertical-align: sub;" class="mr-1" />Example: Wrong</h4>
+<h4><KIcon icon="disabled" size="22" color="var(--red-500)" style="vertical-align: sub;" class="mr-1" />Incorrect Usage</h4>
 
 ```
 @row:click="(evt, row) => isAllowedBool ? handleRowClick(evt, row) : undefined"
