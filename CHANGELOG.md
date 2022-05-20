@@ -1,3 +1,10 @@
+# [7.0.0-beta.41](https://github.com/Kong/kongponents/compare/v7.0.0-beta.40...v7.0.0-beta.41) (2022-05-20)
+
+
+### Bug Fixes
+
+* vuepress indentation ([5f1b05b](https://github.com/Kong/kongponents/commit/5f1b05b6db3796658920f77a488d09019bce9fe2))
+
 # [7.0.0-beta.40](https://github.com/Kong/kongponents/compare/v7.0.0-beta.39...v7.0.0-beta.40) (2022-05-20)
 
 
