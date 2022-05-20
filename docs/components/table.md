@@ -599,20 +599,35 @@ export default {
 </script>
 ```
 
-## Events
+Bind DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to various parts of the table. We support events on both table rows and cells, but must be careful with clickable content in rows when row click is enabled. You can also add logic to check for `metakey` to support cmd/ctrl when clicking. Examples highlighted below.
 
-Bind any DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to various parts of the table. We support events on both table rows and cells, but must be careful with clickable content in rows when row click is enabled. You can also add logic to check for `metakey` to support cmd/ctrl when clicking. Examples highlighted below.
+::: tip Note
+Styles and other accessibility-related attributes to indicate whether a row can be clicked are automatically applied when a value that does not evaluate to `undefined` is provided for an event handler.
 
-### Rows
+If you want to conditionally apply an event handler to `@row:click`, the value must evaluate to either a callback function, or `undefined`.
 
-`@row:<event>` - returns the `Event`, the row item, and the type: `row`
+If you always provide a function as the value for `@row:click` the table will not be able to correctly determine whether the row should be clickable without executing the callback.
 
-To avoid firing row clicks by accident, the row click handler ignores events coming from `a`, `button`, `input`, and `select` elements (unless they have the `disabled` attribute). As such click handlers attached to these element types do not require stopping propagation via `@click.stop`.
+<h4><KIcon icon="check" size="22" color="var(--green-500)" style="vertical-align: sub;" class="mr-1" />Correct Usage</h4>
+
+```html
+@row:click="isAllowedBool ? handleRowClick : undefined"
+```
+
+<h4><KIcon icon="disabled" size="22" color="var(--red-500)" style="vertical-align: sub;" class="mr-1" />Incorrect Usage</h4>
+
+```html
+@row:click="(evt, row) => isAllowedBool ? handleRowClick(evt, row) : undefined"
+```
+
+:::
+
+<KInputSwitch v-model="enableRowClick" :label="enableRowClick ? 'Row clicks enabled' : 'Row clicks disabled'" />
 
 <KTable
   :headers="tableOptionsLinkHeaders"
   :fetcher="tableOptionsLinkFetcher"
-  @row:click="handleRowClick">
+  @row:click="enableRowClick ? handleRowClick : undefined">
   <template v-slot:company="{rowValue}">
     <a @click="linkHander">{{rowValue.label}}</a>
   </template>
@@ -632,10 +647,12 @@ To avoid firing row clicks by accident, the row click handler ignores events com
 </KTable>
 
 ```html
+<KInputSwitch v-model="enableRowClick" :label="enableRowClick ? 'Row clicks enabled' : 'Row clicks disabled'" />
+
 <KTable
   :fetcher="fetcher"
   :headers="headers"
-  @row:click="handleRowClick">
+  @row:click="enableRowClick ? handleRowClick : undefined">
   <template v-slot:company="{rowValue}">
     <!-- .stop not needed on @click because we ignore clicks from anchors -->
     <a @click="linkHander">{{rowValue.label}}</a>
@@ -1308,6 +1325,7 @@ export default {
     return {
       row: null,
       eventType: '',
+      enableRowClick: true,
       headers: [
         { label: 'Title', key: 'title', sortable: true },
         { label: 'Description', key: 'description', sortable: true },
@@ -1355,14 +1373,14 @@ export default {
         limit = pageSize
       }
       let myItems = []
-for (let i = ((page-1)* pageSize); i < limit; i++) {
-          let offset = sortOrder === 'asc' ? count-i : i+1
-          myItems.push({
-            title: "Item " + offset,
-            description: "The item's description for number " + offset,
-            enabled: offset % 2 === 0
-          })
-        }
+      for (let i = ((page-1)* pageSize); i < limit; i++) {
+        let offset = sortOrder === 'asc' ? count-i : i+1
+        myItems.push({
+          title: "Item " + offset,
+          description: "The item's description for number " + offset,
+          enabled: offset % 2 === 0
+        })
+      }
 
       return new Promise(resolve => {
         setTimeout(() => {

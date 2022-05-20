@@ -22,6 +22,7 @@ module.exports = {
     'object-property-newline': 'error',
     'import/no-named-default': 0,
     'object-curly-spacing': 0,
+    'no-extra-boolean-cast': 0,
     'lines-between-class-members': ['error', 'always'],
     'padding-line-between-statements': [
       "error",
