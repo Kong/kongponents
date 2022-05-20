@@ -1171,6 +1171,7 @@ Set the `isLoading` prop to `true` to enable the loading state.
 <KCard class="pb-0 mt-2">
   <template v-slot:body>
     <KTable
+      :fetcher="() => { return { data: [] } }"
       :isLoading="true"
       class="my-0" />
   </template>
