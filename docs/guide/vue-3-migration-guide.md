@@ -10,7 +10,7 @@ If you notice other breaking changes we missed, we invite you to [open an issue]
 
 ### KBreadcrumbs
 
-- New component name; previously known as `Kcrumbs`
+- New component name; previously known as `Krumbs`
 
 ### KCheckbox
 
@@ -21,7 +21,7 @@ If you notice other breaking changes we missed, we invite you to [open an issue]
 
 - New component name; previously known as `Komponent`
 
-### Kcrumbs
+### Krumbs
 
 - Renamed to `KBreadcrumbs`
 
