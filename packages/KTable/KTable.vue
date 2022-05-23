@@ -555,8 +555,10 @@ export default defineComponent({
             if ((!isIgnored || e.target.hasAttribute('disabled')) &&
                  !isPopoverContent && (rowListeners.click || cellListeners.click)) {
               if (cellListeners.click) {
+                ctx.emit('cell-click', { data: entity })
                 cellListeners.click(e, entity, 'cell')
               } else {
+                ctx.emit('row-click', { data: rowData })
                 rowListeners.click(e, rowData, 'row')
               }
             }
