@@ -609,7 +609,7 @@ export default defineComponent({
                   result(e, entity)
                 }
               } else {
-                emit('row-click', { data: entity })
+                emit('row-click', { data: rowData })
                 const result = rowListeners.click(e, rowData, 'row')
                 if (typeof result === 'function') {
                   result(e, rowData)
