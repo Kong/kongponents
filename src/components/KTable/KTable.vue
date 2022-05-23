@@ -491,8 +491,8 @@ export default defineComponent({
       validator: (val: string): boolean => ['true', 'loading', ''].includes(val),
     },
   },
-  emits: ['sort', 'ktable-error-cta-clicked', 'ktable-empty-state-cta-clicked'],
-  setup(props, { attrs }) {
+  emits: ['sort', 'ktable-error-cta-clicked', 'ktable-empty-state-cta-clicked', 'row-click', 'cell-click'],
+  setup(props, { attrs, emit }) {
     const tableId = computed((): string => props.testMode ? 'test-table-id-1234' : uuidv1())
     const defaultFetcherProps = {
       pageSize: 15,
@@ -603,11 +603,13 @@ export default defineComponent({
                 * we need to manually call it with the event and data params.
                 */
               if (cellListeners.click) {
+                emit('cell-click', { data: entity })
                 const result = cellListeners.click(e, entity, 'cell')
                 if (typeof result === 'function') {
                   result(e, entity)
                 }
               } else {
+                emit('row-click', { data: entity })
                 const result = rowListeners.click(e, rowData, 'row')
                 if (typeof result === 'function') {
                   result(e, rowData)
