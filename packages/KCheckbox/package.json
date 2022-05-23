@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kcheckbox",
-  "version": "6.27.8",
+  "version": "6.27.9",
   "description": "Checkbox input component",
   "main": "dist/KCheckbox.umd.min.js",
   "componentName": "KCheckbox",
@@ -23,6 +23,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/styles": "^6.27.8"
+    "@kongponents/styles": "^6.27.9"
   }
 }

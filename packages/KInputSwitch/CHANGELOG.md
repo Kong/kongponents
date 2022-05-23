@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.27.9 (2022-05-23)
+
+
+### Bug Fixes
+
+* **ktable:** emit event on cell and row click ([#640](https://github.com/Kong/kongponents/issues/640)) ([67847f5](https://github.com/Kong/kongponents/commit/67847f50af311ec5db1f2559291c9843480d602c))
+
+
+
+
+
 ## 6.27.8 (2022-05-20)
 
 **Note:** Version bump only for package @kongponents/kinputswitch
