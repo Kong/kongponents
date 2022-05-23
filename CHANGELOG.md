@@ -1,3 +1,10 @@
+# [7.0.0-beta.42](https://github.com/Kong/kongponents/compare/v7.0.0-beta.41...v7.0.0-beta.42) (2022-05-23)
+
+
+### Bug Fixes
+
+* **ktable:** emit event on cell and row click [beta] ([#641](https://github.com/Kong/kongponents/issues/641)) ([ab71839](https://github.com/Kong/kongponents/commit/ab71839101abf318607c2175577f122863d00213))
+
 # [7.0.0-beta.41](https://github.com/Kong/kongponents/compare/v7.0.0-beta.40...v7.0.0-beta.41) (2022-05-20)
 
 
