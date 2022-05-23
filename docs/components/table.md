@@ -556,6 +556,7 @@ If you always provide a function as the value for `@row:click` the table will no
 ### Rows
 
 `@row:{event}` - returns the `Event`, the row item, and the type: `row`
+`row-click` - Event is emitted whenever a row is clicked and the row handler is fired, returns the row `data`
 
 To avoid firing row clicks by accident, the row click handler ignores events coming from `a`, `button`, `input`, and `select` elements (unless they have the `disabled` attribute). As such click handlers attached to these element types do not require stopping propagation via `@click.stop`.
 
@@ -707,6 +708,7 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
 ### Cells
 
 `@cell:{event}` - returns the `Event`, the cell value, and the type: `cell`
+`cell-click` - Event is emitted whenever a cell is clicked and the cell handler is fired, returns the cell `data`
 
 <template>
   <div>
