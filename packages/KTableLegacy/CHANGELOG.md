@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.27.10 (2022-05-24)
+
+
+### Bug Fixes
+
+* **kinput:** update x icon for type search ([#642](https://github.com/Kong/kongponents/issues/642)) ([aca59ae](https://github.com/Kong/kongponents/commit/aca59aee7aa731e7907f196170b546ada6b66fef))
+
+
+
+
+
 ## 6.27.9 (2022-05-23)
 
 
