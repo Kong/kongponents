@@ -1,3 +1,10 @@
+# [7.0.0-beta.43](https://github.com/Kong/kongponents/compare/v7.0.0-beta.42...v7.0.0-beta.43) (2022-05-24)
+
+
+### Bug Fixes
+
+* **kinput:** update x icon for search input ([#643](https://github.com/Kong/kongponents/issues/643)) ([b8db448](https://github.com/Kong/kongponents/commit/b8db4484c71d73b407b9c3ff9c234ff45ed25b02))
+
 # [7.0.0-beta.42](https://github.com/Kong/kongponents/compare/v7.0.0-beta.41...v7.0.0-beta.42) (2022-05-23)
 
 
