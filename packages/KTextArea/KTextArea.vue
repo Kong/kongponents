@@ -152,6 +152,11 @@ export default {
           limitExceeded: newval
         })
       }
+    },
+    value (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.inputHandler({ target: { value: newVal } })
+      }
     }
   },
   methods: {

@@ -1,18 +1,19 @@
 # Select
 
 **Select** - Dropdown/Select component
-
-<KSelect label="Pick Something:" :items="[{
-    label: 'test',
-    value: 'test'
-  }, {
-    label: 'Test 1',
-    value: 'test1'
-  }, {
-    label: 'TEST 2',
-    value: 'test2'
-  }]"
-/>
+<div>
+  <KSelect label="Pick Something:" :items="[{
+      label: 'test',
+      value: 'test'
+    }, {
+      label: 'Test 1',
+      value: 'test1'
+    }, {
+      label: 'TEST 2',
+      value: 'test2'
+    }]"
+  />
+</div>
 
 ```vue
 <KSelect label="Pick Something:" :items="[{
@@ -35,18 +36,20 @@
 An array of items containing a `label` and `value`. May also specify that a certain item is `selected`
 by default.
 
-<KSelect :items="[{
-    label: 'test me because I am a super long option with text that wraps',
-    value: 'test',
-    selected: true
-  }, {
-    label: 'Test 1',
-    value: 'test1'
-  }, {
-    label: 'TEST 2',
-    value: 'test2'
-  }]"
-/>
+<div>
+  <KSelect :items="[{
+      label: 'test me because I am a super long option with text that wraps',
+      value: 'test',
+      selected: true
+    }, {
+      label: 'Test 1',
+      value: 'test1'
+    }, {
+      label: 'TEST 2',
+      value: 'test2'
+    }]"
+  />
+</div>
 
 ```vue
 <KSelect :items="[{
@@ -67,15 +70,17 @@ by default.
 
 The label for the select.
 
-<KSelect label="Cool label" :items="[{
-    label: 'test',
-    value: 'test',
-    selected: true
-  }, {
-    label: 'Test 1',
-    value: 'test1'
-  }]"
-/>
+<div>
+  <KSelect label="Cool label" :items="[{
+      label: 'test',
+      value: 'test',
+      selected: true
+    }, {
+      label: 'Test 1',
+      value: 'test1'
+    }]"
+  />
+</div>
 
 ```vue
 <KSelect label="Cool label" :items="[{
@@ -93,20 +98,20 @@ The label for the select.
 
 Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label.html) if using the `label` prop.
 
-<KSelect
-  label="Name"
-  :label-attributes="{
-    help: 'I use the KLabel `help` prop',
-    'data-testid': 'test'
-  }"
-  :items="[{
-    label: 'test',
-    value: 'test'
-  }, {
-    label: 'Test 1',
-    value: 'test1'
-  }]"
-/>
+<div>
+  <KSelect label="Name" :label-attributes="{
+      help: 'I use the KLabel `help` prop',
+      'data-testid': 'test'
+    }"
+    :items="[{
+      label: 'test',
+      value: 'test'
+    }, {
+      label: 'Test 1',
+      value: 'test1'
+    }]"
+  />
+</div>
 
 ```vue
 <KSelect
@@ -132,15 +137,17 @@ There are three styles of selects, `select` and `dropdown` (default) which are f
 The `dropdown` appearance style has a selected item object. You can deselect the item by clicking
 the Clear icon.
 
-<KSelect :items="[{
-    label: 'test',
-    value: 'test',
-    selected: true
-  }, {
-    label: 'Test 1',
-    value: 'test1'
-  }]"
-/>
+<div>
+  <KSelect :items="[{
+      label: 'test',
+      value: 'test',
+      selected: true
+    }, {
+      label: 'Test 1',
+      value: 'test1'
+    }]"
+  />
+</div>
 
 ```vue
 <KSelect :items="[{
@@ -157,15 +164,17 @@ the Clear icon.
 The `select` style displays the selected item in the textbox and also displays a chevron. There is no
 way to clear the selection once it is made.
 
-<KSelect appearance='select' :items="[{
-    label: 'test',
-    value: 'test',
-    selected: true
-  }, {
-    label: 'Test 1',
-    value: 'test1'
-  }]"
-/>
+<div>
+  <KSelect appearance='select' :items="[{
+      label: 'test',
+      value: 'test',
+      selected: true
+    }, {
+      label: 'Test 1',
+      value: 'test1'
+    }]"
+  />
+</div>
 
 ```vue
 <KSelect appearance='select' :items="[{
@@ -181,14 +190,16 @@ way to clear the selection once it is made.
 
 The `button` style triggers the dropdown on click and you cannot filter the entries.
 
-<KSelect appearance='button' :items="[{
-    label: 'test',
-    value: 'test'
-  }, {
-    label: 'Test 1',
-    value: 'test1'
-  }]"
-/>
+<div>
+  <KSelect appearance='button' :items="[{
+      label: 'test',
+      value: 'test'
+    }, {
+      label: 'Test 1',
+      value: 'test1'
+    }]"
+  />
+</div>
 
 ```vue
 <KSelect appearance='button' :items="[{
@@ -205,7 +216,9 @@ The `button` style triggers the dropdown on click and you cannot filter the entr
 
 You can configure the button text when an item is selected, if `appearance` is type `button`.
 
-<KSelect appearance='button' width="225" @selected="item => handleItemSelect(item)" :buttonText="`Show ${mySelect} per page`" :items="items" />
+<div>
+  <KSelect appearance='button' width="225" @selected="item => handleItemSelect(item)" :buttonText="`Show ${mySelect} per page`" :items="items" />
+</div>
 
 ```vue
 <KSelect
@@ -244,15 +257,17 @@ export default {
 You can pass a `width` string for dropdown. By default the `width` is `200px`. This is the width
 of the input, dropdown, and selected item.
 
-<KSelect width="250" :items="[{
-    label: 'test',
-    value: 'test',
-    selected: true
-  }, {
-    label: 'Test 1',
-    value: 'test1'
-  }]"
-/>
+<div>
+  <KSelect width="250" :items="[{
+      label: 'test',
+      value: 'test',
+      selected: true
+    }, {
+      label: 'Test 1',
+      value: 'test1'
+    }]"
+  />
+</div>
 
 ```vue
 <KSelect width="100" :items="[{
@@ -319,7 +334,9 @@ KSelect works as regular inputs do using v-model for data binding:
 
 You can pass any input attribute and it will get properly bound to the element.
 
-<KSelect disabled placeholder="type something" :items="[{ label: 'test', value: 'test' }]" />
+<div>
+  <KSelect disabled placeholder="type something" :items="[{ label: 'test', value: 'test' }]" />
+</div>
 
 ```vue
 <KSelect disabled placeholder="type something" :items="[{ label: 'test', value: 'test' }]" />
@@ -329,14 +346,16 @@ You can pass any input attribute and it will get properly bound to the element.
 
 You can use the `item-template` slot to customize the look and feel of your items. Use slots to gain access to the `item` data.
 
-<KSelect :items="myItems" width="500" :filterFunc="customFilter">
-  <template v-slot:item-template="{ item }">
-    <div class="select-item-label">{{ item.label }}</div>
-    <div class="select-item-desc">{{ item.description }}</div>
-  </template>
-</KSelect>
+<div>
+  <KSelect :items="myItems" width="500" :filterFunc="customFilter">
+    <template v-slot:item-template="{ item }">
+      <div class="select-item-label">{{ item.label }}</div>
+      <div class="select-item-desc">{{ item.description }}</div>
+    </template>
+  </KSelect>
+</div>
 
-```vue
+```html
 <KSelect :items="myItems" width="500" :filterFunc="customFilter">
   <template v-slot:item-template="{ item }">
     <div class="select-item-label">{{item.label}}</div>

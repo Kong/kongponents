@@ -2,7 +2,8 @@
 
 **KInput** provides a wrapper around general `text` input's and provides specific Kong styling and state treatments (error, focus, etc).
 
-<KInput class="w-100"/>
+<KInput class="w-100" />
+
 ```vue
 <KInput class="w-100"/>
 ```
@@ -215,43 +216,58 @@ You can pass any input attribute and it will get properly bound to the element.
 
 KInput works as regular inputs do using v-model for data binding:
 
-<Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
-  <div>
-    {{ data.myInput }}
-    <KInput
-      v-model="data.myInput"
-      @blur="e => (data.myInput = 'blurred')" />
-  </div>
-</Komponent>
-
-```vue
-<Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
+<div>
   {{ myInput }}
-  <KInput v-model="data.myInput" />
-</Komponent>
+  <div class="d-flex">
+    <KInput v-model="myInput" @blur="e => (myInput = 'blurred')" />
+    <KButton class="ml-2" @click="clearIt">Clear</KButton>
+  </div>
+</div>
+
+```html
+<div>
+  {{ myInput }}
+  <KInput v-model="myInput" @blur="e => (myInput = 'blurred')" />
+  <KButton @click="clearIt">Clear</KButton>
+</div>
+
+<script>
+  export default {
+    data() {
+      return {
+        myInput: 'test'
+      }
+    },
+    methods: {
+      clearIt () {
+        this.myInput = ''
+      }
+    }
+  }
+</script>
 ```
 
 ## Events
 
 KInput transparently binds to events:
 
-<Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
+<Komponent :data="{myInput2: 'hello'}" v-slot="{ data }">
   <div>
     <KInput
-      v-model="data.myInput"
-      @blur="e => (data.myInput = 'blurred')"
-      @focus="e => (data.myInput = 'focused')"
+      v-model="data.myInput2"
+      @blur="e => (data.myInput2 = 'blurred')"
+      @focus="e => (data.myInput2 = 'focused')"
     />
   </div>
 </Komponent>
 
 ```vue
-<Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
+<Komponent :data="{myInput2: 'hello'}" v-slot="{ data }">
   <div>
     <KInput
-      v-model="data.myInput"
-      @blur="e => (data.myInput = 'blurred')"
-      @focus="e => (data.myInput = 'focused')"
+      v-model="data.myInput2"
+      @blur="e => (data.myInput2 = 'blurred')"
+      @focus="e => (data.myInput2 = 'focused')"
     />
   </div>
 </Komponent>
@@ -300,6 +316,21 @@ An Example of changing the error border color of KInput to pink might look like:
 }
 </style>
 ```
+
+<script>
+export default {
+  data() {
+    return {
+      myInput: 'test'
+    }
+  },
+  methods: {
+    clearIt () {
+      this.myInput = ''
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 .custom-input {
