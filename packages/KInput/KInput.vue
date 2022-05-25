@@ -190,6 +190,11 @@ export default {
           limitExceeded: newVal
         })
       }
+    },
+    value (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.handleInput({ target: { value: newVal } })
+      }
     }
   },
   methods: {
