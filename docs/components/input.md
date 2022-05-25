@@ -209,19 +209,45 @@ KInput works as regular inputs do using v-model for data binding:
 
 To listen for changes to the `KInput` value, you can bind to the `@input` or `@update:modelValue` events:
 
-<KComponent :data="{inputValue: 'This is the input value'}" v-slot="{ data }">
-  <div>
-    <KLabel>{{ data.inputValue }}</KLabel>
-    <KInput v-model="data.inputValue"/>
-  </div>
+<KLabel>{{ inputText }}</KLabel>
+<KInput model-value="This is the input value" @update:modelValue="newValue => inputText = newValue" />
 
-  ```vue
-  <template>
-    <KLabel>{{ inputText }}</KLabel>
-    <KInput model-value="This is the input value" @update:modelValue="newValue => inputText = newValue" />
-  </template>
-  ```
-</KComponent>
+```vue
+<KLabel>{{ inputText }}</KLabel>
+<KInput model-value="This is the input value" @update:modelValue="newValue => inputText = newValue" />
+```
+
+<KLabel>{{ myInput }}</KLabel>
+<div class="d-flex">
+  <KInput v-model="myInput"/>
+  <KButton class="ml-2" @click="clearIt">
+</div>
+
+```html
+<KLabel>{{ myInput }}</KLabel>
+<div class="d-flex">
+  <KInput v-model="myInput"/>
+  <KButton class="ml-2" @click="clearIt">
+</div>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  data() {
+    return {
+      myInput: 'test',
+      inputText: ''
+    }
+  },
+  methods: {
+    clearIt () {
+      this.myInput = ''
+    }
+  }
+})
+</script>
+```
 
 ### `@char-limit-exceeded`
 
@@ -238,19 +264,19 @@ Fired when the text starts or stops exceeding the limit, returns an object:
 
 `KInput` transparently binds to events:
 
-<KComponent :data="{myInput: 'hello'}" v-slot="{ data }">
+<KComponent :data="{myInput2: 'hello'}" v-slot="{ data }">
   <div>
-    <KInput v-model="data.myInput" @blur="e => (data.myInput = 'blurred')" @focus="e => (data.myInput = 'focused')" />
+    <KInput v-model="data.myInput2" @blur="e => (data.myInput2 = 'blurred')" @focus="e => (data.myInput2 = 'focused')" />
   </div>
 </KComponent>
 
 ```vue
-<KComponent :data="{myInput: 'hello'}" v-slot="{ data }">
+<KComponent :data="{myInput2: 'hello'}" v-slot="{ data }">
   <div>
     <KInput
       v-model="data.myInput"
-      @blur="e => (data.myInput = 'blurred')"
-      @focus="e => (data.myInput = 'focused')"
+      @blur="e => (data.myInput2 = 'blurred')"
+      @focus="e => (data.myInput2 = 'focused')"
     />
   </div>
 </KComponent>
@@ -284,6 +310,24 @@ An Example of changing the error border color of KInput to pink might look like:
 }
 </style>
 ```
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  data() {
+    return {
+      myInput: 'test',
+      inputText: ''
+    }
+  },
+  methods: {
+    clearIt () {
+      this.myInput = ''
+    }
+  }
+})
+</script>
 
 <style lang="scss">
 .custom-input {

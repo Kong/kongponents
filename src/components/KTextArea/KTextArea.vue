@@ -164,6 +164,12 @@ export default defineComponent({
       }
     })
 
+    watch(props.modelValue, (newVal, oldVal) => {
+      if (newVal !== oldVal) {
+        inputHandler({ target: { value: newVal } })
+      }
+    })
+
     return {
       currValue,
       isFocused,

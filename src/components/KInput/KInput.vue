@@ -195,6 +195,12 @@ export default defineComponent({
       }
     })
 
+    watch(props.modelValue, (newVal, oldVal) => {
+      if (newVal !== oldVal) {
+        handleInput({ target: { value: newVal } })
+      }
+    })
+
     const handleInput = ($event: any):void => {
       currValue.value = $event.target.value
       modelValueChanged.value = true
