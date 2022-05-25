@@ -365,6 +365,13 @@ exports[`KIcon renders more icon 1`] = `
 </span>
 `;
 
+exports[`KIcon renders noData icon 1`] = `
+<span class="kong-icon kong-icon-noData"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" role="img" width="24" height="24">
+  <title>noData</title>
+  <path d="M3.1 9.1C2.5 9.1 2 8.6 2 8c0-.6.5-1.1 1.1-1.1h9.7c.7 0 1.2.5 1.2 1.1 0 .6-.5 1.1-1.1 1.1H3.1z" fill="#A3BBCC"></path>
+</svg></span>
+`;
+
 exports[`KIcon renders notificationBell icon 1`] = `
 <span class="kong-icon kong-icon-notificationBell"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" width="24" height="24">
   <title>notificationBell</title>
