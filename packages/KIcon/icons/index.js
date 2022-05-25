@@ -41,6 +41,7 @@ import kong from './icn-kong.svg'
 import lock from './icn-lock.svg'
 import list from './icn-list.svg'
 import more from './icn-more.svg'
+import noData from './icn-no-data.svg'
 import notificationBell from './icn-notification-bell.svg'
 import notificationInbox from './icn-notification-inbox.svg'
 import organization from './icn-organization.svg'
@@ -115,6 +116,7 @@ export default {
   list,
   lock,
   more,
+  noData,
   notificationBell,
   notificationInbox,
   organization,
