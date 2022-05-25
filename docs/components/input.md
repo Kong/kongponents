@@ -274,7 +274,7 @@ Fired when the text starts or stops exceeding the limit, returns an object:
 <KComponent :data="{myInput2: 'hello'}" v-slot="{ data }">
   <div>
     <KInput
-      v-model="data.myInput"
+      v-model="data.myInput2"
       @blur="e => (data.myInput2 = 'blurred')"
       @focus="e => (data.myInput2 = 'focused')"
     />
