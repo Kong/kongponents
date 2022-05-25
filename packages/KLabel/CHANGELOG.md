@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.28.1 (2022-05-25)
+
+
+### Bug Fixes
+
+* **kinput:** fix manual change to v-model ([#645](https://github.com/Kong/kongponents/issues/645)) ([35ae45d](https://github.com/Kong/kongponents/commit/35ae45d2597de22fbbe13bf956c8b2c050205e49))
+
+
+
+
+
 # 6.28.0 (2022-05-25)
 
 
