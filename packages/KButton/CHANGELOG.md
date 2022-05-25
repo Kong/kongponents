@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.28.0 (2022-05-25)
+
+
+### Features
+
+* **icon:** add no data icon for vitals ([#644](https://github.com/Kong/kongponents/issues/644)) ([f50608c](https://github.com/Kong/kongponents/commit/f50608c0c81df3c467b31208c00c192ea0346ce5))
+
+
+
+
+
 ## 6.27.10 (2022-05-24)
 
 
