@@ -32,7 +32,7 @@ Here you can pass in the text to display in the toolip.
 </KoolTip>
 ```
 
-### position
+### placement
 
 This is where the tooltip will appear - by default it appears on top.
 Here are the different options:
@@ -58,7 +58,7 @@ Here are the different options:
 </div>
 
 ```vue
-<KoolTip position="bottom" label="A label that appears on the bottom">
+<KoolTip placement="bottom" label="A label that appears on the bottom">
   <KButton>Sample Button</KButton>
 </KoolTip>
 ```
@@ -66,6 +66,20 @@ Here are the different options:
 ### positionFixed
 
 Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `false`. See [`KPop` docs](popover.html#positionfixed) for more information.
+
+### maxWidth
+
+You can set the maximum width of a Tooltip with the `maxWidth` property. `maxWidth` defaults to `auto`.
+
+<KoolTip placement="bottom" max-width="300" label="A label that appears on the bottom. A label that appears on the bottom">
+  <KButton>bottom</KButton>
+</KoolTip>
+
+```vue
+<KoolTip placement="bottom" max-width="300" label="A label that appears on the bottom. A label that appears on the bottom">
+  <KButton>button</KButton>
+</KoolTip>
+```
 
 ## Slots
 

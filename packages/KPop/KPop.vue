@@ -176,6 +176,10 @@ export default {
       type: String,
       default: '200'
     },
+    maxWidth: {
+      type: String,
+      default: '150'
+    },
     /**
      * Custom classes that will be applied to the popover
      */
@@ -261,7 +265,8 @@ export default {
   computed: {
     popoverStyle: function () {
       return {
-        width: this.width === 'auto' ? this.width : this.width + 'px'
+        width: this.width === 'auto' ? this.width : this.width + 'px',
+        'max-width': this.maxWidth === 'auto' ? this.maxWidth : this.maxWidth + 'px'
       }
     }
   },

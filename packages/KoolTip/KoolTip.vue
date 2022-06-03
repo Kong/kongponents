@@ -4,6 +4,7 @@
     :popover-classes="`kooltip ${computedClass} ${className}`"
     :position-fixed="positionFixed"
     :test-mode="testMode"
+    :max-width="maxWidth"
     trigger="hover"
     width="auto"
     hide-caret>
@@ -57,6 +58,10 @@ export default {
     positionFixed: {
       type: Boolean,
       default: false
+    },
+    maxWidth: {
+      type: String,
+      default: 'auto'
     },
     /**
      * Test mode - for testing only, strips out generated ids
