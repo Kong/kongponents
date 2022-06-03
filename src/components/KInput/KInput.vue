@@ -19,7 +19,7 @@
         <input
           v-bind="modifiedAttrs"
           :id="inputId"
-          :value="currValue || modelValueChanged ? currValue : modelValue"
+          :value="getValue()"
           :class="`k-input-${size}`"
           :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
           class="form-control k-input"
@@ -52,7 +52,7 @@
       <input
         v-bind="modifiedAttrs"
         :id="inputId"
-        :value="currValue || modelValueChanged ? currValue : modelValue"
+        :value="getValue()"
         :class="`k-input-${size}`"
         :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
         class="form-control k-input"
@@ -70,7 +70,7 @@
     <input
       v-else
       v-bind="modifiedAttrs"
-      :value="currValue || modelValueChanged ? currValue : modelValue"
+      :value="getValue()"
       :class="`k-input-${size}`"
       :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
       class="form-control k-input"
@@ -163,6 +163,15 @@ export default defineComponent({
     const isHovered = ref(false)
     const isDisabled = computed((): boolean => !!attrs?.disabled)
     const inputId = computed((): string => attrs.id ? String(attrs.id) : props.testMode ? 'test-input-id-1234' : uuidv1())
+    // we need this so we can create a watcher for programmatic changes to the modelValue
+    const value = computed({
+      get(): string | number {
+        return props.modelValue
+      },
+      set(newValue: string | number): void {
+        handleInput({ target: { value: newValue } })
+      },
+    })
 
     const modifiedAttrs = computed(() => {
       const $attrs = { ...attrs }
@@ -195,7 +204,7 @@ export default defineComponent({
       }
     })
 
-    watch(props.modelValue, (newVal, oldVal) => {
+    watch(value, (newVal, oldVal) => {
       if (newVal !== oldVal) {
         handleInput({ target: { value: newVal } })
       }
@@ -206,6 +215,11 @@ export default defineComponent({
       modelValueChanged.value = true
       emit('input', $event.target.value)
       emit('update:modelValue', $event.target.value)
+    }
+
+    const getValue = (): string | number => {
+      // Use the modelValue only if it was initialized to something and the value hasn't been changed
+      return currValue.value || modelValueChanged.value ? currValue.value : props.modelValue
     }
 
     return {
@@ -219,6 +233,7 @@ export default defineComponent({
       charLimitExceededError,
       modifiedAttrs,
       handleInput,
+      getValue,
     }
   },
 })

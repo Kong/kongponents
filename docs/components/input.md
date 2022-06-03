@@ -189,45 +189,17 @@ You can pass any input attribute and it will get properly bound to the element.
 
 KInput works as regular inputs do using v-model for data binding:
 
-<KComponent :data="{myInput: 'hello'}" v-slot="{ data }">
-  <div>
-    {{ data.myInput }}
-    <KInput v-model="data.myInput" />
-  </div>
-</KComponent>
-
-```vue
-<KComponent :data="{myInput: 'hello'}" v-slot="{ data }">
-  {{ myInput }}
-  <KInput v-model="data.myInput" />
-</KComponent>
-```
-
-## Events
-
-### `@input` and `@update:modelValue`
-
-To listen for changes to the `KInput` value, you can bind to the `@input` or `@update:modelValue` events:
-
-<KLabel>{{ inputText }}</KLabel>
-<KInput model-value="This is the input value" @update:modelValue="newValue => inputText = newValue" />
-
-```vue
-<KLabel>{{ inputText }}</KLabel>
-<KInput model-value="This is the input value" @update:modelValue="newValue => inputText = newValue" />
-```
-
 <KLabel>{{ myInput }}</KLabel>
 <div class="d-flex">
   <KInput v-model="myInput"/>
-  <KButton class="ml-2" @click="clearIt">
+  <KButton class="ml-2" @click="clearIt">Clear</KButton>
 </div>
 
 ```html
 <KLabel>{{ myInput }}</KLabel>
 <div class="d-flex">
   <KInput v-model="myInput"/>
-  <KButton class="ml-2" @click="clearIt">
+  <KButton class="ml-2" @click="clearIt">Clear</KButton>
 </div>
 
 <script lang="ts">
@@ -247,6 +219,20 @@ export default defineComponent({
   }
 })
 </script>
+```
+
+## Events
+
+### `@input` and `@update:modelValue`
+
+To listen for changes to the `KInput` value, you can bind to the `@input` or `@update:modelValue` events:
+
+<KLabel>{{ inputText }}</KLabel>
+<KInput model-value="This is the input value" @update:modelValue="newValue => inputText = newValue" />
+
+```vue
+<KLabel>{{ inputText }}</KLabel>
+<KInput model-value="This is the input value" @update:modelValue="newValue => inputText = newValue" />
 ```
 
 ### `@char-limit-exceeded`
@@ -297,11 +283,11 @@ Fired when the text starts or stops exceeding the limit, returns an object:
 
 An Example of changing the error border color of KInput to pink might look like:
 
-<KInput class="custom-input input-error" type="email" model-value="error" />
+<KInput class="custom-input" has-error type="email" model-value="error" />
 
 ```vue
 <template>
-  <KInput class="custom-input input-error" type="email" model-value="error" />
+  <KInput class="custom-input" has-error type="email" model-value="error" />
 </template>
 
 <style>
