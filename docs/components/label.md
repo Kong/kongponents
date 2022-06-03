@@ -38,6 +38,21 @@ Use the `info` prop to display information help text.
 <KLabel info="This is an example">Input Title</KLabel>
 ```
 
+### tooltipAttributes
+
+Use the `tooltipAttributes` prop to configure the **KTooltip's** [props](/components/tooltip.html) if using the `help` or `info` props.
+
+<KLabel :tooltip-attributes="{ placement: 'right', 'max-width': '200' }" help="This is a really long tooltip. Hopefully we won't have anything this long but we might. I wonder how it handles long inputs">With Tooltip Attributes</KLabel>
+
+```vue
+<KLabel
+  :tooltip-attributes="{ placement: 'right', 'max-width': '200' }"
+  help="This is a really long tooltip. Hopefully we won't have anything this long but we might. I wonder how it handles long inputs"
+>
+  With Tooltip Attributes
+</KLabel>
+```
+
 ## Attribute Binding
 
 ### for

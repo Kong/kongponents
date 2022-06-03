@@ -4,6 +4,7 @@
   >
     <KTooltip
       v-if="help"
+      v-bind="tooltipAttributes"
       :label="help"
       :test-mode="testMode"
       class="label-tooltip"
@@ -17,6 +18,7 @@
     </KTooltip>
     <KTooltip
       v-else-if="info"
+      v-bind="tooltipAttributes"
       :label="info"
       :test-mode="testMode"
       class="label-tooltip"
@@ -52,6 +54,10 @@ export default defineComponent({
     info: {
       type: String,
       default: undefined,
+    },
+    tooltipAttributes: {
+      type: Object,
+      default: () => ({}),
     },
     /**
      * Test mode - for testing only, strips out generated ids

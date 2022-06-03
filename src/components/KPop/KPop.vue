@@ -261,6 +261,13 @@ export default defineComponent({
       default: false,
     },
     /**
+     * Set the max-width of the popover
+     */
+    maxWidth: {
+      type: String,
+      default: '150',
+    },
+    /**
      * Test mode - for testing only, strips out generated ids
      */
     testMode: {
@@ -282,6 +289,7 @@ export default defineComponent({
     popoverStyle: function() {
       return {
         width: this.width === 'auto' ? this.width : this.width + 'px',
+        'max-width': this.maxWidth === 'auto' ? this.maxWidth : this.maxWidth + 'px',
       }
     },
   },
