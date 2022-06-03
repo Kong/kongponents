@@ -303,6 +303,26 @@ The width of the popover body - by default it is 200px.
 </KPop>
 ```
 
+### maxWidth
+
+The max width of the popover body - by default it is `auto`.
+
+<KPop title="Cool header" width="auto" max-width="500">
+  <KButton>button</KButton>
+  <template v-slot:content>
+    I am 500 pixels wide! I am 500 pixels wide! I am 500 pixels wide! I am 500 pixels wide! I am 500 pixels wide!
+  </template>
+</KPop>
+
+```vue
+<KPop title="Cool header" max-width="500">
+  <KButton>button</KButton>
+  <template v-slot:content>
+    I am 500 pixels wide! I am 500 pixels wide! I am 500 pixels wide! I am 500 pixels wide! I am 500 pixels wide!
+  </template>
+</KPop>
+```
+
 ### popoverClasses
 
 Custom classes that you want to append to the popover - by default it has a `k-popover` class on it.

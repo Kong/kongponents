@@ -88,7 +88,6 @@ export default {
   },
   mounted () {
     this.className = this.$el && this.$el.className
-    // this.maxWidth = this.maxWidth === 'auto' ? this.maxWidth : this.maxWidth + 'px'
   }
 }
 </script>
