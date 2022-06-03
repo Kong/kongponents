@@ -198,6 +198,13 @@ export default defineComponent({
       default: '200',
     },
     /**
+     * Set the max-width of the popover
+     */
+    maxWidth: {
+      type: String,
+      default: '350',
+    },
+    /**
      * Custom classes that will be applied to the popover
      */
     popoverClasses: {
@@ -259,13 +266,6 @@ export default defineComponent({
     positionFixed: {
       type: Boolean,
       default: false,
-    },
-    /**
-     * Set the max-width of the popover
-     */
-    maxWidth: {
-      type: String,
-      default: '150',
     },
     /**
      * Test mode - for testing only, strips out generated ids
