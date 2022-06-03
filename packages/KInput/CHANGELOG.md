@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.29.0 (2022-06-03)
+
+
+### Features
+
+* **klabel, kooltip:** added support for max-width and tooltip-attributes [KHCP-3486] ([#648](https://github.com/Kong/kongponents/issues/648)) ([f0ee237](https://github.com/Kong/kongponents/commit/f0ee237fd3dea69a6e747c454f3c653341950562))
+
+
+
+
+
 ## 6.28.1 (2022-05-25)
 
 
