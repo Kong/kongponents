@@ -4,8 +4,6 @@
 
 ## Standard Input
 
-<br />
-
 <KLabel>Input Title</KLabel>
 
 ```vue
@@ -13,8 +11,6 @@
 ```
 
 ## With Help
-
-<br />
 
 <KLabel help="This is an example">Input Title</KLabel>
 
@@ -36,8 +32,6 @@
 
 ## With Info
 
-<br />
-
 <KLabel info="This is an example">Input Title</KLabel>
 
 ```vue
@@ -45,8 +39,6 @@
 ```
 
 ## With for attribute
-
-<br />
 
 <KLabel for="service">Service Name</KLabel>
 <KInput id="service"/>
@@ -58,12 +50,23 @@
 
 ## Sample input with a tooltip
 
-<br />
-
 <KLabel help="A service is an API that you want to offer">Service Name</KLabel>
 <KInput />
 
 ```vue
 <KLabel help="A service is an API that you want to offer">Service Name</KLabel>
 <KInput />
+```
+
+## With tooltipAttributes
+
+<KLabel :tooltip-attributes="{ placement: 'right', 'max-width': '200' }" help="I wonder how it handles long inputs. I wonder how it handles long inputs. I wonder how it handles long inputs. I wonder how it handles long inputs.">With Tooltip Attributes</KLabel>
+
+```vue
+<KLabel
+  :tooltip-attributes="{ placement: 'right', 'max-width': '200' }"
+  help="I wonder how it handles long inputs"
+>
+  With Tooltip Attributes
+</KLabel>
 ```

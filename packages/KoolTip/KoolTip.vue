@@ -4,6 +4,7 @@
     :popover-classes="`kooltip ${computedClass} ${className}`"
     :position-fixed="positionFixed"
     :test-mode="testMode"
+    :max-width="maxWidth"
     trigger="hover"
     width="auto"
     hide-caret>
@@ -58,6 +59,10 @@ export default {
       type: Boolean,
       default: false
     },
+    maxWidth: {
+      type: String,
+      default: 'auto'
+    },
     /**
      * Test mode - for testing only, strips out generated ids
      */
@@ -83,6 +88,7 @@ export default {
   },
   mounted () {
     this.className = this.$el && this.$el.className
+    // this.maxWidth = this.maxWidth === 'auto' ? this.maxWidth : this.maxWidth + 'px'
   }
 }
 </script>
