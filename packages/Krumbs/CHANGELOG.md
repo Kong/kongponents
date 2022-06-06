@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.29.1 (2022-06-06)
+
+
+### Bug Fixes
+
+* **kpop:** default maxwidth should be > default width ([#649](https://github.com/Kong/kongponents/issues/649)) ([f7ac014](https://github.com/Kong/kongponents/commit/f7ac0149e66ada04c30a81619df4ca89d6376bfc))
+
+
+
+
+
 # 6.29.0 (2022-06-03)
 
 
