@@ -52,7 +52,7 @@ describe('KPop', () => {
   })
 
   it('renders with correct px width', () => {
-    const width = 350
+    const width = 300
     mount(KPop, {
       props: {
         testMode: true,

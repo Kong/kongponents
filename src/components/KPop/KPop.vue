@@ -198,6 +198,13 @@ export default defineComponent({
       default: '200',
     },
     /**
+     * Set the max-width of the popover
+     */
+    maxWidth: {
+      type: String,
+      default: '350',
+    },
+    /**
      * Custom classes that will be applied to the popover
      */
     popoverClasses: {
@@ -282,6 +289,7 @@ export default defineComponent({
     popoverStyle: function() {
       return {
         width: this.width === 'auto' ? this.width : this.width + 'px',
+        'max-width': this.maxWidth === 'auto' ? this.maxWidth : this.maxWidth + 'px',
       }
     },
   },

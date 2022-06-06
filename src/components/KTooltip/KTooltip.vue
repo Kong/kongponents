@@ -1,13 +1,14 @@
 <template>
   <KPop
+    v-bind="$attrs"
+    hide-caret
+    trigger="hover"
     :placement="placement"
     :popover-classes="`k-tooltip ${computedClass} ${className}`"
     :position-fixed="positionFixed"
-    :test-mode="testMode"
-    trigger="hover"
+    :max-width="maxWidth"
     width="auto"
-    hide-caret
-    v-bind="$attrs"
+    :test-mode="testMode"
   >
     <slot />
 
@@ -59,6 +60,13 @@ export default defineComponent({
     positionFixed: {
       type: Boolean,
       default: false,
+    },
+    /**
+     * Set the max-width of the ktooltip
+     */
+    maxWidth: {
+      type: String,
+      default: 'auto',
     },
     /**
      * Test mode - for testing only, strips out generated ids

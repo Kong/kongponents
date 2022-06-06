@@ -6,7 +6,7 @@
     <textarea
       v-if="!label"
       v-bind="$attrs"
-      :value="currValue ? currValue : modelValue"
+      :value="getValue()"
       :rows="rows"
       :cols="cols"
       class="form-control k-input style-body-lg"
@@ -28,7 +28,7 @@
         <textarea
           v-bind="$attrs"
           :id="textAreaId"
-          :value="currValue ? currValue : modelValue"
+          :value="getValue()"
           :rows="rows"
           :cols="cols"
           :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
@@ -55,7 +55,7 @@
       <textarea
         v-bind="$attrs"
         :id="textAreaId"
-        :value="currValue ? currValue : modelValue"
+        :value="getValue()"
         :rows="rows"
         :cols="cols"
         :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
@@ -141,6 +141,15 @@ export default defineComponent({
     const currValue = ref('') // We need this so that we don't lose the updated value on hover/blur event with label
     const isFocused = ref(false)
     const isHovered = ref(false)
+    // we need this so we can create a watcher for programmatic changes to the modelValue
+    const value = computed({
+      get(): string | number {
+        return props.modelValue
+      },
+      set(newValue: string | number): void {
+        inputHandler({ target: { value: newValue } })
+      },
+    })
 
     const textAreaId = computed((): string => (attrs.id ? String(attrs.id) : props.testMode ? 'test-textArea-id-1234' : uuidv1()))
 
@@ -164,6 +173,16 @@ export default defineComponent({
       }
     })
 
+    watch(value, (newVal, oldVal) => {
+      if (newVal !== oldVal) {
+        inputHandler({ target: { value: newVal } })
+      }
+    })
+
+    const getValue = (): string => {
+      return currValue.value ? currValue.value : props.modelValue
+    }
+
     return {
       currValue,
       isFocused,
@@ -171,6 +190,7 @@ export default defineComponent({
       textAreaId,
       charLimitExceeded,
       inputHandler,
+      getValue,
     }
   },
 })
