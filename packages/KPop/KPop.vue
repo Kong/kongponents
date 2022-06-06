@@ -178,7 +178,7 @@ export default {
     },
     maxWidth: {
       type: String,
-      default: '150'
+      default: '350'
     },
     /**
      * Custom classes that will be applied to the popover
