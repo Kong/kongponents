@@ -67,7 +67,7 @@ jobs:
         - name: Semantic Release
           uses: cycjimmy/semantic-release-action@v2
           env:
-             # Since branch protections are on (pushing commits) you need to use a bot PAT
+            # Since branch protections are on (pushing commits) you need to use a bot PAT
             GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
   no-tests-required:
