@@ -1,3 +1,10 @@
+# [7.0.0-beta.44](https://github.com/Kong/kongponents/compare/v7.0.0-beta.43...v7.0.0-beta.44) (2022-06-06)
+
+
+### Bug Fixes
+
+* backport fixes to beta ([#646](https://github.com/Kong/kongponents/issues/646)) ([44479cc](https://github.com/Kong/kongponents/commit/44479cca89699c5f4b548d63cf5fe723121ba15c))
+
 # [7.0.0-beta.43](https://github.com/Kong/kongponents/compare/v7.0.0-beta.42...v7.0.0-beta.43) (2022-05-24)
 
 
