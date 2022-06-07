@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.29.2 (2022-06-07)
+
+
+### Bug Fixes
+
+* no ts ([c8c297d](https://github.com/Kong/kongponents/commit/c8c297ddfb1a1d2ee8736e5269034a27e42858ca))
+
+
+
+
+
 ## 6.29.1 (2022-06-06)
 
 
