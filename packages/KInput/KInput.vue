@@ -199,9 +199,12 @@ export default {
   },
   methods: {
     handleInput ($event) {
-      this.currValue = $event.target.value
+      // avoid pass by ref
+      const val = JSON.parse(JSON.stringify($event?.target?.value))
+
+      this.currValue = val
       this.modelValueChanged = true
-      this.$emit('input', $event.target.value)
+      this.$emit('input', val)
     }
   }
 }
