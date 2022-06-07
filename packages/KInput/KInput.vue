@@ -200,7 +200,7 @@ export default {
   methods: {
     handleInput ($event) {
       // avoid pass by ref
-      const val = JSON.parse(JSON.stringify($event?.target?.value))
+      const val = JSON.parse(JSON.stringify($event.target.value))
 
       this.currValue = val
       this.modelValueChanged = true

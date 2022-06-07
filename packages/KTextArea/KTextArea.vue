@@ -162,7 +162,7 @@ export default {
   methods: {
     inputHandler (e) {
       // avoid pass by ref
-      const val = JSON.parse(JSON.stringify(e?.target?.value))
+      const val = JSON.parse(JSON.stringify(e.target.value))
 
       // this 'input' event must be emitted for v-model binding to work properly
       this.$emit('input', val)
