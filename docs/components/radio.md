@@ -88,7 +88,7 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 
 ## Events
 
-`KCheckbox` has a couple of natural event bindings that all emit the same data when a radio option is selected.
+`KRadio` has a couple of natural event bindings that all emit the same data when a radio option is selected.
 
 - `change` - Fired on change, returns the checked status of the checkbox.
 - `update:modelValue` - Fired on change, returns the checked status of the checkbox.
