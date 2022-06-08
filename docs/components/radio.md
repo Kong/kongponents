@@ -144,7 +144,7 @@ export default defineComponent({
 
 <style lang="scss">
 .KRadio-wrapper {
-  --KRadioPrimary: mediumpurple;
+  --KRadioPrimary: lime;
 }
 
 .k-radio {
