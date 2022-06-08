@@ -169,14 +169,14 @@ For each size in our [type definitions](/style-guide/type.html) we include a uti
 
 ## Truncation
 
-We support both single line truncation as well as multi-line. Multi-line truncation is customizable with the following properties:
+We support both single line truncation as well as multi-line. Multi-line truncation is customizable with the following CSS variable:
 
-- `MaxLineLimit` - the maximum number of allowed lines (defaults to `3`)
+- `TMaxLineLimit` - the maximum number of allowed lines (defaults to `3`)
 
-| Class       |Properties
+| Class       |Properties/Variables
 | :---------- |:-------------- |:-----------
 | .truncate | white-space: nowrap;<br>text-overflow: ellipsis;<br>overflow: hidden;
-| .multi-line-truncation | `MaxLineLimit`
+| .multi-line-truncation | `TMaxLineLimit`
 
 <div class="multi-line-truncation" style="width: 425px; height: 84px; border: 1px solid black; padding: 8px;">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer condimentum leo a neque tristique faucibus. Praesent at imperdiet elit, vel tincidunt metus. Praesent elementum mollis libero, et semper diam efficitur tristique. Nam aliquam tortor a leo pretium vestibulum. Proin posuere auctor odio, sit amet elementum massa aliquet in.
@@ -190,7 +190,7 @@ We support both single line truncation as well as multi-line. Multi-line truncat
 
 ```css
 .multi-line-truncation {
-  --MaxLineLimit: 5;
+  --TMaxLineLimit: 5;
 }
 ```
 
@@ -204,7 +204,7 @@ We support both single line truncation as well as multi-line. Multi-line truncat
 - `TPosRight` - css property `right` position of the ellipsis
 - `TPadRight` - the amount of padding on the right side of the container
 
-| Class       |Properties
+| Class       |Variables
 | :---------- |:-------------- |:-----------
 | .truncate-multi | `TLineHeight`, `TMaxLines`, `TFontSize`, `TPosRight`, `TPadRight`
 
@@ -246,6 +246,6 @@ We support both single line truncation as well as multi-line. Multi-line truncat
   }
 }
 .multi-line-truncation {
-  --MaxLineLimit: 5;
+  --TMaxLineLimit: 5;
 }
 </style>
