@@ -99,7 +99,7 @@ $sides: (top, right, bottom, left);
     margin-top: #{$space} !important;
     margin-bottom: #{$space} !important;
   }
-  
+
 }
 
 // Loop spacing and create padding classes
@@ -164,6 +164,12 @@ $sides: (top, right, bottom, left);
     top: calc(var(--TLineHeight, 24px) * (var(--TMaxLines, 5) - 1) + var(--TFontSize, 16px) * .5);
     right: var(--TPosRight, 12px);
   }
+}
+.multi-line-truncation {
+  display: -webkit-box;
+  -webkit-line-clamp: var(--MaxLineLimit, 3);
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .capitalize {
   text-transform: capitalize !important;
