@@ -169,7 +169,34 @@ For each size in our [type definitions](/style-guide/type.html) we include a uti
 
 ## Truncation
 
-We support both single line truncation as well as multi-line. Multi-line truncation is customizable with the following properties:
+We support both single line truncation as well as multi-line. Multi-line truncation is customizable with the following CSS variable:
+
+- `TMaxLineLimit` - the maximum number of allowed lines (defaults to `3`)
+
+| Class       |Properties/Variables
+| :---------- |:-------------- |:-----------
+| .truncate | white-space: nowrap;<br>text-overflow: ellipsis;<br>overflow: hidden;
+| .multi-line-truncation | `TMaxLineLimit`
+
+<div class="multi-line-truncation" style="width: 425px; height: 84px; border: 1px solid black; padding: 8px;">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer condimentum leo a neque tristique faucibus. Praesent at imperdiet elit, vel tincidunt metus. Praesent elementum mollis libero, et semper diam efficitur tristique. Nam aliquam tortor a leo pretium vestibulum. Proin posuere auctor odio, sit amet elementum massa aliquet in.
+</div>
+
+```html
+<div class="multi-line-truncation" style="width: 425px; height: 84px; border: 1px solid black; padding: 8px;">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer condimentum leo a neque tristique faucibus. Praesent at imperdiet elit, vel tincidunt metus. Praesent elementum mollis libero, et semper diam efficitur tristique. Nam aliquam tortor a leo pretium vestibulum. Proin posuere auctor odio, sit amet elementum massa aliquet in.
+</div>
+```
+
+```css
+.multi-line-truncation {
+  --TMaxLineLimit: 5;
+}
+```
+
+## Truncation - deprecated
+
+**Deprecated** - Multi-line truncation is customizable with the following properties:
 
 - `TLineHeight` - the height of each line
 - `TMaxLines` - the maximum number of allowed lines
@@ -177,57 +204,25 @@ We support both single line truncation as well as multi-line. Multi-line truncat
 - `TPosRight` - css property `right` position of the ellipsis
 - `TPadRight` - the amount of padding on the right side of the container
 
-| Class       |Properties
+| Class       |Variables
 | :---------- |:-------------- |:-----------
-| .truncate | white-space: nowrap;<br>text-overflow: ellipsis;<br>overflow: hidden;
 | .truncate-multi | `TLineHeight`, `TMaxLines`, `TFontSize`, `TPosRight`, `TPadRight`
 
-### Example
+```html
+<div class="truncate-multi" style="width: 425px; height: 84px; border: 1px solid black; padding: 8px;">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer condimentum leo a neque tristique faucibus. Praesent at imperdiet elit, vel tincidunt metus. Praesent elementum mollis libero, et semper diam efficitur tristique. Nam aliquam tortor a leo pretium vestibulum. Proin posuere auctor odio, sit amet elementum massa aliquet in.
+</div>
+```
 
-  ```html
-  <div class="truncate-multi" style="width: 425px; border: 1px solid black; padding: 8px;">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer condimentum leo a neque tristique faucibus. Praesent at imperdiet elit, vel tincidunt metus. Praesent elementum mollis libero, et semper diam efficitur tristique. Nam aliquam tortor a leo pretium vestibulum. Proin posuere auctor odio, sit amet elementum massa aliquet in.
-  </div>
-  ```
-
-  ```css
-  .truncate-multi {
-    --TLineHeight: 24px;
-    --TMaxLines: 5;
-    --TPosRight: 12px;
-    --TPadRight: 8px;
-    --TFontSize: 16px;
-  }
-  ```
-
-  <style type='text/css'>
-    .truncate-multi {
-      --line-height: 24px;
-      --max-lines: 5;
-      --ellipsis-pos: 12px;
-      --pad-right: 8px;
-      --font-size: 16px;
-      line-height: var(--line-height);
-      font-size: var(--font-size);
-      position: relative;
-      max-height: calc(var(--line-height) *var(--max-lines));
-      overflow: hidden;
-      padding-right: calc(var(--ellipsis-pos) + var(--pad-right) + 4px) !important;
-    }
-    .truncate-multi::before {
-      --line-height: 24px;
-      --max-lines: 5;
-      --ellipsis-pos: 12px;
-      --font-size: 16px;
-      position: absolute;
-      content: "...";
-      top: calc(var(--line-height)* (var(--max-lines) - 1) + var(--font-size) * .5);
-      right: var(--ellipsis-pos);
-    }
-  </style>
-  <div class="truncate-multi" style="width: 425px; border: 1px solid black; padding: 8px;">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer condimentum leo a neque tristique faucibus. Praesent at imperdiet elit, vel tincidunt metus. Praesent elementum mollis libero, et semper diam efficitur tristique. Nam aliquam tortor a leo pretium vestibulum. Proin posuere auctor odio, sit amet elementum massa aliquet in.
-  </div>
+```css
+.truncate-multi {
+  --TLineHeight: 24px;
+  --TMaxLines: 5;
+  --TPosRight: 12px;
+  --TPadRight: 8px;
+  --TFontSize: 16px;
+}
+```
 
 ## General Helpers
 
@@ -249,5 +244,8 @@ We support both single line truncation as well as multi-line. Multi-line truncat
     &:first-of-type { color: #6b46c1; }
     &:last-of-type { color: var(--blue-700); }
   }
+}
+.multi-line-truncation {
+  --TMaxLineLimit: 5;
 }
 </style>

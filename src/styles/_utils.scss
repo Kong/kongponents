@@ -154,7 +154,12 @@ $sides: (top, right, bottom, left);
   text-overflow: ellipsis;
   overflow: hidden;
 }
-
+.multi-line-truncation {
+  display: -webkit-box;
+  -webkit-line-clamp: var(--TMaxLineLimit, 3);
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 .truncate-multi {
   line-height: var(--TLineHeight, 24px);
   font-size: var(--TFontSize, 16px);
