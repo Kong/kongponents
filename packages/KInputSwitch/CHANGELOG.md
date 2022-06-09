@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.30.0 (2022-06-09)
+
+
+### Features
+
+* **kstyles:** multi-line truncation [khcp-3552] ([#652](https://github.com/Kong/kongponents/issues/652)) ([31bf43f](https://github.com/Kong/kongponents/commit/31bf43fef8fc894aa17bb4d31af14c6ad7f0f87b))
+
+
+
+
+
 ## 6.29.2 (2022-06-07)
 
 
