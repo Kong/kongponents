@@ -1,3 +1,10 @@
+# [7.0.0-beta.45](https://github.com/Kong/kongponents/compare/v7.0.0-beta.44...v7.0.0-beta.45) (2022-06-09)
+
+
+### Features
+
+* **kstyles:** multi-line truncation [beta] ([#653](https://github.com/Kong/kongponents/issues/653)) ([79c53e0](https://github.com/Kong/kongponents/commit/79c53e02e481ea023e9d8161855711936df8f7d0))
+
 # [7.0.0-beta.44](https://github.com/Kong/kongponents/compare/v7.0.0-beta.43...v7.0.0-beta.44) (2022-06-06)
 
 
