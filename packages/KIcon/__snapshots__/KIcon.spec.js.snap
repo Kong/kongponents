@@ -156,6 +156,14 @@ exports[`KIcon renders dashboard icon 1`] = `
 </span>
 `;
 
+exports[`KIcon renders decrease icon 1`] = `
+<span class="kong-icon kong-icon-decrease"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" width="24" height="24">
+  <title>decrease</title>
+  <path d="M8.001 13.197 4 2.804h8L8.001 13.197Z" fill="#A3BBCC"></path>
+</svg>
+</span>
+`;
+
 exports[`KIcon renders devPortal icon 1`] = `
 <span class="kong-icon kong-icon-devPortal"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" width="24" height="24">
   <title>devPortal</title>
@@ -311,6 +319,13 @@ exports[`KIcon renders immunity icon 1`] = `
   <path d="M21 5.3a2 2 0 100-4 2 2 0 000 4zM21 22.3a2 2 0 100-4 2 2 0 000 4zM3 22.3a2 2 0 100-4 2 2 0 000 4z" stroke="#A3BBCC" stroke-width="2" fill="none"></path>
 </svg>
 </span>
+`;
+
+exports[`KIcon renders increase icon 1`] = `
+<span class="kong-icon kong-icon-increase"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" width="24" height="24">
+  <title>increase</title>
+  <path d="m8 2.804 4 10.393H4L8 2.804Z" fill="#A3BBCC"></path>
+</svg></span>
 `;
 
 exports[`KIcon renders info icon 1`] = `

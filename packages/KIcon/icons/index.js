@@ -17,6 +17,7 @@ import copy from './icn-copy.svg'
 import dangerCircle from './icn-danger-circle.svg'
 import dangerCircleOutline from './icn-danger-circle-outline.svg'
 import dashboard from './icn-dashboard.svg'
+import decrease from './icn-decrease.svg'
 import devPortal from './icn-dev-portal.svg'
 import disabled from './icn-disabled.svg'
 import document from './icn-document.svg'
@@ -36,6 +37,7 @@ import gearFilled from './icn-gear-filled.svg'
 import grid from './icn-grid.svg'
 import help from './icn-help.svg'
 import immunity from './icn-immunity.svg'
+import increase from './icn-increase.svg'
 import info from './icn-info.svg'
 import kong from './icn-kong.svg'
 import lock from './icn-lock.svg'
@@ -92,6 +94,7 @@ export default {
   dangerCircle,
   dangerCircleOutline,
   dashboard,
+  decrease,
   devPortal,
   disabled,
   document,
@@ -111,6 +114,7 @@ export default {
   grid,
   help,
   immunity,
+  increase,
   info,
   kong,
   list,
