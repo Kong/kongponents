@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kmodalfullscreen",
-  "version": "6.30.0",
+  "version": "6.30.1",
   "description": "A full screen Modal",
   "main": "dist/KModalFullscreen.umd.min.js",
   "componentName": "KModalFullscreen",
@@ -23,8 +23,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kbutton": "^6.30.0",
-    "@kongponents/kicon": "^6.30.0",
-    "@kongponents/styles": "^6.30.0"
+    "@kongponents/kbutton": "^6.30.1",
+    "@kongponents/kicon": "^6.30.1",
+    "@kongponents/styles": "^6.30.1"
   }
 }

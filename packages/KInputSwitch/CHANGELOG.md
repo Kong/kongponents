@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.30.1 (2022-06-10)
+
+**Note:** Version bump only for package @kongponents/kinputswitch
+
+
+
+
+
 # 6.30.0 (2022-06-09)
 
 
