@@ -156,10 +156,12 @@ export default defineComponent({
     const charLimitExceeded = computed((): boolean => !props.disableCharacterLimit && currValue.value.length > props.characterLimit)
 
     const inputHandler = (e: any) => {
+      // avoid pass by ref
+      const val = JSON.parse(JSON.stringify(e?.target?.value))
       // this 'input' and 'update:modelValue' events must be emitted for v-model binding to work properly
-      emit('input', e.target.value)
-      emit('update:modelValue', e.target.value)
-      currValue.value = e.target.value
+      emit('input', val)
+      emit('update:modelValue', val)
+      currValue.value = val
     }
 
     watch(charLimitExceeded, (newVal, oldVal) => {

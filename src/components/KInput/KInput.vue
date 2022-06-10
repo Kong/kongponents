@@ -211,10 +211,13 @@ export default defineComponent({
     })
 
     const handleInput = ($event: any):void => {
-      currValue.value = $event.target.value
+      // avoid pass by ref
+      const val = JSON.parse(JSON.stringify($event?.target?.value))
+
+      currValue.value = val
       modelValueChanged.value = true
-      emit('input', $event.target.value)
-      emit('update:modelValue', $event.target.value)
+      emit('input', val)
+      emit('update:modelValue', val)
     }
 
     const getValue = (): string | number => {
