@@ -1,3 +1,10 @@
+# [7.0.0-beta.46](https://github.com/Kong/kongponents/compare/v7.0.0-beta.45...v7.0.0-beta.46) (2022-06-10)
+
+
+### Bug Fixes
+
+* **kinput:** deepclone value prop [beta] ([#651](https://github.com/Kong/kongponents/issues/651)) ([4609bac](https://github.com/Kong/kongponents/commit/4609bac4c2143595c28060519c20ef41b6769e61))
+
 # [7.0.0-beta.45](https://github.com/Kong/kongponents/compare/v7.0.0-beta.44...v7.0.0-beta.45) (2022-06-09)
 
 
