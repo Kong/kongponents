@@ -1,3 +1,10 @@
+# [7.0.0-beta.47](https://github.com/Kong/kongponents/compare/v7.0.0-beta.46...v7.0.0-beta.47) (2022-06-10)
+
+
+### Features
+
+* **kicon:** add increase/decrease icons [ma-643] ([#655](https://github.com/Kong/kongponents/issues/655)) ([a3beae6](https://github.com/Kong/kongponents/commit/a3beae6489902f4089f7f913e42e37ea1599711e)), closes [#654](https://github.com/Kong/kongponents/issues/654)
+
 # [7.0.0-beta.46](https://github.com/Kong/kongponents/compare/v7.0.0-beta.45...v7.0.0-beta.46) (2022-06-10)
 
 
