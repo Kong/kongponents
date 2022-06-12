@@ -1,5 +1,14 @@
-import { mount, shallowMount } from '@vue/test-utils'
+import {mount, shallowMount} from '@vue/test-utils'
 import KPop from '@/KPop/KPop'
+
+global.document.createRange = () => ({
+  setStart: () => { },
+  setEnd: () => { },
+  commonAncestorContainer: {
+    nodeName: 'BODY',
+    ownerDocument: document
+  }
+})
 
 /**
  * ALL TESTS MUST USE testMode: true
@@ -61,7 +70,7 @@ describe('KPop', () => {
     })
     const popper = wrapper.find('.k-popover')
 
-    expect(popper.element.style['width']).toEqual('auto')
+    expect(popper.element.style[ 'width' ]).toEqual('auto')
   })
 
   it('renders with correct px width', () => {
@@ -73,7 +82,7 @@ describe('KPop', () => {
     })
     const popper = wrapper.find('.k-popover')
 
-    expect(popper.element.style['width']).toEqual('350px')
+    expect(popper.element.style[ 'width' ]).toEqual('350px')
   })
 
   it('renders with correct title', () => {

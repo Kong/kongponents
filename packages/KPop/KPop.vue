@@ -338,7 +338,9 @@ export default {
 
       const theTarget = this.target === 'body' && !this.isSvg ? document.getElementById(this.targetId) : document.querySelector(this.target)
 
-      theTarget.appendChild(popperEl)
+      if (theTarget) {
+        theTarget.appendChild(popperEl)
+      }
 
       await this.$nextTick()
       this.popper = new Popper(this.reference, popperEl, {

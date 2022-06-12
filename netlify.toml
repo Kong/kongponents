@@ -6,7 +6,7 @@
   base = "/"
   command = "yarn build:styles && yarn docs:build"
   publish = "docs/.vuepress/dist"
-  environment = { NODE_VERSION = "14.19.1", YARN_FLAGS="--frozen-lockfile --ignore-optional" }
+  environment = { NODE_VERSION = "16.15.1", YARN_FLAGS="--frozen-lockfile --ignore-optional" }
 
 # ##############################
 # 'main' branch
@@ -17,15 +17,15 @@
   base = "/"
   command = "yarn build:styles && yarn docs:build"
   publish = "docs/.vuepress/dist"
-  environment = { NODE_VERSION = "14.19.1", YARN_FLAGS="--frozen-lockfile --ignore-optional" }
+  environment = { NODE_VERSION = "16.15.1", YARN_FLAGS="--frozen-lockfile --ignore-optional" }
 
 # ##############################
-# 'next' branch
+# 'beta' branch
 # ##############################
 
-# 'next' branch context
-[context.next]
+# 'beta' branch context
+[context.beta]
   base = "/"
   command = "yarn docs:build"
   publish = "docs/.vuepress/dist"
-  environment = { NODE_VERSION = "16.14.0", YARN_FLAGS="--frozen-lockfile --ignore-optional" }
+  environment = { NODE_VERSION = "16.15.1", YARN_FLAGS="--frozen-lockfile --ignore-optional" }

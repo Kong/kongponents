@@ -230,11 +230,7 @@ a wrapper around `KCard` to display correctly inside `KCatalog`. You can use the
 - `truncate` - a boolean (default to `true`), whether or not to truncate the `description` text.
 
 ```vue
-<KCatalogItem
-  :item="item"
-  :truncate="false"
-  class="catalog-item"
-/>
+<KCatalogItem :item="item" :truncate="false" class="catalog-item" />
 ```
 
 ### Card Slots
@@ -291,36 +287,38 @@ If using a CTA button, a `KCatalog-empty-state-cta-clicked` event is fired when 
 />
 
 ```vue
-<!-- Using a route string -->
-<KCatalog
-  title="Customized empty catalog"
-  :fetcher="emptyFetcher"
-  emptyStateTitle="No Workspaces exist"
-  emptyStateMessage="Adding a new Workspace will populate this catalog."
-  emptyStateActionMessage="Create a Workspace"
-  emptyStateActionRoute="#empty-state-full-example"
-  emptyStateIcon="workspaces"
-  emptyStateIconColor="#5996ff"
-  emptyStateIconSize="35"
-/>
+<template>
+  <!-- Using a route string -->
+  <KCatalog
+    title="Customized empty catalog"
+    :fetcher="emptyFetcher"
+    emptyStateTitle="No Workspaces exist"
+    emptyStateMessage="Adding a new Workspace will populate this catalog."
+    emptyStateActionMessage="Create a Workspace"
+    emptyStateActionRoute="#empty-state-full-example"
+    emptyStateIcon="workspaces"
+    emptyStateIconColor="#5996ff"
+    emptyStateIconSize="35"
+  />
 
-<!-- Using a route object -->
-<KCatalog
-  title="Customized empty catalog"
-  :fetcher="emptyFetcher"
-  emptyStateTitle="No Workspaces exist"
-  emptyStateMessage="Adding a new Workspace will populate this catalog."
-  emptyStateActionMessage="Create a Workspace"
-  emptyStateActionRoute="{
-    name: 'create-workspace',
-    params: {
-      organizationId: 'd27e40e0-c9ac-43e2-8be8-54862fab45ea'
-    }
-  }"
-  emptyStateIcon="workspaces"
-  emptyStateIconColor="#5996ff"
-  emptyStateIconSize="35"
-/>
+  <!-- Using a route object -->
+  <KCatalog
+    title="Customized empty catalog"
+    :fetcher="emptyFetcher"
+    emptyStateTitle="No Workspaces exist"
+    emptyStateMessage="Adding a new Workspace will populate this catalog."
+    emptyStateActionMessage="Create a Workspace"
+    emptyStateActionRoute="{
+      name: 'create-workspace',
+      params: {
+        organizationId: 'd27e40e0-c9ac-43e2-8be8-54862fab45ea'
+      }
+    }"
+    emptyStateIcon="workspaces"
+    emptyStateIconColor="#5996ff"
+    emptyStateIconSize="35"
+  />
+</template>
 ```
 
 ### Error
@@ -359,38 +357,40 @@ If using a CTA button, a `KCatalog-error-cta-clicked` event is fired when clicke
 />
 
 ```vue
-<!-- Using a route string -->
-<KCatalog
-  title="Catalog with error"
-  :fetcher="fetcher"
-  :hasError="true"
-  errorStateTitle="Something went wrong"
-  errorStateMessage="Error loading data."
-  errorStateActionMessage="Report an Issue"
-  errorStateActionRoute="create-workspace"
-  errorStateIcon="dangerCircle"
-  errorStateIconColor="#e6173a"
-  errorStateIconSize="35"
-/>
+<template>
+  <!-- Using a route string -->
+  <KCatalog
+    title="Catalog with error"
+    :fetcher="fetcher"
+    :hasError="true"
+    errorStateTitle="Something went wrong"
+    errorStateMessage="Error loading data."
+    errorStateActionMessage="Report an Issue"
+    errorStateActionRoute="create-workspace"
+    errorStateIcon="dangerCircle"
+    errorStateIconColor="#e6173a"
+    errorStateIconSize="35"
+  />
 
-<!-- Using a route object -->
-<KCatalog
-  title="Catalog with error"
-  :fetcher="fetcher"
-  :hasError="true"
-  errorStateTitle="Something went wrong"
-  errorStateMessage="Error loading data."
-  errorStateActionMessage="Report an Issue"
-  errorStateActionRoute="{
-    name: 'report-issue',
-    params: {
-      organizationId: 'd27e40e0-c9ac-43e2-8be8-54862fab45ea'
-    }
-  }"
-  errorStateIcon="dangerCircle"
-  errorStateIconColor="#e6173a"
-  errorStateIconSize="35"
-/>
+  <!-- Using a route object -->
+  <KCatalog
+    title="Catalog with error"
+    :fetcher="fetcher"
+    :hasError="true"
+    errorStateTitle="Something went wrong"
+    errorStateMessage="Error loading data."
+    errorStateActionMessage="Report an Issue"
+    errorStateActionRoute="{
+      name: 'report-issue',
+      params: {
+        organizationId: 'd27e40e0-c9ac-43e2-8be8-54862fab45ea'
+      }
+    }"
+    errorStateIcon="dangerCircle"
+    errorStateIconColor="#e6173a"
+    errorStateIconSize="35"
+  />
+</template>
 ```
 
 ### Loading
@@ -423,16 +423,18 @@ Both the `title` & `description` of the card items as well as the entire catalog
 </KCatalog>
 
 ```vue
-<KCatalog title="I'm slotted baby!" >
-  <template v-slot:body>
-    <KCatalogItem
-      v-for="item in getItems(4)"
-      :key="item.title.replace(' ', '-')"
-      :item="item"
-      class="catalog-item"
-    />
-  </template>
-</KCatalog>
+<template>
+  <KCatalog title="I'm slotted baby!" >
+    <template v-slot:body>
+      <KCatalogItem
+        v-for="item in getItems(4)"
+        :key="item.title.replace(' ', '-')"
+        :item="item"
+        class="catalog-item"
+      />
+    </template>
+  </KCatalog>
+</template>
 ```
 
 If used in conjuction with a `fetcher` you have the option of using the returned `data`.
@@ -537,14 +539,7 @@ is triggered and will be resolved when the fetcher returns. You can override thi
 `isLoading` prop.
 :::
 
-<KCatalog
-  :fetcher="fetcher"
-  :initial-fetcher-params="{
-    query: '',
-    pageSize: 15,
-    page: 1
-  }"
-/>
+<KCatalog :fetcher="fetcher" :initial-fetcher-params="{ query: '', pageSize: 15, page: 1 }" />
 
 ```http
 Example URL
@@ -553,22 +548,24 @@ https://kongponents.dev/api/components?_page=1&_limit=10
 ```
 
 ```vue
-<!-- Example Component Usage -->
+  <template>
+  <!-- Example Component Usage -->
 
-<KCard>
-  <template v-slot:body>
-    <KInput placeholder="Search..." v-model="search" type="search" />
-    <KCatalog
-      :fetcher="fetcher"
-      :initial-fetcher-params="{
-        query: '',
-        pageSize: 15,
-        page: 1
-      }"
-      :search-input="search"
-    />
-  </template>
-</KCard>
+  <KCard>
+    <template v-slot:body>
+      <KInput placeholder="Search..." v-model="search" type="search" />
+      <KCatalog
+        :fetcher="fetcher"
+        :initial-fetcher-params="{
+          query: '',
+          pageSize: 15,
+          page: 1
+        }"
+        :search-input="search"
+      />
+    </template>
+  </KCard>
+</template>
 ```
 
 ```js
