@@ -1,9 +1,8 @@
 # Colors
 
-<section>
+<section v-if="colors">
   <div
-    v-if="page.colors"
-    v-for="(group, key, i) in page.colors"
+    v-for="(group, key, i) in colors"
     :key="i"
     class="color-group">
     <h4>{{ key }}</h4>
@@ -20,7 +19,7 @@
 </section>
 
 <script>
-import { defineComponent, onBeforeMount, reactive } from 'vue'
+import { defineComponent, onBeforeMount, reactive, toRefs } from 'vue'
 
 export default defineComponent({
   setup () {
@@ -60,7 +59,7 @@ export default defineComponent({
     })
 
     return {
-      page,
+      ...toRefs(page),
     }
   }
 })
@@ -71,6 +70,7 @@ export default defineComponent({
   margin-bottom: 2rem;
   h4 {
     margin: 0;
+    padding-top: 1rem;
     border-bottom: 1px solid
   }
   .colors {

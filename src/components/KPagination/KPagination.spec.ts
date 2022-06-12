@@ -76,7 +76,7 @@ describe('KPagination', () => {
 
     cy.getTestId('k-select-input').find('.k-button').should('contain.text', '2 items per page')
     cy.getTestId('k-select-input').find('button').click({ multiple: true, force: true })
-    cy.getTestId('k-select-item-4').find('button').click({ multiple: true, force: true })
+    cy.getTestId('k-select-item-4').find('button').eq(1).click({ multiple: true, force: true })
     cy.getTestId('k-select-input').find('.k-button').should('contain.text', '4 items per page')
   })
 })

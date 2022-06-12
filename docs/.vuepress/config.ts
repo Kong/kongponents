@@ -1,11 +1,11 @@
-import { defineUserConfig } from 'vuepress'
-import type { DefaultThemeOptions } from 'vuepress'
+import { viteBundler } from '@vuepress/bundler-vite'
+import { defineUserConfig, defaultTheme } from 'vuepress'
 import { path } from '@vuepress/utils'
-import type { ViteBundlerOptions } from '@vuepress/bundler-vite'
+import { searchPlugin } from '@vuepress/plugin-search'
 
 const isProd = process.env.NODE_ENV === 'production'
 
-export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
+export default defineUserConfig({
   base: '/',
 
   head: [
@@ -22,9 +22,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
   },
   // when using vuepress-vite package, you can omit this field
   // because vite is the default bundler
-  bundler: '@vuepress/bundler-vite',
-  // options for vite bundler
-  bundlerConfig: {
+  bundler: viteBundler({
     viteOptions: {
       css: {
         postcss: {
@@ -33,8 +31,9 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
           ]
         },
       }
-    }
-  },
+    },
+    vuePluginOptions: {},
+  }),
 
   // site config
   lang: 'en-US',
@@ -42,8 +41,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
   description: 'Kong UI Components & Style Guide',
 
   // theme and its config
-  theme: '@vuepress/theme-default',
-  themeConfig: {
+  theme: defaultTheme({
     repo: 'kong/kongponents',
 
     logo: 'https://2tjosk2rxzc21medji3nfn1g-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/kong-logomark-color-64px.png',
@@ -55,8 +53,6 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
     editLink: true,
 
     lastUpdated: true,
-
-    searchPlaceholder: 'Search...',
 
     navbar: [
       {
@@ -152,7 +148,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
       // only enable git plugin in production mode
       git: isProd,
     },
-  },
+  }),
 
   markdown: {
     code: {
@@ -161,16 +157,17 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
   },
 
   plugins: [
-    ['@vuepress/search', {
-      hotKeys: ['/'],
+    searchPlugin({
+      hotKeys: ['s', '/'],
       locales: {
         '/': {
           placeholder: 'Search...',
         },
       },
-    }],
-    ['sitemap', {
-      hostname: 'https://kongponents.konghq.com'
-    }],
+    }),
+    // Currently disabled until VuePress 2 support is added
+    // ['sitemap', {
+    //   hostname: 'https://kongponents.konghq.com'
+    // }],
   ],
 })
