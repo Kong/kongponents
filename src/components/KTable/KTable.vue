@@ -150,8 +150,8 @@
               <slot
                 :name="value.key"
                 :row="row"
-                :rowKey="rowIndex"
-                :rowValue="row[value.key]"
+                :row-key="rowIndex"
+                :row-value="row[value.key]"
               >
                 {{ row[value.key] }}
               </slot>
