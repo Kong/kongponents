@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.31.0 (2022-06-12)
+
+
+### Features
+
+* **node:** bump kongponents to node 16 ([#657](https://github.com/Kong/kongponents/issues/657)) ([185ae12](https://github.com/Kong/kongponents/commit/185ae126a54141729e68be714fc9234158933525))
+
+
+
+
+
 ## 6.30.1 (2022-06-10)
 
 **Note:** Version bump only for package @kongponents/ktextarea
