@@ -83,7 +83,7 @@
     "vue-uuid": "^2.0.2"
   },
   "engines": {
-    "node": ">=14.8.2 <15"
+    "node": ">=16.15.1"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -113,7 +113,7 @@
     ]
   },
   "volta": {
-    "node": "14.19.1",
+    "node": "16.15.1",
     "yarn": "1.22.17"
   }
 }
