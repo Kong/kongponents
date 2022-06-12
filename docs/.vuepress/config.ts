@@ -70,18 +70,18 @@ export default defineUserConfig({
         text: 'Guide',
         children: [
           '/',
-          '/guide/theming',
+          '/guide/theming.md',
           {
             text: 'Styles',
             children: [
-              '/style-guide/colors',
-              '/style-guide/type',
-              '/style-guide/forms',
-              '/style-guide/utilities',
-              '/style-guide/usage',
+              '/style-guide/colors.md',
+              '/style-guide/type.md',
+              '/style-guide/forms.md',
+              '/style-guide/utilities.md',
+              '/style-guide/usage.md',
             ]
           },
-          '/guide/vue-3-migration-guide',
+          '/guide/vue-3-migration-guide.md',
         ]
       },
       {
@@ -90,44 +90,44 @@ export default defineUserConfig({
           {
             text: 'Components',
             children: [
-              '/components/alert',
-              '/components/badge',
-              '/components/breadcrumbs',
-              '/components/button',
-              '/components/card',
-              '/components/catalog',
-              '/components/checkbox',
-              '/components/empty-state',
-              '/components/icon',
-              '/components/inline-edit',
-              '/components/input',
-              '/components/input-switch',
-              '/components/label',
-              '/components/menu',
-              '/components/modal',
-              '/components/modal-fullscreen',
-              '/components/pagination',
-              '/components/popover',
-              '/components/prompt',
-              '/components/radio',
-              '/components/segmented-control',
-              '/components/select',
-              '/components/skeleton',
-              '/components/slideout',
-              '/components/table',
-              '/components/tabs',
-              '/components/textarea',
-              '/components/toaster',
-              '/components/tooltip',
-              '/components/view-switcher',
+              '/components/alert.md',
+              '/components/badge.md',
+              '/components/breadcrumbs.md',
+              '/components/button.md',
+              '/components/card.md',
+              '/components/catalog.md',
+              '/components/checkbox.md',
+              '/components/empty-state.md',
+              '/components/icon.md',
+              '/components/inline-edit.md',
+              '/components/input.md',
+              '/components/input-switch.md',
+              '/components/label.md',
+              '/components/menu.md',
+              '/components/modal.md',
+              '/components/modal-fullscreen.md',
+              '/components/pagination.md',
+              '/components/popover.md',
+              '/components/prompt.md',
+              '/components/radio.md',
+              '/components/segmented-control.md',
+              '/components/select.md',
+              '/components/skeleton.md',
+              '/components/slideout.md',
+              '/components/table.md',
+              '/components/tabs.md',
+              '/components/textarea.md',
+              '/components/toaster.md',
+              '/components/tooltip.md',
+              '/components/view-switcher.md',
             ]
           },
           {
             text: 'Renderless',
             children: [
-              '/components/renderless/clipboard-provider',
-              '/components/renderless/toggle',
-              '/components/renderless/k-component',
+              '/components/renderless/clipboard-provider.md',
+              '/components/renderless/toggle.md',
+              '/components/renderless/k-component.md',
             ]
           }
         ]
@@ -135,10 +135,10 @@ export default defineUserConfig({
       {
         text: 'Contributing',
         children: [
-          '/contributing/getting-started',
-          '/contributing/adding-icons-to-kicon'
+          '/contributing/getting-started.md',
+          '/contributing/adding-icons-to-kicon.md',
         ]
-      }
+      },
     ],
 
     contributors: false,
