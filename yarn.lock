@@ -8000,7 +8000,7 @@ vuepress-vite@2.0.0-beta.48:
     "@vuepress/core" "2.0.0-beta.48"
     "@vuepress/theme-default" "2.0.0-beta.48"
 
-vuepress@^2.0.0-beta.37:
+vuepress@^2.0.0-beta.48:
   version "2.0.0-beta.48"
   resolved "https://registry.yarnpkg.com/vuepress/-/vuepress-2.0.0-beta.48.tgz#ebac1c88550b32cbb40af6affc217ce50e121fa3"
   integrity sha512-m1CzjgMrHdrOzNr3eMoFrdqHlp3wK23TBIHZJtm9tDnwg4OF59FG6y6gGoBLo+zpfzVOwi/V8FR13ehiQwG/3A==
