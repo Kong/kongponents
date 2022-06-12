@@ -1,5 +1,4 @@
-import { viteBundler } from '@vuepress/bundler-vite'
-import { defineUserConfig, defaultTheme } from 'vuepress'
+import { defineUserConfig, defaultTheme, viteBundler } from 'vuepress'
 import { path } from '@vuepress/utils'
 import { searchPlugin } from '@vuepress/plugin-search'
 
