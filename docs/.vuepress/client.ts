@@ -1,4 +1,5 @@
-import { defineClientAppEnhance } from '@vuepress/client'
+import { defineClientConfig } from '@vuepress/client'
+
 import Kongponents from '../../src'
 
 // Import component-specific files
@@ -9,8 +10,9 @@ import ToastManager from '../../src/components/KToaster/ToastManager'
 import ColorSwatch from './components/ColorSwatch.vue'
 import TypographyBlock from './components/TypographyBlock.vue'
 
-export default defineClientAppEnhance(async ({ app, router, siteData }) => {
-  // Register KIcon icons
+export default defineClientConfig({
+  enhance({ app, router, siteData }) {
+    // Register KIcon icons
   app.config.globalProperties.$icons = Object.keys(icons)
 
   // @ts-ignore
@@ -25,4 +27,7 @@ export default defineClientAppEnhance(async ({ app, router, siteData }) => {
   // Register other components
   app.component('ColorSwatch', ColorSwatch)
   app.component('TypographyBlock', TypographyBlock)
+  },
+  setup() {},
+  rootComponents: [],
 })

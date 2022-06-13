@@ -168,7 +168,7 @@ describe('KSelect', () => {
     cy.getTestId(`k-select-item-${vals[0]}`).should('contain.text', labels[0])
     cy.getTestId(`k-select-item-${vals[1]}`).should('not.be.visible')
 
-    cy.getTestId(`k-select-item-${vals[0]}`).click({ multiple: true, force: true })
+    cy.getTestId(`k-select-item-${vals[0]}`).eq(1).click({ force: true })
     cy.get('.selected-item-label').should('contain.text', labels[0])
   })
 
