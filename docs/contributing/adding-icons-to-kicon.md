@@ -2,7 +2,7 @@
 
 There are a number of steps required to add a new icon file to [KIcon](/components/icon.html). Follow these steps to ensure the component can properly render the SVG file.
 
-1) **Adding the new icon**
+1) **Adding the new icon**  
     - To start, copy your svg source code into [SVGOMG](https://jakearchibald.github.io/svgomg/) to compress and clean up. You should be fine using the default settings however, feel free to play around to get the most optimal output.
     :::tip
     You can copy the svg by exporting it directly from Figma or by opening the file that design sends over.
@@ -11,12 +11,12 @@ There are a number of steps required to add a new icon file to [KIcon](/componen
     - For accessibility support, make sure to include a `<title>`. If no `<title>` element is provided in the SVG, the icon name will be
     used, after removing `icn-`, splitting on capital letters, separating with spaces, and then capitalizing each word. For example, `icn-featureRequest.svg` becomes `Feature Request`.
 
-1) **Add to KIcon**
+1) **Add to KIcon**  
   Now that the file has been saved to the `icons` folder import and export it in `/packages/KIcon/icons/index.js`
 
     ```js
     ...
-    import {iconName} from './icn-{iconName}.svg?raw' // Don't forget the ?raw suffix
+    import {iconName} from './icn-{iconName}.svg'
     ...
 
     export default {
@@ -26,7 +26,7 @@ There are a number of steps required to add a new icon file to [KIcon](/componen
     }
     ```
 
-1) **Update Tests**
+1) **Update Tests**  
 The last step is to ensure the `KIcon` tests pass. Each icon is tested to ensure it matches an existing snapshot. Because this is a new icon you will need to update the snapshots. From The root directory run `yarn test packages/KIcon/KIcon.spec.js --updateSnapshot`.
 
 Thats it you're done! Git push and PR! :tada:
