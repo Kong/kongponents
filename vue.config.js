@@ -7,15 +7,12 @@ module.exports = {
     svgRule
       .oneOf('external')
       .resourceQuery(/external/)
-      .use('raw')
-      .loader('raw-loader')
-      .end().end()
-      // .use('url')
-      // .loader('url-loader')
-      // .options({
-      //   limit: 10000,
-      //   name: 'img/[name].[hash:7].[ext]'
-      // }).end().end()
+      .use('url')
+      .loader('url-loader')
+      .options({
+        limit: 10000,
+        name: 'img/[name].[hash:7].[ext]'
+      }).end().end()
       .oneOf('normal')
       .use('raw')
       .loader('raw-loader')
