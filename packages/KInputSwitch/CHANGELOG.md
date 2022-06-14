@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.31.3 (2022-06-14)
+
+
+### Reverts
+
+* Revert "fix(icons): add ?raw to svg path for vite imports (#658)" ([984a223](https://github.com/Kong/kongponents/commit/984a2238070cd577f91f93580f6f65a08eef0bcb)), closes [#658](https://github.com/Kong/kongponents/issues/658)
+
+
+
+
+
 ## 6.31.2 (2022-06-14)
 
 **Note:** Version bump only for package @kongponents/kinputswitch
