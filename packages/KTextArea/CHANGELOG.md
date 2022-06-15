@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.31.5 (2022-06-15)
+
+
+### Reverts
+
+* Revert "fix(icons): import all icons with raw loader" ([22abf7b](https://github.com/Kong/kongponents/commit/22abf7b37452682554666d168c0ad6c592536819))
+
+
+
+
+
 ## 6.31.4 (2022-06-14)
 
 
