@@ -1,6 +1,7 @@
 import { defineUserConfig, defaultTheme, viteBundler } from 'vuepress'
 import { path } from '@vuepress/utils'
 import { searchPlugin } from '@vuepress/plugin-search'
+import { sitemapPlugin } from 'vuepress-plugin-sitemap2'
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -164,9 +165,9 @@ export default defineUserConfig({
         },
       },
     }),
-    // Currently disabled until VuePress 2 support is added
-    // ['sitemap', {
-    //   hostname: 'https://kongponents.konghq.com'
-    // }],
+    // https://vuepress-theme-hope.github.io/v2/sitemap/
+    sitemapPlugin({
+      hostname: 'https://beta.kongponents.konghq.com'
+    })
   ],
 })
