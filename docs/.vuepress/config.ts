@@ -1,6 +1,6 @@
 import { defineUserConfig, defaultTheme, viteBundler } from 'vuepress'
 import { path } from '@vuepress/utils'
-import { searchPlugin } from '@vuepress/plugin-search'
+import { docsearchPlugin } from '@vuepress/plugin-docsearch'
 import { sitemapPlugin } from 'vuepress-plugin-sitemap2'
 
 const isProd = process.env.NODE_ENV === 'production'
@@ -157,13 +157,16 @@ export default defineUserConfig({
   },
 
   plugins: [
-    searchPlugin({
-      hotKeys: ['s', '/'],
-      locales: {
-        '/': {
-          placeholder: 'Search...',
-        },
-      },
+    docsearchPlugin({
+      appId: '6MM6JXMAAD',
+      // Yes, it's fine that this search-only API Key is checked in to the repo
+      // https://docsearch.algolia.com/docs/docsearch-program/#can-i-share-the-apikey-in-my-repo
+      apiKey: 'ffea4cebb12e8556450ec6e16f7d6c7d',
+      indexName: 'kongponents',
+      placeholder: 'Search',
+      // searchParameters: {
+      //   facetFilters: ['tags:v2'],
+      // }
     }),
     // https://vuepress-theme-hope.github.io/v2/sitemap/
     sitemapPlugin({
