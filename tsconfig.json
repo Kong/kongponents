@@ -20,7 +20,7 @@
     "declaration": true,
     "declarationDir": "dist/types",
     "types": [
-      "vite/client"
+      "vite/client",
     ],
     "paths": {
       "@/*": [
