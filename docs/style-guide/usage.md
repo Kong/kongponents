@@ -24,7 +24,7 @@ Next, add the following to your Vue app entry file (e.g. `main.ts`)
 
 ```ts
 // Path may vary
-import '/node_modules/@kong/kongponents/dist/style.css'
+import '../node_modules/@kong/kongponents/dist/style.css'
 // If using Vue-CLI and webpack, you can likely use this path instead:
 // import '~@kong/kongponents/dist/style.css'
 ```
