@@ -168,7 +168,7 @@ export default defineComponent({
     }
 
     &:hover > * {
-      background-color: var(--blue-100);
+      background-color: var(--grey-200);
     }
   }
 

@@ -2,7 +2,7 @@
   <div
     v-if="isVisible"
     :class="{ 'w-100': type !== 'spinner', 'opacity-0': !isVisible }"
-    class="d-flex flex-wrap"
+    class="d-flex flex-wrap k-skeleton-container"
   >
     <CardSkeleton
       v-if="type === 'card'"
@@ -11,13 +11,16 @@
       <template #card-header>
         <slot name="card-header" />
       </template>
+
       <template #card-content>
         <slot name="card-content" />
       </template>
+
       <template #card-footer>
         <slot name="card-footer" />
       </template>
     </CardSkeleton>
+
     <TableSkeleton
       v-else-if="type === 'table'"
       :columns="tableColumns"
@@ -25,17 +28,21 @@
     >
       <slot name="default" />
     </TableSkeleton>
+
     <FormSkeleton v-else-if="type === 'form'" />
+
     <FullScreenKongSkeleton
       v-else-if="type === 'fullscreen-kong'"
       :progress="progress"
     />
+
     <KIcon
       v-else-if="type === 'spinner'"
       icon="spinner"
       size="18"
       color="#000"
     />
+
     <Skeleton v-else />
   </div>
 </template>
@@ -117,15 +124,15 @@ export default defineComponent({
 @import '@/styles/variables';
 @import '@/styles/functions';
 
-.opacity-0 .box {
+.k-skeleton-container.opacity-0 .box {
   opacity: 0;
 }
 
-.opacity-0 :deep(.kong-icon) {
+.k-skeleton-container.opacity-0 :deep(.kong-icon) {
   display: none;
 }
 
-.opacity-0.mr-2 {
+.k-skeleton-container.opacity-0.mr-2 {
   margin-right: 0 !important;
 }
 </style>
