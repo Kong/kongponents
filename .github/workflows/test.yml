@@ -41,4 +41,4 @@ jobs:
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
         PERCY_TARGET_BRANCH: main
       run: |
-        npx @percy/cli snapshot docs/.vuepress/dist/
+        npx @percy/cli snapshot docs/.vuepress/dist/ --ignore-files "**/404.html"
