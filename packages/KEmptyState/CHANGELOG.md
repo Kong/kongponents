@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.31.6 (2022-06-22)
+
+**Note:** Version bump only for package @kongponents/kemptystate
+
+
+
+
+
 ## 6.31.5 (2022-06-15)
 
 
