@@ -1,19 +1,22 @@
 <template>
   <div
     id="editable-wrapper"
-    class="k-inline-edit">
+    class="k-inline-edit"
+  >
     <input
       v-if="isEditing"
       ref="input"
-      :style="styles"
       v-model="inputText"
+      :style="styles"
       class="k-input"
       @blur="handleSave"
-      @keyup.enter="$event.target.blur()">
+      @keyup.enter="$event.target.blur()"
+    >
     <div
       v-if="!isEditing"
       id="element-content-wrapper"
-      @click="handleClick">
+      @click="handleClick"
+    >
       <slot v-if="!isEditing" />
     </div>
   </div>
@@ -115,10 +118,12 @@ Example usage:
 .k-inline-edit {
   --padding: var(--spacing-xxs) var(--spacing-xs);
   box-sizing: border-box;
+
   > div {
     display: inline-flex;
     width: 100%;
     cursor: text;
+
     > * {
       width: 100%;
       border: 1px solid transparent;
@@ -129,14 +134,17 @@ Example usage:
       overflow: hidden;
       transition: background-color 200ms ease;
     }
+
     &:hover > * {
-      background-color: var(--blue-100);
+      background-color: var(--grey-200);
     }
   }
+
   .k-input {
     display: inline-flex;
     width: 100%;
     padding: var(--padding);
+
     &:focus,
     &:hover {
       background-color: var(--white);
