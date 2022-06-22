@@ -595,7 +595,7 @@ export default defineComponent({
       total.value = props.paginationTotalItems || res.total || res.data.length
 
       if (props.paginationType === 'offset') {
-        if (!res.pagination?.offset) {
+        if (!res.pagination || !res.pagination.offset) {
           offset.value = null
         } else {
           offset.value = res.pagination.offset

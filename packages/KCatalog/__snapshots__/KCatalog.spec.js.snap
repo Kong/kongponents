@@ -106,28 +106,30 @@ exports[`KCatalog general can change card sizes - large 1`] = `
     </section>
     <div class="card-pagination">
       <nav aria-label="Pagination Navigation" data-testid="k-pagination-container" class="pa-1">
-        <div class="card-pagination-bar"><span data-testid="visible-items" class="pagination-text"><span class="pagination-text-pages">1 to 5</span>
-          of 5
-          </span>
-          <ul class="pagination-button-container">
-            <li data-testid="prev-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><span class="kong-icon kong-icon-arrowLeft"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+        <div class="card-pagination-bar">
+          <div><span data-testid="visible-items" class="pagination-text"><span class="pagination-text-pages">1 to 5</span>
+            of 5
+            </span>
+            <ul class="pagination-button-container">
+              <li data-testid="prev-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><span class="kong-icon kong-icon-arrowLeft"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Back</title>
   <path d="M12.17 8.75H3M6.75 5 3 8.75l3.75 3.75" fill="none" stroke="var(--grey-500)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
-            <!---->
-            <!---->
-            <li data-testid="page-1-btn" class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
-                1
-              </a></li>
-            <!---->
-            <!---->
-            <li data-testid="next-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+              <!---->
+              <!---->
+              <li data-testid="page-1-btn" class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
+                  1
+                </a></li>
+              <!---->
+              <!---->
+              <li data-testid="next-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Forward</title>
   <path d="M3 8.75h9.17M8.42 5l3.75 3.75-3.75 3.75" fill="none" stroke="var(--grey-500)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
-          </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"><!----> 15 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="2 2 15 15" fill="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+            </ul>
+          </div> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"><!----> 15 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="2 2 15 15" fill="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Expand</title>
   <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
@@ -272,28 +274,30 @@ exports[`KCatalog general can change card sizes - small 1`] = `
     </section>
     <div class="card-pagination">
       <nav aria-label="Pagination Navigation" data-testid="k-pagination-container" class="pa-1">
-        <div class="card-pagination-bar"><span data-testid="visible-items" class="pagination-text"><span class="pagination-text-pages">1 to 5</span>
-          of 5
-          </span>
-          <ul class="pagination-button-container">
-            <li data-testid="prev-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><span class="kong-icon kong-icon-arrowLeft"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+        <div class="card-pagination-bar">
+          <div><span data-testid="visible-items" class="pagination-text"><span class="pagination-text-pages">1 to 5</span>
+            of 5
+            </span>
+            <ul class="pagination-button-container">
+              <li data-testid="prev-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><span class="kong-icon kong-icon-arrowLeft"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Back</title>
   <path d="M12.17 8.75H3M6.75 5 3 8.75l3.75 3.75" fill="none" stroke="var(--grey-500)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
-            <!---->
-            <!---->
-            <li data-testid="page-1-btn" class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
-                1
-              </a></li>
-            <!---->
-            <!---->
-            <li data-testid="next-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+              <!---->
+              <!---->
+              <li data-testid="page-1-btn" class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
+                  1
+                </a></li>
+              <!---->
+              <!---->
+              <li data-testid="next-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Forward</title>
   <path d="M3 8.75h9.17M8.42 5l3.75 3.75-3.75 3.75" fill="none" stroke="var(--grey-500)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
-          </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"><!----> 15 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="2 2 15 15" fill="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+            </ul>
+          </div> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"><!----> 15 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="2 2 15 15" fill="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Expand</title>
   <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
@@ -358,28 +362,30 @@ exports[`KCatalog general can disable truncation 1`] = `
     </section>
     <div class="card-pagination">
       <nav aria-label="Pagination Navigation" data-testid="k-pagination-container" class="pa-1">
-        <div class="card-pagination-bar"><span data-testid="visible-items" class="pagination-text"><span class="pagination-text-pages">1 to 1</span>
-          of 1
-          </span>
-          <ul class="pagination-button-container">
-            <li data-testid="prev-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><span class="kong-icon kong-icon-arrowLeft"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+        <div class="card-pagination-bar">
+          <div><span data-testid="visible-items" class="pagination-text"><span class="pagination-text-pages">1 to 1</span>
+            of 1
+            </span>
+            <ul class="pagination-button-container">
+              <li data-testid="prev-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><span class="kong-icon kong-icon-arrowLeft"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Back</title>
   <path d="M12.17 8.75H3M6.75 5 3 8.75l3.75 3.75" fill="none" stroke="var(--grey-500)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
-            <!---->
-            <!---->
-            <li data-testid="page-1-btn" class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
-                1
-              </a></li>
-            <!---->
-            <!---->
-            <li data-testid="next-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+              <!---->
+              <!---->
+              <li data-testid="page-1-btn" class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
+                  1
+                </a></li>
+              <!---->
+              <!---->
+              <li data-testid="next-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Forward</title>
   <path d="M3 8.75h9.17M8.42 5l3.75 3.75-3.75 3.75" fill="none" stroke="var(--grey-500)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
-          </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"><!----> 15 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="2 2 15 15" fill="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+            </ul>
+          </div> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"><!----> 15 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="2 2 15 15" fill="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Expand</title>
   <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
@@ -444,28 +450,30 @@ exports[`KCatalog general handles truncation 1`] = `
     </section>
     <div class="card-pagination">
       <nav aria-label="Pagination Navigation" data-testid="k-pagination-container" class="pa-1">
-        <div class="card-pagination-bar"><span data-testid="visible-items" class="pagination-text"><span class="pagination-text-pages">1 to 1</span>
-          of 1
-          </span>
-          <ul class="pagination-button-container">
-            <li data-testid="prev-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><span class="kong-icon kong-icon-arrowLeft"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+        <div class="card-pagination-bar">
+          <div><span data-testid="visible-items" class="pagination-text"><span class="pagination-text-pages">1 to 1</span>
+            of 1
+            </span>
+            <ul class="pagination-button-container">
+              <li data-testid="prev-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><span class="kong-icon kong-icon-arrowLeft"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Back</title>
   <path d="M12.17 8.75H3M6.75 5 3 8.75l3.75 3.75" fill="none" stroke="var(--grey-500)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
-            <!---->
-            <!---->
-            <li data-testid="page-1-btn" class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
-                1
-              </a></li>
-            <!---->
-            <!---->
-            <li data-testid="next-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+              <!---->
+              <!---->
+              <li data-testid="page-1-btn" class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
+                  1
+                </a></li>
+              <!---->
+              <!---->
+              <li data-testid="next-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Forward</title>
   <path d="M3 8.75h9.17M8.42 5l3.75 3.75-3.75 3.75" fill="none" stroke="var(--grey-500)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
-          </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"><!----> 15 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="2 2 15 15" fill="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+            </ul>
+          </div> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"><!----> 15 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="2 2 15 15" fill="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Expand</title>
   <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
@@ -510,28 +518,30 @@ exports[`KCatalog general matches snapshot 1`] = `
   <div class="k-catalog-page k-card-medium">
     <div class="card-pagination">
       <nav aria-label="Pagination Navigation" data-testid="k-pagination-container" class="pa-1">
-        <div class="card-pagination-bar"><span data-testid="visible-items" class="pagination-text"><span class="pagination-text-pages">1 to 0</span>
-          of 0
-          </span>
-          <ul class="pagination-button-container">
-            <li data-testid="prev-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><span class="kong-icon kong-icon-arrowLeft"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div class="card-pagination-bar">
+          <div><span data-testid="visible-items" class="pagination-text"><span class="pagination-text-pages">1 to 0</span>
+            of 0
+            </span>
+            <ul class="pagination-button-container">
+              <li data-testid="prev-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><span class="kong-icon kong-icon-arrowLeft"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
   <title>Back</title>
   <path d="M12.17 8.75H3M6.75 5 3 8.75l3.75 3.75" fill="none" stroke="#A3BBCC" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
-            <!---->
-            <!---->
-            <li data-testid="page-1-btn" class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
-                1
-              </a></li>
-            <!---->
-            <!---->
-            <li data-testid="next-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!---->
+              <!---->
+              <li data-testid="page-1-btn" class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
+                  1
+                </a></li>
+              <!---->
+              <!---->
+              <li data-testid="next-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
   <title>Forward</title>
   <path d="M3 8.75h9.17M8.42 5l3.75 3.75-3.75 3.75" fill="none" stroke="#A3BBCC" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
-          </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"><!----> 15 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            </ul>
+          </div> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"><!----> 15 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
   <title>Expand</title>
   <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="#A3BBCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
@@ -678,28 +688,30 @@ exports[`KCatalog general renders proper cards when using props 1`] = `
     </section>
     <div class="card-pagination">
       <nav aria-label="Pagination Navigation" data-testid="k-pagination-container" class="pa-1">
-        <div class="card-pagination-bar"><span data-testid="visible-items" class="pagination-text"><span class="pagination-text-pages">1 to 5</span>
-          of 5
-          </span>
-          <ul class="pagination-button-container">
-            <li data-testid="prev-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><span class="kong-icon kong-icon-arrowLeft"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+        <div class="card-pagination-bar">
+          <div><span data-testid="visible-items" class="pagination-text"><span class="pagination-text-pages">1 to 5</span>
+            of 5
+            </span>
+            <ul class="pagination-button-container">
+              <li data-testid="prev-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><span class="kong-icon kong-icon-arrowLeft"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Back</title>
   <path d="M12.17 8.75H3M6.75 5 3 8.75l3.75 3.75" fill="none" stroke="var(--grey-500)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
-            <!---->
-            <!---->
-            <li data-testid="page-1-btn" class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
-                1
-              </a></li>
-            <!---->
-            <!---->
-            <li data-testid="next-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+              <!---->
+              <!---->
+              <li data-testid="page-1-btn" class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
+                  1
+                </a></li>
+              <!---->
+              <!---->
+              <li data-testid="next-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Forward</title>
   <path d="M3 8.75h9.17M8.42 5l3.75 3.75-3.75 3.75" fill="none" stroke="var(--grey-500)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
-          </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"><!----> 15 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="2 2 15 15" fill="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+            </ul>
+          </div> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"><!----> 15 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="2 2 15 15" fill="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Expand</title>
   <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
@@ -758,28 +770,30 @@ exports[`KCatalog general renders slots when passed 1`] = `
   <div class="k-catalog-page k-card-medium"><span>Look mah! No props (except testMode)</span>
     <div class="card-pagination">
       <nav aria-label="Pagination Navigation" data-testid="k-pagination-container" class="pa-1">
-        <div class="card-pagination-bar"><span data-testid="visible-items" class="pagination-text"><span class="pagination-text-pages">1 to 0</span>
-          of 0
-          </span>
-          <ul class="pagination-button-container">
-            <li data-testid="prev-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><span class="kong-icon kong-icon-arrowLeft"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div class="card-pagination-bar">
+          <div><span data-testid="visible-items" class="pagination-text"><span class="pagination-text-pages">1 to 0</span>
+            of 0
+            </span>
+            <ul class="pagination-button-container">
+              <li data-testid="prev-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><span class="kong-icon kong-icon-arrowLeft"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
   <title>Back</title>
   <path d="M12.17 8.75H3M6.75 5 3 8.75l3.75 3.75" fill="none" stroke="#A3BBCC" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
-            <!---->
-            <!---->
-            <li data-testid="page-1-btn" class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
-                1
-              </a></li>
-            <!---->
-            <!---->
-            <li data-testid="next-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!---->
+              <!---->
+              <li data-testid="page-1-btn" class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
+                  1
+                </a></li>
+              <!---->
+              <!---->
+              <li data-testid="next-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
   <title>Forward</title>
   <path d="M3 8.75h9.17M8.42 5l3.75 3.75-3.75 3.75" fill="none" stroke="#A3BBCC" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
-          </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"><!----> 15 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            </ul>
+          </div> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"><!----> 15 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
   <title>Expand</title>
   <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="#A3BBCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
@@ -840,28 +854,30 @@ exports[`KCatalog general renders slotted cards when passed 1`] = `
     </section>
     <div class="card-pagination">
       <nav aria-label="Pagination Navigation" data-testid="k-pagination-container" class="pa-1">
-        <div class="card-pagination-bar"><span data-testid="visible-items" class="pagination-text"><span class="pagination-text-pages">1 to 1</span>
-          of 1
-          </span>
-          <ul class="pagination-button-container">
-            <li data-testid="prev-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><span class="kong-icon kong-icon-arrowLeft"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+        <div class="card-pagination-bar">
+          <div><span data-testid="visible-items" class="pagination-text"><span class="pagination-text-pages">1 to 1</span>
+            of 1
+            </span>
+            <ul class="pagination-button-container">
+              <li data-testid="prev-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><span class="kong-icon kong-icon-arrowLeft"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Back</title>
   <path d="M12.17 8.75H3M6.75 5 3 8.75l3.75 3.75" fill="none" stroke="var(--grey-500)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
-            <!---->
-            <!---->
-            <li data-testid="page-1-btn" class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
-                1
-              </a></li>
-            <!---->
-            <!---->
-            <li data-testid="next-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+              <!---->
+              <!---->
+              <li data-testid="page-1-btn" class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
+                  1
+                </a></li>
+              <!---->
+              <!---->
+              <li data-testid="next-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Forward</title>
   <path d="M3 8.75h9.17M8.42 5l3.75 3.75-3.75 3.75" fill="none" stroke="var(--grey-500)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
-          </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"><!----> 15 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="2 2 15 15" fill="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+            </ul>
+          </div> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"><!----> 15 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="2 2 15 15" fill="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Expand</title>
   <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
@@ -906,28 +922,30 @@ exports[`KCatalog states displays a loading skeletion when the "isLoading" prop 
   <div class="k-catalog-page k-card-medium">
     <div class="card-pagination">
       <nav aria-label="Pagination Navigation" data-testid="k-pagination-container" class="pa-1">
-        <div class="card-pagination-bar"><span data-testid="visible-items" class="pagination-text"><span class="pagination-text-pages">1 to 0</span>
-          of 0
-          </span>
-          <ul class="pagination-button-container">
-            <li data-testid="prev-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><span class="kong-icon kong-icon-arrowLeft"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+        <div class="card-pagination-bar">
+          <div><span data-testid="visible-items" class="pagination-text"><span class="pagination-text-pages">1 to 0</span>
+            of 0
+            </span>
+            <ul class="pagination-button-container">
+              <li data-testid="prev-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the previous page"><span class="kong-icon kong-icon-arrowLeft"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Back</title>
   <path d="M12.17 8.75H3M6.75 5 3 8.75l3.75 3.75" fill="none" stroke="var(--grey-500)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
-            <!---->
-            <!---->
-            <li data-testid="page-1-btn" class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
-                1
-              </a></li>
-            <!---->
-            <!---->
-            <li data-testid="next-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+              <!---->
+              <!---->
+              <li data-testid="page-1-btn" class="pagination-button active"><a aria-label="Go to page 1" aria-current="page" href="#">
+                  1
+                </a></li>
+              <!---->
+              <!---->
+              <li data-testid="next-btn" class="pagination-button square disabled"><a href="#" aria-label="Go to the next page"><span class="kong-icon kong-icon-arrowRight"><svg viewBox="0 0 16 14" fill="var(--grey-500)" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Forward</title>
   <path d="M3 8.75h9.17M8.42 5l3.75 3.75-3.75 3.75" fill="none" stroke="var(--grey-500)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </span></a></li>
-          </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"><!----> 15 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="2 2 15 15" fill="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+            </ul>
+          </div> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link has-caret" id="test-select-text-id-1234" style="width: 200px;"><!----> 15 items per page <span class="kong-icon kong-icon-chevronDown caret has-caret"><svg viewBox="2 2 15 15" fill="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
   <title>Expand</title>
   <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
