@@ -1,3 +1,10 @@
+# [7.0.0-beta.49](https://github.com/Kong/kongponents/compare/v7.0.0-beta.48...v7.0.0-beta.49) (2022-06-22)
+
+
+### Bug Fixes
+
+* **kinlineedit:** hover bg color [beta] ([02e17b1](https://github.com/Kong/kongponents/commit/02e17b1d1c341e06dc9cc30a39914c6ca0af7208))
+
 # [7.0.0-beta.48](https://github.com/Kong/kongponents/compare/v7.0.0-beta.47...v7.0.0-beta.48) (2022-06-13)
 
 
