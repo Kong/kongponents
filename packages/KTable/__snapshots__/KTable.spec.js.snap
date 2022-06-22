@@ -376,7 +376,7 @@ exports[`KTable sorting should have sortable class when passed 1`] = `
 
 exports[`KTable states displays a loading skeletion when the "isLoading" prop is set to true" 1`] = `
 <div>
-  <div class="d-flex flex-wrap w-100 opacity-0">
+  <div class="d-flex flex-wrap k-skeleton-container w-100 opacity-0">
     <div class="skeleton-table-wrapper">
       <div class="skeleton-table-row">
         <div class="box width-10 height-1 mr-6 skeleton-cell"></div>

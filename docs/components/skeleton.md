@@ -26,7 +26,7 @@ state. The following example shows a Form type KSKeleton.
 
 - `delay-milliseconds`
 
-The number of milliseconds to wait before showing the skeleton state. Defaults to 750.
+The number of milliseconds to wait before showing the skeleton state. Defaults to 0.
 
 <template>
   <Komponent :data="{ isLoading: false }" v-slot="{ data }">
