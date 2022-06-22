@@ -243,6 +243,7 @@ object supporting the following properties:
 - Pagination support:
   - `page`: the currently visible page - starts at `1`
   - `pageSize`: the number of items to display per page
+  - `offset`: the value of the offset for offset-based pagination. `offset` **MUST** be included in the fetcher params for offset-based pagination to work properly.
 - Sort support:
   - `sortColumnKey`: the column to sort by's `key` defined in the `headers` prop
   - `sortColumnOrder`: can be 'asc' or 'desc'
@@ -482,6 +483,10 @@ Pass in an array of page sizes for the page size dropdown. If not provided will 
 ```js
 [15, 30, 50, 75, 100]
 ```
+
+### paginationType
+
+Pass in the type of pagination to be used. Options are `default` (page/pageSize) or `offset` (offset/pageSize)
 
 ## Row Attributes
 
