@@ -36,8 +36,9 @@ jobs:
       run: |
         yarn test
 
-    - name: visual-regression-test
-      run: |
-        npx percy snapshot docs/.vuepress/dist/ --ignore-files "**/404.html"
+    - name: Trigger Percy visual regression test for docs
       env:
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+        PERCY_TARGET_BRANCH: main
+      run: |
+        npx @percy/cli snapshot docs/.vuepress/dist/ --exclude "**/404.html"

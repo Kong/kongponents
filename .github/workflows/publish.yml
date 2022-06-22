@@ -10,7 +10,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Read .nvmrc
       run: echo ::set-output name=NVMRC::$(cat .nvmrc)
@@ -34,18 +34,11 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
 
-    - name: visual-regression-test
-      run: |
-        yarn build
-        npx percy snapshot docs/.vuepress/dist/ --ignore-files "**/404.html"
-      env:
-        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-
   publish:
     needs: test
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
           token: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
