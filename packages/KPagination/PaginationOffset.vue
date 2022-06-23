@@ -53,13 +53,6 @@ export default {
     nextButtonDisabled: {
       type: Boolean,
       default: false
-    },
-    /**
-     * Test mode - for testing only, strips out generated ids
-     */
-    testMode: {
-      type: Boolean,
-      default: false
     }
   },
   methods: {

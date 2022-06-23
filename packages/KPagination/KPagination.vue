@@ -171,7 +171,8 @@ export default {
     },
     paginationType: {
       type: String,
-      default: 'default'
+      default: 'default',
+      validator: (value) => ['default', 'offset'].includes(value)
     },
     offsetPrevButtonDisabled: {
       type: Boolean,
