@@ -174,15 +174,15 @@ export default defineComponent({
     },
     paginationType: {
       type: String as PropType<'default' | 'offset'>,
-      default: 'default'
+      default: 'default',
     },
     offsetPrevButtonDisabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     offsetNextButtonDisabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     /**
      * Test mode - for testing only, strips out generated ids

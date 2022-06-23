@@ -487,7 +487,7 @@ export default defineComponent({
     },
     paginationType: {
       type: String as PropType<'default' | 'offset'>,
-      default: 'default'
+      default: 'default',
     },
     /**
      * for testing only, strips out generated ids and avoid loading state in tests.
@@ -509,7 +509,7 @@ export default defineComponent({
       query: '',
       sortColumnKey: '',
       sortColumnOrder: 'desc',
-      offset: null
+      offset: null,
     }
     const data = ref([])
     const tableHeaders: Ref<TableHeader[]> = ref([])
@@ -828,7 +828,7 @@ export default defineComponent({
       getNextOffsetHandler,
       getPrevOffsetHandler,
       previousOffset,
-      offset
+      offset,
     }
   },
 })
