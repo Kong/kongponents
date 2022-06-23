@@ -169,10 +169,15 @@
         :initial-page-size="pageSize"
         :disable-page-jump="disablePaginationPageJump"
         :test-mode="testMode ? true : false"
+        :pagination-type="paginationType"
+        :offset-prev-button-disabled="!previousOffset"
+        :offset-next-button-disabled="!offset"
         class="pa-1"
         data-testid="k-table-pagination"
         @page-changed="pageChangeHandler"
         @page-size-changed="pageSizeChangeHandler"
+        @getNextOffset="getNextOffsetHandler"
+        @getPrevOffset="getPrevOffsetHandler"
       />
     </section>
   </div>
@@ -480,6 +485,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    paginationType: {
+      type: String as PropType<'default' | 'offset'>,
+      default: 'default'
+    },
     /**
      * for testing only, strips out generated ids and avoid loading state in tests.
      * 'true' - no id's no loading
@@ -500,6 +509,7 @@ export default defineComponent({
       query: '',
       sortColumnKey: '',
       sortColumnOrder: 'desc',
+      offset: null
     }
     const data = ref([])
     const tableHeaders: Ref<TableHeader[]> = ref([])
@@ -511,6 +521,8 @@ export default defineComponent({
     const filterQuery = ref('')
     const sortColumnKey = ref('')
     const sortColumnOrder = ref('desc')
+    const offset: Ref<string | null> = ref(null)
+    const offsets: Ref<Array<any>> = ref([])
     const isClickable = ref(false)
     const hasInitialized = ref(false)
     /**
@@ -633,9 +645,22 @@ export default defineComponent({
         query: searchInput || filterQuery.value,
         sortColumnKey: sortColumnKey.value,
         sortColumnOrder: sortColumnOrder.value,
+        offset: offset.value,
       })
       data.value = res.data
       total.value = props.paginationTotalItems || res.total || res.data?.length
+
+      if (props.paginationType === 'offset') {
+        if (!res.pagination?.offset) {
+          offset.value = null
+        } else {
+          offset.value = res.pagination.offset
+
+          if (!offsets.value[page.value]) {
+            offsets.value.push(res.pagination.offset)
+          }
+        }
+      }
 
       // get data
       if (props.fetcher) {
@@ -665,6 +690,11 @@ export default defineComponent({
       sortColumnKey.value = fetcherParams.sortColumnKey
       sortColumnOrder.value = fetcherParams.sortColumnOrder
 
+      if (props.paginationType === 'offset') {
+        offset.value = fetcherParams.offset
+        offsets.value.push(fetcherParams.offset)
+      }
+
       // get table headers
       if (props.headers && props.headers.length) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -676,6 +706,8 @@ export default defineComponent({
 
       hasInitialized.value = true
     }
+
+    const previousOffset = computed((): string | null => offsets.value[page.value - 1])
 
     // once `initData()` finishes fetch data
     const tableFetcherCacheKey = computed(() => {
@@ -736,6 +768,8 @@ export default defineComponent({
     }
     const pageSizeChangeHandler = ({ pageSize: newPageSize }: Record<string, number>) => {
       pageSize.value = newPageSize
+      offsets.value = [null]
+      offset.value = null
     }
     const scrollHandler = (event: any) => {
       if (event && event.target && event.target.scrollTop) {
@@ -745,6 +779,16 @@ export default defineComponent({
           isScrolled.value = !isScrolled.value
         }
       }
+    }
+
+    const getNextOffsetHandler = (): void => {
+      page.value++
+      revalidate()
+    }
+    const getPrevOffsetHandler = (): void => {
+      page.value--
+      offset.value = previousOffset.value
+      revalidate()
     }
 
     const getTestIdString = (message: string) => {
@@ -781,6 +825,10 @@ export default defineComponent({
       total,
       tableId,
       getTestIdString,
+      getNextOffsetHandler,
+      getPrevOffsetHandler,
+      previousOffset,
+      offset
     }
   },
 })
