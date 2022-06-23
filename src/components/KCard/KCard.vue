@@ -194,6 +194,7 @@ export default defineComponent({
 
   .k-card-title h4 {
     margin: 0;
+    padding: 0;
     font-size: var(--KCardTitleFontSize, 20px);
     font-weight: 500;
     color: var(--KCardTitleColor, var(--black-500));
