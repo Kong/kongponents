@@ -1,3 +1,10 @@
+# [7.0.0-beta.50](https://github.com/Kong/kongponents/compare/v7.0.0-beta.49...v7.0.0-beta.50) (2022-06-23)
+
+
+### Bug Fixes
+
+* **kcard:** add padding top 0 to title ([6c159e6](https://github.com/Kong/kongponents/commit/6c159e67b09e83ccb01e40e0a20e10637bd4f97e))
+
 # [7.0.0-beta.49](https://github.com/Kong/kongponents/compare/v7.0.0-beta.48...v7.0.0-beta.49) (2022-06-22)
 
 
