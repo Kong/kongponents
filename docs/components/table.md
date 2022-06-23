@@ -488,6 +488,16 @@ Pass in an array of page sizes for the page size dropdown. If not provided will 
 
 Pass in the type of pagination to be used. Options are `default` (page/pageSize) or `offset` (offset/pageSize)
 
+```vue
+<template>
+  <KTable
+    :fetcher="fetcher"
+    :headers="headers"
+    pagination-type="offset"
+  />
+</template>
+```
+
 ## Row Attributes
 
 A prop to add custom properties to individual rows. The row object is passed as a param.
@@ -1250,19 +1260,25 @@ https://kongponents.dev/api/components?_page=1&_limit=10&_sort=name&_order=desc
 // Example Fetcher Function
 
 fetcher(payload) {
+  const { pageSize, page, query, sortColumnKey, sortColumnOrder, offset } = payload
+
   const params = {
-    _limit: payload.pageSize,
-    _page: payload.page
+    _limit: pageSize,
+    _page: page
   }
 
   if (query) {
-    params.q = payload.query
+    params.q = query
     params._page = 1
   }
 
   if (sortKey) {
-    params._sort = payload.sortColumnKey
-    params._order = payload.sortColumnOrder
+    params._sort = sortColumnKey
+    params._order = sortColumnOrder
+  }
+
+  if (offset) {
+    params._offset = offset
   }
 
   return axios.get('/user_list', {
