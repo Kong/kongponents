@@ -2,9 +2,6 @@
 pageClass: table-docs
 ---
 
-<!-- The markdownlint disable below is necessary due to some syntax in the <script> tags - `yarn lint` will not pass without this -->
-<!-- markdownlint-disable MD011 MD037 -->
-
 # Table
 
 Pass a fetcher function to build a slot-able table.
@@ -1336,6 +1333,9 @@ An Example of changing the hover background might look like.
 }
 </style>
 ```
+
+<!-- The markdownlint disable below is necessary due to some syntax in the <script> tags - `yarn lint` will not pass without this -->
+<!-- markdownlint-disable MD011 MD037 -->
 
 <script>
 export default {
