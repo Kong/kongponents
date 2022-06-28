@@ -3,7 +3,7 @@
     aria-label="Pagination Navigation"
     data-testid="k-pagination-container">
     <div class="card-pagination-bar">
-      <div v-if="paginationType === 'default'">
+      <template v-if="paginationType === 'default'">
         <span
           class="pagination-text"
           data-testid="visible-items">
@@ -90,7 +90,7 @@
             </a>
           </li>
         </ul>
-      </div>
+      </template>
       <PaginationOffset
         v-else
         :prev-button-disabled="offsetPrevButtonDisabled"
@@ -357,97 +357,85 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '~@kongponents/styles/variables';
-
 .card-pagination-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 4px;
-
-  .pagination-text {
-    font-size: 14px;
-    color: var(--grey-500);
-    min-width: 115px;
-    font-weight: 400;
-
-    &-pages {
-      color: black;
-    }
+}
+.pagination-text {
+  font-size: 14px;
+  color: var(--grey-500);
+  min-width: 115px;
+  font-weight: 400;
+  &-pages {
+    color: black;
   }
-
-  .page-size-select {
-    --KButtonFontSize: var(--type-sm);
-    color: var(--blue-400);
-    font-weight: 500;
+}
+.page-size-select {
+  --KButtonFontSize: var(--type-sm);
+  color: var(--blue-400);
+  font-weight: 500;
+  line-height: 20px;
+}
+.pagination-button-container {
+  display: flex;
+  list-style: none;
+  text-align: center;
+  a {
+    text-decoration: none !important;
+    font-weight: initial;
+    display: block;
+  }
+  .pagination-button {
+    align-self: center;
+    width: 32px;
+    height: 32px;
     line-height: 20px;
-  }
-
-  .pagination-button-container {
-    display: flex;
-    list-style: none;
-    text-align: center;
-
-    a {
-      text-decoration: none !important;
-      font-weight: initial;
-      display: block;
+    font-size: 12px;
+    font-weight: initial;
+    color: var(--grey-500);
+    border: 1px solid var(--grey-300);
+    background-color: white;
+    border-radius: 4px;
+    margin: 0 6px;
+    cursor: pointer;
+    a, div {
+      padding: 6px;
     }
-
-    .pagination-button {
-      align-self: center;
-      width: 32px;
-      height: 32px;
-      line-height: 20px;
-      font-size: 12px;
-      font-weight: initial;
-      color: var(--grey-500);
-      border: 1px solid var(--grey-300);
-      background-color: white;
+    &.square {
+      border: none;
+    }
+    &.placeholder {
+      cursor: initial;
+    }
+    &:focus:not(.placeholder),
+    &:hover:not(.placeholder) {
+      color: var(--blue-500);
+      border-color: var(--blue-500);
       border-radius: 4px;
-      margin: 0 6px;
-      cursor: pointer;
-
-      a, div {
-        padding: 6px;
-      }
-
-      &.square {
-        border: none;
-      }
-
-      &.placeholder {
-        cursor: initial;
-      }
-
-      &:focus:not(.placeholder),
-      &:hover:not(.placeholder) {
-        color: var(--blue-500);
-        border-color: var(--blue-500);
-        border-radius: 4px;
-      }
-
-      &.disabled:focus:not(.placeholder),
-      &.disabled:hover:not(.placeholder) {
-        color: var(--black-45);
-        border-color: var(--grey-200);
-      }
-
-      &.active {
-        outline: none;
-        color: var(--blue-500);
-        border-color: var(--blue-200);
-        border-radius: 4px;
-        background-color: var(--blue-100);
-      }
+    }
+    &.disabled:focus:not(.placeholder),
+    &.disabled:hover:not(.placeholder) {
+      color: var(--black-45);
+      border-color: var(--grey-200);
+    }
+    &.active {
+      outline: none;
+      color: var(--blue-500);
+      border-color: var(--blue-200);
+      border-radius: 4px;
+      background-color: var(--blue-100);
     }
   }
+}
+</style>
 
-  .page-size-select {
-    .k-select-pop-button[x-placement^="top"] {
-      margin-bottom: 2px;
-    }
+<style lang="scss">
+.page-size-select {
+  .k-select-pop-button[x-placement^="top"] {
+    margin-bottom: 2px;
   }
 }
 </style>
