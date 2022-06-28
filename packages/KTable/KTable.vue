@@ -733,13 +733,11 @@ export default defineComponent({
 
     const getNextOffsetHandler = () => {
       page.value++
-      revalidate()
     }
 
     const getPrevOffsetHandler = () => {
       page.value--
       offset.value = previousOffset.value
-      revalidate()
     }
 
     watch(() => props.searchInput, (newValue) => {
