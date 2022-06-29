@@ -119,7 +119,7 @@
 <script>
 import KIcon from '@kongponents/kicon/KIcon.vue'
 import KSelect from '@kongponents/kselect/KSelect.vue'
-import PaginationOffset from '@kongponents/kpagination/PaginationOffset.vue'
+import PaginationOffset from './PaginationOffset.vue'
 
 export default {
   name: 'KPagination',
