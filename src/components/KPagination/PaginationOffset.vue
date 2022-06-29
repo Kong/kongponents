@@ -90,3 +90,52 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+@import '@/styles/variables';
+.pagination-button-container {
+  display: flex;
+  list-style: none;
+  text-align: center;
+  a {
+    text-decoration: none !important;
+    font-weight: initial;
+    display: block;
+  }
+  .pagination-button {
+    align-self: center;
+    width: 32px;
+    height: 32px;
+    line-height: 20px;
+    font-size: 12px;
+    font-weight: initial;
+    color: var(--grey-500);
+    border: 1px solid var(--grey-300);
+    background-color: white;
+    border-radius: 4px;
+    margin: 0 6px;
+    cursor: pointer;
+    a, div {
+      padding: 6px;
+    }
+    &:focus,
+    &:hover {
+      color: var(--blue-500);
+      border-color: var(--blue-500);
+      border-radius: 4px;
+    }
+    &.disabled:focus,
+    &.disabled:hover {
+      color: var(--black-45);
+      border-color: var(--grey-200);
+    }
+    &.active {
+      outline: none;
+      color: var(--blue-500);
+      border-color: var(--blue-200);
+      border-radius: 4px;
+      background-color: var(--blue-100);
+    }
+  }
+}
+</style>
