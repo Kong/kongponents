@@ -7,7 +7,8 @@
   "source": "KPagination.vue",
   "files": [
     "dist",
-    "KPagination.vue"
+    "KPagination.vue",
+    "*.vue"
   ],
   "repository": {
     "type": "git",
