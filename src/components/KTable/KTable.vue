@@ -488,7 +488,7 @@ export default defineComponent({
     paginationType: {
       type: String as PropType<'default' | 'offset'>,
       default: 'default',
-      validator: (value: string) => ['default', 'offset'].includes(value)
+      validator: (value: string) => ['default', 'offset'].includes(value),
     },
     /**
      * for testing only, strips out generated ids and avoid loading state in tests.

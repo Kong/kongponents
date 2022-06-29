@@ -175,7 +175,7 @@ export default defineComponent({
     paginationType: {
       type: String as PropType<'default' | 'offset'>,
       default: 'default',
-      validator: (value: string) => ['default', 'offset'].includes(value)
+      validator: (value: string) => ['default', 'offset'].includes(value),
     },
     offsetPrevButtonDisabled: {
       type: Boolean,
