@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.32.2 (2022-06-29)
+
+
+### Bug Fixes
+
+* **kpagination:** fix page size change and import bugs ([#668](https://github.com/Kong/kongponents/issues/668)) ([b8f6518](https://github.com/Kong/kongponents/commit/b8f651899529ce83dc3c3a2238176f5c443520ec))
+
+
+
+
+
 ## 6.32.1 (2022-06-29)
 
 
