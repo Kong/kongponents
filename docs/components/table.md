@@ -1416,42 +1416,36 @@ for (let i = ((page-1)* pageSize); i < limit; i++) {
 
     async generateOffsetPaginationTableData(pgSize) {
       const pageSize = pgSize || this.offsetPaginationPageSize
+      const data = []
+      const offsetObj = {}
+      const offsetVal = 'offset'
 
-      function generateOffsetObj () {
-        const data = []
-        const offsetObj = {}
-        const offsetVal = 'offset'
-
-        for (let i = 0; i < 50; i++) {
-          data.push({
-            id: `08cc7d81-a9d8-4ae1-a42f-8d4e5a919d0${i}`,
-            version: '2.8.0.0-enterprise-edition',
-            hostname: `99e591ae377${i}`,
-            last_ping: 1648855072,
-            connected: 'Connected',
-            last_seen: `${i} days ago`
-          })
-        }
-
-        const totalPages = Math.ceil(data.length / pageSize)
-
-        for (let i = 0; i < totalPages; i++) {
-          // markdownlint-disable-next-line
-          const start = i * pageSize
-          const end = pageSize * (i + 1)
-
-          offsetObj[`${offsetVal}_${i}`] = { data: [], pagination: { offset: '' } }
-          offsetObj[`${offsetVal}_${i}`].data = data.slice(start, end)
-
-          if (i < totalPages - 1) {
-            offsetObj[`${offsetVal}_${i}`].pagination.offset = `${offsetVal}_${i + 1}`
-          }
-        }
-
-        return offsetObj
+      for (let i = 0; i < 50; i++) {
+        data.push({
+          id: `08cc7d81-a9d8-4ae1-a42f-8d4e5a919d0${i}`,
+          version: '2.8.0.0-enterprise-edition',
+          hostname: `99e591ae377${i}`,
+          last_ping: 1648855072,
+          connected: 'Connected',
+          last_seen: `${i} days ago`
+        })
       }
 
-      this.offsetPaginationData = generateOffsetObj()
+      const totalPages = Math.ceil(data.length / pageSize)
+
+      for (let i = 0; i < totalPages; i++) {
+        const start = i * pageSize
+        const end = pageSize * (i + 1)
+
+        offsetObj[`${offsetVal}_${i}`] = { data: [], pagination: { offset: '' } }
+        offsetObj[`${offsetVal}_${i}`].data = data.slice(start, end)
+
+        if (i < totalPages - 1) {
+          offsetObj[`${offsetVal}_${i}`].pagination.offset = `${offsetVal}_${i + 1}`
+        }
+      }
+
+      this.offsetPaginationData = offsetObj
     },
 
     async offsetPaginationFetcher({ pageSize, offset }) {
