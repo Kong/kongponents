@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.32.3 (2022-06-29)
+
+
+### Bug Fixes
+
+* **kmodalfullscreen:** align header [khcp-4021] ([#669](https://github.com/Kong/kongponents/issues/669)) ([b0c5f47](https://github.com/Kong/kongponents/commit/b0c5f47ffcb95175f185331cf9ca58684711c7a9))
+
+
+
+
+
 ## 6.32.2 (2022-06-29)
 
 
