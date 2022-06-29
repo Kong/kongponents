@@ -288,7 +288,6 @@ $fullscreen-modal-padding: 64px;
 .header-icon {
   margin-right: 6px;
   border-right: 1px solid var(--grey-300);
-  line-height: 24px;
 }
 
 .k-modal-fullscreen-body-header,
@@ -355,14 +354,5 @@ $fullscreen-modal-padding: 64px;
 
 .k-modal-fullscreen-action-buttons {
   margin-left: auto;
-}
-</style>
-
-<style lang="scss">
-.header-icon {
-  .kong-icon.kong-icon-kong {
-    position: relative;
-    top: 1px;
-  }
 }
 </style>
