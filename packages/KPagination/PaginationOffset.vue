@@ -37,13 +37,11 @@
 
 <script>
 import KIcon from '@kongponents/kicon/KIcon.vue'
-import KSelect from '@kongponents/kselect/KSelect.vue'
 
 export default {
   name: 'PaginationOffset',
   components: {
-    KIcon,
-    KSelect
+    KIcon
   },
   props: {
     prevButtonDisabled: {
