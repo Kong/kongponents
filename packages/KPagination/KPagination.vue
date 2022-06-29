@@ -3,92 +3,101 @@
     aria-label="Pagination Navigation"
     data-testid="k-pagination-container">
     <div class="card-pagination-bar">
-      <span
-        class="pagination-text"
-        data-testid="visible-items">
-        <span class="pagination-text-pages">{{ pagesString }}</span>
-        {{ pageCountString }}
-      </span>
-      <ul class="pagination-button-container">
-        <li
-          :class="{ disabled: backDisabled }"
-          class="pagination-button square"
-          data-testid="prev-btn">
-          <a
-            href="#"
-            aria-label="Go to the previous page"
-            @click.prevent="pageBack">
-            <KIcon
-              :color="backDisabled ? 'var(--grey-500)' : 'var(--blue-400)'"
-              icon="arrowLeft"
-              size="16"
-              view-box="0 0 16 14"
-            />
-          </a>
-        </li>
-        <li
-          v-if="!disablePageJump && firstDetached"
-          class="pagination-button"
-          data-testid="page-1-btn">
-          <a
-            href="#"
-            aria-label="Go to the first page"
-            @click.prevent="changePage(1)">
-            1
-          </a>
-        </li>
-        <li
-          v-if="!disablePageJump && firstDetached"
-          class="pagination-button placeholder">
-          <div>...</div>
-        </li>
-        <li
-          v-for="page in pagesVisible"
-          :key="page"
-          :class="{ active: page == currentlySelectedPage }"
-          :data-testid="`page-${page}-btn`"
-          class="pagination-button">
-          <a
-            :aria-label="`Go to page ${page}`"
-            :aria-current="page == currentlySelectedPage && 'page'"
-            href="#"
-            @click.prevent="changePage(page)">
-            {{ page }}
-          </a>
-        </li>
-        <li
-          v-if="!disablePageJump && lastDetached"
-          class="pagination-button placeholder">
-          <div>...</div>
-        </li>
-        <li
-          v-if="!disablePageJump && lastDetached"
-          class="pagination-button">
-          <a
-            href="#"
-            aria-label="Go to the last page"
-            data-testid="last-btn"
-            @click.prevent="changePage(pageCount)">
-            {{ pageCount }}
-          </a>
-        </li>
-        <li
-          :class="{ disabled: forwardDisabled }"
-          class="pagination-button square"
-          data-testid="next-btn">
-          <a
-            href="#"
-            aria-label="Go to the next page"
-            @click.prevent="pageForward">
-            <KIcon
-              :color="forwardDisabled ? 'var(--grey-500)' : 'var(--blue-400)'"
-              icon="arrowRight"
-              size="16"
-              view-box="0 0 16 14"
-            />
-          </a>
-        </li>
-      </ul>
+      <template v-if="paginationType === 'default'">
+        <span
+          class="pagination-text"
+          data-testid="visible-items">
+          <span class="pagination-text-pages">{{ pagesString }}</span>
+          {{ pageCountString }}
+        </span>
+        <ul class="pagination-button-container">
+          <li
+            :class="{ disabled: backDisabled }"
+            class="pagination-button square"
+            data-testid="prev-btn">
+            <a
+              href="#"
+              aria-label="Go to the previous page"
+              @click.prevent="pageBack">
+              <KIcon
+                :color="backDisabled ? 'var(--grey-500)' : 'var(--blue-400)'"
+                icon="arrowLeft"
+                size="16"
+                view-box="0 0 16 14"
+              />
+            </a>
+          </li>
+          <li
+            v-if="!disablePageJump && firstDetached"
+            class="pagination-button"
+            data-testid="page-1-btn">
+            <a
+              href="#"
+              aria-label="Go to the first page"
+              @click.prevent="changePage(1)">
+              1
+            </a>
+          </li>
+          <li
+            v-if="!disablePageJump && firstDetached"
+            class="pagination-button placeholder">
+            <div>...</div>
+          </li>
+          <li
+            v-for="page in pagesVisible"
+            :key="page"
+            :class="{ active: page == currentlySelectedPage }"
+            :data-testid="`page-${page}-btn`"
+            class="pagination-button">
+            <a
+              :aria-label="`Go to page ${page}`"
+              :aria-current="page == currentlySelectedPage && 'page'"
+              href="#"
+              @click.prevent="changePage(page)">
+              {{ page }}
+            </a>
+          </li>
+          <li
+            v-if="!disablePageJump && lastDetached"
+            class="pagination-button placeholder">
+            <div>...</div>
+          </li>
+          <li
+            v-if="!disablePageJump && lastDetached"
+            class="pagination-button">
+            <a
+              href="#"
+              aria-label="Go to the last page"
+              data-testid="last-btn"
+              @click.prevent="changePage(pageCount)">
+              {{ pageCount }}
+            </a>
+          </li>
+          <li
+            :class="{ disabled: forwardDisabled }"
+            class="pagination-button square"
+            data-testid="next-btn">
+            <a
+              href="#"
+              aria-label="Go to the next page"
+              @click.prevent="pageForward">
+              <KIcon
+                :color="forwardDisabled ? 'var(--grey-500)' : 'var(--blue-400)'"
+                icon="arrowRight"
+                size="16"
+                view-box="0 0 16 14"
+              />
+            </a>
+          </li>
+        </ul>
+      </template>
+      <PaginationOffset
+        v-else
+        :prev-button-disabled="offsetPrevButtonDisabled"
+        :next-button-disabled="offsetNextButtonDisabled"
+        @getNextOffset="$emit('getNextOffset')"
+        @getPrevOffset="$emit('getPrevOffset')"
+      />
       <span
         class="page-size-select"
         data-testid="page-size-dropdown">
@@ -110,12 +119,14 @@
 <script>
 import KIcon from '@kongponents/kicon/KIcon.vue'
 import KSelect from '@kongponents/kselect/KSelect.vue'
+import PaginationOffset from '@kongponents/kpagination/PaginationOffset.vue'
 
 export default {
   name: 'KPagination',
   components: {
     KIcon,
-    KSelect
+    KSelect,
+    PaginationOffset
   },
   props: {
     items: {
@@ -155,6 +166,19 @@ export default {
      * Test mode - for testing only, strips out generated ids
      */
     testMode: {
+      type: Boolean,
+      default: false
+    },
+    paginationType: {
+      type: String,
+      default: 'default',
+      validator: (value) => ['default', 'offset'].includes(value)
+    },
+    offsetPrevButtonDisabled: {
+      type: Boolean,
+      default: false
+    },
+    offsetNextButtonDisabled: {
       type: Boolean,
       default: false
     }
@@ -335,42 +359,35 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@kongponents/styles/variables';
-
 .card-pagination-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-
 .pagination-text {
   font-size: 14px;
   color: var(--grey-500);
   min-width: 115px;
   font-weight: 400;
-
   &-pages {
     color: black;
   }
 }
-
 .page-size-select {
   --KButtonFontSize: var(--type-sm);
   color: var(--blue-400);
   font-weight: 500;
   line-height: 20px;
 }
-
 .pagination-button-container {
   display: flex;
   list-style: none;
   text-align: center;
-
   a {
     text-decoration: none !important;
     font-weight: initial;
     display: block;
   }
-
   .pagination-button {
     align-self: center;
     width: 32px;
@@ -384,32 +401,26 @@ export default {
     border-radius: 4px;
     margin: 0 6px;
     cursor: pointer;
-
     a, div {
       padding: 6px;
     }
-
     &.square {
       border: none;
     }
-
     &.placeholder {
       cursor: initial;
     }
-
     &:focus:not(.placeholder),
     &:hover:not(.placeholder) {
       color: var(--blue-500);
       border-color: var(--blue-500);
       border-radius: 4px;
     }
-
     &.disabled:focus:not(.placeholder),
     &.disabled:hover:not(.placeholder) {
       color: var(--black-45);
       border-color: var(--grey-200);
     }
-
     &.active {
       outline: none;
       color: var(--blue-500);

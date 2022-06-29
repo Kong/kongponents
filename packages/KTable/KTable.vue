@@ -152,9 +152,14 @@
         :initial-page-size="pageSize"
         :disable-page-jump="disablePaginationPageJump"
         :test-mode="testMode ? true : false"
+        :pagination-type="paginationType"
+        :offset-prev-button-disabled="!previousOffset"
+        :offset-next-button-disabled="!offset"
         class="pa-1"
         @pageChanged="pageChangeHandler"
         @pageSizeChanged="pageSizeChangeHandler"
+        @getNextOffset="getNextOffsetHandler"
+        @getPrevOffset="getPrevOffsetHandler"
       />
     </section>
   </div>
@@ -463,6 +468,11 @@ export default defineComponent({
     sortHandlerFn: {
       type: Function,
       default: () => ({})
+    },
+    paginationType: {
+      type: String,
+      default: 'default',
+      validator: (value) => ['default', 'offset'].includes(value)
     }
   },
   data: function () {
@@ -476,7 +486,8 @@ export default defineComponent({
       page: 1,
       query: '',
       sortColumnKey: '',
-      sortColumnOrder: 'desc'
+      sortColumnOrder: 'desc',
+      offset: null
     }
 
     const data = ref([])
@@ -489,6 +500,8 @@ export default defineComponent({
     const filterQuery = ref('')
     const sortColumnKey = ref('')
     const sortColumnOrder = ref('desc')
+    const offset = ref(null)
+    const offsets = ref([])
     const isClickable = ref(false)
     const hasInitialized = ref(false)
 
@@ -575,11 +588,24 @@ export default defineComponent({
         page: page.value,
         query: searchInput || filterQuery.value,
         sortColumnKey: sortColumnKey.value,
-        sortColumnOrder: sortColumnOrder.value
+        sortColumnOrder: sortColumnOrder.value,
+        offset: offset.value
       })
 
       data.value = res.data
       total.value = props.paginationTotalItems || res.total || res.data.length
+
+      if (props.paginationType === 'offset') {
+        if (!res.pagination || !res.pagination.offset) {
+          offset.value = null
+        } else {
+          offset.value = res.pagination.offset
+
+          if (!offsets.value[page.value]) {
+            offsets.value.push(res.pagination.offset)
+          }
+        }
+      }
 
       if (props.fetcher) {
         if (props.enableClientSort && sortColumnKey.value && sortColumnOrder.value) {
@@ -608,6 +634,11 @@ export default defineComponent({
       sortColumnKey.value = fetcherParams.sortColumnKey
       sortColumnOrder.value = fetcherParams.sortColumnOrder
 
+      if (props.paginationType === 'offset') {
+        offset.value = fetcherParams.offset
+        offsets.value.push(fetcherParams.offset)
+      }
+
       // get table headers
       if (props.headers && props.headers.length) {
         tableHeaders.value = props.headers
@@ -617,6 +648,8 @@ export default defineComponent({
 
       hasInitialized.value = true
     }
+
+    const previousOffset = computed(() => offsets.value[page.value - 1])
 
     // once `initData()` finishes fetch data
     const tableFetcherCacheKey = computed(() => {
@@ -680,6 +713,8 @@ export default defineComponent({
 
     const pageSizeChangeHandler = ({ pageSize: newPageSize }) => {
       pageSize.value = newPageSize
+      offsets.value = [null]
+      offset.value = null
     }
 
     const scrollHandler = (event) => {
@@ -694,6 +729,15 @@ export default defineComponent({
 
     const getTestIdString = (message) => {
       return message.toLowerCase().replace(/[^[a-z0-9]/gi, '-')
+    }
+
+    const getNextOffsetHandler = () => {
+      page.value++
+    }
+
+    const getPrevOffsetHandler = () => {
+      page.value--
+      offset.value = previousOffset.value
     }
 
     watch(() => props.searchInput, (newValue) => {
@@ -724,7 +768,11 @@ export default defineComponent({
       tableHeaders,
       tdlisteners,
       total,
-      getTestIdString
+      getTestIdString,
+      getNextOffsetHandler,
+      getPrevOffsetHandler,
+      previousOffset,
+      offset
     }
   }
 })

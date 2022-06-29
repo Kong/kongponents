@@ -1,6 +1,7 @@
 ---
 pageClass: table-docs
 ---
+
 # Table
 
 Pass a fetcher function to build a slot-able table.
@@ -243,6 +244,7 @@ object supporting the following properties:
 - Pagination support:
   - `page`: the currently visible page - starts at `1`
   - `pageSize`: the number of items to display per page
+  - `offset`: the value of the offset for offset-based pagination. `offset` **MUST** be included in the fetcher params for offset-based pagination to work properly.
 - Sort support:
   - `sortColumnKey`: the column to sort by's `key` defined in the `headers` prop
   - `sortColumnOrder`: can be 'asc' or 'desc'
@@ -481,6 +483,26 @@ Pass in an array of page sizes for the page size dropdown. If not provided will 
 
 ```js
 [15, 30, 50, 75, 100]
+```
+
+### paginationType
+
+Pass in the type of pagination to be used. Options are `default` (page/pageSize) or `offset` (offset/pageSize)
+
+<KTable
+  :fetcher="offsetPaginationFetcher"
+  :headers="offsetPaginationHeaders"
+  :initial-fetcher-params="{ pageSize: offsetPaginationPageSize }"
+  pagination-type="offset" />
+
+```vue
+<template>
+  <KTable
+    :fetcher="fetcher"
+    :headers="headers"
+    pagination-type="offset"
+  />
+</template>
 ```
 
 ## Row Attributes
@@ -1245,19 +1267,25 @@ https://kongponents.dev/api/components?_page=1&_limit=10&_sort=name&_order=desc
 // Example Fetcher Function
 
 fetcher(payload) {
+  const { pageSize, page, query, sortColumnKey, sortColumnOrder, offset } = payload
+
   const params = {
-    _limit: payload.pageSize,
-    _page: payload.page
+    _limit: pageSize,
+    _page: page
   }
 
   if (query) {
-    params.q = payload.query
+    params.q = query
     params._page = 1
   }
 
   if (sortKey) {
-    params._sort = payload.sortColumnKey
-    params._order = payload.sortColumnOrder
+    params._sort = sortColumnKey
+    params._order = sortColumnOrder
+  }
+
+  if (offset) {
+    params._offset = offset
   }
 
   return axios.get('/user_list', {
@@ -1306,12 +1334,17 @@ An Example of changing the hover background might look like.
 </style>
 ```
 
+<!-- The markdownlint disable below is necessary due to some syntax in the <script> tags - `yarn lint` will not pass without this -->
+<!-- markdownlint-disable MD011 MD037 -->
+
 <script>
 export default {
   data() {
     return {
       row: null,
       eventType: '',
+      offsetPaginationPageSize: 15,
+      offsetPaginationData: [],
       headers: [
         { label: 'Title', key: 'title', sortable: true },
         { label: 'Description', key: 'description', sortable: true },
@@ -1349,6 +1382,12 @@ export default {
         { label: 'Connected', key: 'connected', sortable: true },
         { label: 'Last Seen', key: 'last_seen', sortable: true, useSortHandlerFn: true }
       ],
+      offsetPaginationHeaders: [
+        { label: 'Host', key: 'hostname', sortable: true },
+        { label: 'Version', key: 'version', sortable: true },
+        { label: 'Connected', key: 'connected', sortable: true },
+        { label: 'Last Seen', key: 'last_seen', sortable: false }
+      ]
     }
   },
   methods: {
@@ -1373,6 +1412,61 @@ for (let i = ((page-1)* pageSize); i < limit; i++) {
           resolve(myItems);
         }, 500);
       });
+    },
+
+    async generateOffsetPaginationTableData(pgSize) {
+      const pageSize = pgSize || this.offsetPaginationPageSize
+
+      function generateOffsetObj () {
+        const data = []
+        const offsetObj = {}
+        const offsetVal = 'offset'
+
+        for (let i = 0; i < 50; i++) {
+          data.push({
+            id: `08cc7d81-a9d8-4ae1-a42f-8d4e5a919d0${i}`,
+            version: '2.8.0.0-enterprise-edition',
+            hostname: `99e591ae377${i}`,
+            last_ping: 1648855072,
+            connected: 'Connected',
+            last_seen: `${i} days ago`
+          })
+        }
+
+        const totalPages = Math.ceil(data.length / pageSize)
+
+        for (let i = 0; i < totalPages; i++) {
+          // markdownlint-disable-next-line
+          const start = i * pageSize
+          const end = pageSize * (i + 1)
+
+          offsetObj[`${offsetVal}_${i}`] = { data: [], pagination: { offset: '' } }
+          offsetObj[`${offsetVal}_${i}`].data = data.slice(start, end)
+
+          if (i < totalPages - 1) {
+            offsetObj[`${offsetVal}_${i}`].pagination.offset = `${offsetVal}_${i + 1}`
+          }
+        }
+
+        return offsetObj
+      }
+
+      this.offsetPaginationData = generateOffsetObj()
+    },
+
+    async offsetPaginationFetcher({ pageSize, offset }) {
+      if (!offset) {
+        return Object.values(this.offsetPaginationData)[0]
+      }
+
+      if (pageSize === this.offsetPaginationPageSize) {
+        return this.offsetPaginationData[offset]
+      }
+
+      this.offsetPaginationPageSize = pageSize
+      generateOffsetPaginationTableData()
+
+      return this.offsetPaginationData[offset]
     },
 
     async fetcher(payload) {
@@ -1604,6 +1698,9 @@ for (let i = ((page-1)* pageSize); i < limit; i++) {
         },
       }
     },
+  },
+  mounted() {
+    this.generateOffsetPaginationTableData()
   }
 }
 </script>
