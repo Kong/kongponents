@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kviewswitcher",
-  "version": "6.31.7",
+  "version": "6.32.0",
   "description": "KViewSwitcher description here.",
   "main": "dist/KViewSwitcher.umd.min.js",
   "componentName": "KViewSwitcher",
@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kbutton": "^6.31.7",
-    "@kongponents/styles": "^6.31.7"
+    "@kongponents/kbutton": "^6.32.0",
+    "@kongponents/styles": "^6.32.0"
   }
 }

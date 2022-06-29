@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.32.0 (2022-06-29)
+
+
+### Features
+
+* **kpagination/ktable:** support offset-based pagination ([#663](https://github.com/Kong/kongponents/issues/663)) ([d6de73b](https://github.com/Kong/kongponents/commit/d6de73baef56573c18d2575988ddbe91d09e14d2))
+
+
+
+
+
 ## 6.31.7 (2022-06-25)
 
 **Note:** Version bump only for package @kongponents/kcheckbox
