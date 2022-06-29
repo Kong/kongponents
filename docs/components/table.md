@@ -1449,16 +1449,14 @@ for (let i = ((page-1)* pageSize); i < limit; i++) {
     },
 
     async offsetPaginationFetcher({ pageSize, offset }) {
+      if (pageSize !== this.offsetPaginationPageSize) {
+        this.offsetPaginationPageSize = pageSize
+        this.generateOffsetPaginationTableData()
+      }
+
       if (!offset) {
         return Object.values(this.offsetPaginationData)[0]
       }
-
-      if (pageSize === this.offsetPaginationPageSize) {
-        return this.offsetPaginationData[offset]
-      }
-
-      this.offsetPaginationPageSize = pageSize
-      generateOffsetPaginationTableData()
 
       return this.offsetPaginationData[offset]
     },

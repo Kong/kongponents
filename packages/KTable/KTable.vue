@@ -712,9 +712,10 @@ export default defineComponent({
     }
 
     const pageSizeChangeHandler = ({ pageSize: newPageSize }) => {
-      pageSize.value = newPageSize
       offsets.value = [null]
       offset.value = null
+      pageSize.value = newPageSize
+      page.value = 1
     }
 
     const scrollHandler = (event) => {
