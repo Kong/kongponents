@@ -264,11 +264,6 @@ $fullscreen-modal-padding: 64px;
   }
 }
 
-.header-icon {
-  margin-right: 6px;
-  border-right: 1px solid var(--grey-300);
-}
-
 .k-modal-fullscreen-body-header,
 .k-modal-fullscreen-body {
   color: var(--KModalFullscreenColor, var(--black-500, color(black-500)));
@@ -329,10 +324,22 @@ $fullscreen-modal-padding: 64px;
 
 .header-content {
   display: inline-block;
-  margin-top: var(--spacing-xxs, spacing(xxs))
+  margin-top: var(--spacing-xxs, spacing(xxs));
+  padding-left: 6px;
+  border-left: 1px solid var(--grey-300);
+  line-height: 24px;
 }
 
 .k-modal-fullscreen-action-buttons {
-    margin-left: auto;
+  margin-left: auto;
+}
+</style>
+
+<style lang="scss">
+.header-icon {
+  .kong-icon.kong-icon-kong {
+    position: relative;
+    top: 1px;
+  }
 }
 </style>
