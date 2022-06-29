@@ -430,6 +430,22 @@ Pass in an array of page sizes for the page size dropdown. If not provided will 
 
 Pass in the type of pagination to be used. Options are `default` (page/pageSize) or `offset` (offset/pageSize)
 
+<KTable
+  :fetcher="offsetPaginationFetcher"
+  :headers="offsetPaginationHeaders"
+  :initial-fetcher-params="{ pageSize: offsetPaginationPageSize }"
+  pagination-type="offset" />
+
+```vue
+<template>
+  <KTable
+    :fetcher="fetcher"
+    :headers="headers"
+    pagination-type="offset"
+  />
+</template>
+```
+
 ## Row Attributes
 
 A prop to add custom properties to individual rows. The row object is passed as a param.
@@ -1166,19 +1182,25 @@ https://kongponents.dev/api/components?_page=1&_limit=10&_sort=name&_order=desc
 // Example Fetcher Function
 
 fetcher(payload) {
+  const { pageSize, page, query, sortColumnKey, sortColumnOrder, offset } = payload
+
   const params = {
-    _limit: payload.pageSize,
-    _page: payload.page
+    _limit: pageSize,
+    _page: page
   }
 
   if (query) {
-    params.q = payload.query
+    params.q = query
     params._page = 1
   }
 
   if (sortKey) {
-    params._sort = payload.sortColumnKey
-    params._order = payload.sortColumnOrder
+    params._sort = sortColumnKey
+    params._order = sortColumnOrder
+  }
+
+  if (offset) {
+    params._offset = offset
   }
 
   return axios.get('/user_list', {
@@ -1221,6 +1243,9 @@ An Example of changing the hover background might look like.
 </style>
 ```
 
+<!-- The markdownlint disable below is necessary due to some syntax in the <script> tags - `yarn lint` will not pass without this -->
+<!-- markdownlint-disable MD011 MD037 -->
+
 <script lang="ts">
 import { defineComponent } from 'vue'
 
@@ -1230,6 +1255,8 @@ export default defineComponent({
       row: null,
       eventType: '',
       enableRowClick: true,
+      offsetPaginationPageSize: 15,
+      offsetPaginationData: [],
       headers: [
         { label: 'Title', key: 'title', sortable: true },
         { label: 'Description', key: 'description', sortable: true },
@@ -1267,6 +1294,12 @@ export default defineComponent({
         { label: 'Connected', key: 'connected', sortable: true },
         { label: 'Last Seen', key: 'last_seen', sortable: true, useSortHandlerFn: true }
       ],
+      offsetPaginationHeaders: [
+        { label: 'Host', key: 'hostname', sortable: true },
+        { label: 'Version', key: 'version', sortable: true },
+        { label: 'Connected', key: 'connected', sortable: true },
+        { label: 'Last Seen', key: 'last_seen', sortable: false }
+      ]
     }
   },
   methods: {
@@ -1522,6 +1555,56 @@ export default defineComponent({
         },
       }
     },
+
+    async generateOffsetPaginationTableData(pgSize) {
+      const pageSize = pgSize || this.offsetPaginationPageSize
+      const data = []
+      const offsetObj = {}
+      const offsetVal = 'offset'
+
+      for (let i = 0; i < 50; i++) {
+        data.push({
+          id: `08cc7d81-a9d8-4ae1-a42f-8d4e5a919d0${i}`,
+          version: '2.8.0.0-enterprise-edition',
+          hostname: `99e591ae377${i}`,
+          last_ping: 1648855072,
+          connected: 'Connected',
+          last_seen: `${i} days ago`
+        })
+      }
+
+      const totalPages = Math.ceil(data.length / pageSize)
+
+      for (let i = 0; i < totalPages; i++) {
+        const start = i * pageSize
+        const end = pageSize * (i + 1)
+
+        offsetObj[`${offsetVal}_${i}`] = { data: [], pagination: { offset: '' } }
+        offsetObj[`${offsetVal}_${i}`].data = data.slice(start, end)
+
+        if (i < totalPages - 1) {
+          offsetObj[`${offsetVal}_${i}`].pagination.offset = `${offsetVal}_${i + 1}`
+        }
+      }
+
+      this.offsetPaginationData = offsetObj
+    },
+
+    async offsetPaginationFetcher({ pageSize, offset }) {
+      if (pageSize !== this.offsetPaginationPageSize) {
+        this.offsetPaginationPageSize = pageSize
+        this.generateOffsetPaginationTableData()
+      }
+
+      if (!offset) {
+        return Object.values(this.offsetPaginationData)[0]
+      }
+
+      return this.offsetPaginationData[offset]
+    },
+  },
+  mounted() {
+    this.generateOffsetPaginationTableData()
   }
 })
 </script>

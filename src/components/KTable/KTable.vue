@@ -488,6 +488,7 @@ export default defineComponent({
     paginationType: {
       type: String as PropType<'default' | 'offset'>,
       default: 'default',
+      validator: (value: string) => ['default', 'offset'].includes(value)
     },
     /**
      * for testing only, strips out generated ids and avoid loading state in tests.
@@ -767,9 +768,10 @@ export default defineComponent({
       page.value = newPage
     }
     const pageSizeChangeHandler = ({ pageSize: newPageSize }: Record<string, number>) => {
-      pageSize.value = newPageSize
       offsets.value = [null]
       offset.value = null
+      pageSize.value = newPageSize
+      page.value = 1
     }
     const scrollHandler = (event: any) => {
       if (event && event.target && event.target.scrollTop) {
@@ -783,12 +785,10 @@ export default defineComponent({
 
     const getNextOffsetHandler = (): void => {
       page.value++
-      revalidate()
     }
     const getPrevOffsetHandler = (): void => {
       page.value--
       offset.value = previousOffset.value
-      revalidate()
     }
 
     const getTestIdString = (message: string) => {
