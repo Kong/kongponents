@@ -1344,7 +1344,7 @@ export default {
       row: null,
       eventType: '',
       offsetPaginationPageSize: 15,
-      offsetPaginationData: [],
+      offsetPaginationData: {},
       headers: [
         { label: 'Title', key: 'title', sortable: true },
         { label: 'Description', key: 'description', sortable: true },
@@ -1383,9 +1383,9 @@ export default {
         { label: 'Last Seen', key: 'last_seen', sortable: true, useSortHandlerFn: true }
       ],
       offsetPaginationHeaders: [
-        { label: 'Host', key: 'hostname', sortable: true },
-        { label: 'Version', key: 'version', sortable: true },
-        { label: 'Connected', key: 'connected', sortable: true },
+        { label: 'Host', key: 'hostname', sortable: false },
+        { label: 'Version', key: 'version', sortable: false },
+        { label: 'Connected', key: 'connected', sortable: false },
         { label: 'Last Seen', key: 'last_seen', sortable: false }
       ]
     }
@@ -1454,11 +1454,9 @@ for (let i = ((page-1)* pageSize); i < limit; i++) {
         this.generateOffsetPaginationTableData()
       }
 
-      if (!offset) {
-        return Object.values(this.offsetPaginationData)[0]
-      }
-
-      return this.offsetPaginationData[offset]
+      return offset
+        ? this.offsetPaginationData[offset]
+        : Object.values(this.offsetPaginationData)[0]
     },
 
     async fetcher(payload) {

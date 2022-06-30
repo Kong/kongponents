@@ -1,38 +1,38 @@
 <template>
-  <ul class="pagination-button-container mb-0 pa-0">
-    <li
+  <div class="pagination-button-container mb-0 pa-0">
+    <KButton
       :class="{ disabled: prevButtonDisabled }"
       class="pagination-button"
-      data-testid="prev-btn">
-      <a
-        href="#"
-        aria-label="Go to the previous page"
-        @click.prevent="getPrevOffset">
+      data-testid="prev-btn"
+      aria-label="Go to the previous page"
+      @click.prevent="getPrevOffset"
+    >
+      <template v-slot:icon>
         <KIcon
           :color="prevButtonDisabled ? 'var(--grey-500)' : 'var(--blue-400)'"
           icon="arrowLeft"
           size="16"
-          view-box="0 0 16 14"
+          view-box="0 0 16 16"
         />
-      </a>
-    </li>
-    <li
+      </template>
+    </KButton>
+    <KButton
       :class="{ disabled: nextButtonDisabled }"
       class="pagination-button"
-      data-testid="next-btn">
-      <a
-        href="#"
-        aria-label="Go to the next page"
-        @click.prevent="getNextOffset">
+      data-testid="next-btn"
+      aria-label="Go to the next page"
+      @click.prevent="getNextOffset"
+    >
+      <template v-slot:icon>
         <KIcon
           :color="nextButtonDisabled ? 'var(--grey-500)' : 'var(--blue-400)'"
           icon="arrowRight"
           size="16"
-          view-box="0 0 16 14"
+          view-box="0 0 16 16"
         />
-      </a>
-    </li>
-  </ul>
+      </template>
+    </KButton>
+  </div>
 </template>
 
 <script>
@@ -76,32 +76,16 @@ export default {
 @import '~@kongponents/styles/variables';
 .pagination-button-container {
   display: flex;
-  list-style: none;
-  text-align: center;
-
-  a {
-    text-decoration: none !important;
-    font-weight: initial;
-    display: block;
-  }
 
   .pagination-button {
-    align-self: center;
-    width: 32px;
-    height: 32px;
-    line-height: 20px;
-    font-size: 12px;
-    font-weight: initial;
+    width: 34px;
+    height: 34px;
     color: var(--grey-500);
     border: 1px solid var(--grey-300);
     background-color: white;
     border-radius: 4px;
     margin: 0 6px;
-    cursor: pointer;
-
-    a, div {
-      padding: 6px;
-    }
+    padding: 6px;
 
     &:focus,
     &:hover {
@@ -114,6 +98,8 @@ export default {
     &.disabled:hover {
       color: var(--black-45);
       border-color: var(--grey-200);
+      box-shadow: none;
+      cursor: default;
     }
 
     &.active {
