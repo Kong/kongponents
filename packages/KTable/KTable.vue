@@ -702,8 +702,6 @@ export default defineComponent({
         } else {
           defaultSorter(key, prevKey, sortColumnOrder.value, data.value)
         }
-      } else {
-        revalidate()
       }
     }
 
