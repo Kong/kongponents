@@ -1,3 +1,16 @@
+# [7.0.0-beta.51](https://github.com/Kong/kongponents/compare/v7.0.0-beta.50...v7.0.0-beta.51) (2022-06-30)
+
+
+### Bug Fixes
+
+* **kmodalfullscreen:** align header [beta] ([bcf4ae9](https://github.com/Kong/kongponents/commit/bcf4ae918fe1b9c7ef4e12f7974b7c29d2417c07))
+* **kmodalfullscreen:** align header [beta] ([#670](https://github.com/Kong/kongponents/issues/670)) ([008c9ea](https://github.com/Kong/kongponents/commit/008c9eade5375bfcc313729417589c50082e5187))
+
+
+### Reverts
+
+* commit bcf4ae9 ([8cc34d3](https://github.com/Kong/kongponents/commit/8cc34d38ca8c0b9991aea16bade8d32b888fb52d))
+
 # [7.0.0-beta.50](https://github.com/Kong/kongponents/compare/v7.0.0-beta.49...v7.0.0-beta.50) (2022-06-23)
 
 
