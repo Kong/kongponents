@@ -200,12 +200,8 @@ You can also use Kongponents in a project where there is no build system as long
 You must import the CSS from the `@kong/kongponents` package along with Vue.
 :::
 
-:::danger WARNING
-This example needs to be updated for Vue 3.
-:::
-
-<iframe width="100%" height="300" style="width: 100%;" scrolling="no" title="Vue 2 with Kongponents" src="https://codepen.io/adamdehaven/embed/RwLVQLw?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/adamdehaven/pen/RwLVQLw">
-  Vue 2 with Kongponents</a> by Kong
+<iframe width="100%" height="300" style="width: 100%;" scrolling="no" title="Vue 3 with Kongponents@beta" src="https://codepen.io/adamdehaven/embed/KKowxVQ?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/adamdehaven/pen/KKowxVQ">
+  Vue 3 with Kongponents@beta</a> by Kong, Inc.
   on <a href="https://codepen.io">CodePen</a>.
 </iframe>
