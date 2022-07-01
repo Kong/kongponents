@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.32.5 (2022-07-01)
+
+
+### Bug Fixes
+
+* **kpagination:** disable buttons when necessary ([#671](https://github.com/Kong/kongponents/issues/671)) ([f39b589](https://github.com/Kong/kongponents/commit/f39b589d523f4a51c0af6c785ed9c25cb903dafb))
+
+
+
+
+
 ## 6.32.4 (2022-06-30)
 
 **Note:** Version bump only for package @kongponents/kradio
