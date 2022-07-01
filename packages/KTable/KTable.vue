@@ -504,6 +504,7 @@ export default defineComponent({
     const offsets = ref([])
     const isClickable = ref(false)
     const hasInitialized = ref(false)
+    const nextPageClicked = ref(false)
 
     /**
      * Grabs listeners from this.$listeners matching a prefix to attach the
@@ -598,6 +599,12 @@ export default defineComponent({
       if (props.paginationType === 'offset') {
         if (!res.pagination || !res.pagination.offset) {
           offset.value = null
+
+          // reset to first page if no pagiantion data is returned unless the "next page" button was clicked
+          // this will ensure buttons display the correct state for cases like search
+          if (!nextPageClicked.value) {
+            page.value = 1
+          }
         } else {
           offset.value = res.pagination.offset
 
@@ -617,6 +624,7 @@ export default defineComponent({
       }
 
       isTableLoading.value = false
+      nextPageClicked.value = false
 
       return res
     }
@@ -702,7 +710,7 @@ export default defineComponent({
         } else {
           defaultSorter(key, prevKey, sortColumnOrder.value, data.value)
         }
-      } else {
+      } else if (props.paginationType !== 'offset') {
         revalidate()
       }
     }
@@ -734,6 +742,7 @@ export default defineComponent({
 
     const getNextOffsetHandler = () => {
       page.value++
+      nextPageClicked.value = true
     }
 
     const getPrevOffsetHandler = () => {
