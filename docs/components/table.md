@@ -99,6 +99,10 @@ Set this to `true` to limit pagination navigation to `previous` / `next` page on
 
 Set this to `true` to remove the pagination bar when using a fetcher.
 
+### hidePaginationWhenOptional
+
+Set this to `true` to remove the pagination bar. For cases, when the table record in Konnect is less than or equal to 15.
+
 ### disableSorting
 
 Set this to `true` to disable ablity to sort.
@@ -331,6 +335,7 @@ object these features should be explicitly disabled.
       { label: 'Enabled', key: 'enabled', sortable: false }
     ]"
     disablePagination
+    hidePaginationWhenOptional
     :enableClientSort="true"
   />
 </template>
@@ -369,6 +374,7 @@ object these features should be explicitly disabled.
       { label: 'Enabled', key: 'enabled', sortable: false }
     ]"
     disablePagination
+    hidePaginationWhenOptional
     :enableClientSort="true"
   />
 </template>
