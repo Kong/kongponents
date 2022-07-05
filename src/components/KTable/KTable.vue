@@ -526,6 +526,7 @@ export default defineComponent({
     const offsets: Ref<Array<any>> = ref([])
     const isClickable = ref(false)
     const hasInitialized = ref(false)
+    const nextPageClicked = ref(false)
     /**
      * Grabs listeners from attrs matching a prefix to attach the
      * event that is dynamic. e.g. `v-on:cell:click`, `@row:focus` etc.
@@ -654,6 +655,12 @@ export default defineComponent({
       if (props.paginationType === 'offset') {
         if (!res.pagination?.offset) {
           offset.value = null
+
+          // reset to first page if no pagiantion data is returned unless the "next page" button was clicked
+          // this will ensure buttons display the correct state for cases like search
+          if (!nextPageClicked.value) {
+            page.value = 1
+          }
         } else {
           offset.value = res.pagination.offset
 
@@ -676,6 +683,7 @@ export default defineComponent({
       }
 
       isTableLoading.value = false
+      nextPageClicked.value = false
 
       return res
     }
@@ -760,7 +768,7 @@ export default defineComponent({
           // @ts-ignore
           defaultSorter(key, prevKey, sortColumnOrder.value, data.value)
         }
-      } else {
+      } else if (props.paginationType !== 'offset') {
         revalidate()
       }
     }
@@ -785,6 +793,7 @@ export default defineComponent({
 
     const getNextOffsetHandler = (): void => {
       page.value++
+      nextPageClicked.value = true
     }
     const getPrevOffsetHandler = (): void => {
       page.value--
