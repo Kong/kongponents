@@ -224,6 +224,7 @@ export default defineComponent({
 
   /* Button w/ Icon */
   > :deep(.kong-icon) {
+    display: inline-flex;
     padding-right: var(--spacing-xs, spacing(xs));
     box-sizing: unset;
   }
