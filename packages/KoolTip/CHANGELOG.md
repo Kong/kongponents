@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.32.7 (2022-07-05)
+
+
+### Bug Fixes
+
+* **kbutton:** change kong-icon within button to inline-flex ([a1dd543](https://github.com/Kong/kongponents/commit/a1dd54398d540fc590f13bb312e7f29da9b1634f))
+
+
+
+
+
 ## 6.32.6 (2022-07-05)
 
 
