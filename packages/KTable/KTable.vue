@@ -457,7 +457,7 @@ export default defineComponent({
       default: false
     },
     /**
-     * A prop to pass to hide pagination for table records less than or equal to 15 records
+     * A prop to pass to hide pagination for total table records is less than or equal to pagesize
      */
     hidePaginationWhenOptional: {
       type: Boolean,

@@ -101,7 +101,7 @@ Set this to `true` to remove the pagination bar when using a fetcher.
 
 ### hidePaginationWhenOptional
 
-Set this to `true` to remove the pagination bar. For cases, when the table record in Konnect is less than or equal to 15.
+Set this to `true` to hide the pagination UI when the table record count is less than or equal to the `pageSize`.
 
 ### disableSorting
 
