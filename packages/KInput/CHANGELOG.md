@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.32.6 (2022-07-05)
+
+
+### Bug Fixes
+
+* **kpagination:** use more specific css classes ([#672](https://github.com/Kong/kongponents/issues/672)) ([de78c17](https://github.com/Kong/kongponents/commit/de78c1738081f5c8d602ccfb9615c21988e4c55a))
+
+
+
+
+
 ## 6.32.5 (2022-07-01)
 
 
