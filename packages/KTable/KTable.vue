@@ -144,7 +144,7 @@
         </tbody>
       </table>
       <KPagination
-        v-if="fetcher && !disablePagination && !hidePaginationWhenOptional"
+        v-if="fetcher && !disablePagination && !(hidePaginationWhenOptional && total < pageSize)"
         :total-count="total"
         :current-page="page"
         :neighbors="paginationNeighbors"
