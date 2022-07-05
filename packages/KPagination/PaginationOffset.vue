@@ -1,5 +1,5 @@
 <template>
-  <div class="pagination-button-container mb-0 pa-0">
+  <div class="pagination-offset-button-container mb-0 pa-0">
     <KButton
       :class="{ disabled: prevButtonDisabled }"
       class="pagination-button"
@@ -74,10 +74,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@kongponents/styles/variables';
-.pagination-button-container {
+.pagination-offset-button-container {
   display: flex;
 
-  .pagination-button {
+  .pagination-button.k-button {
     width: 34px;
     height: 34px;
     color: var(--grey-500);
