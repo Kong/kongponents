@@ -436,7 +436,7 @@ describe('KTable', () => {
 
       await tick(wrapper.vm, 1)
 
-      expect(wrapper.find('[data-testid="k-pagination-container"]').exists()).toBe(true)
+      expect(wrapper.find('[data-testid="k-pagination-container"]').exists()).toBe(false)
     })
 
     it('does display pagination when total is greater than pageSize', async () => {
@@ -449,7 +449,8 @@ describe('KTable', () => {
           },
           isLoading: false,
           headers: options.headers,
-          pageSize: 15
+          pageSize: 15,
+          hidePaginationWhenOptional: true
         }
       })
 
