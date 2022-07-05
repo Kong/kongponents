@@ -1,3 +1,10 @@
+# [7.0.0-beta.52](https://github.com/Kong/kongponents/compare/v7.0.0-beta.51...v7.0.0-beta.52) (2022-07-05)
+
+
+### Bug Fixes
+
+* **kbutton:** kong-icon within button should be inline-flex ([a1a3817](https://github.com/Kong/kongponents/commit/a1a3817c7377f18b6e0af00456303cdb120f52fc))
+
 # [7.0.0-beta.51](https://github.com/Kong/kongponents/compare/v7.0.0-beta.50...v7.0.0-beta.51) (2022-06-30)
 
 
