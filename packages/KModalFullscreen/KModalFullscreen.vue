@@ -258,7 +258,7 @@ $fullscreen-modal-padding: 64px;
   & button {
     height: 40px;
     margin-left: var(--spacing-md, spacing(md));
-    font-weight: 400;
+    font-weight: 600;
     font-size: 13px;
     line-height: 13px;
   }
