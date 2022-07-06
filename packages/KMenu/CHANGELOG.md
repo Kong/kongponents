@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.32.9 (2022-07-06)
+
+
+### Bug Fixes
+
+* **kmodalfullscreen:** padding [khcp-4020] ([#674](https://github.com/Kong/kongponents/issues/674)) ([20def6b](https://github.com/Kong/kongponents/commit/20def6bddc34f43151fa9315e17399f78a77f676))
+
+
+
+
+
 ## 6.32.8 (2022-07-06)
 
 
