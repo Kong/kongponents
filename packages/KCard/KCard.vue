@@ -181,7 +181,7 @@ export default {
   .k-card-title h4 {
     margin: 0;
     font-size: var(--KCardTitleFontSize, 20px);
-    font-weight: 500;
+    font-weight: 600;
     color: var(--KCardTitleColor, var(--black-500));
   }
 
