@@ -1,3 +1,11 @@
+# [7.0.0-beta.53](https://github.com/Kong/kongponents/compare/v7.0.0-beta.52...v7.0.0-beta.53) (2022-07-06)
+
+
+### Bug Fixes
+
+* bump version ([bf50910](https://github.com/Kong/kongponents/commit/bf50910d1e542b9d80827d6ba762fa53d5865464))
+* **version:** bump release version ([187639b](https://github.com/Kong/kongponents/commit/187639b4325a82c567614c2beee4a18728c2faad))
+
 # [7.0.0-beta.52](https://github.com/Kong/kongponents/compare/v7.0.0-beta.51...v7.0.0-beta.52) (2022-07-05)
 
 
