@@ -101,7 +101,7 @@ export default {
   list-style: none;
   border-radius: 0.25rem;
   font-size: 15px;
-  font-weight: 500 !important;
+  font-weight: 600 !important;
   line-height: 24px !important;
 }
 
