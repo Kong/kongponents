@@ -857,7 +857,7 @@ export default defineComponent({
       padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
       text-align: left;
       font-size: var(--KTableHeaderSize, var(--type-sm, type(sm)));
-      font-weight: 500;
+      font-weight: 600;
 
       &.active-sort {
         color: var(--blue-500);

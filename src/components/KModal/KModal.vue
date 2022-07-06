@@ -219,7 +219,7 @@ export default defineComponent({
     justify-content: flex-start;
     color: var(--KModalHeaderColor, var(--black-500, color(black-500)));
     font-size: var(--KModalHeaderSize, 20px);
-    font-weight: var(--KModalHeaderWeight, 500);
+    font-weight: var(--KModalHeaderWeight, 600);
     margin-left: auto;
     margin-right: auto;
   }
