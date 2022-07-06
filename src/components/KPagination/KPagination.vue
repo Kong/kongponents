@@ -335,7 +335,7 @@ export default defineComponent({
   font-size: 14px;
   color: var(--grey-500);
   min-width: 115px;
-  font-weight: 400;
+  font-weight: 500;
 
   &-pages {
     color: black;
