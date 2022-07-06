@@ -144,7 +144,7 @@
         </tbody>
       </table>
       <KPagination
-        v-if="fetcher && !disablePagination"
+        v-if="fetcher && !disablePagination && !(hidePaginationWhenOptional && total <= pageSize)"
         :total-count="total"
         :current-page="page"
         :neighbors="paginationNeighbors"
@@ -453,6 +453,13 @@ export default defineComponent({
       default: false
     },
     disablePagination: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * A prop to pass to hide pagination for total table records is less than or equal to pagesize
+     */
+    hidePaginationWhenOptional: {
       type: Boolean,
       default: false
     },
