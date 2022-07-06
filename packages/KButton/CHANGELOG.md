@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.32.8 (2022-07-06)
+
+
+### Bug Fixes
+
+* **ktable:** hide pagination based on row numbers ([#673](https://github.com/Kong/kongponents/issues/673)) ([f685577](https://github.com/Kong/kongponents/commit/f68557734dca48484a210cbf334af4be6d5cddf1))
+
+
+
+
+
 ## 6.32.7 (2022-07-05)
 
 

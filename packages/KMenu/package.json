@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kmenu",
-  "version": "6.32.7",
+  "version": "6.32.8",
   "description": "<Menu component>",
   "main": "dist/KMenu.umd.min.js",
   "componentName": "KMenu",
@@ -24,9 +24,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kbutton": "^6.32.7",
-    "@kongponents/kicon": "^6.32.7",
-    "@kongponents/styles": "^6.32.7",
+    "@kongponents/kbutton": "^6.32.8",
+    "@kongponents/kicon": "^6.32.8",
+    "@kongponents/styles": "^6.32.8",
     "vue-uuid": "^2.0.2"
   }
 }
