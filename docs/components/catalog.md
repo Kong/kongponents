@@ -187,6 +187,10 @@ Set this to `true` to limit pagination navigation to `previous` / `next` page on
 
 Set this to `true` to remove the pagination bar when using a fetcher.
 
+### hidePaginationWhenOptional
+
+Set this to `true` to hide the pagination UI when the table record count is less than or equal to the `pageSize`.
+
 ## KCatalogItem
 
 **KCatalog** generates a **KCatalogItem** for each item in the `items` property. At the most basic level, **KCatalogItem** is

@@ -354,5 +354,54 @@ describe('KTable', () => {
 
       cy.getTestId('k-table-pagination').should('not.exist')
     })
+
+    it('does not display pagination when hidePaginationWhenOptional is true and total is less than pageSize', () => {
+      mount(KTable, {
+        propsData: {
+          testMode: 'true',
+          fetcher: () => { return { data: options.data } },
+          isLoading: false,
+          headers: options.headers,
+          pageSize: 15,
+          hidePaginationWhenOptional: true
+        }
+      })
+
+      cy.getTestId('k-pagination-container').should('not.exist')
+    })
+
+    it('does not display pagination when hidePaginationWhenOptional is true and total is equal to pageSize', () => {
+      mount(KTable, {
+        propsData: {
+          testMode: 'true',
+          fetcher: () => {
+            return { total: 15 }
+          },
+          isLoading: false,
+          headers: options.headers,
+          pageSize: 15,
+          hidePaginationWhenOptional: true
+        }
+      })
+
+      cy.getTestId('k-pagination-container').should('not.exist')
+    })
+
+    it('does display pagination when total is greater than pageSize', () => {
+      mount(KTable, {
+        propsData: {
+          testMode: 'true',
+          fetcher: () => {
+            return { total: 25 }
+          },
+          isLoading: false,
+          headers: options.headers,
+          pageSize: 15,
+          hidePaginationWhenOptional: true
+        }
+      })
+
+      cy.getTestId('k-pagination-container').should('exist')
+    })
   })
 })
