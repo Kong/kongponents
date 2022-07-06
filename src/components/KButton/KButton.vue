@@ -189,7 +189,7 @@ export default defineComponent({
   padding: var(--KButtonPaddingY, var(--spacing-sm, spacing(sm))) var(--KButtonPaddingX, var(--spacing-lg, spacing(lg)));
   font-family: var(--font-family-sans, font(sans));
   font-size: var(--KButtonFontSize, var(--type-md, type(md)));
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.25;
   text-decoration: none;
   vertical-align: middle;

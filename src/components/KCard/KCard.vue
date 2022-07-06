@@ -196,7 +196,7 @@ export default defineComponent({
     margin: 0;
     padding: 0;
     font-size: var(--KCardTitleFontSize, 20px);
-    font-weight: 500;
+    font-weight: 600;
     color: var(--KCardTitleColor, var(--black-500));
   }
 
