@@ -55,7 +55,7 @@
     padding: 10px var(--spacing-md, spacing(md));
     color: var(--KInputColor, var(--black-70, color(black-70)));
     font-size: var(--type-sm, type(sm));
-    font-weight: normal;
+    font-weight: 500;
     line-height: 24px;
     border: none;
     border-radius: 3px;
@@ -116,7 +116,7 @@
     /* Browser Overrides */
     &::placeholder {
       color: var(--KInputPlaceholderColor, var(--black-45, color(black-45)));
-      font-weight: normal;
+      font-weight: 500;
       opacity: 1;
     }
 
