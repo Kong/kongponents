@@ -15,6 +15,7 @@
 .mono {
   font-family: var(--font-family-mono);
 }
+
 // For each size in the $type-sizes variable
 // Create class (.mono.xxl)
 @each $name, $size in $type-sizes {
