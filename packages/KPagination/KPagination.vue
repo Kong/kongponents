@@ -373,7 +373,7 @@ export default {
     color: black;
   }
 }
-.page-size-select {
+.page-size-select .k-button.btn-link {
   --KButtonFontSize: var(--type-sm);
   color: var(--blue-400);
   font-weight: 500;
