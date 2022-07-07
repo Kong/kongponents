@@ -445,7 +445,7 @@ describe('KTable', () => {
         propsData: {
           testMode: 'true',
           fetcher: () => {
-            return { total: 0 }
+            return { total: 5 }
           },
           isLoading: false,
           headers: options.headers,
