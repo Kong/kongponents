@@ -439,6 +439,27 @@ describe('KTable', () => {
       expect(wrapper.find('[data-testid="k-pagination-container"]').exists()).toBe(false)
     })
 
+    it('does not hide pagination when hidePaginationWhenOptional is true and total is less than page size and paginationType is offset', async () => {
+      const wrapper = mount(KTable, {
+        localVue,
+        propsData: {
+          testMode: 'true',
+          fetcher: () => {
+            return { total: 0 }
+          },
+          isLoading: false,
+          headers: options.headers,
+          pageSize: 15,
+          hidePaginationWhenOptional: true,
+          paginationType: 'offset'
+        }
+      })
+
+      await tick(wrapper.vm, 1)
+
+      expect(wrapper.find('[data-testid="k-pagination-container"]').exists()).toBe(true)
+    })
+
     it('does display pagination when total is greater than pageSize', async () => {
       const wrapper = mount(KTable, {
         localVue,
