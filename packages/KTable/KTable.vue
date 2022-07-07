@@ -3,7 +3,8 @@
     <KSkeleton
       v-if="(!testMode || testMode === 'loading') && (isTableLoading || isLoading) && !hasError"
       :delay-milliseconds="0"
-      type="table" />
+      type="table"
+    />
 
     <div
       v-else-if="hasError"
@@ -15,7 +16,8 @@
           :icon="errorStateIcon || ''"
           :is-error="true"
           :icon-color="errorStateIconColor"
-          :icon-size="errorStateIconSize">
+          :icon-size="errorStateIconSize"
+        >
           <template v-slot:title>{{ errorStateTitle }}</template>
           <template v-slot:message>{{ errorStateMessage }}</template>
           <template v-slot:cta>
@@ -24,7 +26,8 @@
               :to="errorStateActionRoute ? errorStateActionRoute : null"
               :data-testid="getTestIdString(errorStateActionMessage)"
               appearance="primary"
-              @click="$emit('ktable-error-cta-clicked')">
+              @click="$emit('ktable-error-cta-clicked')"
+            >
               {{ errorStateActionMessage }}
             </KButton>
           </template>
@@ -41,7 +44,8 @@
           :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
           :icon="emptyStateIcon || ''"
           :icon-color="emptyStateIconColor"
-          :icon-size="emptyStateIconSize">
+          :icon-size="emptyStateIconSize"
+        >
           <template v-slot:title>{{ emptyStateTitle }}</template>
           <template v-slot:message>{{ emptyStateMessage }}</template>
           <template v-slot:cta>
@@ -51,7 +55,8 @@
               :data-testid="getTestIdString(emptyStateActionMessage)"
               :icon="emptyStateActionButtonIcon ? emptyStateActionButtonIcon : null"
               appearance="primary"
-              @click="$emit('ktable-empty-state-cta-clicked')">
+              @click="$emit('ktable-empty-state-cta-clicked')"
+            >
               {{ emptyStateActionMessage }}
             </KButton>
           </template>
@@ -62,7 +67,8 @@
     <section
       v-else
       class="k-table-wrapper"
-      @scroll.passive="scrollHandler">
+      @scroll.passive="scrollHandler"
+    >
       <table
         :class="{'has-hover': hasHover, 'is-clickable': isClickable, 'side-border': hasSideBorder}"
         :data-tableid="tableId"
@@ -88,12 +94,15 @@
                     })
                     sortClickHandler(column)
                   }
-              }">
+                }"
+              >
                 <span class="d-flex align-items-center">
                   <slot
                     :name="`column-${column.key}`"
                     :column="column">
-                    <span :class="{'sr-only': column.hideLabel}">
+                    <span
+                      :class="{'sr-only': column.hideLabel}"
+                    >
                       {{ column.label ? column.label : column.key }}
                     </span>
                   </slot>
@@ -102,7 +111,8 @@
                     class="caret ml-2"
                     color="var(--KTableColor, var(--black-70, color(black-70)))"
                     size="12"
-                    icon="chevronDown" />
+                    icon="chevronDown"
+                  />
                 </span>
               </th>
             </template>
@@ -114,19 +124,20 @@
             :key="`k-table-${tableId}-row-${rowIndex}`"
             :tabindex="isClickable ? 0 : null"
             :role="isClickable ? 'link' : null"
-            v-bind="rowAttrs(row)">
+            v-bind="rowAttrs(row)"
+          >
             <template>
               <td
                 v-for="(value, index) in tableHeaders"
                 :key="`k-table-${tableId}-cell-${index}`"
                 v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
-                v-on="tdlisteners(row[value.key], row)">
+                v-on="tdlisteners(row[value.key], row)"
+              >
                 <slot
                   :name="value.key"
                   :row="row"
                   :rowKey="rowIndex"
-                  :rowValue="row[value.key]">{{ row[value.key] }}
-                </slot>
+                  :rowValue="row[value.key]">{{ row[value.key] }}</slot>
               </td>
             </template>
           </tr>
@@ -148,7 +159,8 @@
         @pageChanged="pageChangeHandler"
         @pageSizeChanged="pageSizeChangeHandler"
         @getNextOffset="getNextOffsetHandler"
-        @getPrevOffset="getPrevOffsetHandler" />
+        @getPrevOffset="getPrevOffsetHandler"
+      />
     </section>
   </div>
 </template>
@@ -500,11 +512,6 @@ export default defineComponent({
     const isClickable = ref(false)
     const hasInitialized = ref(false)
     const nextPageClicked = ref(false)
-    const shouldShowPagination = computed(() => {
-      return props.fetcher && !props.disablePagination &&
-        !(props.paginationType !== 'offset' && props.hidePaginationWhenOptional && total.value <= pageSize.value) &&
-        !(props.paginationType === 'offset' && props.hidePaginationWhenOptional && !previousOffset.value && !offset.value)
-    })
 
     /**
      * Grabs listeners from this.$listeners matching a prefix to attach the
@@ -749,6 +756,12 @@ export default defineComponent({
       page.value--
       offset.value = previousOffset.value
     }
+
+    const shouldShowPagination = computed(() => {
+      return props.fetcher && !props.disablePagination &&
+        !(props.paginationType !== 'offset' && props.hidePaginationWhenOptional && total.value <= pageSize.value) &&
+        !(props.paginationType === 'offset' && props.hidePaginationWhenOptional && !previousOffset.value && !offset.value)
+    })
 
     watch(() => props.searchInput, (newValue) => {
       search(newValue)

@@ -29,34 +29,22 @@ exports[`KTable default has hover class when passed 1`] = `
       </thead>
       <tbody>
         <tr>
-          <td>Basic Auth
-          </td>
-          <td>517526354743085
-          </td>
-          <td>true
-          </td>
-          <td>
-          </td>
+          <td>Basic Auth</td>
+          <td>517526354743085</td>
+          <td>true</td>
+          <td></td>
         </tr>
         <tr>
-          <td>Website Desktop
-          </td>
-          <td>328027447731198
-          </td>
-          <td>false
-          </td>
-          <td>
-          </td>
+          <td>Website Desktop</td>
+          <td>328027447731198</td>
+          <td>false</td>
+          <td></td>
         </tr>
         <tr>
-          <td>Android App
-          </td>
-          <td>405383051040955
-          </td>
-          <td>true
-          </td>
-          <td>
-          </td>
+          <td>Android App</td>
+          <td>405383051040955</td>
+          <td>true</td>
+          <td></td>
         </tr>
       </tbody>
     </table>
@@ -149,30 +137,21 @@ exports[`KTable default renders link in action slot 1`] = `
       </thead>
       <tbody>
         <tr>
-          <td>Basic Auth
-          </td>
-          <td>517526354743085
-          </td>
-          <td>true
-          </td>
+          <td>Basic Auth</td>
+          <td>517526354743085</td>
+          <td>true</td>
           <td><a href="#">Link</a></td>
         </tr>
         <tr>
-          <td>Website Desktop
-          </td>
-          <td>328027447731198
-          </td>
-          <td>false
-          </td>
+          <td>Website Desktop</td>
+          <td>328027447731198</td>
+          <td>false</td>
           <td><a href="#">Link</a></td>
         </tr>
         <tr>
-          <td>Android App
-          </td>
-          <td>405383051040955
-          </td>
-          <td>true
-          </td>
+          <td>Android App</td>
+          <td>405383051040955</td>
+          <td>true</td>
           <td><a href="#">Link</a></td>
         </tr>
       </tbody>
@@ -208,34 +187,22 @@ exports[`KTable sorting should allow disabling sorting 1`] = `
       </thead>
       <tbody>
         <tr>
-          <td>Basic Auth
-          </td>
-          <td>517526354743085
-          </td>
-          <td>true
-          </td>
-          <td>
-          </td>
+          <td>Basic Auth</td>
+          <td>517526354743085</td>
+          <td>true</td>
+          <td></td>
         </tr>
         <tr>
-          <td>Website Desktop
-          </td>
-          <td>328027447731198
-          </td>
-          <td>false
-          </td>
-          <td>
-          </td>
+          <td>Website Desktop</td>
+          <td>328027447731198</td>
+          <td>false</td>
+          <td></td>
         </tr>
         <tr>
-          <td>Android App
-          </td>
-          <td>405383051040955
-          </td>
-          <td>true
-          </td>
-          <td>
-          </td>
+          <td>Android App</td>
+          <td>405383051040955</td>
+          <td>true</td>
+          <td></td>
         </tr>
       </tbody>
     </table>
@@ -328,34 +295,22 @@ exports[`KTable sorting should have sortable class when passed 1`] = `
       </thead>
       <tbody>
         <tr>
-          <td>Basic Auth
-          </td>
-          <td>517526354743085
-          </td>
-          <td>true
-          </td>
-          <td>
-          </td>
+          <td>Basic Auth</td>
+          <td>517526354743085</td>
+          <td>true</td>
+          <td></td>
         </tr>
         <tr>
-          <td>Website Desktop
-          </td>
-          <td>328027447731198
-          </td>
-          <td>false
-          </td>
-          <td>
-          </td>
+          <td>Website Desktop</td>
+          <td>328027447731198</td>
+          <td>false</td>
+          <td></td>
         </tr>
         <tr>
-          <td>Android App
-          </td>
-          <td>405383051040955
-          </td>
-          <td>true
-          </td>
-          <td>
-          </td>
+          <td>Android App</td>
+          <td>405383051040955</td>
+          <td>true</td>
+          <td></td>
         </tr>
       </tbody>
     </table>
