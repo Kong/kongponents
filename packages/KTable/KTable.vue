@@ -133,7 +133,7 @@
         </tbody>
       </table>
       <KPagination
-        v-if="fetcher && !disablePagination && !(paginationType !== 'offset' && hidePaginationWhenOptional && total <= pageSize)"
+        v-if="shouldShowPagination"
         :total-count="total"
         :current-page="page"
         :neighbors="paginationNeighbors"
@@ -500,6 +500,11 @@ export default defineComponent({
     const isClickable = ref(false)
     const hasInitialized = ref(false)
     const nextPageClicked = ref(false)
+    const shouldShowPagination = computed(() => {
+      return props.fetcher && !props.disablePagination &&
+        !(props.paginationType !== 'offset' && props.hidePaginationWhenOptional && total.value <= pageSize.value) &&
+        !(props.paginationType === 'offset' && props.hidePaginationWhenOptional && !previousOffset.value && !offset.value)
+    })
 
     /**
      * Grabs listeners from this.$listeners matching a prefix to attach the
@@ -777,7 +782,8 @@ export default defineComponent({
       getNextOffsetHandler,
       getPrevOffsetHandler,
       previousOffset,
-      offset
+      offset,
+      shouldShowPagination
     }
   }
 })
