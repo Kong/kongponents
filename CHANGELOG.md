@@ -1,3 +1,10 @@
+# [7.0.0-beta.56](https://github.com/Kong/kongponents/compare/v7.0.0-beta.55...v7.0.0-beta.56) (2022-07-08)
+
+
+### Bug Fixes
+
+* **kmodalfs:** backport spacing ([#683](https://github.com/Kong/kongponents/issues/683)) ([de67137](https://github.com/Kong/kongponents/commit/de671374792485972e0cdbbd92879073d20e0d0c))
+
 # [7.0.0-beta.55](https://github.com/Kong/kongponents/compare/v7.0.0-beta.54...v7.0.0-beta.55) (2022-07-08)
 
 
