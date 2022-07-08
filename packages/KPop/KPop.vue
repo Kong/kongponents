@@ -436,7 +436,7 @@ export default {
     .k-popover-title {
       color: var(--KPopColor, var(--black-500, color(black-500)));
       font-size: var(--KPopHeaderSize, var(--type-md, type(md)));
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .k-popover-actions {

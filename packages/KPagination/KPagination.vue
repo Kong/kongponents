@@ -376,7 +376,7 @@ export default {
 .page-size-select {
   --KButtonFontSize: var(--type-sm);
   color: var(--blue-400);
-  font-weight: 500;
+  font-weight: 600;
   line-height: 20px;
 }
 .pagination-button-container {

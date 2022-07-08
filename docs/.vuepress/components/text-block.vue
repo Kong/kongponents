@@ -11,7 +11,7 @@
     </div>
     <div class="example">
       <strong>Sample:</strong>
-      <p 
+      <p
         class="mt-2"
         :class="[`${prefix}${variableName}`, fontType === 'mono' && 'mono', styleClasses]">
         Kong is a Lua application running in Nginx
@@ -64,7 +64,7 @@
   .label {
     margin-bottom: .25rem;
     strong {
-      font-weight: 500;
+      font-weight: 600;
     }
     span {
       font-size: var(--type-sm);
