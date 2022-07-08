@@ -386,9 +386,10 @@ describe('KCatalog', () => {
       const wrapper = mount(KCatalog, {
         localVue,
         propsData: {
-          fetcher: () => { return { total: 10 } },
+          fetcher: () => { return { data: getItems(5) } },
           isLoading: false,
           pageSize: 15,
+          paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true
         }
       })
@@ -398,15 +399,16 @@ describe('KCatalog', () => {
       expect(wrapper.find('[data-testid="k-pagination-container"]').exists()).toBe(false)
     })
 
-    it('does not display pagination when hidePaginationWhenOptional is true and total is equal to pageSize', async () => {
+    it('does not display pagination when hidePaginationWhenOptional is true and total is equal to min pageSize', async () => {
       const wrapper = mount(KCatalog, {
         localVue,
         propsData: {
           fetcher: () => {
-            return { total: 15 }
+            return { data: largeDataSet }
           },
           isLoading: false,
           pageSize: 15,
+          paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true
         }
       })
@@ -416,15 +418,16 @@ describe('KCatalog', () => {
       expect(wrapper.find('[data-testid="k-pagination-container"]').exists()).toBe(false)
     })
 
-    it('does display pagination when total is greater than pageSize', async () => {
+    it('does display pagination when hidePaginationWhenOptional is true and total is greater than min pageSize', async () => {
       const wrapper = mount(KCatalog, {
         localVue,
         propsData: {
           fetcher: () => {
-            return { total: 25 }
+            return { data: largeDataSet }
           },
           isLoading: false,
           pageSize: 15,
+          paginationPageSizes: [5, 10, 15],
           hidePaginationWhenOptional: true
         }
       })

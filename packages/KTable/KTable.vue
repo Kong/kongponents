@@ -758,12 +758,14 @@ export default defineComponent({
     }
 
     // fetcher must be defined, disablePagination must be false
-    // if using standard pagination with hidePaginationWhenOptional - hide if total <= pagesize
-    // if using offset-based pagination with hidePaginationWhenOptional - hide if neither previous/next offset exists
+    // if using standard pagination with hidePaginationWhenOptional
+    //  - hide if total <= min pagesize
+    // if using offset-based pagination with hidePaginationWhenOptional
+    //  - hide if neither previous/next offset exists and current data set count is <= min pagesize
     const shouldShowPagination = computed(() => {
       return props.fetcher && !props.disablePagination &&
-        !(props.paginationType !== 'offset' && props.hidePaginationWhenOptional && total.value <= pageSize.value) &&
-        !(props.paginationType === 'offset' && props.hidePaginationWhenOptional && !previousOffset.value && !offset.value)
+        !(props.paginationType !== 'offset' && props.hidePaginationWhenOptional && total.value <= props.paginationPageSizes[0]) &&
+        !(props.paginationType === 'offset' && props.hidePaginationWhenOptional && !previousOffset.value && !offset.value && data.value.length <= props.paginationPageSizes[0])
     })
 
     watch(() => props.searchInput, (newValue) => {
