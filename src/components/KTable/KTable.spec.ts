@@ -359,7 +359,7 @@ describe('KTable', () => {
       mount(KTable, {
         propsData: {
           testMode: 'true',
-          fetcher: () => { return { data: options.data } },
+          fetcher: () => { return { data: options.data, total: options.data.length } },
           isLoading: false,
           headers: options.headers,
           pageSize: 15,
@@ -367,7 +367,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-pagination-container').should('not.exist')
+      cy.getTestId('k-table-pagination').should('not.exist')
     })
 
     it('does not display pagination when hidePaginationWhenOptional is true and total is equal to pageSize', () => {
@@ -384,7 +384,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-pagination-container').should('not.exist')
+      cy.getTestId('k-table-pagination').should('not.exist')
     })
 
     it('does display pagination when total is greater than pageSize', () => {
@@ -401,7 +401,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-pagination-container').should('exist')
+      cy.getTestId('k-table-pagination').should('be.visible')
     })
   })
 })
