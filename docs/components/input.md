@@ -223,7 +223,7 @@ export default defineComponent({
 
 ## Events
 
-### `@input` and `@update:modelValue`
+### `input` and `update:modelValue`
 
 To listen for changes to the `KInput` value, you can bind to the `@input` or `@update:modelValue` events:
 
@@ -235,7 +235,11 @@ To listen for changes to the `KInput` value, you can bind to the `@input` or `@u
 <KInput model-value="This is the input value" @update:modelValue="newValue => inputText = newValue" />
 ```
 
-### `@char-limit-exceeded`
+### `char-limit-exceeded`
+
+```vue
+<KInput @char-limit-exceeded="exampleFunction" />
+```
 
 Fired when the text starts or stops exceeding the limit, returns an object:
 
