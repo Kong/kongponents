@@ -414,8 +414,8 @@ describe('KTable', () => {
           pageSize: 15,
           hidePaginationWhenOptional: true,
           initialFetcherParams: { offset: null },
-          paginationType: 'offset'
-        }
+          paginationType: 'offset',
+        },
       })
 
       cy.getTestId('k-table-pagination').should('not.exist')
@@ -433,8 +433,8 @@ describe('KTable', () => {
           headers: options.headers,
           pageSize: 15,
           hidePaginationWhenOptional: true,
-          paginationType: 'offset'
-        }
+          paginationType: 'offset',
+        },
       })
 
       cy.getTestId('k-table-pagination').should('be.visible')
