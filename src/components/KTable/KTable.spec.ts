@@ -403,5 +403,41 @@ describe('KTable', () => {
 
       cy.getTestId('k-table-pagination').should('be.visible')
     })
+
+    it('does not display offset-based pagination when hidePaginationWhenOptional is true and total is less than pageSize', () => {
+      mount(KTable, {
+        propsData: {
+          testMode: 'true',
+          fetcher: () => { return { data: options.data, offset: null } },
+          isLoading: false,
+          headers: options.headers,
+          pageSize: 15,
+          hidePaginationWhenOptional: true,
+          initialFetcherParams: { offset: null },
+          paginationType: 'offset'
+        }
+      })
+
+      cy.getTestId('k-table-pagination').should('not.exist')
+    })
+
+    it('does display offset-based pagination when total is greater than pageSize', () => {
+      mount(KTable, {
+        propsData: {
+          testMode: 'true',
+          fetcher: () => {
+            return { data: options.data, offset: 'abc' }
+          },
+          isLoading: false,
+          initialFetcherParams: { offset: 'abc' },
+          headers: options.headers,
+          pageSize: 15,
+          hidePaginationWhenOptional: true,
+          paginationType: 'offset'
+        }
+      })
+
+      cy.getTestId('k-table-pagination').should('be.visible')
+    })
   })
 })
