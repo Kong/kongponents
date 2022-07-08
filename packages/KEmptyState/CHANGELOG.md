@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.32.15 (2022-07-08)
+
+
+### Bug Fixes
+
+* **kcatalog:** add new prop ([#684](https://github.com/Kong/kongponents/issues/684)) ([96852b9](https://github.com/Kong/kongponents/commit/96852b9a0eb532f4f783021e1cf2f438615ad569))
+
+
+
+
+
 ## 6.32.14 (2022-07-08)
 
 
