@@ -757,6 +757,9 @@ export default defineComponent({
       offset.value = previousOffset.value
     }
 
+    // fetcher must be defined, disablePagination must be false
+    // if using standard pagination with hidePaginationWhenOptional - hide if total <= pagesize
+    // if using offset-based pagination with hidePaginationWhenOptional - hide if neither previous/next offset exists
     const shouldShowPagination = computed(() => {
       return props.fetcher && !props.disablePagination &&
         !(props.paginationType !== 'offset' && props.hidePaginationWhenOptional && total.value <= pageSize.value) &&
