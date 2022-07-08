@@ -148,7 +148,7 @@
       </slot>
 
       <div
-        v-if="!disablePagination && fetcher && !(hidePaginationWhenOptional && total <= pageSize)"
+        v-if="!disablePagination && fetcher && !(hidePaginationWhenOptional && total <= paginationPageSizes[0])"
         class="card-pagination"
         data-testid="k-catalog-pagination"
       >
