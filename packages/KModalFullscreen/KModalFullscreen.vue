@@ -249,6 +249,7 @@ $fullscreen-modal-padding: 64px;
   display: inline-flex;
   position: relative;
   margin-left: 36px;
+  font-weight: 600;
 }
 
 .k-modal-fullscreen-action {
@@ -296,7 +297,7 @@ $fullscreen-modal-padding: 64px;
 
 .k-modal-fullscreen-body-header {
   margin-top: $fullscreen-modal-padding;
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
 
   .body-header {
     font-size: 32px;
