@@ -253,7 +253,7 @@ $fullscreen-modal-padding: 64px;
     display: flex;
     justify-content: space-between;
     font-size: var(--KModalFullscreenHeaderSize, 20px);
-    font-weight: var(--KModalFullscreenHeaderWeight, 500);
+    font-weight: var(--KModalFullscreenHeaderWeight, 600);
     color: var(--KModalFullscreenHeaderColor, var(--black-500, color(black-500)));
   }
 

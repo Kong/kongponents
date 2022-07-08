@@ -73,7 +73,7 @@ export default defineComponent({
     span {
       display: block;
       &:first-of-type {
-        font-weight: 500;
+        font-weight: 600;
         margin-bottom: .25rem;
       }
       &:last-of-type {

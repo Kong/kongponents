@@ -382,7 +382,7 @@ export default defineComponent({
   --KButtonOutlineBorder: var(--KPaginationPageSizeColor, var(--blue-400));
   --KButtonFontSize: var(--type-sm);
   color: var(--blue-400);
-  font-weight: 500;
+  font-weight: 600;
   line-height: 20px;
 }
 

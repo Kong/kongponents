@@ -67,7 +67,7 @@ export default defineComponent({
   .label {
     margin-bottom: .25rem;
     strong {
-      font-weight: 500;
+      font-weight: 600;
     }
     span {
       font-size: var(--type-sm);
