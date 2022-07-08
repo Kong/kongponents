@@ -365,32 +365,36 @@ export default defineComponent({
   justify-content: space-between;
   margin-top: 4px;
 }
-  
-  .pagination-text {
-    font-size: 14px;
-    color: var(--grey-500);
-    min-width: 115px;
-    font-weight: 500;
-    
-    &-pages {
-      color: black;
+
+.pagination-text {
+  font-size: 14px;
+  color: var(--grey-500);
+  min-width: 115px;
+  font-weight: 500;
+
+  &-pages {
+    color: black;
   }
 }
+
 .page-size-select {
   --KButtonFontSize: var(--type-sm);
   color: var(--blue-400);
   font-weight: 500;
   line-height: 20px;
 }
+
 .pagination-button-container {
   display: flex;
   list-style: none;
   text-align: center;
+
   a {
     text-decoration: none !important;
     font-weight: initial;
     display: block;
   }
+
   .pagination-button {
     align-self: center;
     width: 32px;
@@ -404,26 +408,32 @@ export default defineComponent({
     border-radius: 4px;
     margin: 0 6px;
     cursor: pointer;
+
     a, div {
       padding: 6px;
     }
+
     &.square {
       border: none;
     }
+
     &.placeholder {
       cursor: initial;
     }
+
     &:focus:not(.placeholder),
     &:hover:not(.placeholder) {
       color: var(--blue-500);
       border-color: var(--blue-500);
       border-radius: 4px;
     }
+
     &.disabled:focus:not(.placeholder),
     &.disabled:hover:not(.placeholder) {
       color: var(--black-45);
       border-color: var(--grey-200);
     }
+
     &.active {
       outline: none;
       color: var(--blue-500);
