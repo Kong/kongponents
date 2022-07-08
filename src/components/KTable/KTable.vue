@@ -161,7 +161,7 @@
       </table>
 
       <KPagination
-        v-if="fetcher && !disablePagination"
+        v-if="shouldShowPagination"
         :total-count="total"
         :current-page="page"
         :neighbors="paginationNeighbors"
@@ -726,12 +726,14 @@ export default defineComponent({
 
       return `k-table_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}` as string
     })
+
     const { query, search } = useDebounce('', 350)
     const { revalidate } = useRequest(
       () => tableFetcherCacheKey.value,
       () => fetchData(),
       { revalidateOnFocus: false },
     )
+
     const sortClickHandler = (header: TableHeader) => {
       const { key, useSortHandlerFn } = header
       const prevKey = sortColumnKey.value + '' // avoid pass by ref
@@ -772,6 +774,7 @@ export default defineComponent({
         revalidate()
       }
     }
+
     const pageChangeHandler = ({ page: newPage }: Record<string, number>) => {
       page.value = newPage
     }
@@ -781,6 +784,7 @@ export default defineComponent({
       pageSize.value = newPageSize
       page.value = 1
     }
+
     const scrollHandler = (event: any) => {
       if (event && event.target && event.target.scrollTop) {
         if (event.target.scrollTop > 1) {
@@ -799,6 +803,12 @@ export default defineComponent({
       page.value--
       offset.value = previousOffset.value
     }
+
+    const shouldShowPagination = computed(() => {
+      return props.fetcher && !props.disablePagination &&
+        !(props.paginationType !== 'offset' && props.hidePaginationWhenOptional && total.value <= pageSize.value) &&
+        !(props.paginationType === 'offset' && props.hidePaginationWhenOptional && !previousOffset.value && !offset.value)
+    })
 
     const getTestIdString = (message: string) => {
       return message.toLowerCase().replace(/[^[a-z0-9]/gi, '-')
@@ -838,6 +848,7 @@ export default defineComponent({
       getPrevOffsetHandler,
       previousOffset,
       offset,
+      shouldShowPagination,
     }
   },
 })
