@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.32.16 (2022-07-08)
+
+
+### Bug Fixes
+
+* **ktable,kcatalog:** hide pag logic [khcp-3929] ([#685](https://github.com/Kong/kongponents/issues/685)) ([fca82e8](https://github.com/Kong/kongponents/commit/fca82e8ffaa33d0c6fbd697d17d9c20b10d3e8e4))
+
+
+
+
+
 ## 6.32.15 (2022-07-08)
 
 
