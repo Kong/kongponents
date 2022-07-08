@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.32.12 (2022-07-08)
+
+
+### Bug Fixes
+
+* **ktable:** pagination display with offset ([#680](https://github.com/Kong/kongponents/issues/680)) ([1aed77d](https://github.com/Kong/kongponents/commit/1aed77d6ce992be39dc5280ca03a3004865429b9))
+
+
+
+
+
 ## 6.32.11 (2022-07-06)
 
 **Note:** Version bump only for package @kongponents/kcatalog
