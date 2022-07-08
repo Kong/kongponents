@@ -144,7 +144,7 @@
         </tbody>
       </table>
       <KPagination
-        v-if="fetcher && !disablePagination && !(hidePaginationWhenOptional && total <= pageSize)"
+        v-if="shouldShowPagination"
         :total-count="total"
         :current-page="page"
         :neighbors="paginationNeighbors"
@@ -757,6 +757,15 @@ export default defineComponent({
       offset.value = previousOffset.value
     }
 
+    // fetcher must be defined, disablePagination must be false
+    // if using standard pagination with hidePaginationWhenOptional - hide if total <= pagesize
+    // if using offset-based pagination with hidePaginationWhenOptional - hide if neither previous/next offset exists
+    const shouldShowPagination = computed(() => {
+      return props.fetcher && !props.disablePagination &&
+        !(props.paginationType !== 'offset' && props.hidePaginationWhenOptional && total.value <= pageSize.value) &&
+        !(props.paginationType === 'offset' && props.hidePaginationWhenOptional && !previousOffset.value && !offset.value)
+    })
+
     watch(() => props.searchInput, (newValue) => {
       search(newValue)
     }, { immediate: true })
@@ -789,7 +798,8 @@ export default defineComponent({
       getNextOffsetHandler,
       getPrevOffsetHandler,
       previousOffset,
-      offset
+      offset,
+      shouldShowPagination
     }
   }
 })
