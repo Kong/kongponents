@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kmultiselect",
-  "version": "6.32.13",
+  "version": "6.32.14",
   "description": "Multiselect dropdown component",
   "main": "dist/KMultiselect.umd.min.js",
   "componentName": "KMultiselect",
@@ -23,8 +23,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kbutton": "^6.32.13",
-    "@kongponents/kpop": "^6.32.13",
-    "@kongponents/styles": "^6.32.13"
+    "@kongponents/kbutton": "^6.32.14",
+    "@kongponents/kpop": "^6.32.14",
+    "@kongponents/styles": "^6.32.14"
   }
 }

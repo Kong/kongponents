@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.32.14 (2022-07-08)
+
+
+### Bug Fixes
+
+* **kmodalfullscreen:** margins ([#682](https://github.com/Kong/kongponents/issues/682)) ([473356d](https://github.com/Kong/kongponents/commit/473356dd7f6111902cfe4cadacdbbd36edb1c4f4))
+
+
+
+
+
 ## 6.32.13 (2022-07-08)
 
 
