@@ -249,7 +249,6 @@ $fullscreen-modal-padding: 64px;
   display: inline-flex;
   position: relative;
   margin-left: 36px;
-  font-weight: 600;
 }
 
 .k-modal-fullscreen-action {
