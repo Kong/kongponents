@@ -182,7 +182,7 @@
       </slot>
 
       <div
-        v-if="!disablePagination && fetcher"
+        v-if="!disablePagination && fetcher && !(hidePaginationWhenOptional && total <= pageSize)"
         class="card-pagination"
         data-testid="k-catalog-pagination"
       >
@@ -422,6 +422,13 @@ export default defineComponent({
       default: false,
     },
     disablePagination: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * A prop to pass to hide pagination for total table records is less than or equal to pagesize
+     */
+    hidePaginationWhenOptional: {
       type: Boolean,
       default: false,
     },

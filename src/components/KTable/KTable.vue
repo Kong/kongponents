@@ -161,7 +161,7 @@
       </table>
 
       <KPagination
-        v-if="fetcher && !disablePagination"
+        v-if="shouldShowPagination"
         :total-count="total"
         :current-page="page"
         :neighbors="paginationNeighbors"
@@ -491,6 +491,13 @@ export default defineComponent({
       validator: (value: string) => ['default', 'offset'].includes(value),
     },
     /**
+     * A prop to pass to hide pagination for total table records is less than or equal to pagesize
+     */
+    hidePaginationWhenOptional: {
+      type: Boolean,
+      default: false,
+    },
+    /**
      * for testing only, strips out generated ids and avoid loading state in tests.
      * 'true' - no id's no loading
      * 'loading' - no id's but allow loading
@@ -800,6 +807,15 @@ export default defineComponent({
       offset.value = previousOffset.value
     }
 
+    // fetcher must be defined, disablePagination must be false
+    // if using standard pagination with hidePaginationWhenOptional - hide if total <= pagesize
+    // if using offset-based pagination with hidePaginationWhenOptional - hide if neither previous/next offset exists
+    const shouldShowPagination = computed(() => {
+      return props.fetcher && !props.disablePagination &&
+        !(props.paginationType !== 'offset' && props.hidePaginationWhenOptional && total.value <= pageSize.value) &&
+        !(props.paginationType === 'offset' && props.hidePaginationWhenOptional && !previousOffset.value && !offset.value)
+    })
+
     const getTestIdString = (message: string) => {
       return message.toLowerCase().replace(/[^[a-z0-9]/gi, '-')
     }
@@ -838,6 +854,7 @@ export default defineComponent({
       getPrevOffsetHandler,
       previousOffset,
       offset,
+      shouldShowPagination,
     }
   },
 })

@@ -60,6 +60,10 @@ Set this to `true` to limit pagination navigation to `previous` / `next` page on
 
 Set this to `true` to remove the pagination bar when using a fetcher.
 
+### hidePaginationWhenOptional
+
+Set this to `true` to hide the pagination UI when the table record count is less than or equal to the `pageSize`.
+
 ### disableSorting
 
 Set this to `true` to disable ablity to sort.
@@ -278,7 +282,7 @@ Remember that the `fetcher` function is responsible for managing pagination/sort
     { label: 'Id', key: 'id', sortable: true },
     { label: 'Enabled', key: 'enabled', sortable: false }
   ]"
-  disablePagination
+  hidePaginationWhenOptional
   :enableClientSort="true"
 />
 
@@ -315,7 +319,7 @@ Remember that the `fetcher` function is responsible for managing pagination/sort
       { label: 'Id', key: 'id', sortable: true },
       { label: 'Enabled', key: 'enabled', sortable: false }
     ]"
-    disablePagination
+    hidePaginationWhenOptional
     :enableClientSort="true"
   />
 </template>

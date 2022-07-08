@@ -361,5 +361,51 @@ describe('KCatalog', () => {
 
       cy.getTestId('k-catalog-pagination').should('not.exist')
     })
+
+    it('does not display pagination when hidePaginationWhenOptional is true and total is less than pageSize', () => {
+      mount(KCatalog, {
+        propsData: {
+          testMode: 'true',
+          fetcher: () => { return { total: 10 } },
+          isLoading: false,
+          pageSize: 15,
+          hidePaginationWhenOptional: true,
+        },
+      })
+
+      cy.getTestId('k-pagination-container').should('not.exist')
+    })
+
+    it('does not display pagination when hidePaginationWhenOptional is true and total is equal to pageSize', () => {
+      mount(KCatalog, {
+        propsData: {
+          testMode: 'true',
+          fetcher: () => {
+            return { total: 15 }
+          },
+          isLoading: false,
+          pageSize: 15,
+          hidePaginationWhenOptional: true,
+        },
+      })
+
+      cy.getTestId('k-pagination-container').should('not.exist')
+    })
+
+    it('does display pagination when total is greater than pageSize', () => {
+      mount(KCatalog, {
+        propsData: {
+          testMode: 'true',
+          fetcher: () => {
+            return { total: 25 }
+          },
+          isLoading: false,
+          pageSize: 15,
+          hidePaginationWhenOptional: true,
+        },
+      })
+
+      cy.getTestId('k-pagination-container').should('exist')
+    })
   })
 })

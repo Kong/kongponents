@@ -316,7 +316,7 @@ $fullscreen-modal-padding: 64px;
 
 .k-modal-fullscreen-body-header {
   margin-top: $fullscreen-modal-padding;
-  margin-bottom: 54px;
+  margin-bottom: var(--spacing-lg);
 
   .body-header {
     font-size: 32px;
