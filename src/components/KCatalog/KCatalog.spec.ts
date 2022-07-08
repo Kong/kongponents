@@ -369,8 +369,8 @@ describe('KCatalog', () => {
           fetcher: () => { return { total: 10 } },
           isLoading: false,
           pageSize: 15,
-          hidePaginationWhenOptional: true
-        }
+          hidePaginationWhenOptional: true,
+        },
       })
 
       cy.getTestId('k-pagination-container').should('not.exist')
@@ -385,8 +385,8 @@ describe('KCatalog', () => {
           },
           isLoading: false,
           pageSize: 15,
-          hidePaginationWhenOptional: true
-        }
+          hidePaginationWhenOptional: true,
+        },
       })
 
       cy.getTestId('k-pagination-container').should('not.exist')
@@ -401,8 +401,8 @@ describe('KCatalog', () => {
           },
           isLoading: false,
           pageSize: 15,
-          hidePaginationWhenOptional: true
-        }
+          hidePaginationWhenOptional: true,
+        },
       })
 
       cy.getTestId('k-pagination-container').should('exist')

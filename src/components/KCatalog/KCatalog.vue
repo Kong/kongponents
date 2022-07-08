@@ -430,7 +430,7 @@ export default defineComponent({
      */
     hidePaginationWhenOptional: {
       type: Boolean,
-      default: false
+      default: false,
     },
     /**
      * for testing only, strips out generated ids and avoid loading state in tests.

@@ -363,8 +363,8 @@ describe('KTable', () => {
           isLoading: false,
           headers: options.headers,
           pageSize: 15,
-          hidePaginationWhenOptional: true
-        }
+          hidePaginationWhenOptional: true,
+        },
       })
 
       cy.getTestId('k-pagination-container').should('not.exist')
@@ -380,8 +380,8 @@ describe('KTable', () => {
           isLoading: false,
           headers: options.headers,
           pageSize: 15,
-          hidePaginationWhenOptional: true
-        }
+          hidePaginationWhenOptional: true,
+        },
       })
 
       cy.getTestId('k-pagination-container').should('not.exist')
@@ -397,8 +397,8 @@ describe('KTable', () => {
           isLoading: false,
           headers: options.headers,
           pageSize: 15,
-          hidePaginationWhenOptional: true
-        }
+          hidePaginationWhenOptional: true,
+        },
       })
 
       cy.getTestId('k-pagination-container').should('exist')
