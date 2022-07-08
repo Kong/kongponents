@@ -91,6 +91,7 @@ export default defineComponent({
 @import '@/styles/variables';
 .pagination-offset-button-container {
   display: flex;
+
   .pagination-button.k-button {
     width: 34px;
     height: 34px;
@@ -100,19 +101,22 @@ export default defineComponent({
     border-radius: 4px;
     margin: 0 6px;
     padding: 6px;
+
     &:focus,
     &:hover {
       color: var(--blue-500);
       border-color: var(--blue-500);
       border-radius: 4px;
     }
+
     &.disabled:focus,
     &.disabled:hover {
       color: var(--black-45);
       border-color: var(--grey-200);
       box-shadow: none;
-      cursor: default;
+      cursor: not-allowed;
     }
+
     &.active {
       outline: none;
       color: var(--blue-500);

@@ -378,6 +378,8 @@ export default defineComponent({
 }
 
 .page-size-select {
+  --KButtonBtnLink: var(--KPaginationPageSizeColor, var(--blue-400));
+  --KButtonOutlineBorder: var(--KPaginationPageSizeColor, var(--blue-400));
   --KButtonFontSize: var(--type-sm);
   color: var(--blue-400);
   font-weight: 500;
@@ -402,12 +404,16 @@ export default defineComponent({
     line-height: 20px;
     font-size: 12px;
     font-weight: initial;
-    color: var(--grey-500);
-    border: 1px solid var(--grey-300);
+    color: var(--KPaginationColor, var(--grey-500));
+    border: 1px solid var(--KPaginationBorderColor, var(--grey-300));
     background-color: white;
     border-radius: 4px;
     margin: 0 6px;
     cursor: pointer;
+
+     &:not(.square) {
+      background-color: var(--KPaginationBackgroundColor, white);
+    }
 
     a, div {
       padding: 6px;
@@ -418,13 +424,17 @@ export default defineComponent({
     }
 
     &.placeholder {
+      color: var(--KPaginationColor, var(--grey-500));
+      display: flex;
+      justify-content: center;
+      align-items: center;
       cursor: initial;
     }
 
     &:focus:not(.placeholder),
     &:hover:not(.placeholder) {
-      color: var(--blue-500);
-      border-color: var(--blue-500);
+      color: var(--KPaginationActiveColor, var(--blue-500));
+      border-color: var(--KPaginationActiveColor, var(--blue-500));
       border-radius: 4px;
     }
 
@@ -434,12 +444,23 @@ export default defineComponent({
       border-color: var(--grey-200);
     }
 
+    &.disabled {
+      a {
+        cursor: not-allowed !important;
+      }
+    }
+
     &.active {
       outline: none;
-      color: var(--blue-500);
-      border-color: var(--blue-200);
+      color: var(--KPaginationActiveColor, var(--blue-500));
+      border-color: var(--KPaginationActiveBorderColor, var(--blue-200));
+      background-color: var(--KPaginationActiveBackgroundColor, var(--blue-100));
       border-radius: 4px;
       background-color: var(--blue-100);
+
+      a {
+        color: var(--KPaginationActiveColor, var(--blue-500));
+      }
     }
   }
 }
