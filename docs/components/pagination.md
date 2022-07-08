@@ -188,6 +188,18 @@ export default defineComponent({
 </script>
 ```
 
+### paginationType
+
+Pass in the type of pagination to be used. Options are `default` (page/pageSize) or `offset` (offset/pageSize)
+
+### offsetPrevButtonDisabled
+
+Pass in a boolean value for whether or not the offset-based Previous button should be disabled
+
+### offsetNextButtonDisabled
+
+Pass in a boolean value for whether or not the offset-based Next button should be disabled
+
 ## Usage
 
 ### Events

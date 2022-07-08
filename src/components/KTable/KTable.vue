@@ -169,10 +169,15 @@
         :initial-page-size="pageSize"
         :disable-page-jump="disablePaginationPageJump"
         :test-mode="testMode ? true : false"
+        :pagination-type="paginationType"
+        :offset-prev-button-disabled="!previousOffset"
+        :offset-next-button-disabled="!offset"
         class="pa-1"
         data-testid="k-table-pagination"
         @page-changed="pageChangeHandler"
         @page-size-changed="pageSizeChangeHandler"
+        @getNextOffset="getNextOffsetHandler"
+        @getPrevOffset="getPrevOffsetHandler"
       />
     </section>
   </div>
@@ -480,6 +485,11 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    paginationType: {
+      type: String as PropType<'default' | 'offset'>,
+      default: 'default',
+      validator: (value: string) => ['default', 'offset'].includes(value),
+    },
     /**
      * for testing only, strips out generated ids and avoid loading state in tests.
      * 'true' - no id's no loading
@@ -500,6 +510,7 @@ export default defineComponent({
       query: '',
       sortColumnKey: '',
       sortColumnOrder: 'desc',
+      offset: null,
     }
     const data = ref([])
     const tableHeaders: Ref<TableHeader[]> = ref([])
@@ -511,8 +522,11 @@ export default defineComponent({
     const filterQuery = ref('')
     const sortColumnKey = ref('')
     const sortColumnOrder = ref('desc')
+    const offset: Ref<string | null> = ref(null)
+    const offsets: Ref<Array<any>> = ref([])
     const isClickable = ref(false)
     const hasInitialized = ref(false)
+    const nextPageClicked = ref(false)
     /**
      * Grabs listeners from attrs matching a prefix to attach the
      * event that is dynamic. e.g. `v-on:cell:click`, `@row:focus` etc.
@@ -633,9 +647,28 @@ export default defineComponent({
         query: searchInput || filterQuery.value,
         sortColumnKey: sortColumnKey.value,
         sortColumnOrder: sortColumnOrder.value,
+        offset: offset.value,
       })
       data.value = res.data
       total.value = props.paginationTotalItems || res.total || res.data?.length
+
+      if (props.paginationType === 'offset') {
+        if (!res.pagination?.offset) {
+          offset.value = null
+
+          // reset to first page if no pagiantion data is returned unless the "next page" button was clicked
+          // this will ensure buttons display the correct state for cases like search
+          if (!nextPageClicked.value) {
+            page.value = 1
+          }
+        } else {
+          offset.value = res.pagination.offset
+
+          if (!offsets.value[page.value]) {
+            offsets.value.push(res.pagination.offset)
+          }
+        }
+      }
 
       // get data
       if (props.fetcher) {
@@ -650,6 +683,7 @@ export default defineComponent({
       }
 
       isTableLoading.value = false
+      nextPageClicked.value = false
 
       return res
     }
@@ -665,6 +699,11 @@ export default defineComponent({
       sortColumnKey.value = fetcherParams.sortColumnKey
       sortColumnOrder.value = fetcherParams.sortColumnOrder
 
+      if (props.paginationType === 'offset') {
+        offset.value = fetcherParams.offset
+        offsets.value.push(fetcherParams.offset)
+      }
+
       // get table headers
       if (props.headers && props.headers.length) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -676,6 +715,8 @@ export default defineComponent({
 
       hasInitialized.value = true
     }
+
+    const previousOffset = computed((): string | null => offsets.value[page.value - 1])
 
     // once `initData()` finishes fetch data
     const tableFetcherCacheKey = computed(() => {
@@ -727,7 +768,7 @@ export default defineComponent({
           // @ts-ignore
           defaultSorter(key, prevKey, sortColumnOrder.value, data.value)
         }
-      } else {
+      } else if (props.paginationType !== 'offset') {
         revalidate()
       }
     }
@@ -735,7 +776,10 @@ export default defineComponent({
       page.value = newPage
     }
     const pageSizeChangeHandler = ({ pageSize: newPageSize }: Record<string, number>) => {
+      offsets.value = [null]
+      offset.value = null
       pageSize.value = newPageSize
+      page.value = 1
     }
     const scrollHandler = (event: any) => {
       if (event && event.target && event.target.scrollTop) {
@@ -745,6 +789,15 @@ export default defineComponent({
           isScrolled.value = !isScrolled.value
         }
       }
+    }
+
+    const getNextOffsetHandler = (): void => {
+      page.value++
+      nextPageClicked.value = true
+    }
+    const getPrevOffsetHandler = (): void => {
+      page.value--
+      offset.value = previousOffset.value
     }
 
     const getTestIdString = (message: string) => {
@@ -781,6 +834,10 @@ export default defineComponent({
       total,
       tableId,
       getTestIdString,
+      getNextOffsetHandler,
+      getPrevOffsetHandler,
+      previousOffset,
+      offset,
     }
   },
 })
