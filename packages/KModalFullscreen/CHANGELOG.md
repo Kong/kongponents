@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.32.13 (2022-07-08)
+
+
+### Bug Fixes
+
+* **font-weights:** fix component font weights ([a21da06](https://github.com/Kong/kongponents/commit/a21da06e9ca60e0bd29265585fda87a9865ff366))
+
+
+
+
+
 ## 6.32.12 (2022-07-08)
 
 
