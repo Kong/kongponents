@@ -43,10 +43,6 @@ export default defineComponent({
       type: Object as PropType<CatalogItem>,
       default: () => ({}),
     },
-    locationParam: {
-      type: String,
-      default: '',
-    },
     truncate: {
       type: Boolean,
       default: true,
