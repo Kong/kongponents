@@ -96,57 +96,29 @@
       <slot
         :data="data"
         name="body">
-        <template v-for="item in data">
-          <router-link
-            v-if="item.locationParam"
-            :key="item.key ? item.key : null">
-            <KCatalogItem
+        <KCatalogItem
+          v-for="item in data"
+          :key="item.key ? item.key : null"
+          :item="item"
+          :truncate="!noTruncation"
+          :test-mode="testMode"
+          class="catalog-item"
+        >
+          <template #cardTitle>
+            <slot
               :item="item"
-              :location-param="item.locationParam"
-              :truncate="!noTruncation"
-              :test-mode="testMode"
-              class="catalog-item"
-            >
-              <template #cardTitle>
-                <slot
-                  :item="item"
-                  name="cardTitle">
-                  {{ item.title }}
-                </slot>
-              </template>
-              <template #cardBody>
-                <slot
-                  :item="item"
-                  name="cardBody">
-                  {{ item.description }}
-                </slot>
-              </template>
-            </KCatalogItem>
-          </router-link>
-          <KCatalogItem
-            v-else
-            :key="item.key ? item.key : null"
-            :item="item"
-            :truncate="!noTruncation"
-            :test-mode="testMode"
-            class="catalog-item"
-          >
-            <template #cardTitle>
-              <slot
-                :item="item"
-                name="cardTitle">
-                {{ item.title }}
-              </slot>
-            </template>
-            <template #cardBody>
-              <slot
-                :item="item"
-                name="cardBody">
-                {{ item.description }}
-              </slot>
-            </template>
-          </KCatalogItem>
-        </template>
+              name="cardTitle">
+              {{ item.title }}
+            </slot>
+          </template>
+          <template #cardBody>
+            <slot
+              :item="item"
+              name="cardBody">
+              {{ item.description }}
+            </slot>
+          </template>
+        </KCatalogItem>
       </slot>
       <div
         v-if="!disablePagination && fetcher && !(hidePaginationWhenOptional && total <= paginationPageSizes[0])"

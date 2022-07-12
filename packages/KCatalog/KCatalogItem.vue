@@ -37,10 +37,6 @@ export default {
       type: Object,
       default: () => {}
     },
-    locationParam: {
-      type: String,
-      default: ''
-    },
     truncate: {
       type: Boolean,
       default: true
