@@ -176,8 +176,8 @@
         data-testid="k-table-pagination"
         @page-changed="pageChangeHandler"
         @page-size-changed="pageSizeChangeHandler"
-        @getNextOffset="getNextOffsetHandler"
-        @getPrevOffset="getPrevOffsetHandler"
+        @get-next-offset="getNextOffsetHandler"
+        @get-prev-offset="getPrevOffsetHandler"
       />
     </section>
   </div>

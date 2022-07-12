@@ -103,8 +103,8 @@
         v-else
         :prev-button-disabled="offsetPrevButtonDisabled"
         :next-button-disabled="offsetNextButtonDisabled"
-        @getPrevOffset="getPrevOffset"
-        @getNextOffset="getNextOffset"
+        @get-prev-offset="getPrevOffset"
+        @get-next-offset="getNextOffset"
       />
       <span
         class="page-size-select"
