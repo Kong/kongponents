@@ -169,4 +169,6 @@ export default defineUserConfig({
     //   hostname: 'https://kongponents.konghq.com'
     // }],
   ],
+
+  port: 4022,
 })

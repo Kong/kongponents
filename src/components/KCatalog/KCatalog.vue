@@ -118,67 +118,33 @@
         :data="data"
         name="body"
       >
-        <template v-for="(item, idx) in data">
-          <router-link
-            v-if="item.locationParam"
-            :key="item.key ? item.key : `k-catalog-item-${idx}`"
-            :data-testid="item.id ? item.id : `k-catalog-item-${idx}`"
-          >
-            <KCatalogItem
+        <KCatalogItem
+          v-for="(item, idx) in data"
+          :key="item.key ? item.key : `k-catalog-item-${idx}`"
+          :item="item"
+          :truncate="!noTruncation"
+          :test-mode="!!testMode"
+          class="catalog-item"
+          :data-testid="item.id ? item.id : `k-catalog-item-${idx}`"
+        >
+          <template #cardTitle>
+            <slot
               :item="item"
-              :location-param="item.locationParam"
-              :truncate="!noTruncation"
-              :test-mode="!!testMode"
-              class="catalog-item"
+              name="cardTitle"
             >
-              <template #cardTitle>
-                <slot
-                  :item="item"
-                  name="cardTitle"
-                >
-                  {{ item.title }}
-                </slot>
-              </template>
+              {{ item.title }}
+            </slot>
+          </template>
 
-              <template #cardBody>
-                <slot
-                  :item="item"
-                  name="cardBody"
-                >
-                  {{ item.description }}
-                </slot>
-              </template>
-            </KCatalogItem>
-          </router-link>
-
-          <KCatalogItem
-            v-else
-            :key="item.key ? item.key : `k-catalog-item-${idx}`"
-            :item="item"
-            :truncate="!noTruncation"
-            :test-mode="!!testMode"
-            class="catalog-item"
-            :data-testid="item.id ? item.id : `k-catalog-item-${idx}`"
-          >
-            <template #cardTitle>
-              <slot
-                :item="item"
-                name="cardTitle"
-              >
-                {{ item.title }}
-              </slot>
-            </template>
-
-            <template #cardBody>
-              <slot
-                :item="item"
-                name="cardBody"
-              >
-                {{ item.description }}
-              </slot>
-            </template>
-          </KCatalogItem>
-        </template>
+          <template #cardBody>
+            <slot
+              :item="item"
+              name="cardBody"
+            >
+              {{ item.description }}
+            </slot>
+          </template>
+        </KCatalogItem>
       </slot>
 
       <div
