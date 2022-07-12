@@ -1,3 +1,10 @@
+# [7.0.0-beta.57](https://github.com/Kong/kongponents/compare/v7.0.0-beta.56...v7.0.0-beta.57) (2022-07-12)
+
+
+### Bug Fixes
+
+* **deps:** upgrade beta dependencies ([#687](https://github.com/Kong/kongponents/issues/687)) ([3b78f01](https://github.com/Kong/kongponents/commit/3b78f01dca2b0adf4e3fe9d53f84567fef3de15f))
+
 # [7.0.0-beta.56](https://github.com/Kong/kongponents/compare/v7.0.0-beta.55...v7.0.0-beta.56) (2022-07-08)
 
 
