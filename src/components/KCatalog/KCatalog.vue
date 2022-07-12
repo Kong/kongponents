@@ -121,7 +121,7 @@
         <template v-for="(item, idx) in data">
           <router-link
             v-if="item.locationParam"
-            :key="item.key ? item.key : `k-catalog-item-${idx}`"
+            :key="item.key ? item.key : `k-catalog-item-router-link-${idx}`"
             :data-testid="item.id ? item.id : `k-catalog-item-${idx}`"
           >
             <KCatalogItem
