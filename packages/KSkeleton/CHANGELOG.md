@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.32.17 (2022-07-12)
+
+
+### Bug Fixes
+
+* linting ([#688](https://github.com/Kong/kongponents/issues/688)) ([e74f8a2](https://github.com/Kong/kongponents/commit/e74f8a26d9c1ebec5cdf75653aac7bdbcebee5b2))
+
+
+
+
+
 ## 6.32.16 (2022-07-08)
 
 
