@@ -495,10 +495,9 @@ export default {
 </script>
 
 <style lang="scss">
-.select-item-label {
-  color: blue;
-  font-weight: bold;
-}
+  .select-item-label {
+    color: blue;
+  }
 
 .select-item-desc {
   color: red;

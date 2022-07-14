@@ -74,7 +74,7 @@
             role="listbox">
             <KIcon
               v-if="appearance === 'select'"
-              icon="chevronDown"
+              :icon="isToggled ? 'chevronUp' : 'chevronDown'"
               color="var(--grey-500)"
               size="15" />
             <KInput
@@ -104,6 +104,7 @@
                     <slot
                       :item="item"
                       name="item-template"
+                      class="select-item-label select-item-desc"
                     />
                   </template>
                 </KSelectItem>
@@ -399,7 +400,7 @@ export default {
 
     .selected-item-label {
       align-self: center;
-      font-size: var(--type-xs);
+      font-size: 14px;
       line-height: 16px;
     }
 
@@ -481,8 +482,8 @@ export default {
     }
 
     &.k-select-pop-dropdown {
-      --KPopPaddingY: var(--spacing-md);
-      --KPopPaddingX: var(--spacing-xxs);
+      --KPopPaddingY: 7px;
+      --KPopPaddingX: 7px;
       border: 1px solid var(--blue-200);
     }
 

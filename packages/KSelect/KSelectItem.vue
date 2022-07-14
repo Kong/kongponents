@@ -55,7 +55,7 @@ export default {
 @import '~@kongponents/styles/variables';
 
 .k-select-item {
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   list-style: none !important;
 
   button {
@@ -81,6 +81,19 @@ export default {
     .k-select-item-label {
       width: auto;
       line-height: 16px;
+      font-weight: 500;
+      font-size: 14px;
+      padding: 8px;
+
+      .select-item-label {
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      .select-item-desc {
+        font-weight: 400;
+        font-size: 14px;
+      }
     }
 
     .kong-icon:not(.selected-item-icon) {
