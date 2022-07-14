@@ -4,7 +4,7 @@
 import { mount } from '@cypress/vue'
 import KButton, { appearances } from '@/components/KButton/KButton.vue'
 
-const rendersCorrectAppearance = (variant) => {
+const rendersCorrectAppearance = (variant: string) => {
   it(`renders kbutton with the ${variant} appearance`, () => {
     mount(KButton, {
       props: {
@@ -103,5 +103,19 @@ describe('KButton', () => {
     })
 
     cy.get('.k-button').should('contain.text', iconText)
+  })
+
+  it('strips falsy disabled attribute on native link', () => {
+    mount(KButton, {
+      props: {
+        to: 'https://google.com',
+        disabled: false,
+      },
+      slots: {
+        default: () => "I'm a native link",
+      },
+    })
+
+    cy.get('.k-button').should('not.have.attr', 'disabled')
   })
 })

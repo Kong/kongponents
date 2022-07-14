@@ -5,7 +5,7 @@
     :href="to"
     :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance]"
     class="k-button"
-    v-bind="$attrs"
+    v-bind="strippedAttrs"
   >
 
     <slot name="icon">
@@ -37,7 +37,7 @@
     :to="to"
     :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance, caretClasses]"
     class="k-button"
-    v-bind="$attrs"
+    v-bind="strippedAttrs"
   >
     <slot name="icon">
       <KIcon
@@ -163,12 +163,28 @@ export default defineComponent({
       return ''
     })
 
+    /**
+     * Strips falsy `disabled` attribute, so it does not fall onto native <a> elements.
+     * Vue 3 no longer removes attribute if the value is boolean false. Instead, it's set as attr="false".
+     * So for <KButton :disabled="false" to="SOME_URL">, the rendered <a> element will have `disabled="false"`,
+     * which is greyed out and cannot be interacted with.
+     */
+    const strippedAttrs = computed((): typeof attrs => {
+      const { disabled, ...restAttrs } = attrs
+      if (disabled) {
+        return attrs
+      } else {
+        return { ...restAttrs }
+      }
+    })
+
     return {
       caretClasses,
       hasText,
       hasIcon,
       buttonType,
       iconColor,
+      strippedAttrs,
     }
   },
 })
