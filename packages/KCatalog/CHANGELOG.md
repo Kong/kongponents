@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.32.18 (2022-07-14)
+
+
+### Bug Fixes
+
+* **kalert:** update default appearance colors ([#689](https://github.com/Kong/kongponents/issues/689)) ([e9d97a1](https://github.com/Kong/kongponents/commit/e9d97a155615d3da190f2097b214ec15a5a2e871))
+
+
+
+
+
 ## 6.32.17 (2022-07-12)
 
 

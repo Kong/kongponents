@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kclipboardprovider",
-  "version": "6.32.17",
+  "version": "6.32.18",
   "description": "Provide clipboard copy capabilities to any component",
   "main": "dist/KClipboardProvider.umd.min.js",
   "componentName": "KClipboardProvider",
