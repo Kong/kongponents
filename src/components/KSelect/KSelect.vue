@@ -99,8 +99,10 @@
               :is-open="isToggled.value"
               :placeholder="placeholderText"
               class="k-select-input"
+              :class="{ 'cursor-default': !filterIsEnabled }"
               autocomplete="off"
               autocapitalize="off"
+              :readonly="!filterIsEnabled"
               @keyup="evt => triggerFocus(evt, isToggled)"
             />
           </div>
@@ -255,6 +257,10 @@ export default defineComponent({
       type: Function,
       default: (params: SelectFilterFnParams) => params.items.filter((item: SelectItem) => item.label.toLowerCase().includes(params.query.toLowerCase())),
     },
+    enableFiltering: {
+      type: Boolean,
+      default: null,
+    },
     /**
      * Test mode - for testing only, strips out generated ids
      */
@@ -271,6 +277,18 @@ export default defineComponent({
     const selectInputId = computed((): string => props.testMode ? 'test-select-input-id-1234' : uuidv1())
     const selectTextId = computed((): string => props.testMode ? 'test-select-text-id-1234' : uuidv1())
     const selectItems: Ref<SelectItem[]> = ref([])
+    const filterIsEnabled = computed((): boolean => {
+      if (props.enableFiltering !== null) {
+        // filtering not allowed for `button` appearance
+        return props.appearance === 'button' ? false : props.enableFiltering
+      }
+
+      if (props.appearance === 'dropdown') {
+        return true
+      }
+
+      return false
+    })
 
     const widthValue = computed(() => {
       let w = ''
@@ -318,7 +336,7 @@ export default defineComponent({
       } else if (attrs.placeholder) {
         return attrs.placeholder as string
       }
-      if (props.appearance === 'button') {
+      if (props.appearance === 'button' || !filterIsEnabled.value) {
         return 'Select an item'
       }
       return 'Filter...'
@@ -420,6 +438,7 @@ export default defineComponent({
       clearSelection,
       triggerFocus,
       inputWidth,
+      filterIsEnabled,
     }
   },
 })
@@ -452,45 +471,7 @@ export default defineComponent({
       margin-bottom: auto;
       padding: 0;
       height: 24px;
-
-      :deep(.kong-icon) {
-        margin-left: auto;
-      }
     }
-  }
-
-  .k-select-input {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-
-    :deep(input.k-input) {
-      padding: var(--spacing-xs);
-      height: 100%;
-      border-radius: 4px 4px 0 0;
-    }
-
-    :deep(.kong-icon) {
-      position: absolute;
-      top: 60%;
-      right: 6px;
-      transform: translateY(-50%);
-      z-index: 9;
-    }
-  }
-
-  .k-select-button .has-caret :deep(.kong-icon) {
-    margin-left: auto;
-  }
-
-  .k-select-button {
-    :deep(.k-button.btn-link):hover {
-      text-decoration: none;
-    }
-  }
-
-  :deep(.k-input) {      // need this so input takes the
-    width: 100%;  // k-input-wrapper's width which uses this.width prop
   }
 
   .k-select-trigger:after {
@@ -504,8 +485,61 @@ export default defineComponent({
     border-right: 0.325em solid transparent;
     border-left: 0.325em solid transparent;
   }
+}
+</style>
 
-  :deep(.k-select-popover) {
+<style lang="scss">
+@import '@/styles/variables';
+@import '@/styles/functions';
+
+.k-select {
+  .k-select-item-selection {
+    .clear-selection-icon {
+      .kong-icon {
+        margin-left: auto;
+      }
+    }
+  }
+
+  .k-select-input {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+
+    &.cursor-default {
+      cursor: default;
+    }
+
+    &input.k-input {
+      padding: var(--spacing-xs);
+      height: 100%;
+      border-radius: 4px 4px 0 0;
+    }
+
+    .kong-icon {
+      position: absolute;
+      top: 60%;
+      right: 6px;
+      transform: translateY(-50%);
+      z-index: 9;
+    }
+  }
+
+  .k-select-button .has-caret .kong-icon {
+    margin-left: auto;
+  }
+
+  .k-select-button {
+    &.k-button.btn-link:hover {
+      text-decoration: none;
+    }
+  }
+
+  &.k-input {
+    width: 100%;  // need this so input takes the k-input-wrapper's width which uses this.width prop
+  }
+
+  .k-select-popover {
     box-sizing: border-box;
     // width: 100%;
     border-radius: 0 0 4px 4px;

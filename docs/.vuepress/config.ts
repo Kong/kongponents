@@ -157,7 +157,7 @@ export default defineUserConfig({
 
   plugins: [
     searchPlugin({
-      hotKeys: ['s', '/'],
+      hotKeys: ['/'],
       locales: {
         '/': {
           placeholder: 'Search...',

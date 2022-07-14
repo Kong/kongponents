@@ -289,6 +289,57 @@ Because we are controlling the widths of multiple elements, we recommend using t
 
 Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `true`. See [`KPop` docs](popover.html#positionfixed) for more information.
 
+### enableFiltering
+
+Use this prop to control whether or not `KSelect` with `appearance` `select` or `dropdown` allows filtering. By default, filtering is enabled for `dropdown` appearance and disabled for `select` appearance. `button` style `appearance` does not have filter support because it is a button.
+
+<div>
+  <KSelect :items="[{
+      label: 'test',
+      value: 'test'
+    }, {
+      label: 'Test 1',
+      value: 'test1'
+    }]"
+    :enable-filtering="false"
+    class="mb-2"
+  />
+
+  <KSelect :items="[{
+      label: 'test',
+      value: 'test'
+    }, {
+      label: 'Test 1',
+      value: 'test1'
+    }]"
+    appearance="select"
+    :enable-filtering="true"
+  />
+</div>
+
+```html
+<KSelect :items="[{
+    label: 'test',
+    value: 'test'
+  }, {
+    label: 'Test 1',
+    value: 'test1'
+  }]"
+  :enable-filtering="false"
+/>
+
+<KSelect :items="[{
+    label: 'test',
+    value: 'test'
+  }, {
+    label: 'Test 1',
+    value: 'test1'
+  }]"
+  appearance="select"
+  :enable-filtering="true"
+/>
+```
+
 ### filterFunc
 
 Use this prop to override the default filter function if you want to do something like filter on an attribute other than `label`. Your filter function
