@@ -1,3 +1,10 @@
+# [7.0.0-beta.59](https://github.com/Kong/kongponents/compare/v7.0.0-beta.58...v7.0.0-beta.59) (2022-07-14)
+
+
+### Bug Fixes
+
+* **kalert:** update default colors ([118320c](https://github.com/Kong/kongponents/commit/118320c23bf4c51d49220d533de416f5b2a0f65f))
+
 # [7.0.0-beta.58](https://github.com/Kong/kongponents/compare/v7.0.0-beta.57...v7.0.0-beta.58) (2022-07-14)
 
 
