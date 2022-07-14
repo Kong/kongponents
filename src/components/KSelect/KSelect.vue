@@ -140,7 +140,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, computed, onBeforeMount, PropType } from 'vue'
+import { defineComponent, ref, Ref, computed, onBeforeMount, onMounted, PropType } from 'vue'
 import { v1 as uuidv1 } from 'uuid'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
@@ -273,16 +273,21 @@ export default defineComponent({
     const selectItems: Ref<SelectItem[]> = ref([])
 
     const widthValue = computed(() => {
-      let w
+      let w = ''
       if (!props.width) {
-        w = 205
+        w = '205'
         if (props.appearance === 'button') {
-          w = 230
+          w = '230'
         }
       } else {
         w = props.width
       }
-      return w === 'auto' ? w : w + 'px'
+
+      if (w !== 'auto' && !w.endsWith('%') && !w.endsWith('px')) {
+        w += 'px'
+      }
+
+      return w
     })
 
     const widthStyle = computed(() => {
@@ -296,7 +301,8 @@ export default defineComponent({
         ...defaultKPopAttributes,
         ...props.kpopAttributes,
         popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses} k-select-pop-${props.appearance}`,
-        width: String(widthValue.value.replace(/px/i, '')),
+        width: String(inputWidth.value),
+        maxWidth: String(inputWidth.value),
         disabled: typeof attrs.disabled === 'boolean' ? attrs.disabled : false,
       }
     })
@@ -388,6 +394,15 @@ export default defineComponent({
       }
     })
 
+    const inputWidth = ref(0)
+    onMounted(() => {
+      const inputElem = document.getElementById(selectInputId.value)
+
+      if (inputElem) {
+        inputWidth.value = inputElem.offsetWidth
+      }
+    })
+
     return {
       filterStr,
       selectedItem,
@@ -404,6 +419,7 @@ export default defineComponent({
       handleItemSelect,
       clearSelection,
       triggerFocus,
+      inputWidth,
     }
   },
 })

@@ -255,6 +255,11 @@ export default defineComponent({
 ### width
 
 You can pass a `width` string for dropdown. By default the `width` is `200px`. This is the width of the input, dropdown, and selected item.
+Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
+
+:::tip Note
+Because we are controlling the widths of multiple elements, we recommend using this prop instead of classes or explicit styles to control the width.
+:::
 
 <div>
   <KSelect width="350" :items="[{
@@ -346,7 +351,7 @@ You can pass any input attribute and it will get properly bound to the element.
 You can use the `item-template` slot to customize the look and feel of your items. Use slots to gain access to the `item` data.
 
 <div>
-  <KSelect :items="myItems" width="500" :filterFunc="customFilter">
+  <KSelect :items="myItems" width="100%" :filterFunc="customFilter">
     <template v-slot:item-template="{ item }">
       <div class="select-item-label">{{ item.label }}</div>
       <div class="select-item-desc">{{ item.description }}</div>
@@ -355,7 +360,7 @@ You can use the `item-template` slot to customize the look and feel of your item
 </div>
 
 ```html
-<KSelect :items="myItems" width="500" :filterFunc="customFilter">
+<KSelect :items="myItems" width="100%" :filterFunc="customFilter">
   <template v-slot:item-template="{ item }">
     <div class="select-item-label">{{item.label}}</div>
     <div class="select-item-desc">{{item.description}}</div>
@@ -443,12 +448,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  .select-item-label {
-    color: blue;
-    font-weight: bold;
-  }
+.select-item-label {
+  color: blue;
+  font-weight: bold;
+}
 
-  .select-item-desc {
-    color: red;
-  }
+.select-item-desc {
+  color: red;
+}
 </style>

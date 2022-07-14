@@ -70,7 +70,7 @@ export default defineComponent({
 
 ### width
 
-You can pass a `width` string for **KMenu**. Either the string `auto` or a string width, like `120`.
+You can pass a `width` string for **KMenu**. Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
 
 By default the `width` is set to `284px`.
 

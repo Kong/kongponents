@@ -75,7 +75,7 @@ export default defineComponent({
   setup(props, { emit, slots }) {
     const widthStyle = computed((): Record<string, string> => {
       return {
-        width: props.width === 'auto' || props.width.includes('px') ? props.width : props.width + 'px',
+        width: props.width === 'auto' || props.width.endsWith('%') || props.width.endsWith('px') ? props.width : props.width + 'px',
       }
     })
 
