@@ -96,13 +96,13 @@
               :id="selectTextId"
               v-bind="$attrs"
               v-model="filterStr"
+              :readonly="!filterIsEnabled"
               :is-open="isToggled.value"
               :placeholder="placeholderText"
-              class="k-select-input"
-              :class="{ 'cursor-default': !filterIsEnabled }"
               autocomplete="off"
               autocapitalize="off"
-              :readonly="!filterIsEnabled"
+              :class="{ 'cursor-default': !filterIsEnabled }"
+              class="k-select-input"
               @keyup="evt => triggerFocus(evt, isToggled)"
             />
           </div>
