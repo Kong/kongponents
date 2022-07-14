@@ -78,11 +78,13 @@
               color="var(--grey-500)"
               size="15" />
             <KInput
-              :is-open="isToggled"
               :id="selectTextId"
               v-bind="$attrs"
               v-model="filterStr"
+              :readonly="!filterIsEnabled"
+              :is-open="isToggled"
               :placeholder="placeholderText"
+              :class="{ 'cursor-default': !filterIsEnabled }"
               class="k-select-input"
               @keyup="triggerFocus(isToggled)" />
           </div>
@@ -210,6 +212,13 @@ export default {
       default: false
     },
     /**
+     * Control whether the input for `select` and `dropdown` appearances supports filtering.
+     */
+    enableFiltering: {
+      type: Boolean,
+      default: null
+    },
+    /**
      * Override default filter functionality of case-insensitive search on label
      */
     filterFunc: {
@@ -227,6 +236,7 @@ export default {
 
   data: function () {
     return {
+      inputWidth: 0,
       filterStr: '',
       selectedItem: null,
       selectId: !this.testMode ? uuid.v1() : 'test-select-id-1234',
@@ -242,7 +252,8 @@ export default {
         ...defaultKPopAttributes,
         ...this.kpopAttributes,
         popoverClasses: `${defaultKPopAttributes.popoverClasses} ${this.kpopAttributes.popoverClasses} k-select-pop-${this.appearance}`,
-        width: this.width,
+        width: String(this.inputWidth),
+        maxWidth: String(this.inputWidth),
         disabled: this.$attrs.disabled
       }
     },
@@ -250,23 +261,39 @@ export default {
       return this.$listeners
     },
     widthValue: function () {
-      let w
+      let w = ''
 
       if (!this.width) {
-        w = 200
+        w = '200'
         if (this.appearance === 'button') {
-          w = 230
+          w = '230'
         }
       } else {
         w = this.width
       }
 
-      return w === 'auto' ? w : w + 'px'
+      if (w !== 'auto' && !w.endsWith('%') && !w.endsWith('px')) {
+        w += 'px'
+      }
+
+      return w
     },
     widthStyle: function () {
       return {
         width: this.widthValue
       }
+    },
+    filterIsEnabled: function () {
+      if (this.enableFiltering !== null) {
+        // filtering not allowed for `button` appearance
+        return this.appearance === 'button' ? false : this.enableFiltering
+      }
+
+      if (this.appearance === 'dropdown') {
+        return true
+      }
+
+      return false
     },
     filteredItems: function () {
       return this.filterFunc({ items: this.selectItems, query: this.filterStr })
@@ -278,7 +305,7 @@ export default {
         return this.$attrs.placeholder
       }
 
-      if (this.appearance === 'button') {
+      if (this.appearance === 'button' || !this.filterIsEnabled) {
         return 'Select an item'
       }
 
@@ -309,6 +336,12 @@ export default {
           this.filterStr = this.selectedItem.label
         }
       }
+    }
+  },
+  mounted () {
+    const inputElem = document.getElementById(this.selectInputId)
+    if (inputElem) {
+      this.inputWidth = inputElem.offsetWidth
     }
   },
   methods: {
@@ -395,7 +428,11 @@ export default {
     width: 100%;
     height: 44px;
 
-    input.k-input {
+    &.cursor-default {
+      cursor: default;
+    }
+
+    &input.k-input {
       padding: var(--spacing-xs);
       height: 100%;
       border-radius: 4px 4px 0 0;

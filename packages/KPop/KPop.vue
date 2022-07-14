@@ -24,7 +24,7 @@
           ref="popper"
           :id="popoverId"
           :style="popoverStyle"
-          :class="[popoverClasses, {'hide-caret': hideCaret }, { 'pb-0': $scopedSlots.actions }]"
+          :class="popoverClassObj"
           role="region"
           class="k-popover">
           <div
@@ -60,7 +60,7 @@
         ref="popper"
         :id="popoverId"
         :style="popoverStyle"
-        :class="[popoverClasses, {'hide-caret': hideCaret }, { 'pb-0': $scopedSlots.actions }]"
+        :class="popoverClassObj"
         role="region"
         class="k-popover">
         <div
@@ -265,9 +265,12 @@ export default {
   computed: {
     popoverStyle: function () {
       return {
-        width: this.width === 'auto' ? this.width : this.width + 'px',
-        'max-width': this.maxWidth === 'auto' ? this.maxWidth : this.maxWidth + 'px'
+        width: this.width === 'auto' || this.width.endsWith('%') || this.width.endsWith('px') ? this.width : this.width + 'px',
+        'max-width': this.maxWidth === 'auto' || this.maxWidth.endsWith('%') || this.maxWidth.endsWith('px') ? this.maxWidth : this.maxWidth + 'px'
       }
+    },
+    popoverClassObj: function () {
+      return [this.popoverClasses, { 'hide-caret': this.hideCaret }, { 'pb-0': this.$slots.actions }]
     }
   },
 

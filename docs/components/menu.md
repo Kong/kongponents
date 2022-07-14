@@ -72,12 +72,12 @@ function getMenuItems(count) {
 
 ### width
 
-You can pass a `width` string for menu. By default the `width` is `284px`.
+You can pass a `width` string for menu. Currently we support numbers (will be converted to `px`), `auto`, and percentages for width. By default the `width` is `284px`.
 
 <KMenu :items="getMenuItems(3)" width="735" />
 
 ```vue
-<KMenu :items="getMenuItems(3)" width="735" /> 
+<KMenu :items="getMenuItems(3)" width="735" />
 ```
 
 ## KMenuItem
@@ -97,11 +97,11 @@ You can pass a `width` string for menu. By default the `width` is `284px`.
 ```vue
   <KMenuItem
     :item="{
-      title: 'some title', 
+      title: 'some title',
       description: 'some description'
     }"
     :expandable="true"
-    type="string" 
+    type="string"
   />
 ```
 
@@ -111,7 +111,7 @@ You can pass a `width` string for menu. By default the `width` is `284px`.
 - `itemBody` - the body content for the menu item
 
 ```vue
-<KMenuItem>       
+<KMenuItem>
   <template v-slot:itemTitle>
     Custom Title!
   </template>
@@ -177,9 +177,9 @@ This should be used instead of the `items` property.
     </KMenuItem>
 
     <KMenuItem type="divider" />
-    
-    <KMenuItem :expandable="true" 
-      :item="customItem" 
+
+    <KMenuItem :expandable="true"
+      :item="customItem"
       type="string"
      />
     <KMenuItem :expandable="true" last-menu-item>
