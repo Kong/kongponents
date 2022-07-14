@@ -328,22 +328,22 @@ export default {
   }
   // Appearances
   &.info {
-    color: var(--KAlertInfoColor, var(--blue-700, color(blue-700)));
+    color: var(--KAlertInfoColor, var(--blue-600, color(blue-600)));
     border-color: var(--KAlertInfoBorder, var(--blue-300, color(blue-300)));
     background-color: var(--KAlertInfoBackground, var(--blue-200, color(blue-200)));
   }
   &.success {
-    color: var(--KAlertSuccessColor, var(--green-500, color(green-500)));
+    color: var(--KAlertSuccessColor, var(--green-700, color(green-700)));
     border-color: var(--KAlertSuccessBorder, var(--green-200, color(green-200)));
     background-color: var(--KAlertSuccessBackground, var(--green-100, color(green-100)));
   }
   &.danger {
     color: var(--KAlertDangerColor, var(--red-700, color(red-700)));
     border-color: var(--KAlertDangerBorder, var(--red-300, color(red-300)));
-    background-color: var(--KAlertDangerBackground, var(--red-200, color(red-200)));
+    background-color: var(--KAlertDangerBackground, var(--red-100, color(red-100)));
   }
   &.warning {
-    color: var(--KAlertWarningColor, var(--yellow-400, color(yellow-400)));
+    color: var(--KAlertWarningColor, var(--yellow-600, color(yellow-600)));
     border-color: var(--KAlertWarningBorder, var(--yellow-200, color(yellow-200)));
     background-color: var(--KAlertWarningBackground, var(--yellow-100, color(yellow-100)));
   }
