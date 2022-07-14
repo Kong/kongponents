@@ -164,7 +164,10 @@ export default defineComponent({
     })
 
     /**
-     * Strips falsy `disabled` attribute, so it does not fall onto native <a> elements
+     * Strips falsy `disabled` attribute, so it does not fall onto native <a> elements.
+     * Vue 3 no longer removes attribute if the value is boolean false. Instead, it's set as attr="false".
+     * So for <KButton :disabled="false" to="SOME_URL">, the rendered <a> element will have `disabled="false"`,
+     * which is greyed out and cannot be interacted with.
      */
     const strippedAttrs = computed((): typeof attrs => {
       const { disabled, ...restAttrs } = attrs
