@@ -1,3 +1,10 @@
+# [7.0.0-beta.58](https://github.com/Kong/kongponents/compare/v7.0.0-beta.57...v7.0.0-beta.58) (2022-07-14)
+
+
+### Bug Fixes
+
+* **kbutton:** falsy disabled attribute on native link element ([#690](https://github.com/Kong/kongponents/issues/690)) ([2391fd5](https://github.com/Kong/kongponents/commit/2391fd527ff8d44ca10b2729ad7645072a405f23))
+
 # [7.0.0-beta.57](https://github.com/Kong/kongponents/compare/v7.0.0-beta.56...v7.0.0-beta.57) (2022-07-12)
 
 
