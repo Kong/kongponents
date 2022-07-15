@@ -85,6 +85,11 @@
             data-testid="k-select-input"
             style="position: relative;"
             role="listbox"
+            @click="evt => {
+              if ($attrs.disabled !== undefined && $attrs.disabled !== false) {
+                evt.stopPropagation()
+              }
+            }"
           >
             <KIcon
               v-if="appearance === 'select'"
@@ -98,7 +103,7 @@
               v-model="filterStr"
               :readonly="!filterIsEnabled"
               :is-open="isToggled.value"
-              :placeholder="placeholderText"
+              :placeholder="selectedItem && appearance === 'select' && !filterIsEnabled ? selectedItem.label : placeholderText"
               autocomplete="off"
               autocapitalize="off"
               :class="{ 'cursor-default': !filterIsEnabled }"
