@@ -465,7 +465,6 @@ export default {
 
     input.k-input {
       padding: var(--spacing-xs);
-      height: 100%;
       height: 44px;
     }
 
