@@ -96,6 +96,7 @@
               v-model="filterStr"
               :readonly="!filterIsEnabled"
               :is-open="isToggled"
+              :label="label && overlayLabel ? label : null"
               :overlay-label="overlayLabel"
               :placeholder="selectedItem && appearance === 'select' ? selectedItem.label : placeholderText"
               :class="{ 'cursor-default': !filterIsEnabled }"
@@ -465,6 +466,7 @@ export default {
       padding: var(--spacing-xs);
       height: 100%;
       border-radius: 4px 4px 0 0;
+      height: 44px;
     }
 
     .kong-icon {
@@ -474,7 +476,7 @@ export default {
       z-index: 9;
 
       &.overlay-label-chevron {
-        top: 70%;
+        top: 80%;
       }
     }
   }
