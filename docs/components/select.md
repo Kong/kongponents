@@ -258,7 +258,7 @@ You can pass a `width` string for dropdown. By default the `width` is `200px`. T
 Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
 
 :::tip Note
-Because we are controlling the widths of multiple elements, we recommend using this prop instead of classes or explicit styles to control the width.
+Because we are controlling the widths of multiple elements, we recommend using this prop to control the width instead of explicitly adding classes or styles to the `KSelect` component.
 :::
 
 <div>
