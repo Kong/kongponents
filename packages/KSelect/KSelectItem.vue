@@ -91,6 +91,7 @@ export default {
         color: var(--grey-600);
         font-weight: 600;
         font-size: 14px;
+        margin-bottom: 4px;
       }
 
       .select-item-desc {
