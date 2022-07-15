@@ -427,7 +427,7 @@ export default {
   color: var(--KPopColor, var(--black-400, color(black-400)));
   background-color: var(--KPopBackground, var(--white, color(white)));
   border: 1px solid var(--KPopBorder, var(--black-10, color(black-10)));
-  border-radius: 3px;
+  border-radius: 4px;
   -webkit-box-shadow: 0px 4px 20px var(--black-10);
   box-shadow: 0px 4px 20px var(--black-10);
   padding: var(--KPopPaddingY, 28px) var(--KPopPaddingX, var(--spacing-md, spacing(md)));

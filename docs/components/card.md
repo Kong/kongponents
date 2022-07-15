@@ -342,7 +342,7 @@ An Example of changing the background might look like.
 .borderless-cards {
   padding: 1rem;
   background: rgba(27,31,35,0.05);
-  border-radius: 3px;
+  border-radius: 4px;
   .kong-card {
     background: #fff;
   }

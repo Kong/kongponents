@@ -127,7 +127,7 @@ Example usage:
     > * {
       width: 100%;
       border: 1px solid transparent;
-      border-radius: 3px;
+      border-radius: 4px;
       padding: var(--padding);
       margin-left: calc(-1 * var(--spacing-xs)); // align the left side of content
       line-height: 1.25;
