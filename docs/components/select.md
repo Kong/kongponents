@@ -291,7 +291,9 @@ Use fixed positioning of the popover to avoid content being clipped by parental 
 
 ### enableFiltering
 
-Use this prop to control whether or not `KSelect` with `appearance` `select` or `dropdown` allows filtering. By default, filtering is enabled for `dropdown` appearance and disabled for `select` appearance. `button` style `appearance` does not have filter support because it is a button.
+Use this prop to control whether or not the `KSelect` component with an `appearance` prop set to a value of `select` or `dropdown` allows filtering. By default, filtering is enabled for `dropdown` appearance and is disabled for `select` appearance. 
+
+`button` style `appearance` does not have filter support because it is a button.
 
 <div>
   <KSelect :items="[{
