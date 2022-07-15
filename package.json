@@ -24,7 +24,7 @@
     }
   },
   "scripts": {
-    "build:cli": "rm -rf ./bin && tsc --project ./cli/tsconfig.json && chmod u+x ./bin/index.js",
+    "build:cli": "rimraf ./bin && tsc --project ./cli/tsconfig.json && chmod u+x ./bin/index.js",
     "build:docs": "vuepress build docs",
     "build:kongponents": "yarn typecheck && vite build && yarn copy:css-variables && vue-tsc --emitDeclarationOnly",
     "copy:css-variables": "copyfiles -f src/styles/_variables.scss dist",
@@ -93,6 +93,7 @@
     "picocolors": "^1.0.0",
     "postcss-cli": "^9.1.0",
     "postcss-custom-properties": "^12.1.8",
+    "rimraf": "^3.0.2",
     "sass": "1.53.0",
     "semantic-release": "^19.0.3",
     "serve": "13.0.4",
