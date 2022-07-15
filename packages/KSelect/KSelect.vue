@@ -475,21 +475,21 @@ export default {
     border-radius: 0 0 4px 4px;
 
     &.k-select-pop-button {
-      --KPopPaddingY: var(--spacing-md);
-      --KPopPaddingX: var(--spacing-xxs);
+      --KPopPaddingY: var(--spacing-xs);
+      --KPopPaddingX: var(--spacing-xs);
       border-radius: 4px;
       border: 1px solid var(--blue-200);
     }
 
     &.k-select-pop-dropdown {
-      --KPopPaddingY: 7px;
-      --KPopPaddingX: 7px;
-      border: 1px solid var(--blue-200);
+      --KPopPaddingY: var(--spacing-xs);
+      --KPopPaddingX: var(--spacing-xs);
+      border: 1px solid var(--grey-300);
     }
 
     &.k-select-pop-select {
-      --KPopPaddingY: var(--spacing-md);
-      --KPopPaddingX: var(--spacing-xxs);
+      --KPopPaddingY: var(--spacing-xs);
+      --KPopPaddingX: var(--spacing-xs);
       border: 1px solid var(--black-10);
     }
 

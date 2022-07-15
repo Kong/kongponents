@@ -358,7 +358,7 @@ KSelect works as regular inputs do using v-model for data binding:
 <Komponent :data="{myVal: 'test'}" v-slot="{ data }">
   <div>
     <KLabel>Value:</KLabel> {{ data.myVal }}
-    <KSelect width="100" v-model="data.myVal" :items="[{
+    <KSelect v-model="data.myVal" :items="[{
         label: 'test',
         value: 'test'
       }, {
@@ -373,7 +373,7 @@ KSelect works as regular inputs do using v-model for data binding:
 <Komponent :data="{myVal: 'test'}" v-slot="{ data }">
   <div>
     <KLabel>Value:</KLabel> {{ data.myVal }}
-    <KSelect width="100" v-model="data.myVal" :items="[{
+    <KSelect v-model="data.myVal" :items="[{
         label: 'test',
         value: 'test'
       }, {
@@ -402,7 +402,7 @@ You can pass any input attribute and it will get properly bound to the element.
 You can use the `item-template` slot to customize the look and feel of your items. Use slots to gain access to the `item` data.
 
 <div>
-  <KSelect :items="myItems" width="100%" :filterFunc="customFilter">
+  <KSelect appearance='select' :items="myItems" width="100%" :filterFunc="customFilter">
     <template v-slot:item-template="{ item }">
       <div class="select-item-label">{{ item.label }}</div>
       <div class="select-item-desc">{{ item.description }}</div>
@@ -411,7 +411,7 @@ You can use the `item-template` slot to customize the look and feel of your item
 </div>
 
 ```html
-<KSelect :items="myItems" width="100%" :filterFunc="customFilter">
+<KSelect appearance='select' :items="myItems" width="100%" :filterFunc="customFilter">
   <template v-slot:item-template="{ item }">
     <div class="select-item-label">{{item.label}}</div>
     <div class="select-item-desc">{{item.description}}</div>
@@ -493,13 +493,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-  .select-item-label {
-    color: blue;
-  }
-
-.select-item-desc {
-  color: red;
-}
-</style>
