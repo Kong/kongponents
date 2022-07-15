@@ -47,7 +47,7 @@ The current view of your UI. The button will show icons for the opposite. I.E. i
 
 > The `Komponent` component is used in this example to create state.
 
-```vue
+```html
 <Komponent
   :data="{ currentView: 'grid' }"
   v-slot="{ data }">

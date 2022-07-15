@@ -18,7 +18,7 @@ e.g.
   </template>
 </KCard>
 
-```vue
+```html
 <KToggle v-slot="{isToggled, toggle}">
   <KButton @click="toggle">
     {{ isToggled ? 'toggled' : 'not toggled' }}
@@ -62,11 +62,11 @@ For instance, here we are toggling the state on `mouseover` and toggling back on
   </template>
 </KCard>
 
-```vue
+```html
 <KToggle v-slot="{isToggled, toggle}" :toggled="true">
   <div
     :style="{color: isToggled ? 'green' : 'red'}"
-    @mouseover="toggle" 
+    @mouseover="toggle"
     @mouseout="toggle">
     {{ isToggled ? 'yes' : 'no' }}
   </div>
@@ -87,7 +87,7 @@ For instance, here we are toggling the state on `mouseover` and toggling back on
   </template>
 </KCard>
 
-```vue
+```html
 <template>
   <KToggle v-slot="{ toggle }" @toggled="sayHello">
     <KButton @click="toggle">keep clicking me</KButton>
@@ -130,7 +130,7 @@ them and placing them inside `KToggle`'s default slot.
   </template>
 </KCard>
 
-```vue
+```html
 <KToggle v-slot="{ isToggled, toggle }">
   <div>
     <KButton @click="toggle">
@@ -164,15 +164,15 @@ them and placing them inside `KToggle`'s default slot.
   </template>
 </KCard>
 
-```vue
+```html
 <KToggle v-slot="{isToggled, toggle}">
   <div>
     <KButton @click="toggle">
       {{ isToggled ? 'collapse' : 'expand' }}
     </KButton>
-    <KAlert 
-      v-if="isToggled" 
-      class="mt-3" 
+    <KAlert
+      v-if="isToggled"
+      class="mt-3"
       alertMessage="Every day, once a day, give yourself a present." />
   </div>
 </KToggle>
@@ -198,7 +198,7 @@ them and placing them inside `KToggle`'s default slot.
   </template>
 </KCard>
 
-```vue
+```html
 <KToggle v-slot="{isToggled, toggle}">
       <div>
         <KButton @click="toggle">
@@ -206,7 +206,7 @@ them and placing them inside `KToggle`'s default slot.
         </KButton>
         <transition name="expand">
           <KAlert
-            v-if="isToggled" 
+            v-if="isToggled"
             class="mt-3"
             alertMessage="Every day, once a day, give yourself a present." />
         </transition>

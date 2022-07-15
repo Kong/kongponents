@@ -16,7 +16,7 @@ You can override or "theme" some parts of components by setting [CSS Custom Prop
 
 > Note: Add the `input-error` class to add error styling
 
-```vue
+```html
 <template>
   <KInput type="email" value="error" class="input-error" />
 </template>
@@ -40,7 +40,7 @@ You can override or "theme" some parts of components by setting [CSS Custom Prop
 
 An Example of changing the color of KPopover text
 
-```vue
+```html
 <template>
   <KPop title="email">
     <button>Click me</button>

@@ -6,7 +6,7 @@
 
 <KLabel>Input Title</KLabel>
 
-```vue
+```html
 <KLabel>Input Title</KLabel>
 ```
 
@@ -14,7 +14,7 @@
 
 <KLabel help="This is an example">Input Title</KLabel>
 
-```vue
+```html
 <KLabel help="This is an example">Input Title</KLabel>
 ```
 
@@ -22,7 +22,7 @@
 
 <KLabel help="This is a really long tooltip. Hopefully we won't have anything this long but we might. I wonder how it handles long inputs">Long Input Title</KLabel>
 
-```vue
+```html
 <KLabel
   help="This is a really long tooltip. Hopefully we won't have anything this long but we might. I wonder how it handles long inputs"
 >
@@ -34,7 +34,7 @@
 
 <KLabel info="This is an example">Input Title</KLabel>
 
-```vue
+```html
 <KLabel info="This is an example">Input Title</KLabel>
 ```
 
@@ -43,7 +43,7 @@
 <KLabel for="service">Service Name</KLabel>
 <KInput id="service"/>
 
-```vue
+```html
 <KLabel for="service" help="A service is an API that you want to offer">Service Name</KLabel>
 <KInput id="service"/>
 ```
@@ -53,7 +53,7 @@
 <KLabel help="A service is an API that you want to offer">Service Name</KLabel>
 <KInput />
 
-```vue
+```html
 <KLabel help="A service is an API that you want to offer">Service Name</KLabel>
 <KInput />
 ```
@@ -62,7 +62,7 @@
 
 <KLabel :tooltip-attributes="{ placement: 'right', 'max-width': '200' }" help="I wonder how it handles long inputs. I wonder how it handles long inputs. I wonder how it handles long inputs. I wonder how it handles long inputs.">With Tooltip Attributes</KLabel>
 
-```vue
+```html
 <KLabel
   :tooltip-attributes="{ placement: 'right', 'max-width': '200' }"
   help="I wonder how it handles long inputs"

@@ -2,7 +2,7 @@
 
 [![](https://img.shields.io/npm/v/@kongponents/kinlineedit.svg?style=flat-square)](https://www.npmjs.com/package/@kongponents/kinlineedit)
 
-```vue
+```html
 <template>
   <EditableInput @changed="val => textVal = val">
     <h1>{{ textVal }}</h1>

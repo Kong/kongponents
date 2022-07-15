@@ -32,7 +32,7 @@ export default {
 
 <KMenu :items="getMenuItems(5)" />
 
-```vue
+```html
 <KMenu :items="items" />
 ```
 
@@ -53,7 +53,7 @@ Properties:
 
 <KMenu :items="getMenuItems(6)" />
 
-```vue
+```html
 function getMenuItems(count) {
   let menuItems = []
   for (let i = 0; i < count; i++) {
@@ -76,7 +76,7 @@ You can pass a `width` string for menu. Currently we support numbers (will be co
 
 <KMenu :items="getMenuItems(3)" width="735" />
 
-```vue
+```html
 <KMenu :items="getMenuItems(3)" width="735" />
 ```
 
@@ -94,7 +94,7 @@ You can pass a `width` string for menu. Currently we support numbers (will be co
 - `expandable` - boolean of whether or not this item is expandable
 - `lastMenuItem` - boolean of whether or not this is the last item in the menu (for styling)
 
-```vue
+```html
   <KMenuItem
     :item="{
       title: 'some title',
@@ -110,7 +110,7 @@ You can pass a `width` string for menu. Currently we support numbers (will be co
 - `itemTitle` - the title content for the menu item
 - `itemBody` - the body content for the menu item
 
-```vue
+```html
 <KMenuItem>
   <template v-slot:itemTitle>
     Custom Title!
@@ -160,7 +160,7 @@ This should be used instead of the `items` property.
   </template>
 </KMenu>
 
-```vue
+```html
 <KMenu>
   <template v-slot:body>
     <KMenuItem

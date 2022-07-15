@@ -6,7 +6,7 @@ pageClass: table-docs
 
 Pass a fetcher function to build a slot-able table.
 
-```vue
+```html
   <KTable :fetcher="fetcher" :headers="headers" />
 ```
 
@@ -41,7 +41,7 @@ Highlight the table row on hover. By default this is set to `true`. In the examp
   :headers="tableOptionsHeaders"
   :hasHover="false" />
 
-```vue
+```html
 <template>
   <KTable
     :fetcher="fetcher"
@@ -60,7 +60,7 @@ The below example demonstrates the disabled state:
   :headers="tableOptionsHeaders"
   :hasSideBorder="true" />
 
-```vue
+```html
 <template>
   <KTable
     :fetcher="fetcher"
@@ -86,7 +86,7 @@ Set this to `true` to limit pagination navigation to `previous` / `next` page on
   :headers="tableOptionsHeaders"
   :disablePaginationPageJump="true" />
 
-```vue
+```html
 <template>
   <KTable
     :fetcher="fetcher"
@@ -139,7 +139,7 @@ Here the `last_seen` column is set to use the custom sort handler function via t
   enable-client-sort
 />
 
-```vue
+```html
 <template>
   <KTable
     :fetcher="fetcher"
@@ -340,7 +340,7 @@ object these features should be explicitly disabled.
   />
 </template>
 
-```vue
+```html
 <template>
   <KTable
     :fetcher="() => {
@@ -385,7 +385,7 @@ object these features should be explicitly disabled.
 The fetcher functionality makes use of [SWRV](https://docs-swrv.netlify.app/) to handle caching of response data. Whenever the cache key is changed the fetcher will automatically
 refire and repopulate the table data.
 
-```vue
+```html
 <template>
   <KTable
     :fetcher="fetcher"
@@ -442,7 +442,7 @@ Pass in an array of header objects for the table.
 
 Example headers array:
 
-```vue
+```html
 <script>
   export default {
     data() {
@@ -501,7 +501,7 @@ Pass in the type of pagination to be used. Options are `default` (page/pageSize)
   :initial-fetcher-params="{ pageSize: offsetPaginationPageSize }"
   pagination-type="offset" />
 
-```vue
+```html
 <template>
   <KTable
     :fetcher="fetcher"
@@ -522,7 +522,7 @@ A prop to add custom properties to individual rows. The row object is passed as 
   :headers="tableOptionsRowAttrsHeaders"
   :rowAttrs="rowAttrsFn" />
 
-```vue
+```html
 <template>
   <KTable
     :fetcher="fetcher"
@@ -579,7 +579,7 @@ A prop to add custom properties to individual table cells or groups of cells. Th
   :fetcher="tableOptionsCellAttrsFetcher"
   :cellAttrs="cellAttrsFn" />
 
-```vue
+```html
 <template>
   <KTable
     :fetcher="fetcher"
@@ -751,7 +751,7 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
   </template>
 </KTable>
 
-```vue
+```html
 <KTable
   :fetcher="fetcher"
   :headers="headers"
@@ -810,7 +810,7 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
 
 #### Example
 
-```vue
+```html
 <template>
   <div>
     <div v-if="eventType">
@@ -882,7 +882,7 @@ access to the row data.
   </template>
 </KTable>
 
-```vue
+```html
 <template>
   <KTable
     :fetcher="fetcher"
@@ -922,7 +922,7 @@ export default {
   <template v-slot:actions><KButton appearance="btn-link">Edit</KButton></template>
 </KTable>
 
-```vue
+```html
 <template>
   <KTable
     :fetcher="fetcher"
@@ -980,7 +980,7 @@ the section below or completely slot in your own content.
   </template>
 </KCard>
 
-```vue
+```html
 <template>
   <KTable
     :fetcher="() => { return { data: [] } }"
@@ -1023,7 +1023,7 @@ If using a CTA button, a `ktable-empty-state-cta-clicked` event is fired when cl
   </template>
 </KCard>
 
-```vue
+```html
 <template>
   <KCard>
     <template v-slot:body>
@@ -1052,7 +1052,7 @@ If using a CTA button, a `ktable-empty-state-cta-clicked` event is fired when cl
   </template>
 </KCard>
 
-```vue
+```html
 <!-- Using a route string -->
 <template>
   <KCard>
@@ -1120,7 +1120,7 @@ If using a CTA button, a `ktable-error-cta-clicked` event is fired when clicked.
   </template>
 </KCard>
 
-```vue
+```html
 <template>
   <KCard>
     <template v-slot:body>
@@ -1149,7 +1149,7 @@ If using a CTA button, a `ktable-error-cta-clicked` event is fired when clicked.
   </template>
 </KCard>
 
-```vue
+```html
 <!-- Using a route string -->
 <template>
   <KCard>
@@ -1207,7 +1207,7 @@ Set the `isLoading` prop to `true` to enable the loading state.
   </template>
 </KCard>
 
-```vue
+```html
 <template>
 <KCard>
   <template v-slot:body>
@@ -1243,7 +1243,7 @@ Example URL
 https://kongponents.dev/api/components?_page=1&_limit=10&_sort=name&_order=desc
 ```
 
-```vue
+```html
 <!-- Example Component Usage -->
 
 <KCard>
@@ -1325,7 +1325,7 @@ An Example of changing the hover background might look like.
     hasHover />
 </div>
 
-```vue
+```html
 <template>
   <KTable
     :fetcher="fetcher"

@@ -9,7 +9,7 @@
   </KEmptyState>
 </template>
 
-```vue
+```html
 <template>
   <KEmptyState cta-text="CTA Button">
     <template v-slot:title>EmptyState Title</template>
@@ -33,7 +33,7 @@ Boolean value used to hide the call to action button.
   </KEmptyState>
 </template>
 
-```vue
+```html
 <template>
   <KEmptyState cta-is-hidden>
     <template v-slot:title>No Content</template>
@@ -51,7 +51,7 @@ You can also use this to move your call to action into the message text.
   </KEmptyState>
 </template>
 
-```vue
+```html
 <template>
   <KEmptyState cta-is-hidden>
     <template v-slot:title>No Services</template>
@@ -73,7 +73,7 @@ A string to be used as the text content of the call to action button.
   </KEmptyState>
 </template>
 
-```vue
+```html
 <template>
   <KEmptyState cta-text="button text">
     <template v-slot:title>No Content</template>
@@ -97,7 +97,7 @@ A function that is passed as the click handler for the call to action button
   </KEmptyState>
 </template>
 
-```vue
+```html
 <template>
   <KEmptyState
     cta-text="Click Me!"
@@ -134,7 +134,7 @@ A flag denoting whether or not the message is an error message. If so, a warning
   </KEmptyState>
 </template>
 
-```vue
+```html
 <template>
   <KEmptyState :cta-is-hidden="true" :is-error="true">
     <template v-slot:message>
@@ -162,7 +162,7 @@ A string for the `KIcon` name to be displayed directly above the title. Specifyi
   </KEmptyState>
 </template>
 
-```vue
+```html
 <template>
   <KEmptyState :cta-is-hidden="true" icon="support">
     <template v-slot:message>
@@ -190,7 +190,7 @@ A number denoting the size of the icon to be displayed above the empty state mes
   </KEmptyState>
 </template>
 
-```vue
+```html
 <template>
   <KEmptyState :cta-is-hidden="true" :is-error="true" icon-size="40">
     <template v-slot:message>
@@ -220,7 +220,7 @@ A string denoting the color of the icon to be displayed above the empty state me
   </KEmptyState>
 </template>
 
-```vue
+```html
 <template>
   <KEmptyState :cta-is-hidden="true" :is-error="true" icon-size="40" icon-color="#5996ff">
     <template v-slot:title>No users exist</template>
@@ -248,7 +248,7 @@ KEmptyState has 3 named slots used, `title`, `message`, and `cta`. You can use t
   </KEmptyState>
 </template>
 
-```vue
+```html
 <template>
   <KEmptyState icon="kong">
     <template v-slot:cta>
@@ -279,7 +279,7 @@ An Example of what using theming might look like.
   </div>
 </template>
 
-```vue
+```html
 <template>
   <div class="custom-empty-state">
     <KEmptyState cta-text="CTA Button">

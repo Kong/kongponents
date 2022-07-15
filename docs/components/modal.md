@@ -12,7 +12,7 @@ The **KModal** component is used to show content on top of existing UI. Typicall
     @canceled="defaultIsOpen = false" />
 </template>
 
-```vue
+```html
 <template>
   <div>
     <KModal
@@ -94,7 +94,7 @@ Notice that even though we are using the `header-content` slot we still specify 
   </KModal>
 </template>
 
-```vue
+```html
 <template>
   <KModal
     :isVisible="isVisible"
@@ -143,7 +143,7 @@ An Example of changing the the colors of KModal might look like.
   </div>
 </template>
 
-```vue
+```html
 <template>
   <div class="modal-wrapper">
     <KModal

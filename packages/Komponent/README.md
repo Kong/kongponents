@@ -4,7 +4,7 @@
 
 Expose reactive state to components.
 
-```vue
+```html
 <Komponent :data="{ count: 0 }" v-slot="{ data }">
   <div>
     <KButton @click="data.count = data.count - 1">-</KButton>

@@ -2,7 +2,7 @@
 
 [![](https://img.shields.io/npm/v/@kongponents/ksegmentedcontrol.svg?style=flat-square)](https://www.npmjs.com/package/@kongponents/ksegmentedcontrol)
 
-```vue
+```html
 <template>
 <KSegmentedControl
     :options="['one','two']"

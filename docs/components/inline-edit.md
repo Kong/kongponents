@@ -8,7 +8,7 @@
 
 > The `Komponent` component is used in this example to create state.
 
-```vue
+```html
 <Komponent :data="{ inlineText: 'Click to edit me' }" v-slot="{ data }">
   <KInlineEdit>
     <h3>{{ data.inlineText }}</h3>
@@ -28,7 +28,7 @@ If true, will not set the value of the input when enabled/clicked. This is usefu
 
 > The `Komponent` component is used in this example to create state.
 
-```vue
+```html
 <Komponent :data="{ inlineText: '' }" v-slot="{ data }">
   <KInlineEdit
     :ignore-value="data.inlineText.length === 0"
@@ -48,7 +48,7 @@ Styles to set when the input is active. Useful when styling the default state di
 
 > The `Komponent` component is used in this example to create state.
 
-```vue
+```html
 <Komponent :data="{ inlineText: '' }" v-slot="{ data }">
   <KInlineEdit
     :ignore-value="data.inlineText.length === 0"
@@ -86,7 +86,7 @@ While the component itself does not protect against returning empty an empty val
 
 > The `Komponent` component is used in this example to create state.
 
-```vue
+```html
 <Komponent :data="{ inlineText: 'Click to edit me' }" v-slot="{ data }">
   <div>
     Updated: {{ data.inlineText }}
@@ -104,7 +104,7 @@ While the component itself does not protect against returning empty an empty val
 :::warning
 An HTML element must be passed in the slot. An error will be thrown if not passed.
 
-```vue
+```html
 <!-- good -->
 <KInlineEdit>
   <p>Some text</p>
@@ -126,7 +126,7 @@ An HTML element must be passed in the slot. An error will be thrown if not passe
   <KInlineEdit class="w-50" @changed="newVal => data.inlineText = newVal"><h3>{{ data.inlineText }}</h3></KInlineEdit>
 </Komponent>
 
-```vue
+```html
 <KInlineEdit
   class="w-50"
   @changed="newVal => text = newVal">

@@ -32,11 +32,11 @@ Below we demonstrate wrapping KSlideout in the [KToggle](/components/renderless/
   </div>
 </KToggle>
 
-```vue
+```html
 <KToggle v-slot="{ isToggled, toggle }">
   <div>
     <KButton @click="toggle">Toggle Panel</KButton>
-    <KSlideout 
+    <KSlideout
       :is-visible="isToggled"
       @close="toggle">
       <div>
@@ -53,8 +53,8 @@ Below we demonstrate wrapping KSlideout in the [KToggle](/components/renderless/
           Something in a KCard
         </template>
       </KCard>
-      <KAlert 
-        appearance="info" 
+      <KAlert
+        appearance="info"
         alert-message="Or even an alert!"
         class="mt-2" />
     </KSlideout>
@@ -71,7 +71,7 @@ Below we demonstrate wrapping KSlideout in the [KToggle](/components/renderless/
 
 There is one default slot which is used to place content into the slideout panel.
 
-```vue
+```html
 <KSlideout
   :is-visible="isToggled"
   @close="toggle">

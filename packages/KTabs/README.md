@@ -2,7 +2,7 @@
 
 [![](https://img.shields.io/npm/v/@kongponents/ktabs.svg?style=flat-square)](https://www.npmjs.com/package/@kongponents/ktabs)
 
-```vue
+```html
 <template>
   <KTabs :tabs="tabs">
     <template v-slot:tab1>
@@ -20,7 +20,7 @@ export default {
     return {
       tabs: [
         {
-          hash: '#tab1', 
+          hash: '#tab1',
           title: 'tab1'
         },
         {

@@ -20,7 +20,7 @@ via `this.$toaster` e.g.:
 
 <KButton @click="$toaster.open('Basic Notification')">Open Toaster</KButton>
 
-```vue
+```html
 <KButton @click="$toaster.open('Basic Toaster')">Open Toaster</KButton>
 ```
 
@@ -32,7 +32,7 @@ The default argument passed to the toaster is the message.
 
 <KButton @click="$toaster.open('Default message here')">Open Toaster</KButton>
 
-```vue
+```html
 <KButton @click="$toaster.open('Default message here')">Open Toaster</KButton>
 ```
 
@@ -46,7 +46,7 @@ are applied the same way.
 <KButton appearance="danger" @click="openNotification({'appearance': 'danger', 'message':'This toaster is a danger appeareance'})">Open Toaster</KButton>
 <KButton class="warning" appearance="primary" @click="openNotification({'appearance': 'warning', 'message':'This toaster is a warning appeareance'})">Open Toaster</KButton>
 
-```vue
+```html
 <template>
   <KButton @click="openNotification(toasterOptions)">Open Toaster</KButton>
 </template>
@@ -79,7 +79,7 @@ passing an override argument.
 
 <KButton :disabled="timeLeft <= 3" @click="openNotificationElapse({timeoutMilliseconds: 3000, 'appearance': 'success', 'message': `This toaster has a 3 second timeout`})">{{timeLeft > 3 ? 'Open Toaster' : `Closing in ${timeLeft} seconds` }}</KButton>
 
-```vue
+```html
 <template>
   <KButton @click="openNotification(toasterOptions)">Open Toaster</KButton>
 </template>
@@ -119,7 +119,7 @@ You can view the current state of active toasters by calling
 </code>
 </pre>
 
-```vue
+```html
 <template>
   <KButton class="success" appearance="primary" @click="openNotification({timeoutMilliseconds: 10000, message: 'Success Notification', appearance: 'success'})">Open Toaster</KButton>
   <KButton appearance="danger" @click="openNotification({'appearance': 'danger', 'message': 'Danger Notification'})">Open Toaster</KButton>

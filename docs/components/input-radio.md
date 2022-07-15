@@ -14,7 +14,7 @@
   </template>
 </KCard>
 
-```vue
+```html
 <template>
   <KRadio name="test" :value="true" v-model="radio">Boolean</KRadio>
   <KRadio name="test" value="string" v-model="radio">String</KRadio>
@@ -48,13 +48,13 @@ state of the input. You can read more about passing values via `v-model`
 
 Any valid attribute will be added to the input. You can read more about `$attrs` [here](https://vuejs.org/v2/api/#vm-attrs).
 
-```vue
+```html
 <KRadio
   v-model="checked"
   :value="true"
   disabled>
   {{ label="disabled" }}
-</KRadio> 
+</KRadio>
 ```
 
 <KCard>
@@ -69,7 +69,7 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 
 - `default` - Anything passed in to the default slot will replace the label prop text
 
-```vue
+```html
 <KRadio v-model="selected" :value="true">
   Label goes here. The radio is {{ selected ? 'selected' : 'not selected' }}
 </KRadio>
@@ -102,7 +102,7 @@ An Example of changing the background color of KRadio to mediumpurple might look
   </div>
 </template>
 
-```vue
+```html
 <template>
   <div class="KRadio-wrapper">
     <KRadio v-model="selected" :value="true" />
