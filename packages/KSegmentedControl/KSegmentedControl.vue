@@ -98,14 +98,14 @@ export default {
     box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--blue-500);
   }
   &:first-child {
-    border-radius: 3px 0 0 3px;
+    border-radius: 4px 0 0 3px;
     margin-left: 0;
   }
   &:last-child {
     border-radius: 0 3px 3px 0;
   }
   &:only-child {
-    border-radius: 3px;
+    border-radius: 4px;
     margin-left: 0;
   }
   &:disabled {
