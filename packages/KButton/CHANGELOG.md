@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.33.1 (2022-07-15)
+
+
+### Bug Fixes
+
+* **kselect:** input border radius and dropdown spacing ([#702](https://github.com/Kong/kongponents/issues/702)) ([6b38149](https://github.com/Kong/kongponents/commit/6b381493e50c58d189f1476ebf07a11c3955cd3d))
+
+
+
+
+
 # 6.33.0 (2022-07-15)
 
 
