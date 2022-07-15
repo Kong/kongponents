@@ -276,7 +276,7 @@ Because we are controlling the widths of multiple elements, we recommend using t
 </div>
 
 ```vue
-<KSelect width="100" :items="[{
+<KSelect width="250" :items="[{
     label: 'test',
     value: 'test',
     selected: true
