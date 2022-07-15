@@ -284,7 +284,7 @@ Use fixed positioning of the popover to avoid content being clipped by parental 
 
 ### width
 
-The width of the popover body - by default it is 200px. Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
+The width of the popover body - by default it is `200px`. Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
 
 <KPop title="Cool header" width="300">
   <KButton>button</KButton>
