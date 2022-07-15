@@ -343,25 +343,25 @@ export default {
 
       if (theTarget) {
         theTarget.appendChild(popperEl)
-
-        await this.$nextTick()
-        this.popper = new Popper(this.reference, popperEl, {
-          placement,
-          // Use positionFixed to avoid popover content being cut off by parent boundaries
-          positionFixed: this.positionFixed,
-          removeOnDestroy: true,
-          modifiers: {
-          // Ensures element does not ovflow outside of boundary
-            preventOverflow: {
-              enabled: true,
-              boundariesElement: 'viewport'
-            }
-          }
-        })
-
-        await this.$nextTick()
-        this.popper.update()
       }
+
+      await this.$nextTick()
+      this.popper = new Popper(this.reference, popperEl, {
+        placement,
+        // Use positionFixed to avoid popover content being cut off by parent boundaries
+        positionFixed: this.positionFixed,
+        removeOnDestroy: true,
+        modifiers: {
+          // Ensures element does not ovflow outside of boundary
+          preventOverflow: {
+            enabled: true,
+            boundariesElement: 'viewport'
+          }
+        }
+      })
+
+      await this.$nextTick()
+      this.popper.update()
     },
 
     handleClick (e) {

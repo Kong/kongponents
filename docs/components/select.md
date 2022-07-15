@@ -1,5 +1,7 @@
 # Select
 
+<div v-if="hasMounted">
+
 **Select** - Dropdown/Select component
 <div>
   <KSelect label="Pick Something:" :items="[{
@@ -458,6 +460,8 @@ export default {
 | `input` | `selectedItem` Object or null |
 | `change` | `selectedItem` Object or null |
 
+</div>
+
 <script>
 function getItems(count) {
   let myItems = []
@@ -474,6 +478,7 @@ function getItems(count) {
 export default {
   data() {
     return {
+      hasMounted: false,
       myItems: getItems(5),
       mySelect: '',
       items: [{
@@ -484,6 +489,9 @@ export default {
         value: '50'
       }]
     }
+  },
+  mounted() {
+    this.hasMounted = true
   },
   methods: {
     handleItemSelect (item) {
