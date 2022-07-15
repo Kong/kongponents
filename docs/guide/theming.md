@@ -32,7 +32,7 @@ Add the `input-error` class to add error styling
 
 <KInput id="theme-page-kinput" class="input-error w-50" type="email" value="error" label="This input has a custom error border color" />
 
-```vue
+```html
 <template>
   <KInput type="email" value="error" class="input-error"/>
 </template>
@@ -54,7 +54,7 @@ Add the `input-error` class to add error styling
 
 You can also scope the CSS variable to a single component by providing a parent selector. Here's an Example of changing the color of KPopover text
 
-```vue
+```html
 <template>
   <div class="custom-class-name">
     <KPop title="email">

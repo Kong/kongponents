@@ -4,7 +4,7 @@
 
 <KTextArea />
 
-```vue
+```html
 <KTextArea />
 ```
 
@@ -16,7 +16,7 @@ String to be used as the textarea label.
 
 <KTextArea label="Name" placeholder="I'm labelled!" />
 
-```vue
+```html
 <KTextArea label="Name" placeholder="I'm labelled!" />
 ```
 
@@ -25,7 +25,7 @@ If the label is omitted it can be handled with another component, like **KLabel*
 <KLabel>Label</KLabel>
 <KTextArea placeholder="I have a label" />
 
-```vue
+```html
 <KLabel>Label</KLabel>
 <KTextArea placeholder="I have a label" />
 ```
@@ -36,7 +36,7 @@ Use the `labelAttributes` prop to configure the **KLabel's** [props](/components
 
 <KTextArea label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop' }" />
 
-```vue
+```html
 <KTextArea label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop' }" />
 ```
 
@@ -46,7 +46,7 @@ Enable this prop to overlay the label on the input element's border. Defaults to
 
 <KTextArea label="Name" placeholder="I'm labelled!" :overlay-label="true" />
 
-```vue
+```html
 <KTextArea label="Name" placeholder="I'm labelled!" :overlay-label="true" />
 ```
 
@@ -58,7 +58,7 @@ You can specify `rows`, `cols` for the textarea size.
 <br>
 <KTextArea :rows="8" :cols="25" placeholder="rows:8, cols:25" />
 
-```vue
+```html
 <template>
   <KTextArea label="Size" :rows="3" :cols="20" placeholder="I'm labelled and customized!" />
   <br>
@@ -72,7 +72,7 @@ Use this prop to specify a character limit for the textarea, defaults to `2048`.
 
 <KTextArea :characterLimit="20" />
 
-```vue
+```html
 <KTextArea :characterLimit="20" />
 ```
 
@@ -82,7 +82,7 @@ Use this prop to remove the character limit on the textarea. Defaults to `false`
 
 <KTextArea disable-character-limit />
 
-```vue
+```html
 <KTextArea disable-character-limit />
 ```
 
@@ -92,7 +92,7 @@ Boolean value to indicate whether the element has an error and should apply erro
 
 <KTextArea has-error />
 
-```vue
+```html
 <KTextArea has-error />
 ```
 
@@ -107,7 +107,7 @@ Boolean value to indicate whether the element has an error and should apply erro
   </div>
 </KComponent>
 
-```vue
+```html
 <KComponent :data="{myInput: 'hello'}" v-slot="{ data }">
   {{ myInput }}
   <KTextArea v-model="data.myInput" />
@@ -142,7 +142,7 @@ Boolean value to indicate whether the element has an error and should apply erro
   </div>
 </KComponent>
 
-```vue
+```html
 <KComponent :data="{myInput: 'hello'}" v-slot="{ data }">
   <div>
     <KTextArea
@@ -171,7 +171,7 @@ An Example of changing the error border color of KInput to pink might look like:
 
 <KTextArea class="custom-input" has-error type="email" />
 
-```vue
+```html
 <template>
   <KTextArea class="custom-input" has-error type="email" />
 </template>

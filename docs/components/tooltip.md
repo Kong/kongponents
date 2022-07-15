@@ -6,7 +6,7 @@
   <KButton>&nbsp;🎮</KButton>
 </KTooltip>
 
-```vue
+```html
 <KTooltip label="Video Games">
   <KButton>&nbsp;🎮</KButton>
 </KTooltip>
@@ -24,7 +24,7 @@ Here you can pass in the text to display in the toolip.
   <KButton>Sample Button</KButton>
 </KTooltip>
 
-```vue
+```html
 <KTooltip label="I am a new sample label">
   <KButton>Sample Button</KButton>
 </KTooltip>
@@ -55,7 +55,7 @@ Here are the different options:
   </KTooltip>
 </div>
 
-```vue
+```html
 <KTooltip placement="bottom" label="A label that appears on the bottom">
   <KButton>Sample Button</KButton>
 </KTooltip>
@@ -73,7 +73,7 @@ You can set the maximum width of a Tooltip with the `maxWidth` property. `maxWid
   <KButton>bottom</KButton>
 </KTooltip>
 
-```vue
+```html
 <KTooltip placement="bottom" max-width="300" label="A label that appears on the bottom. A label that appears on the bottom">
   <KButton>button</KButton>
 </KTooltip>
@@ -83,7 +83,7 @@ You can set the maximum width of a Tooltip with the `maxWidth` property. `maxWid
 
 - `Default` There is a main slot that takes in the element you want the popover to be triggered over.
 
-```vue
+```html
 <KTooltip label="a cool label">
   <!-- Your element goes here -->
   <KButton>button</KButton>
@@ -99,7 +99,7 @@ You can set the maximum width of a Tooltip with the `maxWidth` property. `maxWid
   </template>
 </KTooltip>
 
-```vue
+```html
 <KTooltip>
   <KButton>&nbsp;✌🏻</KButton>
   <template v-slot:content>
@@ -121,7 +121,7 @@ Example:
   <KButton>themed tooltip</KButton>
 </KTooltip>
 
-```vue
+```html
 <template>
   <KTooltip class="tooltip-blue" label="Video Games">
     <KButton class="primary">themed tooltip</KButton>

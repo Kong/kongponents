@@ -30,7 +30,7 @@ Below we demonstrate wrapping `KSlideout` in the [`KToggle`](/components/renderl
   </div>
 </KToggle>
 
-```vue
+```html
 <KToggle v-slot="{ isToggled, toggle }">
   <div>
     <KButton @click="toggle">Toggle Panel</KButton>
@@ -68,7 +68,7 @@ Tells the component whether or not to render the open panel.
 
 There is one default slot which is used to place content into the slideout panel.
 
-```vue
+```html
 <KSlideout :is-visible="isToggled" @close="toggle">
   <div>
     <h1>Default Slot</h1>

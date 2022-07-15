@@ -4,7 +4,7 @@
 
 <KMenu :items="getMenuItems(5)" />
 
-```vue
+```html
 <KMenu :items="items" />
 ```
 
@@ -37,7 +37,7 @@ Properties:
 
 <KMenu :items="getMenuItems(6)" />
 
-```vue
+```html
 <template>
   <KMenu :items="getMenuItems(6)" />
 </template>
@@ -76,7 +76,7 @@ By default the `width` is set to `284px`.
 
 <KMenu :items="getMenuItems(3)" width="735" />
 
-```vue
+```html
 <KMenu :items="getMenuItems(3)" width="735" />
 ```
 
@@ -101,7 +101,7 @@ By default the `width` is set to `284px`.
 - `expandable` - boolean of whether or not this item is expandable
 - `lastMenuItem` - boolean of whether or not this is the last item in the menu (for styling)
 
-```vue
+```html
   <KMenuItem :item="{ title: 'some title', description: 'some description' }" :expandable="true" type="string" />
 ```
 
@@ -110,7 +110,7 @@ By default the `width` is set to `284px`.
 - `itemTitle` - the title content for the menu item
 - `itemBody` - the body content for the menu item
 
-```vue
+```html
 <KMenuItem>
   <template v-slot:itemTitle>
     Custom Title!
@@ -153,7 +153,7 @@ By default the `width` is set to `284px`.
   </template>
 </KMenu>
 
-```vue
+```html
 <KMenu>
   <template v-slot:body>
     <KMenuItem v-for="item in getMenuItems(3)" :item="item" />

@@ -15,7 +15,7 @@ e.g.
   </div>
 </KComponent>
 
-```vue
+```html
 <KComponent :data="{ count: 0 }" v-slot="{ data }">
   <div>
     <KButton size="small" appearance="outline" :isRounded="false" @click="data.count = data.count - 1">-</KButton>
@@ -68,7 +68,7 @@ them and placing them inside `KComponent`'s default slot.
   </template>
 </KCard>
 
-```vue
+```html
 <KCard class="mt-2" style="min-height: 100px;">
   <template v-slot:body>
     <KComponent :data="{ selected: '' }" v-slot="{ data }">

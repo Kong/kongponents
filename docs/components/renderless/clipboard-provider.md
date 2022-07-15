@@ -13,7 +13,7 @@
   </template>
 </KCard>
 
-```vue
+```html
 <template>
   <KInput :model-value="dataToCopy" @input="newValue => dataToCopy = newValue" type="text" class="mb-2 w-100" />
   <KClipboardProvider v-slot="{ copyToClipboard }">

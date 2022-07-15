@@ -18,7 +18,7 @@ e.g.
   </template>
 </KCard>
 
-```vue
+```html
 <KToggle v-slot="{isToggled, toggle}">
   <KButton @click="toggle">
     {{ isToggled.value ? 'toggled' : 'not toggled' }}
@@ -62,7 +62,7 @@ For instance, here we are toggling the state on `mouseover` and toggling back on
   </template>
 </KCard>
 
-```vue
+```html
 <KToggle v-slot="{isToggled, toggle}" :toggled="true">
   <div :style="{color: isToggled.value ? 'green' : 'red'}" @mouseover="toggle" @mouseout="toggle">
     {{ isToggled.value ? 'yes' : 'no' }}
@@ -84,7 +84,7 @@ For instance, here we are toggling the state on `mouseover` and toggling back on
   </template>
 </KCard>
 
-```vue
+```html
 <template>
   <KToggle v-slot="{ toggle }" @toggled="sayHello">
     <KButton @click="toggle">keep clicking me</KButton>
@@ -131,7 +131,7 @@ them and placing them inside `KToggle`'s default slot.
   </template>
 </KCard>
 
-```vue
+```html
 <KToggle v-slot="{ isToggled, toggle }">
   <div>
     <KButton @click="toggle">
@@ -160,7 +160,7 @@ them and placing them inside `KToggle`'s default slot.
   </template>
 </KCard>
 
-```vue
+```html
 <KToggle v-slot="{isToggled, toggle}">
   <div>
     <KButton @click="toggle">
@@ -191,7 +191,7 @@ them and placing them inside `KToggle`'s default slot.
   </template>
 </KCard>
 
-```vue
+```html
 <KToggle v-slot="{isToggled, toggle}">
       <div>
         <KButton @click="toggle">

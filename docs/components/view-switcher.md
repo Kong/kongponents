@@ -37,7 +37,7 @@ The current view of your UI, one of `table` or `grid`. The button will show icon
 
 > The `KComponent` component is used in this example to create state.
 
-```vue
+```html
 <KComponent :data="{ currentView: 'grid' }" v-slot="{ data }">
   <div>
     <KCard class="mb-4">

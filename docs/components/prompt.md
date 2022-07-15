@@ -11,7 +11,7 @@ The **KPrompt** component is used to display a dialog that prompts a user to tak
   @proceed="defaultIsOpen = false"
 />
 
-```vue
+```html
 <KButton appearance="primary" @click="defaultIsOpen = true">Prompt</KButton>
 
 <KPrompt :is-visible="defaultIsOpen" message="Hello, World?" @canceled="defaultIsOpen = false" @proceed="defaultIsOpen = false" />
@@ -55,7 +55,7 @@ Text to display in body section if not using slot.
   @proceed="contentIsOpen = false"
 />
 
-```vue
+```html
 <KPrompt :is-visible="contentIsOpen" title="Look Mah!" message="I'm prompting you" @canceled="contentIsOpen = false" @proceed="contentIsOpen = false" />
 ```
 
@@ -78,7 +78,7 @@ Change the text content of the close/cancel button.
   @proceed="buttonsIsOpen = false"
 />
 
-```vue
+```html
 <KPrompt :is-visible="contentIsOpen" actionButtonText="Let's do it!" cancelButtonText="Abort" @canceled="buttonsIsOpen = false" @proceed="buttonsIsOpen = false" />
 ```
 
@@ -96,7 +96,7 @@ This boolean indicates if an action is being taken on the dialog and we should d
   @proceed="pendingIsOpen = false"
 />
 
-```vue
+```html
 <KPrompt :is-visible="pendingIsOpen" message="Click Cancel to close me" :action-pending="true" @canceled="pendingIsOpen = false" @proceed="pendingIsOpen = false" />
 ```
 
@@ -117,7 +117,7 @@ Use the `info` prompt type to notify the user about general information associat
   @proceed="infoIsOpen = false"
 />
 
-```vue
+```html
 <KPrompt :is-visible="infoIsOpen" message="You have been informed 🕵🏻‍♂️" @canceled="infoIsOpen = false" @proceed="infoIsOpen = false" />
 ```
 
@@ -129,7 +129,7 @@ Use the `warning` prompt type if the user needs to be notified that there is a r
 
 <KPrompt :is-visible="warningIsOpen" title="Pay attention" message="I'm warning you 🤔" type="warning" @canceled="warningIsOpen = false" @proceed="warningIsOpen = false" />
 
-```vue
+```html
 <KPrompt :is-visible="warningIsOpen" message="I'm warning you 🤔" type="warning" @canceled="warningIsOpen = false" @proceed="warningIsOpen = false" />
 ```
 
@@ -147,7 +147,7 @@ Use the `danger` prompt type if the user is taking an irreversible action, like 
   @proceed="dangerIsOpen = false"
 />
 
-```vue
+```html
 <KPrompt :is-visible="dangerIsOpen" type="danger" message="This is dangerous ☠️" @canceled="dangerIsOpen = false" @proceed="dangerIsOpen = false" />
 ```
 
@@ -166,7 +166,7 @@ Provide a string the user must type before the action button becomes enabled
   @proceed="dangerConfirmIsOpen = false"
 />
 
-```vue
+```html
 <KPrompt :is-visible="dangerConfirmIsOpen" type="danger" message="This is dangerous ☠️" confirmationText="I Agree" @canceled="dangerConfirmIsOpen = false" @proceed="dangerConfirmIsOpen = false" />
 ```
 
@@ -185,7 +185,7 @@ If you don't want to `emit` the `proceed` event upon pressing the `Enter` key, y
   @proceed="preventProceed = false"
 />
 
-```vue
+```html
 <KPrompt :is-visible="preventProceed" type="danger" message="I don't care if you press Enter" prevent-proceed-on-enter @canceled="preventProceed = false" @proceed="preventProceed = false" />
 ```
 
@@ -212,7 +212,7 @@ There are 3 designated slots you can use to display content in the modal.
   </template>
 </KPrompt>
 
-```vue
+```html
 <KPrompt :is-visible="slotsIsOpen" @canceled="slotsIsOpen = false" @proceed="slotsIsOpen = false">
   <template v-slot:header-content>
     <KIcon icon="immunity" color="#7F01FE" class="mr-2" size="20" />
