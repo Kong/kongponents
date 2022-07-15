@@ -4,7 +4,7 @@
     class="k-select"
   >
     <KLabel
-      v-if="label"
+      v-if="label && !overlayLabel"
       :for="selectId"
       v-bind="labelAttributes"
       data-testid="k-select-label"
@@ -18,6 +18,7 @@
       <div
         v-if="selectedItem && appearance === 'dropdown'"
         class="k-select-item-selection px-3 py-1"
+        :class="{ 'overlay-label-item-selection': overlayLabel }"
       >
         <div
           class="selected-item-label"
@@ -96,6 +97,7 @@
               :icon="isToggled.value ? 'chevronUp' : 'chevronDown'"
               color="var(--grey-500)"
               size="15"
+              :class="{ 'overlay-label-chevron': overlayLabel }"
             />
             <KInput
               :id="selectTextId"
@@ -103,6 +105,8 @@
               v-model="filterStr"
               :readonly="!filterIsEnabled"
               :is-open="isToggled.value"
+              :label="label && overlayLabel ? label : undefined"
+              :overlay-label="overlayLabel"
               :placeholder="selectedItem && appearance === 'select' && !filterIsEnabled ? selectedItem.label : placeholderText"
               autocomplete="off"
               autocapitalize="off"
@@ -203,6 +207,10 @@ export default defineComponent({
     label: {
       type: String,
       default: '',
+    },
+    overlayLabel: {
+      type: Boolean,
+      default: false,
     },
     labelAttributes: {
       type: Object,
@@ -468,6 +476,11 @@ export default defineComponent({
     border-radius: 4px;
     margin-bottom: 6px;
 
+    &.overlay-label-item-selection {
+      position: relative;
+      top: 15px;
+    }
+
     .selected-item-label {
       align-self: center;
       font-size: 14px;
@@ -528,9 +541,13 @@ export default defineComponent({
     .kong-icon {
       position: absolute;
       top: 60%;
-      right: 6px;
+      right: 16px;
       transform: translateY(-50%);
       z-index: 9;
+
+      &.overlay-label-chevron {
+        top: 70%;
+      }
     }
   }
 
