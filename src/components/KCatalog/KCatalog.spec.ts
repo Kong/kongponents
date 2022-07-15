@@ -362,13 +362,14 @@ describe('KCatalog', () => {
       cy.getTestId('k-catalog-pagination').should('not.exist')
     })
 
-    it('does not display pagination when hidePaginationWhenOptional is true and total is less than pageSize', () => {
+    it('does not display pagination when hidePaginationWhenOptional is true and total is less than min pageSize', () => {
       mount(KCatalog, {
         propsData: {
           testMode: 'true',
-          fetcher: () => { return { total: 10 } },
+          fetcher: () => { return { data: getItems(5), total: 5 } },
           isLoading: false,
           pageSize: 15,
+          paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
         },
       })
@@ -381,10 +382,11 @@ describe('KCatalog', () => {
         propsData: {
           testMode: 'true',
           fetcher: () => {
-            return { total: 15 }
+            return { data: largeDataSet, total: 10 }
           },
           isLoading: false,
           pageSize: 15,
+          paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
         },
       })

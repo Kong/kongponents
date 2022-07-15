@@ -355,7 +355,7 @@ describe('KTable', () => {
       cy.getTestId('k-table-pagination').should('not.exist')
     })
 
-    it('does not display pagination when hidePaginationWhenOptional is true and total is less than pageSize', () => {
+    it('does not display pagination when hidePaginationWhenOptional is true and total is less than min pageSize', () => {
       mount(KTable, {
         propsData: {
           testMode: 'true',
@@ -363,6 +363,7 @@ describe('KTable', () => {
           isLoading: false,
           headers: options.headers,
           pageSize: 15,
+          paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
         },
       })
@@ -370,16 +371,17 @@ describe('KTable', () => {
       cy.getTestId('k-table-pagination').should('not.exist')
     })
 
-    it('does not display pagination when hidePaginationWhenOptional is true and total is equal to pageSize', () => {
+    it('does not display pagination when hidePaginationWhenOptional is true and total is equal to min pageSize', () => {
       mount(KTable, {
         propsData: {
           testMode: 'true',
           fetcher: () => {
-            return { total: 15 }
+            return { data: largeDataSet, total: 12 }
           },
           isLoading: false,
           headers: options.headers,
           pageSize: 15,
+          paginationPageSizes: [12, 15, 20],
           hidePaginationWhenOptional: true,
         },
       })
@@ -387,16 +389,17 @@ describe('KTable', () => {
       cy.getTestId('k-table-pagination').should('not.exist')
     })
 
-    it('does display pagination when total is greater than pageSize', () => {
+    it('does display pagination when total is greater than min pageSize', () => {
       mount(KTable, {
         propsData: {
           testMode: 'true',
           fetcher: () => {
-            return { total: 25 }
+            return { data: largeDataSet, total: 12 }
           },
           isLoading: false,
           headers: options.headers,
           pageSize: 15,
+          paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
         },
       })
@@ -404,7 +407,7 @@ describe('KTable', () => {
       cy.getTestId('k-table-pagination').should('be.visible')
     })
 
-    it('does not display offset-based pagination when hidePaginationWhenOptional is true and total is less than pageSize', () => {
+    it('does not display offset-based pagination when hidePaginationWhenOptional is true and total is less than min pageSize', () => {
       mount(KTable, {
         propsData: {
           testMode: 'true',
@@ -412,6 +415,7 @@ describe('KTable', () => {
           isLoading: false,
           headers: options.headers,
           pageSize: 15,
+          paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
           initialFetcherParams: { offset: null },
           paginationType: 'offset',
@@ -421,17 +425,18 @@ describe('KTable', () => {
       cy.getTestId('k-table-pagination').should('not.exist')
     })
 
-    it('does display offset-based pagination when total is greater than pageSize', () => {
+    it('does display offset-based pagination when total is greater than min pageSize', () => {
       mount(KTable, {
         propsData: {
           testMode: 'true',
           fetcher: () => {
-            return { data: options.data, offset: 'abc' }
+            return { data: largeDataSet, offset: 'abc' }
           },
           isLoading: false,
           initialFetcherParams: { offset: 'abc' },
           headers: options.headers,
           pageSize: 15,
+          paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
           paginationType: 'offset',
         },
