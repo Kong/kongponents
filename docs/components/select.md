@@ -1,5 +1,7 @@
 # Select
 
+<div v-if="hasMounted">
+
 **Select** - Dropdown/Select component
 
 <div>
@@ -255,6 +257,11 @@ export default defineComponent({
 ### width
 
 You can pass a `width` string for dropdown. By default the `width` is `200px`. This is the width of the input, dropdown, and selected item.
+Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
+
+:::tip Note
+Because we are controlling the widths of multiple elements, we recommend using this prop to control the width instead of explicitly adding classes or styles to the `KSelect` component.
+:::
 
 <div>
   <KSelect width="350" :items="[{
@@ -283,6 +290,59 @@ You can pass a `width` string for dropdown. By default the `width` is `200px`. T
 ### positionFixed
 
 Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `true`. See [`KPop` docs](popover.html#positionfixed) for more information.
+
+### enableFiltering
+
+Use this prop to control whether or not the `KSelect` component with an `appearance` prop set to a value of `select` or `dropdown` allows filtering. By default, filtering is enabled for `dropdown` appearance and is disabled for `select` appearance.
+
+`button` style `appearance` does not have filter support because it is a button.
+
+<div>
+  <KSelect :items="[{
+      label: 'test',
+      value: 'test'
+    }, {
+      label: 'Test 1',
+      value: 'test1'
+    }]"
+    :enable-filtering="false"
+    class="mb-2"
+  />
+
+  <KSelect :items="[{
+      label: 'test',
+      value: 'test'
+    }, {
+      label: 'Test 1',
+      value: 'test1'
+    }]"
+    appearance="select"
+    :enable-filtering="true"
+  />
+</div>
+
+```html
+<KSelect :items="[{
+    label: 'test',
+    value: 'test'
+  }, {
+    label: 'Test 1',
+    value: 'test1'
+  }]"
+  :enable-filtering="false"
+/>
+
+<KSelect :items="[{
+    label: 'test',
+    value: 'test'
+  }, {
+    label: 'Test 1',
+    value: 'test1'
+  }]"
+  appearance="select"
+  :enable-filtering="true"
+/>
+```
 
 ### filterFunc
 
@@ -346,7 +406,7 @@ You can pass any input attribute and it will get properly bound to the element.
 You can use the `item-template` slot to customize the look and feel of your items. Use slots to gain access to the `item` data.
 
 <div>
-  <KSelect :items="myItems" width="500" :filterFunc="customFilter">
+  <KSelect :items="myItems" width="100%" :filterFunc="customFilter">
     <template v-slot:item-template="{ item }">
       <div class="select-item-label">{{ item.label }}</div>
       <div class="select-item-desc">{{ item.description }}</div>
@@ -355,7 +415,7 @@ You can use the `item-template` slot to customize the look and feel of your item
 </div>
 
 ```html
-<KSelect :items="myItems" width="500" :filterFunc="customFilter">
+<KSelect :items="myItems" width="100%" :filterFunc="customFilter">
   <template v-slot:item-template="{ item }">
     <div class="select-item-label">{{item.label}}</div>
     <div class="select-item-desc">{{item.description}}</div>
@@ -402,6 +462,8 @@ export default defineComponent({
 | `input` | `selectedItem` Object or null |
 | `change` | `selectedItem` Object or null |
 
+</div>
+
 <script lang="ts">
 import { defineComponent } from 'vue'
 
@@ -420,6 +482,7 @@ function getItems(count) {
 export default defineComponent({
   data() {
     return {
+      hasMounted: false,
       myItems: getItems(5),
       mySelect: '',
       items: [{
@@ -430,6 +493,9 @@ export default defineComponent({
         value: '50'
       }]
     }
+  },
+  mounted() {
+    this.hasMounted = true
   },
   methods: {
     handleItemSelect (item) {
@@ -443,12 +509,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  .select-item-label {
-    color: blue;
-    font-weight: bold;
-  }
+.select-item-label {
+  color: blue;
+  font-weight: bold;
+}
 
-  .select-item-desc {
-    color: red;
-  }
+.select-item-desc {
+  color: red;
+}
 </style>

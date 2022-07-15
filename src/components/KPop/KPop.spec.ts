@@ -56,7 +56,7 @@ describe('KPop', () => {
     mount(KPop, {
       props: {
         testMode: true,
-        width: width,
+        width: width + '',
       },
       slots: {
         default: () => h('div', { class: ['slottedEl'] }, 'Slotted element'),
