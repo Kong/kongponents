@@ -3,7 +3,7 @@
 **KTextArea** - Text areas are primarily used in modal views (wizards).
 <KTextArea/>
 
-```vue
+```html
 <KTextArea />
 ```
 
@@ -15,7 +15,7 @@ String to be used as the textarea label.
 
 <KTextArea label="Name" placeholder="I'm labelled!" />
 
-```vue
+```html
 <KTextArea label="Name" placeholder="I'm labelled!" />
 ```
 
@@ -24,7 +24,7 @@ If the label is omitted it can be handled with another component, like **KLabel*
 <KLabel>Label</KLabel>
 <KTextArea placeholder="I have a label" />
 
-```vue
+```html
 <template>
   <KLabel>Label</KLabel>
   <KTextArea placeholder="I have a label" />
@@ -37,7 +37,7 @@ Use the `labelAttributes` prop to configure the **KLabel's** [props](/components
 
 <KTextArea label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop' }" />
 
-```vue
+```html
 <KTextArea
   label="Name"
   :label-attributes="{
@@ -53,7 +53,7 @@ Make sure that if you are using the built in label you specify the `--KInputBack
 
 <KTextArea label="Name" placeholder="I'm labelled!" :overlay-label="true" />
 
-```vue
+```html
 <KTextArea label="Name" placeholder="I'm labelled!" :overlay-label="true" />
 ```
 
@@ -65,7 +65,7 @@ You can specify `rows`, `cols` for the textarea size.
 <br>
 <KTextArea :rows=8 :cols=25 placeholder="rows:8, cols:25"  />
 
-```vue
+```html
 <KTextArea label="Size" :rows=3 :cols=20 placeholder="I'm labelled and customized!" />
 <br>
 <KTextArea :rows=8 :cols=25 placeholder="rows:8, cols:25"  />
@@ -77,7 +77,7 @@ Use this prop to specify a character limit for the textarea, defaults to `2048`.
 
 <KTextArea :characterLimit="20" />
 
-```vue
+```html
 <KTextArea :characterLimit="20" />
 ```
 
@@ -87,7 +87,7 @@ Use this prop to remove the character limit on the textarea. Defaults to `false`
 
 <KTextArea disable-character-limit />
 
-```vue
+```html
 <KTextArea disable-character-limit />
 ```
 
@@ -104,7 +104,7 @@ KTextArea works as regular texarea do using v-model for data binding:
   </div>
 </Komponent>
 
-```vue
+```html
 <Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
   {{ myInput }}
   <KTextArea v-model="data.myInput" />
@@ -139,7 +139,7 @@ KTextArea also transparently binds to events:
   </div>
 </Komponent>
 
-```vue
+```html
 <Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
   <div>
     <KTextArea
@@ -170,7 +170,7 @@ An Example of changing the error border color of KInput to pink might look like:
   <KTextArea class="custom-input input-error" type="email" value="error" />
 </template>
 
-```vue
+```html
 <template>
   <KTextArea class="custom-input input-error" type="email" value="error" />
 </template>

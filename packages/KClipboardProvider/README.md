@@ -2,7 +2,7 @@
 
 [![](https://img.shields.io/npm/v/@kongponents/kclipboardprovider.svg?style=flat-square)](https://www.npmjs.com/package/@kongponents/kclipboardprovider)
 
-```vue
+```html
 <KClipboardProvider v-slot="{ copyToClipboard }">
   <button
     @click="() => copyToClipboard('copy me!')">

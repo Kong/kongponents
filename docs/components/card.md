@@ -5,7 +5,7 @@
 &nbsp;
 <KCard title="Card Title" body="Body Content"/>
 
-```vue
+```html
 <KCard title="Card Title" body="Body Content"/>
 ```
 
@@ -21,7 +21,7 @@ String to be used in the title slot.
   </template>
 </KCard>
 
-```vue
+```html
 <KCard title="Title">
   <template v-slot:body>
     I am the body.
@@ -37,7 +37,7 @@ If the title is omitted, then KCard acts as a generic Box element.
   </template>
 </KCard>
 
-```vue
+```html
 <KCard>
   <template v-slot:body>
     I am a box. I have padding and a border. Useful for composing other components
@@ -64,7 +64,7 @@ Example composing `KCard` with other Kongponents to make another component:
   </template>
 </KCard>
 
-```vue
+```html
 <KCard :hasHover="true">
   <template v-slot:body>
     <KAlert alert-message="Welcome to Kong!" />
@@ -93,7 +93,7 @@ String to be used in the `statusHat` slot.
   body="My body"
 />
 
-```vue
+```html
 <KCard
   status="My status"
   title="My title"
@@ -107,7 +107,7 @@ String to be used in the body slot.
 
 <KCard body="I am the body."/>
 
-```vue
+```html
 <KCard body="I am the body."/>
 ```
 
@@ -130,7 +130,7 @@ Sets top border or no border. If neither set default will have border
     border-variant="borderTop"/>
 </div>
 
-```vue
+```html
 <KCard
   title="Card without border"
   body="Body Content"
@@ -152,7 +152,7 @@ Sets if card should only display shadow state (shadow) on hover
   body="This card only has a shadow on hover"
   has-hover />
 
-```vue
+```html
 <KCard
   title="hasHover"
   class="mb-2"
@@ -169,7 +169,7 @@ Set so the card always has shadow state (shadow)
   body="This card always has a shadow"
   has-shadow />
 
-```vue
+```html
 <KCard
   title="hasShadow"
   body="This card always has a shadow"
@@ -213,7 +213,7 @@ Cards can be arranged with flex box.
   </KCard>
 </div>
 
-```vue
+```html
 <div class="d-flex flex-row">
   <KCard
     title="Left"
@@ -277,7 +277,7 @@ Cards can be arranged with flex box.
   </template>
 </KCard>
 
-```vue
+```html
 <KCard>
   <template v-slot:statusHat>
     <KIcon
@@ -320,7 +320,7 @@ An Example of changing the background might look like.
     hasShadow />
 </div>
 
-```vue
+```html
 <template>
   <KCard
     title="Colorful Title"

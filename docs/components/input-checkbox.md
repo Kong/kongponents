@@ -8,7 +8,7 @@
   </template>
 </KCard>
 
-```vue
+```html
 <template>
   <KCheckbox
     v-model="checked"
@@ -39,7 +39,7 @@ Use `v-model` to bind the `checked` state of the underlying `<input />`. The
 state of the input. You can read more about passing values via `v-model`
 [here](https://vuejs.org/v2/guide/components.html#Using-v-model-on-Components).
 
-```vue
+```html
 <KCheckbox v-model="checked" />
 ```
 
@@ -47,7 +47,7 @@ state of the input. You can read more about passing values via `v-model`
 
 Any valid attribute will be added to the input. You can read more about `$attrs` [here](https://vuejs.org/v2/api/#vm-attrs).
 
-```vue
+```html
 <KCheckbox
   v-model="checked"
   disabled />
@@ -64,7 +64,7 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 
 - `default` - Anything passed in to the default slot will replace the label prop text
 
-```vue
+```html
 <KCheckbox v-model="checkbox1">
   Label goes here. The checkbox is {{ checkbox1 ? 'checked' : 'not checked' }}
 </KCheckbox>
@@ -107,7 +107,7 @@ like:
   </div>
 </template>
 
-```vue
+```html
 <template>
   <div class="KCheckbox-wrapper">
     <KCheckbox v-model="checked"/>

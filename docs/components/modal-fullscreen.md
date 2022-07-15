@@ -17,7 +17,7 @@ The **KModalFullscreen** component is used to show content in a full screen moda
   <p>Cras porttitor malesuada lorem vel malesuada. Fusce at hendrerit enim. Suspendisse potenti. Nullam interdum maximus dolor, et commodo urna imperdiet condimentum. Nunc hendrerit arcu eu libero sodales, sed auctor nibh sodales. Nunc mattis tortor eleifend, rutrum justo non, malesuada massa. Integer aliquet accumsan ex, et consequat urna egestas pretium.</p>
 </KModalFullscreen>
 
-```vue
+```html
 <KButton appearance="primary" @click="defaultIsOpen = true">Open Modal</KButton>
 
 <KModalFullscreen
@@ -96,7 +96,7 @@ Change the [appearance](/components/button.html#props) of the save/proceed butto
   <p>Nunc ante orci, tempus a fringilla quis, interdum et nisi. Nulla a dui ut leo scelerisque rhoncus. Suspendisse iaculis, orci quis congue sollicitudin, orci ligula tempus nisl, consequat elementum urna elit sit amet orci. Pellentesque in feugiat massa, ac dapibus nunc. Etiam dapibus vehicula elit, a sollicitudin nulla fringilla in. Pellentesque lobortis arcu lectus, sit amet fringilla quam pretium sit amet. Sed mi turpis, bibendum quis tincidunt vel, mattis finibus lorem. Ut imperdiet ultrices libero in dictum. Duis elementum imperdiet erat in feugiat. Nam tempor interdum tellus non auctor. Quisque sed sodales purus. Nunc eu est ac elit aliquet euismod. Fusce pellentesque, lorem sed elementum placerat, dolor felis scelerisque quam, ut placerat elit dolor sit amet dui.</p>
 </KModalFullscreen>
 
-```vue
+```html
 <KButton appearance="primary" @click="contentIsOpen = true">Open Modal</KButton>
 
 <KModalFullscreen
@@ -151,7 +151,7 @@ There are 6 designated slots you can use to display content in the fullscreen mo
   <KCatalog :items="getItems(16)" />
 </KModalFullscreen>
 
-```vue
+```html
 <KButton appearance="primary" @click="exampleIsOpen = true">Open Fullscreen Modal</KButton>
 
 <KModalFullscreen
@@ -244,7 +244,7 @@ There are 6 designated slots you can use to display content in the fullscreen mo
   </div>
 </KModalFullscreen>
 
-```vue
+```html
 <KButton appearance="primary" @click="sampleIsOpen = true">Open Form Modal</KButton>
 
 <KModalFullscreen
@@ -345,7 +345,7 @@ An Example of changing the the colors of KModalFullscreen might look like.
   </KModalFullscreen>
 </div>
 
-```vue
+```html
 
 <KButton appearance="primary" @click="themeIsOpen = true">Open Modal</KButton>
 

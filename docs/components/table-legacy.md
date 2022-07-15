@@ -27,7 +27,7 @@ Pass an object of headers & data to build a slot-able table.
 
 <KTableLegacy :options="$frontmatter.tableOptions" />
 
-```vue
+```html
 <template>
   <KTableLegacy :options="tableOptions" />
 </template>
@@ -73,7 +73,7 @@ export default {
 Highlight the table row on hover. By default this is set to true. In the example we can set it to false as well.
 
 <KTableLegacy :options="$frontmatter.tableOptions" :hasHover="false" />
-```vue
+```html
 <KTableLegacy
   :options="tableOptions"
   :hasHover="false" />
@@ -84,7 +84,7 @@ Highlight the table row on hover. By default this is set to true. In the example
 Lessen the table cell padding
 
 <KTableLegacy :options="$frontmatter.tableOptions" isSmall />
-```vue
+```html
 <KTableLegacy
   :options="tableOptions"
   isSmall />
@@ -95,7 +95,7 @@ Lessen the table cell padding
 Adds `cursor: pointer` and `user-select: none` styling.
 
 <KTableLegacy :options="$frontmatter.tableOptions" isClickable />
-```vue
+```html
 <KTableLegacy
   :options="tableOptions"
   isClickable />
@@ -113,7 +113,7 @@ The below example demonstrates the disabled state:
     />
 </template>
 
-```vue
+```html
 <template>
   <KTableLegacy
     :options="tableOptions"
@@ -135,7 +135,7 @@ Add custom properties to individual rows. The row object is passed as a param.
     />
 </template>
 
-```vue
+```html
 <template>
   <KTableLegacy
     :options="tableOptions"
@@ -225,7 +225,7 @@ Add custom properties to individual table cells or groups of cells. The cell att
     />
 </template>
 
-```vue
+```html
 <template>
   <KTableLegacy
     :options="tableOptions"
@@ -317,7 +317,7 @@ various parts of the table. We support events on both table rows and cells in ad
 
 `@row:<event>` - returns the `Event`, the row item, and the type: `row`
 
-```vue
+```html
 <KTableLegacy @row:click="rowHandler" @row:dblclick="rowHandler">
 ```
 
@@ -340,7 +340,7 @@ various parts of the table. We support events on both table rows and cells in ad
   </template>
 </KTableLegacy>
 
-```vue{4,6,13,40-56}
+```html{4,6,13,40-56}
 <KTableLegacy
   :options="tableOptionsLink"
   isClickable
@@ -405,7 +405,7 @@ export default {
 
 `@cell:<event>` - returns the `Event`, the cell value, and the type: `cell`
 
-```vue
+```html
 <KTableLegacy @cell:mouseout="cellHandler" @cell:mousedown="cellHandler">
 ```
 
@@ -426,7 +426,7 @@ export default {
 
 #### Example
 
-```vue
+```html
 <template>
   <div>
     <div v-if="eventType">
@@ -502,7 +502,7 @@ clicking on the headers.
     />
 </template>
 
-```vue
+```html
 <template>
 <!--
   * @param {String} key - the current key to sort by
@@ -586,7 +586,7 @@ access to the row data.
   </template>
 </KTableLegacy>
 
-```vue
+```html
 <template>
   <KTableLegacy :options="tableOptions">
     <!-- Slot column header "name" -->
@@ -640,7 +640,7 @@ export default {
   <template v-slot:actions><KButton appearance="btn-link">Edit</KButton></template>
 </KTableLegacy>
 
-```vue
+```html
 <template>
   <KTableLegacy :options="tableOptions">
     <!-- Slot each "enabled" cell in each row & add icon if matching value -->
@@ -703,7 +703,7 @@ An Example of changing the hover background might look like.
   <KTableLegacy :options="$frontmatter.tableOptions" hasHover />
 </div>
 
-```vue
+```html
 <template>
   <KTableLegacy
     :options="tableOptions"

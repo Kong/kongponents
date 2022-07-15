@@ -12,7 +12,7 @@
 
 A total number of items inside the paginated data source.
 
-```vue
+```html
 <KPagination :totalCount="50"/>
 ```
 
@@ -26,7 +26,7 @@ You can provide custom page sizes. The first one in the array will be the initia
 
 <KPagination :totalCount="100" :pageSizes="[10, 20, 30, 40]"/>
 
-```vue
+```html
 <KPagination :totalCount="100" :pageSizes="[10, 20, 30, 40]"/>
 ```
 
@@ -38,7 +38,7 @@ Prop is a Number. If the value is not set, the first one of the available pageSi
 
 <KPagination :totalCount="100" :pageSizes="[10, 20, 30, 40]" :initialPageSize="20"/>
 
-```vue
+```html
 <KPagination :totalCount="100" :pageSizes="[10, 20, 30, 40]" :initialPageSize="20"/>
 ```
 
@@ -58,15 +58,15 @@ Optional array of items that can be provided for easy pagination. Slice of this 
   </div>
 </Komponent>
 
-```vue
+```html
 <template>
   <div>
     <span><b>Visible letters: </b></span>
     <span v-for="number in data.visibleLetters">{{ number }} </span>
-    <KPagination 
+    <KPagination
       :items="data.letters"
-      :totalCount="data.letters.length" 
-      :pageSizes="[3]" 
+      :totalCount="data.letters.length"
+      :pageSizes="[3]"
       @pageChanged="({visibleItems}) => data.visibleLetters = visibleItems"/>
   </div>
 </template>
@@ -74,7 +74,7 @@ Optional array of items that can be provided for easy pagination. Slice of this 
 export default {
   data: {
     return {
-      letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], 
+      letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'],
       visibleLetters: ['a', 'b', 'c']
     };
   }
@@ -89,7 +89,7 @@ A number that sets the neighboring pages visible to the left and right of the ce
   <KPagination :totalCount="1000" :neighbors="2"/>
 </template>
 
-```vue
+```html
 <KPagination :totalCount="1000" :pageSize="15" neighbors="2"/>
 ```
 
@@ -110,15 +110,15 @@ Restrict navigation to only `previous` / `next` page. Defaults to `false`.
   </div>
 </Komponent>
 
-```vue
+```html
 <template>
   <div>
     <span><b>Visible letters: </b></span>
     <span v-for="number in data.visibleLetters">{{ number }} </span>
-    <KPagination 
+    <KPagination
       :items="data.letters"
-      :totalCount="data.letters.length" 
-      :pageSizes="[3]" 
+      :totalCount="data.letters.length"
+      :pageSizes="[3]"
       :disablePageJump="true"
       @pageChanged="({visibleItems}) => data.visibleLetters = visibleItems"/>
   </div>
@@ -127,7 +127,7 @@ Restrict navigation to only `previous` / `next` page. Defaults to `false`.
 export default {
   data: {
     return {
-      letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], 
+      letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'],
       visibleLetters: ['a', 'b', 'c']
     };
   }
@@ -152,19 +152,19 @@ the `@pageChanged` event in order to remain reactive to clicking the prev, next,
   </div>
 </Komponent>
 
-```vue
+```html
 <template>
   <div>
     <span><b>Visible letters: </b></span>
     <span v-for="number in data.visibleLetters">{{ number }} </span>
-    <KPagination 
+    <KPagination
       :items="data.letters"
-      :totalCount="data.letters.length" 
-      :pageSizes="[3]" 
+      :totalCount="data.letters.length"
+      :pageSizes="[3]"
       :currentPage="currPage"
-      @pageChanged="({visibleItems, page}) => { 
-        data.visibleLetters = visibleItems 
-        currPage = page 
+      @pageChanged="({visibleItems, page}) => {
+        data.visibleLetters = visibleItems
+        currPage = page
       }"/>
   </div>
 </template>
@@ -236,7 +236,7 @@ Pass in a boolean value for whether or not the offset-based Next button should b
   </div>
 </Komponent>
 
-```vue
+```html
 <template>
   <div>
     <KCard title="Cool names list">
@@ -247,10 +247,10 @@ Pass in a boolean value for whether or not the offset-based Next button should b
       </template>
     </KCard>
 
-    <KPagination 
+    <KPagination
       :items="data.names"
-      :totalCount="data.names.length" 
-      :pageSizes="[3, 4, 5]" 
+      :totalCount="data.names.length"
+      :pageSizes="[3, 4, 5]"
       @pageChanged="({visibleItems}) => data.visibleNames = visibleItems"/>
   </div>
 </template>
@@ -259,8 +259,8 @@ Pass in a boolean value for whether or not the offset-based Next button should b
 export default {
   data () {
     const names = [
-      'Alice', 'Bob', 'Charlie', 
-      'Derek', 'Ellie', 'Frank', 
+      'Alice', 'Bob', 'Charlie',
+      'Derek', 'Ellie', 'Frank',
       'George', 'Helen', 'Ingrid'
     ]
     return {
@@ -290,7 +290,7 @@ like:
   </div>
 </template>
 
-```vue
+```html
 <template>
   <div class="KPagination-wrapper">
     <KPagination />

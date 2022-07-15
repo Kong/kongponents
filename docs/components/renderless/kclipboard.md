@@ -14,7 +14,7 @@
   </template>
 </KCard>
 
-```vue
+```html
 <template>
 <KInput
   :value="dataToCopy"

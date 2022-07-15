@@ -8,7 +8,7 @@
   </template>
 </KCard>
 
-```vue
+```html
 <template>
   <Krumbs :items="breadcrumbItems" />
 </template>
@@ -71,7 +71,7 @@ The `to` property can be a Vue route or traditional URL. When using a URL though
   </template>
 </KCard>
 
-```vue
+```html
 <template>
   <Krumbs :items="breadcrumbItems" />
 </template>
@@ -110,7 +110,7 @@ Maximum width of each breadcrumb item for truncating to ellipsis.
   </template>
 </KCard>
 
-```vue
+```html
 <Krumbs :items="longBreadcrumbs" item-max-width="16ch" />
 ```
 

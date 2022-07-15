@@ -16,7 +16,7 @@ state. The following example shows a Form type KSKeleton.
   <KSkeleton type="form" />
 </template>
 
-```vue
+```html
 <template>
   <KSkeleton type="form" />
 </template>
@@ -40,7 +40,7 @@ The number of milliseconds to wait before showing the skeleton state. Defaults t
   </Komponent>
 </template>
 
-```vue
+```html
 <template>
   <Komponent :data="{ isLoading: false }" v-slot="{ data }">
     <div>
@@ -62,7 +62,7 @@ By default, **KSkeleton** will load a generic loading state. There are no props 
   <KSkeleton />
 </template>
 
-```vue
+```html
 <template>
   <KSkeleton />
 </template>
@@ -76,7 +76,7 @@ This loading state is using for card type components, like **KCard** or similar.
   <KSkeleton type="card" />
 </template>
 
-```vue
+```html
 <template>
   <KSkeleton type="card" />
 </template>
@@ -92,7 +92,7 @@ Used for displaying the number of cards in this loading state. Defaults to 1. Th
   <KSkeleton type="card" :card-count="3" />
 </template>
 
-```vue
+```html
 <template>
   <KSkeleton type="card" :card-count="3" />
 </template>
@@ -106,7 +106,7 @@ This loading state is used for form type components. There are no props for this
   <KSkeleton type="form" />
 </template>
 
-```vue
+```html
 <template>
   <KSkeleton type="form" />
 </template>
@@ -120,7 +120,7 @@ This loading state is used for table type components.
   <KSkeleton type="table" />
 </template>
 
-```vue
+```html
 <template>
   <KSkeleton type="table" />
 </template>
@@ -136,7 +136,7 @@ Used for displaying the number of rows in this loading state. Defaults to 6. The
   <KSkeleton type="table" :table-rows="3" />
 </template>
 
-```vue
+```html
 <template>
   <KSkeleton type="table" :table-rows="3" />
 </template>
@@ -152,7 +152,7 @@ Used for displaying the number of columns in this loading state. Defaults to 6. 
   <KSkeleton type="table" :table-columns="3" />
 </template>
 
-```vue
+```html
 <template>
   <KSkeleton type="table" :table-columns="3" />
 </template>
@@ -166,7 +166,7 @@ This loading state is used for a spinner, which can be used for a wide variety o
   <KSkeleton type="spinner" />
 </template>
 
-```vue
+```html
 <template>
   <KSkeleton type="spinner" />
 </template>
@@ -182,7 +182,7 @@ This loading state is used to show a spinner, while loading its content. There a
   </KButton>
 </template>
 
-```vue
+```html
 <template>
   <KButton @click="clickedButton" :disabled="loadingButton">
     <KSkeleton v-if="loadingButton" type="spinner" class="mr-2" :delay-milliseconds="3000" />{{loadingButton ? 'Fetching' : 'Fetch'}}
@@ -213,7 +213,7 @@ to perform any expensive querying on first load.
   </div>
 </template>
 
-```vue
+```html
 <template>
   <k-button @click="clicked()">click for default progress behavior</k-button>
   <KSkeleton
@@ -242,7 +242,7 @@ custom placeholder components.
 <KSkeletonBox width="50" height="1"/>
 <KSkeletonBox width="100" height="2"/>
 
-```vue
+```html
 <KSkeletonBox />
 <KSkeletonBox width="2" height="2"/>
 <KSkeletonBox width="5" height="2"/>
@@ -275,7 +275,7 @@ For example, here is a card skeleton with different arrangement of placeholders:
   </KSkeleton>
 </template>
 
-```vue
+```html
 <KSkeleton type="card" :card-count="3">
   <template v-slot:card-header>
     <div class="w-100">
@@ -323,7 +323,7 @@ And another example:
   </KSkeleton>
 </template>
 
-```vue
+```html
 <KSkeleton type="card">
   <template v-slot:card-header>
     <div>

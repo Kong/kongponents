@@ -4,7 +4,7 @@
 
 Provide toggle functionality to components.
 
-```vue
+```html
 <KToggle>
   <template v-slot:default="{isToggled, toggle}">
     <KButton @click="toggle">

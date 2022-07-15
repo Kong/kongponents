@@ -4,7 +4,7 @@
 
 <KCatalog :fetcher="fetcherXs" />
 
-```vue
+```html
 <KCatalog :fetcher="fetcher" />
 ```
 
@@ -30,7 +30,7 @@ import KCatalog from '@kongponents/KCatalog/KCatalog.vue'
 
 Pass a fetcher function to build a slot-able card catalog.
 
-```vue
+```html
 <KCatalog :fetcher="fetcher" />
 ```
 
@@ -41,7 +41,7 @@ Pass a fetcher function to build a slot-able card catalog.
 The catalog title.
 
 <KCatalog title="Look Mah!" :fetcher="fetcherXs" />
-```vue
+```html
 <KCatalog title="Look Mah!" :fetcher="fetcher" />
 ```
 
@@ -53,7 +53,7 @@ Size of the cards. Supports values `small`, `medium` (default), and `large`.
 <KCatalog title="Medium Cards" :fetcher="fetcherXs" />
 <KCatalog title="Large Cards" :fetcher="fetcherXs" cardSize="large" />
 
-```vue
+```html
 <KCatalog title="Small Cards" :fetcher="fetcher" cardSize="small" />
 <KCatalog title="Medium Cards" :fetcher="fetcher" />
 <KCatalog title="Large Cards" :fetcher="fetcher" cardSize="large" />
@@ -67,7 +67,7 @@ to turn it off.
 <KCatalog title="Truncate me" :fetcher="fetcherLong" />
 <KCatalog title="No truncation allowed!!" :fetcher="fetcherLong" no-truncation />
 
-```vue
+```html
 const longItem = {
   title: "Item long",
   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in tempus lorem, et molestie quam. Praesent sapien massa, posuere et volutpat nec, imperdiet a dui. Fusce non leo posuere, molestie neque et, posuere ex. Nullam euismod tortor in est sagittis iaculis. In sodales bibendum nulla nec feugiat."
@@ -139,7 +139,7 @@ will default to the following values:
 The fetcher functionality makes use of [SWRV](https://docs-swrv.netlify.app/) to handle caching of response data. Whenever the cache key is changed the fetcher will automatically
 refire and repopulate the table data.
 
-```vue
+```html
 <template>
   <KCatalog
     :fetcher="fetcher"
@@ -202,7 +202,7 @@ Set this to `true` to limit pagination navigation to `previous` / `next` page on
     page: 1
   }" />
 
-```vue
+```html
 <template>
   <KCatalog
     :fetcher="fetcher"
@@ -233,7 +233,7 @@ a wrapper around `KCard` to display correctly inside `KCatalog`. You can use the
 
 - `truncate` - a boolean (default to `true`), whether or not to truncate the `description` text.
 
-```vue
+```html
 <KCatalogItem :item="item" :truncate="false" class="catalog-item" />
 ```
 
@@ -242,7 +242,7 @@ a wrapper around `KCard` to display correctly inside `KCatalog`. You can use the
 - `cardTitle` - the title content for the card
 - `cardBody` - the body content for the card
 
-```vue
+```html
 <KCatalogItem>
   <template v-slot:cardTitle>
     <KIcon
@@ -261,7 +261,7 @@ a wrapper around `KCard` to display correctly inside `KCatalog`. You can use the
 
 <KCatalog title="Empty catalog" :fetcher="emptyFetcher" />
 
-```vue
+```html
 <KCatalog title="Empty catalog" :fetcher="emptyFetcher" />
 ```
 
@@ -290,7 +290,7 @@ If using a CTA button, a `KCatalog-empty-state-cta-clicked` event is fired when 
   emptyStateIconSize="35"
 />
 
-```vue
+```html
 <template>
   <!-- Using a route string -->
   <KCatalog
@@ -331,7 +331,7 @@ Set the `hasError` prop to `true` to enable the error state.
 
 <KCatalog title="Catalog with error" :fetcher="fetcherXs" :hasError="true" />
 
-```vue
+```html
 <KCatalog title="Empty catalog" :fetcher="fetcher" :hasError="true" />
 ```
 
@@ -360,7 +360,7 @@ If using a CTA button, a `KCatalog-error-cta-clicked` event is fired when clicke
   errorStateIconSize="35"
 />
 
-```vue
+```html
 <template>
   <!-- Using a route string -->
   <KCatalog
@@ -403,7 +403,7 @@ Set the `isLoading` prop to `true` to enable the loading state.
 
 <KCatalog title="Loading catalog" :fetcher="fetcherXs" :isLoading="true" />
 
-```vue
+```html
 <KCatalog title="Loading catalog" :fetcher="fetcher" :isLoading="true" />
 ```
 
@@ -426,7 +426,7 @@ Both the `title` & `description` of the card items as well as the entire catalog
   </template>
 </KCatalog>
 
-```vue
+```html
 <template>
   <KCatalog title="I'm slotted baby!" >
     <template v-slot:body>
@@ -452,7 +452,7 @@ If used in conjuction with a `fetcher` you have the option of using the returned
   </template>
 </KCatalog>
 
-```vue
+```html
 <KCatalog :fetcher="fetcher" title="Customized body">
   <template v-slot:body="{ data }">
     <div v-for="item in data">
@@ -478,7 +478,7 @@ Use the `cardTitle` and `cardBody` slots to access `item` specific data.
   </template>
 </KCatalog>
 
-```vue
+```html
 <KCatalog :fetcher="fetcher" title="Customized cards">
   <template v-slot:cardTitle="{ item }">
     <div class="color-blue-500">
@@ -516,7 +516,7 @@ the section above or completely slot in your own content.
   </template>
 </KCard>
 
-```vue
+```html
 <template>
   <KCatalog :fetcher="() => { return { data: [] } }">
     <template v-slot:empty-state>
@@ -551,7 +551,7 @@ Example URL
 https://kongponents.dev/api/components?_page=1&_limit=10
 ```
 
-```vue
+```html
   <template>
   <!-- Example Component Usage -->
 

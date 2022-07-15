@@ -3,7 +3,7 @@
 [![](https://img.shields.io/npm/v/@kongponents/kmodal.svg?style=flat-square)](https://www.npmjs.com/package/@kongponents/kmodal)
 
 
-```vue
+```html
 <KToggle v-slot="{ isToggled, toggle }">
   <div>
     <KButton @click="toggle">

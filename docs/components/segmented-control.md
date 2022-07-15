@@ -9,7 +9,7 @@
       @click="x => data.selected = x" />
 </Komponent>
 
-```vue
+```html
 <Komponent :data="{ selected: 'Like it?' }" v-slot="{ data }">
   <KSegmentedControl
       :options="['Like it?','Love it!']"
@@ -31,7 +31,7 @@ An array of options for each button, can also be provided as a json key value pa
       @click="x => data.selected = x" />
 </Komponent>
 
-```vue
+```html
 <Komponent :data="{ selected: 'left' }" v-slot="{ data }">
   <KSegmentedControl
       :options="[{label:'◀️',value:'left'},{label:'▶️',value:'right'}]"
@@ -51,7 +51,7 @@ The value of the option which is currently selected.
       @click="x => data.selected = x" />
 </Komponent>
 
-```vue
+```html
 <Komponent :data="{ selected: '5m' }" v-slot="{ data }">
   <KSegmentedControl
       :options="['5m','30m','1h','6h','24h','all']"
@@ -79,7 +79,7 @@ export default {
 }
 </script>
 
-```vue
+```html
 <Komponent :data="{ selected: 'On' }" v-slot="{ data }">
   <KSegmentedControl
       :options="['On','Off']"
@@ -110,7 +110,7 @@ You can pass in an optional flag to disable the control or an individual button 
     :isDisabled="true"
 />
 
-```vue
+```html
 <KSegmentedControl
     :options="['On','Off']"
     selected="On"
@@ -125,7 +125,7 @@ You can pass in an optional flag to disable the control or an individual button 
       @click="x => data.selected = x" />
 </Komponent>
 
-```vue
+```html
 <Komponent :data="{ selected: '1' }" v-slot="{ data }">
   <KSegmentedControl
       :options="[{label:'pick me',value:'1'},{label:'disabled',value:'2',disabled: true},{label:'or me',value:'3'}]"

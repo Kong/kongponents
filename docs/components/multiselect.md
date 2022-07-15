@@ -13,7 +13,7 @@
 
 > The `Komponent` component is used in this example to create state.
 
-```vue
+```html
 <Komponent :data="{ items: [{label: 'item1', selected: false}, {label: 'item2', selected: true}] }" v-slot="{ data }">
   <KMultiselect
     button-text="Select Items"
@@ -54,7 +54,7 @@ Title shown above the list of items.
     :items="data.items" />
 </Komponent>
 
-```vue
+```html
 <KMultiselect
   button-text="Custom Title"
   title="Cool Title Dude"
@@ -76,7 +76,7 @@ Sets the width of the popup container. Defaults to auto.
     width="300" />
 </Komponent>
 
-```vue
+```html
 <KMultiselect
   button-text="BigBoi"
   width="300"
@@ -94,7 +94,7 @@ Text of apply action button.
     :items="data.items" />
 </Komponent>
 
-```vue
+```html
 <KMultiselect
   button-text="Custom Apply Text"
   apply-text="Submit""
@@ -111,7 +111,7 @@ Sets the text of the trigger button.
     :items="data.items" />
 </Komponent>
 
-```vue
+```html
 <KMultiselect
   button-text="Select Items"
   :items="data.items" />
@@ -128,7 +128,7 @@ An object of attributes to be passed to the trigger button. Any attributes avail
     :items="data.items" />
 </Komponent>
 
-```vue
+```html
 <KMultiselect
   button-text="Primary Button"
   :button-attributes="{ appearance: 'primary', disabled: true }"
@@ -149,7 +149,7 @@ Enables a filter input to search the items
 
 > The `Komponent` component is used in this example to create state.
 
-```vue
+```html
 <Komponent :data="{ items: [{ label: 'Toyota', selected: true, disabled: false }, { label: 'Scion', selected: false, disabled: false }, { label: 'VW', selected: false, disabled: false }, { label: 'Mazda', selected: false, disabled: false }, { label: 'Ford', selected: true, disabled: true }, { label: 'Dodge', selected: false, disabled: true }, { label: 'Chevrolet', selected: true, disabled: false }, { label: 'Suzuki', selected: false, disabled: false }, { label: 'Hyundai', selected: true, disabled: true }, { label: 'Honda', selected: true, disabled: false }] }" v-slot="{ data }">
   <KMultiselect
     button-text="Car Makers"
@@ -175,7 +175,7 @@ KMultiselect will keep internally keep track of the selected changes and will em
   </div>
 </Komponent>
 
-```vue
+```html
 <template>
   <KMultiselect
     button-text="Items"

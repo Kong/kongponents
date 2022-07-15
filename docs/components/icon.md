@@ -4,7 +4,7 @@
 
 <KIcon icon="dashboard" />
 
-```vue
+```html
 <KIcon icon="dashboard" />
 ```
 
@@ -44,7 +44,7 @@ This prop takes a string that will replace the SVG default height and width. If 
 
 <KIcon icon="gear" size="50" />
 
-```vue
+```html
 <KIcon icon="gear" size="50" />
 ```
 
@@ -54,7 +54,7 @@ Overrides the default svg color.
 
 <KIcon icon="list" color="red" />
 
-```vue
+```html
 <KIcon icon="list" color="red" />
 ```
 
@@ -64,7 +64,7 @@ Overrides the secondary svg color (if one exists).
 
 <KIcon icon="warning" color="var(--black-70)" secondaryColor="var(--yellow-400)" />
 
-```vue
+```html
 <KIcon icon="warning" color="var(--black-70)" secondaryColor="var(--yellow-400)" />
 ```
 
@@ -84,7 +84,7 @@ The title to be announced by screenreaders and displayed on hover. If not provid
 <KIcon icon="warning" />
 <KIcon icon="warning" title="Custom Title" />
 
-```vue
+```html
 <KIcon icon="warning" />
 <KIcon icon="warning" title="Custom Title" />
 ```
@@ -103,7 +103,7 @@ You can read more about the viewBox attribute
 
 <KIcon icon="cogwheel" viewBox="0 0 16 16" />
 
-```vue
+```html
 <KIcon icon="cogwheel" viewBox="0 0 16 16" />
 ```
 
@@ -147,7 +147,7 @@ You can read more about the viewBox attribute
   </template>
 </KIcon>
 
-```vue
+```html
 <KIcon icon="check" size="50" color="url('#linear-gradient')">
   <template v-slot:svgElements>
     <defs>

@@ -5,7 +5,7 @@
 <KAlert
   alert-message="I'm an alert" />
 
-```vue
+```html
 <KAlert alert-message="I'm an alert" />
 ```
 
@@ -13,7 +13,7 @@
 
 ### Appearances
 
-What color and purpose the Alert should be. Shares similar appearances to those of [KButton](/components/button).  
+What color and purpose the Alert should be. Shares similar appearances to those of [KButton](/components/button).
 
 > Note: `appearance` is `info` by default.
 
@@ -35,7 +35,7 @@ What color and purpose the Alert should be. Shares similar appearances to those 
   appearance="danger"
   alert-message="Danger alert message" />
 
-```vue
+```html
 <KAlert
   appearance="info"
   alert-message="Info alert message" />
@@ -79,21 +79,21 @@ The display type of the alert.
   appearance="warning"
   type="banner" />
 
-```vue
-<KAlert 
-  alert-message="I'm a banner type alert" 
+```html
+<KAlert
+  alert-message="I'm a banner type alert"
   type="banner" />
-<KAlert 
-  alert-message="I'm a banner type alert" 
-  appearance="success" 
+<KAlert
+  alert-message="I'm a banner type alert"
+  appearance="success"
   type="banner" />
-<KAlert 
-  alert-message="I'm a banner type alert" 
-  appearance="danger" 
+<KAlert
+  alert-message="I'm a banner type alert"
+  appearance="danger"
   type="banner" />
-<KAlert 
-  alert-message="I'm a banner type alert" 
-  appearance="warning" 
+<KAlert
+  alert-message="I'm a banner type alert"
+  appearance="warning"
   type="banner" />
 ```
 
@@ -134,11 +134,11 @@ The display type of the alert.
   :isShowing="alert4IsOpen"
   @closed="alert4IsOpen = false" />
 
-```vue
+```html
 <KAlert
   alert-message="I'm an alert"
   dismissType="button"
-  type="alert" 
+  type="alert"
   :isShowing="alert1IsOpen"
   @closed="alert1IsOpen = false" />
 
@@ -154,7 +154,7 @@ The display type of the alert.
   alert-message="I'm an alert"
   dismissType="button"
   appearance="danger"
-  type="alert" 
+  type="alert"
   :isShowing="alert3IsOpen"
   @closed="alert4IsOpen = false" />
 
@@ -162,7 +162,7 @@ The display type of the alert.
   alert-message="I'm an alert"
   dismissType="button"
   appearance="warning"
-  type="alert" 
+  type="alert"
   :isShowing="alert5IsOpen"
   @closed="alert5IsOpen = false" />
 ```
@@ -218,49 +218,49 @@ KAlert allows for dismissal of the banner using an icon or button. An alert is n
   :isShowing="dismissTypeBtn"
   @closed="dismissTypeBtn = false"/>
 
-```vue
+```html
 <KAlert
   alert-message="Alert that can not be dismissed"
   type="alert"
   dismissType="none" />
 
-<KAlert 
-  alert-message="Info alert message that is dismissible" 
-  appearance="info" 
-  type="alert" 
-  dismissType="icon" 
-  :isShowing="infoIsOpen" 
+<KAlert
+  alert-message="Info alert message that is dismissible"
+  appearance="info"
+  type="alert"
+  dismissType="icon"
+  :isShowing="infoIsOpen"
   @closed="infoIsOpen = false" />
 
-<KAlert 
-  alert-message="Warning alert message that is dismissible" 
-  appearance="warning" 
-  type="alert" 
-  dismissType="icon" 
-  :isShowing="warningIsOpen" 
+<KAlert
+  alert-message="Warning alert message that is dismissible"
+  appearance="warning"
+  type="alert"
+  dismissType="icon"
+  :isShowing="warningIsOpen"
   @closed="warningIsOpen = false" />
 
-<KAlert 
-  alert-message="Success alert message that is dismissible" 
-  appearance="success" 
-  type="alert" 
-  dismissType="icon" 
-  :isShowing="successIsOpen" 
+<KAlert
+  alert-message="Success alert message that is dismissible"
+  appearance="success"
+  type="alert"
+  dismissType="icon"
+  :isShowing="successIsOpen"
   @closed="successIsOpen = false" />
 
-<KAlert 
-  alert-message="Danger alert message that is dismissible" 
-  appearance="danger" 
-  type="alert" 
-  dismissType="icon" 
-  :isShowing="dangerIsOpen" 
+<KAlert
+  alert-message="Danger alert message that is dismissible"
+  appearance="danger"
+  type="alert"
+  dismissType="icon"
+  :isShowing="dangerIsOpen"
   @closed="dangerIsOpen = false" />
 
-<KAlert 
-  alert-message="Alert with dismiss type as button" 
-  type="banner" 
-  dismissType="button" 
-  :isShowing="dismissTypeBtn" 
+<KAlert
+  alert-message="Alert with dismiss type as button"
+  type="banner"
+  dismissType="button"
+  :isShowing="dismissTypeBtn"
   @closed="defaultIdismissTypeBtnsOpen = false"/>
 ```
 
@@ -268,11 +268,11 @@ KAlert allows for dismissal of the banner using an icon or button. An alert is n
 
 Set whether or not the alert box is shown.
 
-> Note: By default isShowing is set to true.  
+> Note: By default isShowing is set to true.
 
 - `isShowing`
 
-```vue
+```html
 <KAlert
   :is-showing="false"
   alert-message="isShowing set to false"/>
@@ -289,7 +289,7 @@ Adds border around alert. Used for [KToaster](/components/toaster.html).
   appearance="info"
   alert-message="Info bordered"/>
 
-```vue
+```html
 <KAlert
   is-bordered
   appearance="info"
@@ -306,7 +306,7 @@ Adds border to the left side. Typically used for alerts that show info that may 
   has-left-border
   alert-message="Bordered alert"/>
 
-```vue
+```html
 <KAlert
   has-left-border
   alert-message="Bordered alert"/>
@@ -322,7 +322,7 @@ Adds border to the right side. Typically used for alerts that show info that may
   has-right-border
   alert-message="Bordered alert"/>
 
-```vue
+```html
 <KAlert
   has-right-border
   alert-message="Bordered alert"/>
@@ -338,7 +338,7 @@ Adds border to the top.
   has-top-border
   alert-message="Bordered alert"/>
 
-```vue
+```html
 <KAlert
   has-top-border
   alert-message="Bordered alert"/>
@@ -354,7 +354,7 @@ Adds border to the bottom.
   has-bottom-border
   alert-message="Bordered alert"/>
 
-```vue
+```html
 <KAlert
   has-bottom-border
   alert-message="Bordered alert"/>
@@ -371,7 +371,7 @@ Controls size of alert.
   size="small"
   alert-message="Small alert"/>
 
-```vue
+```html
 <KAlert
   style="width:250px"
   size="small"
@@ -400,7 +400,7 @@ Controls size of alert.
   </template>
 </KAlert>
 
-```vue
+```html
 <KAlert
   type="banner"
   dismissType="button"
@@ -428,7 +428,7 @@ Fixes KAlert to the top of the container.
 
 - `is-fixed`
 
-```vue
+```html
 <KAlert
   is-fixed
   alert-message="Info bordered"/>
@@ -443,7 +443,7 @@ Fixes KAlert to the top of the container.
 <KAlert
   type="banner"
   dismissType="button"
-  appearance="success"  
+  appearance="success"
   :isShowing="extraBtnSlot"
   @closed="extraBtnSlot = false">
   <template v-slot:alertMessage>
@@ -455,12 +455,12 @@ Fixes KAlert to the top of the container.
   </template>
 </KAlert>
 
-```vue
-<KAlert 
-  type="banner" 
-  dismissType="button" 
-  appearance="success"  
-  :isShowing="extraBtnSlot" 
+```html
+<KAlert
+  type="banner"
+  dismissType="button"
+  appearance="success"
+  :isShowing="extraBtnSlot"
   @closed="extraBtnSlot = false">
     <template v-slot:alertMessage>
     I'm an alert with action buttons
@@ -483,7 +483,7 @@ Fixes KAlert to the top of the container.
   </template>
 </KAlert>
 
-```vue
+```html
 <KAlert appearance="info" class="mt-5">
   <template v-slot:alertMessage>
     <div class="mt-2 bold">Failure Modes</div>
@@ -500,7 +500,7 @@ Fixes KAlert to the top of the container.
   </template>
 </KAlert>
 
-```vue
+```html
 <KAlert appearance="info" class="mt-5">
   <template v-slot:alertMessage>
     <div class="mt-2 bold">Failure Modes</div>
@@ -538,7 +538,7 @@ look like.
   </div>
 </template>
 
-```vue
+```html
 <template>
   <div class="alert-wrapper">
     <KAlert appearance="success" alert-message="Im Lime" />

@@ -11,7 +11,7 @@ The **KPrompt** component is used to display a dialog that prompts a user to tak
   @proceed="defaultIsOpen = false"
 />
 
-```vue
+```html
 <KButton
   appearance="primary"
   @click="defaultIsOpen = true"
@@ -61,7 +61,7 @@ Text to display in body section if not using slot.
   @proceed="contentIsOpen = false"
 />
 
-```vue
+```html
 <KPrompt
   :is-visible="contentIsOpen"
   title="Look Mah!"
@@ -90,7 +90,7 @@ Change the text content of the close/cancel button.
   @proceed="buttonsIsOpen = false"
 />
 
-```vue
+```html
 <KPrompt
   :is-visible="contentIsOpen"
   actionButtonText="Let's do it!"
@@ -115,7 +115,7 @@ to prevent spam clicking.
   @proceed="pendingIsOpen = false"
 />
 
-```vue
+```html
 <KPrompt
   :is-visible="pendingIsOpen"
   message="Click Cancel to close me"
@@ -143,7 +143,7 @@ to be taken.
   @proceed="infoIsOpen = false"
 />
 
-```vue
+```html
 <KPrompt
   :is-visible="infoIsOpen"
   message="You have been informed 🕵🏻‍♂️"
@@ -168,7 +168,7 @@ about to be taken. We will display a warning icon and prepend the 'Warning:' in 
   @proceed="warningIsOpen = false"
 />
 
-```vue
+```html
 <KPrompt
   :is-visible="warningIsOpen"
   message="I'm warning you 🤔"
@@ -193,7 +193,7 @@ type in conjuction with `confirmationText` to further restrict the action.
   @proceed="dangerIsOpen = false"
 />
 
-```vue
+```html
 <KPrompt
   :is-visible="dangerIsOpen"
   type="danger"
@@ -218,7 +218,7 @@ Provide a string the user must type before the action button becomes enabled
   @proceed="dangerConfirmIsOpen = false"
 />
 
-```vue
+```html
 <KPrompt
   :is-visible="dangerConfirmIsOpen"
   type="danger"
@@ -244,7 +244,7 @@ If you don't want to `emit` the `proceed` event upon pressing the `Enter` key, y
   @proceed="preventProceed = false"
 />
 
-```vue
+```html
 <KPrompt
   :is-visible="preventProceed"
   type="danger"
@@ -285,7 +285,7 @@ There are 3 designated slots you can use to display content in the modal.
   </template>
 </KPrompt>
 
-```vue
+```html
 <KPrompt
   :is-visible="slotsIsOpen"
   @canceled="slotsIsOpen = false"
