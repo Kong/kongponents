@@ -5,66 +5,35 @@
 **Select** - Dropdown/Select component
 
 <div>
-  <KSelect label="Pick Something:" :items="[{
-      label: 'test',
-      value: 'test'
-    }, {
-      label: 'Test 1',
-      value: 'test1'
-    }, {
-      label: 'TEST 2',
-      value: 'test2'
-    }]"
-  />
+  <KSelect label="Pick Something:" :items="deepClone(defaultItemsUnselect)" />
 </div>
 
 ```html
-<KSelect label="Pick Something:" :items="[{
-    label: 'test',
-    value: 'test'
-  }, {
-    label: 'Test 1',
-    value: 'test1'
-  }, {
-    label: 'TEST 2',
-    value: 'test2'
-  }]"
-/>
+<KSelect label="Pick Something:" :items="items" />
 ```
 
 ## Props
 
 ### items
 
-An array of items containing a `label` and `value`. May also specify that a certain item is `selected` by default.
+An array of items containing a `label` and `value`. You may also specify that a certain item is `selected` by default.
 
 <div>
-  <KSelect :items="[{
-      label: 'test me because I am a super long option with text that wraps',
-      value: 'test',
-      selected: true
-    }, {
-      label: 'Test 1',
-      value: 'test1'
-    }, {
-      label: 'TEST 2',
-      value: 'test2'
-    }]"
-  />
+  <KSelect :items="deepClone(defaultItems)" />
 </div>
 
 ```html
 <KSelect :items="[{
-    label: 'test',
-    value: 'test',
+    label: 'Cats',
+    value: 'cats',
     selected: true
   }, {
-    label: 'Test 1',
-    value: 'test1'
+    label: 'Dogs',
+    value: 'dogs'
   }, {
-    label: 'TEST 2',
-    value: 'test2'
-  }]"
+    label: 'Bunnies',
+    value: 'bunnies'
+  }]""
 />
 ```
 
@@ -73,27 +42,25 @@ An array of items containing a `label` and `value`. May also specify that a cert
 The label for the select.
 
 <div>
-  <KSelect label="Cool label" :items="[{
-      label: 'test',
-      value: 'test',
-      selected: true
-    }, {
-      label: 'Test 1',
-      value: 'test1'
-    }]"
-  />
+  <KSelect label="Cool label" :items="deepClone(defaultItemsUnselect)" />
 </div>
 
 ```html
-<KSelect label="Cool label" :items="[{
-    label: 'test',
-    value: 'test',
-    selected: true
-  }, {
-    label: 'Test 1',
-    value: 'test1'
-  }]"
-/>
+<KSelect label="Cool label" :items="items" />
+```
+
+### overlayLabel
+
+Enable this prop to overlay the label on the input element's border for `select` and `dropdown` appearances. Defaults to `false`.
+
+<KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" />
+<KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" appearance="select" :items="deepClone(defaultItemsUnselect)" />
+<KSelect label="Disabled" disabled placeholder="I'm disabled!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" />
+
+```vue
+<KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" :items="items" />
+<KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" appearance="select" :items="items" />
+<KSelect label="Disabled" disabled placeholder="I'm disabled!" :overlay-label="true" :items="items" />
 ```
 
 ### labelAttributes
@@ -105,13 +72,7 @@ Use the `labelAttributes` prop to configure the **KLabel's** [props](/components
       help: 'I use the KLabel `help` prop',
       'data-testid': 'test'
     }"
-    :items="[{
-      label: 'test',
-      value: 'test'
-    }, {
-      label: 'Test 1',
-      value: 'test1'
-    }]"
+    :items="defaultItemsUnselect"
   />
 </div>
 
@@ -122,13 +83,7 @@ Use the `labelAttributes` prop to configure the **KLabel's** [props](/components
     help: 'I use the KLabel `help` prop',
     'data-testid': 'test'
   }"
-  :items="[{
-    label: 'test',
-    value: 'test'
-  }, {
-    label: 'Test 1',
-    value: 'test1'
-  }]"
+  :items="items"
 />
 ```
 
@@ -139,77 +94,31 @@ There are three styles of selects, `select` and `dropdown` (default) which are f
 The `dropdown` appearance style has a selected item object. You can deselect the item by clicking the Clear icon.
 
 <div>
-  <KSelect :items="[{
-      label: 'test',
-      value: 'test',
-      selected: true
-    }, {
-      label: 'Test 1',
-      value: 'test1'
-    }]"
-  />
+  <KSelect :items="deepClone(defaultItems)" />
 </div>
 
 ```html
-<KSelect :items="[{
-    label: 'test',
-    value: 'test',
-    selected: true
-  }, {
-    label: 'Test 1',
-    value: 'test1'
-  }]"
-/>
+<KSelect :items="items" />
 ```
 
 The `select` style displays the selected item in the textbox and also displays a chevron. There is no way to clear the selection once it is made.
 
 <div>
-  <KSelect appearance='select' :items="[{
-      label: 'test',
-      value: 'test',
-      selected: true
-    }, {
-      label: 'Test 1',
-      value: 'test1'
-    }]"
-  />
+  <KSelect appearance='select' :items="deepClone(defaultItems)" />
 </div>
 
 ```html
-<KSelect appearance='select' :items="[{
-    label: 'test',
-    value: 'test',
-    selected: true
-  }, {
-    label: 'Test 1',
-    value: 'test1'
-  }]"
-/>
+<KSelect appearance='select' :items="items" />
 ```
 
 The `button` style triggers the dropdown on click and you cannot filter the entries.
 
 <div>
-  <KSelect appearance='button' :items="[{
-      label: 'test',
-      value: 'test'
-    }, {
-      label: 'Test 1',
-      value: 'test1'
-    }]"
-  />
+  <KSelect appearance='button' :items="deepClone(defaultItems)" />
 </div>
 
 ```html
-<KSelect appearance='button' :items="[{
-    label: 'test',
-    value: 'test'
-  }, {
-    label: 'Test 1',
-    value: 'test1'
-  }]"
-/>
+<KSelect appearance='button' :items="items" />
 ```
 
 ### buttonText
@@ -264,27 +173,12 @@ Because we are controlling the widths of multiple elements, we recommend using t
 :::
 
 <div>
-  <KSelect width="350" :items="[{
-      label: 'test',
-      value: 'test',
-      selected: true
-    }, {
-      label: 'Test 1',
-      value: 'test1'
-    }]"
+  <KSelect width="350" :items="deepClone(defaultItemsUnselect)"
   />
 </div>
 
 ```html
-<KSelect width="350" :items="[{
-    label: 'test',
-    value: 'test',
-    selected: true
-  }, {
-    label: 'Test 1',
-    value: 'test1'
-  }]"
-/>
+<KSelect width="350" :items="items" />
 ```
 
 ### positionFixed
@@ -298,50 +192,14 @@ Use this prop to control whether or not the `KSelect` component with an `appeara
 `button` style `appearance` does not have filter support because it is a button.
 
 <div>
-  <KSelect :items="[{
-      label: 'test',
-      value: 'test'
-    }, {
-      label: 'Test 1',
-      value: 'test1'
-    }]"
-    :enable-filtering="false"
-    class="mb-2"
-  />
-
-  <KSelect :items="[{
-      label: 'test',
-      value: 'test'
-    }, {
-      label: 'Test 1',
-      value: 'test1'
-    }]"
-    appearance="select"
-    :enable-filtering="true"
-  />
+  <KSelect :items="deepClone(defaultItemsUnselect)" :enable-filtering="false" class="mb-2" />
+  <KSelect :items="deepClone(defaultItemsUnselect)" appearance="select" :enable-filtering="true" />
 </div>
 
 ```html
-<KSelect :items="[{
-    label: 'test',
-    value: 'test'
-  }, {
-    label: 'Test 1',
-    value: 'test1'
-  }]"
-  :enable-filtering="false"
-/>
+<KSelect :items="items" :enable-filtering="false" />
 
-<KSelect :items="[{
-    label: 'test',
-    value: 'test'
-  }, {
-    label: 'Test 1',
-    value: 'test1'
-  }]"
-  appearance="select"
-  :enable-filtering="true"
-/>
+<KSelect :items="items" appearance="select" :enable-filtering="true" />
 ```
 
 ### filterFunc
@@ -357,19 +215,12 @@ myCustomFilter ({ items, query }) {
 
 ### v-model
 
-KSelect works as regular inputs do using v-model for data binding:
+`KSelect` works as regular inputs do using v-model for data binding:
 
 <KComponent :data="{ myVal: 'test' }" v-slot="{ data }">
   <div>
     <KLabel>Value:</KLabel> {{ data.myVal }}
-    <KSelect v-model="data.myVal" :items="[{
-        label: 'test',
-        value: 'test'
-      }, {
-        label: 'Test 1',
-        value: 'test1'
-      }]"
-    />
+    <KSelect v-model="data.myVal" :items="deepClone(defaultItemsUnselect)" />
   </div>
 </KComponent>
 
@@ -377,14 +228,7 @@ KSelect works as regular inputs do using v-model for data binding:
 <KComponent :data="{myVal: 'test'}" v-slot="{ data }">
   <div>
     <KLabel>Value:</KLabel> {{ data.myVal }}
-    <KSelect v-model="data.myVal" :items="[{
-        label: 'test',
-        value: 'test'
-      }, {
-        label: 'Test 1',
-        value: 'test1'
-      }]"
-    />
+    <KSelect v-model="data.myVal" :items="items" />
   </div>
 </KComponent>
 ```
@@ -438,9 +282,9 @@ export default defineComponent({
       let myItems = []
         for (let i = 0; i < count; i++) {
           myItems.push({
-            label: "Item " + i,
-            value: "item_" + i,
-            description: "The item's description for number " + i
+            label: `Item ${i}`,
+            value: `item_${i}`,
+            description: `${i} - The item's description for number ${i}`
           })
         }
       return myItems
@@ -473,9 +317,9 @@ function getItems(count) {
   let myItems = []
     for (let i = 0; i < count; i++) {
       myItems.push({
-        label: "Item " + i,
-        value: "item_" + i,
-        description: "The item's description for number " + i
+        label: `Item ${i}`,
+        value: `item_${i}`,
+        description: `${i} - The item's description for number ${i}`
       })
     }
   return myItems
@@ -487,6 +331,27 @@ export default defineComponent({
       hasMounted: false,
       myItems: getItems(5),
       mySelect: '',
+      defaultItems: [{
+        label: 'Cats',
+        value: 'cats',
+        selected: true
+      }, {
+        label: 'Dogs',
+        value: 'dogs'
+      }, {
+        label: 'Bunnies',
+        value: 'bunnies'
+      }],
+      defaultItemsUnselect: [{
+        label: 'Cats',
+        value: 'cats'
+      }, {
+        label: 'Dogs',
+        value: 'dogs'
+      }, {
+        label: 'Bunnies',
+        value: 'bunnies'
+      }],
       items: [{
         label: '25',
         value: '25'
@@ -505,6 +370,9 @@ export default defineComponent({
     },
     customFilter ({items, query}) {
       return items.filter(item => item.label.toLowerCase().includes(query.toLowerCase()) || item.description.toLowerCase().includes(query.toLowerCase()))
+    },
+    deepClone(obj) {
+      return JSON.parse(JSON.stringify(obj))
     }
   }
 })
