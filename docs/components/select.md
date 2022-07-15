@@ -259,8 +259,8 @@ If you use the `.select-item-label` and `.select-item-desc` classes within the s
 ```html
 <KSelect :items="myItems" width="100%" :filterFunc="customFilter">
   <template v-slot:item-template="{ item }">
-    <div class="select-item-label">{{item.label}}</div>
-    <div class="select-item-desc">{{item.description}}</div>
+    <div class="select-item-label">{{ item.label }}</div>
+    <div class="select-item-desc">{{ item.description }}</div>
   </template>
 </KSelect>
 
