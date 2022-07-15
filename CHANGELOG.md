@@ -1,3 +1,10 @@
+# [7.0.0-beta.61](https://github.com/Kong/kongponents/compare/v7.0.0-beta.60...v7.0.0-beta.61) (2022-07-15)
+
+
+### Bug Fixes
+
+* **ktable,kcatalog:** backport [#685](https://github.com/Kong/kongponents/issues/685) [beta] ([#686](https://github.com/Kong/kongponents/issues/686)) ([90fe89b](https://github.com/Kong/kongponents/commit/90fe89b443dfa3ccc4cc15769681f6d5057eab12))
+
 # [7.0.0-beta.60](https://github.com/Kong/kongponents/compare/v7.0.0-beta.59...v7.0.0-beta.60) (2022-07-15)
 
 
