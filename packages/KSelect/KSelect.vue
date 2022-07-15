@@ -4,22 +4,28 @@
     class="k-select"
   >
     <KLabel
-      v-if="label"
+      v-if="label && !overlayLabel"
       :for="selectId"
       v-bind="labelAttributes"
-      data-testid="k-select-label">{{ label }}</KLabel>
+      data-testid="k-select-label"
+    >
+      {{ label }}
+    </KLabel>
     <div
       :id="selectId"
-      data-testid="k-select-selected-item">
+      data-testid="k-select-selected-item"
+    >
       <div
         v-if="selectedItem && appearance === 'dropdown'"
-        class="k-select-item-selection px-3 py-1">
-        <div
-          class="selected-item-label">{{ selectedItem.label }}</div>
+        :class="{ 'overlay-label-item-selection': overlayLabel }"
+        class="k-select-item-selection px-3 py-1"
+      >
+        <div class="selected-item-label">{{ selectedItem.label }}</div>
         <button
           class="clear-selection-icon cursor-pointer non-visual-button"
           @click="clearSelection"
-          @keyup.enter="clearSelection">
+          @keyup.enter="clearSelection"
+        >
           <KIcon
             color="var(--blue-200)"
             icon="clear"
@@ -55,7 +61,8 @@
             class="k-select-button"
             data-testid="k-select-input"
             style="position: relative;"
-            role="listbox">
+            role="listbox"
+          >
             <KButton
               :style="widthStyle"
               :id="selectTextId"
@@ -63,7 +70,10 @@
               :is-rounded="false"
               v-bind="$attrs"
               appearance="btn-link"
-              @keyup="triggerFocus(isToggled)">{{ selectButtonText }}</KButton>
+              @keyup="triggerFocus(isToggled)"
+            >
+              {{ selectButtonText }}
+            </KButton>
           </div>
           <div
             v-else
@@ -71,22 +81,27 @@
             :class="{ 'k-select-input': appearance === 'select'}"
             data-testid="k-select-input"
             style="position: relative;"
-            role="listbox">
+            role="listbox"
+          >
             <KIcon
               v-if="appearance === 'select'"
+              :class="{ 'overlay-label-chevron': overlayLabel }"
               :icon="isToggled ? 'chevronUp' : 'chevronDown'"
               color="var(--grey-500)"
-              size="15" />
+              size="15"
+            />
             <KInput
               :id="selectTextId"
               v-bind="$attrs"
               v-model="filterStr"
               :readonly="!filterIsEnabled"
               :is-open="isToggled"
+              :overlay-label="overlayLabel"
               :placeholder="selectedItem && appearance === 'select' ? selectedItem.label : placeholderText"
               :class="{ 'cursor-default': !filterIsEnabled }"
               class="k-select-input"
-              @keyup="!$attrs.disabled ? triggerFocus(isToggled) : null" />
+              @keyup="!$attrs.disabled ? triggerFocus(isToggled) : null"
+            />
           </div>
           <template v-slot:content>
             <ul class="k-select-list ma-0 pa-0">
@@ -99,7 +114,8 @@
                   v-for="item in filteredItems"
                   :key="item.key"
                   :item="item"
-                  @selected="handleItemSelect">
+                  @selected="handleItemSelect"
+                >
                   <template v-slot:content>
                     <slot
                       :item="item"
@@ -112,7 +128,8 @@
                   v-if="!filteredItems.length"
                   key="k-select-empty-state"
                   :item="{ label: 'No results', value: 'no_results' }"
-                  class="k-select-empty-item"/>
+                  class="k-select-empty-item"
+                />
               </slot>
             </ul>
           </template>
@@ -157,6 +174,10 @@ export default {
     label: {
       type: String,
       default: ''
+    },
+    overlayLabel: {
+      type: Boolean,
+      default: false
     },
     labelAttributes: {
       type: Object,
@@ -398,6 +419,11 @@ export default {
     border-radius: 4px;
     margin-bottom: 6px;
 
+    &.overlay-label-item-selection {
+      position: relative;
+      top: 15px;
+    }
+
     .selected-item-label {
       align-self: center;
       font-size: 14px;
@@ -446,6 +472,10 @@ export default {
       top: 15px;
       right: 6px;
       z-index: 9;
+
+      &.overlay-label-chevron {
+        top: 70%;
+      }
     }
   }
 
