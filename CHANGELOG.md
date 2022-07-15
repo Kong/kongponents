@@ -1,3 +1,10 @@
+# [7.0.0-beta.60](https://github.com/Kong/kongponents/compare/v7.0.0-beta.59...v7.0.0-beta.60) (2022-07-15)
+
+
+### Features
+
+* **kselect:** misc fixes [beta] ([#691](https://github.com/Kong/kongponents/issues/691)) ([a3815ed](https://github.com/Kong/kongponents/commit/a3815ed4ec9629f3633d08ec65d177823371445d))
+
 # [7.0.0-beta.59](https://github.com/Kong/kongponents/compare/v7.0.0-beta.58...v7.0.0-beta.59) (2022-07-14)
 
 
