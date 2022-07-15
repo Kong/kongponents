@@ -438,7 +438,6 @@ export default {
     input.k-input {
       padding: var(--spacing-xs);
       height: 100%;
-      border-radius: 4px 4px 0 0;
     }
 
     .kong-icon {
@@ -472,12 +471,10 @@ export default {
   .k-select-popover {
     box-sizing: border-box;
     width: 100%;
-    border-radius: 0 0 4px 4px;
 
     &.k-select-pop-button {
       --KPopPaddingY: var(--spacing-xs);
       --KPopPaddingX: var(--spacing-xs);
-      border-radius: 4px;
       border: 1px solid var(--grey-300);
     }
 
