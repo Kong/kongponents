@@ -1,5 +1,7 @@
 # Select
 
+<div v-if="hasMounted">
+
 **Select** - Dropdown/Select component
 
 <div>
@@ -460,6 +462,8 @@ export default defineComponent({
 | `input` | `selectedItem` Object or null |
 | `change` | `selectedItem` Object or null |
 
+</div>
+
 <script lang="ts">
 import { defineComponent } from 'vue'
 
@@ -478,6 +482,7 @@ function getItems(count) {
 export default defineComponent({
   data() {
     return {
+      hasMounted: false,
       myItems: getItems(5),
       mySelect: '',
       items: [{
@@ -488,6 +493,9 @@ export default defineComponent({
         value: '50'
       }]
     }
+  },
+  mounted() {
+    this.hasMounted = true
   },
   methods: {
     handleItemSelect (item) {
