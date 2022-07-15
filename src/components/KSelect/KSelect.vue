@@ -551,7 +551,7 @@ export default defineComponent({
     box-sizing: border-box;
     width: 100%;
     margin-top: 2px !important;
-    
+
     &[x-placement^="top"] {
       margin-top: 0 !important;
       margin-bottom: 2px !important;
