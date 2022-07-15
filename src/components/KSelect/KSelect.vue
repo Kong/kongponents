@@ -93,7 +93,7 @@
           >
             <KIcon
               v-if="appearance === 'select'"
-              icon="chevronDown"
+              :icon="isToggled.value ? 'chevronUp' : 'chevronDown'"
               color="var(--grey-500)"
               size="15"
             />
@@ -128,6 +128,7 @@
                     <slot
                       :item="item"
                       name="item-template"
+                      class="select-item-label select-item-desc"
                     />
                   </template>
                 </KSelectItem>
@@ -469,7 +470,7 @@ export default defineComponent({
 
     .selected-item-label {
       align-self: center;
-      font-size: var(--type-xs);
+      font-size: 14px;
       line-height: 16px;
     }
 
@@ -553,21 +554,21 @@ export default defineComponent({
     border-radius: 0 0 4px 4px;
 
     &.k-select-pop-button {
-      --KPopPaddingY: var(--spacing-md);
-      --KPopPaddingX: var(--spacing-xxs);
+      --KPopPaddingY: var(--spacing-xs);
+      --KPopPaddingX: var(--spacing-xs);
       border-radius: 4px;
-      border: 1px solid var(--blue-200);
+      border: 1px solid var(--grey-300);
     }
 
     &.k-select-pop-dropdown {
-      --KPopPaddingY: var(--spacing-md);
-      --KPopPaddingX: var(--spacing-xxs);
-      border: 1px solid var(--blue-200);
+      --KPopPaddingY: var(--spacing-xs);
+      --KPopPaddingX: var(--spacing-xs);
+      border: 1px solid var(--grey-300);
     }
 
     &.k-select-pop-select {
-      --KPopPaddingY: var(--spacing-md);
-      --KPopPaddingX: var(--spacing-xxs);
+      --KPopPaddingY: var(--spacing-xs);
+      --KPopPaddingX: var(--spacing-xs);
       border: 1px solid var(--black-10);
     }
 

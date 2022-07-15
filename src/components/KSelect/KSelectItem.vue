@@ -2,7 +2,7 @@
   <li
     :key="item.key"
     :data-testid="`k-select-item-${item.value}`"
-    class="k-select-item mx-2"
+    class="k-select-item"
     @click="handleClick"
   >
     <div
@@ -66,7 +66,7 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .k-select-item {
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   list-style: none !important;
 
   button {
@@ -92,6 +92,24 @@ export default defineComponent({
     .k-select-item-label {
       width: auto;
       line-height: 16px;
+      color: var(--grey-600);
+      font-weight: 500;
+      font-size: 14px;
+      padding: 8px;
+      margin-bottom: 4px;
+
+      :deep(.select-item-label) {
+        color: var(--grey-600);
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+
+      :deep(.select-item-desc) {
+        color: var(--grey-500);
+        font-weight: 400;
+        font-size: 14px;
+      }
     }
 
     .kong-icon:not(.selected-item-icon) {
@@ -128,4 +146,5 @@ export default defineComponent({
     }
   }
 }
+
 </style>
