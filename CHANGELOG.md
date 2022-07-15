@@ -1,3 +1,10 @@
+# [7.0.0-beta.62](https://github.com/Kong/kongponents/compare/v7.0.0-beta.61...v7.0.0-beta.62) (2022-07-15)
+
+
+### Features
+
+* **kselect:** add overlayLabel support [beta] ([#694](https://github.com/Kong/kongponents/issues/694)) ([2d6060d](https://github.com/Kong/kongponents/commit/2d6060dfeda2d00e9e854389f6abaa3587aea6a3))
+
 # [7.0.0-beta.61](https://github.com/Kong/kongponents/compare/v7.0.0-beta.60...v7.0.0-beta.61) (2022-07-15)
 
 
