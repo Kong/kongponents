@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.33.0 (2022-07-15)
+
+
+### Features
+
+* **kselect:** add overlayLabel [khcp-4187] ([#697](https://github.com/Kong/kongponents/issues/697)) ([2efbfbb](https://github.com/Kong/kongponents/commit/2efbfbbd9054138477eeea73ab86fa747f9c0787))
+
+
+
+
+
 ## 6.32.20 (2022-07-15)
 
 
