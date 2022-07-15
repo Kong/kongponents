@@ -403,10 +403,10 @@ You can pass any input attribute and it will get properly bound to the element.
 
 You can use the `item-template` slot to customize the look and feel of your items. Use slots to gain access to the `item` data.
 
-If you use the `select-item-label` and `select-item-desc` classes within the slot as shown in the example below, the dropdown items will inherit preconfigured styles for two-level select items which you're then free to customize.
+If you use the `.select-item-label` and `.select-item-desc` classes within the slot as shown in the example below, the dropdown items will inherit preconfigured styles for two-level select items which you're then free to customize.
 
 <div>
-  <KSelect appearance='select' :items="myItems" width="100%" :filterFunc="customFilter">
+  <KSelect :items="myItems" width="100%" :filterFunc="customFilter">
     <template v-slot:item-template="{ item }">
       <div class="select-item-label">{{ item.label }}</div>
       <div class="select-item-desc">{{ item.description }}</div>
@@ -415,7 +415,7 @@ If you use the `select-item-label` and `select-item-desc` classes within the slo
 </div>
 
 ```html
-<KSelect appearance='select' :items="myItems" width="100%" :filterFunc="customFilter">
+<KSelect :items="myItems" width="100%" :filterFunc="customFilter">
   <template v-slot:item-template="{ item }">
     <div class="select-item-label">{{item.label}}</div>
     <div class="select-item-desc">{{item.description}}</div>
