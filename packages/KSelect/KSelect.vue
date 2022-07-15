@@ -460,7 +460,6 @@ export default {
     position: relative;
     display: inline-block;
     width: 100%;
-    height: 44px;
 
     &.cursor-default {
       input.k-input {
@@ -482,7 +481,7 @@ export default {
       z-index: 9;
 
       &.overlay-label-chevron {
-        top: 80%;
+        top: 55%;
       }
     }
   }
@@ -513,7 +512,7 @@ export default {
     border-radius: 0 0 4px 4px;
 
      &.k-select-pop-overlay  {
-      top: 22px !important;
+
     }
 
     &.k-select-pop-button {
