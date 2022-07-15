@@ -16,12 +16,12 @@ input.form-control {
     box-sizing: border-box;
     // Override browser defaults
     -webkit-appearance: none;
-       -moz-appearance: none;
-            appearance: none;
+    -moz-appearance: none;
+    appearance: none;
     -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     -webkit-print-color-adjust: exact;
 
     &:disabled {
@@ -37,7 +37,7 @@ input.form-control {
     width: 20px;
     color: $primaryCheckboxColor;
     border: none;
-    border-radius: 3px;
+    border-radius: 4px;
     margin: 0 6px 0 0;
     outline: none;
 

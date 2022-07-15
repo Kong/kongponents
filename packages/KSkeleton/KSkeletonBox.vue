@@ -30,7 +30,7 @@ export default {
 <style lang="scss" scoped>
 .box {
   display: inline-flex;
-  border-radius: 3px;
+  border-radius: 4px;
   background: linear-gradient(
       -70deg,
       #f2f2f2 0%,

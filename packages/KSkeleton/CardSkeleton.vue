@@ -67,7 +67,7 @@ $borderColor: #e6e6e6;
   flex-direction: column;
   height: 324px;
   padding: 1rem;
-  border-radius: 3px;
+  border-radius: 4px;
   border: 1px solid $borderColor;
   overflow: hidden;
   .skeleton-card-header {
