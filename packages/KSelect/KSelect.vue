@@ -271,10 +271,16 @@ export default {
 
   computed: {
     boundKPopAttributes: function () {
+      let theClasses = `${defaultKPopAttributes.popoverClasses} ${this.kpopAttributes.popoverClasses} k-select-pop-${this.appearance}`
+
+      if (this.overlayLabel && this.label && this.appearance === 'select') {
+        theClasses += ' k-select-pop-overlay'
+      }
+
       return {
         ...defaultKPopAttributes,
         ...this.kpopAttributes,
-        popoverClasses: `${defaultKPopAttributes.popoverClasses} ${this.kpopAttributes.popoverClasses} k-select-pop-${this.appearance}`,
+        popoverClasses: theClasses,
         width: String(this.inputWidth),
         maxWidth: String(this.inputWidth),
         disabled: this.$attrs.disabled
@@ -505,6 +511,10 @@ export default {
     box-sizing: border-box;
     width: 100%;
     border-radius: 0 0 4px 4px;
+
+     &.k-select-pop-overlay  {
+      top: 22px !important;
+    }
 
     &.k-select-pop-button {
       --KPopPaddingY: var(--spacing-xs);
