@@ -419,7 +419,6 @@ export default {
     color: var(--blue-500);
     font-weight: 400;
     display: flex;
-    border-radius: 4px;
     margin-bottom: 6px;
 
     &.overlay-label-item-selection {
@@ -466,7 +465,6 @@ export default {
     input.k-input {
       padding: var(--spacing-xs);
       height: 100%;
-      border-radius: 4px 4px 0 0;
       height: 44px;
     }
 
@@ -505,12 +503,10 @@ export default {
   .k-select-popover {
     box-sizing: border-box;
     width: 100%;
-    border-radius: 0 0 4px 4px;
 
     &.k-select-pop-button {
       --KPopPaddingY: var(--spacing-xs);
       --KPopPaddingX: var(--spacing-xs);
-      border-radius: 4px;
       border: 1px solid var(--grey-300);
     }
 
