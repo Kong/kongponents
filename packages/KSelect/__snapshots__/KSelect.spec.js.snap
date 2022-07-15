@@ -13,7 +13,7 @@ exports[`KSelect matches snapshot 1`] = `
           <!---->
         </div>
       </div>
-      <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0  k-select-pop-dropdown hide-caret" style="max-width: 350px; display: none;" name="fade">
+      <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0  k-select-pop-dropdown hide-caret" style="width: 0px; max-width: 0px; display: none;" name="fade">
         <!---->
         <div class="k-popover-content">
           <ul class="k-select-list ma-0 pa-0">
@@ -43,7 +43,7 @@ exports[`KSelect renders props when passed 1`] = `
           <!---->
         </div>
       </div>
-      <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0  k-select-pop-dropdown hide-caret" style="max-width: 350px; display: none;" name="fade">
+      <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0  k-select-pop-dropdown hide-caret" style="width: 0px; max-width: 0px; display: none;" name="fade">
         <!---->
         <div class="k-popover-content">
           <ul class="k-select-list ma-0 pa-0">
@@ -86,7 +86,7 @@ exports[`KSelect renders with selected item 1`] = `
           <!---->
         </div>
       </div>
-      <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0  k-select-pop-dropdown hide-caret" style="max-width: 350px; display: none;" name="fade">
+      <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0  k-select-pop-dropdown hide-caret" style="width: 0px; max-width: 0px; display: none;" name="fade">
         <!---->
         <div class="k-popover-content">
           <ul class="k-select-list ma-0 pa-0">

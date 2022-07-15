@@ -4,17 +4,16 @@
     class="k-menu">
     <slot name="body">
       <div>
-        <template v-for="(item,index) in items">
-          <KMenuItem
-            :item="item"
-            :expandable="item.expandable"
-            :key="item.key"
-            :type="item.type"
-            :last-menu-item="index === items.length-1"
-            :test-mode="testMode"
-            :class="{ 'last-menu-item': index === items.length-1 }"
-          />
-        </template>
+        <KMenuItem
+          v-for="(item,index) in items"
+          :item="item"
+          :expandable="item.expandable"
+          :key="item.key"
+          :type="item.type"
+          :last-menu-item="index === items.length-1"
+          :test-mode="testMode"
+          :class="{ 'last-menu-item': index === items.length-1 }"
+        />
       </div>
     </slot>
     <div
@@ -63,7 +62,7 @@ export default {
   computed: {
     widthStyle: function () {
       return {
-        width: this.width === 'auto' ? this.width : this.width + 'px'
+        width: this.width === 'auto' || this.width.endsWith('%') || this.width.endsWith('px') ? this.width : this.width + 'px'
       }
     },
 
