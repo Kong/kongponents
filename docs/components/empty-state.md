@@ -7,7 +7,7 @@
   <template v-slot:message>Message</template>
 </KEmptyState>
 
-```vue
+```html
 <KEmptyState cta-text="CTA Button">
   <template v-slot:title>EmptyState Title</template>
   <template v-slot:message>EmptyState Message</template>
@@ -25,7 +25,7 @@ Boolean value used to hide the call to action button.
   <template v-slot:message>You do not have any content here 😉️</template>
 </KEmptyState>
 
-```vue
+```html
 <KEmptyState cta-is-hidden>
   <template v-slot:title>No Content</template>
   <template v-slot:message>You do not have any content here 😉️</template>
@@ -39,7 +39,7 @@ You can also use this to move your call to action into the message text.
   <template v-slot:message><router-link to="/">Add a Service</router-link> to begin proxying traffic.</template>
 </KEmptyState>
 
-```vue
+```html
 <KEmptyState cta-is-hidden>
   <template v-slot:title>No Services</template>
   <template v-slot:message><router-link>Add a Service</router-link> to begin proxying traffic</template>
@@ -55,7 +55,7 @@ A string to be used as the text content of the call to action button.
   <template v-slot:message>You do not have any content here 😉️</template>
 </KEmptyState>
 
-```vue
+```html
 <KEmptyState cta-text="button text">
   <template v-slot:title>No Content</template>
   <template v-slot:message>You do not have any content here 😉️</template>
@@ -71,7 +71,7 @@ A function that is passed as the click handler for the call to action button
   <template v-slot:message>You do not have any content here 😉️</template>
 </KEmptyState>
 
-```vue
+```html
 <KEmptyState cta-text="Click Me!" :handle-click="clickFunction">
   <template v-slot:title>No Content</template>
   <template v-slot:message>You do not have any content here 😉️</template>
@@ -106,7 +106,7 @@ A flag denoting whether or not the message is an error message. If so, a warning
   </template>
 </KEmptyState>
 
-```vue
+```html
 <KEmptyState :cta-is-hidden="true" :is-error="true">
   <template v-slot:message>
     <h3>
@@ -128,7 +128,7 @@ A string for the `KIcon` name to be displayed directly above the title. Specifyi
   </template>
 </KEmptyState>
 
-```vue
+```html
 <KEmptyState :cta-is-hidden="true" icon="support">
   <template v-slot:message>
     <h3>
@@ -150,7 +150,7 @@ A number denoting the size of the icon to be displayed above the empty state mes
   </template>
 </KEmptyState>
 
-```vue
+```html
 <KEmptyState :cta-is-hidden="true" :is-error="true" icon-size="40">
   <template v-slot:message>
     <h3>
@@ -174,7 +174,7 @@ A string denoting the color of the icon to be displayed above the empty state me
   </template>
 </KEmptyState>
 
-```vue
+```html
 <KEmptyState :cta-is-hidden="true" :is-error="true" icon-size="40" icon-color="#5996ff">
   <template v-slot:title>No users exist</template>
   <template v-slot:message>
@@ -198,7 +198,7 @@ A string denoting the color of the icon to be displayed above the empty state me
   </template>
 </KEmptyState>
 
-```vue
+```html
 <KEmptyState icon="kong">
   <template v-slot:cta>
   <template v-slot:title>Look Mah!</template>
@@ -225,7 +225,7 @@ An Example of what using theming might look like.
   </KEmptyState>
 </div>
 
-```vue
+```html
 <div class="custom-empty-state">
   <KEmptyState cta-text="CTA Button">
     <template v-slot:title>EmptyState Title</template>

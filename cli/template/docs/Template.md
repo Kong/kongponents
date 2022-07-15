@@ -4,7 +4,7 @@
 
 <{%%KONGPONENT_NAME%%} />
 
-```vue
+```html
 <template>
   <{%%KONGPONENT_NAME%%} />
 </template>
@@ -30,7 +30,7 @@ Actual component using examplePropName
 
 <{%%KONGPONENT_NAME%%} :examplePropName="true" />
 
-```vue
+```html
 <{%%KONGPONENT_NAME%%} examplePropName="variation1" />
 <{%%KONGPONENT_NAME%%} examplePropName="variation2" />
 <{%%KONGPONENT_NAME%%} examplePropName="variation3" />
@@ -41,7 +41,7 @@ Actual component using examplePropName
 - `default` - default slot description
 - `slotName` - slot description
 
-```vue
+```html
 <{%%KONGPONENT_NAME%%}>
   here is some slot content
 </{%%KONGPONENT_NAME%%}>
@@ -68,7 +68,7 @@ like:
   </div>
 </template>
 
-```vue
+```html
 <template>
   <div class="{%%KONGPONENT_NAME%%}-wrapper">
     <{%%KONGPONENT_NAME%%} />

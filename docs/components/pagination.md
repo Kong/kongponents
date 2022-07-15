@@ -10,7 +10,7 @@
 
 A total number of items inside the paginated data source. This prop is **required**.
 
-```vue
+```html
 <KPagination :totalCount="50"/>
 ```
 
@@ -24,7 +24,7 @@ You can provide custom page sizes. The first one in the array will be the initia
 
 <KPagination :totalCount="100" :pageSizes="[10, 20, 30, 40]"/>
 
-```vue
+```html
 <KPagination :totalCount="100" :pageSizes="[10, 20, 30, 40]"/>
 ```
 
@@ -36,7 +36,7 @@ Prop is a Number. If the value is not set, the first one of the available pageSi
 
 <KPagination :totalCount="100" :pageSizes="[10, 20, 30, 40]" :initialPageSize="20"/>
 
-```vue
+```html
 <KPagination :totalCount="100" :pageSizes="[10, 20, 30, 40]" :initialPageSize="20"/>
 ```
 
@@ -56,7 +56,7 @@ Optional array of items that can be provided for easy pagination. Slice of this 
   </div>
 </KComponent>
 
-```vue
+```html
 <template>
   <div>
     <span><b>Visible letters: </b></span>
@@ -92,7 +92,7 @@ A number that sets the neighboring pages visible to the left and right of the ce
 
 <KPagination :totalCount="1000" :neighbors="2"/>
 
-```vue
+```html
 <KPagination :totalCount="1000" :pageSize="15" neighbors="2"/>
 ```
 
@@ -108,7 +108,7 @@ Restrict navigation to only `previous` / `next` page. Defaults to `false`.
   </div>
 </KComponent>
 
-```vue
+```html
 <template>
   <div>
     <span><b>Visible letters: </b></span>
@@ -156,7 +156,7 @@ Manually control the current page instead of using native handling. If using thi
   </div>
 </KComponent>
 
-```vue
+```html
 <template>
   <div>
     <span><b>Visible letters: </b></span>
@@ -245,7 +245,7 @@ Pass in a boolean value for whether or not the offset-based Next button should b
   </div>
 </KComponent>
 
-```vue
+```html
 <template>
   <div>
     <KCard title="Cool names list">
@@ -305,7 +305,7 @@ An Example of changing the border color of KPagination to lime might look like:
   <KPagination :totalCount="100" :pageSizes="[10, 20, 30, 40]"/>
 </div>
 
-```vue
+```html
 <template>
   <div class="KPagination-wrapper">
     <KPagination :totalCount="100" :pageSizes="[10, 20, 30, 40]"/>

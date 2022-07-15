@@ -4,7 +4,7 @@
 
 <KInput class="w-100" placeholder="Placeholder text" />
 
-```vue
+```html
 <KInput class="w-100" placeholder="Placeholder text" />
 ```
 
@@ -16,7 +16,7 @@ To set the value of the input element without using `v-model`, you can set the `
 
 <KInput model-value="This is the input value" placeholder="Placeholder text" />
 
-```vue
+```html
 <KInput model-value="This is the input value" placeholder="Placeholder text" />
 ```
 
@@ -27,7 +27,7 @@ String to be used as the input label.
 <KInput label="Name" placeholder="I'm labelled!" class="mb-2" />
 <KInput label="Disabled" disabled placeholder="I'm disabled!" />
 
-```vue
+```html
 <KInput label="Name" placeholder="I'm labelled!" class="mb-2" />
 <KInput label="Disabled" disabled placeholder="I'm disabled!" />
 ```
@@ -37,7 +37,7 @@ If the label is omitted it can be handled with another component, like **KLabel*
 <KLabel for="my-input">Label</KLabel>
 <KInput id="my-input" type="text" placeholder="I have a label" />
 
-```vue
+```html
 <KLabel for="my-input">Label</KLabel>
 <KInput id="my-input" type="text" placeholder="I have a label" />
 ```
@@ -48,7 +48,7 @@ Use the `labelAttributes` prop to configure the **KLabel's** [props](/components
 
 <KInput label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop', 'data-testid': 'test' }"/>
 
-```vue
+```html
 <KInput label="Name" :label-attributes="{   help: 'I use the KLabel `help` prop' }" />
 ```
 ### overlayLabel
@@ -59,7 +59,7 @@ Make sure that if you are using the built in label you specify the `--KInputBack
 <KInput label="Name" placeholder="I'm labelled!" :overlay-label="true" />
 <KInput label="Disabled" disabled placeholder="I'm disabled!" :overlay-label="true" />
 
-```vue
+```html
 <KInput label="Name" placeholder="I'm labelled!" :overlay-label="true" />
 <KInput label="Disabled" disabled placeholder="I'm disabled!" :overlay-label="true" />
 ```
@@ -72,7 +72,7 @@ You can specify `small`, `medium` (default), or `large` for the size.
 <KInput label="Medium" class="mb-2" />
 <KInput label="Large" size="large" />
 
-```vue
+```html
 <KInput label="Small" size="small" class="mb-2" />
 <KInput label="Medium" class="mb-2" />
 <KInput label="Large" size="large" />
@@ -84,7 +84,7 @@ String to be displayed as help text.
 
 <KInput help="I can help with that" placeholder="Need help?" />
 
-```vue
+```html
 <KInput help="I can help with that" placeholder="Need help?" />
 ```
 
@@ -93,7 +93,7 @@ You also have the option of using the `.help` utility class. This is meant to be
 <KInput type="text" placeholder="Need help?" />
 <p class="help">I can help with that</p>
 
-```vue
+```html
 <template>
   <KInput type="text" placeholder="Need help?" />
   <p class="help">I can help with that</p>
@@ -106,7 +106,7 @@ Use this prop to specify a character limit for the input. See the [`@char-limit-
 
 <KInput model-value="This field has too many characters" :character-limit="10" class="w-100" placeholder="Placeholder text" />
 
-```vue
+```html
 <KInput model-value="This field has too many characters" :character-limit="10" class="w-100" placeholder="Placeholder text" />
 ```
 
@@ -119,7 +119,7 @@ You may also specify a native `maxlength` attribute on the `KInput` to actually 
 
 <KInput :character-limit="10" maxlength="10" placeholder="Type..."/>
 
-```vue
+```html
 <KInput :character-limit="10" maxlength="10" placeholder="Type..."/>
 ```
 
@@ -135,7 +135,7 @@ String to be displayed as error message if `hasError` prop is `true`.
 
 <KInput class="w-100" hasError errorMessage="Service name should not contain '_'" />
 
-```vue
+```html
 <KInput class="w-100" hasError errorMessage="Service name should not contain '_'"/>
 ```
 
@@ -143,7 +143,7 @@ String to be displayed as error message if `hasError` prop is `true`.
 <KInput label="Medium" class="mb-2" hasError errorMessage="Service name should not contain '_'" />
 <KInput label="Large" size="large" hasError errorMessage="Service name should not contain '_'" />
 
-```vue
+```html
 <KInput label="Small" size="small" class="mb-2" hasError errorMessage="Service name should not contain '_'" />
 <KInput label="Medium" class="mb-2" hasError errorMessage="Service name should not contain '_'" />
 <KInput label="Large" size="large" hasError errorMessage="Service name should not contain '_'" />
@@ -153,7 +153,7 @@ String to be displayed as error message if `hasError` prop is `true`.
 <KInput label="Medium" class="mb-2" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
 <KInput label="Large" size="large" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
 
-```vue
+```html
 <KInput label="Small" size="small" class="mb-2" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
 <KInput label="Medium" class="mb-2" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
 <KInput label="Large" size="large" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
@@ -174,7 +174,7 @@ You can pass any input attribute and it will get properly bound to the element.
 
 > Note: Add the `input-error` class to add custom error styling
 
-```vue
+```html
 <KInput placeholder="placeholder" />
 <KInput type="password" model-value="123" />
 <KInput type="number" model-value="1"/>
@@ -230,14 +230,14 @@ To listen for changes to the `KInput` value, you can bind to the `@input` or `@u
 <KLabel>{{ inputText }}</KLabel>
 <KInput model-value="This is the input value" @update:modelValue="newValue => inputText = newValue" />
 
-```vue
+```html
 <KLabel>{{ inputText }}</KLabel>
 <KInput model-value="This is the input value" @update:modelValue="newValue => inputText = newValue" />
 ```
 
 ### `char-limit-exceeded`
 
-```vue
+```html
 <KInput @char-limit-exceeded="exampleFunction" />
 ```
 
@@ -260,7 +260,7 @@ Fired when the text starts or stops exceeding the limit, returns an object:
   </div>
 </KComponent>
 
-```vue
+```html
 <KComponent :data="{myInput2: 'hello'}" v-slot="{ data }">
   <div>
     <KInput
@@ -289,7 +289,7 @@ An Example of changing the error border color of KInput to pink might look like:
 
 <KInput class="custom-input" has-error type="email" model-value="error" />
 
-```vue
+```html
 <template>
   <KInput class="custom-input" has-error type="email" model-value="error" />
 </template>

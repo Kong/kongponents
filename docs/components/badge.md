@@ -4,7 +4,7 @@
 
 <KBadge appearance="success">SUCCESS</KBadge>
 
-```vue
+```html
 <KBadge appearance="success">SUCCESS</KBadge>
 ```
 
@@ -27,7 +27,7 @@ The Badge component can take the following appearance values:
 <KBadge appearance="info" class="mr-2">INFO</KBadge>
 <KBadge>DEFAULT</KBadge>
 
-```vue
+```html
 <KBadge appearance="success">SUCCESS</KBadge>
 <KBadge appearance="warning">WARNING</KBadge>
 <KBadge appearance="danger">DANGER</KBadge>
@@ -45,7 +45,7 @@ The Badge has two shapes that can be changed with a `shape` property.
 <KBadge appearance="warning" class="mr-2">Round</KBadge>
 <KBadge appearance="warning" shape="rectangular">Rectangular</KBadge>
 
-```vue
+```html
 <KBadge appearance="warning">Round</KBadge>
 <KBadge appearance="warning" shape="rectangular">Rectangular</KBadge>
 ```
@@ -60,7 +60,7 @@ Using the `custom` appearance in conjunction with `color` and `background-color`
 <KBadge color="#dfe6e9" background-color="#636e72" class="mr-2">Something</KBadge>
 <KBadge color="var(--red-500)" background-color="var(--red-300)">Long Badge 236bfb09-fe79-4cc9-99be-9361d6b1db64 aa07575b-bcd3-4bb2-bfd7-998224e3d31e 364b78fc-dba3-4b94-9134-388515496de5</KBadge>
 
-```vue
+```html
 <KBadge color="var(--yellow-400)" background-color="var(--yellow-300)">Custom</KBadge>
 <KBadge color="var(--red-100)" background-color="var(--red-400)">Badge</KBadge>
 <KBadge color="var(--blue-200)" background-color="var(--blue-500)">Hello</KBadge>
@@ -74,7 +74,7 @@ Using the `custom` appearance in conjunction with `color` and `background-color`
 
 <KBadge appearance="success">SUCCESS</KBadge>
 
-```vue
+```html
 <KBadge appearance="success">SUCCESS</KBadge>
 ```
 
@@ -111,7 +111,7 @@ An example of theming the danger badge:
   <KBadge appearance="danger">DANGER - RADIOACTIVE MATERIAL</KBadge>
 </div>
 
-```vue
+```html
 <template>
   <div class="KBadge-wrapper">
     <KBadge appearance="danger">DANGER - RADIOACTIVE MATERIAL</KBadge>

@@ -57,7 +57,7 @@ Enable this prop to overlay the label on the input element's border for `select`
 <KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" appearance="select" :items="deepClone(defaultItemsUnselect)" />
 <KSelect label="Disabled" disabled placeholder="I'm disabled!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" />
 
-```vue
+```html
 <KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" :items="items" />
 <KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" appearance="select" :items="items" />
 <KSelect label="Disabled" disabled placeholder="I'm disabled!" :overlay-label="true" :items="items" />
@@ -241,7 +241,7 @@ You can pass any input attribute and it will get properly bound to the element.
   <KSelect disabled placeholder="type something" :items="[{ label: 'test', value: 'test' }]" />
 </div>
 
-```vue
+```html
 <KSelect disabled placeholder="type something" :items="[{ label: 'test', value: 'test' }]" />
 ```
 

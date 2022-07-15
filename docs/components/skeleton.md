@@ -12,7 +12,7 @@ There are 5 different types of loading states that KSkeleton supports: Card, Tab
 
 <KSkeleton type="form" />
 
-```vue
+```html
 <KSkeleton type="form" />
 ```
 
@@ -30,7 +30,7 @@ The number of milliseconds to wait before showing the skeleton state. Defaults t
   </div>
 </KComponent>
 
-```vue
+```html
 <KComponent :data="{ isLoading: false }" v-slot="{ data }">
   <div>
     <KButton class="mb-2" @click="()=>(data.isLoading=!data.isLoading)">Toggle loading - {{data.isLoading?'on':'off'}}</KButton>
@@ -48,7 +48,7 @@ By default, **KSkeleton** will load a generic loading state. There are no props 
 
 <KSkeleton />
 
-```vue
+```html
 <KSkeleton />
 ```
 
@@ -58,7 +58,7 @@ This loading state is using for card type components, like **KCard** or similar.
 
 <KSkeleton type="card" />
 
-```vue
+```html
 <KSkeleton type="card" />
 ```
 
@@ -68,7 +68,7 @@ Used for displaying the number of cards in this loading state. Defaults to 1. Th
 
 <KSkeleton type="card" :card-count="3" />
 
-```vue
+```html
 <KSkeleton type="card" :card-count="3" />
 ```
 
@@ -78,7 +78,7 @@ This loading state is used for form type components. There are no props for this
 
 <KSkeleton type="form" />
 
-```vue
+```html
 <KSkeleton type="form" />
 ```
 
@@ -88,7 +88,7 @@ This loading state is used for table type components.
 
 <KSkeleton type="table" />
 
-```vue
+```html
 <KSkeleton type="table" />
 ```
 
@@ -98,7 +98,7 @@ Used for displaying the number of rows in this loading state. Defaults to 6. The
 
 <KSkeleton type="table" :table-rows="3" />
 
-```vue
+```html
 <KSkeleton type="table" :table-rows="3" />
 ```
 
@@ -108,7 +108,7 @@ Used for displaying the number of columns in this loading state. Defaults to 6. 
 
 <KSkeleton type="table" :table-columns="3" />
 
-```vue
+```html
 <KSkeleton type="table" :table-columns="3" />
 ```
 
@@ -118,7 +118,7 @@ This loading state is used for a spinner, which can be used for a wide variety o
 
 <KSkeleton type="spinner" />
 
-```vue
+```html
 <KSkeleton type="spinner" />
 ```
 
@@ -140,7 +140,7 @@ The full screen loading state is used to display a full screen loader typically 
     :delay-milliseconds="0" />
 </div>
 
-```vue
+```html
   <KButton @click="clicked()">click for default progress behavior</KButton>
   <KSkeleton v-if="loading" type="fullscreen-kong" :delay-milliseconds="0" />
 ```
@@ -162,7 +162,7 @@ KSkeleton package uses a component to render the placeholder content `<KSkeleton
 <KSkeletonBox width="50" height="1"/>
 <KSkeletonBox width="100" height="2"/>
 
-```vue
+```html
 <KSkeletonBox />
 <KSkeletonBox width="2" height="2"/>
 <KSkeletonBox width="5" height="2"/>
@@ -193,7 +193,7 @@ For example, here is a card skeleton with different arrangement of placeholders:
   </template>
 </KSkeleton>
 
-```vue
+```html
 <KSkeleton type="card" :card-count="3">
   <template v-slot:card-header>
     <div class="w-100">
@@ -239,7 +239,7 @@ And another example:
   </template>
 </KSkeleton>
 
-```vue
+```html
 <template>
   <KSkeleton type="card">
     <template v-slot:card-header>
@@ -284,7 +284,7 @@ To reveal the header on this docs page during full page loader, click the button
   <KSkeleton v-if="loadingTheming" type="fullscreen-kong" :delay-milliseconds="0" />
 </div>
 
-```vue
+```html
 <div class="mt-4 k-skeleton-full-screen-margin">
   <KButton @click="clickedTheming()">themed full screen loader</KButton>
   <KSkeleton v-if="loadingTheming" type="fullscreen-kong" :delay-milliseconds="0" />
