@@ -83,10 +83,10 @@
               v-model="filterStr"
               :readonly="!filterIsEnabled"
               :is-open="isToggled"
-              :placeholder="placeholderText"
+              :placeholder="selectedItem && appearance === 'select' ? selectedItem.label : placeholderText"
               :class="{ 'cursor-default': !filterIsEnabled }"
               class="k-select-input"
-              @keyup="triggerFocus(isToggled)" />
+              @keyup="!$attrs.disabled ? triggerFocus(isToggled) : null" />
           </div>
           <template v-slot:content>
             <ul class="k-select-list ma-0 pa-0">
@@ -429,10 +429,12 @@ export default {
     height: 44px;
 
     &.cursor-default {
-      cursor: default;
+      input.k-input {
+        cursor: default;
+      }
     }
 
-    &input.k-input {
+    input.k-input {
       padding: var(--spacing-xs);
       height: 100%;
       border-radius: 4px 4px 0 0;
