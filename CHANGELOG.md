@@ -1,3 +1,10 @@
+# [7.0.0-beta.63](https://github.com/Kong/kongponents/compare/v7.0.0-beta.62...v7.0.0-beta.63) (2022-07-15)
+
+
+### Bug Fixes
+
+* **kselect:** input border radius and dropdown spacing [beta] ([#700](https://github.com/Kong/kongponents/issues/700)) ([baa6738](https://github.com/Kong/kongponents/commit/baa6738515170d54c2a5fe440c438323f9ed725e)), closes [#694](https://github.com/Kong/kongponents/issues/694)
+
 # [7.0.0-beta.62](https://github.com/Kong/kongponents/compare/v7.0.0-beta.61...v7.0.0-beta.62) (2022-07-15)
 
 
