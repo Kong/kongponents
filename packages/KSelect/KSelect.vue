@@ -478,7 +478,7 @@ export default {
       --KPopPaddingY: var(--spacing-xs);
       --KPopPaddingX: var(--spacing-xs);
       border-radius: 4px;
-      border: 1px solid var(--blue-200);
+      border: 1px solid var(--grey-300);
     }
 
     &.k-select-pop-dropdown {
