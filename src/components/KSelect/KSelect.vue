@@ -4,7 +4,7 @@
     class="k-select"
   >
     <KLabel
-      v-if="label"
+      v-if="label && !overlayLabel"
       :for="selectId"
       v-bind="labelAttributes"
       data-testid="k-select-label"
@@ -103,6 +103,8 @@
               v-model="filterStr"
               :readonly="!filterIsEnabled"
               :is-open="isToggled.value"
+              :label="label && overlayLabel ? label : undefined"
+              :overlay-label="overlayLabel"
               :placeholder="selectedItem && appearance === 'select' && !filterIsEnabled ? selectedItem.label : placeholderText"
               autocomplete="off"
               autocapitalize="off"
@@ -203,6 +205,10 @@ export default defineComponent({
     label: {
       type: String,
       default: '',
+    },
+    overlayLabel: {
+      type: Boolean,
+      default: false
     },
     labelAttributes: {
       type: Object,
