@@ -1,5 +1,7 @@
 # Select
 
+<div v-if="hasMounted">
+
 **Select** - Dropdown/Select component
 <div>
   <KSelect label="Pick Something:" :items="[{
@@ -274,7 +276,7 @@ Because we are controlling the widths of multiple elements, we recommend using t
 </div>
 
 ```vue
-<KSelect width="100" :items="[{
+<KSelect width="250" :items="[{
     label: 'test',
     value: 'test',
     selected: true
@@ -358,7 +360,7 @@ KSelect works as regular inputs do using v-model for data binding:
 <Komponent :data="{myVal: 'test'}" v-slot="{ data }">
   <div>
     <KLabel>Value:</KLabel> {{ data.myVal }}
-    <KSelect width="100" v-model="data.myVal" :items="[{
+    <KSelect v-model="data.myVal" :items="[{
         label: 'test',
         value: 'test'
       }, {
@@ -373,7 +375,7 @@ KSelect works as regular inputs do using v-model for data binding:
 <Komponent :data="{myVal: 'test'}" v-slot="{ data }">
   <div>
     <KLabel>Value:</KLabel> {{ data.myVal }}
-    <KSelect width="100" v-model="data.myVal" :items="[{
+    <KSelect v-model="data.myVal" :items="[{
         label: 'test',
         value: 'test'
       }, {
@@ -400,6 +402,8 @@ You can pass any input attribute and it will get properly bound to the element.
 ## Slots
 
 You can use the `item-template` slot to customize the look and feel of your items. Use slots to gain access to the `item` data.
+
+If you use the `.select-item-label` and `.select-item-desc` classes within the slot as shown in the example below, the dropdown items will inherit preconfigured styles for two-level select items which you're then free to customize.
 
 <div>
   <KSelect :items="myItems" width="100%" :filterFunc="customFilter">
@@ -456,6 +460,8 @@ export default {
 | `input` | `selectedItem` Object or null |
 | `change` | `selectedItem` Object or null |
 
+</div>
+
 <script>
 function getItems(count) {
   let myItems = []
@@ -472,6 +478,7 @@ function getItems(count) {
 export default {
   data() {
     return {
+      hasMounted: false,
       myItems: getItems(5),
       mySelect: '',
       items: [{
@@ -483,6 +490,9 @@ export default {
       }]
     }
   },
+  mounted() {
+    this.hasMounted = true
+  },
   methods: {
     handleItemSelect (item) {
       this.mySelect = item.label
@@ -493,14 +503,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.select-item-label {
-  color: blue;
-  font-weight: bold;
-}
-
-.select-item-desc {
-  color: red;
-}
-</style>

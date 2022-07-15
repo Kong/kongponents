@@ -119,11 +119,13 @@
       }
     }
   }
+}
   /**
    * But KSelect still wants disabled/invalid styles applied
    * Note: this style-block MUST come AFTER the read-only block. Disabled state
    *  takes precedence over read-only state.
    */
+   
   .k-input,
   .form-control {
     &:not([type="checkbox"]),
@@ -141,7 +143,6 @@
         box-shadow: none;
       }
     }
-  }
 
   &[type="search"] {
     padding-left: 36px;
