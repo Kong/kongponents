@@ -55,7 +55,7 @@ describe('KSelect', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 
-  it('renders with correct px width', () => {
+  it('renders with correct px width', async () => {
     const width = 350
 
     const wrapper = mount(KSelect, {
@@ -70,10 +70,10 @@ describe('KSelect', () => {
       }
     })
     const selectedItem = wrapper.find('.k-select')
-    const popover = wrapper.find('.k-select-popover')
+
+    await wrapper.vm.$nextTick()
 
     expect(selectedItem.element.style['width']).toEqual(width + 'px')
-    expect(popover.element.style['width']).toEqual(width + 'px') // 10 pixels less with spacing
   })
 
   it('renders with correct label', () => {
