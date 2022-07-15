@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kpagination",
-  "version": "6.32.19",
+  "version": "6.32.20",
   "description": "Pagination component",
   "main": "dist/KPagination.umd.min.js",
   "componentName": "KPagination",
@@ -24,8 +24,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kicon": "^6.32.19",
-    "@kongponents/kselect": "^6.32.19",
-    "@kongponents/styles": "^6.32.19"
+    "@kongponents/kicon": "^6.32.20",
+    "@kongponents/kselect": "^6.32.20",
+    "@kongponents/styles": "^6.32.20"
   }
 }

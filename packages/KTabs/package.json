@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/ktabs",
-  "version": "6.32.19",
+  "version": "6.32.20",
   "description": "Tabs component.",
   "main": "dist/KTabs.umd.min.js",
   "componentName": "KTabs",
@@ -23,6 +23,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/styles": "^6.32.19"
+    "@kongponents/styles": "^6.32.20"
   }
 }

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.32.20 (2022-07-15)
+
+
+### Bug Fixes
+
+* **kselect:** update dropdown border color ([#695](https://github.com/Kong/kongponents/issues/695)) ([be869d9](https://github.com/Kong/kongponents/commit/be869d96a7dadd8e0b271c0f9a5eff2d7f897177))
+
+
+
+
+
 ## 6.32.19 (2022-07-15)
 
 **Note:** Version bump only for package @kongponents/styles
