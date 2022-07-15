@@ -106,7 +106,7 @@
       display: none;
     }
   }
-}
+
   /**
    * KSelect should ignore read-only styles
    */
@@ -119,6 +119,7 @@
       }
     }
   }
+}
   /**
    * But KSelect still wants disabled/invalid styles applied
    * Note: this style-block MUST come AFTER the read-only block. Disabled state
