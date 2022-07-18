@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.33.5 (2022-07-18)
+
+
+### Bug Fixes
+
+* **kselect:** fix readonly styles ([66167c7](https://github.com/Kong/kongponents/commit/66167c7e954764897e5916fffaddbef912ea64af))
+
+
+
+
+
 ## 6.33.4 (2022-07-18)
 
 **Note:** Version bump only for package @kongponents/ktoggle
