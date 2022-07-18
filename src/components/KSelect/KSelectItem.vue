@@ -69,6 +69,10 @@ export default defineComponent({
   margin-bottom: 4px;
   list-style: none !important;
 
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
   button {
     display: flex;
     align-items: center;
