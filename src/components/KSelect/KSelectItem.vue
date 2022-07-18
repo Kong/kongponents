@@ -70,7 +70,7 @@ export default defineComponent({
   list-style: none !important;
 
   &:last-of-type {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
   }
 
   button {
