@@ -216,7 +216,7 @@ KSelect works as regular inputs do using v-model for data binding:
 <Komponent :data="{myVal: 'test'}" v-slot="{ data }">
   <div>
     <KLabel>Value:</KLabel> {{ data.myVal }}
-    <KSelect width="100" v-model="data.myVal" :items="deepClone(defaultItemsUnselect)" />
+    <KSelect v-model="data.myVal" :items="deepClone(defaultItemsUnselect)" />
   </div>
 </Komponent>
 
@@ -224,7 +224,7 @@ KSelect works as regular inputs do using v-model for data binding:
 <Komponent :data="{myVal: 'test'}" v-slot="{ data }">
   <div>
     <KLabel>Value:</KLabel> {{ data.myVal }}
-    <KSelect width="100" v-model="data.myVal" :items="items" />
+    <KSelect v-model="data.myVal" :items="items" />
   </div>
 </Komponent>
 ```
