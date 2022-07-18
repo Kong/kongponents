@@ -6,7 +6,7 @@
   <KSegmentedControl :options="['Like it?','Love it!']" v-model="data.selected" @click="x => data.selected = x" />
 </KComponent>
 
-```vue
+```html
 <KComponent :data="{ selected: 'Like it?' }" v-slot="{ data }">
   <KSegmentedControl :options="['Like it?','Love it!']" v-model="data.selected" @click="x => data.selected = x" />
 </KComponent>
@@ -40,7 +40,7 @@ export interface SegmentedControlOption {
   <KSegmentedControl :options="[{label:'Left',value:'left'},{label:'Middle',value:'middle'},{label:'Right',value:'right'}]" v-model="data.selected" @click="x => data.selected = x" />
 </KComponent>
 
-```vue
+```html
 <KComponent :data="{ selected: 'left' }" v-slot="{ data }">
   <KSegmentedControl :options="[{label:'Left',value:'left'},{label:'Right',value:'right'}]" v-model="data.selected" @click="x => data.selected = x" />
 </KComponent>
@@ -54,7 +54,7 @@ The value of the currently selected option.
   <KSegmentedControl :options="['5m','30m','1h','6h','24h','all']" v-model="data.selected" @click="x => data.selected = x" />
 </KComponent>
 
-```vue
+```html
 <KComponent :data="{ selected: '1h' }" v-slot="{ data }">
   <KSegmentedControl :options="['5m','30m','1h','6h','24h','all']" v-model="data.selected" @click="x => data.selected = x" />
 </KComponent>
@@ -66,7 +66,7 @@ You can pass in an optional flag to disable the control or an individual button 
 
 <KSegmentedControl :options="['On','Off']" selected="On" :isDisabled="true" />
 
-```vue
+```html
 <KSegmentedControl :options="['On','Off']" selected="On" :isDisabled="true" />
 ```
 
@@ -74,7 +74,7 @@ You can pass in an optional flag to disable the control or an individual button 
   <KSegmentedControl :options="[{label:'pick me',value:'1'},{label:'disabled',value:'2',disabled: true},{label:'or me',value:'3'}]" v-model="data.selected" @click="x => data.selected = x" />
 </KComponent>
 
-```vue
+```html
 <KComponent :data="{ selected: '1' }" v-slot="{ data }">
   <KSegmentedControl :options="[{label:'pick me',value:'1'},{label:'disabled',value:'2',disabled: true},{label:'or me',value:'3'}]" v-model="data.selected" @click="x => data.selected = x" />
 </KComponent>
@@ -100,7 +100,7 @@ export default defineComponent({
 })
 </script>
 
-```vue
+```html
 <KComponent :data="{ selected: 'On' }" v-slot="{ data }">
   <KSegmentedControl :options="['On','Off']" v-model="data.selected" @click="state => sayHello(state, data)" />
 </KComponent>

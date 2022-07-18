@@ -8,7 +8,7 @@
   </template>
 </KCard>
 
-```vue
+```html
 <template>
   <KCheckbox
     v-model="checked"
@@ -49,7 +49,7 @@ Use `v-model` to bind the `checked` state of the underlying `<input />`. The `v-
   </template>
 </KCard>
 
-```vue
+```html
 <KCheckbox v-model="checked">
   {{ checked ? 'Checked!' : 'Unchecked' }}
 </KCheckbox>
@@ -59,7 +59,7 @@ Use `v-model` to bind the `checked` state of the underlying `<input />`. The `v-
 
 Any valid attribute will be added to the input. You can read more about `$attrs` [here](https://vuejs.org/api/composition-api-setup.html#setup-context).
 
-```vue
+```html
 <KCheckbox v-model="checked" disabled />
 ```
 
@@ -74,7 +74,7 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 
 - `default` - Anything passed in to the default slot will replace the label prop text
 
-```vue
+```html
 <KCheckbox v-model="checkbox1">
   Label goes here. The checkbox is {{ checkbox1 ? 'checked' : 'not checked' }}
 </KCheckbox>
@@ -123,7 +123,7 @@ An Example of changing the background color of KCheckbox to `blueviolet` might l
   <KCheckbox v-model="themeChecked"/>
 </div>
 
-```vue
+```html
 <template>
   <div class="KCheckbox-wrapper">
     <KCheckbox v-model="checked"/>

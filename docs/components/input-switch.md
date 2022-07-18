@@ -4,7 +4,7 @@
 
 <KInputSwitch v-model="defaultChecked" @change="handleToggle" />
 
-```vue
+```html
 <template>
   <KInputSwitch v-model="defaultChecked" @change="handleToggle" />
 </template>
@@ -35,7 +35,7 @@ export default defineComponent({
 
 Use `v-model` to bind to the `checked` state of the underlying `<input />`. The `v-model` binds to the `value` prop of the component and sets current checked state of toggle switch. You can read more about passing values via `v-model` [here](https://vuejs.org/guide/components/events.html#usage-with-v-model).
 
-```vue
+```html
 <KInputSwitch v-model="isChecked" />
 ```
 
@@ -43,7 +43,7 @@ Use `v-model` to bind to the `checked` state of the underlying `<input />`. The 
 
 Will place label text to the right of the switch. Can also be [slotted](#slots).
 
-```vue
+```html
 <KInputSwitch v-model="checked" :label="checked ? 'on' : 'off'" />
 ```
 
@@ -58,7 +58,7 @@ Position the label to the left or right of the switch, default to `right`.
 <br>
 <KInputSwitch v-model="labelPropChecked" label="Label on the left" labelPosition="left" />
 
-```vue
+```html
 <KInputSwitch label="Label on the right" />
 <KInputSwitch label="Label on the left" label-position="left" />
 ```
@@ -67,7 +67,7 @@ Position the label to the left or right of the switch, default to `right`.
 
 You can add `disabled` to the input to disallow interactivity.
 
-```vue
+```html
 <KInputSwitch v-model="checked" label="disabled" disabled />
 ```
 
@@ -77,7 +77,7 @@ You can add `disabled` to the input to disallow interactivity.
 
 You can specify tooltip text to be displayed when the switch is disabled.
 
-```vue
+```html
 <KInputSwitch v-model="checked" label="disabled" disabled disabledTooltipText="I'm disabled!" />
 ```
 
@@ -92,7 +92,7 @@ You can specify tooltip text to be displayed when the switch is disabled.
 
 Display a check icon when switch is enabled
 
-```vue
+```html
 <KInputSwitch v-model="enabledIconChecked" :label="enabledIconChecked ? 'Enabled' : 'Disabled'" enabled-icon />
 ```
 
@@ -112,7 +112,7 @@ Display a check icon when switch is enabled
   </template>
 </KInputSwitch>
 
-```vue
+```html
 <template>
   <KInputSwitch v-model="checked">
     <template v-slot:label>
@@ -152,7 +152,7 @@ To listen for changes to the `KInputSwitch` value, you can bind to the `@input`,
   </div>
 </KComponent>
 
-```vue
+```html
 <template>
   <KInputSwitch
     :model-value="false"
@@ -171,7 +171,7 @@ To listen for changes to the `KInputSwitch` value, you can bind to the `@input`,
   </div>
 </KComponent>
 
-```vue
+```html
 <template>
   <div>
     <KInputSwitch v-model="eventsSwitchEnabled2" @change="e => (changeCount++)" label="Toggle Me" />
@@ -197,7 +197,7 @@ An Example of changing the success KInputSwitch on color to pink instead of Kong
   <KInputSwitch v-model="themeChecked" />
 </div>
 
-```vue
+```html
 <template>
   <div class="switch-wrapper">
     <KInputSwitch v-model="checked" />

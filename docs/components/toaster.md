@@ -32,13 +32,13 @@ Once `ToastManager` is added as a global property, you can access it's methods v
 
 <KButton @click="$toaster.open('Basic Notification')">Open Toaster</KButton>
 
-```vue
+```html
 <KButton @click="$toaster.open('Basic Toaster')">Open Toaster</KButton>
 ```
 
 or within the `setup()` function in your component
 
-```vue
+```html
 <script lang="ts">
 import { defineComponent, getCurrentInstance } from 'vue'
 
@@ -70,7 +70,7 @@ The default argument passed to the toaster is the message.
 
 <KButton @click="$toaster.open('Default message here')">Open Toaster</KButton>
 
-```vue
+```html
 <KButton @click="$toaster.open('Default message here')">Open Toaster</KButton>
 ```
 
@@ -83,7 +83,7 @@ The Toaster uses the same appearance values as [KAlert](/components/alert) and a
 <KButton class="mr-2" appearance="danger" @click="openNotification({'appearance': 'danger', 'message':'This toaster has danger appearance'})">Open Toaster</KButton>
 <KButton class="warning mr-2" appearance="primary" @click="openNotification({'appearance': 'warning', 'message':'This toaster has warning appearance'})">Open Toaster</KButton>
 
-```vue
+```html
 <template>
   <KButton @click="openNotification(toasterOptions)">Open Toaster</KButton>
 </template>
@@ -117,7 +117,7 @@ The default timeout, in milliseconds, is `5000` (5 seconds) however you can chan
 
 <KButton :disabled="timeLeft <= 3" @click="openNotificationElapse({timeoutMilliseconds: 3000, 'appearance': 'success', 'message': `This toaster has a 3 second timeout`})">{{timeLeft > 3 ? 'Open Toaster' : `Closing in ${timeLeft} seconds` }}</KButton>
 
-```vue
+```html
 <template>
   <KButton @click="openNotification(toasterOptions)">Open Toaster</KButton>
 </template>
@@ -158,7 +158,7 @@ You can view the current state of active toasters by calling `this.$toaster.toas
 </code>
 </pre>
 
-```vue
+```html
 <template>
   <KButton class="success" appearance="primary" @click="openNotification({timeoutMilliseconds: 10000, message: 'Success Notification', appearance: 'success'})">Open Toaster</KButton>
   <KButton appearance="danger" @click="openNotification({'appearance': 'danger', 'message': 'Danger Notification'})">Open Toaster</KButton>

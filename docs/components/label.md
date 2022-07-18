@@ -4,7 +4,7 @@
 
 <KLabel>Input Title</KLabel>
 
-```vue
+```html
 <KLabel>Input Title</KLabel>
 ```
 
@@ -16,13 +16,13 @@ Use the `help` prop to display helper tooltip text.
 
 <KLabel help="This is an example">Input Title</KLabel>
 
-```vue
+```html
 <KLabel help="This is an example">Input Title</KLabel>
 ```
 
 <KLabel help="This is a really long tooltip. Hopefully we won't have anything this long but we might. I wonder how it handles long inputs">Long Input Title</KLabel>
 
-```vue
+```html
 <KLabel help="This is a really long tooltip. Hopefully we won't have anything this long but we might. I wonder how it handles long inputs">
   Long Input Title
 </KLabel>
@@ -34,7 +34,7 @@ Use the `info` prop to display information help text.
 
 <KLabel info="This is an example">Input Title</KLabel>
 
-```vue
+```html
 <KLabel info="This is an example">Input Title</KLabel>
 ```
 
@@ -44,7 +44,7 @@ Use the `tooltipAttributes` prop to configure the **KTooltip's** [props](/compon
 
 <KLabel :tooltip-attributes="{ placement: 'right', 'max-width': '200' }" help="This is a really long tooltip. Hopefully we won't have anything this long but we might. I wonder how it handles long inputs">With Tooltip Attributes</KLabel>
 
-```vue
+```html
 <KLabel
   :tooltip-attributes="{ placement: 'right', 'max-width': '200' }"
   help="This is a really long tooltip. Hopefully we won't have anything this long but we might. I wonder how it handles long inputs"
@@ -62,7 +62,7 @@ Use the `for` attribute to bind a label to an input element for accessibility.
 <KLabel for="service">Service Name</KLabel>
 <KInput id="service"/>
 
-```vue
+```html
 <KLabel for="service" help="A service is an API that you want to offer">Service Name</KLabel>
 <KInput id="service"/>
 ```

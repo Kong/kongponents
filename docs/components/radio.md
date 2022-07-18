@@ -14,7 +14,7 @@
   </template>
 </KCard>
 
-```vue
+```html
 <template>
   <KRadio name="test" :selected-value="true" v-model="radio">Boolean</KRadio>
   <KRadio name="test" selected-value="string" v-model="radio">String</KRadio>
@@ -56,7 +56,7 @@ The value of the `KRadio` option that will be emitted by the `change` and `updat
 
 Any valid attribute will be added to the input. You can read more about `$attrs` [here](https://vuejs.org/api/composition-api-setup.html#setup-context).
 
-```vue
+```html
 <KRadio v-model="checked" :selected-value="true" disabled>Disabled radio</KRadio>
 ```
 
@@ -80,7 +80,7 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
   </template>
 </KCard>
 
-```vue
+```html
 <KRadio v-model="selected" :selected-value="true">
   Label goes here. The radio is {{ selected ? 'selected' : 'not selected' }}
 </KRadio>
@@ -108,7 +108,7 @@ An Example of changing the background color of KRadio to lime might look like:
   <KRadio v-model="radioState" :selected-value="true" />
 </div>
 
-```vue
+```html
 <template>
   <div class="KRadio-wrapper">
     <KRadio v-model="selected" :selected-value="true" />

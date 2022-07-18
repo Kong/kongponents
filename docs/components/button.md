@@ -5,7 +5,7 @@ and configuration options.
 
 <KButton appearance="primary">I'm a button</KButton>
 
-```vue
+```html
 <KButton appearance="primary">I'm a button</KButton>
 ```
 
@@ -29,7 +29,7 @@ The Button component can take 1 of 6 appearance values:
 <KButton class="mr-2 mb-2" appearance="creation">Creation</KButton>
 <KButton class="mr-2 mb-2" appearance='btn-link'>btn-link</KButton>
 
-```vue
+```html
 <KButton appearance='primary'>Primary</KButton>
 <KButton appearance="secondary">Secondary</KButton>
 <KButton appearance='outline'>Outline</KButton>
@@ -52,7 +52,7 @@ We support `small`, `medium`, and `large` sizes, default to `medium`.
 
 <KButton appearance="secondary" size="large">Large</KButton>
 
-```vue
+```html
 <KButton appearance="secondary" size="small">Small</KButton>
 <KButton appearance="secondary" size="medium">Medium</KButton>
 <KButton appearance="secondary" size="large">Large</KButton>
@@ -68,7 +68,7 @@ KButton can display a dropdown caret to the right hand side. This is useful for 
 
 > The `KComponent` component is used in this example to create state.
 
-```vue
+```html
 <KComponent :data="{ isActive: false }" v-slot="{ data }">
   <KButton appearance="primary" size="medium" :isOpen="data.isActive" @click="data.isActive = !data.isActive">
     I'm a button
@@ -83,7 +83,7 @@ The buttons are rounded by default. This can be disabled by setting `isRounded` 
 <KButton class="mr-2" appearance="primary" :isRounded="false">I'm a button</KButton>
 <KButton appearance="primary" >I'm a button</KButton>
 
-```vue
+```html
 <KButton appearance="primary" :isRounded="false">I'm a button</KButton>
 <KButton appearance="primary" >I'm a button</KButton>
 ```
@@ -98,7 +98,7 @@ coloring to the icon depending on the `disabled` state of the button.
 <KButton class="mr-2" appearance="primary" icon="spinner">I'm a button</KButton>
 <KButton appearance="primary" icon="spinner" disabled>I'm a button</KButton>
 
-```vue
+```html
 <KButton appearance="primary" icon="spinner">I'm a button</KButton>
 <KButton appearance="primary" icon="spinner" disabled>I'm a button</KButton>
 ```
@@ -110,7 +110,7 @@ KButton can render either a `<a>` or `<router-link>` by simply passing the `to` 
 <KButton :to="{path: '/'}" appearance="btn-link">Router Link!</KButton>
 <KButton to="http://google.com" appearance="btn-link">Anchor Link!</KButton>
 
-```vue
+```html
 <KButton :to="{path: '/'}" appearance="btn-link">Router Link!</KButton>
 <KButton to="http://google.com" appearance="btn-link">Anchor Link!</KButton>
 ```
@@ -122,7 +122,7 @@ KButton also supports the disabled attribute with both Button and Anchor types.
 <KButton appearance="danger" disabled>Disabled Danger</KButton>
 <KButton to="http://google.com" appearance="btn-link" disabled>Disabled Native Anchor Link</KButton>
 
-```vue
+```html
 <KButton appearance="danger" disabled>Disabled Danger</KButton>
 <KButton to="http://google.com" appearance="btn-link" disabled>Disabled Native Anchor Link</KButton>
 ```
@@ -145,7 +145,7 @@ KButton supports using an icon either before the text or without text. If you ar
   </template>
 </KButton>
 
-```vue
+```html
 <KButton appearance="secondary">
   <template v-slot:icon>
     <KIcon icon="externalLink" />
@@ -192,7 +192,7 @@ look like.
 
 <KButton class="purple-button" appearance="primary">PURPLE!</KButton>
 
-```vue
+```html
 <template>
   <KButton class="purple-button" appearance="primary">PURPLE!</KButton>
 </template>
@@ -211,7 +211,7 @@ should not look like buttons.
 
 <KButton class='non-visual-button'>Click Me</KButton>
 
-```vue
+```html
 <KButton class='non-visual-button'>Click Me</KButton>
 ```
 

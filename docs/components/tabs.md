@@ -11,7 +11,7 @@
   </template>
 </KTabs>
 
-```vue
+```html
 <KTabs :tabs="tabs">
   <template v-slot:tab1>
     <p>Tab 1 content</p>
@@ -58,7 +58,7 @@ export interface Tab {
 }
 ```
 
-```vue
+```html
 <template>
   <KTabs :tabs="tabs" />
 </template>
@@ -95,7 +95,7 @@ By default the `KTabs` will set the first tab in the array as active. You can ov
   </template>
 </KTabs>
 
-```vue
+```html
 <KTabs v-model="#tab2" :tabs="tabs">
   <template v-slot:tab1>Tab 1 content</template>
   <template v-slot:tab2>Tab 2 content</template>
@@ -118,7 +118,7 @@ If you want to keep your `v-model` in sync so that you can programatically chang
 <KButton @click="defaultProgrammaticTab = '#tab1'" class="mr-2">Activate Tab 1</KButton>
 <KButton @click="defaultProgrammaticTab = '#tab2'">Activate Tab 2</KButton>
 
-```vue
+```html
 <KTabs v-model="defaultTab" :tabs="tabs" @changed="hash => defaultTab = hash">
   <template v-slot:tab1>
     <p>Tab 1 content</p>
@@ -148,7 +148,7 @@ In order to actually see your tabbed content you must slot it using the tab hash
   </template>
 </KTabs>
 
-```vue
+```html
 <template>
   <KTabs :tabs="tabs">
     <template v-slot:pictures>Wow look Pictures!</template>
@@ -186,7 +186,7 @@ export default defineComponent({
 
 `KTabs` emits a `changed` event with the new tab hash when clicked. You can use this to set the router or window hash and in turn use that with [`v-model`](#v-model).
 
-```vue
+```html
 <template>
   <KTabs
     :tabs="tabs"
@@ -243,7 +243,7 @@ look like.
   </KTabs>
 </div>
 
-```vue
+```html
 <template>
   <div class="KTabs-wrapper">
     <KTabs :tabs="tabs">
