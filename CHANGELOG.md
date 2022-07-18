@@ -1,3 +1,11 @@
+# [7.0.0-beta.64](https://github.com/Kong/kongponents/compare/v7.0.0-beta.63...v7.0.0-beta.64) (2022-07-18)
+
+
+### Bug Fixes
+
+* **kselect:** fix item margin bottom ([45f2671](https://github.com/Kong/kongponents/commit/45f2671b01aa4062252ef88755784c028fb071ef))
+* **kselect:** fix item margin bottom ([627fb17](https://github.com/Kong/kongponents/commit/627fb17ec674faadf9dafa6ba65c01da975e4043))
+
 # [7.0.0-beta.63](https://github.com/Kong/kongponents/compare/v7.0.0-beta.62...v7.0.0-beta.63) (2022-07-15)
 
 
