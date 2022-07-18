@@ -1,3 +1,10 @@
+# [7.0.0-beta.65](https://github.com/Kong/kongponents/compare/v7.0.0-beta.64...v7.0.0-beta.65) (2022-07-18)
+
+
+### Bug Fixes
+
+* **kcheckbox:** readonly styles ([#704](https://github.com/Kong/kongponents/issues/704)) ([9ea5111](https://github.com/Kong/kongponents/commit/9ea511178d628b7570921b955f5441d9decece7f))
+
 # [7.0.0-beta.64](https://github.com/Kong/kongponents/compare/v7.0.0-beta.63...v7.0.0-beta.64) (2022-07-18)
 
 
