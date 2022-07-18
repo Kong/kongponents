@@ -49,8 +49,7 @@
 
 .k-input,
 .form-control {
-  &:not([type="checkbox"]),
-  &:not([type="radio"]) {
+  &:not([type="checkbox"]):not([type="radio"]) {
     display: block;
     padding: 10px var(--spacing-md, spacing(md));
     color: var(--KInputColor, var(--black-70, color(black-70)));
