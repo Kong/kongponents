@@ -33,7 +33,7 @@ An array of items containing a `label` and `value`. You may also specify that a 
   }, {
     label: 'Bunnies',
     value: 'bunnies'
-  }]""
+  }]"
 />
 ```
 
@@ -104,21 +104,21 @@ The `dropdown` appearance style has a selected item object. You can deselect the
 The `select` style displays the selected item in the textbox and also displays a chevron. There is no way to clear the selection once it is made.
 
 <div>
-  <KSelect appearance='select' :items="deepClone(defaultItems)" />
+  <KSelect appearance="select" :items="deepClone(defaultItems)" />
 </div>
 
 ```html
-<KSelect appearance='select' :items="items" />
+<KSelect appearance="select" :items="items" />
 ```
 
 The `button` style triggers the dropdown on click and you cannot filter the entries.
 
 <div>
-  <KSelect appearance='button' :items="deepClone(defaultItems)" />
+  <KSelect appearance="button" :items="deepClone(defaultItems)" />
 </div>
 
 ```html
-<KSelect appearance='button' :items="items" />
+<KSelect appearance="button" :items="items" />
 ```
 
 ### buttonText
@@ -126,12 +126,12 @@ The `button` style triggers the dropdown on click and you cannot filter the entr
 You can configure the button text when an item is selected, if `appearance` is type `button`.
 
 <div>
-  <KSelect appearance='button' width="225" @selected="item => handleItemSelect(item)" :buttonText="`Show ${mySelect} per page`" :items="items" />
+  <KSelect appearance="button" width="225" @selected="item => handleItemSelect(item)" :buttonText="`Show ${mySelect} per page`" :items="items" />
 </div>
 
 ```html
 <KSelect
-  appearance='button'
+  appearance="button"
   width="225"
   @selected="item => handleItemSelect(item)"
   :buttonText="`Show ${mySelect} per page`"
