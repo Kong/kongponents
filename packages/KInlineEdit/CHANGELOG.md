@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.33.3 (2022-07-18)
+
+
+### Bug Fixes
+
+* **kselect:** important margin-bottom ([e4ae2a9](https://github.com/Kong/kongponents/commit/e4ae2a9c3a99ed9829ed12735819479fc60d567a))
+
+
+
+
+
 ## 6.33.2 (2022-07-15)
 
 
