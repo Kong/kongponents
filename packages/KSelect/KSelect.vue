@@ -94,13 +94,13 @@
               :id="selectTextId"
               v-bind="$attrs"
               v-model="filterStr"
-              :readonly="!filterIsEnabled"
               :is-open="isToggled"
               :label="label && overlayLabel ? label : null"
               :overlay-label="overlayLabel"
               :placeholder="selectedItem && appearance === 'select' ? selectedItem.label : placeholderText"
-              :class="{ 'cursor-default': !filterIsEnabled }"
+              :class="{ 'cursor-default prevent-pointer-events': !filterIsEnabled }"
               class="k-select-input"
+              @keypress="onInputKeypress"
               @keyup="!$attrs.disabled ? triggerFocus(isToggled) : null"
             />
           </div>
@@ -270,8 +270,8 @@ export default {
   },
 
   computed: {
-    boundKPopAttributes: function () {
-      let theClasses = `${defaultKPopAttributes.popoverClasses} ${this.kpopAttributes.popoverClasses} k-select-pop-${this.appearance}`
+    boundKPopAttributes () {
+      const theClasses = `${defaultKPopAttributes.popoverClasses} ${this.kpopAttributes.popoverClasses} k-select-pop-${this.appearance}`
 
       return {
         ...defaultKPopAttributes,
@@ -279,7 +279,8 @@ export default {
         popoverClasses: theClasses,
         width: String(this.inputWidth),
         maxWidth: String(this.inputWidth),
-        disabled: this.$attrs.disabled
+        // We have to check here if the property exists since it evals to an empty string
+        disabled: this.$attrs.hasOwnProperty('disabled') || this.$attrs.hasOwnProperty('readonly')
       }
     },
     listeners () {
@@ -403,6 +404,11 @@ export default {
       if (!isToggled && inputElem) { // simulate click to trigger dropdown open
         inputElem.click()
       }
+    },
+    onInputKeypress (event) {
+      if (!this.filterIsEnabled) {
+        event.preventDefault()
+      }
     }
   }
 }
@@ -457,8 +463,16 @@ export default {
     width: 100%;
 
     &.cursor-default {
+      cursor: pointer;
+
       input.k-input {
         cursor: default;
+      }
+    }
+
+    &.prevent-pointer-events {
+      input.k-input {
+        pointer-events: none;
       }
     }
 

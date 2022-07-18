@@ -56,6 +56,7 @@ Enable this prop to overlay the label on the input element's border for `select`
 <KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" />
 <KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" appearance="select" :items="deepClone(defaultItemsUnselect)" />
 <KSelect label="Disabled" disabled placeholder="I'm disabled!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" />
+<KSelect label="Readonly" readonly placeholder="I'm readonly!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" />
 
 ```html
 <KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" :items="items" />
