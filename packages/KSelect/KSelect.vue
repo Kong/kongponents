@@ -406,8 +406,11 @@ export default {
       }
     },
     onInputKeypress (event) {
+      // If filters are not enabled, ignore any keypresses
       if (!this.filterIsEnabled) {
         event.preventDefault()
+
+        return false
       }
     }
   }
