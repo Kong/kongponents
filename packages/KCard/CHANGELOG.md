@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.33.7 (2022-07-19)
+
+
+### Bug Fixes
+
+* **kmodal:** allow clicking on elements within the modal body [KHCP-4212] ([#708](https://github.com/Kong/kongponents/issues/708)) ([3de5874](https://github.com/Kong/kongponents/commit/3de58741c55c6b83b536c4bc50ddb1d62961c909))
+
+
+
+
+
 ## 6.33.6 (2022-07-19)
 
 
