@@ -8,12 +8,9 @@
   >
     <div
       class="k-modal-backdrop modal-backdrop"
-      @click="close"
+      @click="(evt) => close(false, evt)"
     >
-      <div
-        class="k-modal-dialog modal-dialog"
-        @click.stop
-      >
+      <div class="k-modal-dialog modal-dialog">
         <div class="k-modal-content modal-content">
           <div
             v-if="$slots.title || !hideTitle"
@@ -34,8 +31,8 @@
             <slot name="footer-content">
               <KButton
                 :appearance="cancelButtonAppearance"
-                @click="close"
-                @keyup.esc="close"
+                @click="close(true)"
+                @keyup.esc="close(true)"
               >
                 {{ cancelButtonText }}
               </KButton>
@@ -129,12 +126,15 @@ export default defineComponent({
   setup(props, { emit }) {
     const handleKeydown = (e: any): void => {
       if (props.isVisible && e.keyCode === 27) {
-        close()
+        close(true)
       }
     }
 
-    const close = (): void => {
-      emit('canceled')
+    const close = (force = false, event?: any): void => {
+      // Close if force === true or if the user clicks on .k-modal-backdrop
+      if (force || event?.target?.classList?.contains('k-modal-backdrop')) {
+        emit('canceled')
+      }
     }
 
     const proceed = (): void => {
