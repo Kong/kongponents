@@ -103,15 +103,15 @@
               :id="selectTextId"
               v-bind="$attrs"
               v-model="filterStr"
-              :readonly="!filterIsEnabled"
               :is-open="isToggled.value"
               :label="label && overlayLabel ? label : undefined"
               :overlay-label="overlayLabel"
               :placeholder="selectedItem && appearance === 'select' && !filterIsEnabled ? selectedItem.label : placeholderText"
               autocomplete="off"
               autocapitalize="off"
-              :class="{ 'cursor-default': !filterIsEnabled }"
+              :class="{ 'cursor-default prevent-pointer-events': !filterIsEnabled }"
               class="k-select-input"
+              @keypress="onInputKeypress"
               @keyup="evt => triggerFocus(evt, isToggled)"
             />
           </div>
@@ -332,13 +332,14 @@ export default defineComponent({
     })
 
     const createKPopAttributes = computed(() => {
+      console.log('attrs', attrs)
       return {
         ...defaultKPopAttributes,
         ...props.kpopAttributes,
         popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses} k-select-pop-${props.appearance}`,
         width: String(inputWidth.value),
         maxWidth: String(inputWidth.value),
-        disabled: typeof attrs.disabled === 'boolean' ? attrs.disabled : false,
+        disabled: attrs.disabled !== undefined || attrs.readonly !== undefined,
       }
     })
 
@@ -367,6 +368,14 @@ export default defineComponent({
       }
       return placeholderText.value
     })
+
+    const onInputKeypress = (event) => {
+      // If filters are not enabled, ignore any keypresses
+      if (!filterIsEnabled.value) {
+        event.preventDefault()
+        return false
+      }
+    }
 
     const handleItemSelect = (item: SelectItem) => {
       selectItems.value.forEach(anItem => {
@@ -430,6 +439,7 @@ export default defineComponent({
     })
 
     const inputWidth = ref(0)
+
     onMounted(() => {
       const inputElem = document.getElementById(selectInputId.value)
 
@@ -456,6 +466,7 @@ export default defineComponent({
       triggerFocus,
       inputWidth,
       filterIsEnabled,
+      onInputKeypress,
     }
   },
 })
@@ -530,6 +541,10 @@ export default defineComponent({
 
     &.cursor-default {
       cursor: default;
+    }
+
+    &.prevent-pointer-events {
+      pointer-events: none;
     }
 
     &input.k-input {
