@@ -7,11 +7,9 @@
     aria-modal="true">
     <div
       class="k-modal-backdrop modal-backdrop"
-      @click="close">
+      @click="(evt) => close(false, evt)">
 
-      <div
-        class="k-modal-dialog modal-dialog"
-        @click.stop>
+      <div class="k-modal-dialog modal-dialog">
         <div class="k-modal-content modal-content">
           <div
             v-if="$scopedSlots.title || !hideTitle"
@@ -27,8 +25,8 @@
             <slot name="footer-content">
               <KButton
                 :appearance="cancelButtonAppearance"
-                @click="close"
-                @keyup.esc="close">
+                @click="close(true)"
+                @keyup.esc="close(true)">
                 {{ cancelButtonText }}
               </KButton>
               <div class="k-modal-action-buttons">
@@ -150,11 +148,14 @@ export default {
   methods: {
     handleKeydown (e) {
       if (this.isVisible && e.keyCode === 27) {
-        this.close()
+        this.close(true)
       }
     },
-    close () {
-      this.$emit('canceled')
+    close (force = false, event) {
+      // Close if force === true or if the user clicks on .k-modal-backdrop
+      if (force || event.target.classList.contains('k-modal-backdrop')) {
+        this.$emit('canceled')
+      }
     },
     proceed () {
       this.$emit('proceed')
