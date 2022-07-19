@@ -1,3 +1,10 @@
+# [7.0.0-beta.67](https://github.com/Kong/kongponents/compare/v7.0.0-beta.66...v7.0.0-beta.67) (2022-07-19)
+
+
+### Bug Fixes
+
+* **kmodal:** allow clicking on elements within the modal body [KHCP-4212] ([#709](https://github.com/Kong/kongponents/issues/709)) ([c69c139](https://github.com/Kong/kongponents/commit/c69c13964c4a1aaef5509f71002e1857790cb491))
+
 # [7.0.0-beta.66](https://github.com/Kong/kongponents/compare/v7.0.0-beta.65...v7.0.0-beta.66) (2022-07-19)
 
 
