@@ -12,7 +12,7 @@
         <label
           :for="inputId"
           v-bind="labelAttributes"
-          :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled }"
+          :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }"
         >
           <span>{{ label }}</span>
         </label>
@@ -157,11 +157,13 @@ export default defineComponent({
   emits: ['input', 'update:modelValue', 'char-limit-exceeded'],
 
   setup(props, { attrs, emit }) {
+    console.log('attrs', attrs)
     const currValue = ref('') // We need this so that we don't lose the updated value on hover/blur event with label
     const modelValueChanged = ref(false) // Determine if the original value was modified by the user
     const isFocused = ref(false)
     const isHovered = ref(false)
-    const isDisabled = computed((): boolean => !!attrs?.disabled)
+    const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
+    const isReadonly = computed((): boolean => attrs?.readonly !== undefined && String(attrs?.readonly) !== 'false')
     const inputId = computed((): string => attrs.id ? String(attrs.id) : props.testMode ? 'test-input-id-1234' : uuidv1())
     // we need this so we can create a watcher for programmatic changes to the modelValue
     const value = computed({
@@ -231,6 +233,7 @@ export default defineComponent({
       isFocused,
       isHovered,
       isDisabled,
+      isReadonly,
       inputId,
       charLimitExceeded,
       charLimitExceededError,
@@ -288,8 +291,8 @@ export default defineComponent({
     margin-top: 2px;
   }
 
-  .text-on-input label.hovered,
-  .text-on-input label:hover {
+  .text-on-input label:not(.disabled):not(.readonly).hovered,
+  .text-on-input label:not(.disabled):not(.readonly):hover {
     color: var(--KInputHover, var(--blue-500));
   }
 

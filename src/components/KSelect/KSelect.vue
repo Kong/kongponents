@@ -87,7 +87,7 @@
             style="position: relative;"
             role="listbox"
             @click="evt => {
-              if ($attrs.disabled !== undefined && $attrs.disabled !== false) {
+              if ($attrs.disabled !== undefined && String($attrs.disabled) !== 'false') {
                 evt.stopPropagation()
               }
             }"
@@ -339,7 +339,7 @@ export default defineComponent({
         popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses} k-select-pop-${props.appearance}`,
         width: String(inputWidth.value),
         maxWidth: String(inputWidth.value),
-        disabled: attrs.disabled !== undefined || attrs.readonly !== undefined,
+        disabled: (attrs.disabled !== undefined && String(attrs.disabled) !== 'false') || (attrs.readonly !== undefined && String(attrs.readonly) !== 'false'),
       }
     })
 
