@@ -1,3 +1,11 @@
+# [7.0.0-beta.66](https://github.com/Kong/kongponents/compare/v7.0.0-beta.65...v7.0.0-beta.66) (2022-07-19)
+
+
+### Bug Fixes
+
+* **docs:** code snippet syntax ([#701](https://github.com/Kong/kongponents/issues/701)) ([150c3d8](https://github.com/Kong/kongponents/commit/150c3d85ecf6f3122d9be08296d4216db4f02245))
+* **kselect:** disabled and readonly states [beta] ([#707](https://github.com/Kong/kongponents/issues/707)) ([ff4c402](https://github.com/Kong/kongponents/commit/ff4c402bfc8ffa94ed7ae96803d391076523bab2))
+
 # [7.0.0-beta.65](https://github.com/Kong/kongponents/compare/v7.0.0-beta.64...v7.0.0-beta.65) (2022-07-18)
 
 
