@@ -3,23 +3,23 @@
 .k-input-wrapper .text-on-input {
   position: relative;
 
-  .hovered {
+  .hovered:not(.readonly) {
     color: var(--KInputHover, var(--blue-500));
     transition: color 0.1s ease;
   }
 
-  .focused {
+  .focused:not(.readonly) {
     color: var(--KInputFocus, var(--blue-500));
     transition: color 0.1s ease;
   }
 
   label {
-    &.hovered {
+    &.hovered:not(.readonly) {
       color: var(--KInputHover, var(--blue-500));
       transition: color 0.1s ease;
     }
 
-    &.focused {
+    &.focused:not(.readonly) {
       color: var(--KInputFocus, var(--blue-500));
       transition: color 0.1s ease;
     }
