@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.33.6 (2022-07-19)
+
+
+### Bug Fixes
+
+* **kselect:** disabled and readonly states ([#706](https://github.com/Kong/kongponents/issues/706)) ([63123e5](https://github.com/Kong/kongponents/commit/63123e5e14093a3633f599f50397a6134b8bd067))
+
+
+
+
+
 ## 6.33.5 (2022-07-18)
 
 
