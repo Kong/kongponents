@@ -369,7 +369,7 @@ export default defineComponent({
       return placeholderText.value
     })
 
-    const onInputKeypress = (event) => {
+    const onInputKeypress = (event: Event) => {
       // If filters are not enabled, ignore any keypresses
       if (!filterIsEnabled.value) {
         event.preventDefault()
