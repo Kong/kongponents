@@ -332,7 +332,6 @@ export default defineComponent({
     })
 
     const createKPopAttributes = computed(() => {
-      console.log('attrs', attrs)
       return {
         ...defaultKPopAttributes,
         ...props.kpopAttributes,

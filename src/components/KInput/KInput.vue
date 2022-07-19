@@ -157,7 +157,6 @@ export default defineComponent({
   emits: ['input', 'update:modelValue', 'char-limit-exceeded'],
 
   setup(props, { attrs, emit }) {
-    console.log('attrs', attrs)
     const currValue = ref('') // We need this so that we don't lose the updated value on hover/blur event with label
     const modelValueChanged = ref(false) // Determine if the original value was modified by the user
     const isFocused = ref(false)
