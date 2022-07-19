@@ -280,7 +280,7 @@ export default {
         width: String(this.inputWidth),
         maxWidth: String(this.inputWidth),
         // We have to check here if the property exists since it evals to an empty string
-        disabled: this.$attrs.hasOwnProperty('disabled') || this.$attrs.hasOwnProperty('readonly')
+        disabled: (this.$attrs.disabled !== undefined && String(this.$attrs.disabled) !== 'false') || (this.$attrs.readonly !== undefined && String(this.$attrs.readonly) !== 'false')
       }
     },
     listeners () {
