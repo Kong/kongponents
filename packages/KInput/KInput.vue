@@ -10,7 +10,7 @@
         <label
           :for="inputId"
           v-bind="labelAttributes"
-          :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled }">
+          :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }">
           <span>{{ label }}</span>
         </label>
         <input
@@ -171,6 +171,9 @@ export default {
     isDisabled () {
       return this.$attrs.hasOwnProperty('disabled')
     },
+    isReadonly () {
+      return this.$attrs.hasOwnProperty('readonly')
+    },
     listeners () {
       const listeners = { ...this.$listeners }
 
@@ -256,8 +259,8 @@ export default {
     margin-top: 2px;
   }
 
-  .text-on-input label.hovered,
-  .text-on-input label:hover {
+  .text-on-input label:not(.disabled):not(.readonly).hovered,
+  .text-on-input label:not(.disabled):not(.readonly):hover {
     color: var(--KInputHover, var(--blue-500));
   }
 
