@@ -98,7 +98,7 @@
               :label="label && overlayLabel ? label : null"
               :overlay-label="overlayLabel"
               :placeholder="selectedItem && appearance === 'select' ? selectedItem.label : placeholderText"
-              :class="{ 'cursor-default prevent-pointer-events': !filterIsEnabled }"
+              :class="{ 'cursor-default prevent-pointer-events': !filterIsEnabled ,'input-placeholder-dark': appearance === 'select'}"
               class="k-select-input"
               @keypress="onInputKeypress"
               @keyup="!$attrs.disabled ? triggerFocus(isToggled) : null"
@@ -477,6 +477,10 @@ export default {
       input.k-input {
         pointer-events: none;
       }
+    }
+
+   .input-placeholder-dark input::placeholder {
+      color: var(--KInputColor, var(--black-70, rgba(0, 0, 0, 0.7))) !important;
     }
 
     input.k-input {
