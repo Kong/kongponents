@@ -338,7 +338,6 @@ export default defineComponent({
     const canvasId = computed((): string => props.testMode ? 'test-modal-image-canvas-1234' : uuidv1())
     onUpdated(() => {
       if (props.isVisible && hasHeaderImage.value && shouldComputeImageDarkness.value) {
-        // TODO: generated ID
         const headerImageElem = document.getElementById(imageId.value) as HTMLImageElement
         if (headerImageElem) {
           imageStats.value.height = headerImageElem.naturalHeight
