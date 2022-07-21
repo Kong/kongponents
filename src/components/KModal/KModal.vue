@@ -30,23 +30,23 @@
         <div class="k-modal-content modal-content">
           <div
             v-if="hasHeaderImage"
-            id="k-modal-header-image-container"
             class="k-modal-header-image"
           >
             <slot name="header-image">
-              <!-- TODO: remove if doesn't work -->
+              <!-- Use canvas for calculating dismissButtonShade off header image -->
               <canvas
-                v-if="imageStats.width && imageStats.height"
+                v-if="dismissButtonShade === 'auto' && imageStats.width && imageStats.height"
                 id="k-modal-header-image-canvas"
                 :width="imageStats.width"
                 :height="imageStats.height"
                 :title="headerImageText"
               />
+              <!-- Otherwise standard img handling -->
               <img
+                v-else
                 id="k-modal-header-image"
                 :src="headerImageSrc"
                 :alt="headerImageText"
-                :class="{ 'd-none': imageStats.width && imageStats.height }"
               >
             </slot>
           </div>
@@ -222,13 +222,14 @@ export default defineComponent({
 
   setup(props, { emit, slots }) {
     const canvas = ref<CanvasRenderingContext2D>()
+    const hasHeaderImage = computed((): boolean => {
+      return !!(slots['header-image'] || props.headerImageSrc)
+    })
     const imageStats = ref({
       height: 0,
       width: 0,
     })
-    const hasHeaderImage = computed((): boolean => {
-      return !!(slots['header-image'] || props.headerImageSrc)
-    })
+
     const dismissButtonColor = computed((): string => {
       // base color on dismissButtonShade prop if it exists
       if (props.dismissButtonShade === 'dark') {
@@ -248,13 +249,33 @@ export default defineComponent({
       return 'var(--grey-600)'
     })
 
+    const handleKeydown = (e: any): void => {
+      if (props.isVisible && e.keyCode === 27) {
+        close(true)
+      }
+    }
+
+    const close = (force = false, event?: any): void => {
+      // Close if force === true or if the user clicks on .k-modal-backdrop
+      if (force || event?.target?.classList?.contains('k-modal-backdrop')) {
+        emit('canceled')
+      }
+    }
+
+    const proceed = (): void => {
+      emit('proceed')
+    }
+
+    // only bother with this if we have a src for the header image and a dismiss button with 'auto' for the dismissButtonShade
+    const shouldComputeImageDarkness = computed(() => {
+      return !!(props.headerImageSrc && props.enableDismiss && props.dismissButtonShade === 'auto')
+    })
     const computedImageDarkness = ref('none')
     const getComputedImageDarkness = () => {
-      if (props.isVisible && props.headerImageSrc && canvas.value && imageStats.value.width) {
+      // don't bother unless the dialog is visible, the canvas has been initialized, and
+      // we should
+      if (props.isVisible && canvas.value && shouldComputeImageDarkness.value) {
         const ctx = canvas.value
-        const width = imageStats.value.width
-        const height = imageStats.value.height
-
         const img = document.createElement('img')
         img.src = props.headerImageSrc
 
@@ -262,6 +283,10 @@ export default defineComponent({
         document.body.appendChild(img)
 
         img.onload = function() {
+          imageStats.value.height = img.naturalHeight
+          imageStats.value.width = img.naturalWidth
+          const width = imageStats.value.width
+          const height = imageStats.value.height
           ctx.drawImage(img, 0, 0)
           const imageData = ctx.getImageData(0, 0, width, height)
 
@@ -289,43 +314,6 @@ export default defineComponent({
       }
     }
 
-    const handleKeydown = (e: any): void => {
-      if (props.isVisible && e.keyCode === 27) {
-        close(true)
-      }
-    }
-
-    const close = (force = false, event?: any): void => {
-      // Close if force === true or if the user clicks on .k-modal-backdrop
-      if (force || event?.target?.classList?.contains('k-modal-backdrop')) {
-        emit('canceled')
-      }
-    }
-
-    const proceed = (): void => {
-      emit('proceed')
-    }
-
-    onUpdated(() => {
-      if (props.isVisible && hasHeaderImage.value) {
-        // TODO: generated ID
-        const canvasElem = document.getElementById('k-modal-header-image-canvas') as HTMLCanvasElement
-        const headerImageElem = document.getElementById('k-modal-header-image') as HTMLImageElement
-
-        if (canvasElem) {
-          const ctx = canvasElem.getContext('2d') as CanvasRenderingContext2D
-          canvas.value = ctx
-        }
-
-        if (headerImageElem) {
-          imageStats.value.height = headerImageElem.naturalHeight
-          imageStats.value.width = headerImageElem.naturalWidth
-        }
-
-        getComputedImageDarkness()
-      }
-    })
-
     watchEffect(() => {
       if (typeof document !== 'undefined') {
         if (props.isVisible) {
@@ -335,6 +323,25 @@ export default defineComponent({
           // Reset body overflow
           document?.body?.classList.remove('k-modal-overflow-hidden')
         }
+      }
+    })
+
+    onUpdated(() => {
+      if (props.isVisible && hasHeaderImage.value && shouldComputeImageDarkness.value) {
+        // TODO: generated ID
+        const headerImageElem = document.getElementById('k-modal-header-image') as HTMLImageElement
+        if (headerImageElem) {
+          imageStats.value.height = headerImageElem.naturalHeight
+          imageStats.value.width = headerImageElem.naturalWidth
+        }
+
+        const canvasElem = document.getElementById('k-modal-header-image-canvas') as HTMLCanvasElement
+        if (canvasElem) {
+          const ctx = canvasElem.getContext('2d') as CanvasRenderingContext2D
+          canvas.value = ctx
+        }
+
+        getComputedImageDarkness()
       }
     })
 
