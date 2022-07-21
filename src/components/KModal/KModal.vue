@@ -313,7 +313,7 @@ export default defineComponent({
 
           const brightness = Math.floor(colorSum / (width * height))
 
-          if (brightness < 127.5) {
+          if (brightness > 70) {
             computedImageDarkness.value = 'dark'
           } else {
             computedImageDarkness.value = 'light'
