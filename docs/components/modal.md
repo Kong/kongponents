@@ -87,7 +87,7 @@ There are 4 designated slots you can use to display content in the modal.
 Using both the provided props and slot options we will now demonstrate how to customize the modal for a delete confirmation.
 Notice that even though we are using the `header-content` slot we still specify the `title` attribute for accessibility.
 
-<KButton @click="slottedIsOpen = true">Open Delete Modal</KButton>
+<KButton class="mr-2" @click="slottedIsOpen = true">Open Delete Modal</KButton>
 
 <KModal :isVisible="slottedIsOpen" actionButtonText="Delete" actionButtonAppearance="danger" @canceled="slottedIsOpen = false" title="Delete Item">
   <template v-slot:header-content>
@@ -101,6 +101,55 @@ Notice that even though we are using the `header-content` slot we still specify 
     <KButton appearance="danger">Delete</KButton>
   </template>
 </KModal>
+
+<KButton @click="slottedIsOpen2 = true">Open Onboarding Modal</KButton>
+
+<div>
+  <KModal
+    :is-visible="slottedIsOpen2"
+    title="Welcome to Konnect!"
+    text-alignment="left"
+    hide-cancel-button
+    enable-dismiss
+    dismiss-button-shade="auto"
+    class="custom-slotted"
+    header-image-src="/img/dark-demo.svg"
+    @canceled="slottedIsOpen2 = false"
+  >
+    <template v-slot:header-content>
+      <KIcon icon="kong" class="mr-2" />
+      Welcome to Konnect!
+    </template>
+    <template v-slot:body-content>Get set up with Kong Konnect with the 2-step quickstart to see live data pushed through a gateway service within minutes.</template>
+    <template v-slot:action-buttons>
+      <KButton appearance="btn-link" size="small" class="mr-2" @click="slottedIsOpen2 = false">Skip</KButton>
+      <KButton appearance="primary" size="small" @click="slottedIsOpen2 = false">Onboard me!</KButton>
+    </template>
+  </KModal>
+</div>
+
+<div>
+  <KModal
+    :is-visible="slottedIsOpen3"
+    title="Welcome to Konnect!"
+    text-alignment="left"
+    hide-cancel-button
+    enable-dismiss
+    dismiss-button-shade="dark"
+    class="custom-slotted"
+    @canceled="slottedIsOpen3 = false"
+  >
+    <template v-slot:header-content>
+      <KIcon icon="kong" class="mr-2" />
+      Welcome to Konnect!
+    </template>
+    <template v-slot:body-content>Get set up with Kong Konnect with the 2-step quickstart to see live data pushed through a gateway service within minutes.</template>
+    <template v-slot:action-buttons>
+      <KButton appearance="btn-link" size="small" class="mr-2" @click="slottedIsOpen3 = false">Skip</KButton>
+      <KButton appearance="primary" size="small" @click="slottedIsOpen3 = false">Onboard me!</KButton>
+    </template>
+  </KModal>
+</div>
 
 ```html
 <template>
@@ -179,8 +228,10 @@ export default defineComponent({
     return {
       defaultIsOpen: false,
       slottedIsOpen: false,
+      slottedIsOpen2: false,
+      slottedIsOpen3: false,
       propsIsOpen: false,
-      themeIsOpen: false
+      themeIsOpen: false,
     }
   }
 })
@@ -191,5 +242,15 @@ export default defineComponent({
   --KModalHeaderColor: red;
   --KModalColor: blue;
   --KModalBackdrop: rgba(94, 174, 255, .25);
+}
+
+.custom-slotted {
+  --KModalMaxWidth: 500px;
+}
+
+.slot-image-content {
+  height: 260px;
+  min-width: 560px;
+  background-color: var(--purple-300);
 }
 </style>
