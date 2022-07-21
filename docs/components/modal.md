@@ -177,7 +177,7 @@ Use this prop to specify an image source to be displayed above the header conten
 
 Check out the following example of `dismissButtonShade` `auto` being determined off of the `headerImageSrc`.
 
-<KButton class="mr-2" appearance="primary" @click="slottedIsOpen2 = true">Open Onboarding Modal</KButton>
+<KButton appearance="primary" @click="slottedIsOpen2 = true">Open Onboarding Modal</KButton>
 
 <div>
   <KModal
@@ -356,7 +356,7 @@ There are 4 designated slots you can use to display content in the modal.
 Using both the provided props and slot options we will now demonstrate putting it all together.
 Notice that even though we are using the `header-content` slot we still specify the `title` attribute for accessibility.
 
-<KButton appearance="primary" class="mr-2" @click="slottedIsOpen = true">Open Delete Modal</KButton>
+<KButton appearance="primary" @click="slottedIsOpen = true">Open Delete Modal</KButton>
 
 <KModal :isVisible="slottedIsOpen" actionButtonText="Delete" actionButtonAppearance="danger" @canceled="slottedIsOpen = false" title="Delete Item">
   <template v-slot:header-content>
