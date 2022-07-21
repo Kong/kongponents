@@ -30,13 +30,13 @@
         <div class="k-modal-content modal-content">
           <div
             v-if="hasHeaderImage"
-            class="k-modal-header-image"
+            class="k-modal-header-image d-flex"
           >
             <slot name="header-image">
               <!-- Use canvas for calculating dismissButtonShade off header image -->
               <canvas
                 v-if="dismissButtonShade === 'auto' && imageStats.width && imageStats.height"
-                id="k-modal-header-image-canvas"
+                :id="canvasId"
                 :width="imageStats.width"
                 :height="imageStats.height"
                 :title="headerImageText"
@@ -44,7 +44,7 @@
               <!-- Otherwise standard img handling -->
               <img
                 v-else
-                id="k-modal-header-image"
+                :id="imageId"
                 :src="headerImageSrc"
                 :alt="headerImageText"
               >
@@ -110,6 +110,7 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref, onMounted, onUpdated, onUnmounted, watchEffect } from 'vue'
+import { v1 as uuidv1 } from 'uuid'
 import KButton from '@/components/KButton/KButton.vue'
 
 export default defineComponent({
@@ -214,6 +215,13 @@ export default defineComponent({
      * Set to not render the cancel button
      */
     hideCancelButton: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Test mode - for testing only, strips out generated ids
+     */
+    testMode: {
       type: Boolean,
       default: false,
     },
@@ -326,16 +334,18 @@ export default defineComponent({
       }
     })
 
+    const imageId = computed((): string => props.testMode ? 'test-modal-image-1234' : uuidv1())
+    const canvasId = computed((): string => props.testMode ? 'test-modal-image-canvas-1234' : uuidv1())
     onUpdated(() => {
       if (props.isVisible && hasHeaderImage.value && shouldComputeImageDarkness.value) {
         // TODO: generated ID
-        const headerImageElem = document.getElementById('k-modal-header-image') as HTMLImageElement
+        const headerImageElem = document.getElementById(imageId.value) as HTMLImageElement
         if (headerImageElem) {
           imageStats.value.height = headerImageElem.naturalHeight
           imageStats.value.width = headerImageElem.naturalWidth
         }
 
-        const canvasElem = document.getElementById('k-modal-header-image-canvas') as HTMLCanvasElement
+        const canvasElem = document.getElementById(canvasId.value) as HTMLCanvasElement
         if (canvasElem) {
           const ctx = canvasElem.getContext('2d') as CanvasRenderingContext2D
           canvas.value = ctx
@@ -365,6 +375,8 @@ export default defineComponent({
       computedImageDarkness,
       dismissButtonColor,
       canvas,
+      imageId,
+      canvasId,
       imageStats,
       close,
       proceed,
