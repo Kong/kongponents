@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kradio",
-  "version": "6.33.7",
+  "version": "6.33.8",
   "description": "Radio input component",
   "main": "dist/KRadio.umd.min.js",
   "componentName": "KRadio",
@@ -23,6 +23,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/styles": "^6.33.7"
+    "@kongponents/styles": "^6.33.8"
   }
 }
