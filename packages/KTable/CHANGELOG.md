@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.33.10 (2022-07-22)
+
+
+### Bug Fixes
+
+* font weights ([d89b707](https://github.com/Kong/kongponents/commit/d89b7076fd80c5a5491b039b704fa32e429432cd))
+
+
+
+
+
 ## 6.33.9 (2022-07-22)
 
 **Note:** Version bump only for package @kongponents/ktable
