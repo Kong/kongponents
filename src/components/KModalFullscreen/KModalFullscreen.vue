@@ -326,7 +326,7 @@ $fullscreen-modal-padding: 64px;
   }
 
   .body-header-description {
-    font-weight: 200;
+    font-weight: 400;
     font-size: 14px;
     line-height: 22px;
     color: var(--grey-600);

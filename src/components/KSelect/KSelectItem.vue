@@ -86,7 +86,7 @@ export default defineComponent({
     background-color: var(--white);
     border-radius: 4px;
     text-align: left;
-    font-weight: 200;
+    font-weight: 400;
 
     &:not(:disabled),
     &:not(.disabled) {
