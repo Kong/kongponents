@@ -1,3 +1,10 @@
+# [7.0.0-beta.69](https://github.com/Kong/kongponents/compare/v7.0.0-beta.68...v7.0.0-beta.69) (2022-07-22)
+
+
+### Features
+
+* **kmodal:** updates for quickstart [beta] ([#711](https://github.com/Kong/kongponents/issues/711)) ([705faec](https://github.com/Kong/kongponents/commit/705faecdf4bef281003a17fbf026c9ff28e598d3))
+
 # [7.0.0-beta.68](https://github.com/Kong/kongponents/compare/v7.0.0-beta.67...v7.0.0-beta.68) (2022-07-22)
 
 
