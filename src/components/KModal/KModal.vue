@@ -32,23 +32,7 @@
             v-if="hasHeaderImage"
             class="k-modal-header-image d-flex"
           >
-            <slot name="header-image">
-              <!-- Use canvas for calculating dismissButtonShade off header image -->
-              <canvas
-                v-if="dismissButtonShade === 'auto' && imageStats.width && imageStats.height"
-                :id="canvasId"
-                :width="imageStats.width"
-                :height="imageStats.height"
-                :title="headerImageText"
-              />
-              <!-- Otherwise standard img handling -->
-              <img
-                v-else
-                :id="imageId"
-                :src="headerImageSrc"
-                :alt="headerImageText"
-              >
-            </slot>
+            <slot name="header-image" />
           </div>
           <div
             v-if="$slots['header-content'] || !hideTitle"
@@ -109,8 +93,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, onMounted, onUpdated, onUnmounted, watchEffect } from 'vue'
-import { v1 as uuidv1 } from 'uuid'
+import { defineComponent, computed, onMounted, onUnmounted, watchEffect } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 
 export default defineComponent({
@@ -118,20 +101,6 @@ export default defineComponent({
   components: { KButton },
 
   props: {
-    /**
-     * Set a path for the image to display in the header-image slot
-     */
-    headerImageSrc: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Alt text for the header image
-     */
-    headerImageText: {
-      type: String,
-      default: 'Header image',
-    },
     /**
      * Set the text of the title, if using title slot, this text is for the aria-label
      */
@@ -156,10 +125,10 @@ export default defineComponent({
     /**
      * Controls whether the dismiss button is light or dark shade.
      */
-    dismissButtonShade: {
+    dismissButtonTheme: {
       type: String,
-      default: 'auto',
-      validator: (val: string): boolean => ['auto', 'light', 'dark'].includes(val),
+      default: 'dark',
+      validator: (val: string): boolean => ['light', 'dark'].includes(val),
     },
     /**
      * Set the text of the body content
@@ -229,31 +198,15 @@ export default defineComponent({
   emits: ['canceled', 'proceed'],
 
   setup(props, { emit, slots }) {
-    const canvas = ref<CanvasRenderingContext2D>()
     const hasHeaderImage = computed((): boolean => {
-      return !!(slots['header-image'] || props.headerImageSrc)
-    })
-    const imageStats = ref({
-      height: 0,
-      width: 0,
+      return !!slots['header-image']
     })
 
     const dismissButtonColor = computed((): string => {
-      // base color on dismissButtonShade prop if it exists
-      if (props.dismissButtonShade === 'dark') {
-        return 'var(--grey-600)'
+      if (props.dismissButtonTheme === 'light') {
+        return 'var(--grey-400)'
       }
 
-      if (props.dismissButtonShade === 'light') {
-        return 'var(--grey-400)'
-      }
-      // if on 'auto' base it off computedImageDarkness
-      if (computedImageDarkness.value === 'light') {
-        return 'var(--grey-600)'
-      } else if (computedImageDarkness.value === 'dark') {
-        return 'var(--grey-400)'
-      }
-      // default
       return 'var(--grey-600)'
     })
 
@@ -274,54 +227,6 @@ export default defineComponent({
       emit('proceed')
     }
 
-    // only bother with this if we have a src for the header image and a dismiss button with 'auto' for the dismissButtonShade
-    const shouldComputeImageDarkness = computed(() => {
-      return !!(props.headerImageSrc && props.enableDismiss && props.dismissButtonShade === 'auto')
-    })
-    const computedImageDarkness = ref('none')
-    const getComputedImageDarkness = () => {
-      // don't bother unless the dialog is visible, the canvas has been initialized, and
-      // we should
-      if (props.isVisible && canvas.value && shouldComputeImageDarkness.value) {
-        const ctx = canvas.value
-        const img = document.createElement('img')
-        img.src = props.headerImageSrc
-
-        img.style.display = 'none'
-        document.body.appendChild(img)
-
-        img.onload = function() {
-          imageStats.value.height = img.naturalHeight
-          imageStats.value.width = img.naturalWidth
-          const width = imageStats.value.width
-          const height = imageStats.value.height
-          ctx.drawImage(img, 0, 0)
-          const imageData = ctx.getImageData(0, 0, width, height)
-
-          const data = imageData.data
-          let r, g, b, avg
-          let colorSum = 0
-
-          for (let x = 0, len = data.length; x < len; x += 4) {
-            r = data[x]
-            g = data[x + 1]
-            b = data[x + 2]
-
-            avg = Math.floor((r + g + b) / 3)
-            colorSum += avg
-          }
-
-          const brightness = Math.floor(colorSum / (width * height))
-
-          if (brightness > 70) {
-            computedImageDarkness.value = 'dark'
-          } else {
-            computedImageDarkness.value = 'light'
-          }
-        }
-      }
-    }
-
     watchEffect(() => {
       if (typeof document !== 'undefined') {
         if (props.isVisible) {
@@ -331,26 +236,6 @@ export default defineComponent({
           // Reset body overflow
           document?.body?.classList.remove('k-modal-overflow-hidden')
         }
-      }
-    })
-
-    const imageId = computed((): string => props.testMode ? 'test-modal-image-1234' : uuidv1())
-    const canvasId = computed((): string => props.testMode ? 'test-modal-image-canvas-1234' : uuidv1())
-    onUpdated(() => {
-      if (props.isVisible && hasHeaderImage.value && shouldComputeImageDarkness.value) {
-        const headerImageElem = document.getElementById(imageId.value) as HTMLImageElement
-        if (headerImageElem) {
-          imageStats.value.height = headerImageElem.naturalHeight
-          imageStats.value.width = headerImageElem.naturalWidth
-        }
-
-        const canvasElem = document.getElementById(canvasId.value) as HTMLCanvasElement
-        if (canvasElem) {
-          const ctx = canvasElem.getContext('2d') as CanvasRenderingContext2D
-          canvas.value = ctx
-        }
-
-        getComputedImageDarkness()
       }
     })
 
@@ -371,12 +256,7 @@ export default defineComponent({
 
     return {
       hasHeaderImage,
-      computedImageDarkness,
       dismissButtonColor,
-      canvas,
-      imageId,
-      canvasId,
-      imageStats,
       close,
       proceed,
     }

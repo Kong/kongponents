@@ -134,149 +134,68 @@ Use this to hide the built-in Cancel button (`false` by default).
 
 Boolean for whether or not to display the 'X' in the upper right corner to dismiss the dialog (`false` by default).
 
-### dismissButtonShade
+### dismissButtonTheme
 
-Can be `dark`, `light`, or `auto` (`default`). If `auto`, it will attempt to calculate the correct color based off of
-the `headerImageSrc` file. If the shade cannot be calculated from the `headerImageSrc` it will fall back to `dark`.
-
-:::tip Note
-The dismiss shade can only be calculated for local files. Cross-origin sources not supported.
-:::
-
-<KButton appearance="primary" @click="defaultIsOpen4 = true">Open Modal</KButton>
-
-<div>
-  <KModal
-    :isVisible="defaultIsOpen4"
-    title="Look Mah!"
-    content="I am customized!"
-    hide-cancel-button
-    enable-dismiss
-    dismiss-button-shade="light"
-    @proceed="defaultIsOpen4 = false"
-    @canceled="defaultIsOpen4 = false"
-  />
-</div>
-
-```html
-<KModal
-  :isVisible="isVisible"
-  title="Look Mah!"
-  content="I am customized!"
-  hide-cancel-button
-  enable-dismiss
-  dismiss-button-shade="light"
-  @proceed="isVisible = false"
-  @canceled="isVisible = false"
-/>
-```
-
-### headerImageSrc
-
-Use this prop to specify an image source to be displayed above the header content. This content ignores padding.
-
-Check out the following example of `dismissButtonShade` `auto` being determined off of the `headerImageSrc`.
+Can be `dark` (default) or `light`. You might want to use this if displaying dark content in the `header-image` slot.
 
 <KButton appearance="primary" @click="slottedIsOpen2 = true">Open Onboarding Modal</KButton>
 
 <div>
   <KModal
     :is-visible="slottedIsOpen2"
-    title="Welcome to Konnect!"
-    header-image-src="/img/dark-demo.svg"
+    title="Welcome!"
     hide-cancel-button
     enable-dismiss
+    dismiss-button-theme="light"
     text-alignment="left"
     @canceled="slottedIsOpen2 = false"
   >
+    <template v-slot:header-image>
+      <div class="slot-image-content">
+        <img src="/img/dark-demo.svg" alt="Welcome" />
+      </div>
+    </template>
     <template v-slot:header-content>
       <KIcon icon="kong" class="mr-2" />
-      Welcome to Konnect!
+      Welcome!
     </template>
-    <template v-slot:body-content>Get set up with Kong Konnect with the 2-step quickstart to see live data pushed through a gateway service within minutes.</template>
+    <template v-slot:body-content>Get set up with the 2-step quickstart to see live data pushed through a gateway service within minutes.</template>
     <template v-slot:action-buttons>
       <KButton appearance="btn-link" size="small" class="mr-2" @click="slottedIsOpen2 = false">Skip</KButton>
       <KButton
         appearance="primary"
         size="small"
-        @click="() => {
-          slottedIsOpen2 = false
-          slottedIsOpen2a = true
-        }">
-          Onboard me!
-        </KButton>
-    </template>
-  </KModal>
-</div>
-
-<div>
- <KModal
-    :is-visible="slottedIsOpen2a"
-    title="Kongratulations!"
-    header-image-src="/img/light-demo.svg"
-    hide-cancel-button
-    enable-dismiss
-    text-alignment="left"
-    @canceled="slottedIsOpen2a = false"
-  >
-    <template v-slot:header-content>
-      <KIcon icon="kong" class="mr-2" />
-      Kongratulations!
-    </template>
-    <template v-slot:body-content>
-      You’ve completed the Quickstart! You can now see your gateway service details within Service Hub, view traffic analytics, and apply more plugins if you choose.
-    </template>
-    <template v-slot:action-buttons>
-      <KButton appearance="primary" size="small" @click="slottedIsOpen2a = false">Great!</KButton>
+        @click="() => slottedIsOpen2 = false">Onboard me!</KButton>
     </template>
   </KModal>
 </div>
 
 ```html
 <KModal
-  :is-visible="firstIsVisible"
-  title="Welcome to Konnect!"
-  header-image-src="/img/dark-demo.svg"
+  :is-visible="isVisible"
+  title="Welcome!"
   hide-cancel-button
   enable-dismiss
   text-alignment="left"
-  @canceled="slottedIsOpen2 = false"
+  dismiss-button-theme="light"
+  @canceled="isVisible = false"
 >
+  <template v-slot:header-image>
+    <div class="slot-image-content">
+      <img src="/img/dark-demo.svg" alt="Welcome" />
+    </div>
+  </template>
   <template v-slot:header-content>
     <KIcon icon="kong" class="mr-2" />
-    Welcome to Konnect!
+    Welcome!
   </template>
-  <template v-slot:body-content>Get set up with Kong Konnect with the 2-step quickstart to see live data pushed through a gateway service within minutes.</template>
+  <template v-slot:body-content>Get set up with the 2-step quickstart to see live data pushed through a gateway service within minutes.</template>
   <template v-slot:action-buttons>
-    <KButton appearance="btn-link" size="small" class="mr-2" @click="firstIsVisible = false">Skip</KButton>
+    <KButton appearance="btn-link" size="small" class="mr-2" @click="isVisible = false">Skip</KButton>
     <KButton
       appearance="primary"
       size="small"
-      @click="() => {
-        firstIsVisible = false
-        secondIsVisible = true
-      }">Onboard me!</KButton>
-  </template>
-</KModal>
-
-<KModal
-  :is-visible="secondIsVisible"
-  title="Kongratulations!"
-  header-image-src="/img/light-demo.svg"
-  hide-cancel-button
-  enable-dismiss
-  text-alignment="left"
-  @canceled="secondIsVisible = false"
->
-  <template v-slot:header-content>
-    <KIcon icon="kong" class="mr-2" />
-    Kongratulations!
-  </template>
-  <template v-slot:body-content>
-    You’ve completed the Quickstart! You can now see your gateway service details within Service Hub, view traffic analytics, and apply more plugins if you choose.
-  </template>
-  <template v-slot:action-buttons>
-    <KButton appearance="primary" size="small" @click="secondIsVisible = false">Great!</KButton>
+      @click="() => isVisible = false">Onboard me!</KButton>
   </template>
 </KModal>
 ```
@@ -299,7 +218,7 @@ There are 4 designated slots you can use to display content in the modal.
     title="Look at my slots!"
     content="You know you like these slots."
     enable-dismiss
-    dismiss-button-shade="dark"
+    dismiss-button-theme="dark"
     @canceled="slottedIsOpen3 = false"
   >
     <template v-slot:header-image>
@@ -321,7 +240,7 @@ There are 4 designated slots you can use to display content in the modal.
     title="Look at my slots!"
     content="You know you like these slots."
     enable-dismiss
-    dismiss-button-shade="dark"
+    dismiss-button-theme="dark"
     @canceled="slottedIsOpen3 = false"
   >
     <template v-slot:header-image>
@@ -351,7 +270,7 @@ There are 4 designated slots you can use to display content in the modal.
 | :-------- | :------------------ |
 | `cancelled` | Emitted when cancel/close button is clicked |
 
-### Usage
+## Usage
 
 Using both the provided props and slot options we will now demonstrate putting it all together.
 Notice that even though we are using the `header-content` slot we still specify the `title` attribute for accessibility.
