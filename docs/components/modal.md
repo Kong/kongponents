@@ -152,7 +152,7 @@ Can be `dark` (default) or `light`. You might want to use this if displaying dar
   >
     <template v-slot:header-image>
       <div class="slot-image-content1">
-        <img src="/img/dark-demo.svg" alt="Welcome" />
+        <img src="/img/dark-demo.png" alt="Circuit board" />
       </div>
     </template>
     <template v-slot:header-content>
@@ -181,7 +181,7 @@ Can be `dark` (default) or `light`. You might want to use this if displaying dar
 >
   <template v-slot:header-image>
     <div class="slot-image-content1">
-      <img src="/img/dark-demo.svg" alt="Welcome" />
+      <img src="/img/dark-demo.png" alt="Circuit board" />
     </div>
   </template>
   <template v-slot:header-content>
