@@ -233,6 +233,9 @@ export default {
 
     .close-button {
       margin-left: auto;
+      position: unset;
+      top: unset;
+      right: unset;
     }
 
     .divider {
