@@ -188,7 +188,7 @@ Can be `dark` (default) or `light`. You might want to use this if displaying dar
     <KIcon icon="kong" class="mr-2" />
     Welcome!
   </template>
-  <template v-slot:body-content>Get set up with the 2-step quickstart to see live data pushed through a gateway service within minutes.</template>
+  <template v-slot:body-content>Get set up with the quickstart to see live data pushed through a gateway service within minutes.</template>
   <template v-slot:action-buttons>
     <KButton appearance="btn-link" class="mr-2" @click="isVisible = false">Skip</KButton>
     <KButton
