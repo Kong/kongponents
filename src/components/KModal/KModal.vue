@@ -12,7 +12,7 @@
     >
       <div class="k-modal-dialog modal-dialog">
         <div
-          v-if="enableDismiss"
+          v-if="showDismissIcon"
           class="close-button"
         >
           <KButton
@@ -39,9 +39,9 @@
             role="heading"
             aria-level="2"
             :class="{
-              'header-left': textAlignment === 'left',
-              'header-centered': textAlignment === 'center',
-              'header-right': textAlignment === 'right',
+              'header-left': textAlign === 'left',
+              'header-centered': textAlign === 'center',
+              'header-right': textAlign === 'right',
               'mb-5': !hasHeaderImage,
               'mb-4': hasHeaderImage
             }"
@@ -53,9 +53,9 @@
           </div>
           <div
             :class="{
-              'content-left': textAlignment === 'left',
-              'content-centered': textAlignment === 'center',
-              'content-right': textAlignment === 'right',
+              'content-left': textAlign === 'left',
+              'content-centered': textAlign === 'center',
+              'content-right': textAlign === 'right',
             }"
             class="k-modal-body modal-body"
           >
@@ -118,7 +118,7 @@ export default defineComponent({
     /**
      * Set to true to render an 'x' dismiss button
      */
-    enableDismiss: {
+    showDismissIcon: {
       type: Boolean,
       default: false,
     },
@@ -140,7 +140,7 @@ export default defineComponent({
     /**
      * Set the alignment for the title and content
      */
-    textAlignment: {
+    textAlign: {
       type: String,
       default: 'center',
       validator: (val: string): boolean => ['left', 'center', 'right'].includes(val),

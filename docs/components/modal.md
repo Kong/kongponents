@@ -76,7 +76,7 @@ Text to display in content if not using slot.
 />
 ```
 
-### textAlignment
+### textAlign
 
 The alignement for the title and content. Supports `left`, `center` (`default`), or `right`.
 
@@ -130,7 +130,7 @@ Change the [appearance](/components/button.html#props) of the cancel button.
 
 Use this to hide the built-in Cancel button (`false` by default).
 
-### enableDismiss
+### showDismissIcon
 
 Boolean for whether or not to display the 'X' in the upper right corner to dismiss the dialog (`false` by default).
 
@@ -145,9 +145,9 @@ Can be `dark` (default) or `light`. You might want to use this if displaying dar
     :is-visible="slottedIsOpen2"
     title="Welcome!"
     hide-cancel-button
-    enable-dismiss
+    show-dismiss-icon
     dismiss-button-theme="light"
-    text-alignment="left"
+    text-align="left"
     @canceled="slottedIsOpen2 = false"
   >
     <template v-slot:header-image>
@@ -175,8 +175,8 @@ Can be `dark` (default) or `light`. You might want to use this if displaying dar
   :is-visible="isVisible"
   title="Welcome!"
   hide-cancel-button
-  enable-dismiss
-  text-alignment="left"
+  show-dismiss-icon
+  text-align="left"
   dismiss-button-theme="light"
   @canceled="isVisible = false"
 >
@@ -217,7 +217,7 @@ There are 4 designated slots you can use to display content in the modal.
     :is-visible="slottedIsOpen3"
     title="Look at my slots!"
     content="You know you like these slots."
-    enable-dismiss
+    show-dismiss-icon
     dismiss-button-theme="dark"
     @canceled="slottedIsOpen3 = false"
   >
@@ -239,7 +239,7 @@ There are 4 designated slots you can use to display content in the modal.
     :is-visible="slottedIsOpen3"
     title="Look at my slots!"
     content="You know you like these slots."
-    enable-dismiss
+    show-dismiss-icon
     dismiss-button-theme="dark"
     @canceled="slottedIsOpen3 = false"
   >
