@@ -78,7 +78,7 @@ Text to display in content if not using slot.
 
 ### textAlign
 
-The alignement for the title and content. Supports `left`, `center` (`default`), or `right`.
+The alignment for the title and content. Supports `left`, `center` (default), or `right`.
 
 ### actionButtonText
 
