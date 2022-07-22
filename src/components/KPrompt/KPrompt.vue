@@ -2,6 +2,7 @@
   <KModal
     :is-visible="isVisible"
     :title="displayTitle"
+    text-align="left"
     class="k-prompt"
     @keyup.esc="close"
     @keyup.enter="proceed"
@@ -262,26 +263,30 @@ export default defineComponent({
         }
       }
 
-      .k-modal-body.modal-body .k-prompt-body .k-prompt-body-content {
-        font-size: var(--type-md);
-        text-align: start;
-        color: var(--grey-600);
-        line-height: 24px;
-        white-space: normal; // in case inside KTable
-        overflow-y: auto;
-        overflow-x: hidden;
-        max-height: var(--KPromptMaxHeight, 300px);
-        padding-bottom: var(--spacing-lg);
-        width: 99%;
+      .k-modal-body.modal-body {
+        width: 100%;
 
-        @media screen and (min-width: 768px) {
-          max-height: var(--KPromptMaxHeight, 500px);
-        }
+        .k-prompt-body .k-prompt-body-content {
+          font-size: var(--type-md);
+          text-align: start;
+          color: var(--grey-600);
+          line-height: 24px;
+          white-space: normal; // in case inside KTable
+          overflow-y: auto;
+          overflow-x: hidden;
+          max-height: var(--KPromptMaxHeight, 300px);
+          padding-bottom: var(--spacing-lg);
+          width: 99%;
 
-        .k-prompt-confirm-text {
-          margin-top: var(--spacing-lg);
-          .k-input {
-            width: 100%;
+          @media screen and (min-width: 768px) {
+            max-height: var(--KPromptMaxHeight, 500px);
+          }
+
+          .k-prompt-confirm-text {
+            margin-top: var(--spacing-lg);
+            .k-input {
+              width: 100%;
+            }
           }
         }
       }
