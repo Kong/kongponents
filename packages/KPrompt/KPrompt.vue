@@ -2,9 +2,11 @@
   <KModal
     :is-visible="isVisible"
     :title="displayTitle"
+    text-align="left"
     class="k-prompt"
     @keyup.esc="close"
-    @keyup.enter="proceed">
+    @keyup.enter="proceed"
+  >
     <template v-slot:header-content>
       <div class="k-prompt-header w-100">
         <div class="k-prompt-header-content d-flex align-items-center w-100">
@@ -18,15 +20,18 @@
               class="mr-2" />
             {{ displayTitle }}
           </slot>
+
           <div class="close-button">
             <KButton
               class="non-visual-button"
               aria-label="Close"
-              @click="close">
+              @click="close"
+            >
               <KIcon
                 icon="close"
                 color="var(--grey-600)"
-                size="15" />
+                size="15"
+              />
             </KButton>
           </div>
         </div>
@@ -249,30 +254,34 @@ export default {
         }
       }
 
-      .k-modal-body.modal-body .k-prompt-body .k-prompt-body-content {
-        font-size: var(--type-md);
-        text-align: start;
-        color: var(--grey-600);
-        line-height: 24px;
-        white-space: normal; // in case inside KTable
-        overflow-y: auto;
-        overflow-x: hidden;
-        max-height: var(--KPromptMaxHeight, 300px);
-        padding-bottom: var(--spacing-lg);
-        width: 99%;
+      .k-modal-body.modal-body {
+        width: 100%;
 
-        @media screen and (min-width: 768px) {
-          max-height: var(--KPromptMaxHeight, 500px);
-        }
+        .k-prompt-body .k-prompt-body-content {
+          font-size: var(--type-md);
+          text-align: start;
+          color: var(--grey-600);
+          line-height: 24px;
+          white-space: normal; // in case inside KTable
+          overflow-y: auto;
+          overflow-x: hidden;
+          max-height: var(--KPromptMaxHeight, 300px);
+          padding-bottom: var(--spacing-lg);
+          width: 99%;
 
-        .k-prompt-confirm-text {
-          margin-top: var(--spacing-lg);
-
-          .k-input {
-            width: 100%;
+          @media screen and (min-width: 768px) {
+            max-height: var(--KPromptMaxHeight, 500px);
           }
-        }
 
+          .k-prompt-confirm-text {
+            margin-top: var(--spacing-lg);
+
+            .k-input {
+              width: 100%;
+            }
+          }
+
+        }
       }
 
       .k-modal-footer.modal-footer {

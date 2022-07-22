@@ -10,23 +10,63 @@
       @click="(evt) => close(false, evt)">
 
       <div class="k-modal-dialog modal-dialog">
+        <div
+          v-if="showDismissIcon"
+          class="close-button"
+        >
+          <KButton
+            class="non-visual-button"
+            aria-label="Close"
+            @click="close(true)"
+          >
+            <KIcon
+              :color="dismissButtonColor"
+              icon="close"
+              size="15"
+            />
+          </KButton>
+        </div>
+
         <div class="k-modal-content modal-content">
           <div
-            v-if="$scopedSlots.title || !hideTitle"
-            class="k-modal-header modal-header mb-5"
+            v-if="hasHeaderImage"
+            class="k-modal-header-image d-flex"
+          >
+            <slot name="header-image" />
+          </div>
+          <div
+            v-if="$slots['header-content'] || !hideTitle"
+            :class="{
+              'header-left': textAlign === 'left',
+              'header-centered': textAlign === 'center',
+              'header-right': textAlign === 'right',
+              'mb-5': !hasHeaderImage,
+              'mb-4': hasHeaderImage
+            }"
             role="heading"
-            aria-level="2">
+            aria-level="2"
+            class="k-modal-header modal-header"
+          >
             <slot name="header-content">{{ title }}</slot>
           </div>
-          <div class="k-modal-body modal-body">
+          <div
+            :class="{
+              'content-left': textAlign === 'left',
+              'content-centered': textAlign === 'center',
+              'content-right': textAlign === 'right',
+            }"
+            class="k-modal-body modal-body"
+          >
             <slot name="body-content">{{ content }}</slot>
           </div>
           <div class="k-modal-footer modal-footer d-flex">
             <slot name="footer-content">
               <KButton
+                v-if="!hideCancelButton"
                 :appearance="cancelButtonAppearance"
                 @click="close(true)"
-                @keyup.esc="close(true)">
+                @keyup.esc="close(true)"
+              >
                 {{ cancelButtonText }}
               </KButton>
               <div class="k-modal-action-buttons">
@@ -71,11 +111,34 @@ export default {
       default: false
     },
     /**
+     * Set to true to render an 'x' dismiss button
+     */
+    showDismissIcon: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * Controls whether the dismiss button is light or dark shade.
+     */
+    dismissButtonTheme: {
+      type: String,
+      default: 'dark',
+      validator: (val) => ['light', 'dark'].includes(val)
+    },
+    /**
      * Set the text of the body content
      */
     content: {
       type: String,
       default: ''
+    },
+    /**
+     * Set the alignment for the title and content
+     */
+    textAlign: {
+      type: String,
+      default: 'center',
+      validator: (val) => ['left', 'center', 'right'].includes(val)
     },
     /**
       *  Pass whether or not the modal should be visible
@@ -106,11 +169,38 @@ export default {
       default: 'Cancel'
     },
     /**
-     * Set the appearnace of the close/cancel button
+     * Set the appearance of the close/cancel button
      */
     cancelButtonAppearance: {
       type: String,
       default: 'outline'
+    },
+    /**
+     * Set to not render the cancel button
+     */
+    hideCancelButton: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * Test mode - for testing only, strips out generated ids
+     */
+    testMode: {
+      type: Boolean,
+      default: false
+    }
+  },
+
+  computed: {
+    hasHeaderImage () {
+      return !!this.$slots['header-image']
+    },
+    dismissButtonColor () {
+      if (this.dismissButtonTheme === 'light') {
+        return 'var(--grey-400)'
+      }
+
+      return 'var(--grey-600)'
     }
   },
 
@@ -182,47 +272,101 @@ export default {
   overflow: auto;
 }
 
-.k-modal-dialog {
-  position: relative;
-  width: auto;
-  max-width: var(--KModalMaxWidth, 500px);
-  margin: 50px auto;
-  padding: var(--spacing-xl, spacing(xl));
-  border-radius: 4px;
-  border: var(--KModalBorder);
-  box-shadow: 0px 0px 12px 0px var(--black-10, color(black-10));
-  background: #fff;
-  z-index: 9999;
-}
+.k-modal {
+  // use a var to ensure correct sizing of .k-modal-header-image
+  --KModalPadding: var(--spacing-xl, spacing(xl));
 
-.k-modal-content {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-
-  .k-modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    color: var(--KModalHeaderColor, var(--black-500, color(black-500)));
-    font-size: var(--KModalHeaderSize, 20px);
-    font-weight: var(--KModalHeaderWeight, 600);
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .k-modal-body {
-    text-align: center;
+  .k-modal-dialog {
     position: relative;
-    flex: 1 1 auto;
-    margin-bottom: var(--KModalBottomMargin, var(--spacing-lg, spacing(lg)));
-    color: var(--KModalColor, var(--grey-500, color(grey-500)));
-    font-size: var(--KModalFontSize, 13px);
-    line-height: 20px;
+    width: auto;
+    max-width: var(--KModalMaxWidth, 500px);
+    margin: 50px auto;
+    padding: var(--KModalPadding);
+    border-radius: 4px;
+    border: var(--KModalBorder);
+    box-shadow: 0px 0px 12px 0px var(--black-10, color(black-10));
+    background: var(--white);
+    z-index: 9999;
+    overflow: hidden;
+
+    .close-button {
+     position: absolute;
+      right: var(--spacing-lg);
+      top: var(--spacing-lg);
+      // 1 more than .k-modal-dialog
+      z-index: 1000;
+      .k-button {
+        padding: 8px 0 8px 8px;
+        margin-top: -8px;
+      }
+    }
   }
 
-  .k-modal-footer .k-modal-action-buttons {
-    margin-left: auto;
+  .k-modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    .k-modal-header-image {
+      margin-top: calc(#{var(--KModalPadding)} * -1);
+      margin-left: calc(#{var(--KModalPadding)} * -1);
+      margin-right: calc(#{var(--KModalPadding)} * -1);
+      margin-bottom: var(--spacing-xl, spacing(xl));
+    }
+
+    .k-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      color: var(--KModalHeaderColor, var(--black-500, color(black-500)));
+      font-size: var(--KModalHeaderSize, 20px);
+      font-weight: var(--KModalHeaderWeight, 600);
+
+      &.header-centered {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      &.header-left {
+        text-align: left;
+        margin-left: 0;
+        margin-right: auto;
+      }
+      &.header-right {
+        text-align: right;
+        margin-left: auto;
+        margin-right: 0;
+      }
+    }
+
+    .k-modal-body {
+      position: relative;
+      flex: 1 1 auto;
+      margin-bottom: var(--KModalBottomMargin, var(--spacing-lg, spacing(lg)));
+      color: var(--KModalColor, var(--grey-500, color(grey-500)));
+      font-size: var(--KModalFontSize, 13px);
+      line-height: 20px;
+
+      &.content-centered {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      &.content-left {
+        text-align: left;
+        margin-left: 0;
+        margin-right: auto;
+      }
+      &.content-right {
+        text-align: right;
+        margin-left: auto;
+        margin-right: 0;
+      }
+    }
+
+    .k-modal-footer .k-modal-action-buttons {
+      margin-left: auto;
+    }
   }
 }
 </style>
