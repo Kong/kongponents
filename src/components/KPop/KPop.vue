@@ -350,10 +350,14 @@ export default defineComponent({
       this.showPopper()
       const placement = placements[this.placement] ? placements[this.placement] : 'auto'
       const popperEl = this.$refs.popper
-      const theTarget = this.target === 'body' && !this.isSvg ? document.getElementById(this.targetId) : document.querySelector(this.target)
-      theTarget.appendChild(popperEl)
-      // Hide overflow to prevent page jump
-      theTarget.style.overflow = 'auto'
+      const theTarget = this.target === 'body' && !this.isSvg ? document.querySelector(this.target) : document.getElementById(this.targetId)
+
+      if (theTarget) {
+        theTarget.appendChild(popperEl)
+        // Hide overflow to prevent page jump
+        theTarget.style.overflow = 'auto'
+      }
+
       await this.$nextTick()
       this.popper = new Popper(this.reference, popperEl, {
         placement,
@@ -369,8 +373,10 @@ export default defineComponent({
         },
       })
       await this.$nextTick()
-      // Remove overflow attribute now that rendering is complete
-      theTarget.style.removeProperty('overflow')
+      if (theTarget) {
+        // Remove overflow attribute now that rendering is complete
+        theTarget.style.removeProperty('overflow')
+      }
       this.popper.update()
     },
     handleClick(e) {
