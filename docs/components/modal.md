@@ -151,7 +151,7 @@ Can be `dark` (default) or `light`. You might want to use this if displaying dar
     @canceled="slottedIsOpen2 = false"
   >
     <template v-slot:header-image>
-      <div class="slot-image-content">
+      <div class="slot-image-content1">
         <img src="/img/dark-demo.svg" alt="Welcome" />
       </div>
     </template>
@@ -180,7 +180,7 @@ Can be `dark` (default) or `light`. You might want to use this if displaying dar
   @canceled="isVisible = false"
 >
   <template v-slot:header-image>
-    <div class="slot-image-content">
+    <div class="slot-image-content1">
       <img src="/img/dark-demo.svg" alt="Welcome" />
     </div>
   </template>
@@ -380,6 +380,10 @@ export default defineComponent({
   --KModalHeaderColor: red;
   --KModalColor: blue;
   --KModalBackdrop: rgba(94, 174, 255, .25);
+}
+
+.slot-image-content1 {
+  background-color: var(--black-500);
 }
 
 .slot-image-content {
