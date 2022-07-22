@@ -4,8 +4,10 @@ exports[`KPrompt enables correctly with confirmationText 1`] = `
 <div aria-label="Information" role="dialog" aria-modal="true" class="k-modal k-prompt">
   <div class="k-modal-backdrop modal-backdrop">
     <div class="k-modal-dialog modal-dialog">
+      <!---->
       <div class="k-modal-content modal-content">
-        <div role="heading" aria-level="2" class="k-modal-header modal-header mb-5">
+        <!---->
+        <div role="heading" aria-level="2" class="k-modal-header modal-header header-left mb-5">
           <div class="k-prompt-header w-100">
             <div class="k-prompt-header-content d-flex align-items-center w-100">
               <!---->
@@ -21,7 +23,7 @@ exports[`KPrompt enables correctly with confirmationText 1`] = `
             <hr class="divider">
           </div>
         </div>
-        <div class="k-modal-body modal-body">
+        <div class="k-modal-body modal-body content-left">
           <div class="k-prompt-body">
             <div class="k-prompt-body-content">
 
@@ -57,8 +59,10 @@ exports[`KPrompt has a pending state 1`] = `
 <div aria-label="Information" role="dialog" aria-modal="true" class="k-modal k-prompt">
   <div class="k-modal-backdrop modal-backdrop">
     <div class="k-modal-dialog modal-dialog">
+      <!---->
       <div class="k-modal-content modal-content">
-        <div role="heading" aria-level="2" class="k-modal-header modal-header mb-5">
+        <!---->
+        <div role="heading" aria-level="2" class="k-modal-header modal-header header-left mb-5">
           <div class="k-prompt-header w-100">
             <div class="k-prompt-header-content d-flex align-items-center w-100">
               <!---->
@@ -74,7 +78,7 @@ exports[`KPrompt has a pending state 1`] = `
             <hr class="divider">
           </div>
         </div>
-        <div class="k-modal-body modal-body">
+        <div class="k-modal-body modal-body content-left">
           <div class="k-prompt-body">
             <div class="k-prompt-body-content">
 
@@ -107,8 +111,10 @@ exports[`KPrompt renders custom button text 1`] = `
 <div aria-label="Information" role="dialog" aria-modal="true" class="k-modal k-prompt">
   <div class="k-modal-backdrop modal-backdrop">
     <div class="k-modal-dialog modal-dialog">
+      <!---->
       <div class="k-modal-content modal-content">
-        <div role="heading" aria-level="2" class="k-modal-header modal-header mb-5">
+        <!---->
+        <div role="heading" aria-level="2" class="k-modal-header modal-header header-left mb-5">
           <div class="k-prompt-header w-100">
             <div class="k-prompt-header-content d-flex align-items-center w-100">
               <!---->
@@ -124,7 +130,7 @@ exports[`KPrompt renders custom button text 1`] = `
             <hr class="divider">
           </div>
         </div>
-        <div class="k-modal-body modal-body">
+        <div class="k-modal-body modal-body content-left">
           <div class="k-prompt-body">
             <div class="k-prompt-body-content">
 
@@ -153,8 +159,10 @@ exports[`KPrompt renders proper content when using props 1`] = `
 <div aria-label="Sweet prop title" role="dialog" aria-modal="true" class="k-modal k-prompt">
   <div class="k-modal-backdrop modal-backdrop">
     <div class="k-modal-dialog modal-dialog">
+      <!---->
       <div class="k-modal-content modal-content">
-        <div role="heading" aria-level="2" class="k-modal-header modal-header mb-5">
+        <!---->
+        <div role="heading" aria-level="2" class="k-modal-header modal-header header-left mb-5">
           <div class="k-prompt-header w-100">
             <div class="k-prompt-header-content d-flex align-items-center w-100">
               <!---->
@@ -170,7 +178,7 @@ exports[`KPrompt renders proper content when using props 1`] = `
             <hr class="divider">
           </div>
         </div>
-        <div class="k-modal-body modal-body">
+        <div class="k-modal-body modal-body content-left">
           <div class="k-prompt-body">
             <div class="k-prompt-body-content">
               Sweet prop content
@@ -199,8 +207,10 @@ exports[`KPrompt renders proper content when using slots 1`] = `
 <div aria-label="This is some header text" role="dialog" aria-modal="true" class="k-modal k-prompt">
   <div class="k-modal-backdrop modal-backdrop">
     <div class="k-modal-dialog modal-dialog">
+      <!---->
       <div class="k-modal-content modal-content">
-        <div role="heading" aria-level="2" class="k-modal-header modal-header mb-5">
+        <!---->
+        <div role="heading" aria-level="2" class="k-modal-header modal-header header-left mb-5">
           <div class="k-prompt-header w-100">
             <div class="k-prompt-header-content d-flex align-items-center w-100">
               <div>This is some header text</div>
@@ -215,7 +225,7 @@ exports[`KPrompt renders proper content when using slots 1`] = `
             <hr class="divider">
           </div>
         </div>
-        <div class="k-modal-body modal-body">
+        <div class="k-modal-body modal-body content-left">
           <div class="k-prompt-body">
             <div class="k-prompt-body-content">
               <div>This is some body text</div>
