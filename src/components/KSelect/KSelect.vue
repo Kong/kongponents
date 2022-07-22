@@ -109,7 +109,7 @@
               :placeholder="selectedItem && appearance === 'select' && !filterIsEnabled ? selectedItem.label : placeholderText"
               autocomplete="off"
               autocapitalize="off"
-              :class="{ 'cursor-default prevent-pointer-events': !filterIsEnabled }"
+              :class="{ 'cursor-default prevent-pointer-events': !filterIsEnabled ,'input-placeholder-dark': appearance === 'select'}"
               class="k-select-input"
               @keypress="onInputKeypress"
               @keyup="evt => triggerFocus(evt, isToggled)"
@@ -544,6 +544,10 @@ export default defineComponent({
 
     &.prevent-pointer-events {
       pointer-events: none;
+    }
+
+    &.input-placeholder-dark::placeholder {
+      color: var(--KInputColor, var(--black-70, rgba(0, 0, 0, 0.7))) !important;
     }
 
     &input.k-input {
