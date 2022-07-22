@@ -298,6 +298,7 @@ export default defineComponent({
     box-shadow: 0px 0px 12px 0px var(--black-10, color(black-10));
     background: #fff;
     z-index: 9999;
+    overflow: hidden;
 
     .close-button {
       position: absolute;

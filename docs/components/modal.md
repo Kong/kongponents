@@ -382,10 +382,6 @@ export default defineComponent({
   --KModalBackdrop: rgba(94, 174, 255, .25);
 }
 
-.slot-image-content1 {
-  background-color: var(--black-500);
-}
-
 .slot-image-content {
   height: 260px;
   width: 650px;
