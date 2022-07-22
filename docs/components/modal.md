@@ -128,7 +128,7 @@ Change the [appearance](/components/button.html#props) of the cancel button.
 
 ### hideCancelButton
 
-Use this to hide the built-in Cancel button (`false` by default).
+Use this to hide the built-in cancel button (`false` by default).
 
 ### showDismissIcon
 
