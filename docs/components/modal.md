@@ -161,10 +161,9 @@ Can be `dark` (default) or `light`. You might want to use this if displaying dar
     </template>
     <template v-slot:body-content>Get set up with the 2-step quickstart to see live data pushed through a gateway service within minutes.</template>
     <template v-slot:action-buttons>
-      <KButton appearance="btn-link" size="small" class="mr-2" @click="slottedIsOpen2 = false">Skip</KButton>
+      <KButton appearance="btn-link" class="mr-2" @click="slottedIsOpen2 = false">Skip</KButton>
       <KButton
         appearance="primary"
-        size="small"
         @click="() => slottedIsOpen2 = false">Onboard me!</KButton>
     </template>
   </KModal>
@@ -191,10 +190,9 @@ Can be `dark` (default) or `light`. You might want to use this if displaying dar
   </template>
   <template v-slot:body-content>Get set up with the 2-step quickstart to see live data pushed through a gateway service within minutes.</template>
   <template v-slot:action-buttons>
-    <KButton appearance="btn-link" size="small" class="mr-2" @click="isVisible = false">Skip</KButton>
+    <KButton appearance="btn-link" class="mr-2" @click="isVisible = false">Skip</KButton>
     <KButton
       appearance="primary"
-      size="small"
       @click="() => isVisible = false">Onboard me!</KButton>
   </template>
 </KModal>
@@ -227,8 +225,8 @@ There are 4 designated slots you can use to display content in the modal.
       </div>
     </template>
     <template v-slot:action-buttons>
-      <KButton appearance="btn-link" size="small" class="mr-2" @click="slottedIsOpen3 = false">Pass</KButton>
-      <KButton appearance="primary" size="small" @click="slottedIsOpen3 = false">I sure do!</KButton>
+      <KButton appearance="btn-link" class="mr-2" @click="slottedIsOpen3 = false">Pass</KButton>
+      <KButton appearance="primary" @click="slottedIsOpen3 = false">I sure do!</KButton>
     </template>
   </KModal>
 </div>
@@ -249,8 +247,8 @@ There are 4 designated slots you can use to display content in the modal.
       </div>
     </template>
     <template v-slot:action-buttons>
-      <KButton appearance="btn-link" size="small" class="mr-2" @click="slottedIsOpen3 = false">Pass</KButton>
-      <KButton appearance="primary" size="small" @click="slottedIsOpen3 = false">I sure do!</KButton>
+      <KButton appearance="btn-link" class="mr-2" @click="slottedIsOpen3 = false">Pass</KButton>
+      <KButton appearance="primary" @click="slottedIsOpen3 = false">I sure do!</KButton>
     </template>
   </KModal>
 </template>
