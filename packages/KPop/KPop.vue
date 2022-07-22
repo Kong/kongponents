@@ -339,7 +339,7 @@ export default {
       const placement = placements[this.placement] ? placements[this.placement] : 'auto'
       const popperEl = this.$refs.popper
 
-      const theTarget = this.target === 'body' && !this.isSvg ? document.querySelector(this.target) : document.getElementById(this.targetId)
+      const theTarget = this.target === 'body' && !this.isSvg && !this.testMode ? document.querySelector(this.target) : document.getElementById(this.targetId)
 
       if (theTarget) {
         theTarget.appendChild(popperEl)
