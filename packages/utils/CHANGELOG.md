@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.34.0 (2022-07-22)
+
+
+### Features
+
+* **kmodal:** quickstart updates [khcp-4220] ([#714](https://github.com/Kong/kongponents/issues/714)) ([f84b9e4](https://github.com/Kong/kongponents/commit/f84b9e43ee60f7e0d7e2ca30554e89e789a20820))
+
+
+
+
+
 ## 6.33.10 (2022-07-22)
 
 
