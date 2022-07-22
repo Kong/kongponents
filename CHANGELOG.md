@@ -1,3 +1,10 @@
+# [7.0.0-beta.70](https://github.com/Kong/kongponents/compare/v7.0.0-beta.69...v7.0.0-beta.70) (2022-07-22)
+
+
+### Bug Fixes
+
+* font weights ([23e9f88](https://github.com/Kong/kongponents/commit/23e9f88dcee882787fda497c75e3b84002008118))
+
 # [7.0.0-beta.69](https://github.com/Kong/kongponents/compare/v7.0.0-beta.68...v7.0.0-beta.69) (2022-07-22)
 
 
