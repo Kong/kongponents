@@ -1,5 +1,7 @@
 # Popover
 
+<div v-if="hasMounted">
+
 **KPop** is a popover component that is used when you need something with more
 detailed content then fits inside a tooltip. KPop has three slots; only two is
 necessary is to be filled to populate the component with content. The title prop
@@ -602,75 +604,6 @@ Example:
   </template>
 </KPop>
 
-<script>
-  export default {
-    data () {
-      return {
-        selectedPosition: 'auto',
-        positions: [
-          'auto',
-          'top',
-          'topStart',
-          'topEnd',
-          'left',
-          'leftStart',
-          'leftEnd',
-          'right',
-          'rightStart',
-          'rightEnd',
-          'bottom',
-          'bottomStart',
-          'bottomEnd'
-        ],
-        currentState: 'idle',
-        states: {
-          'idle': 'pending',
-          'pending': 'idle'
-        },
-        count: 0,
-        isToggled: true,
-        timeout: null
-      }
-    },
-    computed: {
-      buttonText () {
-        return {
-          'pending': 'Loading something...',
-          'idle': 'Load something'
-        }[this.currentState]
-      },
-      message () {
-        return {
-          'pending': `Loading ${this.count}...`,
-          'idle': 'Loaded!'
-        }[this.currentState]
-      }
-    },
-    methods: {
-      loadSomething () {
-        this.transition()
-        this.timeout = setTimeout(() => {
-          this.count+=1
-          this.transition()
-        }, 2000)
-      },
-      toggle () {
-        this.isToggled = !this.isToggled
-        return this.isToggled
-      },
-      onClose () {
-        clearTimeout(this.timeout)
-        if (this.currentState == 'pending') {
-          this.transition()
-        }
-      },
-      transition() {
-        this.currentState = this.states[this.currentState]
-      }
-    }
-  }
-</script>
-
 ```html
 <KPop @opened="loadSomething" @closed="onClose">
   <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
@@ -747,6 +680,81 @@ Example:
 For Internet Explorer 11 and below, the Popover component will not work due to `Node.contains` not being supported by the browser.
 You will have to manually polyfill this functionality if you choose to support IE11 or below.
 :::
+
+</div>
+
+<script>
+  export default {
+    data () {
+      return {
+        hasMounted: false,
+        selectedPosition: 'auto',
+        positions: [
+          'auto',
+          'top',
+          'topStart',
+          'topEnd',
+          'left',
+          'leftStart',
+          'leftEnd',
+          'right',
+          'rightStart',
+          'rightEnd',
+          'bottom',
+          'bottomStart',
+          'bottomEnd'
+        ],
+        currentState: 'idle',
+        states: {
+          'idle': 'pending',
+          'pending': 'idle'
+        },
+        count: 0,
+        isToggled: true,
+        timeout: null
+      }
+    },
+    computed: {
+      buttonText () {
+        return {
+          'pending': 'Loading something...',
+          'idle': 'Load something'
+        }[this.currentState]
+      },
+      message () {
+        return {
+          'pending': `Loading ${this.count}...`,
+          'idle': 'Loaded!'
+        }[this.currentState]
+      }
+    },
+    methods: {
+      loadSomething () {
+        this.transition()
+        this.timeout = setTimeout(() => {
+          this.count+=1
+          this.transition()
+        }, 2000)
+      },
+      toggle () {
+        this.isToggled = !this.isToggled
+        return this.isToggled
+      },
+      onClose () {
+        clearTimeout(this.timeout)
+        if (this.currentState == 'pending') {
+          this.transition()
+        }
+      },
+      transition() {
+        this.currentState = this.states[this.currentState]
+      }
+    },
+    mounted () {
+      this.hasMounted = true
+    }
+  }
+</script>
 
 <style scoped>
   select {

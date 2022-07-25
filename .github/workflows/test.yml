@@ -38,6 +38,7 @@ jobs:
         yarn test
 
     - name: Trigger Percy visual regression test for docs
+      timeout-minutes: 5
       env:
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
         PERCY_TARGET_BRANCH: main
