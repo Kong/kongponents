@@ -57,6 +57,7 @@ module.exports = {
               '/components/button',
               '/components/card',
               '/components/catalog',
+              '/components/dropdown-menu',
               '/components/input-checkbox',
               '/components/empty-state',
               '/components/icon',

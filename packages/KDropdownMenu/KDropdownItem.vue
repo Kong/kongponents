@@ -1,0 +1,139 @@
+<template>
+  <li
+    :class="{ 'has-divider': type !== 'link' && hasDivider, 'disabled': type === 'default' && disabled }"
+    class="k-dropdown-item"
+  >
+    <router-link
+      v-if="type === 'link' && to"
+      :data-testid="label"
+      :class="{ 'disabled': disabled, 'has-divider': hasDivider }"
+      :to="!disabled ? to : $router.currentRoute.path"
+    >
+      <slot>{{ label }}</slot>
+    </router-link>
+    <KButton
+      v-else-if="type === 'button'"
+      :disabled="disabled"
+      :class="classList"
+      v-on="listeners"
+    >
+      <slot>{{ label }}</slot>
+    </KButton>
+    <div v-else>
+      <slot>{{ label }}</slot>
+    </div>
+  </li>
+</template>
+
+<script>
+import KButton from '@kongponents/kbutton/KButton.vue'
+
+export default {
+  name: 'KDropdownItem',
+  components: { KButton },
+  props: {
+    item: {
+      type: Object,
+      default: null,
+      // Items must have a label
+      validator: (item) => item.hasOwnProperty('label')
+    },
+    /**
+     * Use this prop to add a divider above the item
+     */
+    hasDivider: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data () {
+    return {
+      classList: 'btn-link k-button non-visual-button'
+    }
+  },
+  computed: {
+    listeners () {
+      return {
+        ...this.$listeners
+      }
+    },
+    type () {
+      if (this.item && this.item.to) {
+        return 'link'
+      } else if (this.listeners.click) {
+        return 'button'
+      }
+
+      return 'default'
+    },
+    label () {
+      return (this.item && this.item.label) || ''
+    },
+    to () {
+      return (this.item && this.item.to) || undefined
+    }
+  },
+  methods: {
+    handleClick () {
+      this.$emit('click', this.item)
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+@import '~@kongponents/styles/variables';
+
+li.k-dropdown-item {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  line-height: 1;
+
+  &.has-divider {
+    border-top: 1px solid var(--grey-200) !important;
+  }
+
+  svg {
+    margin-right: .75rem;
+  }
+
+  &:hover {
+    background-color: var(--grey-100);
+  }
+
+  button, a, & > div {
+    text-align: left;
+    padding: var(--spacing-md) var(--spacing-lg);
+    text-decoration: none;
+    width: 100%;
+    color: var(--black-70);
+
+    &:disabled,
+    &.disabled {
+      cursor: not-allowed !important;
+      color: var(--grey-400) !important;
+
+      &:hover {
+        background-color: var(--grey-200) !important;
+      }
+    }
+  }
+
+  &.danger {
+    button:not(:disabled),
+    a:not(:disabled) {
+      color: var(--red-500);
+      transition: all 300ms;
+
+      &:hover {
+        color: var(--red-500);
+      }
+    }
+  }
+}
+</style>
