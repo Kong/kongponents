@@ -12,6 +12,7 @@ import clipboard from './icn-clipboard.svg'
 import close from './icn-close.svg'
 import cogwheel from './icn-cogwheel.svg'
 import collapseExpand from './icn-collapse-expand.svg'
+import configureEmptyState from './icn-configure-empty-state.svg'
 import connections from './icn-connections.svg'
 import copy from './icn-copy.svg'
 import dangerCircle from './icn-danger-circle.svg'
@@ -40,12 +41,15 @@ import immunity from './icn-immunity.svg'
 import increase from './icn-increase.svg'
 import info from './icn-info.svg'
 import kong from './icn-kong.svg'
+import gruceoEmptyState from './icn-gruceo-empty-state.svg'
 import lock from './icn-lock.svg'
 import list from './icn-list.svg'
 import more from './icn-more.svg'
 import noData from './icn-no-data.svg'
+import noDataEmptyState from './icn-no-data-empty-state.svg'
 import notificationBell from './icn-notification-bell.svg'
 import notificationInbox from './icn-notification-inbox.svg'
+import noResults from './icn-no-results.svg'
 import organization from './icn-organization.svg'
 import plus from './icn-plus.svg'
 import organizations from './icn-organizations.svg'
@@ -68,6 +72,10 @@ import table from './icn-table.svg'
 import team from './icn-team.svg'
 import teamMember from './icn-team-member.svg'
 import trash from './icn-trash.svg'
+import uploadDefaultState from './icn-upload-default-state.svg'
+import uploadDefaultStateNoArrow from './icn-upload-default-state-no-arrow.svg'
+import uploadHoverState from './icn-upload-hover-state.svg'
+import uploadHoverStateNoArrow from './icn-upload-hover-state-no-arrow.svg'
 import vitals from './icn-vitals.svg'
 import vitalsChart from './icn-vitals-chart.svg'
 import warning from './icn-warning.svg'
@@ -89,8 +97,9 @@ export default {
   close,
   cogwheel,
   collapseExpand,
-  copy,
+  configureEmptyState,
   connections,
+  copy,
   dangerCircle,
   dangerCircleOutline,
   dashboard,
@@ -117,10 +126,13 @@ export default {
   increase,
   info,
   kong,
+  gruceoEmptyState,
   list,
   lock,
   more,
   noData,
+  noDataEmptyState,
+  noResults,
   notificationBell,
   notificationInbox,
   organization,
@@ -145,6 +157,10 @@ export default {
   team,
   teamMember,
   trash,
+  uploadDefaultState,
+  uploadDefaultStateNoArrow,
+  uploadHoverState,
+  uploadHoverStateNoArrow,
   vitals,
   vitalsChart,
   warning,

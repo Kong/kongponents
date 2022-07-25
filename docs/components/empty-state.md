@@ -251,7 +251,6 @@ KEmptyState has 3 named slots used, `title`, `message`, and `cta`. You can use t
 ```html
 <template>
   <KEmptyState icon="kong">
-    <template v-slot:cta>
     <template v-slot:title>Look Mah!</template>
     <template v-slot:message>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.</template>
       <KButton appearance="danger" size="small">Danger Button</KButton>

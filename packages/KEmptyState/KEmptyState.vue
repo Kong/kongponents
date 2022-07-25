@@ -7,7 +7,7 @@
       <div
         v-if="isError || icon"
         :class="{ 'warning-icon': isError }"
-        class="k-empty-state-icon card-icon mb-4"
+        class="k-empty-state-icon card-icon mb-3"
       >
         <KIcon
           :size="iconSize"
@@ -15,12 +15,12 @@
           :color="isError ? iconColor || 'var(--black-70)' : iconColor"
           :secondary-color="isError ? 'var(--yellow-400)' : null" />
       </div>
-      <div class="k-empty-state-title-header">
+      <div class="k-empty-state-title-header mt-4 mb-4">
         <slot name="title"/>
       </div>
     </div>
     <div class="empty-state-content">
-      <div class="k-empty-state-message">
+      <div class="k-empty-state-message mb-6">
         <slot name="message"/>
       </div>
       <div class="k-empty-state-cta">
@@ -82,10 +82,11 @@ export default {
 @import '~@kongponents/styles/variables';
 
 .empty-state-wrapper {
-  padding: 42px 0;
+  padding: 48px 0;
   text-align: center;
   border-radius: 4px;
-  background-color: var(--KEmptyBackground, var(--white));
+  // background-color: var(--KEmptyBackground, var(--white));
+    background-color: lightcoral
 }
 .empty-state-wrapper .k-empty-state-title-header {
   color: var(--KEmptyTitleColor, var(--black-500));
