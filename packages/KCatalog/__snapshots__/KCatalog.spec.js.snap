@@ -156,6 +156,7 @@ exports[`KCatalog general can change card sizes - large 1`] = `
               </li>
               <!---->
             </ul>
+            <!---->
           </div>
           <!---->
         </div>
@@ -324,6 +325,7 @@ exports[`KCatalog general can change card sizes - small 1`] = `
               </li>
               <!---->
             </ul>
+            <!---->
           </div>
           <!---->
         </div>
@@ -412,6 +414,7 @@ exports[`KCatalog general can disable truncation 1`] = `
               </li>
               <!---->
             </ul>
+            <!---->
           </div>
           <!---->
         </div>
@@ -500,6 +503,7 @@ exports[`KCatalog general handles truncation 1`] = `
               </li>
               <!---->
             </ul>
+            <!---->
           </div>
           <!---->
         </div>
@@ -568,6 +572,7 @@ exports[`KCatalog general matches snapshot 1`] = `
               </li>
               <!---->
             </ul>
+            <!---->
           </div>
           <!---->
         </div>
@@ -738,6 +743,7 @@ exports[`KCatalog general renders proper cards when using props 1`] = `
               </li>
               <!---->
             </ul>
+            <!---->
           </div>
           <!---->
         </div>
@@ -820,6 +826,7 @@ exports[`KCatalog general renders slots when passed 1`] = `
               </li>
               <!---->
             </ul>
+            <!---->
           </div>
           <!---->
         </div>
@@ -904,6 +911,7 @@ exports[`KCatalog general renders slotted cards when passed 1`] = `
               </li>
               <!---->
             </ul>
+            <!---->
           </div>
           <!---->
         </div>
@@ -972,6 +980,7 @@ exports[`KCatalog states displays a loading skeletion when the "isLoading" prop 
               </li>
               <!---->
             </ul>
+            <!---->
           </div>
           <!---->
         </div>

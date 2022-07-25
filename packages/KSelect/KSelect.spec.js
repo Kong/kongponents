@@ -1,6 +1,12 @@
 import { mount } from '@vue/test-utils'
 import KSelect from '@/KSelect/KSelect'
 
+const tick = async (vm, times) => {
+  for (let i = 0; i < times; ++i) {
+    await vm.$nextTick()
+  }
+}
+
 /**
  * ALL TESTS MUST USE testMode: true
  * We generate unique IDs for reference by aria properties. Test mode strips these out
@@ -209,5 +215,36 @@ describe('KSelect', () => {
     })
 
     expect(wrapper.html()).toMatchSnapshot()
+  })
+
+  it('works in autosuggest mode', async () => {
+    const onInput = jest.fn()
+    const items = []
+    const wrapper = mount(KSelect, {
+      propsData: {
+        testMode: true,
+        autosuggest: true,
+        loading: false,
+        items
+      },
+      listeners: {
+        input: onInput
+      }
+    })
+    const input2 = wrapper.find('input')
+
+    input2.setValue('a')
+
+    expect(onInput).toHaveBeenCalledWith('a')
+
+    wrapper.setProps({ loading: true })
+    await tick(wrapper.vm, 1)
+    expect(wrapper.find('[data-testid="k-select-loading"]').exists()).toBe(true)
+
+    items.push({ label: 'Label 1', value: 'label1' })
+    wrapper.setProps({ loading: false })
+    await tick(wrapper.vm, 1)
+    expect(wrapper.find('[data-testid="k-select-loading"]').exists()).toBe(false)
+    expect(wrapper.find('[data-testid="k-select-item-label1"]').html()).toEqual(expect.stringContaining('Label 1'))
   })
 })

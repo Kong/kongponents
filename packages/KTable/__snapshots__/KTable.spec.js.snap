@@ -99,6 +99,7 @@ exports[`KTable default has hover class when passed 1`] = `
             </li>
             <!---->
           </ul>
+          <!---->
         </div>
         <!---->
       </div>
@@ -259,6 +260,7 @@ exports[`KTable sorting should allow disabling sorting 1`] = `
             </li>
             <!---->
           </ul>
+          <!---->
         </div>
         <!---->
       </div>
@@ -369,6 +371,7 @@ exports[`KTable sorting should have sortable class when passed 1`] = `
             </li>
             <!---->
           </ul>
+          <!---->
         </div>
         <!---->
       </div>

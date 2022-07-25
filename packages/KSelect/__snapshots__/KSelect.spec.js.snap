@@ -22,6 +22,7 @@ exports[`KSelect matches snapshot 1`] = `
             </li>
             <!---->
           </ul>
+          <!---->
         </div>
         <!---->
       </div>
@@ -58,6 +59,7 @@ exports[`KSelect renders props when passed 1`] = `
             </li>
             <!---->
           </ul>
+          <!---->
         </div>
         <!---->
       </div>
@@ -98,6 +100,7 @@ exports[`KSelect renders with selected item 1`] = `
             </li>
             <!---->
           </ul>
+          <!---->
         </div>
         <!---->
       </div>

@@ -93,7 +93,7 @@
             <KInput
               :id="selectTextId"
               v-bind="$attrs"
-              v-model="filterStr"
+              :value="filterStr"
               :is-open="isToggled"
               :label="label && overlayLabel ? label : null"
               :overlay-label="overlayLabel"
@@ -102,10 +102,25 @@
               class="k-select-input"
               @keypress="onInputKeypress"
               @keyup="!$attrs.disabled ? triggerFocus(isToggled) : null"
+              @input="onKeywordChange"
+              v-on="listeners"
             />
           </div>
           <template v-slot:content>
-            <ul class="k-select-list ma-0 pa-0">
+            <slot
+              v-if="loading"
+              name="loading"
+            >
+              <KIcon
+                class="k-select-loading"
+                data-testid="k-select-loading"
+                icon="spinner"
+              />
+            </slot>
+            <ul
+              v-else
+              class="k-select-list ma-0 pa-0"
+            >
               <slot
                 :items="items"
                 :is-open="isToggled"
@@ -126,13 +141,17 @@
                   </template>
                 </KSelectItem>
                 <KSelectItem
-                  v-if="!filteredItems.length"
+                  v-if="!filteredItems.length && !$slots.empty"
                   key="k-select-empty-state"
                   :item="{ label: 'No results', value: 'no_results' }"
                   class="k-select-empty-item"
                 />
               </slot>
             </ul>
+            <slot
+              v-if="!loading && !filteredItems.length"
+              name="empty"
+            />
           </template>
         </KPop>
       </KToggle>
@@ -254,6 +273,20 @@ export default {
     testMode: {
       type: Boolean,
       default: false
+    },
+    /**
+     * A flag for autosuggest mode
+     */
+    autosuggest: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * Loading state in autosuggest
+     */
+    loading: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -310,6 +343,10 @@ export default {
       }
     },
     filterIsEnabled: function () {
+      if (this.autosuggest) {
+        return true
+      }
+
       if (this.enableFiltering !== null) {
         // filtering not allowed for `button` appearance
         return this.appearance === 'button' ? false : this.enableFiltering
@@ -322,7 +359,8 @@ export default {
       return false
     },
     filteredItems: function () {
-      return this.filterFunc({ items: this.selectItems, query: this.filterStr })
+      // For autosuggest, items don't need to be filtered internally
+      return this.autosuggest ? this.items : this.filterFunc({ items: this.selectItems, query: this.filterStr })
     },
     placeholderText () {
       if (this.placeholder) {
@@ -347,21 +385,30 @@ export default {
       return this.placeholderText
     }
   },
-  beforeMount () {
-    // items need keys
-    this.selectItems = this.items
+  watch: {
+    items: {
+      handler () {
+        // items need keys
+        this.selectItems = this.items
 
-    for (let i = 0; i < this.selectItems.length; i++) {
-      this.selectItems[i].key = `${this.selectItems[i].label.replace(' ', '-')}-${i}`
-      if (this.selectItems[i].value === this.value || this.selectItems[i].selected) {
-        this.selectItems[i].selected = true
-        this.selectedItem = this.selectItems[i]
-        this.selectItems[i].key += '-selected'
+        for (let i = 0; i < this.selectItems.length; i++) {
+          this.selectItems[i].key = `${this.selectItems[i].label.replace(' ', '-')}-${i}`
+          if (this.selectItems[i].value === this.value || this.selectItems[i].selected) {
+            this.selectItems[i].selected = true
+            this.selectedItem = this.selectItems[i]
+            this.selectItems[i].key += '-selected'
 
-        if (this.appearance === 'select') {
-          this.filterStr = this.selectedItem.label
+            if (this.appearance === 'select') {
+              this.filterStr = this.selectedItem.label
+            }
+          }
+
+          if (this.selectedItem && this.selectedItem.value === this.items[i].value) {
+            this.items[i].selected = true
+          }
         }
-      }
+      },
+      immediate: true
     }
   },
   mounted () {
@@ -412,6 +459,10 @@ export default {
 
         return false
       }
+    },
+    onKeywordChange (val) {
+      this.filterStr = val
+      this.$emit('keyword-change', val)
     }
   }
 }
@@ -569,6 +620,15 @@ export default {
       &:focus {
         text-decoration: none;
       }
+    }
+
+    .k-select-loading {
+      display: block;
+      text-align: center;
+      position: relative;
+      top: 0;
+      right: 0;
+      height: 24px;
     }
   }
 }

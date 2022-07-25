@@ -231,6 +231,80 @@ KSelect works as regular inputs do using v-model for data binding:
 </Komponent>
 ```
 
+### autosuggest
+
+With `autosuggest`, you can type in the input, trigger a query to an API with the search keyword, and then update `items` asynchronously as suggestions.
+Loading state and empty state can be configured using the `loading` and `empty` slots.
+
+<KSelect
+  autosuggest
+  :items="itemsForAutosuggest"
+  :loading="loading"
+  appearance="select"
+  @keyword-change="onKeywordChange"
+  @focus="onFocus"
+>
+  <template v-slot:loading>
+    <div>Loading...</div>
+  </template>
+  <template v-slot:empty>
+    <div>No results found</div>
+  </template>
+</KSelect>
+
+```vue
+<KSelect 
+  autosuggest
+  :items="items"
+  :loading="loading"
+  appearance="select"
+  @keyword-change="onKeywordChange"
+  @focus="onFocus"
+> 
+  <template v-slot:loading>
+    <div>Loading...</div>
+  </template>
+  <template v-slot:empty>
+    <div>No results found</div>
+  </template>
+</KSelect>
+
+<script>
+const allItems = new Array(10).fill().map((_, i) => ({
+  label: `Item ${i}`,
+  value: `Item ${i}`
+}));
+export default {
+  data() {
+    return {
+      items: [],
+      keyword: '',
+      loading: false,
+    }
+  },
+  methods: {
+    onKeywordChange (val) {
+      this.loading = true;
+      // mock API call for items that contain the keyword
+      setTimeout(() => {
+        this.keyword = val;
+        this.items = allItems.filter(item => item.label.includes(this.keyword)).map(item => Object.assign({}, item));
+        this.loading = false;
+      }, 400);
+    },
+    onFocus () {
+      this.loading = true;
+      // mock API call for all items
+      setTimeout(() => {
+        this.items = allItems.map(item => Object.assign({}, item));
+        this.loading = false;
+      }, 200);
+    }
+  }
+}
+</script>
+```
+
 ## Attribute Binding
 
 You can pass any input attribute and it will get properly bound to the element.
@@ -303,6 +377,7 @@ export default {
 | `selected` | `selectedItem` Object |
 | `input` | `selectedItem` Object or null |
 | `change` | `selectedItem` Object or null |
+| `keyword-change` | `keyword` String |
 
 </div>
 
@@ -318,6 +393,11 @@ function getItems(count) {
     }
   return myItems
 }
+
+const allItems = new Array(10).fill().map((_, i) => ({
+  label: `Item ${i}`,
+  value: `Item ${i}`
+}));
 
 export default {
   data() {
@@ -352,7 +432,10 @@ export default {
       }, {
         label: '50',
         value: '50'
-      }]
+      }],
+      itemsForAutosuggest: [],
+      keyword: '',
+      loading: false,
     }
   },
   mounted() {
@@ -367,6 +450,21 @@ export default {
     },
     deepClone(obj) {
       return JSON.parse(JSON.stringify(obj))
+    },
+    onKeywordChange (val) {
+      this.loading = true;
+      setTimeout(() => {
+        this.keyword = val;
+        this.itemsForAutosuggest = allItems.filter(item => item.label.includes(this.keyword)).map(item => Object.assign({}, item));
+        this.loading = false;
+      }, 400);
+    },
+    onFocus () {
+      this.loading = true;
+      setTimeout(() => {
+        this.itemsForAutosuggest = allItems.map(item => Object.assign({}, item));
+        this.loading = false;
+      }, 200);
     }
   }
 }
