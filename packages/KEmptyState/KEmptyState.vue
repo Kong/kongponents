@@ -85,8 +85,7 @@ export default {
   padding: 48px 0;
   text-align: center;
   border-radius: 4px;
-  // background-color: var(--KEmptyBackground, var(--white));
-    background-color: lightcoral
+  background-color: var(--KEmptyBackground, var(--white));
 }
 .empty-state-wrapper .k-empty-state-title-header {
   color: var(--KEmptyTitleColor, var(--black-500));
