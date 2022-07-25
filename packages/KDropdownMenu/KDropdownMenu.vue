@@ -11,19 +11,28 @@
         @closed="toggle"
       >
         <div class="d-flex">
-          <slot
-            :is-open="isToggled"
-            name="default"
+          <component
+            :is="!!disabledTooltip ? 'Kooltip' : 'div'"
+            :label="disabledTooltip"
+            :position="!!disabledTooltip ? 'bottom' : undefined"
+            :position-fixed="!!disabledTooltip ? true : undefined"
+            :max-width="!!disabledTooltip ? '240' : undefined"
           >
-            <KButton
-              v-if="btnText"
-              class="k-dropdown-btn"
-              appearance="primary"
-              @click="toggle"
+            <slot
+              :is-open="isToggled"
+              name="default"
             >
-              {{ btnText }}
-            </KButton>
-          </slot>
+              <KButton
+                v-if="btnText"
+                :disabled="disabled"
+                appearance="primary"
+                class="k-dropdown-btn"
+                @click="toggle"
+              >
+                {{ btnText }}
+              </KButton>
+            </slot>
+          </component>
         </div>
         <template #content>
           <ul class="k-dropdown-list dropdown-list">
@@ -33,8 +42,8 @@
               name="items"
             >
               <KDropdownItem
-                v-for="item in items"
-                :key="item.label"
+                v-for="(item, idx) in items"
+                :key="`${item.label.replace(' ', '-')}-${idx}`"
                 :item="item"
               />
             </slot>
@@ -47,6 +56,7 @@
 
 <script>
 import KButton from '@kongponents/kbutton/KButton.vue'
+import Kooltip from '@kongponents/kooltip/KoolTip.vue'
 import KPop from '@kongponents/kpop/KPop.vue'
 import KToggle from '@kongponents/ktoggle/KToggle'
 import KDropdownItem from './KDropdownItem.vue'
@@ -63,6 +73,7 @@ export default {
   components: {
     KButton,
     KDropdownItem,
+    Kooltip,
     KPop,
     KToggle
   },
@@ -84,6 +95,14 @@ export default {
     items: {
       type: Array,
       default: () => []
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    disabledTooltip: {
+      type: String,
+      default: ''
     }
   },
   data () {
