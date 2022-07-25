@@ -36,12 +36,12 @@ import gateway from './icn-gateway.svg'
 import gear from './icn-gear.svg'
 import gearFilled from './icn-gear-filled.svg'
 import grid from './icn-grid.svg'
+import gruceoEmptyState from './icn-gruceo-empty-state.svg'
 import help from './icn-help.svg'
 import immunity from './icn-immunity.svg'
 import increase from './icn-increase.svg'
 import info from './icn-info.svg'
 import kong from './icn-kong.svg'
-import gruceoEmptyState from './icn-gruceo-empty-state.svg'
 import lock from './icn-lock.svg'
 import list from './icn-list.svg'
 import more from './icn-more.svg'
@@ -121,12 +121,12 @@ export default {
   gear,
   gearFilled,
   grid,
+  gruceoEmptyState,
   help,
   immunity,
   increase,
   info,
   kong,
-  gruceoEmptyState,
   list,
   lock,
   more,
