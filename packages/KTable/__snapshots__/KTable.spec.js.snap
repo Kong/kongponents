@@ -449,10 +449,10 @@ exports[`KTable states displays an empty state when no data is available 1`] = `
     <section class="empty-state-wrapper">
       <div class="empty-state-title">
         <!---->
-        <div class="k-empty-state-title-header">No Data</div>
+        <div class="k-empty-state-title-header mt-4 mb-4">No Data</div>
       </div>
       <div class="empty-state-content">
-        <div class="k-empty-state-message">There is no data to display.</div>
+        <div class="k-empty-state-message mb-6">There is no data to display.</div>
         <div class="k-empty-state-cta">
           <!---->
         </div>
@@ -473,7 +473,7 @@ exports[`KTable states displays an error state when the "hasError" prop is set t
   <div data-testid="k-table-error-state" class="k-table-error-state">
     <section class="empty-state-wrapper is-error">
       <div class="empty-state-title">
-        <div class="k-empty-state-icon card-icon mb-4 warning-icon"><span class="kong-icon kong-icon-warning"><svg width="48px" height="42px" viewBox="0 0 48 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <div class="k-empty-state-icon card-icon mb-3 warning-icon"><span class="kong-icon kong-icon-warning"><svg width="48px" height="42px" viewBox="0 0 48 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <title>Warning</title>
   <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
     <g id="icn-warning-64x">
@@ -484,10 +484,10 @@ exports[`KTable states displays an error state when the "hasError" prop is set t
   </g>
 </svg>
 </span></div>
-        <div class="k-empty-state-title-header">An error occurred</div>
+        <div class="k-empty-state-title-header mt-4 mb-4">An error occurred</div>
       </div>
       <div class="empty-state-content">
-        <div class="k-empty-state-message">Data cannot be displayed due to an error.</div>
+        <div class="k-empty-state-message mb-6">Data cannot be displayed due to an error.</div>
         <div class="k-empty-state-cta">
           <!---->
         </div>

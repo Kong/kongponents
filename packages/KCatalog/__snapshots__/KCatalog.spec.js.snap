@@ -990,7 +990,7 @@ exports[`KCatalog states displays an error state when the "hasError" prop is set
   <div data-testid="k-card-catalog-error-state" class="k-catalog-empty-state">
     <section class="empty-state-wrapper is-error">
       <div class="empty-state-title">
-        <div class="k-empty-state-icon card-icon mb-4 warning-icon"><span class="kong-icon kong-icon-warning"><svg width="50" height="50" viewBox="0 0 48 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img">
+        <div class="k-empty-state-icon card-icon mb-3 warning-icon"><span class="kong-icon kong-icon-warning"><svg width="50" height="50" viewBox="0 0 48 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img">
   <title>Warning</title>
   <g id="Page-1" stroke="none" stroke-width="1" fill="var(--black-70)" fill-rule="evenodd">
     <g id="icn-warning-64x">
@@ -1001,10 +1001,10 @@ exports[`KCatalog states displays an error state when the "hasError" prop is set
   </g>
 </svg>
 </span></div>
-        <div class="k-empty-state-title-header">An error occurred</div>
+        <div class="k-empty-state-title-header mt-4 mb-4">An error occurred</div>
       </div>
       <div class="empty-state-content">
-        <div class="k-empty-state-message">Data cannot be displayed due to an error.</div>
+        <div class="k-empty-state-message mb-6">Data cannot be displayed due to an error.</div>
         <div class="k-empty-state-cta">
           <!---->
         </div>
