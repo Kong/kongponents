@@ -33,6 +33,9 @@ export default defineConfig({
       },
     },
   },
+  server: {
+    host: '127.0.0.1', // This can be removed once Cypress component testing updates for Vite v3
+  },
   optimizeDeps: {
     include: [
       '@cypress/vue',
