@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.34.1 (2022-07-25)
+
+
+### Bug Fixes
+
+* **kpopover:** fix logic to prevent errors ([#716](https://github.com/Kong/kongponents/issues/716)) ([d0e7167](https://github.com/Kong/kongponents/commit/d0e71672ceae2e75d65cfebd1e83d5aa5a6d10b5))
+
+
+
+
+
 # 6.34.0 (2022-07-22)
 
 
