@@ -69,7 +69,6 @@ There are 5 icons: `stateConfigure`, `stateGruceo`, `stateNoData`, `stateNoSearc
 </div>
 &nbsp;
 
-
 <script>
   export default {
     data () {
@@ -79,7 +78,6 @@ There are 5 icons: `stateConfigure`, `stateGruceo`, `stateNoData`, `stateNoSearc
     }
   }
 </script>
-
 
 ### size
 
