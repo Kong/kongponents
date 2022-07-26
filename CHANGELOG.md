@@ -1,3 +1,11 @@
+# [7.0.0-beta.71](https://github.com/Kong/kongponents/compare/v7.0.0-beta.70...v7.0.0-beta.71) (2022-07-26)
+
+
+### Bug Fixes
+
+* **kemptystate:** backport [#720](https://github.com/Kong/kongponents/issues/720) [beta] ([#721](https://github.com/Kong/kongponents/issues/721)) ([1161571](https://github.com/Kong/kongponents/commit/116157134f4f3e35c2b798a66744014818eda793))
+* **kpopover:** fix logic to prevent errors [beta] ([#715](https://github.com/Kong/kongponents/issues/715)) ([6b06b92](https://github.com/Kong/kongponents/commit/6b06b928c1b4ed5419f3c456d3e021f5f0e07570))
+
 # [7.0.0-beta.70](https://github.com/Kong/kongponents/compare/v7.0.0-beta.69...v7.0.0-beta.70) (2022-07-22)
 
 
