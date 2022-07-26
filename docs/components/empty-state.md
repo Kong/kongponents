@@ -2,13 +2,13 @@
 
 **KEmptyState** is used as a placeholder card when the primary content is not available or empty. It can also optionally be used as an error state.
 
-<KEmptyState cta-text="CTA Button">
+<KEmptyState cta-text="CTA button">
   <template v-slot:title>Title</template>
   <template v-slot:message>Message</template>
 </KEmptyState>
 
 ```html
-<KEmptyState cta-text="CTA Button">
+<KEmptyState cta-text="CTA button">
   <template v-slot:title>EmptyState Title</template>
   <template v-slot:message>EmptyState Message</template>
 </KEmptyState>
@@ -21,13 +21,13 @@
 Boolean value used to hide the call to action button.
 
 <KEmptyState cta-is-hidden>
-  <template v-slot:title>No Content</template>
+  <template v-slot:title>No content</template>
   <template v-slot:message>You do not have any content here 😉️</template>
 </KEmptyState>
 
 ```html
 <KEmptyState cta-is-hidden>
-  <template v-slot:title>No Content</template>
+  <template v-slot:title>No content</template>
   <template v-slot:message>You do not have any content here 😉️</template>
 </KEmptyState>
 ```
@@ -35,14 +35,14 @@ Boolean value used to hide the call to action button.
 You can also use this to move your call to action into the message text.
 
 <KEmptyState cta-is-hidden>
-  <template v-slot:title>No Services</template>
-  <template v-slot:message><router-link to="/">Add a Service</router-link> to begin proxying traffic.</template>
+  <template v-slot:title>No services</template>
+  <template v-slot:message><router-link to="/">Add a service</router-link> to begin proxying traffic.</template>
 </KEmptyState>
 
 ```html
 <KEmptyState cta-is-hidden>
-  <template v-slot:title>No Services</template>
-  <template v-slot:message><router-link>Add a Service</router-link> to begin proxying traffic</template>
+  <template v-slot:title>No services</template>
+  <template v-slot:message><router-link>Add a service</router-link> to begin proxying traffic</template>
 </KEmptyState>
 ```
 
@@ -50,13 +50,13 @@ You can also use this to move your call to action into the message text.
 
 A string to be used as the text content of the call to action button.
 
-<KEmptyState cta-text="button text">
+<KEmptyState cta-text="Button text">
   <template v-slot:title>No Content</template>
   <template v-slot:message>You do not have any content here 😉️</template>
 </KEmptyState>
 
 ```html
-<KEmptyState cta-text="button text">
+<KEmptyState cta-text="Button text">
   <template v-slot:title>No Content</template>
   <template v-slot:message>You do not have any content here 😉️</template>
 </KEmptyState>
@@ -66,14 +66,14 @@ A string to be used as the text content of the call to action button.
 
 A function that is passed as the click handler for the call to action button
 
-<KEmptyState cta-text="Click Me!" :handle-click="clickFunction">
-  <template v-slot:title>No Content</template>
+<KEmptyState cta-text="Click me!" :handle-click="clickFunction">
+  <template v-slot:title>No content</template>
   <template v-slot:message>You do not have any content here 😉️</template>
 </KEmptyState>
 
 ```html
-<KEmptyState cta-text="Click Me!" :handle-click="clickFunction">
-  <template v-slot:title>No Content</template>
+<KEmptyState cta-text="Click me!" :handle-click="clickFunction">
+  <template v-slot:title>No content</template>
   <template v-slot:message>You do not have any content here 😉️</template>
 </KEmptyState>
 
@@ -170,7 +170,7 @@ A string denoting the color of the icon to be displayed above the empty state me
       Adding new users will populate this table.
   </template>
   <template v-slot:cta>
-    <KButton appearance="primary">Add a User</KButton>
+    <KButton appearance="primary">Add a user</KButton>
   </template>
 </KEmptyState>
 
@@ -181,7 +181,7 @@ A string denoting the color of the icon to be displayed above the empty state me
       Adding new users will populate this table.
   </template>
   <template v-slot:cta>
-    <KButton appearance="primary">Add a User</KButton>
+    <KButton appearance="primary">Add a user</KButton>
   </template>
 </KEmptyState>
 ```
@@ -191,19 +191,19 @@ A string denoting the color of the icon to be displayed above the empty state me
 `KEmptyState` has 3 named slots used, `title`, `message`, and `cta`. You can use the props outlined about to control the text and click handler of the button or hide it altogether. You can also use the `cta` slot to pass anything you want!
 
 <KEmptyState icon="kong">
-  <template v-slot:title>Look Mah!</template>
+  <template v-slot:title>Look mah!</template>
   <template v-slot:message>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.</template>
   <template v-slot:cta>
-    <KButton appearance="danger" size="small">Danger Button</KButton>
+    <KButton appearance="danger" size="small">Danger button</KButton>
   </template>
 </KEmptyState>
 
 ```html
 <KEmptyState icon="kong">
   <template v-slot:cta>
-  <template v-slot:title>Look Mah!</template>
+  <template v-slot:title>Look mah!</template>
   <template v-slot:message>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.</template>
-    <KButton appearance="danger" size="small">Danger Button</KButton>
+    <KButton appearance="danger" size="small">Danger button</KButton>
   </template>
 </KEmptyState>
 ```
@@ -219,7 +219,7 @@ A string denoting the color of the icon to be displayed above the empty state me
 An Example of what using theming might look like.
 
 <div class="custom-empty-state">
-  <KEmptyState cta-text="CTA Button">
+  <KEmptyState cta-text="CTA button">
     <template v-slot:title>Title</template>
     <template v-slot:message>Message</template>
   </KEmptyState>
@@ -227,7 +227,7 @@ An Example of what using theming might look like.
 
 ```html
 <div class="custom-empty-state">
-  <KEmptyState cta-text="CTA Button">
+  <KEmptyState cta-text="CTA button">
     <template v-slot:title>EmptyState Title</template>
     <template v-slot:message>EmptyState Message</template>
   </KEmptyState>
@@ -235,18 +235,18 @@ An Example of what using theming might look like.
 
 <style scoped lang="scss">
 .custom-empty-state {
-  --KEmptyTitleColor: red;
-  --KEmptyContentColor: blue;
-  --KEmptyBackground: grey;
+  --KEmptyTitleColor: #556B2F;
+  --KEmptyContentColor: #C71585;
+  --KEmptyBackground: #FFF0F5;
 }
 </style>
 ```
 
 <style scoped lang="scss">
 .custom-empty-state {
-  --KEmptyTitleColor: red;
-  --KEmptyContentColor: blue;
-  --KEmptyBackground: grey;
+  --KEmptyTitleColor: #556B2F;
+  --KEmptyContentColor: #C71585;
+  --KEmptyBackground: #FFF0F5;
 }
 </style>
 
