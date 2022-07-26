@@ -233,7 +233,7 @@ KSelect works as regular inputs do using v-model for data binding:
 
 ### autosuggest
 
-With `autosuggest`, you can type in the input, trigger a query to an API with the search keyword, and then update `items` asynchronously as suggestions.
+Add the `autosuggest` prop to trigger a query to an API with the filter keyword, and then update `items` asynchronously as suggestions as the user types.
 Loading state and empty state can be configured using the `loading` and `empty` slots.
 
 <KSelect
