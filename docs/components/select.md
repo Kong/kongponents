@@ -396,7 +396,7 @@ function getItems(count) {
 
 const allItems = new Array(10).fill().map((_, i) => ({
   label: `Item ${i}`,
-  value: `Item ${i}`
+  value: `autosuggest-item-${i}`
 }));
 
 export default {
