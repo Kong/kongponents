@@ -40,9 +40,9 @@ following list. It tells KIcon which svg to render.
 </div>
 &nbsp;
 
-#### state icons
+#### State icons
 
-There are 5 icons: `stateConfigure`, `stateGruceo`, `stateNoData`, `stateNoSearchResults`, `stateUpload` that are used in `KEmptyState`.
+The `state`-prefixed icons shown below are styled differently than our normal icons listed above and are meant to be used inside instances of `KEmptyState` where they appear larger in the UI.
 
 <div>
   <KToggle v-slot="{ isToggled, toggle }">
@@ -73,6 +73,7 @@ There are 5 icons: `stateConfigure`, `stateGruceo`, `stateNoData`, `stateNoSearc
   export default {
     data () {
       return {
+        // Add additional `state`-prefixed icons here as needed to display in the State icons section
         stateIcons : ['stateConfigure', 'stateGruceo', 'stateNoData', 'stateNoSearchResults', 'stateUpload']
       }
     }
