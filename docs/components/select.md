@@ -455,7 +455,7 @@ export default {
       this.loading = true;
       setTimeout(() => {
         this.keyword = val;
-        this.itemsForAutosuggest = allItems.filter(item => item.label.includes(this.keyword)).map(item => Object.assign({}, item));
+        this.itemsForAutosuggest = allItems.filter(item => item.label.toLowerCase().includes(this.keyword.toLowerCase())).map(item => Object.assign({}, item));
         this.loading = false;
       }, 400);
     },
