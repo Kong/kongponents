@@ -272,6 +272,7 @@ Loading and empty state content can be configured using the `loading` and `empty
 <script>
 const allItems = new Array(10).fill().map((_, i) => ({
   label: `Item ${i}`,
+  description: `This is the description for item ${i}.`,
   value: `autosuggest-item-${i}`
 }));
 export default {
