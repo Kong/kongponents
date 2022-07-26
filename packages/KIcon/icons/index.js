@@ -12,7 +12,6 @@ import clipboard from './icn-clipboard.svg'
 import close from './icn-close.svg'
 import cogwheel from './icn-cogwheel.svg'
 import collapseExpand from './icn-collapse-expand.svg'
-import configureEmptyState from './icn-configure-empty-state.svg'
 import connections from './icn-connections.svg'
 import copy from './icn-copy.svg'
 import dangerCircle from './icn-danger-circle.svg'
@@ -36,7 +35,6 @@ import gateway from './icn-gateway.svg'
 import gear from './icn-gear.svg'
 import gearFilled from './icn-gear-filled.svg'
 import grid from './icn-grid.svg'
-import gruceoEmptyState from './icn-gruceo-empty-state.svg'
 import help from './icn-help.svg'
 import immunity from './icn-immunity.svg'
 import increase from './icn-increase.svg'
@@ -46,10 +44,8 @@ import lock from './icn-lock.svg'
 import list from './icn-list.svg'
 import more from './icn-more.svg'
 import noData from './icn-no-data.svg'
-import noDataEmptyState from './icn-no-data-empty-state.svg'
 import notificationBell from './icn-notification-bell.svg'
 import notificationInbox from './icn-notification-inbox.svg'
-import noResults from './icn-no-results.svg'
 import organization from './icn-organization.svg'
 import plus from './icn-plus.svg'
 import organizations from './icn-organizations.svg'
@@ -67,15 +63,16 @@ import services from './icn-services.svg'
 import sharedConfig from './icn-shared-config.svg'
 import spinner from './icn-spinner.svg'
 import stackedCards from './icn-stacked-cards.svg'
+import stateConfigure from './icn-state-configure.svg'
+import stateGruceo from './icn-state-gruceo.svg'
+import stateNoData from './icn-state-no-data.svg'
+import stateNoSearchResults from './icn-state-no-search-results.svg'
+import stateUpload from './icn-state-upload.svg'
 import support from './icn-support.svg'
 import table from './icn-table.svg'
 import team from './icn-team.svg'
 import teamMember from './icn-team-member.svg'
 import trash from './icn-trash.svg'
-import uploadDefaultState from './icn-upload-default-state.svg'
-import uploadDefaultStateNoArrow from './icn-upload-default-state-no-arrow.svg'
-import uploadHoverState from './icn-upload-hover-state.svg'
-import uploadHoverStateNoArrow from './icn-upload-hover-state-no-arrow.svg'
 import vitals from './icn-vitals.svg'
 import vitalsChart from './icn-vitals-chart.svg'
 import warning from './icn-warning.svg'
@@ -97,7 +94,6 @@ export default {
   close,
   cogwheel,
   collapseExpand,
-  configureEmptyState,
   connections,
   copy,
   dangerCircle,
@@ -121,7 +117,6 @@ export default {
   gear,
   gearFilled,
   grid,
-  gruceoEmptyState,
   help,
   immunity,
   increase,
@@ -131,8 +126,6 @@ export default {
   lock,
   more,
   noData,
-  noDataEmptyState,
-  noResults,
   notificationBell,
   notificationInbox,
   organization,
@@ -157,13 +150,14 @@ export default {
   team,
   teamMember,
   trash,
-  uploadDefaultState,
-  uploadDefaultStateNoArrow,
-  uploadHoverState,
-  uploadHoverStateNoArrow,
   vitals,
   vitalsChart,
   warning,
   workspaces,
-  workspacesCollapsed
+  workspacesCollapsed,
+  stateConfigure,
+  stateGruceo,
+  stateNoData,
+  stateNoSearchResults,
+  stateUpload
 }
