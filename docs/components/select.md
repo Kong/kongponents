@@ -244,6 +244,10 @@ Loading and empty state content can be configured using the `loading` and `empty
   @keyword-change="onKeywordChange"
   @focus="onFocus"
 >
+  <template v-slot:item-template="{ item }">
+    <div class="select-item-label">{{ item.label }}</div>
+    <div class="select-item-desc">{{ item.description }}</div>
+  </template>
   <template v-slot:loading>
     <div>Loading...</div>
   </template>
