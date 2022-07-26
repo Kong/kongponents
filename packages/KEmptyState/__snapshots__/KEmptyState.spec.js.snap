@@ -4,10 +4,10 @@ exports[`KEmptyState matches snapshot 1`] = `
 <section class="empty-state-wrapper">
   <div class="empty-state-title">
     <!---->
-    <div class="k-empty-state-title-header"></div>
+    <div class="k-empty-state-title-header mt-4 mb-4"></div>
   </div>
   <div class="empty-state-content">
-    <div class="k-empty-state-message"></div>
+    <div class="k-empty-state-message mb-6"></div>
     <div class="k-empty-state-cta"><button type="button" class="k-button small rounded primary">
         <!---->
 
@@ -19,15 +19,15 @@ exports[`KEmptyState matches snapshot 1`] = `
 exports[`KEmptyState renders custom icon when icon prop passed 1`] = `
 <section class="empty-state-wrapper">
   <div class="empty-state-title">
-    <div class="k-empty-state-icon card-icon mb-4"><span class="kong-icon kong-icon-support"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+    <div class="k-empty-state-icon card-icon mb-3"><span class="kong-icon kong-icon-support"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
   <title>Support</title>
   <path fill="#A3BBCC" fill-rule="evenodd" d="M3 12v1c0 .5522847.4477153 1 1 1h4c.5522847 0 1 .4477153 1 1s-.4477153 1-1 1H4c-1.6568542 0-3-1.3431458-3-3v-1c-.5522847 0-1-.4477153-1-1V7c0-.5522847.4477153-1 1-1h.0708889C1.5561185 2.6077059 4.4735281 0 8 0s6.4438815 2.6077059 6.9291111 6H15c.5522847 0 1 .4477153 1 1v4c0 .5522847-.4477153 1-1 1h-2c-.5522847 0-1-.4477153-1-1V7c0-.5188639.3951689-.9454312.9009623-.9951576C12.439565 3.7201899 10.4206685 2 8 2 5.5793315 2 3.560435 3.7201899 3.0990377 6.0048424 3.6048311 6.0545688 4 6.4811361 4 7v4c0 .5522847-.4477153 1-1 1z"></path>
 </svg>
 </span></div>
-    <div class="k-empty-state-title-header"></div>
+    <div class="k-empty-state-title-header mt-4 mb-4"></div>
   </div>
   <div class="empty-state-content">
-    <div class="k-empty-state-message">
+    <div class="k-empty-state-message mb-6">
       <div>Support me</div>
     </div>
     <div class="k-empty-state-cta">
@@ -40,7 +40,7 @@ exports[`KEmptyState renders custom icon when icon prop passed 1`] = `
 exports[`KEmptyState renders icon when error flag passed 1`] = `
 <section class="empty-state-wrapper is-error">
   <div class="empty-state-title">
-    <div class="k-empty-state-icon card-icon mb-4 warning-icon"><span class="kong-icon kong-icon-warning"><svg width="48px" height="42px" viewBox="0 0 48 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <div class="k-empty-state-icon card-icon mb-3 warning-icon"><span class="kong-icon kong-icon-warning"><svg width="48px" height="42px" viewBox="0 0 48 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <title>Warning</title>
   <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
     <g id="icn-warning-64x">
@@ -51,10 +51,10 @@ exports[`KEmptyState renders icon when error flag passed 1`] = `
   </g>
 </svg>
 </span></div>
-    <div class="k-empty-state-title-header"></div>
+    <div class="k-empty-state-title-header mt-4 mb-4"></div>
   </div>
   <div class="empty-state-content">
-    <div class="k-empty-state-message">
+    <div class="k-empty-state-message mb-6">
       <div>I got a bad feeling about this</div>
     </div>
     <div class="k-empty-state-cta">
@@ -68,10 +68,10 @@ exports[`KEmptyState renders slots when passed 1`] = `
 <section class="empty-state-wrapper">
   <div class="empty-state-title">
     <!---->
-    <div class="k-empty-state-title-header"><span>No Entities Yet</span></div>
+    <div class="k-empty-state-title-header mt-4 mb-4"><span>No Entities Yet</span></div>
   </div>
   <div class="empty-state-content">
-    <div class="k-empty-state-message">
+    <div class="k-empty-state-message mb-6">
       <div>To Add an Entity, Press the Button</div>
     </div>
     <div class="k-empty-state-cta"><button type="button" class="k-button small rounded primary">

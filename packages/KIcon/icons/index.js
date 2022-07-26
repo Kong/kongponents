@@ -63,6 +63,11 @@ import services from './icn-services.svg'
 import sharedConfig from './icn-shared-config.svg'
 import spinner from './icn-spinner.svg'
 import stackedCards from './icn-stacked-cards.svg'
+import stateConfigure from './icn-state-configure.svg'
+import stateGruceo from './icn-state-gruceo.svg'
+import stateNoData from './icn-state-no-data.svg'
+import stateNoSearchResults from './icn-state-no-search-results.svg'
+import stateUpload from './icn-state-upload.svg'
 import support from './icn-support.svg'
 import table from './icn-table.svg'
 import team from './icn-team.svg'
@@ -89,8 +94,8 @@ export default {
   close,
   cogwheel,
   collapseExpand,
-  copy,
   connections,
+  copy,
   dangerCircle,
   dangerCircleOutline,
   dashboard,
@@ -149,5 +154,10 @@ export default {
   vitalsChart,
   warning,
   workspaces,
-  workspacesCollapsed
+  workspacesCollapsed,
+  stateConfigure,
+  stateGruceo,
+  stateNoData,
+  stateNoSearchResults,
+  stateUpload
 }

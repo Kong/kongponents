@@ -23,20 +23,62 @@ following list. It tells KIcon which svg to render.
         class="mb-4"
         @click="toggle">Toggle viewbox {{ isToggled ? 'off' : 'on' }}</KButton>
       <div class="icon-row">
-        <div
-          v-for="icon in $icons"
-          class="icon-cell"
-          :class="{ hasBg: isToggled }">
-          <KIcon
+        <div v-for="icon in $icons">
+          <div v-if="!stateIcons.includes(String(icon))"
+            class="icon-cell"
+            :class="{ hasBg: isToggled }"
+          >
+            <KIcon
             size="24"
             :icon="icon" />
-          <span>{{ icon }}</span>
+            <span>{{ icon }}</span>
+          </div>
         </div>
       </div>
     </div>
   </KToggle>
 </div>
 &nbsp;
+
+#### State icons
+
+The `state`-prefixed icons shown below are styled differently than our normal icons listed above and are meant to be used inside instances of `KEmptyState` where they appear larger in the UI.
+
+<div>
+  <KToggle v-slot="{ isToggled, toggle }">
+    <div>
+      <KButton
+        appearance="outline"
+        class="mb-4"
+        @click="toggle">Toggle viewbox {{ isToggled ? 'off' : 'on' }}</KButton>
+      <div class="state-icon-row">
+        <div v-for="icon in $icons">
+          <div v-if="stateIcons.includes(String(icon))"
+            class="icon-cell"
+            :class="{ hasBg: isToggled }"
+          >
+            <KIcon
+            size="96"
+            :icon="icon" />
+            <span>{{ icon }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </KToggle>
+</div>
+&nbsp;
+
+<script>
+  export default {
+    data () {
+      return {
+        // Add additional `state`-prefixed icons here as needed to display in the State icons section
+        stateIcons : ['stateConfigure', 'stateGruceo', 'stateNoData', 'stateNoSearchResults', 'stateUpload']
+      }
+    }
+  }
+</script>
 
 ### size
 
@@ -195,6 +237,7 @@ KIcon imports .svg files directly, so a loader is needed in order to render thes
 Check out the [contributing](/contributing/adding-an-icon.html) docs to learn about adding new icons to `KIcon`.
 
 <style lang="scss" scoped>
+
 .icon-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -208,6 +251,21 @@ Check out the [contributing](/contributing/adding-an-icon.html) docs to learn ab
   }
   span {
     margin: 0 .5rem;
+  }
+}
+
+.state-icon-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  .icon-cell {
+    display: flex;
+    align-items: center;
+    &.hasBg .kong-icon {
+      background-color: var(--blue-200);
+    }
+  }
+  span {
+    margin: 0 .5rem .5rem;
   }
 }
 </style>
