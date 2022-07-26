@@ -234,7 +234,7 @@ KSelect works as regular inputs do using v-model for data binding:
 ### autosuggest
 
 Add the `autosuggest` prop to trigger a query to an API with the filter keyword, and then update `items` asynchronously as suggestions as the user types.
-Loading state and empty state can be configured using the `loading` and `empty` slots.
+Loading and empty state content can be configured using the `loading` and `empty` slots.
 
 <KSelect
   autosuggest
