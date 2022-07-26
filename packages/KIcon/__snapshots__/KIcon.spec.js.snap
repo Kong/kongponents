@@ -587,7 +587,7 @@ exports[`KIcon renders stateNoSearchResults icon 1`] = `
 exports[`KIcon renders stateUpload icon 1`] = `
 <span class="kong-icon kong-icon-stateUpload"><svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" width="24" height="24">
   <title>stateUpload</title>
-<circle opacity=".5" cx="48" cy="48.294" r="47" stroke="#B6B6BD" stroke-linecap="round" stroke-dasharray="4 4"></circle><path d="M26 78h47.938V28.5l-8.97-9.5H26v59Z" stroke="#B6B6BD"></path><path d="M64.5 19v10H74" stroke="#B6B6BD"></path><path stroke="#169FCC" d="M38 36.5h24M38 45.5h24M38 54.5h24M38 63.5h24"></path><circle cx="73.5" cy="79.5" r="15.5" fill="#1155CB"></circle><mask id="a" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="58" y="64" width="31" height="31"><circle cx="73.5" cy="79.5" r="15.5" fill="#169FCC"></circle></mask><g mask="url(#a)"><path d="M65 80.088 73.5 71l8.5 9.088h-5V88h-7v-7.912h-5Z" fill="#fff"></path></g></svg></span>
+<circle opacity=".5" cx="48" cy="48.294" r="47" stroke="#B6B6BD" stroke-linecap="round" stroke-dasharray="4 4"></circle><path d="M26 78h47.938V28.5l-8.97-9.5H26v59Z" stroke="#B6B6BD"></path><path d="M64.5 19v10H74" stroke="#B6B6BD"></path><path stroke="#169FCC" d="M38 36.5h24M38 45.5h24M38 54.5h24M38 63.5h24"></path><circle cx="73.5" cy="79.5" r="15.5" fill="#1155CB" type="secondary"></circle><mask id="a" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="58" y="64" width="31" height="31"><circle cx="73.5" cy="79.5" r="15.5" fill="#169FCC"></circle></mask><g mask="url(#a)"><path d="M65 80.088 73.5 71l8.5 9.088h-5V88h-7v-7.912h-5Z" fill="#fff"></path></g></svg></span>
 `;
 
 exports[`KIcon renders support icon 1`] = `
