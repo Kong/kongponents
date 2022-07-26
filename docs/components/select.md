@@ -241,7 +241,7 @@ Loading and empty state content can be configured using the `loading` and `empty
   :items="itemsForAutosuggest"
   :loading="loading"
   appearance="select"
-  @keyword-change="onKeywordChange"
+  @query-change="onQueryChange"
   @focus="onFocus"
 >
   <template v-slot:item-template="{ item }">
@@ -262,7 +262,7 @@ Loading and empty state content can be configured using the `loading` and `empty
   :items="items"
   :loading="loading"
   appearance="select"
-  @keyword-change="onKeywordChange"
+  @query-change="onQueryChange"
   @focus="onFocus"
 > 
   <template v-slot:item-template="{ item }">
@@ -287,17 +287,20 @@ export default {
   data() {
     return {
       items: [],
-      keyword: '',
+      query: '',
       loading: false,
     }
   },
   methods: {
-    onKeywordChange (val) {
+    onQueryChange (val) {
       this.loading = true;
       // mock API call for items that contain the keyword
       setTimeout(() => {
-        this.keyword = val;
-        this.items = allItems.filter(item => item.label.toLowerCase().includes(this.keyword.toLowerCase())).map(item => Object.assign({}, item));
+        this.query = val;
+        this.items =
+          allItems
+            .filter(item => item.label.toLowerCase().includes(this.query.toLowerCase()) || item.description.toLowerCase().includes(this.query.toLowerCase()))
+            .map(item => Object.assign({}, item));
         this.loading = false;
       }, 400);
     },
@@ -313,6 +316,12 @@ export default {
 }
 </script>
 ```
+
+### loading
+
+When `autosuggest` is enabled, you can use the `loading` prop to show a loading indicator while fetching data from API.
+By default, the loading indicator is a spinner icon, and you can implement your own indicator using the `loading` slot.
+See [autosuggest](#autosuggest) for an example.
 
 ## Attribute Binding
 
@@ -381,12 +390,12 @@ export default {
 
 ## Events
 
-| Event     | returns             |
-| :-------- | :------------------ |
-| `selected` | `selectedItem` Object |
+| Event     | returns                       |
+| :-------- |:------------------------------|
+| `selected` | `selectedItem` Object         |
 | `input` | `selectedItem` Object or null |
 | `change` | `selectedItem` Object or null |
-| `keyword-change` | `keyword` String |
+| `query-change` | `query` String                |
 
 </div>
 
@@ -444,7 +453,7 @@ export default {
         value: '50'
       }],
       itemsForAutosuggest: [],
-      keyword: '',
+      query: '',
       loading: false,
     }
   },
@@ -461,11 +470,14 @@ export default {
     deepClone(obj) {
       return JSON.parse(JSON.stringify(obj))
     },
-    onKeywordChange (val) {
+    onQueryChange (val) {
       this.loading = true;
       setTimeout(() => {
-        this.keyword = val;
-        this.itemsForAutosuggest = allItems.filter(item => item.label.toLowerCase().includes(this.keyword.toLowerCase())).map(item => Object.assign({}, item));
+        this.query = val;
+        this.itemsForAutosuggest =
+          allItems
+            .filter(item => item.label.toLowerCase().includes(this.query.toLowerCase()) || item.description.toLowerCase().includes(this.query.toLowerCase()))
+            .map(item => Object.assign({}, item));
         this.loading = false;
       }, 400);
     },

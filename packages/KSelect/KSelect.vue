@@ -102,13 +102,13 @@
               class="k-select-input"
               @keypress="onInputKeypress"
               @keyup="!$attrs.disabled ? triggerFocus(isToggled) : null"
-              @input="onKeywordChange"
+              @input="onQueryChange"
               v-on="listeners"
             />
           </div>
           <template v-slot:content>
             <slot
-              v-if="loading"
+              v-if="autosuggest && loading"
               name="loading"
             >
               <KIcon
@@ -460,9 +460,9 @@ export default {
         return false
       }
     },
-    onKeywordChange (val) {
+    onQueryChange (val) {
       this.filterStr = val
-      this.$emit('keyword-change', val)
+      this.$emit('query-change', val)
     }
   }
 }
