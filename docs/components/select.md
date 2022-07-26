@@ -288,7 +288,7 @@ export default {
       // mock API call for items that contain the keyword
       setTimeout(() => {
         this.keyword = val;
-        this.items = allItems.filter(item => item.label.includes(this.keyword)).map(item => Object.assign({}, item));
+        this.items = allItems.filter(item => item.label.toLowerCase().includes(this.keyword.toLowerCase())).map(item => Object.assign({}, item));
         this.loading = false;
       }, 400);
     },
