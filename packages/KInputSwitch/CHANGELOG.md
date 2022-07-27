@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.34.3 (2022-07-27)
+
+
+### Bug Fixes
+
+* **kalert:** update default line height ([f40e069](https://github.com/Kong/kongponents/commit/f40e069e06021cee0391970f0bf07e374b3fdb0f))
+
+
+
+
+
 ## 6.34.2 (2022-07-26)
 
 **Note:** Version bump only for package @kongponents/kinputswitch
