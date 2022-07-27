@@ -1,3 +1,10 @@
+# [7.0.0-beta.72](https://github.com/Kong/kongponents/compare/v7.0.0-beta.71...v7.0.0-beta.72) (2022-07-27)
+
+
+### Bug Fixes
+
+* **kalert:** update default line-height ([047f5ac](https://github.com/Kong/kongponents/commit/047f5ac1fd60d78c142edb3307d6d41d6d555983))
+
 # [7.0.0-beta.71](https://github.com/Kong/kongponents/compare/v7.0.0-beta.70...v7.0.0-beta.71) (2022-07-26)
 
 
