@@ -5,7 +5,7 @@ exports[`KPop renders props when passed 1`] = `
     <!---->
     Click Me!
     <!----></button>
-  <div id="test-popover-id-1234" role="region" class="k-popover" style="width: 200px; max-width: 350px; display: none;" name="fade">
+  <div id="test-popover-id-1234" role="region" class="k-popover" style="width: 200px; max-width: 350px; max-height: auto; display: none;" name="fade">
     <div class="k-popover-header d-flex">
       <div class="k-popover-title">Cool Beans!</div>
       <!---->
@@ -21,7 +21,7 @@ exports[`KPop renders slots when passed 1`] = `
     <!---->
     OK
     <!----></button>
-  <div id="test-popover-id-1234" role="region" class="k-popover pb-0" style="width: 200px; max-width: 350px; display: none;" name="fade">
+  <div id="test-popover-id-1234" role="region" class="k-popover pb-0" style="width: 200px; max-width: 350px; max-height: auto; display: none;" name="fade">
     <div class="k-popover-header d-flex">
       <div class="k-popover-title"><span>Look Mah!</span></div>
       <div class="k-popover-actions"><span>Pop Actions</span></div>

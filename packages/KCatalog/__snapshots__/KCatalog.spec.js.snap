@@ -135,7 +135,7 @@ exports[`KCatalog general can change card sizes - large 1`] = `
 </svg>
 </span></button>
         </div>
-        <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; display: none;" name="fade">
+        <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; max-height: 300px; display: none;" name="fade">
           <!---->
           <div class="k-popover-content">
             <ul class="k-select-list ma-0 pa-0">
@@ -304,7 +304,7 @@ exports[`KCatalog general can change card sizes - small 1`] = `
 </svg>
 </span></button>
         </div>
-        <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; display: none;" name="fade">
+        <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; max-height: 300px; display: none;" name="fade">
           <!---->
           <div class="k-popover-content">
             <ul class="k-select-list ma-0 pa-0">
@@ -393,7 +393,7 @@ exports[`KCatalog general can disable truncation 1`] = `
 </svg>
 </span></button>
         </div>
-        <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; display: none;" name="fade">
+        <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; max-height: 300px; display: none;" name="fade">
           <!---->
           <div class="k-popover-content">
             <ul class="k-select-list ma-0 pa-0">
@@ -482,7 +482,7 @@ exports[`KCatalog general handles truncation 1`] = `
 </svg>
 </span></button>
         </div>
-        <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; display: none;" name="fade">
+        <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; max-height: 300px; display: none;" name="fade">
           <!---->
           <div class="k-popover-content">
             <ul class="k-select-list ma-0 pa-0">
@@ -551,7 +551,7 @@ exports[`KCatalog general matches snapshot 1`] = `
 </svg>
 </span></button>
         </div>
-        <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; display: none;" name="fade">
+        <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; max-height: 300px; display: none;" name="fade">
           <!---->
           <div class="k-popover-content">
             <ul class="k-select-list ma-0 pa-0">
@@ -722,7 +722,7 @@ exports[`KCatalog general renders proper cards when using props 1`] = `
 </svg>
 </span></button>
         </div>
-        <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; display: none;" name="fade">
+        <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; max-height: 300px; display: none;" name="fade">
           <!---->
           <div class="k-popover-content">
             <ul class="k-select-list ma-0 pa-0">
@@ -805,7 +805,7 @@ exports[`KCatalog general renders slots when passed 1`] = `
 </svg>
 </span></button>
         </div>
-        <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; display: none;" name="fade">
+        <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; max-height: 300px; display: none;" name="fade">
           <!---->
           <div class="k-popover-content">
             <ul class="k-select-list ma-0 pa-0">
@@ -890,7 +890,7 @@ exports[`KCatalog general renders slotted cards when passed 1`] = `
 </svg>
 </span></button>
         </div>
-        <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; display: none;" name="fade">
+        <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; max-height: 300px; display: none;" name="fade">
           <!---->
           <div class="k-popover-content">
             <ul class="k-select-list ma-0 pa-0">
@@ -959,7 +959,7 @@ exports[`KCatalog states displays a loading skeletion when the "isLoading" prop 
 </svg>
 </span></button>
         </div>
-        <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; display: none;" name="fade">
+        <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; max-height: 300px; display: none;" name="fade">
           <!---->
           <div class="k-popover-content">
             <ul class="k-select-list ma-0 pa-0">
