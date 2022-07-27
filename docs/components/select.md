@@ -317,6 +317,80 @@ export default {
 </script>
 ```
 
+:::tip Note
+The `query-change` event triggers immediately when the user types in the input.
+If you need to send API requests in the `query-change` event handler, you may want to implement a debounce function.
+The following is an example:
+:::
+
+<KSelect
+  autosuggest
+  :items="itemsForDebouncedAutosuggest"
+  :loading="loadingForDebounced"
+  appearance="select"
+  @query-change="onQueryChangeDebounced"
+>
+  <template v-slot:item-template="{ item }">
+    <div class="select-item-label">{{ item.label }}</div>
+    <div class="select-item-desc">{{ item.label }}</div>
+  </template>
+</KSelect>
+
+```vue
+<KSelect
+  autosuggest
+  :items="items"
+  :loading="loading"
+  appearance="select"
+  @query-change="onQueryChange"
+>
+  <template v-slot:item-template="{ item }">
+    <div class="select-item-label">{{ item.label }}</div>
+    <div class="select-item-desc">{{ item.label }}</div>
+  </template>
+</KSelect>
+
+<script>
+function debounce(func, timeout) {
+  let timer;
+  return function (...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+}
+const allItems = new Array(10).fill().map((_, i) => ({
+  label: `Item ${i}`,
+  description: `This is the description for item ${i}.`,
+  value: `autosuggest-item-${i}`
+}));
+export default {
+  data() {
+    return {
+      items: [],
+      query: '',
+      loading: false,
+    }
+  },
+  methods: {
+    onQueryChange: debounce(function (val) {
+      this.loading = true;
+      // mock API call for items that contain the keyword
+      setTimeout(() => {
+        this.query = val;
+        this.items =
+          allItems
+            .filter(item => item.label.toLowerCase().includes(this.query.toLowerCase()) || item.description.toLowerCase().includes(this.query.toLowerCase()))
+            .map(item => Object.assign({}, item));
+        this.loading = false;
+      }, 200);
+    }, 400)
+  }
+}
+</script>
+```
+
 ### loading
 
 When `autosuggest` is enabled, you can use the `loading` prop to show a loading indicator while fetching data from API.
@@ -412,6 +486,16 @@ function getItems(count) {
   return myItems
 }
 
+function debounce(func, timeout) {
+  let timer;
+  return function (...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+}
+
 const allItems = new Array(10).fill().map((_, i) => ({
   label: `Item ${i}`,
   description: `This is the description for item ${i}.`,
@@ -455,6 +539,9 @@ export default {
       itemsForAutosuggest: [],
       query: '',
       loading: false,
+      itemsForDebouncedAutosuggest: [],
+      queryForDebounced: '',
+      loadingForDebounced: false,
     }
   },
   mounted() {
@@ -487,7 +574,19 @@ export default {
         this.itemsForAutosuggest = allItems.map(item => Object.assign({}, item));
         this.loading = false;
       }, 200);
-    }
+    },
+    onQueryChangeDebounced: debounce(function (val) {
+      this.loadingForDebounced = true;
+      // mock API call for items that contain the keyword
+      setTimeout(() => {
+        this.queryForDebounced = val;
+        this.itemsForDebouncedAutosuggest =
+          allItems
+            .filter(item => item.label.toLowerCase().includes(this.queryForDebounced.toLowerCase()) || item.description.toLowerCase().includes(this.queryForDebounced.toLowerCase()))
+            .map(item => Object.assign({}, item));
+        this.loadingForDebounced = false;
+      }, 200);
+    }, 400)
   }
 }
 </script>
