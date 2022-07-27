@@ -191,6 +191,10 @@ export default {
         popoverClasses: ''
       })
     },
+    dropdownMaxHeight: {
+      type: String,
+      default: '300'
+    },
     label: {
       type: String,
       default: ''
@@ -312,6 +316,7 @@ export default {
         popoverClasses: theClasses,
         width: String(this.inputWidth),
         maxWidth: String(this.inputWidth),
+        maxHeight: String(this.dropdownMaxHeight),
         // We have to check here if the property exists since it evals to an empty string
         disabled: (this.$attrs.disabled !== undefined && String(this.$attrs.disabled) !== 'false') || (this.$attrs.readonly !== undefined && String(this.$attrs.readonly) !== 'false')
       }
@@ -575,6 +580,7 @@ export default {
     box-sizing: border-box;
     width: 100%;
     margin-top: 2px !important;
+    overflow: auto !important; // Allow setting a maxHeight on the popover dropdown
 
     &[x-placement^="top"] {
       margin-top: 0 !important;

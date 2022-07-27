@@ -167,7 +167,7 @@ export default {
 
 ### width
 
-You can pass a `width` string for dropdown. By default the `width` is `200px`. This is the width
+You can pass a `width` string for the dropdown. By default the `width` is `200px`. This is the width
 of the input, dropdown, and selected item. Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
 
 :::tip Note
@@ -180,6 +180,18 @@ Because we are controlling the widths of multiple elements, we recommend using t
 
 ```html
 <KSelect width="250" :items="items" />
+```
+
+### dropdownMaxHeight
+
+You can pass a `dropdownMaxHeight` string for the dropdown. By default, the `dropdownMaxHeight` is `300px`. This is the maximum height of the `KSelect` dropdown when open. You can pass a number (will be converted to `px`), `auto`, percentages, or `vh` units.
+
+<div>
+  <KSelect width="250" :items="deepClone(defaultItemsLongList)" dropdown-max-height="150" />
+</div>
+
+```html
+<KSelect width="250" :items="items" dropdown-max-height="150" />
 ```
 
 ### positionFixed
@@ -240,6 +252,7 @@ Loading and empty state content can be configured using the `loading` and `empty
   autosuggest
   :items="itemsForAutosuggest"
   :loading="loading"
+  width="300px"
   appearance="select"
   @query-change="onQueryChange"
   @focus="onFocus"
@@ -257,14 +270,15 @@ Loading and empty state content can be configured using the `loading` and `empty
 </KSelect>
 
 ```vue
-<KSelect 
+<KSelect
   autosuggest
   :items="items"
   :loading="loading"
+  width="300px"
   appearance="select"
   @query-change="onQueryChange"
   @focus="onFocus"
-> 
+>
   <template v-slot:item-template="{ item }">
     <div class="select-item-label">{{ item.label }}</div>
     <div class="select-item-desc">{{ item.label }}</div>
@@ -327,6 +341,7 @@ The following is an example:
   autosuggest
   :items="itemsForDebouncedAutosuggest"
   :loading="loadingForDebounced"
+  width="300px"
   appearance="select"
   @query-change="onQueryChangeDebounced"
 >
@@ -341,6 +356,7 @@ The following is an example:
   autosuggest
   :items="items"
   :loading="loading"
+  width="300px"
   appearance="select"
   @query-change="onQueryChange"
 >
@@ -587,6 +603,19 @@ export default {
         this.loadingForDebounced = false;
       }, 200);
     }, 400)
+  },
+  computed: {
+    defaultItemsLongList () {
+      let items = []
+      for (let i = 0; i < 30; i++) {
+        items.push({
+          label: `Item ${i}`,
+          value: i
+        })
+      }
+
+      return items
+    }
   }
 }
 </script>
