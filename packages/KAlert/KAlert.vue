@@ -350,7 +350,7 @@ export default {
   & > div .k-alert-msg {
     font-weight: 400;
     font-size: var(--type-md, type(md));
-    line-height: var(--type-md, type(md));
+    line-height: 1.3;
     padding: 2px 0;
     margin-left: 2px;
 
