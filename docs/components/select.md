@@ -255,7 +255,6 @@ Loading and empty state content can be configured using the `loading` and `empty
   width="300px"
   appearance="select"
   @query-change="onQueryChange"
-  @focus="onFocus"
 >
   <template v-slot:item-template="{ item }">
     <div class="select-item-label">{{ item.label }}</div>
@@ -277,7 +276,6 @@ Loading and empty state content can be configured using the `loading` and `empty
   width="300px"
   appearance="select"
   @query-change="onQueryChange"
-  @focus="onFocus"
 >
   <template v-slot:item-template="{ item }">
     <div class="select-item-label">{{ item.label }}</div>
@@ -317,14 +315,6 @@ export default {
             .map(item => Object.assign({}, item));
         this.loading = false;
       }, 400);
-    },
-    onFocus () {
-      this.loading = true;
-      // mock API call for all items
-      setTimeout(() => {
-        this.items = allItems.map(item => Object.assign({}, item));
-        this.loading = false;
-      }, 200);
     }
   }
 }
@@ -386,7 +376,7 @@ export default {
     return {
       items: [],
       query: '',
-      loading: false,
+      loading: true,
     }
   },
   methods: {
@@ -557,7 +547,7 @@ export default {
       loading: false,
       itemsForDebouncedAutosuggest: [],
       queryForDebounced: '',
-      loadingForDebounced: false,
+      loadingForDebounced: true,
     }
   },
   mounted() {
@@ -583,13 +573,6 @@ export default {
             .map(item => Object.assign({}, item));
         this.loading = false;
       }, 400);
-    },
-    onFocus () {
-      this.loading = true;
-      setTimeout(() => {
-        this.itemsForAutosuggest = allItems.map(item => Object.assign({}, item));
-        this.loading = false;
-      }, 200);
     },
     onQueryChangeDebounced: debounce(function (val) {
       this.loadingForDebounced = true;

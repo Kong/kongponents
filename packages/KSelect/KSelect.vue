@@ -103,7 +103,7 @@
               @keypress="onInputKeypress"
               @keyup="!$attrs.disabled ? triggerFocus(isToggled) : null"
               @input="onQueryChange"
-              v-on="listeners"
+              @focus="onInputFocus"
             />
           </div>
           <template v-slot:content>
@@ -302,7 +302,8 @@ export default {
       selectId: !this.testMode ? uuid.v1() : 'test-select-id-1234',
       selectInputId: !this.testMode ? uuid.v1() : 'test-select-input-id-1234',
       selectTextId: !this.testMode ? uuid.v1() : 'test-select-text-id-1234',
-      selectItems: []
+      selectItems: [],
+      initialFocusTriggered: false
     }
   },
 
@@ -468,6 +469,12 @@ export default {
     onQueryChange (val) {
       this.filterStr = val
       this.$emit('query-change', val)
+    },
+    onInputFocus () {
+      if (!this.initialFocusTriggered) {
+        this.initialFocusTriggered = true
+        this.$emit('query-change', '')
+      }
     }
   }
 }

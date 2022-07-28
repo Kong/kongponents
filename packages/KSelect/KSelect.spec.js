@@ -218,7 +218,7 @@ describe('KSelect', () => {
   })
 
   it('works in autosuggest mode', async () => {
-    const onInput = jest.fn()
+    const onQueryChange = jest.fn()
     const items = []
     const wrapper = mount(KSelect, {
       propsData: {
@@ -228,14 +228,14 @@ describe('KSelect', () => {
         items
       },
       listeners: {
-        input: onInput
+        'query-change': onQueryChange
       }
     })
     const input2 = wrapper.find('input')
 
     input2.setValue('a')
 
-    expect(onInput).toHaveBeenCalledWith('a')
+    expect(onQueryChange).toHaveBeenCalledWith('a')
 
     wrapper.setProps({ loading: true })
     await tick(wrapper.vm, 1)
