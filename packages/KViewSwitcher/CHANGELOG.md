@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.35.0 (2022-07-28)
+
+
+### Features
+
+* **kselect:** add autosuggest support [KHCP-4227] ([#717](https://github.com/Kong/kongponents/issues/717)) ([27a49a6](https://github.com/Kong/kongponents/commit/27a49a6822ebb95c3e310fc0f2626c5d66fc03bc))
+
+
+
+
+
 ## 6.34.3 (2022-07-27)
 
 
