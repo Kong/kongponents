@@ -1,5 +1,8 @@
 <template>
-  <div class="k-dropdown">
+  <div
+    :class="{'selection-dropdown-menu': appearance === 'selection'}"
+    class="k-dropdown k-dropdown-menu"
+  >
     <KToggle v-slot="{toggle, isToggled}">
       <KPop
         v-bind="boundKPopAttributes"
@@ -45,6 +48,7 @@
                 v-for="(item, idx) in items"
                 :key="`${item.label.replace(' ', '-')}-${idx}`"
                 :item="item"
+                :selected="item.selected"
               />
             </slot>
           </ul>
@@ -78,6 +82,10 @@ export default {
     KToggle
   },
   props: {
+    appearance: {
+      type: String,
+      default: 'menu'
+    },
     btnText: {
       type: String,
       default: ''
@@ -120,7 +128,7 @@ export default {
 <style lang="scss" scoped>
 @import '~@kongponents/styles/variables';
 
-.k-dropdown {
+.k-dropdown-menu {
   .drodpown-trigger:after {
     display: inline-block;
     width: 0;
@@ -135,6 +143,40 @@ export default {
 
   .k-dropdown-list.dropdown-list {
     min-width: 148px;
+  }
+
+  &.selection-dropdown-menu {
+    .dropdown-trigger.k-button {
+      border: 0;
+      width: auto;
+      color: var(--grey-600);
+      white-space: nowrap;
+
+      &:focus {
+        box-shadow: none;
+      }
+
+      &:active:disabled {
+        background-color: var(--white);
+      }
+
+      &.is-active {
+        background-color: var(--grey-100);
+      }
+
+      // Set dropdown icon color
+      --KButtonOutlineColor: var(--grey-500);
+    }
+
+    .k-popover.k-dropdown-popover {
+      z-index: 10000 !important;
+
+      .k-popover-content {
+        ul.k-dropdown-list {
+          margin-left: 7px;
+        }
+      }
+    }
   }
 }
 </style>
@@ -160,6 +202,26 @@ export default {
     &:active,
     &:focus {
       text-decoration: none;
+    }
+  }
+}
+
+.selection-dropdown-menu {
+  .k-popover.k-dropdown-popover {
+    z-index: 10000 !important;
+
+    li {
+      .non-visual-button {
+        font-weight: 400 !important;
+      }
+
+      &.k-dropdown-selected-option {
+        background-color: var(--blue-100);
+
+        .non-visual-button {
+          font-weight: 500 !important;
+        }
+      }
     }
   }
 }
