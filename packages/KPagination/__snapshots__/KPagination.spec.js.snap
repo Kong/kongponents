@@ -43,7 +43,7 @@ exports[`KPagination correctly renders props 1`] = `
 </svg>
 </span></button>
   </div>
-  <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; display: none;" name="fade">
+  <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; max-height: 300px; display: none;" name="fade">
     <!---->
     <div class="k-popover-content">
       <ul class="k-select-list ma-0 pa-0">
@@ -58,6 +58,7 @@ exports[`KPagination correctly renders props 1`] = `
         </li>
         <!---->
       </ul>
+      <!---->
     </div>
     <!---->
   </div>
@@ -120,7 +121,7 @@ exports[`KPagination matches snapshot 1`] = `
 </svg>
 </span></button>
   </div>
-  <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; display: none;" name="fade">
+  <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; max-height: 300px; display: none;" name="fade">
     <!---->
     <div class="k-popover-content">
       <ul class="k-select-list ma-0 pa-0">
@@ -135,6 +136,7 @@ exports[`KPagination matches snapshot 1`] = `
         </li>
         <!---->
       </ul>
+      <!---->
     </div>
     <!---->
   </div>
