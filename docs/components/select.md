@@ -223,6 +223,12 @@ myCustomFilter ({ items, query }) {
 }
 ```
 
+:::tip Note
+`filterFunc` does not work with `autosuggest` enabled.
+For `autosuggest`, you are in charge of filtering the options, so `KSelect` won't filter them internally.
+See [autosuggest](#autosuggest) for more details.
+:::
+
 ### v-model
 
 KSelect works as regular inputs do using v-model for data binding:
