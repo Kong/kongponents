@@ -298,23 +298,37 @@ const allItems = new Array(10).fill().map((_, i) => ({
 export default {
   data() {
     return {
+      defaultItems: [],
       items: [],
-      query: '',
       loading: false,
     }
   },
   methods: {
     onQueryChange (val) {
+      if (val === '' && !this.defaultItems.length) {
+        this.loading = true;
+        // If query is empty and default items are not fetched, fetch them
+        setTimeout(() => {
+          this.defaultItems = allItems;
+          this.items = this.defaultItems.map(item => Object.assign({}, item));
+          this.loading = false;
+        }, 200);
+        return;
+      }
+      if (val === '') {
+        // If query is empty and default items are fetched, use the default items
+        this.items = this.defaultItems.map(item => Object.assign({}, item));
+        return;
+      }
       this.loading = true;
-      // mock API call for items that contain the keyword
+      // Otherwise fetch items that contain the keyword
       setTimeout(() => {
-        this.query = val;
         this.items =
           allItems
-            .filter(item => item.label.toLowerCase().includes(this.query.toLowerCase()) || item.description.toLowerCase().includes(this.query.toLowerCase()))
+            .filter(item => item.label.toLowerCase().includes(val.toLowerCase()) || item.description.toLowerCase().includes(val.toLowerCase()))
             .map(item => Object.assign({}, item));
         this.loading = false;
-      }, 400);
+      }, 200);
     }
   }
 }
@@ -333,7 +347,7 @@ The following is an example:
   :loading="loadingForDebounced"
   width="300px"
   appearance="select"
-  @query-change="onQueryChangeDebounced"
+  @query-change="onQueryChangeForDebounced"
 >
   <template v-slot:item-template="{ item }">
     <div class="select-item-label">{{ item.label }}</div>
@@ -374,20 +388,37 @@ const allItems = new Array(10).fill().map((_, i) => ({
 export default {
   data() {
     return {
+      defaultItems: [],
       items: [],
-      query: '',
       loading: true,
     }
   },
   methods: {
-    onQueryChange: debounce(function (val) {
+    onQueryChange (val) {
+      if (val === '' && !this.defaultItems.length) {
+        // If query is empty and default items are not fetched, fetch them
+        this.loading = true;
+        setTimeout(() => {
+          this.defaultItems = allItems;
+          this.items = this.defaultItems.map(item => Object.assign({}, item));
+          this.loading = false;
+        }, 200);
+        return;
+      }
+      if (val === '') {
+        // If query is empty and default items are fetched, use the default items
+        this.items = this.defaultItems.map(item => Object.assign({}, item));
+        return;
+      }
+      this.debouncedHandler(val);
+    },
+    debouncedHandler: debounce(function (val) {
       this.loading = true;
-      // mock API call for items that contain the keyword
+      // Fetch items that contain the keyword
       setTimeout(() => {
-        this.query = val;
         this.items =
           allItems
-            .filter(item => item.label.toLowerCase().includes(this.query.toLowerCase()) || item.description.toLowerCase().includes(this.query.toLowerCase()))
+            .filter(item => item.label.toLowerCase().includes(val.toLowerCase()) || item.description.toLowerCase().includes(val.toLowerCase()))
             .map(item => Object.assign({}, item));
         this.loading = false;
       }, 200);
@@ -542,11 +573,11 @@ export default {
         label: '50',
         value: '50'
       }],
+      defaultItemsForAutosuggest: [],
       itemsForAutosuggest: [],
-      query: '',
       loading: false,
+      defaultItemsForDebouncedAutosuggest: [],
       itemsForDebouncedAutosuggest: [],
-      queryForDebounced: '',
       loadingForDebounced: true,
     }
   },
@@ -564,24 +595,51 @@ export default {
       return JSON.parse(JSON.stringify(obj))
     },
     onQueryChange (val) {
+      if (val === '' && !this.defaultItemsForAutosuggest.length) {
+        this.loading = true;
+        setTimeout(() => {
+          this.defaultItemsForAutosuggest = allItems;
+          this.itemsForAutosuggest = this.defaultItemsForAutosuggest.map(item => Object.assign({}, item));
+          this.loading = false;
+        }, 200);
+        return;
+      }
+      if (val === '') {
+        this.itemsForAutosuggest = this.defaultItemsForAutosuggest.map(item => Object.assign({}, item));
+        return;
+      }
       this.loading = true;
       setTimeout(() => {
-        this.query = val;
         this.itemsForAutosuggest =
           allItems
-            .filter(item => item.label.toLowerCase().includes(this.query.toLowerCase()) || item.description.toLowerCase().includes(this.query.toLowerCase()))
+            .filter(item => item.label.toLowerCase().includes(val.toLowerCase()) || item.description.toLowerCase().includes(val.toLowerCase()))
             .map(item => Object.assign({}, item));
         this.loading = false;
-      }, 400);
+      }, 200);
     },
-    onQueryChangeDebounced: debounce(function (val) {
+    onQueryChangeForDebounced (val) {
+      if (val === '' && !this.defaultItemsForDebouncedAutosuggest.length) {
+        this.loadingForDebounced = true;
+        setTimeout(() => {
+          this.defaultItemsForDebouncedAutosuggest = allItems;
+          this.itemsForDebouncedAutosuggest = this.defaultItemsForDebouncedAutosuggest.map(item => Object.assign({}, item));
+          this.loadingForDebounced = false;
+        }, 200);
+        return;
+      }
+      if (val === '') {
+        this.itemsForDebouncedAutosuggest = this.defaultItemsForDebouncedAutosuggest.map(item => Object.assign({}, item));
+        return;
+      }
+      this.debouncedHandler(val);
+    },
+    debouncedHandler: debounce(function (val) {
       this.loadingForDebounced = true;
       // mock API call for items that contain the keyword
       setTimeout(() => {
-        this.queryForDebounced = val;
         this.itemsForDebouncedAutosuggest =
           allItems
-            .filter(item => item.label.toLowerCase().includes(this.queryForDebounced.toLowerCase()) || item.description.toLowerCase().includes(this.queryForDebounced.toLowerCase()))
+            .filter(item => item.label.toLowerCase().includes(val.toLowerCase()) || item.description.toLowerCase().includes(val.toLowerCase()))
             .map(item => Object.assign({}, item));
         this.loadingForDebounced = false;
       }, 200);
