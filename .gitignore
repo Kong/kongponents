@@ -10,6 +10,8 @@ cypress/videos
 
 .temp
 .cache
+.idea
+.husky
 
 docs/.vuepress/.temp/
 docs/.vuepress/.cache/
