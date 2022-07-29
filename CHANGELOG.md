@@ -1,3 +1,10 @@
+# [7.0.0-beta.73](https://github.com/Kong/kongponents/compare/v7.0.0-beta.72...v7.0.0-beta.73) (2022-07-29)
+
+
+### Features
+
+* **kselect:** add autosuggest support [KHCP-4292] ([#722](https://github.com/Kong/kongponents/issues/722)) ([92156c0](https://github.com/Kong/kongponents/commit/92156c0a60891ff0d4325c3c426875a1384c3c7d))
+
 # [7.0.0-beta.72](https://github.com/Kong/kongponents/compare/v7.0.0-beta.71...v7.0.0-beta.72) (2022-07-27)
 
 
