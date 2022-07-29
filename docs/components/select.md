@@ -167,7 +167,7 @@ export default defineComponent({
 
 ### width
 
-You can pass a `width` string for dropdown. By default the `width` is `200px`. This is the width of the input, dropdown, and selected item.
+You can pass a `width` string for the dropdown. By default the `width` is `200px`. This is the width of the input, dropdown, and selected item.
 Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
 
 :::tip Note
@@ -181,6 +181,18 @@ Because we are controlling the widths of multiple elements, we recommend using t
 
 ```html
 <KSelect width="350" :items="items" />
+```
+
+### dropdownMaxHeight
+
+You can pass a `dropdownMaxHeight` string for the dropdown. By default, the `dropdownMaxHeight` is `300px`. This is the maximum height of the `KSelect` dropdown when open. You can pass a number (will be converted to `px`), `auto`, percentages, or `vh` units.
+
+<div>
+  <KSelect width="250" :items="deepClone(defaultItemsLongList)" dropdown-max-height="150" />
+</div>
+
+```html
+<KSelect width="250" :items="items" dropdown-max-height="150" />
 ```
 
 ### positionFixed
@@ -215,6 +227,12 @@ myCustomFilter ({ items, query }) {
 }
 ```
 
+:::tip Note
+`filterFunc` does not work with `autosuggest` enabled.
+For `autosuggest`, you are in charge of filtering the options, so `KSelect` won't filter them internally.
+See [autosuggest](#autosuggest) for more details.
+:::
+
 ### v-model
 
 `KSelect` works as regular inputs do using v-model for data binding:
@@ -234,6 +252,194 @@ myCustomFilter ({ items, query }) {
   </div>
 </KComponent>
 ```
+
+### autosuggest
+
+Add the `autosuggest` prop to trigger a query to an API with the filter keyword, and then update `items` asynchronously as suggestions as the user types.
+Loading and empty state content can be configured using the `loading` and `empty` slots.
+
+<KSelect autosuggest
+  :items="itemsForAutosuggest"
+  :loading="loading"
+  width="300px"
+  appearance="select"
+  @query-change="onQueryChange"
+>
+  <template v-slot:item-template="{ item }">
+    <div class="select-item-label">{{ item.label }}</div>
+    <div class="select-item-desc">{{ item.description }}</div>
+  </template>
+  <template v-slot:loading>
+    <div>Loading...</div>
+  </template>
+  <template v-slot:empty>
+    <div>No results found</div>
+  </template>
+</KSelect>
+
+```vue
+<KSelect
+  autosuggest
+  :items="items"
+  :loading="loading"
+  width="300px"
+  appearance="select"
+  @query-change="onQueryChange"
+>
+  <template v-slot:item-template="{ item }">
+    <div class="select-item-label">{{ item.label }}</div>
+    <div class="select-item-desc">{{ item.label }}</div>
+  </template>
+  <template v-slot:loading>
+    <div>Loading...</div>
+  </template>
+  <template v-slot:empty>
+    <div>No results found</div>
+  </template>
+</KSelect>
+
+<script>
+const allItems = new Array(10).fill().map((_, i) => ({
+  label: `Item ${i}`,
+  description: `This is the description for item ${i}.`,
+  value: `autosuggest-item-${i}`
+}));
+export default {
+  data() {
+    return {
+      defaultItems: [],
+      items: [],
+      loading: false,
+    }
+  },
+  methods: {
+    onQueryChange (val) {
+      if (val === '' && !this.defaultItems.length) {
+        this.loading = true;
+        // If query is empty and default items are not fetched, fetch them
+        setTimeout(() => {
+          this.defaultItems = allItems;
+          this.items = this.defaultItems.map(item => Object.assign({}, item));
+          this.loading = false;
+        }, 200);
+        return;
+      }
+      if (val === '') {
+        // If query is empty and default items are fetched, use the default items
+        this.items = this.defaultItems.map(item => Object.assign({}, item));
+        return;
+      }
+      this.loading = true;
+      // Otherwise fetch items that contain the keyword
+      setTimeout(() => {
+        this.items =
+          allItems
+            .filter(item => item.label.toLowerCase().includes(val.toLowerCase()) || item.description.toLowerCase().includes(val.toLowerCase()))
+            .map(item => Object.assign({}, item));
+        this.loading = false;
+      }, 200);
+    }
+  }
+}
+</script>
+```
+
+:::tip Note
+The `query-change` event triggers immediately when the user types in the input.
+If you need to send API requests in the `query-change` event handler, you may want to implement a debounce function.
+The following is an example:
+:::
+
+<KSelect autosuggest
+  :items="itemsForDebouncedAutosuggest"
+  :loading="loadingForDebounced"
+  width="300px"
+  appearance="select"
+  @query-change="onQueryChangeForDebounced"
+>
+  <template v-slot:item-template="{ item }">
+    <div class="select-item-label">{{ item.label }}</div>
+    <div class="select-item-desc">{{ item.label }}</div>
+  </template>
+</KSelect>
+
+```vue
+<KSelect
+  autosuggest
+  :items="items"
+  :loading="loading"
+  width="300px"
+  appearance="select"
+  @query-change="onQueryChange"
+>
+  <template v-slot:item-template="{ item }">
+    <div class="select-item-label">{{ item.label }}</div>
+    <div class="select-item-desc">{{ item.label }}</div>
+  </template>
+</KSelect>
+<script>
+function debounce(func, timeout) {
+  let timer;
+  return function (...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+}
+const allItems = new Array(10).fill().map((_, i) => ({
+  label: `Item ${i}`,
+  description: `This is the description for item ${i}.`,
+  value: `autosuggest-item-${i}`
+}));
+export default {
+  data() {
+    return {
+      defaultItems: [],
+      items: [],
+      loading: true,
+    }
+  },
+  methods: {
+    onQueryChange (val) {
+      if (val === '' && !this.defaultItems.length) {
+        // If query is empty and default items are not fetched, fetch them
+        this.loading = true;
+        setTimeout(() => {
+          this.defaultItems = allItems;
+          this.items = this.defaultItems.map(item => Object.assign({}, item));
+          this.loading = false;
+        }, 200);
+        return;
+      }
+      if (val === '') {
+        // If query is empty and default items are fetched, use the default items
+        this.items = this.defaultItems.map(item => Object.assign({}, item));
+        return;
+      }
+      this.debouncedHandler(val);
+    },
+    debouncedHandler: debounce(function (val) {
+      this.loading = true;
+      // Fetch items that contain the keyword
+      setTimeout(() => {
+        this.items =
+          allItems
+            .filter(item => item.label.toLowerCase().includes(val.toLowerCase()) || item.description.toLowerCase().includes(val.toLowerCase()))
+            .map(item => Object.assign({}, item));
+        this.loading = false;
+      }, 200);
+    }, 400)
+  }
+}
+</script>
+```
+
+### loading
+
+When `autosuggest` is enabled, you can use the `loading` prop to show a loading indicator while fetching data from API.
+By default, the loading indicator is a spinner icon, and you can implement your own indicator using the `loading` slot.
+See [autosuggest](#autosuggest) for an example.
 
 ## Attribute Binding
 
@@ -309,6 +515,7 @@ export default defineComponent({
 | `selected` | `selectedItem` Object |
 | `input` | `selectedItem` Object or null |
 | `change` | `selectedItem` Object or null |
+| `query-change` | `query` String |
 
 </div>
 
@@ -326,6 +533,22 @@ function getItems(count) {
     }
   return myItems
 }
+
+function debounce(func, timeout) {
+  let timer;
+  return function (...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+}
+
+const allItems = new Array(10).fill().map((_, i) => ({
+  label: `Item ${i}`,
+  description: `This is the description for item ${i}.`,
+  value: `autosuggest-item-${i}`
+}));
 
 export default defineComponent({
   data() {
@@ -360,7 +583,13 @@ export default defineComponent({
       }, {
         label: '50',
         value: '50'
-      }]
+      }],
+      defaultItemsForAutosuggest: [],
+      itemsForAutosuggest: [],
+      loading: false,
+      defaultItemsForDebouncedAutosuggest: [],
+      itemsForDebouncedAutosuggest: [],
+      loadingForDebounced: true,
     }
   },
   mounted() {
@@ -375,6 +604,69 @@ export default defineComponent({
     },
     deepClone(obj) {
       return JSON.parse(JSON.stringify(obj))
+    },
+    onQueryChange (val) {
+      if (val === '' && !this.defaultItemsForAutosuggest.length) {
+        this.loading = true;
+        setTimeout(() => {
+          this.defaultItemsForAutosuggest = allItems;
+          this.itemsForAutosuggest = this.defaultItemsForAutosuggest.map(item => Object.assign({}, item));
+          this.loading = false;
+        }, 200);
+        return;
+      }
+      if (val === '') {
+        this.itemsForAutosuggest = this.defaultItemsForAutosuggest.map(item => Object.assign({}, item));
+        return;
+      }
+      this.loading = true;
+      setTimeout(() => {
+        this.itemsForAutosuggest =
+          allItems
+            .filter(item => item.label.toLowerCase().includes(val.toLowerCase()) || item.description.toLowerCase().includes(val.toLowerCase()))
+            .map(item => Object.assign({}, item));
+        this.loading = false;
+      }, 200);
+    },
+    onQueryChangeForDebounced (val) {
+      if (val === '' && !this.defaultItemsForDebouncedAutosuggest.length) {
+        this.loadingForDebounced = true;
+        setTimeout(() => {
+          this.defaultItemsForDebouncedAutosuggest = allItems;
+          this.itemsForDebouncedAutosuggest = this.defaultItemsForDebouncedAutosuggest.map(item => Object.assign({}, item));
+          this.loadingForDebounced = false;
+        }, 200);
+        return;
+      }
+      if (val === '') {
+        this.itemsForDebouncedAutosuggest = this.defaultItemsForDebouncedAutosuggest.map(item => Object.assign({}, item));
+        return;
+      }
+      this.debouncedHandler(val);
+    },
+    debouncedHandler: debounce(function (val) {
+      this.loadingForDebounced = true;
+      // mock API call for items that contain the keyword
+      setTimeout(() => {
+        this.itemsForDebouncedAutosuggest =
+          allItems
+            .filter(item => item.label.toLowerCase().includes(val.toLowerCase()) || item.description.toLowerCase().includes(val.toLowerCase()))
+            .map(item => Object.assign({}, item));
+        this.loadingForDebounced = false;
+      }, 200);
+    }, 400)
+  },
+  computed: {
+    defaultItemsLongList () {
+      let items = []
+      for (let i = 0; i < 30; i++) {
+        items.push({
+          label: `Item ${i}`,
+          value: i
+        })
+      }
+
+      return items
     }
   }
 })

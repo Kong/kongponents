@@ -102,7 +102,7 @@
             <KInput
               :id="selectTextId"
               v-bind="$attrs"
-              v-model="filterStr"
+              :model-value="filterStr"
               :is-open="isToggled.value"
               :label="label && overlayLabel ? label : undefined"
               :overlay-label="overlayLabel"
@@ -113,10 +113,25 @@
               class="k-select-input"
               @keypress="onInputKeypress"
               @keyup="evt => triggerFocus(evt, isToggled)"
+              @update:model-value="onQueryChange"
+              @focus="onInputFocus"
             />
           </div>
           <template #content>
-            <ul class="k-select-list ma-0 pa-0">
+            <slot
+              v-if="autosuggest && loading"
+              name="loading"
+            >
+              <KIcon
+                class="k-select-loading"
+                data-testid="k-select-loading"
+                icon="spinner"
+              />
+            </slot>
+            <ul
+              v-else
+              class="k-select-list ma-0 pa-0"
+            >
               <slot
                 :items="items"
                 :is-open="isToggled.value"
@@ -137,13 +152,17 @@
                   </template>
                 </KSelectItem>
                 <KSelectItem
-                  v-if="!filteredItems.length"
+                  v-if="!filteredItems.length && !$slots.empty"
                   key="k-select-empty-state"
                   :item="{ label: 'No results', value: 'no_results' }"
                   class="k-select-empty-item"
                 />
               </slot>
             </ul>
+            <slot
+              v-if="!loading && !filteredItems.length"
+              name="empty"
+            />
           </template>
         </KPop>
       </KToggle>
@@ -152,7 +171,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, computed, onBeforeMount, onMounted, PropType } from 'vue'
+import { defineComponent, ref, Ref, computed, watch, onMounted, PropType } from 'vue'
 import { v1 as uuidv1 } from 'uuid'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
@@ -203,6 +222,10 @@ export default defineComponent({
       default: () => ({
         popoverClasses: '',
       }),
+    },
+    dropdownMaxHeight: {
+      type: String,
+      default: '300',
     },
     label: {
       type: String,
@@ -255,7 +278,7 @@ export default defineComponent({
       required: false,
       default: () => [],
       // Items must have a label & value
-      validator: (items: SelectItem[]) => !items.length || items.some(i => !!i.label && !!i.value),
+      validator: (items: SelectItem[]) => !items.length || items.some(i => Object.hasOwn(i, 'label') && Object.hasOwn(i, 'value')),
     },
     /**
      * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
@@ -279,6 +302,20 @@ export default defineComponent({
       default: null,
     },
     /**
+     * A flag for autosuggest mode
+     */
+    autosuggest: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Loading state in autosuggest
+     */
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+    /**
      * Test mode - for testing only, strips out generated ids
      */
     testMode: {
@@ -286,7 +323,7 @@ export default defineComponent({
       default: false,
     },
   },
-  emits: ['selected', 'input', 'change', 'update:modelValue'],
+  emits: ['selected', 'input', 'change', 'update:modelValue', 'query-change'],
   setup(props, { attrs, emit }) {
     const filterStr = ref('')
     const selectedItem = ref<SelectItem|null>(null)
@@ -294,7 +331,11 @@ export default defineComponent({
     const selectInputId = computed((): string => props.testMode ? 'test-select-input-id-1234' : uuidv1())
     const selectTextId = computed((): string => props.testMode ? 'test-select-text-id-1234' : uuidv1())
     const selectItems: Ref<SelectItem[]> = ref([])
+    const initialFocusTriggered: Ref<boolean> = ref(false)
     const filterIsEnabled = computed((): boolean => {
+      if (props.autosuggest) {
+        return true
+      }
       if (props.enableFiltering !== null) {
         // filtering not allowed for `button` appearance
         return props.appearance === 'button' ? false : props.enableFiltering
@@ -338,6 +379,7 @@ export default defineComponent({
         popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses} k-select-pop-${props.appearance}`,
         width: String(inputWidth.value),
         maxWidth: String(inputWidth.value),
+        maxHeight: String(props.dropdownMaxHeight),
         disabled: (attrs.disabled !== undefined && String(attrs.disabled) !== 'false') || (attrs.readonly !== undefined && String(attrs.readonly) !== 'false'),
       }
     })
@@ -345,7 +387,10 @@ export default defineComponent({
     // TypeScript complains if I bind the original object
     const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
 
-    const filteredItems = computed(() => props.filterFunc({ items: selectItems.value, query: filterStr.value }))
+    const filteredItems = computed(() => {
+      // For autosuggest, items don't need to be filtered internally
+      return props.autosuggest ? props.items : props.filterFunc({ items: selectItems.value, query: filterStr.value })
+    })
 
     const placeholderText = computed((): string => {
       if (props.placeholder) {
@@ -420,11 +465,23 @@ export default defineComponent({
       }
     }
 
-    onBeforeMount(() => {
+    const onQueryChange = (query: string) => {
+      filterStr.value = query
+      emit('query-change', query)
+    }
+
+    const onInputFocus = (): void => {
+      if (!initialFocusTriggered.value) {
+        initialFocusTriggered.value = true
+        emit('query-change', '')
+      }
+    }
+
+    watch(() => props.items, () => {
       // items need keys
       selectItems.value = props.items
       for (let i = 0; i < selectItems.value.length; i++) {
-        selectItems.value[i].key = `${selectItems.value[i].label.replace(' ', '-')}-${i}`
+        selectItems.value[i].key = `${selectItems.value[i].label.replace(' ', '-').replace(/[^a-z0-9-_]/gi, '')}-${i}`
         if (selectItems.value[i].value === props.modelValue || selectItems.value[i].selected) {
           selectItems.value[i].selected = true
           selectedItem.value = selectItems.value[i]
@@ -434,8 +491,12 @@ export default defineComponent({
             filterStr.value = selectedItem.value.label
           }
         }
+
+        if (selectedItem.value?.value === selectItems.value[i].value) {
+          selectItems.value[i].selected = true
+        }
       }
-    })
+    }, { immediate: true })
 
     const inputWidth = ref(0)
 
@@ -466,6 +527,8 @@ export default defineComponent({
       inputWidth,
       filterIsEnabled,
       onInputKeypress,
+      onQueryChange,
+      onInputFocus,
     }
   },
 })
@@ -586,6 +649,7 @@ export default defineComponent({
     box-sizing: border-box;
     width: 100%;
     margin-top: 2px !important;
+    overflow: auto !important; // Allow setting a maxHeight on the popover dropdown
 
     &[x-placement^="top"] {
       margin-top: 0 !important;
@@ -631,6 +695,15 @@ export default defineComponent({
       &:focus {
         text-decoration: none;
       }
+    }
+
+    .k-select-loading {
+      display: block;
+      text-align: center;
+      position: relative;
+      top: 0;
+      right: 0;
+      height: 24px;
     }
   }
 }

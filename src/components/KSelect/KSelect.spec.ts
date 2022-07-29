@@ -193,4 +193,27 @@ describe('KSelect', () => {
 
     cy.getTestId(`k-select-item-${itemValue}`).should('contain.text', itemSlotContent)
   })
+
+  it('works in autosuggest mode', () => {
+    const onQueryChange = cy.spy().as('onQueryChange')
+    mount(KSelect, {
+      props: {
+        testMode: true,
+        autosuggest: true,
+        loading: false,
+        items: [],
+        onQueryChange,
+      },
+    })
+
+    cy.get('input').type('a').then(() => {
+      cy.get('@onQueryChange').should('have.been.calledWith', 'a')
+    }).then(() => {
+      cy.wrap(Cypress.vueWrapper.setProps({ loading: true })).getTestId('k-select-loading').should('exist')
+    }).then(() => {
+      cy.wrap(Cypress.vueWrapper.setProps({ loading: false })).getTestId('k-select-loading').should('not.exist')
+    }).then(() => {
+      cy.wrap(Cypress.vueWrapper.setProps({ items: [{ label: 'Label 1', value: 'label1' }] })).getTestId('k-select-item-label1').should('contain.text', 'Label 1')
+    })
+  })
 })

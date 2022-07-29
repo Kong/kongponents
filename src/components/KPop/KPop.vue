@@ -205,6 +205,13 @@ export default defineComponent({
       default: '350',
     },
     /**
+     * The maxHeight of the Popover body - undocumented and only used within KSelect
+     */
+    maxHeight: {
+      type: String,
+      default: 'auto',
+    },
+    /**
      * Custom classes that will be applied to the popover
      */
     popoverClasses: {
@@ -289,7 +296,8 @@ export default defineComponent({
     popoverStyle: function() {
       return {
         width: this.width === 'auto' || this.width.endsWith('%') || this.width.endsWith('px') ? this.width : this.width + 'px',
-        'max-width': this.maxWidth === 'auto' || this.maxWidth.endsWith('%') || this.maxWidth.endsWith('px') ? this.maxWidth : this.maxWidth + 'px',
+        maxWidth: this.maxWidth === 'auto' || this.maxWidth.endsWith('%') || this.maxWidth.endsWith('vw') || this.maxWidth.endsWith('px') ? this.maxWidth : this.maxWidth + 'px',
+        maxHeight: this.maxHeight === 'auto' || this.maxHeight.endsWith('%') || this.maxHeight.endsWith('vh') || this.maxHeight.endsWith('px') ? this.maxHeight : this.maxHeight + 'px',
       }
     },
     popoverClassObj: function() {
