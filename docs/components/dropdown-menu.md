@@ -1,62 +1,8 @@
 # DropdownMenu
 
-**KDropdownMenu** - Dropdown Menu component
+**KDropdownMenu** is a button (or any slotted content) that is clicked to trigger a popover containing menu items beneath it.
 
-<div>
-  <KDropdownMenu :kpop-attributes="{ placement: 'bottomStart', width: '200' }">
-    <template #default="{ isOpen }">
-      <KButton
-        :is-open="isOpen"
-        appearance="creation"
-        icon="gearFilled"
-      />
-    </template>
-    <template #items>
-      <KDropdownItem
-        :item="{ label: 'I am a link', to: { path: '/' } }"
-        disabled
-      />
-      <KDropdownItem>
-        Generic item
-      </KDropdownItem>
-      <KDropdownItem
-        has-divider
-        class="danger"
-        @click="clickHandler"
-      >
-        Danger button
-      </KDropdownItem>
-    </template>
-  </KDropdownMenu>
-</div>
-
-```html
-<KDropdownMenu :kpop-attributes="{ placement: 'bottomStart', width: '200' }">
-  <template #default="{ isOpen }">
-    <KButton
-      :is-open="isOpen"
-      appearance="creation"
-      icon="gearFilled"
-    />
-  </template>
-  <template #items>
-    <KDropdownItem
-      :item="{ label: 'I am a link', to: { path: '/' } }"
-      disabled
-    />
-    <KDropdownItem>
-      Generic item
-    </KDropdownItem>
-    <KDropdownItem
-      has-divider
-      class="danger"
-      @click="clickHandler"
-    >
-      Danger button
-    </KDropdownItem>
-  </template>
-</KDropdownMenu>
-```
+HOW DOES THIS DIFFER FROM KSELECT
 
 <div>
   <KDropdownMenu
@@ -157,25 +103,148 @@
 
 ## Props
 
-### Prop1
+### label
 
-Description of prop1
+The label for the menu.
 
-Actual component using prop1
-<KDropdownMenu />
+### items
+
+An array of items containing a `label` and `to` will render a menu of router-links.
+
+<KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" />
 
 ```html
-<KDropdownMenu prop1="variation1" />
+<KDropdownMenu
+  label="Documentation"
+  :items="[
+    { label: 'Home', to: { path: '/' } },
+    { label: 'Button docs', to: { path: '/components/button.html' } },
+    { label: 'My docs', to: { path: '/components/dropdown-menu.html' } }
+  ]"
+/>
 ```
 
 ## Slots
 
-- `default` - default slot description
-- `slot1` - slot1 description
+There are 2 supported slots:
+
+- `default` - The trigger element for opening/closing the menu. Returns the `isOpen` state.
+- `items` - For an example of using the items slot see the [`KDropdownItem`](#KDropdownItem) section.
+
+<div>
+  <KDropdownMenu :items="deepClone(defaultItemsUnselected)">
+    <template #default="{ isOpen }">
+        <KButton
+          :is-open="isOpen"
+          appearance="creation"
+        >
+          Menu
+        </KButton>
+      </template>
+  </KDropdownMenu>
+</div>
 
 ```html
-<KDropdownMenu>
-  here is some slot content
+<KDropdownMenu :items="items">
+  <template #default="{ isOpen }">
+      <KButton
+        :is-open="isOpen"
+        appearance="creation"
+      >
+        Menu
+      </KButton>
+    </template>
+</KDropdownMenu>
+```
+
+## KDropdownItem
+
+**KDropdownMenu** generates a **KDropdownItem** for each item in the `items` property. At the most basic level, **KDropdownItem** is a wrapper around each item to display it correctly inside `KDropdownMenu`. You can use the `items` slot of the `KDropdownMenu` to manually create your own menu items.
+
+### Properties
+
+- `item` - the properties the router-link is built from, it expects a `label` and a `to`.
+- `disabled` - a boolean (default to `false`), whether or not to disable the item.
+- `selected` - a boolean (default to `false`), whether or not the item is selected.
+- `hasDivider` - a boolean (default to `false`), whether or not the item should have a divider bar displayed above it
+
+```html
+<KDropdownItem :item="{ label: 'Leave the page', to: { path: '/' } }" />
+```
+
+There are 3 primary item types:
+
+- `router-link`
+  - the generic type generated using the `items` prop on `KDropdownMenu`
+  - the generic type generated using the `item` prop on `KDropdownItem`
+- `button` - this item is generated if a handler is specified for the `@click` event on a `KDropdownItem`
+- `custom` - no special handling, you completely control the content
+
+<div>
+  <KDropdownMenu label="Variety">
+    <template #items>
+      <KDropdownItem :item="youAreHere" />
+      <KDropdownItem @click="clickHandler">
+        A button
+      </KDropdownItem>
+      <KDropdownItem
+        disabled
+        @click="clickHandler"
+      >
+        Disabled button
+      </KDropdownItem>
+      <KDropdownItem
+        has-divider
+        class="danger"
+      >
+        <a
+          href="http://www.google.com"
+          rel="noopener"
+          target="_blank"
+        >
+          External link
+          <KIcon
+            icon="externalLink"
+            size="12"
+            class="ml-2"
+          />
+        </a>
+      </KDropdownItem>
+    </template>
+  </KDropdownMenu>
+</div>
+
+```html
+<KDropdownMenu label="Variety">
+  <template #items>
+    <KDropdownItem :item="{ label: 'You are here', to: { path: '/components/dropdown-menu.html' } }" />
+    <KDropdownItem @click="clickHandler">
+      A button
+    </KDropdownItem>
+    <KDropdownItem
+      disabled
+      @click="clickHandler"
+    >
+      Disabled button
+    </KDropdownItem>
+    <KDropdownItem
+      has-divider
+      class="danger"
+    >
+      <a
+        href="http://www.google.com"
+        rel="noopener"
+        target="_blank"
+      >
+        External link
+        <KIcon
+          icon="externalLink"
+          size="12"
+          class="ml-2"
+        />
+      </a>
+    </KDropdownItem>
+  </template>
 </KDropdownMenu>
 ```
 
@@ -214,7 +283,13 @@ like:
 export default {
   data () {
     return {
-      defaultIsOpen: false
+      defaultIsOpen: false,
+      defaultItemsUnselected: [
+        { label: 'Home', to: { path: '/' } },
+        { label: 'Button docs', to: { path: '/components/button.html' } },
+        { label: 'My docs', to: { path: '/components/dropdown-menu.html' } }
+      ],
+      youAreHere: { label: 'You are here', to: { path: '/components/dropdown-menu.html' } }
     }
   },
   methods: {

@@ -26,13 +26,13 @@
               name="default"
             >
               <KButton
-                v-if="btnText"
+                v-if="label"
                 :disabled="disabled"
                 appearance="primary"
                 class="k-dropdown-btn"
                 @click="toggle"
               >
-                {{ btnText }}
+                {{ label }}
               </KButton>
             </slot>
           </component>
@@ -86,7 +86,7 @@ export default {
       type: String,
       default: 'menu'
     },
-    btnText: {
+    label: {
       type: String,
       default: ''
     },
