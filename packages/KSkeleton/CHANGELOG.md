@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.35.1 (2022-08-01)
+
+
+### Bug Fixes
+
+* **kselect:** adds watch for selected item ([#723](https://github.com/Kong/kongponents/issues/723)) ([c443186](https://github.com/Kong/kongponents/commit/c4431861c22ab06b94ab5c80a926499368f5bf90))
+
+
+
+
+
 # 6.35.0 (2022-07-28)
 
 

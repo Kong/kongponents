@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kicon",
-  "version": "6.35.0",
+  "version": "6.35.1",
   "description": "Icon component.",
   "main": "dist/KIcon.umd.min.js",
   "componentName": "KIcon",
