@@ -240,12 +240,11 @@ KSelect works as regular inputs do using v-model for data binding:
   </div>
 
 ```html
-<Komponent :data="{myVal: 'test'}" v-slot="{ data }">
   <div>
-    <KLabel>Value:</KLabel> {{ data.myVal }}
-    <KSelect v-model="data.myVal" :items="items" />
+    <KLabel>Value:</KLabel> {{ myVal }}
+    <KSelect v-model="myVal" :items="deepClone(defaultItems)" />
+    <KButton @click="clearIt">Clear</KButton>
   </div>
-</Komponent>
 ```
 
 ### autosuggest
