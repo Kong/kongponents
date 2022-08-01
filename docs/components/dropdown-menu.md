@@ -36,13 +36,10 @@ clicking a `KDropdownItem` if used in conjunction with the `items` prop. You wil
 <div>
   <KDropdownMenu
     :kpop-attributes="{ width: '220' }"
+    :label="selectedLabel"
     appearance="selectionMenu"
+    show-caret
   >
-    <template #default="{ isOpen }">
-      <KButton :is-open="isOpen">
-        {{ selectedLabel }}
-      </KButton>
-    </template>
     <template #items>
       <KDropdownItem
         :selected="selectedItem === 'us'"
@@ -63,13 +60,10 @@ clicking a `KDropdownItem` if used in conjunction with the `items` prop. You wil
 ```html
 <KDropdownMenu
   :kpop-attributes="{ width: '220' }"
+  :label="selectedLabel"
   appearance="selectionMenu"
+  show-caret
 >
-  <template #default="{ isOpen }">
-    <KButton :is-open="isOpen">
-      {{ selectedLabel }}
-    </KButton>
-  </template>
   <template #items>
     <KDropdownItem
       :selected="selectedItem === 'us'"
