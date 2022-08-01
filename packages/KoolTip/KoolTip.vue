@@ -95,7 +95,7 @@ export default {
 <style lang="scss">
 @import '~@kongponents/styles/variables';
 
-.kooltip {
+.kooltip.k-popover {
   --KPopColor: var(--KoolTipColor, var(--white, color(white)));
   --KPopBackground: var(--KoolTipBackground, var(--black-400, color(black-400)));
   --KPopBodySize: var(--type-sm);
@@ -103,5 +103,6 @@ export default {
   --KPopPaddingY: var(--spacing-xs);
   --KPopBorder: none;
   pointer-events: none;
+  z-index: 9999;
 }
 </style>
