@@ -38,7 +38,6 @@ clicking a `KDropdownItem` if used in conjunction with the `items` prop. You wil
     :kpop-attributes="{ width: '220' }"
     :label="selectedLabel"
     appearance="selectionMenu"
-    show-caret
   >
     <template #items>
       <KDropdownItem
@@ -62,7 +61,6 @@ clicking a `KDropdownItem` if used in conjunction with the `items` prop. You wil
   :kpop-attributes="{ width: '220' }"
   :label="selectedLabel"
   appearance="selectionMenu"
-  show-caret
 >
   <template #items>
     <KDropdownItem

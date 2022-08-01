@@ -37,7 +37,7 @@
                 <KButton
                   v-if="label"
                   :disabled="disabled"
-                  :is-open="showCaret ? isToggled : undefined"
+                  :is-open="showCaret || appearance === 'selectionMenu' ? isToggled : undefined"
                   :class="{ 'is-active': showCaret ? isToggled : undefined }"
                   :appearance="appearance === 'selectionMenu' ? 'outline' : 'primary'"
                   class="k-dropdown-btn"
