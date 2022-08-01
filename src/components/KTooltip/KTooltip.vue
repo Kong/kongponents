@@ -100,7 +100,7 @@ export default defineComponent({
 @import '@/styles/variables';
 @import '@/styles/functions';
 
-.k-tooltip {
+.k-tooltip.k-popover {
   --KPopColor: var(--KTooltipColor, var(--white, color(white)));
   --KPopBackground: var(--KTooltipBackground, var(--black-400, color(black-400)));
   --KPopBodySize: var(--type-sm);
@@ -108,5 +108,6 @@ export default defineComponent({
   --KPopPaddingY: var(--spacing-xs);
   --KPopBorder: none;
   pointer-events: none;
+  z-index: 9999;
 }
 </style>

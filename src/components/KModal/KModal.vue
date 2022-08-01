@@ -305,7 +305,7 @@ export default defineComponent({
       right: var(--spacing-lg);
       top: var(--spacing-lg);
       // 1 more than .k-modal-dialog
-      z-index: 1000;
+      z-index: 10000;
 
       .k-button {
         padding: 8px 0 8px 8px;
