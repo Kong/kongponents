@@ -233,20 +233,18 @@ See [autosuggest](#autosuggest) for more details.
 
 KSelect works as regular inputs do using v-model for data binding:
 
-<Komponent :data="{myVal: 'test'}" v-slot="{ data }">
   <div>
-    <KLabel>Value:</KLabel> {{ data.myVal }}
-    <KSelect v-model="data.myVal" :items="deepClone(defaultItemsUnselect)" />
+    <KLabel>Value:</KLabel> {{ myVal }}
+    <KSelect v-model="myVal" :items="deepClone(defaultItems)" />
+    <KButton @click="clearIt">Clear</KButton>
   </div>
-</Komponent>
 
 ```html
-<Komponent :data="{myVal: 'test'}" v-slot="{ data }">
   <div>
-    <KLabel>Value:</KLabel> {{ data.myVal }}
-    <KSelect v-model="data.myVal" :items="items" />
+    <KLabel>Value:</KLabel> {{ myVal }}
+    <KSelect v-model="myVal" :items="deepClone(defaultItems)" />
+    <KButton @click="clearIt">Clear</KButton>
   </div>
-</Komponent>
 ```
 
 ### autosuggest
@@ -585,6 +583,7 @@ export default {
       defaultItemsForDebouncedAutosuggest: [],
       itemsForDebouncedAutosuggest: [],
       loadingForDebounced: true,
+      myVal: 'cats'
     }
   },
   mounted() {
@@ -594,6 +593,9 @@ export default {
     handleItemSelect (item) {
       this.mySelect = item.label
     },
+    clearIt () {
+        this.myVal = 'cats'
+      },
     customFilter ({items, query}) {
       return items.filter(item => item.label.toLowerCase().includes(query.toLowerCase()) || item.description.toLowerCase().includes(query.toLowerCase()))
     },
