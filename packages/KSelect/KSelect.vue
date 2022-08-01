@@ -415,8 +415,19 @@ export default {
         }
       },
       immediate: true
+    },
+
+    value (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        const theItems = this.selectItems.filter(item => item.value === newVal)
+
+        if (theItems.length) {
+          this.handleItemSelect({ target: { value: theItems[0] } })
+        }
+      }
     }
   },
+
   mounted () {
     const inputElem = document.getElementById(this.selectInputId)
     if (inputElem) {
