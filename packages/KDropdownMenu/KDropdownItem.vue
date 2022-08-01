@@ -1,6 +1,11 @@
 <template>
   <li
-    :class="{ 'has-divider': type !== 'link' && hasDivider, 'disabled': type === 'default' && disabled, 'danger': isDangerous }"
+    :class="{
+      'has-divider': type !== 'link' && hasDivider,
+      'disabled': type === 'default' && disabled,
+      'danger': isDangerous,
+      'k-dropdown-selected-option': selected
+    }"
     class="k-dropdown-item"
   >
     <router-link
@@ -61,6 +66,10 @@ export default {
     selected: {
       type: Boolean,
       default: false
+    },
+    selectionMenuChild: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -77,7 +86,7 @@ export default {
     type () {
       if (this.item && this.item.to) {
         return 'link'
-      } else if (this.listeners.click) {
+      } else if (this.listeners.click || this.selectionMenuChild) {
         return 'button'
       }
 
@@ -93,6 +102,10 @@ export default {
   methods: {
     handleClick () {
       this.$emit('click', this.item)
+
+      if (this.selectionMenuChild) {
+        this.$emit('changed', this.item)
+      }
     }
   }
 }

@@ -2,47 +2,7 @@
 
 **KDropdownMenu** is a button (or any slotted content) that is clicked to trigger a menu popover beneath it.
 
-<div>
-  <KDropdownMenu
-    class="more-actions-dropdown"
-    :kpop-attributes="{
-      popoverClasses: 'mt-5 more-actions-popover',
-      width: '150'
-    }"
-  >
-    <template #default>
-      <KButton
-        appearance="secondary"
-        size="small"
-        class="float-right non-visual-button"
-        data-testid="more-actions-btn"
-      >
-        <template #icon>
-          <KIcon
-            icon="more"
-            color="var(--black-400)"
-            size="16"
-          />
-        </template>
-      </KButton>
-    </template>
-    <template #items>
-      <KDropdownItem
-        :item="{
-          to: { path: '/components/button.html' },
-          label: 'View KButton docs'
-        }"
-      />
-      <KDropdownItem
-        :disabled="false"
-        class="danger"
-        @click.prevent="clickHandler('Deleted successfully!')"
-      >
-        Delete
-      </KDropdownItem>
-    </template>
-  </KDropdownMenu>
-</div>
+<KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" />
 
 ## Props
 
@@ -52,9 +12,7 @@ The label for the menu.
 
 ### items
 
-An array of items containing a `label` and `to` will render a menu of router-links.
-
-<KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" />
+An array of items containing a `label` and other optional properties will render a menu of [`KDropdownItems`](#KDropdownItem) .
 
 ```html
 <KDropdownMenu
@@ -70,6 +28,10 @@ An array of items containing a `label` and `to` will render a menu of router-lin
 ### appearance
 
 Use this prop to specify the display style for the dropdown menu. Can be either `menu` (default) or `selectionMenu`.
+The `menu` style is the standard you have seen in the example above.
+
+The `selectionMenu` style is good for a clearer representation of what is selected. `selected` state is handled automatically when
+clicking a `KDropdownItem` if used in conjunction with the `items` prop. You will need to manually control selectedness if you are using the `items` slot.
 
 <div>
   <KDropdownMenu
@@ -78,69 +40,127 @@ Use this prop to specify the display style for the dropdown menu. Can be either 
   >
     <template #default="{ isOpen }">
       <KButton
-        class="top-bar-dropdown-trigger"
         :class="{ 'is-active': isOpen }"
         :is-open="isOpen"
       >
-        Selected Item
+        {{ selectedLabel }}
       </KButton>
     </template>
     <template #items>
       <KDropdownItem
-        @click="clickHandler('US selected')"
+        :selected="selectedItem === 'us'"
+        @click="clickHandler('US selected', 'us', 'US (United States)')"
       >
         US (United States)
       </KDropdownItem>
       <KDropdownItem
-        :class="{'top-bar-dropdown-selected-option': false }"
-        @click="clickHandler('US selected')"
+        :selected="selectedItem === 'fr'"
+        @click="clickHandler('France selected', 'fr', 'FR (France)')"
       >
-        US2 (United States)
-      </KDropdownItem>
-      <KDropdownItem
-        v-if="false"
-        has-divider
-        data-testid="geo-switcher-global-more-regions-option"
-      >
-        <ExternalLink
-          :href="pricingURL"
-          hide-icon
-          class="w-100"
-          data-testid="geo-switcher-global-more-regions-option-link"
-        >
-          <div class="d-block">
-            <div>{{ english.geo.moreRegions }}</div>
-            <div class="mt-2">
-              <HelpKonnectEnterpriseLogo />
-            </div>
-          </div>
-        </ExternalLink>
+        FR (France)
       </KDropdownItem>
     </template>
   </KDropdownMenu>
 </div>
+
+```html
+<KDropdownMenu
+  :kpop-attributes="{ width: '220' }"
+  appearance="selectionMenu"
+>
+  <template #default="{ isOpen }">
+    <KButton
+      :class="{ 'is-active': isOpen }"
+      :is-open="isOpen"
+    >
+      {{ selectedLabel }}
+    </KButton>
+  </template>
+  <template #items>
+    <KDropdownItem
+      :selected="selectedItem === 'us'"
+      @click="clickHandler('US selected', 'us', 'US (United States)')"
+    >
+      US (United States)
+    </KDropdownItem>
+    <KDropdownItem
+      :selected="selectedItem === 'fr'"
+      @click="clickHandler('France selected', 'fr', 'FR (France)')"
+    >
+      FR (France)
+    </KDropdownItem>
+  </template>
+</KDropdownMenu>
+```
 
 ### kpopAttributes
 
 Use the `kpopAttributes` prop to configure the **KPop** [props](/components/popover.html) dropdown.
 
 <div>
-  <KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" :kpop-attributes="{
-      popoverClasses: 'mt-2 a-custom-popover',
-      width: '150'
-    }"
-  />
+  <KCard
+    title="Card Title"
+    body="Body Content"
+  >
+    <template #actions>
+      <KDropdownMenu
+        :kpop-attributes="{
+          popoverClasses: 'mt-5',
+          width: '180'
+        }"
+        :items="deepClone(defaultItemsUnselected)"
+      >
+        <template #default>
+          <KButton
+            appearance="secondary"
+            size="small"
+            class="non-visual-button"
+          >
+            <template #icon>
+              <KIcon
+                icon="more"
+                color="var(--black-400)"
+                size="16"
+              />
+            </template>
+          </KButton>
+        </template>
+      </KDropdownMenu>
+    </template>
+  </KCard>
 </div>
 
 ```html
-<KDropdownMenu
-  label="Documentation"
-  :items="items"
-  :kpop-attributes="{
-    popoverClasses: 'mt-2 a-custom-popover',
-    width: '150'
-  }"
-/>
+<KCard
+  title="Card Title"
+  body="Body Content"
+>
+  <template #actions>
+    <KDropdownMenu
+      :kpop-attributes="{
+        popoverClasses: 'mt-5',
+        width: '180'
+      }"
+      :items="deepClone(defaultItemsUnselected)"
+    >
+      <template #default>
+        <KButton
+          appearance="secondary"
+          size="small"
+          class="non-visual-button"
+        >
+          <template #icon>
+            <KIcon
+              icon="more"
+              color="var(--black-400)"
+              size="16"
+            />
+          </template>
+        </KButton>
+      </template>
+    </KDropdownMenu>
+  </template>
+</KCard>
 ```
 
 ### disabled
@@ -213,6 +233,7 @@ There are 2 supported slots:
 - `selected` - a boolean (default to `false`), whether or not the item is selected.
 - `hasDivider` - a boolean (default to `false`), whether or not the item should have a divider bar displayed above it
 - `isDangerous` - a boolean (default to `false`), whether or not to apply danger styles (text color is red)
+- `selectionMenuChild` - a boolean (default to `false`), whether the parent is a `selectionMenu` or not (used for events)
 
 ```html
 <KDropdownItem :item="{ label: 'Leave the page', to: { path: '/' } }" />
@@ -296,42 +317,19 @@ There are 3 primary item types:
 </KDropdownMenu>
 ```
 
-## Theming
+### Events
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KDropdownMenuBorderColor`| KDropdownMenu border color
-
-An Example of changing the border color of KDropdownMenu to lime might look
-like:
-
-> Note: We are scoping the overrides to a wrapper in this example
-
-<template>
-  <div class="KDropdownMenu-wrapper">
-    <KDropdownMenu />
-  </div>
-</template>
-
-```html
-<template>
-  <div class="KDropdownMenu-wrapper">
-    <KDropdownMenu />
-  </div>
-</template>
-
-<style>
-.KDropdownMenu-wrapper {
-  --KDropdownMenu-wrapperBorderColor: lime;
-}
-</style>
-```
+| Event     | Description             |
+| :-------- | :------------------ |
+| `clicked` | Fires when a menu item is clicked |
+| `changed` | Fires when items with `selectionMenuChild` prop are clicked; returns `selectedItem` Object or null |
 
 <script>
 export default {
   data () {
     return {
-      defaultIsOpen: false,
+      selectedLabel: 'Selected an item',
+      selectedItem: '',
       defaultItemsUnselected: [
         { label: 'Home', to: { path: '/' } },
         { label: 'Button docs', to: { path: '/components/button.html' } },
@@ -341,11 +339,19 @@ export default {
     }
   },
   methods: {
-    clickHandler (msg) {
+    clickHandler (msg, val, label) {
       let text = 'Button was clicked'
 
       if (msg) {
         text = msg
+      }
+
+      if (val !== undefined) {
+        this.selectedItem = val
+      }
+
+      if (label) {
+        this.selectedLabel = label
       }
 
       this.$toaster.open(text)

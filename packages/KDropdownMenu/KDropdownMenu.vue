@@ -50,9 +50,10 @@
             >
               <KDropdownItem
                 v-for="(item, idx) in items"
+                v-bind="item"
                 :key="`${item.label.replace(' ', '-')}-${idx}`"
                 :item="item"
-                :selected="item.selected"
+                :selection-menu-child="appearance === 'selectionMenu'"
               />
             </slot>
           </ul>
