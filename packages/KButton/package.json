@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kbutton",
-  "version": "6.35.2",
+  "version": "6.35.3",
   "description": "Button component",
   "main": "dist/KButton.umd.min.js",
   "componentName": "KButton",
@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kicon": "^6.35.2",
-    "@kongponents/styles": "^6.35.2"
+    "@kongponents/kicon": "^6.35.3",
+    "@kongponents/styles": "^6.35.3"
   }
 }

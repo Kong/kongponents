@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.35.3 (2022-08-01)
+
+
+### Bug Fixes
+
+* **kooltip:** z-index bump ([#725](https://github.com/Kong/kongponents/issues/725)) ([22d3a76](https://github.com/Kong/kongponents/commit/22d3a7633e0fa9bee8dcc4e0f84b33fad56ae0dd))
+
+
+
+
+
 ## 6.35.2 (2022-08-01)
 
 **Note:** Version bump only for package @kongponents/ktablelegacy
