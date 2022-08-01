@@ -91,6 +91,30 @@ clicking a `KDropdownItem` if used in conjunction with the `items` prop. You wil
     </KDropdownItem>
   </template>
 </KDropdownMenu>
+
+<script>
+export default {
+  data() {
+    return {
+      selectedItem: '',
+      selectedLabel: 'Select an item'
+    }
+  },
+  methods: {
+    clickHandler (msg, val, label) {
+      if (val !== undefined) {
+        this.selectedItem = val
+      }
+
+      if (label) {
+        this.selectedLabel = label
+      }
+
+      this.$toaster.open(msg)
+    }
+  }
+}
+</script>
 ```
 
 ### kpopAttributes
