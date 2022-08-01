@@ -1,14 +1,11 @@
 # DropdownMenu
 
-**KDropdownMenu** is a button (or any slotted content) that is clicked to trigger a popover containing menu items beneath it.
-
-HOW DOES THIS DIFFER FROM KSELECT
+**KDropdownMenu** is a button (or any slotted content) that is clicked to trigger a menu popover beneath it.
 
 <div>
   <KDropdownMenu
     class="more-actions-dropdown"
     :kpop-attributes="{
-      placement: 'bottomEnd',
       popoverClasses: 'mt-5 more-actions-popover',
       width: '150'
     }"
@@ -47,21 +44,43 @@ HOW DOES THIS DIFFER FROM KSELECT
   </KDropdownMenu>
 </div>
 
+## Props
+
+### label
+
+The label for the menu.
+
+### items
+
+An array of items containing a `label` and `to` will render a menu of router-links.
+
+<KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" />
+
+```html
+<KDropdownMenu
+  label="Documentation"
+  :items="[
+    { label: 'Home', to: { path: '/' } },
+    { label: 'Button docs', to: { path: '/components/button.html' } },
+    { label: 'My docs', to: { path: '/components/dropdown-menu.html' } }
+  ]"
+/>
+```
+
+### appearance
+
+Use this prop to specify the display style for the dropdown menu. Can be either `menu` (default) or `selectionMenu`.
+
 <div>
   <KDropdownMenu
-    class="top-bar-dropdown-menu d-flex mr-1"
-    :kpop-attributes="{ placement: 'bottomStart', width: '220', disabled: false }"
-    :disabled="false"
-    disabled-tooltip="tooltip text"
-    :class="{ 'global-switcher-disabled': false }"
+    :kpop-attributes="{ width: '220' }"
+    appearance="selectionMenu"
   >
     <template #default="{ isOpen }">
       <KButton
         class="top-bar-dropdown-trigger"
         :class="{ 'is-active': isOpen }"
         :is-open="isOpen"
-        :disabled="false"
-        data-testid="top-bar-dropdown-menu-toggle-button"
       >
         Selected Item
       </KButton>
@@ -101,26 +120,52 @@ HOW DOES THIS DIFFER FROM KSELECT
   </KDropdownMenu>
 </div>
 
-## Props
+### kpopAttributes
 
-### label
+Use the `kpopAttributes` prop to configure the **KPop** [props](/components/popover.html) dropdown.
 
-The label for the menu.
-
-### items
-
-An array of items containing a `label` and `to` will render a menu of router-links.
-
-<KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" />
+<div>
+  <KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" :kpop-attributes="{
+      popoverClasses: 'mt-2 a-custom-popover',
+      width: '150'
+    }"
+  />
+</div>
 
 ```html
 <KDropdownMenu
   label="Documentation"
-  :items="[
-    { label: 'Home', to: { path: '/' } },
-    { label: 'Button docs', to: { path: '/components/button.html' } },
-    { label: 'My docs', to: { path: '/components/dropdown-menu.html' } }
-  ]"
+  :items="items"
+  :kpop-attributes="{
+    popoverClasses: 'mt-2 a-custom-popover',
+    width: '150'
+  }"
+/>
+```
+
+### disabled
+
+Use this prop to disable the dropdown, can be used in conjunction with `disabledTooltip` prop.
+
+### disabledTooltip
+
+Text to display on hover if dropdown is disabled.
+
+<div>
+  <KDropdownMenu
+    label="Documentation"
+    :disabled="true"
+    disabled-tooltip="You can't click me"
+    :items="deepClone(defaultItemsUnselected)"
+  />
+</div>
+
+```html
+<KDropdownMenu
+  label="Documentation"
+  :disabled="true"
+  disabled-tooltip="You can't click me"
+  :items="deepClone(defaultItemsUnselected)"
 />
 ```
 
@@ -167,6 +212,7 @@ There are 2 supported slots:
 - `disabled` - a boolean (default to `false`), whether or not to disable the item.
 - `selected` - a boolean (default to `false`), whether or not the item is selected.
 - `hasDivider` - a boolean (default to `false`), whether or not the item should have a divider bar displayed above it
+- `isDangerous` - a boolean (default to `false`), whether or not to apply danger styles (text color is red)
 
 ```html
 <KDropdownItem :item="{ label: 'Leave the page', to: { path: '/' } }" />
@@ -195,7 +241,8 @@ There are 3 primary item types:
       </KDropdownItem>
       <KDropdownItem
         has-divider
-        class="danger"
+        is-dangerous
+        class="d-inline-block"
       >
         <a
           href="http://www.google.com"
@@ -229,7 +276,8 @@ There are 3 primary item types:
     </KDropdownItem>
     <KDropdownItem
       has-divider
-      class="danger"
+      is-dangerous
+      class="d-inline-block"
     >
       <a
         href="http://www.google.com"
@@ -301,6 +349,9 @@ export default {
       }
 
       this.$toaster.open(text)
+    },
+    deepClone(obj) {
+      return JSON.parse(JSON.stringify(obj))
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="{'selection-dropdown-menu': appearance === 'selection'}"
+    :class="{'selection-dropdown-menu': appearance === 'selectionMenu'}"
     class="k-dropdown k-dropdown-menu"
   >
     <KToggle v-slot="{toggle, isToggled}">
@@ -20,20 +20,24 @@
             :position="!!disabledTooltip ? 'bottom' : undefined"
             :position-fixed="!!disabledTooltip ? true : undefined"
             :max-width="!!disabledTooltip ? '240' : undefined"
+            class="dropdown-trigger"
           >
             <slot
               :is-open="isToggled"
               name="default"
             >
-              <KButton
-                v-if="label"
-                :disabled="disabled"
-                appearance="primary"
-                class="k-dropdown-btn"
-                @click="toggle"
-              >
-                {{ label }}
-              </KButton>
+              <!-- Must wrap in div to allow tooltip when disabled -->
+              <div>
+                <KButton
+                  v-if="label"
+                  :disabled="disabled"
+                  appearance="primary"
+                  class="k-dropdown-btn"
+                  @click="toggle"
+                >
+                  {{ label }}
+                </KButton>
+              </div>
             </slot>
           </component>
         </div>
@@ -69,7 +73,8 @@ const defaultKPopAttributes = {
   hideCaret: true,
   popoverClasses: 'k-dropdown-popover mt-1',
   popoverTimeout: 0,
-  positionFixed: true
+  positionFixed: true,
+  placement: 'bottomStart'
 }
 
 export default {
@@ -84,7 +89,13 @@ export default {
   props: {
     appearance: {
       type: String,
-      default: 'menu'
+      default: 'menu',
+      validator: (value) => {
+        return [
+          'menu',
+          'selectionMenu'
+        ].indexOf(value) !== -1
+      }
     },
     label: {
       type: String,
@@ -144,40 +155,6 @@ export default {
   .k-dropdown-list.dropdown-list {
     min-width: 148px;
   }
-
-  &.selection-dropdown-menu {
-    .dropdown-trigger.k-button {
-      border: 0;
-      width: auto;
-      color: var(--grey-600);
-      white-space: nowrap;
-
-      &:focus {
-        box-shadow: none;
-      }
-
-      &:active:disabled {
-        background-color: var(--white);
-      }
-
-      &.is-active {
-        background-color: var(--grey-100);
-      }
-
-      // Set dropdown icon color
-      --KButtonOutlineColor: var(--grey-500);
-    }
-
-    .k-popover.k-dropdown-popover {
-      z-index: 10000 !important;
-
-      .k-popover-content {
-        ul.k-dropdown-list {
-          margin-left: 7px;
-        }
-      }
-    }
-  }
 }
 </style>
 
@@ -207,8 +184,36 @@ export default {
 }
 
 .selection-dropdown-menu {
+  .dropdown-trigger .k-button {
+    border: 0;
+    width: auto;
+    color: var(--grey-600);
+    white-space: nowrap;
+
+    &:focus {
+      box-shadow: none;
+    }
+
+    &:active:disabled {
+      background-color: var(--white);
+    }
+
+    &.is-active {
+      background-color: var(--grey-100);
+    }
+
+    // Set dropdown icon color
+    --KButtonOutlineColor: var(--grey-500);
+  }
+
   .k-popover.k-dropdown-popover {
     z-index: 10000 !important;
+
+    .k-popover-content {
+      ul.k-dropdown-list {
+        margin-left: 7px;
+      }
+    }
 
     li {
       .non-visual-button {

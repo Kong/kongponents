@@ -1,6 +1,6 @@
 <template>
   <li
-    :class="{ 'has-divider': type !== 'link' && hasDivider, 'disabled': type === 'default' && disabled }"
+    :class="{ 'has-divider': type !== 'link' && hasDivider, 'disabled': type === 'default' && disabled, 'danger': isDangerous }"
     class="k-dropdown-item"
   >
     <router-link
@@ -8,6 +8,7 @@
       :data-testid="label"
       :class="{ 'disabled': disabled, 'has-divider': hasDivider }"
       :to="!disabled ? to : $router.currentRoute.path"
+      class="k-dropdown-item-trigger"
     >
       <slot>{{ label }}</slot>
     </router-link>
@@ -15,11 +16,15 @@
       v-else-if="type === 'button'"
       :disabled="disabled"
       :class="classList"
+      class="k-dropdown-item-trigger"
       v-on="listeners"
     >
       <slot>{{ label }}</slot>
     </KButton>
-    <div v-else>
+    <div
+      v-else
+      class="k-dropdown-item-trigger"
+    >
       <slot>{{ label }}</slot>
     </div>
   </li>
@@ -42,6 +47,10 @@ export default {
      * Use this prop to add a divider above the item
      */
     hasDivider: {
+      type: Boolean,
+      default: false
+    },
+    isDangerous: {
       type: Boolean,
       default: false
     },
@@ -110,7 +119,7 @@ li.k-dropdown-item {
     background-color: var(--grey-100);
   }
 
-  button, a, & > div {
+  .k-dropdown-item-trigger {
     text-align: left;
     padding: var(--spacing-md) var(--spacing-lg);
     text-decoration: none;
