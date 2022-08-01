@@ -223,6 +223,7 @@ export default {
 
       &.k-dropdown-selected-option {
         background-color: var(--blue-100);
+        margin-left: -7px;
 
         .non-visual-button {
           font-weight: 500 !important;
