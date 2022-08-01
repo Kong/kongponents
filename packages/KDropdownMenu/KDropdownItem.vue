@@ -6,7 +6,7 @@
       'danger': isDangerous,
       'k-dropdown-selected-option': selected
     }"
-    class="k-dropdown-item"
+    class="k-dropdown-item w-100"
   >
     <router-link
       v-if="type === 'link' && to"

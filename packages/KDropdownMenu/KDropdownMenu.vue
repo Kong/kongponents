@@ -10,8 +10,14 @@
           toggle();
           return isToggled
         }"
-        @opened="toggle"
-        @closed="toggle"
+        @opened="() => {
+          toggle()
+          $emit('toggleDropdown', true)
+        }"
+        @closed="() => {
+          toggle()
+          $emit('toggleDropdown', false)
+        }"
       >
         <div class="d-flex">
           <component
@@ -31,9 +37,9 @@
                 <KButton
                   v-if="label"
                   :disabled="disabled"
+                  :is-open="showCaret ? isToggled : undefined"
                   appearance="primary"
                   class="k-dropdown-btn"
-                  @click="toggle"
                 >
                   {{ label }}
                 </KButton>
@@ -101,6 +107,10 @@ export default {
     label: {
       type: String,
       default: ''
+    },
+    showCaret: {
+      type: Boolean,
+      default: false
     },
     // kpopAttributes is used to pass properties directly to the wrapped KPop component.
     // Commonly-overridden properties include:
@@ -210,12 +220,6 @@ export default {
   .k-popover.k-dropdown-popover {
     z-index: 10000 !important;
 
-    .k-popover-content {
-      ul.k-dropdown-list {
-        margin-left: 7px;
-      }
-    }
-
     li {
       .non-visual-button {
         font-weight: 400 !important;
@@ -223,7 +227,6 @@ export default {
 
       &.k-dropdown-selected-option {
         background-color: var(--blue-100);
-        margin-left: -7px;
 
         .non-visual-button {
           font-weight: 500 !important;

@@ -39,10 +39,7 @@ clicking a `KDropdownItem` if used in conjunction with the `items` prop. You wil
     appearance="selectionMenu"
   >
     <template #default="{ isOpen }">
-      <KButton
-        :class="{ 'is-active': isOpen }"
-        :is-open="isOpen"
-      >
+      <KButton :is-open="isOpen">
         {{ selectedLabel }}
       </KButton>
     </template>
@@ -69,10 +66,7 @@ clicking a `KDropdownItem` if used in conjunction with the `items` prop. You wil
   appearance="selectionMenu"
 >
   <template #default="{ isOpen }">
-    <KButton
-      :class="{ 'is-active': isOpen }"
-      :is-open="isOpen"
-    >
+    <KButton :is-open="isOpen">
       {{ selectedLabel }}
     </KButton>
   </template>
@@ -115,6 +109,20 @@ export default {
   }
 }
 </script>
+```
+
+### showCaret
+
+Use this prop if you would like the trigger button to display the caret.
+
+<KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" show-caret />
+
+```html
+<KDropdownMenu
+  label="Documentation"
+  :items="items"
+  show-caret
+/>
 ```
 
 ### kpopAttributes
