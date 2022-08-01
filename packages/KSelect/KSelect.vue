@@ -422,7 +422,7 @@ export default {
         const theItems = this.selectItems.filter(item => item.value === newVal)
 
         if (theItems.length) {
-          this.handleItemSelect({ target: { value: theItems[0] } })
+          this.handleItemSelect(theItems[0])
         }
       }
     }
