@@ -1,3 +1,10 @@
+# [7.0.0-beta.74](https://github.com/Kong/kongponents/compare/v7.0.0-beta.73...v7.0.0-beta.74) (2022-08-01)
+
+
+### Bug Fixes
+
+* **kooltip:** z-index bump ([#726](https://github.com/Kong/kongponents/issues/726)) ([9fef3d5](https://github.com/Kong/kongponents/commit/9fef3d534b783dc20afe9b78078d60cfb7d55f1c))
+
 # [7.0.0-beta.73](https://github.com/Kong/kongponents/compare/v7.0.0-beta.72...v7.0.0-beta.73) (2022-07-29)
 
 
