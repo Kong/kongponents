@@ -345,7 +345,7 @@ There are 3 primary item types:
 
 | Event     | Description             |
 | :-------- | :------------------ |
-| `clicked` | Fires when a menu item is clicked |
+| `click` | Fires when a menu item is clicked |
 | `changed` | Fires when items with `selectionMenuChild` prop are clicked; returns `selectedItem` Object or null |
 
 <script>
