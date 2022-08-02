@@ -1,3 +1,10 @@
+# [7.0.0-beta.76](https://github.com/Kong/kongponents/compare/v7.0.0-beta.75...v7.0.0-beta.76) (2022-08-02)
+
+
+### Bug Fixes
+
+* **kpop:** update target default ([#730](https://github.com/Kong/kongponents/issues/730)) ([0492b37](https://github.com/Kong/kongponents/commit/0492b370db65271edaea8013ec01ea442d4965b9))
+
 # [7.0.0-beta.75](https://github.com/Kong/kongponents/compare/v7.0.0-beta.74...v7.0.0-beta.75) (2022-08-02)
 
 
