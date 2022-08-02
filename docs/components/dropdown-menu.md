@@ -253,7 +253,7 @@ There are 2 supported slots:
 ### Properties
 
 - `item` - the properties the router-link is built from, it expects a `label` and a `to`.
-- `disabled` - a boolean (default to `false`), whether or not to disable the item.
+- `disabled` - a boolean (defaults to `false`), whether or not to disable the item.
 - `selected` - a boolean (default to `false`), whether or not the item is selected.
 - `hasDivider` - a boolean (default to `false`), whether or not the item should have a divider bar displayed above it
 - `isDangerous` - a boolean (default to `false`), whether or not to apply danger styles (text color is red)
