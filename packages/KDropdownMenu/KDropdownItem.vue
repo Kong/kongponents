@@ -20,9 +20,9 @@
     <KButton
       v-else-if="type === 'button'"
       :disabled="disabled"
-      :class="classList"
-      class="k-dropdown-item-trigger"
+      class="k-dropdown-item-trigger btn-link k-button non-visual-button"
       v-on="listeners"
+      @click="handleClick"
     >
       <slot>{{ label }}</slot>
     </KButton>
@@ -72,21 +72,12 @@ export default {
       default: false
     }
   },
-  data () {
-    return {
-      classList: 'btn-link k-button non-visual-button'
-    }
-  },
   computed: {
-    listeners () {
-      return {
-        ...this.$listeners
-      }
-    },
     type () {
       if (this.item && this.item.to) {
         return 'link'
-      } else if (this.listeners.click || this.selectionMenuChild) {
+      } else if (this.$listeners.click || this.selectionMenuChild) {
+        // checking $listeners since we deleted click from listeners
         return 'button'
       }
 
@@ -97,11 +88,19 @@ export default {
     },
     to () {
       return (this.item && this.item.to) || undefined
+    },
+    listeners () {
+      const listeners = { ...this.$listeners }
+
+      // use @click in template and emit
+      delete listeners['click']
+
+      return listeners
     }
   },
   methods: {
-    handleClick () {
-      this.$emit('click', this.item)
+    handleClick (evt) {
+      this.$emit('click', evt)
 
       if (this.selectionMenuChild) {
         this.$emit('changed', this.item)

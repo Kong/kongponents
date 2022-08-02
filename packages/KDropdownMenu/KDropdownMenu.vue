@@ -10,6 +10,7 @@
           toggle();
           return isToggled
         }"
+        target=".k-dropdown-trigger"
         @opened="() => {
           toggle()
           $emit('toggleDropdown', true)
@@ -26,7 +27,7 @@
             :position="!!disabledTooltip ? 'bottom' : undefined"
             :position-fixed="!!disabledTooltip ? true : undefined"
             :max-width="!!disabledTooltip ? '240' : undefined"
-            class="dropdown-trigger"
+            class="k-dropdown-trigger dropdown-trigger"
           >
             <slot
               :is-open="isToggled"
@@ -58,7 +59,7 @@
               <KDropdownItem
                 v-for="(item, idx) in items"
                 v-bind="item"
-                :key="`${item.label.replace(' ', '-')}-${idx}`"
+                :key="`${item.label}-${idx}`"
                 :item="item"
                 :selection-menu-child="appearance === 'selectionMenu'"
               />

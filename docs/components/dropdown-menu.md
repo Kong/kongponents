@@ -1,4 +1,4 @@
-# DropdownMenu
+# Dropdown Menu
 
 **KDropdownMenu** is a button (or any slotted content) that is clicked to trigger a menu popover beneath it.
 
@@ -28,10 +28,10 @@ An array of item objects containing a `label` property and other optional proper
 ### appearance
 
 Use this prop to specify the display style for the dropdown menu. Can be either `menu` (default) or `selectionMenu`.
-The `menu` style is the standard you have seen in the example above.
+The `menu` style is the standard you have seen in the example above. Uses a standard `primary` `KButton` with hover state over items and no notion of "selection".
 
-The `selectionMenu` style is good for a clearer representation of what is selected. `selected` state is handled automatically when
-clicking a `KDropdownItem` if used in conjunction with the `items` prop. You will need to manually control selectedness if you are using the `items` slot.
+The `selectionMenu` style is good for a clearer representation of the currently selected menu item. `selected` state is handled automatically when clicking a `KDropdownItem` if used in conjunction with the `items` prop.
+If using the `items` slot, `KDropdownItem` children should use the `selectionMenuChild` prop to fire a `changed` event when clicked. You will need to manually control selectedness of each item using the `selected` prop.
 
 <div>
   <KDropdownMenu
@@ -41,16 +41,12 @@ clicking a `KDropdownItem` if used in conjunction with the `items` prop. You wil
   >
     <template #items>
       <KDropdownItem
-        :selected="selectedItem === 'us'"
-        @click="clickHandler('US selected', 'us', 'US (United States)')"
+        v-for="item in menuItems"
+        selection-menu-child
+        :selected="selectedItem === item.value"
+        @click="clickHandler(null, item)"
       >
-        US (United States)
-      </KDropdownItem>
-      <KDropdownItem
-        :selected="selectedItem === 'fr'"
-        @click="clickHandler('France selected', 'fr', 'FR (France)')"
-      >
-        FR (France)
+        {{ item.label }}
       </KDropdownItem>
     </template>
   </KDropdownMenu>
@@ -64,16 +60,12 @@ clicking a `KDropdownItem` if used in conjunction with the `items` prop. You wil
 >
   <template #items>
     <KDropdownItem
-      :selected="selectedItem === 'us'"
-      @click="clickHandler('US selected', 'us', 'US (United States)')"
+      v-for="item in menuItems"
+      selection-menu-child
+      :selected="selectedItem === item.value"
+      @click="clickHandler(null, item)"
     >
-      US (United States)
-    </KDropdownItem>
-    <KDropdownItem
-      :selected="selectedItem === 'fr'"
-      @click="clickHandler('France selected', 'fr', 'FR (France)')"
-    >
-      FR (France)
+      {{ item.label }}
     </KDropdownItem>
   </template>
 </KDropdownMenu>
@@ -84,19 +76,27 @@ export default {
     return {
       selectedItem: '',
       selectedLabel: 'Select an item'
+      menuItems: [{
+        label: 'US (United States)',
+        value: 'us'
+      },
+      {
+        label: 'FR (France)',
+        value: 'fr'
+      }]
     }
   },
   methods: {
-    clickHandler (msg, val, label) {
-      if (val !== undefined) {
-        this.selectedItem = val
+    clickHandler (msg, item) {
+      if (item.value !== undefined) {
+        this.selectedItem = item.value
       }
 
-      if (label) {
-        this.selectedLabel = label
+      if (item.label) {
+        this.selectedLabel = item.label
       }
 
-      this.$toaster.open(msg)
+      this.$toaster.open(msg || `${item.label} clicked!`)
     }
   }
 }
@@ -217,7 +217,7 @@ Text to display on hover if dropdown is disabled.
 
 There are 2 supported slots:
 
-- `default` - The trigger element for opening/closing the menu. Returns the `isOpen` state.
+- `default` - The trigger element for opening/closing the menu. Slot provides `isOpen` - whether the menu is open or not.
 - `items` - For an example of using the items slot see the [`KDropdownItem`](#KDropdownItem) section.
 
 <div>
@@ -275,7 +275,7 @@ There are 3 primary item types:
   <KDropdownMenu label="Variety">
     <template #items>
       <KDropdownItem :item="youAreHere" />
-      <KDropdownItem @click="clickHandler">
+      <KDropdownItem @click="clickHandler('Button clicked!')">
         A button
       </KDropdownItem>
       <KDropdownItem
@@ -345,8 +345,9 @@ There are 3 primary item types:
 
 | Event     | Description             |
 | :-------- | :------------------ |
-| `click` | Fires when a menu item is clicked |
-| `changed` | Fires when items with `selectionMenuChild` prop are clicked; returns `selectedItem` Object or null |
+| `click` | Fires when a `button` type menu item is clicked |
+| `changed` | Fires when items with `selectionMenuChild` prop are clicked; returns the menu item Object or null |
+| `toggleDropdown` | Fires when the button to toggle the menu is clicked; returns true if the menu is open, or false |
 
 <script>
 export default {
@@ -354,6 +355,14 @@ export default {
     return {
       selectedLabel: 'Selected an item',
       selectedItem: '',
+      menuItems: [{
+        label: 'US (United States)',
+        value: 'us'
+      },
+      {
+        label: 'FR (France)',
+        value: 'fr'
+      }],
       defaultItemsUnselected: [
         { label: 'Home', to: { path: '/' } },
         { label: 'Button docs', to: { path: '/components/button.html' } },
@@ -363,19 +372,20 @@ export default {
     }
   },
   methods: {
-    clickHandler (msg, val, label) {
+    clickHandler (msg, item) {
       let text = 'Button was clicked'
 
       if (msg) {
         text = msg
       }
 
-      if (val !== undefined) {
-        this.selectedItem = val
+      if (item && item.value !== undefined) {
+        this.selectedItem = item.value
       }
 
-      if (label) {
-        this.selectedLabel = label
+      if (item && item.label) {
+        this.selectedLabel = item.label
+        text = `${item.label} clicked!`
       }
 
       this.$toaster.open(text)
