@@ -103,7 +103,7 @@ export default {
       this.$emit('click', evt)
 
       if (this.selectionMenuChild) {
-        this.$emit('changed', this.item)
+        this.$emit('change', this.item)
       }
     }
   }

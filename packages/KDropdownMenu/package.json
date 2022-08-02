@@ -23,6 +23,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "peerDependencies": {
+    "vue-router": "^3.5.4"
+  },
   "dependencies": {
     "@kongponents/kbutton": "^6.33.9",
     "@kongponents/kpop": "^6.33.9",

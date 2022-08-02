@@ -353,7 +353,7 @@ There are 3 primary item types:
 export default {
   data () {
     return {
-      selectedLabel: 'Selected an item',
+      selectedLabel: 'Select an item',
       selectedItem: '',
       menuItems: [{
         label: 'US (United States)',

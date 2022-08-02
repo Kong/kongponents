@@ -22,6 +22,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "peerDependencies": {
+    "vue-router": "^3.5.4"
+  },
   "dependencies": {
     "@kongponents/kicon": "^6.35.5",
     "@kongponents/styles": "^6.35.5"
