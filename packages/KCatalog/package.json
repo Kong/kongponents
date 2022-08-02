@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kcatalog",
-  "version": "6.35.4",
+  "version": "6.35.5",
   "description": "A grid view of KCards",
   "main": "dist/KCatalog.umd.min.js",
   "componentName": "KCatalog",
@@ -24,13 +24,13 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kbutton": "^6.35.4",
-    "@kongponents/kcard": "^6.35.4",
-    "@kongponents/kemptystate": "^6.35.4",
-    "@kongponents/kpagination": "^6.35.4",
-    "@kongponents/kskeleton": "^6.35.4",
-    "@kongponents/styles": "^6.35.4",
-    "@kongponents/utils": "^6.35.4"
+    "@kongponents/kbutton": "^6.35.5",
+    "@kongponents/kcard": "^6.35.5",
+    "@kongponents/kemptystate": "^6.35.5",
+    "@kongponents/kpagination": "^6.35.5",
+    "@kongponents/kskeleton": "^6.35.5",
+    "@kongponents/styles": "^6.35.5",
+    "@kongponents/utils": "^6.35.5"
   },
   "peerDependencies": {
     "@vue/composition-api": "^1.2.4"

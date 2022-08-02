@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.35.5 (2022-08-02)
+
+
+### Bug Fixes
+
+* **kpop:** target element defaults ([#729](https://github.com/Kong/kongponents/issues/729)) ([2afdfd0](https://github.com/Kong/kongponents/commit/2afdfd0f061968f8c81e6b01bb0e3b50bc0cf009))
+
+
+
+
+
 ## 6.35.4 (2022-08-02)
 
 
