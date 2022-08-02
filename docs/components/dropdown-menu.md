@@ -257,7 +257,7 @@ There are 2 supported slots:
 - `selected` - a boolean (default to `false`), whether or not the item is selected.
 - `hasDivider` - a boolean (default to `false`), whether or not the item should have a divider bar displayed above it
 - `isDangerous` - a boolean (default to `false`), whether or not to apply danger styles (text color is red)
-- `selectionMenuChild` - a boolean (default to `false`), whether the parent is a `selectionMenu` or not (used for events)
+- `selectionMenuChild` - a boolean (defaults to `false`), whether the parent is a `selectionMenu` or not (used for events)
 
 ```html
 <KDropdownItem :item="{ label: 'Leave the page', to: { path: '/' } }" />
