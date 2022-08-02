@@ -256,7 +256,7 @@ There are 2 supported slots:
 - `disabled` - a boolean (defaults to `false`), whether or not to disable the item.
 - `selected` - a boolean (defaults to `false`), whether or not the item is selected.
 - `hasDivider` - a boolean (defaults to `false`), whether or not the item should have a divider bar displayed above it
-- `isDangerous` - a boolean (default to `false`), whether or not to apply danger styles (text color is red)
+- `isDangerous` - a boolean (defaults to `false`), whether or not to apply danger styles (text color is red)
 - `selectionMenuChild` - a boolean (defaults to `false`), whether the parent is a `selectionMenu` or not (used for events)
 
 ```html
