@@ -248,7 +248,7 @@ There are 2 supported slots:
 
 ## KDropdownItem
 
-**KDropdownMenu** generates a **KDropdownItem** for each item in the `items` property. At the most basic level, **KDropdownItem** is a wrapper around each item to display it correctly inside `KDropdownMenu`. You can use the `items` slot of the `KDropdownMenu` to manually create your own menu items.
+**KDropdownMenu** generates a **KDropdownItem** for each object in the `items` prop array. At the most basic level, **KDropdownItem** is a wrapper around each item to display it correctly inside `KDropdownMenu`. You can use the `items` slot of the `KDropdownMenu` to manually create your own menu items.
 
 ### Properties
 
