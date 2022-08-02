@@ -31,7 +31,7 @@ Use this prop to specify the display style for the dropdown menu. Can be either 
 The `menu` style is the standard you have seen in the example above. Uses a standard `primary` `KButton` with hover state over items and no notion of "selection".
 
 The `selectionMenu` style is good for a clearer representation of the currently selected menu item. `selected` state is handled automatically when clicking a `KDropdownItem` if used in conjunction with the `items` prop.
-If using the `items` slot, `KDropdownItem` children should use the `selectionMenuChild` prop to fire a `changed` event when clicked. You will need to manually control selectedness of each item using the `selected` prop.
+If using the `items` slot, `KDropdownItem` children should use the `selectionMenuChild` prop to fire a `changed` event when clicked. You will need to manually control the reactive state of the selected item.
 
 <div>
   <KDropdownMenu
