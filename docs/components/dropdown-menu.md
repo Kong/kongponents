@@ -265,7 +265,7 @@ There are 2 supported slots:
 
 There are 3 primary item types:
 
-- `router-link`
+- `link`
   - the generic type generated using the `items` prop on `KDropdownMenu`
   - the generic type generated using the `item` prop on `KDropdownItem`
 - `button` - this item is generated if a handler is specified for the `@click` event on a `KDropdownItem`
