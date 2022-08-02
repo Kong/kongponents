@@ -12,7 +12,7 @@ The label for the menu.
 
 ### items
 
-An array of items containing a `label` and other optional properties will render a menu of [`KDropdownItems`](#KDropdownItem) .
+An array of item objects containing a `label` property and other optional properties which will render a menu of [`KDropdownItems`](#KDropdownItem) .
 
 ```html
 <KDropdownMenu
