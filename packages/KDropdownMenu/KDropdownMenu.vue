@@ -102,7 +102,7 @@ export default {
         return [
           'menu',
           'selectionMenu'
-        ].indexOf(value) !== -1
+        ].includes(value)
       }
     },
     label: {
