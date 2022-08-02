@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.35.4 (2022-08-02)
+
+
+### Bug Fixes
+
+* **kselect:** remove is-open prop on KInput ([#728](https://github.com/Kong/kongponents/issues/728)) ([08d8870](https://github.com/Kong/kongponents/commit/08d8870088242392b8842dab702be02870c55fd5))
+
+
+
+
+
 ## 6.35.3 (2022-08-01)
 
 
