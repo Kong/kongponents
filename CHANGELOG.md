@@ -1,3 +1,10 @@
+# [7.0.0-beta.75](https://github.com/Kong/kongponents/compare/v7.0.0-beta.74...v7.0.0-beta.75) (2022-08-02)
+
+
+### Bug Fixes
+
+* **kselect:** remove is-open prop on KInput ([#727](https://github.com/Kong/kongponents/issues/727)) ([811303a](https://github.com/Kong/kongponents/commit/811303a7efb4a0472e71fd47c9027b1bb8436fd1))
+
 # [7.0.0-beta.74](https://github.com/Kong/kongponents/compare/v7.0.0-beta.73...v7.0.0-beta.74) (2022-08-01)
 
 
