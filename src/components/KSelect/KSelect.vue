@@ -103,7 +103,6 @@
               :id="selectTextId"
               v-bind="$attrs"
               :model-value="filterStr"
-              :is-open="isToggled.value"
               :label="label && overlayLabel ? label : undefined"
               :overlay-label="overlayLabel"
               :placeholder="selectedItem && appearance === 'select' && !filterIsEnabled ? selectedItem.label : placeholderText"
