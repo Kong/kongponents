@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.35.6 (2022-08-03)
+
+
+### Bug Fixes
+
+* **kicon:** update vitals icon [pdux-933] ([#731](https://github.com/Kong/kongponents/issues/731)) ([56a6be3](https://github.com/Kong/kongponents/commit/56a6be350d72ac174b7fbe94596a57405feab029))
+
+
+
+
+
 ## 6.35.5 (2022-08-02)
 
 
