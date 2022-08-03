@@ -27,6 +27,7 @@
           :position="!!disabledTooltip ? 'bottom' : undefined"
           :position-fixed="!!disabledTooltip ? true : undefined"
           :max-width="!!disabledTooltip ? '240' : undefined"
+          :test-mode="testMode"
           class="k-dropdown-trigger dropdown-trigger"
           data-testid="k-dropdown-trigger"
         >
