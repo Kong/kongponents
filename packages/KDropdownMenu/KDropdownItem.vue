@@ -141,6 +141,10 @@ li.k-dropdown-item {
     width: 100%;
     color: var(--black-70);
 
+    &a, &button {
+      text-decoration: none !important;
+    }
+
     &:disabled,
     &.disabled {
       cursor: not-allowed !important;
@@ -161,6 +165,16 @@ li.k-dropdown-item {
       &:hover {
         color: var(--red-500);
       }
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+.k-dropdown-item {
+  a, button {
+    &.k-dropdown-item-trigger {
+      text-decoration: none !important;
     }
   }
 }
