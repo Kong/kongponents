@@ -141,10 +141,6 @@ li.k-dropdown-item {
     width: 100%;
     color: var(--black-70);
 
-    &a, &button {
-      text-decoration: none !important;
-    }
-
     &:disabled,
     &.disabled {
       cursor: not-allowed !important;
