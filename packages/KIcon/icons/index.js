@@ -1,5 +1,7 @@
+import arrowDown from './icn-arrow-down.svg'
 import arrowLeft from './icn-arrow-left.svg'
 import arrowRight from './icn-arrow-right.svg'
+import arrowUp from './icn-arrow-up.svg'
 import back from './icn-back.svg'
 import brain from './icn-brain.svg'
 import check from './icn-check.svg'
@@ -80,8 +82,10 @@ import workspaces from './icn-workspaces.svg'
 import workspacesCollapsed from './icn-collapse-workspaces.svg'
 
 export default {
+  arrowDown,
   arrowLeft,
   arrowRight,
+  arrowUp,
   back,
   brain,
   check,
