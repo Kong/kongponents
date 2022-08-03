@@ -6,14 +6,15 @@
       'danger': isDangerous,
       'k-dropdown-selected-option': selected
     }"
+    :data-testid="`k-dropdown-item-${label.replace(' ', '-')}`"
     class="k-dropdown-item w-100"
   >
     <router-link
       v-if="type === 'link' && to"
-      :data-testid="label"
-      :class="{ 'disabled': disabled, 'has-divider': hasDivider }"
       :to="!disabled ? to : $router.currentRoute.path"
+      :class="{ 'disabled': disabled, 'has-divider': hasDivider }"
       class="k-dropdown-item-trigger"
+      data-testid="k-dropdown-item-trigger"
     >
       <slot>{{ label }}</slot>
     </router-link>
@@ -21,6 +22,7 @@
       v-else-if="type === 'button'"
       :disabled="disabled"
       class="k-dropdown-item-trigger btn-link k-button non-visual-button"
+      data-testid="k-dropdown-item-trigger"
       v-on="listeners"
       @click="handleClick"
     >
@@ -29,6 +31,7 @@
     <div
       v-else
       class="k-dropdown-item-trigger"
+      data-testid="k-dropdown-item-trigger"
     >
       <slot>{{ label }}</slot>
     </div>

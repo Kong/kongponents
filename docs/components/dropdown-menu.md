@@ -30,7 +30,7 @@ An array of item objects containing a `label` property and other optional proper
 Use this prop to specify the display style for the dropdown menu. Can be either `menu` (default) or `selectionMenu`.
 The `menu` style is the standard you have seen in the example above. Uses a standard `primary` `KButton` with hover state over items and no notion of "selection".
 
-The `selectionMenu` style is used when a visual indication of the currently selected menu item is needed. `selected` state is handled automatically when clicking a `KDropdownItem` if used in conjunction with the `items` prop.
+The `selectionMenu` style is used when a visual indication of the currently selected menu item is needed. `selected` state is handled automatically when clicking a `KDropdownItem` if used in conjunction with the `items` prop. Each item should have a `label` and a `value`.
 If using the `items` slot, you will have access to the `handleSelection()` method which should be called on each item's click event and takes the `item` data as a parameter. This will enable you to attach to the `@change` event (which returns the selected item) to track your selection.
 
 <div>
@@ -73,8 +73,8 @@ export default {
   data() {
     return {
       selectedItem: {
-        value: '',
-        label: 'Select an item'
+        label: 'Select an item',
+        value: ''
       },
       menuItems: [{
         label: 'US (United States)',
@@ -259,9 +259,9 @@ There are 2 supported slots:
 
 ### Properties
 
-- `item` - the properties the router-link is built from, it expects a `label` and a `to`.
+- `item` - the properties the router-link is built from, it expects a `label` and optionally a `to` (for a router-link item) or `value` (for a `selectionMenu` item).
 - `disabled` - a boolean (defaults to `false`), whether or not to disable the item.
-- `selected` - a boolean (defaults to `false`), whether or not the item is selected.
+- `selected` - a boolean (defaults to `false`), whether or not the item is selected if using `selectionMenu` appearance.
 - `hasDivider` - a boolean (defaults to `false`), whether or not the item should have a divider bar displayed above it
 - `isDangerous` - a boolean (defaults to `false`), whether or not to apply danger styles (text color is red)
 

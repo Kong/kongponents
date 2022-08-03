@@ -11,6 +11,7 @@
           return isToggled
         }"
         :test-mode="testMode"
+        data-testid="k-dropdown-menu-popover"
         @opened="() => {
           toggle()
           $emit('toggleDropdown', true)
@@ -20,40 +21,41 @@
           $emit('toggleDropdown', false)
         }"
       >
-        <div class="d-flex">
-          <component
-            :is="!!disabledTooltip ? 'Kooltip' : 'div'"
-            :label="disabledTooltip"
-            :position="!!disabledTooltip ? 'bottom' : undefined"
-            :position-fixed="!!disabledTooltip ? true : undefined"
-            :max-width="!!disabledTooltip ? '240' : undefined"
-            class="k-dropdown-trigger dropdown-trigger"
+        <component
+          :is="!!disabledTooltip ? 'Kooltip' : 'div'"
+          :label="disabledTooltip"
+          :position="!!disabledTooltip ? 'bottom' : undefined"
+          :position-fixed="!!disabledTooltip ? true : undefined"
+          :max-width="!!disabledTooltip ? '240' : undefined"
+          class="k-dropdown-trigger dropdown-trigger"
+          data-testid="k-dropdown-trigger"
+        >
+          <slot
+            :is-open="isToggled"
+            name="default"
           >
-            <slot
-              :is-open="isToggled"
-              name="default"
-            >
-              <!-- Must wrap in div to allow tooltip when disabled -->
-              <div>
-                <KButton
-                  v-if="label"
-                  :disabled="disabled"
-                  :is-open="showCaret || appearance === 'selectionMenu' ? isToggled : undefined"
-                  :class="{ 'is-active': showCaret ? isToggled : undefined }"
-                  :appearance="appearance === 'selectionMenu' ? 'outline' : 'primary'"
-                  class="k-dropdown-btn"
-                >
-                  {{ label }}
-                </KButton>
-              </div>
-            </slot>
-          </component>
-        </div>
+            <!-- Must wrap in div to allow tooltip when disabled -->
+            <div>
+              <KButton
+                v-if="label"
+                :disabled="disabled"
+                :is-open="showCaret || appearance === 'selectionMenu' ? isToggled : undefined"
+                :class="{ 'is-active': showCaret ? isToggled : undefined }"
+                :appearance="appearance === 'selectionMenu' ? 'outline' : 'primary'"
+                class="k-dropdown-btn"
+                data-testid="k-dropdown-btn"
+              >
+                {{ label }}
+              </KButton>
+            </div>
+          </slot>
+        </component>
         <template #content>
-          <ul class="k-dropdown-list dropdown-list">
+          <ul
+            class="k-dropdown-list dropdown-list"
+            data-testid="k-dropdown-list">
             <slot
               :items="items"
-              :is-open="isToggled"
               :handle-selection="handleSelection"
               name="items"
             >
@@ -165,6 +167,15 @@ export default {
     selectedItem (newVal, oldVal) {
       if (newVal.value !== oldVal.value) {
         this.$emit('change', newVal)
+      }
+    }
+  },
+  mounted () {
+    if (this.items) {
+      const selectionArr = this.items.filter(item => item.selected)
+
+      if (selectionArr.length) {
+        this.selectedItem = selectionArr[0]
       }
     }
   },
