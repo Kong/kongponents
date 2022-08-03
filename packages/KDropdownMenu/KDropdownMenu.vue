@@ -10,6 +10,7 @@
           toggle();
           return isToggled
         }"
+        :test-mode="testMode"
         @opened="() => {
           toggle()
           $emit('toggleDropdown', true)
@@ -140,6 +141,13 @@ export default {
     disabledTooltip: {
       type: String,
       default: ''
+    },
+    /**
+     * Test mode - for testing only, strips out generated ids
+     */
+    testMode: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -188,10 +196,6 @@ export default {
     border-top: 0.325em solid;
     border-right: 0.325em solid transparent;
     border-left: 0.325em solid transparent;
-  }
-
-  .k-dropdown-list.dropdown-list {
-    min-width: 148px;
   }
 }
 </style>
