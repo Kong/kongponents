@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KDropdownMenu matches snapshot 1`] = `
+<div class="k-dropdown k-dropdown-menu">
+  <div id="82f5c551-135b-11ed-8370-dd8999b55918" aria-controls="82f5c550-135b-11ed-8370-dd8999b55918" role="button">
+    <div class="d-flex">
+      <div label="" class="k-dropdown-trigger dropdown-trigger">
+        <div>
+          <!---->
+        </div>
+      </div>
+    </div>
+    <div id="82f5c550-135b-11ed-8370-dd8999b55918" role="region" class="k-popover k-dropdown-popover mt-1 undefined hide-caret" style="width: 200px; max-width: 350px; display: none;" name="fade">
+      <!---->
+      <div class="k-popover-content">
+        <ul class="k-dropdown-list dropdown-list"></ul>
+      </div>
+      <!---->
+    </div>
+  </div>
+</div>
+`;
