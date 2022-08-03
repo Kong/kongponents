@@ -18,9 +18,9 @@ An array of item objects containing a `label` property and other optional proper
 <KDropdownMenu
   label="Documentation"
   :items="[
-    { label: 'Home', to: { path: '/' } },
-    { label: 'Button docs', to: { path: '/components/button.html' } },
-    { label: 'My docs', to: { path: '/components/dropdown-menu.html' } }
+    { label: 'Props', to: { path: '/components/dropdown-menu.html#props' } },
+    { label: 'Slots', to: { path: '/components/dropdown-menu.html#slots' } },
+    { label: 'Top', to: { path: '/components/dropdown-menu.html' } }
   ]"
 />
 ```
@@ -30,21 +30,20 @@ An array of item objects containing a `label` property and other optional proper
 Use this prop to specify the display style for the dropdown menu. Can be either `menu` (default) or `selectionMenu`.
 The `menu` style is the standard you have seen in the example above. Uses a standard `primary` `KButton` with hover state over items and no notion of "selection".
 
-The `selectionMenu` style is good for a clearer representation of the currently selected menu item. `selected` state is handled automatically when clicking a `KDropdownItem` if used in conjunction with the `items` prop.
-If using the `items` slot, `KDropdownItem` children should use the `selectionMenuChild` prop to fire a `changed` event when clicked. You will need to manually control the reactive state of the selected item.
+The `selectionMenu` style is used when a visual indication of the currently selected menu item is needed. `selected` state is handled automatically when clicking a `KDropdownItem` if used in conjunction with the `items` prop.
+If using the `items` slot, you will have access to the `handleSelection()` method which should be called on each item's click event and takes the `item` data as a parameter. This will enable you to attach to the `@change` event (which returns the selected item) to track your selection.
 
 <div>
   <KDropdownMenu
-    :kpop-attributes="{ width: '220' }"
-    :label="selectedLabel"
+    :label="selectedItem.label"
     appearance="selectionMenu"
+    @change="(selection) => handleChange(selection)"
   >
-    <template #items>
+    <template #items="{ handleSelection }">
       <KDropdownItem
         v-for="item in menuItems"
-        selection-menu-child
-        :selected="selectedItem === item.value"
-        @click="clickHandler(null, item)"
+        :selected="selectedItem.value === item.value"
+        @click="handleSelection(item)"
       >
         {{ item.label }}
       </KDropdownItem>
@@ -54,16 +53,15 @@ If using the `items` slot, `KDropdownItem` children should use the `selectionMen
 
 ```html
 <KDropdownMenu
-  :kpop-attributes="{ width: '220' }"
-  :label="selectedLabel"
+  :label="selectedItem.label"
   appearance="selectionMenu"
+  @change="(selection) => handleChange(selection)"
 >
-  <template #items>
+  <template #items="{ handleSelection }">
     <KDropdownItem
       v-for="item in menuItems"
-      selection-menu-child
-      :selected="selectedItem === item.value"
-      @click="clickHandler(null, item)"
+      :selected="selectedItem.value === item.value"
+      @click="handleSelection(item)"
     >
       {{ item.label }}
     </KDropdownItem>
@@ -74,8 +72,10 @@ If using the `items` slot, `KDropdownItem` children should use the `selectionMen
 export default {
   data() {
     return {
-      selectedItem: '',
-      selectedLabel: 'Select an item'
+      selectedItem: {
+        value: '',
+        label: 'Select an item'
+      },
       menuItems: [{
         label: 'US (United States)',
         value: 'us'
@@ -87,16 +87,9 @@ export default {
     }
   },
   methods: {
-    clickHandler (msg, item) {
-      if (item.value !== undefined) {
-        this.selectedItem = item.value
-      }
-
-      if (item.label) {
-        this.selectedLabel = item.label
-      }
-
-      this.$toaster.open(msg || `${item.label} clicked!`)
+    handleChange (item) {
+      this.selectedItem = item
+      this.$toaster.open(`${item.label} clicked!`)
     }
   }
 }
@@ -117,20 +110,34 @@ Use this prop if you would like the trigger button to display the caret.
 />
 ```
 
+### width
+
+The width of the dropdown body. Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
+
+<KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" width="500" />
+
+```html
+<KDropdownMenu
+  label="Documentation"
+  :items="items"
+  width="500"
+/>
+```
+
 ### kpopAttributes
 
 Use the `kpopAttributes` prop to configure the **KPop** [props](/components/popover.html) dropdown.
 
 <div>
   <KCard
-    title="Card Title"
-    body="Body Content"
+    title="KPopAttributes FTW"
+    body="Click the three dots in the upper right corner to see the example in action"
   >
     <template #actions>
       <KDropdownMenu
         :kpop-attributes="{
           popoverClasses: 'mt-5',
-          width: '180'
+          maxWidth: '100'
         }"
         :items="deepClone(defaultItemsUnselected)"
       >
@@ -156,14 +163,14 @@ Use the `kpopAttributes` prop to configure the **KPop** [props](/components/popo
 
 ```html
 <KCard
-  title="Card Title"
-  body="Body Content"
+  title="KPopAttributes FTW"
+  body="Click the three dots in the upper right corner to see the example in action"
 >
   <template #actions>
     <KDropdownMenu
       :kpop-attributes="{
         popoverClasses: 'mt-5',
-        width: '180'
+        maxWidth: '100'
       }"
       :items="deepClone(defaultItemsUnselected)"
     >
@@ -257,7 +264,6 @@ There are 2 supported slots:
 - `selected` - a boolean (defaults to `false`), whether or not the item is selected.
 - `hasDivider` - a boolean (defaults to `false`), whether or not the item should have a divider bar displayed above it
 - `isDangerous` - a boolean (defaults to `false`), whether or not to apply danger styles (text color is red)
-- `selectionMenuChild` - a boolean (defaults to `false`), whether the parent is a `selectionMenu` or not (used for events)
 
 ```html
 <KDropdownItem :item="{ label: 'Leave the page', to: { path: '/' } }" />
@@ -298,6 +304,7 @@ There are 3 primary item types:
           <KIcon
             icon="externalLink"
             size="12"
+            color="var(--red-500)"
             class="ml-2"
           />
         </a>
@@ -333,6 +340,7 @@ There are 3 primary item types:
         <KIcon
           icon="externalLink"
           size="12"
+          color="var(--red-500)"
           class="ml-2"
         />
       </a>
@@ -346,15 +354,17 @@ There are 3 primary item types:
 | Event     | Description             |
 | :-------- | :------------------ |
 | `click` | Fires when a `button` type menu item is clicked |
-| `changed` | Fires when items with `selectionMenuChild` prop are clicked; returns the menu item Object or null |
+| `change` | Fires when items within a `selectionMenu` are clicked; returns the selected menu item object or null |
 | `toggleDropdown` | Fires when the button to toggle the menu is clicked; returns true if the menu is open, or false |
 
 <script>
 export default {
   data () {
     return {
-      selectedLabel: 'Select an item',
-      selectedItem: '',
+      selectedItem: {
+        value: '',
+        label: 'Selet an item'
+      },
       menuItems: [{
         label: 'US (United States)',
         value: 'us'
@@ -364,28 +374,23 @@ export default {
         value: 'fr'
       }],
       defaultItemsUnselected: [
-        { label: 'Home', to: { path: '/' } },
-        { label: 'Button docs', to: { path: '/components/button.html' } },
-        { label: 'My docs', to: { path: '/components/dropdown-menu.html' } }
+        { label: 'Props', to: { path: '/components/dropdown-menu.html#props' } },
+        { label: 'Slots', to: { path: '/components/dropdown-menu.html#slots' } },
+        { label: 'Top', to: { path: '/components/dropdown-menu.html' } }
       ],
       youAreHere: { label: 'You are here', to: { path: '/components/dropdown-menu.html' } }
     }
   },
   methods: {
-    clickHandler (msg, item) {
+    handleChange (item) {
+      this.selectedItem = item
+      this.$toaster.open(`${item.label} clicked!`)
+    },
+    clickHandler (msg) {
       let text = 'Button was clicked'
 
       if (msg) {
         text = msg
-      }
-
-      if (item && item.value !== undefined) {
-        this.selectedItem = item.value
-      }
-
-      if (item && item.label) {
-        this.selectedLabel = item.label
-        text = `${item.label} clicked!`
       }
 
       this.$toaster.open(text)
@@ -396,9 +401,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.KDropdownMenu-wrapper {
-  --KDropdownMenu-wrapperBorderColor: lime;
-}
-</style>

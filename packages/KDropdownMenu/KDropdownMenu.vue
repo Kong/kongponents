@@ -10,7 +10,6 @@
           toggle();
           return isToggled
         }"
-        target=".k-dropdown-trigger"
         @opened="() => {
           toggle()
           $emit('toggleDropdown', true)
@@ -54,6 +53,7 @@
             <slot
               :items="items"
               :is-open="isToggled"
+              :handle-selection="handleSelection"
               name="items"
             >
               <KDropdownItem
@@ -62,6 +62,7 @@
                 :key="`${item.label}-${idx}`"
                 :item="item"
                 :selection-menu-child="appearance === 'selectionMenu'"
+                @change="(selection) => handleSelection(selection)"
               />
             </slot>
           </ul>
@@ -114,6 +115,10 @@ export default {
       type: Boolean,
       default: false
     },
+    width: {
+      type: String,
+      default: ''
+    },
     // kpopAttributes is used to pass properties directly to the wrapped KPop component.
     // Commonly-overridden properties include:
     // - width
@@ -142,8 +147,26 @@ export default {
       boundKPopAttributes: {
         ...defaultKPopAttributes,
         ...this.kpopAttributes,
+        width: this.width ? this.width : undefined,
         popoverClasses: `${defaultKPopAttributes.popoverClasses} ${this.kpopAttributes.popoverClasses}`
+      },
+      selectedItem: {}
+    }
+  },
+  watch: {
+    selectedItem (newVal, oldVal) {
+      if (newVal.value !== oldVal.value) {
+        this.$emit('change', newVal)
       }
+    }
+  },
+  methods: {
+    handleSelection (item) {
+      if (this.appearance !== 'selectionMenu') {
+        return
+      }
+
+      this.selectedItem = item
     }
   }
 }
@@ -153,6 +176,8 @@ export default {
 @import '~@kongponents/styles/variables';
 
 .k-dropdown-menu {
+  width: fit-content;
+
   .drodpown-trigger:after {
     display: inline-block;
     width: 0;

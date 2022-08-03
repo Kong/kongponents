@@ -67,6 +67,9 @@ export default {
       type: Boolean,
       default: false
     },
+    /**
+     * Internal use only - for tracking selection in conjunction with items prop.
+     */
     selectionMenuChild: {
       type: Boolean,
       default: false
