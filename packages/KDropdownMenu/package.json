@@ -4,7 +4,7 @@
   "description": "Dropdown Menu component",
   "main": "dist/KDropdownMenu.umd.min.js",
   "componentName": "KDropdownMenu",
-  "source": "KDropdownMenu.vue",
+  "source": "index.js",
   "files": [
     "dist",
     "*.vue",
