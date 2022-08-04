@@ -1,16 +1,200 @@
 <template>
-    <!-- TODO: The <div> tag here is just a placeholder for your component content. -->
-  <div></div>
+  <div
+    :class="{ 'selection-dropdown-menu': appearance === 'selectionMenu' }"
+    class="k-dropdown k-dropdown-menu"
+  >
+    <KToggle v-slot="{ toggle, isToggled }">
+      <KPop
+        v-bind="boundKPopAttributes"
+        :on-popover-click="() => {
+          toggle();
+          return isToggled.value
+        }"
+        :test-mode="testMode"
+        data-testid="k-dropdown-menu-popover"
+        @opened="() => {
+          toggle()
+          $emit('toggleDropdown', true)
+        }"
+        @closed="() => {
+          toggle()
+          $emit('toggleDropdown', false)
+        }"
+      >
+        <component
+          :is="!!disabledTooltip ? 'Kooltip' : 'div'"
+          :label="disabledTooltip"
+          :position="!!disabledTooltip ? 'bottom' : undefined"
+          :position-fixed="!!disabledTooltip ? true : undefined"
+          :max-width="!!disabledTooltip ? '240' : undefined"
+          :test-mode="testMode"
+          class="k-dropdown-trigger dropdown-trigger"
+          data-testid="k-dropdown-trigger"
+        >
+          <slot
+            :is-open="isToggled.value"
+            name="default"
+          >
+            <!-- Must wrap in div to allow tooltip when disabled -->
+            <div>
+              <KButton
+                v-if="label"
+                :disabled="disabled"
+                :is-open="showCaret || appearance === 'selectionMenu' ? isToggled.value : undefined"
+                :appearance="appearance === 'selectionMenu' ? 'outline' : 'primary'"
+                :class="{ 'is-active': showCaret ? isToggled.value : undefined }"
+                class="k-dropdown-btn"
+                data-testid="k-dropdown-btn"
+              >
+                {{ label }}
+              </KButton>
+            </div>
+          </slot>
+        </component>
+        <template #content>
+          <ul
+            class="k-dropdown-list dropdown-list"
+            data-testid="k-dropdown-list"
+          >
+            <slot
+              :items="items"
+              :handle-selection="handleSelection"
+              name="items"
+            >
+              <KDropdownItem
+                v-for="(item, idx) in items"
+                v-bind="item"
+                :key="`${item.label}-${idx}`"
+                :item="item"
+                :selection-menu-child="appearance === 'selectionMenu'"
+                @change="handleSelection"
+              />
+            </slot>
+          </ul>
+        </template>
+      </KPop>
+    </KToggle>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType, ref, watch, onMounted } from 'vue'
+import KButton from '@/components/KButton/KButton.vue'
+import Kooltip from '@/components/KTooltip/KTooltip.vue'
+import KPop from '@/components/KPop/KPop.vue'
+import KToggle from '@/components/KToggle'
+import KDropdownItem from './KDropdownItem.vue'
+
+export interface DropdownItem {
+  label: string
+  // to?: RawLocation
+  to?: string | object
+  value?: string | number
+  selected?: boolean
+}
+
+const defaultKPopAttributes = {
+  hideCaret: true,
+  popoverClasses: 'k-dropdown-popover mt-1',
+  popoverTimeout: 0,
+  positionFixed: true,
+  placement: 'bottomStart',
+}
 
 export default defineComponent({
   name: 'KDropdownMenu',
-  props: {},
-  setup() {
-    // TODO
+  components: {
+    KButton,
+    KDropdownItem,
+    Kooltip,
+    KPop,
+    KToggle,
+  },
+  props: {
+    appearance: {
+      type: String,
+      default: 'menu',
+      validator: (value: string) => ['menu', 'selectionMenu'].includes(value),
+    },
+    label: {
+      type: String,
+      default: '',
+    },
+    showCaret: {
+      type: Boolean,
+      default: false,
+    },
+    width: {
+      type: String,
+      default: '',
+    },
+    // kpopAttributes is used to pass properties directly to the wrapped KPop component.
+    // Commonly-overridden properties include:
+    // - placement
+    // - popoverClasses
+    // - target
+    kpopAttributes: {
+      type: Object,
+      default: () => ({}),
+    },
+    items: {
+      type: Array as PropType<Array<DropdownItem>>,
+      default: () => [],
+      validator: (items: DropdownItem[]) => !items.length || items.some(i => Object.hasOwn(i, 'label')),
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    disabledTooltip: {
+      type: String,
+      default: '',
+    },
+    /**
+     * Test mode - for testing only, strips out generated ids
+     */
+    testMode: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  emits: ['toggleDropdown', 'change'],
+  setup(props, { emit }) {
+    const boundKPopAttributes = {
+      ...defaultKPopAttributes,
+      ...props.kpopAttributes,
+      width: props.width ? props.width : undefined,
+      popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses}`,
+    }
+
+    const selectedItem = ref({})
+    const handleSelection = (item: DropdownItem) => {
+      if (props.appearance !== 'selectionMenu') {
+        return
+      }
+      selectedItem.value = item
+    }
+
+    watch(selectedItem.value, (newVal, oldVal) => {
+      if (newVal !== oldVal) {
+        emit('change', newVal)
+      }
+    })
+
+    onMounted(() => {
+      if (props.items) {
+        const selectionArr = props.items.filter(item => item.selected)
+        if (selectionArr.length) {
+          selectedItem.value = selectionArr[0]
+        }
+      }
+    })
+
+    return {
+      boundKPopAttributes,
+      selectedItem,
+      handleSelection,
+    }
   },
 })
 </script>
@@ -19,4 +203,86 @@ export default defineComponent({
 @import '@/styles/variables';
 @import '@/styles/functions';
 
+.k-dropdown-menu {
+  width: fit-content;
+  .drodpown-trigger:after {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: var(--spacing-xs, spacing(xs));
+    vertical-align: middle;
+    content: "";
+    border-top: 0.325em solid;
+    border-right: 0.325em solid transparent;
+    border-left: 0.325em solid transparent;
+  }
+}
+</style>
+
+<style lang="scss">
+@import '@/styles/variables';
+@import '@/styles/functions';
+
+.k-popover.k-dropdown-popover {
+  --KPopPaddingY: var(--spacing-sm);
+  --KPopPaddingX: 0;
+  border: 1px solid var(--black-10);
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    flex: 1;
+    color: var(--black-70);
+
+    &:hover,
+    &:active,
+    &:focus {
+      text-decoration: none;
+    }
+  }
+}
+
+.selection-dropdown-menu {
+  .dropdown-trigger .k-button {
+    border: 0;
+    color: var(--grey-600);
+    white-space: nowrap;
+
+    &:focus {
+      box-shadow: none;
+    }
+
+    &:active:disabled {
+      background-color: var(--white);
+    }
+
+    &.is-active {
+      background-color: var(--grey-100);
+    }
+
+    // Set dropdown icon color
+    --KButtonOutlineColor: var(--grey-500);
+  }
+
+  .k-popover.k-dropdown-popover {
+    z-index: 10000 !important;
+
+    li {
+      .non-visual-button {
+        font-weight: 400 !important;
+      }
+
+      &.k-dropdown-selected-option {
+        background-color: var(--blue-100);
+
+        .non-visual-button {
+          font-weight: 500 !important;
+        }
+      }
+    }
+  }
+}
 </style>
