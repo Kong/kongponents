@@ -53,7 +53,7 @@ export default {
       validator: (item) => Object.hasOwn(item, 'label')
     },
     /**
-     * Use this prop to add a divider above the item
+     * Use this prop to add a divider above the item.
      */
     hasDivider: {
       type: Boolean,
