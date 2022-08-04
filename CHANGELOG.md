@@ -1,3 +1,10 @@
+# [7.0.0-beta.78](https://github.com/Kong/kongponents/compare/v7.0.0-beta.77...v7.0.0-beta.78) (2022-08-04)
+
+
+### Bug Fixes
+
+* **kselect:** update popover width when it opens ([#735](https://github.com/Kong/kongponents/issues/735)) ([9a979df](https://github.com/Kong/kongponents/commit/9a979df72dcea314a3b6dc731ce8b4c2a25bf227))
+
 # [7.0.0-beta.77](https://github.com/Kong/kongponents/compare/v7.0.0-beta.76...v7.0.0-beta.77) (2022-08-04)
 
 
