@@ -44,3 +44,4 @@ export { default as ToastManager } from './KToaster/ToastManager'
 export { default as KTooltip } from './KTooltip/KTooltip.vue'
 export { default as Kooltip } from './Kooltip' // KTooltip alias (backwards-compatible with console warning)
 export { default as KViewSwitcher } from './KViewSwitcher/KViewSwitcher.vue'
+export { default as KDropdownMenu } from './KDropdownMenu/KDropdownMenu.vue'
