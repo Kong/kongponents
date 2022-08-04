@@ -45,6 +45,7 @@
           @opened="() => {
             filterStr = ''
             toggle()
+            onPopoverOpen()
           }"
           @closed="() => {
             if (selectedItem && appearance === 'select') {
@@ -427,12 +428,6 @@ export default {
     }
   },
 
-  mounted () {
-    const inputElem = document.getElementById(this.selectInputId)
-    if (inputElem) {
-      this.inputWidth = inputElem.offsetWidth
-    }
-  },
   methods: {
     handleItemSelect (item) {
       this.selectItems.forEach(anItem => {
@@ -484,6 +479,12 @@ export default {
       if (!this.initialFocusTriggered) {
         this.initialFocusTriggered = true
         this.$emit('query-change', '')
+      }
+    },
+    onPopoverOpen () {
+      const inputElem = document.getElementById(this.selectInputId)
+      if (inputElem) {
+        this.inputWidth = inputElem.offsetWidth
       }
     }
   }
