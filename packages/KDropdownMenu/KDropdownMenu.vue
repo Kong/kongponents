@@ -41,8 +41,8 @@
                 v-if="label"
                 :disabled="disabled"
                 :is-open="showCaret || appearance === 'selectionMenu' ? isToggled : undefined"
-                :class="{ 'is-active': showCaret ? isToggled : undefined }"
                 :appearance="appearance === 'selectionMenu' ? 'outline' : 'primary'"
+                :class="{ 'is-active': showCaret ? isToggled : undefined }"
                 class="k-dropdown-btn"
                 data-testid="k-dropdown-btn"
               >

@@ -21,6 +21,7 @@
     <KButton
       v-else-if="type === 'button'"
       :disabled="disabled"
+      :is-rounded="false"
       class="k-dropdown-item-trigger btn-link k-button non-visual-button"
       data-testid="k-dropdown-item-trigger"
       v-on="listeners"
