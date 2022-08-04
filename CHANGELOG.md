@@ -1,3 +1,10 @@
+# [7.0.0-beta.79](https://github.com/Kong/kongponents/compare/v7.0.0-beta.78...v7.0.0-beta.79) (2022-08-04)
+
+
+### Features
+
+* **kicon:** add arrow up/down icons ([#739](https://github.com/Kong/kongponents/issues/739)) ([7b2e6f7](https://github.com/Kong/kongponents/commit/7b2e6f732c3d2d4c9ff3399f4aaa71ba35f4d31a))
+
 # [7.0.0-beta.78](https://github.com/Kong/kongponents/compare/v7.0.0-beta.77...v7.0.0-beta.78) (2022-08-04)
 
 
