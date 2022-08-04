@@ -1,13 +1,14 @@
 {
-  "name": "@kongponents/kbutton",
-  "version": "6.35.8",
-  "description": "Button component",
-  "main": "dist/KButton.umd.min.js",
-  "componentName": "KButton",
-  "source": "KButton.vue",
+  "name": "@kongponents/kdropdownmenu",
+  "version": "6.35.5",
+  "description": "Dropdown Menu component",
+  "main": "dist/KDropdownMenu.umd.min.js",
+  "componentName": "KDropdownMenu",
+  "source": "index.js",
   "files": [
     "dist",
-    "KButton.vue"
+    "*.vue",
+    "index.js"
   ],
   "repository": {
     "type": "git",
@@ -26,7 +27,10 @@
     "vue-router": "^3.5.4"
   },
   "dependencies": {
-    "@kongponents/kicon": "^6.35.8",
-    "@kongponents/styles": "^6.35.8"
+    "@kongponents/kbutton": "^6.35.5",
+    "@kongponents/kooltip": "^6.35.5",
+    "@kongponents/kpop": "^6.35.5",
+    "@kongponents/ktoggle": "^6.35.5",
+    "@kongponents/styles": "^6.35.5"
   }
 }

@@ -12,6 +12,8 @@ import KCard from '../../packages/KCard/KCard.vue'
 import KCatalog from '../../packages/KCatalog/KCatalog.vue'
 import KCatalogItem from '../../packages/KCatalog/KCatalogItem.vue'
 import KClipboardProvider from '../../packages/KClipboardProvider/KClipboardProvider.js'
+import KDropdownMenu from '../../packages/KDropdownMenu/KDropdownMenu.vue'
+import KDropdownItem from '../../packages/KDropdownMenu/KDropdownItem.vue'
 import KMultiselect from '../../packages/KMultiselect/KMultiselect.vue'
 import KEmptyState from '../../packages/KEmptyState/KEmptyState.vue'
 import KIcon from '../../packages/KIcon/KIcon.vue'
@@ -57,6 +59,8 @@ export default ({
   Vue.component('KCatalog', KCatalog)
   Vue.component('KCatalogItem', KCatalogItem)
   Vue.component('KClipboardProvider', KClipboardProvider)
+  Vue.component('KDropdownMenu', KDropdownMenu)
+  Vue.component('KDropdownItem', KDropdownItem)
   Vue.component('KMultiselect', KMultiselect)
   Vue.component('KEmptyState', KEmptyState)
   Vue.component('KIcon', KIcon)

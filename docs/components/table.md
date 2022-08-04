@@ -912,6 +912,8 @@ export default {
 
 ### Column Cell
 
+This example uses the [`KDropdownMenu`](/components/dropdown-menu.html) component as the slot content for the `actions` column.
+
 <KTable
   :headers="tableOptionsHeaders"
   :fetcher="tableOptionsFetcher">
@@ -919,7 +921,37 @@ export default {
     <span v-if="rowValue" style="color: green">&#10003;</span>
     <span v-else style="color: red">&#10007;</span>
   </template>
-  <template v-slot:actions><KButton appearance="btn-link">Edit</KButton></template>
+  <template v-slot:actions>
+    <KDropdownMenu>
+      <template #default>
+        <KButton
+          appearance="secondary"
+          size="small"
+          class="non-visual-button"
+        >
+          <template #icon>
+            <KIcon
+              icon="more"
+              color="var(--black-400)"
+              size="16"
+            />
+          </template>
+        </KButton>
+      </template>
+      <template #items>
+        <KDropdownItem @click="clickHandler('Edit clicked!')">
+          Edit
+        </KDropdownItem>
+        <KDropdownItem
+          has-divider
+          is-dangerous
+          @click="clickHandler('Delete clicked!')"
+        >
+          Delete
+        </KDropdownItem>
+      </template>
+    </KDropdownMenu>
+  </template>
 </KTable>
 
 ```html
@@ -934,7 +966,37 @@ export default {
       <span v-else style="color: red">&#10007;</span>
     </template>
     <!-- Slot each "actions" cell in each row & link -->
-    <template v-slot:actions><a href="">Edit</a></template>
+    <template v-slot:actions>
+      <KDropdownMenu>
+        <template #default>
+          <KButton
+            appearance="secondary"
+            size="small"
+            class="non-visual-button"
+          >
+            <template #icon>
+              <KIcon
+                icon="more"
+                color="var(--black-400)"
+                size="16"
+              />
+            </template>
+          </KButton>
+        </template>
+        <template #items>
+          <KDropdownItem @click="clickHandler('Edit clicked!')">
+            Edit
+          </KDropdownItem>
+          <KDropdownItem
+            has-divider
+            is-dangerous
+            @click="clickHandler('Delete clicked!')"
+          >
+            Delete
+          </KDropdownItem>
+        </template>
+      </KDropdownMenu>
+    </template>
   </KTable>
 </template>
 <script>
@@ -1645,6 +1707,9 @@ for (let i = ((page-1)* pageSize); i < limit; i++) {
       } else {
         this.$toaster.open('Row click event fired!')
       }
+    },
+    clickHandler (msg) {
+      this.$toaster.open(msg)
     },
     linkHander (e) {
       alert('a link was clicked')
