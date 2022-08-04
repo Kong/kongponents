@@ -1,6 +1,8 @@
 // Import icons with `?raw' at the end of the path so Vite will import them raw (without the need for an additional loader)
+export { default as arrowDown } from './icn-arrow-down.svg?raw'
 export { default as arrowLeft } from './icn-arrow-left.svg?raw'
 export { default as arrowRight } from './icn-arrow-right.svg?raw'
+export { default as arrowUp } from './icn-arrow-down.svg?raw'
 export { default as back } from './icn-back.svg?raw'
 export { default as brain } from './icn-brain.svg?raw'
 export { default as check } from './icn-check.svg?raw'
