@@ -363,7 +363,7 @@ export default {
     return {
       selectedItem: {
         value: '',
-        label: 'Selet an item'
+        label: 'Select an item'
       },
       menuItems: [{
         label: 'US (United States)',
