@@ -1,3 +1,10 @@
+# [7.0.0-beta.77](https://github.com/Kong/kongponents/compare/v7.0.0-beta.76...v7.0.0-beta.77) (2022-08-04)
+
+
+### Bug Fixes
+
+* **kicon:** update vitals icon [beta] ([#732](https://github.com/Kong/kongponents/issues/732)) ([a53ed6d](https://github.com/Kong/kongponents/commit/a53ed6d0ba6c19334f97e93b0011752120eff1f8))
+
 # [7.0.0-beta.76](https://github.com/Kong/kongponents/compare/v7.0.0-beta.75...v7.0.0-beta.76) (2022-08-02)
 
 
