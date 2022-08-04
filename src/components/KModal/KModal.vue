@@ -12,7 +12,7 @@
     >
       <div class="k-modal-dialog modal-dialog">
         <div
-          v-if="showDismissIcon"
+          v-if="hasHeaderImage && !hideDismissIcon"
           class="close-button"
         >
           <KButton
@@ -116,9 +116,10 @@ export default defineComponent({
       default: false,
     },
     /**
-     * Set to true to render an 'x' dismiss button
+     * The dismiss icon is visible by default when using the `header-image` slot.
+     * Set to true to hide the 'x' dismiss button
      */
-    showDismissIcon: {
+    hideDismissIcon: {
       type: Boolean,
       default: false,
     },
