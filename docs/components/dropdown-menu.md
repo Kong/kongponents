@@ -30,6 +30,12 @@ An array of item objects containing a `label` property and other optional proper
 Use this prop to specify the display style for the dropdown menu. Can be either `menu` (default) or `selectionMenu`.
 The `menu` style is the standard you have seen in the example above. Uses a standard `primary` `KButton` with hover state over items and no notion of "selection".
 
+<KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" />
+
+```html
+<KDropdownMenu label="Documentation" :items="items" />
+```
+
 The `selectionMenu` style is used when a visual indication of the currently selected menu item is needed. `selected` state is handled automatically when clicking a `KDropdownItem` if used in conjunction with the `items` prop. Each item should have a `label` and a `value`.
 
 If using the `items` slot, you will have access to the `handleSelection()` method which should be called on each item's click event and takes the `item` data as a parameter. This will enable you to attach to the `@change` event (which returns the selected item) to track your selection.
@@ -113,7 +119,7 @@ Use this prop if you would like the trigger button to display the caret.
 
 ### width
 
-The width of the dropdown body. Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
+The width of the dropdown body (defaults to `auto`). Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
 
 <KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" width="500" />
 
