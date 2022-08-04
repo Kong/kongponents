@@ -43,6 +43,10 @@ The name of the icon. This required prop will only recognize icons from the foll
 
 The `state`-prefixed icons shown below are styled differently than our normal icons listed above and are meant to be used inside instances of `KEmptyState` where they appear larger in the UI.
 
+::: tip Note
+The `State icons` do not support the `color` prop.
+:::
+
 <div>
   <KToggle v-slot="{ isToggled, toggle }">
     <div>
@@ -51,16 +55,14 @@ The `state`-prefixed icons shown below are styled differently than our normal ic
         class="mb-4"
         @click="toggle">Toggle viewbox {{ isToggled.value ? 'off' : 'on' }}</KButton>
       <div class="state-icon-row">
-        <div v-for="icon in $icons">
-          <div v-if="stateIcons.includes(String(icon))"
-            class="icon-cell"
-            :class="{ hasBg: isToggled.value }"
-          >
-            <KIcon
-            size="96"
-            :icon="icon" />
-            <span>{{ icon }}</span>
-          </div>
+        <div v-for="icon in displayStateIcons"
+          class="icon-cell"
+          :class="{ hasBg: isToggled.value }"
+        >
+          <KIcon
+          size="96"
+          :icon="icon" />
+          <span>{{ icon }}</span>
         </div>
       </div>
     </div>
@@ -71,9 +73,13 @@ The `state`-prefixed icons shown below are styled differently than our normal ic
 <script>
   export default {
     data () {
+      const stateIcons = ['stateConfigure', 'stateGruceo', 'stateNoData', 'stateNoSearchResults', 'stateUpload']
+      const displayStateIcons = this.$icons.filter(item => stateIcons.includes(item))
+
       return {
         // Add additional `state`-prefixed icons here as needed to display in the State icons section
-        stateIcons : ['stateConfigure', 'stateGruceo', 'stateNoData', 'stateNoSearchResults', 'stateUpload']
+        stateIcons,
+        displayStateIcons
       }
     }
   }
