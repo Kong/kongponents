@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.35.8 (2022-08-04)
+
+
+### Bug Fixes
+
+* **kselect:** update popover width when it opens ([#736](https://github.com/Kong/kongponents/issues/736)) ([af7faa9](https://github.com/Kong/kongponents/commit/af7faa93c3fa02d77ef4c2fe33aed89f3566ba73))
+
+
+
+
+
 ## 6.35.7 (2022-08-04)
 
 **Note:** Version bump only for package @kongponents/ktoggle
