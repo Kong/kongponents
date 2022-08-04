@@ -354,7 +354,7 @@ There are 3 primary item types:
 | Event     | Description             |
 | :-------- | :------------------ |
 | `click` | Fires when a `button` type menu item is clicked |
-| `change` | Fires when items within a `selectionMenu` are clicked; returns the selected menu item object or null |
+| `change` | Fires when items within a `selectionMenu` are clicked; returns the selected menu item object or `null` |
 | `toggleDropdown` | Fires when the button to toggle the menu is clicked; returns `true` if the menu is open, or `false` |
 
 <script>
