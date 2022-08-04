@@ -49,6 +49,7 @@
           @opened="() => {
             filterStr = ''
             toggle()
+            onPopoverOpen()
           }"
           @closed="() => {
             if (selectedItem && appearance === 'select') {
@@ -170,7 +171,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, computed, watch, onMounted, PropType } from 'vue'
+import { defineComponent, ref, Ref, computed, watch, PropType } from 'vue'
 import { v1 as uuidv1 } from 'uuid'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
@@ -499,13 +500,13 @@ export default defineComponent({
 
     const inputWidth = ref(0)
 
-    onMounted(() => {
+    const onPopoverOpen = () => {
       const inputElem = document.getElementById(selectInputId.value)
 
       if (inputElem) {
         inputWidth.value = inputElem.offsetWidth
       }
-    })
+    }
 
     return {
       filterStr,
@@ -528,6 +529,7 @@ export default defineComponent({
       onInputKeypress,
       onQueryChange,
       onInputFocus,
+      onPopoverOpen,
     }
   },
 })
