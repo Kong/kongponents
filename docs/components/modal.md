@@ -130,9 +130,13 @@ Change the [appearance](/components/button.html#props) of the cancel button.
 
 Use this to hide the built-in cancel button (`false` by default).
 
-### showDismissIcon
+### hideDismissIcon
 
-Boolean for whether or not to display the 'X' in the upper right corner to dismiss the dialog (`false` by default).
+When using the `header-image` slot we display a dismiss 'X' button in the upper right corner of the dialog. Set this prop to `true` to hide the button (`false` by default).
+
+:::tip
+If you want to have a dismiss icon on your dialog without using the `header-image` slot, you should use the [KPrompt](/components/prompt.html) component.
+:::
 
 ### dismissButtonTheme
 
@@ -145,7 +149,6 @@ Can be `dark` (default) or `light`. You might want to use this if displaying dar
     :is-visible="slottedIsOpen2"
     title="Welcome!"
     hide-cancel-button
-    show-dismiss-icon
     dismiss-button-theme="light"
     text-align="left"
     @canceled="slottedIsOpen2 = false"
@@ -174,7 +177,6 @@ Can be `dark` (default) or `light`. You might want to use this if displaying dar
   :is-visible="isVisible"
   title="Welcome!"
   hide-cancel-button
-  show-dismiss-icon
   text-align="left"
   dismiss-button-theme="light"
   @canceled="isVisible = false"
@@ -215,7 +217,6 @@ There are 4 designated slots you can use to display content in the modal.
     :is-visible="slottedIsOpen3"
     title="Look at my slots!"
     content="You know you like these slots."
-    show-dismiss-icon
     dismiss-button-theme="dark"
     @canceled="slottedIsOpen3 = false"
   >
@@ -237,7 +238,6 @@ There are 4 designated slots you can use to display content in the modal.
     :is-visible="slottedIsOpen3"
     title="Look at my slots!"
     content="You know you like these slots."
-    show-dismiss-icon
     dismiss-button-theme="dark"
     @canceled="slottedIsOpen3 = false"
   >
