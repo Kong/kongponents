@@ -1,3 +1,11 @@
+# [7.0.0-beta.80](https://github.com/Kong/kongponents/compare/v7.0.0-beta.79...v7.0.0-beta.80) (2022-08-05)
+
+
+### Bug Fixes
+
+* **kmodal:** dismiss icon logic [beta] ([#738](https://github.com/Kong/kongponents/issues/738)) ([f675223](https://github.com/Kong/kongponents/commit/f675223d0d1e79644f2e01f211b2811a32fb844d))
+* update icon md file ([#742](https://github.com/Kong/kongponents/issues/742)) ([15f6a80](https://github.com/Kong/kongponents/commit/15f6a80692c5415b919878a6aba2a957b09a791e))
+
 # [7.0.0-beta.79](https://github.com/Kong/kongponents/compare/v7.0.0-beta.78...v7.0.0-beta.79) (2022-08-04)
 
 
