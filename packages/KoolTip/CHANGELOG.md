@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.36.3 (2022-08-05)
+
+
+### Bug Fixes
+
+* **kpagination:** use positionFixed ([#743](https://github.com/Kong/kongponents/issues/743)) ([755f064](https://github.com/Kong/kongponents/commit/755f064c4c125fdc137926c4119e53f4954a63dd))
+
+
+
+
+
 ## 6.36.2 (2022-08-05)
 
 
