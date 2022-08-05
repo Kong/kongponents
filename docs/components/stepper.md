@@ -1,4 +1,4 @@
-# KStepper
+# Stepper
 
 **KStepper** - A basic Stepper component
 
