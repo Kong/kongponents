@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kinlineedit",
-  "version": "6.36.1",
+  "version": "6.36.2",
   "description": "Inline editable field.",
   "main": "dist/KInlineEdit.umd.min.js",
   "componentName": "KInlineEdit",
@@ -23,6 +23,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/styles": "^6.36.1"
+    "@kongponents/styles": "^6.36.2"
   }
 }
