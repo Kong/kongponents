@@ -49,6 +49,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@kongponents/styles/variables';
+
 .k-step {
   --KStepContainerWidth: 170px;
   --KStepStateWidth: 24px;

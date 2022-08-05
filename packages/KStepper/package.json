@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kstepper",
-  "version": "0.1.0",
+  "version": "6.36.3",
   "description": "A basic Stepper component",
   "main": "dist/KStepper.umd.min.js",
   "componentName": "KStepper",
@@ -22,5 +22,9 @@
   "homepage": "https://github.com/Kong/kongponents#readme",
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@kongponents/klabel": "^6.36.3",
+    "@kongponents/styles": "^6.36.3"
   }
 }
