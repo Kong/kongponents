@@ -1,0 +1,11 @@
+<svg width="26" height="26" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Pending</title>
+  <circle cx="13" cy="13" transform="rotate(90 13 13)" stroke="url(#a)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" r="11"/>
+  <defs>
+    <radialGradient id="a" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="rotate(164.745 5.63 7.37) scale(17.1026)">
+      <stop offset=".043" stop-color="#B4B4B4"/>
+      <stop offset=".05" stop-color="#fff" stop-opacity=".109"/>
+      <stop offset=".161" stop-color="#038C8C" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>

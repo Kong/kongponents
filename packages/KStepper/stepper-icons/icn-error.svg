@@ -1,0 +1,5 @@
+<svg width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>Error</title>
+  <circle cx="20" cy="20" r="16" fill="#D44324" stroke="#fff" stroke-width="8"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M23.74 17.517a.889.889 0 0 0-1.257-1.257L20 18.743l-2.483-2.483a.889.889 0 0 0-1.257 1.257L18.743 20l-2.483 2.483a.889.889 0 0 0 1.257 1.257L20 21.257l2.483 2.483a.889.889 0 0 0 1.257-1.257L21.257 20l2.483-2.483Z" fill="#fff"/>
+</svg>

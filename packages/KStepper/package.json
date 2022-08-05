@@ -1,0 +1,25 @@
+{
+  "name": "@kongponents/kstepper",
+  "version": "0.1.0",
+  "description": "A basic Stepper component",
+  "main": "dist/KStepper.umd.min.js",
+  "componentName": "KStepper",
+  "source": "KStepper.vue",
+  "files": [
+    "dist",
+    "KStepper.vue"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kong/kongponents.git"
+  },
+  "author": "Kong Inc",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Kong/kongponents/issues"
+  },
+  "homepage": "https://github.com/Kong/kongponents#readme",
+  "publishConfig": {
+    "access": "public"
+  }
+}
