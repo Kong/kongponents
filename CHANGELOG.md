@@ -1,3 +1,10 @@
+# [7.0.0-beta.81](https://github.com/Kong/kongponents/compare/v7.0.0-beta.80...v7.0.0-beta.81) (2022-08-05)
+
+
+### Bug Fixes
+
+* **kpagination:** use positionFixed [beta] ([#744](https://github.com/Kong/kongponents/issues/744)) ([1a1952c](https://github.com/Kong/kongponents/commit/1a1952c79fe5335f9c37fed945e0ee79a277e680))
+
 # [7.0.0-beta.80](https://github.com/Kong/kongponents/compare/v7.0.0-beta.79...v7.0.0-beta.80) (2022-08-05)
 
 
