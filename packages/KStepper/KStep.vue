@@ -1,15 +1,20 @@
 <template>
   <div
-    :class="{ 'is-first-step': isFirst, 'is-last-step': isLast, 'is-pending': state === 'pending' }"
+    :class="{
+      'is-first-step': isFirst,
+      'is-last-step': isLast,
+      'is-pending': state === 'pending'
+    }"
     class="k-step"
   >
     <div class="k-step-state-container d-flex mb-4">
-      <KStepState :state="state"/>
+      <KStepState :state="state" />
 
       <div v-if="!isLast">
         <KStepDivider />
       </div>
     </div>
+
     <div class="k-step-label">
       <KLabel>
         {{ label }}
