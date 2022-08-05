@@ -4,7 +4,7 @@
   "description": "A basic Stepper component",
   "main": "dist/KStepper.umd.min.js",
   "componentName": "KStepper",
-  "source": "KStepper.vue",
+  "source": "index.js",
   "files": [
     "dist",
     "KStepper.vue",

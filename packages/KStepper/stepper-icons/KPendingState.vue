@@ -10,6 +10,7 @@ export default {
   name: 'KPendingState',
   props: {
     // TODO: probably can't support size / color - need to figure out background color though
+    // TRY USING KICON spinner
     size: {
       type: String,
       default: '40'
