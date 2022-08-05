@@ -89,11 +89,10 @@
 <script>
 import KLabel from '@kongponents/klabel/KLabel.vue'
 import KStepDivider from './KStepDivider.vue'
-import IconCompleted from './state-icons/icn-completed.svg?raw'
 
 export default {
   name: 'KStep',
-  components: { KLabel, KStepDivider, IconCompleted },
+  components: { KLabel, KStepDivider },
   props: {
     label: {
       type: String,
