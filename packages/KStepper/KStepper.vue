@@ -1,5 +1,8 @@
 <template>
-  <div class="k-stepper d-flex">
+  <div
+    :style="stepperStyle"
+    class="k-stepper d-flex"
+  >
     <KStep
       v-for="(step, idx) in steps"
       :key="`k-step-${step.label.replace(' ', '-')}`"
@@ -25,7 +28,24 @@ export default {
       type: Array,
       required: true,
       validator: (items) => !items.length || items.some(i => i.hasOwnProperty('label') && i.hasOwnProperty('state'))
+    },
+    maxWidth: {
+      type: String,
+      default: '900'
+    }
+  },
+  computed: {
+    stepperStyle: function () {
+      return {
+        maxWidth: this.maxWidth === 'auto' || this.maxWidth.endsWith('%') || this.maxWidth.endsWith('vw') || this.maxWidth.endsWith('px') ? this.maxWidth : this.maxWidth + 'px'
+      }
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.k-stepper {
+  overflow-x: auto;
+}
+</style>

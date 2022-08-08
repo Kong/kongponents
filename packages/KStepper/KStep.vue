@@ -11,11 +11,14 @@
       <KStepState :state="state" />
 
       <div v-if="!isLast">
-        <KStepDivider />
+        <KStepDivider :is-completed="state === 'completed'" />
       </div>
     </div>
 
-    <div class="k-step-label">
+    <div
+      :class="{ 'bolder': state === 'pending' || state === 'error' }"
+      class="k-step-label"
+    >
       <KLabel>
         {{ label }}
       </KLabel>
@@ -63,9 +66,15 @@ export default {
   width: fit-content;
 
   .k-step-label {
+    --KInputLabelWeight: 400;
+
     width: var(--KStepContainerWidth);
     text-align: center;
     margin-left: calc(((#{var(--KStepContainerWidth)} * .5) - #{var(--KStepStateWidth)}) * -1);
+
+    &.bolder {
+      --KInputLabelWeight: 600;
+    }
   }
 
   &.is-first-step {

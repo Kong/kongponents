@@ -1,7 +1,12 @@
 <template>
-  <div
+  <!-- <div
     :title="title"
-    class="k-step-spinner mx-3"
+    class="k-step-spinner mx-3 d-none"
+  /> -->
+  <KIcon
+    :size="size"
+    :color="color"
+    icon="spinner"
   />
 </template>
 
