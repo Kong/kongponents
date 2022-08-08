@@ -54,7 +54,7 @@
               :to="emptyStateActionRoute ? emptyStateActionRoute : null"
               :data-testid="getTestIdString(emptyStateActionMessage)"
               :icon="emptyStateActionButtonIcon ? emptyStateActionButtonIcon : null"
-              appearance="primary"
+              :appearance="searchInput ? 'btn-link' : 'primary'"
               @click="$emit('ktable-empty-state-cta-clicked')"
             >
               {{ emptyStateActionMessage }}
