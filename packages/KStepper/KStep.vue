@@ -107,6 +107,7 @@ export default {
 @import '~@kongponents/styles/variables';
 
 .k-step {
+  --KStepStateWidth: 24px;
   width: fit-content;
 
   .k-step-label {
@@ -116,10 +117,6 @@ export default {
     &.bolder {
       --KInputLabelWeight: 600;
     }
-
-    &.error {
-      color: var(--red-500);
-    }
   }
 
   &.is-first-step {
@@ -127,18 +124,22 @@ export default {
       margin-left: 0;
     }
   }
-}
-</style>
-
-<style lang="scss" scoped>
-@import '~@kongponents/styles/variables';
-
-.k-step {
-  --KStepStateWidth: 24px;
 
   .k-step-divider-container {
     .k-step-divider {
       margin-top: calc(#{var(--KStepStateWidth)} / 2);
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+@import '~@kongponents/styles/variables';
+
+.k-step {
+  .k-step-label {
+    &.error .k-input-label {
+      color: var(--red-500);
     }
   }
 }
