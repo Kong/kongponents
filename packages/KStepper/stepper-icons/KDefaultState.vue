@@ -1,20 +1,19 @@
 <template>
   <svg
-    :height="size"
     :width="size"
+    :height="size"
+    viewBox="0 0 24 24"
     fill="none"
-    xmlns="http://www.w3.org/2000/svg"
   >
     <title>{{ title }}</title>
     <circle
       :fill="color"
-      :stroke="backgroundColor"
-      cx="20"
-      cy="20"
-      r="16"
-      stroke-width="8"
+      cx="12"
+      cy="12"
+      r="12"
     />
   </svg>
+
 </template>
 
 <script>
@@ -23,16 +22,11 @@ export default {
   props: {
     size: {
       type: String,
-      default: '40'
+      default: '24'
     },
     color: {
       type: String,
-      // TODO: var
-      default: '#E7E7EC'
-    },
-    backgroundColor: {
-      type: String,
-      default: 'var(--white)'
+      default: 'var(--grey-300)'
     },
     title: {
       type: String,

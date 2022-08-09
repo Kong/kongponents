@@ -7,7 +7,7 @@
     }"
     class="k-step"
   >
-    <div class="k-step-state-container d-flex mb-4">
+    <div class="k-step-state-container d-flex mb-5">
       <KStepState :state="state" />
 
       <div v-if="!isLast">
@@ -84,13 +84,6 @@ export default {
 
     .k-step-label {
       margin-left: 0;
-    }
-  }
-
-  &:not(.is-pending) {
-    .k-step-label {
-      position: relative;
-      top: -16px;
     }
   }
 }

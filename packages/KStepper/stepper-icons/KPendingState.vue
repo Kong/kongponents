@@ -1,33 +1,29 @@
 <template>
-  <!-- <div
-    :title="title"
-    class="k-step-spinner mx-3 d-none"
-  /> -->
-  <KIcon
-    :size="size"
-    :color="color"
-    icon="spinner"
-  />
+  <div class="k-step-spinner">
+    <svg
+      :width="size"
+      :height="size"
+      viewBox="0 0 50 50"
+    >
+      {{ title }}
+      <circle
+        cx="25"
+        cy="25"
+        r="20"
+        fill="none"
+        stroke-width="5"
+      />
+    </svg>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'KPendingState',
   props: {
-    // TODO: probably can't support size / color - need to figure out background color though
-    // TRY USING KICON spinner
     size: {
       type: String,
-      default: '40'
-    },
-    color: {
-      type: String,
-      // TODO: var
-      default: '#169FCC'
-    },
-    backgroundColor: {
-      type: String,
-      default: 'var(--white)'
+      default: '24'
     },
     title: {
       type: String,
@@ -38,70 +34,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.k-step-spinner {
-  font-size: 10px;
-  text-indent: -9999em;
-  width: var(--KStepStateWidth);
-  height: var(--KStepStateWidth);
-  border-radius: 50%;
-  background: #038C8C;
-  background: -moz-linear-gradient(left, #038C8C 10%, #B4B4B4, rgba(255, 255, 255, 0) 42%);
-  background: -webkit-linear-gradient(left, #038C8C 10%, #B4B4B4, rgba(255, 255, 255, 0) 42%);
-  background: -o-linear-gradient(left, #038C8C 10%, #B4B4B4, rgba(255, 255, 255, 0) 42%);
-  background: -ms-linear-gradient(left, #038C8C 10%, #B4B4B4, rgba(255, 255, 255, 0) 42%);
-  background: linear-gradient(to right, #038C8C 10%, #B4B4B4, rgba(255, 255, 255, 0) 42%);
-  position: relative;
-  -webkit-animation: load3 1.4s infinite linear;
-  animation: load3 1.4s infinite linear;
-  -webkit-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  transform: translateZ(0);
+.k-step-spinner > svg {
+  animation: rotate 2s linear infinite;
 
-  &:before {
-    width: 50%;
-    height: 50%;
-    background: #038C8C;
-    border-radius: 100% 0 0 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    content: '';
-  }
-
-  &:after {
-    background: #fff;
-    width: 75%;
-    height: 75%;
-    border-radius: 50%;
-    content: '';
-    margin: auto;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+  circle {
+    stroke: var(--teal-300);
+    stroke-linecap: round;
+    animation: dash 1.5s ease-in-out infinite;
   }
 }
 
- @-webkit-keyframes load3 {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
+@keyframes rotate {
   100% {
-    -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
 
-@keyframes load3 {
+@keyframes dash {
   0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
   }
   100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
   }
 }
 </style>

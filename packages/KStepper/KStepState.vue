@@ -1,5 +1,8 @@
 <template>
-  <div class="k-step-state mx-3">
+  <div
+    :class="{ 'pending': state === 'pending' }"
+    class="k-step-state mx-3"
+  >
     <KCompletedState v-if="state === 'completed'" />
     <KErrorState v-else-if="state === 'error'" />
     <KPendingState v-else-if="state === 'pending'" />
@@ -25,10 +28,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.k-step-state {
-  position: relative;
-  top: -8px;
-}
-</style>
