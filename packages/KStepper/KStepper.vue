@@ -75,9 +75,14 @@ export default {
   methods: {
     getDividerWidth () {
       const stepperElem = document.getElementById(this.stepperId)
+      const minWidth = this.stepContainerWidth - (this.stepWidth * 2)
       if (stepperElem) {
-        // ([full width] - ([stepWidth * 2 for padding] * # of steps) - [leading margin] - [width of label beyond final step icon]) / [# of steps with divider]
-        this.dividerWidth = (stepperElem.offsetWidth - (this.stepWidth * 2 * this.steps.length) - this.margins - (this.stepContainerWidth / 2)) / (this.steps.length - 1)
+        // ([full width] - ([stepWidth * 2 for padding] * # of steps) - [leading/trailing margins]) / [# of steps with divider]
+        this.dividerWidth = (stepperElem.offsetWidth - (this.stepWidth * 2 * this.steps.length) - (this.margins * 2)) / (this.steps.length - 1)
+
+        if (this.dividerWidth < minWidth) {
+          this.dividerWidth = minWidth
+        }
       }
     }
   }
