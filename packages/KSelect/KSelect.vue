@@ -122,7 +122,7 @@
               class="k-select-list ma-0 pa-0"
             >
               <slot
-                :items="items"
+                :items="selectItems"
                 :is-open="isToggled"
                 name="items"
               >
@@ -366,7 +366,7 @@ export default {
     },
     filteredItems: function () {
       // For autosuggest, items don't need to be filtered internally
-      return this.autosuggest ? this.items : this.filterFunc({ items: this.selectItems, query: this.filterStr })
+      return this.autosuggest ? this.selectItems : this.filterFunc({ items: this.selectItems, query: this.filterStr })
     },
     placeholderText () {
       if (this.placeholder) {
@@ -393,11 +393,20 @@ export default {
   },
   watch: {
     items: {
-      handler () {
-        // items need keys
-        this.selectItems = this.items
+      handler (newValue, oldValue) {
+        // Only trigger the watcher if items actually change
+        if (JSON.stringify(newValue) === JSON.stringify(oldValue)) {
+          return
+        }
+
+        this.selectItems = JSON.parse(JSON.stringify(this.items))
 
         for (let i = 0; i < this.selectItems.length; i++) {
+          // Ensure each item has a `selected` property
+          if (!Object.hasOwn(this.selectItems[i], 'selected')) {
+            this.selectItems[i].selected = false
+          }
+
           this.selectItems[i].key = `${this.selectItems[i].label.replace(' ', '-').replace(/[^a-z0-9-_]/gi, '')}-${i}`
           if (this.selectItems[i].value === this.value || this.selectItems[i].selected) {
             this.selectItems[i].selected = true
@@ -409,9 +418,18 @@ export default {
             }
           }
 
-          if (this.selectedItem && this.selectedItem.value === this.items[i].value) {
-            this.items[i].selected = true
+          if (this.selectedItem && this.selectedItem.value === this.selectItems[i].value) {
+            this.selectItems[i].selected = true
           }
+        }
+
+        // Trigger a fake scroll event on props.item change to cause the popover to redraw
+        // This prevents the popover from displaying "detached" from the KSelect
+        if (typeof window !== 'undefined') {
+          this.$nextTick(() => {
+            window.scrollTo(window.scrollX, window.scrollY - 1)
+            window.scrollTo(window.scrollX, window.scrollY + 1)
+          })
         }
       },
       immediate: true
@@ -433,11 +451,13 @@ export default {
       this.selectItems.forEach(anItem => {
         if (anItem.key === item.key) {
           anItem.selected = true
-          anItem.key += '-selected'
+          anItem.key = anItem.key.includes('-selected') ? anItem.key : `${anItem.key}-selected`
           this.selectedItem = anItem
         } else if (anItem.selected) {
-          delete anItem.selected
-          anItem.key = anItem.key.split('-selected')[0]
+          anItem.selected = false
+          anItem.key = anItem.key.replace(/-selected/gi, '')
+        } else {
+          anItem.selected = false
         }
       })
       this.filterStr = this.appearance === 'dropdown' ? '' : item.label
@@ -448,8 +468,8 @@ export default {
     },
     clearSelection () {
       this.selectItems.forEach(anItem => {
-        delete anItem.selected
-        anItem.key = anItem.key.split('-selected')[0]
+        anItem.selected = false
+        anItem.key = anItem.key.replace(/-selected/gi, '')
       })
       this.selectedItem = null
       // this 'input' event must be emitted for v-model binding to work properly
