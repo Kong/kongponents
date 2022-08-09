@@ -630,7 +630,11 @@ export default defineComponent({
     width: 100%;
 
     &.cursor-default {
-      cursor: default;
+      cursor: pointer;
+
+      input.k-input {
+        cursor: default;
+      }
     }
 
     &.prevent-pointer-events {
