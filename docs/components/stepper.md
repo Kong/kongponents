@@ -16,32 +16,32 @@ An array of `KSteps`. Each `KStep` has a `label` and a `state`.
 
 <div>
   <KStepper :steps="[
-    { label: 'Step  a long long long long time ago', state: 'completed' },
-    { label: 'in a galaxy far far away', state: 'completed' },
-    { label: 'Kongponents were battling in space and', state: 'pending' },
-    { label: 'fighting robots and space monsters with lots of explosions', state: 'default' }
-  ]"
+      { label: 'Step  a long long long long time ago', state: 'completed' },
+      { label: 'in a galaxy far far away', state: 'completed' },
+      { label: 'Kongponents were battling in space and', state: 'pending' },
+      { label: 'fighting robots and space monsters with lots of explosions', state: 'default' }
+    ]"
   />
 </div>
 
 ```html
 <KStepper :steps="[
-  { label: 'Step  a long long long long time ago', state: 'completed' },
-  { label: 'in a galaxy far far away', state: 'completed' },
-  { label: 'Kongponents were battling in space and', state: 'pending' },
-  { label: 'fighting robots and space monsters with lots of explosions', state: 'default' }
-]"
+    { label: 'Step  a long long long long time ago', state: 'completed' },
+    { label: 'in a galaxy far far away', state: 'completed' },
+    { label: 'Kongponents were battling in space and', state: 'pending' },
+    { label: 'fighting robots and space monsters with lots of explosions', state: 'default' }
+  ]"
 />
 ```
 
-### width
+### maxWidth
 
-The width of the entire stepper (default is `100%`), will scroll horizontally if it extends beyond this. Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
+The maxWidth of the entire stepper (default is `100%`), will scroll horizontally if it extends beyond this. Currently we support numbers (will be converted to `px`), `auto`, and percentages for values.
 
-<KStepper :steps="defaultItems" width="400" />
+<KStepper :steps="defaultItems" max-width="520" />
 
 ```html
-<KStepper :steps="steps" width="400" />
+<KStepper :steps="steps" max-width="520" />
 ```
 
 ## KStep
@@ -51,35 +51,62 @@ The width of the entire stepper (default is `100%`), will scroll horizontally if
 ### Properties
 
 - `label` (required) - the text displayed beneath the step
-- `state` (required) - the state of the step controls the icon, we support: `completed`, `pending`, `error`, and `default` (default).
-- `is-first` - boolean to indicate the first step for correct positioning of the step content
-- `is-last` - boolean to indicate the last step, no divider associated
+- `state` (required) - the state of the step controls the icon, we support: `completed`, `pending`, `error`, and `default` (default)
 
-Using `is-first` has some associated positioning. `completed` steps result in a colored following divider.
+`completed` steps result in a colored following divider.
 
-<KStep label="A completed step" state="completed" is-first />
+<div>
+  <KStepper :steps="[
+      { label: 'A completed step', state: 'completed' },
+      { label: 'End', state: 'default' }
+    ]"
+  />
+</div>
 
-```html
-<KStep label="A completed step" state="completed" is-first />
+```javascript
+[{ label: 'A completed step', state: 'completed' },
+ { label: 'End', state: 'default' }]
 ```
 
 Both `pending` and `error` states will bold the label, because these 2 states indicate the "current" step. `completed` indicates past steps, while `default` indicates future steps.
 
-<!-- Note: secretly using is-first so the content isn't oddly shifted left, don't surface in the examples -->
-<KStep label="A pending step" state="pending" class="mb-4" is-first />
-<KStep label="An erroneous step" state="error" is-first />
+<div>
+  <KStepper :steps="[
+      { label: 'A pending step', state: 'pending' },
+      { label: 'End', state: 'default' }
+    ]"
+  />
+</div>
 
-```html
-<KStep label="A pending step" state="pending" class="mb-4" />
-<KStep label="An erroneous step" state="error" />
+```javascript
+[{ label: 'A pending step', state: 'pending' },
+ { label: 'End', state: 'default' }]
 ```
 
-Using the `is-last` prop results in no following divider.
+<div>
+  <KStepper :steps="[
+      { label: 'An erroneous step', state: 'error' },
+      { label: 'End', state: 'default' }
+    ]"
+  />
+</div>
 
-<KStep label="A default step" state="default" is-last is-first />
+```javascript
+[{ label: 'An erroneous step', state: 'error' },
+ { label: 'End', state: 'default' }]
+```
 
-```html
-<KStep label="A default step" state="default" is-last />
+The last step will never have a following divider.
+
+<div>
+  <KStepper :steps="[
+      { label: 'A default step', state: 'default' }
+    ]"
+  />
+</div>
+
+```javascript
+[{ label: 'A default step', state: 'default' }]
 ```
 
 <script>

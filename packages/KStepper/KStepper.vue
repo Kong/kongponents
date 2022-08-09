@@ -2,7 +2,7 @@
   <div
     :id="stepperId"
     :style="stepperStyle"
-    class="k-stepper d-flex"
+    class="k-stepper d-flex w-100"
   >
     <KStep
       v-for="(step, idx) in steps"
@@ -35,7 +35,7 @@ export default {
       required: true,
       validator: (items) => !items.length || items.some(i => i.hasOwnProperty('label') && i.hasOwnProperty('state'))
     },
-    width: {
+    maxWidth: {
       type: String,
       default: '100%'
     },
@@ -58,7 +58,7 @@ export default {
   computed: {
     stepperStyle: function () {
       return {
-        width: this.width === 'auto' || this.width.endsWith('%') || this.width.endsWith('vw') || this.width.endsWith('px') ? this.width : this.width + 'px'
+        maxWidth: this.maxWidth === 'auto' || this.maxWidth.endsWith('%') || this.maxWidth.endsWith('vw') || this.maxWidth.endsWith('px') ? this.maxWidth : this.maxWidth + 'px'
       }
     },
     margins: function () {
