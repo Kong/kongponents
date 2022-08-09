@@ -1,3 +1,10 @@
+# [7.0.0-beta.82](https://github.com/Kong/kongponents/compare/v7.0.0-beta.81...v7.0.0-beta.82) (2022-08-09)
+
+
+### Bug Fixes
+
+* **ktable:** update v-on value ([#746](https://github.com/Kong/kongponents/issues/746)) ([5aa2f50](https://github.com/Kong/kongponents/commit/5aa2f50a0cf7fd2b9d91067b0ff98f8b4c76ae1b))
+
 # [7.0.0-beta.81](https://github.com/Kong/kongponents/compare/v7.0.0-beta.80...v7.0.0-beta.81) (2022-08-05)
 
 
