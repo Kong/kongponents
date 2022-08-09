@@ -66,10 +66,19 @@ export default {
     }
   },
   mounted () {
-    const stepperElem = document.getElementById(this.stepperId)
-    if (stepperElem) {
-      // (full width - (stepWidth * 2 for padding * # of steps) - margin) / # of steps
-      this.dividerWidth = (stepperElem.offsetWidth - (this.stepWidth * 2 * this.steps.length) - this.margins) / this.steps.length
+    this.getDividerWidth()
+    window.addEventListener('resize', this.getDividerWidth)
+  },
+  unmounted () {
+    window.removeEventListener('resize', this.getDividerWidth)
+  },
+  methods: {
+    getDividerWidth () {
+      const stepperElem = document.getElementById(this.stepperId)
+      if (stepperElem) {
+        // ([full width] - ([stepWidth * 2 for padding] * # of steps) - [leading margin] - [width of label beyond final step icon]) / [# of steps with divider]
+        this.dividerWidth = (stepperElem.offsetWidth - (this.stepWidth * 2 * this.steps.length) - this.margins - (this.stepContainerWidth / 2)) / (this.steps.length - 1)
+      }
     }
   }
 }
