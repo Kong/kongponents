@@ -34,6 +34,7 @@
       </div>
       <KToggle v-slot="{toggle, isToggled}">
         <KPop
+          ref="popper"
           v-bind="boundKPopAttributes"
           :on-popover-click="() => {
             toggle()
@@ -423,12 +424,11 @@ export default {
           }
         }
 
-        // Trigger a fake scroll event on props.item change to cause the popover to redraw
+        // Trigger an update to the popper element to cause the popover to redraw
         // This prevents the popover from displaying "detached" from the KSelect
-        if (typeof window !== 'undefined') {
+        if (this.$refs.popper && typeof this.$refs.popper.updatePopper === 'function') {
           this.$nextTick(() => {
-            window.scrollTo(window.scrollX, window.scrollY - 1)
-            window.scrollTo(window.scrollX, window.scrollY + 1)
+            this.$refs.popper.updatePopper()
           })
         }
       },

@@ -219,13 +219,12 @@ describe('KSelect', () => {
 
   it('works in autosuggest mode', async () => {
     const onQueryChange = jest.fn()
-    const items = []
     const wrapper = mount(KSelect, {
       propsData: {
         testMode: true,
         autosuggest: true,
         loading: false,
-        items
+        items: []
       },
       listeners: {
         'query-change': onQueryChange
@@ -241,8 +240,10 @@ describe('KSelect', () => {
     await tick(wrapper.vm, 1)
     expect(wrapper.find('[data-testid="k-select-loading"]').exists()).toBe(true)
 
-    items.push({ label: 'Label 1', value: 'label1' })
-    wrapper.setProps({ loading: false })
+    const items = [{ label: 'Label 1', value: 'label1' }]
+
+    await tick(wrapper.vm, 1)
+    wrapper.setProps({ items, loading: false })
     await tick(wrapper.vm, 1)
     expect(wrapper.find('[data-testid="k-select-loading"]').exists()).toBe(false)
     expect(wrapper.find('[data-testid="k-select-item-label1"]').html()).toEqual(expect.stringContaining('Label 1'))

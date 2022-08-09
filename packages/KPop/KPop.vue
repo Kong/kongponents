@@ -339,6 +339,12 @@ export default {
       this.$emit('opened')
     },
 
+    updatePopper () {
+      if (this.popper && typeof this.popper.update === 'function') {
+        this.popper.update()
+      }
+    },
+
     async createInstance () {
       // destroy any previous poppers before creating new one
       this.destroy()
@@ -369,7 +375,7 @@ export default {
       })
 
       await this.$nextTick()
-      this.popper.update()
+      this.updatePopper()
     },
 
     handleClick (e) {
