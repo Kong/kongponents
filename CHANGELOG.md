@@ -1,3 +1,10 @@
+# [7.0.0-beta.83](https://github.com/Kong/kongponents/compare/v7.0.0-beta.82...v7.0.0-beta.83) (2022-08-09)
+
+
+### Bug Fixes
+
+* **kselect:** update items and filter logic ([#751](https://github.com/Kong/kongponents/issues/751)) ([d6fc78b](https://github.com/Kong/kongponents/commit/d6fc78bbdfe034d904f4dcd0b313f606148fcad3))
+
 # [7.0.0-beta.82](https://github.com/Kong/kongponents/compare/v7.0.0-beta.81...v7.0.0-beta.82) (2022-08-09)
 
 
