@@ -38,6 +38,7 @@
       </div>
       <KToggle v-slot="{ toggle, isToggled }">
         <KPop
+          ref="popper"
           v-bind="boundKPopAttributes"
           :on-popover-click="() => {
             toggle()
@@ -83,7 +84,7 @@
           <div
             v-else
             :id="selectInputId"
-            :class="{ 'k-select-input': appearance === 'select'}"
+            :class="{ 'k-select-input': appearance === 'select', 'no-filter': !filterIsEnabled }"
             data-testid="k-select-input"
             style="position: relative;"
             role="listbox"
@@ -133,7 +134,7 @@
               class="k-select-list ma-0 pa-0"
             >
               <slot
-                :items="items"
+                :items="selectItems"
                 :is-open="isToggled.value"
                 name="items"
               >
@@ -171,7 +172,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, computed, watch, PropType } from 'vue'
+import { defineComponent, ref, Ref, computed, watch, PropType, nextTick } from 'vue'
 import { v1 as uuidv1 } from 'uuid'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
@@ -332,6 +333,7 @@ export default defineComponent({
     const selectTextId = computed((): string => props.testMode ? 'test-select-text-id-1234' : uuidv1())
     const selectItems: Ref<SelectItem[]> = ref([])
     const initialFocusTriggered: Ref<boolean> = ref(false)
+    const popper = ref(null)
     const filterIsEnabled = computed((): boolean => {
       if (props.autosuggest) {
         return true
@@ -389,7 +391,7 @@ export default defineComponent({
 
     const filteredItems = computed(() => {
       // For autosuggest, items don't need to be filtered internally
-      return props.autosuggest ? props.items : props.filterFunc({ items: selectItems.value, query: filterStr.value })
+      return props.autosuggest ? selectItems.value : props.filterFunc({ items: selectItems.value, query: filterStr.value })
     })
 
     const placeholderText = computed((): string => {
@@ -425,11 +427,14 @@ export default defineComponent({
       selectItems.value.forEach(anItem => {
         if (anItem.key === item.key) {
           anItem.selected = true
+          anItem.key = anItem?.key?.includes('-selected') ? anItem.key : `${anItem.key}-selected`
           anItem.key += '-selected'
           selectedItem.value = anItem
         } else if (anItem.selected) {
-          delete anItem.selected
-          anItem.key = anItem?.key?.split('-selected')[0]
+          anItem.selected = false
+          anItem.key = anItem?.key?.replace(/-selected/gi, '')
+        } else {
+          anItem.selected = false
         }
       })
       filterStr.value = props.appearance === 'dropdown' ? '' : item.label
@@ -442,8 +447,8 @@ export default defineComponent({
 
     const clearSelection = (): void => {
       selectItems.value.forEach(anItem => {
-        delete anItem.selected
-        anItem.key = anItem?.key?.split('-selected')[0]
+        anItem.selected = false
+        anItem.key = anItem?.key?.replace(/-selected/gi, '')
       })
       selectedItem.value = null
       // this 'input' event must be emitted for v-model binding to work properly
@@ -477,10 +482,19 @@ export default defineComponent({
       }
     }
 
-    watch(() => props.items, () => {
-      // items need keys
-      selectItems.value = props.items
+    watch(() => props.items, (newValue, oldValue) => {
+      // Only trigger the watcher if items actually change
+      if (JSON.stringify(newValue) === JSON.stringify(oldValue)) {
+        return
+      }
+
+      selectItems.value = JSON.parse(JSON.stringify(props.items))
       for (let i = 0; i < selectItems.value.length; i++) {
+        // Ensure each item has a `selected` property
+        if (!Object.hasOwn(selectItems.value[i], 'selected')) {
+          selectItems.value[i].selected = false
+        }
+
         selectItems.value[i].key = `${selectItems.value[i].label.replace(' ', '-').replace(/[^a-z0-9-_]/gi, '')}-${i}`
         if (selectItems.value[i].value === props.modelValue || selectItems.value[i].selected) {
           selectItems.value[i].selected = true
@@ -495,6 +509,18 @@ export default defineComponent({
         if (selectedItem.value?.value === selectItems.value[i].value) {
           selectItems.value[i].selected = true
         }
+      }
+
+      // Trigger an update to the popper element to cause the popover to redraw
+      // This prevents the popover from displaying "detached" from the KSelect
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      if (popper.value && typeof popper.value.updatePopper === 'function') {
+        nextTick(() => {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          popper.value.updatePopper()
+        })
       }
     }, { immediate: true })
 
@@ -515,6 +541,7 @@ export default defineComponent({
       selectInputId,
       selectTextId,
       selectItems,
+      popper,
       boundKPopAttributes,
       widthValue,
       widthStyle,
@@ -632,11 +659,16 @@ export default defineComponent({
     }
   }
 
+  div.k-select-input.no-filter {
+    cursor: pointer !important;
+  }
+
   .k-select-button .has-caret .kong-icon {
     margin-left: auto;
   }
 
   .k-select-button {
+    .k-button.btn-link:hover,
     &.k-button.btn-link:hover {
       text-decoration: none;
     }

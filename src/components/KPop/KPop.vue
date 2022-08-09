@@ -138,6 +138,7 @@ export const placements = {
 export default defineComponent({
   name: 'KPop',
   components: { KButton },
+  expose: ['updatePopper'],
   props: {
     /**
      * The target element to append the popper to
@@ -352,6 +353,11 @@ export default defineComponent({
       if (this.popperTimer) clearTimeout(this.popperTimer)
       this.$emit('opened')
     },
+    updatePopper() {
+      if (this.popper && typeof this.popper.update === 'function') {
+        this.popper.update()
+      }
+    },
     async createInstance() {
       // destroy any previous poppers before creating new one
       this.destroy()
@@ -385,7 +391,7 @@ export default defineComponent({
         // Remove overflow attribute now that rendering is complete
         theTarget.style.removeProperty('overflow')
       }
-      this.popper.update()
+      this.updatePopper()
     },
     handleClick(e) {
       e.stopPropagation()
