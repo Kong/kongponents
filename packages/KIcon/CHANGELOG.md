@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.36.5 (2022-08-09)
+
+
+### Bug Fixes
+
+* **kselect:** fix items watcher and only update if changed [KHCP-4425] ([#750](https://github.com/Kong/kongponents/issues/750)) ([a80958b](https://github.com/Kong/kongponents/commit/a80958b0a72aa54c527326bf7a66a3e6a39338ce))
+
+
+
+
+
 ## 6.36.4 (2022-08-08)
 
 **Note:** Version bump only for package @kongponents/kicon
