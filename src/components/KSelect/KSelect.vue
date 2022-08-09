@@ -84,7 +84,7 @@
           <div
             v-else
             :id="selectInputId"
-            :class="{ 'k-select-input': appearance === 'select'}"
+            :class="{ 'k-select-input': appearance === 'select', 'no-filter': !filterIsEnabled }"
             data-testid="k-select-input"
             style="position: relative;"
             role="listbox"
@@ -630,11 +630,7 @@ export default defineComponent({
     width: 100%;
 
     &.cursor-default {
-      cursor: pointer;
-
-      input.k-input {
-        cursor: default;
-      }
+      cursor: default;
     }
 
     &.prevent-pointer-events {
@@ -661,6 +657,10 @@ export default defineComponent({
         top: 70%;
       }
     }
+  }
+
+  div.k-select-input.no-filter {
+    cursor: pointer !important;
   }
 
   .k-select-button .has-caret .kong-icon {
