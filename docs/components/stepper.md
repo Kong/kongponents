@@ -44,6 +44,16 @@ The maxWidth of the entire stepper (default is `100%`), will scroll horizontally
 <KStepper :steps="steps" max-width="520" />
 ```
 
+### labelWidth
+
+The width of step labels (default is `170`). Currently this only supports numbers (converted to `px`).
+
+<KStepper :steps="longSteps" label-width="100" />
+
+```html
+<KStepper :steps="steps" label-width="100" />
+```
+
 ## KStep
 
 **KStepper** generates a **KStep** for each item in the `steps` property. Each step has a `label`, `state`, booleans for if the state is the first or last, and an associated divider (unless it's the last step.)
@@ -117,6 +127,12 @@ export default {
         { label: 'And a 1', state: 'completed' },
         { label: 'And a 2', state: 'pending' },
         { label: 'And a 1 2 3 4', state: 'default' }
+      ],
+      longSteps: [
+        { label: 'Step  a long long long long time ago', state: 'completed' },
+        { label: 'in a galaxy far far away', state: 'completed' },
+        { label: 'Kongponents were battling in space and', state: 'pending' },
+        { label: 'fighting robots and space monsters with lots of explosions', state: 'default' }
       ]
     }
   }

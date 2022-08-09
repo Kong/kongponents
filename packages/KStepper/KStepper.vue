@@ -39,6 +39,10 @@ export default {
       type: String,
       default: '100%'
     },
+    labelWidth: {
+      type: String,
+      default: '170'
+    },
     /**
      * Test mode - for testing only, strips out generated ids
      */
@@ -51,7 +55,7 @@ export default {
     return {
       dividerWidth: 0,
       // label width
-      stepContainerWidth: 170,
+      stepContainerWidth: Number(this.labelWidth),
       // this is actually the state icon's size
       stepSize: 24,
       stepperId: !this.testMode ? uuid.v1() : 'test-stepper-id-1234'
