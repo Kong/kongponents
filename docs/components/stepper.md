@@ -66,7 +66,7 @@ The size of the state icon's for each step (default is `24`). Currently this onl
 
 ## KStep
 
-**KStepper** generates a **KStep** for each item in the `steps` property. Each step has a `label`, `state`, booleans for if the state is the first or last, and an associated divider (unless it's the last step.)
+**KStepper** generates a **KStep** for each item in the `steps` property. Each step has a `label`, `state`, and an associated divider (unless it's the last step.)
 
 ### Properties
 
