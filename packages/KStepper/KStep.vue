@@ -22,8 +22,8 @@
       >
         <KStepDivider
           :is-completed="state === 'completed'"
-          :width="dividerWidth ? String(dividerWidth) : undefined"
           :step-size="stepSize"
+          :width="dividerWidth ? String(dividerWidth) : undefined"
         />
       </div>
     </div>

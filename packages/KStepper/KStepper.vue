@@ -78,6 +78,7 @@ export default {
     getDividerWidth () {
       const stepperElem = document.getElementById(this.stepperId)
       const minWidth = this.stepContainerWidth - (this.stepSize * 2)
+
       if (stepperElem) {
         // ([full width] - ([stepSize * 2 for padding] * # of steps) - [leading/trailing margins]) / [# of steps with divider]
         this.dividerWidth = (stepperElem.offsetWidth - (this.stepSize * 2 * this.steps.length) - (this.margins * 2)) / (this.steps.length - 1)
