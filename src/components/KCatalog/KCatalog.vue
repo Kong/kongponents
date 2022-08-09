@@ -98,7 +98,7 @@
               v-if="emptyStateActionMessage"
               :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
               :icon="emptyStateActionButtonIcon"
-              appearance="primary"
+              :appearance="searchInput ? 'btn-link' : 'primary'"
               :data-testid="getTestIdString(errorStateActionMessage)"
               @click="$emit('kcatalog-empty-state-cta-clicked')"
             >

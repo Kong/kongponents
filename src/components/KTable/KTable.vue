@@ -67,7 +67,7 @@
               v-if="emptyStateActionMessage"
               :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
               :icon="emptyStateActionButtonIcon"
-              appearance="primary"
+              :appearance="searchInput ? 'btn-link' : 'primary'"
               :data-testid="getTestIdString(errorStateActionMessage)"
               @click="$emit('ktable-empty-state-cta-clicked')"
             >
