@@ -85,6 +85,19 @@
             style="position: relative;"
             role="listbox"
           >
+            <button
+              v-if="isClearVisible"
+              :class="{ 'overlay-label-chevron': overlayLabel }"
+              class="clear-selection-icon cursor-pointer non-visual-button"
+              @click="clearSelection"
+              @keyup.enter="clearSelection"
+            >
+              <KIcon
+                icon="close"
+                color="var(--grey-500)"
+                size="15"
+              />
+            </button>
             <KIcon
               v-if="appearance === 'select'"
               :class="{ 'overlay-label-chevron': overlayLabel }"
@@ -99,7 +112,11 @@
               :label="label && overlayLabel ? label : null"
               :overlay-label="overlayLabel"
               :placeholder="selectedItem && appearance === 'select' ? selectedItem.label : placeholderText"
-              :class="{ 'cursor-default prevent-pointer-events': !filterIsEnabled ,'input-placeholder-dark': appearance === 'select'}"
+              :class="{
+                'cursor-default prevent-pointer-events': !filterIsEnabled,
+                'input-placeholder-dark has-chevron': appearance === 'select',
+                'has-clear': isClearVisible
+              }"
               class="k-select-input"
               @keypress="onInputKeypress"
               @keyup="!$attrs.disabled ? triggerFocus(isToggled) : null"
@@ -292,6 +309,13 @@ export default {
     loading: {
       type: Boolean,
       default: false
+    },
+    /**
+     * A flag for clearing selection when appearance is 'select'
+     */
+    clearable: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -390,6 +414,9 @@ export default {
       }
 
       return this.placeholderText
+    },
+    isClearVisible () {
+      return this.appearance === 'select' && this.clearable && !!this.selectedItem
     }
   },
   watch: {
@@ -472,6 +499,10 @@ export default {
         anItem.key = anItem.key.replace(/-selected/gi, '')
       })
       this.selectedItem = null
+      if (this.appearance === 'select') {
+        this.filterStr = ''
+      }
+
       // this 'input' event must be emitted for v-model binding to work properly
       this.$emit('input', null)
       this.$emit('change', null)
@@ -573,8 +604,16 @@ export default {
       }
     }
 
-   .input-placeholder-dark input::placeholder {
+    .input-placeholder-dark input::placeholder {
       color: var(--KInputColor, var(--black-70, rgba(0, 0, 0, 0.7))) !important;
+    }
+
+    .has-chevron input.k-input {
+      padding-right: 25px;
+    }
+
+    .has-clear input.k-input {
+      padding-right: 50px;
     }
 
     input.k-input {
@@ -590,6 +629,21 @@ export default {
 
       &.overlay-label-chevron {
         top: 55%;
+      }
+    }
+
+    .clear-selection-icon {
+      position: absolute;
+      top: 13px;
+      right: 22px;
+      z-index: 9;
+
+      &.overlay-label-chevron {
+        top: 55%;
+      }
+
+      .kong-icon-close {
+        position: static;
       }
     }
   }

@@ -248,4 +248,33 @@ describe('KSelect', () => {
     expect(wrapper.find('[data-testid="k-select-loading"]').exists()).toBe(false)
     expect(wrapper.find('[data-testid="k-select-item-label1"]').html()).toEqual(expect.stringContaining('Label 1'))
   })
+
+  it('can clear selection when clearable is true', async () => {
+    const labels = ['Label 1', 'Label 2']
+    const vals = ['label1', 'label2']
+
+    const wrapper = mount(KSelect, {
+      propsData: {
+        testMode: true,
+        items: [{
+          label: labels[0],
+          value: vals[0],
+          selected: true
+        }, {
+          label: labels[1],
+          value: vals[1]
+        }],
+        appearance: 'select',
+        clearable: true
+      }
+    })
+
+    expect(wrapper.find('input').element.value).toBe(labels[0])
+
+    const clearIcon = wrapper.find('.k-select-input .clear-selection-icon')
+
+    clearIcon.trigger('click')
+
+    expect(wrapper.find('input').element.value).toBe('')
+  })
 })
