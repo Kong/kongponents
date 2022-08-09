@@ -1,3 +1,17 @@
+# [7.0.0-beta.83](https://github.com/Kong/kongponents/compare/v7.0.0-beta.82...v7.0.0-beta.83) (2022-08-09)
+
+
+### Bug Fixes
+
+* **kselect:** update items and filter logic ([#751](https://github.com/Kong/kongponents/issues/751)) ([d6fc78b](https://github.com/Kong/kongponents/commit/d6fc78bbdfe034d904f4dcd0b313f606148fcad3))
+
+# [7.0.0-beta.82](https://github.com/Kong/kongponents/compare/v7.0.0-beta.81...v7.0.0-beta.82) (2022-08-09)
+
+
+### Bug Fixes
+
+* **ktable:** update v-on value ([#746](https://github.com/Kong/kongponents/issues/746)) ([5aa2f50](https://github.com/Kong/kongponents/commit/5aa2f50a0cf7fd2b9d91067b0ff98f8b4c76ae1b))
+
 # [7.0.0-beta.81](https://github.com/Kong/kongponents/compare/v7.0.0-beta.80...v7.0.0-beta.81) (2022-08-05)
 
 
