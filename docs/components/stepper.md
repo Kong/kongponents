@@ -34,14 +34,14 @@ An array of `KSteps`. Each `KStep` has a `label` and a `state`.
 />
 ```
 
-### maxWidth
+### width
 
-The max width of the entire stepper (default is `900px`), will scroll horizontally if it extends beyond this. Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
+The width of the entire stepper (default is `100%`), will scroll horizontally if it extends beyond this. Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
 
-<KStepper :steps="defaultItems" max-width="400" />
+<KStepper :steps="defaultItems" width="400" />
 
 ```html
-<KStepper :steps="steps" max-width="400" />
+<KStepper :steps="steps" width="400" />
 ```
 
 ## KStep

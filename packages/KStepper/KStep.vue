@@ -7,16 +7,28 @@
     }"
     class="k-step"
   >
-    <div class="k-step-state-container d-flex mb-5">
+    <div
+      :style="stepContainerStyles"
+      class="k-step-state-container d-flex mb-5"
+    >
       <KStepState :state="state" />
 
-      <div v-if="!isLast">
-        <KStepDivider :is-completed="state === 'completed'" />
+      <div
+        v-if="!isLast"
+        class="k-step-divider-container"
+      >
+        <KStepDivider
+          :is-completed="state === 'completed'"
+          :width="dividerWidth ? String(dividerWidth) : undefined" />
       </div>
     </div>
 
     <div
-      :class="{ 'bolder': state === 'pending' || state === 'error' }"
+      :class="{
+        'bolder': state === 'pending' || state === 'error',
+        'error': state === 'error'
+      }"
+      :style="labelStyle"
       class="k-step-label"
     >
       <KLabel>
@@ -51,6 +63,41 @@ export default {
     isLast: {
       type: Boolean,
       default: false
+    },
+    // The below are private properties used for calculating styles
+    // We are not allowing customization at this stage
+    stepWidth: {
+      type: Number,
+      default: undefined
+    },
+    stepContainerWidth: {
+      type: Number,
+      default: undefined
+    },
+    dividerWidth: {
+      type: Number,
+      default: undefined
+    },
+    margins: {
+      type: Number,
+      default: undefined
+    }
+  },
+  computed: {
+    labelStyle: function () {
+      return {
+        width: this.stepContainerWidth + 'px',
+        marginLeft: !this.isFirst ? this.margins * -1 + 'px' : 'unset'
+      }
+    },
+    stepContainerStyles: function () {
+      if (this.isFirst) {
+        return {
+          marginLeft: this.margins + 'px'
+        }
+      }
+
+      return {}
     }
   }
 }
@@ -60,30 +107,38 @@ export default {
 @import '~@kongponents/styles/variables';
 
 .k-step {
-  --KStepContainerWidth: 170px;
-  --KStepStateWidth: 24px;
-
   width: fit-content;
 
   .k-step-label {
     --KInputLabelWeight: 400;
-
-    width: var(--KStepContainerWidth);
     text-align: center;
-    margin-left: calc(((#{var(--KStepContainerWidth)} * .5) - #{var(--KStepStateWidth)}) * -1);
 
     &.bolder {
       --KInputLabelWeight: 600;
     }
+
+    &.error {
+      color: var(--red-500);
+    }
   }
 
   &.is-first-step {
-    .k-step-state-container {
-      margin-left: calc((#{var(--KStepContainerWidth)} * .5) - #{var(--KStepStateWidth)});
-    }
-
     .k-step-label {
       margin-left: 0;
+    }
+  }
+}
+</style>
+
+<style lang="scss" scoped>
+@import '~@kongponents/styles/variables';
+
+.k-step {
+  --KStepStateWidth: 24px;
+
+  .k-step-divider-container {
+    .k-step-divider {
+      margin-top: calc(#{var(--KStepStateWidth)} / 2);
     }
   }
 }

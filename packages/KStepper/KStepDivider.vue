@@ -1,15 +1,19 @@
 <template>
-  <svg
-    width="214"
+  <!-- <svg
+    :width="width"
     height="2"
     fill="none"
-    xmlns="http://www.w3.org/2000/svg"
   >
     <path
       :fill="isCompleted ? completedColor : defaultColor"
       d="M0 0h214v2H0z"
     />
-  </svg>
+  </svg> -->
+  <div
+    :style="dividerStyle"
+    class="k-step-divider mx-0"
+    height="2"
+  />
 </template>
 
 <script>
@@ -18,17 +22,28 @@ export default {
   props: {
     defaultColor: {
       type: String,
-      // TODO: var
-      default: '#E7E7EC'
+      default: 'var(--grey-300)'
     },
     completedColor: {
       type: String,
-      // TODO: var
-      default: '#169FCC'
+      default: 'var(--teal-300)'
     },
     isCompleted: {
       type: Boolean,
       default: false
+    },
+    width: {
+      type: String,
+      default: '214'
+    }
+  },
+  computed: {
+    dividerStyle: function () {
+      return {
+        backgroundColor: this.isCompleted ? this.completedColor : this.defaultColor,
+        height: '2px',
+        width: this.width === 'auto' || this.width.endsWith('%') || this.width.endsWith('vw') || this.width.endsWith('px') ? this.width : this.width + 'px'
+      }
     }
   }
 }
