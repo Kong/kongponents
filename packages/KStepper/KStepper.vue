@@ -43,6 +43,10 @@ export default {
       type: String,
       default: '170'
     },
+    stepIconSize: {
+      type: String,
+      default: '24'
+    },
     /**
      * Test mode - for testing only, strips out generated ids
      */
@@ -57,7 +61,7 @@ export default {
       // label width
       stepContainerWidth: Number(this.labelWidth),
       // this is actually the state icon's size
-      stepSize: 24,
+      stepSize: Number(this.stepIconSize),
       stepperId: !this.testMode ? uuid.v1() : 'test-stepper-id-1234'
     }
   },
@@ -84,8 +88,8 @@ export default {
       const minWidth = this.stepContainerWidth - (this.stepSize * 2)
 
       if (stepperElem) {
-        // ([full width] - ([stepSize * 2 for padding] * # of steps) - [leading/trailing margins]) / [# of steps with divider]
-        this.dividerWidth = (stepperElem.offsetWidth - (this.stepSize * 2 * this.steps.length) - (this.margins * 2)) / (this.steps.length - 1)
+        // ([full width] - ([stepSize + 24px of padding] * # of steps) - [leading/trailing margins]) / [# of steps with divider]
+        this.dividerWidth = (stepperElem.offsetWidth - ((this.stepSize + 24) * this.steps.length) - (this.margins * 2)) / (this.steps.length - 1)
 
         if (this.dividerWidth < minWidth) {
           this.dividerWidth = minWidth
