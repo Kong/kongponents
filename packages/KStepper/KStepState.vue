@@ -3,10 +3,22 @@
     :class="{ 'pending': state === 'pending' }"
     class="k-step-state mx-3"
   >
-    <KCompletedState v-if="state === 'completed'" />
-    <KErrorState v-else-if="state === 'error'" />
-    <KPendingState v-else-if="state === 'pending'" />
-    <KDefaultState v-else />
+    <KCompletedState
+      v-if="state === 'completed'"
+      :size="stepSize"
+    />
+    <KErrorState
+      v-else-if="state === 'error'"
+      :size="stepSize"
+    />
+    <KPendingState
+      v-else-if="state === 'pending'"
+      :size="stepSize"
+    />
+    <KDefaultState
+      v-else
+      :size="stepSize"
+    />
   </div>
 </template>
 
@@ -24,6 +36,10 @@ export default {
       type: String,
       default: 'default',
       validator: (value) => ['default', 'pending', 'completed', 'error'].includes(value)
+    },
+    stepSize: {
+      type: String,
+      default: '24'
     }
   }
 }

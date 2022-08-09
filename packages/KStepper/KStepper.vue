@@ -11,7 +11,7 @@
       :state="step.state"
       :is-first="idx === 0"
       :is-last="(steps.length - 1) === idx"
-      :step-width="stepWidth"
+      :step-size="stepSize"
       :step-container-width="stepContainerWidth"
       :divider-width="dividerWidth ? dividerWidth : undefined"
       :margins="margins"
@@ -50,19 +50,21 @@ export default {
   data () {
     return {
       dividerWidth: 0,
+      // label width
       stepContainerWidth: 170,
-      stepWidth: 24,
+      // this is actually the state icon's size
+      stepSize: 24,
       stepperId: !this.testMode ? uuid.v1() : 'test-stepper-id-1234'
     }
   },
   computed: {
-    stepperStyle: function () {
+    stepperStyle () {
       return {
         maxWidth: this.maxWidth === 'auto' || this.maxWidth.endsWith('%') || this.maxWidth.endsWith('vw') || this.maxWidth.endsWith('px') ? this.maxWidth : this.maxWidth + 'px'
       }
     },
-    margins: function () {
-      return (this.stepContainerWidth * 0.5) - this.stepWidth
+    margins () {
+      return (this.stepContainerWidth * 0.5) - this.stepSize
     }
   },
   mounted () {
@@ -75,10 +77,10 @@ export default {
   methods: {
     getDividerWidth () {
       const stepperElem = document.getElementById(this.stepperId)
-      const minWidth = this.stepContainerWidth - (this.stepWidth * 2)
+      const minWidth = this.stepContainerWidth - (this.stepSize * 2)
       if (stepperElem) {
-        // ([full width] - ([stepWidth * 2 for padding] * # of steps) - [leading/trailing margins]) / [# of steps with divider]
-        this.dividerWidth = (stepperElem.offsetWidth - (this.stepWidth * 2 * this.steps.length) - (this.margins * 2)) / (this.steps.length - 1)
+        // ([full width] - ([stepSize * 2 for padding] * # of steps) - [leading/trailing margins]) / [# of steps with divider]
+        this.dividerWidth = (stepperElem.offsetWidth - (this.stepSize * 2 * this.steps.length) - (this.margins * 2)) / (this.steps.length - 1)
 
         if (this.dividerWidth < minWidth) {
           this.dividerWidth = minWidth

@@ -11,7 +11,10 @@
       :style="stepContainerStyles"
       class="k-step-state-container d-flex mb-5"
     >
-      <KStepState :state="state" />
+      <KStepState
+        :state="state"
+        :step-size="stepSize"
+      />
 
       <div
         v-if="!isLast"
@@ -19,7 +22,9 @@
       >
         <KStepDivider
           :is-completed="state === 'completed'"
-          :width="dividerWidth ? String(dividerWidth) : undefined" />
+          :width="dividerWidth ? String(dividerWidth) : undefined"
+          :step-size="stepSize"
+        />
       </div>
     </div>
 
@@ -66,7 +71,7 @@ export default {
     },
     // The below are private properties used for calculating styles
     // We are not allowing customization at this stage
-    stepWidth: {
+    stepSize: {
       type: Number,
       default: undefined
     },
@@ -84,13 +89,14 @@ export default {
     }
   },
   computed: {
-    labelStyle: function () {
+    labelStyle () {
       return {
+        // must use explicit width so all steps are the same size regardless of label length
         width: this.stepContainerWidth + 'px',
         marginLeft: !this.isFirst ? this.margins * -1 + 'px' : 'unset'
       }
     },
-    stepContainerStyles: function () {
+    stepContainerStyles () {
       if (this.isFirst) {
         return {
           marginLeft: this.margins + 'px'
@@ -107,7 +113,6 @@ export default {
 @import '~@kongponents/styles/variables';
 
 .k-step {
-  --KStepStateWidth: 24px;
   width: fit-content;
 
   .k-step-label {
@@ -122,12 +127,6 @@ export default {
   &.is-first-step {
     .k-step-label {
       margin-left: 0;
-    }
-  }
-
-  .k-step-divider-container {
-    .k-step-divider {
-      margin-top: calc(#{var(--KStepStateWidth)} / 2);
     }
   }
 }

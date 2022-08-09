@@ -1,18 +1,8 @@
 <template>
-  <!-- <svg
-    :width="width"
-    height="2"
-    fill="none"
-  >
-    <path
-      :fill="isCompleted ? completedColor : defaultColor"
-      d="M0 0h214v2H0z"
-    />
-  </svg> -->
   <div
     :style="dividerStyle"
-    class="k-step-divider mx-0"
     height="2"
+    class="k-step-divider mx-0"
   />
 </template>
 
@@ -35,6 +25,10 @@ export default {
     width: {
       type: String,
       default: '214'
+    },
+    stepSize: {
+      type: String,
+      default: undefined
     }
   },
   computed: {
@@ -42,7 +36,8 @@ export default {
       return {
         backgroundColor: this.isCompleted ? this.completedColor : this.defaultColor,
         height: '2px',
-        width: this.width === 'auto' || this.width.endsWith('%') || this.width.endsWith('vw') || this.width.endsWith('px') ? this.width : this.width + 'px'
+        width: this.width === 'auto' || this.width.endsWith('%') || this.width.endsWith('vw') || this.width.endsWith('px') ? this.width : this.width + 'px',
+        marginTop: (this.stepSize / 2) + 'px'
       }
     }
   }
