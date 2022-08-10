@@ -104,7 +104,7 @@ the Clear icon.
 <KSelect :items="items" />
 ```
 
-The `select` style displays the selected item in the textbox and also displays a chevron. To deselect the item, you need to
+The `select` style displays the selected item in the text box and also displays a chevron. To allow deselecting the item, you need to
 set the `clearable` prop to `true`. See [clearable](#clearable) for an example.
 
 <div>
@@ -127,14 +127,14 @@ The `button` style triggers the dropdown on click and you cannot filter the entr
 
 ### clearable
 
-The `clearable` prop is used to enable deselecting the selected item when `appearance` is `'select'`.
+The `clearable` prop is used to enable deselecting the selected item when `appearance` is `'select'`. Defaults to `false`.
 
 <div>
-  <KSelect appearance='select' :items="deepClone(defaultItems)" clearable />
+  <KSelect appearance="select" :items="deepClone(defaultItems)" clearable />
 </div>
 
 ```html
-<KSelect appearance='select' :items="items" clearable />
+<KSelect appearance="select" :items="items" clearable />
 ```
 
 ### buttonText

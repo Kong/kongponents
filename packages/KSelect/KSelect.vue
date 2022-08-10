@@ -95,7 +95,7 @@
               <KIcon
                 icon="close"
                 color="var(--grey-500)"
-                size="15"
+                size="10"
               />
             </button>
             <KIcon
@@ -315,7 +315,7 @@ export default {
      */
     clearable: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
 
@@ -623,7 +623,7 @@ export default {
 
     .kong-icon {
       position: absolute;
-      top: 15px;
+      top: 12px;
       right: 6px;
       z-index: 9;
 
