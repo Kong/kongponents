@@ -11,7 +11,6 @@
   >
     <router-link
       v-if="type === 'link' && to"
-      v-bind="$attrs"
       :to="!disabled ? to : $route.path"
       :class="{ 'disabled': disabled, 'has-divider': hasDivider }"
       class="k-dropdown-item-trigger"
@@ -21,7 +20,6 @@
     </router-link>
     <KButton
       v-else-if="type === 'button'"
-      v-bind="$attrs"
       :disabled="disabled"
       :is-rounded="false"
       class="k-dropdown-item-trigger btn-link k-button non-visual-button"
@@ -32,7 +30,6 @@
     </KButton>
     <div
       v-else
-      v-bind="$attrs"
       class="k-dropdown-item-trigger"
       data-testid="k-dropdown-item-trigger"
     >
@@ -49,7 +46,6 @@ import { DropdownItem } from '@/components/KDropdownMenu/KDropdownMenu.vue'
 export default defineComponent({
   name: 'KDropdownItem',
   components: { KButton },
-  inheritAttrs: false,
   props: {
     item: {
       type: Object as PropType<DropdownItem>,
@@ -83,13 +79,17 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    onClick: {
+      type: Function,
+      default: undefined,
+    },
   },
   emits: ['click', 'change'],
-  setup(props, { attrs, emit }) {
+  setup(props, { emit }) {
     const type = computed(() => {
       if (props.item?.to) {
         return 'link'
-      } else if (attrs.onClick || props.selectionMenuChild) {
+      } else if (typeof props.onClick !== 'undefined' || props.selectionMenuChild) {
         // checking attrs since we deleted click from listeners
         return 'button'
       }
@@ -104,20 +104,6 @@ export default defineComponent({
       return (props.item?.to) || undefined
     })
 
-    const listeners = computed(() => {
-      const onRE = /^on[^a-z]/
-      const listeners = {} as any
-
-      for (const property in attrs) {
-        if (onRE.test(property) && !!attrs[property]) {
-          listeners[property] = attrs[property]
-        }
-      }
-      // use @click in template and emit
-      delete listeners.click
-      return listeners
-    })
-
     const handleClick = (evt: any): void => {
       emit('click', evt)
 
@@ -130,7 +116,6 @@ export default defineComponent({
       type,
       label,
       to,
-      listeners,
       handleClick,
     }
   },
