@@ -33,7 +33,7 @@ export default {
     steps: {
       type: Array,
       required: true,
-      validator: (items) => !items.length || items.some(i => i.hasOwnProperty('label') && i.hasOwnProperty('state'))
+      validator: (items) => !items.length || items.some(i => Object.hasOwn(i, 'label') && Object.hasOwn(i, 'state'))
     },
     maxWidth: {
       type: String,
