@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kstepper",
-  "version": "6.36.6",
+  "version": "6.37.0",
   "description": "An ordered Stepper component",
   "main": "dist/KStepper.umd.min.js",
   "componentName": "KStepper",
@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/klabel": "^6.36.6",
-    "@kongponents/styles": "^6.36.6"
+    "@kongponents/klabel": "^6.37.0",
+    "@kongponents/styles": "^6.37.0"
   }
 }
