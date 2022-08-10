@@ -18,8 +18,8 @@ An array of item objects containing a `label` property and other optional proper
 <KDropdownMenu
   label="Documentation"
   :items="[
-    { label: 'Props', to: { path: '/components/dropdown-menu.html#props' } },
-    { label: 'Slots', to: { path: '/components/dropdown-menu.html#slots' } },
+    { label: 'Props', to: { path: '/components/dropdown-menu.html', hash: '#props' } },
+    { label: 'Slots', to: { path: '/components/dropdown-menu.html', hash: '#slots' } },
     { label: 'Top', to: { path: '/components/dropdown-menu.html' } }
   ]"
 />
@@ -385,8 +385,8 @@ export default defineComponent({
         value: 'fr'
       }],
       defaultItemsUnselected: [
-        { label: 'Props', to: { path: '/components/dropdown-menu.html#props' } },
-        { label: 'Slots', to: { path: '/components/dropdown-menu.html#slots' } },
+        { label: 'Props', to: { path: '/components/dropdown-menu.html', hash: '#props' } },
+        { label: 'Slots', to: { path: '/components/dropdown-menu.html', hash: '#slots' } },
         { label: 'Top', to: { path: '/components/dropdown-menu.html' } }
       ],
       youAreHere: { label: 'You are here', to: { path: '/components/dropdown-menu.html' } }

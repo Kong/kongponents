@@ -6,20 +6,11 @@
     <KToggle v-slot="{ toggle, isToggled }">
       <KPop
         v-bind="boundKPopAttributes"
-        :on-popover-click="() => {
-          toggle();
-          return isToggled.value
-        }"
+        :on-popover-click="() => handleTriggerToggle(isToggled, toggle, false)"
         :test-mode="testMode"
         data-testid="k-dropdown-menu-popover"
-        @opened="() => {
-          toggle()
-          $emit('toggleDropdown', true)
-        }"
-        @closed="() => {
-          toggle()
-          $emit('toggleDropdown', false)
-        }"
+        @opened="() => handleTriggerToggle(isToggled, toggle, true)"
+        @closed="() => handleTriggerToggle(isToggled, toggle, false)"
       >
         <component
           :is="!!disabledTooltip ? 'Kooltip' : 'div'"
@@ -78,7 +69,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, watch, onMounted } from 'vue'
+import { defineComponent, PropType, ref, watch, onMounted, Ref } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import Kooltip from '@/components/KTooltip/KTooltip.vue'
 import KPop from '@/components/KPop/KPop.vue'
@@ -175,7 +166,17 @@ export default defineComponent({
       selectedItem.value = item
     }
 
-    watch(selectedItem.value, (newVal, oldVal) => {
+    const handleTriggerToggle = (isToggled: Ref<boolean>, toggle: () => void, isOpen: boolean) => {
+      // avoid toggling twice for the same event
+      if (isToggled.value !== isOpen) {
+        toggle()
+        emit('toggleDropdown', isToggled.value)
+      }
+
+      return isToggled.value
+    }
+
+    watch(selectedItem, (newVal, oldVal) => {
       if (newVal !== oldVal) {
         emit('change', newVal)
       }
@@ -194,6 +195,7 @@ export default defineComponent({
       boundKPopAttributes,
       selectedItem,
       handleSelection,
+      handleTriggerToggle,
     }
   },
 })
