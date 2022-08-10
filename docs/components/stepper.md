@@ -1,6 +1,6 @@
 # Stepper
 
-**KStepper** - A basic Stepper component
+**KStepper** - An ordered Stepper component
 
 <KStepper :steps="defaultItems" />
 
@@ -12,7 +12,7 @@
 
 ### steps
 
-An array of `KSteps`. Each `KStep` has a `label` and an optional `state`.
+An array of step objects. Each step object should have a required `label` property, and an optional `state` property.
 
 <div>
   <KStepper :steps="[
@@ -36,7 +36,7 @@ An array of `KSteps`. Each `KStep` has a `label` and an optional `state`.
 
 ### maxLabelWidth
 
-The width of step labels (default is `170`). Currently we support numbers (will be converted to `px`), `auto`, and percentages for values.
+The width of step labels (default is `170px`). We support numbers (will be converted to `px`), `auto`, and percentages (e.g. `25%`) for values.
 
 <KStepper :steps="longSteps" max-label-width="100" />
 
@@ -51,9 +51,9 @@ The width of step labels (default is `170`). Currently we support numbers (will 
 ### Properties
 
 - `label` (required) - the text displayed beneath the step
-- `state` - the state of the step controls the icon, we support: `completed`, `pending`, and `error`
+- `state` - the state of the step controls the icon, we support: `completed`, `pending`, and `error`. If a 'state' is not provided, it will show the default grey icon.
 
-`completed` steps result in a colored following divider.
+A step with a state of `completed` results in a filled-in divider.
 
 <div>
   <KStepper :steps="[
@@ -63,9 +63,11 @@ The width of step labels (default is `170`). Currently we support numbers (will 
   />
 </div>
 
-```javascript
-[{ label: 'A completed step', state: 'completed' },
- { label: 'End' }]
+```js
+[
+  { label: 'A completed step', state: 'completed' },
+  { label: 'End' }
+ ]
 ```
 
 Both `pending` and `error` states will bold the label, because these 2 states indicate the "current" step. `completed` indicates past steps, while `default` indicates future steps.
@@ -105,7 +107,7 @@ The last step will never have a following divider.
   />
 </div>
 
-```javascript
+```js
 [{ label: 'A default step' }]
 ```
 

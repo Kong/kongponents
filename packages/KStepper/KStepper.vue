@@ -1,5 +1,5 @@
 <template>
-  <ol class="k-stepper">
+  <ol v-if="steps && steps.length" class="k-stepper">
     <KStep
       v-for="(step) in steps"
       :key="`k-step-${step.label.replace(' ', '-')}`"
@@ -23,7 +23,7 @@ export default {
     steps: {
       type: Array,
       required: true,
-      validator: (items) => !items.length || items.some(i => Object.hasOwn(i, 'label'))
+      validator: (items) => items.length && items.every(i => Object.hasOwn(i, 'label'))
     },
     maxLabelWidth: {
       type: String,
