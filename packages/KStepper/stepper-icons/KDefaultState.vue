@@ -4,6 +4,7 @@
     :height="size"
     viewBox="0 0 24 24"
     fill="none"
+    data-testid="k-step-default"
   >
     <title>{{ title }}</title>
     <circle
