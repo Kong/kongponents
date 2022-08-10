@@ -76,6 +76,7 @@ module.exports = {
               '/components/select',
               '/components/skeleton',
               '/components/slideout',
+              '/components/stepper',
               '/components/switch',
               '/components/table',
               '/components/table-legacy',

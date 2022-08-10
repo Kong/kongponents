@@ -34,6 +34,7 @@ import KPrompt from '../../packages/KPrompt/KPrompt.vue'
 import Krumbs from '../../packages/Krumbs/Krumbs.vue'
 import KSegmentedControl from '../../packages/KSegmentedControl/KSegmentedControl.vue'
 import KSelect from '../../packages/KSelect/KSelect.vue'
+import KStepper from '../../packages/KStepper/KStepper.vue'
 import KTable from '../../packages/KTable/KTable.vue'
 import KTableLegacy from '../../packages/KTableLegacy/KTableLegacy.vue'
 import KTabs from '../../packages/KTabs/KTabs.vue'
@@ -82,6 +83,7 @@ export default ({
   Vue.component('Komponent', Komponent)
   Vue.component('KSegmentedControl', KSegmentedControl)
   Vue.component('KSelect', KSelect)
+  Vue.component('KStepper', KStepper)
   Vue.component('KTable', KTable)
   Vue.component('KTableLegacy', KTableLegacy)
   Vue.component('KTabs', KTabs)
