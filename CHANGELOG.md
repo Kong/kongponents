@@ -1,3 +1,10 @@
+# [7.0.0-beta.84](https://github.com/Kong/kongponents/compare/v7.0.0-beta.83...v7.0.0-beta.84) (2022-08-10)
+
+
+### Bug Fixes
+
+* **kbutton:** remove webkit tap highlight color ([efb0db3](https://github.com/Kong/kongponents/commit/efb0db32ee5635a8351d5b53dd5ba9c4a7b6fd1f))
+
 # [7.0.0-beta.83](https://github.com/Kong/kongponents/compare/v7.0.0-beta.82...v7.0.0-beta.83) (2022-08-09)
 
 
