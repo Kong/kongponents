@@ -1,5 +1,7 @@
 # Dropdown Menu
 
+<div v-if="hasMounted">
+
 **KDropdownMenu** is a button (or any slotted content) that is clicked to trigger a menu popover beneath it.
 
 <KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" />
@@ -366,12 +368,15 @@ There are 3 primary item types:
 | `@change` | Fires when items within a `selectionMenu` are clicked; returns the selected menu item object or `null` |
 | `@toggleDropdown` | Fires when the button to toggle the menu is clicked; returns `true` if the menu is open, or `false` |
 
+</div>
+
 <script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
   data () {
     return {
+      hasMounted: false,
       selectedItem: {
         value: '',
         label: 'Select an item'
@@ -391,6 +396,9 @@ export default defineComponent({
       ],
       youAreHere: { label: 'You are here', to: { path: '/components/dropdown-menu.html' } }
     }
+  },
+  mounted() {
+    this.hasMounted = true
   },
   methods: {
     handleChange (item) {
