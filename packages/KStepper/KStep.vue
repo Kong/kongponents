@@ -1,15 +1,8 @@
 <template>
-  <div
-    :class="{
-      'is-first-step': isFirst,
-      'is-last-step': isLast,
-      'is-pending': state === 'pending'
-    }"
-    class="k-step"
-  >
+  <li class="k-step">
     <div
-      :style="stepContainerStyles"
-      class="k-step-state-container d-flex mb-5"
+      :class="{ 'completed': state === 'completed' }"
+      class="k-step-container"
     >
       <KStepState
         :state="state"
@@ -17,40 +10,28 @@
       />
 
       <div
-        v-if="!isLast"
-        class="k-step-divider-container"
+        :class="{
+          'bolder': state === 'pending' || state === 'error',
+          'error': state === 'error'
+        }"
+        :style="labelStyle"
+        class="k-step-label"
       >
-        <KStepDivider
-          :is-completed="state === 'completed'"
-          :step-size="stepSize"
-          :width="dividerWidth ? String(dividerWidth) : undefined"
-        />
+        <KLabel>
+          {{ label }}
+        </KLabel>
       </div>
     </div>
-
-    <div
-      :class="{
-        'bolder': state === 'pending' || state === 'error',
-        'error': state === 'error'
-      }"
-      :style="labelStyle"
-      class="k-step-label"
-    >
-      <KLabel>
-        {{ label }}
-      </KLabel>
-    </div>
-  </div>
+  </li>
 </template>
 
 <script>
 import KLabel from '@kongponents/klabel/KLabel.vue'
-import KStepDivider from './KStepDivider.vue'
 import KStepState from './KStepState.vue'
 
 export default {
   name: 'KStep',
-  components: { KLabel, KStepDivider, KStepState },
+  components: { KLabel, KStepState },
   props: {
     label: {
       type: String,
@@ -61,49 +42,16 @@ export default {
       default: 'default',
       validator: (value) => ['default', 'pending', 'completed', 'error'].includes(value)
     },
-    isFirst: {
-      type: Boolean,
-      default: false
-    },
-    isLast: {
-      type: Boolean,
-      default: false
-    },
-    // The below are private properties used for calculating styles
-    // We are not allowing customization at this stage
-    stepSize: {
-      type: Number,
-      default: undefined
-    },
-    stepContainerWidth: {
-      type: Number,
-      default: undefined
-    },
-    dividerWidth: {
-      type: Number,
-      default: undefined
-    },
-    margins: {
-      type: Number,
-      default: undefined
+    maxLabelWidth: {
+      type: String,
+      default: '170'
     }
   },
   computed: {
     labelStyle () {
       return {
-        // must use explicit width so all steps are the same size regardless of label length
-        width: this.stepContainerWidth + 'px',
-        marginLeft: !this.isFirst ? this.margins * -1 + 'px' : 'unset'
+        maxWidth: this.maxLabelWidth === 'auto' || this.maxLabelWidth.endsWith('%') || this.maxLabelWidth.endsWith('vw') || this.maxLabelWidth.endsWith('px') ? this.maxLabelWidth : this.maxLabelWidth + 'px'
       }
-    },
-    stepContainerStyles () {
-      if (this.isFirst) {
-        return {
-          marginLeft: this.margins + 'px'
-        }
-      }
-
-      return {}
     }
   }
 }
@@ -113,20 +61,49 @@ export default {
 @import '~@kongponents/styles/variables';
 
 .k-step {
-  width: fit-content;
+  display: list-item;
+  padding: 12px 0;
+  flex: 1 1 0%;
 
-  .k-step-label {
-    --KInputLabelWeight: 400;
-    text-align: center;
-
-    &.bolder {
-      --KInputLabelWeight: 600;
-    }
+  &:last-child > .k-step-container::after {
+    display: none;
   }
 
-  &.is-first-step {
+  .k-step-container {
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: var(--spacing-xxs);
+    position: relative;
+
     .k-step-label {
-      margin-left: 0;
+      --KInputLabelWeight: 400;
+      min-width: 100px;
+      padding: 10px;
+      text-align: center;
+
+      &.bolder {
+        --KInputLabelWeight: 600;
+      }
+    }
+
+    /**
+     * Divider styles
+     */
+    &::after {
+      content: "";
+      height: 2px;
+      width: 100%;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      z-index: 0;
+      background-color: var(--grey-300);
+    }
+
+    &.completed::after {
+      background-color: var(--teal-300);
     }
   }
 }

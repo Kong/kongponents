@@ -1,7 +1,7 @@
 <template>
   <div
     :class="{ 'pending': state === 'pending' }"
-    class="k-step-state mx-3"
+    class="k-step-state px-3"
   >
     <KCompletedState
       v-if="state === 'completed'"
@@ -44,3 +44,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.k-step-state {
+  background: var(--white);
+  z-index: 1;
+}
+</style>
