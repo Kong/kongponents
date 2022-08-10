@@ -37,7 +37,9 @@ An array of step objects. Each step object should have a required `label` proper
 #### Properties
 
 - `label` (required) - the text displayed beneath the step
-- `state` - the state of the step controls the icon, we support: `completed`, `pending`, and `error`. If a 'state' is not provided, it will show the default grey icon.
+- `state` - the state of the step controls the icon, we support: `completed`, `pending`, and `error`. If a state property is not provided, it will show the default grey icon.
+
+#### States
 
 A step with a state of `completed` results in a filled-in divider.
 
