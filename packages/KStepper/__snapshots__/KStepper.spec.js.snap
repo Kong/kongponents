@@ -17,7 +17,7 @@ exports[`KStepper renders each step type 1`] = `
   </li>
   <li class="k-step">
     <div class="k-step-container">
-      <div class="k-step-state px-3 pending">
+      <div class="k-step-state px-3">
         <div class="k-step-spinner"><svg width="24" height="24" viewBox="0 0 50 50" data-testid="k-step-pending">
             Pending
             <circle cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg></div>
@@ -83,7 +83,7 @@ exports[`KStepper renders steps 1`] = `
   </li>
   <li class="k-step">
     <div class="k-step-container">
-      <div class="k-step-state px-3 pending">
+      <div class="k-step-state px-3">
         <div class="k-step-spinner"><svg width="24" height="24" viewBox="0 0 50 50" data-testid="k-step-pending">
             Pending
             <circle cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg></div>
