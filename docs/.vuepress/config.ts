@@ -115,6 +115,7 @@ export default defineUserConfig({
               '/components/select.md',
               '/components/skeleton.md',
               '/components/slideout.md',
+              '/components/stepper.md',
               '/components/table.md',
               '/components/tabs.md',
               '/components/textarea.md',
