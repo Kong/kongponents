@@ -2,7 +2,7 @@
 
 <div v-if="hasMounted">
 
-**Select** - Dropdown/Select component
+**Select** - Select input component
 
 <div>
   <KSelect label="Pick Something:" :items="deepClone(defaultItemsUnselect)" />
