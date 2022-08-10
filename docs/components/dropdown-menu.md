@@ -10,11 +10,11 @@
 
 ### label
 
-The label for the menu.
+The label for the menu trigger.
 
 ### items
 
-An array of item objects containing a `label` property and other optional properties which will render a menu of [`KDropdownItems`](#KDropdownItem) .
+An array of objects containing a required `label` property and other optional properties which will render a menu of [`KDropdownItems`](#KDropdownItem) .
 
 ```html
 <KDropdownMenu
