@@ -1,5 +1,8 @@
 <template>
-  <ol v-if="steps && steps.length" class="k-stepper">
+  <ol
+    v-if="steps && steps.length"
+    class="k-stepper"
+  >
     <KStep
       v-for="(step) in steps"
       :key="`k-step-${step.label.replace(' ', '-')}`"

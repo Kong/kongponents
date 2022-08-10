@@ -1,8 +1,5 @@
 <template>
-  <div
-    :class="{ 'pending': state === 'pending' }"
-    class="k-step-state px-3"
-  >
+  <div class="k-step-state px-3">
     <KCompletedState
       v-if="state === 'completed'"
       :size="stepSize"

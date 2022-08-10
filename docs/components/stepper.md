@@ -67,7 +67,7 @@ A step with a state of `completed` results in a filled-in divider.
 [
   { label: 'A completed step', state: 'completed' },
   { label: 'End' }
- ]
+]
 ```
 
 Both `pending` and `error` states will bold the label, because these 2 states indicate the "current" step. `completed` indicates past steps, while `default` indicates future steps.
@@ -80,9 +80,11 @@ Both `pending` and `error` states will bold the label, because these 2 states in
   />
 </div>
 
-```javascript
-[{ label: 'A pending step', state: 'pending' },
- { label: 'End' }]
+```js
+[
+  { label: 'A pending step', state: 'pending' },
+  { label: 'End' }
+]
 ```
 
 <div>
@@ -93,9 +95,11 @@ Both `pending` and `error` states will bold the label, because these 2 states in
   />
 </div>
 
-```javascript
-[{ label: 'An erroneous step', state: 'error' },
- { label: 'End' }]
+```js
+[
+  { label: 'An erroneous step', state: 'error' },
+  { label: 'End' }
+]
 ```
 
 The last step will never have a following divider.
