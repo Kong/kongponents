@@ -214,6 +214,8 @@ export default defineComponent({
   border-radius: var(--KButtonRadius, 3px);
   transition: all .2s ease-in-out;
   cursor: pointer;
+  // Remove tap color highlight on mobile Safari
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 
   &:disabled,
   &[disabled] {
