@@ -41,11 +41,9 @@ describe('KStepper', () => {
       },
     })
 
-    const stepLabel = cy.get('.k-step-label')
-
     cy.get('.k-stepper').should('be.visible')
-    stepLabel.should('be.visible')
-    stepLabel.invoke('max-width').should('eq', width)
+    cy.get('.k-step-label').should('be.visible')
+    cy.get('.k-step-label').should('have.css', 'max-width').and('eq', `${width}px`)
   })
 
   it('renders each step type', () => {
@@ -59,8 +57,8 @@ describe('KStepper', () => {
     cy.get('.k-stepper').should('be.visible')
 
     for (let i = 0; i < types.length; i++) {
-      cy.getTestId(`[data-testid="k-step-${types[i]}"]`).should('exist')
-      cy.getTestId(`[data-testid="k-step-${types[i]}"]`).should('contain.html', types[i])
+      cy.getTestId(`k-step-${types[i]}`).should('exist')
+      cy.getTestId(`k-step-${types[i]}`).contains(types[i], { matchCase: false })
     }
   })
 })
