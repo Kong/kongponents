@@ -2,7 +2,7 @@
 
 <div v-if="hasMounted">
 
-**KDropdownMenu** is a button (or any slotted content) that is clicked to trigger a menu popover beneath it.
+**KDropdownMenu** is a button (or any slotted content) that is clicked to trigger a menu popover beneath&nbsp;it.
 
 <KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" />
 
