@@ -167,7 +167,7 @@
 
 <script>
 import { uuid } from 'vue-uuid'
-import { computed, defineComponent, onMounted, ref, watch } from '@vue/composition-api'
+import { computed, defineComponent, onMounted, ref, watch } from 'vue'
 import KButton from '@kongponents/kbutton/KButton.vue'
 import KEmptyState from '@kongponents/kemptystate/KEmptyState.vue'
 import KSkeleton from '@kongponents/kskeleton/KSkeleton.vue'

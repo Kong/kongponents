@@ -1,5 +1,4 @@
 import { mount, createLocalVue } from '@vue/test-utils'
-import VueCompositionAPI from '@vue/composition-api'
 import KCatalog from '@/KCatalog/KCatalog'
 // import KCatalogItem from '@/KCatalog/KCatalogItem'
 
@@ -66,8 +65,6 @@ let localVue
 // Use the Composition API
 beforeEach(() => {
   localVue = createLocalVue()
-
-  localVue.use(VueCompositionAPI)
 })
 
 describe('KCatalog', () => {

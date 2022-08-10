@@ -2,8 +2,6 @@
 import '../../packages/styles/styles.css'
 import icons from '../../packages/KIcon/icons' // KIcon icons
 
-import VueCompositionAPI from '@vue/composition-api'
-
 // Globally import all Kongponents
 import KAlert from '../../packages/KAlert/KAlert.vue'
 import KBadge from '../../packages/KBadge/KBadge.vue'
@@ -52,7 +50,6 @@ export default ({
   router,
   siteData
 }) => {
-  Vue.use(VueCompositionAPI)
   Vue.component('KAlert', KAlert)
   Vue.component('KBadge', KBadge)
   Vue.component('KButton', KButton)

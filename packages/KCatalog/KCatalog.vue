@@ -141,7 +141,7 @@
 </template>
 
 <script>
-import { defineComponent, computed, ref, onMounted, watch } from '@vue/composition-api'
+import { defineComponent, computed, ref, onMounted, watch } from 'vue'
 import KButton from '@kongponents/kbutton/KButton.vue'
 import KEmptyState from '@kongponents/kemptystate/KEmptyState.vue'
 import KSkeleton from '@kongponents/kskeleton/KSkeleton.vue'

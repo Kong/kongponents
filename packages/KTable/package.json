@@ -31,8 +31,5 @@
     "@kongponents/styles": "^6.40.3",
     "@kongponents/utils": "^6.40.3",
     "vue-uuid": "^2.0.2"
-  },
-  "peerDependencies": {
-    "@vue/composition-api": "^1.2.4"
   }
 }

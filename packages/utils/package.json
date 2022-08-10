@@ -18,9 +18,6 @@
   },
   "dependencies": {
     "swrv": "0.9.6",
-    "vue": "2.6.10"
-  },
-  "peerDependencies": {
-    "@vue/composition-api": "^1.2.4"
+    "vue": "^2.7.8"
   }
 }
