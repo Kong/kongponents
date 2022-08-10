@@ -1,7 +1,6 @@
 <template>
   <div
     :style="dividerStyle"
-    height="2"
     class="k-step-divider mx-0"
   />
 </template>

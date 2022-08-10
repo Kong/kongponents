@@ -54,16 +54,6 @@ The width of step labels (default is `170`). Currently this only supports number
 <KStepper :steps="steps" label-width="100" />
 ```
 
-### stepIconSize
-
-The size of the state icon's for each step (default is `24`). Currently this only supports numbers (converted to `px`).
-
-<KStepper :steps="defaultItems" step-icon-size="40" />
-
-```html
-<KStepper :steps="steps" step-icon-size="40" />
-```
-
 ## KStep
 
 **KStepper** generates a **KStep** for each item in the `steps` property. Each step has a `label`, `state`, and an associated divider (unless it's the last step.)

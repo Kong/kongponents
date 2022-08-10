@@ -27,7 +27,7 @@ export default {
     },
     title: {
       type: String,
-      default: 'Completed'
+      default: 'Pending'
     }
   }
 }
