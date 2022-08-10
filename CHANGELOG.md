@@ -1,3 +1,10 @@
+# [7.0.0-beta.85](https://github.com/Kong/kongponents/compare/v7.0.0-beta.84...v7.0.0-beta.85) (2022-08-10)
+
+
+### Features
+
+* **kdropdownmenu:** new kongponent [beta] ([#740](https://github.com/Kong/kongponents/issues/740)) ([5868209](https://github.com/Kong/kongponents/commit/586820963a4700aaa75345f5e7602778395b7820))
+
 # [7.0.0-beta.84](https://github.com/Kong/kongponents/compare/v7.0.0-beta.83...v7.0.0-beta.84) (2022-08-10)
 
 
