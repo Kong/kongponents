@@ -78,7 +78,7 @@ import KDropdownItem from './KDropdownItem.vue'
 
 export interface DropdownItem {
   label: string
-  // to?: RawLocation
+  // This follows the vue-router RawLocation interface type
   to?: string | object
   value?: string | number
   selected?: boolean
