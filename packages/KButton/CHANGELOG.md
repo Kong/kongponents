@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.36.6 (2022-08-10)
+
+
+### Bug Fixes
+
+* **kbutton:** remove webkit tap color ([#753](https://github.com/Kong/kongponents/issues/753)) ([0866a1a](https://github.com/Kong/kongponents/commit/0866a1a58ed5b42093507d8bc64e24fdb658d4a3))
+
+
+
+
+
 ## 6.36.5 (2022-08-09)
 
 
