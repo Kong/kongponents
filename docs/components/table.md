@@ -846,24 +846,93 @@ export default {
 
 ### Column Cell
 
-<KTable :headers="tableOptionsHeaders" :fetcher="tableOptionsFetcher">
-  <template v-slot:enabled="{rowValue}">
-    <span v-if="rowValue" style="color: green">&#10003;</span>
-    <span v-else style="color: red">&#10007;</span>
-  </template>
-  <template v-slot:actions><KButton appearance="btn-link">Edit</KButton></template>
-</KTable>
+This example uses the [`KDropdownMenu`](/components/dropdown-menu.html) component as the slot content for the `actions` column.
+
+<div>
+  <KTable
+    :headers="tableOptionsHeaders"
+    :fetcher="tableOptionsFetcher">
+    <template v-slot:enabled="{rowValue}">
+      <span v-if="rowValue" style="color: green">&#10003;</span>
+      <span v-else style="color: red">&#10007;</span>
+    </template>
+    <template v-slot:actions>
+      <KDropdownMenu>
+        <template #default>
+          <KButton
+            appearance="secondary"
+            size="small"
+            class="non-visual-button"
+          >
+            <template #icon>
+              <KIcon
+                icon="more"
+                color="var(--black-400)"
+                size="16"
+              />
+            </template>
+          </KButton>
+        </template>
+        <template #items>
+          <KDropdownItem @click="clickHandler('Edit clicked!')">
+            Edit
+          </KDropdownItem>
+          <KDropdownItem
+            has-divider
+            is-dangerous
+            @click="clickHandler('Delete clicked!')"
+          >
+            Delete
+          </KDropdownItem>
+        </template>
+      </KDropdownMenu>
+    </template>
+  </KTable>
+</div>
 
 ```html
 <template>
-  <KTable :fetcher="fetcher" :headers="headers">
+  <KTable
+    :fetcher="fetcher"
+    :headers="headers"
+  >
     <!-- Slot each "enabled" cell in each row & add icon if matching value -->
     <template v-slot:enabled="{rowValue}">
       <span v-if="rowValue" style="color: green">&#10003;</span>
       <span v-else style="color: red">&#10007;</span>
     </template>
     <!-- Slot each "actions" cell in each row & link -->
-    <template v-slot:actions><a href="">Edit</a></template>
+    <template v-slot:actions>
+      <KDropdownMenu>
+        <template #default>
+          <KButton
+            appearance="secondary"
+            size="small"
+            class="non-visual-button"
+          >
+            <template #icon>
+              <KIcon
+                icon="more"
+                color="var(--black-400)"
+                size="16"
+              />
+            </template>
+          </KButton>
+        </template>
+        <template #items>
+          <KDropdownItem @click="clickHandler('Edit clicked!')">
+            Edit
+          </KDropdownItem>
+          <KDropdownItem
+            has-divider
+            is-dangerous
+            @click="clickHandler('Delete clicked!')"
+          >
+            Delete
+          </KDropdownItem>
+        </template>
+      </KDropdownMenu>
+    </template>
   </KTable>
 </template>
 
@@ -1516,6 +1585,9 @@ export default defineComponent({
     },
     buttonHandler (e) {
       alert('a button was pressed')
+    },
+    clickHandler (msg) {
+      this.$toaster.open(msg)
     },
     rowAttrsFn (rowItem) {
       return {
