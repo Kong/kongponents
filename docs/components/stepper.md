@@ -34,21 +34,7 @@ An array of step objects. Each step object should have a required `label` proper
 />
 ```
 
-### maxLabelWidth
-
-The width of step labels (default is `170px`). We support numbers (will be converted to `px`), `auto`, and percentages (e.g. `25%`) for values.
-
-<KStepper :steps="longSteps" max-label-width="100" />
-
-```html
-<KStepper :steps="steps" max-label-width="100" />
-```
-
-## KStep
-
-**KStepper** generates a **KStep** for each item in the `steps` property. Each step has a `label`, `state`, and an associated divider (unless it's the last step.)
-
-### Properties
+#### Properties
 
 - `label` (required) - the text displayed beneath the step
 - `state` - the state of the step controls the icon, we support: `completed`, `pending`, and `error`. If a 'state' is not provided, it will show the default grey icon.
@@ -113,6 +99,16 @@ The last step will never have a following divider.
 
 ```js
 [{ label: 'A default step' }]
+```
+
+### maxLabelWidth
+
+The width of step labels (default is `170px`). We support numbers (will be converted to `px`), `auto`, and percentages (e.g. `25%`) for values.
+
+<KStepper :steps="longSteps" max-label-width="100" />
+
+```html
+<KStepper :steps="steps" max-label-width="100" />
 ```
 
 <script>
