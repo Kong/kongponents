@@ -8,18 +8,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import KCompletedState from '@/components/KStepper/stepper-icons/KCompletedState.vue'
 import KDefaultState from '@/components/KStepper/stepper-icons/KDefaultState.vue'
 import KErrorState from '@/components/KStepper/stepper-icons/KErrorState.vue'
 import KPendingState from '@/components/KStepper/stepper-icons/KPendingState.vue'
+
+export type StepperState = '' | 'default' | 'pending' | 'completed' | 'error'
 
 export default defineComponent({
   name: 'KStepState',
   components: { KCompletedState, KDefaultState, KErrorState, KPendingState },
   props: {
     state: {
-      type: String,
+      type: String as PropType<StepperState>,
       default: 'default',
       validator: (value: string) => ['default', 'pending', 'completed', 'error'].includes(value),
     },

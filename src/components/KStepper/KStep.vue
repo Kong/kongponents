@@ -23,10 +23,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, PropType } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
-import KStepState from '@/components/KStepper/KStepState.vue'
+import KStepState, { StepperState } from '@/components/KStepper/KStepState.vue'
 
 const { getSizeFromString } = useUtilities()
 
@@ -39,7 +39,7 @@ export default defineComponent({
       required: true,
     },
     state: {
-      type: String,
+      type: String as PropType<StepperState>,
       default: 'default',
       validator: (value: string) => ['default', 'pending', 'completed', 'error'].includes(value),
     },
