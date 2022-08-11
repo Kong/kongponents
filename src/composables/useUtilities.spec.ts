@@ -204,6 +204,13 @@ describe('getSizeFromString(): ', () => {
     expect(result).equal(`${sizeStr}`)
   })
 
+  it('handles vh', () => {
+    const sizeStr = '500vh'
+    const result = getSizeFromString(sizeStr)
+
+    expect(result).equal(`${sizeStr}`)
+  })
+
   it('handles vw', () => {
     const sizeStr = '500vw'
     const result = getSizeFromString(sizeStr)

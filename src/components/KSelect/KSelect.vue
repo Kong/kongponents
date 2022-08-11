@@ -174,6 +174,7 @@
 <script lang="ts">
 import { defineComponent, ref, Ref, computed, watch, PropType, nextTick } from 'vue'
 import { v1 as uuidv1 } from 'uuid'
+import useUtilities from '@/composables/useUtilities'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KInput from '@/components/KInput/KInput.vue'
@@ -181,6 +182,8 @@ import KLabel from '@/components/KLabel/KLabel.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
 import KSelectItem from '@/components/KSelect/KSelectItem.vue'
+
+const { getSizeFromString } = useUtilities()
 
 const defaultKPopAttributes = {
   popoverClasses: 'k-select-popover mt-0',
@@ -361,11 +364,7 @@ export default defineComponent({
         w = props.width
       }
 
-      if (w !== 'auto' && !w.endsWith('%') && !w.endsWith('px')) {
-        w += 'px'
-      }
-
-      return w
+      return getSizeFromString(w)
     })
 
     const widthStyle = computed(() => {
