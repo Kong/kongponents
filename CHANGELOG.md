@@ -1,3 +1,10 @@
+# [7.0.0-beta.86](https://github.com/Kong/kongponents/compare/v7.0.0-beta.85...v7.0.0-beta.86) (2022-08-11)
+
+
+### Features
+
+* **kstepper:** new kongponent [beta] ([#755](https://github.com/Kong/kongponents/issues/755)) ([8ff7742](https://github.com/Kong/kongponents/commit/8ff7742aefd97fadb81f387eb1ca9e21d1671af2))
+
 # [7.0.0-beta.85](https://github.com/Kong/kongponents/compare/v7.0.0-beta.84...v7.0.0-beta.85) (2022-08-10)
 
 
