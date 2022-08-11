@@ -1,3 +1,10 @@
+# [7.0.0-beta.87](https://github.com/Kong/kongponents/compare/v7.0.0-beta.86...v7.0.0-beta.87) (2022-08-11)
+
+
+### Bug Fixes
+
+* misc cleanup ([#757](https://github.com/Kong/kongponents/issues/757)) ([47f072b](https://github.com/Kong/kongponents/commit/47f072b278e86eea723b0606422ee0df0b69f6d9))
+
 # [7.0.0-beta.86](https://github.com/Kong/kongponents/compare/v7.0.0-beta.85...v7.0.0-beta.86) (2022-08-11)
 
 
