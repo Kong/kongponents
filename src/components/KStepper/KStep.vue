@@ -41,7 +41,7 @@ export default defineComponent({
     state: {
       type: String as PropType<StepperState>,
       default: 'default',
-      validator: (value: string) => ['default', 'pending', 'completed', 'error'].includes(value),
+      validator: (value: StepperState) => ['default', 'pending', 'completed', 'error'].includes(value),
     },
     maxLabelWidth: {
       type: String,

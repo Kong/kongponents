@@ -112,6 +112,7 @@ The width of step labels (default is `170px`). We support numbers (will be conve
 ```html
 <KStepper :steps="steps" max-label-width="100" />
 ```
+
 ## Theming
 
 | Variable                       | Purpose                                     |

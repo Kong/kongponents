@@ -15,11 +15,12 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
+import { StepperState } from '@/components/KStepper/KStepState.vue'
 import KStep from '@/components/KStepper/KStep.vue'
 
 export interface StepItem {
   label: string
-  state?: string
+  state?: StepperState
 }
 
 export default defineComponent({
