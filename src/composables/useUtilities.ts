@@ -171,10 +171,15 @@ export default function useUtilities() {
     }
   }
 
+  const getSizeFromString = (sizeStr: string) => {
+    return sizeStr === 'auto' || sizeStr.endsWith('%') || sizeStr.endsWith('vw') || sizeStr.endsWith('px') ? sizeStr : sizeStr + 'px'
+  }
+
   return {
     useRequest,
     useDebounce,
     clientSideSorter,
     useSwrvStates,
+    getSizeFromString,
   }
 }

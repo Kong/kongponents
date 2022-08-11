@@ -4,7 +4,7 @@
 
 import useUtilities from '@/composables/useUtilities'
 
-const { clientSideSorter } = useUtilities()
+const { clientSideSorter, getSizeFromString } = useUtilities()
 
 describe('Client-side sorting (deprecated in favor of server-side sorting)', () => {
   it('clientSideSorter(): sorts the items by string', () => {
@@ -179,5 +179,42 @@ describe('Client-side sorting (deprecated in favor of server-side sorting)', () 
     ])
     expect(sortKey2).equal('favoriteNumbers')
     expect(sortOrder2).equal('descending')
+  })
+})
+
+describe('getSizeFromString(): ', () => {
+  it('handles numbers', () => {
+    const sizeStr = '500'
+    const result = getSizeFromString(sizeStr)
+
+    expect(result).equal(`${sizeStr}px`)
+  })
+
+  it('handles auto', () => {
+    const sizeStr = 'auto'
+    const result = getSizeFromString(sizeStr)
+
+    expect(result).equal(`${sizeStr}`)
+  })
+
+  it('handles percentages', () => {
+    const sizeStr = '500%'
+    const result = getSizeFromString(sizeStr)
+
+    expect(result).equal(`${sizeStr}`)
+  })
+
+  it('handles vw', () => {
+    const sizeStr = '500vw'
+    const result = getSizeFromString(sizeStr)
+
+    expect(result).equal(`${sizeStr}`)
+  })
+
+  it('handles px', () => {
+    const sizeStr = '500px'
+    const result = getSizeFromString(sizeStr)
+
+    expect(result).equal(`${sizeStr}`)
   })
 })
