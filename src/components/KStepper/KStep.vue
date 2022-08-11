@@ -102,7 +102,7 @@ export default defineComponent({
       height: 2px;
       width: 100%;
       position: absolute;
-      top: calc(#{var(--KStepSize, 24px)} / 2);
+      top: calc(#{var(--KStepIconSize, 24px)} / 2);
       left: 50%;
       z-index: 0;
       background-color: var(--KStepDividerColorDefault, var(--grey-300));

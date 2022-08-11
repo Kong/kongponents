@@ -114,18 +114,18 @@ The width of step labels (default is `170px`). We support numbers (will be conve
 ```
 ## Theming
 
-| Variable                      | Purpose                                     |
-| :---------------------        | :-------------------------------            |
-| `KStepSize`                   | Height and width of step state icon         |
-| `KStepBackgroundColor`        | Background color of the step state icon     |
-| `KStepDividerColorCompleted`  | Color of divider for completed steps        |
-| `KStepDividerColorDefault`    | Color of divider for non-completed steps    |
-| `KStepCompletedColor`         | Primary color of completed state icon       |
-| `KStepCompletedSecondaryColor | Secondary color of completed state icon     |
-| `KStepDefaultColor`           | Primary color of default state icon         |
-| `KStepErrorColor`             | Primary color of error state icon           |
-| `KStepErrorSecondaryColor`    | Secondary color of error state icon         |
-| `KStepPendingColor`           | Primary color for pending state icon        |
+| Variable                       | Purpose                                     |
+| :---------------------         | :-------------------------------            |
+| `KStepIconSize`                | Height and width of step state icon         |
+| `KStepBackgroundColor`         | Background color of the step state icon     |
+| `KStepDividerColorCompleted`   | Color of divider for completed steps        |
+| `KStepDividerColorDefault`     | Color of divider for non-completed steps    |
+| `KStepCompletedColor`          | Primary color of completed state icon       |
+| `KStepCompletedSecondaryColor` | Secondary color of completed state icon     |
+| `KStepDefaultColor`            | Primary color of default state icon         |
+| `KStepErrorColor`              | Primary color of error state icon           |
+| `KStepErrorSecondaryColor`     | Secondary color of error state icon         |
+| `KStepPendingColor`            | Primary color for pending state icon        |
 
 
 An example of theming the danger badge:
@@ -145,7 +145,7 @@ An example of theming the danger badge:
 
 <style lang="scss">
 .k-stepper-wrapper {
-  --KStepSize: 40px;
+  --KStepIconSize: 40px;
   --KStepDividerColorCompleted: var(--purple-300);
   --KStepDividerColorDefault: var(--purple-100);
   --KStepCompletedColor: var(--purple-300);
@@ -186,7 +186,7 @@ export default defineComponent({
 
 <style lang="scss">
 .k-stepper-wrapper {
-  --KStepSize: 40px;
+  --KStepIconSize: 40px;
   --KStepDividerColorCompleted: var(--purple-300);
   --KStepDividerColorDefault: var(--purple-100);
   --KStepCompletedColor: var(--purple-300);
