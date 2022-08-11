@@ -115,9 +115,12 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import { defineComponent } from 'vue'
-import Popper from 'popper.js'
-import KButton from '@/components/KButton/KButton.vue'
 import { v1 as uuidv1 } from 'uuid'
+import Popper from 'popper.js'
+import useUtilities from '@/composables/useUtilities'
+import KButton from '@/components/KButton/KButton.vue'
+
+const { getSizeFromString } = useUtilities()
 
 export const placements = {
   auto: 'auto',
@@ -296,9 +299,9 @@ export default defineComponent({
   computed: {
     popoverStyle: function() {
       return {
-        width: this.width === 'auto' || this.width.endsWith('%') || this.width.endsWith('px') ? this.width : this.width + 'px',
-        maxWidth: this.maxWidth === 'auto' || this.maxWidth.endsWith('%') || this.maxWidth.endsWith('vw') || this.maxWidth.endsWith('px') ? this.maxWidth : this.maxWidth + 'px',
-        maxHeight: this.maxHeight === 'auto' || this.maxHeight.endsWith('%') || this.maxHeight.endsWith('vh') || this.maxHeight.endsWith('px') ? this.maxHeight : this.maxHeight + 'px',
+        width: getSizeFromString(this.width),
+        maxWidth: getSizeFromString(this.maxWidth),
+        maxHeight: getSizeFromString(this.maxHeight),
       }
     },
     popoverClassObj: function() {

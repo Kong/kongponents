@@ -37,9 +37,12 @@
 
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
+import useUtilities from '@/composables/useUtilities'
 import KMenuItem from '@/components/KMenu/KMenuItem.vue'
-import type { MenuItem } from './KMenuItem.vue'
+import type { MenuItem } from '@/components/KMenu/KMenuItem.vue'
 import KMenuDivider from '@/components/KMenu/KMenuDivider.vue'
+
+const { getSizeFromString } = useUtilities()
 
 export interface KMenuItemType extends MenuItem {
   expandable: boolean
@@ -75,7 +78,7 @@ export default defineComponent({
   setup(props, { emit, slots }) {
     const widthStyle = computed((): Record<string, string> => {
       return {
-        width: props.width === 'auto' || props.width.endsWith('%') || props.width.endsWith('px') ? props.width : props.width + 'px',
+        width: getSizeFromString(props.width),
       }
     })
 
