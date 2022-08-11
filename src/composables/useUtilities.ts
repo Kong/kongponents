@@ -171,7 +171,7 @@ export default function useUtilities() {
     }
   }
 
-  const getSizeFromString = (sizeStr: string) => {
+  const getSizeFromString = (sizeStr: string): string => {
     return sizeStr === 'auto' || sizeStr.endsWith('%') || sizeStr.endsWith('vw') || sizeStr.endsWith('vh') || sizeStr.endsWith('px') ? sizeStr : sizeStr + 'px'
   }
 
