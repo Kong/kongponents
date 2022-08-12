@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kcard",
-  "version": "6.37.0",
+  "version": "6.37.1",
   "description": "Card component",
   "main": "dist/KCard.umd.min.js",
   "componentName": "KCard",
@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/styles": "^6.37.0",
+    "@kongponents/styles": "^6.37.1",
     "vue-uuid": "^2.0.2"
   }
 }
