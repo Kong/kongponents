@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.37.2 (2022-08-12)
+
+
+### Bug Fixes
+
+* **kstepper:** include stepper-icons directory too ([#759](https://github.com/Kong/kongponents/issues/759)) ([e91c37b](https://github.com/Kong/kongponents/commit/e91c37be9fb5a8e0f86c7f590c35a70c75b76cae))
+
+
+
+
+
 ## 6.37.1 (2022-08-12)
 
 
