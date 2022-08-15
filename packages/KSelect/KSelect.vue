@@ -85,25 +85,25 @@
             style="position: relative;"
             role="listbox"
           >
-            <button
+            <KButton
               v-if="isClearVisible"
-              :class="{ 'overlay-label-chevron': overlayLabel }"
+              :class="{ 'overlay-label-clear': overlayLabel }"
               class="clear-selection-icon cursor-pointer non-visual-button"
               @click="clearSelection"
               @keyup.enter="clearSelection"
             >
               <KIcon
-                icon="close"
+                icon="clear"
                 color="var(--grey-500)"
-                size="10"
+                size="18"
               />
-            </button>
+            </KButton>
             <KIcon
               v-if="appearance === 'select'"
               :class="{ 'overlay-label-chevron': overlayLabel }"
               :icon="isToggled ? 'chevronUp' : 'chevronDown'"
               color="var(--grey-500)"
-              size="15"
+              size="18"
             />
             <KInput
               :id="selectTextId"
@@ -623,7 +623,7 @@ export default {
 
     .kong-icon {
       position: absolute;
-      top: 12px;
+      top: 15px;
       right: 6px;
       z-index: 9;
 
@@ -637,13 +637,15 @@ export default {
       top: 13px;
       right: 22px;
       z-index: 9;
+      padding: 0;
 
-      &.overlay-label-chevron {
-        top: 55%;
+      &.overlay-label-clear {
+        top: 36px;
       }
 
-      .kong-icon-close {
+      .kong-icon-clear {
         position: static;
+        display: block;
       }
     }
   }
