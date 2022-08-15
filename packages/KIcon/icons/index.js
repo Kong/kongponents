@@ -3,6 +3,7 @@ import arrowLeft from './icn-arrow-left.svg'
 import arrowRight from './icn-arrow-right.svg'
 import arrowUp from './icn-arrow-up.svg'
 import back from './icn-back.svg'
+import book from './icn-book.svg'
 import brain from './icn-brain.svg'
 import check from './icn-check.svg'
 import chevronDown from './icn-chevron-down.svg'
@@ -15,6 +16,7 @@ import close from './icn-close.svg'
 import cogwheel from './icn-cogwheel.svg'
 import collapseExpand from './icn-collapse-expand.svg'
 import connections from './icn-connections.svg'
+import contactSupport from './icn-contact-support.svg'
 import copy from './icn-copy.svg'
 import dangerCircle from './icn-danger-circle.svg'
 import dangerCircleOutline from './icn-danger-circle-outline.svg'
@@ -49,6 +51,7 @@ import noData from './icn-no-data.svg'
 import notificationBell from './icn-notification-bell.svg'
 import notificationInbox from './icn-notification-inbox.svg'
 import organization from './icn-organization.svg'
+import plug from './icn-plug.svg'
 import plus from './icn-plus.svg'
 import organizations from './icn-organizations.svg'
 import pencil from './icn-pencil.svg'
@@ -87,6 +90,7 @@ export default {
   arrowRight,
   arrowUp,
   back,
+  book,
   brain,
   check,
   chevronDown,
@@ -99,6 +103,7 @@ export default {
   cogwheel,
   collapseExpand,
   connections,
+  contactSupport,
   copy,
   dangerCircle,
   dangerCircleOutline,
@@ -139,6 +144,7 @@ export default {
   portal,
   profile,
   redo,
+  plug,
   plus,
   runtimes,
   search,
