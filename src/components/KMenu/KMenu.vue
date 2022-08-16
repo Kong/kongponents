@@ -39,7 +39,7 @@
 import { defineComponent, computed, PropType } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KMenuItem from '@/components/KMenu/KMenuItem.vue'
-import type { MenuItem } from '@/components/KMenu/KMenuItem.vue'
+import type { MenuItem } from './KMenuItem.vue'
 import KMenuDivider from '@/components/KMenu/KMenuDivider.vue'
 
 const { getSizeFromString } = useUtilities()

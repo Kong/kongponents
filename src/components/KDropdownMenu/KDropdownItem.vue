@@ -41,7 +41,7 @@
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
-import { DropdownItem } from '@/components/KDropdownMenu/KDropdownMenu.vue'
+import { DropdownItem } from './KDropdownMenu.vue'
 
 export default defineComponent({
   name: 'KDropdownItem',

@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { StepperState } from '@/components/KStepper/KStepState.vue'
+import type { StepperState } from './KStepState.vue'
 import KStep from '@/components/KStepper/KStep.vue'
 
 export interface StepItem {
