@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.38.0 (2022-08-16)
+
+
+### Features
+
+* **icons:** add book, plug and contact support icons ([#760](https://github.com/Kong/kongponents/issues/760)) ([38af9da](https://github.com/Kong/kongponents/commit/38af9da57e80c776d88df79c25edc460a34cf1c2))
+
+
+
+
+
 ## 6.37.2 (2022-08-12)
 
 
