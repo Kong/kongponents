@@ -238,6 +238,14 @@ Add the component to the desired location in the sidebar
 }
 ```
 
+### Importing type declarations and interfaces
+
+When importing type declarations or interfaces, you **must** use a relative path instead of the `@/...` alias so that the types are properly resolved within consuming packages. See the example below:
+
+```ts
+import { StepperState } from './KStepState.vue'
+```
+
 ## Committing Changes
 
 This repo uses [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
@@ -263,11 +271,3 @@ We recommend using [VSCode](https://code.visualstudio.com/) along with the [Vola
 ### Type Support For `.vue` Imports in TS
 
 Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
-
-### Importing type declarations and interfaces
-
-When importing type declarations or interfaces, you **must** use a relative path instead of the `@/...` alias so that the types are properly resolved within consuming packages. See the example below:
-
-```ts
-import { StepperState } from './KStepState.vue'
-```
