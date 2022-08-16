@@ -1,3 +1,10 @@
+# [7.0.0-beta.88](https://github.com/Kong/kongponents/compare/v7.0.0-beta.87...v7.0.0-beta.88) (2022-08-16)
+
+
+### Bug Fixes
+
+* **types:** fix type imports ([549f1d4](https://github.com/Kong/kongponents/commit/549f1d42bb37149514ff140600351e722d4b5b66))
+
 # [7.0.0-beta.87](https://github.com/Kong/kongponents/compare/v7.0.0-beta.86...v7.0.0-beta.87) (2022-08-11)
 
 
