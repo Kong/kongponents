@@ -64,10 +64,10 @@ describe('KAlert', () => {
       }
     })
 
-    expect(wrapperBorderLeft.attributes('class')).toContain('hasLeftBorder')
-    expect(wrapperBorderRight.attributes('class')).toContain('hasRightBorder')
-    expect(wrapperBorderBottom.attributes('class')).toContain('hasBottomBorder')
-    expect(wrapperBorderTop.attributes('class')).toContain('hasTopBorder')
+    expect(wrapperBorderLeft.attributes('class')).toContain('has-left-border')
+    expect(wrapperBorderRight.attributes('class')).toContain('has-right-border')
+    expect(wrapperBorderBottom.attributes('class')).toContain('has-bottom-border')
+    expect(wrapperBorderTop.attributes('class')).toContain('has-top-border')
   })
 
   it('renders large alert box', () => {

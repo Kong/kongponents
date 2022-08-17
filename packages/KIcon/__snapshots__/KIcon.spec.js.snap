@@ -218,6 +218,16 @@ exports[`KIcon renders drag icon 1`] = `
 </span>
 `;
 
+exports[`KIcon renders errorFilled icon 1`] = `
+<span class="kong-icon kong-icon-errorFilled"><svg width="16" height="16" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>errorFilled</title>
+  <circle cx="8" cy="8" r="8" fill="#A3BBCC"></circle>
+  <rect type="secondary" x="10.829" y="3.757" width="2" height="10" rx="1" transform="rotate(45 10.829 3.757)" fill="#fff"></rect>
+  <rect type="secondary" x="12.243" y="10.828" width="2" height="10" rx="1" transform="rotate(135 12.243 10.828)" fill="#fff"></rect>
+</svg>
+</span>
+`;
+
 exports[`KIcon renders expand icon 1`] = `
 <span class="kong-icon kong-icon-expand"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" width="24" height="24">
   <title>expand</title>
