@@ -216,4 +216,29 @@ describe('KSelect', () => {
       cy.wrap(Cypress.vueWrapper.setProps({ items: [{ label: 'Label 1', value: 'label1' }] })).getTestId('k-select-item-label1').should('contain.text', 'Label 1')
     })
   })
+
+  it('can clear selection when clearable is true', () => {
+    const labels = ['Label 1', 'Label 2']
+    const vals = ['label1', 'label2']
+
+    mount(KSelect, {
+      props: {
+        testMode: true,
+        items: [{
+          label: labels[0],
+          value: vals[0],
+          selected: true,
+        }, {
+          label: labels[1],
+          value: vals[1],
+        }],
+        appearance: 'select',
+        clearable: true,
+      },
+    })
+
+    cy.get('input').should('have.value', labels[0])
+    cy.get('.k-select-input .clear-selection-icon').trigger('click')
+    cy.get('input').should('have.value', '')
+  })
 })

@@ -94,11 +94,24 @@
               }
             }"
           >
+            <KButton
+              v-if="isClearVisible"
+              :class="{ 'overlay-label-clear': overlayLabel }"
+              class="clear-selection-icon cursor-pointer non-visual-button"
+              @click="clearSelection"
+              @keyup.enter="clearSelection"
+            >
+              <KIcon
+                icon="clear"
+                color="var(--grey-500)"
+                size="18"
+              />
+            </KButton>
             <KIcon
               v-if="appearance === 'select'"
               :icon="isToggled.value ? 'chevronUp' : 'chevronDown'"
               color="var(--grey-500)"
-              size="15"
+              size="18"
               :class="{ 'overlay-label-chevron': overlayLabel }"
             />
             <KInput
@@ -110,7 +123,11 @@
               :placeholder="selectedItem && appearance === 'select' && !filterIsEnabled ? selectedItem.label : placeholderText"
               autocomplete="off"
               autocapitalize="off"
-              :class="{ 'cursor-default prevent-pointer-events': !filterIsEnabled ,'input-placeholder-dark': appearance === 'select'}"
+              :class="{
+                'cursor-default prevent-pointer-events': !filterIsEnabled,
+                'input-placeholder-dark has-chevron': appearance === 'select',
+                'has-clear': isClearVisible
+              }"
               class="k-select-input"
               @keypress="onInputKeypress"
               @keyup="evt => triggerFocus(evt, isToggled)"
@@ -320,6 +337,13 @@ export default defineComponent({
       default: false,
     },
     /**
+     * A flag for clearing selection when appearance is 'select'
+     */
+    clearable: {
+      type: Boolean,
+      default: false,
+    },
+    /**
      * Test mode - for testing only, strips out generated ids
      */
     testMode: {
@@ -414,6 +438,8 @@ export default defineComponent({
       return placeholderText.value
     })
 
+    const isClearVisible = computed((): boolean => props.appearance === 'select' && props.clearable && !!selectedItem.value)
+
     const onInputKeypress = (event: Event) => {
       // If filters are not enabled, ignore any keypresses
       if (!filterIsEnabled.value) {
@@ -450,6 +476,9 @@ export default defineComponent({
         anItem.key = anItem?.key?.replace(/-selected/gi, '')
       })
       selectedItem.value = null
+      if (props.appearance === 'select') {
+        filterStr.value = ''
+      }
       // this 'input' event must be emitted for v-model binding to work properly
       emit('input', null)
       emit('change', null)
@@ -547,6 +576,7 @@ export default defineComponent({
       filteredItems,
       placeholderText,
       selectButtonText,
+      isClearVisible,
       handleItemSelect,
       clearSelection,
       triggerFocus,
@@ -640,6 +670,14 @@ export default defineComponent({
       color: var(--KInputColor, var(--black-70, rgba(0, 0, 0, 0.7))) !important;
     }
 
+    .k-input.has-chevron {
+      padding-right: 40px;
+    }
+
+    .k-input.has-clear {
+      padding-right: 60px;
+    }
+
     &input.k-input {
       padding: var(--spacing-xs);
       height: 100%;
@@ -654,6 +692,22 @@ export default defineComponent({
 
       &.overlay-label-chevron {
         top: 70%;
+      }
+    }
+
+    .clear-selection-icon {
+      position: absolute;
+      top: 13px;
+      right: 30px;
+      z-index: 9;
+      padding: 0;
+      &.overlay-label-clear {
+        top: 36px;
+      }
+      .kong-icon-clear {
+        position: static;
+        display: block;
+        transform: none;
       }
     }
   }

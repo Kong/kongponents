@@ -103,7 +103,8 @@ The `dropdown` appearance style has a selected item object. You can deselect the
 <KSelect :items="items" />
 ```
 
-The `select` style displays the selected item in the textbox and also displays a chevron. There is no way to clear the selection once it is made.
+The `select` style displays the selected item in the text box and also displays a chevron. To allow deselecting the item, you need to
+set the `clearable` prop to `true`. See [clearable](#clearable) for an example.
 
 <div>
   <KSelect appearance="select" :items="deepClone(defaultItems)" />
@@ -121,6 +122,18 @@ The `button` style triggers the dropdown on click and you cannot filter the entr
 
 ```html
 <KSelect appearance="button" :items="items" />
+```
+
+### clearable
+
+The `clearable` prop is used to enable deselecting the selected item when `appearance` is `'select'`. Defaults to `false`.
+
+<div>
+  <KSelect appearance="select" :items="deepClone(defaultItems)" clearable />
+</div>
+
+```html
+<KSelect appearance="select" :items="items" clearable />
 ```
 
 ### buttonText
