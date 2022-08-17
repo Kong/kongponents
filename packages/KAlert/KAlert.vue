@@ -6,74 +6,103 @@
       size,
       type,
       dismissType,
-      {'isBordered':isBordered},
-      {'hasLeftBorder':hasLeftBorder},
-      {'hasRightBorder':hasRightBorder},
-      {'hasTopBorder':hasTopBorder},
-      {'hasBottomBorder':hasBottomBorder},
-      {'isCentered': isCentered},
-      {'isFixed': isFixed}
+      { 'isBordered':isBordered },
+      { 'hasLeftBorder':hasLeftBorder },
+      { 'hasRightBorder':hasRightBorder },
+      { 'hasTopBorder':hasTopBorder },
+      { 'hasBottomBorder':hasBottomBorder },
+      { 'isCentered': isCentered },
+      { 'isFixed': isFixed }
     ]"
     class="k-alert"
     role="alert"
-    @click.stop>
+    @click.stop
+  >
+    <span
+      v-if="type === 'banner' && size !== 'large'"
+      :class="appearance"
+      class="k-alert-ellipse"
+    />
+    <span
+      v-if="icon || $slots.icon"
+      :class="{ 'mr-3': size !== 'large' }"
+    >
+      <slot name="icon">
+        <KIcon
+          :size="iconSize"
+          :color="iconColor"
+          :icon="icon"
+          class="k-alert-icon"
+        />
+      </slot>
+    </span>
+    <div class="k-alert-msg-text pr-3">
+      <div
+        v-if="title || $scopedSlots.title"
+        class="k-alert-title bold-600"
+      >
+        <slot name="title">
+          {{ title }}
+        </slot>
+      </div>
+      <div
+        :class="{
+          'k-alert-text': size === 'large',
+          'k-alert-subtext': title || $scopedSlots.title
+        }"
+        class="k-alert-msg"
+      >
+        <!-- @slot Use this slot to pass default alert message  -->
+        <slot name="alertMessage">
+          {{ alertMessage }}
+        </slot>
+      </div>
+      <div
+        v-if="size === 'large' && (description || $scopedSlots.description)"
+        class="k-alert-description-text"
+      >
+        <!-- @slot Use this slot to pass alert message description for large alerts  -->
+        <slot name="description">
+          {{ description }}
+        </slot>
+      </div>
+    </div>
     <button
       v-if="dismissType === 'icon'"
       type="button"
       aria-label="Close"
       class="close"
-      @click="dismissAlert">
+      @click="dismissAlert"
+    >
       <KIcon
         :color="appearance"
         :class="appearance"
         icon="close"
-        size="14" />
+        size="14"
+      />
     </button>
     <div
+      v-if="hasActionButtons || dismissType !== 'none'"
       :class="appearance"
-      class="k-alert-action ml-3">
+      class="k-alert-action">
       <!-- @slot Use this slot to pass extra buttons other than Dismiss  -->
       <slot
         v-if="hasActionButtons"
-        name="actionButtons">
+        name="actionButtons"
+      >
         <KButton
           size="small"
           @click="proceed"
-          @keyup.enter="proceed"/>
+          @keyup.enter="proceed"
+        />
       </slot>
       <KButton
         v-if="dismissType === 'button'"
         size="small"
-        @click="dismissAlert">
+        @click="dismissAlert"
+      >
         Dismiss
       </KButton>
-    </div>
-    <span
-      v-if="(type === 'banner' && (size !== 'large'))"
-      :class="appearance"
-      class="k-alert-ellipse"/>
-    <span v-if="size === 'large'">
-      <KIcon
-        :size="iconSize"
-        :color="iconColor"
-        :icon="icon ? icon : 'notificationInbox'"
-        class="k-alert-icon" />
-    </span>
-    <div class="k-alert-msg-text">
-      <div
-        :class="type === 'banner' && size === 'large' ? 'k-alert-text' : ''"
-        class="k-alert-msg">
-        <!-- @slot Use this slot to pass default alert message  -->
-        <slot name="alertMessage">{{ alertMessage }}
-        </slot>
-      </div>
-      <div
-        v-if="type === 'banner' && (size === 'large') && hasAlertDescription"
-        class="k-alert-description-text">
-        <!-- @slot Use this slot to pass alert message description for large banner type alert  -->
-        <slot name="description">{{ description }}
-        </slot>
-      </div>
     </div>
   </div>
 </template>
@@ -88,6 +117,7 @@ export const appearances = {
   danger: 'danger',
   warning: 'warning'
 }
+
 export default {
   name: 'KAlert',
   components: { KIcon, KButton },
@@ -174,7 +204,14 @@ export default {
      */
     iconColor: {
       type: String,
-      default: 'var(--red-500)'
+      default: ''
+    },
+    /**
+     * Alert message title
+     */
+    title: {
+      type: String,
+      default: ''
     },
     /**
     * Alert message description
@@ -240,9 +277,6 @@ export default {
   computed: {
     hasActionButtons () {
       return !!this.$slots.actionButtons
-    },
-    hasAlertDescription () {
-      return !!this.$slots.alertMessage
     }
   },
 
@@ -263,12 +297,12 @@ export default {
 .k-alert {
   position: relative;
   display: flex;
-  align-items: center;
   padding: 14px;
   font-family: inherit;
   font-size: 1rem;
   border-radius: 4px;
   overflow-wrap: anywhere;
+
   a {
     text-decoration: underline;
     color: var(--blue-600, color(blue-600));
@@ -283,6 +317,7 @@ export default {
     transition: all 200ms ease;
     cursor: pointer;
     opacity: .5;
+
     &:hover,
     &:active {
       text-decoration: none;
@@ -350,9 +385,13 @@ export default {
   & > div .k-alert-msg {
     font-weight: 400;
     font-size: var(--type-md, type(md));
-    line-height: 1.3;
+    line-height: 24px;
     padding: 2px 0;
     margin-left: 2px;
+
+    &.k-alert-subtext {
+      font-size: var(--type-sm);
+    }
 
     p:last-of-type {
       margin-bottom: 0;
@@ -386,7 +425,7 @@ button.close > .kong-icon {
   width: 6px;
   border-radius: 50%;
   display: inline-block;
-  margin: 24px 8px 26px 22px;
+  margin: auto 8px;
 
   &.info {
     background-color: var(--blue-400);
@@ -413,14 +452,21 @@ button.close > .kong-icon {
 
 .k-alert-action {
   display: inline-flex;
-  position: absolute;
-  right: 13px;
+  position: relative;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  height: 100%;
+
   & button {
     height: 30px;
-    margin-left: 13px;
     font-weight: 400;
     font-size: 13px;
     line-height: 13px;
+
+    &:not(:first-of-type) {
+      margin-left: var(--spacing-sm);
+    }
   }
 
   &.info button.primary {
@@ -497,6 +543,6 @@ button.close > .kong-icon {
 }
 
 .k-alert.banner > div.k-alert-msg-text {
-  padding: 12px 210px 12px 16px;
+  padding: 12px 16px;
 }
 </style>
