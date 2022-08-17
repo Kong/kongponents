@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.39.0 (2022-08-17)
+
+
+### Features
+
+* **kselect:** add clearable prop ([#749](https://github.com/Kong/kongponents/issues/749)) ([f56e97f](https://github.com/Kong/kongponents/commit/f56e97f4f485451b5bd8e59ed114799b64fac2c8))
+
+
+
+
+
 # 6.38.0 (2022-08-16)
 
 
