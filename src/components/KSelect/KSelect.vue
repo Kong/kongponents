@@ -361,6 +361,20 @@ export default defineComponent({
     const selectItems: Ref<SelectItem[]> = ref([])
     const initialFocusTriggered: Ref<boolean> = ref(false)
     const popper = ref(null)
+    // we need this so we can create a watcher for programmatic changes to the modelValue
+    const value = computed({
+      get(): string | number {
+        return props.modelValue
+      },
+      set(newValue: string | number): void {
+        const item = props.items.filter((item: SelectItem) => item.value === newValue)
+        if (item.length) {
+          handleItemSelect(item[0])
+        } else if (!newValue) {
+          clearSelection()
+        }
+      },
+    })
     const filterIsEnabled = computed((): boolean => {
       if (props.autosuggest) {
         return true
@@ -509,6 +523,17 @@ export default defineComponent({
         emit('query-change', '')
       }
     }
+
+    watch(value, (newVal, oldVal) => {
+      if (newVal !== oldVal) {
+        const item = props.items.filter((item: SelectItem) => item.value === newVal)
+        if (item.length) {
+          handleItemSelect(item[0])
+        } else if (!newVal) {
+          clearSelection()
+        }
+      }
+    })
 
     watch(() => props.items, (newValue, oldValue) => {
       // Only trigger the watcher if items actually change

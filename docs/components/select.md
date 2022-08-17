@@ -250,20 +250,35 @@ See [autosuggest](#autosuggest) for more details.
 
 `KSelect` works as regular inputs do using v-model for data binding:
 
-<KComponent :data="{ myVal: 'test' }" v-slot="{ data }">
-  <div>
-    <KLabel>Value:</KLabel> {{ data.myVal }}
-    <KSelect v-model="data.myVal" :items="deepClone(defaultItemsUnselect)" />
-  </div>
-</KComponent>
+<div>
+  <KLabel>Value:</KLabel> {{ myVal }}
+  <KSelect v-model="myVal" :items="deepClone(defaultItems)" />
+  <KButton @click="clearIt">Clear</KButton>
+</div>
 
 ```html
-<KComponent :data="{myVal: 'test'}" v-slot="{ data }">
-  <div>
-    <KLabel>Value:</KLabel> {{ data.myVal }}
-    <KSelect v-model="data.myVal" :items="items" />
-  </div>
-</KComponent>
+<div>
+  <KLabel>Value:</KLabel> {{ myVal }}
+  <KSelect v-model="myVal" :items="items" />
+  <KButton @click="clearIt">Clear</KButton>
+</div>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  data() {
+    return {
+      myVal: 'cats',
+    }
+  },
+  methods: {
+    clearIt() {
+      this.myVal = ''
+    }
+  }
+})
+</script>
 ```
 
 ### autosuggest
@@ -569,6 +584,7 @@ export default defineComponent({
       hasMounted: false,
       myItems: getItems(5),
       mySelect: '',
+      myVal: 'cats',
       defaultItems: [{
         label: 'Cats',
         value: 'cats',
@@ -611,6 +627,9 @@ export default defineComponent({
   methods: {
     handleItemSelect (item) {
       this.mySelect = item.label
+    },
+    clearIt () {
+      this.myVal = ''
     },
     customFilter ({items, query}) {
       return items.filter(item => item.label.toLowerCase().includes(query.toLowerCase()) || item.description.toLowerCase().includes(query.toLowerCase()))
