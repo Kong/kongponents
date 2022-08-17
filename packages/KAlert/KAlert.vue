@@ -42,7 +42,7 @@
     </span>
     <div class="k-alert-msg-text">
       <div
-        v-if="title || $scopedSlots.title"
+        v-if="title || $slots.title"
         class="k-alert-title bold-600"
       >
         <slot name="title">
@@ -52,7 +52,7 @@
       <div
         :class="{
           'k-alert-text': size === 'large',
-          'k-alert-subtext': title || $scopedSlots.title
+          'k-alert-subtext': title || $slots.title
         }"
         class="k-alert-msg"
       >
@@ -62,7 +62,7 @@
         </slot>
       </div>
       <div
-        v-if="size === 'large' && (description || $scopedSlots.description)"
+        v-if="size === 'large' && (description || $slots.description)"
         class="k-alert-description-text"
       >
         <!-- @slot Use this slot to pass alert message description for large alerts  -->
