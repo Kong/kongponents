@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.40.0 (2022-08-17)
+
+
+### Features
+
+* **kalert:** updates for KHCP-4405 ([#763](https://github.com/Kong/kongponents/issues/763)) ([6dadda8](https://github.com/Kong/kongponents/commit/6dadda87389bf45f09f7d171602d9cadd32c7a21))
+
+
+
+
+
 ## 6.39.1 (2022-08-17)
 
 **Note:** Version bump only for package @kongponents/kmenu
