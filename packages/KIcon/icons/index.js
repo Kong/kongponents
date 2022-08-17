@@ -26,6 +26,7 @@ import devPortal from './icn-dev-portal.svg'
 import disabled from './icn-disabled.svg'
 import document from './icn-document.svg'
 import drag from './icn-drag.svg'
+import errorFilled from './icn-error-filled.svg'
 import expand from './icn-expand.svg'
 import externalLink from './icn-external-link.svg'
 import featureRequest from './icn-feature-request.svg'
@@ -113,6 +114,7 @@ export default {
   disabled,
   document,
   drag,
+  errorFilled,
   expand,
   externalLink,
   featureRequest,
