@@ -49,7 +49,7 @@ describe('KAlert', () => {
         hasLeftBorder: true,
       },
     })
-    cy.get('.k-alert').should('have.class', 'hasLeftBorder')
+    cy.get('.k-alert').should('have.class', 'has-left-border')
 
     mount(KAlert, {
       props: {
@@ -57,7 +57,7 @@ describe('KAlert', () => {
         hasRightBorder: true,
       },
     })
-    cy.get('.k-alert').should('have.class', 'hasRightBorder')
+    cy.get('.k-alert').should('have.class', 'has-right-border')
 
     mount(KAlert, {
       props: {
@@ -65,7 +65,7 @@ describe('KAlert', () => {
         hasBottomBorder: true,
       },
     })
-    cy.get('.k-alert').should('have.class', 'hasBottomBorder')
+    cy.get('.k-alert').should('have.class', 'has-bottom-border')
 
     mount(KAlert, {
       props: {
@@ -73,7 +73,7 @@ describe('KAlert', () => {
         hasTopBorder: true,
       },
     })
-    cy.get('.k-alert').should('have.class', 'hasTopBorder')
+    cy.get('.k-alert').should('have.class', 'has-top-border')
   })
 
   it('renders large alert box', () => {

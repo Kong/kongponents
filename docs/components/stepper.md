@@ -129,7 +129,7 @@ The width of step labels (default is `170px`). We support numbers (will be conve
 | `KStepPendingColor`            | Primary color for pending state icon        |
 
 
-An example of theming the danger badge:
+An example of theming the stepper:
 
 > Note: We are scoping the overrides to a wrapper in this example
 
