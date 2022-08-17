@@ -1,3 +1,11 @@
+# [7.0.0-beta.89](https://github.com/Kong/kongponents/compare/v7.0.0-beta.88...v7.0.0-beta.89) (2022-08-17)
+
+
+### Features
+
+* **kicon:** add book, plug and contactSupport icons ([#761](https://github.com/Kong/kongponents/issues/761)) ([986f5d4](https://github.com/Kong/kongponents/commit/986f5d4d4455600e31da24248c252a14933d3e9e)), closes [#760](https://github.com/Kong/kongponents/issues/760)
+* **kselect:** add clearable prop ([#762](https://github.com/Kong/kongponents/issues/762)) ([8a572df](https://github.com/Kong/kongponents/commit/8a572dffbb78db8df54c5d9dd4d73131543699dd)), closes [#749](https://github.com/Kong/kongponents/issues/749)
+
 # [7.0.0-beta.88](https://github.com/Kong/kongponents/compare/v7.0.0-beta.87...v7.0.0-beta.88) (2022-08-16)
 
 
