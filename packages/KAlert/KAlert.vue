@@ -463,44 +463,6 @@ export default {
     }
   }
 
-  // Types
-  &.is-banner {
-    background-color: var(--white);
-    color: var(--grey-600);
-    padding: 0;
-
-    .k-alert-ellipse {
-      height: 6px;
-      width: 6px;
-      border-radius: 50%;
-      display: inline-block;
-      margin: auto 8px;
-
-      &.info {
-        background-color: var(--blue-400);
-      }
-      &.success {
-        background-color: var(--green-400);
-      }
-      &.warning {
-        background-color: var(--yellow-400);
-      }
-      &.danger {
-        background-color: var(--red-400);
-      }
-    }
-
-    .button > div .k-alert-msg.k-alert-text {
-      padding-left: 0;
-      font-size: var(--type-md, type(md));
-      line-height: 24px;
-    }
-
-    & > div.k-alert-msg-text {
-      padding: var(--spacing-sm) var(--spacing-md);
-    }
-  }
-
   // Variants
   &.is-fixed {
     position: fixed;
@@ -551,6 +513,44 @@ export default {
     color: var(--KAlertWarningColor, var(--yellow-600, color(yellow-600)));
     border-color: var(--KAlertWarningBorder, var(--yellow-200, color(yellow-200)));
     background-color: var(--KAlertWarningBackground, var(--yellow-100, color(yellow-100)));
+  }
+
+  // Types - MUST FOLLOW APPEARANCES
+  &.is-banner {
+    background-color: var(--white);
+    color: var(--grey-600);
+    padding: 0;
+
+    .k-alert-ellipse {
+      height: 6px;
+      width: 6px;
+      border-radius: 50%;
+      display: inline-block;
+      margin: auto 8px;
+
+      &.info {
+        background-color: var(--blue-400);
+      }
+      &.success {
+        background-color: var(--green-400);
+      }
+      &.warning {
+        background-color: var(--yellow-400);
+      }
+      &.danger {
+        background-color: var(--red-400);
+      }
+    }
+
+    .button > div .k-alert-msg.k-alert-text {
+      padding-left: 0;
+      font-size: var(--type-md, type(md));
+      line-height: 24px;
+    }
+
+    & > div.k-alert-msg-text {
+      padding: var(--spacing-sm) var(--spacing-md);
+    }
   }
 }
 
