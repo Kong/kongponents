@@ -10,340 +10,11 @@
 
 ## Props
 
-### Appearances
+### alertMessage
 
-What color and purpose the Alert should be. Shares similar appearances to those of [KButton](/components/button).
+The main content of the alert.
 
-> Note: `appearance` is `info` by default.
-
-- `info`
-- `warning`
-- `success`
-- `danger`
-
-<div>
-  <KAlert
-    appearance="info"
-    alert-message="Info alert message"
-  />
-  <KAlert
-    appearance="warning"
-    alert-message="Warning alert message"
-  />
-  <KAlert
-    appearance="success"
-    alert-message="Success alert message"
-  />
-  <KAlert
-    appearance="danger"
-    alert-message="Danger alert message"
-  />
-</div>
-
-```html
-<KAlert
-  appearance="info"
-  alert-message="Info alert message"
-/>
-<KAlert
-  appearance="warning"
-  alert-message="Warning alert message"
-/>
-<KAlert
-  appearance="success"
-  alert-message="Success alert message"
-/>
-<KAlert
-  appearance="danger"
-  alert-message="Danger alert message"
-/>
-```
-
-### Type
-
-The display type of the alert.
-
-- `banner`
-
-`type="banner"` will have a white background and display an ellipse on the left to indicate appearance.
-
-> Note: By default `appearance="info"`. `appearance` will influence the colors of action/dismiss buttons.
-
-<div>
-  <KAlert
-    alert-message="I'm a banner type alert"
-    type="banner"
-  />
-
-  <KAlert
-    alert-message="I'm a banner type alert"
-    appearance="success"
-    type="banner"
-  />
-
-  <KAlert
-    alert-message="I'm a banner type alert"
-    appearance="danger"
-    type="banner"
-  />
-
-  <KAlert
-    alert-message="I'm a banner type alert"
-    appearance="warning"
-    type="banner"
-  />
-</div>
-
-```html
-<KAlert
-  alert-message="I'm a banner type alert"
-  type="banner"
-/>
-<KAlert
-  alert-message="I'm a banner type alert"
-  appearance="success"
-  type="banner"
-/>
-<KAlert
-  alert-message="I'm a banner type alert"
-  appearance="danger"
-  type="banner"
-/>
-<KAlert
-  alert-message="I'm a banner type alert"
-  appearance="warning"
-  type="banner"
-/>
-```
-
-- `alert`
-
-`type="alert"` will have a background based on `appearance`.
-
-> Note: By default `appearance="info"`. `appearance` will influence the colors of action/dismiss buttons.
-
-<div>
-  <KAlert
-    alert-message="I'm an alert"
-    dismiss-type="button"
-    type="alert"
-    :is-showing="alert1IsOpen"
-    @closed="alert1IsOpen = false"
-  />
-
-  <KAlert
-    alert-message="I'm an alert"
-    dismiss-type="button"
-    appearance="success"
-    type="alert"
-    :is-showing="alert2IsOpen"
-    @closed="alert2IsOpen = false"
-  />
-
-  <KAlert
-    alert-message="I'm an alert"
-    dismiss-type="button"
-    appearance="danger"
-    type="alert"
-    :is-showing="alert3IsOpen"
-    @closed="alert3IsOpen = false"
-  />
-
-  <KAlert
-    alert-message="I'm an alert"
-    dismiss-type="button"
-    appearance="warning"
-    type="alert"
-    :is-showing="alert4IsOpen"
-    @closed="alert4IsOpen = false"
-  />
-</div>
-
-```html
-<KAlert
-  alert-message="I'm an alert"
-  dismiss-type="button"
-  type="alert"
-  :is-showing="alert1IsOpen"
-  @closed="alert1IsOpen = false"
-/>
-
-<KAlert
-  alert-message="I'm an alert"
-  dismiss-type="button"
-  appearance="success"
-  type="alert"
-  :is-showing="alert2IsOpen"
-  @closed="alert2IsOpen = false"
-/>
-
-<KAlert
-  alert-message="I'm an alert"
-  dismiss-type="button"
-  appearance="danger"
-  type="alert"
-  :is-showing="alert3IsOpen"
-  @closed="alert4IsOpen = false"
-/>
-
-<KAlert
-  alert-message="I'm an alert"
-  dismiss-type="button"
-  appearance="warning"
-  type="alert"
-  :is-showing="alert5IsOpen"
-  @closed="alert5IsOpen = false"
-/>
-```
-
-### title
-
-You can specify a title for the alert in situations where the message is more wordy.
-
-<div>
-  <KAlert
-    :is-showing="extraMsg2"
-    appearance="danger"
-    title="Error: Something went wrong!"
-    @closed="extraMsg2 = false"
-  >
-    <template #icon>
-      <KIcon icon="errorFilled" color="var(--red-500)" size="16" />
-    </template>
-    <template v-slot:alertMessage>
-      Since I have a title, my font-size is smaller.
-    </template>
-  </KAlert>
-</div>
-
-```html
-<KAlert
-  :is-showing="extraMsg2"
-  appearance="danger"
-  title="Error: Something went wrong!"
-  @closed="extraMsg2 = false"
->
-  <template #icon>
-    <KIcon icon="errorFilled" color="var(--red-500)" size="16" />
-  </template>
-  <template v-slot:alertMessage>
-    Since I have a title, my font-size is smaller.
-  </template>
-</KAlert>
-```
-
-### Dismiss Type
-
-KAlert allows for dismissal of the banner using an icon or button. An alert is not dismissible if "none" is passed.
-
-- `none`
-- `icon`
-- `button`
-
-<div>
-  <KAlert
-    alert-message="Alert that can not be dismissed"
-    type="alert"
-    dismiss-type="none"
-  />
-
-  <KAlert
-    alert-message="Info alert message that is dismissible"
-    appearance="info"
-    type="alert"
-    dismiss-type="icon"
-    :is-showing="infoIsOpen"
-    @closed="infoIsOpen = false"
-  />
-
-  <KAlert
-    alert-message="Warning alert message that is dismissible"
-    appearance="warning"
-    type="alert"
-    dismiss-type="icon"
-    :is-showing="warningIsOpen"
-    @closed="warningIsOpen = false"
-  />
-
-  <KAlert
-    alert-message="Success alert message that is dismissible"
-    appearance="success"
-    type="alert"
-    dismiss-type="icon"
-    :is-showing="successIsOpen"
-    @closed="successIsOpen = false"
-  />
-
-  <KAlert
-    alert-message="Danger alert message that is dismissible"
-    appearance="danger"
-    type="alert"
-    dismiss-type="icon"
-    :is-showing="dangerIsOpen"
-    @closed="dangerIsOpen = false"
-  />
-
-  <KAlert
-    alert-message="Alert with dismiss type as button"
-    type="banner" dismiss-type="button"
-    :is-showing="dismissTypeBtn"
-    @closed="dismissTypeBtn = false"
-  />
-</div>
-
-```html
-<KAlert
-  alert-message="Alert that can not be dismissed"
-  type="alert"
-  dismiss-type="none"
-/>
-
-<KAlert
-  alert-message="Info alert message that is dismissible"
-  appearance="info"
-  type="alert"
-  dismiss-type="icon"
-  :is-showing="infoIsOpen"
-  @closed="infoIsOpen = false"
-/>
-
-<KAlert
-  alert-message="Warning alert message that is dismissible"
-  appearance="warning"
-  type="alert"
-  dismiss-type="icon"
-  :is-showing="warningIsOpen"
-  @closed="warningIsOpen = false"
-/>
-
-<KAlert
-  alert-message="Success alert message that is dismissible"
-  appearance="success"
-  type="alert"
-  dismiss-type="icon"
-  :is-showing="successIsOpen"
-  @closed="successIsOpen = false"
-/>
-
-<KAlert
-  alert-message="Danger alert message that is dismissible"
-  appearance="danger"
-  type="alert"
-  dismiss-type="icon"
-  :is-showing="dangerIsOpen"
-  @closed="dangerIsOpen = false"
-/>
-
-<KAlert
-  alert-message="Alert with dismiss type as button"
-  type="banner"
-  dismiss-type="button"
-  :is-showing="dismissTypeBtn"
-  @closed="defaultIdismissTypeBtnsOpen = false"
-/>
-```
-
-### Hide/Display
+### isShowing
 
 Set whether or not the alert box is shown.
 
@@ -358,91 +29,395 @@ Set whether or not the alert box is shown.
 />
 ```
 
-### Bordered
+### type
 
-Adds border around alert. Used for [KToaster](/components/toaster.html).
+The display type of the alert.
 
-- `is-bordered`
+> Note: By default `appearance="info"`.
 
-<KAlert is-bordered appearance="info" alert-message="Info bordered" />
+- `alert` (default)
 
-```html
-<KAlert
-  is-bordered
-  appearance="info"
-  alert-message="Info bordered"
-/>
-```
-
-### Left Border
-
-Adds border to the left side. Typically used for alerts that show info that may link away like documentation.
-
-- `has-left-border`
-
-<KAlert has-left-border alert-message="Bordered alert" />
+<div>
+  <KAlert alert-message="I'm an alert" />
+</div>
 
 ```html
-<KAlert
-  has-left-border
-  alert-message="Bordered alert"
-/>
+<KAlert alert-message="I'm an alert" />
 ```
 
-### Right Border
+- `banner`
 
-Adds border to the right side. Typically used for alerts that show info that may link away like documentation.
-
-- `has-right-border`
-
-<KAlert has-right-border alert-message="Bordered alert" />
-
-```html
-<KAlert
-  has-right-border
-  alert-message="Bordered alert"
-/>
-```
-
-### Top Border
-
-Adds border to the top.
-
-- `has-top-border`
-
-<KAlert has-top-border  alert-message="Bordered alert" />
-
-```html
-<KAlert
-  has-top-border
-  alert-message="Bordered alert"
-/>
-```
-
-### Bottom Border
-
-Adds border to the bottom.
-
-- `has-bottom-border`
-
-<KAlert has-bottom-border  alert-message="Bordered alert"/>
-
-```html
-<KAlert
-  has-bottom-border
-  alert-message="Bordered alert"
-/>
-```
-
-### Size
-
-Controls size of alert.
-
-- `small`
+`type="banner"` will have a white background and display an ellipse on the left to indicate appearance.
 
 <div>
   <KAlert
-    style="width:250px"
+    alert-message="I'm a banner type alert"
+    type="banner"
+  />
+</div>
+
+```html
+<KAlert
+  alert-message="I'm a banner type alert"
+  type="banner"
+/>
+```
+
+### dismissType
+
+KAlert allows for dismissal of the banner using an icon or button. An alert is not dismissible if "none" is passed.
+
+- `none` (default)
+- `icon`
+- `button`
+
+<div>
+  <KAlert
+    alert-message="Alert that can not be dismissed"
+    type="alert"
+    dismiss-type="none"
+  />
+
+  <KAlert
+    alert-message="Info alert message that is dismissible"
+    dismiss-type="icon"
+    :is-showing="dismissTypeIcon"
+    @closed="dismissTypeIcon = false"
+  />
+
+  <KAlert
+    alert-message="Alert with dismiss type as button"
+    type="banner"
+    dismiss-type="button"
+    :is-showing="dismissTypeBtn"
+    @closed="dismissTypeBtn = false"
+  />
+</div>
+
+```html
+<KAlert
+  alert-message="Alert that can not be dismissed"
+  type="alert"
+  dismiss-type="none"
+/>
+
+<KAlert
+  alert-message="Info alert message that is dismissible"
+  dismiss-type="icon"
+  :is-showing="isShowing"
+  @closed="isShowing = false"
+/>
+
+<KAlert
+  alert-message="Alert with dismiss type as button"
+  type="banner"
+  dismiss-type="button"
+  :is-showing="isShowing"
+  @closed="isShowing = false"
+/>
+```
+
+### appearance
+
+What color and purpose the Alert should be. Shares similar appearances to those of [KButton](/components/button). `appearance` will influence the colors of action/dismiss buttons.
+
+- `info` (default)
+
+<div>
+  <KAlert alert-message="Info alert message" />
+
+  <KAlert
+    :is-showing="infoIsOpen"
+    alert-message="Info alert message that is dismissible"
+    dismiss-type="icon"
+    @closed="infoIsOpen = false"
+  />
+
+  <KAlert
+    :is-showing="infoIsOpen2"
+    alert-message="I'm an alert"
+    dismiss-type="button"
+    @closed="infoIsOpen2 = false"
+  />
+
+  <KAlert
+    alert-message="I'm a banner type alert"
+    type="banner"
+  />
+
+  <KAlert
+    :is-showing="infoIsOpen3"
+    alert-message="Alert with dismiss type as button"
+    type="banner"
+    dismiss-type="button"
+    @closed="infoIsOpen3 = false"
+  />
+</div>
+
+```html
+<KAlert alert-message="Info alert message" />
+
+<KAlert
+  :is-showing="isShowing"
+  alert-message="Info alert message that is dismissible"
+  dismiss-type="icon"
+  @closed="isShowing = false"
+/>
+
+<KAlert
+  :is-showing="isShowing"
+  alert-message="I'm an alert"
+  dismiss-type="button"
+  @closed="isShowing = false"
+/>
+
+<KAlert
+  alert-message="I'm a banner type alert"
+  type="banner"
+/>
+
+<KAlert
+  :is-showing="isShowing"
+  alert-message="Alert with dismiss type as button"
+  type="banner"
+  dismiss-type="button"
+  @closed="isShowing = false"
+/>
+```
+
+- `warning`
+
+<div>
+  <KAlert alert-message="Warning alert message" appearance="warning" />
+
+  <KAlert
+    :is-showing="warningIsOpen"
+    alert-message="Alert message that is dismissible"
+    dismiss-type="icon"
+    appearance="warning"
+    @closed="warningIsOpen = false"
+  />
+
+  <KAlert
+    :is-showing="warningIsOpen2"
+    alert-message="I'm an alert"
+    dismiss-type="button"
+    appearance="warning"
+    @closed="warningIsOpen2 = false"
+  />
+
+  <KAlert
+    alert-message="I'm a banner type alert"
+    type="banner"
+    appearance="warning"
+  />
+
+  <KAlert
+    :is-showing="warningIsOpen3"
+    alert-message="Alert with dismiss type as button"
+    type="banner"
+    dismiss-type="button"
+    appearance="warning"
+    @closed="warningIsOpen3 = false"
+  />
+</div>
+
+```html
+<KAlert
+  alert-message="Warning alert message"
+  appearance="warning"
+/>
+
+<KAlert
+  :is-showing="isShowing"
+  alert-message="Alert message that is dismissible"
+  dismiss-type="icon"
+  appearance="warning"
+  @closed="isShowing = false"
+/>
+
+<KAlert
+  :is-showing="isShowing"
+  alert-message="I'm an alert"
+  dismiss-type="button"
+  appearance="warning"
+  @closed="isShowing = false"
+/>
+
+<KAlert
+  alert-message="I'm a banner type alert"
+  type="banner"
+  appearance="warning"
+/>
+
+<KAlert
+  :is-showing="isShowing"
+  alert-message="Alert with dismiss type as button"
+  type="banner"
+  dismiss-type="button"
+  appearance="warning"
+  @closed="isShowing = false"
+/>
+```
+
+- `success`
+
+<div>
+  <KAlert alert-message="Success alert message" appearance="success" />
+
+  <KAlert
+    :is-showing="successIsOpen"
+    alert-message="Alert message that is dismissible"
+    dismiss-type="icon"
+    appearance="success"
+    @closed="successIsOpen = false"
+  />
+
+  <KAlert
+    :is-showing="successIsOpen2"
+    alert-message="I'm an alert"
+    dismiss-type="button"
+    appearance="success"
+    @closed="successIsOpen2 = false"
+  />
+
+  <KAlert
+    alert-message="I'm a banner type alert"
+    type="banner"
+    appearance="success"
+  />
+
+  <KAlert
+    :is-showing="successIsOpen3"
+    alert-message="Alert with dismiss type as button"
+    type="banner"
+    dismiss-type="button"
+    appearance="success"
+    @closed="successIsOpen3 = false"
+  />
+</div>
+
+```html
+<KAlert
+  alert-message="Success alert message"
+  appearance="success"
+/>
+
+<KAlert
+  :is-showing="isShowing"
+  alert-message="Alert message that is dismissible"
+  dismiss-type="icon"
+  appearance="success"
+  @closed="isShowing = false"
+/>
+
+<KAlert
+  :is-showing="isShowing"
+  alert-message="I'm an alert"
+  dismiss-type="button"
+  appearance="success"
+  @closed="isShowing = false"
+/>
+
+<KAlert
+  alert-message="I'm a banner type alert"
+  type="banner"
+  appearance="success"
+/>
+
+<KAlert
+  :is-showing="isShowing"
+  alert-message="Alert with dismiss type as button"
+  type="banner"
+  dismiss-type="button"
+  appearance="success"
+  @closed="isShowing = false"
+/>
+```
+
+- `danger`
+
+<div>
+  <KAlert alert-message="Danger alert message" appearance="danger" />
+
+  <KAlert
+    :is-showing="dangerIsOpen"
+    alert-message="Alert message that is dismissible"
+    dismiss-type="icon"
+    appearance="danger"
+    @closed="dangerIsOpen = false"
+  />
+
+  <KAlert
+    :is-showing="dangerIsOpen2"
+    alert-message="I'm an alert"
+    dismiss-type="button"
+    appearance="danger"
+    @closed="dangerIsOpen2 = false"
+  />
+
+  <KAlert
+    alert-message="I'm a banner type alert"
+    type="banner"
+    appearance="danger"
+  />
+
+  <KAlert
+    :is-showing="dangerIsOpen3"
+    alert-message="Alert with dismiss type as button"
+    type="banner"
+    dismiss-type="button"
+    appearance="danger"
+    @closed="dangerIsOpen3 = false"
+  />
+</div>
+
+```html
+<KAlert
+  alert-message="Danger alert message"
+  appearance="danger"
+/>
+
+<KAlert
+  :is-showing="isShowing"
+  alert-message="Alert message that is dismissible"
+  dismiss-type="icon"
+  appearance="danger"
+  @closed="isShowing = false"
+/>
+
+<KAlert
+  :is-showing="isShowing"
+  alert-message="I'm an alert"
+  dismiss-type="button"
+  appearance="danger"
+  @closed="isShowing = false"
+/>
+
+<KAlert
+  alert-message="I'm a banner type alert"
+  type="banner"
+  appearance="danger"
+/>
+
+<KAlert
+  :is-showing="isShowing"
+  alert-message="Alert with dismiss type as button"
+  type="banner"
+  dismiss-type="button"
+  appearance="danger"
+  @closed="isShowing = false"
+/>
+```
+
+### size
+
+Controls size (height) of alert.
+
+- `small` (default)
+
+<div>
+  <KAlert
     size="small"
     alert-message="Small alert"
   />
@@ -450,110 +425,235 @@ Controls size of alert.
 
 ```html
 <KAlert
-  style="width:250px"
   size="small"
   alert-message="Small alert"
 />
 ```
 
 - `large`
+`size="large"` allows further customization options. You can specify an icon, description text, and additional buttons using the `actionButtons` slot. See the full [Example](#description).
 
-`size="large"` allows further customization options. You can specify an icon to be displayed on the left in place of the colored ellipse using the `icon` property, description text to be displayed below the main alert message using the `description` slot and additional buttons using the `actionButtons` slot.
+### icon
+
+Specify an icon to display to the left of the alert content. If using `type="banner"` this will override the colored ellipse.
+
+> Note: only available with `size="large"`.
+
+### iconSize
+
+The size of the `icon` being displayed (default is `24`).
+
+### iconColor
+
+The color of the `icon` being displayed.
+
+### description
+
+Descriptive text to be displayed below the main alert content.
+
+> Note: only available with `size="large"`.
 
 <div>
   <KAlert
+    :is-showing="extraMsg"
+    alert-message="You’ve had 12 new mentions since you last logged in"
+    description="across 3 services"
+    icon="support"
+    icon-color="var(--purple-400)"
     type="banner"
     dismiss-type="button"
-    appearance="warning"
-    icon="support"
     size="large"
-    :is-showing="extraMsg"
     @closed="extraMsg = false"
   >
     <template v-slot:actionButtons>
       <KButton appearance="primary" size="small">Review</KButton>
     </template>
-    <template v-slot:alertMessage>
-      You’ve had 12 new mentions since you last logged in
-    </template>
-    <template v-slot:description>
-      across 3 services
+  </KAlert>
+</div>
+
+```html
+<KAlert
+  :is-showing="isShowing"
+  alert-message="You’ve had 12 new mentions since you last logged in"
+  description="across 3 services"
+  dismiss-type="button"
+  type="banner"
+  icon="support"
+  icon-color="var(--purple-400)"
+  size="large"
+  @closed="isShowing = false"
+>
+  <template v-slot:actionButtons>
+    <KButton appearance="primary" size="small">Review</KButton>
+  </template>
+</KAlert>
+```
+
+### title
+
+You can specify a title for the alert in situations where the message is more wordy. This content is displayed directly above the main alert content.
+
+<div>
+  <KAlert
+    :is-showing="extraMsg2"
+    title="Error: Something went wrong!"
+    alert-message="Since I have a title, my font-size is smaller."
+    appearance="danger"
+    @closed="extraMsg2 = false"
+  >
+    <template #icon>
+      <KIcon icon="errorFilled" color="var(--red-500)" size="16" />
     </template>
   </KAlert>
 </div>
 
 ```html
 <KAlert
-  type="banner"
-  dismiss-type="button"
-  appearance="warning"
-  icon="support"
-  size="large"
-  :is-showing="extraMsg"
-  @closed="extraMsg = false"
+  :is-showing="isShowing"
+  title="Error: Something went wrong!"
+  alert-message="Since I have a title, my font-size is smaller."
+  appearance="danger"
+  @closed="isShowing = false"
 >
-  <template v-slot:actionButtons>
-    <KButton appearance="primary" size="small">Review</KButton>
-  </template>
-  <template v-slot:alertMessage>
-    You’ve had 12 new mentions since you last logged in
-  </template>
-  <template v-slot:description>
-    across 3 services
+  <template #icon>
+    <KIcon icon="errorFilled" color="var(--red-500)" size="16" />
   </template>
 </KAlert>
 ```
 
-### Fixed
+### isBordered
+
+Adds border around alert. Used for [KToaster](/components/toaster.html).
+
+<KAlert is-bordered alert-message="Info bordered" />
+
+```html
+<KAlert
+  alert-message="Info bordered"
+  is-bordered
+/>
+```
+
+### hasLeftBorder
+
+Adds border to the left side. Typically used for alerts that show info that may link away like documentation.
+
+<KAlert has-left-border alert-message="Bordered alert" />
+
+```html
+<KAlert
+  alert-message="Bordered alert"
+  has-left-border
+/>
+```
+
+### hasRightBorder
+
+Adds border to the right side. Typically used for alerts that show info that may link away like documentation.
+
+<KAlert has-right-border alert-message="Bordered alert" />
+
+```html
+<KAlert
+  alert-message="Bordered alert"
+  has-right-border
+/>
+```
+
+### hasTopBorder
+
+Adds border to the top.
+
+<KAlert has-top-border alert-message="Bordered alert" />
+
+```html
+<KAlert
+  alert-message="Bordered alert"
+  has-top-border
+/>
+```
+
+### hasBottomBorder
+
+Adds border to the bottom.
+
+<KAlert has-bottom-border alert-message="Bordered alert"/>
+
+```html
+<KAlert
+  alert-message="Bordered alert"
+  has-bottom-border
+/>
+```
+
+### isFixed
 
 Fixes KAlert to the top of the container.
 
 > Note: Not demoed
 
-- `is-fixed`
-
 ```html
-<KAlert is-fixed  alert-message="Info bordered" />
+<KAlert is-fixed alert-message="Info bordered" />
 ```
 
 ## Slots
 
-- `actionButtons` - Slot specifically meant for adding buttons other than Dismiss button
 - `alertMessage` - Default message slot
-- `description` - Alert message description slot available when these conditions are met: `type='banner'`, `size='large'` and `alertMessage` slot is rendered
+- `icon` - Icon to the left of the main alert content
+- `title` - Text displayed directly above the main alert content (font will be bolded)
+- `description` - Descriptive text displayed directly beneath the main alert content (`size='large'` required)
+- `actionButtons` - Slot specifically meant for adding buttons other than Dismiss button
 
 <div>
   <KAlert
-    type="banner"
-    dismiss-type="button"
-    appearance="success"
     :is-showing="extraBtnSlot"
+    dismiss-type="button"
+    size="large"
+    appearance="success"
     @closed="extraBtnSlot = false"
   >
-    <template v-slot:alertMessage>
-      I'm an alert with action buttons
+    <template #icon>
+      <KIcon icon="lock" size="20" color="var(--yellow-400)" />
+    </template>
+    <template #title>
+      Look, Mah!
+    </template>
+    <template #alertMessage>
+      Check out my awesome slots
+    </template>
+    <template #description>
+      I like cats 🐈‍⬛
     </template>
     <template v-slot:actionButtons>
-      <KButton appearance="primary" size="small">Upgrade</KButton>
-      <KButton appearance="primary" size="small">Downgrade</KButton>
+      <KButton appearance="secondary" size="small">🐈‍⬛</KButton>
+      <KButton appearance="creation" size="small">🐶</KButton>
     </template>
   </KAlert>
 </div>
 
 ```html
 <KAlert
-  type="banner"
+  :is-showing="isShowing"
   dismiss-type="button"
+  size="large"
   appearance="success"
-  :is-showing="extraBtnSlot"
-  @closed="extraBtnSlot = false"
+  @closed="isShowing = false"
 >
-    <template v-slot:alertMessage>
-    I'm an alert with action buttons
+  <template #icon>
+    <KIcon icon="lock" size="20" color="var(--yellow-400)" />
+  </template>
+  <template #title>
+    Look, Mah!
+  </template>
+  <template #alertMessage>
+    Check out my awesome slots
+  </template>
+  <template #description>
+    I like cats 🐈‍⬛
   </template>
   <template v-slot:actionButtons>
-    <KButton appearance="primary" size="small">Upgrade</KButton>
-    <KButton appearance="primary" size="small">Downgrade</KButton>
+    <KButton appearance="secondary" size="small">🐈‍⬛</KButton>
+    <KButton appearance="creation" size="small">🐶</KButton>
   </template>
 </KAlert>
 ```
@@ -642,20 +742,23 @@ An Example of changing the success KAlert variant to lime instead of Kong's gree
 export default {
   data () {
     return {
-      infoIsOpen: true,
-      warningIsOpen: true,
-      successIsOpen: true,
-      dangerIsOpen: true,
-      defaultIsClosed: true,
-      defaultClosed: true,
       dismissTypeBtn: true,
-      extraBtnSlot: true,
+      dismissTypeIcon: true,
+      infoIsOpen: true,
+      infoIsOpen2: true,
+      infoIsOpen3: true,
+      warningIsOpen: true,
+      warningIsOpen2: true,
+      warningIsOpen3: true,
+      successIsOpen: true,
+      successIsOpen2: true,
+      successIsOpen3: true,
+      dangerIsOpen: true,
+      dangerIsOpen2: true,
+      dangerIsOpen3: true,
       extraMsg: true,
       extraMsg2: true,
-      alert1IsOpen: true,
-      alert2IsOpen: true,
-      alert3IsOpen: true,
-      alert4IsOpen: true
+      extraBtnSlot: true
     }
   }
 }

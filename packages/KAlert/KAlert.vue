@@ -12,7 +12,8 @@
       { 'hasTopBorder':hasTopBorder },
       { 'hasBottomBorder':hasBottomBorder },
       { 'isCentered': isCentered },
-      { 'isFixed': isFixed }
+      { 'isFixed': isFixed },
+      { 'is-banner': type === 'banner' }
     ]"
     class="k-alert"
     role="alert"
@@ -25,7 +26,10 @@
     />
     <span
       v-if="icon || $slots.icon"
-      :class="{ 'mr-3': size !== 'large' }"
+      :class="{
+        'k-alert-icon-container-large': size === 'large'
+      }"
+      class="k-alert-icon-container"
     >
       <slot name="icon">
         <KIcon
@@ -36,7 +40,7 @@
         />
       </slot>
     </span>
-    <div class="k-alert-msg-text pr-3">
+    <div class="k-alert-msg-text px-3">
       <div
         v-if="title || $scopedSlots.title"
         class="k-alert-title bold-600"
@@ -291,15 +295,13 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 @import '~@kongponents/styles/variables';
 
 .k-alert {
   position: relative;
   display: flex;
   padding: 14px;
-  font-family: inherit;
-  font-size: 1rem;
   border-radius: 4px;
   overflow-wrap: anywhere;
 
@@ -307,10 +309,11 @@ export default {
     text-decoration: underline;
     color: var(--blue-600, color(blue-600));
   }
+
   .close {
     position: absolute;
     top: 0;
-    right: 8px;
+    right: var(--spacing-xs);
     bottom: 0;
     border: 0;
     background-color: transparent;
@@ -324,6 +327,7 @@ export default {
       opacity: 1;
     }
   }
+
   // Variants
   &.isFixed {
     position: fixed;
@@ -441,8 +445,8 @@ button.close > .kong-icon {
   }
 }
 
-.k-alert-icon {
-  padding: 23px 5px 25px 21px;
+.k-alert-icon-container-large {
+  padding: var(--spacing-lg) 0;
 }
 
 .toaster-item .k-alert .k-alert-msg {
@@ -529,7 +533,7 @@ button.close > .kong-icon {
 
 .k-alert-description-text {
   display: block;
-  padding-top: 4px;
+  padding-top: var(--spacing-xxs);
   font-weight: 400;
   font-size: 13px;
   line-height: 24px;
@@ -543,6 +547,6 @@ button.close > .kong-icon {
 }
 
 .k-alert.banner > div.k-alert-msg-text {
-  padding: 12px 16px;
+  padding: var(--spacing-sm) var(--spacing-md);
 }
 </style>
