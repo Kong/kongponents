@@ -8,6 +8,7 @@ exports[`KSelect matches snapshot 1`] = `
     <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button">
       <div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="" style="position: relative;">
         <!---->
+        <!---->
         <div class="k-input-wrapper k-select-input"><input id="test-select-text-id-1234" placeholder="Filter..." class="form-control k-input k-input-medium">
           <!---->
           <!---->
@@ -38,6 +39,7 @@ exports[`KSelect renders props when passed 1`] = `
     <!---->
     <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button">
       <div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="" style="position: relative;">
+        <!---->
         <!---->
         <div class="k-input-wrapper k-select-input"><input id="test-select-text-id-1234" placeholder="Filter..." class="form-control k-input k-input-medium">
           <!---->
@@ -82,6 +84,7 @@ exports[`KSelect renders with selected item 1`] = `
     </div>
     <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button">
       <div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="" style="position: relative;">
+        <!---->
         <!---->
         <div class="k-input-wrapper k-select-input"><input id="test-select-text-id-1234" placeholder="Filter..." class="form-control k-input k-input-medium">
           <!---->
