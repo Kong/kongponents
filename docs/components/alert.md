@@ -412,9 +412,9 @@ What color and purpose the Alert should be. Shares similar appearances to those 
 
 ### size
 
-Controls size (height) of alert.
+Controls size (height) and default font-size of an alert.
 
-- `small` (default)
+- `small`
 
 <div>
   <KAlert
