@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.40.1 (2022-08-19)
+
+
+### Bug Fixes
+
+* **kstepper:** remove unused prop which is throwing errors ([#766](https://github.com/Kong/kongponents/issues/766)) ([f2825be](https://github.com/Kong/kongponents/commit/f2825bef268c5971b7c3e22b6eecae7dbd26cd44))
+
+
+
+
+
 # 6.40.0 (2022-08-17)
 
 
