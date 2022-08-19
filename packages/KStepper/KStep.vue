@@ -4,10 +4,7 @@
       :class="{ 'completed': state === 'completed' }"
       class="k-step-container"
     >
-      <KStepState
-        :state="state"
-        :step-size="stepSize"
-      />
+      <KStepState :state="state" />
 
       <div
         :class="{
