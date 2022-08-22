@@ -170,12 +170,15 @@ export default defineComponent({
      * which is greyed out and cannot be interacted with.
      */
     const strippedAttrs = computed((): typeof attrs => {
-      const { disabled, ...restAttrs } = attrs
-      if (disabled) {
+      if (Object.hasOwn(attrs, 'disabled')) {
         return attrs
-      } else {
-        return { ...restAttrs }
       }
+
+      const modifiedAttrs = Object.assign({}, attrs)
+
+      delete modifiedAttrs.disabled
+
+      return modifiedAttrs
     })
 
     return {
