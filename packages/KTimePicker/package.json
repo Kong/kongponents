@@ -1,0 +1,32 @@
+{
+  "name": "@kongponents/ktimepicker",
+  "version": "6.40.2",
+  "description": "Date and Time picker component",
+  "main": "dist/KTimePicker.umd.min.js",
+  "componentName": "KTimePicker",
+  "source": "KTimePicker.vue",
+  "files": [
+    "dist",
+    "KTimePicker.vue"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kong/kongponents.git"
+  },
+  "author": "Kong Inc",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Kong/kongponents/issues"
+  },
+  "homepage": "https://github.com/Kong/kongponents#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@kongponents/kbutton": "^6.40.2",
+    "@kongponents/kpop": "^6.40.2",
+    "@kongponents/ksegmentedcontrol": "^6.40.2",
+    "@kongponents/styles": "^6.40.2",
+    "v-calendar": "^2.4.1"
+  }
+}

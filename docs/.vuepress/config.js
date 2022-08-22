@@ -82,6 +82,7 @@ module.exports = {
               '/components/table-legacy',
               '/components/tabs',
               '/components/textarea',
+              '/components/timepicker',
               '/components/toaster',
               '/components/tooltip',
               '/components/view-switcher'
