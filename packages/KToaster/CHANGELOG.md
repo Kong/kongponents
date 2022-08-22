@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.40.2 (2022-08-22)
+
+
+### Bug Fixes
+
+* **kmodal:** prevent click propagation [KHCP-4525] ([#767](https://github.com/Kong/kongponents/issues/767)) ([e69502a](https://github.com/Kong/kongponents/commit/e69502afbcb12f1170ec848460382284f3b02035))
+
+
+
+
+
 ## 6.40.1 (2022-08-19)
 
 
