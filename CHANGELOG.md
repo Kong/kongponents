@@ -1,3 +1,12 @@
+# [7.0.0-beta.90](https://github.com/Kong/kongponents/compare/v7.0.0-beta.89...v7.0.0-beta.90) (2022-08-22)
+
+
+### Bug Fixes
+
+* **kbutton:** cannot spread attrs ([29c910b](https://github.com/Kong/kongponents/commit/29c910b25bb426a813e0c090199a7b467eeaf9a7))
+* **kbutton:** update disabled logic ([ae34cb0](https://github.com/Kong/kongponents/commit/ae34cb0ab2a52ccd39ab547ecc2787ca930ac20d))
+* **kbutton:** update disabled logic ([4f22383](https://github.com/Kong/kongponents/commit/4f22383cd110b44f31d90de9cf3c2e1316f97253))
+
 # [7.0.0-beta.89](https://github.com/Kong/kongponents/compare/v7.0.0-beta.88...v7.0.0-beta.89) (2022-08-17)
 
 
