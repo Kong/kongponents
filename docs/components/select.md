@@ -253,6 +253,7 @@ See [autosuggest](#autosuggest) for more details.
 <div>
   <KLabel>Value:</KLabel> {{ myVal }}
   <KSelect v-model="myVal" :items="deepClone(defaultItems)" />
+  <br>
   <KButton @click="clearIt">Clear</KButton>
 </div>
 
