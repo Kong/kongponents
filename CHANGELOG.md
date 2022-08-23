@@ -1,3 +1,10 @@
+# [7.0.0-beta.91](https://github.com/Kong/kongponents/compare/v7.0.0-beta.90...v7.0.0-beta.91) (2022-08-23)
+
+
+### Bug Fixes
+
+* backport [#763](https://github.com/Kong/kongponents/issues/763) ([#765](https://github.com/Kong/kongponents/issues/765)) ([6a18ce7](https://github.com/Kong/kongponents/commit/6a18ce71f24ee6a268dca71e100954775945c7ea))
+
 # [7.0.0-beta.90](https://github.com/Kong/kongponents/compare/v7.0.0-beta.89...v7.0.0-beta.90) (2022-08-22)
 
 
