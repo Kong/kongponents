@@ -102,6 +102,30 @@ export default defineComponent({
         {
           timeframeText: 'Hour',
           timeframeLength: 60 * 60 * 1
+        },
+        {
+          timeframeText: '3 hours',
+          timeframeLength: 60 * 60 * 3
+        },
+        {
+          timeframeText: '6 hours',
+          timeframeLength: 60 * 60 * 6
+        },
+        {
+          timeframeText: '12 hours',
+          timeframeLength: 60 * 60 * 12
+        },
+        {
+          timeframeText: '24 hours',
+          timeframeLength: 60 * 60 * 24
+        },
+        {
+          timeframeText: '7 days',
+          timeframeLength: 60 * 60 * 24 * 7
+        },
+        {
+          timeframeText: '30 days',
+          timeframeLength: 60 * 60 * 24 * 30
         }
       ]
     })
