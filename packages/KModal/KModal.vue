@@ -4,8 +4,7 @@
     :aria-label="title"
     class="k-modal"
     role="dialog"
-    aria-modal="true"
-    @click.stop>
+    aria-modal="true">
     <div
       class="k-modal-backdrop modal-backdrop"
       @click="(evt) => close(false, evt)">
