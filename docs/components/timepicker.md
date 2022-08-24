@@ -11,16 +11,6 @@
 
 ## Props
 
-### label
-
-String to be used as the Timepicker label.
-<!-- 
-<KTimePicker label="Name" placeholder="I'm labelled!" /> -->
-
-```html
-<KTimePicker label="Name" placeholder="I'm labelled!" />
-```
-
 </div>
 
 <script>
