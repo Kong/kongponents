@@ -80,6 +80,7 @@
   },
   "dependencies": {
     "swrv": "^0.10.0",
+    "v-calendar": "^2.4.1",
     "vue-uuid": "^2.0.2"
   },
   "peerDependencies": {
