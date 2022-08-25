@@ -119,6 +119,7 @@ export default defineUserConfig({
               '/components/table.md',
               '/components/tabs.md',
               '/components/textarea.md',
+              '/components/timepicker',
               '/components/toaster.md',
               '/components/tooltip.md',
               '/components/view-switcher.md',
