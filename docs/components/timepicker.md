@@ -3,7 +3,8 @@
 <div v-if="hasMounted">
 
 **KTimePicker** - A date and time selection tool, displayed inside a popover.
-<KTimePicker :value ="{ timeframeText: '15 minutes', timeframeLength: 60 * 15 }"/>
+
+<KTimePicker :value="{ timeframeText: '15 minutes', timeframeLength: 60 * 15 }" />
 
 ```html
 <KTimePicker />
