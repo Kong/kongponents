@@ -17,7 +17,7 @@
     "access": "public"
   },
   "dependencies": {
-    "swrv": "0.9.6",
+    "swrv": "^0.10.0-alpha.0",
     "vue": "^2.7.8"
   }
 }
