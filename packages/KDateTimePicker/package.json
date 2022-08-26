@@ -27,6 +27,7 @@
     "@kongponents/kpop": "^6.40.2",
     "@kongponents/ksegmentedcontrol": "^6.40.2",
     "@kongponents/styles": "^6.40.2",
+    "date-fns": "^2.29.2",
     "v-calendar": "^2.4.1"
   }
 }
