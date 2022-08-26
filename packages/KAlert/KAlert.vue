@@ -115,6 +115,8 @@
 import KButton from '@kongponents/kbutton/KButton.vue'
 import KIcon from '@kongponents/kicon/KIcon.vue'
 
+// TODO: remove this test comment
+
 export const appearances = {
   info: 'info',
   success: 'success',
