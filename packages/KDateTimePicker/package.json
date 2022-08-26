@@ -1,13 +1,13 @@
 {
-  "name": "@kongponents/ktimepicker",
+  "name": "@kongponents/kdatetimepicker",
   "version": "6.40.2",
   "description": "Date and Time picker component",
-  "main": "dist/KTimePicker.umd.min.js",
-  "componentName": "KTimePicker",
-  "source": "KTimePicker.vue",
+  "main": "dist/KDateTimePicker.umd.min.js",
+  "componentName": "KDateTimePicker",
+  "source": "KDateTimePicker.vue",
   "files": [
     "dist",
-    "KTimePicker.vue"
+    "KDateTimePicker.vue"
   ],
   "repository": {
     "type": "git",

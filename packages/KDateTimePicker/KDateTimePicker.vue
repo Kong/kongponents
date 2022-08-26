@@ -71,7 +71,7 @@
 </template>
 
 <script>
-// import { DatePicker } from 'v-calendar'
+import { DatePicker } from 'v-calendar'
 import KButton from '@kongponents/kbutton/KButton.vue'
 import KPop from '@kongponents/kpop/KPop.vue'
 import KSegmentedControl from '@kongponents/ksegmentedcontrol/KSegmentedControl.vue'
@@ -145,9 +145,7 @@ export default {
     KButton,
     KPop,
     KSegmentedControl,
-    // Dynamically import v-calendar so that it's only imported when used (as in, not during VuePress SSR)
-    // https://github.com/nathanreyes/v-calendar/issues/559#issuecomment-643159564
-    DatePicker: () => import('v-calendar/lib/components/date-picker.umd')
+    DatePicker
   },
   props: {
     value: {
