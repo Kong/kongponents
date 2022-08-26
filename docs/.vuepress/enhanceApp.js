@@ -37,7 +37,7 @@ import KTable from '../../packages/KTable/KTable.vue'
 import KTableLegacy from '../../packages/KTableLegacy/KTableLegacy.vue'
 import KTabs from '../../packages/KTabs/KTabs.vue'
 import KTextArea from '../../packages/KTextArea/KTextArea.vue'
-import KTimePicker from '../../packages/KTimePicker/KTimePicker.vue'
+import KDateTimePicker from '../../packages/KDateTimePicker/KDateTimePicker.vue'
 import KToggle from '../../packages/KToggle/KToggle.js'
 import Komponent from '../../packages/Komponent/Komponent.js'
 import KSlideout from '../../packages/KSlideout/KSlideout.vue'
@@ -86,7 +86,7 @@ export default ({
   Vue.component('KTableLegacy', KTableLegacy)
   Vue.component('KTabs', KTabs)
   Vue.component('KTextArea', KTextArea)
-  Vue.component('KTimePicker', KTimePicker)
+  Vue.component('KDateTimePicker', KDateTimePicker)
   Vue.component('KToggle', KToggle)
   Vue.component('KSlideout', KSlideout)
   Vue.component('KSkeleton', KSkeleton)

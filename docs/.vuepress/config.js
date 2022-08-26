@@ -57,6 +57,7 @@ module.exports = {
               '/components/button',
               '/components/card',
               '/components/catalog',
+              '/components/datetimepicker',
               '/components/dropdown-menu',
               '/components/input-checkbox',
               '/components/empty-state',
@@ -82,7 +83,6 @@ module.exports = {
               '/components/table-legacy',
               '/components/tabs',
               '/components/textarea',
-              '/components/timepicker',
               '/components/toaster',
               '/components/tooltip',
               '/components/view-switcher'
