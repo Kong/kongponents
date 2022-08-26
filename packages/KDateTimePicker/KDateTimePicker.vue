@@ -24,6 +24,7 @@
       />
       <DatePicker
         v-if="showCalendar"
+        :model-config="modelConfig"
         v-model="selectimedTimeRange"
         mode="dateTime"
         is-range
@@ -158,17 +159,15 @@ export default {
     return {
       allowedTimePeriods,
       mode: this.mode || 'custom',
-      selectimedTimeRange: this.selectimedTimeRange
+      selectimedTimeRange: this.selectimedTimeRange,
+      selectedTimeframe: this.value || this.allowedTimePeriods[0],
+      modelConfig: {
+        type: 'number'
+      }
     }
   },
 
   computed: {
-    selectedTimeframe () {
-      return (this.value || this.allowedTimePeriods[0])
-    },
-    // selectimedTimeRange () {
-    //   return ''
-    // },
     showCalendar () {
       return (this.mode === 'custom')
     }
@@ -179,27 +178,32 @@ export default {
       handler (newValue, oldValue) {
         console.warn('>>>> selectimedTimeRange watcher <<<')
         console.warn(newValue)
-        // emit('update:range', selectimedTimeRange.value)
       },
       immediate: true
     }
   },
 
   methods: {
+    /**
+     * TODO: Given a relative time frame, determine `start` and `end` timestamps in UTC
+     * https://bloop.ai/search/how-to-use-date-fns-library-round-to-nearest-minutes-in-javascript
+     * @param {*} timeframe
+     */
     changeTimeframe (timeframe) {
       this.selectedTimeframe = timeframe
-      console.warn(this.selectedTimeframe.value.timeframeText)
-      console.warn(this.selectedTimeframe.value.timeframeLength)
+      console.warn('>>> changeTimeframe')
+      console.log(this.selectedTimeframe)
     },
-
     submitTimeFrame () {
-      console.log(this.showCalendar)
-      // If calendar currently show
-      // if (this.showCalendar) {
-      //   emit('changed', timeframe)
-      // } else {
-      // }
-      // debugger
+      console.warn('>>> submitTimeFrame')
+      // If calendar currently shown, send start/end values
+      if (this.showCalendar) {
+        console.log(this.selectimedTimeRange.start)
+        console.log(this.selectimedTimeRange.end)
+      } else {
+        console.log(this.selectedTimeframe.timeframeLength)
+      }
+      // emit('changed', timeframe)
     }
   }
 }
@@ -251,10 +255,17 @@ $margin: .2rem;
       flex-wrap: wrap;
 
       .k-button {
-        width: 3rem;
         flex-basis: calc(32% - $margin);
+        font-weight: 400;
         margin: $margin;
+        padding: .75rem .5rem;
         justify-content: center;
+        width: 3rem;
+
+        &.selected-option {
+          color: white;
+          background: var(--blue-500)
+        }
       }
     }
   }
