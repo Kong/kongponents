@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import { DatePicker } from 'v-calendar'
+// import { DatePicker } from 'v-calendar'
 import KButton from '@kongponents/kbutton/KButton.vue'
 import KPop from '@kongponents/kpop/KPop.vue'
 import KSegmentedControl from '@kongponents/ksegmentedcontrol/KSegmentedControl.vue'
@@ -146,7 +146,7 @@ export default {
     KButton,
     KPop,
     KSegmentedControl,
-    DatePicker
+    DatePicker: () => import('v-calendar/lib/components/date-picker.umd')
   },
   props: {
     value: {
