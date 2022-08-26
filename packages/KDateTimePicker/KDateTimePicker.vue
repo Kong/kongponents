@@ -243,6 +243,10 @@ $margin: .2rem;
         background: var(--blue-500);
       }
 
+      // Hide clock icon
+      .vc-time-icon {
+        display: none;
+      }
       // TODO: current day highligh should be `blue-500` as well
       // .vc-day-content.vc-focusable
 
