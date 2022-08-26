@@ -107,7 +107,6 @@ const options = {
 
 let localVue
 
-// Use the Composition API
 beforeEach(() => {
   localVue = createLocalVue()
 })
