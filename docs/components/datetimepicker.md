@@ -4,10 +4,15 @@
 
 **KDateTimePicker** - A date and time selection tool, displayed inside a popover.
 
-<KDateTimePicker :value="{ timeframeText: '15 minutes', timeframeLength: 60 * 15 }" />
+<KCard>
+  <template v-slot:body>
+    <!-- <div class="mt-3">Selected: {{ currentValue }}</div> -->
+    <KDateTimePicker @change="newVal => currentValue = newVal" v-model="currentValue" :value="{ timeframeText: '15 minutes', timeframeLength: 60 * 15 }" />
+  </template>
+</KCard>
 
 ```html
-<KDateTimePicker />
+<KDateTimePicker @change="newVal => currentValue = newVal"/>
 ```
 
 ## Props
@@ -19,6 +24,7 @@ export default {
   data() {
     return {
       hasMounted: false,
+      currentValue: { timeframeText: '15 minutes', timeframeLength: 60 * 15 },
     }
   },
   mounted() {

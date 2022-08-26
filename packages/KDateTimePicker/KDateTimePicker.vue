@@ -54,7 +54,7 @@
           :is-rounded="false"
           size="medium"
           appearance="btn-link"
-          @click="selectimedTimeRange = ''"
+          @click="clearSelection()"
         >
           Clear
         </KButton>
@@ -76,6 +76,7 @@
 import KButton from '@kongponents/kbutton/KButton.vue'
 import KPop from '@kongponents/kpop/KPop.vue'
 import KSegmentedControl from '@kongponents/ksegmentedcontrol/KSegmentedControl.vue'
+import { roundToNearestMinutes, getUnixTime } from 'date-fns'
 
 const allowedTimePeriods = [
   {
@@ -176,8 +177,8 @@ export default {
   watch: {
     selectimedTimeRange: {
       handler (newValue, oldValue) {
-        console.warn('>>>> selectimedTimeRange watcher <<<')
-        console.warn(newValue)
+        // console.warn('>>>> selectimedTimeRange watcher <<<')
+        // console.warn(newValue)
       },
       immediate: true
     }
@@ -191,19 +192,28 @@ export default {
      */
     changeTimeframe (timeframe) {
       this.selectedTimeframe = timeframe
-      console.warn('>>> changeTimeframe')
-      console.log(this.selectedTimeframe)
+    },
+    clearSelection () {
+      this.selectimedTimeRange = ''
+      this.selectedTimeframe = this.allowedTimePeriods[0]
     },
     submitTimeFrame () {
       console.warn('>>> submitTimeFrame')
+      let start = 0
+      let end = 0
+
       // If calendar currently shown, send start/end values
       if (this.showCalendar) {
-        console.log(this.selectimedTimeRange.start)
-        console.log(this.selectimedTimeRange.end)
+        start = Math.floor(this.selectimedTimeRange.start / 1000)
+        end = Math.floor(this.selectimedTimeRange.end / 1000)
       } else {
-        console.log(this.selectedTimeframe.timeframeLength)
+        end = getUnixTime(roundToNearestMinutes(Date.now()))
+        start = end - this.selectedTimeframe.timeframeLength
       }
-      // emit('changed', timeframe)
+
+      console.log({ start, end })
+
+      this.$emit('changed', { start, end })
     }
   }
 }
