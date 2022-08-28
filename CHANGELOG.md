@@ -1,3 +1,10 @@
+# [7.0.0-beta.93](https://github.com/Kong/kongponents/compare/v7.0.0-beta.92...v7.0.0-beta.93) (2022-08-28)
+
+
+### Bug Fixes
+
+* **kbutton:** update disabled logic ([a8589c7](https://github.com/Kong/kongponents/commit/a8589c744812b8aea3d7c3f17709c5017dac3826))
+
 # [7.0.0-beta.92](https://github.com/Kong/kongponents/compare/v7.0.0-beta.91...v7.0.0-beta.92) (2022-08-23)
 
 
