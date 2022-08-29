@@ -17,6 +17,7 @@
     "build": "yarn build:styles && yarn build:utils && yarn docs:build && yarn build:cli",
     "build:postcss": "postcss packages/styles/styles.css --dir packages/styles",
     "build:cli": "yarn create:package-configs && lerna exec --ignore @kongponents/styles --ignore @kongponents/utils \"yarn vue-cli-service build --target lib ./\\$(cat package.json | jq -r .source) --name \\$(cat package.json | jq -r .componentName) --dest ./dist\" && yarn delete:package-configs",
+    "list-packages": "lerna exec \"echo \\$(cat package.json | jq -r .name) \"",
     "build:styles": "yarn sass --no-source-map packages/styles/styles.scss packages/styles/styles.css && yarn build:postcss",
     "build:utils": "yarn vue-cli-service build --target lib --name utils --entry ./packages/utils/utils.js --dest ./packages/utils/dist && rm ./packages/utils/dist/demo.html",
     "create:package-configs": "lerna exec --ignore @kongponents/styles --ignore @kongponents/utils \"ln -f ../../vue.config.js ./vue.config.js && ln -f ../../postcss-custom-properties.config.js ./postcss.config.js\"",
