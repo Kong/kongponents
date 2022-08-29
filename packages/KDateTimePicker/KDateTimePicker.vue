@@ -24,6 +24,7 @@
       />
       <DatePicker
         v-if="showCalendar"
+        :attributes="attrs"
         :model-config="modelConfig"
         v-model="selectimedTimeRange"
         mode="dateTime"
@@ -164,7 +165,23 @@ export default {
       selectedTimeframe: this.value || this.allowedTimePeriods[0],
       modelConfig: {
         type: 'number'
-      }
+      },
+      attrs: [
+        {
+          key: 'Any',
+          highlight: {
+            color: '#fff000',
+            backgroundColor: '#fff000',
+            fillMode: 'solid',
+            class: 'custom-highlight',
+            contentClass: 'custom-highlight'
+          },
+          content: {
+            class: 'custom-content',
+            contentClass: 'custom-content'
+          }
+        }
+      ]
     }
   },
 
@@ -220,13 +237,10 @@ export default {
 
 </script>
 
-<style lang="scss">
-@import '~@kongponents/styles/variables';
-
+<style lang="scss" scoped>
 $margin: .2rem;
 
 .analytics-timepicker {
-  // TODO: consider moving to a new button theme
   .timepicker-input {
     padding: var(--spacing-sm) var(--spacing-xl) var(--spacing-sm) 40px !important;
     background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M14 14H2V2H4V4H6V2H10V4H12V2H14V14ZM14 0H2C0.895 0 0 0.896 0 2V14C0 15.104 0.895 16 2 16H14C15.104 16 16 15.104 16 14V2C16 0.896 15.104 0 14 0ZM7 12H9V10H7V12ZM10 9H12V7H10V9ZM7 9H9V7H7V9ZM4 9H6V7H4V9ZM4 12H6V10H4V12Z' fill='%236F7787'/%3E%3C/svg%3E%0A");
@@ -239,46 +253,78 @@ $margin: .2rem;
       box-shadow: none !important;
     }
   }
+
+  .k-popover {
+    .k-popover-content {
+      .relative-frames {
+        flex-wrap: wrap;
+
+        .k-button {
+          flex-basis: calc(32% - $margin);
+          font-weight: 400;
+          margin: $margin;
+          padding: .75rem .5rem;
+          justify-content: center;
+          width: 3rem;
+
+          &.selected-option {
+            color: white;
+            background: var(--blue-500)
+          }
+        }
+      }
+    }
+    .k-popover-footer {
+      // margin: .75rem auto 0;
+      button {
+        padding: 0 1rem;
+      }
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+@import '~@kongponents/styles/variables';
+
+$margin: .2rem;
+
+.analytics-timepicker {
   .k-popover {
     min-width: 22rem;
 
-    // v-calendar overrides
-    .vc-pane-container {
-      .vc-month, .vc-day {
-        color: var(--grey-500);
-      }
+    .k-popover-content {
+      // v-calendar overrides
+      .vc-container {
+        border: 0;
+        // AM / PM highlights
+        .vc-am-pm button.active {
+          background-color: rgba(color(blue-500), 1);
+        }
+        // Hide clock icon
+        .vc-time-icon {
+          display: none;
+        }
+        .vc-bordered {
+          border: 0;
+        }
+        .vc-pane-container {
+          .vc-month, .vc-day {
+            color: rgba(color(grey-500), 1);
+          }
+          // Time range highlight
+          .vc-day .vc-highlights {
+            .vc-highlight {
+              // background-color: rgba(color(blue-200), 1) !important;
 
-      // AM / PM highlights
-      .vc-am-pm button.active {
-        background: var(--blue-500);
-      }
-
-      // Hide clock icon
-      .vc-time-icon {
-        display: none;
-      }
-      // TODO: current day highligh should be `blue-500` as well
-      // .vc-day-content.vc-focusable
-
-      // Time range highlight
-      .vc-day .vc-highlights.vc-day-layer .vc-highlight {
-        background-color: var(--blue-100);
-      }
-    }
-    .relative-frames {
-      flex-wrap: wrap;
-
-      .k-button {
-        flex-basis: calc(32% - $margin);
-        font-weight: 400;
-        margin: $margin;
-        padding: .75rem .5rem;
-        justify-content: center;
-        width: 3rem;
-
-        &.selected-option {
-          color: white;
-          background: var(--blue-500)
+              // start / end bubbles
+              &.vc-highlight-base-start,
+              &.vc-highlight-base-end {
+                // border: 2px solid red !important;
+                // background-color: rgba(color(blue-500), 1) !important;
+              }
+            }
+          }
         }
       }
     }
