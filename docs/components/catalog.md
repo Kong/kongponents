@@ -8,21 +8,6 @@
 <KCatalog :fetcher="fetcher" />
 ```
 
-:::tip Note
-The `KCatalog` component requires the [`@vue/composition-api`](https://github.com/vuejs/composition-api) package as a `peerDependency`. You must **manually** add the package to your host project by running the following
-
-``` shell
-yarn add @vue/composition-api
-```
-
-When importing `KCatalog` into your project, you will likely need to explicity import the vue file as shown below
-
-```js
-import KCatalog from '@kongponents/KCatalog/KCatalog.vue'
-```
-
-:::
-
 :::warning NOTE
 `KCatalog` implements `KIcon` which imports .svg files directly, so a loader is needed in order to render these in your application such as the webpack
 [raw-loader](https://webpack.js.org/loaders/raw-loader/). [See here for more information](/#raw-loader).
