@@ -1,3 +1,11 @@
+# [7.0.0-beta.94](https://github.com/Kong/kongponents/compare/v7.0.0-beta.93...v7.0.0-beta.94) (2022-08-29)
+
+
+### Bug Fixes
+
+* readme ([68eae7a](https://github.com/Kong/kongponents/commit/68eae7a4c451dd8b37b1bf1b3d5910f12beedd2e))
+* remove comment ([8d0036f](https://github.com/Kong/kongponents/commit/8d0036f762b490255ebf6d2aa801babdccbea580))
+
 # [7.0.0-beta.93](https://github.com/Kong/kongponents/compare/v7.0.0-beta.92...v7.0.0-beta.93) (2022-08-28)
 
 
