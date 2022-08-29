@@ -15116,10 +15116,10 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-swrv@^0.10.0-alpha.0:
-  version "0.10.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/swrv/-/swrv-0.10.0-alpha.0.tgz#e29b96dd578014c7d1613097fcdcfd44fa6303ca"
-  integrity sha512-TndjuhGuLQOda71sh5+c2OVDD5RcJe7r3328kc58J2MGccJU5WVDnF/b3Ren/ejN7tmYmN1HJVvfkmGnRDTpNA==
+swrv@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/swrv/-/swrv-0.10.0.tgz#0f7c543560a9f568ef06e21faa0ef396dd3c39d4"
+  integrity sha512-IIkcTVWxlWqkQAYfkMSS2e/jP2SnuTBpmBCB2wm5+Ze3A6ioVk4XWsZvnMyGQnsbKaZ6SEysCzUVAqvkg1+2hg==
 
 symbol-observable@1.0.1:
   version "1.0.1"

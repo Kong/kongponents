@@ -78,7 +78,7 @@
     "vuepress-plugin-sitemap": "^2.3.1"
   },
   "dependencies": {
-    "swrv": "^0.10.0-alpha.0",
+    "swrv": "^0.10.0",
     "vue-uuid": "^2.0.2"
   },
   "peerDependencies": {
