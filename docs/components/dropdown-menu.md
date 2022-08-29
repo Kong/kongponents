@@ -117,6 +117,20 @@ Use this prop if you would like the trigger button to display the caret.
 />
 ```
 
+### icon
+
+Icon to be displayed on the dropdown button.
+
+<KDropdownMenu icon="cogwheel" :items="deepClone(defaultItemsUnselected)" show-caret />
+
+```html
+<KDropdownMenu
+  icon="cogwheel"
+  :items="items"
+  show-caret
+/>
+```
+
 ### width
 
 The width of the dropdown body (defaults to `auto`). Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.

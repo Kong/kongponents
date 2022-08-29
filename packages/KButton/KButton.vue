@@ -3,32 +3,39 @@
     v-if="typeof to === 'string'"
     :type="type"
     :href="to"
-    :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance]"
+    :disabled="disabled"
+    :class="[size, { 'icon-btn': !hasText && hasIcon, 'rounded': isRounded }, appearance]"
     class="k-button"
-    v-on="listeners">
+    v-on="listeners"
+  >
     <slot name="icon">
       <KIcon
         v-if="icon"
         :color="iconColor"
         :icon="icon"
         class="k-button-icon"
-        size="16" />
+        size="16"
+      />
     </slot>
-    <slot/>
+
+    <slot />
+
     <KIcon
       v-if="isOpen !== undefined"
       :class="[caretClasses]"
       :color="iconColor"
       view-box="2 2 15 15"
       size="16"
-      icon="chevronDown"/>
+      icon="chevronDown"
+    />
   </a>
   <component
     v-else
     :type="type"
     :is="buttonType"
     :to="to"
-    :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance, caretClasses]"
+    :disabled="disabled"
+    :class="[size, { 'icon-btn': !hasText && hasIcon, 'rounded': isRounded }, appearance, caretClasses]"
     class="k-button"
     v-on="listeners">
     <slot name="icon">
@@ -37,16 +44,20 @@
         :color="iconColor"
         :icon="icon"
         class="k-button-icon"
-        size="16" />
+        size="16"
+      />
     </slot>
-    <slot/>
+
+    <slot />
+
     <KIcon
       v-if="isOpen !== undefined"
       :class="['caret', caretClasses]"
       :color="iconColor"
       view-box="2 2 15 15"
       size="16"
-      icon="chevronDown"/>
+      icon="chevronDown"
+    />
   </component>
 </template>
 
@@ -117,6 +128,10 @@ export default {
     icon: {
       type: String,
       default: ''
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -152,7 +167,7 @@ export default {
     },
 
     iconColor () {
-      if (this.$attrs.disabled) {
+      if (this.disabled) {
         return 'var(--grey-400)'
       } else if (['primary', 'danger', 'creation'].includes(this.appearance)) {
         return 'white'
