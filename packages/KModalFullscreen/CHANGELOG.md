@@ -3,6 +3,43 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0-alpha.1](https://github.com/Kong/kongponents/compare/v6.7.6...v7.0.0-alpha.1) (2022-08-29)
+
+
+### Bug Fixes
+
+* **docs:** code snippet syntax ([#703](https://github.com/Kong/kongponents/issues/703)) ([bb22dcc](https://github.com/Kong/kongponents/commit/bb22dcc6f4a1dc09c427b7c069ab5f2758718714))
+* **font-weights:** fix component font weights ([a21da06](https://github.com/Kong/kongponents/commit/a21da06e9ca60e0bd29265585fda87a9865ff366))
+* **kmodalfullscreen:** add tabindex ([#520](https://github.com/Kong/kongponents/issues/520)) ([12836e4](https://github.com/Kong/kongponents/commit/12836e49de16e7062bd973a8a2ddf2bd6faac95b))
+* **kmodalfullscreen:** align header [khcp-4021] ([#669](https://github.com/Kong/kongponents/issues/669)) ([b0c5f47](https://github.com/Kong/kongponents/commit/b0c5f47ffcb95175f185331cf9ca58684711c7a9))
+* **kmodalfullscreen:** fix body header alignment ([#518](https://github.com/Kong/kongponents/issues/518)) ([c591661](https://github.com/Kong/kongponents/commit/c591661023048734ec521d20e86d1582d6b6522c))
+* **kmodalfullscreen:** fix props styles and slots ([#519](https://github.com/Kong/kongponents/issues/519)) ([6d80de4](https://github.com/Kong/kongponents/commit/6d80de494a72a1a7f27f43679219ca7ba2e9ce7b))
+* **kmodalfullscreen:** margins ([#682](https://github.com/Kong/kongponents/issues/682)) ([473356d](https://github.com/Kong/kongponents/commit/473356dd7f6111902cfe4cadacdbbd36edb1c4f4))
+* **kmodalfullscreen:** misc changes ([#516](https://github.com/Kong/kongponents/issues/516)) ([c746d94](https://github.com/Kong/kongponents/commit/c746d94540206f1dd67cabd7f619a7424929005e))
+* **kmodalfullscreen:** misc fixes ([#514](https://github.com/Kong/kongponents/issues/514)) ([7df506d](https://github.com/Kong/kongponents/commit/7df506d2f0bb7ada10e86bcbe9c16f8da653f62d))
+* **kmodalfullscreen:** padding [khcp-4020] ([#674](https://github.com/Kong/kongponents/issues/674)) ([20def6b](https://github.com/Kong/kongponents/commit/20def6bddc34f43151fa9315e17399f78a77f676))
+* more misc fixes ([#543](https://github.com/Kong/kongponents/issues/543)) ([4f8eddb](https://github.com/Kong/kongponents/commit/4f8eddb913849940737f4c4a55ad2ce8c669243c))
+
+
+### Features
+
+* **kmodalfullscreen:** adds new kongponent [khcp-2879] ([#505](https://github.com/Kong/kongponents/issues/505)) ([2f27b2e](https://github.com/Kong/kongponents/commit/2f27b2e66c8d21608712130343bd06a7d8398ed1))
+* update vue for 2.7 [KHCP-4369] ([d9b5f27](https://github.com/Kong/kongponents/commit/d9b5f273693f52c40c6e43aa200d30a0cc4bd6a3))
+
+
+### Reverts
+
+* Revert "chore(kcatalog): rename and fetcher" (#555) ([83a5e72](https://github.com/Kong/kongponents/commit/83a5e7220b401e139d68735b5039c4c5a226dd21)), closes [#555](https://github.com/Kong/kongponents/issues/555)
+
+
+### BREAKING CHANGES
+
+* Update Kongponents Vue peerDependency to 2.7.x.
+
+
+
+
+
 ## 6.40.3 (2022-08-23)
 
 

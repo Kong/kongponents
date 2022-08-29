@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0-alpha.1](https://github.com/Kong/kongponents/compare/v6.7.6...v7.0.0-alpha.1) (2022-08-29)
+
+
+### Bug Fixes
+
+* **docs:** code snippet syntax ([#703](https://github.com/Kong/kongponents/issues/703)) ([bb22dcc](https://github.com/Kong/kongponents/commit/bb22dcc6f4a1dc09c427b7c069ab5f2758718714))
+* **icons:** update icon-spinner stroke width ([8d68c6f](https://github.com/Kong/kongponents/commit/8d68c6ff0fb415ce0e3b4ab48504155570317d5b))
+* **kbutton:** account for when disabled is false ([#622](https://github.com/Kong/kongponents/issues/622)) ([8f83196](https://github.com/Kong/kongponents/commit/8f83196e31dc41b8bb579148b1adef3ad89fa44d))
+* **kbutton:** change kong-icon within button to inline-flex ([a1dd543](https://github.com/Kong/kongponents/commit/a1dd54398d540fc590f13bb312e7f29da9b1634f))
+* **kbutton:** danger button hover color ([#506](https://github.com/Kong/kongponents/issues/506)) ([546ed5a](https://github.com/Kong/kongponents/commit/546ed5ae728efadaae3fb3ae0ccb1f785be3da03))
+* **kbutton:** disable pointer-events on icon when button is disabled ([#631](https://github.com/Kong/kongponents/issues/631)) ([ae88127](https://github.com/Kong/kongponents/commit/ae881272cc6cf62288909fb44b237d83e184e82b))
+* **kbutton:** remove webkit tap color ([#753](https://github.com/Kong/kongponents/issues/753)) ([0866a1a](https://github.com/Kong/kongponents/commit/0866a1a58ed5b42093507d8bc64e24fdb658d4a3))
+* metalab fixes ([#537](https://github.com/Kong/kongponents/issues/537)) ([df313ea](https://github.com/Kong/kongponents/commit/df313ea3d92bdc64587aae05a9029f1488f3ff91))
+* more misc fixes ([#543](https://github.com/Kong/kongponents/issues/543)) ([4f8eddb](https://github.com/Kong/kongponents/commit/4f8eddb913849940737f4c4a55ad2ce8c669243c))
+
+
+### Features
+
+* **kdropdownmenu:** new component [khcp-690] ([#724](https://github.com/Kong/kongponents/issues/724)) ([aa37d51](https://github.com/Kong/kongponents/commit/aa37d51beaab8fef936aa9edbc6bac25b5017066))
+* update vue for 2.7 [KHCP-4369] ([d9b5f27](https://github.com/Kong/kongponents/commit/d9b5f273693f52c40c6e43aa200d30a0cc4bd6a3))
+
+
+### Reverts
+
+* Revert "chore(kcatalog): rename and fetcher" (#555) ([83a5e72](https://github.com/Kong/kongponents/commit/83a5e7220b401e139d68735b5039c4c5a226dd21)), closes [#555](https://github.com/Kong/kongponents/issues/555)
+
+
+### BREAKING CHANGES
+
+* Update Kongponents Vue peerDependency to 2.7.x.
+
+
+
+
+
 ## 6.40.3 (2022-08-23)
 
 

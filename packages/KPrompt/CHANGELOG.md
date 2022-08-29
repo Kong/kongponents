@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0-alpha.1](https://github.com/Kong/kongponents/compare/v6.7.6...v7.0.0-alpha.1) (2022-08-29)
+
+
+### Bug Fixes
+
+* **docs:** code snippet syntax ([#703](https://github.com/Kong/kongponents/issues/703)) ([bb22dcc](https://github.com/Kong/kongponents/commit/bb22dcc6f4a1dc09c427b7c069ab5f2758718714))
+* **icons:** update icon-spinner stroke width ([8d68c6f](https://github.com/Kong/kongponents/commit/8d68c6ff0fb415ce0e3b4ab48504155570317d5b))
+* **kbutton:** danger button hover color ([#506](https://github.com/Kong/kongponents/issues/506)) ([546ed5a](https://github.com/Kong/kongponents/commit/546ed5ae728efadaae3fb3ae0ccb1f785be3da03))
+* **kprompt:** bottom divider ([#617](https://github.com/Kong/kongponents/issues/617)) ([3ebe332](https://github.com/Kong/kongponents/commit/3ebe332368a5a669f2c30ef890384c8be221193d))
+* **kprompt:** fix prompt icon alignment ([#541](https://github.com/Kong/kongponents/issues/541)) ([288040c](https://github.com/Kong/kongponents/commit/288040c63e0f025ee836415a14d116c072008947))
+* metalab fixes ([#537](https://github.com/Kong/kongponents/issues/537)) ([df313ea](https://github.com/Kong/kongponents/commit/df313ea3d92bdc64587aae05a9029f1488f3ff91))
+* more misc fixes ([#543](https://github.com/Kong/kongponents/issues/543)) ([4f8eddb](https://github.com/Kong/kongponents/commit/4f8eddb913849940737f4c4a55ad2ce8c669243c))
+
+
+### Features
+
+* **kmodal:** quickstart updates [khcp-4220] ([#714](https://github.com/Kong/kongponents/issues/714)) ([f84b9e4](https://github.com/Kong/kongponents/commit/f84b9e43ee60f7e0d7e2ca30554e89e789a20820))
+* **kprompt:** add actionPending prop ([#504](https://github.com/Kong/kongponents/issues/504)) ([c59df0b](https://github.com/Kong/kongponents/commit/c59df0b95830ca1fdd0d798d16027dbe008dfeef))
+* **kprompt:** add kprompt kongponent ([#503](https://github.com/Kong/kongponents/issues/503)) ([12f0669](https://github.com/Kong/kongponents/commit/12f06699345c76cbc690da3e214f5dbb06aa2485))
+* update vue for 2.7 [KHCP-4369] ([d9b5f27](https://github.com/Kong/kongponents/commit/d9b5f273693f52c40c6e43aa200d30a0cc4bd6a3))
+
+
+### Reverts
+
+* Revert "chore(kcatalog): rename and fetcher" (#555) ([83a5e72](https://github.com/Kong/kongponents/commit/83a5e7220b401e139d68735b5039c4c5a226dd21)), closes [#555](https://github.com/Kong/kongponents/issues/555)
+
+
+### BREAKING CHANGES
+
+* Update Kongponents Vue peerDependency to 2.7.x.
+
+
+
+
+
 ## 6.40.3 (2022-08-23)
 
 

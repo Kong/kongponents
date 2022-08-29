@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0-alpha.1](https://github.com/Kong/kongponents/compare/v6.7.6...v7.0.0-alpha.1) (2022-08-29)
+
+
+### Features
+
+* **kdropdownmenu:** new component [khcp-690] ([#724](https://github.com/Kong/kongponents/issues/724)) ([aa37d51](https://github.com/Kong/kongponents/commit/aa37d51beaab8fef936aa9edbc6bac25b5017066))
+* update vue for 2.7 [KHCP-4369] ([d9b5f27](https://github.com/Kong/kongponents/commit/d9b5f273693f52c40c6e43aa200d30a0cc4bd6a3))
+
+
+### BREAKING CHANGES
+
+* Update Kongponents Vue peerDependency to 2.7.x.
+
+
+
+
+
 ## 6.40.3 (2022-08-23)
 
 

@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0-alpha.1](https://github.com/Kong/kongponents/compare/v6.7.6...v7.0.0-alpha.1) (2022-08-29)
+
+
+### Bug Fixes
+
+* **docs:** code snippet syntax ([#703](https://github.com/Kong/kongponents/issues/703)) ([bb22dcc](https://github.com/Kong/kongponents/commit/bb22dcc6f4a1dc09c427b7c069ab5f2758718714))
+* **kcard:** title positioning ([#561](https://github.com/Kong/kongponents/issues/561)) ([33df03f](https://github.com/Kong/kongponents/commit/33df03f1cd0213fedf2c5f5933cf3698f10d10eb))
+* **kcatalog:** add emptyStateActionButtonIcon prop ([#620](https://github.com/Kong/kongponents/issues/620)) ([a53d063](https://github.com/Kong/kongponents/commit/a53d063019fdb7cc9070fbe07ed0a9a04fc3a277))
+* **kcatalog:** add new prop ([#684](https://github.com/Kong/kongponents/issues/684)) ([96852b9](https://github.com/Kong/kongponents/commit/96852b9a0eb532f4f783021e1cf2f438615ad569))
+* **kcatalog:** fix state display with body slot ([#558](https://github.com/Kong/kongponents/issues/558)) ([09d8f0d](https://github.com/Kong/kongponents/commit/09d8f0da7f6bbdaae8fa0800d51763f45189afb6))
+* **kpop:** default maxwidth should be > default width ([#649](https://github.com/Kong/kongponents/issues/649)) ([f7ac014](https://github.com/Kong/kongponents/commit/f7ac0149e66ada04c30a81619df4ca89d6376bfc))
+* **ktable,kcatalog:** fix issues ([#608](https://github.com/Kong/kongponents/issues/608)) ([3ce0520](https://github.com/Kong/kongponents/commit/3ce052005c9c12d160e5bea713523944833f3678))
+* **ktable,kcatalog:** hide pag logic [khcp-3929] ([#685](https://github.com/Kong/kongponents/issues/685)) ([fca82e8](https://github.com/Kong/kongponents/commit/fca82e8ffaa33d0c6fbd697d17d9c20b10d3e8e4))
+* linting ([#688](https://github.com/Kong/kongponents/issues/688)) ([e74f8a2](https://github.com/Kong/kongponents/commit/e74f8a26d9c1ebec5cdf75653aac7bdbcebee5b2))
+
+
+### Features
+
+* **kcatalog:** add searchInput prop ([#596](https://github.com/Kong/kongponents/issues/596)) ([3be534c](https://github.com/Kong/kongponents/commit/3be534c24683e921f63fcde54829544db5deedc4))
+* **klabel, kooltip:** added support for max-width and tooltip-attributes [KHCP-3486] ([#648](https://github.com/Kong/kongponents/issues/648)) ([f0ee237](https://github.com/Kong/kongponents/commit/f0ee237fd3dea69a6e747c454f3c653341950562))
+* **kselect:** add autosuggest support [KHCP-4227] ([#717](https://github.com/Kong/kongponents/issues/717)) ([27a49a6](https://github.com/Kong/kongponents/commit/27a49a6822ebb95c3e310fc0f2626c5d66fc03bc))
+* **kselect:** add overlayLabel [khcp-4187] ([#697](https://github.com/Kong/kongponents/issues/697)) ([2efbfbb](https://github.com/Kong/kongponents/commit/2efbfbbd9054138477eeea73ab86fa747f9c0787))
+* **kselect:** misc fixes [khcp-4146] ([#692](https://github.com/Kong/kongponents/issues/692)) ([a5b3b5b](https://github.com/Kong/kongponents/commit/a5b3b5b68ba5f66e96147e60851cd7229c8e95af))
+* update vue for 2.7 [KHCP-4369] ([d9b5f27](https://github.com/Kong/kongponents/commit/d9b5f273693f52c40c6e43aa200d30a0cc4bd6a3))
+* **vue:** upgrade to vue 2.7 [KHCP-4369] ([0f4e815](https://github.com/Kong/kongponents/commit/0f4e815f04df4c3b15b9bee0aaee1f76a1b0bdd9))
+
+
+### Reverts
+
+* Revert "chore(kcatalog): rename and fetcher" (#555) ([83a5e72](https://github.com/Kong/kongponents/commit/83a5e7220b401e139d68735b5039c4c5a226dd21)), closes [#555](https://github.com/Kong/kongponents/issues/555)
+
+
+### BREAKING CHANGES
+
+* Update Kongponents Vue peerDependency to 2.7.x.
+
+
+
+
+
 ## 6.40.3 (2022-08-23)
 
 

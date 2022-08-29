@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kradio",
-  "version": "6.40.3",
+  "version": "7.0.0-alpha.1",
   "description": "Radio input component",
   "main": "dist/KRadio.umd.min.js",
   "componentName": "KRadio",
@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/styles": "^6.40.3"
+    "@kongponents/styles": "^7.0.0-alpha.1"
   },
   "peerDependencies": {
     "vue": ">= 2.7.0 < 3"
