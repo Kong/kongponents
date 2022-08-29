@@ -25,5 +25,8 @@
   },
   "devDependencies": {
     "raw-loader": "^4.0.2"
+  },
+  "peerDependencies": {
+    "vue": ">= 2.7.0 < 3"
   }
 }

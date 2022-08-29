@@ -27,5 +27,8 @@
     "@kongponents/styles": "^6.40.3",
     "popper.js": "^1.15.0",
     "vue-uuid": "^2.0.2"
+  },
+  "peerDependencies": {
+    "vue": ">= 2.7.0 < 3"
   }
 }

@@ -17,7 +17,9 @@
     "access": "public"
   },
   "dependencies": {
-    "swrv": "^0.10.0",
-    "vue": "^2.7.8"
+    "swrv": "^0.10.0"
+  },
+  "peerDependencies": {
+    "vue": ">= 2.7.0 < 3"
   }
 }

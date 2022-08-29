@@ -31,5 +31,8 @@
     "@kongponents/kskeleton": "^6.40.3",
     "@kongponents/styles": "^6.40.3",
     "@kongponents/utils": "^6.40.3"
+  },
+  "peerDependencies": {
+    "vue": ">= 2.7.0 < 3"
   }
 }
