@@ -695,7 +695,6 @@ export default defineComponent({
       return res
     }
     const initData = async () => {
-      // set up fetcher props
       const fetcherParams = {
         ...defaultFetcherProps,
         ...props.initialFetcherParams,
