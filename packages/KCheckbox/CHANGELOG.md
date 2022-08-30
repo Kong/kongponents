@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 8.0.0 (2022-08-30)
+
+
+### Features
+
+* trigger version 7 release ([2f4491e](https://github.com/Kong/kongponents/commit/2f4491e1dec236f0388e9db64001dff0e20744d7))
+
+
+### BREAKING CHANGES
+
+* Upgrade for Vue 2.7
+
+
+
+
+
 # 7.0.0-alpha.2 (2022-08-30)
 
 **Note:** Version bump only for package @kongponents/kcheckbox
