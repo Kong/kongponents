@@ -1,4 +1,4 @@
-import { ref, watchEffect } from '@vue/composition-api'
+import { ref, watchEffect } from 'vue'
 
 const swrvState = {
   VALIDATING: 'VALIDATING',

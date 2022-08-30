@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/komponent",
-  "version": "6.40.3",
+  "version": "7.0.0-alpha.1",
   "description": "Expose reactive state to components.",
   "main": "dist/Komponent.umd.min.js",
   "componentName": "Komponent",
@@ -21,5 +21,8 @@
   "homepage": "https://github.com/Kong/kongponents#readme",
   "publishConfig": {
     "access": "public"
+  },
+  "peerDependencies": {
+    "vue": ">= 2.7.0 < 3"
   }
 }

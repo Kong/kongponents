@@ -17,6 +17,7 @@
     "build": "yarn build:styles && yarn build:utils && yarn docs:build && yarn build:cli",
     "build:postcss": "postcss packages/styles/styles.css --dir packages/styles",
     "build:cli": "yarn create:package-configs && lerna exec --ignore @kongponents/styles --ignore @kongponents/utils \"yarn vue-cli-service build --target lib ./\\$(cat package.json | jq -r .source) --name \\$(cat package.json | jq -r .componentName) --dest ./dist\" && yarn delete:package-configs",
+    "list-packages": "lerna exec \"echo \\$(cat package.json | jq -r .name) \"",
     "build:styles": "yarn sass --no-source-map packages/styles/styles.scss packages/styles/styles.css && yarn build:postcss",
     "build:utils": "yarn vue-cli-service build --target lib --name utils --entry ./packages/utils/utils.js --dest ./packages/utils/dist && rm ./packages/utils/dist/demo.html",
     "create:package-configs": "lerna exec --ignore @kongponents/styles --ignore @kongponents/utils \"ln -f ../../vue.config.js ./vue.config.js && ln -f ../../postcss-custom-properties.config.js ./postcss.config.js\"",
@@ -37,7 +38,7 @@
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
     "@kawarimidoll/vuepress-plugin-tailwind": "^2.0.0",
-    "@vue/cli-service": "^4.0.5",
+    "@vue/cli-service": "~4.5.18",
     "@vue/test-utils": "1.0.0-beta.28",
     "@vuepress/plugin-search": "^1.5.4",
     "babel-eslint": "10.0.1",
@@ -67,20 +68,27 @@
     "raw-loader": "0.5.1",
     "sass": "^1.45.0",
     "sass-loader": "^7.1.0",
+    "vue": "^2.7.10",
     "vue-jest": "3.0.2",
-    "vue-loader": "15.7.0",
+    "vue-loader": "^15.10.0",
     "vue-router": "^3.5.4",
-    "vue-template-compiler": "2.6.10",
-    "vuepress": "^1.5.2",
+    "vue-server-renderer": "^2.7.10",
+    "vue-template-compiler": "^2.7.10",
+    "vuepress": "^1.9.7",
     "vuepress-plugin-live": "^1.5.3",
-    "vuepress-plugin-sitemap": "^2.3.1",
-    "vuex": "3.0.1"
+    "vuepress-plugin-sitemap": "^2.3.1"
   },
   "dependencies": {
-    "@vue/composition-api": "^1.2.4",
-    "swrv": "0.9.6",
-    "vue": "2.6.10",
+    "swrv": "^0.10.0",
     "vue-uuid": "^2.0.2"
+  },
+  "peerDependencies": {
+    "vue": ">= 2.7.0 < 3"
+  },
+  "resolutions": {
+    "vue": "^2.7.10",
+    "vue-server-renderer": "^2.7.10",
+    "vue-template-compiler": "^2.7.10"
   },
   "engines": {
     "node": ">=16.15.1"

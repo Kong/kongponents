@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/ktable",
-  "version": "6.40.3",
+  "version": "7.0.0-alpha.1",
   "description": "Table component",
   "main": "dist/KTable.umd.min.js",
   "componentName": "KTable",
@@ -23,16 +23,16 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kbutton": "^6.40.3",
-    "@kongponents/kemptystate": "^6.40.3",
-    "@kongponents/kicon": "^6.40.3",
-    "@kongponents/kpagination": "^6.40.3",
-    "@kongponents/kskeleton": "^6.40.3",
-    "@kongponents/styles": "^6.40.3",
-    "@kongponents/utils": "^6.40.3",
+    "@kongponents/kbutton": "^7.0.0-alpha.1",
+    "@kongponents/kemptystate": "^7.0.0-alpha.1",
+    "@kongponents/kicon": "^7.0.0-alpha.1",
+    "@kongponents/kpagination": "^7.0.0-alpha.1",
+    "@kongponents/kskeleton": "^7.0.0-alpha.1",
+    "@kongponents/styles": "^7.0.0-alpha.1",
+    "@kongponents/utils": "^7.0.0-alpha.1",
     "vue-uuid": "^2.0.2"
   },
   "peerDependencies": {
-    "@vue/composition-api": "^1.2.4"
+    "vue": ">= 2.7.0 < 3"
   }
 }

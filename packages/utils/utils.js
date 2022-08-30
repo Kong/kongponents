@@ -1,5 +1,5 @@
 import useSWRV from 'swrv'
-import { computed, ref } from '@vue/composition-api'
+import { computed, ref } from 'vue'
 
 export const useRequest = (cacheKey, fetcherFn, config) => {
   const { data: response, error, isValidating, mutate: revalidate } = useSWRV(

@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0-alpha.1](https://github.com/Kong/kongponents/compare/v6.7.6...v7.0.0-alpha.1) (2022-08-29)
+
+
+### Bug Fixes
+
+* **kstepper:** include all vue files in package ([#758](https://github.com/Kong/kongponents/issues/758)) ([1232cd1](https://github.com/Kong/kongponents/commit/1232cd14bc76556cfe4d110831736d7264eb1376))
+* **kstepper:** include stepper-icons directory too ([#759](https://github.com/Kong/kongponents/issues/759)) ([e91c37b](https://github.com/Kong/kongponents/commit/e91c37be9fb5a8e0f86c7f590c35a70c75b76cae))
+* **kstepper:** remove unused prop which is throwing errors ([#766](https://github.com/Kong/kongponents/issues/766)) ([f2825be](https://github.com/Kong/kongponents/commit/f2825bef268c5971b7c3e22b6eecae7dbd26cd44))
+
+
+### Features
+
+* **kstepper:** new component [khcp-4301] ([#745](https://github.com/Kong/kongponents/issues/745)) ([44c053d](https://github.com/Kong/kongponents/commit/44c053d9fad1a4b619ea4ef7b6cfa5cf4bbd9295))
+* update vue for 2.7 [KHCP-4369] ([d9b5f27](https://github.com/Kong/kongponents/commit/d9b5f273693f52c40c6e43aa200d30a0cc4bd6a3))
+
+
+### BREAKING CHANGES
+
+* Update Kongponents Vue peerDependency to 2.7.x.
+
+
+
+
+
 ## 6.40.3 (2022-08-23)
 
 

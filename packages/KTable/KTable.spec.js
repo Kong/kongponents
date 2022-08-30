@@ -1,5 +1,4 @@
 import { mount, createLocalVue } from '@vue/test-utils'
-import VueCompositionAPI from '@vue/composition-api'
 import KTable from '@/KTable/KTable'
 
 const tick = async (vm, times) => {
@@ -108,11 +107,8 @@ const options = {
 
 let localVue
 
-// Use the Composition API
 beforeEach(() => {
   localVue = createLocalVue()
-
-  localVue.use(VueCompositionAPI)
 })
 
 describe('KTable', () => {

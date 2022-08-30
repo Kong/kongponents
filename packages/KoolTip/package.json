@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kooltip",
-  "version": "6.40.3",
+  "version": "7.0.0-alpha.1",
   "description": "A tooltip component",
   "main": "dist/KoolTip.umd.min.js",
   "componentName": "KoolTip",
@@ -23,7 +23,10 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kpop": "^6.40.3",
-    "@kongponents/styles": "^6.40.3"
+    "@kongponents/kpop": "^7.0.0-alpha.1",
+    "@kongponents/styles": "^7.0.0-alpha.1"
+  },
+  "peerDependencies": {
+    "vue": ">= 2.7.0 < 3"
   }
 }

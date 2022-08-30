@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0-alpha.1](https://github.com/Kong/kongponents/compare/v6.7.6...v7.0.0-alpha.1) (2022-08-29)
+
+
+### Bug Fixes
+
+* **docs:** code snippet syntax ([#703](https://github.com/Kong/kongponents/issues/703)) ([bb22dcc](https://github.com/Kong/kongponents/commit/bb22dcc6f4a1dc09c427b7c069ab5f2758718714))
+* font weights ([d89b707](https://github.com/Kong/kongponents/commit/d89b7076fd80c5a5491b039b704fa32e429432cd))
+* **kinput:** update x icon for type search ([#642](https://github.com/Kong/kongponents/issues/642)) ([aca59ae](https://github.com/Kong/kongponents/commit/aca59aee7aa731e7907f196170b546ada6b66fef))
+* **klabel:** default font-weight to 600 ([0297712](https://github.com/Kong/kongponents/commit/02977121b7b609bf451456e504fdd8414036a9cf))
+* **kselect:** disabled and readonly states ([#706](https://github.com/Kong/kongponents/issues/706)) ([63123e5](https://github.com/Kong/kongponents/commit/63123e5e14093a3633f599f50397a6134b8bd067))
+* **kselect:** fix readonly styles ([66167c7](https://github.com/Kong/kongponents/commit/66167c7e954764897e5916fffaddbef912ea64af))
+* **kselect:** input border radius and dropdown spacing ([#702](https://github.com/Kong/kongponents/issues/702)) ([6b38149](https://github.com/Kong/kongponents/commit/6b381493e50c58d189f1476ebf07a11c3955cd3d))
+* **styles:** remove tailwind from styles package ([#484](https://github.com/Kong/kongponents/issues/484)) ([1f1ee36](https://github.com/Kong/kongponents/commit/1f1ee36ea15b25f491b25872c01f6ba6f4a499c1))
+* **truncate-multi:** fix pixel multiplication ([#625](https://github.com/Kong/kongponents/issues/625)) ([9a99f0d](https://github.com/Kong/kongponents/commit/9a99f0d0aa0db08e35a1c7ccba06c7432bd375b6))
+* **variables:** update hex color code ([#629](https://github.com/Kong/kongponents/issues/629)) ([d40fc6c](https://github.com/Kong/kongponents/commit/d40fc6c01c08eb3fcf3f39dd98c32eeac55f6404))
+
+
+### Features
+
+* **fonts:** default to non-licensed font-family ([#614](https://github.com/Kong/kongponents/issues/614)) ([5824888](https://github.com/Kong/kongponents/commit/5824888d240161f55d5a9ab2f48604a8fd75360a))
+* **kinputswitch:** add label-position prop ([#502](https://github.com/Kong/kongponents/issues/502)) ([95a2904](https://github.com/Kong/kongponents/commit/95a2904862f12823dd1f2e0113f1751f366ca8ef))
+* **krumbs:** update breadcrumb kongponent with icon [KHCP-2655] ([#480](https://github.com/Kong/kongponents/issues/480)) ([a78a4d5](https://github.com/Kong/kongponents/commit/a78a4d5c2b57c72d8c27f391123583f6d1d67cd8))
+* **kselect:** misc fixes [khcp-4146] ([#692](https://github.com/Kong/kongponents/issues/692)) ([a5b3b5b](https://github.com/Kong/kongponents/commit/a5b3b5b68ba5f66e96147e60851cd7229c8e95af))
+* **kstyles:** multi-line truncation [khcp-3552] ([#652](https://github.com/Kong/kongponents/issues/652)) ([31bf43f](https://github.com/Kong/kongponents/commit/31bf43fef8fc894aa17bb4d31af14c6ad7f0f87b))
+
+
+### Reverts
+
+* Revert "chore(kcatalog): rename and fetcher" (#555) ([83a5e72](https://github.com/Kong/kongponents/commit/83a5e7220b401e139d68735b5039c4c5a226dd21)), closes [#555](https://github.com/Kong/kongponents/issues/555)
+
+
+
+
+
 ## 6.40.3 (2022-08-23)
 
 

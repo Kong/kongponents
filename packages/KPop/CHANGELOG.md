@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0-alpha.1](https://github.com/Kong/kongponents/compare/v6.7.6...v7.0.0-alpha.1) (2022-08-29)
+
+
+### Bug Fixes
+
+* **font-weights:** fix component font weights ([a21da06](https://github.com/Kong/kongponents/commit/a21da06e9ca60e0bd29265585fda87a9865ff366))
+* **kpop:** default maxwidth should be > default width ([#649](https://github.com/Kong/kongponents/issues/649)) ([f7ac014](https://github.com/Kong/kongponents/commit/f7ac0149e66ada04c30a81619df4ca89d6376bfc))
+* **kpop:** fix kpop toggle behavior [khcp-3244] ([#546](https://github.com/Kong/kongponents/issues/546)) ([1d275b3](https://github.com/Kong/kongponents/commit/1d275b3d088b97e8c5909d5dedd635946800007e))
+* **kpopover:** fix logic to prevent errors ([#716](https://github.com/Kong/kongponents/issues/716)) ([d0e7167](https://github.com/Kong/kongponents/commit/d0e71672ceae2e75d65cfebd1e83d5aa5a6d10b5))
+* **kpop:** target element defaults ([#729](https://github.com/Kong/kongponents/issues/729)) ([2afdfd0](https://github.com/Kong/kongponents/commit/2afdfd0f061968f8c81e6b01bb0e3b50bc0cf009))
+* **kselect:** fix items watcher and only update if changed [KHCP-4425] ([#750](https://github.com/Kong/kongponents/issues/750)) ([a80958b](https://github.com/Kong/kongponents/commit/a80958b0a72aa54c527326bf7a66a3e6a39338ce))
+* **kselect:** input border radius and dropdown spacing ([#702](https://github.com/Kong/kongponents/issues/702)) ([6b38149](https://github.com/Kong/kongponents/commit/6b381493e50c58d189f1476ebf07a11c3955cd3d))
+* more misc fixes ([#543](https://github.com/Kong/kongponents/issues/543)) ([4f8eddb](https://github.com/Kong/kongponents/commit/4f8eddb913849940737f4c4a55ad2ce8c669243c))
+
+
+### Features
+
+* **klabel, kooltip:** added support for max-width and tooltip-attributes [KHCP-3486] ([#648](https://github.com/Kong/kongponents/issues/648)) ([f0ee237](https://github.com/Kong/kongponents/commit/f0ee237fd3dea69a6e747c454f3c653341950562))
+* **kpop:** add positionFixed prop ([#481](https://github.com/Kong/kongponents/issues/481)) ([62dcbe6](https://github.com/Kong/kongponents/commit/62dcbe6cf6c82bf628316e3328f784cf32308eec))
+* **kselect:** add autosuggest support [KHCP-4227] ([#717](https://github.com/Kong/kongponents/issues/717)) ([27a49a6](https://github.com/Kong/kongponents/commit/27a49a6822ebb95c3e310fc0f2626c5d66fc03bc))
+* **kselect:** misc fixes [khcp-4146] ([#692](https://github.com/Kong/kongponents/issues/692)) ([a5b3b5b](https://github.com/Kong/kongponents/commit/a5b3b5b68ba5f66e96147e60851cd7229c8e95af))
+* **node:** bump kongponents to node 16 ([#657](https://github.com/Kong/kongponents/issues/657)) ([185ae12](https://github.com/Kong/kongponents/commit/185ae126a54141729e68be714fc9234158933525))
+* update vue for 2.7 [KHCP-4369] ([d9b5f27](https://github.com/Kong/kongponents/commit/d9b5f273693f52c40c6e43aa200d30a0cc4bd6a3))
+
+
+### Reverts
+
+* Revert "chore(kcatalog): rename and fetcher" (#555) ([83a5e72](https://github.com/Kong/kongponents/commit/83a5e7220b401e139d68735b5039c4c5a226dd21)), closes [#555](https://github.com/Kong/kongponents/issues/555)
+
+
+### BREAKING CHANGES
+
+* Update Kongponents Vue peerDependency to 2.7.x.
+
+
+
+
+
 ## 6.40.3 (2022-08-23)
 
 

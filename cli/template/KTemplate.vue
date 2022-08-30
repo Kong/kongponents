@@ -1,6 +1,5 @@
 <template>
-  <div
-    v-on="listeners">
+  <div>
     <span>{{ description }}</span>
     <slot/>
   </div>
@@ -22,5 +21,5 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 </style>

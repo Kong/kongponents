@@ -3,6 +3,57 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0-alpha.1](https://github.com/Kong/kongponents/compare/v6.7.6...v7.0.0-alpha.1) (2022-08-29)
+
+
+### Bug Fixes
+
+* **composition-api:** fix usage of composition api ([#487](https://github.com/Kong/kongponents/issues/487)) ([c0827ca](https://github.com/Kong/kongponents/commit/c0827caec64bf055e1cc6a54b4f26ced5f811795))
+* **kcatalog:** add emptyStateActionButtonIcon prop ([#620](https://github.com/Kong/kongponents/issues/620)) ([a53d063](https://github.com/Kong/kongponents/commit/a53d063019fdb7cc9070fbe07ed0a9a04fc3a277))
+* **kinlineedit:** hover bg color [khcp-3931] ([#661](https://github.com/Kong/kongponents/issues/661)) ([70571a3](https://github.com/Kong/kongponents/commit/70571a394c4afbf4b9cbafdb96820f4a96645958))
+* **kpagination:** disable buttons when necessary ([#671](https://github.com/Kong/kongponents/issues/671)) ([f39b589](https://github.com/Kong/kongponents/commit/f39b589d523f4a51c0af6c785ed9c25cb903dafb))
+* **kpagination:** fix page size change and import bugs ([#668](https://github.com/Kong/kongponents/issues/668)) ([b8f6518](https://github.com/Kong/kongponents/commit/b8f651899529ce83dc3c3a2238176f5c443520ec))
+* **kpop:** default maxwidth should be > default width ([#649](https://github.com/Kong/kongponents/issues/649)) ([f7ac014](https://github.com/Kong/kongponents/commit/f7ac0149e66ada04c30a81619df4ca89d6376bfc))
+* **ktable,kcatalog:** fix issues ([#608](https://github.com/Kong/kongponents/issues/608)) ([3ce0520](https://github.com/Kong/kongponents/commit/3ce052005c9c12d160e5bea713523944833f3678))
+* **ktable,kcatalog:** hide pag logic [khcp-3929] ([#685](https://github.com/Kong/kongponents/issues/685)) ([fca82e8](https://github.com/Kong/kongponents/commit/fca82e8ffaa33d0c6fbd697d17d9c20b10d3e8e4))
+* **ktable:** add data-testid to empty/error state buttons ([#603](https://github.com/Kong/kongponents/issues/603)) ([566c517](https://github.com/Kong/kongponents/commit/566c517bfa7d27bcced8c5ecfb052fe0631b2c44))
+* **ktable:** add sortHandlerFn prop ([#566](https://github.com/Kong/kongponents/issues/566)) ([f29a745](https://github.com/Kong/kongponents/commit/f29a745bc6a4137cd11bfa165bfab569c8b8ed62))
+* **ktable:** allow table clicks to pass through ([#527](https://github.com/Kong/kongponents/issues/527)) ([c7fb58e](https://github.com/Kong/kongponents/commit/c7fb58e4f5b3b440a484aee7e9835e4bc47603a5))
+* **ktable:** create listeners even when td is not clicked target ([#609](https://github.com/Kong/kongponents/issues/609)) ([581c460](https://github.com/Kong/kongponents/commit/581c4601e5ee7bc6d3e9a46d073f55e41ddf909e))
+* **ktable:** emit event on cell and row click ([#640](https://github.com/Kong/kongponents/issues/640)) ([67847f5](https://github.com/Kong/kongponents/commit/67847f50af311ec5db1f2559291c9843480d602c))
+* **ktable:** hide pagination based on row numbers ([#673](https://github.com/Kong/kongponents/issues/673)) ([f685577](https://github.com/Kong/kongponents/commit/f68557734dca48484a210cbf334af4be6d5cddf1))
+* **ktable:** more row click fix ([#618](https://github.com/Kong/kongponents/issues/618)) ([ad602db](https://github.com/Kong/kongponents/commit/ad602db58f585ce9ae40991c75d2efbf9f53fb10))
+* **ktable:** pagination display with offset ([#680](https://github.com/Kong/kongponents/issues/680)) ([1aed77d](https://github.com/Kong/kongponents/commit/1aed77d6ce992be39dc5280ca03a3004865429b9))
+* **ktable:** revert [#609](https://github.com/Kong/kongponents/issues/609) ([#612](https://github.com/Kong/kongponents/issues/612)) ([a54fb3f](https://github.com/Kong/kongponents/commit/a54fb3f1629f891b2dec6a3cffea73ddefab0602))
+* **ktable:** row click handling ([#613](https://github.com/Kong/kongponents/issues/613)) ([e55cd42](https://github.com/Kong/kongponents/commit/e55cd42c478b79693aedf999f6c392793157b0ff))
+* **ktable:** update sort styling ([#472](https://github.com/Kong/kongponents/issues/472)) ([4246089](https://github.com/Kong/kongponents/commit/42460890b9fd0451b917473a42b5e3f762213f35))
+* **ktable:** update sort styling ([#473](https://github.com/Kong/kongponents/issues/473)) ([d2d242f](https://github.com/Kong/kongponents/commit/d2d242fbeaf92db112f699cbe8eed163b066feff))
+* metalab fixes ([#537](https://github.com/Kong/kongponents/issues/537)) ([df313ea](https://github.com/Kong/kongponents/commit/df313ea3d92bdc64587aae05a9029f1488f3ff91))
+* more misc fixes ([#543](https://github.com/Kong/kongponents/issues/543)) ([4f8eddb](https://github.com/Kong/kongponents/commit/4f8eddb913849940737f4c4a55ad2ce8c669243c))
+
+
+### Features
+
+* **kcardcatalog:** fix item slotting ([#548](https://github.com/Kong/kongponents/issues/548)) ([edfb0f6](https://github.com/Kong/kongponents/commit/edfb0f6a07b49bbcf2235c9e6a1acf38bcba101a))
+* **klabel, kooltip:** added support for max-width and tooltip-attributes [KHCP-3486] ([#648](https://github.com/Kong/kongponents/issues/648)) ([f0ee237](https://github.com/Kong/kongponents/commit/f0ee237fd3dea69a6e747c454f3c653341950562))
+* **kpagination/ktable:** support offset-based pagination ([#663](https://github.com/Kong/kongponents/issues/663)) ([d6de73b](https://github.com/Kong/kongponents/commit/d6de73baef56573c18d2575988ddbe91d09e14d2))
+* **kselect:** add autosuggest support [KHCP-4227] ([#717](https://github.com/Kong/kongponents/issues/717)) ([27a49a6](https://github.com/Kong/kongponents/commit/27a49a6822ebb95c3e310fc0f2626c5d66fc03bc))
+* **kselect:** add overlayLabel [khcp-4187] ([#697](https://github.com/Kong/kongponents/issues/697)) ([2efbfbb](https://github.com/Kong/kongponents/commit/2efbfbbd9054138477eeea73ab86fa747f9c0787))
+* **kselect:** allow custom item content and filter ([#488](https://github.com/Kong/kongponents/issues/488)) ([3e558e4](https://github.com/Kong/kongponents/commit/3e558e43db80e05cd2035afb5233683644c3a798))
+* **kselect:** misc fixes [khcp-4146] ([#692](https://github.com/Kong/kongponents/issues/692)) ([a5b3b5b](https://github.com/Kong/kongponents/commit/a5b3b5b68ba5f66e96147e60851cd7229c8e95af))
+* **ktable:** add empty-state-action-button-icon ([#493](https://github.com/Kong/kongponents/issues/493)) ([d889728](https://github.com/Kong/kongponents/commit/d8897286a571c4fd6ac5abaa86e09c1e2e1b0b75))
+* set default page sizes from [15, 25, 50, 75, 100] to [15, 30, 50, 75, 100] [KHCP-2841] ([#498](https://github.com/Kong/kongponents/issues/498)) ([d2ab2e5](https://github.com/Kong/kongponents/commit/d2ab2e5ed0ef2447fafa3cae6737bcf94393d626))
+* **vue:** upgrade to vue 2.7 [KHCP-4369] ([0f4e815](https://github.com/Kong/kongponents/commit/0f4e815f04df4c3b15b9bee0aaee1f76a1b0bdd9))
+
+
+### Reverts
+
+* Revert "chore(kcatalog): rename and fetcher" (#555) ([83a5e72](https://github.com/Kong/kongponents/commit/83a5e7220b401e139d68735b5039c4c5a226dd21)), closes [#555](https://github.com/Kong/kongponents/issues/555)
+
+
+
+
+
 ## 6.40.3 (2022-08-23)
 
 

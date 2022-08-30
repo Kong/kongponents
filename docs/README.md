@@ -10,16 +10,42 @@ Kongponents is a Vue component library of frequently needed UI elements. They we
 
 ## Installation
 
+The version of Kongponents package(s) you install depends on the Vue dependency in your project.
+
+### Choose your Vue dependency version
+
+#### Vue 2.7
+
+This version of all Kongponents removes the dependency of the external `@vue/composition-api` plugin and adds `vue` to the `peerDependencies`, requiring a version of `vue` that matches the following pattern: `>= 2.7.0 < 3`
+
+All packages for Vue 2.7 utilize the `@latest` tag on npm, meaning you can install like this:
+
+```shell
+# Install the 7.x version
+yarn add @kongponents/kbutton
+```
+
+#### Vue 2.6 and below
+
+If you're installing for Vue `2.6.x` and below, you will want to install via the `@legacy` tag on npm like this:
+
+```shell
+# Install the 6.x version
+yarn add @kongponents/kbutton@legacy
+```
+
+#### Vue 3 (beta)
+
+If you want to try out Vue 3 support, install the beta release of `@kong/kongponents` (note the new package name). The code for Vue 3 exists on the `beta` branch. [You can find more info on here for installation instructions and migration notes](https://beta.kongponents.konghq.com/#installation).
+
+### Component packages
+
 To begin using Kongponents, you must first import the base `@kongponents/styles` package. [Read more about the style guide usage](./style-guide/usage.md).
 
-Next, you will need to install each desired component. You can install multiple components at once, or one at a time as needed.
+Next, you will need to install each desired component. You can install multiple components at once, or one at a time as needed; however, keep in mind that you need to install the proper version based on your project's Vue dependency (as outlined above).
 
-```bash
+```shell
 $ yarn add @kongponents/styles @kongponents/kbutton
-
-# or
-
-$ npm install @kongponents/styles @kongponents/kbutton
 ```
 
 ### Transpile dependencies

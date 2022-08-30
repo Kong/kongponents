@@ -10,21 +10,6 @@ Pass a fetcher function to build a slot-able table.
   <KTable :fetcher="fetcher" :headers="headers" />
 ```
 
-:::tip Note
-The `KTable` component requires the [`@vue/composition-api`](https://github.com/vuejs/composition-api) package as a `peerDependency`. You must **manually** add the package to your host project by running the following
-
-``` shell
-yarn add @vue/composition-api
-```
-
-When importing `KTable` into your project, you will likely need to explicity import the vue file as shown below
-
-```js
-import KTable from '@kongponents/ktable/KTable.vue'
-```
-
-:::
-
 :::warning NOTE
 `KTable` implements `KIcon` which imports .svg files directly, so a loader is needed in order to render these in your application such as the webpack
 [raw-loader](https://webpack.js.org/loaders/raw-loader/). [See here for more information](/#raw-loader).

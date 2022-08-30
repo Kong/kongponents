@@ -3,6 +3,45 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0-alpha.1](https://github.com/Kong/kongponents/compare/v6.7.6...v7.0.0-alpha.1) (2022-08-29)
+
+
+### Bug Fixes
+
+* **docs:** code snippet syntax ([#703](https://github.com/Kong/kongponents/issues/703)) ([bb22dcc](https://github.com/Kong/kongponents/commit/bb22dcc6f4a1dc09c427b7c069ab5f2758718714))
+* **icons:** update icon-spinner stroke width ([8d68c6f](https://github.com/Kong/kongponents/commit/8d68c6ff0fb415ce0e3b4ab48504155570317d5b))
+* **kicon:** not updating reactively ([ce03d17](https://github.com/Kong/kongponents/commit/ce03d17dec62bc8b063daa63f458961999d887f2))
+* **kicon:** re-render svg if props change ([#635](https://github.com/Kong/kongponents/issues/635)) ([aae9469](https://github.com/Kong/kongponents/commit/aae94694ad7b056fec2f81f733ea357c4e88b089))
+* **kicon:** re-render svg on icon prop change ([#633](https://github.com/Kong/kongponents/issues/633)) ([8bc04c2](https://github.com/Kong/kongponents/commit/8bc04c272521ee1f040d4eaa8047eaca8f7d9964))
+* **kicon:** svg variable not needed ([2e4f9bd](https://github.com/Kong/kongponents/commit/2e4f9bdfb7d1f8926914df88083c479431c67444))
+* **kicon:** update vitals icon [pdux-933] ([#731](https://github.com/Kong/kongponents/issues/731)) ([56a6be3](https://github.com/Kong/kongponents/commit/56a6be350d72ac174b7fbe94596a57405feab029))
+* **kicon:** watch icon color to apply updates ([#623](https://github.com/Kong/kongponents/issues/623)) ([ab00fc5](https://github.com/Kong/kongponents/commit/ab00fc5c694e54d98b0f40c9d7f5b711773f84fc))
+
+
+### Features
+
+* **icon:** add no data icon for vitals ([#644](https://github.com/Kong/kongponents/issues/644)) ([f50608c](https://github.com/Kong/kongponents/commit/f50608c0c81df3c467b31208c00c192ea0346ce5))
+* **icons:** add book, plug and contact support icons ([#760](https://github.com/Kong/kongponents/issues/760)) ([38af9da](https://github.com/Kong/kongponents/commit/38af9da57e80c776d88df79c25edc460a34cf1c2))
+* **kalert:** updates for KHCP-4405 ([#763](https://github.com/Kong/kongponents/issues/763)) ([6dadda8](https://github.com/Kong/kongponents/commit/6dadda87389bf45f09f7d171602d9cadd32c7a21))
+* **kicon:** add new team-member icon for teams-user [khcp-2977] ([#513](https://github.com/Kong/kongponents/issues/513)) ([e6dbebb](https://github.com/Kong/kongponents/commit/e6dbebbc5bfa781fca078a431dd187a7b4e38564))
+* **kicon:** add team icon ([#515](https://github.com/Kong/kongponents/issues/515)) ([f13d413](https://github.com/Kong/kongponents/commit/f13d413d1e91b6611862ba8157828caaca622e6f))
+* **ktable:** add empty-state-action-button-icon ([#493](https://github.com/Kong/kongponents/issues/493)) ([d889728](https://github.com/Kong/kongponents/commit/d8897286a571c4fd6ac5abaa86e09c1e2e1b0b75))
+* update vue for 2.7 [KHCP-4369] ([d9b5f27](https://github.com/Kong/kongponents/commit/d9b5f273693f52c40c6e43aa200d30a0cc4bd6a3))
+
+
+### Reverts
+
+* Revert "chore(kcatalog): rename and fetcher" (#555) ([83a5e72](https://github.com/Kong/kongponents/commit/83a5e7220b401e139d68735b5039c4c5a226dd21)), closes [#555](https://github.com/Kong/kongponents/issues/555)
+
+
+### BREAKING CHANGES
+
+* Update Kongponents Vue peerDependency to 2.7.x.
+
+
+
+
+
 ## 6.40.3 (2022-08-23)
 
 
