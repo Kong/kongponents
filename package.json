@@ -68,12 +68,12 @@
     "raw-loader": "0.5.1",
     "sass": "^1.45.0",
     "sass-loader": "^7.1.0",
-    "vue": "^2.7.8",
+    "vue": "^2.7.10",
     "vue-jest": "3.0.2",
     "vue-loader": "^15.10.0",
     "vue-router": "^3.5.4",
-    "vue-server-renderer": "^2.7.8",
-    "vue-template-compiler": "^2.7.8",
+    "vue-server-renderer": "^2.7.10",
+    "vue-template-compiler": "^2.7.10",
     "vuepress": "^1.9.7",
     "vuepress-plugin-live": "^1.5.3",
     "vuepress-plugin-sitemap": "^2.3.1"
@@ -86,9 +86,9 @@
     "vue": ">= 2.7.0 < 3"
   },
   "resolutions": {
-    "vue": "^2.7.8",
-    "vue-server-renderer": "^2.7.8",
-    "vue-template-compiler": "^2.7.8"
+    "vue": "^2.7.10",
+    "vue-server-renderer": "^2.7.10",
+    "vue-template-compiler": "^2.7.10"
   },
   "engines": {
     "node": ">=16.15.1"
