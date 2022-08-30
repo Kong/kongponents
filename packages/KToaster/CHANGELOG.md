@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 9.0.0 (2022-08-30)
+
+
+### Features
+
+* trigger version 7 release ([31ee8cc](https://github.com/Kong/kongponents/commit/31ee8cc633a47c849b863f7f485658e361173c65))
+
+
+### BREAKING CHANGES
+
+* Upgrade Kongponents for Vue 2.7 dependency
+
+
+
+
+
 # 8.0.0 (2022-08-30)
 
 

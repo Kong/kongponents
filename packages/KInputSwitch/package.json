@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kinputswitch",
-  "version": "8.0.0",
+  "version": "9.0.0",
   "description": "KInputSwitch description here.",
   "main": "dist/KInputSwitch.umd.min.js",
   "componentName": "KInputSwitch",
@@ -23,9 +23,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kicon": "^8.0.0",
-    "@kongponents/kooltip": "^8.0.0",
-    "@kongponents/styles": "^8.0.0"
+    "@kongponents/kicon": "^9.0.0",
+    "@kongponents/kooltip": "^9.0.0",
+    "@kongponents/styles": "^9.0.0"
   },
   "peerDependencies": {
     "vue": ">= 2.7.0 < 3"
