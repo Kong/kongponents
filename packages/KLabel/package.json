@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/klabel",
-  "version": "9.0.0",
+  "version": "9.0.1",
   "description": "Form input label",
   "main": "dist/KLabel.umd.min.js",
   "componentName": "KLabel",
@@ -23,9 +23,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kicon": "^9.0.0",
-    "@kongponents/kooltip": "^9.0.0",
-    "@kongponents/styles": "^9.0.0"
+    "@kongponents/kicon": "^9.0.1",
+    "@kongponents/kooltip": "^9.0.1",
+    "@kongponents/styles": "^9.0.1"
   },
   "peerDependencies": {
     "vue": ">= 2.7.0 < 3"

@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kdropdownmenu",
-  "version": "9.0.0",
+  "version": "9.0.1",
   "description": "Dropdown Menu component",
   "main": "dist/KDropdownMenu.umd.min.js",
   "componentName": "KDropdownMenu",
@@ -28,10 +28,10 @@
     "vue-router": "^3.5.4"
   },
   "dependencies": {
-    "@kongponents/kbutton": "^9.0.0",
-    "@kongponents/kooltip": "^9.0.0",
-    "@kongponents/kpop": "^9.0.0",
-    "@kongponents/ktoggle": "^9.0.0",
-    "@kongponents/styles": "^9.0.0"
+    "@kongponents/kbutton": "^9.0.1",
+    "@kongponents/kooltip": "^9.0.1",
+    "@kongponents/kpop": "^9.0.1",
+    "@kongponents/ktoggle": "^9.0.1",
+    "@kongponents/styles": "^9.0.1"
   }
 }

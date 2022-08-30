@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kbutton",
-  "version": "9.0.0",
+  "version": "9.0.1",
   "description": "Button component",
   "main": "dist/KButton.umd.min.js",
   "componentName": "KButton",
@@ -27,7 +27,7 @@
     "vue-router": "^3.5.4"
   },
   "dependencies": {
-    "@kongponents/kicon": "^9.0.0",
-    "@kongponents/styles": "^9.0.0"
+    "@kongponents/kicon": "^9.0.1",
+    "@kongponents/styles": "^9.0.1"
   }
 }
