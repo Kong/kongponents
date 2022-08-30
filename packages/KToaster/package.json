@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/ktoaster",
-  "version": "7.0.1",
+  "version": "7.0.2",
   "description": "Toaster component.",
   "main": "dist/KToaster.umd.min.js",
   "componentName": "KToaster",
@@ -25,8 +25,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kalert": "^7.0.1",
-    "@kongponents/styles": "^7.0.1"
+    "@kongponents/kalert": "^7.0.2",
+    "@kongponents/styles": "^7.0.2"
   },
   "peerDependencies": {
     "vue": ">= 2.7.0 < 3"
