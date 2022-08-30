@@ -3,46 +3,6 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## 9.0.1 (2022-08-30)
-
-**Note:** Version bump only for package @kongponents/kclipboardprovider
-
-
-
-
-
-# 9.0.0 (2022-08-30)
-
-
-### Features
-
-* trigger version 7 release ([31ee8cc](https://github.com/Kong/kongponents/commit/31ee8cc633a47c849b863f7f485658e361173c65))
-
-
-### BREAKING CHANGES
-
-* Upgrade Kongponents for Vue 2.7 dependency
-
-
-
-
-
-# 8.0.0 (2022-08-30)
-
-
-### Features
-
-* trigger version 7 release ([2f4491e](https://github.com/Kong/kongponents/commit/2f4491e1dec236f0388e9db64001dff0e20744d7))
-
-
-### BREAKING CHANGES
-
-* Upgrade for Vue 2.7
-
-
-
-
-
 # 7.0.0-alpha.2 (2022-08-30)
 
 **Note:** Version bump only for package @kongponents/kclipboardprovider
