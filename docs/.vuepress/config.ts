@@ -55,10 +55,10 @@ export default defineUserConfig({
 
     navbar: [
       {
-        text: 'v7-beta for Vue 3',
+        text: 'v8-beta for Vue 3',
         children: [
           {
-            text: 'v6 for Vue 2',
+            text: 'v7 for Vue 2',
             link: 'https://kongponents.konghq.com',
           },
         ],
