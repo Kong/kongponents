@@ -10,7 +10,7 @@
       size="large"
       class="timepicker-input"
     >
-      {{ selectedTimeframe.timeframeText }}
+      {{ displayedRange }}
     </KButton>
     <template #content>
       <KSegmentedControl
@@ -26,7 +26,7 @@
         v-if="showCalendar"
         :attributes="attrs"
         :model-config="modelConfig"
-        v-model="selectimedTimeRange"
+        v-model="selectedCalendarRange"
         mode="dateTime"
         is-range
         is-expanded
@@ -77,28 +77,13 @@
 import KButton from '@kongponents/kbutton/KButton.vue'
 import KPop from '@kongponents/kpop/KPop.vue'
 import KSegmentedControl from '@kongponents/ksegmentedcontrol/KSegmentedControl.vue'
-import { roundToNearestMinutes, getUnixTime } from 'date-fns'
+import { format, fromUnixTime, getUnixTime, roundToNearestMinutes } from 'date-fns'
 
 const allowedTimePeriods = [
   {
     section: 'Last',
     timeframeText: '15 minutes',
     timeframeLength: 60 * 15
-  },
-  {
-    section: 'Last',
-    timeframeText: 'Hour',
-    timeframeLength: 60 * 60 * 1
-  },
-  {
-    section: 'Last',
-    timeframeText: '3 hours',
-    timeframeLength: 60 * 60 * 3
-  },
-  {
-    section: 'Last',
-    timeframeText: '6 hours',
-    timeframeLength: 60 * 60 * 6
   },
   {
     section: 'Last',
@@ -161,24 +146,23 @@ export default {
     return {
       allowedTimePeriods,
       mode: this.mode || 'custom',
-      selectimedTimeRange: this.selectimedTimeRange,
+      displayedRange: 'Please select a time range',
+      selectedCalendarRange: this.selectedCalendarRange,
       selectedTimeframe: this.value || this.allowedTimePeriods[0],
       modelConfig: {
         type: 'number'
       },
       attrs: [
         {
-          key: 'Any',
-          highlight: {
-            color: '#fff000',
-            backgroundColor: '#fff000',
-            fillMode: 'solid',
-            class: 'custom-highlight',
-            contentClass: 'custom-highlight'
-          },
-          content: {
-            class: 'custom-content',
-            contentClass: 'custom-content'
+          day: {
+            highlight: {
+              style: {
+                background: '#e500e3'
+              },
+              start: { class: 'k-day-start', fillMode: 'solid' },
+              base: { class: 'k-day-base', fillMode: 'solid' },
+              end: { class: 'k-day-end', fillMode: 'solid' }
+            }
           }
         }
       ]
@@ -192,13 +176,25 @@ export default {
   },
 
   watch: {
-    selectimedTimeRange: {
-      handler (newValue, oldValue) {
-        // console.warn('>>>> selectimedTimeRange watcher <<<')
-        // console.warn(newValue)
-      },
-      immediate: true
+    selectedCalendarRange (newVal) {
+      console.warn('>>>> selectedCalendarRange watcher <<<')
+      console.log(newVal.start)
+      console.log(newVal.end)
+
+      this.formatDisplayDate(Math.floor(newVal.start / 1000), Math.floor(newVal.end / 1000))
     }
+    //   handler (relativeTimeFrame) {
+    //     console.warn('>>>> selectedTimeFrame watcher <<<')
+    //     const end = getUnixTime(roundToNearestMinutes(Date.now()))
+    //     const start = end - this.selectedTimeframe.timeframeLength
+
+    //     console.log(start)
+    //     console.log(end)
+    //     console.log(relativeTimeFrame)
+    //     this.formatDisplayDate(start, end)
+    //   },
+    //   immediate: true
+    // }
   },
 
   methods: {
@@ -209,10 +205,20 @@ export default {
      */
     changeTimeframe (timeframe) {
       this.selectedTimeframe = timeframe
+
+      // Format the start/end values as human readable date
+      console.warn('>>>> changeTimeframe <<<')
+      const end = getUnixTime(roundToNearestMinutes(Date.now()))
+      const start = end - this.selectedTimeframe.timeframeLength
+
+      this.formatDisplayDate(start, end)
     },
     clearSelection () {
-      this.selectimedTimeRange = ''
+      this.selectedCalendarRange = ''
       this.selectedTimeframe = this.allowedTimePeriods[0]
+    },
+    formatDisplayDate (start, end) {
+      this.displayedRange = `${format(fromUnixTime(start), 'PP hh:mm a')} - ${format(fromUnixTime(end), 'PP hh:mm a')}`
     },
     submitTimeFrame () {
       console.warn('>>> submitTimeFrame')
@@ -221,8 +227,8 @@ export default {
 
       // If calendar currently shown, send start/end values
       if (this.showCalendar) {
-        start = Math.floor(this.selectimedTimeRange.start / 1000)
-        end = Math.floor(this.selectimedTimeRange.end / 1000)
+        start = Math.floor(this.selectedCalendarRange.start / 1000)
+        end = Math.floor(this.selectedCalendarRange.end / 1000)
       } else {
         end = getUnixTime(roundToNearestMinutes(Date.now()))
         start = end - this.selectedTimeframe.timeframeLength
@@ -230,7 +236,7 @@ export default {
 
       console.log({ start, end })
 
-      this.$emit('changed', { start, end })
+      // this.$emit('changed', { start, end })
     }
   }
 }
@@ -312,10 +318,22 @@ $margin: .2rem;
           .vc-month, .vc-day {
             color: rgba(color(grey-500), 1);
           }
+
+          .custom-highlight {
+            border: 2px solid black !important;
+          }
           // Time range highlight
           .vc-day .vc-highlights {
             .vc-highlight {
-              // background-color: rgba(color(blue-200), 1) !important;
+              // border: 1px solid red !important;
+
+              &.k-day-base {
+                // background-color: red !important;
+              }
+
+              &.vc-highlight-base-middle {
+                // background-color: rgba(color(blue-200), 1) !important;
+              }
 
               // start / end bubbles
               &.vc-highlight-base-start,
@@ -328,6 +346,7 @@ $margin: .2rem;
         }
       }
     }
+
   }
 }
 </style>
