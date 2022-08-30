@@ -11,10 +11,10 @@ module.exports = {
     searchPlaceholder: 'Search...',
     nav: [
       {
-        text: 'v6 for Vue 2',
+        text: 'v7 for Vue 2',
         items: [
           {
-            text: 'v7-beta for Vue 3',
+            text: 'v8-beta for Vue 3',
             link: 'https://beta.kongponents.konghq.com',
           },
         ],
