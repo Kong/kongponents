@@ -123,7 +123,7 @@ export default {
     return {
       mode: this.mode || 'custom',
       displayedRange: this.defaultMessage,
-      selectedCalendarRange: this.selectedCalendarRange,
+      selectedCalendarRange: this.defaultValue,
       selectedTimeframe: this.timePeriods[0],
       range: { start: '', end: '' },
       modelConfig: {
@@ -160,6 +160,8 @@ export default {
 
   watch: {
     selectedCalendarRange (newVal) {
+      console.log('>>>> selectedCalendarRange')
+      console.log(newVal)
       if (newVal) {
         this.formatDisplayDate(Math.floor(newVal.start / 1000), Math.floor(newVal.end / 1000))
       }
