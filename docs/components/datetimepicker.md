@@ -6,16 +6,16 @@
 
 ## Examples
 
-Calendar Display both a calendar and relative time frames
+Display both a calendar and relative time frames, passing in a preset week-long range.
 
 <KCard>
   <template v-slot:body>
-    <div class="mt-3">Selected: <pre>{{ currentValue1 }}</pre></div>
+    <div class="mt-3">Emitted value: <pre>{{ currentValue1 }}</pre></div>
     <KDateTimePicker
       @changed="newVal => currentValue1 = newVal"
       defaultMessage="Please select a date or time range"
       :timePeriods="exampleTimeFrames"
-      :defaultValue="defaultRange"
+      :defaultValue="defaultRangeWeek"
       v-model="currentValue1"
     />
   </template>
@@ -32,7 +32,7 @@ Calendar Display both a calendar and relative time frames
         ...
       ]
     },{
-      section: 'P',
+      section: 'Previous',
       values: [
         { timeframeText: '15 minutes', timeframeLength: 60*15 },
         ...
@@ -46,11 +46,11 @@ Calendar Display only - the `timePeriods` prop is omitted
 
 <KCard>
   <template v-slot:body>
-    <div class="mt-3">Selected: <pre>{{ currentValue2 }}</pre></div>
+    <div class="mt-3">Emitted value: <pre>{{ currentValue2 }}</pre></div>
     <KDateTimePicker
       @changed="newVal => currentValue2 = newVal"
       defaultMessage="Please select some dates"
-      :defaultValue="defaultRange"
+      :defaultValue="defaultRangeTwoDay"
       v-model="currentValue2"
     />
   </template>
@@ -98,7 +98,11 @@ export default {
       hasMounted: false,
       currentValue1: '',
       currentValue2: '',
-      defaultRange: {
+      defaultRangeTwoDay: {
+        start: new Date().getTime(),
+        end: new Date().getTime() - (2*24*60*60*1000)
+      },
+      defaultRangeWeek: {
         start: new Date().getTime(),
         end: new Date().getTime() - (7*24*60*60*1000)
       },
