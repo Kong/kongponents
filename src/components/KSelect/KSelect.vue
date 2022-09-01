@@ -544,7 +544,7 @@ export default defineComponent({
       selectItems.value = JSON.parse(JSON.stringify(props.items))
       for (let i = 0; i < selectItems.value.length; i++) {
         // Ensure each item has a `selected` property
-        if (selectItems.value[i].selected !== undefined) {
+        if (selectItems.value[i].selected === undefined) {
           selectItems.value[i].selected = false
         }
 
