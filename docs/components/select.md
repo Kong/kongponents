@@ -464,6 +464,12 @@ You can pass any input attribute and it will get properly bound to the element.
 
 ## Slots
 
+- `item-template` - The template for each item in the dropdown list
+- `loading` - Slot for the loading indicator
+- `empty` - Slot for the empty state in the dropdown list
+
+### Item Template
+
 You can use the `item-template` slot to customize the look and feel of your items. Use slots to gain access to the `item` data.
 
 If you use the `.select-item-label` and `.select-item-desc` classes within the slot as shown in the example below, the dropdown items will inherit preconfigured styles for two-level select items which you're then free to customize.
@@ -514,6 +520,14 @@ export default {
 }
 </script>
 ```
+
+### Loading
+
+You can use the `loading` slot to customize the loading indicator. Note that this only applies when `autoggest` is `true`. See [autosuggest](#autosuggest) for an example of this slot.
+
+### Empty State
+
+You can use the `empty` slot to customize the look of the dropdown list when there is no options. See [autosuggest](#autosuggest) for an example of this slot.
 
 ## Events
 
