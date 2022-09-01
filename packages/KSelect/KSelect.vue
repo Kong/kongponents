@@ -431,7 +431,7 @@ export default {
 
         for (let i = 0; i < this.selectItems.length; i++) {
           // Ensure each item has a `selected` property
-          if (!Object.hasOwn(this.selectItems[i], 'selected')) {
+          if (this.selectItems[i].selected !== undefined) {
             this.selectItems[i].selected = false
           }
 

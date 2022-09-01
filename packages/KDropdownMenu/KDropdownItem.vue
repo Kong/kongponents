@@ -50,7 +50,7 @@ export default {
       type: Object,
       default: null,
       // Items must have a label
-      validator: (item) => Object.hasOwn(item, 'label')
+      validator: (item) => item.label !== undefined
     },
     /**
      * Use this prop to add a divider above the item.
