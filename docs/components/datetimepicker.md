@@ -12,7 +12,6 @@ Display both a calendar and relative time frames, passing in a preset week-long 
 
 <KCard>
   <template v-slot:body>
-    <div class="mt-3">Emitted value: <pre>{{ currentValue1 }}</pre></div>
     <KDateTimePicker
       @changed="newVal => currentValue1 = newVal"
       defaultMessage="Please select a time range"
@@ -20,6 +19,7 @@ Display both a calendar and relative time frames, passing in a preset week-long 
       :defaultCustom="defaultRangeWeek"
       v-model="currentValue1"
     />
+    <div class="mt-6">Emitted value: <pre>{{ currentValue1 }}</pre></div>
   </template>
 </KCard>
 
@@ -51,16 +51,25 @@ Passing in a selected relative time frame value will default the component to de
 
 <KCard>
   <template v-slot:body>
-    <div class="mt-3">Emitted value: <pre>{{ currentValue1 }}</pre></div>
     <KDateTimePicker
-      @changed="newVal => currentValue1 = newVal"
+      @changed="newVal => currentValue2 = newVal"
       defaultMessage="Please select a time range"
       :timePeriods="exampleTimeFrames"
       :defaultTimeframe="defaultRelativeTimeframe"
-      v-model="currentValue1"
+      v-model="currentValue2"
     />
+    <div class="mt-6">Emitted value: <pre>{{ currentValue2 }}</pre></div>
   </template>
 </KCard>
+
+```html
+<KDateTimePicker
+  @changed="newVal => currentValue = newVal"
+  defaultMessage="Please select one of the time ranges below"
+  :timePeriods="exampleTimeFrames"
+  :defaultTimeframe="defaultRelativeTimeframe"
+/>
+```
 
 ### Custom ranges - show only the calendar
 
@@ -68,25 +77,24 @@ Calendar Display only - when the `timePeriods` prop is omitted, only the **Custo
 
 <KCard>
   <template v-slot:body>
-    <div class="mt-3">Emitted value: <pre>{{ currentValue2 }}</pre></div>
     <KDateTimePicker
-      @changed="newVal => currentValue2 = newVal"
+      @changed="newVal => currentValue3 = newVal"
       defaultMessage="Please select some dates"
       :defaultCustom="defaultRangeTwoDay"
-      v-model="currentValue2"
+      v-model="currentValue3"
     />
+    <div class="mt-6">Emitted value: <pre>{{ currentValue3 }}</pre></div>
   </template>
 </KCard>
 
 ```html
 <KDateTimePicker
-  @changed="newVal => currentValue2 = newVal"
+  @changed="newVal => currentValue = newVal"
   defaultMessage="Please select some dates"
   :defaultCustom="{
     start: new Date().getTime(),
     end: new Date().getTime() - (2*24*60*60*1000)
   }"
-  v-model="currentValue2"
 />
 ```
 
@@ -132,6 +140,7 @@ export default {
       hasMounted: false,
       currentValue1: '',
       currentValue2: '',
+      currentValue3: '',
       defaultRangeTwoDay: {
         start: new Date().getTime() - (2*24*60*60*1000),
         end: new Date().getTime()
@@ -171,7 +180,6 @@ export default {
   },
   mounted() {
     this.hasMounted = true
-    console.log(this.defaultRelativeTimeframe)
   }
 }
 </script>
