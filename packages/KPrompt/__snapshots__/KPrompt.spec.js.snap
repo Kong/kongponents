@@ -91,7 +91,7 @@ exports[`KPrompt has a pending state 1`] = `
           <div class="k-prompt-action-buttons"><button type="button" class="k-button k-prompt-cancel mr-2 medium rounded outline">
               <!---->
               Cancel
-              <!----></button> <button type="button" class="k-button k-prompt-proceed medium rounded primary" disabled="disabled"><span class="kong-icon kong-icon-spinner" viewbox="0 0 16 16"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!----></button> <button type="button" disabled="disabled" class="k-button k-prompt-proceed medium rounded primary"><span class="kong-icon kong-icon-spinner" viewbox="0 0 16 16"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
   <title>Loading</title>
   <g>
     <path d="M5 10a5 5 0 1 0 5-5" fill="none" stroke="#A3BBCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>

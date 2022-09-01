@@ -36,7 +36,7 @@ export default {
       type: Object,
       default: null,
       // Items must have a label and value
-      validator: (item) => item.hasOwnProperty('label') && item.hasOwnProperty('value')
+      validator: (item) => item.label !== undefined && item.value !== undefined
     },
     disabled: {
       type: Boolean,

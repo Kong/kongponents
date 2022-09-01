@@ -266,7 +266,7 @@ export default {
       required: false,
       default: () => [],
       // Items must have a label & value
-      validator: (items) => !items.length || items.some(i => i.hasOwnProperty('label') && i.hasOwnProperty('value'))
+      validator: (items) => !items.length || items.some(i => i.label !== undefined && i.value !== undefined)
     },
     /**
      * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
@@ -431,7 +431,7 @@ export default {
 
         for (let i = 0; i < this.selectItems.length; i++) {
           // Ensure each item has a `selected` property
-          if (!Object.hasOwn(this.selectItems[i], 'selected')) {
+          if (this.selectItems[i].selected === undefined) {
             this.selectItems[i].selected = false
           }
 

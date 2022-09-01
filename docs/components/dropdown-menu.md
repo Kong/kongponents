@@ -103,6 +103,20 @@ export default {
 </script>
 ```
 
+### buttonAppearance
+
+Use this prop to customize the trigger **KButton** [appearance](/components/button.html#appearance).
+
+<KDropdownMenu label="Documentation" button-appearance="creation" :items="deepClone(defaultItemsUnselected)" show-caret />
+
+```html
+<KDropdownMenu
+  label="Documentation"
+  button-appearance="creation"
+  :items="items"
+/>
+```
+
 ### showCaret
 
 Use this prop if you would like the trigger button to display the caret.
@@ -112,6 +126,20 @@ Use this prop if you would like the trigger button to display the caret.
 ```html
 <KDropdownMenu
   label="Documentation"
+  :items="items"
+  show-caret
+/>
+```
+
+### icon
+
+A string for the `KIcon` to be displayed on the dropdown button with or in place of the button label.
+
+<KDropdownMenu icon="cogwheel" :items="deepClone(defaultItemsUnselected)" show-caret />
+
+```html
+<KDropdownMenu
+  icon="cogwheel"
   :items="items"
   show-caret
 />

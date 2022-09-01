@@ -26,7 +26,7 @@ export default {
     steps: {
       type: Array,
       required: true,
-      validator: (items) => items.length && items.every(i => Object.hasOwn(i, 'label'))
+      validator: (items) => items.length && items.every(i => i.label !== undefined)
     },
     maxLabelWidth: {
       type: String,

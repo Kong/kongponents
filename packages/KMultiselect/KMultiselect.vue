@@ -103,7 +103,7 @@ export default {
       default: () => [],
       // Items must have a label and a selected property
       validator: (items) => items
-        .some(i => i.hasOwnProperty('label') && i.hasOwnProperty('selected'))
+        .some(i => i.label !== undefined && i.selected !== undefined)
     },
     /**
      * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
