@@ -1,35 +1,41 @@
 <template>
   <KPop
-    class="analytics-timepicker"
+    :hide-popover="hidePopover"
+    class="k-datetime-picker"
     placement="bottomStart"
     width="auto"
     hide-caret
+    position-fixed
+    @closed="handleClose"
   >
     <KButton
       :is-rounded="false"
       size="large"
       class="timepicker-input"
     >
-      {{ displayedRange }}
+      {{ abbreviatedDisplay }}
     </KButton>
-    <template #content>
+    <template
+      v-if="!hidePopover"
+      #content>
       <KSegmentedControl
         v-if="hasRelativeTimeframes"
-        v-model="mode"
+        v-model="tabName"
         :options="[
-          { label: 'Custom', value: 'custom' },
-          { label: 'Relative', value: 'relative' }
+          { label: 'Relative', value: 'relative' },
+          { label: 'Custom', value: 'custom' }
         ]"
         class="w-100 mb-5"
         data-testid="analytics-time-toggle"
       />
+      <p v-if="!showCalendar">{{ fullRangeDisplay }}</p>
       <DatePicker
         v-if="showCalendar"
-        :attributes="attrs"
+        :is-range="true"
+        :select-attribute="calendarSelectAttributes"
         :model-config="modelConfig"
         v-model="selectedCalendarRange"
         mode="dateTime"
-        is-range
         is-expanded
       />
       <div
@@ -51,7 +57,7 @@
               :data-testid="'select-timeframe-' + timeFrame.timeframeLength"
               appearance="outline"
               size="medium"
-              @click="changeTimeframe(timeFrame)"
+              @click="changeRelativeTimeframe(timeFrame)"
             >
               {{ timeFrame.timeframeText }}
             </KButton>
@@ -59,7 +65,9 @@
         </div>
       </div>
     </template>
-    <template #footer>
+    <template
+      v-if="!hidePopover"
+      #footer>
       <div class="d-flex justify-content-end">
         <KButton
           :is-rounded="false"
@@ -84,7 +92,6 @@
 </template>
 
 <script>
-// import { DatePicker } from 'v-calendar'
 import KButton from '@kongponents/kbutton/KButton.vue'
 import KPop from '@kongponents/kpop/KPop.vue'
 import KSegmentedControl from '@kongponents/ksegmentedcontrol/KSegmentedControl.vue'
@@ -101,11 +108,18 @@ export default {
   props: {
     defaultMessage: {
       type: String,
-      required: true
+      required: false,
+      default: 'Select a time range'
     },
-    defaultValue: {
+    defaultRelative: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    defaultCustom: {
       type: Object,
-      required: true
+      required: false,
+      default: () => {}
     },
     timePeriods: {
       type: Array,
@@ -115,100 +129,150 @@ export default {
   },
 
   data () {
-    console.warn(' >>> defaultValue: ')
-    console.log(this.defaultValue)
-    console.warn(' >>> timePeriods: ')
-    console.log(this.timePeriods)
+    console.warn(' >>> defaultCustom: ')
+    console.log(this.defaultCustom)
+
+    console.warn(' >>> defaultRelative: ')
+    console.log(this.defaultRelative)
 
     return {
-      mode: this.mode || 'custom',
-      displayedRange: this.defaultMessage,
-      selectedCalendarRange: this.defaultValue,
+      hidePopover: false,
+      tabName: this.tabName || 'custom',
+      abbreviatedDisplay: this.defaultMessage,
+      fullRangeDisplay: '',
+      selectedCalendarRange: this.defaultCustom,
       selectedTimeframe: this.timePeriods[0],
-      range: { start: '', end: '' },
+      selectedRange: { start: '', end: '' },
       modelConfig: {
         type: 'number'
       },
-      attrs: [
-        {
-          day: {
-            highlight: {
-              style: {
-                background: '#e500e3'
-              },
-              start: { class: 'k-day-start', fillMode: 'solid' },
-              base: { class: 'k-day-base', fillMode: 'solid' },
-              end: { class: 'k-day-end', fillMode: 'solid' }
-            }
-          }
+      calendarSelectAttributes: {
+        highlight: {
+          start: { class: 'vcal-day-start' },
+          base: { class: 'vcal-day-base' },
+          end: { class: 'vcal-day-end' },
+          day: { class: 'vcal-day-preselect' }
         }
-      ]
+      }
     }
   },
 
   computed: {
     showCalendar () {
-      return (this.mode === 'custom')
+      return (this.tabName === 'custom')
     },
     hasRelativeTimeframes () {
       return (this.timePeriods.length > 0)
     },
     submitDisabled () {
-      return (!this.range.start || !this.range.end)
+      return (!this.selectedRange.start || !this.selectedRange.end)
+    },
+    hasDefaultCustomValue () {
+      return (this.defaultCustom?.start && this.defaultCustom?.end)
+    },
+    getFullRangeDisplay () {
+      // TODO:
+      // default case: if defaultCustom is set, then call formatDisplayDate()
+      // post-button click:
+      return (this.showCalendar && this.hasDefaultCustomValue)
+        ? this.formatDisplayDate(this.defaultCustom)
+        : ''
+      /*
+      if (this.defaultCustom) {
+        console.log(this.formatDisplayDate(this.defaultCustom))
+      }
+      return this.defaultCustom
+        ? this.formatDisplayDate(this.defaultCustom)
+        : this.defaultMessage
+      */
     }
   },
 
   watch: {
+    // Updates input field's "human" date whenever relative timeframes are chosen
+    // Updates input field's "human" date whenever v-calendar value is touched
     selectedCalendarRange (newVal) {
-      console.log('>>>> selectedCalendarRange')
-      console.log(newVal)
       if (newVal) {
-        this.formatDisplayDate(Math.floor(newVal.start / 1000), Math.floor(newVal.end / 1000))
+        const range = { start: this.msToSec(newVal.start), end: this.msToSec(newVal.end) }
+
+        this.abbreviatedDisplay = this.formatDisplayDate(range)
       }
+    }
+  },
+
+  mounted () {
+    if (this.hasDefaultCustomValue) {
+      // selectedCalendarRange =
+      const range = {
+        start: this.msToSec(this.defaultCustom.start),
+        end: this.msToSec(this.defaultCustom.end)
+      }
+
+      this.abbreviatedDisplay = this.formatDisplayDate(range)
+    }
+
+    if (this.hasDefaultCustomValue) {
+      this.tabName = 'custom'
+    } else if (this.hasRelativeTimeframes) {
+      this.tabName = 'relative'
     }
   },
 
   methods: {
     /**
-     * TODO: Given a relative time frame, determine `start` and `end` timestamps in UTC
-     * https://bloop.ai/search/how-to-use-date-fns-library-round-to-nearest-minutes-in-javascript
+     * Updates both the input field value, and the full time frame readout
+     * when a relative time frame button is clicked
      * @param {*} timeframe
      */
-    changeTimeframe (timeframe) {
+    changeRelativeTimeframe (timeframe) {
       this.selectedTimeframe = timeframe
 
+      // Update input field text
+      this.abbreviatedDisplay = this.selectedTimeframe.timeframeText
+
       // Format the start/end values as human readable date
-      console.warn('>>>> changeTimeframe <<<')
+      console.warn('>>>> changeRelativeTimeframe <<<')
       const end = getUnixTime(roundToNearestMinutes(Date.now()))
       const start = end - this.selectedTimeframe.timeframeLength
 
-      this.formatDisplayDate(start, end)
+      this.fullRangeDisplay = this.formatDisplayDate({start, end})
     },
     clearSelection () {
       this.selectedCalendarRange = null
-      this.displayedRange = this.defaultMessage
-      this.range.start = ''
-      this.range.end = ''
+      this.abbreviatedDisplay = this.defaultMessage
+      this.fullRangeDisplay = ''
+      this.selectedRange = { start: '', end: '' }
       this.selectedTimeframe = this.timePeriods[0]
     },
-    formatDisplayDate (start, end) {
-      this.range = { start, end }
-      this.displayedRange = `${format(fromUnixTime(start), 'PP hh:mm a')} - ${format(fromUnixTime(end), 'PP hh:mm a')}`
+    formatDisplayDate (range) {
+      this.selectedRange = range
+      const { start, end } = range
+
+      return `${format(fromUnixTime(start), 'PP hh:mm a')} - ${format(fromUnixTime(end), 'PP hh:mm a')}`
     },
     submitTimeFrame () {
-      console.log(this.range)
-
-      this.$emit('changed', this.range)
+      this.$emit('changed', this.selectedRange)
+      this.$nextTick(() => {
+        this.hidePopover = true
+      })
+    },
+    msToSec (ts) {
+      return Math.floor(ts / 1000)
+    },
+    async handleClose () {
+      this.$nextTick(() => {
+        this.hidePopover = false
+      })
     }
   }
 }
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 $margin: .2rem;
 
-.analytics-timepicker {
+.k-datetime-picker {
   .timepicker-input {
     min-width: 22rem;
     padding: var(--spacing-sm) var(--spacing-xl) var(--spacing-sm) 40px !important;
@@ -222,18 +286,12 @@ $margin: .2rem;
       box-shadow: none !important;
     }
   }
-}
-</style>
-
-<style lang="scss">
-@import '~@kongponents/styles/variables';
-
-$margin: .2rem;
-
-.analytics-timepicker {
   .k-popover {
+    max-height: 90vh;
     min-width: 22rem;
-    padding: 1rem ;
+    overflow: auto;
+    padding: 1rem;
+
     .k-popover-content {
       .timeframe-section {
         .timeframe-buttons {
@@ -253,57 +311,58 @@ $margin: .2rem;
           }
         }
       }
-
-      // v-calendar overrides
-      .vc-container {
-        border: 0;
-        // AM / PM highlights
-        .vc-am-pm button.active {
-          background-color: rgba(color(blue-500), 1);
-        }
-        // Hide clock icon
-        .vc-time-icon {
-          display: none;
-        }
-        .vc-bordered {
-          border: 0;
-        }
-        .vc-pane-container {
-          .vc-month, .vc-day {
-            color: rgba(color(grey-500), 1);
-          }
-
-          .custom-highlight {
-            border: 2px solid black !important;
-          }
-          // Time range highlight
-          .vc-day .vc-highlights {
-            .vc-highlight {
-              // border: 1px solid red !important;
-
-              &.k-day-base {
-                // background-color: red !important;
-              }
-
-              &.vc-highlight-base-middle {
-                // background-color: rgba(color(blue-200), 1) !important;
-              }
-
-              // start / end bubbles
-              &.vc-highlight-base-start,
-              &.vc-highlight-base-end {
-                // border: 2px solid red !important;
-                // background-color: rgba(color(blue-500), 1) !important;
-              }
-            }
-          }
-        }
-      }
     }
     .k-popover-footer {
       margin: .75rem auto 0;
       button {
         padding: .25rem 1rem;
+      }
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+@import '~@kongponents/styles/variables';
+
+$margin: .2rem;
+
+// v-calendar overrides
+.k-datetime-picker {
+  .vc-container {
+    border: 0;
+    // AM / PM highlights
+    .vc-am-pm button.active {
+      background-color: rgba(color(blue-500), 1);
+    }
+    // Hide clock icon
+    .vc-time-icon {
+      display: none;
+    }
+    .vc-bordered {
+      border: 0;
+    }
+    .vc-pane-container {
+      .vc-month, .vc-day {
+        color: rgba(color(grey-500), 1);
+      }
+
+      .vc-highlights + .vc-day-content {
+        color: white;
+      }
+
+      // Time range highlights
+      .vc-highlight.vcal-day-start,
+      .vc-highlight.vcal-day-end {
+        background-color: rgba(color(blue-500), 1);
+        color: white;
+      }
+      .vc-highlight.vcal-day-base {
+        background-color: rgba(color(blue-200), 1) !important;
+      }
+
+      .vc-highlight {
+        background-color: rgba(color(blue-200), 1);
       }
     }
   }
