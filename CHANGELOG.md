@@ -1,3 +1,10 @@
+# [8.0.0-beta.2](https://github.com/Kong/kongponents/compare/v8.0.0-beta.1...v8.0.0-beta.2) (2022-09-01)
+
+
+### Bug Fixes
+
+* **kcard:** update font size for table in card ([b72ce31](https://github.com/Kong/kongponents/commit/b72ce3169d5aa51f34a9b8660128f73da34ecbd2))
+
 # [8.0.0-beta.1](https://github.com/Kong/kongponents/compare/v7.0.1...v8.0.0-beta.1) (2022-08-30)
 
 
