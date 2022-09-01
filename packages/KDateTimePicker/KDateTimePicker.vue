@@ -39,7 +39,7 @@
         is-expanded
       />
       <div
-        v-else-if="!showCalendar && hasRelativeTimeframes"
+        v-else-if="hasRelativeTimeframes"
         class="d-flex flex-column"
       >
         <div
