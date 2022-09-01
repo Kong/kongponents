@@ -24,7 +24,7 @@ exports[`KMultiselect matches snapshot 1`] = `
               Item 2
             </li>
           </ul>
-          <div class="k-multiselect-footer"><button type="button" class="k-button k-multiselect-apply small rounded secondary" disabled="disabled">
+          <div class="k-multiselect-footer"><button type="button" disabled="disabled" class="k-button k-multiselect-apply small rounded secondary">
               <!----> Apply
               <!----></button></div>
         </div>

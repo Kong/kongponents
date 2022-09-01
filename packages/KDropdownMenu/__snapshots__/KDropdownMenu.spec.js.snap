@@ -38,7 +38,7 @@ exports[`KDropdownMenu renders disabled props when passed 1`] = `
 <div class="k-dropdown k-dropdown-menu">
   <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button" data-testid="k-dropdown-menu-popover">
     <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button" class="k-dropdown-trigger dropdown-trigger">
-      <div><button type="button" class="k-button k-dropdown-btn medium rounded primary" disabled="disabled" data-testid="k-dropdown-btn">
+      <div><button type="button" disabled="disabled" class="k-button k-dropdown-btn medium rounded primary" data-testid="k-dropdown-btn">
           <!---->
           Click me
           <!----></button></div>
