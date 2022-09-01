@@ -41,7 +41,7 @@
                 v-if="label || icon"
                 :disabled="disabled"
                 :is-open="showCaret || appearance === 'selectionMenu' ? isToggled : undefined"
-                :appearance="appearance === 'selectionMenu' ? 'outline' : 'primary'"
+                :appearance="appearance === 'selectionMenu' ? 'outline' : buttonAppearance"
                 :icon="icon"
                 :class="{ 'is-active': showCaret ? isToggled : undefined }"
                 class="k-dropdown-btn"
@@ -111,6 +111,10 @@ export default {
           'selectionMenu'
         ].includes(value)
       }
+    },
+    buttonAppearance: {
+      type: String,
+      default: 'primary'
     },
     label: {
       type: String,
