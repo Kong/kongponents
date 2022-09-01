@@ -41,7 +41,7 @@ export default defineComponent({
       type: Object,
       default: null,
       // Items must have a label and value
-      validator: (item: Record<string, number | string>): boolean => Object.hasOwn(item, 'label') && Object.hasOwn(item, 'value'),
+      validator: (item: Record<string, number | string>): boolean => item.label !== undefined && item.value !== undefined,
     },
     disabled: {
       type: Boolean,

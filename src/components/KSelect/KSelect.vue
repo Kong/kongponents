@@ -299,7 +299,7 @@ export default defineComponent({
       required: false,
       default: () => [],
       // Items must have a label & value
-      validator: (items: SelectItem[]) => !items.length || items.some(i => Object.hasOwn(i, 'label') && Object.hasOwn(i, 'value')),
+      validator: (items: SelectItem[]) => !items.length || items.some(i => i.label !== undefined && i.value !== undefined),
     },
     /**
      * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
@@ -544,7 +544,7 @@ export default defineComponent({
       selectItems.value = JSON.parse(JSON.stringify(props.items))
       for (let i = 0; i < selectItems.value.length; i++) {
         // Ensure each item has a `selected` property
-        if (!Object.hasOwn(selectItems.value[i], 'selected')) {
+        if (selectItems.value[i].selected === undefined) {
           selectItems.value[i].selected = false
         }
 
