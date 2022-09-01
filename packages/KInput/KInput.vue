@@ -169,10 +169,10 @@ export default {
       return this.modelValueChanged ? `${this.currValue.toString().length} / ${this.characterLimit}` : `${this.value.toString().length} / ${this.characterLimit}`
     },
     isDisabled () {
-      return this.$attrs.hasOwnProperty('disabled')
+      return this.$attrs.disabled !== undefined
     },
     isReadonly () {
-      return this.$attrs.hasOwnProperty('readonly')
+      return this.$attrs.readonly !== undefined
     },
     listeners () {
       const listeners = { ...this.$listeners }

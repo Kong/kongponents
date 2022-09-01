@@ -266,7 +266,7 @@ export default {
       required: false,
       default: () => [],
       // Items must have a label & value
-      validator: (items) => !items.length || items.some(i => i.hasOwnProperty('label') && i.hasOwnProperty('value'))
+      validator: (items) => !items.length || items.some(i => i.label !== undefined && i.value !== undefined)
     },
     /**
      * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
