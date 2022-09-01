@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/ktabs",
-  "version": "7.0.2",
+  "version": "7.0.3",
   "description": "Tabs component.",
   "main": "dist/KTabs.umd.min.js",
   "componentName": "KTabs",
@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/styles": "^7.0.2"
+    "@kongponents/styles": "^7.0.3"
   },
   "peerDependencies": {
     "vue": ">= 2.7.0 < 3"
