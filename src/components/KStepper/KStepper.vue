@@ -33,7 +33,7 @@ export default defineComponent({
     steps: {
       type: Array as PropType<StepItem[]>,
       required: true,
-      validator: (items: StepItem[]) => !items.length || items.every(i => Object.hasOwn(i, 'label')),
+      validator: (items: StepItem[]) => !items.length || items.every(i => i.label !== undefined),
     },
     /**
      * Maximum width of each step's label

@@ -51,7 +51,7 @@ export default defineComponent({
       type: Object as PropType<DropdownItem>,
       default: null,
       // Items must have a label
-      validator: (item: DropdownItem) => Object.hasOwn(item, 'label'),
+      validator: (item: DropdownItem) => item.label !== undefined,
     },
     /**
      * Use this prop to add a divider above the item.
