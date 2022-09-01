@@ -367,7 +367,7 @@ export default defineComponent({
         return props.modelValue
       },
       set(newValue: string | number): void {
-        const item = props.items.filter((item: SelectItem) => item.value === newValue)
+        const item = selectItems.value.filter((item: SelectItem) => item.value === newValue)
         if (item.length) {
           handleItemSelect(item[0])
         } else if (!newValue) {
@@ -526,7 +526,7 @@ export default defineComponent({
 
     watch(value, (newVal, oldVal) => {
       if (newVal !== oldVal) {
-        const item = props.items.filter((item: SelectItem) => item.value === newVal)
+        const item = selectItems.value.filter((item: SelectItem) => item.value === newVal)
         if (item.length) {
           handleItemSelect(item[0])
         } else if (!newVal) {
