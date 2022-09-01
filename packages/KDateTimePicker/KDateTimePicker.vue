@@ -129,15 +129,9 @@ export default {
   },
 
   data () {
-    console.warn(' >>> defaultCustom: ')
-    console.log(this.defaultCustom)
-
-    console.warn(' >>> defaultRelative: ')
-    console.log(this.defaultRelative)
-
     return {
       hidePopover: false,
-      tabName: this.tabName || 'custom',
+      tabName: this.getDefaultTabName(),
       abbreviatedDisplay: this.defaultMessage,
       fullRangeDisplay: '',
       selectedCalendarRange: this.defaultCustom,
@@ -169,27 +163,10 @@ export default {
     },
     hasDefaultCustomValue () {
       return (this.defaultCustom?.start && this.defaultCustom?.end)
-    },
-    getFullRangeDisplay () {
-      // TODO:
-      // default case: if defaultCustom is set, then call formatDisplayDate()
-      // post-button click:
-      return (this.showCalendar && this.hasDefaultCustomValue)
-        ? this.formatDisplayDate(this.defaultCustom)
-        : ''
-      /*
-      if (this.defaultCustom) {
-        console.log(this.formatDisplayDate(this.defaultCustom))
-      }
-      return this.defaultCustom
-        ? this.formatDisplayDate(this.defaultCustom)
-        : this.defaultMessage
-      */
     }
   },
 
   watch: {
-    // Updates input field's "human" date whenever relative timeframes are chosen
     // Updates input field's "human" date whenever v-calendar value is touched
     selectedCalendarRange (newVal) {
       if (newVal) {
@@ -202,7 +179,6 @@ export default {
 
   mounted () {
     if (this.hasDefaultCustomValue) {
-      // selectedCalendarRange =
       const range = {
         start: this.msToSec(this.defaultCustom.start),
         end: this.msToSec(this.defaultCustom.end)
@@ -231,7 +207,6 @@ export default {
       this.abbreviatedDisplay = this.selectedTimeframe.timeframeText
 
       // Format the start/end values as human readable date
-      console.warn('>>>> changeRelativeTimeframe <<<')
       const end = getUnixTime(roundToNearestMinutes(Date.now()))
       const start = end - this.selectedTimeframe.timeframeLength
 
@@ -249,6 +224,9 @@ export default {
       const { start, end } = range
 
       return `${format(fromUnixTime(start), 'PP hh:mm a')} - ${format(fromUnixTime(end), 'PP hh:mm a')}`
+    },
+    getDefaultTabName () {
+      return (this.hasDefaultCustomValue ? 'custom' : 'relative')
     },
     submitTimeFrame () {
       this.$emit('changed', this.selectedRange)
