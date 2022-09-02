@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 7.0.4 (2022-09-02)
+
+
+### Bug Fixes
+
+* **ktable:** client sorting with number values ([#775](https://github.com/Kong/kongponents/issues/775)) ([22efd29](https://github.com/Kong/kongponents/commit/22efd290a0f3954332ea2e8131520da519ae17b6))
+
+
+
+
+
 ## 7.0.3 (2022-09-01)
 
 
