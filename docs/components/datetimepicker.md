@@ -55,7 +55,7 @@ Passing in a selected relative time frame value will default the component to de
       @changed="newVal => currentValue2 = newVal"
       defaultMessage="Please select a time range"
       :timePeriods="exampleTimeFrames"
-      :defaultTimeframe="defaultRelativeTimeframe"
+      :defaultRelative="defaultRelativeTimeframe"
       v-model="currentValue2"
     />
     <div class="mt-6">Emitted value: <pre>{{ currentValue2 }}</pre></div>
@@ -67,7 +67,7 @@ Passing in a selected relative time frame value will default the component to de
   @changed="newVal => currentValue = newVal"
   defaultMessage="Please select one of the time ranges below"
   :timePeriods="exampleTimeFrames"
-  :defaultTimeframe="defaultRelativeTimeframe"
+  :defaultRelative="defaultRelativeTimeframe"
 />
 ```
 
@@ -134,6 +134,11 @@ User-facing messaging that encourages the user to click things
 </div>
 
 <script>
+import { TimePeriods, TimeframeKeys } from '@kongponents/KDateTimePicker/TimeFrames'
+
+console.log(TimePeriods)
+console.log(TimeframeKeys)
+
 export default {
   data() {
     return {
@@ -175,7 +180,7 @@ export default {
   },
   computed: {
     defaultRelativeTimeframe () {
-      return this.exampleTimeFrames[0].values.find(k => k.timeframeText === '24 hours')
+      return this.exampleTimeFrames[0].values.find(k => k.timeframeText === '12 hours')
     }
   },
   mounted() {
