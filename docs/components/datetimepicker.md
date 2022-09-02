@@ -19,7 +19,7 @@ Display both a calendar and relative time frames, passing in a preset week-long 
       :defaultCustom="defaultRangeWeek"
       v-model="currentValue1"
     />
-    <div class="mt-6">Emitted value: <pre>{{ currentValue1 }}</pre></div>
+    <div class="mt-6">Emitted value: <pre>{{ JSON.stringify(currentValue1) }}</pre></div>
   </template>
 </KCard>
 
@@ -58,7 +58,7 @@ Passing in a selected relative time frame value will default the component to de
       :defaultRelative="defaultRelativeTimeframe"
       v-model="currentValue2"
     />
-    <div class="mt-6">Emitted value: <pre>{{ currentValue2 }}</pre></div>
+    <div class="mt-6">Emitted value: <pre>{{ JSON.stringify(currentValue2) }}</pre></div>
   </template>
 </KCard>
 
@@ -83,7 +83,7 @@ Calendar Display only - when the `timePeriods` prop is omitted, only the **Custo
       :defaultCustom="defaultRangeTwoDay"
       v-model="currentValue3"
     />
-    <div class="mt-6">Emitted value: <pre>{{ currentValue3 }}</pre></div>
+    <div class="mt-6">Emitted value: <pre>{{ JSON.stringify(currentValue3) }}</pre></div>
   </template>
 </KCard>
 
@@ -136,8 +136,37 @@ User-facing messaging that encourages the user to click things
 <script>
 import { TimePeriods, TimeframeKeys } from '../../docs/.vuepress/utils/KDatePickerMockData'
 
-console.log(TimePeriods)
-console.log(TimeframeKeys)
+const exampleTimeFrames = [
+  {
+    section: 'Last',
+    values: [
+      TimePeriods.get(TimeframeKeys.FIFTEEN_MIN),
+      TimePeriods.get(TimeframeKeys.ONE_HOUR),
+      TimePeriods.get(TimeframeKeys.THREE_HOUR),
+      TimePeriods.get(TimeframeKeys.SIX_HOUR),
+      TimePeriods.get(TimeframeKeys.TWELVE_HOUR),
+      TimePeriods.get(TimeframeKeys.ONE_DAY),
+      TimePeriods.get(TimeframeKeys.SEVEN_DAY),
+      TimePeriods.get(TimeframeKeys.THIRTY_DAY)
+    ]
+  },
+  {
+    section: 'Current',
+    values: [
+      TimePeriods.get(TimeframeKeys.CURRENT_WEEK),
+      TimePeriods.get(TimeframeKeys.CURRENT_MONTH)
+    ]
+  },
+  {
+    section: 'Previous',
+    values: [
+      TimePeriods.get(TimeframeKeys.PREVIOUS_WEEK),
+      TimePeriods.get(TimeframeKeys.PREVIOUS_MONTH)
+    ]
+  }
+]
+
+console.log(exampleTimeFrames)
 
 export default {
   data() {
@@ -156,31 +185,13 @@ export default {
       },
       minDate: 'Tue Aug 31 2023 17:09:43 GMT-0400 (Eastern Daylight Time)',
       maxDate: 'Mon Apr 4 2021 10:09:43 GMT-0400 (Eastern Daylight Time)',
-      exampleTimeFrames: [
-        {
-          section: 'Last',
-          values: [
-            { timeframeText: '15 minutes', timeframeLength: 60*15 },
-            { timeframeText: '12 hours', timeframeLength: 60*60*12 },
-            { timeframeText: '24 hours', timeframeLength: 60*60*24 },
-            { timeframeText: '7 days', timeframeLength: 60*60*24*7 },
-            { timeframeText: '30 days', timeframeLength: 60*60*24*30 },
-            { timeframeText: '90 days', timeframeLength: 60*60*24*90 }
-          ]
-        },
-        {
-          section: 'Previous',
-          values: [
-            { timeframeText: 'Week', timeframeLength: 60*60*24*14 },
-            // { timeframeText: 'Quarter', timeframeLength: 60*60*24*90 }
-          ]
-        }
-      ]
+      exampleTimeFrames
     }
   },
   computed: {
     defaultRelativeTimeframe () {
-      return this.exampleTimeFrames[0].values.find(k => k.timeframeText === '12 hours')
+      console.log(TimePeriods.get(TimeframeKeys.ONE_DAY))
+      return TimePeriods.get(TimeframeKeys.ONE_DAY)
     }
   },
   mounted() {
@@ -188,3 +199,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+pre {
+  white-space: pre-wrap;
+}
+</style>
