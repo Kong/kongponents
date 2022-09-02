@@ -1,3 +1,10 @@
+# [8.0.0-beta.6](https://github.com/Kong/kongponents/compare/v8.0.0-beta.5...v8.0.0-beta.6) (2022-09-02)
+
+
+### Bug Fixes
+
+* backport [#771](https://github.com/Kong/kongponents/issues/771) ([#781](https://github.com/Kong/kongponents/issues/781)) ([0e81fb4](https://github.com/Kong/kongponents/commit/0e81fb47cbd2df0d34e9484e83f50c6788e960ae))
+
 # [8.0.0-beta.5](https://github.com/Kong/kongponents/compare/v8.0.0-beta.4...v8.0.0-beta.5) (2022-09-02)
 
 
