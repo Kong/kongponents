@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/Kong/kongponents.git"
   },
-  "homepage": "https://kongponents.konghq.com/",
+  "homepage": "https://beta.kongponents.konghq.com/",
   "main": "./dist/kongponents.umd.js",
   "module": "./dist/kongponents.es.js",
   "files": [
@@ -21,7 +21,9 @@
     ".": {
       "import": "./dist/kongponents.es.js",
       "require": "./dist/kongponents.umd.js"
-    }
+    },
+    "./dist/style.css": "./dist/style.css",
+    "./dist/_variables.scss": "./dist/_variables.scss"
   },
   "scripts": {
     "build:cli": "rimraf ./bin && tsc --project ./cli/tsconfig.json && chmod u+x ./bin/index.js",

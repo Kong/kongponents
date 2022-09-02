@@ -1,3 +1,19 @@
+# [8.0.0-beta.6](https://github.com/Kong/kongponents/compare/v8.0.0-beta.5...v8.0.0-beta.6) (2022-09-02)
+
+
+### Bug Fixes
+
+* backport [#771](https://github.com/Kong/kongponents/issues/771) ([#781](https://github.com/Kong/kongponents/issues/781)) ([0e81fb4](https://github.com/Kong/kongponents/commit/0e81fb47cbd2df0d34e9484e83f50c6788e960ae))
+
+# [8.0.0-beta.5](https://github.com/Kong/kongponents/compare/v8.0.0-beta.4...v8.0.0-beta.5) (2022-09-02)
+
+
+### Bug Fixes
+
+* not being able to import style.css ([#780](https://github.com/Kong/kongponents/issues/780)) ([d6eb251](https://github.com/Kong/kongponents/commit/d6eb25140670333fe2dcf9b69ed1f3c5ee03ccdd))
+* trigger release ([13a2a33](https://github.com/Kong/kongponents/commit/13a2a337f4b1052531d05afb0b4fa07dfb923b44))
+* update commitlint config ([7912bec](https://github.com/Kong/kongponents/commit/7912bec7f1d7b4b1d0ad14ab3080261a2c7d516a))
+
 # [8.0.0-beta.4](https://github.com/Kong/kongponents/compare/v8.0.0-beta.3...v8.0.0-beta.4) (2022-09-02)
 
 

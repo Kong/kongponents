@@ -1,6 +1,7 @@
 <template>
   <a
     v-if="typeof to === 'string'"
+    :disabled="disabled ? disabled : undefined"
     :type="type"
     :href="to"
     :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance]"
@@ -33,6 +34,7 @@
   <component
     :is="buttonType"
     v-else
+    :disabled="disabled ? disabled : undefined"
     :type="type"
     :to="to"
     :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance, caretClasses]"
@@ -48,6 +50,7 @@
         size="16"
       />
     </slot>
+
     <slot />
 
     <KIcon
@@ -131,6 +134,10 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   setup(props, { attrs, slots }) {
@@ -147,7 +154,7 @@ export default defineComponent({
     const buttonType = computed((): string => props.to ? 'router-link' : 'button')
 
     const iconColor = computed((): string => {
-      if (attrs.disabled) {
+      if (props.disabled) {
         return 'var(--grey-400)'
       } else if (['primary', 'danger', 'creation'].includes(props.appearance)) {
         return 'white'
@@ -170,7 +177,7 @@ export default defineComponent({
      * which is greyed out and cannot be interacted with.
      */
     const strippedAttrs = computed((): typeof attrs => {
-      if (attrs.disabled !== undefined && attrs.disabled !== false) {
+      if (props.disabled !== undefined && props.disabled !== false) {
         return attrs
       }
 

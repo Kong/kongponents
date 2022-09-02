@@ -87,7 +87,7 @@ import { createApp } from 'vue'
 import Kongponents from '@kong/kongponents'
 
 // Import Kongponents styles (path may vary)
-import '../node_modules/@kong/kongponents/dist/style.css'
+import '@kong/kongponents/dist/style.css'
 
 const app = createApp(App)
 
@@ -113,7 +113,7 @@ Import and registration can be done globally in your Vue entry file (e.g. `main.
   import { KButton } from '@kong/kongponents'
 
   // Import Kongponents styles (path may vary, shown here for Vite)
-  import '../node_modules/@kong/kongponents/dist/style.css'
+  import '@kong/kongponents/dist/style.css'
   // If using Vue-CLI and webpack, you can likely use this path instead: import '~@kong/kongponents/dist/style.css'
 
   const app = createApp(App)
@@ -143,7 +143,7 @@ Import and registration can be done globally in your Vue entry file (e.g. `main.
 
   <style>
   /* Import Kongponents styles (path may vary, shown here for Vite) */
-  @import "../../node_modules/@kong/kongponents/dist/style.css";
+  @import "@kong/kongponents/dist/style.css";
   /* If using Vue-CLI and webpack, you can likely use this path instead: import '~@kong/kongponents/dist/style.css' */
   </style>
   ```
