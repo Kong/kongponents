@@ -1138,6 +1138,42 @@
   dependencies:
     tailwindcss "npm:@tailwindcss/postcss7-compat"
 
+"@kongponents/kbutton@^6.40.2", "@kongponents/kbutton@^6.40.3":
+  version "6.40.3"
+  resolved "https://registry.npmjs.org/@kongponents/kbutton/-/kbutton-6.40.3.tgz#2d03459346f62ca3a1c68c5f3df1c452cc36be05"
+  integrity sha512-ie+f4nDxeGe+NNfkKZb7ObePcIPO9g1/aXZUpKP78PFu9/46PRsLubIBqZlw/iWwN2WgWtxNWBwBWev9fNKCxw==
+  dependencies:
+    "@kongponents/kicon" "^6.40.3"
+    "@kongponents/styles" "^6.40.3"
+
+"@kongponents/kicon@^6.40.3":
+  version "6.40.3"
+  resolved "https://registry.npmjs.org/@kongponents/kicon/-/kicon-6.40.3.tgz#7f792b63cc99154853dad3c5eb86fe2639e78543"
+  integrity sha512-ZIrnO5T1uJBDxPa9JQISV2ptrI8xL/HjajSiOE9ALRn5iIpiBdbq8HjaH7kEQdQW0yJY74Ny8jv9kQ/pSLHJpQ==
+
+"@kongponents/kpop@^6.40.2":
+  version "6.40.3"
+  resolved "https://registry.npmjs.org/@kongponents/kpop/-/kpop-6.40.3.tgz#ce4ba50a1ec622fdae4a3867cc3583a1a347f315"
+  integrity sha512-5C3EXtF4yC8frx+UmaUjCQ9aZOj9kh8KaTsr1BdiHG24kbrqtrha+wl3GzAdU/wajnaptqD/Qcvg4xD2h3irkg==
+  dependencies:
+    "@kongponents/kbutton" "^6.40.3"
+    "@kongponents/styles" "^6.40.3"
+    popper.js "^1.15.0"
+    vue-uuid "^2.0.2"
+
+"@kongponents/ksegmentedcontrol@^6.40.2":
+  version "6.40.3"
+  resolved "https://registry.npmjs.org/@kongponents/ksegmentedcontrol/-/ksegmentedcontrol-6.40.3.tgz#36723a5b4343188cd4f2e10c6d735464a016f861"
+  integrity sha512-o3+3H+Laf2gl41xfT0kWl4V5L594CAvBRZOi+4MQAOoeofZ5wBJNsiRikl7YrJPXbAftfy1cGwz33/RcUjQ/Nw==
+  dependencies:
+    "@kongponents/kbutton" "^6.40.3"
+    "@kongponents/styles" "^6.40.3"
+
+"@kongponents/styles@^6.40.2", "@kongponents/styles@^6.40.3":
+  version "6.40.3"
+  resolved "https://registry.npmjs.org/@kongponents/styles/-/styles-6.40.3.tgz#1359a96eb0f7b7a2aac6c4bfdd1492ed92b2f420"
+  integrity sha512-d+J59YAq0fnNXx4lDQC8wRrKpEjytYLCRyl4KXlZrxTx6oJz2IPcnaesOJV9ATtRoQzwpmsYNFan7jqWhjZ/4w==
+
 "@lerna/add@4.0.0":
   version "4.0.0"
   resolved "https://registry.npmjs.org/@lerna/add/-/add-4.0.0.tgz#c36f57d132502a57b9e7058d1548b7a565ef183f"
