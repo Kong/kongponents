@@ -24,7 +24,7 @@ Next, add the following to your Vue app entry file (e.g. `main.ts`)
 
 ```ts
 // Path may vary
-import '../node_modules/@kong/kongponents/dist/style.css'
+import '@kong/kongponents/dist/style.css'
 // If using Vue-CLI and webpack, you can likely use this path instead:
 // import '~@kong/kongponents/dist/style.css'
 ```
@@ -35,7 +35,7 @@ Alternatively, you can import styles into your `SCSS`
 
 ```scss
 // Path may vary
-@import "../../node_modules/@kong/kongponents/dist/style.css";
+@import "@kong/kongponents/dist/style.css";
 /*
 If using Vue-CLI and webpack, you can likely use this path instead:
 import '~@kong/kongponents/dist/style.css'
@@ -56,14 +56,14 @@ You can even **scope** the styles and/or variables to a container class to preve
 @use "sass:meta";
 
 // Import Kongponents Sass variables (path may vary)
-@import "../../../node_modules/@kong/kongponents/dist/_variables.scss";
+@import "@kong/kongponents/dist/_variables.scss";
 
 .your-custom-container {
   // Include Kongponents CSS Variables mixin from the import above
   @include kongponents-css-variables;
 
   // Import Kongponents styles (path may vary)
-  @include meta.load-css("../../../node_modules/@kong/kongponents/dist/style.css");
+  @include meta.load-css("@kong/kongponents/dist/style.css");
 
   // Additional CSS rules for your app
   color: #333;
