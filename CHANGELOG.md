@@ -1,3 +1,10 @@
+# [8.0.0-beta.7](https://github.com/Kong/kongponents/compare/v8.0.0-beta.6...v8.0.0-beta.7) (2022-09-02)
+
+
+### Bug Fixes
+
+* **ktable:** client sorting with number values ([#774](https://github.com/Kong/kongponents/issues/774)) ([aacc7fc](https://github.com/Kong/kongponents/commit/aacc7fce3a79aa5a3405986e9733d53c24248f3a))
+
 # [8.0.0-beta.6](https://github.com/Kong/kongponents/compare/v8.0.0-beta.5...v8.0.0-beta.6) (2022-09-02)
 
 
