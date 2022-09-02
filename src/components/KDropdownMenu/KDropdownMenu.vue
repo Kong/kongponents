@@ -29,10 +29,11 @@
             <!-- Must wrap in div to allow tooltip when disabled -->
             <div>
               <KButton
-                v-if="label"
+                v-if="label || icon"
                 :disabled="disabled"
                 :is-open="showCaret || appearance === 'selectionMenu' ? isToggled.value : undefined"
-                :appearance="appearance === 'selectionMenu' ? 'outline' : 'primary'"
+                :appearance="appearance === 'selectionMenu' ? 'outline' : buttonAppearance"
+                :icon="icon"
                 :class="{ 'is-active': showCaret ? isToggled.value : undefined }"
                 class="k-dropdown-btn"
                 data-testid="k-dropdown-btn"
@@ -107,7 +108,15 @@ export default defineComponent({
       default: 'menu',
       validator: (value: string) => ['menu', 'selectionMenu'].includes(value),
     },
+    buttonAppearance: {
+      type: String,
+      default: 'primary',
+    },
     label: {
+      type: String,
+      default: '',
+    },
+    icon: {
       type: String,
       default: '',
     },
