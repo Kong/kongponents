@@ -112,9 +112,9 @@ export default {
       default: 'Select a time range'
     },
     defaultRelative: {
-      type: String,
+      type: Object,
       required: false,
-      default: ''
+      default: () => {}
     },
     defaultCustom: {
       type: Object,
@@ -163,6 +163,11 @@ export default {
     },
     hasDefaultCustomValue () {
       return (this.defaultCustom?.start && this.defaultCustom?.end)
+    },
+    defaultTimeframe () {
+      return (this.defaultRelative?.timeframeText && this.defaultRelative?.timeframeLength)
+        ? this.defaultRelative
+        : null
     }
   },
 
@@ -178,6 +183,17 @@ export default {
   },
 
   mounted () {
+    console.warn(' >>> defaultRelative: ')
+    console.log(this.defaultRelative)
+
+    // Select the tab based on incoming defaults
+    if (this.hasDefaultCustomValue) {
+      this.tabName = 'custom'
+    } else if (this.hasRelativeTimeframes) {
+      this.tabName = 'relative'
+    }
+
+    // Set default value to be displayed in the input field
     if (this.hasDefaultCustomValue) {
       const range = {
         start: this.msToSec(this.defaultCustom.start),
@@ -185,12 +201,8 @@ export default {
       }
 
       this.abbreviatedDisplay = this.formatDisplayDate(range)
-    }
-
-    if (this.hasDefaultCustomValue) {
-      this.tabName = 'custom'
-    } else if (this.hasRelativeTimeframes) {
-      this.tabName = 'relative'
+    } else if (this.defaultTimeframe) {
+      this.changeRelativeTimeframe(this.defaultTimeframe)
     }
   },
 
