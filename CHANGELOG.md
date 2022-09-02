@@ -1,3 +1,10 @@
+# [8.0.0-beta.4](https://github.com/Kong/kongponents/compare/v8.0.0-beta.3...v8.0.0-beta.4) (2022-09-02)
+
+
+### Bug Fixes
+
+* **kselect:** selected style when using v-model ([#776](https://github.com/Kong/kongponents/issues/776)) ([396aeed](https://github.com/Kong/kongponents/commit/396aeed66f4a849335d8acc061e2b4025fbf6e78))
+
 # [8.0.0-beta.3](https://github.com/Kong/kongponents/compare/v8.0.0-beta.2...v8.0.0-beta.3) (2022-09-01)
 
 
