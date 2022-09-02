@@ -40,7 +40,7 @@ describe('Client-side sorting (deprecated in favor of server-side sorting)', () 
         id: '410ecd35-696e-4e7a-ad35-c69bd4e14cbb',
         username: 'henry'
       }, {
-        custom_id: 145,
+        custom_id: 0,
         id: '410ecd35-696e-4e7a-ad35-c69bd4e14cb3',
         username: 'bobby'
       }, {
@@ -53,7 +53,7 @@ describe('Client-side sorting (deprecated in favor of server-side sorting)', () 
     let { previousKey: sortKey1, sortOrder: sortOrder1 } = clientSideSorter('custom_id', '', 'ascending', items)
 
     expect(items[0].username).toEqual('bobby')
-    expect(items[0].custom_id).toEqual(145)
+    expect(items[0].custom_id).toEqual(0)
     expect(sortKey1).toEqual('custom_id')
     expect(sortOrder1).toEqual('ascending')
 

@@ -49,7 +49,7 @@ export const clientSideSorter = (key, previousKey, sortOrder, items) => {
   let comparator = null
 
   const numberComparator = (a, b) => {
-    if (a && b) {
+    if (typeof b === 'number' && !Number.isNaN(a) && !Number.isNaN(b)) {
       return a - b
     }
 
