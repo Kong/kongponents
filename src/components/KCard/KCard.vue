@@ -211,6 +211,12 @@ export default defineComponent({
     width: 100%;
   }
 
+  .k-card-content .k-table td,
+  .k-card-content table td,
+  .k-card-content :deep(.k-table) td {
+    font-size: var(--type-md);
+  }
+
   .k-card-notifications {
     margin-left: auto;
     margin-top: auto;

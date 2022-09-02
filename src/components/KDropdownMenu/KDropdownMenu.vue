@@ -131,7 +131,7 @@ export default defineComponent({
     items: {
       type: Array as PropType<Array<DropdownItem>>,
       default: () => [],
-      validator: (items: DropdownItem[]) => !items.length || items.some(i => Object.hasOwn(i, 'label')),
+      validator: (items: DropdownItem[]) => !items.length || items.some(i => i.label !== undefined),
     },
     disabled: {
       type: Boolean,
