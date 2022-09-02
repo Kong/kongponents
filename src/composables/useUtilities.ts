@@ -60,8 +60,8 @@ export default function useUtilities() {
   const clientSideSorter = (key: string, previousKey: string, sortOrder: string, items: []) => {
     let comparator = null
 
-    const numberComparator = (a: number, b: number) => {
-      if (a && b) {
+    const numberComparator = (a: number, b: number | string) => {
+      if (typeof b === 'number' && !Number.isNaN(a) && !Number.isNaN(b)) {
         return a - b
       }
 
