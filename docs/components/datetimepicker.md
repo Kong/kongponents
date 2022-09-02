@@ -134,7 +134,7 @@ User-facing messaging that encourages the user to click things
 </div>
 
 <script>
-import { TimePeriods, TimeframeKeys } from '@kongponents/KDateTimePicker/TimeFrames'
+import { TimePeriods, TimeframeKeys } from '../../docs/.vuepress/utils/KDatePickerMockData'
 
 console.log(TimePeriods)
 console.log(TimeframeKeys)

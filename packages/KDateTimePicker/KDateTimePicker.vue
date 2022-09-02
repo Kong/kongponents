@@ -321,10 +321,20 @@ $margin: .2rem;
 .k-datetime-picker {
   .vc-container {
     border: 0;
-    // AM / PM highlights
-    .vc-am-pm button.active {
-      background-color: rgba(color(blue-500), 1);
-    }
+
+    // Color variable overrides
+    --blue-200: var(--blue-200, color(blue-200));
+    --blue-300: var(--blue-300, color(blue-300));
+    --blue-400: var(--blue-400, color(blue-400));
+    --blue-500: var(--blue-500, color(blue-500));
+    --blue-600: var(--blue-600, color(blue-600));
+    --blue-700: var(--blue-700, color(blue-700));
+    --grey-300: var(--grey-300, color(grey-300));
+    --grey-400: var(--grey-400, color(grey-400));
+    --grey-500: var(--grey-500, color(grey-500));
+
+    $highlight-color: color(blue-200);
+
     // Hide clock icon
     .vc-time-icon {
       display: none;
@@ -333,26 +343,47 @@ $margin: .2rem;
       border: 0;
     }
     .vc-pane-container {
+      //
+      // Time Range
+      //
       .vc-month, .vc-day {
-        color: rgba(color(grey-500), 1);
+        color: color(grey-500);
+      }
+      // AM / PM highlights
+      .vc-am-pm button.active {
+        background-color: color(blue-500);
+        &:active,
+        &:hover,
+        &:focus {
+          border-color: color(blue-300);
+          background-color: color(blue-300);
+        }
       }
 
+      //
+      // Date Range - Post selection
+      //
+      .vc-highlight.vcal-day-start,
+      .vc-highlight.vcal-day-end {
+        background-color: color(blue-500);
+        color: white;
+      }
+      .vc-highlight.vcal-day-base,
+      .vc-highlight.vc-highlight-base-middle {
+        background-color: $highlight-color !important;
+      }
       .vc-highlights + .vc-day-content {
         color: white;
       }
 
-      // Time range highlights
-      .vc-highlight.vcal-day-start,
-      .vc-highlight.vcal-day-end {
-        background-color: rgba(color(blue-500), 1);
-        color: white;
-      }
-      .vc-highlight.vcal-day-base {
-        background-color: rgba(color(blue-200), 1) !important;
-      }
+      //
+      // Date Range - during selection
+      //
 
-      .vc-highlight {
-        background-color: rgba(color(blue-200), 1);
+      // Start / end
+      .vc-highlight.vc-highlight-base-start,
+      .vc-highlight.vc-highlight-base-end {
+        background-color: $highlight-color !important;
       }
     }
   }
