@@ -1,5 +1,3 @@
-import { getUnixTime } from 'date-fns'
-
 const CHART_DATA_REQUEST_TRIM = 10
 
 export const TimeframeKeys = {
@@ -11,7 +9,6 @@ export const TimeframeKeys = {
   ONE_DAY: '24h',
   SEVEN_DAY: '7d',
   THIRTY_DAY: '30d',
-  NINTY_DAY: '90d',
   CURRENT_WEEK: 'current_week',
   CURRENT_MONTH: 'current_month',
   CURRENT_QUARTER: 'current_quarter',
@@ -21,20 +18,24 @@ export const TimeframeKeys = {
 }
 
 export class Timeframe {
+  timeframeLength
+  timeframeText 
+
   constructor (opts) {
-    this.opts = opts
+    this.timeframeLength = opts.timeframeLength
+    this.timeframeText = opts.timeframeText
   }
 
   end () {
-    return getUnixTime(Date.now()) - CHART_DATA_REQUEST_TRIM
+    return Date.now() - CHART_DATA_REQUEST_TRIM
   }
 
   start () {
-    return this.end() - this.opts.timeframeLength()
+    return this.end() - this.timeframeLength()
   }
 
   deltaStart () {
-    return this.end() - (2 * this.opts.timeframeLength())
+    return this.end() - (2 * this.timeframeLength())
   }
 }
 
@@ -44,8 +45,8 @@ class PreviousWeek extends Timeframe {
 
     lastMonday.setDate(lastMonday.getDate() - (lastMonday.getDay() + 13) % 14)
     lastMonday.setHours(23, 59, 59)
-
-    return getUnixTime(lastMonday.getTime())
+    
+    return lastMonday.getTime()
   }
 }
 
@@ -58,7 +59,7 @@ class PreviousMonth extends Timeframe {
 
     lastDayOfMonth.setHours(23, 59, 59)
 
-    return getUnixTime(lastDayOfMonth.getTime())
+    return lastDayOfMonth.getTime()
   }
 
   start () {
@@ -68,7 +69,7 @@ class PreviousMonth extends Timeframe {
     lastMonth.setDate(1)
     lastMonth.setHours(0, 0, 0, 0)
 
-    return getUnixTime(lastMonth.getTime())
+    return lastMonth.getTime()
   }
 }
 
@@ -78,9 +79,7 @@ export const TimePeriods = new Map([
     new Timeframe({
       key: TimeframeKeys.FIFTEEN_MIN,
       timeframeText: 'Last 15 minutes',
-      timeframeLength: () => 60 * 15,
-      granularity: 10, // every 10 seconds
-      allowedTiers: ['free', 'trial', 'plus', 'enterprise']
+      timeframeLength: () => 60 * 15 * 1000
     })
   ],
   [
@@ -88,9 +87,7 @@ export const TimePeriods = new Map([
     new Timeframe({
       key: TimeframeKeys.ONE_HOUR,
       timeframeText: 'Last hour',
-      timeframeLength: () => 60 * 60 * 1,
-      granularity: 60 * 1, // every 1 min
-      allowedTiers: ['free', 'trial', 'plus', 'enterprise']
+      timeframeLength: () => 60 * 60 * 1 * 1000
     })
   ],
   [
@@ -98,9 +95,7 @@ export const TimePeriods = new Map([
     new Timeframe({
       key: TimeframeKeys.THREE_HOUR,
       timeframeText: 'Last 3 hours',
-      timeframeLength: () => 60 * 60 * 3,
-      granularity: 60 * 1, // every 1 min
-      allowedTiers: ['free', 'trial', 'plus', 'enterprise']
+      timeframeLength: () => 60 * 60 * 3 * 1000
     })
   ],
   [
@@ -108,9 +103,7 @@ export const TimePeriods = new Map([
     new Timeframe({
       key: TimeframeKeys.SIX_HOUR,
       timeframeText: 'Last 6 hours',
-      timeframeLength: () => 60 * 60 * 6,
-      granularity: 60 * 10, // every 10 min
-      allowedTiers: ['free', 'trial', 'plus', 'enterprise']
+      timeframeLength: () => 60 * 60 * 6 * 1000
     })
   ],
   [
@@ -118,9 +111,7 @@ export const TimePeriods = new Map([
     new Timeframe({
       key: TimeframeKeys.TWELVE_HOUR,
       timeframeText: 'Last 12 hours',
-      timeframeLength: () => 60 * 60 * 12,
-      granularity: 60 * 10, // every 10 min
-      allowedTiers: ['free', 'trial', 'plus', 'enterprise']
+      timeframeLength: () => 60 * 60 * 12 * 1000
     })
   ],
   [
@@ -128,9 +119,7 @@ export const TimePeriods = new Map([
     new Timeframe({
       key: TimeframeKeys.ONE_DAY,
       timeframeText: 'Last 24 hours',
-      timeframeLength: () => 60 * 60 * 24,
-      granularity: 60 * 10, // every 10 mins
-      allowedTiers: ['free', 'trial', 'plus', 'enterprise']
+      timeframeLength: () => 60 * 60 * 24 * 1000
     })
   ],
   [
@@ -138,9 +127,7 @@ export const TimePeriods = new Map([
     new Timeframe({
       key: TimeframeKeys.SEVEN_DAY,
       timeframeText: 'Last 7 days',
-      timeframeLength: () => 60 * 60 * 24 * 7,
-      granularity: 60 * 60, // every 1 hour
-      allowedTiers: ['trial', 'plus', 'enterprise']
+      timeframeLength: () => 60 * 60 * 24 * 7 * 1000
     })
   ],
   [
@@ -148,9 +135,7 @@ export const TimePeriods = new Map([
     new Timeframe({
       key: TimeframeKeys.THIRTY_DAY,
       timeframeText: 'Last 30 days',
-      timeframeLength: () => 60 * 60 * 24 * 30,
-      granularity: 60 * 60, // every 1 hour
-      allowedTiers: ['trial', 'plus', 'enterprise']
+      timeframeLength: () => 60 * 60 * 24 * 30 * 1000
     })
   ],
   [
@@ -165,10 +150,8 @@ export const TimePeriods = new Map([
         prevMonday.setDate(prevMonday.getDate() - (prevMonday.getDay() + 6) % 7)
         prevMonday.setHours(0, 0, 0, 0)
 
-        return (new Date().getTime() - prevMonday.getTime()) / 1000
+        return (new Date().getTime() - prevMonday.getTime())
       },
-      granularity: 60 * 60, // every 1 hour
-      allowedTiers: ['ma-848-new-datetime-picker']
     })
   ],
   [
@@ -183,10 +166,8 @@ export const TimePeriods = new Map([
         firstOfTheMonth.setDate(1)
         firstOfTheMonth.setHours(0, 0, 0)
 
-        return (new Date().getTime() - firstOfTheMonth.getTime()) / 1000
+        return (new Date().getTime() - firstOfTheMonth.getTime())
       },
-      granularity: 60 * 60, // every 1 hour
-      allowedTiers: ['ma-848-new-datetime-picker']
     })
   ],
   [
@@ -194,9 +175,7 @@ export const TimePeriods = new Map([
     new PreviousWeek({
       key: TimeframeKeys.PREVIOUS_WEEK,
       timeframeText: 'Previous week',
-      timeframeLength: () => 60 * 60 * 24 * 7,
-      granularity: 60 * 60, // every 1 hour,
-      allowedTiers: ['ma-848-new-datetime-picker']
+      timeframeLength: () => 60 * 60 * 24 * 7 * 1000
     })
   ],
   [
@@ -204,9 +183,7 @@ export const TimePeriods = new Map([
     new PreviousMonth({
       key: TimeframeKeys.PREVIOUS_MONTH,
       timeframeText: 'Previous month',
-      timeframeLength: () => 60 * 60 * 24 * 30,
-      granularity: 60 * 60, // every 1 hour,
-      allowedTiers: ['ma-848-new-datetime-picker']
+      timeframeLength: () => 60 * 60 * 24 * 30 * 1000
     })
   ]
 ])

@@ -30,7 +30,7 @@
       />
       <p v-if="!showCalendar">{{ fullRangeDisplay }}</p>
       <DatePicker
-        v-if="showCalendar"
+        v-if="showCalendar && hasDefaultCustomValue"
         :is-range="true"
         :select-attribute="calendarSelectAttributes"
         :model-config="modelConfig"
@@ -39,7 +39,7 @@
         is-expanded
       />
       <div
-        v-else-if="hasRelativeTimeframes"
+        v-else-if="hasRelativeTimeframes && hasTimePeriods"
         class="d-flex flex-column"
       >
         <div
@@ -51,10 +51,10 @@
           <div class="timeframe-buttons d-flex flex-row justify-content-start">
             <KButton
               v-for="(timeFrame, index) in item.values"
-              :key="`time-${timeFrame.timeframeLength}-${index}`"
+              :key="`time-${index}`"
               :is-rounded="false"
               :class="{'selected-option': timeFrame.timeframeText === selectedTimeframe.timeframeText}"
-              :data-testid="'select-timeframe-' + timeFrame.timeframeLength"
+              :data-testid="'select-timeframe-' + timeFrame.timeframeLength()"
               appearance="outline"
               size="medium"
               @click="changeRelativeTimeframe(timeFrame)"
@@ -95,7 +95,7 @@
 import KButton from '@kongponents/kbutton/KButton.vue'
 import KPop from '@kongponents/kpop/KPop.vue'
 import KSegmentedControl from '@kongponents/ksegmentedcontrol/KSegmentedControl.vue'
-import { format, fromUnixTime, getUnixTime, roundToNearestMinutes } from 'date-fns'
+import { format } from 'date-fns'
 
 export default {
   name: 'KTimePicker',
@@ -124,7 +124,18 @@ export default {
     timePeriods: {
       type: Array,
       required: false,
-      default: () => []
+      default: () => [],
+      validator: (valuesArray) => {
+        return valuesArray.every((item) => {
+          return Array.isArray(item.values) && item.values.every((timeframe) => {
+            // Check validity of each timeframe
+            return typeof timeframe.timeframeText === 'string' &&
+              timeframe.timeframeLength !== undefined &&
+              timeframe.start !== undefined &&
+              timeframe.end !== undefined
+          })
+        })
+      }
     }
   },
 
@@ -152,6 +163,9 @@ export default {
   },
 
   computed: {
+    hasTimePeriods () {
+      return this.timePeriods && this.timePeriods.length
+    },
     showCalendar () {
       return (this.tabName === 'custom')
     },
@@ -162,7 +176,7 @@ export default {
       return (!this.selectedRange.start || !this.selectedRange.end)
     },
     hasDefaultCustomValue () {
-      return (this.defaultCustom.start && this.defaultCustom.end)
+      return (this.defaultCustom.start !== '' && this.defaultCustom.end !== '')
     },
     defaultTimeframe () {
       return (this.defaultRelative !== undefined)
@@ -175,7 +189,19 @@ export default {
     // Updates input field's "human" date whenever v-calendar value is touched
     selectedCalendarRange (newVal) {
       if (newVal) {
-        const range = { start: this.msToSec(newVal.start), end: this.msToSec(newVal.end) }
+        const start = newVal.start
+        const end = newVal.end
+
+        const range = { start, end }
+
+        // Set emitted value when v-calendar selection is made
+        this.selectedRange = {
+          start,
+          end,
+          startISO: new Date(start).toISOString(),
+          endISO: new Date(end).toISOString(),
+          timeframeText: this.selectedTimeframe.timeframeText
+        }
 
         this.abbreviatedDisplay = this.formatDisplayDate(range)
       }
@@ -185,6 +211,8 @@ export default {
   mounted () {
     console.warn(' >>> defaultRelative: ')
     console.log(this.defaultRelative)
+
+    console.log(this.timePeriods)
 
     // Select the tab based on incoming defaults
     if (this.hasDefaultCustomValue) {
@@ -196,8 +224,8 @@ export default {
     // Set default value to be displayed in the input field
     if (this.hasDefaultCustomValue) {
       const range = {
-        start: this.msToSec(this.defaultCustom.start),
-        end: this.msToSec(this.defaultCustom.end)
+        start: this.defaultCustom.start,
+        end: this.defaultCustom.end
       }
 
       this.abbreviatedDisplay = this.formatDisplayDate(range)
@@ -207,6 +235,9 @@ export default {
   },
 
   methods: {
+    getText (tf) {
+      return tf.timeframeText
+    },
     /**
      * Updates both the input field value, and the full time frame readout
      * when a relative time frame button is clicked
@@ -219,10 +250,19 @@ export default {
       this.abbreviatedDisplay = this.selectedTimeframe.timeframeText
 
       // Format the start/end values as human readable date
-      const end = getUnixTime(roundToNearestMinutes(Date.now()))
-      const start = end - this.selectedTimeframe.timeframeLength
+      const start = this.selectedTimeframe.start()
+      const end = this.selectedTimeframe.end()
 
-      this.fullRangeDisplay = this.formatDisplayDate({start, end})
+      // Set value to be emitted when relative time frame clicked
+      this.selectedRange = {
+        start,
+        end,
+        startISO: new Date(start).toISOString(),
+        endISO: new Date(end).toISOString(),
+        timeframeText: this.selectedTimeframe.timeframeText
+      }
+
+      this.fullRangeDisplay = this.formatDisplayDate({ start, end })
     },
     clearSelection () {
       this.selectedCalendarRange = null
@@ -232,10 +272,10 @@ export default {
       this.selectedTimeframe = this.timePeriods[0]
     },
     formatDisplayDate (range) {
-      this.selectedRange = range
+      // Update selected range
       const { start, end } = range
 
-      return `${format(fromUnixTime(start), 'PP hh:mm a')} - ${format(fromUnixTime(end), 'PP hh:mm a')}`
+      return `${format(start, 'PP hh:mm a')} - ${format(end, 'PP hh:mm a')}`
     },
     getDefaultTabName () {
       return (this.hasDefaultCustomValue ? 'custom' : 'relative')
