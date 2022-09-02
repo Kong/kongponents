@@ -119,7 +119,7 @@ export default {
     defaultCustom: {
       type: Object,
       required: false,
-      default: () => {}
+      default: () => ({start: '', end: ''})
     },
     timePeriods: {
       type: Array,
@@ -162,10 +162,10 @@ export default {
       return (!this.selectedRange.start || !this.selectedRange.end)
     },
     hasDefaultCustomValue () {
-      return (this.defaultCustom?.start && this.defaultCustom?.end)
+      return (this.defaultCustom.start && this.defaultCustom.end)
     },
     defaultTimeframe () {
-      return (this.defaultRelative?.timeframeText && this.defaultRelative?.timeframeLength)
+      return (this.defaultRelative !== undefined)
         ? this.defaultRelative
         : null
     }
@@ -322,7 +322,7 @@ $margin: .2rem;
   .vc-container {
     border: 0;
 
-    // Color variable overrides
+    // Override v-calendar color variables with the corresponding Kongponent color variables
     --blue-200: var(--blue-200, color(blue-200));
     --blue-300: var(--blue-300, color(blue-300));
     --blue-400: var(--blue-400, color(blue-400));
