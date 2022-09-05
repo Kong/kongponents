@@ -429,7 +429,10 @@ export default {
             this.selectItems[i].selected = false
           }
 
-          this.selectItems[i].key = `${this.selectItems[i].label.replace(' ', '-').replace(/[^a-z0-9-_]/gi, '')}-${i}`
+          if (this.selectItems[i].label) {
+            this.selectItems[i].key = `${this.selectItems[i].label.replace(' ', '-')}-${i}`
+          }
+
           if (this.selectItems[i].value === this.value || this.selectItems[i].selected) {
             this.selectItems[i].selected = true
             this.selectedItem = this.selectItems[i]
