@@ -431,6 +431,8 @@ export default {
 
           if (this.selectItems[i].label) {
             this.selectItems[i].key = `${this.selectItems[i].label.replace(' ', '-')}-${i}`
+          } else {
+            this.selectItems[i].key = `test-label-${i}`
           }
 
           if (this.selectItems[i].value === this.value || this.selectItems[i].selected) {
