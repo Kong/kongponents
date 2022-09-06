@@ -6,7 +6,9 @@
 
 ## Examples
 
-### Single date
+### Calendar - Single date
+
+Create a single date selection calendar, defaulting the [selected value](#defaultcustom) to tomorrow.
 
 <KCard>
   <template v-slot:body>
@@ -14,53 +16,8 @@
       @changed="newVal => currentValue1 = newVal"
       defaultMessage="Please select a date"
       calendarMode="date"
+      :defaultCustom="defaultSingleTomorrow"
       :isRange="false"
-    />
-    <div class="mt-6">Emitted value: <pre>{{ JSON.stringify(currentValue1) }}</pre></div>
-  </template>
-</KCard>
-
-### Single time
-
-<KCard>
-  <template v-slot:body>
-    <KDateTimePicker
-      @changed="newVal => currentValue1 = newVal"
-      defaultMessage="Please select a time"
-      calendarMode="time"
-      :isRange="false"
-    />
-    <div class="mt-6">Emitted value: <pre>{{ JSON.stringify(currentValue1) }}</pre></div>
-  </template>
-</KCard>
-
-### Single date and time
-
-<KCard>
-  <template v-slot:body>
-    <KDateTimePicker
-      @changed="newVal => currentValue1 = newVal"
-      defaultMessage="Please select a time"
-      calendarMode="dateTime"
-      :isRange="false"
-    />
-    <div class="mt-6">Emitted value: <pre>{{ JSON.stringify(currentValue1) }}</pre></div>
-  </template>
-</KCard>
-
-### Custom + Relative date/time ranges
-
-Display both a calendar and relative time frames, passing in a preset week-long range.
-
-<KCard>
-  <template v-slot:body>
-    <KDateTimePicker
-      @changed="newVal => currentValue1 = newVal"
-      defaultMessage="Please select a time range"
-      calendarMode="dateTime"
-      :isRange="true"
-      :timePeriods="exampleTimeFrames"
-      :defaultCustom="defaultRangeWeek"
       v-model="currentValue1"
     />
     <div class="mt-6">Emitted value: <pre>{{ JSON.stringify(currentValue1) }}</pre></div>
@@ -68,25 +25,26 @@ Display both a calendar and relative time frames, passing in a preset week-long 
 </KCard>
 
 ```html
-<KDateTimePicker 
-  @change="newVal => currentValue = newVal"
-  calendarMode="dateTime"
-  :defaultCustom="defaultRangeWeek"
-  :timePeriods=[...]
+<KDateTimePicker
+  @changed="newVal => currentValue = newVal"
+  defaultMessage="Please select a date"
+  calendarMode="date"
+  :defaultCustom="`${new Date().getTime() + (24*60*60*1000)}`"
+  :isRange="false"
+  v-model="currentValue"
 />
 ```
 
-### Relative - show only time frame buttons
-
-Passing in a selected relative time frame value will default the component to default to the "Relative" tab.
+### Calendar - Single time
 
 <KCard>
   <template v-slot:body>
     <KDateTimePicker
       @changed="newVal => currentValue2 = newVal"
-      defaultMessage="Please select a time range"
-      :timePeriods="exampleTimeFrames"
-      :defaultRelative="defaultRelativeTimeframe"
+      defaultMessage="Please select a time"
+      calendarMode="time"
+      :defaultCustom="defaultSingleToday"
+      :isRange="false"
       v-model="currentValue2"
     />
     <div class="mt-6">Emitted value: <pre>{{ JSON.stringify(currentValue2) }}</pre></div>
@@ -96,23 +54,23 @@ Passing in a selected relative time frame value will default the component to de
 ```html
 <KDateTimePicker
   @changed="newVal => currentValue = newVal"
-  defaultMessage="Please select one of the time ranges below"
-  :timePeriods="exampleTimeFrames"
-  :defaultRelative="defaultRelativeTimeframe"
+  defaultMessage="Please select a time"
+  calendarMode="time"
+  :defaultCustom="`${new Date()}`"
+  :isRange="false"
+  v-model="currentValue"
 />
 ```
 
-### Custom ranges - show only the calendar
-
-Calendar Display only - when the `timePeriods` prop is omitted, only the **Custom** tab is shown.
+### Calendar - Single date and time
 
 <KCard>
   <template v-slot:body>
     <KDateTimePicker
       @changed="newVal => currentValue3 = newVal"
-      defaultMessage="Please select some dates"
-      calendarMode="date"
-      :defaultCustom="defaultRangeTwoDay"
+      defaultMessage="Please select a date and time"
+      calendarMode="dateTime"
+      :isRange="false"
       v-model="currentValue3"
     />
     <div class="mt-6">Emitted value: <pre>{{ JSON.stringify(currentValue3) }}</pre></div>
@@ -120,13 +78,68 @@ Calendar Display only - when the `timePeriods` prop is omitted, only the **Custo
 </KCard>
 
 ```html
+ <KDateTimePicker
+    @changed="newVal => currentValue = newVal"
+    defaultMessage="Please select a time"
+    calendarMode="dateTime"
+    :isRange="false"
+    v-model="currentValue"
+  />
+```
+
+### Calendar and Relative time frames
+
+Display both a calendar and relative time frames, passing in a preset week-long range.
+
+<KCard>
+  <template v-slot:body>
+    <KDateTimePicker
+      @changed="newVal => currentValue4 = newVal"
+      defaultMessage="Please select a time range"
+      calendarMode="dateTime"
+      :isRange="true"
+      :timePeriods="exampleTimeFrames"
+      :defaultCustom="defaultRangeWeek"
+      v-model="currentValue4"
+    />
+    <div class="mt-6">Emitted value: <pre>{{ JSON.stringify(currentValue4) }}</pre></div>
+  </template>
+</KCard>
+
+```html
+<KDateTimePicker 
+  @change="newVal => currentValue = newVal"
+  calendarMode="dateTime"
+  :defaultCustom="defaultRangeWeek"
+  :timePeriods=[...]
+  v-model="currentValue"
+/>
+```
+
+### Relative time frames only
+
+Passing in a selected relative time frame value will default the component to default to the "Relative" tab.
+
+<KCard>
+  <template v-slot:body>
+    <KDateTimePicker
+      @changed="newVal => currentValue5 = newVal"
+      defaultMessage="Please select a time range"
+      :timePeriods="exampleTimeFrames"
+      :defaultRelative="defaultRelativeTimeframe"
+      v-model="currentValue5"
+    />
+    <div class="mt-6">Emitted value: <pre>{{ JSON.stringify(currentValue5) }}</pre></div>
+  </template>
+</KCard>
+
+```html
 <KDateTimePicker
   @changed="newVal => currentValue = newVal"
-  defaultMessage="Please select some dates"
-  :defaultCustom="{
-    start: new Date().getTime(),
-    end: new Date().getTime() - (2*24*60*60*1000)
-  }"
+  defaultMessage="Please select one of the time ranges below"
+  :timePeriods="exampleTimeFrames"
+  :defaultRelative="defaultRelativeTimeframe"
+  v-model="currentValue"
 />
 ```
 
@@ -171,6 +184,27 @@ The timestamp that the component should default to
 
 User-facing messaging that encourages the user to click things
 
+### defaultCustom
+
+Either an integer, or an object with `start` and `end` values, all of which would represent number of milliseconds since Unix epoch.  
+
+**Examples**:
+
+```js
+// Single date or time
+1662588371998
+
+// A range of dates / datetimes
+{
+  start: 1662588371998
+  end: 1662589027215
+}
+```
+
+## Theming
+
+The DateTimePicker will expand to fit the width of its parent container. To customize its width, add a class or width attribute to the wrapping component.
+
 </div>
 
 <script>
@@ -213,6 +247,10 @@ export default {
       currentValue1: '',
       currentValue2: '',
       currentValue3: '',
+      currentValue4: '',
+      currentValue5: '',
+      defaultSingleToday: new Date().getTime(),
+      defaultSingleTomorrow: new Date().getTime() + (1*24*60*60*1000),
       defaultRangeTwoDay: {
         start: new Date().getTime() - (2*24*60*60*1000),
         end: new Date().getTime()
@@ -221,8 +259,8 @@ export default {
         start: new Date().getTime() - (7*24*60*60*1000),
         end: new Date().getTime()
       },
-      minDate: 'Tue Aug 31 2023 17:09:43 GMT-0400 (Eastern Daylight Time)',
-      maxDate: 'Mon Apr 4 2021 10:09:43 GMT-0400 (Eastern Daylight Time)',
+      maxDate: 'Tue Aug 31 2023 17:09:43 GMT-0400 (Eastern Daylight Time)',
+      minDate: 'Mon Apr 4 2021 10:09:43 GMT-0400 (Eastern Daylight Time)',
       exampleTimeFrames
     }
   },
@@ -238,8 +276,16 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 pre {
   white-space: pre-wrap;
+}
+
+// Allows page to scroll further, thereby linking to correct section
+h2, h3 {
+  margin-top: 2rem;
+}
+.theme-default-content {
+  margin-bottom: 20rem;
 }
 </style>

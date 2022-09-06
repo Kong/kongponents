@@ -28,6 +28,7 @@
         class="w-100 mb-5"
         data-testid="analytics-time-toggle"
       />
+      <!-- Human timestamp readout -->
       <p v-if="!showCalendar">{{ fullRangeDisplay }}</p>
       <DatePicker
         v-if="hasCalendar && showCalendar"
@@ -125,9 +126,9 @@ export default {
       default: () => {}
     },
     defaultCustom: {
-      type: Object,
+      type: Object | String,
       required: false,
-      default: () => ({start: '', end: ''})
+      default: ''
     },
     isRange: {
       type: Boolean,
@@ -194,7 +195,7 @@ export default {
         : !this.selectedRange.start
     },
     hasDefaultCustomValue () {
-      return this.defaultCustom.start !== '' && this.defaultCustom.end !== ''
+      return (this.defaultCustom.start && this.defaultCustom.end) || this.defaultCustom !== ''
     },
     defaultTimeframe () {
       return (this.defaultRelative !== undefined)
@@ -207,35 +208,14 @@ export default {
     // Updates input field's "human" date whenever v-calendar value is touched
     selectedCalendarRange (newVal) {
       if (newVal) {
-        let start = ''
-        let end = ''
-
-        // If value is an object, this is a time range. Else, a single date or time value.
-        if (newVal.hasOwnProperty('start')) {
-          start = newVal.start
-          end = newVal.end
-        } else {
-          start = newVal
-        }
-
-        const range = { start, end }
-
-        // Set emitted value when v-calendar selection is made
-        this.selectedRange = {
-          start,
-          end,
-          startISO: new Date(start).toISOString(),
-          endISO: (end !== '') ? new Date(end).toISOString() : end
-        }
-
-        this.abbreviatedDisplay = this.formatDisplayDate(range)
+        this.changeCalendarRange(newVal)
       }
     }
   },
 
   mounted () {
     // Select the tab based on incoming defaults
-    if (this.hasDefaultCustomValue) {
+    if (this.hasDefaultCustomValue && this.hasCalendar) {
       this.tabName = 'custom'
     } else if (this.hasRelativeTimeframes) {
       this.tabName = 'relative'
@@ -243,12 +223,7 @@ export default {
 
     // Set default value to be displayed in the input field
     if (this.hasDefaultCustomValue) {
-      const range = {
-        start: this.defaultCustom.start,
-        end: this.defaultCustom.end
-      }
-
-      this.abbreviatedDisplay = this.formatDisplayDate(range)
+      this.changeCalendarRange(this.defaultCustom)
     } else if (this.defaultTimeframe) {
       this.changeRelativeTimeframe(this.defaultTimeframe)
     }
@@ -257,6 +232,32 @@ export default {
   methods: {
     getText (tf) {
       return tf.timeframeText
+    },
+
+    changeCalendarRange (vCalValue) {
+      let start = ''
+      let end = ''
+
+      // If value is an object, this is a time range. Else, a single date or time value.
+      if (vCalValue.hasOwnProperty('start')) {
+        start = vCalValue.start
+        end = vCalValue.end
+      } else {
+        start = vCalValue
+      }
+
+      const range = { start, end }
+
+      // Set emitted value when v-calendar selection is made
+      this.selectedRange = {
+        start,
+        end,
+        startISO: new Date(start).toISOString(),
+        endISO: (end !== '') ? new Date(end).toISOString() : end,
+        timeframeText: ''
+      }
+
+      this.abbreviatedDisplay = this.formatDisplayDate(range)
     },
 
     /**
@@ -298,10 +299,11 @@ export default {
     formatDisplayDate (range) {
       const { start, end } = range
       let fmtStr = 'PP'
-      let fmtRange = ''
 
-      // calendarMode determines format string
-      if (this.calendarMode === 'date') {
+      // Determines the human timestamp readout format string; subject to change
+      if (!this.hasCalendar && this.hasRelativeTimeframes) {
+        fmtStr = 'PP hh:mm a'
+      } else if (this.calendarMode === 'date') {
         fmtStr = 'PP'
       } else if (this.calendarMode === 'time') {
         fmtStr = 'PP hh:mm a'
@@ -309,14 +311,10 @@ export default {
         fmtStr = 'PP hh:mm a'
       }
 
-      // isRange determines whether an end date/time should be shown
-      if (this.isRange || this.hasRelativeTimeframes) {
-        fmtRange = `${format(start, fmtStr)} - ${format(end, fmtStr)}`
-      } else {
-        fmtRange = `${format(start, fmtStr)}`
-      }
-
-      return fmtRange
+      // Determine whether an end date/time should be displayed in readout
+      return range.end && (this.isRange || this.hasRelativeTimeframes)
+        ? `${format(start, fmtStr)} - ${format(end, fmtStr)}`
+        : `${format(start, fmtStr)}`
     },
 
     getDefaultTabName () {
