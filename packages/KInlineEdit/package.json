@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kinlineedit",
-  "version": "7.0.4",
+  "version": "7.0.5",
   "description": "Inline editable field.",
   "main": "dist/KInlineEdit.umd.min.js",
   "componentName": "KInlineEdit",
@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/styles": "^7.0.4"
+    "@kongponents/styles": "^7.0.5"
   },
   "peerDependencies": {
     "vue": ">= 2.7.0 < 3"
