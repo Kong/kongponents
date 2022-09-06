@@ -19,7 +19,7 @@
       v-if="!hidePopover"
       #content>
       <KSegmentedControl
-        v-if="hasRelativeTimeframes"
+        v-if="hasRelativeTimeframes && hasCalendar"
         v-model="tabName"
         :options="[
           { label: 'Relative', value: 'relative' },
@@ -30,12 +30,12 @@
       />
       <p v-if="!showCalendar">{{ fullRangeDisplay }}</p>
       <DatePicker
-        v-if="showCalendar && hasDefaultCustomValue"
-        :is-range="true"
+        v-if="hasCalendar && showCalendar"
+        v-model="selectedCalendarRange"
+        :is-range="isRange"
         :select-attribute="calendarSelectAttributes"
         :model-config="modelConfig"
-        v-model="selectedCalendarRange"
-        mode="dateTime"
+        :mode="calendarMode"
         is-expanded
       />
       <div
@@ -111,6 +111,14 @@ export default {
       required: false,
       default: 'Select a time range'
     },
+    calendarMode: {
+      type: String,
+      required: false,
+      default: '',
+      validator: (value) => {
+        return [ '', 'date', 'time', 'dateTime' ].indexOf(value) !== -1
+      }
+    },
     defaultRelative: {
       type: Object,
       required: false,
@@ -120,6 +128,11 @@ export default {
       type: Object,
       required: false,
       default: () => ({start: '', end: ''})
+    },
+    isRange: {
+      type: Boolean,
+      required: false,
+      default: false
     },
     timePeriods: {
       type: Array,
@@ -163,20 +176,25 @@ export default {
   },
 
   computed: {
+    hasCalendar () {
+      return this.calendarMode !== ''
+    },
     hasTimePeriods () {
       return this.timePeriods && this.timePeriods.length
     },
     showCalendar () {
-      return (this.tabName === 'custom')
+      return this.tabName === 'custom' || !this.hasTimePeriods
     },
     hasRelativeTimeframes () {
-      return (this.timePeriods.length > 0)
+      return this.timePeriods.length > 0
     },
     submitDisabled () {
-      return (!this.selectedRange.start || !this.selectedRange.end)
+      return this.isRange || this.hasRelativeTimeframes
+        ? !this.selectedRange.start || !this.selectedRange.end
+        : !this.selectedRange.start
     },
     hasDefaultCustomValue () {
-      return (this.defaultCustom.start !== '' && this.defaultCustom.end !== '')
+      return this.defaultCustom.start !== '' && this.defaultCustom.end !== ''
     },
     defaultTimeframe () {
       return (this.defaultRelative !== undefined)
@@ -189,8 +207,16 @@ export default {
     // Updates input field's "human" date whenever v-calendar value is touched
     selectedCalendarRange (newVal) {
       if (newVal) {
-        const start = newVal.start
-        const end = newVal.end
+        let start = ''
+        let end = ''
+
+        // If value is an object, this is a time range. Else, a single date or time value.
+        if (newVal.hasOwnProperty('start')) {
+          start = newVal.start
+          end = newVal.end
+        } else {
+          start = newVal
+        }
 
         const range = { start, end }
 
@@ -199,8 +225,7 @@ export default {
           start,
           end,
           startISO: new Date(start).toISOString(),
-          endISO: new Date(end).toISOString(),
-          timeframeText: this.selectedTimeframe.timeframeText
+          endISO: (end !== '') ? new Date(end).toISOString() : end
         }
 
         this.abbreviatedDisplay = this.formatDisplayDate(range)
@@ -209,11 +234,6 @@ export default {
   },
 
   mounted () {
-    console.warn(' >>> defaultRelative: ')
-    console.log(this.defaultRelative)
-
-    console.log(this.timePeriods)
-
     // Select the tab based on incoming defaults
     if (this.hasDefaultCustomValue) {
       this.tabName = 'custom'
@@ -238,6 +258,7 @@ export default {
     getText (tf) {
       return tf.timeframeText
     },
+
     /**
      * Updates both the input field value, and the full time frame readout
      * when a relative time frame button is clicked
@@ -264,6 +285,7 @@ export default {
 
       this.fullRangeDisplay = this.formatDisplayDate({ start, end })
     },
+
     clearSelection () {
       this.selectedCalendarRange = null
       this.abbreviatedDisplay = this.defaultMessage
@@ -271,24 +293,43 @@ export default {
       this.selectedRange = { start: '', end: '' }
       this.selectedTimeframe = this.timePeriods[0]
     },
-    formatDisplayDate (range) {
-      // Update selected range
-      const { start, end } = range
 
-      return `${format(start, 'PP hh:mm a')} - ${format(end, 'PP hh:mm a')}`
+    // Displays selected date/time/range as a human readable string
+    formatDisplayDate (range) {
+      const { start, end } = range
+      let fmtStr = 'PP'
+      let fmtRange = ''
+
+      // calendarMode determines format string
+      if (this.calendarMode === 'date') {
+        fmtStr = 'PP'
+      } else if (this.calendarMode === 'time') {
+        fmtStr = 'PP hh:mm a'
+      } else if (this.calendarMode === 'dateTime') {
+        fmtStr = 'PP hh:mm a'
+      }
+
+      // isRange determines whether an end date/time should be shown
+      if (this.isRange) {
+        fmtRange = `${format(start, fmtStr)} - ${format(end, fmtStr)}`
+      } else {
+        fmtRange = `${format(start, fmtStr)}`
+      }
+
+      return fmtRange
     },
+
     getDefaultTabName () {
       return (this.hasDefaultCustomValue ? 'custom' : 'relative')
     },
+
     submitTimeFrame () {
       this.$emit('changed', this.selectedRange)
       this.$nextTick(() => {
         this.hidePopover = true
       })
     },
-    msToSec (ts) {
-      return Math.floor(ts / 1000)
-    },
+
     async handleClose () {
       this.$nextTick(() => {
         this.hidePopover = false
@@ -372,6 +413,8 @@ $margin: .2rem;
     --grey-300: var(--grey-300, color(grey-300));
     --grey-400: var(--grey-400, color(grey-400));
     --grey-500: var(--grey-500, color(grey-500));
+    --accent-100: var(--grey-500, color(grey-500));   // vc-nav-title
+    --accent-900: var(--blue-500, color(blue-500));
 
     $highlight-color: color(blue-200);
 
@@ -382,7 +425,35 @@ $margin: .2rem;
     .vc-bordered {
       border: 0;
     }
-    .vc-pane-container {
+
+    .vc-nav-popover-container {
+      background-color: white;
+      color: color(grey-500);
+
+      .vc-nav-container {
+        .vc-nav-header .vc-nav-title {
+          color: color(grey-500);
+        }
+        // TODO: pending design input
+        .vc-nav-items {
+          .vc-nav-item {
+            &:hover {
+              color: color(grey-500);
+              background-color: color(grey-100);
+            }
+          }
+          .vc-nav-item.is-current,
+          .vc-nav-item.is-active {
+            background-color: color(blue-500);
+            border-color: transparent;
+            color: white;
+          }
+        }
+      }
+    }
+
+    .vc-pane-container,
+    .vc-time-picker {
       //
       // Time Range
       //
