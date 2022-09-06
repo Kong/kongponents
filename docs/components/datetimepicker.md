@@ -6,6 +6,48 @@
 
 ## Examples
 
+### Single date
+
+<KCard>
+  <template v-slot:body>
+    <KDateTimePicker
+      @changed="newVal => currentValue1 = newVal"
+      defaultMessage="Please select a date"
+      calendarMode="date"
+      :isRange="false"
+    />
+    <div class="mt-6">Emitted value: <pre>{{ JSON.stringify(currentValue1) }}</pre></div>
+  </template>
+</KCard>
+
+### Single time
+
+<KCard>
+  <template v-slot:body>
+    <KDateTimePicker
+      @changed="newVal => currentValue1 = newVal"
+      defaultMessage="Please select a time"
+      calendarMode="time"
+      :isRange="false"
+    />
+    <div class="mt-6">Emitted value: <pre>{{ JSON.stringify(currentValue1) }}</pre></div>
+  </template>
+</KCard>
+
+### Single date and time
+
+<KCard>
+  <template v-slot:body>
+    <KDateTimePicker
+      @changed="newVal => currentValue1 = newVal"
+      defaultMessage="Please select a time"
+      calendarMode="dateTime"
+      :isRange="false"
+    />
+    <div class="mt-6">Emitted value: <pre>{{ JSON.stringify(currentValue1) }}</pre></div>
+  </template>
+</KCard>
+
 ### Custom + Relative date/time ranges
 
 Display both a calendar and relative time frames, passing in a preset week-long range.
@@ -15,6 +57,8 @@ Display both a calendar and relative time frames, passing in a preset week-long 
     <KDateTimePicker
       @changed="newVal => currentValue1 = newVal"
       defaultMessage="Please select a time range"
+      calendarMode="dateTime"
+      :isRange="true"
       :timePeriods="exampleTimeFrames"
       :defaultCustom="defaultRangeWeek"
       v-model="currentValue1"
@@ -25,23 +69,10 @@ Display both a calendar and relative time frames, passing in a preset week-long 
 
 ```html
 <KDateTimePicker 
-  @change="newVal => currentValue = newVal" 
+  @change="newVal => currentValue = newVal"
+  calendarMode="dateTime"
   :defaultCustom="defaultRangeWeek"
-  :timePeriods=[
-    {
-      section: 'Last',
-      values: [
-        { timeframeText: '15 minutes', timeframeLength: 60*15 },
-        ...
-      ]
-    },{
-      section: 'Previous',
-      values: [
-        { timeframeText: '15 minutes', timeframeLength: 60*15 },
-        ...
-      ]
-    },
-  ]
+  :timePeriods=[...]
 />
 ```
 
@@ -80,6 +111,7 @@ Calendar Display only - when the `timePeriods` prop is omitted, only the **Custo
     <KDateTimePicker
       @changed="newVal => currentValue3 = newVal"
       defaultMessage="Please select some dates"
+      calendarMode="date"
       :defaultCustom="defaultRangeTwoDay"
       v-model="currentValue3"
     />
@@ -100,6 +132,14 @@ Calendar Display only - when the `timePeriods` prop is omitted, only the **Custo
 
 ## Props
 
+### calendarMode
+
+- Allowed values are: `date`, `time`, `dateTime`
+
+### isRange
+
+Along with the `calendarMode` prop, this determines the whether the calendar allows selection of a single date or time, as opposed to a range of start and end values.
+
 ### timePeriods
 
 An array of time frame values to be displayed as buttons in the "Relative" section of the popover, eg:
@@ -109,15 +149,15 @@ An array of time frame values to be displayed as buttons in the "Relative" secti
   {
     section: 'Last',
     values: [
-      { timeframeText: '15 minutes', timeframeLength: 60*15 },
-      { timeframeText: '12 hours', timeframeLength: 60*60*12 },
-      { timeframeText: '24 hours', timeframeLength: 60*60*24 }
+      { timeframeText: '15 minutes', start: function(), end: function() },
+      { timeframeText: '12 hours', start: function(), end: function() },
+      { timeframeText: '24 hours', start: function(), end: function() }
     ]
   },
   {
     section: 'Previous',
     values: [
-      { timeframeText: 'Week', timeframeLength: 60*60*24*14  }
+      { timeframeText: 'Week', start: function(), end: function() }
     ]
   }
 ]
@@ -165,8 +205,6 @@ const exampleTimeFrames = [
     ]
   }
 ]
-
-console.log(exampleTimeFrames)
 
 export default {
   data() {
