@@ -310,7 +310,7 @@ export default {
       }
 
       // isRange determines whether an end date/time should be shown
-      if (this.isRange) {
+      if (this.isRange || this.hasRelativeTimeframes) {
         fmtRange = `${format(start, fmtStr)} - ${format(end, fmtStr)}`
       } else {
         fmtRange = `${format(start, fmtStr)}`
