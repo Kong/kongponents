@@ -150,32 +150,26 @@
               v-else
               class="k-select-list ma-0 pa-0"
             >
-              <slot
-                :items="selectItems"
-                :is-open="isToggled.value"
-                name="items"
+              <KSelectItem
+                v-for="item in filteredItems"
+                :key="item.key"
+                :item="item"
+                @selected="handleItemSelect"
               >
-                <KSelectItem
-                  v-for="item in filteredItems"
-                  :key="item.key"
-                  :item="item"
-                  @selected="handleItemSelect"
-                >
-                  <template #content>
-                    <slot
-                      :item="item"
-                      name="item-template"
-                      class="select-item-label select-item-desc"
-                    />
-                  </template>
-                </KSelectItem>
-                <KSelectItem
-                  v-if="!filteredItems.length && !$slots.empty"
-                  key="k-select-empty-state"
-                  :item="{ label: 'No results', value: 'no_results' }"
-                  class="k-select-empty-item"
-                />
-              </slot>
+                <template #content>
+                  <slot
+                    :item="item"
+                    name="item-template"
+                    class="select-item-label select-item-desc"
+                  />
+                </template>
+              </KSelectItem>
+              <KSelectItem
+                v-if="!filteredItems.length && !$slots.empty"
+                key="k-select-empty-state"
+                :item="{ label: 'No results', value: 'no_results' }"
+                class="k-select-empty-item"
+              />
             </ul>
             <slot
               v-if="!loading && !filteredItems.length"
