@@ -42,7 +42,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
 />
 ```
 
-### Single time
+<!-- ### Single time
 
 <div>
   <KDateTimePicker
@@ -63,7 +63,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
   :defaultCustom="`${new Date()}`"
   :range="false"
 />
-```
+``` -->
 
 ### Single date and time
 
