@@ -195,10 +195,10 @@ export default defineComponent({
     }
     const hasCalendar = computed(() => props.mode !== 'relative')
     const hasTimePeriods = computed(() => props.timePeriods && props.timePeriods.length)
-    const showCalendar = computed(() => tabName.value === 'custom' || !hasTimePeriods)
+    const showCalendar = computed(() => tabName.value === 'custom' || !hasTimePeriods.value)
     const hasRelativeTimeframes = computed(() => props.timePeriods.length > 0)
     const submitDisabled = computed(() => {
-      return props.range || hasRelativeTimeframes
+      return props.range || hasRelativeTimeframes.value
         ? !selectedRange.value.start || !selectedRange.value.end
         : !selectedRange.value.start
     })
@@ -275,7 +275,7 @@ export default defineComponent({
       let fmtStr = 'PP'
 
       // Determines the human timestamp readout format string; subject to change
-      if (!hasCalendar && hasRelativeTimeframes) {
+      if (!hasCalendar.value && hasRelativeTimeframes.value) {
         fmtStr = 'PP hh:mm a'
       } else if (props.mode === 'date') {
         fmtStr = 'PP'
@@ -286,7 +286,7 @@ export default defineComponent({
       }
 
       // Determine whether an end date/time should be displayed in readout
-      return range.end && (props.range || hasRelativeTimeframes)
+      return range.end && (props.range || hasRelativeTimeframes.value)
         ? `${format(start, fmtStr)} - ${format(end, fmtStr)}`
         : `${format(start, fmtStr)}`
     }
@@ -296,7 +296,7 @@ export default defineComponent({
     }
 
     const submitTimeFrame = async () => {
-      emit('changed', this.selectedRange)
+      emit('changed', selectedRange.value)
       await nextTick(() => {
         hidePopover.value = true
       })
@@ -314,24 +314,24 @@ export default defineComponent({
 
     watch(() => selectedCalendarRange, (newValue) => {
       // Updates input field's "human" date whenever v-calendar value is touched
-      if (newValue) {
-        changeCalendarRange(newValue)
+      if (newValue.value) {
+        changeCalendarRange(newValue.value)
       }
     }, { immediate: true })
 
     onMounted(() => {
       // Select the tab based on incoming defaults
-      if (hasDefaultCustomValue && hasCalendar) {
+      if (hasDefaultCustomValue && hasCalendar.value) {
         tabName.value = 'custom'
-      } else if (hasRelativeTimeframes) {
+      } else if (hasRelativeTimeframes.value) {
         tabName.value = 'relative'
       }
 
       // Set default value to be displayed in the input field
       if (hasDefaultCustomValue) {
         changeCalendarRange(props.defaultCustom)
-      } else if (defaultTimeframe) {
-        changeRelativeTimeframe(defaultTimeframe)
+      } else if (hasRelativeTimeframes.value && defaultTimeframe.value) {
+        changeRelativeTimeframe(defaultTimeframe.value)
       }
     })
 
@@ -339,6 +339,7 @@ export default defineComponent({
       hidePopover,
       tabName,
       abbreviatedDisplay,
+      changeRelativeTimeframe,
       fullRangeDisplay,
       hasCalendar,
       hasRelativeTimeframes,
