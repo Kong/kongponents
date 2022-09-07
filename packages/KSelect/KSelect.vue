@@ -101,7 +101,7 @@
             <KIcon
               v-if="appearance === 'select'"
               :class="{ 'overlay-label-chevron': overlayLabel }"
-              :icon="isToggled ? 'chevronUp' : 'chevronDown'"
+              icon="chevronDown"
               color="var(--grey-500)"
               size="18"
             />

@@ -21,8 +21,7 @@
     <slot />
 
     <KIcon
-      v-if="isOpen !== undefined"
-      :class="[caretClasses]"
+      v-if="showCaret"
       :color="iconColor"
       view-box="2 2 15 15"
       size="16"
@@ -35,7 +34,7 @@
     :is="buttonType"
     :to="to"
     :disabled="disabled"
-    :class="[size, { 'icon-btn': !hasText && hasIcon, 'rounded': isRounded }, appearance, caretClasses]"
+    :class="[size, { 'icon-btn': !hasText && hasIcon, 'rounded': isRounded }, appearance]"
     class="k-button"
     v-on="listeners">
     <slot name="icon">
@@ -51,8 +50,8 @@
     <slot />
 
     <KIcon
-      v-if="isOpen !== undefined"
-      :class="['caret', caretClasses]"
+      v-if="showCaret"
+      :class="['caret']"
       :color="iconColor"
       view-box="2 2 15 15"
       size="16"
@@ -117,9 +116,9 @@ export default {
       type: String,
       default: 'button'
     },
-    isOpen: {
+    showCaret: {
       type: Boolean,
-      default: undefined
+      default: false
     },
     isRounded: {
       type: Boolean,
@@ -146,12 +145,6 @@ export default {
       return {
         ...this.$attrs
       }
-    },
-
-    caretClasses () {
-      if (this.isOpen === undefined) return
-
-      return this.isOpen ? 'has-caret is-active' : 'has-caret'
     },
 
     hasIcon () {
@@ -400,9 +393,6 @@ export default {
 </style>
 
 <style lang="scss">
-.k-button.btn-link.has-caret .caret.has-caret path {
-  stroke: var(--KButtonBtnLink, var(--blue-500, color(blue-500)));
-}
 .k-button:disabled .kong-icon {
   pointer-events: none;
 }

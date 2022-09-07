@@ -266,7 +266,7 @@ There are 2 supported slots:
   <KDropdownMenu :items="deepClone(defaultItemsUnselected)">
     <template #default="{ isOpen }">
         <KButton
-          :is-open="isOpen"
+          show-caret
           appearance="creation"
         >
           Menu
@@ -279,7 +279,7 @@ There are 2 supported slots:
 <KDropdownMenu :items="items">
   <template #default="{ isOpen }">
       <KButton
-        :is-open="isOpen"
+        show-caret
         appearance="creation"
       >
         Menu

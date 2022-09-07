@@ -74,12 +74,14 @@ We support `small`, `medium`, and `large` sizes, default to `medium`.
 
 ```
 
-### isOpen
+### hasCaret
 
-KButton can display a dropdown caret to the right hand side. This is useful for buttons that control dropdowns and popovers. When the prop `isOpen` is `false`, the caret will display pointing down. You can rotate the caret (active state) to point up by setting `isOpen` to `true`.
+Use this prop if you would like the KButton to display a dropdown caret to the right hand side.
 
 <Komponent :data="{ isActive: false}" v-slot="{ data }">
-  <KButton appearance="primary" :isOpen="data.isActive" @click="data.isActive = !data.isActive">I'm a button</KButton>
+  <KButton appearance="primary" 
+    @click="data.isActive = !data.isActive"
+    show-caret>I'm a button</KButton>
 </Komponent>
 
 > The `Komponent` component is used in this example to create state.
@@ -89,7 +91,7 @@ KButton can display a dropdown caret to the right hand side. This is useful for 
   <KButton
     appearance="primary"
     size="medium"
-    :isOpen="data.isActive"
+    show-caret
     @click="data.isActive = !data.isActive">
     I'm a button
   </KButton>
