@@ -251,7 +251,7 @@ export default defineComponent({
       selectedRange.value = {
         start: new Date(start),
         end: new Date(end),
-        relativeTimeframe: this.selectedTimeframe.key
+        relativeTimeframe: selectedTimeframe.value.key
       }
 
       fullRangeDisplay.value = formatDisplayDate({ start, end })
@@ -315,8 +315,8 @@ export default defineComponent({
 
     watch(() => selectedCalendarRange, (newValue) => {
       // Updates input field's "human" date whenever v-calendar value is touched
-      if (newValue.value) {
-        changeCalendarRange(newValue.value)
+      if (newValue.value !== selectedCalendarRange.value) {
+        changeCalendarRange.value = newValue.value
       }
     }, { immediate: true })
 
