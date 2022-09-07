@@ -111,26 +111,43 @@ export default defineComponent({
     DatePicker: () => import('v-calendar/lib/components/date-picker.umd')
   },
   props: {
+    /**
+     * Provides a default Date object to seed the v-calendar instance
+     */
     defaultCustom: {
       type: Object | Number,
       required: false,
       default: ''
     },
+    /**
+     * Default relative time frame object, displayed as pre-selected choice
+     */
     defaultRelative: {
       type: Object,
       required: false,
       default: () => {}
     },
+    /**
+     * Upper bound for `v-calendar` dates, everything after this date will be disabled
+     */
     maxDate: {
       type: Number,
       required: false,
       default: null
     },
+    /**
+     * Lower bound for `v-calendar` dates, everything preceding this date will be disabled
+     */
     minDate: {
       type: Number,
       required: false,
       default: null
     },
+    /**
+     * Determines which `v-calendar` type to initialize.
+     * Three of the values (`date`, `time`, `dateTime`) are passed verbatim to `v-calendar`,
+     * whereas `relative` denotes a component instance made up solely of time frames.
+     */
     mode: {
       type: String,
       required: true,
@@ -138,16 +155,29 @@ export default defineComponent({
         return [ 'relative', 'date', 'time', 'dateTime' ].includes(value)
       }
     },
+    /**
+     * Help text displayed as the default mesage inside the input field.
+     * When "Clear" is clicked, the input will revert to displaying this.
+     */
     placeholder: {
       type: String,
       required: false,
       default: 'Select a time range'
     },
+    /**
+     * Determines whether the `v-calendar` will allow a single date/time,
+     * or a range of dates/times.
+     */
     range: {
       type: Boolean,
       required: false,
       default: false
     },
+    /**
+     * A custom set of time frames to be displayed as selectable buttons.
+     * The `timeframeLength`, `start`, and `end` values are passed in as functions,
+     * allowing for on-the-fly date boundary creation.
+     */
     timePeriods: {
       type: Array,
       required: false,
@@ -210,6 +240,11 @@ export default defineComponent({
         : null
     })
 
+    /**
+     * Updates our internal (read: separate) state of currently selected `v-calendar` value(s)
+     * @param {object | string} vCalValue Object containing a pair of `start` and `end` timestamps,
+     * or a single timestamp.
+     */
     const changeCalendarRange = (vCalValue) => {
       let start = ''
       let end = ''
@@ -222,10 +257,12 @@ export default defineComponent({
         start = vCalValue
       }
 
-      // Set emitted value when v-calendar selection is made
+      // Set emitted value when v-calendar selection is made.
+      // The `timePeriodsKey` param only applies to relative timeframes,
+      // not `v-calendar` selections; however, this keeps the object "shape" consistent.
       selectedRange.value = {
-        start: new Date(start),
-        end: new Date(end),
+        start: start ? new Date(start) : '',
+        end: end ? new Date(end) : '',
         timePeriodsKey: ''
       }
     }
@@ -252,6 +289,10 @@ export default defineComponent({
       fullRangeDisplay.value = formatDisplayDate({ start, end })
     }
 
+    /**
+     * Clears any previously made choices, and emits the result of this action
+     * back to the parent.
+     */
     const clearSelection = () => {
       selectedCalendarRange.value = null
       abbreviatedDisplay.value = props.placeholder
@@ -273,7 +314,12 @@ export default defineComponent({
       }
     }
 
-    // Displays selected date/time/range as a human readable string
+    /**
+     * Displays selected date/time/range as a human readable string.
+     * The date formatting string is dynamically determined based on
+     * the current mode of the instance (Custom vs Relative)
+     * @param {*} range A set of `start` and `end` Unix timestamps
+     */
     const formatDisplayDate = (range) => {
       const { start, end } = range
       let fmtStr = 'PP'
@@ -295,10 +341,18 @@ export default defineComponent({
         : `${format(start, fmtStr)}`
     }
 
+    /**
+     * Formats user-facing display text when a new timeframe is selected.
+     * @param {*} tf Timeframe object
+     */
     const getTimeframeText = (tf) => {
       return `${tf.prefix} ${tf.timeframeText}`
     }
 
+    /**
+     * Once a selection is made, the value is emitted back to the parent,
+     * and the input field value is updated as a visual confirmation.
+     */
     const submitTimeFrame = async () => {
       if (props.range || hasTimePeriods.value) {
         emit('changed', selectedRange.value)
@@ -330,8 +384,11 @@ export default defineComponent({
       })
     }
 
+    /**
+     * Saves the state (range or single value) whenever the `v-calendar` is
+     * interacted with.
+     */
     watch(selectedCalendarRange, (newValue, oldValue) => {
-      // Updates input field's "human" date whenever v-calendar value is touched
       if (newValue && newValue !== oldValue) {
         changeCalendarRange(newValue)
       }
@@ -376,7 +433,6 @@ export default defineComponent({
     }
   }
 })
-
 </script>
 
 <style lang="scss">
@@ -464,7 +520,7 @@ $margin: .2rem;
 
     $highlight-color: color(blue-200);
 
-    // Hide clock icon
+    // TODO: Hide clock icon based on boolean prop
     .vc-time-icon {
       display: none;
     }
@@ -477,14 +533,24 @@ $margin: .2rem;
       color: color(grey-500);
 
       .vc-nav-container {
+        // Calendar year
         .vc-nav-header .vc-nav-title {
           color: color(grey-500);
+          &:hover {
+            background-color: white;
+          }
+          &:active,
+          &:focus {
+            border: 2px solid white;
+          }
         }
+        // Calendar months
         .vc-nav-items {
           .vc-nav-item {
             &:hover {
               color: color(grey-500);
-              background-color: color(grey-100);
+              background-color: color(blue-100);
+              box-shadow: none;
             }
           }
           .vc-nav-item.is-current,
