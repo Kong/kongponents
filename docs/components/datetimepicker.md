@@ -139,7 +139,7 @@ Passing in a selected relative time frame value will default the component to de
 
 Allowed values are: `date`, `time`, `dateTime`
 
-### isRange
+### range
 
 Along with the `mode` prop, this determines the whether the calendar allows selection of a single date or time, as opposed to a range of start and end values.
 
