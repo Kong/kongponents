@@ -207,6 +207,8 @@ Same time frames as the previous example, except now we're passing in a pre-sele
 
 The `defaultCustom` parameter is intended to seed a date or time calendar instance with either a single start date/time, or two date/times (start and end values). In both cases, the values should be Unix timestamps (number of milliseconds since Unix epoch).
 
+**default**: `''`
+
 This paramenter can be either an `Object` or a `Number`.
 
 - If `range` is set to `true`, then the value should be an object that contains both a `start` and and `end` timestamp.
@@ -227,11 +229,15 @@ This paramenter can be either an `Object` or a `Number`.
 
 ### defaultRelative
 
-`Object` which contains a single time frame, which is defined as:
+`Object` which contains a single time frame.
+
+**default**: `{}`
+
+Should be defined as:
 
 ```js
 {
-    "key": "24h",
+  "key": "24h",
     "prefix": "Last"
     "timeframeText": "24 hours",
     "timeframeLength": function () { ... },
@@ -244,9 +250,13 @@ This paramenter can be either an `Object` or a `Number`.
 
 `Number` which blocks out days/times that occur **after** the given timestamp. `maxDate` gets passed down to the calendar component, and does not apply to relative time frames.
 
+**default**: `null`
+
 ### minDate
 
 `Number` which blocks out days/times that occur **before** the given timestamp. `minDate` gets passed down to the calendar component, and does not apply to relative time frames.
+
+**default**: `null`
 
 ### mode
 
@@ -256,13 +266,19 @@ This paramenter can be either an `Object` or a `Number`.
 
 `String` containing the default message displayed in the date time picker input. Clearing any selected values will revert the input to display this placeholder message.
 
+**default**: `Select a time range`
+
 ### range
 
 `Boolean` which determines whether the calendar allows selection of a **single** date or time, as opposed to a **range** of start and end values. This parameter, along with the `mode` setting, gets passed down to the calendar component.
 
+**default**: `false`
+
 ### timePeriods
 
 An array of time frame values to be displayed as buttons in the "Relative" section of the popover.  Please note that each timeframe's `key` attribute needs to be unique.
+
+**default**: `[]`
 
 **Example:**
 
