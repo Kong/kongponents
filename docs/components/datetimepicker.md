@@ -75,17 +75,36 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
 />
 ```
 
+### Calendar - Date and time range
+
+<div>
+  <KDateTimePicker
+    @changed="newVal => currentValue4 = newVal"
+    placeholder="Please select a date and time"
+    mode="dateTime"
+    :range="true"
+  />
+  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue4) }}</pre></div>
+</div>
+
+```html
+<KDateTimePicker
+  @changed="newVal => currentValue = newVal"
+  placeholder="Please select a date and time"
+  mode="dateTime"
+  :range="true"
+/>
+```
+
 ### Calendar and Relative time frames
 
 Display both a calendar and relative time frames, passing in a preset week-long range.
 This instance also makes use of the `minDate` and `maxDate` parameters, which are both optional.
 
-Please see props section for an [expanded example of the `timePeriods` array](#timeperiods).
-
 <div>
   <KDateTimePicker
-    @changed="newVal => currentValue4 = newVal"
-    placeholder="Please select a time range"
+    @changed="newVal => currentValue5 = newVal"
+    placeholder="Please select a range"
     mode="dateTime"
     :defaultCustom="defaultRangeWeek"
     :minDate="minDate"
@@ -93,43 +112,91 @@ Please see props section for an [expanded example of the `timePeriods` array](#t
     :range="true"
     :timePeriods="exampleTimeFrames"
   />
-  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue4) }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue5) }}</pre></div>
 </div>
 
 ```html
 <KDateTimePicker 
   @change="newVal => currentValue = newVal"
-  placeholder="Please select a time range"
+  placeholder="Please select a range"
   mode="dateTime"
   :defaultCustom="defaultRangeWeek"
   :minDate="minDate"
   :maxDate="maxDate"
   :range="true"
-  :timePeriods="exampleTimeFrames"
-  :timePeriods=[...]
+  :timePeriods=[
+    {
+      section: "Last",
+      values: [
+        { key: "15m", prefix: "Last", timeframeText: "15 minutes", start: () => {}, end: () => {} },
+        { key: "12h", prefix: "Last", timeframeText: "12 hours", start: () => {}, end: () => {} },
+        { key: "24h", prefix: "Last", timeframeText: "24 hours", start: () => {}, end: () => {} },
+        ...
+      ]
+    },
+    {
+      section: "Current",
+      values: [
+        { key: "current_week", prefix: "Current", timeframeText: "week", start: () => {}, end: () => {} },
+        { key: "current_month", prefix: "Current", timeframeText: "month", start: () => {}, end: () => {} },
+      ]
+    }
+    {
+      section: "Previous",
+      values: [
+        { key: "previous_week", prefix: "Previous", timeframeText: "week", start: () => {}, end: () => {} },
+        { key: "previous_month", prefix: "Previous", timeframeText: "month", start: () => {}, end: () => {} },
+      ]
+    }
+  ]
 />
 ```
 
 ### Relative time frames only
 
-Passing in a selected relative time frame value will default the component to default to the "Relative" tab.
+Same time frames as the previous example, except now we're passing in a pre-selected time frame.
 
 <div>
   <KDateTimePicker
-    @changed="newVal => currentValue5 = newVal"
-    placeholder="Please select a time range"
-    :timePeriods="exampleTimeFrames"
+    @changed="newVal => currentValue6 = newVal"
+    placeholder="Please select a time frame"
+    mode="relative"
     :defaultRelative="defaultRelativeTimeframe"
+    :timePeriods="exampleTimeFrames"
   />
-  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue5) }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue6) }}</pre></div>
 </div>
 
 ```html
 <KDateTimePicker
   @changed="newVal => currentValue = newVal"
-  placeholder="Please select one of the time ranges below"
-  :timePeriods="exampleTimeFrames"
+  placeholder="Please select a time frame"
   :defaultRelative="defaultRelativeTimeframe"
+  :timePeriods=[
+    {
+      section: "Last",
+      values: [
+        { key: "15m", prefix: "Last", timeframeText: "15 minutes", start: () => {}, end: () => {} },
+        { key: "12h", prefix: "Last", timeframeText: "12 hours", start: () => {}, end: () => {} },
+        { key: "24h", prefix: "Last", timeframeText: "24 hours", start: () => {}, end: () => {} },
+        ...
+      ]
+    },
+    {
+      section: "Current",
+      values: [
+        { key: "current_week", prefix: "Current", timeframeText: "week", start: () => {}, end: () => {} },
+        { key: "current_month", prefix: "Current", timeframeText: "month", start: () => {}, end: () => {} },
+      ]
+    }
+    {
+      section: "Previous",
+      values: [
+        { key: "previous_week", prefix: "Previous", timeframeText: "week", start: () => {}, end: () => {} },
+        { key: "previous_month", prefix: "Previous", timeframeText: "month", start: () => {}, end: () => {} },
+      ]
+    }
+  ]
 />
 ```
 
@@ -137,7 +204,7 @@ Passing in a selected relative time frame value will default the component to de
 
 ### mode
 
-Allowed values are: `date`, `time`, `dateTime`
+Allowed values are: `date`, `time`, `dateTime` and `relative`, the latter of which is meant to denote a time frame-only instance.
 
 ### range
 
@@ -162,18 +229,24 @@ An array of time frame values to be displayed as buttons in the "Relative" secti
   {
     section: "Last",
     values: [
-      { key: "15m", timeframeText: "15 minutes", start: () => {}, end: () => {} },
-      { key: "12h", timeframeText: "12 hours", start: () => {}, end: () => {} },
-      { key: "24h", timeframeText: "24 hours", start: () => {}, end: () => {} },
+      { key: "15m", prefix: "Last", timeframeText: "15 minutes", start: () => {}, end: () => {} },
+      { key: "12h", prefix: "Last", timeframeText: "12 hours", start: () => {}, end: () => {} },
+      { key: "24h", prefix: "Last", timeframeText: "24 hours", start: () => {}, end: () => {} },
       ...
     ]
   },
+   {
+    section: "Current",
+    values: [
+      { key: "current_week", prefix: "Current", timeframeText: "week", start: () => {}, end: () => {} },
+      { key: "current_month", prefix: "Current", timeframeText: "month", start: () => {}, end: () => {} },
+    ]
+  }
   {
     section: "Previous",
     values: [
-      { key: "prev_week", timeframeText: "Week", start: () => {}, end: () => {} },
-      { key: "prev_month", timeframeText: "Month", start: () => {}, end: () => {} },
-      ...
+      { key: "previous_week", prefix: "Previous", timeframeText: "week", start: () => {}, end: () => {} },
+      { key: "previous_month", prefix: "Previous", timeframeText: "month", start: () => {}, end: () => {} },
     ]
   }
 ]
@@ -248,6 +321,7 @@ export default {
       currentValue3: '',
       currentValue4: '',
       currentValue5: '',
+      currentValue6: '',
       defaultSingleToday: new Date().getTime(),
       defaultSingleTomorrow: new Date().getTime() + (1*24*60*60*1000),
       defaultRangeTwoDay: {
