@@ -198,6 +198,9 @@ export default defineComponent({
     const showCalendar = computed(() => tabName.value === 'custom' || !hasTimePeriods.value)
     const hasRelativeTimeframes = computed(() => props.timePeriods.length > 0)
     const submitDisabled = computed(() => {
+      // If either the calendar is in range selection mode, or relative time frames
+      // are present, check whether both `start` and `end` are set;
+      // Otherwise, it's a single date or time, so only check `start`
       return props.range || hasRelativeTimeframes.value
         ? !selectedRange.value.start || !selectedRange.value.end
         : !selectedRange.value.start
@@ -313,10 +316,10 @@ export default defineComponent({
       })
     }
 
-    watch(() => selectedCalendarRange, (newValue) => {
+    watch(selectedCalendarRange, (newValue, oldValue) => {
       // Updates input field's "human" date whenever v-calendar value is touched
-      if (newValue.value !== selectedCalendarRange.value) {
-        changeCalendarRange.value = newValue.value
+      if (newValue && newValue !== oldValue) {
+        changeCalendarRange(newValue)
       }
     }, { immediate: true })
 

@@ -6,6 +6,17 @@
 
 ## Examples
 
+A single date or time picker instance will emit a Jasvscript Date object as a `string`.
+Whereas an instance of this component that displays a date range or a series of relative time frames, will emit an `object` containing the following values:
+
+```js
+{ 
+  "start": "2022-09-06T19:45:54.406Z",
+  "end": "2022-09-07T19:45:54.406Z",
+  "relativeTimeframe": "24h" // or ""
+}
+```
+
 ### Single date
 
 Create a single date selection calendar, defaulting the [selected value](#defaultcustom) to tomorrow.
