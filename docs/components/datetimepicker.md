@@ -95,7 +95,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
     mode="dateTime"
     :range="true"
   />
-  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue4) }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json">{{ currentValue4 }}</pre></div>
 </div>
 
 ```html
@@ -123,7 +123,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
     :range="true"
     :timePeriods="exampleTimeFrames"
   />
-  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue5) }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json">{{ currentValue5 }}</pre></div>
 </div>
 
 ```html
@@ -175,7 +175,7 @@ Same time frames as the previous example, except now we're passing in a pre-sele
     :defaultRelative="defaultRelativeTimeframe"
     :timePeriods="exampleTimeFrames"
   />
-  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue6) }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json">{{ currentValue6 }}</pre></div>
 </div>
 
 ```html
