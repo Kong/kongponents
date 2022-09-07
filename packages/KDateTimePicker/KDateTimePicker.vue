@@ -100,9 +100,10 @@ import KButton from '@kongponents/kbutton/KButton.vue'
 import KPop from '@kongponents/kpop/KPop.vue'
 import KSegmentedControl from '@kongponents/ksegmentedcontrol/KSegmentedControl.vue'
 import { format } from 'date-fns'
+import { computed, defineComponent, nextTick, onMounted, ref, watch } from 'vue'
 
-export default {
-  name: 'KTimePicker',
+export default defineComponent({
+  name: 'KDateTimePicker',
   components: {
     KButton,
     KPop,
@@ -168,95 +169,46 @@ export default {
       }
     }
   },
-
-  data () {
-    return {
-      hidePopover: false,
-      tabName: this.getDefaultTabName(),
-      abbreviatedDisplay: this.placeholder,
-      fullRangeDisplay: '',
-      selectedCalendarRange: this.defaultCustom,
-      selectedTimeframe: this.timePeriods[0],
-      selectedRange: { start: '', end: '' },
-      modelConfig: {
-        type: 'number'
-      },
-      calendarSelectAttributes: {
-        highlight: {
-          start: { class: 'vcal-day-start' },
-          base: { class: 'vcal-day-base' },
-          end: { class: 'vcal-day-end' }
-        }
-      },
-      calendarDragAttributes: {
-        highlight: {
-          start: { class: 'vcal-day-drag-start' },
-          base: { class: 'vcal-day-drag-base' },
-          end: { class: 'vcal-day-drag-end' }
-        }
+  setup (props, { emit }) {
+    const hidePopover = ref(false)
+    const selectedRange = ref({ start: '', end: '' })
+    const hasDefaultCustomValue = (props.defaultCustom.start && props.defaultCustom.end) || props.defaultCustom !== ''
+    const tabName = ref(hasDefaultCustomValue ? 'custom' : 'relative')
+    const abbreviatedDisplay = ref(props.placeholder)
+    const fullRangeDisplay = ref('')
+    const selectedCalendarRange = ref(props.defaultCustom)
+    const selectedTimeframe = ref(props.timePeriods[0] || '')
+    const modelConfig = { type: 'number' }
+    const calendarSelectAttributes = {
+      highlight: {
+        start: { class: 'vcal-day-start' },
+        base: { class: 'vcal-day-base' },
+        end: { class: 'vcal-day-end' }
       }
     }
-  },
-
-  computed: {
-    hasCalendar () {
-      return this.mode !== 'relative'
-    },
-    hasTimePeriods () {
-      return this.timePeriods && this.timePeriods.length
-    },
-    showCalendar () {
-      return this.tabName === 'custom' || !this.hasTimePeriods
-    },
-    hasRelativeTimeframes () {
-      return this.timePeriods.length > 0
-    },
-    submitDisabled () {
-      return this.range || this.hasRelativeTimeframes
-        ? !this.selectedRange.start || !this.selectedRange.end
-        : !this.selectedRange.start
-    },
-    hasDefaultCustomValue () {
-      return (this.defaultCustom.start && this.defaultCustom.end) || this.defaultCustom !== ''
-    },
-    defaultTimeframe () {
-      return (this.defaultRelative !== undefined)
-        ? this.defaultRelative
+    const calendarDragAttributes = {
+      highlight: {
+        start: { class: 'vcal-day-drag-start' },
+        base: { class: 'vcal-day-drag-base' },
+        end: { class: 'vcal-day-drag-end' }
+      }
+    }
+    const hasCalendar = computed(() => props.mode !== 'relative')
+    const hasTimePeriods = computed(() => props.timePeriods && props.timePeriods.length)
+    const showCalendar = computed(() => tabName.value === 'custom' || !hasTimePeriods)
+    const hasRelativeTimeframes = computed(() => props.timePeriods.length > 0)
+    const submitDisabled = computed(() => {
+      return props.range || hasRelativeTimeframes
+        ? !selectedRange.value.start || !selectedRange.value.end
+        : !selectedRange.value.start
+    })
+    const defaultTimeframe = computed(() => {
+      return props.defaultRelative !== undefined
+        ? props.defaultRelative
         : null
-    }
-  },
+    })
 
-  watch: {
-    // Updates input field's "human" date whenever v-calendar value is touched
-    selectedCalendarRange (newVal) {
-      if (newVal) {
-        this.changeCalendarRange(newVal)
-      }
-    }
-  },
-
-  mounted () {
-    // Select the tab based on incoming defaults
-    if (this.hasDefaultCustomValue && this.hasCalendar) {
-      this.tabName = 'custom'
-    } else if (this.hasRelativeTimeframes) {
-      this.tabName = 'relative'
-    }
-
-    // Set default value to be displayed in the input field
-    if (this.hasDefaultCustomValue) {
-      this.changeCalendarRange(this.defaultCustom)
-    } else if (this.defaultTimeframe) {
-      this.changeRelativeTimeframe(this.defaultTimeframe)
-    }
-  },
-
-  methods: {
-    getTimeframeText (tf) {
-      return `${tf.prefix} ${tf.timeframeText}`
-    },
-
-    changeCalendarRange (vCalValue) {
+    const changeCalendarRange = (vCalValue) => {
       let start = ''
       let end = ''
 
@@ -271,7 +223,7 @@ export default {
       const range = { start, end }
 
       // Set emitted value when v-calendar selection is made
-      this.selectedRange = {
+      selectedRange.value = {
         start,
         end,
         startISO: new Date(start).toISOString(),
@@ -279,88 +231,133 @@ export default {
         timeframeText: ''
       }
 
-      this.abbreviatedDisplay = this.formatDisplayDate(range)
-    },
+      abbreviatedDisplay.value = formatDisplayDate(range)
+    }
 
     /**
      * Updates both the input field value, and the full time frame readout
      * when a relative time frame button is clicked
      * @param {*} timeframe
      */
-    changeRelativeTimeframe (timeframe) {
-      this.selectedTimeframe = timeframe
+    const changeRelativeTimeframe = (timeframe) => {
+      selectedTimeframe.value = timeframe
 
       // Update input field text
-      this.abbreviatedDisplay = this.getTimeframeText(this.selectedTimeframe)
+      abbreviatedDisplay.value = getTimeframeText(selectedTimeframe.value)
 
       // Format the start/end values as human readable date
-      const start = this.selectedTimeframe.start()
-      const end = this.selectedTimeframe.end()
+      const start = selectedTimeframe.value.start()
+      const end = selectedTimeframe.value.end()
 
       // Set value to be emitted when relative time frame clicked
-      this.selectedRange = {
+      selectedRange.value = {
         start,
         end,
         startISO: new Date(start).toISOString(),
         endISO: new Date(end).toISOString(),
-        timeframeText: this.getTimeframeText(this.selectedTimeframe)
+        timeframeText: getTimeframeText(selectedTimeframe.value)
       }
 
-      this.fullRangeDisplay = this.formatDisplayDate({ start, end })
-    },
+      fullRangeDisplay.value = formatDisplayDate({ start, end })
+    }
 
-    clearSelection () {
-      this.selectedCalendarRange = null
-      this.abbreviatedDisplay = this.placeholder
-      this.fullRangeDisplay = ''
-      this.selectedRange = { start: '', end: '' }
-      this.selectedTimeframe = this.timePeriods[0]
-    },
+    const clearSelection = () => {
+      selectedCalendarRange.value = null
+      abbreviatedDisplay.value = props.placeholder
+      fullRangeDisplay.value = ''
+      selectedRange.value = { start: '', end: '' }
+      selectedTimeframe.value = props.timePeriods[0]
+    }
 
     // Displays selected date/time/range as a human readable string
-    formatDisplayDate (range) {
+    const formatDisplayDate = (range) => {
       const { start, end } = range
       let fmtStr = 'PP'
 
       // Determines the human timestamp readout format string; subject to change
-      if (!this.hasCalendar && this.hasRelativeTimeframes) {
+      if (!hasCalendar && hasRelativeTimeframes) {
         fmtStr = 'PP hh:mm a'
-      } else if (this.mode === 'date') {
+      } else if (props.mode === 'date') {
         fmtStr = 'PP'
-      } else if (this.mode === 'time') {
+      } else if (props.mode === 'time') {
         fmtStr = 'PP hh:mm a'
-      } else if (this.mode === 'dateTime') {
+      } else if (props.mode === 'dateTime') {
         fmtStr = 'PP hh:mm a'
       }
 
       // Determine whether an end date/time should be displayed in readout
-      return range.end && (this.range || this.hasRelativeTimeframes)
+      return range.end && (props.range || hasRelativeTimeframes)
         ? `${format(start, fmtStr)} - ${format(end, fmtStr)}`
         : `${format(start, fmtStr)}`
-    },
+    }
 
-    getDefaultTabName () {
-      return this.hasDefaultCustomValue ? 'custom' : 'relative'
-    },
+    const getTimeframeText = (tf) => {
+      return `${tf.prefix} ${tf.timeframeText}`
+    }
 
-    submitTimeFrame () {
-      this.$emit('changed', this.selectedRange)
-      this.$nextTick(() => {
-        this.hidePopover = true
-      })
-    },
-
-    ucWord (val) {
-      return val.charAt(0).toUpperCase() + val.slice(1)
-    },
-
-    async handleClose () {
-      this.$nextTick(() => {
-        this.hidePopover = false
+    const submitTimeFrame = async () => {
+      emit('changed', this.selectedRange)
+      await nextTick(() => {
+        hidePopover.value = true
       })
     }
+
+    const ucWord = (val) => {
+      return val.charAt(0).toUpperCase() + val.slice(1)
+    }
+
+    const handleClose = async () => {
+      await nextTick(() => {
+        hidePopover.value = false
+      })
+    }
+
+    watch(() => selectedCalendarRange, (newValue) => {
+      // Updates input field's "human" date whenever v-calendar value is touched
+      if (newValue) {
+        changeCalendarRange(newValue)
+      }
+    }, { immediate: true })
+
+    onMounted(() => {
+      // Select the tab based on incoming defaults
+      if (hasDefaultCustomValue && hasCalendar) {
+        tabName.value = 'custom'
+      } else if (hasRelativeTimeframes) {
+        tabName.value = 'relative'
+      }
+
+      // Set default value to be displayed in the input field
+      if (hasDefaultCustomValue) {
+        changeCalendarRange(props.defaultCustom)
+      } else if (defaultTimeframe) {
+        changeRelativeTimeframe(defaultTimeframe)
+      }
+    })
+
+    return {
+      hidePopover,
+      tabName,
+      abbreviatedDisplay,
+      fullRangeDisplay,
+      hasCalendar,
+      hasRelativeTimeframes,
+      hasTimePeriods,
+      selectedCalendarRange,
+      selectedTimeframe,
+      selectedRange,
+      modelConfig,
+      calendarSelectAttributes,
+      calendarDragAttributes,
+      showCalendar,
+      submitDisabled,
+      clearSelection,
+      submitTimeFrame,
+      ucWord,
+      handleClose
+    }
   }
-}
+})
 
 </script>
 
