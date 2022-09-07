@@ -292,10 +292,10 @@ export default defineComponent({
     }
 
     const submitTimeFrame = async () => {
-      if (this.range || this.hasRelativeTimeframes) {
-        this.$emit('changed', selectedRange.value)
+      if (props.range || hasRelativeTimeframes.value) {
+        emit('changed', selectedRange.value)
       } else {
-        this.$emit('changed', new Date(selectedRange.value.start))
+        emit('changed', new Date(selectedRange.value.start))
       }
 
       await nextTick(() => {
