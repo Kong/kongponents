@@ -1,3 +1,5 @@
+// This file is only intended for the Kongponents docs site examples
+
 const CHART_DATA_REQUEST_TRIM = 10
 
 export const TimeframeKeys = {
@@ -22,6 +24,8 @@ export class Timeframe {
   timeframeText 
 
   constructor (opts) {
+    this.key = opts.key
+    this.prefix = opts.prefix
     this.timeframeLength = opts.timeframeLength
     this.timeframeText = opts.timeframeText
   }
@@ -78,7 +82,8 @@ export const TimePeriods = new Map([
     TimeframeKeys.FIFTEEN_MIN,
     new Timeframe({
       key: TimeframeKeys.FIFTEEN_MIN,
-      timeframeText: 'Last 15 minutes',
+      prefix: 'Last',
+      timeframeText: '15 minutes',
       timeframeLength: () => 60 * 15 * 1000
     })
   ],
@@ -86,7 +91,8 @@ export const TimePeriods = new Map([
     TimeframeKeys.ONE_HOUR,
     new Timeframe({
       key: TimeframeKeys.ONE_HOUR,
-      timeframeText: 'Last hour',
+      prefix: 'Last',
+      timeframeText: 'hour',
       timeframeLength: () => 60 * 60 * 1 * 1000
     })
   ],
@@ -94,7 +100,8 @@ export const TimePeriods = new Map([
     TimeframeKeys.THREE_HOUR,
     new Timeframe({
       key: TimeframeKeys.THREE_HOUR,
-      timeframeText: 'Last 3 hours',
+      prefix: 'Last',
+      timeframeText: '3 hours',
       timeframeLength: () => 60 * 60 * 3 * 1000
     })
   ],
@@ -102,7 +109,8 @@ export const TimePeriods = new Map([
     TimeframeKeys.SIX_HOUR,
     new Timeframe({
       key: TimeframeKeys.SIX_HOUR,
-      timeframeText: 'Last 6 hours',
+      prefix: 'Last',
+      timeframeText: '6 hours',
       timeframeLength: () => 60 * 60 * 6 * 1000
     })
   ],
@@ -110,7 +118,8 @@ export const TimePeriods = new Map([
     TimeframeKeys.TWELVE_HOUR,
     new Timeframe({
       key: TimeframeKeys.TWELVE_HOUR,
-      timeframeText: 'Last 12 hours',
+      prefix: 'Last',
+      timeframeText: '12 hours',
       timeframeLength: () => 60 * 60 * 12 * 1000
     })
   ],
@@ -118,7 +127,8 @@ export const TimePeriods = new Map([
     TimeframeKeys.ONE_DAY,
     new Timeframe({
       key: TimeframeKeys.ONE_DAY,
-      timeframeText: 'Last 24 hours',
+      prefix: 'Last',
+      timeframeText: '24 hours',
       timeframeLength: () => 60 * 60 * 24 * 1000
     })
   ],
@@ -126,7 +136,8 @@ export const TimePeriods = new Map([
     TimeframeKeys.SEVEN_DAY,
     new Timeframe({
       key: TimeframeKeys.SEVEN_DAY,
-      timeframeText: 'Last 7 days',
+      prefix: 'Last',
+      timeframeText: '7 days',
       timeframeLength: () => 60 * 60 * 24 * 7 * 1000
     })
   ],
@@ -134,7 +145,8 @@ export const TimePeriods = new Map([
     TimeframeKeys.THIRTY_DAY,
     new Timeframe({
       key: TimeframeKeys.THIRTY_DAY,
-      timeframeText: 'Last 30 days',
+      prefix: 'Last',
+      timeframeText: '30 days',
       timeframeLength: () => 60 * 60 * 24 * 30 * 1000
     })
   ],
@@ -142,7 +154,8 @@ export const TimePeriods = new Map([
     TimeframeKeys.CURRENT_WEEK,
     new Timeframe({
       key: TimeframeKeys.CURRENT_WEEK,
-      timeframeText: 'This week',
+      prefix: 'This',
+      timeframeText: 'week',
       timeframeLength: () => {
         // Monday -> now
         const prevMonday = new Date()
@@ -158,7 +171,8 @@ export const TimePeriods = new Map([
     TimeframeKeys.CURRENT_MONTH,
     new Timeframe({
       key: TimeframeKeys.CURRENT_MONTH,
-      timeframeText: 'This month',
+      prefix: 'This',
+      timeframeText: 'month',
       timeframeLength: () => {
         // First of the month -> now
         const firstOfTheMonth = new Date()
@@ -174,7 +188,8 @@ export const TimePeriods = new Map([
     TimeframeKeys.PREVIOUS_WEEK,
     new PreviousWeek({
       key: TimeframeKeys.PREVIOUS_WEEK,
-      timeframeText: 'Previous week',
+      prefix: 'Previous',
+      timeframeText: 'week',
       timeframeLength: () => 60 * 60 * 24 * 7 * 1000
     })
   ],
@@ -182,7 +197,8 @@ export const TimePeriods = new Map([
     TimeframeKeys.PREVIOUS_MONTH,
     new PreviousMonth({
       key: TimeframeKeys.PREVIOUS_MONTH,
-      timeframeText: 'Previous month',
+      prefix: 'Previous',
+      timeframeText: 'month',
       timeframeLength: () => 60 * 60 * 24 * 30 * 1000
     })
   ]

@@ -1,4 +1,4 @@
-# DateTimePicker
+# DateTime Picker
 
 <div v-if="hasMounted">
 
@@ -10,109 +10,103 @@
 
 Create a single date selection calendar, defaulting the [selected value](#defaultcustom) to tomorrow.
 
-<KCard>
-  <template v-slot:body>
-    <KDateTimePicker
-      @changed="newVal => currentValue1 = newVal"
-      defaultMessage="Please select a date"
-      calendarMode="date"
-      :defaultCustom="defaultSingleTomorrow"
-      :isRange="false"
-      v-model="currentValue1"
-    />
-    <div class="mt-6">Emitted value: <pre>{{ JSON.stringify(currentValue1) }}</pre></div>
-  </template>
-</KCard>
+<div>
+  <KDateTimePicker
+    @changed="newVal => currentValue1 = newVal"
+    placeholder="Please select a date"
+    calendarMode="date"
+    :defaultCustom="defaultSingleTomorrow"
+    :isRange="false"
+  />
+  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue1) }}</pre></div>
+</div>
 
 ```html
 <KDateTimePicker
   @changed="newVal => currentValue = newVal"
-  defaultMessage="Please select a date"
+  placeholder="Please select a date"
   calendarMode="date"
   :defaultCustom="`${new Date().getTime() + (24*60*60*1000)}`"
   :isRange="false"
-  v-model="currentValue"
 />
 ```
 
 ### Calendar - Single time
 
-<KCard>
-  <template v-slot:body>
-    <KDateTimePicker
-      @changed="newVal => currentValue2 = newVal"
-      defaultMessage="Please select a time"
-      calendarMode="time"
-      :defaultCustom="defaultSingleToday"
-      :isRange="false"
-      v-model="currentValue2"
-    />
-    <div class="mt-6">Emitted value: <pre>{{ JSON.stringify(currentValue2) }}</pre></div>
-  </template>
-</KCard>
+<div>
+  <KDateTimePicker
+    @changed="newVal => currentValue2 = newVal"
+    placeholder="Please select a time"
+    calendarMode="time"
+    :defaultCustom="defaultSingleToday"
+    :isRange="false"
+  />
+  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue2) }}</pre></div>
+</div>
 
 ```html
 <KDateTimePicker
   @changed="newVal => currentValue = newVal"
-  defaultMessage="Please select a time"
+  placeholder="Please select a time"
   calendarMode="time"
   :defaultCustom="`${new Date()}`"
   :isRange="false"
-  v-model="currentValue"
 />
 ```
 
 ### Calendar - Single date and time
 
-<KCard>
-  <template v-slot:body>
-    <KDateTimePicker
-      @changed="newVal => currentValue3 = newVal"
-      defaultMessage="Please select a date and time"
-      calendarMode="dateTime"
-      :isRange="false"
-      v-model="currentValue3"
-    />
-    <div class="mt-6">Emitted value: <pre>{{ JSON.stringify(currentValue3) }}</pre></div>
-  </template>
-</KCard>
-
-```html
- <KDateTimePicker
-    @changed="newVal => currentValue = newVal"
-    defaultMessage="Please select a time"
+<div>
+  <KDateTimePicker
+    @changed="newVal => currentValue3 = newVal"
+    placeholder="Please select a date and time"
     calendarMode="dateTime"
     :isRange="false"
-    v-model="currentValue"
   />
+  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue3) }}</pre></div>
+</div>
+
+```html
+<KDateTimePicker
+  @changed="newVal => currentValue = newVal"
+  placeholder="Please select a date and time"
+  calendarMode="dateTime"
+  :isRange="false"
+/>
 ```
 
 ### Calendar and Relative time frames
 
 Display both a calendar and relative time frames, passing in a preset week-long range.
+This instance also makes use of the `minDate` and `maxDate` parameters, which are both optional.
 
-<KCard>
-  <template v-slot:body>
-    <KDateTimePicker
-      @changed="newVal => currentValue4 = newVal"
-      defaultMessage="Please select a time range"
-      calendarMode="dateTime"
-      :isRange="true"
-      :timePeriods="exampleTimeFrames"
-      :defaultCustom="defaultRangeWeek"
-      v-model="currentValue4"
-    />
-    <div class="mt-6">Emitted value: <pre>{{ JSON.stringify(currentValue4) }}</pre></div>
-  </template>
-</KCard>
+Please see props section for an [expanded example of the `timePeriods` array](#timeperiods).
+
+<div>
+  <KDateTimePicker
+    @changed="newVal => currentValue4 = newVal"
+    placeholder="Please select a time range"
+    calendarMode="dateTime"
+    :defaultCustom="defaultRangeWeek"
+    :minDate="minDate"
+    :maxDate="maxDate"
+    :isRange="true"
+    :timePeriods="exampleTimeFrames"
+  />
+  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue4) }}</pre></div>
+</div>
 
 ```html
 <KDateTimePicker 
   @change="newVal => currentValue = newVal"
+  placeholder="Please select a time range"
   calendarMode="dateTime"
   :defaultCustom="defaultRangeWeek"
+  :minDate="minDate"
+  :maxDate="maxDate"
+  :isRange="true"
+  :timePeriods="exampleTimeFrames"
   :timePeriods=[...]
-  v-model="currentValue"
 />
 ```
 
@@ -120,26 +114,22 @@ Display both a calendar and relative time frames, passing in a preset week-long 
 
 Passing in a selected relative time frame value will default the component to default to the "Relative" tab.
 
-<KCard>
-  <template v-slot:body>
-    <KDateTimePicker
-      @changed="newVal => currentValue5 = newVal"
-      defaultMessage="Please select a time range"
-      :timePeriods="exampleTimeFrames"
-      :defaultRelative="defaultRelativeTimeframe"
-      v-model="currentValue5"
-    />
-    <div class="mt-6">Emitted value: <pre>{{ JSON.stringify(currentValue5) }}</pre></div>
-  </template>
-</KCard>
+<div>
+  <KDateTimePicker
+    @changed="newVal => currentValue5 = newVal"
+    placeholder="Please select a time range"
+    :timePeriods="exampleTimeFrames"
+    :defaultRelative="defaultRelativeTimeframe"
+  />
+  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue5) }}</pre></div>
+</div>
 
 ```html
 <KDateTimePicker
   @changed="newVal => currentValue = newVal"
-  defaultMessage="Please select one of the time ranges below"
+  placeholder="Please select one of the time ranges below"
   :timePeriods="exampleTimeFrames"
   :defaultRelative="defaultRelativeTimeframe"
-  v-model="currentValue"
 />
 ```
 
@@ -147,40 +137,49 @@ Passing in a selected relative time frame value will default the component to de
 
 ### calendarMode
 
-- Allowed values are: `date`, `time`, `dateTime`
+Allowed values are: `date`, `time`, `dateTime`
 
 ### isRange
 
 Along with the `calendarMode` prop, this determines the whether the calendar allows selection of a single date or time, as opposed to a range of start and end values.
 
+### minDate
+
+Blocks out days/times that occur **before** the given timestamp. Does not apply to relative time frames.
+
+### maxDate
+
+Blocks out days/times that occur **after** the given timestamp. Does not apply to relative time frames.
+
 ### timePeriods
 
-An array of time frame values to be displayed as buttons in the "Relative" section of the popover, eg:
+An array of time frame values to be displayed as buttons in the "Relative" section of the popover.  Please note that each timeframe's `key` attribute needs to be unique.
+
+**Example:**
 
 ```json
 [
   {
-    section: 'Last',
+    section: "Last",
     values: [
-      { timeframeText: '15 minutes', start: function(), end: function() },
-      { timeframeText: '12 hours', start: function(), end: function() },
-      { timeframeText: '24 hours', start: function(), end: function() }
+      { key: "15m", timeframeText: "15 minutes", start: () => {}, end: () => {} },
+      { key: "12h", timeframeText: "12 hours", start: () => {}, end: () => {} },
+      { key: "24h", timeframeText: "24 hours", start: () => {}, end: () => {} },
+      ...
     ]
   },
   {
-    section: 'Previous',
+    section: "Previous",
     values: [
-      { timeframeText: 'Week', start: function(), end: function() }
+      { key: "prev_week", timeframeText: "Week", start: () => {}, end: () => {} },
+      { key: "prev_month", timeframeText: "Month", start: () => {}, end: () => {} },
+      ...
     ]
   }
 ]
 ```
 
-### value
-
-The timestamp that the component should default to
-
-### defaultMessage
+### placeholder
 
 User-facing messaging that encourages the user to click things
 
@@ -203,7 +202,7 @@ Either an integer, or an object with `start` and `end` values, all of which woul
 
 ## Theming
 
-The DateTimePicker will expand to fit the width of its parent container. To customize its width, add a class or width attribute to the wrapping component.
+The DateTime Picker will expand to fit the width of its parent container. To customize its width, add a class or width attribute to the wrapping component.
 
 </div>
 
@@ -259,14 +258,13 @@ export default {
         start: new Date().getTime() - (7*24*60*60*1000),
         end: new Date().getTime()
       },
-      maxDate: 'Tue Aug 31 2023 17:09:43 GMT-0400 (Eastern Daylight Time)',
-      minDate: 'Mon Apr 4 2021 10:09:43 GMT-0400 (Eastern Daylight Time)',
+      maxDate: new Date().getTime(),
+      minDate: new Date().getTime() - (365*24*60*60*1000),
       exampleTimeFrames
     }
   },
   computed: {
     defaultRelativeTimeframe () {
-      console.log(TimePeriods.get(TimeframeKeys.ONE_DAY))
       return TimePeriods.get(TimeframeKeys.ONE_DAY)
     }
   },
@@ -277,7 +275,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-pre {
+pre.json {
+  font-size: var(--type-xs);
   white-space: pre-wrap;
 }
 
