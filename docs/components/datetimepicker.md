@@ -128,24 +128,24 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
     {
       section: "Last",
       values: [
-        { key: "15m", prefix: "Last", timeframeText: "15 minutes", start: () => {}, end: () => {} },
-        { key: "12h", prefix: "Last", timeframeText: "12 hours", start: () => {}, end: () => {} },
-        { key: "24h", prefix: "Last", timeframeText: "24 hours", start: () => {}, end: () => {} },
+        { key: "15m", prefix: "Last", timeframeText: "15 minutes", start: function() {}, end: function() {} },
+        { key: "12h", prefix: "Last", timeframeText: "12 hours", start: function() {}, end: function() {} },
+        { key: "24h", prefix: "Last", timeframeText: "24 hours", start: function() {}, end: function() {}},
         ...
       ]
     },
     {
       section: "Current",
       values: [
-        { key: "current_week", prefix: "Current", timeframeText: "week", start: () => {}, end: () => {} },
-        { key: "current_month", prefix: "Current", timeframeText: "month", start: () => {}, end: () => {} },
+        { key: "current_week", prefix: "Current", timeframeText: "week", start: function() {}, end: function() {} },
+        { key: "current_month", prefix: "Current", timeframeText: "month", start: function() {}, end: function() {} }
       ]
     }
     {
       section: "Previous",
       values: [
-        { key: "previous_week", prefix: "Previous", timeframeText: "week", start: () => {}, end: () => {} },
-        { key: "previous_month", prefix: "Previous", timeframeText: "month", start: () => {}, end: () => {} },
+        { key: "previous_week", prefix: "Previous", timeframeText: "week", start: function() {}, end: function() {} },
+        { key: "previous_month", prefix: "Previous", timeframeText: "month", start: function() {}, end: function() {} }
       ]
     }
   ]
@@ -180,7 +180,6 @@ Same time frames as the previous example, except now we're passing in a pre-sele
         { key: "15m", prefix: "Last", timeframeText: "15 minutes", start: () => {}, end: () => {} },
         { key: "12h", prefix: "Last", timeframeText: "12 hours", start: () => {}, end: () => {} },
         { key: "24h", prefix: "Last", timeframeText: "24 hours", start: () => {}, end: () => {} },
-        ...
       ]
     },
     {
@@ -233,7 +232,6 @@ An array of time frame values to be displayed as buttons in the "Relative" secti
       { key: "15m", prefix: "Last", timeframeText: "15 minutes", start: () => {}, end: () => {} },
       { key: "12h", prefix: "Last", timeframeText: "12 hours", start: () => {}, end: () => {} },
       { key: "24h", prefix: "Last", timeframeText: "24 hours", start: () => {}, end: () => {} },
-      ...
     ]
   },
    {
