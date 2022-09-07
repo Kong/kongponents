@@ -111,32 +111,15 @@ export default defineComponent({
     DatePicker: () => import('v-calendar/lib/components/date-picker.umd')
   },
   props: {
-    placeholder: {
-      type: String,
+    defaultCustom: {
+      type: Object | Number,
       required: false,
-      default: 'Select a time range'
-    },
-    mode: {
-      type: String,
-      required: true,
-      validator: (value) => {
-        return [ 'relative', 'date', 'time', 'dateTime' ].includes(value)
-      }
+      default: ''
     },
     defaultRelative: {
       type: Object,
       required: false,
       default: () => {}
-    },
-    defaultCustom: {
-      type: Object | String,
-      required: false,
-      default: ''
-    },
-    range: {
-      type: Boolean,
-      required: false,
-      default: false
     },
     maxDate: {
       type: Number,
@@ -147,6 +130,23 @@ export default defineComponent({
       type: Number,
       required: false,
       default: null
+    },
+    mode: {
+      type: String,
+      required: true,
+      validator: (value) => {
+        return [ 'relative', 'date', 'time', 'dateTime' ].includes(value)
+      }
+    },
+    placeholder: {
+      type: String,
+      required: false,
+      default: 'Select a time range'
+    },
+    range: {
+      type: Boolean,
+      required: false,
+      default: false
     },
     timePeriods: {
       type: Array,

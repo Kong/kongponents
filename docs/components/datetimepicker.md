@@ -177,23 +177,24 @@ Same time frames as the previous example, except now we're passing in a pre-sele
     {
       section: "Last",
       values: [
-        { key: "15m", prefix: "Last", timeframeText: "15 minutes", start: () => {}, end: () => {} },
-        { key: "12h", prefix: "Last", timeframeText: "12 hours", start: () => {}, end: () => {} },
-        { key: "24h", prefix: "Last", timeframeText: "24 hours", start: () => {}, end: () => {} },
+        { key: "15m", prefix: "Last", timeframeText: "15 minutes", start: function() {}, end: function() {} },
+        { key: "12h", prefix: "Last", timeframeText: "12 hours", start: function() {}, end: function() {} },
+        { key: "24h", prefix: "Last", timeframeText: "24 hours", start: function() {}, end: function() {} },
+        ...
       ]
     },
     {
       section: "Current",
       values: [
-        { key: "current_week", prefix: "Current", timeframeText: "week", start: () => {}, end: () => {} },
-        { key: "current_month", prefix: "Current", timeframeText: "month", start: () => {}, end: () => {} },
+        { key: "current_week", prefix: "Current", timeframeText: "week", start: function() {}, end: function() {} },
+        { key: "current_month", prefix: "Current", timeframeText: "month", start: function() {}, end: function() {} }
       ]
     }
     {
       section: "Previous",
       values: [
-        { key: "previous_week", prefix: "Previous", timeframeText: "week", start: () => {}, end: () => {} },
-        { key: "previous_month", prefix: "Previous", timeframeText: "month", start: () => {}, end: () => {} },
+        { key: "previous_week", prefix: "Previous", timeframeText: "week", start: function() {}, end: function() {} },
+        { key: "previous_month", prefix: "Previous", timeframeText: "month", start: function() {}, end: function() {} }
       ]
     }
   ]
@@ -202,21 +203,62 @@ Same time frames as the previous example, except now we're passing in a pre-sele
 
 ## Props
 
-### mode
+### defaultCustom
 
-Allowed values are: `date`, `time`, `dateTime` and `relative`, the latter of which is meant to denote a time frame-only instance.
+The `defaultCustom` parameter is intended to seed a date or time calendar instance with either a single start date/time, or two date/times (start and end values). In both cases, the values should be Unix timestamps (number of milliseconds since Unix epoch).
 
-### range
+This paramenter can be either an `Object` or a `Number`.
 
-Along with the `mode` prop, this determines the whether the calendar allows selection of a single date or time, as opposed to a range of start and end values.
+- If `range` is set to `true`, then the value should be an object that contains both a `start` and and `end` timestamp.
+- If `range` is set to `false`, then a timestamp is expected.
 
-### minDate
+**Examples**:
 
-Blocks out days/times that occur **before** the given timestamp. Does not apply to relative time frames.
+```js
+// Single date or time
+1662588371998
+
+// A range of dates / datetimes
+{
+  start: 1662588371998
+  end: 1662589027215
+}
+```
+
+### defaultRelative
+
+`Object` which contains a single time frame, which is defined as:
+
+```js
+{
+    "key": "24h",
+    "prefix": "Last"
+    "timeframeText": "24 hours",
+    "timeframeLength": function () { ... },
+    "start": function () { ... },
+    "end": function () { ... },
+}
+```
 
 ### maxDate
 
-Blocks out days/times that occur **after** the given timestamp. Does not apply to relative time frames.
+`Number` which blocks out days/times that occur **after** the given timestamp. `maxDate` gets passed down to the calendar component, and does not apply to relative time frames.
+
+### minDate
+
+`Number` which blocks out days/times that occur **before** the given timestamp. `minDate` gets passed down to the calendar component, and does not apply to relative time frames.
+
+### mode
+
+`String` parameter which accepts the following values: `date`, `time`, `dateTime` and `relative`. The latter is meant to denote an datetime picker instance which only contains relative time frames.
+
+### placeholder
+
+`String` containing the default message displayed in the date time picker input. Clearing any selected values will revert the input to display this placeholder message.
+
+### range
+
+`Boolean` which determines whether the calendar allows selection of a **single** date or time, as opposed to a **range** of start and end values. This parameter, along with the `mode` setting, gets passed down to the calendar component.
 
 ### timePeriods
 
@@ -250,31 +292,6 @@ An array of time frame values to be displayed as buttons in the "Relative" secti
   }
 ]
 ```
-
-### placeholder
-
-User-facing messaging that encourages the user to click things
-
-### defaultCustom
-
-Either an integer, or an object with `start` and `end` values, all of which would represent number of milliseconds since Unix epoch.  
-
-**Examples**:
-
-```js
-// Single date or time
-1662588371998
-
-// A range of dates / datetimes
-{
-  start: 1662588371998
-  end: 1662589027215
-}
-```
-
-## Theming
-
-The DateTime Picker will expand to fit the width of its parent container. To customize its width, add a class or width attribute to the wrapping component.
 
 </div>
 
