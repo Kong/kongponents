@@ -6,7 +6,7 @@
 
 ## Examples
 
-### Calendar - Single date
+### Single date
 
 Create a single date selection calendar, defaulting the [selected value](#defaultcustom) to tomorrow.
 
@@ -31,7 +31,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
 />
 ```
 
-### Calendar - Single time
+### Single time
 
 <div>
   <KDateTimePicker
@@ -54,7 +54,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
 />
 ```
 
-### Calendar - Single date and time
+### Single date and time
 
 <div>
   <KDateTimePicker
@@ -75,7 +75,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
 />
 ```
 
-### Calendar - Date and time range
+### Date and time range
 
 <div>
   <KDateTimePicker
