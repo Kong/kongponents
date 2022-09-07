@@ -272,11 +272,9 @@ export default {
 
       // Set emitted value when v-calendar selection is made
       this.selectedRange = {
-        start,
-        end,
-        startISO: new Date(start).toISOString(),
-        endISO: (end !== '') ? new Date(end).toISOString() : end,
-        timeframeText: ''
+        start: new Date(start),
+        end: new Date(end),
+        relativeTimeframe: ''
       }
 
       this.abbreviatedDisplay = this.formatDisplayDate(range)
@@ -299,11 +297,9 @@ export default {
 
       // Set value to be emitted when relative time frame clicked
       this.selectedRange = {
-        start,
-        end,
-        startISO: new Date(start).toISOString(),
-        endISO: new Date(end).toISOString(),
-        timeframeText: this.getTimeframeText(this.selectedTimeframe)
+        start: new Date(start),
+        end: new Date(end),
+        relativeTimeframe: this.selectedTimeframe.key
       }
 
       this.fullRangeDisplay = this.formatDisplayDate({ start, end })
@@ -344,7 +340,12 @@ export default {
     },
 
     submitTimeFrame () {
-      this.$emit('changed', this.selectedRange)
+      if (this.range || this.hasRelativeTimeframes) {
+        this.$emit('changed', this.selectedRange)
+      } else {
+        this.$emit('changed', new Date(this.selectedRange.start))
+      }
+
       this.$nextTick(() => {
         this.hidePopover = true
       })

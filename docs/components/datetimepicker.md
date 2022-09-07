@@ -18,7 +18,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
     :defaultCustom="defaultSingleTomorrow"
     :range="false"
   />
-  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue1) }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json">{{ currentValue1 }}</pre></div>
 </div>
 
 ```html
@@ -41,7 +41,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
     :defaultCustom="defaultSingleToday"
     :range="false"
   />
-  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue2) }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json">{{ currentValue2 }}</pre></div>
 </div>
 
 ```html
@@ -63,7 +63,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
     mode="dateTime"
     :range="false"
   />
-  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue3) }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json">{{ currentValue3 }}</pre></div>
 </div>
 
 ```html
@@ -171,6 +171,7 @@ Same time frames as the previous example, except now we're passing in a pre-sele
 <KDateTimePicker
   @changed="newVal => currentValue = newVal"
   placeholder="Please select a time frame"
+  mode="relative"
   :defaultRelative="defaultRelativeTimeframe"
   :timePeriods=[
     {
