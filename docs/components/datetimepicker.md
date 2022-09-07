@@ -225,7 +225,7 @@ An array of time frame values to be displayed as buttons in the "Relative" secti
 
 **Example:**
 
-```json
+```js
 [
   {
     section: "Last",
