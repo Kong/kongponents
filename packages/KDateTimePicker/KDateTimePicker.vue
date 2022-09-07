@@ -48,14 +48,14 @@
       >
         <div
           v-for="(item, index) in timePeriods"
-          :key="`section-${index}`"
+          :key="`section-${item.section || index}`"
           class="timeframe-section d-flex flex-column"
         >
           <h4>{{ item.section }}</h4>
           <div class="timeframe-buttons d-flex flex-row justify-content-start">
             <KButton
-              v-for="(timeFrame, index) in item.values"
-              :key="`time-${index}`"
+              v-for="(timeFrame, itemIdx) in item.values"
+              :key="`time-${itemIdx}`"
               :is-rounded="false"
               :class="{'selected-option': timeFrame.key === selectedTimeframe.key}"
               :data-testid="'select-timeframe-' + timeFrame.timeframeLength()"
@@ -96,11 +96,11 @@
 </template>
 
 <script>
+import { computed, defineComponent, nextTick, onMounted, ref, watch } from 'vue'
+import { format } from 'date-fns'
 import KButton from '@kongponents/kbutton/KButton.vue'
 import KPop from '@kongponents/kpop/KPop.vue'
 import KSegmentedControl from '@kongponents/ksegmentedcontrol/KSegmentedControl.vue'
-import { format } from 'date-fns'
-import { computed, defineComponent, nextTick, onMounted, ref, watch } from 'vue'
 
 export default defineComponent({
   name: 'KDateTimePicker',
