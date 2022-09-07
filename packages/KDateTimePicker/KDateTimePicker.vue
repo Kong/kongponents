@@ -39,6 +39,7 @@
         :mode="mode"
         :model-config="modelConfig"
         :select-attribute="calendarSelectAttributes"
+        :drag-attribute="calendarDragAttributes"
         is-expanded
       />
       <div
@@ -116,10 +117,9 @@ export default {
     },
     mode: {
       type: String,
-      required: false,
-      default: '',
+      required: true,
       validator: (value) => {
-        return [ '', 'date', 'time', 'dateTime' ].indexOf(value) !== -1
+        return [ 'relative', 'date', 'time', 'dateTime' ].includes(value)
       }
     },
     defaultRelative: {
@@ -185,8 +185,14 @@ export default {
         highlight: {
           start: { class: 'vcal-day-start' },
           base: { class: 'vcal-day-base' },
-          end: { class: 'vcal-day-end' },
-          day: { class: 'vcal-day-preselect' }
+          end: { class: 'vcal-day-end' }
+        }
+      },
+      calendarDragAttributes: {
+        highlight: {
+          start: { class: 'vcal-day-drag-start' },
+          base: { class: 'vcal-day-drag-base' },
+          end: { class: 'vcal-day-drag-end' }
         }
       }
     }
@@ -194,7 +200,7 @@ export default {
 
   computed: {
     hasCalendar () {
-      return this.mode !== ''
+      return this.mode !== 'relative'
     },
     hasTimePeriods () {
       return this.timePeriods && this.timePeriods.length
@@ -459,7 +465,6 @@ $margin: .2rem;
         .vc-nav-header .vc-nav-title {
           color: color(grey-500);
         }
-        // TODO: pending design input
         .vc-nav-items {
           .vc-nav-item {
             &:hover {
@@ -496,20 +501,23 @@ $margin: .2rem;
         }
       }
 
+      // Day text within hover selection or post-selection
+      .vc-highlights + .vc-day-content {
+        color: color(white);
+        font-weight: 600;
+      }
+
       //
       // Date Range - Post selection
       //
       .vc-highlight.vcal-day-start,
       .vc-highlight.vcal-day-end {
         background-color: color(blue-500);
-        color: white;
+        color: white !important;
       }
       .vc-highlight.vcal-day-base,
       .vc-highlight.vc-highlight-base-middle {
-        background-color: $highlight-color !important;
-      }
-      .vc-highlights + .vc-day-content {
-        color: white;
+        background-color: $highlight-color;
       }
 
       //
@@ -517,9 +525,25 @@ $margin: .2rem;
       //
 
       // Start / end
+      .vcal-day-drag-start,
+      .vcal-day-drag-end {
+        border: 2px solid color(blue-400);
+        background-color: color(blue-500);
+        color: white;
+      }
+
+      .vc-day-content {
+        &:hover {
+          color: color(blue-500);
+          background-color: white;
+          border: 2px solid color(blue-400);
+        }
+      }
+
+      // Start / end "outer edge" background color
       .vc-highlight.vc-highlight-base-start,
       .vc-highlight.vc-highlight-base-end {
-        background-color: $highlight-color !important;
+        background-color: $highlight-color;
       }
     }
   }
