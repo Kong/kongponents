@@ -36,7 +36,7 @@
         :is-range="isRange"
         :max-date="maxDate"
         :min-date="minDate"
-        :mode="calendarMode"
+        :mode="mode"
         :model-config="modelConfig"
         :select-attribute="calendarSelectAttributes"
         is-expanded
@@ -114,7 +114,7 @@ export default {
       required: false,
       default: 'Select a time range'
     },
-    calendarMode: {
+    mode: {
       type: String,
       required: false,
       default: '',
@@ -194,7 +194,7 @@ export default {
 
   computed: {
     hasCalendar () {
-      return this.calendarMode !== ''
+      return this.mode !== ''
     },
     hasTimePeriods () {
       return this.timePeriods && this.timePeriods.length
@@ -319,11 +319,11 @@ export default {
       // Determines the human timestamp readout format string; subject to change
       if (!this.hasCalendar && this.hasRelativeTimeframes) {
         fmtStr = 'PP hh:mm a'
-      } else if (this.calendarMode === 'date') {
+      } else if (this.mode === 'date') {
         fmtStr = 'PP'
-      } else if (this.calendarMode === 'time') {
+      } else if (this.mode === 'time') {
         fmtStr = 'PP hh:mm a'
-      } else if (this.calendarMode === 'dateTime') {
+      } else if (this.mode === 'dateTime') {
         fmtStr = 'PP hh:mm a'
       }
 
@@ -334,7 +334,7 @@ export default {
     },
 
     getDefaultTabName () {
-      return (this.hasDefaultCustomValue ? 'custom' : 'relative')
+      return this.hasDefaultCustomValue ? 'custom' : 'relative'
     },
 
     submitTimeFrame () {

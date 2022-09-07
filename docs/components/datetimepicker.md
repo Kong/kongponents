@@ -14,7 +14,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
   <KDateTimePicker
     @changed="newVal => currentValue1 = newVal"
     placeholder="Please select a date"
-    calendarMode="date"
+    mode="date"
     :defaultCustom="defaultSingleTomorrow"
     :isRange="false"
   />
@@ -25,7 +25,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
 <KDateTimePicker
   @changed="newVal => currentValue = newVal"
   placeholder="Please select a date"
-  calendarMode="date"
+  mode="date"
   :defaultCustom="`${new Date().getTime() + (24*60*60*1000)}`"
   :isRange="false"
 />
@@ -37,7 +37,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
   <KDateTimePicker
     @changed="newVal => currentValue2 = newVal"
     placeholder="Please select a time"
-    calendarMode="time"
+    mode="time"
     :defaultCustom="defaultSingleToday"
     :isRange="false"
   />
@@ -48,7 +48,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
 <KDateTimePicker
   @changed="newVal => currentValue = newVal"
   placeholder="Please select a time"
-  calendarMode="time"
+  mode="time"
   :defaultCustom="`${new Date()}`"
   :isRange="false"
 />
@@ -60,7 +60,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
   <KDateTimePicker
     @changed="newVal => currentValue3 = newVal"
     placeholder="Please select a date and time"
-    calendarMode="dateTime"
+    mode="dateTime"
     :isRange="false"
   />
   <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue3) }}</pre></div>
@@ -70,7 +70,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
 <KDateTimePicker
   @changed="newVal => currentValue = newVal"
   placeholder="Please select a date and time"
-  calendarMode="dateTime"
+  mode="dateTime"
   :isRange="false"
 />
 ```
@@ -86,7 +86,7 @@ Please see props section for an [expanded example of the `timePeriods` array](#t
   <KDateTimePicker
     @changed="newVal => currentValue4 = newVal"
     placeholder="Please select a time range"
-    calendarMode="dateTime"
+    mode="dateTime"
     :defaultCustom="defaultRangeWeek"
     :minDate="minDate"
     :maxDate="maxDate"
@@ -100,7 +100,7 @@ Please see props section for an [expanded example of the `timePeriods` array](#t
 <KDateTimePicker 
   @change="newVal => currentValue = newVal"
   placeholder="Please select a time range"
-  calendarMode="dateTime"
+  mode="dateTime"
   :defaultCustom="defaultRangeWeek"
   :minDate="minDate"
   :maxDate="maxDate"
@@ -135,13 +135,13 @@ Passing in a selected relative time frame value will default the component to de
 
 ## Props
 
-### calendarMode
+### mode
 
 Allowed values are: `date`, `time`, `dateTime`
 
 ### isRange
 
-Along with the `calendarMode` prop, this determines the whether the calendar allows selection of a single date or time, as opposed to a range of start and end values.
+Along with the `mode` prop, this determines the whether the calendar allows selection of a single date or time, as opposed to a range of start and end values.
 
 ### minDate
 
