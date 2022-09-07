@@ -171,7 +171,7 @@ export default defineComponent({
   },
   setup (props, { emit }) {
     const hidePopover = ref(false)
-    const selectedRange = ref({ start: '', end: '' })
+    const selectedRange = ref({ start: '', end: '', relativeTimeframe: '' })
     const hasDefaultCustomValue = (props.defaultCustom.start && props.defaultCustom.end) || props.defaultCustom !== ''
     const tabName = ref(hasDefaultCustomValue ? 'custom' : 'relative')
     const abbreviatedDisplay = ref(props.placeholder)
@@ -264,8 +264,15 @@ export default defineComponent({
       selectedCalendarRange.value = null
       abbreviatedDisplay.value = props.placeholder
       fullRangeDisplay.value = ''
-      selectedRange.value = { start: '', end: '' }
+      selectedRange.value = { start: '', end: '', relativeTimeframe: '' }
       selectedTimeframe.value = props.timePeriods[0]
+
+      // Emit the empty value back to parent
+      if (props.range || hasRelativeTimeframes.value) {
+        emit('changed', selectedRange.value)
+      } else {
+        emit('changed', '')
+      }
     }
 
     // Displays selected date/time/range as a human readable string
