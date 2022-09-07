@@ -194,7 +194,7 @@ export default defineComponent({
       }
     }
     const hasCalendar = computed(() => props.mode !== 'relative')
-    const hasTimePeriods = computed(() => props?.timePeriods?.length)
+    const hasTimePeriods = computed(() => props.timePeriods && props.timePeriods.length)
     const showCalendar = computed(() => tabName.value === 'custom' || !hasTimePeriods.value)
     const submitDisabled = computed(() => {
       // If either the calendar is in range selection mode, or relative time frames
