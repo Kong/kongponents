@@ -33,7 +33,7 @@
       <DatePicker
         v-if="hasCalendar && showCalendar"
         v-model="selectedCalendarRange"
-        :is-range="isRange"
+        :is-range="range"
         :max-date="maxDate"
         :min-date="minDate"
         :mode="mode"
@@ -132,7 +132,7 @@ export default {
       required: false,
       default: ''
     },
-    isRange: {
+    range: {
       type: Boolean,
       required: false,
       default: false
@@ -206,7 +206,7 @@ export default {
       return this.timePeriods.length > 0
     },
     submitDisabled () {
-      return this.isRange || this.hasRelativeTimeframes
+      return this.range || this.hasRelativeTimeframes
         ? !this.selectedRange.start || !this.selectedRange.end
         : !this.selectedRange.start
     },
@@ -328,7 +328,7 @@ export default {
       }
 
       // Determine whether an end date/time should be displayed in readout
-      return range.end && (this.isRange || this.hasRelativeTimeframes)
+      return range.end && (this.range || this.hasRelativeTimeframes)
         ? `${format(start, fmtStr)} - ${format(end, fmtStr)}`
         : `${format(start, fmtStr)}`
     },

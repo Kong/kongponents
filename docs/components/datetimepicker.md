@@ -16,7 +16,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
     placeholder="Please select a date"
     mode="date"
     :defaultCustom="defaultSingleTomorrow"
-    :isRange="false"
+    :range="false"
   />
   <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue1) }}</pre></div>
 </div>
@@ -27,7 +27,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
   placeholder="Please select a date"
   mode="date"
   :defaultCustom="`${new Date().getTime() + (24*60*60*1000)}`"
-  :isRange="false"
+  :range="false"
 />
 ```
 
@@ -39,7 +39,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
     placeholder="Please select a time"
     mode="time"
     :defaultCustom="defaultSingleToday"
-    :isRange="false"
+    :range="false"
   />
   <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue2) }}</pre></div>
 </div>
@@ -50,7 +50,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
   placeholder="Please select a time"
   mode="time"
   :defaultCustom="`${new Date()}`"
-  :isRange="false"
+  :range="false"
 />
 ```
 
@@ -61,7 +61,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
     @changed="newVal => currentValue3 = newVal"
     placeholder="Please select a date and time"
     mode="dateTime"
-    :isRange="false"
+    :range="false"
   />
   <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue3) }}</pre></div>
 </div>
@@ -71,7 +71,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
   @changed="newVal => currentValue = newVal"
   placeholder="Please select a date and time"
   mode="dateTime"
-  :isRange="false"
+  :range="false"
 />
 ```
 
@@ -90,7 +90,7 @@ Please see props section for an [expanded example of the `timePeriods` array](#t
     :defaultCustom="defaultRangeWeek"
     :minDate="minDate"
     :maxDate="maxDate"
-    :isRange="true"
+    :range="true"
     :timePeriods="exampleTimeFrames"
   />
   <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue4) }}</pre></div>
@@ -104,7 +104,7 @@ Please see props section for an [expanded example of the `timePeriods` array](#t
   :defaultCustom="defaultRangeWeek"
   :minDate="minDate"
   :maxDate="maxDate"
-  :isRange="true"
+  :range="true"
   :timePeriods="exampleTimeFrames"
   :timePeriods=[...]
 />
