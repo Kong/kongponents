@@ -13,7 +13,7 @@ Whereas an instance of this component that displays a date range or a series of 
 { 
   "start": "2022-09-06T19:45:54.406Z",
   "end": "2022-09-07T19:45:54.406Z",
-  "relativeTimeframe": "24h" // or ""
+  "timePeriodsKey": "24h" // or ""
 }
 ```
 
