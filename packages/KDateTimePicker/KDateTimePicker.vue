@@ -223,16 +223,12 @@ export default defineComponent({
         start = vCalValue
       }
 
-      const range = { start, end }
-
       // Set emitted value when v-calendar selection is made
       selectedRange.value = {
         start: new Date(start),
         end: new Date(end),
         timePeriodsKey: ''
       }
-
-      abbreviatedDisplay.value = formatDisplayDate(range)
     }
 
     /**
@@ -242,9 +238,6 @@ export default defineComponent({
      */
     const changeRelativeTimeframe = (timeframe) => {
       selectedTimeframe.value = timeframe
-
-      // Update input field text
-      abbreviatedDisplay.value = getTimeframeText(selectedTimeframe.value)
 
       // Format the start/end values as human readable date
       const start = selectedTimeframe.value.start()
@@ -304,7 +297,16 @@ export default defineComponent({
     const submitTimeFrame = async () => {
       if (props.range || hasRelativeTimeframes.value) {
         emit('changed', selectedRange.value)
+
+        // Determine which tab has focus, then update input field text
+        if (showCalendar && selectedRange.value) {
+          abbreviatedDisplay.value = formatDisplayDate(selectedRange.value)
+        } else {
+          abbreviatedDisplay.value = getTimeframeText(selectedTimeframe.value)
+        }
       } else {
+        // Update input field text for single date / time instance
+        abbreviatedDisplay.value = formatDisplayDate(selectedRange.value)
         emit('changed', new Date(selectedRange.value.start))
       }
 
@@ -347,26 +349,26 @@ export default defineComponent({
     })
 
     return {
-      hidePopover,
-      tabName,
       abbreviatedDisplay,
       changeRelativeTimeframe,
+      clearSelection,
       fullRangeDisplay,
+      handleClose,
       hasCalendar,
       hasRelativeTimeframes,
       hasTimePeriods,
+      hidePopover,
+      modelConfig,
       selectedCalendarRange,
       selectedTimeframe,
       selectedRange,
-      modelConfig,
       calendarSelectAttributes,
       calendarDragAttributes,
       showCalendar,
       submitDisabled,
-      clearSelection,
       submitTimeFrame,
-      ucWord,
-      handleClose
+      tabName,
+      ucWord
     }
   }
 })
