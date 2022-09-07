@@ -19,7 +19,7 @@
       v-if="!hidePopover"
       #content>
       <KSegmentedControl
-        v-if="hasRelativeTimeframes && hasCalendar"
+        v-if="hasTimePeriods && hasCalendar"
         v-model="tabName"
         :options="[
           { label: 'Relative', value: 'relative' },
@@ -43,7 +43,7 @@
         is-expanded
       />
       <div
-        v-else-if="hasRelativeTimeframes && hasTimePeriods"
+        v-else-if="hasTimePeriods"
         class="d-flex flex-column"
       >
         <div
@@ -194,14 +194,13 @@ export default defineComponent({
       }
     }
     const hasCalendar = computed(() => props.mode !== 'relative')
-    const hasTimePeriods = computed(() => props.timePeriods && props.timePeriods.length)
+    const hasTimePeriods = computed(() => props?.timePeriods?.length)
     const showCalendar = computed(() => tabName.value === 'custom' || !hasTimePeriods.value)
-    const hasRelativeTimeframes = computed(() => props.timePeriods.length > 0)
     const submitDisabled = computed(() => {
       // If either the calendar is in range selection mode, or relative time frames
       // are present, check whether both `start` and `end` are set;
       // Otherwise, it's a single date or time, so only check `start`
-      return props.range || hasRelativeTimeframes.value
+      return props.range || hasTimePeriods.value
         ? !selectedRange.value.start || !selectedRange.value.end
         : !selectedRange.value.start
     })
@@ -258,13 +257,19 @@ export default defineComponent({
       abbreviatedDisplay.value = props.placeholder
       fullRangeDisplay.value = ''
       selectedRange.value = { start: '', end: '', timePeriodsKey: '' }
-      selectedTimeframe.value = props.timePeriods[0]
 
-      // Emit the empty value back to parent
-      if (props.range || hasRelativeTimeframes.value) {
-        emit('changed', selectedRange.value)
-      } else {
+      if (hasTimePeriods) {
+        selectedTimeframe.value = props.timePeriods[0]
+      }
+
+      // If the calendar has focus, and `range` is set to false, we are displaying
+      // a single date / time picker; therefore, need to emit an empty string.
+      //
+      // Else, we are displaying a date / time range (relative timeframes or calendar range)
+      if (!props.range && showCalendar) {
         emit('changed', '')
+      } else {
+        emit('changed', selectedRange.value)
       }
     }
 
@@ -274,7 +279,7 @@ export default defineComponent({
       let fmtStr = 'PP'
 
       // Determines the human timestamp readout format string; subject to change
-      if (!hasCalendar.value && hasRelativeTimeframes.value) {
+      if (!hasCalendar.value && hasTimePeriods.value) {
         fmtStr = 'PP hh:mm a'
       } else if (props.mode === 'date') {
         fmtStr = 'PP'
@@ -285,7 +290,7 @@ export default defineComponent({
       }
 
       // Determine whether an end date/time should be displayed in readout
-      return range.end && (props.range || hasRelativeTimeframes.value)
+      return range.end && (props.range || hasTimePeriods.value)
         ? `${format(start, fmtStr)} - ${format(end, fmtStr)}`
         : `${format(start, fmtStr)}`
     }
@@ -295,7 +300,7 @@ export default defineComponent({
     }
 
     const submitTimeFrame = async () => {
-      if (props.range || hasRelativeTimeframes.value) {
+      if (props.range || hasTimePeriods.value) {
         emit('changed', selectedRange.value)
 
         // Determine which tab has focus, then update input field text
@@ -336,14 +341,14 @@ export default defineComponent({
       // Select the tab based on incoming defaults
       if (hasDefaultCustomValue && hasCalendar.value) {
         tabName.value = 'custom'
-      } else if (hasRelativeTimeframes.value) {
+      } else if (hasTimePeriods.value) {
         tabName.value = 'relative'
       }
 
       // Set default value to be displayed in the input field
       if (hasDefaultCustomValue) {
         changeCalendarRange(props.defaultCustom)
-      } else if (hasRelativeTimeframes.value && defaultTimeframe.value) {
+      } else if (hasTimePeriods.value && defaultTimeframe.value) {
         changeRelativeTimeframe(defaultTimeframe.value)
       }
     })
@@ -355,7 +360,6 @@ export default defineComponent({
       fullRangeDisplay,
       handleClose,
       hasCalendar,
-      hasRelativeTimeframes,
       hasTimePeriods,
       hidePopover,
       modelConfig,
