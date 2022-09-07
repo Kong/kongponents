@@ -34,9 +34,11 @@
         v-if="hasCalendar && showCalendar"
         v-model="selectedCalendarRange"
         :is-range="isRange"
-        :select-attribute="calendarSelectAttributes"
-        :model-config="modelConfig"
+        :max-date="maxDate"
+        :min-date="minDate"
         :mode="calendarMode"
+        :model-config="modelConfig"
+        :select-attribute="calendarSelectAttributes"
         is-expanded
       />
       <div
@@ -54,13 +56,13 @@
               v-for="(timeFrame, index) in item.values"
               :key="`time-${index}`"
               :is-rounded="false"
-              :class="{'selected-option': timeFrame.timeframeText === selectedTimeframe.timeframeText}"
+              :class="{'selected-option': timeFrame.key === selectedTimeframe.key}"
               :data-testid="'select-timeframe-' + timeFrame.timeframeLength()"
               appearance="outline"
               size="medium"
               @click="changeRelativeTimeframe(timeFrame)"
             >
-              {{ timeFrame.timeframeText }}
+              {{ ucWord(timeFrame.timeframeText) }}
             </KButton>
           </div>
         </div>
@@ -107,7 +109,7 @@ export default {
     DatePicker: () => import('v-calendar/lib/components/date-picker.umd')
   },
   props: {
-    defaultMessage: {
+    placeholder: {
       type: String,
       required: false,
       default: 'Select a time range'
@@ -135,6 +137,16 @@ export default {
       required: false,
       default: false
     },
+    maxDate: {
+      type: Number,
+      required: false,
+      default: null
+    },
+    minDate: {
+      type: Number,
+      required: false,
+      default: null
+    },
     timePeriods: {
       type: Array,
       required: false,
@@ -145,6 +157,10 @@ export default {
             // Check validity of each timeframe
             return typeof timeframe.timeframeText === 'string' &&
               timeframe.timeframeLength !== undefined &&
+              typeof timeframe.key === 'string' &&
+              timeframe.key !== 'undefined' &&
+              typeof timeframe.prefix === 'string' &&
+              timeframe.prefix !== 'undefined' &&
               timeframe.start !== undefined &&
               timeframe.end !== undefined
           })
@@ -157,7 +173,7 @@ export default {
     return {
       hidePopover: false,
       tabName: this.getDefaultTabName(),
-      abbreviatedDisplay: this.defaultMessage,
+      abbreviatedDisplay: this.placeholder,
       fullRangeDisplay: '',
       selectedCalendarRange: this.defaultCustom,
       selectedTimeframe: this.timePeriods[0],
@@ -230,8 +246,8 @@ export default {
   },
 
   methods: {
-    getText (tf) {
-      return tf.timeframeText
+    getTimeframeText (tf) {
+      return `${tf.prefix} ${tf.timeframeText}`
     },
 
     changeCalendarRange (vCalValue) {
@@ -269,7 +285,7 @@ export default {
       this.selectedTimeframe = timeframe
 
       // Update input field text
-      this.abbreviatedDisplay = this.selectedTimeframe.timeframeText
+      this.abbreviatedDisplay = this.getTimeframeText(this.selectedTimeframe)
 
       // Format the start/end values as human readable date
       const start = this.selectedTimeframe.start()
@@ -281,7 +297,7 @@ export default {
         end,
         startISO: new Date(start).toISOString(),
         endISO: new Date(end).toISOString(),
-        timeframeText: this.selectedTimeframe.timeframeText
+        timeframeText: this.getTimeframeText(this.selectedTimeframe)
       }
 
       this.fullRangeDisplay = this.formatDisplayDate({ start, end })
@@ -289,7 +305,7 @@ export default {
 
     clearSelection () {
       this.selectedCalendarRange = null
-      this.abbreviatedDisplay = this.defaultMessage
+      this.abbreviatedDisplay = this.placeholder
       this.fullRangeDisplay = ''
       this.selectedRange = { start: '', end: '' }
       this.selectedTimeframe = this.timePeriods[0]
@@ -328,6 +344,10 @@ export default {
       })
     },
 
+    ucWord (val) {
+      return val.charAt(0).toUpperCase() + val.slice(1)
+    },
+
     async handleClose () {
       this.$nextTick(() => {
         this.hidePopover = false
@@ -360,6 +380,13 @@ $margin: .2rem;
     min-width: 22rem;
     overflow: auto;
     padding: 1rem;
+
+    &[x-placement^=bottom] {
+      margin-top: var(--spacing-xs);
+    }
+    &[x-placement^=top] {
+      margin-bottom: var(--spacing-xs);
+    }
 
     .k-popover-content {
       .timeframe-section {
