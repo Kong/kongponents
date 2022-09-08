@@ -25,7 +25,7 @@ export class Timeframe {
 
   constructor (opts) {
     this.key = opts.key
-    this.prefix = opts.prefix
+    this.display = opts.display
     this.timeframeLength = opts.timeframeLength
     this.timeframeText = opts.timeframeText
   }
@@ -82,7 +82,7 @@ export const TimePeriods = new Map([
     TimeframeKeys.FIFTEEN_MIN,
     new Timeframe({
       key: TimeframeKeys.FIFTEEN_MIN,
-      prefix: 'Last',
+      display: 'Last 15 minutes',
       timeframeText: '15 minutes',
       timeframeLength: () => 60 * 15 * 1000
     })
@@ -91,8 +91,8 @@ export const TimePeriods = new Map([
     TimeframeKeys.ONE_HOUR,
     new Timeframe({
       key: TimeframeKeys.ONE_HOUR,
-      prefix: 'Last',
-      timeframeText: 'hour',
+      display: 'Last hour',
+      timeframeText: '1 hour',
       timeframeLength: () => 60 * 60 * 1 * 1000
     })
   ],
@@ -100,7 +100,7 @@ export const TimePeriods = new Map([
     TimeframeKeys.THREE_HOUR,
     new Timeframe({
       key: TimeframeKeys.THREE_HOUR,
-      prefix: 'Last',
+      display: 'Last 3 hours',
       timeframeText: '3 hours',
       timeframeLength: () => 60 * 60 * 3 * 1000
     })
@@ -109,7 +109,7 @@ export const TimePeriods = new Map([
     TimeframeKeys.SIX_HOUR,
     new Timeframe({
       key: TimeframeKeys.SIX_HOUR,
-      prefix: 'Last',
+      display: 'Last 6 hours',
       timeframeText: '6 hours',
       timeframeLength: () => 60 * 60 * 6 * 1000
     })
@@ -118,7 +118,7 @@ export const TimePeriods = new Map([
     TimeframeKeys.TWELVE_HOUR,
     new Timeframe({
       key: TimeframeKeys.TWELVE_HOUR,
-      prefix: 'Last',
+      display: 'Last 12 hours',
       timeframeText: '12 hours',
       timeframeLength: () => 60 * 60 * 12 * 1000
     })
@@ -127,7 +127,7 @@ export const TimePeriods = new Map([
     TimeframeKeys.ONE_DAY,
     new Timeframe({
       key: TimeframeKeys.ONE_DAY,
-      prefix: 'Last',
+      display: 'Last 24 hours',
       timeframeText: '24 hours',
       timeframeLength: () => 60 * 60 * 24 * 1000
     })
@@ -136,7 +136,7 @@ export const TimePeriods = new Map([
     TimeframeKeys.SEVEN_DAY,
     new Timeframe({
       key: TimeframeKeys.SEVEN_DAY,
-      prefix: 'Last',
+      display: 'Last 7 days',
       timeframeText: '7 days',
       timeframeLength: () => 60 * 60 * 24 * 7 * 1000
     })
@@ -145,7 +145,7 @@ export const TimePeriods = new Map([
     TimeframeKeys.THIRTY_DAY,
     new Timeframe({
       key: TimeframeKeys.THIRTY_DAY,
-      prefix: 'Last',
+      display: 'Last 30 days',
       timeframeText: '30 days',
       timeframeLength: () => 60 * 60 * 24 * 30 * 1000
     })
@@ -154,7 +154,7 @@ export const TimePeriods = new Map([
     TimeframeKeys.CURRENT_WEEK,
     new Timeframe({
       key: TimeframeKeys.CURRENT_WEEK,
-      prefix: 'This',
+      display: 'This week',
       timeframeText: 'week',
       timeframeLength: () => {
         // Monday -> now
@@ -171,7 +171,7 @@ export const TimePeriods = new Map([
     TimeframeKeys.CURRENT_MONTH,
     new Timeframe({
       key: TimeframeKeys.CURRENT_MONTH,
-      prefix: 'This',
+      display: 'This month',
       timeframeText: 'month',
       timeframeLength: () => {
         // First of the month -> now
@@ -188,7 +188,7 @@ export const TimePeriods = new Map([
     TimeframeKeys.PREVIOUS_WEEK,
     new PreviousWeek({
       key: TimeframeKeys.PREVIOUS_WEEK,
-      prefix: 'Previous',
+      display: 'Previous week',
       timeframeText: 'week',
       timeframeLength: () => 60 * 60 * 24 * 7 * 1000
     })
@@ -197,7 +197,7 @@ export const TimePeriods = new Map([
     TimeframeKeys.PREVIOUS_MONTH,
     new PreviousMonth({
       key: TimeframeKeys.PREVIOUS_MONTH,
-      prefix: 'Previous',
+      display: 'Previous month',
       timeframeText: 'month',
       timeframeLength: () => 60 * 60 * 24 * 30 * 1000
     })

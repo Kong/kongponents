@@ -6,27 +6,32 @@
 
 ## Examples
 
-A single date or time picker instance will emit a Jasvscript Date object as a `string`.
-Whereas an instance of this component that displays a date range or a series of relative time frames, will emit an `object` containing the following values:
+A single date or time picker instance will emit a Javacript Date object as a `string`.
+
+```js
+"2022-09-06T19:45:54.406Z"  // ISO 8601 Date string
+```
+
+An instance that displays a date range or a series of relative time frames will emit an `object` containing the following values:
 
 ```js
 { 
-  "start": "2022-09-06T19:45:54.406Z",
-  "end": "2022-09-07T19:45:54.406Z",
-  "timePeriodsKey": "24h" // or ""
+  "start": "2022-09-06T19:45:54.406Z",  // ISO 8601 Date string
+  "end": "2022-09-07T19:45:54.406Z", // ISO 8601 Date string
+  "timePeriodsKey": "24h" // or "" if not applicable
 }
 ```
 
 ### Single date
 
-Create a single date selection calendar, defaulting the [selected value](#defaultcustom) to tomorrow.
+Create a single date selection calendar, defaulting the [selected value](#defaultcustom) to today.
 
 <div>
   <KDateTimePicker
-    @changed="newVal => currentValue1 = newVal"
+    @change="newVal => currentValue1 = newVal"
     placeholder="Please select a date"
     mode="date"
-    :defaultCustom="defaultSingleTomorrow"
+    :defaultCustom="`${new Date()}`"
     :range="false"
   />
   <div class="mt-6">Emitted value: <pre class="json">{{ currentValue1 }}</pre></div>
@@ -34,10 +39,11 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
 
 ```html
 <KDateTimePicker
-  @changed="newVal => currentValue = newVal"
+  @change="newVal => currentValue = newVal"
   placeholder="Please select a date"
   mode="date"
-  :defaultCustom="`${new Date().getTime() + (24*60*60*1000)}`"
+  v-model="`${new Date()}`"
+  :defaultCustom="`${new Date()}`"
   :range="false"
 />
 ```
@@ -46,7 +52,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
 
 <div>
   <KDateTimePicker
-    @changed="newVal => currentValue2 = newVal"
+    @change="newVal => currentValue2 = newVal"
     placeholder="Please select a time"
     mode="time"
     :defaultCustom="defaultSingleToday"
@@ -57,7 +63,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
 
 ```html
 <KDateTimePicker
-  @changed="newVal => currentValue = newVal"
+  @change="newVal => currentValue = newVal"
   placeholder="Please select a time"
   mode="time"
   :defaultCustom="`${new Date()}`"
@@ -69,7 +75,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
 
 <div>
   <KDateTimePicker
-    @changed="newVal => currentValue3 = newVal"
+    @change="newVal => currentValue3 = newVal"
     placeholder="Please select a date and time"
     mode="dateTime"
     :range="false"
@@ -79,7 +85,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
 
 ```html
 <KDateTimePicker
-  @changed="newVal => currentValue = newVal"
+  @change="newVal => currentValue = newVal"
   placeholder="Please select a date and time"
   mode="dateTime"
   :range="false"
@@ -90,7 +96,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
 
 <div>
   <KDateTimePicker
-    @changed="newVal => currentValue4 = newVal"
+    @change="newVal => currentValue4 = newVal"
     placeholder="Please select a date and time"
     mode="dateTime"
     :range="true"
@@ -100,7 +106,7 @@ Create a single date selection calendar, defaulting the [selected value](#defaul
 
 ```html
 <KDateTimePicker
-  @changed="newVal => currentValue = newVal"
+  @change="newVal => currentValue = newVal"
   placeholder="Please select a date and time"
   mode="dateTime"
   :range="true"
@@ -114,7 +120,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
 
 <div>
   <KDateTimePicker
-    @changed="newVal => currentValue5 = newVal"
+    @change="newVal => currentValue5 = newVal"
     placeholder="Please select a range"
     mode="dateTime"
     :defaultCustom="defaultRangeWeek"
@@ -169,7 +175,7 @@ Same time frames as the previous example, except now we're passing in a pre-sele
 
 <div>
   <KDateTimePicker
-    @changed="newVal => currentValue6 = newVal"
+    @change="newVal => currentValue6 = newVal"
     placeholder="Please select a time frame"
     mode="relative"
     :defaultRelative="defaultRelativeTimeframe"
@@ -180,7 +186,7 @@ Same time frames as the previous example, except now we're passing in a pre-sele
 
 ```html
 <KDateTimePicker
-  @changed="newVal => currentValue = newVal"
+  @change="newVal => currentValue = newVal"
   placeholder="Please select a time frame"
   mode="relative"
   :defaultRelative="defaultRelativeTimeframe"
@@ -357,6 +363,11 @@ const exampleTimeFrames = [
 
 export default {
   data() {
+    const today       = new Date()
+    const tomorrow    = new Date().getTime() + (1*24*60*60*1000)
+    const twoDaysAgo  = new Date(today.getTime() - (2*24*60*60*1000))
+    const aWeekAgo    = new Date(today.getTime() - (7*24*60*60*1000))
+    const aYearAgo    = new Date(today.getTime() - (365*24*60*60*1000))
     return {
       hasMounted: false,
       currentValue1: '',
@@ -365,18 +376,17 @@ export default {
       currentValue4: '',
       currentValue5: '',
       currentValue6: '',
-      defaultSingleToday: new Date().getTime(),
-      defaultSingleTomorrow: new Date().getTime() + (1*24*60*60*1000),
+      defaultSingleToday: today,
       defaultRangeTwoDay: {
-        start: new Date().getTime() - (2*24*60*60*1000),
-        end: new Date().getTime()
+        start: twoDaysAgo,
+        end: today
       },
       defaultRangeWeek: {
-        start: new Date().getTime() - (7*24*60*60*1000),
-        end: new Date().getTime()
+        start: aWeekAgo,
+        end: today
       },
-      maxDate: new Date().getTime(),
-      minDate: new Date().getTime() - (365*24*60*60*1000),
+      maxDate: today,
+      minDate: aYearAgo,
       exampleTimeFrames
     }
   },
