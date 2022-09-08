@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 7.0.7 (2022-09-08)
+
+
+### Bug Fixes
+
+* **kselect:** replace key string ([#788](https://github.com/Kong/kongponents/issues/788)) ([151826a](https://github.com/Kong/kongponents/commit/151826a514019a6760144ed0f5f3e3a29592c532))
+
+
+
+
+
+## 7.0.6 (2022-09-08)
+
+**Note:** Version bump only for package @kongponents/kslideout
+
+
+
+
+
 ## 7.0.5 (2022-09-06)
 
 **Note:** Version bump only for package @kongponents/kslideout
