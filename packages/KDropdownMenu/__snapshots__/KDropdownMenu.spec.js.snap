@@ -54,15 +54,24 @@ exports[`KDropdownMenu renders disabled props when passed 1`] = `
       <!---->
       <div class="k-popover-content">
         <ul data-testid="k-dropdown-list" class="k-dropdown-list dropdown-list">
-          <li data-testid="k-dropdown-item-Props" class="k-dropdown-item w-100" label="Props">
-            <div data-testid="k-dropdown-item-trigger" class="k-dropdown-item-trigger">Props</div>
-          </li>
-          <li data-testid="k-dropdown-item-Slots" class="k-dropdown-item w-100" label="Slots">
-            <div data-testid="k-dropdown-item-trigger" class="k-dropdown-item-trigger">Slots</div>
-          </li>
-          <li data-testid="k-dropdown-item-Top" class="k-dropdown-item w-100" label="Top">
-            <div data-testid="k-dropdown-item-trigger" class="k-dropdown-item-trigger">Top</div>
-          </li>
+          <div class="w-100" label="Props">
+            <!---->
+            <li data-testid="k-dropdown-item-Props" class="k-dropdown-item w-100">
+              <div data-testid="k-dropdown-item-trigger" class="k-dropdown-item-trigger">Props</div>
+            </li>
+          </div>
+          <div class="w-100" label="Slots">
+            <!---->
+            <li data-testid="k-dropdown-item-Slots" class="k-dropdown-item w-100">
+              <div data-testid="k-dropdown-item-trigger" class="k-dropdown-item-trigger">Slots</div>
+            </li>
+          </div>
+          <div class="w-100" label="Top">
+            <!---->
+            <li data-testid="k-dropdown-item-Top" class="k-dropdown-item w-100">
+              <div data-testid="k-dropdown-item-trigger" class="k-dropdown-item-trigger">Top</div>
+            </li>
+          </div>
         </ul>
       </div>
       <!---->
@@ -84,15 +93,24 @@ exports[`KDropdownMenu renders props when passed 1`] = `
       <!---->
       <div class="k-popover-content">
         <ul data-testid="k-dropdown-list" class="k-dropdown-list dropdown-list">
-          <li data-testid="k-dropdown-item-Props" class="k-dropdown-item w-100" label="Props">
-            <div data-testid="k-dropdown-item-trigger" class="k-dropdown-item-trigger">Props</div>
-          </li>
-          <li data-testid="k-dropdown-item-Slots" class="k-dropdown-item w-100" label="Slots">
-            <div data-testid="k-dropdown-item-trigger" class="k-dropdown-item-trigger">Slots</div>
-          </li>
-          <li data-testid="k-dropdown-item-Top" class="k-dropdown-item w-100" label="Top">
-            <div data-testid="k-dropdown-item-trigger" class="k-dropdown-item-trigger">Top</div>
-          </li>
+          <div class="w-100" label="Props">
+            <!---->
+            <li data-testid="k-dropdown-item-Props" class="k-dropdown-item w-100">
+              <div data-testid="k-dropdown-item-trigger" class="k-dropdown-item-trigger">Props</div>
+            </li>
+          </div>
+          <div class="w-100" label="Slots">
+            <!---->
+            <li data-testid="k-dropdown-item-Slots" class="k-dropdown-item w-100">
+              <div data-testid="k-dropdown-item-trigger" class="k-dropdown-item-trigger">Slots</div>
+            </li>
+          </div>
+          <div class="w-100" label="Top">
+            <!---->
+            <li data-testid="k-dropdown-item-Top" class="k-dropdown-item w-100">
+              <div data-testid="k-dropdown-item-trigger" class="k-dropdown-item-trigger">Top</div>
+            </li>
+          </div>
         </ul>
       </div>
       <!---->
@@ -113,15 +131,24 @@ exports[`KDropdownMenu renders with selected item 1`] = `
       <!---->
       <div class="k-popover-content">
         <ul data-testid="k-dropdown-list" class="k-dropdown-list dropdown-list">
-          <li data-testid="k-dropdown-item-Label-1" class="k-dropdown-item w-100 k-dropdown-selected-option" label="Label 1" value="label1">
-            <div data-testid="k-dropdown-item-trigger" class="k-dropdown-item-trigger">Label 1</div>
-          </li>
-          <li data-testid="k-dropdown-item-US-(United States)" class="k-dropdown-item w-100" label="US (United States)" value="us">
-            <div data-testid="k-dropdown-item-trigger" class="k-dropdown-item-trigger">US (United States)</div>
-          </li>
-          <li data-testid="k-dropdown-item-FR-(France)" class="k-dropdown-item w-100" label="FR (France)" value="fr">
-            <div data-testid="k-dropdown-item-trigger" class="k-dropdown-item-trigger">FR (France)</div>
-          </li>
+          <div class="w-100" label="Label 1" value="label1">
+            <!---->
+            <li data-testid="k-dropdown-item-Label-1" class="k-dropdown-item w-100 k-dropdown-selected-option">
+              <div data-testid="k-dropdown-item-trigger" class="k-dropdown-item-trigger">Label 1</div>
+            </li>
+          </div>
+          <div class="w-100" label="US (United States)" value="us">
+            <!---->
+            <li data-testid="k-dropdown-item-US-(United States)" class="k-dropdown-item w-100">
+              <div data-testid="k-dropdown-item-trigger" class="k-dropdown-item-trigger">US (United States)</div>
+            </li>
+          </div>
+          <div class="w-100" label="FR (France)" value="fr">
+            <!---->
+            <li data-testid="k-dropdown-item-FR-(France)" class="k-dropdown-item w-100">
+              <div data-testid="k-dropdown-item-trigger" class="k-dropdown-item-trigger">FR (France)</div>
+            </li>
+          </div>
         </ul>
       </div>
       <!---->
