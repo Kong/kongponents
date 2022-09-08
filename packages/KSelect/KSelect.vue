@@ -68,9 +68,9 @@
             <KButton
               :style="widthStyle"
               :id="selectTextId"
-              :is-open="isToggled"
               :is-rounded="false"
               v-bind="$attrs"
+              show-caret
               appearance="btn-link"
               @keyup="triggerFocus(isToggled)"
             >
@@ -101,7 +101,7 @@
             <KIcon
               v-if="appearance === 'select'"
               :class="{ 'overlay-label-chevron': overlayLabel }"
-              :icon="isToggled ? 'chevronUp' : 'chevronDown'"
+              icon="chevronDown"
               color="var(--grey-500)"
               size="18"
             />
@@ -547,6 +547,10 @@ export default {
 .k-select {
   width: fit-content; // necessary for correct placement of popup
 
+  .k-button .caret {
+    margin-left: auto;
+  }
+
   .k-select-item-selection {
     background-color: var(--blue-100);
     color: var(--blue-500);
@@ -647,10 +651,6 @@ export default {
         display: block;
       }
     }
-  }
-
-  .k-select-button .has-caret .kong-icon {
-    margin-left: auto;
   }
 
   .k-input {      // need this so input takes the
