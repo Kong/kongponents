@@ -76,6 +76,7 @@
       <div class="d-flex justify-content-end">
         <KButton
           :is-rounded="false"
+          data-testid="k-datetimepicker-clear"
           size="medium"
           appearance="btn-link"
           @click="clearSelection()"
@@ -85,6 +86,7 @@
         <KButton
           :disabled="submitDisabled"
           :is-rounded="false"
+          data-testid="k-datetimepicker-submit"
           size="medium"
           appearance="btn-link"
           @click="submitTimeFrame()"
