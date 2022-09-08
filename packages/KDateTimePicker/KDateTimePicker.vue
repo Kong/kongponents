@@ -307,7 +307,7 @@ export default defineComponent({
       // a single date / time picker; therefore, need to emit an empty string.
       //
       // Else, we are displaying a date / time range (relative timeframes or calendar range)
-      if (!props.range && showCalendar) {
+      if (!props.range && showCalendar.value) {
         emit('changed', '')
       } else {
         emit('changed', selectedRange.value)
@@ -358,7 +358,7 @@ export default defineComponent({
         emit('changed', selectedRange.value)
 
         // Determine which tab has focus, then update input field text
-        if (showCalendar && selectedRange.value) {
+        if (showCalendar.value && selectedRange.value) {
           abbreviatedDisplay.value = formatDisplayDate(selectedRange.value)
         } else {
           abbreviatedDisplay.value = getTimeframeText(selectedTimeframe.value)
