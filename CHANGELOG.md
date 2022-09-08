@@ -1,3 +1,10 @@
+# [8.0.0-beta.8](https://github.com/Kong/kongponents/compare/v8.0.0-beta.7...v8.0.0-beta.8) (2022-09-08)
+
+
+### Bug Fixes
+
+* **kselect:** ensure key is set [KHCP-4680] ([#787](https://github.com/Kong/kongponents/issues/787)) ([eb3246b](https://github.com/Kong/kongponents/commit/eb3246b2cad3d144c14921aed15ed367ffab4863))
+
 # [8.0.0-beta.7](https://github.com/Kong/kongponents/compare/v8.0.0-beta.6...v8.0.0-beta.7) (2022-09-02)
 
 
