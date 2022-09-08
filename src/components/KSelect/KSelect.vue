@@ -542,7 +542,7 @@ export default defineComponent({
           selectItems.value[i].selected = false
         }
 
-        selectItems.value[i].key = `${selectItems.value[i].label?.replace(/[^a-z0-9-_]/gi, '')}-${i}` || `k-select-item-label-${i}`
+        selectItems.value[i].key = `${selectItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}` || `k-select-item-label-${i}`
         if (selectItems.value[i].value === props.modelValue || selectItems.value[i].selected) {
           selectItems.value[i].selected = true
           selectedItem.value = selectItems.value[i]
