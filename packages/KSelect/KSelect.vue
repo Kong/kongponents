@@ -542,6 +542,10 @@ export default {
 .k-select {
   width: fit-content; // necessary for correct placement of popup
 
+  .k-button .caret {
+    margin-left: auto;
+  }
+
   .k-select-item-selection {
     background-color: var(--blue-100);
     color: var(--blue-500);
@@ -642,10 +646,6 @@ export default {
         display: block;
       }
     }
-  }
-
-  .k-select-button .has-caret .kong-icon {
-    margin-left: auto;
   }
 
   .k-input {      // need this so input takes the
