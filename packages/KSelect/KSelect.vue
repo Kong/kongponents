@@ -68,9 +68,9 @@
             <KButton
               :style="widthStyle"
               :id="selectTextId"
-              :is-open="isToggled"
               :is-rounded="false"
               v-bind="$attrs"
+              show-caret
               appearance="btn-link"
               @keyup="triggerFocus(isToggled)"
             >

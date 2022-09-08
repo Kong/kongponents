@@ -72,27 +72,37 @@ exports[`KTable default has hover class when passed 1`] = `
 </span></a></li>
         </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link" id="test-select-text-id-1234" style="width: 200px;"><!----> 
             15 items per page
-           <!----></button></div> <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; max-height: 300px; display: none;" name="fade"><!----> <div class="k-popover-content"><ul class="k-select-list ma-0 pa-0"><li data-testid="k-select-item-15" class="k-select-item"><div role="option" class="d-block"><button value="15" class=""><span class="k-select-item-label mr-2">15</span> <span class="k-select-selected-icon-container"><!----></span></button>
+           <span class="kong-icon kong-icon-chevronDown caret"><svg viewBox="2 2 15 15" fill="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+  <title>Expand</title>
+  <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</span></button>
       </div>
-      </li>
-      <li data-testid="k-select-item-30" class="k-select-item">
-        <div role="option" class="d-block"><button value="30" class=""><span class="k-select-item-label mr-2">30</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
-      </li>
-      <li data-testid="k-select-item-50" class="k-select-item">
-        <div role="option" class="d-block"><button value="50" class=""><span class="k-select-item-label mr-2">50</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
-      </li>
-      <li data-testid="k-select-item-75" class="k-select-item">
-        <div role="option" class="d-block"><button value="75" class=""><span class="k-select-item-label mr-2">75</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
-      </li>
-      <li data-testid="k-select-item-100" class="k-select-item">
-        <div role="option" class="d-block"><button value="100" class=""><span class="k-select-item-label mr-2">100</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
-      </li>
-      <!---->
-      </ul>
-      <!---->
-</div>
-<!---->
-</div>
+      <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; max-height: 300px; display: none;" name="fade">
+        <!---->
+        <div class="k-popover-content">
+          <ul class="k-select-list ma-0 pa-0">
+            <li data-testid="k-select-item-15" class="k-select-item">
+              <div role="option" class="d-block"><button value="15" class=""><span class="k-select-item-label mr-2">15</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-30" class="k-select-item">
+              <div role="option" class="d-block"><button value="30" class=""><span class="k-select-item-label mr-2">30</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-50" class="k-select-item">
+              <div role="option" class="d-block"><button value="50" class=""><span class="k-select-item-label mr-2">50</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-75" class="k-select-item">
+              <div role="option" class="d-block"><button value="75" class=""><span class="k-select-item-label mr-2">75</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-100" class="k-select-item">
+              <div role="option" class="d-block"><button value="100" class=""><span class="k-select-item-label mr-2">100</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <!---->
+          </ul>
+          <!---->
+        </div>
+        <!---->
+      </div>
 </div>
 </div>
 </div></span></div>
@@ -223,27 +233,37 @@ exports[`KTable sorting should allow disabling sorting 1`] = `
 </span></a></li>
         </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link" id="test-select-text-id-1234" style="width: 200px;"><!----> 
             15 items per page
-           <!----></button></div> <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; max-height: 300px; display: none;" name="fade"><!----> <div class="k-popover-content"><ul class="k-select-list ma-0 pa-0"><li data-testid="k-select-item-15" class="k-select-item"><div role="option" class="d-block"><button value="15" class=""><span class="k-select-item-label mr-2">15</span> <span class="k-select-selected-icon-container"><!----></span></button>
+           <span class="kong-icon kong-icon-chevronDown caret"><svg viewBox="2 2 15 15" fill="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+  <title>Expand</title>
+  <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</span></button>
       </div>
-      </li>
-      <li data-testid="k-select-item-30" class="k-select-item">
-        <div role="option" class="d-block"><button value="30" class=""><span class="k-select-item-label mr-2">30</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
-      </li>
-      <li data-testid="k-select-item-50" class="k-select-item">
-        <div role="option" class="d-block"><button value="50" class=""><span class="k-select-item-label mr-2">50</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
-      </li>
-      <li data-testid="k-select-item-75" class="k-select-item">
-        <div role="option" class="d-block"><button value="75" class=""><span class="k-select-item-label mr-2">75</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
-      </li>
-      <li data-testid="k-select-item-100" class="k-select-item">
-        <div role="option" class="d-block"><button value="100" class=""><span class="k-select-item-label mr-2">100</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
-      </li>
-      <!---->
-      </ul>
-      <!---->
-</div>
-<!---->
-</div>
+      <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; max-height: 300px; display: none;" name="fade">
+        <!---->
+        <div class="k-popover-content">
+          <ul class="k-select-list ma-0 pa-0">
+            <li data-testid="k-select-item-15" class="k-select-item">
+              <div role="option" class="d-block"><button value="15" class=""><span class="k-select-item-label mr-2">15</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-30" class="k-select-item">
+              <div role="option" class="d-block"><button value="30" class=""><span class="k-select-item-label mr-2">30</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-50" class="k-select-item">
+              <div role="option" class="d-block"><button value="50" class=""><span class="k-select-item-label mr-2">50</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-75" class="k-select-item">
+              <div role="option" class="d-block"><button value="75" class=""><span class="k-select-item-label mr-2">75</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-100" class="k-select-item">
+              <div role="option" class="d-block"><button value="100" class=""><span class="k-select-item-label mr-2">100</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <!---->
+          </ul>
+          <!---->
+        </div>
+        <!---->
+      </div>
 </div>
 </div>
 </div></span></div>
@@ -324,27 +344,37 @@ exports[`KTable sorting should have sortable class when passed 1`] = `
 </span></a></li>
         </ul> <span data-testid="page-size-dropdown" class="page-size-select"><div class="k-select" style="width: 200px;"><!----> <div id="test-select-id-1234" data-testid="k-select-selected-item"><!----> <div id="test-target-id-1234" aria-controls="test-popover-id-1234" role="button"><div id="test-select-input-id-1234" data-testid="k-select-input" role="listbox" class="k-select-button" style="position: relative;"><button type="button" class="k-button medium btn-link" id="test-select-text-id-1234" style="width: 200px;"><!----> 
             15 items per page
-           <!----></button></div> <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; max-height: 300px; display: none;" name="fade"><!----> <div class="k-popover-content"><ul class="k-select-list ma-0 pa-0"><li data-testid="k-select-item-15" class="k-select-item"><div role="option" class="d-block"><button value="15" class=""><span class="k-select-item-label mr-2">15</span> <span class="k-select-selected-icon-container"><!----></span></button>
+           <span class="kong-icon kong-icon-chevronDown caret"><svg viewBox="2 2 15 15" fill="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" xmlns="http://www.w3.org/2000/svg" role="img" width="16" height="16">
+  <title>Expand</title>
+  <path d="m4.6 7 5.2 5L15 7" fill="none" stroke="var(--KButtonBtnLink, var(--blue-500, color(blue-500)))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</span></button>
       </div>
-      </li>
-      <li data-testid="k-select-item-30" class="k-select-item">
-        <div role="option" class="d-block"><button value="30" class=""><span class="k-select-item-label mr-2">30</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
-      </li>
-      <li data-testid="k-select-item-50" class="k-select-item">
-        <div role="option" class="d-block"><button value="50" class=""><span class="k-select-item-label mr-2">50</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
-      </li>
-      <li data-testid="k-select-item-75" class="k-select-item">
-        <div role="option" class="d-block"><button value="75" class=""><span class="k-select-item-label mr-2">75</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
-      </li>
-      <li data-testid="k-select-item-100" class="k-select-item">
-        <div role="option" class="d-block"><button value="100" class=""><span class="k-select-item-label mr-2">100</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
-      </li>
-      <!---->
-      </ul>
-      <!---->
-</div>
-<!---->
-</div>
+      <div id="test-popover-id-1234" role="region" class="k-popover k-select-popover mt-0 undefined k-select-pop-button hide-caret" style="width: 0px; max-width: 0px; max-height: 300px; display: none;" name="fade">
+        <!---->
+        <div class="k-popover-content">
+          <ul class="k-select-list ma-0 pa-0">
+            <li data-testid="k-select-item-15" class="k-select-item">
+              <div role="option" class="d-block"><button value="15" class=""><span class="k-select-item-label mr-2">15</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-30" class="k-select-item">
+              <div role="option" class="d-block"><button value="30" class=""><span class="k-select-item-label mr-2">30</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-50" class="k-select-item">
+              <div role="option" class="d-block"><button value="50" class=""><span class="k-select-item-label mr-2">50</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-75" class="k-select-item">
+              <div role="option" class="d-block"><button value="75" class=""><span class="k-select-item-label mr-2">75</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <li data-testid="k-select-item-100" class="k-select-item">
+              <div role="option" class="d-block"><button value="100" class=""><span class="k-select-item-label mr-2">100</span> <span class="k-select-selected-icon-container"><!----></span></button></div>
+            </li>
+            <!---->
+          </ul>
+          <!---->
+        </div>
+        <!---->
+      </div>
 </div>
 </div>
 </div></span></div>
