@@ -430,7 +430,7 @@ export default {
           }
 
           if (this.selectItems[i].label) {
-            this.selectItems[i].key = `${this.selectItems[i].label.replace(' ', '-')}-${i}`
+            this.selectItems[i].key = `${this.selectItems[i].label.replace(/ /gi, '-').replace(/[^a-z0-9-_]/gi, '')}-${i}`
           } else {
             this.selectItems[i].key = `k-select-item-label-${i}`
           }
