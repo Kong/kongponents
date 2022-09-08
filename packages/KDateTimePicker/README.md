@@ -4,7 +4,7 @@
 
 ```html
 <KDateTimePicker
-  @changed="handleChangeInParent()"
+  @change="handleChangeInParent()"
   defaultMessage="Please select a time range"
   :timePeriods="exampleTimeFrames"
   :defaultRelative="defaultRelativeTimeframe"
