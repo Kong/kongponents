@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 7.1.0 (2022-09-08)
+
+
+### Features
+
+* **caret:** chevron should not toggle [khcp-4206] ([#786](https://github.com/Kong/kongponents/issues/786)) ([1cb8b92](https://github.com/Kong/kongponents/commit/1cb8b92305d91a24135b9e973e8d865300bc8bca))
+
+
+
+
+
 ## 7.0.7 (2022-09-08)
 
 
