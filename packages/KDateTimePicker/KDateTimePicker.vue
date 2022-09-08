@@ -190,9 +190,9 @@ export default defineComponent({
             return typeof timeframe.timeframeText === 'string' &&
               timeframe.timeframeLength !== undefined &&
               typeof timeframe.key === 'string' &&
-              timeframe.key !== 'undefined' &&
+              timeframe.key !== undefined &&
               typeof timeframe.display === 'string' &&
-              timeframe.display !== 'undefined' &&
+              timeframe.display !== undefined &&
               timeframe.start !== undefined &&
               timeframe.end !== undefined
           })
@@ -360,11 +360,8 @@ export default defineComponent({
         emit('change', new Date(state.selectedRange.start))
       }
 
+      handleClose()
       updateDisplay()
-
-      await nextTick(() => {
-        state.hidePopover = true
-      })
     }
 
     /**
@@ -391,6 +388,7 @@ export default defineComponent({
     }
 
     const handleClose = async () => {
+      state.hidePopover = true
       await nextTick(() => {
         state.hidePopover = false
       })

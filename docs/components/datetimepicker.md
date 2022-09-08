@@ -6,7 +6,7 @@
 
 ## Examples
 
-A single date or time picker instance will emit a Javacript Date object as a `string`.
+A single date or time picker instance will emit a Javascript Date object as a `string`.
 
 ```js
 "2022-09-06T19:45:54.406Z"  // ISO 8601 Date string
@@ -325,6 +325,12 @@ An array of time frame values to be displayed as buttons in the "Relative" secti
   }
 ]
 ```
+
+### Events
+
+| Event     | Description             |
+| :-------- | :------------------ |
+| `change` | Fires whenever **Apply** is clicked (assuming the user has made a custom calendar or relative timeframe selection), or **Clear** is clicked; returns either a single Date string, or an object containing `start`, `end` and a `timePeriodsKey` as outlined in [Examples](#examples).
 
 </div>
 
