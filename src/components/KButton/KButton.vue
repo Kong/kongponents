@@ -22,8 +22,7 @@
     <slot />
 
     <KIcon
-      v-if="isOpen !== undefined"
-      :class="[caretClasses]"
+      v-if="showCaret"
       :color="iconColor"
       view-box="2 2 15 15"
       size="16"
@@ -37,7 +36,7 @@
     :disabled="disabled ? disabled : undefined"
     :type="type"
     :to="to"
-    :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance, caretClasses]"
+    :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance]"
     class="k-button"
     v-bind="strippedAttrs"
   >
@@ -54,8 +53,8 @@
     <slot />
 
     <KIcon
-      v-if="isOpen !== undefined"
-      :class="['caret', caretClasses]"
+      v-if="showCaret"
+      :class="['caret']"
       :color="iconColor"
       view-box="2 2 15 15"
       size="16"
@@ -122,9 +121,9 @@ export default defineComponent({
       type: String,
       default: 'button',
     },
-    isOpen: {
+    showCaret: {
       type: Boolean,
-      default: undefined,
+      default: false,
     },
     isRounded: {
       type: Boolean,
@@ -141,12 +140,6 @@ export default defineComponent({
   },
 
   setup(props, { attrs, slots }) {
-    const caretClasses = computed((): string | null => {
-      if (props.isOpen === undefined) return null
-
-      return props.isOpen ? 'has-caret is-active' : 'has-caret'
-    })
-
     const hasIcon = computed((): boolean => !!slots.icon)
 
     const hasText = computed((): boolean => !!slots.default)
@@ -189,7 +182,6 @@ export default defineComponent({
     })
 
     return {
-      caretClasses,
       hasText,
       hasIcon,
       buttonType,
@@ -427,11 +419,5 @@ export default defineComponent({
   &.rounded {
     border-radius: 100px;
   }
-}
-</style>
-
-<style lang="scss">
-.k-button.btn-link.has-caret .caret.has-caret path {
-  stroke: var(--KButtonBtnLink, var(--blue-500, color(blue-500)));
 }
 </style>
