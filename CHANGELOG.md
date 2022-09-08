@@ -1,3 +1,10 @@
+# [8.0.0-beta.9](https://github.com/Kong/kongponents/compare/v8.0.0-beta.8...v8.0.0-beta.9) (2022-09-08)
+
+
+### Bug Fixes
+
+* **kselect:** ensure key is set ([91590b5](https://github.com/Kong/kongponents/commit/91590b5c408ab25c51c12084e99da58754341943))
+
 # [8.0.0-beta.8](https://github.com/Kong/kongponents/compare/v8.0.0-beta.7...v8.0.0-beta.8) (2022-09-08)
 
 
