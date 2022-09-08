@@ -74,7 +74,7 @@ We support `small`, `medium`, and `large` sizes, default to `medium`.
 
 ```
 
-### hasCaret
+### showCaret
 
 Use this prop if you would like the KButton to display a dropdown caret to the right hand side.
 
