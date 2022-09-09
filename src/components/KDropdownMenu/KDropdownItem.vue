@@ -133,7 +133,20 @@ li.k-dropdown-item {
   line-height: 1;
 
   &.has-divider {
-    border-top: 1px solid var(--grey-200) !important;
+    $k-dropdown-item-divider-container-height: var(--spacing-lg);
+    $k-dropdown-item-divider-position: calc((#{$k-dropdown-item-divider-container-height} / 2 + 1px) * -1);
+    position: relative;
+    margin-top: $k-dropdown-item-divider-container-height;
+
+    &:before {
+      position: relative;
+      display: block;
+      content: '';
+      height: 1px;
+      width: 100%;
+      top: $k-dropdown-item-divider-position;
+      background: var(--grey-200);
+    }
   }
 
   svg {
