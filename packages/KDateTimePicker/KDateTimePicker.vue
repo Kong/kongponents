@@ -114,21 +114,15 @@ export default defineComponent({
     DatePicker: () => import('v-calendar/lib/components/date-picker.umd')
   },
   props: {
-    /**
-     * Provides a default Date object to seed the v-calendar instance
-     */
-    defaultCustom: {
-      type: Object | Date,
-      required: false,
-      default: ''
-    },
-    /**
-     * Default relative time frame object, displayed as pre-selected choice
-     */
-    defaultRelative: {
-      type: Object,
-      required: false,
-      default: () => {}
+    value: {
+      type: [Date, Object],
+      validator: value => value === undefined || value instanceof Date ||
+        (
+          value.hasOwnProperty('start') &&
+          value.hasOwnProperty('end') &&
+          value.start instanceof Date &&
+          value.end instanceof Date
+        )
     },
     /**
      * Upper bound for `v-calendar` dates, everything after this date will be disabled
@@ -203,8 +197,7 @@ export default defineComponent({
     }
   },
   setup (props, { emit }) {
-    const hasCustomDefault = ref((props.defaultCustom.start && props.defaultCustom.end) || props.defaultCustom !== '')
-    const modelConfig = { type: 'number' } // https://vcalendar.io/datepicker.html#model-config
+    const modelConfig = { type: 'number' } // https:/vcalendar.io/datepicker.html#model-config
     const calendarSelectAttributes = {
       highlight: {
         start: { class: 'vcal-day-start' },
@@ -219,6 +212,7 @@ export default defineComponent({
         end: { class: 'vcal-day-drag-end' }
       }
     }
+
     const hasCalendar = computed(() => props.mode !== 'relative')
     const hasTimePeriods = computed(() => props.timePeriods && props.timePeriods.length)
     const showCalendar = computed(() => state.tabName === 'custom' || !hasTimePeriods.value)
@@ -230,12 +224,8 @@ export default defineComponent({
         ? !state.selectedRange.start || !state.selectedRange.end
         : !state.selectedRange.start
     })
-    const defaultTimeframe = computed(() => {
-      return props.defaultRelative !== undefined
-        ? props.defaultRelative
-        : null
-    })
-    const selectedCalendarRange = ref(props.defaultCustom)
+
+    const selectedCalendarRange = ref(props.value)
 
     const state = reactive({
       abbreviatedDisplay: props.placeholder,
@@ -243,7 +233,7 @@ export default defineComponent({
       hidePopover: false,
       selectedRange: { start: '', end: '', timePeriodsKey: '' },
       selectedTimeframe: props.timePeriods[0] || '',
-      tabName: hasCustomDefault ? 'custom' : 'relative'
+      tabName: 'relative'
     })
 
     /**
@@ -317,9 +307,9 @@ export default defineComponent({
       //
       // Else, we are displaying a date / time range (relative timeframes or calendar range)
       if (!props.range && showCalendar.value) {
-        emit('change', '')
+        emit('input', '')
       } else {
-        emit('change', state.selectedRange)
+        emit('input', state.selectedRange)
       }
     }
 
@@ -357,11 +347,9 @@ export default defineComponent({
      */
     const submitTimeFrame = async () => {
       if (props.range || hasTimePeriods.value) {
-        emit('change', state.selectedRange)
+        emit('input', state.selectedRange)
       } else {
-        const startDate = new Date(state.selectedRange.start)
-
-        emit('change', startDate.toString())
+        emit('input', new Date(state.selectedRange.start))
       }
 
       handleClose()
@@ -410,20 +398,20 @@ export default defineComponent({
 
     onMounted(() => {
       // Select the tab based on incoming defaults
-      if (hasCustomDefault.value && hasCalendar.value) {
-        state.tabName = 'custom'
-      } else if (hasTimePeriods.value) {
-        state.tabName = 'relative'
-      }
+      if (props.value) {
+        if (props.value instanceof Date || !props.value.timePeriodsKey) {
+          state.tabName = 'custom'
+          changeCalendarRange(props.value)
+          updateDisplay()
+        } else {
+          state.tabName = 'relative'
+          const selectedTimeframe = props.timePeriods.reduce((prev, sections) => {
+            return prev || sections.values.find(e => e.key === props.value.timePeriodsKey)
+          }, undefined)
 
-      // If any default values are passed in, save them to our internal state
-      // and update the input field display to match.
-      if (hasCustomDefault.value) {
-        changeCalendarRange(props.defaultCustom)
-        updateDisplay()
-      } else if (hasTimePeriods.value && defaultTimeframe.value) {
-        changeRelativeTimeframe(defaultTimeframe.value)
-        updateDisplay()
+          changeRelativeTimeframe(selectedTimeframe)
+          updateDisplay()
+        }
       }
     })
 
