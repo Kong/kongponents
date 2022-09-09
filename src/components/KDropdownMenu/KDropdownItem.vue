@@ -123,6 +123,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@use 'sass:math';
 @import '@/styles/variables';
 @import '@/styles/functions';
 
@@ -133,10 +134,10 @@ li.k-dropdown-item {
   line-height: 1;
 
   &.has-divider {
-    $k-dropdown-item-divider-container-height: var(--spacing-lg);
-    $k-dropdown-item-divider-position: calc((#{$k-dropdown-item-divider-container-height} / 2 + 1px) * -1);
+    $k-dropdown-item-divider-container-height: 24; // set to the same value as --spacing-lg without the units
+    $k-dropdown-item-divider-position: calc((math.div($k-dropdown-item-divider-container-height, 2) + 1) * -1);
     position: relative;
-    margin-top: $k-dropdown-item-divider-container-height;
+    margin-top: #{$k-dropdown-item-divider-container-height}px;
 
     &:before {
       position: relative;
@@ -144,7 +145,7 @@ li.k-dropdown-item {
       content: '';
       height: 1px;
       width: 100%;
-      top: $k-dropdown-item-divider-position;
+      top: #{$k-dropdown-item-divider-position}px;
       background: var(--grey-200);
     }
   }
