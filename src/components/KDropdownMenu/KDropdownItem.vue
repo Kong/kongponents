@@ -133,7 +133,20 @@ li.k-dropdown-item {
   line-height: 1;
 
   &.has-divider {
-    border-top: 1px solid var(--grey-200) !important;
+    --KDropdownItemDividerContainerHeight: var(--spacing-lg);
+    --KDropdownItemDividerPosition: calc((#{var(--KDropdownItemDividerContainerHeight)} / 2 + 1px) * -1);
+    position: relative;
+    margin-top: var(--KDropdownItemDividerContainerHeight);
+
+    &:before {
+      position: relative;
+      display: block;
+      content: '';
+      height: 1px;
+      width: 100%;
+      top: var(--KDropdownItemDividerPosition);
+      background: var(--grey-200);
+    }
   }
 
   svg {
