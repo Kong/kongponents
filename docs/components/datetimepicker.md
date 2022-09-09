@@ -22,7 +22,7 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
     mode="date"
     :range="false"
   />
-  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue1) }}</pre></div>
+  <div class="mt-6">Preset / Emitted value: <pre class="json">{{ JSON.stringify(currentValue1) }}</pre></div>
 </div>
 
 ```html
@@ -43,7 +43,7 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
     mode="time"
     :range="false"
   />
-  <div class="mt-6">Emitted value: <pre class="json">{{ currentValue2 }}</pre></div>
+  <div class="mt-6">Preset / Emitted value: <pre class="json">{{ currentValue2 }}</pre></div>
 </div>
 
 ```html
@@ -66,7 +66,7 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
     mode="dateTime"
     :range="false"
   />
-  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue3) }}</pre></div>
+  <div class="mt-6">Preset / Emitted value: <pre class="json">{{ JSON.stringify(currentValue3) }}</pre></div>
 </div>
 
 ```html
@@ -89,7 +89,7 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
     mode="dateTime"
     :range="true"
   />
-  <div class="mt-6">Emitted value: <pre class="json">{{ currentValue4 }}</pre></div>
+  <div class="mt-6">Preset / Emitted value: <pre class="json">{{ currentValue4 }}</pre></div>
 </div>
 
 ```html
@@ -118,7 +118,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
     :range="true"
     :timePeriods="exampleTimeFrames"
   />
-  <div class="mt-6">Emitted value: <pre class="json">{{ currentValue5 }}</pre></div>
+  <div class="mt-6">Preset / Emitted value: <pre class="json">{{ currentValue5 }}</pre></div>
 </div>
 
 ```html
@@ -169,7 +169,7 @@ Same time frames as the previous example, except now we're passing in a pre-sele
     mode="relative"
     :timePeriods="exampleTimeFrames"
   />
-  <div class="mt-6">Emitted value: <pre class="json">{{ currentValue6 }}</pre></div>
+  <div class="mt-6">Preset / Emitted value: <pre class="json">{{ currentValue6 }}</pre></div>
 </div>
 
 ```html
