@@ -116,8 +116,8 @@ export default defineComponent({
   },
   props: {
     value: {
-      type: [Date, Object],
-      validator: value => value === undefined || value instanceof Date ||
+      type: [Date, Object, String],
+      validator: value => value === '' || value instanceof Date ||
         (
           value.hasOwnProperty('start') &&
           value.hasOwnProperty('end') &&
@@ -304,7 +304,7 @@ export default defineComponent({
         state.selectedTimeframe = props.timePeriods[0]
       }
 
-      emit('input', undefined)
+      emit('input', '')
     }
 
     /**

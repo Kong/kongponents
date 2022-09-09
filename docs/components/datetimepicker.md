@@ -38,7 +38,7 @@ Create a single date selection calendar
 
 ```html
 <KDateTimePicker
-  v-model="currentValue1"
+  v-model="currentValue"
   placeholder="Please select a date"
   mode="date"
   v-model="`${new Date()}`"
