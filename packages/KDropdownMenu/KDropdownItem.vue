@@ -1,47 +1,42 @@
 <template>
-  <div class="w-100">
-    <div
-      v-if="hasDivider"
-      class="k-dropdown-item-divider"
-    />
-    <li
-      :class="{
-        'disabled': type === 'default' && disabled,
-        'danger': isDangerous,
-        'k-dropdown-selected-option': selected
-      }"
-      :data-testid="`k-dropdown-item-${label.replace(' ', '-')}`"
-      class="k-dropdown-item w-100"
+  <li
+    :class="{
+      'has-divider': type !== 'link' && hasDivider,
+      'disabled': type === 'default' && disabled,
+      'danger': isDangerous,
+      'k-dropdown-selected-option': selected
+    }"
+    :data-testid="`k-dropdown-item-${label.replace(' ', '-')}`"
+    class="k-dropdown-item w-100"
+  >
+    <router-link
+      v-if="type === 'link' && to"
+      :to="!disabled ? to : $router.currentRoute.path"
+      :class="{ 'disabled': disabled, 'has-divider': hasDivider }"
+      class="k-dropdown-item-trigger"
+      data-testid="k-dropdown-item-trigger"
     >
-      <router-link
-        v-if="type === 'link' && to"
-        :to="!disabled ? to : $router.currentRoute.path"
-        :class="{ 'disabled': disabled }"
-        class="k-dropdown-item-trigger"
-        data-testid="k-dropdown-item-trigger"
-      >
-        <slot>{{ label }}</slot>
-      </router-link>
-      <KButton
-        v-else-if="type === 'button'"
-        :disabled="disabled"
-        :is-rounded="false"
-        class="k-dropdown-item-trigger btn-link k-button non-visual-button"
-        data-testid="k-dropdown-item-trigger"
-        v-on="listeners"
-        @click="handleClick"
-      >
-        <slot>{{ label }}</slot>
-      </KButton>
-      <div
-        v-else
-        class="k-dropdown-item-trigger"
-        data-testid="k-dropdown-item-trigger"
-      >
-        <slot>{{ label }}</slot>
-      </div>
-    </li>
-  </div>
+      <slot>{{ label }}</slot>
+    </router-link>
+    <KButton
+      v-else-if="type === 'button'"
+      :disabled="disabled"
+      :is-rounded="false"
+      class="k-dropdown-item-trigger btn-link k-button non-visual-button"
+      data-testid="k-dropdown-item-trigger"
+      v-on="listeners"
+      @click="handleClick"
+    >
+      <slot>{{ label }}</slot>
+    </KButton>
+    <div
+      v-else
+      class="k-dropdown-item-trigger"
+      data-testid="k-dropdown-item-trigger"
+    >
+      <slot>{{ label }}</slot>
+    </div>
+  </li>
 </template>
 
 <script>
@@ -125,17 +120,28 @@ export default {
 <style lang="scss" scoped>
 @import '~@kongponents/styles/variables';
 
-.k-dropdown-item-divider {
-  background-color: var(--grey-200);
-  height: 1px;
-  margin: 4px 0;
-}
-
 li.k-dropdown-item {
   display: flex;
   align-items: center;
   font-size: 1rem;
   line-height: 1;
+
+  &.has-divider {
+    --KDropdownItemDividerContainerHeight: var(--spacing-sm);
+    --KDropdownItemDividerPosition: calc((#{var(--KDropdownItemDividerContainerHeight)} / 2 + 1px) * -1);
+    position: relative;
+    margin-top: var(--KDropdownItemDividerContainerHeight);
+
+    &:before {
+      position: relative;
+      display: block;
+      content: '';
+      height: 1px;
+      width: 100%;
+      top: var(--KDropdownItemDividerPosition);
+      background: var(--grey-200);
+    }
+  }
 
   svg {
     margin-right: .75rem;
