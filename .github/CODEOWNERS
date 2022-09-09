@@ -1,1 +1,7 @@
-* @adamdehaven @kaiarrowood
+# Lerna
+/lerna.json @adamdehaven @jillztom @kaiarrowood
+
+# CI
+/.github/ @adamdehaven
+
+* @adamdehaven @kaiarrowood @aanchalm01 @jillztom
