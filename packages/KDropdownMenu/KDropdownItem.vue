@@ -127,7 +127,7 @@ li.k-dropdown-item {
   line-height: 1;
 
   &.has-divider {
-    --KDropdownItemDividerContainerHeight: var(--spacing-md);
+    --KDropdownItemDividerContainerHeight: var(--spacing-lg);
     --KDropdownItemDividerPosition: calc((#{var(--KDropdownItemDividerContainerHeight)} / 2 + 1px) * -1);
     position: relative;
     margin-top: var(--KDropdownItemDividerContainerHeight);
