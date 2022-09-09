@@ -128,7 +128,7 @@ li.k-dropdown-item {
 
   &.has-divider {
     $k-dropdown-item-divider-container-height: var(--spacing-lg);
-    $k-dropdown-item-divider-position: calc((#{$k-dropdown-item-divider-container-heigh} / 2 + 1px) * -1);
+    $k-dropdown-item-divider-position: calc((#{$k-dropdown-item-divider-container-height} / 2 + 1px) * -1);
     position: relative;
     margin-top: $k-dropdown-item-divider-container-height;
 
