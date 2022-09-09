@@ -129,7 +129,9 @@ li.k-dropdown-item {
 
   &.has-divider {
     $k-dropdown-item-divider-container-height: 24; // set to the same value as --spacing-lg without the units
-    $k-dropdown-item-divider-position: calc((math.div($k-dropdown-item-divider-container-height, 2) + 1) * -1) + 'px';
+    $k-dropdown-item-divider-position: calc((math.div($k-dropdown-item-divider-container-height, 2) + 1) * -1);
+    position: relative;
+    margin-top: #{$k-dropdown-item-divider-container-height}px;
 
     &:before {
       position: relative;
@@ -137,7 +139,7 @@ li.k-dropdown-item {
       content: '';
       height: 1px;
       width: 100%;
-      top: $k-dropdown-item-divider-position;
+      top: #{$k-dropdown-item-divider-position}px;
       background: var(--grey-200);
     }
   }
