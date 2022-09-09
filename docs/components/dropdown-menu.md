@@ -263,14 +263,14 @@ Text to display on hover if dropdown is disabled.
 
 There are 2 supported slots:
 
-- `default` - The trigger element for opening/closing the menu. Slot provides `isOpen` - whether the menu is open or not.
+- `default` - The trigger element for opening/closing the menu.
 - `items` - For an example of using the items slot see the [`KDropdownItem`](#KDropdownItem) section.
 
 <div>
   <KDropdownMenu :items="deepClone(defaultItemsUnselected)">
-    <template #default="{ isOpen }">
+    <template #default>
         <KButton
-          :is-open="isOpen"
+          show-caret
           appearance="creation"
         >
           Menu
@@ -281,9 +281,9 @@ There are 2 supported slots:
 
 ```html
 <KDropdownMenu :items="items">
-  <template #default="{ isOpen }">
+  <template #default>
       <KButton
-        :is-open="isOpen"
+        show-caret
         appearance="creation"
       >
         Menu
