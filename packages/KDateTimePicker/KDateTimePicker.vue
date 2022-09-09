@@ -359,7 +359,9 @@ export default defineComponent({
       if (props.range || hasTimePeriods.value) {
         emit('change', state.selectedRange)
       } else {
-        emit('change', new Date(state.selectedRange.start))
+        const startDate = new Date(state.selectedRange.start)
+
+        emit('change', startDate.toString())
       }
 
       handleClose()
