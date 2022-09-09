@@ -31,7 +31,10 @@
         data-testid="analytics-time-toggle"
       />
       <!-- Single date / time or range readout -->
-      <p v-if="!showCalendar">{{ fullRangeDisplay }}</p>
+      <p
+        v-if="!showCalendar"
+        class="range-display"
+      >{{ fullRangeDisplay }}</p>
       <DatePicker
         v-if="hasCalendar && showCalendar"
         v-model="selectedCalendarRange"
@@ -53,7 +56,7 @@
           :key="`section-${item.section || index}`"
           class="timeframe-section d-flex flex-column"
         >
-          <h4>{{ item.section }}</h4>
+          <h4 class="timeframe-section-title">{{ item.section }}</h4>
           <div class="timeframe-buttons d-flex flex-row justify-content-start">
             <KButton
               v-for="(timeFrame, itemIdx) in item.values"
@@ -61,6 +64,7 @@
               :is-rounded="false"
               :class="{'selected-option': timeFrame.key === selectedTimeframe.key}"
               :data-testid="'select-timeframe-' + timeFrame.timeframeLength()"
+              class="timeframe-btn"
               appearance="outline"
               size="medium"
               @click="changeRelativeTimeframe(timeFrame)"
@@ -78,6 +82,7 @@
         <KButton
           :is-rounded="false"
           data-testid="k-datetimepicker-clear"
+          class="action-btn"
           size="medium"
           appearance="btn-link"
           @click="clearSelection()"
@@ -88,6 +93,7 @@
           :disabled="submitDisabled"
           :is-rounded="false"
           data-testid="k-datetimepicker-submit"
+          class="action-btn"
           size="medium"
           appearance="btn-link"
           @click="submitTimeFrame()"
@@ -443,10 +449,11 @@ export default defineComponent({
 
 <style lang="scss">
 $margin: .2rem;
+$timepicker-min-width: 24rem;
 
 .k-datetime-picker {
   .timepicker-input {
-    min-width: 22rem;
+    min-width: $timepicker-min-width;
     padding: var(--spacing-sm) var(--spacing-xl) var(--spacing-sm) 40px !important;
     background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M14 14H2V2H4V4H6V2H10V4H12V2H14V14ZM14 0H2C0.895 0 0 0.896 0 2V14C0 15.104 0.895 16 2 16H14C15.104 16 16 15.104 16 14V2C16 0.896 15.104 0 14 0ZM7 12H9V10H7V12ZM10 9H12V7H10V9ZM7 9H9V7H7V9ZM4 9H6V7H4V9ZM4 12H6V10H4V12Z' fill='%236F7787'/%3E%3C/svg%3E%0A");
     background-repeat: no-repeat;
@@ -460,9 +467,9 @@ $margin: .2rem;
   }
   .k-popover {
     max-height: 90vh;
-    min-width: 22rem;
-    overflow: auto;
-    padding: 1rem;
+    min-width: $timepicker-min-width;
+    overflow: hidden;
+    padding: var(--spacing-lg) var(--spacing-md);
 
     &[x-placement^=bottom] {
       margin-top: var(--spacing-xs);
@@ -472,10 +479,18 @@ $margin: .2rem;
     }
 
     .k-popover-content {
+      .range-display {
+        margin: var(--spacing-xs) auto var(--spacing-xs) $margin;
+      }
       .timeframe-section {
+        .timeframe-section-title {
+          margin-left: $margin;
+          margin-bottom: var(--spacing-xs);
+        }
         .timeframe-buttons {
           flex-wrap: wrap;
-          .k-button {
+          .timeframe-btn {
+            font-size: var(--type-sm);
             flex-basis: calc(32% - $margin);
             font-weight: 400;
             margin: $margin;
@@ -485,16 +500,27 @@ $margin: .2rem;
 
             &.selected-option {
               color: white;
-              background: var(--blue-500)
+              background: var(--blue-500);
+              font-weight: 500;
+            }
+
+            // TODO this override should be applied to Kongponents button
+            &:focus {
+              box-shadow: none;
             }
           }
         }
       }
     }
     .k-popover-footer {
-      margin: .75rem auto 0;
-      button {
+      margin: var(--spacing-md) auto 0;
+      // Apply / Clear buttons
+      // TODO these overrides should be applied to Kongponents button
+      .action-btn {
         padding: .25rem 1rem;
+        &:focus {
+          box-shadow: none;
+        }
       }
     }
   }
@@ -518,13 +544,18 @@ $margin: .2rem;
     --blue-500: var(--blue-500, color(blue-500));
     --blue-600: var(--blue-600, color(blue-600));
     --blue-700: var(--blue-700, color(blue-700));
+    --grey-200: var(--grey-200, color(grey-200));
     --grey-300: var(--grey-300, color(grey-300));
     --grey-400: var(--grey-400, color(grey-400));
     --grey-500: var(--grey-500, color(grey-500));
+    --grey-600: var(--grey-600, color(grey-600));
     --accent-100: var(--grey-500, color(grey-500));   // vc-nav-title
     --accent-900: var(--blue-500, color(blue-500));
 
     $highlight-color: color(blue-200);
+    $selected-color: color(blue-500);
+    $text-color: color(grey-500);
+    $text-color-darker: color(grey-600);
 
     // TODO: Hide clock icon based on boolean prop
     .vc-time-icon {
@@ -534,16 +565,37 @@ $margin: .2rem;
       border: 0;
     }
 
+    // Day text within hover selection or post-selection
+    .vc-highlights + .vc-day-content {
+      color: color(white);
+      font-weight: 600;
+      // background-color: red;
+    }
+
+    .vc-popover-content.vc-nav-container {
+      background:red !important;
+    }
     .vc-nav-popover-container {
       background-color: white;
-      color: color(grey-500);
+      color: $text-color;
 
       .vc-nav-container {
+        .vc-nav-arrow {
+          // border: 1px solid red;
+          background-color: white;
+
+          &:active,
+          &:focus {
+            border: 2px solid white;
+          }
+        }
+
         // Calendar year
         .vc-nav-header .vc-nav-title {
-          color: color(grey-500);
+          color: $text-color;
           &:hover {
             background-color: white;
+            color: color(grey-600);
           }
           &:active,
           &:focus {
@@ -553,18 +605,50 @@ $margin: .2rem;
         // Calendar months
         .vc-nav-items {
           .vc-nav-item {
+            color: $text-color;
+
             &:hover {
-              color: color(grey-500);
+              color: color(grey-600);
               background-color: color(blue-100);
               box-shadow: none;
             }
           }
           .vc-nav-item.is-current,
           .vc-nav-item.is-active {
-            background-color: color(blue-500);
+            background-color: $selected-color;
             border-color: transparent;
             color: white;
           }
+        }
+      }
+    }
+
+    .vc-time-picker {
+      border-top: 1px solid white !important;
+      .vc-date .vc-weekday,
+      .vc-date .vc-month,
+      .vc-date .vc-year {
+        color: $text-color !important;
+      }
+    }
+    .vc-pane-container {
+      .vc-header {
+        // Month + Year
+        .vc-title {
+          color: $text-color;
+          &:hover,
+          &:active {
+            color: $text-color-darker;
+          }
+        }
+      }
+      //
+      // Calendar content (weekday headings and full month)
+      //
+      .vc-weeks {
+        margin-top: var(--spacing-sm);
+        .vc-weekday {
+          color: $text-color;
         }
       }
     }
@@ -574,24 +658,47 @@ $margin: .2rem;
       //
       // Time Range
       //
-      .vc-month, .vc-day {
-        color: color(grey-500);
-      }
-      // AM / PM highlights
-      .vc-am-pm button.active {
-        background-color: color(blue-500);
-        &:active,
-        &:hover,
+      .vc-select select {
+        color: $text-color-darker;
+        &:hover {
+          color: $text-color-darker;
+        }
         &:focus {
-          border-color: color(blue-300);
-          background-color: color(blue-300);
+          border: 2px solid white;
+          color: $text-color-darker;
+          background-color: var(--gray-200);
         }
       }
+      .vc-month, .vc-day {
+        color: $text-color;
+      }
+      // AM / PM highlights
+      .vc-am-pm {
+        color: $text-color-darker;
 
-      // Day text within hover selection or post-selection
-      .vc-highlights + .vc-day-content {
-        color: color(white);
-        font-weight: 600;
+        button {
+          &:active,
+          &:hover {
+            color: $text-color-darker;
+          }
+          &:focus {
+            border: 2px solid transparent;
+          }
+          &.active {
+            background-color: $selected-color;
+            &:hover,
+            &:focus {
+              color: white;
+              border-color: $selected-color;
+              background-color: $selected-color;
+            }
+            &:active {
+              color: white;
+              border-color: color(blue-300);
+              background-color: color(blue-300);
+            }
+          }
+        }
       }
 
       //
@@ -599,7 +706,7 @@ $margin: .2rem;
       //
       .vc-highlight.vcal-day-start,
       .vc-highlight.vcal-day-end {
-        background-color: color(blue-500);
+        background-color: $selected-color;
         color: white !important;
       }
       .vc-highlight.vcal-day-base,
@@ -615,13 +722,13 @@ $margin: .2rem;
       .vcal-day-drag-start,
       .vcal-day-drag-end {
         border: 2px solid color(blue-400);
-        background-color: color(blue-500);
+        background-color: $selected-color;
         color: white;
       }
 
       .vc-day-content {
         &:hover {
-          color: color(blue-500);
+          color: $selected-color;
           background-color: white;
           border: 2px solid color(blue-400);
         }

@@ -379,7 +379,7 @@ export default {
 
 <style lang="scss" scoped>
 pre.json {
-  font-size: var(--type-xs);
+  font-size: var(--type-sm);
   white-space: pre-wrap;
 }
 
