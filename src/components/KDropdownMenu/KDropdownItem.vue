@@ -123,7 +123,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@use 'sass:math';
 @import '@/styles/variables';
 @import '@/styles/functions';
 
