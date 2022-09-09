@@ -360,7 +360,7 @@ export default defineComponent({
         emit('change', state.selectedRange)
       } else {
         emit('input', new Date(state.selectedRange.start))
-        emit('change', state.selectedRange.start)
+        emit('change', new Date(state.selectedRange.start))
       }
 
       handleClose()
