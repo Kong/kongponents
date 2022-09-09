@@ -118,6 +118,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use 'sass:math';
 @import '~@kongponents/styles/variables';
 
 li.k-dropdown-item {
@@ -127,7 +128,20 @@ li.k-dropdown-item {
   line-height: 1;
 
   &.has-divider {
-    border-top: 1px solid var(--grey-200) !important;
+    $k-dropdown-item-divider-container-height: 24; // set to the same value as --spacing-lg without the units
+    $k-dropdown-item-divider-position: calc((math.div($k-dropdown-item-divider-container-height, 2) + 1) * -1);
+    position: relative;
+    margin-top: #{$k-dropdown-item-divider-container-height}px;
+
+    &:before {
+      position: relative;
+      display: block;
+      content: '';
+      height: 1px;
+      width: 100%;
+      top: #{$k-dropdown-item-divider-position}px;
+      background: var(--grey-200);
+    }
   }
 
   svg {
