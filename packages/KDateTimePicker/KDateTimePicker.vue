@@ -232,7 +232,7 @@ export default defineComponent({
       abbreviatedDisplay: props.placeholder,
       fullRangeDisplay: '',
       hidePopover: false,
-      selectedRange: { start: '', end: '', timePeriodsKey: '' },
+      selectedRange: { start: new Date(), end: new Date(), timePeriodsKey: '' },
       selectedTimeframe: props.timePeriods[0] || '',
       tabName: 'relative'
     })
@@ -252,7 +252,8 @@ export default defineComponent({
           start = new Date(vCalValue.start)
           end = new Date(vCalValue.end)
         } else {
-          start = vCalValue
+          start = new Date(vCalValue)
+          end = new Date() // need to keep end as a valid date regardless
         }
       }
 
@@ -261,8 +262,8 @@ export default defineComponent({
       // The `timePeriodsKey` param only applies to relative timeframes,
       // not `v-calendar` selections; however, this keeps the object "shape" consistent.
       state.selectedRange = {
-        start: start || '',
-        end: end || '',
+        start,
+        end,
         timePeriodsKey: ''
       }
     }
@@ -297,7 +298,7 @@ export default defineComponent({
       selectedCalendarRange.value = null
       state.abbreviatedDisplay = props.placeholder
       state.fullRangeDisplay = ''
-      state.selectedRange = { start: '', end: '', timePeriodsKey: '' }
+      state.selectedRange = { start: new Date(), end: new Date(), timePeriodsKey: '' }
 
       if (hasTimePeriods) {
         state.selectedTimeframe = props.timePeriods[0]
@@ -336,10 +337,10 @@ export default defineComponent({
       }
 
       // Determine whether to display a formatting time range, or a single value in input field
-      if (start && end) {
-        return `${format(new Date(start), fmtStr)} - ${format(end, fmtStr)}`
+      if (props.range) {
+        return `${format(start, fmtStr)} - ${format(end, fmtStr)}`
       } else if (start) {
-        return `${format(new Date(start), fmtStr)}`
+        return `${format(start, fmtStr)}`
       }
     }
 
