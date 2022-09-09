@@ -134,10 +134,10 @@ li.k-dropdown-item {
   line-height: 1;
 
   &.has-divider {
-    $k-dropdown-item-divider-container-height: 24; // set to the same value as --spacing-lg without the units
-    $k-dropdown-item-divider-position: calc((math.div($k-dropdown-item-divider-container-height, 2) + 1) * -1);
+    $k-dropdown-item-divider-container-height: 24px; // set to the same value as --spacing-lg without the units
+    $k-dropdown-item-divider-position: -13px; // this should be negative (<container-height> / 2 + 1)
     position: relative;
-    margin-top: #{$k-dropdown-item-divider-container-height}px;
+    margin-top: $k-dropdown-item-divider-container-height;
 
     &:before {
       position: relative;
@@ -145,7 +145,7 @@ li.k-dropdown-item {
       content: '';
       height: 1px;
       width: 100%;
-      top: #{$k-dropdown-item-divider-position}px;
+      top: $k-dropdown-item-divider-position;
       background: var(--grey-200);
     }
   }
