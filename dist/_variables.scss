@@ -1,0 +1,112 @@
+$colors: (
+  blue-100: #f2f6fe,
+  blue-200: #bdd3f9,
+  blue-300: #8ab3fa,
+  blue-400: #3972d5,
+  blue-500: #1155cb,
+  blue-600: #003694,
+  blue-700: #0a2b66,
+  petrol-100: #eaf4fb,
+  petrol-200: #0364ac,
+  purple-100: #d7d8fe,
+  purple-200: #bec0fd,
+  purple-300: #9396fc,
+  purple-400: #473cfb,
+  steel-100: #f0f4fa,
+  steel-200: #dae3f2,
+  steel-300: #a3b6d9,
+  steel-400: #7d91b3,
+  steel-500: #5c7299,
+  steel-600: #395380,
+  steel-700: #273c61,
+  red-100: #ffdede,
+  red-200: #ffcccc,
+  red-300: #ff9a99,
+  red-400: #ff7877,
+  red-500: #d44324,
+  red-600: #e50000,
+  red-700: #922021,
+  green-100: #e8f8f5,
+  green-200: #c0f2d5,
+  green-300: #84e5ae,
+  green-400: #42d782,
+  green-500: #07a88d,
+  green-600: #008871,
+  green-700: #13755e,
+  teal-100: #cdf1fe,
+  teal-200: #91e1fc,
+  teal-300: #169fcc,
+  teal-400: #0a7fae,
+  teal-500: #006e9d,
+  yellow-100: #fff3d8,
+  yellow-200: #ffe6ba,
+  yellow-300: #ffd68c,
+  yellow-400: #fabe5f,
+  yellow-500: #c67c06,
+  yellow-600: #a05604,
+  grey-100: #f8f8fa,
+  grey-200: #f1f1f5,
+  grey-300: #e7e7ec,
+  grey-400: #b6b6bd,
+  grey-500: #6f7787,
+  grey-600: #3c4557,
+  black-85: rgba(0, 0, 0, 0.85),
+  black-70: rgba(0, 0, 0, 0.7),
+  black-45: rgba(0, 0, 0, 0.45),
+  black-25: rgba(0, 0, 0, 0.25),
+  black-10: rgba(0, 0, 0, 0.1),
+  black-100: #dfdfdf,
+  black-200: #b1b2b1,
+  black-300: #6f7787,
+  black-400: #3c4557,
+  black-500: #0b172d,
+  white: #ffffff,
+);
+$spacing: (
+  xxs: 4px,
+  xs: 8px,
+  sm: 12px,
+  md: 16px,
+  lg: 24px,
+  xl: 32px,
+  xxl: 48px,
+  xxxl: 64px,
+);
+$type-sizes: (
+  xxxl: 32px,
+  xxl: 28px,
+  xl: 22px,
+  lg: 18px,
+  md: 16px,
+  sm: 14px,
+  xs: 12px,
+  xxs: 10px,
+);
+$fonts: (
+  sans: sans-serif,
+  mono: monospace,
+);
+
+// Set up CSS variables as a mixin so consuming packages can import if they desire and add to scoped styles
+// This mixin MUST stay in the _variables.scss file so consuming packages may import it
+@mixin kongponents-css-variables {
+  // colors
+  @each $name, $color in $colors {
+    // add empty string so dart-sass will properly interpret class name from variable
+    --#{"" + $name}: #{$color};
+  }
+  // Spacings
+  @each $name, $space in $spacing {
+    --spacing-#{$name}: #{$space};
+  }
+  // Type
+  @each $name, $size in $type-sizes {
+    --type-#{$name}: #{$size};
+  }
+  // Font families
+  @each $name, $font in $fonts {
+    --font-family-#{$name}: #{$font};
+  }
+
+  font-weight: var(--font-weight-normal, 400);
+}
