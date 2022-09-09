@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 7.1.3 (2022-09-09)
+
+
+### Bug Fixes
+
+* **dropdown:** update psuedo element position ([#796](https://github.com/Kong/kongponents/issues/796)) ([4ac2f02](https://github.com/Kong/kongponents/commit/4ac2f02d1b678eeea316e3a66a5c9cf9b59f2546))
+
+
+
+
+
 ## 7.1.2 (2022-09-09)
 
 
