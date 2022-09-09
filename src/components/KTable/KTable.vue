@@ -132,7 +132,7 @@
           </tr>
         </thead>
 
-        <tbody>
+        <tbody v-if="disableDragging">
           <tr
             v-for="(row, rowIndex) in data"
             v-bind="rowAttrs(row)"
@@ -158,6 +158,41 @@
             </td>
           </tr>
         </tbody>
+        <draggable
+          v-else
+          :list="data"
+          group="people"
+          tag="tbody"
+          item-key="id"
+          @start="drag=true"
+          @end="drag=false"
+        >
+          <template #item="{ element: row, index: rowIndex }">
+            <tr
+              v-bind="rowAttrs(row)"
+              :key="`k-table-${tableId}-row-${rowIndex}`"
+              :tabindex="isClickable ? 0 : null"
+              :role="isClickable ? 'link' : null"
+              v-on="hasSideBorder ? tdlisteners(row, row) : {}"
+            >
+              <td
+                v-for="(value, index) in tableHeaders"
+                v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
+                :key="`k-table-${tableId}-cell-${index}`"
+                v-on="tdlisteners(row[value.key], row)"
+              >
+                <slot
+                  :name="value.key"
+                  :row="row"
+                  :row-key="rowIndex"
+                  :row-value="row[value.key]"
+                >
+                  {{ row[value.key] }}
+                </slot>
+              </td>
+            </tr>
+          </template>
+        </draggable>
       </table>
 
       <KPagination
@@ -192,6 +227,7 @@ import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
+import draggable from 'vuedraggable'
 
 /**
  * @deprecated
@@ -223,6 +259,7 @@ export default defineComponent({
     KIcon,
     KPagination,
     KSkeleton,
+    draggable,
   },
   props: {
     /**
@@ -485,6 +522,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    disableDragging: {
+      type: Boolean,
+      default: true,
+    },
     paginationType: {
       type: String as PropType<'default' | 'offset'>,
       default: 'default',
@@ -534,6 +575,7 @@ export default defineComponent({
     const isClickable = ref(false)
     const hasInitialized = ref(false)
     const nextPageClicked = ref(false)
+    const drag = ref(false)
     /**
      * Grabs listeners from attrs matching a prefix to attach the
      * event that is dynamic. e.g. `v-on:cell:click`, `@row:focus` etc.
@@ -856,6 +898,7 @@ export default defineComponent({
       previousOffset,
       offset,
       shouldShowPagination,
+      drag,
     }
   },
 })
