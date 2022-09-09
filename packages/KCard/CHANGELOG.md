@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 7.1.2 (2022-09-09)
+
+
+### Bug Fixes
+
+* remove sass division ([#794](https://github.com/Kong/kongponents/issues/794)) ([969f9ab](https://github.com/Kong/kongponents/commit/969f9ab2ca588a6f5ca2ae52d88a1ea55248c425))
+
+
+
+
+
 ## 7.1.1 (2022-09-09)
 
 
