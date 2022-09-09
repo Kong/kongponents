@@ -12,6 +12,7 @@
       :is-rounded="false"
       size="large"
       class="timepicker-input"
+      data-testid="k-datetimepicker-display"
     >
       {{ abbreviatedDisplay }}
     </KButton>
@@ -197,7 +198,7 @@ export default defineComponent({
     }
   },
   setup (props, { emit }) {
-    const modelConfig = { type: 'number' } // https:/vcalendar.io/datepicker.html#model-config
+    const modelConfig = { type: 'number' } // https://vcalendar.io/datepicker.html#model-config
     const calendarSelectAttributes = {
       highlight: {
         start: { class: 'vcal-day-start' },
@@ -247,9 +248,9 @@ export default defineComponent({
 
       if (vCalValue) {
         // If value is an object, this is a time range. Else, a single date or time value.
-        if (vCalValue.hasOwnProperty('start')) {
-          start = vCalValue.start
-          end = vCalValue.end
+        if (vCalValue.hasOwnProperty('start') && vCalValue.hasOwnProperty('end')) {
+          start = new Date(vCalValue.start)
+          end = new Date(vCalValue.end)
         } else {
           start = vCalValue
         }
@@ -397,7 +398,8 @@ export default defineComponent({
     }, { immediate: true })
 
     onMounted(() => {
-      // Select the tab based on incoming defaults
+      // Select the tab based on incoming defaults; save the default value to our internal
+      // state and update the input field to display the human-readable date/time.
       if (props.value) {
         if (props.value instanceof Date || !props.value.timePeriodsKey) {
           state.tabName = 'custom'
