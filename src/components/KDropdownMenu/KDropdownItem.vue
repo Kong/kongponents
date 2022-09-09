@@ -134,9 +134,9 @@ li.k-dropdown-item {
 
   &.has-divider {
     $k-dropdown-item-divider-container-height: var(--spacing-lg);
-    $k-dropdown-item-divider-position: calc((#{var($k-dropdown-item-divider-container-height)} / 2 + 1px) * -1);
+    $k-dropdown-item-divider-position: calc((#{$k-dropdown-item-divider-container-height} / 2 + 1px) * -1);
     position: relative;
-    margin-top: var($k-dropdown-item-divider-container-height);
+    margin-top: $k-dropdown-item-divider-container-height;
 
     &:before {
       position: relative;
@@ -144,7 +144,7 @@ li.k-dropdown-item {
       content: '';
       height: 1px;
       width: 100%;
-      top: var($k-dropdown-item-divider-position);
+      top: $k-dropdown-item-divider-position;
       background: var(--grey-200);
     }
   }
