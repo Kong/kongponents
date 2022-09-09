@@ -304,15 +304,7 @@ export default defineComponent({
         state.selectedTimeframe = props.timePeriods[0]
       }
 
-      // If the calendar has focus, and `range` is set to false, we are displaying
-      // a single date / time picker; therefore, need to emit an empty string.
-      //
-      // Else, we are displaying a date / time range (relative timeframes or calendar range)
-      if (!props.range && showCalendar.value) {
-        emit('input', '')
-      } else {
-        emit('input', state.selectedRange)
-      }
+      emit('input', undefined)
     }
 
     /**
