@@ -1,3 +1,10 @@
+# [8.0.0-beta.13](https://github.com/Kong/kongponents/compare/v8.0.0-beta.12...v8.0.0-beta.13) (2022-09-09)
+
+
+### Bug Fixes
+
+* remove sass division [beta] ([#795](https://github.com/Kong/kongponents/issues/795)) ([ef37c21](https://github.com/Kong/kongponents/commit/ef37c21391354e35a5cea78078361d2d9942a174))
+
 # [8.0.0-beta.12](https://github.com/Kong/kongponents/compare/v8.0.0-beta.11...v8.0.0-beta.12) (2022-09-09)
 
 
