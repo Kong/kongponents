@@ -127,10 +127,10 @@ li.k-dropdown-item {
   line-height: 1;
 
   &.has-divider {
-    --KDropdownItemDividerContainerHeight: var(--spacing-lg);
-    --KDropdownItemDividerPosition: calc((#{var(--KDropdownItemDividerContainerHeight)} / 2 + 1px) * -1);
+    $k-dropdown-item-divider-container-height: var(--spacing-lg);
+    $k-dropdown-item-divider-position: calc((#{var(--KDropdownItemDividerContainerHeight)} / 2 + 1px) * -1);
     position: relative;
-    margin-top: var(--KDropdownItemDividerContainerHeight);
+    margin-top: $k-dropdown-item-divider-container-height;
 
     &:before {
       position: relative;
@@ -138,7 +138,7 @@ li.k-dropdown-item {
       content: '';
       height: 1px;
       width: 100%;
-      top: var(--KDropdownItemDividerPosition);
+      top: $k-dropdown-item-divider-position;
       background: var(--grey-200);
     }
   }
