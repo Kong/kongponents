@@ -139,7 +139,7 @@ li.k-dropdown-item {
     margin-top: $k-dropdown-item-divider-container-height;
 
     &:before {
-      position: relative;
+      position: absolute;
       display: block;
       content: '';
       height: 1px;
