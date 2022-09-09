@@ -1,3 +1,10 @@
+# [8.0.0-beta.11](https://github.com/Kong/kongponents/compare/v8.0.0-beta.10...v8.0.0-beta.11) (2022-09-09)
+
+
+### Bug Fixes
+
+* **kdropdownmenu:** divider position [beta] ([#792](https://github.com/Kong/kongponents/issues/792)) ([1882f94](https://github.com/Kong/kongponents/commit/1882f9471bb991a8a5b998ffdff08901efc18aa8)), closes [#789](https://github.com/Kong/kongponents/issues/789)
+
 # [8.0.0-beta.10](https://github.com/Kong/kongponents/compare/v8.0.0-beta.9...v8.0.0-beta.10) (2022-09-09)
 
 
