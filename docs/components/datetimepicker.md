@@ -6,6 +6,10 @@
 
 ## Examples
 
+:::danger Experimental Component
+`KDateTimePicker` is an experimental component. The component functionality, props, and events may change until it is in stable status.
+:::
+
 ### Single date
 
 Create a single date selection calendar
@@ -288,7 +292,7 @@ An array of time frame values to be displayed as buttons in the "Relative" secti
 ]
 ```
 
-### Events
+## Events
 
 | Event     | Description             |
 | :-------- | :------------------ |
