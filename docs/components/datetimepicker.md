@@ -6,25 +6,10 @@
 
 ## Examples
 
-A single date or time picker instance will emit a Javascript Date object as a `string`.
-
-```js
-"2022-09-06T19:45:54.406Z"  // ISO 8601 Date string
-```
-
-An instance that displays a date range or a series of relative time frames will emit an `object` containing the following values:
-
-```js
-{
-  "start": "2022-09-06T19:45:54.406Z",  // ISO 8601 Date string
-  "end": "2022-09-07T19:45:54.406Z", // ISO 8601 Date string
-  "timePeriodsKey": "24h" // or "" if not applicable
-}
-```
-
 ### Single date
 
 Create a single date selection calendar
+Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
 
 <div>
   <KDateTimePicker
@@ -33,7 +18,7 @@ Create a single date selection calendar
     mode="date"
     :range="false"
   />
-  <div class="mt-6">Emitted value: <pre class="json">{{ currentValue1 }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue1) }}</pre></div>
 </div>
 
 ```html
@@ -41,7 +26,6 @@ Create a single date selection calendar
   v-model="currentValue"
   placeholder="Please select a date"
   mode="date"
-  v-model="`${new Date()}`"
   :range="false"
 />
 ```
@@ -69,6 +53,8 @@ Create a single date selection calendar
 
 ### Single date and time
 
+Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
+
 <div>
   <KDateTimePicker
     v-model="currentValue3"
@@ -76,7 +62,7 @@ Create a single date selection calendar
     mode="dateTime"
     :range="false"
   />
-  <div class="mt-6">Emitted value: <pre class="json">{{ currentValue3 }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue3) }}</pre></div>
 </div>
 
 ```html
@@ -89,6 +75,8 @@ Create a single date selection calendar
 ```
 
 ### Date and time range
+
+Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 
 <div>
   <KDateTimePicker
@@ -110,6 +98,8 @@ Create a single date selection calendar
 ```
 
 ### Calendar and Relative time frames
+
+Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 
 Display both a calendar and relative time frames, passing in a preset week-long range.
 This instance also makes use of the `minDate` and `maxDate` parameters, which are both optional.
@@ -165,6 +155,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
 
 ### Relative time frames only
 
+Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 Same time frames as the previous example, except now we're passing in a pre-selected time frame.
 
 <div>
@@ -211,6 +202,28 @@ Same time frames as the previous example, except now we're passing in a pre-sele
 ```
 
 ## Props
+
+### v-model
+
+#### Single date time picker `v-model`
+
+A single date or time picker instance will emit a Javascript Date object as a `string`.
+
+```js
+"2022-09-06T19:45:54.406Z"  // ISO 8601 Date string
+```
+
+#### Range date time picker `v-model`
+
+An instance that displays a date range or a series of relative time frames will emit an `object` containing the following values:
+
+```js
+{
+  "start": "2022-09-06T19:45:54.406Z",  // ISO 8601 Date string
+  "end": "2022-09-07T19:45:54.406Z", // ISO 8601 Date string
+  "timePeriodsKey": "24h" // or "" if not applicable
+}
+```
 
 ### maxDate
 
@@ -279,7 +292,7 @@ An array of time frame values to be displayed as buttons in the "Relative" secti
 
 | Event     | Description             |
 | :-------- | :------------------ |
-| `change` | Fires whenever **Apply** is clicked (assuming the user has made a custom calendar or relative timeframe selection), or **Clear** is clicked; returns either a single Date string, or an object containing `start`, `end` and a `timePeriodsKey` as outlined in [Examples](#examples).
+| `input` and `change` | Fires whenever **Apply** is clicked (assuming the user has made a custom calendar or relative timeframe selection), or **Clear** is clicked; returns either a single Date string, or an object containing `start`, `end` and a `timePeriodsKey` as outlined in [Examples](#examples).
 
 </div>
 

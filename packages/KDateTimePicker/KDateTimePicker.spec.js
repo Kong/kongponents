@@ -18,10 +18,6 @@ const submitButton = 'k-datetimepicker-submit'
 // const clickableDays = '.vc-day.in-month span[role="button"]'
 
 describe('KDateTimePicker', () => {
-  beforeEach(() => {
-    jest.resetModules()
-  })
-
   it('renders a calendar instance with a Single date and default value, submits todays date', async () => {
     const wrapper = await mount(KDateTimePicker, {
       propsData: {

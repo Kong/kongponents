@@ -121,8 +121,8 @@ export default defineComponent({
         (
           value.hasOwnProperty('start') &&
           value.hasOwnProperty('end') &&
-          value.start instanceof Date &&
-          value.end instanceof Date
+          value.start !== undefined &&
+          value.end !== undefined
         )
     },
     /**
@@ -197,6 +197,7 @@ export default defineComponent({
       }
     }
   },
+  emits: ['input'],
   setup (props, { emit }) {
     const modelConfig = { type: 'number' } // https://vcalendar.io/datepicker.html#model-config
     const calendarSelectAttributes = {
@@ -298,13 +299,21 @@ export default defineComponent({
       selectedCalendarRange.value = null
       state.abbreviatedDisplay = props.placeholder
       state.fullRangeDisplay = ''
-      state.selectedRange = { start: new Date(), end: new Date(), timePeriodsKey: '' }
+      state.selectedRange = { start: '', end: '', timePeriodsKey: '' }
 
       if (hasTimePeriods) {
         state.selectedTimeframe = props.timePeriods[0]
       }
 
-      emit('input', '')
+      // If a range, emit an object with empty `start`, `end`, `timePeriods`;
+      // Else, emit empty string for single date/time picker
+      if (props.range || props.mode === 'relative') {
+        emit('input', state.selectedRange)
+        emit('change', state.selectedRange)
+      } else {
+        emit('input', '')
+        emit('change', '')
+      }
     }
 
     /**
@@ -342,8 +351,10 @@ export default defineComponent({
     const submitTimeFrame = async () => {
       if (props.range || hasTimePeriods.value) {
         emit('input', state.selectedRange)
+        emit('change', state.selectedRange)
       } else {
         emit('input', new Date(state.selectedRange.start))
+        emit('change', state.selectedRange)
       }
 
       handleClose()
