@@ -260,7 +260,7 @@ export default defineComponent({
           end = new Date(vCalValue.end)
         } else {
           start = new Date(vCalValue)
-          end = new Date() // need to keep end as a valid date regardless
+          end = ''
         }
       }
 
@@ -360,7 +360,7 @@ export default defineComponent({
         emit('change', state.selectedRange)
       } else {
         emit('input', new Date(state.selectedRange.start))
-        emit('change', state.selectedRange)
+        emit('change', state.selectedRange.start)
       }
 
       handleClose()

@@ -18,16 +18,18 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
 <div>
   <KDateTimePicker
     v-model="currentValue1"
+    @change="newVal => emitVal1 = newVal"
     placeholder="Please select a date"
     mode="date"
     :range="false"
   />
-  <div class="mt-6">Preset / Emitted value: <pre class="json">{{ JSON.stringify(currentValue1) }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(emitVal1) }}</pre></div>
 </div>
 
 ```html
 <KDateTimePicker
   v-model="currentValue"
+  @change="newVal => emitVal = newVal"
   placeholder="Please select a date"
   mode="date"
   :range="false"
@@ -38,17 +40,17 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
 
 <div>
   <KDateTimePicker
-    @change="newVal => currentValue2 = newVal"
+    @change="newVal => emitVal2 = newVal"
     placeholder="Please select a time"
     mode="time"
     :range="false"
   />
-  <div class="mt-6">Preset / Emitted value: <pre class="json">{{ currentValue2 }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json">{{ currentValue2 }}</pre></div>
 </div>
 
 ```html
 <KDateTimePicker
-  @change="newVal => currentValue = newVal"
+  @change="newVal => emitVal = newVal"
   placeholder="Please select a time"
   mode="time"
   :range="false"
@@ -62,16 +64,18 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
 <div>
   <KDateTimePicker
     v-model="currentValue3"
+    @change="newVal => emitVal3 = newVal"
     placeholder="Please select a date and time"
     mode="dateTime"
     :range="false"
   />
-  <div class="mt-6">Preset / Emitted value: <pre class="json">{{ JSON.stringify(currentValue3) }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(emitVal3) }}</pre></div>
 </div>
 
 ```html
 <KDateTimePicker
   v-model="currentValue"
+  @change="newVal => emitVal = newVal"
   placeholder="Please select a date and time"
   mode="dateTime"
   :range="false"
@@ -85,16 +89,18 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 <div>
   <KDateTimePicker
     v-model="currentValue4"
+    @change="newVal => emitVal4 = newVal"
     placeholder="Please select a date and time"
     mode="dateTime"
     :range="true"
   />
-  <div class="mt-6">Preset / Emitted value: <pre class="json">{{ currentValue4 }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json">{{ emitVal4 }}</pre></div>
 </div>
 
 ```html
 <KDateTimePicker
   v-model="currentValue"
+  @change="newVal => emitVal = newVal"
   placeholder="Please select a date and time"
   mode="dateTime"
   :range="true"
@@ -111,6 +117,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
 <div>
   <KDateTimePicker
     v-model="currentValue5"
+    @change="newVal => emitVal5 = newVal"
     placeholder="Please select a range"
     mode="dateTime"
     :minDate="minDate"
@@ -118,12 +125,13 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
     :range="true"
     :timePeriods="exampleTimeFrames"
   />
-  <div class="mt-6">Preset / Emitted value: <pre class="json">{{ currentValue5 }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json">{{ emitVal5 }}</pre></div>
 </div>
 
 ```html
 <KDateTimePicker
   v-model="currentValue"
+  @change="newVal => emitVal = newVal"
   placeholder="Please select a range"
   mode="dateTime"
   :minDate="minDate"
@@ -165,16 +173,18 @@ Same time frames as the previous example, except now we're passing in a pre-sele
 <div>
   <KDateTimePicker
     v-model="currentValue6"
+    @change="newVal => emitVal6 = newVal"
     placeholder="Please select a time frame"
     mode="relative"
     :timePeriods="exampleTimeFrames"
   />
-  <div class="mt-6">Preset / Emitted value: <pre class="json">{{ currentValue6 }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json">{{ emitVal6 }}</pre></div>
 </div>
 
 ```html
 <KDateTimePicker
   v-model="currentValue"
+  @change="newVal => emitVal = newVal"
   placeholder="Please select a time frame"
   mode="relative"
   :timePeriods=[
@@ -342,9 +352,15 @@ export default {
     const aYearAgo    = new Date(today.getTime() - (365*24*60*60*1000))
     return {
       hasMounted: false,
+      emitVal1: '',
+      emitVal2: '',
+      emitVal3: '',
+      emitVal4: '',
+      emitVal5: '',
+      emitVal6: '',
       currentValue1: new Date(),
-      currentValue2: undefined,
-      currentValue3: undefined,
+      currentValue2: new Date(),
+      currentValue3: new Date(),
       currentValue4: {
         start: twoDaysAgo,
         end: today
