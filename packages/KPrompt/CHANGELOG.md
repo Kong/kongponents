@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 7.1.1 (2022-09-09)
+
+
+### Bug Fixes
+
+* **kdropdownmenu:** divider margins [khcp-4565] ([#789](https://github.com/Kong/kongponents/issues/789)) ([a1ed0ca](https://github.com/Kong/kongponents/commit/a1ed0ca616182af41586dfa447684ad571377c3c))
+
+
+
+
+
 # 7.1.0 (2022-09-08)
 
 
