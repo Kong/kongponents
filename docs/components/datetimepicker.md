@@ -168,7 +168,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
 ### Relative time frames only
 
 Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
-Same time frames as the previous example, except now we're passing in a pre-selected time frame.
+This utilizes the same time frames as the previous example; however, in this example we are passing in a pre-selected time frame.
 
 <div>
   <KDateTimePicker
@@ -176,6 +176,7 @@ Same time frames as the previous example, except now we're passing in a pre-sele
     @change="newVal => emitVal6 = newVal"
     placeholder="Please select a time frame"
     mode="relative"
+    :range="true"
     :timePeriods="exampleTimeFrames"
   />
   <div class="mt-6">Emitted value: <pre class="json">{{ emitVal6 }}</pre></div>
@@ -187,6 +188,7 @@ Same time frames as the previous example, except now we're passing in a pre-sele
   @change="newVal => emitVal = newVal"
   placeholder="Please select a time frame"
   mode="relative"
+  :range="true"
   :timePeriods=[
     {
       section: "Last",
@@ -221,7 +223,7 @@ Same time frames as the previous example, except now we're passing in a pre-sele
 
 #### Single date time picker `v-model`
 
-A single date or time picker instance will emit a Javascript Date object as a `string`.
+A single date or time picker instance will emit a JavaScript Date object as a `string`.
 
 ```js
 "2022-09-06T19:45:54.406Z"  // ISO 8601 Date string
@@ -239,21 +241,21 @@ An instance that displays a date range or a series of relative time frames will 
 }
 ```
 
-### maxDate
+### minDate
 
-`Number` which blocks out days/times that occur **after** the given timestamp. `maxDate` gets passed down to the calendar component, and does not apply to relative time frames.
+A valid `Date` object (eg: `Mon Aug 15 2022 08:00:00 GMT-0700 (Pacific Daylight Time)`) which blocks out days/times that occur **before** the given timestamp. `minDate` gets passed down to the calendar component, and does not apply to relative time frames.
 
 **default**: `null`
 
-### minDate
+### maxDate
 
-`Number` which blocks out days/times that occur **before** the given timestamp. `minDate` gets passed down to the calendar component, and does not apply to relative time frames.
+A valid `Date` object (eg: `Fri Aug 19 2022 12:00:00 GMT-0700 (Pacific Daylight Time)`) which blocks out days/times that occur **after** the given timestamp. `maxDate` gets passed down to the calendar component, and does not apply to relative time frames.
 
 **default**: `null`
 
 ### mode
 
-`String` parameter which accepts the following values: `date`, `time`, `dateTime` and `relative`. The latter is meant to denote an datetime picker instance which only contains relative time frames.
+Required `String` prop which accepts the following values: `date`, `time`, `dateTime` and `relative`. The `relative` value is meant to denote an datetime picker instance which only contains relative time frames.
 
 ### placeholder
 
@@ -263,7 +265,7 @@ An instance that displays a date range or a series of relative time frames will 
 
 ### range
 
-`Boolean` which determines whether the calendar allows selection of a **single** date or time, as opposed to a **range** of start and end values. This parameter, along with the `mode` setting, gets passed down to the calendar component.
+`Boolean` which determines whether the calendar allows selection of a **single** date or time, as opposed to a **range** of start and end values.
 
 **default**: `false`
 
