@@ -235,14 +235,6 @@ A single date or time picker instance which can be seeded with a value like so:
 Where `currentValue` is a valid Date object, eg: `new Date()`
 ```
 
----
-
-Will emit a JavaScript Date object.
-
-```js
-"2022-09-06T19:45:54.406Z"  // ISO 8601 Date string
-```
-
 #### Range date time picker `v-model`
 
 An instance that displays a date range or a series of relative time frames.
@@ -266,18 +258,6 @@ const twoDaysAgo  = new Date(today.getTime() - (2*24*60*60*1000))
 currentValue = {
   start: twoDaysAgo,
   end: today
-}
-```
-
----
-
-Will emit an `object` containing the following values:
-
-```js
-{
-  "start": "2022-09-06T19:45:54.406Z",  // ISO 8601 Date string
-  "end": "2022-09-07T19:45:54.406Z", // ISO 8601 Date string
-  "timePeriodsKey": "24h" // or "" if not applicable
 }
 ```
 
@@ -346,9 +326,31 @@ An array of time frame values to be displayed as buttons in the "Relative" secti
 
 ## Events
 
-| Event     | Description             |
-| :-------- | :------------------ |
-| `input` and `change` | Fires whenever **Apply** is clicked (assuming the user has made a custom calendar or relative timeframe selection), or **Clear** is clicked; returns either a single Date string, or an object containing `start`, `end` and a `timePeriodsKey` as outlined in [Examples](#examples).
+The events below will fire whenever **Apply** is clicked (assuming the user has made a custom calendar or relative timeframe selection). If **Clear** is clicked, the object shape remains the same, but the values are empty strings.
+
+### Single date time picker
+
+**Event**: `input` and `change`
+
+Will emit a JavaScript Date object, or an empty string  "Clear".
+
+```js
+"2022-09-06T19:45:54.406Z"  // ISO 8601 Date string
+```
+
+### Range date time picker
+
+**Event**: `input` and `change`
+
+Will emit an `object` containing the following values:
+
+```js
+{
+  "start": "2022-09-06T19:45:54.406Z",  // ISO 8601 Date string
+  "end": "2022-09-07T19:45:54.406Z", // ISO 8601 Date string
+  "timePeriodsKey": "24h" // or "" if not applicable
+}
+```
 
 </div>
 
