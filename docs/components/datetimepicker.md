@@ -107,7 +107,7 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 />
 ```
 
-### Calendar and Relative time frames
+### Custom and Relative time frames
 
 Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 
@@ -176,6 +176,8 @@ This utilizes the same time frames as the previous example; however, in this exa
     @change="newVal => emitVal6 = newVal"
     placeholder="Please select a time frame"
     mode="relative"
+    :minDate="minDate"
+    :maxDate="maxDate"
     :range="true"
     :timePeriods="exampleTimeFrames"
   />
@@ -223,7 +225,19 @@ This utilizes the same time frames as the previous example; however, in this exa
 
 #### Single date time picker `v-model`
 
-A single date or time picker instance will emit a JavaScript Date object as a `string`.
+A single date or time picker instance which can be seeded with a value like so:
+
+```js
+<KDateTimePicker
+  v-model="currentValue"
+  ...
+/>
+Where `currentValue` is a valid Date object, eg: `new Date()`
+```
+
+---
+
+Will emit a JavaScript Date object.
 
 ```js
 "2022-09-06T19:45:54.406Z"  // ISO 8601 Date string
@@ -231,7 +245,33 @@ A single date or time picker instance will emit a JavaScript Date object as a `s
 
 #### Range date time picker `v-model`
 
-An instance that displays a date range or a series of relative time frames will emit an `object` containing the following values:
+An instance that displays a date range or a series of relative time frames.
+
+Can be seeded with a **relative time frame** by setting `v-model` to:
+
+```js
+currentValue = {
+  start: '',
+  end: '',
+  timePeriodsKey: TimeframeKeys.ONE_DAY
+},
+```
+
+Or it can be seeded with a **custom calendar range** by setting `v-model` to:
+
+```js
+const today = new Date()
+const twoDaysAgo  = new Date(today.getTime() - (2*24*60*60*1000))
+
+currentValue = {
+  start: twoDaysAgo,
+  end: today
+}
+```
+
+---
+
+Will emit an `object` containing the following values:
 
 ```js
 {
