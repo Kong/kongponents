@@ -1,3 +1,10 @@
+# [8.0.0-beta.14](https://github.com/Kong/kongponents/compare/v8.0.0-beta.13...v8.0.0-beta.14) (2022-09-10)
+
+
+### Bug Fixes
+
+* **dropdown:** update pseudo element position ([#799](https://github.com/Kong/kongponents/issues/799)) ([ec60643](https://github.com/Kong/kongponents/commit/ec60643dac3fb5c635f06ffe36cc8c917f810cf3))
+
 # [8.0.0-beta.13](https://github.com/Kong/kongponents/compare/v8.0.0-beta.12...v8.0.0-beta.13) (2022-09-09)
 
 
