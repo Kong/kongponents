@@ -111,6 +111,7 @@ import { format } from 'date-fns'
 import KButton from '@kongponents/kbutton/KButton.vue'
 import KPop from '@kongponents/kpop/KPop.vue'
 import KSegmentedControl from '@kongponents/ksegmentedcontrol/KSegmentedControl.vue'
+import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 
 export default defineComponent({
   name: 'KDateTimePicker',
@@ -118,7 +119,7 @@ export default defineComponent({
     KButton,
     KPop,
     KSegmentedControl,
-    DatePicker: () => import('v-calendar/lib/components/date-picker.umd')
+    DatePicker
   },
   props: {
     value: {
