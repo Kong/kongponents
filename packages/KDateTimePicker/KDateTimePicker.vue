@@ -43,6 +43,7 @@
         :min-date="minDate"
         :mode="mode"
         :model-config="modelConfig"
+        :minute-increment="minuteIncrement"
         :select-attribute="calendarSelectAttributes"
         :drag-attribute="calendarDragAttributes"
         is-expanded
@@ -147,6 +148,14 @@ export default defineComponent({
       type: Date,
       required: false,
       default: null
+    },
+    /**
+     * Sets a custom interval for the Minute select dropdown
+     */
+    minuteIncrement: {
+      type: Number,
+      required: false,
+      default: 5
     },
     /**
      * Determines which `v-calendar` type to initialize.

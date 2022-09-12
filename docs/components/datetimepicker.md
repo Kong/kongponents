@@ -67,6 +67,7 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
     @change="newVal => emitVal3 = newVal"
     placeholder="Please select a date and time"
     mode="dateTime"
+    :minute-increment="5"
     :range="false"
   />
   <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(emitVal3) }}</pre></div>
@@ -78,6 +79,7 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
   @change="newVal => emitVal = newVal"
   placeholder="Please select a date and time"
   mode="dateTime"
+  :minute-increment="5"
   :range="false"
 />
 ```
@@ -92,6 +94,7 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
     @change="newVal => emitVal4 = newVal"
     placeholder="Please select a date and time"
     mode="dateTime"
+    :minute-increment="5"
     :range="true"
   />
   <div class="mt-6">Emitted value: <pre class="json">{{ emitVal4 }}</pre></div>
@@ -103,6 +106,7 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
   @change="newVal => emitVal = newVal"
   placeholder="Please select a date and time"
   mode="dateTime"
+  :minute-increment="5"
   :range="true"
 />
 ```
@@ -122,6 +126,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
     mode="dateTime"
     :minDate="minDate"
     :maxDate="maxDate"
+    :minute-increment="5"
     :range="true"
     :timePeriods="exampleTimeFrames"
   />
@@ -136,6 +141,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
   mode="dateTime"
   :minDate="minDate"
   :maxDate="maxDate"
+  :minute-increment="5"
   :range="true"
   :timePeriods=[
     {
@@ -272,6 +278,12 @@ A valid `Date` object (eg: `Mon Aug 15 2022 08:00:00 GMT-0700 (Pacific Daylight 
 A valid `Date` object (eg: `Fri Aug 19 2022 12:00:00 GMT-0700 (Pacific Daylight Time)`) which blocks out days/times that occur **after** the given timestamp. `maxDate` gets passed down to the calendar component, and does not apply to relative time frames.
 
 **default**: `null`
+
+### minuteIncrement
+
+A `Number` which sets the custom interval for the Minutes select dropdown.
+
+**default**: `5`
 
 ### mode
 
