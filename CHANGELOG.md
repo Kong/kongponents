@@ -1,3 +1,11 @@
+# [8.0.0-beta.15](https://github.com/Kong/kongponents/compare/v8.0.0-beta.14...v8.0.0-beta.15) (2022-09-12)
+
+
+### Bug Fixes
+
+* **exports:** update exports in package.json ([65ec86c](https://github.com/Kong/kongponents/commit/65ec86c0b5b7750d6f71f9477dcd36be87a082b3))
+* trigger release ([a018f10](https://github.com/Kong/kongponents/commit/a018f10060f8940479a36e72a7459b08d2e37142))
+
 # [8.0.0-beta.14](https://github.com/Kong/kongponents/compare/v8.0.0-beta.13...v8.0.0-beta.14) (2022-09-10)
 
 
