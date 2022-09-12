@@ -45,6 +45,7 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes, // short for `routes: routes`
 })
+
 app.use(router)
 
 app.mount('#app')
