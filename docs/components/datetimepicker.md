@@ -4,6 +4,10 @@
 
 **KDateTimePicker** - A date and time selection tool, displayed inside a popover.
 
+:::danger Experimental Component
+`KDateTimePicker` is an experimental component. The component functionality, props, and events may change until it is in stable status.
+:::
+
 ## Examples
 
 ### Single date
