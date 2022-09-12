@@ -57,7 +57,7 @@ module.exports = {
               '/components/button',
               '/components/card',
               '/components/catalog',
-              '/components/datetimepicker',
+              // '/components/datetimepicker',
               '/components/dropdown-menu',
               '/components/input-checkbox',
               '/components/empty-state',
