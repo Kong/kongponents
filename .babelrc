@@ -4,7 +4,6 @@
     "stage-3"
   ],
   "plugins": [
-    "transform-es2015-modules-commonjs",
-    "dynamic-import-node"
+    "transform-es2015-modules-commonjs"
   ]
 }

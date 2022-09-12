@@ -212,7 +212,7 @@ export default defineComponent({
       }
     }
   },
-  emits: ['input'],
+  emits: ['input', 'change'],
   setup (props, { emit }) {
     const modelConfig = { type: 'number' } // https://vcalendar.io/datepicker.html#model-config
     const calendarSelectAttributes = {

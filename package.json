@@ -79,7 +79,6 @@
     "vuepress-plugin-sitemap": "^2.3.1"
   },
   "dependencies": {
-    "babel-plugin-dynamic-import-node": "^2.3.3",
     "date-fns": "^2.29.2",
     "swrv": "^0.10.0",
     "v-calendar": "^2.4.1",
