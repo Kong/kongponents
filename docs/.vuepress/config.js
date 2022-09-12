@@ -57,7 +57,7 @@ module.exports = {
               '/components/button',
               '/components/card',
               '/components/catalog',
-              // '/components/datetimepicker',
+              // '/components/datetimepicker', // Leave commented out; we do not want to publicly release this component yet
               '/components/dropdown-menu',
               '/components/input-checkbox',
               '/components/empty-state',
