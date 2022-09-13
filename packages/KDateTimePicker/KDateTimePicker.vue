@@ -1,11 +1,11 @@
 <template>
   <KPop
     :hide-popover="hidePopover"
+    v-bind="position"
     class="k-datetime-picker"
     placement="bottomStart"
     width="auto"
     hide-caret
-    position-fixed
     @closed="handleClose"
   >
     <KButton
@@ -176,6 +176,10 @@ export default defineComponent({
       type: String,
       required: false,
       default: 'Select a time range'
+    },
+    position: {
+      type: Object,
+      default: () => ({})
     },
     /**
      * Determines whether the `v-calendar` will allow a single date/time,
@@ -578,19 +582,15 @@ $margin: .2rem;
     .vc-highlights + .vc-day-content {
       color: color(white);
       font-weight: 600;
-      // background-color: red;
     }
 
-    .vc-popover-content.vc-nav-container {
-      background:red !important;
-    }
     .vc-nav-popover-container {
       background-color: white;
+      border: 1px solid color(grey-300);
       color: $text-color;
 
       .vc-nav-container {
         .vc-nav-arrow {
-          // border: 1px solid red;
           background-color: white;
 
           &:active,
