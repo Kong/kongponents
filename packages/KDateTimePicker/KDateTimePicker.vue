@@ -67,7 +67,7 @@
           class="timeframe-section d-flex flex-column"
         >
           <div class="timeframe-section-title type-sm mt-4 mb-2">{{ item.section }}</div>
-          <div class="timeframe-buttons">
+          <div class="timeframe-buttons d-flex justify-content-between">
             <KButton
               v-for="(timeFrame, itemIdx) in item.values"
               :key="`time-${itemIdx}`"
@@ -507,15 +507,14 @@ $timepicker-min-width: 20rem;
         }
         .timeframe-buttons {
           flex-wrap: wrap;
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          grid-gap: var(--spacing-xs);
 
           .timeframe-btn {
             font-size: var(--type-sm);
             font-weight: 400;
             padding: .75rem .5rem;
             justify-content: center;
+            flex: 0 32%;
+            margin-bottom: .2rem;
 
             &.selected-option {
               color: white;
