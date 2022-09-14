@@ -1,11 +1,11 @@
 <template>
   <KPop
     :hide-popover="hidePopover"
-    v-bind="position"
     class="k-datetime-picker"
     placement="bottomStart"
     width="auto"
     hide-caret
+    position-fixed
     @closed="handleClose"
   >
     <KButton
@@ -15,9 +15,9 @@
       data-testid="k-datetimepicker-display"
     >
       <KIcon
-        v-if="calendarIcon"
+        v-if="icon"
         :color="'var(--grey-500)'"
-        icon="calendar2"
+        icon="calendar"
         class="mr-1"
         size="18"
       />
@@ -36,7 +36,7 @@
           { label: 'Relative', value: 'relative' },
           { label: 'Custom', value: 'custom' }
         ]"
-        class="w-100 mb-5"
+        class="w-100 mb-4"
         data-testid="analytics-time-toggle"
       />
       <!-- Single date / time or range readout -->
@@ -66,7 +66,7 @@
           :key="`section-${item.section || index}`"
           class="timeframe-section d-flex flex-column"
         >
-          <h4 class="timeframe-section-title">{{ item.section }}</h4>
+          <div class="timeframe-section-title type-sm mt-4 mb-2">{{ item.section }}</div>
           <div class="timeframe-buttons d-flex flex-row justify-content-start">
             <KButton
               v-for="(timeFrame, itemIdx) in item.values"
@@ -131,7 +131,7 @@ export default defineComponent({
     DatePicker: () => import('v-calendar/lib/components/date-picker.umd')
   },
   props: {
-    calendarIcon: {
+    icon: {
       type: Boolean,
       required: false,
       default: true
@@ -190,10 +190,6 @@ export default defineComponent({
       type: String,
       required: false,
       default: 'Select a time range'
-    },
-    position: {
-      type: Object,
-      default: () => ({})
     },
     /**
      * Determines whether the `v-calendar` will allow a single date/time,
@@ -503,10 +499,11 @@ $timepicker-min-width: 24rem;
 
     .k-popover-content {
       .range-display {
-        margin: var(--spacing-xs) auto var(--spacing-xs) $margin;
+        margin: 0 auto 0 $margin;
       }
       .timeframe-section {
         .timeframe-section-title {
+          font-weight: 600;
           margin-left: $margin;
           margin-bottom: var(--spacing-xs);
         }

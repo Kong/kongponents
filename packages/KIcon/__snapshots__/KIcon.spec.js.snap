@@ -57,16 +57,8 @@ exports[`KIcon renders brain icon 1`] = `
 `;
 
 exports[`KIcon renders calendar icon 1`] = `
-<span class="kong-icon kong-icon-calendar"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" width="24" height="24">
+<span class="kong-icon kong-icon-calendar"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" width="24" height="24">
   <title>calendar</title>
-  <path fill="#a3bbcc" d="M20.38 4.28h-1.76v1.76c0 .97-.79 1.76-1.76 1.76s-1.76-.79-1.76-1.76V4.28H8.92v1.76c0 .97-.79 1.76-1.76 1.76S5.4 7.01 5.4 6.04V4.28H3.64c-.97 0-1.76.79-1.76 1.76v15c0 .97.79 1.76 1.76 1.76h16.74c.97 0 1.76-.79 1.76-1.76v-15c0-.97-.79-1.76-1.76-1.76Zm0 16.76H3.62V9.01h16.76v12.03Z"></path>
-  <path fill="#a3bbcc" d="M5.82 10.9h1.76v1.76H5.82zM9.35 10.9h1.76v1.76H9.35zM12.88 10.9h1.76v1.76h-1.76zM16.41 10.9h1.76v1.76h-1.76zM9.35 14.43h1.76v1.76H9.35zM12.88 14.43h1.76v1.76h-1.76zM16.41 14.43h1.76v1.76h-1.76zM9.35 17.96h1.76v1.76H9.35zM12.88 17.96h1.76v1.76h-1.76zM16.41 17.96h1.76v1.76h-1.76zM5.82 14.43h1.76v1.76H5.82zM5.82 17.96h1.76v1.76H5.82zM16.85 1.19c.73 0 1.32.59 1.32 1.32v3.53c0 .73-.59 1.32-1.32 1.32-.73 0-1.32-.59-1.32-1.32V2.52c0-.73.59-1.32 1.32-1.32ZM7.15 1.19c.73 0 1.32.59 1.32 1.32v3.53c0 .73-.59 1.32-1.32 1.32-.73 0-1.32-.59-1.32-1.32V2.52c0-.73.59-1.32 1.32-1.32Z"></path>
-</svg></span>
-`;
-
-exports[`KIcon renders calendar2 icon 1`] = `
-<span class="kong-icon kong-icon-calendar2"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" width="24" height="24">
-  <title>calendar2</title>
   <path fill="#A3BBCC" fill-rule="evenodd" d="M20.1 20.1H3.9V3.9h2.7v2.7h2.7V3.9h5.4v2.7h2.7V3.9h2.7v16.2zm0-18.9H3.9c-1.5 0-2.7 1.2-2.7 2.7v16.2c0 1.5 1.2 2.7 2.7 2.7h16.2c1.5 0 2.7-1.2 2.7-2.7V3.9c0-1.5-1.2-2.7-2.7-2.7zm-9.5 16.2h2.7v-2.7h-2.7v2.7zm4.1-4h2.7v-2.7h-2.7v2.7zm-4.1 0h2.7v-2.7h-2.7v2.7zm-4 0h2.7v-2.7H6.6v2.7zm0 4h2.7v-2.7H6.6v2.7z" clip-rule="evenodd"></path>
 </svg>
 </span>

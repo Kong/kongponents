@@ -267,7 +267,7 @@ currentValue = {
 }
 ```
 
-### calendarIcon
+### icon
 
 A `Boolean` which controls the display of the calendar icon.
 
