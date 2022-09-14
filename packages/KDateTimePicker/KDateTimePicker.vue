@@ -14,7 +14,15 @@
       class="timepicker-input"
       data-testid="k-datetimepicker-display"
     >
-      {{ abbreviatedDisplay }}
+      <KIcon
+        :color="'var(--grey-500)'"
+        icon="calendar2"
+        class="mr-1"
+        size="18"
+      />
+      <span>
+        {{ abbreviatedDisplay }}
+      </span>
     </KButton>
     <template
       v-if="!hidePopover"
@@ -467,13 +475,15 @@ $timepicker-min-width: 24rem;
 .k-datetime-picker {
   .timepicker-input {
     min-width: $timepicker-min-width;
-    padding: var(--spacing-sm) var(--spacing-xl) var(--spacing-sm) 40px !important;
-    background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M14 14H2V2H4V4H6V2H10V4H12V2H14V14ZM14 0H2C0.895 0 0 0.896 0 2V14C0 15.104 0.895 16 2 16H14C15.104 16 16 15.104 16 14V2C16 0.896 15.104 0 14 0ZM7 12H9V10H7V12ZM10 9H12V7H10V9ZM7 9H9V7H7V9ZM4 9H6V7H4V9ZM4 12H6V10H4V12Z' fill='%236F7787'/%3E%3C/svg%3E%0A");
-    background-repeat: no-repeat;
-    background-position: 12px 50%;
+    padding: var(--spacing-sm) var(--spacing-sm) !important;
     color: var(--grey-600) !important;
     font-weight: 500;
-
+    .kong-icon > svg {
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+    }
     &:focus {
       box-shadow: none !important;
     }
