@@ -67,7 +67,7 @@
           class="timeframe-section d-flex flex-column"
         >
           <div class="timeframe-section-title type-sm mt-4 mb-2">{{ item.section }}</div>
-          <div class="timeframe-buttons d-flex justify-content-between">
+          <div class="timeframe-buttons d-flex">
             <KButton
               v-for="(timeFrame, itemIdx) in item.values"
               :key="`time-${itemIdx}`"
@@ -471,7 +471,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-$timepicker-min-width: 20rem;
+$timepicker-min-width: 22rem;
+$margin: 0.2rem;
 
 .k-datetime-picker {
   .timepicker-input {
@@ -511,17 +512,20 @@ $timepicker-min-width: 20rem;
           .timeframe-btn {
             font-size: var(--type-sm);
             font-weight: 400;
+            // Only two columns of the 3 will have a right margin
+            flex: 0 calc(33% - ($margin/2));
+            margin-right: $margin;
             padding: .75rem .5rem;
             justify-content: center;
-            flex: 0 32%;
-            margin-bottom: .2rem;
-
+            margin-bottom: $margin;
             &.selected-option {
               color: white;
               background: var(--blue-500);
               font-weight: 500;
             }
-
+            &:nth-child(3n) {
+              margin-right: 0px;
+            }
             // TODO this override should be applied to Kongponents button
             &:focus {
               box-shadow: none;
