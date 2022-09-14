@@ -67,7 +67,7 @@
           class="timeframe-section d-flex flex-column"
         >
           <div class="timeframe-section-title type-sm mt-4 mb-2">{{ item.section }}</div>
-          <div class="timeframe-buttons d-flex flex-row justify-content-start">
+          <div class="timeframe-buttons">
             <KButton
               v-for="(timeFrame, itemIdx) in item.values"
               :key="`time-${itemIdx}`"
@@ -471,8 +471,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-$margin: .2rem;
-$timepicker-min-width: 24rem;
+$timepicker-min-width: 20rem;
 
 .k-datetime-picker {
   .timepicker-input {
@@ -499,24 +498,24 @@ $timepicker-min-width: 24rem;
 
     .k-popover-content {
       .range-display {
-        margin: 0 auto 0 $margin;
+        margin: 0 auto 0;
       }
       .timeframe-section {
         .timeframe-section-title {
           font-weight: 600;
-          margin-left: $margin;
           margin-bottom: var(--spacing-xs);
         }
         .timeframe-buttons {
           flex-wrap: wrap;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          grid-gap: var(--spacing-xs);
+
           .timeframe-btn {
             font-size: var(--type-sm);
-            flex-basis: calc(32% - $margin);
             font-weight: 400;
-            margin: $margin;
             padding: .75rem .5rem;
             justify-content: center;
-            width: 3rem;
 
             &.selected-option {
               color: white;
@@ -549,8 +548,6 @@ $timepicker-min-width: 24rem;
 
 <style lang="scss">
 @import '~@kongponents/styles/variables';
-
-$margin: .2rem;
 
 // v-calendar overrides
 .k-datetime-picker {
