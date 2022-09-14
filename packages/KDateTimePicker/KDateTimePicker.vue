@@ -1,118 +1,124 @@
 <template>
-  <KPop
-    :hide-popover="hidePopover"
+  <div
+    :class="{ 'set-min-width': hasTimePeriods }"
     class="k-datetime-picker"
-    placement="bottomStart"
-    width="auto"
-    hide-caret
-    position-fixed
-    @closed="handleClose"
   >
-    <KButton
-      :is-rounded="false"
-      size="large"
-      class="timepicker-input"
-      data-testid="k-datetimepicker-display"
+    <KPop
+      :hide-popover="hidePopover"
+      class=""
+      placement="bottomStart"
+      width="auto"
+      hide-caret
+      position-fixed
+      @closed="handleClose"
     >
-      <KIcon
-        v-if="icon"
-        :color="'var(--grey-500)'"
-        icon="calendar"
-        class="mr-1"
-        size="18"
-      />
-      <span>
-        {{ abbreviatedDisplay }}
-      </span>
-    </KButton>
-    <template
-      v-if="!hidePopover"
-      #content>
-      <!-- Custom | Relative toggle -->
-      <KSegmentedControl
-        v-if="hasTimePeriods && hasCalendar"
-        v-model="tabName"
-        :options="[
-          { label: 'Relative', value: 'relative' },
-          { label: 'Custom', value: 'custom' }
-        ]"
-        class="w-100 mb-4"
-        data-testid="analytics-time-toggle"
-      />
-      <!-- Single date / time or range readout -->
-      <p
-        v-if="!showCalendar"
-        class="range-display"
-      >{{ fullRangeDisplay }}</p>
-      <DatePicker
-        v-if="hasCalendar && showCalendar"
-        v-model="selectedCalendarRange"
-        :is-range="range"
-        :max-date="maxDate"
-        :min-date="minDate"
-        :mode="mode"
-        :model-config="modelConfig"
-        :minute-increment="minuteIncrement"
-        :select-attribute="calendarSelectAttributes"
-        :drag-attribute="calendarDragAttributes"
-        is-expanded
-      />
-      <div
-        v-else-if="hasTimePeriods"
-        class="d-flex flex-column"
+      <KButton
+        :class="{ 'set-min-width': hasTimePeriods }"
+        :is-rounded="false"
+        size="large"
+        class="timepicker-input"
+        data-testid="k-datetimepicker-display"
       >
+        <KIcon
+          v-if="icon"
+          :color="'var(--grey-500)'"
+          icon="calendar"
+          class="mr-1"
+          size="18"
+        />
+        <span>
+          {{ abbreviatedDisplay }}
+        </span>
+      </KButton>
+      <template
+        v-if="!hidePopover"
+        #content>
+        <!-- Custom | Relative toggle -->
+        <KSegmentedControl
+          v-if="hasTimePeriods && hasCalendar"
+          v-model="tabName"
+          :options="[
+            { label: 'Relative', value: 'relative' },
+            { label: 'Custom', value: 'custom' }
+          ]"
+          class="w-100 mb-4"
+          data-testid="analytics-time-toggle"
+        />
+        <!-- Single date / time or range readout -->
+        <p
+          v-if="!showCalendar"
+          class="range-display"
+        >{{ fullRangeDisplay }}</p>
+        <DatePicker
+          v-if="hasCalendar && showCalendar"
+          v-model="selectedCalendarRange"
+          :is-range="range"
+          :max-date="maxDate"
+          :min-date="minDate"
+          :mode="mode"
+          :model-config="modelConfig"
+          :minute-increment="minuteIncrement"
+          :select-attribute="calendarSelectAttributes"
+          :drag-attribute="calendarDragAttributes"
+          is-expanded
+        />
         <div
-          v-for="(item, index) in timePeriods"
-          :key="`section-${item.section || index}`"
-          class="timeframe-section d-flex flex-column"
+          v-else-if="hasTimePeriods"
+          class="d-flex flex-column"
         >
-          <div class="timeframe-section-title type-sm mt-4 mb-2">{{ item.section }}</div>
-          <div class="timeframe-buttons d-flex">
-            <KButton
-              v-for="(timeFrame, itemIdx) in item.values"
-              :key="`time-${itemIdx}`"
-              :is-rounded="false"
-              :class="{'selected-option': timeFrame.key === selectedTimeframe.key}"
-              :data-testid="'select-timeframe-' + timeFrame.timeframeLength()"
-              class="timeframe-btn"
-              appearance="outline"
-              size="medium"
-              @click="changeRelativeTimeframe(timeFrame)"
-            >
-              {{ ucWord(timeFrame.timeframeText) }}
-            </KButton>
+          <div
+            v-for="(item, index) in timePeriods"
+            :key="`section-${item.section || index}`"
+            class="timeframe-section d-flex flex-column"
+          >
+            <div class="timeframe-section-title type-sm mt-4 mb-2">{{ item.section }}</div>
+            <div class="timeframe-buttons d-flex">
+              <KButton
+                v-for="(timeFrame, itemIdx) in item.values"
+                :key="`time-${itemIdx}`"
+                :is-rounded="false"
+                :class="{ 'selected-option': timeFrame.key === selectedTimeframe.key }"
+                :data-testid="'select-timeframe-' + timeFrame.timeframeLength()"
+                class="timeframe-btn"
+                appearance="outline"
+                size="medium"
+                @click="changeRelativeTimeframe(timeFrame)"
+              >
+                {{ ucWord(timeFrame.timeframeText) }}
+              </KButton>
+            </div>
           </div>
         </div>
-      </div>
-    </template>
-    <template
-      v-if="!hidePopover"
-      #footer>
-      <div class="d-flex justify-content-end">
-        <KButton
-          :is-rounded="false"
-          data-testid="k-datetimepicker-clear"
-          class="action-btn"
-          size="medium"
-          appearance="btn-link"
-          @click="clearSelection()"
-        >
-          Clear
-        </KButton>
-        <KButton
-          :disabled="submitDisabled"
-          :is-rounded="false"
-          data-testid="k-datetimepicker-submit"
-          class="action-btn"
-          size="medium"
-          appearance="btn-link"
-          @click="submitTimeFrame()"
-        >
-          Apply
-        </KButton>
-      </div>
-    </template>
-  </KPop>
+      </template>
+      <template
+        v-if="!hidePopover"
+        #footer>
+        <div class="d-flex justify-content-end">
+          <KButton
+            :is-rounded="false"
+            data-testid="k-datetimepicker-clear"
+            class="action-btn"
+            size="medium"
+            appearance="btn-link"
+            @click="clearSelection()"
+          >
+            Clear
+          </KButton>
+          <KButton
+            :disabled="submitDisabled"
+            :is-rounded="false"
+            data-testid="k-datetimepicker-submit"
+            class="action-btn"
+            size="medium"
+            appearance="btn-link"
+            @click="submitTimeFrame()"
+          >
+            Apply
+          </KButton>
+        </div>
+      </template>
+    </KPop>
+  </div>
 </template>
 
 <script>
@@ -471,25 +477,34 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-$timepicker-min-width: 22rem;
-$margin: 0.2rem;
+$timepicker-min-width: 360px;
+$margin: 6px;
 
 .k-datetime-picker {
+  // For aesthetic purposes when relative time frames are present
+  &.set-min-width {
+    .k-popover {
+      min-width: $timepicker-min-width;
+    }
+  }
+
   .timepicker-input {
-    min-width: $timepicker-min-width;
     padding: var(--spacing-sm) var(--spacing-sm) !important;
     color: var(--grey-600) !important;
     font-weight: 500;
+    &.set-min-width {
+      min-width: $timepicker-min-width;
+    }
     &:focus {
       box-shadow: none !important;
     }
   }
+
   .k-popover {
     max-height: 90vh;
-    min-width: $timepicker-min-width;
+    width: 100% !important;
     overflow: hidden;
     padding: var(--spacing-lg) var(--spacing-md);
-
     &[x-placement^=bottom] {
       margin-top: var(--spacing-xs);
     }
@@ -512,10 +527,10 @@ $margin: 0.2rem;
           .timeframe-btn {
             font-size: var(--type-sm);
             font-weight: 400;
-            // Only two columns of the 3 will have a right margin
-            flex: 0 calc(33% - ($margin/2));
+            // Only 2 of 3 columns will have a right margin; subtract margin / 2
+            flex: 0 calc(33% - 3px);
             margin-right: $margin;
-            padding: .75rem .5rem;
+            padding: var(--spacing-sm) var(--spacing-md);
             justify-content: center;
             margin-bottom: $margin;
             &.selected-option {
@@ -539,7 +554,7 @@ $margin: 0.2rem;
       // Apply / Clear buttons
       // TODO these overrides should be applied to Kongponents button
       .action-btn {
-        padding: .25rem 1rem;
+        padding: var(--spacing-xs) var(--spacing-md);
         &:focus {
           box-shadow: none;
         }
