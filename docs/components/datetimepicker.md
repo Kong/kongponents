@@ -267,6 +267,12 @@ currentValue = {
 }
 ```
 
+### calendarIcon
+
+A `Boolean` which controls the display of the calendar icon.
+
+**default**: `true`
+
 ### minDate
 
 A valid `Date` object (eg: `Mon Aug 15 2022 08:00:00 GMT-0700 (Pacific Daylight Time)`) which blocks out days/times that occur **before** the given timestamp. `minDate` gets passed down to the calendar component, and does not apply to relative time frames.

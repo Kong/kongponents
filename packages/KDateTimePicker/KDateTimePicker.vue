@@ -15,6 +15,7 @@
       data-testid="k-datetimepicker-display"
     >
       <KIcon
+        v-if="calendarIcon"
         :color="'var(--grey-500)'"
         icon="calendar2"
         class="mr-1"
@@ -130,6 +131,11 @@ export default defineComponent({
     DatePicker: () => import('v-calendar/lib/components/date-picker.umd')
   },
   props: {
+    calendarIcon: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
     value: {
       type: [Date, Object, String],
       validator: value => value === '' || value instanceof Date ||
