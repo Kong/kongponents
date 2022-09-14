@@ -478,12 +478,6 @@ $timepicker-min-width: 24rem;
     padding: var(--spacing-sm) var(--spacing-sm) !important;
     color: var(--grey-600) !important;
     font-weight: 500;
-    .kong-icon > svg {
-      padding: 0;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-    }
     &:focus {
       box-shadow: none !important;
     }
