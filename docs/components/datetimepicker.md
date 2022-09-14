@@ -269,7 +269,7 @@ currentValue = {
 
 ### icon
 
-A `Boolean` which controls the display of the calendar icon.
+A `Boolean` to show/hide the calendar icon displayed within the display field. 
 
 **default**: `true`
 
