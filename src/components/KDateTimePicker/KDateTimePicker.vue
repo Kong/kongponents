@@ -399,9 +399,11 @@ export default defineComponent({
       if (props.range || props.mode === 'relative') {
         emit('input', state.selectedRange)
         emit('change', state.selectedRange)
+        emit('update:modelValue', state.selectedRange)
       } else {
         emit('input', '')
         emit('change', '')
+        emit('update:modelValue', '')
       }
     }
 
