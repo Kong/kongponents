@@ -1,3 +1,10 @@
+# [8.0.0-beta.16](https://github.com/Kong/kongponents/compare/v8.0.0-beta.15...v8.0.0-beta.16) (2022-09-15)
+
+
+### Bug Fixes
+
+* backport khcp 4611 ([#802](https://github.com/Kong/kongponents/issues/802)) ([9a16d21](https://github.com/Kong/kongponents/commit/9a16d219442605c84d1b7ecccf19830f8f1e820d))
+
 # [8.0.0-beta.15](https://github.com/Kong/kongponents/compare/v8.0.0-beta.14...v8.0.0-beta.15) (2022-09-12)
 
 
