@@ -391,7 +391,7 @@ export default {
   }
   .pagination-button {
     align-self: center;
-    width: 32px;
+    min-width: 32px;
     height: 32px;
     line-height: 20px;
     font-size: 12px;
