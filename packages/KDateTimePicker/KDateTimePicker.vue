@@ -504,7 +504,7 @@ $margin: 6px;
     max-height: 90vh;
     width: 100% !important;
     overflow: hidden;
-    padding: var(--spacing-lg) var(--spacing-md);
+    padding: var(--spacing-sm);
     &[x-placement^=bottom] {
       margin-top: var(--spacing-xs);
     }

@@ -36,27 +36,6 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
 />
 ```
 
-<!-- ### Single time
-
-<div>
-  <KDateTimePicker
-    @change="newVal => emitVal2 = newVal"
-    placeholder="Please select a time"
-    mode="time"
-    :range="false"
-  />
-  <div class="mt-6">Emitted value: <pre class="json">{{ currentValue2 }}</pre></div>
-</div>
-
-```html
-<KDateTimePicker
-  @change="newVal => emitVal = newVal"
-  placeholder="Please select a time"
-  mode="time"
-  :range="false"
-/>
-``` -->
-
 ### Single date and time
 
 Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
