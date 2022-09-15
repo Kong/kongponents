@@ -26,7 +26,7 @@
           class="mr-1"
           size="18"
         />
-        <span>
+        <span class="type-md">
           {{ abbreviatedDisplay }}
         </span>
       </KButton>
