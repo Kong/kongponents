@@ -49,9 +49,11 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "date-fns": "^2.29.3",
     "popper.js": "^1.15.0",
     "swrv": "^1.0.0-beta.8",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "v-calendar": "^3.0.0-alpha.8"
   },
   "peerDependencies": {
     "axios": "^0.27.2",

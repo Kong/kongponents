@@ -3,6 +3,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import App from './App.vue'
 import Kongponents from './index'
 import ToastManager from './components/KToaster/ToastManager'
+import SetupCalendar from 'v-calendar'
 
 // Import a single component
 // import { KButton } from './index'
@@ -21,6 +22,7 @@ const app = createApp(App)
 
 // Install plugin (all components)
 app.use(Kongponents)
+app.use(SetupCalendar, {})
 
 app.config.globalProperties.$toaster = new ToastManager()
 
