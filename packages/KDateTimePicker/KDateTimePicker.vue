@@ -5,7 +5,6 @@
   >
     <KPop
       :hide-popover="hidePopover"
-      class=""
       placement="bottomStart"
       width="auto"
       hide-caret
@@ -42,7 +41,7 @@
             { label: 'Custom', value: 'custom' }
           ]"
           class="w-100 mb-4"
-          data-testid="analytics-time-toggle"
+          data-testid="datetimepicker-toggle"
         />
         <!-- Single date / time or range readout -->
         <p
