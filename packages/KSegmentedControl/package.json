@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/ksegmentedcontrol",
-  "version": "7.1.5",
+  "version": "7.1.6",
   "description": "Segmented Control component.",
   "main": "dist/KSegmentedControl.umd.min.js",
   "componentName": "KSegmentedControl",
@@ -23,8 +23,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kbutton": "^7.1.5",
-    "@kongponents/styles": "^7.1.5"
+    "@kongponents/kbutton": "^7.1.6",
+    "@kongponents/styles": "^7.1.6"
   },
   "peerDependencies": {
     "vue": ">= 2.7.0 < 3"

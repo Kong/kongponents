@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kslideout",
-  "version": "7.1.5",
+  "version": "7.1.6",
   "description": "KSlideout description here.",
   "main": "dist/KSlideout.umd.min.js",
   "componentName": "KSlideout",
@@ -23,9 +23,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kcard": "^7.1.5",
-    "@kongponents/kicon": "^7.1.5",
-    "@kongponents/styles": "^7.1.5"
+    "@kongponents/kcard": "^7.1.6",
+    "@kongponents/kicon": "^7.1.6",
+    "@kongponents/styles": "^7.1.6"
   },
   "peerDependencies": {
     "vue": ">= 2.7.0 < 3"
