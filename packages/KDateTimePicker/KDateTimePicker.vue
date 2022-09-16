@@ -20,7 +20,7 @@
       >
         <KIcon
           v-if="icon"
-          :color="'var(--grey-500)'"
+          color="var(--grey-500)"
           icon="calendar"
           class="mr-1"
           size="18"
@@ -67,7 +67,7 @@
         >
           <div
             v-for="(item, index) in timePeriods"
-            :key="`section-${item.section || index}`"
+            :key="`section-${String(item.section || index)}`"
             class="timeframe-section d-flex flex-column"
           >
             <div class="timeframe-section-title type-sm mt-4 mb-2">{{ item.section }}</div>
