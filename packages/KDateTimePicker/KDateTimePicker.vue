@@ -12,7 +12,7 @@
       @closed="handleClose"
     >
       <KButton
-        :class="{ 'set-min-width': hasTimePeriods }"
+        :class="[{ 'set-min-width': hasTimePeriods }, { 'w-100': fullWidth }]"
         :is-rounded="false"
         size="large"
         class="timepicker-input"
@@ -140,6 +140,14 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: true
+    },
+    /**
+     * A flag which expands the input field to the full width of the parent div
+     */
+    fullWidth: {
+      type: Boolean,
+      required: false,
+      default: false
     },
     value: {
       type: [Date, Object, String],

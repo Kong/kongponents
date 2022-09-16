@@ -17,10 +17,36 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
 
 <div>
   <KDateTimePicker
+    v-model="currentValue0"
+    @change="newVal => emitVal0 = newVal"
+    placeholder="Please select a date"
+    mode="date"
+    :range="false"
+  />
+  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(emitVal0) }}</pre></div>
+</div>
+
+```html
+<KDateTimePicker
+  v-model="currentValue"
+  @change="newVal => emitVal = newVal"
+  placeholder="Please select a date"
+  mode="date"
+  :range="false"
+/>
+```
+
+### Single date, full width
+
+Same as above, except that the input field will be 100% of the width of its parent.
+
+<div>
+  <KDateTimePicker
     v-model="currentValue1"
     @change="newVal => emitVal1 = newVal"
     placeholder="Please select a date"
     mode="date"
+    full-width
     :range="false"
   />
   <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(emitVal1) }}</pre></div>
@@ -32,6 +58,7 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
   @change="newVal => emitVal = newVal"
   placeholder="Please select a date"
   mode="date"
+  full-width
   :range="false"
 />
 ```
@@ -393,12 +420,14 @@ export default {
     const aYearAgo    = new Date(today.getTime() - (365*24*60*60*1000))
     return {
       hasMounted: false,
+      emitVal0: '',
       emitVal1: '',
       emitVal2: '',
       emitVal3: '',
       emitVal4: '',
       emitVal5: '',
       emitVal6: '',
+      currentValue0: new Date(),
       currentValue1: new Date(),
       currentValue2: new Date(),
       currentValue3: new Date(),
