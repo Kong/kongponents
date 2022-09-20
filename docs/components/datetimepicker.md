@@ -130,6 +130,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
     @change="newVal => emitVal5 = newVal"
     placeholder="Please select a range"
     mode="dateTime"
+    width="415"
     :minDate="minDate"
     :maxDate="maxDate"
     :minute-increment="5"
@@ -145,6 +146,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
   @change="newVal => emitVal = newVal"
   placeholder="Please select a range"
   mode="dateTime"
+  width="415"
   :minDate="minDate"
   :maxDate="maxDate"
   :minute-increment="5"
@@ -188,6 +190,7 @@ This utilizes the same time frames as the previous example; however, in this exa
     @change="newVal => emitVal6 = newVal"
     placeholder="Please select a time frame"
     mode="relative"
+    width="385"
     :minDate="minDate"
     :maxDate="maxDate"
     :range="true"
@@ -202,6 +205,9 @@ This utilizes the same time frames as the previous example; however, in this exa
   @change="newVal => emitVal = newVal"
   placeholder="Please select a time frame"
   mode="relative"
+  width="385"
+  :minDate="minDate"
+  :maxDate="maxDate"
   :range="true"
   :timePeriods=[
     {
