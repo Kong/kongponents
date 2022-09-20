@@ -36,9 +36,9 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
 />
 ```
 
-### Single date, full width
+### Single date, custom width
 
-Same as above, except that the input field will be 100% of the width of its parent.
+Same as above, except that the input field has a set pixel width of `300`.
 
 <div>
   <KDateTimePicker
@@ -46,7 +46,7 @@ Same as above, except that the input field will be 100% of the width of its pare
     @change="newVal => emitVal1 = newVal"
     placeholder="Please select a date"
     mode="date"
-    full-width
+    width="300"
     :range="false"
   />
   <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(emitVal1) }}</pre></div>
@@ -58,7 +58,7 @@ Same as above, except that the input field will be 100% of the width of its pare
   @change="newVal => emitVal = newVal"
   placeholder="Please select a date"
   mode="date"
-  full-width
+  width="300"
   :range="false"
 />
 ```

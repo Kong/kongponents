@@ -1,19 +1,21 @@
 <template>
   <div
     :class="{ 'set-min-width': hasTimePeriods }"
+    :style="widthStyle"
     class="k-datetime-picker"
   >
     <KPop
       :hide-popover="hidePopover"
       placement="bottomStart"
-      width="auto"
       hide-caret
+      width="auto"
       position-fixed
       @closed="handleClose"
     >
       <KButton
-        :class="[{ 'set-min-width': hasTimePeriods }, { 'w-100': fullWidth }]"
+        :class="[{ 'set-min-width': hasTimePeriods }]"
         :is-rounded="false"
+        :style="widthStyle"
         size="large"
         class="timepicker-input"
         data-testid="k-datetimepicker-display"
@@ -142,12 +144,12 @@ export default defineComponent({
       default: true
     },
     /**
-     * A flag which expands the input field to the full width of the parent div
+     * Sets the input field to a fixed width
      */
-    fullWidth: {
-      type: Boolean,
+    width: {
+      type: String,
       required: false,
-      default: false
+      default: 'auto'
     },
     value: {
       type: [Date, Object, String],
@@ -267,6 +269,11 @@ export default defineComponent({
       return props.range || hasTimePeriods.value
         ? !state.selectedRange.start || !state.selectedRange.end
         : !state.selectedRange.start
+    })
+    const widthStyle = computed(() => {
+      return {
+        width: props.width === 'auto' || props.width.endsWith('%') || props.width.endsWith('px') ? props.width : props.width + 'px'
+      }
     })
 
     const selectedCalendarRange = ref(props.value)
@@ -476,6 +483,7 @@ export default defineComponent({
       showCalendar,
       ...toRefs(state),
       submitDisabled,
+      widthStyle,
       submitTimeFrame,
       ucWord
     }
