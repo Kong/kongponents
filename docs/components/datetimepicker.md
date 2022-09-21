@@ -12,41 +12,17 @@
 
 ### Single date
 
-Create a single date selection calendar
+Create a single date selection calendar, passing in a fixed pixel width for the input field.
+
 Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
 
 <div>
   <KDateTimePicker
     v-model="currentValue0"
-    @change="newVal => emitVal0 = newVal"
-    placeholder="Please select a date"
-    mode="date"
-    :range="false"
-  />
-  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(emitVal0) }}</pre></div>
-</div>
-
-```html
-<KDateTimePicker
-  v-model="currentValue"
-  @change="newVal => emitVal = newVal"
-  placeholder="Please select a date"
-  mode="date"
-  :range="false"
-/>
-```
-
-### Single date, custom width
-
-Same as above, except that the input field has a set pixel width of `300`.
-
-<div>
-  <KDateTimePicker
-    v-model="currentValue1"
     @change="newVal => emitVal1 = newVal"
     placeholder="Please select a date"
     mode="date"
-    width="300"
+    width="200"
     :range="false"
   />
   <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(emitVal1) }}</pre></div>
@@ -58,7 +34,7 @@ Same as above, except that the input field has a set pixel width of `300`.
   @change="newVal => emitVal = newVal"
   placeholder="Please select a date"
   mode="date"
-  width="300"
+  width="200"
   :range="false"
 />
 ```
@@ -426,7 +402,6 @@ export default {
     const aYearAgo    = new Date(today.getTime() - (365*24*60*60*1000))
     return {
       hasMounted: false,
-      emitVal0: '',
       emitVal1: '',
       emitVal2: '',
       emitVal3: '',

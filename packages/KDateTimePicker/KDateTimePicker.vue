@@ -18,7 +18,7 @@
         :style="widthStyle"
         size="large"
         class="timepicker-input"
-        data-testid="k-datetimepicker-display"
+        data-testid="k-datetime-picker-display"
       >
         <KIcon
           v-if="icon"
@@ -43,7 +43,7 @@
             { label: 'Custom', value: 'custom' }
           ]"
           class="w-100 mb-4"
-          data-testid="datetimepicker-toggle"
+          data-testid="k-datetimepicker-toggle"
         />
         <!-- Single date / time or range readout -->
         <p
@@ -97,7 +97,7 @@
         <div class="d-flex justify-content-end">
           <KButton
             :is-rounded="false"
-            data-testid="k-datetimepicker-clear"
+            data-testid="k-datetime-picker-clear"
             class="action-btn"
             size="medium"
             appearance="btn-link"
@@ -108,7 +108,7 @@
           <KButton
             :disabled="submitDisabled"
             :is-rounded="false"
-            data-testid="k-datetimepicker-submit"
+            data-testid="k-datetime-picker-submit"
             class="action-btn"
             size="medium"
             appearance="btn-link"
@@ -496,6 +496,8 @@ $timepicker-min-width: 360px;
 $margin: 6px;
 
 .k-datetime-picker {
+  max-width: 100%; // Prevent overflowing the container
+
   // For aesthetic purposes when relative time frames are present
   &.set-min-width {
     .k-popover {
