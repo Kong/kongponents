@@ -1,3 +1,10 @@
+# [8.0.0-beta.18](https://github.com/Kong/kongponents/compare/v8.0.0-beta.17...v8.0.0-beta.18) (2022-09-21)
+
+
+### Bug Fixes
+
+* **kmodalfullscreen:** button margin ([7296d8a](https://github.com/Kong/kongponents/commit/7296d8a9eac50c70708e872680201cd4b0d932f8))
+
 # [8.0.0-beta.17](https://github.com/Kong/kongponents/compare/v8.0.0-beta.16...v8.0.0-beta.17) (2022-09-21)
 
 
