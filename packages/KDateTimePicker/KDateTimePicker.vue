@@ -27,9 +27,9 @@
           class="mr-1"
           size="18"
         />
-        <span class="type-md">
-          {{ abbreviatedDisplay }}
-        </span>
+        <div
+          class="type-md"
+          v-html="abbreviatedDisplay" />
       </KButton>
       <template
         v-if="!hidePopover"
@@ -388,7 +388,7 @@ export default defineComponent({
 
       // Determine whether to display a formatting time range, or a single value in input field
       if (props.range) {
-        return `${format(start, fmtStr)} - ${format(end, fmtStr)}`
+        return `<span class="d-block">${format(start, fmtStr)} -</span>&nbsp;<span class="d-block">${format(end, fmtStr)}</span>`
       } else if (start) {
         return `${format(start, fmtStr)}`
       }
@@ -514,6 +514,12 @@ $margin: 6px;
     }
     &:focus {
       box-shadow: none !important;
+    }
+    span {
+      text-align: left;
+      padding: 0;
+      margin: 0;
+      line-height: var(--type-sm, type(sm));
     }
   }
 
