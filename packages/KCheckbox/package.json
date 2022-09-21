@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kcheckbox",
-  "version": "7.1.5",
+  "version": "7.1.6",
   "description": "Checkbox input component",
   "main": "dist/KCheckbox.umd.min.js",
   "componentName": "KCheckbox",
@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/styles": "^7.1.5"
+    "@kongponents/styles": "^7.1.6"
   },
   "peerDependencies": {
     "vue": ">= 2.7.0 < 3"
