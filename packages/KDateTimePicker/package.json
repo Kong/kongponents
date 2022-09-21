@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kdatetimepicker",
-  "version": "7.1.6",
+  "version": "7.1.7",
   "description": "DateTime Picker component",
   "main": "dist/KDateTimePicker.umd.min.js",
   "componentName": "KDateTimePicker",
@@ -26,10 +26,10 @@
     "vue": ">= 2.7.0 < 3"
   },
   "dependencies": {
-    "@kongponents/kbutton": "^7.1.6",
-    "@kongponents/kpop": "^7.1.6",
-    "@kongponents/ksegmentedcontrol": "^7.1.6",
-    "@kongponents/styles": "^7.1.6",
+    "@kongponents/kbutton": "^7.1.7",
+    "@kongponents/kpop": "^7.1.7",
+    "@kongponents/ksegmentedcontrol": "^7.1.7",
+    "@kongponents/styles": "^7.1.7",
     "date-fns": "^2.29.2",
     "v-calendar": "^2.4.1"
   }
