@@ -352,7 +352,7 @@ $fullscreen-modal-padding: 64px;
 
 .k-modal-fullscreen-action-buttons {
   margin-left: auto;
-  
+
   button {
     margin-left: var(--spacing-md, spacing(md));
   }
