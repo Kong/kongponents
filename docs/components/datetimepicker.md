@@ -12,7 +12,7 @@
 
 ### Single date
 
-Create a single date selection calendar, passing in a fixed pixel width for the input field.
+Create a single date selection calendar, with an example of passing in a fixed pixel width for the input field.
 
 Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
 
