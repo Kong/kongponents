@@ -18,7 +18,7 @@
         :style="widthStyle"
         size="large"
         class="timepicker-input"
-        data-testid="k-datetime-picker-display"
+        data-testid="k-datetime-picker-input"
       >
         <KIcon
           v-if="icon"
@@ -28,7 +28,8 @@
           size="18"
         />
         <div
-          class="type-md"
+          class="timepicker-display type-md d-flex"
+          data-testid="k-datetime-picker-display"
           v-html="abbreviatedDisplay" />
       </KButton>
       <template
@@ -337,7 +338,7 @@ export default defineComponent({
         timePeriodsKey: state.selectedTimeframe.key
       }
 
-      state.fullRangeDisplay = formatDisplayDate({ start, end })
+      state.fullRangeDisplay = formatDisplayDate({ start, end, htmlFormat: false })
     }
 
     /**
@@ -367,12 +368,11 @@ export default defineComponent({
 
     /**
      * Displays selected date/time/range as a human readable string.
-     * The date formatting string is dynamically determined based on
-     * the current mode of the instance (Custom vs Relative)
-     * @param {*} range A set of `start` and `end` Unix timestamps
+     * Date formatting string is based on current date time picker mode
+     * @param {Object} opts - `start` and `end` Unix timestamps, `html` boolean flag
      */
-    const formatDisplayDate = (range) => {
-      const { start, end } = range
+    const formatDisplayDate = (opts) => {
+      const { start, end, htmlFormat } = opts
       let fmtStr = 'PP'
 
       // Determines the human timestamp readout format string; subject to change
@@ -380,15 +380,15 @@ export default defineComponent({
         fmtStr = 'PP hh:mm a'
       } else if (props.mode === 'date') {
         fmtStr = 'PP'
-      } else if (props.mode === 'time') {
-        fmtStr = 'PP hh:mm a'
-      } else if (props.mode === 'dateTime') {
+      } else if (['time', 'dateTime'].includes(props.mode)) {
         fmtStr = 'PP hh:mm a'
       }
 
       // Determine whether to display a formatting time range, or a single value in input field
       if (props.range) {
-        return `<span class="d-block">${format(start, fmtStr)} -</span>&nbsp;<span class="d-block">${format(end, fmtStr)}</span>`
+        return htmlFormat
+          ? `<div>${format(start, fmtStr)} -</div>&nbsp;<div>${format(end, fmtStr)}</div>`
+          : `${format(start, fmtStr)} - ${format(end, fmtStr)}`
       } else if (start) {
         return `${format(start, fmtStr)}`
       }
@@ -418,14 +418,14 @@ export default defineComponent({
      * Else, update input field text for single date / time instance
      */
     const updateDisplay = () => {
-      if (props.range || hasTimePeriods.value) {
-        if (showCalendar.value && state.selectedRange) {
-          state.abbreviatedDisplay = formatDisplayDate(state.selectedRange)
-        } else {
-          state.abbreviatedDisplay = state.selectedTimeframe.display
-        }
+      if (props.range && hasTimePeriods.value && !showCalendar.value) {
+        state.abbreviatedDisplay = state.selectedTimeframe.display
       } else {
-        state.abbreviatedDisplay = formatDisplayDate(state.selectedRange)
+        state.abbreviatedDisplay = formatDisplayDate({
+          start: state.selectedRange.start,
+          end: state.selectedRange.end,
+          htmlFormat: true
+        })
       }
     }
 
@@ -515,11 +515,16 @@ $margin: 6px;
     &:focus {
       box-shadow: none !important;
     }
-    span {
-      text-align: left;
-      padding: 0;
-      margin: 0;
-      line-height: var(--type-sm, type(sm));
+    .timepicker-display {
+      flex-wrap: wrap;
+      div {
+        width: auto;
+        text-align: left;
+        padding: 0;
+        margin: 0;
+        line-height: var(--type-md, type(md));
+        white-space: nowrap;
+      }
     }
   }
 

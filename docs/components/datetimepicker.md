@@ -22,7 +22,7 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
     @change="newVal => emitVal1 = newVal"
     placeholder="Please select a date"
     mode="date"
-    width="200"
+    width="250"
     :range="false"
   />
   <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(emitVal1) }}</pre></div>
@@ -34,7 +34,7 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
   @change="newVal => emitVal = newVal"
   placeholder="Please select a date"
   mode="date"
-  width="200"
+  width="250"
   :range="false"
 />
 ```
@@ -166,7 +166,7 @@ This utilizes the same time frames as the previous example; however, in this exa
     @change="newVal => emitVal6 = newVal"
     placeholder="Please select a time frame"
     mode="relative"
-    width="385"
+    width="480"
     :minDate="minDate"
     :maxDate="maxDate"
     :range="true"
@@ -181,7 +181,7 @@ This utilizes the same time frames as the previous example; however, in this exa
   @change="newVal => emitVal = newVal"
   placeholder="Please select a time frame"
   mode="relative"
-  width="385"
+  width="480"
   :minDate="minDate"
   :maxDate="maxDate"
   :range="true"
