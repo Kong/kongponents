@@ -111,7 +111,7 @@
               :value="filterStr"
               :label="label && overlayLabel ? label : null"
               :overlay-label="overlayLabel"
-              :placeholder="selectedItem && appearance === 'select' ? selectedItem.label : placeholderText"
+              :placeholder="placeholderText"
               :class="{
                 'cursor-default prevent-pointer-events': !filterIsEnabled,
                 'input-placeholder-dark has-chevron': appearance === 'select',
