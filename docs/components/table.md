@@ -368,7 +368,7 @@ export default defineComponent({
     const key = ref(0) // initialized to zero
     const fetcher = async ({ pageSize, page, query, offset = null }) => {
       try {
-        const res = await sniServices.getAll(pageSize, offset)
+        const res = await services.getAll(pageSize, offset)
 
         // handle data
       } catch (error) {
@@ -377,7 +377,7 @@ export default defineComponent({
     }
 
     const { revalidate } = composables.useRequest(
-      () => key.value && `snis-list-${key.value}`, // will evaluate to falsey on mount, preventing an extra call
+      () => key.value && `service-list-${key.value}`, // will evaluate to falsey on mount, preventing an extra call
       () => { return fetcher() }
     )
 
