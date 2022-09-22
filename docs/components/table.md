@@ -351,6 +351,57 @@ export default {
 </script>
 ```
 
+An alternative usage is with the native `key` attribute in conjuction with a `fetcher` and SWRV `revalidate` function. In this case you will want the `key` to start at `0`.
+Since the `fetcher` function will handle the intial GET of the data, we want the cache key for the `revalidate` function to evaluate to `falsey` on page load (to avoid an unnecessary duplicate call), and will manually call `revalidate()` and increment the `key` to trigger a refetch and redraw of the table.
+
+```html
+<template>
+  <KTable :key="key" :fetcher="fetcher" :headers="headers" />
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  setup () {
+    const key = ref(0) // initialized to zero
+    const fetcher = async ({ pageSize, page, query, offset = null }) => {
+      try {
+        const res = await sniServices.getAll(pageSize, offset)
+
+        // handle data
+      } catch (error) {
+        // handle error
+      }
+    }
+
+    const { revalidate } = composables.useRequest(
+      () => key.value && `snis-list-${key.value}`, // will eval falsey on load, which is what we want
+      () => { return fetcher() }
+    )
+
+    const handleDelete = (id) => {
+      try {
+        const res = await sniServices.delete(id)
+
+        key.value++
+        revalidate()
+      } catch (error) {
+        // handle error
+      }
+    }
+
+    return {
+      key,
+      fetcher,
+      headers,
+      handleDelete
+    }
+  }
+})
+</script>
+```
+
 ### searchInput
 
 Pass in a string of search input for server-side table filtering. See [the Server-side function section](#server-side-functions) for an example.
