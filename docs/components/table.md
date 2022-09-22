@@ -351,7 +351,8 @@ export default {
 </script>
 ```
 
-An alternative usage is with the native `key` attribute in conjuction with a `fetcher` and SWRV `revalidate` function. In this case you will want the `key` to start at `0`.
+An alternate implementation is to apply a `key` attribute to the `KTable` in conjunction with a `fetcher` and the SWRV `revalidate` function. To prevent unnecessary calls on mount, the `key` `ref` should have an initial value of `0`.
+
 Since the `fetcher` function will handle the intial GET of the data, we want the cache key for the `revalidate` function to evaluate to `falsey` on page load (to avoid an unnecessary duplicate call), and will manually call `revalidate()` and increment the `key` to trigger a refetch and redraw of the table.
 
 ```html
@@ -376,7 +377,7 @@ export default defineComponent({
     }
 
     const { revalidate } = composables.useRequest(
-      () => key.value && `snis-list-${key.value}`, // will eval falsey on load, which is what we want
+      () => key.value && `snis-list-${key.value}`, // will evaluate to falsey on mount, preventing an extra call
       () => { return fetcher() }
     )
 
