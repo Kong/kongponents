@@ -387,7 +387,7 @@ export default defineComponent({
       // Determine whether to display a formatting time range, or a single value in input field
       if (props.range) {
         return htmlFormat
-          ? `<div>${format(start, fmtStr)} -</div>&nbsp;<div>${format(end, fmtStr)}</div>`
+          ? `<div>${format(start, fmtStr)} -&nbsp;</div><div>${format(end, fmtStr)}</div>`
           : `${format(start, fmtStr)} - ${format(end, fmtStr)}`
       } else if (start) {
         return `${format(start, fmtStr)}`
@@ -509,6 +509,7 @@ $margin: 6px;
     padding: var(--spacing-sm) var(--spacing-sm) !important;
     color: var(--grey-600) !important;
     font-weight: 500;
+    max-width: 100%; // Prevent overflowing the container
     &.set-min-width {
       min-width: $timepicker-min-width;
     }
@@ -522,7 +523,7 @@ $margin: 6px;
         text-align: left;
         padding: 0;
         margin: 0;
-        line-height: var(--type-md, type(md));
+        line-height: 1.3;
         white-space: nowrap;
       }
     }
