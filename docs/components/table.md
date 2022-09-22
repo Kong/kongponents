@@ -351,6 +351,58 @@ export default {
 </script>
 ```
 
+An alternate implementation is to apply a `key` attribute to the `KTable` in conjunction with a `fetcher` and the SWRV `revalidate` function. To prevent unnecessary calls on mount, the `key` `ref` should have an initial value of `0`.
+
+Since the `fetcher` function will handle the intial GET of the data, we want the cache key for the `revalidate` function to evaluate to `falsey` on page load (to avoid an unnecessary duplicate call), and will manually call `revalidate()` and increment the `key` to trigger a refetch and redraw of the table.
+
+```html
+<template>
+  <KTable :key="key" :fetcher="fetcher" :headers="headers" />
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  setup () {
+    const key = ref(0) // initialized to zero
+    const fetcher = async ({ pageSize, page, query, offset = null }) => {
+      try {
+        const res = await services.getAll(pageSize, offset)
+
+        // handle data
+      } catch (error) {
+        // handle error
+      }
+    }
+
+    const { revalidate } = composables.useRequest(
+      () => key.value && `service-list-${key.value}`, // will evaluate to falsey on mount, preventing an extra call
+      () => { return fetcher() }
+    )
+
+    const handleDelete = (id) => {
+      try {
+        const res = await services.delete(id)
+
+        key.value++
+        revalidate()
+      } catch (error) {
+        // handle error
+      }
+    }
+
+    return {
+      key,
+      fetcher,
+      headers,
+      handleDelete
+    }
+  }
+})
+</script>
+```
+
 ### searchInput
 
 Pass in a string of search input for server-side table filtering. See [the Server-side function section](#server-side-functions) for an example.
