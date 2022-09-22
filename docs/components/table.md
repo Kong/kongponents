@@ -383,7 +383,7 @@ export default defineComponent({
 
     const handleDelete = (id) => {
       try {
-        const res = await sniServices.delete(id)
+        const res = await services.delete(id)
 
         key.value++
         revalidate()
