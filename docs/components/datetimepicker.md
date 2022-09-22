@@ -12,15 +12,17 @@
 
 ### Single date
 
-Create a single date selection calendar
+Create a single date selection calendar, with an example of passing in a fixed pixel width for the input field.
+
 Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
 
 <div>
   <KDateTimePicker
-    v-model="currentValue1"
+    v-model="currentValue0"
     @change="newVal => emitVal1 = newVal"
     placeholder="Please select a date"
     mode="date"
+    width="250"
     :range="false"
   />
   <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(emitVal1) }}</pre></div>
@@ -32,30 +34,10 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
   @change="newVal => emitVal = newVal"
   placeholder="Please select a date"
   mode="date"
+  width="250"
   :range="false"
 />
 ```
-
-<!-- ### Single time
-
-<div>
-  <KDateTimePicker
-    @change="newVal => emitVal2 = newVal"
-    placeholder="Please select a time"
-    mode="time"
-    :range="false"
-  />
-  <div class="mt-6">Emitted value: <pre class="json">{{ currentValue2 }}</pre></div>
-</div>
-
-```html
-<KDateTimePicker
-  @change="newVal => emitVal = newVal"
-  placeholder="Please select a time"
-  mode="time"
-  :range="false"
-/>
-``` -->
 
 ### Single date and time
 
@@ -124,6 +106,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
     @change="newVal => emitVal5 = newVal"
     placeholder="Please select a range"
     mode="dateTime"
+    width="415"
     :minDate="minDate"
     :maxDate="maxDate"
     :minute-increment="5"
@@ -139,6 +122,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
   @change="newVal => emitVal = newVal"
   placeholder="Please select a range"
   mode="dateTime"
+  width="415"
   :minDate="minDate"
   :maxDate="maxDate"
   :minute-increment="5"
@@ -182,6 +166,7 @@ This utilizes the same time frames as the previous example; however, in this exa
     @change="newVal => emitVal6 = newVal"
     placeholder="Please select a time frame"
     mode="relative"
+    width="480"
     :minDate="minDate"
     :maxDate="maxDate"
     :range="true"
@@ -196,6 +181,9 @@ This utilizes the same time frames as the previous example; however, in this exa
   @change="newVal => emitVal = newVal"
   placeholder="Please select a time frame"
   mode="relative"
+  width="480"
+  :minDate="minDate"
+  :maxDate="maxDate"
   :range="true"
   :timePeriods=[
     {
@@ -266,6 +254,12 @@ currentValue = {
   end: today
 }
 ```
+
+### icon
+
+A `Boolean` to show/hide the calendar icon displayed within the display field.
+
+**default**: `true`
 
 ### minDate
 
@@ -414,6 +408,7 @@ export default {
       emitVal4: '',
       emitVal5: '',
       emitVal6: '',
+      currentValue0: new Date(),
       currentValue1: new Date(),
       currentValue2: new Date(),
       currentValue3: new Date(),

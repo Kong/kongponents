@@ -1,109 +1,126 @@
 <template>
-  <KPop
-    :hide-popover="hidePopover"
+  <div
+    :class="{ 'set-min-width': hasTimePeriods }"
+    :style="widthStyle"
     class="k-datetime-picker"
-    placement="bottomStart"
-    width="auto"
-    hide-caret
-    position-fixed
-    @closed="handleClose"
   >
-    <KButton
-      :is-rounded="false"
-      size="large"
-      class="timepicker-input"
-      data-testid="k-datetimepicker-display"
+    <KPop
+      :hide-popover="hidePopover"
+      placement="bottomStart"
+      hide-caret
+      width="auto"
+      position-fixed
+      @closed="handleClose"
     >
-      {{ abbreviatedDisplay }}
-    </KButton>
-    <template
-      v-if="!hidePopover"
-      #content>
-      <!-- Custom | Relative toggle -->
-      <KSegmentedControl
-        v-if="hasTimePeriods && hasCalendar"
-        v-model="tabName"
-        :options="[
-          { label: 'Relative', value: 'relative' },
-          { label: 'Custom', value: 'custom' }
-        ]"
-        class="w-100 mb-5"
-        data-testid="analytics-time-toggle"
-      />
-      <!-- Single date / time or range readout -->
-      <p
-        v-if="!showCalendar"
-        class="range-display"
-      >{{ fullRangeDisplay }}</p>
-      <DatePicker
-        v-if="hasCalendar && showCalendar"
-        v-model="selectedCalendarRange"
-        :is-range="range"
-        :max-date="maxDate"
-        :min-date="minDate"
-        :mode="mode"
-        :model-config="modelConfig"
-        :minute-increment="minuteIncrement"
-        :select-attribute="calendarSelectAttributes"
-        :drag-attribute="calendarDragAttributes"
-        is-expanded
-      />
-      <div
-        v-else-if="hasTimePeriods"
-        class="d-flex flex-column"
+      <KButton
+        :class="[{ 'set-min-width': hasTimePeriods }]"
+        :is-rounded="false"
+        :style="widthStyle"
+        size="large"
+        class="timepicker-input"
+        data-testid="k-datetime-picker-input"
       >
+        <KIcon
+          v-if="icon"
+          color="var(--grey-500)"
+          icon="calendar"
+          class="mr-1"
+          size="18"
+        />
         <div
-          v-for="(item, index) in timePeriods"
-          :key="`section-${item.section || index}`"
-          class="timeframe-section d-flex flex-column"
+          class="timepicker-display type-md d-flex"
+          data-testid="k-datetime-picker-display"
+          v-html="abbreviatedDisplay" />
+      </KButton>
+      <template
+        v-if="!hidePopover"
+        #content>
+        <!-- Custom | Relative toggle -->
+        <KSegmentedControl
+          v-if="hasTimePeriods && hasCalendar"
+          v-model="tabName"
+          :options="[
+            { label: 'Relative', value: 'relative' },
+            { label: 'Custom', value: 'custom' }
+          ]"
+          class="w-100 mb-4"
+          data-testid="k-datetimepicker-toggle"
+        />
+        <!-- Single date / time or range readout -->
+        <p
+          v-if="!showCalendar"
+          class="range-display"
+        >{{ fullRangeDisplay }}</p>
+        <DatePicker
+          v-if="hasCalendar && showCalendar"
+          v-model="selectedCalendarRange"
+          :is-range="range"
+          :max-date="maxDate"
+          :min-date="minDate"
+          :mode="mode"
+          :model-config="modelConfig"
+          :minute-increment="minuteIncrement"
+          :select-attribute="calendarSelectAttributes"
+          :drag-attribute="calendarDragAttributes"
+          is-expanded
+        />
+        <div
+          v-else-if="hasTimePeriods"
+          class="d-flex flex-column"
         >
-          <h4 class="timeframe-section-title">{{ item.section }}</h4>
-          <div class="timeframe-buttons d-flex flex-row justify-content-start">
-            <KButton
-              v-for="(timeFrame, itemIdx) in item.values"
-              :key="`time-${itemIdx}`"
-              :is-rounded="false"
-              :class="{'selected-option': timeFrame.key === selectedTimeframe.key}"
-              :data-testid="'select-timeframe-' + timeFrame.timeframeLength()"
-              class="timeframe-btn"
-              appearance="outline"
-              size="medium"
-              @click="changeRelativeTimeframe(timeFrame)"
-            >
-              {{ ucWord(timeFrame.timeframeText) }}
-            </KButton>
+          <div
+            v-for="(item, index) in timePeriods"
+            :key="`section-${String(item.section || index)}`"
+            class="timeframe-section d-flex flex-column"
+          >
+            <div class="timeframe-section-title type-sm mt-4 mb-2">{{ item.section }}</div>
+            <div class="timeframe-buttons d-flex">
+              <KButton
+                v-for="(timeFrame, itemIdx) in item.values"
+                :key="`time-${itemIdx}`"
+                :is-rounded="false"
+                :class="{ 'selected-option': timeFrame.key === selectedTimeframe.key }"
+                :data-testid="'select-timeframe-' + timeFrame.timeframeLength()"
+                class="timeframe-btn"
+                appearance="outline"
+                size="medium"
+                @click="changeRelativeTimeframe(timeFrame)"
+              >
+                {{ ucWord(timeFrame.timeframeText) }}
+              </KButton>
+            </div>
           </div>
         </div>
-      </div>
-    </template>
-    <template
-      v-if="!hidePopover"
-      #footer>
-      <div class="d-flex justify-content-end">
-        <KButton
-          :is-rounded="false"
-          data-testid="k-datetimepicker-clear"
-          class="action-btn"
-          size="medium"
-          appearance="btn-link"
-          @click="clearSelection()"
-        >
-          Clear
-        </KButton>
-        <KButton
-          :disabled="submitDisabled"
-          :is-rounded="false"
-          data-testid="k-datetimepicker-submit"
-          class="action-btn"
-          size="medium"
-          appearance="btn-link"
-          @click="submitTimeFrame()"
-        >
-          Apply
-        </KButton>
-      </div>
-    </template>
-  </KPop>
+      </template>
+      <template
+        v-if="!hidePopover"
+        #footer>
+        <div class="d-flex justify-content-end">
+          <KButton
+            :is-rounded="false"
+            data-testid="k-datetime-picker-clear"
+            class="action-btn"
+            size="medium"
+            appearance="btn-link"
+            @click="clearSelection()"
+          >
+            Clear
+          </KButton>
+          <KButton
+            :disabled="submitDisabled"
+            :is-rounded="false"
+            data-testid="k-datetime-picker-submit"
+            class="action-btn"
+            size="medium"
+            appearance="btn-link"
+            @click="submitTimeFrame()"
+          >
+            Apply
+          </KButton>
+        </div>
+      </template>
+    </KPop>
+  </div>
 </template>
 
 <script>
@@ -122,6 +139,19 @@ export default defineComponent({
     DatePicker: () => import('v-calendar/lib/components/date-picker.umd')
   },
   props: {
+    icon: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    /**
+     * Sets the input field to a fixed width
+     */
+    width: {
+      type: String,
+      required: false,
+      default: 'auto'
+    },
     value: {
       type: [Date, Object, String],
       validator: value => value === '' || value instanceof Date ||
@@ -241,6 +271,11 @@ export default defineComponent({
         ? !state.selectedRange.start || !state.selectedRange.end
         : !state.selectedRange.start
     })
+    const widthStyle = computed(() => {
+      return {
+        width: props.width === 'auto' || props.width.endsWith('%') || props.width.endsWith('px') ? props.width : props.width + 'px'
+      }
+    })
 
     const selectedCalendarRange = ref(props.value)
 
@@ -303,7 +338,7 @@ export default defineComponent({
         timePeriodsKey: state.selectedTimeframe.key
       }
 
-      state.fullRangeDisplay = formatDisplayDate({ start, end })
+      state.fullRangeDisplay = formatDisplayDate({ start, end, htmlFormat: false })
     }
 
     /**
@@ -333,12 +368,11 @@ export default defineComponent({
 
     /**
      * Displays selected date/time/range as a human readable string.
-     * The date formatting string is dynamically determined based on
-     * the current mode of the instance (Custom vs Relative)
-     * @param {*} range A set of `start` and `end` Unix timestamps
+     * Date formatting string is based on current date time picker mode
+     * @param {Object} opts - `start` and `end` Unix timestamps, `html` boolean flag
      */
-    const formatDisplayDate = (range) => {
-      const { start, end } = range
+    const formatDisplayDate = (opts) => {
+      const { start, end, htmlFormat } = opts
       let fmtStr = 'PP'
 
       // Determines the human timestamp readout format string; subject to change
@@ -346,15 +380,15 @@ export default defineComponent({
         fmtStr = 'PP hh:mm a'
       } else if (props.mode === 'date') {
         fmtStr = 'PP'
-      } else if (props.mode === 'time') {
-        fmtStr = 'PP hh:mm a'
-      } else if (props.mode === 'dateTime') {
+      } else if (['time', 'dateTime'].includes(props.mode)) {
         fmtStr = 'PP hh:mm a'
       }
 
       // Determine whether to display a formatting time range, or a single value in input field
       if (props.range) {
-        return `${format(start, fmtStr)} - ${format(end, fmtStr)}`
+        return htmlFormat
+          ? `<div>${format(start, fmtStr)} -&nbsp;</div><div>${format(end, fmtStr)}</div>`
+          : `${format(start, fmtStr)} - ${format(end, fmtStr)}`
       } else if (start) {
         return `${format(start, fmtStr)}`
       }
@@ -384,14 +418,14 @@ export default defineComponent({
      * Else, update input field text for single date / time instance
      */
     const updateDisplay = () => {
-      if (props.range || hasTimePeriods.value) {
-        if (showCalendar.value && state.selectedRange) {
-          state.abbreviatedDisplay = formatDisplayDate(state.selectedRange)
-        } else {
-          state.abbreviatedDisplay = state.selectedTimeframe.display
-        }
+      if (props.range && hasTimePeriods.value && !showCalendar.value) {
+        state.abbreviatedDisplay = state.selectedTimeframe.display
       } else {
-        state.abbreviatedDisplay = formatDisplayDate(state.selectedRange)
+        state.abbreviatedDisplay = formatDisplayDate({
+          start: state.selectedRange.start,
+          end: state.selectedRange.end,
+          htmlFormat: true
+        })
       }
     }
 
@@ -449,6 +483,7 @@ export default defineComponent({
       showCalendar,
       ...toRefs(state),
       submitDisabled,
+      widthStyle,
       submitTimeFrame,
       ucWord
     }
@@ -457,29 +492,48 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-$margin: .2rem;
-$timepicker-min-width: 24rem;
+$timepicker-min-width: 360px;
+$margin: 6px;
 
 .k-datetime-picker {
+  max-width: 100%; // Prevent overflowing the container
+
+  // For aesthetic purposes when relative time frames are present
+  &.set-min-width {
+    .k-popover {
+      min-width: $timepicker-min-width;
+    }
+  }
+
   .timepicker-input {
-    min-width: $timepicker-min-width;
-    padding: var(--spacing-sm) var(--spacing-xl) var(--spacing-sm) 40px !important;
-    background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M14 14H2V2H4V4H6V2H10V4H12V2H14V14ZM14 0H2C0.895 0 0 0.896 0 2V14C0 15.104 0.895 16 2 16H14C15.104 16 16 15.104 16 14V2C16 0.896 15.104 0 14 0ZM7 12H9V10H7V12ZM10 9H12V7H10V9ZM7 9H9V7H7V9ZM4 9H6V7H4V9ZM4 12H6V10H4V12Z' fill='%236F7787'/%3E%3C/svg%3E%0A");
-    background-repeat: no-repeat;
-    background-position: 12px 50%;
+    padding: var(--spacing-sm) var(--spacing-sm) !important;
     color: var(--grey-600) !important;
     font-weight: 500;
-
+    max-width: 100%; // Prevent overflowing the container
+    &.set-min-width {
+      min-width: $timepicker-min-width;
+    }
     &:focus {
       box-shadow: none !important;
     }
+    .timepicker-display {
+      flex-wrap: wrap;
+      div {
+        width: auto;
+        text-align: left;
+        padding: 0;
+        margin: 0;
+        line-height: 1.3;
+        white-space: nowrap;
+      }
+    }
   }
+
   .k-popover {
     max-height: 90vh;
-    min-width: $timepicker-min-width;
+    width: 100% !important;
     overflow: hidden;
-    padding: var(--spacing-lg) var(--spacing-md);
-
+    padding: var(--spacing-sm);
     &[x-placement^=bottom] {
       margin-top: var(--spacing-xs);
     }
@@ -489,30 +543,33 @@ $timepicker-min-width: 24rem;
 
     .k-popover-content {
       .range-display {
-        margin: var(--spacing-xs) auto var(--spacing-xs) $margin;
+        margin: 0 auto 0;
       }
       .timeframe-section {
         .timeframe-section-title {
-          margin-left: $margin;
+          font-weight: 600;
           margin-bottom: var(--spacing-xs);
         }
         .timeframe-buttons {
           flex-wrap: wrap;
+
           .timeframe-btn {
             font-size: var(--type-sm);
-            flex-basis: calc(32% - $margin);
             font-weight: 400;
-            margin: $margin;
-            padding: .75rem .5rem;
+            // Only 2 of 3 columns will have a right margin; subtract margin / 2
+            flex: 0 calc(33% - 3px);
+            margin-right: $margin;
+            padding: var(--spacing-sm) var(--spacing-md);
             justify-content: center;
-            width: 3rem;
-
+            margin-bottom: $margin;
             &.selected-option {
               color: white;
               background: var(--blue-500);
               font-weight: 500;
             }
-
+            &:nth-child(3n) {
+              margin-right: 0px;
+            }
             // TODO this override should be applied to Kongponents button
             &:focus {
               box-shadow: none;
@@ -526,7 +583,7 @@ $timepicker-min-width: 24rem;
       // Apply / Clear buttons
       // TODO these overrides should be applied to Kongponents button
       .action-btn {
-        padding: .25rem 1rem;
+        padding: var(--spacing-xs) var(--spacing-md);
         &:focus {
           box-shadow: none;
         }
@@ -538,8 +595,6 @@ $timepicker-min-width: 24rem;
 
 <style lang="scss">
 @import '~@kongponents/styles/variables';
-
-$margin: .2rem;
 
 // v-calendar overrides
 .k-datetime-picker {
@@ -578,19 +633,15 @@ $margin: .2rem;
     .vc-highlights + .vc-day-content {
       color: color(white);
       font-weight: 600;
-      // background-color: red;
     }
 
-    .vc-popover-content.vc-nav-container {
-      background:red !important;
-    }
     .vc-nav-popover-container {
       background-color: white;
+      border: 1px solid color(grey-300);
       color: $text-color;
 
       .vc-nav-container {
         .vc-nav-arrow {
-          // border: 1px solid red;
           background-color: white;
 
           &:active,

@@ -5,6 +5,7 @@ import arrowUp from './icn-arrow-up.svg'
 import back from './icn-back.svg'
 import book from './icn-book.svg'
 import brain from './icn-brain.svg'
+import calendar from './icn-calendar.svg'
 import check from './icn-check.svg'
 import chevronDown from './icn-chevron-down.svg'
 import chevronLeft from './icn-chevron-left.svg'
@@ -93,6 +94,7 @@ export default {
   back,
   book,
   brain,
+  calendar,
   check,
   chevronDown,
   chevronLeft,
