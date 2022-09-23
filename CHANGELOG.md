@@ -1,3 +1,11 @@
+# [8.0.0-beta.19](https://github.com/Kong/kongponents/compare/v8.0.0-beta.18...v8.0.0-beta.19) (2022-09-23)
+
+
+### Bug Fixes
+
+* **ktable:** doc revalidate usage [khcp-4670] ([#805](https://github.com/Kong/kongponents/issues/805)) ([e1b6f7e](https://github.com/Kong/kongponents/commit/e1b6f7e7944bdaef4be77957809e0d4d228856dc))
+* **modal:** not importing icon component ([#806](https://github.com/Kong/kongponents/issues/806)) ([92f20e6](https://github.com/Kong/kongponents/commit/92f20e6c10a8a94dfb760c285982d80d19810e1d))
+
 # [8.0.0-beta.18](https://github.com/Kong/kongponents/compare/v8.0.0-beta.17...v8.0.0-beta.18) (2022-09-21)
 
 
