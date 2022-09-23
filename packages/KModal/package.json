@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@kongponents/kbutton": "^7.1.8",
+    "@kongponents/kicon": "^7.1.8",
     "@kongponents/styles": "^7.1.8"
   },
   "peerDependencies": {

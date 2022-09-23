@@ -90,10 +90,11 @@
 
 <script>
 import KButton from '@kongponents/kbutton/KButton.vue'
+import KIcon from '@kongponents/kicon/KIcon.vue'
 
 export default {
   name: 'KModal',
-  components: { KButton },
+  components: { KButton, KIcon },
 
   props: {
     /**
