@@ -17,7 +17,7 @@
         :is-rounded="false"
         size="large"
         class="timepicker-input"
-        data-testid="k-datetimepicker-display"
+        data-testid="k-datetime-picker-display"
       >
         <KIcon
           v-if="icon"
@@ -136,8 +136,13 @@ import KButton from '@/components/kbutton/KButton.vue'
 import KPop from '@/components/kpop/KPop.vue'
 import KSegmentedControl from '@/components/ksegmentedcontrol/KSegmentedControl.vue'
 
+export interface TimeRange {
+  start: Date,
+  end: Date
+}
+
 export interface PresetValue {
-  value: string | object
+  value: string | TimeRange
 }
 
 export interface TimePeriod {
@@ -166,13 +171,8 @@ export default defineComponent({
     value: {
       type: [Date, Object, String],
       required: true,
-      validator: (value: PresetValue) => value === '' || value instanceof Date ||
-        (
-          Object.prototype.hasOwnProperty.call(value, 'start') &&
-          Object.prototype.hasOwnProperty.call(value, 'end') &&
-          value.start !== undefined &&
-          value.end !== undefined
-        ),
+      validator: (value: PresetValue) => value instanceof Date ||
+        (value.start !== undefined && value.end !== undefined),
     },
     /**
      * Upper bound for `v-calendar` dates, everything after this date will be disabled
@@ -498,41 +498,53 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import '@/styles/variables';
+@import '@/styles/functions';
+
 $timepicker-min-width: 360px;
 $margin: 6px;
 
 .k-datetime-picker {
+  max-width: 100%; // Prevent overflowing the container
   // For aesthetic purposes when relative time frames are present
   &.set-min-width {
     .k-popover {
       min-width: $timepicker-min-width;
     }
   }
-
   .timepicker-input {
     padding: var(--spacing-sm) var(--spacing-sm) !important;
-    color: var(--grey-600) !important;
     font-weight: 500;
+    max-width: 100%; // Prevent overflowing the container
     &.set-min-width {
       min-width: $timepicker-min-width;
     }
     &:focus {
       box-shadow: none !important;
     }
+    .timepicker-display {
+      flex-wrap: wrap;
+      div {
+        width: auto;
+        text-align: left;
+        padding: 0;
+        margin: 0;
+        line-height: 1.3;
+        white-space: nowrap;
+      }
+    }
   }
-
   .k-popover {
     max-height: 90vh;
     width: 100% !important;
     overflow: hidden;
-    padding: var(--spacing-lg) var(--spacing-md);
+    padding: var(--spacing-sm);
     &[x-placement^=bottom] {
       margin-top: var(--spacing-xs);
     }
     &[x-placement^=top] {
       margin-bottom: var(--spacing-xs);
     }
-
     .k-popover-content {
       .range-display {
         margin: 0 auto 0;
@@ -544,7 +556,6 @@ $margin: 6px;
         }
         .timeframe-buttons {
           flex-wrap: wrap;
-
           .timeframe-btn {
             font-size: var(--type-sm);
             font-weight: 400;
@@ -556,7 +567,7 @@ $margin: 6px;
             margin-bottom: $margin;
             &.selected-option {
               color: white;
-              background: var(--blue-500);
+              background: color(--blue-500) !important;
               font-weight: 500;
             }
             &:nth-child(3n) {
@@ -587,78 +598,70 @@ $margin: 6px;
 
 <style lang="scss">
 @import '@/styles/variables';
+@import '@/styles/functions';
 
 // v-calendar overrides
 .k-datetime-picker {
+  // Override v-calendar color variables with the corresponding Kongponent color variables
+  --blue-200: var(--blue-200, color(blue-200));
+  --blue-300: var(--blue-300, color(blue-300));
+  --blue-400: var(--blue-400, color(blue-400));
+  --blue-500: var(--blue-500, color(blue-500));
+  --blue-600: var(--blue-600, color(blue-600));
+  --blue-700: var(--blue-700, color(blue-700));
+  --grey-200: var(--grey-200, color(grey-200));
+  --grey-300: var(--grey-300, color(grey-300));
+  --grey-400: var(--grey-400, color(grey-400));
+  --grey-500: var(--grey-500, color(grey-500));
+  --grey-600: var(--grey-600, color(grey-600));
+  --accent-100: var(--grey-500, color(grey-500));   // vc-nav-title
+  --accent-900: var(--blue-500, color(blue-500));
+  $highlight-color: color(blue-200);
+  $selected-color: color(blue-500);
+  $text-color: color(grey-500);
+  $text-color-darker: color(grey-600);
+
   .vc-container {
     border: 0;
-
-    // Override v-calendar color variables with the corresponding Kongponent color variables
-    --blue-200: var(--blue-200, color(blue-200));
-    --blue-300: var(--blue-300, color(blue-300));
-    --blue-400: var(--blue-400, color(blue-400));
-    --blue-500: var(--blue-500, color(blue-500));
-    --blue-600: var(--blue-600, color(blue-600));
-    --blue-700: var(--blue-700, color(blue-700));
-    --grey-200: var(--grey-200, color(grey-200));
-    --grey-300: var(--grey-300, color(grey-300));
-    --grey-400: var(--grey-400, color(grey-400));
-    --grey-500: var(--grey-500, color(grey-500));
-    --grey-600: var(--grey-600, color(grey-600));
-    --accent-100: var(--grey-500, color(grey-500));   // vc-nav-title
-    --accent-900: var(--blue-500, color(blue-500));
-
-    $highlight-color: color(blue-200);
-    $selected-color: color(blue-500);
-    $text-color: color(grey-500);
-    $text-color-darker: color(grey-600);
-
-    // TODO: Hide clock icon based on boolean prop
     .vc-time-icon {
       display: none;
     }
     .vc-bordered {
       border: 0;
     }
-
     // Day text within hover selection or post-selection
     .vc-highlights + .vc-day-content {
-      color: color(white);
+      color: var(--white);
       font-weight: 600;
     }
-
     .vc-nav-popover-container {
-      background-color: white;
+      background-color: var(--white);
       border: 1px solid color(grey-300);
       color: $text-color;
-
       .vc-nav-container {
         .vc-nav-arrow {
-          background-color: white;
-
+          background-color: var(--white);
           &:active,
           &:focus {
-            border: 2px solid white;
+            border: 2px solid var(--white);
           }
         }
-
         // Calendar year
         .vc-nav-header .vc-nav-title {
           color: $text-color;
           &:hover {
-            background-color: white;
+            background-color: var(--white);
             color: color(grey-600);
           }
           &:active,
           &:focus {
-            border: 2px solid white;
+            border: 2px solid var(--white);
           }
         }
         // Calendar months
         .vc-nav-items {
           .vc-nav-item {
             color: $text-color;
-
             &:hover {
               color: color(grey-600);
               background-color: color(blue-100);
@@ -669,14 +672,13 @@ $margin: 6px;
           .vc-nav-item.is-active {
             background-color: $selected-color;
             border-color: transparent;
-            color: white;
+            color: var(--white);
           }
         }
       }
     }
-
     .vc-time-picker {
-      border-top: 1px solid white !important;
+      border-top: 1px solid var(--white) !important;
       .vc-date .vc-weekday,
       .vc-date .vc-month,
       .vc-date .vc-year {
@@ -698,13 +700,12 @@ $margin: 6px;
       // Calendar content (weekday headings and full month)
       //
       .vc-weeks {
-        margin-top: var(--spacing-sm);
+        margin-top: color(spacing-sm);
         .vc-weekday {
           color: $text-color;
         }
       }
     }
-
     .vc-pane-container,
     .vc-time-picker {
       //
@@ -716,9 +717,9 @@ $margin: 6px;
           color: $text-color-darker;
         }
         &:focus {
-          border: 2px solid white;
+          border: 2px solid var(--white);
           color: $text-color-darker;
-          background-color: var(--gray-200);
+          background-color: color(gray-200);
         }
       }
       .vc-month, .vc-day {
@@ -727,7 +728,6 @@ $margin: 6px;
       // AM / PM highlights
       .vc-am-pm {
         color: $text-color-darker;
-
         button {
           &:active,
           &:hover {
@@ -740,19 +740,18 @@ $margin: 6px;
             background-color: $selected-color;
             &:hover,
             &:focus {
-              color: white;
+              color: var(--white);
               border-color: $selected-color;
               background-color: $selected-color;
             }
             &:active {
-              color: white;
+              color: var(--white);
               border-color: color(blue-300);
               background-color: color(blue-300);
             }
           }
         }
       }
-
       //
       // Date Range - Post selection
       //
@@ -765,11 +764,9 @@ $margin: 6px;
       .vc-highlight.vc-highlight-base-middle {
         background-color: $highlight-color;
       }
-
       //
       // Date Range - during selection
       //
-
       // Start / end
       .vcal-day-drag-start,
       .vcal-day-drag-end {
@@ -777,7 +774,6 @@ $margin: 6px;
         background-color: $selected-color;
         color: white;
       }
-
       .vc-day-content {
         &:hover {
           color: $selected-color;
@@ -785,7 +781,6 @@ $margin: 6px;
           border: 2px solid color(blue-400);
         }
       }
-
       // Start / end "outer edge" background color
       .vc-highlight.vc-highlight-base-start,
       .vc-highlight.vc-highlight-base-end {
