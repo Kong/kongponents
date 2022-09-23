@@ -8,7 +8,7 @@
   >
     <KButton
       v-if="type !== 'divider'"
-      :aria-expanded="isOpen && expandable"
+      :aria-expanded="isOpen && expandable || undefined"
       :aria-labelledby="menuItemId"
       :is-rounded="false"
       type="button"
