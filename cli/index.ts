@@ -15,7 +15,7 @@ const questions = [
     filter: async (input: string): Promise<string> => kebabCase(input).replace(/[^a-z-]/gi, ''),
     validate: async (input: string) => {
       if (!input.startsWith('k-')) {
-        return 'The name of a Kongponents should start with \'k-\''
+        return 'The name of a Kongponent should start with \'k-\''
       } else if (input.includes('--')) {
         return 'The name should not include a double-dash \'--\''
       } else if (input.endsWith('-')) {
