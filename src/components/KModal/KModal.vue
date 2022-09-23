@@ -95,10 +95,15 @@
 <script lang="ts">
 import { defineComponent, computed, onMounted, onUnmounted, watchEffect } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
+import KIcon from '@/components/KIcon/KIcon.vue'
 
 export default defineComponent({
   name: 'KModal',
-  components: { KButton },
+
+  components: {
+    KButton,
+    KIcon,
+  },
 
   props: {
     /**
