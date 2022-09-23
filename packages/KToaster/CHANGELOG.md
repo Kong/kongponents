@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 7.1.9 (2022-09-23)
+
+
+### Bug Fixes
+
+* **kmodal:** missing kicon dependency ([#807](https://github.com/Kong/kongponents/issues/807)) ([9f71169](https://github.com/Kong/kongponents/commit/9f71169eb9f92b79030651d09cc665cb6823d803))
+
+
+
+
+
 ## 7.1.8 (2022-09-22)
 
 **Note:** Version bump only for package @kongponents/ktoaster
