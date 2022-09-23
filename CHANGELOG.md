@@ -1,3 +1,10 @@
+# [8.0.0-beta.20](https://github.com/Kong/kongponents/compare/v8.0.0-beta.19...v8.0.0-beta.20) (2022-09-23)
+
+
+### Bug Fixes
+
+* **aria-expanded:** fallback to undefined ([b518091](https://github.com/Kong/kongponents/commit/b518091444793772fc4ca7230cd874f961d9d8cc))
+
 # [8.0.0-beta.19](https://github.com/Kong/kongponents/compare/v8.0.0-beta.18...v8.0.0-beta.19) (2022-09-23)
 
 
