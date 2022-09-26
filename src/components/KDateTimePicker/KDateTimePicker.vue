@@ -128,7 +128,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, nextTick, onMounted, reactive, ref, toRefs, watch } from 'vue'
+import { computed, defineComponent, nextTick, onMounted, PropType, reactive, ref, toRefs, watch } from 'vue'
 import { format } from 'date-fns'
 import 'v-calendar/dist/style.css'
 import { DatePicker } from 'v-calendar'
@@ -137,21 +137,32 @@ import KPop from '@/components/kpop/KPop.vue'
 import KSegmentedControl from '@/components/ksegmentedcontrol/KSegmentedControl.vue'
 
 export interface TimeRange {
-  start: Date,
-  end: Date
-}
-
-export interface PresetValue {
-  value: string | TimeRange
+  start: Date | string | undefined,
+  end: Date | string | undefined,
+  timePeriodsKey: string | undefined
 }
 
 export interface TimePeriod {
   key: string // unique identifier
   display: string
   timeframeText: string
-  timeframeLength: any
-  start: any
-  end: any
+  timeframeLength(): string
+  start(): Date
+  end(): Date
+}
+
+export interface TimeFrameSection {
+  section: string
+  values: TimePeriod[]
+}
+
+export interface DateTimePickerState {
+  abbreviatedDisplay: string
+  fullRangeDisplay: string | undefined
+  hidePopover: boolean
+  selectedRange: TimeRange
+  selectedTimeframe: TimePeriod | string
+  tabName: string
 }
 
 export default defineComponent({
@@ -169,9 +180,9 @@ export default defineComponent({
       default: true,
     },
     value: {
-      type: [Date, Object, String],
+      type: Object as PropType<TimeRange>,
       required: true,
-      validator: (value: PresetValue) => value instanceof Date ||
+      validator: (value: TimeRange) => value instanceof Date ||
         (value.start !== undefined && value.end !== undefined),
     },
     /**
@@ -234,12 +245,12 @@ export default defineComponent({
      * allowing for on-the-fly date boundary creation.
      */
     timePeriods: {
-      type: Array,
+      type: Array as PropType<Array<TimeFrameSection>>,
       required: false,
       default: () => [],
-      validator: (valuesArray: TimePeriod) => {
-        return valuesArray.every((item) => {
-          return Array.isArray(item.values) && item.values.every((timeframe) => {
+      validator: (sectionsArray: TimeFrameSection[]) => {
+        return sectionsArray.every((item: TimeFrameSection) => {
+          return Array.isArray(item.values) && item.values.every((timeframe: TimePeriod) => {
             // Check validity of each timeframe
             return typeof timeframe.timeframeText === 'string' &&
               timeframe.timeframeLength !== undefined &&
@@ -284,9 +295,9 @@ export default defineComponent({
         : !state.selectedRange.start
     })
 
-    const selectedCalendarRange = ref(props.value)
+    const selectedCalendarRange = ref<TimeRange>(props.value)
 
-    const state = reactive({
+    const state: DateTimePickerState = reactive({
       abbreviatedDisplay: props.placeholder,
       fullRangeDisplay: '',
       hidePopover: false,
@@ -300,16 +311,16 @@ export default defineComponent({
      * @param {object | string | null} vCalValue Object containing a pair of `start` and `end` timestamps,
      * or a single timestamp. Can be `null` if current selection is cleared.
      */
-    const changeCalendarRange = (vCalValue) => {
-      let start = ''
-      let end = ''
+    const changeCalendarRange = (vCalValue: TimeRange) => {
+      let start, end
 
       if (vCalValue) {
         // If value is an object, this is a time range. Else, a single date or time value.
-        if (Object.prototype.hasOwnProperty.call(vCalValue, 'start') && Object.prototype.hasOwnProperty.call(vCalValue, 'end')) {
+        if (vCalValue?.start && vCalValue?.end) {
           start = new Date(vCalValue.start)
           end = new Date(vCalValue.end)
         } else {
+          // TODO: fix types
           start = new Date(vCalValue)
           end = ''
         }
@@ -331,7 +342,7 @@ export default defineComponent({
      * when a relative time frame button is clicked
      * @param {*} timeframe
      */
-    const changeRelativeTimeframe = (timeframe) => {
+    const changeRelativeTimeframe = (timeframe: TimePeriod) => {
       state.selectedTimeframe = timeframe
 
       // Format the start/end values as human readable date
@@ -345,7 +356,7 @@ export default defineComponent({
         timePeriodsKey: state.selectedTimeframe.key,
       }
 
-      state.fullRangeDisplay = formatDisplayDate({ start, end })
+      state.fullRangeDisplay = formatDisplayDate({ start, end, timePeriodsKey: state.selectedTimeframe.key })
     }
 
     /**
@@ -379,7 +390,7 @@ export default defineComponent({
      * the current mode of the instance (Custom vs Relative)
      * @param {*} range A set of `start` and `end` Unix timestamps
      */
-    const formatDisplayDate = (range) => {
+    const formatDisplayDate = (range: TimeRange) => {
       const { start, end } = range
       let fmtStr = 'PP'
 
@@ -437,7 +448,7 @@ export default defineComponent({
       }
     }
 
-    const ucWord = (val) => {
+    const ucWord = (val: string) => {
       return val.charAt(0).toUpperCase() + val.slice(1)
     }
 
