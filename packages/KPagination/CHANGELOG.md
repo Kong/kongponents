@@ -3,6 +3,43 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.41.0](https://github.com/Kong/kongponents/compare/v6.7.6...v6.41.0) (2022-09-26)
+
+
+### Bug Fixes
+
+* **docs:** code snippet syntax ([#703](https://github.com/Kong/kongponents/issues/703)) ([bb22dcc](https://github.com/Kong/kongponents/commit/bb22dcc6f4a1dc09c427b7c069ab5f2758718714))
+* **font-weights:** fix component font weights ([a21da06](https://github.com/Kong/kongponents/commit/a21da06e9ca60e0bd29265585fda87a9865ff366))
+* **kpagination:** disable buttons when necessary ([#671](https://github.com/Kong/kongponents/issues/671)) ([f39b589](https://github.com/Kong/kongponents/commit/f39b589d523f4a51c0af6c785ed9c25cb903dafb))
+* **kpagination:** fix import ([#666](https://github.com/Kong/kongponents/issues/666)) ([af57b06](https://github.com/Kong/kongponents/commit/af57b0673a45322eaeac3360c325216b3e0b95cf))
+* **kpagination:** fix page size change and import bugs ([#668](https://github.com/Kong/kongponents/issues/668)) ([b8f6518](https://github.com/Kong/kongponents/commit/b8f651899529ce83dc3c3a2238176f5c443520ec))
+* **kpagination:** style updates ([#583](https://github.com/Kong/kongponents/issues/583)) ([6312670](https://github.com/Kong/kongponents/commit/6312670c422c46d87b29352b9d4ea22a5abe7374))
+* **kpagination:** use more specific css classes ([#672](https://github.com/Kong/kongponents/issues/672)) ([de78c17](https://github.com/Kong/kongponents/commit/de78c1738081f5c8d602ccfb9615c21988e4c55a))
+* **kpagination:** use positionFixed ([#743](https://github.com/Kong/kongponents/issues/743)) ([755f064](https://github.com/Kong/kongponents/commit/755f064c4c125fdc137926c4119e53f4954a63dd))
+* **kpop:** default maxwidth should be > default width ([#649](https://github.com/Kong/kongponents/issues/649)) ([f7ac014](https://github.com/Kong/kongponents/commit/f7ac0149e66ada04c30a81619df4ca89d6376bfc))
+* more misc fixes ([#543](https://github.com/Kong/kongponents/issues/543)) ([4f8eddb](https://github.com/Kong/kongponents/commit/4f8eddb913849940737f4c4a55ad2ce8c669243c))
+
+
+### Features
+
+* **kcardcatalog:** fix item slotting ([#548](https://github.com/Kong/kongponents/issues/548)) ([edfb0f6](https://github.com/Kong/kongponents/commit/edfb0f6a07b49bbcf2235c9e6a1acf38bcba101a))
+* **klabel, kooltip:** added support for max-width and tooltip-attributes [KHCP-3486] ([#648](https://github.com/Kong/kongponents/issues/648)) ([f0ee237](https://github.com/Kong/kongponents/commit/f0ee237fd3dea69a6e747c454f3c653341950562))
+* **kpagination/ktable:** support offset-based pagination ([#663](https://github.com/Kong/kongponents/issues/663)) ([d6de73b](https://github.com/Kong/kongponents/commit/d6de73baef56573c18d2575988ddbe91d09e14d2))
+* **kselect:** add autosuggest support [KHCP-4227] ([#717](https://github.com/Kong/kongponents/issues/717)) ([27a49a6](https://github.com/Kong/kongponents/commit/27a49a6822ebb95c3e310fc0f2626c5d66fc03bc))
+* **kselect:** add overlayLabel [khcp-4187] ([#697](https://github.com/Kong/kongponents/issues/697)) ([2efbfbb](https://github.com/Kong/kongponents/commit/2efbfbbd9054138477eeea73ab86fa747f9c0787))
+* **kselect:** allow custom item content and filter ([#488](https://github.com/Kong/kongponents/issues/488)) ([3e558e4](https://github.com/Kong/kongponents/commit/3e558e43db80e05cd2035afb5233683644c3a798))
+* **kselect:** misc fixes [khcp-4146] ([#692](https://github.com/Kong/kongponents/issues/692)) ([a5b3b5b](https://github.com/Kong/kongponents/commit/a5b3b5b68ba5f66e96147e60851cd7229c8e95af))
+* set default page sizes from [15, 25, 50, 75, 100] to [15, 30, 50, 75, 100] [KHCP-2841] ([#498](https://github.com/Kong/kongponents/issues/498)) ([d2ab2e5](https://github.com/Kong/kongponents/commit/d2ab2e5ed0ef2447fafa3cae6737bcf94393d626))
+
+
+### Reverts
+
+* Revert "chore(kcatalog): rename and fetcher" (#555) ([83a5e72](https://github.com/Kong/kongponents/commit/83a5e7220b401e139d68735b5039c4c5a226dd21)), closes [#555](https://github.com/Kong/kongponents/issues/555)
+
+
+
+
+
 ## 6.40.3 (2022-08-23)
 
 

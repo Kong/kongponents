@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.41.0](https://github.com/Kong/kongponents/compare/v6.7.6...v6.41.0) (2022-09-26)
+
+
+### Features
+
+* **kprompt:** add kprompt kongponent ([#503](https://github.com/Kong/kongponents/issues/503)) ([12f0669](https://github.com/Kong/kongponents/commit/12f06699345c76cbc690da3e214f5dbb06aa2485))
+* **ktable:** add legacy ktable component ([#477](https://github.com/Kong/kongponents/issues/477)) ([4454617](https://github.com/Kong/kongponents/commit/445461705d25b27426e2b542e65e8ad9a351a921))
+
+
+### Reverts
+
+* Revert "chore(kcatalog): rename and fetcher" (#555) ([83a5e72](https://github.com/Kong/kongponents/commit/83a5e7220b401e139d68735b5039c4c5a226dd21)), closes [#555](https://github.com/Kong/kongponents/issues/555)
+
+
+
+
+
 ## 6.40.3 (2022-08-23)
 
 

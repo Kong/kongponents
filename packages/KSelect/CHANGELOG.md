@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.41.0](https://github.com/Kong/kongponents/compare/v6.7.6...v6.41.0) (2022-09-26)
+
+
+### Bug Fixes
+
+* **docs:** code snippet syntax ([#703](https://github.com/Kong/kongponents/issues/703)) ([bb22dcc](https://github.com/Kong/kongponents/commit/bb22dcc6f4a1dc09c427b7c069ab5f2758718714))
+* **kpop:** default maxwidth should be > default width ([#649](https://github.com/Kong/kongponents/issues/649)) ([f7ac014](https://github.com/Kong/kongponents/commit/f7ac0149e66ada04c30a81619df4ca89d6376bfc))
+* **kpop:** fix kpop toggle behavior [khcp-3244] ([#546](https://github.com/Kong/kongponents/issues/546)) ([1d275b3](https://github.com/Kong/kongponents/commit/1d275b3d088b97e8c5909d5dedd635946800007e))
+* **kselect:** adds watch for selected item ([#723](https://github.com/Kong/kongponents/issues/723)) ([c443186](https://github.com/Kong/kongponents/commit/c4431861c22ab06b94ab5c80a926499368f5bf90))
+* **kselect:** disabled and readonly states ([#706](https://github.com/Kong/kongponents/issues/706)) ([63123e5](https://github.com/Kong/kongponents/commit/63123e5e14093a3633f599f50397a6134b8bd067))
+* **kselect:** fix items watcher and only update if changed [KHCP-4425] ([#750](https://github.com/Kong/kongponents/issues/750)) ([a80958b](https://github.com/Kong/kongponents/commit/a80958b0a72aa54c527326bf7a66a3e6a39338ce))
+* **kselect:** important margin-bottom ([e4ae2a9](https://github.com/Kong/kongponents/commit/e4ae2a9c3a99ed9829ed12735819479fc60d567a))
+* **kselect:** input border radius and dropdown spacing ([#702](https://github.com/Kong/kongponents/issues/702)) ([6b38149](https://github.com/Kong/kongponents/commit/6b381493e50c58d189f1476ebf07a11c3955cd3d))
+* **kselect:** remove is-open prop on KInput ([#728](https://github.com/Kong/kongponents/issues/728)) ([08d8870](https://github.com/Kong/kongponents/commit/08d8870088242392b8842dab702be02870c55fd5))
+* **kselect:** remove list style ([966f87f](https://github.com/Kong/kongponents/commit/966f87fbc70e8da22d95d03418726c587ae45752))
+* **kselect:** remove margin bottom of last item ([4f6dca9](https://github.com/Kong/kongponents/commit/4f6dca9616c5007b835f8010ae6e3762a3e6e2a6))
+* **kselect:** set up v-model ([#525](https://github.com/Kong/kongponents/issues/525)) ([4be1970](https://github.com/Kong/kongponents/commit/4be19705f661eb76bd85714727db38c19f974f1a))
+* **kselect:** update dropdown border color ([#695](https://github.com/Kong/kongponents/issues/695)) ([be869d9](https://github.com/Kong/kongponents/commit/be869d96a7dadd8e0b271c0f9a5eff2d7f897177))
+* **kselect:** update popover width when it opens ([#736](https://github.com/Kong/kongponents/issues/736)) ([af7faa9](https://github.com/Kong/kongponents/commit/af7faa93c3fa02d77ef4c2fe33aed89f3566ba73))
+
+
+### Features
+
+* **klabel, kooltip:** added support for max-width and tooltip-attributes [KHCP-3486] ([#648](https://github.com/Kong/kongponents/issues/648)) ([f0ee237](https://github.com/Kong/kongponents/commit/f0ee237fd3dea69a6e747c454f3c653341950562))
+* **kpop:** add positionFixed prop ([#481](https://github.com/Kong/kongponents/issues/481)) ([62dcbe6](https://github.com/Kong/kongponents/commit/62dcbe6cf6c82bf628316e3328f784cf32308eec))
+* **kselect:** add autosuggest support [KHCP-4227] ([#717](https://github.com/Kong/kongponents/issues/717)) ([27a49a6](https://github.com/Kong/kongponents/commit/27a49a6822ebb95c3e310fc0f2626c5d66fc03bc))
+* **kselect:** add clearable prop ([#749](https://github.com/Kong/kongponents/issues/749)) ([f56e97f](https://github.com/Kong/kongponents/commit/f56e97f4f485451b5bd8e59ed114799b64fac2c8))
+* **kselect:** add overlayLabel [khcp-4187] ([#697](https://github.com/Kong/kongponents/issues/697)) ([2efbfbb](https://github.com/Kong/kongponents/commit/2efbfbbd9054138477eeea73ab86fa747f9c0787))
+* **kselect:** add support for labelattrs ([#524](https://github.com/Kong/kongponents/issues/524)) ([dc73be2](https://github.com/Kong/kongponents/commit/dc73be2a29c8490688634179972988e8d7a0349d))
+* **kselect:** allow custom item content and filter ([#488](https://github.com/Kong/kongponents/issues/488)) ([3e558e4](https://github.com/Kong/kongponents/commit/3e558e43db80e05cd2035afb5233683644c3a798))
+* **kselect:** misc fixes [khcp-4146] ([#692](https://github.com/Kong/kongponents/issues/692)) ([a5b3b5b](https://github.com/Kong/kongponents/commit/a5b3b5b68ba5f66e96147e60851cd7229c8e95af))
+
+
+### Reverts
+
+* Revert "chore(kcatalog): rename and fetcher" (#555) ([83a5e72](https://github.com/Kong/kongponents/commit/83a5e7220b401e139d68735b5039c4c5a226dd21)), closes [#555](https://github.com/Kong/kongponents/issues/555)
+
+
+
+
+
 ## 6.40.3 (2022-08-23)
 
 

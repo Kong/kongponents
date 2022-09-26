@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.41.0](https://github.com/Kong/kongponents/compare/v6.7.6...v6.41.0) (2022-09-26)
+
+
+### Bug Fixes
+
+* **docs:** code snippet syntax ([#703](https://github.com/Kong/kongponents/issues/703)) ([bb22dcc](https://github.com/Kong/kongponents/commit/bb22dcc6f4a1dc09c427b7c069ab5f2758718714))
+* **kmodal:** allow clicking on elements within the modal body [KHCP-4212] ([#708](https://github.com/Kong/kongponents/issues/708)) ([3de5874](https://github.com/Kong/kongponents/commit/3de58741c55c6b83b536c4bc50ddb1d62961c909))
+* **kmodal:** dismiss icon logic [khcp-4354] ([#737](https://github.com/Kong/kongponents/issues/737)) ([ff12d53](https://github.com/Kong/kongponents/commit/ff12d53bb9b566eacb1a2c06f668d08161dfca62))
+* **kmodal:** fix background rgba ([#512](https://github.com/Kong/kongponents/issues/512)) ([27f0639](https://github.com/Kong/kongponents/commit/27f0639241dbed52609d7725eab706f2c9bb0258))
+* **kmodal:** fix overflow to apply on mounted ([#545](https://github.com/Kong/kongponents/issues/545)) ([b889b86](https://github.com/Kong/kongponents/commit/b889b86095f0d9c05f796364c694cc46f8ff1ff2))
+* **kmodal:** hide body overflow ([#542](https://github.com/Kong/kongponents/issues/542)) ([6e08669](https://github.com/Kong/kongponents/commit/6e08669f5fbdf36405eb61c09e88d49f35240037))
+* **kooltip:** z-index bump ([#725](https://github.com/Kong/kongponents/issues/725)) ([22d3a76](https://github.com/Kong/kongponents/commit/22d3a7633e0fa9bee8dcc4e0f84b33fad56ae0dd))
+* **kselect:** input border radius and dropdown spacing ([#702](https://github.com/Kong/kongponents/issues/702)) ([6b38149](https://github.com/Kong/kongponents/commit/6b381493e50c58d189f1476ebf07a11c3955cd3d))
+* more misc fixes ([#543](https://github.com/Kong/kongponents/issues/543)) ([4f8eddb](https://github.com/Kong/kongponents/commit/4f8eddb913849940737f4c4a55ad2ce8c669243c))
+
+
+### Features
+
+* **kmodal:** fix overlay color [khcp-2929] ([#510](https://github.com/Kong/kongponents/issues/510)) ([41ea9aa](https://github.com/Kong/kongponents/commit/41ea9aa5a0a6507e2c8c893fed763549c11f67bc))
+* **kmodal:** quickstart updates [khcp-4220] ([#714](https://github.com/Kong/kongponents/issues/714)) ([f84b9e4](https://github.com/Kong/kongponents/commit/f84b9e43ee60f7e0d7e2ca30554e89e789a20820))
+
+
+### Reverts
+
+* Revert "chore(kcatalog): rename and fetcher" (#555) ([83a5e72](https://github.com/Kong/kongponents/commit/83a5e7220b401e139d68735b5039c4c5a226dd21)), closes [#555](https://github.com/Kong/kongponents/issues/555)
+
+
+
+
+
 ## 6.40.3 (2022-08-23)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kslideout",
-  "version": "6.40.3",
+  "version": "6.41.0",
   "description": "KSlideout description here.",
   "main": "dist/KSlideout.umd.min.js",
   "componentName": "KSlideout",
@@ -23,8 +23,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kcard": "^6.40.3",
-    "@kongponents/kicon": "^6.40.3",
-    "@kongponents/styles": "^6.40.3"
+    "@kongponents/kcard": "^6.41.0",
+    "@kongponents/kicon": "^6.41.0",
+    "@kongponents/styles": "^6.41.0"
   }
 }

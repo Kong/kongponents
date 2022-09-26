@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.41.0](https://github.com/Kong/kongponents/compare/v6.7.6...v6.41.0) (2022-09-26)
+
+
+### Bug Fixes
+
+* **docs:** code snippet syntax ([#703](https://github.com/Kong/kongponents/issues/703)) ([bb22dcc](https://github.com/Kong/kongponents/commit/bb22dcc6f4a1dc09c427b7c069ab5f2758718714))
+* **kalert:** update default appearance colors ([#689](https://github.com/Kong/kongponents/issues/689)) ([e9d97a1](https://github.com/Kong/kongponents/commit/e9d97a155615d3da190f2097b214ec15a5a2e871))
+* **kalert:** update default line height ([f40e069](https://github.com/Kong/kongponents/commit/f40e069e06021cee0391970f0bf07e374b3fdb0f))
+* more misc fixes ([#543](https://github.com/Kong/kongponents/issues/543)) ([4f8eddb](https://github.com/Kong/kongponents/commit/4f8eddb913849940737f4c4a55ad2ce8c669243c))
+
+
+### Features
+
+* **kalert:** updates for KHCP-4405 ([#763](https://github.com/Kong/kongponents/issues/763)) ([6dadda8](https://github.com/Kong/kongponents/commit/6dadda87389bf45f09f7d171602d9cadd32c7a21))
+
+
+### Reverts
+
+* Revert "chore(kcatalog): rename and fetcher" (#555) ([83a5e72](https://github.com/Kong/kongponents/commit/83a5e7220b401e139d68735b5039c4c5a226dd21)), closes [#555](https://github.com/Kong/kongponents/issues/555)
+
+
+
+
+
 ## 6.40.3 (2022-08-23)
 
 

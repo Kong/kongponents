@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.41.0](https://github.com/Kong/kongponents/compare/v6.7.6...v6.41.0) (2022-09-26)
+
+
+### Bug Fixes
+
+* **docs:** code snippet syntax ([#703](https://github.com/Kong/kongponents/issues/703)) ([bb22dcc](https://github.com/Kong/kongponents/commit/bb22dcc6f4a1dc09c427b7c069ab5f2758718714))
+* **ktabs:** add bottom border for tabs ([#494](https://github.com/Kong/kongponents/issues/494)) ([5a6510c](https://github.com/Kong/kongponents/commit/5a6510cd902ef2c8e443f6b999e068bbee10278f))
+* **ktabs:** allow changing the active tab programmatically ([#522](https://github.com/Kong/kongponents/issues/522)) ([213ba8a](https://github.com/Kong/kongponents/commit/213ba8aa81a055f2351ae4820997c7ac96fbb8f7))
+* **ktabs:** emit changed event with keyboard input ([#523](https://github.com/Kong/kongponents/issues/523)) ([f80bab6](https://github.com/Kong/kongponents/commit/f80bab61db108bfb78612999aa0903830ea3016e))
+
+
+### Reverts
+
+* Revert "chore(kcatalog): rename and fetcher" (#555) ([83a5e72](https://github.com/Kong/kongponents/commit/83a5e7220b401e139d68735b5039c4c5a226dd21)), closes [#555](https://github.com/Kong/kongponents/issues/555)
+
+
+
+
+
 ## 6.40.3 (2022-08-23)
 
 

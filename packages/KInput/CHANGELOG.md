@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.41.0](https://github.com/Kong/kongponents/compare/v6.7.6...v6.41.0) (2022-09-26)
+
+
+### Bug Fixes
+
+* **docs:** code snippet syntax ([#703](https://github.com/Kong/kongponents/issues/703)) ([bb22dcc](https://github.com/Kong/kongponents/commit/bb22dcc6f4a1dc09c427b7c069ab5f2758718714))
+* **kinput:** allow numbers to be passed in as value ([#470](https://github.com/Kong/kongponents/issues/470)) ([fbf4c00](https://github.com/Kong/kongponents/commit/fbf4c00291383707770076110dcfa9519d31faef))
+* **kinput:** deepclone value prop ([#650](https://github.com/Kong/kongponents/issues/650)) ([9c1f9a2](https://github.com/Kong/kongponents/commit/9c1f9a230135a999a7997711696dfa08339f856b))
+* **kinput:** fix manual change to v-model ([#645](https://github.com/Kong/kongponents/issues/645)) ([35ae45d](https://github.com/Kong/kongponents/commit/35ae45d2597de22fbbe13bf956c8b2c050205e49))
+* **kinput:** input widths ([a2c0c4e](https://github.com/Kong/kongponents/commit/a2c0c4eca8611a16acf6053366a43792d65c2280))
+* **kinput:** properly bind variable to attribute ([#511](https://github.com/Kong/kongponents/issues/511)) ([164475f](https://github.com/Kong/kongponents/commit/164475fcee37dcb806bd94a2a4c452405a57bca2))
+* **kmodalfullscreen:** fix props styles and slots ([#519](https://github.com/Kong/kongponents/issues/519)) ([6d80de4](https://github.com/Kong/kongponents/commit/6d80de494a72a1a7f27f43679219ca7ba2e9ce7b))
+* **kselect:** disabled and readonly states ([#706](https://github.com/Kong/kongponents/issues/706)) ([63123e5](https://github.com/Kong/kongponents/commit/63123e5e14093a3633f599f50397a6134b8bd067))
+* no ts ([c8c297d](https://github.com/Kong/kongponents/commit/c8c297ddfb1a1d2ee8736e5269034a27e42858ca))
+
+
+### Features
+
+* **kinput:** add character limit to kinput [KHCP-3687] ([#632](https://github.com/Kong/kongponents/issues/632)) ([cfd194e](https://github.com/Kong/kongponents/commit/cfd194e324484a2b20a18e8f6b30d3fce96a053e))
+* **kinput:** add standard label support ([#509](https://github.com/Kong/kongponents/issues/509)) ([ccb505d](https://github.com/Kong/kongponents/commit/ccb505d21f169a2bc382a5ce185808a4336eec6f))
+* **kinput:** support label attrs ([#521](https://github.com/Kong/kongponents/issues/521)) ([1eeb9b3](https://github.com/Kong/kongponents/commit/1eeb9b3308fc575cd22589ac04888f6237d94b46))
+
+
+### Reverts
+
+* Revert "chore(kcatalog): rename and fetcher" (#555) ([83a5e72](https://github.com/Kong/kongponents/commit/83a5e7220b401e139d68735b5039c4c5a226dd21)), closes [#555](https://github.com/Kong/kongponents/issues/555)
+
+
+
+
+
 ## 6.40.3 (2022-08-23)
 
 
