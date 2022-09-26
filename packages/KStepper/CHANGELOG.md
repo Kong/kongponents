@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 7.1.10 (2022-09-26)
+
+
+### Bug Fixes
+
+* **kpop:** always remove click listeners since they are always added ([#809](https://github.com/Kong/kongponents/issues/809)) ([bd943d5](https://github.com/Kong/kongponents/commit/bd943d50778ea65fc406d77457d0f8ab71465062))
+
+
+
+
+
 ## 7.1.9 (2022-09-23)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/ktablelegacy",
-  "version": "7.1.9",
+  "version": "7.1.10",
   "description": "Legacy version of KTable prior to fetcher support",
   "main": "dist/KTableLegacy.umd.min.js",
   "componentName": "KTableLegacy",
@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/styles": "^7.1.9"
+    "@kongponents/styles": "^7.1.10"
   },
   "peerDependencies": {
     "vue": ">= 2.7.0 < 3"
