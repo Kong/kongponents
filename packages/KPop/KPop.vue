@@ -305,11 +305,12 @@ export default {
 
   beforeDestroy () {
     const popper = this.$refs.popper
-    if (popper && this.trigger === 'click') {
-      this.reference && this.reference.removeEventListener('click', this.handleClick)
-      popper.removeEventListener('click', this.showPopper)
-      document.documentElement.removeEventListener('click', this.handleClick)
-    } else if (this.reference) {
+
+    document.documentElement.removeEventListener('click', this.handleClick)
+    popper && popper.removeEventListener('click', this.showPopper)
+
+    if (this.reference) {
+      this.reference.removeEventListener('click', this.handleClick)
       this.reference.removeEventListener('mouseenter', this.createInstance)
       this.reference.removeEventListener('mouseleave', this.toggle)
       this.reference.removeEventListener('focus', this.createInstance)
