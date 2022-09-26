@@ -1,3 +1,10 @@
+# [8.0.0-beta.21](https://github.com/Kong/kongponents/compare/v8.0.0-beta.20...v8.0.0-beta.21) (2022-09-26)
+
+
+### Bug Fixes
+
+* **kpop:** always remove click listeners ([#810](https://github.com/Kong/kongponents/issues/810)) ([57a8ba1](https://github.com/Kong/kongponents/commit/57a8ba1a3812202e5e19a3ce7ca507b8fdf3e315))
+
 # [8.0.0-beta.20](https://github.com/Kong/kongponents/compare/v8.0.0-beta.19...v8.0.0-beta.20) (2022-09-23)
 
 
