@@ -137,8 +137,8 @@ import KPop from '@/components/kpop/KPop.vue'
 import KSegmentedControl from '@/components/ksegmentedcontrol/KSegmentedControl.vue'
 
 export interface TimeRange {
-  start: Date | string | undefined,
-  end: Date | string | undefined,
+  start: Date | number,
+  end: Date | number,
   timePeriodsKey: string | undefined
 }
 
@@ -161,7 +161,7 @@ export interface DateTimePickerState {
   fullRangeDisplay: string | undefined
   hidePopover: boolean
   selectedRange: TimeRange
-  selectedTimeframe: TimePeriod | string
+  selectedTimeframe: TimePeriod
   tabName: string
 }
 
@@ -179,7 +179,7 @@ export default defineComponent({
       required: false,
       default: true,
     },
-    value: {
+    modelValue: {
       type: Object as PropType<TimeRange>,
       required: true,
       validator: (value: TimeRange) => value instanceof Date ||
@@ -295,14 +295,14 @@ export default defineComponent({
         : !state.selectedRange.start
     })
 
-    const selectedCalendarRange = ref<TimeRange>(props.value)
+    const selectedCalendarRange = ref<TimeRange | undefined>(props.modelValue)
 
-    const state: DateTimePickerState = reactive({
+    const state = reactive<DateTimePickerState>({
       abbreviatedDisplay: props.placeholder,
       fullRangeDisplay: '',
       hidePopover: false,
       selectedRange: { start: new Date(), end: new Date(), timePeriodsKey: '' },
-      selectedTimeframe: props.timePeriods[0] || '',
+      selectedTimeframe: props.timePeriods[0]?.values[0],
       tabName: 'relative',
     })
 
@@ -311,29 +311,28 @@ export default defineComponent({
      * @param {object | string | null} vCalValue Object containing a pair of `start` and `end` timestamps,
      * or a single timestamp. Can be `null` if current selection is cleared.
      */
-    const changeCalendarRange = (vCalValue: TimeRange) => {
-      let start, end
+    const changeCalendarRange = (vCalValue: TimeRange | number) => {
+      let start: Date | number, end: Date | number
 
       if (vCalValue) {
         // If value is an object, this is a time range. Else, a single date or time value.
-        if (vCalValue?.start && vCalValue?.end) {
-          start = new Date(vCalValue.start)
-          end = new Date(vCalValue.end)
+        if ((vCalValue as TimeRange).start && (vCalValue as TimeRange).end) {
+          start = new Date((vCalValue as TimeRange).start)
+          end = new Date((vCalValue as TimeRange).end)
         } else {
-          // TODO: fix types
-          start = new Date(vCalValue)
-          end = ''
+          start = new Date(Number(vCalValue))
+          end = 0
         }
-      }
 
-      // Set emitted value when v-calendar selection is made. In the case of a single date / time
-      // picker, only the `start` value will be provided.
-      // The `timePeriodsKey` param only applies to relative timeframes,
-      // not `v-calendar` selections; however, this keeps the object "shape" consistent.
-      state.selectedRange = {
-        start,
-        end,
-        timePeriodsKey: '',
+        // Set emitted value when v-calendar selection is made. In the case of a single date / time
+        // picker, only the `start` value will be provided.
+        // The `timePeriodsKey` param only applies to relative timeframes,
+        // not `v-calendar` selections; however, this keeps the object "shape" consistent.
+        state.selectedRange = {
+          start,
+          end,
+          timePeriodsKey: '',
+        }
       }
     }
 
@@ -364,13 +363,13 @@ export default defineComponent({
      * back to the parent.
      */
     const clearSelection = () => {
-      selectedCalendarRange.value = null
+      selectedCalendarRange.value = undefined
       state.abbreviatedDisplay = props.placeholder
       state.fullRangeDisplay = ''
-      state.selectedRange = { start: '', end: '', timePeriodsKey: '' }
+      state.selectedRange = { start: 0, end: 0, timePeriodsKey: '' }
 
       if (hasTimePeriods.value) {
-        state.selectedTimeframe = props.timePeriods[0]
+        state.selectedTimeframe = props.timePeriods[0]?.values[0]
       }
 
       // If a range, emit an object with empty `start`, `end`, `timePeriods`;
@@ -388,7 +387,7 @@ export default defineComponent({
      * Displays selected date/time/range as a human readable string.
      * The date formatting string is dynamically determined based on
      * the current mode of the instance (Custom vs Relative)
-     * @param {*} range A set of `start` and `end` Unix timestamps
+     * @param {*} range A set of `start` and `end` Unix timestamps∂
      */
     const formatDisplayDate = (range: TimeRange) => {
       const { start, end } = range
@@ -408,7 +407,7 @@ export default defineComponent({
       // Determine whether to display a formatting time range, or a single value in input field
       if (props.range) {
         return `${format(start, fmtStr)} - ${format(end, fmtStr)}`
-      } else if (start) {
+      } else {
         return `${format(start, fmtStr)}`
       }
     }
@@ -441,7 +440,7 @@ export default defineComponent({
         if (showCalendar.value && state.selectedRange) {
           state.abbreviatedDisplay = formatDisplayDate(state.selectedRange)
         } else {
-          state.abbreviatedDisplay = state.selectedTimeframe.display
+          state.abbreviatedDisplay = (state.selectedTimeframe as TimePeriod).display
         }
       } else {
         state.abbreviatedDisplay = formatDisplayDate(state.selectedRange)
@@ -471,19 +470,21 @@ export default defineComponent({
     onMounted(() => {
       // Select the tab based on incoming defaults; save the default value to our internal
       // state and update the input field to display the human-readable date/time.
-      if (props.value) {
-        if (props.value instanceof Date || !props.value.timePeriodsKey) {
+      if (props.modelValue) {
+        if (props.modelValue instanceof Date || !props.modelValue.timePeriodsKey) {
           state.tabName = 'custom'
-          changeCalendarRange(props.value)
+          changeCalendarRange(props.modelValue)
           updateDisplay()
         } else {
           state.tabName = 'relative'
-          const selectedTimeframe = props.timePeriods.reduce((prev, sections) => {
-            return prev || sections.values.find(e => e.key === props.value.timePeriodsKey)
-          }, undefined)
-
-          changeRelativeTimeframe(selectedTimeframe)
-          updateDisplay()
+          for (const section of props.timePeriods) {
+            const selectedTimeframe = section.values.find(e => e.key === props.modelValue.timePeriodsKey)
+            if (selectedTimeframe) {
+              changeRelativeTimeframe(selectedTimeframe)
+              updateDisplay()
+              break
+            }
+          }
         }
       }
     })
