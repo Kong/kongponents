@@ -138,9 +138,9 @@ import { computed, defineComponent, nextTick, onMounted, PropType, reactive, ref
 import { format } from 'date-fns'
 import 'v-calendar/dist/style.css'
 import { DatePicker } from 'v-calendar'
-import KButton from '@/components/kbutton/KButton.vue'
-import KIcon from '@/components/kicon/KIcon.vue'
-import KPop from '@/components/kpop/KPop.vue'
+import KButton from '@/components/KButton/KButton.vue'
+import KIcon from '@/components/KIcon/KIcon.vue'
+import KPop from '@/components/KPop/KPop.vue'
 import KSegmentedControl from '@/components/ksegmentedcontrol/KSegmentedControl.vue'
 
 export interface TimeRange {
