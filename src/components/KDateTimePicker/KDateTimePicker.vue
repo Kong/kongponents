@@ -1,6 +1,8 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <div
     :class="{ 'set-min-width': hasTimePeriods }"
+    :style="widthStyle"
     class="k-datetime-picker"
   >
     <KPop
@@ -15,9 +17,10 @@
       <KButton
         :class="{ 'set-min-width': hasTimePeriods }"
         :is-rounded="false"
+        :style="widthStyle"
         size="large"
         class="timepicker-input"
-        data-testid="k-datetime-picker-display"
+        data-testid="k-datetime-picker-input"
       >
         <KIcon
           v-if="icon"
@@ -26,9 +29,11 @@
           class="mr-1"
           size="18"
         />
-        <span>
-          {{ abbreviatedDisplay }}
-        </span>
+        <div
+          class="timepicker-display type-md d-flex"
+          data-testid="k-datetime-picker-display"
+          v-html="abbreviatedDisplay"
+        />
       </KButton>
       <template
         v-if="!hidePopover"
@@ -43,7 +48,8 @@
             { label: 'Custom', value: 'custom' }
           ]"
           class="w-100 mb-4"
-          data-testid="analytics-time-toggle"
+          data-testid="k-datetime-picker-toggle"
+          @click="selected => tabName = selected"
         />
         <!-- Single date / time or range readout -->
         <p
@@ -71,7 +77,7 @@
         >
           <div
             v-for="(item, index) in timePeriods"
-            :key="`section-${item.section || index}`"
+            :key="`section-${String(item.section || index)}`"
             class="timeframe-section d-flex flex-column"
           >
             <div class="timeframe-section-title type-sm mt-4 mb-2">
@@ -102,7 +108,7 @@
         <div class="d-flex justify-content-end">
           <KButton
             :is-rounded="false"
-            data-testid="k-datetimepicker-clear"
+            data-testid="k-datetime-picker-clear"
             class="action-btn"
             size="medium"
             appearance="btn-link"
@@ -113,7 +119,7 @@
           <KButton
             :disabled="submitDisabled"
             :is-rounded="false"
-            data-testid="k-datetimepicker-submit"
+            data-testid="k-datetime-picker-submit"
             class="action-btn"
             size="medium"
             appearance="btn-link"
@@ -139,7 +145,7 @@ import KSegmentedControl from '@/components/ksegmentedcontrol/KSegmentedControl.
 export interface TimeRange {
   start: Date | number,
   end: Date | number,
-  timePeriodsKey: string | undefined
+  timePeriodsKey?: string | undefined
 }
 
 export interface TimePeriod {
@@ -264,8 +270,16 @@ export default defineComponent({
         })
       },
     },
+    /**
+     * Sets the input field to a fixed width
+     */
+    width: {
+      type: String,
+      required: false,
+      default: 'auto',
+    },
   },
-  emits: ['input', 'change'],
+  emits: ['input', 'change', 'update:modelValue'],
   setup(props, { emit }) {
     const modelConfig = { type: 'number' } // https://vcalendar.io/datepicker.html#model-config
     const calendarSelectAttributes = {
@@ -293,6 +307,12 @@ export default defineComponent({
       return props.range || hasTimePeriods.value
         ? !state.selectedRange.start || !state.selectedRange.end
         : !state.selectedRange.start
+    })
+
+    const widthStyle = computed(() => {
+      return {
+        width: props.width === 'auto' || props.width.endsWith('%') || props.width.endsWith('px') ? props.width : props.width + 'px',
+      }
     })
 
     const selectedCalendarRange = ref<TimeRange | undefined>(props.modelValue)
@@ -355,7 +375,7 @@ export default defineComponent({
         timePeriodsKey: state.selectedTimeframe.key,
       }
 
-      state.fullRangeDisplay = formatDisplayDate({ start, end, timePeriodsKey: state.selectedTimeframe.key })
+      state.fullRangeDisplay = formatDisplayDate(state.selectedRange, false)
     }
 
     /**
@@ -389,7 +409,7 @@ export default defineComponent({
      * the current mode of the instance (Custom vs Relative)
      * @param {*} range A set of `start` and `end` Unix timestamps∂
      */
-    const formatDisplayDate = (range: TimeRange) => {
+    const formatDisplayDate = (range: TimeRange, htmlFormat: boolean) => {
       const { start, end } = range
       let fmtStr = 'PP'
 
@@ -398,17 +418,18 @@ export default defineComponent({
         fmtStr = 'PP hh:mm a'
       } else if (props.mode === 'date') {
         fmtStr = 'PP'
-      } else if (props.mode === 'time') {
-        fmtStr = 'PP hh:mm a'
-      } else if (props.mode === 'dateTime') {
+      } else if (['time', 'dateTime'].includes(props.mode)) {
         fmtStr = 'PP hh:mm a'
       }
-
       // Determine whether to display a formatting time range, or a single value in input field
       if (props.range) {
-        return `${format(start, fmtStr)} - ${format(end, fmtStr)}`
-      } else {
+        return htmlFormat
+          ? `<div>${format(start, fmtStr)} -&nbsp;</div><div>${format(end, fmtStr)}</div>`
+          : `${format(start, fmtStr)} - ${format(end, fmtStr)}`
+      } else if (start) {
         return `${format(start, fmtStr)}`
+      } else {
+        return ''
       }
     }
 
@@ -436,14 +457,10 @@ export default defineComponent({
      * Else, update input field text for single date / time instance
      */
     const updateDisplay = () => {
-      if (props.range || hasTimePeriods.value) {
-        if (showCalendar.value && state.selectedRange) {
-          state.abbreviatedDisplay = formatDisplayDate(state.selectedRange)
-        } else {
-          state.abbreviatedDisplay = (state.selectedTimeframe as TimePeriod).display
-        }
+      if (props.range && hasTimePeriods.value && !showCalendar.value) {
+        state.abbreviatedDisplay = state.selectedTimeframe.display
       } else {
-        state.abbreviatedDisplay = formatDisplayDate(state.selectedRange)
+        state.abbreviatedDisplay = formatDisplayDate(state.selectedRange, true)
       }
     }
 
@@ -502,6 +519,7 @@ export default defineComponent({
       showCalendar,
       ...toRefs(state),
       submitDisabled,
+      widthStyle,
       submitTimeFrame,
       ucWord,
     }
