@@ -141,7 +141,7 @@ import { DatePicker } from 'v-calendar'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KPop from '@/components/KPop/KPop.vue'
-import KSegmentedControl from '@/components/ksegmentedcontrol/KSegmentedControl.vue'
+import KSegmentedControl from '@/components/KSegmentedControl/KSegmentedControl.vue'
 
 export interface TimeRange {
   start: Date | number,
