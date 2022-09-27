@@ -41,9 +41,9 @@ import forward from './icn-forward.svg'
 import gateway from './icn-gateway.svg'
 import gear from './icn-gear.svg'
 import gearFilled from './icn-gear-filled.svg'
+import graduationHat from './icn-graduation-hat.svg'
 import grid from './icn-grid.svg'
 import handClock from './icn-hand-clock.svg'
-import hat from './icn-hat.svg'
 import help from './icn-help.svg'
 import immunity from './icn-immunity.svg'
 import increase from './icn-increase.svg'
@@ -133,9 +133,9 @@ export default {
   gateway,
   gear,
   gearFilled,
+  graduationHat,
   grid,
   handClock,
-  hat,
   help,
   immunity,
   increase,
