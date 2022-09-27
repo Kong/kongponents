@@ -1,3 +1,10 @@
+# [8.0.0-beta.22](https://github.com/Kong/kongponents/compare/v8.0.0-beta.21...v8.0.0-beta.22) (2022-09-27)
+
+
+### Bug Fixes
+
+* **kmodalfullscreen:** button selector ([2b19ed8](https://github.com/Kong/kongponents/commit/2b19ed86553f454aed6044c137ed0f3df3ef6612))
+
 # [8.0.0-beta.21](https://github.com/Kong/kongponents/compare/v8.0.0-beta.20...v8.0.0-beta.21) (2022-09-26)
 
 
