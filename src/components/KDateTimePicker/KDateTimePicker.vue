@@ -80,7 +80,7 @@
             :key="`section-${String(item.section || index)}`"
             class="timeframe-section d-flex flex-column"
           >
-            <div class="timeframe-section-title type-sm mt-4 mb-2">
+            <div class="timeframe-section-title type-sm mt-2 mb-1">
               {{ item.section }}
             </div>
             <div class="timeframe-buttons d-flex">
@@ -629,7 +629,7 @@ $margin: 6px;
       // Apply / Clear buttons
       // TODO these overrides should be applied to Kongponents button
       .action-btn {
-        padding: var(--spacing-xs) var(--spacing-md);
+        padding: 0 var(--spacing-md) var(--spacing-xs);
         &:focus {
           box-shadow: none;
         }
@@ -646,20 +646,8 @@ $margin: 6px;
 // v-calendar overrides
 .k-datetime-picker {
   // Override v-calendar color variables with the corresponding Kongponent color variables
-  // --blue-200: var(--blue-200, color(blue-200));
-  // --blue-300: var(--blue-300, color(blue-300));
-  // --blue-400: var(--blue-400, color(blue-400));
-  // --blue-500: var(--blue-500, color(blue-500));
-  // --blue-600: var(--blue-600, color(blue-600));
-  // --blue-700: var(--blue-700, color(blue-700));
-  // --grey-100: var(--grey-100, color(grey-100));
-  // --grey-200: var(--grey-200, color(grey-200));
-  // --grey-300: var(--grey-300, color(grey-300));
-  // --grey-400: var(--grey-400, color(grey-400));
-  // --grey-500: var(--grey-500, color(grey-500));
-  // --grey-600: var(--grey-600, color(grey-600));
-  --accent-100: var(--grey-500, color(grey-500));   // vc-nav-title
-  --accent-900: var(--blue-500, color(blue-500));
+  // --accent-100: var(--grey-500, color(grey-500));   // vc-nav-title
+  // --accent-900: var(--blue-500, color(blue-500));
   $highlight-color: color(blue-200);
   $selected-color: color(blue-500);
   $text-color: color(grey-500);
@@ -727,6 +715,9 @@ $margin: 6px;
     }
     .vc-time-picker {
       border-top: 1px solid var(--white) !important;
+      &:last-of-type {
+        padding-bottom: 0;
+      }
       .vc-date .vc-weekday,
       .vc-date .vc-month,
       .vc-date .vc-year {
@@ -734,6 +725,11 @@ $margin: 6px;
       }
     }
     .vc-pane-container {
+      // Minimize top padding
+      .vc-arrows-container,
+      .vc-header {
+        padding: 2px 16px 0;
+      }
       .vc-header {
         // Month + Year
         .vc-title {
