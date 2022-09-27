@@ -24,7 +24,7 @@
       >
         <KIcon
           v-if="icon"
-          :color="'var(--grey-500)'"
+          color="var(--grey-500)"
           icon="calendar"
           class="mr-1"
           size="18"
@@ -139,6 +139,7 @@ import { format } from 'date-fns'
 import 'v-calendar/dist/style.css'
 import { DatePicker } from 'v-calendar'
 import KButton from '@/components/kbutton/KButton.vue'
+import KIcon from '@/components/kicon/KIcon.vue'
 import KPop from '@/components/kpop/KPop.vue'
 import KSegmentedControl from '@/components/ksegmentedcontrol/KSegmentedControl.vue'
 
@@ -175,6 +176,7 @@ export default defineComponent({
   name: 'KDateTimePicker',
   components: {
     KButton,
+    KIcon,
     KPop,
     KSegmentedControl,
     DatePicker,
@@ -543,14 +545,25 @@ $margin: 6px;
     }
   }
   .timepicker-input {
+    --KButtonOutlineColor: var(--grey-500);
+    --KButtonOutlineBorder: var(--grey-300);
     padding: var(--spacing-sm) var(--spacing-sm) !important;
     font-weight: 500;
     max-width: 100%; // Prevent overflowing the container
     &.set-min-width {
       min-width: $timepicker-min-width;
     }
-    &:focus {
+    &:hover {
+      --KButtonOutlineHoverBorder: var(--blue-200);
+    }
+    &:focus,
+    &:active {
+      --KButtonOutlineColor: var(--grey-600);
+      --KButtonOutlineHoverBorder: var(--blue-500);
       box-shadow: none !important;
+      > .kong-icon path {
+        fill: var(--grey-600);
+      }
     }
     .timepicker-display {
       flex-wrap: wrap;
@@ -570,10 +583,10 @@ $margin: 6px;
     overflow: hidden;
     padding: var(--spacing-sm);
     &[x-placement^=bottom] {
-      margin-top: var(--spacing-xs);
+      margin-top: 2px;
     }
     &[x-placement^=top] {
-      margin-bottom: var(--spacing-xs);
+      margin-bottom: 2px;
     }
     .k-popover-content {
       .range-display {
@@ -597,7 +610,7 @@ $margin: 6px;
             margin-bottom: $margin;
             &.selected-option {
               color: white;
-              background: color(--blue-500) !important;
+              background-color: var(--blue-500);
               font-weight: 500;
             }
             &:nth-child(3n) {
@@ -633,17 +646,18 @@ $margin: 6px;
 // v-calendar overrides
 .k-datetime-picker {
   // Override v-calendar color variables with the corresponding Kongponent color variables
-  --blue-200: var(--blue-200, color(blue-200));
-  --blue-300: var(--blue-300, color(blue-300));
-  --blue-400: var(--blue-400, color(blue-400));
-  --blue-500: var(--blue-500, color(blue-500));
-  --blue-600: var(--blue-600, color(blue-600));
-  --blue-700: var(--blue-700, color(blue-700));
-  --grey-200: var(--grey-200, color(grey-200));
-  --grey-300: var(--grey-300, color(grey-300));
-  --grey-400: var(--grey-400, color(grey-400));
-  --grey-500: var(--grey-500, color(grey-500));
-  --grey-600: var(--grey-600, color(grey-600));
+  // --blue-200: var(--blue-200, color(blue-200));
+  // --blue-300: var(--blue-300, color(blue-300));
+  // --blue-400: var(--blue-400, color(blue-400));
+  // --blue-500: var(--blue-500, color(blue-500));
+  // --blue-600: var(--blue-600, color(blue-600));
+  // --blue-700: var(--blue-700, color(blue-700));
+  // --grey-100: var(--grey-100, color(grey-100));
+  // --grey-200: var(--grey-200, color(grey-200));
+  // --grey-300: var(--grey-300, color(grey-300));
+  // --grey-400: var(--grey-400, color(grey-400));
+  // --grey-500: var(--grey-500, color(grey-500));
+  // --grey-600: var(--grey-600, color(grey-600));
   --accent-100: var(--grey-500, color(grey-500));   // vc-nav-title
   --accent-900: var(--blue-500, color(blue-500));
   $highlight-color: color(blue-200);
@@ -663,6 +677,10 @@ $margin: 6px;
     .vc-highlights + .vc-day-content {
       color: var(--white);
       font-weight: 600;
+
+      &:focus {
+        background-color: $selected-color;
+      }
     }
     .vc-nav-popover-container {
       background-color: var(--white);
