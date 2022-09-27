@@ -85,7 +85,7 @@ describe('KDateTimePicker', () => {
     cy.getTestId(timepickerInput).should('contain.text', placeholderText)
   })
 
-  it('emits an empty string when "Clear" is clicked', async () => {
+  it('emits an empty string when "Clear" is clicked', () => {
     mount(KDateTimePicker, {
       props: {
         mode: 'date',
@@ -109,7 +109,7 @@ describe('KDateTimePicker', () => {
     // cy.wrap(Cypress.vueWrapper.emitted('change')[0][0]).should('eq', emitResetSingle)
   })
 
-  it('renders a Single date calendar instance, submits todays date', async () => {
+  it('renders a Single date calendar instance, submits todays date', () => {
     mount(KDateTimePicker, {
       props: {
         // testMode: true,
