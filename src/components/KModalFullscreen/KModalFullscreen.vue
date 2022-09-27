@@ -277,7 +277,7 @@ $fullscreen-modal-padding: 64px;
   margin-right: var(--spacing-xl, spacing(xl));
 
   & button,
-  :deep(& button) {
+  & :deep(button) {
     height: 40px;
     margin-left: var(--spacing-md, spacing(md));
     font-weight: 600;
