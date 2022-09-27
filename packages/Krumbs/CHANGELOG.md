@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 7.2.0 (2022-09-27)
+
+
+### Features
+
+* **icon:** adds 3 new icons for dashboard ([#811](https://github.com/Kong/kongponents/issues/811)) ([cf06656](https://github.com/Kong/kongponents/commit/cf066567dbb5d21ffee8f8bbd8f0143e321aa7a5))
+
+
+
+
+
 ## 7.1.10 (2022-09-26)
 
 
