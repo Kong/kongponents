@@ -36,11 +36,14 @@ import fileJson from './icn-file-json.svg'
 import fileMd from './icn-file-md.svg'
 import fileYaml from './icn-file-yaml.svg'
 import filter from './icn-filter.svg'
+import flag from './icn-flag.svg'
 import forward from './icn-forward.svg'
 import gateway from './icn-gateway.svg'
 import gear from './icn-gear.svg'
 import gearFilled from './icn-gear-filled.svg'
+import graduationHat from './icn-graduation-hat.svg'
 import grid from './icn-grid.svg'
+import handClock from './icn-hand-clock.svg'
 import help from './icn-help.svg'
 import immunity from './icn-immunity.svg'
 import increase from './icn-increase.svg'
@@ -125,11 +128,14 @@ export default {
   fileMd,
   fileYaml,
   filter,
+  flag,
   forward,
   gateway,
   gear,
   gearFilled,
+  graduationHat,
   grid,
+  handClock,
   help,
   immunity,
   increase,

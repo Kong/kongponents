@@ -302,6 +302,12 @@ exports[`KIcon renders filter icon 1`] = `
 </span>
 `;
 
+exports[`KIcon renders flag icon 1`] = `
+<span class="kong-icon kong-icon-flag"><svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" width="24" height="24">
+<title>flag</title>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M5 0a1 1 0 0 1 1 1v1h10v2h6l-2 5 2 5h-8v-2H6v10a1 1 0 0 1 1 1v1H3v-1a1 1 0 0 1 1-1V1a1 1 0 0 1 1-1Zm11 10v2h3l-.667-2H16Zm-2-2H6v2h8V8Zm0-4H6v2h8V4Zm2 4h2.333L19 6h-3v2Z" fill="#A3BBCC"></path></svg></span>
+`;
+
 exports[`KIcon renders forward icon 1`] = `
 <span class="kong-icon kong-icon-forward"><svg width="16" height="16" viewBox="0 0 16 8" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
   <title>forward</title>
@@ -334,12 +340,24 @@ exports[`KIcon renders gearFilled icon 1`] = `
 </span>
 `;
 
+exports[`KIcon renders graduationHat icon 1`] = `
+<span class="kong-icon kong-icon-graduationHat"><svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 19" role="img" width="24" height="24">
+<title>graduationHat</title>
+<path d="m22.447 6.08-10-5a.956.956 0 0 0-.9 0l-10 5c-.2.1-.36.27-.45.46-.06.12-.11.32-.11.43v5.76c0 .55.44 1 1 1 .55 0 1-.45 1-1V8.44l2 .8v4.9a1 1 0 0 0 .55.89c1.71.85 3.48 1.91 6.447 1.91 2.96 0 4.72-1.061 6.44-1.92.33-.18.55-.52.55-.9V9.21l3.37-1.35a1.004 1.004 0 0 0 .06-1.83l.043.05Zm-5.45 7.45-.98.48a9.046 9.046 0 0 1-8.051 0l-.98-.49v-3.49l4.629 1.85c.11.04.24.07.37.07.12 0 .25-.03.37-.08l4.629-1.86v3.48l.013.04Zm-5-3.64-7.57-3.03 7.56-3.78 7.561 3.78-7.561 3.02.01.01ZM2 14.97c-.56 0-1 .44-1 1v2c0 .55.44 1 1 1 .55 0 1-.45 1-1v-2c0-.56-.45-1-1-1Z" fill="#A3BBCC"></path></svg></span>
+`;
+
 exports[`KIcon renders grid icon 1`] = `
 <span class="kong-icon kong-icon-grid"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" width="24" height="24">
   <title>grid</title>
   <path fill="#A3BBCC" d="M4.55 4h4.36v4.36H4.55zM11.09 4h4.36v4.36h-4.36zM4.55 10.54h4.36v4.36H4.55zM11.09 10.54h4.36v4.36h-4.36z"></path>
 </svg>
 </span>
+`;
+
+exports[`KIcon renders handClock icon 1`] = `
+<span class="kong-icon kong-icon-handClock"><svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" width="24" height="24">
+<title>handClock</title>
+<path d="M18 11h-4c-.56 0-1-.45-1-1V4h2v5h3v2Z" fill="#A3BBCC"></path><path d="M6.589 13a7.9 7.9 0 0 1-.59-3c0-4.42 3.58-8 8-8 4.41 0 8 3.58 8 8 0 1.89-.67 3.62-1.77 5h2.41c.85-1.48 1.35-3.18 1.35-5 0-5.52-4.49-10-10-10-5.52 0-10 4.48-10 10 0 1.045.16 2.05.46 3h2.14Z" fill="#A3BBCC"></path><path d="M20.895 17.553c-.17-.34-.52-.56-.9-.56h-7.586l.29-.3c.3-.31.38-.77.18-1.154l-1-2c-.23-.45-.74-.66-1.22-.51L5.9 14.6a.999.999 0 0 0-.93-.64h-4c-.552 0-1 .44-1 1v8c0 .55.448 1 1 1h4c.55 0 1-.45 1-1h11c.31 0 .61-.15.8-.4l3-4c.22-.31.26-.71.09-1.05l.035.043ZM2 21.99v-6h2v6H2Zm14.5-1H6v-4.28l4.494-1.5.28.57-1.49 1.49c-.2.19-.29.44-.29.7h-.01v1h9l-1.5 2 .016.02Z" fill="#A3BBCC"></path></svg></span>
 `;
 
 exports[`KIcon renders help icon 1`] = `
