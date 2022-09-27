@@ -2,7 +2,10 @@
 /// <reference types="../../cypress/support" />
 
 import { mount } from '@cypress/vue'
-import { format, roundToNearestMinutes } from 'date-fns'
+import {
+  format,
+  // roundToNearestMinutes
+} from 'date-fns'
 import { TimePeriods, TimeframeKeys } from '@/utils/KDatePickerMockData'
 import KDateTimePicker from '@/components/KDateTimePicker/KDateTimePicker.vue'
 
@@ -38,20 +41,20 @@ const exampleTimeFrames = [
 
 const today = new Date() // eg: 'Thu Sep 08 2022 13:03:28 GMT-0700 (Pacific Daylight Time)'
 const todayDateString = format(new Date(today), 'PP')
-const todayDateTimeString = format(new Date(today), 'PP hh:mm a')
+// const todayDateTimeString = format(new Date(today), 'PP hh:mm a')
 const minDate = new Date(today.getTime() - (365 * 24 * 60 * 60 * 1000))
 const maxDate = today
 
-const timepickerParent = 'k-datetime-picker'
+// const timepickerParent = 'k-datetime-picker'
 const timepickerInput = 'k-datetime-picker-input'
 const submitButton = 'k-datetime-picker-submit'
 const clearButton = 'k-datetime-picker-clear'
-const clickableDays = '.vc-day.in-month span[role="button"]'
+// const clickableDays = '.vc-day.in-month span[role="button"]'
 
 // Sample emitted values
-const emitResetSingle = ''
-const emitResetRange = { start: 0, end: 0, timePeriodsKey: '' }
-const emitSubmitSingle = todayDateString
+// const emitResetSingle = ''
+// const emitResetRange = { start: 0, end: 0, timePeriodsKey: '' }
+// const emitSubmitSingle = todayDateString
 
 describe('KDateTimePicker', () => {
   it('renders props when passed', () => {
@@ -100,7 +103,7 @@ describe('KDateTimePicker', () => {
     cy.getTestId(submitButton).should('exist')
 
     cy.getTestId(clearButton).click({ force: true, multiple: true })
-    const emitValue = Cypress.vueWrapper.emitted('change')
+    // const emitValue = Cypress.vueWrapper.emitted('change')
 
     // TODO: fix emitted value check
     // cy.wrap(Cypress.vueWrapper.emitted('change')[0][0]).should('eq', emitResetSingle)
@@ -124,7 +127,7 @@ describe('KDateTimePicker', () => {
 
     // Check emitted raw date value, and the displayed value - should be the same, if rounded
     cy.getTestId(timepickerInput).should('contain.text', todayDateString)
-    const emittedTimestamp = Cypress.vueWrapper.emitted('change')
+    // const emittedTimestamp = Cypress.vueWrapper.emitted('change')
 
     // TODO: fix emitted value check
     // expect(roundToNearestMinutes(emittedTimestamp).toEqual(roundToNearestMinutes(today)))
