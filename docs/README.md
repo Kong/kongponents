@@ -192,7 +192,7 @@ module.exports = (env) => {
 }
 ```
 
-## Without Bundle System
+## CDN (without bundler)
 
 You can also use Kongponents in a project where there is no build system as long as Vue is included on the page.
 
