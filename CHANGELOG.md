@@ -1,3 +1,10 @@
+# [8.0.0-beta.23](https://github.com/Kong/kongponents/compare/v8.0.0-beta.22...v8.0.0-beta.23) (2022-09-29)
+
+
+### Bug Fixes
+
+* **v-model:** emit update:modelValue ([1b8bfc0](https://github.com/Kong/kongponents/commit/1b8bfc06048ea39349e902c9cae0d97cb1e17807))
+
 # [8.0.0-beta.22](https://github.com/Kong/kongponents/compare/v8.0.0-beta.21...v8.0.0-beta.22) (2022-09-27)
 
 
