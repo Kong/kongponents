@@ -43,7 +43,7 @@ export default defineComponent({
       default: false,
     },
   },
-  emits: ['click'],
+  emits: ['update:modelValue', 'click'],
   setup(props, { emit }) {
     const selectedValue = ref(props.modelValue)
 
@@ -71,6 +71,7 @@ export default defineComponent({
 
     const handleClick = (evt: any): void => {
       emit('click', evt.target?.name)
+      emit('update:modelValue', evt.target?.name)
     }
 
     return {

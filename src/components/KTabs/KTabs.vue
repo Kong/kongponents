@@ -68,18 +68,20 @@ export default defineComponent({
       validator: (val: string): boolean => val === '' || (val.includes('#') && !val.includes(' ')),
     },
   },
-  emits: ['changed'],
+  emits: ['update:modelValue', 'changed'],
   setup(props, { emit }) {
     const activeTab = ref(props.modelValue ? props.modelValue : props.tabs[0].hash)
 
     const handleTabChange = (tab: string): void => {
       activeTab.value = tab
       emit('changed', tab)
+      emit('update:modelValue', tab)
     }
 
     watch(() => props.modelValue, (newTabHash) => {
       activeTab.value = newTabHash
       emit('changed', newTabHash)
+      emit('update:modelValue', newTabHash)
     })
 
     return {
