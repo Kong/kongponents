@@ -129,26 +129,26 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
   :range="true"
   :time-periods="[
     {
-      section: "Last",
+      section: 'Last',
       values: [
-        { key: "15m", prefix: "Last", timeframeText: "15 minutes", start: function() {}, end: function() {} },
-        { key: "12h", prefix: "Last", timeframeText: "12 hours", start: function() {}, end: function() {} },
-        { key: "24h", prefix: "Last", timeframeText: "24 hours", start: function() {}, end: function() {}},
+        { key: '15m', prefix: 'Last', timeframeText: '15 minutes', start: function() {}, end: function() {} },
+        { key: '12h', prefix: 'Last', timeframeText: '12 hours', start: function() {}, end: function() {} },
+        { key: '24h', prefix: 'Last', timeframeText: '24 hours', start: function() {}, end: function() {}},
         ...
       ]
     },
     {
-      section: "Current",
+      section: 'Current',
       values: [
-        { key: "current_week", prefix: "Current", timeframeText: "week", start: function() {}, end: function() {} },
-        { key: "current_month", prefix: "Current", timeframeText: "month", start: function() {}, end: function() {} }
+        { key: 'current_week', prefix: 'Current', timeframeText: 'week', start: function() {}, end: function() {} },
+        { key: 'current_month', prefix: 'Current', timeframeText: 'month', start: function() {}, end: function() {} }
       ]
     }
     {
-      section: "Previous",
+      section: 'Previous',
       values: [
-        { key: "previous_week", prefix: "Previous", timeframeText: "week", start: function() {}, end: function() {} },
-        { key: "previous_month", prefix: "Previous", timeframeText: "month", start: function() {}, end: function() {} }
+        { key: 'previous_week', prefix: 'Previous', timeframeText: 'week', start: function() {}, end: function() {} },
+        { key: 'previous_month', prefix: 'Previous', timeframeText: 'month', start: function() {}, end: function() {} }
       ]
     }
   ]"
@@ -187,26 +187,26 @@ This utilizes the same time frames as the previous example; however, in this exa
   :range="true"
   :time-periods="[
     {
-      section: "Last",
+      section: 'Last',
       values: [
-        { key: "15m", prefix: "Last", timeframeText: "15 minutes", start: function() {}, end: function() {} },
-        { key: "12h", prefix: "Last", timeframeText: "12 hours", start: function() {}, end: function() {} },
-        { key: "24h", prefix: "Last", timeframeText: "24 hours", start: function() {}, end: function() {} },
+        { key: '15m', prefix: 'Last', timeframeText: '15 minutes', start: function() {}, end: function() {} },
+        { key: '12h', prefix: 'Last', timeframeText: '12 hours', start: function() {}, end: function() {} },
+        { key: '24h', prefix: 'Last', timeframeText: '24 hours', start: function() {}, end: function() {} },
         ...
       ]
     },
     {
-      section: "Current",
+      section: 'Current',
       values: [
-        { key: "current_week", prefix: "Current", timeframeText: "week", start: function() {}, end: function() {} },
-        { key: "current_month", prefix: "Current", timeframeText: "month", start: function() {}, end: function() {} }
+        { key: 'current_week', prefix: 'Current', timeframeText: 'week', start: function() {}, end: function() {} },
+        { key: 'current_month', prefix: 'Current', timeframeText: 'month', start: function() {}, end: function() {} }
       ]
     }
     {
-      section: "Previous",
+      section: 'Previous',
       values: [
-        { key: "previous_week", prefix: "Previous", timeframeText: "week", start: function() {}, end: function() {} },
-        { key: "previous_month", prefix: "Previous", timeframeText: "month", start: function() {}, end: function() {} }
+        { key: 'previous_week', prefix: 'Previous', timeframeText: 'week', start: function() {}, end: function() {} },
+        { key: 'previous_month', prefix: 'Previous', timeframeText: 'month', start: function() {}, end: function() {} }
       ]
     }
   ]"
