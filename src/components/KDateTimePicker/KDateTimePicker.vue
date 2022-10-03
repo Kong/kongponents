@@ -19,6 +19,7 @@
         :style="widthStyle"
         size="large"
         class="timepicker-input"
+        aria-role="input"
         data-testid="k-datetime-picker-input"
       >
         <KIcon
@@ -193,7 +194,7 @@ export default defineComponent({
     modelValue: {
       type: Object as PropType<TimeRange>,
       required: true,
-      validator: (value: TimeRange) => value instanceof Date ||
+      validator: (value: TimeRange): boolean => value instanceof Date ||
         (value.start !== undefined && value.end !== undefined),
     },
     /**
@@ -228,7 +229,7 @@ export default defineComponent({
     mode: {
       type: String,
       required: true,
-      validator: (value: string) => {
+      validator: (value: string): boolean => {
         return ['relative', 'date', 'time', 'dateTime'].includes(value)
       },
     },
@@ -256,10 +257,10 @@ export default defineComponent({
      * allowing for on-the-fly date boundary creation.
      */
     timePeriods: {
-      type: Array as PropType<Array<TimeFrameSection>>,
+      type: Array as PropType<TimeFrameSection[]>,
       required: false,
       default: () => [],
-      validator: (sectionsArray: TimeFrameSection[]) => {
+      validator: (sectionsArray: TimeFrameSection[]): boolean => {
         return sectionsArray.every((item: TimeFrameSection) => {
           return Array.isArray(item.values) && item.values.every((timeframe: TimePeriod) => {
             // Check validity of each timeframe
@@ -337,7 +338,7 @@ export default defineComponent({
      * @param {object | string | null} vCalValue Object containing a pair of `start` and `end` timestamps,
      * or a single timestamp. Can be `null` if current selection is cleared.
      */
-    const changeCalendarRange = (vCalValue: TimeRange | number) => {
+    const changeCalendarRange = (vCalValue: TimeRange | number): void => {
       let start: Date | number, end: Date | number
 
       if (vCalValue) {
@@ -367,7 +368,7 @@ export default defineComponent({
      * when a relative time frame button is clicked
      * @param {*} timeframe
      */
-    const changeRelativeTimeframe = (timeframe: TimePeriod) => {
+    const changeRelativeTimeframe = (timeframe: TimePeriod): void => {
       state.selectedTimeframe = timeframe
 
       // Format the start/end values as human readable date
@@ -544,18 +545,21 @@ $margin: 6px;
 
 .k-datetime-picker {
   max-width: 100%; // Prevent overflowing the container
+
   // For aesthetic purposes when relative time frames are present
   &.set-min-width {
     .k-popover {
       min-width: $timepicker-min-width;
     }
   }
+
   .timepicker-input {
     --KButtonOutlineColor: var(--grey-500);
     --KButtonOutlineBorder: var(--grey-300);
     padding: var(--spacing-sm) var(--spacing-sm) !important;
     font-weight: 500;
     max-width: 100%; // Prevent overflowing the container
+
     &.set-min-width {
       min-width: $timepicker-min-width;
     }
@@ -583,6 +587,7 @@ $margin: 6px;
       }
     }
   }
+
   .k-popover {
     max-height: 90vh;
     width: 100% !important;
@@ -630,6 +635,7 @@ $margin: 6px;
         }
       }
     }
+
     .k-popover-footer {
       margin: var(--spacing-md) auto 0;
       // Apply / Clear buttons
@@ -664,6 +670,7 @@ $margin: 6px;
     .vc-bordered {
       border: 0;
     }
+
     // Day text within hover selection or post-selection
     .vc-highlights + .vc-day-content {
       color: var(--white);
@@ -673,10 +680,12 @@ $margin: 6px;
         background-color: $selected-color;
       }
     }
+
     .vc-nav-popover-container {
       background-color: var(--white);
       border: 1px solid color(grey-300);
       color: $text-color;
+
       .vc-nav-container {
         .vc-nav-arrow {
           background-color: var(--white);
@@ -697,6 +706,7 @@ $margin: 6px;
             border: 2px solid var(--white);
           }
         }
+
         // Calendar months in mini-popover
         .vc-nav-items {
           .vc-nav-item {
@@ -727,6 +737,7 @@ $margin: 6px;
         }
       }
     }
+
     .vc-time-picker {
       border-top: 1px solid var(--white) !important;
       &:last-of-type {
@@ -738,6 +749,7 @@ $margin: 6px;
         color: $text-color !important;
       }
     }
+
     .vc-pane-container {
       // Minimize top padding
       .vc-arrows-container,
@@ -766,9 +778,7 @@ $margin: 6px;
     }
     .vc-pane-container,
     .vc-time-picker {
-      //
       // Time Range
-      //
       .vc-select select {
         color: $text-color-darker;
         &:hover {
@@ -786,6 +796,7 @@ $margin: 6px;
       .vc-month, .vc-day {
         color: $text-color;
       }
+
       // AM / PM highlights
       .vc-am-pm {
         color: $text-color-darker;
@@ -813,9 +824,8 @@ $margin: 6px;
           }
         }
       }
-      //
+
       // Date Range - Post selection
-      //
       .vc-highlight.vcal-day-start,
       .vc-highlight.vcal-day-end {
         background-color: $selected-color;
@@ -825,10 +835,8 @@ $margin: 6px;
       .vc-highlight.vc-highlight-base-middle {
         background-color: $highlight-color;
       }
-      //
+
       // Date Range - during selection
-      //
-      // Start / end
       .vcal-day-drag-start,
       .vcal-day-drag-end {
         border: 2px solid color(blue-400);
@@ -842,6 +850,7 @@ $margin: 6px;
           border: 2px solid color(blue-400);
         }
       }
+
       // Start / end "outer edge" background color
       .vc-highlight.vc-highlight-base-start,
       .vc-highlight.vc-highlight-base-end {

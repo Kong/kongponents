@@ -335,7 +335,7 @@ The events below will fire whenever **Apply** is clicked (assuming the user has 
 
 ### Single date time picker
 
-**Event**: `input` and `change`
+**Events**: `input`, `change`, and `update:modelValue`
 
 Will emit a JavaScript Date object, or an empty string  "Clear".
 
@@ -345,7 +345,7 @@ Will emit a JavaScript Date object, or an empty string  "Clear".
 
 ### Range date time picker
 
-**Event**: `input` and `change`
+**Events**: `input`, `change`, and `update:modelValue`
 
 Will emit an `object` containing the following values:
 
