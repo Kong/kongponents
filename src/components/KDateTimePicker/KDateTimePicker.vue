@@ -171,6 +171,10 @@ export interface DateTimePickerState {
   tabName: string
 }
 
+export interface WidthStyle {
+  width: string
+}
+
 export default defineComponent({
   name: 'KDateTimePicker',
   components: {
@@ -300,7 +304,7 @@ export default defineComponent({
     }
 
     const hasCalendar = computed((): boolean => props.mode !== 'relative')
-    const hasTimePeriods = computed((): boolean => props.timePeriods && props.timePeriods.length)
+    const hasTimePeriods = computed((): boolean => props?.timePeriods?.length > 0)
     const showCalendar = computed((): boolean => state.tabName === 'custom' || !hasTimePeriods.value)
     const submitDisabled = computed((): boolean => {
       // If either the calendar is in range selection mode, or relative time frames
@@ -311,7 +315,7 @@ export default defineComponent({
         : !state.selectedRange.start
     })
 
-    const widthStyle = computed(() => {
+    const widthStyle = computed((): WidthStyle => {
       return {
         width: props.width === 'auto' || props.width.endsWith('%') || props.width.endsWith('px') ? props.width : props.width + 'px',
       }
