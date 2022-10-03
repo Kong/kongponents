@@ -2,7 +2,7 @@
   <div class="k-tabs">
     <ul
       role="tablist"
-      aria-label="ktabs"
+      aria-label="Tabs"
     >
       <li
         v-for="(tab, i) in tabs"

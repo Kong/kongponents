@@ -123,7 +123,7 @@
           :key="item.key ? item.key : `k-catalog-item-${idx}`"
           :item="item"
           :truncate="!noTruncation"
-          :test-mode="!!testMode"
+          :test-mode="!!testMode || undefined"
           class="catalog-item"
           :data-testid="item.id ? item.id : `k-catalog-item-${idx}`"
         >
@@ -159,7 +159,7 @@
           :neighbors="paginationNeighbors"
           :total-count="total"
           :disable-page-jump="disablePaginationPageJump"
-          :test-mode="!!testMode"
+          :test-mode="!!testMode || undefined"
           class="pa-1"
           @page-changed="pageChangeHandler"
           @page-size-changed="pageSizeChangeHandler"

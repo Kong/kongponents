@@ -14,7 +14,7 @@
             :expandable="item.expandable"
             :type="item.type"
             :last-menu-item="index === items.length - 1"
-            :test-mode="testMode"
+            :test-mode="!!testMode || undefined"
             :class="{ 'last-menu-item': index === items.length - 1 }"
           />
         </template>

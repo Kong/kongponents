@@ -8,7 +8,7 @@
     :position-fixed="positionFixed"
     :max-width="maxWidth"
     width="auto"
-    :test-mode="testMode"
+    :test-mode="!!testMode || undefined"
   >
     <slot />
 
