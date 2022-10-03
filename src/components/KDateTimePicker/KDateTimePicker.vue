@@ -171,8 +171,8 @@ export interface DateTimePickerState {
   tabName: string
 }
 
-export interface WidthStyle {
-  width: string
+interface CSSProperties {
+  [key: `${string}`]: string
 }
 
 export default defineComponent({
@@ -315,7 +315,7 @@ export default defineComponent({
         : !state.selectedRange.start
     })
 
-    const widthStyle = computed((): WidthStyle => {
+    const widthStyle = computed((): CSSProperties => {
       return {
         width: props.width === 'auto' || props.width.endsWith('%') || props.width.endsWith('px') ? props.width : props.width + 'px',
       }
