@@ -7,7 +7,6 @@
   >
     <KPop
       :hide-popover="hidePopover"
-      class=""
       placement="bottomStart"
       width="auto"
       hide-caret
@@ -384,7 +383,7 @@ export default defineComponent({
      * Clears any previously made choices, and emits the result of this action
      * back to the parent.
      */
-    const clearSelection = () => {
+    const clearSelection = (): void => {
       selectedCalendarRange.value = undefined
       state.abbreviatedDisplay = props.placeholder
       state.fullRangeDisplay = ''
@@ -413,7 +412,7 @@ export default defineComponent({
      * the current mode of the instance (Custom vs Relative)
      * @param {*} range A set of `start` and `end` Unix timestamps∂
      */
-    const formatDisplayDate = (range: TimeRange, htmlFormat: boolean) => {
+    const formatDisplayDate = (range: TimeRange, htmlFormat: boolean): string => {
       const { start, end } = range
       let fmtStr = 'PP'
 
@@ -440,7 +439,7 @@ export default defineComponent({
     /**
      * Once a selection is made, emit value back to parent
      */
-    const submitTimeFrame = async () => {
+    const submitTimeFrame = async (): Promise<void> => {
       if (props.range || hasTimePeriods.value) {
         emit('input', state.selectedRange)
         emit('change', state.selectedRange)
@@ -460,7 +459,7 @@ export default defineComponent({
      * then update input field text.
      * Else, update input field text for single date / time instance
      */
-    const updateDisplay = () => {
+    const updateDisplay = (): void => {
       if (props.range && hasTimePeriods.value && !showCalendar.value) {
         state.abbreviatedDisplay = state.selectedTimeframe.display
       } else {
@@ -468,11 +467,11 @@ export default defineComponent({
       }
     }
 
-    const ucWord = (val: string) => {
+    const ucWord = (val: string): string => {
       return val.charAt(0).toUpperCase() + val.slice(1)
     }
 
-    const handleClose = async () => {
+    const handleClose = async (): Promise<void> => {
       state.hidePopover = true
       await nextTick()
       state.hidePopover = false
@@ -696,7 +695,7 @@ $margin: 6px;
             border: 2px solid var(--white);
           }
         }
-        // Calendar months
+        // Calendar months in mini-popover
         .vc-nav-items {
           .vc-nav-item {
             color: $text-color;
@@ -706,11 +705,18 @@ $margin: 6px;
               box-shadow: none;
             }
           }
-          .vc-nav-item.is-current,
-          .vc-nav-item.is-active {
-            background-color: $selected-color;
+          // Currently selected month
+          .vc-nav-item.is-current {
+            background: $highlight-color;
             border-color: transparent;
             color: var(--white);
+          }
+          // Previously clicked month that has focus
+          .vc-nav-item.is-active {
+            background-color: $selected-color;
+            color: var(--white);
+            font-weight: 600;
+            box-shadow: none;
           }
         }
       }
