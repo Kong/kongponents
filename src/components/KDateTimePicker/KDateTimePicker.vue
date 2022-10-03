@@ -192,10 +192,8 @@ export default defineComponent({
       default: true,
     },
     modelValue: {
-      type: Object as PropType<TimeRange>,
-      required: true,
-      validator: (value: TimeRange): boolean => value instanceof Date ||
-        (value.start !== undefined && value.end !== undefined),
+      type: Object as PropType<TimeRange> | undefined,
+      validator: (value: TimeRange): boolean => value instanceof Date || (value.start !== undefined && value.end !== undefined),
     },
     /**
      * Upper bound for `v-calendar` dates, everything after this date will be disabled
@@ -408,7 +406,7 @@ export default defineComponent({
       } else {
         emit('input', '')
         emit('change', '')
-        emit('update:modelValue', '')
+        emit('update:modelValue', undefined)
       }
     }
 
@@ -443,15 +441,19 @@ export default defineComponent({
     }
 
     /**
-     * Once a selection is made, emit value back to parent
+     * Once a selection is made, emit value back to parent.
+     * If a range date picker, send the full range (start and end); else, a single `start` Date.
      */
     const submitTimeFrame = async (): Promise<void> => {
       if (props.range || hasTimePeriods.value) {
         emit('input', state.selectedRange)
         emit('change', state.selectedRange)
+        emit('update:modelValue', state.selectedRange)
       } else {
-        emit('input', new Date(state.selectedRange.start))
-        emit('change', new Date(state.selectedRange.start))
+        const singleDate: Date = new Date(state.selectedRange.start)
+        emit('input', singleDate)
+        emit('change', singleDate)
+        emit('update:modelValue', singleDate)
       }
 
       handleClose()
