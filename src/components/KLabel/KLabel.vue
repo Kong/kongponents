@@ -6,7 +6,7 @@
       v-if="help"
       v-bind="tooltipAttributes"
       :label="help"
-      :test-mode="testMode"
+      :test-mode="!!testMode || undefined"
       class="label-tooltip"
     >
       <slot />
@@ -20,7 +20,7 @@
       v-else-if="info"
       v-bind="tooltipAttributes"
       :label="info"
-      :test-mode="testMode"
+      :test-mode="!!testMode || undefined"
       class="label-tooltip"
     >
       <slot />

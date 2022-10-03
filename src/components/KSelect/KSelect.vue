@@ -45,7 +45,7 @@
             return isToggled.value
           }"
           :position-fixed="positionFixed"
-          :test-mode="testMode"
+          :test-mode="!!testMode || undefined"
           :target="`[id='${selectInputId}']`"
           @opened="() => {
             filterStr = ''

@@ -13,7 +13,7 @@
       <KButton
         :id="targetId"
         :aria-expanded="isOpen || undefined"
-        :aria-controls="popoverId"
+        :aria-controls="popoverId || undefined"
         data-testid="kpop-button"
       >
         {{ buttonText }}

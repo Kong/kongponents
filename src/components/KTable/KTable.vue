@@ -168,7 +168,7 @@
         :page-sizes="paginationPageSizes"
         :initial-page-size="pageSize"
         :disable-page-jump="disablePaginationPageJump"
-        :test-mode="testMode ? true : false"
+        :test-mode="!!testMode || undefined"
         :pagination-type="paginationType"
         :offset-prev-button-disabled="!previousOffset"
         :offset-next-button-disabled="!offset"
