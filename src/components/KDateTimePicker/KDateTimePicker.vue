@@ -135,26 +135,26 @@
 <script lang="ts">
 import { computed, defineComponent, nextTick, onMounted, PropType, reactive, ref, toRefs, watch } from 'vue'
 import { format } from 'date-fns'
-import 'v-calendar/dist/style.css'
 import { DatePicker } from 'v-calendar'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KSegmentedControl from '@/components/KSegmentedControl/KSegmentedControl.vue'
+import 'v-calendar/dist/style.css'
 
 export interface TimeRange {
   start: Date | number,
   end: Date | number,
-  timePeriodsKey?: string | undefined
+  timePeriodsKey?: string
 }
 
 export interface TimePeriod {
   key: string // unique identifier
   display: string
   timeframeText: string
-  timeframeLength(): string
-  start(): Date
-  end(): Date
+  timeframeLength: () => string
+  start: () => Date
+  end: () => Date
 }
 
 export interface TimeFrameSection {
@@ -164,7 +164,7 @@ export interface TimeFrameSection {
 
 export interface DateTimePickerState {
   abbreviatedDisplay: string
-  fullRangeDisplay: string | undefined
+  fullRangeDisplay?: string
   hidePopover: boolean
   selectedRange: TimeRange
   selectedTimeframe: TimePeriod
@@ -282,7 +282,8 @@ export default defineComponent({
   },
   emits: ['input', 'change', 'update:modelValue'],
   setup(props, { emit }) {
-    const modelConfig = { type: 'number' } // https://vcalendar.io/datepicker.html#model-config
+    // https://vcalendar.io/datepicker.html#model-config
+    const modelConfig = { type: 'number' }
     const calendarSelectAttributes = {
       highlight: {
         start: { class: 'vcal-day-start' },
@@ -298,10 +299,10 @@ export default defineComponent({
       },
     }
 
-    const hasCalendar = computed(() => props.mode !== 'relative')
-    const hasTimePeriods = computed(() => props.timePeriods && props.timePeriods.length)
-    const showCalendar = computed(() => state.tabName === 'custom' || !hasTimePeriods.value)
-    const submitDisabled = computed(() => {
+    const hasCalendar = computed((): boolean => props.mode !== 'relative')
+    const hasTimePeriods = computed((): boolean => props.timePeriods && props.timePeriods.length)
+    const showCalendar = computed((): boolean => state.tabName === 'custom' || !hasTimePeriods.value)
+    const submitDisabled = computed((): boolean => {
       // If either the calendar is in range selection mode, or relative time frames
       // are present, check whether both `start` and `end` are set;
       // Otherwise, it's a single date or time, so only check `start`
@@ -366,8 +367,8 @@ export default defineComponent({
       state.selectedTimeframe = timeframe
 
       // Format the start/end values as human readable date
-      const start = state.selectedTimeframe.start()
-      const end = state.selectedTimeframe.end()
+      const start: Date = state.selectedTimeframe.start()
+      const end: Date = state.selectedTimeframe.end()
 
       // Set value to be emitted when relative time frame clicked
       state.selectedRange = {

@@ -123,11 +123,11 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
   placeholder="Please select a range"
   mode="dateTime"
   width="415"
-  :minDate="minDate"
-  :maxDate="maxDate"
+  :min-date="minDate"
+  :max-date="maxDate"
   :minute-increment="5"
   :range="true"
-  :timePeriods=[
+  :time-periods="[
     {
       section: "Last",
       values: [
@@ -151,7 +151,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
         { key: "previous_month", prefix: "Previous", timeframeText: "month", start: function() {}, end: function() {} }
       ]
     }
-  ]
+  ]"
 />
 ```
 
@@ -182,10 +182,10 @@ This utilizes the same time frames as the previous example; however, in this exa
   placeholder="Please select a time frame"
   mode="relative"
   width="480"
-  :minDate="minDate"
-  :maxDate="maxDate"
+  :min-date="minDate"
+  :max-date="maxDate"
   :range="true"
-  :timePeriods=[
+  :time-periods="[
     {
       section: "Last",
       values: [
@@ -209,7 +209,7 @@ This utilizes the same time frames as the previous example; however, in this exa
         { key: "previous_month", prefix: "Previous", timeframeText: "month", start: function() {}, end: function() {} }
       ]
     }
-  ]
+  ]"
 />
 ```
 
@@ -219,23 +219,22 @@ This utilizes the same time frames as the previous example; however, in this exa
 
 #### Single date time picker `v-model`
 
-A single date or time picker instance which can be seeded with a value like so:
+A single date or time picker instance which can be seeded with a value as shown here, where `currentValue` is a valid Date object, eg: `new Date()`.
 
-```js
+```ts
 <KDateTimePicker
   v-model="currentValue"
   ...
 />
-Where `currentValue` is a valid Date object, eg: `new Date()`
 ```
 
 #### Range date time picker `v-model`
 
 An instance that displays a date range or a series of relative time frames.
 
-Can be seeded with a **relative time frame** by setting `v-model` to:
+Can be seeded with a **relative time frame** by setting the `v-model` to `currentValue` as shown here:
 
-```js
+```ts
 currentValue = {
   start: '',
   end: '',
@@ -245,7 +244,7 @@ currentValue = {
 
 Or it can be seeded with a **custom calendar range** by setting `v-model` to:
 
-```js
+```ts
 const today = new Date()
 const twoDaysAgo  = new Date(today.getTime() - (2*24*60*60*1000))
 
@@ -303,7 +302,7 @@ An array of time frame values to be displayed as buttons in the "Relative" secti
 
 **Example:**
 
-```js
+```ts
 [
   {
     section: "Last",
@@ -340,7 +339,7 @@ The events below will fire whenever **Apply** is clicked (assuming the user has 
 
 Will emit a JavaScript Date object, or an empty string  "Clear".
 
-```js
+```ts
 "2022-09-06T19:45:54.406Z"  // ISO 8601 Date string
 ```
 
@@ -350,7 +349,7 @@ Will emit a JavaScript Date object, or an empty string  "Clear".
 
 Will emit an `object` containing the following values:
 
-```js
+```ts
 {
   "start": "2022-09-06T19:45:54.406Z",  // ISO 8601 Date string
   "end": "2022-09-07T19:45:54.406Z", // ISO 8601 Date string

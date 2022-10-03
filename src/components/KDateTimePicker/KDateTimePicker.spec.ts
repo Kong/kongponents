@@ -2,10 +2,7 @@
 /// <reference types="../../cypress/support" />
 
 import { mount } from '@cypress/vue'
-import {
-  format,
-  // roundToNearestMinutes
-} from 'date-fns'
+import { format } from 'date-fns'
 import { TimePeriods, TimeframeKeys } from '@/utils/KDatePickerMockData'
 import KDateTimePicker from '@/components/KDateTimePicker/KDateTimePicker.vue'
 
