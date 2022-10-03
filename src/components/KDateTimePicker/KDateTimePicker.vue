@@ -706,19 +706,23 @@ $margin: 6px;
               background-color: color(blue-100);
               box-shadow: none;
             }
-          }
-          // Currently selected month
-          .vc-nav-item.is-current {
-            background: $highlight-color;
-            border-color: transparent;
-            color: var(--white);
-          }
-          // Previously clicked month that has focus
-          .vc-nav-item.is-active {
-            background-color: $selected-color;
-            color: var(--white);
-            font-weight: 600;
-            box-shadow: none;
+            // Currently selected month
+            &.is-current {
+              border-color: transparent;
+            }
+            // Month that has focus (tab navigation supported)
+            &.is-active {
+              background-color: $selected-color;
+              color: var(--white);
+              font-weight: 600;
+              box-shadow: none;
+            }
+            // Disabled month
+            &.is-disabled {
+              color: var(--grey-400);
+              cursor: not-allowed;
+              opacity: 1;
+            }
           }
         }
       }
