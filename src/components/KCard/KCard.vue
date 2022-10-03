@@ -3,7 +3,7 @@
     :class="[borderVariant, {'hover': hasHover, 'kcard-shadow': hasShadow }]"
     :aria-label="title ? title : undefined"
     :aria-labelledby="!title && ($slots.title || $slots.title) ? titleId : undefined"
-    :aria-describedby="contentId"
+    :aria-describedby="contentId || undefined"
     class="kong-card"
   >
     <div

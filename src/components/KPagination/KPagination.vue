@@ -57,7 +57,7 @@
           >
             <a
               :aria-label="`Go to page ${ page }`"
-              :aria-current="page == currentlySelectedPage && 'page'"
+              :aria-current="page == currentlySelectedPage && 'page' || undefined"
               href="#"
               @click.prevent="changePage(page)"
             >{{ page }}</a>
@@ -113,7 +113,7 @@
         <KSelect
           :placeholder="`${ currentPageSize } items per page`"
           :items="pageSizeOptions"
-          :test-mode="testMode"
+          :test-mode="!!testMode || undefined"
           :button-text="pageSizeText"
           :kpop-attributes="kpopAttrs"
           position-fixed

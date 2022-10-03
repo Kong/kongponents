@@ -3,7 +3,7 @@
     :is="tag"
     :id="$slots.default ? targetId : null"
     ref="root"
-    :aria-expanded="$slots.default ? isOpen : undefined"
+    :aria-expanded="$slots.default ? (!!isOpen || undefined) : undefined"
     :aria-controls="$slots.default ? popoverId : undefined"
     :role="$slots.default ? 'button' : null"
     @keydown.enter="(e: any) => handleClick(e)"
@@ -12,8 +12,8 @@
     <slot>
       <KButton
         :id="targetId"
-        :aria-expanded="isOpen || undefined"
-        :aria-controls="popoverId"
+        :aria-expanded="!!isOpen || undefined"
+        :aria-controls="popoverId || undefined"
         data-testid="kpop-button"
       >
         {{ buttonText }}

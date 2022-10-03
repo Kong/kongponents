@@ -1,3 +1,11 @@
+# [8.0.0-beta.24](https://github.com/Kong/kongponents/compare/v8.0.0-beta.23...v8.0.0-beta.24) (2022-10-03)
+
+
+### Bug Fixes
+
+* **aria-current:** true or undefined ([118cf45](https://github.com/Kong/kongponents/commit/118cf45b85317e6ef42d09dac878af5b048d77c7))
+* vue 3 fixes ([#812](https://github.com/Kong/kongponents/issues/812)) ([82a91d8](https://github.com/Kong/kongponents/commit/82a91d81cd3ce6249ba398ebb6edc0c4ede7cd0c))
+
 # [8.0.0-beta.23](https://github.com/Kong/kongponents/compare/v8.0.0-beta.22...v8.0.0-beta.23) (2022-09-29)
 
 

@@ -7,7 +7,7 @@
       <KPop
         v-bind="boundKPopAttributes"
         :on-popover-click="() => handleTriggerToggle(isToggled, toggle, false)"
-        :test-mode="testMode"
+        :test-mode="!!testMode || undefined"
         data-testid="k-dropdown-menu-popover"
         @opened="() => handleTriggerToggle(isToggled, toggle, true)"
         @closed="() => handleTriggerToggle(isToggled, toggle, false)"
@@ -18,7 +18,7 @@
           :position="!!disabledTooltip ? 'bottom' : undefined"
           :position-fixed="!!disabledTooltip ? true : undefined"
           :max-width="!!disabledTooltip ? '240' : undefined"
-          :test-mode="testMode"
+          :test-mode="!!testMode || undefined"
           class="k-dropdown-trigger dropdown-trigger"
           data-testid="k-dropdown-trigger"
         >

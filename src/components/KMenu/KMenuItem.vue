@@ -2,14 +2,14 @@
   <div
     :id="menuItemId"
     :data-testid="item ? `${item.title.replace(' ', '-')}-menu-item` : 'menu-item'"
-    :test-mode="testMode"
+    :test-mode="!!testMode || undefined"
     :class="[isOpen ? 'title-dark' : '', {'expando-item' : expandable}]"
     class="k-menu-item"
   >
     <KButton
       v-if="type !== 'divider'"
       :aria-expanded="isOpen && expandable || undefined"
-      :aria-labelledby="menuItemId"
+      :aria-labelledby="menuItemId || undefined"
       :is-rounded="false"
       type="button"
       class="menu-button non-visual-button"
