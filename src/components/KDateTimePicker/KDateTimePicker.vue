@@ -171,7 +171,7 @@ export interface DateTimePickerState {
   tabName: string
 }
 
-interface CSSProperties {
+export interface CSSProperties {
   [key: `${string}`]: string
 }
 
