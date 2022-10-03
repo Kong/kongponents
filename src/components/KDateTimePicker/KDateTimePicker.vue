@@ -192,9 +192,9 @@ export default defineComponent({
       default: true,
     },
     modelValue: {
-      type: [Object, String] as PropType<TimeRange | string>,
-      default: '',
+      type: [Object, Date, String] as PropType<TimeRange | Date | string>,
       required: false,
+      default: '',
       validator: (value: TimeRange | string): boolean => {
         return typeof value === 'string'
           ? value === ''
@@ -326,7 +326,7 @@ export default defineComponent({
       }
     })
 
-    const selectedCalendarRange = ref<TimeRange | undefined>(props.modelValue)
+    const selectedCalendarRange = ref<TimeRange | Date | string>(props.modelValue)
 
     const state = reactive<DateTimePickerState>({
       abbreviatedDisplay: props.placeholder,
@@ -342,7 +342,7 @@ export default defineComponent({
      * @param {object | string | null} vCalValue Object containing a pair of `start` and `end` timestamps,
      * or a single timestamp. Can be `null` if current selection is cleared.
      */
-    const changeCalendarRange = (vCalValue: TimeRange | number): void => {
+    const changeCalendarRange = (vCalValue: TimeRange | Date | number | string): void => {
       let start: Date | number, end: Date | number
 
       if (vCalValue) {
@@ -394,7 +394,7 @@ export default defineComponent({
      * back to the parent.
      */
     const clearSelection = (): void => {
-      selectedCalendarRange.value = undefined
+      selectedCalendarRange.value = ''
       state.abbreviatedDisplay = props.placeholder
       state.fullRangeDisplay = ''
       state.selectedRange = { start: 0, end: 0, timePeriodsKey: '' }
@@ -406,11 +406,9 @@ export default defineComponent({
       // If a range, emit an object with empty `start`, `end`, `timePeriods`;
       // Else, emit empty string for single date/time picker
       if (props.range || props.mode === 'relative') {
-        emit('input', state.selectedRange)
         emit('change', state.selectedRange)
         emit('update:modelValue', state.selectedRange)
       } else {
-        emit('input', '')
         emit('change', '')
         emit('update:modelValue', '')
       }
@@ -452,12 +450,10 @@ export default defineComponent({
      */
     const submitTimeFrame = async (): Promise<void> => {
       if (props.range || hasTimePeriods.value) {
-        emit('input', state.selectedRange)
         emit('change', state.selectedRange)
         emit('update:modelValue', state.selectedRange)
       } else {
         const singleDate: Date = new Date(state.selectedRange.start)
-        emit('input', singleDate)
         emit('change', singleDate)
         emit('update:modelValue', singleDate)
       }
@@ -505,20 +501,20 @@ export default defineComponent({
       // Select the tab based on incoming defaults; save the default value to our internal
       // state and update the input field to display the human-readable date/time.
       if (props.modelValue) {
-        if (props.modelValue instanceof Date || !props.modelValue.timePeriodsKey) {
-          state.tabName = 'custom'
-          changeCalendarRange(props.modelValue)
-          updateDisplay()
-        } else {
+        if ('timePeriodsKey' in (props.modelValue as TimeRange)) {
           state.tabName = 'relative'
           for (const section of props.timePeriods) {
-            const selectedTimeframe = section.values.find(e => e.key === props.modelValue.timePeriodsKey)
+            const selectedTimeframe = section.values.find(e => e.key === (props.modelValue as TimeRange).timePeriodsKey)
             if (selectedTimeframe) {
               changeRelativeTimeframe(selectedTimeframe)
               updateDisplay()
               break
             }
           }
+        } else {
+          state.tabName = 'custom'
+          changeCalendarRange(props.modelValue)
+          updateDisplay()
         }
       }
     })

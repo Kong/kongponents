@@ -12,30 +12,28 @@
 
 ### Single date
 
-Create a single date selection calendar, with an example of passing in a fixed pixel width for the input field.
+Create a single date selection calendar, with an example of passing in a fixed pixel width for the input field, and an empty string for `currentValue` which defaults the input to the placeholder message.
 
 Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
 
 <div>
   <KDateTimePicker
     v-model="currentValue0"
-    @change="newVal => emitVal1 = newVal"
     placeholder="Please select a date"
     mode="date"
     width="250"
     :range="false"
   />
-  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(emitVal1) }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue0) }}</pre></div>
 </div>
 
 ```html
 <KDateTimePicker
   v-model="currentValue"
-  @change="newVal => emitVal = newVal"
+  :range="false"
   placeholder="Please select a date"
   mode="date"
   width="250"
-  :range="false"
 />
 ```
 
@@ -177,7 +175,7 @@ This utilizes the same time frames as the previous example; however, in this exa
 
 ```html
 <KDateTimePicker
-  v-model="currentValue"
+  v-model="''"
   @change="newVal => emitVal = newVal"
   placeholder="Please select a time frame"
   mode="relative"
@@ -219,7 +217,7 @@ This utilizes the same time frames as the previous example; however, in this exa
 
 #### Single date time picker `v-model`
 
-A single date or time picker instance which can be seeded with a value as shown here, where `currentValue` is a valid Date object, eg: `new Date()`.
+A single date or time picker instance which can be seeded with a value as shown here, where `currentValue` is a valid Date object, eg: `new Date()` or an empty string, eg: `''` which will display the placeholder message.
 
 ```ts
 <KDateTimePicker
@@ -337,7 +335,7 @@ The events below will fire whenever **Apply** is clicked (assuming the user has 
 
 ### Single date time picker
 
-**Events**: `input`, `change`, and `update:modelValue`
+**Events**: `change`, `update:modelValue`
 
 Will emit a JavaScript Date object, or an empty string  "Clear".
 
@@ -347,7 +345,7 @@ Will emit a JavaScript Date object, or an empty string  "Clear".
 
 ### Range date time picker
 
-**Events**: `input`, `change`, and `update:modelValue`
+**Events**: `change`, `update:modelValue`
 
 Will emit an `object` containing the following values:
 
@@ -409,7 +407,7 @@ export default {
       emitVal4: '',
       emitVal5: '',
       emitVal6: '',
-      currentValue0: new Date(),
+      currentValue0: '',
       currentValue1: new Date(),
       currentValue2: new Date(),
       currentValue3: new Date(),
