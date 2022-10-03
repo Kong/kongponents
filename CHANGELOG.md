@@ -1,3 +1,10 @@
+# [8.0.0-beta.25](https://github.com/Kong/kongponents/compare/v8.0.0-beta.24...v8.0.0-beta.25) (2022-10-03)
+
+
+### Features
+
+* **kdatetimepicker:** port to beta branch ([#803](https://github.com/Kong/kongponents/issues/803)) ([fdb7fd7](https://github.com/Kong/kongponents/commit/fdb7fd704a1ee0a87c4895332e8e63aec9dd38fe))
+
 # [8.0.0-beta.24](https://github.com/Kong/kongponents/compare/v8.0.0-beta.23...v8.0.0-beta.24) (2022-10-03)
 
 
