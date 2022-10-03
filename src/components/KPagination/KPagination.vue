@@ -57,7 +57,7 @@
           >
             <a
               :aria-label="`Go to page ${ page }`"
-              :aria-current="page == currentlySelectedPage && 'page'"
+              :aria-current="page == currentlySelectedPage && 'page' || undefined"
               href="#"
               @click.prevent="changePage(page)"
             >{{ page }}</a>
