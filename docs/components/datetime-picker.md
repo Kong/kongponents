@@ -107,11 +107,11 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
     placeholder="Please select a range"
     mode="dateTime"
     width="415"
-    :minDate="minDate"
-    :maxDate="maxDate"
+    :min-date="minDate"
+    :max-date="maxDate"
     :minute-increment="5"
     :range="true"
-    :timePeriods="exampleTimeFrames"
+    :time-periods="exampleTimeFrames"
   />
   <div class="mt-6">Emitted value: <pre class="json">{{ emitVal5 }}</pre></div>
 </div>
@@ -167,10 +167,10 @@ This utilizes the same time frames as the previous example; however, in this exa
     placeholder="Please select a time frame"
     mode="relative"
     width="480"
-    :minDate="minDate"
-    :maxDate="maxDate"
+    :min-date="minDate"
+    :max-date="maxDate"
     :range="true"
-    :timePeriods="exampleTimeFrames"
+    :time-periods="exampleTimeFrames"
   />
   <div class="mt-6">Emitted value: <pre class="json">{{ emitVal6 }}</pre></div>
 </div>
