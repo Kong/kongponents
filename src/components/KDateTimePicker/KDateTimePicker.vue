@@ -192,8 +192,14 @@ export default defineComponent({
       default: true,
     },
     modelValue: {
-      type: Object as PropType<TimeRange> | undefined,
-      validator: (value: TimeRange): boolean => value instanceof Date || (value.start !== undefined && value.end !== undefined),
+      type: [Object, String] as PropType<TimeRange | string>,
+      default: '',
+      required: false,
+      validator: (value: TimeRange | string): boolean => {
+        return typeof value === 'string'
+          ? value === ''
+          : value instanceof Date || (value.start !== undefined && value.end !== undefined)
+      },
     },
     /**
      * Upper bound for `v-calendar` dates, everything after this date will be disabled
@@ -406,7 +412,7 @@ export default defineComponent({
       } else {
         emit('input', '')
         emit('change', '')
-        emit('update:modelValue', undefined)
+        emit('update:modelValue', '')
       }
     }
 
