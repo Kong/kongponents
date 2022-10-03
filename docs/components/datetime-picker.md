@@ -296,7 +296,9 @@ Required `String` prop which accepts the following values: `date`, `time`, `date
 
 ### timePeriods
 
-An array of time frame values to be displayed as buttons in the "Relative" section of the popover.  Please note that each timeframe's `key` attribute needs to be unique.
+An array of time frame values to be displayed as buttons in the "Relative" section of the popover.  
+
+**Please note that each timeframe's `key` attribute must be unique.**
 
 **default**: `[]`
 
