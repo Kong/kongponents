@@ -651,9 +651,6 @@ $margin: 6px;
 
 // v-calendar overrides
 .k-datetime-picker {
-  // Override v-calendar color variables with the corresponding Kongponent color variables
-  // --accent-100: var(--grey-500, color(grey-500));   // vc-nav-title
-  // --accent-900: var(--blue-500, color(blue-500));
   $highlight-color: color(blue-200);
   $selected-color: color(blue-500);
   $text-color: color(grey-500);
@@ -778,6 +775,9 @@ $margin: 6px;
           color: $text-color-darker;
           background-color: color(gray-200);
         }
+      }
+      .vc-time-month, .vc-time-day, .vc-time-year {
+        color: $text-color;
       }
       .vc-month, .vc-day {
         color: $text-color;
