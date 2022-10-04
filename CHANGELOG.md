@@ -1,3 +1,10 @@
+# [8.0.0-beta.28](https://github.com/Kong/kongponents/compare/v8.0.0-beta.27...v8.0.0-beta.28) (2022-10-04)
+
+
+### Bug Fixes
+
+* upgrade vue, vuepress, and fix dependency tree ([#816](https://github.com/Kong/kongponents/issues/816)) ([dbe876c](https://github.com/Kong/kongponents/commit/dbe876ce80e4e88b325a9c9051d8a30bd57fd965))
+
 # [8.0.0-beta.27](https://github.com/Kong/kongponents/compare/v8.0.0-beta.26...v8.0.0-beta.27) (2022-10-04)
 
 
