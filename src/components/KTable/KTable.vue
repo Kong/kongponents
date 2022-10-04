@@ -827,7 +827,7 @@ export default defineComponent({
 
     watch(() => [query.value, page.value, pageSize.value], () => {
       revalidate()
-    }, { immediate: true })
+    }, { deep: true, immediate: true })
 
     onMounted(() => {
       initData()

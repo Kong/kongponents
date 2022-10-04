@@ -1,6 +1,7 @@
 import { defineUserConfig, defaultTheme, viteBundler } from 'vuepress'
 import { path } from '@vuepress/utils'
 import { searchPlugin } from '@vuepress/plugin-search'
+import autoprefixer from 'autoprefixer'
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -26,7 +27,7 @@ export default defineUserConfig({
       css: {
         postcss: {
           plugins: [
-            require('autoprefixer'),
+            autoprefixer,
           ]
         },
       }
