@@ -1,3 +1,10 @@
+# [8.0.0-beta.26](https://github.com/Kong/kongponents/compare/v8.0.0-beta.25...v8.0.0-beta.26) (2022-10-04)
+
+
+### Bug Fixes
+
+* **emit:** drop unused value ([#813](https://github.com/Kong/kongponents/issues/813)) ([c0c7d98](https://github.com/Kong/kongponents/commit/c0c7d98f29c9235b9058caa87614452fb01de614))
+
 # [8.0.0-beta.25](https://github.com/Kong/kongponents/compare/v8.0.0-beta.24...v8.0.0-beta.25) (2022-10-03)
 
 

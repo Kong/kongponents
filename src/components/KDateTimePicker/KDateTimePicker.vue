@@ -289,7 +289,7 @@ export default defineComponent({
       default: 'auto',
     },
   },
-  emits: ['input', 'change', 'update:modelValue'],
+  emits: ['change', 'update:modelValue'],
   setup(props, { emit }) {
     // https://vcalendar.io/datepicker.html#model-config
     const modelConfig = { type: 'number' }
