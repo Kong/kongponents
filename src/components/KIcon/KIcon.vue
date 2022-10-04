@@ -199,7 +199,7 @@ export default defineComponent({
       await nextTick()
 
       renderIcon()
-    })
+    }, { deep: true })
 
     const renderIcon = (): void => {
       svg.value = null

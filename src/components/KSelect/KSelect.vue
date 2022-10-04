@@ -569,7 +569,7 @@ export default defineComponent({
           popper.value.updatePopper()
         })
       }
-    }, { immediate: true })
+    }, { deep: true, immediate: true })
 
     const inputWidth = ref(0)
 
