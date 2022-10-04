@@ -11,7 +11,7 @@
   >
     <router-link
       v-if="type === 'link' && to"
-      :to="!disabled ? to : $route.path"
+      :to="!disabled ? to : undefined"
       :class="{ 'disabled': disabled, 'has-divider': hasDivider }"
       class="k-dropdown-item-trigger"
       data-testid="k-dropdown-item-trigger"

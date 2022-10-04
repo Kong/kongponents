@@ -1,23 +1,5 @@
 <template>
   <h1>Kongponents Vite</h1>
-  <Krumbs
-    :items="[
-      {
-        key: 'home',
-        to: { path: '/' },
-        title: 'Go Home',
-        text: 'Home',
-        icon: 'kong'
-      },
-      {
-        key: 'button',
-        to: { path: '/components/breadcrumbs.html' },
-        title: 'Go to Button',
-        text: 'Breadcrumbs'
-      }
-    ]"
-  />
-  <br>
   <Kooltip label="Tooltip">
     <KButton>Button content</KButton>
   </Kooltip>
