@@ -68,7 +68,7 @@
               :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
               :icon="emptyStateActionButtonIcon"
               :appearance="searchInput ? 'btn-link' : 'primary'"
-              :data-testid="getTestIdString(errorStateActionMessage)"
+              :data-testid="getTestIdString(emptyStateActionMessage)"
               @click="$emit('ktable-empty-state-cta-clicked')"
             >
               {{ emptyStateActionMessage }}
@@ -818,7 +818,9 @@ export default defineComponent({
     })
 
     const getTestIdString = (message: string) => {
-      return message.toLowerCase().replace(/[^[a-z0-9]/gi, '-')
+      const msg = message.toLowerCase().replace(/[^[a-z0-9]/gi, '-')
+      console.log('msg', msg)
+      return msg
     }
 
     watch(() => props.searchInput, (newValue) => {
