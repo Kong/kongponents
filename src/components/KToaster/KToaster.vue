@@ -53,21 +53,6 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
-.toaster-item {
-  :deep(.k-alert) .close {
-    position: relative;
-    order: 1;
-    right: 0;
-    padding: 0 0 0 1rem;
-    &:focus,
-    &:active {
-      outline: none;
-    }
-  }
-}
-</style>
-
 <style lang="scss" scoped>
 @import '@/styles/styles.scss';
 
@@ -104,6 +89,18 @@ $transition: all .3s;
     background-color: #fff;
     color: var(--black-70);
     margin-bottom: 0;
+
+    .close {
+      position: relative;
+      order: 1;
+      right: 0;
+      padding: 0 0 0 1rem;
+
+      &:focus,
+      &:active {
+        outline: none;
+      }
+    }
   }
 
   .message {
