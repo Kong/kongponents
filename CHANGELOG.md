@@ -1,3 +1,10 @@
+# [8.0.0-beta.29](https://github.com/Kong/kongponents/compare/v8.0.0-beta.28...v8.0.0-beta.29) (2022-10-04)
+
+
+### Bug Fixes
+
+* **ktable:** empty state cta button text ([08ea243](https://github.com/Kong/kongponents/commit/08ea24342c2c1f5514b74cded5cb79a81e440206))
+
 # [8.0.0-beta.28](https://github.com/Kong/kongponents/compare/v8.0.0-beta.27...v8.0.0-beta.28) (2022-10-04)
 
 
