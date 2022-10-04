@@ -99,7 +99,7 @@
               :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
               :icon="emptyStateActionButtonIcon"
               :appearance="searchInput ? 'btn-link' : 'primary'"
-              :data-testid="getTestIdString(errorStateActionMessage)"
+              :data-testid="getTestIdString(emptyStateActionMessage)"
               @click="$emit('kcatalog-empty-state-cta-clicked')"
             >
               {{ emptyStateActionMessage }}
