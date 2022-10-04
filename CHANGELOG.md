@@ -1,3 +1,10 @@
+# [8.0.0-beta.30](https://github.com/Kong/kongponents/compare/v8.0.0-beta.29...v8.0.0-beta.30) (2022-10-04)
+
+
+### Bug Fixes
+
+* **kcatalog:** test id string ([07a7732](https://github.com/Kong/kongponents/commit/07a773212de4a26feddbee439ee36d96f43f81f6))
+
 # [8.0.0-beta.29](https://github.com/Kong/kongponents/compare/v8.0.0-beta.28...v8.0.0-beta.29) (2022-10-04)
 
 
