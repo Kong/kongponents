@@ -1,3 +1,10 @@
+# [8.0.0-beta.27](https://github.com/Kong/kongponents/compare/v8.0.0-beta.26...v8.0.0-beta.27) (2022-10-04)
+
+
+### Bug Fixes
+
+* **ktoaster:** repaired width in toaster component [KHCP-4965] ([#815](https://github.com/Kong/kongponents/issues/815)) ([8a75bb2](https://github.com/Kong/kongponents/commit/8a75bb266a4e1eb56bf2b641e47c6415193b3f26))
+
 # [8.0.0-beta.26](https://github.com/Kong/kongponents/compare/v8.0.0-beta.25...v8.0.0-beta.26) (2022-10-04)
 
 
