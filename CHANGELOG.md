@@ -1,3 +1,11 @@
+# [8.0.0-beta.32](https://github.com/Kong/kongponents/compare/v8.0.0-beta.31...v8.0.0-beta.32) (2022-10-05)
+
+
+### Bug Fixes
+
+* add sourcemaps ([d98b0c8](https://github.com/Kong/kongponents/commit/d98b0c82e961285732f0fcf292323fd428def2c4))
+* remove console log ([b164661](https://github.com/Kong/kongponents/commit/b164661fc39934cf016ee56a2cf958b8a02c8b6c))
+
 # [8.0.0-beta.31](https://github.com/Kong/kongponents/compare/v8.0.0-beta.30...v8.0.0-beta.31) (2022-10-05)
 
 
