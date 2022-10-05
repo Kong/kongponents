@@ -819,7 +819,6 @@ export default defineComponent({
 
     const getTestIdString = (message: string) => {
       const msg = message.toLowerCase().replace(/[^[a-z0-9]/gi, '-')
-      console.log('msg', msg)
       return msg
     }
 
