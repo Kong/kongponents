@@ -11,7 +11,11 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  css: {
+    devSourcemap: true,
+  },
   build: {
+    sourcemap: true,
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
       name: 'Kongponents',
@@ -21,6 +25,7 @@ export default defineConfig({
     rollupOptions: {
       external: ['vue'],
       output: {
+        sourcemap: true,
         globals: {
           vue: 'Vue',
         },
