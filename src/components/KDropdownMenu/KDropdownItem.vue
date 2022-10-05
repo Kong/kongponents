@@ -9,8 +9,18 @@
     :data-testid="`k-dropdown-item-${label.replace(' ', '-')}`"
     class="k-dropdown-item w-100"
   >
+    <a
+      v-if="type === 'link' && to && !!disabled"
+      :class="{ 'disabled': disabled, 'has-divider': hasDivider }"
+      class="k-dropdown-item-trigger"
+      data-testid="k-dropdown-item-trigger"
+      href="#"
+      @click.prevent.stop=""
+    >
+      <slot>{{ label }}</slot>
+    </a>
     <router-link
-      v-if="type === 'link' && to"
+      v-else-if="type === 'link' && to"
       :to="!disabled ? to : $route.path"
       :class="{ 'disabled': disabled, 'has-divider': hasDivider }"
       class="k-dropdown-item-trigger"

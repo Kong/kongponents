@@ -330,6 +330,13 @@ There are 3 primary item types:
         Disabled button
       </KDropdownItem>
       <KDropdownItem
+        :item="youAreHere"
+        disabled
+        @click="clickHandler"
+      >
+        Disabled to link
+      </KDropdownItem>
+      <KDropdownItem
         has-divider
         is-dangerous
         class="d-inline-block"
