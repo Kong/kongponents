@@ -1,3 +1,10 @@
+# [8.0.0-beta.31](https://github.com/Kong/kongponents/compare/v8.0.0-beta.30...v8.0.0-beta.31) (2022-10-05)
+
+
+### Bug Fixes
+
+* **kdropdownitem:** remove .path ([50c53e1](https://github.com/Kong/kongponents/commit/50c53e121100af84b5fa3336de1cb5fa88ba19a9))
+
 # [8.0.0-beta.30](https://github.com/Kong/kongponents/compare/v8.0.0-beta.29...v8.0.0-beta.30) (2022-10-04)
 
 
