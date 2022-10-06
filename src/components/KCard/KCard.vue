@@ -159,6 +159,7 @@ export default defineComponent({
   padding: var(--KCardPaddingY, var(--spacing-lg)) var(--KCardPaddingX, var(--spacing-lg));
   border-radius: var(--KCardBorderRadius, 3px);
   background-color: var(--KCardBackground, var(--white, color(white)));
+  transition: box-shadow 0.2s ease-in-out;
 
   &.noBorder {
     border: none;
