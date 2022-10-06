@@ -1,3 +1,10 @@
+# [8.0.0-beta.33](https://github.com/Kong/kongponents/compare/v8.0.0-beta.32...v8.0.0-beta.33) (2022-10-06)
+
+
+### Bug Fixes
+
+* **kcard:** add transition on hover ([b28f7ac](https://github.com/Kong/kongponents/commit/b28f7ac83a7ec225f4f2ed99d8623eb6ad13f86c))
+
 # [8.0.0-beta.32](https://github.com/Kong/kongponents/compare/v8.0.0-beta.31...v8.0.0-beta.32) (2022-10-05)
 
 
