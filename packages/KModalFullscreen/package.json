@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kmodalfullscreen",
-  "version": "7.2.0",
+  "version": "7.2.1",
   "description": "A full screen Modal",
   "main": "dist/KModalFullscreen.umd.min.js",
   "componentName": "KModalFullscreen",
@@ -23,9 +23,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kbutton": "^7.2.0",
-    "@kongponents/kicon": "^7.2.0",
-    "@kongponents/styles": "^7.2.0"
+    "@kongponents/kbutton": "^7.2.1",
+    "@kongponents/kicon": "^7.2.1",
+    "@kongponents/styles": "^7.2.1"
   },
   "peerDependencies": {
     "vue": ">= 2.7.0 < 3"

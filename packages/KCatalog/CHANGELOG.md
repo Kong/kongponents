@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 7.2.1 (2022-10-06)
+
+
+### Bug Fixes
+
+* **kcard:** add box-shadow transition ([4634b6c](https://github.com/Kong/kongponents/commit/4634b6cc84d9d7e371a425670a207b2fba51719c))
+
+
+
+
+
 # 7.2.0 (2022-09-27)
 
 

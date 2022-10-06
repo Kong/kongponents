@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kpagination",
-  "version": "7.2.0",
+  "version": "7.2.1",
   "description": "Pagination component",
   "main": "dist/KPagination.umd.min.js",
   "componentName": "KPagination",
@@ -24,9 +24,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kicon": "^7.2.0",
-    "@kongponents/kselect": "^7.2.0",
-    "@kongponents/styles": "^7.2.0"
+    "@kongponents/kicon": "^7.2.1",
+    "@kongponents/kselect": "^7.2.1",
+    "@kongponents/styles": "^7.2.1"
   },
   "peerDependencies": {
     "vue": ">= 2.7.0 < 3"
