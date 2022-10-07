@@ -1,7 +1,27 @@
 import { ref, Ref, computed, watchEffect } from 'vue'
 import useSWRV, { IConfig } from 'swrv'
-import { AxiosResponse, AxiosError } from 'axios'
 import { IKey, fetcherFn } from 'swrv/dist/types'
+
+// Emulate AxiosResponseHeaders
+export type PromiseResponseHeaders = Record<string, string> & {
+  'set-cookie'?: string[]
+}
+
+// Emulate AxiosRequestConfig
+export interface PromiseRequestConfig<D = any> {
+  data?: D
+  [key: string]: any
+}
+
+// Emulate AxiosResponse
+export interface PromiseResponse<T = any, D = any> {
+  data: T;
+  status: number;
+  statusText: string;
+  headers: PromiseResponseHeaders;
+  config: PromiseRequestConfig<D>;
+  request?: any;
+}
 
 const swrvState = {
   VALIDATING: 'VALIDATING',
@@ -14,10 +34,10 @@ const swrvState = {
 }
 
 export default function useUtilities() {
-  const useRequest = <Data = unknown, Error = { message: string }> (key: IKey, fn?: fetcherFn<AxiosResponse<Data>>, config?: IConfig) => {
+  const useRequest = <Data = unknown, Error = { message: string }> (key: IKey, fn?: fetcherFn<PromiseResponse<Data>>, config?: IConfig) => {
     const { data: response, error, isValidating, mutate: revalidate } = useSWRV<
-    AxiosResponse<Data>,
-    AxiosError<Error>
+    PromiseResponse<Data>,
+    Error
     >(key, fn, { revalidateDebounce: 500, dedupingInterval: 100, ...config })
 
     const data = computed(() => {
