@@ -174,7 +174,7 @@ module.exports = (env) => {
   return {
     module: {
       loaders: [
-        // transpile @kongponents packages
+        // transpile Kongponents packages
         {
           test: /\.js$/,
           include: /(node_modules)\/(@kong\/kongponents)/,
