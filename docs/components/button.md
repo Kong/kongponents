@@ -63,15 +63,15 @@ We support `small`, `medium`, and `large` sizes, default to `medium`.
 Use this prop if you would like the KButton to display a dropdown caret to the right hand side.
 
 <KComponent :data="{ isActive: false}" v-slot="{ data }">
-  <KButton appearance="primary" @click="data.isActive = !data.isActive" show-caret>I'm a button</KButton>
+  <KButton :appearance="data.isActive ? 'primary' : 'outline'" @click="data.isActive = !data.isActive" show-caret>I'm an {{ data.isActive ? 'active' : 'inactive' }} button</KButton>
 </KComponent>
 
 > The `KComponent` component is used in this example to create state.
 
 ```html
 <KComponent :data="{ isActive: false }" v-slot="{ data }">
-  <KButton appearance="primary" size="medium" show-caret @click="data.isActive = !data.isActive">
-    I'm a button
+  <KButton :appearance="data.isActive ? 'primary' : 'outline'" @click="data.isActive = !data.isActive" show-caret>
+    I'm an {{ data.isActive ? 'active' : 'inactive' }} button
   </KButton>
 </KComponent>
 ```
