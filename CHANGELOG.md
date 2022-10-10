@@ -1,3 +1,10 @@
+# [8.0.0-beta.34](https://github.com/Kong/kongponents/compare/v8.0.0-beta.33...v8.0.0-beta.34) (2022-10-10)
+
+
+### Bug Fixes
+
+* linting ([bb8ad66](https://github.com/Kong/kongponents/commit/bb8ad66298e0ec35291edbc3c172fdfc830d33ff))
+
 # [8.0.0-beta.33](https://github.com/Kong/kongponents/compare/v8.0.0-beta.32...v8.0.0-beta.33) (2022-10-06)
 
 
