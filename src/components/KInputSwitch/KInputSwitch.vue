@@ -1,20 +1,21 @@
 <template>
   <KTooltip
-    v-if="($attrs.disabled === true || $attrs.disabled === '') && disabledTooltipText"
+    v-if="disabled && disabledTooltipText"
     :label="disabledTooltipText"
   >
     <label
       :for="$attrs.id ? String($attrs.id) : undefined"
-      :disabled="$attrs.disabled"
+      :disabled="disabled"
       class="k-switch k-input-switch"
     >
       <span v-if="(label || $slots.label) && labelPosition === 'left'">
         <slot name="label">{{ label }}</slot>
       </span>
       <input
+        :disabled="disabled"
         :checked="modelValue"
-        v-bind="$attrs"
         type="checkbox"
+        v-bind="strippedAttrs"
         @change="handleChange"
         @input="handleChange"
       >
@@ -28,7 +29,7 @@
   <label
     v-else
     :for="$attrs.id ? String($attrs.id) : undefined"
-    :disabled="$attrs.disabled"
+    :disabled="disabled ? disabled : undefined"
     :class="{ 'switch-with-icon' : enabledIcon }"
     class="k-switch k-input-switch"
   >
@@ -36,8 +37,9 @@
       <slot name="label">{{ label }}</slot>
     </span>
     <input
+      :disabled="disabled ? disabled : undefined"
       :checked="modelValue"
-      v-bind="$attrs"
+      v-bind="strippedAttrs"
       type="checkbox"
       @change="handleChange"
       @input="handleChange"
@@ -87,6 +89,10 @@ export default defineComponent({
       default: 'right',
       validator: (position: string): boolean => ['left', 'right'].includes(position),
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     /**
      * Tooltip text to be displayed if the switch is disabled
      */
@@ -103,9 +109,27 @@ export default defineComponent({
     },
   },
   emits: ['change', 'input', 'update:modelValue'],
-  setup(props, { emit }) {
+  setup(props, { attrs, emit }) {
     const toggleText = computed((): string => {
       return props.modelValue ? 'on' : 'off'
+    })
+
+    /**
+     * Strips falsy `disabled` attribute, so it does not fall onto native <a> elements.
+     * Vue 3 no longer removes attribute if the value is boolean false. Instead, it's set as attr="false".
+     * So for <KButton :disabled="false" to="SOME_URL">, the rendered <a> element will have `disabled="false"`,
+     * which is greyed out and cannot be interacted with.
+     */
+    const strippedAttrs = computed((): typeof attrs => {
+      if (props.disabled !== undefined && props.disabled !== false) {
+        return attrs
+      }
+
+      const modifiedAttrs = Object.assign({}, attrs)
+
+      delete modifiedAttrs.disabled
+
+      return modifiedAttrs
     })
 
     const handleChange = (e: any): void => {
@@ -119,6 +143,7 @@ export default defineComponent({
     return {
       toggleText,
       handleChange,
+      strippedAttrs,
     }
   },
 })

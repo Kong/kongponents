@@ -51,9 +51,10 @@ $transition: 0.2s linear;
     }
   }
 
-  &[disabled] {
+  &[disabled]:not(:disabled) {
     cursor: not-allowed;
-    .switch-control {
+    .switch-control,
+    input {
       opacity: 0.3;
       pointer-events: none;
     }
