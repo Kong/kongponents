@@ -204,6 +204,7 @@ export default defineComponent({
   position: relative;
   display: inline-flex;
   align-items: center;
+  gap: var(--spacing-xs, spacing(xs));
   padding: var(--KButtonPaddingY, var(--spacing-sm, spacing(sm))) var(--KButtonPaddingX, var(--spacing-lg, spacing(lg)));
   font-family: var(--font-family-sans, font(sans));
   font-size: var(--KButtonFontSize, var(--type-md, type(md)));
@@ -245,16 +246,12 @@ export default defineComponent({
   /* Button w/ Icon */
   > :deep(.kong-icon) {
     display: inline-flex;
-    padding-right: var(--spacing-xs, spacing(xs));
     box-sizing: unset;
   }
 
   &.icon-btn {
     height: 38px;
     justify-content: center;
-    > :deep(.kong-icon) {
-      padding-right: 0;
-    }
   }
 
   /* Size Variations */
