@@ -13,7 +13,7 @@ describe('KPagination', () => {
     mount(KPagination, {
       props: {
         totalCount: 9,
-        pageSizes: pageSizes,
+        pageSizes,
         currentPage: currPage,
         items: myItems,
         testMode: true,

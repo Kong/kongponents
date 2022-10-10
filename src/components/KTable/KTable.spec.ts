@@ -225,7 +225,7 @@ describe('KTable', () => {
       mount(KTable, {
         props: {
           testMode: 'true',
-          fetcher: fetcher,
+          fetcher,
           headers: options.headers,
           pageSize: 4,
         },
@@ -240,7 +240,7 @@ describe('KTable', () => {
       mount(KTable, {
         props: {
           testMode: 'true',
-          fetcher: fetcher,
+          fetcher,
           headers: options.headers,
           pageSize: 4,
         },

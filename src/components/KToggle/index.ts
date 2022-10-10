@@ -25,8 +25,8 @@ export default defineComponent({
       }
 
       return () => slots?.default && slots.default({
-        isToggled: isToggled,
-        toggle: toggle,
+        isToggled,
+        toggle,
       })
     } catch (_) {
       console.error(`KToggle expects to have slot content.

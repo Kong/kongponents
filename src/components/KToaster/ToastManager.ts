@@ -57,7 +57,7 @@ export default class ToastManager {
       key: _key,
       appearance: _appearance,
       message: message || args,
-      timer: timer,
+      timer,
       timeoutMilliseconds: timeoutMilliseconds || this.timeout,
     })
   }

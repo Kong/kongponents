@@ -11,7 +11,7 @@ const rendersIcon = (icon) => {
   it(`renders ${icon} icon`, () => {
     mount(KIcon, {
       props: {
-        icon: icon,
+        icon,
         testMode: true,
       },
     })
@@ -30,7 +30,7 @@ describe('KIcon', () => {
     mount(KIcon, {
       props: {
         icon: 'portal',
-        color: color,
+        color,
       },
     })
 
@@ -43,8 +43,8 @@ describe('KIcon', () => {
     mount(KIcon, {
       props: {
         icon: 'warning',
-        color: color,
-        secondaryColor: secondaryColor,
+        color,
+        secondaryColor,
       },
     })
 
@@ -57,7 +57,7 @@ describe('KIcon', () => {
     mount(KIcon, {
       props: {
         icon: 'portal',
-        size: size,
+        size,
       },
     })
 
@@ -80,7 +80,7 @@ describe('KIcon', () => {
     mount(KIcon, {
       props: {
         icon: 'portal',
-        title: title,
+        title,
       },
     })
 

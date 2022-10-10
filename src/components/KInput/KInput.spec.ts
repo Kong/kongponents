@@ -30,7 +30,7 @@ describe('KInput', () => {
     mount(KInput, {
       props: {
         testMode: true,
-        label: label,
+        label,
       },
     })
 
@@ -42,7 +42,7 @@ describe('KInput', () => {
     mount(KInput, {
       props: {
         testMode: true,
-        label: label,
+        label,
         labelAttributes: {
           help: 'some help text',
         },
@@ -61,7 +61,7 @@ describe('KInput', () => {
     mount(KInput, {
       props: {
         testMode: true,
-        label: label,
+        label,
         overlayLabel: true,
       },
     })

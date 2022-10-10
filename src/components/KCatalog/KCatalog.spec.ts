@@ -234,7 +234,7 @@ describe('KCatalog', () => {
 
       mount(KCatalog, {
         props: {
-          fetcher: fetcher,
+          fetcher,
           pageSize: 4,
         },
       })
@@ -249,7 +249,7 @@ describe('KCatalog', () => {
       mount(KCatalog, {
         props: {
           testMode: 'true',
-          fetcher: fetcher,
+          fetcher,
           pageSize: 4,
         },
         slots: {

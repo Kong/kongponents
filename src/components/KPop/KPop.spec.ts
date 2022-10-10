@@ -71,7 +71,7 @@ describe('KPop', () => {
     mount(KPop, {
       props: {
         testMode: true,
-        title: title,
+        title,
       },
     })
     cy.get('.k-popover-title').should('have.text', title)

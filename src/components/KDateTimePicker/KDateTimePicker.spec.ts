@@ -129,8 +129,8 @@ describe('KDateTimePicker', () => {
         modelValue: defaultTimeRange,
         range: true,
         minuteIncrement: '5',
-        minDate: minDate,
-        maxDate: maxDate,
+        minDate,
+        maxDate,
       },
     })
 
@@ -219,8 +219,8 @@ describe('KDateTimePicker', () => {
         mode: 'dateTime',
         modelValue: defaultTimeRange,
         range: true,
-        minDate: minDate,
-        maxDate: maxDate,
+        minDate,
+        maxDate,
         timePeriods: exampleTimeFrames,
       },
     })

@@ -51,8 +51,8 @@ describe('KPrompt', () => {
     mount(KPrompt, {
       props: {
         isVisible: true,
-        actionButtonText: actionButtonText,
-        cancelButtonText: cancelButtonText,
+        actionButtonText,
+        cancelButtonText,
       },
     })
 
@@ -78,7 +78,7 @@ describe('KPrompt', () => {
     mount(KPrompt, {
       props: {
         isVisible: true,
-        confirmationText: confirmationText,
+        confirmationText,
       },
     })
 
