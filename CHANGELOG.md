@@ -1,3 +1,10 @@
+# [8.0.0-beta.35](https://github.com/Kong/kongponents/compare/v8.0.0-beta.34...v8.0.0-beta.35) (2022-10-10)
+
+
+### Bug Fixes
+
+* **kinputswitch:** disabled is a prop ([57a902e](https://github.com/Kong/kongponents/commit/57a902ee59a09715041b744498ddf49a91af8200))
+
 # [8.0.0-beta.34](https://github.com/Kong/kongponents/compare/v8.0.0-beta.33...v8.0.0-beta.34) (2022-10-10)
 
 
