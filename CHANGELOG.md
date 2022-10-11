@@ -1,3 +1,10 @@
+# [8.0.0-beta.36](https://github.com/Kong/kongponents/compare/v8.0.0-beta.35...v8.0.0-beta.36) (2022-10-11)
+
+
+### Bug Fixes
+
+* **ktable:** deprecated sorter comment ([ea01918](https://github.com/Kong/kongponents/commit/ea0191867b9d4a4aff204d6b9722f4c9dc5a3472))
+
 # [8.0.0-beta.35](https://github.com/Kong/kongponents/compare/v8.0.0-beta.34...v8.0.0-beta.35) (2022-10-10)
 
 
