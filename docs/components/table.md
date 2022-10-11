@@ -1058,7 +1058,7 @@ Set the following properties to handle empty state:
 - `emptyStateActionMessage` - Button text for empty state action
 - `emptyStateActionButtonIcon` - Icon for the empty state action button
 
-If using a CTA button, a `ktable-empty-state-cta-clicked` event is fired when clicked.
+If using a CTA button, a `@ktable-empty-state-cta-clicked` event is fired when clicked.
 
 #### Default Empty State Messaging
 

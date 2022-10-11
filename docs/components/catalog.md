@@ -249,7 +249,7 @@ Set the following properties to handle empty state:
 - `emptyStateActionMessage` - Button text for empty state action
 - `emptyStateActionButtonIcon` - Icon for the empty state action button
 
-If using a CTA button, a `KCatalog-empty-state-cta-clicked` event is fired when clicked.
+If using a CTA button, a `@kcatalog-empty-state-cta-clicked` event is fired when clicked.
 
 <KCatalog :fetcher="emptyFetcher" title="Customized empty catalog" emptyStateTitle="No Workspaces exist" emptyStateMessage="Adding a new Workspace will populate this catalog." emptyStateActionMessage="Create a Workspace" emptyStateActionRoute="#empty-state-full-example" emptyStateIcon="workspaces" emptyStateIconColor="#5996ff" emptyStateIconSize="35" />
 
