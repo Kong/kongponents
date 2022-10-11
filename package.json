@@ -31,7 +31,7 @@
     "build:docs": "vuepress build docs",
     "build:kongponents": "yarn typecheck && vite build && yarn copy:css-variables && vue-tsc --emitDeclarationOnly",
     "copy:css-variables": "copyfiles -f src/styles/_variables.scss dist",
-    "build": "yarn build:kongponents && yarn build:docs && yarn build:cli",
+    "build": "yarn build:cli && yarn build:kongponents && yarn build:docs",
     "commit": "cz",
     "create-kongponent": "node ./bin/index.js",
     "dev": "vite",
