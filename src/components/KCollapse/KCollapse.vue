@@ -80,10 +80,12 @@
 <script lang="ts">
 import { defineComponent, computed, ref, watch } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
+import KButton from '@/components/KButton/KButton.vue'
 
 export default defineComponent({
   name: 'KCollapse',
   components: {
+    KButton,
     KIcon,
   },
   props: {
