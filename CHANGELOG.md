@@ -1,3 +1,10 @@
+# [8.0.0-beta.37](https://github.com/Kong/kongponents/compare/v8.0.0-beta.36...v8.0.0-beta.37) (2022-10-12)
+
+
+### Bug Fixes
+
+* **icon:** backports - adds new icons for dashboard ([#824](https://github.com/Kong/kongponents/issues/824)) ([54a2d6a](https://github.com/Kong/kongponents/commit/54a2d6a385a99bc7f1ab4a83a3deec82efaaac70))
+
 # [8.0.0-beta.36](https://github.com/Kong/kongponents/compare/v8.0.0-beta.35...v8.0.0-beta.36) (2022-10-11)
 
 
