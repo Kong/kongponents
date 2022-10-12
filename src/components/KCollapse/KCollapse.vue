@@ -157,10 +157,14 @@ export default defineComponent({
     font-weight: 600;
   }
 
-  .k-collapse-trigger-content {
-    color: var(--blue-500);
-    font-size: 12px;
-    font-weight: 600;
+  .k-collapse-trigger {
+    cursor: pointer;
+
+    .k-collapse-trigger-content {
+      color: var(--blue-500);
+      font-size: 12px;
+      font-weight: 600;
+    }
   }
 }
 </style>
