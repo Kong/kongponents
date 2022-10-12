@@ -14,6 +14,7 @@
           'mb-2': triggerAlignment === 'leading'
         }"
         class="k-collapse-title"
+        data-testid="k-collapse-title"
       >
         {{ title }}
       </div>
@@ -28,16 +29,21 @@
           :is-collapsed="getIsCollapsed()"
           :toggle="toggleDisplay"
         >
-          <div
-            class="k-collapse-trigger-content"
+          <KButton
+            class="k-collapse-trigger-content non-visual-button"
+            data-testid="k-collapse-trigger-content"
             @click="toggleDisplay()"
           >
             <slot name="trigger-content">
-              <span v-if="triggerLabel">
+              <span
+                v-if="triggerLabel"
+                class="k-collapse-trigger-label"
+                data-testid="k-collapse-trigger-label"
+              >
                 <KIcon
                   :icon="getIsCollapsed() ? 'chevronRight' : 'chevronDown'"
                   color="var(--blue-500)"
-                  size="10"
+                  size="12"
                   class="mr-1"
                 />
                 {{ triggerLabel }}
@@ -46,21 +52,25 @@
                 v-else
                 :icon="getIsCollapsed() ? 'chevronRight' : 'chevronDown'"
                 color="var(--black-70)"
+                class="k-collapse-trigger-icon"
+                data-testid="k-collapse-trigger-icon"
               />
             </slot>
-          </div>
+          </KButton>
         </slot>
       </div>
     </div>
     <div
       v-if="hasVisibleContent"
       class="k-collapse-visible-content w-100"
+      data-testid="k-collapse-visible-content"
     >
       <slot name="visible-content" />
     </div>
     <div
       v-if="!getIsCollapsed()"
       class="k-collapse-hidden-content w-100"
+      data-testid="k-collapse-hidden-content"
     >
       <slot />
     </div>
@@ -167,7 +177,35 @@ export default defineComponent({
     .k-collapse-trigger-content {
       color: var(--blue-500);
       font-size: var(--type-xs);
-      font-weight: 600;
+      font-weight: 600 !important;
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+@import '@/styles/variables';
+@import '@/styles/functions';
+
+.k-collapse {
+  .k-collapse-trigger {
+    .k-collapse-trigger-content {
+      &.k-button {
+        padding: 8px 0;
+        margin-top: -8px;
+
+        .k-collapse-trigger-icon.kong-icon {
+          padding-right: 0;
+        }
+
+        .k-collapse-trigger-label {
+          .kong-icon {
+            height: 12px;
+            top: 2px;
+            position: relative;
+          }
+        }
+      }
     }
   }
 }
