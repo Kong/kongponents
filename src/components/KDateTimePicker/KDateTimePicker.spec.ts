@@ -3,7 +3,7 @@
 
 import { mount } from '@cypress/vue'
 import { format } from 'date-fns'
-import { TimePeriods, TimeframeKeys } from '@/utils/KDatePickerMockData'
+import { TimePeriods, TimeframeKeys } from 'utils/mockdata/KDatePickerMockData'
 import KDateTimePicker from '@/components/KDateTimePicker/KDateTimePicker.vue'
 
 const exampleTimeFrames = [
