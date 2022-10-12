@@ -193,7 +193,7 @@ export default defineComponent({
   .k-collapse-trigger {
     .k-collapse-trigger-content {
       &.k-button {
-        padding: 8px 0;
+        padding: var(--spacing-xs) 0;
         margin-top: -8px;
 
         .k-collapse-trigger-icon.kong-icon {
@@ -202,7 +202,6 @@ export default defineComponent({
 
         .k-collapse-trigger-label {
           .kong-icon {
-            height: 12px;
             top: 2px;
             position: relative;
           }
