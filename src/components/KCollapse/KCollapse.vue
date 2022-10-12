@@ -9,11 +9,11 @@
     >
       <div
         v-if="title"
-        class="k-collapse-title"
         :class="{
           'mr-auto': triggerAlignment === 'trailing',
           'mb-2': triggerAlignment === 'leading'
         }"
+        class="k-collapse-title"
       >
         {{ title }}
       </div>
