@@ -28,7 +28,7 @@ Use this prop to apply a title to the collapsible section.
 </KCollapse>
 ```
 
-## triggerLabel
+### triggerLabel
 
 Use this prop to customize the content to trigger the collapse. The label will be displayed to the right of a caret that indicates the collapsedness.
 If no label is provided, only a caret will be displayed.
@@ -43,7 +43,7 @@ If no label is provided, only a caret will be displayed.
 </KCollapse>
 ```
 
-## triggerAlignment
+### triggerAlignment
 
 You can customize the alignment of the trigger. `leading` or `trailing` (default) alignment is supported.
 If a `title` is specified, the trigger will be inline with `trailing` alignment, or displayed beneath the `title` with `leading` alignment.
@@ -72,9 +72,9 @@ If a `title` is specified, the trigger will be inline with `trailing` alignment,
 
 ### v-model
 
-KCollapse can be controlled with v-model.
+KCollapse can be controlled with `v-model`.
 
-<div class="d-flex mb-2">
+<div class="d-flex mb-3">
   <KLabel>Is Collapsed:</KLabel> {{ myIsCollapsed }}
   <KButton class="ml-auto" @click="myIsCollapsed = !myIsCollapsed">Another trigger</KButton>
 </div>
@@ -85,7 +85,7 @@ KCollapse can be controlled with v-model.
 </div>
 
 ```html
-<div class="d-flex mb-2">
+<div class="d-flex mb-3">
   <KLabel>Is Collapsed:</KLabel> {{ myIsCollapsed }}
   <KButton class="ml-auto" @click="myIsCollapsed = !myIsCollapsed">Another trigger</KButton>
 </div>
@@ -115,32 +115,33 @@ To set the default collapse state without binding to v-model you can use `modelV
 - `default` - Content to be hidden or shown when clicking the trigger
 - `visible-content` - Content displayed above the collapsible content that is always visible
 - `trigger-content` - Contents of the trigger
+- `trigger` - Completely control the trigger, including managing click events
 
 <KCollapse>
   <template #trigger-content>
     <KButton>
-      🐶
+      Toggle 🐶
     </KButton>
   </template>
   <template #visible-content>
-    I am always visible
+    <KCard body="I am content that is always visible" />
   </template>
 
-  Can you see me now?
+  <KCard body="Woof! I am only visible when expanded" />
 </KCollapse>
 
 ```html
 <KCollapse>
   <template #trigger-content>
     <KButton>
-      🐶
+      Toggle 🐶
     </KButton>
   </template>
   <template #visible-content>
-    I am always visible
+    <KCard body="I am content that is always visible" />
   </template>
 
-  Can you see me now?
+  <KCard body="Woof! I am only visible when expanded" />
 </KCollapse>
 ```
 
