@@ -69,9 +69,13 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref, watch } from 'vue'
+import KIcon from '@/components/KIcon/KIcon.vue'
 
 export default defineComponent({
   name: 'KCollapse',
+  components: {
+    KIcon,
+  },
   props: {
     modelValue: {
       type: Boolean,
@@ -153,7 +157,7 @@ export default defineComponent({
 
 .k-collapse {
   .k-collapse-title {
-    font-size: 18px;
+    font-size: var(--type-lg);
     font-weight: 600;
   }
 
@@ -162,7 +166,7 @@ export default defineComponent({
 
     .k-collapse-trigger-content {
       color: var(--blue-500);
-      font-size: 12px;
+      font-size: var(--type-xs);
       font-weight: 600;
     }
   }
