@@ -43,7 +43,7 @@
                 <KIcon
                   :icon="getIsCollapsed() ? 'chevronRight' : 'chevronDown'"
                   color="var(--blue-500)"
-                  size="12"
+                  size="14"
                   class="mr-1"
                 />
                 {{ triggerLabel }}
@@ -176,7 +176,7 @@ export default defineComponent({
 
     .k-collapse-trigger-content {
       color: var(--blue-500);
-      font-size: var(--type-xs);
+      font-size: var(--type-sm);
       font-weight: 600 !important;
     }
   }
