@@ -89,20 +89,25 @@ export default defineComponent({
     KIcon,
   },
   props: {
+    // Is the KCollapse collapsed? Defaults to true
     modelValue: {
       type: Boolean,
+      required: false,
       default: true,
     },
     title: {
       type: String,
+      required: false,
       default: '',
     },
     triggerLabel: {
       type: String,
+      required: false,
       default: '',
     },
     triggerAlignment: {
       type: String,
+      required: false,
       default: 'trailing',
       validator: (value: string): boolean => {
         return ['leading', 'trailing'].includes(value)
@@ -125,7 +130,7 @@ export default defineComponent({
       },
     })
 
-    const toggleDisplay = (isToggled?: boolean) => {
+    const toggleDisplay = (isToggled?: boolean): void => {
       if (!modelValueChanged.value) {
         // make sure we match modelValue first time in
         isCollapsed.value = props.modelValue

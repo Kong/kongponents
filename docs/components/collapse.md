@@ -30,7 +30,7 @@ Use this prop to apply a title to the collapsible section.
 
 ### triggerLabel
 
-Use this prop to customize the content to trigger the collapse. The label will be displayed to the right of a caret that indicates the collapsedness.
+Use this prop to customize the content to that will toggle the collapsed state of the component. The label will be displayed to the right of a caret that indicates the state of the hidden content.
 If no label is provided, only a caret will be displayed.
 
 <KCollapse trigger-label="View more info">
