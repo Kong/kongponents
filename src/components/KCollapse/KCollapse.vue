@@ -65,13 +65,15 @@
     >
       <slot name="visible-content" />
     </div>
-    <div
-      v-if="!collapsedState"
-      class="k-collapse-hidden-content w-100"
-      data-testid="k-collapse-hidden-content"
-    >
-      <slot />
-    </div>
+    <Transition name="collapse">
+      <div
+        v-show="!collapsedState"
+        class="k-collapse-hidden-content w-100"
+        data-testid="k-collapse-hidden-content"
+      >
+        <slot />
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -189,6 +191,20 @@ export default defineComponent({
         text-decoration: none;
       }
     }
+  }
+
+  /**
+   * Transition on collapse/expand
+   */
+  .collapse-enter-active,
+  .collapse-leave-active {
+    transition: all 0.5s ease-in-out;
+  }
+
+  .collapse-enter-from,
+  .collapse-leave-to {
+    transform: translateY(-10px);
+    opacity: 0;
   }
 }
 </style>
