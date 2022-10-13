@@ -26,7 +26,7 @@
       >
         <slot
           name="trigger"
-          :is-collapsed="getIsCollapsed()"
+          :is-collapsed="collapsedState"
           :toggle="toggleDisplay"
         >
           <a
@@ -41,7 +41,7 @@
                 data-testid="k-collapse-trigger-label"
               >
                 <KIcon
-                  :icon="getIsCollapsed() ? 'chevronRight' : 'chevronDown'"
+                  :icon="collapsedState ? 'chevronRight' : 'chevronDown'"
                   size="14"
                   class="k-collapse-trigger-chevron mr-1"
                 />
@@ -49,7 +49,7 @@
               </span>
               <KIcon
                 v-else
-                :icon="getIsCollapsed() ? 'chevronRight' : 'chevronDown'"
+                :icon="collapsedState ? 'chevronRight' : 'chevronDown'"
                 class="k-collapse-trigger-icon k-collapse-trigger-chevron"
                 data-testid="k-collapse-trigger-icon"
               />
@@ -66,7 +66,7 @@
       <slot name="visible-content" />
     </div>
     <div
-      v-if="!getIsCollapsed()"
+      v-if="!collapsedState"
       class="k-collapse-hidden-content w-100"
       data-testid="k-collapse-hidden-content"
     >
@@ -145,10 +145,10 @@ export default defineComponent({
       emit('update:modelValue', isCollapsed.value)
     }
 
-    const getIsCollapsed = (): boolean => {
+    const collapsedState = computed((): boolean => {
       // Use the modelValue only if the value hasn't been changed
       return modelValueChanged.value ? isCollapsed.value : props.modelValue
-    }
+    })
 
     // watch for programmatic changes to v-model
     watch(value, (newVal, oldVal) => {
@@ -161,7 +161,7 @@ export default defineComponent({
       hasVisibleContent,
       trailingTrigger,
       toggleDisplay,
-      getIsCollapsed,
+      collapsedState,
     }
   },
 })
