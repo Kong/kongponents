@@ -2,13 +2,13 @@
 
 **KCollapse** - A collapsible section.
 
-<KCollapse>
-  Can you see me now?
+<KCollapse trigger-label="View more info">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
 </KCollapse>
 
 ```html
-<KCollapse>
-  Can you see me now?
+<KCollapse trigger-label="View more info">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
 </KCollapse>
 ```
 
@@ -33,12 +33,12 @@ Use this prop to apply a title to the collapsible section.
 Use this prop to customize the content to that will toggle the collapsed state of the component. The label will be displayed to the right of a caret that indicates the state of the hidden content.
 If no label is provided, only a caret will be displayed.
 
-<KCollapse trigger-label="View more info">
+<KCollapse>
   Can you see me now?
 </KCollapse>
 
 ```html
-<KCollapse trigger-label="View more info">
+<KCollapse>
   Can you see me now?
 </KCollapse>
 ```
@@ -75,7 +75,7 @@ If a `title` is specified, the trigger will be inline with `trailing` alignment,
 KCollapse can be controlled with `v-model`.
 
 <div class="d-flex mb-3">
-  <KLabel>Is Collapsed:</KLabel> {{ myIsCollapsed }}
+  <KLabel>Is Collapsed:&nbsp;</KLabel> {{ myIsCollapsed }}
   <KButton class="ml-auto" @click="myIsCollapsed = !myIsCollapsed">Another trigger</KButton>
 </div>
 <div>
@@ -114,10 +114,14 @@ To set the default collapse state without binding to v-model you can use `modelV
 
 - `default` - Content to be hidden or shown when clicking the trigger
 - `visible-content` - Content displayed above the collapsible content that is always visible
-- `trigger-content` - Contents of the trigger
+- `trigger-content` - Contents of the trigger; click handling is built-in
 - `trigger` - Completely control the trigger, including managing click events
 
-<KCollapse>
+::: tip Note
+  The `trigger-content` slot is contained within the `trigger` slot, so if slotting the `trigger` the `trigger-content` slot will be unavailable.
+:::
+
+<KCollapse title="Look Mah!">
   <template #trigger-content>
     <KButton>
       Toggle 🐶
@@ -173,6 +177,38 @@ We provide the `isCollapsed` prop and the `toggle()` function as slot properties
 - `@toggled` - Emitted when the trigger is clicked
 - `@update:modelValue` - Emitted when the `modelValue` is changed
 
+## Theming
+
+| Variable                       | Purpose                                     |
+| :---------------------         | :-------------------------------            |
+| `KCollapseTriggerColor`        | Color of trigger text/icon                  |
+
+An example of theming the collapse:
+
+> Note: We are scoping the overrides to a wrapper in this example
+
+<div class="k-collapse-wrapper">
+  <KCollapse trigger-label="View more info">
+    Can you see me now?
+  </KCollapse>
+</div>
+
+```html
+<template>
+  <div class="k-collapse-wrapper">
+    <KCollapse trigger-label="View more info">
+      Can you see me now?
+    </KCollapse>
+  </div>
+</template>
+
+<style lang="scss">
+.k-collapse-wrapper {
+  --KCollapseTriggerColor: var(--red-500);
+}
+</style>
+```
+
 <script lang="ts">
 import { defineComponent } from 'vue'
 
@@ -184,3 +220,9 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss">
+.k-collapse-wrapper {
+  --KCollapseTriggerColor: var(--red-500);
+}
+</style>

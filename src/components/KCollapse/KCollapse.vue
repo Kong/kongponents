@@ -2,16 +2,16 @@
   <div class="k-collapse w-100">
     <div
       :class="{
-        'd-flex': triggerAlignment === 'trailing',
-        'd-block': triggerAlignment === 'leading'
+        'd-flex': trailingTrigger,
+        'd-block': !trailingTrigger
       }"
       class="k-collapse-heading w-100 mb-3"
     >
       <div
         v-if="title"
         :class="{
-          'mr-auto': triggerAlignment === 'trailing',
-          'mb-2': triggerAlignment === 'leading'
+          'mr-auto': trailingTrigger,
+          'mb-2': !trailingTrigger
         }"
         class="k-collapse-title"
         data-testid="k-collapse-title"
@@ -20,7 +20,7 @@
       </div>
       <div
         :class="{
-          'ml-auto': triggerAlignment === 'trailing'
+          'ml-auto': trailingTrigger
         }"
         class="k-collapse-trigger"
       >
@@ -29,10 +29,10 @@
           :is-collapsed="getIsCollapsed()"
           :toggle="toggleDisplay"
         >
-          <KButton
-            class="k-collapse-trigger-content non-visual-button"
+          <a
+            class="k-collapse-trigger-content"
             data-testid="k-collapse-trigger-content"
-            @click="toggleDisplay()"
+            @click.prevent.stop="toggleDisplay()"
           >
             <slot name="trigger-content">
               <span
@@ -42,27 +42,25 @@
               >
                 <KIcon
                   :icon="getIsCollapsed() ? 'chevronRight' : 'chevronDown'"
-                  color="var(--blue-500)"
                   size="14"
-                  class="mr-1"
+                  class="k-collapse-trigger-chevron mr-1"
                 />
                 {{ triggerLabel }}
               </span>
               <KIcon
                 v-else
                 :icon="getIsCollapsed() ? 'chevronRight' : 'chevronDown'"
-                color="var(--black-70)"
-                class="k-collapse-trigger-icon"
+                class="k-collapse-trigger-icon k-collapse-trigger-chevron"
                 data-testid="k-collapse-trigger-icon"
               />
             </slot>
-          </KButton>
+          </a>
         </slot>
       </div>
     </div>
     <div
       v-if="hasVisibleContent"
-      class="k-collapse-visible-content w-100"
+      class="k-collapse-visible-content w-100 mb-4"
       data-testid="k-collapse-visible-content"
     >
       <slot name="visible-content" />
@@ -80,12 +78,10 @@
 <script lang="ts">
 import { defineComponent, computed, ref, watch } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import KButton from '@/components/KButton/KButton.vue'
 
 export default defineComponent({
   name: 'KCollapse',
   components: {
-    KButton,
     KIcon,
   },
   props: {
@@ -119,6 +115,8 @@ export default defineComponent({
     const hasVisibleContent = computed((): boolean => !!slots['visible-content'])
     const isCollapsed = ref(true)
     const modelValueChanged = ref(false)
+
+    const trailingTrigger = computed(() => props.triggerAlignment === 'trailing')
 
     // we need this so we can create a watcher for programmatic changes to the modelValue
     const value = computed({
@@ -161,6 +159,7 @@ export default defineComponent({
 
     return {
       hasVisibleContent,
+      trailingTrigger,
       toggleDisplay,
       getIsCollapsed,
     }
@@ -182,9 +181,13 @@ export default defineComponent({
     cursor: pointer;
 
     .k-collapse-trigger-content {
-      color: var(--blue-500);
+      color: var(--KCollapseTriggerColor, var(--blue-500));
       font-size: var(--type-sm);
-      font-weight: 600 !important;
+      font-weight: 600;
+
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 }
@@ -197,19 +200,25 @@ export default defineComponent({
 .k-collapse {
   .k-collapse-trigger {
     .k-collapse-trigger-content {
-      &.k-button {
-        padding: var(--spacing-xs) 0;
-        margin-top: -8px;
+      padding: var(--spacing-xs) 0;
+      margin-top: -8px;
 
-        .k-collapse-trigger-icon.kong-icon {
-          padding-right: 0;
+      .k-collapse-trigger-chevron.kong-icon {
+        &.kong-icon-chevronDown svg path,
+        &.kong-icon-chevronRight svg path {
+          stroke: var(--KCollapseTriggerColor, var(--blue-500));
         }
 
-        .k-collapse-trigger-label {
-          .kong-icon {
-            top: 2px;
-            position: relative;
-          }
+      }
+
+      .k-collapse-trigger-icon.kong-icon {
+        padding-right: 0;
+      }
+
+      .k-collapse-trigger-label {
+        .kong-icon {
+          top: 2px;
+          position: relative;
         }
       }
     }
