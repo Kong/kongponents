@@ -71,10 +71,10 @@ describe('KCollapse', () => {
 
     cy.getTestId('k-collapse-trigger-label').should('contain.text', triggerLabel)
     // hidden by default
-    cy.getTestId('k-collapse-hidden-content').should('not.exist')
+    cy.getTestId('k-collapse-hidden-content').should('not.be.visible')
     // visible when clicked
     cy.getTestId('k-collapse-trigger-label').click()
-    cy.getTestId('k-collapse-hidden-content').should('exist')
+    cy.getTestId('k-collapse-hidden-content').should('be.visible')
   })
 
   it('allows content to be expanded by default', () => {
@@ -91,11 +91,11 @@ describe('KCollapse', () => {
 
     cy.getTestId('k-collapse-trigger-content').should('exist')
     // visible by default
-    cy.getTestId('k-collapse-hidden-content').should('exist')
+    cy.getTestId('k-collapse-hidden-content').should('be.visible')
     cy.getTestId('k-collapse-hidden-content').should('contain.text', collapseContent)
     // hidden when clicked
     cy.getTestId('k-collapse-trigger-content').click()
-    cy.getTestId('k-collapse-hidden-content').should('not.exist')
+    cy.getTestId('k-collapse-hidden-content').should('not.be.visible')
   })
 
   it('renders proper content when using slots', () => {
@@ -115,10 +115,10 @@ describe('KCollapse', () => {
     cy.getTestId('k-collapse-visible-content').should('exist')
     cy.getTestId('k-collapse-visible-content').should('contain.text', visibleContent)
     // hidden by default
-    cy.getTestId('k-collapse-hidden-content').should('not.exist')
+    cy.getTestId('k-collapse-hidden-content').should('not.be.visible')
     // visible when clicked
     cy.getTestId('k-collapse-trigger-content').click()
-    cy.getTestId('k-collapse-hidden-content').should('exist')
+    cy.getTestId('k-collapse-hidden-content').should('be.visible')
     cy.getTestId('k-collapse-hidden-content').should('contain.text', collapseContent)
   })
 })
