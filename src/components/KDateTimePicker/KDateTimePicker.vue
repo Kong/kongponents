@@ -564,17 +564,21 @@ $margin: 6px;
     --KButtonOutlineActive: var(--white);
     padding: var(--spacing-sm) var(--spacing-sm) !important;
     font-weight: 500;
-    max-width: 100%; // Prevent overflowing the container
+    // Prevent overflowing the container
+    max-width: 100%;
+    // Styling button as input via mixin
     @include input-default;
 
     &.set-min-width {
       min-width: $timepicker-min-width;
     }
     &:hover {
+      // Styling button as input via mixin
       @include input-hover;
     }
     &:focus,
     &:active {
+      // Styling button as input via mixin
       @include input-focus;
       > .kong-icon path {
         fill: var(--grey-600);

@@ -360,7 +360,7 @@ Will emit an `object` containing the following values:
 </div>
 
 <script>
-import { TimePeriods, TimeframeKeys } from 'mocks/KDateTimePickerMockData'
+import { TimePeriods, TimeframeKeys } from '@mocks/KDateTimePickerMockData'
 
 const exampleTimeFrames = [
   {

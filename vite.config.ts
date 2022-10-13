@@ -8,8 +8,8 @@ export default defineConfig({
   resolve: {
     alias: {
       // Alias src directory for @/components/{KongponentName} imports
-      '@': path.resolve(__dirname, './src'),
-      mocks: path.resolve(__dirname, './mocks'),
+      '@': path.resolve(__dirname, './src/'),
+      '@mocks': path.resolve(__dirname, './mocks/'),
     },
   },
   css: {
