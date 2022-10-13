@@ -9,7 +9,7 @@ export default defineConfig({
     alias: {
       // Alias src directory for @/components/{KongponentName} imports
       '@': path.resolve(__dirname, './src'),
-      utils: path.resolve(__dirname, './utils'),
+      mocks: path.resolve(__dirname, './mocks'),
     },
   },
   css: {
