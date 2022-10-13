@@ -119,7 +119,7 @@ export default defineComponent({
     const trailingTrigger = computed(() => props.triggerAlignment === 'trailing')
 
     // we need this so we can create a watcher for programmatic changes to the modelValue
-    const value = computed({
+    const modelComputed = computed({
       get(): boolean {
         return props.modelValue
       },
@@ -151,7 +151,7 @@ export default defineComponent({
     })
 
     // watch for programmatic changes to v-model
-    watch(value, (newVal, oldVal) => {
+    watch(modelComputed, (newVal, oldVal) => {
       if (newVal !== oldVal) {
         toggleDisplay(newVal)
       }
