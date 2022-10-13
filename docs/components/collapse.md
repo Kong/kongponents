@@ -18,27 +18,12 @@
 
 Use this prop to apply a title to the collapsible section.
 
-<KCollapse title="Look Mah!">
+<KCollapse title="Look Mah!" trigger-label="View more info">
   Can you see me now?
 </KCollapse>
 
 ```html
-<KCollapse title="Look Mah!">
-  Can you see me now?
-</KCollapse>
-```
-
-### triggerLabel
-
-Use this prop to customize the content to that will toggle the collapsed state of the component. The label will be displayed to the right of a caret that indicates the state of the hidden content.
-If no label is provided, only a caret will be displayed.
-
-<KCollapse>
-  Can you see me now?
-</KCollapse>
-
-```html
-<KCollapse>
+<KCollapse title="Look Mah!" trigger-label="View more info">
   Can you see me now?
 </KCollapse>
 ```
@@ -48,25 +33,28 @@ If no label is provided, only a caret will be displayed.
 You can customize the alignment of the trigger. `leading` or `trailing` (default) alignment is supported.
 If a `title` is specified, the trigger will be inline with `trailing` alignment, or displayed beneath the `title` with `leading` alignment.
 
-<KCollapse trigger-label="View more info" trigger-alignment="leading">
-  Can you see me now?
-</KCollapse>
-
-<br />
-
 <KCollapse title="Look Mah!" trigger-label="What?" trigger-alignment="leading">
   Can you see me now?
 </KCollapse>
 
 ```html
-<KCollapse trigger-label="View more info" trigger-alignment="leading">
-  Can you see me now?
-</KCollapse>
-
-<br />
-
 <KCollapse title="Look Mah!" trigger-label="What?" trigger-alignment="leading">
   Can you see me now?
+</KCollapse>
+```
+
+### triggerLabel
+
+Use this prop to customize the content to that will toggle the collapsed state of the component. The label will be displayed to the right of a caret that indicates the state of the hidden content.
+If no label is provided, only a caret will be displayed.
+
+<KCollapse trigger-alignment="leading">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
+</KCollapse>
+
+```html
+<KCollapse trigger-alignment="leading">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
 </KCollapse>
 ```
 
@@ -74,24 +62,30 @@ If a `title` is specified, the trigger will be inline with `trailing` alignment,
 
 KCollapse can be controlled with `v-model`.
 
-<div class="d-flex mb-3">
-  <KLabel>Is Collapsed:&nbsp;</KLabel> {{ myIsCollapsed }}
-  <KButton class="ml-auto" @click="myIsCollapsed = !myIsCollapsed">Another trigger</KButton>
+<div class="mb-3">
+  <div>
+    <KLabel>Is Collapsed:&nbsp;</KLabel>
+    {{ myIsCollapsed }}
+  </div>
+  <KButton @click="myIsCollapsed = !myIsCollapsed">Another trigger</KButton>
 </div>
 <div>
-  <KCollapse v-model="myIsCollapsed">
-    Can you see me now?
+  <KCollapse trigger-label="View more info" v-model="myIsCollapsed">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
   </KCollapse>
 </div>
 
 ```html
-<div class="d-flex mb-3">
-  <KLabel>Is Collapsed:</KLabel> {{ myIsCollapsed }}
-  <KButton class="ml-auto" @click="myIsCollapsed = !myIsCollapsed">Another trigger</KButton>
+<div class="mb-3">
+  <div>
+    <KLabel>Is Collapsed:&nbsp;</KLabel>
+    {{ myIsCollapsed }}
+  </div>
+  <KButton @click="myIsCollapsed = !myIsCollapsed">Another trigger</KButton>
 </div>
 <div>
-  <KCollapse v-model="myIsCollapsed">
-    Can you see me now?
+  <KCollapse trigger-label="View more info" v-model="myIsCollapsed">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
   </KCollapse>
 </div>
 ```
@@ -100,12 +94,12 @@ KCollapse can be controlled with `v-model`.
 
 To set the default collapse state without binding to v-model you can use `modelValue`.
 
-<KCollapse :model-value="false">
+<KCollapse title="Look Mah!" :model-value="false">
   I am expanded by default
 </KCollapse>
 
 ```html
-<KCollapse :model-value="false">
+<KCollapse title="Look Mah!" :model-value="false">
   I am expanded by default
 </KCollapse>
 ```
@@ -121,8 +115,13 @@ To set the default collapse state without binding to v-model you can use `modelV
   The `trigger-content` slot is contained within the `trigger` slot, so if slotting the `trigger` the `trigger-content` slot will be unavailable.
 :::
 
-<KCollapse title="Look Mah!">
+<KCollapse title="Look Mah!" trigger-alignment="leading">
   <template #trigger-content>
+    <div class="mb-2">
+      You can put whatever kind of content you like in this slot and click any of it to toggle the collapsed content.
+      <br />
+      Click ME instead of the button!
+    </div>
     <KButton>
       Toggle 🐶
     </KButton>
@@ -135,8 +134,13 @@ To set the default collapse state without binding to v-model you can use `modelV
 </KCollapse>
 
 ```html
-<KCollapse>
+<KCollapse title="Look Mah!" trigger-alignment="leading">
   <template #trigger-content>
+    <div class="mb-2">
+      You can put whatever kind of content you like in this slot and click any of it to toggle the collapsed content.
+      <br />
+      Click ME instead of the button!
+    </div>
     <KButton>
       Toggle 🐶
     </KButton>
@@ -152,7 +156,7 @@ To set the default collapse state without binding to v-model you can use `modelV
 If you want complete control of the trigger content and events, you can use the `trigger` slot.
 We provide the `isCollapsed` prop and the `toggle()` function as slot properties.
 
-<KCollapse>
+<KCollapse title="Look Mah!">
   <template #trigger="{ isCollapsed, toggle }">
     <KButton @click="toggle()">{{ isCollapsed ? 'Click to expand' : 'Click to collapse' }}</KButton>
   </template>
@@ -161,7 +165,7 @@ We provide the `isCollapsed` prop and the `toggle()` function as slot properties
 </KCollapse>
 
 ```html
-<KCollapse>
+<KCollapse title="Look Mah!">
   <template #trigger="{ isCollapsed, toggle }">
     <KButton @click="toggle()">
       {{ isCollapsed ? 'Click to expand' : 'Click to collapse' }}
