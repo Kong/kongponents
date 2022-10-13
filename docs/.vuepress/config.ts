@@ -18,7 +18,8 @@ export default defineUserConfig({
 
   alias: {
     // Alias src directory for @/components/{KongponentName} imports
-    '@': path.resolve(__dirname, '../../src'),
+    '@': path.resolve(__dirname, '../../src/'),
+    '@mocks': path.resolve(__dirname, '../../mocks/'),
   },
   // when using vuepress-vite package, you can omit this field
   // because vite is the default bundler

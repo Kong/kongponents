@@ -543,6 +543,7 @@ export default defineComponent({
 <style lang="scss">
 @import '@/styles/variables';
 @import '@/styles/functions';
+@import '@/styles/mixins';
 
 $timepicker-min-width: 360px;
 $margin: 6px;
@@ -560,21 +561,25 @@ $margin: 6px;
   .timepicker-input {
     --KButtonOutlineColor: var(--grey-500);
     --KButtonOutlineBorder: var(--grey-300);
+    --KButtonOutlineActive: var(--white);
     padding: var(--spacing-sm) var(--spacing-sm) !important;
     font-weight: 500;
-    max-width: 100%; // Prevent overflowing the container
+    // Prevent overflowing the container
+    max-width: 100%;
+    // Styling button as input via mixin
+    @include input-default;
 
     &.set-min-width {
       min-width: $timepicker-min-width;
     }
     &:hover {
-      --KButtonOutlineHoverBorder: var(--blue-200);
+      // Styling button as input via mixin
+      @include input-hover;
     }
     &:focus,
     &:active {
-      --KButtonOutlineColor: var(--grey-600);
-      --KButtonOutlineHoverBorder: var(--blue-500);
-      box-shadow: none !important;
+      // Styling button as input via mixin
+      @include input-focus;
       > .kong-icon path {
         fill: var(--grey-600);
       }
