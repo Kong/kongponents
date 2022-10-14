@@ -46,6 +46,7 @@ If a `title` is specified, the trigger will be inline with `trailing` alignment,
 ### triggerLabel
 
 Use this prop to customize the content to that will toggle the collapsed state of the component. The label will be displayed to the right of a caret that indicates the state of the hidden content.
+
 If no label is provided, only a caret will be displayed.
 
 <KCollapse trigger-alignment="leading">
@@ -92,7 +93,7 @@ KCollapse can be controlled with `v-model`.
 
 ### modelValue
 
-To set the default collapse state without binding to v-model you can use `modelValue`.
+To set the default state (collapsed or expanded) without binding to v-model you can use the `modelValue` prop.
 
 <KCollapse title="Look Mah!" :model-value="false">
   I am expanded by default
@@ -108,11 +109,11 @@ To set the default collapse state without binding to v-model you can use `modelV
 
 - `default` - Content to be hidden or shown when clicking the trigger
 - `visible-content` - Content displayed above the collapsible content that is always visible
-- `trigger-content` - Contents of the trigger; click handling is built-in
+- `trigger-content` - Contents of the trigger link anchor; click handling is built-in
 - `trigger` - Completely control the trigger, including managing click events
 
 ::: tip Note
-  The `trigger-content` slot is contained within the `trigger` slot, so if slotting the `trigger` the `trigger-content` slot will be unavailable.
+  You may utilize the `trigger-content` slot (to control the anchor text) or the `trigger` slot (to control the content of the entire trigger), but not both; if utilizing the `trigger` slot the `trigger-content` slot will not render.
 :::
 
 <KCollapse title="Look Mah!" trigger-alignment="leading">
@@ -154,7 +155,7 @@ To set the default collapse state without binding to v-model you can use `modelV
 ```
 
 If you want complete control of the trigger content and events, you can use the `trigger` slot.
-We provide the `isCollapsed` prop and the `toggle()` function as slot properties.
+We provide the `isCollapsed` Vue 'ref' and the `toggle()` function as slot props.
 
 <KCollapse title="Look Mah!">
   <template #trigger="{ isCollapsed, toggle }">
