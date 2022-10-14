@@ -198,9 +198,6 @@ export default defineComponent({
 .k-collapse {
   .k-collapse-trigger {
     .k-collapse-trigger-content {
-      padding: var(--spacing-xs) 0;
-      margin-top: -8px;
-
       .k-collapse-trigger-chevron.kong-icon {
         &.kong-icon-chevronDown svg path,
         &.kong-icon-chevronRight svg path {
