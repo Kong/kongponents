@@ -5,7 +5,7 @@
         'd-flex': trailingTrigger,
         'd-block': !trailingTrigger
       }"
-      class="k-collapse-heading w-100 mb-3"
+      class="k-collapse-heading mb-3"
     >
       <div
         v-if="title"

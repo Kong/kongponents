@@ -47,14 +47,24 @@ If a `title` is specified, the trigger will be inline with `trailing` alignment,
 
 Use this prop to customize the content to that will toggle the collapsed state of the component. The label will be displayed to the right of a caret that indicates the state of the hidden content.
 
-If no label is provided, only a caret will be displayed.
-
-<KCollapse trigger-alignment="leading">
+<KCollapse trigger-label="I am the trigger">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
 </KCollapse>
 
 ```html
-<KCollapse trigger-alignment="leading">
+<KCollapse trigger-label="I am the trigger">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
+</KCollapse>
+```
+
+If no label is provided, only a caret will be displayed.
+
+<KCollapse>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
+</KCollapse>
+
+```html
+<KCollapse>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
 </KCollapse>
 ```
@@ -111,6 +121,7 @@ To set the default state (collapsed or expanded) without binding to v-model you 
 - `visible-content` - Content displayed above the collapsible content that is always visible
 - `trigger-content` - Contents of the trigger link anchor; click handling is built-in
 - `trigger` - Completely control the trigger, including managing click events
+  - `isCollapsed` boolean and `toggle` function available as slot params
 
 ::: tip Note
   You may utilize the `trigger-content` slot (to control the anchor text) or the `trigger` slot (to control the content of the entire trigger), but not both; if utilizing the `trigger` slot the `trigger-content` slot will not render.
