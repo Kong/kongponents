@@ -30,6 +30,8 @@
           :toggle="toggleDisplay"
         >
           <a
+            href="#"
+            role="button"
             class="k-collapse-trigger-content"
             data-testid="k-collapse-trigger-content"
             @click.prevent.stop="toggleDisplay()"
@@ -65,15 +67,13 @@
     >
       <slot name="visible-content" />
     </div>
-    <Transition name="collapse">
-      <div
-        v-show="!collapsedState"
-        class="k-collapse-hidden-content w-100"
-        data-testid="k-collapse-hidden-content"
-      >
-        <slot />
-      </div>
-    </Transition>
+    <div
+      v-show="!collapsedState"
+      class="k-collapse-hidden-content w-100"
+      data-testid="k-collapse-hidden-content"
+    >
+      <slot />
+    </div>
   </div>
 </template>
 
@@ -186,25 +186,7 @@ export default defineComponent({
       color: var(--KCollapseTriggerColor, var(--blue-500));
       font-size: var(--type-sm);
       font-weight: 600;
-
-      &:hover {
-        text-decoration: none;
-      }
     }
-  }
-
-  /**
-   * Transition on collapse/expand
-   */
-  .collapse-enter-active,
-  .collapse-leave-active {
-    transition: all 0.5s ease-in-out;
-  }
-
-  .collapse-enter-from,
-  .collapse-leave-to {
-    transform: translateY(-10px);
-    opacity: 0;
   }
 }
 </style>
