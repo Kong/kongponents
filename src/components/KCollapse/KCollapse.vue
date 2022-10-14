@@ -47,7 +47,7 @@
                   size="14"
                   class="k-collapse-trigger-chevron mr-1"
                 />
-                {{ triggerLabel }}
+                <span>{{ triggerLabel }}</span>
               </span>
               <KIcon
                 v-else
