@@ -32,7 +32,7 @@
           <a
             href="#"
             role="button"
-            class="k-collapse-trigger-content"
+            class="k-collapse-trigger-content d-inline-block"
             data-testid="k-collapse-trigger-content"
             @click.prevent.stop="toggleDisplay()"
           >
