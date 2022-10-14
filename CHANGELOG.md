@@ -1,3 +1,10 @@
+# [8.0.0-beta.38](https://github.com/Kong/kongponents/compare/v8.0.0-beta.37...v8.0.0-beta.38) (2022-10-14)
+
+
+### Features
+
+* **kcollapse:** add new kongponent [khcp-4890] ([#825](https://github.com/Kong/kongponents/issues/825)) ([b613074](https://github.com/Kong/kongponents/commit/b61307492bcf1852a8ac4e3409cff7b910ab78a4))
+
 # [8.0.0-beta.37](https://github.com/Kong/kongponents/compare/v8.0.0-beta.36...v8.0.0-beta.37) (2022-10-12)
 
 
