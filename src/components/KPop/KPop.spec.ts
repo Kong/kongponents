@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KPop from '@/components/KPop/KPop.vue'
 import { h } from 'vue'
 

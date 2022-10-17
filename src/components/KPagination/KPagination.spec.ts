@@ -1,7 +1,4 @@
-// Import types for custom commands
-/// <reference types="../../cypress/support" />
-
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 
 describe('KPagination', () => {

@@ -1,7 +1,4 @@
-// Import types for custom commands
-/// <reference types="../../cypress/support" />
-
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KRadio from '@/components/KRadio/KRadio.vue'
 
 describe('KRadio', () => {

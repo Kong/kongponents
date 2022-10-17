@@ -1,7 +1,4 @@
-// Import types for custom commands
-/// <reference types="../../cypress/support" />
-
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KBadge, { appearances } from '@/components/KBadge/KBadge.vue'
 
 const rendersCorrectAppearance = (variant) => {

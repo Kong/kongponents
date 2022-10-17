@@ -36,7 +36,7 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: [
-      '@cypress/vue',
+      'cypress',
       'vue',
     ],
   },
