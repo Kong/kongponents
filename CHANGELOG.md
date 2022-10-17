@@ -1,3 +1,10 @@
+# [8.0.0-beta.40](https://github.com/Kong/kongponents/compare/v8.0.0-beta.39...v8.0.0-beta.40) (2022-10-17)
+
+
+### Bug Fixes
+
+* **types:** update type config ([#828](https://github.com/Kong/kongponents/issues/828)) ([36cd5f3](https://github.com/Kong/kongponents/commit/36cd5f30fad7f404285f637d409f4e3b424d0f46))
+
 # [8.0.0-beta.39](https://github.com/Kong/kongponents/compare/v8.0.0-beta.38...v8.0.0-beta.39) (2022-10-17)
 
 
