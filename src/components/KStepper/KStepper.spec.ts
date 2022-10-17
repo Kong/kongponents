@@ -10,6 +10,7 @@ const longSteps = [
 
 const stepTypes = [
   { label: 'step: completed', state: 'completed' },
+  { label: 'step: active', state: 'active' },
   { label: 'step: pending', state: 'pending' },
   { label: 'step: error', state: 'error' },
   { label: 'step: default' },
@@ -49,7 +50,7 @@ describe('KStepper', () => {
         steps: stepTypes,
       },
     })
-    const types = ['completed', 'default', 'error', 'pending']
+    const types = ['completed', 'active', 'default', 'error', 'pending']
 
     cy.get('.k-stepper').should('be.visible')
 

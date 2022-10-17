@@ -3,7 +3,7 @@
     viewBox="0 0 24 24"
     fill="none"
     class="k-step-state-icon"
-    data-testid="k-step-default"
+    data-testid="k-step-active"
   >
     <title>{{ title }}</title>
     <circle
@@ -19,11 +19,11 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'KDefaultState',
+  name: 'KActiveState',
   props: {
     title: {
       type: String,
-      default: 'Default',
+      default: 'Active',
     },
   },
 })
@@ -35,7 +35,7 @@ export default defineComponent({
 
 .k-step-state-icon {
   circle {
-    stroke: var(--KStepDefaultColor, var(--grey-300));
+    stroke: var(--KStepActiveColor, var(--teal-300));
   }
 }
 </style>
