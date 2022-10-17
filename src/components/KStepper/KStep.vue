@@ -8,7 +8,7 @@
 
       <div
         :class="{
-          'bolder': state === 'pending' || state === 'error',
+          'bolder': state === 'active' || state === 'pending' || state === 'error',
           'error': state === 'error'
         }"
         :style="labelStyle"
@@ -41,7 +41,7 @@ export default defineComponent({
     state: {
       type: String as PropType<StepperState>,
       default: 'default',
-      validator: (value: StepperState) => ['default', 'pending', 'completed', 'error'].includes(value),
+      validator: (value: StepperState) => ['default', 'active', 'pending', 'completed', 'error'].includes(value),
     },
     maxLabelWidth: {
       type: String,
@@ -84,13 +84,16 @@ export default defineComponent({
     position: relative;
 
     .k-step-label {
-      --KInputLabelWeight: 400;
+      --KInputLabelColor: var(--grey-500);
+      --KInputLabelSize: var(--type-md);
+      --KInputLabelWeight: 500;
       min-width: 100px;
       text-align: center;
       padding-top: var(--spacing-sm);
 
       &.bolder {
         --KInputLabelWeight: 600;
+        --KInputLabelColor: var(--black-500);
       }
     }
 
