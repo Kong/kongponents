@@ -58,7 +58,22 @@ A step with a state of `completed` results in a filled-in divider.
 ]
 ```
 
-Both `pending` and `error` states will bold the label, because these 2 states indicate the "current" step. `completed` indicates past steps, while `default` indicates future steps.
+`active`, `pending`, and `error` states will bold the label, because these 3 states indicate the "current" step. `completed` indicates past steps, while `default` indicates future steps.
+
+<div>
+  <KStepper :steps="[
+      { label: 'An active step', state: 'active' },
+      { label: 'End' }
+    ]"
+  />
+</div>
+
+```js
+[
+  { label: 'An active step', state: 'active' },
+  { label: 'End' }
+]
+```
 
 <div>
   <KStepper :steps="[
@@ -121,6 +136,7 @@ The width of step labels (default is `170px`). We support numbers (will be conve
 | `KStepBackgroundColor`         | Background color of the step state icon     |
 | `KStepDividerColorCompleted`   | Color of divider for completed steps        |
 | `KStepDividerColorDefault`     | Color of divider for non-completed steps    |
+| `KStepActiveColor`             | Primary color of active state icon          |
 | `KStepCompletedColor`          | Primary color of completed state icon       |
 | `KStepCompletedSecondaryColor` | Secondary color of completed state icon     |
 | `KStepDefaultColor`            | Primary color of default state icon         |
@@ -149,6 +165,7 @@ An example of theming the stepper:
   --KStepIconSize: 40px;
   --KStepDividerColorCompleted: var(--purple-300);
   --KStepDividerColorDefault: var(--purple-100);
+  --KStepActiveColor: var(--purple-300);
   --KStepCompletedColor: var(--purple-300);
   --KStepDefaultColor: var(--purple-100);
   --KStepErrorColor: var(--steel-400);
@@ -165,11 +182,12 @@ export default defineComponent({
     return {
       defaultItems: [
         { label: 'And a 1', state: 'completed' },
-        { label: 'And a 2', state: 'pending' },
+        { label: 'And a 2', state: 'active' },
         { label: 'And a 1 2 3 4' }
       ],
       stepTypes: [
         { label: 'Completed step', state: 'completed' },
+        { label: 'Active step', state: 'active' },
         { label: 'Pending step', state: 'pending' },
         { label: 'Erroneous step', state: 'error' },
         { label: 'Default step' }
@@ -190,6 +208,7 @@ export default defineComponent({
   --KStepIconSize: 40px;
   --KStepDividerColorCompleted: var(--purple-300);
   --KStepDividerColorDefault: var(--purple-100);
+  --KStepActiveColor: var(--purple-300);
   --KStepCompletedColor: var(--purple-300);
   --KStepDefaultColor: var(--purple-100);
   --KStepErrorColor: var(--steel-400);
