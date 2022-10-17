@@ -1,3 +1,10 @@
+# [8.0.0-beta.39](https://github.com/Kong/kongponents/compare/v8.0.0-beta.38...v8.0.0-beta.39) (2022-10-17)
+
+
+### Features
+
+* **kstepper:** style updates [khcp-5085] ([#827](https://github.com/Kong/kongponents/issues/827)) ([8211c3c](https://github.com/Kong/kongponents/commit/8211c3c4a344e3a0c333bc2e750f33bc1d51cb18))
+
 # [8.0.0-beta.38](https://github.com/Kong/kongponents/compare/v8.0.0-beta.37...v8.0.0-beta.38) (2022-10-14)
 
 
