@@ -1,6 +1,3 @@
-// Import types for custom commands
-/// <reference types="../../cypress/support" />
-
 import { mount } from '@cypress/vue'
 import KStepper from '@/components/KStepper/KStepper.vue'
 

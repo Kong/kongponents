@@ -1,6 +1,3 @@
-// Import types for custom commands
-/// <reference types="../../cypress/support" />
-
 import { mount } from '@cypress/vue'
 import { format } from 'date-fns'
 import { TimePeriods, TimeframeKeys } from '@mocks/KDateTimePickerMockData'

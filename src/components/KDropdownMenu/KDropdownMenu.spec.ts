@@ -1,6 +1,3 @@
-// Import types for custom commands
-/// <reference types="../../cypress/support" />
-
 import { mount } from '@cypress/vue'
 import { h } from 'vue'
 import KDropdownMenu from '@/components/KDropdownMenu/KDropdownMenu.vue'
