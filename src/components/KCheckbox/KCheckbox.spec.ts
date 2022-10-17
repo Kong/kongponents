@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KCheckbox from '@/components/KCheckbox/KCheckbox.vue'
 
 describe('KCheckbox', () => {

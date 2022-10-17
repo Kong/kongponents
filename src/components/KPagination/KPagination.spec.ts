@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 
 describe('KPagination', () => {

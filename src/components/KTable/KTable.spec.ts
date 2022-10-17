@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KTable from '@/components/KTable/KTable.vue'
 

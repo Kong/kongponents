@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KTextArea from '@/components/KTextArea/KTextArea.vue'
 
 /**

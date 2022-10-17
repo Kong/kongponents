@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KDropdownMenu from '@/components/KDropdownMenu/KDropdownMenu.vue'
 

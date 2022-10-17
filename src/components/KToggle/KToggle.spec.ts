@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KToggle from '@/components/KToggle'
 import { h } from 'vue'
 

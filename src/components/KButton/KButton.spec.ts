@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KButton, { appearances } from '@/components/KButton/KButton.vue'
 
 const rendersCorrectAppearance = (variant: string) => {

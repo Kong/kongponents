@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KIcon from './KIcon.vue'
 import * as icons from './icons'
 

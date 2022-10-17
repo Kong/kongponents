@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KInput from '@/components/KInput/KInput.vue'
 
 /**

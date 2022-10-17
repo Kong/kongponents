@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KBadge, { appearances } from '@/components/KBadge/KBadge.vue'
 
 const rendersCorrectAppearance = (variant) => {

@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KSlideout from '@/components/KSlideout/KSlideout.vue'
 import { h } from 'vue'
 

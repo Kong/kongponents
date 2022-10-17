@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KStepper from '@/components/KStepper/KStepper.vue'
 
 const longSteps = [

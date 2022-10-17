@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KSelect from '@/components/KSelect/KSelect.vue'
 

@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KInlineEdit from '@/components/KInlineEdit/KInlineEdit.vue'
 

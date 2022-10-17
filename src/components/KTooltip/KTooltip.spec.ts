@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 
 const positions = ['top', 'right', 'bottom', 'left']

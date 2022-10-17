@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KModal from '@/components/KModal/KModal.vue'
 import { h } from 'vue'
 

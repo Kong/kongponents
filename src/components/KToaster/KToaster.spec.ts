@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KToaster from '@/components/KToaster/KToaster.vue'
 import ToastManager from '@/components/KToaster/ToastManager'
 

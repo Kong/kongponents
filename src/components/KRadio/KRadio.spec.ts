@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KRadio from '@/components/KRadio/KRadio.vue'
 
 describe('KRadio', () => {

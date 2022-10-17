@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 
 describe('KSkeleton', () => {

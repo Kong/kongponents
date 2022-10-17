@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KTabs from '@/components/KTabs/KTabs.vue'
 
 const TABS = [

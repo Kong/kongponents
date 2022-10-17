@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KInputSwitch from '@/components/KInputSwitch/KInputSwitch.vue'
 
 describe('KInputSwitch', () => {

@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KViewSwitcher from '@/components/KViewSwitcher/KViewSwitcher.vue'
 
 describe('KViewSwitcher', () => {

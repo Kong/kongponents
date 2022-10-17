@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KAlert, { appearances } from '@/components/KAlert/KAlert.vue'
 import { h } from 'vue'
 

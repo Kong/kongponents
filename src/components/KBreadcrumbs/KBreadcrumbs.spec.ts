@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KBreadcrumbs from '@/components/KBreadcrumbs/KBreadcrumbs.vue'
 
 describe('KBreadcrumbs', () => {
