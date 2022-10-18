@@ -562,6 +562,7 @@ $margin: 6px;
     --KButtonOutlineColor: var(--grey-500);
     --KButtonOutlineBorder: var(--grey-300);
     --KButtonOutlineActive: var(--white);
+    --KButtonOutlineHoverBorder: var(--blue-200);
     padding: var(--spacing-sm) var(--spacing-sm) !important;
     font-weight: 500;
     // Prevent overflowing the container
