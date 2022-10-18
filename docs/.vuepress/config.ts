@@ -125,6 +125,7 @@ export default defineUserConfig({
               '/components/textarea.md',
               '/components/toaster.md',
               '/components/tooltip.md',
+              '/components/upload.md',
               '/components/view-switcher.md',
             ]
           },
