@@ -1,12 +1,12 @@
 <template>
   <div
-    class="k-upload w-100"
+    class="k-file-upload w-100"
   >
     <KLabel
       v-if="label && appearance === 'file'"
-      :for="uploadId"
+      :for="customInputId"
       v-bind="labelAttributes"
-      data-testid="k-upload-label"
+      data-testid="k-file-upload-label"
     >
       {{ label }}
     </KLabel>
@@ -16,8 +16,9 @@
       ref="fileInput"
       :key="fileInputKey"
       type="file"
-      :accept="fileInputAcceptTypes"
+      :accept="accept"
       :help="help"
+      :max-file-size="maximumFileSize"
       :class="[
         'w-100',
         'upload-input',
@@ -40,10 +41,10 @@
       class="image-upload-description"
       @click="updateFile"
     >
-      {{ uploadImagePlaceholder }}
+      {{ placeholder }}
     </p>
     <KButton
-      v-if="fileValue && appearance === 'file' && isRemovable && !hasUploadError"
+      v-if="fileValue && appearance === 'file' && removable && !hasUploadError"
       id="pseudoCancel"
       type="reset"
       appearance="primary"
@@ -61,8 +62,8 @@
     <KButton
       v-if="appearance === 'file'"
       :appearance="buttonAppearance"
-      class="k-upload-btn"
-      data-testid="k-upload-button"
+      class="k-file-upload-btn"
+      data-testid="k-file-upload-button"
       size="small"
       @click="updateFile"
       @keyup.enter="updateFile"
@@ -75,7 +76,7 @@
       @click="updateFile"
       @keyup.enter="updateFile"
     >
-      {{ fileValue ? fileValue : 'No file selected' }}
+      {{ fileValue ? fileValue : placeholder }}
     </span>
   </div>
 </template>
@@ -89,7 +90,7 @@ import KIcon from '@/components/KIcon/KIcon.vue'
 import { v1 as uuidv1 } from 'uuid'
 
 export default defineComponent({
-  name: 'KUpload',
+  name: 'KFileUpload',
 
   components: {
     KLabel,
@@ -134,13 +135,13 @@ export default defineComponent({
       type: String,
       default: undefined,
     },
-    isRemovable: {
+    removable: {
       type: Boolean,
       default: false,
     },
-    uploadImagePlaceholder: {
+    placeholder: {
       type: String,
-      default: '',
+      default: 'No file selected',
     },
     /**
      * Set whether its file upload or image upload
@@ -152,26 +153,21 @@ export default defineComponent({
         return ['file', 'image'].includes(value)
       },
     },
-    fileInputAcceptTypes: {
+    accept: {
       type: Array as PropType<string[]>,
       required: true,
     },
-    maxImageSize: {
-      type: Number,
-      default: 1000000,
-    },
     maxFileSize: {
       type: Number,
-      default: 5242880,
+      default: null,
     },
   },
 
-  emits: ['canceled', 'file-added', 'file-removed', 'file-upload-error', 'image-upload-error'],
+  emits: ['file-added', 'file-removed', 'file-upload-error'],
 
-  setup(props, { attrs, emit }) {
-    const uploadId = computed((): string => (attrs.id ? String(attrs.id) : props.testMode ? 'test-textArea-id-1234' : uuidv1()))
-    const customInputId = computed((): string => props.testMode ? 'test-select-text-id-1234' : uuidv1())
-
+  setup(props, { emit }) {
+    const customInputId = computed((): string => props.testMode ? 'test-file-upload-id-1234' : uuidv1())
+    const maximumFileSize = computed((): Number => props.appearance === 'file' ? 5242880 : 1000000)
     const hasUploadError = ref(false)
 
     // This holds the FileList
@@ -190,13 +186,13 @@ export default defineComponent({
       const fileSize = fileInput?.value[0]?.size
 
       if (props.appearance === 'file') {
-        hasUploadError.value = fileSize > props.maxFileSize
+        hasUploadError.value = fileSize > maximumFileSize.value
         if (hasUploadError.value) fileInputKey.value++
         emit('file-upload-error', fileInput.value)
       } else {
-        hasUploadError.value = fileSize > props.maxImageSize
+        hasUploadError.value = fileSize > maximumFileSize.value
         if (hasUploadError.value) fileInputKey.value++
-        emit('image-upload-error', fileInput.value)
+        emit('file-upload-error', fileInput.value)
       }
 
       const inputElem = document.getElementById(customInputId.value) as HTMLInputElement
@@ -233,7 +229,6 @@ export default defineComponent({
     }
 
     return {
-      uploadId,
       fileInput,
       customInputId,
       resetInput,
@@ -243,6 +238,7 @@ export default defineComponent({
       updateFile,
       hasUploadError,
       fileClone,
+      maximumFileSize,
     }
   },
 })
@@ -252,10 +248,10 @@ export default defineComponent({
 @import '@/styles/variables';
 @import '@/styles/functions';
 
-.k-upload {
+.k-file-upload {
   position: relative;
 }
-.k-upload .k-upload-btn.k-button {
+.k-file-upload .k-file-upload-btn.k-button {
   position: absolute;
   right: 15px;
   top: 35px;
@@ -264,7 +260,7 @@ export default defineComponent({
 }
 
 // To hide the thumbnail that appears in Safari after uploading a file
-.k-upload :deep(.k-input-wrapper) input[type="file"]::-webkit-file-upload-button {
+.k-file-upload :deep(.k-input-wrapper) input[type="file"]::-webkit-file-upload-button {
   position: absolute;
   top: 0;
   right: 0;
@@ -274,11 +270,9 @@ export default defineComponent({
   cursor: inherit;
 }
 
-.k-upload :deep(.k-input-wrapper) input[type="file"] {
+.k-file-upload :deep(.k-input-wrapper) input[type="file"],
+.k-file-upload :deep(.k-input-wrapper) input[type="file"].image-upload {
   color:transparent;
-}
-.k-upload :deep(.k-input-wrapper) input[type="file"].image-upload {
-  color: transparent;
 }
 
 #pseudoCancel {
@@ -296,6 +290,9 @@ export default defineComponent({
   top: 10px;
   left: 8px;
   cursor: pointer;
+  // &.kong-icon.kong-icon-image svg {
+  //   fill: var(--blue-500) !important;
+  // }
 }
 
 .image-upload-description {
@@ -323,6 +320,7 @@ input[type=file]{
 
 .display-name {
   position: absolute;
+  pointer-events: none;
   top: 40px;
   left: 20px;
 }

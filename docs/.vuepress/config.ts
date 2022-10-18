@@ -103,6 +103,7 @@ export default defineUserConfig({
               '/components/datetime-picker.md',
               '/components/dropdown-menu.md',
               '/components/empty-state.md',
+              '/components/file-upload.md',
               '/components/icon.md',
               '/components/inline-edit.md',
               '/components/input.md',
@@ -125,7 +126,6 @@ export default defineUserConfig({
               '/components/textarea.md',
               '/components/toaster.md',
               '/components/tooltip.md',
-              '/components/upload.md',
               '/components/view-switcher.md',
             ]
           },
