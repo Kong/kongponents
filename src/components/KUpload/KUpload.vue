@@ -167,7 +167,7 @@ export default defineComponent({
     const hasUploadError = ref(false)
 
     // This holds the FileList
-    const fileInput = ref([]) as any
+    const fileInput = ref([]) as Array
     // To clear the input value after reset
     const fileInputKey = ref(0)
     // File fakepath
@@ -205,7 +205,7 @@ export default defineComponent({
       emit('file-added', fileInput.value)
     }
 
-    // If KButton for Select file is clicked
+    // When KButton for Select file is clicked
     const updateFile = (): void => {
       const inputEl = document.getElementById(customInputId.value)
       if (inputEl) {
@@ -214,7 +214,7 @@ export default defineComponent({
       }
     }
 
-    // If Cancel button is clicked
+    // When Cancel button is clicked
     const resetInput = (): void => {
       fileInput.value = ''
       fileValue.value = ''
@@ -249,14 +249,15 @@ export default defineComponent({
 }
 
 .k-upload .k-upload-btn.k-button {
-    position: absolute;
-    right: 15px;
-    top: 35px;
-    border-radius: 100px;
-    height: 29px;
+  position: absolute;
+  right: 15px;
+  top: 35px;
+  border-radius: 100px;
+  height: 29px;
 }
 
 .k-upload :deep(.k-input-wrapper) input[type="file"]::-webkit-file-upload-button {
+  // visibility: hidden doesn't work for this use case
   display: none;
 }
 
