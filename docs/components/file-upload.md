@@ -175,10 +175,6 @@ export default defineComponent({
   methods: {
     printData (i) {
       this.fileData = Array.from(i)
-      console.log(this.fileData)
-      // this.fileData.forEach(file => console.log(file))
-      // this.fileData = this.fileData[0].name
-        // this.fileData.forEach(file => console.log(file))
     },
   }
 })
