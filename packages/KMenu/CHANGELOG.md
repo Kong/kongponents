@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 7.2.2 (2022-10-18)
+
+**Note:** Version bump only for package @kongponents/kmenu
+
+
+
+
+
 ## 7.2.1 (2022-10-06)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kmodal",
-  "version": "7.2.1",
+  "version": "7.2.2",
   "description": "Modal component",
   "main": "dist/KModal.umd.min.js",
   "componentName": "KModal",
@@ -23,9 +23,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/kbutton": "^7.2.1",
-    "@kongponents/kicon": "^7.2.1",
-    "@kongponents/styles": "^7.2.1"
+    "@kongponents/kbutton": "^7.2.2",
+    "@kongponents/kicon": "^7.2.2",
+    "@kongponents/styles": "^7.2.2"
   },
   "peerDependencies": {
     "vue": ">= 2.7.0 < 3"

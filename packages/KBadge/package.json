@@ -1,6 +1,6 @@
 {
   "name": "@kongponents/kbadge",
-  "version": "7.2.1",
+  "version": "7.2.2",
   "description": "Badges, pills, lozenges, or whatever you wanna call them.",
   "main": "dist/KBadge.umd.min.js",
   "componentName": "KBadge",
@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kongponents/styles": "^7.2.1"
+    "@kongponents/styles": "^7.2.2"
   },
   "peerDependencies": {
     "vue": ">= 2.7.0 < 3"
