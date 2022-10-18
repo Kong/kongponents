@@ -69,6 +69,14 @@
     >
       {{ buttonText }}
     </KButton>
+    <span
+      v-if="appearance === 'file'"
+      class="display-name cursor-pointer"
+      @click="updateFile"
+      @keyup.enter="updateFile"
+    >
+      {{ fileValue ? fileValue : 'No file selected' }}
+    </span>
   </div>
 </template>
 
@@ -177,7 +185,7 @@ export default defineComponent({
 
     const onFileChange = (e: { target: { files: any; value: any } }): void => {
       fileInput.value = e.target?.files
-      fileValue.value = e.target?.value
+      fileValue.value = fileInput?.value[0]?.name
 
       const fileSize = fileInput?.value[0]?.size
 
@@ -247,7 +255,6 @@ export default defineComponent({
 .k-upload {
   position: relative;
 }
-
 .k-upload .k-upload-btn.k-button {
   position: absolute;
   right: 15px;
@@ -256,11 +263,20 @@ export default defineComponent({
   height: 29px;
 }
 
+// To hide the thumbnail that appears in Safari after uploading a file
 .k-upload :deep(.k-input-wrapper) input[type="file"]::-webkit-file-upload-button {
-  // visibility: hidden doesn't work for this use case
-  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  opacity: 0;
+  cursor: inherit;
 }
 
+.k-upload :deep(.k-input-wrapper) input[type="file"] {
+  color:transparent;
+}
 .k-upload :deep(.k-input-wrapper) input[type="file"].image-upload {
   color: transparent;
 }
@@ -293,5 +309,21 @@ export default defineComponent({
   font-size: 13px;
   line-height: 20px;
   cursor: pointer;
+}
+</style>
+
+<style lang="scss">
+.upload-input {
+  height: 44px;
+}
+
+input[type=file]{
+  color:transparent;
+}
+
+.display-name {
+  position: absolute;
+  top: 40px;
+  left: 20px;
 }
 </style>

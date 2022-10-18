@@ -25,11 +25,11 @@ KUpload has default appearance of type `file`, and can be switched either to - `
 
 <KCard>
   <template v-slot:body>
-    <KUpload label="Upload File" appearance="file" :label-attributes="{ help: 'I use the KLabel `help` prop' }" help="Additional files can be uploaded from HomePage." icon="close" :file-input-accept-types="['.json']" isRemovable @file-added="(i) => { filename = i[0].name, filesize = i[0].size }" @file-removed="() => { filename = '', filesize = '' }" />
+    <KUpload label="Upload File" appearance="file" :label-attributes="{ help: 'I use the KLabel `help` prop' }" help="Additional files can be uploaded from HomePage." icon="close" :file-input-accept-types="['.json']" isRemovable @file-added="(i) => { fileName = i[0].name, fileSize = i[0].size }" @file-removed="() => { fileName = '', fileSize = '' }" />
   </template>
 </KCard>
 
-<div class="mt-6">Emitted value: <pre v-if="filename && filesize" class="emitted-value">{{ `File Name: ${filename}` }} and {{ `File Size: ${filesize}` }}</pre></div>
+<div class="mt-6">Emitted value: <pre v-if="fileName && fileSize" class="emitted-value">{{ `File Name: ${fileName}` }} and {{ `File Size: ${fileSize}` }}</pre></div>
 
 ```html
 <KUpload label="Upload File" appearance="file" :label-attributes="{ help: 'I use the KLabel `help` prop' }" help="Additional files can be uploaded from HomePage." icon="close" :file-input-accept-types="['.json']"  isRemovable />
@@ -37,12 +37,12 @@ KUpload has default appearance of type `file`, and can be switched either to - `
 
 <KCard class="mt-6">
   <template v-slot:body>
-    <KUpload appearance="image" :file-input-accept-types="['image/jpg', 'image/png']" uploadImagePlaceholder="Upload new image (Max 4 MB)" @file-added="(i) => { filename = i[0].name, filesize = i[0].size }" >
+    <KUpload appearance="image" :file-input-accept-types="['image/jpg', 'image/png']" uploadImagePlaceholder="Upload new image (Max 4 MB)" @file-added="(i) => { imageName = i[0].name, imageSize = i[0].size }" >
     </KUpload>
   </template>
 </KCard>
 
-<div class="mt-6">Emitted value: <pre v-if="filename && filesize" class="emitted-value">{{ `File Name: ${filename}` }} and {{ `File Size: ${filesize}` }}</pre></div>
+<div class="mt-6">Emitted value: <pre v-if="imageName && imageSize" class="emitted-value">{{ `File Name: ${imageName}` }} and {{ `File Size: ${imageSize}` }}</pre></div>
 
 ```html
 <KUpload appearance="image" :file-input-accept-types="['image/jpg', 'image/png']" uploadImagePlaceholder="Upload new image (Max 4 MB)" />
@@ -87,12 +87,10 @@ Use the `uploadImagePlaceholder` prop to display placeholder text when `appearan
 
 <KCard class="mt-6">
   <template v-slot:body>
-    <KUpload appearance="image" :file-input-accept-types="['image/jpg', 'image/png']" uploadImagePlaceholder="You can change the text here!" @file-added="(i) => { filename = i[0].name, filesize = i[0].size }" >
+    <KUpload appearance="image" :file-input-accept-types="['image/jpg', 'image/png']" uploadImagePlaceholder="You can change the text here!" >
     </KUpload>
   </template>
 </KCard>
-
-<div class="mt-6">Emitted value: <pre v-if="filename && filesize" class="emitted-value">{{ `File Name: ${filename}` }} and {{ `File Size: ${filesize}` }}</pre></div>
 
 ```html
 <KUpload appearance="image" :file-input-accept-types="['image/jpg', 'image/png']" uploadImagePlaceholder="You can change the text here!" />
@@ -145,8 +143,10 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   data() {
     return {
-      filesize: '',
-      filename: ''
+      fileSize: '',
+      fileName: '',
+      imageSize: '',
+      imageName: ''
     }
   }
 })
