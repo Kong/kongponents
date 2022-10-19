@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="[{'input-error' : charLimitExceeded || hasError || String($attrs.class || '').includes('input-error')}]"
+    :class="[$attrs.class, {'input-error' : charLimitExceeded || hasError || String($attrs.class || '').includes('input-error')}]"
     class="k-input-wrapper"
   >
     <div
@@ -177,6 +177,8 @@ export default defineComponent({
     const modifiedAttrs = computed(() => {
       const $attrs = { ...attrs }
 
+      // delete classes because we bind them to the parent
+      delete $attrs.class
       // use @input in template for v-model support
       delete $attrs.input
       delete $attrs.onInput

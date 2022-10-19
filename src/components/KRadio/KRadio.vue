@@ -1,8 +1,11 @@
 <template>
-  <label class="k-radio">
+  <label
+    class="k-radio"
+    :class="$attrs.class"
+  >
     <input
       :checked="isSelected"
-      v-bind="$attrs"
+      v-bind="modifiedAttrs"
       type="radio"
       class="k-input"
       @click="handleClick"
@@ -35,7 +38,7 @@ export default defineComponent({
     },
   },
   emits: ['change', 'update:modelValue'],
-  setup(props, { emit }) {
+  setup(props, { emit, attrs }) {
     const isSelected = computed((): boolean => props.selectedValue === props.modelValue)
 
     const handleClick = (): void => {
@@ -43,8 +46,18 @@ export default defineComponent({
       emit('update:modelValue', props.selectedValue)
     }
 
+    const modifiedAttrs = computed(() => {
+      const $attrs = { ...attrs }
+
+      // delete classes because we bind them to the parent
+      delete $attrs.class
+
+      return $attrs
+    })
+
     return {
       isSelected,
+      modifiedAttrs,
       handleClick,
     }
   },

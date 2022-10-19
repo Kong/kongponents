@@ -1,11 +1,11 @@
 <template>
   <div
-    :class="{'input-error' : hasError || charLimitExceeded}"
+    :class="[$attrs.class, {'input-error' : hasError || charLimitExceeded}]"
     class="k-input-wrapper mb-2"
   >
     <textarea
       v-if="!label"
-      v-bind="$attrs"
+      v-bind="modifiedAttrs"
       :value="getValue()"
       :rows="rows"
       :cols="cols"
@@ -26,7 +26,7 @@
           <span>{{ label }}</span>
         </label>
         <textarea
-          v-bind="$attrs"
+          v-bind="modifiedAttrs"
           :id="textAreaId"
           :value="getValue()"
           :rows="rows"
@@ -53,7 +53,7 @@
         {{ label }}
       </KLabel>
       <textarea
-        v-bind="$attrs"
+        v-bind="modifiedAttrs"
         :id="textAreaId"
         :value="getValue()"
         :rows="rows"
@@ -153,6 +153,15 @@ export default defineComponent({
 
     const textAreaId = computed((): string => (attrs.id ? String(attrs.id) : props.testMode ? 'test-textArea-id-1234' : uuidv1()))
 
+    const modifiedAttrs = computed(() => {
+      const $attrs = { ...attrs }
+
+      // delete classes because we bind them to the parent
+      delete $attrs.class
+
+      return $attrs
+    })
+
     const charLimitExceeded = computed((): boolean => !props.disableCharacterLimit && currValue.value.length > props.characterLimit)
 
     const inputHandler = (e: any) => {
@@ -190,6 +199,7 @@ export default defineComponent({
       isFocused,
       isHovered,
       textAreaId,
+      modifiedAttrs,
       charLimitExceeded,
       inputHandler,
       getValue,

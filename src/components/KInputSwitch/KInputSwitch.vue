@@ -7,6 +7,7 @@
       :for="$attrs.id ? String($attrs.id) : undefined"
       :disabled="disabled"
       class="k-switch k-input-switch"
+      :class="[$attrs.class]"
     >
       <span v-if="(label || $slots.label) && labelPosition === 'left'">
         <slot name="label">{{ label }}</slot>
@@ -30,7 +31,7 @@
     v-else
     :for="$attrs.id ? String($attrs.id) : undefined"
     :disabled="disabled ? disabled : undefined"
-    :class="{ 'switch-with-icon' : enabledIcon }"
+    :class="[$attrs.class, { 'switch-with-icon' : enabledIcon }]"
     class="k-switch k-input-switch"
   >
     <span v-if="(label || $slots.label) && labelPosition === 'left'">
@@ -127,6 +128,7 @@ export default defineComponent({
 
       const modifiedAttrs = Object.assign({}, attrs)
 
+      delete modifiedAttrs.class
       delete modifiedAttrs.disabled
 
       return modifiedAttrs

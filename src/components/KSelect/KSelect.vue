@@ -2,6 +2,7 @@
   <div
     :style="widthStyle"
     class="k-select"
+    :class="[$attrs.class]"
   >
     <KLabel
       v-if="label && !overlayLabel"
