@@ -1,3 +1,27 @@
+# [8.0.0-beta.41](https://github.com/Kong/kongponents/compare/v8.0.0-beta.40...v8.0.0-beta.41) (2022-10-19)
+
+
+### Bug Fixes
+
+* **datepicker:** hover state should be blue-200 ([#830](https://github.com/Kong/kongponents/issues/830)) ([ad61d58](https://github.com/Kong/kongponents/commit/ad61d585462d0a97b6e18b32b13d1073a94b4b4b))
+* **dropdown:** update psuedo element position ([#796](https://github.com/Kong/kongponents/issues/796)) ([4ac2f02](https://github.com/Kong/kongponents/commit/4ac2f02d1b678eeea316e3a66a5c9cf9b59f2546))
+* **kbutton:** not considering visually-hidden text ([#821](https://github.com/Kong/kongponents/issues/821)) ([99f0ec8](https://github.com/Kong/kongponents/commit/99f0ec81be5a0645e85aa765e4b317f4ff2df8b7))
+* **kcard:** add box-shadow transition ([4634b6c](https://github.com/Kong/kongponents/commit/4634b6cc84d9d7e371a425670a207b2fba51719c))
+* **kdropdownmenu:** add icon prop ([#771](https://github.com/Kong/kongponents/issues/771)) ([6526566](https://github.com/Kong/kongponents/commit/65265662247e59c1580640d0988986c2f9d7b185))
+* **kdropdownmenu:** divider margins [khcp-4565] ([#789](https://github.com/Kong/kongponents/issues/789)) ([a1ed0ca](https://github.com/Kong/kongponents/commit/a1ed0ca616182af41586dfa447684ad571377c3c))
+* **kmodal:** missing kicon dependency ([#807](https://github.com/Kong/kongponents/issues/807)) ([9f71169](https://github.com/Kong/kongponents/commit/9f71169eb9f92b79030651d09cc665cb6823d803))
+* **kpop:** always remove click listeners since they are always added ([#809](https://github.com/Kong/kongponents/issues/809)) ([bd943d5](https://github.com/Kong/kongponents/commit/bd943d50778ea65fc406d77457d0f8ab71465062))
+* **kselect:** replace key string ([#788](https://github.com/Kong/kongponents/issues/788)) ([151826a](https://github.com/Kong/kongponents/commit/151826a514019a6760144ed0f5f3e3a29592c532))
+* **ktable:** client sorting with number values ([#775](https://github.com/Kong/kongponents/issues/775)) ([22efd29](https://github.com/Kong/kongponents/commit/22efd290a0f3954332ea2e8131520da519ae17b6))
+* remove sass division ([#794](https://github.com/Kong/kongponents/issues/794)) ([969f9ab](https://github.com/Kong/kongponents/commit/969f9ab2ca588a6f5ca2ae52d88a1ea55248c425))
+* **text:** kselect placeholder text ([#804](https://github.com/Kong/kongponents/issues/804)) ([e86546d](https://github.com/Kong/kongponents/commit/e86546d94afaad178c10d5089868235bcf42323e))
+
+
+### Features
+
+* **caret:** chevron should not toggle [khcp-4206] ([#786](https://github.com/Kong/kongponents/issues/786)) ([1cb8b92](https://github.com/Kong/kongponents/commit/1cb8b92305d91a24135b9e973e8d865300bc8bca))
+* **icon:** adds 3 new icons for dashboard ([#811](https://github.com/Kong/kongponents/issues/811)) ([cf06656](https://github.com/Kong/kongponents/commit/cf066567dbb5d21ffee8f8bbd8f0143e321aa7a5))
+
 # [8.0.0-beta.40](https://github.com/Kong/kongponents/compare/v8.0.0-beta.39...v8.0.0-beta.40) (2022-10-17)
 
 
