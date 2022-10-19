@@ -14,7 +14,7 @@ describe('KFileUpload', () => {
     cy.get('.k-input-label').should('contain.text', text)
   })
 
-  it('psuedoCancel button should not exist if there is no selected file', () => {
+  it('remove-button should not exist if there is no selected file', () => {
     mount(KFileUpload, {
       props: {
         testMode: true,
@@ -24,11 +24,11 @@ describe('KFileUpload', () => {
     cy.get('.remove-button').should('not.exist')
   })
 
-  it('for appearance image, upload button shold not exist', () => {
+  it('for type image, upload button shold not exist', () => {
     mount(KFileUpload, {
       props: {
         testMode: true,
-        appearance: 'image',
+        type: 'image',
       },
     })
 
@@ -51,15 +51,26 @@ describe('KFileUpload', () => {
     cy.get('.k-input-label .kong-icon-help').should('be.visible')
   })
 
-  it('renders icon slot', () => {
+  it('does not render cancel button, if removable is false', () => {
     mount(KFileUpload, {
       props: {
         testMode: true,
-        appearance: 'image',
-        icon: 'flag',
+        removable: false,
       },
     })
 
-    cy.get('.image-upload-icon').should('exist')
+    cy.getTestId('remove-button').should('not.exist')
+  })
+
+  it('does not render cancel button, if removable is false', () => {
+    mount(KFileUpload, {
+      props: {
+        testMode: true,
+        removable: false,
+        appearance: 'image',
+      },
+    })
+
+    cy.getTestId('remove-button').should('not.exist')
   })
 })
