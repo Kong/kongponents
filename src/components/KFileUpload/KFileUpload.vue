@@ -23,7 +23,6 @@
         'w-100',
         'upload-input',
         'cursor-pointer',
-        { 'file-upload': appearance === 'file' },
         { 'image-upload': appearance === 'image' },
         { 'input-error' : hasUploadError }
       ]"
