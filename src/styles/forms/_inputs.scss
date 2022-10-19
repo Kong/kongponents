@@ -51,6 +51,7 @@
 .form-control {
   &:not([type="checkbox"]):not([type="radio"]) {
     display: block;
+    width: 100%;
     padding: 10px var(--spacing-md, spacing(md));
     color: var(--KInputColor, var(--black-70, color(black-70)));
     font-size: var(--type-md, type(md));

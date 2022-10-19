@@ -2,6 +2,7 @@
   <div
     :style="widthStyle"
     class="k-select"
+    :class="[$attrs.class]"
   >
     <KLabel
       v-if="label && !overlayLabel"
@@ -74,7 +75,7 @@
               :style="widthStyle"
               show-caret
               :is-rounded="false"
-              v-bind="$attrs"
+              v-bind="modifiedAttrs"
               appearance="btn-link"
               @keyup="evt => triggerFocus(evt, isToggled)"
             >
@@ -116,7 +117,7 @@
             />
             <KInput
               :id="selectTextId"
-              v-bind="$attrs"
+              v-bind="modifiedAttrs"
               :model-value="filterStr"
               :label="label && overlayLabel ? label : undefined"
               :overlay-label="overlayLabel"
@@ -405,6 +406,15 @@ export default defineComponent({
       }
     })
 
+    const modifiedAttrs = computed(() => {
+      const $attrs = { ...attrs }
+
+      // delete classes because we bind them to the parent
+      delete $attrs.class
+
+      return $attrs
+    })
+
     const createKPopAttributes = computed(() => {
       return {
         ...defaultKPopAttributes,
@@ -588,6 +598,7 @@ export default defineComponent({
       selectInputId,
       selectTextId,
       selectItems,
+      modifiedAttrs,
       popper,
       boundKPopAttributes,
       widthValue,

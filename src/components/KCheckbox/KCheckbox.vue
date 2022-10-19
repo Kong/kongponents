@@ -1,8 +1,11 @@
 <template>
-  <label class="k-checkbox">
+  <label
+    class="k-checkbox"
+    :class="$attrs.class"
+  >
     <input
       :checked="modelValue"
-      v-bind="$attrs"
+      v-bind="modifiedAttrs"
       type="checkbox"
       class="k-input"
       @change="handleChange"
@@ -12,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 
 export default defineComponent({
   name: 'KCheckbox',
@@ -28,14 +31,24 @@ export default defineComponent({
     },
   },
   emits: ['input', 'change', 'update:modelValue'],
-  setup(props, { emit }) {
+  setup(props, { emit, attrs }) {
     const handleChange = (e: any): void => {
       emit('change', e.target.checked)
       emit('input', e.target.checked)
       emit('update:modelValue', e.target.checked)
     }
 
+    const modifiedAttrs = computed(() => {
+      const $attrs = { ...attrs }
+
+      // delete classes because we bind them to the parent
+      delete $attrs.class
+
+      return $attrs
+    })
+
     return {
+      modifiedAttrs,
       handleChange,
     }
   },

@@ -3,7 +3,7 @@
 **KInlineEdit** - A wrapper which adds inline edit capability. Currently only supports single text input.
 
 <KComponent :data="{ inlineText: 'Click to edit me' }" v-slot="{ data }">
-  <KInlineEdit @changed="newVal => data.inlineText = newVal"><h3>{{ data.inlineText }}</h3></KInlineEdit>
+  <KInlineEdit @changed="(newVal) => data.inlineText = newVal"><h3>{{ data.inlineText }}</h3></KInlineEdit>
 </KComponent>
 
 > The `KComponent` component is used in this example to create state.
