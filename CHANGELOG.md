@@ -1,3 +1,10 @@
+# [8.0.0-beta.43](https://github.com/Kong/kongponents/compare/v8.0.0-beta.42...v8.0.0-beta.43) (2022-10-19)
+
+
+### Bug Fixes
+
+* **attrs:** bind classes to outermost element ([#834](https://github.com/Kong/kongponents/issues/834)) ([624e262](https://github.com/Kong/kongponents/commit/624e2621eb4556a47128db21475c152b50aab6f4))
+
 # [8.0.0-beta.42](https://github.com/Kong/kongponents/compare/v8.0.0-beta.41...v8.0.0-beta.42) (2022-10-19)
 
 
