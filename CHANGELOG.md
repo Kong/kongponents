@@ -1,3 +1,10 @@
+# [8.0.0-beta.42](https://github.com/Kong/kongponents/compare/v8.0.0-beta.41...v8.0.0-beta.42) (2022-10-19)
+
+
+### Bug Fixes
+
+* **kinput:** input-error styles [KHCP-5100] ([#833](https://github.com/Kong/kongponents/issues/833)) ([496da46](https://github.com/Kong/kongponents/commit/496da468848dec3ab3d1a88feae5895f77e429b4))
+
 # [8.0.0-beta.41](https://github.com/Kong/kongponents/compare/v8.0.0-beta.40...v8.0.0-beta.41) (2022-10-19)
 
 
