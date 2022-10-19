@@ -10,9 +10,10 @@
 
 ```html
 <KFileUpload 
-label="Upload File" 
-:label-attributes="{ help: 'Accepted file types: .yml, .yaml, .json, .md, .markdown, image/*' }" 
-:accept="['.yml', '.yaml', '.json', '.md', '.markdown', 'image/*']" />
+  label="Upload File" 
+  :label-attributes="{ help: 'Accepted file types: .yml, .yaml, .json, .md, .markdown, image/*' }" 
+  :accept="['.yml', '.yaml', '.json', '.md', '.markdown', 'image/*']"
+/>
 ```
 
 ## Props
@@ -29,8 +30,9 @@ KFileUpload has two supported types: `file` (default) and `image`.
 
 ```html
 <KFileUpload 
-label="Upload File" 
-help="Additional files can be uploaded from HomePage."  />
+  label="Upload File" 
+  help="Additional files can be uploaded from HomePage."
+/>
 ```
 
 <KCard class="mt-6">
@@ -41,10 +43,11 @@ help="Additional files can be uploaded from HomePage."  />
 
 ```html
 <KFileUpload type="image" 
-label="Upload File"
-icon="image" 
-:accept="['image/*']" 
-placeholder="Upload new image (Max 4 MB)" />
+  label="Upload File"
+  icon="image" 
+  :accept="['image/*']" 
+  placeholder="Upload new image (Max 4 MB)"
+/>
 ```
 
 ### label
@@ -63,8 +66,9 @@ Use the `labelAttributes` prop to configure the **KLabel's** [props](/components
 
 ```html
 <KFileUpload 
-label="Upload File" 
-:label-attributes="{ help: 'Accepted file types: .yml, .yaml, .json, .md, .markdown, image/*' }" />
+  label="Upload File" 
+  :label-attributes="{ help: 'Accepted file types: .yml, .yaml, .json, .md, .markdown, image/*' }"
+/>
 ```
 
 <KCard class="mt-6">
@@ -75,11 +79,12 @@ label="Upload File"
 
 ```html
 <KFileUpload 
-type="image" 
-label="Upload Image file" 
-:label-attributes="{ help: 'Accepted file types: image/*' }"
-icon="image" 
-placeholder="Upload new image (Max 1 MB)" />
+  type="image" 
+  label="Upload Image file" 
+  :label-attributes="{ help: 'Accepted file types: image/*' }"
+  icon="image" 
+  placeholder="Upload new image (Max 1 MB)"
+/>
 ```
 
 ### help
@@ -93,9 +98,7 @@ Use the `help` prop to display text under KInput.
 </KCard>
 
 ```html
-<KFileUpload 
-label="Upload File" 
-help="Some text here.." />
+<KFileUpload label="Upload File" help="Some text here.." />
 ```
 
 
@@ -112,10 +115,11 @@ Use the `placeholder` prop to display placeholder text. The `placeholder text` i
 
 ```html
 <KFileUpload 
-type="image" 
-label="Upload File"
-placeholder="You can change the text here!" 
-icon="kong" />
+  type="image" 
+  label="Upload File"
+  placeholder="You can change the text here!" 
+  icon="kong" 
+/>
 ```
 
 ### removable
@@ -130,10 +134,11 @@ A `cancel` button can be displayed, by default this is set to `true`. This butto
 
 ```html
 <KFileUpload
-:removable=false
-label="Upload File" 
-:label-attributes="{ help: 'Accepted file types: .yml, .yaml, .json, .md, .markdown, image/*' }"
-buttonAppearance="creation" />
+  :removable=false
+  label="Upload File" 
+  :label-attributes="{ help: 'Accepted file types: .yml, .yaml, .json, .md, .markdown, image/*' }"
+  buttonAppearance="creation" 
+/>
 ```
 
 <KCard class="mt-6">
@@ -145,11 +150,12 @@ buttonAppearance="creation" />
 
 ```html
 <KFileUpload 
-type="image"
-:removable=false
-label="Upload File"
-placeholder="No cancel button!" 
-icon="kong" />
+  type="image"
+  :removable=false
+  label="Upload File"
+  placeholder="No cancel button!" 
+  icon="kong"
+/>
 ```
 
 ### accept
@@ -203,15 +209,11 @@ The color of the `icon` being displayed.
 </KCard>
 
 ```html
-<KCard class="mt-6">
-  <template v-slot:body>
-    <KFileUpload 
-    type="image" icon="immunity" iconColor="gold" iconSize="30" 
-    placeholder="You can change the text here!" />
-  </template>
-</KCard>   
+<KFileUpload 
+  type="image" icon="immunity" iconColor="gold" iconSize="30" 
+  placeholder="You can change the text here!"
+/>
 ```
-
 ### maxFileSize
 
 Use this prop to customize the maximize size of file that can be uploaded. Default value for `image` upload is `1mb (1000000 bytes)` and for `file` is `5.24mb (5242880 bytes)`.
