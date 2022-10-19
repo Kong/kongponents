@@ -49,7 +49,7 @@
       {{ placeholder }}
     </p>
     <KButton
-      v-if="fileValue && appearance === 'file' && removable && !hasUploadError"
+      v-if="fileValue && appearance === 'file' && removable"
       id="pseudoCancel"
       type="reset"
       appearance="primary"
@@ -187,7 +187,7 @@ export default defineComponent({
 
   setup(props, { emit }) {
     const customInputId = computed((): string => props.testMode ? 'test-file-upload-id-1234' : uuidv1())
-    const maximumFileSize = computed((): Number => props.appearance === 'file' ? 5242880 : 1000000)
+    const maximumFileSize = computed((): Number => props.appearance === 'file' ? 1000 : 1000)
     const hasUploadError = ref(false)
 
     // This holds the FileList
@@ -244,6 +244,7 @@ export default defineComponent({
       fileValue.value = ''
       fileClone.value = []
       fileInputKey.value++
+      hasUploadError.value = false
 
       emit('file-removed')
     }
