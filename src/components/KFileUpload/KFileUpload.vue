@@ -186,7 +186,8 @@ export default defineComponent({
 
   setup(props, { emit }) {
     const customInputId = computed((): string => props.testMode ? 'test-file-upload-id-1234' : uuidv1())
-    const maximumFileSize = computed((): Number => props.appearance === 'file' ? 1000 : 1000)
+    const maximumFileSize = computed((): Number => props.appearance === 'file' ? 5242880 : 1000000)
+
     const hasUploadError = ref(false)
 
     // This holds the FileList
