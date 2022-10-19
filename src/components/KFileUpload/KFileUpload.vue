@@ -54,6 +54,7 @@
       type="reset"
       appearance="primary"
       size="small"
+      data-testid="k-pseudo-cancel-button"
       @click="resetInput"
       @keyup.enter="resetInput"
     >
@@ -121,10 +122,6 @@ export default defineComponent({
       default: false,
     },
     help: {
-      type: String,
-      default: undefined,
-    },
-    icon: {
       type: String,
       default: undefined,
     },
@@ -274,6 +271,7 @@ export default defineComponent({
 .k-file-upload {
   position: relative;
 }
+
 .k-file-upload .k-file-upload-btn.k-button {
   position: absolute;
   right: 15px;
@@ -285,8 +283,6 @@ export default defineComponent({
 // To hide the thumbnail that appears in Safari after uploading a file
 .k-file-upload :deep(.k-input-wrapper) input[type="file"]::-webkit-file-upload-button {
   position: absolute;
-  top: 0;
-  right: 0;
   min-width: 100%;
   min-height: 100%;
   opacity: 0;
