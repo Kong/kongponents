@@ -20,9 +20,10 @@
       :help="help"
       :max-file-size="maximumFileSize"
       class="w-100 upload-input cursor-pointer"
+      :has-error="hasUploadError"
+      :error-message="errorMessage"
       :class="{
-        'image-upload': type === 'image',
-        'input-error' : hasUploadError
+        'image-upload': type === 'image'
       }"
       @change="onFileChange"
     />
@@ -170,14 +171,22 @@ export default defineComponent({
     },
     icon: {
       type: String,
-      default: '',
+      default: 'image',
     },
     /**
      * Set icon color
      */
     iconColor: {
       type: String,
-      default: '',
+      default: undefined,
+    },
+    hasError: {
+      type: Boolean,
+      default: false,
+    },
+    errorMessage: {
+      type: String,
+      default: 'Please check file size.',
     },
   },
 
@@ -185,7 +194,12 @@ export default defineComponent({
 
   setup(props, { emit }) {
     const customInputId = computed((): string => props.testMode ? 'test-file-upload-id-1234' : uuidv1())
-    const maximumFileSize = computed((): Number => props.type === 'file' ? 5242880 : 1000000)
+    const maximumFileSize = computed((): Number => {
+      if (props.maxFileSize) {
+        return props.maxFileSize
+      }
+      return props.type === 'file' ? 5242880 : 1000000
+    })
 
     const hasUploadError = ref(false)
 
@@ -288,7 +302,7 @@ export default defineComponent({
   }
 
   // To hide the thumbnail that appears in Safari after uploading a file
-  & :deep(.k-input-wrapper) input[type="file"]::-webkit-file-upload-button {
+  :deep(.k-input-wrapper) input[type="file"]::-webkit-file-upload-button {
     position: absolute;
     min-width: 100%;
     min-height: 100%;
@@ -296,8 +310,8 @@ export default defineComponent({
     cursor: inherit;
   }
 
-  & :deep(.k-input-wrapper) input[type="file"],
-  & :deep(.k-input-wrapper) input[type="file"].image-upload {
+  :deep(.k-input-wrapper) input[type="file"],
+  :deep(.k-input-wrapper) input[type="file"].image-upload {
     color: transparent;
   }
 
@@ -309,6 +323,7 @@ export default defineComponent({
     background-color: transparent;
     cursor: pointer;
     padding: var(--type-xxs) 6px;
+
     &:hover,
     &:active {
       background-color: transparent !important;
@@ -344,12 +359,16 @@ export default defineComponent({
 
 <style lang="scss">
 .k-file-upload {
-  .upload-input {
+  .k-input {
     height: 44px;
   }
 
   input[type=file]{
     color:transparent;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   .display-name {
@@ -360,5 +379,4 @@ export default defineComponent({
     left: 20px;
   }
 }
-
 </style>

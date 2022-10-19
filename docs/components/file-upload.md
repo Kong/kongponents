@@ -4,7 +4,7 @@
  
 <KCard>
   <template v-slot:body>
-    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType}` }" :accept="acceptedFileType" />
+    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType}` }" help="Additional files can be uploaded from HomePage." :accept="acceptedFileType" hasError />
   </template>
 </KCard>
 
@@ -99,6 +99,21 @@ Use the `help` prop to display text under KInput.
 
 ```html
 <KFileUpload label="Upload File" help="Some text here.." />
+```
+
+### hasError
+
+Boolean value to indicate whether the element has an error and should apply error styling. By default this is `false`.
+
+### errorMessage
+
+String to be displayed as error message if `hasError` prop is `true`.
+
+```html
+<KFileUpload
+  hasError
+  errorMessage="File size should be less than 1 mb."
+/>
 ```
 
 

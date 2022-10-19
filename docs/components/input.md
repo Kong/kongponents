@@ -139,7 +139,7 @@ String to be displayed as error message if `hasError` prop is `true`.
 <KInput class="w-100" hasError errorMessage="Service name should not contain '_'"/>
 ```
 
-<KInput label="Small" size="small" class="mb-2" hasError errorMessage="Service name should not contain '_'"/>
+<KInput label="Small" size="small" class="mb-2" help="Additional files can be uploaded from HomePage." hasError errorMessage="Service name should not contain '_'"/>
 <KInput label="Medium" class="mb-2" hasError errorMessage="Service name should not contain '_'" />
 <KInput label="Large" size="large" hasError errorMessage="Service name should not contain '_'" />
 
