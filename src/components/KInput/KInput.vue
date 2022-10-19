@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="{'input-error' : charLimitExceeded || hasError}"
+    :class="[{'input-error' : charLimitExceeded || hasError || String($attrs.class || '').includes('input-error')}]"
     class="k-input-wrapper"
   >
     <div
@@ -297,8 +297,10 @@ export default defineComponent({
 
   &.input-error {
     .text-on-input label.hovered,
-    .text-on-input label:hover {
-      color: var(--red-500);
+    .text-on-input label:hover,
+    .text-on-input label.focused,
+    .text-on-input label:focus {
+      color: var(--red-500) !important;
     }
   }
 }
