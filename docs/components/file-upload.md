@@ -32,7 +32,7 @@ KFileUpload has default appearance of type `file`, and can be switched either to
 
 <KCard class="mt-6">
   <template v-slot:body>
-    <KFileUpload appearance="image" :accept="['.yml', '.yaml', '.json', '.md', '.markdown', 'image/gif', 'image/jpg', 'image/jpeg', 'image/ico', 'image/png']" placeholder="Upload new image (Max 4 MB)" @file-added="(i) => { imageName = i[0].name, imageSize = i[0].size }" >
+    <KFileUpload appearance="image" icon="image" :accept="['.yml', '.yaml', '.json', '.md', '.markdown', 'image/gif', 'image/jpg', 'image/jpeg', 'image/ico', 'image/png']" placeholder="Upload new image (Max 4 MB)" @file-added="(i) => { imageName = i[0].name, imageSize = i[0].size }" >
     </KFileUpload>
   </template>
 </KCard>
@@ -40,7 +40,7 @@ KFileUpload has default appearance of type `file`, and can be switched either to
 <div class="mt-6">Emitted value: <pre v-if="imageName && imageSize" class="emitted-value">{{ `File Name: ${imageName}` }} and {{ `File Size: ${imageSize}` }}</pre></div>
 
 ```html
-<KFileUpload appearance="image" :accept="['.yml', '.yaml', '.json', '.md', '.markdown', 'image/gif', 'image/jpg', 'image/jpeg', 'image/ico', 'image/png']" placeholder="Upload new image (Max 4 MB)" />
+<KFileUpload appearance="image" icon="image" :accept="['.yml', '.yaml', '.json', '.md', '.markdown', 'image/gif', 'image/jpg', 'image/jpeg', 'image/ico', 'image/png']" placeholder="Upload new image (Max 4 MB)" />
 ```
 
 ### label
@@ -67,7 +67,7 @@ Use the `help` prop to display text under KInput.
 
 <KCard>
   <template v-slot:body>
-    <KFileUpload label="Upload File" help="Some text here.." icon="close" :accept="['.yml', '.yaml', '.json', '.md', '.markdown', 'image/gif', 'image/jpg', 'image/jpeg', 'image/ico', 'image/png']" appearance="file" removable />
+    <KFileUpload label="Upload File" :label-attributes="{ help: 'Hello, here is the example' }" help="Some text here.." icon="close" :accept="['.yml', '.yaml', '.json', '.md', '.markdown', 'image/gif', 'image/jpg', 'image/jpeg', 'image/ico', 'image/png']" appearance="file" removable />
   </template>
 </KCard>
 
@@ -82,13 +82,13 @@ Use the `placeholder` prop to display placeholder text.
 
 <KCard class="mt-6">
   <template v-slot:body>
-    <KFileUpload appearance="image" :accept="['.yml', '.yaml', '.json', '.md', '.markdown', 'image/gif', 'image/jpg', 'image/jpeg', 'image/ico', 'image/png']" placeholder="You can change the text here!" >
+    <KFileUpload appearance="image" :accept="['.yml', '.yaml', '.json', '.md', '.markdown', 'image/gif', 'image/jpg', 'image/jpeg', 'image/ico', 'image/png']" placeholder="You can change the text here!" icon="kong" >
     </KFileUpload>
   </template>
 </KCard>
 
 ```html
-<KFileUpload appearance="image" :accept="['.yml', '.yaml', '.json', '.md', '.markdown', 'image/gif', 'image/jpg', 'image/jpeg', 'image/ico', 'image/png']" placeholder="You can change the text here!" />
+<KFileUpload appearance="image" :accept="['.yml', '.yaml', '.json', '.md', '.markdown', 'image/gif', 'image/jpg', 'image/jpeg', 'image/ico', 'image/png']" placeholder="You can change the text here!" icon="kong" />
 ```
 
 ### removable
@@ -128,9 +128,26 @@ This is the text that will be displayed on the button that triggers the click on
 <KFileUpload label="Upload File" buttonAppearance="danger" buttonText="Click me" :label-attributes="{ help: 'I use the KLabel `help` prop' }" help="Additional text." icon="close" :file-input-accept-types="['.yml', '.yaml', '.json', '.md', '.markdown', 'image/gif', 'image/jpg', 'image/jpeg', 'image/ico', 'image/png']" appearance="file" removable />
 ```
 
+### icon
+
+Specify an icon to display to the left of the `placeholder text` if `appearance='image'`.
+
+### iconSize
+
+The size of the `icon` being displayed (default is `26`).
+
+### iconColor
+
+The color of the `icon` being displayed.
+
 ### maxFileSize
 
 Use this prop to customize the maximize size of file that can be uploaded. Default value for `image` upload is `1mb (1000000 bytes)` and for `any other file` is `5.24mb (5242880 bytes)`.
+
+## Slots
+
+- `icon` - Icon to the left of the placeholder text inside KInput for `appearance ='image'`
+
 
 ## Events
 
@@ -186,5 +203,11 @@ pre.emitted-value {
   white-space: pre-wrap;
   background-color: var(--grey-200);
   padding: var(--type-xxs);
+}
+</style>
+
+<style lang="scss">
+.image-upload-icon.kong-icon-image svg rect{
+  fill: var(--blue-500);
 }
 </style>

@@ -29,13 +29,18 @@
       ]"
       @change="onFileChange"
     />
-    <KIcon
-      v-if="appearance === 'image'"
-      class="image-upload-icon"
-      icon="image"
-      size="26"
-      @click="updateFile"
-    />
+
+    <slot name="icon">
+      <KIcon
+        v-if="appearance === 'image'"
+        :size="iconSize"
+        :color="iconColor"
+        :icon="icon"
+        class="image-upload-icon"
+        @click="updateFile"
+      />
+    </slot>
+
     <p
       v-if="appearance === 'image'"
       class="image-upload-description"
@@ -161,6 +166,24 @@ export default defineComponent({
       type: Number,
       default: null,
     },
+    /**
+     * Set icon size
+     */
+    iconSize: {
+      type: String,
+      default: '26',
+    },
+    icon: {
+      type: String,
+      default: '',
+    },
+    /**
+     * Set icon color
+     */
+    iconColor: {
+      type: String,
+      default: '',
+    },
   },
 
   emits: ['file-added', 'file-removed', 'file-upload-error'],
@@ -282,17 +305,14 @@ export default defineComponent({
   border: none;
   background-color: transparent;
   cursor: pointer;
-  padding: 10px 6px;
+  padding: var(--type-xxs) 6px;
 }
 
 .image-upload-icon {
   position: absolute;
-  top: 10px;
-  left: 8px;
+  top: var(--type-xxs);
+  left: var(--spacing-xs);
   cursor: pointer;
-  // &.kong-icon.kong-icon-image svg {
-  //   fill: var(--blue-500) !important;
-  // }
 }
 
 .image-upload-description {
