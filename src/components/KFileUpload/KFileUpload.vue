@@ -191,7 +191,7 @@ export default defineComponent({
     const hasUploadError = ref(false)
 
     // This holds the FileList
-    const fileInput = ref([]) as Array
+    const fileInput = ref([]) as any
     // To clear the input value after reset
     const fileInputKey = ref(0)
     // File fakepath
@@ -199,8 +199,8 @@ export default defineComponent({
     // Array to store the previously selected FileList when user clicks reopen the file uploader and clicks on Cancel
     const fileClone = ref([]) as any
 
-    const onFileChange = (e: { target: { files: any; value: any } }): void => {
-      fileInput.value = e.target?.files
+    const onFileChange = (evt: any): void => {
+      fileInput.value = evt.target?.files
       fileValue.value = fileInput?.value[0]?.name
 
       const fileSize = fileInput?.value[0]?.size
