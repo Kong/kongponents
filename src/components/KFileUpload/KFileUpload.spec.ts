@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue'
+import { mount } from 'cypress/vue'
 import KFileUpload from '@/components/KFileUpload/KFileUpload.vue'
 
 describe('KFileUpload', () => {
