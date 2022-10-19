@@ -21,7 +21,7 @@ describe('KFileUpload', () => {
       },
     })
 
-    cy.get('.k-pseudo-cancel-button').should('not.exist')
+    cy.get('.remove-button').should('not.exist')
   })
 
   it('for appearance image, upload button shold not exist', () => {
