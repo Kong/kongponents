@@ -34,14 +34,14 @@
       :color="iconColor"
       :icon="icon"
       class="image-upload-icon"
-      @click="updateFile"
+      @click.prevent="updateFile"
     />
 
     <a
       v-if="type === 'image'"
       href="#"
       class="image-upload-description"
-      @click="updateFile"
+      @click.prevent="updateFile"
     >
       {{ fileValue ? fileValue : placeholder }}
     </a>
@@ -195,22 +195,22 @@ export default defineComponent({
   setup(props, { emit }) {
     const customInputId = computed((): string => props.testMode ? 'test-file-upload-id-1234' : uuidv1())
     const maximumFileSize = computed((): Number => {
-      if (props.maxFileSize) {
+      if (props.maxFileSize || props.maxFileSize === 0) {
         return props.maxFileSize
       }
-      return props.type === 'file' ? 5242880 : 1000000
+      return props.type === 'file' ? 5250000 : 1000000
     })
 
     const hasUploadError = ref(false)
 
     // This holds the FileList
-    const fileInput = ref([]) as any
+    const fileInput = ref<File[]>([])
     // To clear the input value after reset
     const fileInputKey = ref(0)
     // File fakepath
-    const fileValue = ref('') as any
+    const fileValue = ref('')
     // Array to store the previously selected FileList when user clicks reopen the file uploader and clicks on Cancel
-    const fileClone = ref([]) as any
+    const fileClone = ref<File[]>([])
 
     const onFileChange = (evt: any): void => {
       fileInput.value = evt.target?.files
@@ -223,25 +223,26 @@ export default defineComponent({
 
         if (hasUploadError.value) {
           fileInputKey.value++
+          emit('error', fileInput.value)
         }
-
-        emit('error', fileInput.value)
       } else {
         hasUploadError.value = fileSize > maximumFileSize.value
 
         if (hasUploadError.value) {
           fileInputKey.value++
+          emit('error', fileInput.value)
         }
-
-        emit('error', fileInput.value)
       }
 
       const inputElem = document.getElementById(customInputId.value) as HTMLInputElement
 
       if (fileSize) {
+        // @ts-ignore
         fileClone.value.push(fileInput.value)
       } else {
+        // @ts-ignore
         inputElem.files = fileClone.value[fileClone.value.length - 1]
+        // @ts-ignore
         fileInput.value = inputElem.files
         if (inputElem.files) {
           fileValue.value = inputElem.files[inputElem.files.length - 1].name
@@ -261,7 +262,7 @@ export default defineComponent({
 
     // When Cancel button is clicked
     const resetInput = (): void => {
-      fileInput.value = ''
+      fileInput.value = []
       fileValue.value = ''
       fileClone.value = []
       fileInputKey.value++
@@ -295,7 +296,7 @@ export default defineComponent({
 
   .k-file-upload-btn.k-button {
     position: absolute;
-    right: 15px;
+    right: 12px;
     top: 35px;
     border-radius: 100px;
     height: 29px;
@@ -317,9 +318,10 @@ export default defineComponent({
 
   .remove-button {
     position: absolute;
-    top: 30px;
-    right: 120px;
+    top: 38px;
+    right: 118px;
     border: none;
+    height: var(--spacing-lg);
     background-color: transparent;
     cursor: pointer;
     padding: var(--type-xxs) 6px;
