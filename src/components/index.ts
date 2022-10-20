@@ -22,6 +22,7 @@ export { default as KDateTimePicker } from './KDateTimePicker/KDateTimePicker.vu
 export { default as KDropdownMenu } from './KDropdownMenu/KDropdownMenu.vue'
 export { default as KDropdownItem } from './KDropdownMenu/KDropdownItem.vue'
 export { default as KEmptyState } from './KEmptyState/KEmptyState.vue'
+export { default as KFileUpload } from './KFileUpload/KFileUpload.vue'
 export { default as KIcon } from './KIcon/KIcon.vue'
 export { default as KInlineEdit } from './KInlineEdit/KInlineEdit.vue'
 export { default as KInput } from './KInput/KInput.vue'
