@@ -1,3 +1,10 @@
+# [8.0.0-beta.44](https://github.com/Kong/kongponents/compare/v8.0.0-beta.43...v8.0.0-beta.44) (2022-10-20)
+
+
+### Features
+
+* **kfileupload:** new file upload kongponent ([#829](https://github.com/Kong/kongponents/issues/829)) ([d293f8b](https://github.com/Kong/kongponents/commit/d293f8bf37fee4c0b23c1cb3bde6a641fa270348))
+
 # [8.0.0-beta.43](https://github.com/Kong/kongponents/compare/v8.0.0-beta.42...v8.0.0-beta.43) (2022-10-19)
 
 
