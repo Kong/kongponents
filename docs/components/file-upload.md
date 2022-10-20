@@ -24,7 +24,7 @@ KFileUpload has two supported types: `file` (default) and `image`.
 
 <KCard>
   <template v-slot:body>
-    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType}` }" help="Additional files can be uploaded from HomePage." :accept="acceptedFileType" />
+    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType.join(', ')}` }" help="Additional files can be uploaded from HomePage." :accept="acceptedFileType" />
   </template>
 </KCard>
 
@@ -60,7 +60,7 @@ Use the `labelAttributes` prop to configure the **KLabel's** [props](/components
 
 <KCard>
   <template v-slot:body>
-    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType}` }" :accept="acceptedFileType"/>
+    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType.join(', ')}` }" :accept="acceptedFileType"/>
   </template>
 </KCard>
 
@@ -93,7 +93,7 @@ Use the `help` prop to display text under KInput.
 
 <KCard>
   <template v-slot:body>
-    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType}` }" help="Some text here.." :accept="acceptedFileType" />
+    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType.join(', ')}` }" help="Some text here.." :accept="acceptedFileType" />
   </template>
 </KCard>
 
@@ -113,7 +113,7 @@ String to be displayed as error message if `hasError` prop is `true`.
 
 <KCard>
   <template v-slot:body>
-    <KFileUpload label="Upload File" :maxFileSize="0" help="Please select any file to display the error state." hasError errorMessage="File size should be less than 1MB." :accept="acceptedFileType" />
+    <KFileUpload label="Upload File" :maxFileSize="0" help="Please select any file to display the error state." hasError errorMessage="File size should be less than 1MB." :label-attributes="{ help: `Accepted file types: ${acceptedFileType.join(', ')}` }" :accept="acceptedFileType" />
   </template>
 </KCard>
 
@@ -156,7 +156,7 @@ A `cancel` button can be displayed, by default this is set to `true`. This butto
 
 <KCard>
   <template v-slot:body>
-    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType}` }" buttonAppearance="creation" :accept="acceptedFileType" :removable="false" />
+    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType.join(', ')}` }" buttonAppearance="creation" :accept="acceptedFileType" :removable="false" />
   </template>
 </KCard>
 
@@ -196,7 +196,7 @@ Use this prop to customize the trigger **KButton** [appearance](/components/butt
 
 <KCard>
   <template v-slot:body>
-    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType}` }" buttonAppearance="creation" :accept="acceptedFileType" />
+    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType.join(', ')}` }" buttonAppearance="creation" :accept="acceptedFileType" />
   </template>
 </KCard>
 
@@ -210,7 +210,7 @@ This is the text that will be displayed on the button that triggers the click on
 
 <KCard>
   <template v-slot:body>
-    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType}` }" buttonAppearance="danger" buttonText="Click me" :accept="acceptedFileType" />
+    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType.join(', ')}` }" buttonAppearance="danger" buttonText="Click me" :accept="acceptedFileType" />
   </template>
 </KCard>
 
@@ -265,7 +265,7 @@ All of the above 3 events will emit a `JavaScript Array` of type `FileList`. Thi
 
 <KCard>
   <template v-slot:body>
-    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType}` }" :accept="acceptedFileType" @file-added="file => printData(file)" @file-removed="() => fileData = ''" />
+    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType.join(', ')}` }" :accept="acceptedFileType" @file-added="file => printData(file)" @file-removed="() => fileData = ''" />
   </template>
 </KCard>
 
