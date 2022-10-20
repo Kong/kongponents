@@ -218,20 +218,11 @@ export default defineComponent({
 
       const fileSize = fileInput?.value[0]?.size
 
-      if (props.type === 'file') {
-        hasUploadError.value = fileSize > maximumFileSize.value
+      hasUploadError.value = fileSize > maximumFileSize.value
 
-        if (hasUploadError.value) {
-          fileInputKey.value++
-          emit('error', fileInput.value)
-        }
-      } else {
-        hasUploadError.value = fileSize > maximumFileSize.value
-
-        if (hasUploadError.value) {
-          fileInputKey.value++
-          emit('error', fileInput.value)
-        }
+      if (hasUploadError.value) {
+        fileInputKey.value++
+        emit('error', fileInput.value)
       }
 
       const inputElem = document.getElementById(customInputId.value) as HTMLInputElement

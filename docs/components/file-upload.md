@@ -250,9 +250,9 @@ Use this prop to customize the maximize size of file that can be uploaded. Defau
 
 The events below will fire whenever:
 
-- a file is added `file-added`
-- a file is removed `file-removed`
-- there is a file upload error `error`
+- a file is added: `file-added`
+- a file is removed: `file-removed`
+- there is a file upload error because the uploaded file size is greater than `maxFileSize` prop): `error`
 
 All of the above 3 events will emit a `JavaScript Array` of type `FileList`. This FileList object provides the `File object` that has following `read-only` properties:
 
