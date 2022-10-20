@@ -99,6 +99,7 @@ export default defineUserConfig({
               '/components/card.md',
               '/components/catalog.md',
               '/components/checkbox.md',
+              '/components/codeblock.md',
               '/components/collapse.md',
               '/components/datetime-picker.md',
               '/components/dropdown-menu.md',
