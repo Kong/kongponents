@@ -342,11 +342,9 @@ export default defineComponent({
   },
   methods: {
     hidePopper() {
-      if (this.trigger !== 'hover') {
-        this.isOpen = false
-      }
+      this.isOpen = false
+
       this.timer = setTimeout(() => {
-        this.isOpen = false
         this.$emit('closed')
         this.destroy()
       }, this.popoverTimeout)
@@ -381,7 +379,6 @@ export default defineComponent({
         placement,
         // Use positionFixed to avoid popover content being cut off by parent boundaries
         positionFixed: this.positionFixed,
-        removeOnDestroy: true,
         modifiers: {
           // Ensures element does not ovflow outside of boundary
           preventOverflow: {
