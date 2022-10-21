@@ -15,7 +15,7 @@
 # 'main' branch context
 [context.main]
   base = "/"
-  command = "yarn build:styles && yarn docs:build"
+  command = "yarn docs:build"
   publish = "docs/.vuepress/dist"
   environment = { NODE_VERSION = "16.15.1", YARN_FLAGS="--frozen-lockfile --ignore-optional" }
 
@@ -30,13 +30,3 @@
   publish = "docs/.vuepress/dist"
   environment = { NODE_VERSION = "16.15.1", YARN_FLAGS="--frozen-lockfile --ignore-optional" }
 
-# ##############################
-# 'beta' branch
-# ##############################
-
-# 'beta' branch context
-[context.beta]
-  base = "/"
-  command = "yarn docs:build"
-  publish = "docs/.vuepress/dist"
-  environment = { NODE_VERSION = "16.15.1", YARN_FLAGS="--frozen-lockfile --ignore-optional" }

@@ -11,11 +11,11 @@ module.exports = {
     searchPlaceholder: 'Search...',
     nav: [
       {
-        text: 'v7 for Vue 2',
+        text: 'v7.x',
         items: [
           {
-            text: 'v8-beta for Vue 3',
-            link: 'https://beta.kongponents.konghq.com',
+            text: 'v8.x',
+            link: 'https://kongponents.konghq.com',
           },
         ],
       },
@@ -122,7 +122,7 @@ module.exports = {
       searchHotkeys: ['/']
     }],
     ['sitemap', {
-      hostname: 'https://kongponents.konghq.com'
+      hostname: 'https://legacy.kongponents.konghq.com'
     }],
   ],
   chainWebpack: config => {

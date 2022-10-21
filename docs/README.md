@@ -34,9 +34,9 @@ If you're installing for Vue `2.6.x` and below, you will want to install via the
 yarn add @kongponents/kbutton@legacy
 ```
 
-#### Vue 3 (beta)
+#### Vue 3
 
-If you want to try out Vue 3 support, install the beta release of `@kong/kongponents` (note the new package name). The code for Vue 3 exists on the `beta` branch. [You can find more info on here for installation instructions and migration notes](https://beta.kongponents.konghq.com/#installation).
+If you want to try out Vue 3 support, install the latest release of `@kong/kongponents` (note the new package name). [You can find more info on here for installation instructions and migration notes](https://kongponents.konghq.com/#installation).
 
 ### Component packages
 
