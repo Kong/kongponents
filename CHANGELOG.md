@@ -1,3 +1,15 @@
+# [8.0.0](https://github.com/Kong/kongponents/compare/v7.1.0...v8.0.0) (2022-10-21)
+
+
+### Features
+
+* **release:** kongponents for vue 3 [KHCP-5067] ([4a66ff3](https://github.com/Kong/kongponents/commit/4a66ff31dac98bc9c741fef8cda8e69b767c2087))
+
+
+### BREAKING CHANGES
+
+* **release:** Kongponents now require Vue 3.x dependency
+
 # [7.1.0](https://github.com/Kong/kongponents/compare/v7.0.1...v7.1.0) (2022-10-21)
 
 
