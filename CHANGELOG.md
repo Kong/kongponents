@@ -1,3 +1,11 @@
+# [8.0.0-beta.46](https://github.com/Kong/kongponents/compare/v8.0.0-beta.45...v8.0.0-beta.46) (2022-10-21)
+
+
+### Bug Fixes
+
+* **klabel:** update help cursor ([988d825](https://github.com/Kong/kongponents/commit/988d82587af546bcb8413ba4ca221eded2b1e690))
+* **kpop:** do not remove on destroy [KHCP-5139] ([#835](https://github.com/Kong/kongponents/issues/835)) ([fedc720](https://github.com/Kong/kongponents/commit/fedc720496876e79287a6df77f32396f52bdc09e))
+
 # [8.0.0-beta.45](https://github.com/Kong/kongponents/compare/v8.0.0-beta.44...v8.0.0-beta.45) (2022-10-21)
 
 
