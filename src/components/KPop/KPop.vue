@@ -434,7 +434,7 @@ export default defineComponent({
     destroy() {
       if (this.popper) {
         this.isOpen = false
-        this.popper.destroy()
+        this.popper.disableEventListeners()
         this.popper = null
       }
     },
