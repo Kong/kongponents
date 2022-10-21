@@ -73,4 +73,15 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/styles/variables';
 @import '@/styles/functions';
+
+.k-input-label {
+  .label-tooltip {
+    :deep(.kong-icon) {
+      &.kong-icon-help,
+      &.kong-icon-info {
+        cursor: pointer;
+      }
+    }
+  }
+}
 </style>
