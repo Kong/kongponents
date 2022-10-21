@@ -58,7 +58,22 @@ A step with a state of `completed` results in a filled-in divider.
 ]
 ```
 
-Both `pending` and `error` states will bold the label, because these 2 states indicate the "current" step. `completed` indicates past steps, while `default` indicates future steps.
+`active`, `pending`, and `error` states will bold the label, because these 3 states indicate the "current" step. `completed` indicates past steps, while `default` indicates future steps.
+
+<div>
+  <KStepper :steps="[
+      { label: 'An active step', state: 'active' },
+      { label: 'End' }
+    ]"
+  />
+</div>
+
+```js
+[
+  { label: 'An active step', state: 'active' },
+  { label: 'End' }
+]
+```
 
 <div>
   <KStepper :steps="[
@@ -113,14 +128,69 @@ The width of step labels (default is `170px`). We support numbers (will be conve
 <KStepper :steps="steps" max-label-width="100" />
 ```
 
-<script>
-export default {
-  data() {
+## Theming
+
+| Variable                       | Purpose                                     |
+| :---------------------         | :-------------------------------            |
+| `KStepIconSize`                | Height and width of step state icon         |
+| `KStepBackgroundColor`         | Background color of the step state icon     |
+| `KStepDividerColorCompleted`   | Color of divider for completed steps        |
+| `KStepDividerColorDefault`     | Color of divider for non-completed steps    |
+| `KStepActiveColor`             | Primary color of active state icon          |
+| `KStepCompletedColor`          | Primary color of completed state icon       |
+| `KStepCompletedSecondaryColor` | Secondary color of completed state icon     |
+| `KStepDefaultColor`            | Primary color of default state icon         |
+| `KStepErrorColor`              | Primary color of error state icon           |
+| `KStepErrorSecondaryColor`     | Secondary color of error state icon         |
+| `KStepPendingColor`            | Primary color for pending state icon        |
+
+
+An example of theming the stepper:
+
+> Note: We are scoping the overrides to a wrapper in this example
+
+<div class="k-stepper-wrapper">
+  <KStepper :steps="stepTypes" />
+</div>
+
+```html
+<template>
+  <div class="k-stepper-wrapper">
+    <KStepper :steps="steps" />
+  </div>
+</template>
+
+<style lang="scss">
+.k-stepper-wrapper {
+  --KStepIconSize: 40px;
+  --KStepDividerColorCompleted: var(--purple-300);
+  --KStepDividerColorDefault: var(--purple-100);
+  --KStepActiveColor: var(--purple-300);
+  --KStepCompletedColor: var(--purple-300);
+  --KStepDefaultColor: var(--purple-100);
+  --KStepErrorColor: var(--steel-400);
+  --KStepPendingColor: var(--yellow-400);
+}
+</style>
+```
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  data () {
     return {
       defaultItems: [
         { label: 'And a 1', state: 'completed' },
-        { label: 'And a 2', state: 'pending' },
+        { label: 'And a 2', state: 'active' },
         { label: 'And a 1 2 3 4' }
+      ],
+      stepTypes: [
+        { label: 'Completed step', state: 'completed' },
+        { label: 'Active step', state: 'active' },
+        { label: 'Pending step', state: 'pending' },
+        { label: 'Erroneous step', state: 'error' },
+        { label: 'Default step' }
       ],
       longSteps: [
         { label: 'Step  a long long long long time ago', state: 'completed' },
@@ -130,5 +200,18 @@ export default {
       ]
     }
   }
-}
+})
 </script>
+
+<style lang="scss">
+.k-stepper-wrapper {
+  --KStepIconSize: 40px;
+  --KStepDividerColorCompleted: var(--purple-300);
+  --KStepDividerColorDefault: var(--purple-100);
+  --KStepActiveColor: var(--purple-300);
+  --KStepCompletedColor: var(--purple-300);
+  --KStepDefaultColor: var(--purple-100);
+  --KStepErrorColor: var(--steel-400);
+  --KStepPendingColor: var(--yellow-400);
+}
+</style>

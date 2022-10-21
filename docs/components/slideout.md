@@ -1,15 +1,13 @@
 # Slideout
 
-**KSlideout** - provides a container/wrapper to show content that may not always be important to show all of the time. It is a user initiated component and should only show with a click.
+**KSlideout** - provides a container/wrapper to show content that may not always be important to show all of the time. It is a user-initiated component and should only show with a click.
 
-Below we demonstrate wrapping KSlideout in the [KToggle](/components/renderless/ktoggle.html) component. This allows us to easily toggle the open state without needing to set a data prop in the parent component.
+Below we demonstrate wrapping `KSlideout` in the [`KToggle`](/components/renderless/toggle.html) component. This allows us to easily toggle the open state without needing to set a data prop in the parent component.
 
 <KToggle v-slot="{ isToggled, toggle }">
   <div>
     <KButton @click="toggle">Toggle Panel</KButton>
-    <KSlideout
-      :is-visible="isToggled"
-      @close="toggle">
+    <KSlideout :is-visible="isToggled.value" @close="toggle">
       <div>
         <h2>Not only can you put any html in here like the paragraph below but you can also use other components</h2>
         <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
@@ -36,9 +34,7 @@ Below we demonstrate wrapping KSlideout in the [KToggle](/components/renderless/
 <KToggle v-slot="{ isToggled, toggle }">
   <div>
     <KButton @click="toggle">Toggle Panel</KButton>
-    <KSlideout
-      :is-visible="isToggled"
-      @close="toggle">
+    <KSlideout :is-visible="isToggled.value" @close="toggle">
       <div>
         <h2>Not only can you put any html in here like the paragraph below but you can also use other components</h2>
         <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
@@ -64,20 +60,23 @@ Below we demonstrate wrapping KSlideout in the [KToggle](/components/renderless/
 
 ## Props
 
-- `isVisible` - Tells the component whether or not to render the open panel
-- `@close` - Emitted when the close button is clicked, anything outside the panel is clicked, or the `esc` key is pressed.
+### isVisible
+
+Tells the component whether or not to render the open panel.
 
 ## Slots
 
 There is one default slot which is used to place content into the slideout panel.
 
 ```html
-<KSlideout
-  :is-visible="isToggled"
-  @close="toggle">
+<KSlideout :is-visible="isToggled" @close="toggle">
   <div>
     <h1>Default Slot</h1>
     <p>Anything here will render in the panel</p>
   </div>
 </KSlideout>
 ```
+
+## Events
+
+- `@close` - Emitted when the close button is clicked, anything outside the panel is clicked, or the `esc` key is pressed.

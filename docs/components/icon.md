@@ -10,10 +10,9 @@
 
 ## Props
 
-### icon - required
+### icon
 
-The name of the icon. This required prop will only recognize icons from the
-following list. It tells KIcon which svg to render.
+The name of the icon. This required prop will only recognize icons from the following list. It tells KIcon which svg to render.
 
 <div>
   <KToggle v-slot="{ isToggled, toggle }">
@@ -21,12 +20,12 @@ following list. It tells KIcon which svg to render.
       <KButton
         appearance="outline"
         class="mb-4"
-        @click="toggle">Toggle viewbox {{ isToggled ? 'off' : 'on' }}</KButton>
+        @click="toggle">Toggle viewbox {{ isToggled.value ? 'off' : 'on' }}</KButton>
       <div class="icon-row">
-        <div v-for="icon in $icons">
+        <div v-for="icon in $icons" :class="{ displayHidden: stateIcons.includes(String(icon)) }">
           <div v-if="!stateIcons.includes(String(icon))"
             class="icon-cell"
-            :class="{ hasBg: isToggled }"
+            :class="{ hasBg: isToggled.value }"
           >
             <KIcon
             size="24"
@@ -54,16 +53,17 @@ The `State icons` do not support the `color` prop.
       <KButton
         appearance="outline"
         class="mb-4"
-        @click="toggle">Toggle viewbox {{ isToggled ? 'off' : 'on' }}</KButton>
+        @click="toggle">Toggle viewbox {{ isToggled.value ? 'off' : 'on' }}</KButton>
       <div class="state-icon-row">
-        <div v-for="icon in displayStateIcons" class="icon-cell"
-            :class="{ hasBg: isToggled }"
-          >
-            <KIcon
-            size="96"
-            :icon="icon" />
-            <span>{{ icon }}</span>
-          </div>
+        <div v-for="icon in displayStateIcons"
+          class="icon-cell"
+          :class="{ hasBg: isToggled.value }"
+        >
+          <KIcon
+          size="96"
+          :icon="icon" />
+          <span>{{ icon }}</span>
+        </div>
       </div>
     </div>
   </KToggle>
@@ -128,7 +128,7 @@ e.g. `<path id="preserveColor" d="M9 11v2H7v-2h2zm0-8v6.5H7V3h2z" fill="#FFF"/>`
 
 The title to be announced by screenreaders and displayed on hover. If not provided, a default title will be used.
 
-<KIcon icon="warning" />
+<KIcon icon="warning" class="mr-2"/>
 <KIcon icon="warning" title="Custom Title" />
 
 ```html
@@ -158,7 +158,7 @@ You can read more about the viewBox attribute
 
 - `svgElements` - Used to add svg customization elements
 
-<KIcon icon="check" size="50" color="url('#linear-gradient')">
+<KIcon icon="check" size="50" color="url('#linear-gradient')" class="mr-2">
   <template v-slot:svgElements>
     <defs>
       <linearGradient id="linear-gradient" x1="0" x2="1">
@@ -170,7 +170,7 @@ You can read more about the viewBox attribute
   </template>
 </KIcon>
 
-<KIcon icon="search" size="50" color="url('#linear-gradient2')">
+<KIcon icon="search" size="50" color="url('#linear-gradient2')" class="mr-2">
   <template v-slot:svgElements>
     <defs>
       <linearGradient id="linear-gradient2" gradientTransform="rotate(90)">
@@ -235,17 +235,20 @@ You can read more about the viewBox attribute
 ## Usage
 
 :::warning
-KIcon imports .svg files directly, so a loader is needed in order to render these in your application such as the webpack
-[raw-loader](https://webpack.js.org/loaders/raw-loader/). [See here for more information](/#raw-loader).
+KIcon imports .svg file types directly, so a loader is needed in order to render in your application such as the webpack
+[raw-loader](https://webpack.js.org/loaders/raw-loader/)
 :::
-Check out the [contributing](/contributing/adding-icons-to-kicon.html) docs to learn about adding new icons to `KIcon`.
+
+Check out the [contributing](/contributing/adding-an-icon.html) docs to learn about adding new icons to `KIcon`.
 
 <style lang="scss" scoped>
-
 .icon-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
+  .displayHidden {
+    display: none;
+  }
   .icon-cell {
     display: flex;
     align-items: center;

@@ -1,4 +1,28 @@
 {
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+  },
+  "editor.formatOnPaste": true,
+  "editor.trimAutoWhitespace": true,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "eslint.codeActionsOnSave.mode": "problems",
+  "eslint.packageManager": "yarn",
+  "eslint.format.enable": true,
+  "eslint.validate": [
+    "typescript",
+    "javascript",
+    "javascriptreact",
+    "vue"
+  ],
+  "files.associations": {
+    ".env.*": "ini",
+    "*.vue": "vue"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
   "markdownlint.ignore": [
     "docs/**/*.md"
   ]

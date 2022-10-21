@@ -1,0 +1,77 @@
+// For division
+@use "sass:math";
+
+$width: 44px;
+$height: 24px;
+$color_checkbox_success: var(--KInputSwitchOn, var(--green-500, color(green-500)));
+$transition: 0.2s linear;
+
+.k-switch {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  &.switch-with-icon .switch-control {
+    width: 48px;
+  }
+  &.switch-with-icon .kong-icon {
+    height: 20px;
+    width: 22px;
+    left: 57px;
+  }
+  &.switch-with-icon input:checked + .switch-control:after {
+    left: 26px;
+  }
+  .switch-control {
+    position: relative;
+    display: block;
+    width: $width;
+    height: $height;
+    margin-right: 1rem;
+    border-radius: 12px;
+    background-color: var(--KInputSwitchBackground, var(--grey-400, color(grey-400)));
+    transition: $transition;
+
+    &.has-label-left {
+      margin-right: 0;
+      margin-left: 1rem;
+    }
+
+    // Toggle
+    &:after {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      display: block;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: var(--white, color(white));
+      content: "";
+      transition: $transition;
+    }
+  }
+
+  &[disabled]:not(:disabled) {
+    cursor: not-allowed;
+    .switch-control,
+    input {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+  }
+
+  // Hide default checkbox
+  input {
+    display: none;
+    &:checked + .switch-control {
+      background-color: $color_checkbox_success;
+      &:after {
+        left: math.div($width, 2);
+      }
+    }
+  }
+
+  span {
+    color: var(--KInputSwitchLabel, var(--black-70, color(black-70)));
+  }
+}

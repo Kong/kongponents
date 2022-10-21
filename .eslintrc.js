@@ -1,38 +1,57 @@
 module.exports = {
   root: true,
   parserOptions: {
-    parser: 'babel-eslint',
-    sourceType: 'module'
+    parser: '@typescript-eslint/parser',
+    ecmaVersion: 2020,
   },
   env: {
-    browser: true,
+    node: true,
   },
+  plugins: ['vue', 'import', '@typescript-eslint'],
   extends: [
-    "plugin:vue/recommended",
-    "plugin:jest/recommended",
-    "standard"
-  ],
-  plugins: [
-    'vue'
+    'eslint:recommended',
+    'plugin:vue/vue3-recommended',
+    'standard',
   ],
   rules: {
-    'curly': 'error',
-    'arrow-parens': 0,
-    'generator-star-spacing': 0,
-    'object-property-newline': 'error',
-    'import/no-named-default': 0,
-    'object-curly-spacing': 0,
-    'lines-between-class-members': ['error', 'always'],
-    'padding-line-between-statements': [
-      "error",
-      { blankLine: "always", prev: ["block", "block-like"], next: "*" },
-      { blankLine: "always", prev: "*", next: "return" },
-      { blankLine: "always", prev: ["const", "let", "var"], next: "*" },
-      { blankLine: "any", prev: ["const", "let", "var"], next: ["const", "let", "var", "if"] },
-      { blankLine: "always", prev: "directive", next: "*" },
-      { blankLine: "any", prev: "directive", next: "directive" }
-    ],
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-    "jest/valid-expect": "error"
-  }
+    quotes: ['error', 'single', { avoidEscape: true }],
+    'no-multi-spaces': 'error',
+    'no-trailing-spaces': 'error',
+    'comma-dangle': ['error', 'always-multiline'],
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'max-len': [process.env.NODE_ENV === 'production' ? 'warn' : 'off', {
+      code: 120,
+      ignoreTrailingComments: true,
+      ignoreUrls: true,
+      ignoreStrings: true,
+      ignoreTemplateLiterals: true,
+      ignoreRegExpLiterals: true,
+    }],
+    'space-before-function-paren': 'off',
+  },
+  overrides: [
+    {
+      files: ['*.ts', '*.vue'],
+      rules: {
+        '@typescript-eslint/no-explicit-any': 'off',
+        // Avoids false errors like “'NodeListOf' is not defined”.
+        'no-undef': 'off',
+        // Turns off some non-TypeScript rules in favor of their specific TypeScript rules to avoid false negatives:
+        indent: 'off',
+        '@typescript-eslint/indent': ['error', 2],
+        'no-unused-vars': 'off',
+        '@typescript-eslint/no-unused-vars': 'error',
+        'space-before-function-paren': 'off',
+        '@typescript-eslint/space-before-function-paren': ['error', {
+          anonymous: 'never',
+          named: 'never',
+          asyncArrow: 'always',
+        }],
+        // Ensures ESLint understands that `defineEmits<{ ... }>()` does _not_ fail this rule.
+        'func-call-spacing': 'off',
+        '@typescript-eslint/func-call-spacing': 'error',
+      },
+    },
+  ],
 }

@@ -4,25 +4,12 @@ The **KModal** component is used to show content on top of existing UI. Typicall
 
 <KButton appearance="primary" @click="defaultIsOpen = true">Open Modal</KButton>
 
-<div>
-  <KModal
-    title="Look Mah!"
-    content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris accumsan tincidunt velit ac vulputate. Aliquam turpis odio, elementum a hendrerit id, pellentesque quis ligula. Nulla ultricies sit amet nisi vitae congue. Quisque vitae ullamcorper leo, id pretium mi. Nam sed odio dapibus, dapibus augue at, pulvinar est."
-    :isVisible="defaultIsOpen"
-    @proceed="defaultIsOpen = false"
-    @canceled="defaultIsOpen = false"
-  />
-</div>
+<KModal title="Look Mah!" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris accumsan tincidunt velit ac vulputate. Aliquam turpis odio, elementum a hendrerit id, pellentesque quis ligula. Nulla ultricies sit amet nisi vitae congue. Quisque vitae ullamcorper leo, id pretium mi. Nam sed odio dapibus, dapibus augue at, pulvinar est." :isVisible="defaultIsOpen" @proceed="defaultIsOpen = false" @canceled="defaultIsOpen = false" />
 
 ```html
 <template>
   <div>
-    <KButton
-      appearance="primary"
-      @click="isVisible = true"
-    >
-      Open Modal
-    </KButton>
+    <KButton appearance="primary" @click="isVisible = true">Open Modal</KButton>
 
     <KModal
       title="Look Mah!"
@@ -34,14 +21,16 @@ The **KModal** component is used to show content on top of existing UI. Typicall
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   data () {
     return {
       isVisible: false
     }
   }
-}
+})
 </script>
 ```
 
@@ -166,7 +155,7 @@ Can be `dark` (default) or `light`. You might want to use this if displaying dar
   >
     <template v-slot:header-image>
       <div class="slot-image-content1">
-        <img src="/img/dark-demo.png" alt="Welcome" />
+        <img src="/img/dark-demo.png" alt="Circuit board" />
       </div>
     </template>
     <template v-slot:header-content>
@@ -194,7 +183,7 @@ Can be `dark` (default) or `light`. You might want to use this if displaying dar
 >
   <template v-slot:header-image>
     <div class="slot-image-content1">
-      <img src="/img/dark-demo.svg" alt="Welcome" />
+      <img src="/img/dark-demo.png" alt="Circuit board" />
     </div>
   </template>
   <template v-slot:header-content>
@@ -213,9 +202,9 @@ Can be `dark` (default) or `light`. You might want to use this if displaying dar
 
 ## Slots
 
-There are 5 designated slots you can use to display content in the modal.
+There are 4 designated slots you can use to display content in the modal.
 
-- `header-image` - content displayed above the header, ignores padding. Enables the dismiss icon.
+- `header-image` - content displayed above the header, ignores padding
 - `header-content`
 - `body-content`
 - `footer-content` - Contains cancel & action buttons by default.
@@ -233,7 +222,7 @@ There are 5 designated slots you can use to display content in the modal.
   >
     <template v-slot:header-image>
       <div class="slot-image-content">
-        <h4 class="mx-7 my-5">I'm slotted baby!</h4>
+        <h4 class="mx-7 my-4">I'm slotted baby!</h4>
       </div>
     </template>
     <template v-slot:action-buttons>
@@ -254,7 +243,7 @@ There are 5 designated slots you can use to display content in the modal.
   >
     <template v-slot:header-image>
       <div class="slot-image-content">
-        <h4 class="mx-7 my-5">I'm slotted baby!</h4>
+        <h4 class="mx-7 my-4">I'm slotted baby!</h4>
       </div>
     </template>
     <template v-slot:action-buttons>
@@ -277,8 +266,7 @@ There are 5 designated slots you can use to display content in the modal.
 
 | Event     | Description             |
 | :-------- | :------------------ |
-| `cancelled` | Emitted when cancel/close button or dismiss icon is clicked |
-| `proceed` | Emitted when the submit button is pressed |
+| `cancelled` | Emitted when cancel/close button is clicked |
 
 ## Usage
 
@@ -342,9 +330,7 @@ An Example of changing the the colors of KModal might look like.
     :isVisible="themeIsOpen"
     title="Look Mah!"
     content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris accumsan tincidunt velit ac vulputate. Aliquam turpis odio, elementum a hendrerit id, pellentesque quis ligula."
-    @proceed="themeIsOpen = false"
-    @canceled="themeIsOpen = false"
-  />
+    @canceled="themeIsOpen = false" />
 </div>
 
 ```html
@@ -355,9 +341,7 @@ An Example of changing the the colors of KModal might look like.
       title="Look Mah!"
       content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris accumsan tincidunt velit ac vulputate. Aliquam turpis odio, elementum a hendrerit id, pellentesque quis ligula."
       :isVisible="isVisible"
-      @proceed="isVisible = false"
-      @canceled="isVisible = false"
-    />
+      @canceled="isVisible = false" />
   </div>
 </template>
 
@@ -370,8 +354,10 @@ An Example of changing the the colors of KModal might look like.
 </style>
 ```
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   data () {
     return {
       defaultIsOpen: false,
@@ -380,12 +366,13 @@ export default {
       defaultIsOpen4: false,
       slottedIsOpen: false,
       slottedIsOpen2: false,
+      slottedIsOpen2a: false,
       slottedIsOpen3: false,
       propsIsOpen: false,
-      themeIsOpen: false
+      themeIsOpen: false,
     }
   }
-}
+})
 </script>
 
 <style scoped lang="scss">

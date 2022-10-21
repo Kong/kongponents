@@ -15,10 +15,6 @@
 
 Pass a fetcher function to build a slot-able card catalog.
 
-```html
-<KCatalog :fetcher="fetcher" />
-```
-
 ## Props
 
 ### title
@@ -26,6 +22,7 @@ Pass a fetcher function to build a slot-able card catalog.
 The catalog title.
 
 <KCatalog title="Look Mah!" :fetcher="fetcherXs" />
+
 ```html
 <KCatalog title="Look Mah!" :fetcher="fetcher" />
 ```
@@ -178,20 +175,11 @@ Pass in an array of page sizes for the page size dropdown. If not provided will 
 
 Set this to `true` to limit pagination navigation to `previous` / `next` page only.
 
-<KCatalog
-  :fetcher="fetcher"
-  :disablePaginationPageJump="true"
-  :paginationPageSizes="[4, 5, 6]"
-  :initial-fetcher-params="{
-    pageSize: 4,
-    page: 1
-  }" />
+<KCatalog :fetcher="fetcher" :disablePaginationPageJump="true" :paginationPageSizes="[4, 5, 6]" :initial-fetcher-params="{ pageSize: 4, page: 1 }" />
 
 ```html
 <template>
-  <KCatalog
-    :fetcher="fetcher"
-    :disablePaginationPageJump="true" />
+  <KCatalog :fetcher="fetcher" :disablePaginationPageJump="true" />
 </template>
 ```
 
@@ -261,8 +249,12 @@ Set the following properties to handle empty state:
 - `emptyStateActionMessage` - Button text for empty state action
 - `emptyStateActionButtonIcon` - Icon for the empty state action button
 
-If using a CTA button, a `KCatalog-empty-state-cta-clicked` event is fired when clicked.
+If using a CTA button, a `@kcatalog-empty-state-cta-clicked` event is fired when clicked.
 
+<KCatalog :fetcher="emptyFetcher" title="Customized empty catalog" emptyStateTitle="No Workspaces exist" emptyStateMessage="Adding a new Workspace will populate this catalog." emptyStateActionMessage="Create a Workspace" emptyStateActionRoute="#empty-state-full-example" emptyStateIcon="workspaces" emptyStateIconColor="#5996ff" emptyStateIconSize="35" />
+
+```html
+<!-- Using a route string -->
 <KCatalog
   title="Customized empty catalog"
   :fetcher="emptyFetcher"
@@ -275,39 +267,23 @@ If using a CTA button, a `KCatalog-empty-state-cta-clicked` event is fired when 
   emptyStateIconSize="35"
 />
 
-```html
-<template>
-  <!-- Using a route string -->
-  <KCatalog
-    title="Customized empty catalog"
-    :fetcher="emptyFetcher"
-    emptyStateTitle="No Workspaces exist"
-    emptyStateMessage="Adding a new Workspace will populate this catalog."
-    emptyStateActionMessage="Create a Workspace"
-    emptyStateActionRoute="#empty-state-full-example"
-    emptyStateIcon="workspaces"
-    emptyStateIconColor="#5996ff"
-    emptyStateIconSize="35"
-  />
-
-  <!-- Using a route object -->
-  <KCatalog
-    title="Customized empty catalog"
-    :fetcher="emptyFetcher"
-    emptyStateTitle="No Workspaces exist"
-    emptyStateMessage="Adding a new Workspace will populate this catalog."
-    emptyStateActionMessage="Create a Workspace"
-    emptyStateActionRoute="{
-      name: 'create-workspace',
-      params: {
-        organizationId: 'd27e40e0-c9ac-43e2-8be8-54862fab45ea'
-      }
-    }"
-    emptyStateIcon="workspaces"
-    emptyStateIconColor="#5996ff"
-    emptyStateIconSize="35"
-  />
-</template>
+<!-- Using a route object -->
+<KCatalog
+  title="Customized empty catalog"
+  :fetcher="emptyFetcher"
+  emptyStateTitle="No Workspaces exist"
+  emptyStateMessage="Adding a new Workspace will populate this catalog."
+  emptyStateActionMessage="Create a Workspace"
+  emptyStateActionRoute="{
+    name: 'create-workspace',
+    params: {
+      organizationId: 'd27e40e0-c9ac-43e2-8be8-54862fab45ea'
+    }
+  }"
+  emptyStateIcon="workspaces"
+  emptyStateIconColor="#5996ff"
+  emptyStateIconSize="35"
+/>
 ```
 
 ### Error
@@ -346,40 +322,38 @@ If using a CTA button, a `KCatalog-error-cta-clicked` event is fired when clicke
 />
 
 ```html
-<template>
-  <!-- Using a route string -->
-  <KCatalog
-    title="Catalog with error"
-    :fetcher="fetcher"
-    :hasError="true"
-    errorStateTitle="Something went wrong"
-    errorStateMessage="Error loading data."
-    errorStateActionMessage="Report an Issue"
-    errorStateActionRoute="create-workspace"
-    errorStateIcon="dangerCircle"
-    errorStateIconColor="#e6173a"
-    errorStateIconSize="35"
-  />
+<!-- Using a route string -->
+<KCatalog
+  title="Catalog with error"
+  :fetcher="fetcher"
+  :hasError="true"
+  errorStateTitle="Something went wrong"
+  errorStateMessage="Error loading data."
+  errorStateActionMessage="Report an Issue"
+  errorStateActionRoute="create-workspace"
+  errorStateIcon="dangerCircle"
+  errorStateIconColor="#e6173a"
+  errorStateIconSize="35"
+/>
 
-  <!-- Using a route object -->
-  <KCatalog
-    title="Catalog with error"
-    :fetcher="fetcher"
-    :hasError="true"
-    errorStateTitle="Something went wrong"
-    errorStateMessage="Error loading data."
-    errorStateActionMessage="Report an Issue"
-    errorStateActionRoute="{
-      name: 'report-issue',
-      params: {
-        organizationId: 'd27e40e0-c9ac-43e2-8be8-54862fab45ea'
-      }
-    }"
-    errorStateIcon="dangerCircle"
-    errorStateIconColor="#e6173a"
-    errorStateIconSize="35"
-  />
-</template>
+<!-- Using a route object -->
+<KCatalog
+  title="Catalog with error"
+  :fetcher="fetcher"
+  :hasError="true"
+  errorStateTitle="Something went wrong"
+  errorStateMessage="Error loading data."
+  errorStateActionMessage="Report an Issue"
+  errorStateActionRoute="{
+    name: 'report-issue',
+    params: {
+      organizationId: 'd27e40e0-c9ac-43e2-8be8-54862fab45ea'
+    }
+  }"
+  errorStateIcon="dangerCircle"
+  errorStateIconColor="#e6173a"
+  errorStateIconSize="35"
+/>
 ```
 
 ### Loading
@@ -400,33 +374,7 @@ Both the `title` & `description` of the card items as well as the entire catalog
 - `cardHeader` - Will slot the card title for each entry
 - `cardBody` - Will slot the card body for each entry
 
-<KCatalog title="I'm slotted baby!" >
-  <template v-slot:body>
-    <KCatalogItem
-      v-for="item in getItems(4)"
-      :key="item.title.replace(' ', '-')"
-      :item="item"
-      class="catalog-item"
-    />
-  </template>
-</KCatalog>
-
-```html
-<template>
-  <KCatalog title="I'm slotted baby!" >
-    <template v-slot:body>
-      <KCatalogItem
-        v-for="item in getItems(4)"
-        :key="item.title.replace(' ', '-')"
-        :item="item"
-        class="catalog-item"
-      />
-    </template>
-  </KCatalog>
-</template>
-```
-
-If used in conjuction with a `fetcher` you have the option of using the returned `data`.
+If used in conjuction with a `fetcher` you have the option of using the returned `data` in the `body` slot.
 
 <KCatalog :fetcher="fetcherSm" title="Customized body">
   <template v-slot:body="{ data }">
@@ -528,7 +476,14 @@ is triggered and will be resolved when the fetcher returns. You can override thi
 `isLoading` prop.
 :::
 
-<KCatalog :fetcher="fetcher" :initial-fetcher-params="{ query: '', pageSize: 15, page: 1 }" />
+<KCatalog
+  :fetcher="fetcher"
+  :initial-fetcher-params="{
+    pageSize: 15,
+    page: 1,
+    query: ''
+  }"
+/>
 
 ```http
 Example URL
@@ -537,24 +492,22 @@ https://kongponents.dev/api/components?_page=1&_limit=10
 ```
 
 ```html
-  <template>
-  <!-- Example Component Usage -->
+<!-- Example Component Usage -->
 
-  <KCard>
-    <template v-slot:body>
-      <KInput placeholder="Search..." v-model="search" type="search" />
-      <KCatalog
-        :fetcher="fetcher"
-        :initial-fetcher-params="{
-          query: '',
-          pageSize: 15,
-          page: 1
-        }"
-        :search-input="search"
-      />
-    </template>
-  </KCard>
-</template>
+<KCard>
+  <template v-slot:body>
+    <KInput placeholder="Search" v-model="search" type="search" />
+    <KCatalog
+      :fetcher="fetcher"
+      :initial-fetcher-params="{
+        pageSize: 15,
+        page: 1,
+        query: ''
+      }"
+      :search-input="search"
+    />
+  </template>
+</KCard>
 ```
 
 ```js
@@ -576,12 +529,17 @@ fetcher(payload) {
     params
   }).then(res => {
     return {
-      total: res.total,
-      data: res.data
+      data: res.data,
+      total: res.total
     }
   })
 }
 ```
+
+## Events
+
+- `kcatalog-empty-state-cta-clicked` - If using a CTA button in the empty state, this event is fired when clicked.
+- `kcatalog-error-cta-clicked` - If using a CTA button in the error state, this event is fired when clicked.
 
 ## Theming
 
@@ -589,7 +547,6 @@ fetcher(payload) {
 the existing **KCard** theming variables [here](./card.md#theming).
 
 <script>
-
 function getItems(count) {
   let myItems = []
     for (let i = 0; i < count; i++) {

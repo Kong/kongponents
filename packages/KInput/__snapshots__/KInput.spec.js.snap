@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`KInput matches snapshot 1`] = `
-<div class="k-input-wrapper"><input placeholder="I am a placeholder" name="custom-input-name" id="custom-input-id" data-testid="custom-input" class="form-control k-input k-input-medium">
-  <!---->
-  <!---->
-</div>
-`;

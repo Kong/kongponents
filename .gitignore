@@ -1,10 +1,18 @@
-.DS_Store
 node_modules
+.DS_Store
+dist
+bin
+dist-ssr
+*.local
 
-lerna-debug.log
-yarn-error.log
-coverage
-docs/.vuepress/dist
-packages/*/dist
-packages/styles/styles.css
+cypress/screenshots
+cypress/videos
+
+.temp
+.cache
 .idea
+.husky
+
+docs/.vuepress/.temp/
+docs/.vuepress/.cache/
+docs/.vuepress/dist/

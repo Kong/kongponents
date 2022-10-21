@@ -2,18 +2,18 @@
 
 **KInlineEdit** - A wrapper which adds inline edit capability. Currently only supports single text input.
 
-<Komponent :data="{ inlineText: 'Click to edit me' }" v-slot="{ data }">
-  <KInlineEdit @changed="newVal => data.inlineText = newVal"><h3>{{ data.inlineText }}</h3></KInlineEdit>
-</Komponent>
+<KComponent :data="{ inlineText: 'Click to edit me' }" v-slot="{ data }">
+  <KInlineEdit @changed="(newVal) => data.inlineText = newVal"><h3>{{ data.inlineText }}</h3></KInlineEdit>
+</KComponent>
 
-> The `Komponent` component is used in this example to create state.
+> The `KComponent` component is used in this example to create state.
 
 ```html
-<Komponent :data="{ inlineText: 'Click to edit me' }" v-slot="{ data }">
+<KComponent :data="{ inlineText: 'Click to edit me' }" v-slot="{ data }">
   <KInlineEdit>
     <h3>{{ data.inlineText }}</h3>
   </KInlineEdit>
-</Komponent>
+</KComponent>
 ```
 
 ## Props
@@ -22,34 +22,34 @@
 
 If true, will not set the value of the input when enabled/clicked. This is useful to control placeholder style text
 
-<Komponent :data="{ inlineText: '' }" v-slot="{ data }">
+<KComponent :data="{ inlineText: '' }" v-slot="{ data }">
   <KInlineEdit :ignore-value="data.inlineText.length === 0" @changed="newVal => data.inlineText = newVal"><p>{{ data.inlineText || 'cool placeholder' }}</p></KInlineEdit>
-</Komponent>
+</KComponent>
 
-> The `Komponent` component is used in this example to create state.
+> The `KComponent` component is used in this example to create state.
 
 ```html
-<Komponent :data="{ inlineText: '' }" v-slot="{ data }">
+<KComponent :data="{ inlineText: '' }" v-slot="{ data }">
   <KInlineEdit
     :ignore-value="data.inlineText.length === 0"
     @changed="newVal => data.inlineText = newVal">
     <p>{{ data.inlineText || 'cool placeholder' }}</p>
   </KInlineEdit>
-</Komponent>
+</KComponent>
 ```
 
 ### styleOverrides
 
 Styles to set when the input is active. Useful when styling the default state differently.
 
-<Komponent :data="{ inlineText: '' }" v-slot="{ data }">
+<KComponent :data="{ inlineText: '' }" v-slot="{ data }">
   <KInlineEdit :ignore-value="data.inlineText.length === 0" :style-overrides="{color: 'var(--black-85)'}" @changed="newVal => data.inlineText = newVal"><p :class="data.inlineText.length > 0 ? 'color-black-85' :'color-black-45 text-italic'">{{ data.inlineText || 'cool placeholder' }}</p></KInlineEdit>
-</Komponent>
+</KComponent>
 
-> The `Komponent` component is used in this example to create state.
+> The `KComponent` component is used in this example to create state.
 
 ```html
-<Komponent :data="{ inlineText: '' }" v-slot="{ data }">
+<KComponent :data="{ inlineText: '' }" v-slot="{ data }">
   <KInlineEdit
     :ignore-value="data.inlineText.length === 0"
     :style-overrides="{ color: 'var(--black-85)' }"
@@ -58,8 +58,10 @@ Styles to set when the input is active. Useful when styling the default state di
       {{ data.inlineText || 'cool placeholder' }}
     </p>
   </KInlineEdit>
-</Komponent>
+</KComponent>
 ```
+
+## Events
 
 ### `@changed`
 
@@ -73,28 +75,28 @@ While the component itself does not protect against returning empty an empty val
 
 <KCard>
   <template v-slot:body>
-    <Komponent :data="{ inlineText: 'Click to edit me' }" v-slot="{ data }">
+    <KComponent :data="{ inlineText: 'Click to edit me' }" v-slot="{ data }">
       <div>
         Updated: {{ data.inlineText }}
         <KInlineEdit @changed="newVal => { if(newVal.length) { data.inlineText = newVal } else { alert('cannot be empty') } }">
           <h3>{{ data.inlineText }}</h3>
         </KInlineEdit>
       </div>
-    </Komponent>
+    </KComponent>
   </template>
 </KCard>
 
-> The `Komponent` component is used in this example to create state.
+> The `KComponent` component is used in this example to create state.
 
 ```html
-<Komponent :data="{ inlineText: 'Click to edit me' }" v-slot="{ data }">
+<KComponent :data="{ inlineText: 'Click to edit me' }" v-slot="{ data }">
   <div>
     Updated: {{ data.inlineText }}
     <KInlineEdit @changed="newVal => { if(newVal.length) { data.inlineText = newVal } else { alert('cannot be empty') } }">
       <h3>{{ data.inlineText }}</h3>
     </KInlineEdit>
   </div>
-</Komponent>
+</KComponent>
 ```
 
 ## Slots
@@ -122,9 +124,9 @@ An HTML element must be passed in the slot. An error will be thrown if not passe
 
 :lipstick: To theme, reference [KInput](/components/input.html#theming). The input takes up 100% of its parent container. To change, add a class or width styling to the wrapping component.
 
-<Komponent :data="{ inlineText: 'Im 50%!' }" v-slot="{ data }">
+<KComponent :data="{ inlineText: 'Im 50%!' }" v-slot="{ data }">
   <KInlineEdit class="w-50" @changed="newVal => data.inlineText = newVal"><h3>{{ data.inlineText }}</h3></KInlineEdit>
-</Komponent>
+</KComponent>
 
 ```html
 <KInlineEdit

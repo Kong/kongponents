@@ -19,7 +19,6 @@ The main content of the alert.
 Set whether or not the alert box is shown.
 
 > Note: By default is-showing is set to true.
-
 - `is-showing`
 
 ```html
@@ -34,7 +33,6 @@ Set whether or not the alert box is shown.
 The display type of the alert.
 
 > Note: By default `appearance="info"`.
-
 - `alert` (default)
 
 <div>
@@ -431,6 +429,7 @@ Controls size (height) and default font-size of an alert.
 ```
 
 - `large`
+
 `size="large"` allows further customization options. You can specify an icon, description text, and additional buttons using the `actionButtons` slot. See the full [Example](#description).
 
 ### icon
@@ -438,7 +437,6 @@ Controls size (height) and default font-size of an alert.
 Specify an icon to display to the left of the alert content. If using `type="banner"` this will override the colored ellipse.
 
 > Note: only available with `size="large"`.
-
 ### iconSize
 
 The size of the `icon` being displayed (default is `24`).
@@ -452,7 +450,6 @@ The color of the `icon` being displayed.
 Descriptive text to be displayed below the main alert content.
 
 > Note: only available with `size="large"`.
-
 <div>
   <KAlert
     :is-showing="extraMsg"
@@ -465,7 +462,7 @@ Descriptive text to be displayed below the main alert content.
     size="large"
     @closed="extraMsg = false"
   >
-    <template v-slot:actionButtons>
+    <template #actionButtons>
       <KButton appearance="primary" size="small">Review</KButton>
     </template>
   </KAlert>
@@ -483,7 +480,7 @@ Descriptive text to be displayed below the main alert content.
   size="large"
   @closed="isShowing = false"
 >
-  <template v-slot:actionButtons>
+  <template #actionButtons>
     <KButton appearance="primary" size="small">Review</KButton>
   </template>
 </KAlert>
@@ -591,9 +588,8 @@ Adds border to the bottom.
 Fixes KAlert to the top of the container.
 
 > Note: Not demoed
-
 ```html
-<KAlert is-fixed alert-message="Info bordered" />
+<KAlert is-fixed alert-message="Info fixed" />
 ```
 
 ## Slots
@@ -624,7 +620,7 @@ Fixes KAlert to the top of the container.
     <template #description>
       I like cats 🐈‍⬛
     </template>
-    <template v-slot:actionButtons>
+    <template #actionButtons>
       <KButton appearance="secondary" size="small">🐈‍⬛</KButton>
       <KButton appearance="creation" size="small">🐶</KButton>
     </template>
@@ -651,33 +647,34 @@ Fixes KAlert to the top of the container.
   <template #description>
     I like cats 🐈‍⬛
   </template>
-  <template v-slot:actionButtons>
+  <template #actionButtons>
     <KButton appearance="secondary" size="small">🐈‍⬛</KButton>
     <KButton appearance="creation" size="small">🐶</KButton>
   </template>
 </KAlert>
 ```
 
+## Events
+
+- `@closed` - emitted when the dismiss button is clicked
+- `@proceed` - emitted when a default action button is clicked
+
 ## Variations
 
 ### Long Content / Prose
 
-<KAlert appearance="success" class="mt-5">
-  <template v-slot:alertMessage>
-    <div class="mt-2 bold">Failure Modes</div>
-    <p>
-      Before you release that email you're writing to spin up a new centralized decision-making group, it's worth talking about the four ways these groups consistently fail. They tend to be <b>domineering</b>, <b>bottlenecked</b>, <b>status-oriented</b>, or <b>inert</b>.
-    </p>
+<KAlert appearance="info" class="mt-5">
+  <template #alertMessage>
+    <div class="mt-2 bold-600">Failure Modes</div>
+    <p>Before you release that email you're writing to spin up a new centralized decision-making group, it's worth talking about the four ways these groups consistently fail. They tend to be <b>domineering</b>, <b>bottlenecked</b>, <b>status-oriented</b>, or <b>inert</b>.</p>
   </template>
 </KAlert>
 
 ```html
 <KAlert appearance="info" class="mt-5">
-  <template v-slot:alertMessage>
-    <div class="mt-2 bold">Failure Modes</div>
-    <p>
-      Before you release that email you're writing to spin up a new centralized decision-making group, it's worth talking about the four ways these groups consistently fail. They tend to be <b>domineering</b>, <b>bottlenecked</b>, <b>status-oriented</b>, or <b>inert</b>.
-    </p>
+  <template #alertMessage>
+    <div class="mt-2 bold-600">Failure Modes</div>
+    <p>Before you release that email you're writing to spin up a new centralized decision-making group, it's worth talking about the four ways these groups consistently fail. They tend to be <b>domineering</b>, <b>bottlenecked</b>, <b>status-oriented</b>, or <b>inert</b>.</p>
   </template>
 </KAlert>
 ```
@@ -685,14 +682,14 @@ Fixes KAlert to the top of the container.
 ### Word Wrap long urls
 
 <KAlert appearance="warning" class="mt-5">
-  <template v-slot:alertMessage>
+  <template #alertMessage>
     Proxy error: Could not proxy request /api/service_packages?fields=&s=%7B%22%24and%22%3A%5B%7B%22name%22%3A%7B%22%24contL%22%3A%22%22%7D%7D%5D%7D&filter=&or=&sort=created_at%2CDESC&join=&limit=100&offset=0&page=1 from localhost:8080 to http://localhost:3000 (ECONNREFUSED).
   </template>
 </KAlert>
 
 ```html
 <KAlert appearance="warning" class="mt-5">
-  <template v-slot:alertMessage>
+  <template #alertMessage>
     Proxy error: Could not proxy request /api/service_packages?fields=&s=%7B%22%24and%22%3A%5B%7B%22name%22%3A%7B%22%24contL%22%3A%22%22%7D%7D%5D%7D&filter=&or=&sort=created_at%2CDESC&join=&limit=100&offset=0&page=1 from localhost:8080 to http://localhost:3000 (ECONNREFUSED).
   </template>
 </KAlert>
@@ -715,7 +712,9 @@ Fixes KAlert to the top of the container.
 | `--KAlertWarningBorder`| Warning variant border
 | `--KAlertWarningBackground` | Warning variant background color
 
-An Example of changing the success KAlert variant to lime instead of Kong's green might look like.
+\
+An Example of changing the success KAlert variant to lime instead of Kong's green might
+look like.
 
 > Note: We are scoping the overrides to a wrapper in this example
 
@@ -738,8 +737,10 @@ An Example of changing the success KAlert variant to lime instead of Kong's gree
 </style>
 ```
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   data () {
     return {
       dismissTypeBtn: true,
@@ -761,7 +762,7 @@ export default {
       extraBtnSlot: true
     }
   }
-}
+})
 </script>
 
 <style lang="scss">

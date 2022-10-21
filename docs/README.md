@@ -1,157 +1,54 @@
 ---
 title: Getting Started
 next: false
-sidebarDepth: 2
+sidebarDepth: 1
 ---
 
-<img src="../kongponents-logo.jpg" />
+![Kongponents Logo](/img/kongponents-logo.jpg)
 
-Kongponents is a Vue component library of frequently needed UI elements. They were developed to solve [Kong](https://konghq.com)'s application needs, but are generic enough to use in any web application.
+Kongponents is a Vue component library of frequently needed UI elements. They were developed to solve [Kong's](https://konghq.com) application needs, but are generic enough to use in any web application.
 
 ## Installation
 
-The version of Kongponents package(s) you install depends on the Vue dependency in your project.
+To begin using Kongponents, start by installing the package into your project using `yarn` or `npm`.
 
-### Choose your Vue dependency version
+<CodeGroup>
+  <CodeGroupItem title="yarn" active>
 
-#### Vue 2.7
+  ```sh
+  yarn add @kong/kongponents
+  ```
 
-This version of all Kongponents removes the dependency of the external `@vue/composition-api` plugin and adds `vue` to the `peerDependencies`, requiring a version of `vue` that matches the following pattern: `>= 2.7.0 < 3`
+  </CodeGroupItem>
 
-All packages for Vue 2.7 utilize the `@latest` tag on npm, meaning you can install like this:
+  <CodeGroupItem title="npm">
 
-```shell
-# Install the 7.x version
-yarn add @kongponents/kbutton
-```
+  ```sh
+  npm install @kong/kongponents
+  ```
 
-#### Vue 2.6 and below
+  </CodeGroupItem>
+</CodeGroup>
 
-If you're installing for Vue `2.6.x` and below, you will want to install via the `@legacy` tag on npm like this:
+If you choose to utilize any of the [CSS custom properties (variables)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) included in the `@kong/kongponents` package and your project uses [PostCSS](https://postcss.org/), you will likely need use the [`postcss-custom-properties` PostCSS plugin](https://github.com/postcss/postcss-custom-properties) so that the variables are preserved in their original form.
 
-```shell
-# Install the 6.x version
-yarn add @kongponents/kbutton@legacy
-```
+<CodeGroup>
+  <CodeGroupItem title="yarn" active>
 
-#### Vue 3 (beta)
+  ```sh
+  yarn add postcss-custom-properties --dev
+  ```
 
-If you want to try out Vue 3 support, install the beta release of `@kong/kongponents` (note the new package name). The code for Vue 3 exists on the `beta` branch. [You can find more info on here for installation instructions and migration notes](https://beta.kongponents.konghq.com/#installation).
+  </CodeGroupItem>
 
-### Component packages
+  <CodeGroupItem title="npm">
 
-To begin using Kongponents, you must first import the base `@kongponents/styles` package. [Read more about the style guide usage](./style-guide/usage.md).
+  ```sh
+  npm install postcss-custom-properties --save-dev
+  ```
 
-Next, you will need to install each desired component. You can install multiple components at once, or one at a time as needed; however, keep in mind that you need to install the proper version based on your project's Vue dependency (as outlined above).
-
-```shell
-$ yarn add @kongponents/styles @kongponents/kbutton
-```
-
-### Transpile dependencies
-
-You will likely need to transpile all of the `@kongponents` packages in your project. If your project already has a `vue.config.js` file, just add the following `transpileDependencies` entry
-
-```js
-// vue.config.js
-
-module.exports = {
-  transpileDependencies: [
-    /@kongponents\/.*/
-  ]
-}
-```
-
-If your project does not have a `vue.config.js` file and instead uses webpack config files, you can add a loader rule (for example, for `babel-loader`) similar to the following (only showing the relevant entries)
-
-```js
-// webpack.config.js
-
-module.exports = (env) => {
-  return {
-    module: {
-      loaders: [
-        // transpile @kongponents packages
-        {
-          test: /\.js$/,
-          include: /(node_modules)\/(@kongponents)/,
-          loader: 'babel-loader',
-        },
-        // process all .js files, but ignore all other node_modules not listed above
-        {
-          test: /\.js$/,
-          exclude: /(node_modules)/,
-          loader: 'babel-loader'
-        },
-      ]
-    }
-  }
-}
-```
-
-### Raw loader
-
-The `KIcon` component, utilized within many other components, imports .svg files directly, so a loader is needed in order to render these in your application such as the webpack [raw-loader](https://webpack.js.org/loaders/raw-loader/).
-
-Start by installing `raw-loader`
-
-```sh
-yarn add --dev raw-loader
-```
-
-To utilize the loader, in your `vue.config.js` file, add the following inside `chainWebpack`
-
-```js
-module.exports = {
-  chainWebpack: (config) => {
-    // SVG Loader
-    // With the following SVG rules, svg files may be imported from packages, Vue, etc. normally.
-    // If referencing a SVG file from src/assets/img (local) you MUST add '.svg?local' suffix to the file path
-    // for the webpack loader to properly render the file.
-
-    const svgRule = config.module.rule('svg')
-
-    svgRule.uses.clear()
-    svgRule
-      .oneOf('local')
-      .resourceQuery(/local/)
-      .use('url')
-      .loader('url-loader')
-      .options({
-        limit: 10000,
-        name: 'img/[name].[hash:7].[ext]'
-      }).end().end()
-      .oneOf('normal')
-      .use('raw')
-      .loader('raw-loader')
-      .end().end()
-  },
-}
-```
-
-If you need to reference local SVG files (e.g. image assets for CSS background images) you will need to add the suffix `?local` to the end of the image filename. For example:
-
-```html
-<img src="/path/to/img/picture.svg?local">
-
-<style>
-  .image {
-    background-image: url('../img/picture.svg?local');
-  }
-</style>
-```
-
-### CSS variables
-
-If you choose to utilize any of the [CSS custom properties (variables)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) included in the `@kongponents` packages and your project uses [PostCSS](https://postcss.org/), you will likely need use the [`postcss-custom-properties` PostCSS plugin](https://github.com/postcss/postcss-custom-properties) so that the variables are preserved in their original form.
-
-```sh
-$ yarn add postcss-custom-properties --dev
-
-# or
-
-$ npm install postcss-custom-properties --save-dev
-```
+  </CodeGroupItem>
+</CodeGroup>
 
 Next, add a `postcss.config.js` file to your project with the following content
 
@@ -169,34 +66,141 @@ module.exports = () => ({
 
 ## Usage
 
-You can import and register components globally (e.g. in your Vue entry file, like `main.js`)
+There are two ways to use Kongponents in your project: [globally install all Kongponents](#globally-install-all-kongponents), or [register individual Kongponents](#register-individual-kongponents) as needed.
 
-```js
-import KButton from '@kongponents/kbutton';
-Vue.component('KButton', KButton);
+**Regardless of which method you choose** you will first need to import the Kongponents CSS ([Vite](https://vitejs.dev/guide/build.html#library-mode) does not currently support CSS in JS when building in library mode).
+
+The easiest place to import the styles is inside your Vue entry file (e.g. `main.ts`). For more examples of utilzing Kongponent styles, including importing the Sass and CSS variables and even scoping the styles, see [the other usage examples](/style-guide/usage.html#css-and-sass-variables).
+
+### Globally install all Kongponents
+
+If you plan to use a majority of the Kongponent components, you can import the package and install as a Vue Plugin to register all components and make them globally available in your app.
+
+This method is only ideal if you are using a majority of the Kongponents in your project, as the unused components will not be tree-shaken.
+
+```ts
+// main.ts (or Vue entry file)
+
+import { createApp } from 'vue'
+import Kongponents from '@kong/kongponents'
+
+// Import Kongponents styles
+import '@kong/kongponents/dist/style.css'
+
+const app = createApp(App)
+
+// Install and register all Kongponents as a plugin
+app.use(Kongponents)
+
+app.mount('#app')
 ```
 
-Or locally inside another component
+### Register individual Kongponents
 
-```js
-import KButton from '@kongponents/kbutton';
-export default {
-  ...
-  components: { KButton },
-  ...
-};
+Alternatively, you can import and register just the components you intend to use.
+
+Import and registration can be done globally in your Vue entry file (e.g. `main.ts`), or locally, just in the component where it will be used.
+
+<CodeGroup>
+  <CodeGroupItem title="Global Registration" active>
+
+  ```ts
+  // main.ts (or Vue entry file)
+
+  import { createApp } from 'vue'
+  import { KButton } from '@kong/kongponents'
+  import '@kong/kongponents/dist/style.css'
+  // If using Vue-CLI and webpack, you can likely use this path instead: import '~@kong/kongponents/dist/style.css'
+
+  const app = createApp(App)
+
+  // Register an individual Kongponent
+  app.component('KButton', KButton)
+
+  app.mount('#app')
+  ```
+
+  </CodeGroupItem>
+
+  <CodeGroupItem title="In-Component Registration">
+
+  ```html
+  <script lang="ts">
+  // YourComponent.vue
+
+  import { defineComponent } from 'vue'
+  import { KButton } from '@kong/kongponents'
+  // Import Kongponents styles here, or in the <style> block
+  import '@kong/kongponents/dist/style.css'
+  // If using Vue-CLI and webpack, you can likely use this path instead: import '~@kong/kongponents/dist/style.css'
+
+  export default defineComponent({
+    name: 'YourComponent',
+    components: { KButton },
+  })
+  </script>
+
+  <style>
+  /* Import Kongponents styles here, or in the <script> tag */
+  @import "@kong/kongponents/dist/style.css";
+  /* If using Vue-CLI and webpack, you can likely use this path instead: import '~@kong/kongponents/dist/style.css' */
+  </style>
+  ```
+
+  </CodeGroupItem>
+</CodeGroup>
+
+## Webpack
+
+Depending on your project setup, you may need to transpile the `@kong/kongponents` package in your project. If your project already has a `vue.config.ts` file, just add the following `transpileDependencies` entry
+
+```ts
+// vue.config.ts
+
+module.exports = {
+  transpileDependencies: [
+    /@kong\/kongponents/
+  ]
+}
 ```
 
-## Without Bundle System
+If your project does not have a `vue.config.ts` file and instead uses webpack config files, you can add a loader rule (for example, for `babel-loader`) similar to the following (only showing the relevant entries)
 
-You can also use Kongponents in a project where there is no build system as long as Vue is included on the page. Each Kongponent [is packaged as a `umd.js` file](https://cli.vuejs.org/guide/build-targets.html#library), so as long as you have loaded Vue in your project the Kongponent will work as intended.
+```js
+// webpack.config.js
+
+module.exports = (env) => {
+  return {
+    module: {
+      loaders: [
+        // transpile Kongponents packages
+        {
+          test: /\.js$/,
+          include: /(node_modules)\/(@kong\/kongponents)/,
+          loader: 'babel-loader',
+        },
+        // process all .js files, but ignore all other node_modules not listed above
+        {
+          test: /\.js$/,
+          exclude: /(node_modules)/,
+          loader: 'babel-loader'
+        },
+      ]
+    }
+  }
+}
+```
+
+## CDN (without bundler)
+
+You can also use Kongponents in a project where there is no build system as long as Vue is included on the page.
 
 :::tip Note
-You must import the CSS from the `@kongponents/styles` package along with Vue.
+You must import the CSS from the `@kong/kongponents` package along with Vue.
 :::
 
-<iframe width="100%" height="300" style="width: 100%;" scrolling="no" title="Vue 2 with Kongponents" src="https://codepen.io/adamdehaven/embed/RwLVQLw?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/adamdehaven/pen/RwLVQLw">
-  Vue 2 with Kongponents</a> by Adam DeHaven (<a href="https://codepen.io/adamdehaven">@adamdehaven</a>)
+<iframe width="100%" height="300" style="width: 100%;" scrolling="no" title="Kongponents for Vue" src="https://codepen.io/adamdehaven/embed/KKowxVQ?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/adamdehaven/pen/KKowxVQ">
+  Kongponents for Vue</a> by Kong, Inc.
   on <a href="https://codepen.io">CodePen</a>.
 </iframe>

@@ -1,0 +1,117 @@
+@import "variables";
+
+/* Regular (Sans) Font Sizes
+========================================================================== */
+// For each size in the $type-sizes variable
+// Create class (.type-xxl)
+@each $name, $size in $type-sizes {
+  .type-#{$name} {
+    font-size: var(--type-#{$name});
+  }
+}
+
+/* Mono Font Sizes
+========================================================================== */
+.mono {
+  font-family: var(--font-family-mono);
+}
+
+// For each size in the $type-sizes variable
+// Create class (.mono.xxl)
+@each $name, $size in $type-sizes {
+  .mono.type-#{$name} {
+    font-size: calc(var(--type-#{$name}) * 0.95);
+  }
+}
+
+/*  Colors
+========================================================================== */
+// For each color in $colors variable
+// Create class (.color-blue-500)
+@each $name, $color in $colors {
+  // add empty string so dart-sass will properly interpret class name from variable
+  .color-#{"" + $name} {
+    color: var(--#{$name});
+  }
+}
+
+/*  Desktop Styles
+========================================================================== */
+.style-heading-1 {
+  font-size: 32px !important;
+  line-height: 36px !important;
+  font-weight: 400 !important;
+}
+.style-heading-2 {
+  font-size: 20px !important;
+  line-height: 24px !important;
+  font-weight: 400 !important;
+}
+.style-heading-3 {
+  font-size: 16px !important;
+  line-height: 24px !important;
+  font-weight: 400 !important;
+}
+.style-heading-4 {
+  font-size: 14px !important;
+  line-height: 20px !important;
+  font-weight: 400 !important;
+}
+
+.style-body-lg {
+  font-size: 16px !important;
+  line-height: 24px !important;
+  font-weight: 300 !important;
+}
+.style-body-lg-bold {
+  font-size: 16px !important;
+  line-height: 24px !important;
+  font-weight: 400 !important;
+}
+
+.style-body-md {
+  font-size: 13px !important;
+  line-height: 20px !important;
+  font-weight: 400 !important;
+}
+.style-body-md-bold {
+  font-size: 13px !important;
+  line-height: 24px !important;
+  font-weight: 400 !important;
+}
+
+.style-body-sm {
+  font-size: 12px !important;
+  line-height: 16px !important;
+  font-weight: 400 !important;
+}
+.style-body-sm-bold {
+  font-size: 12px !important;
+  line-height: 16px !important;
+  font-weight: 400 !important;
+}
+
+.style-body-tiny {
+  font-size: 11px !important;
+  line-height: 16px !important;
+  font-weight: 300 !important;
+}
+
+.style-body-link {
+  font-size: 13px !important;
+  line-height: 20px !important;
+  font-weight: 400 !important;
+}
+
+.style-body-bc {
+  font-size: 12px !important;
+  line-height: 24px !important;
+  font-weight: 400 !important;
+  text-transform: uppercase !important;
+}
+
+.style-body-code {
+  font-size: 13px !important;
+  line-height: 24px !important;
+  font-weight: 100 !important;
+}

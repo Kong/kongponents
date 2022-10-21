@@ -1,6 +1,8 @@
 # Dropdown Menu
 
-**KDropdownMenu** is a button (or any slotted content) that is clicked to trigger a menu popover beneath it.
+<div v-if="hasMounted">
+
+**KDropdownMenu** is a button (or any slotted content) that is clicked to trigger a menu popover beneath&nbsp;it.
 
 <KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" />
 
@@ -8,18 +10,18 @@
 
 ### label
 
-The label for the menu.
+The label for the menu trigger.
 
 ### items
 
-An array of item objects containing a `label` property and other optional properties which will render a menu of [`KDropdownItems`](#KDropdownItem) .
+An array of objects containing a required `label` property and other optional properties which will render a menu of [`KDropdownItems`](#KDropdownItem) .
 
 ```html
 <KDropdownMenu
   label="Documentation"
   :items="[
-    { label: 'Props', to: { path: '/components/dropdown-menu.html#props' } },
-    { label: 'Slots', to: { path: '/components/dropdown-menu.html#slots' } },
+    { label: 'Props', to: { path: '/components/dropdown-menu.html', hash: '#props' } },
+    { label: 'Slots', to: { path: '/components/dropdown-menu.html', hash: '#slots' } },
     { label: 'Top', to: { path: '/components/dropdown-menu.html' } }
   ]"
 />
@@ -44,7 +46,7 @@ If using the `items` slot, you will have access to the `handleSelection()` metho
   <KDropdownMenu
     :label="selectedItem.label"
     appearance="selectionMenu"
-    @change="(selection) => handleChange(selection)"
+    @change="handleChange"
   >
     <template #items="{ handleSelection }">
       <KDropdownItem
@@ -62,7 +64,7 @@ If using the `items` slot, you will have access to the `handleSelection()` metho
 <KDropdownMenu
   :label="selectedItem.label"
   appearance="selectionMenu"
-  @change="(selection) => handleChange(selection)"
+  @change="handleChange"
 >
   <template #items="{ handleSelection }">
     <KDropdownItem
@@ -75,8 +77,10 @@ If using the `items` slot, you will have access to the `handleSelection()` metho
   </template>
 </KDropdownMenu>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   data() {
     return {
       selectedItem: {
@@ -99,7 +103,7 @@ export default {
       this.$toaster.open(`${item.label} clicked!`)
     }
   }
-}
+})
 </script>
 ```
 
@@ -259,12 +263,12 @@ Text to display on hover if dropdown is disabled.
 
 There are 2 supported slots:
 
-- `default` - The trigger element for opening/closing the menu. Slot provides `isOpen` - whether the menu is open or not.
+- `default` - The trigger element for opening/closing the menu.
 - `items` - For an example of using the items slot see the [`KDropdownItem`](#KDropdownItem) section.
 
 <div>
   <KDropdownMenu :items="deepClone(defaultItemsUnselected)">
-    <template #default="{ isOpen }">
+    <template #default>
         <KButton
           show-caret
           appearance="creation"
@@ -277,7 +281,7 @@ There are 2 supported slots:
 
 ```html
 <KDropdownMenu :items="items">
-  <template #default="{ isOpen }">
+  <template #default>
       <KButton
         show-caret
         appearance="creation"
@@ -324,6 +328,13 @@ There are 3 primary item types:
         @click="clickHandler"
       >
         Disabled button
+      </KDropdownItem>
+      <KDropdownItem
+        :item="youAreHere"
+        disabled
+        @click="clickHandler"
+      >
+        Disabled to link
       </KDropdownItem>
       <KDropdownItem
         has-divider
@@ -386,16 +397,21 @@ There are 3 primary item types:
 
 ### Events
 
-| Event     | Description             |
+| Event     | Description         |
 | :-------- | :------------------ |
-| `click` | Fires when a `button` type menu item is clicked |
-| `change` | Fires when items within a `selectionMenu` are clicked; returns the selected menu item object or `null` |
-| `toggleDropdown` | Fires when the button to toggle the menu is clicked; returns `true` if the menu is open, or `false` |
+| `@click` | Fires when a `button` type menu item is clicked |
+| `@change` | Fires when items within a `selectionMenu` are clicked; returns the selected menu item object or `null` |
+| `@toggleDropdown` | Fires when the button to toggle the menu is clicked; returns `true` if the menu is open, or `false` |
 
-<script>
-export default {
+</div>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   data () {
     return {
+      hasMounted: false,
       selectedItem: {
         value: '',
         label: 'Select an item'
@@ -409,12 +425,15 @@ export default {
         value: 'fr'
       }],
       defaultItemsUnselected: [
-        { label: 'Props', to: { path: '/components/dropdown-menu.html#props' } },
-        { label: 'Slots', to: { path: '/components/dropdown-menu.html#slots' } },
+        { label: 'Props', to: { path: '/components/dropdown-menu.html', hash: '#props' } },
+        { label: 'Slots', to: { path: '/components/dropdown-menu.html', hash: '#slots' } },
         { label: 'Top', to: { path: '/components/dropdown-menu.html' } }
       ],
       youAreHere: { label: 'You are here', to: { path: '/components/dropdown-menu.html' } }
     }
+  },
+  mounted() {
+    this.hasMounted = true
   },
   methods: {
     handleChange (item) {
@@ -430,9 +449,9 @@ export default {
 
       this.$toaster.open(text)
     },
-    deepClone(obj) {
+    deepClone (obj) {
       return JSON.parse(JSON.stringify(obj))
     }
   }
-}
+})
 </script>

@@ -1,2 +1,10 @@
 node_modules
 dist
+dist-ssr
+public
+bin
+cli/template
+
+docs/.vuepress/.temp/
+docs/.vuepress/.cache/
+docs/.vuepress/dist/

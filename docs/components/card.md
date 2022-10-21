@@ -2,7 +2,6 @@
 
 **KCard** is meant to highlight content in grids or group relative information together.
 
-&nbsp;
 <KCard title="Card Title" body="Body Content"/>
 
 ```html
@@ -87,18 +86,10 @@ Example composing `KCard` with other Kongponents to make another component:
 
 String to be used in the `statusHat` slot.
 
-<KCard
-  status="My status"
-  title="My title"
-  body="My body"
-/>
+<KCard status="My status" title="My title" body="My body" />
 
 ```html
-<KCard
-  status="My status"
-  title="My title"
-  body="My body"
-/>
+<KCard status="My status" title="My title" body="My body" />
 ```
 
 ### body
@@ -119,61 +110,35 @@ Sets top border or no border. If neither set default will have border
 - `noBorder`
 
 <div class="borderless-cards">
-  <KCard
-    title="Card without border"
-    body="Body Content"
-    border-variant="noBorder"/>
+  <KCard title="Card without border" body="Body Content" border-variant="noBorder"/>
 
-  <KCard
-    title="Card with top border"
-    body="Body Content"
-    border-variant="borderTop"/>
+  <KCard title="Card with top border" body="Body Content" border-variant="borderTop"/>
 </div>
 
 ```html
-<KCard
-  title="Card without border"
-  body="Body Content"
-  border-variant="noBorder"/>
+<KCard title="Card without border" body="Body Content" border-variant="noBorder"/>
 
-<KCard
-  title="Card with top border"
-  body="Body Content"
-  border-variant="borderTop"/>
+<KCard title="Card with top border" body="Body Content" border-variant="borderTop"/>
 ```
 
 ### hasHover
 
-Sets if card should only display shadow state (shadow) on hover
+Set if card should have shadow state (shadow) on hover
 
-<KCard
-  title="hasHover"
-  class="mb-2"
-  body="This card only has a shadow on hover"
-  has-hover />
+<KCard title="hasHover" class="mb-2" body="This card only has a shadow on hover" has-hover />
 
 ```html
-<KCard
-  title="hasHover"
-  class="mb-2"
-  body="This card only has a shadow on hover"
-  has-hover/>
+<KCard title="hasHover" class="mb-2" body="This card only has a shadow on hover" has-hover />
 ```
 
 ### hasShadow
 
-Set so the card always has shadow state (shadow)
+Set if the card should always have shadow state (shadow)
 
-<KCard
-  title="hasShadow"
-  body="This card always has a shadow"
-  has-shadow />
+<KCard title="hasShadow" body="This card always has a shadow" has-shadow />
 
 ```html
-<KCard
-  title="hasShadow"
-  body="This card always has a shadow"
-  has-shadow />
+<KCard title="hasShadow" body="This card always has a shadow" has-shadow />
 ```
 
 ## Using flex box
@@ -215,16 +180,8 @@ Cards can be arranged with flex box.
 
 ```html
 <div class="d-flex flex-row">
-  <KCard
-    title="Left"
-    class="w-auto"
-    body="This card only has a title"
-  />
-  <KCard
-    title="Center"
-    class="w-auto mx-5"
-    body="This card always has a icon button"
-  >
+  <KCard title="Left" class="w-auto" body="This card only has a title" />
+  <KCard title="Center" class="w-auto mx-5" body="This card always has a icon button">
     <template v-slot:actions>
       <KButton>
         <KIcon
@@ -236,11 +193,7 @@ Cards can be arranged with flex box.
       </KButton>
     </template>
   </KCard>
-  <KCard
-    title="Right"
-    class="w-auto"
-    body="This card always has a button"
-  >
+  <KCard title="Right" class="w-auto" body="This card always has a button">
     <template v-slot:actions>
       <KButton>View All</KButton>
     </template>
@@ -342,7 +295,7 @@ An Example of changing the background might look like.
 .borderless-cards {
   padding: 1rem;
   background: rgba(27,31,35,0.05);
-  border-radius: 4px;
+  border-radius: 3px;
   .kong-card {
     background: #fff;
   }

@@ -1,355 +1,1256 @@
-# Change Log
-
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
-# [7.0.0](https://github.com/Kong/kongponents/compare/v6.40.3...v7.0.0) (2022-08-30)
-
-
-### BREAKING CHANGES
-
-* Update Kongponents Vue peerDependency to 2.7.x.
-
-
-
-
-
-## 6.7.6 (2021-12-21)
-
-**Note:** Version bump only for package kongponents
-
-
-
-
-
-
-## [6.1.2](https://github.com/Kong/kongponents/compare/v5.0.8...v6.1.2) (2021-11-16)
-
-### New Dependencies Added
-
-* `@vue/composition-api` and `swrv` added as `dependencies` for state management in table and card catalog
-* `vue-uuid` package added as `devDependency` for accessibility/ARIA standards
-* `tailwindcss` and `@kawarimidoll/vuepress-plugin-tailwind` added as `devDependencies` for utility classes
-
-### BREAKING CHANGES
-* `KAlert`
-  * `is-dismissable` prop removed
-
-* `KBadge`
-  * look and feel changed to match redesign
-
-* `KButton`
-  * Buttons default to a rounded appearance
-
-* `KCard`
-  * `helpText` property removed
-  * changes to look and feel
-
-* `KCheckbox`
-  * `label` property removed
-
-* `KIcon`
-  * changed the way SVGs are rendered
-  * HTML layout changed - SVGs are now wrapped with `<span>` and `KIcon`-specific classes are now applied to the wrapper
-
-* `KModal`
-  * `title` prop is now required
-  * `helpText` / `help` prop and slot removed
-  * slight changes to look and feel
-
-* `KMultiselect`
-  * look and feel changed to match redesign
-
-`KRadio`
-  * `label` property removed
-
-* `KTable`
-  * DEPRECATED: `options` prop
-  * DEPRECATED: sorting with `options` prop enabled is flaky
-  * removed `isSmall` and `isClickable` props
-  * look and feel changed to match redesign
-  * HTML layout changed
-
-* `typography`
-  * `Roboto` font no longer used / included
-
-### Fixes
-
-* Fix issue where bound attributes were being applied to both the parent and child. Affected components:
-  * `KCheckbox`
-  * `KInput`
-  * `KInputSwitch`
-  * `KRadio`
-
-### Features
-
-* `KAlert`
-  * new props `type` and `dismissType` added
-  * `size` prop now supports `large` and `small`
-  * new slots associated with "banner" `type` and `size` `large` (icon, description, actionButtons)
-
-* `KBadge`
-  * `info` option for `appearance` prop added
-  * `shape` property to support rectangular badges added
-
-* `KButton`
-  * `size` prop now supports `small`, `medium`, and `large`
-  * `isRounded` property added
-
-* `KCard`
-  * `status` / `statusHat` prop and slot added
-  * `notifications` slot added
-
-* `KEmptyState`
-  * `icon` prop added
-
-* `KIcon`
-  * new icons added
-  * `secondaryColor` prop added
-
-* `KInput`
-  * `size` prop added
-
-* `KModal`
-  * `hideTitle` prop added
-  * `action-buttons` slot added
-
-* `KPop`
-  * `actions` and `footer` slots added
-  * `buttonText` prop added so `default` slot use is no longer required
-
-* `KTable`
-  * support added for configuring error, loading, and empty states
-  * support for `fetcher` function to populate table data added
-  * pagination support added
-
-* `styles`
-  * added `petrol`, `purple`, and `teal` color codes
-
-* `typography`
-  * new `Maison Neue` font support added
-  * multiple new utility classes added for font styling
-
-* New Kongponents Added
-  * `KCardCatalog`
-  * `KMenu`
-  * `KPagination`
-  * `KSelect`
-  * `KTextArea`
-
-
-## [5.0.8](https://github.com/Kong/kongponents/compare/v5.0.7...v5.0.8) (2021-11-15)
+# [8.0.0-beta.46](https://github.com/Kong/kongponents/compare/v8.0.0-beta.45...v8.0.0-beta.46) (2022-10-21)
 
 
 ### Bug Fixes
 
-* **kinput:** apply attributes to input [KHCP-2108] ([#397](https://github.com/Kong/kongponents/issues/397)) ([cba7d04](https://github.com/Kong/kongponents/commit/cba7d04949d1933688d5c85cb369aa04962d30ef))
+* **klabel:** update help cursor ([988d825](https://github.com/Kong/kongponents/commit/988d82587af546bcb8413ba4ca221eded2b1e690))
+* **kpop:** do not remove on destroy [KHCP-5139] ([#835](https://github.com/Kong/kongponents/issues/835)) ([fedc720](https://github.com/Kong/kongponents/commit/fedc720496876e79287a6df77f32396f52bdc09e))
 
-
-
-
-
-## [5.0.7](https://github.com/Kong/kongponents/compare/v5.0.6...v5.0.7) (2021-10-26)
-
-**Note:** Version bump only for package kongponents
-
-
-
-
-
-## [5.0.6](https://github.com/Kong/kongponents/compare/v5.0.5...v5.0.6) (2021-10-26)
-
-**Note:** Version bump only for package kongponents
-
-
-
-
-
-## [5.0.5](https://github.com/Kong/kongponents/compare/v5.0.4...v5.0.5) (2021-10-13)
-
-
-### Bug Fixes
-
-* **kpopover:** fast button toggle fix ([#369](https://github.com/Kong/kongponents/issues/369)) ([e8e6c86](https://github.com/Kong/kongponents/commit/e8e6c86555c518d172304c70d7fe666334224444))
-
-
-
-
-
-## [5.0.4](https://github.com/Kong/kongponents/compare/v5.0.3...v5.0.4) (2021-10-06)
-
-**Note:** Version bump only for package kongponents
-
-
-
-
-
-## [5.0.3](https://github.com/Kong/kongponents/compare/v5.0.2...v5.0.3) (2021-09-22)
-
-**Note:** Version bump only for package kongponents
-
-
-
-
-
-## [5.0.2](https://github.com/Kong/kongponents/compare/v5.0.1...v5.0.2) (2021-09-15)
-
-
-### Bug Fixes
-
-* don't percy 404 page [khcp-1969] ([#343](https://github.com/Kong/kongponents/issues/343)) ([307eaf8](https://github.com/Kong/kongponents/commit/307eaf8be65b0a994f8761d9f070cb53f8013ab2))
-
-
-
-
-
-## [5.0.1](https://github.com/Kong/kongponents/compare/v5.0.0...v5.0.1) (2021-09-13)
-
-**Note:** Version bump only for package kongponents
-
-
-
-
-
-# [5.0.0](https://github.com/Kong/kongponents/compare/v4.0.2...v5.0.0) (2021-09-13)
-
-
-### Styles
-
-* **kcheckbox:** fix label alignment ([#340](https://github.com/Kong/kongponents/issues/340)) ([5f112f9](https://github.com/Kong/kongponents/commit/5f112f97e55c26132e577fb039173487b97cbf45))
-
-
-### BREAKING CHANGES
-
-* **kcheckbox:** refactor to fix the label-button alignment issue
-
-
-
-
-
-## [4.0.2](https://github.com/Kong/kongponents/compare/v4.0.1...v4.0.2) (2021-09-09)
-
-
-### Bug Fixes
-
-* **kicon:** secondary color support [kongponents-338] ([#339](https://github.com/Kong/kongponents/issues/339)) ([6246404](https://github.com/Kong/kongponents/commit/6246404cd660a2cb73a054ccc339adba096f0a33))
-
-
-
-
-
-## [4.0.1](https://github.com/Kong/kongponents/compare/v4.0.0...v4.0.1) (2021-09-07)
-
-**Note:** Version bump only for package kongponents
-
-
-
-
-
-# 4.0.0 (2021-09-03)
-
-
-### Bug Fixes
-
-* copy paste error for kradio ([#320](https://github.com/Kong/kongponents/issues/320)) ([6d8f0ec](https://github.com/Kong/kongponents/commit/6d8f0ec279fd4ea77cb14ebb25dad85133f74f9e)), closes [#319](https://github.com/Kong/kongponents/issues/319)
-* ktabs add public ([#203](https://github.com/Kong/kongponents/issues/203)) ([8f5584b](https://github.com/Kong/kongponents/commit/8f5584bfef5c846d1154ab2ccb097e8f77189c13))
-* **automation:** add publish token ([#274](https://github.com/Kong/kongponents/issues/274)) ([108899d](https://github.com/Kong/kongponents/commit/108899d17b4c428154133c98400728e9cdcfa4f1))
-* **automation:** remove 2FA ([#275](https://github.com/Kong/kongponents/issues/275)) ([ce9ca83](https://github.com/Kong/kongponents/commit/ce9ca83cf763eeeb1ad98535127807e75aa1e109))
-* **automation:** remove 2FA, republish KBadge ([#277](https://github.com/Kong/kongponents/issues/277)) ([63a33c6](https://github.com/Kong/kongponents/commit/63a33c6874848243b96bbb17df2f0f4927c629e7))
-* **automation:** test automation token ([#273](https://github.com/Kong/kongponents/issues/273)) ([0310548](https://github.com/Kong/kongponents/commit/0310548e89dace0b484236617fe96c79999da99d))
-* **checkbox:** remove blue outline border from disabled checkboxes - INTF-2666 ([#270](https://github.com/Kong/kongponents/issues/270)) ([c366f63](https://github.com/Kong/kongponents/commit/c366f63bac3e9cfa5670fff5b583e51033d2a88c))
-* **cleanup:** update versions & add scoped to KModal ([#19](https://github.com/Kong/kongponents/issues/19)) ([a16e216](https://github.com/Kong/kongponents/commit/a16e216c27feebce1599c2f68590390f679bbf15))
-* **dist:** dist to all packages ([#152](https://github.com/Kong/kongponents/issues/152)) ([217c46b](https://github.com/Kong/kongponents/commit/217c46b02afe960f8fa597ba77410dcf034b1716))
-* **forms:** fix incorrect build badge link ([#168](https://github.com/Kong/kongponents/issues/168)) ([cb45160](https://github.com/Kong/kongponents/commit/cb4516064fc55abb9f148e501b677a8e2899b9da))
-* **forms:** remove invalid selector & fix checkbox hover border ([65b90cf](https://github.com/Kong/kongponents/commit/65b90cfc3cf4e6fd219a3f51f110e5382d5a8fcb))
-* **KAlert:** remove validator from size prop ([0080ac4](https://github.com/Kong/kongponents/commit/0080ac40f9b3200d21ccd12e81b85a7979f198a7))
-* **kbutton:** add null check for kicon mounting ([#279](https://github.com/Kong/kongponents/issues/279)) ([933ef2e](https://github.com/Kong/kongponents/commit/933ef2e7fe05031e7d8248f60f8c46fae2a639c4))
-* **kbutton:** change height of kbutton icons to be auto - intf-2282 ([#185](https://github.com/Kong/kongponents/issues/185)) ([6f497ba](https://github.com/Kong/kongponents/commit/6f497bab9a26007b51572f0403ab6ce5225f901c))
-* **KButton:** resets focus state to default ([#173](https://github.com/Kong/kongponents/issues/173)) ([21a99ee](https://github.com/Kong/kongponents/commit/21a99eeb20f0ca6ec669329bf2e3a05e06443d2b))
-* **KCard:** add bottom margin to help text element ([#313](https://github.com/Kong/kongponents/issues/313)) ([744dd02](https://github.com/Kong/kongponents/commit/744dd02c8822251bbecdff920d25c3a541fd481a))
-* **KCard:** adjust helpText margins ([#315](https://github.com/Kong/kongponents/issues/315)) ([1a09ccd](https://github.com/Kong/kongponents/commit/1a09ccde5e547bc1b78716e3b0648bb65ed388b6))
-* **KCard:** Remove default cursor pointer & version ([#35](https://github.com/Kong/kongponents/issues/35)) ([cf01828](https://github.com/Kong/kongponents/commit/cf018282af74c85774db862025a71f23426e3c10))
-* **KCheckbox:** wrap label slot in span ([#298](https://github.com/Kong/kongponents/issues/298)) ([d9460b2](https://github.com/Kong/kongponents/commit/d9460b25220795cf75bdc83e640cfe0e78873423))
-* **kempty:** use correct warning icon ([#289](https://github.com/Kong/kongponents/issues/289)) ([c0aa648](https://github.com/Kong/kongponents/commit/c0aa648b35b139b2fd9b0760ef47863c3ff391e5))
-* **kskeleton:** button spinner ([8c32f9c](https://github.com/Kong/kongponents/commit/8c32f9c948d65517137fd4779200c0d58fe9a729))
-* **kskeleton:** inline bigger gifs ([#208](https://github.com/Kong/kongponents/issues/208)) ([f2ed09c](https://github.com/Kong/kongponents/commit/f2ed09c1435d182e5a4b954d62a4fabb7a2e880c))
-* **ktable:** beef up defaultSorter to handle null, undefined and array values ([#206](https://github.com/Kong/kongponents/issues/206)) ([0cd8c76](https://github.com/Kong/kongponents/commit/0cd8c76c42e4a1c12209b5a041415e963360c905))
-* **ktable:** revert row click handler to target td again - intf-2543 ([#244](https://github.com/Kong/kongponents/issues/244)) ([0bd7582](https://github.com/Kong/kongponents/commit/0bd758272f919357c02a790cea51b2c5b5aebb50))
-* **ktable:** update row listeners to support clicking non td elements ([#239](https://github.com/Kong/kongponents/issues/239)) ([1be685d](https://github.com/Kong/kongponents/commit/1be685d341f6eeb6fe2367c0e3ae5e7aa56e0e12))
-* **KToaster:** remove left margin on close button ([#293](https://github.com/Kong/kongponents/issues/293)) ([45d9be5](https://github.com/Kong/kongponents/commit/45d9be5007dbe4f000dd35b794d03f4d6fe724ba))
-* **lerna:** update publish commands to tag latest ([ad87ae8](https://github.com/Kong/kongponents/commit/ad87ae852bc0773ca38d8ed2e01d6189b2c924d6))
-* **modal:** updated button dependency ([#20](https://github.com/Kong/kongponents/issues/20)) ([537dbd4](https://github.com/Kong/kongponents/commit/537dbd4cb6050d7b7d813b632e32a438cc76d6db))
-* **modal:** Wrap modal in backdrop to fix relative positioning ([#11](https://github.com/Kong/kongponents/issues/11)) ([3b06394](https://github.com/Kong/kongponents/commit/3b06394fba46d98c58f812a01eb410e228694421))
-* **postcss:** enable postcss on UMD the build process - INTF-1522 ([#181](https://github.com/Kong/kongponents/issues/181)) ([9ae54db](https://github.com/Kong/kongponents/commit/9ae54db811c7a022c8d44a5e66141c0d4ebccaec))
-* **scoped styles:** updated scoped styles type ([#18](https://github.com/Kong/kongponents/issues/18)) ([ba26b73](https://github.com/Kong/kongponents/commit/ba26b733387ab0f8816c46a127d0fc9532cf7395))
-* **skeleton:** correct the width classes ([#216](https://github.com/Kong/kongponents/issues/216)) ([7c08093](https://github.com/Kong/kongponents/commit/7c08093d510b932f3c6ec42e06de3456f9f190ae))
-* **styles:** adds missing utilities & add important declarations  ([#172](https://github.com/Kong/kongponents/issues/172)) ([2954ecb](https://github.com/Kong/kongponents/commit/2954ecbfd586c2d37b2b0f30dfd6697fbdc4f62d))
-* **taoster:** add correct default values to toaster ([#12](https://github.com/Kong/kongponents/issues/12)) ([eba5bd2](https://github.com/Kong/kongponents/commit/eba5bd26fb96df87a5c0d74e9d6cd68181784fec))
+# [8.0.0-beta.45](https://github.com/Kong/kongponents/compare/v8.0.0-beta.44...v8.0.0-beta.45) (2022-10-21)
 
 
 ### Features
 
-* 🍞 Add KToaster for all our avocado toast needs ([#7](https://github.com/Kong/kongponents/issues/7)) ([660a1e4](https://github.com/Kong/kongponents/commit/660a1e43d4d3a154051021dc146ea707efd56443))
-* **forms:** Add KRadio & KCheckbox, add form css ([65158f2](https://github.com/Kong/kongponents/commit/65158f26ca6999a6fe47e0c58fe5a64aed8737d6))
-* **KAlert:** add more border options ([#317](https://github.com/Kong/kongponents/issues/317)) ([fdb93a2](https://github.com/Kong/kongponents/commit/fdb93a2228cff2b2d1faeb571d899bad04ea3056))
-* **kbadge:** auto width by default, add vars, truncate ([#271](https://github.com/Kong/kongponents/issues/271)) ([ee6d547](https://github.com/Kong/kongponents/commit/ee6d547f0820141b39535d57e07ad8f624beaf62))
-* **kcard:** add permanent shadow property ([#188](https://github.com/Kong/kongponents/issues/188)) ([37dbee7](https://github.com/Kong/kongponents/commit/37dbee7cdac5c99597d02f54cbb25dce54e689ac))
-* **KCard:** add help text prop ([#309](https://github.com/Kong/kongponents/issues/309)) ([fc13244](https://github.com/Kong/kongponents/commit/fc132445189be95da6e84ad490d28305b3f3572b))
-* **kemptystate:** make kemptystate support error state, add kskeleton  - intf-2312 ([#191](https://github.com/Kong/kongponents/issues/191)) ([180ff45](https://github.com/Kong/kongponents/commit/180ff45c225589f9736ae2285c81cd0cbd66ce30))
-* **KEmptyState:** bump KButton version ([b65ec5c](https://github.com/Kong/kongponents/commit/b65ec5cca4b3509db139c5bde4c077311a240a40))
-* **KEmptyState:** Creates base empty component ([#30](https://github.com/Kong/kongponents/issues/30)) ([c4092ab](https://github.com/Kong/kongponents/commit/c4092abcd344269959e5dc1a3d13a45e84bc62dd))
-* **kicon:** add redo, pencil icon ([#305](https://github.com/Kong/kongponents/issues/305)) ([98cb0b4](https://github.com/Kong/kongponents/commit/98cb0b4244365f34e6f3830be25f7411272844cd))
-* **kicon:** add service document kicon ([#267](https://github.com/Kong/kongponents/issues/267)) ([f7ad461](https://github.com/Kong/kongponents/commit/f7ad46151115b1b9c63e138f966aa88cb977bdda))
-* **KIcon:** add check icon ([#295](https://github.com/Kong/kongponents/issues/295)) ([467ac21](https://github.com/Kong/kongponents/commit/467ac212a94d5234c613279b84f2fc0881ddf1fb))
-* **KIcon:** add dangerCircleOutline icon ([#316](https://github.com/Kong/kongponents/issues/316)) ([685c5e5](https://github.com/Kong/kongponents/commit/685c5e51a102277f703abfa4bdbd84a73fad9658))
-* **KIcon:** Add gear icon ([#40](https://github.com/Kong/kongponents/issues/40)) ([04c037a](https://github.com/Kong/kongponents/commit/04c037a8aca7c0c4f7955054b1698f1c37929ed6))
-* **KIcon:** add sharedConfig icon ([#285](https://github.com/Kong/kongponents/issues/285)) ([1f0ce23](https://github.com/Kong/kongponents/commit/1f0ce2374f1e773421ab4f7eaa4633beb66d0f4b))
-* **KIcon:** add svgElements slot ([#302](https://github.com/Kong/kongponents/issues/302)) ([17fc9c5](https://github.com/Kong/kongponents/commit/17fc9c537027a301780e5946e43e3c0eaeb6a159))
-* **KIcon:** Adds filter, forward arrow, and table icons ([#245](https://github.com/Kong/kongponents/issues/245)) ([83882ba](https://github.com/Kong/kongponents/commit/83882baa07d78ff1b39776e0def18cdc516eb10b))
-* **KInlineEdit:** Adds KInlineEdit component ([#222](https://github.com/Kong/kongponents/issues/222)) ([50720fd](https://github.com/Kong/kongponents/commit/50720fd54aa6812bb58aa9920ce9e0d56d9151df))
-* **kinput:** add label support ([#318](https://github.com/Kong/kongponents/issues/318)) ([f81311e](https://github.com/Kong/kongponents/commit/f81311e92e8175a8e4e9fd93d199efdba39f4cb3))
-* **kinput:** add v-model ([#241](https://github.com/Kong/kongponents/issues/241)) ([f2f436f](https://github.com/Kong/kongponents/commit/f2f436f2e90371dbfbd2c233679803591877608b))
-* **KInput:** Adds input component ([#17](https://github.com/Kong/kongponents/issues/17)) ([78d325a](https://github.com/Kong/kongponents/commit/78d325a6ff94f660a1ac668a9d18c0b6bbafbd14))
-* **KInputSwitch:** add enabled icon ([#308](https://github.com/Kong/kongponents/issues/308)) ([9223c41](https://github.com/Kong/kongponents/commit/9223c41feef2838b0a50b1f39f28712db38a6cec))
-* **klabel:** add for attribute for label ([#321](https://github.com/Kong/kongponents/issues/321)) ([05d2b4c](https://github.com/Kong/kongponents/commit/05d2b4c3fcafd42ee26e70d77e2f2e96dd441172))
-* **klabel:** add help property with icon + tooltip ([#306](https://github.com/Kong/kongponents/issues/306)) ([d6b86d1](https://github.com/Kong/kongponents/commit/d6b86d109712a87da80434270c5cf1fe7ec19e1b))
-* **KModal:** add support for help text ([#310](https://github.com/Kong/kongponents/issues/310)) ([d5a7cfa](https://github.com/Kong/kongponents/commit/d5a7cfa285de2cc8939e703566fb46109b84141e))
-* **KModal:** Bump KButton version ([71a50bb](https://github.com/Kong/kongponents/commit/71a50bb91ae5fa69df417191cb46aee1e559f603))
-* **KMultiselect:** Adds multichecklist component ✔️🚀 ([#217](https://github.com/Kong/kongponents/issues/217)) ([f8354e0](https://github.com/Kong/kongponents/commit/f8354e07163a81baba5f68a118bf52acd167542e))
-* **komponent:** 🚀🦍 ([#209](https://github.com/Kong/kongponents/issues/209)) ([1e35e32](https://github.com/Kong/kongponents/commit/1e35e32483a04a1cd61e9ceb6a26018814b02f93))
-* **kpop:** add opened/closed events ([#175](https://github.com/Kong/kongponents/issues/175)) ([61fa8fb](https://github.com/Kong/kongponents/commit/61fa8fb94d0737db2db9a87ee3da22280fe67cfa))
-* **kpop:** kpop adds an optional callback function when popover is already opened ([#258](https://github.com/Kong/kongponents/issues/258)) ([6321cfb](https://github.com/Kong/kongponents/commit/6321cfbc25fd3cbc97dabe2ea71a8fc2b0d9d247)), closes [#259](https://github.com/Kong/kongponents/issues/259)
-* **krumbs:** add maxWidth prop ([#224](https://github.com/Kong/kongponents/issues/224)) ([7dd677d](https://github.com/Kong/kongponents/commit/7dd677d844bd7246fddf261deb3d79b524d24dd0))
-* **kskeleton:** add full screen loader ([#207](https://github.com/Kong/kongponents/issues/207)) ([e41f9d7](https://github.com/Kong/kongponents/commit/e41f9d77e090bb242cb0a1a37bb864a6562e6b60))
-* **kskeleton:** switch from not rendering to transparency ([#281](https://github.com/Kong/kongponents/issues/281)) ([2d44e2d](https://github.com/Kong/kongponents/commit/2d44e2dc3d23c295e55b92570e3c9faedbd959bf))
-* **ktable:** add clickable rows and links - khcp-106 ([#237](https://github.com/Kong/kongponents/issues/237)) ([a178027](https://github.com/Kong/kongponents/commit/a178027b1841b3725576adfc2331c38c172f11c5))
-* **ktable:** add row and cell events ([#205](https://github.com/Kong/kongponents/issues/205)) ([bb7ac1b](https://github.com/Kong/kongponents/commit/bb7ac1bcf70ef29d0c8df264fcfbfbd2b0697e49))
-* **ktable:** add sorting for ktable - fti-1291 ([#197](https://github.com/Kong/kongponents/issues/197)) ([19603d4](https://github.com/Kong/kongponents/commit/19603d4d5f7340016ab6c8c7158b12d3019abe49))
-* **KTable:** add cellAttrs prop for customization ([#301](https://github.com/Kong/kongponents/issues/301)) ([eba5a63](https://github.com/Kong/kongponents/commit/eba5a6335316b0eafddad2c04d7349ba4d7b3874))
-* **ktoaster:** add ToastManager API ([#140](https://github.com/Kong/kongponents/issues/140)) ([63d0a46](https://github.com/Kong/kongponents/commit/63d0a46128d51bc7eb55cd9e5793a4eec76a1322)), closes [#156](https://github.com/Kong/kongponents/issues/156)
-* **KToaster:** change to white style, move to bottom ([#243](https://github.com/Kong/kongponents/issues/243)) ([70250af](https://github.com/Kong/kongponents/commit/70250afb513817c861cc4fbe93026f1a45a32fdb))
-* **modal:** Update to include esc key listener & add visible prop ([#6](https://github.com/Kong/kongponents/issues/6)) ([7a5e0ef](https://github.com/Kong/kongponents/commit/7a5e0ef38afbde6552fdd1fc8b25b8eefdeee08b))
-* **skeleton:** add box primitive ([#213](https://github.com/Kong/kongponents/issues/213)) ([dd0681e](https://github.com/Kong/kongponents/commit/dd0681e715df5d92c36bb25304fd69cdcb0e7830))
-* **style:** Updates Colors & Component Styles ([#225](https://github.com/Kong/kongponents/issues/225)) ([642a26b](https://github.com/Kong/kongponents/commit/642a26b888cbf8b4abbe32965729d44d54f9dfef))
-* **styles:** Add utility classes, fix kbutton svg logic and sizing ([916ac62](https://github.com/Kong/kongponents/commit/916ac62539bf123726270fe9937ac27a5245700d))
-* **styles/utilities:** CSS utility class updates ([#311](https://github.com/Kong/kongponents/issues/311)) ([dbd8f7d](https://github.com/Kong/kongponents/commit/dbd8f7dc47cd4eff2566f4e9df0a36b7770cacde))
+* **kcodeblock:** adds KCodeBlock component ([#819](https://github.com/Kong/kongponents/issues/819)) ([680b73a](https://github.com/Kong/kongponents/commit/680b73ad6bb043cd5f418593c7eb3145645f29d9))
+
+# [8.0.0-beta.44](https://github.com/Kong/kongponents/compare/v8.0.0-beta.43...v8.0.0-beta.44) (2022-10-20)
 
 
-* feat(badge)!: update styles, remove min width, add default (#288) ([5cd2c33](https://github.com/Kong/kongponents/commit/5cd2c33139ade749cf1cb52a9e5c235a0ecb188a)), closes [#288](https://github.com/Kong/kongponents/issues/288)
-* feat(kooltip)!: refactor to kpop and restyle (#283) ([ede3f3c](https://github.com/Kong/kongponents/commit/ede3f3c8250559b81def17c24cebb88fd28e9055)), closes [#283](https://github.com/Kong/kongponents/issues/283)
-* fix(colors) fixes color name typo ([f063f17](https://github.com/Kong/kongponents/commit/f063f172f18fe597d681c0421c737189163cb7df))
-* feat(KTest) change component, test build ([945c06f](https://github.com/Kong/kongponents/commit/945c06fdb2972ea884e6f52b20937c4dba45ba72))
+### Features
+
+* **kfileupload:** new file upload kongponent ([#829](https://github.com/Kong/kongponents/issues/829)) ([d293f8b](https://github.com/Kong/kongponents/commit/d293f8bf37fee4c0b23c1cb3bde6a641fa270348))
+
+# [8.0.0-beta.43](https://github.com/Kong/kongponents/compare/v8.0.0-beta.42...v8.0.0-beta.43) (2022-10-19)
+
+
+### Bug Fixes
+
+* **attrs:** bind classes to outermost element ([#834](https://github.com/Kong/kongponents/issues/834)) ([624e262](https://github.com/Kong/kongponents/commit/624e2621eb4556a47128db21475c152b50aab6f4))
+
+# [8.0.0-beta.42](https://github.com/Kong/kongponents/compare/v8.0.0-beta.41...v8.0.0-beta.42) (2022-10-19)
+
+
+### Bug Fixes
+
+* **kinput:** input-error styles [KHCP-5100] ([#833](https://github.com/Kong/kongponents/issues/833)) ([496da46](https://github.com/Kong/kongponents/commit/496da468848dec3ab3d1a88feae5895f77e429b4))
+
+# [8.0.0-beta.41](https://github.com/Kong/kongponents/compare/v8.0.0-beta.40...v8.0.0-beta.41) (2022-10-19)
+
+
+### Bug Fixes
+
+* **datepicker:** hover state should be blue-200 ([#830](https://github.com/Kong/kongponents/issues/830)) ([ad61d58](https://github.com/Kong/kongponents/commit/ad61d585462d0a97b6e18b32b13d1073a94b4b4b))
+* **dropdown:** update psuedo element position ([#796](https://github.com/Kong/kongponents/issues/796)) ([4ac2f02](https://github.com/Kong/kongponents/commit/4ac2f02d1b678eeea316e3a66a5c9cf9b59f2546))
+* **kbutton:** not considering visually-hidden text ([#821](https://github.com/Kong/kongponents/issues/821)) ([99f0ec8](https://github.com/Kong/kongponents/commit/99f0ec81be5a0645e85aa765e4b317f4ff2df8b7))
+* **kcard:** add box-shadow transition ([4634b6c](https://github.com/Kong/kongponents/commit/4634b6cc84d9d7e371a425670a207b2fba51719c))
+* **kdropdownmenu:** add icon prop ([#771](https://github.com/Kong/kongponents/issues/771)) ([6526566](https://github.com/Kong/kongponents/commit/65265662247e59c1580640d0988986c2f9d7b185))
+* **kdropdownmenu:** divider margins [khcp-4565] ([#789](https://github.com/Kong/kongponents/issues/789)) ([a1ed0ca](https://github.com/Kong/kongponents/commit/a1ed0ca616182af41586dfa447684ad571377c3c))
+* **kmodal:** missing kicon dependency ([#807](https://github.com/Kong/kongponents/issues/807)) ([9f71169](https://github.com/Kong/kongponents/commit/9f71169eb9f92b79030651d09cc665cb6823d803))
+* **kpop:** always remove click listeners since they are always added ([#809](https://github.com/Kong/kongponents/issues/809)) ([bd943d5](https://github.com/Kong/kongponents/commit/bd943d50778ea65fc406d77457d0f8ab71465062))
+* **kselect:** replace key string ([#788](https://github.com/Kong/kongponents/issues/788)) ([151826a](https://github.com/Kong/kongponents/commit/151826a514019a6760144ed0f5f3e3a29592c532))
+* **ktable:** client sorting with number values ([#775](https://github.com/Kong/kongponents/issues/775)) ([22efd29](https://github.com/Kong/kongponents/commit/22efd290a0f3954332ea2e8131520da519ae17b6))
+* remove sass division ([#794](https://github.com/Kong/kongponents/issues/794)) ([969f9ab](https://github.com/Kong/kongponents/commit/969f9ab2ca588a6f5ca2ae52d88a1ea55248c425))
+* **text:** kselect placeholder text ([#804](https://github.com/Kong/kongponents/issues/804)) ([e86546d](https://github.com/Kong/kongponents/commit/e86546d94afaad178c10d5089868235bcf42323e))
+
+
+### Features
+
+* **caret:** chevron should not toggle [khcp-4206] ([#786](https://github.com/Kong/kongponents/issues/786)) ([1cb8b92](https://github.com/Kong/kongponents/commit/1cb8b92305d91a24135b9e973e8d865300bc8bca))
+* **icon:** adds 3 new icons for dashboard ([#811](https://github.com/Kong/kongponents/issues/811)) ([cf06656](https://github.com/Kong/kongponents/commit/cf066567dbb5d21ffee8f8bbd8f0143e321aa7a5))
+
+# [8.0.0-beta.40](https://github.com/Kong/kongponents/compare/v8.0.0-beta.39...v8.0.0-beta.40) (2022-10-17)
+
+
+### Bug Fixes
+
+* **types:** update type config ([#828](https://github.com/Kong/kongponents/issues/828)) ([36cd5f3](https://github.com/Kong/kongponents/commit/36cd5f30fad7f404285f637d409f4e3b424d0f46))
+
+# [8.0.0-beta.39](https://github.com/Kong/kongponents/compare/v8.0.0-beta.38...v8.0.0-beta.39) (2022-10-17)
+
+
+### Features
+
+* **kstepper:** style updates [khcp-5085] ([#827](https://github.com/Kong/kongponents/issues/827)) ([8211c3c](https://github.com/Kong/kongponents/commit/8211c3c4a344e3a0c333bc2e750f33bc1d51cb18))
+
+# [8.0.0-beta.38](https://github.com/Kong/kongponents/compare/v8.0.0-beta.37...v8.0.0-beta.38) (2022-10-14)
+
+
+### Features
+
+* **kcollapse:** add new kongponent [khcp-4890] ([#825](https://github.com/Kong/kongponents/issues/825)) ([b613074](https://github.com/Kong/kongponents/commit/b61307492bcf1852a8ac4e3409cff7b910ab78a4))
+
+# [8.0.0-beta.37](https://github.com/Kong/kongponents/compare/v8.0.0-beta.36...v8.0.0-beta.37) (2022-10-12)
+
+
+### Bug Fixes
+
+* **icon:** backports - adds new icons for dashboard ([#824](https://github.com/Kong/kongponents/issues/824)) ([54a2d6a](https://github.com/Kong/kongponents/commit/54a2d6a385a99bc7f1ab4a83a3deec82efaaac70))
+
+# [8.0.0-beta.36](https://github.com/Kong/kongponents/compare/v8.0.0-beta.35...v8.0.0-beta.36) (2022-10-11)
+
+
+### Bug Fixes
+
+* **ktable:** deprecated sorter comment ([ea01918](https://github.com/Kong/kongponents/commit/ea0191867b9d4a4aff204d6b9722f4c9dc5a3472))
+
+# [8.0.0-beta.35](https://github.com/Kong/kongponents/compare/v8.0.0-beta.34...v8.0.0-beta.35) (2022-10-10)
+
+
+### Bug Fixes
+
+* **kinputswitch:** disabled is a prop ([57a902e](https://github.com/Kong/kongponents/commit/57a902ee59a09715041b744498ddf49a91af8200))
+
+# [8.0.0-beta.34](https://github.com/Kong/kongponents/compare/v8.0.0-beta.33...v8.0.0-beta.34) (2022-10-10)
+
+
+### Bug Fixes
+
+* linting ([bb8ad66](https://github.com/Kong/kongponents/commit/bb8ad66298e0ec35291edbc3c172fdfc830d33ff))
+
+# [8.0.0-beta.33](https://github.com/Kong/kongponents/compare/v8.0.0-beta.32...v8.0.0-beta.33) (2022-10-06)
+
+
+### Bug Fixes
+
+* **kcard:** add transition on hover ([b28f7ac](https://github.com/Kong/kongponents/commit/b28f7ac83a7ec225f4f2ed99d8623eb6ad13f86c))
+
+# [8.0.0-beta.32](https://github.com/Kong/kongponents/compare/v8.0.0-beta.31...v8.0.0-beta.32) (2022-10-05)
+
+
+### Bug Fixes
+
+* add sourcemaps ([d98b0c8](https://github.com/Kong/kongponents/commit/d98b0c82e961285732f0fcf292323fd428def2c4))
+* remove console log ([b164661](https://github.com/Kong/kongponents/commit/b164661fc39934cf016ee56a2cf958b8a02c8b6c))
+
+# [8.0.0-beta.31](https://github.com/Kong/kongponents/compare/v8.0.0-beta.30...v8.0.0-beta.31) (2022-10-05)
+
+
+### Bug Fixes
+
+* **kdropdownitem:** remove .path ([50c53e1](https://github.com/Kong/kongponents/commit/50c53e121100af84b5fa3336de1cb5fa88ba19a9))
+
+# [8.0.0-beta.30](https://github.com/Kong/kongponents/compare/v8.0.0-beta.29...v8.0.0-beta.30) (2022-10-04)
+
+
+### Bug Fixes
+
+* **kcatalog:** test id string ([07a7732](https://github.com/Kong/kongponents/commit/07a773212de4a26feddbee439ee36d96f43f81f6))
+
+# [8.0.0-beta.29](https://github.com/Kong/kongponents/compare/v8.0.0-beta.28...v8.0.0-beta.29) (2022-10-04)
+
+
+### Bug Fixes
+
+* **ktable:** empty state cta button text ([08ea243](https://github.com/Kong/kongponents/commit/08ea24342c2c1f5514b74cded5cb79a81e440206))
+
+# [8.0.0-beta.28](https://github.com/Kong/kongponents/compare/v8.0.0-beta.27...v8.0.0-beta.28) (2022-10-04)
+
+
+### Bug Fixes
+
+* upgrade vue, vuepress, and fix dependency tree ([#816](https://github.com/Kong/kongponents/issues/816)) ([dbe876c](https://github.com/Kong/kongponents/commit/dbe876ce80e4e88b325a9c9051d8a30bd57fd965))
+
+# [8.0.0-beta.27](https://github.com/Kong/kongponents/compare/v8.0.0-beta.26...v8.0.0-beta.27) (2022-10-04)
+
+
+### Bug Fixes
+
+* **ktoaster:** repaired width in toaster component [KHCP-4965] ([#815](https://github.com/Kong/kongponents/issues/815)) ([8a75bb2](https://github.com/Kong/kongponents/commit/8a75bb266a4e1eb56bf2b641e47c6415193b3f26))
+
+# [8.0.0-beta.26](https://github.com/Kong/kongponents/compare/v8.0.0-beta.25...v8.0.0-beta.26) (2022-10-04)
+
+
+### Bug Fixes
+
+* **emit:** drop unused value ([#813](https://github.com/Kong/kongponents/issues/813)) ([c0c7d98](https://github.com/Kong/kongponents/commit/c0c7d98f29c9235b9058caa87614452fb01de614))
+
+# [8.0.0-beta.25](https://github.com/Kong/kongponents/compare/v8.0.0-beta.24...v8.0.0-beta.25) (2022-10-03)
+
+
+### Features
+
+* **kdatetimepicker:** port to beta branch ([#803](https://github.com/Kong/kongponents/issues/803)) ([fdb7fd7](https://github.com/Kong/kongponents/commit/fdb7fd704a1ee0a87c4895332e8e63aec9dd38fe))
+
+# [8.0.0-beta.24](https://github.com/Kong/kongponents/compare/v8.0.0-beta.23...v8.0.0-beta.24) (2022-10-03)
+
+
+### Bug Fixes
+
+* **aria-current:** true or undefined ([118cf45](https://github.com/Kong/kongponents/commit/118cf45b85317e6ef42d09dac878af5b048d77c7))
+* vue 3 fixes ([#812](https://github.com/Kong/kongponents/issues/812)) ([82a91d8](https://github.com/Kong/kongponents/commit/82a91d81cd3ce6249ba398ebb6edc0c4ede7cd0c))
+
+# [8.0.0-beta.23](https://github.com/Kong/kongponents/compare/v8.0.0-beta.22...v8.0.0-beta.23) (2022-09-29)
+
+
+### Bug Fixes
+
+* **v-model:** emit update:modelValue ([1b8bfc0](https://github.com/Kong/kongponents/commit/1b8bfc06048ea39349e902c9cae0d97cb1e17807))
+
+# [8.0.0-beta.22](https://github.com/Kong/kongponents/compare/v8.0.0-beta.21...v8.0.0-beta.22) (2022-09-27)
+
+
+### Bug Fixes
+
+* **kmodalfullscreen:** button selector ([2b19ed8](https://github.com/Kong/kongponents/commit/2b19ed86553f454aed6044c137ed0f3df3ef6612))
+
+# [8.0.0-beta.21](https://github.com/Kong/kongponents/compare/v8.0.0-beta.20...v8.0.0-beta.21) (2022-09-26)
+
+
+### Bug Fixes
+
+* **kpop:** always remove click listeners ([#810](https://github.com/Kong/kongponents/issues/810)) ([57a8ba1](https://github.com/Kong/kongponents/commit/57a8ba1a3812202e5e19a3ce7ca507b8fdf3e315))
+
+# [8.0.0-beta.20](https://github.com/Kong/kongponents/compare/v8.0.0-beta.19...v8.0.0-beta.20) (2022-09-23)
+
+
+### Bug Fixes
+
+* **aria-expanded:** fallback to undefined ([b518091](https://github.com/Kong/kongponents/commit/b518091444793772fc4ca7230cd874f961d9d8cc))
+
+# [8.0.0-beta.19](https://github.com/Kong/kongponents/compare/v8.0.0-beta.18...v8.0.0-beta.19) (2022-09-23)
+
+
+### Bug Fixes
+
+* **ktable:** doc revalidate usage [khcp-4670] ([#805](https://github.com/Kong/kongponents/issues/805)) ([e1b6f7e](https://github.com/Kong/kongponents/commit/e1b6f7e7944bdaef4be77957809e0d4d228856dc))
+* **modal:** not importing icon component ([#806](https://github.com/Kong/kongponents/issues/806)) ([92f20e6](https://github.com/Kong/kongponents/commit/92f20e6c10a8a94dfb760c285982d80d19810e1d))
+
+# [8.0.0-beta.18](https://github.com/Kong/kongponents/compare/v8.0.0-beta.17...v8.0.0-beta.18) (2022-09-21)
+
+
+### Bug Fixes
+
+* **kmodalfullscreen:** button margin ([7296d8a](https://github.com/Kong/kongponents/commit/7296d8a9eac50c70708e872680201cd4b0d932f8))
+
+# [8.0.0-beta.17](https://github.com/Kong/kongponents/compare/v8.0.0-beta.16...v8.0.0-beta.17) (2022-09-21)
+
+
+### Bug Fixes
+
+* **kmodalfullscreen:** add button margin ([c52d132](https://github.com/Kong/kongponents/commit/c52d132b57446149720dcf5b3a581b98c0e9aed0))
+* **kmodalfullscreen:** lint ([2a3cf47](https://github.com/Kong/kongponents/commit/2a3cf478278fbf6d577ad0a8f2656641a3d732a6))
+
+# [8.0.0-beta.16](https://github.com/Kong/kongponents/compare/v8.0.0-beta.15...v8.0.0-beta.16) (2022-09-15)
+
+
+### Bug Fixes
+
+* backport khcp 4611 ([#802](https://github.com/Kong/kongponents/issues/802)) ([9a16d21](https://github.com/Kong/kongponents/commit/9a16d219442605c84d1b7ecccf19830f8f1e820d))
+
+# [8.0.0-beta.15](https://github.com/Kong/kongponents/compare/v8.0.0-beta.14...v8.0.0-beta.15) (2022-09-12)
+
+
+### Bug Fixes
+
+* **exports:** update exports in package.json ([65ec86c](https://github.com/Kong/kongponents/commit/65ec86c0b5b7750d6f71f9477dcd36be87a082b3))
+* trigger release ([a018f10](https://github.com/Kong/kongponents/commit/a018f10060f8940479a36e72a7459b08d2e37142))
+
+# [8.0.0-beta.14](https://github.com/Kong/kongponents/compare/v8.0.0-beta.13...v8.0.0-beta.14) (2022-09-10)
+
+
+### Bug Fixes
+
+* **dropdown:** update pseudo element position ([#799](https://github.com/Kong/kongponents/issues/799)) ([ec60643](https://github.com/Kong/kongponents/commit/ec60643dac3fb5c635f06ffe36cc8c917f810cf3))
+
+# [8.0.0-beta.13](https://github.com/Kong/kongponents/compare/v8.0.0-beta.12...v8.0.0-beta.13) (2022-09-09)
+
+
+### Bug Fixes
+
+* remove sass division [beta] ([#795](https://github.com/Kong/kongponents/issues/795)) ([ef37c21](https://github.com/Kong/kongponents/commit/ef37c21391354e35a5cea78078361d2d9942a174))
+
+# [8.0.0-beta.12](https://github.com/Kong/kongponents/compare/v8.0.0-beta.11...v8.0.0-beta.12) (2022-09-09)
+
+
+### Bug Fixes
+
+* correct handling of sass division ([#793](https://github.com/Kong/kongponents/issues/793)) ([8739148](https://github.com/Kong/kongponents/commit/873914854ecf37f112556a0f86ca546687cbcce9))
+
+# [8.0.0-beta.11](https://github.com/Kong/kongponents/compare/v8.0.0-beta.10...v8.0.0-beta.11) (2022-09-09)
+
+
+### Bug Fixes
+
+* **kdropdownmenu:** divider position [beta] ([#792](https://github.com/Kong/kongponents/issues/792)) ([1882f94](https://github.com/Kong/kongponents/commit/1882f9471bb991a8a5b998ffdff08901efc18aa8)), closes [#789](https://github.com/Kong/kongponents/issues/789)
+
+# [8.0.0-beta.10](https://github.com/Kong/kongponents/compare/v8.0.0-beta.9...v8.0.0-beta.10) (2022-09-09)
+
+
+### Bug Fixes
+
+* backport [#786](https://github.com/Kong/kongponents/issues/786) ([#790](https://github.com/Kong/kongponents/issues/790)) ([f3e6e2f](https://github.com/Kong/kongponents/commit/f3e6e2fe3c0baf7b43fd3507a6a14b3aacc55b40))
+
+# [8.0.0-beta.9](https://github.com/Kong/kongponents/compare/v8.0.0-beta.8...v8.0.0-beta.9) (2022-09-08)
+
+
+### Bug Fixes
+
+* **kselect:** ensure key is set ([91590b5](https://github.com/Kong/kongponents/commit/91590b5c408ab25c51c12084e99da58754341943))
+
+# [8.0.0-beta.8](https://github.com/Kong/kongponents/compare/v8.0.0-beta.7...v8.0.0-beta.8) (2022-09-08)
+
+
+### Bug Fixes
+
+* **kselect:** ensure key is set [KHCP-4680] ([#787](https://github.com/Kong/kongponents/issues/787)) ([eb3246b](https://github.com/Kong/kongponents/commit/eb3246b2cad3d144c14921aed15ed367ffab4863))
+
+# [8.0.0-beta.7](https://github.com/Kong/kongponents/compare/v8.0.0-beta.6...v8.0.0-beta.7) (2022-09-02)
+
+
+### Bug Fixes
+
+* **ktable:** client sorting with number values ([#774](https://github.com/Kong/kongponents/issues/774)) ([aacc7fc](https://github.com/Kong/kongponents/commit/aacc7fce3a79aa5a3405986e9733d53c24248f3a))
+
+# [8.0.0-beta.6](https://github.com/Kong/kongponents/compare/v8.0.0-beta.5...v8.0.0-beta.6) (2022-09-02)
+
+
+### Bug Fixes
+
+* backport [#771](https://github.com/Kong/kongponents/issues/771) ([#781](https://github.com/Kong/kongponents/issues/781)) ([0e81fb4](https://github.com/Kong/kongponents/commit/0e81fb47cbd2df0d34e9484e83f50c6788e960ae))
+
+# [8.0.0-beta.5](https://github.com/Kong/kongponents/compare/v8.0.0-beta.4...v8.0.0-beta.5) (2022-09-02)
+
+
+### Bug Fixes
+
+* not being able to import style.css ([#780](https://github.com/Kong/kongponents/issues/780)) ([d6eb251](https://github.com/Kong/kongponents/commit/d6eb25140670333fe2dcf9b69ed1f3c5ee03ccdd))
+* trigger release ([13a2a33](https://github.com/Kong/kongponents/commit/13a2a337f4b1052531d05afb0b4fa07dfb923b44))
+* update commitlint config ([7912bec](https://github.com/Kong/kongponents/commit/7912bec7f1d7b4b1d0ad14ab3080261a2c7d516a))
+
+# [8.0.0-beta.4](https://github.com/Kong/kongponents/compare/v8.0.0-beta.3...v8.0.0-beta.4) (2022-09-02)
+
+
+### Bug Fixes
+
+* **kselect:** selected style when using v-model ([#776](https://github.com/Kong/kongponents/issues/776)) ([396aeed](https://github.com/Kong/kongponents/commit/396aeed66f4a849335d8acc061e2b4025fbf6e78))
+
+# [8.0.0-beta.3](https://github.com/Kong/kongponents/compare/v8.0.0-beta.2...v8.0.0-beta.3) (2022-09-01)
+
+
+### Bug Fixes
+
+* replace Object.hasOwn() ([#779](https://github.com/Kong/kongponents/issues/779)) ([b9df84d](https://github.com/Kong/kongponents/commit/b9df84d696b2d64c5e1b289aa94b2b3363c74064))
+
+# [8.0.0-beta.2](https://github.com/Kong/kongponents/compare/v8.0.0-beta.1...v8.0.0-beta.2) (2022-09-01)
+
+
+### Bug Fixes
+
+* **kcard:** update font size for table in card ([b72ce31](https://github.com/Kong/kongponents/commit/b72ce3169d5aa51f34a9b8660128f73da34ecbd2))
+
+# [8.0.0-beta.1](https://github.com/Kong/kongponents/compare/v7.0.1...v8.0.0-beta.1) (2022-08-30)
+
+
+### Bug Fixes
+
+* add comment ([c6d4784](https://github.com/Kong/kongponents/commit/c6d4784de33b4b66b6ec9b82b60211498d4e6877))
+* backport [#763](https://github.com/Kong/kongponents/issues/763) ([#765](https://github.com/Kong/kongponents/issues/765)) ([6a18ce7](https://github.com/Kong/kongponents/commit/6a18ce71f24ee6a268dca71e100954775945c7ea))
+* backport fixes to beta ([#646](https://github.com/Kong/kongponents/issues/646)) ([44479cc](https://github.com/Kong/kongponents/commit/44479cca89699c5f4b548d63cf5fe723121ba15c))
+* bump version ([bf50910](https://github.com/Kong/kongponents/commit/bf50910d1e542b9d80827d6ba762fa53d5865464))
+* **changelog:** update changelog ([0bc3f63](https://github.com/Kong/kongponents/commit/0bc3f6318446fbfe5e5341089f197d10bd0e033d))
+* **ci:** add type checks ([66898fe](https://github.com/Kong/kongponents/commit/66898fe7f980de0c53371ffcb8cfa1cd9e5f3f73))
+* **colors:** update hex for steel-500 ([a88d185](https://github.com/Kong/kongponents/commit/a88d1851f262cf1c60d5e9748f41716365b8ffe2))
+* **css-variables:** move to separate mixin ([#626](https://github.com/Kong/kongponents/issues/626)) ([7a1b0c9](https://github.com/Kong/kongponents/commit/7a1b0c98a59c25d83b29f34748d5038cd94c8f4e))
+* **deps:** upgrade beta dependencies ([#687](https://github.com/Kong/kongponents/issues/687)) ([3b78f01](https://github.com/Kong/kongponents/commit/3b78f01dca2b0adf4e3fe9d53f84567fef3de15f))
+* doc fixes ([#593](https://github.com/Kong/kongponents/issues/593)) ([23b38fc](https://github.com/Kong/kongponents/commit/23b38fc327cca4f9f2248c9983a8afced1c83071))
+* **docs:** code snippet syntax ([#701](https://github.com/Kong/kongponents/issues/701)) ([150c3d8](https://github.com/Kong/kongponents/commit/150c3d85ecf6f3122d9be08296d4216db4f02245))
+* **docs:** remove component ([2503e6d](https://github.com/Kong/kongponents/commit/2503e6d5d8ed669e465f3de7fddac8a2c8768223))
+* **eslint:** fix eslint config ([060b27b](https://github.com/Kong/kongponents/commit/060b27b46c44eab8e60461cbfa0589837ac72841))
+* **eslint:** fix eslint config ([750d25c](https://github.com/Kong/kongponents/commit/750d25c72c7187b9c91d96ac135f99407d6fce25))
+* **favicon:** update favicon ([f465ab8](https://github.com/Kong/kongponents/commit/f465ab89aefd95088c60118319b4f266814f93da))
+* fix tests and add kalert ([59e6b79](https://github.com/Kong/kongponents/commit/59e6b79c4e7accdca4c060a96d5c3358f25a4d1f))
+* fix tsconfig and upgrade deps ([1fc1365](https://github.com/Kong/kongponents/commit/1fc1365dd7778e68e9c9d6de822fb87dd23ac434))
+* font weights ([23e9f88](https://github.com/Kong/kongponents/commit/23e9f88dcee882787fda497c75e3b84002008118))
+* **font-weight:** fix font weights ([bac5214](https://github.com/Kong/kongponents/commit/bac52143976a0ce05e2023113507e827abf4273b))
+* **kalert:** fix ellipse border radius ([d038f36](https://github.com/Kong/kongponents/commit/d038f367f3c9daeaf4ed29ae2ca61677ccb8b92b))
+* **kalert:** fix kalert styles ([d69d0b4](https://github.com/Kong/kongponents/commit/d69d0b4adcc8f7cc2a32da3374773c097c3e7218))
+* **kalert:** update default colors ([118320c](https://github.com/Kong/kongponents/commit/118320c23bf4c51d49220d533de416f5b2a0f65f))
+* **kalert:** update default line-height ([047f5ac](https://github.com/Kong/kongponents/commit/047f5ac1fd60d78c142edb3307d6d41d6d555983))
+* **kalert:** word break in safari ([9bc80dd](https://github.com/Kong/kongponents/commit/9bc80dd50dc37119349cdbb4aa54073a3c49b563))
+* **kbadge:** add min width theming variable ([94aef53](https://github.com/Kong/kongponents/commit/94aef532d5138653d58b027dd0e46b1c54791038))
+* **kbadge:** adjust info colors ([#560](https://github.com/Kong/kongponents/issues/560)) ([28a2819](https://github.com/Kong/kongponents/commit/28a28198ee1cde354e50976f7b0c09d2c86916a9))
+* **kbadge:** doc issues [khcp-3409] ([#588](https://github.com/Kong/kongponents/issues/588)) ([55f87d5](https://github.com/Kong/kongponents/commit/55f87d59bcd14f80235fa51f38fe832e080cae17))
+* **kbreadcrumbs:** fix icon viewbox ([83cbd75](https://github.com/Kong/kongponents/commit/83cbd75708d45d63b8482797352ac5776748072b))
+* **kbreadcrumbs:** fix kicon prop ([0df2f69](https://github.com/Kong/kongponents/commit/0df2f69135909eebe60cd866a92a549c1be87417))
+* **kbreadcrumbs:** icon size ([f7ce945](https://github.com/Kong/kongponents/commit/f7ce945ef597e650389b5b365f818b9119fb8808))
+* **kbutton,kicon:** fix button icon color [beta] ([#627](https://github.com/Kong/kongponents/issues/627)) ([33a59b6](https://github.com/Kong/kongponents/commit/33a59b6aede24622ff9503b494d6f03bd058a1d7))
+* **kbutton:** add important to button disabled styles ([ddddf3c](https://github.com/Kong/kongponents/commit/ddddf3c0a74b276141f8c6717c5eb72f9e2cc397))
+* **kbutton:** button danger hover color ([741589b](https://github.com/Kong/kongponents/commit/741589bcdb65e9ab96dd714f6068891334bff032))
+* **kbutton:** cannot spread attrs ([29c910b](https://github.com/Kong/kongponents/commit/29c910b25bb426a813e0c090199a7b467eeaf9a7))
+* **kbutton:** disallow pointer-events for disabled button icon ([dcc6712](https://github.com/Kong/kongponents/commit/dcc67120e4ad5165b269e9fc1dcdfce3ffbf48f5))
+* **kbutton:** falsy disabled attribute on native link element ([#690](https://github.com/Kong/kongponents/issues/690)) ([2391fd5](https://github.com/Kong/kongponents/commit/2391fd527ff8d44ca10b2729ad7645072a405f23))
+* **kbutton:** kong-icon within button should be inline-flex ([a1a3817](https://github.com/Kong/kongponents/commit/a1a3817c7377f18b6e0af00456303cdb120f52fc))
+* **kbutton:** remove opacity for disabled state ([1ecde38](https://github.com/Kong/kongponents/commit/1ecde38719c161f62752149c25b6dfcd295d00c8))
+* **kbutton:** remove webkit tap highlight color ([efb0db3](https://github.com/Kong/kongponents/commit/efb0db32ee5635a8351d5b53dd5ba9c4a7b6fd1f))
+* **kbutton:** update disabled logic ([a8589c7](https://github.com/Kong/kongponents/commit/a8589c744812b8aea3d7c3f17709c5017dac3826))
+* **kbutton:** update disabled logic ([ae34cb0](https://github.com/Kong/kongponents/commit/ae34cb0ab2a52ccd39ab547ecc2787ca930ac20d))
+* **kbutton:** update disabled logic ([4f22383](https://github.com/Kong/kongponents/commit/4f22383cd110b44f31d90de9cf3c2e1316f97253))
+* **kcard:** add padding top 0 to title ([6c159e6](https://github.com/Kong/kongponents/commit/6c159e67b09e83ccb01e40e0a20e10637bd4f97e))
+* **kcard:** port changes ([be00d83](https://github.com/Kong/kongponents/commit/be00d838b89ed24e8659da70d91925e3c5ab907e))
+* **kcard:** title positioning  ([#562](https://github.com/Kong/kongponents/issues/562)) ([9b56e3b](https://github.com/Kong/kongponents/commit/9b56e3bfc6ffa5b9e5999119db1de659134ec2f0))
+* **kcatalog,ktables:** docs and classes ([#621](https://github.com/Kong/kongponents/issues/621)) ([5282363](https://github.com/Kong/kongponents/commit/52823638ace5426c7276fb3b7fbdcbd4c9258659))
+* **kcheckbox:** readonly styles ([#704](https://github.com/Kong/kongponents/issues/704)) ([9ea5111](https://github.com/Kong/kongponents/commit/9ea511178d628b7570921b955f5441d9decece7f))
+* **kcheckbox:** update docs example ([3cd65b8](https://github.com/Kong/kongponents/commit/3cd65b89525d05cf3c828de66dd3d1b161fd4d7c))
+* **kemptystate:** backport [#720](https://github.com/Kong/kongponents/issues/720) [beta] ([#721](https://github.com/Kong/kongponents/issues/721)) ([1161571](https://github.com/Kong/kongponents/commit/116157134f4f3e35c2b798a66744014818eda793))
+* **kicon:** fix var reference ([158031f](https://github.com/Kong/kongponents/commit/158031f416e6c1fff3d99e95e20142f2e8322946))
+* **kicon:** not updating reactively ([8cbaf8e](https://github.com/Kong/kongponents/commit/8cbaf8e7c90ced3e0c39d67fd4b915ec26988103))
+* **kicon:** properly check for slot content ([#595](https://github.com/Kong/kongponents/issues/595)) ([1d155e5](https://github.com/Kong/kongponents/commit/1d155e50d13d63db39266dcf1688e98ef1bb27fe))
+* **kicon:** remove help icon unneeded path ([e85e24e](https://github.com/Kong/kongponents/commit/e85e24e9055f87b6e73555347eb46eb03f47157a))
+* **kicon:** type errors ([5897b7c](https://github.com/Kong/kongponents/commit/5897b7cbffcf04a4896531a143c25eec048109c1))
+* **kicon:** update spinner stroke width ([4230808](https://github.com/Kong/kongponents/commit/42308083f591bfac6c7a6f776246d309857aabf5))
+* **kicon:** update svg if icon props change ([#636](https://github.com/Kong/kongponents/issues/636)) ([2db921e](https://github.com/Kong/kongponents/commit/2db921e05e7d38d04e49455d8c53b97cf959b0c7))
+* **kicon:** update vitals icon [beta] ([#732](https://github.com/Kong/kongponents/issues/732)) ([a53ed6d](https://github.com/Kong/kongponents/commit/a53ed6d0ba6c19334f97e93b0011752120eff1f8))
+* **kinlineedit:** hover bg color [beta] ([02e17b1](https://github.com/Kong/kongponents/commit/02e17b1d1c341e06dc9cc30a39914c6ca0af7208))
+* **kinput:** add character limit event to docs ([f6413a9](https://github.com/Kong/kongponents/commit/f6413a9eaa35780b43cbdd666ff2e1fecc66b049))
+* **kinput:** deepclone value prop [beta] ([#651](https://github.com/Kong/kongponents/issues/651)) ([4609bac](https://github.com/Kong/kongponents/commit/4609bac4c2143595c28060519c20ef41b6769e61))
+* **kinput:** update x icon for search input ([#643](https://github.com/Kong/kongponents/issues/643)) ([b8db448](https://github.com/Kong/kongponents/commit/b8db4484c71d73b407b9c3ff9c234ff45ed25b02))
+* **klabel:** default font weight to 600 ([f23282d](https://github.com/Kong/kongponents/commit/f23282da02e92654ebbfac3062d7305f25023b3f))
+* **kmenu:** add comment ([92dbbc7](https://github.com/Kong/kongponents/commit/92dbbc7f3a2d56be22824337c6f98eee4af4e45c))
+* **kmenu:** add comment ([91ad9d3](https://github.com/Kong/kongponents/commit/91ad9d36c0ef83b01e28671538e75ce99270b8d3))
+* **kmenu:** add comment ([9ee0ab2](https://github.com/Kong/kongponents/commit/9ee0ab2be5cdb538153317e0258ccdcec3af5e63))
+* **kmenu:** docs width prop [khcp-3409] ([#587](https://github.com/Kong/kongponents/issues/587)) ([9ca2ad2](https://github.com/Kong/kongponents/commit/9ca2ad2a0fc335b489b5e3250236360a70eaa16d))
+* **kmenu:** properly extend type ([38b87ee](https://github.com/Kong/kongponents/commit/38b87ee4ba759c90de9b1567d91fd40009983c2e))
+* **kmenu:** type interface ([#578](https://github.com/Kong/kongponents/issues/578)) ([01d3e10](https://github.com/Kong/kongponents/commit/01d3e105fe89901ed782a1937bae52c2acfdbae3))
+* **kmenu:** update type comment ([#579](https://github.com/Kong/kongponents/issues/579)) ([3a050ea](https://github.com/Kong/kongponents/commit/3a050eaf7afaeb047023f239837906f00084f5d7))
+* **kmodal:** allow clicking on elements within the modal body [KHCP-4212] ([#709](https://github.com/Kong/kongponents/issues/709)) ([c69c139](https://github.com/Kong/kongponents/commit/c69c13964c4a1aaef5509f71002e1857790cb491))
+* **kmodal:** background color update ([4d15e91](https://github.com/Kong/kongponents/commit/4d15e91ceb870626061ebabcf44dd78f6898efc8))
+* **kmodal:** dismiss icon logic [beta] ([#738](https://github.com/Kong/kongponents/issues/738)) ([f675223](https://github.com/Kong/kongponents/commit/f675223d0d1e79644f2e01f211b2811a32fb844d))
+* **kmodal:** fix overflow to apply on mounted ([e4b7aae](https://github.com/Kong/kongponents/commit/e4b7aae9c68eed1e63849ff3496f0df33f79cb1e))
+* **kmodalfs:** backport spacing ([#683](https://github.com/Kong/kongponents/issues/683)) ([de67137](https://github.com/Kong/kongponents/commit/de671374792485972e0cdbbd92879073d20e0d0c))
+* **kmodalfullscreen:** align header [beta] ([bcf4ae9](https://github.com/Kong/kongponents/commit/bcf4ae918fe1b9c7ef4e12f7974b7c29d2417c07))
+* **kmodalfullscreen:** align header [beta] ([#670](https://github.com/Kong/kongponents/issues/670)) ([008c9ea](https://github.com/Kong/kongponents/commit/008c9eade5375bfcc313729417589c50082e5187))
+* **kmodal:** hide body overflow ([d76d5b3](https://github.com/Kong/kongponents/commit/d76d5b397d1af974beead30153bfe170b359ac26))
+* **komponent:** remove komponent tag render ([b3147a5](https://github.com/Kong/kongponents/commit/b3147a519026a2c3cc4a1fad213b2a7f4c68ae53))
+* **komponent:** rename komponent kcomponent ([43e777d](https://github.com/Kong/kongponents/commit/43e777d707f0cda8ebf29623d21e2a6fd08fcd33))
+* **kooltip:** z-index bump ([#726](https://github.com/Kong/kongponents/issues/726)) ([9fef3d5](https://github.com/Kong/kongponents/commit/9fef3d534b783dc20afe9b78078d60cfb7d55f1c))
+* **kpagination:** style updates ([#581](https://github.com/Kong/kongponents/issues/581)) ([5b2f54d](https://github.com/Kong/kongponents/commit/5b2f54d899f6faf02933eda9c2f5acf6ff6b06c8))
+* **kpagination:** theming [KHCP-3431] ([#599](https://github.com/Kong/kongponents/issues/599)) ([b9adcde](https://github.com/Kong/kongponents/commit/b9adcded1e016e19ecbc8434c19c66abca085f44))
+* **kpagination:** use positionFixed [beta] ([#744](https://github.com/Kong/kongponents/issues/744)) ([1a1952c](https://github.com/Kong/kongponents/commit/1a1952c79fe5335f9c37fed945e0ee79a277e680))
+* **kpop:** only one pop open at a time ([74cd66f](https://github.com/Kong/kongponents/commit/74cd66f667860915587ebd03d66261add765852c))
+* **kpopover:** fix logic to prevent errors [beta] ([#715](https://github.com/Kong/kongponents/issues/715)) ([6b06b92](https://github.com/Kong/kongponents/commit/6b06b928c1b4ed5419f3c456d3e021f5f0e07570))
+* **kpop:** update target default ([#730](https://github.com/Kong/kongponents/issues/730)) ([0492b37](https://github.com/Kong/kongponents/commit/0492b370db65271edaea8013ec01ea442d4965b9))
+* **kprompt:** adjust input margin ([925e577](https://github.com/Kong/kongponents/commit/925e577ff99ed7d4b1c610a8151d6a45412554d0))
+* **kprompt:** bottom divider ([#616](https://github.com/Kong/kongponents/issues/616)) ([829a692](https://github.com/Kong/kongponents/commit/829a69259f31df9f7d48893e44052a088554caab))
+* **kprompt:** docs fixes [khcp-3438] ([#591](https://github.com/Kong/kongponents/issues/591)) ([7ed8aaa](https://github.com/Kong/kongponents/commit/7ed8aaa80c80b85c3d341321f0f2da54f465b3cb))
+* **ksegmentedcontrol:** disabled logic [khcp-3433] ([#589](https://github.com/Kong/kongponents/issues/589)) ([997508b](https://github.com/Kong/kongponents/commit/997508bcfbad7d6b3d3e70648af82f5ab6f6be72))
+* **kselect:** backport [#712](https://github.com/Kong/kongponents/issues/712) [beta] ([#713](https://github.com/Kong/kongponents/issues/713)) ([f39c7da](https://github.com/Kong/kongponents/commit/f39c7dabc49ba477ad33d1b7ac6bc6c1f418c693))
+* **kselect:** backport [#723](https://github.com/Kong/kongponents/issues/723) ([#764](https://github.com/Kong/kongponents/issues/764)) ([7ca14ac](https://github.com/Kong/kongponents/commit/7ca14acf6c382487169b07f31d0a6ac7f1e785b2))
+* **kselect:** check attribute type ([ace3979](https://github.com/Kong/kongponents/commit/ace3979f6a46efff582519a8287f4edb615b27b7))
+* **kselect:** disabled and readonly states [beta] ([#707](https://github.com/Kong/kongponents/issues/707)) ([ff4c402](https://github.com/Kong/kongponents/commit/ff4c402bfc8ffa94ed7ae96803d391076523bab2))
+* **kselect:** fix item margin bottom ([45f2671](https://github.com/Kong/kongponents/commit/45f2671b01aa4062252ef88755784c028fb071ef))
+* **kselect:** fix item margin bottom ([627fb17](https://github.com/Kong/kongponents/commit/627fb17ec674faadf9dafa6ba65c01da975e4043))
+* **kselect:** fix item structure ([b4b0bd8](https://github.com/Kong/kongponents/commit/b4b0bd8ebc603fca717ad50700a0d40e67639931))
+* **kselect:** input border radius and dropdown spacing [beta] ([#700](https://github.com/Kong/kongponents/issues/700)) ([baa6738](https://github.com/Kong/kongponents/commit/baa6738515170d54c2a5fe440c438323f9ed725e)), closes [#694](https://github.com/Kong/kongponents/issues/694)
+* **kselect:** kpop width ([f1afdd0](https://github.com/Kong/kongponents/commit/f1afdd0a9ded72b999d3e295912818b170750b90))
+* **kselect:** page jump, caret, and docs ([#597](https://github.com/Kong/kongponents/issues/597)) ([4110bcc](https://github.com/Kong/kongponents/commit/4110bcc7b4035a8062f458fd480465477a2befc7))
+* **kselect:** remove is-open prop on KInput ([#727](https://github.com/Kong/kongponents/issues/727)) ([811303a](https://github.com/Kong/kongponents/commit/811303a7efb4a0472e71fd47c9027b1bb8436fd1))
+* **kselect:** remove list style ([9755d4f](https://github.com/Kong/kongponents/commit/9755d4fbb0167cf4351239e25e8255799f7065bf))
+* **kselect:** select popover pos ([#601](https://github.com/Kong/kongponents/issues/601)) ([a117713](https://github.com/Kong/kongponents/commit/a117713f27287b9f8ee0919b6b0fd58a1b539d3d))
+* **kselect:** update items and filter logic ([#751](https://github.com/Kong/kongponents/issues/751)) ([d6fc78b](https://github.com/Kong/kongponents/commit/d6fc78bbdfe034d904f4dcd0b313f606148fcad3))
+* **kselect:** update popover width when it opens ([#735](https://github.com/Kong/kongponents/issues/735)) ([9a979df](https://github.com/Kong/kongponents/commit/9a979df72dcea314a3b6dc731ce8b4c2a25bf227))
+* **kskeleton:** delay-milliseconds default to 0 ([7ffa180](https://github.com/Kong/kongponents/commit/7ffa180ff48b3f6679772da135037773e4333d70))
+* **kskeleton:** docs cleanup ([#602](https://github.com/Kong/kongponents/issues/602)) ([b400be0](https://github.com/Kong/kongponents/commit/b400be071254a70cb08f7a5b4f55263a36aff702))
+* **ktable,kcatalog:** backport [#685](https://github.com/Kong/kongponents/issues/685) [beta] ([#686](https://github.com/Kong/kongponents/issues/686)) ([90fe89b](https://github.com/Kong/kongponents/commit/90fe89b443dfa3ccc4cc15769681f6d5057eab12))
+* **ktable,kcatalog:** data-testid additions ([#605](https://github.com/Kong/kongponents/issues/605)) ([6ea25ed](https://github.com/Kong/kongponents/commit/6ea25ed8126371c6e65e89f500306ae47690cf3c)), closes [#603](https://github.com/Kong/kongponents/issues/603)
+* **ktable,kcatalog:** fix issues ([#607](https://github.com/Kong/kongponents/issues/607)) ([950c058](https://github.com/Kong/kongponents/commit/950c058e2dd1a3c53d2b7e0669ff3f85f4764a4b))
+* **ktable:** emit event on cell and row click [beta] ([#641](https://github.com/Kong/kongponents/issues/641)) ([ab71839](https://github.com/Kong/kongponents/commit/ab71839101abf318607c2175577f122863d00213))
+* **ktable:** fix fetcher ([342f924](https://github.com/Kong/kongponents/commit/342f924ccc27af33dedeead30cc21f2b84031123))
+* **ktable:** fix row click handling ([#615](https://github.com/Kong/kongponents/issues/615)) ([ea47300](https://github.com/Kong/kongponents/commit/ea473006bc85a581a4c263012b8c5999d2cfaab1))
+* **ktable:** hover color fix ([209e4fa](https://github.com/Kong/kongponents/commit/209e4fa7e1f60dc4f12436340642dfd73627bcc5))
+* **ktable:** more row click fix [beta] ([#619](https://github.com/Kong/kongponents/issues/619)) ([0c54110](https://github.com/Kong/kongponents/commit/0c54110e5ef919f9dbc16e2258abda1ea50d11ad))
+* **ktable:** remove unneeded prop ([7660abe](https://github.com/Kong/kongponents/commit/7660abeb95834f5ad053062388abf3d93f4e352a))
+* **ktable:** row click slotted content ([#610](https://github.com/Kong/kongponents/issues/610)) ([0c550b8](https://github.com/Kong/kongponents/commit/0c550b86ecc28a1f65943d97cd78079f2769a332))
+* **ktable:** update v-on value ([#746](https://github.com/Kong/kongponents/issues/746)) ([5aa2f50](https://github.com/Kong/kongponents/commit/5aa2f50a0cf7fd2b9d91067b0ff98f8b4c76ae1b))
+* **ktextarea:** docs cleanup ([#600](https://github.com/Kong/kongponents/issues/600)) ([8cc36fb](https://github.com/Kong/kongponents/commit/8cc36fb0f96a7f8274a2113978736b011c22d458))
+* misc cleanup ([#757](https://github.com/Kong/kongponents/issues/757)) ([47f072b](https://github.com/Kong/kongponents/commit/47f072b278e86eea723b0606422ee0df0b69f6d9))
+* **publish:** fix typings ([71d9b8e](https://github.com/Kong/kongponents/commit/71d9b8ed7b497165202f4c1e461cf03b48b91303))
+* readme ([68eae7a](https://github.com/Kong/kongponents/commit/68eae7a4c451dd8b37b1bf1b3d5910f12beedd2e))
+* **release:** trigger release ([d21a824](https://github.com/Kong/kongponents/commit/d21a824325937634313f7a2975474e3150f9b805))
+* remove comment ([8d0036f](https://github.com/Kong/kongponents/commit/8d0036f762b490255ebf6d2aa801babdccbea580))
+* remove unneeded scripts ([bc5e637](https://github.com/Kong/kongponents/commit/bc5e637a7bb4c7905c2912bfebb97ddb28a4e7d9))
+* **sass:** restructure files ([1d27287](https://github.com/Kong/kongponents/commit/1d272870a6cb10c8e2a25869c2a188361d8a713e))
+* **styles:** alter some styles for dark mode ([d7b8114](https://github.com/Kong/kongponents/commit/d7b81140bc6638ed9c60effa15794f112736fbd6))
+* **styles:** fix input error css ([215ebcc](https://github.com/Kong/kongponents/commit/215ebcc669c7c1abcb4641b444cf0da5d3f0ea69))
+* **styles:** fix styles ([33e0258](https://github.com/Kong/kongponents/commit/33e02586d065b4a20bd76a17ce01efda3e83d201))
+* **tables:** fix docs table code style ([8c3c0ee](https://github.com/Kong/kongponents/commit/8c3c0eef0acf4ce821a03a6cb8543878c46f5591))
+* **tables:** fix table styles ([4d4136d](https://github.com/Kong/kongponents/commit/4d4136dc61ece10af456d7e954cf567b3de0a6a8))
+* **theming:** disable theming page components ([33a91f9](https://github.com/Kong/kongponents/commit/33a91f9c3ea5392ecaac297b8b2d9e985db3659d))
+* **truncate-multi:** fix pixel multiplication ([#624](https://github.com/Kong/kongponents/issues/624)) ([0b08062](https://github.com/Kong/kongponents/commit/0b08062eaff50803c01e25bd4694944e9f644127))
+* **types:** fix type imports ([549f1d4](https://github.com/Kong/kongponents/commit/549f1d42bb37149514ff140600351e722d4b5b66))
+* **typography:** docs display ([#604](https://github.com/Kong/kongponents/issues/604)) ([d0bca1f](https://github.com/Kong/kongponents/commit/d0bca1fcc0180a795b518d34834611cd81cd9b01))
+* **typography:** text display [khcp-3407] ([#590](https://github.com/Kong/kongponents/issues/590)) ([36c3a35](https://github.com/Kong/kongponents/commit/36c3a358672ede2461bd5d936fc4f194d85a9caf))
+* update dependencies and code for new beta version ([#656](https://github.com/Kong/kongponents/issues/656)) ([2609629](https://github.com/Kong/kongponents/commit/2609629f2d8c11f5d6260db6c1d70391f274b0cc))
+* update icon md file ([#742](https://github.com/Kong/kongponents/issues/742)) ([15f6a80](https://github.com/Kong/kongponents/commit/15f6a80692c5415b919878a6aba2a957b09a791e))
+* **uuid:** replaced vue-uuid with uuid ([62a14fd](https://github.com/Kong/kongponents/commit/62a14fde6f6ccf156ebf5d2acad61b173b95babb))
+* **variables:** rename mixin ([544c762](https://github.com/Kong/kongponents/commit/544c76281678bb79466125eb65bc778b1b799afb))
+* **version:** bump release version ([187639b](https://github.com/Kong/kongponents/commit/187639b4325a82c567614c2beee4a18728c2faad))
+* vuepress indentation ([5f1b05b](https://github.com/Kong/kongponents/commit/5f1b05b6db3796658920f77a488d09019bce9fe2))
+
+
+### Features
+
+* **fonts:** default to non-licensed font-family ([#611](https://github.com/Kong/kongponents/issues/611)) ([0a41821](https://github.com/Kong/kongponents/commit/0a41821a6a3b64d176314516ded5db305b6e154c))
+* **kbadge:** add kbadge ([ece2198](https://github.com/Kong/kongponents/commit/ece21988c3126b6e8563006096d9d6ffcaa4e657))
+* **kbreadcrumbs:** adding kbreadcrumbs ([a2dae4e](https://github.com/Kong/kongponents/commit/a2dae4e855b8ba031bbadd95226260d87f287932))
+* **kbutton:** update kbutton with icon prop ([#544](https://github.com/Kong/kongponents/issues/544)) ([16b0915](https://github.com/Kong/kongponents/commit/16b091567d4b4400b1fb039db034408d5d62ca25))
+* **kcard:** add kcard ([7d045fd](https://github.com/Kong/kongponents/commit/7d045fd9739f89591e2dba1d48a2c802df56c782))
+* **kcatalog:** vue3 upgrade ([#584](https://github.com/Kong/kongponents/issues/584)) ([e76362e](https://github.com/Kong/kongponents/commit/e76362e2a18d05de872a11962f12a5bb36bdff70))
+* **kcheckbox:** update for vue 3 ([#550](https://github.com/Kong/kongponents/issues/550)) ([5275647](https://github.com/Kong/kongponents/commit/5275647ac867e93f83dc1ac611432f9f3e3bf2c8))
+* **kclipboardprovider:** add clipboard provider ([d35c5d1](https://github.com/Kong/kongponents/commit/d35c5d16c98b44bf9a80864ff86509b236572020))
+* **kdropdownmenu:** new kongponent [beta] ([#740](https://github.com/Kong/kongponents/issues/740)) ([5868209](https://github.com/Kong/kongponents/commit/586820963a4700aaa75345f5e7602778395b7820))
+* **kemptystate:** add kemptystate ([#531](https://github.com/Kong/kongponents/issues/531)) ([97ff949](https://github.com/Kong/kongponents/commit/97ff94903fa31e7268dd00c52d149ce94d42544e))
+* **kicon:** add arrow up/down icons ([#739](https://github.com/Kong/kongponents/issues/739)) ([7b2e6f7](https://github.com/Kong/kongponents/commit/7b2e6f732c3d2d4c9ff3399f4aaa71ba35f4d31a))
+* **kicon:** add book, plug and contactSupport icons ([#761](https://github.com/Kong/kongponents/issues/761)) ([986f5d4](https://github.com/Kong/kongponents/commit/986f5d4d4455600e31da24248c252a14933d3e9e)), closes [#760](https://github.com/Kong/kongponents/issues/760)
+* **kicon:** add increase/decrease icons [ma-643] ([#655](https://github.com/Kong/kongponents/issues/655)) ([a3beae6](https://github.com/Kong/kongponents/commit/a3beae6489902f4089f7f913e42e37ea1599711e)), closes [#654](https://github.com/Kong/kongponents/issues/654)
+* **kicon:** horizontal dots ([#582](https://github.com/Kong/kongponents/issues/582)) ([a60ae2f](https://github.com/Kong/kongponents/commit/a60ae2f5e2eb9c95cb6550e7d91cdc714bfa5fca))
+* **kinlineedit:** upgrade for vue 3 ([#551](https://github.com/Kong/kongponents/issues/551)) ([3cbf87d](https://github.com/Kong/kongponents/commit/3cbf87df9c3ff855c0429b47d1a815c52e00ed93))
+* **kinput:** add characterLimit ([#630](https://github.com/Kong/kongponents/issues/630)) ([18ae326](https://github.com/Kong/kongponents/commit/18ae3263767738c062646ee50b899004d1353e1a))
+* **kinput:** add kinput ([191d1b6](https://github.com/Kong/kongponents/commit/191d1b64887fd099c7856611462349915934a787))
+* **kinput:** add kinput enhancements to vue 3 version ([#528](https://github.com/Kong/kongponents/issues/528)) ([96c5a30](https://github.com/Kong/kongponents/commit/96c5a303d5758b412e91de33667f3c6a7b360e9f))
+* **kinputswitch:** update kinputswitch for vue 3 ([#569](https://github.com/Kong/kongponents/issues/569)) ([9b55021](https://github.com/Kong/kongponents/commit/9b55021c20dd3b350cad0b552c1610af5b99a247))
+* **kmenu:** update kmenu for vue 3 ([#573](https://github.com/Kong/kongponents/issues/573)) ([dbdfa7c](https://github.com/Kong/kongponents/commit/dbdfa7c8091c38f22cfc3e673171aa3f2fcb134f))
+* **kmodal:** adding kmodal ([e003563](https://github.com/Kong/kongponents/commit/e0035637fa6d464c3476d7579755d3c44aaeef87))
+* **kmodalfullscreen:** vue 3 upgrade ([#585](https://github.com/Kong/kongponents/issues/585)) ([a63121e](https://github.com/Kong/kongponents/commit/a63121e947c802c95cb02f880129e7e5314438b6))
+* **kmodal:** updates for quickstart [beta] ([#711](https://github.com/Kong/kongponents/issues/711)) ([705faec](https://github.com/Kong/kongponents/commit/705faecdf4bef281003a17fbf026c9ff28e598d3))
+* **kpagination/ktable:** support offset-based pagination ([#665](https://github.com/Kong/kongponents/issues/665)) ([e594cbc](https://github.com/Kong/kongponents/commit/e594cbcff4d229a72dd8c2773d7fe5cdee32ecf2))
+* **kpagination:** upgrade kpagination to vue 3 [KHCP-2750] ([#534](https://github.com/Kong/kongponents/issues/534)) ([6b3c653](https://github.com/Kong/kongponents/commit/6b3c65373b2d012478fb4350a589b19fe1916dd8))
+* **kpop:** adding kpop ([9a58200](https://github.com/Kong/kongponents/commit/9a58200ef7cc49725b1b7024020129b1c9dad284))
+* **kprompt:** update kprompt for vue 3 ([#568](https://github.com/Kong/kongponents/issues/568)) ([5d30c52](https://github.com/Kong/kongponents/commit/5d30c523b46908042597afc109ba180ea0626075))
+* **kradio:** update for vue 3 ([#552](https://github.com/Kong/kongponents/issues/552)) ([9c2bdde](https://github.com/Kong/kongponents/commit/9c2bdde0a2f5fb413697da31ee178609beac50cc))
+* **ksegmentedcontrol:** update ksegmentedcontrol for vue 3 ([#572](https://github.com/Kong/kongponents/issues/572)) ([8c73618](https://github.com/Kong/kongponents/commit/8c7361892cfee73e87fb656886cc0a179649a0ba))
+* **kselect:** add autosuggest support [KHCP-4292] ([#722](https://github.com/Kong/kongponents/issues/722)) ([92156c0](https://github.com/Kong/kongponents/commit/92156c0a60891ff0d4325c3c426875a1384c3c7d))
+* **kselect:** add clearable prop ([#762](https://github.com/Kong/kongponents/issues/762)) ([8a572df](https://github.com/Kong/kongponents/commit/8a572dffbb78db8df54c5d9dd4d73131543699dd)), closes [#749](https://github.com/Kong/kongponents/issues/749)
+* **kselect:** add overlayLabel support [beta] ([#694](https://github.com/Kong/kongponents/issues/694)) ([2d6060d](https://github.com/Kong/kongponents/commit/2d6060dfeda2d00e9e854389f6abaa3587aea6a3))
+* **kselect:** filterfunc support ([#598](https://github.com/Kong/kongponents/issues/598)) ([c69de57](https://github.com/Kong/kongponents/commit/c69de57e35f1e898c8473f407a4d96d2b4d30c35))
+* **kselect:** misc fixes [beta] ([#691](https://github.com/Kong/kongponents/issues/691)) ([a3815ed](https://github.com/Kong/kongponents/commit/a3815ed4ec9629f3633d08ec65d177823371445d))
+* **kselect:** upgrade kselect for vue 3 ([#535](https://github.com/Kong/kongponents/issues/535)) ([84a0e16](https://github.com/Kong/kongponents/commit/84a0e16e008eb4f6d12a5fa8d5a60145d4c9379e))
+* **kskeleton:** update kskeleton for vue 3 [KHCP-2755] ([#538](https://github.com/Kong/kongponents/issues/538)) ([d1dcbe3](https://github.com/Kong/kongponents/commit/d1dcbe3bfa12f7c926bbcf85dfad42191a6571e3))
+* **kslideout:** update kslideout for vue 3 ([#571](https://github.com/Kong/kongponents/issues/571)) ([4c69227](https://github.com/Kong/kongponents/commit/4c69227c8f15617124e1f927e915f96c6f3423d2))
+* **kstepper:** new kongponent [beta] ([#755](https://github.com/Kong/kongponents/issues/755)) ([8ff7742](https://github.com/Kong/kongponents/commit/8ff7742aefd97fadb81f387eb1ca9e21d1671af2))
+* **kstyles:** multi-line truncation [beta] ([#653](https://github.com/Kong/kongponents/issues/653)) ([79c53e0](https://github.com/Kong/kongponents/commit/79c53e02e481ea023e9d8161855711936df8f7d0))
+* **ktable:** add sortHandlerFn ([#580](https://github.com/Kong/kongponents/issues/580)) ([ebc7202](https://github.com/Kong/kongponents/commit/ebc7202317783f3a4787ffab67151d596db3dc20))
+* **ktable:** support for conditional events [beta] ([#637](https://github.com/Kong/kongponents/issues/637)) ([e77f02f](https://github.com/Kong/kongponents/commit/e77f02f25ced9ec5fc805a7aee6a5fc68943bc99))
+* **ktable:** update ktable for vue 3 [KHCP-2757] ([#536](https://github.com/Kong/kongponents/issues/536)) ([3d873d6](https://github.com/Kong/kongponents/commit/3d873d6fd44b95a0886fd62726ff23e1317ce5d5))
+* **ktabs:** update ktabs for vue 3 ([#570](https://github.com/Kong/kongponents/issues/570)) ([900d71c](https://github.com/Kong/kongponents/commit/900d71cac7de28bb50e00bda8a5f63810454a357))
+* **ktextarea:** upgrade to vue 3 ([#549](https://github.com/Kong/kongponents/issues/549)) ([0e53d4f](https://github.com/Kong/kongponents/commit/0e53d4f1688fa8e089ca9876541402c11b431fb7))
+* **ktoaster:** add ktoaster ([6a24e4d](https://github.com/Kong/kongponents/commit/6a24e4d070a7e575a7509c68e6dd738a2c857122))
+* **ktoaster:** add tests and docs ([ee337be](https://github.com/Kong/kongponents/commit/ee337bea160f4e1addf47898e23aa73e29a7643f))
+* **ktoggle:** adding ktoggle ([c202736](https://github.com/Kong/kongponents/commit/c202736e300390d6e826b83da3d46f961c673724))
+* **ktooltip:** adding ktooltip ([e169b82](https://github.com/Kong/kongponents/commit/e169b82b7ed086efe5862bd061831c2990d16521))
+* **kviewswitcher:** update k-view-switcher for vue 3 ([#557](https://github.com/Kong/kongponents/issues/557)) ([5c5909c](https://github.com/Kong/kongponents/commit/5c5909c6b72b0265a910d231b93e9670b0a1a5f2))
+* publish beta release [KHCP-3330] ([7c964fe](https://github.com/Kong/kongponents/commit/7c964fecc97aa5fb5706423e1d41d333aa9efb8c))
+* publish v7-beta [KHCP-3330] ([27b3bcf](https://github.com/Kong/kongponents/commit/27b3bcf61aac6591155bbbe23a59ba085c00e7a4))
+* testing semantic release ([f254c4b](https://github.com/Kong/kongponents/commit/f254c4b70fa908a69837fe2d9d73dfff1ddde223))
+
+
+### Reverts
+
+* commit bcf4ae9 ([8cc34d3](https://github.com/Kong/kongponents/commit/8cc34d38ca8c0b9991aea16bade8d32b888fb52d))
+* revert beta release ([d1851e5](https://github.com/Kong/kongponents/commit/d1851e51e21e6ea26dd80239451dbd526cd952be))
 
 
 ### BREAKING CHANGES
 
-* default appearance updated
-* props and styles completely updated
-* Color name is now different so any application usage must be updated when pulling latest version
-* **style:** All new colors and color naming. Various component style improvements.
-* **ktoaster:** ktoaster now imported differently
-and does not have since KToaster.vue anymore, as now
-it is managed by ToastManager
+* Update Kongponents to v7.0.0-beta.* for usage with Vue 3. If your project still
+uses Vue 2, use the @kongponents/* packages instead.
+* Update Kongponents to v7 for usage with Vue v3. If your project uses Vue 2, you
+should check out the @kongponents/* packages.
 
-* chore(KToaster) update license to apache 2.0
-* change test component
+# [7.0.0-beta.94](https://github.com/Kong/kongponents/compare/v7.0.0-beta.93...v7.0.0-beta.94) (2022-08-29)
+
+
+### Bug Fixes
+
+* readme ([68eae7a](https://github.com/Kong/kongponents/commit/68eae7a4c451dd8b37b1bf1b3d5910f12beedd2e))
+* remove comment ([8d0036f](https://github.com/Kong/kongponents/commit/8d0036f762b490255ebf6d2aa801babdccbea580))
+
+# [7.0.0-beta.93](https://github.com/Kong/kongponents/compare/v7.0.0-beta.92...v7.0.0-beta.93) (2022-08-28)
+
+
+### Bug Fixes
+
+* **kbutton:** update disabled logic ([a8589c7](https://github.com/Kong/kongponents/commit/a8589c744812b8aea3d7c3f17709c5017dac3826))
+
+# [7.0.0-beta.92](https://github.com/Kong/kongponents/compare/v7.0.0-beta.91...v7.0.0-beta.92) (2022-08-23)
+
+
+### Bug Fixes
+
+* **kselect:** backport [#723](https://github.com/Kong/kongponents/issues/723) ([#764](https://github.com/Kong/kongponents/issues/764)) ([7ca14ac](https://github.com/Kong/kongponents/commit/7ca14acf6c382487169b07f31d0a6ac7f1e785b2))
+
+# [7.0.0-beta.91](https://github.com/Kong/kongponents/compare/v7.0.0-beta.90...v7.0.0-beta.91) (2022-08-23)
+
+
+### Bug Fixes
+
+* backport [#763](https://github.com/Kong/kongponents/issues/763) ([#765](https://github.com/Kong/kongponents/issues/765)) ([6a18ce7](https://github.com/Kong/kongponents/commit/6a18ce71f24ee6a268dca71e100954775945c7ea))
+
+# [7.0.0-beta.90](https://github.com/Kong/kongponents/compare/v7.0.0-beta.89...v7.0.0-beta.90) (2022-08-22)
+
+
+### Bug Fixes
+
+* **kbutton:** cannot spread attrs ([29c910b](https://github.com/Kong/kongponents/commit/29c910b25bb426a813e0c090199a7b467eeaf9a7))
+* **kbutton:** update disabled logic ([ae34cb0](https://github.com/Kong/kongponents/commit/ae34cb0ab2a52ccd39ab547ecc2787ca930ac20d))
+* **kbutton:** update disabled logic ([4f22383](https://github.com/Kong/kongponents/commit/4f22383cd110b44f31d90de9cf3c2e1316f97253))
+
+# [7.0.0-beta.89](https://github.com/Kong/kongponents/compare/v7.0.0-beta.88...v7.0.0-beta.89) (2022-08-17)
+
+
+### Features
+
+* **kicon:** add book, plug and contactSupport icons ([#761](https://github.com/Kong/kongponents/issues/761)) ([986f5d4](https://github.com/Kong/kongponents/commit/986f5d4d4455600e31da24248c252a14933d3e9e)), closes [#760](https://github.com/Kong/kongponents/issues/760)
+* **kselect:** add clearable prop ([#762](https://github.com/Kong/kongponents/issues/762)) ([8a572df](https://github.com/Kong/kongponents/commit/8a572dffbb78db8df54c5d9dd4d73131543699dd)), closes [#749](https://github.com/Kong/kongponents/issues/749)
+
+# [7.0.0-beta.88](https://github.com/Kong/kongponents/compare/v7.0.0-beta.87...v7.0.0-beta.88) (2022-08-16)
+
+
+### Bug Fixes
+
+* **types:** fix type imports ([549f1d4](https://github.com/Kong/kongponents/commit/549f1d42bb37149514ff140600351e722d4b5b66))
+
+# [7.0.0-beta.87](https://github.com/Kong/kongponents/compare/v7.0.0-beta.86...v7.0.0-beta.87) (2022-08-11)
+
+
+### Bug Fixes
+
+* misc cleanup ([#757](https://github.com/Kong/kongponents/issues/757)) ([47f072b](https://github.com/Kong/kongponents/commit/47f072b278e86eea723b0606422ee0df0b69f6d9))
+
+# [7.0.0-beta.86](https://github.com/Kong/kongponents/compare/v7.0.0-beta.85...v7.0.0-beta.86) (2022-08-11)
+
+
+### Features
+
+* **kstepper:** new kongponent [beta] ([#755](https://github.com/Kong/kongponents/issues/755)) ([8ff7742](https://github.com/Kong/kongponents/commit/8ff7742aefd97fadb81f387eb1ca9e21d1671af2))
+
+# [7.0.0-beta.85](https://github.com/Kong/kongponents/compare/v7.0.0-beta.84...v7.0.0-beta.85) (2022-08-10)
+
+
+### Features
+
+* **kdropdownmenu:** new kongponent [beta] ([#740](https://github.com/Kong/kongponents/issues/740)) ([5868209](https://github.com/Kong/kongponents/commit/586820963a4700aaa75345f5e7602778395b7820))
+
+# [7.0.0-beta.84](https://github.com/Kong/kongponents/compare/v7.0.0-beta.83...v7.0.0-beta.84) (2022-08-10)
+
+
+### Bug Fixes
+
+* **kbutton:** remove webkit tap highlight color ([efb0db3](https://github.com/Kong/kongponents/commit/efb0db32ee5635a8351d5b53dd5ba9c4a7b6fd1f))
+
+# [7.0.0-beta.83](https://github.com/Kong/kongponents/compare/v7.0.0-beta.82...v7.0.0-beta.83) (2022-08-09)
+
+
+### Bug Fixes
+
+* **kselect:** update items and filter logic ([#751](https://github.com/Kong/kongponents/issues/751)) ([d6fc78b](https://github.com/Kong/kongponents/commit/d6fc78bbdfe034d904f4dcd0b313f606148fcad3))
+
+# [7.0.0-beta.82](https://github.com/Kong/kongponents/compare/v7.0.0-beta.81...v7.0.0-beta.82) (2022-08-09)
+
+
+### Bug Fixes
+
+* **ktable:** update v-on value ([#746](https://github.com/Kong/kongponents/issues/746)) ([5aa2f50](https://github.com/Kong/kongponents/commit/5aa2f50a0cf7fd2b9d91067b0ff98f8b4c76ae1b))
+
+# [7.0.0-beta.81](https://github.com/Kong/kongponents/compare/v7.0.0-beta.80...v7.0.0-beta.81) (2022-08-05)
+
+
+### Bug Fixes
+
+* **kpagination:** use positionFixed [beta] ([#744](https://github.com/Kong/kongponents/issues/744)) ([1a1952c](https://github.com/Kong/kongponents/commit/1a1952c79fe5335f9c37fed945e0ee79a277e680))
+
+# [7.0.0-beta.80](https://github.com/Kong/kongponents/compare/v7.0.0-beta.79...v7.0.0-beta.80) (2022-08-05)
+
+
+### Bug Fixes
+
+* **kmodal:** dismiss icon logic [beta] ([#738](https://github.com/Kong/kongponents/issues/738)) ([f675223](https://github.com/Kong/kongponents/commit/f675223d0d1e79644f2e01f211b2811a32fb844d))
+* update icon md file ([#742](https://github.com/Kong/kongponents/issues/742)) ([15f6a80](https://github.com/Kong/kongponents/commit/15f6a80692c5415b919878a6aba2a957b09a791e))
+
+# [7.0.0-beta.79](https://github.com/Kong/kongponents/compare/v7.0.0-beta.78...v7.0.0-beta.79) (2022-08-04)
+
+
+### Features
+
+* **kicon:** add arrow up/down icons ([#739](https://github.com/Kong/kongponents/issues/739)) ([7b2e6f7](https://github.com/Kong/kongponents/commit/7b2e6f732c3d2d4c9ff3399f4aaa71ba35f4d31a))
+
+# [7.0.0-beta.78](https://github.com/Kong/kongponents/compare/v7.0.0-beta.77...v7.0.0-beta.78) (2022-08-04)
+
+
+### Bug Fixes
+
+* **kselect:** update popover width when it opens ([#735](https://github.com/Kong/kongponents/issues/735)) ([9a979df](https://github.com/Kong/kongponents/commit/9a979df72dcea314a3b6dc731ce8b4c2a25bf227))
+
+# [7.0.0-beta.77](https://github.com/Kong/kongponents/compare/v7.0.0-beta.76...v7.0.0-beta.77) (2022-08-04)
+
+
+### Bug Fixes
+
+* **kicon:** update vitals icon [beta] ([#732](https://github.com/Kong/kongponents/issues/732)) ([a53ed6d](https://github.com/Kong/kongponents/commit/a53ed6d0ba6c19334f97e93b0011752120eff1f8))
+
+# [7.0.0-beta.76](https://github.com/Kong/kongponents/compare/v7.0.0-beta.75...v7.0.0-beta.76) (2022-08-02)
+
+
+### Bug Fixes
+
+* **kpop:** update target default ([#730](https://github.com/Kong/kongponents/issues/730)) ([0492b37](https://github.com/Kong/kongponents/commit/0492b370db65271edaea8013ec01ea442d4965b9))
+
+# [7.0.0-beta.75](https://github.com/Kong/kongponents/compare/v7.0.0-beta.74...v7.0.0-beta.75) (2022-08-02)
+
+
+### Bug Fixes
+
+* **kselect:** remove is-open prop on KInput ([#727](https://github.com/Kong/kongponents/issues/727)) ([811303a](https://github.com/Kong/kongponents/commit/811303a7efb4a0472e71fd47c9027b1bb8436fd1))
+
+# [7.0.0-beta.74](https://github.com/Kong/kongponents/compare/v7.0.0-beta.73...v7.0.0-beta.74) (2022-08-01)
+
+
+### Bug Fixes
+
+* **kooltip:** z-index bump ([#726](https://github.com/Kong/kongponents/issues/726)) ([9fef3d5](https://github.com/Kong/kongponents/commit/9fef3d534b783dc20afe9b78078d60cfb7d55f1c))
+
+# [7.0.0-beta.73](https://github.com/Kong/kongponents/compare/v7.0.0-beta.72...v7.0.0-beta.73) (2022-07-29)
+
+
+### Features
+
+* **kselect:** add autosuggest support [KHCP-4292] ([#722](https://github.com/Kong/kongponents/issues/722)) ([92156c0](https://github.com/Kong/kongponents/commit/92156c0a60891ff0d4325c3c426875a1384c3c7d))
+
+# [7.0.0-beta.72](https://github.com/Kong/kongponents/compare/v7.0.0-beta.71...v7.0.0-beta.72) (2022-07-27)
+
+
+### Bug Fixes
+
+* **kalert:** update default line-height ([047f5ac](https://github.com/Kong/kongponents/commit/047f5ac1fd60d78c142edb3307d6d41d6d555983))
+
+# [7.0.0-beta.71](https://github.com/Kong/kongponents/compare/v7.0.0-beta.70...v7.0.0-beta.71) (2022-07-26)
+
+
+### Bug Fixes
+
+* **kemptystate:** backport [#720](https://github.com/Kong/kongponents/issues/720) [beta] ([#721](https://github.com/Kong/kongponents/issues/721)) ([1161571](https://github.com/Kong/kongponents/commit/116157134f4f3e35c2b798a66744014818eda793))
+* **kpopover:** fix logic to prevent errors [beta] ([#715](https://github.com/Kong/kongponents/issues/715)) ([6b06b92](https://github.com/Kong/kongponents/commit/6b06b928c1b4ed5419f3c456d3e021f5f0e07570))
+
+# [7.0.0-beta.70](https://github.com/Kong/kongponents/compare/v7.0.0-beta.69...v7.0.0-beta.70) (2022-07-22)
+
+
+### Bug Fixes
+
+* font weights ([23e9f88](https://github.com/Kong/kongponents/commit/23e9f88dcee882787fda497c75e3b84002008118))
+
+# [7.0.0-beta.69](https://github.com/Kong/kongponents/compare/v7.0.0-beta.68...v7.0.0-beta.69) (2022-07-22)
+
+
+### Features
+
+* **kmodal:** updates for quickstart [beta] ([#711](https://github.com/Kong/kongponents/issues/711)) ([705faec](https://github.com/Kong/kongponents/commit/705faecdf4bef281003a17fbf026c9ff28e598d3))
+
+# [7.0.0-beta.68](https://github.com/Kong/kongponents/compare/v7.0.0-beta.67...v7.0.0-beta.68) (2022-07-22)
+
+
+### Bug Fixes
+
+* **kselect:** backport [#712](https://github.com/Kong/kongponents/issues/712) [beta] ([#713](https://github.com/Kong/kongponents/issues/713)) ([f39c7da](https://github.com/Kong/kongponents/commit/f39c7dabc49ba477ad33d1b7ac6bc6c1f418c693))
+
+# [7.0.0-beta.67](https://github.com/Kong/kongponents/compare/v7.0.0-beta.66...v7.0.0-beta.67) (2022-07-19)
+
+
+### Bug Fixes
+
+* **kmodal:** allow clicking on elements within the modal body [KHCP-4212] ([#709](https://github.com/Kong/kongponents/issues/709)) ([c69c139](https://github.com/Kong/kongponents/commit/c69c13964c4a1aaef5509f71002e1857790cb491))
+
+# [7.0.0-beta.66](https://github.com/Kong/kongponents/compare/v7.0.0-beta.65...v7.0.0-beta.66) (2022-07-19)
+
+
+### Bug Fixes
+
+* **docs:** code snippet syntax ([#701](https://github.com/Kong/kongponents/issues/701)) ([150c3d8](https://github.com/Kong/kongponents/commit/150c3d85ecf6f3122d9be08296d4216db4f02245))
+* **kselect:** disabled and readonly states [beta] ([#707](https://github.com/Kong/kongponents/issues/707)) ([ff4c402](https://github.com/Kong/kongponents/commit/ff4c402bfc8ffa94ed7ae96803d391076523bab2))
+
+# [7.0.0-beta.65](https://github.com/Kong/kongponents/compare/v7.0.0-beta.64...v7.0.0-beta.65) (2022-07-18)
+
+
+### Bug Fixes
+
+* **kcheckbox:** readonly styles ([#704](https://github.com/Kong/kongponents/issues/704)) ([9ea5111](https://github.com/Kong/kongponents/commit/9ea511178d628b7570921b955f5441d9decece7f))
+
+# [7.0.0-beta.64](https://github.com/Kong/kongponents/compare/v7.0.0-beta.63...v7.0.0-beta.64) (2022-07-18)
+
+
+### Bug Fixes
+
+* **kselect:** fix item margin bottom ([45f2671](https://github.com/Kong/kongponents/commit/45f2671b01aa4062252ef88755784c028fb071ef))
+* **kselect:** fix item margin bottom ([627fb17](https://github.com/Kong/kongponents/commit/627fb17ec674faadf9dafa6ba65c01da975e4043))
+
+# [7.0.0-beta.63](https://github.com/Kong/kongponents/compare/v7.0.0-beta.62...v7.0.0-beta.63) (2022-07-15)
+
+
+### Bug Fixes
+
+* **kselect:** input border radius and dropdown spacing [beta] ([#700](https://github.com/Kong/kongponents/issues/700)) ([baa6738](https://github.com/Kong/kongponents/commit/baa6738515170d54c2a5fe440c438323f9ed725e)), closes [#694](https://github.com/Kong/kongponents/issues/694)
+
+# [7.0.0-beta.62](https://github.com/Kong/kongponents/compare/v7.0.0-beta.61...v7.0.0-beta.62) (2022-07-15)
+
+
+### Features
+
+* **kselect:** add overlayLabel support [beta] ([#694](https://github.com/Kong/kongponents/issues/694)) ([2d6060d](https://github.com/Kong/kongponents/commit/2d6060dfeda2d00e9e854389f6abaa3587aea6a3))
+
+# [7.0.0-beta.61](https://github.com/Kong/kongponents/compare/v7.0.0-beta.60...v7.0.0-beta.61) (2022-07-15)
+
+
+### Bug Fixes
+
+* **ktable,kcatalog:** backport [#685](https://github.com/Kong/kongponents/issues/685) [beta] ([#686](https://github.com/Kong/kongponents/issues/686)) ([90fe89b](https://github.com/Kong/kongponents/commit/90fe89b443dfa3ccc4cc15769681f6d5057eab12))
+
+# [7.0.0-beta.60](https://github.com/Kong/kongponents/compare/v7.0.0-beta.59...v7.0.0-beta.60) (2022-07-15)
+
+
+### Features
+
+* **kselect:** misc fixes [beta] ([#691](https://github.com/Kong/kongponents/issues/691)) ([a3815ed](https://github.com/Kong/kongponents/commit/a3815ed4ec9629f3633d08ec65d177823371445d))
+
+# [7.0.0-beta.59](https://github.com/Kong/kongponents/compare/v7.0.0-beta.58...v7.0.0-beta.59) (2022-07-14)
+
+
+### Bug Fixes
+
+* **kalert:** update default colors ([118320c](https://github.com/Kong/kongponents/commit/118320c23bf4c51d49220d533de416f5b2a0f65f))
+
+# [7.0.0-beta.58](https://github.com/Kong/kongponents/compare/v7.0.0-beta.57...v7.0.0-beta.58) (2022-07-14)
+
+
+### Bug Fixes
+
+* **kbutton:** falsy disabled attribute on native link element ([#690](https://github.com/Kong/kongponents/issues/690)) ([2391fd5](https://github.com/Kong/kongponents/commit/2391fd527ff8d44ca10b2729ad7645072a405f23))
+
+# [7.0.0-beta.57](https://github.com/Kong/kongponents/compare/v7.0.0-beta.56...v7.0.0-beta.57) (2022-07-12)
+
+
+### Bug Fixes
+
+* **deps:** upgrade beta dependencies ([#687](https://github.com/Kong/kongponents/issues/687)) ([3b78f01](https://github.com/Kong/kongponents/commit/3b78f01dca2b0adf4e3fe9d53f84567fef3de15f))
+
+# [7.0.0-beta.56](https://github.com/Kong/kongponents/compare/v7.0.0-beta.55...v7.0.0-beta.56) (2022-07-08)
+
+
+### Bug Fixes
+
+* **kmodalfs:** backport spacing ([#683](https://github.com/Kong/kongponents/issues/683)) ([de67137](https://github.com/Kong/kongponents/commit/de671374792485972e0cdbbd92879073d20e0d0c))
+
+# [7.0.0-beta.55](https://github.com/Kong/kongponents/compare/v7.0.0-beta.54...v7.0.0-beta.55) (2022-07-08)
+
+
+### Bug Fixes
+
+* **font-weight:** fix font weights ([bac5214](https://github.com/Kong/kongponents/commit/bac52143976a0ce05e2023113507e827abf4273b))
+
+# [7.0.0-beta.54](https://github.com/Kong/kongponents/compare/v7.0.0-beta.53...v7.0.0-beta.54) (2022-07-08)
+
+
+### Features
+
+* **kpagination/ktable:** support offset-based pagination ([#665](https://github.com/Kong/kongponents/issues/665)) ([e594cbc](https://github.com/Kong/kongponents/commit/e594cbcff4d229a72dd8c2773d7fe5cdee32ecf2))
+
+# [7.0.0-beta.53](https://github.com/Kong/kongponents/compare/v7.0.0-beta.52...v7.0.0-beta.53) (2022-07-06)
+
+
+### Bug Fixes
+
+* bump version ([bf50910](https://github.com/Kong/kongponents/commit/bf50910d1e542b9d80827d6ba762fa53d5865464))
+* **version:** bump release version ([187639b](https://github.com/Kong/kongponents/commit/187639b4325a82c567614c2beee4a18728c2faad))
+
+# [7.0.0-beta.52](https://github.com/Kong/kongponents/compare/v7.0.0-beta.51...v7.0.0-beta.52) (2022-07-05)
+
+
+### Bug Fixes
+
+* **kbutton:** kong-icon within button should be inline-flex ([a1a3817](https://github.com/Kong/kongponents/commit/a1a3817c7377f18b6e0af00456303cdb120f52fc))
+
+# [7.0.0-beta.51](https://github.com/Kong/kongponents/compare/v7.0.0-beta.50...v7.0.0-beta.51) (2022-06-30)
+
+
+### Bug Fixes
+
+* **kmodalfullscreen:** align header [beta] ([bcf4ae9](https://github.com/Kong/kongponents/commit/bcf4ae918fe1b9c7ef4e12f7974b7c29d2417c07))
+* **kmodalfullscreen:** align header [beta] ([#670](https://github.com/Kong/kongponents/issues/670)) ([008c9ea](https://github.com/Kong/kongponents/commit/008c9eade5375bfcc313729417589c50082e5187))
+
+
+### Reverts
+
+* commit bcf4ae9 ([8cc34d3](https://github.com/Kong/kongponents/commit/8cc34d38ca8c0b9991aea16bade8d32b888fb52d))
+
+# [7.0.0-beta.50](https://github.com/Kong/kongponents/compare/v7.0.0-beta.49...v7.0.0-beta.50) (2022-06-23)
+
+
+### Bug Fixes
+
+* **kcard:** add padding top 0 to title ([6c159e6](https://github.com/Kong/kongponents/commit/6c159e67b09e83ccb01e40e0a20e10637bd4f97e))
+
+# [7.0.0-beta.49](https://github.com/Kong/kongponents/compare/v7.0.0-beta.48...v7.0.0-beta.49) (2022-06-22)
+
+
+### Bug Fixes
+
+* **kinlineedit:** hover bg color [beta] ([02e17b1](https://github.com/Kong/kongponents/commit/02e17b1d1c341e06dc9cc30a39914c6ca0af7208))
+
+# [7.0.0-beta.48](https://github.com/Kong/kongponents/compare/v7.0.0-beta.47...v7.0.0-beta.48) (2022-06-13)
+
+
+### Bug Fixes
+
+* update dependencies and code for new beta version ([#656](https://github.com/Kong/kongponents/issues/656)) ([2609629](https://github.com/Kong/kongponents/commit/2609629f2d8c11f5d6260db6c1d70391f274b0cc))
+
+# [7.0.0-beta.47](https://github.com/Kong/kongponents/compare/v7.0.0-beta.46...v7.0.0-beta.47) (2022-06-10)
+
+
+### Features
+
+* **kicon:** add increase/decrease icons [ma-643] ([#655](https://github.com/Kong/kongponents/issues/655)) ([a3beae6](https://github.com/Kong/kongponents/commit/a3beae6489902f4089f7f913e42e37ea1599711e)), closes [#654](https://github.com/Kong/kongponents/issues/654)
+
+# [7.0.0-beta.46](https://github.com/Kong/kongponents/compare/v7.0.0-beta.45...v7.0.0-beta.46) (2022-06-10)
+
+
+### Bug Fixes
+
+* **kinput:** deepclone value prop [beta] ([#651](https://github.com/Kong/kongponents/issues/651)) ([4609bac](https://github.com/Kong/kongponents/commit/4609bac4c2143595c28060519c20ef41b6769e61))
+
+# [7.0.0-beta.45](https://github.com/Kong/kongponents/compare/v7.0.0-beta.44...v7.0.0-beta.45) (2022-06-09)
+
+
+### Features
+
+* **kstyles:** multi-line truncation [beta] ([#653](https://github.com/Kong/kongponents/issues/653)) ([79c53e0](https://github.com/Kong/kongponents/commit/79c53e02e481ea023e9d8161855711936df8f7d0))
+
+# [7.0.0-beta.44](https://github.com/Kong/kongponents/compare/v7.0.0-beta.43...v7.0.0-beta.44) (2022-06-06)
+
+
+### Bug Fixes
+
+* backport fixes to beta ([#646](https://github.com/Kong/kongponents/issues/646)) ([44479cc](https://github.com/Kong/kongponents/commit/44479cca89699c5f4b548d63cf5fe723121ba15c))
+
+# [7.0.0-beta.43](https://github.com/Kong/kongponents/compare/v7.0.0-beta.42...v7.0.0-beta.43) (2022-05-24)
+
+
+### Bug Fixes
+
+* **kinput:** update x icon for search input ([#643](https://github.com/Kong/kongponents/issues/643)) ([b8db448](https://github.com/Kong/kongponents/commit/b8db4484c71d73b407b9c3ff9c234ff45ed25b02))
+
+# [7.0.0-beta.42](https://github.com/Kong/kongponents/compare/v7.0.0-beta.41...v7.0.0-beta.42) (2022-05-23)
+
+
+### Bug Fixes
+
+* **ktable:** emit event on cell and row click [beta] ([#641](https://github.com/Kong/kongponents/issues/641)) ([ab71839](https://github.com/Kong/kongponents/commit/ab71839101abf318607c2175577f122863d00213))
+
+# [7.0.0-beta.41](https://github.com/Kong/kongponents/compare/v7.0.0-beta.40...v7.0.0-beta.41) (2022-05-20)
+
+
+### Bug Fixes
+
+* vuepress indentation ([5f1b05b](https://github.com/Kong/kongponents/commit/5f1b05b6db3796658920f77a488d09019bce9fe2))
+
+# [7.0.0-beta.40](https://github.com/Kong/kongponents/compare/v7.0.0-beta.39...v7.0.0-beta.40) (2022-05-20)
+
+
+### Features
+
+* **ktable:** support for conditional events [beta] ([#637](https://github.com/Kong/kongponents/issues/637)) ([e77f02f](https://github.com/Kong/kongponents/commit/e77f02f25ced9ec5fc805a7aee6a5fc68943bc99))
+
+# [7.0.0-beta.39](https://github.com/Kong/kongponents/compare/v7.0.0-beta.38...v7.0.0-beta.39) (2022-05-19)
+
+
+### Bug Fixes
+
+* **kicon:** update spinner stroke width ([4230808](https://github.com/Kong/kongponents/commit/42308083f591bfac6c7a6f776246d309857aabf5))
+
+# [7.0.0-beta.38](https://github.com/Kong/kongponents/compare/v7.0.0-beta.37...v7.0.0-beta.38) (2022-05-19)
+
+
+### Bug Fixes
+
+* **kicon:** fix var reference ([158031f](https://github.com/Kong/kongponents/commit/158031f416e6c1fff3d99e95e20142f2e8322946))
+* **kicon:** not updating reactively ([8cbaf8e](https://github.com/Kong/kongponents/commit/8cbaf8e7c90ced3e0c39d67fd4b915ec26988103))
+
+# [7.0.0-beta.37](https://github.com/Kong/kongponents/compare/v7.0.0-beta.36...v7.0.0-beta.37) (2022-05-19)
+
+
+### Bug Fixes
+
+* **kicon:** update svg if icon props change ([#636](https://github.com/Kong/kongponents/issues/636)) ([2db921e](https://github.com/Kong/kongponents/commit/2db921e05e7d38d04e49455d8c53b97cf959b0c7))
+* **kinput:** add character limit event to docs ([f6413a9](https://github.com/Kong/kongponents/commit/f6413a9eaa35780b43cbdd666ff2e1fecc66b049))
+
+# [7.0.0-beta.36](https://github.com/Kong/kongponents/compare/v7.0.0-beta.35...v7.0.0-beta.36) (2022-05-19)
+
+
+### Bug Fixes
+
+* **kbutton:** disallow pointer-events for disabled button icon ([dcc6712](https://github.com/Kong/kongponents/commit/dcc67120e4ad5165b269e9fc1dcdfce3ffbf48f5))
+
+# [7.0.0-beta.35](https://github.com/Kong/kongponents/compare/v7.0.0-beta.34...v7.0.0-beta.35) (2022-05-19)
+
+
+### Bug Fixes
+
+* **ktable:** more row click fix [beta] ([#619](https://github.com/Kong/kongponents/issues/619)) ([0c54110](https://github.com/Kong/kongponents/commit/0c54110e5ef919f9dbc16e2258abda1ea50d11ad))
+
+# [7.0.0-beta.34](https://github.com/Kong/kongponents/compare/v7.0.0-beta.33...v7.0.0-beta.34) (2022-05-19)
+
+
+### Bug Fixes
+
+* **kprompt:** bottom divider ([#616](https://github.com/Kong/kongponents/issues/616)) ([829a692](https://github.com/Kong/kongponents/commit/829a69259f31df9f7d48893e44052a088554caab))
+
+# [7.0.0-beta.33](https://github.com/Kong/kongponents/compare/v7.0.0-beta.32...v7.0.0-beta.33) (2022-05-19)
+
+
+### Features
+
+* **kinput:** add characterLimit ([#630](https://github.com/Kong/kongponents/issues/630)) ([18ae326](https://github.com/Kong/kongponents/commit/18ae3263767738c062646ee50b899004d1353e1a))
+
+# [7.0.0-beta.32](https://github.com/Kong/kongponents/compare/v7.0.0-beta.31...v7.0.0-beta.32) (2022-05-17)
+
+
+### Bug Fixes
+
+* **colors:** update hex for steel-500 ([a88d185](https://github.com/Kong/kongponents/commit/a88d1851f262cf1c60d5e9748f41716365b8ffe2))
+
+# [7.0.0-beta.31](https://github.com/Kong/kongponents/compare/v7.0.0-beta.30...v7.0.0-beta.31) (2022-05-14)
+
+
+### Bug Fixes
+
+* **kbutton:** add important to button disabled styles ([ddddf3c](https://github.com/Kong/kongponents/commit/ddddf3c0a74b276141f8c6717c5eb72f9e2cc397))
+
+# [7.0.0-beta.30](https://github.com/Kong/kongponents/compare/v7.0.0-beta.29...v7.0.0-beta.30) (2022-05-12)
+
+
+### Bug Fixes
+
+* **kbutton,kicon:** fix button icon color [beta] ([#627](https://github.com/Kong/kongponents/issues/627)) ([33a59b6](https://github.com/Kong/kongponents/commit/33a59b6aede24622ff9503b494d6f03bd058a1d7))
+
+# [7.0.0-beta.29](https://github.com/Kong/kongponents/compare/v7.0.0-beta.28...v7.0.0-beta.29) (2022-05-12)
+
+
+### Bug Fixes
+
+* **klabel:** default font weight to 600 ([f23282d](https://github.com/Kong/kongponents/commit/f23282da02e92654ebbfac3062d7305f25023b3f))
+
+# [7.0.0-beta.28](https://github.com/Kong/kongponents/compare/v7.0.0-beta.27...v7.0.0-beta.28) (2022-05-12)
+
+
+### Bug Fixes
+
+* **variables:** rename mixin ([544c762](https://github.com/Kong/kongponents/commit/544c76281678bb79466125eb65bc778b1b799afb))
+
+# [7.0.0-beta.27](https://github.com/Kong/kongponents/compare/v7.0.0-beta.26...v7.0.0-beta.27) (2022-05-12)
+
+
+### Bug Fixes
+
+* **css-variables:** move to separate mixin ([#626](https://github.com/Kong/kongponents/issues/626)) ([7a1b0c9](https://github.com/Kong/kongponents/commit/7a1b0c98a59c25d83b29f34748d5038cd94c8f4e))
+* **sass:** restructure files ([1d27287](https://github.com/Kong/kongponents/commit/1d272870a6cb10c8e2a25869c2a188361d8a713e))
+
+# [7.0.0-beta.26](https://github.com/Kong/kongponents/compare/v7.0.0-beta.25...v7.0.0-beta.26) (2022-05-12)
+
+
+### Bug Fixes
+
+* **truncate-multi:** fix pixel multiplication ([#624](https://github.com/Kong/kongponents/issues/624)) ([0b08062](https://github.com/Kong/kongponents/commit/0b08062eaff50803c01e25bd4694944e9f644127))
+
+# [7.0.0-beta.25](https://github.com/Kong/kongponents/compare/v7.0.0-beta.24...v7.0.0-beta.25) (2022-05-09)
+
+
+### Bug Fixes
+
+* **kcatalog,ktables:** docs and classes ([#621](https://github.com/Kong/kongponents/issues/621)) ([5282363](https://github.com/Kong/kongponents/commit/52823638ace5426c7276fb3b7fbdcbd4c9258659))
+
+# [7.0.0-beta.24](https://github.com/Kong/kongponents/compare/v7.0.0-beta.23...v7.0.0-beta.24) (2022-05-04)
+
+
+### Bug Fixes
+
+* **ktable:** fix row click handling ([#615](https://github.com/Kong/kongponents/issues/615)) ([ea47300](https://github.com/Kong/kongponents/commit/ea473006bc85a581a4c263012b8c5999d2cfaab1))
+
+# [7.0.0-beta.23](https://github.com/Kong/kongponents/compare/v7.0.0-beta.22...v7.0.0-beta.23) (2022-05-02)
+
+
+### Bug Fixes
+
+* **ktable:** row click slotted content ([#610](https://github.com/Kong/kongponents/issues/610)) ([0c550b8](https://github.com/Kong/kongponents/commit/0c550b86ecc28a1f65943d97cd78079f2769a332))
+
+# [7.0.0-beta.22](https://github.com/Kong/kongponents/compare/v7.0.0-beta.21...v7.0.0-beta.22) (2022-05-02)
+
+
+### Features
+
+* **fonts:** default to non-licensed font-family ([#611](https://github.com/Kong/kongponents/issues/611)) ([0a41821](https://github.com/Kong/kongponents/commit/0a41821a6a3b64d176314516ded5db305b6e154c))
+
+# [7.0.0-beta.21](https://github.com/Kong/kongponents/compare/v7.0.0-beta.20...v7.0.0-beta.21) (2022-04-22)
+
+
+### Bug Fixes
+
+* **ktable,kcatalog:** data-testid additions ([#605](https://github.com/Kong/kongponents/issues/605)) ([6ea25ed](https://github.com/Kong/kongponents/commit/6ea25ed8126371c6e65e89f500306ae47690cf3c)), closes [#603](https://github.com/Kong/kongponents/issues/603)
+* **ktable,kcatalog:** fix issues ([#607](https://github.com/Kong/kongponents/issues/607)) ([950c058](https://github.com/Kong/kongponents/commit/950c058e2dd1a3c53d2b7e0669ff3f85f4764a4b))
+* **typography:** docs display ([#604](https://github.com/Kong/kongponents/issues/604)) ([d0bca1f](https://github.com/Kong/kongponents/commit/d0bca1fcc0180a795b518d34834611cd81cd9b01))
+
+# [7.0.0-beta.20](https://github.com/Kong/kongponents/compare/v7.0.0-beta.19...v7.0.0-beta.20) (2022-04-20)
+
+
+### Bug Fixes
+
+* **kskeleton:** docs cleanup ([#602](https://github.com/Kong/kongponents/issues/602)) ([b400be0](https://github.com/Kong/kongponents/commit/b400be071254a70cb08f7a5b4f55263a36aff702))
+
+# [7.0.0-beta.19](https://github.com/Kong/kongponents/compare/v7.0.0-beta.18...v7.0.0-beta.19) (2022-04-20)
+
+
+### Bug Fixes
+
+* **kselect:** select popover pos ([#601](https://github.com/Kong/kongponents/issues/601)) ([a117713](https://github.com/Kong/kongponents/commit/a117713f27287b9f8ee0919b6b0fd58a1b539d3d))
+
+# [7.0.0-beta.18](https://github.com/Kong/kongponents/compare/v7.0.0-beta.17...v7.0.0-beta.18) (2022-04-20)
+
+
+### Bug Fixes
+
+* **ktextarea:** docs cleanup ([#600](https://github.com/Kong/kongponents/issues/600)) ([8cc36fb](https://github.com/Kong/kongponents/commit/8cc36fb0f96a7f8274a2113978736b011c22d458))
+
+# [7.0.0-beta.17](https://github.com/Kong/kongponents/compare/v7.0.0-beta.16...v7.0.0-beta.17) (2022-04-20)
+
+
+### Bug Fixes
+
+* **kpagination:** theming [KHCP-3431] ([#599](https://github.com/Kong/kongponents/issues/599)) ([b9adcde](https://github.com/Kong/kongponents/commit/b9adcded1e016e19ecbc8434c19c66abca085f44))
+
+
+### Features
+
+* **kselect:** filterfunc support ([#598](https://github.com/Kong/kongponents/issues/598)) ([c69de57](https://github.com/Kong/kongponents/commit/c69de57e35f1e898c8473f407a4d96d2b4d30c35))
+
+# [7.0.0-beta.16](https://github.com/Kong/kongponents/compare/v7.0.0-beta.15...v7.0.0-beta.16) (2022-04-20)
+
+
+### Bug Fixes
+
+* **kselect:** page jump, caret, and docs ([#597](https://github.com/Kong/kongponents/issues/597)) ([4110bcc](https://github.com/Kong/kongponents/commit/4110bcc7b4035a8062f458fd480465477a2befc7))
+
+# [7.0.0-beta.15](https://github.com/Kong/kongponents/compare/v7.0.0-beta.14...v7.0.0-beta.15) (2022-04-19)
+
+
+### Bug Fixes
+
+* **kicon:** properly check for slot content ([#595](https://github.com/Kong/kongponents/issues/595)) ([1d155e5](https://github.com/Kong/kongponents/commit/1d155e50d13d63db39266dcf1688e98ef1bb27fe))
+
+# [7.0.0-beta.14](https://github.com/Kong/kongponents/compare/v7.0.0-beta.13...v7.0.0-beta.14) (2022-04-19)
+
+
+### Bug Fixes
+
+* **kicon:** remove help icon unneeded path ([e85e24e](https://github.com/Kong/kongponents/commit/e85e24e9055f87b6e73555347eb46eb03f47157a))
+
+# [7.0.0-beta.13](https://github.com/Kong/kongponents/compare/v7.0.0-beta.12...v7.0.0-beta.13) (2022-04-19)
+
+
+### Bug Fixes
+
+* **kskeleton:** delay-milliseconds default to 0 ([7ffa180](https://github.com/Kong/kongponents/commit/7ffa180ff48b3f6679772da135037773e4333d70))
+* **ktable:** remove unneeded prop ([7660abe](https://github.com/Kong/kongponents/commit/7660abeb95834f5ad053062388abf3d93f4e352a))
+
+# [7.0.0-beta.12](https://github.com/Kong/kongponents/compare/v7.0.0-beta.11...v7.0.0-beta.12) (2022-04-19)
+
+
+### Bug Fixes
+
+* doc fixes ([#593](https://github.com/Kong/kongponents/issues/593)) ([23b38fc](https://github.com/Kong/kongponents/commit/23b38fc327cca4f9f2248c9983a8afced1c83071))
+
+# [7.0.0-beta.11](https://github.com/Kong/kongponents/compare/v7.0.0-beta.10...v7.0.0-beta.11) (2022-04-19)
+
+
+### Bug Fixes
+
+* **styles:** fix input error css ([215ebcc](https://github.com/Kong/kongponents/commit/215ebcc669c7c1abcb4641b444cf0da5d3f0ea69))
+
+# [7.0.0-beta.10](https://github.com/Kong/kongponents/compare/v7.0.0-beta.9...v7.0.0-beta.10) (2022-04-18)
+
+
+### Bug Fixes
+
+* **kbadge:** add min width theming variable ([94aef53](https://github.com/Kong/kongponents/commit/94aef532d5138653d58b027dd0e46b1c54791038))
+
+# [7.0.0-beta.9](https://github.com/Kong/kongponents/compare/v7.0.0-beta.8...v7.0.0-beta.9) (2022-04-18)
+
+
+### Bug Fixes
+
+* **kbadge:** doc issues [khcp-3409] ([#588](https://github.com/Kong/kongponents/issues/588)) ([55f87d5](https://github.com/Kong/kongponents/commit/55f87d59bcd14f80235fa51f38fe832e080cae17))
+* **kmenu:** docs width prop [khcp-3409] ([#587](https://github.com/Kong/kongponents/issues/587)) ([9ca2ad2](https://github.com/Kong/kongponents/commit/9ca2ad2a0fc335b489b5e3250236360a70eaa16d))
+* **kprompt:** docs fixes [khcp-3438] ([#591](https://github.com/Kong/kongponents/issues/591)) ([7ed8aaa](https://github.com/Kong/kongponents/commit/7ed8aaa80c80b85c3d341321f0f2da54f465b3cb))
+* **ksegmentedcontrol:** disabled logic [khcp-3433] ([#589](https://github.com/Kong/kongponents/issues/589)) ([997508b](https://github.com/Kong/kongponents/commit/997508bcfbad7d6b3d3e70648af82f5ab6f6be72))
+* **typography:** text display [khcp-3407] ([#590](https://github.com/Kong/kongponents/issues/590)) ([36c3a35](https://github.com/Kong/kongponents/commit/36c3a358672ede2461bd5d936fc4f194d85a9caf))
+
+
+### Features
+
+* **kcatalog:** vue3 upgrade ([#584](https://github.com/Kong/kongponents/issues/584)) ([e76362e](https://github.com/Kong/kongponents/commit/e76362e2a18d05de872a11962f12a5bb36bdff70))
+* **kmodalfullscreen:** vue 3 upgrade ([#585](https://github.com/Kong/kongponents/issues/585)) ([a63121e](https://github.com/Kong/kongponents/commit/a63121e947c802c95cb02f880129e7e5314438b6))
+
+# [7.0.0-beta.8](https://github.com/Kong/kongponents/compare/v7.0.0-beta.7...v7.0.0-beta.8) (2022-04-18)
+
+
+### Features
+
+* **ktable:** add sortHandlerFn ([#580](https://github.com/Kong/kongponents/issues/580)) ([ebc7202](https://github.com/Kong/kongponents/commit/ebc7202317783f3a4787ffab67151d596db3dc20))
+
+# [7.0.0-beta.7](https://github.com/Kong/kongponents/compare/v7.0.0-beta.6...v7.0.0-beta.7) (2022-04-18)
+
+
+### Features
+
+* **kicon:** horizontal dots ([#582](https://github.com/Kong/kongponents/issues/582)) ([a60ae2f](https://github.com/Kong/kongponents/commit/a60ae2f5e2eb9c95cb6550e7d91cdc714bfa5fca))
+
+# [7.0.0-beta.6](https://github.com/Kong/kongponents/compare/v7.0.0-beta.5...v7.0.0-beta.6) (2022-04-16)
+
+
+### Bug Fixes
+
+* **kpagination:** style updates ([#581](https://github.com/Kong/kongponents/issues/581)) ([5b2f54d](https://github.com/Kong/kongponents/commit/5b2f54d899f6faf02933eda9c2f5acf6ff6b06c8))
+
+# [7.0.0-beta.5](https://github.com/Kong/kongponents/compare/v7.0.0-beta.4...v7.0.0-beta.5) (2022-04-14)
+
+
+### Bug Fixes
+
+* **kmenu:** properly extend type ([38b87ee](https://github.com/Kong/kongponents/commit/38b87ee4ba759c90de9b1567d91fd40009983c2e))
+
+# [7.0.0-beta.4](https://github.com/Kong/kongponents/compare/v7.0.0-beta.3...v7.0.0-beta.4) (2022-04-14)
+
+
+### Bug Fixes
+
+* **kmenu:** add comment ([92dbbc7](https://github.com/Kong/kongponents/commit/92dbbc7f3a2d56be22824337c6f98eee4af4e45c))
+* **kmenu:** add comment ([91ad9d3](https://github.com/Kong/kongponents/commit/91ad9d36c0ef83b01e28671538e75ce99270b8d3))
+* **kmenu:** add comment ([9ee0ab2](https://github.com/Kong/kongponents/commit/9ee0ab2be5cdb538153317e0258ccdcec3af5e63))
+* **kmenu:** type interface ([#578](https://github.com/Kong/kongponents/issues/578)) ([01d3e10](https://github.com/Kong/kongponents/commit/01d3e105fe89901ed782a1937bae52c2acfdbae3))
+* **kmenu:** update type comment ([#579](https://github.com/Kong/kongponents/issues/579)) ([3a050ea](https://github.com/Kong/kongponents/commit/3a050eaf7afaeb047023f239837906f00084f5d7))
+
+# [7.0.0-beta.3](https://github.com/Kong/kongponents/compare/v7.0.0-beta.2...v7.0.0-beta.3) (2022-04-14)
+
+
+### Bug Fixes
+
+* **changelog:** update changelog ([0bc3f63](https://github.com/Kong/kongponents/commit/0bc3f6318446fbfe5e5341089f197d10bd0e033d))
+* **publish:** fix typings ([71d9b8e](https://github.com/Kong/kongponents/commit/71d9b8ed7b497165202f4c1e461cf03b48b91303))
+
+# [7.0.0-beta.2](https://github.com/Kong/kongponents/compare/v7.0.0-beta.1...v7.0.0-beta.2) (2022-04-13)
+
+
+### Bug Fixes
+
+* **release:** trigger release ([d21a824](https://github.com/Kong/kongponents/commit/d21a824325937634313f7a2975474e3150f9b805))
+
+# [7.0.0-beta.1](https://github.com/Kong/kongponents/compare/v6.7.6...v7.0.0-beta.1) (2022-04-13)
+
+### BREAKING CHANGES
+
+* Update Kongponents to v7.0.0-beta.2 for usage with Vue 3. If your project still
+uses Vue 2, use the @kongponents/* packages instead.

@@ -4,11 +4,7 @@ The **KModalFullscreen** component is used to show content in a full screen moda
 
 <KButton appearance="primary" @click="defaultIsOpen = true">Open Modal</KButton>
 
-<KModalFullscreen
-  title="Hello There!"
-  :isVisible="defaultIsOpen"
-  @canceled="defaultIsOpen = false"
-  @proceed="defaultIsOpen = false">
+<KModalFullscreen title="Hello There!" :isVisible="defaultIsOpen" @canceled="defaultIsOpen = false" @proceed="defaultIsOpen = false">
   <p>Proin in magna quam. Sed congue diam nec libero pretium, at lobortis erat dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse id gravida tellus. Quisque venenatis ligula lobortis dui viverra, sed pellentesque quam molestie. Nulla viverra vel nunc ut blandit. Donec eget luctus nisl, ut dapibus risus. Nulla eros diam, finibus eu dignissim id, vehicula eu odio. Sed egestas eu sem a vestibulum. In nisl mi, tincidunt ut mi eu, suscipit faucibus eros.</p>
   <p>Curabitur semper vitae neque elementum imperdiet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Morbi urna felis, feugiat vitae quam quis, rhoncus vestibulum est. Vivamus diam neque, dictum vel urna nec, faucibus aliquet ipsum. Integer sodales ornare purus, sit amet efficitur elit. Fusce feugiat pharetra mollis. Proin sit amet metus sed massa laoreet feugiat eu id enim. Duis egestas lectus in dapibus accumsan.</p>
   <p>Maecenas rutrum molestie dolor, sit amet volutpat sapien tristique vitae. Nam tortor nulla, malesuada vel lacus ut, consectetur sagittis nisi. Vestibulum convallis rhoncus ipsum, vitae porta nulla pharetra quis. Nam tristique eget metus sit amet blandit. Suspendisse porta nunc ut dapibus finibus. In hac habitasse platea dictumst. Morbi vel lectus vulputate, cursus augue ultrices, vulputate massa. Pellentesque bibendum et augue et placerat. Duis a est et quam blandit ornare. Phasellus quis mi eget magna vehicula pharetra eu et nunc. In hac habitasse platea dictumst. Nam eleifend purus ante, in porta mauris vulputate eget. Nunc in nulla aliquet metus vehicula rhoncus.</p>
@@ -25,19 +21,14 @@ The **KModalFullscreen** component is used to show content in a full screen moda
   :isVisible="defaultIsOpen"
   @canceled="defaultIsOpen = false"
   @proceed="defaultIsOpen = false">
-  <p>Proin in magna quam. Sed congue diam nec libero pretium, at lobortis erat dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse id gravida tellus. Quisque venenatis ligula lobortis dui viverra, sed pellentesque quam molestie. Nulla viverra vel nunc ut blandit. Donec eget luctus nisl, ut dapibus risus. Nulla eros diam, finibus eu dignissim id, vehicula eu odio. Sed egestas eu sem a vestibulum. In nisl mi, tincidunt ut mi eu, suscipit faucibus eros.</p>
-  <p>Curabitur semper vitae neque elementum imperdiet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Morbi urna felis, feugiat vitae quam quis, rhoncus vestibulum est. Vivamus diam neque, dictum vel urna nec, faucibus aliquet ipsum. Integer sodales ornare purus, sit amet efficitur elit. Fusce feugiat pharetra mollis. Proin sit amet metus sed massa laoreet feugiat eu id enim. Duis egestas lectus in dapibus accumsan.</p>
-  <p>Maecenas rutrum molestie dolor, sit amet volutpat sapien tristique vitae. Nam tortor nulla, malesuada vel lacus ut, consectetur sagittis nisi. Vestibulum convallis rhoncus ipsum, vitae porta nulla pharetra quis. Nam tristique eget metus sit amet blandit. Suspendisse porta nunc ut dapibus finibus. In hac habitasse platea dictumst. Morbi vel lectus vulputate, cursus augue ultrices, vulputate massa. Pellentesque bibendum et augue et placerat. Duis a est et quam blandit ornare. Phasellus quis mi eget magna vehicula pharetra eu et nunc. In hac habitasse platea dictumst. Nam eleifend purus ante, in porta mauris vulputate eget. Nunc in nulla aliquet metus vehicula rhoncus.</p>
-  <p>Praesent fringilla sapien vitae faucibus vestibulum. Integer viverra hendrerit purus quis consequat. Phasellus dolor enim, interdum in faucibus ut, congue eu quam. Donec eu metus eget eros accumsan feugiat. Donec a magna posuere, sagittis eros ac, bibendum erat. Donec aliquet velit et nunc mattis tincidunt. Nam eu nibh nec purus pretium fermentum. Proin interdum nunc ac turpis blandit, sed malesuada lectus convallis. Morbi quis aliquet lorem, non ultrices quam. Aliquam et consectetur lorem. Nam ac nisl tellus. Duis id nunc lectus. Etiam semper auctor enim, id hendrerit nisl vulputate nec.</p>
-  <p>Nunc ante orci, tempus a fringilla quis, interdum et nisi. Nulla a dui ut leo scelerisque rhoncus. Suspendisse iaculis, orci quis congue sollicitudin, orci ligula tempus nisl, consequat elementum urna elit sit amet orci. Pellentesque in feugiat massa, ac dapibus nunc. Etiam dapibus vehicula elit, a sollicitudin nulla fringilla in. Pellentesque lobortis arcu lectus, sit amet fringilla quam pretium sit amet. Sed mi turpis, bibendum quis tincidunt vel, mattis finibus lorem. Ut imperdiet ultrices libero in dictum. Duis elementum imperdiet erat in feugiat. Nam tempor interdum tellus non auctor. Quisque sed sodales purus. Nunc eu est ac elit aliquet euismod. Fusce pellentesque, lorem sed elementum placerat, dolor felis scelerisque quam, ut placerat elit dolor sit amet dui.</p>
-  <p>Cras porttitor malesuada lorem vel malesuada. Fusce at hendrerit enim. Suspendisse potenti. Nullam interdum maximus dolor, et commodo urna imperdiet condimentum. Nunc hendrerit arcu eu libero sodales, sed auctor nibh sodales. Nunc mattis tortor eleifend, rutrum justo non, malesuada massa. Integer aliquet accumsan ex, et consequat urna egestas pretium.</p>
+  <p>{{ alotOfText }}</p>
 </KModalFullscreen>
 
 <script>
 export default {
   data () {
     return {
-      isVisible: false
+      defaultIsOpen: false
     }
   }
 }
@@ -84,13 +75,7 @@ Change the [appearance](/components/button.html#props) of the save/proceed butto
 
 <KButton appearance="primary" @click="contentIsOpen = true">Open Modal</KButton>
 
-<KModalFullscreen
-  title="Hello There!"
-  :isVisible="contentIsOpen"
-  @canceled="contentIsOpen = false"
-  @proceed="contentIsOpen = false"
-  cancelButtonText="Abort"
-  cancelButtonAppearance="secondary">
+<KModalFullscreen title="Hello There!" :isVisible="contentIsOpen" @canceled="contentIsOpen = false" @proceed="contentIsOpen = false" cancelButtonText="Abort" cancelButtonAppearance="secondary">
   <p>Maecenas rutrum molestie dolor, sit amet volutpat sapien tristique vitae. Nam tortor nulla, malesuada vel lacus ut, consectetur sagittis nisi. Vestibulum convallis rhoncus ipsum, vitae porta nulla pharetra quis. Nam tristique eget metus sit amet blandit. Suspendisse porta nunc ut dapibus finibus. In hac habitasse platea dictumst. Morbi vel lectus vulputate, cursus augue ultrices, vulputate massa. Pellentesque bibendum et augue et placerat. Duis a est et quam blandit ornare. Phasellus quis mi eget magna vehicula pharetra eu et nunc. In hac habitasse platea dictumst. Nam eleifend purus ante, in porta mauris vulputate eget. Nunc in nulla aliquet metus vehicula rhoncus.</p>
   <p>Praesent fringilla sapien vitae faucibus vestibulum. Integer viverra hendrerit purus quis consequat. Phasellus dolor enim, interdum in faucibus ut, congue eu quam. Donec eu metus eget eros accumsan feugiat. Donec a magna posuere, sagittis eros ac, bibendum erat. Donec aliquet velit et nunc mattis tincidunt. Nam eu nibh nec purus pretium fermentum. Proin interdum nunc ac turpis blandit, sed malesuada lectus convallis. Morbi quis aliquet lorem, non ultrices quam. Aliquam et consectetur lorem. Nam ac nisl tellus. Duis id nunc lectus. Etiam semper auctor enim, id hendrerit nisl vulputate nec.</p>
   <p>Nunc ante orci, tempus a fringilla quis, interdum et nisi. Nulla a dui ut leo scelerisque rhoncus. Suspendisse iaculis, orci quis congue sollicitudin, orci ligula tempus nisl, consequat elementum urna elit sit amet orci. Pellentesque in feugiat massa, ac dapibus nunc. Etiam dapibus vehicula elit, a sollicitudin nulla fringilla in. Pellentesque lobortis arcu lectus, sit amet fringilla quam pretium sit amet. Sed mi turpis, bibendum quis tincidunt vel, mattis finibus lorem. Ut imperdiet ultrices libero in dictum. Duis elementum imperdiet erat in feugiat. Nam tempor interdum tellus non auctor. Quisque sed sodales purus. Nunc eu est ac elit aliquet euismod. Fusce pellentesque, lorem sed elementum placerat, dolor felis scelerisque quam, ut placerat elit dolor sit amet dui.</p>
@@ -125,10 +110,7 @@ There are 6 designated slots you can use to display content in the fullscreen mo
 
 <KButton appearance="primary" @click="exampleIsOpen = true">Open Fullscreen Modal</KButton>
 
-<KModalFullscreen
-  :isVisible="exampleIsOpen"
-  title="Install Plugin"
-  @canceled="exampleIsOpen = false">
+<KModalFullscreen :isVisible="exampleIsOpen" title="Install Plugin" @canceled="exampleIsOpen = false">
   <template v-slot:header-icon>
     <KIcon icon="immunity" />
   </template>
@@ -142,13 +124,13 @@ There are 6 designated slots you can use to display content in the fullscreen mo
     Choose a plugin from our catalog to install for your organization. <a>View documentation</a>
   </template>
   <template v-slot:action-buttons>
-    <KButton appearance="secondary" size="medium" @click="exampleIsOpen = false">Back</KButton>
+    <KButton appearance="secondary" size="medium" @click="exampleIsOpen = false" class="mr-2">Back</KButton>
     <KButton appearance="primary" size="medium" @click="exampleIsOpen = false">Save</KButton>
   </template>
   <h3>Security</h3>
-  <KCatalog :items="getItems(8)" />
+  <KCatalog :fetcher="() => getItems(8)" />
   <h3>Authentication</h3>
-  <KCatalog :items="getItems(16)" />
+  <KCatalog :fetcher="() => getItems(16)" />
 </KModalFullscreen>
 
 ```html
@@ -175,22 +157,15 @@ There are 6 designated slots you can use to display content in the fullscreen mo
     <KButton appearance="primary" size="medium" @click="exampleIsOpen = false">Save</KButton>
   </template>
   <h3>Security</h3>
-  <KCatalog :items="getItems(8)" />
+  <KCatalog :fetcher="() => getItems(8)" />
   <h3>Authentication</h3>
-  <KCatalog :items="getItems(16)" />
+  <KCatalog :fetcher="() => getItems(16)" />
 </KModalFullscreen>
 ```
 
 <KButton appearance="primary" @click="sampleIsOpen = true">Open Form Modal</KButton>
 
-<KModalFullscreen
-  :isVisible="sampleIsOpen"
-  title="Install Plugin"
-  @canceled="sampleIsOpen = false"
-  @proceed="sampleIsOpen = false"
-  cancelButtonAppearance="secondary"
-  actionButtonText="Delete"
-  actionButtonAppearance="danger">
+<KModalFullscreen :isVisible="sampleIsOpen" title="Install Plugin" @canceled="sampleIsOpen = false" @proceed="sampleIsOpen = false" cancelButtonAppearance="secondary" actionButtonText="Delete" actionButtonAppearance="danger">
   <template v-slot:header-content>
     Install Plugin
   </template>
@@ -201,7 +176,7 @@ There are 6 designated slots you can use to display content in the fullscreen mo
     <div class="ml-25">Lorem ipsum factum. <a>View documentation</a></div>
   </template>
   <template v-slot:action-buttons>
-    <KButton size="medium" @click="sampleIsOpen = false">Back</KButton>
+    <KButton size="medium" @click="sampleIsOpen = false" class="mr-2">Back</KButton>
     <KButton appearance="creation" size="medium" @click="sampleIsOpen = false">Save</KButton>
   </template>
   <div class="ml-25">
@@ -335,7 +310,7 @@ An Example of changing the the colors of KModalFullscreen might look like.
     title="Hello There!"
     :isVisible="themeIsOpen"
     @canceled="themeIsOpen = false"
-    @proceed="themeIsOpen = false" >
+    @proceed="themeIsOpen = false">
     <p>Proin in magna quam. Sed congue diam nec libero pretium, at lobortis erat dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse id gravida tellus. Quisque venenatis ligula lobortis dui viverra, sed pellentesque quam molestie. Nulla viverra vel nunc ut blandit. Donec eget luctus nisl, ut dapibus risus. Nulla eros diam, finibus eu dignissim id, vehicula eu odio. Sed egestas eu sem a vestibulum. In nisl mi, tincidunt ut mi eu, suscipit faucibus eros.</p>
     <p>Curabitur semper vitae neque elementum imperdiet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Morbi urna felis, feugiat vitae quam quis, rhoncus vestibulum est. Vivamus diam neque, dictum vel urna nec, faucibus aliquet ipsum. Integer sodales ornare purus, sit amet efficitur elit. Fusce feugiat pharetra mollis. Proin sit amet metus sed massa laoreet feugiat eu id enim. Duis egestas lectus in dapibus accumsan.</p>
     <p>Maecenas rutrum molestie dolor, sit amet volutpat sapien tristique vitae. Nam tortor nulla, malesuada vel lacus ut, consectetur sagittis nisi. Vestibulum convallis rhoncus ipsum, vitae porta nulla pharetra quis. Nam tristique eget metus sit amet blandit. Suspendisse porta nunc ut dapibus finibus. In hac habitasse platea dictumst. Morbi vel lectus vulputate, cursus augue ultrices, vulputate massa. Pellentesque bibendum et augue et placerat. Duis a est et quam blandit ornare. Phasellus quis mi eget magna vehicula pharetra eu et nunc. In hac habitasse platea dictumst. Nam eleifend purus ante, in porta mauris vulputate eget. Nunc in nulla aliquet metus vehicula rhoncus.</p>
@@ -355,12 +330,11 @@ An Example of changing the the colors of KModalFullscreen might look like.
     :isVisible="themeIsOpen"
     @canceled="themeIsOpen = false"
     @proceed="themeIsOpen = false" >
-    <p>Proin in magna quam. Sed congue diam nec libero pretium, at lobortis erat dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse id gravida tellus. Quisque venenatis ligula lobortis dui viverra, sed pellentesque quam molestie. Nulla viverra vel nunc ut blandit. Donec eget luctus nisl, ut dapibus risus. Nulla eros diam, finibus eu dignissim id, vehicula eu odio. Sed egestas eu sem a vestibulum. In nisl mi, tincidunt ut mi eu, suscipit faucibus eros.</p>
-    <p>Curabitur semper vitae neque elementum imperdiet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Morbi urna felis, feugiat vitae quam quis, rhoncus vestibulum est. Vivamus diam neque, dictum vel urna nec, faucibus aliquet ipsum. Integer sodales ornare purus, sit amet efficitur elit. Fusce feugiat pharetra mollis. Proin sit amet metus sed massa laoreet feugiat eu id enim. Duis egestas lectus in dapibus accumsan.</p>
-    <p>Maecenas rutrum molestie dolor, sit amet volutpat sapien tristique vitae. Nam tortor nulla, malesuada vel lacus ut, consectetur sagittis nisi. Vestibulum convallis rhoncus ipsum, vitae porta nulla pharetra quis. Nam tristique eget metus sit amet blandit. Suspendisse porta nunc ut dapibus finibus. In hac habitasse platea dictumst. Morbi vel lectus vulputate, cursus augue ultrices, vulputate massa. Pellentesque bibendum et augue et placerat. Duis a est et quam blandit ornare. Phasellus quis mi eget magna vehicula pharetra eu et nunc. In hac habitasse platea dictumst. Nam eleifend purus ante, in porta mauris vulputate eget. Nunc in nulla aliquet metus vehicula rhoncus.</p>
-    <p>Praesent fringilla sapien vitae faucibus vestibulum. Integer viverra hendrerit purus quis consequat. Phasellus dolor enim, interdum in faucibus ut, congue eu quam. Donec eu metus eget eros accumsan feugiat. Donec a magna posuere, sagittis eros ac, bibendum erat. Donec aliquet velit et nunc mattis tincidunt. Nam eu nibh nec purus pretium fermentum. Proin interdum nunc ac turpis blandit, sed malesuada lectus convallis. Morbi quis aliquet lorem, non ultrices quam. Aliquam et consectetur lorem. Nam ac nisl tellus. Duis id nunc lectus. Etiam semper auctor enim, id hendrerit nisl vulputate nec.</p>
-    <p>Nunc ante orci, tempus a fringilla quis, interdum et nisi. Nulla a dui ut leo scelerisque rhoncus. Suspendisse iaculis, orci quis congue sollicitudin, orci ligula tempus nisl, consequat elementum urna elit sit amet orci. Pellentesque in feugiat massa, ac dapibus nunc. Etiam dapibus vehicula elit, a sollicitudin nulla fringilla in. Pellentesque lobortis arcu lectus, sit amet fringilla quam pretium sit amet. Sed mi turpis, bibendum quis tincidunt vel, mattis finibus lorem. Ut imperdiet ultrices libero in dictum. Duis elementum imperdiet erat in feugiat. Nam tempor interdum tellus non auctor. Quisque sed sodales purus. Nunc eu est ac elit aliquet euismod. Fusce pellentesque, lorem sed elementum placerat, dolor felis scelerisque quam, ut placerat elit dolor sit amet dui.</p>
-    <p>Cras porttitor malesuada lorem vel malesuada. Fusce at hendrerit enim. Suspendisse potenti. Nullam interdum maximus dolor, et commodo urna imperdiet condimentum. Nunc hendrerit arcu eu libero sodales, sed auctor nibh sodales. Nunc mattis tortor eleifend, rutrum justo non, malesuada massa. Integer aliquet accumsan ex, et consequat urna egestas pretium.</p>
+    <p>{{ soMuchText1 }}</p>
+    <p>{{ soMuchText2 }}</p>
+    <p>{{ soMuchText3 }}</p>
+    <p>{{ soMuchText4 }}</p>
+    <p>{{ soMuchText5 }}</p>
   </KModalFullscreen>
 </div>
 
@@ -373,8 +347,7 @@ An Example of changing the the colors of KModalFullscreen might look like.
 ```
 
 <script>
-
-  function getItems(count) {
+function getItems(count) {
   let myItems = []
     for (let i = 0; i < count; i++) {
       myItems.push({
@@ -406,7 +379,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .modal-wrapper {
   --KModalFullscreenHeaderColor: red;
   --KModalFullscreenColor: green;
@@ -456,5 +429,4 @@ export default {
     font-size: 11px;
   }
 }
-
 </style>

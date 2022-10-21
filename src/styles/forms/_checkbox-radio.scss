@@ -1,0 +1,120 @@
+@import "labels";
+
+input.k-input,
+input.form-control {
+  $borderColor: var(--KInputBorder, var(--grey-300, color(grey-300)));
+  $primaryCheckboxColor: var(--KCheckboxPrimary, var(--blue-500, color(blue-500)));
+  $primaryRadioColor: var(--KRadioPrimary, var(--blue-500, color(blue-500)));
+
+  &[type="checkbox"],
+  &[type="radio"] {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0;
+    border: 1px solid $borderColor;
+    background-color: #fff;
+    box-sizing: border-box;
+    // Override browser defaults
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-print-color-adjust: exact;
+
+    &:disabled {
+      opacity: 1;
+      &:hover {
+        border-color: $borderColor;
+      }
+    }
+  }
+
+  &[type="checkbox"] {
+    height: 20px;
+    width: 20px;
+    color: $primaryCheckboxColor;
+    border: none;
+    border-radius: 3px;
+    margin: 0 6px 0 0;
+    outline: none;
+
+    &:not(:checked) {
+      border: 1px solid $primaryCheckboxColor;
+    }
+
+    &:checked {
+      background-image: url("data:image/svg+xml,%3Csvg width='13' height='11' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10.633 0L12 1.397 3.583 10 0 6.337 1.367 4.94l2.216 2.265z' fill='%23FFF' fill-rule='nonzero'/%3E%3C/svg%3E");
+      border-color: $primaryCheckboxColor;
+      background-color: currentColor;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    &:checked::-ms-check {
+      color: #fff;
+      border: 1px solid $primaryCheckboxColor;
+      background-color: $primaryCheckboxColor;
+    }
+
+    &:hover,
+    &:active {
+      border-color: $primaryCheckboxColor;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $primaryCheckboxColor;
+    }
+
+    &:disabled:not(:checked) {
+      background-color: var(--KInputCheckboxDisabled, var(--grey-100, color(grey-100)));
+      border: 1px solid var(--KCheckboxDisabledChecked, var(--grey-400, color(grey-400)));
+      border-radius: 2px;
+    }
+    &:disabled:checked {
+      background-color: var(--KCheckboxDisabledChecked, var(--grey-400, color(grey-400)));
+      // border: 1px solid var(--KCheckboxDisabledChecked, var(--grey-400, color(grey-400)));;
+    }
+  }
+
+  &[type="radio"] {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    width: 20px;
+    color: $primaryRadioColor;
+    border: 2px solid $borderColor;
+    border-radius: 100%;
+    margin: 0 6px 0 0;
+
+    &:checked {
+      border-color: currentColor;
+      background-color: #fff;
+      background-size: 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      &:after {
+        content: "";
+        display: flex;
+        height: 10px;
+        width: 10px;
+        background-color: currentColor;
+        border-radius: 100%;
+      }
+    }
+
+    // IE11
+    &:checked::-ms-check {
+      border: 2px solid currentColor;
+      color: currentColor;
+    }
+
+    &:disabled {
+      background-color: var(--KInputRadioDisabled, var(--grey-200, color(grey-200)));
+    }
+  }
+}

@@ -1,7 +1,8 @@
 # TextArea
 
 **KTextArea** - Text areas are primarily used in modal views (wizards).
-<KTextArea/>
+
+<KTextArea />
 
 ```html
 <KTextArea />
@@ -25,10 +26,8 @@ If the label is omitted it can be handled with another component, like **KLabel*
 <KTextArea placeholder="I have a label" />
 
 ```html
-<template>
-  <KLabel>Label</KLabel>
-  <KTextArea placeholder="I have a label" />
-</template>
+<KLabel>Label</KLabel>
+<KTextArea placeholder="I have a label" />
 ```
 
 ### labelAttributes
@@ -38,18 +37,12 @@ Use the `labelAttributes` prop to configure the **KLabel's** [props](/components
 <KTextArea label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop' }" />
 
 ```html
-<KTextArea
-  label="Name"
-  :label-attributes="{
-    help: 'I use the KLabel `help` prop'
-  }"
-/>
+<KTextArea label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop' }" />
 ```
 
 ### overlayLabel
 
-Enable this prop to overlay the label on the input element's border. Defaults to `false`.
-Make sure that if you are using the built in label you specify the `--KInputBackground` theming variable. This variable is used for the background of the label as well as the input element.
+Enable this prop to overlay the label on the input element's border. Defaults to `false`. Make sure that if you are using the built in label you specify the `--KInputBackground` theming variable. This variable is used for the background of the label as well as the input element.
 
 <KTextArea label="Name" placeholder="I'm labelled!" :overlay-label="true" />
 
@@ -61,14 +54,16 @@ Make sure that if you are using the built in label you specify the `--KInputBack
 
 You can specify `rows`, `cols` for the textarea size.
 
-<KTextArea label="Size" :rows=3 :cols=20 placeholder="I'm labelled and customized!" />
+<KTextArea label="Size" :rows="3" :cols="20" placeholder="I'm labelled and customized!" />
 <br>
-<KTextArea :rows=8 :cols=25 placeholder="rows:8, cols:25"  />
+<KTextArea :rows="8" :cols="25" placeholder="rows:8, cols:25" />
 
 ```html
-<KTextArea label="Size" :rows=3 :cols=20 placeholder="I'm labelled and customized!" />
-<br>
-<KTextArea :rows=8 :cols=25 placeholder="rows:8, cols:25"  />
+<template>
+  <KTextArea label="Size" :rows="3" :cols="20" placeholder="I'm labelled and customized!" />
+  <br>
+  <KTextArea :rows="8" :cols="25" placeholder="rows:8, cols:25" />
+</template>
 ```
 
 ### characterLimit
@@ -91,29 +86,37 @@ Use this prop to remove the character limit on the textarea. Defaults to `false`
 <KTextArea disable-character-limit />
 ```
 
-## v-model
+### hasError
 
-KTextArea works as regular texarea do using v-model for data binding:
+Boolean value to indicate whether the element has an error and should apply error styling. By default this is `false`.
 
-<Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
-  <div>
-    {{ data.myInput }}
-    <KTextArea
-      v-model="data.myInput"
-      @blur="e => (data.myInput = 'blurred')" />
-  </div>
-</Komponent>
+<KTextArea has-error />
 
 ```html
-<Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
+<KTextArea has-error />
+```
+
+## v-model
+
+`KTextArea` works as regular texarea do using v-model for data binding:
+
+<KComponent :data="{myInput: 'hello'}" v-slot="{ data }">
+  <div>
+    {{ data.myInput }}
+    <KTextArea v-model="data.myInput" />
+  </div>
+</KComponent>
+
+```html
+<KComponent :data="{myInput: 'hello'}" v-slot="{ data }">
   {{ myInput }}
   <KTextArea v-model="data.myInput" />
-</Komponent>
+</KComponent>
 ```
 
 ## Events
 
-KTextArea has a couple of natural event bindings.
+`KTextArea` has a couple of natural event bindings.
 
 - `input` - Fired on change, returns the content of the textarea
 - `char-limit-exceeded` - Fired when the text starts or stops exceeding the limit, returns an object:
@@ -127,20 +130,20 @@ KTextArea has a couple of natural event bindings.
     }
     ```
 
-KTextArea also transparently binds to events:
+`KTextArea` also transparently binds to events:
 
-<Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
+<KComponent :data="{myInput2: 'hello'}" v-slot="{ data }">
   <div>
     <KTextArea
-      v-model="data.myInput"
-      @blur="e => (data.myInput = 'blurred')"
-      @focus="e => (data.myInput = 'focused')"
+      v-model="data.myInput2"
+      @blur="e => (data.myInput2 = 'blurred')"
+      @focus="e => (data.myInput2 = 'focused')"
     />
   </div>
-</Komponent>
+</KComponent>
 
 ```html
-<Komponent :data="{myInput: 'hello'}" v-slot="{ data }">
+<KComponent :data="{myInput: 'hello'}" v-slot="{ data }">
   <div>
     <KTextArea
       v-model="data.myInput"
@@ -148,7 +151,7 @@ KTextArea also transparently binds to events:
       @focus="e => (data.myInput = 'focused')"
     />
   </div>
-</Komponent>
+</KComponent>
 ```
 
 ## Theming
@@ -166,13 +169,11 @@ KTextArea also transparently binds to events:
 
 An Example of changing the error border color of KInput to pink might look like:
 
-<template>
-  <KTextArea class="custom-input input-error" type="email" value="error" />
-</template>
+<KTextArea class="custom-input" has-error type="email" />
 
 ```html
 <template>
-  <KTextArea class="custom-input input-error" type="email" value="error" />
+  <KTextArea class="custom-input" has-error type="email" />
 </template>
 
 <style>

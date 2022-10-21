@@ -3,73 +3,87 @@ name: Publish
 on:
   push:
     branches:
-    - main
-    - 'release/**'
+      - main
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
+  get-changed-files:
+    name: Get Changed Files
+    uses: ./.github/workflows/get-changed-files.yml
 
-    - name: Read .nvmrc
-      run: echo ::set-output name=NVMRC::$(cat .nvmrc)
-      id: nvm
-
-    - name: Use Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '${{ steps.nvm.outputs.NVMRC }}'
-
-    - name: install and lint
-      run: |
-        yarn
-        yarn lint
-
-    - name: test
-      run: |
-        yarn test-coverage
-
-    - uses: codecov/codecov-action@v1
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
+  run-tests:
+    name: Tests
+    needs:
+      - get-changed-files
+    uses: ./.github/workflows/test.yml
+    # Must pass in secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
+    secrets:
+      PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+      # We do not want Percy tests to run on publish
+      PREVENT_PERCY_TESTS: 'true'
 
   publish:
-    needs: test
+      name: Build and Publish Kongponents
+      needs:
+        - get-changed-files
+        - run-tests
+      # Only run the publish action (including semantic-release) if files in the /src/ directory changed.
+      # Should only run if files in the `src/` directory were changed
+      if: needs.get-changed-files.outputs.component-files-changed == 'true'
+      runs-on: ubuntu-latest
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+          with:
+            token: ${{ secrets.KONGPONENTS_BOT_PAT }}
+
+        - name: setup git
+          run: |
+            git config --global user.name 'kongponents-bot'
+            git config --global user.email '95302551+kongponents-bot@users.noreply.github.com'
+
+        - name: Create .npmrc
+          run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+
+        - name: Use Node.js
+          uses: actions/setup-node@v3
+          with:
+            node-version-file: '.nvmrc'
+
+        - name: Install dependencies
+          run: yarn install --frozen-lockfile
+          env:
+            NPM_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
+
+        - name: Lint
+          run: yarn lint
+
+        - name: Build
+          run: yarn build:cli && yarn build:kongponents
+
+        - name: Semantic Release
+          uses: cycjimmy/semantic-release-action@v2
+          env:
+            # Since branch protections are on (pushing commits) you need to use a bot PAT
+            GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
+
+  no-tests-required:
+    name: No Component Tests needed
+    needs:
+      - get-changed-files
+    if: needs.get-changed-files.outputs.component-files-changed == 'false'
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-      with:
-          token: ${{ secrets.KONGPONENTS_BOT_PAT }}
+      - name: Skip component tests
+        run: echo "No files changed in the `src/`, `docs/`, or `cypress/` directories, so no tests are needed."
 
-    - name: Read .nvmrc
-      run: echo ::set-output name=NVMRC::$(cat .nvmrc)
-      id: nvm
-
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '${{ steps.nvm.outputs.NVMRC }}'
-
-    - name: setup git
-      run: |
-        git config --global user.name 'kongponents-bot'
-        git config --global user.email '95302551+kongponents-bot@users.noreply.github.com'
-
-    - name: install
-      run: |
-        npm config set scripts-prepend-node-path true
-        npm config set "//registry.npmjs.org/:_authToken" "$NPM_AUTH_TOKEN" -g
-        yarn install
-      env:
-        NPM_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
-
-    - name: yarn build
-      run: |
-        yarn build
-    - name: publish
-      run: |
-        yarn lerna bootstrap
-        yarn publish:ci
-      env:
-        # lerna uses GH_TOKEN to init it's gh lib
-        GH_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
+  no-publish-required:
+    name: No Build and Publish needed
+    needs:
+      - get-changed-files
+    if: needs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed == 'false'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Skip new release
+        run: echo "No files changed in the `src/` directory, so no new release is required."

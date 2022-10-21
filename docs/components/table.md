@@ -1,7 +1,6 @@
 ---
 pageClass: table-docs
 ---
-
 # Table
 
 Pass a fetcher function to build a slot-able table.
@@ -11,8 +10,8 @@ Pass a fetcher function to build a slot-able table.
 ```
 
 :::warning NOTE
-`KTable` implements `KIcon` which imports .svg files directly, so a loader is needed in order to render these in your application such as the webpack
-[raw-loader](https://webpack.js.org/loaders/raw-loader/). [See here for more information](/#raw-loader).
+`KTable` implements `KIcon` which imports .svg files directly, so a loader may be needed in order to render these in your application such as the webpack
+[raw-loader](https://webpack.js.org/loaders/raw-loader/). [See here for more information](/#installation).
 :::
 
 ## Props
@@ -21,37 +20,22 @@ Pass a fetcher function to build a slot-able table.
 
 Highlight the table row on hover. By default this is set to `true`. In the example we can set it to false as well.
 
-<KTable
-  :fetcher="tableOptionsFetcher"
-  :headers="tableOptionsHeaders"
-  :hasHover="false" />
+<KTable :fetcher="tableOptionsFetcher" :headers="tableOptionsHeaders" :hasHover="false" />
 
 ```html
-<template>
-  <KTable
-    :fetcher="fetcher"
-    :headers="headers"
-    :hasHover="false" />
-</template>
+  <KTable :fetcher="fetcher" :headers="headers" :hasHover="false" />
 ```
 
 ### hasSideBorder
 
 Adds left border to each table row. By default set to `false`. The colors can be overridden by themes.
+
 The below example demonstrates the disabled state:
 
-<KTable
-  :fetcher="tableOptionsFetcher"
-  :headers="tableOptionsHeaders"
-  :hasSideBorder="true" />
+<KTable :fetcher="tableOptionsFetcher" :headers="tableOptionsHeaders" :hasSideBorder="true" />
 
 ```html
-<template>
-  <KTable
-    :fetcher="fetcher"
-    :headers="headers"
-    :hasSideBorder="true" />
-</template>
+  <KTable :fetcher="fetcher" :headers="headers" :hasSideBorder="true" />
 ```
 
 ### hasError
@@ -66,18 +50,10 @@ See [the State section](#loading) about `isLoading`
 
 Set this to `true` to limit pagination navigation to `previous` / `next` page only.
 
-<KTable
-  :fetcher="tableOptionsFetcher"
-  :headers="tableOptionsHeaders"
-  :disablePaginationPageJump="true" />
+<KTable :fetcher="tableOptionsFetcher" :headers="tableOptionsHeaders" :disablePaginationPageJump="true" />
 
 ```html
-<template>
-  <KTable
-    :fetcher="fetcher"
-    :headers="headers"
-    :disablePaginationPageJump="true" />
-</template>
+  <KTable :fetcher="fetcher" :headers="headers" :disablePaginationPageJump="true" />
 ```
 
 ### disablePagination
@@ -94,7 +70,7 @@ Set this to `true` to disable ablity to sort.
 
 ### enableClientSort
 
-**Experimental** - set this prop to `true` to enable client side sorting if using a fetcher that returns unpaginatinated data.
+Set this prop to `true` to enable client side sorting if using a fetcher that returns unpaginatinated data.
 This functionality may be flaky.
 
 ### sortHandlerFn
@@ -117,12 +93,7 @@ Use a custom sort handler function to handle sorting table data for specific col
 
 Here the `last_seen` column is set to use the custom sort handler function via the `useSortHandlerFn` property set in the table header object. The function passed into the `sortHandlerFn` prop sorts and returns the table data. The other columns use the default built-in client side sort function because the `useSortHandlerFn` property is not set in the header objects.
 
-<KTable
-  :fetcher="sortHandlerFnFetcher"
-  :headers="sortHandlerFnHeaders"
-  :sortHandlerFn="sortHandlerFn"
-  enable-client-sort
-/>
+<KTable :fetcher="sortHandlerFnFetcher" :headers="sortHandlerFnHeaders" :sortHandlerFn="sortHandlerFn" enable-client-sort />
 
 ```html
 <template>
@@ -134,7 +105,7 @@ Here the `last_seen` column is set to use the custom sort handler function via t
   />
 </template>
 
-<script>
+<script lang="ts">
 export default {
   data () {
     return {
@@ -156,7 +127,6 @@ export default {
             } else if (a.last_ping < b.last_ping) {
               return -1
             }
-
             return 0
           } else {
             if (a.last_ping > b.last_ping) {
@@ -164,13 +134,11 @@ export default {
             } else if (a.last_ping < b.last_ping) {
               return 1
             }
-
             return 0
           }
         }
       })
     },
-
     fetcher() {
       return {
         data: [
@@ -279,51 +247,44 @@ fetcher(payload) {
 }
 ```
 
-The `fetcher` function does not actually need to make an API call. Tables that can get their data synchronously can
-be modified to use a `fetcher` that returns the static data object.
+The `fetcher` function does not actually need to make an API call. Tables that can get their data synchronously can be modified to use a `fetcher` that returns the static data object.
 
 ::: tip Note
-Remember that the `fetcher` function is responsible for managing pagination/sort/search. So if returning a static data
-object these features should be explicitly disabled.
+Remember that the `fetcher` function is responsible for managing pagination/sort/search. So if returning a static data object these features should be explicitly disabled.
 :::
 
-<template>
-  <KTable
-    :fetcher="() => {
-      return {
-        data: [
-          {
-            name: 'Basic Auth',
-            id: '517526354743085',
-            enabled: 'true'
-          },
-          {
-            name: 'Website Desktop',
-            id: '328027447731198',
-            enabled: 'false'
-          },
-          {
-            name: 'Android App',
-            id: '405383051040955',
-            enabled: 'true'
-          }
-        ]
+<KTable :fetcher="() => {
+  return {
+    data: [
+      {
+        name: 'Basic Auth',
+        id: '517526354743085',
+        enabled: 'true'
+      },
+      {
+        name: 'Website Desktop',
+        id: '328027447731198',
+        enabled: 'false'
+      },
+      {
+        name: 'Android App',
+        id: '405383051040955',
+        enabled: 'true'
       }
-    }"
-    :initial-fetcher-params="{
-      sortColumnKey: 'name',
-      sortColumnOrder: 'asc'
-    }"
-    :headers="[
-      { label: 'Name', key: 'name', sortable: true },
-      { label: 'Id', key: 'id', sortable: true },
-      { label: 'Enabled', key: 'enabled', sortable: false }
-    ]"
-    disablePagination
-    hidePaginationWhenOptional
-    :enableClientSort="true"
-  />
-</template>
+    ]
+  }}"
+  :initial-fetcher-params="{
+    sortColumnKey: 'name',
+    sortColumnOrder: 'asc'
+  }"
+  :headers="[
+    { label: 'Name', key: 'name', sortable: true },
+    { label: 'Id', key: 'id', sortable: true },
+    { label: 'Enabled', key: 'enabled', sortable: false }
+  ]"
+  hidePaginationWhenOptional
+  :enableClientSort="true"
+/>
 
 ```html
 <template>
@@ -358,7 +319,6 @@ object these features should be explicitly disabled.
       { label: 'Id', key: 'id', sortable: true },
       { label: 'Enabled', key: 'enabled', sortable: false }
     ]"
-    disablePagination
     hidePaginationWhenOptional
     :enableClientSort="true"
   />
@@ -367,15 +327,11 @@ object these features should be explicitly disabled.
 
 ### fetcherCacheKey
 
-The fetcher functionality makes use of [SWRV](https://docs-swrv.netlify.app/) to handle caching of response data. Whenever the cache key is changed the fetcher will automatically
-refire and repopulate the table data.
+The fetcher functionality makes use of [SWRV](https://docs-swrv.netlify.app/) to handle caching of response data. Whenever the cache key is changed the fetcher will automatically refire and repopulate the table data.
 
 ```html
 <template>
-  <KTable
-    :fetcher="fetcher"
-    :headers="headers"
-    :fetcherCacheKey="cacheKey" />
+  <KTable :fetcher="fetcher" :headers="headers" :fetcherCacheKey="cacheKey" />
 </template>
 
 <script>
@@ -395,10 +351,61 @@ export default {
 </script>
 ```
 
+An alternate implementation is to apply a `key` attribute to the `KTable` in conjunction with a `fetcher` and the SWRV `revalidate` function. To prevent unnecessary calls on mount, the `key` `ref` should have an initial value of `0`.
+
+Since the `fetcher` function will handle the intial GET of the data, we want the cache key for the `revalidate` function to evaluate to `falsey` on page load (to avoid an unnecessary duplicate call), and will manually call `revalidate()` and increment the `key` to trigger a refetch and redraw of the table.
+
+```html
+<template>
+  <KTable :key="key" :fetcher="fetcher" :headers="headers" />
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  setup () {
+    const key = ref(0) // initialized to zero
+    const fetcher = async ({ pageSize, page, query, offset = null }) => {
+      try {
+        const res = await services.getAll(pageSize, offset)
+
+        // handle data
+      } catch (error) {
+        // handle error
+      }
+    }
+
+    const { revalidate } = composables.useRequest(
+      () => key.value && `service-list-${key.value}`, // will evaluate to falsey on mount, preventing an extra call
+      () => { return fetcher() }
+    )
+
+    const handleDelete = (id) => {
+      try {
+        const res = await services.delete(id)
+
+        key.value++
+        revalidate()
+      } catch (error) {
+        // handle error
+      }
+    }
+
+    return {
+      key,
+      fetcher,
+      headers,
+      handleDelete
+    }
+  }
+})
+</script>
+```
+
 ### searchInput
 
-Pass in a string of search input for server-side table filtering. See [the Server-side function section](#server-side-functions)
-for an example.
+Pass in a string of search input for server-side table filtering. See [the Server-side function section](#server-side-functions) for an example.
 
 ### headers
 
@@ -447,8 +454,7 @@ Example headers array:
 
 ### initialFetcherParams
 
-Pass in an object of parameters for the initial fetcher function call. If not provided,
-will default to the following values:
+Pass in an object of parameters for the initial fetcher function call. If not provided, will default to the following values:
 
 ```js
 { pageSize: 15, page: 1, query: '', sortColumnKey: '', sortColumnOrder: '' }
@@ -502,17 +508,11 @@ A prop to add custom properties to individual rows. The row object is passed as 
 
 `rowAttrs` - This prop takes a function that returns an object comprising the attributes.
 
-<KTable
-  :fetcher="tableOptionsRowAttrsFetcher"
-  :headers="tableOptionsRowAttrsHeaders"
-  :rowAttrs="rowAttrsFn" />
+<KTable :fetcher="tableOptionsRowAttrsFetcher" :headers="tableOptionsRowAttrsHeaders" :rowAttrs="rowAttrsFn" />
 
 ```html
 <template>
-  <KTable
-    :fetcher="fetcher"
-    :headers="headers"
-    :rowAttrs="rowAttrsFn" />
+  <KTable :fetcher="fetcher" :headers="headers" :rowAttrs="rowAttrsFn" />
 </template>
 
 <script>
@@ -531,16 +531,14 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .k-table {
-  tr.enabled {
+  tr.enabled:hover {
     --KTableHover: var(--green-200, #ccffe1);
-    --KTableBorder: var(--green-400, #19a654);
   }
 
-  tr.disabled {
+  tr.disabled:hover {
     --KTableHover: var(--yellow-100, #fff9e6);
-    --KTableBorder: var(--yellow-200, #ffdc73);
   }
 }
 </style>
@@ -559,18 +557,13 @@ A prop to add custom properties to individual table cells or groups of cells. Th
 | `rowIndex` | The zero-based index of the row containing the cell
 | `colIndex`| The zero-based index of the cell within a row
 
-<KTable
-  :headers="tableOptionsCellAttrsHeaders"
-  :fetcher="tableOptionsCellAttrsFetcher"
-  :cellAttrs="cellAttrsFn" />
+<KTable :headers="tableOptionsCellAttrsHeaders" :fetcher="tableOptionsCellAttrsFetcher" :cellAttrs="cellAttrsFn" />
 
 ```html
 <template>
-  <KTable
-    :fetcher="fetcher"
-    :headers="headers"
-    :cellAttrs="cellAttrsFn" />
+  <KTable :fetcher="fetcher" :headers="headers" :cellAttrs="cellAttrsFn" />
 </template>
+
 <script>
 export default {
   methods: {
@@ -614,27 +607,45 @@ export default {
 
 ## Events
 
-Bind any DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to various parts of the table. We support events on both table rows and cells, but must be careful with clickable content in rows when row click is enabled. You can also add logic to check for `metakey` to support cmd/ctrl when clicking. Examples highlighted below.
+Bind DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to various parts of the table. We support events on both table rows and cells, but must be careful with clickable content in rows when row click is enabled. You can also add logic to check for `metakey` to support cmd/ctrl when clicking. Examples highlighted below.
+
+::: tip Note
+Styles and other accessibility-related attributes to indicate whether a row can be clicked are automatically applied when a value that does not evaluate to `undefined` is provided for an event handler.
+
+If you want to conditionally apply an event handler to `@row:click`, the value must evaluate to either a callback function, or `undefined`.
+
+If you always provide a function as the value for `@row:click` the table will not be able to correctly determine whether the row should be clickable without executing the callback.
+
+<h4><KIcon icon="check" size="22" color="var(--green-500)" style="vertical-align: sub;" class="mr-1" />Correct Usage</h4>
+
+```
+@row:click="isAllowedBool ? handleRowClick : undefined"
+```
+
+<h4><KIcon icon="disabled" size="22" color="var(--red-500)" style="vertical-align: sub;" class="mr-1" />Incorrect Usage</h4>
+
+```
+@row:click="(evt, row) => isAllowedBool ? handleRowClick(evt, row) : undefined"
+```
+
+:::
 
 ### Rows
 
-`@row:<event>` - returns the `Event`, the row item, and the type: `row`
+`@row:{event}` - returns the `Event`, the row item, and the type: `row`
 `row-click` - Event is emitted whenever a row is clicked and the row handler is fired, returns the row `data`
 
 To avoid firing row clicks by accident, the row click handler ignores events coming from `a`, `button`, `input`, and `select` elements (unless they have the `disabled` attribute). As such click handlers attached to these element types do not require stopping propagation via `@click.stop`.
 
-<KTable
-  :headers="tableOptionsLinkHeaders"
-  :fetcher="tableOptionsLinkFetcher"
-  @row:click="handleRowClick">
-  <template v-slot:company="{rowValue}">
+<KInputSwitch v-model="enableRowClick" :label="enableRowClick ? 'Row clicks enabled' : 'Row clicks disabled'" />
+
+<KTable :headers="tableOptionsLinkHeaders" :fetcher="tableOptionsLinkFetcher" @row:click="enableRowClick ? handleRowClick : undefined">
+  <template v-slot:company="{ rowValue }">
     <a @click="linkHander">{{rowValue.label}}</a>
   </template>
   <template v-slot:actions>
     <div class="float-right">
-      <KButton
-        appearance="secondary"
-        @click="buttonHandler">
+      <KButton appearance="secondary" @click="buttonHandler">
         Fire Button Handler!
       </KButton>
     </div>
@@ -646,10 +657,12 @@ To avoid firing row clicks by accident, the row click handler ignores events com
 </KTable>
 
 ```html
+<KInputSwitch v-model="enableRowClick" :label="enableRowClick ? 'Row clicks enabled' : 'Row clicks disabled'" />
+
 <KTable
   :fetcher="fetcher"
   :headers="headers"
-  @row:click="handleRowClick">
+  @row:click="enableRowClick ? handleRowClick : undefined">
   <template v-slot:company="{rowValue}">
     <!-- .stop not needed on @click because we ignore clicks from anchors -->
     <a @click="linkHander">{{rowValue.label}}</a>
@@ -705,10 +718,7 @@ Click events tied to non-ignored elements (not `a`, `button`, `input`, `select`)
 
 Using a `KPop` inside of a clickable row requires some special handling. Non-clickable content must be wrapped in a `div` with the `@click.stop` attribute to prevent the row click handler from firing if a user clicks content inside of the popover. Any handlers on non-ignored elements will need to have `.stop`.
 
-<KTable
-  :headers="tableOptionsLinkHeaders2"
-  :fetcher="tableOptionsLinkFetcher"
-  @row:click="handleRowClick">
+<KTable :headers="tableOptionsLinkHeaders2" :fetcher="tableOptionsLinkFetcher" @row:click="handleRowClick">
   <template v-slot:company="{rowValue}">
     <a @click="linkHander">{{rowValue.label}}</a>
   </template>
@@ -774,8 +784,8 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
 
 ### Cells
 
-`@cell:<event>` - returns the `Event`, the cell value, and the type: `cell`
-`cell-click` - Event is emitted whenever a cell is clicked and the cell handler is fired, returns the row `data`
+`@cell:{event}` - returns the `Event`, the cell value, and the type: `cell`
+`cell-click` - Event is emitted whenever a cell is clicked and the cell handler is fired, returns the cell `data`
 
 <template>
   <div>
@@ -786,7 +796,6 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
     <KTable
       :headers="tableOptionsHeaders"
       :fetcher="tableOptionsFetcher"
-      is-clickable
       @row:click="actionRow"
       @cell:mouseover="actionRow"
     />
@@ -805,7 +814,6 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
     <KTable
       :fetcher="fetcher"
       :headers="headers"
-      is-clickable
       @row:click="actionRow"
       @cell:mouseover="actionRow"
     />
@@ -822,7 +830,6 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
       <KTable
         :fetcher="fetcher"
         :headers="headers"
-        is-clickable
         has-hover
         @row:click="actionRow"
         @cell:mouseover="actionRow"
@@ -851,17 +858,14 @@ export default {
 
 ## Slots
 
-Both column cells & header cells are slottable in KTable. Use slots to gain
-access to the row data.
+Both column cells & header cells are slottable in KTable. Use slots to gain access to the row data.
 
 - `column-{column-key}` - Will slot the header cell
 - `{column-key}` - Will slot the column cell of a given row
 
 ### Column Header
 
-<KTable
-  :headers="tableOptionsHeaders"
-  :fetcher="tableOptionsFetcher">
+<KTable :headers="tableOptionsHeaders" :fetcher="tableOptionsFetcher">
   <template v-slot:column-name="{ column }">
     {{ column.label.toUpperCase() }}
   </template>
@@ -869,10 +873,7 @@ access to the row data.
 
 ```html
 <template>
-  <KTable
-    :fetcher="fetcher"
-    :headers="headers"
-  >
+  <KTable :fetcher="fetcher" :headers="headers">
     <!-- Slot column header "name" -->
     <template v-slot:column-name="{ column }">
       {{ column.label.toUpperCase() }}
@@ -899,45 +900,47 @@ export default {
 
 This example uses the [`KDropdownMenu`](/components/dropdown-menu.html) component as the slot content for the `actions` column.
 
-<KTable
-  :headers="tableOptionsHeaders"
-  :fetcher="tableOptionsFetcher">
-  <template v-slot:enabled="{rowValue}">
-    <span v-if="rowValue" style="color: green">&#10003;</span>
-    <span v-else style="color: red">&#10007;</span>
-  </template>
-  <template v-slot:actions>
-    <KDropdownMenu>
-      <template #default>
-        <KButton
-          appearance="secondary"
-          size="small"
-          class="non-visual-button"
-        >
-          <template #icon>
-            <KIcon
-              icon="more"
-              color="var(--black-400)"
-              size="16"
-            />
-          </template>
-        </KButton>
-      </template>
-      <template #items>
-        <KDropdownItem @click="clickHandler('Edit clicked!')">
-          Edit
-        </KDropdownItem>
-        <KDropdownItem
-          has-divider
-          is-dangerous
-          @click="clickHandler('Delete clicked!')"
-        >
-          Delete
-        </KDropdownItem>
-      </template>
-    </KDropdownMenu>
-  </template>
-</KTable>
+<div>
+  <KTable
+    :headers="tableOptionsHeaders"
+    :fetcher="tableOptionsFetcher">
+    <template v-slot:enabled="{rowValue}">
+      <span v-if="rowValue" style="color: green">&#10003;</span>
+      <span v-else style="color: red">&#10007;</span>
+    </template>
+    <template v-slot:actions>
+      <KDropdownMenu>
+        <template #default>
+          <KButton
+            appearance="secondary"
+            size="small"
+            class="non-visual-button"
+          >
+            <template #icon>
+              <KIcon
+                icon="more"
+                color="var(--black-400)"
+                size="16"
+              />
+            </template>
+          </KButton>
+        </template>
+        <template #items>
+          <KDropdownItem @click="clickHandler('Edit clicked!')">
+            Edit
+          </KDropdownItem>
+          <KDropdownItem
+            has-divider
+            is-dangerous
+            @click="clickHandler('Delete clicked!')"
+          >
+            Delete
+          </KDropdownItem>
+        </template>
+      </KDropdownMenu>
+    </template>
+  </KTable>
+</div>
 
 ```html
 <template>
@@ -984,6 +987,7 @@ This example uses the [`KDropdownMenu`](/components/dropdown-menu.html) componen
     </template>
   </KTable>
 </template>
+
 <script>
 export default {
   data() {
@@ -1009,10 +1013,7 @@ the section below or completely slot in your own content.
 
 <KCard>
   <template v-slot:body>
-    <KTable
-      :fetcher="emptyFetcher"
-      :headers="headers"
-    >
+    <KTable :fetcher="emptyFetcher" :headers="headers">
       <template v-slot:empty-state>
         <div class="w-100" style="text-align: center;">
           <KIcon icon="warning" />
@@ -1029,10 +1030,7 @@ the section below or completely slot in your own content.
 
 ```html
 <template>
-  <KTable
-    :fetcher="() => { return { data: [] } }"
-    :headers="headers"
-  >
+  <KTable :fetcher="() => { return { data: [] } }" :headers="headers">
     <template v-slot:empty-state>
       <KIcon icon="warning" />
       No Content!!!
@@ -1060,7 +1058,7 @@ Set the following properties to handle empty state:
 - `emptyStateActionMessage` - Button text for empty state action
 - `emptyStateActionButtonIcon` - Icon for the empty state action button
 
-If using a CTA button, a `ktable-empty-state-cta-clicked` event is fired when clicked.
+If using a CTA button, a `@ktable-empty-state-cta-clicked` event is fired when clicked.
 
 #### Default Empty State Messaging
 
@@ -1074,9 +1072,7 @@ If using a CTA button, a `ktable-empty-state-cta-clicked` event is fired when cl
 <template>
   <KCard>
     <template v-slot:body>
-      <KTable
-        :fetcher="fetcher"
-        :headers="headers" />
+      <KTable :fetcher="fetcher" :headers="headers" />
     </template>
   </KCard>
 </template>
@@ -1171,10 +1167,7 @@ If using a CTA button, a `ktable-error-cta-clicked` event is fired when clicked.
 <template>
   <KCard>
     <template v-slot:body>
-      <KTable
-        :fetcher="fetcher"
-        :headers="headers"
-        :hasError="true" />
+      <KTable :fetcher="fetcher" :headers="headers" :hasError="true" />
     </template>
   </KCard>
 </template>
@@ -1185,6 +1178,7 @@ If using a CTA button, a `ktable-error-cta-clicked` event is fired when clicked.
 <KCard class="my-2">
   <template v-slot:body>
     <KTable
+      :fetcher="() => { return { data: [] } }"
       :hasError="true"
       errorStateTitle="Something went wrong"
       errorStateMessage="We are not able to load the data for this table."
@@ -1269,22 +1263,15 @@ Set the `isLoading` prop to `true` to enable the loading state.
 
 ## Server-side functions
 
-Pass a fetcher function to enable server-side search, sort and pagination.
-The fetcher function should structure the ajax request URL in such a way that
-enables server side sort, search and pagination per the requirements of the API
-being used.
+Pass a fetcher function to enable server-side search, sort and pagination. The fetcher function should structure the ajax request URL in such a way that enables server side sort, search and pagination per the requirements of the API being used.
 
 ::: tip Note
-The loading state is handled automatically. When the `fetcher` is called the internal loading state
-is triggered and will be resolved when the fetcher returns. You can override this behavior using the
-`isLoading` prop.
+The loading state is handled automatically. When the `fetcher` is called the internal loading state is triggered and will be resolved when the fetcher returns. You can override this behavior using the `isLoading` prop.
 :::
 
-<KTable
-  :fetcher="fetcher"
-  :headers="headers" />
+<KTable :fetcher="fetcher" :headers="headers" />
 
-```http
+```txt
 Example URL
 
 https://kongponents.dev/api/components?_page=1&_limit=10&_sort=name&_order=desc
@@ -1295,7 +1282,7 @@ https://kongponents.dev/api/components?_page=1&_limit=10&_sort=name&_order=desc
 
 <KCard>
   <template v-slot:body>
-    <KInput placeholder="Search..." v-model="search" type="search" />
+    <KInput placeholder="Search" v-model="search" type="search" />
     <KTable
       :fetcher="fetcher"
       :initial-fetcher-params="{
@@ -1366,18 +1353,12 @@ fetcher(payload) {
 An Example of changing the hover background might look like.
 
 <div class="table-wrapper">
-  <KTable
-    :headers="tableOptionsHeaders"
-    :fetcher="tableOptionsFetcher"
-    hasHover />
+  <KTable :headers="tableOptionsHeaders" :fetcher="tableOptionsFetcher" hasHover />
 </div>
 
 ```html
 <template>
-  <KTable
-    :fetcher="fetcher"
-    :headers="headers"
-    hasHover />
+  <KTable :fetcher="fetcher" :headers="headers" hasHover />
 </template>
 
 <style>
@@ -1390,12 +1371,15 @@ An Example of changing the hover background might look like.
 <!-- The markdownlint disable below is necessary due to some syntax in the <script> tags - `yarn lint` will not pass without this -->
 <!-- markdownlint-disable MD011 MD037 -->
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   data() {
     return {
       row: null,
       eventType: '',
+      enableRowClick: true,
       offsetPaginationPageSize: 15,
       offsetPaginationData: {},
       headers: [
@@ -1451,7 +1435,7 @@ export default {
         limit = pageSize
       }
       let myItems = []
-for (let i = ((page-1)* pageSize); i < limit; i++) {
+      for (let i = ((page-1)* pageSize); i < limit; i++) {
           let offset = sortOrder === 'asc' ? count-i : i+1
           myItems.push({
             title: "Item " + offset,
@@ -1465,51 +1449,6 @@ for (let i = ((page-1)* pageSize); i < limit; i++) {
           resolve(myItems);
         }, 500);
       });
-    },
-
-    async generateOffsetPaginationTableData(pgSize) {
-      const pageSize = pgSize || this.offsetPaginationPageSize
-      const data = []
-      const offsetObj = {}
-      const offsetVal = 'offset'
-
-      for (let i = 0; i < 50; i++) {
-        data.push({
-          id: `08cc7d81-a9d8-4ae1-a42f-8d4e5a919d0${i}`,
-          version: '2.8.0.0-enterprise-edition',
-          hostname: `99e591ae377${i}`,
-          last_ping: 1648855072,
-          connected: 'Connected',
-          last_seen: `${i} days ago`
-        })
-      }
-
-      const totalPages = Math.ceil(data.length / pageSize)
-
-      for (let i = 0; i < totalPages; i++) {
-        const start = i * pageSize
-        const end = pageSize * (i + 1)
-
-        offsetObj[`${offsetVal}_${i}`] = { data: [], pagination: { offset: '' } }
-        offsetObj[`${offsetVal}_${i}`].data = data.slice(start, end)
-
-        if (i < totalPages - 1) {
-          offsetObj[`${offsetVal}_${i}`].pagination.offset = `${offsetVal}_${i + 1}`
-        }
-      }
-
-      this.offsetPaginationData = offsetObj
-    },
-
-    async offsetPaginationFetcher({ pageSize, offset }) {
-      if (pageSize !== this.offsetPaginationPageSize) {
-        this.offsetPaginationPageSize = pageSize
-        this.generateOffsetPaginationTableData()
-      }
-
-      return offset
-        ? this.offsetPaginationData[offset]
-        : Object.values(this.offsetPaginationData)[0]
     },
 
     async fetcher(payload) {
@@ -1693,14 +1632,14 @@ for (let i = ((page-1)* pageSize); i < limit; i++) {
         this.$toaster.open('Row click event fired!')
       }
     },
-    clickHandler (msg) {
-      this.$toaster.open(msg)
-    },
     linkHander (e) {
       alert('a link was clicked')
     },
     buttonHandler (e) {
       alert('a button was pressed')
+    },
+    clickHandler (msg) {
+      this.$toaster.open(msg)
     },
     rowAttrsFn (rowItem) {
       return {
@@ -1744,34 +1683,78 @@ for (let i = ((page-1)* pageSize); i < limit; i++) {
         },
       }
     },
+
+    async generateOffsetPaginationTableData(pgSize) {
+      const pageSize = pgSize || this.offsetPaginationPageSize
+      const data = []
+      const offsetObj = {}
+      const offsetVal = 'offset'
+
+      for (let i = 0; i < 50; i++) {
+        data.push({
+          id: `08cc7d81-a9d8-4ae1-a42f-8d4e5a919d0${i}`,
+          version: '2.8.0.0-enterprise-edition',
+          hostname: `99e591ae377${i}`,
+          last_ping: 1648855072,
+          connected: 'Connected',
+          last_seen: `${i} days ago`
+        })
+      }
+
+      const totalPages = Math.ceil(data.length / pageSize)
+
+      for (let i = 0; i < totalPages; i++) {
+        const start = i * pageSize
+        const end = pageSize * (i + 1)
+
+        offsetObj[`${offsetVal}_${i}`] = { data: [], pagination: { offset: '' } }
+        offsetObj[`${offsetVal}_${i}`].data = data.slice(start, end)
+
+        if (i < totalPages - 1) {
+          offsetObj[`${offsetVal}_${i}`].pagination.offset = `${offsetVal}_${i + 1}`
+        }
+      }
+
+      this.offsetPaginationData = offsetObj
+    },
+
+    async offsetPaginationFetcher({ pageSize, offset }) {
+      if (pageSize !== this.offsetPaginationPageSize) {
+        this.offsetPaginationPageSize = pageSize
+        this.generateOffsetPaginationTableData()
+      }
+
+      return offset
+        ? this.offsetPaginationData[offset]
+        : Object.values(this.offsetPaginationData)[0]
+    },
   },
   mounted() {
     this.generateOffsetPaginationTableData()
   }
-}
+})
 </script>
 
 <style lang="scss">
-  .table-docs .k-table {
-    display: table;
-    th, tr, td {
-      border: unset;
-    }
-  }
+.table-docs .k-table {
+  display: table;
 
-  .table-wrapper {
+  th, tr, td {
+    border: unset;
+  }
+}
+
+.table-wrapper {
   --KTableHover: lavender;
+}
+
+.k-table {
+  tr.enabled:hover {
+    --KTableHover: var(--green-200, #ccffe1);
   }
 
-  .k-table {
-    tr.enabled {
-      --KTableHover: var(--green-200, #ccffe1);
-      --KTableBorder: var(--green-400, #19a654);
-    }
-
-    tr.disabled {
-      --KTableHover: var(--yellow-100, #fff9e6);
-      --KTableBorder: var(--yellow-200, #ffdc73);
-    }
+  tr.disabled:hover {
+    --KTableHover: var(--yellow-100, #fff9e6);
   }
+}
 </style>

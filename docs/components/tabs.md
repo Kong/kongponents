@@ -1,6 +1,7 @@
 # Tabs
 
 **KTabs** - A mindblowing tabs component
+
 <KTabs :tabs="tabs">
   <template v-slot:tab1>
     <p>Tab 1 content</p>
@@ -20,23 +21,27 @@
   </template>
 </KTabs>
 
-<script>
-export default {
-  data () {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  setup () {
+    const tabs = [
+      {
+        hash: '#tab1',
+        title: 'Tab 1'
+      },
+      {
+        hash: '#tab2',
+        title: 'Tab 2'
+      }
+    ]
+
     return {
-      tabs: [
-        {
-          hash: '#tab1',
-          title: 'Tab 1'
-        },
-        {
-          hash: '#tab2',
-          title: 'Tab 2'
-        }
-      ]
+      tabs,
     }
   }
-}
+})
 </script>
 ```
 
@@ -44,33 +49,42 @@ export default {
 
 ### tabs
 
-KTabs takes one required prop which is an array of tab objects.
+`KTabs` has one **required** prop, `tabs`, which is an array of tab objects with the following interface:
 
-- `tabs`
-- `@changed` - Emitted when a tab is changed
+```ts
+export interface Tab {
+  hash: string
+  title: string
+}
+```
 
 ```html
 <template>
   <KTabs :tabs="tabs" />
 </template>
-<script>
-export default {
-  data () {
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  setup () {
+    const tabs = [
+      { hash: '#pictures', title: 'Pictures' },
+      { hash: '#movies', title: 'Movies' },
+      { hash: '#books', title: 'Books' },
+    ]
+
     return {
-      tabs: [
-        { hash: '#pictures', title: 'Pictures' },
-        { hash: '#movies', title: 'Movies' },
-        { hash: '#books', title: 'Books' },
-      ]
+      tabs,
     }
   }
-}
+})
 </script>
 ```
 
 ### v-model
 
-By default the tabs will set the first tab in the array as active. You can override this by passing in the hash of any other tab to be used with v-model.
+By default the `KTabs` will set the first tab in the array as active. You can override this by passing in the hash of any other tab to be used with `v-model`.
 
 <KTabs v-model="defaultTab" :tabs="tabs">
   <template v-slot:tab1>
@@ -82,9 +96,7 @@ By default the tabs will set the first tab in the array as active. You can overr
 </KTabs>
 
 ```html
-<KTabs
-  v-model="#tab2"
-  :tabs="tabs">
+<KTabs v-model="#tab2" :tabs="tabs">
   <template v-slot:tab1>Tab 1 content</template>
   <template v-slot:tab2>Tab 2 content</template>
 </KTabs>
@@ -103,7 +115,7 @@ If you want to keep your `v-model` in sync so that you can programatically chang
 
 <hr />
 
-<KButton @click="defaultProgrammaticTab = '#tab1'">Activate Tab 1</KButton>
+<KButton @click="defaultProgrammaticTab = '#tab1'" class="mr-2">Activate Tab 1</KButton>
 <KButton @click="defaultProgrammaticTab = '#tab2'">Activate Tab 2</KButton>
 
 ```html
@@ -144,26 +156,35 @@ In order to actually see your tabbed content you must slot it using the tab hash
     <template v-slot:books>Wow look Books!</template>
   </KTabs>
 </template>
-<script>
-export default {
-  data ) {
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  setup () {
+    const tabs = [
+      { hash: '#pictures', title: 'Pictures' },
+      { hash: '#movies', title: 'Movies' },
+      { hash: '#books', title: 'Books' },
+    ]
+
     return {
-      tabs: [
-        { hash: '#pictures', title: 'Pictures' },
-        { hash: '#movies', title: 'Movies' },
-        { hash: '#books', title: 'Books' },
-      ]
+      tabs,
     }
   }
-}
+})
 </script>
 ```
+
+## Events
+
+- `@changed` - Emitted when the active tab is updated, and includes the new active `hash` value
 
 ## Usage
 
 ### Router Hash
 
-KTabs emits a `changed` event with the new tab hash when clicked. You can use this to set the router or window hash and in turn use that with [v-model](#v-model).
+`KTabs` emits a `changed` event with the new tab hash when clicked. You can use this to set the router or window hash and in turn use that with [`v-model`](#v-model).
 
 ```html
 <template>
@@ -176,18 +197,24 @@ KTabs emits a `changed` event with the new tab hash when clicked. You can use th
     <template v-slot:books>Wow look Books!</template>
   </KTabs>
 </template>
-<script>
-export default {
-  data () {
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+// Importing $route and $router in your app may vary and is excluded in this example.
+
+export default defineComponent({
+  setup () {
+    const tabs = [
+      { hash: '#pictures', title: 'Pictures' },
+      { hash: '#movies', title: 'Movies' },
+      { hash: '#books', title: 'Books' },
+    ]
+
     return {
-      tabs: [
-        { hash: '#pictures', title: 'Pictures' },
-        { hash: '#movies', title: 'Movies' },
-        { hash: '#books', title: 'Books' },
-      ]
+      tabs,
     }
   }
-}
+})
 </script>
 ```
 
@@ -205,18 +232,16 @@ An Example of changing the primary KButton variant to green instead of blue migh
 look like.
 > Note: We are scoping the overrides to a wrapper in this example
 
-<template>
-  <div class="KTabs-wrapper">
-    <KTabs :tabs="tabs">
-      <template v-slot:tab1>
-        <p>Tab 1 content</p>
-      </template>
-      <template v-slot:tab2>
-        <p>Tab 2 content</p>
-      </template>
-    </KTabs>
-  </div>
-</template>
+<div class="KTabs-wrapper">
+  <KTabs :tabs="tabs">
+    <template v-slot:tab1>
+      <p>Tab 1 content</p>
+    </template>
+    <template v-slot:tab2>
+      <p>Tab 2 content</p>
+    </template>
+  </KTabs>
+</div>
 
 ```html
 <template>

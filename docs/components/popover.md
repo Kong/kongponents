@@ -1,12 +1,6 @@
 # Popover
 
-<div v-if="hasMounted">
-
-**KPop** is a popover component that is used when you need something with more
-detailed content then fits inside a tooltip. KPop has three slots; only two is
-necessary is to be filled to populate the component with content. The title prop
-must be passed in and the main slot and the content slot must be populated in
-for the popover to display anything.
+**KPop** is a popover component that is used when you need something with more detailed content then fits inside a tooltip. KPop has three slots; only two is necessary is to be filled to populate the component with content. The title prop must be passed in and the main slot and the content slot must be populated in for the popover to display anything.
 
 For example a button:
 
@@ -130,6 +124,7 @@ or alternatively, via the slot:
 ### trigger
 
 What the popover is triggered by - by default it's triggered on click.
+
 Here are the different options:
 
 - `click`
@@ -154,6 +149,7 @@ Here are the different options:
 ### placement
 
 The position of where the popover appears - by default it appears on top.
+
 Here are the different options:
 
 <ul>
@@ -164,14 +160,13 @@ Here are the different options:
   </li>
 </ul>
 
-<select
-  class="k-input"
-  v-model="selectedPosition">
+<select class="k-input" v-model="selectedPosition">
   <option
     v-for="p in positions"
     :key="p"
     :value="p">{{ p }}</option>
 </select>
+<br>
 
 <KPop title="Cool header" trigger="hover" :placement="selectedPosition">
   <KButton>button</KButton>
@@ -197,8 +192,10 @@ Here are the different options:
 </KPop>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   data () {
     return {
       selectedPosition: 'auto',
@@ -219,7 +216,7 @@ export default {
       ]
     }
   }
-}
+})
 </script>
 ```
 
@@ -353,8 +350,7 @@ Custom transitions that you want the popover to have - by default it uses a `fad
 
 ### popoverTimeout
 
-Custom timeout setting that you want the popover to have - by default it is set
-to 300 milliseconds.
+Custom timeout setting that you want the popover to have - by default it is set to 300 milliseconds.
 
 <KPop title="Cool header" :popover-timeout="1000" trigger="hover">
   <KButton>button</KButton>
@@ -421,6 +417,7 @@ You can pass in an optional flag to not show the caret on the edge of the popove
 ### onPopoverClick
 
 You can pass in an optional callback function to trigger when the popup is already open and the trigger method is click.
+
 The callback function can optionally return a boolean, which will show or hide the popup depending on the value of the boolean.
 
 <KPop title="Cool header" :on-popover-click="toggle">
@@ -440,28 +437,26 @@ The callback function can optionally return a boolean, which will show or hide t
   </template>
 </KPop>
 
-<script>
-  export default {
-    data () {
-      return {
-        isToggled: true
-      }
-    },
-    methods: {
-      toggle () {
-        this.isToggled = !this.isToggled
-        return this.isToggled
-      }
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
+
+export default defineComponent({
+  setup() {
+    const isToggled = ref(true)
+    const toggle = (): void => {
+      isToggled.value = !isToggled.value
+      return isToggled.value
     }
+
+    return { isToggled }
   }
+})
 </script>
 ```
 
 ### isSVG
 
-To support `<KPop>` being able to be used inside an svg tag, use the `isSvg` prop.
-This will wrap the content of the KPop in a `<foreignObject>` tag, so that normal
-HTML content can be injected into the popover.
+To support `<KPop>` being able to be used inside an svg tag, use the `isSvg` prop. This will wrap the content of the KPop in a `<foreignObject>` tag, so that normal HTML content can be injected into the popover.
 
 <svg style="cursor: pointer; height: 20px; width: 20px; margin-right: 1rem;" v-for="light in [{ color: 'red', value: 'red-500'}, { color: 'yellow', value: 'yellow-200'}, { color: 'green', value: 'green-500'}]">
   <KPop trigger="hover" :title="light.color" :is-svg="true" tag="svg" :popover-timeout="10">
@@ -495,6 +490,7 @@ HTML content can be injected into the popover.
 ```
 
 - `title`
+
 There is an optional title slot that can take in an element for the title. The title could alternatively be populated via the prop.
 
 ```html
@@ -509,6 +505,7 @@ There is an optional title slot that can take in an element for the title. The t
 ```
 
 - `actions`
+
 An optional slot for an actions button in the upper right corner of the popover.
 
 ```html
@@ -523,6 +520,7 @@ An optional slot for an actions button in the upper right corner of the popover.
 ```
 
 - `content`
+
 This is the slot that takes in the content of the popover.
 
 ```html
@@ -537,6 +535,7 @@ This is the slot that takes in the content of the popover.
 ```
 
 - `footer`
+
 This is an optional slot that takes in content for the footer bar. This typically is an actionable element like
 a button or link.
 
@@ -604,6 +603,77 @@ Example:
   </template>
 </KPop>
 
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  data () {
+    return {
+      selectedPosition: 'auto',
+      positions: [
+        'auto',
+        'top',
+        'topStart',
+        'topEnd',
+        'left',
+        'leftStart',
+        'leftEnd',
+        'right',
+        'rightStart',
+        'rightEnd',
+        'bottom',
+        'bottomStart',
+        'bottomEnd'
+      ],
+      currentState: 'idle',
+      states: {
+        'idle': 'pending',
+        'pending': 'idle'
+      },
+      count: 0,
+      isToggled: true,
+      timeout: null
+    }
+  },
+  computed: {
+    buttonText () {
+      return {
+        'pending': 'Loading something...',
+        'idle': 'Load something'
+      }[this.currentState]
+    },
+    message () {
+      return {
+        'pending': `Loading ${this.count}...`,
+        'idle': 'Loaded!'
+      }[this.currentState]
+    }
+  },
+  methods: {
+    loadSomething () {
+      this.transition()
+      this.timeout = setTimeout(() => {
+        this.count+=1
+        this.transition()
+      }, 2000)
+    },
+    toggle () {
+      this.isToggled = !this.isToggled
+      return this.isToggled
+    },
+    onClose () {
+      clearTimeout(this.timeout)
+      if (this.currentState == 'pending') {
+        this.transition()
+      }
+    },
+    transition() {
+      this.currentState = this.states[this.currentState]
+    }
+  }
+})
+</script>
+
 ```html
 <KPop @opened="loadSomething" @closed="onClose">
   <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
@@ -615,50 +685,52 @@ Example:
   </template>
 </KPop>
 
-<script>
-  export default {
-    data () {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  data () {
+    return {
+      currentState: 'idle',
+      states: {
+        'idle': 'pending',
+        'pending': 'idle'
+      },
+      count: 0,
+      timeout: null
+    }
+  },
+  computed: {
+    buttonText () {
       return {
-        currentState: 'idle',
-        states: {
-          'idle': 'pending',
-          'pending': 'idle'
-        },
-        count: 0,
-        timeout: null
-      }
+        'pending': 'Loading something...',
+        'idle': 'Load something'
+      }[this.currentState]
     },
-    computed: {
-      buttonText () {
-        return {
-          'pending': 'Loading something...',
-          'idle': 'Load something'
-        }[this.currentState]
-      },
-      message () {
-        return {
-          'pending': `Loading ${this.count}...`,
-          'idle': 'Loaded!'
-        }[this.currentState]
-      }
+    message () {
+      return {
+        'pending': `Loading ${this.count}...`,
+        'idle': 'Loaded!'
+      }[this.currentState]
+    }
+  },
+  methods: {
+    loadSomething () {
+      this.transition()
+      this.timeout = setTimeout(() => {
+        this.count+=1
+        this.transition()
+      }, 2000)
     },
-    methods: {
-      loadSomething () {
-        this.transition()
-        this.timeout = setTimeout(() => {
-          this.count+=1
-          this.transition()
-        }, 2000)
-      },
-      onClose () {
-        clearTimeout(this.timeout)
-        this.transition()
-      },
-      transition() {
-        this.currentState = this.states[this.currentState]
-      }
+    onClose () {
+      clearTimeout(this.timeout)
+      this.transition()
+    },
+    transition() {
+      this.currentState = this.states[this.currentState]
     }
   }
+})
 </script>
 ```
 
@@ -680,81 +752,6 @@ Example:
 For Internet Explorer 11 and below, the Popover component will not work due to `Node.contains` not being supported by the browser.
 You will have to manually polyfill this functionality if you choose to support IE11 or below.
 :::
-
-</div>
-
-<script>
-  export default {
-    data () {
-      return {
-        hasMounted: false,
-        selectedPosition: 'auto',
-        positions: [
-          'auto',
-          'top',
-          'topStart',
-          'topEnd',
-          'left',
-          'leftStart',
-          'leftEnd',
-          'right',
-          'rightStart',
-          'rightEnd',
-          'bottom',
-          'bottomStart',
-          'bottomEnd'
-        ],
-        currentState: 'idle',
-        states: {
-          'idle': 'pending',
-          'pending': 'idle'
-        },
-        count: 0,
-        isToggled: true,
-        timeout: null
-      }
-    },
-    computed: {
-      buttonText () {
-        return {
-          'pending': 'Loading something...',
-          'idle': 'Load something'
-        }[this.currentState]
-      },
-      message () {
-        return {
-          'pending': `Loading ${this.count}...`,
-          'idle': 'Loaded!'
-        }[this.currentState]
-      }
-    },
-    methods: {
-      loadSomething () {
-        this.transition()
-        this.timeout = setTimeout(() => {
-          this.count+=1
-          this.transition()
-        }, 2000)
-      },
-      toggle () {
-        this.isToggled = !this.isToggled
-        return this.isToggled
-      },
-      onClose () {
-        clearTimeout(this.timeout)
-        if (this.currentState == 'pending') {
-          this.transition()
-        }
-      },
-      transition() {
-        this.currentState = this.states[this.currentState]
-      }
-    },
-    mounted () {
-      this.hasMounted = true
-    }
-  }
-</script>
 
 <style scoped>
   select {

@@ -227,7 +227,7 @@ We support both single line truncation as well as multi-line. Multi-line truncat
 ## General Helpers
 
 | Class       |Properties
-| :---------- |:-------------- |:-----------
+| :---------- |:--------------
 | .capitalize | text-transform: capitalize;
 | .lowercase | text-transform: lowercase;
 | .uppercase | text-transform: uppercase;

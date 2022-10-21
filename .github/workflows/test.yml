@@ -1,46 +1,75 @@
-name: Build & Run Tests
+name: Tests
 
 on:
   pull_request:
     branches:
-    - main
-    - 'release/**'
+      - main
+
+  # Allow calling manually from GitHub
+  workflow_dispatch:
+
+  # Allow workflow to be called by another workflow
+  workflow_call:
+    # Must define secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
+    secrets:
+      # Normally, this should not be passed as Percy should only run on PR
+      PERCY_TOKEN:
+        description: 'The PERCY_TOKEN passed from the caller workflow as it is not available within workflow_call.'
+        required: true
+      PREVENT_PERCY_TESTS:
+        description: 'Pass false to prevent the Percy visual regression tests from running.'
+        required: true
 
 jobs:
   test:
+    name: Run Component Tests
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    strategy:
-      fail-fast: false
     steps:
-    - uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Read .nvmrc
-      run: echo ::set-output name=NVMRC::$(cat .nvmrc)
-      id: nvm
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
 
-    - name: Use Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '${{ steps.nvm.outputs.NVMRC }}'
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
 
-    - name: install, lint
-      run: |
-        yarn install
-        yarn lint
+      - name: Lint
+        run: yarn lint
 
-    - name: build
-      run: |
-        yarn build
+      - name: Run Cypress component tests
+        uses: cypress-io/github-action@v4
+        with:
+          install: false
+          command: yarn test
 
-    - name: test
-      run: |
-        yarn test
+      - name: Upload Cypress screenshots (on failure)
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots/
 
-    # - name: Trigger Percy visual regression test for docs
-    #   timeout-minutes: 5
-    #   env:
-    #     PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-    #     PERCY_TARGET_BRANCH: main
-    #   run: |
-    #     npx @percy/cli snapshot docs/.vuepress/dist/ --exclude "**/404.html"
+      - name: Upload Cypress videos (always)
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos/
+
+      - name: Build components and docs
+        run: yarn build
+
+      # This step will be skipped if being ran from the publish action with PREVENT_PERCY_TESTS: 'true'
+      # - name: Trigger Percy visual regression test for docs
+      #   timeout-minutes: 5
+      #   env:
+      #     PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+      #     PREVENT_PERCY_TESTS: ${{ secrets.PREVENT_PERCY_TESTS }}
+      #     PERCY_TARGET_BRANCH: main
+      #   if: "${{ env.PREVENT_PERCY_TESTS != 'true' }}"
+      #   run: |
+      #     npx @percy/cli snapshot docs/.vuepress/dist/

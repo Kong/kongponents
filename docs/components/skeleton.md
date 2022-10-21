@@ -8,226 +8,146 @@
 
 - `type`
 
-There are 5 different types of loading states that KSkeleton supports: Card,
-Table, Form, Spinner and a generic loading state. Defaults to a generic loading
-state. The following example shows a Form type KSKeleton.
+There are 5 different types of loading states that KSkeleton supports: Card, Table, Form, Spinner and a generic loading state. Defaults to a generic loading state. The following example shows a Form type KSKeleton.
 
-<template>
-  <KSkeleton type="form" />
-</template>
+<KSkeleton type="form" />
 
 ```html
-<template>
-  <KSkeleton type="form" />
-</template>
+<KSkeleton type="form" />
 ```
 
 ### delayMilliseconds
 
-- `delay-milliseconds`
+The number of milliseconds to wait before showing the skeleton state. Defaults to `0`.
 
-The number of milliseconds to wait before showing the skeleton state. Defaults to 0.
-
-<template>
-  <Komponent :data="{ isLoading: false }" v-slot="{ data }">
-    <div>
-      <k-button class="mb-2" @click="()=>(data.isLoading=!data.isLoading)">Toggle loading - {{data.isLoading?'on':'off'}}</k-button>
-        <div v-if="!data.isLoading">
-          <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-        </div>
-        <KSkeleton v-else="data.isLoading" />
-    </div>
-  </Komponent>
-</template>
+<KComponent :data="{ isLoading: false }" v-slot="{ data }">
+  <div>
+    <KButton class="mb-2" @click="()=>(data.isLoading=!data.isLoading)">Toggle loading - {{data.isLoading?'on':'off'}}</KButton>
+      <div v-if="!data.isLoading">
+        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+      </div>
+      <KSkeleton v-else="data.isLoading" delay-milliseconds="200" />
+  </div>
+</KComponent>
 
 ```html
-<template>
-  <Komponent :data="{ isLoading: false }" v-slot="{ data }">
-    <div>
-      <k-button class="mb-2" @click="()=>(data.isLoading=!data.isLoading)">Toggle loading - {{data.isLoading?'on':'off'}}</k-button>
-        <div v-if="!data.isLoading">
-          <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-        </div>
-        <KSkeleton v-else="data.isLoading" />
-    </div>
-  </Komponent>
-</template>
+<KComponent :data="{ isLoading: false }" v-slot="{ data }">
+  <div>
+    <KButton class="mb-2" @click="()=>(data.isLoading=!data.isLoading)">Toggle loading - {{data.isLoading?'on':'off'}}</KButton>
+      <div v-if="!data.isLoading">
+        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+      </div>
+      <KSkeleton v-else="data.isLoading" delay-milliseconds="200" />
+  </div>
+</KComponent>
 ```
 
 ## Generic Loading State
 
 By default, **KSkeleton** will load a generic loading state. There are no props for this state.
 
-<template>
-  <KSkeleton />
-</template>
+<KSkeleton />
 
 ```html
-<template>
-  <KSkeleton />
-</template>
+<KSkeleton />
 ```
 
 ## Card Loading State
 
 This loading state is using for card type components, like **KCard** or similar.
 
-<template>
-  <KSkeleton type="card" />
-</template>
+<KSkeleton type="card" />
 
 ```html
-<template>
-  <KSkeleton type="card" />
-</template>
+<KSkeleton type="card" />
 ```
 
 ### cardCount
 
-- `card-count`
-
 Used for displaying the number of cards in this loading state. Defaults to 1. The following example shows 3 cards.
 
-<template>
-  <KSkeleton type="card" :card-count="3" />
-</template>
+<KSkeleton type="card" :card-count="3" />
 
 ```html
-<template>
-  <KSkeleton type="card" :card-count="3" />
-</template>
+<KSkeleton type="card" :card-count="3" />
 ```
 
 ## Form Loading State
 
 This loading state is used for form type components. There are no props for this state.
 
-<template>
-  <KSkeleton type="form" />
-</template>
+<KSkeleton type="form" />
 
 ```html
-<template>
-  <KSkeleton type="form" />
-</template>
+<KSkeleton type="form" />
 ```
 
 ## Table Loading State
 
 This loading state is used for table type components.
 
-<template>
-  <KSkeleton type="table" />
-</template>
+<KSkeleton type="table" />
 
 ```html
-<template>
-  <KSkeleton type="table" />
-</template>
+<KSkeleton type="table" />
 ```
 
-### rows
-
-- `table-rows`
+### tableRows
 
 Used for displaying the number of rows in this loading state. Defaults to 6. The following example shows 3 rows.
 
-<template>
-  <KSkeleton type="table" :table-rows="3" />
-</template>
+<KSkeleton type="table" :table-rows="3" />
 
 ```html
-<template>
-  <KSkeleton type="table" :table-rows="3" />
-</template>
+<KSkeleton type="table" :table-rows="3" />
 ```
 
-### columns
-
-- `table-columns`
+### tableColumns
 
 Used for displaying the number of columns in this loading state. Defaults to 6. The following example shows 3 columns.
 
-<template>
-  <KSkeleton type="table" :table-columns="3" />
-</template>
+<KSkeleton type="table" :table-columns="3" />
 
 ```html
-<template>
-  <KSkeleton type="table" :table-columns="3" />
-</template>
+<KSkeleton type="table" :table-columns="3" />
 ```
 
 ## Spinner Loading State
 
 This loading state is used for a spinner, which can be used for a wide variety of situations. There are no props for this state.
 
-<template>
-  <KSkeleton type="spinner" />
-</template>
+<KSkeleton type="spinner" />
 
 ```html
-<template>
-  <KSkeleton type="spinner" />
-</template>
-```
-
-## Button Loading State
-
-This loading state is used to show a spinner, while loading its content. There are no props for this state.
-
-<template>
-  <KButton @click="clickedButton" :disabled="loadingButton">
-    <KSkeleton v-if="loadingButton" type="spinner" class="mr-2" :delay-milliseconds="3000" />{{loadingButton ? 'Fetching' : 'Fetch'}}
-  </KButton>
-</template>
-
-```html
-<template>
-  <KButton @click="clickedButton" :disabled="loadingButton">
-    <KSkeleton v-if="loadingButton" type="spinner" class="mr-2" :delay-milliseconds="3000" />{{loadingButton ? 'Fetching' : 'Fetch'}}
-  </KButton>
-</template>
+<KSkeleton type="spinner" />
 ```
 
 ## Full Screen Loading State
 
-The full screen loading state is used to display a full screen loader typically
-during initial render of an app to avoid any FOUC (Flash Of Unstyled Content)
-while the app tries to figure out if you are able to access the route and also
-to perform any expensive querying on first load.
+The full screen loading state is used to display a full screen loader typically during initial render of an app to avoid any FOUC (Flash Of Unstyled Content) while the app tries to figure out if you are able to access the route and also to perform any expensive querying on first load.
 
-<template>
-  <div>
-    <k-button @click="clicked()">click for default progress behavior</k-button>
-    <k-button @click="clickProgress()">click me to simulate progress manually</k-button>
-    <KSkeleton
-      v-if="loading"
-      type="fullscreen-kong"
-      :delay-milliseconds="0" />
-    <KSkeleton
-      v-if="loadingManually"
-      type="fullscreen-kong"
-      :progress="progress"
-      :delay-milliseconds="0" />
-  </div>
-</template>
-
-```html
-<template>
-  <k-button @click="clicked()">click for default progress behavior</k-button>
+<div>
+  <KButton @click="clicked()" class="mr-2">click for default progress behavior</KButton>
+  <KButton @click="clickProgress()">click me to simulate progress manually</KButton>
   <KSkeleton
     v-if="loading"
     type="fullscreen-kong"
     :delay-milliseconds="0" />
-</template>
+  <KSkeleton
+    v-if="loadingManually"
+    type="fullscreen-kong"
+    :progress="progress"
+    :delay-milliseconds="0" />
+</div>
+
+```html
+  <KButton @click="clicked()">click for default progress behavior</KButton>
+  <KSkeleton v-if="loading" type="fullscreen-kong" :delay-milliseconds="0" />
 ```
 
 ## KSkeletonBox
 
-KSkeleton package uses a component to render the placeholder content
-`<KSkeletonBox>`. It can be used as a component primitive to create your own
-custom placeholder components.
+KSkeleton package uses a component to render the placeholder content `<KSkeletonBox>`. It can be used as a component primitive to create your own custom placeholder components.
 
 ### Box Props
 
@@ -252,28 +172,26 @@ custom placeholder components.
 
 For example, here is a card skeleton with different arrangement of placeholders:
 
-<template>
-  <KSkeleton class="k-skeleton-modified" type="card" :card-count="3">
-    <template v-slot:card-header>
-      <div class="w-100">
-        <div class="justify-content-center pb-3">
-          <KSkeletonBox width="5" />
-        </div>
-        <hr>
+<KSkeleton class="k-skeleton-modified" type="card" :card-count="3">
+  <template v-slot:card-header>
+    <div class="w-100">
+      <div class="justify-content-center pb-3">
+        <KSkeletonBox width="5" />
       </div>
-    </template>
-    <template v-slot:card-content>
-      <KSkeletonBox width="100"/>
-    </template>
-    <template v-slot:card-footer>
-      <div class="w-100">
-        <div class="d-flex justify-content-center">
-          <KSkeletonBox width="5" />
-        </div>
+      <hr>
+    </div>
+  </template>
+  <template v-slot:card-content>
+    <KSkeletonBox width="100"/>
+  </template>
+  <template v-slot:card-footer>
+    <div class="w-100">
+      <div class="d-flex justify-content-center">
+        <KSkeletonBox width="5" />
       </div>
-    </template>
-  </KSkeleton>
-</template>
+    </div>
+  </template>
+</KSkeleton>
 
 ```html
 <KSkeleton type="card" :card-count="3">
@@ -297,6 +215,31 @@ For example, here is a card skeleton with different arrangement of placeholders:
 
 And another example:
 
+<KSkeleton type="card">
+  <template v-slot:card-header>
+    <div>
+      <div class="d-flex justify-content-center pb-2">
+        <KSkeletonBox width="5" />
+      </div>
+      <hr>
+    </div>
+  </template>
+  <template v-slot:card-content>
+    <div class="d-block">
+      <template v-for="i in 8">
+        <KSkeletonBox width="5" />
+        <KSkeletonBox width="5" />
+        <KSkeletonBox width="1" />
+        <KSkeletonBox width="2" />
+      </template>
+    </div>
+  </template>
+  <template v-slot:card-footer>
+    <KSkeletonBox width="100" />
+  </template>
+</KSkeleton>
+
+```html
 <template>
   <KSkeleton type="card">
     <template v-slot:card-header>
@@ -322,31 +265,6 @@ And another example:
     </template>
   </KSkeleton>
 </template>
-
-```html
-<KSkeleton type="card">
-  <template v-slot:card-header>
-    <div>
-      <div class="d-flex justify-content-center pb-2">
-        <KSkeletonBox width="5" />
-      </div>
-      <hr>
-    </div>
-  </template>
-  <template v-slot:card-content>
-    <div class="d-block">
-      <template v-for="i in 8">
-        <KSkeletonBox width="5" />
-        <KSkeletonBox width="5" />
-        <KSkeletonBox width="1" />
-        <KSkeletonBox width="2" />
-      </template>
-    </div>
-  </template>
-  <template v-slot:card-footer>
-    <KSkeletonBox width="100" />
-  </template>
-</KSkeleton>
 ```
 
 ## Theming
@@ -362,12 +280,21 @@ And another example:
 To reveal the header on this docs page during full page loader, click the button below.
 
 <div class="mt-4 k-skeleton-full-screen-margin">
-  <k-button @click="clickedTheming()">themed full screen loader</k-button>
+  <KButton @click="clickedTheming()">themed full screen loader</KButton>
   <KSkeleton v-if="loadingTheming" type="fullscreen-kong" :delay-milliseconds="0" />
 </div>
 
-<script>
-export default {
+```html
+<div class="mt-4 k-skeleton-full-screen-margin">
+  <KButton @click="clickedTheming()">themed full screen loader</KButton>
+  <KSkeleton v-if="loadingTheming" type="fullscreen-kong" :delay-milliseconds="0" />
+</div>
+```
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   data () {
     return {
       loading: false,
@@ -411,7 +338,7 @@ export default {
       }, 5000)
     }
   }
-}
+})
 </script>
 
 <style>

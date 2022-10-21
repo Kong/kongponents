@@ -7,36 +7,26 @@ Here is an example of html elements being styled using the including css.
 ## Text Inputs
 
 <br>
-<input class="k-input mb-2" placeholder="placeholder" />
-<input class="k-input mb-2" type="password" value="123" />
-<input class="k-input mb-2" type="number" value="1"/>
-<input class="k-input mb-2" type="email" value="john.doe@konghq.com"/>
-<input class="k-input mb-2" disabled value="disabled"/>
-<input class="k-input mb-2" readonly value="readonly"/>
-<input class="k-input mb-2" type="search" value="search"/>
-<input class="k-input mb-2 input-error" type="email" value="error"/>
-<select class="k-input">
-  <option value="option1">Option 1</option>
-  <option value="option2">Option 2</option>
-  <option value="option3">Option 3</option>
-</select>
+<div class="k-input-wrapper mb-2"><input class="k-input" placeholder="placeholder" /></div>
+<div class="k-input-wrapper mb-2"><input class="k-input" type="password" value="123" /></div>
+<div class="k-input-wrapper mb-2"><input class="k-input" type="number" value="1"/></div>
+<div class="k-input-wrapper mb-2"><input class="k-input" type="email" value="john.doe@konghq.com"/></div>
+<div class="k-input-wrapper mb-2"><input class="k-input" disabled value="disabled"/></div>
+<div class="k-input-wrapper mb-2"><input class="k-input" readonly value="readonly"/></div>
+<div class="k-input-wrapper mb-2"><input class="k-input" type="search" value="search"/></div>
+<div class="k-input-wrapper mb-2 input-error"><input class="k-input" type="email" value="error"/></div>
 
 > Note: Add the `input-error` class to add custom error styling
 
 ```html
-<input class="k-input" placeholder="placeholder" />
-<input class="k-input" type="password" value="123" />
-<input class="k-input" type="number" value="1"/>
-<input class="k-input" type="email" value="john.doe@konghq.com"/>
-<input class="k-input" disabled value="disabled"/>
-<input class="k-input" readonly value="readonly"/>
-<input class="k-input" type="search" value="search"/>
-<input class="k-input input-error" type="email" value="error"/>
-<select class="k-input">
-  <option value="option1">Option 1</option>
-  <option value="option2">Option 2</option>
-  <option value="option3">Option 3</option>
-</select>
+<div class="k-input-wrapper mb-2"><input class="k-input" placeholder="placeholder" /></div>
+<div class="k-input-wrapper mb-2"><input class="k-input" type="password" value="123" /></div>
+<div class="k-input-wrapper mb-2"><input class="k-input" type="number" value="1"/></div>
+<div class="k-input-wrapper mb-2"><input class="k-input" type="email" value="john.doe@konghq.com"/></div>
+<div class="k-input-wrapper mb-2"><input class="k-input" disabled value="disabled"/></div>
+<div class="k-input-wrapper mb-2"><input class="k-input" readonly value="readonly"/></div>
+<div class="k-input-wrapper mb-2"><input class="k-input" type="search" value="search"/></div>
+<div class="k-input-wrapper mb-2 input-error"><input class="k-input" type="email" value="error"/></div>
 ```
 
 ## Checkboxes & Radios
@@ -71,7 +61,9 @@ Additionally you can add block level hint text by using the `.help` class.
 </div>
 <div>
   <label for="text" class="k-input-label">Label Text</label>
-  <input id="text" class="k-input" type="text" />
+  <div class="k-input-wrapper">
+    <input id="text" class="k-input" type="text" />
+  </div>
   <p class="help">This is some helpful hint text!</p>
 </div>
 
@@ -86,7 +78,9 @@ Additionally you can add block level hint text by using the `.help` class.
 </div>
 <div>
   <label for="text" class="k-input-label">Label Text</label>
-  <input id="text" class="k-input" type="text" />
+  <div class="k-input-wrapper">
+    <input id="text" class="k-input" type="text" />
+  </div>
   <p class="help">This is some helpful hint text!</p>
 </div>
 ```

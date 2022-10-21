@@ -1,0 +1,12 @@
+# Reference:
+# https://github.com/evilmartians/lefthook/blob/master/docs/full_guide.md
+
+pre-commit:
+  commands:
+    eslint:
+      run: yarn lint
+
+commit-msg:
+  commands:
+    commitlint:
+      run: yarn commitlint --edit "$1"

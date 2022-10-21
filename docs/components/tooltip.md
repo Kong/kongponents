@@ -1,17 +1,15 @@
 # ToolTip
 
-**KoolTip** is a tooltip component that is used when you need a simple label to be displayed when hovering over an element.
-KoolTip has a single slot that takes in the element that you want the tooltip to trigger over.
-At least the label prop must be passed in for the tooltip to display anything. For example a button:
+**KTooltip** is a tooltip component that is used when you need a simple label to be displayed when hovering over an element. KTooltip has a single slot that takes in the element that you want the tooltip to trigger over. At least the label prop must be passed in for the tooltip to display anything. For example a button:
 
-<KoolTip label="Video Games">
+<KTooltip label="Video Games">
   <KButton>&nbsp;🎮</KButton>
-</KoolTip>
+</KTooltip>
 
 ```html
-<KoolTip label="Video Games">
+<KTooltip label="Video Games">
   <KButton>&nbsp;🎮</KButton>
-</KoolTip>
+</KTooltip>
 ```
 
 ## Props
@@ -22,14 +20,14 @@ Here you can pass in the text to display in the toolip.
 
 - `I am a new sample label`
 
-<KoolTip label="I am a new sample label">
+<KTooltip label="I am a new sample label">
   <KButton>Sample Button</KButton>
-</KoolTip>
+</KTooltip>
 
 ```html
-<KoolTip label="I am a new sample label">
+<KTooltip label="I am a new sample label">
   <KButton>Sample Button</KButton>
-</KoolTip>
+</KTooltip>
 ```
 
 ### placement
@@ -43,24 +41,24 @@ Here are the different options:
 - `right`
 
 <div class="d-flex justify-content-around">
-<KoolTip placement="bottom" label="A label that appears on the bottom">
-  <KButton>bottom</KButton>
-</KoolTip>
-<KoolTip placement="top" label="A label that appears on the top">
-  <KButton>top</KButton>
-</KoolTip>
-<KoolTip placement="left" label="A label that appears on the left">
-  <KButton>left</KButton>
-</KoolTip>
-<KoolTip placement="right" label="A label that appears on the right">
-  <KButton>right</KButton>
-</KoolTip>
+  <KTooltip placement="bottom" label="A label that appears on the bottom">
+    <KButton>bottom</KButton>
+  </KTooltip>
+  <KTooltip placement="top" label="A label that appears on the top">
+    <KButton>top</KButton>
+  </KTooltip>
+  <KTooltip placement="left" label="A label that appears on the left">
+    <KButton>left</KButton>
+  </KTooltip>
+  <KTooltip placement="right" label="A label that appears on the right">
+    <KButton>right</KButton>
+  </KTooltip>
 </div>
 
 ```html
-<KoolTip placement="bottom" label="A label that appears on the bottom">
+<KTooltip placement="bottom" label="A label that appears on the bottom">
   <KButton>Sample Button</KButton>
-</KoolTip>
+</KTooltip>
 ```
 
 ### positionFixed
@@ -71,14 +69,14 @@ Use fixed positioning of the popover to avoid content being clipped by parental 
 
 You can set the maximum width of a Tooltip with the `maxWidth` property. `maxWidth` defaults to `auto`.
 
-<KoolTip placement="bottom" max-width="300" label="A label that appears on the bottom. A label that appears on the bottom">
+<KTooltip placement="bottom" max-width="300" label="A label that appears on the bottom. A label that appears on the bottom">
   <KButton>bottom</KButton>
-</KoolTip>
+</KTooltip>
 
 ```html
-<KoolTip placement="bottom" max-width="300" label="A label that appears on the bottom. A label that appears on the bottom">
+<KTooltip placement="bottom" max-width="300" label="A label that appears on the bottom. A label that appears on the bottom">
   <KButton>button</KButton>
-</KoolTip>
+</KTooltip>
 ```
 
 ## Slots
@@ -86,60 +84,61 @@ You can set the maximum width of a Tooltip with the `maxWidth` property. `maxWid
 - `Default` There is a main slot that takes in the element you want the popover to be triggered over.
 
 ```html
-<KoolTip label="a cool label">
+<KTooltip label="a cool label">
   <!-- Your element goes here -->
   <KButton>button</KButton>
-</KoolTip>
+</KTooltip>
 ```
 
 - `Content` This allows you to slot in any html content
 
-<KoolTip label="Video Games">
+<KTooltip label="Video Games">
   <KButton>&nbsp;✌🏻</KButton>
   <template v-slot:content>
     <span><b>yoyo</b> <span class="color-red-500">kooltip</span></span>
   </template>
-</KoolTip>
+</KTooltip>
 
 ```html
-<KoolTip>
+<KTooltip>
   <KButton>&nbsp;✌🏻</KButton>
   <template v-slot:content>
     <span><b>yoyo</b> <span class="color-red-500">kooltip</span></span>
   </template>
-</KoolTip>
+</KTooltip>
 ```
 
 ## Theming
 
 | Variable | Purpose
 |:-------- |:-------
-| `--KoolTipBackground`| Background color
-| `--KoolTipColor`| Color of text
+| `--KTooltipBackground`| Background color
+| `--KTooltipColor`| Color of text
 
 Example:
 
-<KoolTip class="tooltip-blue" label="Video Games">
+<KTooltip class="tooltip-blue" label="Video Games">
   <KButton>themed tooltip</KButton>
-</KoolTip>
+</KTooltip>
 
 ```html
 <template>
-<KoolTip class="tooltip-blue" label="Video Games">
-  <KButton class="primary">themed tooltip</KButton>
-</KoolTip>
+  <KTooltip class="tooltip-blue" label="Video Games">
+    <KButton class="primary">themed tooltip</KButton>
+  </KTooltip>
 </template>
+
 <style>
 .tooltip-blue {
-  --KoolTipBackground: var(--blue-300);
-  --KoolTipColor: var(--blue-500);
+  --KTooltipBackground: var(--blue-300);
+  --KTooltipColor: var(--blue-500);
 }
 </style>
 ```
 
 <style>
 .tooltip-blue {
-  --KoolTipBackground: var(--blue-500);
-  --KoolTipColor: var(--blue-200);
+  --KTooltipBackground: var(--blue-500);
+  --KTooltipColor: var(--blue-200);
 }
 </style>

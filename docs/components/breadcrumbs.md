@@ -1,40 +1,42 @@
 # Breadcrumbs
 
-**Krumbs** is a breadcrumbs component that takes an array of route objects and generates a list of links. You can pass both [vue router](https://router.vuejs.org/) route objects or pass your own url.
+**KBreadcrumbs** is a breadcrumbs component that takes an array of route objects and generates a list of links. You can pass both [vue router](https://router.vuejs.org/) route objects or pass your own url.
 
 <KCard>
   <template v-slot:body>
-    <Krumbs :items="internalBreadcrumbItems" />
+    <KBreadcrumbs :items="internalBreadcrumbItems" />
   </template>
 </KCard>
 
 ```html
 <template>
-  <Krumbs :items="breadcrumbItems" />
+  <KBreadcrumbs :items="breadcrumbItems" />
 </template>
 
-<script>
-export default {
-  data () {
-    return {
-      breadcrumbItems: [
-        {
-          key: 'home',
-          to: { path: '/' },
-          title: 'Go Home',
-          text: 'Home',
-          icon: 'kong'
-        },
-        {
-          key: 'button',
-          to: { path: '/components/breadcrumbs.html' },
-          title: 'Go to Button',
-          text: 'Breadcrumbs'
-        }
-      ]
-    }
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  setup() {
+    const breadcrumbItems = [
+      {
+        key: 'home',
+        to: { path: '/' },
+        title: 'Go Home',
+        text: 'Home',
+        icon: 'kong'
+      },
+      {
+        key: 'button',
+        to: { path: '/components/breadcrumbs.html' },
+        title: 'Go to Button',
+        text: 'Breadcrumbs'
+      }
+    ]
+
+    return { breadcrumbItems }
   }
-}
+})
 </script>
 ```
 
@@ -54,7 +56,7 @@ An array of Breadcrumb items
  * @property {string} [key] - An ID when the list is generated. Defaults to text if not set.
  * @property {string} [maxWidth] - maxWidth of item, overrides itemMaxWidth
  -->
-<Krumbs :items="[{ key: 'home', to: { path: '/' }, title: 'Home', icon: 'kong', text: 'Home' }]" />
+<KBreadcrumbs :items="[{ key: 'home', to: { path: '/' }, title: 'Home', icon: 'kong', text: 'Home' }]" />
  ```
 
 #### Breadcrumb content
@@ -67,36 +69,38 @@ The `to` property can be a Vue route or traditional URL. When using a URL though
 
 <KCard>
   <template v-slot:body>
-    <Krumbs :items="externalBreadcrumbItems" />
+    <KBreadcrumbs :items="externalBreadcrumbItems" />
   </template>
 </KCard>
 
 ```html
 <template>
-  <Krumbs :items="breadcrumbItems" />
+  <KBreadcrumbs :items="breadcrumbItems" />
 </template>
 
-<script>
-export default {
-  data () {
-    return {
-      breadcrumbItems: [
-        {
-          key: 'home',
-          to: { path: '/' },
-          title: 'Home',
-          text: 'Home'
-        },
-        {
-          key: 'google',
-          to: 'https://google.com',
-          title: 'Search at Google',
-          text: 'Google'
-        }
-      ]
-    }
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  setup() {
+    const breadcrumbItems = [
+      {
+        key: 'home',
+        to: { path: '/' },
+        title: 'Home',
+        text: 'Home'
+      },
+      {
+        key: 'google',
+        to: 'https://google.com',
+        title: 'Search at Google',
+        text: 'Google'
+      }
+    ]
+
+    return { breadcrumbItems }
   }
-}
+})
 </script>
 ```
 
@@ -106,16 +110,18 @@ Maximum width of each breadcrumb item for truncating to ellipsis.
 
 <KCard>
   <template v-slot:body>
-    <Krumbs :items="longBreadcrumbs" item-max-width="16ch" />
+    <KBreadcrumbs :items="longBreadcrumbs" item-max-width="16ch" />
   </template>
 </KCard>
 
 ```html
-<Krumbs :items="longBreadcrumbs" item-max-width="16ch" />
+<KBreadcrumbs :items="longBreadcrumbs" item-max-width="16ch" />
 ```
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   data () {
     return {
       internalBreadcrumbItems: [
@@ -166,5 +172,5 @@ export default {
       ]
     }
   }
-}
+})
 </script>

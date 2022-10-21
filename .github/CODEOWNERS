@@ -1,7 +1,24 @@
-# Lerna
-/lerna.json @adamdehaven @jillztom @kaiarrowood
+# These owners will be the default owners for everything in
+# the repo. They will be requested for review whenever someone
+# opens a PR, unless a later match takes precedence.
+* @adamdehaven @kaiarrowood @aanchalm01 @jillztom
 
-# CI
+# Workflows
 /.github/ @adamdehaven
 
-* @adamdehaven @kaiarrowood @aanchalm01 @jillztom
+# CLI
+/cli/ @adamdehaven
+
+# Cypress
+/cypress/ @adamdehaven @kaiarrowood @jillztom
+
+# Component export config
+/src/index.ts @adamdehaven @jillztom
+
+# Dev tools
+/.eslintrc.js @adamdehaven
+/.gitignore @adamdehaven @jillztom @kaiarrowood
+/cypress.config.ts @adamdehaven @kaiarrowood @jillztom
+/lefthook.yml @adamdehaven
+/netlify.toml @adamdehaven
+/vite.config.ts @adamdehaven @jillztom
