@@ -33,5 +33,5 @@
 # Redirect old beta site to the main URL (until we have a new beta for e.g. Vue 4, etc.)
 [[redirects]]
   from = "https://beta.kongponents.konghq.com/*"
-  to = "https://beta.kongponents.konghq.com/:splat"
+  to = "https://kongponents.konghq.com/:splat"
   status = 302
