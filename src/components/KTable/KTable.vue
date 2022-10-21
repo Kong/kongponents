@@ -194,7 +194,7 @@ import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
 
 /**
- * @deprecated defaultSorter
+ * @deprecated
  * @param {String} key - the current key to sort by
  * @param {String} previousKey - the previous key used to sort by
  * @param {String} sortOrder - either ascending or descending
