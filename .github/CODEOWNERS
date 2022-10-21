@@ -3,14 +3,17 @@
 # opens a PR, unless a later match takes precedence.
 * @adamdehaven @kaiarrowood @aanchalm01 @jillztom
 
-# Workflows
+# Workflows & CI
 /.github/ @adamdehaven
+/lefthook.yml @adamdehaven
+/netlify.toml @adamdehaven
 
 # CLI
 /cli/ @adamdehaven
 
 # Cypress
 /cypress/ @adamdehaven @kaiarrowood @jillztom
+/cypress.config.ts @adamdehaven @kaiarrowood @jillztom
 
 # Component export config
 /src/index.ts @adamdehaven @jillztom
@@ -18,7 +21,4 @@
 # Dev tools
 /.eslintrc.js @adamdehaven
 /.gitignore @adamdehaven @jillztom @kaiarrowood
-/cypress.config.ts @adamdehaven @kaiarrowood @jillztom
-/lefthook.yml @adamdehaven
-/netlify.toml @adamdehaven
 /vite.config.ts @adamdehaven @jillztom
