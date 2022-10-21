@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/Kong/kongponents.git"
   },
-  "homepage": "https://beta.kongponents.konghq.com/",
+  "homepage": "https://kongponents.konghq.com/",
   "main": "./dist/kongponents.umd.js",
   "module": "./dist/kongponents.es.js",
   "files": [

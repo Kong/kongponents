@@ -23,7 +23,6 @@ To utilize Kongponent styles on their own, add the package into your project as 
 Next, add the following to your Vue app entry file (e.g. `main.ts`)
 
 ```ts
-// Path may vary
 import '@kong/kongponents/dist/style.css'
 // If using Vue-CLI and webpack, you can likely use this path instead:
 // import '~@kong/kongponents/dist/style.css'

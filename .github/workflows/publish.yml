@@ -3,7 +3,7 @@ name: Publish
 on:
   push:
     branches:
-      - beta
+      - main
 
 jobs:
   get-changed-files:

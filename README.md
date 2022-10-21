@@ -10,7 +10,7 @@ Kongponents is a Vue component library of frequently needed UI elements. They we
 
 ## Documentation
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/426d5e0a-fc41-4c1d-ba80-38417b614394/deploy-status?branch=beta)](https://app.netlify.com/sites/kongponents/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/426d5e0a-fc41-4c1d-ba80-38417b614394/deploy-status?branch=main)](https://app.netlify.com/sites/kongponents/deploys)
 
 [Kongponents Docs][docsUrl] are powered by VuePress and the source can be viewed [here](docs/README.md).
 

@@ -16,8 +16,7 @@ To begin using Kongponents, start by installing the package into your project us
   <CodeGroupItem title="yarn" active>
 
   ```sh
-  # Make sure you pass the beta tag
-  yarn add @kong/kongponents@beta
+  yarn add @kong/kongponents
   ```
 
   </CodeGroupItem>
@@ -25,8 +24,7 @@ To begin using Kongponents, start by installing the package into your project us
   <CodeGroupItem title="npm">
 
   ```sh
-  # Make sure you pass the beta tag
-  npm install @kong/kongponents@beta
+  npm install @kong/kongponents
   ```
 
   </CodeGroupItem>
@@ -86,7 +84,7 @@ This method is only ideal if you are using a majority of the Kongponents in your
 import { createApp } from 'vue'
 import Kongponents from '@kong/kongponents'
 
-// Import Kongponents styles (path may vary)
+// Import Kongponents styles
 import '@kong/kongponents/dist/style.css'
 
 const app = createApp(App)
@@ -111,8 +109,6 @@ Import and registration can be done globally in your Vue entry file (e.g. `main.
 
   import { createApp } from 'vue'
   import { KButton } from '@kong/kongponents'
-
-  // Import Kongponents styles (path may vary, shown here for Vite)
   import '@kong/kongponents/dist/style.css'
   // If using Vue-CLI and webpack, you can likely use this path instead: import '~@kong/kongponents/dist/style.css'
 
@@ -134,6 +130,9 @@ Import and registration can be done globally in your Vue entry file (e.g. `main.
 
   import { defineComponent } from 'vue'
   import { KButton } from '@kong/kongponents'
+  // Import Kongponents styles here, or in the <style> block
+  import '@kong/kongponents/dist/style.css'
+  // If using Vue-CLI and webpack, you can likely use this path instead: import '~@kong/kongponents/dist/style.css'
 
   export default defineComponent({
     name: 'YourComponent',
@@ -142,7 +141,7 @@ Import and registration can be done globally in your Vue entry file (e.g. `main.
   </script>
 
   <style>
-  /* Import Kongponents styles (path may vary, shown here for Vite) */
+  /* Import Kongponents styles here, or in the <script> tag */
   @import "@kong/kongponents/dist/style.css";
   /* If using Vue-CLI and webpack, you can likely use this path instead: import '~@kong/kongponents/dist/style.css' */
   </style>
@@ -200,8 +199,8 @@ You can also use Kongponents in a project where there is no build system as long
 You must import the CSS from the `@kong/kongponents` package along with Vue.
 :::
 
-<iframe width="100%" height="300" style="width: 100%;" scrolling="no" title="Vue 3 with Kongponents@beta" src="https://codepen.io/adamdehaven/embed/KKowxVQ?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+<iframe width="100%" height="300" style="width: 100%;" scrolling="no" title="Kongponents for Vue" src="https://codepen.io/adamdehaven/embed/KKowxVQ?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
   See the Pen <a href="https://codepen.io/adamdehaven/pen/KKowxVQ">
-  Vue 3 with Kongponents@beta</a> by Kong, Inc.
+  Kongponents for Vue</a> by Kong, Inc.
   on <a href="https://codepen.io">CodePen</a>.
 </iframe>

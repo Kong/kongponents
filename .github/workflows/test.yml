@@ -3,7 +3,7 @@ name: Tests
 on:
   pull_request:
     branches:
-      - beta
+      - main
 
   # Allow calling manually from GitHub
   workflow_dispatch:
@@ -69,7 +69,7 @@ jobs:
       #   env:
       #     PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
       #     PREVENT_PERCY_TESTS: ${{ secrets.PREVENT_PERCY_TESTS }}
-      #     PERCY_TARGET_BRANCH: beta
+      #     PERCY_TARGET_BRANCH: main
       #   if: "${{ env.PREVENT_PERCY_TESTS != 'true' }}"
       #   run: |
       #     npx @percy/cli snapshot docs/.vuepress/dist/

@@ -38,7 +38,7 @@ export default defineUserConfig({
 
   // site config
   lang: 'en-US',
-  title: 'Kongponents (Vue 3 Beta)',
+  title: 'Kongponents',
   description: 'Kong UI Components & Style Guide',
 
   // theme and its config
@@ -49,7 +49,7 @@ export default defineUserConfig({
 
     docsDir: 'docs',
 
-    docsBranch: 'beta', // TODO: update to `main` once 'beta' branch is switched
+    docsBranch: 'main',
 
     editLink: true,
 
@@ -57,11 +57,11 @@ export default defineUserConfig({
 
     navbar: [
       {
-        text: 'v8-beta for Vue 3',
+        text: `v8.x`,
         children: [
           {
-            text: 'v7 for Vue 2',
-            link: 'https://kongponents.konghq.com',
+            text: 'v7.x',
+            link: 'https://legacy.kongponents.konghq.com',
           },
         ],
       },
