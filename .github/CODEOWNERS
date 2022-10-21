@@ -1,3 +1,8 @@
+# These owners will be the default owners for everything in
+# the repo. They will be requested for review whenever someone
+# opens a PR, unless a later match takes precedence.
+* @adamdehaven @kaiarrowood @aanchalm01 @jillztom
+
 # Workflows
 /.github/ @adamdehaven
 
@@ -13,9 +18,7 @@
 # Dev tools
 /.eslintrc.js @adamdehaven
 /.gitignore @adamdehaven @jillztom @kaiarrowood
-/cypress.config.ts @kaiarrowood @jillztom
+/cypress.config.ts @adamdehaven @kaiarrowood @jillztom
 /lefthook.yml @adamdehaven
 /netlify.toml @adamdehaven
 /vite.config.ts @adamdehaven @jillztom
-
-* @adamdehaven @kaiarrowood @aanchalm01 @jillztom
