@@ -1,3 +1,10 @@
+# [8.0.0-beta.45](https://github.com/Kong/kongponents/compare/v8.0.0-beta.44...v8.0.0-beta.45) (2022-10-21)
+
+
+### Features
+
+* **kcodeblock:** adds KCodeBlock component ([#819](https://github.com/Kong/kongponents/issues/819)) ([680b73a](https://github.com/Kong/kongponents/commit/680b73ad6bb043cd5f418593c7eb3145645f29d9))
+
 # [8.0.0-beta.44](https://github.com/Kong/kongponents/compare/v8.0.0-beta.43...v8.0.0-beta.44) (2022-10-20)
 
 
