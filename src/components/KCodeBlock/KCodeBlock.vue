@@ -91,7 +91,7 @@
           :aria-pressed="isRegExpMode"
           :is-rounded="false"
           size="small"
-          title="Use regular expression (Alt+R)"
+          :title="`Use regular expression (${ALT_SHORTCUT_LABEL}+R)`"
           data-testid="k-code-block-regexp-mode-button"
           @click="toggleRegExpMode"
         >
@@ -108,7 +108,7 @@
           :aria-pressed="isFilterMode"
           :is-rounded="false"
           size="small"
-          title="Filter results (Alt+F)"
+          :title="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
           data-testid="k-code-block-filter-mode-button"
           @click="toggleFilterMode"
         >
@@ -117,7 +117,7 @@
               class="k-button-icon"
               icon="filter"
               size="16"
-              title="Filter results (Alt+F)"
+              :title="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
               color="currentColor"
             />
           </template>
@@ -223,14 +223,14 @@
         appearance="outline"
         :is-rounded="false"
         size="small"
-        title="Copy (Alt+C)"
+        :title="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
         data-testid="k-code-block-copy-button"
         @click="copyCode"
       >
         <KIcon
           icon="copy"
           size="16"
-          title="Copy (Alt+C)"
+          :title="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
           color="currentColor"
         />
 
@@ -281,6 +281,9 @@ type Command = {
 
   shouldPreventDefaultAction?: boolean
 }
+
+const IS_MAYBE_MAC = window.navigator.platform.toLowerCase().includes('mac')
+const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Options' : 'Alt'
 
 /**
  * Maps shortcuts to their associated command keywords.
@@ -646,20 +649,13 @@ const commands: Record<CommandKeywords, Command> = {
   },
 }
 
-const KEY_REPLACEMENT: Record<string, string> = {
-  ' ': 'space',
-  Control: '',
-  Shift: '',
-  Alt: '',
-}
-
 function triggerShortcuts(event: KeyboardEvent): void {
-  const key = KEY_REPLACEMENT[event.key] !== undefined ? KEY_REPLACEMENT[event.key] : event.key.toLowerCase()
+  const code = normalizeKeyCode(event.code)
   const shortcut = [
     event.ctrlKey ? 'ctrl' : '',
     event.shiftKey ? 'shift' : '',
     event.altKey ? 'alt' : '',
-    key,
+    code,
   ].filter((key) => key !== '').join('+')
   const commandKey = keyMap[shortcut]
 
@@ -687,6 +683,17 @@ function triggerShortcuts(event: KeyboardEvent): void {
   }
 
   command.trigger(event)
+}
+
+const MODIFIER_KEY_CODES = ['ControlLeft', 'ControlRight', 'ShiftLeft', 'ShiftRight', 'AltLeft']
+
+function normalizeKeyCode(code: string): string {
+  // Returns relevant modifier keys as the empty string which is going to be filtered out.
+  if (MODIFIER_KEY_CODES.includes(code)) {
+    return ''
+  }
+
+  return code.replace(/^Key/, '').toLowerCase()
 }
 
 function jumpToNextMatch(): void {

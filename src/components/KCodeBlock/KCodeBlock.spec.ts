@@ -54,7 +54,7 @@ describe('KCodeBlock', () => {
     // Jumps to the next (i.e. first) match using F3 and checks that the highlighted line numbers are jumped to in order.
     cy.get('.k-line-is-highlighted-match').should('not.exist')
     for (const lineNumber of expectedLineNumbers) {
-      cy.get('[data-testid="k-code-block"]').trigger('keydown', { key: 'F3', bubbles: true })
+      cy.get('[data-testid="k-code-block"]').trigger('keydown', { code: 'F3', bubbles: true })
       cy.get(`.k-line-is-highlighted-match .k-line-anchor#${id}-L${lineNumber}`).should('be.visible')
     }
 
@@ -131,22 +131,22 @@ describe('KCodeBlock', () => {
     renderComponent({ id, isSearchable: true, query: 'key' })
 
     // Tests that scoped shortcuts don’t work when focus is not within the code block.
-    cy.document().trigger('keydown', { key: 'F3' })
+    cy.document().trigger('keydown', { code: 'F3' })
     cy.get('.k-line-is-highlighted-match').should('not.exist')
 
-    cy.get('.k-code-block').trigger('keydown', { key: 'F3' })
+    cy.get('.k-code-block').trigger('keydown', { code: 'F3' })
     cy.get('.k-line-is-highlighted-match .k-line-anchor').invoke('attr', 'id').should('equal', `${id}-L2`)
 
-    cy.get('.k-code-block').trigger('keydown', { key: 'F3' })
+    cy.get('.k-code-block').trigger('keydown', { code: 'F3' })
     cy.get('.k-line-is-highlighted-match .k-line-anchor').invoke('attr', 'id').should('equal', `${id}-L3`)
 
-    cy.get('.k-code-block').trigger('keydown', { key: 'F3' })
+    cy.get('.k-code-block').trigger('keydown', { code: 'F3' })
     cy.get('.k-line-is-highlighted-match .k-line-anchor').invoke('attr', 'id').should('equal', `${id}-L4`)
 
-    cy.get('.k-code-block').trigger('keydown', { key: 'F3' })
+    cy.get('.k-code-block').trigger('keydown', { code: 'F3' })
     cy.get('.k-line-is-highlighted-match .k-line-anchor').invoke('attr', 'id').should('equal', `${id}-L2`)
 
-    cy.get('.k-code-block').trigger('keydown', { key: 'F3', shiftKey: true })
+    cy.get('.k-code-block').trigger('keydown', { code: 'F3', shiftKey: true })
     cy.get('.k-line-is-highlighted-match .k-line-anchor').invoke('attr', 'id').should('equal', `${id}-L4`)
   })
 
@@ -154,7 +154,7 @@ describe('KCodeBlock', () => {
     const id = 'code-block'
     renderComponent({ id, isSearchable: true, query: 'key', showLineNumberLinks: true })
 
-    cy.get('.k-code-block').trigger('keydown', { key: 'F3' })
+    cy.get('.k-code-block').trigger('keydown', { code: 'F3' })
     cy.get('.k-line-is-highlighted-match .k-line-anchor').invoke('attr', 'href').should('equal', `#${id}-L2`)
   })
 })
