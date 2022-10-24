@@ -83,92 +83,94 @@
         </button>
       </div>
 
-      <KButton
-        class="k-regexp-mode-button"
-        type="button"
-        :appearance="regExpButtonAppearance"
-        :aria-pressed="isRegExpMode"
-        :is-rounded="false"
-        size="small"
-        title="Use regular expression (Alt+R)"
-        data-testid="k-code-block-regexp-mode-button"
-        @click="toggleRegExpMode"
-      >
-        <span class="k-visually-hidden">RegExp mode enabled</span>
+      <div class="k-search-actions">
+        <KButton
+          class="k-regexp-mode-button"
+          type="button"
+          :appearance="isRegExpMode ? 'secondary' : 'outline'"
+          :aria-pressed="isRegExpMode"
+          :is-rounded="false"
+          size="small"
+          title="Use regular expression (Alt+R)"
+          data-testid="k-code-block-regexp-mode-button"
+          @click="toggleRegExpMode"
+        >
+          <span class="k-visually-hidden">RegExp mode enabled</span>
 
-        .*
-      </KButton>
+          .*
+        </KButton>
 
-      <KButton
-        class="k-filter-mode-button"
-        type="button"
-        icon="filter"
-        :appearance="isFilterMode ? 'secondary' : 'outline'"
-        :aria-pressed="isFilterMode"
-        :is-rounded="false"
-        size="small"
-        title="Filter results (Alt+F)"
-        data-testid="k-code-block-filter-mode-button"
-        @click="toggleFilterMode"
-      >
-        <template #icon>
-          <KIcon
-            class="k-button-icon"
-            icon="filter"
-            size="16"
-            title="Filter results (Alt+F)"
-            color="currentColor"
-          />
-        </template>
+        <KButton
+          class="k-filter-mode-button"
+          type="button"
+          icon="filter"
+          :appearance="isFilterMode ? 'secondary' : 'outline'"
+          :aria-pressed="isFilterMode"
+          :is-rounded="false"
+          size="small"
+          title="Filter results (Alt+F)"
+          data-testid="k-code-block-filter-mode-button"
+          @click="toggleFilterMode"
+        >
+          <template #icon>
+            <KIcon
+              class="k-button-icon"
+              icon="filter"
+              size="16"
+              title="Filter results (Alt+F)"
+              color="currentColor"
+            />
+          </template>
 
-        <span class="k-visually-hidden">Filter mode enabled</span>
-      </KButton>
+          <span class="k-visually-hidden">Filter mode enabled</span>
+        </KButton>
 
-      <KButton
-        class="k-previous-match-button"
-        type="button"
-        :is-rounded="false"
-        size="small"
-        title="Previous match (Shift+F3)"
-        :disabled="matchingLineNumbers.length === 0 || isFilterMode"
-        data-testid="k-code-block-previous-match-button"
-        @click="jumpToPreviousMatch"
-      >
-        <template #icon>
-          <KIcon
-            class="k-button-icon"
-            icon="chevronUp"
-            size="16"
-            title="Previous match (Shift+F3)"
-            color="currentColor"
-          />
-        </template>
+        <KButton
+          class="k-previous-match-button"
+          type="button"
+          :is-rounded="false"
+          size="small"
+          title="Previous match (Shift+F3)"
+          :disabled="matchingLineNumbers.length === 0 || isFilterMode"
+          data-testid="k-code-block-previous-match-button"
+          @click="jumpToPreviousMatch"
+        >
+          <template #icon>
+            <KIcon
+              class="k-button-icon"
+              icon="chevronUp"
+              size="16"
+              title="Previous match (Shift+F3)"
+              color="currentColor"
+            />
+          </template>
 
-        <span class="k-visually-hidden">Previous match</span>
-      </KButton>
+          <span class="k-visually-hidden">Previous match</span>
+        </KButton>
 
-      <KButton
-        class="k-next-match-button"
-        type="button"
-        :is-rounded="false"
-        size="small"
-        title="Next match (F3)"
-        :disabled="matchingLineNumbers.length === 0 || isFilterMode"
-        data-testid="k-code-block-next-match-button"
-        @click="jumpToNextMatch"
-      >
-        <template #icon>
-          <KIcon
-            class="k-button-icon"
-            icon="chevronDown"
-            size="16"
-            title="Next match (F3)"
-            color="currentColor"
-          />
-        </template>
+        <KButton
+          class="k-next-match-button"
+          type="button"
+          :is-rounded="false"
+          size="small"
+          title="Next match (F3)"
+          :disabled="matchingLineNumbers.length === 0 || isFilterMode"
+          data-testid="k-code-block-next-match-button"
+          @click="jumpToNextMatch"
+        >
+          <template #icon>
+            <KIcon
+              class="k-button-icon"
+              icon="chevronDown"
+              size="16"
+              title="Next match (F3)"
+              color="currentColor"
+            />
+          </template>
 
-        <span class="k-visually-hidden">Next match</span>
-      </KButton>
+          <span class="k-visually-hidden">Next match</span>
+        </KButton>
+      </div>
     </div>
 
     <div class="k-code-block-content">
@@ -401,7 +403,6 @@ const maxLineNumberWidth = computed(() => totalLines.value[totalLines.value.leng
 const linePrefix = computed(() => props.id.toLowerCase().replace(/\s+/g, '-'))
 const isProcessing = computed(() => props.isProcessing || isProcessingInternally.value)
 const isShowingFilteredCode = computed(() => isFilterMode.value && filteredCode.value !== '')
-const regExpButtonAppearance = computed(() => regExpError.value !== null ? 'danger' : isRegExpMode.value ? 'secondary' : 'outline')
 const filteredCode = computed(function() {
   if (query.value === '') {
     return ''
@@ -791,6 +792,7 @@ $tabSize: 2;
 
 .k-code-block-actions {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
   gap: var(--spacing-xxs, spacing(xxs));
@@ -806,7 +808,7 @@ $tabSize: 2;
   border-top-right-radius: 0;
 }
 
-.k-code-block-actions > .k-button {
+.k-code-block-actions .k-button {
   align-self: stretch;
 }
 
@@ -814,6 +816,13 @@ $tabSize: 2;
   display: inline-flex;
   justify-content: center;
   align-items: center;
+}
+
+.k-search-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: var(--spacing-xxs, spacing(xxs));
 }
 
 .k-is-processing-icon:not(.k-is-processing-icon-is-visible) {
@@ -843,7 +852,8 @@ $tabSize: 2;
 }
 
 .k-code-block-search-input {
-  width: 15ch;
+  width: 100%;
+  max-width: 15ch;
   appearance: none;
   margin: 0;
   padding: 0 var(--spacing-xs, spacing(xs));
