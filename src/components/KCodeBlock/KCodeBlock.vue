@@ -614,6 +614,7 @@ const commands: Record<CommandKeywords, Command> = {
     isAllowedContext(event: Event) {
       return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
     },
+    shouldPreventDefaultAction: true,
   },
 
   toggleRegExpMode: {
@@ -621,6 +622,7 @@ const commands: Record<CommandKeywords, Command> = {
     isAllowedContext(event: Event) {
       return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
     },
+    shouldPreventDefaultAction: true,
   },
 
   jumpToNextMatch: {
@@ -646,6 +648,7 @@ const commands: Record<CommandKeywords, Command> = {
     isAllowedContext(event: Event) {
       return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
     },
+    shouldPreventDefaultAction: true,
   },
 }
 

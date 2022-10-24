@@ -129,25 +129,40 @@ describe('KCodeBlock', () => {
   it('can be interacted with using default shortcuts', () => {
     const id = 'code-block'
     renderComponent({ id, isSearchable: true, query: 'key' })
+    const codeBlock = cy.get('.k-code-block')
 
     // Tests that scoped shortcuts don’t work when focus is not within the code block.
     cy.document().trigger('keydown', { code: 'F3' })
     cy.get('.k-line-is-highlighted-match').should('not.exist')
 
-    cy.get('.k-code-block').trigger('keydown', { code: 'F3' })
+    codeBlock.trigger('keydown', { code: 'F3' })
     cy.get('.k-line-is-highlighted-match .k-line-anchor').invoke('attr', 'id').should('equal', `${id}-L2`)
 
-    cy.get('.k-code-block').trigger('keydown', { code: 'F3' })
+    codeBlock.trigger('keydown', { code: 'F3' })
     cy.get('.k-line-is-highlighted-match .k-line-anchor').invoke('attr', 'id').should('equal', `${id}-L3`)
 
-    cy.get('.k-code-block').trigger('keydown', { code: 'F3' })
+    codeBlock.trigger('keydown', { code: 'F3' })
     cy.get('.k-line-is-highlighted-match .k-line-anchor').invoke('attr', 'id').should('equal', `${id}-L4`)
 
-    cy.get('.k-code-block').trigger('keydown', { code: 'F3' })
+    codeBlock.trigger('keydown', { code: 'F3' })
     cy.get('.k-line-is-highlighted-match .k-line-anchor').invoke('attr', 'id').should('equal', `${id}-L2`)
 
-    cy.get('.k-code-block').trigger('keydown', { code: 'F3', shiftKey: true })
+    codeBlock.trigger('keydown', { code: 'F3', shiftKey: true })
     cy.get('.k-line-is-highlighted-match .k-line-anchor').invoke('attr', 'id').should('equal', `${id}-L4`)
+
+    // Switches to filter mode using shortcut.
+    cy.get('.k-filtered-code-block').should('not.exist')
+    codeBlock.trigger('keydown', { code: 'KeyF', altKey: true })
+    cy.get('.k-filtered-code-block').should('exist')
+    cy.get('.k-matched-term').should('have.length', 3)
+
+    // Switches to regular expression mode using shortcut.
+    const searchInput = cy.get('[data-testid="k-code-block-search-input"]')
+    searchInput.clear()
+    searchInput.type('key[12]')
+
+    codeBlock.trigger('keydown', { code: 'KeyR', altKey: true })
+    cy.get('.k-matched-term').should('have.length', 2)
   })
 
   it('shows line number links', () => {
