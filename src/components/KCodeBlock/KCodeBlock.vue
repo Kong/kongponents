@@ -11,25 +11,7 @@
       v-if="isSearchable"
       class="k-code-block-actions"
     >
-      <p
-        v-if="regExpError !== null"
-        class="k-code-block-search-error"
-      >
-        {{ regExpError.message }}
-      </p>
-
-      <p
-        v-else-if="!isProcessing && query !== ''"
-        class="k-code-block-search-results"
-      >
-        <template v-if="!isShowingFilteredCode && numberOfMatches > 0 && typeof currentLineIndex === 'number'">
-          {{ currentLineIndex + 1 }} of
-        </template>
-
-        {{ numberOfMatches }} results
-      </p>
-
-      <div class="k-code-block-search-container">
+      <div class="k-search-container">
         <KIcon
           class="k-search-icon"
           icon="search"
@@ -42,7 +24,7 @@
           :for="`${props.id}-search-input`"
           class="k-code-block-search-label"
         >
-          <span class="k-visually-hidden">Highlight</span>
+          <span class="k-visually-hidden">Search</span>
         </label>
 
         <input
@@ -53,6 +35,13 @@
           data-testid="k-code-block-search-input"
           @input="handleSearch"
         >
+
+        <p
+          v-if="regExpError !== null"
+          class="k-code-block-search-error"
+        >
+          {{ regExpError.message }}
+        </p>
 
         <KIcon
           class="k-is-processing-icon"
@@ -83,92 +72,113 @@
         </button>
       </div>
 
-      <KButton
-        class="k-regexp-mode-button"
-        type="button"
-        :appearance="regExpButtonAppearance"
-        :aria-pressed="isRegExpMode"
-        :is-rounded="false"
-        size="small"
-        title="Use regular expression (Alt+R)"
-        data-testid="k-code-block-regexp-mode-button"
-        @click="toggleRegExpMode"
+      <p
+        class="k-code-block-search-results"
+        :class="{
+          'k-code-block-search-results-has-query': query !== '',
+        }"
       >
-        <span class="k-visually-hidden">RegExp mode enabled</span>
-
-        .*
-      </KButton>
-
-      <KButton
-        class="k-filter-mode-button"
-        type="button"
-        icon="filter"
-        :appearance="isFilterMode ? 'secondary' : 'outline'"
-        :aria-pressed="isFilterMode"
-        :is-rounded="false"
-        size="small"
-        title="Filter results (Alt+F)"
-        data-testid="k-code-block-filter-mode-button"
-        @click="toggleFilterMode"
-      >
-        <template #icon>
-          <KIcon
-            class="k-button-icon"
-            icon="filter"
-            size="16"
-            title="Filter results (Alt+F)"
-            color="currentColor"
-          />
+        <template v-if="numberOfMatches === 0">
+          No results
         </template>
 
-        <span class="k-visually-hidden">Filter mode enabled</span>
-      </KButton>
-
-      <KButton
-        class="k-previous-match-button"
-        type="button"
-        :is-rounded="false"
-        size="small"
-        title="Previous match (Shift+F3)"
-        :disabled="matchingLineNumbers.length === 0 || isFilterMode"
-        data-testid="k-code-block-previous-match-button"
-        @click="jumpToPreviousMatch"
-      >
-        <template #icon>
-          <KIcon
-            class="k-button-icon"
-            icon="chevronUp"
-            size="16"
-            title="Previous match (Shift+F3)"
-            color="currentColor"
-          />
+        <template v-else-if="typeof currentLineIndex === 'number' && !isShowingFilteredCode">
+          {{ currentLineIndex + 1 }} of {{ numberOfMatches }}
         </template>
 
-        <span class="k-visually-hidden">Previous match</span>
-      </KButton>
-
-      <KButton
-        class="k-next-match-button"
-        type="button"
-        :is-rounded="false"
-        size="small"
-        title="Next match (F3)"
-        :disabled="matchingLineNumbers.length === 0 || isFilterMode"
-        data-testid="k-code-block-next-match-button"
-        @click="jumpToNextMatch"
-      >
-        <template #icon>
-          <KIcon
-            class="k-button-icon"
-            icon="chevronDown"
-            size="16"
-            title="Next match (F3)"
-            color="currentColor"
-          />
+        <template v-else>
+          {{ numberOfMatches }} results
         </template>
+      </p>
 
-        <span class="k-visually-hidden">Next match</span>
-      </KButton>
+      <div class="k-search-actions">
+        <KButton
+          class="k-regexp-mode-button"
+          type="button"
+          :appearance="isRegExpMode ? 'secondary' : 'outline'"
+          :aria-pressed="isRegExpMode"
+          :is-rounded="false"
+          size="small"
+          :title="`Use regular expression (${ALT_SHORTCUT_LABEL}+R)`"
+          data-testid="k-code-block-regexp-mode-button"
+          @click="toggleRegExpMode"
+        >
+          <span class="k-visually-hidden">RegExp mode enabled</span>
+
+          .*
+        </KButton>
+
+        <KButton
+          class="k-filter-mode-button"
+          type="button"
+          icon="filter"
+          :appearance="isFilterMode ? 'secondary' : 'outline'"
+          :aria-pressed="isFilterMode"
+          :is-rounded="false"
+          size="small"
+          :title="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
+          data-testid="k-code-block-filter-mode-button"
+          @click="toggleFilterMode"
+        >
+          <template #icon>
+            <KIcon
+              class="k-button-icon"
+              icon="filter"
+              size="16"
+              :title="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
+              color="currentColor"
+            />
+          </template>
+
+          <span class="k-visually-hidden">Filter mode enabled</span>
+        </KButton>
+
+        <KButton
+          class="k-previous-match-button"
+          type="button"
+          :is-rounded="false"
+          size="small"
+          title="Previous match (Shift+F3)"
+          :disabled="matchingLineNumbers.length === 0 || isFilterMode"
+          data-testid="k-code-block-previous-match-button"
+          @click="jumpToPreviousMatch"
+        >
+          <template #icon>
+            <KIcon
+              class="k-button-icon"
+              icon="chevronUp"
+              size="16"
+              title="Previous match (Shift+F3)"
+              color="currentColor"
+            />
+          </template>
+
+          <span class="k-visually-hidden">Previous match</span>
+        </KButton>
+
+        <KButton
+          class="k-next-match-button"
+          type="button"
+          :is-rounded="false"
+          size="small"
+          title="Next match (F3)"
+          :disabled="matchingLineNumbers.length === 0 || isFilterMode"
+          data-testid="k-code-block-next-match-button"
+          @click="jumpToNextMatch"
+        >
+          <template #icon>
+            <KIcon
+              class="k-button-icon"
+              icon="chevronDown"
+              size="16"
+              title="Next match (F3)"
+              color="currentColor"
+            />
+          </template>
+
+          <span class="k-visually-hidden">Next match</span>
+        </KButton>
+      </div>
     </div>
 
     <div class="k-code-block-content">
@@ -221,14 +231,14 @@
         appearance="outline"
         :is-rounded="false"
         size="small"
-        title="Copy (Alt+C)"
+        :title="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
         data-testid="k-code-block-copy-button"
         @click="copyCode"
       >
         <KIcon
           icon="copy"
           size="16"
-          title="Copy (Alt+C)"
+          :title="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
           color="currentColor"
         />
 
@@ -279,6 +289,9 @@ type Command = {
 
   shouldPreventDefaultAction?: boolean
 }
+
+const IS_MAYBE_MAC = window.navigator.platform.toLowerCase().includes('mac')
+const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Options' : 'Alt'
 
 /**
  * Maps shortcuts to their associated command keywords.
@@ -401,7 +414,6 @@ const maxLineNumberWidth = computed(() => totalLines.value[totalLines.value.leng
 const linePrefix = computed(() => props.id.toLowerCase().replace(/\s+/g, '-'))
 const isProcessing = computed(() => props.isProcessing || isProcessingInternally.value)
 const isShowingFilteredCode = computed(() => isFilterMode.value && filteredCode.value !== '')
-const regExpButtonAppearance = computed(() => regExpError.value !== null ? 'danger' : isRegExpMode.value ? 'secondary' : 'outline')
 const filteredCode = computed(function() {
   if (query.value === '') {
     return ''
@@ -610,6 +622,7 @@ const commands: Record<CommandKeywords, Command> = {
     isAllowedContext(event: Event) {
       return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
     },
+    shouldPreventDefaultAction: true,
   },
 
   toggleRegExpMode: {
@@ -617,6 +630,7 @@ const commands: Record<CommandKeywords, Command> = {
     isAllowedContext(event: Event) {
       return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
     },
+    shouldPreventDefaultAction: true,
   },
 
   jumpToNextMatch: {
@@ -642,23 +656,17 @@ const commands: Record<CommandKeywords, Command> = {
     isAllowedContext(event: Event) {
       return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
     },
+    shouldPreventDefaultAction: true,
   },
 }
 
-const KEY_REPLACEMENT: Record<string, string> = {
-  ' ': 'space',
-  Control: '',
-  Shift: '',
-  Alt: '',
-}
-
 function triggerShortcuts(event: KeyboardEvent): void {
-  const key = KEY_REPLACEMENT[event.key] !== undefined ? KEY_REPLACEMENT[event.key] : event.key.toLowerCase()
+  const code = normalizeKeyCode(event.code)
   const shortcut = [
     event.ctrlKey ? 'ctrl' : '',
     event.shiftKey ? 'shift' : '',
     event.altKey ? 'alt' : '',
-    key,
+    code,
   ].filter((key) => key !== '').join('+')
   const commandKey = keyMap[shortcut]
 
@@ -686,6 +694,17 @@ function triggerShortcuts(event: KeyboardEvent): void {
   }
 
   command.trigger(event)
+}
+
+const MODIFIER_KEY_CODES = ['ControlLeft', 'ControlRight', 'ShiftLeft', 'ShiftRight', 'AltLeft']
+
+function normalizeKeyCode(code: string): string {
+  // Returns relevant modifier keys as the empty string which is going to be filtered out.
+  if (MODIFIER_KEY_CODES.includes(code)) {
+    return ''
+  }
+
+  return code.replace(/^Key/, '').toLowerCase()
 }
 
 function jumpToNextMatch(): void {
@@ -779,6 +798,11 @@ $tabSize: 2;
   isolation: isolate;
 }
 
+.k-code-block-actions + .k-code-block-content > pre {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
 .k-code-block code {
   display: block;
 }
@@ -791,7 +815,8 @@ $tabSize: 2;
 
 .k-code-block-actions {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  align-items: stretch;
   justify-content: flex-end;
   gap: var(--spacing-xxs, spacing(xxs));
   padding: var(--spacing-xs, spacing(xs)) var(--spacing-md, spacing(md));
@@ -801,12 +826,7 @@ $tabSize: 2;
   background-color: var(--grey-200, color(grey-200));
 }
 
-.k-code-block-actions + .k-code-block-content > pre {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-
-.k-code-block-actions > .k-button {
+.k-code-block-actions .k-button {
   align-self: stretch;
 }
 
@@ -814,6 +834,13 @@ $tabSize: 2;
   display: inline-flex;
   justify-content: center;
   align-items: center;
+}
+
+.k-search-actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: var(--spacing-xxs, spacing(xxs));
 }
 
 .k-is-processing-icon:not(.k-is-processing-icon-is-visible) {
@@ -824,9 +851,13 @@ $tabSize: 2;
   font-family: var(--KCodeBlockFontFamilyMono, $fontFamilyMono);
 }
 
-.k-code-block-search-container {
-  align-self: stretch;
-  display: flex;
+.k-search-container {
+  position: relative;
+  // Indicates the sizing requirements to the surrounding flex container and ensures the search container doesn’t get too small.
+  flex-basis: 15ch;
+  flex-grow: 1;
+  max-width: 250px;
+  display: inline-flex;
   align-items: stretch;
   border: 1px solid var(--KInputBorder, var(--grey-300, color(grey-300)));
   border-radius: 3px;
@@ -834,16 +865,17 @@ $tabSize: 2;
   transition: border 0.1s ease;
 }
 
-.k-code-block-search-container:hover {
+.k-search-container:hover {
   border-color: var(--KInputHover, var(--blue-200, color(blue-200)));
 }
 
-.k-code-block-search-container:focus-within {
+.k-search-container:focus-within {
   border-color: var(--KInputFocus, var(--blue-400, color(blue-400)));
 }
 
 .k-code-block-search-input {
-  width: 15ch;
+  width: 0;
+  flex-grow: 1;
   appearance: none;
   margin: 0;
   padding: 0 var(--spacing-xs, spacing(xs));
@@ -854,8 +886,19 @@ $tabSize: 2;
 }
 
 .k-code-block-search-input:focus {
-  // Focus styles are managed by `.k-code-block-search-container`
+  // Focus styles are managed by `.k-search-container`
   outline: none;
+}
+
+.k-code-block-search-results {
+  align-self: center;
+  // Sets the minimum width to 12 characters which is the length of the string “1234 results” which should be reasonably safe in order to avoid having layout elements jump around.
+  min-width: 12ch;
+  text-align: center;
+}
+
+.k-code-block-search-results:not(.k-code-block-search-results-has-query) {
+  color: var(--grey-500, color(grey-500));
 }
 
 .k-code-block-search-error,
@@ -865,6 +908,16 @@ $tabSize: 2;
 }
 
 .k-code-block-search-error {
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: -1px;
+  right: -1px;
+  padding: 0 var(--spacing-xxs, spacing(xxs));
+  border: 1px solid currentColor;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  background-color: var(--white, color(white));
   font-size: 0.8em;
   color: var(--red-700, color(red-700));
 }
@@ -899,6 +952,7 @@ $tabSize: 2;
 
 .k-code-block-copy-button {
   position: absolute;
+  z-index: 2;
   top: var(--spacing-xs, spacing(xs));
   right: var(--spacing-md, spacing(md));
   display: block;
