@@ -1,15 +1,30 @@
 <template>
   <div
+    v-if="!isDismissed"
     :class="[ `k-badge-${appearance}`, `k-badge-${shape}`]"
     :style="color && backgroundColor && {backgroundColor, color}"
-    class="k-badge truncate"
+    class="k-badge d-inline-flex"
   >
-    <slot />
+    <span class="k-badge-text truncate">
+      <slot />
+    </span>
+    <KButton
+      v-if="dismissable"
+      :is-rounded="shape === 'rounded'"
+      class="k-badge-dismiss-button ml-1"
+      @click="isDismissed = true"
+    >
+      <KIcon
+        icon="close"
+        :color="color"
+        size="10"
+      />
+    </KButton>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 export const appearances = {
   default: 'default',
@@ -40,6 +55,11 @@ export default defineComponent({
       default: 'default',
     },
 
+    dismissable: {
+      type: Boolean,
+      default: false,
+    },
+
     shape: {
       type: String,
       required: false,
@@ -61,22 +81,28 @@ export default defineComponent({
       default: '',
     },
   },
+  setup() {
+    const isDismissed = ref(false)
+
+    return {
+      isDismissed,
+    }
+  },
 })
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/styles.scss';
+@import '@/styles/variables';
+@import '@/styles/functions';
 
 .k-badge {
   display: inline-block;
   font-weight: 300;
   font-size: var(--KBadgeFontSize, 11px);
   line-height: var(--KBadgeLineHeight, var(--type-md, type(md)));
+  width: fit-content;
   height: auto;
   text-align: center;
-  max-width: var(--KBadgeMaxWidth, 200px);
-  min-width: var(--KBadgeMinWidth, 8px);
-  width: var(--KBadgeWidth, auto);
   padding: var(--KBadgePaddingY, 2px) var(--KBadgePaddingX, 6px);
   font-family: var(--font-family-sans, font(sans));
 
@@ -113,6 +139,92 @@ export default defineComponent({
 
   &.k-badge-rounded {
     border-radius: var(--KBadgeBorderRadius, 25px);
+  }
+
+  .k-badge-text {
+    max-width: var(--KBadgeMaxWidth, 200px);
+    min-width: var(--KBadgeMinWidth, 8px);
+    width: var(--KBadgeWidth, auto);
+    align-self: center;
+  }
+
+  .k-badge-dismiss-button {
+    padding: var(--spacing-xxs);
+    // non-visual-button
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-weight: 400;
+    // ignore badge padding
+    margin: calc(-1 * var(--KBadgePaddingY, 2px)) calc(-1 * var(--KBadgePaddingX, 6px));
+    margin-left: auto;
+  }
+}
+</style>
+
+<style lang="scss">
+@import '@/styles/variables';
+@import '@/styles/functions';
+
+.k-badge {
+  &.k-badge-default {
+    .k-badge-dismiss-button {
+      .kong-icon.kong-icon-close svg {
+        stroke: var(--KBadgeDefaultColor, var(--blue-500, color(blue-500)));
+      }
+
+      &:hover {
+        background-color: var(--KBadgeDefaultButtonHoverColor, var(--blue-200, color(blue-200)));
+      }
+    }
+  }
+
+  &.k-badge-success {
+    .k-badge-dismiss-button {
+      .kong-icon.kong-icon-close path {
+        stroke: var(--KBadgeSuccessColor, var(--green-700, color(green-700)));
+      }
+
+      &:hover {
+        background-color: var(--KBadgeSuccessButtonHoverColor, var(--green-200, color(green-200)));
+      }
+    }
+  }
+
+  &.k-badge-danger {
+    .k-badge-dismiss-button {
+      .kong-icon.kong-icon-close path {
+        stroke: var(--KBadgeDangerColor, var(--red-700, color(red-700)));
+      }
+
+      &:hover {
+        background-color: var(--KBadgeDangerButtonHoverColor, var(--red-200, color(red-200)));
+      }
+    }
+  }
+
+  &.k-badge-info {
+    .k-badge-dismiss-button {
+      .kong-icon.kong-icon-close path {
+        stroke: var(--KBadgeInfoColor, var(--blue-500, color(blue-500)));
+      }
+
+      &:hover {
+        background-color: var(--KBadgeInfoButtonHoverColor, var(--blue-300, color(blue-300)));
+      }
+    }
+  }
+
+  &.k-badge-warning {
+    .k-badge-dismiss-button {
+      .kong-icon.kong-icon-close path {
+        stroke: var(--KBadgeWarningColor, var(--yellow-600, color(yellow-600)));
+      }
+
+      &:hover {
+        background-color: var(--KBadgeWarningButtonHoverColor, var(--yellow-200, color(yellow-200)));
+      }
+    }
   }
 }
 </style>

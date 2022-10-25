@@ -35,6 +35,19 @@ The Badge component can take the following appearance values:
 <KBadge>DEFAULT</KBadge>
 ```
 
+### dismissable
+
+Use this prop if you want the badge to be dismissable. If the badge text is long enough to need truncation, the label will truncate; the dismiss button is always visible.
+The color of the dismiss button is determined by the badge type and uses the same theming variables as the badge text.
+
+<KBadge appearance="info" dismissable class="mr-2">Close me</KBadge>
+<KBadge appearance="info" dismissable shape="rectangular">Hey! Let me see that awesome truncation</KBadge>
+
+```html
+<KBadge appearance="info" dismissable>Close me</KBadge>
+<KBadge appearance="info" dismissable shape="rectangular">Hey! Let me see that awesome truncation</KBadge>
+```
+
 ### shape
 
 The Badge has two shapes that can be changed with a `shape` property.
@@ -80,28 +93,32 @@ Using the `custom` appearance in conjunction with `color` and `background-color`
 
 ## Theming
 
-| Variable                    | Purpose                       |
-| :---------------------      | :---------------------------- |
-| `--KBadgeBorderRadius`      |                               |
-| `--KBadgeFontSize`          |                               |
-| `--KBadgeLineHeight`        |                               |
-| `--KBadgeMinWidth`          |                               |
-| `--KBadgeMaxWidth`          |                               |
-| `--KBadgeWidth`             |                               |
-| `--KBadgePaddingY`          | Vertical top/bottom spacing   |
-| `--KBadgePaddingX`          | Horizontal left/right spacing |
-| `--KBadgeSuccessColor`      |                               |
-| `--KBadgeSuccessBorder`     |                               |
-| `--KBadgeSuccessBackground` |                               |
-| `--KBadgeWarningColor`      |                               |
-| `--KBadgeWarningBorder`     |                               |
-| `--KBadgeWarningBackground` |                               |
-| `--KBadgeInfoColor`         |                               |
-| `--KBadgeInfoBorder`        |                               |
-| `--KBadgeInfoBackground`    |                               |
-| `--KBadgeDangerColor`       |                               |
-| `--KBadgeDangerBorder`      |                               |
-| `--KBadgeDangerBackground`  |                               |
+| Variable                          | Purpose                                 |
+| :---------------------            | :----------------------------           |
+| `--KBadgeBorderRadius`            |                                         |
+| `--KBadgeFontSize`                |                                         |
+| `--KBadgeLineHeight`              |                                         |
+| `--KBadgeMinWidth`                | Min width of badge text                 |
+| `--KBadgeMaxWidth`                | Max width of badge text                 |
+| `--KBadgeWidth`                   | Width of badge text                     |
+| `--KBadgePaddingY`                | Vertical top/bottom spacing             |
+| `--KBadgePaddingX`                | Horizontal left/right spacing           |
+| `--KBadgeSuccessColor`            | Text/dismiss icon color of badge        |
+| `--KBadgeSuccessButtonHoverColor` | Hover color of dismiss button           |
+| `--KBadgeSuccessBorder`           | Border of badge (default to background) |
+| `--KBadgeSuccessBackground`       | Background color of badge               |
+| `--KBadgeWarningColor`            |                                         |
+| `--KBadgeWarningButtonHoverColor` |                                         |
+| `--KBadgeWarningBorder`           |                                         |
+| `--KBadgeWarningBackground`       |                                         |
+| `--KBadgeInfoColor`               |                                         |
+| `--KBadgeInfoButtonHoverColor`    |                                         |
+| `--KBadgeInfoBorder`              |                                         |
+| `--KBadgeInfoBackground`          |                                         |
+| `--KBadgeDangerColor`             |                                         |
+| `--KBadgeDangerButtonHoverColor`  |                                         |
+| `--KBadgeDangerBorder`            |                                         |
+| `--KBadgeDangerBackground`        |                                         |
 
 An example of theming the danger badge:
 
