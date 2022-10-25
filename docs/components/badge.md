@@ -40,12 +40,12 @@ The Badge component can take the following appearance values:
 Use this prop if you want the badge to be dismissable. If the badge text is long enough to need truncation, the label will truncate; the dismiss button is always visible.
 The color of the dismiss button is determined by the badge type and uses the same theming variables as the badge text.
 
-<KBadge appearance="info" dismissable class="mr-2">Close me</KBadge>
-<KBadge appearance="info" dismissable shape="rectangular">Hey! Let me see that awesome truncation</KBadge>
+<KBadge dismissable class="mr-2">Close me</KBadge>
+<KBadge dismissable shape="rectangular">Hey! Let me see that awesome truncation</KBadge>
 
 ```html
-<KBadge appearance="info" dismissable>Close me</KBadge>
-<KBadge appearance="info" dismissable shape="rectangular">Hey! Let me see that awesome truncation</KBadge>
+<KBadge dismissable>Close me</KBadge>
+<KBadge dismissable shape="rectangular">Hey! Let me see that awesome truncation</KBadge>
 ```
 
 ### shape

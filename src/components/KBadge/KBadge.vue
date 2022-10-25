@@ -135,6 +135,11 @@ export default defineComponent({
 
   &.k-badge-rectangular {
     border-radius: var(--KBadgeBorderRadius, 4px);
+
+    .k-badge-dismiss-button {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
   }
 
   &.k-badge-rounded {
@@ -169,7 +174,7 @@ export default defineComponent({
 .k-badge {
   &.k-badge-default {
     .k-badge-dismiss-button {
-      .kong-icon.kong-icon-close svg {
+      .kong-icon.kong-icon-close path {
         stroke: var(--KBadgeDefaultColor, var(--blue-500, color(blue-500)));
       }
 
