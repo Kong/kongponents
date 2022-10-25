@@ -149,7 +149,7 @@ export default defineComponent({
   }
 
   .k-badge-dismiss-button {
-    padding: var(--spacing-xxs);
+    padding: var(--spacing-xs);
     // non-visual-button
     background-color: transparent;
     border: none;
