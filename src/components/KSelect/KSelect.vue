@@ -134,6 +134,7 @@
               @keyup="evt => triggerFocus(evt, isToggled)"
               @update:model-value="onQueryChange"
               @focus="onInputFocus"
+              @blur="onInputBlur"
             />
           </div>
           <template #content>
@@ -355,6 +356,7 @@ export default defineComponent({
     const selectTextId = computed((): string => props.testMode ? 'test-select-text-id-1234' : uuidv1())
     const selectItems: Ref<SelectItem[]> = ref([])
     const initialFocusTriggered: Ref<boolean> = ref(false)
+    const inputFocused: Ref<boolean> = ref(false)
     const popper = ref(null)
     // we need this so we can create a watcher for programmatic changes to the modelValue
     const value = computed({
@@ -522,10 +524,15 @@ export default defineComponent({
     }
 
     const onInputFocus = (): void => {
+      inputFocused.value = true
       if (!initialFocusTriggered.value) {
         initialFocusTriggered.value = true
         emit('query-change', '')
       }
+    }
+
+    const onInputBlur = (): void => {
+      inputFocused.value = false
     }
 
     watch(value, (newVal, oldVal) => {
@@ -558,7 +565,7 @@ export default defineComponent({
           selectedItem.value = selectItems.value[i]
           selectItems.value[i].key += '-selected'
 
-          if (props.appearance === 'select') {
+          if (props.appearance === 'select' && !inputFocused.value) {
             filterStr.value = selectedItem.value.label
           }
         }
@@ -615,6 +622,7 @@ export default defineComponent({
       onInputKeypress,
       onQueryChange,
       onInputFocus,
+      onInputBlur,
       onPopoverOpen,
     }
   },
