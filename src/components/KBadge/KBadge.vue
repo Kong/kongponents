@@ -97,8 +97,8 @@ export default defineComponent({
 
 .k-badge {
   display: inline-block;
-  font-weight: 300;
-  font-size: var(--KBadgeFontSize, 11px);
+  font-weight: 400;
+  font-size: var(--KBadgeFontSize, 12px);
   line-height: var(--KBadgeLineHeight, var(--type-md, type(md)));
   width: fit-content;
   height: auto;
