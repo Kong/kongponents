@@ -1,3 +1,10 @@
+# [8.1.0](https://github.com/Kong/kongponents/compare/v8.0.1...v8.1.0) (2022-10-25)
+
+
+### Features
+
+* **kbadge:** add dismissable prop [khcp-5146] ([#849](https://github.com/Kong/kongponents/issues/849)) ([ec119a0](https://github.com/Kong/kongponents/commit/ec119a0bee149193c50cb2367957c92505061eb7))
+
 ## [8.0.1](https://github.com/Kong/kongponents/compare/v8.0.0...v8.0.1) (2022-10-25)
 
 
