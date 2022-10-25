@@ -3,6 +3,10 @@
 # opens a PR, unless a later match takes precedence.
 * @adamdehaven @kaiarrowood @aanchalm01 @jillztom
 
+# Allow Kongponents BOT to approve dependabot updates
+package.json @kongponents-bot @adamdehaven @kaiarrowood @aanchalm01 @jillztom
+yarn.lock @kongponents-bot @adamdehaven @kaiarrowood @aanchalm01 @jillztom
+
 # Workflows & CI
 /.github/ @adamdehaven
 /lefthook.yml @adamdehaven
