@@ -1,3 +1,10 @@
+## [8.1.1](https://github.com/Kong/kongponents/compare/v8.1.0...v8.1.1) (2022-10-25)
+
+
+### Bug Fixes
+
+* **kbadge:** style nits ([1cf2569](https://github.com/Kong/kongponents/commit/1cf256924446a5e445e8b45c3d71ec41c6e326ca))
+
 # [8.1.0](https://github.com/Kong/kongponents/compare/v8.0.1...v8.1.0) (2022-10-25)
 
 
