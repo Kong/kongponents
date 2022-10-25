@@ -1,3 +1,10 @@
+## [8.0.1](https://github.com/Kong/kongponents/compare/v8.0.0...v8.0.1) (2022-10-25)
+
+
+### Bug Fixes
+
+* **kcodeblock:** a couple of issues ([#846](https://github.com/Kong/kongponents/issues/846)) ([dd8dc8b](https://github.com/Kong/kongponents/commit/dd8dc8baca3c5c4e0af2dff291f8c853a8153b38))
+
 # [8.0.0](https://github.com/Kong/kongponents/compare/v7.1.0...v8.0.0) (2022-10-21)
 
 
