@@ -11,25 +11,7 @@
       v-if="isSearchable"
       class="k-code-block-actions"
     >
-      <p
-        v-if="regExpError !== null"
-        class="k-code-block-search-error"
-      >
-        {{ regExpError.message }}
-      </p>
-
-      <p
-        v-else-if="!isProcessing && query !== ''"
-        class="k-code-block-search-results"
-      >
-        <template v-if="!isShowingFilteredCode && numberOfMatches > 0 && typeof currentLineIndex === 'number'">
-          {{ currentLineIndex + 1 }} of
-        </template>
-
-        {{ numberOfMatches }} results
-      </p>
-
-      <div class="k-code-block-search-container">
+      <div class="k-search-container">
         <KIcon
           class="k-search-icon"
           icon="search"
@@ -42,7 +24,7 @@
           :for="`${props.id}-search-input`"
           class="k-code-block-search-label"
         >
-          <span class="k-visually-hidden">Highlight</span>
+          <span class="k-visually-hidden">Search</span>
         </label>
 
         <input
@@ -53,6 +35,13 @@
           data-testid="k-code-block-search-input"
           @input="handleSearch"
         >
+
+        <p
+          v-if="regExpError !== null"
+          class="k-code-block-search-error"
+        >
+          {{ regExpError.message }}
+        </p>
 
         <KIcon
           class="k-is-processing-icon"
@@ -82,6 +71,25 @@
           />
         </button>
       </div>
+
+      <p
+        class="k-code-block-search-results"
+        :class="{
+          'k-code-block-search-results-has-query': query !== '',
+        }"
+      >
+        <template v-if="numberOfMatches === 0">
+          No results
+        </template>
+
+        <template v-else-if="typeof currentLineIndex === 'number' && !isShowingFilteredCode">
+          {{ currentLineIndex + 1 }} of {{ numberOfMatches }}
+        </template>
+
+        <template v-else>
+          {{ numberOfMatches }} results
+        </template>
+      </p>
 
       <div class="k-search-actions">
         <KButton
@@ -790,6 +798,11 @@ $tabSize: 2;
   isolation: isolate;
 }
 
+.k-code-block-actions + .k-code-block-content > pre {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
 .k-code-block code {
   display: block;
 }
@@ -803,7 +816,7 @@ $tabSize: 2;
 .k-code-block-actions {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: stretch;
   justify-content: flex-end;
   gap: var(--spacing-xxs, spacing(xxs));
   padding: var(--spacing-xs, spacing(xs)) var(--spacing-md, spacing(md));
@@ -811,11 +824,6 @@ $tabSize: 2;
   border-top-right-radius: var(--KCodeBlockBorderRadius, $borderRadius);
   border-bottom: 1px solid var(--grey-300, color(grey-300));
   background-color: var(--grey-200, color(grey-200));
-}
-
-.k-code-block-actions + .k-code-block-content > pre {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
 }
 
 .k-code-block-actions .k-button {
@@ -829,7 +837,7 @@ $tabSize: 2;
 }
 
 .k-search-actions {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
   align-items: stretch;
   gap: var(--spacing-xxs, spacing(xxs));
@@ -843,9 +851,13 @@ $tabSize: 2;
   font-family: var(--KCodeBlockFontFamilyMono, $fontFamilyMono);
 }
 
-.k-code-block-search-container {
-  align-self: stretch;
-  display: flex;
+.k-search-container {
+  position: relative;
+  // Indicates the sizing requirements to the surrounding flex container and ensures the search container doesn’t get too small.
+  flex-basis: 15ch;
+  flex-grow: 1;
+  max-width: 250px;
+  display: inline-flex;
   align-items: stretch;
   border: 1px solid var(--KInputBorder, var(--grey-300, color(grey-300)));
   border-radius: 3px;
@@ -853,17 +865,17 @@ $tabSize: 2;
   transition: border 0.1s ease;
 }
 
-.k-code-block-search-container:hover {
+.k-search-container:hover {
   border-color: var(--KInputHover, var(--blue-200, color(blue-200)));
 }
 
-.k-code-block-search-container:focus-within {
+.k-search-container:focus-within {
   border-color: var(--KInputFocus, var(--blue-400, color(blue-400)));
 }
 
 .k-code-block-search-input {
-  width: 100%;
-  max-width: 15ch;
+  width: 0;
+  flex-grow: 1;
   appearance: none;
   margin: 0;
   padding: 0 var(--spacing-xs, spacing(xs));
@@ -874,8 +886,19 @@ $tabSize: 2;
 }
 
 .k-code-block-search-input:focus {
-  // Focus styles are managed by `.k-code-block-search-container`
+  // Focus styles are managed by `.k-search-container`
   outline: none;
+}
+
+.k-code-block-search-results {
+  align-self: center;
+  // Sets the minimum width to 12 characters which is the length of the string “1234 results” which should be reasonably safe in order to avoid having layout elements jump around.
+  min-width: 12ch;
+  text-align: center;
+}
+
+.k-code-block-search-results:not(.k-code-block-search-results-has-query) {
+  color: var(--grey-500, color(grey-500));
 }
 
 .k-code-block-search-error,
@@ -885,6 +908,16 @@ $tabSize: 2;
 }
 
 .k-code-block-search-error {
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: -1px;
+  right: -1px;
+  padding: 0 var(--spacing-xxs, spacing(xxs));
+  border: 1px solid currentColor;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  background-color: var(--white, color(white));
   font-size: 0.8em;
   color: var(--red-700, color(red-700));
 }
@@ -919,6 +952,7 @@ $tabSize: 2;
 
 .k-code-block-copy-button {
   position: absolute;
+  z-index: 2;
   top: var(--spacing-xs, spacing(xs));
   right: var(--spacing-md, spacing(md));
   display: block;
