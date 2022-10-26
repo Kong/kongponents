@@ -25,6 +25,7 @@
       :class="{ 'disabled': disabled, 'has-divider': hasDivider }"
       class="k-dropdown-item-trigger"
       data-testid="k-dropdown-item-trigger"
+      @click="handleClick"
     >
       <slot>{{ label }}</slot>
     </router-link>
