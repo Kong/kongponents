@@ -1,3 +1,11 @@
+## [8.1.2](https://github.com/Kong/kongponents/compare/v8.1.1...v8.1.2) (2022-10-26)
+
+
+### Bug Fixes
+
+* **kdropdownitem:** emit event on router-link click ([aefad33](https://github.com/Kong/kongponents/commit/aefad33a1958aa5e48bdf051566e795f575addda))
+* **kselect:** broken input with autosuggest ([#850](https://github.com/Kong/kongponents/issues/850)) ([f723095](https://github.com/Kong/kongponents/commit/f7230957512454cb83e6358e64870a4463981a6c))
+
 ## [8.1.1](https://github.com/Kong/kongponents/compare/v8.1.0...v8.1.1) (2022-10-25)
 
 
