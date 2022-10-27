@@ -55,19 +55,19 @@
             >
               <KBadge
                 v-for="item in visibleSelectedItems"
-                :key="`${item.key}-badge`"
+                :key="`${item ? item.key : ''}-badge`"
                 shape="rectangular"
                 dismissable
                 class="mr-1 mt-2"
               >
-                {{ item.label }}
+                {{ item ? item.label : '' }}
               </KBadge>
               <KBadge
-                v-if="hiddenSelectedItemsCount"
+                v-if="invisibleSelectedItems.length"
                 shape="rectangular"
                 class="mt-2"
               >
-                +{{ hiddenSelectedItemsCount }}
+                +{{ invisibleSelectedItems.length }}
               </KBadge>
             </div>
             <div class="k-multiselect-icon">
@@ -338,7 +338,7 @@ export default defineComponent({
     })
 
     const visibleSelectedItems = ref<MultiselectItem[]>([])
-    const hiddenSelectedItemsCount = ref(0)
+    const invisibleSelectedItems = ref<MultiselectItem[]>([])
     const selectedItemsHeight = computed(() => {
       // use the if statement to make this computed reactive to changes to selectedItems
       if (selectedItems.value.length) {
@@ -356,8 +356,10 @@ export default defineComponent({
       nextTick(() => {
         // make sure we don't grow past the max height of the selected items box
         if (selectedItemsHeight.value && selectedItemsHeight.value > SELECTED_ITEMS_MAX_HEIGHT) {
-          visibleSelectedItems.value.pop()
-          hiddenSelectedItemsCount.value++
+          const item = visibleSelectedItems.value.pop()
+          if (item) {
+            invisibleSelectedItems.value.push(item)
+          }
         }
       })
     })
@@ -408,13 +410,18 @@ export default defineComponent({
         selectedItem.selected = false
         selectedItem.key = selectedItem?.key?.replace(/-selected/gi, '')
         selectedItems.value = selectedItems.value.filter(anItem => anItem.key !== item.key)
+        // remove item from visibility arrays
         if (visibleSelectedItems.value.includes(item)) {
           visibleSelectedItems.value = visibleSelectedItems.value.filter(anItem => anItem.key !== item.key)
+        } else if (invisibleSelectedItems.value.includes(item)) {
+          invisibleSelectedItems.value = invisibleSelectedItems.value.filter(anItem => anItem.key !== item.key)
         }
         // if some items are hidden grab the first hidden one and add it into the visible array
-        if (hiddenSelectedItemsCount.value) {
-          hiddenSelectedItemsCount.value--
-          visibleSelectedItems.value.push(selectedItems.value.filter(anItem => !visibleSelectedItems.value.includes(anItem))[0])
+        if (invisibleSelectedItems.value.length) {
+          const item = invisibleSelectedItems.value.pop()
+          if (item) {
+            visibleSelectedItems.value.push(item)
+          }
         }
       } else { // newly selected item
         selectedItem.selected = true
@@ -532,8 +539,8 @@ export default defineComponent({
     return {
       filterStr,
       selectedItems,
+      invisibleSelectedItems,
       visibleSelectedItems,
-      hiddenSelectedItemsCount,
       multiselectId,
       multiselectInputId,
       multiselectTextId,
