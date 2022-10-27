@@ -113,6 +113,7 @@ export default defineUserConfig({
               '/components/menu.md',
               '/components/modal.md',
               '/components/modal-fullscreen.md',
+              '/components/multiselect.md',
               '/components/pagination.md',
               '/components/popover.md',
               '/components/prompt.md',
