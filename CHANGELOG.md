@@ -1,3 +1,10 @@
+## [8.1.3](https://github.com/Kong/kongponents/compare/v8.1.2...v8.1.3) (2022-10-28)
+
+
+### Bug Fixes
+
+* **kpop:** disabled prop does not work as expected ([#858](https://github.com/Kong/kongponents/issues/858)) ([13464c7](https://github.com/Kong/kongponents/commit/13464c78062a859fb130708e8ed5017fe6b5786d))
+
 ## [8.1.2](https://github.com/Kong/kongponents/compare/v8.1.1...v8.1.2) (2022-10-26)
 
 
