@@ -7,9 +7,17 @@
     :class="[ `k-badge-${appearance}`, `k-badge-${shape}`]"
     class="k-badge d-inline-flex"
   >
-    <span class="k-badge-text truncate">
-      <slot />
-    </span>
+    <component
+      :is="!!isTruncated && truncationTooltip ? 'Kooltip' : 'span'"
+      class="k-badge-text"
+    >
+      <template #content>
+        {{ truncationTooltip }}
+      </template>
+      <span ref="badgeText">
+        <slot />
+      </span>
+    </component>
     <KButton
       v-if="dismissable"
       :is-rounded="shape === 'rounded'"
@@ -65,6 +73,14 @@ export default defineComponent({
       },
       default: 'default',
     },
+    /**
+     * For use with truncation. This text will be displayed
+     * on hover of the badge if the text is truncated.
+     */
+    truncationTooltip: {
+      type: String,
+      default: '',
+    },
 
     dismissable: {
       type: Boolean,
@@ -103,6 +119,7 @@ export default defineComponent({
   },
   emits: ['dismissed'],
   setup(props, { emit }) {
+    const badgeText = ref<HTMLElement | null>(null)
     const isDismissed = ref(false)
 
     const handleDismiss = () => {
@@ -110,9 +127,15 @@ export default defineComponent({
       emit('dismissed')
     }
 
+    const isTruncated = (): boolean => {
+      return badgeText.value ? badgeText.value.offsetWidth < badgeText.value.scrollWidth : false
+    }
+
     return {
+      badgeText,
       isDismissed,
       handleDismiss,
+      isTruncated,
     }
   },
 })
@@ -209,6 +232,14 @@ export default defineComponent({
         background-color: var(--KBadgeDefaultButtonHoverColor, var(--blue-200, color(blue-200)));
       }
     }
+
+    &:focus {
+      background-color: var(--KBadgeDefaultButtonHoverColor, var(--blue-200, color(blue-200)));
+
+      .k-badge-dismiss-button {
+        background-color: var(--KBadgeDefaultButtonHoverColor, var(--blue-200, color(blue-200)));
+      }
+    }
   }
 
   &.k-badge-success {
@@ -218,6 +249,14 @@ export default defineComponent({
       }
 
       &:hover {
+        background-color: var(--KBadgeSuccessButtonHoverColor, var(--green-200, color(green-200)));
+      }
+    }
+
+    &:focus {
+      background-color: var(--KBadgeSuccessButtonHoverColor, var(--green-200, color(green-200)));
+
+      .k-badge-dismiss-button {
         background-color: var(--KBadgeSuccessButtonHoverColor, var(--green-200, color(green-200)));
       }
     }
@@ -233,6 +272,14 @@ export default defineComponent({
         background-color: var(--KBadgeDangerButtonHoverColor, var(--red-200, color(red-200)));
       }
     }
+
+    &:focus {
+      background-color: var(--KBadgeDangerButtonHoverColor, var(--red-200, color(red-200)));
+
+      .k-badge-dismiss-button {
+        background-color: var(--KBadgeDangerButtonHoverColor, var(--red-200, color(red-200)));
+      }
+    }
   }
 
   &.k-badge-info {
@@ -245,6 +292,14 @@ export default defineComponent({
         background-color: var(--KBadgeInfoButtonHoverColor, var(--blue-300, color(blue-300)));
       }
     }
+
+    &:focus {
+      background-color: var(--KBadgeInfoButtonHoverColor, var(--blue-300, color(blue-300)));
+
+      .k-badge-dismiss-button {
+        background-color: var(--KBadgeInfoButtonHoverColor, var(--blue-300, color(blue-300)));
+      }
+    }
   }
 
   &.k-badge-warning {
@@ -254,6 +309,14 @@ export default defineComponent({
       }
 
       &:hover {
+        background-color: var(--KBadgeWarningButtonHoverColor, var(--yellow-200, color(yellow-200)));
+      }
+    }
+
+    &:focus {
+      background-color: var(--KBadgeWarningButtonHoverColor, var(--yellow-200, color(yellow-200)));
+
+      .k-badge-dismiss-button {
         background-color: var(--KBadgeWarningButtonHoverColor, var(--yellow-200, color(yellow-200)));
       }
     }
