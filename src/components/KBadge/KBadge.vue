@@ -9,7 +9,7 @@
   >
     <component
       :is="!!isTruncated && truncationTooltip ? 'Kooltip' : 'span'"
-      class="k-badge-text"
+      class="k-badge-text truncate"
     >
       <template #content>
         {{ truncationTooltip }}
@@ -188,7 +188,9 @@ export default defineComponent({
 
     .k-badge-dismiss-button {
       border-top-left-radius: 0;
+      border-top-right-radius: var(--KBadgeBorderRadius, 4px);
       border-bottom-left-radius: 0;
+      border-bottom-right-radius: var(--KBadgeBorderRadius, 4px);
     }
   }
 
