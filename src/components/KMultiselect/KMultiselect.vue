@@ -21,8 +21,7 @@
           ref="popper"
           v-bind="boundKPopAttributes"
           :on-popover-click="() => {
-            toggle()
-            return isToggled.value
+            return
           }"
           :position-fixed="positionFixed"
           :test-mode="!!testMode || undefined"
@@ -51,6 +50,7 @@
             <!-- v-if="isToggled.value && selectedItems.length" -->
             <div
               :id="multiselectSelectedItemsId"
+              :key="key"
               class="k-multiselect-selections"
             >
               <KBadge
@@ -62,10 +62,12 @@
               >
                 {{ item ? item.label : '' }}
               </KBadge>
+              <!-- Always render this badge even if it's hidden to ensure there will be
+                   enough space to show it -->
               <KBadge
-                v-if="invisibleSelectedItems.length"
                 shape="rectangular"
-                class="mt-2"
+                :class="{ 'hidden': !invisibleSelectedItems.length }"
+                class="mt-2 hidden-selection-count"
               >
                 +{{ invisibleSelectedItems.length }}
               </KBadge>
@@ -127,6 +129,10 @@
             <div
               v-else
               class="k-multiselect-list ma-0 pa-0"
+              @click="evt => {
+                // don't close drop down when selecting/deselecting items
+                evt.stopPropagation()
+              }"
             >
               <KMultiselectItem
                 v-for="item in filteredItems"
@@ -156,6 +162,37 @@
           </template>
         </KPop>
       </KToggle>
+    </div>
+    <div class="staging-area">
+      <div
+        :id="multiselectSelectedItemsStagingId"
+        :key="stagingKey"
+        :style="widthStyle"
+        class="k-multiselect-selections staging"
+        tabindex="-1"
+        aria-hidden="true"
+      >
+        <KBadge
+          v-for="item in visibleSelectedItemsTest"
+          :key="`${item ? item.key : ''}-badge`"
+          shape="rectangular"
+          dismissable
+          hidden
+          class="mr-1 mt-2"
+        >
+          {{ item ? item.label : '' }}
+        </KBadge>
+        <!-- Always render this badge even if it's hidden to ensure there will be
+             enough space to show it
+        -->
+        <KBadge
+          shape="rectangular"
+          hidden
+          class="mt-2 hidden-selection-count"
+        >
+          +{{ invisibleSelectedItemsTest.length }}
+        </KBadge>
+      </div>
     </div>
   </div>
 </template>
@@ -302,6 +339,7 @@ export default defineComponent({
     const multiselectInputId = computed((): string => props.testMode ? 'test-multiselect-input-id-1234' : uuidv1())
     const multiselectTextId = computed((): string => props.testMode ? 'test-multiselect-text-id-1234' : uuidv1())
     const multiselectSelectedItemsId = computed((): string => props.testMode ? 'test-multiselect-selected-id-1234' : uuidv1())
+    const multiselectSelectedItemsStagingId = computed((): string => props.testMode ? 'test-multiselect-selected-staging-id-1234' : uuidv1())
     const unfilteredItems: Ref<MultiselectItem[]> = ref([])
     const initialFocusTriggered: Ref<boolean> = ref(false)
     const popper = ref(null)
@@ -340,28 +378,81 @@ export default defineComponent({
     const visibleSelectedItems = ref<MultiselectItem[]>([])
     const invisibleSelectedItems = ref<MultiselectItem[]>([])
     const selectedItemsHeight = computed(() => {
+      // console.log('computed length: ' + selectedItems.value.length)
       // use the if statement to make this computed reactive to changes to selectedItems
       if (selectedItems.value.length) {
+        // eslint-disable-next-line vue/no-async-in-computed-properties
+        // setTimeout(() => {
         const elem = document.getElementById(multiselectSelectedItemsId.value)
 
         if (elem) {
+          // console.log('computed: ' + elem.clientHeight)
           return elem.clientHeight
         }
+        /// }, 0)
       }
 
       return null
     })
+    const key = ref(0)
+    const stagingKey = ref(0)
+    const visibleSelectedItemsTest = ref<MultiselectItem[]>([])
+    const invisibleSelectedItemsTest = ref<MultiselectItem[]>([])
+    /*   watch(selectedItems.value, () => {
+      console.log('item count change: ' + selectedItems.value.length)
+      // make sure we don't grow past the max height of the selected items box
+      stageSelections()
+    }) */
 
-    watch(selectedItems.value, () => {
-      nextTick(() => {
-        // make sure we don't grow past the max height of the selected items box
-        if (selectedItemsHeight.value && selectedItemsHeight.value > SELECTED_ITEMS_MAX_HEIGHT) {
-          const item = visibleSelectedItems.value.pop()
-          if (item) {
-            invisibleSelectedItems.value.push(item)
+    const stageSelections = () => {
+      // make sure we don't grow past the max height of the selected items box
+      setTimeout(() => {
+        const elem = document.getElementById(multiselectSelectedItemsStagingId.value)
+
+        if (elem) {
+          console.log(`staging height: ${elem.clientHeight} - (${visibleSelectedItemsTest.value.length} visible)/(${invisibleSelectedItemsTest.value.length} hidden)`)
+          const height = elem.clientHeight
+          if (height > SELECTED_ITEMS_MAX_HEIGHT) {
+            console.log('height too big')
+            const item = visibleSelectedItemsTest.value.pop()
+            if (item) {
+              invisibleSelectedItemsTest.value.push(item)
+              console.log(`staging: (${visibleSelectedItemsTest.value.length} visible)/(${invisibleSelectedItemsTest.value.length} hidden)`)
+            }
+          }
+          console.log('redraw staging')
+          stagingKey.value++
+        }
+      }, 0)
+    }
+
+    watch(stagingKey, () => {
+      setTimeout(() => {
+        const elem = document.getElementById(multiselectSelectedItemsStagingId.value)
+
+        if (elem) {
+          console.log(`final staging height: ${elem.clientHeight} - (${visibleSelectedItemsTest.value.length} visible)/(${invisibleSelectedItemsTest.value.length} hidden)`)
+          const height = elem.clientHeight
+          if (height > SELECTED_ITEMS_MAX_HEIGHT) {
+            console.log('still too big')
+            const item = visibleSelectedItemsTest.value.pop()
+            if (item) {
+              invisibleSelectedItemsTest.value.push(item)
+              console.log(`staging: (${visibleSelectedItemsTest.value.length} visible)/(${invisibleSelectedItemsTest.value.length} hidden)`)
+            }
+            console.log('redraw staging')
+            stagingKey.value++
+          } else {
+            console.log('staging within range')
+            visibleSelectedItems.value = JSON.parse(JSON.stringify(visibleSelectedItemsTest.value))
+            invisibleSelectedItems.value = JSON.parse(JSON.stringify(invisibleSelectedItemsTest.value))
+            console.log(`final: (${visibleSelectedItems.value.length} visible)/(${invisibleSelectedItems.value.length} hidden)`)
+            console.log('redraw final')
+            console.log('-------------------------------------------')
+            key.value++
           }
         }
-      })
+      }, 0)
     })
 
     const modifiedAttrs = computed(() => {
@@ -411,16 +502,16 @@ export default defineComponent({
         selectedItem.key = selectedItem?.key?.replace(/-selected/gi, '')
         selectedItems.value = selectedItems.value.filter(anItem => anItem.key !== item.key)
         // remove item from visibility arrays
-        if (visibleSelectedItems.value.includes(item)) {
-          visibleSelectedItems.value = visibleSelectedItems.value.filter(anItem => anItem.key !== item.key)
-        } else if (invisibleSelectedItems.value.includes(item)) {
-          invisibleSelectedItems.value = invisibleSelectedItems.value.filter(anItem => anItem.key !== item.key)
+        if (visibleSelectedItemsTest.value.includes(item)) {
+          visibleSelectedItemsTest.value = visibleSelectedItemsTest.value.filter(anItem => anItem.key !== item.key)
+        } else if (invisibleSelectedItemsTest.value.includes(item)) {
+          invisibleSelectedItemsTest.value = invisibleSelectedItemsTest.value.filter(anItem => anItem.key !== item.key)
         }
         // if some items are hidden grab the first hidden one and add it into the visible array
-        if (invisibleSelectedItems.value.length) {
-          const item = invisibleSelectedItems.value.pop()
+        if (invisibleSelectedItemsTest.value.length) {
+          const item = invisibleSelectedItemsTest.value.pop()
           if (item) {
-            visibleSelectedItems.value.push(item)
+            visibleSelectedItemsTest.value.push(item)
           }
         }
       } else { // newly selected item
@@ -428,8 +519,10 @@ export default defineComponent({
         selectedItem.key = selectedItem?.key?.includes('-selected') ? selectedItem.key : `${selectedItem.key}-selected`
         selectedItem.key += '-selected'
         selectedItems.value.push(selectedItem)
-        visibleSelectedItems.value.push(selectedItem)
+        visibleSelectedItemsTest.value.push(selectedItem)
       }
+
+      stageSelections()
 
       emit('selected', item)
       // this 'input' event must be emitted for v-model binding to work properly
@@ -445,6 +538,7 @@ export default defineComponent({
       })
       selectedItems.value = []
       filterStr.value = ''
+      stageSelections()
       // this 'input' event must be emitted for v-model binding to work properly
       emit('input', null)
       emit('change', null)
@@ -504,9 +598,11 @@ export default defineComponent({
         if (unfilteredItems.value[i].value === props.modelValue || unfilteredItems.value[i].selected) {
           unfilteredItems.value[i].selected = true
           selectedItems.value.push(unfilteredItems.value[i])
-          visibleSelectedItems.value.push(unfilteredItems.value[i])
+          visibleSelectedItemsTest.value.push(unfilteredItems.value[i])
           unfilteredItems.value[i].key += '-selected'
         }
+
+        stageSelections()
 
         /* if (selectedItems.value?.value === unfilteredItems.value[i].value) {
           unfilteredItems.value[i].selected = true
@@ -539,12 +635,17 @@ export default defineComponent({
     return {
       filterStr,
       selectedItems,
+      key,
+      stagingKey,
       invisibleSelectedItems,
       visibleSelectedItems,
+      invisibleSelectedItemsTest,
+      visibleSelectedItemsTest,
       multiselectId,
       multiselectInputId,
       multiselectTextId,
       multiselectSelectedItemsId,
+      multiselectSelectedItemsStagingId,
       unfilteredItems,
       modifiedAttrs,
       popper,
@@ -573,12 +674,30 @@ export default defineComponent({
 .k-multiselect {
   width: fit-content; // necessary for correct placement of popup
 
+  .staging-area {
+    position: absolute;
+    /* left: -99999px;
+    top: -999999px; */
+  }
+
   .k-multiselect-selections {
     max-width: 100%;
     margin-left: 16px;
-    margin-right: 26px;
+    margin-right: 22px;
     max-height: 68px;
-    overflow: hidden;
+
+    &.staging {
+      position: relative;
+      height: auto;
+      margin-left: 16px;
+      margin-right: 22px;
+    }
+
+    .hidden-selection-count {
+      &.hidden {
+        visibility: hidden;
+      }
+    }
   }
 
   .k-multiselect-icon {

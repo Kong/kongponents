@@ -1,8 +1,10 @@
 <template>
   <div
     v-if="!isDismissed"
-    :class="[ `k-badge-${appearance}`, `k-badge-${shape}`]"
     :style="color && backgroundColor && {backgroundColor, color}"
+    :tabindex="hidden ? -1 : 0"
+    :aria-hidden="hidden ? true : undefined"
+    :class="[ `k-badge-${appearance}`, `k-badge-${shape}`]"
     class="k-badge d-inline-flex"
   >
     <span class="k-badge-text truncate">
@@ -11,8 +13,10 @@
     <KButton
       v-if="dismissable"
       :is-rounded="shape === 'rounded'"
+      :tabindex="hidden ? -1 : 0"
+      :aria-hidden="hidden ? true : undefined"
       class="k-badge-dismiss-button ml-1"
-      @click="isDismissed = true"
+      @click="!hidden ? handleDismiss : undefined"
     >
       <KIcon
         icon="close"
@@ -66,6 +70,15 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    /**
+     * Use this prop if you don't intend for the badge to actually be shown
+     * or able to be interacted with by the user. This is used in KMultiselect
+     * to stage the badge before rendering the visible content to the user
+     */
+    hidden: {
+      type: Boolean,
+      default: false,
+    },
 
     shape: {
       type: String,
@@ -88,11 +101,18 @@ export default defineComponent({
       default: '',
     },
   },
-  setup() {
+  emits: ['dismissed'],
+  setup(props, { emit }) {
     const isDismissed = ref(false)
+
+    const handleDismiss = () => {
+      isDismissed.value = true
+      emit('dismissed')
+    }
 
     return {
       isDismissed,
+      handleDismiss,
     }
   },
 })
