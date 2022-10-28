@@ -51,14 +51,18 @@
             <div
               :id="multiselectSelectedItemsId"
               :key="key"
+              :style="widthStyle"
               class="k-multiselect-selections"
+              @click.stop
             >
               <KBadge
                 v-for="item in visibleSelectedItems"
                 :key="`${item ? item.key : ''}-badge`"
                 shape="rectangular"
+                :truncation-tooltip="item && item.label"
                 dismissable
                 class="mr-1 mt-2"
+                @dismissed="handleItemSelect(item)"
               >
                 {{ item ? item.label : '' }}
               </KBadge>
@@ -108,6 +112,7 @@
                 :placeholder="getPlaceholderText(isToggled.value)"
                 autocomplete="off"
                 autocapitalize="off"
+                :style="widthStyle"
                 class="k-multiselect-input input-placeholder-dark mt-1"
                 @keyup="evt => triggerFocus(evt, isToggled)"
                 @update:model-value="onQueryChange"
@@ -173,7 +178,7 @@
         aria-hidden="true"
       >
         <KBadge
-          v-for="item in visibleSelectedItemsTest"
+          v-for="item in visibleSelectedItemsStaging"
           :key="`${item ? item.key : ''}-badge`"
           shape="rectangular"
           dismissable
@@ -190,7 +195,7 @@
           hidden
           class="mt-2 hidden-selection-count"
         >
-          +{{ invisibleSelectedItemsTest.length }}
+          +{{ invisibleSelectedItemsStaging.length }}
         </KBadge>
       </div>
     </div>
@@ -361,7 +366,7 @@ export default defineComponent({
     const widthValue = computed(() => {
       let w = ''
       if (!props.width) {
-        w = '205'
+        w = '300'
       } else {
         w = props.width
       }
@@ -375,34 +380,12 @@ export default defineComponent({
       }
     })
 
-    const visibleSelectedItems = ref<MultiselectItem[]>([])
-    const invisibleSelectedItems = ref<MultiselectItem[]>([])
-    const selectedItemsHeight = computed(() => {
-      // console.log('computed length: ' + selectedItems.value.length)
-      // use the if statement to make this computed reactive to changes to selectedItems
-      if (selectedItems.value.length) {
-        // eslint-disable-next-line vue/no-async-in-computed-properties
-        // setTimeout(() => {
-        const elem = document.getElementById(multiselectSelectedItemsId.value)
-
-        if (elem) {
-          // console.log('computed: ' + elem.clientHeight)
-          return elem.clientHeight
-        }
-        /// }, 0)
-      }
-
-      return null
-    })
     const key = ref(0)
     const stagingKey = ref(0)
-    const visibleSelectedItemsTest = ref<MultiselectItem[]>([])
-    const invisibleSelectedItemsTest = ref<MultiselectItem[]>([])
-    /*   watch(selectedItems.value, () => {
-      console.log('item count change: ' + selectedItems.value.length)
-      // make sure we don't grow past the max height of the selected items box
-      stageSelections()
-    }) */
+    const visibleSelectedItemsStaging = ref<MultiselectItem[]>([])
+    const invisibleSelectedItemsStaging = ref<MultiselectItem[]>([])
+    const visibleSelectedItems = ref<MultiselectItem[]>([])
+    const invisibleSelectedItems = ref<MultiselectItem[]>([])
 
     const stageSelections = () => {
       // make sure we don't grow past the max height of the selected items box
@@ -410,14 +393,14 @@ export default defineComponent({
         const elem = document.getElementById(multiselectSelectedItemsStagingId.value)
 
         if (elem) {
-          console.log(`staging height: ${elem.clientHeight} - (${visibleSelectedItemsTest.value.length} visible)/(${invisibleSelectedItemsTest.value.length} hidden)`)
+          console.log(`staging height: ${elem.clientHeight} - (${visibleSelectedItemsStaging.value.length} visible)/(${invisibleSelectedItemsStaging.value.length} hidden)`)
           const height = elem.clientHeight
           if (height > SELECTED_ITEMS_MAX_HEIGHT) {
             console.log('height too big')
-            const item = visibleSelectedItemsTest.value.pop()
+            const item = visibleSelectedItemsStaging.value.pop()
             if (item) {
-              invisibleSelectedItemsTest.value.push(item)
-              console.log(`staging: (${visibleSelectedItemsTest.value.length} visible)/(${invisibleSelectedItemsTest.value.length} hidden)`)
+              invisibleSelectedItemsStaging.value.push(item)
+              console.log(`staging: (${visibleSelectedItemsStaging.value.length} visible)/(${invisibleSelectedItemsStaging.value.length} hidden)`)
             }
           }
           console.log('redraw staging')
@@ -431,21 +414,21 @@ export default defineComponent({
         const elem = document.getElementById(multiselectSelectedItemsStagingId.value)
 
         if (elem) {
-          console.log(`final staging height: ${elem.clientHeight} - (${visibleSelectedItemsTest.value.length} visible)/(${invisibleSelectedItemsTest.value.length} hidden)`)
+          console.log(`final staging height: ${elem.clientHeight} - (${visibleSelectedItemsStaging.value.length} visible)/(${invisibleSelectedItemsStaging.value.length} hidden)`)
           const height = elem.clientHeight
           if (height > SELECTED_ITEMS_MAX_HEIGHT) {
             console.log('still too big')
-            const item = visibleSelectedItemsTest.value.pop()
+            const item = visibleSelectedItemsStaging.value.pop()
             if (item) {
-              invisibleSelectedItemsTest.value.push(item)
-              console.log(`staging: (${visibleSelectedItemsTest.value.length} visible)/(${invisibleSelectedItemsTest.value.length} hidden)`)
+              invisibleSelectedItemsStaging.value.push(item)
+              console.log(`staging: (${visibleSelectedItemsStaging.value.length} visible)/(${invisibleSelectedItemsStaging.value.length} hidden)`)
             }
             console.log('redraw staging')
             stagingKey.value++
           } else {
             console.log('staging within range')
-            visibleSelectedItems.value = JSON.parse(JSON.stringify(visibleSelectedItemsTest.value))
-            invisibleSelectedItems.value = JSON.parse(JSON.stringify(invisibleSelectedItemsTest.value))
+            visibleSelectedItems.value = JSON.parse(JSON.stringify(visibleSelectedItemsStaging.value))
+            invisibleSelectedItems.value = JSON.parse(JSON.stringify(invisibleSelectedItemsStaging.value))
             console.log(`final: (${visibleSelectedItems.value.length} visible)/(${invisibleSelectedItems.value.length} hidden)`)
             console.log('redraw final')
             console.log('-------------------------------------------')
@@ -498,20 +481,22 @@ export default defineComponent({
       const selectedItem = unfilteredItems.value.filter(anItem => anItem.key === item.key)[0]
       // if clicked item is already selected
       if (selectedItem.selected) {
-        selectedItem.selected = false
-        selectedItem.key = selectedItem?.key?.replace(/-selected/gi, '')
         selectedItems.value = selectedItems.value.filter(anItem => anItem.key !== item.key)
         // remove item from visibility arrays
-        if (visibleSelectedItemsTest.value.includes(item)) {
-          visibleSelectedItemsTest.value = visibleSelectedItemsTest.value.filter(anItem => anItem.key !== item.key)
-        } else if (invisibleSelectedItemsTest.value.includes(item)) {
-          invisibleSelectedItemsTest.value = invisibleSelectedItemsTest.value.filter(anItem => anItem.key !== item.key)
+        if (visibleSelectedItemsStaging.value.filter(anItem => anItem.key === item.key).length) {
+          visibleSelectedItemsStaging.value = visibleSelectedItemsStaging.value.filter(anItem => anItem.key !== item.key)
+        } else if (invisibleSelectedItemsStaging.value.filter(anItem => anItem.key === item.key).length) {
+          invisibleSelectedItemsStaging.value = invisibleSelectedItemsStaging.value.filter(anItem => anItem.key !== item.key)
         }
+        // deselect item
+        selectedItem.selected = false
+        selectedItem.key = selectedItem?.key?.replace(/-selected/gi, '')
+
         // if some items are hidden grab the first hidden one and add it into the visible array
-        if (invisibleSelectedItemsTest.value.length) {
-          const item = invisibleSelectedItemsTest.value.pop()
+        if (invisibleSelectedItemsStaging.value.length) {
+          const item = invisibleSelectedItemsStaging.value.pop()
           if (item) {
-            visibleSelectedItemsTest.value.push(item)
+            visibleSelectedItemsStaging.value.push(item)
           }
         }
       } else { // newly selected item
@@ -519,7 +504,7 @@ export default defineComponent({
         selectedItem.key = selectedItem?.key?.includes('-selected') ? selectedItem.key : `${selectedItem.key}-selected`
         selectedItem.key += '-selected'
         selectedItems.value.push(selectedItem)
-        visibleSelectedItemsTest.value.push(selectedItem)
+        visibleSelectedItemsStaging.value.push(selectedItem)
       }
 
       stageSelections()
@@ -598,7 +583,7 @@ export default defineComponent({
         if (unfilteredItems.value[i].value === props.modelValue || unfilteredItems.value[i].selected) {
           unfilteredItems.value[i].selected = true
           selectedItems.value.push(unfilteredItems.value[i])
-          visibleSelectedItemsTest.value.push(unfilteredItems.value[i])
+          visibleSelectedItemsStaging.value.push(unfilteredItems.value[i])
           unfilteredItems.value[i].key += '-selected'
         }
 
@@ -635,22 +620,21 @@ export default defineComponent({
     return {
       filterStr,
       selectedItems,
-      key,
       stagingKey,
+      key,
+      invisibleSelectedItemsStaging,
+      visibleSelectedItemsStaging,
       invisibleSelectedItems,
       visibleSelectedItems,
-      invisibleSelectedItemsTest,
-      visibleSelectedItemsTest,
       multiselectId,
       multiselectInputId,
       multiselectTextId,
-      multiselectSelectedItemsId,
       multiselectSelectedItemsStagingId,
+      multiselectSelectedItemsId,
       unfilteredItems,
       modifiedAttrs,
       popper,
       boundKPopAttributes,
-      selectedItemsHeight,
       widthValue,
       widthStyle,
       filteredItems,
@@ -676,11 +660,11 @@ export default defineComponent({
 
   .staging-area {
     position: absolute;
-    /* left: -99999px;
-    top: -999999px; */
+    left: -99999px;
   }
 
   .k-multiselect-selections {
+    --KBadgeMaxWidth: 100px;
     max-width: 100%;
     margin-left: 16px;
     margin-right: 22px;

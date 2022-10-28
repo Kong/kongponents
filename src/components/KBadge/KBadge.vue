@@ -8,13 +8,14 @@
     class="k-badge d-inline-flex"
   >
     <component
-      :is="!!isTruncated && truncationTooltip ? 'Kooltip' : 'span'"
+      :is="!!isTruncated && truncationTooltip ? 'KTooltip' : 'span'"
+      ref="badgeText"
       class="k-badge-text truncate"
     >
       <template #content>
         {{ truncationTooltip }}
       </template>
-      <span ref="badgeText">
+      <span class="k-badge-text truncate">
         <slot />
       </span>
     </component>
@@ -24,7 +25,7 @@
       :tabindex="hidden ? -1 : 0"
       :aria-hidden="hidden ? true : undefined"
       class="k-badge-dismiss-button ml-1"
-      @click="!hidden ? handleDismiss : undefined"
+      @click="handleDismiss"
     >
       <KIcon
         icon="close"
@@ -39,6 +40,7 @@
 import { defineComponent, ref } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
+import KTooltip from '@/components/KTooltip/KTooltip.vue'
 
 export const appearances = {
   default: 'default',
@@ -55,11 +57,12 @@ export const shapes = {
 }
 
 export default defineComponent({
+  name: 'KBadge',
   components: {
     KButton,
     KIcon,
+    Kooltip,
   },
-
   props: {
     /**
       * Base styling<br>
