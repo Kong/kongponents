@@ -315,9 +315,16 @@ export default defineComponent({
         this.hidePopper()
       }
     },
+    disabled: {
+      handler() {
+        if (this.isOpen) {
+          this.hidePopper()
+        }
+      },
+      immediate: true,
+    },
   },
   mounted() {
-    if (this.disabled) return
     if (!this.$el.children) {
       this.reference = this.$el
     } else {
@@ -350,6 +357,7 @@ export default defineComponent({
       }, this.popoverTimeout)
     },
     showPopper() {
+      if (this.disabled) return
       this.isOpen = true
       if (this.timer) clearTimeout(this.timer)
       if (this.popperTimer) clearTimeout(this.popperTimer)
