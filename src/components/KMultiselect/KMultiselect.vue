@@ -89,6 +89,7 @@
                 @keyup.enter="clearSelection"
               >
                 <KIcon
+                  title="Clear all"
                   icon="close"
                   color="var(--grey-500)"
                   size="12"
@@ -153,16 +154,25 @@
                   <slot
                     :item="item"
                     name="item-template"
-                    class="k-multiselect-item-label k-multiselect-item-desc"
+                    class="k-multiselect-item"
                   />
                 </template>
               </KMultiselectItem>
               <KMultiselectItem
                 v-if="!sortedItems.length && !$slots.empty"
                 key="k-multiselect-empty-state"
-                :item="{ label: 'No results', value: 'no_results' }"
+                :item="{ label: 'No result found', value: 'no_results' }"
                 class="k-multiselect-empty-item"
-              />
+              >
+                <template #content>
+                  <div class="select-item-label">
+                    No result found
+                  </div>
+                  <div class="select-item-desc">
+                    Please adjust the criteria and try again
+                  </div>
+                </template>
+              </KMultiselectItem>
             </div>
             <slot
               v-if="!loading && !sortedItems.length"
@@ -850,8 +860,11 @@ export default defineComponent({
     .k-multiselect-empty-item button,
     .k-multiselect-empty-item button:focus,
     .k-multiselect-empty-item button:hover {
-      font-style: italic;
-      color: var(--grey-400);
+      color: var(--grey-500);
+
+      .select-item-label {
+        color: var(--grey-500);
+      }
     }
 
     a {

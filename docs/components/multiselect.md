@@ -2,7 +2,9 @@
 
 <div v-if="hasMounted">
 
-**Multiselect** - Multiselect component
+**Multiselect** - Multiselect
+
+The total count of selected items will be displayed as the placeholder text when the multiselect is collapsed. When items are selected they will be shown as dismissible badges above the filter input when the multiselect has focus. If at least one item is selected, there will be a clear all button displayed in place of the dropdown chevron when the multiselect has focus. Selected items are displayed at the top of the dropdown for easy access (refreshed on multiselect collapse).
 
 <div>
   <KMultiselect label="Pick Something:" :items="deepClone(defaultItemsUnselect)" />
@@ -89,7 +91,7 @@ Use the `labelAttributes` prop to configure the **KLabel's** [props](/components
 
 ### width
 
-You can pass a `width` string for the dropdown. By default the `width` is `200px`. This is the width of the input, dropdown, and selected item.
+You can pass a `width` string for the dropdown. By default the `width` is `300px`. This is the width of the input, dropdown, and selected item.
 Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
 
 :::tip Note
@@ -104,16 +106,28 @@ Because we are controlling the widths of multiple elements, we recommend using t
 <KMultiselect width="350" :items="items" />
 ```
 
+### selectionRowCount
+
+Use this prop to customize the number of rows of selections to display when the multiselect has focus. By default, we display 2 rows of selections. Additional selections will be combined into an additional count badge if the number of selections would extend beyond the selection row count. You can hover over this badge to see the remaining selections.
+
+<div>
+  <KMultiselect :selectionRowCount="1" :items="deepClone(defaultItemsCollapse)" />
+</div>
+
+```html
+<KMultiselect :selectionRowCount="1" :items="items" />
+```
+
 ### dropdownMaxHeight
 
 You can pass a `dropdownMaxHeight` string for the dropdown. By default, the `dropdownMaxHeight` is `300px`. This is the maximum height of the `KMultiselect` dropdown when open. You can pass a number (will be converted to `px`), `auto`, percentages, or `vh` units.
 
 <div>
-  <KMultiselect width="250" :items="deepClone(defaultItemsLongList)" dropdown-max-height="150" />
+  <KMultiselect :items="deepClone(defaultItemsLongList)" dropdown-max-height="150" />
 </div>
 
 ```html
-<KMultiselect width="250" :items="items" dropdown-max-height="150" />
+<KMultiselect :items="items" dropdown-max-height="150" />
 ```
 
 ### positionFixed
@@ -123,6 +137,7 @@ Use fixed positioning of the popover to avoid content being clipped by parental 
 ### loading
 
 You can use the `loading` prop to show a loading indicator in place of the chevron while fetching data from API.
+See [autosuggest](#autosuggest-with-debounce) for a functional example.
 
 <div>
   <KMultiselect loading :items="deepClone(defaultItemsUnselect)" />
@@ -279,6 +294,8 @@ export default {
 }
 </script>
 ```
+
+### autosuggest with debounce
 
 :::tip Note
 The `query-change` event triggers immediately when the user types in the input.
@@ -510,7 +527,8 @@ export default defineComponent({
         value: 'dogs'
       }, {
         label: 'Bunnies',
-        value: 'bunnies'
+        value: 'bunnies',
+        selected: true
       },
       {
         label: 'Lions',
@@ -524,6 +542,32 @@ export default defineComponent({
       }, {
         label: 'A long & truncated item',
         value: 'long'
+      }],
+      defaultItemsCollapse: [{
+        label: 'Cats',
+        value: 'cats',
+        selected: true
+      }, {
+        label: 'Dogs',
+        value: 'dogs'
+      }, {
+        label: 'Bunnies',
+        value: 'bunnies',
+        selected: true
+      },
+      {
+        label: 'Lions',
+        value: 'lions'
+      }, {
+        label: 'Tigers',
+        value: 'tigers'
+      }, {
+        label: 'Bears',
+        value: 'bears'
+      }, {
+        label: 'A long & truncated item',
+        value: 'long',
+        selected: true
       }],
       defaultItemsUnselect: [{
         label: 'Cats',

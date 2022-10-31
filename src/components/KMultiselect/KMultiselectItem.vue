@@ -112,7 +112,7 @@ export default defineComponent({
       :deep(.select-item-desc) {
         color: var(--grey-500);
         font-weight: 400;
-        font-size: 14px;
+        font-size: 12px;
       }
     }
 
