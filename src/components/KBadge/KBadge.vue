@@ -8,16 +8,18 @@
     class="k-badge d-inline-flex"
   >
     <component
-      :is="!!isTruncated && truncationTooltip ? 'KTooltip' : 'span'"
-      ref="badgeText"
+      :is="truncationTooltip && (alwaysShowTooltip || !!isTruncated) ? 'KTooltip' : 'div'"
       class="k-badge-text truncate"
     >
       <template #content>
         {{ truncationTooltip }}
       </template>
-      <span class="k-badge-text truncate">
+      <div
+        ref="badgeText"
+        class="k-badge-text truncate"
+      >
         <slot />
-      </span>
+      </div>
     </component>
     <KButton
       v-if="dismissable"
@@ -37,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, computed, watch } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
@@ -83,6 +85,14 @@ export default defineComponent({
     truncationTooltip: {
       type: String,
       default: '',
+    },
+    /**
+     * Use this prop if you always want to show the tooltip whether
+     * or not the badge text is truncated.
+     */
+    alwaysShowTooltip: {
+      type: Boolean,
+      default: false,
     },
 
     dismissable: {
@@ -130,9 +140,19 @@ export default defineComponent({
       emit('dismissed')
     }
 
-    const isTruncated = (): boolean => {
-      return badgeText.value ? badgeText.value.offsetWidth < badgeText.value.scrollWidth : false
-    }
+    const offsetWidth = ref(0)
+    const scrollWidth = ref(0)
+    const truncationCalculated = ref(false)
+    const isTruncated = computed(() => offsetWidth.value < scrollWidth.value)
+
+    watch(badgeText, () => {
+      // prevent recursion loop
+      if (badgeText.value && !truncationCalculated.value) {
+        offsetWidth.value = badgeText.value?.offsetWidth
+        scrollWidth.value = badgeText.value?.scrollWidth
+        truncationCalculated.value = true
+      }
+    })
 
     return {
       badgeText,

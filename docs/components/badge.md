@@ -35,19 +35,6 @@ The Badge component can take the following appearance values:
 <KBadge>DEFAULT</KBadge>
 ```
 
-### dismissable
-
-Use this prop if you want the badge to be dismissable. If the badge text is long enough to need truncation, the label will truncate; the dismiss button is always visible.
-The color of the dismiss button is determined by the badge type and uses the same theming variables as the badge text.
-
-<KBadge dismissable class="mr-2">Close me</KBadge>
-<KBadge dismissable shape="rectangular" truncation-tooltip="Hey! Let me see that awesome truncation">Hey! Let me see that awesome truncation</KBadge>
-
-```html
-<KBadge dismissable>Close me</KBadge>
-<KBadge dismissable shape="rectangular">Hey! Let me see that awesome truncation</KBadge>
-```
-
 ### shape
 
 The Badge has two shapes that can be changed with a `shape` property.
@@ -79,6 +66,41 @@ Using the `custom` appearance in conjunction with `color` and `background-color`
 <KBadge color="var(--blue-200)" background-color="var(--blue-500)">Hello</KBadge>
 <KBadge color="#dfe6e9" background-color="#636e72">Something</KBadge>
 <KBadge color="var(--red-500)" background-color="var(--red-300)">Long Badge 236bfb09-fe79-4cc9-99be-9361d6b1db64 aa07575b-bcd3-4bb2-bfd7-998224e3d31e 364b78fc-dba3-4b94-9134-388515496de5</KBadge>
+```
+
+### dismissable
+
+Use this prop if you want the badge to be dismissable. If the badge text is long enough to need truncation, the label will truncate; the dismiss button is always visible.
+The color of the dismiss button is determined by the badge type and uses the same theming variables as the badge text.
+
+<KBadge dismissable class="mr-2">Close me</KBadge>
+<KBadge dismissable shape="rectangular">No, close me!</KBadge>
+
+```html
+<KBadge dismissable>Close me</KBadge>
+<KBadge dismissable shape="rectangular">No, close me!</KBadge>
+```
+
+### truncationTooltip
+
+Use this prop if you would like to conditionally display a tooltip when the badge text is truncated.
+
+<KBadge class="mr-2" truncation-tooltip="Truncation unnecessary">Truncation unnecessary</KBadge>
+<KBadge truncation-tooltip="Hey! Let me see that awesome truncation">Hey! Let me see that awesome truncation</KBadge>
+
+```html
+<KBadge truncation-tooltip="Truncation unnecessary">Truncation unnecessary</KBadge>
+<KBadge truncation-tooltip="Hey! Let me see that awesome truncation">Hey! Let me see that awesome truncation</KBadge>
+```
+
+### alwaysShowTooltip
+
+If you want to show the tooltip regardless of whether the badge text is truncated, use this prop.
+
+<KBadge truncation-tooltip="But I'm tooltipping anyways" always-show-tooltip>Truncation unnecessary</KBadge>
+
+```html
+<KBadge truncation-tooltip="But I'm tooltipping anyways" always-show-tooltip>Truncation unnecessary</KBadge>
 ```
 
 ## Slots
