@@ -34,11 +34,13 @@
           @closed="() => {
             if (isToggled.value) {
               toggle()
+              sortItems()
             }
           }"
         >
           <div
             role="listbox"
+            :style="widthStyle"
             class="k-multiselect-trigger"
             data-testid="k-multiselect-trigger"
             @click="evt => {
@@ -47,8 +49,8 @@
               }
             }"
           >
-            <!-- v-if="isToggled.value && selectedItems.length" -->
             <div
+              v-if="isToggled.value && selectedItems.length"
               :id="multiselectSelectedItemsId"
               :key="key"
               :style="widthStyle"
@@ -56,20 +58,21 @@
               @click.stop
             >
               <KBadge
-                v-for="item in visibleSelectedItems"
-                :key="`${item ? item.key : ''}-badge`"
+                v-for="item, idx in visibleSelectedItems"
+                :key="`${item ? item.key : idx}-badge`"
                 shape="rectangular"
-                :truncation-tooltip="item && item.label"
+                :truncation-tooltip="item.label"
                 dismissable
                 class="mr-1 mt-2"
                 @dismissed="handleItemSelect(item)"
               >
-                {{ item ? item.label : '' }}
+                {{ item.label }}
               </KBadge>
               <!-- Always render this badge even if it's hidden to ensure there will be
                    enough space to show it -->
               <KBadge
                 shape="rectangular"
+                :truncation-tooltip="hiddenItemsTooltip"
                 :class="{ 'hidden': !invisibleSelectedItems.length }"
                 class="mt-2 hidden-selection-count"
               >
@@ -91,7 +94,7 @@
                 />
               </KButton>
               <KIcon
-                v-if="loading || !selectedItems.length"
+                v-else
                 :icon="loading ? 'spinner' : 'chevronDown'"
                 color="var(--grey-500)"
                 size="18"
@@ -102,7 +105,10 @@
                 class="k-multiselect-chevron-icon"
               />
             </div>
-            <div :id="multiselectInputId">
+            <div
+              :id="multiselectInputId"
+              :style="widthStyle"
+            >
               <KInput
                 :id="multiselectTextId"
                 v-bind="modifiedAttrs"
@@ -112,9 +118,13 @@
                 :placeholder="getPlaceholderText(isToggled.value)"
                 autocomplete="off"
                 autocapitalize="off"
-                :style="widthStyle"
                 class="k-multiselect-input input-placeholder-dark mt-1"
                 @keyup="evt => triggerFocus(evt, isToggled)"
+                @click="evt => {
+                  if (isToggled.value) {
+                    evt.stopPropagation()
+                  }
+                }"
                 @update:model-value="onQueryChange"
                 @focus="onInputFocus"
               />
@@ -140,7 +150,7 @@
               }"
             >
               <KMultiselectItem
-                v-for="item in filteredItems"
+                v-for="item in sortedItems"
                 :key="item.key"
                 :item="item"
                 @selected="handleItemSelect"
@@ -154,14 +164,14 @@
                 </template>
               </KMultiselectItem>
               <KMultiselectItem
-                v-if="!filteredItems.length && !$slots.empty"
+                v-if="!sortedItems.length && !$slots.empty"
                 key="k-multiselect-empty-state"
                 :item="{ label: 'No results', value: 'no_results' }"
                 class="k-multiselect-empty-item"
               />
             </div>
             <slot
-              v-if="!loading && !filteredItems.length"
+              v-if="!loading && !sortedItems.length"
               name="empty"
             />
           </template>
@@ -214,8 +224,8 @@ import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
 
-const { getSizeFromString } = useUtilities()
-const SELECTED_ITEMS_MAX_HEIGHT = 34
+const { getSizeFromString, cloneDeep } = useUtilities()
+const SELECTED_ITEMS_SINGLE_LINE_HEIGHT = 34
 
 const defaultKPopAttributes = {
   popoverClasses: 'k-multiselect-popover mt-0',
@@ -282,6 +292,10 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    selectionRowCount: {
+      type: Number,
+      default: 2,
+    },
     placeholder: {
       type: String,
       default: '',
@@ -340,12 +354,16 @@ export default defineComponent({
   setup(props, { attrs, emit }) {
     const filterStr = ref('')
     const selectedItems = ref<MultiselectItem[]>([])
+    const selectionsMaxHeight = computed((): number => {
+      return props.selectionRowCount * SELECTED_ITEMS_SINGLE_LINE_HEIGHT
+    })
     const multiselectId = computed((): string => props.testMode ? 'test-multiselect-id-1234' : uuidv1())
     const multiselectInputId = computed((): string => props.testMode ? 'test-multiselect-input-id-1234' : uuidv1())
     const multiselectTextId = computed((): string => props.testMode ? 'test-multiselect-text-id-1234' : uuidv1())
     const multiselectSelectedItemsId = computed((): string => props.testMode ? 'test-multiselect-selected-id-1234' : uuidv1())
     const multiselectSelectedItemsStagingId = computed((): string => props.testMode ? 'test-multiselect-selected-staging-id-1234' : uuidv1())
     const unfilteredItems: Ref<MultiselectItem[]> = ref([])
+    const sortedItems: Ref<MultiselectItem[]> = ref([])
     const initialFocusTriggered: Ref<boolean> = ref(false)
     const popper = ref(null)
     // we need this so we can create a watcher for programmatic changes to the modelValue
@@ -386,6 +404,7 @@ export default defineComponent({
     const invisibleSelectedItemsStaging = ref<MultiselectItem[]>([])
     const visibleSelectedItems = ref<MultiselectItem[]>([])
     const invisibleSelectedItems = ref<MultiselectItem[]>([])
+    const hiddenItemsTooltip = computed(() => invisibleSelectedItems.value.map(item => item.label).join(', '))
 
     const stageSelections = () => {
       // make sure we don't grow past the max height of the selected items box
@@ -395,7 +414,7 @@ export default defineComponent({
         if (elem) {
           console.log(`staging height: ${elem.clientHeight} - (${visibleSelectedItemsStaging.value.length} visible)/(${invisibleSelectedItemsStaging.value.length} hidden)`)
           const height = elem.clientHeight
-          if (height > SELECTED_ITEMS_MAX_HEIGHT) {
+          if (height > selectionsMaxHeight.value) {
             console.log('height too big')
             const item = visibleSelectedItemsStaging.value.pop()
             if (item) {
@@ -416,7 +435,7 @@ export default defineComponent({
         if (elem) {
           console.log(`final staging height: ${elem.clientHeight} - (${visibleSelectedItemsStaging.value.length} visible)/(${invisibleSelectedItemsStaging.value.length} hidden)`)
           const height = elem.clientHeight
-          if (height > SELECTED_ITEMS_MAX_HEIGHT) {
+          if (height > selectionsMaxHeight.value) {
             console.log('still too big')
             const item = visibleSelectedItemsStaging.value.pop()
             if (item) {
@@ -427,8 +446,8 @@ export default defineComponent({
             stagingKey.value++
           } else {
             console.log('staging within range')
-            visibleSelectedItems.value = JSON.parse(JSON.stringify(visibleSelectedItemsStaging.value))
-            invisibleSelectedItems.value = JSON.parse(JSON.stringify(invisibleSelectedItemsStaging.value))
+            visibleSelectedItems.value = cloneDeep(visibleSelectedItemsStaging.value)
+            invisibleSelectedItems.value = cloneDeep(invisibleSelectedItemsStaging.value)
             console.log(`final: (${visibleSelectedItems.value.length} visible)/(${invisibleSelectedItems.value.length} hidden)`)
             console.log('redraw final')
             console.log('-------------------------------------------')
@@ -468,13 +487,20 @@ export default defineComponent({
     })
 
     const getPlaceholderText = (isOpen?: boolean): string => {
+      if (selectedItems.value.length && !isOpen) {
+        if (selectedItems.value.length === 1) {
+          return `${selectedItems.value.length} item selected`
+        }
+        return `${selectedItems.value.length} items selected`
+      }
+
       if (props.placeholder) {
         return props.placeholder
       } else if (attrs.placeholder) {
         return attrs.placeholder as string
       }
-      // TODO: singular vs plural
-      return selectedItems.value.length && !isOpen ? `${selectedItems.value.length} items selected` : 'Filter...'
+
+      return 'Filter...'
     }
 
     const handleItemSelect = (item: MultiselectItem) => {
@@ -522,6 +548,8 @@ export default defineComponent({
         anItem.key = anItem?.key?.replace(/-selected/gi, '')
       })
       selectedItems.value = []
+      visibleSelectedItemsStaging.value = []
+      invisibleSelectedItemsStaging.value = []
       filterStr.value = ''
       stageSelections()
       // this 'input' event must be emitted for v-model binding to work properly
@@ -555,6 +583,19 @@ export default defineComponent({
       }
     }
 
+    // sort dropdown items. Selected items displayed before unselected items
+    const sortItems = () => {
+      const selItems = filteredItems.value.filter((item: MultiselectItem) => item.selected)
+      const unselItems = filteredItems.value.filter((item: MultiselectItem) => !item.selected)
+
+      sortedItems.value = selItems.concat(unselItems)
+    }
+
+    // If filtered items change resort
+    watch(filteredItems, () => {
+      sortItems()
+    })
+
     watch(value, (newVal, oldVal) => {
       if (newVal !== oldVal) {
         const item = unfilteredItems.value.filter((item: MultiselectItem) => item.value === newVal)
@@ -572,7 +613,7 @@ export default defineComponent({
         return
       }
 
-      unfilteredItems.value = JSON.parse(JSON.stringify(props.items))
+      unfilteredItems.value = cloneDeep(props.items)
       for (let i = 0; i < unfilteredItems.value.length; i++) {
         // Ensure each item has a `selected` property
         if (unfilteredItems.value[i].selected === undefined) {
@@ -626,6 +667,7 @@ export default defineComponent({
       visibleSelectedItemsStaging,
       invisibleSelectedItems,
       visibleSelectedItems,
+      hiddenItemsTooltip,
       multiselectId,
       multiselectInputId,
       multiselectTextId,
@@ -635,14 +677,14 @@ export default defineComponent({
       modifiedAttrs,
       popper,
       boundKPopAttributes,
-      widthValue,
       widthStyle,
-      filteredItems,
+      sortedItems,
       getPlaceholderText,
       handleItemSelect,
       clearSelection,
       triggerFocus,
       inputWidth,
+      sortItems,
       onQueryChange,
       onInputFocus,
       onPopoverOpen,
@@ -665,19 +707,25 @@ export default defineComponent({
 
   .k-multiselect-selections {
     --KBadgeMaxWidth: 100px;
-    max-width: 100%;
-    margin-left: 16px;
-    margin-right: 22px;
-    max-height: 68px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-left: 16px;
+    padding-right: 23px;
 
     &.staging {
       position: relative;
       height: auto;
-      margin-left: 16px;
-      margin-right: 22px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      padding-left: 16px;
+      padding-right: 23px;
     }
 
     .hidden-selection-count {
+      --KBadgeLineHeight: 21px;
+
       &.hidden {
         visibility: hidden;
       }

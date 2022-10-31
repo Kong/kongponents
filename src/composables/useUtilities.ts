@@ -175,11 +175,21 @@ export default function useUtilities() {
     return sizeStr === 'auto' || sizeStr.endsWith('%') || sizeStr.endsWith('vw') || sizeStr.endsWith('vh') || sizeStr.endsWith('px') ? sizeStr : sizeStr + 'px'
   }
 
+  const cloneDeep = (val: Object) => {
+    try {
+      return JSON.parse(JSON.stringify(val))
+    } catch (e) {
+      console.error('Error: Could not parse object for cloning')
+      return val
+    }
+  }
+
   return {
     useRequest,
     useDebounce,
     clientSideSorter,
     useSwrvStates,
     getSizeFromString,
+    cloneDeep,
   }
 }
