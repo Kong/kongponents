@@ -203,21 +203,16 @@ export default defineComponent({
 ### autosuggest
 
 Add the `autosuggest` prop to trigger a query to an API with the filter keyword, and then update `items` asynchronously as suggestions as the user types.
-Loading and empty state content can be configured using the `loading` and `empty` slots.
+Empty state content can be configured using the `empty` slot.
 
 <KMultiselect autosuggest
   :items="itemsForAutosuggest"
   :loading="loading"
-  width="300px"
-  appearance="select"
   @query-change="onQueryChange"
 >
   <template v-slot:item-template="{ item }">
     <div class="select-item-label">{{ item.label }}</div>
     <div class="select-item-desc">{{ item.description }}</div>
-  </template>
-  <template v-slot:loading>
-    <div>Loading...</div>
   </template>
   <template v-slot:empty>
     <div>No results found</div>
@@ -229,16 +224,11 @@ Loading and empty state content can be configured using the `loading` and `empty
   autosuggest
   :items="items"
   :loading="loading"
-  width="300px"
-  appearance="select"
   @query-change="onQueryChange"
 >
   <template v-slot:item-template="{ item }">
     <div class="select-item-label">{{ item.label }}</div>
     <div class="select-item-desc">{{ item.label }}</div>
-  </template>
-  <template v-slot:loading>
-    <div>Loading...</div>
   </template>
   <template v-slot:empty>
     <div>No results found</div>
@@ -303,24 +293,25 @@ If you need to send API requests in the `query-change` event handler, you may wa
 The following is an example:
 :::
 
-<KMultiselect autosuggest
-  :items="itemsForDebouncedAutosuggest"
-  :loading="loadingForDebounced"
-  width="300px"
-  @query-change="onQueryChangeForDebounced"
->
-  <template v-slot:item-template="{ item }">
-    <div class="select-item-label">{{ item.label }}</div>
-    <div class="select-item-desc">{{ item.label }}</div>
-  </template>
-</KMultiselect>
+<div>
+  <KMultiselect
+    autosuggest
+    :items="itemsForDebouncedAutosuggest"
+    :loading="loadingForDebounced"
+    @query-change="onQueryChangeForDebounced"
+  >
+    <template v-slot:item-template="{ item }">
+      <div class="select-item-label">{{ item.label }}</div>
+      <div class="select-item-desc">{{ item.label }}</div>
+    </template>
+  </KMultiselect>
+</div>
 
 ```html
 <KMultiselect
   autosuggest
   :items="items"
   :loading="loading"
-  width="300px"
   @query-change="onQueryChange"
 >
   <template v-slot:item-template="{ item }">
