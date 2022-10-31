@@ -366,6 +366,14 @@ export default defineComponent({
     const sortedItems: Ref<MultiselectItem[]> = ref([])
     const initialFocusTriggered: Ref<boolean> = ref(false)
     const popper = ref(null)
+    const key = ref(0)
+    const stagingKey = ref(0)
+    const visibleSelectedItemsStaging = ref<MultiselectItem[]>([])
+    const invisibleSelectedItemsStaging = ref<MultiselectItem[]>([])
+    const visibleSelectedItems = ref<MultiselectItem[]>([])
+    const invisibleSelectedItems = ref<MultiselectItem[]>([])
+    const hiddenItemsTooltip = computed(() => invisibleSelectedItems.value.map(item => item.label).join(', '))
+
     // we need this so we can create a watcher for programmatic changes to the modelValue
     const value = computed({
       get(): string | number {
@@ -398,65 +406,6 @@ export default defineComponent({
       }
     })
 
-    const key = ref(0)
-    const stagingKey = ref(0)
-    const visibleSelectedItemsStaging = ref<MultiselectItem[]>([])
-    const invisibleSelectedItemsStaging = ref<MultiselectItem[]>([])
-    const visibleSelectedItems = ref<MultiselectItem[]>([])
-    const invisibleSelectedItems = ref<MultiselectItem[]>([])
-    const hiddenItemsTooltip = computed(() => invisibleSelectedItems.value.map(item => item.label).join(', '))
-
-    const stageSelections = () => {
-      // make sure we don't grow past the max height of the selected items box
-      setTimeout(() => {
-        const elem = document.getElementById(multiselectSelectedItemsStagingId.value)
-
-        if (elem) {
-          console.log(`staging height: ${elem.clientHeight} - (${visibleSelectedItemsStaging.value.length} visible)/(${invisibleSelectedItemsStaging.value.length} hidden)`)
-          const height = elem.clientHeight
-          if (height > selectionsMaxHeight.value) {
-            console.log('height too big')
-            const item = visibleSelectedItemsStaging.value.pop()
-            if (item) {
-              invisibleSelectedItemsStaging.value.push(item)
-              console.log(`staging: (${visibleSelectedItemsStaging.value.length} visible)/(${invisibleSelectedItemsStaging.value.length} hidden)`)
-            }
-          }
-          console.log('redraw staging')
-          stagingKey.value++
-        }
-      }, 0)
-    }
-
-    watch(stagingKey, () => {
-      setTimeout(() => {
-        const elem = document.getElementById(multiselectSelectedItemsStagingId.value)
-
-        if (elem) {
-          console.log(`final staging height: ${elem.clientHeight} - (${visibleSelectedItemsStaging.value.length} visible)/(${invisibleSelectedItemsStaging.value.length} hidden)`)
-          const height = elem.clientHeight
-          if (height > selectionsMaxHeight.value) {
-            console.log('still too big')
-            const item = visibleSelectedItemsStaging.value.pop()
-            if (item) {
-              invisibleSelectedItemsStaging.value.push(item)
-              console.log(`staging: (${visibleSelectedItemsStaging.value.length} visible)/(${invisibleSelectedItemsStaging.value.length} hidden)`)
-            }
-            console.log('redraw staging')
-            stagingKey.value++
-          } else {
-            console.log('staging within range')
-            visibleSelectedItems.value = cloneDeep(visibleSelectedItemsStaging.value)
-            invisibleSelectedItems.value = cloneDeep(invisibleSelectedItemsStaging.value)
-            console.log(`final: (${visibleSelectedItems.value.length} visible)/(${invisibleSelectedItems.value.length} hidden)`)
-            console.log('redraw final')
-            console.log('-------------------------------------------')
-            key.value++
-          }
-        }
-      }, 0)
-    })
-
     const modifiedAttrs = computed(() => {
       const $attrs = { ...attrs }
 
@@ -481,11 +430,6 @@ export default defineComponent({
     // TypeScript complains if I bind the original object
     const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
 
-    const filteredItems = computed(() => {
-      // For autosuggest, items don't need to be filtered internally
-      return props.autosuggest ? unfilteredItems.value : props.filterFunc({ items: unfilteredItems.value, query: filterStr.value })
-    })
-
     const getPlaceholderText = (isOpen?: boolean): string => {
       if (selectedItems.value.length && !isOpen) {
         if (selectedItems.value.length === 1) {
@@ -501,6 +445,31 @@ export default defineComponent({
       }
 
       return 'Filter...'
+    }
+
+    const filteredItems = computed(() => {
+      // For autosuggest, items don't need to be filtered internally
+      return props.autosuggest ? unfilteredItems.value : props.filterFunc({ items: unfilteredItems.value, query: filterStr.value })
+    })
+
+    // make sure we don't grow past the max height of the selected items box
+    // do the check off screen in the staging area so the UI doesn't jump
+    const stageSelections = () => {
+      // set timeout required to push the calculation to the end of the update lifecycle event queue
+      setTimeout(() => {
+        const elem = document.getElementById(multiselectSelectedItemsStagingId.value)
+
+        if (elem) {
+          const height = elem.clientHeight
+          if (height > selectionsMaxHeight.value) {
+            const item = visibleSelectedItemsStaging.value.pop()
+            if (item) {
+              invisibleSelectedItemsStaging.value.push(item)
+            }
+          }
+          stagingKey.value++
+        }
+      }, 0)
     }
 
     const handleItemSelect = (item: MultiselectItem) => {
@@ -542,6 +511,14 @@ export default defineComponent({
       emit('update:modelValue', item.value)
     }
 
+    // sort dropdown items. Selected items displayed before unselected items
+    const sortItems = () => {
+      const selItems = filteredItems.value.filter((item: MultiselectItem) => item.selected)
+      const unselItems = filteredItems.value.filter((item: MultiselectItem) => !item.selected)
+
+      sortedItems.value = selItems.concat(unselItems)
+    }
+
     const clearSelection = (): void => {
       unfilteredItems.value.forEach(anItem => {
         anItem.selected = false
@@ -552,10 +529,16 @@ export default defineComponent({
       invisibleSelectedItemsStaging.value = []
       filterStr.value = ''
       stageSelections()
+
       // this 'input' event must be emitted for v-model binding to work properly
       emit('input', null)
       emit('change', null)
       emit('update:modelValue', null)
+    }
+
+    const onQueryChange = (query: string) => {
+      filterStr.value = query
+      emit('query-change', query)
     }
 
     const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
@@ -571,11 +554,6 @@ export default defineComponent({
       }
     }
 
-    const onQueryChange = (query: string) => {
-      filterStr.value = query
-      emit('query-change', query)
-    }
-
     const onInputFocus = (): void => {
       if (!initialFocusTriggered.value) {
         initialFocusTriggered.value = true
@@ -583,19 +561,58 @@ export default defineComponent({
       }
     }
 
-    // sort dropdown items. Selected items displayed before unselected items
-    const sortItems = () => {
-      const selItems = filteredItems.value.filter((item: MultiselectItem) => item.selected)
-      const unselItems = filteredItems.value.filter((item: MultiselectItem) => !item.selected)
+    const inputWidth = ref(0)
+    const onPopoverOpen = () => {
+      const inputElem = document.getElementById(multiselectInputId.value)
 
-      sortedItems.value = selItems.concat(unselItems)
+      if (inputElem) {
+        inputWidth.value = inputElem.offsetWidth
+      }
     }
 
-    // If filtered items change resort
+    // whenever staging key is changed, we're ready to actually draw the selections
+    watch(stagingKey, () => {
+      // set timeout required to push the calculation to the end of the update lifecycle event queue
+      setTimeout(() => {
+        const elem = document.getElementById(multiselectSelectedItemsStagingId.value)
+
+        if (elem) {
+          const height = elem.clientHeight
+          if (height > selectionsMaxHeight.value) {
+            const item = visibleSelectedItemsStaging.value.pop()
+            if (item) {
+              invisibleSelectedItemsStaging.value.push(item)
+            }
+            stagingKey.value++
+          } else {
+            visibleSelectedItems.value = cloneDeep(visibleSelectedItemsStaging.value)
+            invisibleSelectedItems.value = cloneDeep(invisibleSelectedItemsStaging.value)
+            key.value++
+          }
+        }
+      }, 0)
+    })
+
+    // make the popper recalculate it's position whenever the selections display
+    // is updated in case we've grown a line
+    watch(key, () => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      if (popper.value && typeof popper.value.updatePopper === 'function') {
+        nextTick(() => {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          popper.value.updatePopper()
+        })
+      }
+    })
+
+    // If filtered items change re-sort them
     watch(filteredItems, () => {
       sortItems()
     })
 
+    // watch for programmatic changes to model
     watch(value, (newVal, oldVal) => {
       if (newVal !== oldVal) {
         const item = unfilteredItems.value.filter((item: MultiselectItem) => item.value === newVal)
@@ -629,10 +646,6 @@ export default defineComponent({
         }
 
         stageSelections()
-
-        /* if (selectedItems.value?.value === unfilteredItems.value[i].value) {
-          unfilteredItems.value[i].selected = true
-        } */
       }
 
       // Trigger an update to the popper element to cause the popover to redraw
@@ -648,43 +661,38 @@ export default defineComponent({
       }
     }, { deep: true, immediate: true })
 
-    const inputWidth = ref(0)
-
-    const onPopoverOpen = () => {
-      const inputElem = document.getElementById(multiselectInputId.value)
-
-      if (inputElem) {
-        inputWidth.value = inputElem.offsetWidth
-      }
-    }
-
     return {
-      filterStr,
-      selectedItems,
-      stagingKey,
+      // keys and ids
       key,
-      invisibleSelectedItemsStaging,
-      visibleSelectedItemsStaging,
-      invisibleSelectedItems,
-      visibleSelectedItems,
-      hiddenItemsTooltip,
+      stagingKey,
       multiselectId,
       multiselectInputId,
       multiselectTextId,
       multiselectSelectedItemsStagingId,
       multiselectSelectedItemsId,
+      // text
+      getPlaceholderText,
+      filterStr,
+      // items
       unfilteredItems,
+      sortedItems,
+      selectedItems,
+      invisibleSelectedItemsStaging,
+      visibleSelectedItemsStaging,
+      invisibleSelectedItems,
+      visibleSelectedItems,
+      hiddenItemsTooltip,
+      // style and attributes
+      widthStyle,
+      inputWidth,
       modifiedAttrs,
       popper,
       boundKPopAttributes,
-      widthStyle,
-      sortedItems,
-      getPlaceholderText,
+      // functions
+      sortItems,
       handleItemSelect,
       clearSelection,
       triggerFocus,
-      inputWidth,
-      sortItems,
       onQueryChange,
       onInputFocus,
       onPopoverOpen,
@@ -700,6 +708,7 @@ export default defineComponent({
 .k-multiselect {
   width: fit-content; // necessary for correct placement of popup
 
+  // off screen area for checking selections before display
   .staging-area {
     position: absolute;
     left: -99999px;
@@ -714,16 +723,17 @@ export default defineComponent({
     padding-right: 23px;
 
     &.staging {
-      position: relative;
-      height: auto;
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
       box-sizing: border-box;
+      position: relative;
+      height: auto;
       padding-left: 16px;
       padding-right: 23px;
     }
 
     .hidden-selection-count {
+      // match dismissable height
       --KBadgeLineHeight: 21px;
 
       &.hidden {
@@ -750,17 +760,11 @@ export default defineComponent({
       right: 10px;
     }
   }
-}
-</style>
 
-<style lang="scss">
-@import '@/styles/variables';
-@import '@/styles/functions';
-
-.k-multiselect {
   .k-multiselect-trigger {
     display: inline-block;
     position: relative;
+    // mimic input's box shadow styling
     box-shadow: inset 0 0 0 1px var(--KInputBorder, var(--grey-300)) !important;
 
     &:hover {
@@ -775,7 +779,18 @@ export default defineComponent({
       position: relative;
       display: inline-block;
       width: 100%;
+    }
+  }
+}
+</style>
 
+<style lang="scss">
+@import '@/styles/variables';
+@import '@/styles/functions';
+
+.k-multiselect {
+  .k-multiselect-trigger {
+    .k-multiselect-input {
       &.prevent-pointer-events {
         pointer-events: none;
       }
@@ -786,9 +801,11 @@ export default defineComponent({
 
       input.k-input {
         height: 100%;
+        // slightly smaller than container so we can see
+        // the container's box-shadow
         width: 99%;
         margin: 1px;
-        padding-right: 30px;
+        // remove input's default box shadow
         box-shadow: none !important;
 
         &:hover,
@@ -836,15 +853,6 @@ export default defineComponent({
       &:focus {
         text-decoration: none;
       }
-    }
-
-    .k-multiselect-loading {
-      display: block;
-      text-align: center;
-      position: relative;
-      top: 0;
-      right: 0;
-      height: 24px;
     }
   }
 }
