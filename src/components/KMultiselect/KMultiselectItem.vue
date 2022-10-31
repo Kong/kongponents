@@ -115,6 +115,9 @@ export default defineComponent({
         font-size: 12px;
       }
     }
+    .selected-item-icon {
+      height: 24px;
+    }
 
     .kong-icon:not(.selected-item-icon) {
       margin-right: .75rem;

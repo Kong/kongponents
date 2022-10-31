@@ -761,7 +761,7 @@ export default defineComponent({
 
     .k-multiselect-chevron-icon {
       position: relative;
-      top: 9px;
+      top: 11px;
       right: 10px;
     }
 
