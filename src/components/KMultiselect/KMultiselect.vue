@@ -386,7 +386,7 @@ export default defineComponent({
       set(newValue: string[]): void {
         const items = unfilteredItems.value.filter((item: MultiselectItem) => newValue.includes(item.value))
         if (items.length) {
-          items.forEach(item => handleItemSelect(item))
+          handleMultipleItemsSelect(items)
         } else if (!newValue.length || !items.length) {
           clearSelection()
         }
@@ -476,6 +476,23 @@ export default defineComponent({
       }, 0)
     }
 
+    // handles programmatic selections
+    const handleMultipleItemsSelect = (items: MultiselectItem[]) => {
+      selectedItems.value = []
+      visibleSelectedItemsStaging.value = []
+      items.forEach(itemToSelect => {
+        const selectedItem = unfilteredItems.value.filter(anItem => anItem.key === itemToSelect.key)[0]
+        selectedItem.selected = true
+        selectedItem.key = selectedItem?.key?.includes('-selected') ? selectedItem.key : `${selectedItem.key}-selected`
+        selectedItem.key += '-selected'
+        selectedItems.value.push(selectedItem)
+        visibleSelectedItemsStaging.value.push(selectedItem)
+      })
+
+      stageSelections()
+    }
+
+    // handle item select/deselect from dropdown
     const handleItemSelect = (item: MultiselectItem) => {
       const selectedItem = unfilteredItems.value.filter(anItem => anItem.key === item.key)[0]
       // if clicked item is already selected
@@ -507,12 +524,14 @@ export default defineComponent({
       }
 
       stageSelections()
+      const selectedVals = selectedItems.value.map(anItem => anItem.value)
+      console.log(selectedVals)
 
       emit('selected', selectedItems.value)
+      emit('update:modelValue', selectedVals)
       // this 'input' event must be emitted for v-model binding to work properly
-      emit('input', selectedItems.value.map(item => item.value))
+      emit('input', selectedVals)
       emit('change', item)
-      emit('update:modelValue', selectedItems.value.map(item => item.value))
     }
 
     // sort dropdown items. Selected items displayed before unselected items
@@ -624,7 +643,7 @@ export default defineComponent({
       if (JSON.stringify(newVal) !== JSON.stringify(oldVal)) {
         const items = unfilteredItems.value.filter((item: MultiselectItem) => newVal.includes(item.value))
         if (items.length) {
-          items.forEach(item => handleItemSelect(item))
+          handleMultipleItemsSelect(items)
         } else {
           clearSelection()
         }
@@ -707,6 +726,8 @@ export default defineComponent({
       onQueryChange,
       onInputFocus,
       onPopoverOpen,
+
+      value,
     }
   },
 })
