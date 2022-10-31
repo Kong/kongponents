@@ -5,7 +5,7 @@
     :class="[$attrs.class]"
   >
     <KLabel
-      v-if="label && !overlayLabel"
+      v-if="label"
       :for="multiselectId"
       v-bind="labelAttributes"
       data-testid="k-multiselect-label"
@@ -41,6 +41,7 @@
           <div
             role="listbox"
             :style="widthStyle"
+            :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }"
             class="k-multiselect-trigger"
             data-testid="k-multiselect-trigger"
             @click="evt => {
@@ -83,7 +84,6 @@
             <div class="k-multiselect-icon">
               <KButton
                 v-if="!loading && selectedItems.length && isToggled.value"
-                :class="{ 'overlay-label-clear': overlayLabel }"
                 class="non-visual-button pa-0 k-multiselect-clear-icon"
                 @click="clearSelection"
                 @keyup.enter="clearSelection"
@@ -100,7 +100,6 @@
                 color="var(--grey-500)"
                 size="18"
                 :class="{
-                  'overlay-label-icon': overlayLabel,
                   'in-selection-box': selectedItems.length
                 }"
                 class="k-multiselect-chevron-icon"
@@ -114,8 +113,6 @@
                 :id="multiselectTextId"
                 v-bind="modifiedAttrs"
                 :model-value="filterStr"
-                :label="label && overlayLabel ? label : undefined"
-                :overlay-label="overlayLabel"
                 :placeholder="getPlaceholderText(isToggled.value)"
                 autocomplete="off"
                 autocapitalize="off"
@@ -127,28 +124,24 @@
                   }
                 }"
                 @update:model-value="onQueryChange"
+                @mouseenter="() => isHovered = true"
+                @mouseleave="() => isHovered = false"
+                @blur="() => isFocused = false"
                 @focus="onInputFocus"
               />
             </div>
           </div>
           <template #content>
-            <slot
-              v-if="autosuggest && loading"
-              name="loading"
-            >
-              <KIcon
-                class="k-multiselect-loading"
-                data-testid="k-multiselect-loading"
-                icon="spinner"
-              />
-            </slot>
             <div
-              v-else
               class="k-multiselect-list ma-0 pa-0"
               @click="evt => {
                 // don't close drop down when selecting/deselecting items
                 evt.stopPropagation()
               }"
+              @mouseenter="() => isHovered = true"
+              @mouseleave="() => isHovered = false"
+              @blur="() => isFocused = false"
+              @focus="isFocused = true"
             >
               <KMultiselectItem
                 v-for="item in sortedItems"
@@ -278,10 +271,6 @@ export default defineComponent({
       type: String,
       default: '',
     },
-    overlayLabel: {
-      type: Boolean,
-      default: false,
-    },
     labelAttributes: {
       type: Object,
       default: () => ({}),
@@ -366,6 +355,10 @@ export default defineComponent({
     const unfilteredItems: Ref<MultiselectItem[]> = ref([])
     const sortedItems: Ref<MultiselectItem[]> = ref([])
     const initialFocusTriggered: Ref<boolean> = ref(false)
+    const isHovered = ref(false)
+    const isFocused = ref(false)
+    const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
+    const isReadonly = computed((): boolean => attrs?.readonly !== undefined && String(attrs?.readonly) !== 'false')
     const popper = ref(null)
     const key = ref(0)
     const stagingKey = ref(0)
@@ -558,6 +551,7 @@ export default defineComponent({
     }
 
     const onInputFocus = (): void => {
+      isFocused.value = true
       if (!initialFocusTriggered.value) {
         initialFocusTriggered.value = true
         emit('query-change', '')
@@ -689,6 +683,10 @@ export default defineComponent({
       widthStyle,
       inputWidth,
       modifiedAttrs,
+      isHovered,
+      isFocused,
+      isDisabled,
+      isReadonly,
       popper,
       boundKPopAttributes,
       // functions
@@ -769,13 +767,20 @@ export default defineComponent({
     position: relative;
     // mimic input's box shadow styling
     box-shadow: inset 0 0 0 1px var(--KInputBorder, var(--grey-300)) !important;
+    border-radius: 3px;
 
-    &:hover {
+    &.hovered {
       box-shadow: inset 0 0 0 1px var(--KInputHover, var(--blue-200)) !important;
     }
 
-    &:focus {
+    &.focused {
       box-shadow: inset 0 0 0 1px var(--KInputFocus, var(--blue-400)) !important;
+    }
+
+    &.readonly,
+    &.disabled {
+      background-color: var(--KInputReadonlyBackground, var(--grey-100, #f8f8fa));
+      box-shadow: inset 0 0 0 1px var(--KInputBorder, var(--grey-300)) !important;
     }
 
     .k-multiselect-input {
@@ -802,7 +807,7 @@ export default defineComponent({
         color: var(--KInputColor, var(--black-70, rgba(0, 0, 0, 0.7))) !important;
       }
 
-      input.k-input {
+      input.k-input:not([type=checkbox]):not([type=radio]) {
         height: 100%;
         // slightly smaller than container so we can see
         // the container's box-shadow
@@ -812,7 +817,9 @@ export default defineComponent({
         box-shadow: none !important;
 
         &:hover,
-        &:focus {
+        &:focus,
+        &:read-only,
+        &:disabled {
           box-shadow: none !important;
         }
       }
