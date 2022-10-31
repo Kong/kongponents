@@ -1,0 +1,26 @@
+---
+name: Dependabot auto-approve
+
+permissions:
+  pull-requests: write
+  contents: write
+
+on: pull_request_target
+
+jobs:
+  dependabot-autoapprove:
+    runs-on: ubuntu-latest
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    steps:
+      - name: Approve a PR
+        run: gh pr review --approve "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          # Use the bot account PAT to allow auto-approve and merge the PRs
+          GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
+
+      - name: Enable auto-merge for Dependabot PRs
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
