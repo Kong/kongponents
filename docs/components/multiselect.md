@@ -16,7 +16,7 @@
 
 ### items
 
-An array of items containing a `label` and `value`. You may also specify that a certain item is `selected` by default.
+An array of items containing a `label` and `value`. You may also specify that a certain items are `selected` by default.
 
 <div>
   <KMultiselect :items="deepClone(defaultItems)" />
@@ -32,7 +32,21 @@ An array of items containing a `label` and `value`. You may also specify that a 
     value: 'dogs'
   }, {
     label: 'Bunnies',
-    value: 'bunnies'
+    value: 'bunnies',
+    selected: true
+  },
+  {
+    label: 'Lions',
+    value: 'lions'
+  }, {
+    label: 'Tigers',
+    value: 'tigers'
+  }, {
+    label: 'Bears',
+    value: 'bears'
+  }, {
+    label: 'A long & truncated item',
+    value: 'long'
   }]"
 />
 ```
@@ -47,22 +61,6 @@ The label for the select.
 
 ```html
 <KMultiselect label="Cool label" :items="items" />
-```
-
-### overlayLabel
-
-Enable this prop to overlay the label on the input element's border for `select` and `dropdown` appearances. Defaults to `false`.
-
-<KMultiselect label="Name" placeholder="I'm labelled!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" />
-<KMultiselect label="Name" placeholder="I'm labelled!" :overlay-label="true" appearance="select" :items="deepClone(defaultItemsUnselect)" />
-<KMultiselect label="Disabled" disabled placeholder="I'm disabled!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" />
-<KMultiselect label="Readonly" readonly placeholder="I'm readonly!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" />
-
-```html
-<KMultiselect label="Name" placeholder="I'm labelled!" :overlay-label="true" :items="items" />
-<KMultiselect label="Name" placeholder="I'm labelled!" :overlay-label="true" appearance="select" :items="items" />
-<KMultiselect label="Disabled" disabled placeholder="I'm disabled!" :overlay-label="true" :items="items" />
-<KMultiselect label="Readonly" readonly placeholder="I'm readonly!" :overlay-label="true" :items="items" />
 ```
 
 ### labelAttributes
@@ -99,8 +97,7 @@ Because we are controlling the widths of multiple elements, we recommend using t
 :::
 
 <div>
-  <KMultiselect width="350" :items="deepClone(defaultItemsUnselect)"
-  />
+  <KMultiselect width="350" :items="deepClone(defaultItemsUnselect)" />
 </div>
 
 ```html
@@ -122,6 +119,18 @@ You can pass a `dropdownMaxHeight` string for the dropdown. By default, the `dro
 ### positionFixed
 
 Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `true`. See [`KPop` docs](popover.html#positionfixed) for more information.
+
+### loading
+
+You can use the `loading` prop to show a loading indicator in place of the chevron while fetching data from API.
+
+<div>
+  <KMultiselect loading :items="deepClone(defaultItemsUnselect)" />
+</div>
+
+```html
+<KMultiselect loading :items="items" />
+```
 
 ### filterFunc
 
@@ -164,12 +173,12 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   data() {
     return {
-      myVal: 'cats',
+      myVal: ['cats', 'bunnies'],
     }
   },
   methods: {
     clearIt() {
-      this.myVal = ''
+      this.myVal = []
     }
   }
 })
@@ -200,7 +209,7 @@ Loading and empty state content can be configured using the `loading` and `empty
   </template>
 </KMultiselect>
 
-```vue
+```html
 <KMultiselect
   autosuggest
   :items="items"
@@ -281,7 +290,6 @@ The following is an example:
   :items="itemsForDebouncedAutosuggest"
   :loading="loadingForDebounced"
   width="300px"
-  appearance="select"
   @query-change="onQueryChangeForDebounced"
 >
   <template v-slot:item-template="{ item }">
@@ -290,13 +298,12 @@ The following is an example:
   </template>
 </KMultiselect>
 
-```vue
+```html
 <KMultiselect
   autosuggest
   :items="items"
   :loading="loading"
   width="300px"
-  appearance="select"
   @query-change="onQueryChange"
 >
   <template v-slot:item-template="{ item }">
@@ -369,12 +376,6 @@ export default {
 </script>
 ```
 
-### loading
-
-When `autosuggest` is enabled, you can use the `loading` prop to show a loading indicator while fetching data from API.
-By default, the loading indicator is a spinner icon, and you can implement your own indicator using the `loading` slot.
-See [autosuggest](#autosuggest) for an example.
-
 ## Attribute Binding
 
 You can pass any input attribute and it will get properly bound to the element.
@@ -390,7 +391,6 @@ You can pass any input attribute and it will get properly bound to the element.
 ## Slots
 
 - `item-template` - The template for each item in the dropdown list
-- `loading` - Slot for the loading indicator
 - `empty` - Slot for the empty state in the dropdown list
 
 ### Item Template
@@ -448,21 +448,17 @@ export default defineComponent({
 </script>
 ```
 
-### Loading
-
-You can use the `loading` slot to customize the loading indicator. Note that this only applies when `autoggest` is `true`. See [autosuggest](#autosuggest) for an example of this slot.
-
 ### Empty State
 
 You can use the `empty` slot to customize the look of the dropdown list when there is no options. See [autosuggest](#autosuggest) for an example of this slot.
 
 ## Events
 
-| Event     | returns             |
-| :-------- | :------------------ |
-| `selected` | `selectedItem` Object |
-| `input` | `selectedItem` Object or null |
-| `change` | `selectedItem` Object or null |
+| Event          | returns             |
+| :--------      | :------------------ |
+| `selected`     | array of selected item objects |
+| `input`        | array of selected item values |
+| `change`       | last selected/deselected Object or null |
 | `query-change` | `query` String |
 
 </div>
@@ -504,7 +500,7 @@ export default defineComponent({
       hasMounted: false,
       myItems: getItems(5),
       mySelect: '',
-      myVal: 'cats',
+      myVal: ['cats', 'bunnies'],
       defaultItems: [{
         label: 'Cats',
         value: 'cats',
@@ -525,6 +521,9 @@ export default defineComponent({
       }, {
         label: 'Bears',
         value: 'bears'
+      }, {
+        label: 'A long & truncated item',
+        value: 'long'
       }],
       defaultItemsUnselect: [{
         label: 'Cats',
@@ -535,20 +534,26 @@ export default defineComponent({
       }, {
         label: 'Bunnies',
         value: 'bunnies'
-      }],
-      items: [{
-        label: '25',
-        value: '25'
+      },
+      {
+        label: 'Lions',
+        value: 'lions'
       }, {
-        label: '50',
-        value: '50'
+        label: 'Tigers',
+        value: 'tigers'
+      }, {
+        label: 'Bears',
+        value: 'bears'
+      }, {
+        label: 'A long & truncated item',
+        value: 'long'
       }],
       defaultItemsForAutosuggest: [],
       itemsForAutosuggest: [],
       loading: false,
       defaultItemsForDebouncedAutosuggest: [],
       itemsForDebouncedAutosuggest: [],
-      loadingForDebounced: true,
+      loadingForDebounced: false,
     }
   },
   mounted() {
@@ -559,7 +564,7 @@ export default defineComponent({
       this.mySelect = item.label
     },
     clearIt () {
-      this.myVal = ''
+      this.myVal = []
     },
     customFilter ({items, query}) {
       return items.filter(item => item.label.toLowerCase().includes(query.toLowerCase()) || item.description.toLowerCase().includes(query.toLowerCase()))
