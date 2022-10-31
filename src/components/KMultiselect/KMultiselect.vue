@@ -120,8 +120,8 @@
                 autocomplete="off"
                 autocapitalize="off"
                 class="k-multiselect-input input-placeholder-dark mt-1"
-                @keyup="evt => triggerFocus(evt, isToggled)"
-                @click="evt => {
+                @keyup="(evt: any) => triggerFocus(evt, isToggled)"
+                @click="(evt: any) => {
                   if (isToggled.value) {
                     evt.stopPropagation()
                   }
@@ -237,7 +237,7 @@ const defaultKPopAttributes = {
 
 export interface MultiselectItem {
   label: string
-  value: string | number
+  value: string
   key?: string
   selected?: boolean
 }
@@ -261,8 +261,8 @@ export default defineComponent({
   inheritAttrs: false,
   props: {
     modelValue: {
-      type: [String, Number],
-      default: '',
+      type: Array as PropType<string[]>,
+      default: () => [],
     },
     kpopAttributes: {
       type: Object,
@@ -377,14 +377,14 @@ export default defineComponent({
 
     // we need this so we can create a watcher for programmatic changes to the modelValue
     const value = computed({
-      get(): string | number {
+      get(): string[] {
         return props.modelValue
       },
-      set(newValue: string | number): void {
-        const item = unfilteredItems.value.filter((item: MultiselectItem) => item.value === newValue)
-        if (item.length) {
-          handleItemSelect(item[0])
-        } else if (!newValue) {
+      set(newValue: string[]): void {
+        const items = unfilteredItems.value.filter((item: MultiselectItem) => newValue.includes(item.value))
+        if (items.length) {
+          items.forEach(item => handleItemSelect(item))
+        } else if (!newValue.length || !items.length) {
           clearSelection()
         }
       },
@@ -505,11 +505,11 @@ export default defineComponent({
 
       stageSelections()
 
-      emit('selected', item)
+      emit('selected', selectedItems.value)
       // this 'input' event must be emitted for v-model binding to work properly
-      emit('input', item.value)
+      emit('input', selectedItems.value.map(item => item.value))
       emit('change', item)
-      emit('update:modelValue', item.value)
+      emit('update:modelValue', selectedItems.value.map(item => item.value))
     }
 
     // sort dropdown items. Selected items displayed before unselected items
@@ -531,10 +531,12 @@ export default defineComponent({
       filterStr.value = ''
       stageSelections()
 
+      emit('selected', [])
       // this 'input' event must be emitted for v-model binding to work properly
-      emit('input', null)
+      emit('input', [])
       emit('change', null)
-      emit('update:modelValue', null)
+      emit('update:modelValue', [])
+      emit('query-change', '')
     }
 
     const onQueryChange = (query: string) => {
@@ -615,11 +617,11 @@ export default defineComponent({
 
     // watch for programmatic changes to model
     watch(value, (newVal, oldVal) => {
-      if (newVal !== oldVal) {
-        const item = unfilteredItems.value.filter((item: MultiselectItem) => item.value === newVal)
-        if (item.length) {
-          handleItemSelect(item[0])
-        } else if (!newVal) {
+      if (JSON.stringify(newVal) !== JSON.stringify(oldVal)) {
+        const items = unfilteredItems.value.filter((item: MultiselectItem) => newVal.includes(item.value))
+        if (items.length) {
+          items.forEach(item => handleItemSelect(item))
+        } else {
           clearSelection()
         }
       }
@@ -639,7 +641,7 @@ export default defineComponent({
         }
 
         unfilteredItems.value[i].key = `${unfilteredItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}` || `k-multiselect-item-label-${i}`
-        if (unfilteredItems.value[i].value === props.modelValue || unfilteredItems.value[i].selected) {
+        if (props.modelValue.includes(unfilteredItems.value[i].value) || unfilteredItems.value[i].selected) {
           unfilteredItems.value[i].selected = true
           selectedItems.value.push(unfilteredItems.value[i])
           visibleSelectedItemsStaging.value.push(unfilteredItems.value[i])
