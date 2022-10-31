@@ -26,3 +26,8 @@ yarn.lock @kongponents-bot @adamdehaven @kaiarrowood @aanchalm01 @jillztom
 /.eslintrc.js @adamdehaven
 /.gitignore @adamdehaven @jillztom @kaiarrowood
 /vite.config.ts @adamdehaven @jillztom
+
+# Dependabot approvals
+# These rules MUST remain at the bottom as the last entry
+package.json @kongponents-bot @adamdehaven @jillztom @kaiarrowood
+yarn.lock @kongponents-bot @adamdehaven @jillztom @kaiarrowood
