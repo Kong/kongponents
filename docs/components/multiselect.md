@@ -2,7 +2,7 @@
 
 <div v-if="hasMounted">
 
-**Multiselect** - Multiselect
+**Multiselect** - Multiselect component
 
 The total count of selected items will be displayed as the placeholder text when the multiselect is collapsed. When items are selected they will be shown as dismissible badges above the filter input when the multiselect has focus. If at least one item is selected, there will be a clear all button displayed in place of the dropdown chevron when the multiselect has focus. Selected items are displayed at the top of the dropdown for easy access (refreshed on multiselect collapse).
 
