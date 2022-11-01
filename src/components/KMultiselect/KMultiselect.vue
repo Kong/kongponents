@@ -20,12 +20,12 @@
         <KPop
           ref="popper"
           v-bind="boundKPopAttributes"
+          :target="`[id='${multiselectInputId}']`"
+          :position-fixed="positionFixed"
           :on-popover-click="() => {
             return
           }"
-          :position-fixed="positionFixed"
           :test-mode="!!testMode || undefined"
-          :target="`[id='${multiselectInputId}']`"
           @opened="() => {
             filterStr = ''
             toggle()
@@ -62,8 +62,8 @@
               <KBadge
                 v-for="item, idx in visibleSelectedItems"
                 :key="`${item ? item.key : idx}-badge`"
-                shape="rectangular"
                 :truncation-tooltip="item.label"
+                shape="rectangular"
                 dismissable
                 class="mr-1 mt-2"
                 @dismissed="handleItemSelect(item)"
@@ -102,9 +102,7 @@
                 :icon="loading ? 'spinner' : 'chevronDown'"
                 color="var(--grey-500)"
                 size="18"
-                :class="{
-                  'in-selection-box': selectedItems.length
-                }"
+                :class="{ 'in-selection-box': selectedItems.length }"
                 class="k-multiselect-chevron-icon"
               />
             </div>
@@ -190,9 +188,9 @@
         :id="multiselectSelectedItemsStagingId"
         :key="stagingKey"
         :style="widthStyle"
-        class="k-multiselect-selections staging"
         tabindex="-1"
         aria-hidden="true"
+        class="k-multiselect-selections staging"
       >
         <KBadge
           v-for="item in visibleSelectedItemsStaging"
@@ -236,10 +234,10 @@ const { getSizeFromString, cloneDeep } = useUtilities()
 const SELECTED_ITEMS_SINGLE_LINE_HEIGHT = 34
 
 const defaultKPopAttributes = {
-  popoverClasses: 'k-multiselect-popover mt-0',
-  popoverTimeout: 0,
-  placement: 'bottomStart',
   hideCaret: true,
+  placement: 'bottomStart',
+  popoverTimeout: 0,
+  popoverClasses: 'k-multiselect-popover mt-0',
 }
 
 export interface MultiselectItem {
@@ -272,6 +270,18 @@ export default defineComponent({
       type: Array as PropType<string[]>,
       default: () => [],
     },
+    label: {
+      type: String,
+      default: '',
+    },
+    labelAttributes: {
+      type: Object,
+      default: () => ({}),
+    },
+    placeholder: {
+      type: String,
+      default: '',
+    },
     kpopAttributes: {
       type: Object,
       default: () => ({
@@ -282,14 +292,6 @@ export default defineComponent({
       type: String,
       default: '300',
     },
-    label: {
-      type: String,
-      default: '',
-    },
-    labelAttributes: {
-      type: Object,
-      default: () => ({}),
-    },
     /**
      * The width of the multiselect and popover's min-width
      */
@@ -297,13 +299,12 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    /**
+     * Number of rows of selections to show when focused
+     */
     selectionRowCount: {
       type: Number,
       default: 2,
-    },
-    placeholder: {
-      type: String,
-      default: '',
     },
     /**
      * Items are JSON objects with required 'label' and 'value'
@@ -314,7 +315,6 @@ export default defineComponent({
      */
     items: {
       type: Array as PropType<MultiselectItem[]>,
-      required: false,
       default: () => [],
       // Items must have a label & value
       validator: (items: MultiselectItem[]) => !items.length || items.some(i => i.label !== undefined && i.value !== undefined),
@@ -357,31 +357,34 @@ export default defineComponent({
   },
   emits: ['selected', 'input', 'change', 'update:modelValue', 'query-change'],
   setup(props, { attrs, emit }) {
-    const filterStr = ref('')
-    const selectedItems = ref<MultiselectItem[]>([])
-    const selectionsMaxHeight = computed((): number => {
-      return props.selectionRowCount * SELECTED_ITEMS_SINGLE_LINE_HEIGHT
-    })
+    // keys and ids
+    const key = ref(0)
+    const stagingKey = ref(0)
     const multiselectId = computed((): string => props.testMode ? 'test-multiselect-id-1234' : uuidv1())
     const multiselectInputId = computed((): string => props.testMode ? 'test-multiselect-input-id-1234' : uuidv1())
     const multiselectTextId = computed((): string => props.testMode ? 'test-multiselect-text-id-1234' : uuidv1())
     const multiselectSelectedItemsId = computed((): string => props.testMode ? 'test-multiselect-selected-id-1234' : uuidv1())
     const multiselectSelectedItemsStagingId = computed((): string => props.testMode ? 'test-multiselect-selected-staging-id-1234' : uuidv1())
+    // filter and selection
+    const selectionsMaxHeight = computed((): number => {
+      return props.selectionRowCount * SELECTED_ITEMS_SINGLE_LINE_HEIGHT
+    })
+    const filterStr = ref('')
+    const popper = ref(null)
     const unfilteredItems: Ref<MultiselectItem[]> = ref([])
     const sortedItems: Ref<MultiselectItem[]> = ref([])
-    const initialFocusTriggered: Ref<boolean> = ref(false)
-    const isHovered = ref(false)
-    const isFocused = ref(false)
-    const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
-    const isReadonly = computed((): boolean => attrs?.readonly !== undefined && String(attrs?.readonly) !== 'false')
-    const popper = ref(null)
-    const key = ref(0)
-    const stagingKey = ref(0)
+    const selectedItems = ref<MultiselectItem[]>([])
     const visibleSelectedItemsStaging = ref<MultiselectItem[]>([])
     const invisibleSelectedItemsStaging = ref<MultiselectItem[]>([])
     const visibleSelectedItems = ref<MultiselectItem[]>([])
     const invisibleSelectedItems = ref<MultiselectItem[]>([])
     const hiddenItemsTooltip = computed(() => invisibleSelectedItems.value.map(item => item.label).join(', '))
+    // state
+    const initialFocusTriggered: Ref<boolean> = ref(false)
+    const isHovered = ref(false)
+    const isFocused = ref(false)
+    const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
+    const isReadonly = computed((): boolean => attrs?.readonly !== undefined && String(attrs?.readonly) !== 'false')
 
     // we need this so we can create a watcher for programmatic changes to the modelValue
     const value = computed({
@@ -390,29 +393,13 @@ export default defineComponent({
       },
       set(newValue: string[]): void {
         const items = unfilteredItems.value.filter((item: MultiselectItem) => newValue.includes(item.value))
+
         if (items.length) {
           handleMultipleItemsSelect(items)
         } else if (!newValue.length || !items.length) {
           clearSelection()
         }
       },
-    })
-
-    const widthValue = computed(() => {
-      let w = ''
-      if (!props.width) {
-        w = '300'
-      } else {
-        w = props.width
-      }
-
-      return getSizeFromString(w)
-    })
-
-    const widthStyle = computed(() => {
-      return {
-        width: widthValue.value,
-      }
     })
 
     const modifiedAttrs = computed(() => {
@@ -438,6 +425,23 @@ export default defineComponent({
 
     // TypeScript complains if I bind the original object
     const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
+
+    const widthValue = computed(() => {
+      let w = ''
+      if (!props.width) {
+        w = '300'
+      } else {
+        w = props.width
+      }
+
+      return getSizeFromString(w)
+    })
+
+    const widthStyle = computed(() => {
+      return {
+        width: widthValue.value,
+      }
+    })
 
     const getPlaceholderText = (isOpen?: boolean): string => {
       if (selectedItems.value.length && !isOpen) {
@@ -530,7 +534,6 @@ export default defineComponent({
 
       stageSelections()
       const selectedVals = selectedItems.value.map(anItem => anItem.value)
-      console.log(selectedVals)
 
       emit('selected', selectedItems.value)
       emit('update:modelValue', selectedVals)
@@ -638,7 +641,7 @@ export default defineComponent({
       }
     })
 
-    // If filtered items change re-sort them
+    // If filtered items change, re-sort them
     watch(filteredItems, () => {
       sortItems()
     })
@@ -731,8 +734,6 @@ export default defineComponent({
       onQueryChange,
       onInputFocus,
       onPopoverOpen,
-
-      value,
     }
   },
 })

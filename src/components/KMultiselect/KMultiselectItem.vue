@@ -1,8 +1,8 @@
 <template>
   <div
     :key="item.key"
-    :data-testid="`k-multiselect-item-${item.value}`"
     class="k-multiselect-item"
+    :data-testid="`k-multiselect-item-${item.value}`"
     @click="handleClick"
   >
     <div
@@ -10,8 +10,8 @@
       class="d-block"
     >
       <button
-        :class="{ disabled, selected: item.selected }"
         :value="item.value"
+        :class="{ disabled, selected: item.selected }"
       >
         <span class="k-multiselect-item-label mr-2">
           <slot name="content">{{ item.label }}</slot>
@@ -19,9 +19,9 @@
         <span class="k-multiselect-selected-icon-container">
           <KIcon
             v-if="item.selected"
-            class="selected-item-icon"
             icon="check"
             color="var(--blue-200)"
+            class="selected-item-icon"
           />
         </span>
       </button>
@@ -41,7 +41,7 @@ export default defineComponent({
       type: Object,
       default: null,
       // Items must have a label and value
-      validator: (item: Record<string, number | string>): boolean => item.label !== undefined && item.value !== undefined,
+      validator: (item: Record<string, string>): boolean => item.label !== undefined && item.value !== undefined,
     },
     disabled: {
       type: Boolean,
@@ -67,7 +67,6 @@ export default defineComponent({
 
 .k-multiselect-item {
   margin-bottom: 4px;
-  list-style: none !important;
 
   &:last-of-type {
     margin-bottom: 0 !important;
@@ -129,13 +128,6 @@ export default defineComponent({
       margin-bottom: auto;
       height: 24px;
       width: 24px;
-
-      .kong-icon {
-        position: relative;
-        top: 0;
-        right: 0;
-        transform: none;
-      }
     }
 
     &:hover {
@@ -147,10 +139,6 @@ export default defineComponent({
       background-color: var(--blue-100);
       color: var(--blue-500);
       font-weight: 400;
-    }
-
-    &.danger {
-      color: var(--red-500);
     }
   }
 }
