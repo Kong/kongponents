@@ -117,7 +117,8 @@
                 :placeholder="getPlaceholderText(isToggled.value)"
                 autocomplete="off"
                 autocapitalize="off"
-                class="k-multiselect-input input-placeholder-dark mt-1"
+                :class="{ 'mt-1': isToggled.value && selectedItems.length }"
+                class="k-multiselect-input input-placeholder-dark"
                 data-testid="k-multiselect-input"
                 @keyup="(evt: any) => triggerFocus(evt, isToggled)"
                 @click="(evt: any) => {
@@ -803,6 +804,7 @@ export default defineComponent({
     display: inline-block;
     position: relative;
     // mimic input's box shadow styling
+    background-color: var(--KInputBackground, var(--white));
     box-shadow: inset 0 0 0 1px var(--KInputBorder, var(--grey-300)) !important;
     border-radius: 3px;
 
