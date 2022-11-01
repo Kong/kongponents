@@ -131,7 +131,7 @@
               }"
               class="k-select-input"
               @keypress="onInputKeypress"
-              @keyup="evt => triggerFocus(evt, isToggled)"
+              @keyup="(evt: any) => triggerFocus(evt, isToggled)"
               @update:model-value="onQueryChange"
               @focus="onInputFocus"
               @blur="onInputBlur"
