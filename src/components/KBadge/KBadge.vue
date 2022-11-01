@@ -27,6 +27,7 @@
       :tabindex="hidden ? -1 : 0"
       :aria-hidden="hidden ? true : undefined"
       class="k-badge-dismiss-button ml-1"
+      data-testid="k-badge-dismiss-button"
       @click="handleDismiss"
     >
       <KIcon

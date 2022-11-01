@@ -1,8 +1,8 @@
 <template>
   <div
     :style="widthStyle"
-    class="k-multiselect"
     :class="[$attrs.class]"
+    class="k-multiselect"
   >
     <KLabel
       v-if="label"
@@ -56,6 +56,7 @@
               :key="key"
               :style="widthStyle"
               class="k-multiselect-selections"
+              data-testid="k-multiselect-selections"
               @click.stop
             >
               <KBadge
@@ -85,6 +86,7 @@
               <KButton
                 v-if="!loading && selectedItems.length && isToggled.value"
                 class="non-visual-button pa-0 k-multiselect-clear-icon"
+                data-testid="k-multiselect-clear-icon"
                 @click="clearSelection"
                 @keyup.enter="clearSelection"
               >
@@ -118,6 +120,7 @@
                 autocomplete="off"
                 autocapitalize="off"
                 class="k-multiselect-input input-placeholder-dark mt-1"
+                data-testid="k-multiselect-input"
                 @keyup="(evt: any) => triggerFocus(evt, isToggled)"
                 @click="(evt: any) => {
                   if (isToggled.value) {
@@ -220,6 +223,7 @@
 import { defineComponent, ref, Ref, computed, watch, PropType, nextTick } from 'vue'
 import { v1 as uuidv1 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
+import KBadge from '@/components/KBadge/KBadge.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KInput from '@/components/KInput/KInput.vue'
@@ -253,6 +257,7 @@ export interface MultiselectFilterFnParams {
 export default defineComponent({
   name: 'KMultiselect',
   components: {
+    KBadge,
     KButton,
     KIcon,
     KInput,
