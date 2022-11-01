@@ -148,7 +148,7 @@
                 icon="spinner"
               />
             </slot>
-            <ul
+            <div
               v-else
               class="k-select-list ma-0 pa-0"
             >
@@ -172,7 +172,7 @@
                 :item="{ label: 'No results', value: 'no_results' }"
                 class="k-select-empty-item"
               />
-            </ul>
+            </div>
             <slot
               v-if="!loading && !filteredItems.length"
               name="empty"

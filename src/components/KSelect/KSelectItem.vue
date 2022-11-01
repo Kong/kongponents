@@ -1,5 +1,5 @@
 <template>
-  <li
+  <div
     :key="item.key"
     :data-testid="`k-select-item-${item.value}`"
     class="k-select-item"
@@ -26,7 +26,7 @@
         </span>
       </button>
     </div>
-  </li>
+  </div>
 </template>
 
 <script lang="ts">
