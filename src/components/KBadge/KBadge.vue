@@ -4,7 +4,7 @@
     :style="color && backgroundColor && {backgroundColor, color}"
     :tabindex="hidden ? -1 : 0"
     :aria-hidden="hidden ? true : undefined"
-    :class="[ `k-badge-${appearance}`, `k-badge-${shape}`]"
+    :class="[ `k-badge-${appearance}`, `k-badge-${shape}` ]"
     class="k-badge d-inline-flex"
   >
     <component
@@ -34,6 +34,7 @@
         icon="close"
         :color="color"
         size="10"
+        title="Remove"
       />
     </KButton>
   </div>

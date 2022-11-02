@@ -238,6 +238,7 @@ When using `autosuggest`, you **MUST** use `v-model` otherwise the Multiselect c
 :::
 
 <div>
+  <KLabel>Value:</KLabel> {{ myAutoVal }}
   <KMultiselect
     v-model="myAutoVal"
     autosuggest

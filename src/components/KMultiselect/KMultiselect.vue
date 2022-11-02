@@ -490,11 +490,11 @@ export default defineComponent({
     // handles programmatic selections
     const handleMultipleItemsSelect = (items: MultiselectItem[]) => {
       items.forEach(itemToSelect => {
-        const selectedItem = unfilteredItems.value.filter(anItem => anItem.key === itemToSelect.key)[0]
+        const selectedItem = unfilteredItems.value.filter(anItem => anItem.value === itemToSelect.value)[0]
         selectedItem.selected = true
         selectedItem.key = selectedItem?.key?.includes('-selected') ? selectedItem.key : `${selectedItem.key}-selected`
         // if it isn't already in selectedItems, add it
-        if (!selectedItems.value.filter(anItem => anItem.key === selectedItem.key).length) {
+        if (!selectedItems.value.filter(anItem => anItem.value === selectedItem.value).length) {
           selectedItems.value.push(selectedItem)
           visibleSelectedItemsStaging.value.push(selectedItem)
         }
@@ -505,19 +505,29 @@ export default defineComponent({
 
     // handle item select/deselect from dropdown
     const handleItemSelect = (item: MultiselectItem) => {
-      const selectedItem = unfilteredItems.value.filter(anItem => anItem.key === item.key)[0]
+      let selectedItem = unfilteredItems.value.filter(anItem => anItem.value === item.value)?.[0] || null
+
+      // if it wasn't in unfilteredItems, we are probably filtering with autosuggest, so get it from selectedItems
+      if (selectedItem === null) {
+        selectedItem = selectedItems.value.filter(anItem => anItem.value === item.value)?.[0] || null
+      }
+      // if we still couldn't find it, bail
+      if (selectedItem === null) {
+        return
+      }
+
       // if clicked item is already selected
       if (selectedItem.selected) {
-        selectedItems.value = selectedItems.value.filter(anItem => anItem.key !== item.key)
+        selectedItems.value = selectedItems.value.filter(anItem => anItem.value !== item.value)
         // remove item from visibility arrays
-        if (visibleSelectedItemsStaging.value.filter(anItem => anItem.key === item.key).length) {
-          visibleSelectedItemsStaging.value = visibleSelectedItemsStaging.value.filter(anItem => anItem.key !== item.key)
-        } else if (invisibleSelectedItemsStaging.value.filter(anItem => anItem.key === item.key).length) {
-          invisibleSelectedItemsStaging.value = invisibleSelectedItemsStaging.value.filter(anItem => anItem.key !== item.key)
+        if (visibleSelectedItemsStaging.value.filter(anItem => anItem.value === item.value).length) {
+          visibleSelectedItemsStaging.value = visibleSelectedItemsStaging.value.filter(anItem => anItem.value !== item.value)
+        } else if (invisibleSelectedItemsStaging.value.filter(anItem => anItem.value === item.value).length) {
+          invisibleSelectedItemsStaging.value = invisibleSelectedItemsStaging.value.filter(anItem => anItem.value !== item.value)
         }
         // deselect item
         selectedItem.selected = false
-        selectedItem.key = selectedItem?.key?.replace(/-selected/gi, '')
+        selectedItem.key = selectedItem.key?.replace(/-selected/gi, '')
 
         // if some items are hidden grab the first hidden one and add it into the visible array
         if (invisibleSelectedItemsStaging.value.length) {
@@ -528,7 +538,7 @@ export default defineComponent({
         }
       } else { // newly selected item
         selectedItem.selected = true
-        selectedItem.key = selectedItem?.key?.includes('-selected') ? selectedItem.key : `${selectedItem.key}-selected`
+        selectedItem.key = selectedItem.key?.includes('-selected') ? selectedItem.key : `${selectedItem.key}-selected`
         selectedItems.value.push(selectedItem)
         visibleSelectedItemsStaging.value.push(selectedItem)
       }
@@ -671,12 +681,16 @@ export default defineComponent({
 
         unfilteredItems.value[i].key = `${unfilteredItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}` || `k-multiselect-item-label-${i}`
         if (props.modelValue.includes(unfilteredItems.value[i].value) || unfilteredItems.value[i].selected) {
-          unfilteredItems.value[i].selected = true
-          unfilteredItems.value[i].key += '-selected'
+          const selectedItem = unfilteredItems.value[i]
+          selectedItem.selected = true
+          selectedItem.key = selectedItem.key?.includes('-selected') ? selectedItem.key : `${selectedItem.key}-selected`
           // if it isn't already in the selectedItems array, add it
-          if (!selectedItems.value.filter(anItem => anItem.key === unfilteredItems.value[i].key).length) {
-            selectedItems.value.push(unfilteredItems.value[i])
-            visibleSelectedItemsStaging.value.push(unfilteredItems.value[i])
+          if (!selectedItems.value.filter(anItem => anItem.value === selectedItem.value).length) {
+            selectedItems.value.push(selectedItem)
+          }
+          // if it isn't already in the selectedItems array, add it
+          if (!visibleSelectedItemsStaging.value.filter(anItem => anItem.value === selectedItem.value).length) {
+            visibleSelectedItemsStaging.value.push(selectedItem)
           }
         }
 
