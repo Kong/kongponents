@@ -851,9 +851,9 @@ export default defineComponent({
       }
 
       input.k-input:not([type="checkbox"]):not([type="radio"]) {
-        height: calc(100% - 2px);
         // slightly smaller than container so we can see
         // the container's box-shadow
+        height: calc(100% - 2px);
         width: calc(100% - 4px);
         margin: 1px;
         position: relative;
