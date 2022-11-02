@@ -741,6 +741,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/styles/variables';
 @import '@/styles/functions';
+@import '@/styles/mixins';
 
 .k-multiselect {
   width: fit-content; // necessary for correct placement of popup
@@ -805,23 +806,24 @@ export default defineComponent({
   .k-multiselect-trigger {
     display: inline-block;
     position: relative;
-    // mimic input's box shadow styling
-    background-color: var(--KInputBackground, var(--white));
-    box-shadow: inset 0 0 0 1px var(--KInputBorder, var(--grey-300)) !important;
     border-radius: 3px;
+    // mimic input's box shadow styling
+    @include input-default;
 
     &.hovered {
-      box-shadow: inset 0 0 0 1px var(--KInputHover, var(--blue-200)) !important;
+      @include input-hover;
     }
 
     &.focused {
-      box-shadow: inset 0 0 0 1px var(--KInputFocus, var(--blue-400)) !important;
+      @include input-focus;
     }
 
-    &.readonly,
+    &.readonly {
+      @include input-readonly;
+    }
+
     &.disabled {
-      background-color: var(--KInputReadonlyBackground, var(--grey-100, #f8f8fa));
-      box-shadow: inset 0 0 0 1px var(--KInputBorder, var(--grey-300)) !important;
+      @include input-disabled;
     }
 
     .k-multiselect-input {
@@ -849,11 +851,13 @@ export default defineComponent({
       }
 
       input.k-input:not([type="checkbox"]):not([type="radio"]) {
-        height: 100%;
+        height: calc(100% - 2px);
         // slightly smaller than container so we can see
         // the container's box-shadow
-        width: calc(100% - 3px);
+        width: calc(100% - 4px);
         margin: 1px;
+        position: relative;
+        left: 1px;
         // remove input's default box shadow
         box-shadow: none !important;
 
