@@ -535,8 +535,8 @@ export default defineComponent({
       const selectedVals = selectedItems.value.map(anItem => anItem.value)
 
       emit('selected', selectedItems.value)
-      emit('update:modelValue', selectedVals)
       emit('change', item)
+      emit('update:modelValue', selectedVals)
     }
 
     // sort dropdown items. Selected items displayed before unselected items
