@@ -536,8 +536,6 @@ export default defineComponent({
 
       emit('selected', selectedItems.value)
       emit('update:modelValue', selectedVals)
-      // this 'input' event must be emitted for v-model binding to work properly
-      emit('input', selectedVals)
       emit('change', item)
     }
 
@@ -561,8 +559,6 @@ export default defineComponent({
       stageSelections()
 
       emit('selected', [])
-      // this 'input' event must be emitted for v-model binding to work properly
-      emit('input', [])
       emit('change', null)
       emit('update:modelValue', [])
       emit('query-change', '')

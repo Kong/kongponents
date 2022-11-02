@@ -465,12 +465,12 @@ You can use the `empty` slot to customize the look of the dropdown list when the
 
 ## Events
 
-| Event          | returns             |
-| :--------      | :------------------ |
-| `selected`     | array of selected item objects |
-| `input`        | array of selected item values |
-| `change`       | last item selected/deselected Object or null |
-| `query-change` | `query` String |
+| Event                 | returns             |
+| :--------             | :------------------ |
+| `selected`            | array of selected item objects |
+| `update:modelValue`   | array of selected item values |
+| `change`              | last item selected/deselected Object or null |
+| `query-change`        | `query` String |
 
 </div>
 
