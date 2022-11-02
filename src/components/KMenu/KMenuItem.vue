@@ -1,7 +1,7 @@
 <template>
   <div
     :id="menuItemId"
-    :data-testid="item ? `${item.title.replace(' ', '-')}-menu-item` : 'menu-item'"
+    :data-testid="item ? `${item.title.replace(/ /gi, '-')}-menu-item` : 'menu-item'"
     :test-mode="!!testMode || undefined"
     :class="[isOpen ? 'title-dark' : '', {'expando-item' : expandable}]"
     class="k-menu-item"
