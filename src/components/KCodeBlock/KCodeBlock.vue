@@ -804,7 +804,11 @@ $tabSize: 2;
 }
 
 .k-code-block code {
+  // This is an essential performance regression prevention in scenarios where the code block content is being syntax-highlighted using PrismJS (see https://github.com/PrismJS/prism/issues/2062). I’ve observed noticeable performance issues as recent as October 2022.
   display: block;
+
+  // This element will act as a grid item whose minimum width is initially `auto` which in turn can cause the CSS box to overflow which is not desirable here.
+  min-width: 0;
 }
 
 .k-code-block:focus-visible {
