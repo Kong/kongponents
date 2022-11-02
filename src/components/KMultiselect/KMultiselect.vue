@@ -494,7 +494,6 @@ export default defineComponent({
         const selectedItem = unfilteredItems.value.filter(anItem => anItem.key === itemToSelect.key)[0]
         selectedItem.selected = true
         selectedItem.key = selectedItem?.key?.includes('-selected') ? selectedItem.key : `${selectedItem.key}-selected`
-        selectedItem.key += '-selected'
         selectedItems.value.push(selectedItem)
         visibleSelectedItemsStaging.value.push(selectedItem)
       })
@@ -528,7 +527,6 @@ export default defineComponent({
       } else { // newly selected item
         selectedItem.selected = true
         selectedItem.key = selectedItem?.key?.includes('-selected') ? selectedItem.key : `${selectedItem.key}-selected`
-        selectedItem.key += '-selected'
         selectedItems.value.push(selectedItem)
         visibleSelectedItemsStaging.value.push(selectedItem)
       }
