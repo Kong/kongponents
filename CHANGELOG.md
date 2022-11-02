@@ -1,3 +1,11 @@
+## [8.1.4](https://github.com/Kong/kongponents/compare/v8.1.3...v8.1.4) (2022-11-02)
+
+
+### Bug Fixes
+
+* **kcodeblock:** code block content overflowing ([#873](https://github.com/Kong/kongponents/issues/873)) ([9c3e79f](https://github.com/Kong/kongponents/commit/9c3e79f11d8db10d7872752ce8a4b83fcd4a34de))
+* replace all instances of a space ([#869](https://github.com/Kong/kongponents/issues/869)) ([6672ce8](https://github.com/Kong/kongponents/commit/6672ce87c2efd690961eb9a10510ac1f91964296))
+
 ## [8.1.3](https://github.com/Kong/kongponents/compare/v8.1.2...v8.1.3) (2022-10-28)
 
 
