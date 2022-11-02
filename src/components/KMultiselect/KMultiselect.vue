@@ -735,8 +735,6 @@ export default defineComponent({
       onQueryChange,
       onInputFocus,
       onPopoverOpen,
-
-      value,
     }
   },
 })
