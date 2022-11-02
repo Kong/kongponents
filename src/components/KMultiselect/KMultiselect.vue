@@ -36,6 +36,7 @@
               toggle()
               sortItems()
             }
+            filterStr = ''
           }"
         >
           <div
