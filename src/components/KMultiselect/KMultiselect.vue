@@ -61,7 +61,7 @@
             >
               <KBadge
                 v-for="item, idx in visibleSelectedItems"
-                :key="`${item ? item.key : idx}-badge`"
+                :key="`${item.key ? item.key : idx}-badge`"
                 :truncation-tooltip="item.label"
                 shape="rectangular"
                 dismissable
@@ -91,7 +91,7 @@
                 @keyup.enter="clearSelection"
               >
                 <KIcon
-                  title="Clear all"
+                  title="Clear all selections"
                   icon="close"
                   color="var(--grey-500)"
                   size="12"
@@ -163,12 +163,12 @@
               <KMultiselectItem
                 v-if="!sortedItems.length && !$slots.empty"
                 key="k-multiselect-empty-state"
-                :item="{ label: 'No result found', value: 'no_results' }"
+                :item="{ label: 'No results found', value: 'no_results' }"
                 class="k-multiselect-empty-item"
               >
                 <template #content>
                   <div class="select-item-label">
-                    No result found
+                    No results found
                   </div>
                   <div class="select-item-desc">
                     Please adjust the criteria and try again
@@ -455,7 +455,7 @@ export default defineComponent({
       if (props.placeholder) {
         return props.placeholder
       } else if (attrs.placeholder) {
-        return attrs.placeholder as string
+        return String(attrs.placeholder || '')
       }
 
       return 'Filter...'
@@ -583,7 +583,8 @@ export default defineComponent({
       }
 
       const inputElem = document.getElementById(multiselectTextId.value)
-      if (!isToggled.value && inputElem) { // simulate click to trigger dropdown open
+      if (!isToggled.value && inputElem) { 
+        // simulate click to trigger dropdown open
         inputElem.click()
       }
     }

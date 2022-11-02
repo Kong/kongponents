@@ -8,7 +8,7 @@
     class="k-badge d-inline-flex"
   >
     <component
-      :is="truncationTooltip && (alwaysShowTooltip || !!isTruncated) ? 'KTooltip' : 'div'"
+      :is="truncationTooltip && (alwaysShowTooltip || isTruncated) ? 'KTooltip' : 'div'"
       class="k-badge-text truncate"
     >
       <template #content>

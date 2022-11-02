@@ -466,7 +466,7 @@ You can use the `empty` slot to customize the look of the dropdown list when the
 | :--------      | :------------------ |
 | `selected`     | array of selected item objects |
 | `input`        | array of selected item values |
-| `change`       | last selected/deselected Object or null |
+| `change`       | last item selected/deselected Object or null |
 | `query-change` | `query` String |
 
 </div>
