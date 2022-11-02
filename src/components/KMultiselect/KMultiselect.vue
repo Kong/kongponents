@@ -391,7 +391,7 @@ export default defineComponent({
 
         if (items.length) {
           handleMultipleItemsSelect(items)
-        } else if (!newValue.length || !items.length) {
+        } else if (!newValue.length) {
           clearSelection()
         }
       },
@@ -488,14 +488,15 @@ export default defineComponent({
 
     // handles programmatic selections
     const handleMultipleItemsSelect = (items: MultiselectItem[]) => {
-      selectedItems.value = []
-      visibleSelectedItemsStaging.value = []
       items.forEach(itemToSelect => {
         const selectedItem = unfilteredItems.value.filter(anItem => anItem.key === itemToSelect.key)[0]
         selectedItem.selected = true
         selectedItem.key = selectedItem?.key?.includes('-selected') ? selectedItem.key : `${selectedItem.key}-selected`
-        selectedItems.value.push(selectedItem)
-        visibleSelectedItemsStaging.value.push(selectedItem)
+        // if it isn't already in selectedItems, add it
+        if (!selectedItems.value.filter(anItem => anItem.key === selectedItem.key).length) {
+          selectedItems.value.push(selectedItem)
+          visibleSelectedItemsStaging.value.push(selectedItem)
+        }
       })
 
       stageSelections()
@@ -648,7 +649,7 @@ export default defineComponent({
         const items = unfilteredItems.value.filter((item: MultiselectItem) => newVal.includes(item.value))
         if (items.length) {
           handleMultipleItemsSelect(items)
-        } else {
+        } else if (!newVal.length) {
           clearSelection()
         }
       }
@@ -670,9 +671,12 @@ export default defineComponent({
         unfilteredItems.value[i].key = `${unfilteredItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}` || `k-multiselect-item-label-${i}`
         if (props.modelValue.includes(unfilteredItems.value[i].value) || unfilteredItems.value[i].selected) {
           unfilteredItems.value[i].selected = true
-          selectedItems.value.push(unfilteredItems.value[i])
-          visibleSelectedItemsStaging.value.push(unfilteredItems.value[i])
           unfilteredItems.value[i].key += '-selected'
+          // if it isn't already in the selectedItems array, add it
+          if (!selectedItems.value.filter(anItem => anItem.key === unfilteredItems.value[i].key).length) {
+            selectedItems.value.push(unfilteredItems.value[i])
+            visibleSelectedItemsStaging.value.push(unfilteredItems.value[i])
+          }
         }
 
         stageSelections()
@@ -731,6 +735,8 @@ export default defineComponent({
       onQueryChange,
       onInputFocus,
       onPopoverOpen,
+
+      value,
     }
   },
 })

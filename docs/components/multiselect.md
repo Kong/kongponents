@@ -233,22 +233,31 @@ export default defineComponent({
 Add the `autosuggest` prop to trigger a query to an API with the filter keyword, and then update `items` asynchronously as suggestions as the user types.
 Empty state content can be configured using the `empty` slot.
 
-<KMultiselect autosuggest
-  :items="itemsForAutosuggest"
-  :loading="loading"
-  @query-change="onQueryChange"
->
-  <template v-slot:item-template="{ item }">
-    <div class="select-item-label">{{ item.label }}</div>
-    <div class="select-item-desc">{{ item.description }}</div>
-  </template>
-  <template v-slot:empty>
-    <div>No results found</div>
-  </template>
-</KMultiselect>
+:::tip Note
+When using `autosuggest`, you **MUST** use `v-model` otherwise the Multiselect can't maintain an accurate list of which items are selected.
+:::
+
+<div>
+  <KMultiselect
+    v-model="myAutoVal"
+    autosuggest
+    :items="itemsForAutosuggest"
+    :loading="loading"
+    @query-change="onQueryChange"
+  >
+    <template v-slot:item-template="{ item }">
+      <div class="select-item-label">{{ item.label }}</div>
+      <div class="select-item-desc">{{ item.description }}</div>
+    </template>
+    <template v-slot:empty>
+      <div>No results found</div>
+    </template>
+  </KMultiselect>
+</div>
 
 ```html
 <KMultiselect
+  v-model="myAutoVal"
   autosuggest
   :items="items"
   :loading="loading"
@@ -273,6 +282,7 @@ const allItems = new Array(10).fill().map((_, i) => ({
 export default {
   data() {
     return {
+      myAutoVal: [],
       defaultItems: [],
       items: [],
       loading: false,
@@ -323,6 +333,7 @@ The following is an example:
 
 <div>
   <KMultiselect
+    v-model="myDebounceAutoVal"
     autosuggest
     :items="itemsForDebouncedAutosuggest"
     :loading="loadingForDebounced"
@@ -337,6 +348,7 @@ The following is an example:
 
 ```html
 <KMultiselect
+  v-model="myDebounceAutoVal"
   autosuggest
   :items="items"
   :loading="loading"
@@ -368,6 +380,7 @@ const allItems = new Array(10).fill().map((_, i) => ({
 export default {
   data() {
     return {
+      myDebounceAutoVal: [],
       defaultItems: [],
       items: [],
       loading: true,
@@ -537,6 +550,8 @@ export default defineComponent({
       myItems: getItems(5),
       mySelect: '',
       myVal: ['cats', 'bunnies'],
+      myAutoVal: [],
+      myDebounceAutoVal: [],
       defaultItems: [{
         label: 'Cats',
         value: 'cats',
