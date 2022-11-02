@@ -58,12 +58,12 @@ describe('KBadge', () => {
     cy.get('.k-tooltip').should('not.exist')
   })
 
-  it('renders tooltip without truncation if alwaysShowTooltip prop present', () => {
+  it('renders tooltip without truncation if forceTooltip prop present', () => {
     const tooltipText = 'Hello!'
     mount(KBadge, {
       props: {
         truncationTooltip: tooltipText,
-        alwaysShowTooltip: true,
+        forceTooltip: true,
       },
       slots: {
         default: () => 'Hello!',
