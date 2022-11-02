@@ -103,7 +103,9 @@ export default defineComponent({
     /**
      * Use this prop if you don't intend for the badge to actually be shown
      * or able to be interacted with by the user. This is used in KMultiselect
-     * to stage the badge before rendering the visible content to the user
+     * to stage the badge before rendering the visible content to the user.
+     *
+     * DO NOT REFACTOR USAGE WITHOUT CHECKING KMULTISELECT
      */
     hidden: {
       type: Boolean,

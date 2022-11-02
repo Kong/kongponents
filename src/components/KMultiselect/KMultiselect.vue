@@ -44,11 +44,7 @@
             :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }"
             class="k-multiselect-trigger"
             data-testid="k-multiselect-trigger"
-            @click="evt => {
-              if ($attrs.disabled !== undefined && String($attrs.disabled) !== 'false') {
-                evt.stopPropagation()
-              }
-            }"
+            @click="handleFilterClick"
           >
             <div
               v-if="isToggled.value && selectedItems.length"
@@ -135,12 +131,10 @@
             </div>
           </div>
           <template #content>
+            <!-- use @click.stop so we don't' close drop down when selecting/deselecting items -->
             <div
               class="k-multiselect-list ma-0 pa-0"
-              @click="evt => {
-                // don't close drop down when selecting/deselecting items
-                evt.stopPropagation()
-              }"
+              @click.stop
               @mouseenter="() => isHovered = true"
               @mouseleave="() => isHovered = false"
               @blur="() => isFocused = false"
@@ -184,13 +178,15 @@
         </KPop>
       </KToggle>
     </div>
-    <div class="staging-area">
+    <div
+      aria-hidden="true"
+      class="staging-area"
+    >
       <div
         :id="multiselectSelectedItemsStagingId"
         :key="stagingKey"
         :style="widthStyle"
         tabindex="-1"
-        aria-hidden="true"
         class="k-multiselect-selections staging"
       >
         <KBadge
@@ -464,6 +460,12 @@ export default defineComponent({
       return props.autosuggest ? unfilteredItems.value : props.filterFunc({ items: unfilteredItems.value, query: filterStr.value })
     })
 
+    const handleFilterClick = (evt: any) => {
+      if (attrs.disabled !== undefined && String(attrs.disabled) !== 'false') {
+        evt.stopPropagation()
+      }
+    }
+
     // make sure we don't grow past the max height of the selected items box
     // do the check off screen in the staging area so the UI doesn't jump
     const stageSelections = () => {
@@ -724,6 +726,7 @@ export default defineComponent({
       boundKPopAttributes,
       // functions
       sortItems,
+      handleFilterClick,
       handleItemSelect,
       clearSelection,
       triggerFocus,
@@ -741,11 +744,15 @@ export default defineComponent({
 
 .k-multiselect {
   width: fit-content; // necessary for correct placement of popup
+  position: relative; // so staging area is positioned around this node
 
   // off screen area for checking selections before display
   .staging-area {
+    visibility: hidden;
     position: absolute;
     left: -99999px;
+    pointer-events: none;
+    z-index: -1;
   }
 
   .k-multiselect-selections {
@@ -845,7 +852,7 @@ export default defineComponent({
         height: 100%;
         // slightly smaller than container so we can see
         // the container's box-shadow
-        width: 99%;
+        width: calc(100% - 3px);
         margin: 1px;
         // remove input's default box shadow
         box-shadow: none !important;
