@@ -25,6 +25,8 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import KButton from '@/components/KButton/KButton.vue'
+import KIcon from '@/components/KIcon/KIcon.vue'
 
 export const appearances = {
   default: 'default',
@@ -41,6 +43,11 @@ export const shapes = {
 }
 
 export default defineComponent({
+  components: {
+    KButton,
+    KIcon,
+  },
+
   props: {
     /**
       * Base styling<br>
