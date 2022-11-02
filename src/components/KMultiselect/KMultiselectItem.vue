@@ -3,7 +3,6 @@
     :key="item.key"
     class="k-multiselect-item"
     :data-testid="`k-multiselect-item-${item.value}`"
-    @click="handleClick"
   >
     <div
       role="option"
@@ -12,6 +11,7 @@
       <button
         :value="item.value"
         :class="{ disabled, selected: item.selected }"
+        @click="handleClick"
       >
         <span class="k-multiselect-item-label mr-2">
           <slot name="content">{{ item.label }}</slot>

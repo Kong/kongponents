@@ -192,6 +192,31 @@ export default defineComponent({
   data() {
     return {
       myVal: ['cats', 'bunnies'],
+      items: [{
+        label: 'Cats',
+        value: 'cats',
+        selected: true
+      }, {
+        label: 'Dogs',
+        value: 'dogs'
+      }, {
+        label: 'Bunnies',
+        value: 'bunnies',
+        selected: true
+      },
+      {
+        label: 'Lions',
+        value: 'lions'
+      }, {
+        label: 'Tigers',
+        value: 'tigers'
+      }, {
+        label: 'Bears',
+        value: 'bears'
+      }, {
+        label: 'A long & truncated item',
+        value: 'long'
+      }]
     }
   },
   methods: {
