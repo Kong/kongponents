@@ -6,7 +6,7 @@
       'danger': isDangerous,
       'k-dropdown-selected-option': selected
     }"
-    :data-testid="`k-dropdown-item-${label.replace(' ', '-')}`"
+    :data-testid="`k-dropdown-item-${label.replace(/ /gi, '-')}`"
     class="k-dropdown-item w-100"
   >
     <a
