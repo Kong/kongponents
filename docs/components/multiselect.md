@@ -4,14 +4,17 @@
 
 **Multiselect** - Multiselect component
 
-The total count of selected items will be displayed as the placeholder text when the multiselect is collapsed. When items are selected they will be shown as dismissible badges above the filter input when the multiselect has focus. If at least one item is selected, there will be a clear all button displayed in place of the dropdown chevron when the multiselect has focus. Selected items are displayed at the top of the dropdown for easy access (refreshed on multiselect collapse).
+- The total count of selected items will be displayed as the placeholder text when the multiselect is collapsed.
+- When items are selected they will be shown as dismissible badges above the filter input when the multiselect has focus.
+- If at least one item is selected, there will be a clear all button displayed in place of the dropdown chevron when the multiselect has focus.
+- Selected items are displayed at the top of the dropdown for easy access (refreshed on multiselect collapse).
 
 <div>
-  <KMultiselect label="Pick Something:" :items="deepClone(defaultItemsUnselect)" />
+  <KMultiselect label="Pick Something" :items="deepClone(defaultItemsUnselect)" />
 </div>
 
 ```html
-<KMultiselect label="Pick Something:" :items="items" />
+<KMultiselect label="Pick Something" :items="items" />
 ```
 
 ## Props
@@ -106,16 +109,16 @@ Because we are controlling the widths of multiple elements, we recommend using t
 <KMultiselect width="350" :items="items" />
 ```
 
-### selectionRowCount
+### selectedRowCount
 
 Use this prop to customize the number of rows of selections to display when the multiselect has focus. By default, we display 2 rows of selections. Additional selections will be combined into an additional count badge if the number of selections would extend beyond the selection row count. You can hover over this badge to see the remaining selections.
 
 <div>
-  <KMultiselect :selectionRowCount="1" :items="deepClone(defaultItemsCollapse)" />
+  <KMultiselect :selected-row-count="1" :items="deepClone(defaultItemsCollapse)" />
 </div>
 
 ```html
-<KMultiselect :selectionRowCount="1" :items="items" />
+<KMultiselect :selected-row-count="1" :items="items" />
 ```
 
 ### dropdownMaxHeight

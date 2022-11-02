@@ -93,14 +93,14 @@ Use this prop if you would like to conditionally display a tooltip when the badg
 <KBadge truncation-tooltip="Hey! Let me see that awesome truncation">Hey! Let me see that awesome truncation</KBadge>
 ```
 
-### alwaysShowTooltip
+### forceTooltip
 
 If you want to show the tooltip regardless of whether the badge text is truncated, use this prop.
 
-<KBadge truncation-tooltip="But I'm tooltipping anyways" always-show-tooltip>Truncation unnecessary</KBadge>
+<KBadge truncation-tooltip="But I'm tooltipping anyways" force-tooltip>Truncation unnecessary</KBadge>
 
 ```html
-<KBadge truncation-tooltip="But I'm tooltipping anyways" always-show-tooltip>Truncation unnecessary</KBadge>
+<KBadge truncation-tooltip="But I'm tooltipping anyways" force-tooltip>Truncation unnecessary</KBadge>
 ```
 
 ## Slots

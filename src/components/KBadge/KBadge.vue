@@ -8,7 +8,7 @@
     class="k-badge d-inline-flex"
   >
     <component
-      :is="truncationTooltip && (alwaysShowTooltip || isTruncated) ? 'KTooltip' : 'div'"
+      :is="truncationTooltip && (forceTooltip || isTruncated) ? 'KTooltip' : 'div'"
       class="k-badge-text truncate"
     >
       <template #content>
@@ -91,7 +91,7 @@ export default defineComponent({
      * Use this prop if you always want to show the tooltip whether
      * or not the badge text is truncated.
      */
-    alwaysShowTooltip: {
+    forceTooltip: {
       type: Boolean,
       default: false,
     },

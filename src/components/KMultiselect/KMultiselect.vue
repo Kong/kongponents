@@ -70,8 +70,7 @@
               >
                 {{ item.label }}
               </KBadge>
-              <!-- Always render this badge even if it's hidden to ensure there will be
-                   enough space to show it -->
+              <!-- Always render this badge even if it's hidden to ensure there will be enough space to show it -->
               <KBadge
                 shape="rectangular"
                 :truncation-tooltip="hiddenItemsTooltip"
@@ -117,6 +116,7 @@
                 :placeholder="getPlaceholderText(isToggled.value)"
                 autocomplete="off"
                 autocapitalize="off"
+                type="text"
                 :class="{ 'mt-1': isToggled.value && selectedItems.length }"
                 class="k-multiselect-input input-placeholder-dark"
                 data-testid="k-multiselect-input"
@@ -147,8 +147,8 @@
               @focus="isFocused = true"
             >
               <KMultiselectItem
-                v-for="item in sortedItems"
-                :key="item.key"
+                v-for="item, idx in sortedItems"
+                :key="`${item.key ? item.key : idx}-item`"
                 :item="item"
                 @selected="handleItemSelect"
               >
@@ -194,18 +194,16 @@
         class="k-multiselect-selections staging"
       >
         <KBadge
-          v-for="item in visibleSelectedItemsStaging"
-          :key="`${item ? item.key : ''}-badge`"
+          v-for="item, idx in visibleSelectedItemsStaging"
+          :key="`${item.key ? item.key : idx}-badge`"
           shape="rectangular"
           dismissable
           hidden
           class="mr-1 mt-2"
         >
-          {{ item ? item.label : '' }}
+          {{ item.label }}
         </KBadge>
-        <!-- Always render this badge even if it's hidden to ensure there will be
-             enough space to show it
-        -->
+        <!-- Always render this badge even if it's hidden to ensure there will be enough space to show it -->
         <KBadge
           shape="rectangular"
           hidden
@@ -303,7 +301,7 @@ export default defineComponent({
     /**
      * Number of rows of selections to show when focused
      */
-    selectionRowCount: {
+    selectedRowCount: {
       type: Number,
       default: 2,
     },
@@ -318,7 +316,7 @@ export default defineComponent({
       type: Array as PropType<MultiselectItem[]>,
       default: () => [],
       // Items must have a label & value
-      validator: (items: MultiselectItem[]) => !items.length || items.some(i => i.label !== undefined && i.value !== undefined),
+      validator: (items: MultiselectItem[]) => !items.length || items.every(i => i.label !== undefined && i.value !== undefined),
     },
     /**
      * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
@@ -368,7 +366,7 @@ export default defineComponent({
     const multiselectSelectedItemsStagingId = computed((): string => props.testMode ? 'test-multiselect-selected-staging-id-1234' : uuidv1())
     // filter and selection
     const selectionsMaxHeight = computed((): number => {
-      return props.selectionRowCount * SELECTED_ITEMS_SINGLE_LINE_HEIGHT
+      return props.selectedRowCount * SELECTED_ITEMS_SINGLE_LINE_HEIGHT
     })
     const filterStr = ref('')
     const popper = ref(null)
@@ -583,7 +581,7 @@ export default defineComponent({
       }
 
       const inputElem = document.getElementById(multiselectTextId.value)
-      if (!isToggled.value && inputElem) { 
+      if (!isToggled.value && inputElem) {
         // simulate click to trigger dropdown open
         inputElem.click()
       }
@@ -847,7 +845,7 @@ export default defineComponent({
         color: var(--KInputColor, var(--black-70, rgba(0, 0, 0, 0.7))) !important;
       }
 
-      input.k-input:not([type=checkbox]):not([type=radio]) {
+      input.k-input:not([type="checkbox"]):not([type="radio"]) {
         height: 100%;
         // slightly smaller than container so we can see
         // the container's box-shadow
