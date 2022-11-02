@@ -144,7 +144,7 @@ describe('KMultiselect', () => {
     cy.getTestId(`k-multiselect-item-${vals[0]}`).should('contain.text', labels[0])
     cy.getTestId(`k-multiselect-item-${vals[1]}`).should('not.be.visible')
 
-    cy.getTestId(`k-multiselect-item-${vals[0]}`).eq(1).click({ force: true })
+    cy.getTestId(`k-multiselect-item-${vals[0]}`).eq(1).click()
     cy.getTestId('k-multiselect-selections').should('contain.text', labels[0])
   })
 
