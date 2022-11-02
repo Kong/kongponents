@@ -1,3 +1,10 @@
+## [8.1.5](https://github.com/Kong/kongponents/compare/v8.1.4...v8.1.5) (2022-11-02)
+
+
+### Bug Fixes
+
+* **kbadge:** components not being registered ([#872](https://github.com/Kong/kongponents/issues/872)) ([3054b24](https://github.com/Kong/kongponents/commit/3054b245194a4f2c98dfa7f222143d06954e233b))
+
 ## [8.1.4](https://github.com/Kong/kongponents/compare/v8.1.3...v8.1.4) (2022-11-02)
 
 
