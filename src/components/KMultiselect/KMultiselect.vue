@@ -71,7 +71,7 @@
               <KBadge
                 shape="rectangular"
                 :truncation-tooltip="hiddenItemsTooltip"
-                always-show-tooltip
+                force-tooltip
                 :class="{ 'hidden': !invisibleSelectedItems.length }"
                 class="mt-2 hidden-selection-count"
               >
