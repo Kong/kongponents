@@ -192,6 +192,36 @@ describe('KMultiselect', () => {
     })
   })
 
+  it('always shows selections when slimDisplay is false', () => {
+    const labels = ['Label 1', 'Label 2']
+    const vals = ['label1', 'label2']
+
+    mount(KMultiselect, {
+      props: {
+        testMode: true,
+        slimDisplay: false,
+        items: [{
+          label: labels[0],
+          value: vals[0],
+          selected: true,
+        }, {
+          label: labels[1],
+          value: vals[1],
+          selected: true,
+        }],
+      },
+    })
+
+    cy.getTestId('k-multiselect-selections').should('exist')
+
+    cy.getTestId('k-multiselect-selections').should('contain.text', labels[0])
+    cy.getTestId('k-multiselect-selections').should('contain.text', labels[1])
+
+    cy.get('.k-multiselect-input').click()
+
+    cy.getTestId('k-multiselect-selections').should('exist')
+  })
+
   it('can clear all selections when focused', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']

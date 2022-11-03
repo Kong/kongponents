@@ -126,7 +126,7 @@ Use this prop to customize the number of rows of selections to display when the 
 By default, we display KMultiselect in `slim` mode. This means that when KMultiselect only takes up a single line when it doesn't have focus, and when focused, if the selected entries would display beyond the `selectedRowCount` we collapse them into the additional count badge. You can set `slimDisplay` to `false` if you want to continue to see the selections even when KMultiselect doesn't have focus. Instead of collapsing additional selections into the additional count badge we will instead allow you to scroll through all of your selections.
 
 <div>
-  <KMultiselect :slim-display="false" :items="deepClone(defaultItemsCollapse)" />
+  <KMultiselect :slim-display="false" :items="deepClone(defaultItemsManySelected)" />
 </div>
 
 ```html
@@ -611,6 +611,35 @@ export default defineComponent({
       }, {
         label: 'Bears',
         value: 'bears'
+      }, {
+        label: 'A long & truncated item',
+        value: 'long',
+        selected: true
+      }],
+      defaultItemsManySelected: [{
+        label: 'Cats',
+        value: 'cats',
+        selected: true
+      }, {
+        label: 'Dogs',
+        value: 'dogs',
+        selected: true
+      }, {
+        label: 'Bunnies',
+        value: 'bunnies',
+        selected: true
+      },
+      {
+        label: 'Lions',
+        value: 'lions'
+      }, {
+        label: 'Tigers',
+        value: 'tigers',
+        selected: true
+      }, {
+        label: 'Bears',
+        value: 'bears',
+        selected: true
       }, {
         label: 'A long & truncated item',
         value: 'long',
