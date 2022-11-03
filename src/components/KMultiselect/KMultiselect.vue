@@ -8,7 +8,7 @@
       v-if="label"
       :for="multiselectId"
       v-bind="labelAttributes"
-      data-testid="k-multiselect-label"
+      :data-testid="labelAttributes['data-testid'] ? labelAttributes['data-testid'] : 'k-multiselect-label'"
     >
       {{ label }}
     </KLabel>
