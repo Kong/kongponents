@@ -1,3 +1,15 @@
+# [8.2.0](https://github.com/Kong/kongponents/compare/v8.1.5...v8.2.0) (2022-11-03)
+
+
+### Bug Fixes
+
+* **deps:** bump swrv from 1.0.0 to 1.0.1 ([#874](https://github.com/Kong/kongponents/issues/874)) ([9560850](https://github.com/Kong/kongponents/commit/95608505a68d85a8867f80bdfa429a65402f0c6d))
+
+
+### Features
+
+* **kmultiselect:** new component [khcp-5147] ([#859](https://github.com/Kong/kongponents/issues/859)) ([37bc2fd](https://github.com/Kong/kongponents/commit/37bc2fd01a1de3ae755680366810a3dd2bc55852))
+
 ## [8.1.5](https://github.com/Kong/kongponents/compare/v8.1.4...v8.1.5) (2022-11-02)
 
 
