@@ -1,6 +1,7 @@
 <template>
   <div
     :key="item.key"
+    role="listitem"
     class="k-multiselect-item"
     :data-testid="`k-multiselect-item-${item.value}`"
   >

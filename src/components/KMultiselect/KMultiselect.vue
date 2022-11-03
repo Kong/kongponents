@@ -144,7 +144,6 @@
                 v-for="item, idx in sortedItems"
                 :key="`${item.key ? item.key : idx}-item`"
                 :item="item"
-                role="listitem"
                 @selected="handleItemSelect"
               >
                 <template #content>
@@ -159,7 +158,6 @@
                 v-if="!sortedItems.length && !$slots.empty"
                 key="k-multiselect-empty-state"
                 :item="{ label: 'No results found', value: 'no_results' }"
-                role="listitem"
                 class="k-multiselect-empty-item"
               >
                 <template #content>
