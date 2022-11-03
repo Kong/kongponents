@@ -80,6 +80,10 @@
               >
                 +{{ invisibleSelectedItems.length }}
               </KBadge>
+              <div
+                v-if="!slimDisplay"
+                ref="selectionBottomRef"
+              />
             </div>
             <div class="k-multiselect-icon">
               <KButton
@@ -377,6 +381,7 @@ export default defineComponent({
     const multiselectSelectedItemsId = computed((): string => props.testMode ? 'test-multiselect-selected-id-1234' : uuidv1())
     const multiselectSelectedItemsStagingId = computed((): string => props.testMode ? 'test-multiselect-selected-staging-id-1234' : uuidv1())
     const multiselectRef = ref<HTMLElement | null>(null)
+    const selectionBottomRef = ref<HTMLElement | null>(null)
     // filter and selection
     const selectionsMaxHeight = computed((): number => {
       return props.selectedRowCount * SELECTED_ITEMS_SINGLE_LINE_HEIGHT
@@ -577,6 +582,11 @@ export default defineComponent({
         selectedItem.key = selectedItem.key?.includes('-selected') ? selectedItem.key : `${selectedItem.key}-selected`
         selectedItems.value.push(selectedItem)
         visibleSelectedItemsStaging.value.push(selectedItem)
+
+        if (!props.slimDisplay) {
+          // if not slim, scroll new selections into view
+          scrollSmoothlyToBottom()
+        }
       }
 
       stageSelections()
@@ -585,6 +595,15 @@ export default defineComponent({
       emit('selected', selectedItems.value)
       emit('change', item)
       emit('update:modelValue', selectedVals)
+    }
+
+    const scrollSmoothlyToBottom = () => {
+      setTimeout(() => {
+        selectionBottomRef.value?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+        })
+      }, 200)
     }
 
     // sort dropdown items. Selected items displayed before unselected items
@@ -761,6 +780,7 @@ export default defineComponent({
       multiselectSelectedItemsStagingId,
       multiselectSelectedItemsId,
       multiselectRef,
+      selectionBottomRef,
       // text
       getPlaceholderText,
       filterStr,
