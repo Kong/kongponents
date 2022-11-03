@@ -171,8 +171,26 @@ export default function useUtilities() {
     }
   }
 
+  /**
+   * Convert a given string to a height with units. If no units are provided, append `px`.
+   * @param sizeStr A string that can be used for the height of an element.
+   * @returns A string to be used for the height of an element.
+   */
   const getSizeFromString = (sizeStr: string): string => {
     return sizeStr === 'auto' || sizeStr.endsWith('%') || sizeStr.endsWith('vw') || sizeStr.endsWith('vh') || sizeStr.endsWith('px') ? sizeStr : sizeStr + 'px'
+  }
+
+  /**
+   * Create a deep clone of an object
+   * @param val Object to be cloned
+   * @returns Cloned object
+   */
+  const cloneDeep = (val: Object) => {
+    if (!val) {
+      return
+    }
+
+    return JSON.parse(JSON.stringify(val))
   }
 
   return {
@@ -181,5 +199,6 @@ export default function useUtilities() {
     clientSideSorter,
     useSwrvStates,
     getSizeFromString,
+    cloneDeep,
   }
 }

@@ -148,7 +148,7 @@
                 icon="spinner"
               />
             </slot>
-            <ul
+            <div
               v-else
               class="k-select-list ma-0 pa-0"
             >
@@ -172,7 +172,7 @@
                 :item="{ label: 'No results', value: 'no_results' }"
                 class="k-select-empty-item"
               />
-            </ul>
+            </div>
             <slot
               v-if="!loading && !filteredItems.length"
               name="empty"
@@ -295,7 +295,7 @@ export default defineComponent({
       required: false,
       default: () => [],
       // Items must have a label & value
-      validator: (items: SelectItem[]) => !items.length || items.some(i => i.label !== undefined && i.value !== undefined),
+      validator: (items: SelectItem[]) => !items.length || items.every(i => i.label !== undefined && i.value !== undefined),
     },
     /**
      * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
@@ -805,7 +805,7 @@ export default defineComponent({
     .k-select-empty-item button:focus,
     .k-select-empty-item button:hover {
       font-style: italic;
-      color: var(--grey-400);
+      color: var(--grey-500);
     }
 
     ul {

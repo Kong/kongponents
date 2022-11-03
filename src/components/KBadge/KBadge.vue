@@ -1,32 +1,50 @@
 <template>
   <div
     v-if="!isDismissed"
-    :class="[ `k-badge-${appearance}`, `k-badge-${shape}`]"
     :style="color && backgroundColor && {backgroundColor, color}"
+    :tabindex="hidden ? -1 : 0"
+    :aria-hidden="hidden ? true : undefined"
+    :class="[ `k-badge-${appearance}`, `k-badge-${shape}` ]"
     class="k-badge d-inline-flex"
   >
-    <span class="k-badge-text truncate">
-      <slot />
-    </span>
+    <component
+      :is="truncationTooltip && (forceTooltip || isTruncated) ? 'KTooltip' : 'div'"
+      class="k-badge-text truncate"
+    >
+      <template #content>
+        {{ truncationTooltip }}
+      </template>
+      <div
+        ref="badgeText"
+        class="k-badge-text truncate"
+      >
+        <slot />
+      </div>
+    </component>
     <KButton
       v-if="dismissable"
       :is-rounded="shape === 'rounded'"
+      :tabindex="hidden ? -1 : 0"
+      :aria-hidden="hidden ? true : undefined"
       class="k-badge-dismiss-button ml-1"
-      @click="isDismissed = true"
+      data-testid="k-badge-dismiss-button"
+      @click="handleDismiss"
     >
       <KIcon
         icon="close"
         :color="color"
         size="10"
+        title="Remove"
       />
     </KButton>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, computed, watch } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
+import KTooltip from '@/components/KTooltip/KTooltip.vue'
 
 export const appearances = {
   default: 'default',
@@ -43,11 +61,12 @@ export const shapes = {
 }
 
 export default defineComponent({
+  name: 'KBadge',
   components: {
     KButton,
     KIcon,
+    KTooltip,
   },
-
   props: {
     /**
       * Base styling<br>
@@ -61,8 +80,35 @@ export default defineComponent({
       },
       default: 'default',
     },
+    /**
+     * For use with truncation. This text will be displayed
+     * on hover of the badge if the text is truncated.
+     */
+    truncationTooltip: {
+      type: String,
+      default: '',
+    },
+    /**
+     * Use this prop if you always want to show the tooltip whether
+     * or not the badge text is truncated.
+     */
+    forceTooltip: {
+      type: Boolean,
+      default: false,
+    },
 
     dismissable: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Use this prop if you don't intend for the badge to actually be shown
+     * or able to be interacted with by the user. This is used in KMultiselect
+     * to stage the badge before rendering the visible content to the user.
+     *
+     * DO NOT REFACTOR USAGE WITHOUT CHECKING KMULTISELECT
+     */
+    hidden: {
       type: Boolean,
       default: false,
     },
@@ -88,11 +134,35 @@ export default defineComponent({
       default: '',
     },
   },
-  setup() {
+  emits: ['dismissed'],
+  setup(props, { emit }) {
+    const badgeText = ref<HTMLElement | null>(null)
     const isDismissed = ref(false)
 
+    const handleDismiss = () => {
+      isDismissed.value = true
+      emit('dismissed')
+    }
+
+    const offsetWidth = ref(0)
+    const scrollWidth = ref(0)
+    const truncationCalculated = ref(false)
+    const isTruncated = computed(() => offsetWidth.value < scrollWidth.value)
+
+    watch(badgeText, () => {
+      // prevent recursion loop
+      if (badgeText.value && !truncationCalculated.value) {
+        offsetWidth.value = badgeText.value?.offsetWidth
+        scrollWidth.value = badgeText.value?.scrollWidth
+        truncationCalculated.value = true
+      }
+    })
+
     return {
+      badgeText,
       isDismissed,
+      handleDismiss,
+      isTruncated,
     }
   },
 })
@@ -145,7 +215,9 @@ export default defineComponent({
 
     .k-badge-dismiss-button {
       border-top-left-radius: 0;
+      border-top-right-radius: var(--KBadgeBorderRadius, 4px);
       border-bottom-left-radius: 0;
+      border-bottom-right-radius: var(--KBadgeBorderRadius, 4px);
     }
   }
 
@@ -189,6 +261,14 @@ export default defineComponent({
         background-color: var(--KBadgeDefaultButtonHoverColor, var(--blue-200, color(blue-200)));
       }
     }
+
+    &:focus {
+      background-color: var(--KBadgeDefaultButtonHoverColor, var(--blue-200, color(blue-200)));
+
+      .k-badge-dismiss-button {
+        background-color: var(--KBadgeDefaultButtonHoverColor, var(--blue-200, color(blue-200)));
+      }
+    }
   }
 
   &.k-badge-success {
@@ -198,6 +278,14 @@ export default defineComponent({
       }
 
       &:hover {
+        background-color: var(--KBadgeSuccessButtonHoverColor, var(--green-200, color(green-200)));
+      }
+    }
+
+    &:focus {
+      background-color: var(--KBadgeSuccessButtonHoverColor, var(--green-200, color(green-200)));
+
+      .k-badge-dismiss-button {
         background-color: var(--KBadgeSuccessButtonHoverColor, var(--green-200, color(green-200)));
       }
     }
@@ -213,6 +301,14 @@ export default defineComponent({
         background-color: var(--KBadgeDangerButtonHoverColor, var(--red-200, color(red-200)));
       }
     }
+
+    &:focus {
+      background-color: var(--KBadgeDangerButtonHoverColor, var(--red-200, color(red-200)));
+
+      .k-badge-dismiss-button {
+        background-color: var(--KBadgeDangerButtonHoverColor, var(--red-200, color(red-200)));
+      }
+    }
   }
 
   &.k-badge-info {
@@ -225,6 +321,14 @@ export default defineComponent({
         background-color: var(--KBadgeInfoButtonHoverColor, var(--blue-300, color(blue-300)));
       }
     }
+
+    &:focus {
+      background-color: var(--KBadgeInfoButtonHoverColor, var(--blue-300, color(blue-300)));
+
+      .k-badge-dismiss-button {
+        background-color: var(--KBadgeInfoButtonHoverColor, var(--blue-300, color(blue-300)));
+      }
+    }
   }
 
   &.k-badge-warning {
@@ -234,6 +338,14 @@ export default defineComponent({
       }
 
       &:hover {
+        background-color: var(--KBadgeWarningButtonHoverColor, var(--yellow-200, color(yellow-200)));
+      }
+    }
+
+    &:focus {
+      background-color: var(--KBadgeWarningButtonHoverColor, var(--yellow-200, color(yellow-200)));
+
+      .k-badge-dismiss-button {
         background-color: var(--KBadgeWarningButtonHoverColor, var(--yellow-200, color(yellow-200)));
       }
     }

@@ -1,27 +1,28 @@
 <template>
   <div
     :key="item.key"
-    :data-testid="`k-select-item-${item.value}`"
-    class="k-select-item"
-    @click="handleClick"
+    role="listitem"
+    class="k-multiselect-item"
+    :data-testid="`k-multiselect-item-${item.value}`"
   >
     <div
       role="option"
       class="d-block"
     >
       <button
-        :class="{ disabled, selected: item.selected }"
         :value="item.value"
+        :class="{ disabled, selected: item.selected }"
+        @click="handleClick"
       >
-        <span class="k-select-item-label mr-2">
+        <span class="k-multiselect-item-label mr-2">
           <slot name="content">{{ item.label }}</slot>
         </span>
-        <span class="k-select-selected-icon-container">
+        <span class="k-multiselect-selected-icon-container">
           <KIcon
             v-if="item.selected"
-            class="selected-item-icon"
             icon="check"
             color="var(--blue-200)"
+            class="selected-item-icon"
           />
         </span>
       </button>
@@ -34,14 +35,14 @@ import { defineComponent } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 
 export default defineComponent({
-  name: 'SelectItem',
+  name: 'MultiselectItem',
   components: { KIcon },
   props: {
     item: {
       type: Object,
       default: null,
       // Items must have a label and value
-      validator: (item: Record<string, number | string>): boolean => item.label !== undefined && item.value !== undefined,
+      validator: (item: Record<string, string>): boolean => item.label !== undefined && item.value !== undefined,
     },
     disabled: {
       type: Boolean,
@@ -65,9 +66,8 @@ export default defineComponent({
 @import '@/styles/variables';
 @import '@/styles/functions';
 
-.k-select-item {
+.k-multiselect-item {
   margin-bottom: 4px;
-  list-style: none !important;
 
   &:last-of-type {
     margin-bottom: 0 !important;
@@ -93,7 +93,7 @@ export default defineComponent({
       cursor: pointer;
     }
 
-    .k-select-item-label {
+    .k-multiselect-item-label {
       width: auto;
       line-height: 16px;
       color: var(--grey-600);
@@ -112,27 +112,23 @@ export default defineComponent({
       :deep(.select-item-desc) {
         color: var(--grey-500);
         font-weight: 400;
-        font-size: 14px;
+        font-size: 12px;
       }
+    }
+    .selected-item-icon {
+      height: 24px;
     }
 
     .kong-icon:not(.selected-item-icon) {
       margin-right: .75rem;
     }
 
-    .k-select-selected-icon-container {
+    .k-multiselect-selected-icon-container {
       margin-left: auto;
       margin-top: auto;
       margin-bottom: auto;
       height: 24px;
       width: 24px;
-
-      .kong-icon {
-        position: relative;
-        top: 0;
-        right: 0;
-        transform: none;
-      }
     }
 
     &:hover {
@@ -144,10 +140,6 @@ export default defineComponent({
       background-color: var(--blue-100);
       color: var(--blue-500);
       font-weight: 400;
-    }
-
-    &.danger {
-      color: var(--red-500);
     }
   }
 }

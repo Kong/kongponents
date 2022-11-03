@@ -91,15 +91,11 @@
     }
 
     &:not([type="checkbox"]):not([type="radio"]):not([type="file"]):read-only {
-      background-color: var(--KInputReadonlyBackground, var(--grey-100, color(grey-100)));
-      box-shadow: inset 0 0 0 1px var(--KInputBorder, var(--grey-300)) !important;
+      @include input-readonly;
     }
 
     &:disabled {
-      cursor: not-allowed;
-      font-style: italic;
-      background-color: var(--KInputDisabledBackground, var(--grey-100, color(grey-100)));
-      box-shadow: inset 0 0 0 1px var(--KInputBorder, var(--grey-300)) !important;
+      @include input-disabled;
     }
 
     &:invalid,
