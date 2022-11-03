@@ -29,7 +29,6 @@
           @opened="() => {
             filterStr = ''
             toggle()
-            onPopoverOpen()
           }"
           @closed="() => {
             if (isToggled.value) {
@@ -40,10 +39,10 @@
           }"
         >
           <div
+            ref="multiselectRef"
             role="listbox"
-            :style="widthStyle"
             :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }"
-            class="k-multiselect-trigger"
+            class="k-multiselect-trigger w-100"
             data-testid="k-multiselect-trigger"
             @click="handleFilterClick"
           >
@@ -51,7 +50,7 @@
               v-if="isToggled.value && selectedItems.length"
               :id="multiselectSelectedItemsId"
               :key="key"
-              :style="widthStyle"
+              :style="numericWidthStyle"
               class="k-multiselect-selections"
               data-testid="k-multiselect-selections"
               @click.stop
@@ -104,7 +103,7 @@
             </div>
             <div
               :id="multiselectInputId"
-              :style="widthStyle"
+              :style="numericWidthStyle"
             >
               <KInput
                 :id="multiselectTextId"
@@ -186,7 +185,7 @@
       <div
         :id="multiselectSelectedItemsStagingId"
         :key="stagingKey"
-        :style="widthStyle"
+        :style="numericWidthStyle"
         tabindex="-1"
         class="k-multiselect-selections staging"
       >
@@ -214,7 +213,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, computed, watch, PropType, nextTick } from 'vue'
+import { defineComponent, ref, Ref, computed, watch, PropType, nextTick, onMounted } from 'vue'
 import { v1 as uuidv1 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KBadge from '@/components/KBadge/KBadge.vue'
@@ -361,6 +360,7 @@ export default defineComponent({
     const multiselectTextId = computed((): string => props.testMode ? 'test-multiselect-text-id-1234' : uuidv1())
     const multiselectSelectedItemsId = computed((): string => props.testMode ? 'test-multiselect-selected-id-1234' : uuidv1())
     const multiselectSelectedItemsStagingId = computed((): string => props.testMode ? 'test-multiselect-selected-staging-id-1234' : uuidv1())
+    const multiselectRef = ref<HTMLElement | null>(null)
     // filter and selection
     const selectionsMaxHeight = computed((): number => {
       return props.selectedRowCount * SELECTED_ITEMS_SINGLE_LINE_HEIGHT
@@ -412,8 +412,8 @@ export default defineComponent({
         ...defaultKPopAttributes,
         ...props.kpopAttributes,
         popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses} k-multiselect-pop`,
-        width: String(inputWidth.value),
-        maxWidth: String(inputWidth.value),
+        width: numericWidth.value + 'px',
+        maxWidth: numericWidth.value + 'px',
         maxHeight: String(props.dropdownMaxHeight),
         disabled: (attrs.disabled !== undefined && String(attrs.disabled) !== 'false') || (attrs.readonly !== undefined && String(attrs.readonly) !== 'false'),
       }
@@ -436,6 +436,12 @@ export default defineComponent({
     const widthStyle = computed(() => {
       return {
         width: widthValue.value,
+      }
+    })
+
+    const numericWidthStyle = computed(() => {
+      return {
+        width: numericWidth.value + 'px',
       }
     })
 
@@ -603,15 +609,6 @@ export default defineComponent({
       }
     }
 
-    const inputWidth = ref(0)
-    const onPopoverOpen = () => {
-      const inputElem = document.getElementById(multiselectInputId.value)
-
-      if (inputElem) {
-        inputWidth.value = inputElem.offsetWidth
-      }
-    }
-
     // whenever staging key is changed, we're ready to actually draw the selections
     watch(stagingKey, () => {
       // set timeout required to push the calculation to the end of the update lifecycle event queue
@@ -710,6 +707,11 @@ export default defineComponent({
       }
     }, { deep: true, immediate: true })
 
+    const numericWidth = ref<number | undefined>(undefined)
+    onMounted(() => {
+      numericWidth.value = multiselectRef.value?.clientWidth || 300
+    })
+
     return {
       // keys and ids
       key,
@@ -719,6 +721,7 @@ export default defineComponent({
       multiselectTextId,
       multiselectSelectedItemsStagingId,
       multiselectSelectedItemsId,
+      multiselectRef,
       // text
       getPlaceholderText,
       filterStr,
@@ -733,7 +736,7 @@ export default defineComponent({
       hiddenItemsTooltip,
       // style and attributes
       widthStyle,
-      inputWidth,
+      numericWidthStyle,
       modifiedAttrs,
       isHovered,
       isFocused,
@@ -749,7 +752,6 @@ export default defineComponent({
       triggerFocus,
       onQueryChange,
       onInputFocus,
-      onPopoverOpen,
     }
   },
 })

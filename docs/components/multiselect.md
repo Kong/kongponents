@@ -102,11 +102,11 @@ Because we are controlling the widths of multiple elements, we recommend using t
 :::
 
 <div>
-  <KMultiselect width="350" :items="deepClone(defaultItemsUnselect)" />
+  <KMultiselect width="80%" :items="deepClone(defaultItemsUnselect)" />
 </div>
 
 ```html
-<KMultiselect width="350" :items="items" />
+<KMultiselect width="80%" :items="items" />
 ```
 
 ### selectedRowCount
