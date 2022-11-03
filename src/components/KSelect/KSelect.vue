@@ -805,7 +805,7 @@ export default defineComponent({
     .k-select-empty-item button:focus,
     .k-select-empty-item button:hover {
       font-style: italic;
-      color: var(--grey-400);
+      color: var(--grey-500);
     }
 
     ul {
