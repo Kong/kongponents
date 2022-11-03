@@ -7181,9 +7181,9 @@ supports-preserve-symlinks-flag@^1.0.0:
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
 swrv@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/swrv/-/swrv-1.0.0.tgz#aea6926557286308674fdc934c206c01af0c6c38"
-  integrity sha512-RHNIZ2NWIw84ul0CdIkfPQxsw4KF9Q5DMtNYXPJatx11TKLGgdAG/kv74RHOTC0TdbC+Y1BbPCtwmSqgQ7wJWQ==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/swrv/-/swrv-1.0.1.tgz#06f4db51e7adc0c90acc23dcb8603a52be011e94"
+  integrity sha512-FZMXK/mOp7LYBHrQ/zWnZXfoZ8ONrVV9eOJ4+p0OdEcsafLLrODPaeJFGDcI6CV/3o3J/t5GY9ozVGg10NC8ng==
 
 tar@^6.1.0, tar@^6.1.11, tar@^6.1.2:
   version "6.1.11"
