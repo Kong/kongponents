@@ -192,14 +192,14 @@ describe('KMultiselect', () => {
     })
   })
 
-  it('always shows selections when slimDisplay is false', () => {
+  it('always shows selections when expandSelected is true', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
 
     mount(KMultiselect, {
       props: {
         testMode: true,
-        slimDisplay: false,
+        expandSelected: true,
         items: [{
           label: labels[0],
           value: vals[0],

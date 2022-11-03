@@ -47,11 +47,11 @@
             @click="handleFilterClick"
           >
             <div
-              v-if="selectedItems.length && (isToggled.value || !slimDisplay)"
+              v-if="selectedItems.length && (isToggled.value || expandSelected)"
               :id="multiselectSelectedItemsId"
               :key="key"
-              :style="slimDisplay ? numericWidthStyle : nonSlimStyle"
-              :class="{ 'scrollable my-2': !slimDisplay }"
+              :style="!expandSelected ? numericWidthStyle : nonSlimStyle"
+              :class="{ 'scrollable my-2': expandSelected }"
               class="k-multiselect-selections"
               data-testid="k-multiselect-selections"
             >
@@ -61,7 +61,7 @@
                 :truncation-tooltip="item.label"
                 shape="rectangular"
                 dismissable
-                :class="slimDisplay ? 'mt-2' : 'my-1'"
+                :class="!expandSelected ? 'mt-2' : 'my-1'"
                 class="mr-1"
                 @dismissed="handleItemSelect(item)"
                 @click.stop
@@ -70,7 +70,7 @@
               </KBadge>
               <!-- Always render this badge even if it's hidden to ensure there will be enough space to show it -->
               <KBadge
-                v-if="slimDisplay"
+                v-if="!expandSelected"
                 shape="rectangular"
                 :truncation-tooltip="hiddenItemsTooltip"
                 force-tooltip
@@ -81,7 +81,7 @@
                 +{{ invisibleSelectedItems.length }}
               </KBadge>
               <div
-                v-if="!slimDisplay"
+                v-if="expandSelected"
                 ref="selectionBottomRef"
               />
             </div>
@@ -114,7 +114,7 @@
               :style="numericWidthStyle"
             >
               <KInput
-                v-if="slimDisplay || (!slimDisplay && (!selectedItems.length || isToggled.value))"
+                v-if="!expandSelected || (expandSelected && (!selectedItems.length || isToggled.value))"
                 :id="multiselectTextId"
                 v-bind="modifiedAttrs"
                 :model-value="filterStr"
@@ -188,7 +188,7 @@
       </KToggle>
     </div>
     <div
-      v-if="slimDisplay"
+      v-if="!expandSelected"
       aria-hidden="true"
       class="staging-area"
     >
@@ -211,7 +211,7 @@
         </KBadge>
         <!-- Always render this badge even if it's hidden to ensure there will be enough space to show it -->
         <KBadge
-          v-if="slimDisplay"
+          v-if="!expandSelected"
           shape="rectangular"
           hidden
           class="mt-2 hidden-selection-count"
@@ -317,9 +317,9 @@ export default defineComponent({
      * and whether or not to move items displayed beyond the selectedRowCount
      * into a +n badge, or allow the sections to be scrollable.
      */
-    slimDisplay: {
+    expandSelected: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     /**
      * Items are JSON objects with required 'label' and 'value'
@@ -509,8 +509,8 @@ export default defineComponent({
       setTimeout(() => {
         const elem = document.getElementById(multiselectSelectedItemsStagingId.value)
 
-        if (!props.slimDisplay) {
-          // if it's not slim mode don't do calculcations, because we will display all
+        if (props.expandSelected) {
+          // if it's expanded don't do calculcations, because we will display all
           stagingKey.value++
           return
         }
@@ -583,8 +583,8 @@ export default defineComponent({
         selectedItems.value.push(selectedItem)
         visibleSelectedItemsStaging.value.push(selectedItem)
 
-        if (!props.slimDisplay) {
-          // if not slim, scroll new selections into view
+        if (props.expandSelected) {
+          // if expanded, scroll new selections into view
           scrollSmoothlyToBottom()
         }
       }
@@ -664,8 +664,8 @@ export default defineComponent({
       setTimeout(() => {
         const elem = document.getElementById(multiselectSelectedItemsStagingId.value)
 
-        if (!props.slimDisplay) {
-          // if not slim, don't do all the calculations because we are going to display
+        if (props.expandSelected) {
+          // if expanded, don't do all the calculations because we are going to display
           // everything
           visibleSelectedItems.value = cloneDeep(visibleSelectedItemsStaging.value)
           invisibleSelectedItems.value = []
