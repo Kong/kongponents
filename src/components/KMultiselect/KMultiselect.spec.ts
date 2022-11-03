@@ -217,7 +217,7 @@ describe('KMultiselect', () => {
     cy.getTestId('k-multiselect-selections').should('contain.text', labels[0])
     cy.getTestId('k-multiselect-selections').should('contain.text', labels[1])
 
-    cy.get('.k-multiselect-input').click()
+    cy.get('.k-multiselect-chevron-icon').click()
 
     cy.getTestId('k-multiselect-selections').should('exist')
   })
