@@ -47,13 +47,13 @@
             @click="handleFilterClick"
           >
             <div
-              v-if="isToggled.value && selectedItems.length"
+              v-if="selectedItems.length && (isToggled.value || !slimDisplay)"
               :id="multiselectSelectedItemsId"
               :key="key"
-              :style="numericWidthStyle"
+              :style="slimDisplay ? numericWidthStyle : nonSlimStyle"
+              :class="{ 'scrollable my-2': !slimDisplay }"
               class="k-multiselect-selections"
               data-testid="k-multiselect-selections"
-              @click.stop
             >
               <KBadge
                 v-for="item, idx in visibleSelectedItems"
@@ -61,18 +61,22 @@
                 :truncation-tooltip="item.label"
                 shape="rectangular"
                 dismissable
-                class="mr-1 mt-2"
+                :class="slimDisplay ? 'mt-2' : 'my-1'"
+                class="mr-1"
                 @dismissed="handleItemSelect(item)"
+                @click.stop
               >
                 {{ item.label }}
               </KBadge>
               <!-- Always render this badge even if it's hidden to ensure there will be enough space to show it -->
               <KBadge
+                v-if="slimDisplay"
                 shape="rectangular"
                 :truncation-tooltip="hiddenItemsTooltip"
                 force-tooltip
                 :class="{ 'hidden': !invisibleSelectedItems.length }"
                 class="mt-2 hidden-selection-count"
+                @click.stop
               >
                 +{{ invisibleSelectedItems.length }}
               </KBadge>
@@ -106,6 +110,7 @@
               :style="numericWidthStyle"
             >
               <KInput
+                v-if="slimDisplay || (!slimDisplay && (!selectedItems.length || isToggled.value))"
                 :id="multiselectTextId"
                 v-bind="modifiedAttrs"
                 :model-value="filterStr"
@@ -179,6 +184,7 @@
       </KToggle>
     </div>
     <div
+      v-if="slimDisplay"
       aria-hidden="true"
       class="staging-area"
     >
@@ -201,6 +207,7 @@
         </KBadge>
         <!-- Always render this badge even if it's hidden to ensure there will be enough space to show it -->
         <KBadge
+          v-if="slimDisplay"
           shape="rectangular"
           hidden
           class="mt-2 hidden-selection-count"
@@ -300,6 +307,15 @@ export default defineComponent({
     selectedRowCount: {
       type: Number,
       default: 2,
+    },
+    /**
+     * Determines whether or not to hide the selections when not focused,
+     * and whether or not to move items displayed beyond the selectedRowCount
+     * into a +n badge, or allow the sections to be scrollable.
+     */
+    slimDisplay: {
+      type: Boolean,
+      default: true,
     },
     /**
      * Items are JSON objects with required 'label' and 'value'
@@ -445,6 +461,14 @@ export default defineComponent({
       }
     })
 
+    const nonSlimStyle = computed(() => {
+      return {
+        width: (numericWidth.value - 30) + 'px',
+        maxHeight: selectionsMaxHeight.value + 'px',
+        paddingRight: 0,
+      }
+    })
+
     const getPlaceholderText = (isOpen?: boolean): string => {
       if (selectedItems.value.length && !isOpen) {
         if (selectedItems.value.length === 1) {
@@ -479,6 +503,12 @@ export default defineComponent({
       // set timeout required to push the calculation to the end of the update lifecycle event queue
       setTimeout(() => {
         const elem = document.getElementById(multiselectSelectedItemsStagingId.value)
+
+        if (!props.slimDisplay) {
+          // if it's not slim mode don't do calculcations, because we will display all
+          stagingKey.value++
+          return
+        }
 
         if (elem) {
           const height = elem.clientHeight
@@ -615,6 +645,15 @@ export default defineComponent({
       setTimeout(() => {
         const elem = document.getElementById(multiselectSelectedItemsStagingId.value)
 
+        if (!props.slimDisplay) {
+          // if not slim, don't do all the calculations because we are going to display
+          // everything
+          visibleSelectedItems.value = cloneDeep(visibleSelectedItemsStaging.value)
+          invisibleSelectedItems.value = []
+          key.value++
+          return
+        }
+
         if (elem) {
           const height = elem.clientHeight
           if (height > selectionsMaxHeight.value) {
@@ -707,7 +746,7 @@ export default defineComponent({
       }
     }, { deep: true, immediate: true })
 
-    const numericWidth = ref<number | undefined>(undefined)
+    const numericWidth = ref<number>(300)
     onMounted(() => {
       numericWidth.value = multiselectRef.value?.clientWidth || 300
     })
@@ -737,6 +776,7 @@ export default defineComponent({
       // style and attributes
       widthStyle,
       numericWidthStyle,
+      nonSlimStyle,
       modifiedAttrs,
       isHovered,
       isFocused,
@@ -782,6 +822,10 @@ export default defineComponent({
     box-sizing: border-box;
     padding-left: 16px;
     padding-right: 23px;
+
+    &.scrollable {
+      overflow-y: auto;
+    }
 
     &.staging {
       -webkit-box-sizing: border-box;
