@@ -164,7 +164,7 @@ describe('KTable', () => {
       })
     })
 
-    it('renders content in the toolbar slot', () => {
+    it.only('renders content in the toolbar slot', () => {
       mount(KTable, {
         props: {
           testMode: 'true',
@@ -177,8 +177,8 @@ describe('KTable', () => {
         },
       })
 
-      cy.get('.k-table .k-table-toolbar').find('button').should('be.visible')
-      cy.get('.k-table .k-table-toolbar button').should('contain.text', 'Toolbar button')
+      cy.get('.k-table-wrapper .k-table-toolbar').find('button').should('be.visible')
+      cy.get('.k-table-wrapper .k-table-toolbar button').should('contain.text', 'Toolbar button')
     })
   })
 
