@@ -368,6 +368,8 @@ Set the `isLoading` prop to `true` to enable the loading state.
 
 ## Slots
 
+### Main Slots
+
 Both the `title` & `description` of the card items as well as the entire catalog `body` are slottable.
 
 - `body` - The body of the card catalog, if you do not want to use `KCatalogItem` components for the children.
@@ -425,6 +427,24 @@ Use the `cardTitle` and `cardBody` slots to access `item` specific data.
   </template>
 </KCatalog>
 ```
+
+### Toolbar
+
+The `toolbar` slot allows you to slot catalog controls rendered at the top of the `.k-card-catalog` element such as a search input or other UI elements.
+
+If utilizing multiple elements, we recommend adding `display: flex; width: 100%;` to the root slot tag.
+
+<KCatalog :fetcher="fetcherXs">
+  <template #toolbar>
+    <div class="d-flex w-100 justify-content-between">
+      <KInput placeholder="Search" />
+      <KSelect appearance="select" :items="[{ label: 'First option', value: '1', selected: true }, { label: 'Another option', value: '2'}]" />
+    </div>
+  </template>
+</KCatalog>
+
+
+### State Slots
 
 KCatalog has built-in state management for loading, empty, and error states. You can either use the props described in
 the section above or completely slot in your own content.

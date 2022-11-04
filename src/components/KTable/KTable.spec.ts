@@ -118,6 +118,23 @@ describe('KTable', () => {
       cy.get('.k-table td:last-of-type > *').contains('a', 'Link')
     })
 
+    it('renders content in the toolbar slot', () => {
+      mount(KTable, {
+        props: {
+          testMode: 'true',
+          headers: options.headers,
+          fetcher: () => { return { data: options.data } },
+          disablePagination: true,
+        },
+        slots: {
+          toolbar: () => h('button', {}, 'Toolbar button'),
+        },
+      })
+
+      cy.get('.k-table-container .k-table-toolbar').find('button').should('be.visible')
+      cy.get('.k-table-container .k-table-toolbar button').should('contain.text', 'Toolbar button')
+    })
+
     it('has hover class when passed', () => {
       mount(KTable, {
         props: {
@@ -162,23 +179,6 @@ describe('KTable', () => {
       cy.get('th').each(($el) => {
         cy.wrap($el).should('not.have.class', 'sortable')
       })
-    })
-
-    it.only('renders content in the toolbar slot', () => {
-      mount(KTable, {
-        props: {
-          testMode: 'true',
-          headers: options.headers,
-          fetcher: () => { return { data: options.data } },
-          disablePagination: true,
-        },
-        slots: {
-          toolbar: () => h('button', {}, 'Toolbar button'),
-        },
-      })
-
-      cy.get('.k-table-wrapper .k-table-toolbar').find('button').should('be.visible')
-      cy.get('.k-table-wrapper .k-table-toolbar button').should('contain.text', 'Toolbar button')
     })
   })
 

@@ -1,5 +1,13 @@
 <template>
-  <div>
+  <div class="k-table-container">
+    <div
+      v-if="hasToolbarSlot"
+      class="k-table-toolbar mb-5"
+      data-testid="k-table-toolbar"
+    >
+      <slot name="toolbar" />
+    </div>
+
     <KSkeleton
       v-if="(!testMode || testMode === 'loading') && (isTableLoading || isLoading) && !hasError"
       type="table"
@@ -83,13 +91,6 @@
       class="k-table-wrapper"
       @scroll.passive="scrollHandler"
     >
-      <div
-        v-if="hasToolbarSlot"
-        class="k-table-toolbar"
-        data-testid="k-table-toolbar"
-      >
-        <slot name="toolbar" />
-      </div>
       <table
         :class="{'has-hover': hasHover, 'is-clickable': isClickable, 'side-border': hasSideBorder}"
         class="k-table"
