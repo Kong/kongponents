@@ -163,6 +163,23 @@ describe('KTable', () => {
         cy.wrap($el).should('not.have.class', 'sortable')
       })
     })
+
+    it('renders content in the toolbar slot', () => {
+      mount(KTable, {
+        props: {
+          testMode: 'true',
+          headers: options.headers,
+          fetcher: () => { return { data: options.data } },
+          disablePagination: true,
+        },
+        slots: {
+          toolbar: () => h('button', {}, 'Toolbar button'),
+        },
+      })
+
+      cy.get('.k-table .k-table-toolbar').find('button').should('be.visible')
+      cy.get('.k-table .k-table-toolbar button').should('contain.text', 'Toolbar button')
+    })
   })
 
   // describe('events', () => {
