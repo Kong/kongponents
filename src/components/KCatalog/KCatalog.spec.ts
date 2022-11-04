@@ -165,6 +165,24 @@ describe('KCatalog', () => {
       cy.getTestId('k-card-catalog-error-state').should('contain', errorSlotContent)
     })
 
+    it('renders content in the toolbar slot', () => {
+      mount(KCatalog, {
+        props: {
+          testMode: 'true',
+          fetcher: () => {
+            return { data: getItems(1), total: 1 }
+          },
+          disablePagination: true,
+        },
+        slots: {
+          toolbar: () => h('button', {}, 'Toolbar button'),
+        },
+      })
+
+      cy.get('.k-card-catalog .k-catalog-toolbar').find('button').should('be.visible')
+      cy.get('.k-card-catalog .k-catalog-toolbar button').should('contain.text', 'Toolbar button')
+    })
+
     it('can change card sizes - small', () => {
       const total = 5
 

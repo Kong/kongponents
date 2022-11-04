@@ -8,6 +8,14 @@
       <h3>{{ title }}</h3>
     </div>
 
+    <div
+      v-if="hasToolbarSlot"
+      class="k-catalog-toolbar mb-5"
+      data-testid="k-catalog-toolbar"
+    >
+      <slot name="toolbar" />
+    </div>
+
     <KSkeleton
       v-if="(testMode === false || testMode === 'loading') && (isCardLoading || isLoading) && !hasError"
       :card-count="4"
@@ -409,7 +417,7 @@ export default defineComponent({
     },
   },
   emits: ['kcatalog-error-cta-clicked', 'kcatalog-empty-state-cta-clicked'],
-  setup(props) {
+  setup(props, { slots }) {
     const defaultFetcherProps = {
       page: 1,
       pageSize: 15,
@@ -423,6 +431,7 @@ export default defineComponent({
     const pageSize = ref(15)
     const isCardLoading = ref(true)
     const hasInitialized = ref(false)
+    const hasToolbarSlot = computed((): boolean => !!slots.toolbar)
 
     const fetchData = async () => {
       isCardLoading.value = true
@@ -503,6 +512,7 @@ export default defineComponent({
       pageSizeChangeHandler,
       total,
       getTestIdString,
+      hasToolbarSlot,
     }
   },
 })
@@ -522,6 +532,10 @@ export default defineComponent({
     grid-gap: var(--spacing-lg);
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
+}
+
+.k-catalog-toolbar > :deep(*) {
+  display: flex;
 }
 </style>
 

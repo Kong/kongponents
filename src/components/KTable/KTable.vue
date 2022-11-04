@@ -1,5 +1,13 @@
 <template>
-  <div>
+  <div class="k-table-container">
+    <div
+      v-if="hasToolbarSlot"
+      class="k-table-toolbar mb-5"
+      data-testid="k-table-toolbar"
+    >
+      <slot name="toolbar" />
+    </div>
+
     <KSkeleton
       v-if="(!testMode || testMode === 'loading') && (isTableLoading || isLoading) && !hasError"
       type="table"
@@ -509,7 +517,7 @@ export default defineComponent({
     },
   },
   emits: ['sort', 'ktable-error-cta-clicked', 'ktable-empty-state-cta-clicked', 'row-click', 'cell-click'],
-  setup(props, { attrs, emit }) {
+  setup(props, { attrs, emit, slots }) {
     const tableId = computed((): string => props.testMode ? 'test-table-id-1234' : uuidv1())
     const defaultFetcherProps = {
       pageSize: 15,
@@ -534,6 +542,7 @@ export default defineComponent({
     const isClickable = ref(false)
     const hasInitialized = ref(false)
     const nextPageClicked = ref(false)
+    const hasToolbarSlot = computed((): boolean => !!slots.toolbar)
     /**
      * Grabs listeners from attrs matching a prefix to attach the
      * event that is dynamic. e.g. `v-on:cell:click`, `@row:focus` etc.
@@ -857,6 +866,7 @@ export default defineComponent({
       previousOffset,
       offset,
       shouldShowPagination,
+      hasToolbarSlot,
     }
   },
 })
@@ -869,6 +879,10 @@ export default defineComponent({
 .k-table-wrapper {
   width: 100%;
   overflow: auto;
+}
+
+.k-table-toolbar > :deep(*) {
+  display: flex;
 }
 
 .k-table {

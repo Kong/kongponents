@@ -858,12 +858,40 @@ export default {
 
 ## Slots
 
+### Toolbar
+
+The `toolbar` slot allows you to slot table controls rendered right above the `<table>` element such as a search input or other UI elements.
+
+If utilizing multiple elements, we recommend adding `display: flex; width: 100%;` to the root slot tag.
+
+<KTable :fetcher="tableOptionsFetcher" :headers="tableOptionsHeaders" :hasHover="false">
+  <template #toolbar>
+    <div class="d-flex w-100 justify-content-between">
+      <KInput placeholder="Search" />
+      <KSelect appearance="select" :items="[{ label: 'First option', value: '1', selected: true }, { label: 'Another option', value: '2'}]" />
+    </div>
+  </template>
+</KTable>
+
+```html
+<KTable :fetcher="fetcher" :headers="headers">
+  <template #toolbar>
+    <div class="d-flex w-100 justify-content-between">
+      <KInput placeholder="Search" />
+      <KSelect appearance="select" :items="[{ label: 'Ascending', value: 'asc', selected: true }, { label: 'Descending', value: 'desc'}]" />
+    </div>
+  </template>
+</KTable>
+```
+
+### Column Header and Cell
+
 Both column cells & header cells are slottable in KTable. Use slots to gain access to the row data.
 
 - `column-{column-key}` - Will slot the header cell
 - `{column-key}` - Will slot the column cell of a given row
 
-### Column Header
+#### Column Header
 
 <KTable :headers="tableOptionsHeaders" :fetcher="tableOptionsFetcher">
   <template v-slot:column-name="{ column }">
@@ -896,7 +924,7 @@ export default {
 </script>
 ```
 
-### Column Cell
+#### Column Cell
 
 This example uses the [`KDropdownMenu`](/components/dropdown-menu.html) component as the slot content for the `actions` column.
 
