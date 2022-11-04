@@ -1,3 +1,10 @@
+# [8.3.0](https://github.com/Kong/kongponents/compare/v8.2.0...v8.3.0) (2022-11-04)
+
+
+### Features
+
+* **ktable:** add toolbar slot [KHCP-5224] ([#876](https://github.com/Kong/kongponents/issues/876)) ([c8b03a5](https://github.com/Kong/kongponents/commit/c8b03a53dcc3a8a95fd2544199c1f114040f4193))
+
 # [8.2.0](https://github.com/Kong/kongponents/compare/v8.1.5...v8.2.0) (2022-11-03)
 
 
