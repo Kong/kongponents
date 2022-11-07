@@ -1,7 +1,7 @@
 # These owners will be the default owners for everything in
 # the repo. They will be requested for review whenever someone
 # opens a PR, unless a later match takes precedence.
-* @adamdehaven @kaiarrowood @aanchalm01 @jillztom
+* @Kong/team-core-ui
 
 # Workflows & CI
 /.github/ @adamdehaven
