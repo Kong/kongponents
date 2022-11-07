@@ -224,18 +224,6 @@ export default defineComponent({
     font-family: var(--font-family-sans);
     resize: none;
 
-    &::placeholder {
-      color: var(--KInputPlaceholderColor, var(--grey-500, color(grey-500)));
-    }
-
-    &:hover {
-      color: var(--grey-600);
-    }
-
-    &:hover::placeholder {
-      color: var(--KInputPlaceholderColor, var(--grey-600, color(grey-600)));
-    }
-
     &:focus::placeholder {
       color: transparent;
     }
