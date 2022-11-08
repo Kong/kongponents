@@ -179,8 +179,20 @@ There are 6 designated slots you can use to display content in the fullscreen mo
     <KButton size="medium" @click="sampleIsOpen = false" class="mr-2">Back</KButton>
     <KButton appearance="creation" size="medium" @click="sampleIsOpen = false">Save</KButton>
   </template>
+    <div>
+  <KStepper :steps="[
+      { label: 'I am visible', state: 'completed' },
+      { label: 'Scroll Up', state: 'completed' },
+      { label: 'I am hidden', state: 'pending' }
+    ]"
+  />
+</div>
   <div class="ml-25">
     <KInputSwitch v-model="checked" label="This plugin is enabled" class="display-items" />
+    <br><br>
+    <div class="wrapper display-items">
+      <KSelect label="Name" placeholder="I'm labelled!" appearance="select" />
+    </div>
     <br><br>
     <div class="wrapper display-items">
       <input type="text" placeholder="Enter list of tags">
@@ -246,6 +258,9 @@ There are 6 designated slots you can use to display content in the fullscreen mo
   <div class="ml-25">
     <KInputSwitch v-model="checked" label="This plugin is enabled" class="display-items" />
     <br><br>
+    <div class="wrapper display-items">
+      <KSelect label="Name" placeholder="I'm labelled!" appearance="select" />
+    </div>
     <div class="wrapper display-items">
       <input type="text" placeholder="Enter list of tags">
       <label for="">Tags</label>

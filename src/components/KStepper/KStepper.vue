@@ -55,5 +55,6 @@ export default defineComponent({
   overflow-x: auto;
   display: flex;
   position: relative;
+  z-index: -1;
 }
 </style>
