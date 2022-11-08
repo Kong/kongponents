@@ -140,7 +140,7 @@
             </div>
           </div>
           <template #content>
-            <!-- use @click.stop so we don't' close drop down when selecting/deselecting items -->
+            <!-- use @click.stop so we don't close drop down when selecting/deselecting items -->
             <div
               class="k-multiselect-list ma-0 pa-0"
               @click.stop
