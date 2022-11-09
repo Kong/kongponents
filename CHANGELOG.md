@@ -1,3 +1,10 @@
+## [8.3.2](https://github.com/Kong/kongponents/compare/v8.3.1...v8.3.2) (2022-11-09)
+
+
+### Bug Fixes
+
+* **upload-file:** add more test [khcp-5137] ([#888](https://github.com/Kong/kongponents/issues/888)) ([784633f](https://github.com/Kong/kongponents/commit/784633f94376165c4b9c5267ca112f88ea4985aa))
+
 ## [8.3.1](https://github.com/Kong/kongponents/compare/v8.3.0...v8.3.1) (2022-11-08)
 
 
