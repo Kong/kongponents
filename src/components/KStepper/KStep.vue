@@ -72,8 +72,7 @@ export default defineComponent({
   flex: 1 1 0%;
 
   // For Divider
-  --size: 2rem;
-  --spacing: 0.5rem;
+  --divider-spacing: 0.5rem;
 
   &:last-child > .k-step-container::after {
     display: none;
@@ -107,9 +106,9 @@ export default defineComponent({
     &::after {
       content: "";
       height: 2px;
-      width: calc(100% - var(--KStepIconSize, 26px) - calc(var(--spacing) * 2));
-      top: calc(#{var(--KStepIconSize, 24px)} / 2);
-      left: calc(50% + calc(var(--KStepIconSize, 30px) / 1.8 + var(--spacing)));
+      width: calc(100% - var(--KStepIconSize, 26px) - calc(var(--divider-spacing) * 2));
+      top: calc(#{var(--KStepIconSize, var(--spacing-lg, spacing(lg)))} / 2);
+      left: calc(50% + calc(var(--KStepIconSize, 26px) / 1.5 + var(--divider-spacing)));
       position: absolute;
       background-color: var(--KStepDividerColorDefault, var(--grey-300));
     }
