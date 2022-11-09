@@ -67,10 +67,41 @@ describe('KFileUpload', () => {
       props: {
         testMode: true,
         removable: false,
-        appearance: 'image',
+        type: 'image',
       },
     })
 
     cy.getTestId('remove-button').should('not.exist')
+  })
+
+  it('should emit correct event when a file is selected, removed', () => {
+    mount(KFileUpload, {
+      props: {
+        testMode: true,
+        type: 'file',
+      },
+    })
+
+    cy.get('input[type=file]').selectFile('cypress/fixtures/file-upload/file-upload-document.md').then(() => {
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'file-added')
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'input')
+    })
+    cy.getTestId('remove-button').should('exist').click().then(() => {
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'file-removed')
+    })
+  })
+
+  it('should emit error event when there is an error with file upload', () => {
+    mount(KFileUpload, {
+      props: {
+        testMode: true,
+        type: 'file',
+        maxFileSize: 0,
+      },
+    })
+
+    cy.get('input[type=file]').selectFile('cypress/fixtures/file-upload/file-upload-document.md').then(() => {
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'error')
+    })
   })
 })
