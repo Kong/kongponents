@@ -65,7 +65,7 @@ export async function createComponentFiles(name: string): Promise<void> {
   })
 
   spinner.success({
-    text: `Created the ${pc.cyan(componentName + '.vue')} and ${pc.cyan(componentName + '.spec.ts')} files.`,
+    text: `Created the ${pc.cyan(componentName + '.vue')} and ${pc.cyan(componentName + '.cy.ts')} files.`,
   })
 
   spinner.start({
@@ -165,7 +165,7 @@ export async function createComponentFiles(name: string): Promise<void> {
     └── src/
         └── components/
             └── ${componentName}/
-              ├── ${componentName}.spec.ts
+              ├── ${componentName}.cy.ts
               └── ${componentName}.vue
     `,
       })

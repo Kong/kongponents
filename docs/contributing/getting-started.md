@@ -171,7 +171,7 @@ It is recommended to use the CLI (`create-kongponent`) when creating new compone
 When creating a new component with the CLI it will perform the following actions:
 
 - Creates `/src/components/{KongponentName}/` directory with the following files:
-  - `{KongponentName}.spec.ts` - Cypress Component Test file
+  - `{KongponentName}.cy.ts` - Cypress Component Test file
   - `{KongponentName}.vue` - Component file
 - Adds `/src/components/{KongponentName}/{KongponentName}.vue` to the exports in `/src/components/index.ts`
 - Creates a VuePress markdown file at `/docs/components/{kongponent}.md` (you have to manually add this file to the VuePress sidebar in `docs/.vuepress/config.ts`).
@@ -189,7 +189,7 @@ Once ran, this will be the resulting file structure:
 └── src/
     └── components/
         └── {KongponentName}/
-          ├── {KongponentName}.spec.ts
+          ├── {KongponentName}.cy.ts
           └── {KongponentName}.vue
 ```
 

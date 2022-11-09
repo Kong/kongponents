@@ -15,7 +15,7 @@ export default defineConfig({
     },
     viewportHeight: 768,
     viewportWidth: 1366,
-    specPattern: 'src/**/*.spec.ts',
+    specPattern: 'src/**/*.cy.ts',
     supportFile: 'cypress/support/index.ts',
     setupNodeEvents(on, config) {
       initPlugin(on, config)
