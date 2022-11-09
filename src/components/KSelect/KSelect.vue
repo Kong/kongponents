@@ -87,6 +87,7 @@
             :id="selectInputId"
             :class="{ 'k-select-input': appearance === 'select', 'no-filter': !filterIsEnabled }"
             data-testid="k-select-input"
+            class="select-input-container"
             style="position: relative;"
             role="listbox"
             @click="evt => {
@@ -108,13 +109,6 @@
                 size="18"
               />
             </KButton>
-            <KIcon
-              v-if="appearance === 'select'"
-              icon="chevronDown"
-              color="var(--grey-500)"
-              size="18"
-              :class="{ 'overlay-label-chevron': overlayLabel }"
-            />
             <KInput
               :id="selectTextId"
               v-bind="modifiedAttrs"
@@ -135,6 +129,13 @@
               @update:model-value="onQueryChange"
               @focus="onInputFocus"
               @blur="onInputBlur"
+            />
+            <KIcon
+              v-if="appearance === 'select'"
+              icon="chevronDown"
+              color="var(--grey-500)"
+              size="18"
+              :class="{ 'overlay-label-chevron': overlayLabel }"
             />
           </div>
           <template #content>
@@ -725,14 +726,8 @@ export default defineComponent({
     }
 
     .kong-icon {
-      position: absolute;
-      top: 60%;
-      right: 16px;
-      transform: translateY(-50%);
-      z-index: 9;
-
       &.overlay-label-chevron {
-        top: 70%;
+        margin-top: 25px;
       }
     }
 
@@ -753,8 +748,19 @@ export default defineComponent({
     }
   }
 
-  div.k-select-input.no-filter {
+  div.k-select-input.select-input-container {
     cursor: pointer !important;
+    flex: 0 0 40%;
+    display: flex;
+    align-items: center;
+
+    .k-select-input {
+      margin-right: -25px;
+    }
+
+    input.k-input {
+      background-color: transparent;
+    }
   }
 
   .k-select-button .has-caret .kong-icon {
