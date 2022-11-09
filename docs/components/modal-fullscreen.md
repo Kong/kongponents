@@ -191,7 +191,11 @@ There are 6 designated slots you can use to display content in the fullscreen mo
     <KInputSwitch v-model="checked" label="This plugin is enabled" class="display-items" />
     <br><br>
     <div class="wrapper display-items">
-      <KSelect label="Name" placeholder="I'm labelled!" appearance="select" />
+      <KMultiselect label="Pick Something" :items="deepClone(defaultItemsUnselect)" />
+    </div>
+    <br><br>
+    <div class="wrapper display-items">
+      <KSelect label="Name" placeholder="I'm labelled!" appearance="select" :items="deepClone(defaultItems)" />
     </div>
     <br><br>
     <div class="wrapper display-items">
@@ -259,8 +263,13 @@ There are 6 designated slots you can use to display content in the fullscreen mo
     <KInputSwitch v-model="checked" label="This plugin is enabled" class="display-items" />
     <br><br>
     <div class="wrapper display-items">
-      <KSelect label="Name" placeholder="I'm labelled!" appearance="select" />
+      <KMultiselect label="Pick Something" :items="items" />
     </div>
+    <br><br>
+    <div class="wrapper display-items">
+      <KSelect label="Name" placeholder="I'm labelled!" appearance="select" :items="items" />
+    </div>
+    <br><br>
     <div class="wrapper display-items">
       <input type="text" placeholder="Enter list of tags">
       <label for="">Tags</label>
@@ -387,10 +396,48 @@ export default {
       themeIsOpen: false,
       sampleIsOpen: false,
       getItems,
-      contentIsOpen: false
+      contentIsOpen: false,
+      defaultItems: [{
+        label: 'Cats',
+        value: 'cats',
+        selected: true
+      }, {
+        label: 'Dogs',
+        value: 'dogs'
+      }, {
+        label: 'Bunnies',
+        value: 'bunnies'
+      }],
+      defaultItemsUnselect: [{
+        label: 'Cats',
+        value: 'cats'
+      }, {
+        label: 'Dogs',
+        value: 'dogs'
+      }, {
+        label: 'Bunnies',
+        value: 'bunnies'
+      },
+      {
+        label: 'Lions',
+        value: 'lions'
+      }, {
+        label: 'Tigers',
+        value: 'tigers'
+      }, {
+        label: 'Bears',
+        value: 'bears'
+      }, {
+        label: 'A long & truncated item',
+        value: 'long'
+      }]
     }
   },
-
+  methods: {
+    deepClone(obj) {
+      return JSON.parse(JSON.stringify(obj))
+    }
+  }
 }
 </script>
 
