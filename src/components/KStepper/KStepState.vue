@@ -34,7 +34,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 .k-step-state {
   background: var(--KStepBackgroundColor, var(--white));
-  z-index: 1;
 }
 </style>
 

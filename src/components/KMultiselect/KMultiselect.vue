@@ -869,7 +869,6 @@ export default defineComponent({
 
   .k-multiselect-icon {
     position: absolute;
-    z-index: 1;
     right: 1px;
     top: 1px;
 
@@ -934,6 +933,7 @@ export default defineComponent({
       }
 
       input.k-input:not([type="checkbox"]):not([type="radio"]) {
+        background-color: transparent;
         // slightly smaller than container so we can see
         // the container's box-shadow
         height: calc(100% - 2px);
