@@ -8,7 +8,7 @@ export default defineConfig({
     },
     viewportHeight: 768,
     viewportWidth: 1366,
-    specPattern: 'src/**/*.spec.ts',
+    specPattern: 'src/**/*.cy.ts',
     supportFile: 'cypress/support/index.ts',
   },
   includeShadowDom: true,
