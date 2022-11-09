@@ -13,7 +13,6 @@ const rendersCorrectAppearance = (variant: string) => {
     })
 
     cy.get('.k-button').should('have.class', variant)
-    cy.get('.k-button').matchImage()
   })
 }
 
