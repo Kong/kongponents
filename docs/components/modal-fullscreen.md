@@ -190,8 +190,8 @@ There are 6 designated slots you can use to display content in the fullscreen mo
   <div class="ml-25">
     <KInputSwitch v-model="checked" label="This plugin is enabled" class="display-items" />
     <br><br>
-    <div class="wrapper display-items">
-      <KMultiselect label="Pick Something" :items="deepClone(defaultItemsUnselect)" />
+    <div>
+      <KMultiselect label="Pick Something" :items="deepClone(defaultItemsMultiselect)" />
     </div>
     <br><br>
     <div class="wrapper display-items">
@@ -408,7 +408,7 @@ export default {
         label: 'Bunnies',
         value: 'bunnies'
       }],
-      defaultItemsUnselect: [{
+      defaultItemsMultiselect: [{
         label: 'Cats',
         value: 'cats'
       }, {
