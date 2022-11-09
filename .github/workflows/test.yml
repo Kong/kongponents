@@ -64,12 +64,12 @@ jobs:
         run: yarn build
 
       # This step will be skipped if being ran from the publish action with PREVENT_PERCY_TESTS: 'true'
-      # - name: Trigger Percy visual regression test for docs
-      #   timeout-minutes: 5
-      #   env:
-      #     PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-      #     PREVENT_PERCY_TESTS: ${{ secrets.PREVENT_PERCY_TESTS }}
-      #     PERCY_TARGET_BRANCH: main
-      #   if: "${{ env.PREVENT_PERCY_TESTS != 'true' }}"
-      #   run: |
-      #     npx @percy/cli snapshot docs/.vuepress/dist/
+      - name: Trigger Percy visual regression test for docs
+        timeout-minutes: 5
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+          PREVENT_PERCY_TESTS: ${{ secrets.PREVENT_PERCY_TESTS }}
+          PERCY_TARGET_BRANCH: main
+        if: "${{ env.PREVENT_PERCY_TESTS != 'true' }}"
+        run: |
+          npx @percy/cli snapshot docs/.vuepress/dist/
