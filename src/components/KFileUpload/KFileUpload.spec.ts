@@ -84,6 +84,7 @@ describe('KFileUpload', () => {
 
     cy.get('input[type=file]').selectFile('cypress/fixtures/file-upload/file-upload-document.md').then(() => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'file-added')
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'input')
     })
     cy.getTestId('remove-button').should('exist').click().then(() => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'file-removed')
