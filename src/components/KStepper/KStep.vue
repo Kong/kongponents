@@ -107,10 +107,10 @@ export default defineComponent({
     &::after {
       content: "";
       height: 2px;
-      width: calc(100% - var(--size) - calc(var(--spacing) * 2));
-      left: calc(50% + calc(var(--size) / 2 + var(--spacing)));
-      position: absolute;
+      width: calc(100% - var(--KStepIconSize, 26px) - calc(var(--spacing) * 2));
       top: calc(#{var(--KStepIconSize, 24px)} / 2);
+      left: calc(50% + calc(var(--KStepIconSize, 30px) / 1.8 + var(--spacing)));
+      position: absolute;
       background-color: var(--KStepDividerColorDefault, var(--grey-300));
     }
 
