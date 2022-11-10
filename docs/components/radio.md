@@ -48,6 +48,16 @@ export default defineComponent({
 
 Use `v-model` to bind the `checked` state of the underlying `<input />`. The `v-model` binds to the `modelValue` prop of the component and sets the current checked state of the input. You can read more about passing values via `v-model` [here](https://vuejs.org/guide/components/events.html#usage-with-v-model).
 
+### label
+
+Will place label text to the right of the checkbox. Can also be [slotted](#slots).
+
+```html
+<KRadio v-model="checked" :label="checked ? 'checked' : 'unchecked'" />
+```
+
+<KRadio v-model="labelPropChecked" :label="labelPropChecked ? 'checked' : 'unchecked'" />
+
 ### selectedValue
 
 The value of the `KRadio` option that will be emitted by the `change` and `update:modelValue` events.

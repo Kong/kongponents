@@ -13,6 +13,9 @@
     <span v-if="(label || $slots.label)">
       <slot name="label">{{ label }}</slot>
     </span>
+    <div v-if="(description || $slots.description)">
+      <slot name="description">{{ description }}</slot>
+    </div>
     <slot />
   </label>
 </template>
@@ -38,6 +41,13 @@ export default defineComponent({
     label: {
       type: String,
       default: '',
+    },
+    /**
+     * Overrides default description text
+     */
+    description: {
+      type: String,
+      default: 'gampushkii',
     },
     /**
      * The value emitted from the radio on change if selected

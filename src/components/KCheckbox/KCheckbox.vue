@@ -13,6 +13,9 @@
     <span v-if="(label || $slots.label)">
       <slot name="label">{{ label }}</slot>
     </span>
+    <div v-if="(description || $slots.description)">
+      <slot name="description">{{ description }}</slot>
+    </div>
   </label>
 </template>
 
@@ -36,7 +39,14 @@ export default defineComponent({
      */
     label: {
       type: String,
-      default: '',
+      default: 'amushdee',
+    },
+    /**
+     * Overrides default description text
+     */
+    description: {
+      type: String,
+      default: 'gampushkii',
     },
   },
   emits: ['input', 'change', 'update:modelValue'],
