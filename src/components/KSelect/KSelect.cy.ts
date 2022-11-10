@@ -53,6 +53,17 @@ describe('KSelect', () => {
     cy.get('.selected-item-label').should('contain.text', selectedLabel)
   })
 
+  it('renders with disabled item', () => {
+    mount(KSelect, {
+      props: {
+        testMode: true,
+        items: [{ label: 'Label 1', value: 'label1', disabled: true }],
+      },
+    })
+
+    cy.get('.k-select-item button').should('have.attr', 'disabled')
+  })
+
   it('renders with correct px width', () => {
     const width = 350
 
@@ -167,6 +178,30 @@ describe('KSelect', () => {
 
     cy.getTestId(`k-select-item-${vals[0]}`).eq(1).click({ force: true })
     cy.get('.selected-item-label').should('contain.text', labels[0])
+  })
+
+  it('ignores clicks on disabled item', () => {
+    const labels = ['Label 1', 'Label 2']
+    const vals = ['label1', 'label2']
+
+    mount(KSelect, {
+      props: {
+        testMode: true,
+        items: [{
+          label: labels[0],
+          value: vals[0],
+          disabled: true,
+        }, {
+          label: labels[1],
+          value: vals[1],
+        }],
+      },
+    })
+
+    cy.getTestId('k-select-input').click()
+
+    cy.getTestId(`k-select-item-${vals[0]}`).eq(1).click({ force: true })
+    cy.get('.selected-item-label').should('not.exist')
   })
 
   it('allows slotting content into the items', async () => {
