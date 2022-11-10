@@ -10,6 +10,9 @@
       class="k-input"
       @click="handleClick"
     >
+    <span v-if="(label || $slots.label)">
+      <slot name="label">{{ label }}</slot>
+    </span>
     <slot />
   </label>
 </template>
@@ -28,6 +31,13 @@ export default defineComponent({
       type: [String, Number, Boolean, Object],
       default: 'on',
       required: true,
+    },
+    /**
+     * Overrides default label text
+     */
+    label: {
+      type: String,
+      default: '',
     },
     /**
      * The value emitted from the radio on change if selected

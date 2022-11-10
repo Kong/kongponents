@@ -10,7 +10,9 @@
       class="k-input"
       @change="handleChange"
     >
-    <slot />
+    <span v-if="(label || $slots.label)">
+      <slot name="label">{{ label }}</slot>
+    </span>
   </label>
 </template>
 
@@ -28,6 +30,13 @@ export default defineComponent({
       type: Boolean,
       default: false,
       required: true,
+    },
+    /**
+     * Overrides default label text
+     */
+    label: {
+      type: String,
+      default: '',
     },
   },
   emits: ['input', 'change', 'update:modelValue'],
