@@ -11,7 +11,8 @@
     >
       <button
         :value="item.value"
-        :class="{ disabled, selected: item.selected }"
+        :class="{ selected: item.selected }"
+        :disabled="item.disabled"
         @click="handleClick"
       >
         <span class="k-multiselect-item-label mr-2">
@@ -42,16 +43,15 @@ export default defineComponent({
       type: Object,
       default: null,
       // Items must have a label and value
-      validator: (item: Record<string, string>): boolean => item.label !== undefined && item.value !== undefined,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
+      validator: (item: Record<string, string | number | boolean>): boolean => item.label !== undefined && item.value !== undefined,
     },
   },
   emits: ['selected'],
   setup(props, { emit }) {
     const handleClick = (): void => {
+      if (props.item.disabled) {
+        return
+      }
       emit('selected', props.item)
     }
 
@@ -88,19 +88,25 @@ export default defineComponent({
     text-align: left;
     font-weight: 400;
 
-    &:not(:disabled),
-    &:not(.disabled) {
+    &:not(:disabled) {
       cursor: pointer;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+
+      .k-multiselect-item-label {
+        opacity: 0.6;
+      }
     }
 
     .k-multiselect-item-label {
       width: auto;
-      line-height: 16px;
+      line-height: 20px;
       color: var(--grey-600);
       font-weight: 500;
       font-size: 14px;
       padding: 8px;
-      margin-bottom: 4px;
 
       :deep(.select-item-label) {
         color: var(--grey-600);
@@ -131,7 +137,7 @@ export default defineComponent({
       width: 24px;
     }
 
-    &:hover {
+    &:not(:disabled):hover {
       background-color: var(--grey-100);
       color: var(--grey-600);
     }
