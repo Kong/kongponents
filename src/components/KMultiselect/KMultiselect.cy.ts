@@ -62,6 +62,25 @@ describe('KMultiselect', () => {
     cy.getTestId('k-multiselect-selections').should('contain.text', selectedLabel2)
   })
 
+  it('renders with disabled item', () => {
+    const labels = ['Label 1', 'Label 2', 'Label 3']
+    const vals = ['label1', 'label2', 'label3']
+
+    mount(KMultiselect, {
+      props: {
+        testMode: true,
+        items: [
+          { label: labels[0], value: vals[0], disabled: true },
+          { label: labels[1], value: vals[1] },
+        ],
+      },
+    })
+
+    cy.get('.k-multiselect-input').trigger('click')
+
+    cy.get(`[data-testid="k-multiselect-item-${vals[0]}"] button`).should('have.attr', 'disabled')
+  })
+
   it('renders with correct px width', () => {
     const width = 350
 
@@ -146,6 +165,30 @@ describe('KMultiselect', () => {
 
     cy.getTestId(`k-multiselect-item-${vals[0]}`).eq(1).click()
     cy.getTestId('k-multiselect-selections').should('contain.text', labels[0])
+  })
+
+  it('ignores clicks on disabled item', () => {
+    const labels = ['Label 1', 'Label 2']
+    const vals = ['label1', 'label2']
+
+    mount(KMultiselect, {
+      props: {
+        testMode: true,
+        items: [{
+          label: labels[0],
+          value: vals[0],
+          disabled: true,
+        }, {
+          label: labels[1],
+          value: vals[1],
+        }],
+      },
+    })
+
+    cy.get('.k-multiselect-input').click()
+
+    cy.getTestId(`k-multiselect-item-${vals[0]}`).eq(1).click()
+    cy.getTestId('k-multiselect-selections').should('not.exist')
   })
 
   it('allows slotting content into the items', async () => {

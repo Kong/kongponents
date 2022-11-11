@@ -251,6 +251,7 @@ export interface MultiselectItem {
   value: string
   key?: string
   selected?: boolean
+  disabled?: boolean
 }
 
 export interface MultiselectFilterFnParams {
