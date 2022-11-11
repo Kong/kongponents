@@ -105,7 +105,7 @@
     "vite": "2.9.15",
     "vue": "^3.2.41",
     "vue-tsc": "^1.0.9",
-    "vuepress": "2.0.0-beta.49",
+    "vuepress": "2.0.0-beta.53",
     "vuepress-plugin-sitemap": "^2.0.0-alpha.0"
   },
   "author": {
