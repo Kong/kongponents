@@ -1314,7 +1314,7 @@
     "@vue/compiler-dom" "3.2.44"
     "@vue/shared" "3.2.44"
 
-"@vue/devtools-api@^6.1.4", "@vue/devtools-api@^6.2.0", "@vue/devtools-api@^6.4.5":
+"@vue/devtools-api@^6.2.0", "@vue/devtools-api@^6.4.5":
   version "6.4.5"
   resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.4.5.tgz#d54e844c1adbb1e677c81c665ecef1a2b4bb8380"
   integrity sha512-JD5fcdIuFxU4fQyXUu3w2KpAJHzTVdN+p4iOX2lMWSHMOoQdMAcpFLZzm9Z/2nmsoZ1a96QEhZ26e50xLBsgOQ==
@@ -1603,18 +1603,18 @@
     "@vuepress/core" "2.0.0-beta.49"
     prismjs "^1.28.0"
 
-"@vuepress/plugin-search@2.0.0-beta.49":
-  version "2.0.0-beta.49"
-  resolved "https://registry.yarnpkg.com/@vuepress/plugin-search/-/plugin-search-2.0.0-beta.49.tgz#6c87d7e8ed76a6bf80ff164fdf6829c366beaeeb"
-  integrity sha512-XkI5FfqJUODh5V7ic/hjja4rjVJQoT29xff63hDFvm+aVPG9FwAHtMSqUHutWO92WtlqoDi9y2lTbpyDYu6+rQ==
+"@vuepress/plugin-search@2.0.0-beta.53":
+  version "2.0.0-beta.53"
+  resolved "https://registry.yarnpkg.com/@vuepress/plugin-search/-/plugin-search-2.0.0-beta.53.tgz#6904650490dc4d1d5385cf288baf896f9fa40e73"
+  integrity sha512-x9FScY9aLTzlp6D5wO1d0kDkAO9TkzLwGueNx5F13Nkq589weq8uTTiNRA2oDM0l+H9BF6vDJ+XJlzE5W3u9gQ==
   dependencies:
-    "@vuepress/client" "2.0.0-beta.49"
-    "@vuepress/core" "2.0.0-beta.49"
-    "@vuepress/shared" "2.0.0-beta.49"
-    "@vuepress/utils" "2.0.0-beta.49"
+    "@vuepress/client" "2.0.0-beta.53"
+    "@vuepress/core" "2.0.0-beta.53"
+    "@vuepress/shared" "2.0.0-beta.53"
+    "@vuepress/utils" "2.0.0-beta.53"
     chokidar "^3.5.3"
-    vue "^3.2.37"
-    vue-router "^4.1.2"
+    vue "^3.2.41"
+    vue-router "^4.1.6"
 
 "@vuepress/plugin-theme-data@2.0.0-beta.49":
   version "2.0.0-beta.49"
@@ -7596,14 +7596,7 @@ vue-eslint-parser@^8.0.1:
     lodash "^4.17.21"
     semver "^7.3.5"
 
-vue-router@^4.1.2:
-  version "4.1.5"
-  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.1.5.tgz#256f597e3f5a281a23352a6193aa6e342c8d9f9a"
-  integrity sha512-IsvoF5D2GQ/EGTs/Th4NQms9gd2NSqV+yylxIyp/OYp8xOwxmU8Kj/74E9DTSYAyH5LX7idVUngN3JSj1X4xcQ==
-  dependencies:
-    "@vue/devtools-api" "^6.1.4"
-
-vue-router@^4.1.6:
+vue-router@^4.1.2, vue-router@^4.1.6:
   version "4.1.6"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.1.6.tgz#b70303737e12b4814578d21d68d21618469375a1"
   integrity sha512-DYWYwsG6xNPmLq/FmZn8Ip+qrhFEzA14EI12MsMgVxvHFDYvlr4NXpVF5hrRH1wVcDP8fGi5F4rxuJSl8/r+EQ==
