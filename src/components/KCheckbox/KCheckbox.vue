@@ -10,10 +10,16 @@
       class="k-input"
       @change="handleChange"
     >
-    <span v-if="(label || $slots.label)">
+    <span
+      v-if="(label || $slots.label)"
+      class="k-checkbox-label"
+    >
       <slot name="label">{{ label }}</slot>
     </span>
-    <div v-if="(description || $slots.description)">
+    <div
+      v-if="(label || $slots.label) && (description || $slots.description)"
+      class="k-checkbox-description"
+    >
       <slot name="description">{{ description }}</slot>
     </div>
   </label>
@@ -39,14 +45,14 @@ export default defineComponent({
      */
     label: {
       type: String,
-      default: 'amushdee',
+      default: '',
     },
     /**
      * Overrides default description text
      */
     description: {
       type: String,
-      default: 'gampushkii',
+      default: '',
     },
   },
   emits: ['input', 'change', 'update:modelValue'],
@@ -77,5 +83,77 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/styles/variables';
 @import '@/styles/functions';
+
+.k-checkbox-label {
+  /* Label Example */
+  width: 96px;
+  height: 20px;
+
+  /* Body/Popover Content - Regular - 400 */
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  /* identical to box height, or 143% */
+  display: flex;
+  align-items: center;
+
+  /* Black/85 */
+  color: rgba(0, 0, 0, 0.85);
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+
+  .k-checkbox-label + .k-checkbox-description {
+    /* Label Example */
+    width: 98px;
+    height: 18px;
+
+    /* Headline/H4 - Semibold - 600
+    .type-sm
+    */
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    /* identical to box height, or 129% */
+    display: flex;
+    align-items: center;
+
+    /* Black/85 */
+    color: rgba(0, 0, 0, 0.85);
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
+}
+
+.k-checkbox-description {
+  /* Some subheader text */
+  width: 142px;
+  height: 20px;
+
+  /* Body/Popover Content - Regular - 400 */
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  /* identical to box height, or 143% */
+
+  /* Black/45 */
+  color: rgba(0, 0, 0, 0.45);
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
 
 </style>

@@ -50,13 +50,23 @@ Use `v-model` to bind the `checked` state of the underlying `<input />`. The `v-
 
 ### label
 
-Will place label text to the right of the checkbox. Can also be [slotted](#slots).
+Will place label text to the right of the radio. Can also be [slotted](#slots).
 
 ```html
-<KRadio v-model="checked" :label="checked ? 'checked' : 'unchecked'" />
+<KRadio v-model="selected" label="Lable Example" />
 ```
 
-<KRadio v-model="labelPropChecked" :label="labelPropChecked ? 'checked' : 'unchecked'" />
+<KRadio v-model="selected" label="Lable Example" />
+
+### description
+
+Will place description text under the radio label. Can also be [slotted](#slots).
+
+```html
+<KRadio v-model="selected" label="Lable Example" description="Some subheader text" />
+```
+
+<KRadio v-model="selected" label="Lable Example" description="Some subheader text" />
 
 ### selectedValue
 

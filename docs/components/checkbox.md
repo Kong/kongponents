@@ -60,10 +60,20 @@ Use `v-model` to bind the `checked` state of the underlying `<input />`. The `v-
 Will place label text to the right of the checkbox. Can also be [slotted](#slots).
 
 ```html
-<KCheckbox v-model="checked" :label="checked ? 'checked' : 'unchecked'" />
+<KCheckbox v-model="checked" label="Lable Example" />
 ```
 
-<KCheckbox v-model="labelPropChecked" :label="labelPropChecked ? 'checked' : 'unchecked'" />
+<KCheckbox v-model="labelPropChecked1" label="Lable Example" />
+
+### description
+
+Will place description text under the checkbox label. Can also be [slotted](#slots).
+
+```html
+<KCheckbox v-model="checked" label="Lable Example" description="Some subheader text" />
+```
+
+<KCheckbox v-model="labelPropChecked1" label="Lable Example" description="Some subheader text" />
 
 ### HTML attributes
 
