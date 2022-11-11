@@ -136,7 +136,7 @@ export default defineComponent({
   },
   emits: ['dismissed'],
   setup(props, { emit }) {
-    const badgeText = ref<HTMLElement | null>(null)
+    const badgeText = ref(null)
     const isDismissed = ref(false)
 
     const handleDismiss = () => {
@@ -152,8 +152,8 @@ export default defineComponent({
     watch(badgeText, () => {
       // prevent recursion loop
       if (badgeText.value && !truncationCalculated.value) {
-        offsetWidth.value = badgeText.value?.offsetWidth
-        scrollWidth.value = badgeText.value?.scrollWidth
+        offsetWidth.value = (badgeText.value as HTMLElement)?.offsetWidth
+        scrollWidth.value = (badgeText.value as HTMLElement)?.scrollWidth
         truncationCalculated.value = true
       }
     })

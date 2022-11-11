@@ -381,8 +381,8 @@ export default defineComponent({
     const multiselectTextId = computed((): string => props.testMode ? 'test-multiselect-text-id-1234' : uuidv1())
     const multiselectSelectedItemsId = computed((): string => props.testMode ? 'test-multiselect-selected-id-1234' : uuidv1())
     const multiselectSelectedItemsStagingId = computed((): string => props.testMode ? 'test-multiselect-selected-staging-id-1234' : uuidv1())
-    const multiselectRef = ref<HTMLElement | null>(null)
-    const selectionBottomRef = ref<HTMLElement | null>(null)
+    const multiselectRef = ref(null)
+    const selectionBottomRef = ref(null)
     // filter and selection
     const selectionsMaxHeight = computed((): number => {
       return props.selectedRowCount * SELECTED_ITEMS_SINGLE_LINE_HEIGHT
@@ -600,6 +600,7 @@ export default defineComponent({
 
     const scrollSmoothlyToBottom = () => {
       setTimeout(() => {
+        // @ts-ignore
         selectionBottomRef.value?.scrollIntoView({
           behavior: 'smooth',
           block: 'nearest',
@@ -768,6 +769,7 @@ export default defineComponent({
 
     const numericWidth = ref<number>(300)
     onMounted(() => {
+      // @ts-ignore
       numericWidth.value = multiselectRef.value?.clientWidth || 300
     })
 

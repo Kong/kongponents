@@ -35,9 +35,10 @@ import { defineComponent, getCurrentInstance } from 'vue'
 export default defineComponent({
   name: 'App',
   setup() {
-    const $toaster = getCurrentInstance()?.appContext.config.globalProperties.$toaster
+    const $toaster = getCurrentInstance()?.appContext?.config?.globalProperties?.$toaster
 
     const openNotification = (options: Record<string, any> | string): void => {
+      // @ts-ignore
       $toaster.open(options)
     }
 
