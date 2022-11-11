@@ -53,20 +53,20 @@ Use `v-model` to bind the `checked` state of the underlying `<input />`. The `v-
 Will place label text to the right of the radio. Can also be [slotted](#slots).
 
 ```html
-<KRadio v-model="selected" label="Lable Example" />
+<KRadio :selected-value="true" v-model="radio" label="Lable Example" />
 ```
 
-<KRadio v-model="selected" label="Lable Example" />
+<KRadio :selected-value="true" v-model="radio" label="Lable Example" />
 
 ### description
 
 Will place description text under the radio label. Can also be [slotted](#slots).
 
 ```html
-<KRadio v-model="selected" label="Lable Example" description="Some subheader text" />
+<KRadio :selected-value="true" v-model="radio" label="Lable Example" description="Some subheader text" />
 ```
 
-<KRadio v-model="selected" label="Lable Example" description="Some subheader text" />
+<KRadio :selected-value="true" v-model="radio" label="Lable Example" description="Some subheader text" />
 
 ### selectedValue
 
