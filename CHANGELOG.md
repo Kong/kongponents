@@ -1,3 +1,11 @@
+# [8.4.0](https://github.com/Kong/kongponents/compare/v8.3.3...v8.4.0) (2022-11-11)
+
+
+### Features
+
+* **kmultiselect:** support disabled item ([#893](https://github.com/Kong/kongponents/issues/893)) ([9e36a0b](https://github.com/Kong/kongponents/commit/9e36a0b71ffe383518aaa0d81373bd92cc851963))
+* **kselect:** support disabled item ([#892](https://github.com/Kong/kongponents/issues/892)) ([a282712](https://github.com/Kong/kongponents/commit/a28271285c0a0b82ab7b5b03107d9d8feda6a4a3))
+
 ## [8.3.3](https://github.com/Kong/kongponents/compare/v8.3.2...v8.3.3) (2022-11-09)
 
 
