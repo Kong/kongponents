@@ -106,32 +106,6 @@ export default defineComponent({
   flex: none;
   order: 0;
   flex-grow: 0;
-
-  .k-checkbox-label + .k-checkbox-description {
-    /* Label Example */
-    width: 98px;
-    height: 18px;
-
-    /* Headline/H4 - Semibold - 600
-    .type-sm
-    */
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 18px;
-    /* identical to box height, or 129% */
-    display: flex;
-    align-items: center;
-
-    /* Black/85 */
-    color: rgba(0, 0, 0, 0.85);
-
-    /* Inside auto layout */
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-  }
 }
 
 .k-checkbox-description {
