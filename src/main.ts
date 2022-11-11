@@ -23,7 +23,7 @@ const app = createApp(App)
 // Install plugin (all components)
 app.use(Kongponents)
 app.use(SetupCalendar, {})
-
+// @ts-ignore
 app.config.globalProperties.$toaster = new ToastManager()
 
 // 1. Define route components.
