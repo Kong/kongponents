@@ -211,6 +211,7 @@ export interface SelectItem {
   value: string | number
   key?: string
   selected?: boolean
+  disabled?: boolean
 }
 
 export interface SelectFilterFnParams {

@@ -16,10 +16,12 @@
 
 ### items
 
-An array of items containing a `label` and `value`. You may also specify that a certain item is `selected` by default.
+An array of items containing a `label` and `value`. You may also specify:
+- a certain item is `selected` by default
+- a certain item is `disabled`
 
 <div>
-  <KSelect :items="deepClone(defaultItems)" />
+  <KSelect :items="deepClone(defaultItemsWithDisabled)" />
 </div>
 
 ```html
@@ -29,7 +31,8 @@ An array of items containing a `label` and `value`. You may also specify that a 
     selected: true
   }, {
     label: 'Dogs',
-    value: 'dogs'
+    value: 'dogs',
+    disabled: true,
   }, {
     label: 'Bunnies',
     value: 'bunnies'
@@ -606,6 +609,18 @@ export default defineComponent({
       }, {
         label: 'Dogs',
         value: 'dogs'
+      }, {
+        label: 'Bunnies',
+        value: 'bunnies'
+      }],
+      defaultItemsWithDisabled: [{
+        label: 'Cats',
+        value: 'cats',
+        selected: true
+      }, {
+        label: 'Dogs',
+        value: 'dogs',
+        disabled: true
       }, {
         label: 'Bunnies',
         value: 'bunnies'

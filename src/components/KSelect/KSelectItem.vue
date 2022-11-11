@@ -10,7 +10,8 @@
       class="d-block"
     >
       <button
-        :class="{ disabled, selected: item.selected }"
+        :class="{ selected: item.selected }"
+        :disabled="item.disabled === true ? true : undefined"
         :value="item.value"
       >
         <span class="k-select-item-label mr-2">
@@ -41,16 +42,17 @@ export default defineComponent({
       type: Object,
       default: null,
       // Items must have a label and value
-      validator: (item: Record<string, number | string>): boolean => item.label !== undefined && item.value !== undefined,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
+      validator: (item: Record<string, number | string | boolean>): boolean => item.label !== undefined && item.value !== undefined,
     },
   },
   emits: ['selected'],
   setup(props, { emit }) {
-    const handleClick = (): void => {
+    const handleClick = (e: MouseEvent): void => {
+      if (props.item.disabled) {
+        // Clicking on a disabled item should not close the dropdown
+        e.stopPropagation()
+        return
+      }
       emit('selected', props.item)
     }
 
@@ -88,19 +90,25 @@ export default defineComponent({
     text-align: left;
     font-weight: 400;
 
-    &:not(:disabled),
-    &:not(.disabled) {
+    &:not(:disabled) {
       cursor: pointer;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+
+      .k-select-item-label {
+        opacity: 0.6;
+      }
     }
 
     .k-select-item-label {
       width: auto;
-      line-height: 16px;
+      line-height: 20px;
       color: var(--grey-600);
       font-weight: 500;
       font-size: 14px;
       padding: 8px;
-      margin-bottom: 4px;
 
       :deep(.select-item-label) {
         color: var(--grey-600);
@@ -135,7 +143,7 @@ export default defineComponent({
       }
     }
 
-    &:hover {
+    &:not(:disabled):hover {
       background-color: var(--grey-100);
       color: var(--grey-600);
     }
