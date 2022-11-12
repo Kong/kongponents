@@ -70,7 +70,7 @@ There are two ways to use Kongponents in your project: [globally install all Kon
 
 **Regardless of which method you choose** you will first need to import the Kongponents CSS ([Vite](https://vitejs.dev/guide/build.html#library-mode) does not currently support CSS in JS when building in library mode).
 
-The easiest place to import the styles is inside your Vue entry file (e.g. `main.ts`). For more examples of utilzing Kongponent styles, including importing the Sass and CSS variables and even scoping the styles, see [the other usage examples](/style-guide/usage.html#css-and-sass-variables).
+The easiest place to import the styles is inside your Vue entry file (e.g. `main.ts`). For more examples of utilzing Kongponent styles, including importing the Sass and CSS variables and even scoping the styles, see [the other usage examples](/guide/styles/usage.html#css-and-sass-variables).
 
 ### Globally install all Kongponents
 

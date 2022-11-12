@@ -1,5 +1,4 @@
 ---
-sidebarDepth: 3
 sans:
   - variable: xxxl
     size: 32px

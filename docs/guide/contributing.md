@@ -1,7 +1,3 @@
----
-sidebarDepth: 1
----
-
 # Getting Started
 
 In this section we will focus on the steps and nuances of developing Kongponents. Lets start with installation.

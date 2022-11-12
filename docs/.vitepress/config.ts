@@ -81,19 +81,19 @@ export default defineConfig({
           text: 'Guide',
           collapsible: true,
           items: [
-            { text: 'Getting Started', link: '/guide/getting-started' },
+            { text: 'Getting Started', link: '/guide/' },
           ]
         },
         {
           text: 'Styles',
           collapsible: true,
           items: [
-            { text: 'Theming', link: '/guide/style-guide/theming' },
-            { text: 'Colors', link: '/guide/style-guide/colors' },
-            { text: 'Typography', link: '/guide/style-guide/type' },
-            { text: 'Forms', link: '/guide/style-guide/forms' },
-            { text: 'Utilities', link: '/guide/style-guide/utilities' },
-            { text: 'Standalone Usage', link: '/guide/style-guide/usage' },
+            { text: 'Theming', link: '/guide/styles/theming' },
+            { text: 'Colors', link: '/guide/styles/colors' },
+            { text: 'Typography', link: '/guide/styles/typography' },
+            { text: 'Forms', link: '/guide/styles/forms' },
+            { text: 'Utilities', link: '/guide/styles/utilities' },
+            { text: 'Standalone Usage', link: '/guide/styles/standalone-usage' },
           ]
         },
         {
@@ -107,16 +107,16 @@ export default defineConfig({
           text: 'Contributing',
           collapsible: true,
           items: [
-            { text: 'Getting Started', link: '/guide/contributing/' },
-            { text: 'Adding Icons to KIcon', link: '/guide/contributing/adding-icons-to-kicon' },
+            { text: 'Getting Started', link: '/guide/contributing' },
+            { text: 'Adding Icons to KIcon', link: '/guide/adding-icons-to-kicon' },
           ]
         },
       ],
     },
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Guide', link: '/guide/getting-started' },
-      { text: 'Components', link: '/components/alert' },
+      { text: 'Guide', link: '/guide/', activeMatch: '/guide/' },
+      { text: 'Components', link: '/components/alert', activeMatch: '/components/' },
       {
         text: `v8.x`,
         items: [

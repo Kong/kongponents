@@ -64,15 +64,15 @@ module.exports = () => ({
 
 ## Usage
 
-There are two ways to use Kongponents in your project: [globally install all Kongponents](#globally-install-all-kongponents), or [register individual Kongponents](#register-individual-kongponents) as needed.
+There are two ways to use Kongponents in your project: [globally register all Kongponents](#global-registration), or [register individual Kongponents](#in-component-registration) as needed.
 
 **Regardless of which method you choose** you will first need to import the Kongponents CSS ([Vite](https://vitejs.dev/guide/build.html#library-mode) does not currently support CSS in JS when building in library mode).
 
-The easiest place to import the styles is inside your Vue entry file (e.g. `main.ts`). For more examples of utilzing Kongponent styles, including importing the Sass and CSS variables and even scoping the styles, see [the other usage examples](/style-guide/usage.html#css-and-sass-variables).
+The easiest place to import the styles is inside your Vue entry file (e.g. `main.ts`). For more examples of utilzing Kongponent styles, including importing the Sass and CSS variables and even scoping the styles, see [the other usage examples](/guide/styles/standalone-usage.html#css-and-sass-variables).
 
-### Globally install all Kongponents
+### Global registration
 
-If you plan to use a majority of the Kongponent components, you can import the package and install as a Vue Plugin to register all components and make them globally available in your app.
+If you plan to use a majority of the Kongponent components, you can import the package and register all Kongponents as a Vue Plugin and make them globally available in your app.
 
 This method is only ideal if you are using a majority of the Kongponents in your project, as the unused components will not be tree-shaken.
 
@@ -93,11 +93,9 @@ app.use(Kongponents)
 app.mount('#app')
 ```
 
-### Register individual Kongponents
+### In-Component registration
 
 Alternatively, you can import and register just the components you intend to use.
-
-Import and registration can be done globally in your Vue entry file (e.g. `main.ts`), or locally, just in the component where it will be used.
 
 <CodeGroup>
   <CodeGroupItem title="Global Registration" active>
