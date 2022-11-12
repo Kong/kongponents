@@ -174,7 +174,7 @@ When creating a new component with the CLI it will perform the following actions
   - `{KongponentName}.cy.ts` - Cypress Component Test file
   - `{KongponentName}.vue` - Component file
 - Adds `/src/components/{KongponentName}/{KongponentName}.vue` to the exports in `/src/components/index.ts`
-- Creates a VuePress markdown file at `/docs/components/{kongponent}.md` (you have to manually add this file to the VuePress sidebar in `docs/.vuepress/config.ts`).
+- Creates a VitePress markdown file at `/docs/components/{kongponent}.md` (you have to manually add this file to the VitePress sidebar in `docs/.vitepress/config.ts`).
 
   :::warning NOTE
   If your component is exported via an `index.ts` file, or anything other than the default `{KongponentName}.vue` file, you will need to modify `/src/components/index.ts` accordingly.
@@ -220,7 +220,7 @@ Although the CLI will create a file in the docs directory, the new doc file **is
 Add the component to the desired location in the sidebar
 
 ```ts
-// docs/.vuepress/config.ts
+// docs/.vitepress/config.ts
 
 {
   text: 'Kongponents',

@@ -170,7 +170,7 @@ export async function createComponentFiles(name: string): Promise<void> {
     `,
       })
 
-      console.log(`${pc.bold('Note')}: You will need to manually add the new ${pc.cyan(kongponentDocFilename(name) + '.md')} file to \n      the VuePress sidebar in docs/.vuepress/config.ts.`)
+      console.log(`${pc.bold('Note')}: You will need to manually add the new ${pc.cyan(kongponentDocFilename(name) + '.md')} file to \n      the VitePress sidebar in docs/.vitepress/config.ts.`)
       // Empty line
       console.log('')
     }
