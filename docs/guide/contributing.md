@@ -10,105 +10,35 @@ Clone the Kongponents repository
 git clone https://github.com/Kong/kongponents.git
 ```
 
-Install dependencies with `yarn` or `npm`
+Install dependencies
 
-<CodeGroup>
-  <CodeGroupItem title="yarn" active>
-
-  ```sh
-  cd kongponents && yarn
-  ```
-
-  </CodeGroupItem>
-
-  <CodeGroupItem title="npm">
-
-  ```sh
-  cd kongponents && npm install
-  ```
-
-  </CodeGroupItem>
-</CodeGroup>
+```sh
+cd kongponents && yarn install --frozen-lockfile
+```
 
 Next, let's generate [the CLI](#cli) that can be used to easy scaffold new Kongponent components
 
-<CodeGroup>
-  <CodeGroupItem title="yarn" active>
-
-  ```sh
-  yarn build:cli
-  ```
-
-  </CodeGroupItem>
-
-  <CodeGroupItem title="npm">
-
-  ```sh
-  npm run build:cli
-  ```
-
-  </CodeGroupItem>
-</CodeGroup>
+```sh
+yarn build:cli
+```
 
 Run the docs locally
 
-<CodeGroup>
-  <CodeGroupItem title="yarn" active>
-
-  ```sh
-  yarn docs:dev
-  ```
-
-  </CodeGroupItem>
-
-  <CodeGroupItem title="npm">
-
-  ```sh
-  npm run docs:dev
-  ```
-
-  </CodeGroupItem>
-</CodeGroup>
+```sh
+yarn docs:dev
+```
 
 Build the docs and preview the build locally
 
-<CodeGroup>
-  <CodeGroupItem title="yarn" active>
-
-  ```sh
-  yarn docs:preview
-  ```
-
-  </CodeGroupItem>
-
-  <CodeGroupItem title="npm">
-
-  ```sh
-  npm run docs:preview
-  ```
-
-  </CodeGroupItem>
-</CodeGroup>
+```sh
+yarn docs:preview
+```
 
 Perform a full build of all Kongponents and the Docs site
 
-<CodeGroup>
-  <CodeGroupItem title="yarn" active>
-
-  ```sh
-  yarn build
-  ```
-
-  </CodeGroupItem>
-
-  <CodeGroupItem title="npm">
-
-  ```sh
-  npm run build
-  ```
-
-  </CodeGroupItem>
-</CodeGroup>
+```sh
+yarn build
+```
 
 ## CLI
 
@@ -116,51 +46,9 @@ It is recommended to use the CLI (`create-kongponent`) when creating new compone
 
 ### Run local CLI
 
-<CodeGroup>
-  <CodeGroupItem title="yarn" active>
-
-  ```sh
-  yarn create-kongponent
-  ```
-
-  </CodeGroupItem>
-
-  <CodeGroupItem title="npm">
-
-  ```sh
-  npm run create-kongponent
-  ```
-
-  </CodeGroupItem>
-</CodeGroup>
-
-### Install global CLI
-
-<CodeGroup>
-  <CodeGroupItem title="yarn" active>
-
-  ```sh
-  # Link the package
-  yarn link
-
-  # Run the CLI
-  create-kongponent
-  ```
-
-  </CodeGroupItem>
-
-  <CodeGroupItem title="npm">
-
-  ```sh
-  # Link the package
-  npm link
-
-  # Run the CLI
-  create-kongponent
-  ```
-
-  </CodeGroupItem>
-</CodeGroup>
+```sh
+yarn create-kongponent
+```
 
 ## Create a new Kongponent
 

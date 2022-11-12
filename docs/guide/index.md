@@ -8,45 +8,17 @@ Kongponents is a Vue component library of frequently needed UI elements. They we
 
 ## Installation
 
-To begin using Kongponents, start by installing the package into your project using `yarn` or `npm`.
+To begin using Kongponents, start by installing the package into your project.
 
-<CodeGroup>
-  <CodeGroupItem title="yarn" active>
-
-  ```sh
-  yarn add @kong/kongponents
-  ```
-
-  </CodeGroupItem>
-
-  <CodeGroupItem title="npm">
-
-  ```sh
-  npm install @kong/kongponents
-  ```
-
-  </CodeGroupItem>
-</CodeGroup>
+```sh
+yarn add @kong/kongponents
+```
 
 If you choose to utilize any of the [CSS custom properties (variables)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) included in the `@kong/kongponents` package and your project uses [PostCSS](https://postcss.org/), you will likely need use the [`postcss-custom-properties` PostCSS plugin](https://github.com/postcss/postcss-custom-properties) so that the variables are preserved in their original form.
 
-<CodeGroup>
-  <CodeGroupItem title="yarn" active>
-
-  ```sh
-  yarn add postcss-custom-properties --dev
-  ```
-
-  </CodeGroupItem>
-
-  <CodeGroupItem title="npm">
-
-  ```sh
-  npm install postcss-custom-properties --save-dev
-  ```
-
-  </CodeGroupItem>
-</CodeGroup>
+```sh
+yarn add postcss-custom-properties --dev
+```
 
 Next, add a `postcss.config.js` file to your project with the following content
 
@@ -64,13 +36,13 @@ module.exports = () => ({
 
 ## Usage
 
-There are two ways to use Kongponents in your project: [globally register all Kongponents](#global-registration), or [register individual Kongponents](#in-component-registration) as needed.
+There are two ways to use Kongponents in your project: [globally register all Kongponents via a Vue plugin](#vue-plugin), or [register individual Kongponents](#individual-components) as needed.
 
-**Regardless of which method you choose** you will first need to import the Kongponents CSS ([Vite](https://vitejs.dev/guide/build.html#library-mode) does not currently support CSS in JS when building in library mode).
+**Regardless of which method you choose** you will also need to import the Kongponents CSS into your project ([Vite](https://vitejs.dev/guide/build.html#library-mode) does not currently support CSS in JS when building in library mode).
 
-The easiest place to import the styles is inside your Vue entry file (e.g. `main.ts`). For more examples of utilzing Kongponent styles, including importing the Sass and CSS variables and even scoping the styles, see [the other usage examples](/guide/styles/standalone-usage.html#css-and-sass-variables).
+The easiest place to import the package styles is inside your Vue entry file (e.g. `main.ts`). For more examples of utilzing Kongponent styles, including importing the Sass and CSS variables and even scoping the styles, see [the other usage examples](/guide/styles/standalone-usage.html#css-and-sass-variables).
 
-### Global registration
+### Vue Plugin
 
 If you plan to use a majority of the Kongponent components, you can import the package and register all Kongponents as a Vue Plugin and make them globally available in your app.
 
@@ -93,58 +65,54 @@ app.use(Kongponents)
 app.mount('#app')
 ```
 
-### In-Component registration
+### Individual components
 
 Alternatively, you can import and register just the components you intend to use.
 
-<CodeGroup>
-  <CodeGroupItem title="Global Registration" active>
+Import and registration can be done individually in the app entry file (e.g. `main.ts`) or within the parent component.
 
-  ```ts
-  // main.ts (or Vue entry file)
+#### Global Registration
 
-  import { createApp } from 'vue'
-  import { KButton } from '@kong/kongponents'
-  import '@kong/kongponents/dist/style.css'
-  // If using Vue-CLI and webpack, you can likely use this path instead: import '~@kong/kongponents/dist/style.css'
+```ts
+// main.ts (or Vue entry file)
 
-  const app = createApp(App)
+import { createApp } from 'vue'
+import { KButton } from '@kong/kongponents'
+import '@kong/kongponents/dist/style.css'
+// If using Vue-CLI and webpack, you can likely use this path instead: import '~@kong/kongponents/dist/style.css'
 
-  // Register an individual Kongponent
-  app.component('KButton', KButton)
+const app = createApp(App)
 
-  app.mount('#app')
-  ```
+// Register an individual Kongponent
+app.component('KButton', KButton)
 
-  </CodeGroupItem>
+app.mount('#app')
+```
 
-  <CodeGroupItem title="In-Component Registration">
+#### In-Component Registration
 
-  ```html
-  <script lang="ts">
-  // YourComponent.vue
+```html
+<script lang="ts">
+// YourComponent.vue
 
-  import { defineComponent } from 'vue'
-  import { KButton } from '@kong/kongponents'
-  // Import Kongponents styles here, or in the <style> block
-  import '@kong/kongponents/dist/style.css'
-  // If using Vue-CLI and webpack, you can likely use this path instead: import '~@kong/kongponents/dist/style.css'
+import { defineComponent } from 'vue'
+import { KButton } from '@kong/kongponents'
+// Import Kongponents styles here, or in the <style> block
+import '@kong/kongponents/dist/style.css'
+// If using Vue-CLI and webpack, you can likely use this path instead: import '~@kong/kongponents/dist/style.css'
 
-  export default defineComponent({
-    name: 'YourComponent',
-    components: { KButton },
-  })
-  </script>
+export default defineComponent({
+  name: 'YourComponent',
+  components: { KButton },
+})
+</script>
 
-  <style>
-  /* Import Kongponents styles here, or in the <script> tag */
-  @import "@kong/kongponents/dist/style.css";
-  /* If using Vue-CLI and webpack, you can likely use this path instead: import '~@kong/kongponents/dist/style.css' */
-  </style>
-  ```
-
-  </CodeGroupItem>
-</CodeGroup>
+<style>
+/* Import Kongponents styles here, or in the <script> tag */
+@import "@kong/kongponents/dist/style.css";
+/* If using Vue-CLI and webpack, you can likely use this path instead: import '~@kong/kongponents/dist/style.css' */
+</style>
+```
 
 ## Webpack
 
