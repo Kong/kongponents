@@ -1,7 +1,5 @@
 # Multiselect
 
-<div v-if="hasMounted">
-
 **Multiselect** - Multiselect component
 
 - The total count of selected items will be displayed as the placeholder text when the multiselect is collapsed.
@@ -9,9 +7,9 @@
 - If at least one item is selected, there will be a clear all button displayed in place of the dropdown chevron when the multiselect has focus.
 - Selected items are displayed at the top of the dropdown for easy access (refreshed on multiselect collapse).
 
-<div>
+<ClientOnly>
   <KMultiselect label="Pick Something" :items="deepClone(defaultItemsUnselect)" />
-</div>
+</ClientOnly>
 
 ```html
 <KMultiselect label="Pick Something" :items="items" />
@@ -25,9 +23,9 @@ An array of items containing a `label` and `value`. You may also specify:
 - a certain items are `selected` by default
 - a certain items are `disabled`
 
-<div>
+<ClientOnly>
   <KMultiselect :items="deepClone(defaultItemsWithDisabled)" />
-</div>
+</ClientOnly>
 
 ```html
 <KMultiselect :items="[{
@@ -63,9 +61,9 @@ An array of items containing a `label` and `value`. You may also specify:
 
 The label for the select.
 
-<div>
+<ClientOnly>
   <KMultiselect label="Cool label" :items="deepClone(defaultItemsUnselect)" />
-</div>
+</ClientOnly>
 
 ```html
 <KMultiselect label="Cool label" :items="items" />
@@ -75,14 +73,14 @@ The label for the select.
 
 Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label) if using the `label` prop.
 
-<div>
+<ClientOnly>
   <KMultiselect label="Name" :label-attributes="{
       help: 'I use the KLabel `help` prop',
       'data-testid': 'test'
     }"
     :items="defaultItemsUnselect"
   />
-</div>
+</ClientOnly>
 
 ```html
 <KMultiselect
@@ -104,9 +102,9 @@ Currently we support numbers (will be converted to `px`), `auto`, and percentage
 Because we are controlling the widths of multiple elements, we recommend using this prop to control the width instead of explicitly adding classes or styles to the `KMultiselect` component.
 :::
 
-<div>
+<ClientOnly>
   <KMultiselect width="80%" :items="deepClone(defaultItemsUnselect)" />
-</div>
+</ClientOnly>
 
 ```html
 <KMultiselect width="80%" :items="items" />
@@ -116,9 +114,9 @@ Because we are controlling the widths of multiple elements, we recommend using t
 
 Use this prop to customize the number of rows of selections to display when the multiselect has focus. By default, we display 2 rows of selections. Additional selections will be combined into an additional count badge if the number of selections would extend beyond the selection row count. You can hover over this badge to see the remaining selections.
 
-<div>
+<ClientOnly>
   <KMultiselect :selected-row-count="1" :items="deepClone(defaultItemsCollapse)" />
-</div>
+</ClientOnly>
 
 ```html
 <KMultiselect :selected-row-count="1" :items="items" />
@@ -128,9 +126,9 @@ Use this prop to customize the number of rows of selections to display when the 
 
 By default, we try to keep the KMultiselect display slim. This means that KMultiselect only takes up a single line when it doesn't have focus, and when focused, if the selected entries would display beyond the `selectedRowCount` we collapse them into the additional count badge. You can set `expandSelected` to `true` if you want to continue to see the selections even when KMultiselect doesn't have focus. Instead of collapsing additional selections into the additional count badge we will allow you to scroll through all of your selections.
 
-<div>
+<ClientOnly>
   <KMultiselect expand-selected :items="deepClone(defaultItemsManySelected)" />
-</div>
+</ClientOnly>
 
 ```html
 <KMultiselect expand-selected :items="items" />
@@ -140,9 +138,9 @@ By default, we try to keep the KMultiselect display slim. This means that KMulti
 
 You can pass a `dropdownMaxHeight` string for the dropdown. By default, the `dropdownMaxHeight` is `300px`. This is the maximum height of the `KMultiselect` dropdown when open. You can pass a number (will be converted to `px`), `auto`, percentages, or `vh` units.
 
-<div>
+<ClientOnly>
   <KMultiselect :items="deepClone(defaultItemsLongList)" dropdown-max-height="150" />
-</div>
+</ClientOnly>
 
 ```html
 <KMultiselect :items="items" dropdown-max-height="150" />
@@ -157,9 +155,9 @@ Use fixed positioning of the popover to avoid content being clipped by parental 
 You can use the `loading` prop to show a loading indicator in place of the chevron while fetching data from API.
 See [autosuggest](#autosuggest-with-debounce) for a functional example.
 
-<div>
+<ClientOnly>
   <KMultiselect loading :items="deepClone(defaultItemsUnselect)" />
-</div>
+</ClientOnly>
 
 ```html
 <KMultiselect loading :items="items" />
@@ -186,12 +184,12 @@ See [autosuggest](#autosuggest) for more details.
 
 `KMultiselect` works as regular inputs do using v-model for data binding:
 
-<div>
+<ClientOnly>
   <KLabel>Value:</KLabel> {{ myVal }}
   <KMultiselect v-model="myVal" :items="deepClone(defaultItems)" />
   <br>
   <KButton @click="clearIt">Clear</KButton>
-</div>
+</ClientOnly>
 
 ```html
 <div>
@@ -252,7 +250,7 @@ Empty state content can be configured using the `empty` slot.
 When using `autosuggest`, you **MUST** use `v-model` otherwise the Multiselect can't maintain an accurate list of which items are selected.
 :::
 
-<div>
+<ClientOnly>
   <KLabel>Value:</KLabel> {{ myAutoVal }}
   <KMultiselect
     v-model="myAutoVal"
@@ -269,7 +267,7 @@ When using `autosuggest`, you **MUST** use `v-model` otherwise the Multiselect c
       <div>No results found</div>
     </template>
   </KMultiselect>
-</div>
+</ClientOnly>
 
 ```html
 <KMultiselect
@@ -347,7 +345,7 @@ If you need to send API requests in the `query-change` event handler, you may wa
 The following is an example:
 :::
 
-<div>
+<ClientOnly>
   <KMultiselect
     v-model="myDebounceAutoVal"
     autosuggest
@@ -360,7 +358,7 @@ The following is an example:
       <div class="select-item-desc">{{ item.label }}</div>
     </template>
   </KMultiselect>
-</div>
+</ClientOnly>
 
 ```html
 <KMultiselect
@@ -445,9 +443,9 @@ export default {
 
 You can pass any input attribute and it will get properly bound to the element.
 
-<div>
+<ClientOnly>
   <KMultiselect disabled placeholder="type something" :items="[{ label: 'test', value: 'test' }]" />
-</div>
+</ClientOnly>
 
 ```html
 <KMultiselect disabled placeholder="type something" :items="[{ label: 'test', value: 'test' }]" />
@@ -464,14 +462,14 @@ You can use the `item-template` slot to customize the look and feel of your item
 
 If you use the `.select-item-label` and `.select-item-desc` classes within the slot as shown in the example below, the dropdown items will inherit preconfigured styles for two-level select items which you're then free to customize.
 
-<div>
+<ClientOnly>
   <KMultiselect :items="myItems" width="100%" :filterFunc="customFilter">
     <template v-slot:item-template="{ item }">
       <div class="select-item-label">{{ item.label }}</div>
       <div class="select-item-desc">{{ item.description }}</div>
     </template>
   </KMultiselect>
-</div>
+</ClientOnly>
 
 ```html
 <KMultiselect :items="myItems" width="100%" :filterFunc="customFilter">
@@ -526,8 +524,6 @@ You can use the `empty` slot to customize the look of the dropdown list when the
 | `change`              | last item selected/deselected Object or null |
 | `query-change`        | `query` String |
 
-</div>
-
 <script lang="ts">
 import { defineComponent } from 'vue'
 
@@ -562,7 +558,6 @@ const allItems = new Array(10).fill().map((_, i) => ({
 export default defineComponent({
   data() {
     return {
-      hasMounted: false,
       myItems: getItems(5),
       mySelect: '',
       myVal: ['cats', 'bunnies'],
@@ -704,9 +699,6 @@ export default defineComponent({
       itemsForDebouncedAutosuggest: [],
       loadingForDebounced: false,
     }
-  },
-  mounted() {
-    this.hasMounted = true
   },
   methods: {
     handleItemSelect (item) {

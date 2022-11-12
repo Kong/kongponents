@@ -1,10 +1,10 @@
 # Dropdown Menu
 
-<div v-if="hasMounted">
-
 **KDropdownMenu** is a button (or any slotted content) that is clicked to trigger a menu popover beneath&nbsp;it.
 
-<KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" />
+<ClientOnly>
+  <KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" />
+</ClientOnly>
 
 ## Props
 
@@ -32,7 +32,9 @@ An array of objects containing a required `label` property and other optional pr
 Use this prop to specify the display style for the dropdown menu. Can be either `menu` (default) or `selectionMenu`.
 The `menu` style is the standard you have seen in the example above. Uses a standard `primary` `KButton` with hover state over items and no notion of "selection".
 
-<KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" />
+<ClientOnly>
+  <KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" />
+</ClientOnly>
 
 ```html
 <KDropdownMenu label="Documentation" :items="items" />
@@ -42,7 +44,7 @@ The `selectionMenu` style is used when a visual indication of the currently sele
 
 If using the `items` slot, you will have access to the `handleSelection()` method which should be called on each item's click event and takes the `item` data as a parameter. This will enable you to attach to the `@change` event (which returns the selected item) to track your selection.
 
-<div>
+<ClientOnly>
   <KDropdownMenu
     :label="selectedItem.label"
     appearance="selectionMenu"
@@ -58,7 +60,7 @@ If using the `items` slot, you will have access to the `handleSelection()` metho
       </KDropdownItem>
     </template>
   </KDropdownMenu>
-</div>
+</ClientOnly>
 
 ```html
 <KDropdownMenu
@@ -111,7 +113,9 @@ export default defineComponent({
 
 Use this prop to customize the trigger **KButton** [appearance](/components/button.html#appearance).
 
-<KDropdownMenu label="Documentation" button-appearance="creation" :items="deepClone(defaultItemsUnselected)" show-caret />
+<ClientOnly>
+  <KDropdownMenu label="Documentation" button-appearance="creation" :items="deepClone(defaultItemsUnselected)" show-caret />
+</ClientOnly>
 
 ```html
 <KDropdownMenu
@@ -125,7 +129,9 @@ Use this prop to customize the trigger **KButton** [appearance](/components/butt
 
 Use this prop if you would like the trigger button to display the caret.
 
-<KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" show-caret />
+<ClientOnly>
+  <KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" show-caret />
+</ClientOnly>
 
 ```html
 <KDropdownMenu
@@ -139,7 +145,9 @@ Use this prop if you would like the trigger button to display the caret.
 
 A string for the `KIcon` to be displayed on the dropdown button with or in place of the button label.
 
-<KDropdownMenu icon="cogwheel" :items="deepClone(defaultItemsUnselected)" show-caret />
+<ClientOnly>
+  <KDropdownMenu icon="cogwheel" :items="deepClone(defaultItemsUnselected)" show-caret />
+</ClientOnly>
 
 ```html
 <KDropdownMenu
@@ -153,7 +161,9 @@ A string for the `KIcon` to be displayed on the dropdown button with or in place
 
 The width of the dropdown body (defaults to `auto`). Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
 
-<KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" width="500" />
+<ClientOnly>
+  <KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" width="500" />
+</ClientOnly>
 
 ```html
 <KDropdownMenu
@@ -167,7 +177,7 @@ The width of the dropdown body (defaults to `auto`). Currently we support number
 
 Use the `kpopAttributes` prop to configure the **KPop** [props](/components/popover) dropdown.
 
-<div>
+<ClientOnly>
   <KCard
     title="KPopAttributes FTW"
     body="Click the three dots in the upper right corner to see the example in action"
@@ -198,7 +208,7 @@ Use the `kpopAttributes` prop to configure the **KPop** [props](/components/popo
       </KDropdownMenu>
     </template>
   </KCard>
-</div>
+</ClientOnly>
 
 ```html
 <KCard
@@ -241,14 +251,14 @@ Use this prop to disable the dropdown, can be used in conjunction with `disabled
 
 Text to display on hover if dropdown is disabled.
 
-<div>
+<ClientOnly>
   <KDropdownMenu
     label="Documentation"
     :disabled="true"
     disabled-tooltip="You can't click me"
     :items="deepClone(defaultItemsUnselected)"
   />
-</div>
+</ClientOnly>
 
 ```html
 <KDropdownMenu
@@ -266,7 +276,7 @@ There are 2 supported slots:
 - `default` - The trigger element for opening/closing the menu.
 - `items` - For an example of using the items slot see the [`KDropdownItem`](#KDropdownItem) section.
 
-<div>
+<ClientOnly>
   <KDropdownMenu :items="deepClone(defaultItemsUnselected)">
     <template #default>
         <KButton
@@ -277,7 +287,7 @@ There are 2 supported slots:
         </KButton>
       </template>
   </KDropdownMenu>
-</div>
+</ClientOnly>
 
 ```html
 <KDropdownMenu :items="items">
@@ -316,7 +326,7 @@ There are 3 primary item types:
 - `button` - this item is generated if a handler is specified for the `@click` event on a `KDropdownItem`
 - `custom` - no special handling, you completely control the content
 
-<div>
+<ClientOnly>
   <KDropdownMenu label="Variety">
     <template #items>
       <KDropdownItem :item="youAreHere" />
@@ -357,7 +367,7 @@ There are 3 primary item types:
       </KDropdownItem>
     </template>
   </KDropdownMenu>
-</div>
+</ClientOnly>
 
 ```html
 <KDropdownMenu label="Variety">
@@ -403,15 +413,12 @@ There are 3 primary item types:
 | `@change` | Fires when items within a `selectionMenu` are clicked; returns the selected menu item object or `null` |
 | `@toggleDropdown` | Fires when the button to toggle the menu is clicked; returns `true` if the menu is open, or `false` |
 
-</div>
-
 <script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
   data () {
     return {
-      hasMounted: false,
       selectedItem: {
         value: '',
         label: 'Select an item'
@@ -431,9 +438,6 @@ export default defineComponent({
       ],
       youAreHere: { label: 'You are here', to: { path: '/components/dropdown-menu.html' } }
     }
-  },
-  mounted() {
-    this.hasMounted = true
   },
   methods: {
     handleChange (item) {

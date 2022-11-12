@@ -1,7 +1,5 @@
 # Select
 
-<div v-if="hasMounted">
-
 **Select** - Select input component
 
 <div>
@@ -562,8 +560,6 @@ You can use the `empty` slot to customize the look of the dropdown list when the
 | `change` | `selectedItem` Object or null |
 | `query-change` | `query` String |
 
-</div>
-
 <script lang="ts">
 import { defineComponent } from 'vue'
 
@@ -598,7 +594,6 @@ const allItems = new Array(10).fill().map((_, i) => ({
 export default defineComponent({
   data() {
     return {
-      hasMounted: false,
       myItems: getItems(5),
       mySelect: '',
       myVal: 'cats',
@@ -649,9 +644,6 @@ export default defineComponent({
       itemsForDebouncedAutosuggest: [],
       loadingForDebounced: true,
     }
-  },
-  mounted() {
-    this.hasMounted = true
   },
   methods: {
     handleItemSelect (item) {
