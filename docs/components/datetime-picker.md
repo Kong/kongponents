@@ -443,10 +443,12 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 pre.json {
   font-size: var(--type-sm);
   white-space: pre-wrap;
+  padding: 16px;
   background-color: var(--grey-200);
+  border-radius: 8px;
 }
 </style>
