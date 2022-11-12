@@ -1,5 +1,8 @@
 import { defineConfig } from 'vite'
 import path from 'path'
+import dns from 'dns'
+
+dns.setDefaultResultOrder('verbatim')
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,5 +13,9 @@ export default defineConfig({
       '@vitepress': path.resolve(__dirname, './.vitepress/'),
       '@mocks': path.resolve(__dirname, '../mocks/'),
     },
+  },
+  optimizeDeps: {
+    include: ['v-calendar'],
+    force: true,
   },
 })
