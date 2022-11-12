@@ -25,68 +25,54 @@ html.dark {
   --vp-c-brand: #3972d5; // blue-400
 }
 
-.code-group__li:not(:last-of-type) {
-  margin-right: 5px;
-}
-
-.code-group__nav-tab {
-  font-weight: 400;
-  transition: color 0.3 ease-in-out;
-
-  // Active tab
-  &.code-group__nav-tab-active {
-    font-weight: 700;
-    border-color: #fff;
-    border-bottom-width: 2px;
-  }
-}
-
-.sidebar {
+.VPSidebar {
   &::-webkit-scrollbar-thumb {
     background-color: var(--vp-c-brand-scrollbar-thumb, #b6b6bd); // grey-400
   }
 }
 
-// Tables
-table {
-  tr,
-  th,
-  td {
-    border: none;
+.VPContent {
+  // Tables
+  table {
+    tr,
+    th,
+    td {
+      border: none;
+    }
+
+    tr,
+    tr:nth-child(2n) {
+      background-color: inherit; // do not set to white because of light/dark mode
+    }
   }
 
-  tr,
-  tr:nth-child(2n) {
-    background-color: inherit; // do not set to white because of light/dark mode
+  table td code {
+    white-space: nowrap;
   }
-}
 
-table td code {
-  white-space: nowrap;
-}
-
-/**
- * Overrides for a11y
- */
-blockquote,
-.page-edit .edit-link a {
-  color: #7d7373 !important;
-}
-
-blockquote {
-  font-weight: 300;
-}
-
-// Spinners
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
+  /**
+  * Overrides for a11y
+  */
+  blockquote,
+  .page-edit .edit-link a {
+    color: #7d7373 !important;
   }
-  100% {
-    transform: rotate(1turn);
-  }
-}
 
-pre {
-  tab-size: 2 !important;
+  blockquote {
+    font-weight: 300;
+  }
+
+  // Spinners
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(1turn);
+    }
+  }
+
+  pre {
+    tab-size: 2 !important;
+  }
 }

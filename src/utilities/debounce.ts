@@ -14,7 +14,7 @@ export function debounce(initialFunction: (...args: any) => any, delay: number):
     clearTimeout(timeoutId)
 
     // Starts a new timer which will call the initial function after the specified wait time unless the debounced function is called again.
-    timeoutId = window.setTimeout(() => {
+    timeoutId = window?.setTimeout(() => {
       initialFunction(...args)
     }, delay)
   }

@@ -290,7 +290,7 @@ type Command = {
   shouldPreventDefaultAction?: boolean
 }
 
-const IS_MAYBE_MAC = window.navigator.platform.toLowerCase().includes('mac')
+const IS_MAYBE_MAC = window?.navigator?.platform?.toLowerCase().includes('mac')
 const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Options' : 'Alt'
 
 /**

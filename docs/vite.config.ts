@@ -14,8 +14,4 @@ export default defineConfig({
       '@mocks': path.resolve(__dirname, '../mocks/'),
     },
   },
-  optimizeDeps: {
-    include: ['v-calendar'],
-    force: true,
-  },
 })

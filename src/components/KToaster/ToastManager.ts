@@ -26,6 +26,9 @@ export default class ToastManager {
   }
 
   mount() {
+    // For SSR (still works on VuePress/VitePress site, but prevents failing on the build)
+    if (typeof document === 'undefined') return
+
     // Create a component container for the notification to bind to
     const notificationContainer = document.createElement('div')
     notificationContainer.id = this.id
