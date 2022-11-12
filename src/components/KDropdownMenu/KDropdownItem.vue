@@ -21,7 +21,7 @@
     </a>
     <router-link
       v-else-if="type === 'link' && to"
-      :to="!disabled ? to : $route.path"
+      :to="!disabled ? to : routePath"
       :class="{ 'disabled': disabled, 'has-divider': hasDivider }"
       class="k-dropdown-item-trigger"
       data-testid="k-dropdown-item-trigger"
@@ -107,6 +107,16 @@ export default defineComponent({
       return 'default'
     })
 
+    const routePath = computed(() => {
+      // @ts-ignore
+      if ($route) {
+        // @ts-ignore
+        return $route?.path
+      }
+
+      return ''
+    })
+
     const label = computed(() => {
       return (props.item?.label) || ''
     })
@@ -128,6 +138,7 @@ export default defineComponent({
       label,
       to,
       handleClick,
+      routePath,
     }
   },
 })
