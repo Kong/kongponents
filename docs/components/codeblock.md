@@ -10,12 +10,14 @@ Searching and filtering can happen by exact matches (the default) and by matchin
 `KCodeBlock` is an experimental component. The component’s design and overall look and feel may change until it is in stable status.
 :::
 
-<KCodeBlock
-  id="code-block-default"
-  :code="code"
-  language="json"
-  is-searchable
-/>
+<ClientOnly>
+  <KCodeBlock
+    id="code-block-default"
+    :code="code"
+    language="json"
+    is-searchable
+  />
+</ClientOnly>
 
 ```html
 <KCodeBlock
@@ -61,12 +63,14 @@ The syntax language of `props.code` (e.g. `'json'`).
 
 Shows an actions bar with a search input and related action buttons.
 
-<KCodeBlock
-  id="code-block-is-searchable"
-  :code="code"
-  language="json"
-  is-searchable
-/>
+<ClientOnly>
+  <KCodeBlock
+    id="code-block-is-searchable"
+    :code="code"
+    language="json"
+    is-searchable
+  />
+</ClientOnly>
 
 ```html
 <KCodeBlock
@@ -85,13 +89,15 @@ Shows an actions bar with a search input and related action buttons.
 
 Allows controlling the processing state from outside the component. This allows a parent component to show the processing icon when it’s, for example, currently syntax highlighting the code.
 
-<KCodeBlock
-  id="code-block-is-processing"
-  :code="code"
-  language="json"
-  is-searchable
-  is-processing
-/>
+<ClientOnly>
+  <KCodeBlock
+    id="code-block-is-processing"
+    :code="code"
+    language="json"
+    is-searchable
+    is-processing
+  />
+</ClientOnly>
 
 ```html
 <KCodeBlock
@@ -110,13 +116,15 @@ Allows controlling the processing state from outside the component. This allows 
 
 Used as the initial value of the search input. Can be used to initialize a code block with a query which was read from client storage.
 
-<KCodeBlock
-  id="code-block-query"
-  :code="code"
-  language="json"
-  is-searchable
-  query="no"
-/>
+<ClientOnly>
+  <KCodeBlock
+    id="code-block-query"
+    :code="code"
+    language="json"
+    is-searchable
+    query="no"
+  />
+</ClientOnly>
 
 ```html
 <KCodeBlock
@@ -136,12 +144,14 @@ Used as the initial value of the search input. Can be used to initialize a code 
 
 Controls whether to show a copy button which copies the original code (i.e. the value of `props.code`) to the clipboard.
 
-<KCodeBlock
-  id="code-block-show-copy-button"
-  :code="code"
-  language="json"
-  :show-copy-button="false"
-/>
+<ClientOnly>
+  <KCodeBlock
+    id="code-block-show-copy-button"
+    :code="code"
+    language="json"
+    :show-copy-button="false"
+  />
+</ClientOnly>
 
 ```html
 <KCodeBlock
@@ -162,13 +172,15 @@ Controls whether to add links to the current line number.
 
 You might need to turn this off for sites that already constantly use the fragment identifier in the URL like vue router’s hash-based navigation mode where all URL paths follow a first `/#/` segment.
 
-<KCodeBlock
-  id="code-block-show-line-number-links"
-  :code="code"
-  language="json"
-  :show-line-number-links="true"
-  style="--KCodeBlockMaxHeight: 200px"
-/>
+<ClientOnly>
+  <KCodeBlock
+    id="code-block-show-line-number-links"
+    :code="code"
+    language="json"
+    :show-line-number-links="true"
+    style="--KCodeBlockMaxHeight: 200px"
+  />
+</ClientOnly>
 
 ```html
 <KCodeBlock
@@ -286,24 +298,24 @@ import 'prismjs/themes/prism.min.css'
 Prism.manual = true
 
 const code = `{
-	"compilerOptions": {
-		"target": "es2020",
-		"module": "esnext",
-		"moduleResolution": "node",
-		"allowUnreachableCode": false,
-		"exactOptionalPropertyTypes": true,
-		"noFallthroughCasesInSwitch": true,
-		"noImplicitReturns": true,
-		"noUncheckedIndexedAccess": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"strict": true,
-		"jsx": "preserve"
-	},
-	"include": [
-		"./src",
-		"./types"
-	]
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowUnreachableCode": false,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+    "jsx": "preserve"
+  },
+  "include": [
+    "./src",
+    "./types"
+  ]
 }`
 
 const isProcessing = ref(false)
