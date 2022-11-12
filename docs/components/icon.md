@@ -239,7 +239,7 @@ KIcon imports .svg file types directly, so a loader is needed in order to render
 [raw-loader](https://webpack.js.org/loaders/raw-loader/)
 :::
 
-Check out the [contributing](/contributing/adding-an-icon.html) docs to learn about adding new icons to `KIcon`.
+Check out the [contributing](/guide/adding-icons-to-kicon) docs to learn about adding new icons to `KIcon`.
 
 <style lang="scss" scoped>
 .icon-row {

@@ -505,7 +505,7 @@ is triggered and will be resolved when the fetcher returns. You can override thi
   }"
 />
 
-```http
+```txt
 Example URL
 
 https://kongponents.dev/api/components?_page=1&_limit=10

@@ -151,7 +151,7 @@ both the horizontal and vertical margins zero.
 
 ## Colors
 
-For each color in our [color palette](/guide/styles/colors.html) we include a utility class that is prefixed with `color-`.
+For each color in our [color palette](/guide/styles/colors) we include a utility class that is prefixed with `color-`.
 
 | Class       | Properties      | Example
 | :---------- |:-------------- |:-----------

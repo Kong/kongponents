@@ -520,7 +520,7 @@ You can specify a title for the alert in situations where the message is more wo
 
 ### isBordered
 
-Adds border around alert. Used for [KToaster](/components/toaster.html).
+Adds border around alert. Used for [KToaster](/components/toaster).
 
 <KAlert is-bordered alert-message="Info bordered" />
 

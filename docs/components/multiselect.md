@@ -73,7 +73,7 @@ The label for the select.
 
 ### labelAttributes
 
-Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label.html) if using the `label` prop.
+Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label) if using the `label` prop.
 
 <div>
   <KMultiselect label="Name" :label-attributes="{

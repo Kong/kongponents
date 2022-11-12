@@ -926,7 +926,7 @@ export default {
 
 #### Column Cell
 
-This example uses the [`KDropdownMenu`](/components/dropdown-menu.html) component as the slot content for the `actions` column.
+This example uses the [`KDropdownMenu`](/components/dropdown-menu) component as the slot content for the `actions` column.
 
 <div>
   <KTable

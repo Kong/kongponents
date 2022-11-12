@@ -1,6 +1,6 @@
 # Adding a new icon to KIcon
 
-There are a number of steps required to add a new icon file to [KIcon](/components/icon.html). Follow these steps to ensure the component can properly render the SVG file.
+There are a number of steps required to add a new icon file to [KIcon](/components/icon). Follow these steps to ensure the component can properly render the SVG file.
 
 1) **Adding the new icon**
     - To start, copy your svg source code into [SVGOMG](https://jakearchibald.github.io/svgomg/) to compress and clean up. You should be fine using the default settings however, feel free to play around to get the most optimal output.

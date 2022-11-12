@@ -165,7 +165,7 @@ The width of the dropdown body (defaults to `auto`). Currently we support number
 
 ### kpopAttributes
 
-Use the `kpopAttributes` prop to configure the **KPop** [props](/components/popover.html) dropdown.
+Use the `kpopAttributes` prop to configure the **KPop** [props](/components/popover) dropdown.
 
 <div>
   <KCard

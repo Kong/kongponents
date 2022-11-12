@@ -70,7 +70,7 @@ Enable this prop to overlay the label on the input element's border for `select`
 
 ### labelAttributes
 
-Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label.html) if using the `label` prop.
+Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label) if using the `label` prop.
 
 <div>
   <KSelect label="Name" :label-attributes="{

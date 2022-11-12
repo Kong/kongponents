@@ -135,7 +135,7 @@ Use this to hide the built-in cancel button (`false` by default).
 When using the `header-image` slot we display a dismiss 'X' button in the upper right corner of the dialog. Set this prop to `true` to hide the button (`false` by default).
 
 :::tip
-If you want to have a dismiss icon on your dialog without using the `header-image` slot, you should use the [KPrompt](/components/prompt.html) component.
+If you want to have a dismiss icon on your dialog without using the `header-image` slot, you should use the [KPrompt](/components/prompt) component.
 :::
 
 ### dismissButtonTheme
