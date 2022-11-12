@@ -1,6 +1,3 @@
----
-pageClass: table-docs
----
 # Table
 
 Pass a fetcher function to build a slot-able table.
@@ -1764,7 +1761,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.table-docs .k-table {
+.k-table {
   display: table;
 
   th, tr, td {

@@ -1,7 +1,3 @@
----
-pageClass: utilities
----
-
 # Utilities
 
 ## Spacing
@@ -237,12 +233,10 @@ We support both single line truncation as well as multi-line. Multi-line truncat
 | .overflow-hidden | overflow: hidden;
 | .overflow-auto | overflow: auto;
 
-<style lang="scss">
-.utilities {
-  table:not(:first-of-type) td {
-    &:first-of-type { color: #6b46c1; }
-    &:last-of-type { color: var(--blue-700); }
-  }
+<style lang="scss" scoped>
+table:not(:first-of-type) td {
+  &:first-of-type { color: #6b46c1; }
+  &:last-of-type { color: var(--blue-700); }
 }
 .multi-line-truncation {
   --TMaxLineLimit: 5;

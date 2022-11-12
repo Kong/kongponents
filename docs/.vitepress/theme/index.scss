@@ -15,10 +15,6 @@
   // --vp-sidebar-width: 18rem;
 }
 
-.custom-block.tip {
-  border-color: var(--vp-c-brand-light);
-}
-
 // DARK MODE VARIABLES
 html.dark {
   // brand colors
@@ -74,5 +70,21 @@ html.dark {
 
   pre {
     tab-size: 2 !important;
+  }
+}
+
+// Theme overrides
+.vp-doc {
+  .kong-card li + li {
+    margin-top: 0;
+  }
+
+  table {
+    display: table;
+    margin: 0;
+
+    th {
+      background: none;
+    }
   }
 }
