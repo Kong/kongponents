@@ -85,12 +85,7 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .k-checkbox-label {
-  /* Label Example */
-  width: 96px;
-  height: 20px;
-
   /* Body/Popover Content - Regular - 400 */
-  font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -100,7 +95,7 @@ export default defineComponent({
   align-items: center;
 
   /* Black/85 */
-  color: rgba(0, 0, 0, 0.85);
+  color: var(--black-85, rgba(0, 0, 0, 0.85));
 
   /* Inside auto layout */
   flex: none;
@@ -109,12 +104,9 @@ export default defineComponent({
 }
 
 .k-checkbox-description {
-  /* Some subheader text */
-  width: 142px;
-  height: 20px;
-
+  padding-top: var(--spacing-xxs);
+  padding-left: var(--spacing-lg);
   /* Body/Popover Content - Regular - 400 */
-  font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -122,7 +114,7 @@ export default defineComponent({
   /* identical to box height, or 143% */
 
   /* Black/45 */
-  color: rgba(0, 0, 0, 0.45);
+  color: var(--black-45, rgba(0, 0, 0, 0.45));
 
   /* Inside auto layout */
   flex: none;
@@ -131,14 +123,9 @@ export default defineComponent({
 }
 
 .k-checkbox-label:has(+ .k-checkbox-description) {
-  /* Label Example */
-  width: 98px;
-  height: 18px;
-
   /* Headline/H4 - Semibold - 600
   .type-sm
   */
-  font-family: 'Inter';
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
@@ -148,7 +135,7 @@ export default defineComponent({
   align-items: center;
 
   /* Black/85 */
-  color: rgba(0, 0, 0, 0.85);
+  color: var(--black-85, rgba(0, 0, 0, 0.85));
 
   /* Inside auto layout */
   flex: none;
