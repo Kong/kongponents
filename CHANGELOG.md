@@ -1,3 +1,10 @@
+## [8.4.1](https://github.com/Kong/kongponents/compare/v8.4.0...v8.4.1) (2022-11-14)
+
+
+### Bug Fixes
+
+* **kselect:** vertical alignment for arrow icon ([#898](https://github.com/Kong/kongponents/issues/898)) ([33312ee](https://github.com/Kong/kongponents/commit/33312ee8e03e5d4d981de6495a0cc3e3630d6556))
+
 # [8.4.0](https://github.com/Kong/kongponents/compare/v8.3.3...v8.4.0) (2022-11-11)
 
 
