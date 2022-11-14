@@ -1,31 +1,6 @@
-// Override predefined CSS variables of the default VuePress theme
-// https://v2.vuepress.vuejs.org/reference/default-theme/styles.html#style-file
-
-// LIGHT MODE VARIABLES
-:root {
-  // brand colors
-  --vp-c-brand: #1456cb; // blue-500
-  --vp-c-brand-light: #286eea;
-  --vp-c-brand-scrollbar-thumb: #b6b6bd; // grey-400
-
-  // text colors
-  --vp-c-text: rgba(0, 0, 0, 0.7); // black-70
-
-  // layout vars
-  // --vp-sidebar-width: 18rem;
-}
-
-// DARK MODE VARIABLES
-html.dark {
-  // brand colors
-  --vp-c-brand: #3972d5; // blue-400
-}
-
-.VPSidebar {
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--vp-c-brand-scrollbar-thumb, #b6b6bd); // grey-400
-  }
-}
+// Import predefined CSS variable overrides of the default VitePress theme
+// https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
+@import "./variables";
 
 .VPContent {
   // Tables
