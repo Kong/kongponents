@@ -14,7 +14,7 @@
 
 ## Props
 
-:::tip Note
+::: tip NOTE
   We have wrapped the following all of the following examples in a `KCard` to better show the boundaries of the component. We have included the `KCard` code in the code snippet for the example directly below, but omitted it from following examples to simplify the code snippets.
 :::
 
@@ -152,7 +152,7 @@ To set the default state (collapsed or expanded) without binding to v-model you 
 - `trigger` - Completely control the trigger, including managing click events
   - `isCollapsed` boolean and `toggle` function available as slot params
 
-::: tip Note
+::: tip NOTE
   You may utilize the `trigger-content` slot (to control the anchor text) or the `trigger` slot (to control the content of the entire trigger), but not both; if utilizing the `trigger` slot the `trigger-content` slot will not render.
 :::
 

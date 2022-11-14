@@ -45,7 +45,8 @@
     "test": "cypress run --component -b chrome",
     "test:open": "cypress open --component -b chrome",
     "test:spec": "cypress run --component -b chrome --spec",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "prepare": "yarn run build:cli"
   },
   "dependencies": {
     "axios": "^0.27.2",

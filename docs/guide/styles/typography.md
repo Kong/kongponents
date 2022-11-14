@@ -55,7 +55,7 @@ The default font-weight (for `body`) is set to `400`. You may customize the `fon
 }
 ```
 
-:::tip
+::: tip
 This only applies to the `body` element and inherited font weights. Individual style rules still have varying `font-weight` attributes.
 :::
 

@@ -60,7 +60,7 @@ When creating a new component with the CLI it will perform the following actions
 - Adds `/src/components/{KongponentName}/{KongponentName}.vue` to the exports in `/src/components/index.ts`
 - Creates a VitePress markdown file at `/docs/components/{kongponent}.md` (you have to manually add this file to the VitePress sidebar in `docs/.vitepress/config.ts`).
 
-  :::warning NOTE
+  ::: warning NOTE
   If your component is exported via an `index.ts` file, or anything other than the default `{KongponentName}.vue` file, you will need to modify `/src/components/index.ts` accordingly.
   :::
 

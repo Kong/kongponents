@@ -114,7 +114,7 @@ The character counter will only display below the input if the `characterLimit` 
 
 If the `characterLimit` is exceeded, the character counter below the `KInput` will override the display of a provided `errorMessage` until the character count is within the acceptable range.
 
-:::tip
+::: tip
 You may also specify a native `maxlength` attribute on the `KInput` to actually limit the number of characters the user is allowed to type in the field. This will prevent the user from exceeding the character limit so the error state will not be shown.
 
 <KInput :character-limit="10" maxlength="10" placeholder="Type..."/>

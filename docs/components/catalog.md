@@ -8,7 +8,7 @@
 <KCatalog :fetcher="fetcher" />
 ```
 
-:::warning NOTE
+::: warning NOTE
 `KCatalog` implements `KIcon` which imports .svg files directly, so a loader is needed in order to render these in your application such as the webpack
 [raw-loader](https://webpack.js.org/loaders/raw-loader/). [See here for more information](/#raw-loader).
 :::
@@ -70,7 +70,7 @@ See [the State section](#loading) about `isLoading`
 ### fetcher
 
 Use a custom fetcher function to fetch card catalog items and leverage server-side pagination.
-::: tip Note
+::: tip NOTE
 All fetcher functions should take a single param. This parameter is a JSON
 object supporting the following properties:
 
@@ -79,7 +79,7 @@ object supporting the following properties:
   - `pageSize`: the number of items to display per page
 :::
 
-::: tip Note
+::: tip NOTE
 All fetcher functions should return a JSON object. This JSON object should contain the following properties:
 
 - `total` - the total count of catalog items (if using pagination)
@@ -490,7 +490,7 @@ Pass a fetcher function to enable server-side pagination.
 The fetcher function should structure the ajax request URL in such a way that
 enables server side pagination per the requirements of the API being used.
 
-::: tip Note
+::: tip NOTE
 The loading state is handled automatically. When the `fetcher` is called the internal loading state
 is triggered and will be resolved when the fetcher returns. You can override this behavior using the
 `isLoading` prop.

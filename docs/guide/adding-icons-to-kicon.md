@@ -4,7 +4,7 @@ There are a number of steps required to add a new icon file to [KIcon](/componen
 
 1) **Adding the new icon**
     - To start, copy your svg source code into [SVGOMG](https://jakearchibald.github.io/svgomg/) to compress and clean up. You should be fine using the default settings however, feel free to play around to get the most optimal output.
-    :::tip
+    ::: tip
     You can copy the svg by exporting it directly from Figma or by opening the file that design sends over.
     :::
     - Once you have run the svg through SVGOMG, copy it out and paste as a new file in the `/src/components/KIcon/icons/` folder with the name `icn-{iconName}.svg`
@@ -18,7 +18,7 @@ There are a number of steps required to add a new icon file to [KIcon](/componen
     export { default as iconName } from './icn-{iconName}.svg?raw'
     ```
 
-    :::tip
+    ::: tip
     Be sure to leave the `?raw` suffix on the import so that Vite can properly import the file without needing to install a separate loader.
     :::
 

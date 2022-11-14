@@ -6,7 +6,7 @@ title: Getting Started
 
 Kongponents is a Vue component library of frequently needed UI elements. They were developed to solve [Kong's](https://konghq.com) application needs, but are generic enough to use in any web application.
 
-## Installation
+## Install
 
 To begin using Kongponents, start by installing the package into your project.
 
@@ -34,89 +34,26 @@ module.exports = () => ({
 })
 ```
 
-## Usage
+### Optimize or Transpile Dependencies
 
-There are two ways to use Kongponents in your project: [globally register all Kongponents via a Vue plugin](#vue-plugin), or [register individual Kongponents](#individual-components) as needed.
+Depending on your project setup, you may need to optimize or transpile the `@kong/kongponents` package in your project.
 
-**Regardless of which method you choose** you will also need to import the Kongponents CSS into your project ([Vite](https://vitejs.dev/guide/build.html#library-mode) does not currently support CSS in JS when building in library mode).
-
-The easiest place to import the package styles is inside your Vue entry file (e.g. `main.ts`). For more examples of utilzing Kongponent styles, including importing the Sass and CSS variables and even scoping the styles, see [the other usage examples](/guide/styles/standalone-usage.html#css-and-sass-variables).
-
-### Vue Plugin
-
-If you plan to use a majority of the Kongponent components, you can import the package and register all Kongponents as a Vue Plugin and make them globally available in your app.
-
-This method is only ideal if you are using a majority of the Kongponents in your project, as the unused components will not be tree-shaken.
+If your project uses [Vite](https://vitejs.dev), just add the following to your `vite.config.ts
 
 ```ts
-// main.ts (or Vue entry file)
-
-import { createApp } from 'vue'
-import Kongponents from '@kong/kongponents'
-
-// Import Kongponents styles
-import '@kong/kongponents/dist/style.css'
-
-const app = createApp(App)
-
-// Install and register all Kongponents as a plugin
-app.use(Kongponents)
-
-app.mount('#app')
-```
-
-### Individual components
-
-Alternatively, you can import and register just the components you intend to use.
-
-Import and registration can be done individually in the app entry file (e.g. `main.ts`) or within the parent component.
-
-#### Global Registration
-
-```ts
-// main.ts (or Vue entry file)
-
-import { createApp } from 'vue'
-import { KButton } from '@kong/kongponents'
-import '@kong/kongponents/dist/style.css'
-// If using Vue-CLI and webpack, you can likely use this path instead: import '~@kong/kongponents/dist/style.css'
-
-const app = createApp(App)
-
-// Register an individual Kongponent
-app.component('KButton', KButton)
-
-app.mount('#app')
-```
-
-#### In-Component Registration
-
-```html
-<script lang="ts">
-// YourComponent.vue
-
-import { defineComponent } from 'vue'
-import { KButton } from '@kong/kongponents'
-// Import Kongponents styles here, or in the <style> block
-import '@kong/kongponents/dist/style.css'
-// If using Vue-CLI and webpack, you can likely use this path instead: import '~@kong/kongponents/dist/style.css'
-
-export default defineComponent({
-  name: 'YourComponent',
-  components: { KButton },
+export default defineConfig({
+  build: {
+    commonjsOptions: {
+      include: [
+        /@kong\/kongponents/,
+        /node_modules/
+      ]
+    },
+  }
 })
-</script>
-
-<style>
-/* Import Kongponents styles here, or in the <script> tag */
-@import "@kong/kongponents/dist/style.css";
-/* If using Vue-CLI and webpack, you can likely use this path instead: import '~@kong/kongponents/dist/style.css' */
-</style>
 ```
 
-## Webpack
-
-Depending on your project setup, you may need to transpile the `@kong/kongponents` package in your project. If your project already has a `vue.config.ts` file, just add the following `transpileDependencies` entry
+If your project already has a `vue.config.ts` file, just add the following `transpileDependencies` entry
 
 ```ts
 // vue.config.ts
@@ -155,13 +92,43 @@ module.exports = (env) => {
 }
 ```
 
-## CDN (without bundler)
+## Using Kongponents from CDN
 
 You can also use Kongponents in a project where there is no build system as long as Vue is included on the page.
 
-:::tip Note
+::: tip NOTE
 You must import the CSS from the `@kong/kongponents` package along with Vue.
 :::
+
+### Example
+
+```html
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://unpkg.com/@kong/kongponents@8/dist/kongponents.umd.js"></script>
+<link href="https://unpkg.com/@kong/kongponents@8/dist/style.css" rel="stylesheet" />
+
+<div id="app">
+  <k-button appearance="primary" v-on:click="count += 1" icon="plus">Add</k-button>
+  <p>Click count: {{ count }}</p>
+</div>
+
+<script>
+  const {
+    createApp
+  } = Vue
+  const components = Kongponents
+  createApp({
+    components: {
+      KButton: components.KButton
+    },
+    data() {
+      return {
+        count: 1
+      }
+    }
+  }).mount('#app')
+</script>
+```
 
 <iframe width="100%" height="300" style="width: 100%;" scrolling="no" title="Kongponents for Vue" src="https://codepen.io/adamdehaven/embed/KKowxVQ?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
   See the Pen <a href="https://codepen.io/adamdehaven/pen/KKowxVQ">

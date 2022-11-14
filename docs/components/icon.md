@@ -43,7 +43,7 @@ The name of the icon. This required prop will only recognize icons from the foll
 
 The `state`-prefixed icons shown below are styled differently than our normal icons listed above and are meant to be used inside instances of `KEmptyState` where they appear larger in the UI.
 
-::: tip Note
+::: tip NOTE
 The `State icons` do not support the `color` prop.
 :::
 
@@ -115,7 +115,7 @@ Overrides the secondary svg color (if one exists).
 <KIcon icon="warning" color="var(--black-70)" secondaryColor="var(--yellow-400)" />
 ```
 
-::: tip Note
+::: tip NOTE
 Some SVGs have a set **fill-opacity** and these cannot be overridden and will
 render at whichever percent opacity of the passed color.
 
@@ -234,7 +234,7 @@ You can read more about the viewBox attribute
 
 ## Usage
 
-:::warning
+::: warning
 KIcon imports .svg file types directly, so a loader is needed in order to render in your application such as the webpack
 [raw-loader](https://webpack.js.org/loaders/raw-loader/)
 :::

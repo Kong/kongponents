@@ -30,7 +30,7 @@ Take a look at individual components to see what properties are themable. Two ex
 | `--KInputError`| Error border
 | `--KInputPlaceholderColor`| Placeholder text color
 
-:::tip TIP
+::: tip TIP
 Add the `input-error` class to add error styling
 :::
 

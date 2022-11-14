@@ -27,7 +27,7 @@ import '~@kong/kongponents/dist/style.css'
 */
 ```
 
-:::tip TIP
+::: tip TIP
 The tilde (`~`) in the path indicates to webpack that the file should be imported from the `node_modules` directory.
 :::
 
