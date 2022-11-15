@@ -105,8 +105,6 @@ export default defineComponent({
   font-size: var(--type-sm, type(sm));
   line-height: 20px;
   color: var(--black-45, rgba(0, 0, 0, 0.45));
-
-  /* Inside auto layout */
   flex: none;
   order: 1;
   flex-grow: 0;
