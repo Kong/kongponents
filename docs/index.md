@@ -23,7 +23,7 @@ hero:
 
 features:
   - title: Vue 3 and TypeScript
-    details: Kongponents have been rewritten utilizing Vue 3 and proper TypeScript support. Enjoy better autocompletion and Devtools support!
+    details: Kongponents have been rewritten utilizing Vue 3 and TypeScript. Enjoy better autocompletion in your editor and Devtools support!
   - title: Themeable
     details: Many Kongponents support "theming" via CSS variables, allowing for global customization or fine-tuned control within a scoped selector.
     link: /guide/styles/theming
