@@ -10,6 +10,18 @@
       class="k-input"
       @click="handleClick"
     >
+    <span
+      v-if="hasLabel"
+      class="k-radio-label"
+    >
+      <slot>{{ label }}</slot>
+    </span>
+    <div
+      v-if="hasLabel && (description || $slots.description)"
+      class="k-radio-description"
+    >
+      <slot name="description">{{ description }}</slot>
+    </div>
     <slot />
   </label>
 </template>
@@ -30,6 +42,20 @@ export default defineComponent({
       required: true,
     },
     /**
+     * Overrides default label text
+     */
+    label: {
+      type: String,
+      default: '',
+    },
+    /**
+     * Overrides default description text
+     */
+    description: {
+      type: String,
+      default: '',
+    },
+    /**
      * The value emitted from the radio on change if selected
      */
     selectedValue: {
@@ -38,7 +64,9 @@ export default defineComponent({
     },
   },
   emits: ['change', 'update:modelValue'],
-  setup(props, { emit, attrs }) {
+  setup(props, { slots, emit, attrs }) {
+    const hasLabel = computed((): boolean => !!(props.label || slots.label))
+
     const isSelected = computed((): boolean => props.selectedValue === props.modelValue)
 
     const handleClick = (): void => {
@@ -56,6 +84,7 @@ export default defineComponent({
     })
 
     return {
+      hasLabel,
       isSelected,
       modifiedAttrs,
       handleClick,
@@ -67,5 +96,21 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/styles/variables';
 @import '@/styles/functions';
+
+.k-radio-label {
+  font-size: var(--type-sm, type(sm));
+}
+
+.k-radio-description {
+  padding-top: var(--spacing-xxs);
+  padding-left: var(--spacing-lg);
+  font-size: var(--type-sm, type(sm));
+  line-height: 20px;
+  color: var(--black-45, rgba(0, 0, 0, 0.45));
+}
+
+.k-radio-label:has(+ .k-radio-description) {
+  font-weight: 600;
+}
 
 </style>
