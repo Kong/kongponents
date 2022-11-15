@@ -1,3 +1,10 @@
+## [8.4.3](https://github.com/Kong/kongponents/compare/v8.4.2...v8.4.3) (2022-11-15)
+
+
+### Bug Fixes
+
+* **kcodeblock:** code-block-render event being emitted too soon ([#902](https://github.com/Kong/kongponents/issues/902)) ([386ffb3](https://github.com/Kong/kongponents/commit/386ffb3bcd4717b341cfb974cecd6cfec13b4164))
+
 ## [8.4.2](https://github.com/Kong/kongponents/compare/v8.4.1...v8.4.2) (2022-11-15)
 
 
