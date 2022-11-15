@@ -14,7 +14,7 @@
       v-if="(label || $slots.label)"
       class="k-checkbox-label"
     >
-      <slot name="label">{{ label }}</slot>
+      <slot>{{ label }}</slot>
     </span>
     <div
       v-if="(label || $slots.label) && (description || $slots.description)"
@@ -85,19 +85,13 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .k-checkbox-label {
-  /* Body/Popover Content - Regular - 400 */
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
+  font-size: var(--type-sm, type(sm));;
   line-height: 20px;
-  /* identical to box height, or 143% */
   display: inline-block;
   align-items: center;
-
-  /* Black/85 */
   color: var(--black-85, rgba(0, 0, 0, 0.85));
-
-  /* Inside auto layout */
   flex: none;
   order: 0;
   flex-grow: 0;
@@ -106,14 +100,10 @@ export default defineComponent({
 .k-checkbox-description {
   padding-top: var(--spacing-xxs);
   padding-left: var(--spacing-lg);
-  /* Body/Popover Content - Regular - 400 */
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
+  font-size: var(--type-sm, type(sm));
   line-height: 20px;
-  /* identical to box height, or 143% */
-
-  /* Black/45 */
   color: var(--black-45, rgba(0, 0, 0, 0.45));
 
   /* Inside auto layout */
@@ -123,21 +113,13 @@ export default defineComponent({
 }
 
 .k-checkbox-label:has(+ .k-checkbox-description) {
-  /* Headline/H4 - Semibold - 600
-  .type-sm
-  */
   font-style: normal;
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--type-sm, type(sm));
   line-height: 18px;
-  /* identical to box height, or 129% */
   display: inline-block;
   align-items: center;
-
-  /* Black/85 */
   color: var(--black-85, rgba(0, 0, 0, 0.85));
-
-  /* Inside auto layout */
   flex: none;
   order: 0;
   flex-grow: 0;
