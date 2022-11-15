@@ -5,6 +5,7 @@
       class="swatch" />
     <div class="description">
       <span>{{ colorName }}</span>
+      <code class="mb-2">--{{ colorName }}</code><br>
       <code class="mb-2">{{ colorValue }}</code><br>
       <code>.color-{{ colorName }}</code>
     </div>

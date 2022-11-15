@@ -1,4 +1,4 @@
-# Getting Started
+# Contributing
 
 In this section we will focus on the steps and nuances of developing Kongponents. Lets start with installation.
 
@@ -16,19 +16,19 @@ Install dependencies
 cd kongponents && yarn install --frozen-lockfile
 ```
 
-Next, let's generate [the CLI](#cli) that can be used to easy scaffold new Kongponent components
+Next, let's generate [the CLI](#cli) that can be used to easy scaffold new Kongponent components. _This likely was ran automatically after installing dependencies._
 
 ```sh
 yarn build:cli
 ```
 
-Run the docs locally
+Run the docs local dev server with hot-module reload
 
 ```sh
 yarn docs:dev
 ```
 
-Build the docs and preview the build locally
+Build the docs and preview the built files locally
 
 ```sh
 yarn docs:preview
@@ -42,9 +42,7 @@ yarn build
 
 ## CLI
 
-It is recommended to use the CLI (`create-kongponent`) when creating new components as it will scaffold all the required files. You can run it locally from the package or install it globally.
-
-### Run local CLI
+It is **highly recommended** to utilize the included CLI when creating new Kongponents as it will scaffold all the necessary files.
 
 ```sh
 yarn create-kongponent
@@ -60,9 +58,9 @@ When creating a new component with the CLI it will perform the following actions
 - Adds `/src/components/{KongponentName}/{KongponentName}.vue` to the exports in `/src/components/index.ts`
 - Creates a VitePress markdown file at `/docs/components/{kongponent}.md` (you have to manually add this file to the VitePress sidebar in `docs/.vitepress/config.ts`).
 
-  ::: warning NOTE
-  If your component is exported via an `index.ts` file, or anything other than the default `{KongponentName}.vue` file, you will need to modify `/src/components/index.ts` accordingly.
-  :::
+::: warning NOTE
+If your component is exported via an `index.ts` file, or anything other than the default `{KongponentName}.vue` file, you will need to modify `/src/components/index.ts` accordingly.
+:::
 
 Once ran, this will be the resulting file structure:
 
@@ -85,7 +83,11 @@ Each component has an associated file in the `/docs/components` directory. After
 
 The docs markdown file should be named correctly if generated from the [`create-kongponent` CLI](#cli). If necessary, rename the file to correspond to what type of component it is. For documentation purposes page names should be based on what the component is vs its Kongponent `K` name.
 
-e.g. `kbutton.md` &rarr; `button.md` ; `kcard.md` &rarr; `card.md`
+#### Examples
+
+- `kbutton.md` &rarr; `button.md`
+- `kcard.md` &rarr; `card.md`
+- `kdatetimepicker` &rarr; `datetime-picker.md`
 
 ### Update the page title
 
@@ -103,18 +105,23 @@ Although the CLI will create a file in the docs directory, the new doc file **is
 
 Add the component to the desired location in the sidebar
 
-```ts
+```ts{10-15}
 // docs/.vitepress/config.ts
 
-{
-  text: 'Kongponents',
-  children: [
-    '/components/',
+sidebar: {
+  // Components sidebar
+  '/components/': [
     {
       text: 'Components',
-      children: [
+      collapsible: true,
+      items: [
         ...
-        '/components/{component-name}', // Should be the name of the `.md` markdown file, without the extension
+        {
+          // The name of the rendered element, e.g. "Alert"
+          text: '{Component Name}',
+          // The name of the `.md` markdown file, without the extension
+          link: '/components/{component-name}',
+        },
         ...
       ]
     }
@@ -146,7 +153,13 @@ This will trigger the Commitizen interactive prompt for building your commit mes
 
 ### Enforcing Commit Format
 
-[Lefthook](https://github.com/evilmartians/lefthook) is used to manage Git Hooks within the repo. A `commit-msg` hook is automatically setup that enforces commit message stands with `commitlint`, see `lefthook.yml`.
+[Lefthook](https://github.com/evilmartians/lefthook) is used to manage Git Hooks within the repo. See see the current `/lefthook.yml` here:
+
+<<< @/../lefthook.yml{yaml}
+
+A `commit-msg` hook is automatically setup that enforces commit message stands with `commitlint`.
+
+A `pre-push` hook is configured to run ESLint before pushing your changes to the remote repository.
 
 ## Recommended IDE Setup
 

@@ -13,11 +13,16 @@ export default defineConfig({
     ['meta', { name: 'application-name', content: 'Kongponents' }],
     ['meta', { name: 'apple-mobile-web-app-title', content: 'Kongponents' }],
     ['link', { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    // Inter font-family
+    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'true' }],
+    ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap', crossorigin: 'true' }],
   ],
   lastUpdated: true,
   markdown: {
     lineNumbers: true,
   },
+  appearance: false, // Disable dark mode (If enabled, we'd first need to update Kongponent CSS to handle accordingly)
   themeConfig: {
     sidebar: {
       // Components sidebar
@@ -108,7 +113,7 @@ export default defineConfig({
           text: 'Contributing',
           collapsible: true,
           items: [
-            { text: 'Getting Started', link: '/guide/contributing' },
+            { text: 'Setup', link: '/guide/contributing' },
             { text: 'Adding Icons to KIcon', link: '/guide/adding-icons-to-kicon' },
           ]
         },

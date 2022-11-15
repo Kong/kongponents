@@ -1,6 +1,24 @@
 # Colors
 
+::: info TIP
+All color definitions below display in the following format:
+
+<div class="color-swatch-container">
+  <div
+    :style="`background-color: var(--blue-500)`"
+    class="swatch" />
+  <div class="description">
+    <span>Color Name</span>
+    <div><code class="mb-2">--blue-500</code> (CSS variable)</div>
+    <div><code class="mb-2">#1155cb</code> (HEX value)</div>
+    <div><code>.color-blue-500</code> (CSS class)</div>
+  </div>
+</div>
+
+:::
+
 <section v-if="pageColors">
+
   <div v-for="(group, key, i) in pageColors" :key="i" class="color-group">
     <h4>{{ key }}</h4>
     <p v-if="key === 'Black'">Unlike the other colors which follow a naming style numbered lightest to darkest, blacks include variants that are named by their opacity that roughly equate their hex counterparts.</p>

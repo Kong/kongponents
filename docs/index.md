@@ -6,7 +6,7 @@ titleTemplate: Kong Vue Component Library
 hero:
   name: Kongponents
   text: Vue-powered Kong component library
-  tagline: Powerful, lightweight, and reusable components to build Kong applications.
+  tagline: Powerful, lightweight, and reusable UI components. Developed for Kong, usable by all.
   # image:
   #   src: /img/kongponents-logo.jpg
   #   alt: Kongponents logo

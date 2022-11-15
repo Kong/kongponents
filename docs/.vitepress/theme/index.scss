@@ -2,6 +2,11 @@
 // https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
 @import "./variables";
 
+html,
+body {
+  font-family: "Inter", Helvetica, Arial, sans-serif;
+}
+
 .VPContent {
   // Tables
   table {
