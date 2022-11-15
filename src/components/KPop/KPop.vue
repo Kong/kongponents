@@ -468,6 +468,14 @@ export default defineComponent({
   box-shadow: 0px 4px 20px var(--black-10);
   padding: var(--KPopPaddingY, 28px) var(--KPopPaddingX, var(--spacing-md, spacing(md)));
 
+  // Prevent Vue animation classes from impacting the positioning of the popover
+  &.fade-enter-active,
+  &.fade-enter-to,
+  &.fade-leave-active,
+  &.fade-leave-to {
+    animation: none !important;
+  }
+
   .k-popover-header {
     align-items: baseline;
     margin-bottom: 28px;
