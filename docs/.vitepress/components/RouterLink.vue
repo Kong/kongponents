@@ -1,5 +1,5 @@
 <template>
-  <a :href="typeof to === 'string' ? to : to.path"><slot /></a>
+  <a :href="typeof to === 'string' ? to : to.path" :class="$attrs.class"><slot /></a>
 </template>
 
 <script setup>
