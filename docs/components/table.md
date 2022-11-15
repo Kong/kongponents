@@ -74,7 +74,7 @@ This functionality may be flaky.
 
 Use a custom sort handler function to handle sorting table data for specific columns
 
-::: tip NOTEs
+::: tip NOTE
 
 1. In order for a column to use the custom sort handler function, `useSortHandlerFn` must be set to `true` in the [headers](#headers) object
 

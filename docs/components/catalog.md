@@ -70,6 +70,7 @@ See [the State section](#loading) about `isLoading`
 ### fetcher
 
 Use a custom fetcher function to fetch card catalog items and leverage server-side pagination.
+
 ::: tip NOTE
 All fetcher functions should take a single param. This parameter is a JSON
 object supporting the following properties:

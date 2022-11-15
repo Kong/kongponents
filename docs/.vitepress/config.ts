@@ -18,7 +18,7 @@ export default defineConfig({
     ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'true' }],
     ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap', crossorigin: 'true' }],
     // Algolia Search
-    ['link', { rel: 'preconnect', href: 'https://6MM6JXMAAD-dsn.algolia.net', crossorigin: 'true' }],
+    // ['link', { rel: 'preconnect', href: 'https://6MM6JXMAAD-dsn.algolia.net', crossorigin: 'true' }],
   ],
   lastUpdated: true,
   markdown: {
@@ -150,10 +150,10 @@ export default defineConfig({
       text: 'Edit this page on GitHub'
     },
     outline: [2, 3],
-    algolia: {
-      appId: '6MM6JXMAAD',
-      apiKey: '8b808e893589122929db01f29c0aabcc',
-      indexName: 'kongponents'
-    }
+    // algolia: {
+    //   appId: '6MM6JXMAAD',
+    //   apiKey: '8b808e893589122929db01f29c0aabcc',
+    //   indexName: 'kongponents'
+    // },
   },
 })
