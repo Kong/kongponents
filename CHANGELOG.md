@@ -1,3 +1,10 @@
+## [8.4.2](https://github.com/Kong/kongponents/compare/v8.4.1...v8.4.2) (2022-11-15)
+
+
+### Bug Fixes
+
+* **kpop:** disallow vue animation classes ([#899](https://github.com/Kong/kongponents/issues/899)) ([f6ef3ce](https://github.com/Kong/kongponents/commit/f6ef3ced2ec78272aa6b0b548a9873c26058ed9f))
+
 ## [8.4.1](https://github.com/Kong/kongponents/compare/v8.4.0...v8.4.1) (2022-11-14)
 
 
