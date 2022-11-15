@@ -1,6 +1,6 @@
 # Vue 3 Migration Guide
 
-This guide is primarily for users of Kongponents `v6` (for Vue 2) who want to browse the breaking changes they may encounter when upgrading to Kongponents `v8` for Vue 3.
+This guide is primarily for users of Kongponents `v6/v7` (for Vue 2) who want to browse the breaking changes they may encounter when upgrading to Kongponents `v8` for Vue 3.
 
 This is not something you have to read from top to bottom before trying out the new version of Kongponents.
 
