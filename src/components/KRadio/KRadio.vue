@@ -98,35 +98,19 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .k-radio-label {
-  font-style: normal;
-  font-weight: 400;
   font-size: var(--type-sm, type(sm));
-  line-height: 20px;
-  display: inline-block;
-  align-items: center;
-  color: var(--black-85, rgba(0, 0, 0, 0.85));
-  flex: none;
-  order: 0;
-  flex-grow: 0;
 }
 
 .k-radio-description {
   padding-top: var(--spacing-xxs);
   padding-left: var(--spacing-lg);
-  font-style: normal;
-  font-weight: 400;
   font-size: var(--type-sm, type(sm));
   line-height: 20px;
   color: var(--black-45, rgba(0, 0, 0, 0.45));
-  flex: none;
-  order: 1;
-  flex-grow: 0;
 }
 
 .k-radio-label:has(+ .k-radio-description) {
   font-weight: 600;
-  line-height: 18px;
-  color: var(--black-85, rgba(0, 0, 0, 0.85));
 }
 
 </style>

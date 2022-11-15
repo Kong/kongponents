@@ -88,35 +88,19 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .k-checkbox-label {
-  font-style: normal;
-  font-weight: 400;
   font-size: var(--type-sm, type(sm));;
-  line-height: 20px;
-  display: inline-block;
-  align-items: center;
-  color: var(--black-85, rgba(0, 0, 0, 0.85));
-  flex: none;
-  order: 0;
-  flex-grow: 0;
 }
 
 .k-checkbox-description {
   padding-top: var(--spacing-xxs);
   padding-left: var(--spacing-lg);
-  font-style: normal;
-  font-weight: 400;
   font-size: var(--type-sm, type(sm));
   line-height: 20px;
   color: var(--black-45, rgba(0, 0, 0, 0.45));
-  flex: none;
-  order: 1;
-  flex-grow: 0;
 }
 
 .k-checkbox-label:has(+ .k-checkbox-description) {
   font-weight: 600;
-  line-height: 18px;
-  color: var(--black-85, rgba(0, 0, 0, 0.85));
 }
 
 </style>
