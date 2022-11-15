@@ -11,13 +11,13 @@
       @click="handleClick"
     >
     <span
-      v-if="(label || $slots.label)"
+      v-if="hasLabel"
       class="k-radio-label"
     >
       <slot>{{ label }}</slot>
     </span>
     <div
-      v-if="(label || $slots.label) && (description || $slots.description)"
+      v-if="hasLabel && (description || $slots.description)"
       class="k-radio-description"
     >
       <slot name="description">{{ description }}</slot>
@@ -64,7 +64,9 @@ export default defineComponent({
     },
   },
   emits: ['change', 'update:modelValue'],
-  setup(props, { emit, attrs }) {
+  setup(props, { slots, emit, attrs }) {
+    const hasLabel = computed((): boolean => !!(props.label || slots.label))
+
     const isSelected = computed((): boolean => props.selectedValue === props.modelValue)
 
     const handleClick = (): void => {
@@ -82,6 +84,7 @@ export default defineComponent({
     })
 
     return {
+      hasLabel,
       isSelected,
       modifiedAttrs,
       handleClick,
@@ -121,16 +124,9 @@ export default defineComponent({
 }
 
 .k-radio-label:has(+ .k-radio-description) {
-  font-style: normal;
   font-weight: 600;
-  font-size: var(--type-sm, type(sm));
   line-height: 18px;
-  display: inline-block;
-  align-items: center;
   color: var(--black-85, rgba(0, 0, 0, 0.85));
-  flex: none;
-  order: 0;
-  flex-grow: 0;
 }
 
 </style>

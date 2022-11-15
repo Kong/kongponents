@@ -11,13 +11,13 @@
       @change="handleChange"
     >
     <span
-      v-if="(label || $slots.label)"
+      v-if="hasLabel"
       class="k-checkbox-label"
     >
       <slot>{{ label }}</slot>
     </span>
     <div
-      v-if="(label || $slots.label) && (description || $slots.description)"
+      v-if="hasLabel && (description || $slots.description)"
       class="k-checkbox-description"
     >
       <slot name="description">{{ description }}</slot>
@@ -56,7 +56,9 @@ export default defineComponent({
     },
   },
   emits: ['input', 'change', 'update:modelValue'],
-  setup(props, { emit, attrs }) {
+  setup(props, { slots, emit, attrs }) {
+    const hasLabel = computed((): boolean => !!(props.label || slots.label))
+
     const handleChange = (e: any): void => {
       emit('change', e.target.checked)
       emit('input', e.target.checked)
@@ -73,6 +75,7 @@ export default defineComponent({
     })
 
     return {
+      hasLabel,
       modifiedAttrs,
       handleChange,
     }
@@ -111,16 +114,9 @@ export default defineComponent({
 }
 
 .k-checkbox-label:has(+ .k-checkbox-description) {
-  font-style: normal;
   font-weight: 600;
-  font-size: var(--type-sm, type(sm));
   line-height: 18px;
-  display: inline-block;
-  align-items: center;
   color: var(--black-85, rgba(0, 0, 0, 0.85));
-  flex: none;
-  order: 0;
-  flex-grow: 0;
 }
 
 </style>
