@@ -727,6 +727,7 @@ export default defineComponent({
     }
 
     .kong-icon {
+      display: inline-flex;
       &.overlay-label-chevron {
         margin-top: 25px;
       }

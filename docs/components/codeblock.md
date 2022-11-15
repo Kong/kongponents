@@ -274,6 +274,8 @@ The `KCodeBlock` component does not have syntax highlighting built in; however, 
 
 Below is an integration example for the popular syntax highlighting library [PrismJS](https://prismjs.com/).
 
+It makes use of the [`code-block-render` event](#code-block-render) to apply syntax highlighting.
+
 ```html
 <template>
   <KCodeBlock
@@ -323,11 +325,9 @@ const isProcessing = ref(false)
 /**
  * Applies PrismJS syntax highlighting.
  *
- * **Note**: In order for plugins to work,
- * a higher level function like `Prism.highlightElement`
- * or `Prism.highlightAll` **must** be used.
- * A lower level function like `Prism.highlight`
- * does not call Prism’s hooks which make plugins to work.
+ * **Note**: Use higher-level functions like `Prism.highlightElement` for highlighting.
+ * Lower-level functions like `Prism.highlight` don’t run any of the hooks
+ * that are used to make plugins work.
  */
 function highlight({ preElement, codeElement, language, code }) {
   isProcessing.value = true

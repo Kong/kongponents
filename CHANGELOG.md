@@ -1,3 +1,24 @@
+## [8.4.3](https://github.com/Kong/kongponents/compare/v8.4.2...v8.4.3) (2022-11-15)
+
+
+### Bug Fixes
+
+* **kcodeblock:** code-block-render event being emitted too soon ([#902](https://github.com/Kong/kongponents/issues/902)) ([386ffb3](https://github.com/Kong/kongponents/commit/386ffb3bcd4717b341cfb974cecd6cfec13b4164))
+
+## [8.4.2](https://github.com/Kong/kongponents/compare/v8.4.1...v8.4.2) (2022-11-15)
+
+
+### Bug Fixes
+
+* **kpop:** disallow vue animation classes ([#899](https://github.com/Kong/kongponents/issues/899)) ([f6ef3ce](https://github.com/Kong/kongponents/commit/f6ef3ced2ec78272aa6b0b548a9873c26058ed9f))
+
+## [8.4.1](https://github.com/Kong/kongponents/compare/v8.4.0...v8.4.1) (2022-11-14)
+
+
+### Bug Fixes
+
+* **kselect:** vertical alignment for arrow icon ([#898](https://github.com/Kong/kongponents/issues/898)) ([33312ee](https://github.com/Kong/kongponents/commit/33312ee8e03e5d4d981de6495a0cc3e3630d6556))
+
 # [8.4.0](https://github.com/Kong/kongponents/compare/v8.3.3...v8.4.0) (2022-11-11)
 
 

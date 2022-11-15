@@ -433,7 +433,11 @@ const filteredCode = computed(function() {
     .join('\n')
 })
 
-watch(() => props.code, function() {
+watch(() => props.code, async function() {
+  // Waits one Vue tick in which the code block is re-rendered. Only then does it make sense to emit the corresponding event. Otherwise, consuming components applying syntax highlighting would have to do this because if syntax highlighting is applied before re-rendering is done, re-rendering will effectively undo the syntax highlighting.
+  await nextTick()
+
+  // Changing the code causes the code block to be re-rendered.
   emitCodeBlockRenderEvent()
   updateMatchingLineNumbers()
 })
@@ -450,10 +454,10 @@ watch(() => isShowingFilteredCode.value, async function() {
   }
 
   if (!isShowingFilteredCode.value) {
-    // Waits one Vue tick in which the full code block is re-rendered after switching off filter mode. Only then does it make sense to emit the corresponding event.
+  // Waits one Vue tick in which the code block is re-rendered. Only then does it make sense to emit the corresponding event. Otherwise, consuming components applying syntax highlighting would have to do this because if syntax highlighting is applied before re-rendering is done, re-rendering will effectively undo the syntax highlighting.
     await nextTick()
 
-    // Turning off filter mode causes the full code block to be re-rendered
+    // Turning off filter mode causes the full code block to be re-rendered.
     emitCodeBlockRenderEvent()
     updateMatchingLineNumbers()
   }
