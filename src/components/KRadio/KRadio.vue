@@ -65,7 +65,7 @@ export default defineComponent({
   },
   emits: ['change', 'update:modelValue'],
   setup(props, { slots, emit, attrs }) {
-    const hasLabel = computed((): boolean => !!(props.label || slots.label))
+    const hasLabel = computed((): boolean => !!(props.label || slots.default))
 
     const isSelected = computed((): boolean => props.selectedValue === props.modelValue)
 
