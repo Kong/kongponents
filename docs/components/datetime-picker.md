@@ -103,7 +103,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
     v-model="currentValue5"
     @change="newVal => emitVal5 = newVal"
     placeholder="Please select a range"
-    mode="dateTime"
+    mode="relativeDateTime"
     width="415"
     :min-date="minDate"
     :max-date="maxDate"
@@ -119,7 +119,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
   v-model="currentValue"
   @change="newVal => emitVal = newVal"
   placeholder="Please select a range"
-  mode="dateTime"
+  mode="relativeDateTime"
   width="415"
   :min-date="minDate"
   :max-date="maxDate"
@@ -153,6 +153,29 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
 />
 ```
 
+### Custom and Relative time frames - Date, but no time
+
+Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
+
+Display both a calendar and relative time frames, passing in a preset week-long range. Hide the time.
+This instance also makes use of the `minDate` and `maxDate` parameters, which are both optional.
+
+<div>
+  <KDateTimePicker
+    v-model="currentValue5"
+    @change="newVal => emitVal5 = newVal"
+    placeholder="Please select a range"
+    mode="relativeDate"
+    width="415"
+    :min-date="minDate"
+    :max-date="maxDate"
+    :minute-increment="5"
+    :range="true"
+    :time-periods="exampleTimeFrames"
+  />
+  <div class="mt-6">Emitted value: <pre class="json">{{ emitVal5 }}</pre></div>
+</div>
+
 ### Relative time frames only
 
 Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
@@ -163,7 +186,7 @@ This utilizes the same time frames as the previous example; however, in this exa
     v-model="currentValue6"
     @change="newVal => emitVal6 = newVal"
     placeholder="Please select a time frame"
-    mode="relative"
+    mode="relativeOnly"
     width="480"
     :min-date="minDate"
     :max-date="maxDate"
@@ -178,7 +201,7 @@ This utilizes the same time frames as the previous example; however, in this exa
   v-model="''"
   @change="newVal => emitVal = newVal"
   placeholder="Please select a time frame"
-  mode="relative"
+  mode="relativeOnly"
   width="480"
   :min-date="minDate"
   :max-date="maxDate"
@@ -278,7 +301,10 @@ A `Number` which sets the custom interval for the Minutes select dropdown.
 
 ### mode
 
-Required `String` prop which accepts the following values: `date`, `time`, `dateTime` and `relative`. The `relative` value is meant to denote an datetime picker instance which only contains relative time frames.
+Required `String` prop which accepts the following values: `date`, `time`, `dateTime`, `relative`. 
+- `relativeOnly`: denotes a datetime picker instance which only contains relative time frames
+- `relativeDateTime`: instance with relative time frames, and a calendar that supports date and time selection
+- `relativeDate`: instance with relative time frames, and a calendar that supports date selection
 
 ### placeholder
 

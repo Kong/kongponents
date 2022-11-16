@@ -11,7 +11,7 @@
       width="auto"
       hide-caret
       position-fixed
-      @closed="handleClose"
+      @opened="hidePopover = false"
     >
       <KButton
         :class="{ 'set-min-width': hasTimePeriods }"
@@ -64,7 +64,7 @@
           :is-range="range"
           :max-date="maxDate"
           :min-date="minDate"
-          :mode="mode"
+          :mode="impliedMode"
           :model-config="modelConfig"
           :minute-increment="minuteIncrement"
           :select-attribute="calendarSelectAttributes"
@@ -227,14 +227,16 @@ export default defineComponent({
     },
     /**
      * Determines which `v-calendar` type to initialize.
-     * Three of the values (`date`, `time`, `dateTime`) are passed verbatim to `v-calendar`,
-     * whereas `relative` denotes a component instance made up solely of time frames.
+     * - { `date`, `time`, `dateTime` } are passed verbatim to `v-calendar`,
+     * - `relativeOnly` denotes a component instance made up solely of time frames
+     * - `relativeDateTime` relative time frames + datetime calendar
+     * - `relativeDate` relative time frames + date calendar
      */
     mode: {
       type: String,
       required: true,
       validator: (value: string): boolean => {
-        return ['relative', 'date', 'time', 'dateTime'].includes(value)
+        return ['relativeOnly', 'relativeDateTime', 'relativeDate', 'date', 'time', 'dateTime'].includes(value)
       },
     },
     /**
@@ -308,7 +310,7 @@ export default defineComponent({
       },
     }
 
-    const hasCalendar = computed((): boolean => props.mode !== 'relative')
+    const hasCalendar = computed((): boolean => props.mode !== 'relativeOnly')
     const hasTimePeriods = computed((): boolean => props?.timePeriods?.length > 0)
     const showCalendar = computed((): boolean => state.tabName === 'custom' || !hasTimePeriods.value)
     const submitDisabled = computed((): boolean => {
@@ -449,6 +451,8 @@ export default defineComponent({
      * If a range date picker, send the full range (start and end); else, a single `start` Date.
      */
     const submitTimeFrame = async (): Promise<void> => {
+      console.log('>>>>>> submitTimeFrame')
+      // debugger
       if (props.range || hasTimePeriods.value) {
         emit('change', state.selectedRange)
         emit('update:modelValue', state.selectedRange)
@@ -458,7 +462,8 @@ export default defineComponent({
         emit('update:modelValue', singleDate)
       }
 
-      handleClose()
+      state.hidePopover = true
+      // handleClose()
       updateDisplay()
     }
 
@@ -482,10 +487,23 @@ export default defineComponent({
     }
 
     const handleClose = async (): Promise<void> => {
-      state.hidePopover = true
+      // debugger
+      console.log('>>>>> handleClose')
+      // state.hidePopover = true
       await nextTick()
-      state.hidePopover = false
+      // state.hidePopover = false
     }
+
+    const impliedMode = computed((): string => {
+      if (props.mode === 'relativeDateTime') {
+        return 'dateTime'
+      } else if (props.mode === 'relativeDate') {
+        return 'date'
+      } else {
+        // Values that are safe to be passed verbatim to v-calendar
+        return props.mode
+      }
+    })
 
     /**
      * Saves the internal state (range or single value) whenever
@@ -525,6 +543,7 @@ export default defineComponent({
       handleClose,
       hasCalendar,
       hasTimePeriods,
+      impliedMode,
       modelConfig,
       selectedCalendarRange,
       calendarSelectAttributes,
