@@ -127,7 +127,7 @@ export default defineComponent({
     },
     isRounded: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     icon: {
       type: String,
