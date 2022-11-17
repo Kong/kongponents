@@ -1,5 +1,7 @@
 # Theming
 
+## CSS Variables
+
 You can override or "theme" some parts of components by setting corresponding [CSS Custom Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) in your `:root: {}` CSS rule or within a scoped class, for example:
 
 ```scss
@@ -12,9 +14,11 @@ You can override or "theme" some parts of components by setting corresponding [C
 }
 ```
 
+## Examples
+
 Take a look at individual components to see what properties are themable. Two examples are listed below.
 
-## `KInput` Example
+### `KInput` Example
 
 | Variable | Purpose
 |:-------- |:-------
@@ -26,13 +30,13 @@ Take a look at individual components to see what properties are themable. Two ex
 | `--KInputError`| Error border
 | `--KInputPlaceholderColor`| Placeholder text color
 
-:::tip TIP
+::: tip TIP
 Add the `input-error` class to add error styling
 :::
 
 <KInput id="theme-page-kinput" class="input-error w-50" type="email" value="error" label="This input has a custom error border color" />
 
-```html
+```html{6-8}
 <template>
   <KInput type="email" value="error" class="input-error"/>
 </template>
@@ -44,7 +48,7 @@ Add the `input-error` class to add error styling
 </style>
 ```
 
-## `KPop` Example
+### `KPop` Example
 
 | Variable | Purpose
 |:-------- |:-------
@@ -54,7 +58,7 @@ Add the `input-error` class to add error styling
 
 You can also scope the CSS variable to a single component by providing a parent selector. Here's an Example of changing the color of KPopover text
 
-```html
+```html{2,13-15}
 <template>
   <div class="custom-class-name">
     <KPop title="email">

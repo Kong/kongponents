@@ -19,7 +19,7 @@ jobs:
     secrets:
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
       # We do not want Percy tests to run on publish
-      PREVENT_PERCY_TESTS: 'false'
+      PREVENT_PERCY_TESTS: 'true'
 
   publish:
       name: Build and Publish Kongponents

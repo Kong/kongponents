@@ -1,8 +1,4 @@
----
-sidebarDepth: 1
----
-
-# Getting Started
+# Contributing
 
 In this section we will focus on the steps and nuances of developing Kongponents. Lets start with installation.
 
@@ -14,157 +10,43 @@ Clone the Kongponents repository
 git clone https://github.com/Kong/kongponents.git
 ```
 
-Install dependencies with `yarn` or `npm`
+Install dependencies
 
-<CodeGroup>
-  <CodeGroupItem title="yarn" active>
+```sh
+cd kongponents && yarn install --frozen-lockfile
+```
 
-  ```sh
-  cd kongponents && yarn
-  ```
+Next, let's generate [the CLI](#cli) that can be used to easy scaffold new Kongponent components. _This likely was ran automatically after installing dependencies._
 
-  </CodeGroupItem>
+```sh
+yarn build:cli
+```
 
-  <CodeGroupItem title="npm">
+Run the docs local dev server with hot-module reload
 
-  ```sh
-  cd kongponents && npm install
-  ```
+```sh
+yarn docs:dev
+```
 
-  </CodeGroupItem>
-</CodeGroup>
+Build the docs and preview the built files locally
 
-Next, let's generate [the CLI](#cli) that can be used to easy scaffold new Kongponent components
-
-<CodeGroup>
-  <CodeGroupItem title="yarn" active>
-
-  ```sh
-  yarn build:cli
-  ```
-
-  </CodeGroupItem>
-
-  <CodeGroupItem title="npm">
-
-  ```sh
-  npm run build:cli
-  ```
-
-  </CodeGroupItem>
-</CodeGroup>
-
-Run the docs locally
-
-<CodeGroup>
-  <CodeGroupItem title="yarn" active>
-
-  ```sh
-  yarn docs:dev
-  ```
-
-  </CodeGroupItem>
-
-  <CodeGroupItem title="npm">
-
-  ```sh
-  npm run docs:dev
-  ```
-
-  </CodeGroupItem>
-</CodeGroup>
-
-Build the docs and preview the build locally
-
-<CodeGroup>
-  <CodeGroupItem title="yarn" active>
-
-  ```sh
-  yarn docs:preview
-  ```
-
-  </CodeGroupItem>
-
-  <CodeGroupItem title="npm">
-
-  ```sh
-  npm run docs:preview
-  ```
-
-  </CodeGroupItem>
-</CodeGroup>
+```sh
+yarn docs:preview
+```
 
 Perform a full build of all Kongponents and the Docs site
 
-<CodeGroup>
-  <CodeGroupItem title="yarn" active>
-
-  ```sh
-  yarn build
-  ```
-
-  </CodeGroupItem>
-
-  <CodeGroupItem title="npm">
-
-  ```sh
-  npm run build
-  ```
-
-  </CodeGroupItem>
-</CodeGroup>
+```sh
+yarn build
+```
 
 ## CLI
 
-It is recommended to use the CLI (`create-kongponent`) when creating new components as it will scaffold all the required files. You can run it locally from the package or install it globally.
+It is **highly recommended** to utilize the included CLI when creating new Kongponents as it will scaffold all the necessary files.
 
-### Run local CLI
-
-<CodeGroup>
-  <CodeGroupItem title="yarn" active>
-
-  ```sh
-  yarn create-kongponent
-  ```
-
-  </CodeGroupItem>
-
-  <CodeGroupItem title="npm">
-
-  ```sh
-  npm run create-kongponent
-  ```
-
-  </CodeGroupItem>
-</CodeGroup>
-
-### Install global CLI
-
-<CodeGroup>
-  <CodeGroupItem title="yarn" active>
-
-  ```sh
-  # Link the package
-  yarn link
-
-  # Run the CLI
-  create-kongponent
-  ```
-
-  </CodeGroupItem>
-
-  <CodeGroupItem title="npm">
-
-  ```sh
-  # Link the package
-  npm link
-
-  # Run the CLI
-  create-kongponent
-  ```
-
-  </CodeGroupItem>
-</CodeGroup>
+```sh
+yarn create-kongponent
+```
 
 ## Create a new Kongponent
 
@@ -174,11 +56,11 @@ When creating a new component with the CLI it will perform the following actions
   - `{KongponentName}.cy.ts` - Cypress Component Test file
   - `{KongponentName}.vue` - Component file
 - Adds `/src/components/{KongponentName}/{KongponentName}.vue` to the exports in `/src/components/index.ts`
-- Creates a VuePress markdown file at `/docs/components/{kongponent}.md` (you have to manually add this file to the VuePress sidebar in `docs/.vuepress/config.ts`).
+- Creates a VitePress markdown file at `/docs/components/{kongponent}.md` (you have to manually add this file to the VitePress sidebar in `docs/.vitepress/config.ts`).
 
-  :::warning NOTE
-  If your component is exported via an `index.ts` file, or anything other than the default `{KongponentName}.vue` file, you will need to modify `/src/components/index.ts` accordingly.
-  :::
+::: warning NOTE
+If your component is exported via an `index.ts` file, or anything other than the default `{KongponentName}.vue` file, you will need to modify `/src/components/index.ts` accordingly.
+:::
 
 Once ran, this will be the resulting file structure:
 
@@ -201,7 +83,11 @@ Each component has an associated file in the `/docs/components` directory. After
 
 The docs markdown file should be named correctly if generated from the [`create-kongponent` CLI](#cli). If necessary, rename the file to correspond to what type of component it is. For documentation purposes page names should be based on what the component is vs its Kongponent `K` name.
 
-e.g. `kbutton.md` &rarr; `button.md` ; `kcard.md` &rarr; `card.md`
+#### Examples
+
+- `kbutton.md` &rarr; `button.md`
+- `kcard.md` &rarr; `card.md`
+- `kdatetimepicker` &rarr; `datetime-picker.md`
 
 ### Update the page title
 
@@ -219,18 +105,23 @@ Although the CLI will create a file in the docs directory, the new doc file **is
 
 Add the component to the desired location in the sidebar
 
-```ts
-// docs/.vuepress/config.ts
+```ts{10-15}
+// docs/.vitepress/config.ts
 
-{
-  text: 'Kongponents',
-  children: [
-    '/components/',
+sidebar: {
+  // Components sidebar
+  '/components/': [
     {
       text: 'Components',
-      children: [
+      collapsible: true,
+      items: [
         ...
-        '/components/{component-name}', // Should be the name of the `.md` markdown file, without the extension
+        {
+          // The name of the rendered element, e.g. "Alert"
+          text: '{Component Name}',
+          // The name of the `.md` markdown file, without the extension
+          link: '/components/{component-name}',
+        },
         ...
       ]
     }
@@ -262,7 +153,13 @@ This will trigger the Commitizen interactive prompt for building your commit mes
 
 ### Enforcing Commit Format
 
-[Lefthook](https://github.com/evilmartians/lefthook) is used to manage Git Hooks within the repo. A `commit-msg` hook is automatically setup that enforces commit message stands with `commitlint`, see `lefthook.yml`.
+[Lefthook](https://github.com/evilmartians/lefthook) is used to manage Git Hooks within the repo. See see the current `/lefthook.yml` here:
+
+<<< @/../lefthook.yml{yaml}
+
+A `commit-msg` hook is automatically setup that enforces commit message stands with `commitlint`.
+
+A `pre-push` hook is configured to run ESLint before pushing your changes to the remote repository.
 
 ## Recommended IDE Setup
 

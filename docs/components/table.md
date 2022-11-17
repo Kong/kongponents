@@ -1,6 +1,3 @@
----
-pageClass: table-docs
----
 # Table
 
 Pass a fetcher function to build a slot-able table.
@@ -9,7 +6,7 @@ Pass a fetcher function to build a slot-able table.
   <KTable :fetcher="fetcher" :headers="headers" />
 ```
 
-:::warning NOTE
+::: warning NOTE
 `KTable` implements `KIcon` which imports .svg files directly, so a loader may be needed in order to render these in your application such as the webpack
 [raw-loader](https://webpack.js.org/loaders/raw-loader/). [See here for more information](/#installation).
 :::
@@ -77,7 +74,7 @@ This functionality may be flaky.
 
 Use a custom sort handler function to handle sorting table data for specific columns
 
-::: tip Notes
+::: tip NOTE
 
 1. In order for a column to use the custom sort handler function, `useSortHandlerFn` must be set to `true` in the [headers](#headers) object
 
@@ -194,7 +191,7 @@ export default {
 
 Use a custom fetcher function to fetch table data and leverage server-side search, sort and pagination.
 
-::: tip Note
+::: tip NOTE
 All fetcher functions should take a single param. This parameter is a JSON
 object supporting the following properties:
 
@@ -209,7 +206,7 @@ object supporting the following properties:
   - `query`: a text string to filter table data on
 :::
 
-::: tip Note
+::: tip NOTE
 All fetcher functions should return a JSON object. This JSON object should contain the following properties:
 
 - `total` - the total count of items (if using pagination)
@@ -249,7 +246,7 @@ fetcher(payload) {
 
 The `fetcher` function does not actually need to make an API call. Tables that can get their data synchronously can be modified to use a `fetcher` that returns the static data object.
 
-::: tip Note
+::: tip NOTE
 Remember that the `fetcher` function is responsible for managing pagination/sort/search. So if returning a static data object these features should be explicitly disabled.
 :::
 
@@ -419,7 +416,7 @@ Pass in an array of header objects for the table.
 | `hideLabel`| boolean | Hides or displays the column label (useful for actions columns)
 | `useSortHandlerFn` | boolean | Uses the function passed in the [sortHandlerFn](#sorthandlerfn) prop to sort the column data instead of the default client sorter function
 
-:::tip Note
+::: tip NOTE
 `sortable` columns emit a `sort` event when clicked, returns:
 
   ```json
@@ -609,7 +606,7 @@ export default {
 
 Bind DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to various parts of the table. We support events on both table rows and cells, but must be careful with clickable content in rows when row click is enabled. You can also add logic to check for `metakey` to support cmd/ctrl when clicking. Examples highlighted below.
 
-::: tip Note
+::: tip NOTE
 Styles and other accessibility-related attributes to indicate whether a row can be clicked are automatically applied when a value that does not evaluate to `undefined` is provided for an event handler.
 
 If you want to conditionally apply an event handler to `@row:click`, the value must evaluate to either a callback function, or `undefined`.
@@ -926,7 +923,7 @@ export default {
 
 #### Column Cell
 
-This example uses the [`KDropdownMenu`](/components/dropdown-menu.html) component as the slot content for the `actions` column.
+This example uses the [`KDropdownMenu`](/components/dropdown-menu) component as the slot content for the `actions` column.
 
 <div>
   <KTable
@@ -1293,7 +1290,7 @@ Set the `isLoading` prop to `true` to enable the loading state.
 
 Pass a fetcher function to enable server-side search, sort and pagination. The fetcher function should structure the ajax request URL in such a way that enables server side sort, search and pagination per the requirements of the API being used.
 
-::: tip Note
+::: tip NOTE
 The loading state is handled automatically. When the `fetcher` is called the internal loading state is triggered and will be resolved when the fetcher returns. You can override this behavior using the `isLoading` prop.
 :::
 
@@ -1764,7 +1761,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.table-docs .k-table {
+.k-table {
   display: table;
 
   th, tr, td {

@@ -1,5 +1,4 @@
 ---
-sidebarDepth: 3
 sans:
   - variable: xxxl
     size: 32px
@@ -33,7 +32,7 @@ mono:
     size: (12px*.95%) 11.4px
 ---
 
-# Type
+# Typography
 
 ## Font family
 
@@ -56,7 +55,7 @@ The default font-weight (for `body`) is set to `400`. You may customize the `fon
 }
 ```
 
-:::tip
+::: tip
 This only applies to the `body` element and inherited font weights. Individual style rules still have varying `font-weight` attributes.
 :::
 
@@ -68,7 +67,7 @@ There are utility classes for `font-size`.
 
 <div>
   <TypographyBlock
-    v-for="(font, key, i) in $page.frontmatter.sans"
+    v-for="(font, key, i) in frontmatter.sans"
     :key="i"
     prefix="type-"
     :font-size="font.size"
@@ -79,43 +78,13 @@ There are utility classes for `font-size`.
 
 <div>
   <TypographyBlock
-    v-for="(font, key, i) in $page.frontmatter.mono"
+    v-for="(font, key, i) in frontmatter.mono"
     :key="i"
     font-type="mono"
     prefix="type-"
     :font-size="font.size"
     :variable-name="font.variable" />
 </div>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  beforeMount() {
-    const styles = [
-      // heading
-      'style-heading-1',
-      'style-heading-2',
-      'style-heading-3',
-      'style-heading-4',
-      // body
-      'style-body-lg-bold',
-      'style-body-lg',
-      'style-body-md-bold',
-      'style-body-md',
-      'style-body-sm-bold',
-      'style-body-sm',
-      'style-body-link',
-      'style-body-bc',
-      'style-body-code',
-      'style-body-tiny',
-    ]
-
-    this.$page.headingStyles = styles.filter(i => i.includes('heading'))
-    this.$page.bodyStyles = styles.filter(i => i.includes('body'))
-  }
-})
-</script>
 
 ## Content Styles
 
@@ -125,8 +94,8 @@ There are also utility classes for quick styling of different content types.
 
 <div>
   <TypographyBlock
-    v-if="$page.headingStyles"
-    v-for="className in $page.headingStyles"
+    v-if="headingStyles.length"
+    v-for="className in headingStyles"
     :key="className"
     :styleClasses="className"
     :variable-name="className" />
@@ -136,9 +105,43 @@ There are also utility classes for quick styling of different content types.
 
 <div>
   <TypographyBlock
-    v-if=" $page.bodyStyles"
-    v-for="className in $page.bodyStyles"
+    v-if="bodyStyles.length"
+    v-for="className in bodyStyles"
     :key="className"
     :styleClasses="className"
     :variable-name="className" />
 </div>
+
+<script setup lang="ts">
+import { onBeforeMount, ref } from 'vue'
+import { useData } from 'vitepress'
+import TypographyBlock from '@vitepress/components/TypographyBlock.vue'
+
+const { page, frontmatter } = useData()
+const headingStyles = ref([])
+const bodyStyles = ref([])
+
+onBeforeMount(() => {
+  const styles = [
+    // heading
+    'style-heading-1',
+    'style-heading-2',
+    'style-heading-3',
+    'style-heading-4',
+    // body
+    'style-body-lg-bold',
+    'style-body-lg',
+    'style-body-md-bold',
+    'style-body-md',
+    'style-body-sm-bold',
+    'style-body-sm',
+    'style-body-link',
+    'style-body-bc',
+    'style-body-code',
+    'style-body-tiny',
+  ]
+
+  headingStyles.value = styles.filter(i => i.includes('heading'))
+  bodyStyles.value = styles.filter(i => i.includes('body'))
+})
+</script>

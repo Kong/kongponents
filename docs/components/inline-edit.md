@@ -69,7 +69,7 @@ Emitted blurred away from the editing input or when enter is pressed.
 
 When clicking out of the input `@changed` will fire and emit the value. Can be used to reset the outside data.
 
-:::tip
+::: tip
 While the component itself does not protect against returning empty an empty value, it is advised to do a check at the implementation layer to ensure empty & validation are accounted for.
 :::
 
@@ -103,7 +103,7 @@ While the component itself does not protect against returning empty an empty val
 
 - `default` - Content to be edited
 
-:::warning
+::: warning
 An HTML element must be passed in the slot. An error will be thrown if not passed.
 
 ```html

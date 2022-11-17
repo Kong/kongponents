@@ -2,7 +2,7 @@
 
 **KSlideout** - provides a container/wrapper to show content that may not always be important to show all of the time. It is a user-initiated component and should only show with a click.
 
-Below we demonstrate wrapping `KSlideout` in the [`KToggle`](/components/renderless/toggle.html) component. This allows us to easily toggle the open state without needing to set a data prop in the parent component.
+Below we demonstrate wrapping `KSlideout` in the [`KToggle`](/components/renderless/toggle) component. This allows us to easily toggle the open state without needing to set a data prop in the parent component.
 
 <KToggle v-slot="{ isToggled, toggle }">
   <div>

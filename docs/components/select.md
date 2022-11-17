@@ -1,7 +1,5 @@
 # Select
 
-<div v-if="hasMounted">
-
 **Select** - Select input component
 
 <div>
@@ -70,7 +68,7 @@ Enable this prop to overlay the label on the input element's border for `select`
 
 ### labelAttributes
 
-Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label.html) if using the `label` prop.
+Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label) if using the `label` prop.
 
 <div>
   <KSelect label="Name" :label-attributes="{
@@ -186,7 +184,7 @@ export default defineComponent({
 You can pass a `width` string for the dropdown. By default the `width` is `200px`. This is the width of the input, dropdown, and selected item.
 Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
 
-:::tip Note
+::: tip NOTE
 Because we are controlling the widths of multiple elements, we recommend using this prop to control the width instead of explicitly adding classes or styles to the `KSelect` component.
 :::
 
@@ -243,7 +241,7 @@ myCustomFilter ({ items, query }) {
 }
 ```
 
-:::tip Note
+::: tip NOTE
 `filterFunc` does not work with `autosuggest` enabled.
 For `autosuggest`, you are in charge of filtering the options, so `KSelect` won't filter them internally.
 See [autosuggest](#autosuggest) for more details.
@@ -376,7 +374,7 @@ export default {
 </script>
 ```
 
-:::tip Note
+::: tip NOTE
 The `query-change` event triggers immediately when the user types in the input.
 If you need to send API requests in the `query-change` event handler, you may want to implement a debounce function.
 The following is an example:
@@ -562,8 +560,6 @@ You can use the `empty` slot to customize the look of the dropdown list when the
 | `change` | `selectedItem` Object or null |
 | `query-change` | `query` String |
 
-</div>
-
 <script lang="ts">
 import { defineComponent } from 'vue'
 
@@ -598,7 +594,6 @@ const allItems = new Array(10).fill().map((_, i) => ({
 export default defineComponent({
   data() {
     return {
-      hasMounted: false,
       myItems: getItems(5),
       mySelect: '',
       myVal: 'cats',
@@ -649,9 +644,6 @@ export default defineComponent({
       itemsForDebouncedAutosuggest: [],
       loadingForDebounced: true,
     }
-  },
-  mounted() {
-    this.hasMounted = true
   },
   methods: {
     handleItemSelect (item) {

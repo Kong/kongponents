@@ -71,7 +71,7 @@ export default defineComponent({
     }
     span {
       font-size: var(--type-sm);
-      color: var(--c-text, var(--black-70));
+      color: var(--vp-c-text, var(--black-70));
     }
   }
 }

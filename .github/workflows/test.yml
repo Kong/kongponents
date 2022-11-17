@@ -72,4 +72,4 @@ jobs:
           PERCY_TARGET_BRANCH: main
         if: "${{ env.PREVENT_PERCY_TESTS != 'true' }}"
         run: |
-          npx @percy/cli snapshot docs/.vuepress/dist/ --exclude "**/404.html"
+          npx @percy/cli snapshot docs/.vitepress/dist/ --exclude "**/404.html"

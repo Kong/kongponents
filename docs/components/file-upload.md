@@ -1,7 +1,7 @@
 # File Upload
 
 **KFileUpload** provides a wrapper around an `input` element with `type=file` for `file upload` or `image upload`.
- 
+
 <KCard>
   <template v-slot:body>
     <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType.join(', ')}` }" help="Additional files can be uploaded from HomePage." :accept="acceptedFileType" hasError />
@@ -9,9 +9,9 @@
 </KCard>
 
 ```html
-<KFileUpload 
-  label="Upload File" 
-  :label-attributes="{ help: 'Accepted file types: .yml, .yaml, .json, .md, .markdown, image/*' }" 
+<KFileUpload
+  label="Upload File"
+  :label-attributes="{ help: 'Accepted file types: .yml, .yaml, .json, .md, .markdown, image/*' }"
   :accept="['.yml', '.yaml', '.json', '.md', '.markdown', 'image/*']"
 />
 ```
@@ -29,8 +29,8 @@ KFileUpload has two supported types: `file` (default) and `image`.
 </KCard>
 
 ```html
-<KFileUpload 
-  label="Upload File" 
+<KFileUpload
+  label="Upload File"
   help="Additional files can be uploaded from HomePage."
 />
 ```
@@ -42,10 +42,10 @@ KFileUpload has two supported types: `file` (default) and `image`.
 </KCard>
 
 ```html
-<KFileUpload type="image" 
+<KFileUpload type="image"
   label="Upload File"
-  icon="image" 
-  :accept="['image/*']" 
+  icon="image"
+  :accept="['image/*']"
   placeholder="Upload new image (Max 4 MB)"
 />
 ```
@@ -56,7 +56,7 @@ String to be used as the `KFileUpload` label.
 
 ### labelAttributes
 
-Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label.html) if using the `label` prop.
+Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label) if using the `label` prop.
 
 <KCard>
   <template v-slot:body>
@@ -65,8 +65,8 @@ Use the `labelAttributes` prop to configure the **KLabel's** [props](/components
 </KCard>
 
 ```html
-<KFileUpload 
-  label="Upload File" 
+<KFileUpload
+  label="Upload File"
   :label-attributes="{ help: 'Accepted file types: .yml, .yaml, .json, .md, .markdown, image/*' }"
 />
 ```
@@ -78,11 +78,11 @@ Use the `labelAttributes` prop to configure the **KLabel's** [props](/components
 </KCard>
 
 ```html
-<KFileUpload 
-  type="image" 
-  label="Upload Image file" 
+<KFileUpload
+  type="image"
+  label="Upload Image file"
   :label-attributes="{ help: 'Accepted file types: image/*' }"
-  icon="image" 
+  icon="image"
   placeholder="Upload new image (Max 1 MB)"
 />
 ```
@@ -119,13 +119,13 @@ String to be displayed as error message if `hasError` prop is `true`.
 
 
 ```html
-<KFileUpload 
-  label="Upload File" 
-  :maxFileSize="0" 
-  help="Please select any file to display the error state." 
+<KFileUpload
+  label="Upload File"
+  :maxFileSize="0"
+  help="Please select any file to display the error state."
   hasError
-  errorMessage="File size should be less than 1MB." 
-  :accept="['.yml', '.yaml', '.json', '.md', '.markdown', 'image/*']" 
+  errorMessage="File size should be less than 1MB."
+  :accept="['.yml', '.yaml', '.json', '.md', '.markdown', 'image/*']"
 />
 ```
 
@@ -142,11 +142,11 @@ Use the `placeholder` prop to display placeholder text. The `placeholder text` i
 </KCard>
 
 ```html
-<KFileUpload 
-  type="image" 
+<KFileUpload
+  type="image"
   label="Upload File"
-  placeholder="You can change the text here!" 
-  icon="kong" 
+  placeholder="You can change the text here!"
+  icon="kong"
 />
 ```
 
@@ -163,9 +163,9 @@ A `cancel` button can be displayed, by default this is set to `true`. This butto
 ```html
 <KFileUpload
   :removable="false"
-  label="Upload File" 
+  label="Upload File"
   :label-attributes="{ help: 'Accepted file types: .yml, .yaml, .json, .md, .markdown, image/*' }"
-  buttonAppearance="creation" 
+  buttonAppearance="creation"
 />
 ```
 
@@ -177,18 +177,18 @@ A `cancel` button can be displayed, by default this is set to `true`. This butto
 </KCard>
 
 ```html
-<KFileUpload 
+<KFileUpload
   type="image"
   :removable="false"
   label="Upload File"
-  placeholder="No cancel button!" 
+  placeholder="No cancel button!"
   icon="kong"
 />
 ```
 
 ### accept
 
-Please refer to [mdn web docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) that defines the file types the file input should accept. 
+Please refer to [mdn web docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) that defines the file types the file input should accept.
 
 ### buttonAppearance
 
@@ -237,8 +237,8 @@ The color of the `icon` being displayed.
 </KCard>
 
 ```html
-<KFileUpload 
-  type="image" icon="immunity" iconColor="gold" iconSize="30" 
+<KFileUpload
+  type="image" icon="immunity" iconColor="gold" iconSize="30"
   placeholder="You can change the text here!"
 />
 ```
@@ -270,14 +270,14 @@ All of the above 3 events will emit a `JavaScript Array` of type `FileList`. Thi
 </KCard>
 
 ```html
-<KFileUpload 
-  label="Upload File" 
-  @file-added="file => printData(file)" 
-  @file-removed="() => fileData = ''" 
+<KFileUpload
+  label="Upload File"
+  @file-added="file => printData(file)"
+  @file-removed="() => fileData = ''"
 />
 ```
 
-<div class="mt-6">Emitted value: 
+<div class="mt-6">Emitted value:
   <pre v-if="fileData.length" class="emitted-value">{{ `File Data:` }}
     <div v-for="(file) in fileData">
       <span>lastModified: {{file.lastModified}}</span>

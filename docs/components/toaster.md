@@ -56,7 +56,7 @@ export default defineComponent({
 </script>
 ```
 
-:::warning NOTE
+::: warning NOTE
 Using `getCurrentInstance` is a replacement of Vue 2's Vue.prototype which is no longer present in Vue 3. As with anything global, this should be used sparingly.
 
 If a global property conflicts with a component’s own property, the component's own property will have higher priority.
