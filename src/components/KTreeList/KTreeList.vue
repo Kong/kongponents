@@ -2,14 +2,14 @@
   <draggable
     tag="ul"
     :list="list"
-    :group="{ name: 'k-tree-nav', put: !maxLevelReached }"
+    :group="{ name: 'k-tree-list', put: !maxLevelReached }"
     draggable=".element"
     item-key="a-key"
     ghost-class="dragged"
     :move="checkMove"
     :level="level"
     :disabled="disabled"
-    class="k-tree-nav"
+    class="k-tree-list"
     @start="dragging = true"
     @end="dragging = false"
     @change="$emit('change', { ...$event })"
@@ -32,20 +32,20 @@
 import { defineComponent, computed, ref, PropType } from 'vue'
 import draggable from 'vuedraggable'
 
-export interface TreeNavItem {
+export interface TreeListItem {
   label: string
   value: string
   key?: string
 }
 
 export default defineComponent({
-  name: 'KTreeNav',
+  name: 'KTreeList',
   components: {
     draggable,
   },
   props: {
     list: {
-      type: Array as PropType<TreeNavItem[]>,
+      type: Array as PropType<TreeListItem[]>,
       required: true,
     },
     level: {

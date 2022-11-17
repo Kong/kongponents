@@ -69,7 +69,7 @@ export default defineConfig({
             { text: 'Textarea', link: '/components/textarea' },
             { text: 'Toaster', link: '/components/toaster' },
             { text: 'Tooltip', link: '/components/tooltip' },
-            { text: 'TreeNav', link: '/components/treenav' },
+            { text: 'TreeList', link: '/components/treelist' },
             { text: 'View Switcher', link: '/components/view-switcher' },
           ]
         },
