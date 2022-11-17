@@ -194,7 +194,7 @@ describe('KDateTimePicker', () => {
   it('renders relative time frames, and makes a selection', () => {
     mount(KDateTimePicker, {
       props: {
-        mode: 'relativeOnly',
+        mode: 'relative',
         modelValue: today,
         range: true,
         timePeriods: exampleTimeFrames,

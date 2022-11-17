@@ -229,15 +229,15 @@ export default defineComponent({
     /**
      * Determines which `v-calendar` type to initialize.
      * - { `date`, `time`, `dateTime` } are passed verbatim to `v-calendar`,
-     * - `relativeOnly` denotes a component instance made up solely of time frames
-     * - `relativeAndDateTime` relative time frames + datetime calendar
-     * - `relativeAndDate` relative time frames + date calendar
+     * - `relative` denotes a component instance made up solely of time frames
+     * - `relativeDate` relative time frames + date calendar
+     * - `relativeDateTime` relative time frames + datetime calendar
      */
     mode: {
       type: String,
       required: true,
       validator: (value: string): boolean => {
-        return ['date', 'time', 'dateTime', 'relativeOnly', 'relativeAndDateTime', 'relativeAndDate'].includes(value)
+        return ['date', 'time', 'dateTime', 'relative', 'relativeDate', 'relativeDateTime'].includes(value)
       },
     },
     /**
@@ -311,7 +311,7 @@ export default defineComponent({
       },
     }
 
-    const hasCalendar = computed((): boolean => props.mode !== 'relativeOnly')
+    const hasCalendar = computed((): boolean => props.mode !== 'relative')
     const hasTimePeriods = computed((): boolean => props?.timePeriods?.length > 0)
     const showCalendar = computed((): boolean => state.tabName === 'custom' || !hasTimePeriods.value)
     const submitDisabled = computed((): boolean => {
@@ -488,9 +488,9 @@ export default defineComponent({
     }
 
     const impliedMode = computed((): string => {
-      if (props.mode === 'relativeAndDateTime') {
+      if (props.mode === 'relativeDateTime') {
         return 'dateTime'
-      } else if (props.mode === 'relativeAndDate') {
+      } else if (props.mode === 'relativeDate') {
         return 'date'
       } else {
         // Values that are safe to be passed verbatim to v-calendar

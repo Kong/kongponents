@@ -101,7 +101,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
     v-model="currentValue5"
     @change="newVal => emitVal5 = newVal"
     placeholder="Please select a range"
-    mode="relativeAndDate"
+    mode="relativeDate"
     width="415"
     :min-date="minDate"
     :max-date="maxDate"
@@ -117,7 +117,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
   v-model="currentValue"
   @change="newVal => emitVal = newVal"
   placeholder="Please select a range"
-  mode="relativeAndDate"
+  mode="relativeDate"
   width="415"
   :min-date="minDate"
   :max-date="maxDate"
@@ -163,7 +163,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
     v-model="currentValue5"
     @change="newVal => emitVal5 = newVal"
     placeholder="Please select a range"
-    mode="relativeAndDateTime"
+    mode="relativeDateTime"
     width="415"
     :min-date="minDate"
     :max-date="maxDate"
@@ -179,7 +179,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
   v-model="currentValue"
   @change="newVal => emitVal = newVal"
   placeholder="Please select a range"
-  mode="relativeAndDateTime"
+  mode="relativeDateTime"
   width="415"
   :min-date="minDate"
   :max-date="maxDate"
@@ -223,7 +223,7 @@ This utilizes the same time frames as the previous example; however, in this exa
     v-model="currentValue6"
     @change="newVal => emitVal6 = newVal"
     placeholder="Please select a time frame"
-    mode="relativeOnly"
+    mode="relative"
     width="480"
     :min-date="minDate"
     :max-date="maxDate"
@@ -238,7 +238,7 @@ This utilizes the same time frames as the previous example; however, in this exa
   v-model="''"
   @change="newVal => emitVal = newVal"
   placeholder="Please select a time frame"
-  mode="relativeOnly"
+  mode="relative"
   width="480"
   :min-date="minDate"
   :max-date="maxDate"
@@ -342,9 +342,9 @@ Required `String` prop which accepts the following values:
 - `date`: denotes a datetime picker instance that allows a calendar date to be selected
 - `time`: denotes an instance that allows a time to be selected
 - `dateTime`: denotes an instance that allows a calendar date and time to be selected
-- `relativeOnly`: instance which only contains relative time frames
-- `relativeAndDate`: instance with relative time frames, and a calendar that supports date selection
-- `relativeAndDateTime`: instance with relative time frames, and a calendar that supports date and time selection
+- `relative`: instance which only contains relative time frames
+- `relativeDate`: instance with relative time frames, and a calendar that supports date selection
+- `relativeDateTime`: instance with relative time frames, and a calendar that supports date and time selection
 
 ### placeholder
 
