@@ -213,7 +213,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
 />
 ```
 
-### Relative time frames only
+### Relative date and time
 
 Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 This utilizes the same time frames as the previous example; however, in this example we are passing in a pre-selected time frame.
