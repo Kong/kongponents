@@ -2,38 +2,52 @@
 
 **KTreeList** - This should be a description of the Kongponent.
 
-<KTreeList :list="defaultItems" />
+<KTreeList :items="defaultItems" />
+
+```html
+<KTreeList :items="items" />
+```
+
+## Props
+
+### v-model
+
+`KTreeList` works with v-model for data binding.
+
+::: tip NOTE
+You cannot use `v-model` with the `items` prop. You must use one or the other.
+:::
+
+<div>
+  <KLabel>Value:</KLabel> {{ myList }}
+  <KTreeList v-model="myList" />
+  <br>
+  <KButton @click="reset">Reset</KButton>
+</div>
 
 ```html
 <template>
-  <KTreeList />
+  <KLabel>Value:</KLabel> {{ myList }}
+  <KTreeList v-model="myList" />
+  <KButton @click="reset">Reset</KButton>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  setup (props) {
-    // ... code goes here
+  data() {
+    return {
+      myVal: 'cats',
+    }
+  },
+  methods: {
+    clearIt() {
+      this.myVal = ''
+    }
   }
 })
 </script>
-```
-
-## Props
-
-### examplePropName
-
-Description of `examplePropName`
-
-Actual component using examplePropName
-
-<KTreeList :examplePropName="true" />
-
-```html
-<KTreeList examplePropName="variation1" />
-<KTreeList examplePropName="variation2" />
-<KTreeList examplePropName="variation3" />
 ```
 
 ## Slots
@@ -98,6 +112,18 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   data() {
     return {
+      myList: [{
+        "name": "John",
+        "id": 0
+      },
+      {
+        "name": "Joao",
+        "id": 1
+      },
+      {
+        "name": "Jean",
+        "id": 2
+      }],
       defaultItems: [{
         "name": "John",
         "id": 0
@@ -110,6 +136,11 @@ export default defineComponent({
         "name": "Jean",
         "id": 2
       }]
+    }
+  },
+  methods: {
+    reset () {
+      this.myList = this.defaultItems
     }
   }
 })
