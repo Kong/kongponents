@@ -194,7 +194,7 @@ describe('KDateTimePicker', () => {
   it('renders relative time frames, and makes a selection', () => {
     mount(KDateTimePicker, {
       props: {
-        mode: 'relative',
+        mode: 'relativeOnly',
         modelValue: today,
         range: true,
         timePeriods: exampleTimeFrames,
@@ -231,5 +231,25 @@ describe('KDateTimePicker', () => {
     // Check that calendar month and 2 x time selection inputs show up
     cy.getTestId(segmentedToggle).find('button[name="custom"]').eq(0).click()
     cy.get('.k-datetime-picker .vc-pane-container .vc-weeks').should('exist')
+  })
+
+  it('renders calendar with only the day (month) selection, but not time', () => {
+    mount(KDateTimePicker, {
+      props: {
+        mode: 'relativeOnly',
+        modelValue: today,
+        range: true,
+        timePeriods: exampleTimeFrames,
+      },
+    })
+
+    cy.getTestId(timepickerInput).click()
+    cy.get('.timeframe-section').should('exist')
+    cy.get('.timeframe-buttons').should('exist')
+
+    // On the calendar side, we should see the month view, but not the time picker
+    cy.getTestId(segmentedToggle).find('button[name="custom"]').eq(0).click()
+    cy.get('.k-datetime-picker .vc-pane-container .vc-weeks').should('exist')
+    cy.get('.k-datetime-picker .vc-pane-container .vc-time-picker').should('exist')
   })
 })
