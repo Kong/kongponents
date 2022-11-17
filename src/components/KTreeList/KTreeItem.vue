@@ -5,6 +5,7 @@
       'not-draggable': disabled,
       'selected': item.selected
     }"
+    @click="handleClick"
   >
     <div
       v-if="hasIcon"
@@ -27,14 +28,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, PropType } from 'vue'
+import { defineComponent, computed, PropType } from 'vue'
 
 export interface TreeListItem {
   name: string
   id: string
-  icon?: string
-  key?: string
   selected?: boolean
+  icon?: string
+  parent?: string
 }
 
 export default defineComponent({
@@ -49,13 +50,17 @@ export default defineComponent({
       default: false,
     },
   },
-  setup(props, { slots }) {
-    const isSelected = ref(false)
+  emits: ['selected'],
+  setup(props, { slots, emit }) {
     const hasIcon = computed(() => props.item.icon !== 'none' || slots['item-icon'])
 
+    const handleClick = () => {
+      emit('selected', props.item)
+    }
+
     return {
-      isSelected,
       hasIcon,
+      handleClick,
     }
   },
 })

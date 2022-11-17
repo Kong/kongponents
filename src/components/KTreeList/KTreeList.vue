@@ -1,19 +1,12 @@
 <template>
   <div class="k-tree-list">
-    <!-- Note: force-fallback: true is required to override cursor when dragging -->
     <draggable
-      tag="div"
-      animation="100"
+      v-bind="draggableAttrs"
       :disabled="disableDrag"
-      :list="list"
+      :list="internalList"
       :group="{ name: 'k-tree-list', put: !maxLevelReached }"
       :move="checkMove"
       :level="level"
-      :force-fallback="true"
-      item-key="id"
-      draggable=".k-tree-item"
-      ghost-class="k-tree-item-dragged"
-      drag-class="k-tree-list-grabbing"
       @start="onStartDrag"
       @end="onStopDrag"
       @change="$emit('change', { ...$event })"
@@ -26,6 +19,7 @@
         <KTreeItem
           :item="element"
           :disabled="disableDrag"
+          @selected="handleSelection"
         >
           <template #item-icon>
             <slot
@@ -55,7 +49,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, PropType } from 'vue'
+import { defineComponent, computed, ref, watch, onMounted, PropType } from 'vue'
 import draggable from 'vuedraggable'
 import KTreeItem, { TreeListItem } from '@/components/KTreeList/KTreeItem.vue'
 
@@ -66,9 +60,13 @@ export default defineComponent({
     KTreeItem,
   },
   props: {
-    list: {
+    modelValue: {
       type: Array as PropType<TreeListItem[]>,
-      required: true,
+      default: () => [],
+    },
+    items: {
+      type: Array as PropType<TreeListItem[]>,
+      default: null,
     },
     level: {
       type: Number,
@@ -101,16 +99,86 @@ export default defineComponent({
   },
   emits: ['change'],
   setup(props) {
+    const internalList = ref<TreeListItem[]>([])
+    const draggableAttrs = {
+      tag: 'div',
+      // Note: force-fallback: true is required to override cursor when dragging
+      'force-fallback': true,
+      animation: '100',
+      draggable: '.k-tree-item',
+      'item-key': 'id',
+      'ghost-class': 'k-tree-item-dragged',
+      'drag-class': 'k-tree-list-grabbing',
+    }
+
+    // we need this so we can create a watcher for programmatic changes to the modelValue
+    const value = computed({
+      get(): TreeListItem[] {
+        return props.modelValue
+      },
+      set(newValue: TreeListItem[]): void {
+        internalList.value = newValue
+      },
+    })
+
+    const handleSelection = (item: TreeListItem) => {
+      // select the item
+      const selectedItem = internalList.value.filter((anItem: TreeListItem) => anItem.id === item.id)[0]
+      selectedItem.selected = true
+      // deselect previously selected item
+      const unselectedItems = internalList.value.filter((anItem: TreeListItem) => anItem.id !== item.id)
+      unselectedItems.forEach((anItem: TreeListItem) => {
+        anItem.selected = false
+      })
+    }
+
+    // watch for programmatic changes to modelValue
+    watch(value, (newVal, oldVal) => {
+      if (JSON.stringify(newVal) !== JSON.stringify(oldVal)) {
+        internalList.value = newVal
+      }
+    })
+
+    watch(() => props.items, (newValue, oldValue) => {
+      // Only trigger the watcher if items actually change
+      if (JSON.stringify(newValue) === JSON.stringify(oldValue)) {
+        internalList.value = newValue
+      }
+    })
+
+    onMounted(() => {
+      if (props.items) {
+        internalList.value = props.items
+      } else if (props.modelValue) {
+        internalList.value = props.modelValue
+      }
+    })
+
     const maxLevelReached = computed(() => {
       return props.level > props.maxLevel
     })
 
     const dragging = ref(false)
 
-    const checkMove = () => {
+    const checkMove = (target: any) => {
+      const item = target.draggedContext.element
+      handleSelection(item)
+
+      // TODO: return false if move isn't allowed
       return true
     }
 
+    const onStartDrag = (): void => {
+      dragging.value = true
+      setDragCursor(true)
+    }
+
+    const onStopDrag = (): void => {
+      dragging.value = false
+      setDragCursor(false)
+    }
+
+    // override cursor when dragging
     const setDragCursor = (value: boolean) => {
       // must be on html element to keep style applied no matter where they drag
       const html = document.getElementsByTagName('html').item(0)
@@ -118,16 +186,6 @@ export default defineComponent({
       if (html) {
         html.classList.toggle('k-tree-list-grabbing', value)
       }
-    }
-
-    const onStartDrag = () => {
-      dragging.value = true
-      setDragCursor(true)
-    }
-
-    const onStopDrag = () => {
-      dragging.value = false
-      setDragCursor(false)
     }
 
     /*  const checkMove = (event: Event) => {
@@ -157,9 +215,12 @@ export default defineComponent({
     } */
 
     return {
+      draggableAttrs,
+      internalList,
       maxLevelReached,
       dragging,
       checkMove,
+      handleSelection,
       onStartDrag,
       onStopDrag,
     }
