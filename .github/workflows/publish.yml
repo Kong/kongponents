@@ -18,8 +18,8 @@ jobs:
     # Must pass in secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
     secrets:
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-      # We do not want Percy tests to run on publish
-      PREVENT_PERCY_TESTS: 'true'
+      # We MUST run Percy tests on publish to update our baseline images
+      PREVENT_PERCY_TESTS: 'false'
 
   publish:
       name: Build and Publish Kongponents
