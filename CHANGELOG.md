@@ -1,3 +1,10 @@
+## [8.5.2](https://github.com/Kong/kongponents/compare/v8.5.1...v8.5.2) (2022-11-17)
+
+
+### Bug Fixes
+
+* **percy:** baseline config ([009745c](https://github.com/Kong/kongponents/commit/009745c3c2fdcb9e133eb62bd5dc61f21f38bbad))
+
 ## [8.5.1](https://github.com/Kong/kongponents/compare/v8.5.0...v8.5.1) (2022-11-16)
 
 
