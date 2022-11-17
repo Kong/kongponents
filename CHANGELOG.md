@@ -1,3 +1,17 @@
+## [8.5.1](https://github.com/Kong/kongponents/compare/v8.5.0...v8.5.1) (2022-11-16)
+
+
+### Bug Fixes
+
+* **kradio, kcheckbox:** use default slot to compute hasLabel [KHCP-4339] ([#905](https://github.com/Kong/kongponents/issues/905)) ([e25c908](https://github.com/Kong/kongponents/commit/e25c908a412e3046fb2292bce4907dc18983caab))
+
+# [8.5.0](https://github.com/Kong/kongponents/compare/v8.4.3...v8.5.0) (2022-11-15)
+
+
+### Features
+
+* **kradio, kcheckbox:** support label desc in radio, ckbox [KHCP-4339] ([#894](https://github.com/Kong/kongponents/issues/894)) ([4d80a78](https://github.com/Kong/kongponents/commit/4d80a78573adc53cdc548441ce3be0486541435a))
+
 ## [8.4.3](https://github.com/Kong/kongponents/compare/v8.4.2...v8.4.3) (2022-11-15)
 
 

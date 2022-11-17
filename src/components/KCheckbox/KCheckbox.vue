@@ -10,7 +10,18 @@
       class="k-input"
       @change="handleChange"
     >
-    <slot />
+    <span
+      v-if="hasLabel"
+      class="k-checkbox-label"
+    >
+      <slot>{{ label }}</slot>
+    </span>
+    <div
+      v-if="hasLabel && (description || $slots.description)"
+      class="k-checkbox-description"
+    >
+      <slot name="description">{{ description }}</slot>
+    </div>
   </label>
 </template>
 
@@ -29,9 +40,25 @@ export default defineComponent({
       default: false,
       required: true,
     },
+    /**
+     * Overrides default label text
+     */
+    label: {
+      type: String,
+      default: '',
+    },
+    /**
+     * Overrides default description text
+     */
+    description: {
+      type: String,
+      default: '',
+    },
   },
   emits: ['input', 'change', 'update:modelValue'],
-  setup(props, { emit, attrs }) {
+  setup(props, { slots, emit, attrs }) {
+    const hasLabel = computed((): boolean => !!(props.label || slots.default))
+
     const handleChange = (e: any): void => {
       emit('change', e.target.checked)
       emit('input', e.target.checked)
@@ -48,6 +75,7 @@ export default defineComponent({
     })
 
     return {
+      hasLabel,
       modifiedAttrs,
       handleChange,
     }
@@ -58,5 +86,21 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/styles/variables';
 @import '@/styles/functions';
+
+.k-checkbox-label {
+  font-size: var(--type-sm, type(sm));;
+}
+
+.k-checkbox-description {
+  padding-top: var(--spacing-xxs);
+  padding-left: var(--spacing-lg);
+  font-size: var(--type-sm, type(sm));
+  line-height: 20px;
+  color: var(--black-45, rgba(0, 0, 0, 0.45));
+}
+
+.k-checkbox-label:has(+ .k-checkbox-description) {
+  font-weight: 600;
+}
 
 </style>

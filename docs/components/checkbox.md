@@ -55,6 +55,26 @@ Use `v-model` to bind the `checked` state of the underlying `<input />`. The `v-
 </KCheckbox>
 ```
 
+### label
+
+Will place label text to the right of the checkbox. Can also be [slotted](#slots).
+
+```html
+<KCheckbox v-model="checked" label="Label Example" />
+```
+
+<KCheckbox v-model="checked" label="Label Example" />
+
+### description
+
+Will place description text under the checkbox label (required). Can also be [slotted](#slots).
+
+```html
+<KCheckbox v-model="checked" label="Label Example" description="Some subheader text" />
+```
+
+<KCheckbox v-model="checked" label="Label Example" description="Some subheader text" />
+
 ### HTML attributes
 
 Any valid attribute will be added to the input. You can read more about `$attrs` [here](https://vuejs.org/api/composition-api-setup.html#setup-context).
