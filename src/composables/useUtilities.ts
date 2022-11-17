@@ -15,12 +15,22 @@ const swrvState = {
 
 export default function useUtilities() {
   const useRequest = <Data = unknown, Error = { message: string }> (key: IKey, fn?: fetcherFn<AxiosResponse<Data>>, config?: IConfig) => {
-    const { data: response, error, isValidating, mutate: revalidate } = useSWRV<
+    const useSwrvFn = typeof useSWRV === 'function'
+      ? useSWRV
+      : () => ({
+        data: {},
+        error: null,
+        isValidating: false,
+        mutate: () => ({}),
+      })
+
+    const { data: response, error, isValidating, mutate: revalidate } = useSwrvFn<
     AxiosResponse<Data>,
     AxiosError<Error>
     >(key, fn, { revalidateDebounce: 500, dedupingInterval: 100, ...config })
 
     const data = computed(() => {
+      // @ts-ignore
       return response.value?.data
     })
 

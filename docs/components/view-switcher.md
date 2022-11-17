@@ -1,5 +1,4 @@
 ---
-pageClass: table-docs
 turtleOptions:
   headers:
     - key: profile
@@ -106,7 +105,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.table-docs .k-table {
+.k-table {
   display: table;
   th, tr, td {
     border: unset;

@@ -1,10 +1,8 @@
 # DateTime Picker
 
-<div v-if="hasMounted">
-
 **KDateTimePicker** - A date and time selection tool, displayed inside a popover.
 
-:::danger Experimental Component
+::: danger EXPERIMENTAL COMPONENT
 `KDateTimePicker` is an experimental component. The component functionality, props, and events may change until it is in stable status.
 :::
 
@@ -16,7 +14,7 @@ Create a single date selection calendar, with an example of passing in a fixed p
 
 Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
 
-<div>
+<ClientOnly>
   <KDateTimePicker
     v-model="currentValue0"
     placeholder="Please select a date"
@@ -25,7 +23,7 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
     :range="false"
   />
   <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(currentValue0) }}</pre></div>
-</div>
+</ClientOnly>
 
 ```html
 <KDateTimePicker
@@ -41,7 +39,7 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
 
 Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
 
-<div>
+<ClientOnly>
   <KDateTimePicker
     v-model="currentValue3"
     @change="newVal => emitVal3 = newVal"
@@ -51,7 +49,7 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
     :range="false"
   />
   <div class="mt-6">Emitted value: <pre class="json">{{ JSON.stringify(emitVal3) }}</pre></div>
-</div>
+</ClientOnly>
 
 ```html
 <KDateTimePicker
@@ -68,7 +66,7 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
 
 Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 
-<div>
+<ClientOnly>
   <KDateTimePicker
     v-model="currentValue4"
     @change="newVal => emitVal4 = newVal"
@@ -78,7 +76,7 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
     :range="true"
   />
   <div class="mt-6">Emitted value: <pre class="json">{{ emitVal4 }}</pre></div>
-</div>
+</ClientOnly>
 
 ```html
 <KDateTimePicker
@@ -98,7 +96,7 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 Display both a calendar and relative time frames, passing in a preset week-long range. Hide the time.
 This instance also makes use of the `minDate` and `maxDate` parameters, which are both optional.
 
-<div>
+<ClientOnly>
   <KDateTimePicker
     v-model="currentValue5"
     @change="newVal => emitVal5 = newVal"
@@ -112,7 +110,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
     :time-periods="exampleTimeFrames"
   />
   <div class="mt-6">Emitted value: <pre class="json">{{ emitVal5 }}</pre></div>
-</div>
+</ClientOnly>
 
 ```html
 <KDateTimePicker
@@ -220,7 +218,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
 Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 This utilizes the same time frames as the previous example; however, in this example we are passing in a pre-selected time frame.
 
-<div>
+<ClientOnly>
   <KDateTimePicker
     v-model="currentValue6"
     @change="newVal => emitVal6 = newVal"
@@ -233,7 +231,7 @@ This utilizes the same time frames as the previous example; however, in this exa
     :time-periods="exampleTimeFrames"
   />
   <div class="mt-6">Emitted value: <pre class="json">{{ emitVal6 }}</pre></div>
-</div>
+</ClientOnly>
 
 ```html
 <KDateTimePicker
@@ -359,7 +357,7 @@ Required `String` prop which accepts the following values: `date`, `time`, `date
 
 ### timePeriods
 
-An array of time frame values to be displayed as buttons in the "Relative" section of the popover.  
+An array of time frame values to be displayed as buttons in the "Relative" section of the popover.
 
 **Please note that each timeframe's `key` attribute must be unique.**
 
@@ -422,8 +420,6 @@ Will emit an `object` containing the following values:
 }
 ```
 
-</div>
-
 <script>
 import { TimePeriods, TimeframeKeys } from '@mocks/KDateTimePickerMockData'
 
@@ -465,7 +461,6 @@ export default {
     const aWeekAgo    = new Date(today.getTime() - (7*24*60*60*1000))
     const aYearAgo    = new Date(today.getTime() - (365*24*60*60*1000))
     return {
-      hasMounted: false,
       emitVal1: '',
       emitVal2: '',
       emitVal3: '',
@@ -501,17 +496,16 @@ export default {
       minDate: aYearAgo,
       exampleTimeFrames
     }
-  },
-  mounted() {
-    this.hasMounted = true
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 pre.json {
   font-size: var(--type-sm);
   white-space: pre-wrap;
+  padding: 16px;
   background-color: var(--grey-200);
+  border-radius: 8px;
 }
 </style>

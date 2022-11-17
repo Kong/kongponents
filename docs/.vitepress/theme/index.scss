@@ -1,0 +1,74 @@
+// Import predefined CSS variable overrides of the default VitePress theme
+// https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
+@import "./variables";
+
+html,
+body {
+  font-family: "Inter", Helvetica, Arial, sans-serif;
+}
+
+.VPContent {
+  // Tables
+  table {
+    tr,
+    th,
+    td {
+      border: none;
+    }
+
+    tr,
+    tr:nth-child(2n) {
+      background-color: inherit; // do not set to white because of light/dark mode
+    }
+  }
+
+  table td code {
+    white-space: nowrap;
+  }
+
+  /**
+  * Overrides for a11y
+  */
+  blockquote,
+  .page-edit .edit-link a {
+    color: #7d7373 !important;
+  }
+
+  blockquote {
+    font-weight: 300;
+  }
+
+  // Spinners
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(1turn);
+    }
+  }
+
+  pre {
+    tab-size: 2 !important;
+  }
+}
+
+// Theme overrides
+.vp-doc {
+  .kong-card li + li {
+    margin-top: 0;
+  }
+
+  table {
+    display: table;
+    margin: 0;
+
+    th {
+      background: none;
+    }
+  }
+
+  h4 {
+    margin-top: 16px;
+  }
+}
