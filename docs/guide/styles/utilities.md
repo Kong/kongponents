@@ -149,18 +149,18 @@ both the horizontal and vertical margins zero.
 
 For each color in our [color palette](/guide/styles/colors) we include a utility class that is prefixed with `color-`.
 
-| Class       | Properties      | Example
-| :---------- |:-------------- |:-----------
-| .type-{color} | color: var(--{color}) | `class="color-blue-500"`
+| Class       | Properties      | Example |
+| :---------- |:-------------- |:----------- |
+| .type-{color} | color: var(--{color}) | `class="color-blue-500"` |
 
 ## Type Sizes
 
 For each size in our [`.type-` rules](/guide/styles/typography) we include a utility class that is prefixed with `type-`. You can also add the class of `.mono` to style as mono
 
-| Class       | Properties      | Example
+| Class       | Properties      | Example |
 | :---------- |:-------------- |:-----------
-| .type-{type-size} | font-size: var(--type-{size}) | `class="type-xl"`
-| .mono | font-size: calc(var(--type-{size}) * .95) | `class="mono type-xl"`
+| .type-{type-size} | font-size: var(--type-{size}) | `class="type-xl"` |
+| .mono | font-size: calc(var(--type-{size}) * .95) | `class="mono type-xl"` |
 
 ## Truncation
 
@@ -168,10 +168,10 @@ We support both single line truncation as well as multi-line. Multi-line truncat
 
 - `TMaxLineLimit` - the maximum number of allowed lines (defaults to `3`)
 
-| Class       |Properties/Variables
-| :---------- |:-------------- |:-----------
-| .truncate | white-space: nowrap;<br>text-overflow: ellipsis;<br>overflow: hidden;
-| .multi-line-truncation | `TMaxLineLimit`
+| Class       | Properties/Variables |
+| :---------- |:-------------- |
+| .truncate | white-space: nowrap;<br>text-overflow: ellipsis;<br>overflow: hidden; |
+| .multi-line-truncation | `TMaxLineLimit` |
 
 <div class="multi-line-truncation" style="width: 425px; height: 84px; border: 1px solid black; padding: 8px;">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer condimentum leo a neque tristique faucibus. Praesent at imperdiet elit, vel tincidunt metus. Praesent elementum mollis libero, et semper diam efficitur tristique. Nam aliquam tortor a leo pretium vestibulum. Proin posuere auctor odio, sit amet elementum massa aliquet in.
@@ -199,8 +199,8 @@ We support both single line truncation as well as multi-line. Multi-line truncat
 - `TPosRight` - css property `right` position of the ellipsis
 - `TPadRight` - the amount of padding on the right side of the container
 
-| Class       |Variables
-| :---------- |:-------------- |:-----------
+| Class       | Variables |
+| :---------- |:--------------
 | .truncate-multi | `TLineHeight`, `TMaxLines`, `TFontSize`, `TPosRight`, `TPadRight`
 
 ```html
