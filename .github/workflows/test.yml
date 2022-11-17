@@ -60,6 +60,22 @@ jobs:
           name: cypress-videos
           path: cypress/videos/
 
+  visual-regression-test:
+    name: Run Visual Regression Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
       - name: Build components and docs
         run: yarn build
 
