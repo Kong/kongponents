@@ -134,8 +134,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, nextTick, onMounted, PropType, reactive, ref, toRefs, watch } from 'vue'
+import { computed, defineComponent, onMounted, PropType, reactive, ref, toRefs, watch } from 'vue'
 import { format } from 'date-fns'
+import { formatInTimeZone } from 'date-fns-tz'
 import { DatePicker } from 'v-calendar'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
@@ -330,6 +331,8 @@ export default defineComponent({
 
     const selectedCalendarRange = ref<TimeRange | Date | string>(props.modelValue)
 
+    const localTz = Intl.DateTimeFormat().resolvedOptions().timeZone
+
     const state = reactive<DateTimePickerState>({
       abbreviatedDisplay: props.placeholder,
       fullRangeDisplay: '',
@@ -425,6 +428,7 @@ export default defineComponent({
     const formatDisplayDate = (range: TimeRange, htmlFormat: boolean): string => {
       const { start, end } = range
       let fmtStr = 'PP'
+      const tzAbbrev = formatInTimeZone(start, localTz, '(z)')
 
       // Determines the human timestamp readout format string; subject to change
       if (!hasCalendar.value && hasTimePeriods.value) {
@@ -437,10 +441,10 @@ export default defineComponent({
       // Determine whether to display a formatting time range, or a single value in input field
       if (props.range) {
         return htmlFormat
-          ? `<div>${format(start, fmtStr)} -&nbsp;</div><div>${format(end, fmtStr)}</div>`
-          : `${format(start, fmtStr)} - ${format(end, fmtStr)}`
+          ? `<div>${format(start, fmtStr)} -&nbsp;</div><div>${formatInTimeZone(end, localTz, fmtStr)} ${tzAbbrev}</div>`
+          : `${format(start, fmtStr)} - ${formatInTimeZone(end, localTz, fmtStr)} ${tzAbbrev}`
       } else if (start) {
-        return `${format(start, fmtStr)}`
+        return `${format(start, fmtStr)} ${tzAbbrev}`
       } else {
         return ''
       }
@@ -451,8 +455,6 @@ export default defineComponent({
      * If a range date picker, send the full range (start and end); else, a single `start` Date.
      */
     const submitTimeFrame = async (): Promise<void> => {
-      console.log('>>>>>> submitTimeFrame')
-      // debugger
       if (props.range || hasTimePeriods.value) {
         emit('change', state.selectedRange)
         emit('update:modelValue', state.selectedRange)
@@ -463,7 +465,6 @@ export default defineComponent({
       }
 
       state.hidePopover = true
-      // handleClose()
       updateDisplay()
     }
 
@@ -484,14 +485,6 @@ export default defineComponent({
 
     const ucWord = (val: string): string => {
       return val.charAt(0).toUpperCase() + val.slice(1)
-    }
-
-    const handleClose = async (): Promise<void> => {
-      // debugger
-      console.log('>>>>> handleClose')
-      // state.hidePopover = true
-      await nextTick()
-      // state.hidePopover = false
     }
 
     const impliedMode = computed((): string => {
@@ -540,7 +533,6 @@ export default defineComponent({
     return {
       changeRelativeTimeframe,
       clearSelection,
-      handleClose,
       hasCalendar,
       hasTimePeriods,
       impliedMode,

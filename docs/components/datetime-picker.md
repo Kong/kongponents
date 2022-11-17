@@ -101,7 +101,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
     v-model="currentValue5"
     @change="newVal => emitVal5 = newVal"
     placeholder="Please select a range"
-    mode="relativeDate"
+    mode="relativeAndDate"
     width="415"
     :min-date="minDate"
     :max-date="maxDate"
@@ -117,7 +117,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
   v-model="currentValue"
   @change="newVal => emitVal = newVal"
   placeholder="Please select a range"
-  mode="relativeDate"
+  mode="relativeAndDate"
   width="415"
   :min-date="minDate"
   :max-date="maxDate"
@@ -163,7 +163,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
     v-model="currentValue5"
     @change="newVal => emitVal5 = newVal"
     placeholder="Please select a range"
-    mode="relativeDateTime"
+    mode="relativeAndDateTime"
     width="415"
     :min-date="minDate"
     :max-date="maxDate"
@@ -179,7 +179,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
   v-model="currentValue"
   @change="newVal => emitVal = newVal"
   placeholder="Please select a range"
-  mode="relativeDateTime"
+  mode="relativeAndDateTime"
   width="415"
   :min-date="minDate"
   :max-date="maxDate"
@@ -340,8 +340,8 @@ A `Number` which sets the custom interval for the Minutes select dropdown.
 
 Required `String` prop which accepts the following values: `date`, `time`, `dateTime`, `relative`. 
 - `relativeOnly`: denotes a datetime picker instance which only contains relative time frames
-- `relativeDate`: instance with relative time frames, and a calendar that supports date selection
-- `relativeDateTime`: instance with relative time frames, and a calendar that supports date and time selection
+- `relativeAndDate`: instance with relative time frames, and a calendar that supports date selection
+- `relativeAndDateTime`: instance with relative time frames, and a calendar that supports date and time selection
 
 ### placeholder
 
