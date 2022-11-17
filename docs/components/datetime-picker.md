@@ -338,8 +338,11 @@ A `Number` which sets the custom interval for the Minutes select dropdown.
 
 ### mode
 
-Required `String` prop which accepts the following values: `date`, `time`, `dateTime`, `relative`. 
-- `relativeOnly`: denotes a datetime picker instance which only contains relative time frames
+Required `String` prop which accepts the following values: 
+- `date`: denotes a datetime picker instance that allows a calendar date to be selected
+- `time`: denotes an instance that allows a time to be selected
+- `dateTime`: denotes an instance that allows a calendar date and time to be selected
+- `relativeOnly`: instance which only contains relative time frames
 - `relativeAndDate`: instance with relative time frames, and a calendar that supports date selection
 - `relativeAndDateTime`: instance with relative time frames, and a calendar that supports date and time selection
 
