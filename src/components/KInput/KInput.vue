@@ -6,7 +6,6 @@
     <div
       v-if="label && overlayLabel"
       :class="`k-input-label-wrapper-${size}`"
-      class="mt-5"
     >
       <div class="text-on-input">
         <label
