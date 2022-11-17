@@ -236,7 +236,7 @@ describe('KDateTimePicker', () => {
   it('renders calendar with only the day (month) selection, but not time', () => {
     mount(KDateTimePicker, {
       props: {
-        mode: 'relativeAndDate',
+        mode: 'relativeDate',
         modelValue: today,
         range: true,
         timePeriods: exampleTimeFrames,

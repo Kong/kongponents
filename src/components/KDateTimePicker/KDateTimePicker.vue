@@ -427,7 +427,7 @@ export default defineComponent({
      */
     const formatDisplayDate = (range: TimeRange, htmlFormat: boolean): string => {
       const { start, end } = range
-      let fmtStr = 'PP'
+      let fmtStr = 'PP hh:mm a'
       const tzAbbrev = formatInTimeZone(start, localTz, '(z)')
 
       // Determines the human timestamp readout format string; subject to change
@@ -435,8 +435,6 @@ export default defineComponent({
         fmtStr = 'PP hh:mm a'
       } else if (props.mode === 'date') {
         fmtStr = 'PP'
-      } else if (['time', 'dateTime'].includes(props.mode)) {
-        fmtStr = 'PP hh:mm a'
       }
       // Determine whether to display a formatting time range, or a single value in input field
       if (props.range) {
@@ -556,7 +554,7 @@ export default defineComponent({
 @import '@/styles/functions';
 @import '@/styles/mixins';
 
-$timepicker-min-width: 360px;
+$timepicker-min-width: 400px;
 $margin: 6px;
 
 .k-datetime-picker {
