@@ -1,47 +1,69 @@
 <template>
-  <draggable
-    tag="ul"
-    :list="list"
-    :group="{ name: 'k-tree-list', put: !maxLevelReached }"
-    draggable=".element"
-    item-key="a-key"
-    ghost-class="dragged"
-    :move="checkMove"
-    :level="level"
-    :disabled="disabled"
-    class="k-tree-list"
-    @start="dragging = true"
-    @end="dragging = false"
-    @change="$emit('change', { ...$event })"
-  >
-    <template #header>
-      <slot name="header" />
-    </template>
-
-    <div
-      v-for="element in list"
-      :key="element.label"
-      class="list-group-item"
+  <div class="k-tree-list">
+    <!-- Note: force-fallback: true is required to override cursor when dragging -->
+    <draggable
+      tag="div"
+      animation="100"
+      :disabled="disableDrag"
+      :list="list"
+      :group="{ name: 'k-tree-list', put: !maxLevelReached }"
+      :move="checkMove"
+      :level="level"
+      :force-fallback="true"
+      item-key="id"
+      draggable=".k-tree-item"
+      ghost-class="k-tree-item-dragged"
+      drag-class="k-tree-list-grabbing"
+      @start="onStartDrag"
+      @end="onStopDrag"
+      @change="$emit('change', { ...$event })"
     >
-      {{ element.label }}
-    </div>
-  </draggable>
+      <template #header>
+        <slot name="header" />
+      </template>
+
+      <template #item="{ element }">
+        <KTreeItem
+          :item="element"
+          :disabled="disableDrag"
+        >
+          <template #item-icon>
+            <slot
+              :item="element"
+              name="item-icon"
+            >
+              <KIcon
+                v-if="element.icon !== 'none'"
+                :icon="element.icon ? element.icon : 'treeDoc'"
+                :secondary-color="element.selected ? 'var(--teal-200)' : 'var(--grey-200)'"
+                size="24"
+              />
+            </slot>
+          </template>
+          <template #item-label>
+            <slot
+              :item="element"
+              name="item-label"
+            >
+              {{ element.name }}
+            </slot>
+          </template>
+        </KTreeItem>
+      </template>
+    </draggable>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed, ref, PropType } from 'vue'
 import draggable from 'vuedraggable'
-
-export interface TreeListItem {
-  label: string
-  value: string
-  key?: string
-}
+import KTreeItem, { TreeListItem } from '@/components/KTreeList/KTreeItem.vue'
 
 export default defineComponent({
   name: 'KTreeList',
   components: {
     draggable,
+    KTreeItem,
   },
   props: {
     list: {
@@ -56,7 +78,7 @@ export default defineComponent({
       type: Number,
       default: 2,
     },
-    disabled: {
+    disableDrag: {
       type: Boolean,
       default: false,
     },
@@ -89,6 +111,25 @@ export default defineComponent({
       return true
     }
 
+    const setDragCursor = (value: boolean) => {
+      // must be on html element to keep style applied no matter where they drag
+      const html = document.getElementsByTagName('html').item(0)
+
+      if (html) {
+        html.classList.toggle('k-tree-list-grabbing', value)
+      }
+    }
+
+    const onStartDrag = () => {
+      dragging.value = true
+      setDragCursor(true)
+    }
+
+    const onStopDrag = () => {
+      dragging.value = false
+      setDragCursor(false)
+    }
+
     /*  const checkMove = (event: Event) => {
       // only way to get information from which level that object is
       const nestedLevelOfRelatedList = event.relatedContext?.component?.$attrs.level
@@ -119,6 +160,8 @@ export default defineComponent({
       maxLevelReached,
       dragging,
       checkMove,
+      onStartDrag,
+      onStopDrag,
     }
   },
 })
@@ -128,16 +171,19 @@ export default defineComponent({
 @import '@/styles/variables';
 @import '@/styles/functions';
 
-ul {
-  padding: 0;
+.k-tree-list {
+ .k-tree-item-dragged {
+    background-color: var(--grey-200);
+    border-bottom: 4px solid var(--teal-200);
+  }
 }
+</style>
 
-li {
-  margin: 0;
-}
-
-.dragged {
-  opacity: 0.9;
-  background: var(--grey-100);
+<style lang="scss">
+.k-tree-list-grabbing * {
+  cursor: move !important; /* fallback: no `url()` support or images disabled */
+  cursor: -webkit-grabbing !important; /* Chrome 1-21, Safari 4+ */
+  cursor: -moz-grabbing !important; /* Firefox 1.5-26 */
+  cursor: grabbing !important; /* W3C standards syntax, should come least */
 }
 </style>

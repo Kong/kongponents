@@ -183,6 +183,8 @@ export default defineComponent({
 
       if (!hasPreservedColor && fillValue && isSecondary && props.secondaryColor) {
         el.setAttribute('fill', props.secondaryColor)
+      } else if (!hasPreservedColor && strokeValue && isSecondary && props.secondaryColor) {
+        el.setAttribute('stroke', props.secondaryColor)
       } else if (!hasPreservedColor && !isSecondary && fillValue && !strokeValue && props.color) {
         el.setAttribute('fill', props.color)
       } else if (strokeValue && props.color) {

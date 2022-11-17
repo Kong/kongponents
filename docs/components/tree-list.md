@@ -2,7 +2,7 @@
 
 **KTreeList** - This should be a description of the Kongponent.
 
-<KTreeList />
+<KTreeList :list="defaultItems" />
 
 ```html
 <template>
@@ -91,6 +91,29 @@ export default defineComponent({
 }
 </style>
 ```
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  data() {
+    return {
+      defaultItems: [{
+        "name": "John",
+        "id": 0
+      },
+      {
+        "name": "Joao",
+        "id": 1
+      },
+      {
+        "name": "Jean",
+        "id": 2
+      }]
+    }
+  }
+})
+</script>
 
 <style lang="scss">
 .KTreeList-wrapper {
