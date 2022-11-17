@@ -16,6 +16,8 @@ export default defineConfig({
       'v-calendar/dist/style.css': path.resolve(__dirname, '../node_modules/v-calendar/dist/style.css'),
       // We must alias `v-calendar` here for the docs build to specifically utilize the esm build
       'v-calendar': path.resolve(__dirname, '../node_modules/v-calendar/dist/v-calendar.es.js'),
+      // We must alias `date-fns-tz` here for the docs build to specifically utilize the esm build
+      'date-fns-tz': path.resolve(__dirname, '../node_modules/date-fns-tz/esm'),
     },
   },
 })

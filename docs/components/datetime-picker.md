@@ -158,7 +158,7 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 Display both a calendar and relative time frames, passing in a preset week-long range.
 This instance also makes use of the `minDate` and `maxDate` parameters, which are both optional.
 
-<div>
+<ClientOnly>
   <KDateTimePicker
     v-model="currentValue5"
     @change="newVal => emitVal5 = newVal"
@@ -172,7 +172,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
     :time-periods="exampleTimeFrames"
   />
   <div class="mt-6">Emitted value: <pre class="json">{{ emitVal5 }}</pre></div>
-</div>
+</ClientOnly>
 
 ```html
 <KDateTimePicker
@@ -338,7 +338,7 @@ A `Number` which sets the custom interval for the Minutes select dropdown.
 
 ### mode
 
-Required `String` prop which accepts the following values: 
+Required `String` prop which accepts the following values:
 - `date`: denotes a datetime picker instance that allows a calendar date to be selected
 - `time`: denotes an instance that allows a time to be selected
 - `dateTime`: denotes an instance that allows a calendar date and time to be selected
