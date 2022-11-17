@@ -1,12 +1,12 @@
-# Tree Nav
+# Tree List
 
-**KTreeNav** - This should be a description of the Kongponent.
+**KTreeList** - This should be a description of the Kongponent.
 
-<KTreeNav />
+<KTreeList />
 
 ```html
 <template>
-  <KTreeNav />
+  <KTreeList />
 </template>
 
 <script lang="ts">
@@ -28,12 +28,12 @@ Description of `examplePropName`
 
 Actual component using examplePropName
 
-<KTreeNav :examplePropName="true" />
+<KTreeList :examplePropName="true" />
 
 ```html
-<KTreeNav examplePropName="variation1" />
-<KTreeNav examplePropName="variation2" />
-<KTreeNav examplePropName="variation3" />
+<KTreeList examplePropName="variation1" />
+<KTreeList examplePropName="variation2" />
+<KTreeList examplePropName="variation3" />
 ```
 
 ## Slots
@@ -42,9 +42,9 @@ Actual component using examplePropName
 - `slotName` - slot description
 
 ```html
-<KTreeNav>
+<KTreeList>
   here is some slot content
-</KTreeNav>
+</KTreeList>
 ```
 
 ## Events
@@ -55,23 +55,23 @@ Actual component using examplePropName
 
 | Variable | Purpose
 |:-------- |:-------
-| `--KTreeNavBorderColor`| KTreeNav border color
+| `--KTreeListBorderColor`| KTreeList border color
 
-An Example of changing the border color of KTreeNav to lime might look
+An Example of changing the border color of KTreeList to lime might look
 like:
 
 > Note: We are scoping the overrides to a wrapper in this example
 
 <template>
-  <div class="KTreeNav-wrapper">
-    <KTreeNav />
+  <div class="KTreeList-wrapper">
+    <KTreeList />
   </div>
 </template>
 
 ```html
 <template>
-  <div class="KTreeNav-wrapper">
-    <KTreeNav />
+  <div class="KTreeList-wrapper">
+    <KTreeList />
   </div>
 </template>
 
@@ -86,14 +86,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.KTreeNav-wrapper {
-  --KTreeNav-wrapperBorderColor: lime;
+.KTreeList-wrapper {
+  --KTreeList-wrapperBorderColor: lime;
 }
 </style>
 ```
 
 <style lang="scss">
-.KTreeNav-wrapper {
-  --KTreeNav-wrapperBorderColor: lime;
+.KTreeList-wrapper {
+  --KTreeList-wrapperBorderColor: lime;
 }
 </style>
