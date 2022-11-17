@@ -554,7 +554,7 @@ export default defineComponent({
 @import '@/styles/functions';
 @import '@/styles/mixins';
 
-$timepicker-min-width: 400px;
+$timepicker-min-width: 360px;
 $margin: 6px;
 
 .k-datetime-picker {
