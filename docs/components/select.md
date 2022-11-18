@@ -307,7 +307,7 @@ Loading and empty state content can be configured using the `loading` and `empty
   </template>
 </KSelect>
 
-```vue
+```html
 <KSelect
   autosuggest
   :items="items"
@@ -393,7 +393,7 @@ The following is an example:
   </template>
 </KSelect>
 
-```vue
+```html
 <KSelect
   autosuggest
   :items="items"
