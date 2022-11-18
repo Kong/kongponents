@@ -339,9 +339,9 @@ export default defineComponent({
     &:after {
       position: absolute;
       content: "";
-      top: 15px;
+      top: 12px;
       left: $left;
-      border-left: 2px solid $border;
+      border-left: 1px solid $border;
       width: $indent;
       height: 100%;
     }
