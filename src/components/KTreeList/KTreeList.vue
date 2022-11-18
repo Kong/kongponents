@@ -163,7 +163,6 @@ export default defineComponent({
           }
         })
       } else { // recurse through children
-        console.log('child level')
         // select the item
         const selectedItem = list.filter((item: TreeListItem) => item.id === itemToSelect.id)?.[0]
         if (selectedItem) {
