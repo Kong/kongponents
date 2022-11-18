@@ -300,7 +300,7 @@ currentValue = {
 },
 ```
 
-Or it can be seeded with a **custom calendar range** by setting `v-model` to:
+Or, it can be seeded with a **custom calendar range** by setting `v-model` to:
 
 ```ts
 const today = new Date()
