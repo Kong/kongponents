@@ -1,3 +1,10 @@
+## [8.5.4](https://github.com/Kong/kongponents/compare/v8.5.3...v8.5.4) (2022-11-18)
+
+
+### Bug Fixes
+
+* quotes ([ce3afbd](https://github.com/Kong/kongponents/commit/ce3afbdffe200629db64de6a614aa6491e543aaf))
+
 ## [8.5.3](https://github.com/Kong/kongponents/compare/v8.5.2...v8.5.3) (2022-11-18)
 
 
