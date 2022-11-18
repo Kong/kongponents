@@ -16,33 +16,44 @@
       </template>
 
       <template #item="{ element }">
-        <KTreeItem
-          :item="element"
-          :disabled="disableDrag"
-          @selected="handleSelection"
+        <div
+          :style="indentStyle"
+          class="k-tree-item-container"
         >
-          <template #item-icon>
-            <slot
-              :item="element"
-              name="item-icon"
-            >
-              <KIcon
-                v-if="element.icon !== 'none'"
-                :icon="element.icon ? element.icon : 'treeDoc'"
-                :secondary-color="element.selected ? 'var(--teal-200)' : 'var(--grey-200)'"
-                size="24"
-              />
-            </slot>
-          </template>
-          <template #item-label>
-            <slot
-              :item="element"
-              name="item-label"
-            >
-              {{ element.name }}
-            </slot>
-          </template>
-        </KTreeItem>
+          <KTreeItem
+            :item="element"
+            :disabled="disableDrag"
+            @selected="handleSelection"
+          >
+            <template #item-icon>
+              <slot
+                :item="element"
+                name="item-icon"
+              >
+                <KIcon
+                  v-if="element.icon !== 'none'"
+                  :icon="element.icon ? element.icon : 'treeDoc'"
+                  :secondary-color="element.selected ? 'var(--teal-200)' : 'var(--grey-200)'"
+                  size="24"
+                />
+              </slot>
+            </template>
+            <template #item-label>
+              <slot
+                :item="element"
+                name="item-label"
+              >
+                {{ element.name }}
+              </slot>
+            </template>
+          </KTreeItem>
+          <KTreeList
+            v-model="element.children"
+            :level="level + 1"
+            :max-level="maxLevel"
+            @change="$emit('change', { parent: element.id, ...$event })"
+          />
+        </div>
       </template>
     </draggable>
   </div>
@@ -105,10 +116,11 @@ export default defineComponent({
       // Note: force-fallback: true is required to override cursor when dragging
       'force-fallback': true,
       animation: '100',
-      draggable: '.k-tree-item',
+      draggable: '.k-tree-item-container',
       'item-key': 'id',
       'ghost-class': 'k-tree-item-dragged',
       'drag-class': 'k-tree-list-grabbing',
+      // class: 'drag-area',
     }
 
     // we need this so we can create a watcher for programmatic changes to the modelValue
@@ -132,6 +144,31 @@ export default defineComponent({
       })
     }
 
+    const handleSetParent = (item: TreeListItem, parent: TreeListItem) => {
+      let origParent:TreeListItem
+      const selectedItem = internalList.value.filter((anItem: TreeListItem) => {
+        if (anItem.children?.length) {
+          const arr = anItem.children.filter((aChild: TreeListItem) => aChild.id === item.id)
+          if (arr.length) {
+            origParent = anItem
+            return arr[0]
+          }
+        }
+        return anItem.id === item.id
+      })[0]
+      const parentItem = internalList.value.filter((anItem: TreeListItem) => anItem.id === parent.id)
+      if (parentItem.length) {
+        parentItem[0].children?.push(selectedItem)
+      }
+      // @ts-ignore
+      if (origParent) {
+        if (!origParent.children) {
+          origParent.children = []
+        }
+        origParent.children = origParent.children.filter((child: TreeListItem) => child.id !== item.id)
+      }
+    }
+
     // watch for programmatic changes to modelValue
     watch(value, (newVal, oldVal) => {
       if (JSON.stringify(newVal) !== JSON.stringify(oldVal)) {
@@ -152,6 +189,12 @@ export default defineComponent({
       } else if (props.modelValue) {
         internalList.value = props.modelValue
       }
+
+      internalList.value.forEach((item: TreeListItem) => {
+        if (!item.children) {
+          item.children = []
+        }
+      })
     })
 
     const maxLevelReached = computed(() => {
@@ -173,10 +216,22 @@ export default defineComponent({
       setDragCursor(true)
     }
 
-    const onStopDrag = (): void => {
+    const onStopDrag = (target: any): void => {
       dragging.value = false
       setDragCursor(false)
+
+      const item = target.draggedContext?.element
+      const parent = target.relatedContext?.element
+      if (item && parent) {
+        handleSetParent(item, parent)
+      }
     }
+
+    const indentStyle = computed(() => {
+      return {
+        marginLeft: 8 * props.level + 'px',
+      }
+    })
 
     // override cursor when dragging
     const setDragCursor = (value: boolean) => {
@@ -223,6 +278,7 @@ export default defineComponent({
       handleSelection,
       onStartDrag,
       onStopDrag,
+      indentStyle,
     }
   },
 })
@@ -233,6 +289,10 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .k-tree-list {
+  .drag-area {
+    min-height: 50px;
+    outline: 1px dashed;
+  }
  .k-tree-item-dragged {
     background-color: var(--grey-200);
     border-bottom: 4px solid var(--teal-200);

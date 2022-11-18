@@ -2,7 +2,7 @@
 
 **KTreeList** - This should be a description of the Kongponent.
 
-<KTreeList :items="defaultItems" />
+<KTreeList :items="cloneDeep(defaultItems)" />
 
 ```html
 <KTreeList :items="items" />
@@ -118,7 +118,11 @@ export default defineComponent({
       },
       {
         "name": "Joao",
-        "id": 1
+        "id": 1,
+        "children": [{
+          "name": "Kai",
+          "id": 3
+        }]
       },
       {
         "name": "Jean",
@@ -130,7 +134,11 @@ export default defineComponent({
       },
       {
         "name": "Joao",
-        "id": 1
+        "id": 1,
+        "children": [{
+          "name": "Kai",
+          "id": 3
+        }]
       },
       {
         "name": "Jean",
@@ -139,8 +147,11 @@ export default defineComponent({
     }
   },
   methods: {
+    cloneDeep (obj) {
+      return JSON.parse(JSON.stringify(obj))
+    },
     reset () {
-      this.myList = this.defaultItems
+      this.myList = this.cloneDeep(this.defaultItems)
     }
   }
 })
