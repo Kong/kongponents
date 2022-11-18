@@ -11,7 +11,7 @@
       width="auto"
       hide-caret
       position-fixed
-      @closed="handleClose"
+      @opened="hidePopover = false"
     >
       <KButton
         :class="{ 'set-min-width': hasTimePeriods }"
@@ -64,7 +64,7 @@
           :is-range="range"
           :max-date="maxDate"
           :min-date="minDate"
-          :mode="mode"
+          :mode="impliedMode"
           :model-config="modelConfig"
           :minute-increment="minuteIncrement"
           :select-attribute="calendarSelectAttributes"
@@ -134,8 +134,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, nextTick, onMounted, PropType, reactive, ref, toRefs, watch } from 'vue'
+import { computed, defineComponent, onMounted, PropType, reactive, ref, toRefs, watch } from 'vue'
 import { format } from 'date-fns'
+import { formatInTimeZone } from 'date-fns-tz'
 import { DatePicker } from 'v-calendar'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
@@ -227,14 +228,16 @@ export default defineComponent({
     },
     /**
      * Determines which `v-calendar` type to initialize.
-     * Three of the values (`date`, `time`, `dateTime`) are passed verbatim to `v-calendar`,
-     * whereas `relative` denotes a component instance made up solely of time frames.
+     * - { `date`, `time`, `dateTime` } are passed verbatim to `v-calendar`,
+     * - `relative` denotes a component instance made up solely of time frames
+     * - `relativeDate` relative time frames + date calendar
+     * - `relativeDateTime` relative time frames + datetime calendar
      */
     mode: {
       type: String,
       required: true,
       validator: (value: string): boolean => {
-        return ['relative', 'date', 'time', 'dateTime'].includes(value)
+        return ['date', 'time', 'dateTime', 'relative', 'relativeDate', 'relativeDateTime'].includes(value)
       },
     },
     /**
@@ -327,6 +330,8 @@ export default defineComponent({
     })
 
     const selectedCalendarRange = ref<TimeRange | Date | string>(props.modelValue)
+
+    const localTz = Intl.DateTimeFormat().resolvedOptions().timeZone
 
     const state = reactive<DateTimePickerState>({
       abbreviatedDisplay: props.placeholder,
@@ -422,23 +427,22 @@ export default defineComponent({
      */
     const formatDisplayDate = (range: TimeRange, htmlFormat: boolean): string => {
       const { start, end } = range
-      let fmtStr = 'PP'
+      let fmtStr = 'PP hh:mm a'
+      const tzAbbrev = formatInTimeZone(start, localTz, '(z)')
 
       // Determines the human timestamp readout format string; subject to change
       if (!hasCalendar.value && hasTimePeriods.value) {
         fmtStr = 'PP hh:mm a'
       } else if (props.mode === 'date') {
         fmtStr = 'PP'
-      } else if (['time', 'dateTime'].includes(props.mode)) {
-        fmtStr = 'PP hh:mm a'
       }
       // Determine whether to display a formatting time range, or a single value in input field
       if (props.range) {
         return htmlFormat
-          ? `<div>${format(start, fmtStr)} -&nbsp;</div><div>${format(end, fmtStr)}</div>`
-          : `${format(start, fmtStr)} - ${format(end, fmtStr)}`
+          ? `<div>${format(start, fmtStr)} -&nbsp;</div><div>${formatInTimeZone(end, localTz, fmtStr)} ${tzAbbrev}</div>`
+          : `${format(start, fmtStr)} - ${formatInTimeZone(end, localTz, fmtStr)} ${tzAbbrev}`
       } else if (start) {
-        return `${format(start, fmtStr)}`
+        return `${format(start, fmtStr)} ${tzAbbrev}`
       } else {
         return ''
       }
@@ -458,7 +462,7 @@ export default defineComponent({
         emit('update:modelValue', singleDate)
       }
 
-      handleClose()
+      state.hidePopover = true
       updateDisplay()
     }
 
@@ -481,11 +485,16 @@ export default defineComponent({
       return val.charAt(0).toUpperCase() + val.slice(1)
     }
 
-    const handleClose = async (): Promise<void> => {
-      state.hidePopover = true
-      await nextTick()
-      state.hidePopover = false
-    }
+    const impliedMode = computed((): string => {
+      if (props.mode === 'relativeDateTime') {
+        return 'dateTime'
+      } else if (props.mode === 'relativeDate') {
+        return 'date'
+      } else {
+        // Values that are safe to be passed verbatim to v-calendar
+        return props.mode
+      }
+    })
 
     /**
      * Saves the internal state (range or single value) whenever
@@ -522,9 +531,9 @@ export default defineComponent({
     return {
       changeRelativeTimeframe,
       clearSelection,
-      handleClose,
       hasCalendar,
       hasTimePeriods,
+      impliedMode,
       modelConfig,
       selectedCalendarRange,
       calendarSelectAttributes,

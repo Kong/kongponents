@@ -89,11 +89,11 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 />
 ```
 
-### Custom and Relative time frames
+### Custom date and Relative time frames
 
 Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 
-Display both a calendar and relative time frames, passing in a preset week-long range.
+Display both a calendar and relative time frames, passing in a preset week-long range. Hide the time.
 This instance also makes use of the `minDate` and `maxDate` parameters, which are both optional.
 
 <ClientOnly>
@@ -101,7 +101,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
     v-model="currentValue5"
     @change="newVal => emitVal5 = newVal"
     placeholder="Please select a range"
-    mode="dateTime"
+    mode="relativeDate"
     width="415"
     :min-date="minDate"
     :max-date="maxDate"
@@ -117,7 +117,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
   v-model="currentValue"
   @change="newVal => emitVal = newVal"
   placeholder="Please select a range"
-  mode="dateTime"
+  mode="relativeDate"
   width="415"
   :min-date="minDate"
   :max-date="maxDate"
@@ -151,7 +151,69 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
 />
 ```
 
-### Relative time frames only
+### Custom date/time and Relative time frames
+
+Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
+
+Display both a calendar and relative time frames, passing in a preset week-long range.
+This instance also makes use of the `minDate` and `maxDate` parameters, which are both optional.
+
+<ClientOnly>
+  <KDateTimePicker
+    v-model="currentValue5"
+    @change="newVal => emitVal5 = newVal"
+    placeholder="Please select a range"
+    mode="relativeDateTime"
+    width="415"
+    :min-date="minDate"
+    :max-date="maxDate"
+    :minute-increment="5"
+    :range="true"
+    :time-periods="exampleTimeFrames"
+  />
+  <div class="mt-6">Emitted value: <pre class="json">{{ emitVal5 }}</pre></div>
+</ClientOnly>
+
+```html
+<KDateTimePicker
+  v-model="currentValue"
+  @change="newVal => emitVal = newVal"
+  placeholder="Please select a range"
+  mode="relativeDateTime"
+  width="415"
+  :min-date="minDate"
+  :max-date="maxDate"
+  :minute-increment="5"
+  :range="true"
+  :time-periods="[
+    {
+      section: 'Last',
+      values: [
+        { key: '15m', prefix: 'Last', timeframeText: '15 minutes', start: function() {}, end: function() {} },
+        { key: '12h', prefix: 'Last', timeframeText: '12 hours', start: function() {}, end: function() {} },
+        { key: '24h', prefix: 'Last', timeframeText: '24 hours', start: function() {}, end: function() {}},
+        ...
+      ]
+    },
+    {
+      section: 'Current',
+      values: [
+        { key: 'current_week', prefix: 'Current', timeframeText: 'week', start: function() {}, end: function() {} },
+        { key: 'current_month', prefix: 'Current', timeframeText: 'month', start: function() {}, end: function() {} }
+      ]
+    }
+    {
+      section: 'Previous',
+      values: [
+        { key: 'previous_week', prefix: 'Previous', timeframeText: 'week', start: function() {}, end: function() {} },
+        { key: 'previous_month', prefix: 'Previous', timeframeText: 'month', start: function() {}, end: function() {} }
+      ]
+    }
+  ]"
+/>
+```
+
+### Relative date and time
 
 Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 This utilizes the same time frames as the previous example; however, in this example we are passing in a pre-selected time frame.
@@ -276,7 +338,13 @@ A `Number` which sets the custom interval for the Minutes select dropdown.
 
 ### mode
 
-Required `String` prop which accepts the following values: `date`, `time`, `dateTime` and `relative`. The `relative` value is meant to denote an datetime picker instance which only contains relative time frames.
+Required `String` prop which accepts the following values:
+- `date`: denotes a datetime picker instance that allows a calendar date to be selected
+- `time`: denotes an instance that allows a time to be selected
+- `dateTime`: denotes an instance that allows a calendar date and time to be selected
+- `relative`: instance which only contains relative time frames
+- `relativeDate`: instance with relative time frames, and a calendar that supports date selection
+- `relativeDateTime`: instance with relative time frames, and a calendar that supports date and time selection
 
 ### placeholder
 
