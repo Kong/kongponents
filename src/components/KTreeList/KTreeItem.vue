@@ -75,7 +75,6 @@ export default defineComponent({
     border-radius: 8px;
     color: var(--black-500);
     padding: 4px;
-    margin: 4px;
 
     &.selected {
       background-color: var(--teal-100);
