@@ -18,11 +18,18 @@
       <template #item="{ element }">
         <div
           :style="indentStyle"
+          :class="{
+            'non-root': level !== 0
+          }"
           class="k-tree-item-container"
         >
           <KTreeItem
+            :key="key"
             :item="element"
             :disabled="disableDrag"
+            :class="{
+              'has-children': hasChildren(element)
+            }"
             @selected="handleSelection"
           >
             <template #item-icon>
@@ -48,6 +55,7 @@
             </template>
           </KTreeItem>
           <KTreeList
+            :key="key"
             v-model="element.children"
             :level="level + 1"
             :max-level="maxLevel"
@@ -120,8 +128,9 @@ export default defineComponent({
       'item-key': 'id',
       'ghost-class': 'k-tree-item-dragged',
       'drag-class': 'k-tree-list-grabbing',
-      // class: 'drag-area',
+      class: 'child-drop-zone',
     }
+    const key = ref(0)
 
     // we need this so we can create a watcher for programmatic changes to the modelValue
     const value = computed({
@@ -167,6 +176,10 @@ export default defineComponent({
         }
         origParent.children = origParent.children.filter((child: TreeListItem) => child.id !== item.id)
       }
+    }
+
+    const hasChildren = (item: TreeListItem) => {
+      return !!internalList.value.filter(anItem => anItem.id === item.id)?.[0].children?.length
     }
 
     // watch for programmatic changes to modelValue
@@ -225,11 +238,12 @@ export default defineComponent({
       if (item && parent) {
         handleSetParent(item, parent)
       }
+      key.value++
     }
 
     const indentStyle = computed(() => {
       return {
-        marginLeft: 8 * props.level + 'px',
+        marginLeft: 16 * props.level + 'px',
       }
     })
 
@@ -272,7 +286,9 @@ export default defineComponent({
     return {
       draggableAttrs,
       internalList,
+      key,
       maxLevelReached,
+      hasChildren,
       dragging,
       checkMove,
       handleSelection,
@@ -289,13 +305,49 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .k-tree-list {
-  .drag-area {
-    min-height: 50px;
-    outline: 1px dashed;
+  .child-drop-zone {
+    // this is the height of the area you can drop an item in
+    // to make it the child of another item
+    min-height: 4px;
+  }
+
+  .has-children {
+    margin-bottom: 4px;
   }
  .k-tree-item-dragged {
     background-color: var(--grey-200);
     border-bottom: 4px solid var(--teal-200);
+  }
+
+  .k-tree-item-container.non-root {
+    $border: var(--grey-200);
+    $indent: 8px;
+    $left: -($indent);
+    position: relative;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: $left;
+      border-left: 1px solid $border;
+      border-bottom: 1px solid $border;
+      border-radius: 0 0 0 5px;
+      width: $indent;
+      height: 20px;
+    }
+    &:after {
+      position: absolute;
+      content: "";
+      top: 15px;
+      left: $left;
+      border-left: 2px solid $border;
+      width: $indent;
+      height: 100%;
+    }
+    &:last-child:after {
+      display: none;
+    }
   }
 }
 </style>
