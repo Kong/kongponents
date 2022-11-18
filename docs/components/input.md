@@ -56,8 +56,8 @@ Use the `labelAttributes` prop to configure the **KLabel's** [props](/components
 Enable this prop to overlay the label on the input element's border. Defaults to `false`.
 Make sure that if you are using the built in label you specify the `--KInputBackground` theming variable. This variable is used for the background of the label as well as the input element.
 
-<KInput label="Name" placeholder="I'm labelled!" :overlay-label="true" />
-<KInput label="Disabled" disabled placeholder="I'm disabled!" :overlay-label="true" />
+<KInput label="Name" placeholder="I'm labelled!" :overlay-label="true" class="mt-5" />
+<KInput label="Disabled" disabled placeholder="I'm disabled!" :overlay-label="true" class="mt-5" />
 
 ```html
 <KInput label="Name" placeholder="I'm labelled!" :overlay-label="true" />

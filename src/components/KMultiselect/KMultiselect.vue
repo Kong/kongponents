@@ -882,7 +882,7 @@ export default defineComponent({
     }
 
     .k-multiselect-clear-icon {
-      position: relative;
+      position: absolute;
       top: 8px;
       right: 10px;
     }
@@ -914,7 +914,6 @@ export default defineComponent({
     .k-multiselect-input {
       position: relative;
       display: inline-block;
-      width: 100%;
     }
   }
 }
@@ -936,7 +935,6 @@ export default defineComponent({
       }
 
       input.k-input:not([type="checkbox"]):not([type="radio"]) {
-        background-color: transparent;
         // slightly smaller than container so we can see
         // the container's box-shadow
         height: calc(100% - 2px);

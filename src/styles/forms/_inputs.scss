@@ -36,13 +36,13 @@
     width: auto;
     padding: 2px 4px;
     z-index: 1;
-
+    line-height: 1; 
     font-size: 11px;
     font-weight: 500;
     color: var(--KInputBorder, var(--grey-600));
     background-color: var(--KInputBackground, var(--white));
     display: inline-block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
     transition: color 0.1s ease;
   }
 }

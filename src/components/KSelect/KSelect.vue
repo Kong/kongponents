@@ -109,6 +109,13 @@
                 size="18"
               />
             </KButton>
+            <KIcon
+              v-if="appearance === 'select'"
+              icon="chevronDown"
+              color="var(--grey-500)"
+              size="18"
+              :class="{ 'overlay-label-chevron': overlayLabel }"
+            />
             <KInput
               :id="selectTextId"
               v-bind="modifiedAttrs"
@@ -129,13 +136,6 @@
               @update:model-value="onQueryChange"
               @focus="onInputFocus"
               @blur="onInputBlur"
-            />
-            <KIcon
-              v-if="appearance === 'select'"
-              icon="chevronDown"
-              color="var(--grey-500)"
-              size="18"
-              :class="{ 'overlay-label-chevron': overlayLabel }"
             />
           </div>
           <template #content>
@@ -647,7 +647,7 @@ export default defineComponent({
 
     &.overlay-label-item-selection {
       position: relative;
-      top: 15px;
+      top: -8px;
     }
 
     .selected-item-label {
@@ -701,6 +701,10 @@ export default defineComponent({
     display: inline-block;
     width: 100%;
 
+    .kong-icon-chevronDown {
+      margin-right: 10px;
+    }
+
     &.cursor-default {
       cursor: default;
     }
@@ -728,9 +732,6 @@ export default defineComponent({
 
     .kong-icon {
       display: inline-flex;
-      &.overlay-label-chevron {
-        margin-top: 25px;
-      }
     }
 
     .clear-selection-icon {
@@ -755,13 +756,11 @@ export default defineComponent({
     flex: 0 0 40%;
     display: flex;
     align-items: center;
-
-    .k-select-input {
-      margin-right: -25px;
-    }
+    flex-direction: row-reverse;
+    border: 1px solid var(--grey-300) !important;
 
     input.k-input {
-      background-color: transparent;
+      box-shadow: none !important;
     }
   }
 
