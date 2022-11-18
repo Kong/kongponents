@@ -219,7 +219,7 @@ export default defineComponent({
       default: null,
     },
     /**
-     * Sets a custom interval for the Minute select dropdown
+     * Sets a custom interval for the minute select dropdown
      */
     minuteIncrement: {
       type: Number,
