@@ -1,3 +1,10 @@
+## [8.5.3](https://github.com/Kong/kongponents/compare/v8.5.2...v8.5.3) (2022-11-18)
+
+
+### Bug Fixes
+
+* **select-input:** update background issue styles [khcp-5396] ([#907](https://github.com/Kong/kongponents/issues/907)) ([df07d65](https://github.com/Kong/kongponents/commit/df07d65f6ed303a000596f9074eec6623aab709b))
+
 ## [8.5.2](https://github.com/Kong/kongponents/compare/v8.5.1...v8.5.2) (2022-11-17)
 
 
