@@ -290,7 +290,7 @@ A single date or time picker instance which can be seeded with a value as shown 
 
 An instance that displays a date range or a series of relative time frames.
 
-Can be seeded with a **relative time frame** by setting the `v-model` to `currentValue` as shown here:
+Can be seeded with a **relative time frame** by setting the `v-model` to `currentValue` as shown below:
 
 ```ts
 currentValue = {
