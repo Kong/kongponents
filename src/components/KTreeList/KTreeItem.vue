@@ -35,7 +35,7 @@ export interface TreeListItem {
   id: string
   selected?: boolean
   icon?: string
-  parent?: string
+  children?: Array<TreeListItem>
 }
 
 export default defineComponent({
