@@ -24,7 +24,7 @@
           class="k-tree-item-container"
         >
           <KTreeItem
-            :key="key"
+            :key="`tree-item-${key}`"
             :item="element"
             :disabled="disableDrag"
             :class="{
@@ -55,11 +55,12 @@
             </template>
           </KTreeItem>
           <KTreeList
-            :key="key"
+            :key="`tree-item-children-${key}`"
             v-model="element.children"
             :level="level + 1"
             :max-level="maxLevel"
             @change="$emit('change', { parent: element.id, ...$event })"
+            @selected="handleSelection"
           />
         </div>
       </template>
@@ -116,8 +117,8 @@ export default defineComponent({
       default: 'parentId',
     }, */
   },
-  emits: ['change'],
-  setup(props) {
+  emits: ['change', 'selected'],
+  setup(props, { emit }) {
     const internalList = ref<TreeListItem[]>([])
     const draggableAttrs = {
       tag: 'div',
@@ -142,39 +143,80 @@ export default defineComponent({
       },
     })
 
-    const handleSelection = (item: TreeListItem) => {
-      // select the item
-      const selectedItem = internalList.value.filter((anItem: TreeListItem) => anItem.id === item.id)[0]
-      selectedItem.selected = true
-      // deselect previously selected item
-      const unselectedItems = internalList.value.filter((anItem: TreeListItem) => anItem.id !== item.id)
-      unselectedItems.forEach((anItem: TreeListItem) => {
-        anItem.selected = false
-      })
+    const handleSelection = (itemToSelect: TreeListItem, list?: TreeListItem[]) => {
+      if (!list) { // root level
+        // select the item
+        const selectedItem = internalList.value.filter((item: TreeListItem) => item.id === itemToSelect.id)?.[0]
+        if (selectedItem) {
+          selectedItem.selected = true
+
+          if (selectedItem.children?.length) {
+            handleSelection(itemToSelect, selectedItem.children)
+          }
+        }
+        // deselect previously selected item
+        const unselectedItems = internalList.value.filter((item: TreeListItem) => item.id !== itemToSelect.id)
+        unselectedItems.forEach((item: TreeListItem) => {
+          item.selected = false
+          if (item.children?.length) {
+            handleSelection(itemToSelect, item.children)
+          }
+        })
+      } else { // recurse through children
+        console.log('child level')
+        // select the item
+        const selectedItem = list.filter((item: TreeListItem) => item.id === itemToSelect.id)?.[0]
+        if (selectedItem) {
+          selectedItem.selected = true
+
+          if (selectedItem.children?.length) {
+            handleSelection(itemToSelect, selectedItem.children)
+          }
+        }
+        // deselect previously selected item
+        const unselectedItems = list.filter((item: TreeListItem) => item.id !== itemToSelect.id)
+        unselectedItems.forEach((item: TreeListItem) => {
+          item.selected = false
+          if (item.children?.length) {
+            handleSelection(itemToSelect, item.children)
+          }
+        })
+      }
+      emit('selected', itemToSelect)
     }
 
     const handleSetParent = (item: TreeListItem, parent: TreeListItem) => {
-      let origParent:TreeListItem
+      let originalParent:TreeListItem
       const selectedItem = internalList.value.filter((anItem: TreeListItem) => {
         if (anItem.children?.length) {
           const arr = anItem.children.filter((aChild: TreeListItem) => aChild.id === item.id)
           if (arr.length) {
-            origParent = anItem
+            originalParent = anItem
             return arr[0]
           }
         }
         return anItem.id === item.id
-      })[0]
-      const parentItem = internalList.value.filter((anItem: TreeListItem) => anItem.id === parent.id)
-      if (parentItem.length) {
-        parentItem[0].children?.push(selectedItem)
-      }
-      // @ts-ignore
-      if (origParent) {
-        if (!origParent.children) {
-          origParent.children = []
+      })?.[0]
+
+      if (selectedItem) {
+        const parentItem = internalList.value.filter((anItem: TreeListItem) => anItem.id === parent.id)?.[0]
+        if (parentItem) {
+          // set new parent
+          if (!parentItem.children) {
+            parentItem.children = []
+          }
+          parentItem.children.push(selectedItem)
         }
-        origParent.children = origParent.children.filter((child: TreeListItem) => child.id !== item.id)
+      }
+
+      // TS not figuring out originalParent may have been set
+      // @ts-ignore
+      if (originalParent) {
+        // remove the item from the original parent
+        if (!originalParent.children) {
+          originalParent.children = []
+        }
+        originalParent.children = originalParent.children.filter((child: TreeListItem) => child.id !== item.id)
       }
     }
 
@@ -216,11 +258,31 @@ export default defineComponent({
 
     const dragging = ref(false)
 
-    const checkMove = (target: any) => {
-      const item = target.draggedContext.element
-      handleSelection(item)
+    /**
+     * Recursive check to get the maximum depth of an object.
+     * Documented here: https://stackoverflow.com/a/48505969
+     */
+    const getMaximumDepth = ({ children = [] }): number => {
+      return children.length === 0 ? 0 : 1 + Math.max(...children.map(getMaximumDepth))
+    }
 
-      // TODO: return false if move isn't allowed
+    const checkMove = (target: any) => {
+      const levelOfDropLocation = target.relatedContext?.component?.$attrs.level || 0
+      const itemToDrop = target.draggedContext?.element
+
+      // check the level of the deepest nested child in the item being dropped
+      let deepestLevel = 0
+      if (itemToDrop.children?.length) {
+        deepestLevel = getMaximumDepth(itemToDrop)
+      }
+
+      const sumLevel = levelOfDropLocation + deepestLevel
+      if (sumLevel > props.maxLevel) {
+        // disallow movement
+        return false
+      }
+
+      // allow movement
       return true
     }
 
@@ -256,32 +318,6 @@ export default defineComponent({
         html.classList.toggle('k-tree-list-grabbing', value)
       }
     }
-
-    /*  const checkMove = (event: Event) => {
-      // only way to get information from which level that object is
-      const nestedLevelOfRelatedList = event.relatedContext?.component?.$attrs.level
-
-      let amountOfNestedLevelsInside = 0
-
-      let elem = event.draggedContext.element
-
-      while (elem.children.length > 0) {
-        // TODO future adjustment, check fo all children
-        elem = elem.children[0]
-
-        amountOfNestedLevelsInside += 1
-      }
-
-      const sumLevel = nestedLevelOfRelatedList + amountOfNestedLevelsInside
-
-      if (sumLevel > props.maxLevel) {
-        // disallow movement
-        return false
-      }
-
-      // allow movement
-      return true
-    } */
 
     return {
       draggableAttrs,
