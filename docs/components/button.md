@@ -22,20 +22,20 @@ The Button component can take 1 of 6 appearance values:
 - `creation`
 - `btn-link`
 
-<KButton class="mr-2 mb-2" appearance='primary'>Primary</KButton>
+<KButton class="mr-2 mb-2" appearance="primary">Primary</KButton>
 <KButton class="mr-2 mb-2" appearance="secondary">Secondary</KButton>
-<KButton class="mr-2 mb-2" appearance='outline'>Outline</KButton>
-<KButton class="mr-2 mb-2" appearance='danger'>Danger</KButton>
+<KButton class="mr-2 mb-2" appearance="outline">Outline</KButton>
+<KButton class="mr-2 mb-2" appearance="danger">Danger</KButton>
 <KButton class="mr-2 mb-2" appearance="creation">Creation</KButton>
-<KButton class="mr-2 mb-2" appearance='btn-link'>btn-link</KButton>
+<KButton class="mr-2 mb-2" appearance="btn-link">btn-link</KButton>
 
 ```html
-<KButton appearance='primary'>Primary</KButton>
+<KButton appearance="primary">Primary</KButton>
 <KButton appearance="secondary">Secondary</KButton>
-<KButton appearance='outline'>Outline</KButton>
-<KButton appearance='danger'>Danger</KButton>
+<KButton appearance="outline">Outline</KButton>
+<KButton appearance="danger">Danger</KButton>
 <KButton appearance="creation">Creation</KButton>
-<KButton appearance='btn-link'>btn-link</KButton>
+<KButton appearance="btn-link">btn-link</KButton>
 ```
 
 ### size
@@ -209,10 +209,10 @@ look like.
 There is also a `.non-visual-button` utility class that can be used for buttons that
 should not look like buttons.
 
-<KButton class='non-visual-button'>Click Me</KButton>
+<KButton class="non-visual-button">Click Me</KButton>
 
 ```html
-<KButton class='non-visual-button'>Click Me</KButton>
+<KButton class="non-visual-button">Click Me</KButton>
 ```
 
 <style scoped lang="scss">

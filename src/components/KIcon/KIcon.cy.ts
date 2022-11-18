@@ -46,7 +46,7 @@ describe('KIcon', () => {
     })
 
     cy.get('.kong-icon').find('svg #Triangle').invoke('attr', 'fill').should('eq', color)
-    cy.get('.kong-icon').find("path[type='secondary']").invoke('attr', 'fill').should('eq', secondaryColor)
+    cy.get('.kong-icon').find('path[type="secondary"]').invoke('attr', 'fill').should('eq', secondaryColor)
   })
 
   it('renders 32x32 sized icon', () => {
