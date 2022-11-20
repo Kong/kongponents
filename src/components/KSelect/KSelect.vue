@@ -186,7 +186,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, computed, watch, PropType, nextTick } from 'vue'
+import { defineComponent, ref, Ref, computed, watch, PropType, nextTick, onMounted } from 'vue'
 import { v1 as uuidv1 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KButton from '@/components/KButton/KButton.vue'
@@ -600,6 +600,16 @@ export default defineComponent({
       }
     }
 
+    // If the select is readonly with chevron, need to add the bg-color to the parent container
+    const addReadonlyStyle = () => {
+      const all = document.querySelector('.k-select-input.no-filter.select-input-container .k-input[readonly]')as HTMLInputElement
+      all?.closest('.k-select-input.no-filter.select-input-container')?.classList.add('readonly-container')
+    }
+
+    onMounted(() => {
+      addReadonlyStyle()
+    })
+
     return {
       filterStr,
       selectedItem,
@@ -626,6 +636,7 @@ export default defineComponent({
       onInputFocus,
       onInputBlur,
       onPopoverOpen,
+      // present,
     }
   },
 })
@@ -684,6 +695,10 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .k-select {
+  div.k-select-input.select-input-container.readonly-container {
+    background-color: var(--grey-100, #f8f8fa);
+  }
+
   .k-select-item-selection {
     .clear-selection-icon {
       .kong-icon {
@@ -757,9 +772,13 @@ export default defineComponent({
     display: flex;
     align-items: center;
     flex-direction: row-reverse;
+    border-radius: 4px;
     border: 1px solid var(--grey-300) !important;
+    background-color: var(--white, #ffffff);
 
-    input.k-input {
+    input.k-input,
+    input.k-input:not([type=checkbox]):not([type=radio]):not([type=checkbox]):not([type=radio]):not([type=file]):read-only,
+    .form-control:not([type=checkbox]):not([type=radio]):not([type=checkbox]):not([type=radio]):not([type=file]):read-only {
       box-shadow: none !important;
     }
   }

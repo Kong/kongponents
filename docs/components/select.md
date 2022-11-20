@@ -560,6 +560,30 @@ You can use the `empty` slot to customize the look of the dropdown list when the
 | `change` | `selectedItem` Object or null |
 | `query-change` | `query` String |
 
+
+An Example of KSelect (readonly and non-readonly) in a KCard with background other than white.
+
+<KCard style="background-color: lightyellow;">
+  <template v-slot:body>
+    <KSelect appearance="select" readonly placeholder="I'm readonly!" 
+    :items="deepClone(defaultItemsUnselect)" class="mt-5" />
+    <KSelect appearance="select" placeholder="Select any option" :items="deepClone(defaultItemsUnselect)" class="mt-5" />
+  </template>
+</KCard>
+
+```html
+<KCard style="background-color: lightyellow;">
+  <template v-slot:body>
+    <KSelect label="Readonly with KCard background" appearance="select" 
+    readonly placeholder="I'm readonly!" 
+    :items="deepClone(defaultItemsUnselect)" class="mt-5" />
+    <KSelect appearance="select" placeholder="Select any option" 
+    :items="deepClone(defaultItemsUnselect)" class="mt-5" />
+  </template>
+</KCard>
+```
+
+
 <script lang="ts">
 import { defineComponent } from 'vue'
 
