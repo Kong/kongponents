@@ -32,19 +32,19 @@ export default defineComponent({
   data() {
     return {
       items: [{
-        "name": "John",
+        "name": "Cats",
         "id": 0
       },
       {
-        "name": "Joao",
+        "name": "Dogs",
         "id": 1,
         "children": [{
-          "name": "Kai",
+          "name": "Puppies",
           "id": 3
         }]
       },
       {
-        "name": "Jean",
+        "name": "Bunnies",
         "id": 2
       }]
     }
@@ -53,11 +53,31 @@ export default defineComponent({
 </script>
 ```
 
+### disableDrag
+
+Boolean (defaults to `false`) to turn of drag-n-drop reordering of the list.
+
+<KTreeList disable-drag :items="cloneDeep(defaultItems)" />
+
+```html
+<KTreeList disable-drag :items="items" />
+```
+
+### maxLevel
+
+Use this prop to customize the maximum supported depth of the tree. We default to a max level of `2` or support for parents, children, and grandchildren.
+
+<KTreeList :items="cloneDeep(defaultItems)" :max-level="1" />
+
+```html
+<KTreeList :items="items" :max-level="1" />
+```
+
 ### v-model
 
 `KTreeList` works with v-model for data binding.
 
-::: tip NOTE
+::: danger
 You cannot use `v-model` with the `items` prop. You must use one or the other.
 :::
 
@@ -216,35 +236,35 @@ export default defineComponent({
   data() {
     return {
       myList: [{
-        "name": "John",
+        "name": "Cats",
         "id": 0
       },
       {
-        "name": "Joao",
+        "name": "Dogs",
         "id": 1,
         "children": [{
-          "name": "Kai",
+          "name": "Puppies",
           "id": 3
         }]
       },
       {
-        "name": "Jean",
+        "name": "Bunnies",
         "id": 2
       }],
       defaultItems: [{
-        "name": "John",
+        "name": "Cats",
         "id": 0
       },
       {
-        "name": "Joao",
+        "name": "Dogs",
         "id": 1,
         "children": [{
-          "name": "Kai",
+          "name": "Puppies",
           "id": 3
         }]
       },
       {
-        "name": "Jean",
+        "name": "Bunnies",
         "id": 2
       }]
     }

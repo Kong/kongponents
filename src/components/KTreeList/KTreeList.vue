@@ -59,18 +59,19 @@
             v-model="element.children"
             :level="level + 1"
             :max-level="maxLevel"
+            :disable-drag="disableDrag"
             @change="$emit('change', { parent: element.id, ...$event })"
             @selected="handleSelection"
           >
-            <template #item-icon="props">
+            <template #[itemIcon]="slotProps">
               <slot
-                v-bind="props"
+                v-bind="slotProps"
                 name="item-icon"
               />
             </template>
-            <template #item-label="props">
+            <template #[itemLabel]="slotProps">
               <slot
-                v-bind="props"
+                v-bind="slotProps"
                 name="item-label"
               />
             </template>
@@ -101,17 +102,21 @@ export default defineComponent({
       type: Array as PropType<TreeListItem[]>,
       default: null,
     },
-    level: {
-      type: Number,
-      default: 0,
+    disableDrag: {
+      type: Boolean,
+      default: false,
     },
     maxLevel: {
       type: Number,
       default: 2,
     },
-    disableDrag: {
-      type: Boolean,
-      default: false,
+    /**
+     * This is an internal prop used to track the level
+     * of nested children.
+     */
+    level: {
+      type: Number,
+      default: 0,
     },
   },
   emits: ['change', 'selected'],
@@ -130,6 +135,8 @@ export default defineComponent({
       class: 'child-drop-zone',
     }
     const dragging = ref(false)
+    const itemIcon = 'item-icon'
+    const itemLabel = 'item-label'
 
     // we need this so we can create a watcher for programmatic changes to the modelValue
     const value = computed({
@@ -336,6 +343,8 @@ export default defineComponent({
       handleSelection,
       onStartDrag,
       onStopDrag,
+      itemIcon,
+      itemLabel,
     }
   },
 })

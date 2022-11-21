@@ -101,7 +101,7 @@ export default defineComponent({
     }
 
     &.not-draggable {
-      cursor: no-drop;
+      cursor: default;
     }
   }
 
