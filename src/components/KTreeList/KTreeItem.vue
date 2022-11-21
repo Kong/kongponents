@@ -13,8 +13,8 @@
     >
       <slot name="item-icon">
         <KIcon
-          :icon="item.icon ? item.icon : 'treeDoc'"
-          :secondary-color="item.selected ? 'var(--teal-200)' : 'var(--grey-200)'"
+          :icon="itemIcon"
+          :secondary-color="iconSecondaryColor"
           size="20"
         />
       </slot>
@@ -53,6 +53,15 @@ export default defineComponent({
   emits: ['selected'],
   setup(props, { slots, emit }) {
     const hasIcon = computed(() => props.item.icon !== 'none' || slots['item-icon'])
+    const itemIcon = computed(() => props.item.icon ? props.item.icon : 'treeDoc')
+
+    const iconSecondaryColor = () => {
+      if (itemIcon.value === 'treeDoc') {
+        return props.item.selected ? 'var(--teal-200)' : 'var(--grey-200)'
+      }
+
+      return undefined
+    }
 
     const handleClick = () => {
       emit('selected', props.item)
@@ -60,6 +69,8 @@ export default defineComponent({
 
     return {
       hasIcon,
+      itemIcon,
+      iconSecondaryColor,
       handleClick,
     }
   },
