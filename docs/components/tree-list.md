@@ -32,20 +32,20 @@ export default defineComponent({
   data() {
     return {
       items: [{
-        "name": "Cats",
-        "id": 0
+        name: "Cats",
+        id: 'cats'
       },
       {
-        "name": "Dogs",
-        "id": 1,
-        "children": [{
-          "name": "Puppies",
-          "id": 3
+        name: "Dogs",
+        id: 'dogs',
+        children: [{
+          name: "Puppies",
+          id: 'puppies'
         }]
       },
       {
-        "name": "Bunnies",
-        "id": 2
+        name: "Bunnies",
+        id: 'bunnies'
       }]
     }
   }
@@ -154,11 +154,7 @@ See the [Slots section](#Slots) for an example.
 
 <KTreeList :items="cloneDeep(defaultItems)">
   <template #item-icon="{ item }">
-    <KIcon
-      icon="profile"
-      color="var(--purple-400)"
-      size="20"
-    />
+    {{ item.id === 'cats' ? '😸' : item.id === 'bunnies' ? '🐰' : '🐶' }}
   </template>
   <template #item-label="{ item }">
     <span class="color-purple-400">
@@ -170,11 +166,7 @@ See the [Slots section](#Slots) for an example.
 ```html
 <KTreeList :items="items">
   <template #item-icon="{ item }">
-    <KIcon
-      icon="profile"
-      color="var(--purple-400)"
-      size="20"
-    />
+    {{ item.id === 'cats' ? '😸' : item.id === 'bunnies' ? '🐰' : '🐶' }}
   </template>
   <template #item-label="{ item }">
     <span class="color-purple-400">
@@ -236,36 +228,36 @@ export default defineComponent({
   data() {
     return {
       myList: [{
-        "name": "Cats",
-        "id": 0
+        name: "Cats",
+        id: 'cats'
       },
       {
-        "name": "Dogs",
-        "id": 1,
-        "children": [{
-          "name": "Puppies",
-          "id": 3
+        name: "Dogs",
+        id: 'dogs',
+        children: [{
+          name: "Puppies",
+          id: 'puppies'
         }]
       },
       {
-        "name": "Bunnies",
-        "id": 2
+        name: "Bunnies",
+        id: 'bunnies'
       }],
       defaultItems: [{
-        "name": "Cats",
-        "id": 0
+        name: "Cats",
+        id: 'cats'
       },
       {
-        "name": "Dogs",
-        "id": 1,
-        "children": [{
-          "name": "Puppies",
-          "id": 3
+        name: "Dogs",
+        id: 'dogs',
+        children: [{
+          name: "Puppies",
+          id: 'puppies'
         }]
       },
       {
-        "name": "Bunnies",
-        "id": 2
+        name: "Bunnies",
+        id: 'bunnies'
       }]
     }
   },
