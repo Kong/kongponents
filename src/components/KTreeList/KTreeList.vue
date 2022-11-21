@@ -64,6 +64,7 @@
             @change="handleChangeEvent"
             @selected="handleSelection"
           >
+            <!-- if TS errors appear on these lines switch to `v-slot:` notation and Save to let linter clear -->
             <template #[itemIcon]="slotProps">
               <slot
                 v-bind="slotProps"
