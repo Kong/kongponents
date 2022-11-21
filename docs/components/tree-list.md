@@ -6,7 +6,7 @@
 It can be tricky to determine if an item will be places below an item as a sibling or as a child when dropping. Items to be dropped as children should be dropped near the bottom border line of the parent. If this will be the first child of an item, you will notice the margin between the two items disappearing if you are hovering in the right place.
 :::
 
-<KTreeList :items="cloneDeep(defaultItems)" />
+<KTreeList :items="defaultItems" />
 
 ```html
 <KTreeList :items="items" />
@@ -18,7 +18,7 @@ It can be tricky to determine if an item will be places below an item as a sibli
 
 An array of items that make up the tree.
 
-<KTreeList :items="cloneDeep(defaultItems)" />
+<KTreeList :items="defaultItems2" />
 
 ```html
 <template>
@@ -67,7 +67,7 @@ Boolean (defaults to `false`) to turn of drag-n-drop reordering of the list.
 
 Use this prop to customize the maximum supported depth of the tree. We default to a max level of `2` or support for parents, children, and grandchildren.
 
-<KTreeList :items="cloneDeep(defaultItems)" :max-level="1" />
+<KTreeList :items="maxLevelItems" :max-level="1" />
 
 ```html
 <KTreeList :items="items" :max-level="1" />
@@ -101,12 +101,42 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   data() {
     return {
-      myVal: 'cats',
+      myList: [{
+        name: "Cats",
+        id: 'cats'
+      },
+      {
+        name: "Dogs",
+        id: 'dogs',
+        children: [{
+          name: "Puppies",
+          id: 'puppies'
+        }]
+      },
+      {
+        name: "Bunnies",
+        id: 'bunnies'
+      }]
     }
   },
   methods: {
-    clearIt() {
-      this.myVal = ''
+    reset() {
+      this.myList = [{
+        name: "Cats",
+        id: 'cats'
+      },
+      {
+        name: "Dogs",
+        id: 'dogs',
+        children: [{
+          name: "Puppies",
+          id: 'puppies'
+        }]
+      },
+      {
+        name: "Bunnies",
+        id: 'bunnies'
+      }]
     }
   }
 })
@@ -129,21 +159,6 @@ export default defineComponent({
 - `item-label` - slot for the main content of an item (default's to display the `name` of the item)
 
 See the [Slots section](#Slots) for an example.
-
-```html
-<KTreeItem>
-  <template #item-icon>
-    <KIcon
-      icon="profile"
-      color="var(--purple-400)"
-      size="20"
-    />
-  </template>
-  <template #item-label>
-    Custom label
-  </template>
-</KTreeItem>
-```
 
 ## Slots
 
@@ -178,48 +193,12 @@ See the [Slots section](#Slots) for an example.
 
 ## Events
 
-- `@changed` - Emitted when...
-
-## Theming
-
-| Variable | Purpose
-|:-------- |:-------
-| `--KTreeListBorderColor`| KTreeList border color
-
-An Example of changing the border color of KTreeList to lime might look
-like:
-
-> Note: We are scoping the overrides to a wrapper in this example
-
-<template>
-  <div class="KTreeList-wrapper">
-    <KTreeList />
-  </div>
-</template>
-
-```html
-<template>
-  <div class="KTreeList-wrapper">
-    <KTreeList />
-  </div>
-</template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  setup (props) {
-    // ... code goes here
-  }
-})
-</script>
-
-<style lang="scss">
-.KTreeList-wrapper {
-  --KTreeList-wrapperBorderColor: lime;
-}
-</style>
-```
+- `@change` - Emitted when there is a change to the root level items
+  - returns `items` - an array of `KTreeItem`s
+- `@child-change` - Emitted when an item is added or removed at the non-root level
+  - returns `parent` - id of the parent item; `children` - an array of `KTreeItem`s
+  - **Note:** two separate `child-change` events will fire if an item is moved from one parent to another
+- `@selected` - Emitted when you click (and don't drag-n-drop) an item; returns the selected `KTreeItem` data
 
 <script lang="ts">
 import { defineComponent } from 'vue'
@@ -227,6 +206,8 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   data() {
     return {
+      // each example must have it's own list because cloning
+      // breaks drag-n-drop functionality
       myList: [{
         name: "Cats",
         id: 'cats'
@@ -258,6 +239,38 @@ export default defineComponent({
       {
         name: "Bunnies",
         id: 'bunnies'
+      }],
+      defaultItems2: [{
+        name: "Cats",
+        id: 'cats'
+      },
+      {
+        name: "Dogs",
+        id: 'dogs',
+        children: [{
+          name: "Puppies",
+          id: 'puppies'
+        }]
+      },
+      {
+        name: "Bunnies",
+        id: 'bunnies'
+      }],
+      maxLevelItems: [{
+        name: "Cats",
+        id: 'cats'
+      },
+      {
+        name: "Dogs",
+        id: 'dogs',
+        children: [{
+          name: "Puppies",
+          id: 'puppies'
+        }]
+      },
+      {
+        name: "Bunnies",
+        id: 'bunnies'
       }]
     }
   },
@@ -271,9 +284,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style lang="scss">
-.KTreeList-wrapper {
-  --KTreeList-wrapperBorderColor: lime;
-}
-</style>
