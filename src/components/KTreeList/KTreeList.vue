@@ -9,7 +9,7 @@
       :level="level"
       @start="onStartDrag"
       @end="onStopDrag"
-      @change="$emit('change', { ...$event })"
+      @change="handleChangeEvent"
     >
       <template #header>
         <slot name="header" />
@@ -60,7 +60,8 @@
             :level="level + 1"
             :max-level="maxLevel"
             :disable-drag="disableDrag"
-            @change="$emit('change', { parent: element.id, ...$event })"
+            :parent-id="element.id"
+            @change="handleChangeEvent"
             @selected="handleSelection"
           >
             <template #[itemIcon]="slotProps">
@@ -111,15 +112,19 @@ export default defineComponent({
       default: 2,
     },
     /**
-     * This is an internal prop used to track the level
+     * These are internal props used to track info
      * of nested children.
      */
     level: {
       type: Number,
       default: 0,
     },
+    parentId: {
+      type: String,
+      default: undefined,
+    },
   },
-  emits: ['change', 'selected'],
+  emits: ['change', 'child-change', 'selected'],
   setup(props, { emit }) {
     const key = ref(0)
     const internalList = ref<TreeListItem[]>([])
@@ -244,6 +249,19 @@ export default defineComponent({
       }
     }
 
+    const handleChangeEvent = () => {
+      if (props.parentId) {
+        emit('child-change', {
+          parent: props.parentId,
+          children: internalList.value,
+        })
+      } else {
+        emit('change', {
+          items: internalList.value,
+        })
+      }
+    }
+
     const maxLevelReached = computed(() => {
       return props.level > props.maxLevel
     })
@@ -342,6 +360,7 @@ export default defineComponent({
       maxLevelReached,
       checkMove,
       handleSelection,
+      handleChangeEvent,
       onStartDrag,
       onStopDrag,
       itemIcon,
