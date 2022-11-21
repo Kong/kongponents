@@ -40,7 +40,7 @@
                 <KIcon
                   v-if="element.icon !== 'none'"
                   :icon="element.icon ? element.icon : 'treeDoc'"
-                  :secondary-color="element.selected ? 'var(--teal-200)' : 'var(--grey-200)'"
+                  :secondary-color="iconSecondaryColor(element)"
                   size="24"
                 />
               </slot>
@@ -61,7 +61,20 @@
             :max-level="maxLevel"
             @change="$emit('change', { parent: element.id, ...$event })"
             @selected="handleSelection"
-          />
+          >
+            <template #item-icon="props">
+              <slot
+                v-bind="props"
+                name="item-icon"
+              />
+            </template>
+            <template #item-label="props">
+              <slot
+                v-bind="props"
+                name="item-label"
+              />
+            </template>
+          </KTreeList>
         </div>
       </template>
     </draggable>
@@ -100,25 +113,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    /*
-    parentId: {
-      required: false,
-      type: String,
-      default: null,
-    },
-    elementIdKey: {
-      required: false,
-      type: String,
-      default: 'id',
-    },
-    parentIdKey: {
-      required: false,
-      type: String,
-      default: 'parentId',
-    }, */
   },
   emits: ['change', 'selected'],
   setup(props, { emit }) {
+    const key = ref(0)
     const internalList = ref<TreeListItem[]>([])
     const draggableAttrs = {
       tag: 'div',
@@ -131,7 +129,7 @@ export default defineComponent({
       'drag-class': 'k-tree-list-grabbing',
       class: 'child-drop-zone',
     }
-    const key = ref(0)
+    const dragging = ref(false)
 
     // we need this so we can create a watcher for programmatic changes to the modelValue
     const value = computed({
@@ -142,6 +140,25 @@ export default defineComponent({
         internalList.value = newValue
       },
     })
+
+    const hasChildren = (item: TreeListItem) => {
+      return !!internalList.value.filter(anItem => anItem.id === item.id)?.[0].children?.length
+    }
+
+    const indentStyle = computed(() => {
+      const level1offset = props.level === 1 ? 6 : 0
+      return {
+        marginLeft: 8 * props.level + level1offset + 'px',
+      }
+    })
+
+    const iconSecondaryColor = (item: TreeListItem) => {
+      if (item.icon === 'treeDoc' || !item.icon) {
+        return item.selected ? 'var(--teal-200)' : 'var(--grey-200)'
+      }
+
+      return undefined
+    }
 
     const handleSelection = (itemToSelect: TreeListItem, list?: TreeListItem[]) => {
       if (!list) { // root level
@@ -219,43 +236,9 @@ export default defineComponent({
       }
     }
 
-    const hasChildren = (item: TreeListItem) => {
-      return !!internalList.value.filter(anItem => anItem.id === item.id)?.[0].children?.length
-    }
-
-    // watch for programmatic changes to modelValue
-    watch(value, (newVal, oldVal) => {
-      if (JSON.stringify(newVal) !== JSON.stringify(oldVal)) {
-        internalList.value = newVal
-      }
-    })
-
-    watch(() => props.items, (newValue, oldValue) => {
-      // Only trigger the watcher if items actually change
-      if (JSON.stringify(newValue) === JSON.stringify(oldValue)) {
-        internalList.value = newValue
-      }
-    })
-
-    onMounted(() => {
-      if (props.items) {
-        internalList.value = props.items
-      } else if (props.modelValue) {
-        internalList.value = props.modelValue
-      }
-
-      internalList.value.forEach((item: TreeListItem) => {
-        if (!item.children) {
-          item.children = []
-        }
-      })
-    })
-
     const maxLevelReached = computed(() => {
       return props.level > props.maxLevel
     })
-
-    const dragging = ref(false)
 
     /**
      * Recursive check to get the maximum depth of an object.
@@ -302,12 +285,6 @@ export default defineComponent({
       key.value++
     }
 
-    const indentStyle = computed(() => {
-      return {
-        marginLeft: 16 * props.level + 'px',
-      }
-    })
-
     // override cursor when dragging
     const setDragCursor = (value: boolean) => {
       // must be on html element to keep style applied no matter where they drag
@@ -318,18 +295,47 @@ export default defineComponent({
       }
     }
 
+    // watch for programmatic changes to modelValue
+    watch(value, (newVal, oldVal) => {
+      if (JSON.stringify(newVal) !== JSON.stringify(oldVal)) {
+        internalList.value = newVal
+      }
+    })
+
+    watch(() => props.items, (newValue, oldValue) => {
+      // Only trigger the watcher if items actually change
+      if (JSON.stringify(newValue) === JSON.stringify(oldValue)) {
+        internalList.value = newValue
+      }
+    })
+
+    onMounted(() => {
+      if (props.items) {
+        internalList.value = props.items
+      } else if (props.modelValue) {
+        internalList.value = props.modelValue
+      }
+
+      internalList.value.forEach((item: TreeListItem) => {
+        if (!item.children) {
+          item.children = []
+        }
+      })
+    })
+
     return {
-      draggableAttrs,
-      internalList,
       key,
-      maxLevelReached,
-      hasChildren,
+      draggableAttrs,
       dragging,
+      internalList,
+      hasChildren,
+      indentStyle,
+      iconSecondaryColor,
+      maxLevelReached,
       checkMove,
       handleSelection,
       onStartDrag,
       onStopDrag,
-      indentStyle,
     }
   },
 })
@@ -349,8 +355,9 @@ export default defineComponent({
   .has-children {
     margin-bottom: 4px;
   }
+
+  // style while dragging an item
  .k-tree-item-dragged {
-    background-color: var(--grey-200);
     border-bottom: 4px solid var(--teal-200);
   }
 
@@ -388,6 +395,7 @@ export default defineComponent({
 </style>
 
 <style lang="scss">
+// override cursor as grabbing when an item is being dragged
 .k-tree-list-grabbing * {
   cursor: move !important; /* fallback: no `url()` support or images disabled */
   cursor: -webkit-grabbing !important; /* Chrome 1-21, Safari 4+ */
