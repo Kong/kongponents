@@ -308,7 +308,22 @@ export default defineComponent({
   },
   methods: {
     reset () {
-      this.myList = this.cloneDeep(this.defaultItems)
+      this.myList = [{
+        name: "Cats",
+        id: 'cats'
+      },
+      {
+        name: "Dogs",
+        id: 'dogs',
+        children: [{
+          name: "Puppies",
+          id: 'puppies'
+        }]
+      },
+      {
+        name: "Bunnies",
+        id: 'bunnies'
+      }]
     }
   }
 })
