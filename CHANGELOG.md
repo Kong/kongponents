@@ -1,3 +1,10 @@
+## [8.5.5](https://github.com/Kong/kongponents/compare/v8.5.4...v8.5.5) (2022-11-22)
+
+
+### Bug Fixes
+
+* **kpop:** popoverTimeout prop ([#915](https://github.com/Kong/kongponents/issues/915)) ([2e8cf4a](https://github.com/Kong/kongponents/commit/2e8cf4aaaed18a519988e3925c4a396ae99b1c7a))
+
 ## [8.5.4](https://github.com/Kong/kongponents/compare/v8.5.3...v8.5.4) (2022-11-18)
 
 
