@@ -1,3 +1,10 @@
+## [8.6.1](https://github.com/Kong/kongponents/compare/v8.6.0...v8.6.1) (2022-11-22)
+
+
+### Bug Fixes
+
+* **kselect:** background color [KHCP-5396] ([#922](https://github.com/Kong/kongponents/issues/922)) ([5b8d855](https://github.com/Kong/kongponents/commit/5b8d8551158530f02d16107942506e71052a5a2f))
+
 # [8.6.0](https://github.com/Kong/kongponents/compare/v8.5.8...v8.6.0) (2022-11-22)
 
 
