@@ -11,10 +11,6 @@
       @end="onStopDrag"
       @change="handleChangeEvent"
     >
-      <template #header>
-        <slot name="header" />
-      </template>
-
       <template #item="{ element }">
         <div
           :style="indentStyle"
@@ -141,7 +137,7 @@ export default defineComponent({
       class: 'child-drop-zone',
     }
     const dragging = ref(false)
-    // use these vars to trick the TS compiler and avoid errors about circular refs in the <template>
+    // using these vars to trick the TS compiler and avoid errors about circular refs in the <template>
     const itemIcon = 'item-icon'
     const itemLabel = 'item-label'
 

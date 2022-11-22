@@ -82,27 +82,26 @@ export default defineComponent({
 @import '@/styles/functions';
 
  .k-tree-item {
-    border: 1px solid var(--grey-200);
-    border-radius: 8px;
-    color: var(--black-500);
-    padding: 4px;
+  color: var(--black-500);
+  border: 1px solid var(--grey-200);
+  border-radius: 8px;
+  padding: 4px;
 
-    &.selected {
-      background-color: var(--teal-100);
-      border-color: var(--teal-200);
-    }
-
-    .k-tree-item-icon {
-      height: 20px;
-    }
-
-    &:hover {
-      cursor: grab;
-    }
-
-    &.not-draggable {
-      cursor: default;
-    }
+  .k-tree-item-icon {
+    height: 20px;
   }
 
+  &.selected {
+    background-color: var(--teal-100);
+    border-color: var(--teal-200);
+  }
+
+  &:hover {
+    cursor: grab;
+  }
+
+  &.not-draggable {
+    cursor: default;
+  }
+}
 </style>
