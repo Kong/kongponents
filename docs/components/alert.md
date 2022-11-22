@@ -25,7 +25,7 @@ The additional message for the alert.
     :is-showing="dismissTypeIcon"
     @closed="dismissTypeIcon = false"
   >
-    <template v-slot:alertSecondaryMessage>
+    <template #alertSecondaryMessage>
       <a href="#">View All</a>
     </template>
   </KAlert>
