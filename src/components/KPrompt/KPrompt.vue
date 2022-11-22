@@ -4,8 +4,6 @@
     :title="displayTitle"
     text-align="left"
     class="k-prompt"
-    @keyup.esc="close"
-    @keyup.enter="proceed"
   >
     <template #header-content>
       <div class="k-prompt-header w-100">
