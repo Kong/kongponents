@@ -349,7 +349,9 @@ export default defineComponent({
   },
   methods: {
     hidePopper() {
-      this.isOpen = false
+      if (this.trigger !== 'hover') {
+        this.isOpen = false
+      }
 
       this.timer = setTimeout(() => {
         this.$emit('closed')
