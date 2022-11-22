@@ -60,7 +60,7 @@ jobs:
           run: yarn lint
 
         - name: Build
-          run: yarn build:cli && yarn build:kongponents
+          run: yarn build:kongponents
 
         - name: Semantic Release
           uses: cycjimmy/semantic-release-action@v3
