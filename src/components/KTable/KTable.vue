@@ -234,7 +234,7 @@ export default defineComponent({
   },
   props: {
     /**
-     * @deprecated options in favor of the "fetcher" prop
+     * @deprecated in favor of the "fetcher" prop
      * Object containing data which creates rows and columns.
      * @param {Object} options - Options to initialize the component with
      * @param {Array} options.headers - Array of Objects defining Table Headers
