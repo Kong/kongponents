@@ -122,6 +122,10 @@ If you notice other breaking changes we missed, we invite you to [open an issue]
 - Emits `input`, `update:modelValue`, and `char-limit-exceeded` events
 - Default font size is now `16px` for accessibility and to prevent page zoom in some browsers
 
+### KToggle
+
+- In your template, you now need to reference `isToggled.value` when getting/setting the value instead of `isToggled`
+
 ### KTooltip
 
 - New component name; previously known as `Kooltip`
