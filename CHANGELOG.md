@@ -1,3 +1,10 @@
+## [8.5.6](https://github.com/Kong/kongponents/compare/v8.5.5...v8.5.6) (2022-11-22)
+
+
+### Bug Fixes
+
+* **build:** resolve corrupted build ([#919](https://github.com/Kong/kongponents/issues/919)) ([34d7488](https://github.com/Kong/kongponents/commit/34d7488913e0815ee3edb04c9cd1ea14997ef2f3))
+
 ## [8.5.5](https://github.com/Kong/kongponents/compare/v8.5.4...v8.5.5) (2022-11-22)
 
 
