@@ -483,21 +483,6 @@ You can pass any input attribute and it will get properly bound to the element.
 <KSelect disabled placeholder="type something" :items="[{ label: 'test', value: 'test' }]" />
 ```
 
-### Readonly
-
-An Example of KSelect (readonly and non-readonly) in a KCard with background other than white.
-
-<KCard style="background-color: lightyellow;">
-  <template v-slot:body>
-    <KSelect appearance="select" readonly placeholder="I'm readonly!"
-    :items="deepClone(defaultItemsUnselect)" class="mt-5" />
-     <KSelect appearance="select" readonly placeholder="I'm readonly!"
-    :items="deepClone(defaultItemsUnselect)" class="mt-5" />
-    <KSelect appearance="select" placeholder="Select any option" :items="deepClone(defaultItemsUnselect)" class="mt-5" />
-    <KSelect appearance="dropdown" placeholder="Select any option" :items="deepClone(defaultItemsUnselect)" class="mt-5" />
-  </template>
-</KCard>
-
 ## Slots
 
 - `item-template` - The template for each item in the dropdown list
