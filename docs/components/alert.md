@@ -18,16 +18,19 @@ The main content of the alert.
 
 The additional message for the alert.
 
-<KAlert
-  alert-message="Alert message that is dismissible and has alert secondary message"
-  dismiss-type="icon"
-  :is-showing="dismissTypeIcon"
-  @closed="dismissTypeIcon = false"
->
-  <template v-slot:alertSecondaryMessage>
-    <a href="#">View All</a>
-  </template>
-</KAlert>
+<div>
+  <KAlert
+    alert-message="Alert message that is dismissible and has alert secondary message"
+    dismiss-type="icon"
+    :is-showing="dismissTypeIcon"
+    @closed="dismissTypeIcon = false"
+  >
+    <template v-slot:alertSecondaryMessage>
+      <a href="#">View All</a>
+    </template>
+  </KAlert>
+</div>
+
 
 ```html
 <KAlert

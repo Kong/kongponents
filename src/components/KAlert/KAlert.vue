@@ -375,7 +375,6 @@ export default defineComponent({
 
   .close {
     position: absolute;
-    // top: 0;
     right: var(--spacing-xs);
     bottom: 0;
     border: 0;
