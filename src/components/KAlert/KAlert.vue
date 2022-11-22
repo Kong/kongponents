@@ -69,6 +69,12 @@
         <slot name="alertMessage">
           {{ alertMessage }}
         </slot>
+        <div class="alert-secondary-message">
+          <!-- @slot Use this slot to pass secondary alert message  -->
+          <slot name="alertSecondaryMessage">
+            {{ alertSecondaryMessage }}
+          </slot>
+        </div>
       </div>
 
       <div
@@ -87,6 +93,7 @@
       type="button"
       aria-label="Close"
       class="close"
+      :class="alertSecondaryMessage || $slots.alertSecondaryMessage ? 'moveTop' : 'topDefault'"
       @click="dismissAlert"
     >
       <KIcon
@@ -145,6 +152,10 @@ export default defineComponent({
     * Message to show in alert
     */
     alertMessage: {
+      type: String,
+      default: '',
+    },
+    alertSecondaryMessage: {
       type: String,
       default: '',
     },
@@ -354,9 +365,17 @@ export default defineComponent({
     height: 100%;
   }
 
+  .moveTop {
+    top: -18px;
+  }
+
+  .topDefault {
+    top: 0;
+  }
+
   .close {
     position: absolute;
-    top: 0;
+    // top: 0;
     right: var(--spacing-xs);
     bottom: 0;
     border: 0;

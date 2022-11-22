@@ -14,6 +14,35 @@
 
 The main content of the alert.
 
+### alertSecondaryMessage
+
+The additional message for the alert.
+
+<KAlert
+  alert-message="Alert message that is dismissible and has alert secondary message"
+  dismiss-type="icon"
+  :is-showing="dismissTypeIcon"
+  @closed="dismissTypeIcon = false"
+>
+  <template v-slot:alertSecondaryMessage>
+    <a href="#">View All</a>
+  </template>
+</KAlert>
+
+```html
+<KAlert
+  alert-message="Alert message that is dismissible and has alert secondary message"
+  dismiss-type="icon"
+  :is-showing="dismissTypeIcon"
+  @closed="dismissTypeIcon = false"
+>
+  <template v-slot:alertSecondaryMessage>
+    <a href="#">View All</a>
+  </template>
+</KAlert>
+```
+
+
 ### isShowing
 
 Set whether or not the alert box is shown.
@@ -595,6 +624,7 @@ Fixes KAlert to the top of the container.
 ## Slots
 
 - `alertMessage` - Default message slot
+- `alertSecondaryMessage` - Additional message slot
 - `icon` - Icon to the left of the main alert content
 - `title` - Text displayed directly above the main alert content (font will be bolded)
 - `description` - Descriptive text displayed directly beneath the main alert content (`size='large'` required)
