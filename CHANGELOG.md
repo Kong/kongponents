@@ -1,3 +1,15 @@
+# [8.6.0](https://github.com/Kong/kongponents/compare/v8.5.8...v8.6.0) (2022-11-22)
+
+
+### Bug Fixes
+
+* trigger release ([71fd27f](https://github.com/Kong/kongponents/commit/71fd27f08ef206ccc07747cbca63aa8da54844d4))
+
+
+### Features
+
+* **icons:** add new forbidden icon ([#920](https://github.com/Kong/kongponents/issues/920)) ([8aec00e](https://github.com/Kong/kongponents/commit/8aec00e90d925c5ed8477d52b9fe6197a3b8d494))
+
 ## [8.5.8](https://github.com/Kong/kongponents/compare/v8.5.7...v8.5.8) (2022-11-22)
 
 
