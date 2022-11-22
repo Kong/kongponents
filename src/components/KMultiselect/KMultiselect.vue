@@ -122,7 +122,8 @@
                 autocomplete="off"
                 autocapitalize="off"
                 type="text"
-                :class="{ 'mt-1': isToggled.value && selectedItems.length }"
+                :class="{ 'mt-1': isToggled.value && selectedItems.length, 'is-readonly': isReadonly }"
+                :readonly="isReadonly ? true : undefined"
                 class="k-multiselect-input input-placeholder-dark"
                 data-testid="k-multiselect-input"
                 @keyup="(evt: any) => triggerFocus(evt, isToggled)"
@@ -914,6 +915,17 @@ export default defineComponent({
     .k-multiselect-input {
       position: relative;
       display: inline-block;
+
+      &.is-readonly {
+        // box-shadow: none !important;
+        // @include input-readonly;
+
+        :deep(.k-input) {
+          &:not([type=checkbox]):not([type=radio]), .form-control:not([type=checkbox]):not([type=radio]) {
+            background-color: transparent !important;
+          }
+        }
+      }
     }
   }
 }
