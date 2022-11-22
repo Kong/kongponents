@@ -1,3 +1,11 @@
+## [8.5.8](https://github.com/Kong/kongponents/compare/v8.5.7...v8.5.8) (2022-11-22)
+
+
+### Bug Fixes
+
+* **build:** trigger release ([85a6d55](https://github.com/Kong/kongponents/commit/85a6d555693a7d29d8f083693a4efd573687630f))
+* **build:** trigger release ([d806d50](https://github.com/Kong/kongponents/commit/d806d50d973f18f4d1cd44a136c0f907a46e7204))
+
 ## [8.5.7](https://github.com/Kong/kongponents/compare/v8.5.6...v8.5.7) (2022-11-22)
 
 
