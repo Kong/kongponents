@@ -57,7 +57,7 @@ export default defineComponent({
 
 Boolean (defaults to `false`) to turn of drag-n-drop reordering of the list.
 
-<KTreeList disable-drag :items="cloneDeep(defaultItems)" />
+<KTreeList disable-drag :items="disableItems" />
 
 ```html
 <KTreeList disable-drag :items="items" />
@@ -167,7 +167,7 @@ See the [Slots section](#Slots) for an example.
 - `item-icon` - slot for content displayed to the left of the item name
 - `item-label` - slot for the main content of an item (default's to display the `name` of the item)
 
-<KTreeList :items="cloneDeep(defaultItems)">
+<KTreeList :items="slotItems">
   <template #item-icon="{ item }">
     {{ item.id === 'cats' ? '😸' : item.id === 'bunnies' ? '🐰' : '🐶' }}
   </template>
@@ -256,7 +256,39 @@ export default defineComponent({
         name: "Bunnies",
         id: 'bunnies'
       }],
+      disableItems: [{
+        name: "Cats",
+        id: 'cats'
+      },
+      {
+        name: "Dogs",
+        id: 'dogs',
+        children: [{
+          name: "Puppies",
+          id: 'puppies'
+        }]
+      },
+      {
+        name: "Bunnies",
+        id: 'bunnies'
+      }],
       maxLevelItems: [{
+        name: "Cats",
+        id: 'cats'
+      },
+      {
+        name: "Dogs",
+        id: 'dogs',
+        children: [{
+          name: "Puppies",
+          id: 'puppies'
+        }]
+      },
+      {
+        name: "Bunnies",
+        id: 'bunnies'
+      }],
+      slotItems: [{
         name: "Cats",
         id: 'cats'
       },
@@ -275,9 +307,6 @@ export default defineComponent({
     }
   },
   methods: {
-    cloneDeep (obj) {
-      return JSON.parse(JSON.stringify(obj))
-    },
     reset () {
       this.myList = this.cloneDeep(this.defaultItems)
     }
