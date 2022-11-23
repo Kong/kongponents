@@ -158,7 +158,7 @@ const draggableAttrs = {
   draggable: '.k-tree-item-container',
   'item-key': 'id',
   'ghost-class': 'k-tree-item-dragged',
-  'drag-class': 'k-tree-list-grabbing',
+  'drag-class': 'k-tree-item-grabbing',
   class: 'child-drop-zone',
 }
 const dragging = ref(false)
@@ -392,11 +392,6 @@ onMounted(() => {
 @import '@/styles/functions';
 
 .k-tree-list {
-  &.dragging {
-    .child-drop-zone .k-tree-item-container:hover {
-     /*  background-color: var(--grey-100); */
-    }
-  }
 
   .child-drop-zone {
     // this is the height of the area you can drop an item in
@@ -411,6 +406,13 @@ onMounted(() => {
   // style while dragging an item
  .k-tree-item-dragged {
     border-bottom: 4px solid var(--teal-200);
+  }
+
+  // hide the see-through duplicate
+  .k-tree-item-grabbing {
+    display: none;
+    cursor: move !important; /* fallback: no `url()` support or images disabled */
+    cursor: grabbing !important; /* W3C standards syntax, should come least */
   }
 
   .k-tree-item-container.non-root {
@@ -448,7 +450,8 @@ onMounted(() => {
 
 <style lang="scss">
 // override cursor as grabbing when an item is being dragged
-.k-tree-list-grabbing * {
+.k-tree-list-grabbing *,
+.k-tree-item-grabbing * {
   cursor: move !important; /* fallback: no `url()` support or images disabled */
   cursor: grabbing !important; /* W3C standards syntax, should come least */
 }
