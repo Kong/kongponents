@@ -32,53 +32,46 @@ It can be tricky to determine if an item will be placed below an item as a sibli
   <KButton @click="reset">Reset</KButton>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
 
-export default defineComponent({
-  data() {
-    return {
-      myList: [{
-        name: "Cats",
-        id: 'cats'
-        selected: true
-      },
-      {
-        name: "Dogs",
-        id: 'dogs',
-        children: [{
-          name: "Puppies",
-          id: 'puppies'
-        }]
-      },
-      {
-        name: "Bunnies",
-        id: 'bunnies'
-      }]
-    }
+const myList = ref([{
+  name: "Cats",
+  id: 'cats'
+  selected: true
+},
+{
+  name: "Dogs",
+  id: 'dogs',
+  children: [{
+    name: "Puppies",
+    id: 'puppies'
+  }]
+},
+{
+  name: "Bunnies",
+  id: 'bunnies'
+}])
+
+const reset = () => {
+  myList.value = [{
+    name: "Cats",
+    id: 'cats',
+    selected: true
   },
-  methods: {
-    reset() {
-      this.myList = [{
-        name: "Cats",
-        id: 'cats',
-        selected: true
-      },
-      {
-        name: "Dogs",
-        id: 'dogs',
-        children: [{
-          name: "Puppies",
-          id: 'puppies'
-        }]
-      },
-      {
-        name: "Bunnies",
-        id: 'bunnies'
-      }]
-    }
-  }
-})
+  {
+    name: "Dogs",
+    id: 'dogs',
+    children: [{
+      name: "Puppies",
+      id: 'puppies'
+    }]
+  },
+  {
+    name: "Bunnies",
+    id: 'bunnies'
+  }]
+}
 </script>
 ```
 
@@ -105,31 +98,25 @@ You cannot use `v-model` with the `items` prop. You must use one or the other.
   <KTreeList :items="items" />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
 
-export default defineComponent({
-  data() {
-    return {
-      items: [{
-        name: "Cats",
-        id: 'cats'
-      },
-      {
-        name: "Dogs",
-        id: 'dogs',
-        children: [{
-          name: "Puppies",
-          id: 'puppies'
-        }]
-      },
-      {
-        name: "Bunnies",
-        id: 'bunnies'
-      }]
-    }
-  }
-})
+const items = ref([{
+  name: "Cats",
+  id: 'cats'
+},
+{
+  name: "Dogs",
+  id: 'dogs',
+  children: [{
+    name: "Puppies",
+    id: 'puppies'
+  }]
+},
+{
+  name: "Bunnies",
+  id: 'bunnies'
+}])
 </script>
 ```
 
@@ -199,6 +186,7 @@ Use this prop to customize the maximum supported depth of the tree. We default t
   <KLabel>Items: </KLabel> {{ eventItems }}
   <KTreeList
     :items="eventItems"
+    class="mt-3"
     @selected="(item) => mySelection = item"
     @changed="({ items }) => eventItems = items"
     @child-change="handleChildChange"
@@ -217,175 +205,168 @@ Use this prop to customize the maximum supported depth of the tree. We default t
   />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
+  import { ref } from 'vue'
 
-export default defineComponent({
-  data() {
-    return {
-      mySelection: null
-    }
-  },
-  method: {
-    handleChildChange (data) {
-      const { parentId, children } = data
-      const changedParent = myItems.filter(item => item.id === parentId)?.[0]
-      changedParent.children = children
-    }
+  const mySelection = ref(null)
+  const handleChildChange = (data) => {
+    const { parentId, children } = data
+    const changedParent = myItems.value.filter(item => item.id === parentId)?.[0]
+    changedParent.children = children
   }
-})
 </script>
 ```
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
 
-export default defineComponent({
-  data() {
-    return {
-      mySelection: null,
-      // each example must have it's own list because cloning
-      // breaks drag-n-drop functionality
-      myList: [{
-        name: "Cats",
-        id: 'cats',
-        selected: true
-      },
-      {
-        name: "Dogs",
-        id: 'dogs',
-        children: [{
-          name: "Puppies",
-          id: 'puppies'
-        }]
-      },
-      {
-        name: "Bunnies",
-        id: 'bunnies'
-      }],
-      defaultItems: [{
-        name: "Cats",
-        id: 'cats'
-      },
-      {
-        name: "Dogs",
-        id: 'dogs',
-        children: [{
-          name: "Puppies",
-          id: 'puppies'
-        }]
-      },
-      {
-        name: "Bunnies",
-        id: 'bunnies'
-      }],
-      defaultItems2: [{
-        name: "Cats",
-        id: 'cats'
-      },
-      {
-        name: "Dogs",
-        id: 'dogs',
-        children: [{
-          name: "Puppies",
-          id: 'puppies'
-        }]
-      },
-      {
-        name: "Bunnies",
-        id: 'bunnies'
-      }],
-      disableItems: [{
-        name: "Cats",
-        id: 'cats'
-      },
-      {
-        name: "Dogs",
-        id: 'dogs',
-        children: [{
-          name: "Puppies",
-          id: 'puppies'
-        }]
-      },
-      {
-        name: "Bunnies",
-        id: 'bunnies'
-      }],
-      maxLevelItems: [{
-        name: "Cats",
-        id: 'cats'
-      },
-      {
-        name: "Dogs",
-        id: 'dogs',
-        children: [{
-          name: "Puppies",
-          id: 'puppies'
-        }]
-      },
-      {
-        name: "Bunnies",
-        id: 'bunnies'
-      }],
-      slotItems: [{
-        name: "Cats",
-        id: 'cats'
-      },
-      {
-        name: "Dogs",
-        id: 'dogs',
-        children: [{
-          name: "Puppies",
-          id: 'puppies'
-        }]
-      },
-      {
-        name: "Bunnies",
-        id: 'bunnies'
-      }],
-      eventItems: [{
-        name: "Cats",
-        id: 'cats'
-      },
-      {
-        name: "Dogs",
-        id: 'dogs',
-        children: [{
-          name: "Puppies",
-          id: 'puppies'
-        }]
-      },
-      {
-        name: "Bunnies",
-        id: 'bunnies'
-      }]
-    }
+const mySelection = ref(null)
+
+// each example must have it's own list because cloning
+// breaks drag-n-drop functionality
+const myList = ref([{
+  name: "Cats",
+  id: 'cats',
+  selected: true
+},
+{
+  name: "Dogs",
+  id: 'dogs',
+  children: [{
+    name: "Puppies",
+    id: 'puppies'
+  }]
+},
+{
+  name: "Bunnies",
+  id: 'bunnies'
+}])
+
+const defaultItems = ref([{
+  name: "Cats",
+  id: 'cats'
+},
+{
+  name: "Dogs",
+  id: 'dogs',
+  children: [{
+    name: "Puppies",
+    id: 'puppies'
+  }]
+},
+{
+  name: "Bunnies",
+  id: 'bunnies'
+}])
+
+const defaultItems2 = ref([{
+  name: "Cats",
+  id: 'cats'
+},
+{
+  name: "Dogs",
+  id: 'dogs',
+  children: [{
+    name: "Puppies",
+    id: 'puppies'
+  }]
+},
+{
+  name: "Bunnies",
+  id: 'bunnies'
+}])
+
+const disableItems = ref([{
+  name: "Cats",
+  id: 'cats'
+},
+{
+  name: "Dogs",
+  id: 'dogs',
+  children: [{
+    name: "Puppies",
+    id: 'puppies'
+  }]
+},
+{
+  name: "Bunnies",
+  id: 'bunnies'
+}])
+
+const maxLevelItems = ref([{
+  name: "Cats",
+  id: 'cats'
+},
+{
+  name: "Dogs",
+  id: 'dogs',
+  children: [{
+    name: "Puppies",
+    id: 'puppies'
+  }]
+},
+{
+  name: "Bunnies",
+  id: 'bunnies'
+}])
+
+const slotItems = ref([{
+  name: "Cats",
+  id: 'cats'
+},
+{
+  name: "Dogs",
+  id: 'dogs',
+  children: [{
+    name: "Puppies",
+    id: 'puppies'
+  }]
+},
+{
+  name: "Bunnies",
+  id: 'bunnies'
+}])
+
+const eventItems = ref([{
+  name: "Cats",
+  id: 'cats'
+},
+{
+  name: "Dogs",
+  id: 'dogs',
+  children: [{
+    name: "Puppies",
+    id: 'puppies'
+  }]
+},
+{
+  name: "Bunnies",
+  id: 'bunnies'
+}])
+
+const reset = () => {
+  myList.value = [{
+    name: "Cats",
+    id: 'cats',
+    selected: true
   },
-  methods: {
-    reset () {
-      this.myList = [{
-        name: "Cats",
-        id: 'cats',
-        selected: true
-      },
-      {
-        name: "Dogs",
-        id: 'dogs',
-        children: [{
-          name: "Puppies",
-          id: 'puppies'
-        }]
-      },
-      {
-        name: "Bunnies",
-        id: 'bunnies'
-      }]
-    },
-    handleChildChange (data) {
-      const { parentId, children } = data
-      const changedParent = eventItems.filter(item => item.id === parentId)?.[0]
-      changedParent.children = children
-    }
-  }
-})
+  {
+    name: "Dogs",
+    id: 'dogs',
+    children: [{
+      name: "Puppies",
+      id: 'puppies'
+    }]
+  },
+  {
+    name: "Bunnies",
+    id: 'bunnies'
+  }]
+}
+
+const handleChildChange = (data) => {
+  const { parentId, children } = data
+  const changedParent = eventItems.value.filter(item => item.id === parentId)?.[0]
+  changedParent.children = children
+}
 </script>
