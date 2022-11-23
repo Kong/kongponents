@@ -4,7 +4,7 @@
     class="k-tree-list"
     @keydown.esc="outOfBounds = true"
   >
-    <draggable
+    <VueDraggableNext
       v-bind="draggableAttrs"
       :disabled="disableDrag"
       :list="internalList"
@@ -16,74 +16,74 @@
       @end="onStopDrag"
       @change="handleChangeEvent"
     >
-      <template #item="{ element }">
-        <div
-          :style="indentStyle"
+      <div
+        v-for="element in internalList"
+        :key="element.id"
+        :style="indentStyle"
+        :class="{
+          'non-root': level !== 0
+        }"
+        class="k-tree-item-container"
+      >
+        <KTreeItem
+          :key="`tree-item-${element.id}-${key}`"
+          :item="element"
+          :disabled="disableDrag"
           :class="{
-            'non-root': level !== 0
+            'has-children': hasChildren(element)
           }"
-          class="k-tree-item-container"
+          @selected="handleSelection"
         >
-          <KTreeItem
-            :key="`tree-item-${element.id}-${key}`"
-            :item="element"
-            :disabled="disableDrag"
-            :class="{
-              'has-children': hasChildren(element)
-            }"
-            @selected="handleSelection"
-          >
-            <template #item-icon>
-              <slot
-                :item="element"
-                name="item-icon"
-              >
-                <KIcon
-                  v-if="element.icon !== 'none'"
-                  :icon="element.icon ? element.icon : 'treeDoc'"
-                  :secondary-color="iconSecondaryColor(element)"
-                  size="24"
-                />
-              </slot>
-            </template>
-            <template #item-label>
-              <slot
-                :item="element"
-                name="item-label"
-              >
-                {{ element.name }}
-              </slot>
-            </template>
-          </KTreeItem>
-          <KTreeList
-            :key="`tree-item-${element.id}-children-${key}`"
-            v-model="element.children"
-            :level="level + 1"
-            :max-level="maxLevel"
-            :disable-drag="disableDrag"
-            :parent-id="element.id"
-            :class="{ 'dragging': dragging }"
-            @change="handleChangeEvent"
-            @start="dragging = true"
-            @end="dragging = false"
-            @selected="handleSelection"
-          >
-            <template #[itemIcon]="slotProps">
-              <slot
-                v-bind="slotProps"
-                name="item-icon"
+          <template #item-icon>
+            <slot
+              :item="element"
+              name="item-icon"
+            >
+              <KIcon
+                v-if="element.icon !== 'none'"
+                :icon="element.icon ? element.icon : 'treeDoc'"
+                :secondary-color="iconSecondaryColor(element)"
+                size="24"
               />
-            </template>
-            <template #[itemLabel]="slotProps">
-              <slot
-                v-bind="slotProps"
-                name="item-label"
-              />
-            </template>
-          </KTreeList>
-        </div>
-      </template>
-    </draggable>
+            </slot>
+          </template>
+          <template #item-label>
+            <slot
+              :item="element"
+              name="item-label"
+            >
+              {{ element.name }}
+            </slot>
+          </template>
+        </KTreeItem>
+        <KTreeList
+          :key="`tree-item-${element.id}-children-${key}`"
+          v-model="element.children"
+          :level="level + 1"
+          :max-level="maxLevel"
+          :disable-drag="disableDrag"
+          :parent-id="element.id"
+          :class="{ 'dragging': dragging }"
+          @change="handleChangeEvent"
+          @start="dragging = true"
+          @end="dragging = false"
+          @selected="handleSelection"
+        >
+          <template #[itemIcon]="slotProps">
+            <slot
+              v-bind="slotProps"
+              name="item-icon"
+            />
+          </template>
+          <template #[itemLabel]="slotProps">
+            <slot
+              v-bind="slotProps"
+              name="item-label"
+            />
+          </template>
+        </KTreeList>
+      </div>
+    </VueDraggableNext>
   </div>
 </template>
 
@@ -95,7 +95,7 @@
  * lines switch to `v-slot:` notation and Save to let linter clear -->
  */
 import { computed, ref, watch, onMounted, PropType } from 'vue'
-import draggable from 'vuedraggable'
+import { VueDraggableNext } from 'vue-draggable-next'
 import KTreeItem, { TreeListItem } from '@/components/KTreeList/KTreeItem.vue'
 
 export interface ChangeEvent {
