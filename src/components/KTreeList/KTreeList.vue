@@ -65,8 +65,6 @@
           :parent-id="element.id"
           :class="{ 'dragging': dragging }"
           @change="handleChangeEvent"
-          @start="dragging = true"
-          @end="dragging = false"
           @selected="handleSelection"
         >
           <template #[itemIcon]="slotProps">
@@ -143,8 +141,6 @@ const props = defineProps({
 const emit = defineEmits<{
   (event: 'change', data: ChangeEvent): void,
   (event: 'child-change', data: ChildChangeEvent): void,
-  (event: 'start'): void,
-  (event: 'end'): void,
   (event: 'selected', item: TreeListItem): void
 }>()
 
@@ -317,7 +313,6 @@ const checkMove = (target: any): boolean => {
 }
 
 const onStartDrag = (): void => {
-  emit('start')
   dragging.value = true
   outOfBounds.value = false
   setDragCursor(true)
@@ -325,7 +320,6 @@ const onStartDrag = (): void => {
 
 const outOfBounds = ref(false)
 const onStopDrag = (target: any): void => {
-  emit('end')
   dragging.value = false
   setDragCursor(false)
 
@@ -392,7 +386,6 @@ onMounted(() => {
 @import '@/styles/functions';
 
 .k-tree-list {
-
   .child-drop-zone {
     // this is the height of the area you can drop an item in
     // to make it the child of another item
