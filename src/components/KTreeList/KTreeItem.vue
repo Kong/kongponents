@@ -29,8 +29,8 @@
   </a>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
+<script lang="ts" setup>
+import { computed, PropType, useSlots } from 'vue'
 
 export interface TreeListItem {
   name: string
@@ -40,44 +40,38 @@ export interface TreeListItem {
   children?: TreeListItem[]
 }
 
-export default defineComponent({
-  name: 'KTreeItem',
-  props: {
-    item: {
-      type: Object as PropType<TreeListItem>,
-      required: true,
-      validator: (item: TreeListItem) => item.name !== undefined && item.id !== undefined,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
+const props = defineProps({
+  item: {
+    type: Object as PropType<TreeListItem>,
+    required: true,
+    validator: (item: TreeListItem) => item.name !== undefined && item.id !== undefined,
   },
-  emits: ['selected'],
-  setup(props, { slots, emit }) {
-    const hasIcon = computed(() => props.item.icon !== 'none' || slots['item-icon'])
-    const itemIcon = computed(() => props.item.icon ? props.item.icon : 'treeDoc')
-
-    const iconSecondaryColor = () => {
-      if (itemIcon.value === 'treeDoc') {
-        return props.item.selected ? 'var(--teal-200)' : 'var(--grey-200)'
-      }
-
-      return undefined
-    }
-
-    const handleClick = () => {
-      emit('selected', props.item)
-    }
-
-    return {
-      hasIcon,
-      itemIcon,
-      iconSecondaryColor,
-      handleClick,
-    }
+  disabled: {
+    type: Boolean,
+    default: false,
   },
 })
+
+const emit = defineEmits<{
+  (event: 'selected', item: TreeListItem): void
+}>()
+
+const slots = useSlots()
+
+const hasIcon = computed(() => props.item.icon !== 'none' || slots['item-icon'])
+const itemIcon = computed(() => props.item.icon ? props.item.icon : 'treeDoc')
+
+const iconSecondaryColor = () => {
+  if (itemIcon.value === 'treeDoc') {
+    return props.item.selected ? 'var(--teal-200)' : 'var(--grey-200)'
+  }
+
+  return undefined
+}
+
+const handleClick = () => {
+  emit('selected', props.item)
+}
 </script>
 
 <style lang="scss" scoped>

@@ -236,7 +236,7 @@ const handleSelection = (itemToSelect: TreeListItem, list?: TreeListItem[]): voi
   emit('selected', itemToSelect)
 }
 
-const handleSetParent = (item: TreeListItem, parent: TreeListItem) => {
+const handleSetParent = (item: TreeListItem, parent: TreeListItem): void => {
   let originalParent:TreeListItem
   const selectedItem = internalList.value.filter((anItem: TreeListItem) => {
     if (anItem.children?.length) {
