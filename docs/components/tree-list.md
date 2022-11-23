@@ -3,7 +3,7 @@
 **KTreeList** - A drag-n-drop reorderable list component.
 
 ::: tip
-It can be tricky to determine if an item will be places below an item as a sibling or as a child when dropping. Items to be dropped as children should be dropped near the bottom border line of the parent. If this will be the first child of an item, you will notice the margin between the two items disappearing if you are hovering in the right place.
+It can be tricky to determine if an item will be placed below an item as a sibling or as a child when dropping. Items to be dropped as children should be dropped near the bottom border line of the parent. If this will be the first child of an item, you will notice the margin between the two items disappearing if you are hovering in the right place.
 :::
 
 <KTreeList :items="defaultItems" />

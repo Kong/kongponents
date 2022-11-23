@@ -1,11 +1,13 @@
 <template>
-  <div
+  <a
+    role="button"
+    href="#"
     class="k-tree-item d-flex"
     :class="{
       'not-draggable': disabled,
       'selected': item.selected
     }"
-    @click="handleClick"
+    @click.prevent="handleClick"
   >
     <div
       v-if="hasIcon"
@@ -24,7 +26,7 @@
         {{ item.name }}
       </slot>
     </div>
-  </div>
+  </a>
 </template>
 
 <script lang="ts">
@@ -98,6 +100,7 @@ export default defineComponent({
 
   &:hover {
     cursor: grab;
+    color: var(--black-500);
   }
 
   &.not-draggable {
