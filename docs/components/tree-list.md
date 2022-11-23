@@ -148,7 +148,7 @@ export default defineComponent({
 ### Properties
 
 - `name` (required) - text displayed as the label for the item
-- `id` (required) - a unique value used to identify the item
+- `id` (required) - a unique `string` used to identify the item
 - `selected` - boolean to indicate whether the current item is selected or not
 - `icon` - `KIcon` name to be displayed to the left of the item `name` (defaults to `treeDoc`, specify `none` to not display any icon)
 - `children` - an array of `KTreeItem`'s that will be styled as children of the current item

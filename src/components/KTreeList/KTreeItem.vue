@@ -37,7 +37,7 @@ export interface TreeListItem {
   id: string
   selected?: boolean
   icon?: string
-  children?: Array<TreeListItem>
+  children?: TreeListItem[]
 }
 
 export default defineComponent({
@@ -83,7 +83,7 @@ export default defineComponent({
 @import '@/styles/variables';
 @import '@/styles/functions';
 
- .k-tree-item {
+.k-tree-item {
   color: var(--black-500);
   border: 1px solid var(--grey-200);
   border-radius: 8px;
