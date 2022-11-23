@@ -81,7 +81,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, defineEmits, computed, ref, watch, onMounted, PropType } from 'vue'
+import { computed, ref, watch, onMounted, PropType } from 'vue'
 import draggable from 'vuedraggable'
 import KTreeItem, { TreeListItem } from '@/components/KTreeList/KTreeItem.vue'
 
@@ -112,9 +112,9 @@ const props = defineProps({
     default: 2,
   },
   /**
-     * These are internal props used to track info
-     * of nested children.
-     */
+   * These are internal props used to track info
+   * of nested children.
+   */
   level: {
     type: Number,
     default: 0,
@@ -159,18 +159,18 @@ const value = computed({
   },
 })
 
-const hasChildren = (item: TreeListItem) => {
+const hasChildren = (item: TreeListItem): boolean => {
   return !!internalList.value.filter(anItem => anItem.id === item.id)?.[0].children?.length
 }
 
-const indentStyle = computed(() => {
+const indentStyle = computed((): Record<string, any> => {
   const level1offset = props.level === 1 ? 6 : 0
   return {
     marginLeft: 8 * props.level + level1offset + 'px',
   }
 })
 
-const iconSecondaryColor = (item: TreeListItem) => {
+const iconSecondaryColor = (item: TreeListItem): string | undefined => {
   if (item.icon === 'treeDoc' || !item.icon) {
     return item.selected ? 'var(--teal-200)' : 'var(--grey-200)'
   }
@@ -178,7 +178,7 @@ const iconSecondaryColor = (item: TreeListItem) => {
   return undefined
 }
 
-const handleSelection = (itemToSelect: TreeListItem, list?: TreeListItem[]) => {
+const handleSelection = (itemToSelect: TreeListItem, list?: TreeListItem[]): void => {
   if (!list) { // root level
     // select the item
     const selectedItem = internalList.value.filter((item: TreeListItem) => item.id === itemToSelect.id)?.[0]
@@ -254,7 +254,7 @@ const handleSetParent = (item: TreeListItem, parent: TreeListItem) => {
   }
 }
 
-const handleChangeEvent = () => {
+const handleChangeEvent = (): void => {
   if (props.parentId) {
     emit('child-change', {
       parent: props.parentId,
@@ -267,7 +267,7 @@ const handleChangeEvent = () => {
   }
 }
 
-const maxLevelReached = computed(() => {
+const maxLevelReached = computed((): boolean => {
   return props.level > props.maxLevel
 })
 
@@ -279,7 +279,7 @@ const getMaximumDepth = ({ children = [] }): number => {
   return children.length === 0 ? 0 : 1 + Math.max(...children.map(getMaximumDepth))
 }
 
-const checkMove = (target: any) => {
+const checkMove = (target: any): boolean => {
   const levelOfDropLocation = target.relatedContext?.component?.$attrs.level || 0
   const itemToDrop = target.draggedContext?.element
 
@@ -412,8 +412,6 @@ onMounted(() => {
 // override cursor as grabbing when an item is being dragged
 .k-tree-list-grabbing * {
   cursor: move !important; /* fallback: no `url()` support or images disabled */
-  cursor: -webkit-grabbing !important; /* Chrome 1-21, Safari 4+ */
-  cursor: -moz-grabbing !important; /* Firefox 1.5-26 */
   cursor: grabbing !important; /* W3C standards syntax, should come least */
 }
 </style>
