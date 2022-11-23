@@ -87,6 +87,7 @@ export default defineComponent({
 An array of items that make up the tree.
 
 Item properties:
+
 - `name` (required) - text displayed as the label for the item
 - `id` (required) - a unique `string` used to identify the item
 - `selected` - boolean to indicate whether the current item is selected or not
@@ -186,11 +187,35 @@ Use this prop to customize the maximum supported depth of the tree. We default t
 ## Events
 
 - `@change` - Emitted when there is a change to the root level items
-  - returns `items` - an array of `KTreeItem`s
+  - returns `items` - an array of tree items
 - `@child-change` - Emitted when an item is added or removed at the non-root level
-  - returns `parent` - id of the parent item; `children` - an array of `KTreeItem`s
+  - returns `parent` - id of the parent item; `children` - an array of tree items
   - **Note:** two separate `child-change` events will fire if an item is moved from one parent to another
-- `@selected` - Emitted when you click (and don't drag-n-drop) an item; returns the selected `KTreeItem` data
+- `@selected` - Emitted when you click (and don't drag-n-drop) an item; returns the selected item's data
+
+<div>
+  <KLabel>Selected: </KLabel> {{ mySelection && mySelection.name || '' }}
+  <br>
+  <KLabel>Items: </KLabel> {{ eventItems }}
+  <KTreeList
+    :items="eventItems"
+    @selected="(item) => mySelection = item"
+    @changed="({ items }) => eventItems = items"
+    @child-change="handleChildChange"
+  />
+</div>
+
+```html
+<template>
+  <KLabel>Selected: </KLabel> {{ mySelection && mySelection.name || '' }}
+  <KLabel>Items: </KLabel> {{ myItems }}
+  <KTreeList
+    :items="myItems"
+    @selected="(item) => mySelection = item"
+    @changed="({ items }) => myItems = items"
+    @child-change="handleChildChange"
+  />
+</template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
@@ -198,6 +223,27 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   data() {
     return {
+      mySelection: null
+    }
+  },
+  method: {
+    handleChildChange (data) {
+      const { parentId, children } = data
+      const changedParent = myItems.filter(item => item.id === parentId)?.[0]
+      changedParent.children = children
+    }
+  }
+})
+</script>
+```
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  data() {
+    return {
+      mySelection: null,
       // each example must have it's own list because cloning
       // breaks drag-n-drop functionality
       myList: [{
@@ -296,6 +342,22 @@ export default defineComponent({
       {
         name: "Bunnies",
         id: 'bunnies'
+      }],
+      eventItems: [{
+        name: "Cats",
+        id: 'cats'
+      },
+      {
+        name: "Dogs",
+        id: 'dogs',
+        children: [{
+          name: "Puppies",
+          id: 'puppies'
+        }]
+      },
+      {
+        name: "Bunnies",
+        id: 'bunnies'
       }]
     }
   },
@@ -318,6 +380,11 @@ export default defineComponent({
         name: "Bunnies",
         id: 'bunnies'
       }]
+    },
+    handleChildChange (data) {
+      const { parentId, children } = data
+      const changedParent = eventItems.filter(item => item.id === parentId)?.[0]
+      changedParent.children = children
     }
   }
 })

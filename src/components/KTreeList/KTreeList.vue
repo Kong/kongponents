@@ -1,12 +1,17 @@
 <template>
-  <div class="k-tree-list">
+  <div
+    :class="{ 'dragging': dragging }"
+    class="k-tree-list"
+    @keydown.esc="outOfBounds = true"
+  >
     <draggable
       v-bind="draggableAttrs"
       :disabled="disableDrag"
       :list="internalList"
-      :group="{ name: 'k-tree-list', put: !maxLevelReached }"
+      :group="{ name: 'k-tree-list', pull: !outOfBounds, put: !maxLevelReached && !outOfBounds, revertClone: outOfBounds }"
       :move="checkMove"
       :level="level"
+      :sort="false"
       @start="onStartDrag"
       @end="onStopDrag"
       @change="handleChangeEvent"
@@ -51,14 +56,16 @@
             </template>
           </KTreeItem>
           <KTreeList
-            v-if="element.children.length"
             :key="`tree-item-${element.id}-children-${key}`"
             v-model="element.children"
             :level="level + 1"
             :max-level="maxLevel"
             :disable-drag="disableDrag"
             :parent-id="element.id"
+            :class="{ 'dragging': dragging }"
             @change="handleChangeEvent"
+            @start="dragging = true"
+            @end="dragging = false"
             @selected="handleSelection"
           >
             <template #[itemIcon]="slotProps">
@@ -103,7 +110,7 @@ export interface ChildChangeEvent {
 const props = defineProps({
   modelValue: {
     type: Array as PropType<TreeListItem[]>,
-    default: () => [],
+    default: null,
     validator: (items: TreeListItem[]) => !items.length || items.every(i => i.name !== undefined && i.id !== undefined),
   },
   items: {
@@ -136,6 +143,8 @@ const props = defineProps({
 const emit = defineEmits<{
   (event: 'change', data: ChangeEvent): void,
   (event: 'child-change', data: ChildChangeEvent): void,
+  (event: 'start'): void,
+  (event: 'end'): void,
   (event: 'selected', item: TreeListItem): void
 }>()
 
@@ -280,9 +289,9 @@ const maxLevelReached = computed((): boolean => {
 })
 
 /**
-     * Recursive check to get the maximum depth of an object.
-     * Documented here: https://stackoverflow.com/a/48505969
-     */
+ * Recursive check to get the maximum depth of an object.
+ * Documented here: https://stackoverflow.com/a/48505969
+ */
 const getMaximumDepth = ({ children = [] }): number => {
   return children.length === 0 ? 0 : 1 + Math.max(...children.map(getMaximumDepth))
 }
@@ -308,11 +317,15 @@ const checkMove = (target: any): boolean => {
 }
 
 const onStartDrag = (): void => {
+  emit('start')
   dragging.value = true
+  outOfBounds.value = false
   setDragCursor(true)
 }
 
+const outOfBounds = ref(false)
 const onStopDrag = (target: any): void => {
+  emit('end')
   dragging.value = false
   setDragCursor(false)
 
@@ -321,6 +334,7 @@ const onStopDrag = (target: any): void => {
   if (item && parent) {
     handleSetParent(item, parent)
   }
+
   key.value++
 }
 
@@ -378,6 +392,12 @@ onMounted(() => {
 @import '@/styles/functions';
 
 .k-tree-list {
+  &.dragging {
+    .child-drop-zone .k-tree-item-container:hover {
+      background-color: var(--grey-100);
+    }
+  }
+
   .child-drop-zone {
     // this is the height of the area you can drop an item in
     // to make it the child of another item
@@ -390,6 +410,7 @@ onMounted(() => {
 
   // style while dragging an item
  .k-tree-item-dragged {
+    background-color: var(--white);
     border-bottom: 4px solid var(--teal-200);
   }
 
