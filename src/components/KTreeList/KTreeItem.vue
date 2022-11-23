@@ -46,6 +46,7 @@ export default defineComponent({
     item: {
       type: Object as PropType<TreeListItem>,
       required: true,
+      validator: (item: TreeListItem) => item.name !== undefined && item.id !== undefined,
     },
     disabled: {
       type: Boolean,
@@ -90,7 +91,7 @@ export default defineComponent({
   padding: 4px;
 
   .k-tree-item-icon {
-    height: 20px;
+    line-height: 1;
   }
 
   &.selected {

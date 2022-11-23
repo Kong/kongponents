@@ -14,9 +14,88 @@ It can be tricky to determine if an item will be placed below an item as a sibli
 
 ## Props
 
+### v-model
+
+`KTreeList` works with v-model for data binding.
+
+<div>
+  <KLabel>Value:</KLabel> {{ myList }}
+  <KTreeList class="mt-2" v-model="myList" />
+  <br>
+  <KButton @click="reset">Reset</KButton>
+</div>
+
+```html
+<template>
+  <KLabel>Value:</KLabel> {{ myList }}
+  <KTreeList v-model="myList" />
+  <KButton @click="reset">Reset</KButton>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  data() {
+    return {
+      myList: [{
+        name: "Cats",
+        id: 'cats'
+        selected: true
+      },
+      {
+        name: "Dogs",
+        id: 'dogs',
+        children: [{
+          name: "Puppies",
+          id: 'puppies'
+        }]
+      },
+      {
+        name: "Bunnies",
+        id: 'bunnies'
+      }]
+    }
+  },
+  methods: {
+    reset() {
+      this.myList = [{
+        name: "Cats",
+        id: 'cats',
+        selected: true
+      },
+      {
+        name: "Dogs",
+        id: 'dogs',
+        children: [{
+          name: "Puppies",
+          id: 'puppies'
+        }]
+      },
+      {
+        name: "Bunnies",
+        id: 'bunnies'
+      }]
+    }
+  }
+})
+</script>
+```
+
 ### items
 
 An array of items that make up the tree.
+
+Item properties:
+- `name` (required) - text displayed as the label for the item
+- `id` (required) - a unique `string` used to identify the item
+- `selected` - boolean to indicate whether the current item is selected or not
+- `icon` - `KIcon` name to be displayed to the left of the item `name` (defaults to `treeDoc`, specify `none` to not display any icon)
+- `children` - an array of items that will be styled as children of the current item
+
+::: danger
+You cannot use `v-model` with the `items` prop. You must use one or the other.
+:::
 
 <KTreeList :items="defaultItems2" />
 
@@ -73,93 +152,6 @@ Use this prop to customize the maximum supported depth of the tree. We default t
 <KTreeList :items="items" :max-level="1" />
 ```
 
-### v-model
-
-`KTreeList` works with v-model for data binding.
-
-::: danger
-You cannot use `v-model` with the `items` prop. You must use one or the other.
-:::
-
-<div>
-  <KLabel>Value:</KLabel> {{ myList }}
-  <KTreeList v-model="myList" />
-  <br>
-  <KButton @click="reset">Reset</KButton>
-</div>
-
-```html
-<template>
-  <KLabel>Value:</KLabel> {{ myList }}
-  <KTreeList v-model="myList" />
-  <KButton @click="reset">Reset</KButton>
-</template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  data() {
-    return {
-      myList: [{
-        name: "Cats",
-        id: 'cats'
-      },
-      {
-        name: "Dogs",
-        id: 'dogs',
-        children: [{
-          name: "Puppies",
-          id: 'puppies'
-        }]
-      },
-      {
-        name: "Bunnies",
-        id: 'bunnies'
-      }]
-    }
-  },
-  methods: {
-    reset() {
-      this.myList = [{
-        name: "Cats",
-        id: 'cats'
-      },
-      {
-        name: "Dogs",
-        id: 'dogs',
-        children: [{
-          name: "Puppies",
-          id: 'puppies'
-        }]
-      },
-      {
-        name: "Bunnies",
-        id: 'bunnies'
-      }]
-    }
-  }
-})
-</script>
-```
-
-## KTreeItem
-
-### Properties
-
-- `name` (required) - text displayed as the label for the item
-- `id` (required) - a unique `string` used to identify the item
-- `selected` - boolean to indicate whether the current item is selected or not
-- `icon` - `KIcon` name to be displayed to the left of the item `name` (defaults to `treeDoc`, specify `none` to not display any icon)
-- `children` - an array of `KTreeItem`'s that will be styled as children of the current item
-
-### Item Slots
-
-- `item-icon` - slot for content displayed to the left of the item name
-- `item-label` - slot for the main content of an item (default's to display the `name` of the item)
-
-See the [Slots section](#Slots) for an example.
-
 ## Slots
 
 `KTreeList` allows you to customize individual tree items via the item slots. These slots return the current `item` data as a slot param.
@@ -210,7 +202,8 @@ export default defineComponent({
       // breaks drag-n-drop functionality
       myList: [{
         name: "Cats",
-        id: 'cats'
+        id: 'cats',
+        selected: true
       },
       {
         name: "Dogs",
@@ -310,7 +303,8 @@ export default defineComponent({
     reset () {
       this.myList = [{
         name: "Cats",
-        id: 'cats'
+        id: 'cats',
+        selected: true
       },
       {
         name: "Dogs",

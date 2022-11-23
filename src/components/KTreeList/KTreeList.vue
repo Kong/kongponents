@@ -20,7 +20,7 @@
           class="k-tree-item-container"
         >
           <KTreeItem
-            :key="`tree-item-${key}`"
+            :key="`tree-item-${element.id}-${key}`"
             :item="element"
             :disabled="disableDrag"
             :class="{
@@ -51,7 +51,8 @@
             </template>
           </KTreeItem>
           <KTreeList
-            :key="`tree-item-children-${key}`"
+            v-if="element.children.length"
+            :key="`tree-item-${element.id}-children-${key}`"
             v-model="element.children"
             :level="level + 1"
             :max-level="maxLevel"
@@ -60,7 +61,6 @@
             @change="handleChangeEvent"
             @selected="handleSelection"
           >
-            <!-- if TS errors appear on these lines switch to `v-slot:` notation and Save to let linter clear -->
             <template #[itemIcon]="slotProps">
               <slot
                 v-bind="slotProps"
@@ -81,6 +81,12 @@
 </template>
 
 <script lang="ts" setup>
+/**
+ *  Note: if TS errors appear on the
+ *  <template #[itemIcon]="slotProps"> or
+ *  <template #[itemLabel]="slotProps">
+ * lines switch to `v-slot:` notation and Save to let linter clear -->
+ */
 import { computed, ref, watch, onMounted, PropType } from 'vue'
 import draggable from 'vuedraggable'
 import KTreeItem, { TreeListItem } from '@/components/KTreeList/KTreeItem.vue'
@@ -98,10 +104,12 @@ const props = defineProps({
   modelValue: {
     type: Array as PropType<TreeListItem[]>,
     default: () => [],
+    validator: (items: TreeListItem[]) => !items.length || items.every(i => i.name !== undefined && i.id !== undefined),
   },
   items: {
     type: Array as PropType<TreeListItem[]>,
     default: null,
+    validator: (items: TreeListItem[]) => !items.length || items.every(i => i.name !== undefined && i.id !== undefined),
   },
   disableDrag: {
     type: Boolean,
@@ -330,6 +338,11 @@ const setDragCursor = (value: boolean) => {
 watch(value, (newVal, oldVal) => {
   if (JSON.stringify(newVal) !== JSON.stringify(oldVal)) {
     internalList.value = newVal
+    internalList.value.forEach((item: TreeListItem) => {
+      if (!item.children) {
+        item.children = []
+      }
+    })
   }
 })
 
@@ -337,14 +350,19 @@ watch(() => props.items, (newValue, oldValue) => {
   // Only trigger the watcher if items actually change
   if (JSON.stringify(newValue) === JSON.stringify(oldValue)) {
     internalList.value = newValue
+    internalList.value.forEach((item: TreeListItem) => {
+      if (!item.children) {
+        item.children = []
+      }
+    })
   }
 })
 
 onMounted(() => {
-  if (props.items) {
-    internalList.value = props.items
-  } else if (props.modelValue) {
+  if (props.modelValue) {
     internalList.value = props.modelValue
+  } else if (props.items) {
+    internalList.value = props.items
   }
 
   internalList.value.forEach((item: TreeListItem) => {
