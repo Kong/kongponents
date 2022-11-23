@@ -394,7 +394,7 @@ onMounted(() => {
 .k-tree-list {
   &.dragging {
     .child-drop-zone .k-tree-item-container:hover {
-      background-color: var(--grey-100);
+     /*  background-color: var(--grey-100); */
     }
   }
 
@@ -410,7 +410,6 @@ onMounted(() => {
 
   // style while dragging an item
  .k-tree-item-dragged {
-    background-color: var(--white);
     border-bottom: 4px solid var(--teal-200);
   }
 
