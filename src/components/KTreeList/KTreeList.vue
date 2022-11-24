@@ -151,19 +151,14 @@ onMounted(() => {
 <style lang="scss" scoped>
 @import '@/styles/variables';
 @import '@/styles/functions';
-
-.k-tree-list > ol > .k-tree-item-container {
-  &:before {
-    display: none;
-  }
-  &:after {
-    display: none;
-  }
-}
 </style>
 
 <style lang="scss">
-.k-tree-list > ol > .k-tree-item-container {
+.k-tree-list ol {
+  margin: 0;
+  padding: 0;
+}
+.k-tree-list > .ktree > .k-tree-item-container {
   &:before {
     display: none;
   }

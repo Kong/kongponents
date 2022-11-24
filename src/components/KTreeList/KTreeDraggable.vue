@@ -1,80 +1,78 @@
 <template>
-  <div class="k-tree-draggable">
-    <VueDraggableNext
-      v-bind="draggableAttrs"
-      :disabled="disableDrag"
-      :list="internalList"
-      :group="{ name: 'k-tree-list', put: !maxLevelReached }"
-      :move="checkMove"
-      :level="level"
-      :sort="false"
-      tag="ol"
-      class="ktree"
-      @start="onStartDrag"
-      @end="onStopDrag"
-      @change="handleChangeEvent"
+  <VueDraggableNext
+    v-bind="draggableAttrs"
+    :disabled="disableDrag"
+    :list="internalList"
+    :group="{ name: 'k-tree-list', put: !maxLevelReached }"
+    :move="checkMove"
+    :level="level"
+    :sort="false"
+    tag="ol"
+    class="ktree"
+    @start="onStartDrag"
+    @end="onStopDrag"
+    @change="handleChangeEvent"
+  >
+    <div
+      v-for="element in internalList"
+      :key="element.id"
+      class="k-tree-item-container"
     >
-      <div
-        v-for="element in internalList"
-        :key="element.id"
-        class="k-tree-item-container"
+      <KTreeItem
+        :key="`tree-item-${element.id}-${key}`"
+        :item="element"
+        :disabled="disableDrag"
+        :class="{
+          'has-children': hasChildren(element)
+        }"
+        @selected="handleSelectionEvent"
       >
-        <KTreeItem
-          :key="`tree-item-${element.id}-${key}`"
-          :item="element"
-          :disabled="disableDrag"
-          :class="{
-            'has-children': hasChildren(element)
-          }"
-          @selected="handleSelectionEvent"
-        >
-          <template #item-icon>
-            <slot
-              :item="element"
-              name="item-icon"
-            >
-              <KIcon
-                v-if="element.icon !== 'none'"
-                :icon="element.icon ? element.icon : 'treeDoc'"
-                :secondary-color="iconSecondaryColor(element)"
-                size="24"
-              />
-            </slot>
-          </template>
-          <template #item-label>
-            <slot
-              :item="element"
-              name="item-label"
-            >
-              {{ element.name }}
-            </slot>
-          </template>
-        </KTreeItem>
-        <KTreeDraggable
-          :key="`tree-item-${element.id}-children-${key}`"
-          :items="element.children"
-          :level="level + 1"
-          :max-level="maxLevel"
-          :disable-drag="disableDrag"
-          :parent-id="element.id"
-          @selected="handleSelectionEvent"
-        >
-          <template #[itemIcon]="slotProps">
-            <slot
-              v-bind="slotProps"
-              name="item-icon"
+        <template #item-icon>
+          <slot
+            :item="element"
+            name="item-icon"
+          >
+            <KIcon
+              v-if="element.icon !== 'none'"
+              :icon="element.icon ? element.icon : 'treeDoc'"
+              :secondary-color="iconSecondaryColor(element)"
+              size="24"
             />
-          </template>
-          <template #[itemLabel]="slotProps">
-            <slot
-              v-bind="slotProps"
-              name="item-label"
-            />
-          </template>
-        </KTreeDraggable>
-      </div>
-    </VueDraggableNext>
-  </div>
+          </slot>
+        </template>
+        <template #item-label>
+          <slot
+            :item="element"
+            name="item-label"
+          >
+            {{ element.name }}
+          </slot>
+        </template>
+      </KTreeItem>
+      <KTreeDraggable
+        :key="`tree-item-${element.id}-children-${key}`"
+        :items="element.children"
+        :level="level + 1"
+        :max-level="maxLevel"
+        :disable-drag="disableDrag"
+        :parent-id="element.id"
+        @selected="handleSelectionEvent"
+      >
+        <template #[itemIcon]="slotProps">
+          <slot
+            v-bind="slotProps"
+            name="item-icon"
+          />
+        </template>
+        <template #[itemLabel]="slotProps">
+          <slot
+            v-bind="slotProps"
+            name="item-label"
+          />
+        </template>
+      </KTreeDraggable>
+    </div>
+  </VueDraggableNext>
 </template>
 
 <script lang="ts" setup>
@@ -271,11 +269,11 @@ onMounted(() => {
 @import '@/styles/variables';
 @import '@/styles/functions';
 
-.k-tree-draggable {
+.ktree {
   .child-drop-zone {
     // this is the height of the area you can drop an item in
     // to make it the child of another item
-    min-height: 4px;
+    min-height: 10px;
   }
 
   .has-children {
@@ -303,8 +301,8 @@ onMounted(() => {
   .k-tree-item-container {
     $border: var(--grey-200);
     $left: -($indent);
-    margin: 5px 0 0 5px;
     position: relative;
+    margin: 5px 0 0 5px;
 
     &:before {
       content: "";
