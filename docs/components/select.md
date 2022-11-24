@@ -2,9 +2,9 @@
 
 **Select** - Select input component
 
-<div>
+<ClientOnly>
   <KSelect label="Pick Something:" :items="deepClone(defaultItemsUnselect)" />
-</div>
+</ClientOnly>
 
 ```html
 <KSelect label="Pick Something:" :items="items" />
@@ -18,9 +18,9 @@ An array of items containing a `label` and `value`. You may also specify:
 - a certain item is `selected` by default
 - a certain item is `disabled`
 
-<div>
+<ClientOnly>
   <KSelect :items="deepClone(defaultItemsWithDisabled)" />
-</div>
+</ClientOnly>
 
 ```html
 <KSelect :items="[{
@@ -42,9 +42,9 @@ An array of items containing a `label` and `value`. You may also specify:
 
 The label for the select.
 
-<div>
+<ClientOnly>
   <KSelect label="Cool label" :items="deepClone(defaultItemsUnselect)" />
-</div>
+</ClientOnly>
 
 ```html
 <KSelect label="Cool label" :items="items" />
@@ -54,10 +54,12 @@ The label for the select.
 
 Enable this prop to overlay the label on the input element's border for `select` and `dropdown` appearances. Defaults to `false`.
 
-<KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" class="mt-5" />
-<KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" appearance="select" :items="deepClone(defaultItemsUnselect)" class="mt-5" />
-<KSelect label="Disabled" disabled placeholder="I'm disabled!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" class="mt-5" />
-<KSelect label="Readonly" readonly placeholder="I'm readonly!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" class="mt-5" />
+<ClientOnly>
+  <KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" class="mt-5" />
+  <KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" appearance="select" :items="deepClone(defaultItemsUnselect)" class="mt-5" />
+  <KSelect label="Disabled" disabled placeholder="I'm disabled!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" class="mt-5" />
+  <KSelect label="Readonly" readonly placeholder="I'm readonly!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" class="mt-5" />
+</ClientOnly>
 
 ```html
 <KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" :items="items" />
@@ -70,14 +72,14 @@ Enable this prop to overlay the label on the input element's border for `select`
 
 Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label) if using the `label` prop.
 
-<div>
+<ClientOnly>
   <KSelect label="Name" :label-attributes="{
       help: 'I use the KLabel `help` prop',
       'data-testid': 'test'
     }"
     :items="defaultItemsUnselect"
   />
-</div>
+</ClientOnly>
 
 ```html
 <KSelect
@@ -96,9 +98,9 @@ There are three styles of selects, `select` and `dropdown` (default) which are f
 
 The `dropdown` appearance style has a selected item object. You can deselect the item by clicking the Clear icon.
 
-<div>
+<ClientOnly>
   <KSelect :items="deepClone(defaultItems)" />
-</div>
+</ClientOnly>
 
 ```html
 <KSelect :items="items" />
@@ -107,9 +109,9 @@ The `dropdown` appearance style has a selected item object. You can deselect the
 The `select` style displays the selected item in the text box and also displays a chevron. To allow deselecting the item, you need to
 set the `clearable` prop to `true`. See [clearable](#clearable) for an example.
 
-<div>
+<ClientOnly>
   <KSelect appearance="select" :items="deepClone(defaultItems)" />
-</div>
+</ClientOnly>
 
 ```html
 <KSelect appearance="select" :items="items" />
@@ -117,9 +119,9 @@ set the `clearable` prop to `true`. See [clearable](#clearable) for an example.
 
 The `button` style triggers the dropdown on click and you cannot filter the entries.
 
-<div>
+<ClientOnly>
   <KSelect appearance="button" :items="deepClone(defaultItems)" />
-</div>
+</ClientOnly>
 
 ```html
 <KSelect appearance="button" :items="items" />
@@ -129,9 +131,9 @@ The `button` style triggers the dropdown on click and you cannot filter the entr
 
 The `clearable` prop is used to enable deselecting the selected item when `appearance` is `'select'`. Defaults to `false`.
 
-<div>
+<ClientOnly>
   <KSelect appearance="select" :items="deepClone(defaultItems)" clearable />
-</div>
+</ClientOnly>
 
 ```html
 <KSelect appearance="select" :items="items" clearable />
@@ -141,9 +143,9 @@ The `clearable` prop is used to enable deselecting the selected item when `appea
 
 You can configure the button text when an item is selected, if `appearance` is type `button`.
 
-<div>
+<ClientOnly>
   <KSelect appearance="button" width="225" @selected="item => handleItemSelect(item)" :buttonText="`Show ${mySelect} per page`" :items="items" />
-</div>
+</ClientOnly>
 
 ```html
 <KSelect
@@ -188,10 +190,10 @@ Currently we support numbers (will be converted to `px`), `auto`, and percentage
 Because we are controlling the widths of multiple elements, we recommend using this prop to control the width instead of explicitly adding classes or styles to the `KSelect` component.
 :::
 
-<div>
+<ClientOnly>
   <KSelect width="350" :items="deepClone(defaultItemsUnselect)"
   />
-</div>
+</ClientOnly>
 
 ```html
 <KSelect width="350" :items="items" />
@@ -201,9 +203,9 @@ Because we are controlling the widths of multiple elements, we recommend using t
 
 You can pass a `dropdownMaxHeight` string for the dropdown. By default, the `dropdownMaxHeight` is `300px`. This is the maximum height of the `KSelect` dropdown when open. You can pass a number (will be converted to `px`), `auto`, percentages, or `vh` units.
 
-<div>
+<ClientOnly>
   <KSelect width="250" :items="deepClone(defaultItemsLongList)" dropdown-max-height="150" />
-</div>
+</ClientOnly>
 
 ```html
 <KSelect width="250" :items="items" dropdown-max-height="150" />
@@ -219,10 +221,10 @@ Use this prop to control whether or not the `KSelect` component with an `appeara
 
 `button` style `appearance` does not have filter support because it is a button.
 
-<div>
+<ClientOnly>
   <KSelect :items="deepClone(defaultItemsUnselect)" :enable-filtering="false" class="mb-2" />
   <KSelect :items="deepClone(defaultItemsUnselect)" appearance="select" :enable-filtering="true" />
-</div>
+</ClientOnly>
 
 ```html
 <KSelect :items="items" :enable-filtering="false" />
@@ -251,12 +253,12 @@ See [autosuggest](#autosuggest) for more details.
 
 `KSelect` works as regular inputs do using v-model for data binding:
 
-<div>
+<ClientOnly>
   <KLabel>Value:</KLabel> {{ myVal }}
   <KSelect v-model="myVal" :items="deepClone(defaultItems)" />
   <br>
   <KButton @click="clearIt">Clear</KButton>
-</div>
+</ClientOnly>
 
 ```html
 <div>
@@ -288,24 +290,26 @@ export default defineComponent({
 Add the `autosuggest` prop to trigger a query to an API with the filter keyword, and then update `items` asynchronously as suggestions as the user types.
 Loading and empty state content can be configured using the `loading` and `empty` slots.
 
-<KSelect autosuggest
-  :items="itemsForAutosuggest"
-  :loading="loading"
-  width="300px"
-  appearance="select"
-  @query-change="onQueryChange"
->
-  <template v-slot:item-template="{ item }">
-    <div class="select-item-label">{{ item.label }}</div>
-    <div class="select-item-desc">{{ item.description }}</div>
-  </template>
-  <template v-slot:loading>
-    <div>Loading...</div>
-  </template>
-  <template v-slot:empty>
-    <div>No results found</div>
-  </template>
-</KSelect>
+<ClientOnly>
+  <KSelect autosuggest
+    :items="itemsForAutosuggest"
+    :loading="loading"
+    width="300px"
+    appearance="select"
+    @query-change="onQueryChange"
+  >
+    <template v-slot:item-template="{ item }">
+      <div class="select-item-label">{{ item.label }}</div>
+      <div class="select-item-desc">{{ item.description }}</div>
+    </template>
+    <template v-slot:loading>
+      <div>Loading...</div>
+    </template>
+    <template v-slot:empty>
+      <div>No results found</div>
+    </template>
+  </KSelect>
+</ClientOnly>
 
 ```html
 <KSelect
@@ -380,18 +384,20 @@ If you need to send API requests in the `query-change` event handler, you may wa
 The following is an example:
 :::
 
-<KSelect autosuggest
-  :items="itemsForDebouncedAutosuggest"
-  :loading="loadingForDebounced"
-  width="300px"
-  appearance="select"
-  @query-change="onQueryChangeForDebounced"
->
-  <template v-slot:item-template="{ item }">
-    <div class="select-item-label">{{ item.label }}</div>
-    <div class="select-item-desc">{{ item.label }}</div>
-  </template>
-</KSelect>
+<ClientOnly>
+  <KSelect autosuggest
+    :items="itemsForDebouncedAutosuggest"
+    :loading="loadingForDebounced"
+    width="300px"
+    appearance="select"
+    @query-change="onQueryChangeForDebounced"
+  >
+    <template v-slot:item-template="{ item }">
+      <div class="select-item-label">{{ item.label }}</div>
+      <div class="select-item-desc">{{ item.label }}</div>
+    </template>
+  </KSelect>
+</ClientOnly>
 
 ```html
 <KSelect
@@ -407,6 +413,7 @@ The following is an example:
     <div class="select-item-desc">{{ item.label }}</div>
   </template>
 </KSelect>
+
 <script>
 function debounce(func, timeout) {
   let timer;
@@ -475,9 +482,9 @@ See [autosuggest](#autosuggest) for an example.
 
 You can pass any input attribute and it will get properly bound to the element.
 
-<div>
+<ClientOnly>
   <KSelect disabled placeholder="type something" :items="[{ label: 'test', value: 'test' }]" />
-</div>
+</ClientOnly>
 
 ```html
 <KSelect disabled placeholder="type something" :items="[{ label: 'test', value: 'test' }]" />
@@ -494,22 +501,24 @@ You can use the `item-template` slot to customize the look and feel of your item
 
 If you use the `.select-item-label` and `.select-item-desc` classes within the slot as shown in the example below, the dropdown items will inherit preconfigured styles for two-level select items which you're then free to customize.
 
-<div>
+<ClientOnly>
   <KSelect :items="myItems" width="100%" :filterFunc="customFilter">
     <template v-slot:item-template="{ item }">
       <div class="select-item-label">{{ item.label }}</div>
       <div class="select-item-desc">{{ item.description }}</div>
     </template>
   </KSelect>
-</div>
+</ClientOnly>
 
 ```html
-<KSelect :items="myItems" width="100%" :filterFunc="customFilter">
-  <template v-slot:item-template="{ item }">
-    <div class="select-item-label">{{ item.label }}</div>
-    <div class="select-item-desc">{{ item.description }}</div>
-  </template>
-</KSelect>
+<template>
+  <KSelect :items="myItems" width="100%" :filterFunc="customFilter">
+    <template v-slot:item-template="{ item }">
+      <div class="select-item-label">{{ item.label }}</div>
+      <div class="select-item-desc">{{ item.description }}</div>
+    </template>
+  </KSelect>
+</template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
