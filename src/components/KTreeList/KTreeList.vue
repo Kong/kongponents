@@ -152,12 +152,25 @@ onMounted(() => {
 @import '@/styles/variables';
 @import '@/styles/functions';
 
-.k-tree-list {
- //
+.k-tree-list > ol > .k-tree-item-container {
+  &:before {
+    display: none;
+  }
+  &:after {
+    display: none;
+  }
 }
 </style>
 
 <style lang="scss">
+.k-tree-list > ol > .k-tree-item-container {
+  &:before {
+    display: none;
+  }
+  &:after {
+    display: none;
+  }
+}
 // override cursor as grabbing when an item is being dragged
 .k-tree-list-grabbing *,
 .k-tree-item-grabbing * {

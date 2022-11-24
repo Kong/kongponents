@@ -8,6 +8,8 @@
       :move="checkMove"
       :level="level"
       :sort="false"
+      tag="ol"
+      class="ktree"
       @start="onStartDrag"
       @end="onStopDrag"
       @change="handleChangeEvent"
@@ -15,10 +17,6 @@
       <div
         v-for="element in internalList"
         :key="element.id"
-        :style="indentStyle"
-        :class="{
-          'non-root': level !== 0
-        }"
         class="k-tree-item-container"
       >
         <KTreeItem
@@ -160,12 +158,12 @@ const hasChildren = (item: TreeListItem): boolean => {
   return !!internalList.value.filter(anItem => anItem.id === item.id)?.[0].children?.length
 }
 
-const indentStyle = computed((): Record<string, any> => {
+/* const indentStyle = computed((): Record<string, any> => {
   const level1offset = props.level === 1 ? 6 : 0
   return {
     marginLeft: 8 * props.level + level1offset + 'px',
   }
-})
+}) */
 
 const iconSecondaryColor = (item: TreeListItem): string | undefined => {
   if (item.icon === 'treeDoc' || !item.icon) {
@@ -296,10 +294,16 @@ onMounted(() => {
     cursor: grabbing !important; /* W3C standards syntax, should come least */
   }
 
-  .k-tree-item-container.non-root {
+  $indent: 8px;
+  ol {
+  margin-left: $indent;
+  counter-reset: item;
+}
+
+  .k-tree-item-container {
     $border: var(--grey-200);
-    $indent: 8px;
     $left: -($indent);
+    margin: 5px 0 0 5px;
     position: relative;
 
     &:before {
@@ -321,6 +325,9 @@ onMounted(() => {
       border-left: 1px solid $border;
       width: $indent;
       height: 100%;
+    }
+    &:first-child {
+      padding-top: 10px;
     }
     &:last-child:after {
       display: none;
