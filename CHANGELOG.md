@@ -1,3 +1,10 @@
+## [8.6.2](https://github.com/Kong/kongponents/compare/v8.6.1...v8.6.2) (2022-11-24)
+
+
+### Bug Fixes
+
+* **kselect:** remove box shadow on `.k-select-input` ([#927](https://github.com/Kong/kongponents/issues/927)) ([0475e4e](https://github.com/Kong/kongponents/commit/0475e4e1a786dc34176bc1c4d49d3e362aa6eabe))
+
 ## [8.6.1](https://github.com/Kong/kongponents/compare/v8.6.0...v8.6.1) (2022-11-22)
 
 
