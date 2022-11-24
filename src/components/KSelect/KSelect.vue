@@ -699,15 +699,15 @@ export default defineComponent({
   }
 
   .k-select-input {
+    @include input-default;
     position: relative;
     display: inline-block;
     width: 100%;
     box-shadow: none !important;
-    @include input-default;
 
     &.is-readonly {
-      box-shadow: none !important;
       @include input-readonly;
+      box-shadow: none !important;
 
       &.select-input-container {
         input.k-input.form-control:not([type="checkbox"]):not([type="radio"]):not([type="file"]):read-only {
