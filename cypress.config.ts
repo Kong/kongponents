@@ -1,4 +1,5 @@
 import { defineConfig } from 'cypress'
+import { initPlugin } from '@frsource/cypress-plugin-visual-regression-diff/plugins'
 
 export default defineConfig({
   component: {
@@ -10,6 +11,14 @@ export default defineConfig({
     viewportWidth: 1366,
     specPattern: 'src/**/*.cy.ts',
     supportFile: 'cypress/support/index.ts',
+    env: {
+      pluginVisualRegressionDiffConfig: { threshold: 0.01 },
+      pluginVisualRegressionUpdateImages: true,
+      pluginVisualRegressionCleanupUnusedImages: true,
+    },
+    setupNodeEvents(on, config) {
+      initPlugin(on, config)
+    },
   },
   includeShadowDom: true,
   fixturesFolder: 'cypress/fixtures',

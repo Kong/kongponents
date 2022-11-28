@@ -67,6 +67,7 @@
     "@commitlint/config-conventional": "^16.2.4",
     "@cypress/vite-dev-server": "^4.0.1",
     "@digitalroute/cz-conventional-changelog-for-jira": "^7.3.1",
+    "@frsource/cypress-plugin-visual-regression-diff": "^3.1.7",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
     "@types/inquirer": "^8.2.3",

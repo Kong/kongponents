@@ -1,6 +1,7 @@
 import { mount } from 'cypress/vue'
 import { App, ComputedOptions } from 'vue'
 import Chainable = Cypress.Chainable
+import '@frsource/cypress-plugin-visual-regression-diff/dist/support'
 // Import Kongponent styles
 import '@/styles/styles.scss'
 

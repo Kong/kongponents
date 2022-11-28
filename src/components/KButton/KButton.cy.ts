@@ -13,6 +13,7 @@ const rendersCorrectAppearance = (variant: string) => {
     })
 
     cy.get('.k-button').should('have.class', variant)
+    cy.get('.k-button').matchImage()
   })
 }
 
@@ -31,6 +32,7 @@ describe('KButton', () => {
     })
 
     cy.get('.k-button').should('have.class', 'small')
+    cy.get('.k-button').matchImage()
   })
 
   it('sets medium class when size passed', () => {
@@ -44,6 +46,7 @@ describe('KButton', () => {
     })
 
     cy.get('.k-button').should('have.class', 'medium')
+    cy.get('.k-button').matchImage()
   })
 
   it('sets large class when size passed', () => {
@@ -57,6 +60,7 @@ describe('KButton', () => {
     })
 
     cy.get('.k-button').should('have.class', 'large')
+    cy.get('.k-button').matchImage()
   })
 
   it('renders a native link with KButton styles', () => {
@@ -72,6 +76,7 @@ describe('KButton', () => {
 
     cy.get('a').should('have.class', 'k-button').and('have.class', 'secondary')
     cy.get('a').invoke('attr', 'href').should('eq', 'https://google.com')
+    cy.get('a').matchImage()
   })
 
   it('renders an icon when using icon prop', () => {
@@ -85,6 +90,7 @@ describe('KButton', () => {
     })
 
     cy.get('.k-button .k-button-icon').should('be.visible')
+    cy.get('.k-button').matchImage()
   })
 
   it('renders an icon when using icon slot', () => {
