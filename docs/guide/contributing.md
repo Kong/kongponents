@@ -105,7 +105,7 @@ Although the CLI will create a file in the docs directory, the new doc file **is
 
 Add the component to the desired location in the sidebar
 
-```ts{10-15}
+```ts{11-16}
 // docs/.vitepress/config.ts
 
 sidebar: {
@@ -119,7 +119,7 @@ sidebar: {
         {
           // The name of the rendered element, e.g. "Alert"
           text: '{Component Name}',
-          // The name of the `.md` markdown file, without the extension
+          // The name of the `.md` markdown file without the extension, e.g. "/components/alert.md"
           link: '/components/{component-name}',
         },
         ...
@@ -136,6 +136,63 @@ When importing type declarations or interfaces, you **must** use a relative path
 ```ts
 import { StepperState } from './KStepState.vue'
 ```
+
+## Testing your component
+
+You're free to play around with your component on the local instance of the docs site by running `yarn docs:dev`; however, you may also want to test your local changes in a consuming application.
+
+1. Run `yarn link` from the root of the Kongponents repository
+
+    ```sh
+    yarn link
+
+    yarn link v1.22.17
+    success Registered "@kong/kongponents".
+    info You can now run `yarn link "@kong/kongponents"` in the projects where you want to use this package and it will be used instead.
+    ✨  Done in 0.04s.
+    ```
+
+1. Build the Kongponents package
+
+    ```sh
+    yarn build:kongponents
+    ```
+1. As the instructions above outline, next, inside your consuming application, run `yarn link "@kong/kongponents"`
+
+    ```sh
+    yarn link "@kong/kongponents"
+
+    yarn link v1.22.19
+    success Using linked package for "@kong/kongponents".
+    ✨  Done in 0.04s.
+    ```
+
+    Now that the dependency is linked, your local project will utilize the local build.
+
+    :::tip TIP
+    If your project utilizes Vite, you may need to dedupe your dependency tree to avoid errors when running locally. Inside your `vite.config.ts` file, insert the following configuration:
+
+    ```ts{5}
+    export default defineConfig({
+      resolve: {
+        // Use this option to force Vite to always resolve listed dependencies to the same copy (from project root)
+        // Allows utilizing `yarn link "{package-name}"` without throwing errors
+        dedupe: ['vue']
+      },
+    })
+    ```
+    :::
+
+1. When you're finished testing, don't forget to run `yarn unlink` inside the Kongponents directory.
+
+    ```sh
+    yarn unlink
+
+    yarn unlink v1.22.17
+    success Unregistered "@kong/kongponents".
+    info You can now run `yarn unlink "@kong/kongponents"` in the projects where you no longer want to use this package.
+    ✨  Done in 0.04s.
+    ```
 
 ## Committing Changes
 
