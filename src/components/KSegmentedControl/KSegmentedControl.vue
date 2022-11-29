@@ -96,14 +96,14 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .segmented-control {
-  column-gap: var(--KSegmentGap, 0px);
+  gap: var(--KSegmentGap, 0px);
 
-  .k-button {
+  :deep(.k-button) {
     --KButtonPrimaryBase: var(--KSegmentSelectedBackground, var(--blue-100));
     --KButtonPrimaryHover: var(--KSegmentSelectedBackground, var(--blue-100));
     --KButtonOutlineHoverBorder: var(--KSegmentSelectedBorder, var(--blue-500));
     --KButtonOutlineBorder: var(--KSegmentUnselectedBorder);
-    color: var(--KSegmentTextColor, var(--blue-500));
+    color: var(--KSegmentText, var(--blue-500));
     border-radius: 0;
     margin-left: -1px;
     flex: 1;

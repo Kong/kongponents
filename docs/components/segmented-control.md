@@ -185,7 +185,7 @@ export default defineComponent({
 
 | Variable | Purpose
 |:-------- |:-------
-| `--KSegmentTextColor` | Option text color
+| `--KSegmentText` | Option text color
 | `--KSegmentSelectedBackground` | Option background color when selected
 | `--KSegmentSelectedBorder` | Option border color when selected
 | `--KSegmentUnselectedBorder` | Option border color when not selected
@@ -216,7 +216,7 @@ An Example of changing the KSegmentedControl to a purple theme instead of blue m
 
 <style>
 .purple-segment {
-  --KSegmentTextColor: var(--purple-400);
+  --KSegmentText: var(--purple-400);
   --KSegmentSelectedBackground: var(--purple-100);
   --KSegmentSelectedBorder: var(--purple-300);
   --KSegmentUnselectedBorder: var(--purple-200);
@@ -227,7 +227,7 @@ An Example of changing the KSegmentedControl to a purple theme instead of blue m
 
 <style scoped lang="scss">
 .purple-segment {
-  --KSegmentTextColor: var(--purple-400);
+  --KSegmentText: var(--purple-400);
   --KSegmentSelectedBackground: var(--purple-100);
   --KSegmentSelectedBorder: var(--purple-300);
   --KSegmentUnselectedBorder: var(--purple-200);
