@@ -1,3 +1,11 @@
+## [8.6.4](https://github.com/Kong/kongponents/compare/v8.6.3...v8.6.4) (2022-11-29)
+
+
+### Bug Fixes
+
+* **kfileupload:** hide native button in firefox [KHCP-5462] ([#936](https://github.com/Kong/kongponents/issues/936)) ([6d1d174](https://github.com/Kong/kongponents/commit/6d1d17482f31b81d686e5e500251d0fad43821ca))
+* **kprompt:** kprompt is closed when prevent-proceed-on-enter is set [KHCP-5444] ([#921](https://github.com/Kong/kongponents/issues/921)) ([b235428](https://github.com/Kong/kongponents/commit/b23542838e9acaa6874e578c7ee90e62b9362830))
+
 ## [8.6.3](https://github.com/Kong/kongponents/compare/v8.6.2...v8.6.3) (2022-11-29)
 
 
