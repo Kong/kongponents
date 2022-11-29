@@ -6,9 +6,8 @@
     :group="{ name: 'k-tree-list', put: !maxLevelReached }"
     :move="checkMove"
     :level="level"
-    :sort="false"
-    tag="ol"
-    class="ktree"
+    tag="div"
+    class="k-tree-draggable"
     @start="onStartDrag"
     @end="onStopDrag"
     @change="handleChangeEvent"
@@ -16,15 +15,15 @@
     <div
       v-for="element in internalList"
       :key="element.id"
+      :class="{
+        'has-no-children': hasNoChildren(element)
+      }"
       class="k-tree-item-container"
     >
       <KTreeItem
         :key="`tree-item-${element.id}-${key}`"
         :item="element"
         :disabled="disableDrag"
-        :class="{
-          'has-children': hasChildren(element)
-        }"
         @selected="handleSelectionEvent"
       >
         <template #item-icon>
@@ -152,23 +151,16 @@ const dragging = ref(false)
 const itemIcon = 'item-icon'
 const itemLabel = 'item-label'
 
-const hasChildren = (item: TreeListItem): boolean => {
-  return !!internalList.value.filter(anItem => anItem.id === item.id)?.[0].children?.length
-}
-
-/* const indentStyle = computed((): Record<string, any> => {
-  const level1offset = props.level === 1 ? 6 : 0
-  return {
-    marginLeft: 8 * props.level + level1offset + 'px',
-  }
-}) */
-
 const iconSecondaryColor = (item: TreeListItem): string | undefined => {
   if (item.icon === 'treeDoc' || !item.icon) {
     return item.selected ? 'var(--teal-200)' : 'var(--grey-200)'
   }
 
   return undefined
+}
+
+const hasNoChildren = (item: TreeListItem): boolean => {
+  return !internalList.value.filter(anItem => anItem.id === item.id)?.[0].children?.length
 }
 
 const handleChangeEvent = (): void => {
@@ -269,63 +261,74 @@ onMounted(() => {
 @import '@/styles/variables';
 @import '@/styles/functions';
 
-.ktree {
+.k-tree-draggable {
+  --KTreeDropZoneHeight: 4px;
   .child-drop-zone {
     // this is the height of the area you can drop an item in
     // to make it the child of another item
-    min-height: 10px;
-  }
-
-  .has-children {
-    margin-bottom: 4px;
+    min-height: var(--KTreeDropZoneHeight);
   }
 
   // style while dragging an item
  .k-tree-item-dragged {
-    border-bottom: 4px solid var(--teal-200);
+    cursor: move !important; /* fallback: no `url()` support or images disabled */
+    cursor: grabbing !important; /* W3C standards syntax, should come least */
+
+    .has-no-children .child-drop-zone:last-of-type {
+      background-color: var(--teal-200);
+      min-height: 4px;
+      margin-left: 0;
+      border-radius: 100px;
+    }
+
+    &:after {
+      display: none;
+    }
   }
 
   // hide the see-through duplicate
   .k-tree-item-grabbing {
     display: none;
-    cursor: move !important; /* fallback: no `url()` support or images disabled */
-    cursor: grabbing !important; /* W3C standards syntax, should come least */
   }
 
-  $indent: 8px;
-  ol {
-  margin-left: $indent;
-  counter-reset: item;
-}
+  $indent: 16px;
+  $bar: 12px;
+  .k-tree-draggable {
+    margin-left: $indent;
+    counter-reset: item;
+  }
 
   .k-tree-item-container {
     $border: var(--grey-200);
-    $left: -($indent);
+    $barLeft: -($bar);
+    $dropZoneHalved: calc(var(--KTreeDropZoneHeight) / 2);
     position: relative;
-    margin: 5px 0 0 5px;
+    margin: $dropZoneHalved 0 0 $dropZoneHalved;
 
+    // child connecting lines
     &:before {
       content: "";
       position: absolute;
-      top: -5px;
-      left: $left;
+      top: calc($dropZoneHalved * -1);
+      left: $barLeft;
       border-left: 1px solid $border;
       border-bottom: 1px solid $border;
       border-radius: 0 0 0 5px;
-      width: $indent;
-      height: 20px;
+      width: $bar;
+      height: calc(var(--KTreeDropZoneHeight) + 20px);
     }
+    // connects siblings
     &:after {
       position: absolute;
       content: "";
-      top: 12px;
-      left: $left;
+      top: calc(var(--KTreeDropZoneHeight) + 2px);
+      left: $barLeft;
       border-left: 1px solid $border;
-      width: $indent;
+      width: $bar;
       height: 100%;
     }
     &:first-child {
-      padding-top: 10px;
+      padding-top: var(--KTreeDropZoneHeight);
     }
     &:last-child:after {
       display: none;
