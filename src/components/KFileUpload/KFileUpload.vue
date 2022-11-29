@@ -293,7 +293,7 @@ export default defineComponent({
     height: 29px;
   }
 
-  // To hide the thumbnail that appears in Safari after uploading a file
+  // To hide the button and thumbnail that appears in Safari and firefox after uploading a file
   :deep(.k-input-wrapper) input[type="file"]::-webkit-file-upload-button,
   :deep(.k-input-wrapper) input[type="file"]::file-selector-button {
     position: absolute;
