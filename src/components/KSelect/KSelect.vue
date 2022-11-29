@@ -85,7 +85,12 @@
           <div
             v-else
             :id="selectInputId"
-            :class="{ 'k-select-input': appearance === 'select', 'no-filter': !filterIsEnabled, 'is-readonly': ($attrs.readonly !== undefined && String($attrs.readonly) !== 'false') }"
+            :class="{
+              'k-select-input': appearance === 'select',
+              'no-filter': !filterIsEnabled,
+              'is-readonly': ($attrs.readonly !== undefined && String($attrs.readonly) !== 'false'),
+              'is-open': isToggled.value
+            }"
             data-testid="k-select-input"
             class="select-input-container"
             style="position: relative;"
@@ -772,11 +777,32 @@ export default defineComponent({
     display: flex;
     align-items: center;
     flex-direction: row-reverse;
-    border: 1px solid var(--grey-300) !important;
-    box-shadow: none !important;
+    border: 1px solid var(--grey-300);
+    border-radius: 3px;
+    transition: all 0.1s ease;
+
+    .k-input-wrapper  {
+      border-radius: 3px;
+    }
 
     input.k-input {
       box-shadow: none !important;
+    }
+
+    &:hover {
+      border-color: var(--KInputHover, var(--blue-200));
+
+      .text-on-input label {
+        color: var(--KInputHover, var(--blue-500));
+      }
+    }
+
+    &.is-open {
+      border-color: var(--KInputFocus, var(--blue-400));
+
+      .text-on-input label {
+        color: var(--KInputHover, var(--blue-500));
+      }
     }
   }
 
