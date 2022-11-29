@@ -99,25 +99,25 @@ export default defineComponent({
   gap: var(--KSegmentGap, 0px);
 
   :deep(.k-button) {
-    --KButtonPrimaryBase: var(--KSegmentSelectedBackground, var(--blue-100));
-    --KButtonPrimaryHover: var(--KSegmentSelectedBackground, var(--blue-100));
-    --KButtonSecondaryBase: var(--KSegmentUnselectedBackground, var(--white));
-    --KButtonSecondaryHover: var(--KSegmentUnselectedBackground, var(--white));
-    color: var(--KSegmentText, var(--blue-500));
+    --KButtonPrimaryBase: var(--KSegmentedControlSelectedBackground, var(--blue-100));
+    --KButtonPrimaryHover: var(--KKSegmentedControlSelectedBackground, var(--blue-100));
+    --KButtonSecondaryBase: var(--KSegmentedControlUnselectedBackground, var(--white));
+    --KButtonSecondaryHover: var(--KSegmentedControlUnselectedBackground, var(--white));
+    color: var(--KSegmentedControlText, var(--blue-500));
     border-radius: 0;
     margin-left: -1px;
     flex: 1;
 
     &.primary {
       z-index: 1;
-      border-color: var(--KSegmentSelectedBorder, var(--blue-500));
+      border-color: var(--KSegmentedControlSelectedBorder, var(--blue-500));
     }
 
     &.secondary {
-      border-color: var(--KSegmentUnselectedBorder, rgba(color(blue-500), .4));
+      border-color: var(--KSegmentedControlUnselectedBorder, rgba(color(blue-500), .4));
 
       &:hover {
-        border-color: var(--KSegmentSelectedBorder, var(--blue-500));
+        border-color: var(--KSegmentedControlSelectedBorder, var(--blue-500));
       }
     }
 
@@ -131,7 +131,7 @@ export default defineComponent({
 
     &:focus {
       z-index: 3;
-      box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--KSegmentSelectedBorder, var(--blue-500));
+      box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--KSegmentedControlSelectedBorder, var(--blue-500));
     }
 
     &:first-child {
@@ -150,7 +150,7 @@ export default defineComponent({
 
     &:disabled, &:disabled:hover {
       border-color: rgba(color(grey-500), .4);
-      background-color: var(--KSegmentUnselectedBackground, var(--white)) !important;
+      background-color: var(--KSegmentedControlUnselectedBackground, var(--white)) !important;
       z-index: 0;
     }
   }
