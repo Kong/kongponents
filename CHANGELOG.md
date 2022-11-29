@@ -1,3 +1,10 @@
+# [8.7.0](https://github.com/Kong/kongponents/compare/v8.6.4...v8.7.0) (2022-11-29)
+
+
+### Features
+
+* **ksegmentedcontrol:** updates [khcp-5421] ([#937](https://github.com/Kong/kongponents/issues/937)) ([3d88402](https://github.com/Kong/kongponents/commit/3d88402432b1d1e9db82795bf6da1d28f715ddb0))
+
 ## [8.6.4](https://github.com/Kong/kongponents/compare/v8.6.3...v8.6.4) (2022-11-29)
 
 
