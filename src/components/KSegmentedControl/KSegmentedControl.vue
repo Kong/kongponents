@@ -62,8 +62,8 @@ export default defineComponent({
       return typeof option === 'string' ? option : option.value || option.label || option
     }
 
-    const appearance = (option: SegmentedControlOption | string): 'primary' | 'outline' => {
-      return props.modelValue === value(option) ? 'primary' : 'outline'
+    const appearance = (option: SegmentedControlOption | string): 'primary' | 'secondary' => {
+      return props.modelValue === value(option) ? 'primary' : 'secondary'
     }
 
     const disabled = (option: SegmentedControlOption | string): boolean => {
@@ -101,8 +101,8 @@ export default defineComponent({
   :deep(.k-button) {
     --KButtonPrimaryBase: var(--KSegmentSelectedBackground, var(--blue-100));
     --KButtonPrimaryHover: var(--KSegmentSelectedBackground, var(--blue-100));
-    --KButtonOutlineHoverBorder: var(--KSegmentSelectedBorder, var(--blue-500));
-    --KButtonOutlineBorder: var(--KSegmentUnselectedBorder);
+    --KButtonSecondaryBase: var(--KSegmentUnselectedBackground, var(--white));
+    --KButtonSecondaryHover: var(--KSegmentUnselectedBackground, var(--white));
     color: var(--KSegmentText, var(--blue-500));
     border-radius: 0;
     margin-left: -1px;
@@ -111,6 +111,14 @@ export default defineComponent({
     &.primary {
       z-index: 1;
       border-color: var(--KSegmentSelectedBorder, var(--blue-500));
+    }
+
+    &.secondary {
+      border-color: var(--KSegmentUnselectedBorder);
+
+      &:hover {
+        border-color: var(--KSegmentSelectedBorder, var(--blue-500));
+      }
     }
 
     &:hover {

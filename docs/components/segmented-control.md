@@ -188,15 +188,16 @@ export default defineComponent({
 | `--KSegmentText` | Option text color
 | `--KSegmentSelectedBackground` | Option background color when selected
 | `--KSegmentSelectedBorder` | Option border color when selected
+| `--KSegmentUnselectedBackground` | Option background color when not selected
 | `--KSegmentUnselectedBorder` | Option border color when not selected
 | `--KSegmentGap` | Gap between the options
 
 An Example of changing the KSegmentedControl to a purple theme instead of blue might look like:
 
-<KComponent :data="{ selected: 'Like it?' }" v-slot="{ data }">
+<KComponent :data="{ selected: 'Like it' }" v-slot="{ data }">
   <KSegmentedControl
       v-model="data.selected"
-      :options="['Like it?','Love it!']"
+      :options="['Like it', 'Theme it', 'Love it']"
       class="purple-segment"
       @click="x => data.selected = x"
     />
@@ -204,10 +205,10 @@ An Example of changing the KSegmentedControl to a purple theme instead of blue m
 
 ```html
 <template>
-  <KComponent :data="{ selected: 'Like it?' }" v-slot="{ data }">
+  <KComponent :data="{ selected: 'Like it' }" v-slot="{ data }">
     <KSegmentedControl
       v-model="data.selected"
-      :options="['Like it?','Love it!']"
+      :options="['Like it', 'Theme it', 'Love it']"
       class="purple-segment"
       @click="x => data.selected = x"
     />
@@ -217,8 +218,9 @@ An Example of changing the KSegmentedControl to a purple theme instead of blue m
 <style>
 .purple-segment {
   --KSegmentText: var(--purple-400);
-  --KSegmentSelectedBackground: var(--purple-100);
+  --KSegmentSelectedBackground: var(--white);
   --KSegmentSelectedBorder: var(--purple-300);
+  --KSegmentUnselectedBackground: var(--blue-100);
   --KSegmentUnselectedBorder: var(--purple-200);
   --KSegmentGap: 12px;
 }
@@ -228,8 +230,9 @@ An Example of changing the KSegmentedControl to a purple theme instead of blue m
 <style scoped lang="scss">
 .purple-segment {
   --KSegmentText: var(--purple-400);
-  --KSegmentSelectedBackground: var(--purple-100);
+  --KSegmentSelectedBackground: var(--white);
   --KSegmentSelectedBorder: var(--purple-300);
+  --KSegmentUnselectedBackground: var(--blue-100);
   --KSegmentUnselectedBorder: var(--purple-200);
   --KSegmentGap: 12px;
 }
