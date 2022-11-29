@@ -114,7 +114,7 @@ export default defineComponent({
     }
 
     &.secondary {
-      border-color: var(--KSegmentUnselectedBorder);
+      border-color: var(--KSegmentUnselectedBorder, rgba(color(blue-500), .4));
 
       &:hover {
         border-color: var(--KSegmentSelectedBorder, var(--blue-500));
@@ -148,8 +148,10 @@ export default defineComponent({
       margin-left: 0;
     }
 
-    &:disabled {
+    &:disabled, &:disabled:hover {
       border-color: var(--grey-500);
+      background-color: var(--KSegmentUnselectedBackground, var(--white)) !important;
+      z-index: 0;
     }
   }
 }
