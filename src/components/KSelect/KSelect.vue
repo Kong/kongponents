@@ -85,7 +85,12 @@
           <div
             v-else
             :id="selectInputId"
-            :class="{ 'k-select-input': appearance === 'select', 'no-filter': !filterIsEnabled }"
+            :class="{
+              'k-select-input': appearance === 'select',
+              'no-filter': !filterIsEnabled,
+              'is-readonly': ($attrs.readonly !== undefined && String($attrs.readonly) !== 'false'),
+              'is-open': isToggled.value
+            }"
             data-testid="k-select-input"
             class="select-input-container"
             style="position: relative;"
@@ -128,7 +133,8 @@
               :class="{
                 'cursor-default prevent-pointer-events': !filterIsEnabled,
                 'input-placeholder-dark has-chevron': appearance === 'select',
-                'has-clear': isClearVisible
+                'has-clear': isClearVisible,
+                'is-readonly': ($attrs.readonly !== undefined && String($attrs.readonly) !== 'false')
               }"
               class="k-select-input"
               @keypress="onInputKeypress"
@@ -681,6 +687,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import '@/styles/variables';
+@import '@/styles/mixins';
 @import '@/styles/functions';
 
 .k-select {
@@ -697,9 +704,22 @@ export default defineComponent({
   }
 
   .k-select-input {
+    @include input-default;
     position: relative;
     display: inline-block;
     width: 100%;
+    box-shadow: none !important;
+
+    &.is-readonly {
+      @include input-readonly;
+      box-shadow: none !important;
+
+      &.select-input-container {
+        input.k-input.form-control:not([type="checkbox"]):not([type="radio"]):not([type="file"]):read-only {
+          box-shadow: none !important;
+        }
+      }
+    }
 
     .kong-icon-chevronDown {
       margin-right: 10px;
@@ -757,10 +777,32 @@ export default defineComponent({
     display: flex;
     align-items: center;
     flex-direction: row-reverse;
-    border: 1px solid var(--grey-300) !important;
+    border: 1px solid var(--grey-300);
+    border-radius: 3px;
+    transition: all 0.1s ease;
+
+    .k-input-wrapper  {
+      border-radius: 3px;
+    }
 
     input.k-input {
       box-shadow: none !important;
+    }
+
+    &:hover {
+      border-color: var(--KInputHover, var(--blue-200));
+
+      .text-on-input label {
+        color: var(--KInputHover, var(--blue-500));
+      }
+    }
+
+    &.is-open {
+      border-color: var(--KInputFocus, var(--blue-400));
+
+      .text-on-input label {
+        color: var(--KInputHover, var(--blue-500));
+      }
     }
   }
 

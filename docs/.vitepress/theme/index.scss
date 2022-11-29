@@ -71,4 +71,17 @@ body {
   h4 {
     margin-top: 16px;
   }
+
+  li + li {
+    margin-top: 0;
+  }
+
+  .k-tabs {
+    li {
+      a {
+        text-decoration: none;
+        transition: none;
+      }
+    }
+  }
 }

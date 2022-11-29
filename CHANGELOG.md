@@ -1,3 +1,36 @@
+## [8.6.3](https://github.com/Kong/kongponents/compare/v8.6.2...v8.6.3) (2022-11-29)
+
+
+### Bug Fixes
+
+* **kselect:** border style for `appearance="select"` ([#930](https://github.com/Kong/kongponents/issues/930)) ([3f41973](https://github.com/Kong/kongponents/commit/3f41973ad8b3dea275c80d52c096d108c621e1f0))
+
+## [8.6.2](https://github.com/Kong/kongponents/compare/v8.6.1...v8.6.2) (2022-11-24)
+
+
+### Bug Fixes
+
+* **kselect:** remove box shadow on `.k-select-input` ([#927](https://github.com/Kong/kongponents/issues/927)) ([0475e4e](https://github.com/Kong/kongponents/commit/0475e4e1a786dc34176bc1c4d49d3e362aa6eabe))
+
+## [8.6.1](https://github.com/Kong/kongponents/compare/v8.6.0...v8.6.1) (2022-11-22)
+
+
+### Bug Fixes
+
+* **kselect:** background color [KHCP-5396] ([#922](https://github.com/Kong/kongponents/issues/922)) ([5b8d855](https://github.com/Kong/kongponents/commit/5b8d8551158530f02d16107942506e71052a5a2f))
+
+# [8.6.0](https://github.com/Kong/kongponents/compare/v8.5.8...v8.6.0) (2022-11-22)
+
+
+### Bug Fixes
+
+* trigger release ([71fd27f](https://github.com/Kong/kongponents/commit/71fd27f08ef206ccc07747cbca63aa8da54844d4))
+
+
+### Features
+
+* **icons:** add new forbidden icon ([#920](https://github.com/Kong/kongponents/issues/920)) ([8aec00e](https://github.com/Kong/kongponents/commit/8aec00e90d925c5ed8477d52b9fe6197a3b8d494))
+
 ## [8.5.8](https://github.com/Kong/kongponents/compare/v8.5.7...v8.5.8) (2022-11-22)
 
 

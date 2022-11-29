@@ -34,6 +34,20 @@ module.exports = () => ({
 })
 ```
 
+### Define global constant replacements
+
+If your app utilizes [Vite](https://vitejs.dev/), you may need to define global constant replacements in your `vite.config.ts` file as shown here:
+
+```ts
+export default defineConfig({
+  // Define global constant replacements
+  define: {
+    'process.env.development': JSON.stringify('development'),
+    'process.env.production': JSON.stringify('production'),
+  },
+})
+```
+
 ### Optimize or Transpile Dependencies
 
 Depending on your project setup, you may need to optimize or transpile the `@kong/kongponents` package in your project.
