@@ -11,7 +11,7 @@ describe('KSegmentedControl', () => {
     })
 
     cy.get('.segmented-control button').eq(0).should('contain.text', 'I am segment')
-    cy.get('.segmented-control button').eq(0).should('have.class', 'outline')
+    cy.get('.segmented-control button').eq(0).should('have.class', 'secondary')
 
     cy.get('.segmented-control button').eq(1).should('contain.text', 'So am I')
     cy.get('.segmented-control button').eq(1).should('have.class', 'primary')
@@ -33,7 +33,7 @@ describe('KSegmentedControl', () => {
     })
 
     cy.get('.segmented-control button').eq(0).should('contain.text', 'Hello ' + options[0])
-    cy.get('.segmented-control button').eq(0).should('have.class', 'outline')
+    cy.get('.segmented-control button').eq(0).should('have.class', 'secondary')
 
     cy.get('.segmented-control button').eq(1).should('contain.text', 'Hello ' + options[1])
     cy.get('.segmented-control button').eq(1).should('have.class', 'primary')
