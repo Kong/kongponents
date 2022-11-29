@@ -1,3 +1,10 @@
+## [8.6.3](https://github.com/Kong/kongponents/compare/v8.6.2...v8.6.3) (2022-11-29)
+
+
+### Bug Fixes
+
+* **kselect:** border style for `appearance="select"` ([#930](https://github.com/Kong/kongponents/issues/930)) ([3f41973](https://github.com/Kong/kongponents/commit/3f41973ad8b3dea275c80d52c096d108c621e1f0))
+
 ## [8.6.2](https://github.com/Kong/kongponents/compare/v8.6.1...v8.6.2) (2022-11-24)
 
 
