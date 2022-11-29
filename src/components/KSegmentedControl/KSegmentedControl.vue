@@ -11,7 +11,12 @@
       class="justify-content-center"
       @click="handleClick"
     >
-      {{ label(option) }}
+      <slot
+        name="option-label"
+        :option="option"
+      >
+        {{ label(option) }}
+      </slot>
     </KButton>
   </div>
 </template>
@@ -57,8 +62,8 @@ export default defineComponent({
       return typeof option === 'string' ? option : option.value || option.label || option
     }
 
-    const appearance = (option: SegmentedControlOption | string): 'primary' | 'outline' => {
-      return props.modelValue === value(option) ? 'primary' : 'outline'
+    const appearance = (option: SegmentedControlOption | string): 'primary' | 'secondary' => {
+      return props.modelValue === value(option) ? 'primary' : 'secondary'
     }
 
     const disabled = (option: SegmentedControlOption | string): boolean => {
@@ -90,48 +95,64 @@ export default defineComponent({
 @import '@/styles/variables';
 @import '@/styles/functions';
 
-.segmented-control .k-button {
-  --KButtonPrimaryBase: var(--blue-100);
-  --KButtonPrimaryHover: var(--blue-100);
-  color: var(--KSegementedControlPrimary, var(--blue-500, color(blue-500)));
-  border-radius: 0;
-  margin-left: -1px;
-  flex: 1;
+.segmented-control {
+  gap: var(--KSegmentedControlGap, 0px);
 
-  &.primary {
-    z-index: 1;
-    border-color: var(--blue-500);
-  }
+  :deep(.k-button) {
+    --KButtonPrimaryBase: var(--KSegmentedControlSelectedBackground, var(--blue-100));
+    --KButtonPrimaryHover: var(--KKSegmentedControlSelectedBackground, var(--blue-100));
+    --KButtonSecondaryBase: var(--KSegmentedControlUnselectedBackground, var(--white));
+    --KButtonSecondaryHover: var(--KSegmentedControlUnselectedBackground, var(--white));
+    color: var(--KSegmentedControlText, var(--blue-500));
+    border-radius: 0;
+    margin-left: -1px;
+    flex: 1;
 
-  &:hover {
-    z-index: 2;
-  }
+    &.primary {
+      z-index: 1;
+      border-color: var(--KSegmentedControlSelectedBorder, var(--blue-500));
+    }
 
-  &:active {
-    z-index: 2;
-  }
+    &.secondary {
+      border-color: var(--KSegmentedControlUnselectedBorder, rgba(color(blue-500), .4));
 
-  &:focus {
-    z-index: 3;
-    box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--blue-500);
-  }
+      &:hover {
+        border-color: var(--KSegmentedControlSelectedBorder, var(--blue-500));
+      }
+    }
 
-  &:first-child {
-    border-radius: 3px 0 0 3px;
-    margin-left: 0;
-  }
+    &:hover {
+      z-index: 2;
+    }
 
-  &:last-child {
-    border-radius: 0 3px 3px 0;
-  }
+    &:active {
+      z-index: 2;
+    }
 
-  &:only-child {
-    border-radius: 3px;
-    margin-left: 0;
-  }
+    &:focus {
+      z-index: 3;
+      box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--KSegmentedControlSelectedBorder, var(--blue-500));
+    }
 
-  &:disabled {
-    border-color: var(--grey-500);
+    &:first-child {
+      border-radius: 3px 0 0 3px;
+      margin-left: 0;
+    }
+
+    &:last-child {
+      border-radius: 0 3px 3px 0;
+    }
+
+    &:only-child {
+      border-radius: 3px;
+      margin-left: 0;
+    }
+
+    &:disabled, &:disabled:hover {
+      border-color: rgba(color(grey-500), .4);
+      background-color: var(--KSegmentedControlUnselectedBackground, var(--white)) !important;
+      z-index: 0;
+    }
   }
 }
 </style>
