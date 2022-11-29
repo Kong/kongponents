@@ -149,7 +149,7 @@ export default defineComponent({
     }
 
     &:disabled, &:disabled:hover {
-      border-color: var(--grey-500);
+      border-color: rgba(color(grey-500), .4);
       background-color: var(--KSegmentUnselectedBackground, var(--white)) !important;
       z-index: 0;
     }
