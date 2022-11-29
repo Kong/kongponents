@@ -1,6 +1,7 @@
 // Import predefined CSS variable overrides of the default VitePress theme
 // https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
 @import "./variables";
+@import "./overrides";
 
 html,
 body {
@@ -50,38 +51,5 @@ body {
 
   pre {
     tab-size: 2 !important;
-  }
-}
-
-// Theme overrides
-.vp-doc {
-  .kong-card li + li {
-    margin-top: 0;
-  }
-
-  table {
-    display: table;
-    margin: 0;
-
-    th {
-      background: none;
-    }
-  }
-
-  h4 {
-    margin-top: 16px;
-  }
-
-  li + li {
-    margin-top: 0;
-  }
-
-  .k-tabs {
-    li {
-      a {
-        text-decoration: none;
-        transition: none;
-      }
-    }
   }
 }

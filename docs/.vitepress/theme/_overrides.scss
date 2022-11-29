@@ -1,0 +1,32 @@
+// Theme overrides; all should be nested inside of the `.vp-doc` class
+.vp-doc {
+  .kong-card li + li {
+    margin-top: 0;
+  }
+
+  table {
+    display: table;
+    margin: 0;
+
+    th {
+      background: none;
+    }
+  }
+
+  h4 {
+    margin-top: 16px;
+  }
+
+  li + li {
+    margin-top: 0;
+  }
+
+  .k-tabs {
+    li {
+      a {
+        text-decoration: none;
+        transition: none;
+      }
+    }
+  }
+}
