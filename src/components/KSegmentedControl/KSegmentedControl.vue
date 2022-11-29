@@ -96,7 +96,7 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .segmented-control {
-  gap: var(--KSegmentGap, 0px);
+  gap: var(--KSegmentedControlGap, 0px);
 
   :deep(.k-button) {
     --KButtonPrimaryBase: var(--KSegmentedControlSelectedBackground, var(--blue-100));
