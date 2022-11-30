@@ -50,7 +50,7 @@
       </KTreeItem>
       <KTreeDraggable
         :key="`tree-item-${element.id}-children-${key}`"
-        :items="element.children"
+        :items="getElementChildren(element)"
         :level="level + 1"
         :max-level="maxLevel"
         :disable-drag="disableDrag"
@@ -161,6 +161,10 @@ const iconSecondaryColor = (item: TreeListItem): string | undefined => {
 
 const hasNoChildren = (item: TreeListItem): boolean => {
   return !internalList.value.filter(anItem => anItem.id === item.id)?.[0].children?.length
+}
+
+const getElementChildren = (item: TreeListItem): TreeListItem[] => {
+  return hasNoChildren(item) ? [] : item.children as TreeListItem[]
 }
 
 const handleChangeEvent = (): void => {
