@@ -280,7 +280,7 @@ onMounted(() => {
     cursor: grabbing !important; /* W3C standards syntax, should come least */
 
     // the bar under the last child
-    .has-no-children .child-drop-zone:last-of-type,
+    .has-no-children:last-of-type .child-drop-zone:last-of-type,
     &.has-no-children .child-drop-zone:last-of-type {
       background-color: var(--KTreeListItemSelectedBorder, var(--teal-200));
       min-height: 4px;
