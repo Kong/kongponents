@@ -153,7 +153,7 @@ const itemLabel = 'item-label'
 
 const iconSecondaryColor = (item: TreeListItem): string | undefined => {
   if (item.icon === 'treeDoc' || !item.icon) {
-    return item.selected ? 'var(--teal-200)' : 'var(--grey-200)'
+    return item.selected ? 'var(--KTreeListItemSelectedBorder, var(--teal-200))' : 'var(--KTreeListItemUnselectedBorder, var(--grey-200))'
   }
 
   return undefined
@@ -266,11 +266,12 @@ onMounted(() => {
 @import '@/styles/functions';
 
 .k-tree-draggable {
-  --KTreeDropZoneHeight: 4px;
+  $defaultDropZoneHeight: 4px;
+
   .child-drop-zone {
     // this is the height of the area you can drop an item in
     // to make it the child of another item
-    min-height: var(--KTreeDropZoneHeight);
+    min-height: var(--KTreeListDropZoneHeight, $defaultDropZoneHeight);
   }
 
   // style while dragging an item
@@ -278,8 +279,10 @@ onMounted(() => {
     cursor: move !important; /* fallback: no `url()` support or images disabled */
     cursor: grabbing !important; /* W3C standards syntax, should come least */
 
-    .has-no-children .child-drop-zone:last-of-type {
-      background-color: var(--teal-200);
+    // the bar under the last child
+    .has-no-children .child-drop-zone:last-of-type,
+    &.has-no-children .child-drop-zone:last-of-type {
+      background-color: var(--KTreeListItemSelectedBorder, var(--teal-200));
       min-height: 4px;
       margin-left: 0;
       border-radius: 100px;
@@ -303,9 +306,9 @@ onMounted(() => {
   }
 
   .k-tree-item-container {
-    $border: var(--grey-200);
+    $border: var(--KTreeListItemUnselectedBorder, var(--grey-200));
     $barLeft: -($bar);
-    $dropZoneHalved: calc(var(--KTreeDropZoneHeight) / 2);
+    $dropZoneHalved: calc(var(--KTreeListDropZoneHeight, $defaultDropZoneHeight) / 2);
     position: relative;
     margin: $dropZoneHalved 0 0 $dropZoneHalved;
 
@@ -319,20 +322,20 @@ onMounted(() => {
       border-bottom: 1px solid $border;
       border-radius: 0 0 0 5px;
       width: $bar;
-      height: calc(var(--KTreeDropZoneHeight) + 20px);
+      height: calc(var(--KTreeListDropZoneHeight, $defaultDropZoneHeight) + 20px);
     }
     // connects siblings
     &:after {
       position: absolute;
       content: "";
-      top: calc(var(--KTreeDropZoneHeight) + 2px);
+      top: calc(var(--KTreeListDropZoneHeight, $defaultDropZoneHeight) + 2px);
       left: $barLeft;
       border-left: 1px solid $border;
       width: $bar;
       height: 100%;
     }
     &:first-child {
-      padding-top: var(--KTreeDropZoneHeight);
+      padding-top: var(--KTreeListDropZoneHeight, $defaultDropZoneHeight);
     }
     &:last-child:after {
       display: none;

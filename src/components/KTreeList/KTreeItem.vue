@@ -63,7 +63,7 @@ const itemIcon = computed(() => props.item.icon ? props.item.icon : 'treeDoc')
 
 const iconSecondaryColor = () => {
   if (itemIcon.value === 'treeDoc') {
-    return props.item.selected ? 'var(--teal-200)' : 'var(--grey-200)'
+    return props.item.selected ? 'var(--KTreeListItemSelectedBorder, var(--teal-200))' : 'var(--KTreeListItemUnselectedBorder, var(--grey-200))'
   }
 
   return undefined
@@ -79,8 +79,9 @@ const handleClick = () => {
 @import '@/styles/functions';
 
 .k-tree-item {
-  color: var(--black-500);
-  border: 1px solid var(--grey-200);
+  color: var(--KTreeListItemText, var(--black-500));
+  background-color: var(--KTreeListItemUnselectedBackground, var(--white));
+  border: 1px solid var(--KTreeListItemUnselectedBorder, var(--grey-200));
   border-radius: 8px;
   padding: 4px;
 
@@ -89,13 +90,13 @@ const handleClick = () => {
   }
 
   &.selected {
-    background-color: var(--teal-100);
-    border-color: var(--teal-200);
+    background-color: var(--KTreeListItemSelectedBackground, var(--teal-100));
+    border-color: var(--KTreeListItemSelectedBorder, var(--teal-200));
   }
 
   &:hover {
     cursor: grab;
-    color: var(--black-500);
+    color: var(--KTreeListItemText, var(--black-500));
   }
 
   &.not-draggable {
