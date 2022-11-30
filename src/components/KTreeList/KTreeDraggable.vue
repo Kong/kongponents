@@ -164,7 +164,7 @@ const hasNoChildren = (item: TreeListItem): boolean => {
 }
 
 const getElementChildren = (item: TreeListItem): TreeListItem[] => {
-  return hasNoChildren(item) ? [] : item.children as TreeListItem[]
+  return item.children as TreeListItem[]
 }
 
 const handleChangeEvent = (): void => {
