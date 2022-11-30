@@ -217,6 +217,38 @@ Use this prop to customize the maximum supported depth of the tree. We default t
 </script>
 ```
 
+## Theming
+
+| Variable | Purpose
+|:-------- |:-------
+| `--KTreeListItemText` | Text color for the item name
+| `--KTreeListItemSelectedBorder` | Border color of a selected item and color of indicator bar when dragging an item
+| `--KTreeListItemSelectedBackground` | Background color of a selected item
+| `--KTreeListItemUnselectedBorder` | Border color of an unselected item and color of connecting line between parents and children
+| `--KTreeListItemUnselectedBackground` | Background color of an unselected item
+| `--KTreeListDropZoneHeight` | Number of pixels between tree items
+
+An example of changing the theming might look like this:
+
+<KTreeList class="themed-tree" :items="themeItems" />
+
+```html
+<template>
+  <KTreeList class="themed-tree" :items="items" />
+</template>
+
+<style>
+.themed-tree {
+  --KTreeListItemText: var(--purple-400);
+  --KTreeListItemSelectedBorder: var(--yellow-300);
+  --KTreeListItemSelectedBackground: var(--yellow-200);
+  --KTreeListItemUnselectedBorder: var(--purple-300);
+  --KTreeListItemUnselectedBackground: var(--purple-100);
+  --KTreeListDropZoneHeight: 6px;
+}
+</style>
+```
+
 <script lang="ts" setup>
 import { ref } from 'vue'
 
@@ -344,6 +376,24 @@ const eventItems = ref([{
   id: 'bunnies'
 }])
 
+const themeItems = ref([{
+  name: "Cats",
+  id: 'cats',
+  selected: true
+},
+{
+  name: "Dogs",
+  id: 'dogs',
+  children: [{
+    name: "Puppies",
+    id: 'puppies'
+  }]
+},
+{
+  name: "Bunnies",
+  id: 'bunnies'
+}])
+
 const reset = () => {
   myList.value = [{
     name: "Cats",
@@ -370,3 +420,14 @@ const handleChildChange = (data) => {
   changedParent.children = children
 }
 </script>
+
+<style scoped lang="scss">
+.themed-tree {
+  --KTreeListItemText: var(--purple-400);
+  --KTreeListItemSelectedBorder: var(--yellow-300);
+  --KTreeListItemSelectedBackground: var(--yellow-200);
+  --KTreeListItemUnselectedBorder: var(--purple-300);
+  --KTreeListItemUnselectedBackground: var(--purple-100);
+  --KTreeListDropZoneHeight: 6px;
+}
+</style>
