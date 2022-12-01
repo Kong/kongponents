@@ -1,3 +1,10 @@
+## [8.7.2](https://github.com/Kong/kongponents/compare/v8.7.1...v8.7.2) (2022-12-01)
+
+
+### Bug Fixes
+
+* **kbutton:** btn-link styles [khcp-5475] ([#942](https://github.com/Kong/kongponents/issues/942)) ([6f7f733](https://github.com/Kong/kongponents/commit/6f7f733777bd6b1a13ece503fc21bbcefd7a9441))
+
 ## [8.7.1](https://github.com/Kong/kongponents/compare/v8.7.0...v8.7.1) (2022-12-01)
 
 
