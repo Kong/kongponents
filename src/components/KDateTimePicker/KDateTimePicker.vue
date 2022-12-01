@@ -170,6 +170,7 @@ export interface DateTimePickerState {
   hidePopover: boolean
   selectedRange: TimeRange
   selectedTimeframe: TimePeriod
+  previouslySelectedTimeframe: TimePeriod
   tabName: string
 }
 
@@ -339,6 +340,7 @@ export default defineComponent({
       hidePopover: false,
       selectedRange: { start: new Date(), end: new Date(), timePeriodsKey: '' },
       selectedTimeframe: props.timePeriods[0]?.values[0],
+      previouslySelectedTimeframe: props.timePeriods[0]?.values[0],
       tabName: 'relative',
     })
 
@@ -378,7 +380,7 @@ export default defineComponent({
      * @param {*} timeframe
      */
     const changeRelativeTimeframe = (timeframe: TimePeriod): void => {
-      state.selectedTimeframe = timeframe
+      state.selectedTimeframe = state.previouslySelectedTimeframe = timeframe
 
       // Format the start/end values as human readable date
       const start: Date = state.selectedTimeframe.start()
@@ -503,6 +505,13 @@ export default defineComponent({
     watch(selectedCalendarRange, (newValue, oldValue) => {
       if (newValue !== undefined && newValue !== oldValue) {
         changeCalendarRange(newValue)
+      }
+    }, { immediate: true })
+
+    watch(() => state.tabName, (newValue, oldValue) => {
+      // If the user has switched back to Relative time frames, update timepicker state
+      if (oldValue !== undefined && newValue === 'relative') {
+        changeRelativeTimeframe(state.previouslySelectedTimeframe)
       }
     }, { immediate: true })
 
