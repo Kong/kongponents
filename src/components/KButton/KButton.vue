@@ -407,7 +407,8 @@ export default defineComponent({
       text-decoration: none;
       outline: Highlight auto 1px;
       outline: -webkit-focus-ring-color auto 1px;
-      outline-offset: 2px;
+      outline-offset: 3px;
+      transition: none;
     }
 
     &:disabled,
