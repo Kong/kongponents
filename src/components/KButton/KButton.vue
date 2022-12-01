@@ -405,7 +405,7 @@ export default defineComponent({
     &:focus-visible:disabled {
       border-radius: unset;
       text-decoration: none;
-      outline: Highlight auto 1px;
+      outline: auto 1px black;
       outline: -webkit-focus-ring-color auto 1px;
       outline-offset: 3px;
       transition: none;

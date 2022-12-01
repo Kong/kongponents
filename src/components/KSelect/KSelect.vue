@@ -690,6 +690,10 @@ export default defineComponent({
 @import '@/styles/mixins';
 @import '@/styles/functions';
 
+@mixin boxShadow($color, $whiteShadowSpred: 2px, $colorShadowSpread: 4px) {
+  box-shadow: 0 0 0 $whiteShadowSpred var(--white, color(white)), 0 0 0 $colorShadowSpread $color;
+}
+
 .k-select {
   .k-select-item-selection {
     .clear-selection-icon {
@@ -699,8 +703,17 @@ export default defineComponent({
     }
   }
 
-  .k-button .caret {
-    margin-left: auto;
+  .k-button.btn-link {
+    padding: var(--spacing-sm, spacing(sm)) var(--spacing-lg, spacing(lg));
+    text-decoration: none;
+
+    &:focus {
+      @include boxShadow(var(--KButtonOutlineBorder, var(--blue-500, color(blue-500))), 0, 2px);
+    }
+
+    .caret {
+      margin-left: auto;
+    }
   }
 
   .k-select-input {
