@@ -2,7 +2,9 @@
 // https://docs.percy.io/docs/percy-specific-css#percy-css-media-query
 @media only percy {
   // Hide the `Last updated` timestamp on docs pages
-  .VPLastUpdated {
+  .VPLastUpdated,
+  // Hide the KDateTimePicker emitted value `pre` blocks
+  pre.json {
     visibility: hidden !important;
   }
 }
