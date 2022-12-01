@@ -6,7 +6,10 @@
     role="dialog"
     aria-modal="true"
   >
-    <FocusTrap :active="isVisible">
+    <FocusTrap
+      ref="focusTrap"
+      :active="false"
+    >
       <div
         class="k-modal-backdrop modal-backdrop"
         @click="(evt) => close(false, evt)"
@@ -95,7 +98,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onMounted, onUnmounted, watchEffect } from 'vue'
+import { defineComponent, computed, nextTick, onMounted, onUnmounted, ref, watch, watchEffect } from 'vue'
 import { FocusTrap } from 'focus-trap-vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
@@ -208,6 +211,7 @@ export default defineComponent({
   emits: ['canceled', 'proceed'],
 
   setup(props, { emit, slots }) {
+    const focusTrap = ref<InstanceType<typeof FocusTrap> | null>(null)
     const hasHeaderImage = computed((): boolean => {
       return !!slots['header-image']
     })
@@ -249,6 +253,15 @@ export default defineComponent({
       }
     })
 
+    watch(() => props.isVisible, async (isVisible) => {
+      if (isVisible) {
+        await nextTick()
+        focusTrap.value?.activate()
+      } else {
+        focusTrap.value?.deactivate()
+      }
+    })
+
     onMounted(() => {
       document.addEventListener('keydown', handleKeydown)
 
@@ -269,6 +282,7 @@ export default defineComponent({
       dismissButtonColor,
       close,
       proceed,
+      focusTrap,
     }
   },
 })
