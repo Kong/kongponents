@@ -1,3 +1,10 @@
+## [8.7.1](https://github.com/Kong/kongponents/compare/v8.7.0...v8.7.1) (2022-12-01)
+
+
+### Bug Fixes
+
+* **ktable:** add a11y attributes ([#939](https://github.com/Kong/kongponents/issues/939)) ([c216a14](https://github.com/Kong/kongponents/commit/c216a14c74fe63385665ba2bf26fa2ec5a6024c9))
+
 # [8.7.0](https://github.com/Kong/kongponents/compare/v8.6.4...v8.7.0) (2022-11-29)
 
 
