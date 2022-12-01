@@ -3,6 +3,8 @@
 @media only percy {
   // Hide the `Last updated` timestamp on docs pages
   .VPLastUpdated,
+  // Hide the KDateTimePicker display value since it shows the current timestamp and always changes
+  .timepicker-display,
   // Only utilize this class in the `docs/*` directory -- do NOT utilize within the `src/*` directory files
   .hide-from-percy {
     visibility: hidden !important;
