@@ -107,6 +107,7 @@
                 [sortColumnOrder]: !disableSorting && column.key === sortColumnKey && !column.hideLabel,
                 'is-scrolled': isScrolled
               }"
+              :aria-sort="!disableSorting && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
               @click="() => {
                 if (!disableSorting && column.sortable) {
                   $emit('sort', {
@@ -130,6 +131,7 @@
 
                 <KIcon
                   v-if="!disableSorting && !column.hideLabel && column.sortable"
+                  aria-hidden="true"
                   icon="chevronDown"
                   color="var(--KTableColor, var(--black-70, color(black-70)))"
                   size="12"
