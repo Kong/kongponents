@@ -6,94 +6,97 @@
     role="dialog"
     aria-modal="true"
   >
-    <div
-      class="k-modal-backdrop modal-backdrop"
-      @click="(evt) => close(false, evt)"
-    >
-      <div class="k-modal-dialog modal-dialog">
-        <div
-          v-if="hasHeaderImage && !hideDismissIcon"
-          class="close-button"
-        >
-          <KButton
-            class="non-visual-button"
-            aria-label="Close"
-            @click="close(true)"
-          >
-            <KIcon
-              icon="close"
-              :color="dismissButtonColor"
-              size="15"
-            />
-          </KButton>
-        </div>
-        <div class="k-modal-content modal-content">
+    <FocusTrap :active="isVisible">
+      <div
+        class="k-modal-backdrop modal-backdrop"
+        @click="(evt) => close(false, evt)"
+      >
+        <div class="k-modal-dialog modal-dialog">
           <div
-            v-if="hasHeaderImage"
-            class="k-modal-header-image d-flex"
+            v-if="hasHeaderImage && !hideDismissIcon"
+            class="close-button"
           >
-            <slot name="header-image" />
+            <KButton
+              class="non-visual-button"
+              aria-label="Close"
+              @click="close(true)"
+            >
+              <KIcon
+                icon="close"
+                :color="dismissButtonColor"
+                size="15"
+              />
+            </KButton>
           </div>
-          <div
-            v-if="$slots['header-content'] || !hideTitle"
-            role="heading"
-            aria-level="2"
-            :class="{
-              'header-left': textAlign === 'left',
-              'header-centered': textAlign === 'center',
-              'header-right': textAlign === 'right',
-              'mb-5': !hasHeaderImage,
-              'mb-4': hasHeaderImage
-            }"
-            class="k-modal-header modal-header"
-          >
-            <slot name="header-content">
-              {{ title }}
-            </slot>
-          </div>
-          <div
-            :class="{
-              'content-left': textAlign === 'left',
-              'content-centered': textAlign === 'center',
-              'content-right': textAlign === 'right',
-            }"
-            class="k-modal-body modal-body"
-          >
-            <slot name="body-content">
-              {{ content }}
-            </slot>
-          </div>
-          <div class="k-modal-footer modal-footer d-flex">
-            <slot name="footer-content">
-              <KButton
-                v-if="!hideCancelButton"
-                :appearance="cancelButtonAppearance"
-                @click="close(true)"
-                @keyup.esc="close(true)"
-              >
-                {{ cancelButtonText }}
-              </KButton>
-              <div class="k-modal-action-buttons">
-                <slot name="action-buttons">
-                  <KButton
-                    :appearance="actionButtonAppearance"
-                    @click="proceed"
-                    @keyup.enter="proceed"
-                  >
-                    {{ actionButtonText }}
-                  </KButton>
-                </slot>
-              </div>
-            </slot>
+          <div class="k-modal-content modal-content">
+            <div
+              v-if="hasHeaderImage"
+              class="k-modal-header-image d-flex"
+            >
+              <slot name="header-image" />
+            </div>
+            <div
+              v-if="$slots['header-content'] || !hideTitle"
+              role="heading"
+              aria-level="2"
+              :class="{
+                'header-left': textAlign === 'left',
+                'header-centered': textAlign === 'center',
+                'header-right': textAlign === 'right',
+                'mb-5': !hasHeaderImage,
+                'mb-4': hasHeaderImage
+              }"
+              class="k-modal-header modal-header"
+            >
+              <slot name="header-content">
+                {{ title }}
+              </slot>
+            </div>
+            <div
+              :class="{
+                'content-left': textAlign === 'left',
+                'content-centered': textAlign === 'center',
+                'content-right': textAlign === 'right',
+              }"
+              class="k-modal-body modal-body"
+            >
+              <slot name="body-content">
+                {{ content }}
+              </slot>
+            </div>
+            <div class="k-modal-footer modal-footer d-flex">
+              <slot name="footer-content">
+                <KButton
+                  v-if="!hideCancelButton"
+                  :appearance="cancelButtonAppearance"
+                  @click="close(true)"
+                  @keyup.esc="close(true)"
+                >
+                  {{ cancelButtonText }}
+                </KButton>
+                <div class="k-modal-action-buttons">
+                  <slot name="action-buttons">
+                    <KButton
+                      :appearance="actionButtonAppearance"
+                      @click="proceed"
+                      @keyup.enter="proceed"
+                    >
+                      {{ actionButtonText }}
+                    </KButton>
+                  </slot>
+                </div>
+              </slot>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </FocusTrap>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed, onMounted, onUnmounted, watchEffect } from 'vue'
+import { FocusTrap } from 'focus-trap-vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 
@@ -103,6 +106,7 @@ export default defineComponent({
   components: {
     KButton,
     KIcon,
+    FocusTrap,
   },
 
   props: {
