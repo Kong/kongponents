@@ -387,15 +387,29 @@ export default defineComponent({
       color: var(--grey-400) !important;
     }
   }
+
   &.btn-link {
     color: var(--KButtonBtnLink, var(--blue-500, color(blue-500)));
     background-color: transparent;
+    padding: 0;
+
     &:hover:not(:disabled) {
       text-decoration: underline;
     }
+
     &:focus {
-      @include boxShadow(var(--KButtonOutlineBorder, var(--blue-500, color(blue-500))), 0, 2px);
+      text-decoration: underline;
     }
+
+    &:focus-visible,
+    &:focus-visible:disabled {
+      border-radius: unset;
+      text-decoration: none;
+      outline: Highlight auto 1px;
+      outline: -webkit-focus-ring-color auto 1px;
+      outline-offset: 2px;
+    }
+
     &:disabled,
     &[disabled] {
       color: var(--grey-400) !important;
