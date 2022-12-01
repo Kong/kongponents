@@ -1,0 +1,8 @@
+// Hide elements in percy
+
+@media only percy {
+  // Hide the `Last updated` timestamp on docs pages
+  .VPLastUpdated {
+    visibility: hidden !important;
+  }
+}
