@@ -29,7 +29,7 @@
  *  Note: if TS errors appear on the
  *  <template #[itemIcon]="slotProps"> or
  *  <template #[itemLabel]="slotProps">
- * lines switch to `v-slot:` notation and Save to let linter clear -->
+ *  lines switch to `v-slot:` notation and Save to let linter clear -->
  */
 import { computed, ref, watch, onMounted, PropType } from 'vue'
 import KTreeDraggable from '@/components/KTreeList/KTreeDraggable.vue'

@@ -74,16 +74,17 @@
   </VueDraggableNext>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 /**
  *  Note: if TS errors appear on the
  *  <template #[itemIcon]="slotProps"> or
  *  <template #[itemLabel]="slotProps">
- * lines switch to `v-slot:` notation and Save to let linter clear -->
+ *  lines switch to `v-slot:` notation and Save to let linter clear -->
  */
 import { computed, ref, watch, onMounted, PropType } from 'vue'
 import { VueDraggableNext } from 'vue-draggable-next'
-import KTreeItem, { TreeListItem } from '@/components/KTreeList/KTreeItem.vue'
+import KTreeItem from '@/components/KTreeList/KTreeItem.vue'
+import type { TreeListItem } from './KTreeItem.vue'
 
 export interface ChangeEvent {
   items: TreeListItem[]
@@ -231,7 +232,7 @@ const onStopDrag = (): void => {
 // override cursor when dragging
 const setDragCursor = (value: boolean) => {
   // must be on html element to keep style applied no matter where they drag
-  const html = document.getElementsByTagName('html').item(0)
+  const html = document?.getElementsByTagName('html').item(0)
 
   if (html) {
     html.classList.toggle('k-tree-list-grabbing', value)

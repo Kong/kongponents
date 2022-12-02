@@ -80,7 +80,7 @@ Item properties:
 - `name` (required) - text displayed as the label for the item
 - `id` (required) - a unique `string` used to identify the item
 - `selected` - boolean to indicate whether the current item is selected or not
-- `icon` - `KIcon` name to be displayed to the left of the item `name` (defaults to `treeDoc`, specify `none` to not display any icon)
+- `icon` - string of the `KIcon` icon name to be displayed to the left of the item `name` (defaults to `treeDoc`, specify `none` to not display any icon)
 - `children` - an array of items that will be styled as children of the current item
 
 ::: danger
@@ -94,7 +94,7 @@ You cannot use `v-model` with the `items` prop. You must use one or the other.
   <KTreeList :items="items" />
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
 const items = ref([{
@@ -118,7 +118,7 @@ const items = ref([{
 
 ### disableDrag
 
-Boolean (defaults to `false`) to turn of drag-n-drop reordering of the list.
+Boolean (defaults to `false`) to turn off drag-n-drop reordering of the list.
 
 <KTreeList disable-drag :items="disableItems" />
 
@@ -138,10 +138,10 @@ Use this prop to customize the maximum supported depth of the tree. We default t
 
 ## Slots
 
-`KTreeList` allows you to customize individual tree items via the item slots. These slots return the current `item` data as a slot param.
+`KTreeList` allows you to customize individual tree items via the item slots. The slots provide the current `item` data as a slot param.
 
-- `item-icon` - slot for content displayed to the left of the item name
-- `item-label` - slot for the main content of an item (default's to display the `name` of the item)
+- `item-icon` - slot for content displayed to the left of the item name in place of the default icon
+- `item-label` - slot for the main content of an item (defaults to the `name` of the item)
 
 <KTreeList :items="slotItems">
   <template #item-icon="{ item }">
@@ -149,7 +149,7 @@ Use this prop to customize the maximum supported depth of the tree. We default t
   </template>
   <template #item-label="{ item }">
     <span class="color-purple-400">
-    {{ item.name }}
+    Animal: {{ item.name }}
     </span>
   </template>
 </KTreeList>
