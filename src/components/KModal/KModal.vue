@@ -6,13 +6,13 @@
     role="dialog"
     aria-modal="true"
   >
-    <FocusTrap
-      ref="focusTrap"
-      :active="false"
+    <div
+      class="k-modal-backdrop modal-backdrop"
+      @click="(evt) => close(false, evt)"
     >
-      <div
-        class="k-modal-backdrop modal-backdrop"
-        @click="(evt) => close(false, evt)"
+      <FocusTrap
+        ref="focusTrap"
+        :active="false"
       >
         <div class="k-modal-dialog modal-dialog">
           <div
@@ -92,8 +92,8 @@
             </div>
           </div>
         </div>
-      </div>
-    </FocusTrap>
+      </FocusTrap>
+    </div>
   </div>
 </template>
 
@@ -253,16 +253,27 @@ export default defineComponent({
       }
     })
 
-    watch(() => props.isVisible, async (isVisible) => {
-      if (isVisible) {
+    const toggleFocusTrap = async (isActive: boolean): Promise<void> => {
+      if (isActive) {
         await nextTick()
+        // Delay ensures that the focused element doesn't capture the event
+        // that caused the focus trap activation.
+        await new Promise((resolve) => setTimeout(resolve, 0))
         focusTrap.value?.activate()
       } else {
         focusTrap.value?.deactivate()
       }
-    })
+    }
 
-    onMounted(() => {
+    watch(() => props.isVisible, async (isVisible) => {
+      if (isVisible) {
+        await toggleFocusTrap(true)
+      } else {
+        await toggleFocusTrap(false)
+      }
+    }, { immediate: true })
+
+    onMounted(async () => {
       document.addEventListener('keydown', handleKeydown)
 
       if (props.isVisible) {
@@ -271,7 +282,7 @@ export default defineComponent({
       }
     })
 
-    onUnmounted(() => {
+    onUnmounted(async () => {
       document.removeEventListener('keydown', handleKeydown)
       // Reset body overflow
       document?.body?.classList.remove('k-modal-overflow-hidden')
@@ -283,6 +294,7 @@ export default defineComponent({
       close,
       proceed,
       focusTrap,
+      toggleFocusTrap,
     }
   },
 })
