@@ -273,7 +273,7 @@ export default defineComponent({
       }
     }, { immediate: true })
 
-    onMounted(async () => {
+    onMounted(() => {
       document.addEventListener('keydown', handleKeydown)
 
       if (props.isVisible) {
@@ -282,7 +282,7 @@ export default defineComponent({
       }
     })
 
-    onUnmounted(async () => {
+    onUnmounted(() => {
       document.removeEventListener('keydown', handleKeydown)
       // Reset body overflow
       document?.body?.classList.remove('k-modal-overflow-hidden')
