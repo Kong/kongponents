@@ -150,10 +150,10 @@ export default defineConfig({
       text: 'Edit this page on GitHub'
     },
     outline: [2, 3],
-    // algolia: {
-    //   appId: '6MM6JXMAAD',
-    //   apiKey: '8b808e893589122929db01f29c0aabcc',
-    //   indexName: 'kongponents'
-    // },
+    algolia: {
+      appId: '2K9M2TZDV8',
+      apiKey: 'ff2ad6c629df9c094a93a92a500added',
+      indexName: 'kongponents-konghq'
+    },
   },
 })
