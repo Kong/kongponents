@@ -29,9 +29,17 @@
   </a>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
 import { computed, PropType, useSlots } from 'vue'
 
+export const itemsHaveRequiredProps = (items: TreeListItem[]): boolean => {
+  return items.every(i => i.name !== undefined && i.id !== undefined && (!i.children?.length || itemsHaveRequiredProps(i.children)))
+}
+
+export default {}
+</script>
+
+<script lang="ts" setup>
 export interface TreeListItem {
   name: string
   id: string
@@ -44,7 +52,7 @@ const props = defineProps({
   item: {
     type: Object as PropType<TreeListItem>,
     required: true,
-    validator: (item: TreeListItem) => item.name !== undefined && item.id !== undefined,
+    validator: (item: TreeListItem) => itemsHaveRequiredProps([item]),
   },
   disabled: {
     type: Boolean,

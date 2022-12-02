@@ -3,7 +3,7 @@
     <KTreeDraggable
       :items="internalList"
       :disable-drag="disableDrag"
-      :max-level="maxLevel"
+      :max-level="maxLevels"
       @change="handleChangeEvent"
       @child-change="handleChildChangeEvent"
       @selected="handleSelection"
@@ -24,7 +24,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
 /**
  *  Note: if TS errors appear on the
  *  <template #[itemIcon]="slotProps"> or
@@ -33,8 +33,35 @@
  */
 import { computed, ref, watch, onMounted, PropType } from 'vue'
 import KTreeDraggable from '@/components/KTreeList/KTreeDraggable.vue'
-import { TreeListItem } from '@/components/KTreeList/KTreeItem.vue'
+import { TreeListItem, itemsHaveRequiredProps } from '@/components/KTreeList/KTreeItem.vue'
 
+const getIds = (items: TreeListItem[], ids: string[]) => {
+  items.forEach((item: TreeListItem) => {
+    ids.push(item.id)
+
+    if (item.children?.length) {
+      getIds(item.children, ids)
+    }
+  })
+
+  return ids
+}
+
+const itemsAreUnique = (items: TreeListItem[]): boolean => {
+  const ids = getIds(items, [])
+  const uniqueIds = new Set(ids)
+
+  return ids.length === uniqueIds.size
+}
+
+const treeListIsValid = (items: TreeListItem[]): boolean => {
+  return itemsHaveRequiredProps(items) && itemsAreUnique(items)
+}
+
+export default {}
+</script>
+
+<script lang="ts" setup>
 export interface ChangeEvent {
   items: TreeListItem[]
 }
@@ -48,20 +75,21 @@ const props = defineProps({
   modelValue: {
     type: Array as PropType<TreeListItem[]>,
     default: null,
-    validator: (items: TreeListItem[]) => !items.length || items.every(i => i.name !== undefined && i.id !== undefined),
+    validator: (items: TreeListItem[]) => !items.length || treeListIsValid(items),
   },
   items: {
     type: Array as PropType<TreeListItem[]>,
     default: null,
-    validator: (items: TreeListItem[]) => !items.length || items.every(i => i.name !== undefined && i.id !== undefined),
+    validator: (items: TreeListItem[]) => !items.length || treeListIsValid(items),
   },
   disableDrag: {
     type: Boolean,
     default: false,
   },
-  maxLevel: {
+  maxLevels: {
     type: Number,
     default: 2,
+    validator: (value: number) => value <= 6,
   },
 })
 
@@ -71,7 +99,6 @@ const emit = defineEmits<{
   (event: 'selected', item: TreeListItem): void
 }>()
 
-// const key = ref(0)
 const internalList = ref<TreeListItem[]>([])
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
@@ -134,6 +161,10 @@ watch(() => props.items, (newValue, oldValue) => {
 })
 
 onMounted(() => {
+  if (props.modelValue && props.items) {
+    console.warn('KTreeList: You should not provide both v-model (or props.modelValue) and props.items')
+  }
+
   if (props.modelValue) {
     internalList.value = props.modelValue
   } else if (props.items) {

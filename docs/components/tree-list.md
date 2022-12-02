@@ -14,6 +14,10 @@
 
 `KTreeList` works with v-model for data binding.
 
+::: tip NOTE
+The value provided to `v-model` should adhere to all the same constraints of the `items` property.
+:::
+
 <div>
   <KLabel>Value:</KLabel> {{ myList }}
   <KTreeList class="mt-2" v-model="myList" />
@@ -31,28 +35,10 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const myList = ref([{
-  name: "Cats",
-  id: 'cats'
-  selected: true
-},
-{
-  name: "Dogs",
-  id: 'dogs',
-  children: [{
-    name: "Puppies",
-    id: 'puppies'
-  }]
-},
-{
-  name: "Bunnies",
-  id: 'bunnies'
-}])
-
-const reset = () => {
-  myList.value = [{
+const myList = ref([
+  {
     name: "Cats",
-    id: 'cats',
+    id: 'cats'
     selected: true
   },
   {
@@ -66,7 +52,27 @@ const reset = () => {
   {
     name: "Bunnies",
     id: 'bunnies'
-  }]
+  }])
+
+  const reset = () => {
+    myList.value = [{
+      name: "Cats",
+      id: 'cats',
+      selected: true
+    },
+    {
+      name: "Dogs",
+      id: 'dogs',
+      children: [{
+        name: "Puppies",
+        id: 'puppies'
+      }]
+    },
+    {
+      name: "Bunnies",
+      id: 'bunnies'
+    }
+  ]
 }
 </script>
 ```
@@ -78,10 +84,10 @@ An array of items that make up the tree.
 Item properties:
 
 - `name` (required) - text displayed as the label for the item
-- `id` (required) - a unique `string` used to identify the item
+- `id` (required) - a unique `string` used to identify the item (Note: `id`'s must be unique across all items and their children)
 - `selected` - boolean to indicate whether the current item is selected or not
 - `icon` - string of the `KIcon` icon name to be displayed to the left of the item `name` (defaults to `treeDoc`, specify `none` to not display any icon)
-- `children` - an array of items that will be styled as children of the current item
+- `children` - an array of items that will be styled as children of the current item (Note: all children must have the same property constraints as `items`)
 
 ::: danger
 You cannot use `v-model` with the `items` prop. You must use one or the other.
@@ -97,22 +103,24 @@ You cannot use `v-model` with the `items` prop. You must use one or the other.
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const items = ref([{
-  name: "Cats",
-  id: 'cats'
-},
-{
-  name: "Dogs",
-  id: 'dogs',
-  children: [{
-    name: "Puppies",
-    id: 'puppies'
-  }]
-},
-{
-  name: "Bunnies",
-  id: 'bunnies'
-}])
+const items = ref([
+  {
+    name: "Cats",
+    id: 'cats'
+  },
+  {
+    name: "Dogs",
+    id: 'dogs',
+    children: [{
+      name: "Puppies",
+      id: 'puppies'
+    }]
+  },
+  {
+    name: "Bunnies",
+    id: 'bunnies'
+  }
+])
 </script>
 ```
 
@@ -126,15 +134,20 @@ Boolean (defaults to `false`) to turn off drag-n-drop reordering of the list.
 <KTreeList disable-drag :items="items" />
 ```
 
-### maxLevel
+### maxLevels
 
 Use this prop to customize the maximum supported depth of the tree. We default to a max level of `2` or support for parents, children, and grandchildren.
 
-<KTreeList :items="maxLevelItems" :max-level="1" />
+::: tip NOTE
+The maximum supported value for `maxLevels` is 6.
+:::
+
+<KTreeList :items="maxLevelsItems" :max-levels="1" />
 
 ```html
-<KTreeList :items="items" :max-level="1" />
+<KTreeList :items="items" :max-levels="1" />
 ```
+
 
 ## Slots
 
@@ -169,12 +182,12 @@ Use this prop to customize the maximum supported depth of the tree. We default t
 
 ## Events
 
-- `@change` - Emitted when there is a change to the root level items
+- `@change` - emitted when there is a change to the root level items
   - returns `items` - an array of tree items
-- `@child-change` - Emitted when an item is added or removed at the non-root level
+- `@child-change` - emitted when an item is added or removed at the non-root level
   - returns `parent` - id of the parent item; `children` - an array of tree items
   - **Note:** two separate `child-change` events will fire if an item is moved from one parent to another
-- `@selected` - Emitted when you click (and don't drag-n-drop) an item; returns the selected item's data
+- `@selected` - emitted when you click (and don't drag) an item; returns the selected item's data
 
 <div>
   <KLabel>Selected: </KLabel> {{ mySelection && mySelection.name || '' }}
@@ -252,146 +265,8 @@ const mySelection = ref(null)
 
 // each example must have it's own list because cloning
 // breaks drag-n-drop functionality
-const myList = ref([{
-  name: "Cats",
-  id: 'cats',
-  selected: true
-},
-{
-  name: "Dogs",
-  id: 'dogs',
-  children: [{
-    name: "Puppies",
-    id: 'puppies'
-  }]
-},
-{
-  name: "Bunnies",
-  id: 'bunnies'
-}])
-
-const defaultItems = ref([{
-  name: "Cats",
-  id: 'cats'
-},
-{
-  name: "Dogs",
-  id: 'dogs',
-  children: [{
-    name: "Puppies",
-    id: 'puppies'
-  }]
-},
-{
-  name: "Bunnies",
-  id: 'bunnies'
-}])
-
-const defaultItems2 = ref([{
-  name: "Cats",
-  id: 'cats'
-},
-{
-  name: "Dogs",
-  id: 'dogs',
-  children: [{
-    name: "Puppies",
-    id: 'puppies'
-  }]
-},
-{
-  name: "Bunnies",
-  id: 'bunnies'
-}])
-
-const disableItems = ref([{
-  name: "Cats",
-  id: 'cats'
-},
-{
-  name: "Dogs",
-  id: 'dogs',
-  children: [{
-    name: "Puppies",
-    id: 'puppies'
-  }]
-},
-{
-  name: "Bunnies",
-  id: 'bunnies'
-}])
-
-const maxLevelItems = ref([{
-  name: "Cats",
-  id: 'cats'
-},
-{
-  name: "Dogs",
-  id: 'dogs',
-  children: [{
-    name: "Puppies",
-    id: 'puppies'
-  }]
-},
-{
-  name: "Bunnies",
-  id: 'bunnies'
-}])
-
-const slotItems = ref([{
-  name: "Cats",
-  id: 'cats'
-},
-{
-  name: "Dogs",
-  id: 'dogs',
-  children: [{
-    name: "Puppies",
-    id: 'puppies'
-  }]
-},
-{
-  name: "Bunnies",
-  id: 'bunnies'
-}])
-
-const eventItems = ref([{
-  name: "Cats",
-  id: 'cats'
-},
-{
-  name: "Dogs",
-  id: 'dogs',
-  children: [{
-    name: "Puppies",
-    id: 'puppies'
-  }]
-},
-{
-  name: "Bunnies",
-  id: 'bunnies'
-}])
-
-const themeItems = ref([{
-  name: "Cats",
-  id: 'cats',
-  selected: true
-},
-{
-  name: "Dogs",
-  id: 'dogs',
-  children: [{
-    name: "Puppies",
-    id: 'puppies'
-  }]
-},
-{
-  name: "Bunnies",
-  id: 'bunnies'
-}])
-
-const reset = () => {
-  myList.value = [{
+const myList = ref([
+  {
     name: "Cats",
     id: 'cats',
     selected: true
@@ -407,7 +282,163 @@ const reset = () => {
   {
     name: "Bunnies",
     id: 'bunnies'
-  }]
+  }
+])
+
+const defaultItems = ref([
+  {
+    name: "Cats",
+    id: 'cats'
+  },
+  {
+    name: "Dogs",
+    id: 'dogs',
+    children: [{
+      name: "Puppies",
+      id: 'puppies'
+    }]
+  },
+  {
+    name: "Bunnies",
+    id: 'bunnies'
+  }
+])
+
+const defaultItems2 = ref([
+  {
+    name: "Cats",
+    id: 'cats'
+  },
+  {
+    name: "Dogs",
+    id: 'dogs',
+    children: [{
+      name: "Puppies",
+      id: 'puppies'
+    }]
+  },
+  {
+    name: "Bunnies",
+    id: 'bunnies'
+  }
+])
+
+const disableItems = ref([
+  {
+    name: "Cats",
+    id: 'cats'
+  },
+  {
+    name: "Dogs",
+    id: 'dogs',
+    children: [{
+      name: "Puppies",
+      id: 'puppies'
+    }]
+  },
+  {
+    name: "Bunnies",
+    id: 'bunnies'
+  }
+])
+
+const maxLevelsItems = ref([
+  {
+    name: "Cats",
+    id: 'cats'
+  },
+  {
+    name: "Dogs",
+    id: 'dogs',
+    children: [{
+      name: "Puppies",
+      id: 'puppies'
+    }]
+  },
+  {
+    name: "Bunnies",
+    id: 'bunnies'
+  }
+])
+
+const slotItems = ref([
+  {
+    name: "Cats",
+    id: 'cats'
+  },
+  {
+    name: "Dogs",
+    id: 'dogs',
+    children: [{
+      name: "Puppies",
+      id: 'puppies'
+    }]
+  },
+  {
+    name: "Bunnies",
+    id: 'bunnies'
+  }
+])
+
+const eventItems = ref([
+  {
+    name: "Cats",
+    id: 'cats'
+  },
+  {
+    name: "Dogs",
+    id: 'dogs',
+    children: [{
+      name: "Puppies",
+      id: 'puppies'
+    }]
+  },
+  {
+    name: "Bunnies",
+    id: 'bunnies'
+  }
+])
+
+const themeItems = ref([
+  {
+    name: "Cats",
+    id: 'cats',
+    selected: true
+  },
+  {
+    name: "Dogs",
+    id: 'dogs',
+    children: [{
+      name: "Puppies",
+      id: 'puppies'
+    }]
+  },
+  {
+    name: "Bunnies",
+    id: 'bunnies'
+  }
+])
+
+const reset = () => {
+  myList.value = [
+    {
+      name: "Cats",
+      id: 'cats',
+      selected: true
+    },
+    {
+      name: "Dogs",
+      id: 'dogs',
+      children: [{
+        name: "Puppies",
+        id: 'puppies'
+      }]
+    },
+    {
+      name: "Bunnies",
+      id: 'bunnies'
+    }
+  ]
 }
 
 const handleChildChange = (data) => {
