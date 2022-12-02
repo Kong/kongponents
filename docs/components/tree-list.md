@@ -86,7 +86,7 @@ Item properties:
 - `name` (required) - text displayed as the label for the item
 - `id` (required) - a unique `string` used to identify the item (Note: `id`'s must be unique across all items and their children)
 - `selected` - boolean to indicate whether the current item is selected or not
-- `icon` - string of the `KIcon` icon name to be displayed to the left of the item `name` (defaults to `treeDoc`, specify `none` to not display any icon)
+- `icon` - string of the `KIcon` icon name to be displayed to the left of the item `name` (defaults to `documentList`, specify `none` to not display any icon)
 - `children` - an array of items that will be styled as children of the current item (Note: all children must have the same property constraints as `items`)
 
 ::: danger
@@ -156,7 +156,7 @@ The maximum supported value for `maxLevels` is 6.
 - `item-icon` - slot for content displayed to the left of the item name in place of the default icon
 - `item-label` - slot for the main content of an item (defaults to the `name` of the item)
 
-<KTreeList :items="slotItems">
+<KTreeList class="slot-example" :items="slotItems">
   <template #item-icon="{ item }">
     {{ item.id === 'cats' ? '😸' : item.id === 'bunnies' ? '🐰' : '🐶' }}
   </template>
@@ -449,6 +449,10 @@ const handleChildChange = (data) => {
 </script>
 
 <style scoped lang="scss">
+.slot-example :deep(.k-tree-item) .k-tree-item-icon {
+  line-height: 1.4;
+}
+
 .themed-tree {
   --KTreeListItemText: var(--purple-400);
   --KTreeListItemSelectedBorder: var(--yellow-300);

@@ -67,10 +67,10 @@ const emit = defineEmits<{
 const slots = useSlots()
 
 const hasIcon = computed(() => props.item.icon !== 'none' || slots['item-icon'])
-const itemIcon = computed(() => props.item.icon ? props.item.icon : 'treeDoc')
+const itemIcon = computed(() => props.item.icon ? props.item.icon : 'documentList')
 
 const iconSecondaryColor = () => {
-  if (itemIcon.value === 'treeDoc') {
+  if (itemIcon.value === 'documentList') {
     return props.item.selected ? 'var(--KTreeListItemSelectedBorder, var(--teal-200))' : 'var(--KTreeListItemUnselectedBorder, var(--grey-200))'
   }
 

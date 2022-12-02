@@ -33,7 +33,7 @@
           >
             <KIcon
               v-if="element.icon !== 'none'"
-              :icon="element.icon ? element.icon : 'treeDoc'"
+              :icon="element.icon ? element.icon : 'documentList'"
               :secondary-color="iconSecondaryColor(element)"
               size="24"
             />
@@ -124,7 +124,7 @@ const props = defineProps({
   },
   parentId: {
     type: String,
-    default: undefined,
+    default: '',
   },
 })
 
@@ -153,7 +153,7 @@ const itemIcon = 'item-icon'
 const itemLabel = 'item-label'
 
 const iconSecondaryColor = (item: TreeListItem): string | undefined => {
-  if (item.icon === 'treeDoc' || !item.icon) {
+  if (item.icon === 'documentList' || !item.icon) {
     return item.selected ? 'var(--KTreeListItemSelectedBorder, var(--teal-200))' : 'var(--KTreeListItemUnselectedBorder, var(--grey-200))'
   }
 
