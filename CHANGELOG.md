@@ -1,3 +1,10 @@
+## [8.8.1](https://github.com/Kong/kongponents/compare/v8.8.0...v8.8.1) (2022-12-02)
+
+
+### Bug Fixes
+
+* **kmodal:** add focus trap activation delay ([#947](https://github.com/Kong/kongponents/issues/947)) ([3f9f6c6](https://github.com/Kong/kongponents/commit/3f9f6c65a23f83e3e789a6204b680f47e4fe5fd7)), closes [#946](https://github.com/Kong/kongponents/issues/946)
+
 # [8.8.0](https://github.com/Kong/kongponents/compare/v8.7.2...v8.8.0) (2022-12-02)
 
 
