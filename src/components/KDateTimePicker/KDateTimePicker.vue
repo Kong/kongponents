@@ -169,6 +169,7 @@ export interface DateTimePickerState {
   fullRangeDisplay?: string
   hidePopover: boolean
   selectedRange: TimeRange
+  previouslySelectedRange: TimeRange,
   selectedTimeframe: TimePeriod
   previouslySelectedTimeframe: TimePeriod
   tabName: string
@@ -339,6 +340,7 @@ export default defineComponent({
       fullRangeDisplay: '',
       hidePopover: false,
       selectedRange: { start: new Date(), end: new Date(), timePeriodsKey: '' },
+      previouslySelectedRange: { start: new Date(), end: new Date(), timePeriodsKey: '' },
       selectedTimeframe: props.timePeriods[0]?.values[0],
       previouslySelectedTimeframe: props.timePeriods[0]?.values[0],
       tabName: 'relative',
@@ -366,7 +368,7 @@ export default defineComponent({
         // picker, only the `start` value will be provided.
         // The `timePeriodsKey` param only applies to relative timeframes,
         // not `v-calendar` selections; however, this keeps the object "shape" consistent.
-        state.selectedRange = {
+        state.selectedRange = state.previouslySelectedRange = {
           start,
           end,
           timePeriodsKey: '',
@@ -512,6 +514,8 @@ export default defineComponent({
       // If the user has switched back to Relative time frames, update timepicker state
       if (oldValue !== undefined && newValue === 'relative') {
         changeRelativeTimeframe(state.previouslySelectedTimeframe)
+      } else if (oldValue !== undefined && newValue === 'custom') {
+        changeCalendarRange(state.previouslySelectedRange)
       }
     }, { immediate: true })
 
