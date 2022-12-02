@@ -1,3 +1,10 @@
+# [8.8.0](https://github.com/Kong/kongponents/compare/v8.7.2...v8.8.0) (2022-12-02)
+
+
+### Features
+
+* **kmodal:** add focus trap support for better a11y ([#940](https://github.com/Kong/kongponents/issues/940)) ([99ef97a](https://github.com/Kong/kongponents/commit/99ef97ad26fe282bfa1bc8b0834b573d305ecd8c))
+
 ## [8.7.2](https://github.com/Kong/kongponents/compare/v8.7.1...v8.7.2) (2022-12-01)
 
 
