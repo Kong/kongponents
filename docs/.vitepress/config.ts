@@ -151,7 +151,7 @@ export default defineConfig({
     },
     outline: [2, 3],
     algolia: {
-      appId: '2K9M2TZDV8',
+      appId: '63M5R2GSFP',
       apiKey: 'ff2ad6c629df9c094a93a92a500added',
       indexName: 'kongponents-konghq'
     },
