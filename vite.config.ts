@@ -36,6 +36,8 @@ export default defineConfig({
     include: [
       'cypress',
       'vue',
+      'focus-trap',
+      'focus-trap-vue',
     ],
   },
 })
