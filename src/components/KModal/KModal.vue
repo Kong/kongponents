@@ -98,7 +98,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, nextTick, onMounted, onUnmounted, ref, watch, watchEffect } from 'vue'
+import { defineComponent, computed, onMounted, onUnmounted, ref, watch, watchEffect } from 'vue'
 import { FocusTrap } from 'focus-trap-vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
@@ -253,11 +253,18 @@ export default defineComponent({
       }
     })
 
-    watch(() => props.isVisible, async (isVisible) => {
+    let timer: number | null = null
+
+    watch(() => props.isVisible, (isVisible) => {
       if (isVisible) {
-        await nextTick()
-        focusTrap.value?.activate()
+        timer = setTimeout(() => {
+          focusTrap.value?.activate()
+        }, 200)
       } else {
+        if (timer) {
+          clearTimeout(timer)
+          timer = null
+        }
         focusTrap.value?.deactivate()
       }
     })
