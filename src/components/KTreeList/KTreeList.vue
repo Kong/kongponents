@@ -3,7 +3,7 @@
     <KTreeDraggable
       :items="internalList"
       :disable-drag="disableDrag"
-      :max-level="maxLevels"
+      :max-depth="maxDepth"
       @change="handleChangeEvent"
       @child-change="handleChildChangeEvent"
       @selected="handleSelection"
@@ -48,7 +48,7 @@ const getIds = (items: TreeListItem[], ids: string[]) => {
   return ids
 }
 
-const itemsAreUnique = (items: TreeListItem[]): boolean => {
+const itemIdsAreUnique = (items: TreeListItem[]): boolean => {
   const ids = getIds(items, [])
   const uniqueIds = new Set(ids)
 
@@ -65,7 +65,7 @@ const itemsWithinMaximumDepth = (items: TreeListItem[], maxDepth: number): boole
 }
 
 const treeListIsValid = (items: TreeListItem[]): boolean => {
-  return itemsHaveRequiredProps(items) && itemsAreUnique(items)
+  return itemsHaveRequiredProps(items) && itemIdsAreUnique(items)
 }
 
 export default {}
@@ -96,10 +96,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  maxLevels: {
+  maxDepth: {
     type: Number,
-    default: 2,
-    validator: (value: number) => value <= 6,
+    default: 3,
+    validator: (value: number) => value <= 5,
   },
 })
 
@@ -181,8 +181,8 @@ onMounted(() => {
     internalList.value = props.items
   }
 
-  if (itemsWithinMaximumDepth(internalList.value, props.maxLevels)) {
-    console.warn('KTreeList: Provided list depth exceeds `maxLevels`')
+  if (!itemsWithinMaximumDepth(internalList.value, props.maxDepth)) {
+    console.warn('KTreeList: Provided list depth exceeds `maxDepth`')
   }
 
   internalList.value.forEach((item: TreeListItem) => {

@@ -52,7 +52,7 @@
         :key="`tree-item-${element.id}-children-${key}`"
         :items="getElementChildren(element)"
         :level="level + 1"
-        :max-level="maxLevel"
+        :max-depth="maxDepth"
         :disable-drag="disableDrag"
         :parent-id="element.id"
         @selected="handleSelectionEvent"
@@ -122,9 +122,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  maxLevel: {
+  maxDepth: {
     type: Number,
-    default: 2,
+    default: 3,
   },
   /**
    * These are internal props used to track info
@@ -198,7 +198,7 @@ const handleSelectionEvent = (item: TreeListItem) => {
 }
 
 const maxLevelReached = computed((): boolean => {
-  return props.level > props.maxLevel
+  return props.level > (props.maxDepth - 1)
 })
 
 const checkMove = (target: any): boolean => {
@@ -212,7 +212,7 @@ const checkMove = (target: any): boolean => {
   }
 
   const sumLevel = levelOfDropLocation + deepestLevel
-  if (sumLevel > props.maxLevel) {
+  if (sumLevel > (props.maxDepth - 1)) {
     // disallow movement
     return false
   }
@@ -271,7 +271,7 @@ onMounted(() => {
 @import '@/styles/functions';
 
 .k-tree-draggable {
-  $defaultDropZoneHeight: 4px;
+  $defaultDropZoneHeight: 6px;
 
   .child-drop-zone {
     // this is the height of the area you can drop an item in

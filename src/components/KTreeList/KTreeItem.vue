@@ -108,7 +108,7 @@ const handleClick = () => {
   }
 
   &.not-draggable {
-    cursor: default;
+    cursor: pointer;
   }
 }
 </style>

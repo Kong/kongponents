@@ -134,18 +134,18 @@ Boolean (defaults to `false`) to turn off drag-n-drop reordering of the list.
 <KTreeList disable-drag :items="items" />
 ```
 
-### maxLevels
+### maxDepth
 
-Use this prop to customize the maximum supported depth of the tree. We default to a max level of `2` or support for parents, children, and grandchildren.
+Use this prop to customize the maximum supported depth of the tree. We default to a max depth of `3`.
 
 ::: tip NOTE
-The maximum supported value for `maxLevels` is 6.
+The maximum supported value for `maxDepth` is 5.
 :::
 
-<KTreeList :items="maxLevelsItems" :max-levels="1" />
+<KTreeList :items="maxLevelsItems" :max-depth="5" />
 
 ```html
-<KTreeList :items="items" :max-levels="1" />
+<KTreeList :items="items" :max-depth="5" />
 ```
 
 
@@ -174,7 +174,7 @@ The maximum supported value for `maxLevels` is 6.
   </template>
   <template #item-label="{ item }">
     <span class="color-purple-400">
-    {{ item.name }}
+    Animal: {{ item.name }}
     </span>
   </template>
 </KTreeList>
@@ -253,7 +253,7 @@ An example of changing the theming might look like this:
   --KTreeListItemSelectedBackground: var(--yellow-200);
   --KTreeListItemUnselectedBorder: var(--purple-300);
   --KTreeListItemUnselectedBackground: var(--purple-100);
-  --KTreeListDropZoneHeight: 6px;
+  --KTreeListDropZoneHeight: 8px;
 }
 </style>
 ```
@@ -342,24 +342,32 @@ const disableItems = ref([
   }
 ])
 
-const maxLevelsItems = ref([
-  {
+const maxLevelsItems = ref([{
+  name: "Bunnies",
+  id: 'bunnies',
+  children: [{
     name: "Cats",
-    id: 'cats'
-  },
-  {
-    name: "Dogs",
-    id: 'dogs',
+    id: 'cats',
     children: [{
-      name: "Puppies",
-      id: 'puppies'
+      name: "Dogs",
+      id: "dogs",
+      children: [{
+        name: "Elephants",
+        id: 'elephants',
+        children: [
+          {
+            name: "Fish",
+            id: 'fish'
+          },
+          {
+            name: "Goats",
+            id: 'goats'
+          }
+        ]
+      }]
     }]
-  },
-  {
-    name: "Bunnies",
-    id: 'bunnies'
-  }
-])
+  }]
+}])
 
 const slotItems = ref([
   {
@@ -459,6 +467,6 @@ const handleChildChange = (data) => {
   --KTreeListItemSelectedBackground: var(--yellow-200);
   --KTreeListItemUnselectedBorder: var(--purple-300);
   --KTreeListItemUnselectedBackground: var(--purple-100);
-  --KTreeListDropZoneHeight: 6px;
+  --KTreeListDropZoneHeight: 8px;
 }
 </style>
