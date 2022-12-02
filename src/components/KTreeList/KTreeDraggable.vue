@@ -74,7 +74,7 @@
   </VueDraggableNext>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 /**
  *  Note: if TS errors appear on the
  *  <template #[itemIcon]="slotProps"> or
@@ -86,6 +86,18 @@ import { VueDraggableNext } from 'vue-draggable-next'
 import KTreeItem from '@/components/KTreeList/KTreeItem.vue'
 import type { TreeListItem } from './KTreeItem.vue'
 
+/**
+ * Recursive check to get the maximum depth of an object.
+ * Documented here: https://stackoverflow.com/a/48505969
+ */
+export const getMaximumDepth = ({ children = [] }): number => {
+  return children.length === 0 ? 0 : 1 + Math.max(...children.map(getMaximumDepth))
+}
+
+export default {}
+</script>
+
+<script setup lang="ts">
 export interface ChangeEvent {
   items: TreeListItem[]
 }
@@ -188,14 +200,6 @@ const handleSelectionEvent = (item: TreeListItem) => {
 const maxLevelReached = computed((): boolean => {
   return props.level > props.maxLevel
 })
-
-/**
- * Recursive check to get the maximum depth of an object.
- * Documented here: https://stackoverflow.com/a/48505969
- */
-const getMaximumDepth = ({ children = [] }): number => {
-  return children.length === 0 ? 0 : 1 + Math.max(...children.map(getMaximumDepth))
-}
 
 const checkMove = (target: any): boolean => {
   const levelOfDropLocation = target.relatedContext?.component?.$attrs.level || 0

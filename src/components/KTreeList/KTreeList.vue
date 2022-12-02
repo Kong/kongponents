@@ -33,6 +33,7 @@
  */
 import { computed, ref, watch, onMounted, PropType } from 'vue'
 import KTreeDraggable from '@/components/KTreeList/KTreeDraggable.vue'
+import { getMaximumDepth } from './KTreeDraggable.vue'
 import { TreeListItem, itemsHaveRequiredProps } from '@/components/KTreeList/KTreeItem.vue'
 
 const getIds = (items: TreeListItem[], ids: string[]) => {
@@ -52,6 +53,15 @@ const itemsAreUnique = (items: TreeListItem[]): boolean => {
   const uniqueIds = new Set(ids)
 
   return ids.length === uniqueIds.size
+}
+
+const itemsWithinMaximumDepth = (items: TreeListItem[], maxDepth: number): boolean => {
+  let isValid = true
+  items.forEach((item: TreeListItem) => {
+    isValid = isValid && (!item.children || getMaximumDepth(item as any) <= maxDepth)
+  })
+
+  return isValid
 }
 
 const treeListIsValid = (items: TreeListItem[]): boolean => {
@@ -169,6 +179,10 @@ onMounted(() => {
     internalList.value = props.modelValue
   } else if (props.items) {
     internalList.value = props.items
+  }
+
+  if (itemsWithinMaximumDepth(internalList.value, props.maxLevels)) {
+    console.warn('KTreeList: Provided list depth exceeds `maxLevels`')
   }
 
   internalList.value.forEach((item: TreeListItem) => {
