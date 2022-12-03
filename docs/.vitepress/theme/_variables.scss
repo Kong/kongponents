@@ -7,4 +7,8 @@
   --vp-c-brand-lighter: var(--blue-300, #8ab3fa);
   --vp-c-brand-dark: var(--blue-600, #003694);
   --vp-c-brand-darker: var(--blue-700, #0a2b66);
+  // Homepage site name color
+  --kongponents-theme-background-gradient: linear-gradient(120deg, #42d782, #169fcc);
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: var(--kongponents-theme-background-gradient, var(--vp-c-brand, #1456cb));
 }
