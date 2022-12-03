@@ -41,14 +41,13 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
 
 <ClientOnly>
   <KDateTimePicker
-    v-model="currentValue3"
-    @change="newVal => emitVal3 = newVal"
+    v-model="currentValue1"
     placeholder="Please select a date and time"
     mode="dateTime"
     :minute-increment="5"
     :range="false"
   />
-  <div class="mt-6">Emitted value: <pre class="json hide-from-percy">{{ JSON.stringify(emitVal3) }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json hide-from-percy">{{ JSON.stringify(currentValue1) }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -59,6 +58,31 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
   mode="dateTime"
   :minute-increment="5"
   :range="false"
+/>
+```
+
+### Date range
+
+Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
+
+<ClientOnly>
+  <KDateTimePicker
+    v-model="currentValue2"
+    @change="newVal => emitVal2 = newVal"
+    placeholder="Please select a date range"
+    mode="date"
+    :range="true"
+  />
+  <div class="mt-6">Emitted value: <pre class="json hide-from-percy">{{ currentValue2 }}</pre></div>
+</ClientOnly>
+
+```html
+<KDateTimePicker
+  v-model="currentValue"
+  @change="newVal => emitVal = newVal"
+  placeholder="Please select a date range"
+  mode="date"
+  :range="true"
 />
 ```
 
@@ -470,9 +494,12 @@ export default {
       emitVal4: '',
       emitVal5: '',
       emitVal6: '',
-      currentValue0: '',
+      currentValue0: new Date(),
       currentValue1: new Date(),
-      currentValue2: new Date(),
+      currentValue2: {
+        start: twoDaysAgo,
+        end: today
+      },
       currentValue3: new Date(),
       currentValue4: {
         start: twoDaysAgo,

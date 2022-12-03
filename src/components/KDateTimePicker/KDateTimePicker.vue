@@ -343,7 +343,7 @@ export default defineComponent({
       previouslySelectedRange: { start: new Date(), end: new Date(), timePeriodsKey: '' },
       selectedTimeframe: props.timePeriods[0]?.values[0],
       previouslySelectedTimeframe: props.timePeriods[0]?.values[0],
-      tabName: 'relative',
+      tabName: 'custom',
     })
 
     /**
@@ -510,14 +510,16 @@ export default defineComponent({
       }
     }, { immediate: true })
 
+    /**
+     * Reinstate previous selection whenever user toggles between Relative and Custom tabs
+     */
     watch(() => state.tabName, (newValue, oldValue) => {
-      // If the user has switched back to Relative time frames, update timepicker state
       if (oldValue !== undefined && newValue === 'relative') {
         changeRelativeTimeframe(state.previouslySelectedTimeframe)
       } else if (oldValue !== undefined && newValue === 'custom') {
         changeCalendarRange(state.previouslySelectedRange)
       }
-    }, { immediate: true })
+    }, { immediate: false })
 
     onMounted(() => {
       // Select the tab based on incoming defaults; save the default value to our internal
