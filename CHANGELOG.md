@@ -1,3 +1,10 @@
+# [8.9.0](https://github.com/Kong/kongponents/compare/v8.8.1...v8.9.0) (2022-12-05)
+
+
+### Features
+
+* **ktabs:** remove bottom margin from all tabs usage [KHCP-5439] ([#949](https://github.com/Kong/kongponents/issues/949)) ([9882803](https://github.com/Kong/kongponents/commit/988280322b2c5d2f166fa5ae6ea2da1e08a3427b))
+
 ## [8.8.1](https://github.com/Kong/kongponents/compare/v8.8.0...v8.8.1) (2022-12-02)
 
 
