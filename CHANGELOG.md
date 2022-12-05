@@ -1,3 +1,10 @@
+## [8.9.1](https://github.com/Kong/kongponents/compare/v8.9.0...v8.9.1) (2022-12-05)
+
+
+### Bug Fixes
+
+* **datetimepicker:** store previously selected relative tf [MA-1122] ([#943](https://github.com/Kong/kongponents/issues/943)) ([c27bd0c](https://github.com/Kong/kongponents/commit/c27bd0c5058a0b9540e9b0cc157b6979bd290d8b))
+
 # [8.9.0](https://github.com/Kong/kongponents/compare/v8.8.1...v8.9.0) (2022-12-05)
 
 
