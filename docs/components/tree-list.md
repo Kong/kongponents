@@ -148,6 +148,15 @@ The maximum supported value for `maxDepth` is 5.
 <KTreeList :items="items" :max-depth="5" />
 ```
 
+### width
+
+You can pass a `width` string for the entire tree. By default it will take the full width. Currently we support numbers (will be converted to `px`), `auto`, and `percentages` for width.
+
+<KTreeList :items="widthItems" width="70%" />
+
+```html
+<KTreeList :items="items" width="70%" />
+```
 
 ## Slots
 
@@ -368,6 +377,25 @@ const maxLevelsItems = ref([{
     }]
   }]
 }])
+
+const widthItems = ref([
+  {
+    name: "Cats",
+    id: 'cats'
+  },
+  {
+    name: "Dogs",
+    id: 'dogs',
+    children: [{
+      name: "Puppies",
+      id: 'puppies'
+    }]
+  },
+  {
+    name: "Bunnies",
+    id: 'bunnies'
+  }
+])
 
 const slotItems = ref([
   {

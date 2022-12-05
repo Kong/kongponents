@@ -83,6 +83,7 @@
  */
 import { computed, ref, watch, onMounted, PropType } from 'vue'
 import { VueDraggableNext } from 'vue-draggable-next'
+import KIcon from '@/components/KIcon/KIcon.vue'
 import KTreeItem from '@/components/KTreeList/KTreeItem.vue'
 import type { TreeListItem } from './KTreeItem.vue'
 

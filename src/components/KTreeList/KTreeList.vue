@@ -1,5 +1,9 @@
 <template>
-  <div class="k-tree-list">
+  <div
+    :style="width ? widthStyle : undefined"
+    class="k-tree-list"
+    data-testid="k-tree-list"
+  >
     <KTreeDraggable
       :items="internalList"
       :disable-drag="disableDrag"
@@ -32,6 +36,7 @@
  *  lines switch to `v-slot:` notation and Save to let linter clear -->
  */
 import { computed, ref, watch, onMounted, PropType } from 'vue'
+import useUtilities from '@/composables/useUtilities'
 import KTreeDraggable from '@/components/KTreeList/KTreeDraggable.vue'
 import { getMaximumDepth } from './KTreeDraggable.vue'
 import { TreeListItem, itemsHaveRequiredProps } from '@/components/KTreeList/KTreeItem.vue'
@@ -101,6 +106,10 @@ const props = defineProps({
     default: 3,
     validator: (value: number) => value <= 5,
   },
+  width: {
+    type: String,
+    default: '',
+  },
 })
 
 const emit = defineEmits<{
@@ -119,6 +128,14 @@ const value = computed({
   set(newValue: TreeListItem[]): void {
     internalList.value = newValue
   },
+})
+
+const { getSizeFromString } = useUtilities()
+
+const widthStyle = computed(() => {
+  return {
+    maxWidth: getSizeFromString(props.width),
+  }
 })
 
 const handleSelection = (itemToSelect: TreeListItem, list?: TreeListItem[]): void => {

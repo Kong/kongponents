@@ -7,11 +7,13 @@
       'not-draggable': disabled,
       'selected': item.selected
     }"
+    :data-testid="`k-tree-item-${item.id}`"
     @click.prevent="handleClick"
   >
     <div
       v-if="hasIcon"
       class="k-tree-item-icon mr-2"
+      data-testid="k-tree-item-icon"
     >
       <slot name="item-icon">
         <KIcon
@@ -21,7 +23,10 @@
         />
       </slot>
     </div>
-    <div class="k-tree-item-label">
+    <div
+      class="k-tree-item-label"
+      data-testid="k-tree-item-label"
+    >
       <slot name="item-label">
         {{ item.name }}
       </slot>
@@ -31,6 +36,7 @@
 
 <script lang="ts">
 import { computed, PropType, useSlots } from 'vue'
+import KIcon from '@/components/KIcon/KIcon.vue'
 
 export const itemsHaveRequiredProps = (items: TreeListItem[]): boolean => {
   return items.every(i => i.name !== undefined && i.id !== undefined && (!i.children?.length || itemsHaveRequiredProps(i.children)))
@@ -43,8 +49,8 @@ export default {}
 export interface TreeListItem {
   name: string
   id: string
-  selected?: boolean
   icon?: string
+  selected?: boolean
   children?: TreeListItem[]
 }
 
@@ -92,6 +98,7 @@ const handleClick = () => {
   border: 1px solid var(--KTreeListItemUnselectedBorder, var(--grey-200));
   border-radius: 8px;
   padding: 4px;
+  text-decoration: none;
 
   .k-tree-item-icon {
     line-height: 1;
