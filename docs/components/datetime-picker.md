@@ -28,6 +28,7 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
 ```html
 <KDateTimePicker
   v-model="currentValue"
+  @change="newVal => emitVal = newVal"
   :range="false"
   placeholder="Please select a date"
   mode="date"
@@ -68,7 +69,6 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 <ClientOnly>
   <KDateTimePicker
     v-model="currentValue2"
-    @change="newVal => emitVal2 = newVal"
     placeholder="Please select a date range"
     mode="date"
     :range="true"
@@ -92,14 +92,13 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 
 <ClientOnly>
   <KDateTimePicker
-    v-model="currentValue4"
-    @change="newVal => emitVal4 = newVal"
+    v-model="currentValue3"
     placeholder="Please select a date and time"
     mode="dateTime"
     :minute-increment="5"
     :range="true"
   />
-  <div class="mt-6">Emitted value: <pre class="json hide-from-percy">{{ emitVal4 }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json hide-from-percy">{{ currentValue3 }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -122,8 +121,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
 
 <ClientOnly>
   <KDateTimePicker
-    v-model="currentValue5"
-    @change="newVal => emitVal5 = newVal"
+    v-model="currentValue4"
     placeholder="Please select a range"
     mode="relativeDate"
     width="415"
@@ -133,7 +131,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
     :range="true"
     :time-periods="exampleTimeFrames"
   />
-  <div class="mt-6">Emitted value: <pre class="json hide-from-percy">{{ emitVal5 }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json hide-from-percy">{{ currentValue4 }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -185,7 +183,6 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
 <ClientOnly>
   <KDateTimePicker
     v-model="currentValue5"
-    @change="newVal => emitVal5 = newVal"
     placeholder="Please select a range"
     mode="relativeDateTime"
     width="415"
@@ -195,7 +192,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
     :range="true"
     :time-periods="exampleTimeFrames"
   />
-  <div class="mt-6">Emitted value: <pre class="json hide-from-percy">{{ emitVal5 }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json hide-from-percy">{{ currentValue5 }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -245,7 +242,6 @@ This utilizes the same time frames as the previous example; however, in this exa
 <ClientOnly>
   <KDateTimePicker
     v-model="currentValue6"
-    @change="newVal => emitVal6 = newVal"
     placeholder="Please select a time frame"
     mode="relative"
     width="480"
@@ -254,7 +250,7 @@ This utilizes the same time frames as the previous example; however, in this exa
     :range="true"
     :time-periods="exampleTimeFrames"
   />
-  <div class="mt-6">Emitted value: <pre class="json hide-from-percy">{{ emitVal6 }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json hide-from-percy">{{ currentValue6 }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -488,19 +484,16 @@ export default {
     const aWeekAgo    = new Date(today.getTime() - (7*24*60*60*1000))
     const aYearAgo    = new Date(today.getTime() - (365*24*60*60*1000))
     return {
-      emitVal1: '',
-      emitVal2: '',
-      emitVal3: '',
-      emitVal4: '',
-      emitVal5: '',
-      emitVal6: '',
       currentValue0: new Date(),
       currentValue1: new Date(),
       currentValue2: {
         start: twoDaysAgo,
         end: today
       },
-      currentValue3: new Date(),
+      currentValue3: {
+        start: twoDaysAgo,
+        end: today
+      },
       currentValue4: {
         start: twoDaysAgo,
         end: today

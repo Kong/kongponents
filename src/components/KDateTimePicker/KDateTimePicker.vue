@@ -519,7 +519,7 @@ export default defineComponent({
       } else if (oldValue !== undefined && newValue === 'custom') {
         changeCalendarRange(state.previouslySelectedRange)
       }
-    }, { immediate: false })
+    })
 
     onMounted(() => {
       // Select the tab based on incoming defaults; save the default value to our internal
