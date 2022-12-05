@@ -169,7 +169,9 @@ export interface DateTimePickerState {
   fullRangeDisplay?: string
   hidePopover: boolean
   selectedRange: TimeRange
+  previouslySelectedRange: TimeRange,
   selectedTimeframe: TimePeriod
+  previouslySelectedTimeframe: TimePeriod
   tabName: string
 }
 
@@ -338,8 +340,10 @@ export default defineComponent({
       fullRangeDisplay: '',
       hidePopover: false,
       selectedRange: { start: new Date(), end: new Date(), timePeriodsKey: '' },
+      previouslySelectedRange: { start: new Date(), end: new Date(), timePeriodsKey: '' },
       selectedTimeframe: props.timePeriods[0]?.values[0],
-      tabName: 'relative',
+      previouslySelectedTimeframe: props.timePeriods[0]?.values[0],
+      tabName: 'custom',
     })
 
     /**
@@ -364,7 +368,7 @@ export default defineComponent({
         // picker, only the `start` value will be provided.
         // The `timePeriodsKey` param only applies to relative timeframes,
         // not `v-calendar` selections; however, this keeps the object "shape" consistent.
-        state.selectedRange = {
+        state.selectedRange = state.previouslySelectedRange = {
           start,
           end,
           timePeriodsKey: '',
@@ -378,7 +382,7 @@ export default defineComponent({
      * @param {*} timeframe
      */
     const changeRelativeTimeframe = (timeframe: TimePeriod): void => {
-      state.selectedTimeframe = timeframe
+      state.selectedTimeframe = state.previouslySelectedTimeframe = timeframe
 
       // Format the start/end values as human readable date
       const start: Date = state.selectedTimeframe.start()
@@ -505,6 +509,17 @@ export default defineComponent({
         changeCalendarRange(newValue)
       }
     }, { immediate: true })
+
+    /**
+     * Reinstate previous selection whenever user toggles between Relative and Custom tabs
+     */
+    watch(() => state.tabName, (newValue, oldValue) => {
+      if (oldValue !== undefined && newValue === 'relative') {
+        changeRelativeTimeframe(state.previouslySelectedTimeframe)
+      } else if (oldValue !== undefined && newValue === 'custom') {
+        changeCalendarRange(state.previouslySelectedRange)
+      }
+    })
 
     onMounted(() => {
       // Select the tab based on incoming defaults; save the default value to our internal
