@@ -6,13 +6,13 @@
     role="dialog"
     aria-modal="true"
   >
-    <FocusTrap
-      ref="focusTrap"
-      :active="false"
+    <div
+      class="k-modal-backdrop modal-backdrop"
+      @click="(evt) => close(false, evt)"
     >
-      <div
-        class="k-modal-backdrop modal-backdrop"
-        @click="(evt) => close(false, evt)"
+      <FocusTrap
+        ref="focusTrap"
+        :active="false"
       >
         <div class="k-modal-dialog modal-dialog">
           <div
@@ -92,8 +92,8 @@
             </div>
           </div>
         </div>
-      </div>
-    </FocusTrap>
+      </FocusTrap>
+    </div>
   </div>
 </template>
 
@@ -253,14 +253,25 @@ export default defineComponent({
       }
     })
 
-    watch(() => props.isVisible, async (isVisible) => {
-      if (isVisible) {
+    const toggleFocusTrap = async (isActive: boolean): Promise<void> => {
+      if (isActive) {
         await nextTick()
+        // Delay ensures that the focused element doesn't capture the event
+        // that caused the focus trap activation.
+        await new Promise((resolve) => setTimeout(resolve, 0))
         focusTrap.value?.activate()
       } else {
         focusTrap.value?.deactivate()
       }
-    })
+    }
+
+    watch(() => props.isVisible, async (isVisible) => {
+      if (isVisible) {
+        await toggleFocusTrap(true)
+      } else {
+        await toggleFocusTrap(false)
+      }
+    }, { immediate: true })
 
     onMounted(() => {
       document.addEventListener('keydown', handleKeydown)
@@ -283,6 +294,7 @@ export default defineComponent({
       close,
       proceed,
       focusTrap,
+      toggleFocusTrap,
     }
   },
 })

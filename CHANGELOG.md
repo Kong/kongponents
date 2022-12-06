@@ -1,3 +1,31 @@
+## [8.9.1](https://github.com/Kong/kongponents/compare/v8.9.0...v8.9.1) (2022-12-05)
+
+
+### Bug Fixes
+
+* **datetimepicker:** store previously selected relative tf [MA-1122] ([#943](https://github.com/Kong/kongponents/issues/943)) ([c27bd0c](https://github.com/Kong/kongponents/commit/c27bd0c5058a0b9540e9b0cc157b6979bd290d8b))
+
+# [8.9.0](https://github.com/Kong/kongponents/compare/v8.8.1...v8.9.0) (2022-12-05)
+
+
+### Features
+
+* **ktabs:** remove bottom margin from all tabs usage [KHCP-5439] ([#949](https://github.com/Kong/kongponents/issues/949)) ([9882803](https://github.com/Kong/kongponents/commit/988280322b2c5d2f166fa5ae6ea2da1e08a3427b))
+
+## [8.8.1](https://github.com/Kong/kongponents/compare/v8.8.0...v8.8.1) (2022-12-02)
+
+
+### Bug Fixes
+
+* **kmodal:** add focus trap activation delay ([#947](https://github.com/Kong/kongponents/issues/947)) ([3f9f6c6](https://github.com/Kong/kongponents/commit/3f9f6c65a23f83e3e789a6204b680f47e4fe5fd7)), closes [#946](https://github.com/Kong/kongponents/issues/946)
+
+# [8.8.0](https://github.com/Kong/kongponents/compare/v8.7.2...v8.8.0) (2022-12-02)
+
+
+### Features
+
+* **kmodal:** add focus trap support for better a11y ([#940](https://github.com/Kong/kongponents/issues/940)) ([99ef97a](https://github.com/Kong/kongponents/commit/99ef97ad26fe282bfa1bc8b0834b573d305ecd8c))
+
 ## [8.7.2](https://github.com/Kong/kongponents/compare/v8.7.1...v8.7.2) (2022-12-01)
 
 

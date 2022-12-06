@@ -99,7 +99,7 @@ export default defineComponent({
 .k-tabs {
   ul {
     display: flex;
-    margin-bottom: var(--spacing-md, spacing(md));
+    margin-bottom: 0;
     padding-left: 0;
     list-style: none;
     font-size: 18px;
