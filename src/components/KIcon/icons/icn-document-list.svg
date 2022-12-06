@@ -1,0 +1,7 @@
+<svg width="17" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 20">
+  <title>Document</title>
+  <rect type="secondary" width="15.667" height="19" x=".5" y=".5" stroke="#A3BBCC" rx="1.167"/>
+  <rect width="15.667" height="19" x=".5" y=".5" fill="#fff" rx="1.167"/>
+  <path fill="#5C7299" d="M2.667 3.5h2.917v.833H2.667zM2.667 12.5H11v.833H2.667z"/>
+  <path fill="#A3B6D9" d="M3 5h11v1H3zM2.667 6.833h8.75v.833h-8.75zM2.667 8.5h10.417v.833H2.667zM2.667 10.167h6.667V11H2.667zM2.667 14.167h6.667V15H2.667zM2.667 15.833h10.417v.833H2.667z" />
+</svg>
