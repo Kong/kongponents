@@ -1,3 +1,10 @@
+## [8.9.2](https://github.com/Kong/kongponents/compare/v8.9.1...v8.9.2) (2022-12-06)
+
+
+### Bug Fixes
+
+* **ksegmentedcontrol:** disallow slot pointer events by default [MA-1189] ([#956](https://github.com/Kong/kongponents/issues/956)) ([8750238](https://github.com/Kong/kongponents/commit/8750238ce679900c6b77941888972df30bda3d37))
+
 ## [8.9.1](https://github.com/Kong/kongponents/compare/v8.9.0...v8.9.1) (2022-12-05)
 
 
