@@ -80,6 +80,10 @@ You can pass in an optional flag to disable the control or an individual button 
 </KComponent>
 ```
 
+### allowPointerEvents
+
+By default, CSS `pointer-events` is set to `none` for the Segmented Control button slots. Set this prop to `true` to change the behavior to `pointer-events: auto`.
+
 ## Slots
 
 You can customize each option's content using the `option-label` slot. The option's data is provided as a slot param.

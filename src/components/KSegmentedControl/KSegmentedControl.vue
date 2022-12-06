@@ -1,6 +1,9 @@
 
 <template>
-  <div class="segmented-control d-flex">
+  <div
+    class="segmented-control d-flex"
+    :class="{ 'allow-pointer-events': allowPointerEvents}"
+  >
     <KButton
       v-for="option in options"
       :key="String(label(option))"
@@ -44,6 +47,10 @@ export default defineComponent({
       required: true,
     },
     isDisabled: {
+      type: Boolean,
+      default: false,
+    },
+    allowPointerEvents: {
       type: Boolean,
       default: false,
     },
@@ -152,6 +159,12 @@ export default defineComponent({
       border-color: rgba(color(grey-500), .4);
       background-color: var(--KSegmentedControlUnselectedBackground, var(--white)) !important;
       z-index: 0;
+    }
+  }
+
+  &:not(.allow-pointer-events) {
+    :deep(.k-button) > * {
+      pointer-events: none;
     }
   }
 }
