@@ -1,3 +1,10 @@
+# [8.10.0](https://github.com/Kong/kongponents/compare/v8.9.2...v8.10.0) (2022-12-06)
+
+
+### Features
+
+* **ktreelist:** add component [khcp-5382] ([#911](https://github.com/Kong/kongponents/issues/911)) ([f9bf10f](https://github.com/Kong/kongponents/commit/f9bf10f30dc009648a663f3f074847f22066d891))
+
 ## [8.9.2](https://github.com/Kong/kongponents/compare/v8.9.1...v8.9.2) (2022-12-06)
 
 
