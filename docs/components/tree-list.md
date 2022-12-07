@@ -19,17 +19,18 @@ The value provided to `v-model` should adhere to all the same constraints of the
 :::
 
 <div>
-  <KLabel>Value:</KLabel> {{ myList }}
   <KTreeList class="mt-2" v-model="myList" />
   <br>
   <KButton @click="reset">Reset</KButton>
+  <div class="mt-6"><b>Value:</b> <pre class="json hide-from-percy">{{ JSON.stringify(myList) }}</pre></div>
 </div>
 
 ```html
 <template>
-  <KLabel>Value:</KLabel> {{ myList }}
   <KTreeList v-model="myList" />
   <KButton @click="reset">Reset</KButton>
+  <b>Value:</b>
+  <pre>{{ JSON.stringify(myList) }}</pre>
 </template>
 
 <script lang="ts" setup>
@@ -485,6 +486,14 @@ const handleChildChange = (data) => {
 </script>
 
 <style scoped lang="scss">
+pre.json {
+  font-size: var(--type-sm);
+  white-space: pre-wrap;
+  padding: 16px;
+  background-color: var(--grey-200);
+  border-radius: 8px;
+}
+
 .slot-example :deep(.k-tree-item) .k-tree-item-icon {
   line-height: 1.4;
 }
