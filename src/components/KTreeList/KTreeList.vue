@@ -39,7 +39,7 @@ import { computed, ref, watch, onMounted, PropType } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KTreeDraggable from '@/components/KTreeList/KTreeDraggable.vue'
 import { getMaximumDepth } from './KTreeDraggable.vue'
-import { TreeListItem, itemsHaveRequiredProps } from '@/components/KTreeList/KTreeItem.vue'
+import type { TreeListItem, itemsHaveRequiredProps } from './KTreeItem.vue'
 
 const getIds = (items: TreeListItem[], ids: string[]) => {
   items.forEach((item: TreeListItem) => {
