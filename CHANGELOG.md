@@ -1,3 +1,15 @@
+# [8.11.0](https://github.com/Kong/kongponents/compare/v8.10.1...v8.11.0) (2022-12-07)
+
+
+### Bug Fixes
+
+* **deps:** bump focus-trap from 7.1.0 to 7.2.0 ([#961](https://github.com/Kong/kongponents/issues/961)) ([caf6f44](https://github.com/Kong/kongponents/commit/caf6f4452b16d75036b4bb3ee63c51733e2fbc87))
+
+
+### Features
+
+* **kicon:** add new presentation icon ([#962](https://github.com/Kong/kongponents/issues/962)) ([228d478](https://github.com/Kong/kongponents/commit/228d478e9548a7cb171875d4b6c32a089f1ca531))
+
 ## [8.10.1](https://github.com/Kong/kongponents/compare/v8.10.0...v8.10.1) (2022-12-07)
 
 
