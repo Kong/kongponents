@@ -1,3 +1,10 @@
+## [8.10.1](https://github.com/Kong/kongponents/compare/v8.10.0...v8.10.1) (2022-12-07)
+
+
+### Bug Fixes
+
+* **ktreelist:** remove alias from import path ([#957](https://github.com/Kong/kongponents/issues/957)) ([7cce452](https://github.com/Kong/kongponents/commit/7cce4520f611e704cc1ba949c14aec2811a43aa0))
+
 # [8.10.0](https://github.com/Kong/kongponents/compare/v8.9.2...v8.10.0) (2022-12-06)
 
 
