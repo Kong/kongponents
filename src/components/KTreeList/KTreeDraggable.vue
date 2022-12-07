@@ -94,8 +94,6 @@ import type { TreeListItem } from './KTreeItem.vue'
 export const getMaximumDepth = ({ children = [] }): number => {
   return children.length === 0 ? 0 : 1 + Math.max(...children.map(getMaximumDepth))
 }
-
-export default {}
 </script>
 
 <script setup lang="ts">

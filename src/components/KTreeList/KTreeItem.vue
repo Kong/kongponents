@@ -41,8 +41,6 @@ import KIcon from '@/components/KIcon/KIcon.vue'
 export const itemsHaveRequiredProps = (items: TreeListItem[]): boolean => {
   return items.every(i => i.name !== undefined && i.id !== undefined && (!i.children?.length || itemsHaveRequiredProps(i.children)))
 }
-
-export default {}
 </script>
 
 <script lang="ts" setup>

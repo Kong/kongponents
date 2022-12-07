@@ -72,8 +72,6 @@ const itemsWithinMaximumDepth = (items: TreeListItem[], maxDepth: number): boole
 const treeListIsValid = (items: TreeListItem[]): boolean => {
   return itemsHaveRequiredProps(items) && itemIdsAreUnique(items)
 }
-
-export default {}
 </script>
 
 <script lang="ts" setup>
