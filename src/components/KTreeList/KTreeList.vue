@@ -39,7 +39,7 @@ import { computed, ref, watch, onMounted, PropType } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KTreeDraggable from '@/components/KTreeList/KTreeDraggable.vue'
 import { getMaximumDepth } from './KTreeDraggable.vue'
-import { TreeListItem, itemsHaveRequiredProps } from '@/components/KTreeList/KTreeItem.vue'
+import { TreeListItem, itemsHaveRequiredProps } from './KTreeItem.vue'
 
 const getIds = (items: TreeListItem[], ids: string[]) => {
   items.forEach((item: TreeListItem) => {
@@ -72,8 +72,6 @@ const itemsWithinMaximumDepth = (items: TreeListItem[], maxDepth: number): boole
 const treeListIsValid = (items: TreeListItem[]): boolean => {
   return itemsHaveRequiredProps(items) && itemIdsAreUnique(items)
 }
-
-export default {}
 </script>
 
 <script lang="ts" setup>
