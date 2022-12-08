@@ -131,12 +131,15 @@ sidebar: {
 
 ### Importing type declarations and interfaces
 
-When importing type declarations or interfaces, you **must** use a relative path instead of the `@/...` alias so that the types are properly resolved within consuming packages. See the example below:
+
+
+When importing type declarations or interfaces, you can use a relative path instead of the `@/` alias so that the types are properly resolved within consuming packages. See the example below:
 
 ```ts
 import { StepperState } from './KStepState.vue'
 ```
 
+This repository utilizes [`tsc-alias`](https://www.npmjs.com/package/tsc-alias) to replace these paths during the build; however, so either method is acceptable.
 ## Testing your component
 
 You're free to play around with your component on the local instance of the docs site by running `yarn docs:dev`; however, you may also want to test your local changes in a consuming application.
