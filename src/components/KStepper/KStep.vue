@@ -26,7 +26,8 @@
 import { defineComponent, computed, PropType } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
-import KStepState, { StepperState } from '@/components/KStepper/KStepState.vue'
+import KStepState from '@/components/KStepper/KStepState.vue'
+import type { StepperState } from './KStepState.vue'
 
 const { getSizeFromString } = useUtilities()
 
