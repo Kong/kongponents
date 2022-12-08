@@ -1,3 +1,10 @@
+## [8.11.1](https://github.com/Kong/kongponents/compare/v8.11.0...v8.11.1) (2022-12-08)
+
+
+### Bug Fixes
+
+* **kstepper:** update type import ([83f5965](https://github.com/Kong/kongponents/commit/83f5965f2a29889d8e4cdaef3a7f225465073f49))
+
 # [8.11.0](https://github.com/Kong/kongponents/compare/v8.10.1...v8.11.0) (2022-12-07)
 
 
