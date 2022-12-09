@@ -1,10 +1,10 @@
 <template>
   <div class="pagination-offset-button-container mb-0 pa-0">
     <KButton
-      :class="{ disabled: prevButtonDisabled }"
-      class="pagination-button"
-      data-testid="prev-btn"
       aria-label="Go to the previous page"
+      class="pagination-button"
+      :class="{ disabled: prevButtonDisabled }"
+      data-testid="prev-btn"
       @click.prevent="getPrevOffset"
     >
       <template #icon>
@@ -17,10 +17,10 @@
       </template>
     </KButton>
     <KButton
-      :class="{ disabled: nextButtonDisabled }"
-      class="pagination-button"
-      data-testid="next-btn"
       aria-label="Go to the next page"
+      class="pagination-button"
+      :class="{ disabled: nextButtonDisabled }"
+      data-testid="next-btn"
       @click.prevent="getNextOffset"
     >
       <template #icon>

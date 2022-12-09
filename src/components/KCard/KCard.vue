@@ -1,15 +1,15 @@
 <template>
   <section
-    :class="[borderVariant, {'hover': hasHover, 'kcard-shadow': hasShadow }]"
+    :aria-describedby="contentId || undefined"
     :aria-label="title ? title : undefined"
     :aria-labelledby="!title && ($slots.title || $slots.title) ? titleId : undefined"
-    :aria-describedby="contentId || undefined"
     class="kong-card"
+    :class="[borderVariant, {'hover': hasHover, 'kcard-shadow': hasShadow }]"
   >
     <div
       v-if="$slots.actions || useStatusHatLayout || (!useStatusHatLayout && (title || $slots.title))"
-      :class="{ 'has-status': status || $slots.statusHat }"
       class="k-card-header d-flex mb-3"
+      :class="{ 'has-status': status || $slots.statusHat }"
     >
       <div
         v-if="status || $slots.statusHat"

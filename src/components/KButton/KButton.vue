@@ -1,20 +1,20 @@
 <template>
   <a
     v-if="typeof to === 'string'"
-    :disabled="disabled ? disabled : undefined"
-    :type="type"
-    :href="to"
-    :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance]"
     class="k-button"
+    :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance]"
+    :disabled="disabled ? disabled : undefined"
+    :href="to"
+    :type="type"
     v-bind="strippedAttrs"
   >
 
     <slot name="icon">
       <KIcon
         v-if="icon"
+        class="k-button-icon"
         :color="iconColor"
         :icon="icon"
-        class="k-button-icon"
         size="16"
       />
     </slot>
@@ -24,28 +24,28 @@
     <KIcon
       v-if="showCaret"
       :color="iconColor"
-      view-box="2 2 15 15"
-      size="16"
       icon="chevronDown"
+      size="16"
+      view-box="2 2 15 15"
     />
   </a>
 
   <component
     :is="buttonType"
     v-else
-    :disabled="disabled ? disabled : undefined"
-    :type="type"
-    :to="to"
-    :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance]"
     class="k-button"
+    :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance]"
+    :disabled="disabled ? disabled : undefined"
+    :to="to"
+    :type="type"
     v-bind="strippedAttrs"
   >
     <slot name="icon">
       <KIcon
         v-if="icon"
+        class="k-button-icon"
         :color="iconColor"
         :icon="icon"
-        class="k-button-icon"
         size="16"
       />
     </slot>
@@ -56,9 +56,9 @@
       v-if="showCaret"
       :class="['caret']"
       :color="iconColor"
-      view-box="2 2 15 15"
-      size="16"
       icon="chevronDown"
+      size="16"
+      view-box="2 2 15 15"
     />
   </component>
 </template>

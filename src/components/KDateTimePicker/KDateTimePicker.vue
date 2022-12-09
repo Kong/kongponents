@@ -1,32 +1,32 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <div
+    class="k-datetime-picker"
     :class="{ 'set-min-width': hasTimePeriods }"
     :style="widthStyle"
-    class="k-datetime-picker"
   >
     <KPop
+      hide-caret
       :hide-popover="hidePopover"
       placement="bottomStart"
-      width="auto"
-      hide-caret
       position-fixed
+      width="auto"
       @opened="hidePopover = false"
     >
       <KButton
-        :class="{ 'set-min-width': hasTimePeriods }"
-        :is-rounded="false"
-        :style="widthStyle"
-        size="large"
-        class="timepicker-input"
         aria-role="input"
+        class="timepicker-input"
+        :class="{ 'set-min-width': hasTimePeriods }"
         data-testid="k-datetime-picker-input"
+        :is-rounded="false"
+        size="large"
+        :style="widthStyle"
       >
         <KIcon
           v-if="icon"
+          class="mr-1"
           color="var(--grey-500)"
           icon="calendar"
-          class="mr-1"
           size="18"
         />
         <div
@@ -43,12 +43,12 @@
         <KSegmentedControl
           v-if="hasTimePeriods && hasCalendar"
           v-model="tabName"
+          class="w-100 mb-4"
+          data-testid="k-datetime-picker-toggle"
           :options="[
             { label: 'Relative', value: 'relative' },
             { label: 'Custom', value: 'custom' }
           ]"
-          class="w-100 mb-4"
-          data-testid="k-datetime-picker-toggle"
           @click="selected => tabName = selected"
         />
         <!-- Single date / time or range readout -->
@@ -61,15 +61,15 @@
         <DatePicker
           v-if="hasCalendar && showCalendar"
           v-model="selectedCalendarRange"
+          :drag-attribute="calendarDragAttributes"
+          is-expanded
           :is-range="range"
           :max-date="maxDate"
           :min-date="minDate"
+          :minute-increment="minuteIncrement"
           :mode="impliedMode"
           :model-config="modelConfig"
-          :minute-increment="minuteIncrement"
           :select-attribute="calendarSelectAttributes"
-          :drag-attribute="calendarDragAttributes"
-          is-expanded
         />
         <div
           v-else-if="hasTimePeriods"
@@ -87,11 +87,11 @@
               <KButton
                 v-for="(timeFrame, itemIdx) in item.values"
                 :key="`time-${itemIdx}`"
-                :is-rounded="false"
+                appearance="outline"
+                class="timeframe-btn"
                 :class="{ 'selected-option': timeFrame.key === selectedTimeframe.key }"
                 :data-testid="'select-timeframe-' + timeFrame.timeframeLength()"
-                class="timeframe-btn"
-                appearance="outline"
+                :is-rounded="false"
                 size="medium"
                 @click="changeRelativeTimeframe(timeFrame)"
               >
@@ -107,22 +107,22 @@
       >
         <div class="d-flex justify-content-end">
           <KButton
-            :is-rounded="false"
-            data-testid="k-datetime-picker-clear"
-            class="action-btn"
-            size="medium"
             appearance="btn-link"
+            class="action-btn"
+            data-testid="k-datetime-picker-clear"
+            :is-rounded="false"
+            size="medium"
             @click="clearSelection()"
           >
             Clear
           </KButton>
           <KButton
+            appearance="btn-link"
+            class="action-btn"
+            data-testid="k-datetime-picker-submit"
             :disabled="submitDisabled"
             :is-rounded="false"
-            data-testid="k-datetime-picker-submit"
-            class="action-btn"
             size="medium"
-            appearance="btn-link"
             @click="submitTimeFrame()"
           >
             Apply

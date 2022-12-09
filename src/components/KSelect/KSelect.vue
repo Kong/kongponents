@@ -1,14 +1,14 @@
 <template>
   <div
-    :style="widthStyle"
     class="k-select"
     :class="[$attrs.class]"
+    :style="widthStyle"
   >
     <KLabel
       v-if="label && !overlayLabel"
-      :for="selectId"
       v-bind="labelAttributes"
       data-testid="k-select-label"
+      :for="selectId"
     >
       {{ label }}
     </KLabel>
@@ -46,13 +46,8 @@
             return isToggled.value
           }"
           :position-fixed="positionFixed"
-          :test-mode="!!testMode || undefined"
           :target="`[id='${selectInputId}']`"
-          @opened="() => {
-            filterStr = ''
-            toggle()
-            onPopoverOpen()
-          }"
+          :test-mode="!!testMode || undefined"
           @closed="() => {
             if (selectedItem && appearance === 'select') {
               filterStr = selectedItem.label
@@ -61,22 +56,27 @@
               toggle()
             }
           }"
+          @opened="() => {
+            filterStr = ''
+            toggle()
+            onPopoverOpen()
+          }"
         >
           <div
             v-if="appearance === 'button'"
             :id="selectInputId"
             class="k-select-button"
             data-testid="k-select-input"
-            style="position: relative;"
             role="listbox"
+            style="position: relative;"
           >
             <KButton
               :id="selectTextId"
-              :style="widthStyle"
-              show-caret
-              :is-rounded="false"
               v-bind="modifiedAttrs"
               appearance="btn-link"
+              :is-rounded="false"
+              show-caret
+              :style="widthStyle"
               @keyup="evt => triggerFocus(evt, isToggled)"
             >
               {{ selectButtonText }}
@@ -85,6 +85,7 @@
           <div
             v-else
             :id="selectInputId"
+            class="select-input-container"
             :class="{
               'k-select-input': appearance === 'select',
               'no-filter': !filterIsEnabled,
@@ -92,9 +93,8 @@
               'is-open': isToggled.value
             }"
             data-testid="k-select-input"
-            class="select-input-container"
-            style="position: relative;"
             role="listbox"
+            style="position: relative;"
             @click="evt => {
               if ($attrs.disabled !== undefined && String($attrs.disabled) !== 'false') {
                 evt.stopPropagation()
@@ -103,45 +103,45 @@
           >
             <KButton
               v-if="isClearVisible"
-              :class="{ 'overlay-label-clear': overlayLabel }"
               class="clear-selection-icon cursor-pointer non-visual-button"
+              :class="{ 'overlay-label-clear': overlayLabel }"
               @click="clearSelection"
               @keyup.enter="clearSelection"
             >
               <KIcon
-                icon="clear"
                 color="var(--grey-500)"
+                icon="clear"
                 size="18"
               />
             </KButton>
             <KIcon
               v-if="appearance === 'select'"
-              icon="chevronDown"
-              color="var(--grey-500)"
-              size="18"
               :class="{ 'overlay-label-chevron': overlayLabel }"
+              color="var(--grey-500)"
+              icon="chevronDown"
+              size="18"
             />
             <KInput
               :id="selectTextId"
               v-bind="modifiedAttrs"
-              :model-value="filterStr"
-              :label="label && overlayLabel ? label : undefined"
-              :overlay-label="overlayLabel"
-              :placeholder="selectedItem && appearance === 'select' && !filterIsEnabled ? selectedItem.label : placeholderText"
-              autocomplete="off"
               autocapitalize="off"
+              autocomplete="off"
+              class="k-select-input"
               :class="{
                 'cursor-default prevent-pointer-events': !filterIsEnabled,
                 'input-placeholder-dark has-chevron': appearance === 'select',
                 'has-clear': isClearVisible,
                 'is-readonly': ($attrs.readonly !== undefined && String($attrs.readonly) !== 'false')
               }"
-              class="k-select-input"
+              :label="label && overlayLabel ? label : undefined"
+              :model-value="filterStr"
+              :overlay-label="overlayLabel"
+              :placeholder="selectedItem && appearance === 'select' && !filterIsEnabled ? selectedItem.label : placeholderText"
+              @blur="onInputBlur"
+              @focus="onInputFocus"
               @keypress="onInputKeypress"
               @keyup="(evt: any) => triggerFocus(evt, isToggled)"
               @update:model-value="onQueryChange"
-              @focus="onInputFocus"
-              @blur="onInputBlur"
             />
           </div>
           <template #content>
@@ -167,17 +167,17 @@
               >
                 <template #content>
                   <slot
+                    class="select-item-label select-item-desc"
                     :item="item"
                     name="item-template"
-                    class="select-item-label select-item-desc"
                   />
                 </template>
               </KSelectItem>
               <KSelectItem
                 v-if="!filteredItems.length && !$slots.empty"
                 key="k-select-empty-state"
-                :item="{ label: 'No results', value: 'no_results' }"
                 class="k-select-empty-item"
+                :item="{ label: 'No results', value: 'no_results' }"
               />
             </div>
             <slot

@@ -7,11 +7,11 @@
     <KButton
       v-for="option in options"
       :key="String(label(option))"
-      :name="value(option)"
-      :disabled="disabled(option)"
       :appearance="appearance(option)"
-      size="small"
       class="justify-content-center"
+      :disabled="disabled(option)"
+      :name="value(option)"
+      size="small"
       @click="handleClick"
     >
       <slot

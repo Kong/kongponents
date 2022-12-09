@@ -7,8 +7,8 @@
       v-if="isEditing"
       ref="input"
       v-model.trim="inputText"
-      :style="styles"
       class="k-input"
+      :style="styles"
       @blur="handleSave"
       @keyup.enter="onEnter"
     >

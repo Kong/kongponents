@@ -1,19 +1,19 @@
 <template>
   <section
-    :class="{ 'is-error': isError }"
     class="empty-state-wrapper"
+    :class="{ 'is-error': isError }"
   >
     <div class="empty-state-title">
       <div
         v-if="isError || icon"
-        :class="{ 'warning-icon': isError }"
         class="k-empty-state-icon card-icon mb-3"
+        :class="{ 'warning-icon': isError }"
       >
         <KIcon
-          :size="iconSize"
-          :icon="icon ? icon : 'warning'"
           :color="isError ? iconColor || 'var(--black-70)' : iconColor"
+          :icon="icon ? icon : 'warning'"
           :secondary-color="isError ? 'var(--yellow-400)' : undefined"
+          :size="iconSize"
         />
       </div>
       <div class="k-empty-state-title-header mt-4 mb-4">

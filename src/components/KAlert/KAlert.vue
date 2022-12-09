@@ -1,6 +1,7 @@
 <template>
   <div
     v-if="isShowing"
+    class="k-alert"
     :class="[
       appearance,
       size,
@@ -14,31 +15,30 @@
       { 'is-fixed': isFixed },
       { 'is-banner': type === 'banner' }
     ]"
-    class="k-alert"
     role="alert"
     @click.stop
   >
     <!-- leading icon -->
     <span
       v-if="type === 'banner' && size !== 'large'"
-      :class="appearance"
       class="k-alert-ellipse"
+      :class="appearance"
     />
 
     <span
       v-if="icon || $slots.icon"
+      class="k-alert-icon-container"
       :class="{
         'mr-3': type !== 'banner',
         'k-alert-icon-container-large': size === 'large'
       }"
-      class="k-alert-icon-container"
     >
       <slot name="icon">
         <KIcon
-          :size="iconSize"
+          class="k-alert-icon"
           :color="iconColor"
           :icon="icon"
-          class="k-alert-icon"
+          :size="iconSize"
         />
       </slot>
     </span>
@@ -59,11 +59,11 @@
         </slot>
       </div>
       <div
+        class="k-alert-msg"
         :class="{
           'k-alert-text': size === 'large',
           'k-alert-subtext': title || $slots.title
         }"
-        class="k-alert-msg"
       >
         <!-- @slot Use this slot to pass default alert message  -->
         <slot name="alertMessage">
@@ -84,23 +84,23 @@
     <!-- Buttons -->
     <button
       v-if="dismissType === 'icon'"
-      type="button"
       aria-label="Close"
       class="close"
+      type="button"
       @click="dismissAlert"
     >
       <KIcon
+        :class="appearance"
+        :color="appearance"
         icon="close"
         size="14"
-        :color="appearance"
-        :class="appearance"
       />
     </button>
 
     <div
       v-if="hasActionButtons || dismissType !== 'none'"
-      :class="appearance"
       class="k-alert-action"
+      :class="appearance"
     >
       <!-- @slot Use this slot to pass extra buttons other than Dismiss  -->
       <slot

@@ -2,15 +2,15 @@
   <div class="k-step-spinner">
     <svg
       class="k-step-state-icon"
-      viewBox="0 0 50 50"
       data-testid="k-step-pending"
+      viewBox="0 0 50 50"
     >
       {{ title }}
       <circle
         cx="25"
         cy="25"
-        r="20"
         fill="none"
+        r="20"
         stroke-width="5"
       />
     </svg>

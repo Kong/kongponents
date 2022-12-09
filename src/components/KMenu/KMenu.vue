@@ -1,7 +1,7 @@
 <template>
   <div
-    :style="widthStyle"
     class="k-menu"
+    :style="widthStyle"
   >
     <slot name="body">
       <div>
@@ -10,12 +10,12 @@
           :key="item.title + index"
         >
           <KMenuItem
-            :item="item"
+            :class="{ 'last-menu-item': index === items.length - 1 }"
             :expandable="item.expandable"
-            :type="item.type"
+            :item="item"
             :last-menu-item="index === items.length - 1"
             :test-mode="!!testMode || undefined"
-            :class="{ 'last-menu-item': index === items.length - 1 }"
+            :type="item.type"
           />
         </template>
       </div>

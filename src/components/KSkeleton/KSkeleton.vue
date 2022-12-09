@@ -1,8 +1,8 @@
 <template>
   <div
     v-if="isVisible"
-    :class="{ 'w-100': type !== 'spinner', 'opacity-0': !isVisible }"
     class="d-flex flex-wrap k-skeleton-container"
+    :class="{ 'w-100': type !== 'spinner', 'opacity-0': !isVisible }"
   >
     <CardSkeleton
       v-if="type === 'card'"
@@ -38,9 +38,9 @@
 
     <KIcon
       v-else-if="type === 'spinner'"
+      color="#000"
       icon="spinner"
       size="18"
-      color="#000"
     />
 
     <Skeleton v-else />

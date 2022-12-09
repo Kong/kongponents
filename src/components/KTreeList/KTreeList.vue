@@ -1,12 +1,12 @@
 <template>
   <div
-    :style="width ? widthStyle : undefined"
     class="k-tree-list"
     data-testid="k-tree-list"
+    :style="width ? widthStyle : undefined"
   >
     <KTreeDraggable
-      :items="internalList"
       :disable-drag="disableDrag"
+      :items="internalList"
       :max-depth="maxDepth"
       @change="handleChangeEvent"
       @child-change="handleChildChangeEvent"

@@ -1,10 +1,10 @@
 <template>
   <KCard
+    class="grid-item d-flex flex-column overflow-hidden k-card-catalog-item"
+    :data-testid="item && item.title ? `${item.title.replace(/[^0-9a-z]/gi, '-')}-catalog-item` : 'catalog-item'"
     has-hover
     role="button"
     tabindex="0"
-    class="grid-item d-flex flex-column overflow-hidden k-card-catalog-item"
-    :data-testid="item && item.title ? `${item.title.replace(/[^0-9a-z]/gi, '-')}-catalog-item` : 'catalog-item'"
     :test-mode="!!testMode || undefined"
     @click="handleCardClick($event, item)"
   >

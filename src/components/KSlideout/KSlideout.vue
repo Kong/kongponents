@@ -8,13 +8,13 @@
       />
     </transition>
     <transition
-      tag="div"
       name="slide"
+      tag="div"
     >
       <div
         v-if="isVisible"
-        :class="{ isVisible: 'is-visible' }"
         class="panel"
+        :class="{ isVisible: 'is-visible' }"
       >
         <button
           class="close-btn"

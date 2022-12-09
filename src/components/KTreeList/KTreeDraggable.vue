@@ -1,29 +1,29 @@
 <template>
   <VueDraggableNext
     v-bind="draggableAttrs"
-    :disabled="disableDrag"
-    :list="internalList"
-    :group="{ name: 'k-tree-list', put: !maxLevelReached }"
-    :move="checkMove"
-    :level="level"
-    tag="div"
     class="k-tree-draggable"
-    @start="onStartDrag"
-    @end="onStopDrag"
+    :disabled="disableDrag"
+    :group="{ name: 'k-tree-list', put: !maxLevelReached }"
+    :level="level"
+    :list="internalList"
+    :move="checkMove"
+    tag="div"
     @change="handleChangeEvent"
+    @end="onStopDrag"
+    @start="onStartDrag"
   >
     <div
       v-for="element in internalList"
       :key="element.id"
+      class="k-tree-item-container"
       :class="{
         'has-no-children': hasNoChildren(element)
       }"
-      class="k-tree-item-container"
     >
       <KTreeItem
         :key="`tree-item-${element.id}-${key}`"
-        :item="element"
         :disabled="disableDrag"
+        :item="element"
         @selected="handleSelectionEvent"
       >
         <template #item-icon>
@@ -50,10 +50,10 @@
       </KTreeItem>
       <KTreeDraggable
         :key="`tree-item-${element.id}-children-${key}`"
+        :disable-drag="disableDrag"
         :items="getElementChildren(element)"
         :level="level + 1"
         :max-depth="maxDepth"
-        :disable-drag="disableDrag"
         :parent-id="element.id"
         @selected="handleSelectionEvent"
       >

@@ -10,52 +10,52 @@
     >
       <router-link
         v-if="typeof item.to === 'object'"
-        :to="item.to"
-        :title="item.title"
         :class="{'no-underline': !item.text}"
+        :title="item.title"
+        :to="item.to"
       >
         <KIcon
           v-if="item.icon"
-          :icon="item.icon"
           :class="[ 'k-breadcrumb-icon', {'has-no-text': !item.text} ]"
-          hide-title
-          size="20"
           color="var(--grey-500)"
+          hide-title
+          :icon="item.icon"
+          size="20"
         />
         <span
           v-if="item.text"
-          :style="{maxWidth: item.maxWidth || itemMaxWidth}"
           class="k-breadcrumb-text truncate"
+          :style="{maxWidth: item.maxWidth || itemMaxWidth}"
         >{{ item.text }}</span>
       </router-link>
 
       <a
         v-else
-        :title="item.title"
-        :href="item.to"
         :class="{'no-underline': !item.text}"
+        :href="item.to"
         target="_blank"
+        :title="item.title"
       >
         <KIcon
           v-if="item.icon"
-          :icon="item.icon"
           :class="[ 'k-breadcrumb-icon', {'has-no-text': !item.text} ]"
-          hide-title
-          size="20"
           color="var(--grey-500)"
+          hide-title
+          :icon="item.icon"
+          size="20"
         />
         <span
           v-if="item.text"
-          :style="{maxWidth: item.maxWidth || itemMaxWidth}"
           class="k-breadcrumb-text truncate"
+          :style="{maxWidth: item.maxWidth || itemMaxWidth}"
         >{{ item.text }}</span>
       </a>
 
       <KIcon
+        color="var(--grey-500)"
         hide-title
         icon="chevronRight"
         size="15"
-        color="var(--grey-500)"
       />
     </li>
   </ul>

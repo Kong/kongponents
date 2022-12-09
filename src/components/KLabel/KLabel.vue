@@ -5,30 +5,30 @@
     <KTooltip
       v-if="help"
       v-bind="tooltipAttributes"
+      class="label-tooltip"
       :label="help"
       :test-mode="!!testMode || undefined"
-      class="label-tooltip"
     >
       <slot />
       <KIcon
+        hide-title
         icon="help"
         size="16"
-        hide-title
       />
     </KTooltip>
     <KTooltip
       v-else-if="info"
       v-bind="tooltipAttributes"
+      class="label-tooltip"
       :label="info"
       :test-mode="!!testMode || undefined"
-      class="label-tooltip"
     >
       <slot />
       <KIcon
+        hide-title
         icon="info"
         size="16"
         view-box="0 0 16 16"
-        hide-title
       />
     </KTooltip>
     <slot v-else />

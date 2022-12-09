@@ -1,15 +1,15 @@
 <template>
   <div
-    :class="[$attrs.class, {'input-error' : hasError || charLimitExceeded}]"
     class="k-input-wrapper mb-2"
+    :class="[$attrs.class, {'input-error' : hasError || charLimitExceeded}]"
   >
     <textarea
       v-if="!label"
       v-bind="modifiedAttrs"
-      :value="getValue()"
-      :rows="rows"
-      :cols="cols"
       class="form-control k-input style-body-lg"
+      :cols="cols"
+      :rows="rows"
+      :value="getValue()"
       @input="inputHandler"
     />
 
@@ -19,25 +19,25 @@
     >
       <div class="text-on-input">
         <label
-          :for="textAreaId"
           v-bind="labelAttributes"
           :class="{ focused: isFocused, hovered: isHovered }"
+          :for="textAreaId"
         >
           <span>{{ label }}</span>
         </label>
         <textarea
           v-bind="modifiedAttrs"
           :id="textAreaId"
-          :value="getValue()"
-          :rows="rows"
-          :cols="cols"
           :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
           class="form-control k-input style-body-lg"
+          :cols="cols"
+          :rows="rows"
+          :value="getValue()"
+          @blur="() => isFocused = false"
+          @focus="() => isFocused = true"
           @input="inputHandler"
           @mouseenter="() => isHovered = true"
           @mouseleave="() => isHovered = false"
-          @focus="() => isFocused = true"
-          @blur="() => isFocused = false"
         />
       </div>
     </div>
@@ -55,23 +55,23 @@
       <textarea
         v-bind="modifiedAttrs"
         :id="textAreaId"
-        :value="getValue()"
-        :rows="rows"
-        :cols="cols"
         :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
         class="form-control k-input style-body-lg"
+        :cols="cols"
+        :rows="rows"
+        :value="getValue()"
+        @blur="() => isFocused = false"
+        @focus="() => isFocused = true"
         @input="inputHandler"
         @mouseenter="() => isHovered = true"
         @mouseleave="() => isHovered = false"
-        @focus="() => isFocused = true"
-        @blur="() => isFocused = false"
       />
     </div>
 
     <div
       v-if="!disableCharacterLimit"
-      :class="{ 'over-char-limit': charLimitExceeded }"
       class="char-limit type-sm color-black-45 mt-2"
+      :class="{ 'over-char-limit': charLimitExceeded }"
     >
       {{ currValue.length || modelValue.length }} / {{ characterLimit }}
     </div>

@@ -4,16 +4,16 @@
     v-if="!$slots.svgElements"
     v-bind="$attrs"
     ref="svgWrapper"
-    :class="`kong-icon-${icon}`"
     class="kong-icon"
+    :class="`kong-icon-${icon}`"
     v-html="icons[icon]"
   />
   <span
     v-else
     v-bind="$attrs"
     ref="svgWrapper"
-    :class="`kong-icon-${icon}`"
     class="kong-icon"
+    :class="`kong-icon-${icon}`"
   >
     <svg class="slot-content">
       <slot name="svgElements" />

@@ -2,13 +2,13 @@
   <KPop
     v-bind="$attrs"
     hide-caret
-    trigger="hover"
+    :max-width="maxWidth"
     :placement="placement"
     :popover-classes="`k-tooltip ${computedClass} ${className}`"
     :position-fixed="positionFixed"
-    :max-width="maxWidth"
-    width="auto"
     :test-mode="!!testMode || undefined"
+    trigger="hover"
+    width="auto"
   >
     <slot />
 
