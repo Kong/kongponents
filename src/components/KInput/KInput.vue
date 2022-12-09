@@ -1,7 +1,7 @@
 <template>
   <div
-    :class="[$attrs.class, {'input-error' : charLimitExceeded || hasError || String($attrs.class || '').includes('input-error')}]"
     class="k-input-wrapper"
+    :class="[$attrs.class, {'input-error' : charLimitExceeded || hasError || String($attrs.class || '').includes('input-error')}]"
   >
     <div
       v-if="label && overlayLabel"
@@ -9,30 +9,30 @@
     >
       <div class="text-on-input">
         <label
-          :for="inputId"
           v-bind="labelAttributes"
           :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }"
+          :for="inputId"
         >
           <span>{{ label }}</span>
         </label>
         <input
           v-bind="modifiedAttrs"
           :id="inputId"
-          :value="getValue()"
-          :class="`k-input-${size}`"
           :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
           class="form-control k-input"
+          :class="`k-input-${size}`"
+          :value="getValue()"
+          @blur="() => isFocused = false"
+          @focus="() => isFocused = true"
           @input="handleInput"
           @mouseenter="() => isHovered = true"
           @mouseleave="() => isHovered = false"
-          @focus="() => isFocused = true"
-          @blur="() => isFocused = false"
         >
       </div>
       <p
         v-if="charLimitExceeded || hasError"
-        :class="{ 'over-char-limit': charLimitExceeded }"
         class="has-error"
+        :class="{ 'over-char-limit': charLimitExceeded }"
       >
         {{ charLimitExceededError || errorMessage }}
       </p>
@@ -51,16 +51,16 @@
       <input
         v-bind="modifiedAttrs"
         :id="inputId"
-        :value="getValue()"
-        :class="`k-input-${size}`"
         :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
         class="form-control k-input"
+        :class="`k-input-${size}`"
+        :value="getValue()"
         @input="handleInput"
       >
       <p
         v-if="charLimitExceeded || hasError"
-        :class="{ 'over-char-limit': charLimitExceeded }"
         class="has-error"
+        :class="{ 'over-char-limit': charLimitExceeded }"
       >
         {{ charLimitExceededError || errorMessage }}
       </p>
@@ -69,10 +69,10 @@
     <input
       v-else
       v-bind="modifiedAttrs"
-      :value="getValue()"
-      :class="`k-input-${size}`"
       :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
       class="form-control k-input"
+      :class="`k-input-${size}`"
+      :value="getValue()"
       @input="handleInput"
     >
 

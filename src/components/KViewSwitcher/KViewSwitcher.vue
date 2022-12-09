@@ -1,12 +1,12 @@
 
 <template>
   <KButton
-    :is-rounded="false"
-    :class="[view, { paused: isPaused }]"
-    :title="`Toggle to ${view === 'table' ? 'grid' : 'table'} view`"
-    size="small"
     appearance="outline"
     class="k-view-switcher view-switch-button non-visual-button"
+    :class="[view, { paused: isPaused }]"
+    :is-rounded="false"
+    size="small"
+    :title="`Toggle to ${view === 'table' ? 'grid' : 'table'} view`"
     @click="toggleView"
   >
     <div class="icon">

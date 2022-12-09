@@ -5,14 +5,14 @@
   >
     <div>
       <img
-        :src="loaderImage"
         alt="Loading"
+        :src="loaderImage"
       >
       <div class="progress">
         <div
-          :style="{ width: `${progression}%` }"
           class="progress-bar"
           role="progressbar"
+          :style="{ width: `${progression}%` }"
         />
       </div>
     </div>

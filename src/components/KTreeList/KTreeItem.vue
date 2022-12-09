@@ -1,13 +1,13 @@
 <template>
   <a
-    role="button"
-    href="#"
     class="k-tree-item d-flex"
     :class="{
       'not-draggable': disabled,
       'selected': item.selected
     }"
     :data-testid="`k-tree-item-${item.id}`"
+    href="#"
+    role="button"
     @click.prevent="handleClick"
   >
     <div

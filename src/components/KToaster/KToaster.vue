@@ -1,8 +1,8 @@
 <template>
   <transition-group
+    class="toaster-container-outer"
     name="toaster"
     tag="div"
-    class="toaster-container-outer"
   >
     <div
       v-for="toaster in toasterState"

@@ -6,8 +6,8 @@
     <input
       :checked="modelValue"
       v-bind="modifiedAttrs"
-      type="checkbox"
       class="k-input"
+      type="checkbox"
       @change="handleChange"
     >
     <span

@@ -2,11 +2,11 @@
   <div
     v-if="isVisible"
     :aria-label="title"
+    aria-modal="true"
     class="k-modal-fullscreen isOpen"
     role="dialog"
-    aria-modal="true"
-    @keyup.esc="close"
     @keyup.enter="proceed"
+    @keyup.esc="close"
   >
     <div
       ref="modalBodyContent"
@@ -39,9 +39,9 @@
       <!-- Header at the bottom to allow proper tabindex -->
       <div class="k-modal-fullscreen-header">
         <div
+          aria-level="2"
           class="k-modal-fullscreen-header-description"
           role="heading"
-          aria-level="2"
         >
           <div class="k-modal-fullscreen-title">
             <span class="header-icon pr-2 my-auto">

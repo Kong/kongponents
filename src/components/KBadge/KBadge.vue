@@ -1,11 +1,11 @@
 <template>
   <div
     v-if="!isDismissed"
+    :aria-hidden="hidden ? true : undefined"
+    class="k-badge d-inline-flex"
+    :class="[ `k-badge-${appearance}`, `k-badge-${shape}` ]"
     :style="color && backgroundColor && {backgroundColor, color}"
     :tabindex="hidden ? -1 : 0"
-    :aria-hidden="hidden ? true : undefined"
-    :class="[ `k-badge-${appearance}`, `k-badge-${shape}` ]"
-    class="k-badge d-inline-flex"
   >
     <component
       :is="truncationTooltip && (forceTooltip || isTruncated) ? 'KTooltip' : 'div'"
@@ -23,16 +23,16 @@
     </component>
     <KButton
       v-if="dismissable"
-      :is-rounded="shape === 'rounded'"
-      :tabindex="hidden ? -1 : 0"
       :aria-hidden="hidden ? true : undefined"
       class="k-badge-dismiss-button ml-1"
       data-testid="k-badge-dismiss-button"
+      :is-rounded="shape === 'rounded'"
+      :tabindex="hidden ? -1 : 0"
       @click="handleDismiss"
     >
       <KIcon
-        icon="close"
         :color="color"
+        icon="close"
         size="10"
         title="Remove"
       />

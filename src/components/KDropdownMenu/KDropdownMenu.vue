@@ -1,26 +1,26 @@
 <template>
   <div
-    :class="{ 'selection-dropdown-menu': appearance === 'selectionMenu' }"
     class="k-dropdown k-dropdown-menu"
+    :class="{ 'selection-dropdown-menu': appearance === 'selectionMenu' }"
   >
     <KToggle v-slot="{ toggle, isToggled }">
       <KPop
         v-bind="boundKPopAttributes"
+        data-testid="k-dropdown-menu-popover"
         :on-popover-click="() => handleTriggerToggle(isToggled, toggle, false)"
         :test-mode="!!testMode || undefined"
-        data-testid="k-dropdown-menu-popover"
-        @opened="() => handleTriggerToggle(isToggled, toggle, true)"
         @closed="() => handleTriggerToggle(isToggled, toggle, false)"
+        @opened="() => handleTriggerToggle(isToggled, toggle, true)"
       >
         <component
           :is="!!disabledTooltip ? 'Kooltip' : 'div'"
-          :label="disabledTooltip"
-          :position="!!disabledTooltip ? 'bottom' : undefined"
-          :position-fixed="!!disabledTooltip ? true : undefined"
-          :max-width="!!disabledTooltip ? '240' : undefined"
-          :test-mode="!!testMode || undefined"
           class="k-dropdown-trigger dropdown-trigger"
           data-testid="k-dropdown-trigger"
+          :label="disabledTooltip"
+          :max-width="!!disabledTooltip ? '240' : undefined"
+          :position="!!disabledTooltip ? 'bottom' : undefined"
+          :position-fixed="!!disabledTooltip ? true : undefined"
+          :test-mode="!!testMode || undefined"
         >
           <slot
             :is-open="isToggled.value"
@@ -30,12 +30,12 @@
             <div>
               <KButton
                 v-if="label || icon"
-                :disabled="disabled"
-                :show-caret="showCaret || appearance === 'selectionMenu'"
                 :appearance="appearance === 'selectionMenu' ? 'outline' : buttonAppearance"
-                :icon="icon"
                 class="k-dropdown-btn"
                 data-testid="k-dropdown-btn"
+                :disabled="disabled"
+                :icon="icon"
+                :show-caret="showCaret || appearance === 'selectionMenu'"
               >
                 {{ label }}
               </KButton>
@@ -48,8 +48,8 @@
             data-testid="k-dropdown-list"
           >
             <slot
-              :items="items"
               :handle-selection="handleSelection"
+              :items="items"
               name="items"
             >
               <KDropdownItem

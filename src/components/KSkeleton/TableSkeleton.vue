@@ -10,12 +10,12 @@
         <KSkeletonBox
           v-for="cell in columns"
           :key="cell"
-          :width="calcWidth(cell, columns)"
           :class="{
             'mr-6': cell !== columns,
             'w-100': cell === columns, // take the rest of the space
             'skeleton-cell': true
           }"
+          :width="calcWidth(cell, columns)"
         />
       </slot>
     </div>

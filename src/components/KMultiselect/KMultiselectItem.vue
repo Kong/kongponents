@@ -1,18 +1,18 @@
 <template>
   <div
     :key="item.key"
-    role="listitem"
     class="k-multiselect-item"
     :data-testid="`k-multiselect-item-${item.value}`"
+    role="listitem"
   >
     <div
-      role="option"
       class="d-block"
+      role="option"
     >
       <button
-        :value="item.value"
         :class="{ selected: item.selected }"
         :disabled="item.disabled === true ? true : undefined"
+        :value="item.value"
         @click="handleClick"
       >
         <span class="k-multiselect-item-label mr-2">
@@ -21,9 +21,9 @@
         <span class="k-multiselect-selected-icon-container">
           <KIcon
             v-if="item.selected"
-            icon="check"
-            color="var(--blue-200)"
             class="selected-item-icon"
+            color="var(--blue-200)"
+            icon="check"
           />
         </span>
       </button>

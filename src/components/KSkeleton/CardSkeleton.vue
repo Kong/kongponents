@@ -15,8 +15,8 @@
             />
             <KSkeletonBox
               class="ml-2"
-              width="75"
               height="2"
+              width="75"
             />
             <hr class="mb-0">
           </slot>

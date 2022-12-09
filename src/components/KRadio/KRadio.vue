@@ -6,8 +6,8 @@
     <input
       :checked="isSelected"
       v-bind="modifiedAttrs"
-      type="radio"
       class="k-input"
+      type="radio"
       @click="handleClick"
     >
     <span

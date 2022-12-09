@@ -1,18 +1,18 @@
 <template>
   <li class="k-step">
     <div
-      :class="{ 'completed': state === 'completed' }"
       class="k-step-container"
+      :class="{ 'completed': state === 'completed' }"
     >
       <KStepState :state="state" />
 
       <div
+        class="k-step-label px-3"
         :class="{
           'bolder': state === 'active' || state === 'pending' || state === 'error',
           'error': state === 'error'
         }"
         :style="labelStyle"
-        class="k-step-label px-3"
       >
         <KLabel>
           {{ label }}

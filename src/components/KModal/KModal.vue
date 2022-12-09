@@ -2,9 +2,9 @@
   <div
     v-if="isVisible"
     :aria-label="title"
+    aria-modal="true"
     class="k-modal"
     role="dialog"
-    aria-modal="true"
   >
     <div
       class="k-modal-backdrop modal-backdrop"
@@ -20,13 +20,13 @@
             class="close-button"
           >
             <KButton
-              class="non-visual-button"
               aria-label="Close"
+              class="non-visual-button"
               @click="close(true)"
             >
               <KIcon
-                icon="close"
                 :color="dismissButtonColor"
+                icon="close"
                 size="15"
               />
             </KButton>
@@ -40,8 +40,8 @@
             </div>
             <div
               v-if="$slots['header-content'] || !hideTitle"
-              role="heading"
               aria-level="2"
+              class="k-modal-header modal-header"
               :class="{
                 'header-left': textAlign === 'left',
                 'header-centered': textAlign === 'center',
@@ -49,19 +49,19 @@
                 'mb-5': !hasHeaderImage,
                 'mb-4': hasHeaderImage
               }"
-              class="k-modal-header modal-header"
+              role="heading"
             >
               <slot name="header-content">
                 {{ title }}
               </slot>
             </div>
             <div
+              class="k-modal-body modal-body"
               :class="{
                 'content-left': textAlign === 'left',
                 'content-centered': textAlign === 'center',
                 'content-right': textAlign === 'right',
               }"
-              class="k-modal-body modal-body"
             >
               <slot name="body-content">
                 {{ content }}

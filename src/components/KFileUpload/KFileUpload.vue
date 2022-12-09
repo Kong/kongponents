@@ -4,10 +4,10 @@
   >
     <KLabel
       v-if="label"
-      :for="customInputId"
       v-bind="labelAttributes"
       class="cursor-pointer"
       data-testid="k-file-upload-label"
+      :for="customInputId"
     >
       {{ label }}
     </KLabel>
@@ -15,44 +15,44 @@
     <KInput
       :id="customInputId"
       :key="fileInputKey"
-      type="file"
       :accept="accept"
-      :help="help"
-      :max-file-size="maximumFileSize"
       class="w-100 upload-input cursor-pointer"
-      :has-error="hasUploadError"
-      :error-message="errorMessage"
       :class="{
         'image-upload': type === 'image'
       }"
+      :error-message="errorMessage"
+      :has-error="hasUploadError"
+      :help="help"
+      :max-file-size="maximumFileSize"
+      type="file"
       @change="onFileChange"
     />
 
     <KIcon
       v-if="type === 'image'"
-      :size="iconSize"
+      class="image-upload-icon"
       :color="iconColor"
       :icon="icon"
-      class="image-upload-icon"
+      :size="iconSize"
       @click.prevent="updateFile"
     />
 
     <a
       v-if="type === 'image'"
-      href="#"
       class="image-upload-description"
+      href="#"
       @click.prevent="updateFile"
     >
       {{ fileValue ? fileValue : placeholder }}
     </a>
     <KButton
       v-if="fileValue && removable"
+      appearance="primary"
       class="remove-button"
       :class="type !== 'file' ? 'move-btn-right' : ''"
-      type="reset"
-      appearance="primary"
-      size="small"
       data-testid="remove-button"
+      size="small"
+      type="reset"
       @click="resetInput"
       @keyup.enter="resetInput"
     >

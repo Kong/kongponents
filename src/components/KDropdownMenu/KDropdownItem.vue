@@ -1,5 +1,6 @@
 <template>
   <li
+    class="k-dropdown-item w-100"
     :class="{
       'has-divider': type !== 'link' && hasDivider,
       'disabled': type === 'default' && disabled,
@@ -7,12 +8,11 @@
       'k-dropdown-selected-option': selected
     }"
     :data-testid="`k-dropdown-item-${label.replace(/ /gi, '-')}`"
-    class="k-dropdown-item w-100"
   >
     <a
       v-if="type === 'link' && to && !!disabled"
-      :class="{ 'disabled': disabled, 'has-divider': hasDivider }"
       class="k-dropdown-item-trigger"
+      :class="{ 'disabled': disabled, 'has-divider': hasDivider }"
       data-testid="k-dropdown-item-trigger"
       href="#"
       @click.prevent.stop=""
@@ -21,20 +21,20 @@
     </a>
     <router-link
       v-else-if="type === 'link' && to"
-      :to="!disabled ? to : routePath"
-      :class="{ 'disabled': disabled, 'has-divider': hasDivider }"
       class="k-dropdown-item-trigger"
+      :class="{ 'disabled': disabled, 'has-divider': hasDivider }"
       data-testid="k-dropdown-item-trigger"
+      :to="!disabled ? to : routePath"
       @click="handleClick"
     >
       <slot>{{ label }}</slot>
     </router-link>
     <KButton
       v-else-if="type === 'button'"
-      :disabled="disabled"
-      :is-rounded="false"
       class="k-dropdown-item-trigger btn-link k-button non-visual-button"
       data-testid="k-dropdown-item-trigger"
+      :disabled="disabled"
+      :is-rounded="false"
       @click="handleClick"
     >
       <slot>{{ label }}</slot>

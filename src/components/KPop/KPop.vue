@@ -3,8 +3,8 @@
     :is="tag"
     :id="$slots.default ? targetId : null"
     ref="root"
-    :aria-expanded="$slots.default ? (!!isOpen || undefined) : undefined"
     :aria-controls="$slots.default ? popoverId : undefined"
+    :aria-expanded="$slots.default ? (!!isOpen || undefined) : undefined"
     :role="$slots.default ? 'button' : null"
     @keydown.enter="(e: any) => handleClick(e)"
     @keydown.esc="hidePopper"
@@ -12,8 +12,8 @@
     <slot>
       <KButton
         :id="targetId"
-        :aria-expanded="!!isOpen || undefined"
         :aria-controls="popoverId || undefined"
+        :aria-expanded="!!isOpen || undefined"
         data-testid="kpop-button"
       >
         {{ buttonText }}
@@ -27,10 +27,10 @@
           v-show="isOpen"
           :id="popoverId"
           ref="popper"
-          :style="popoverStyle"
+          class="k-popover"
           :class="popoverClassObj"
           role="region"
-          class="k-popover"
+          :style="popoverStyle"
         >
           <div
             v-if="$slots.title || title || $slots.actions"
@@ -71,10 +71,10 @@
         v-show="isOpen"
         :id="popoverId"
         ref="popper"
-        :style="popoverStyle"
+        class="k-popover"
         :class="popoverClassObj"
         role="region"
-        class="k-popover"
+        :style="popoverStyle"
       >
         <div
           v-if="$slots.title || title || $slots.actions"

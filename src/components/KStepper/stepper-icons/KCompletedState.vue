@@ -1,27 +1,27 @@
 <template>
   <svg
-    viewBox="0 0 24 24"
-    fill="none"
     class="k-step-state-icon"
     data-testid="k-step-completed"
+    fill="none"
+    viewBox="0 0 24 24"
   >
     <title>{{ title }}</title>
     <circle
+      class="k-step-icon-primary"
       cx="12"
       cy="12"
       r="12"
-      class="k-step-icon-primary"
     />
     <path
-      d="M16 9L10 15L7 12.0001"
       class="k-step-icon-primary"
+      d="M16 9L10 15L7 12.0001"
     />
     <path
+      class="k-step-icon-secondary"
       d="M16 9L10 15L7 12.0001"
-      stroke-width="2.25"
       stroke-linecap="round"
       stroke-linejoin="round"
-      class="k-step-icon-secondary"
+      stroke-width="2.25"
     />
   </svg>
 </template>

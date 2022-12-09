@@ -1,9 +1,9 @@
 <template>
   <KModal
-    :is-visible="isVisible"
-    :title="displayTitle"
-    text-align="left"
     class="k-prompt"
+    :is-visible="isVisible"
+    text-align="left"
+    :title="displayTitle"
   >
     <template #header-content>
       <div class="k-prompt-header w-100">
@@ -11,23 +11,23 @@
           <slot name="header-content">
             <KIcon
               v-if="type === 'warning'"
-              icon="warning"
+              class="mr-2"
               color="var(--white)"
+              icon="warning"
               secondary-color="var(--yellow-400)"
               size="20"
-              class="mr-2"
             />
             {{ displayTitle }}
           </slot>
           <div class="close-button">
             <KButton
-              class="non-visual-button"
               aria-label="Close"
+              class="non-visual-button"
               @click="close"
             >
               <KIcon
-                icon="close"
                 color="var(--grey-600)"
+                icon="close"
                 size="15"
               />
             </KButton>
@@ -51,10 +51,10 @@
 
             <KInput
               v-model="confirmationInput"
-              autocomplete="off"
               autocapitalize="off"
-              data-testid="confirmation-input"
+              autocomplete="off"
               class="mt-2"
+              data-testid="confirmation-input"
             />
           </div>
         </div>
@@ -73,16 +73,16 @@
           </KButton>
           <KButton
             :appearance="type === 'danger' ? 'danger' : 'primary'"
-            :disabled="disableProceedButton"
             class="k-prompt-proceed"
+            :disabled="disableProceedButton"
             @click="proceed"
           >
             <template #icon>
               <KIcon
                 v-if="actionPending"
+                color="var(--grey-400)"
                 icon="spinner"
                 size="16"
-                color="var(--grey-400)"
               />
             </template>
             {{ actionButtonText }}

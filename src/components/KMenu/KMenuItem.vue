@@ -1,23 +1,23 @@
 <template>
   <div
     :id="menuItemId"
+    class="k-menu-item"
+    :class="[isOpen ? 'title-dark' : '', {'expando-item' : expandable}]"
     :data-testid="item ? `${item.title.replace(/ /gi, '-')}-menu-item` : 'menu-item'"
     :test-mode="!!testMode || undefined"
-    :class="[isOpen ? 'title-dark' : '', {'expando-item' : expandable}]"
-    class="k-menu-item"
   >
     <KButton
       v-if="type !== 'divider'"
       :aria-expanded="isOpen && expandable || undefined"
       :aria-labelledby="menuItemId || undefined"
+      class="menu-button non-visual-button"
       :is-rounded="false"
       type="button"
-      class="menu-button non-visual-button"
       @click="toggleMenuItem"
     >
       <span
-        :class="isOpen && expandable ? 'title-dark' : ''"
         class="span-menu-title"
+        :class="isOpen && expandable ? 'title-dark' : ''"
       >
         <slot name="itemTitle">
           {{ item ? item.title : '' }}
@@ -28,16 +28,16 @@
         class="span-icon-container"
       >
         <KIcon
-          :icon="isOpen ? 'chevronUp' : 'chevronDown'"
           color="var(--grey-400)"
+          :icon="isOpen ? 'chevronUp' : 'chevronDown'"
           size="16"
         />
       </span>
     </KButton>
     <div
       v-if="expandable"
-      :class="isOpen ? 'd-flex' : 'd-none'"
       class="menu-content"
+      :class="isOpen ? 'd-flex' : 'd-none'"
     >
       <slot name="itemBody">
         <div v-if="(type === 'string' || type === 'divider') && expandable">

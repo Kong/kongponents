@@ -1,22 +1,22 @@
 <template>
   <div class="k-tabs">
     <ul
-      role="tablist"
       aria-label="Tabs"
+      role="tablist"
     >
       <li
         v-for="(tab, i) in tabs"
         :id="`${tab.hash.replace('#','')}-tab`"
         :key="tab.hash"
-        :aria-selected="activeTab === tab.hash ? 'true' : 'false'"
         :aria-controls="`panel-${i}`"
-        :class="{ active: activeTab === tab.hash }"
-        tabindex="0"
-        role="tab"
+        :aria-selected="activeTab === tab.hash ? 'true' : 'false'"
         class="tab-item"
+        :class="{ active: activeTab === tab.hash }"
+        role="tab"
+        tabindex="0"
+        @click="handleTabChange(tab.hash)"
         @keydown.enter.prevent="handleTabChange(tab.hash)"
         @keydown.space.prevent="handleTabChange(tab.hash)"
-        @click="handleTabChange(tab.hash)"
       >
         <a class="tab-link">
           <slot :name="`${tab.hash.replace('#','')}-anchor`">{{ tab.title }}</slot>
@@ -29,9 +29,9 @@
       :id="`panel-${i}`"
       :key="tab.hash"
       :aria-labelledby="`${tab.hash.replace('#','')}-tab`"
+      class="tab-container"
       role="tabpanel"
       tabindex="0"
-      class="tab-container"
     >
       <slot
         v-if="activeTab === tab.hash"

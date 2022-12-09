@@ -2,16 +2,16 @@
   <div class="skeleton-loader">
     <slot>
       <KSkeletonBox
-        width="100"
         height="1"
+        width="100"
       />
       <KSkeletonBox
-        width="100"
         height="1"
+        width="100"
       />
       <KSkeletonBox
+        height="1"
         width="75"
-        height="1"
       />
     </slot>
   </div>

@@ -1,13 +1,13 @@
 <template>
   <div
     :key="item.key"
-    :data-testid="`k-select-item-${item.value}`"
     class="k-select-item"
+    :data-testid="`k-select-item-${item.value}`"
     @click="handleClick"
   >
     <div
-      role="option"
       class="d-block"
+      role="option"
     >
       <button
         :class="{ selected: item.selected }"
@@ -21,8 +21,8 @@
           <KIcon
             v-if="item.selected"
             class="selected-item-icon"
-            icon="check"
             color="var(--blue-200)"
+            icon="check"
           />
         </span>
       </button>

@@ -10,8 +10,8 @@
 
     <KSkeleton
       v-if="(!testMode || testMode === 'loading') && (isTableLoading || isLoading) && !hasError"
-      type="table"
       data-testid="k-table-skeleton"
+      type="table"
     />
 
     <div
@@ -21,11 +21,11 @@
     >
       <slot name="error-state">
         <KEmptyState
-          is-error
           :cta-is-hidden="!errorStateActionMessage || !errorStateActionRoute"
           :icon="errorStateIcon || ''"
           :icon-color="errorStateIconColor"
           :icon-size="errorStateIconSize"
+          is-error
         >
           <template #title>
             {{ errorStateTitle }}
@@ -38,9 +38,9 @@
           <template #cta>
             <KButton
               v-if="errorStateActionMessage"
-              :to="errorStateActionRoute ? errorStateActionRoute : undefined"
               appearance="primary"
               :data-testid="getTestIdString(errorStateActionMessage)"
+              :to="errorStateActionRoute ? errorStateActionRoute : undefined"
               @click="$emit('ktable-error-cta-clicked')"
             >
               {{ errorStateActionMessage }}
@@ -73,10 +73,10 @@
           <template #cta>
             <KButton
               v-if="emptyStateActionMessage"
-              :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
-              :icon="emptyStateActionButtonIcon"
               :appearance="searchInput ? 'btn-link' : 'primary'"
               :data-testid="getTestIdString(emptyStateActionMessage)"
+              :icon="emptyStateActionButtonIcon"
+              :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
               @click="$emit('ktable-empty-state-cta-clicked')"
             >
               {{ emptyStateActionMessage }}
@@ -92,8 +92,8 @@
       @scroll.passive="scrollHandler"
     >
       <table
-        :class="{'has-hover': hasHover, 'is-clickable': isClickable, 'side-border': hasSideBorder}"
         class="k-table"
+        :class="{'has-hover': hasHover, 'is-clickable': isClickable, 'side-border': hasSideBorder}"
         :data-tableid="tableId"
       >
         <thead :class="{ 'is-scrolled': isScrolled }">
@@ -101,13 +101,13 @@
             <th
               v-for="(column, index) in tableHeaders"
               :key="`k-table-${tableId}-headers-${index}`"
+              :aria-sort="!disableSorting && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
               :class="{
                 'sortable': !disableSorting && !column.hideLabel && column.sortable,
                 'active-sort': !disableSorting && !column.hideLabel && column.sortable && column.key === sortColumnKey,
                 [sortColumnOrder]: !disableSorting && column.key === sortColumnKey && !column.hideLabel,
                 'is-scrolled': isScrolled
               }"
-              :aria-sort="!disableSorting && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
               @click="() => {
                 if (!disableSorting && column.sortable) {
                   $emit('sort', {
@@ -121,8 +121,8 @@
             >
               <span class="d-flex align-items-center">
                 <slot
-                  :name="`column-${column.key}`"
                   :column="column"
+                  :name="`column-${column.key}`"
                 >
                   <span :class="{'sr-only': column.hideLabel}">
                     {{ column.label ? column.label : column.key }}
@@ -132,10 +132,10 @@
                 <KIcon
                   v-if="!disableSorting && !column.hideLabel && column.sortable"
                   aria-hidden="true"
-                  icon="chevronDown"
-                  color="var(--KTableColor, var(--black-70, color(black-70)))"
-                  size="12"
                   class="caret ml-2"
+                  color="var(--KTableColor, var(--black-70, color(black-70)))"
+                  icon="chevronDown"
+                  size="12"
                 />
               </span>
             </th>
@@ -147,8 +147,8 @@
             v-for="(row, rowIndex) in data"
             v-bind="rowAttrs(row)"
             :key="`k-table-${tableId}-row-${rowIndex}`"
-            :tabindex="isClickable ? 0 : null"
             :role="isClickable ? 'link' : null"
+            :tabindex="isClickable ? 0 : null"
             v-on="hasSideBorder ? tdlisteners(row, row) : {}"
           >
             <td
@@ -172,22 +172,22 @@
 
       <KPagination
         v-if="shouldShowPagination"
-        :total-count="total"
-        :current-page="page"
-        :neighbors="paginationNeighbors"
-        :page-sizes="paginationPageSizes"
-        :initial-page-size="pageSize"
-        :disable-page-jump="disablePaginationPageJump"
-        :test-mode="!!testMode || undefined"
-        :pagination-type="paginationType"
-        :offset-prev-button-disabled="!previousOffset"
-        :offset-next-button-disabled="!offset"
         class="pa-1"
+        :current-page="page"
         data-testid="k-table-pagination"
-        @page-changed="pageChangeHandler"
-        @page-size-changed="pageSizeChangeHandler"
+        :disable-page-jump="disablePaginationPageJump"
+        :initial-page-size="pageSize"
+        :neighbors="paginationNeighbors"
+        :offset-next-button-disabled="!offset"
+        :offset-prev-button-disabled="!previousOffset"
+        :page-sizes="paginationPageSizes"
+        :pagination-type="paginationType"
+        :test-mode="!!testMode || undefined"
+        :total-count="total"
         @get-next-offset="getNextOffsetHandler"
         @get-prev-offset="getPrevOffsetHandler"
+        @page-changed="pageChangeHandler"
+        @page-size-changed="pageSizeChangeHandler"
       />
     </section>
   </div>

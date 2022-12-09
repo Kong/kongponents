@@ -1,7 +1,7 @@
 <template>
   <div
-    :class="{[`width-${width}`]: true, [`height-${height}`]: true }"
     class="box mr-1"
+    :class="{[`width-${width}`]: true, [`height-${height}`]: true }"
   />
 </template>
 

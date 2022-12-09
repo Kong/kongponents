@@ -19,14 +19,14 @@
     <KSkeleton
       v-if="(testMode === false || testMode === 'loading') && (isCardLoading || isLoading) && !hasError"
       :card-count="4"
-      type="card"
       class="k-skeleton-grid"
       data-testid="k-catalog-skeleton"
+      type="card"
     >
       <template #card-header>
         <KSkeletonBox
-          width="6"
           class="w-100 justify-content-center mb-3"
+          width="6"
         />
       </template>
 
@@ -37,8 +37,8 @@
       <template #card-footer>
         <div class="d-flex justify-content-start">
           <KSkeletonBox
-            width="2"
             class="mr-2"
+            width="2"
           />
           <KSkeletonBox width="5" />
         </div>
@@ -52,11 +52,11 @@
     >
       <slot name="error-state">
         <KEmptyState
-          is-error
           :cta-is-hidden="!errorStateActionMessage || !errorStateActionRoute"
           :icon="errorStateIcon || ''"
           :icon-color="errorStateIconColor"
           :icon-size="errorStateIconSize"
+          is-error
         >
           <template #title>
             {{ errorStateTitle }}
@@ -69,9 +69,9 @@
           <template #cta>
             <KButton
               v-if="errorStateActionMessage"
-              :to="errorStateActionRoute ? errorStateActionRoute : undefined"
               appearance="primary"
               :data-testid="getTestIdString(errorStateActionMessage)"
+              :to="errorStateActionRoute ? errorStateActionRoute : undefined"
               @click="$emit('kcatalog-error-cta-clicked')"
             >
               {{ errorStateActionMessage }}
@@ -104,10 +104,10 @@
           <template #cta>
             <KButton
               v-if="emptyStateActionMessage"
-              :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
-              :icon="emptyStateActionButtonIcon"
               :appearance="searchInput ? 'btn-link' : 'primary'"
               :data-testid="getTestIdString(emptyStateActionMessage)"
+              :icon="emptyStateActionButtonIcon"
+              :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
               @click="$emit('kcatalog-empty-state-cta-clicked')"
             >
               {{ emptyStateActionMessage }}
@@ -119,8 +119,8 @@
 
     <div
       v-else
-      :class="`k-card-${cardSize}`"
       class="k-catalog-page"
+      :class="`k-card-${cardSize}`"
     >
       <slot
         :data="data"
@@ -129,11 +129,11 @@
         <KCatalogItem
           v-for="(item, idx) in data"
           :key="item.key ? item.key : `k-catalog-item-${idx}`"
-          :item="item"
-          :truncate="!noTruncation"
-          :test-mode="!!testMode || undefined"
           class="catalog-item"
           :data-testid="item.id ? item.id : `k-catalog-item-${idx}`"
+          :item="item"
+          :test-mode="!!testMode || undefined"
+          :truncate="!noTruncation"
         >
           <template #cardTitle>
             <slot
@@ -161,14 +161,14 @@
         data-testid="k-catalog-pagination"
       >
         <KPagination
-          :initial-page-size="pageSize"
-          :current-page="page"
-          :page-sizes="paginationPageSizes"
-          :neighbors="paginationNeighbors"
-          :total-count="total"
-          :disable-page-jump="disablePaginationPageJump"
-          :test-mode="!!testMode || undefined"
           class="pa-1"
+          :current-page="page"
+          :disable-page-jump="disablePaginationPageJump"
+          :initial-page-size="pageSize"
+          :neighbors="paginationNeighbors"
+          :page-sizes="paginationPageSizes"
+          :test-mode="!!testMode || undefined"
+          :total-count="total"
           @page-changed="pageChangeHandler"
           @page-size-changed="pageSizeChangeHandler"
         />

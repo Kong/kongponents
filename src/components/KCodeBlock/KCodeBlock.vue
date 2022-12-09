@@ -3,9 +3,9 @@
     :id="props.id"
     ref="codeBlock"
     class="k-code-block"
-    tabindex="0"
-    :style="`--maxLineNumberWidth: ${maxLineNumberWidth}`"
     data-testid="k-code-block"
+    :style="`--maxLineNumberWidth: ${maxLineNumberWidth}`"
+    tabindex="0"
   >
     <div
       v-if="isSearchable"
@@ -14,15 +14,15 @@
       <div class="k-search-container">
         <KIcon
           class="k-search-icon"
-          icon="search"
-          size="20"
           color="currentColor"
           data-testid="k-code-block-search-icon"
+          icon="search"
+          size="20"
         />
 
         <label
-          :for="`${props.id}-search-input`"
           class="k-code-block-search-label"
+          :for="`${props.id}-search-input`"
         >
           <span class="k-visually-hidden">Search</span>
         </label>
@@ -31,8 +31,8 @@
           :id="`${props.id}-search-input`"
           ref="codeBlockSearchInput"
           class="k-code-block-search-input"
-          type="text"
           data-testid="k-code-block-search-input"
+          type="text"
           @input="handleSearch"
         >
 
@@ -46,28 +46,28 @@
         <KIcon
           class="k-is-processing-icon"
           :class="{ 'k-is-processing-icon-is-visible': isProcessing }"
-          icon="spinner"
           color="var(--grey-400)"
           data-testid="k-code-block-is-processing-icon"
+          icon="spinner"
         />
 
         <button
           v-if="query !== ''"
-          class="k-clear-query-button"
-          type="button"
           appearance="outline"
-          title="Clear query"
+          class="k-clear-query-button"
           data-testid="k-code-block-clear-query-button"
+          title="Clear query"
+          type="button"
           @click="clearQuery"
         >
           <span class="k-visually-hidden">Clear query</span>
 
           <KIcon
             class="k-clear-icon"
-            icon="clear"
-            size="20"
             color="currentColor"
             data-testid="k-code-block-clear-icon"
+            icon="clear"
+            size="20"
           />
         </button>
       </div>
@@ -93,14 +93,14 @@
 
       <div class="k-search-actions">
         <KButton
-          class="k-regexp-mode-button"
-          type="button"
           :appearance="isRegExpMode ? 'secondary' : 'outline'"
           :aria-pressed="isRegExpMode"
+          class="k-regexp-mode-button"
+          data-testid="k-code-block-regexp-mode-button"
           :is-rounded="false"
           size="small"
           :title="`Use regular expression (${ALT_SHORTCUT_LABEL}+R)`"
-          data-testid="k-code-block-regexp-mode-button"
+          type="button"
           @click="toggleRegExpMode"
         >
           <span class="k-visually-hidden">RegExp mode enabled</span>
@@ -109,24 +109,24 @@
         </KButton>
 
         <KButton
-          class="k-filter-mode-button"
-          type="button"
-          icon="filter"
           :appearance="isFilterMode ? 'secondary' : 'outline'"
           :aria-pressed="isFilterMode"
+          class="k-filter-mode-button"
+          data-testid="k-code-block-filter-mode-button"
+          icon="filter"
           :is-rounded="false"
           size="small"
           :title="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
-          data-testid="k-code-block-filter-mode-button"
+          type="button"
           @click="toggleFilterMode"
         >
           <template #icon>
             <KIcon
               class="k-button-icon"
+              color="currentColor"
               icon="filter"
               size="16"
               :title="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
-              color="currentColor"
             />
           </template>
 
@@ -135,21 +135,21 @@
 
         <KButton
           class="k-previous-match-button"
-          type="button"
+          data-testid="k-code-block-previous-match-button"
+          :disabled="matchingLineNumbers.length === 0 || isFilterMode"
           :is-rounded="false"
           size="small"
           title="Previous match (Shift+F3)"
-          :disabled="matchingLineNumbers.length === 0 || isFilterMode"
-          data-testid="k-code-block-previous-match-button"
+          type="button"
           @click="jumpToPreviousMatch"
         >
           <template #icon>
             <KIcon
               class="k-button-icon"
+              color="currentColor"
               icon="chevronUp"
               size="16"
               title="Previous match (Shift+F3)"
-              color="currentColor"
             />
           </template>
 
@@ -158,21 +158,21 @@
 
         <KButton
           class="k-next-match-button"
-          type="button"
+          data-testid="k-code-block-next-match-button"
+          :disabled="matchingLineNumbers.length === 0 || isFilterMode"
           :is-rounded="false"
           size="small"
           title="Next match (F3)"
-          :disabled="matchingLineNumbers.length === 0 || isFilterMode"
-          data-testid="k-code-block-next-match-button"
+          type="button"
           @click="jumpToNextMatch"
         >
           <template #icon>
             <KIcon
               class="k-button-icon"
+              color="currentColor"
               icon="chevronDown"
               size="16"
               title="Next match (F3)"
-              color="currentColor"
             />
           </template>
 
@@ -226,20 +226,20 @@
 
       <KButton
         v-if="props.showCopyButton"
-        class="k-code-block-copy-button"
-        type="button"
         appearance="outline"
+        class="k-code-block-copy-button"
+        data-testid="k-code-block-copy-button"
         :is-rounded="false"
         size="small"
         :title="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
-        data-testid="k-code-block-copy-button"
+        type="button"
         @click="copyCode"
       >
         <KIcon
+          color="currentColor"
           icon="copy"
           size="16"
           :title="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
-          color="currentColor"
         />
 
         <span class="k-visually-hidden">Copy</span>
