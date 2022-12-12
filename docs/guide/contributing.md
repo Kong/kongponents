@@ -131,8 +131,6 @@ sidebar: {
 
 ### Importing type declarations and interfaces
 
-
-
 When importing type declarations or interfaces, you can use a relative path instead of the `@/` alias so that the types are properly resolved within consuming packages. See the example below:
 
 ```ts
@@ -140,6 +138,39 @@ import { StepperState } from './KStepState.vue'
 ```
 
 This repository utilizes [`tsc-alias`](https://www.npmjs.com/package/tsc-alias) to replace these paths during the build; however, so either method is acceptable.
+
+### Style guidelines
+
+In order to prevent component styles from leaking out into the consuming application, **all** component styles **MUST** adhere to one of the following rules:
+
+1. (Preferred) All styles must be `scoped` within your components with `<style lang="scss" scoped>`.
+   1. If you need to target nested components (e.g. Kongponents) to override styles, you'll need to utilize [deep selectors](https://vuejs.org/api/sfc-css-features.html#deep-selectors)
+
+    ```html
+    <style lang="scss" scoped>
+    .your-component-class {
+      :deep(.k-button) {
+        /* KButton override styles go here */
+        border-color: red;
+      }
+    }
+    </style>
+    ```
+
+2. All component styles must be wrapped in a unique wrapper class so that styles do not leak out into the consuming application.
+
+    The class name should follow the syntax `.k-{component-name}-*`
+
+   This is a good practice even if you go with option one outlined above.
+
+    ```html
+    <style lang="scss">
+    .k-button {
+      /* All other styles must go inside the wrapper */
+    }
+    </style>
+    ```
+
 ## Testing your component
 
 You're free to play around with your component on the local instance of the docs site by running `yarn docs:dev`; however, you may also want to test your local changes in a consuming application.
