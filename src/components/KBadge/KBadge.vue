@@ -44,7 +44,6 @@
 import { ref, computed, watch } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 
 export const appearances = {
@@ -59,6 +58,12 @@ export const appearances = {
 export const shapes = {
   rounded: 'rounded',
   rectangular: 'rectangular',
+}
+
+// Must explicitly define components so KTooltip works in tests
+export default {
+  name: 'KBadge',
+  components: { KButton, KIcon, KTooltip },
 }
 </script>
 

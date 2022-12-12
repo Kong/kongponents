@@ -12,6 +12,9 @@ const rendersCorrectAppearance = (variant: string) => {
       },
     })
 
+    cy.get('.k-badge').should('not.have.class', 'is-bordered')
+    cy.get('.k-badge').should('have.css', 'border-width').and('eq', '0px')
+    cy.get('.k-badge').should('have.css', 'border-style').and('eq', 'none')
     cy.get('.k-badge').should('have.class', `k-badge-${variant}`)
   })
 }
