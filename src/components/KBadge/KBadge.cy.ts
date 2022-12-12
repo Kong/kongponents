@@ -20,6 +20,21 @@ describe('KBadge', () => {
   // Loop through appearances
   Object.keys(appearances).map(a => rendersCorrectAppearance(a))
 
+  it('renders with borders', () => {
+    mount(KBadge, {
+      props: {
+        isBordered: true,
+      },
+      slots: {
+        default: () => 'Hello!',
+      },
+    })
+
+    cy.get('.k-badge').should('have.class', 'is-bordered')
+    cy.get('.k-badge').should('have.css', 'border-width').and('eq', '1px')
+    cy.get('.k-badge').should('have.css', 'border-style').and('eq', 'solid')
+  })
+
   it('defaults to default badge', () => {
     mount(KBadge, {
       slots: {

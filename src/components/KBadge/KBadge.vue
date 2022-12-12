@@ -3,7 +3,7 @@
     v-if="!isDismissed"
     :aria-hidden="hidden ? true : undefined"
     class="k-badge d-inline-flex"
-    :class="[ `k-badge-${appearance}`, `k-badge-${shape}` ]"
+    :class="[ `k-badge-${appearance}`, `k-badge-${shape}`, { 'is-bordered': isBordered } ]"
     :style="color && backgroundColor && {backgroundColor, color}"
     :tabindex="hidden ? -1 : 0"
   >
@@ -41,9 +41,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watch } from 'vue'
+import { ref, computed, watch } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 
 export const appearances = {
@@ -59,112 +60,104 @@ export const shapes = {
   rounded: 'rounded',
   rectangular: 'rectangular',
 }
+</script>
 
-export default defineComponent({
-  name: 'KBadge',
-  components: {
-    KButton,
-    KIcon,
-    KTooltip,
+<script setup lang="ts">
+defineProps({
+  /**
+    * Base styling<br>
+    * One of [danger, warning, success etc.]
+    */
+  appearance: {
+    type: String,
+    required: false,
+    validator: (value: string): boolean => {
+      return Object.keys({ ...appearances }).includes(value)
+    },
+    default: 'default',
   },
-  props: {
-    /**
-      * Base styling<br>
-      * One of [danger, warning, success etc.]
-      */
-    appearance: {
-      type: String,
-      required: false,
-      validator: (value: string): boolean => {
-        return Object.keys({ ...appearances }).includes(value)
-      },
-      default: 'default',
-    },
-    /**
-     * For use with truncation. This text will be displayed
-     * on hover of the badge if the text is truncated.
-     */
-    truncationTooltip: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Use this prop if you always want to show the tooltip whether
-     * or not the badge text is truncated.
-     */
-    forceTooltip: {
-      type: Boolean,
-      default: false,
-    },
-
-    dismissable: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Use this prop if you don't intend for the badge to actually be shown
-     * or able to be interacted with by the user. This is used in KMultiselect
-     * to stage the badge before rendering the visible content to the user.
-     *
-     * DO NOT REFACTOR USAGE WITHOUT CHECKING KMULTISELECT
-     */
-    hidden: {
-      type: Boolean,
-      default: false,
-    },
-
-    shape: {
-      type: String,
-      required: false,
-      validator: (value: string): boolean => {
-        return Object.keys({ ...shapes }).includes(value)
-      },
-      default: 'rounded',
-    },
-
-    color: {
-      type: String,
-      required: false,
-      default: '',
-    },
-
-    backgroundColor: {
-      type: String,
-      required: false,
-      default: '',
-    },
+  /**
+   * For use with truncation. This text will be displayed
+   * on hover of the badge if the text is truncated.
+   */
+  truncationTooltip: {
+    type: String,
+    default: '',
   },
-  emits: ['dismissed'],
-  setup(props, { emit }) {
-    const badgeText = ref(null)
-    const isDismissed = ref(false)
-
-    const handleDismiss = () => {
-      isDismissed.value = true
-      emit('dismissed')
-    }
-
-    const offsetWidth = ref(0)
-    const scrollWidth = ref(0)
-    const truncationCalculated = ref(false)
-    const isTruncated = computed(() => offsetWidth.value < scrollWidth.value)
-
-    watch(badgeText, () => {
-      // prevent recursion loop
-      if (badgeText.value && !truncationCalculated.value) {
-        offsetWidth.value = (badgeText.value as HTMLElement)?.offsetWidth
-        scrollWidth.value = (badgeText.value as HTMLElement)?.scrollWidth
-        truncationCalculated.value = true
-      }
-    })
-
-    return {
-      badgeText,
-      isDismissed,
-      handleDismiss,
-      isTruncated,
-    }
+  /**
+   * Use this prop if you always want to show the tooltip whether
+   * or not the badge text is truncated.
+   */
+  forceTooltip: {
+    type: Boolean,
+    default: false,
   },
+
+  dismissable: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * Use this prop if you don't intend for the badge to actually be shown
+   * or able to be interacted with by the user. This is used in KMultiselect
+   * to stage the badge before rendering the visible content to the user.
+   *
+   * DO NOT REFACTOR USAGE WITHOUT CHECKING KMULTISELECT
+   */
+  hidden: {
+    type: Boolean,
+    default: false,
+  },
+
+  shape: {
+    type: String,
+    required: false,
+    validator: (value: string): boolean => {
+      return Object.keys({ ...shapes }).includes(value)
+    },
+    default: 'rounded',
+  },
+
+  color: {
+    type: String,
+    required: false,
+    default: '',
+  },
+
+  backgroundColor: {
+    type: String,
+    required: false,
+    default: '',
+  },
+
+  isBordered: {
+    type: Boolean,
+    default: false,
+  },
+})
+
+const emit = defineEmits(['dismissed'])
+
+const badgeText = ref(null)
+const isDismissed = ref(false)
+
+const handleDismiss = () => {
+  isDismissed.value = true
+  emit('dismissed')
+}
+
+const offsetWidth = ref(0)
+const scrollWidth = ref(0)
+const truncationCalculated = ref(false)
+const isTruncated = computed(() => offsetWidth.value < scrollWidth.value)
+
+watch(badgeText, () => {
+  // prevent recursion loop
+  if (badgeText.value && !truncationCalculated.value) {
+    offsetWidth.value = (badgeText.value as HTMLElement)?.offsetWidth
+    scrollWidth.value = (badgeText.value as HTMLElement)?.scrollWidth
+    truncationCalculated.value = true
+  }
 })
 </script>
 
@@ -188,26 +181,51 @@ export default defineComponent({
     color: var(--KBadgeDefaultColor, var(--blue-500, color(blue-500)));
     border-color: var(--KBadgeDefaultBorder, var(--blue-500, color(blue-500)));
     background-color: var(--KBadgeDefaultBackground, var(--blue-100, color(blue-100)));
+
+    &.is-bordered {
+      border-width: 1px;
+      border-style: solid;
+    }
   }
   &.k-badge-success {
     color: var(--KBadgeSuccessColor, var(--green-700, color(green-700)));
     border-color: var(--KBadgeSuccessBorder, var(--green-700, color(green-700)));
     background-color: var(--KBadgeSuccessBackground, var(--green-100, color(green-100)));
+
+    &.is-bordered {
+      border-width: 1px;
+      border-style: solid;
+    }
   }
   &.k-badge-danger {
     color: var(--KBadgeDangerColor, var(--red-700, color(red-700)));
     border-color: var(--KBadgeDangerBorder, var(--red-700, color(red-700)));
     background-color: var(--KBadgeDangerBackground, var(--red-100, color(red-100)));
+
+    &.is-bordered {
+      border-width: 1px;
+      border-style: solid;
+    }
   }
   &.k-badge-info {
     color: var(--KBadgeInfoColor, var(--blue-500, color(blue-500)));
     border-color: var(--KBadgeInfoBorder, var(--blue-500, color(blue-500)));
     background-color: var(--KBadgeInfoBackground, var(--blue-200, color(blue-200)));
+
+    &.is-bordered {
+      border-width: 1px;
+      border-style: solid;
+    }
   }
   &.k-badge-warning {
     color: var(--KBadgeWarningColor, var(--yellow-600, color(yellow-600)));
     border-color: var(--KBadgeWarningBorder, var(--yellow-600, color(yellow-600)));
     background-color: var(--KBadgeWarningBackground, var(--yellow-100, color(yellow-100)));
+
+    &.is-bordered {
+      border-width: 1px;
+      border-style: solid;
+    }
   }
 
   &.k-badge-rectangular {
