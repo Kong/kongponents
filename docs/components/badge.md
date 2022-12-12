@@ -35,6 +35,24 @@ The Badge component can take the following appearance values:
 <KBadge>DEFAULT</KBadge>
 ```
 
+### isBordered
+
+Use the `isBordered` prop for bordered badges. The border color matches the text color by default.
+
+<KBadge appearance="success" is-bordered class="mr-2">SUCCESS</KBadge>
+<KBadge appearance="warning" is-bordered class="mr-2">WARNING</KBadge>
+<KBadge appearance="danger" is-bordered class="mr-2">DANGER</KBadge>
+<KBadge appearance="info" is-bordered class="mr-2">INFO</KBadge>
+<KBadge is-bordered>DEFAULT</KBadge>
+
+```html
+<KBadge appearance="success" is-bordered>SUCCESS</KBadge>
+<KBadge appearance="warning" is-bordered>WARNING</KBadge>
+<KBadge appearance="danger" is-bordered>DANGER</KBadge>
+<KBadge appearance="info" is-bordered>INFO</KBadge>
+<KBadge is-bordered>DEFAULT</KBadge>
+```
+
 ### shape
 
 The Badge has two shapes that can be changed with a `shape` property.
