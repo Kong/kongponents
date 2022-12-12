@@ -368,10 +368,10 @@ export default defineComponent({
 }
 
 .pagination-text {
-  font-size: 14px;
-  color: var(--grey-500);
   min-width: 115px;
+  font-size: 14px;
   font-weight: 500;
+  color: var(--grey-500);
 
   &-pages {
     color: black;
@@ -382,35 +382,35 @@ export default defineComponent({
   --KButtonBtnLink: var(--KPaginationPageSizeColor, var(--blue-400));
   --KButtonOutlineBorder: var(--KPaginationPageSizeColor, var(--blue-400));
   --KButtonFontSize: var(--type-sm);
-  color: var(--blue-400);
   font-weight: 600;
   line-height: 20px;
+  color: var(--blue-400);
 }
 
 .pagination-button-container {
   display: flex;
-  list-style: none;
   text-align: center;
+  list-style: none;
 
   a {
-    text-decoration: none !important;
-    font-weight: initial;
     display: block;
+    font-weight: initial;
+    text-decoration: none !important;
   }
 
   .pagination-button {
     align-self: center;
     min-width: 32px;
     height: 32px;
-    line-height: 20px;
+    margin: 0 6px;
     font-size: 12px;
     font-weight: initial;
+    line-height: 20px;
     color: var(--KPaginationColor, var(--grey-500));
-    border: 1px solid var(--KPaginationBorderColor, var(--grey-300));
-    background-color: white;
-    border-radius: 4px;
-    margin: 0 6px;
     cursor: pointer;
+    background-color: white;
+    border: 1px solid var(--KPaginationBorderColor, var(--grey-300));
+    border-radius: 4px;
 
      &:not(.square) {
       background-color: var(--KPaginationBackgroundColor, white);
@@ -425,10 +425,10 @@ export default defineComponent({
     }
 
     &.placeholder {
-      color: var(--KPaginationColor, var(--grey-500));
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
+      color: var(--KPaginationColor, var(--grey-500));
       cursor: initial;
     }
 
@@ -452,12 +452,12 @@ export default defineComponent({
     }
 
     &.active {
-      outline: none;
       color: var(--KPaginationActiveColor, var(--blue-500));
-      border-color: var(--KPaginationActiveBorderColor, var(--blue-200));
       background-color: var(--KPaginationActiveBackgroundColor, var(--blue-100));
-      border-radius: 4px;
       background-color: var(--blue-100);
+      border-color: var(--KPaginationActiveBorderColor, var(--blue-200));
+      border-radius: 4px;
+      outline: none;
 
       a {
         color: var(--KPaginationActiveColor, var(--blue-500));

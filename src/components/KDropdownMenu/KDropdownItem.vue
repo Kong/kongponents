@@ -162,11 +162,11 @@ li.k-dropdown-item {
 
     &:before {
       position: absolute;
-      display: block;
-      content: '';
-      height: 1px;
-      width: 100%;
       top: $k-dropdown-item-divider-position;
+      display: block;
+      width: 100%;
+      height: 1px;
+      content: '';
       background: var(--grey-200);
     }
   }
@@ -180,16 +180,16 @@ li.k-dropdown-item {
   }
 
   .k-dropdown-item-trigger {
-    text-align: left;
-    padding: var(--spacing-md) var(--spacing-lg);
-    text-decoration: none;
     width: 100%;
+    padding: var(--spacing-md) var(--spacing-lg);
     color: var(--black-70);
+    text-align: left;
+    text-decoration: none;
 
     &:disabled,
     &.disabled {
-      cursor: not-allowed !important;
       color: var(--grey-400) !important;
+      cursor: not-allowed !important;
 
       &:hover {
         background-color: var(--grey-200) !important;

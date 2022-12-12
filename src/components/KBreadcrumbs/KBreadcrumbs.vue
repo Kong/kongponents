@@ -106,11 +106,11 @@ export default defineComponent({
   flex-wrap: wrap;
   padding: 0;
   margin-bottom: 1rem;
-  list-style: none;
-  border-radius: 0.25rem;
   font-size: 15px;
   font-weight: 600 !important;
   line-height: 24px !important;
+  list-style: none;
+  border-radius: 0.25rem;
 }
 
 .k-breadcrumbs .k-breadcrumbs-item :deep(.kong-icon) {
@@ -135,9 +135,9 @@ export default defineComponent({
 
   a {
     display: inline-flex;
+    font-size: 15px;
     color: var(--grey-500);
     letter-spacing: 1px;
-    font-size: 15px;
 
     &:hover,
     &.no-underline {

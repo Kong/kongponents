@@ -33,7 +33,6 @@ export default defineComponent({
 
 .box {
   display: inline-flex;
-  border-radius: 3px;
   background: linear-gradient(
       -70deg,
       #f2f2f2 0%,
@@ -44,8 +43,9 @@ export default defineComponent({
     )
     repeat;
   background-size: 400% 100%;
-  animation: gradient 1s ease infinite;
+  border-radius: 3px;
   transition: 1s;
+  animation: gradient 1s ease infinite;
   // Provided box widths
   &.width {
     &-1 {

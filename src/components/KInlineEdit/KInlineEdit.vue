@@ -158,13 +158,13 @@ export default defineComponent({
 
     > * {
       width: 100%;
-      border: 1px solid transparent;
-      border-radius: 3px;
       padding: var(--padding);
       margin-top: 0; // prevent a shift
       margin-left: calc(-1 * var(--spacing-xs)); // align the left side of content
-      line-height: 1.25;
       overflow: hidden;
+      line-height: 1.25;
+      border: 1px solid transparent;
+      border-radius: 3px;
       transition: background-color 200ms ease;
     }
 

@@ -95,12 +95,12 @@ export default defineComponent({
   .pagination-button.k-button {
     width: 34px;
     height: 34px;
-    color: var(--grey-500);
-    border: 1px solid var(--grey-300);
-    background-color: white;
-    border-radius: 4px;
-    margin: 0 6px;
     padding: 6px;
+    margin: 0 6px;
+    color: var(--grey-500);
+    background-color: white;
+    border: 1px solid var(--grey-300);
+    border-radius: 4px;
 
     &:focus,
     &:hover {
@@ -112,17 +112,17 @@ export default defineComponent({
     &.disabled:focus,
     &.disabled:hover {
       color: var(--black-45);
+      cursor: not-allowed;
       border-color: var(--grey-200);
       box-shadow: none;
-      cursor: not-allowed;
     }
 
     &.active {
-      outline: none;
       color: var(--blue-500);
+      background-color: var(--blue-100);
       border-color: var(--blue-200);
       border-radius: 4px;
-      background-color: var(--blue-100);
+      outline: none;
     }
   }
 }

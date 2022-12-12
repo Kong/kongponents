@@ -529,8 +529,8 @@ export default defineComponent({
 
   .k-catalog-page {
     display: grid;
-    grid-gap: var(--spacing-lg);
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: var(--spacing-lg);
   }
 }
 

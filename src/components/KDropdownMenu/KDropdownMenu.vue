@@ -239,8 +239,8 @@ export default defineComponent({
   border: 1px solid var(--black-10);
 
   ul {
-    margin: 0;
     padding: 0;
+    margin: 0;
   }
 
   a {
@@ -257,9 +257,9 @@ export default defineComponent({
 
 .selection-dropdown-menu {
   .dropdown-trigger .k-button {
-    border: 0;
     color: var(--grey-600);
     white-space: nowrap;
+    border: 0;
 
     &:focus {
       box-shadow: none;

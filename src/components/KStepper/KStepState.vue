@@ -40,8 +40,8 @@ export default defineComponent({
 <style lang="scss">
 .k-step-state {
   .k-step-state-icon {
-    height: var(--KStepIconSize, 24px);
     width: var(--KStepIconSize, 24px);
+    height: var(--KStepIconSize, 24px);
   }
 }
 </style>

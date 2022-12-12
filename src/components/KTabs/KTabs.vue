@@ -99,11 +99,11 @@ export default defineComponent({
 .k-tabs {
   ul {
     display: flex;
-    margin-bottom: 0;
     padding-left: 0;
-    list-style: none;
+    margin-bottom: 0;
     font-size: 18px;
     line-height: 20px;
+    list-style: none;
     border-bottom: 2px solid var(--KTabsBottomBorderColor, var(--grey-300, color(grey-300)));
 
     .tab-item {
@@ -119,9 +119,9 @@ export default defineComponent({
         position: absolute;
         bottom: -2px;
         left: 0;
+        display: block;
         width: 100%;
         height: 2px;
-        display: block;
         content: '';
       }
 

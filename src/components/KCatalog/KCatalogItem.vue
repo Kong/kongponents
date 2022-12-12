@@ -83,17 +83,17 @@ export default defineComponent({
     --max-lines-less: 4;
 
     position: relative;
-    line-height: var(--lh);
     max-height: calc(var(--lh) * var(--max-lines));
-    overflow: hidden;
     padding-right: 8px;
+    overflow: hidden;
+    line-height: var(--lh);
   }
 
   .multi-line-truncate::before {
-    content: "...";
     position: absolute;
     top: calc(var(--lh) * var(--max-lines-less));
     right: 12px;
+    content: "...";
   }
 
   &:hover {
@@ -109,9 +109,9 @@ export default defineComponent({
   --KCardPaddingX: var(--spacing-md);
 
   .k-card-body {
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
 
     .description {
       flex-grow: 1;

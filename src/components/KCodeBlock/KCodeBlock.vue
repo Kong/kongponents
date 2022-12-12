@@ -777,29 +777,29 @@ $tabSize: 2;
 
 .k-code-block pre,
 .k-code-block code {
-  tab-size: var(--KCodeBlockTabSize, $tabSize);
-  font-size: var(--KCodeBlockFontSize, $fontSize);
   font-family: var(--KCodeBlockFontFamilyMono, $fontFamilyMono);
+  font-size: var(--KCodeBlockFontSize, $fontSize);
   color: var(--KCodeBlockColor, $color);
+  tab-size: var(--KCodeBlockTabSize, $tabSize);
 }
 
 .k-code-block pre {
-  margin-top: 0;
-  margin-bottom: 0;
-  padding: var(--spacing-xs, spacing(xs)) 0 var(--spacing-xs, spacing(xs)) var(--spacing-sm, spacing(sm));
-  border-radius: var(--KCodeBlockBorderRadius, $borderRadius);
-  background-color: var(--KCodeBlockBackgroundColor, $backgroundColor);
-  min-height: 44px;
-  max-height: var(--KCodeBlockMaxHeight, none);
   display: grid;
   grid-template-columns: var(--maxLineNumberWidth) 1fr;
   gap: var(--spacing-sm, spacing(sm));
+  min-height: 44px;
+  max-height: var(--KCodeBlockMaxHeight, none);
+  padding: var(--spacing-xs, spacing(xs)) 0 var(--spacing-xs, spacing(xs)) var(--spacing-sm, spacing(sm));
+  margin-top: 0;
+  margin-bottom: 0;
+  background-color: var(--KCodeBlockBackgroundColor, $backgroundColor);
+  border-radius: var(--KCodeBlockBorderRadius, $borderRadius);
 }
 
 .k-code-block pre:focus-visible {
+  isolation: isolate;
   outline: 2px solid var(--KCodeBlockFocusColor, $focusColor);
   outline-offset: -2px;
-  isolation: isolate;
 }
 
 .k-code-block-actions + .k-code-block-content > pre {
@@ -816,22 +816,22 @@ $tabSize: 2;
 }
 
 .k-code-block:focus-visible {
+  isolation: isolate;
   outline: none;
   box-shadow: 0 0 0 2px var(--KCodeBlockFocusColor, $focusColor);
-  isolation: isolate;
 }
 
 .k-code-block-actions {
   display: flex;
   flex-wrap: wrap;
+  gap: var(--spacing-xxs, spacing(xxs));
   align-items: stretch;
   justify-content: flex-end;
-  gap: var(--spacing-xxs, spacing(xxs));
   padding: var(--spacing-xs, spacing(xs)) var(--spacing-md, spacing(md));
+  background-color: var(--grey-200, color(grey-200));
+  border-bottom: 1px solid var(--grey-300, color(grey-300));
   border-top-left-radius: var(--KCodeBlockBorderRadius, $borderRadius);
   border-top-right-radius: var(--KCodeBlockBorderRadius, $borderRadius);
-  border-bottom: 1px solid var(--grey-300, color(grey-300));
-  background-color: var(--grey-200, color(grey-200));
 }
 
 .k-code-block-actions .k-button {
@@ -840,15 +840,15 @@ $tabSize: 2;
 
 .k-is-processing-icon {
   display: inline-flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .k-search-actions {
   display: inline-flex;
   flex-wrap: wrap;
-  align-items: stretch;
   gap: var(--spacing-xxs, spacing(xxs));
+  align-items: stretch;
 }
 
 .k-is-processing-icon:not(.k-is-processing-icon-is-visible) {
@@ -861,15 +861,15 @@ $tabSize: 2;
 
 .k-search-container {
   position: relative;
+  display: inline-flex;
   // Indicates the sizing requirements to the surrounding flex container and ensures the search container doesn’t get too small.
   flex-basis: 15ch;
   flex-grow: 1;
-  max-width: 250px;
-  display: inline-flex;
   align-items: stretch;
+  max-width: 250px;
+  background-color: var(--white, color(white));
   border: 1px solid var(--KInputBorder, var(--grey-300, color(grey-300)));
   border-radius: 3px;
-  background-color: var(--white, color(white));
   transition: border 0.1s ease;
 }
 
@@ -882,15 +882,15 @@ $tabSize: 2;
 }
 
 .k-code-block-search-input {
-  width: 0;
   flex-grow: 1;
-  appearance: none;
-  margin: 0;
+  width: 0;
   padding: 0 var(--spacing-xs, spacing(xs));
-  border: none;
+  margin: 0;
+  font: inherit;
   color: currentColor;
   background-color: transparent;
-  font: inherit;
+  border: none;
+  appearance: none;
 }
 
 .k-code-block-search-input:focus {
@@ -917,17 +917,17 @@ $tabSize: 2;
 
 .k-code-block-search-error {
   position: absolute;
-  z-index: 1;
   top: 100%;
-  left: -1px;
   right: -1px;
+  left: -1px;
+  z-index: 1;
   padding: 0 var(--spacing-xxs, spacing(xxs));
+  font-size: 0.8em;
+  color: var(--red-700, color(red-700));
+  background-color: var(--white, color(white));
   border: 1px solid currentColor;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
-  background-color: var(--white, color(white));
-  font-size: 0.8em;
-  color: var(--red-700, color(red-700));
 }
 
 .k-search-icon {
@@ -936,16 +936,16 @@ $tabSize: 2;
 }
 
 .k-clear-query-button {
-  appearance: none;
   display: inline-flex;
   align-items: center;
-  margin: 0;
   padding: 0 var(--spacing-xxs, spacing(xxs));
-  border: 1px solid transparent;
-  border-radius: 3px;
+  margin: 0;
+  font: inherit;
   color: var(--grey-400, color(grey-400));
   background-color: transparent;
-  font: inherit;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  appearance: none;
 }
 
 .k-clear-query-button:focus {
@@ -960,37 +960,37 @@ $tabSize: 2;
 
 .k-code-block-copy-button {
   position: absolute;
-  z-index: 2;
   top: var(--spacing-xs, spacing(xs));
   right: var(--spacing-md, spacing(md));
+  z-index: 2;
   display: block;
 }
 
 .k-code-block-copy-button[data-tooltip-text]::after {
-  content: attr(data-tooltip-text);
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
   right: calc(100% + var(--spacing-xs, spacing(xs)));
   padding: var(--spacing-xs, spacing(xs));
-  border-radius: 3px;
-  white-space: nowrap;
-  color: var(--white, color(white));
-  background-color: var(--grey-600, color(grey-600));
   font-weight: normal;
+  color: var(--white, color(white));
+  white-space: nowrap;
+  content: attr(data-tooltip-text);
+  background-color: var(--grey-600, color(grey-600));
+  border-radius: 3px;
+  transform: translateY(-50%);
 }
 
 .k-button-icon {
   display: inline-flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .k-line-number-rows {
   box-sizing: border-box;
-  user-select: none;
   display: flex;
   flex-direction: column;
+  user-select: none;
 }
 
 .k-line-number-rows,
@@ -1005,17 +1005,17 @@ $tabSize: 2;
 }
 
 .k-line-is-match::before {
-  content: '\A0';
-  pointer-events: none;
   position: absolute;
-  left: 0;
   right: 0;
+  left: 0;
+  pointer-events: none;
+  content: '\A0';
   background-color: hsl(220, 18%, 35%, 0.1);
 }
 
 .k-line-is-highlighted-match::before {
-  border-left: 5px solid var(--KCodeBlockMatchHighlightColor, $focusColor);
   background-color: hsl(220, 18%, 35%, 0.2);
+  border-left: 5px solid var(--KCodeBlockMatchHighlightColor, $focusColor);
 }
 
 .k-line-anchor:not([href]) {
@@ -1030,8 +1030,8 @@ $tabSize: 2;
 
 <style lang="scss">
 .k-matched-term {
-  color: var(--teal-500, color(teal-500));
   font-weight: 900;
+  color: var(--teal-500, color(teal-500));
 }
 
 .k-code-block .k-button.small {
@@ -1041,7 +1041,7 @@ $tabSize: 2;
 
 .k-code-block .kong-icon {
   display: inline-flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 </style>

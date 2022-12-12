@@ -286,9 +286,9 @@ onMounted(() => {
     // the bar under the last child
     .has-no-children:last-of-type .child-drop-zone:last-of-type,
     &.has-no-children .child-drop-zone:last-of-type {
-      background-color: var(--KTreeListItemSelectedBorder, var(--teal-200));
       min-height: 4px;
       margin-left: 0;
+      background-color: var(--KTreeListItemSelectedBorder, var(--teal-200));
       border-radius: 100px;
     }
 
@@ -318,25 +318,25 @@ onMounted(() => {
 
     // child connecting lines
     &:before {
-      content: "";
       position: absolute;
       top: calc($dropZoneHalved * -1);
       left: $barLeft;
-      border-left: 1px solid $border;
-      border-bottom: 1px solid $border;
-      border-radius: 0 0 0 5px;
       width: $bar;
       height: calc(var(--KTreeListDropZoneHeight, $defaultDropZoneHeight) + 20px);
+      content: "";
+      border-bottom: 1px solid $border;
+      border-left: 1px solid $border;
+      border-radius: 0 0 0 5px;
     }
     // connects siblings
     &:after {
       position: absolute;
-      content: "";
       top: calc(var(--KTreeListDropZoneHeight, $defaultDropZoneHeight) + 2px);
       left: $barLeft;
-      border-left: 1px solid $border;
       width: $bar;
       height: 100%;
+      content: "";
+      border-left: 1px solid $border;
     }
     &:first-child {
       padding-top: var(--KTreeListDropZoneHeight, $defaultDropZoneHeight);

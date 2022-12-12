@@ -66,6 +66,7 @@ $sides: (top, right, bottom, left);
 
 // Loop spacing and create margin classes
 @each $size, $space in $spacing {
+  /* stylelint-disable-next-line scss/no-global-function-names */
   $i: index($spacing, $size $space);
   // Create (t, r, b, l) classes
   @each $marginSide in $sides {
@@ -103,6 +104,7 @@ $sides: (top, right, bottom, left);
 
 // Loop spacing and create padding classes
 @each $size, $space in $spacing {
+  /* stylelint-disable-next-line scss/no-global-function-names */
   $i: index($spacing, $size $space);
   // Create (t, r, b, l) classes
   @each $paddingSide in $sides {

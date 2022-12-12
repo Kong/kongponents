@@ -587,10 +587,10 @@ $margin: 6px;
     --KButtonOutlineBorder: var(--grey-300);
     --KButtonOutlineActive: var(--white);
     --KButtonOutlineHoverBorder: var(--blue-200);
-    padding: var(--spacing-sm) var(--spacing-sm) !important;
-    font-weight: 500;
     // Prevent overflowing the container
     max-width: 100%;
+    padding: var(--spacing-sm) var(--spacing-sm) !important;
+    font-weight: 500;
     // Styling button as input via mixin
     @include input-default;
 
@@ -613,20 +613,20 @@ $margin: 6px;
       flex-wrap: wrap;
       div {
         width: auto;
-        text-align: left;
         padding: 0;
         margin: 0;
         line-height: 1.3;
+        text-align: left;
         white-space: nowrap;
       }
     }
   }
 
   .k-popover {
-    max-height: 90vh;
     width: 100% !important;
-    overflow: hidden;
+    max-height: 90vh;
     padding: var(--spacing-sm);
+    overflow: hidden;
     &[x-placement^=bottom] {
       margin-top: 2px;
     }
@@ -639,24 +639,24 @@ $margin: 6px;
       }
       .timeframe-section {
         .timeframe-section-title {
-          font-weight: 600;
           margin-bottom: var(--spacing-xs);
+          font-weight: 600;
         }
         .timeframe-buttons {
           flex-wrap: wrap;
           .timeframe-btn {
-            font-size: var(--type-sm);
-            font-weight: 400;
             // Only 2 of 3 columns will have a right margin; subtract margin / 2
             flex: 0 calc(33% - 3px);
-            margin-right: $margin;
-            padding: var(--spacing-sm) var(--spacing-md);
             justify-content: center;
+            padding: var(--spacing-sm) var(--spacing-md);
+            margin-right: $margin;
             margin-bottom: $margin;
+            font-size: var(--type-sm);
+            font-weight: 400;
             &.selected-option {
+              font-weight: 500;
               color: white;
               background-color: var(--blue-500);
-              font-weight: 500;
             }
             &:nth-child(3n) {
               margin-right: 0px;
@@ -707,8 +707,8 @@ $margin: 6px;
 
     // Day text within hover selection or post-selection
     .vc-highlights + .vc-day-content {
-      color: var(--white);
       font-weight: 600;
+      color: var(--white);
 
       &:focus {
         background-color: $selected-color;
@@ -716,9 +716,9 @@ $margin: 6px;
     }
 
     .vc-nav-popover-container {
+      color: $text-color;
       background-color: var(--white);
       border: 1px solid color(grey-300);
-      color: $text-color;
 
       .vc-nav-container {
         .vc-nav-arrow {
@@ -732,8 +732,8 @@ $margin: 6px;
         .vc-nav-header .vc-nav-title {
           color: $text-color;
           &:hover {
-            background-color: var(--white);
             color: color(grey-600);
+            background-color: var(--white);
           }
           &:active,
           &:focus {
@@ -756,9 +756,9 @@ $margin: 6px;
             }
             // Month that has focus (tab navigation supported)
             &.is-active {
-              background-color: $selected-color;
-              color: var(--white);
               font-weight: 600;
+              color: var(--white);
+              background-color: $selected-color;
               box-shadow: none;
             }
             // Disabled month
@@ -800,9 +800,7 @@ $margin: 6px;
           }
         }
       }
-      //
       // Calendar content (weekday headings and full month)
-      //
       .vc-weeks {
         margin-top: color(spacing-sm);
         .vc-weekday {
@@ -819,9 +817,9 @@ $margin: 6px;
           color: $text-color-darker;
         }
         &:focus {
-          border: 2px solid var(--white);
           color: $text-color-darker;
           background-color: color(gray-200);
+          border: 2px solid var(--white);
         }
       }
       .vc-time-month, .vc-time-day, .vc-time-year {
@@ -847,13 +845,13 @@ $margin: 6px;
             &:hover,
             &:focus {
               color: var(--white);
-              border-color: $selected-color;
               background-color: $selected-color;
+              border-color: $selected-color;
             }
             &:active {
               color: var(--white);
-              border-color: color(blue-300);
               background-color: color(blue-300);
+              border-color: color(blue-300);
             }
           }
         }
@@ -862,8 +860,8 @@ $margin: 6px;
       // Date Range - Post selection
       .vc-highlight.vcal-day-start,
       .vc-highlight.vcal-day-end {
-        background-color: $selected-color;
         color: white !important;
+        background-color: $selected-color;
       }
       .vc-highlight.vcal-day-base,
       .vc-highlight.vc-highlight-base-middle {
@@ -873,9 +871,9 @@ $margin: 6px;
       // Date Range - during selection
       .vcal-day-drag-start,
       .vcal-day-drag-end {
-        border: 2px solid color(blue-400);
-        background-color: $selected-color;
         color: white;
+        background-color: $selected-color;
+        border: 2px solid color(blue-400);
       }
       .vc-day-content {
         &:hover {

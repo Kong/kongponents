@@ -69,8 +69,8 @@ export default defineComponent({
 
 .k-step {
   display: list-item;
-  padding: var(--spacing-sm) 0;
   flex: 1 1 0%;
+  padding: var(--spacing-sm) 0;
 
   // For Divider
   --divider-spacing: 0.5rem;
@@ -80,20 +80,20 @@ export default defineComponent({
   }
 
   .k-step-container {
+    position: relative;
     display: flex;
-    margin: auto;
     flex-direction: column;
     align-items: center;
     padding-bottom: var(--spacing-xxs);
-    position: relative;
+    margin: auto;
 
     .k-step-label {
       --KInputLabelColor: var(--grey-500);
       --KInputLabelSize: var(--type-md);
       --KInputLabelWeight: 500;
       min-width: 100px;
-      text-align: center;
       padding-top: var(--spacing-sm);
+      text-align: center;
 
       &.bolder {
         --KInputLabelWeight: 600;
@@ -105,12 +105,12 @@ export default defineComponent({
      * Divider styles
      */
     &::after {
-      content: "";
-      height: 2px;
-      width: calc(100% - var(--KStepIconSize, 26px) - calc(var(--divider-spacing) * 2));
+      position: absolute;
       top: calc(#{var(--KStepIconSize, var(--spacing-lg, spacing(lg)))} / 2);
       left: calc(50% + calc(var(--KStepIconSize, 26px) / 1.5 + var(--divider-spacing)));
-      position: absolute;
+      width: calc(100% - var(--KStepIconSize, 26px) - calc(var(--divider-spacing) * 2));
+      height: 2px;
+      content: "";
       background-color: var(--KStepDividerColorDefault, var(--grey-300));
     }
 
