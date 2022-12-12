@@ -1,3 +1,10 @@
+# [8.12.0](https://github.com/Kong/kongponents/compare/v8.11.1...v8.12.0) (2022-12-12)
+
+
+### Features
+
+* **kbadge:** add isBordered prop [khcp-5591] ([#974](https://github.com/Kong/kongponents/issues/974)) ([a649058](https://github.com/Kong/kongponents/commit/a64905804458ebda10264123b5b842bc6e712537))
+
 ## [8.11.1](https://github.com/Kong/kongponents/compare/v8.11.0...v8.11.1) (2022-12-08)
 
 
