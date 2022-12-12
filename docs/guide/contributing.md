@@ -171,6 +171,12 @@ In order to prevent component styles from leaking out into the consuming applica
     </style>
     ```
 
+#### Relative units
+
+Kongponent styles should **never** use relative font units; specifically, do not use `rem` or `em` units.
+
+We cannot control the `html` base font size and therefore these relative units are not predictable within a host application. Use `px` (pixels) or a similar unit instead.
+
 ## Testing your component
 
 You're free to play around with your component on the local instance of the docs site by running `yarn docs:dev`; however, you may also want to test your local changes in a consuming application.
