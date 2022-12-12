@@ -122,21 +122,21 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .k-menu-item {
-  list-style: none;
-  margin: 0;
-  white-space: nowrap;
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 24px;
-  color: var(--grey-500);
   position: relative;
   padding-left: 2px;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--grey-500);
+  white-space: nowrap;
+  list-style: none;
 }
 
 .span-icon-container {
-  margin-left: auto;
-  height: 24px;
   width: 24px;
+  height: 24px;
+  margin-left: auto;
 }
 
 .title-dark {
@@ -144,8 +144,8 @@ export default defineComponent({
 }
 
 .k-menu-item .menu-button {
-  padding-left: 19px;
   padding-right: 24px;
+  padding-left: 19px;
   cursor: pointer !important;
   &:hover {
     color: var(--grey-600);
@@ -153,18 +153,18 @@ export default defineComponent({
 }
 
 .menu-content {
-  padding-left: 19px;
   padding-right: 24px;
+  padding-left: 19px;
   color: var(--grey-500);
 }
 
 .k-button.menu-button {
   width: 100%;
-  color: var(--KButtonOutlineColor, var(--grey-500));
-  font-weight: 400 !important;
   font-family: var(--font-family-sans);
   font-size: 13px;
+  font-weight: 400 !important;
   line-height: 24px;
+  color: var(--KButtonOutlineColor, var(--grey-500));
   &:focus {
     box-shadow: 0 0 0 1px var(--blue-200);
   }

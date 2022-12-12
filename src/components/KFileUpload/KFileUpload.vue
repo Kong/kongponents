@@ -287,10 +287,10 @@ export default defineComponent({
 
   .k-file-upload-btn.k-button {
     position: absolute;
-    right: 12px;
     top: 35px;
-    border-radius: 100px;
+    right: 12px;
     height: 29px;
+    border-radius: 100px;
   }
 
   // To hide the button and thumbnail that appears in Safari and firefox after uploading a file
@@ -299,8 +299,8 @@ export default defineComponent({
     position: absolute;
     min-width: 100%;
     min-height: 100%;
-    opacity: 0;
     cursor: inherit;
+    opacity: 0;
   }
 
   :deep(.k-input-wrapper) input[type="file"],
@@ -312,11 +312,11 @@ export default defineComponent({
     position: absolute;
     top: 38px;
     right: 118px;
-    border: none;
     height: var(--spacing-lg);
-    background-color: transparent;
-    cursor: pointer;
     padding: var(--type-xxs) 6px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
 
     &:hover,
     &:active {
@@ -338,14 +338,14 @@ export default defineComponent({
 
   .image-upload-description {
     position: absolute;
-    left: 44px;
     top: 12px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    left: 44px;
     overflow: hidden;
-    color: var(--blue-500);
     font-size: 13px;
     line-height: 20px;
+    color: var(--blue-500);
+    text-overflow: ellipsis;
+    white-space: nowrap;
     cursor: pointer;
   }
 }
@@ -366,11 +366,11 @@ export default defineComponent({
   }
 
   .display-name {
-    color: var(--black-70);
     position: absolute;
-    pointer-events: none;
     top: 40px;
     left: 20px;
+    color: var(--black-70);
+    pointer-events: none;
   }
 }
 </style>

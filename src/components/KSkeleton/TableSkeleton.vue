@@ -75,8 +75,8 @@ $screen-md: 756px;
           display: none;
         }
         &:nth-of-type(4) {
-          margin-left: auto;
           margin-right: 0;
+          margin-left: auto;
         }
       }
     }
@@ -87,8 +87,8 @@ $screen-md: 756px;
         }
         &:nth-of-type(2) {
           width: 6rem;
-          margin-left: auto;
           margin-right: 0;
+          margin-left: auto;
         }
       }
     }

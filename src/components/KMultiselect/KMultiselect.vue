@@ -827,16 +827,16 @@ export default defineComponent({
 @import '@/styles/mixins';
 
 .k-multiselect {
-  width: fit-content; // necessary for correct placement of popup
   position: relative; // so staging area is positioned around this node
+  width: fit-content; // necessary for correct placement of popup
 
   // off screen area for checking selections before display
   .staging-area {
-    visibility: hidden;
     position: absolute;
     left: -99999px;
-    pointer-events: none;
     z-index: -1;
+    pointer-events: none;
+    visibility: hidden;
   }
 
   .k-multiselect-selections {
@@ -844,21 +844,21 @@ export default defineComponent({
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    padding-left: 16px;
     padding-right: 23px;
+    padding-left: 16px;
 
     &.scrollable {
       overflow-y: auto;
     }
 
     &.staging {
+      position: relative;
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
       box-sizing: border-box;
-      position: relative;
       height: auto;
-      padding-left: 16px;
       padding-right: 23px;
+      padding-left: 16px;
     }
 
     .hidden-selection-count {
@@ -873,8 +873,8 @@ export default defineComponent({
 
   .k-multiselect-icon {
     position: absolute;
-    right: 1px;
     top: 1px;
+    right: 1px;
 
     .k-multiselect-chevron-icon {
       position: relative;
@@ -890,8 +890,8 @@ export default defineComponent({
   }
 
   .k-multiselect-trigger {
-    display: inline-block;
     position: relative;
+    display: inline-block;
     border-radius: 3px;
     // mimic input's box shadow styling
     @include input-default;
@@ -947,13 +947,13 @@ export default defineComponent({
       }
 
       input.k-input:not([type="checkbox"]):not([type="radio"]) {
+        position: relative;
+        left: 1px;
+        width: calc(100% - 4px);
         // slightly smaller than container so we can see
         // the container's box-shadow
         height: calc(100% - 2px);
-        width: calc(100% - 4px);
         margin: 1px;
-        position: relative;
-        left: 1px;
         // remove input's default box shadow
         box-shadow: none !important;
 

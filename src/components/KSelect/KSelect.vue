@@ -644,12 +644,12 @@ export default defineComponent({
 .k-select {
   width: fit-content; // necessary for correct placement of popup
   .k-select-item-selection {
-    background-color: var(--blue-100);
-    color: var(--blue-500);
-    font-weight: 400;
     display: flex;
-    border-radius: 4px;
     margin-bottom: 6px;
+    font-weight: 400;
+    color: var(--blue-500);
+    background-color: var(--blue-100);
+    border-radius: 4px;
 
     &.overlay-label-item-selection {
       position: relative;
@@ -663,11 +663,11 @@ export default defineComponent({
     }
 
     .clear-selection-icon {
-      margin-left: auto;
+      height: 24px;
+      padding: 0;
       margin-top: auto;
       margin-bottom: auto;
-      padding: 0;
-      height: 24px;
+      margin-left: auto;
     }
   }
 
@@ -759,8 +759,8 @@ export default defineComponent({
     }
 
     &input.k-input {
-      padding: var(--spacing-xs);
       height: 100%;
+      padding: var(--spacing-xs);
     }
 
     .kong-icon {
@@ -785,11 +785,11 @@ export default defineComponent({
   }
 
   div.k-select-input.select-input-container {
-    cursor: pointer !important;
-    flex: 0 0 40%;
     display: flex;
-    align-items: center;
+    flex: 0 0 40%;
     flex-direction: row-reverse;
+    align-items: center;
+    cursor: pointer !important;
     border: 1px solid var(--grey-300);
     border-radius: 3px;
     transition: all 0.1s ease;
@@ -871,8 +871,8 @@ export default defineComponent({
     }
 
     ul {
-      margin: 0;
       padding: 0;
+      margin: 0;
     }
 
     a {
@@ -887,12 +887,12 @@ export default defineComponent({
     }
 
     .k-select-loading {
-      display: block;
-      text-align: center;
       position: relative;
       top: 0;
       right: 0;
+      display: block;
       height: 24px;
+      text-align: center;
     }
   }
 }

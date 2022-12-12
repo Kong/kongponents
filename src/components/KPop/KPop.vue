@@ -459,16 +459,16 @@ export default defineComponent({
 .k-popover {
   z-index: 1000;
   max-width: none;
+  padding: var(--KPopPaddingY, 28px) var(--KPopPaddingX, var(--spacing-md, spacing(md)));
   font-size: var(--KPopBodySize, var(--type-sm, type(sm)));
+  color: var(--KPopColor, var(--black-400, color(black-400)));
   text-align: left;
   white-space: normal;
-  color: var(--KPopColor, var(--black-400, color(black-400)));
   background-color: var(--KPopBackground, var(--white, color(white)));
   border: 1px solid var(--KPopBorder, var(--black-10, color(black-10)));
   border-radius: 3px;
   -webkit-box-shadow: 0px 4px 20px var(--black-10);
   box-shadow: 0px 4px 20px var(--black-10);
-  padding: var(--KPopPaddingY, 28px) var(--KPopPaddingX, var(--spacing-md, spacing(md)));
 
   // Prevent Vue animation classes from impacting the positioning of the popover
   &.fade-enter-active,
@@ -483,9 +483,9 @@ export default defineComponent({
     margin-bottom: 28px;
 
     .k-popover-title {
-      color: var(--KPopColor, var(--black-500, color(black-500)));
       font-size: var(--KPopHeaderSize, var(--type-md, type(md)));
       font-weight: 600;
+      color: var(--KPopColor, var(--black-500, color(black-500)));
     }
 
     .k-popover-actions {
@@ -505,28 +505,28 @@ export default defineComponent({
     margin-top: var(--spacing-md, spacing(md));
 
     &:after, &:before {
+      position: absolute;
       bottom: 100%;
       left: 50%;
-      border: solid transparent;
-      content: " ";
-      height: 0;
       width: 0;
-      position: absolute;
+      height: 0;
       pointer-events: none;
+      content: " ";
+      border: solid transparent;
     }
 
     &:after {
-      border-color: rgba(255, 255, 255, 0);
-      border-bottom-color: var(--KPopBackground, var(--white, color(white)));
-      border-width: 10px;
       margin-left: -10px;
+      border-color: rgba(255, 255, 255, 0);
+      border-width: 10px;
+      border-bottom-color: var(--KPopBackground, var(--white, color(white)));
     }
 
     &:before {
-      border-color: rgba(250, 250, 250, 0);
-      border-bottom-color: var(--KPopBorder, var(--black-10, color(black-10)));
-      border-width: 11px;
       margin-left: -11px;
+      border-color: rgba(250, 250, 250, 0);
+      border-width: 11px;
+      border-bottom-color: var(--KPopBorder, var(--black-10, color(black-10)));
     }
   }
 
@@ -534,28 +534,28 @@ export default defineComponent({
     margin-bottom: var(--spacing-md, spacing(md));
 
     &:after, &:before {
+      position: absolute;
       top: 100%;
       left: 50%;
-      border: solid transparent;
-      content: " ";
-      height: 0;
       width: 0;
-      position: absolute;
+      height: 0;
       pointer-events: none;
+      content: " ";
+      border: solid transparent;
     }
 
     &:after {
-      border-color: rgba(255, 255, 255, 0);
-      border-top-color: var(--KPopBackground, var(--white, color(white)));
-      border-width: 10px;
       margin-left: -10px;
+      border-color: rgba(255, 255, 255, 0);
+      border-width: 10px;
+      border-top-color: var(--KPopBackground, var(--white, color(white)));
     }
 
     &:before {
-      border-color: rgba(250, 250, 250, 0);
-      border-top-color: var(--KPopBorder, var(--black-10, color(black-10)));
-      border-width: 11px;
       margin-left: -11px;
+      border-color: rgba(250, 250, 250, 0);
+      border-width: 11px;
+      border-top-color: var(--KPopBorder, var(--black-10, color(black-10)));
     }
   }
 
@@ -563,28 +563,28 @@ export default defineComponent({
     margin-right: var(--spacing-md, spacing(md));
 
     &:after, &:before {
-      left: 100%;
-      top: 50%;
-      border: solid transparent;
-      content: " ";
-      height: 0;
-      width: 0;
       position: absolute;
+      top: 50%;
+      left: 100%;
+      width: 0;
+      height: 0;
       pointer-events: none;
+      content: " ";
+      border: solid transparent;
     }
 
     &:after {
-      border-color: rgba(255, 255, 255, 0);
-      border-left-color: var(--KPopBackground, var(--white, color(white)));
-      border-width: 10px;
       margin-top: -10px;
+      border-color: rgba(255, 255, 255, 0);
+      border-width: 10px;
+      border-left-color: var(--KPopBackground, var(--white, color(white)));
     }
 
     &:before {
-      border-color: rgba(250, 250, 250, 0);
-      border-left-color: var(--KPopBorder, var(--black-10, color(black-10)));
-      border-width: 11px;
       margin-top: -11px;
+      border-color: rgba(250, 250, 250, 0);
+      border-width: 11px;
+      border-left-color: var(--KPopBorder, var(--black-10, color(black-10)));
     }
   }
 
@@ -592,28 +592,28 @@ export default defineComponent({
     margin-left: var(--spacing-md, spacing(md));
 
     &:after, &:before {
-      right: 100%;
-      top: 50%;
-      border: solid transparent;
-      content: " ";
-      height: 0;
-      width: 0;
       position: absolute;
+      top: 50%;
+      right: 100%;
+      width: 0;
+      height: 0;
       pointer-events: none;
+      content: " ";
+      border: solid transparent;
     }
 
     &:after {
-      border-color: rgba(255, 255, 255, 0);
-      border-right-color: var(--KPopBackground, var(--white, color(white)));
-      border-width: 10px;
       margin-top: -10px;
+      border-color: rgba(255, 255, 255, 0);
+      border-width: 10px;
+      border-right-color: var(--KPopBackground, var(--white, color(white)));
     }
 
     &:before {
-      border-color: rgba(250, 250, 250, 0);
-      border-right-color: var(--KPopBorder, var(--black-10, color(black-10)));
-      border-width: 11px;
       margin-top: -11px;
+      border-color: rgba(250, 250, 250, 0);
+      border-width: 11px;
+      border-right-color: var(--KPopBorder, var(--black-10, color(black-10)));
     }
   }
 

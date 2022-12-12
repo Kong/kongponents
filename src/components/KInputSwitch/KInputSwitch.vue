@@ -160,10 +160,10 @@ export default defineComponent({
   position: relative;
 
   .kong-icon {
-    transform: translateX(-54px);
     position: absolute;
-    left: 57px;
     top: 1px;
+    left: 57px;
+    transform: translateX(-54px);
   }
 }
 </style>

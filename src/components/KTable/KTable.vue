@@ -896,14 +896,14 @@ export default defineComponent({
   th,
   td {
     padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
-    vertical-align: middle;
     white-space: nowrap;
+    vertical-align: middle;
   }
 
   thead {
-    height: 60px;
     position: sticky;
     top: 0;
+    height: 60px;
     background-color: #ffffff;
     border-bottom: 1px solid var(--KTableBorder, var(--grey-200, color(grey-200)));
 
@@ -915,18 +915,18 @@ export default defineComponent({
       position: relative;
 
       &:after {
-        opacity: 0;
-        transition: opacity 0.2s ease-in-out;
-        content: '';
         position: absolute;
+        left: 0;
         z-index: -1;
         width: 100%;
         height: 100%;
-        box-shadow: none;
-        left: 0;
         // Super-important to allow clicking on table rows in Safari.
         // This allows clicks to pass through the "invisible" :after layer
         pointer-events: none;
+        content: '';
+        box-shadow: none;
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
       }
 
       &.is-scrolled {
@@ -947,9 +947,9 @@ export default defineComponent({
 
     th {
       padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
-      text-align: left;
       font-size: var(--KTableHeaderSize, var(--type-sm, type(sm)));
       font-weight: 600;
+      text-align: left;
 
       &.active-sort {
         color: var(--blue-500);
@@ -1015,8 +1015,8 @@ export default defineComponent({
   }
 
   &.side-border {
-    border-collapse: separate;
     border-spacing: 0 2px;
+    border-collapse: separate;
 
     tbody tr {
       border-bottom: none;
@@ -1043,8 +1043,8 @@ export default defineComponent({
   thead {
     th {
       .caret {
-        top: 2px;
         position: relative;
+        top: 2px;
         transform: rotate(0deg);
       }
 

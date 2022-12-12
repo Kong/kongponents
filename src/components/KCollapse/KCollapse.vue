@@ -183,9 +183,9 @@ export default defineComponent({
     cursor: pointer;
 
     .k-collapse-trigger-content {
-      color: var(--KCollapseTriggerColor, var(--blue-500));
       font-size: var(--type-sm);
       font-weight: 600;
+      color: var(--KCollapseTriggerColor, var(--blue-500));
     }
   }
 }
@@ -212,8 +212,8 @@ export default defineComponent({
 
       .k-collapse-trigger-label {
         .kong-icon {
-          top: 2px;
           position: relative;
+          top: 2px;
         }
       }
     }

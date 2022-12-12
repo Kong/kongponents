@@ -107,7 +107,7 @@ export default defineComponent({
   --KPopPaddingX: var(--spacing-xs);
   --KPopPaddingY: var(--spacing-xs);
   --KPopBorder: none;
-  pointer-events: none;
   z-index: 9999;
+  pointer-events: none;
 }
 </style>

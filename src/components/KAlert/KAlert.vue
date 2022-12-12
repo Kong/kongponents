@@ -310,21 +310,21 @@ export default defineComponent({
   position: relative;
   display: flex;
   padding: 14px;
-  border-radius: 4px;
-  overflow-wrap: anywhere;
   word-break: break-word; // Word-wrapping in Safari
+  overflow-wrap: anywhere;
+  border-radius: 4px;
 
   a {
-    text-decoration: underline;
     color: var(--blue-600, color(blue-600));
+    text-decoration: underline;
   }
 
   & > div .k-alert-msg {
-    font-weight: 400;
-    font-size: var(--type-md, type(md));
-    line-height: 24px;
     padding: 2px 0;
     margin-left: 2px;
+    font-size: var(--type-md, type(md));
+    font-weight: 400;
+    line-height: 24px;
 
     &.k-alert-subtext {
       font-size: var(--type-sm, type(sm));
@@ -338,20 +338,20 @@ export default defineComponent({
   .k-alert-description-text {
     display: block;
     padding-top: var(--spacing-xxs);
-    font-weight: 400;
     font-size: 13px;
+    font-weight: 400;
     line-height: 24px;
     color: var(--grey-500);
   }
 
   // Action Buttons
   .k-alert-action {
-    display: inline-flex;
     position: relative;
+    display: inline-flex;
+    height: 100%;
     margin-top: auto;
     margin-bottom: auto;
     margin-left: auto;
-    height: 100%;
   }
 
   .close {
@@ -359,11 +359,11 @@ export default defineComponent({
     top: 0;
     right: var(--spacing-xs);
     bottom: 0;
-    border: 0;
-    background-color: transparent;
-    transition: all 200ms ease;
     cursor: pointer;
+    background-color: transparent;
+    border: 0;
     opacity: 0.5;
+    transition: all 200ms ease;
 
     &:hover,
     &:active {
@@ -393,8 +393,8 @@ export default defineComponent({
   &.is-fixed {
     position: fixed;
     top: 0;
-    left: 0;
     right: 0;
+    left: 0;
   }
 
   &.is-bordered {
@@ -428,40 +428,40 @@ export default defineComponent({
   // Appearances - MUST FOLLOW VARIANTS
   &.info {
     color: var(--KAlertInfoColor, var(--blue-600, color(blue-600)));
-    border-color: var(--KAlertInfoBorder, var(--blue-300, color(blue-300)));
     background-color: var(--KAlertInfoBackground, var(--blue-200, color(blue-200)));
+    border-color: var(--KAlertInfoBorder, var(--blue-300, color(blue-300)));
   }
 
   &.success {
     color: var(--KAlertSuccessColor, var(--green-700, color(green-700)));
-    border-color: var(--KAlertSuccessBorder, var(--green-200, color(green-200)));
     background-color: var(--KAlertSuccessBackground, var(--green-100, color(green-100)));
+    border-color: var(--KAlertSuccessBorder, var(--green-200, color(green-200)));
   }
 
   &.danger {
     color: var(--KAlertDangerColor, var(--red-700, color(red-700)));
-    border-color: var(--KAlertDangerBorder, var(--red-300, color(red-300)));
     background-color: var(--KAlertDangerBackground, var(--red-100, color(red-100)));
+    border-color: var(--KAlertDangerBorder, var(--red-300, color(red-300)));
   }
 
   &.warning {
     color: var(--KAlertWarningColor, var(--yellow-600, color(yellow-600)));
-    border-color: var(--KAlertWarningBorder, var(--yellow-200, color(yellow-200)));
     background-color: var(--KAlertWarningBackground, var(--yellow-100, color(yellow-100)));
+    border-color: var(--KAlertWarningBorder, var(--yellow-200, color(yellow-200)));
   }
 
   // Types - MUST FOLLOW APPEARANCES
   &.is-banner {
-    background-color: var(--white);
-    color: var(--grey-600);
     padding: 0;
+    color: var(--grey-600);
+    background-color: var(--white);
 
     .k-alert-ellipse {
-      height: 6px;
-      width: 6px;
-      border-radius: 100%;
       display: inline-block;
+      width: 6px;
+      height: 6px;
       margin: auto 8px;
+      border-radius: 100%;
 
       &.info {
         background-color: var(--blue-400);
@@ -524,8 +524,8 @@ export default defineComponent({
   .k-alert-action {
     & button {
       height: 30px;
-      font-weight: 400;
       font-size: 13px;
+      font-weight: 400;
       line-height: 13px;
 
       &:not(:first-of-type) {

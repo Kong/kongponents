@@ -61,25 +61,25 @@ $borderColor: #e6e6e6;
 .skeleton-card-wrapper {
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
   gap: 1rem;
+  width: 100%;
 }
 .skeleton-card-column {
-  margin-bottom: 1rem;
   width: var(--KSkeletonCardWidth, calc(33% - 1rem));
+  margin-bottom: 1rem;
 }
 .skeleton-card {
   display: flex;
   flex-direction: column;
   height: 324px;
   padding: 1rem;
-  border-radius: 3px;
-  border: 1px solid $borderColor;
   overflow: hidden;
+  border: 1px solid $borderColor;
+  border-radius: 3px;
   .skeleton-card-header {
+    display: flex;
     width: 100%;
     margin-bottom: 1rem;
-    display: flex;
   }
   .skeleton-card-content {
     display: flex;
@@ -90,8 +90,8 @@ $borderColor: #e6e6e6;
     align-self: flex-end;
     justify-content: space-between;
     width: 100%;
-    margin-top: auto;
     padding-top: 1rem;
+    margin-top: auto;
   }
 }
 </style>

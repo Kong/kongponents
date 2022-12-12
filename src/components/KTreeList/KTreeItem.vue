@@ -91,12 +91,12 @@ const handleClick = () => {
 @import '@/styles/functions';
 
 .k-tree-item {
+  padding: 4px;
   color: var(--KTreeListItemText, var(--black-500));
+  text-decoration: none;
   background-color: var(--KTreeListItemUnselectedBackground, var(--white));
   border: 1px solid var(--KTreeListItemUnselectedBorder, var(--grey-200));
   border-radius: 8px;
-  padding: 4px;
-  text-decoration: none;
 
   .k-tree-item-icon {
     line-height: 1;
@@ -108,8 +108,8 @@ const handleClick = () => {
   }
 
   &:hover {
-    cursor: grab;
     color: var(--KTreeListItemText, var(--black-500));
+    cursor: grab;
   }
 
   &.not-draggable {

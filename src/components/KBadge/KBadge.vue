@@ -172,64 +172,64 @@ watch(badgeText, () => {
 
 .k-badge {
   display: inline-block;
-  font-weight: 400;
-  font-size: var(--KBadgeFontSize, 12px);
-  line-height: var(--KBadgeLineHeight, var(--type-md, type(md)));
   width: fit-content;
   height: auto;
-  text-align: center;
   padding: var(--KBadgePaddingY, 2px) var(--KBadgePaddingX, 6px);
   font-family: var(--font-family-sans, font(sans));
+  font-size: var(--KBadgeFontSize, 12px);
+  font-weight: 400;
+  line-height: var(--KBadgeLineHeight, var(--type-md, type(md)));
+  text-align: center;
 
   // Appearances
   &.k-badge-default {
     color: var(--KBadgeDefaultColor, var(--blue-500, color(blue-500)));
-    border-color: var(--KBadgeDefaultBorder, var(--blue-500, color(blue-500)));
     background-color: var(--KBadgeDefaultBackground, var(--blue-100, color(blue-100)));
+    border-color: var(--KBadgeDefaultBorder, var(--blue-500, color(blue-500)));
 
     &.is-bordered {
-      border-width: 1px;
       border-style: solid;
+      border-width: 1px;
     }
   }
   &.k-badge-success {
     color: var(--KBadgeSuccessColor, var(--green-700, color(green-700)));
-    border-color: var(--KBadgeSuccessBorder, var(--green-700, color(green-700)));
     background-color: var(--KBadgeSuccessBackground, var(--green-100, color(green-100)));
+    border-color: var(--KBadgeSuccessBorder, var(--green-700, color(green-700)));
 
     &.is-bordered {
-      border-width: 1px;
       border-style: solid;
+      border-width: 1px;
     }
   }
   &.k-badge-danger {
     color: var(--KBadgeDangerColor, var(--red-700, color(red-700)));
-    border-color: var(--KBadgeDangerBorder, var(--red-700, color(red-700)));
     background-color: var(--KBadgeDangerBackground, var(--red-100, color(red-100)));
+    border-color: var(--KBadgeDangerBorder, var(--red-700, color(red-700)));
 
     &.is-bordered {
-      border-width: 1px;
       border-style: solid;
+      border-width: 1px;
     }
   }
   &.k-badge-info {
     color: var(--KBadgeInfoColor, var(--blue-500, color(blue-500)));
-    border-color: var(--KBadgeInfoBorder, var(--blue-500, color(blue-500)));
     background-color: var(--KBadgeInfoBackground, var(--blue-200, color(blue-200)));
+    border-color: var(--KBadgeInfoBorder, var(--blue-500, color(blue-500)));
 
     &.is-bordered {
-      border-width: 1px;
       border-style: solid;
+      border-width: 1px;
     }
   }
   &.k-badge-warning {
     color: var(--KBadgeWarningColor, var(--yellow-600, color(yellow-600)));
-    border-color: var(--KBadgeWarningBorder, var(--yellow-600, color(yellow-600)));
     background-color: var(--KBadgeWarningBackground, var(--yellow-100, color(yellow-100)));
+    border-color: var(--KBadgeWarningBorder, var(--yellow-600, color(yellow-600)));
 
     &.is-bordered {
-      border-width: 1px;
       border-style: solid;
+      border-width: 1px;
     }
   }
 
@@ -239,8 +239,8 @@ watch(badgeText, () => {
     .k-badge-dismiss-button {
       border-top-left-radius: 0;
       border-top-right-radius: var(--KBadgeBorderRadius, 4px);
-      border-bottom-left-radius: 0;
       border-bottom-right-radius: var(--KBadgeBorderRadius, 4px);
+      border-bottom-left-radius: 0;
     }
   }
 
@@ -249,22 +249,22 @@ watch(badgeText, () => {
   }
 
   .k-badge-text {
-    max-width: var(--KBadgeMaxWidth, 200px);
-    min-width: var(--KBadgeMinWidth, 8px);
-    width: var(--KBadgeWidth, auto);
     align-self: center;
+    width: var(--KBadgeWidth, auto);
+    min-width: var(--KBadgeMinWidth, 8px);
+    max-width: var(--KBadgeMaxWidth, 200px);
   }
 
   .k-badge-dismiss-button {
     padding: var(--spacing-xs);
-    // non-visual-button
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-weight: 400;
     // ignore badge padding
     margin: calc(-1 * var(--KBadgePaddingY, 2px)) calc(-1 * var(--KBadgePaddingX, 6px));
     margin-left: auto;
+    font-weight: 400;
+    cursor: pointer;
+    // non-visual-button
+    background-color: transparent;
+    border: none;
   }
 }
 </style>
