@@ -226,6 +226,7 @@
 
       <KButton
         v-if="props.showCopyButton"
+        ref="codeBlockCopyButton"
         appearance="outline"
         class="k-code-block-copy-button"
         data-testid="k-code-block-copy-button"
@@ -405,6 +406,7 @@ const isFilterMode = ref(false)
 const regExpError = ref<Error | null>(null)
 const codeBlock = ref<HTMLElement | null>(null)
 const codeBlockSearchInput = ref<HTMLInputElement | null>(null)
+const codeBlockCopyButton = ref<typeof KButton | null>(null)
 const numberOfMatches = ref(0)
 const matchingLineNumbers = ref<number[]>([])
 const currentLineIndex = ref<null | number>(null)
@@ -743,8 +745,9 @@ function jumpToMatch(direction: number): void {
   }
 }
 
-async function copyCode(event: Event): Promise<void> {
-  const button = event.currentTarget as HTMLButtonElement
+async function copyCode(): Promise<void> {
+  const buttonComponent = codeBlockCopyButton.value as typeof KButton
+  const button = buttonComponent.$el as HTMLButtonElement
 
   const hasCopiedCodeSuccessfully = await copyTextToClipboard(props.code)
   if (hasCopiedCodeSuccessfully) {
