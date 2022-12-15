@@ -1,3 +1,10 @@
+## [8.12.1](https://github.com/Kong/kongponents/compare/v8.12.0...v8.12.1) (2022-12-15)
+
+
+### Bug Fixes
+
+* **k-tree-list:** align-items center on tree item ([1b3d82e](https://github.com/Kong/kongponents/commit/1b3d82eba04da9ffa552edaa3256de39dd1ab957))
+
 # [8.12.0](https://github.com/Kong/kongponents/compare/v8.11.1...v8.12.0) (2022-12-12)
 
 
