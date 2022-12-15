@@ -1,6 +1,6 @@
 <template>
   <a
-    class="k-tree-item d-flex"
+    class="k-tree-item"
     :class="{
       'not-draggable': disabled,
       'selected': item.selected
@@ -91,6 +91,8 @@ const handleClick = () => {
 @import '@/styles/functions';
 
 .k-tree-item {
+  display: flex;
+  align-items: center;
   padding: 4px;
   color: var(--KTreeListItemText, var(--black-500));
   text-decoration: none;
