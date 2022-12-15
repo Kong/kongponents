@@ -80,8 +80,8 @@ export default defineComponent({
 
   .icon {
     position: relative;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 18px;
+    height: 18px;
 
     i {
       position: absolute;

@@ -257,7 +257,7 @@ Check out the [contributing](/guide/adding-icons-to-kicon) docs to learn about a
     }
   }
   span {
-    margin: 0 .5rem;
+    margin: 0 8px;
   }
 }
 
@@ -272,7 +272,7 @@ Check out the [contributing](/guide/adding-icons-to-kicon) docs to learn about a
     }
   }
   span {
-    margin: 0 .5rem .5rem;
+    margin: 0 8px 8px;
   }
 }
 </style>

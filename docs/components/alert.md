@@ -768,7 +768,7 @@ export default defineComponent({
 <style lang="scss">
 .k-alert {
   &:not(:last-of-type) {
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
   }
 }
 

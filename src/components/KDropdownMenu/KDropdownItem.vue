@@ -151,7 +151,7 @@ export default defineComponent({
 li.k-dropdown-item {
   display: flex;
   align-items: center;
-  font-size: 1rem;
+  font-size: 16px;
   line-height: 1;
 
   &.has-divider {
@@ -172,7 +172,7 @@ li.k-dropdown-item {
   }
 
   svg {
-    margin-right: .75rem;
+    margin-right: 12px;
   }
 
   &:hover {

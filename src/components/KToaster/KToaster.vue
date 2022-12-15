@@ -60,8 +60,8 @@ $transition: all .3s;
 
 .toaster-container-outer {
   position: fixed;
-  right: 1rem;
-  bottom: 1rem;
+  right: 16px;
+  bottom: 16px;
   z-index: 10000;
   width: auto;
   max-width: 300px;
@@ -71,7 +71,7 @@ $transition: all .3s;
 .toaster-item {
   display: flex;
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
   overflow: hidden;
   box-shadow: 0 0 12px rgba(0,0,0,.12);
   transition: $transition;
@@ -84,7 +84,7 @@ $transition: all .3s;
     display: flex;
     flex: 1;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 16px;
     margin-bottom: 0;
     color: var(--black-70);
     text-align: left;
@@ -94,7 +94,7 @@ $transition: all .3s;
       position: relative;
       right: 0;
       order: 1;
-      padding: 0 0 0 1rem;
+      padding: 0 0 0 16px;
 
       &:focus,
       &:active {

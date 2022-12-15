@@ -49,19 +49,19 @@ export default defineComponent({
   // Provided box widths
   &.width {
     &-1 {
-      width: 1rem;
+      width: 16px;
     }
     &-2 {
-      width: 2rem;
+      width: 32px;
     }
     &-5 {
-      width: 5rem;
+      width: 80px;
     }
     &-6 {
-      width: 6rem;
+      width: 96px;
     }
     &-10 {
-      width: 10rem;
+      width: 1;
     }
     &-25 {
       width: 25%;
@@ -79,10 +79,10 @@ export default defineComponent({
   // Provided box heights
   &.height {
     &-1 {
-      height: 1rem;
+      height: 16px;
     }
     &-2 {
-      height: 2rem;
+      height: 32px;
     }
   }
 }

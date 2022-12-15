@@ -83,14 +83,14 @@ export default defineComponent({
 
   .progress {
     max-width: 350px;
-    margin-top: 1rem;
+    margin-top: 16px;
     background-color: var(--grey-200, color(grey-200));
-    border-radius: 0.5rem;
+    border-radius: 8px;
 
     .progress-bar {
       height: 5px;
       background-color: var(--KSkeletonFullScreenProgressColor, var(--blue-500, color(blue-500)));
-      border-radius: 0.5rem;
+      border-radius: 8px;
     }
   }
 }

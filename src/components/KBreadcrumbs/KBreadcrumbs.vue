@@ -105,12 +105,12 @@ export default defineComponent({
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   padding: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
   font-size: 15px;
   font-weight: 600 !important;
   line-height: 24px !important;
   list-style: none;
-  border-radius: 0.25rem;
+  border-radius: 4px;
 }
 
 .k-breadcrumbs .k-breadcrumbs-item :deep(.kong-icon) {

@@ -126,7 +126,7 @@ export default defineComponent({
     }
 
     .kong-icon:not(.selected-item-icon) {
-      margin-right: .75rem;
+      margin-right: 12px;
     }
 
     .k-multiselect-selected-icon-container {

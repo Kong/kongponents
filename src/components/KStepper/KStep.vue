@@ -73,7 +73,7 @@ export default defineComponent({
   padding: var(--spacing-sm) 0;
 
   // For Divider
-  --divider-spacing: 0.5rem;
+  --divider-spacing: 8px;
 
   &:last-child > .k-step-container::after {
     display: none;

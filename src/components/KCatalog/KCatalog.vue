@@ -550,7 +550,7 @@ export default defineComponent({
     --KSkeletonCardWidth: 25%;
 
     .skeleton-card-column {
-      padding-right: 2rem;
+      padding-right: 32px;
     }
     .skeleton-card {
       height: $cardHeight;

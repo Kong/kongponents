@@ -42,7 +42,7 @@ If you notice other breaking changes we missed, we invite you to [open an issue]
     ```scss
     &.has-label-left {
       margin-right: 0;
-      margin-left: 1rem;
+      margin-left: 16px;
     }
     ```
 

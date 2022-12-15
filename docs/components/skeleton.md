@@ -347,6 +347,6 @@ export default defineComponent({
   --KSkeletonFullScreenProgressColor: var(--black-70);
 }
 .k-skeleton-modified {
-  --KSkeletonCardWidth: calc(33% - 1rem);
+  --KSkeletonCardWidth: calc(33% - 16px);
 }
 </style>
