@@ -130,6 +130,7 @@ import { defineComponent, computed } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 
+// These are appearances
 export const appearances = {
   info: 'info',
   success: 'success',
