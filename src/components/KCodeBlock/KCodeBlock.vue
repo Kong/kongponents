@@ -226,6 +226,7 @@
 
       <KButton
         v-if="props.showCopyButton"
+        ref="codeBlockCopyButton"
         appearance="outline"
         class="k-code-block-copy-button"
         data-testid="k-code-block-copy-button"
@@ -255,6 +256,7 @@ import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import { copyTextToClipboard } from '@/utilities/copyTextToClipboard'
 import { debounce } from '@/utilities/debounce'
+import { Command, ShortcutManager } from '@/utilities/ShortcutManager'
 
 export type CodeBlockEventData = {
   preElement: HTMLElement
@@ -265,45 +267,8 @@ export type CodeBlockEventData = {
   matchingLineNumbers: number[]
 }
 
-type CommandKeywords = 'toggleFilterMode' | 'toggleRegExpMode' | 'jumpToNextMatch' | 'jumpToPreviousMatch' | 'copyCode'
-
-type Command = {
-  /**
-   * Command handler.
-   */
-  trigger: (event: Event) => (Promise<void> | void)
-
-  /**
-   * Checks whether the context in which the command is triggering is permitted.
-   *
-   * The function is passed the associated `KeyboardEvent`. The event’s [`event.composedPath()`][1] method is convenient to check where an event originates (e.g. does it come within the code block?).
-   *
-   * [1]: https://developer.mozilla.org/en-US/docs/Web/API/Event/composedPath
-   */
-  isAllowedContext?: (event: Event) => boolean
-
-  /**
-   * Disables the shortcut dynamically.
-   */
-  isDisabled?: () => boolean
-
-  shouldPreventDefaultAction?: boolean
-}
-
 const IS_MAYBE_MAC = window?.navigator?.platform?.toLowerCase().includes('mac')
 const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Options' : 'Alt'
-
-/**
- * Maps shortcuts to their associated command keywords.
- */
-const DEFAULT_KEY_MAP: Record<string, CommandKeywords> = {
-  'alt+c': 'copyCode',
-  'alt+f': 'toggleFilterMode',
-  'alt+g': 'toggleFilterMode',
-  'alt+r': 'toggleRegExpMode',
-  f3: 'jumpToNextMatch',
-  'shift+f3': 'jumpToPreviousMatch',
-}
 
 // Debounces the search handler which ensures that we don’t trigger several searches while the user is still typing.
 const debouncedHandleSearchInputValue = debounce(handleSearchInputValue, 150)
@@ -405,6 +370,7 @@ const isFilterMode = ref(false)
 const regExpError = ref<Error | null>(null)
 const codeBlock = ref<HTMLElement | null>(null)
 const codeBlockSearchInput = ref<HTMLInputElement | null>(null)
+const codeBlockCopyButton = ref<typeof KButton | null>(null)
 const numberOfMatches = ref(0)
 const matchingLineNumbers = ref<number[]>([])
 const currentLineIndex = ref<null | number>(null)
@@ -463,8 +429,71 @@ watch(() => isShowingFilteredCode.value, async function() {
   }
 })
 
+type CommandKeywords = 'toggleFilterMode' | 'toggleRegExpMode' | 'jumpToNextMatch' | 'jumpToPreviousMatch' | 'copyCode'
+
+/**
+ * Maps shortcuts to their associated command keywords.
+ */
+const keyMap: Record<string, CommandKeywords> = {
+  'alt+c': 'copyCode',
+  'alt+f': 'toggleFilterMode',
+  'alt+g': 'toggleFilterMode',
+  'alt+r': 'toggleRegExpMode',
+  f3: 'jumpToNextMatch',
+  'shift+f3': 'jumpToPreviousMatch',
+}
+
+/**
+ * Maps command keywords to their associated commands.
+ */
+const commands: Record<CommandKeywords, Command> = {
+  toggleFilterMode: {
+    trigger: toggleFilterMode,
+    isAllowedContext(event: Event) {
+      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
+    },
+    shouldPreventDefaultAction: true,
+  },
+
+  toggleRegExpMode: {
+    trigger: toggleRegExpMode,
+    isAllowedContext(event: Event) {
+      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
+    },
+    shouldPreventDefaultAction: true,
+  },
+
+  jumpToNextMatch: {
+    trigger: jumpToNextMatch,
+    isAllowedContext(event: Event) {
+      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
+    },
+    isDisabled: () => matchingLineNumbers.value.length === 0 || isFilterMode.value,
+    shouldPreventDefaultAction: true,
+  },
+
+  jumpToPreviousMatch: {
+    trigger: jumpToPreviousMatch,
+    isAllowedContext(event: Event) {
+      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
+    },
+    isDisabled: () => matchingLineNumbers.value.length === 0 || isFilterMode.value,
+    shouldPreventDefaultAction: true,
+  },
+
+  copyCode: {
+    trigger: copyCode,
+    isAllowedContext(event: Event) {
+      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
+    },
+    shouldPreventDefaultAction: true,
+  },
+}
+
+const shortcutManager = new ShortcutManager(keyMap, commands)
+
 onMounted(function() {
-  document.addEventListener('keydown', triggerShortcuts)
+  shortcutManager.registerListener()
 
   if (codeBlockSearchInput.value instanceof HTMLInputElement && props.query !== '') {
     codeBlockSearchInput.value.value = props.query
@@ -475,7 +504,7 @@ onMounted(function() {
 })
 
 onBeforeUnmount(function() {
-  document.removeEventListener('keydown', triggerShortcuts)
+  shortcutManager.unRegisterListener()
 })
 
 function emitCodeBlockRenderEvent(): void {
@@ -615,102 +644,6 @@ function toggleFilterMode(): void {
   isFilterMode.value = !isFilterMode.value
 }
 
-const keyMap = Object.fromEntries(Object.entries(DEFAULT_KEY_MAP).map(([shortcut, commandKeyword]) => [shortcut.toLowerCase(), commandKeyword]))
-
-/**
- * Maps command keywords to their associated commands.
- */
-const commands: Record<CommandKeywords, Command> = {
-  toggleFilterMode: {
-    trigger: toggleFilterMode,
-    isAllowedContext(event: Event) {
-      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
-    },
-    shouldPreventDefaultAction: true,
-  },
-
-  toggleRegExpMode: {
-    trigger: toggleRegExpMode,
-    isAllowedContext(event: Event) {
-      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
-    },
-    shouldPreventDefaultAction: true,
-  },
-
-  jumpToNextMatch: {
-    trigger: jumpToNextMatch,
-    isAllowedContext(event: Event) {
-      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
-    },
-    isDisabled: () => matchingLineNumbers.value.length === 0 || isFilterMode.value,
-    shouldPreventDefaultAction: true,
-  },
-
-  jumpToPreviousMatch: {
-    trigger: jumpToPreviousMatch,
-    isAllowedContext(event: Event) {
-      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
-    },
-    isDisabled: () => matchingLineNumbers.value.length === 0 || isFilterMode.value,
-    shouldPreventDefaultAction: true,
-  },
-
-  copyCode: {
-    trigger: copyCode,
-    isAllowedContext(event: Event) {
-      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
-    },
-    shouldPreventDefaultAction: true,
-  },
-}
-
-function triggerShortcuts(event: KeyboardEvent): void {
-  const code = normalizeKeyCode(event.code)
-  const shortcut = [
-    event.ctrlKey ? 'ctrl' : '',
-    event.shiftKey ? 'shift' : '',
-    event.altKey ? 'alt' : '',
-    code,
-  ].filter((key) => key !== '').join('+')
-  const commandKey = keyMap[shortcut]
-
-  if (!commandKey) {
-    return
-  }
-
-  const command = commands[commandKey]
-
-  // Prevents invoking shortcuts from outside a certain allowed context.
-  if (command.isAllowedContext) {
-    const isAllowedContext = command.isAllowedContext(event)
-
-    if (!isAllowedContext) {
-      return
-    }
-  }
-
-  if ((command.shouldPreventDefaultAction)) {
-    event.preventDefault()
-  }
-
-  if (command.isDisabled && command.isDisabled()) {
-    return
-  }
-
-  command.trigger(event)
-}
-
-const MODIFIER_KEY_CODES = ['ControlLeft', 'ControlRight', 'ShiftLeft', 'ShiftRight', 'AltLeft']
-
-function normalizeKeyCode(code: string): string {
-  // Returns relevant modifier keys as the empty string which is going to be filtered out.
-  if (MODIFIER_KEY_CODES.includes(code)) {
-    return ''
-  }
-
-  return code.replace(/^Key/, '').toLowerCase()
-}
-
 function jumpToNextMatch(): void {
   jumpToMatch(1)
 }
@@ -743,8 +676,9 @@ function jumpToMatch(direction: number): void {
   }
 }
 
-async function copyCode(event: Event): Promise<void> {
-  const button = event.currentTarget as HTMLButtonElement
+async function copyCode(): Promise<void> {
+  const buttonComponent = codeBlockCopyButton.value as typeof KButton
+  const button = buttonComponent.$el as HTMLButtonElement
 
   const hasCopiedCodeSuccessfully = await copyTextToClipboard(props.code)
   if (hasCopiedCodeSuccessfully) {
