@@ -1,3 +1,10 @@
+# [8.13.0](https://github.com/Kong/kongponents/compare/v8.12.2...v8.13.0) (2022-12-16)
+
+
+### Features
+
+* **modal:** add tabbable-options prop ([#987](https://github.com/Kong/kongponents/issues/987)) ([67763f8](https://github.com/Kong/kongponents/commit/67763f8ca7420d84ae62a8eaafa9c3bfc679bbd7))
+
 ## [8.12.2](https://github.com/Kong/kongponents/compare/v8.12.1...v8.12.2) (2022-12-15)
 
 
