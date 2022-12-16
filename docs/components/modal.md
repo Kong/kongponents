@@ -200,6 +200,9 @@ Can be `dark` (default) or `light`. You might want to use this if displaying dar
 </KModal>
 ```
 
+### tabbableOptions
+Options to be passed to [`focus-trap`](https://github.com/focus-trap/focus-trap), which is responsible for trapping focus inside the modal box. If you're experiencing issues with testing `<KModal>` in `jsdom`, you can pass this prop according to the [focus-trap documentation](https://github.com/focus-trap/focus-trap#testing-in-jsdom).
+
 ## Slots
 
 There are 4 designated slots you can use to display content in the modal.

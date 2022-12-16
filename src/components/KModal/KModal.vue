@@ -13,6 +13,7 @@
       <FocusTrap
         ref="focusTrap"
         :active="false"
+        :tabbable-options="tabbableOptions"
       >
         <div class="k-modal-dialog modal-dialog">
           <div
@@ -199,6 +200,13 @@ export default defineComponent({
     hideCancelButton: {
       type: Boolean,
       default: false,
+    },
+    /**
+     * Options to be passed to tabbable
+     */
+    tabbableOptions: {
+      type: Object,
+      default: () => ({}),
     },
     /**
      * Test mode - for testing only, strips out generated ids
