@@ -458,7 +458,7 @@ export default defineComponent({
 
 To support `<KPop>` being able to be used inside an svg tag, use the `isSvg` prop. This will wrap the content of the KPop in a `<foreignObject>` tag, so that normal HTML content can be injected into the popover.
 
-<svg style="cursor: pointer; height: 20px; width: 20px; margin-right: 1rem;" v-for="light in [{ color: 'red', value: 'red-500'}, { color: 'yellow', value: 'yellow-200'}, { color: 'green', value: 'green-500'}]">
+<svg style="cursor: pointer; height: 20px; width: 20px; margin-right: 16px;" v-for="light in [{ color: 'red', value: 'red-500'}, { color: 'yellow', value: 'yellow-200'}, { color: 'green', value: 'green-500'}]">
   <KPop trigger="hover" :title="light.color" :is-svg="true" tag="svg" :popover-timeout="10">
     <template v-slot:content>
       <p>{{ light.color }} means {{ light.color == 'green' ? 'GO!' : (light.color == 'red' ? 'STOP!' : 'SLOW DOWN!') }}</p>
@@ -755,7 +755,7 @@ You will have to manually polyfill this functionality if you choose to support I
 
 <style scoped>
   select {
-    height: calc(2.25rem + 2px);
+    height: 38px;
     background-color: #fff !important;
     width: 250px;
   }

@@ -60,7 +60,7 @@ export default defineComponent({
 .skeleton-form-wrapper {
   width: 100%;
   .skeleton-form-row {
-    margin-bottom: 2rem;
+    margin-bottom: 32px;
   }
 }
 </style>

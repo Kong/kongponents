@@ -856,7 +856,7 @@ $tabSize: 2;
   left: -1px;
   z-index: 1;
   padding: 0 var(--spacing-xxs, spacing(xxs));
-  font-size: 0.8em;
+  font-size: 13px;
   color: var(--red-700, color(red-700));
   background-color: var(--white, color(white));
   border: 1px solid currentColor;

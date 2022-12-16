@@ -31,7 +31,7 @@ const colorValue = computed((): string => getComputedStyle(document.body).getPro
 <style lang="scss">
 .color-swatch-container {
   display: flex;
-  padding: 1.5rem 0;
+  padding: 24px 0;
 
   .swatch {
     width: 40px;
@@ -42,14 +42,14 @@ const colorValue = computed((): string => getComputedStyle(document.body).getPro
 
   .description {
     flex: 1;
-    margin-left: 1rem;
+    margin-left: 16px;
 
     span {
       display: block;
 
       &:first-of-type {
         font-weight: 600;
-        margin-bottom: .25rem;
+        margin-bottom: 4px;
       }
 
       &:last-of-type {

@@ -67,7 +67,7 @@ $screen-md: 756px;
   .skeleton-table-row {
     display: flex;
     flex-direction: row;
-    margin-bottom: 2rem;
+    margin-bottom: 32px;
     /** Hide columns on smaller screens */
     @media only screen and (max-width: $screen-lg) {
       .skeleton-cell {
@@ -86,7 +86,7 @@ $screen-md: 756px;
           display: none;
         }
         &:nth-of-type(2) {
-          width: 6rem;
+          width: 96px;
           margin-right: 0;
           margin-left: auto;
         }

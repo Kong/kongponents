@@ -220,8 +220,8 @@ should not look like buttons.
   display: flex;
   flex-wrap: wrap;
   .button {
-    margin-right: .5rem;
-    margin-bottom: .5rem;
+    margin-right: 8px;
+    margin-bottom: 8px;
   }
 }
 .purple-button {

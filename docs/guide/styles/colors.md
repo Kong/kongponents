@@ -78,11 +78,11 @@ onBeforeMount(() => {
 
 <style lang="scss">
 .color-group {
-  margin-bottom: 2rem;
+  margin-bottom: 32px;
 
   h4 {
     margin: 0;
-    padding-top: 1rem;
+    padding-top: 16px;
     border-bottom: 1px solid
   }
 

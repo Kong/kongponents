@@ -80,8 +80,8 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .k-slideout {
-  --KCardPaddingY: 2rem;
-  --KCardPaddingX: 3rem;
+  --KCardPaddingY: 32px;
+  --KCardPaddingX: 48px;
 
   .panel-background {
     position: fixed;
@@ -105,8 +105,8 @@ export default defineComponent({
 
     .close-btn {
       position: absolute;
-      top: 1rem;
-      left:  1rem;
+      top: 16px;
+      left:  16px;
       width: 16px;
       height: 16px;
       padding: 0;
