@@ -7,6 +7,7 @@
       v-bind="tooltipAttributes"
       class="label-tooltip"
       :label="help"
+      position-fixed
       :test-mode="!!testMode || undefined"
     >
       <slot />
@@ -21,6 +22,7 @@
       v-bind="tooltipAttributes"
       class="label-tooltip"
       :label="info"
+      position-fixed
       :test-mode="!!testMode || undefined"
     >
       <slot />
