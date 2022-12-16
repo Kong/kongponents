@@ -61,7 +61,7 @@ export default defineComponent({
       width: 96px;
     }
     &-10 {
-      width: 1;
+      width: 160px;
     }
     &-25 {
       width: 25%;

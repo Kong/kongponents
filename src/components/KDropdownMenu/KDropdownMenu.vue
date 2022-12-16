@@ -222,9 +222,9 @@ export default defineComponent({
     margin-left: var(--spacing-xs, spacing(xs));
     vertical-align: middle;
     content: "";
-    border-top: 5.2px solid;
-    border-right: 5.2px solid transparent;
-    border-left: 5.2px solid transparent;
+    border-top: 6px solid;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
   }
 }
 </style>

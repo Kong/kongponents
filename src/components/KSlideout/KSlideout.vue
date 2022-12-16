@@ -81,7 +81,7 @@ export default defineComponent({
 
 .k-slideout {
   --KCardPaddingY: 32px;
-  --KCardPaddingX: ;
+  --KCardPaddingX: 48px;
 
   .panel-background {
     position: fixed;
