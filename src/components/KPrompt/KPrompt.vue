@@ -2,6 +2,7 @@
   <KModal
     class="k-prompt"
     :is-visible="isVisible"
+    :tabbable-options="tabbableOptions"
     text-align="left"
     :title="displayTitle"
   >
@@ -148,6 +149,13 @@ export default defineComponent({
     preventProceedOnEnter: {
       type: Boolean,
       default: false,
+    },
+    /**
+     * Options to be passed to tabbable
+     */
+    tabbableOptions: {
+      type: Object,
+      default: () => ({}),
     },
   },
   emits: ['canceled', 'proceed'],

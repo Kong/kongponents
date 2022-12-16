@@ -189,6 +189,10 @@ If you don't want to `emit` the `proceed` event upon pressing the `Enter` key, y
 <KPrompt :is-visible="preventProceed" type="danger" message="I don't care if you press Enter" prevent-proceed-on-enter @canceled="preventProceed = false" @proceed="preventProceed = false" />
 ```
 
+### tabbableOptions
+Options to be passed to [`focus-trap`](https://github.com/focus-trap/focus-trap), which is responsible for trapping focus inside the prompt box. If you're experiencing issues with testing `<KPrompt>` in `jsdom`, you can pass this prop according to the [focus-trap documentation](https://github.com/focus-trap/focus-trap#testing-in-jsdom).
+
+
 ## Slots
 
 There are 3 designated slots you can use to display content in the modal.
