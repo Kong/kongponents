@@ -1,3 +1,10 @@
+## [8.13.1](https://github.com/Kong/kongponents/compare/v8.13.0...v8.13.1) (2022-12-16)
+
+
+### Bug Fixes
+
+* remove bin since it doesn't exist on install ([b6d763c](https://github.com/Kong/kongponents/commit/b6d763cae76c8b78f3b6c51b6a3a9ccf7217ec5f))
+
 # [8.13.0](https://github.com/Kong/kongponents/compare/v8.12.2...v8.13.0) (2022-12-16)
 
 
