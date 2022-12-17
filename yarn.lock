@@ -414,9 +414,9 @@
     uuid "^8.3.2"
 
 "@cypress/vite-dev-server@^5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@cypress/vite-dev-server/-/vite-dev-server-5.0.1.tgz#8d376a84ea0402d1f5b1351d582e1dac7d22aa41"
-  integrity sha512-P5pw90sCnueZsCzfYiiGlFazXcyCdvL+H7tK+plmIsSIJeSHEqnY/Z8k7e1IzYAFIuYVaEpu1duxew3gX8tqWQ==
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@cypress/vite-dev-server/-/vite-dev-server-5.0.2.tgz#0b29eb81d40839a9e815417528af60688b2d48a7"
+  integrity sha512-bhG5P0p423SiucYnFyGjQrPkIfNDKF+R0pwcB78y71soHXzh0cJ6dSAn67c8moU5YtQnAGgO3FKQmWcx8LFubw==
   dependencies:
     debug "^4.3.4"
     find-up "6.3.0"
