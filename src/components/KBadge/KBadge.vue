@@ -4,7 +4,7 @@
     :aria-hidden="hidden ? true : undefined"
     class="k-badge d-inline-flex"
     :class="[ `k-badge-${appearance}`, `k-badge-${shape}`, { 'is-bordered': isBordered } ]"
-    :style="color && backgroundColor && {backgroundColor, color}"
+    :style="badgeCustomStyles"
     :tabindex="hidden ? -1 : 0"
   >
     <component
@@ -68,7 +68,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-defineProps({
+const props = defineProps({
   /**
     * Base styling<br>
     * One of [danger, warning, success etc.]
@@ -135,6 +135,12 @@ defineProps({
     default: '',
   },
 
+  borderColor: {
+    type: String,
+    required: false,
+    default: '',
+  },
+
   isBordered: {
     type: Boolean,
     default: false,
@@ -155,6 +161,28 @@ const offsetWidth = ref(0)
 const scrollWidth = ref(0)
 const truncationCalculated = ref(false)
 const isTruncated = computed(() => offsetWidth.value < scrollWidth.value)
+
+const badgeCustomStyles = computed(() => {
+  const styles = {} as {
+    backgroundColor: string
+    borderColor: string
+    color: string
+  }
+
+  if (props.backgroundColor) {
+    styles.backgroundColor = props.backgroundColor
+  }
+
+  if (props.borderColor) {
+    styles.borderColor = props.borderColor
+  }
+
+  if (props.color) {
+    styles.color = props.color
+  }
+
+  return styles
+})
 
 watch(badgeText, () => {
   // prevent recursion loop

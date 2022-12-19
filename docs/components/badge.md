@@ -43,7 +43,15 @@ Use the `isBordered` prop for bordered badges. The border color matches the text
 <KBadge appearance="warning" is-bordered class="mr-2">WARNING</KBadge>
 <KBadge appearance="danger" is-bordered class="mr-2">DANGER</KBadge>
 <KBadge appearance="info" is-bordered class="mr-2">INFO</KBadge>
-<KBadge is-bordered>DEFAULT</KBadge>
+<KBadge is-bordered class="mr-2">DEFAULT</KBadge>
+<KBadge
+  background-color="var(--purple-100)"
+  border-color="var(--purple-400)"
+  color="var(--purple-400)"
+  is-bordered
+>
+  CUSTOM
+</KBadge>
 
 ```html
 <KBadge appearance="success" is-bordered>SUCCESS</KBadge>
@@ -51,6 +59,14 @@ Use the `isBordered` prop for bordered badges. The border color matches the text
 <KBadge appearance="danger" is-bordered>DANGER</KBadge>
 <KBadge appearance="info" is-bordered>INFO</KBadge>
 <KBadge is-bordered>DEFAULT</KBadge>
+<KBadge
+  background-color="var(--purple-100)"
+  border-color="var(--purple-400)"
+  color="var(--purple-400)"
+  is-bordered
+>
+  CUSTOM
+</KBadge>
 ```
 
 ### shape
@@ -68,7 +84,7 @@ The Badge has two shapes that can be changed with a `shape` property.
 <KBadge appearance="warning" shape="rectangular">Rectangular</KBadge>
 ```
 
-### color, background-color
+### color, background-color, border-color
 
 Using the `custom` appearance in conjunction with `color` and `background-color`:
 
@@ -76,7 +92,16 @@ Using the `custom` appearance in conjunction with `color` and `background-color`
 <KBadge color="var(--red-100)" background-color="var(--red-400)" class="mr-2">Badge</KBadge>
 <KBadge color="var(--blue-200)" background-color="var(--blue-500)" class="mr-2">Hello</KBadge>
 <KBadge color="#dfe6e9" background-color="#636e72" class="mr-2">Something</KBadge>
-<KBadge color="var(--red-500)" background-color="var(--red-300)">Long Badge 236bfb09-fe79-4cc9-99be-9361d6b1db64 aa07575b-bcd3-4bb2-bfd7-998224e3d31e 364b78fc-dba3-4b94-9134-388515496de5</KBadge>
+<KBadge color="var(--red-500)" background-color="var(--red-300)" class="mr-2">Long Badge 236bfb09-fe79-4cc9-99be-9361d6b1db64 aa07575b-bcd3-4bb2-bfd7-998224e3d31e 364b78fc-dba3-4b94-9134-388515496de5</KBadge>
+<KBadge
+  background-color="var(--blue-100)"
+  border-color="var(--blue-400)"
+  color="var(--blue-400)"
+  is-bordered
+>
+  Production Server
+</KBadge>
+
 
 ```html
 <KBadge color="var(--yellow-400)" background-color="var(--yellow-300)">Custom</KBadge>
@@ -84,6 +109,14 @@ Using the `custom` appearance in conjunction with `color` and `background-color`
 <KBadge color="var(--blue-200)" background-color="var(--blue-500)">Hello</KBadge>
 <KBadge color="#dfe6e9" background-color="#636e72">Something</KBadge>
 <KBadge color="var(--red-500)" background-color="var(--red-300)">Long Badge 236bfb09-fe79-4cc9-99be-9361d6b1db64 aa07575b-bcd3-4bb2-bfd7-998224e3d31e 364b78fc-dba3-4b94-9134-388515496de5</KBadge>
+<KBadge
+  background-color="var(--blue-100)"
+  border-color="var(--blue-400)"
+  color="var(--blue-400)"
+  is-bordered
+>
+  Production Server
+</KBadge>
 ```
 
 ### dismissable
