@@ -352,7 +352,7 @@ export default defineComponent({
       z-index: 10000;
 
       .k-button {
-        padding: 8px 0 8px 8px;
+        padding: 6px 2px 6px 3px;
         margin-top: -8px;
       }
     }
