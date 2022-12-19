@@ -4,7 +4,7 @@
 
 <KCard>
   <template v-slot:body>
-    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType.join(', ')}` }" help="Additional files can be uploaded from HomePage." :accept="acceptedFileType" hasError />
+    <KFileUpload :label-attributes="{ help: `Accepted file types: ${acceptedFileType.join(', ')}` }" help="Additional files can be uploaded from HomePage." :accept="acceptedFileType" hasError />
   </template>
 </KCard>
 
