@@ -414,9 +414,9 @@
     uuid "^8.3.2"
 
 "@cypress/vite-dev-server@^5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@cypress/vite-dev-server/-/vite-dev-server-5.0.1.tgz#8d376a84ea0402d1f5b1351d582e1dac7d22aa41"
-  integrity sha512-P5pw90sCnueZsCzfYiiGlFazXcyCdvL+H7tK+plmIsSIJeSHEqnY/Z8k7e1IzYAFIuYVaEpu1duxew3gX8tqWQ==
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@cypress/vite-dev-server/-/vite-dev-server-5.0.2.tgz#0b29eb81d40839a9e815417528af60688b2d48a7"
+  integrity sha512-bhG5P0p423SiucYnFyGjQrPkIfNDKF+R0pwcB78y71soHXzh0cJ6dSAn67c8moU5YtQnAGgO3FKQmWcx8LFubw==
   dependencies:
     debug "^4.3.4"
     find-up "6.3.0"
@@ -6212,10 +6212,10 @@ safe-regex-test@^1.0.0:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-sass@1.56.1:
-  version "1.56.1"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.56.1.tgz#94d3910cd468fd075fa87f5bb17437a0b617d8a7"
-  integrity sha512-VpEyKpyBPCxE7qGDtOcdJ6fFbcpOM+Emu7uZLxVrkX8KVU/Dp5UF7WLvzqRuUhB6mqqQt1xffLoG+AndxTZrCQ==
+sass@1.57.0:
+  version "1.57.0"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.57.0.tgz#64c4144ed4e1c0ccb96dc18aef2c424cdbc0c12b"
+  integrity sha512-IZNEJDTK1cF5B1cGA593TPAV/1S0ysUDxq9XHjX/+SMy0QfUny+nfUsq5ZP7wWSl4eEf7wDJcEZ8ABYFmh3m/w==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
     immutable "^4.0.0"
