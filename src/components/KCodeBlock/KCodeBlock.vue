@@ -3,6 +3,7 @@
     :id="props.id"
     ref="codeBlock"
     class="k-code-block"
+    :class="[`theme-${theme}`]"
     data-testid="k-code-block"
     :style="`--maxLineNumberWidth: ${maxLineNumberWidth}`"
     tabindex="0"
@@ -250,7 +251,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch, PropType } from 'vue'
 
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
@@ -341,6 +342,15 @@ const props = defineProps({
     type: Boolean,
     required: false,
     default: false,
+  },
+
+  /**
+   * Controls the color scheme of the component. **Default: `light`**.
+   */
+  theme: {
+    type: String as PropType<'light' | 'dark'>,
+    required: false,
+    default: 'light',
   },
 })
 
@@ -723,6 +733,7 @@ $tabSize: 2;
   gap: var(--spacing-sm, spacing(sm));
   min-height: 44px;
   max-height: var(--KCodeBlockMaxHeight, none);
+  overflow: auto;
   padding: var(--spacing-xs, spacing(xs)) 0 var(--spacing-xs, spacing(xs)) var(--spacing-sm, spacing(sm));
   margin-top: 0;
   margin-bottom: 0;

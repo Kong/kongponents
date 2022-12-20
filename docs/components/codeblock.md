@@ -228,16 +228,17 @@ function highlight({ preElement, codeElement, language, code }) {
 ## Theming
 
 
-| Variable                          | Default                   | Purpose                       |
-|:--------------------------------- |:------------------------- |:----------------------------- |
-| `--KCodeBlockBorderRadius`        | `5px`                     | Code block border radius      |
-| `--KCodeBlockFocusColor`          | `var(--blue-500)`         | General focus color           |
-| `--KCodeBlockMatchHighlightColor` | `var(--blue-500)`         | Current match highlight color |
-| `--KCodeBlockColor`               | `var(--black-85)`         | Code block text color         |
-| `--KCodeBlockBackgroundColor`     | `var(--grey-100)`         | Code block background color   |
-| `--KCodeBlockFontSize`            | `var(--type-xs)`          | Code block font size          |
-| `--KCodeBlockFontFamilyMono`      | `var(--font-family-mono)` | Code block font family        |
-| `--KCodeBlockTabSize`             | `2`                       | Tab size for code blocks      |
+| Variable                          | Default                   | Purpose                                                          |
+|:--------------------------------- |:------------------------- |:---------------------------------------------------------------- |
+| `--KCodeBlockBorderRadius`        | `5px`                     | Code block border radius                                         |
+| `--KCodeBlockFocusColor`          | `var(--blue-500)`         | General focus color                                              |
+| `--KCodeBlockMatchHighlightColor` | `var(--blue-500)`         | Current match highlight color                                    |
+| `--KCodeBlockColor`               | `var(--black-85)`         | Code block text color                                            |
+| `--KCodeBlockBackgroundColor`     | `var(--grey-100)`         | Code block background color                                      |
+| `--KCodeBlockFontSize`            | `var(--type-xs)`          | Code block font size                                             |
+| `--KCodeBlockFontFamilyMono`      | `var(--font-family-mono)` | Code block font family                                           |
+| `--KCodeBlockTabSize`             | `2`                       | Tab size for code blocks                                         |
+| `--KCodeBlockMaxHeight`           | `none`                    | Max-height of the code block. Any overflow will be scrollable |
 
 ## Default shortcuts
 
