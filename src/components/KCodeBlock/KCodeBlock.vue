@@ -723,6 +723,7 @@ $tabSize: 2;
   gap: var(--spacing-sm, spacing(sm));
   min-height: 44px;
   max-height: var(--KCodeBlockMaxHeight, none);
+  overflow: auto;
   padding: var(--spacing-xs, spacing(xs)) 0 var(--spacing-xs, spacing(xs)) var(--spacing-sm, spacing(sm));
   margin-top: 0;
   margin-bottom: 0;
