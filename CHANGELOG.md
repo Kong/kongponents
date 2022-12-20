@@ -1,3 +1,10 @@
+## [8.13.3](https://github.com/Kong/kongponents/compare/v8.13.2...v8.13.3) (2022-12-20)
+
+
+### Bug Fixes
+
+* **file-upload:** update style if label is absent [khcp-5654] ([#992](https://github.com/Kong/kongponents/issues/992)) ([33bfdfc](https://github.com/Kong/kongponents/commit/33bfdfc4f5d594b51aed824d2fad58eeb15ddd8c))
+
 ## [8.13.2](https://github.com/Kong/kongponents/compare/v8.13.1...v8.13.2) (2022-12-20)
 
 
