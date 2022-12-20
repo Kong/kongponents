@@ -44,7 +44,7 @@ jobs:
         run: yarn lint
 
       - name: Run Cypress component tests
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v5
         with:
           install: false
           command: yarn test
