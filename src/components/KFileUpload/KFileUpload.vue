@@ -290,7 +290,7 @@ export default defineComponent({
     pointer-events: none;
 
     .label-tooltip span.kong-icon.kong-icon-help {
-      pointer-events: visible;
+      pointer-events: auto;
     }
   }
 
