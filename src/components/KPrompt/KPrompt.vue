@@ -264,7 +264,7 @@ export default defineComponent({
         width: 100%;
 
         .close-button .k-button {
-          padding: 6px 2px 6px 3px;
+          padding: var(--spacing-xs);
           margin-top: -8px;
         }
       }
