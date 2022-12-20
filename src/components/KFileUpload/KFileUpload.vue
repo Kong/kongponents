@@ -5,6 +5,7 @@
     <KLabel
       v-if="label"
       v-bind="labelAttributes"
+      class="cursor-pointer"
       data-testid="k-file-upload-label"
       :for="customInputId"
     >
@@ -286,14 +287,6 @@ export default defineComponent({
 .k-file-upload {
   position: relative;
 
-  :deep(.k-input-label) {
-    pointer-events: none;
-
-    .label-tooltip span.kong-icon.kong-icon-help {
-      pointer-events: auto;
-    }
-  }
-
   .k-file-upload-btn.k-button {
     position: absolute;
     right: var(--type-xs);
@@ -315,7 +308,7 @@ export default defineComponent({
     position: absolute;
     min-width: 100%;
     min-height: 100%;
-    cursor: default;
+    cursor: inherit;
     opacity: 0;
     pointer-events: none;
   }
