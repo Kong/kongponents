@@ -8,11 +8,15 @@
         alt="Loading"
         :src="loaderImage"
       >
-      <div class="progress">
+      <div
+        v-if="!hideProgress"
+        class="progress"
+      >
         <div
           class="progress-bar"
           role="progressbar"
           :style="{ width: `${progression}%` }"
+          title="Loading"
         />
       </div>
     </div>
@@ -29,6 +33,10 @@ export default defineComponent({
     progress: {
       type: Number,
       default: null,
+    },
+    hideProgress: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(props) {
