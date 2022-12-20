@@ -5,7 +5,6 @@
     <KLabel
       v-if="label"
       v-bind="labelAttributes"
-      class="cursor-pointer"
       data-testid="k-file-upload-label"
       :for="customInputId"
     >
@@ -16,7 +15,7 @@
       :id="customInputId"
       :key="fileInputKey"
       :accept="accept"
-      class="w-100 upload-input cursor-pointer"
+      class="w-100 upload-input"
       :class="{
         'image-upload': type === 'image'
       }"
@@ -67,10 +66,7 @@
       v-if="type === 'file'"
       :appearance="buttonAppearance"
       class="k-file-upload-btn"
-      :class="{
-        'k-file-upload-btn-with-label' : label,
-        'k-file-upload-btn-without-label' : !label
-      }"
+      :class="[label ? 'k-file-upload-btn-with-label' : 'k-file-upload-btn-without-label']"
       data-testid="k-file-upload-button"
       size="small"
       @click="updateFile"
@@ -81,10 +77,7 @@
     <a
       v-if="type === 'file'"
       class="cursor-pointer display-name"
-      :class="{
-        'has-label' : label,
-        'has-no-label' : !label
-      }"
+      :class="[label ? 'has-label' : 'has-no-label']"
       href="#"
       @click="updateFile"
       @keyup.enter="updateFile"
@@ -293,6 +286,14 @@ export default defineComponent({
 .k-file-upload {
   position: relative;
 
+  :deep(.k-input-label) {
+    pointer-events: none;
+
+    .label-tooltip span.kong-icon.kong-icon-help {
+      pointer-events: visible;
+    }
+  }
+
   .k-file-upload-btn.k-button {
     position: absolute;
     right: var(--type-xs);
@@ -314,8 +315,9 @@ export default defineComponent({
     position: absolute;
     min-width: 100%;
     min-height: 100%;
-    cursor: inherit;
+    cursor: default;
     opacity: 0;
+    pointer-events: none;
   }
 
   :deep(.k-input-wrapper) input[type="file"],
@@ -370,6 +372,10 @@ export default defineComponent({
 .k-file-upload {
   .k-input {
     height: 44px;
+
+    + .help {
+      cursor: default;
+    }
   }
 
   input[type=file]{
