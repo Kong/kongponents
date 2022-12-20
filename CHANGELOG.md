@@ -1,3 +1,10 @@
+## [8.13.2](https://github.com/Kong/kongponents/compare/v8.13.1...v8.13.2) (2022-12-20)
+
+
+### Bug Fixes
+
+* **kskeleton:** documentation [khcp-5659] ([#1000](https://github.com/Kong/kongponents/issues/1000)) ([204ba77](https://github.com/Kong/kongponents/commit/204ba7765f5ab0bd873cd71985fa917d9379ce99))
+
 ## [8.13.1](https://github.com/Kong/kongponents/compare/v8.13.0...v8.13.1) (2022-12-16)
 
 
