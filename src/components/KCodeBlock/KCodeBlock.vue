@@ -3,7 +3,6 @@
     :id="props.id"
     ref="codeBlock"
     class="k-code-block"
-    :class="[`theme-${theme}`]"
     data-testid="k-code-block"
     :style="`--maxLineNumberWidth: ${maxLineNumberWidth}`"
     tabindex="0"
@@ -342,15 +341,6 @@ const props = defineProps({
     type: Boolean,
     required: false,
     default: false,
-  },
-
-  /**
-   * Controls the color scheme of the component. **Default: `light`**.
-   */
-  theme: {
-    type: String as PropType<'light' | 'dark'>,
-    required: false,
-    default: 'light',
   },
 })
 
