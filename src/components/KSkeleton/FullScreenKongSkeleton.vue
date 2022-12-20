@@ -13,6 +13,7 @@
           class="progress-bar"
           role="progressbar"
           :style="{ width: `${progression}%` }"
+          title="Loading"
         />
       </div>
     </div>

@@ -71,7 +71,7 @@ $borderColor: #e6e6e6;
 .skeleton-card {
   display: flex;
   flex-direction: column;
-  height: 324px;
+  min-height: 324px;
   padding: 16px;
   overflow: hidden;
   border: 1px solid $borderColor;

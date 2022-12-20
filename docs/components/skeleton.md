@@ -8,7 +8,7 @@
 
 - `type`
 
-There are 5 different types of loading states that KSkeleton supports: Card, Table, Form, Spinner and a generic loading state. Defaults to a generic loading state. The following example shows a Form type KSKeleton.
+There are 6 different types of loading states that KSkeleton supports: `card`, `table`, `form`, `spinner`, `fullscreen-kong`, and a generic loading state. Defaults to a generic loading state. The following example shows a `form` type KSKeleton.
 
 <KSkeleton type="form" />
 
@@ -126,23 +126,42 @@ This loading state is used for a spinner, which can be used for a wide variety o
 
 The full screen loading state is used to display a full screen loader typically during initial render of an app to avoid any FOUC (Flash Of Unstyled Content) while the app tries to figure out if you are able to access the route and also to perform any expensive querying on first load.
 
+### progress
+
+Used for controlling the progress indicator.
+
 <div>
   <KButton @click="clicked()" class="mr-2">click for default progress behavior</KButton>
   <KButton @click="clickProgress()">click me to simulate progress manually</KButton>
   <KSkeleton
     v-if="loading"
     type="fullscreen-kong"
-    :delay-milliseconds="0" />
+    :delay-milliseconds="0"
+  />
   <KSkeleton
     v-if="loadingManually"
     type="fullscreen-kong"
     :progress="progress"
-    :delay-milliseconds="0" />
+    :delay-milliseconds="0"
+  />
 </div>
 
 ```html
   <KButton @click="clicked()">click for default progress behavior</KButton>
-  <KSkeleton v-if="loading" type="fullscreen-kong" :delay-milliseconds="0" />
+  <KButton @click="clickProgress()">click me to simulate progress manually</KButton>
+
+  <KSkeleton
+    v-if="loading"
+    type="fullscreen-kong"
+    :delay-milliseconds="0"
+  />
+
+  <KSkeleton
+    v-if="loadingManually"
+    type="fullscreen-kong"
+    :progress="progress"
+    :delay-milliseconds="0"
+  />
 ```
 
 ## KSkeletonBox
