@@ -135,7 +135,7 @@ Used for controlling the progress indicator.
 Defaults to `false`, you can use this prop to hide the progress indicator.
 
 <div>
-  <KButton class="mr-2 mb-2" @click="clickNoProgress()">Click for no progress indicator</KButton>
+  <KButton class="mr-2" @click="clickNoProgress()">Click for no progress indicator</KButton>
   <KButton @click="clicked()">Click for default progress behavior</KButton>
   <KSkeleton
     v-if="loadingNone"
