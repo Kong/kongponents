@@ -1,3 +1,10 @@
+## [8.13.5](https://github.com/Kong/kongponents/compare/v8.13.4...v8.13.5) (2022-12-20)
+
+
+### Bug Fixes
+
+* **kcodeblock:** allow container to scroll ([#1001](https://github.com/Kong/kongponents/issues/1001)) ([d2e712a](https://github.com/Kong/kongponents/commit/d2e712a2c62df0865ed3c414ec410f9205a841dd))
+
 ## [8.13.4](https://github.com/Kong/kongponents/compare/v8.13.3...v8.13.4) (2022-12-20)
 
 
