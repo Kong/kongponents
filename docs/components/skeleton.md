@@ -135,10 +135,8 @@ Used for controlling the progress indicator.
 Defaults to `false`, you can use this prop to hide the progress indicator.
 
 <div>
-  <KButton
-  class="mr-2 mb-2" @click="clickNoProgress()">Click for no progress indicator</KButton>
-  <KButton class="mr-2 mb-2" @click="clicked()">Click for default progress behavior</KButton>
-  <KButton @click="clickProgress()">Click me to simulate progress manually</KButton>
+  <KButton class="mr-2 mb-2" @click="clickNoProgress()">Click for no progress indicator</KButton>
+  <KButton @click="clicked()">Click for default progress behavior</KButton>
   <KSkeleton
     v-if="loadingNone"
     :delay-milliseconds="0"
@@ -150,6 +148,29 @@ Defaults to `false`, you can use this prop to hide the progress indicator.
     :delay-milliseconds="0"
     type="fullscreen-kong"
   />
+</div>
+
+```html
+<KButton @click="clickNoProgress()">Click for no progress indicator</KButton>
+<KButton @click="clicked()">Click for default progress behavior</KButton>
+
+<KSkeleton
+  v-if="loadingNone"
+  :delay-milliseconds="0"
+  hide-progress
+  type="fullscreen-kong"
+/>
+
+<KSkeleton
+  v-if="loading"
+  :delay-milliseconds="0"
+  type="fullscreen-kong"
+/>
+```
+
+<div>
+  <KButton @click="clickProgress()">Click me to simulate progress manually</KButton>
+
   <KSkeleton
     v-if="loadingManually"
     :delay-milliseconds="0"
@@ -159,22 +180,8 @@ Defaults to `false`, you can use this prop to hide the progress indicator.
 </div>
 
 ```html
-  <KButton @click="clickNoProgress()">Click for no progress indicator</KButton>
-  <KButton @click="clicked()" class="mr-2">Click for default progress behavior</KButton>
+<template>
   <KButton @click="clickProgress()">Click me to simulate progress manually</KButton>
-
-  <KSkeleton
-    v-if="loadingNone"
-    :delay-milliseconds="0"
-    hide-progress
-    type="fullscreen-kong"
-  />
-
-  <KSkeleton
-    v-if="loading"
-    :delay-milliseconds="0"
-    type="fullscreen-kong"
-  />
 
   <KSkeleton
     v-if="loadingManually"
@@ -182,6 +189,24 @@ Defaults to `false`, you can use this prop to hide the progress indicator.
     :progress="progress"
     type="fullscreen-kong"
   />
+</template>
+
+<script setup lang="ts">
+  const loadingManually = ref(false)
+  const progress = ref(0)
+
+  const clickProgress = () => {
+    progress.value = 0
+    loadingManually.value = true
+    const interval = setInterval(() => {
+      progress.value = progress.value + 20
+      if (progress.value >= 100) {
+        loadingManually.value = false
+        clearInterval(interval)
+      }
+    }, 500)
+  },
+</script>
 ```
 
 ## KSkeletonBox
