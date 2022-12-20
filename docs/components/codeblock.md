@@ -191,6 +191,36 @@ You might need to turn this off for sites that already constantly use the fragme
 />
 ```
 
+### theme
+
+* **Type**: `string`
+* **Required**: no
+* **Default**: `light`
+
+Sets the display theme of the component.
+
+**Note**: [Additional theming options](#theming) are available via CSS variables.
+
+<ClientOnly>
+  <KCodeBlock
+    id="code-block-dark-theme"
+    :code="code"
+    language="json"
+    theme="dark"
+    is-searchable
+  />
+</ClientOnly>
+
+```html
+<KCodeBlock
+  id="code-block-dark-theme"
+  :code="code"
+  language="json"
+  theme="dark"
+  is-searchable
+/>
+```
+
 ## Events
 
 ### code-block-render

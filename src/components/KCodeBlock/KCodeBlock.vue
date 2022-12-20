@@ -3,6 +3,7 @@
     :id="props.id"
     ref="codeBlock"
     class="k-code-block"
+    :class="[`theme-${theme}`]"
     data-testid="k-code-block"
     :style="`--maxLineNumberWidth: ${maxLineNumberWidth}`"
     tabindex="0"
@@ -227,7 +228,7 @@
       <KButton
         v-if="props.showCopyButton"
         ref="codeBlockCopyButton"
-        appearance="outline"
+        appearance="btn-link"
         class="k-code-block-copy-button"
         data-testid="k-code-block-copy-button"
         :is-rounded="false"
@@ -237,9 +238,9 @@
         @click="copyCode"
       >
         <KIcon
-          color="currentColor"
+          :color="theme === 'light' ? 'currentColor' : 'var(--steel-300)'"
           icon="copy"
-          size="16"
+          size="18"
           :title="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
         />
 
@@ -250,7 +251,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch, PropType } from 'vue'
 
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
@@ -341,6 +342,15 @@ const props = defineProps({
     type: Boolean,
     required: false,
     default: false,
+  },
+
+  /**
+   * Controls the color scheme of the component. **Default: `light`**.
+   */
+  theme: {
+    type: String as PropType<'light' | 'dark'>,
+    required: false,
+    default: 'light',
   },
 })
 
@@ -695,26 +705,42 @@ async function copyCode(): Promise<void> {
 @import '@/styles/variables';
 @import '@/styles/functions';
 
-$borderRadius: 3px;
-$focusColor: var(--blue-500, color(blue-500));
-$matchHighlightColor: var(--blue-500, color(blue-500));
-$color: var(--black-85, color(black-85));
-$backgroundColor: var(--grey-100, color(grey-100));
+// shared
+$borderRadius: 8px;
 $fontSize: var(--type-xs, type(xs));
 $fontFamilyMono: var(--font-family-mono, font(mono));
 $tabSize: 2;
 
+// theme-light
+$light-color: var(--black-85, color(black-85));
+$light-backgroundColor: var(--grey-100, color(grey-100));
+$light-focusColor: var(--blue-500, color(blue-500));
+
+// theme-dark
+$dark-color: var(--green-200, color(green-200));
+$dark-backgroundColor: var(--black-500, color(black-500));
+$dark-focusColor: var(--blue-500, color(blue-500));
+
 .k-code-block {
-  color: var(--KCodeBlockColor, $color);
+  color: var(--KCodeBlockColor, $light-color);
   border-radius: var(--KCodeBlockBorderRadius, $borderRadius);
+
+  &.theme-dark {
+    color: var(--KCodeBlockColor, $dark-color);
+  }
 }
 
 .k-code-block pre,
 .k-code-block code {
   font-family: var(--KCodeBlockFontFamilyMono, $fontFamilyMono);
   font-size: var(--KCodeBlockFontSize, $fontSize);
-  color: var(--KCodeBlockColor, $color);
+  color: var(--KCodeBlockColor, $light-color);
   tab-size: var(--KCodeBlockTabSize, $tabSize);
+}
+
+.k-code-block.theme-dark pre,
+.k-code-block.theme-dark code {
+  color: var(--KCodeBlockColor, $dark-color);
 }
 
 .k-code-block pre {
@@ -723,22 +749,33 @@ $tabSize: 2;
   gap: var(--spacing-sm, spacing(sm));
   min-height: 44px;
   max-height: var(--KCodeBlockMaxHeight, none);
+  overflow: auto;
   padding: var(--spacing-xs, spacing(xs)) 0 var(--spacing-xs, spacing(xs)) var(--spacing-sm, spacing(sm));
   margin-top: 0;
   margin-bottom: 0;
-  background-color: var(--KCodeBlockBackgroundColor, $backgroundColor);
+  background-color: var(--KCodeBlockBackgroundColor, $light-backgroundColor);
   border-radius: var(--KCodeBlockBorderRadius, $borderRadius);
+}
+
+.k-code-block.theme-dark pre {
+  background-color: var(--KCodeBlockBackgroundColor, $dark-backgroundColor);
 }
 
 .k-code-block pre:focus-visible {
   isolation: isolate;
-  outline: 2px solid var(--KCodeBlockFocusColor, $focusColor);
+  outline: 2px solid var(--KCodeBlockFocusColor, $light-focusColor);
   outline-offset: -2px;
+}
+
+.k-code-block.theme-dark pre:focus-visible {
+  outline: 2px solid var(--KCodeBlockFocusColor, $dark-focusColor);
 }
 
 .k-code-block-actions + .k-code-block-content > pre {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+  border-bottom-left-radius: $borderRadius;
+  border-bottom-right-radius: $borderRadius;
 }
 
 .k-code-block code {
@@ -752,7 +789,11 @@ $tabSize: 2;
 .k-code-block:focus-visible {
   isolation: isolate;
   outline: none;
-  box-shadow: 0 0 0 2px var(--KCodeBlockFocusColor, $focusColor);
+  box-shadow: 0 0 0 2px var(--KCodeBlockFocusColor, $light-focusColor);
+}
+
+.k-code-block.theme-dark:focus-visible {
+  box-shadow: 0 0 0 2px var(--KCodeBlockFocusColor, $dark-focusColor);
 }
 
 .k-code-block-actions {
@@ -766,6 +807,11 @@ $tabSize: 2;
   border-bottom: 1px solid var(--grey-300, color(grey-300));
   border-top-left-radius: var(--KCodeBlockBorderRadius, $borderRadius);
   border-top-right-radius: var(--KCodeBlockBorderRadius, $borderRadius);
+}
+
+.theme-dark .k-code-block-actions {
+  background-color: #060d19;
+  border-bottom: 1px solid var(--black-400, color(black-400));
 }
 
 .k-code-block-actions .k-button {
@@ -843,6 +889,10 @@ $tabSize: 2;
   color: var(--grey-500, color(grey-500));
 }
 
+.theme-dark .k-code-block-search-results:not(.k-code-block-search-results-has-query) {
+  color: var(--steel-300, color(steel-300));
+}
+
 .k-code-block-search-error,
 .k-code-block-search-results {
   margin-top: 0;
@@ -883,9 +933,14 @@ $tabSize: 2;
 }
 
 .k-clear-query-button:focus {
-  border-color: var(--KButtonOutlineBorder, $focusColor);
+  border-color: var(--KButtonOutlineBorder, $light-focusColor);
   outline: none;
-  box-shadow: 0 0 0 2px var(--white, color(white)), 0 0 0 4px var(--KButtonOutlineBorder, $focusColor);
+  box-shadow: 0 0 0 2px var(--white, color(white)), 0 0 0 4px var(--KButtonOutlineBorder, $light-focusColor);
+}
+
+.theme-dark .k-clear-query-button:focus {
+  border-color: var(--KButtonOutlineBorder, $dark-focusColor);
+  box-shadow: 0 0 0 2px var(--white, color(white)), 0 0 0 4px var(--KButtonOutlineBorder, $dark-focusColor);
 }
 
 .k-code-block-content {
@@ -894,7 +949,7 @@ $tabSize: 2;
 
 .k-code-block-copy-button {
   position: absolute;
-  top: var(--spacing-xs, spacing(xs));
+  top: var(--spacing-md, spacing(md));
   right: var(--spacing-md, spacing(md));
   z-index: 2;
   display: block;
@@ -932,6 +987,11 @@ $tabSize: 2;
   color: var(--grey-500, color(grey-500));
 }
 
+.theme-dark .k-line-number-rows,
+.theme-dark .k-line-number-rows a {
+  color: var(--steel-300, color(steel-300));
+}
+
 .k-line {
   // For some reason, `.k-line` elements are otherwise sized way too large.
   display: inline-flex;
@@ -949,7 +1009,11 @@ $tabSize: 2;
 
 .k-line-is-highlighted-match::before {
   background-color: hsl(220, 18%, 35%, 0.2);
-  border-left: 5px solid var(--KCodeBlockMatchHighlightColor, $focusColor);
+  border-left: 5px solid var(--KCodeBlockMatchHighlightColor, $light-focusColor);
+}
+
+.theme-dark .k-line-is-highlighted-match::before {
+  border-left: 5px solid var(--KCodeBlockMatchHighlightColor, $dark-focusColor);
 }
 
 .k-line-anchor:not([href]) {
