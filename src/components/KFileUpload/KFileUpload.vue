@@ -16,7 +16,7 @@
       :id="customInputId"
       :key="fileInputKey"
       :accept="accept"
-      class="w-100 upload-input cursor-pointer"
+      class="w-100 upload-input"
       :class="{
         'image-upload': type === 'image'
       }"
@@ -67,6 +67,7 @@
       v-if="type === 'file'"
       :appearance="buttonAppearance"
       class="k-file-upload-btn"
+      :class="[label ? 'k-file-upload-btn-with-label' : 'k-file-upload-btn-without-label']"
       data-testid="k-file-upload-button"
       size="small"
       @click="updateFile"
@@ -76,7 +77,8 @@
     </KButton>
     <a
       v-if="type === 'file'"
-      class="display-name cursor-pointer"
+      class="cursor-pointer display-name"
+      :class="[label ? 'has-label' : 'has-no-label']"
       href="#"
       @click="updateFile"
       @keyup.enter="updateFile"
@@ -287,10 +289,17 @@ export default defineComponent({
 
   .k-file-upload-btn.k-button {
     position: absolute;
-    top: 35px;
-    right: 12px;
+    right: var(--type-xs);
     height: 29px;
     border-radius: 100px;
+  }
+
+  .k-file-upload-btn-with-label.k-button {
+    top: 35px;
+  }
+
+  .k-file-upload-btn-without-label.k-button {
+    top: 7px;
   }
 
   // To hide the button and thumbnail that appears in Safari and firefox after uploading a file
@@ -301,6 +310,7 @@ export default defineComponent({
     min-height: 100%;
     cursor: inherit;
     opacity: 0;
+    pointer-events: none;
   }
 
   :deep(.k-input-wrapper) input[type="file"],
@@ -338,7 +348,7 @@ export default defineComponent({
 
   .image-upload-description {
     position: absolute;
-    top: 12px;
+    top: var(--type-xs);
     left: 44px;
     overflow: hidden;
     font-size: 13px;
@@ -355,6 +365,10 @@ export default defineComponent({
 .k-file-upload {
   .k-input {
     height: 44px;
+
+    + .help {
+      cursor: default;
+    }
   }
 
   input[type=file]{
@@ -367,10 +381,17 @@ export default defineComponent({
 
   .display-name {
     position: absolute;
-    top: 40px;
     left: 20px;
     color: var(--black-70);
     pointer-events: none;
+  }
+
+  .has-label {
+    top: 40px;
+  }
+
+  .has-no-label {
+    top: var(--type-xs);
   }
 }
 </style>
