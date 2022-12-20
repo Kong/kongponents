@@ -90,6 +90,7 @@
               'k-select-input': appearance === 'select',
               'no-filter': !filterIsEnabled,
               'is-readonly': ($attrs.readonly !== undefined && String($attrs.readonly) !== 'false'),
+              'disabled': ($attrs.disabled !== undefined && String($attrs.disabled) !== 'false'),
               'is-open': isToggled.value
             }"
             data-testid="k-select-input"
@@ -131,7 +132,8 @@
                 'cursor-default prevent-pointer-events': !filterIsEnabled,
                 'input-placeholder-dark has-chevron': appearance === 'select',
                 'has-clear': isClearVisible,
-                'is-readonly': ($attrs.readonly !== undefined && String($attrs.readonly) !== 'false')
+                'is-readonly': ($attrs.readonly !== undefined && String($attrs.readonly) !== 'false'),
+                'disabled': ($attrs.disabled !== undefined && String($attrs.disabled) !== 'false')
               }"
               :label="label && overlayLabel ? label : undefined"
               :model-value="filterStr"
@@ -729,6 +731,18 @@ export default defineComponent({
 
       &.select-input-container {
         input.k-input.form-control:not([type="checkbox"]):not([type="radio"]):not([type="file"]):read-only {
+          box-shadow: none !important;
+        }
+      }
+    }
+
+      &.select-input-container.disabled {
+      @include input-disabled;
+      box-shadow: none !important;
+      cursor: not-allowed !important;
+
+      &.select-input-container {
+        input.k-input.form-control:not([type="checkbox"]):not([type="radio"]):not([type="file"]):disabled {
           box-shadow: none !important;
         }
       }
