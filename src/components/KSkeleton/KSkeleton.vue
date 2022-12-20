@@ -33,6 +33,7 @@
 
     <FullScreenKongSkeleton
       v-else-if="type === 'fullscreen-kong'"
+      :hide-progress="hideProgress"
       :progress="progress"
     />
 
@@ -88,6 +89,10 @@ export default defineComponent({
       type: Number,
       required: false,
       default: null,
+    },
+    hideProgress: {
+      type: Boolean,
+      default: false,
     },
     cardCount: {
       type: Number,

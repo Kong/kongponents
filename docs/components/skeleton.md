@@ -130,37 +130,57 @@ The full screen loading state is used to display a full screen loader typically 
 
 Used for controlling the progress indicator.
 
+### hideProgress
+
+Defaults to `false`, you can use this prop to hide the progress indicator.
+
 <div>
-  <KButton @click="clicked()" class="mr-2">click for default progress behavior</KButton>
-  <KButton @click="clickProgress()">click me to simulate progress manually</KButton>
+  <KButton
+  class="mr-2 mb-2" @click="clickNoProgress()">Click for no progress indicator</KButton>
+  <KButton class="mr-2 mb-2" @click="clicked()">Click for default progress behavior</KButton>
+  <KButton @click="clickProgress()">Click me to simulate progress manually</KButton>
+  <KSkeleton
+    v-if="loadingNone"
+    :delay-milliseconds="0"
+    hide-progress
+    type="fullscreen-kong"
+  />
   <KSkeleton
     v-if="loading"
-    type="fullscreen-kong"
     :delay-milliseconds="0"
+    type="fullscreen-kong"
   />
   <KSkeleton
     v-if="loadingManually"
-    type="fullscreen-kong"
-    :progress="progress"
     :delay-milliseconds="0"
+    :progress="progress"
+    type="fullscreen-kong"
   />
 </div>
 
 ```html
-  <KButton @click="clicked()">click for default progress behavior</KButton>
-  <KButton @click="clickProgress()">click me to simulate progress manually</KButton>
+  <KButton @click="clickNoProgress()">Click for no progress indicator</KButton>
+  <KButton @click="clicked()" class="mr-2">Click for default progress behavior</KButton>
+  <KButton @click="clickProgress()">Click me to simulate progress manually</KButton>
+
+  <KSkeleton
+    v-if="loadingNone"
+    :delay-milliseconds="0"
+    hide-progress
+    type="fullscreen-kong"
+  />
 
   <KSkeleton
     v-if="loading"
-    type="fullscreen-kong"
     :delay-milliseconds="0"
+    type="fullscreen-kong"
   />
 
   <KSkeleton
     v-if="loadingManually"
-    type="fullscreen-kong"
-    :progress="progress"
     :delay-milliseconds="0"
+    :progress="progress"
+    type="fullscreen-kong"
   />
 ```
 
@@ -317,6 +337,7 @@ export default defineComponent({
   data () {
     return {
       loading: false,
+      loadingNone: false,
       loadingButton: false,
       loadingManually: false,
       loadingTheming: false,
@@ -328,6 +349,13 @@ export default defineComponent({
       this.loading = true
       setTimeout(() => {
         this.loading = false
+      }, 1000)
+    },
+
+    clickNoProgress() {
+      this.loadingNone = true
+      setTimeout(() => {
+        this.loadingNone = false
       }, 1000)
     },
 
