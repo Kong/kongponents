@@ -1,3 +1,10 @@
+## [8.13.4](https://github.com/Kong/kongponents/compare/v8.13.3...v8.13.4) (2022-12-20)
+
+
+### Bug Fixes
+
+* **kmodal:** update close button styles [khcp-5508] ([#993](https://github.com/Kong/kongponents/issues/993)) ([7f86030](https://github.com/Kong/kongponents/commit/7f86030d2605348d28914b145af718a0732802dc))
+
 ## [8.13.3](https://github.com/Kong/kongponents/compare/v8.13.2...v8.13.3) (2022-12-20)
 
 
