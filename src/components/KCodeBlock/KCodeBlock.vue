@@ -15,7 +15,7 @@
       <div class="k-search-container">
         <KIcon
           class="k-search-icon"
-          :color="theme === 'light' ? 'currentColor' : 'var(--steel-300)'"
+          :color="theme === 'light' ? 'currentColor' : 'var(--steel-400)'"
           data-testid="k-code-block-search-icon"
           icon="search"
           size="20"
@@ -47,7 +47,7 @@
         <KIcon
           class="k-is-processing-icon"
           :class="{ 'k-is-processing-icon-is-visible': isProcessing }"
-          :color="theme === 'light' ? 'var(--grey-400)' : 'var(--steel-300)'"
+          :color="theme === 'light' ? 'var(--steel -400)' : 'var(--steel-400)'"
           data-testid="k-code-block-is-processing-icon"
           icon="spinner"
         />
@@ -65,7 +65,7 @@
 
           <KIcon
             class="k-clear-icon"
-            :color="theme === 'light' ? 'var(--grey-400)' : 'var(--steel-300)'"
+            :color="theme === 'light' ? 'var(--steel-500)' : 'var(--steel-400)'"
             data-testid="k-code-block-clear-icon"
             icon="clear"
             size="20"
@@ -712,7 +712,7 @@ $fontFamilyMono: var(--font-family-mono, font(mono));
 $tabSize: 2;
 
 // theme-light
-$light-color: var(--black-85, color(black-85));
+$light-color: var(--blue-700, color(blue-700));
 $light-backgroundColor: var(--grey-100, color(grey-100));
 $light-focusColor: var(--blue-500, color(blue-500));
 
@@ -812,7 +812,7 @@ $dark-focusColor: var(--green-500, color(green-500));
 .theme-dark .k-code-block-actions {
   color: #fff;
   background-color: var(--black-500, color(black-500));
-  border-bottom: 1px solid var(--black-400, color(black-400));
+  border-bottom: 1px solid var(--steel-700, color(steel-700));
 }
 
 .k-code-block-actions .k-button {
@@ -875,11 +875,15 @@ $dark-focusColor: var(--green-500, color(green-500));
   border: 1px solid var(--KInputBorder, var(--grey-300, color(grey-300)));
   border-radius: 3px;
   transition: border 0.1s ease;
+
+  &:focus {
+    border: 1px solid var(--KInputBorder, var(--grey-300, color(grey-300)));
+  }
 }
 
 .theme-dark .k-search-container {
-  background-color: $dark-backgroundColor;
-  border: 1px solid var(--KInputBorder, var(--steel-300, color(steel-300)));
+  background-color: var(--steel-700, color(steel-700));
+  border: none;
 }
 
 .k-search-container:hover {
@@ -908,10 +912,11 @@ $dark-focusColor: var(--green-500, color(green-500));
 
 .theme-dark .k-code-block-search-input {
   color: #fff;
-  background-color: $dark-backgroundColor;
+  background-color: var(--steel-700, color(steel-700));
 }
 
-.k-code-block-search-input:focus {
+.k-code-block-search-input:focus,
+.k-code-block-search-input:focus-visible {
   // Focus styles are managed by `.k-search-container`
   outline: none;
 }
@@ -1022,7 +1027,7 @@ $dark-focusColor: var(--green-500, color(green-500));
 
 .k-line-number-rows,
 .k-line-number-rows a {
-  color: var(--grey-500, color(grey-500));
+  color: var(--steel-500, color(steel-500));
 }
 
 .theme-dark .k-line-number-rows,
