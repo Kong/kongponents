@@ -12,10 +12,29 @@
       v-if="isSearchable"
       class="k-code-block-actions"
     >
+      <p
+        class="k-code-block-search-results"
+        :class="{
+          'k-code-block-search-results-has-query': query !== '',
+        }"
+      >
+        <template v-if="numberOfMatches === 0">
+          No results
+        </template>
+
+        <template v-else-if="typeof currentLineIndex === 'number' && !isShowingFilteredCode">
+          {{ currentLineIndex + 1 }} of {{ numberOfMatches }}
+        </template>
+
+        <template v-else>
+          {{ numberOfMatches }} {{ numberOfMatches === 1 ? 'result' : 'results' }}
+        </template>
+      </p>
+
       <div class="k-search-container">
         <KIcon
           class="k-search-icon"
-          :color="theme === 'light' ? 'currentColor' : 'var(--steel-400)'"
+          :color="theme === 'light' ? 'var(--steel-500)' : 'var(--steel-400)'"
           data-testid="k-code-block-search-icon"
           icon="search"
           size="20"
@@ -47,7 +66,7 @@
         <KIcon
           class="k-is-processing-icon"
           :class="{ 'k-is-processing-icon-is-visible': isProcessing }"
-          :color="theme === 'light' ? 'var(--steel -400)' : 'var(--steel-400)'"
+          :color="theme === 'light' ? 'var(--steel-500)' : 'var(--steel-400)'"
           data-testid="k-code-block-is-processing-icon"
           icon="spinner"
         />
@@ -73,7 +92,7 @@
         </button>
       </div>
 
-      <p
+      <!-- <p
         class="k-code-block-search-results"
         :class="{
           'k-code-block-search-results-has-query': query !== '',
@@ -90,11 +109,11 @@
         <template v-else>
           {{ numberOfMatches }} results
         </template>
-      </p>
+      </p> -->
 
       <div class="k-search-actions">
         <KButton
-          :appearance="isRegExpMode ? 'action-active secondary' : 'outline'"
+          :appearance="isRegExpMode ? 'action-active' : 'outline'"
           :aria-pressed="isRegExpMode"
           class="k-regexp-mode-button"
           data-testid="k-code-block-regexp-mode-button"
@@ -110,7 +129,7 @@
         </KButton>
 
         <KButton
-          :appearance="isFilterMode ? 'action-active secondary' : 'outline'"
+          :appearance="isFilterMode ? 'action-active' : 'outline'"
           :aria-pressed="isFilterMode"
           class="k-filter-mode-button"
           data-testid="k-code-block-filter-mode-button"
@@ -238,7 +257,7 @@
         @click="copyCode"
       >
         <KIcon
-          :color="theme === 'light' ? 'currentColor' : 'var(--steel-300)'"
+          :color="theme === 'light' ? 'var(--steel-500)' : 'var(--steel-300)'"
           icon="copy"
           size="18"
           :title="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
@@ -712,7 +731,7 @@ $fontFamilyMono: var(--font-family-mono, font(mono));
 $tabSize: 2;
 
 // theme-light
-$light-color: var(--blue-700, color(blue-700));
+$light-color: var(--steel-700, color(blue-700));
 $light-backgroundColor: var(--grey-100, color(grey-100));
 $light-focusColor: var(--blue-500, color(blue-500));
 
@@ -724,6 +743,12 @@ $dark-focusColor: var(--green-500, color(green-500));
 .k-code-block {
   color: var(--KCodeBlockColor, $light-color);
   border-radius: var(--KCodeBlockBorderRadius, $borderRadius);
+
+  &.theme-light {
+    --KButtonOutlineColor: var(--steel-500, color(steel-500));
+    --KButtonOutlineBorder: var(--steel-500, color(steel-500));
+    --KButtonOutlineHoverBorder: var(--steel-700, color(steel-700));
+  }
 
   &.theme-dark {
     color: var(--KCodeBlockColor, $dark-color);
@@ -817,6 +842,12 @@ $dark-focusColor: var(--green-500, color(green-500));
 
 .k-code-block-actions .k-button {
   align-self: stretch;
+
+  &.action-active {
+    color: #fff;
+    border-color: var(--steel-500, color(steel-500));
+    background-color: var(--steel-500, color(steel-500));
+  }
 }
 
 .theme-dark .k-code-block-actions .k-button {
@@ -826,19 +857,18 @@ $dark-focusColor: var(--green-500, color(green-500));
 
   &:hover {
     color: $dark-backgroundColor;
-    border-color: var(--steel-300, color(steel-300));
-    background-color: var(--steel-300, color(steel-300));
+    border-color: var(--steel-400, color(steel-400));
+    background-color: var(--steel-400, color(steel-400));
 
     &:disabled {
       background-color: $dark-backgroundColor;
     }
   }
 
-  // Since the .theme-dark * .k-buttons don't have the `secondary` class, add additional theme styles
   &.action-active {
     color: $dark-backgroundColor;
-    border-color: var(--steel-400, color(steel-400));
-    background-color: var(--steel-400, color(steel-400));
+    border-color: var(--steel-300, color(steel-300));
+    background-color: var(--steel-300, color(steel-300));
   }
 }
 
@@ -859,7 +889,7 @@ $dark-focusColor: var(--green-500, color(green-500));
   visibility: hidden;
 }
 
-.k-regexp-mode-button {
+.k-button.k-regexp-mode-button {
   font-family: var(--KCodeBlockFontFamilyMono, $fontFamilyMono);
 }
 
@@ -1077,6 +1107,10 @@ $dark-focusColor: var(--green-500, color(green-500));
 .k-matched-term {
   font-weight: 900;
   color: var(--teal-500, color(teal-500));
+}
+
+.theme-dark .k-matched-term {
+  color: var(--green-500, color(green-500));
 }
 
 .k-code-block .k-button.small {
