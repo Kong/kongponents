@@ -1,3 +1,10 @@
+## [8.13.6](https://github.com/Kong/kongponents/compare/v8.13.5...v8.13.6) (2022-12-21)
+
+
+### Bug Fixes
+
+* **kselect:** update disabled styles [khcp-5661] ([#1004](https://github.com/Kong/kongponents/issues/1004)) ([720859a](https://github.com/Kong/kongponents/commit/720859a707e0d4973f0f2cbc1020de0059306a6d))
+
 ## [8.13.5](https://github.com/Kong/kongponents/compare/v8.13.4...v8.13.5) (2022-12-20)
 
 
