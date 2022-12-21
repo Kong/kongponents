@@ -3,6 +3,7 @@
     :id="props.id"
     ref="codeBlock"
     class="k-code-block"
+    :class="[`theme-${theme}`]"
     data-testid="k-code-block"
     :style="`--maxLineNumberWidth: ${maxLineNumberWidth}`"
     tabindex="0"
@@ -11,10 +12,33 @@
       v-if="isSearchable"
       class="k-code-block-actions"
     >
+      <p
+        class="k-code-block-search-results"
+        :class="{
+          'k-code-block-search-results-has-query': query !== '',
+        }"
+      >
+        <template v-if="query === '' && numberOfMatches === 0">
+          &nbsp;
+        </template>
+
+        <template v-else-if="numberOfMatches === 0">
+          No results
+        </template>
+
+        <template v-else-if="typeof currentLineIndex === 'number' && !isShowingFilteredCode">
+          {{ currentLineIndex + 1 }} of {{ numberOfMatches }}
+        </template>
+
+        <template v-else>
+          {{ numberOfMatches }} {{ numberOfMatches === 1 ? 'result' : 'results' }}
+        </template>
+      </p>
+
       <div class="k-search-container">
         <KIcon
           class="k-search-icon"
-          color="currentColor"
+          :color="theme === 'light' ? 'var(--steel-500)' : 'var(--steel-400)'"
           data-testid="k-code-block-search-icon"
           icon="search"
           size="20"
@@ -46,7 +70,7 @@
         <KIcon
           class="k-is-processing-icon"
           :class="{ 'k-is-processing-icon-is-visible': isProcessing }"
-          color="var(--grey-400)"
+          :color="theme === 'light' ? 'var(--steel-500)' : 'var(--steel-400)'"
           data-testid="k-code-block-is-processing-icon"
           icon="spinner"
         />
@@ -64,7 +88,7 @@
 
           <KIcon
             class="k-clear-icon"
-            color="currentColor"
+            :color="theme === 'light' ? 'var(--steel-500)' : 'var(--steel-400)'"
             data-testid="k-code-block-clear-icon"
             icon="clear"
             size="20"
@@ -72,28 +96,9 @@
         </button>
       </div>
 
-      <p
-        class="k-code-block-search-results"
-        :class="{
-          'k-code-block-search-results-has-query': query !== '',
-        }"
-      >
-        <template v-if="numberOfMatches === 0">
-          No results
-        </template>
-
-        <template v-else-if="typeof currentLineIndex === 'number' && !isShowingFilteredCode">
-          {{ currentLineIndex + 1 }} of {{ numberOfMatches }}
-        </template>
-
-        <template v-else>
-          {{ numberOfMatches }} results
-        </template>
-      </p>
-
       <div class="k-search-actions">
         <KButton
-          :appearance="isRegExpMode ? 'secondary' : 'outline'"
+          :appearance="isRegExpMode ? 'action-active' : 'outline'"
           :aria-pressed="isRegExpMode"
           class="k-regexp-mode-button"
           data-testid="k-code-block-regexp-mode-button"
@@ -109,7 +114,7 @@
         </KButton>
 
         <KButton
-          :appearance="isFilterMode ? 'secondary' : 'outline'"
+          :appearance="isFilterMode ? 'action-active' : 'outline'"
           :aria-pressed="isFilterMode"
           class="k-filter-mode-button"
           data-testid="k-code-block-filter-mode-button"
@@ -239,7 +244,7 @@
         <KIcon
           color="currentColor"
           icon="copy"
-          size="16"
+          size="18"
           :title="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
         />
 
@@ -250,7 +255,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch, PropType } from 'vue'
 
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
@@ -341,6 +346,15 @@ const props = defineProps({
     type: Boolean,
     required: false,
     default: false,
+  },
+
+  /**
+   * Controls the color scheme of the component. **Default: `light`**.
+   */
+  theme: {
+    type: String as PropType<'light' | 'dark'>,
+    required: false,
+    default: 'light',
   },
 })
 
@@ -695,26 +709,48 @@ async function copyCode(): Promise<void> {
 @import '@/styles/variables';
 @import '@/styles/functions';
 
-$borderRadius: 3px;
-$focusColor: var(--blue-500, color(blue-500));
-$matchHighlightColor: var(--blue-500, color(blue-500));
-$color: var(--black-85, color(black-85));
-$backgroundColor: var(--grey-100, color(grey-100));
+// shared
+$borderRadius: 8px;
 $fontSize: var(--type-xs, type(xs));
 $fontFamilyMono: var(--font-family-mono, font(mono));
 $tabSize: 2;
 
+// theme-light
+$light-color: var(--steel-700, color(blue-700));
+$light-backgroundColor: var(--grey-100, color(grey-100));
+$light-focusColor: var(--blue-500, color(blue-500));
+
+// theme-dark
+$dark-color: var(--green-200, color(green-200));
+$dark-backgroundColor: var(--black-500, color(black-500));
+$dark-focusColor: var(--green-500, color(green-500));
+
 .k-code-block {
-  color: var(--KCodeBlockColor, $color);
+  color: var(--KCodeBlockColor, $light-color);
   border-radius: var(--KCodeBlockBorderRadius, $borderRadius);
+
+  &.theme-light {
+    --KButtonOutlineColor: var(--steel-500, color(steel-500));
+    --KButtonOutlineBorder: var(--steel-500, color(steel-500));
+    --KButtonOutlineHoverBorder: var(--steel-700, color(steel-700));
+  }
+
+  &.theme-dark {
+    color: var(--KCodeBlockColor, $dark-color);
+  }
 }
 
 .k-code-block pre,
 .k-code-block code {
   font-family: var(--KCodeBlockFontFamilyMono, $fontFamilyMono);
   font-size: var(--KCodeBlockFontSize, $fontSize);
-  color: var(--KCodeBlockColor, $color);
+  color: var(--KCodeBlockColor, $light-color);
   tab-size: var(--KCodeBlockTabSize, $tabSize);
+}
+
+.k-code-block.theme-dark pre,
+.k-code-block.theme-dark code {
+  color: var(--KCodeBlockColor, $dark-color);
 }
 
 .k-code-block pre {
@@ -727,19 +763,29 @@ $tabSize: 2;
   padding: var(--spacing-xs, spacing(xs)) 0 var(--spacing-xs, spacing(xs)) var(--spacing-sm, spacing(sm));
   margin-top: 0;
   margin-bottom: 0;
-  background-color: var(--KCodeBlockBackgroundColor, $backgroundColor);
+  background-color: var(--KCodeBlockBackgroundColor, $light-backgroundColor);
   border-radius: var(--KCodeBlockBorderRadius, $borderRadius);
+}
+
+.k-code-block.theme-dark pre {
+  background-color: var(--KCodeBlockBackgroundColor, $dark-backgroundColor);
 }
 
 .k-code-block pre:focus-visible {
   isolation: isolate;
-  outline: 2px solid var(--KCodeBlockFocusColor, $focusColor);
+  outline: 2px solid var(--KCodeBlockFocusColor, $light-focusColor);
   outline-offset: -2px;
+}
+
+.k-code-block.theme-dark pre:focus-visible {
+  outline: 2px solid var(--KCodeBlockFocusColor, $dark-focusColor);
 }
 
 .k-code-block-actions + .k-code-block-content > pre {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+  border-bottom-left-radius: $borderRadius;
+  border-bottom-right-radius: $borderRadius;
 }
 
 .k-code-block code {
@@ -753,7 +799,11 @@ $tabSize: 2;
 .k-code-block:focus-visible {
   isolation: isolate;
   outline: none;
-  box-shadow: 0 0 0 2px var(--KCodeBlockFocusColor, $focusColor);
+  box-shadow: 0 0 0 2px var(--KCodeBlockFocusColor, $light-focusColor);
+}
+
+.k-code-block.theme-dark:focus-visible {
+  box-shadow: 0 0 0 2px var(--KCodeBlockFocusColor, $dark-focusColor);
 }
 
 .k-code-block-actions {
@@ -769,8 +819,42 @@ $tabSize: 2;
   border-top-right-radius: var(--KCodeBlockBorderRadius, $borderRadius);
 }
 
+.theme-dark .k-code-block-actions {
+  color: #fff;
+  background-color: var(--black-500, color(black-500));
+  border-bottom: 1px solid var(--steel-700, color(steel-700));
+}
+
 .k-code-block-actions .k-button {
   align-self: stretch;
+
+  &.action-active {
+    color: #fff;
+    border-color: var(--steel-500, color(steel-500));
+    background-color: var(--steel-500, color(steel-500));
+  }
+}
+
+.theme-dark .k-code-block-actions .k-button {
+  color: var(--steel-300, color(steel-300));
+  border-color: var(--steel-300, color(steel-300));
+  background-color: $dark-backgroundColor;
+
+  &:hover {
+    color: $dark-backgroundColor;
+    border-color: var(--steel-400, color(steel-400));
+    background-color: var(--steel-400, color(steel-400));
+
+    &:disabled {
+      background-color: $dark-backgroundColor;
+    }
+  }
+
+  &.action-active {
+    color: $dark-backgroundColor;
+    border-color: var(--steel-300, color(steel-300));
+    background-color: var(--steel-300, color(steel-300));
+  }
 }
 
 .k-is-processing-icon {
@@ -790,7 +874,7 @@ $tabSize: 2;
   visibility: hidden;
 }
 
-.k-regexp-mode-button {
+.k-button.k-regexp-mode-button {
   font-family: var(--KCodeBlockFontFamilyMono, $fontFamilyMono);
 }
 
@@ -806,19 +890,33 @@ $tabSize: 2;
   border: 1px solid var(--KInputBorder, var(--grey-300, color(grey-300)));
   border-radius: 3px;
   transition: border 0.1s ease;
+
+  &:focus {
+    border: 1px solid var(--KInputBorder, var(--grey-300, color(grey-300)));
+  }
+}
+
+.theme-dark .k-search-container {
+  background-color: var(--steel-700, color(steel-700));
+  border: none;
 }
 
 .k-search-container:hover {
-  border-color: var(--KInputHover, var(--blue-200, color(blue-200)));
+  border-color: var(--KInputHover, var(--steel-200, color(steel-200)));
 }
 
 .k-search-container:focus-within {
-  border-color: var(--KInputFocus, var(--blue-400, color(blue-400)));
+  border-color: var(--KInputFocus, var(--steel-400, color(steel-400)));
+}
+
+.theme-dark .k-search-container:focus-within {
+  border-color: var(--KInputFocus, var(--steel-300, color(steel-300)));
 }
 
 .k-code-block-search-input {
   flex-grow: 1;
   width: 0;
+  height: 32px;
   padding: 0 var(--spacing-xs, spacing(xs));
   margin: 0;
   font: inherit;
@@ -828,7 +926,13 @@ $tabSize: 2;
   appearance: none;
 }
 
-.k-code-block-search-input:focus {
+.theme-dark .k-code-block-search-input {
+  color: #fff;
+  background-color: var(--steel-700, color(steel-700));
+}
+
+.k-code-block-search-input:focus,
+.k-code-block-search-input:focus-visible {
   // Focus styles are managed by `.k-search-container`
   outline: none;
 }
@@ -837,11 +941,16 @@ $tabSize: 2;
   align-self: center;
   // Sets the minimum width to 12 characters which is the length of the string “1234 results” which should be reasonably safe in order to avoid having layout elements jump around.
   min-width: 12ch;
-  text-align: center;
+  text-align: right;
+  padding-right: var(--spacing-sm, spacing(sm));
 }
 
 .k-code-block-search-results:not(.k-code-block-search-results-has-query) {
   color: var(--grey-500, color(grey-500));
+}
+
+.theme-dark .k-code-block-search-results:not(.k-code-block-search-results-has-query) {
+  color: var(--steel-300, color(steel-300));
 }
 
 .k-code-block-search-error,
@@ -884,9 +993,14 @@ $tabSize: 2;
 }
 
 .k-clear-query-button:focus {
-  border-color: var(--KButtonOutlineBorder, $focusColor);
+  border-color: var(--KButtonOutlineBorder, $light-focusColor);
   outline: none;
-  box-shadow: 0 0 0 2px var(--white, color(white)), 0 0 0 4px var(--KButtonOutlineBorder, $focusColor);
+  box-shadow: 0 0 0 2px var(--white, color(white)), 0 0 0 4px var(--KButtonOutlineBorder, $light-focusColor);
+}
+
+.theme-dark .k-clear-query-button:focus {
+  border-color: var(--KButtonOutlineBorder, $dark-focusColor);
+  box-shadow: 0 0 0 2px var(--white, color(white)), 0 0 0 4px var(--KButtonOutlineBorder, $dark-focusColor);
 }
 
 .k-code-block-content {
@@ -899,6 +1013,42 @@ $tabSize: 2;
   right: var(--spacing-md, spacing(md));
   z-index: 2;
   display: block;
+
+  &.k-button {
+    background-color: transparent;
+    border-color: transparent;
+
+    &:hover {
+      background-color: var(--steel-100, color(steel-100));
+      border-color: transparent !important;
+    }
+
+    &:active,
+    &:hover:active {
+      color: #fff;
+      background-color: var(--steel-500, color(steel-500));
+      border-color: var(--steel-500, color(steel-500));
+    }
+  }
+}
+
+.theme-dark .k-code-block-copy-button {
+
+  &.k-button {
+    color: var(--steel-300, color(steel-300));
+
+    &:hover {
+      background-color: rgba(#fff, 0.1);
+      border-color: transparent !important;
+    }
+
+    &:active,
+    &:hover:active {
+      color: $dark-backgroundColor;
+      background-color: var(--steel-300, color(steel-300));
+      border-color: var(--steel-300, color(steel-300));
+    }
+  }
 }
 
 .k-code-block-copy-button[data-tooltip-text]::after {
@@ -930,7 +1080,12 @@ $tabSize: 2;
 
 .k-line-number-rows,
 .k-line-number-rows a {
-  color: var(--grey-500, color(grey-500));
+  color: var(--steel-500, color(steel-500));
+}
+
+.theme-dark .k-line-number-rows,
+.theme-dark .k-line-number-rows a {
+  color: var(--steel-300, color(steel-300));
 }
 
 .k-line {
@@ -948,9 +1103,17 @@ $tabSize: 2;
   background-color: hsl(220, 18%, 35%, 0.1);
 }
 
+.theme-dark .k-line-is-match::before {
+  background-color: hsl(220, 18%, 35%, 0.3);
+}
+
 .k-line-is-highlighted-match::before {
   background-color: hsl(220, 18%, 35%, 0.2);
-  border-left: 5px solid var(--KCodeBlockMatchHighlightColor, $focusColor);
+  border-left: 5px solid var(--KCodeBlockMatchHighlightColor, $light-focusColor);
+}
+
+.theme-dark .k-line-is-highlighted-match::before {
+  border-left: 5px solid var(--KCodeBlockMatchHighlightColor, $dark-focusColor);
 }
 
 .k-line-anchor:not([href]) {
@@ -967,6 +1130,10 @@ $tabSize: 2;
 .k-matched-term {
   font-weight: 900;
   color: var(--teal-500, color(teal-500));
+}
+
+.theme-dark .k-matched-term {
+  color: var(--green-500, color(green-500));
 }
 
 .k-code-block .k-button.small {
