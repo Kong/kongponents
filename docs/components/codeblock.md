@@ -6,10 +6,6 @@ Searching highlights matching lines within the code while filtering shows only m
 
 Searching and filtering can happen by exact matches (the default) and by matching regular expressions. The search-related UI controls can also be interacted with [using keyboard shortcuts](#default-shortcuts).
 
-::: danger EXPERIMENTAL COMPONENT
-`KCodeBlock` is an experimental component. The component’s design and overall look and feel may change until it is in stable status.
-:::
-
 <ClientOnly>
   <KCodeBlock
     id="code-block-default"
