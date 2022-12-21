@@ -1,3 +1,10 @@
+# [8.14.0](https://github.com/Kong/kongponents/compare/v8.13.6...v8.14.0) (2022-12-21)
+
+
+### Features
+
+* **kcodeblock:** dark theme [KHCP-5231] ([#1002](https://github.com/Kong/kongponents/issues/1002)) ([1860896](https://github.com/Kong/kongponents/commit/1860896930faebf4e40c5fb90c02ac114859efdf))
+
 ## [8.13.6](https://github.com/Kong/kongponents/compare/v8.13.5...v8.13.6) (2022-12-21)
 
 
