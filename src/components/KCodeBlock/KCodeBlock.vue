@@ -18,7 +18,11 @@
           'k-code-block-search-results-has-query': query !== '',
         }"
       >
-        <template v-if="numberOfMatches === 0">
+        <template v-if="query === '' && numberOfMatches === 0">
+          &nbsp;
+        </template>
+
+        <template v-else-if="numberOfMatches === 0">
           No results
         </template>
 
@@ -91,25 +95,6 @@
           />
         </button>
       </div>
-
-      <!-- <p
-        class="k-code-block-search-results"
-        :class="{
-          'k-code-block-search-results-has-query': query !== '',
-        }"
-      >
-        <template v-if="numberOfMatches === 0">
-          No results
-        </template>
-
-        <template v-else-if="typeof currentLineIndex === 'number' && !isShowingFilteredCode">
-          {{ currentLineIndex + 1 }} of {{ numberOfMatches }}
-        </template>
-
-        <template v-else>
-          {{ numberOfMatches }} results
-        </template>
-      </p> -->
 
       <div class="k-search-actions">
         <KButton
@@ -917,11 +902,11 @@ $dark-focusColor: var(--green-500, color(green-500));
 }
 
 .k-search-container:hover {
-  border-color: var(--KInputHover, var(--blue-200, color(blue-200)));
+  border-color: var(--KInputHover, var(--steel-200, color(steel-200)));
 }
 
 .k-search-container:focus-within {
-  border-color: var(--KInputFocus, var(--blue-400, color(blue-400)));
+  border-color: var(--KInputFocus, var(--steel-400, color(steel-400)));
 }
 
 .theme-dark .k-search-container:focus-within {
@@ -931,6 +916,7 @@ $dark-focusColor: var(--green-500, color(green-500));
 .k-code-block-search-input {
   flex-grow: 1;
   width: 0;
+  height: 32px;
   padding: 0 var(--spacing-xs, spacing(xs));
   margin: 0;
   font: inherit;
@@ -955,7 +941,8 @@ $dark-focusColor: var(--green-500, color(green-500));
   align-self: center;
   // Sets the minimum width to 12 characters which is the length of the string “1234 results” which should be reasonably safe in order to avoid having layout elements jump around.
   min-width: 12ch;
-  text-align: center;
+  text-align: right;
+  padding-right: var(--spacing-sm, spacing(sm));
 }
 
 .k-code-block-search-results:not(.k-code-block-search-results-has-query) {
