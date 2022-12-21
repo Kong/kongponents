@@ -232,7 +232,7 @@
       <KButton
         v-if="props.showCopyButton"
         ref="codeBlockCopyButton"
-        appearance="btn-link"
+        appearance="outline"
         class="k-code-block-copy-button"
         data-testid="k-code-block-copy-button"
         :is-rounded="false"
@@ -242,7 +242,7 @@
         @click="copyCode"
       >
         <KIcon
-          :color="theme === 'light' ? 'var(--steel-500)' : 'var(--steel-300)'"
+          color="currentColor"
           icon="copy"
           size="18"
           :title="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
@@ -1009,10 +1009,46 @@ $dark-focusColor: var(--green-500, color(green-500));
 
 .k-code-block-copy-button {
   position: absolute;
-  top: var(--spacing-md, spacing(md));
+  top: var(--spacing-xs, spacing(xs));
   right: var(--spacing-md, spacing(md));
   z-index: 2;
   display: block;
+
+  &.k-button {
+    background-color: transparent;
+    border-color: transparent;
+
+    &:hover {
+      background-color: var(--steel-100, color(steel-100));
+      border-color: transparent !important;
+    }
+
+    &:active,
+    &:hover:active {
+      color: #fff;
+      background-color: var(--steel-500, color(steel-500));
+      border-color: var(--steel-500, color(steel-500));
+    }
+  }
+}
+
+.theme-dark .k-code-block-copy-button {
+
+  &.k-button {
+    color: var(--steel-300, color(steel-300));
+
+    &:hover {
+      background-color: rgba(#fff, 0.1);
+      border-color: transparent !important;
+    }
+
+    &:active,
+    &:hover:active {
+      color: $dark-backgroundColor;
+      background-color: var(--steel-300, color(steel-300));
+      border-color: var(--steel-300, color(steel-300));
+    }
+  }
 }
 
 .k-code-block-copy-button[data-tooltip-text]::after {
