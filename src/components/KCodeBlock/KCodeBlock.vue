@@ -15,7 +15,7 @@
       <div class="k-search-container">
         <KIcon
           class="k-search-icon"
-          color="currentColor"
+          :color="theme === 'light' ? 'currentColor' : 'var(--steel-300)'"
           data-testid="k-code-block-search-icon"
           icon="search"
           size="20"
@@ -47,7 +47,7 @@
         <KIcon
           class="k-is-processing-icon"
           :class="{ 'k-is-processing-icon-is-visible': isProcessing }"
-          color="var(--grey-400)"
+          :color="theme === 'light' ? 'var(--grey-400)' : 'var(--steel-300)'"
           data-testid="k-code-block-is-processing-icon"
           icon="spinner"
         />
@@ -65,7 +65,7 @@
 
           <KIcon
             class="k-clear-icon"
-            color="currentColor"
+            :color="theme === 'light' ? 'var(--grey-400)' : 'var(--steel-300)'"
             data-testid="k-code-block-clear-icon"
             icon="clear"
             size="20"
@@ -94,7 +94,7 @@
 
       <div class="k-search-actions">
         <KButton
-          :appearance="isRegExpMode ? 'secondary' : 'outline'"
+          :appearance="isRegExpMode ? 'action-active secondary' : 'outline'"
           :aria-pressed="isRegExpMode"
           class="k-regexp-mode-button"
           data-testid="k-code-block-regexp-mode-button"
@@ -110,7 +110,7 @@
         </KButton>
 
         <KButton
-          :appearance="isFilterMode ? 'secondary' : 'outline'"
+          :appearance="isFilterMode ? 'action-active secondary' : 'outline'"
           :aria-pressed="isFilterMode"
           class="k-filter-mode-button"
           data-testid="k-code-block-filter-mode-button"
@@ -719,7 +719,7 @@ $light-focusColor: var(--blue-500, color(blue-500));
 // theme-dark
 $dark-color: var(--green-200, color(green-200));
 $dark-backgroundColor: var(--black-500, color(black-500));
-$dark-focusColor: var(--blue-500, color(blue-500));
+$dark-focusColor: var(--green-500, color(green-500));
 
 .k-code-block {
   color: var(--KCodeBlockColor, $light-color);
@@ -810,12 +810,36 @@ $dark-focusColor: var(--blue-500, color(blue-500));
 }
 
 .theme-dark .k-code-block-actions {
-  background-color: #060d19;
+  color: #fff;
+  background-color: var(--black-500, color(black-500));
   border-bottom: 1px solid var(--black-400, color(black-400));
 }
 
 .k-code-block-actions .k-button {
   align-self: stretch;
+}
+
+.theme-dark .k-code-block-actions .k-button {
+  color: var(--steel-300, color(steel-300));
+  border-color: var(--steel-300, color(steel-300));
+  background-color: $dark-backgroundColor;
+
+  &:hover {
+    color: $dark-backgroundColor;
+    border-color: var(--steel-300, color(steel-300));
+    background-color: var(--steel-300, color(steel-300));
+
+    &:disabled {
+      background-color: $dark-backgroundColor;
+    }
+  }
+
+  // Since the .theme-dark * .k-buttons don't have the `secondary` class, add additional theme styles
+  &.action-active {
+    color: $dark-backgroundColor;
+    border-color: var(--steel-400, color(steel-400));
+    background-color: var(--steel-400, color(steel-400));
+  }
 }
 
 .k-is-processing-icon {
@@ -853,12 +877,21 @@ $dark-focusColor: var(--blue-500, color(blue-500));
   transition: border 0.1s ease;
 }
 
+.theme-dark .k-search-container {
+  background-color: $dark-backgroundColor;
+  border: 1px solid var(--KInputBorder, var(--steel-300, color(steel-300)));
+}
+
 .k-search-container:hover {
   border-color: var(--KInputHover, var(--blue-200, color(blue-200)));
 }
 
 .k-search-container:focus-within {
   border-color: var(--KInputFocus, var(--blue-400, color(blue-400)));
+}
+
+.theme-dark .k-search-container:focus-within {
+  border-color: var(--KInputFocus, var(--steel-300, color(steel-300)));
 }
 
 .k-code-block-search-input {
@@ -871,6 +904,11 @@ $dark-focusColor: var(--blue-500, color(blue-500));
   background-color: transparent;
   border: none;
   appearance: none;
+}
+
+.theme-dark .k-code-block-search-input {
+  color: #fff;
+  background-color: $dark-backgroundColor;
 }
 
 .k-code-block-search-input:focus {
@@ -1005,6 +1043,10 @@ $dark-focusColor: var(--blue-500, color(blue-500));
   pointer-events: none;
   content: '\A0';
   background-color: hsl(220, 18%, 35%, 0.1);
+}
+
+.theme-dark .k-line-is-match::before {
+  background-color: hsl(220, 18%, 35%, 0.3);
 }
 
 .k-line-is-highlighted-match::before {
