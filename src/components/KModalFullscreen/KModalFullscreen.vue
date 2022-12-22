@@ -248,6 +248,7 @@ $fullscreen-modal-padding: 64px;
   padding: var(--spacing-lg) 0;
   background-color: var(--white);
   border-bottom: 1px solid var(--grey-300);
+  z-index: 1009;
 
   .k-modal-fullscreen-header-description {
     display: flex;

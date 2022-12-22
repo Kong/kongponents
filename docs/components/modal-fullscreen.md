@@ -186,6 +186,12 @@ There are 6 designated slots you can use to display content in the fullscreen mo
       { label: 'I am hidden', state: 'pending' }
     ]"
   />
+  <KCodeBlock
+    id="code-block-default"
+    :code="code"
+    language="json"
+    is-searchable
+  />
 </div>
   <div class="ml-25">
     <KInputSwitch v-model="checked" label="This plugin is enabled" class="display-items" />
@@ -385,6 +391,26 @@ function getItems(count) {
 export default {
   data () {
     return {
+      code: `{
+        "compilerOptions": {
+        "target": "es2020",
+        "module": "esnext",
+        "moduleResolution": "node",
+        "allowUnreachableCode": false,
+        "exactOptionalPropertyTypes": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "noUncheckedIndexedAccess": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "strict": true,
+        "jsx": "preserve"
+        },
+        "include": [
+          "./src",
+          "./types"
+        ]
+      }`,
       checked: true,
       checkedBox1: false,
       checkedBox2: true,
