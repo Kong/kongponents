@@ -1011,7 +1011,6 @@ $dark-focusColor: var(--green-500, color(green-500));
   position: absolute;
   top: var(--spacing-xs, spacing(xs));
   right: var(--spacing-md, spacing(md));
-  z-index: 2;
   display: block;
 
   &.k-button {
