@@ -1,3 +1,10 @@
+## [8.14.1](https://github.com/Kong/kongponents/compare/v8.14.0...v8.14.1) (2022-12-22)
+
+
+### Bug Fixes
+
+* **code-block:** remove extra z-index [khcp-5683] ([#1007](https://github.com/Kong/kongponents/issues/1007)) ([7d84268](https://github.com/Kong/kongponents/commit/7d842685b82395dc9136d2b8e2b4cc4becb24715))
+
 # [8.14.0](https://github.com/Kong/kongponents/compare/v8.13.6...v8.14.0) (2022-12-21)
 
 
