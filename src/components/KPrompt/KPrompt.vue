@@ -284,7 +284,7 @@ export default defineComponent({
           text-align: start;
           white-space: normal; // in case inside KTable
 
-          @media screen and (min-width: 768px) {
+          @media screen and (min-width: $viewport-md) {
             max-height: var(--KPromptMaxHeight, 500px);
           }
 

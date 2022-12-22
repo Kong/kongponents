@@ -1015,8 +1015,10 @@ $dark-focusColor: var(--green-500, color(green-500));
   display: block;
 
   &.k-button {
-    background-color: transparent;
-    border-color: transparent;
+    @media (min-width: $viewport-md) {
+      background-color: transparent;
+      border-color: transparent;
+    }
 
     &:hover {
       background-color: var(--steel-100, color(steel-100));
@@ -1036,6 +1038,11 @@ $dark-focusColor: var(--green-500, color(green-500));
 
   &.k-button {
     color: var(--steel-300, color(steel-300));
+
+    @media (max-width: ($viewport-md - 1px)) {
+      background-color: $dark-backgroundColor;
+      border-color: var(--steel-300, color(steel-300));
+    }
 
     &:hover {
       background-color: rgba(#fff, 0.1);
