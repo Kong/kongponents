@@ -180,17 +180,17 @@ There are 6 designated slots you can use to display content in the fullscreen mo
     <KButton appearance="creation" size="medium" @click="sampleIsOpen = false">Save</KButton>
   </template>
     <div>
-  <KCodeBlock
-    id="code-block-default"
-    :code="code"
-    language="json"
-    is-searchable
-  />
   <KStepper :steps="[
       { label: 'I am visible', state: 'completed' },
       { label: 'Scroll Up', state: 'completed' },
       { label: 'I am hidden', state: 'pending' }
     ]"
+  />
+  <KCodeBlock
+    id="code-block-default"
+    :code="code"
+    language="json"
+    is-searchable
   />
 </div>
   <div class="ml-25">

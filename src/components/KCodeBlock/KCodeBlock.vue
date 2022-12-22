@@ -1012,6 +1012,7 @@ $dark-focusColor: var(--green-500, color(green-500));
   top: var(--spacing-xs, spacing(xs));
   right: var(--spacing-md, spacing(md));
   display: block;
+  z-index: 1;
 
   &.k-button {
     background-color: transparent;
