@@ -219,7 +219,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/styles/variables';
 @import '@/styles/functions';
-$screen-sm: 768px;
 $screen-md: 992px;
 $fullscreen-modal-padding: 64px;
 
@@ -234,7 +233,7 @@ $fullscreen-modal-padding: 64px;
   padding-top: $fullscreen-modal-padding * 2;
   background: var(--white);
 
-  @media only screen and (min-width: ($screen-sm + 1px)) {
+  @media only screen and (min-width: ($viewport-md + 1px)) {
     padding-top: $fullscreen-modal-padding;
   }
 }
@@ -293,7 +292,7 @@ $fullscreen-modal-padding: 64px;
   padding-left: var(--spacing-lg);
   color: var(--KModalFullscreenColor, var(--black-500, color(black-500)));
 
-  @media only screen and (min-width: ($screen-sm + 1px)) {
+  @media only screen and (min-width: ($viewport-md + 1px)) {
     padding-right: 120px;
     padding-left: 120px;
   }
@@ -306,7 +305,7 @@ $fullscreen-modal-padding: 64px;
 
 .k-modal-fullscreen-body {
   padding-bottom: var(--spacing-lg);
-  @media only screen and (min-width: ($screen-sm + 1px)) {
+  @media only screen and (min-width: ($viewport-md + 1px)) {
     padding-bottom: $fullscreen-modal-padding;
   }
 }
