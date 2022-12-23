@@ -431,9 +431,9 @@
     lodash.once "^4.1.1"
 
 "@digitalroute/cz-conventional-changelog-for-jira@^7.3.1":
-  version "7.4.2"
-  resolved "https://registry.yarnpkg.com/@digitalroute/cz-conventional-changelog-for-jira/-/cz-conventional-changelog-for-jira-7.4.2.tgz#d5659080cc9dcbcc0ac3cbff8b10b36e27ab1244"
-  integrity sha512-rGK8cFAUyHzxkduj+uyenVj6aqaS82i3d+uLTQHUW2Vq/m6iUwo/ndHPc0jG8o9HSwDPpOVLCZUfBj2EY7KcCA==
+  version "7.5.1"
+  resolved "https://registry.yarnpkg.com/@digitalroute/cz-conventional-changelog-for-jira/-/cz-conventional-changelog-for-jira-7.5.1.tgz#e9d8eb99e41906b6fbf057771207f0a33029c170"
+  integrity sha512-LB/cglMCftFbNCaVcXE4CgZp7qD3ZgOzXkia6535Yb55BHpaxbREslTFRz+fJFSU2fPBfVseaUvdaOCTCp0WQQ==
   dependencies:
     "@ryansonshine/commitizen" "^4.2.8"
     "@ryansonshine/cz-conventional-changelog" "^3.3.4"
