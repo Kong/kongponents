@@ -6658,9 +6658,9 @@ svg-tags@^1.0.0:
   integrity sha512-ovssysQTa+luh7A5Weu3Rta6FJlFBBbInjOh722LIt6klpU2/HtdUbszju/G4devcvk8PGt7FCLv5wftu3THUA==
 
 swrv@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/swrv/-/swrv-1.0.1.tgz#06f4db51e7adc0c90acc23dcb8603a52be011e94"
-  integrity sha512-FZMXK/mOp7LYBHrQ/zWnZXfoZ8ONrVV9eOJ4+p0OdEcsafLLrODPaeJFGDcI6CV/3o3J/t5GY9ozVGg10NC8ng==
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/swrv/-/swrv-1.0.2.tgz#5c5c51d3f2faa8f5782439d685b274c7960f0a62"
+  integrity sha512-5ilwKjhzq95wVZxx/+7Jbd+b3Csscl1C9uGiGt/TFIiXORB2LbgvyeLFpzjVMPdhPfIKBHKUpKqfJ/KCsJ/x5g==
 
 tabbable@^6.0.1:
   version "6.0.1"
