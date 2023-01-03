@@ -104,7 +104,7 @@ export default defineComponent({
     font-size: 18px;
     line-height: 20px;
     list-style: none;
-    border-bottom: 2px solid var(--KTabsBottomBorderColor, var(--grey-300, color(grey-300)));
+    border-bottom: 1px solid var(--KTabsBottomBorderColor, var(--grey-300, color(grey-300)));
 
     .tab-item {
       position: relative;
