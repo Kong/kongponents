@@ -15,5 +15,7 @@ declare namespace Cypress {
      * @example cy.findTestId('kong-auth-login-submit')
      */
     findTestId(dataTestId: string): Chainable<Element>
+
+    matchImageSnapshot(): Chainable
   }
 }

@@ -12,6 +12,7 @@
     ],
     "types": [
       "cypress",
+      "@frsource/cypress-plugin-visual-regression-diff",
       "node",
       "./support"
     ]

@@ -22,7 +22,7 @@ The value provided to `v-model` should adhere to all the same constraints of the
   <KTreeList class="mt-2" v-model="myList" />
   <br>
   <KButton @click="reset">Reset</KButton>
-  <div class="mt-6"><b>Value:</b> <pre class="json hide-from-percy">{{ JSON.stringify(myList) }}</pre></div>
+  <div class="mt-6"><b>Value:</b> <pre class="json hide-from-visual-regression-tests">{{ JSON.stringify(myList) }}</pre></div>
 </div>
 
 ```html

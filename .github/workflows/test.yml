@@ -10,15 +10,6 @@ on:
 
   # Allow workflow to be called by another workflow
   workflow_call:
-    # Must define secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
-    secrets:
-      # Normally, this should not be passed as Percy should only run on PR
-      PERCY_TOKEN:
-        description: 'The PERCY_TOKEN passed from the caller workflow as it is not available within workflow_call.'
-        required: true
-      PREVENT_PERCY_TESTS:
-        description: 'Pass false to prevent the Percy visual regression tests from running.'
-        required: true
 
 jobs:
   test:
@@ -47,7 +38,7 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           install: false
-          command: yarn test
+          command: yarn test:component
 
       - name: Upload Cypress screenshots (on failure)
         uses: actions/upload-artifact@v3
@@ -66,13 +57,11 @@ jobs:
       - name: Build components and docs
         run: yarn build
 
-      # This step will be skipped if being ran from the publish action with PREVENT_PERCY_TESTS: 'true'
-      - name: Trigger Percy visual regression test for docs
-        timeout-minutes: 5
-        env:
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-          PREVENT_PERCY_TESTS: ${{ secrets.PREVENT_PERCY_TESTS }}
-          PERCY_TARGET_BRANCH: main
-        if: "${{ env.PREVENT_PERCY_TESTS != 'true' }}"
-        run: |
-          npx @percy/cli snapshot docs/.vitepress/dist/ --exclude "**/404.html"
+      - name: Run Cypress visual regression tests for docs site
+        uses: cypress-io/github-action@v4
+        with:
+          install: false
+          start: yarn docs:serve --port 3173
+          wait-on: 'http://localhost:3173'
+          command: yarn test:e2e:ci
+

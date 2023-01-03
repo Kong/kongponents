@@ -117,12 +117,13 @@ export async function createComponentFiles(name: string): Promise<void> {
   }
 
   spinner.start({
-    text: 'Creating the component markdown file for the docs...',
+    text: 'Creating the component markdown file...',
   })
 
-  // Create new docs files in docs/components/{name}
+  // Create new docs markdown file in docs/components/{name}
   docsFilesToCreate.map(async (filename) => {
     const originalFilePath = `${docsFilesTemplatePath}/${filename}`
+
     const stats = fs.statSync(originalFilePath)
     let docsFileExists = false
 
@@ -150,29 +151,33 @@ export async function createComponentFiles(name: string): Promise<void> {
         })
       }
 
-      spinner.start({
-        text: 'Verifying file structure...',
-      })
-
-      const docsFile = docsFileExists === false ? `${kongponentDocFilename(name)}.md` : pc.yellow(`${kongponentDocFilename(name)}.md (already existed, not modified)`)
-
-      spinner.success({
-        text: `Created the new '${componentName}' Kongponent and its related files:
-
-    ├── docs/
-    │   └── components/
-    │       └── ${docsFile}
-    └── src/
-        └── components/
-            └── ${componentName}/
-              ├── ${componentName}.cy.ts
-              └── ${componentName}.vue
-    `,
-      })
-
-      console.log(`${pc.bold('Note')}: You will need to manually add the new ${pc.cyan(kongponentDocFilename(name) + '.md')} file to \n      the VitePress sidebar in docs/.vitepress/config.ts.`)
-      // Empty line
-      console.log('')
+      if (docsFileExists !== false) {
+        pc.yellow(`${kongponentDocFilename(name)}.md (already existed, not modified)`)
+      }
     }
   })
+
+  spinner.start({
+    text: 'Verifying file structure...',
+  })
+
+  await sleep()
+
+  spinner.success({
+    text: `Created the new '${componentName}' Kongponent and its related files:
+
+  ├── docs/
+  │   └── components/
+  │       └── ${kongponentDocFilename(name)}
+  └── src/
+      └── components/
+          └── ${componentName}/
+            ├── ${componentName}.cy.ts
+            └── ${componentName}.vue
+  `,
+  })
+
+  console.log(`${pc.bold('Note')}: You will need to manually add the new ${pc.cyan(kongponentDocFilename(name) + '.md')} file to \n      the VitePress sidebar in docs/.vitepress/config.ts.`)
+  // Empty line
+  console.log('')
 }

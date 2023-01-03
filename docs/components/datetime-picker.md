@@ -22,7 +22,7 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
     width="250"
     :range="false"
   />
-  <div class="mt-6">Emitted value: <pre class="json hide-from-percy">{{ JSON.stringify(currentValue0) }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json hide-from-visual-regression-tests">{{ JSON.stringify(currentValue0) }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -48,7 +48,7 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
     :minute-increment="5"
     :range="false"
   />
-  <div class="mt-6">Emitted value: <pre class="json hide-from-percy">{{ JSON.stringify(currentValue1) }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json hide-from-visual-regression-tests">{{ JSON.stringify(currentValue1) }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -73,7 +73,7 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
     mode="date"
     :range="true"
   />
-  <div class="mt-6">Emitted value: <pre class="json hide-from-percy">{{ currentValue2 }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json hide-from-visual-regression-tests">{{ currentValue2 }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -98,7 +98,7 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
     :minute-increment="5"
     :range="true"
   />
-  <div class="mt-6">Emitted value: <pre class="json hide-from-percy">{{ currentValue3 }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json hide-from-visual-regression-tests">{{ currentValue3 }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -131,7 +131,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
     :range="true"
     :time-periods="exampleTimeFrames"
   />
-  <div class="mt-6">Emitted value: <pre class="json hide-from-percy">{{ currentValue4 }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json hide-from-visual-regression-tests">{{ currentValue4 }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -192,7 +192,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
     :range="true"
     :time-periods="exampleTimeFrames"
   />
-  <div class="mt-6">Emitted value: <pre class="json hide-from-percy">{{ currentValue5 }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json hide-from-visual-regression-tests">{{ currentValue5 }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -250,7 +250,7 @@ This utilizes the same time frames as the previous example; however, in this exa
     :range="true"
     :time-periods="exampleTimeFrames"
   />
-  <div class="mt-6">Emitted value: <pre class="json hide-from-percy">{{ currentValue6 }}</pre></div>
+  <div class="mt-6">Emitted value: <pre class="json hide-from-visual-regression-tests">{{ currentValue6 }}</pre></div>
 </ClientOnly>
 
 ```html

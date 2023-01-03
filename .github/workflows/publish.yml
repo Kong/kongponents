@@ -15,11 +15,6 @@ jobs:
     needs:
       - get-changed-files
     uses: ./.github/workflows/test.yml
-    # Must pass in secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
-    secrets:
-      PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-      # We MUST run Percy tests on publish to update our baseline images
-      PREVENT_PERCY_TESTS: 'false'
 
   publish:
       name: Build and Publish Kongponents
@@ -58,6 +53,13 @@ jobs:
 
         - name: Build
           run: yarn build:kongponents
+
+        - name: Update Cypress visual regression snapshots for docs site
+          uses: cypress-io/github-action@v4
+          with:
+            install: false
+            browser: chrome
+            command: yarn test:e2e:update-snapshots
 
         - name: Semantic Release
           uses: cycjimmy/semantic-release-action@v3
