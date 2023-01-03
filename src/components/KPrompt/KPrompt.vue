@@ -1,11 +1,10 @@
 <template>
   <KModal
-    :is-visible="isVisible"
-    :title="displayTitle"
-    text-align="left"
     class="k-prompt"
-    @keyup.esc="close"
-    @keyup.enter="proceed"
+    :is-visible="isVisible"
+    :tabbable-options="tabbableOptions"
+    text-align="left"
+    :title="displayTitle"
   >
     <template #header-content>
       <div class="k-prompt-header w-100">
@@ -13,23 +12,23 @@
           <slot name="header-content">
             <KIcon
               v-if="type === 'warning'"
-              icon="warning"
+              class="mr-2"
               color="var(--white)"
+              icon="warning"
               secondary-color="var(--yellow-400)"
               size="20"
-              class="mr-2"
             />
             {{ displayTitle }}
           </slot>
           <div class="close-button">
             <KButton
-              class="non-visual-button"
               aria-label="Close"
+              class="non-visual-button"
               @click="close"
             >
               <KIcon
-                icon="close"
                 color="var(--grey-600)"
+                icon="close"
                 size="15"
               />
             </KButton>
@@ -53,10 +52,10 @@
 
             <KInput
               v-model="confirmationInput"
-              autocomplete="off"
               autocapitalize="off"
-              data-testid="confirmation-input"
+              autocomplete="off"
               class="mt-2"
+              data-testid="confirmation-input"
             />
           </div>
         </div>
@@ -75,16 +74,16 @@
           </KButton>
           <KButton
             :appearance="type === 'danger' ? 'danger' : 'primary'"
-            :disabled="disableProceedButton"
             class="k-prompt-proceed"
+            :disabled="disableProceedButton"
             @click="proceed"
           >
             <template #icon>
               <KIcon
                 v-if="actionPending"
+                color="var(--grey-400)"
                 icon="spinner"
                 size="16"
-                color="var(--grey-400)"
               />
             </template>
             {{ actionButtonText }}
@@ -150,6 +149,13 @@ export default defineComponent({
     preventProceedOnEnter: {
       type: Boolean,
       default: false,
+    },
+    /**
+     * Options to be passed to tabbable
+     */
+    tabbableOptions: {
+      type: Object,
+      default: () => ({}),
     },
   },
   emits: ['canceled', 'proceed'],
@@ -245,20 +251,20 @@ export default defineComponent({
     }
 
     .divider {
+      margin-right: calc(#{var(--spacing-lg)} * -1);
       /* subtract parents padding from margin to take full width of modal */
       /* use interpolation for the var in calc to not break postcss */
       margin-left: calc(#{var(--spacing-lg)} * -1);
-      margin-right: calc(#{var(--spacing-lg)}  * -1);
       color: var(--grey-300);
     }
 
     .k-modal-content {
       .k-modal-header.modal-header {
-        width: 100%;
         display: flex;
+        width: 100%;
 
         .close-button .k-button {
-          padding: 8px 0 8px 8px;
+          padding: var(--spacing-xs);
           margin-top: -8px;
         }
       }
@@ -267,18 +273,18 @@ export default defineComponent({
         width: 100%;
 
         .k-prompt-body .k-prompt-body-content {
-          font-size: var(--type-md);
-          text-align: start;
-          color: var(--grey-600);
-          line-height: 24px;
-          white-space: normal; // in case inside KTable
-          overflow-y: auto;
-          overflow-x: hidden;
+          width: 99%;
           max-height: var(--KPromptMaxHeight, 300px);
           padding-bottom: var(--spacing-lg);
-          width: 99%;
+          overflow-x: hidden;
+          overflow-y: auto;
+          font-size: var(--type-md);
+          line-height: 24px;
+          color: var(--grey-600);
+          text-align: start;
+          white-space: normal; // in case inside KTable
 
-          @media screen and (min-width: 768px) {
+          @media screen and (min-width: $viewport-md) {
             max-height: var(--KPromptMaxHeight, 500px);
           }
 

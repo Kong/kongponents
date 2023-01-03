@@ -1,9 +1,9 @@
 <template>
   <svg
-    viewBox="0 0 24 24"
-    fill="none"
     class="k-step-state-icon"
     data-testid="k-step-default"
+    fill="none"
+    viewBox="0 0 24 24"
   >
     <title>{{ title }}</title>
     <circle

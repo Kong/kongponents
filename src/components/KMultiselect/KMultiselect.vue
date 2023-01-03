@@ -1,14 +1,14 @@
 <template>
   <div
-    :style="widthStyle"
-    :class="[$attrs.class]"
     class="k-multiselect"
+    :class="[$attrs.class]"
+    :style="widthStyle"
   >
     <KLabel
       v-if="label"
-      :for="multiselectId"
       v-bind="labelAttributes"
       :data-testid="labelAttributes['data-testid'] ? labelAttributes['data-testid'] : 'k-multiselect-label'"
+      :for="multiselectId"
     >
       {{ label }}
     </KLabel>
@@ -20,16 +20,12 @@
         <KPop
           ref="popper"
           v-bind="boundKPopAttributes"
-          :target="`[id='${multiselectInputId}']`"
-          :position-fixed="positionFixed"
           :on-popover-click="() => {
             return
           }"
+          :position-fixed="positionFixed"
+          :target="`[id='${multiselectInputId}']`"
           :test-mode="!!testMode || undefined"
-          @opened="() => {
-            filterStr = ''
-            toggle()
-          }"
           @closed="() => {
             if (isToggled.value) {
               toggle()
@@ -37,45 +33,49 @@
             }
             filterStr = ''
           }"
+          @opened="() => {
+            filterStr = ''
+            toggle()
+          }"
         >
           <div
             ref="multiselectRef"
-            role="listbox"
-            :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }"
             class="k-multiselect-trigger w-100"
+            :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }"
             data-testid="k-multiselect-trigger"
+            role="listbox"
             @click="handleFilterClick"
           >
             <div
               v-if="selectedItems.length && (isToggled.value || expandSelected)"
               :id="multiselectSelectedItemsId"
               :key="key"
-              :style="!expandSelected ? numericWidthStyle : nonSlimStyle"
-              :class="{ 'scrollable my-2': expandSelected }"
               class="k-multiselect-selections"
+              :class="{ 'scrollable my-2': expandSelected }"
               data-testid="k-multiselect-selections"
+              :style="!expandSelected ? numericWidthStyle : nonSlimStyle"
             >
               <KBadge
                 v-for="item, idx in visibleSelectedItems"
                 :key="`${item.key ? item.key : idx}-badge`"
-                :truncation-tooltip="item.label"
-                shape="rectangular"
-                dismissable
-                :class="!expandSelected ? 'mt-2' : 'my-1'"
                 class="mr-1"
-                @dismissed="handleItemSelect(item)"
+                :class="!expandSelected ? 'mt-2' : 'my-1'"
+                dismissable
+                shape="rectangular"
+                :truncation-tooltip="item.label"
                 @click.stop
+                @dismissed="handleItemSelect(item)"
               >
                 {{ item.label }}
               </KBadge>
               <!-- Always render this badge even if it's hidden to ensure there will be enough space to show it -->
               <KBadge
                 v-if="!expandSelected"
+                class="mt-2 hidden-selection-count"
+                :class="{ 'hidden': !invisibleSelectedItems.length }"
+                force-tooltip
                 shape="rectangular"
                 :truncation-tooltip="hiddenItemsTooltip"
-                force-tooltip
-                :class="{ 'hidden': !invisibleSelectedItems.length }"
-                class="mt-2 hidden-selection-count"
                 @click.stop
               >
                 +{{ invisibleSelectedItems.length }}
@@ -94,19 +94,19 @@
                 @keyup.enter="clearSelection"
               >
                 <KIcon
-                  title="Clear all selections"
-                  icon="close"
                   color="var(--grey-500)"
+                  icon="close"
                   size="12"
+                  title="Clear all selections"
                 />
               </KButton>
               <KIcon
                 v-else
-                :icon="loading ? 'spinner' : 'chevronDown'"
-                color="var(--grey-500)"
-                size="18"
-                :class="{ 'in-selection-box': selectedItems.length }"
                 class="k-multiselect-chevron-icon"
+                :class="{ 'in-selection-box': selectedItems.length }"
+                color="var(--grey-500)"
+                :icon="loading ? 'spinner' : 'chevronDown'"
+                size="18"
               />
             </div>
             <div
@@ -117,26 +117,26 @@
                 v-if="!expandSelected || (expandSelected && (!selectedItems.length || isToggled.value))"
                 :id="multiselectTextId"
                 v-bind="modifiedAttrs"
+                autocapitalize="off"
+                autocomplete="off"
+                class="k-multiselect-input input-placeholder-dark"
+                :class="{ 'mt-1': isToggled.value && selectedItems.length, 'is-readonly': isReadonly }"
+                data-testid="k-multiselect-input"
                 :model-value="filterStr"
                 :placeholder="getPlaceholderText(isToggled.value)"
-                autocomplete="off"
-                autocapitalize="off"
-                type="text"
-                :class="{ 'mt-1': isToggled.value && selectedItems.length, 'is-readonly': isReadonly }"
                 :readonly="isReadonly ? true : undefined"
-                class="k-multiselect-input input-placeholder-dark"
-                data-testid="k-multiselect-input"
-                @keyup="(evt: any) => triggerFocus(evt, isToggled)"
+                type="text"
+                @blur="() => isFocused = false"
                 @click="(evt: any) => {
                   if (isToggled.value) {
                     evt.stopPropagation()
                   }
                 }"
-                @update:model-value="onQueryChange"
+                @focus="onInputFocus"
+                @keyup="(evt: any) => triggerFocus(evt, isToggled)"
                 @mouseenter="() => isHovered = true"
                 @mouseleave="() => isHovered = false"
-                @blur="() => isFocused = false"
-                @focus="onInputFocus"
+                @update:model-value="onQueryChange"
               />
             </div>
           </div>
@@ -144,11 +144,11 @@
             <!-- use @click.stop so we don't close drop down when selecting/deselecting items -->
             <div
               class="k-multiselect-list ma-0 pa-0"
+              @blur="() => isFocused = false"
               @click.stop
+              @focus="isFocused = true"
               @mouseenter="() => isHovered = true"
               @mouseleave="() => isHovered = false"
-              @blur="() => isFocused = false"
-              @focus="isFocused = true"
             >
               <KMultiselectItem
                 v-for="item, idx in sortedItems"
@@ -158,17 +158,17 @@
               >
                 <template #content>
                   <slot
+                    class="k-multiselect-item"
                     :item="item"
                     name="item-template"
-                    class="k-multiselect-item"
                   />
                 </template>
               </KMultiselectItem>
               <KMultiselectItem
                 v-if="!sortedItems.length && !$slots.empty"
                 key="k-multiselect-empty-state"
-                :item="{ label: 'No results found', value: 'no_results' }"
                 class="k-multiselect-empty-item"
+                :item="{ label: 'No results found', value: 'no_results' }"
               >
                 <template #content>
                   <div class="select-item-label">
@@ -196,26 +196,26 @@
       <div
         :id="multiselectSelectedItemsStagingId"
         :key="stagingKey"
+        class="k-multiselect-selections staging"
         :style="numericWidthStyle"
         tabindex="-1"
-        class="k-multiselect-selections staging"
       >
         <KBadge
           v-for="item, idx in visibleSelectedItemsStaging"
           :key="`${item.key ? item.key : idx}-badge`"
-          shape="rectangular"
+          class="mr-1 mt-2"
           dismissable
           hidden
-          class="mr-1 mt-2"
+          shape="rectangular"
         >
           {{ item.label }}
         </KBadge>
         <!-- Always render this badge even if it's hidden to ensure there will be enough space to show it -->
         <KBadge
           v-if="!expandSelected"
-          shape="rectangular"
-          hidden
           class="mt-2 hidden-selection-count"
+          hidden
+          shape="rectangular"
         >
           +{{ invisibleSelectedItemsStaging.length }}
         </KBadge>
@@ -827,16 +827,16 @@ export default defineComponent({
 @import '@/styles/mixins';
 
 .k-multiselect {
-  width: fit-content; // necessary for correct placement of popup
   position: relative; // so staging area is positioned around this node
+  width: fit-content; // necessary for correct placement of popup
 
   // off screen area for checking selections before display
   .staging-area {
-    visibility: hidden;
     position: absolute;
     left: -99999px;
-    pointer-events: none;
     z-index: -1;
+    pointer-events: none;
+    visibility: hidden;
   }
 
   .k-multiselect-selections {
@@ -844,21 +844,21 @@ export default defineComponent({
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    padding-left: 16px;
     padding-right: 23px;
+    padding-left: 16px;
 
     &.scrollable {
       overflow-y: auto;
     }
 
     &.staging {
+      position: relative;
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
       box-sizing: border-box;
-      position: relative;
       height: auto;
-      padding-left: 16px;
       padding-right: 23px;
+      padding-left: 16px;
     }
 
     .hidden-selection-count {
@@ -873,8 +873,8 @@ export default defineComponent({
 
   .k-multiselect-icon {
     position: absolute;
-    right: 1px;
     top: 1px;
+    right: 1px;
 
     .k-multiselect-chevron-icon {
       position: relative;
@@ -890,8 +890,8 @@ export default defineComponent({
   }
 
   .k-multiselect-trigger {
-    display: inline-block;
     position: relative;
+    display: inline-block;
     border-radius: 3px;
     // mimic input's box shadow styling
     @include input-default;
@@ -947,13 +947,13 @@ export default defineComponent({
       }
 
       input.k-input:not([type="checkbox"]):not([type="radio"]) {
+        position: relative;
+        left: 1px;
+        width: calc(100% - 4px);
         // slightly smaller than container so we can see
         // the container's box-shadow
         height: calc(100% - 2px);
-        width: calc(100% - 4px);
         margin: 1px;
-        position: relative;
-        left: 1px;
         // remove input's default box shadow
         box-shadow: none !important;
 

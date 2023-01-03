@@ -1,14 +1,14 @@
 <template>
   <div
-    :style="widthStyle"
     class="k-select"
     :class="[$attrs.class]"
+    :style="widthStyle"
   >
     <KLabel
       v-if="label && !overlayLabel"
-      :for="selectId"
       v-bind="labelAttributes"
       data-testid="k-select-label"
+      :for="selectId"
     >
       {{ label }}
     </KLabel>
@@ -46,13 +46,8 @@
             return isToggled.value
           }"
           :position-fixed="positionFixed"
-          :test-mode="!!testMode || undefined"
           :target="`[id='${selectInputId}']`"
-          @opened="() => {
-            filterStr = ''
-            toggle()
-            onPopoverOpen()
-          }"
+          :test-mode="!!testMode || undefined"
           @closed="() => {
             if (selectedItem && appearance === 'select') {
               filterStr = selectedItem.label
@@ -61,22 +56,27 @@
               toggle()
             }
           }"
+          @opened="() => {
+            filterStr = ''
+            toggle()
+            onPopoverOpen()
+          }"
         >
           <div
             v-if="appearance === 'button'"
             :id="selectInputId"
             class="k-select-button"
             data-testid="k-select-input"
-            style="position: relative;"
             role="listbox"
+            style="position: relative;"
           >
             <KButton
               :id="selectTextId"
-              :style="widthStyle"
-              show-caret
-              :is-rounded="false"
               v-bind="modifiedAttrs"
               appearance="btn-link"
+              :is-rounded="false"
+              show-caret
+              :style="widthStyle"
               @keyup="evt => triggerFocus(evt, isToggled)"
             >
               {{ selectButtonText }}
@@ -85,11 +85,17 @@
           <div
             v-else
             :id="selectInputId"
-            :class="{ 'k-select-input': appearance === 'select', 'no-filter': !filterIsEnabled, 'is-readonly': ($attrs.readonly !== undefined && String($attrs.readonly) !== 'false') }"
-            data-testid="k-select-input"
             class="select-input-container"
-            style="position: relative;"
+            :class="{
+              'k-select-input': appearance === 'select',
+              'no-filter': !filterIsEnabled,
+              'is-readonly': ($attrs.readonly !== undefined && String($attrs.readonly) !== 'false'),
+              'disabled': ($attrs.disabled !== undefined && String($attrs.disabled) !== 'false'),
+              'is-open': isToggled.value
+            }"
+            data-testid="k-select-input"
             role="listbox"
+            style="position: relative;"
             @click="evt => {
               if ($attrs.disabled !== undefined && String($attrs.disabled) !== 'false') {
                 evt.stopPropagation()
@@ -98,45 +104,46 @@
           >
             <KButton
               v-if="isClearVisible"
-              :class="{ 'overlay-label-clear': overlayLabel }"
               class="clear-selection-icon cursor-pointer non-visual-button"
+              :class="{ 'overlay-label-clear': overlayLabel }"
               @click="clearSelection"
               @keyup.enter="clearSelection"
             >
               <KIcon
-                icon="clear"
                 color="var(--grey-500)"
+                icon="clear"
                 size="18"
               />
             </KButton>
             <KIcon
               v-if="appearance === 'select'"
-              icon="chevronDown"
-              color="var(--grey-500)"
-              size="18"
               :class="{ 'overlay-label-chevron': overlayLabel }"
+              color="var(--grey-500)"
+              icon="chevronDown"
+              size="18"
             />
             <KInput
               :id="selectTextId"
               v-bind="modifiedAttrs"
-              :model-value="filterStr"
-              :label="label && overlayLabel ? label : undefined"
-              :overlay-label="overlayLabel"
-              :placeholder="selectedItem && appearance === 'select' && !filterIsEnabled ? selectedItem.label : placeholderText"
-              autocomplete="off"
               autocapitalize="off"
+              autocomplete="off"
+              class="k-select-input"
               :class="{
                 'cursor-default prevent-pointer-events': !filterIsEnabled,
                 'input-placeholder-dark has-chevron': appearance === 'select',
                 'has-clear': isClearVisible,
-                'is-readonly': ($attrs.readonly !== undefined && String($attrs.readonly) !== 'false')
+                'is-readonly': ($attrs.readonly !== undefined && String($attrs.readonly) !== 'false'),
+                'disabled': ($attrs.disabled !== undefined && String($attrs.disabled) !== 'false')
               }"
-              class="k-select-input"
+              :label="label && overlayLabel ? label : undefined"
+              :model-value="filterStr"
+              :overlay-label="overlayLabel"
+              :placeholder="selectedItem && appearance === 'select' && !filterIsEnabled ? selectedItem.label : placeholderText"
+              @blur="onInputBlur"
+              @focus="onInputFocus"
               @keypress="onInputKeypress"
               @keyup="(evt: any) => triggerFocus(evt, isToggled)"
               @update:model-value="onQueryChange"
-              @focus="onInputFocus"
-              @blur="onInputBlur"
             />
           </div>
           <template #content>
@@ -162,17 +169,17 @@
               >
                 <template #content>
                   <slot
+                    class="select-item-label select-item-desc"
                     :item="item"
                     name="item-template"
-                    class="select-item-label select-item-desc"
                   />
                 </template>
               </KSelectItem>
               <KSelectItem
                 v-if="!filteredItems.length && !$slots.empty"
                 key="k-select-empty-state"
-                :item="{ label: 'No results', value: 'no_results' }"
                 class="k-select-empty-item"
+                :item="{ label: 'No results', value: 'no_results' }"
               />
             </div>
             <slot
@@ -639,12 +646,12 @@ export default defineComponent({
 .k-select {
   width: fit-content; // necessary for correct placement of popup
   .k-select-item-selection {
-    background-color: var(--blue-100);
-    color: var(--blue-500);
-    font-weight: 400;
     display: flex;
-    border-radius: 4px;
     margin-bottom: 6px;
+    font-weight: 400;
+    color: var(--blue-500);
+    background-color: var(--blue-100);
+    border-radius: 4px;
 
     &.overlay-label-item-selection {
       position: relative;
@@ -658,11 +665,11 @@ export default defineComponent({
     }
 
     .clear-selection-icon {
-      margin-left: auto;
+      height: 24px;
+      padding: 0;
       margin-top: auto;
       margin-bottom: auto;
-      padding: 0;
-      height: 24px;
+      margin-left: auto;
     }
   }
 
@@ -673,9 +680,9 @@ export default defineComponent({
     margin-left: var(--spacing-xs, spacing(xs));
     vertical-align: middle;
     content: "";
-    border-top: 0.325em solid;
-    border-right: 0.325em solid transparent;
-    border-left: 0.325em solid transparent;
+    border-top: 6px solid;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
   }
 }
 </style>
@@ -684,6 +691,10 @@ export default defineComponent({
 @import '@/styles/variables';
 @import '@/styles/mixins';
 @import '@/styles/functions';
+
+@mixin boxShadow($color, $whiteShadowSpred: 2px, $colorShadowSpread: 4px) {
+  box-shadow: 0 0 0 $whiteShadowSpred var(--white, color(white)), 0 0 0 $colorShadowSpread $color;
+}
 
 .k-select {
   .k-select-item-selection {
@@ -694,8 +705,17 @@ export default defineComponent({
     }
   }
 
-  .k-button .caret {
-    margin-left: auto;
+  .k-button.btn-link {
+    padding: var(--spacing-sm, spacing(sm)) var(--spacing-lg, spacing(lg));
+    text-decoration: none;
+
+    &:focus {
+      @include boxShadow(var(--KButtonOutlineBorder, var(--blue-500, color(blue-500))), 0, 2px);
+    }
+
+    .caret {
+      margin-left: auto;
+    }
   }
 
   .k-select-input {
@@ -711,6 +731,18 @@ export default defineComponent({
 
       &.select-input-container {
         input.k-input.form-control:not([type="checkbox"]):not([type="radio"]):not([type="file"]):read-only {
+          box-shadow: none !important;
+        }
+      }
+    }
+
+      &.select-input-container.disabled {
+      @include input-disabled;
+      box-shadow: none !important;
+      cursor: not-allowed !important;
+
+      &.select-input-container {
+        input.k-input.form-control:not([type="checkbox"]):not([type="radio"]):not([type="file"]):disabled {
           box-shadow: none !important;
         }
       }
@@ -741,8 +773,8 @@ export default defineComponent({
     }
 
     &input.k-input {
-      padding: var(--spacing-xs);
       height: 100%;
+      padding: var(--spacing-xs);
     }
 
     .kong-icon {
@@ -767,16 +799,37 @@ export default defineComponent({
   }
 
   div.k-select-input.select-input-container {
-    cursor: pointer !important;
-    flex: 0 0 40%;
     display: flex;
-    align-items: center;
+    flex: 0 0 40%;
     flex-direction: row-reverse;
-    border: 1px solid var(--grey-300) !important;
-    box-shadow: none !important;
+    align-items: center;
+    cursor: pointer !important;
+    border: 1px solid var(--grey-300);
+    border-radius: 3px;
+    transition: all 0.1s ease;
+
+    .k-input-wrapper  {
+      border-radius: 3px;
+    }
 
     input.k-input {
       box-shadow: none !important;
+    }
+
+    &:hover {
+      border-color: var(--KInputHover, var(--blue-200));
+
+      .text-on-input label {
+        color: var(--KInputHover, var(--blue-500));
+      }
+    }
+
+    &.is-open {
+      border-color: var(--KInputFocus, var(--blue-400));
+
+      .text-on-input label {
+        color: var(--KInputHover, var(--blue-500));
+      }
     }
   }
 
@@ -832,8 +885,8 @@ export default defineComponent({
     }
 
     ul {
-      margin: 0;
       padding: 0;
+      margin: 0;
     }
 
     a {
@@ -848,12 +901,12 @@ export default defineComponent({
     }
 
     .k-select-loading {
-      display: block;
-      text-align: center;
       position: relative;
       top: 0;
       right: 0;
+      display: block;
       height: 24px;
+      text-align: center;
     }
   }
 }

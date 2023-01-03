@@ -1,39 +1,39 @@
 <template>
   <div class="k-collapse w-100">
     <div
+      class="k-collapse-heading mb-3"
       :class="{
         'd-flex': trailingTrigger,
         'd-block': !trailingTrigger
       }"
-      class="k-collapse-heading mb-3"
     >
       <div
         v-if="title"
+        class="k-collapse-title"
         :class="{
           'mr-auto': trailingTrigger,
           'mb-2': !trailingTrigger
         }"
-        class="k-collapse-title"
         data-testid="k-collapse-title"
       >
         {{ title }}
       </div>
       <div
+        class="k-collapse-trigger"
         :class="{
           'ml-auto': trailingTrigger
         }"
-        class="k-collapse-trigger"
       >
         <slot
-          name="trigger"
           :is-collapsed="collapsedState"
+          name="trigger"
           :toggle="toggleDisplay"
         >
           <a
-            href="#"
-            role="button"
             class="k-collapse-trigger-content d-inline-block"
             data-testid="k-collapse-trigger-content"
+            href="#"
+            role="button"
             @click.prevent.stop="toggleDisplay()"
           >
             <slot name="trigger-content">
@@ -43,17 +43,17 @@
                 data-testid="k-collapse-trigger-label"
               >
                 <KIcon
+                  class="k-collapse-trigger-chevron mr-1"
                   :icon="collapsedState ? 'chevronRight' : 'chevronDown'"
                   size="14"
-                  class="k-collapse-trigger-chevron mr-1"
                 />
                 <span>{{ triggerLabel }}</span>
               </span>
               <KIcon
                 v-else
-                :icon="collapsedState ? 'chevronRight' : 'chevronDown'"
                 class="k-collapse-trigger-icon k-collapse-trigger-chevron"
                 data-testid="k-collapse-trigger-icon"
+                :icon="collapsedState ? 'chevronRight' : 'chevronDown'"
               />
             </slot>
           </a>
@@ -183,9 +183,9 @@ export default defineComponent({
     cursor: pointer;
 
     .k-collapse-trigger-content {
-      color: var(--KCollapseTriggerColor, var(--blue-500));
       font-size: var(--type-sm);
       font-weight: 600;
+      color: var(--KCollapseTriggerColor, var(--blue-500));
     }
   }
 }
@@ -212,8 +212,8 @@ export default defineComponent({
 
       .k-collapse-trigger-label {
         .kong-icon {
-          top: 2px;
           position: relative;
+          top: 2px;
         }
       }
     }

@@ -5,14 +5,18 @@
   >
     <div>
       <img
-        :src="loaderImage"
         alt="Loading"
+        :src="loaderImage"
       >
-      <div class="progress">
+      <div
+        v-if="!hideProgress"
+        class="progress"
+      >
         <div
-          :style="{ width: `${progression}%` }"
           class="progress-bar"
           role="progressbar"
+          :style="{ width: `${progression}%` }"
+          title="Loading"
         />
       </div>
     </div>
@@ -29,6 +33,10 @@ export default defineComponent({
     progress: {
       type: Number,
       default: null,
+    },
+    hideProgress: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(props) {
@@ -70,27 +78,27 @@ export default defineComponent({
 .fullscreen-loading-container {
   position: fixed;
   top: 0;
-  bottom: 0;
   right: 0;
+  bottom: 0;
   left: 0;
+  z-index: 10500;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 10500;
-  flex-direction: column;
   margin: var(--KSkeletonFullScreenMargin, 0);
   background: var(--white, color(white));
 
   .progress {
-    margin-top: 1rem;
     max-width: 350px;
+    margin-top: 16px;
     background-color: var(--grey-200, color(grey-200));
-    border-radius: 0.5rem;
+    border-radius: 8px;
 
     .progress-bar {
-      border-radius: 0.5rem;
       height: 5px;
       background-color: var(--KSkeletonFullScreenProgressColor, var(--blue-500, color(blue-500)));
+      border-radius: 8px;
     }
   }
 }

@@ -8,7 +8,7 @@
 
 - `type`
 
-There are 5 different types of loading states that KSkeleton supports: Card, Table, Form, Spinner and a generic loading state. Defaults to a generic loading state. The following example shows a Form type KSKeleton.
+There are 6 different types of loading states that KSkeleton supports: `card`, `table`, `form`, `spinner`, `fullscreen-kong`, and a generic loading state. Defaults to a generic loading state. The following example shows a `form` type KSKeleton.
 
 <KSkeleton type="form" />
 
@@ -126,23 +126,87 @@ This loading state is used for a spinner, which can be used for a wide variety o
 
 The full screen loading state is used to display a full screen loader typically during initial render of an app to avoid any FOUC (Flash Of Unstyled Content) while the app tries to figure out if you are able to access the route and also to perform any expensive querying on first load.
 
+### progress
+
+Used for controlling the progress indicator.
+
+### hideProgress
+
+Defaults to `false`, you can use this prop to hide the progress indicator.
+
 <div>
-  <KButton @click="clicked()" class="mr-2">click for default progress behavior</KButton>
-  <KButton @click="clickProgress()">click me to simulate progress manually</KButton>
+  <KButton class="mr-2" @click="clickNoProgress()">Click for no progress indicator</KButton>
+  <KButton @click="clicked()">Click for default progress behavior</KButton>
+  <KSkeleton
+    v-if="loadingNone"
+    :delay-milliseconds="0"
+    hide-progress
+    type="fullscreen-kong"
+  />
   <KSkeleton
     v-if="loading"
+    :delay-milliseconds="0"
     type="fullscreen-kong"
-    :delay-milliseconds="0" />
-  <KSkeleton
-    v-if="loadingManually"
-    type="fullscreen-kong"
-    :progress="progress"
-    :delay-milliseconds="0" />
+  />
 </div>
 
 ```html
-  <KButton @click="clicked()">click for default progress behavior</KButton>
-  <KSkeleton v-if="loading" type="fullscreen-kong" :delay-milliseconds="0" />
+<KButton @click="clickNoProgress()">Click for no progress indicator</KButton>
+<KButton @click="clicked()">Click for default progress behavior</KButton>
+
+<KSkeleton
+  v-if="loadingNone"
+  :delay-milliseconds="0"
+  hide-progress
+  type="fullscreen-kong"
+/>
+
+<KSkeleton
+  v-if="loading"
+  :delay-milliseconds="0"
+  type="fullscreen-kong"
+/>
+```
+
+<div>
+  <KButton @click="clickProgress()">Click me to simulate progress manually</KButton>
+
+  <KSkeleton
+    v-if="loadingManually"
+    :delay-milliseconds="0"
+    :progress="progress"
+    type="fullscreen-kong"
+  />
+</div>
+
+```html
+<template>
+  <KButton @click="clickProgress()">Click me to simulate progress manually</KButton>
+
+  <KSkeleton
+    v-if="loadingManually"
+    :delay-milliseconds="0"
+    :progress="progress"
+    type="fullscreen-kong"
+  />
+</template>
+
+<script setup lang="ts">
+  const loadingManually = ref(false)
+  const progress = ref(0)
+
+  const clickProgress = () => {
+    progress.value = 0
+    loadingManually.value = true
+    const interval = setInterval(() => {
+      progress.value = progress.value + 20
+      if (progress.value >= 100) {
+        loadingManually.value = false
+        clearInterval(interval)
+      }
+    }, 500)
+  },
+</script>
 ```
 
 ## KSkeletonBox
@@ -298,6 +362,7 @@ export default defineComponent({
   data () {
     return {
       loading: false,
+      loadingNone: false,
       loadingButton: false,
       loadingManually: false,
       loadingTheming: false,
@@ -309,6 +374,13 @@ export default defineComponent({
       this.loading = true
       setTimeout(() => {
         this.loading = false
+      }, 1000)
+    },
+
+    clickNoProgress() {
+      this.loadingNone = true
+      setTimeout(() => {
+        this.loadingNone = false
       }, 1000)
     },
 
@@ -347,6 +419,6 @@ export default defineComponent({
   --KSkeletonFullScreenProgressColor: var(--black-70);
 }
 .k-skeleton-modified {
-  --KSkeletonCardWidth: calc(33% - 1rem);
+  --KSkeletonCardWidth: calc(33% - 16px);
 }
 </style>

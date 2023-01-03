@@ -29,6 +29,9 @@ module.exports = {
       ignoreRegExpLiterals: true,
     }],
     'space-before-function-paren': 'off',
+    'vue/attributes-order': ['error', {
+      alphabetical: true,
+    }],
   },
   overrides: [
     {

@@ -2,11 +2,11 @@
   <div
     v-if="isVisible"
     :aria-label="title"
+    aria-modal="true"
     class="k-modal-fullscreen isOpen"
     role="dialog"
-    aria-modal="true"
-    @keyup.esc="close"
     @keyup.enter="proceed"
+    @keyup.esc="close"
   >
     <div
       ref="modalBodyContent"
@@ -39,9 +39,9 @@
       <!-- Header at the bottom to allow proper tabindex -->
       <div class="k-modal-fullscreen-header">
         <div
+          aria-level="2"
           class="k-modal-fullscreen-header-description"
           role="heading"
-          aria-level="2"
         >
           <div class="k-modal-fullscreen-title">
             <span class="header-icon pr-2 my-auto">
@@ -219,35 +219,35 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/styles/variables';
 @import '@/styles/functions';
-$screen-sm: 768px;
 $screen-md: 992px;
 $fullscreen-modal-padding: 64px;
 
 .k-modal-fullscreen-dialog {
-  padding-top: $fullscreen-modal-padding * 2;
-  background: var(--white);
-  z-index: 9999;
   position: fixed;
   top: 0;
+  right: 0;
   bottom: 0;
   left: 0;
-  right: 0;
+  z-index: 9999;
   width: 100vw;
+  padding-top: $fullscreen-modal-padding * 2;
+  background: var(--white);
 
-  @media only screen and (min-width: ($screen-sm + 1px)) {
+  @media only screen and (min-width: ($viewport-md + 1px)) {
     padding-top: $fullscreen-modal-padding;
   }
 }
 
 .k-modal-fullscreen-header {
   position: fixed;
-  display: flex;
   top: 0;
-  width: 100%;
+  display: flex;
   flex-direction: column;
+  width: 100%;
   padding: var(--spacing-lg) 0;
   background-color: var(--white);
   border-bottom: 1px solid var(--grey-300);
+  z-index: 1009;
 
   .k-modal-fullscreen-header-description {
     display: flex;
@@ -258,17 +258,17 @@ $fullscreen-modal-padding: 64px;
   }
 
   .k-modal-fullscreen-body {
-    text-align: center;
     position: relative;
     flex: 1 1 auto;
     font-size: var(--KModalFullscreenFontSize, 13px);
     line-height: 20px;
+    text-align: center;
   }
 }
 
 .k-modal-fullscreen-title {
-  display: inline-flex;
   position: relative;
+  display: inline-flex;
   margin-left: 36px;
 }
 
@@ -280,37 +280,32 @@ $fullscreen-modal-padding: 64px;
   & :deep(button) {
     height: 40px;
     margin-left: var(--spacing-md, spacing(md));
-    font-weight: 600;
     font-size: 13px;
+    font-weight: 600;
     line-height: 13px;
   }
 }
 
 .k-modal-fullscreen-body-header,
 .k-modal-fullscreen-body {
-  color: var(--KModalFullscreenColor, var(--black-500, color(black-500)));
-  padding-left: var(--spacing-lg);
   padding-right: var(--spacing-lg);
+  padding-left: var(--spacing-lg);
+  color: var(--KModalFullscreenColor, var(--black-500, color(black-500)));
 
-  @media only screen and (min-width: ($screen-sm + 1px)) {
-    padding-left: 120px;
+  @media only screen and (min-width: ($viewport-md + 1px)) {
     padding-right: 120px;
+    padding-left: 120px;
   }
 
   @media only screen and (min-width: ($screen-md + 1px)) {
-    padding-left: 230px;
     padding-right: 230px;
+    padding-left: 230px;
   }
-}
-
-.k-modal-fullscreen-body-header {
-  padding-top: 0;
-  padding-bottom: 0;
 }
 
 .k-modal-fullscreen-body {
   padding-bottom: var(--spacing-lg);
-  @media only screen and (min-width: ($screen-sm + 1px)) {
+  @media only screen and (min-width: ($viewport-md + 1px)) {
     padding-bottom: $fullscreen-modal-padding;
   }
 }
@@ -318,20 +313,22 @@ $fullscreen-modal-padding: 64px;
 .k-modal-fullscreen-body-header {
   margin-top: $fullscreen-modal-padding;
   margin-bottom: var(--spacing-xl);
+  padding-top: 0;
+  padding-bottom: 0;
 
   .body-header {
-    font-size: 32px;
-    line-height: 32px;
-    font-weight: 600;
     margin-bottom: -4px;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 32px;
   }
 
   .body-header-description {
-    font-weight: 400;
+    margin-top: var(--spacing-md);
     font-size: 14px;
+    font-weight: 400;
     line-height: 22px;
     color: var(--grey-600);
-    margin-top: var(--spacing-md);
   }
 }
 
@@ -345,10 +342,10 @@ $fullscreen-modal-padding: 64px;
 
 .header-content {
   display: inline-block;
-  margin-top: var(--spacing-xxs, spacing(xxs));
   padding-left: 6px;
-  border-left: 1px solid var(--grey-300);
+  margin-top: var(--spacing-xxs, spacing(xxs));
   line-height: 24px;
+  border-left: 1px solid var(--grey-300);
 }
 
 .k-modal-fullscreen-action-buttons {

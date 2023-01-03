@@ -52,7 +52,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .typography-block {
-  padding: 1.5rem 0;
+  padding: 24px 0;
   &:not(:last-child) {
     border-bottom: 1px solid #efefef;
   }
@@ -65,7 +65,7 @@ export default defineComponent({
     padding: var(--spacing-xs);
   }
   .label {
-    margin-bottom: .25rem;
+    margin-bottom: 4px;
     strong {
       font-weight: 600;
     }

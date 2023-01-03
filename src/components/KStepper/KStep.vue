@@ -1,18 +1,18 @@
 <template>
   <li class="k-step">
     <div
-      :class="{ 'completed': state === 'completed' }"
       class="k-step-container"
+      :class="{ 'completed': state === 'completed' }"
     >
       <KStepState :state="state" />
 
       <div
+        class="k-step-label px-3"
         :class="{
           'bolder': state === 'active' || state === 'pending' || state === 'error',
           'error': state === 'error'
         }"
         :style="labelStyle"
-        class="k-step-label px-3"
       >
         <KLabel>
           {{ label }}
@@ -26,7 +26,8 @@
 import { defineComponent, computed, PropType } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
-import KStepState, { StepperState } from '@/components/KStepper/KStepState.vue'
+import KStepState from '@/components/KStepper/KStepState.vue'
+import type { StepperState } from './KStepState.vue'
 
 const { getSizeFromString } = useUtilities()
 
@@ -68,31 +69,31 @@ export default defineComponent({
 
 .k-step {
   display: list-item;
-  padding: var(--spacing-sm) 0;
   flex: 1 1 0%;
+  padding: var(--spacing-sm) 0;
 
   // For Divider
-  --divider-spacing: 0.5rem;
+  --divider-spacing: 8px;
 
   &:last-child > .k-step-container::after {
     display: none;
   }
 
   .k-step-container {
+    position: relative;
     display: flex;
-    margin: auto;
     flex-direction: column;
     align-items: center;
     padding-bottom: var(--spacing-xxs);
-    position: relative;
+    margin: auto;
 
     .k-step-label {
       --KInputLabelColor: var(--grey-500);
       --KInputLabelSize: var(--type-md);
       --KInputLabelWeight: 500;
       min-width: 100px;
-      text-align: center;
       padding-top: var(--spacing-sm);
+      text-align: center;
 
       &.bolder {
         --KInputLabelWeight: 600;
@@ -104,12 +105,12 @@ export default defineComponent({
      * Divider styles
      */
     &::after {
-      content: "";
-      height: 2px;
-      width: calc(100% - var(--KStepIconSize, 26px) - calc(var(--divider-spacing) * 2));
+      position: absolute;
       top: calc(#{var(--KStepIconSize, var(--spacing-lg, spacing(lg)))} / 2);
       left: calc(50% + calc(var(--KStepIconSize, 26px) / 1.5 + var(--divider-spacing)));
-      position: absolute;
+      width: calc(100% - var(--KStepIconSize, 26px) - calc(var(--divider-spacing) * 2));
+      height: 2px;
+      content: "";
       background-color: var(--KStepDividerColorDefault, var(--grey-300));
     }
 

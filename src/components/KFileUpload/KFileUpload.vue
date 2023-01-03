@@ -4,10 +4,10 @@
   >
     <KLabel
       v-if="label"
-      :for="customInputId"
       v-bind="labelAttributes"
       class="cursor-pointer"
       data-testid="k-file-upload-label"
+      :for="customInputId"
     >
       {{ label }}
     </KLabel>
@@ -15,44 +15,44 @@
     <KInput
       :id="customInputId"
       :key="fileInputKey"
-      type="file"
       :accept="accept"
-      :help="help"
-      :max-file-size="maximumFileSize"
-      class="w-100 upload-input cursor-pointer"
-      :has-error="hasUploadError"
-      :error-message="errorMessage"
+      class="w-100 upload-input"
       :class="{
         'image-upload': type === 'image'
       }"
+      :error-message="errorMessage"
+      :has-error="hasUploadError"
+      :help="help"
+      :max-file-size="maximumFileSize"
+      type="file"
       @change="onFileChange"
     />
 
     <KIcon
       v-if="type === 'image'"
-      :size="iconSize"
+      class="image-upload-icon"
       :color="iconColor"
       :icon="icon"
-      class="image-upload-icon"
+      :size="iconSize"
       @click.prevent="updateFile"
     />
 
     <a
       v-if="type === 'image'"
-      href="#"
       class="image-upload-description"
+      href="#"
       @click.prevent="updateFile"
     >
       {{ fileValue ? fileValue : placeholder }}
     </a>
     <KButton
       v-if="fileValue && removable"
+      appearance="primary"
       class="remove-button"
       :class="type !== 'file' ? 'move-btn-right' : ''"
-      type="reset"
-      appearance="primary"
-      size="small"
       data-testid="remove-button"
+      size="small"
+      type="reset"
       @click="resetInput"
       @keyup.enter="resetInput"
     >
@@ -67,6 +67,7 @@
       v-if="type === 'file'"
       :appearance="buttonAppearance"
       class="k-file-upload-btn"
+      :class="[label ? 'k-file-upload-btn-with-label' : 'k-file-upload-btn-without-label']"
       data-testid="k-file-upload-button"
       size="small"
       @click="updateFile"
@@ -76,7 +77,8 @@
     </KButton>
     <a
       v-if="type === 'file'"
-      class="display-name cursor-pointer"
+      class="cursor-pointer display-name"
+      :class="[label ? 'has-label' : 'has-no-label']"
       href="#"
       @click="updateFile"
       @keyup.enter="updateFile"
@@ -287,19 +289,28 @@ export default defineComponent({
 
   .k-file-upload-btn.k-button {
     position: absolute;
-    right: 12px;
-    top: 35px;
-    border-radius: 100px;
+    right: var(--type-xs);
     height: 29px;
+    border-radius: 100px;
   }
 
-  // To hide the thumbnail that appears in Safari after uploading a file
-  :deep(.k-input-wrapper) input[type="file"]::-webkit-file-upload-button {
+  .k-file-upload-btn-with-label.k-button {
+    top: 35px;
+  }
+
+  .k-file-upload-btn-without-label.k-button {
+    top: 7px;
+  }
+
+  // To hide the button and thumbnail that appears in Safari and firefox after uploading a file
+  :deep(.k-input-wrapper) input[type="file"]::-webkit-file-upload-button,
+  :deep(.k-input-wrapper) input[type="file"]::file-selector-button {
     position: absolute;
     min-width: 100%;
     min-height: 100%;
-    opacity: 0;
     cursor: inherit;
+    opacity: 0;
+    pointer-events: none;
   }
 
   :deep(.k-input-wrapper) input[type="file"],
@@ -311,11 +322,11 @@ export default defineComponent({
     position: absolute;
     top: 38px;
     right: 118px;
-    border: none;
     height: var(--spacing-lg);
-    background-color: transparent;
-    cursor: pointer;
     padding: var(--type-xxs) 6px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
 
     &:hover,
     &:active {
@@ -337,14 +348,14 @@ export default defineComponent({
 
   .image-upload-description {
     position: absolute;
+    top: var(--type-xs);
     left: 44px;
-    top: 12px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
     overflow: hidden;
-    color: var(--blue-500);
     font-size: 13px;
     line-height: 20px;
+    color: var(--blue-500);
+    text-overflow: ellipsis;
+    white-space: nowrap;
     cursor: pointer;
   }
 }
@@ -354,6 +365,10 @@ export default defineComponent({
 .k-file-upload {
   .k-input {
     height: 44px;
+
+    + .help {
+      cursor: default;
+    }
   }
 
   input[type=file]{
@@ -365,11 +380,18 @@ export default defineComponent({
   }
 
   .display-name {
-    color: var(--black-70);
     position: absolute;
-    pointer-events: none;
-    top: 40px;
     left: 20px;
+    color: var(--black-70);
+    pointer-events: none;
+  }
+
+  .has-label {
+    top: 40px;
+  }
+
+  .has-no-label {
+    top: var(--type-xs);
   }
 }
 </style>

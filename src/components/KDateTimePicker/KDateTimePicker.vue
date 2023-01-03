@@ -1,32 +1,32 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <div
+    class="k-datetime-picker"
     :class="{ 'set-min-width': hasTimePeriods }"
     :style="widthStyle"
-    class="k-datetime-picker"
   >
     <KPop
+      hide-caret
       :hide-popover="hidePopover"
       placement="bottomStart"
-      width="auto"
-      hide-caret
       position-fixed
+      width="auto"
       @opened="hidePopover = false"
     >
       <KButton
-        :class="{ 'set-min-width': hasTimePeriods }"
-        :is-rounded="false"
-        :style="widthStyle"
-        size="large"
-        class="timepicker-input"
         aria-role="input"
+        class="timepicker-input"
+        :class="{ 'set-min-width': hasTimePeriods }"
         data-testid="k-datetime-picker-input"
+        :is-rounded="false"
+        size="large"
+        :style="widthStyle"
       >
         <KIcon
           v-if="icon"
+          class="mr-1"
           color="var(--grey-500)"
           icon="calendar"
-          class="mr-1"
           size="18"
         />
         <div
@@ -43,12 +43,12 @@
         <KSegmentedControl
           v-if="hasTimePeriods && hasCalendar"
           v-model="tabName"
+          class="w-100 mb-4"
+          data-testid="k-datetime-picker-toggle"
           :options="[
             { label: 'Relative', value: 'relative' },
             { label: 'Custom', value: 'custom' }
           ]"
-          class="w-100 mb-4"
-          data-testid="k-datetime-picker-toggle"
           @click="selected => tabName = selected"
         />
         <!-- Single date / time or range readout -->
@@ -61,15 +61,15 @@
         <DatePicker
           v-if="hasCalendar && showCalendar"
           v-model="selectedCalendarRange"
+          :drag-attribute="calendarDragAttributes"
+          is-expanded
           :is-range="range"
           :max-date="maxDate"
           :min-date="minDate"
+          :minute-increment="minuteIncrement"
           :mode="impliedMode"
           :model-config="modelConfig"
-          :minute-increment="minuteIncrement"
           :select-attribute="calendarSelectAttributes"
-          :drag-attribute="calendarDragAttributes"
-          is-expanded
         />
         <div
           v-else-if="hasTimePeriods"
@@ -87,11 +87,11 @@
               <KButton
                 v-for="(timeFrame, itemIdx) in item.values"
                 :key="`time-${itemIdx}`"
-                :is-rounded="false"
+                appearance="outline"
+                class="timeframe-btn"
                 :class="{ 'selected-option': timeFrame.key === selectedTimeframe.key }"
                 :data-testid="'select-timeframe-' + timeFrame.timeframeLength()"
-                class="timeframe-btn"
-                appearance="outline"
+                :is-rounded="false"
                 size="medium"
                 @click="changeRelativeTimeframe(timeFrame)"
               >
@@ -107,22 +107,22 @@
       >
         <div class="d-flex justify-content-end">
           <KButton
-            :is-rounded="false"
-            data-testid="k-datetime-picker-clear"
-            class="action-btn"
-            size="medium"
             appearance="btn-link"
+            class="action-btn"
+            data-testid="k-datetime-picker-clear"
+            :is-rounded="false"
+            size="medium"
             @click="clearSelection()"
           >
             Clear
           </KButton>
           <KButton
+            appearance="btn-link"
+            class="action-btn"
+            data-testid="k-datetime-picker-submit"
             :disabled="submitDisabled"
             :is-rounded="false"
-            data-testid="k-datetime-picker-submit"
-            class="action-btn"
             size="medium"
-            appearance="btn-link"
             @click="submitTimeFrame()"
           >
             Apply
@@ -169,7 +169,9 @@ export interface DateTimePickerState {
   fullRangeDisplay?: string
   hidePopover: boolean
   selectedRange: TimeRange
+  previouslySelectedRange: TimeRange,
   selectedTimeframe: TimePeriod
+  previouslySelectedTimeframe: TimePeriod
   tabName: string
 }
 
@@ -338,8 +340,10 @@ export default defineComponent({
       fullRangeDisplay: '',
       hidePopover: false,
       selectedRange: { start: new Date(), end: new Date(), timePeriodsKey: '' },
+      previouslySelectedRange: { start: new Date(), end: new Date(), timePeriodsKey: '' },
       selectedTimeframe: props.timePeriods[0]?.values[0],
-      tabName: 'relative',
+      previouslySelectedTimeframe: props.timePeriods[0]?.values[0],
+      tabName: 'custom',
     })
 
     /**
@@ -364,7 +368,7 @@ export default defineComponent({
         // picker, only the `start` value will be provided.
         // The `timePeriodsKey` param only applies to relative timeframes,
         // not `v-calendar` selections; however, this keeps the object "shape" consistent.
-        state.selectedRange = {
+        state.selectedRange = state.previouslySelectedRange = {
           start,
           end,
           timePeriodsKey: '',
@@ -378,7 +382,7 @@ export default defineComponent({
      * @param {*} timeframe
      */
     const changeRelativeTimeframe = (timeframe: TimePeriod): void => {
-      state.selectedTimeframe = timeframe
+      state.selectedTimeframe = state.previouslySelectedTimeframe = timeframe
 
       // Format the start/end values as human readable date
       const start: Date = state.selectedTimeframe.start()
@@ -506,6 +510,17 @@ export default defineComponent({
       }
     }, { immediate: true })
 
+    /**
+     * Reinstate previous selection whenever user toggles between Relative and Custom tabs
+     */
+    watch(() => state.tabName, (newValue, oldValue) => {
+      if (oldValue !== undefined && newValue === 'relative') {
+        changeRelativeTimeframe(state.previouslySelectedTimeframe)
+      } else if (oldValue !== undefined && newValue === 'custom') {
+        changeCalendarRange(state.previouslySelectedRange)
+      }
+    })
+
     onMounted(() => {
       // Select the tab based on incoming defaults; save the default value to our internal
       // state and update the input field to display the human-readable date/time.
@@ -572,10 +587,10 @@ $margin: 6px;
     --KButtonOutlineBorder: var(--grey-300);
     --KButtonOutlineActive: var(--white);
     --KButtonOutlineHoverBorder: var(--blue-200);
-    padding: var(--spacing-sm) var(--spacing-sm) !important;
-    font-weight: 500;
     // Prevent overflowing the container
     max-width: 100%;
+    padding: var(--spacing-sm) var(--spacing-sm) !important;
+    font-weight: 500;
     // Styling button as input via mixin
     @include input-default;
 
@@ -598,20 +613,20 @@ $margin: 6px;
       flex-wrap: wrap;
       div {
         width: auto;
-        text-align: left;
         padding: 0;
         margin: 0;
         line-height: 1.3;
+        text-align: left;
         white-space: nowrap;
       }
     }
   }
 
   .k-popover {
-    max-height: 90vh;
     width: 100% !important;
-    overflow: hidden;
+    max-height: 90vh;
     padding: var(--spacing-sm);
+    overflow: hidden;
     &[x-placement^=bottom] {
       margin-top: 2px;
     }
@@ -624,24 +639,24 @@ $margin: 6px;
       }
       .timeframe-section {
         .timeframe-section-title {
-          font-weight: 600;
           margin-bottom: var(--spacing-xs);
+          font-weight: 600;
         }
         .timeframe-buttons {
           flex-wrap: wrap;
           .timeframe-btn {
-            font-size: var(--type-sm);
-            font-weight: 400;
             // Only 2 of 3 columns will have a right margin; subtract margin / 2
             flex: 0 calc(33% - 3px);
-            margin-right: $margin;
-            padding: var(--spacing-sm) var(--spacing-md);
             justify-content: center;
+            padding: var(--spacing-sm) var(--spacing-md);
+            margin-right: $margin;
             margin-bottom: $margin;
+            font-size: var(--type-sm);
+            font-weight: 400;
             &.selected-option {
+              font-weight: 500;
               color: white;
               background-color: var(--blue-500);
-              font-weight: 500;
             }
             &:nth-child(3n) {
               margin-right: 0px;
@@ -692,8 +707,8 @@ $margin: 6px;
 
     // Day text within hover selection or post-selection
     .vc-highlights + .vc-day-content {
-      color: var(--white);
       font-weight: 600;
+      color: var(--white);
 
       &:focus {
         background-color: $selected-color;
@@ -701,9 +716,9 @@ $margin: 6px;
     }
 
     .vc-nav-popover-container {
+      color: $text-color;
       background-color: var(--white);
       border: 1px solid color(grey-300);
-      color: $text-color;
 
       .vc-nav-container {
         .vc-nav-arrow {
@@ -717,8 +732,8 @@ $margin: 6px;
         .vc-nav-header .vc-nav-title {
           color: $text-color;
           &:hover {
-            background-color: var(--white);
             color: color(grey-600);
+            background-color: var(--white);
           }
           &:active,
           &:focus {
@@ -741,9 +756,9 @@ $margin: 6px;
             }
             // Month that has focus (tab navigation supported)
             &.is-active {
-              background-color: $selected-color;
-              color: var(--white);
               font-weight: 600;
+              color: var(--white);
+              background-color: $selected-color;
               box-shadow: none;
             }
             // Disabled month
@@ -785,9 +800,7 @@ $margin: 6px;
           }
         }
       }
-      //
       // Calendar content (weekday headings and full month)
-      //
       .vc-weeks {
         margin-top: color(spacing-sm);
         .vc-weekday {
@@ -804,9 +817,9 @@ $margin: 6px;
           color: $text-color-darker;
         }
         &:focus {
-          border: 2px solid var(--white);
           color: $text-color-darker;
           background-color: color(gray-200);
+          border: 2px solid var(--white);
         }
       }
       .vc-time-month, .vc-time-day, .vc-time-year {
@@ -832,13 +845,13 @@ $margin: 6px;
             &:hover,
             &:focus {
               color: var(--white);
-              border-color: $selected-color;
               background-color: $selected-color;
+              border-color: $selected-color;
             }
             &:active {
               color: var(--white);
-              border-color: color(blue-300);
               background-color: color(blue-300);
+              border-color: color(blue-300);
             }
           }
         }
@@ -847,8 +860,8 @@ $margin: 6px;
       // Date Range - Post selection
       .vc-highlight.vcal-day-start,
       .vc-highlight.vcal-day-end {
-        background-color: $selected-color;
         color: white !important;
+        background-color: $selected-color;
       }
       .vc-highlight.vcal-day-base,
       .vc-highlight.vc-highlight-base-middle {
@@ -858,9 +871,9 @@ $margin: 6px;
       // Date Range - during selection
       .vcal-day-drag-start,
       .vcal-day-drag-end {
-        border: 2px solid color(blue-400);
-        background-color: $selected-color;
         color: white;
+        background-color: $selected-color;
+        border: 2px solid color(blue-400);
       }
       .vc-day-content {
         &:hover {

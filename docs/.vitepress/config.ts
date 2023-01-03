@@ -69,6 +69,7 @@ export default defineConfig({
             { text: 'Textarea', link: '/components/textarea' },
             { text: 'Toaster', link: '/components/toaster' },
             { text: 'Tooltip', link: '/components/tooltip' },
+            { text: 'Tree List', link: '/components/tree-list' },
             { text: 'View Switcher', link: '/components/view-switcher' },
           ]
         },
@@ -150,10 +151,10 @@ export default defineConfig({
       text: 'Edit this page on GitHub'
     },
     outline: [2, 3],
-    // algolia: {
-    //   appId: '6MM6JXMAAD',
-    //   apiKey: '8b808e893589122929db01f29c0aabcc',
-    //   indexName: 'kongponents'
-    // },
+    algolia: {
+      appId: '63M5R2GSFP',
+      apiKey: 'ff2ad6c629df9c094a93a92a500added',
+      indexName: 'kongponents-konghq'
+    },
   },
 })

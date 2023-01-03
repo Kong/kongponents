@@ -1,19 +1,19 @@
 <template>
   <section
-    :class="{ 'is-error': isError }"
     class="empty-state-wrapper"
+    :class="{ 'is-error': isError }"
   >
     <div class="empty-state-title">
       <div
         v-if="isError || icon"
-        :class="{ 'warning-icon': isError }"
         class="k-empty-state-icon card-icon mb-3"
+        :class="{ 'warning-icon': isError }"
       >
         <KIcon
-          :size="iconSize"
-          :icon="icon ? icon : 'warning'"
           :color="isError ? iconColor || 'var(--black-70)' : iconColor"
+          :icon="icon ? icon : 'warning'"
           :secondary-color="isError ? 'var(--yellow-400)' : undefined"
+          :size="iconSize"
         />
       </div>
       <div class="k-empty-state-title-header mt-4 mb-4">
@@ -88,29 +88,29 @@ export default defineComponent({
 .empty-state-wrapper {
   padding: 48px 0;
   text-align: center;
-  border-radius: 4px;
   background-color: var(--KEmptyBackground, var(--white));
+  border-radius: 4px;
 
   .k-empty-state-title-header {
-    color: var(--KEmptyTitleColor, var(--black-500));
     margin: 0 0 14px;
     font-size: 20px;
     font-weight: 600;
     line-height: 24px;
+    color: var(--KEmptyTitleColor, var(--black-500));
   }
 
   .k-empty-state-message {
-    color: var(--KEmptyContentColor, var(--black-400));
+    max-width: 50%;
     margin: 0 auto 14px;
     font-size: 13px;
     line-height: 20px;
-    max-width: 50%;
+    color: var(--KEmptyContentColor, var(--black-400));
   }
 
   .k-empty-state-cta {
     margin: 0;
-    margin-left: auto;
     margin-right: auto;
+    margin-left: auto;
   }
 }
 </style>

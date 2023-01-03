@@ -1,5 +1,6 @@
 <template>
   <li
+    class="k-dropdown-item w-100"
     :class="{
       'has-divider': type !== 'link' && hasDivider,
       'disabled': type === 'default' && disabled,
@@ -7,12 +8,11 @@
       'k-dropdown-selected-option': selected
     }"
     :data-testid="`k-dropdown-item-${label.replace(/ /gi, '-')}`"
-    class="k-dropdown-item w-100"
   >
     <a
       v-if="type === 'link' && to && !!disabled"
-      :class="{ 'disabled': disabled, 'has-divider': hasDivider }"
       class="k-dropdown-item-trigger"
+      :class="{ 'disabled': disabled, 'has-divider': hasDivider }"
       data-testid="k-dropdown-item-trigger"
       href="#"
       @click.prevent.stop=""
@@ -21,20 +21,20 @@
     </a>
     <router-link
       v-else-if="type === 'link' && to"
-      :to="!disabled ? to : routePath"
-      :class="{ 'disabled': disabled, 'has-divider': hasDivider }"
       class="k-dropdown-item-trigger"
+      :class="{ 'disabled': disabled, 'has-divider': hasDivider }"
       data-testid="k-dropdown-item-trigger"
+      :to="!disabled ? to : routePath"
       @click="handleClick"
     >
       <slot>{{ label }}</slot>
     </router-link>
     <KButton
       v-else-if="type === 'button'"
-      :disabled="disabled"
-      :is-rounded="false"
       class="k-dropdown-item-trigger btn-link k-button non-visual-button"
       data-testid="k-dropdown-item-trigger"
+      :disabled="disabled"
+      :is-rounded="false"
       @click="handleClick"
     >
       <slot>{{ label }}</slot>
@@ -151,7 +151,7 @@ export default defineComponent({
 li.k-dropdown-item {
   display: flex;
   align-items: center;
-  font-size: 1rem;
+  font-size: 16px;
   line-height: 1;
 
   &.has-divider {
@@ -162,17 +162,17 @@ li.k-dropdown-item {
 
     &:before {
       position: absolute;
-      display: block;
-      content: '';
-      height: 1px;
-      width: 100%;
       top: $k-dropdown-item-divider-position;
+      display: block;
+      width: 100%;
+      height: 1px;
+      content: '';
       background: var(--grey-200);
     }
   }
 
   svg {
-    margin-right: .75rem;
+    margin-right: 12px;
   }
 
   &:hover {
@@ -180,16 +180,16 @@ li.k-dropdown-item {
   }
 
   .k-dropdown-item-trigger {
-    text-align: left;
-    padding: var(--spacing-md) var(--spacing-lg);
-    text-decoration: none;
     width: 100%;
+    padding: var(--spacing-md) var(--spacing-lg);
     color: var(--black-70);
+    text-align: left;
+    text-decoration: none;
 
     &:disabled,
     &.disabled {
-      cursor: not-allowed !important;
       color: var(--grey-400) !important;
+      cursor: not-allowed !important;
 
       &:hover {
         background-color: var(--grey-200) !important;

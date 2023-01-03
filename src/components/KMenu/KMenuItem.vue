@@ -1,23 +1,23 @@
 <template>
   <div
     :id="menuItemId"
+    class="k-menu-item"
+    :class="[isOpen ? 'title-dark' : '', {'expando-item' : expandable}]"
     :data-testid="item ? `${item.title.replace(/ /gi, '-')}-menu-item` : 'menu-item'"
     :test-mode="!!testMode || undefined"
-    :class="[isOpen ? 'title-dark' : '', {'expando-item' : expandable}]"
-    class="k-menu-item"
   >
     <KButton
       v-if="type !== 'divider'"
       :aria-expanded="isOpen && expandable || undefined"
       :aria-labelledby="menuItemId || undefined"
+      class="menu-button non-visual-button"
       :is-rounded="false"
       type="button"
-      class="menu-button non-visual-button"
       @click="toggleMenuItem"
     >
       <span
-        :class="isOpen && expandable ? 'title-dark' : ''"
         class="span-menu-title"
+        :class="isOpen && expandable ? 'title-dark' : ''"
       >
         <slot name="itemTitle">
           {{ item ? item.title : '' }}
@@ -28,16 +28,16 @@
         class="span-icon-container"
       >
         <KIcon
-          :icon="isOpen ? 'chevronUp' : 'chevronDown'"
           color="var(--grey-400)"
+          :icon="isOpen ? 'chevronUp' : 'chevronDown'"
           size="16"
         />
       </span>
     </KButton>
     <div
       v-if="expandable"
-      :class="isOpen ? 'd-flex' : 'd-none'"
       class="menu-content"
+      :class="isOpen ? 'd-flex' : 'd-none'"
     >
       <slot name="itemBody">
         <div v-if="(type === 'string' || type === 'divider') && expandable">
@@ -122,21 +122,21 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .k-menu-item {
-  list-style: none;
-  margin: 0;
-  white-space: nowrap;
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 24px;
-  color: var(--grey-500);
   position: relative;
   padding-left: 2px;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--grey-500);
+  white-space: nowrap;
+  list-style: none;
 }
 
 .span-icon-container {
-  margin-left: auto;
-  height: 24px;
   width: 24px;
+  height: 24px;
+  margin-left: auto;
 }
 
 .title-dark {
@@ -144,8 +144,8 @@ export default defineComponent({
 }
 
 .k-menu-item .menu-button {
-  padding-left: 19px;
   padding-right: 24px;
+  padding-left: 19px;
   cursor: pointer !important;
   &:hover {
     color: var(--grey-600);
@@ -153,18 +153,18 @@ export default defineComponent({
 }
 
 .menu-content {
-  padding-left: 19px;
   padding-right: 24px;
+  padding-left: 19px;
   color: var(--grey-500);
 }
 
 .k-button.menu-button {
   width: 100%;
-  color: var(--KButtonOutlineColor, var(--grey-500));
-  font-weight: 400 !important;
   font-family: var(--font-family-sans);
   font-size: 13px;
+  font-weight: 400 !important;
   line-height: 24px;
+  color: var(--KButtonOutlineColor, var(--grey-500));
   &:focus {
     box-shadow: 0 0 0 1px var(--blue-200);
   }

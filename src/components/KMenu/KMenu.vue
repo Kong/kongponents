@@ -1,7 +1,7 @@
 <template>
   <div
-    :style="widthStyle"
     class="k-menu"
+    :style="widthStyle"
   >
     <slot name="body">
       <div>
@@ -10,12 +10,12 @@
           :key="item.title + index"
         >
           <KMenuItem
-            :item="item"
+            :class="{ 'last-menu-item': index === items.length - 1 }"
             :expandable="item.expandable"
-            :type="item.type"
+            :item="item"
             :last-menu-item="index === items.length - 1"
             :test-mode="!!testMode || undefined"
-            :class="{ 'last-menu-item': index === items.length - 1 }"
+            :type="item.type"
           />
         </template>
       </div>
@@ -102,22 +102,22 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .k-menu {
+  padding-top: 11px;
+  padding-bottom: 8px;
   background-color: var(--white);
   border: 1px solid var(--grey-300);
   border-radius: 4px;
-  padding-top: 11px;
-  padding-bottom: 8px;
 }
 
 .clear-cta-button > :deep(button.k-button) {
-  border: none;
-  color: var(--blue-300);
-  font-weight: 500;
-  font-size: 13px;
-  line-height: 13px;
-  margin-bottom: 6px;
-  margin-top: 10px;
   padding-top: 2px;
+  margin-top: 10px;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 13px;
+  color: var(--blue-300);
+  border: none;
 
   &:active, &:hover {
     color: var(--blue-500);
@@ -125,9 +125,9 @@ export default defineComponent({
   }
 
   &:focus {
-    box-shadow: none;
     color: var(--blue-500);
     background-color: transparent;
+    box-shadow: none;
   }
 }
 

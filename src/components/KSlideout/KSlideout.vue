@@ -8,13 +8,13 @@
       />
     </transition>
     <transition
-      tag="div"
       name="slide"
+      tag="div"
     >
       <div
         v-if="isVisible"
-        :class="{ isVisible: 'is-visible' }"
         class="panel"
+        :class="{ isVisible: 'is-visible' }"
       >
         <button
           class="close-btn"
@@ -80,8 +80,8 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .k-slideout {
-  --KCardPaddingY: 2rem;
-  --KCardPaddingX: 3rem;
+  --KCardPaddingY: 32px;
+  --KCardPaddingX: 48px;
 
   .panel-background {
     position: fixed;
@@ -89,30 +89,30 @@ export default defineComponent({
     right: 0;
     bottom: 0;
     left: 0;
-    background: var(--black-45, color(black-45));
     z-index: 9999;
+    background: var(--black-45, color(black-45));
   }
 
   .panel {
     position: fixed;
     top: 0;
     right: 0;
-    height: 100vh;
+    z-index: 9999;
     width: 100%;
     max-width: 500px;
+    height: 100vh;
     background-color: var(--white, color(white));
-    z-index: 9999;
 
     .close-btn {
       position: absolute;
-      top: 1rem;
-      left:  1rem;
-      height: 16px;
+      top: 16px;
+      left:  16px;
       width: 16px;
+      height: 16px;
       padding: 0;
-      border: none;
-      background: none;
       cursor: pointer;
+      background: none;
+      border: none;
       outline: inherit;
       transition: 200ms ease;
     }

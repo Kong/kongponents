@@ -1,12 +1,12 @@
 
 <template>
   <KButton
-    :is-rounded="false"
-    :class="[view, { paused: isPaused }]"
-    :title="`Toggle to ${view === 'table' ? 'grid' : 'table'} view`"
-    size="small"
     appearance="outline"
     class="k-view-switcher view-switch-button non-visual-button"
+    :class="[view, { paused: isPaused }]"
+    :is-rounded="false"
+    size="small"
+    :title="`Toggle to ${view === 'table' ? 'grid' : 'table'} view`"
     @click="toggleView"
   >
     <div class="icon">
@@ -79,21 +79,21 @@ export default defineComponent({
   }
 
   .icon {
-    width: 1.5rem;
-    height: 1.5rem;
     position: relative;
+    width: 24px;
+    height: 24px;
 
     i {
       position: absolute;
-      left: var(--left, 4px);
       top: var(--top, 4px);
+      left: var(--left, 4px);
       display: block;
-      border-radius: 2px;
       width: var(--width, 7px);
       height: var(--height, 7px);
       background-color: var(--grey-500);
-      animation: var(--name, var(--dots-name, none)) var(--duration, var(--dots-duration, .5s)) var(--easing, var(--dots-easing, linear)) forwards var(--delay, var(--dots-delay, 0s));
+      border-radius: 2px;
       transition: background-color 200ms ease;
+      animation: var(--name, var(--dots-name, none)) var(--duration, var(--dots-duration, .5s)) var(--easing, var(--dots-easing, linear)) forwards var(--delay, var(--dots-delay, 0s));
     }
 
     .dots i {
@@ -157,8 +157,8 @@ export default defineComponent({
         --top: 3px;
         --height: 2px;
         --width: 11px;
-        transform-origin: 0 50%;
         transform: translateY(20%) translateZ(0) scaleX(0);
+        transform-origin: 0 50%;
         &:nth-child(2) { --top: 8px; }
         &:nth-child(3) { --top: 13px; }
         &:nth-child(4) { --top: 18px; }

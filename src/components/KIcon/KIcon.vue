@@ -4,16 +4,16 @@
     v-if="!$slots.svgElements"
     v-bind="$attrs"
     ref="svgWrapper"
-    :class="`kong-icon-${icon}`"
     class="kong-icon"
+    :class="`kong-icon-${icon}`"
     v-html="icons[icon]"
   />
   <span
     v-else
     v-bind="$attrs"
     ref="svgWrapper"
-    :class="`kong-icon-${icon}`"
     class="kong-icon"
+    :class="`kong-icon-${icon}`"
   >
     <svg class="slot-content">
       <slot name="svgElements" />
@@ -183,6 +183,8 @@ export default defineComponent({
 
       if (!hasPreservedColor && fillValue && isSecondary && props.secondaryColor) {
         el.setAttribute('fill', props.secondaryColor)
+      } else if (!hasPreservedColor && strokeValue && isSecondary && props.secondaryColor) {
+        el.setAttribute('stroke', props.secondaryColor)
       } else if (!hasPreservedColor && !isSecondary && fillValue && !strokeValue && props.color) {
         el.setAttribute('fill', props.color)
       } else if (strokeValue && props.color) {

@@ -6,10 +6,6 @@ Searching highlights matching lines within the code while filtering shows only m
 
 Searching and filtering can happen by exact matches (the default) and by matching regular expressions. The search-related UI controls can also be interacted with [using keyboard shortcuts](#default-shortcuts).
 
-::: danger EXPERIMENTAL COMPONENT
-`KCodeBlock` is an experimental component. The component’s design and overall look and feel may change until it is in stable status.
-:::
-
 <ClientOnly>
   <KCodeBlock
     id="code-block-default"
@@ -191,6 +187,36 @@ You might need to turn this off for sites that already constantly use the fragme
 />
 ```
 
+### theme
+
+* **Type**: `string`
+* **Required**: no
+* **Default**: `light`
+
+Sets the display theme of the component.
+
+**Note**: [Additional theming options](#theming) are available via CSS variables.
+
+<ClientOnly>
+  <KCodeBlock
+    id="code-block-dark-theme"
+    :code="code"
+    language="json"
+    theme="dark"
+    is-searchable
+  />
+</ClientOnly>
+
+```html
+<KCodeBlock
+  id="code-block-dark-theme"
+  :code="code"
+  language="json"
+  theme="dark"
+  is-searchable
+/>
+```
+
 ## Events
 
 ### code-block-render
@@ -228,16 +254,17 @@ function highlight({ preElement, codeElement, language, code }) {
 ## Theming
 
 
-| Variable                          | Default                   | Purpose                       |
-|:--------------------------------- |:------------------------- |:----------------------------- |
-| `--KCodeBlockBorderRadius`        | `5px`                     | Code block border radius      |
-| `--KCodeBlockFocusColor`          | `var(--blue-500)`         | General focus color           |
-| `--KCodeBlockMatchHighlightColor` | `var(--blue-500)`         | Current match highlight color |
-| `--KCodeBlockColor`               | `var(--black-85)`         | Code block text color         |
-| `--KCodeBlockBackgroundColor`     | `var(--grey-100)`         | Code block background color   |
-| `--KCodeBlockFontSize`            | `var(--type-xs)`          | Code block font size          |
-| `--KCodeBlockFontFamilyMono`      | `var(--font-family-mono)` | Code block font family        |
-| `--KCodeBlockTabSize`             | `2`                       | Tab size for code blocks      |
+| Variable                          | Default                   | Purpose                                                          |
+|:--------------------------------- |:------------------------- |:---------------------------------------------------------------- |
+| `--KCodeBlockBorderRadius`        | `5px`                     | Code block border radius                                         |
+| `--KCodeBlockFocusColor`          | `var(--blue-500)`         | General focus color                                              |
+| `--KCodeBlockMatchHighlightColor` | `var(--blue-500)`         | Current match highlight color                                    |
+| `--KCodeBlockColor`               | `var(--black-85)`         | Code block text color                                            |
+| `--KCodeBlockBackgroundColor`     | `var(--grey-100)`         | Code block background color                                      |
+| `--KCodeBlockFontSize`            | `var(--type-xs)`          | Code block font size                                             |
+| `--KCodeBlockFontFamilyMono`      | `var(--font-family-mono)` | Code block font family                                           |
+| `--KCodeBlockTabSize`             | `2`                       | Tab size for code blocks                                         |
+| `--KCodeBlockMaxHeight`           | `none`                    | Max-height of the code block. Any overflow will be scrollable |
 
 ## Default shortcuts
 

@@ -6,8 +6,8 @@
     <input
       :checked="modelValue"
       v-bind="modifiedAttrs"
-      type="checkbox"
       class="k-input"
+      type="checkbox"
       @change="handleChange"
     >
     <span
@@ -88,7 +88,7 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .k-checkbox-label {
-  font-size: var(--type-sm, type(sm));;
+  font-size: var(--type-sm, type(sm));
 }
 
 .k-checkbox-description {

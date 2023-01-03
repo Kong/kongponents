@@ -105,7 +105,7 @@ Although the CLI will create a file in the docs directory, the new doc file **is
 
 Add the component to the desired location in the sidebar
 
-```ts{10-15}
+```ts{11-16}
 // docs/.vitepress/config.ts
 
 sidebar: {
@@ -119,7 +119,7 @@ sidebar: {
         {
           // The name of the rendered element, e.g. "Alert"
           text: '{Component Name}',
-          // The name of the `.md` markdown file, without the extension
+          // The name of the `.md` markdown file without the extension, e.g. "/components/alert.md"
           link: '/components/{component-name}',
         },
         ...
@@ -131,11 +131,108 @@ sidebar: {
 
 ### Importing type declarations and interfaces
 
-When importing type declarations or interfaces, you **must** use a relative path instead of the `@/...` alias so that the types are properly resolved within consuming packages. See the example below:
+When importing type declarations or interfaces, you can use a relative path instead of the `@/` alias so that the types are properly resolved within consuming packages. See the example below:
 
 ```ts
 import { StepperState } from './KStepState.vue'
 ```
+
+This repository utilizes [`tsc-alias`](https://www.npmjs.com/package/tsc-alias) to replace these paths during the build; however, so either method is acceptable.
+
+### Style guidelines
+
+In order to prevent component styles from leaking out into the consuming application, **all** component styles **MUST** adhere to one of the following rules:
+
+1. (Preferred) All styles must be `scoped` within your components with `<style lang="scss" scoped>`.
+   1. If you need to target nested components (e.g. Kongponents) to override styles, you'll need to utilize [deep selectors](https://vuejs.org/api/sfc-css-features.html#deep-selectors)
+
+    ```html
+    <style lang="scss" scoped>
+    .your-component-class {
+      :deep(.k-button) {
+        /* KButton override styles go here */
+        border-color: red;
+      }
+    }
+    </style>
+    ```
+
+2. All component styles must be wrapped in a unique wrapper class so that styles do not leak out into the consuming application.
+
+    The class name should follow the syntax `.k-{component-name}-*`
+
+   This is a good practice even if you go with option one outlined above.
+
+    ```html
+    <style lang="scss">
+    .k-button {
+      /* All other styles must go inside the wrapper */
+    }
+    </style>
+    ```
+
+#### Relative units
+
+Kongponent styles should **never** use relative font units; specifically, do not use `rem` or `em` units.
+
+We cannot control the `html` base font size and therefore these relative units are not predictable within a host application. Use `px` (pixels) or a similar unit instead.
+
+## Testing your component
+
+You're free to play around with your component on the local instance of the docs site by running `yarn docs:dev`; however, you may also want to test your local changes in a consuming application.
+
+1. Run `yarn link` from the root of the Kongponents repository
+
+    ```sh
+    yarn link
+
+    yarn link v1.22.17
+    success Registered "@kong/kongponents".
+    info You can now run `yarn link "@kong/kongponents"` in the projects where you want to use this package and it will be used instead.
+    ✨  Done in 0.04s.
+    ```
+
+1. Build the Kongponents package
+
+    ```sh
+    yarn build:kongponents
+    ```
+1. As the instructions above outline, next, inside your consuming application, run `yarn link "@kong/kongponents"`
+
+    ```sh
+    yarn link "@kong/kongponents"
+
+    yarn link v1.22.19
+    success Using linked package for "@kong/kongponents".
+    ✨  Done in 0.04s.
+    ```
+
+    Now that the dependency is linked, your local project will utilize the local build.
+
+    :::tip TIP
+    If your project utilizes Vite, you may need to dedupe your dependency tree to avoid errors when running locally. Inside your `vite.config.ts` file, insert the following configuration:
+
+    ```ts{5}
+    export default defineConfig({
+      resolve: {
+        // Use this option to force Vite to always resolve listed dependencies to the same copy (from project root)
+        // Allows utilizing `yarn link "{package-name}"` without throwing errors
+        dedupe: ['vue']
+      },
+    })
+    ```
+    :::
+
+1. When you're finished testing, don't forget to run `yarn unlink` inside the Kongponents directory.
+
+    ```sh
+    yarn unlink
+
+    yarn unlink v1.22.17
+    success Unregistered "@kong/kongponents".
+    info You can now run `yarn unlink "@kong/kongponents"` in the projects where you no longer want to use this package.
+    ✨  Done in 0.04s.
+    ```
 
 ## Committing Changes
 

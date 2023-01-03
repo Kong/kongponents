@@ -1,3 +1,191 @@
+## [8.14.1](https://github.com/Kong/kongponents/compare/v8.14.0...v8.14.1) (2022-12-22)
+
+
+### Bug Fixes
+
+* **code-block:** remove extra z-index [khcp-5683] ([#1007](https://github.com/Kong/kongponents/issues/1007)) ([7d84268](https://github.com/Kong/kongponents/commit/7d842685b82395dc9136d2b8e2b4cc4becb24715))
+
+# [8.14.0](https://github.com/Kong/kongponents/compare/v8.13.6...v8.14.0) (2022-12-21)
+
+
+### Features
+
+* **kcodeblock:** dark theme [KHCP-5231] ([#1002](https://github.com/Kong/kongponents/issues/1002)) ([1860896](https://github.com/Kong/kongponents/commit/1860896930faebf4e40c5fb90c02ac114859efdf))
+
+## [8.13.6](https://github.com/Kong/kongponents/compare/v8.13.5...v8.13.6) (2022-12-21)
+
+
+### Bug Fixes
+
+* **kselect:** update disabled styles [khcp-5661] ([#1004](https://github.com/Kong/kongponents/issues/1004)) ([720859a](https://github.com/Kong/kongponents/commit/720859a707e0d4973f0f2cbc1020de0059306a6d))
+
+## [8.13.5](https://github.com/Kong/kongponents/compare/v8.13.4...v8.13.5) (2022-12-20)
+
+
+### Bug Fixes
+
+* **kcodeblock:** allow container to scroll ([#1001](https://github.com/Kong/kongponents/issues/1001)) ([d2e712a](https://github.com/Kong/kongponents/commit/d2e712a2c62df0865ed3c414ec410f9205a841dd))
+
+## [8.13.4](https://github.com/Kong/kongponents/compare/v8.13.3...v8.13.4) (2022-12-20)
+
+
+### Bug Fixes
+
+* **kmodal:** update close button styles [khcp-5508] ([#993](https://github.com/Kong/kongponents/issues/993)) ([7f86030](https://github.com/Kong/kongponents/commit/7f86030d2605348d28914b145af718a0732802dc))
+
+## [8.13.3](https://github.com/Kong/kongponents/compare/v8.13.2...v8.13.3) (2022-12-20)
+
+
+### Bug Fixes
+
+* **file-upload:** update style if label is absent [khcp-5654] ([#992](https://github.com/Kong/kongponents/issues/992)) ([33bfdfc](https://github.com/Kong/kongponents/commit/33bfdfc4f5d594b51aed824d2fad58eeb15ddd8c))
+
+## [8.13.2](https://github.com/Kong/kongponents/compare/v8.13.1...v8.13.2) (2022-12-20)
+
+
+### Bug Fixes
+
+* **kskeleton:** documentation [khcp-5659] ([#1000](https://github.com/Kong/kongponents/issues/1000)) ([204ba77](https://github.com/Kong/kongponents/commit/204ba7765f5ab0bd873cd71985fa917d9379ce99))
+
+## [8.13.1](https://github.com/Kong/kongponents/compare/v8.13.0...v8.13.1) (2022-12-16)
+
+
+### Bug Fixes
+
+* remove bin since it doesn't exist on install ([b6d763c](https://github.com/Kong/kongponents/commit/b6d763cae76c8b78f3b6c51b6a3a9ccf7217ec5f))
+
+# [8.13.0](https://github.com/Kong/kongponents/compare/v8.12.2...v8.13.0) (2022-12-16)
+
+
+### Features
+
+* **modal:** add tabbable-options prop ([#987](https://github.com/Kong/kongponents/issues/987)) ([67763f8](https://github.com/Kong/kongponents/commit/67763f8ca7420d84ae62a8eaafa9c3bfc679bbd7))
+
+## [8.12.2](https://github.com/Kong/kongponents/compare/v8.12.1...v8.12.2) (2022-12-15)
+
+
+### Bug Fixes
+
+* **klabel:** tooltip use positionFixed ([#986](https://github.com/Kong/kongponents/issues/986)) ([477dec3](https://github.com/Kong/kongponents/commit/477dec3d065578ccd559c2952cad6d5a4362110e))
+
+## [8.12.1](https://github.com/Kong/kongponents/compare/v8.12.0...v8.12.1) (2022-12-15)
+
+
+### Bug Fixes
+
+* **k-tree-list:** align-items center on tree item ([1b3d82e](https://github.com/Kong/kongponents/commit/1b3d82eba04da9ffa552edaa3256de39dd1ab957))
+
+# [8.12.0](https://github.com/Kong/kongponents/compare/v8.11.1...v8.12.0) (2022-12-12)
+
+
+### Features
+
+* **kbadge:** add isBordered prop [khcp-5591] ([#974](https://github.com/Kong/kongponents/issues/974)) ([a649058](https://github.com/Kong/kongponents/commit/a64905804458ebda10264123b5b842bc6e712537))
+
+## [8.11.1](https://github.com/Kong/kongponents/compare/v8.11.0...v8.11.1) (2022-12-08)
+
+
+### Bug Fixes
+
+* **kstepper:** update type import ([83f5965](https://github.com/Kong/kongponents/commit/83f5965f2a29889d8e4cdaef3a7f225465073f49))
+
+# [8.11.0](https://github.com/Kong/kongponents/compare/v8.10.1...v8.11.0) (2022-12-07)
+
+
+### Bug Fixes
+
+* **deps:** bump focus-trap from 7.1.0 to 7.2.0 ([#961](https://github.com/Kong/kongponents/issues/961)) ([caf6f44](https://github.com/Kong/kongponents/commit/caf6f4452b16d75036b4bb3ee63c51733e2fbc87))
+
+
+### Features
+
+* **kicon:** add new presentation icon ([#962](https://github.com/Kong/kongponents/issues/962)) ([228d478](https://github.com/Kong/kongponents/commit/228d478e9548a7cb171875d4b6c32a089f1ca531))
+
+## [8.10.1](https://github.com/Kong/kongponents/compare/v8.10.0...v8.10.1) (2022-12-07)
+
+
+### Bug Fixes
+
+* **ktreelist:** remove alias from import path ([#957](https://github.com/Kong/kongponents/issues/957)) ([7cce452](https://github.com/Kong/kongponents/commit/7cce4520f611e704cc1ba949c14aec2811a43aa0))
+
+# [8.10.0](https://github.com/Kong/kongponents/compare/v8.9.2...v8.10.0) (2022-12-06)
+
+
+### Features
+
+* **ktreelist:** add component [khcp-5382] ([#911](https://github.com/Kong/kongponents/issues/911)) ([f9bf10f](https://github.com/Kong/kongponents/commit/f9bf10f30dc009648a663f3f074847f22066d891))
+
+## [8.9.2](https://github.com/Kong/kongponents/compare/v8.9.1...v8.9.2) (2022-12-06)
+
+
+### Bug Fixes
+
+* **ksegmentedcontrol:** disallow slot pointer events by default [MA-1189] ([#956](https://github.com/Kong/kongponents/issues/956)) ([8750238](https://github.com/Kong/kongponents/commit/8750238ce679900c6b77941888972df30bda3d37))
+
+## [8.9.1](https://github.com/Kong/kongponents/compare/v8.9.0...v8.9.1) (2022-12-05)
+
+
+### Bug Fixes
+
+* **datetimepicker:** store previously selected relative tf [MA-1122] ([#943](https://github.com/Kong/kongponents/issues/943)) ([c27bd0c](https://github.com/Kong/kongponents/commit/c27bd0c5058a0b9540e9b0cc157b6979bd290d8b))
+
+# [8.9.0](https://github.com/Kong/kongponents/compare/v8.8.1...v8.9.0) (2022-12-05)
+
+
+### Features
+
+* **ktabs:** remove bottom margin from all tabs usage [KHCP-5439] ([#949](https://github.com/Kong/kongponents/issues/949)) ([9882803](https://github.com/Kong/kongponents/commit/988280322b2c5d2f166fa5ae6ea2da1e08a3427b))
+
+## [8.8.1](https://github.com/Kong/kongponents/compare/v8.8.0...v8.8.1) (2022-12-02)
+
+
+### Bug Fixes
+
+* **kmodal:** add focus trap activation delay ([#947](https://github.com/Kong/kongponents/issues/947)) ([3f9f6c6](https://github.com/Kong/kongponents/commit/3f9f6c65a23f83e3e789a6204b680f47e4fe5fd7)), closes [#946](https://github.com/Kong/kongponents/issues/946)
+
+# [8.8.0](https://github.com/Kong/kongponents/compare/v8.7.2...v8.8.0) (2022-12-02)
+
+
+### Features
+
+* **kmodal:** add focus trap support for better a11y ([#940](https://github.com/Kong/kongponents/issues/940)) ([99ef97a](https://github.com/Kong/kongponents/commit/99ef97ad26fe282bfa1bc8b0834b573d305ecd8c))
+
+## [8.7.2](https://github.com/Kong/kongponents/compare/v8.7.1...v8.7.2) (2022-12-01)
+
+
+### Bug Fixes
+
+* **kbutton:** btn-link styles [khcp-5475] ([#942](https://github.com/Kong/kongponents/issues/942)) ([6f7f733](https://github.com/Kong/kongponents/commit/6f7f733777bd6b1a13ece503fc21bbcefd7a9441))
+
+## [8.7.1](https://github.com/Kong/kongponents/compare/v8.7.0...v8.7.1) (2022-12-01)
+
+
+### Bug Fixes
+
+* **ktable:** add a11y attributes ([#939](https://github.com/Kong/kongponents/issues/939)) ([c216a14](https://github.com/Kong/kongponents/commit/c216a14c74fe63385665ba2bf26fa2ec5a6024c9))
+
+# [8.7.0](https://github.com/Kong/kongponents/compare/v8.6.4...v8.7.0) (2022-11-29)
+
+
+### Features
+
+* **ksegmentedcontrol:** updates [khcp-5421] ([#937](https://github.com/Kong/kongponents/issues/937)) ([3d88402](https://github.com/Kong/kongponents/commit/3d88402432b1d1e9db82795bf6da1d28f715ddb0))
+
+## [8.6.4](https://github.com/Kong/kongponents/compare/v8.6.3...v8.6.4) (2022-11-29)
+
+
+### Bug Fixes
+
+* **kfileupload:** hide native button in firefox [KHCP-5462] ([#936](https://github.com/Kong/kongponents/issues/936)) ([6d1d174](https://github.com/Kong/kongponents/commit/6d1d17482f31b81d686e5e500251d0fad43821ca))
+* **kprompt:** kprompt is closed when prevent-proceed-on-enter is set [KHCP-5444] ([#921](https://github.com/Kong/kongponents/issues/921)) ([b235428](https://github.com/Kong/kongponents/commit/b23542838e9acaa6874e578c7ee90e62b9362830))
+
+## [8.6.3](https://github.com/Kong/kongponents/compare/v8.6.2...v8.6.3) (2022-11-29)
+
+
+### Bug Fixes
+
+* **kselect:** border style for `appearance="select"` ([#930](https://github.com/Kong/kongponents/issues/930)) ([3f41973](https://github.com/Kong/kongponents/commit/3f41973ad8b3dea275c80d52c096d108c621e1f0))
+
 ## [8.6.2](https://github.com/Kong/kongponents/compare/v8.6.1...v8.6.2) (2022-11-24)
 
 

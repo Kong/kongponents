@@ -1,20 +1,20 @@
 <template>
   <a
     v-if="typeof to === 'string'"
-    :disabled="disabled ? disabled : undefined"
-    :type="type"
-    :href="to"
-    :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance]"
     class="k-button"
+    :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance]"
+    :disabled="disabled ? disabled : undefined"
+    :href="to"
+    :type="type"
     v-bind="strippedAttrs"
   >
 
     <slot name="icon">
       <KIcon
         v-if="icon"
+        class="k-button-icon"
         :color="iconColor"
         :icon="icon"
-        class="k-button-icon"
         size="16"
       />
     </slot>
@@ -24,28 +24,28 @@
     <KIcon
       v-if="showCaret"
       :color="iconColor"
-      view-box="2 2 15 15"
-      size="16"
       icon="chevronDown"
+      size="16"
+      view-box="2 2 15 15"
     />
   </a>
 
   <component
     :is="buttonType"
     v-else
-    :disabled="disabled ? disabled : undefined"
-    :type="type"
-    :to="to"
-    :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance]"
     class="k-button"
+    :class="[size, {'icon-btn': !hasText && hasIcon, 'rounded': isRounded}, appearance]"
+    :disabled="disabled ? disabled : undefined"
+    :to="to"
+    :type="type"
     v-bind="strippedAttrs"
   >
     <slot name="icon">
       <KIcon
         v-if="icon"
+        class="k-button-icon"
         :color="iconColor"
         :icon="icon"
-        class="k-button-icon"
         size="16"
       />
     </slot>
@@ -56,9 +56,9 @@
       v-if="showCaret"
       :class="['caret']"
       :color="iconColor"
-      view-box="2 2 15 15"
-      size="16"
       icon="chevronDown"
+      size="16"
+      view-box="2 2 15 15"
     />
   </component>
 </template>
@@ -203,20 +203,20 @@ export default defineComponent({
 .k-button {
   position: relative;
   display: inline-flex;
-  align-items: center;
   gap: var(--spacing-xs, spacing(xs));
+  align-items: center;
   padding: var(--KButtonPaddingY, var(--spacing-sm, spacing(sm))) var(--KButtonPaddingX, var(--spacing-lg, spacing(lg)));
   font-family: var(--font-family-sans, font(sans));
   font-size: var(--KButtonFontSize, var(--type-md, type(md)));
   font-weight: 600;
   line-height: 1.25;
+  color: var(--black-70, color(black-70));
   text-decoration: none;
   vertical-align: middle;
-  color: var(--black-70, color(black-70));
+  cursor: pointer;
   border: 1px solid transparent;
   border-radius: var(--KButtonRadius, 3px);
   transition: all .2s ease-in-out;
-  cursor: pointer;
   // Remove tap color highlight on mobile Safari
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 
@@ -245,13 +245,13 @@ export default defineComponent({
 
   /* Button w/ Icon */
   > :deep(.kong-icon) {
-    display: inline-flex;
     box-sizing: unset;
+    display: inline-flex;
   }
 
   &.icon-btn {
-    height: 38px;
     justify-content: center;
+    height: 38px;
   }
 
   /* Size Variations */
@@ -276,15 +276,15 @@ export default defineComponent({
   /* class to add for dropdown caret */
 
   :deep(.caret) {
-    margin-left: 15px;
-    padding: 0;
     display: inline-block;
+    padding: 0;
+    margin-left: 15px;
     transition: 250ms ease;
   }
 
   &.is-active :deep(.caret) {
-    transform: rotate(-180deg);
     transition: 250ms ease;
+    transform: rotate(-180deg);
   }
 
   /* Apperance Variations */
@@ -302,9 +302,9 @@ export default defineComponent({
     }
     &:disabled,
     &[disabled] {
+      color: var(--grey-400) !important;
       // Use !important to override conflicting styles
       background-color: var(--grey-300) !important;
-      color: var(--grey-400) !important;
     }
   }
 
@@ -322,8 +322,8 @@ export default defineComponent({
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300) !important;
       color: var(--grey-400) !important;
+      background-color: var(--grey-300) !important;
     }
   }
   &.danger {
@@ -341,8 +341,8 @@ export default defineComponent({
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300) !important;
       color: var(--grey-400) !important;
+      background-color: var(--grey-300) !important;
     }
   }
 
@@ -361,41 +361,56 @@ export default defineComponent({
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300) !important;
       color: var(--grey-400) !important;
+      background-color: var(--grey-300) !important;
     }
   }
 
   &.outline {
     color: var(--KButtonOutlineColor, var(--blue-500, color(blue-500)));
-    border-color: var(--KButtonOutlineBorder, rgba(color(blue-500), .4));
     background-color: var(--white, color(white));
+    border-color: var(--KButtonOutlineBorder, rgba(color(blue-500), .4));
     outline-style: inherit;
     &:hover:not(:disabled) {
       border-color: var(--KButtonOutlineHoverBorder, rgba(color(blue-500), 1));
     }
     &:active {
-      border-color: var(--KButtonOutlineActiveBorder, rgba(color(blue-500), 1));
       background-color: var(--KButtonOutlineActive, var(--blue-100, color(blue-100)));
+      border-color: var(--KButtonOutlineActiveBorder, rgba(color(blue-500), 1));
     }
     &:focus {
       @include boxShadow(var(--KButtonOutlineBorder, var(--blue-500, color(blue-500))));
     }
     &:disabled,
     &[disabled] {
-      border-color: var(--grey-400) !important;
       color: var(--grey-400) !important;
+      border-color: var(--grey-400) !important;
     }
   }
+
   &.btn-link {
+    padding: 0;
     color: var(--KButtonBtnLink, var(--blue-500, color(blue-500)));
     background-color: transparent;
+
     &:hover:not(:disabled) {
       text-decoration: underline;
     }
+
     &:focus {
-      @include boxShadow(var(--KButtonOutlineBorder, var(--blue-500, color(blue-500))), 0, 2px);
+      text-decoration: underline;
     }
+
+    &:focus-visible,
+    &:focus-visible:disabled {
+      text-decoration: none;
+      border-radius: unset;
+      outline: auto 1px;
+      outline: -webkit-focus-ring-color auto 1px;
+      outline-offset: 3px;
+      transition: none;
+    }
+
     &:disabled,
     &[disabled] {
       color: var(--grey-400) !important;

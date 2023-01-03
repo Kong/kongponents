@@ -10,12 +10,12 @@
         <KSkeletonBox
           v-for="cell in columns"
           :key="cell"
-          :width="calcWidth(cell, columns)"
           :class="{
             'mr-6': cell !== columns,
             'w-100': cell === columns, // take the rest of the space
             'skeleton-cell': true
           }"
+          :width="calcWidth(cell, columns)"
         />
       </slot>
     </div>
@@ -67,7 +67,7 @@ $screen-md: 756px;
   .skeleton-table-row {
     display: flex;
     flex-direction: row;
-    margin-bottom: 2rem;
+    margin-bottom: 32px;
     /** Hide columns on smaller screens */
     @media only screen and (max-width: $screen-lg) {
       .skeleton-cell {
@@ -75,8 +75,8 @@ $screen-md: 756px;
           display: none;
         }
         &:nth-of-type(4) {
-          margin-left: auto;
           margin-right: 0;
+          margin-left: auto;
         }
       }
     }
@@ -86,9 +86,9 @@ $screen-md: 756px;
           display: none;
         }
         &:nth-of-type(2) {
-          width: 6rem;
-          margin-left: auto;
+          width: 96px;
           margin-right: 0;
+          margin-left: auto;
         }
       }
     }

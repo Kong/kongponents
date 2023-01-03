@@ -3,26 +3,50 @@
     :id="props.id"
     ref="codeBlock"
     class="k-code-block"
-    tabindex="0"
-    :style="`--maxLineNumberWidth: ${maxLineNumberWidth}`"
+    :class="[`theme-${theme}`]"
     data-testid="k-code-block"
+    :style="`--maxLineNumberWidth: ${maxLineNumberWidth}`"
+    tabindex="0"
   >
     <div
       v-if="isSearchable"
       class="k-code-block-actions"
     >
+      <p
+        class="k-code-block-search-results"
+        :class="{
+          'k-code-block-search-results-has-query': query !== '',
+        }"
+      >
+        <template v-if="query === '' && numberOfMatches === 0">
+          &nbsp;
+        </template>
+
+        <template v-else-if="numberOfMatches === 0">
+          No results
+        </template>
+
+        <template v-else-if="typeof currentLineIndex === 'number' && !isShowingFilteredCode">
+          {{ currentLineIndex + 1 }} of {{ numberOfMatches }}
+        </template>
+
+        <template v-else>
+          {{ numberOfMatches }} {{ numberOfMatches === 1 ? 'result' : 'results' }}
+        </template>
+      </p>
+
       <div class="k-search-container">
         <KIcon
           class="k-search-icon"
+          :color="theme === 'light' ? 'var(--steel-500)' : 'var(--steel-400)'"
+          data-testid="k-code-block-search-icon"
           icon="search"
           size="20"
-          color="currentColor"
-          data-testid="k-code-block-search-icon"
         />
 
         <label
-          :for="`${props.id}-search-input`"
           class="k-code-block-search-label"
+          :for="`${props.id}-search-input`"
         >
           <span class="k-visually-hidden">Search</span>
         </label>
@@ -31,8 +55,8 @@
           :id="`${props.id}-search-input`"
           ref="codeBlockSearchInput"
           class="k-code-block-search-input"
-          type="text"
           data-testid="k-code-block-search-input"
+          type="text"
           @input="handleSearch"
         >
 
@@ -46,61 +70,42 @@
         <KIcon
           class="k-is-processing-icon"
           :class="{ 'k-is-processing-icon-is-visible': isProcessing }"
-          icon="spinner"
-          color="var(--grey-400)"
+          :color="theme === 'light' ? 'var(--steel-500)' : 'var(--steel-400)'"
           data-testid="k-code-block-is-processing-icon"
+          icon="spinner"
         />
 
         <button
           v-if="query !== ''"
-          class="k-clear-query-button"
-          type="button"
           appearance="outline"
-          title="Clear query"
+          class="k-clear-query-button"
           data-testid="k-code-block-clear-query-button"
+          title="Clear query"
+          type="button"
           @click="clearQuery"
         >
           <span class="k-visually-hidden">Clear query</span>
 
           <KIcon
             class="k-clear-icon"
+            :color="theme === 'light' ? 'var(--steel-500)' : 'var(--steel-400)'"
+            data-testid="k-code-block-clear-icon"
             icon="clear"
             size="20"
-            color="currentColor"
-            data-testid="k-code-block-clear-icon"
           />
         </button>
       </div>
 
-      <p
-        class="k-code-block-search-results"
-        :class="{
-          'k-code-block-search-results-has-query': query !== '',
-        }"
-      >
-        <template v-if="numberOfMatches === 0">
-          No results
-        </template>
-
-        <template v-else-if="typeof currentLineIndex === 'number' && !isShowingFilteredCode">
-          {{ currentLineIndex + 1 }} of {{ numberOfMatches }}
-        </template>
-
-        <template v-else>
-          {{ numberOfMatches }} results
-        </template>
-      </p>
-
       <div class="k-search-actions">
         <KButton
-          class="k-regexp-mode-button"
-          type="button"
-          :appearance="isRegExpMode ? 'secondary' : 'outline'"
+          :appearance="isRegExpMode ? 'action-active' : 'outline'"
           :aria-pressed="isRegExpMode"
+          class="k-regexp-mode-button"
+          data-testid="k-code-block-regexp-mode-button"
           :is-rounded="false"
           size="small"
           :title="`Use regular expression (${ALT_SHORTCUT_LABEL}+R)`"
-          data-testid="k-code-block-regexp-mode-button"
+          type="button"
           @click="toggleRegExpMode"
         >
           <span class="k-visually-hidden">RegExp mode enabled</span>
@@ -109,24 +114,24 @@
         </KButton>
 
         <KButton
-          class="k-filter-mode-button"
-          type="button"
-          icon="filter"
-          :appearance="isFilterMode ? 'secondary' : 'outline'"
+          :appearance="isFilterMode ? 'action-active' : 'outline'"
           :aria-pressed="isFilterMode"
+          class="k-filter-mode-button"
+          data-testid="k-code-block-filter-mode-button"
+          icon="filter"
           :is-rounded="false"
           size="small"
           :title="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
-          data-testid="k-code-block-filter-mode-button"
+          type="button"
           @click="toggleFilterMode"
         >
           <template #icon>
             <KIcon
               class="k-button-icon"
+              color="currentColor"
               icon="filter"
               size="16"
               :title="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
-              color="currentColor"
             />
           </template>
 
@@ -135,21 +140,21 @@
 
         <KButton
           class="k-previous-match-button"
-          type="button"
+          data-testid="k-code-block-previous-match-button"
+          :disabled="matchingLineNumbers.length === 0 || isFilterMode"
           :is-rounded="false"
           size="small"
           title="Previous match (Shift+F3)"
-          :disabled="matchingLineNumbers.length === 0 || isFilterMode"
-          data-testid="k-code-block-previous-match-button"
+          type="button"
           @click="jumpToPreviousMatch"
         >
           <template #icon>
             <KIcon
               class="k-button-icon"
+              color="currentColor"
               icon="chevronUp"
               size="16"
               title="Previous match (Shift+F3)"
-              color="currentColor"
             />
           </template>
 
@@ -158,21 +163,21 @@
 
         <KButton
           class="k-next-match-button"
-          type="button"
+          data-testid="k-code-block-next-match-button"
+          :disabled="matchingLineNumbers.length === 0 || isFilterMode"
           :is-rounded="false"
           size="small"
           title="Next match (F3)"
-          :disabled="matchingLineNumbers.length === 0 || isFilterMode"
-          data-testid="k-code-block-next-match-button"
+          type="button"
           @click="jumpToNextMatch"
         >
           <template #icon>
             <KIcon
               class="k-button-icon"
+              color="currentColor"
               icon="chevronDown"
               size="16"
               title="Next match (F3)"
-              color="currentColor"
             />
           </template>
 
@@ -226,20 +231,21 @@
 
       <KButton
         v-if="props.showCopyButton"
-        class="k-code-block-copy-button"
-        type="button"
+        ref="codeBlockCopyButton"
         appearance="outline"
+        class="k-code-block-copy-button"
+        data-testid="k-code-block-copy-button"
         :is-rounded="false"
         size="small"
         :title="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
-        data-testid="k-code-block-copy-button"
+        type="button"
         @click="copyCode"
       >
         <KIcon
-          icon="copy"
-          size="16"
-          :title="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
           color="currentColor"
+          icon="copy"
+          size="18"
+          :title="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
         />
 
         <span class="k-visually-hidden">Copy</span>
@@ -249,12 +255,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch, PropType } from 'vue'
 
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import { copyTextToClipboard } from '@/utilities/copyTextToClipboard'
 import { debounce } from '@/utilities/debounce'
+import { Command, ShortcutManager } from '@/utilities/ShortcutManager'
 
 export type CodeBlockEventData = {
   preElement: HTMLElement
@@ -265,45 +272,8 @@ export type CodeBlockEventData = {
   matchingLineNumbers: number[]
 }
 
-type CommandKeywords = 'toggleFilterMode' | 'toggleRegExpMode' | 'jumpToNextMatch' | 'jumpToPreviousMatch' | 'copyCode'
-
-type Command = {
-  /**
-   * Command handler.
-   */
-  trigger: (event: Event) => (Promise<void> | void)
-
-  /**
-   * Checks whether the context in which the command is triggering is permitted.
-   *
-   * The function is passed the associated `KeyboardEvent`. The event’s [`event.composedPath()`][1] method is convenient to check where an event originates (e.g. does it come within the code block?).
-   *
-   * [1]: https://developer.mozilla.org/en-US/docs/Web/API/Event/composedPath
-   */
-  isAllowedContext?: (event: Event) => boolean
-
-  /**
-   * Disables the shortcut dynamically.
-   */
-  isDisabled?: () => boolean
-
-  shouldPreventDefaultAction?: boolean
-}
-
 const IS_MAYBE_MAC = window?.navigator?.platform?.toLowerCase().includes('mac')
 const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Options' : 'Alt'
-
-/**
- * Maps shortcuts to their associated command keywords.
- */
-const DEFAULT_KEY_MAP: Record<string, CommandKeywords> = {
-  'alt+c': 'copyCode',
-  'alt+f': 'toggleFilterMode',
-  'alt+g': 'toggleFilterMode',
-  'alt+r': 'toggleRegExpMode',
-  f3: 'jumpToNextMatch',
-  'shift+f3': 'jumpToPreviousMatch',
-}
 
 // Debounces the search handler which ensures that we don’t trigger several searches while the user is still typing.
 const debouncedHandleSearchInputValue = debounce(handleSearchInputValue, 150)
@@ -377,6 +347,15 @@ const props = defineProps({
     required: false,
     default: false,
   },
+
+  /**
+   * Controls the color scheme of the component. **Default: `light`**.
+   */
+  theme: {
+    type: String as PropType<'light' | 'dark'>,
+    required: false,
+    default: 'light',
+  },
 })
 
 const emit = defineEmits<{
@@ -405,6 +384,7 @@ const isFilterMode = ref(false)
 const regExpError = ref<Error | null>(null)
 const codeBlock = ref<HTMLElement | null>(null)
 const codeBlockSearchInput = ref<HTMLInputElement | null>(null)
+const codeBlockCopyButton = ref<typeof KButton | null>(null)
 const numberOfMatches = ref(0)
 const matchingLineNumbers = ref<number[]>([])
 const currentLineIndex = ref<null | number>(null)
@@ -463,8 +443,71 @@ watch(() => isShowingFilteredCode.value, async function() {
   }
 })
 
+type CommandKeywords = 'toggleFilterMode' | 'toggleRegExpMode' | 'jumpToNextMatch' | 'jumpToPreviousMatch' | 'copyCode'
+
+/**
+ * Maps shortcuts to their associated command keywords.
+ */
+const keyMap: Record<string, CommandKeywords> = {
+  'alt+c': 'copyCode',
+  'alt+f': 'toggleFilterMode',
+  'alt+g': 'toggleFilterMode',
+  'alt+r': 'toggleRegExpMode',
+  f3: 'jumpToNextMatch',
+  'shift+f3': 'jumpToPreviousMatch',
+}
+
+/**
+ * Maps command keywords to their associated commands.
+ */
+const commands: Record<CommandKeywords, Command> = {
+  toggleFilterMode: {
+    trigger: toggleFilterMode,
+    isAllowedContext(event: Event) {
+      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
+    },
+    shouldPreventDefaultAction: true,
+  },
+
+  toggleRegExpMode: {
+    trigger: toggleRegExpMode,
+    isAllowedContext(event: Event) {
+      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
+    },
+    shouldPreventDefaultAction: true,
+  },
+
+  jumpToNextMatch: {
+    trigger: jumpToNextMatch,
+    isAllowedContext(event: Event) {
+      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
+    },
+    isDisabled: () => matchingLineNumbers.value.length === 0 || isFilterMode.value,
+    shouldPreventDefaultAction: true,
+  },
+
+  jumpToPreviousMatch: {
+    trigger: jumpToPreviousMatch,
+    isAllowedContext(event: Event) {
+      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
+    },
+    isDisabled: () => matchingLineNumbers.value.length === 0 || isFilterMode.value,
+    shouldPreventDefaultAction: true,
+  },
+
+  copyCode: {
+    trigger: copyCode,
+    isAllowedContext(event: Event) {
+      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
+    },
+    shouldPreventDefaultAction: true,
+  },
+}
+
+const shortcutManager = new ShortcutManager(keyMap, commands)
+
 onMounted(function() {
-  document.addEventListener('keydown', triggerShortcuts)
+  shortcutManager.registerListener()
 
   if (codeBlockSearchInput.value instanceof HTMLInputElement && props.query !== '') {
     codeBlockSearchInput.value.value = props.query
@@ -475,7 +518,7 @@ onMounted(function() {
 })
 
 onBeforeUnmount(function() {
-  document.removeEventListener('keydown', triggerShortcuts)
+  shortcutManager.unRegisterListener()
 })
 
 function emitCodeBlockRenderEvent(): void {
@@ -615,102 +658,6 @@ function toggleFilterMode(): void {
   isFilterMode.value = !isFilterMode.value
 }
 
-const keyMap = Object.fromEntries(Object.entries(DEFAULT_KEY_MAP).map(([shortcut, commandKeyword]) => [shortcut.toLowerCase(), commandKeyword]))
-
-/**
- * Maps command keywords to their associated commands.
- */
-const commands: Record<CommandKeywords, Command> = {
-  toggleFilterMode: {
-    trigger: toggleFilterMode,
-    isAllowedContext(event: Event) {
-      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
-    },
-    shouldPreventDefaultAction: true,
-  },
-
-  toggleRegExpMode: {
-    trigger: toggleRegExpMode,
-    isAllowedContext(event: Event) {
-      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
-    },
-    shouldPreventDefaultAction: true,
-  },
-
-  jumpToNextMatch: {
-    trigger: jumpToNextMatch,
-    isAllowedContext(event: Event) {
-      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
-    },
-    isDisabled: () => matchingLineNumbers.value.length === 0 || isFilterMode.value,
-    shouldPreventDefaultAction: true,
-  },
-
-  jumpToPreviousMatch: {
-    trigger: jumpToPreviousMatch,
-    isAllowedContext(event: Event) {
-      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
-    },
-    isDisabled: () => matchingLineNumbers.value.length === 0 || isFilterMode.value,
-    shouldPreventDefaultAction: true,
-  },
-
-  copyCode: {
-    trigger: copyCode,
-    isAllowedContext(event: Event) {
-      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
-    },
-    shouldPreventDefaultAction: true,
-  },
-}
-
-function triggerShortcuts(event: KeyboardEvent): void {
-  const code = normalizeKeyCode(event.code)
-  const shortcut = [
-    event.ctrlKey ? 'ctrl' : '',
-    event.shiftKey ? 'shift' : '',
-    event.altKey ? 'alt' : '',
-    code,
-  ].filter((key) => key !== '').join('+')
-  const commandKey = keyMap[shortcut]
-
-  if (!commandKey) {
-    return
-  }
-
-  const command = commands[commandKey]
-
-  // Prevents invoking shortcuts from outside a certain allowed context.
-  if (command.isAllowedContext) {
-    const isAllowedContext = command.isAllowedContext(event)
-
-    if (!isAllowedContext) {
-      return
-    }
-  }
-
-  if ((command.shouldPreventDefaultAction)) {
-    event.preventDefault()
-  }
-
-  if (command.isDisabled && command.isDisabled()) {
-    return
-  }
-
-  command.trigger(event)
-}
-
-const MODIFIER_KEY_CODES = ['ControlLeft', 'ControlRight', 'ShiftLeft', 'ShiftRight', 'AltLeft']
-
-function normalizeKeyCode(code: string): string {
-  // Returns relevant modifier keys as the empty string which is going to be filtered out.
-  if (MODIFIER_KEY_CODES.includes(code)) {
-    return ''
-  }
-
-  return code.replace(/^Key/, '').toLowerCase()
-}
-
 function jumpToNextMatch(): void {
   jumpToMatch(1)
 }
@@ -743,8 +690,9 @@ function jumpToMatch(direction: number): void {
   }
 }
 
-async function copyCode(event: Event): Promise<void> {
-  const button = event.currentTarget as HTMLButtonElement
+async function copyCode(): Promise<void> {
+  const buttonComponent = codeBlockCopyButton.value as typeof KButton
+  const button = buttonComponent.$el as HTMLButtonElement
 
   const hasCopiedCodeSuccessfully = await copyTextToClipboard(props.code)
   if (hasCopiedCodeSuccessfully) {
@@ -761,50 +709,83 @@ async function copyCode(event: Event): Promise<void> {
 @import '@/styles/variables';
 @import '@/styles/functions';
 
-$borderRadius: 3px;
-$focusColor: var(--blue-500, color(blue-500));
-$matchHighlightColor: var(--blue-500, color(blue-500));
-$color: var(--black-85, color(black-85));
-$backgroundColor: var(--grey-100, color(grey-100));
+// shared
+$borderRadius: 8px;
 $fontSize: var(--type-xs, type(xs));
 $fontFamilyMono: var(--font-family-mono, font(mono));
 $tabSize: 2;
 
+// theme-light
+$light-color: var(--steel-700, color(blue-700));
+$light-backgroundColor: var(--grey-100, color(grey-100));
+$light-focusColor: var(--blue-500, color(blue-500));
+
+// theme-dark
+$dark-color: var(--green-200, color(green-200));
+$dark-backgroundColor: var(--black-500, color(black-500));
+$dark-focusColor: var(--green-500, color(green-500));
+
 .k-code-block {
-  color: var(--KCodeBlockColor, $color);
+  color: var(--KCodeBlockColor, $light-color);
   border-radius: var(--KCodeBlockBorderRadius, $borderRadius);
+
+  &.theme-light {
+    --KButtonOutlineColor: var(--steel-500, color(steel-500));
+    --KButtonOutlineBorder: var(--steel-500, color(steel-500));
+    --KButtonOutlineHoverBorder: var(--steel-700, color(steel-700));
+  }
+
+  &.theme-dark {
+    color: var(--KCodeBlockColor, $dark-color);
+  }
 }
 
 .k-code-block pre,
 .k-code-block code {
-  tab-size: var(--KCodeBlockTabSize, $tabSize);
-  font-size: var(--KCodeBlockFontSize, $fontSize);
   font-family: var(--KCodeBlockFontFamilyMono, $fontFamilyMono);
-  color: var(--KCodeBlockColor, $color);
+  font-size: var(--KCodeBlockFontSize, $fontSize);
+  color: var(--KCodeBlockColor, $light-color);
+  tab-size: var(--KCodeBlockTabSize, $tabSize);
+}
+
+.k-code-block.theme-dark pre,
+.k-code-block.theme-dark code {
+  color: var(--KCodeBlockColor, $dark-color);
 }
 
 .k-code-block pre {
-  margin-top: 0;
-  margin-bottom: 0;
-  padding: var(--spacing-xs, spacing(xs)) 0 var(--spacing-xs, spacing(xs)) var(--spacing-sm, spacing(sm));
-  border-radius: var(--KCodeBlockBorderRadius, $borderRadius);
-  background-color: var(--KCodeBlockBackgroundColor, $backgroundColor);
-  min-height: 44px;
-  max-height: var(--KCodeBlockMaxHeight, none);
   display: grid;
   grid-template-columns: var(--maxLineNumberWidth) 1fr;
   gap: var(--spacing-sm, spacing(sm));
+  min-height: 44px;
+  max-height: var(--KCodeBlockMaxHeight, none);
+  overflow: auto;
+  padding: var(--spacing-xs, spacing(xs)) 0 var(--spacing-xs, spacing(xs)) var(--spacing-sm, spacing(sm));
+  margin-top: 0;
+  margin-bottom: 0;
+  background-color: var(--KCodeBlockBackgroundColor, $light-backgroundColor);
+  border-radius: var(--KCodeBlockBorderRadius, $borderRadius);
+}
+
+.k-code-block.theme-dark pre {
+  background-color: var(--KCodeBlockBackgroundColor, $dark-backgroundColor);
 }
 
 .k-code-block pre:focus-visible {
-  outline: 2px solid var(--KCodeBlockFocusColor, $focusColor);
-  outline-offset: -2px;
   isolation: isolate;
+  outline: 2px solid var(--KCodeBlockFocusColor, $light-focusColor);
+  outline-offset: -2px;
+}
+
+.k-code-block.theme-dark pre:focus-visible {
+  outline: 2px solid var(--KCodeBlockFocusColor, $dark-focusColor);
 }
 
 .k-code-block-actions + .k-code-block-content > pre {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+  border-bottom-left-radius: $borderRadius;
+  border-bottom-right-radius: $borderRadius;
 }
 
 .k-code-block code {
@@ -816,84 +797,142 @@ $tabSize: 2;
 }
 
 .k-code-block:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px var(--KCodeBlockFocusColor, $focusColor);
   isolation: isolate;
+  outline: none;
+  box-shadow: 0 0 0 2px var(--KCodeBlockFocusColor, $light-focusColor);
+}
+
+.k-code-block.theme-dark:focus-visible {
+  box-shadow: 0 0 0 2px var(--KCodeBlockFocusColor, $dark-focusColor);
 }
 
 .k-code-block-actions {
   display: flex;
   flex-wrap: wrap;
+  gap: var(--spacing-xxs, spacing(xxs));
   align-items: stretch;
   justify-content: flex-end;
-  gap: var(--spacing-xxs, spacing(xxs));
   padding: var(--spacing-xs, spacing(xs)) var(--spacing-md, spacing(md));
+  background-color: var(--grey-200, color(grey-200));
+  border-bottom: 1px solid var(--grey-300, color(grey-300));
   border-top-left-radius: var(--KCodeBlockBorderRadius, $borderRadius);
   border-top-right-radius: var(--KCodeBlockBorderRadius, $borderRadius);
-  border-bottom: 1px solid var(--grey-300, color(grey-300));
-  background-color: var(--grey-200, color(grey-200));
+}
+
+.theme-dark .k-code-block-actions {
+  color: #fff;
+  background-color: var(--black-500, color(black-500));
+  border-bottom: 1px solid var(--steel-700, color(steel-700));
 }
 
 .k-code-block-actions .k-button {
   align-self: stretch;
+
+  &.action-active {
+    color: #fff;
+    border-color: var(--steel-500, color(steel-500));
+    background-color: var(--steel-500, color(steel-500));
+  }
+}
+
+.theme-dark .k-code-block-actions .k-button {
+  color: var(--steel-300, color(steel-300));
+  border-color: var(--steel-300, color(steel-300));
+  background-color: $dark-backgroundColor;
+
+  &:hover {
+    color: $dark-backgroundColor;
+    border-color: var(--steel-400, color(steel-400));
+    background-color: var(--steel-400, color(steel-400));
+
+    &:disabled {
+      background-color: $dark-backgroundColor;
+    }
+  }
+
+  &.action-active {
+    color: $dark-backgroundColor;
+    border-color: var(--steel-300, color(steel-300));
+    background-color: var(--steel-300, color(steel-300));
+  }
 }
 
 .k-is-processing-icon {
   display: inline-flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .k-search-actions {
   display: inline-flex;
   flex-wrap: wrap;
-  align-items: stretch;
   gap: var(--spacing-xxs, spacing(xxs));
+  align-items: stretch;
 }
 
 .k-is-processing-icon:not(.k-is-processing-icon-is-visible) {
   visibility: hidden;
 }
 
-.k-regexp-mode-button {
+.k-button.k-regexp-mode-button {
   font-family: var(--KCodeBlockFontFamilyMono, $fontFamilyMono);
 }
 
 .k-search-container {
   position: relative;
+  display: inline-flex;
   // Indicates the sizing requirements to the surrounding flex container and ensures the search container doesn’t get too small.
   flex-basis: 15ch;
   flex-grow: 1;
-  max-width: 250px;
-  display: inline-flex;
   align-items: stretch;
+  max-width: 250px;
+  background-color: var(--white, color(white));
   border: 1px solid var(--KInputBorder, var(--grey-300, color(grey-300)));
   border-radius: 3px;
-  background-color: var(--white, color(white));
   transition: border 0.1s ease;
+
+  &:focus {
+    border: 1px solid var(--KInputBorder, var(--grey-300, color(grey-300)));
+  }
+}
+
+.theme-dark .k-search-container {
+  background-color: var(--steel-700, color(steel-700));
+  border: none;
 }
 
 .k-search-container:hover {
-  border-color: var(--KInputHover, var(--blue-200, color(blue-200)));
+  border-color: var(--KInputHover, var(--steel-200, color(steel-200)));
 }
 
 .k-search-container:focus-within {
-  border-color: var(--KInputFocus, var(--blue-400, color(blue-400)));
+  border-color: var(--KInputFocus, var(--steel-400, color(steel-400)));
+}
+
+.theme-dark .k-search-container:focus-within {
+  border-color: var(--KInputFocus, var(--steel-300, color(steel-300)));
 }
 
 .k-code-block-search-input {
-  width: 0;
   flex-grow: 1;
-  appearance: none;
-  margin: 0;
+  width: 0;
+  height: 32px;
   padding: 0 var(--spacing-xs, spacing(xs));
-  border: none;
+  margin: 0;
+  font: inherit;
   color: currentColor;
   background-color: transparent;
-  font: inherit;
+  border: none;
+  appearance: none;
 }
 
-.k-code-block-search-input:focus {
+.theme-dark .k-code-block-search-input {
+  color: #fff;
+  background-color: var(--steel-700, color(steel-700));
+}
+
+.k-code-block-search-input:focus,
+.k-code-block-search-input:focus-visible {
   // Focus styles are managed by `.k-search-container`
   outline: none;
 }
@@ -902,11 +941,16 @@ $tabSize: 2;
   align-self: center;
   // Sets the minimum width to 12 characters which is the length of the string “1234 results” which should be reasonably safe in order to avoid having layout elements jump around.
   min-width: 12ch;
-  text-align: center;
+  text-align: right;
+  padding-right: var(--spacing-sm, spacing(sm));
 }
 
 .k-code-block-search-results:not(.k-code-block-search-results-has-query) {
   color: var(--grey-500, color(grey-500));
+}
+
+.theme-dark .k-code-block-search-results:not(.k-code-block-search-results-has-query) {
+  color: var(--steel-300, color(steel-300));
 }
 
 .k-code-block-search-error,
@@ -917,17 +961,17 @@ $tabSize: 2;
 
 .k-code-block-search-error {
   position: absolute;
-  z-index: 1;
   top: 100%;
-  left: -1px;
   right: -1px;
+  left: -1px;
+  z-index: 1;
   padding: 0 var(--spacing-xxs, spacing(xxs));
+  font-size: 13px;
+  color: var(--red-700, color(red-700));
+  background-color: var(--white, color(white));
   border: 1px solid currentColor;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
-  background-color: var(--white, color(white));
-  font-size: 0.8em;
-  color: var(--red-700, color(red-700));
 }
 
 .k-search-icon {
@@ -936,22 +980,27 @@ $tabSize: 2;
 }
 
 .k-clear-query-button {
-  appearance: none;
   display: inline-flex;
   align-items: center;
-  margin: 0;
   padding: 0 var(--spacing-xxs, spacing(xxs));
-  border: 1px solid transparent;
-  border-radius: 3px;
+  margin: 0;
+  font: inherit;
   color: var(--grey-400, color(grey-400));
   background-color: transparent;
-  font: inherit;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  appearance: none;
 }
 
 .k-clear-query-button:focus {
-  border-color: var(--KButtonOutlineBorder, $focusColor);
+  border-color: var(--KButtonOutlineBorder, $light-focusColor);
   outline: none;
-  box-shadow: 0 0 0 2px var(--white, color(white)), 0 0 0 4px var(--KButtonOutlineBorder, $focusColor);
+  box-shadow: 0 0 0 2px var(--white, color(white)), 0 0 0 4px var(--KButtonOutlineBorder, $light-focusColor);
+}
+
+.theme-dark .k-clear-query-button:focus {
+  border-color: var(--KButtonOutlineBorder, $dark-focusColor);
+  box-shadow: 0 0 0 2px var(--white, color(white)), 0 0 0 4px var(--KButtonOutlineBorder, $dark-focusColor);
 }
 
 .k-code-block-content {
@@ -960,42 +1009,90 @@ $tabSize: 2;
 
 .k-code-block-copy-button {
   position: absolute;
-  z-index: 2;
   top: var(--spacing-xs, spacing(xs));
   right: var(--spacing-md, spacing(md));
   display: block;
+  z-index: 1;
+
+  &.k-button {
+    @media (min-width: $viewport-md) {
+      background-color: transparent;
+      border-color: transparent;
+    }
+
+    &:hover {
+      background-color: var(--steel-100, color(steel-100));
+      border-color: transparent !important;
+    }
+
+    &:active,
+    &:hover:active {
+      color: #fff;
+      background-color: var(--steel-500, color(steel-500));
+      border-color: var(--steel-500, color(steel-500));
+    }
+  }
+}
+
+.theme-dark .k-code-block-copy-button {
+
+  &.k-button {
+    color: var(--steel-300, color(steel-300));
+
+    @media (max-width: ($viewport-md - 1px)) {
+      background-color: $dark-backgroundColor;
+      border-color: var(--steel-300, color(steel-300));
+    }
+
+    &:hover {
+      background-color: rgba(#fff, 0.1);
+      border-color: transparent !important;
+    }
+
+    &:active,
+    &:hover:active {
+      color: $dark-backgroundColor;
+      background-color: var(--steel-300, color(steel-300));
+      border-color: var(--steel-300, color(steel-300));
+    }
+  }
 }
 
 .k-code-block-copy-button[data-tooltip-text]::after {
-  content: attr(data-tooltip-text);
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
   right: calc(100% + var(--spacing-xs, spacing(xs)));
   padding: var(--spacing-xs, spacing(xs));
-  border-radius: 3px;
-  white-space: nowrap;
-  color: var(--white, color(white));
-  background-color: var(--grey-600, color(grey-600));
   font-weight: normal;
+  color: var(--white, color(white));
+  white-space: nowrap;
+  content: attr(data-tooltip-text);
+  background-color: var(--grey-600, color(grey-600));
+  border-radius: 3px;
+  transform: translateY(-50%);
 }
 
 .k-button-icon {
   display: inline-flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .k-line-number-rows {
   box-sizing: border-box;
-  user-select: none;
   display: flex;
   flex-direction: column;
+  user-select: none;
 }
 
 .k-line-number-rows,
 .k-line-number-rows a {
-  color: var(--grey-500, color(grey-500));
+  color: var(--steel-500, color(steel-500));
+}
+
+.theme-dark .k-line-number-rows,
+.theme-dark .k-line-number-rows a {
+  color: var(--steel-300, color(steel-300));
 }
 
 .k-line {
@@ -1005,17 +1102,25 @@ $tabSize: 2;
 }
 
 .k-line-is-match::before {
-  content: '\A0';
-  pointer-events: none;
   position: absolute;
-  left: 0;
   right: 0;
+  left: 0;
+  pointer-events: none;
+  content: '\A0';
   background-color: hsl(220, 18%, 35%, 0.1);
 }
 
+.theme-dark .k-line-is-match::before {
+  background-color: hsl(220, 18%, 35%, 0.3);
+}
+
 .k-line-is-highlighted-match::before {
-  border-left: 5px solid var(--KCodeBlockMatchHighlightColor, $focusColor);
   background-color: hsl(220, 18%, 35%, 0.2);
+  border-left: 5px solid var(--KCodeBlockMatchHighlightColor, $light-focusColor);
+}
+
+.theme-dark .k-line-is-highlighted-match::before {
+  border-left: 5px solid var(--KCodeBlockMatchHighlightColor, $dark-focusColor);
 }
 
 .k-line-anchor:not([href]) {
@@ -1030,8 +1135,12 @@ $tabSize: 2;
 
 <style lang="scss">
 .k-matched-term {
-  color: var(--teal-500, color(teal-500));
   font-weight: 900;
+  color: var(--teal-500, color(teal-500));
+}
+
+.theme-dark .k-matched-term {
+  color: var(--green-500, color(green-500));
 }
 
 .k-code-block .k-button.small {
@@ -1041,7 +1150,7 @@ $tabSize: 2;
 
 .k-code-block .kong-icon {
   display: inline-flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 </style>

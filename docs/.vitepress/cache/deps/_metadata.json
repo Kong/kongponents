@@ -1,0 +1,68 @@
+{
+  "hash": "52d8c7d1",
+  "browserHash": "9409d5b4",
+  "optimized": {
+    "vue": {
+      "src": "../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "file": "vue.js",
+      "fileHash": "4dca3537",
+      "needsInterop": false
+    },
+    "uuid": {
+      "src": "../../../../node_modules/uuid/dist/esm-browser/index.js",
+      "file": "uuid.js",
+      "fileHash": "541d0ef4",
+      "needsInterop": false
+    },
+    "date-fns": {
+      "src": "../../../../node_modules/date-fns/esm/index.js",
+      "file": "date-fns.js",
+      "fileHash": "e45f043e",
+      "needsInterop": false
+    },
+    "date-fns-tz": {
+      "src": "../../../../node_modules/date-fns-tz/esm/index.js",
+      "file": "date-fns-tz.js",
+      "fileHash": "e73d54c4",
+      "needsInterop": false
+    },
+    "v-calendar": {
+      "src": "../../../../node_modules/v-calendar/dist/v-calendar.es.js",
+      "file": "v-calendar.js",
+      "fileHash": "fb80e3c6",
+      "needsInterop": false
+    },
+    "focus-trap-vue": {
+      "src": "../../../../node_modules/focus-trap-vue/dist/focus-trap-vue.esm-browser.js",
+      "file": "focus-trap-vue.js",
+      "fileHash": "499dd66c",
+      "needsInterop": false
+    },
+    "popper.js": {
+      "src": "../../../../node_modules/popper.js/dist/esm/popper.js",
+      "file": "popper__js.js",
+      "fileHash": "c710084c",
+      "needsInterop": false
+    },
+    "swrv": {
+      "src": "../../../../node_modules/swrv/esm/index.js",
+      "file": "swrv.js",
+      "fileHash": "12680d0a",
+      "needsInterop": false
+    },
+    "vue-draggable-next": {
+      "src": "../../../../node_modules/vue-draggable-next/dist/vue-draggable-next.esm-bundler.js",
+      "file": "vue-draggable-next.js",
+      "fileHash": "e67267a4",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-3T6VSYDD": {
+      "file": "chunk-3T6VSYDD.js"
+    },
+    "chunk-TWLJ45QX": {
+      "file": "chunk-TWLJ45QX.js"
+    }
+  }
+}

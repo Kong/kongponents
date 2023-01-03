@@ -25,5 +25,11 @@
   },
   "markdownlint.ignore": [
     "docs/**/*.md"
+  ],
+  "stylelint.validate": [
+    "css",
+    "scss",
+    "sass",
+    "vue"
   ]
 }

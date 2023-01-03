@@ -4,7 +4,9 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+  ],
   resolve: {
     alias: {
       // Alias src directory for @/components/{KongponentName} imports
@@ -36,6 +38,8 @@ export default defineConfig({
     include: [
       'cypress',
       'vue',
+      'focus-trap',
+      'focus-trap-vue',
     ],
   },
 })

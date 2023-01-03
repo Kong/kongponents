@@ -121,7 +121,7 @@ export default defineComponent({
 .card-view {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 1rem;
+  grid-gap: 16px;
   text-align: center;
 }
 </style>

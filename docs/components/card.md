@@ -293,7 +293,7 @@ An Example of changing the background might look like.
 
 <style lang="scss">
 .borderless-cards {
-  padding: 1rem;
+  padding: 16px;
   background: rgba(27,31,35,0.05);
   border-radius: 3px;
   .kong-card {

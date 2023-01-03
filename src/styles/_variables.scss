@@ -110,3 +110,10 @@ $fonts: (
 
   font-weight: var(--font-weight-normal, 400);
 }
+
+// Breakpoints
+$viewport-sm: 640px;
+$viewport-md: 768px; // Mobile layout breakpoint
+$viewport-lg: 1024px;
+$viewport-xl: 1280px;
+$viewport-2xl: 1536px;

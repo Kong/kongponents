@@ -10,8 +10,8 @@
 
     <KSkeleton
       v-if="(!testMode || testMode === 'loading') && (isTableLoading || isLoading) && !hasError"
-      type="table"
       data-testid="k-table-skeleton"
+      type="table"
     />
 
     <div
@@ -21,11 +21,11 @@
     >
       <slot name="error-state">
         <KEmptyState
-          is-error
           :cta-is-hidden="!errorStateActionMessage || !errorStateActionRoute"
           :icon="errorStateIcon || ''"
           :icon-color="errorStateIconColor"
           :icon-size="errorStateIconSize"
+          is-error
         >
           <template #title>
             {{ errorStateTitle }}
@@ -38,9 +38,9 @@
           <template #cta>
             <KButton
               v-if="errorStateActionMessage"
-              :to="errorStateActionRoute ? errorStateActionRoute : undefined"
               appearance="primary"
               :data-testid="getTestIdString(errorStateActionMessage)"
+              :to="errorStateActionRoute ? errorStateActionRoute : undefined"
               @click="$emit('ktable-error-cta-clicked')"
             >
               {{ errorStateActionMessage }}
@@ -73,10 +73,10 @@
           <template #cta>
             <KButton
               v-if="emptyStateActionMessage"
-              :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
-              :icon="emptyStateActionButtonIcon"
               :appearance="searchInput ? 'btn-link' : 'primary'"
               :data-testid="getTestIdString(emptyStateActionMessage)"
+              :icon="emptyStateActionButtonIcon"
+              :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
               @click="$emit('ktable-empty-state-cta-clicked')"
             >
               {{ emptyStateActionMessage }}
@@ -92,8 +92,8 @@
       @scroll.passive="scrollHandler"
     >
       <table
-        :class="{'has-hover': hasHover, 'is-clickable': isClickable, 'side-border': hasSideBorder}"
         class="k-table"
+        :class="{'has-hover': hasHover, 'is-clickable': isClickable, 'side-border': hasSideBorder}"
         :data-tableid="tableId"
       >
         <thead :class="{ 'is-scrolled': isScrolled }">
@@ -101,6 +101,7 @@
             <th
               v-for="(column, index) in tableHeaders"
               :key="`k-table-${tableId}-headers-${index}`"
+              :aria-sort="!disableSorting && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
               :class="{
                 'sortable': !disableSorting && !column.hideLabel && column.sortable,
                 'active-sort': !disableSorting && !column.hideLabel && column.sortable && column.key === sortColumnKey,
@@ -120,8 +121,8 @@
             >
               <span class="d-flex align-items-center">
                 <slot
-                  :name="`column-${column.key}`"
                   :column="column"
+                  :name="`column-${column.key}`"
                 >
                   <span :class="{'sr-only': column.hideLabel}">
                     {{ column.label ? column.label : column.key }}
@@ -130,10 +131,11 @@
 
                 <KIcon
                   v-if="!disableSorting && !column.hideLabel && column.sortable"
-                  icon="chevronDown"
-                  color="var(--KTableColor, var(--black-70, color(black-70)))"
-                  size="12"
+                  aria-hidden="true"
                   class="caret ml-2"
+                  color="var(--KTableColor, var(--black-70, color(black-70)))"
+                  icon="chevronDown"
+                  size="12"
                 />
               </span>
             </th>
@@ -145,8 +147,8 @@
             v-for="(row, rowIndex) in data"
             v-bind="rowAttrs(row)"
             :key="`k-table-${tableId}-row-${rowIndex}`"
-            :tabindex="isClickable ? 0 : null"
             :role="isClickable ? 'link' : null"
+            :tabindex="isClickable ? 0 : null"
             v-on="hasSideBorder ? tdlisteners(row, row) : {}"
           >
             <td
@@ -170,22 +172,22 @@
 
       <KPagination
         v-if="shouldShowPagination"
-        :total-count="total"
-        :current-page="page"
-        :neighbors="paginationNeighbors"
-        :page-sizes="paginationPageSizes"
-        :initial-page-size="pageSize"
-        :disable-page-jump="disablePaginationPageJump"
-        :test-mode="!!testMode || undefined"
-        :pagination-type="paginationType"
-        :offset-prev-button-disabled="!previousOffset"
-        :offset-next-button-disabled="!offset"
         class="pa-1"
+        :current-page="page"
         data-testid="k-table-pagination"
-        @page-changed="pageChangeHandler"
-        @page-size-changed="pageSizeChangeHandler"
+        :disable-page-jump="disablePaginationPageJump"
+        :initial-page-size="pageSize"
+        :neighbors="paginationNeighbors"
+        :offset-next-button-disabled="!offset"
+        :offset-prev-button-disabled="!previousOffset"
+        :page-sizes="paginationPageSizes"
+        :pagination-type="paginationType"
+        :test-mode="!!testMode || undefined"
+        :total-count="total"
         @get-next-offset="getNextOffsetHandler"
         @get-prev-offset="getPrevOffsetHandler"
+        @page-changed="pageChangeHandler"
+        @page-size-changed="pageSizeChangeHandler"
       />
     </section>
   </div>
@@ -894,14 +896,14 @@ export default defineComponent({
   th,
   td {
     padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
-    vertical-align: middle;
     white-space: nowrap;
+    vertical-align: middle;
   }
 
   thead {
-    height: 60px;
     position: sticky;
     top: 0;
+    height: 60px;
     background-color: #ffffff;
     border-bottom: 1px solid var(--KTableBorder, var(--grey-200, color(grey-200)));
 
@@ -913,18 +915,18 @@ export default defineComponent({
       position: relative;
 
       &:after {
-        opacity: 0;
-        transition: opacity 0.2s ease-in-out;
-        content: '';
         position: absolute;
+        left: 0;
         z-index: -1;
         width: 100%;
         height: 100%;
-        box-shadow: none;
-        left: 0;
         // Super-important to allow clicking on table rows in Safari.
         // This allows clicks to pass through the "invisible" :after layer
         pointer-events: none;
+        content: '';
+        box-shadow: none;
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
       }
 
       &.is-scrolled {
@@ -945,9 +947,9 @@ export default defineComponent({
 
     th {
       padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
-      text-align: left;
       font-size: var(--KTableHeaderSize, var(--type-sm, type(sm)));
       font-weight: 600;
+      text-align: left;
 
       &.active-sort {
         color: var(--blue-500);
@@ -1013,8 +1015,8 @@ export default defineComponent({
   }
 
   &.side-border {
-    border-collapse: separate;
     border-spacing: 0 2px;
+    border-collapse: separate;
 
     tbody tr {
       border-bottom: none;
@@ -1041,8 +1043,8 @@ export default defineComponent({
   thead {
     th {
       .caret {
-        top: 2px;
         position: relative;
+        top: 2px;
         transform: rotate(0deg);
       }
 

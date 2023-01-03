@@ -1,8 +1,8 @@
 <template>
   <div
     v-if="isVisible"
-    :class="{ 'w-100': type !== 'spinner', 'opacity-0': !isVisible }"
     class="d-flex flex-wrap k-skeleton-container"
+    :class="{ 'w-100': type !== 'spinner', 'opacity-0': !isVisible }"
   >
     <CardSkeleton
       v-if="type === 'card'"
@@ -33,14 +33,15 @@
 
     <FullScreenKongSkeleton
       v-else-if="type === 'fullscreen-kong'"
+      :hide-progress="hideProgress"
       :progress="progress"
     />
 
     <KIcon
       v-else-if="type === 'spinner'"
+      color="#000"
       icon="spinner"
       size="18"
-      color="#000"
     />
 
     <Skeleton v-else />
@@ -88,6 +89,10 @@ export default defineComponent({
       type: Number,
       required: false,
       default: null,
+    },
+    hideProgress: {
+      type: Boolean,
+      default: false,
     },
     cardCount: {
       type: Number,

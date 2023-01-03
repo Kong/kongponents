@@ -2,42 +2,42 @@
   <div class="skeleton-form-wrapper">
     <div class="skeleton-form-row">
       <KSkeletonBox
-        width="10"
         height="1"
+        width="10"
       />
       <KSkeletonBox
-        width="100"
         height="2"
+        width="100"
       />
     </div>
     <div class="skeleton-form-row">
       <KSkeletonBox
-        width="10"
         height="1"
+        width="10"
       />
       <KSkeletonBox
-        width="100"
         height="2"
+        width="100"
       />
     </div>
     <div class="skeleton-form-row">
       <KSkeletonBox
-        width="10"
         height="1"
+        width="10"
       />
       <KSkeletonBox
-        width="100"
         height="2"
+        width="100"
       />
     </div>
     <div class="skeleton-form-row">
       <KSkeletonBox
-        width="10"
         height="1"
+        width="10"
       />
       <KSkeletonBox
-        width="100"
         height="2"
+        width="100"
       />
     </div>
   </div>
@@ -60,7 +60,7 @@ export default defineComponent({
 .skeleton-form-wrapper {
   width: 100%;
   .skeleton-form-row {
-    margin-bottom: 2rem;
+    margin-bottom: 32px;
   }
 }
 </style>

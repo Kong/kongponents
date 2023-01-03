@@ -10,52 +10,52 @@
     >
       <router-link
         v-if="typeof item.to === 'object'"
-        :to="item.to"
-        :title="item.title"
         :class="{'no-underline': !item.text}"
+        :title="item.title"
+        :to="item.to"
       >
         <KIcon
           v-if="item.icon"
-          :icon="item.icon"
           :class="[ 'k-breadcrumb-icon', {'has-no-text': !item.text} ]"
-          hide-title
-          size="20"
           color="var(--grey-500)"
+          hide-title
+          :icon="item.icon"
+          size="20"
         />
         <span
           v-if="item.text"
-          :style="{maxWidth: item.maxWidth || itemMaxWidth}"
           class="k-breadcrumb-text truncate"
+          :style="{maxWidth: item.maxWidth || itemMaxWidth}"
         >{{ item.text }}</span>
       </router-link>
 
       <a
         v-else
-        :title="item.title"
-        :href="item.to"
         :class="{'no-underline': !item.text}"
+        :href="item.to"
         target="_blank"
+        :title="item.title"
       >
         <KIcon
           v-if="item.icon"
-          :icon="item.icon"
           :class="[ 'k-breadcrumb-icon', {'has-no-text': !item.text} ]"
-          hide-title
-          size="20"
           color="var(--grey-500)"
+          hide-title
+          :icon="item.icon"
+          size="20"
         />
         <span
           v-if="item.text"
-          :style="{maxWidth: item.maxWidth || itemMaxWidth}"
           class="k-breadcrumb-text truncate"
+          :style="{maxWidth: item.maxWidth || itemMaxWidth}"
         >{{ item.text }}</span>
       </a>
 
       <KIcon
+        color="var(--grey-500)"
         hide-title
         icon="chevronRight"
         size="15"
-        color="var(--grey-500)"
       />
     </li>
   </ul>
@@ -105,12 +105,12 @@ export default defineComponent({
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   padding: 0;
-  margin-bottom: 1rem;
-  list-style: none;
-  border-radius: 0.25rem;
+  margin-bottom: 16px;
   font-size: 15px;
   font-weight: 600 !important;
   line-height: 24px !important;
+  list-style: none;
+  border-radius: 4px;
 }
 
 .k-breadcrumbs .k-breadcrumbs-item :deep(.kong-icon) {
@@ -135,9 +135,9 @@ export default defineComponent({
 
   a {
     display: inline-flex;
+    font-size: 15px;
     color: var(--grey-500);
     letter-spacing: 1px;
-    font-size: 15px;
 
     &:hover,
     &.no-underline {

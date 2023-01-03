@@ -1,13 +1,13 @@
 <template>
   <div
     :key="item.key"
-    :data-testid="`k-select-item-${item.value}`"
     class="k-select-item"
+    :data-testid="`k-select-item-${item.value}`"
     @click="handleClick"
   >
     <div
-      role="option"
       class="d-block"
+      role="option"
     >
       <button
         :class="{ selected: item.selected }"
@@ -21,8 +21,8 @@
           <KIcon
             v-if="item.selected"
             class="selected-item-icon"
-            icon="check"
             color="var(--blue-200)"
+            icon="check"
           />
         </span>
       </button>
@@ -78,17 +78,17 @@ export default defineComponent({
   button {
     display: flex;
     align-items: center;
+    width: 100%;
+    padding-left: var(--spacing-xxs);
+    font-family: var(--font-family-sans);
     font-size: var(--type-xs);
+    font-weight: 400;
     line-height: 26px;
     color: var(--grey-500);
-    padding-left: var(--spacing-xxs);
-    width: 100%;
-    border: none;
-    font-family: var(--font-family-sans);
-    background-color: var(--white);
-    border-radius: 4px;
     text-align: left;
-    font-weight: 400;
+    background-color: var(--white);
+    border: none;
+    border-radius: 4px;
 
     &:not(:disabled) {
       cursor: pointer;
@@ -104,36 +104,36 @@ export default defineComponent({
 
     .k-select-item-label {
       width: auto;
+      padding: 8px;
+      font-size: 14px;
+      font-weight: 500;
       line-height: 20px;
       color: var(--grey-600);
-      font-weight: 500;
-      font-size: 14px;
-      padding: 8px;
 
       :deep(.select-item-label) {
-        color: var(--grey-600);
-        font-weight: 600;
-        font-size: 14px;
         margin-bottom: 4px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--grey-600);
       }
 
       :deep(.select-item-desc) {
-        color: var(--grey-500);
-        font-weight: 400;
         font-size: 14px;
+        font-weight: 400;
+        color: var(--grey-500);
       }
     }
 
     .kong-icon:not(.selected-item-icon) {
-      margin-right: .75rem;
+      margin-right: 12px;
     }
 
     .k-select-selected-icon-container {
-      margin-left: auto;
+      width: 24px;
+      height: 24px;
       margin-top: auto;
       margin-bottom: auto;
-      height: 24px;
-      width: 24px;
+      margin-left: auto;
 
       .kong-icon {
         position: relative;
@@ -144,14 +144,14 @@ export default defineComponent({
     }
 
     &:not(:disabled):hover {
-      background-color: var(--grey-100);
       color: var(--grey-600);
+      background-color: var(--grey-100);
     }
 
     &.selected {
-      background-color: var(--blue-100);
-      color: var(--blue-500);
       font-weight: 400;
+      color: var(--blue-500);
+      background-color: var(--blue-100);
     }
 
     &.danger {

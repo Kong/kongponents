@@ -4,17 +4,17 @@
     :label="disabledTooltipText"
   >
     <label
-      :for="$attrs.id ? String($attrs.id) : undefined"
-      :disabled="disabled"
       class="k-switch k-input-switch"
       :class="[$attrs.class]"
+      :disabled="disabled"
+      :for="$attrs.id ? String($attrs.id) : undefined"
     >
       <span v-if="(label || $slots.label) && labelPosition === 'left'">
         <slot name="label">{{ label }}</slot>
       </span>
       <input
-        :disabled="disabled"
         :checked="modelValue"
+        :disabled="disabled"
         type="checkbox"
         v-bind="strippedAttrs"
         @change="handleChange"
@@ -29,17 +29,17 @@
 
   <label
     v-else
-    :for="$attrs.id ? String($attrs.id) : undefined"
-    :disabled="disabled ? disabled : undefined"
-    :class="[$attrs.class, { 'switch-with-icon' : enabledIcon }]"
     class="k-switch k-input-switch"
+    :class="[$attrs.class, { 'switch-with-icon' : enabledIcon }]"
+    :disabled="disabled ? disabled : undefined"
+    :for="$attrs.id ? String($attrs.id) : undefined"
   >
     <span v-if="(label || $slots.label) && labelPosition === 'left'">
       <slot name="label">{{ label }}</slot>
     </span>
     <input
-      :disabled="disabled ? disabled : undefined"
       :checked="modelValue"
+      :disabled="disabled ? disabled : undefined"
       v-bind="strippedAttrs"
       type="checkbox"
       @change="handleChange"
@@ -160,10 +160,10 @@ export default defineComponent({
   position: relative;
 
   .kong-icon {
-    transform: translateX(-54px);
     position: absolute;
-    left: 57px;
     top: 1px;
+    left: 57px;
+    transform: translateX(-54px);
   }
 }
 </style>

@@ -1,15 +1,15 @@
 <template>
   <section
-    :class="[borderVariant, {'hover': hasHover, 'kcard-shadow': hasShadow }]"
+    :aria-describedby="contentId || undefined"
     :aria-label="title ? title : undefined"
     :aria-labelledby="!title && ($slots.title || $slots.title) ? titleId : undefined"
-    :aria-describedby="contentId || undefined"
     class="kong-card"
+    :class="[borderVariant, {'hover': hasHover, 'kcard-shadow': hasShadow }]"
   >
     <div
       v-if="$slots.actions || useStatusHatLayout || (!useStatusHatLayout && (title || $slots.title))"
-      :class="{ 'has-status': status || $slots.statusHat }"
       class="k-card-header d-flex mb-3"
+      :class="{ 'has-status': status || $slots.statusHat }"
     >
       <div
         v-if="status || $slots.statusHat"
@@ -157,8 +157,8 @@ export default defineComponent({
 
 .kong-card {
   padding: var(--KCardPaddingY, var(--spacing-lg)) var(--KCardPaddingX, var(--spacing-lg));
-  border-radius: var(--KCardBorderRadius, 3px);
   background-color: var(--KCardBackground, var(--white, color(white)));
+  border-radius: var(--KCardBorderRadius, 3px);
   transition: box-shadow 0.2s ease-in-out;
 
   &.noBorder {
@@ -187,15 +187,15 @@ export default defineComponent({
   }
 
   .k-card-status-hat {
-    font-size: var(--type-xs);
-    color: var(--grey-600);
     display: flex;
     align-items: center;
+    font-size: var(--type-xs);
+    color: var(--grey-600);
   }
 
   .k-card-title h4 {
-    margin: 0;
     padding: 0;
+    margin: 0;
     font-size: var(--KCardTitleFontSize, 20px);
     font-weight: 600;
     color: var(--KCardTitleColor, var(--black-500));
@@ -206,10 +206,10 @@ export default defineComponent({
   }
 
   .k-card-body {
+    width: 100%;
     font-size: 13px;
     line-height: 20px;
     color: var(--grey-600);
-    width: 100%;
   }
 
   .k-card-content .k-table td,
@@ -219,8 +219,8 @@ export default defineComponent({
   }
 
   .k-card-notifications {
-    margin-left: auto;
     margin-top: auto;
+    margin-left: auto;
   }
 }
 </style>

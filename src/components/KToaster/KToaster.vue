@@ -1,8 +1,8 @@
 <template>
   <transition-group
+    class="toaster-container-outer"
     name="toaster"
     tag="div"
-    class="toaster-container-outer"
   >
     <div
       v-for="toaster in toasterState"
@@ -54,27 +54,27 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/styles.scss';
+@import '@/styles/styles';
 
 $transition: all .3s;
 
 .toaster-container-outer {
   position: fixed;
-  width: auto;
-  bottom: 1rem;
-  right: 1rem;
-  max-width: 300px;
+  right: 16px;
+  bottom: 16px;
   z-index: 10000;
+  width: auto;
+  max-width: 300px;
   transition: $transition;
 }
 
 .toaster-item {
   display: flex;
   width: 100%;
-  margin-bottom: 1rem;
-  transition: $transition;
+  margin-bottom: 16px;
   overflow: hidden;
   box-shadow: 0 0 12px rgba(0,0,0,.12);
+  transition: $transition;
 
   :deep(.k-alert) {
     --KAlertInfoBorder: var(--blue-500, color(blue-500));
@@ -82,19 +82,19 @@ $transition: all .3s;
     --KAlertWarningBorder: var(--yellow-300, color(yellow-300));
     --KAlertDangerBorder: var(--red-500, color(red-500));
     display: flex;
-    justify-content: space-between;
     flex: 1;
-    padding: 1rem;
+    justify-content: space-between;
+    padding: 16px;
+    margin-bottom: 0;
+    color: var(--black-70);
     text-align: left;
     background-color: #fff;
-    color: var(--black-70);
-    margin-bottom: 0;
 
     .close {
       position: relative;
-      order: 1;
       right: 0;
-      padding: 0 0 0 1rem;
+      order: 1;
+      padding: 0 0 0 16px;
 
       &:focus,
       &:active {
@@ -104,10 +104,10 @@ $transition: all .3s;
   }
 
   .message {
+    max-width: 150ch;
     -webkit-hyphens: auto;
     -moz-hyphens: auto;
     hyphens: auto;
-    max-width: 150ch;
   }
 }
 

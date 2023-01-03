@@ -7,8 +7,8 @@
       v-for="(step) in steps"
       :key="`k-step-${step.label.replace(/ /gi, '-')}`"
       :label="step.label"
-      :state="step.state"
       :max-label-width="maxLabelWidth"
+      :state="step.state"
     />
   </ol>
 </template>
@@ -48,12 +48,12 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .k-stepper {
-  list-style: none;
-  padding-inline-start: 0px;
+  position: relative;
+  display: flex;
   width: 100%;
   max-width: 100%;
+  padding-inline-start: 0px;
   overflow-x: auto;
-  display: flex;
-  position: relative;
+  list-style: none;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div
-    :class="{[`width-${width}`]: true, [`height-${height}`]: true }"
     class="box mr-1"
+    :class="{[`width-${width}`]: true, [`height-${height}`]: true }"
   />
 </template>
 
@@ -33,7 +33,6 @@ export default defineComponent({
 
 .box {
   display: inline-flex;
-  border-radius: 3px;
   background: linear-gradient(
       -70deg,
       #f2f2f2 0%,
@@ -44,24 +43,25 @@ export default defineComponent({
     )
     repeat;
   background-size: 400% 100%;
-  animation: gradient 1s ease infinite;
+  border-radius: 3px;
   transition: 1s;
+  animation: gradient 1s ease infinite;
   // Provided box widths
   &.width {
     &-1 {
-      width: 1rem;
+      width: 16px;
     }
     &-2 {
-      width: 2rem;
+      width: 32px;
     }
     &-5 {
-      width: 5rem;
+      width: 80px;
     }
     &-6 {
-      width: 6rem;
+      width: 96px;
     }
     &-10 {
-      width: 10rem;
+      width: 160px;
     }
     &-25 {
       width: 25%;
@@ -79,10 +79,10 @@ export default defineComponent({
   // Provided box heights
   &.height {
     &-1 {
-      height: 1rem;
+      height: 16px;
     }
     &-2 {
-      height: 2rem;
+      height: 32px;
     }
   }
 }

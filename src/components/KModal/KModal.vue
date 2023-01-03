@@ -2,98 +2,105 @@
   <div
     v-if="isVisible"
     :aria-label="title"
+    aria-modal="true"
     class="k-modal"
     role="dialog"
-    aria-modal="true"
   >
     <div
       class="k-modal-backdrop modal-backdrop"
       @click="(evt) => close(false, evt)"
     >
-      <div class="k-modal-dialog modal-dialog">
-        <div
-          v-if="hasHeaderImage && !hideDismissIcon"
-          class="close-button"
-        >
-          <KButton
-            class="non-visual-button"
-            aria-label="Close"
-            @click="close(true)"
+      <FocusTrap
+        ref="focusTrap"
+        :active="false"
+        :tabbable-options="tabbableOptions"
+      >
+        <div class="k-modal-dialog modal-dialog">
+          <div
+            v-if="hasHeaderImage && !hideDismissIcon"
+            class="close-button"
           >
-            <KIcon
-              icon="close"
-              :color="dismissButtonColor"
-              size="15"
-            />
-          </KButton>
+            <KButton
+              aria-label="Close"
+              class="non-visual-button"
+              @click="close(true)"
+            >
+              <KIcon
+                :color="dismissButtonColor"
+                icon="close"
+                size="15"
+              />
+            </KButton>
+          </div>
+          <div class="k-modal-content modal-content">
+            <div
+              v-if="hasHeaderImage"
+              class="k-modal-header-image d-flex"
+            >
+              <slot name="header-image" />
+            </div>
+            <div
+              v-if="$slots['header-content'] || !hideTitle"
+              aria-level="2"
+              class="k-modal-header modal-header"
+              :class="{
+                'header-left': textAlign === 'left',
+                'header-centered': textAlign === 'center',
+                'header-right': textAlign === 'right',
+                'mb-5': !hasHeaderImage,
+                'mb-4': hasHeaderImage
+              }"
+              role="heading"
+            >
+              <slot name="header-content">
+                {{ title }}
+              </slot>
+            </div>
+            <div
+              class="k-modal-body modal-body"
+              :class="{
+                'content-left': textAlign === 'left',
+                'content-centered': textAlign === 'center',
+                'content-right': textAlign === 'right',
+              }"
+            >
+              <slot name="body-content">
+                {{ content }}
+              </slot>
+            </div>
+            <div class="k-modal-footer modal-footer d-flex">
+              <slot name="footer-content">
+                <KButton
+                  v-if="!hideCancelButton"
+                  :appearance="cancelButtonAppearance"
+                  @click="close(true)"
+                  @keyup.esc="close(true)"
+                >
+                  {{ cancelButtonText }}
+                </KButton>
+                <div class="k-modal-action-buttons">
+                  <slot name="action-buttons">
+                    <KButton
+                      :appearance="actionButtonAppearance"
+                      @click="proceed"
+                      @keyup.enter="proceed"
+                    >
+                      {{ actionButtonText }}
+                    </KButton>
+                  </slot>
+                </div>
+              </slot>
+            </div>
+          </div>
         </div>
-        <div class="k-modal-content modal-content">
-          <div
-            v-if="hasHeaderImage"
-            class="k-modal-header-image d-flex"
-          >
-            <slot name="header-image" />
-          </div>
-          <div
-            v-if="$slots['header-content'] || !hideTitle"
-            role="heading"
-            aria-level="2"
-            :class="{
-              'header-left': textAlign === 'left',
-              'header-centered': textAlign === 'center',
-              'header-right': textAlign === 'right',
-              'mb-5': !hasHeaderImage,
-              'mb-4': hasHeaderImage
-            }"
-            class="k-modal-header modal-header"
-          >
-            <slot name="header-content">
-              {{ title }}
-            </slot>
-          </div>
-          <div
-            :class="{
-              'content-left': textAlign === 'left',
-              'content-centered': textAlign === 'center',
-              'content-right': textAlign === 'right',
-            }"
-            class="k-modal-body modal-body"
-          >
-            <slot name="body-content">
-              {{ content }}
-            </slot>
-          </div>
-          <div class="k-modal-footer modal-footer d-flex">
-            <slot name="footer-content">
-              <KButton
-                v-if="!hideCancelButton"
-                :appearance="cancelButtonAppearance"
-                @click="close(true)"
-                @keyup.esc="close(true)"
-              >
-                {{ cancelButtonText }}
-              </KButton>
-              <div class="k-modal-action-buttons">
-                <slot name="action-buttons">
-                  <KButton
-                    :appearance="actionButtonAppearance"
-                    @click="proceed"
-                    @keyup.enter="proceed"
-                  >
-                    {{ actionButtonText }}
-                  </KButton>
-                </slot>
-              </div>
-            </slot>
-          </div>
-        </div>
-      </div>
+      </FocusTrap>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onMounted, onUnmounted, watchEffect } from 'vue'
+import { defineComponent, computed, nextTick, onMounted, onUnmounted, ref, watch, watchEffect } from 'vue'
+import { FocusTrap } from 'focus-trap-vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 
@@ -103,6 +110,7 @@ export default defineComponent({
   components: {
     KButton,
     KIcon,
+    FocusTrap,
   },
 
   props: {
@@ -194,6 +202,13 @@ export default defineComponent({
       default: false,
     },
     /**
+     * Options to be passed to tabbable
+     */
+    tabbableOptions: {
+      type: Object,
+      default: () => ({}),
+    },
+    /**
      * Test mode - for testing only, strips out generated ids
      */
     testMode: {
@@ -204,6 +219,7 @@ export default defineComponent({
   emits: ['canceled', 'proceed'],
 
   setup(props, { emit, slots }) {
+    const focusTrap = ref<InstanceType<typeof FocusTrap> | null>(null)
     const hasHeaderImage = computed((): boolean => {
       return !!slots['header-image']
     })
@@ -245,6 +261,26 @@ export default defineComponent({
       }
     })
 
+    const toggleFocusTrap = async (isActive: boolean): Promise<void> => {
+      if (isActive) {
+        await nextTick()
+        // Delay ensures that the focused element doesn't capture the event
+        // that caused the focus trap activation.
+        await new Promise((resolve) => setTimeout(resolve, 0))
+        focusTrap.value?.activate()
+      } else {
+        focusTrap.value?.deactivate()
+      }
+    }
+
+    watch(() => props.isVisible, async (isVisible) => {
+      if (isVisible) {
+        await toggleFocusTrap(true)
+      } else {
+        await toggleFocusTrap(false)
+      }
+    }, { immediate: true })
+
     onMounted(() => {
       document.addEventListener('keydown', handleKeydown)
 
@@ -265,6 +301,8 @@ export default defineComponent({
       dismissButtonColor,
       close,
       proceed,
+      focusTrap,
+      toggleFocusTrap,
     }
   },
 })
@@ -277,11 +315,11 @@ export default defineComponent({
 .k-modal-backdrop {
   position: fixed;
   top: 0;
+  right: 0;
   bottom: 0;
   left: 0;
-  right: 0;
-  background-color: var(--KModalBackdrop, rgba(11, 23, 45, .6));
   z-index: 1100;
+  background-color: var(--KModalBackdrop, rgba(11, 23, 45, .6));
 }
 
 // Allow modal backdrop to scroll if viewport is shorter than modal
@@ -295,26 +333,26 @@ export default defineComponent({
 
   .k-modal-dialog {
     position: relative;
+    z-index: 9999;
     width: auto;
     max-width: var(--KModalMaxWidth, 500px);
-    margin: 50px auto;
     padding: var(--KModalPadding);
-    border-radius: 3px;
-    border: var(--KModalBorder);
-    box-shadow: 0px 0px 12px 0px var(--black-10, color(black-10));
-    background: #fff;
-    z-index: 9999;
+    margin: 50px auto;
     overflow: hidden;
+    background: #fff;
+    border: var(--KModalBorder);
+    border-radius: 3px;
+    box-shadow: 0px 0px 12px 0px var(--black-10, color(black-10));
 
     .close-button {
       position: absolute;
-      right: var(--spacing-lg);
       top: var(--spacing-lg);
+      right: var(--spacing-lg);
       // 1 more than .k-modal-dialog
       z-index: 10000;
 
       .k-button {
-        padding: 8px 0 8px 8px;
+        padding: var(--spacing-xs);
         margin-top: -8px;
       }
     }
@@ -327,35 +365,35 @@ export default defineComponent({
 
     .k-modal-header-image {
       margin-top: calc(#{var(--KModalPadding)} * -1);
-      margin-left: calc(#{var(--KModalPadding)} * -1);
       margin-right: calc(#{var(--KModalPadding)} * -1);
       margin-bottom: var(--spacing-xl, spacing(xl));
+      margin-left: calc(#{var(--KModalPadding)} * -1);
     }
 
     .k-modal-header {
       display: flex;
-      justify-content: flex-start;
       align-items: center;
-      color: var(--KModalHeaderColor, var(--black-500, color(black-500)));
+      justify-content: flex-start;
       font-size: var(--KModalHeaderSize, 20px);
       font-weight: var(--KModalHeaderWeight, 600);
+      color: var(--KModalHeaderColor, var(--black-500, color(black-500)));
 
       &.header-centered {
-        text-align: center;
-        margin-left: auto;
         margin-right: auto;
+        margin-left: auto;
+        text-align: center;
       }
 
       &.header-left {
-        text-align: left;
-        margin-left: 0;
         margin-right: auto;
+        margin-left: 0;
+        text-align: left;
       }
 
       &.header-right {
-        text-align: right;
-        margin-left: auto;
         margin-right: 0;
+        margin-left: auto;
+        text-align: right;
       }
     }
 
@@ -363,26 +401,26 @@ export default defineComponent({
       position: relative;
       flex: 1 1 auto;
       margin-bottom: var(--KModalBottomMargin, var(--spacing-lg, spacing(lg)));
-      color: var(--KModalColor, var(--grey-500, color(grey-500)));
       font-size: var(--KModalFontSize, 13px);
       line-height: 20px;
+      color: var(--KModalColor, var(--grey-500, color(grey-500)));
 
       &.content-centered {
-        text-align: center;
-        margin-left: auto;
         margin-right: auto;
+        margin-left: auto;
+        text-align: center;
       }
 
       &.content-left {
-        text-align: left;
-        margin-left: 0;
         margin-right: auto;
+        margin-left: 0;
+        text-align: left;
       }
 
       &.content-right {
-        text-align: right;
-        margin-left: auto;
         margin-right: 0;
+        margin-left: auto;
+        text-align: right;
       }
     }
 
