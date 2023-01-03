@@ -1,3 +1,12 @@
+## [8.14.2](https://github.com/Kong/kongponents/compare/v8.14.1...v8.14.2) (2023-01-03)
+
+
+### Bug Fixes
+
+* **deps:** bump swrv from 1.0.1 to 1.0.2 ([#1015](https://github.com/Kong/kongponents/issues/1015)) ([b9cbb5f](https://github.com/Kong/kongponents/commit/b9cbb5fa10b64b699b5b923e39c58aea1f9846e4))
+* **kcodeblock:** mobile copy button styles ([#1006](https://github.com/Kong/kongponents/issues/1006)) ([b49d18c](https://github.com/Kong/kongponents/commit/b49d18c37cbdf6cb476f97a9bc24367b1dced6f9))
+* **ktabs:** shrink border [khcp-5674] ([#1026](https://github.com/Kong/kongponents/issues/1026)) ([5055847](https://github.com/Kong/kongponents/commit/5055847eaf7c2a3ca4590558eb6558967360ad74))
+
 ## [8.14.1](https://github.com/Kong/kongponents/compare/v8.14.0...v8.14.1) (2022-12-22)
 
 
