@@ -28,7 +28,7 @@ Cypress.Commands.add('matchImageSnapshot', (options: Record<string, any> = {}): 
 
   cy.matchImage({
     diffConfig: {
-      threshold: 0.01, // Do not change; if you do, you must run `yarn test:e2e:update-snapshots`
+      threshold: 0.01, // Do not change
     },
     title: testTitle, // e.g. `alert.md`
     imagesPath: '{spec_path}/snapshots',

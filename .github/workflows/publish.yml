@@ -57,24 +57,6 @@ jobs:
       - name: Build
         run: yarn build:kongponents
 
-      - name: Update Cypress visual regression snapshots for docs site
-        if: needs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed == 'true'
-        uses: cypress-io/github-action@v5
-        with:
-          install: false
-          browser: chrome
-          command: yarn test:e2e:update-snapshots
-
-      - name: Commit new visual regression snapshots
-        if: needs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed == 'true'
-        uses: stefanzweifel/git-auto-commit-action@v4
-        env:
-          # Since branch protections are on (pushing commits) you need to use a bot PAT
-          GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
-        with:
-          commit_message: 'test(e2e): update visual regression snapshots'
-          file_pattern: 'docs/tests/e2e/snapshots/**/*'
-
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v3
         env:
@@ -119,9 +101,14 @@ jobs:
       - name: Update Cypress visual regression snapshots for docs site
         uses: cypress-io/github-action@v5
         with:
+          # Pass env variable to update snapshots
+          env: pluginVisualRegressionUpdateImages=true,pluginVisualRegressionCleanupUnusedImages=true
           install: false
           browser: chrome
-          command: yarn test:e2e:update-snapshots
+          build: yarn docs:build
+          start: yarn docs:serve --port 3173
+          wait-on: 'http://localhost:3173'
+          command: yarn cypress run --e2e
 
       - name: Commit new visual regression snapshots
         uses: stefanzweifel/git-auto-commit-action@v4
