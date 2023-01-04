@@ -62,14 +62,6 @@ jobs:
       - name: Build components and docs
         run: yarn build
 
-      - name: Run Cypress visual regression tests for docs site
-        uses: cypress-io/github-action@v4
-        with:
-          install: false
-          start: yarn docs:serve --port 3173
-          wait-on: 'http://localhost:3173'
-          command: yarn test:e2e:ci
-
   visual-regression-test:
     name: Run Docs Visual Regression Tests
     needs:
