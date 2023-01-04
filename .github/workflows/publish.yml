@@ -20,68 +20,117 @@ jobs:
       SKIP_VISUAL_REGRESSION_TESTS: 'true'
 
   publish:
-      name: Build and Publish Kongponents
-      needs:
-        - get-changed-files
-        - run-tests
-      # Only run the publish action (including semantic-release) if files in the /src/ directory changed.
-      # Should only run if files in the `src/` directory were changed
-      if: needs.get-changed-files.outputs.component-files-changed == 'true'
-      runs-on: ubuntu-latest
-      env:
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v3
-          with:
-            token: ${{ secrets.KONGPONENTS_BOT_PAT }}
+    name: Build and Publish Kongponents
+    needs:
+      - get-changed-files
+      - run-tests
+    # Only run the publish action (including semantic-release) if files in the /src/ directory changed.
+    # Should only run if files in the `src/` directory were changed
+    if: needs.get-changed-files.outputs.component-files-changed == 'true'
+    runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
-        - name: setup git
-          run: |
-            git config --global user.name 'kongponents-bot'
-            git config --global user.email '95302551+kongponents-bot@users.noreply.github.com'
+      - name: Setup git
+        run: |
+          git config --global user.name 'kongponents-bot'
+          git config --global user.email '95302551+kongponents-bot@users.noreply.github.com'
 
-        - name: Create .npmrc
-          run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+      - name: Create .npmrc
+        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
 
-        - name: Use Node.js
-          uses: actions/setup-node@v3
-          with:
-            node-version-file: '.nvmrc'
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
 
-        - name: Install dependencies
-          run: yarn install --frozen-lockfile
-          env:
-            NPM_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
 
-        - name: Build
-          run: yarn build:kongponents
+      - name: Build
+        run: yarn build:kongponents
 
-        - name: Update Cypress visual regression snapshots for docs site
-          if: needs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed == 'true'
-          uses: cypress-io/github-action@v5
-          with:
-            install: false
-            browser: chrome
-            command: yarn test:e2e:update-snapshots
+      - name: Update Cypress visual regression snapshots for docs site
+        if: needs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed == 'true'
+        uses: cypress-io/github-action@v5
+        with:
+          install: false
+          browser: chrome
+          command: yarn test:e2e:update-snapshots
 
-        - name: Commit new visual regression snapshots
-          if: needs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed == 'true'
-          uses: stefanzweifel/git-auto-commit-action@v4
-          env:
-            # Since branch protections are on (pushing commits) you need to use a bot PAT
-            GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
-          with:
-            commit_message: 'test(e2e): update visual regression snapshots'
-            file_pattern: 'docs/tests/e2e/snapshots/**/*'
-            commit_user_name: 'kongponents-bot'
-            commit_user_email: 'konnectx-engineers+kongponents-bot@konghq.com'
+      - name: Commit new visual regression snapshots
+        if: needs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v4
+        env:
+          # Since branch protections are on (pushing commits) you need to use a bot PAT
+          GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
+        with:
+          commit_message: 'test(e2e): update visual regression snapshots'
+          file_pattern: 'docs/tests/e2e/snapshots/**/*'
 
-        - name: Semantic Release
-          uses: cycjimmy/semantic-release-action@v3
-          env:
-            # Since branch protections are on (pushing commits) you need to use a bot PAT
-            GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v3
+        env:
+          # Since branch protections are on (pushing commits) you need to use a bot PAT
+          GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
+
+  update-snapshots:
+    name: Update Visual Regression Snapshots
+    needs:
+      - get-changed-files
+      - run-tests
+      - publish
+    if: needs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed == 'true'
+    runs-on: ubuntu-latest
+    container: cypress/browsers:node18.12.0-chrome107
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.KONGPONENTS_BOT_PAT }}
+
+      - name: Setup git
+        run: |
+          git config --global user.name 'kongponents-bot'
+          git config --global user.email '95302551+kongponents-bot@users.noreply.github.com'
+
+      - name: Create .npmrc
+        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
+
+      - name: Update Cypress visual regression snapshots for docs site
+        uses: cypress-io/github-action@v5
+        with:
+          install: false
+          browser: chrome
+          command: yarn test:e2e:update-snapshots
+
+      - name: Commit new visual regression snapshots
+        uses: stefanzweifel/git-auto-commit-action@v4
+        env:
+          # Since branch protections are on (pushing commits) you need to use a bot PAT
+          GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
+        with:
+          commit_message: 'test(e2e): update visual regression snapshots'
+          file_pattern: 'docs/tests/e2e/snapshots/**/*'
 
   no-tests-required:
     name: No Component Tests needed
