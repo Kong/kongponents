@@ -176,6 +176,9 @@ If you want to show the tooltip regardless of whether the badge text is truncate
 | `--KBadgeWidth`                   | Width of badge text                     |
 | `--KBadgePaddingY`                | Vertical top/bottom spacing             |
 | `--KBadgePaddingX`                | Horizontal left/right spacing           |
+
+<!-- Color variables have been deprecated in favor of props and should not be added back to the docs. -->
+<!--
 | `--KBadgeSuccessColor`            | Text/dismiss icon color of badge        |
 | `--KBadgeSuccessButtonHoverColor` | Hover color of dismiss button           |
 | `--KBadgeSuccessBorder`           | Border of badge (default to background) |
@@ -192,6 +195,7 @@ If you want to show the tooltip regardless of whether the badge text is truncate
 | `--KBadgeDangerButtonHoverColor`  |                                         |
 | `--KBadgeDangerBorder`            |                                         |
 | `--KBadgeDangerBackground`        |                                         |
+-->
 
 An example of theming the danger badge:
 
