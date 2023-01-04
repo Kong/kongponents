@@ -2,8 +2,6 @@
 
 **KAlert** is used to display contextual information to a user. These are typically used to notify something may be disabled or there may be an error.
 
-This is a new paragraph.
-
 <KAlert alert-message="I'm an alert" />
 
 ```html

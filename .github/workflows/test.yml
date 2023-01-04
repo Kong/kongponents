@@ -10,6 +10,11 @@ on:
 
   # Allow workflow to be called by another workflow
   workflow_call:
+    # Must define secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
+    secrets:
+      SKIP_VISUAL_REGRESSION_TESTS:
+        description: 'Pass true to prevent the Docs site visual regression tests from running.'
+        required: true
 
 jobs:
   test:
@@ -64,4 +69,44 @@ jobs:
           start: yarn docs:serve --port 3173
           wait-on: 'http://localhost:3173'
           command: yarn test:e2e:ci
+
+  visual-regression-test:
+    name: Run Docs Visual Regression Tests
+    needs:
+      - test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build docs
+        run: yarn docs:build
+
+      # This step will be skipped if being ran from the publish action with SKIP_VISUAL_REGRESSION_TESTS: 'true'
+      - name: Run Cypress visual regression tests for docs site
+        uses: cypress-io/github-action@v4
+        env:
+          SKIP_VISUAL_REGRESSION_TESTS: ${{ secrets.SKIP_VISUAL_REGRESSION_TESTS }}
+        if: "${{ env.SKIP_VISUAL_REGRESSION_TESTS != 'true' }}"
+        with:
+          install: false
+          start: yarn docs:serve --port 3173
+          wait-on: 'http://localhost:3173'
+          command: yarn test:e2e:ci
+
+      - name: Upload Cypress screenshots (on failure)
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-docs-screenshots
+          path: cypress/visual-regression-screenshots/
 

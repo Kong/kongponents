@@ -15,6 +15,9 @@ jobs:
     needs:
       - get-changed-files
     uses: ./.github/workflows/test.yml
+    secrets:
+      # Skip running the Docs visual regression tests since we update the snapshots on publish
+      SKIP_VISUAL_REGRESSION_TESTS: 'true'
 
   publish:
       name: Build and Publish Kongponents
