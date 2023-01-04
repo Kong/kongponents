@@ -181,6 +181,12 @@ const badgeCustomStyles = computed(() => {
     styles.color = props.color
   }
 
+  // set border-color to match the text color if is-bordered prop is true and
+  // no border-color is provided
+  if (props.isBordered && !props.borderColor && props.color) {
+    styles.borderColor = props.color
+  }
+
   return styles
 })
 
