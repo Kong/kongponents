@@ -31,35 +31,27 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
 import KIcon from '@/components/KIcon/KIcon.vue'
 
-export default defineComponent({
-  name: 'MultiselectItem',
-  components: { KIcon },
-  props: {
-    item: {
-      type: Object,
-      default: null,
-      // Items must have a label and value
-      validator: (item: Record<string, string | number | boolean>): boolean => item.label !== undefined && item.value !== undefined,
-    },
-  },
-  emits: ['selected'],
-  setup(props, { emit }) {
-    const handleClick = (): void => {
-      if (props.item.disabled) {
-        return
-      }
-      emit('selected', props.item)
-    }
-
-    return {
-      handleClick,
-    }
+const props = defineProps({
+  item: {
+    type: Object,
+    default: null,
+    // Items must have a label and value
+    validator: (item: Record<string, string | number | boolean>): boolean => item.label !== undefined && item.value !== undefined,
   },
 })
+
+const emit = defineEmits(['selected'])
+
+const handleClick = (): void => {
+  if (props.item.disabled) {
+    return
+  }
+
+  emit('selected', props.item)
+}
 </script>
 
 <style lang="scss" scoped>

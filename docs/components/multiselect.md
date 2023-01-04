@@ -57,6 +57,21 @@ An array of items containing a `label` and `value`. You may also specify:
 />
 ```
 
+### enableItemCreation
+
+`KMultiselect` offers the ability to add custom items to the list by typing the `label` you want to add and pressing `Enter` (which will automatically select it). Deselecting the item will completely remove it from the list.
+
+<ClientOnly>
+  <KMultiselect :items="deepClone(defaultItems)" enable-item-creation />
+</ClientOnly>
+
+```html
+<KMultiselect
+  :items="items"
+  enable-item-creation
+/>
+```
+
 ### label
 
 The label for the select.
