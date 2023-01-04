@@ -22,7 +22,6 @@
     "types": [
       "vite/client",
       "cypress",
-      "@frsource/cypress-plugin-visual-regression-diff",
       "./cypress/support"
     ],
     "paths": {

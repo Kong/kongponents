@@ -4,6 +4,7 @@
     "src/**/*.cy.ts",
     "src/App.vue",
     "src/main.ts",
+    "docs",
     "node_modules",
     "dist",
   ],

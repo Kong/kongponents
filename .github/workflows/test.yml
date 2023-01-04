@@ -63,7 +63,7 @@ jobs:
         run: yarn build
 
   visual-regression-test:
-    name: Run Docs Visual Regression Tests
+    name: Run Visual Regression Tests
     needs:
       - test
     runs-on: ubuntu-latest
