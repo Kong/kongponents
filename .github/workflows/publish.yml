@@ -58,11 +58,21 @@ jobs:
           run: yarn build:kongponents
 
         - name: Update Cypress visual regression snapshots for docs site
+          if: needs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed == 'true'
           uses: cypress-io/github-action@v4
           with:
             install: false
             browser: chrome
             command: yarn test:e2e:update-snapshots
+
+        - name: Commit new visual regression snapshots
+          if: needs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed == 'true'
+          uses: stefanzweifel/git-auto-commit-action@v4
+          with:
+            commit_message: 'test(e2e): update visual regression snapshots'
+            file_pattern: 'docs/tests/e2e/snapshots/**/*'
+            commit_user_name: 'kongponents-bot'
+            commit_user_email: 'konnectx-engineers+kongponents-bot@konghq.com'
 
         - name: Semantic Release
           uses: cycjimmy/semantic-release-action@v3
