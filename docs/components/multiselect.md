@@ -59,17 +59,46 @@ An array of items containing a `label` and `value`. You may also specify:
 
 ### enableItemCreation
 
-`KMultiselect` offers the ability to add custom items to the list by typing the `label` you want to add and pressing `Enter` (which will automatically select it). Deselecting the item will completely remove it from the list.
+`KMultiselect` offers the ability to add custom items to the list by typing the `label` you want to add and pressing `Enter` (which will automatically select it). Newly created items will have a randomly generated id for the `value` to ensure uniqueness. This action triggers an `added` event containing the newly added item data. Deselecting the item will completely remove it from the list. This action triggers a `removed` event containing the removed item's data.
 
 <ClientOnly>
-  <KMultiselect :items="deepClone(defaultItems)" enable-item-creation />
+  <KLabel>Value:</KLabel> {{ mySelections }}
+  <br>
+  <KLabel>Added Items:</KLabel> {{ addedItems }}
+  <KMultiselect
+    v-model="mySelections"
+    :items="deepClone(defaultItems)"
+    enable-item-creation
+    @added="(item) => trackNewItems(item, true)"
+    @removed="(item) => trackNewItems(item, false)"
+  />
 </ClientOnly>
 
 ```html
-<KMultiselect
-  :items="items"
-  enable-item-creation
-/>
+<template>
+  <KLabel>Value:</KLabel> {{ mySelections }}
+  <KLabel>Added Items:</KLabel> {{ addedItems }}
+  <KMultiselect
+    v-model="mySelections"
+    :items="items"
+    enable-item-creation
+    @added="(item) => trackNewItems(item, true)"
+    @removed="(item) => trackNewItems(item, false)"
+  />
+</template>
+
+<script setup lang="ts">
+  const mySelections = ref([])
+  const addedItems = ref([])
+
+  const trackNewItems = (item, added) => {
+    if (added) {
+      addedItems.value.push(item)
+    } else {
+      addedItems.value = addedItems.value.filter(anItem => anItem.value !== item.value)
+    }
+  }
+</script>
 ```
 
 ### label
@@ -532,12 +561,14 @@ You can use the `empty` slot to customize the look of the dropdown list when the
 
 ## Events
 
-| Event                 | returns             |
-| :--------             | :------------------ |
-| `selected`            | array of selected item objects |
-| `update:modelValue`   | array of selected item values |
-| `change`              | last item selected/deselected Object or null |
-| `query-change`        | `query` String |
+| Event               | Action       | Returns             |
+| :--------           | :----------- | :------------------ |
+| `selected`          | an item is clicked | array of selected item objects |
+| `update:modelValue` | selections are changed | array of selected item values |
+| `change`            | selections are changed | last item selected/deselected Object or null |
+| `added`             | enableItemCreation is true and an item is added | item object being added to selections |
+| `removed`           | enableItemCreation is true and an added item is deselected | item object being removed from selections |
+| `query-change`      | filter string is changed | `query` String |
 
 <script lang="ts">
 import { defineComponent } from 'vue'
@@ -575,6 +606,8 @@ export default defineComponent({
     return {
       myItems: getItems(5),
       mySelect: '',
+      mySelections: ['cats', 'bunnies'],
+      addedItems: [],
       myVal: ['cats', 'bunnies'],
       myAutoVal: [],
       myDebounceAutoVal: [],
@@ -716,6 +749,13 @@ export default defineComponent({
     }
   },
   methods: {
+    trackNewItems (item, added) {
+      if (added) {
+        this.addedItems.push(item)
+      } else {
+        this.addedItems = this.addedItems.filter(anItem => anItem.value !== item.value)
+      }
+    },
     handleItemSelect (item) {
       this.mySelect = item.label
     },

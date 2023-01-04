@@ -359,7 +359,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['selected', 'added', 'input', 'change', 'update:modelValue', 'query-change'])
+const emit = defineEmits(['selected', 'added', 'removed', 'input', 'change', 'update:modelValue', 'query-change'])
 
 const defaultKPopAttributes = {
   hideCaret: true,
@@ -606,6 +606,7 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
     // if it's an added item, remove it from list when it is deselected
     if (selectionIsAdded) {
       addedItems.value = addedItems.value.filter(anItem => anItem.value !== item.value)
+      emit('removed', item)
     }
   } else { // newly selected item
     selectedItem.selected = true
