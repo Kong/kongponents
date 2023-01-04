@@ -1,5 +1,6 @@
 import { defineConfig } from 'cypress'
 import { initPlugin } from '@frsource/cypress-plugin-visual-regression-diff/plugins'
+import failFast from 'cypress-fail-fast/plugin'
 import fs from 'fs'
 
 // Generate an array of all docs markdown pages for visual regression testing
@@ -27,6 +28,12 @@ export default defineConfig({
     viewportWidth: 1366,
     specPattern: 'src/**/*.cy.ts',
     supportFile: 'cypress/support/component.ts',
+    setupNodeEvents(on, config) {
+      // Initialize fail-fast plugin
+      failFast(on, config)
+
+      return config
+    },
   },
 
   includeShadowDom: true,
@@ -49,12 +56,15 @@ export default defineConfig({
     supportFile: 'cypress/support/e2e.ts',
     env: {
       pluginVisualRegressionCleanupUnusedImages: true,
+      FAIL_FAST_ENABLED: true,
     },
     retries: {
       runMode: 0,
       openMode: 0,
     },
     setupNodeEvents(on, config) {
+      // Initialize fail-fast plugin
+      failFast(on, config)
       // Initialize snapshot plugin
       initPlugin(on, config)
 

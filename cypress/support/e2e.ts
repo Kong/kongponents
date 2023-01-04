@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 import '@frsource/cypress-plugin-visual-regression-diff'
+import 'cypress-fail-fast'
 import Chainable = Cypress.Chainable
 
 Cypress.Commands.add('getTestId', (dataTestId: string): Chainable => {

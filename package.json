@@ -91,6 +91,7 @@
     "commitizen": "^4.2.5",
     "copyfiles": "^2.4.1",
     "cypress": "^12.0.2",
+    "cypress-fail-fast": "^7.0.0",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "8.31.0",
     "eslint-config-standard": "^17.0.0",
