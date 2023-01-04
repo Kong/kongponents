@@ -59,7 +59,7 @@ jobs:
 
         - name: Update Cypress visual regression snapshots for docs site
           if: needs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed == 'true'
-          uses: cypress-io/github-action@v4
+          uses: cypress-io/github-action@v5
           with:
             install: false
             browser: chrome
