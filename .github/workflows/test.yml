@@ -100,5 +100,5 @@ jobs:
         if: failure()
         with:
           name: cypress-docs-screenshots
-          path: cypress/visual-regression-screenshots/
+          path: docs/tests/e2e/snapshots
 
