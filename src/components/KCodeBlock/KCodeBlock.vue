@@ -9,7 +9,7 @@
     tabindex="0"
   >
     <div
-      v-if="isSearchable && !useSingleLine"
+      v-if="isSearchable && !isSingleLine"
       class="k-code-block-actions"
     >
       <p
@@ -194,7 +194,7 @@
         data-testid="k-code-block-filtered-code-block"
       >
         <span
-          v-if="!useSingleLine"
+          v-if="!isSingleLine"
           class="k-line-number-rows"
         >
           <span
@@ -216,13 +216,13 @@
         v-else
         class="k-highlighted-code-block"
         :class="{
-          'use-single-line': useSingleLine,
+          'is-single-line': isSingleLine,
           'show-copy-button': showCopyButton
         }"
         data-testid="k-code-block-highlighted-code-block"
       >
         <span
-          v-if="!useSingleLine"
+          v-if="!isSingleLine"
           class="k-line-number-rows"
         >
           <span
@@ -376,7 +376,7 @@ const props = defineProps({
   /**
    * Displays the code on a single line. **Default: `false`**.
    */
-  useSingleLine: {
+  isSingleLine: {
     type: Boolean,
     required: false,
     default: false,
@@ -448,7 +448,7 @@ const filteredCode = computed(function() {
     })
     .join('\n')
 })
-const finalCode = computed(() => props.useSingleLine ? codeRef.value?.replace('\n', '') : props.code)
+const finalCode = computed(() => props.isSingleLine ? codeRef.value?.replace('\n', '') : props.code)
 
 watch(() => props.code, async function() {
   // Waits one Vue tick in which the code block is re-rendered. Only then does it make sense to emit the corresponding event. Otherwise, consuming components applying syntax highlighting would have to do this because if syntax highlighting is applied before re-rendering is done, re-rendering will effectively undo the syntax highlighting.
@@ -1194,7 +1194,7 @@ $dark-focusColor: var(--green-500, color(green-500));
 }
 
 .k-code-block-content {
-  pre.k-highlighted-code-block.use-single-line {
+  pre.k-highlighted-code-block.is-single-line {
     display: flex;
     min-height: 46px;
 

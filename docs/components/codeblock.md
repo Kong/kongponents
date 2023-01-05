@@ -217,7 +217,7 @@ Sets the display theme of the component.
 />
 ```
 
-### useSingleLine
+### isSingleLine
 
 * **Type**: `boolean`
 * **Required**: no
@@ -231,21 +231,21 @@ Line numbers will not be displayed and the code will not be searchable when this
 
 <ClientOnly>
   <KCodeBlock
-    id="code-block-use-single-line"
+    id="code-block-is-single-line"
     :code="cert"
     language="plaintext"
     theme="dark"
-    use-single-line
+    is-single-line
   />
 </ClientOnly>
 
 ```html
 <KCodeBlock
-  id="code-block-use-single-line"
+  id="code-block-is-single-line"
   :code="cert"
   language="plaintext"
   theme="dark"
-  use-single-line
+  is-single-line
 />
 ```
 
