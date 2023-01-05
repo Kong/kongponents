@@ -59,18 +59,26 @@ An array of items containing a `label` and `value`. You may also specify:
 
 ### enableItemCreation
 
-`KMultiselect` offers the ability to add custom items to the list by typing the `label` you want to add and pressing `Enter` (which will automatically select it). Newly created items will have a randomly generated id for the `value` to ensure uniqueness. This action triggers an `added` event containing the newly added item data. Deselecting the item will completely remove it from the list. This action triggers a `removed` event containing the removed item's data.
+`KMultiselect` can offer users the ability to add custom items to the list by typing the item they want to and then clicking the `... (New value)` item at the bottom of the list, which will also automatically select it.
+
+Newly created items will have a `label` consisting of the user input and a randomly generated id for the `value` to ensure uniqueness. This action triggers an `item:added` event containing the added item data.
+
+Deselecting the item will completely remove it from the list and trigger a `item:removed` event containing the removed item's data.
+
+:::tip NOTE
+You cannot add an item if the `label` matches the `label` of a pre-existing item. In that scenario the `... (New value)` item will not be displayed.
+:::
 
 <ClientOnly>
-  <KLabel>Value:</KLabel> {{ mySelections }}
-  <br>
-  <KLabel>Added Items:</KLabel> {{ addedItems }}
+  <KLabel>Value:</KLabel> <pre class="json ma-0">{{ JSON.stringify(mySelections) }}</pre>
+  <KLabel>Added Items:</KLabel> <pre class="json ma-0">{{ JSON.stringify(addedItems) }}</pre>
   <KMultiselect
     v-model="mySelections"
     :items="deepClone(defaultItems)"
     enable-item-creation
-    @added="(item) => trackNewItems(item, true)"
-    @removed="(item) => trackNewItems(item, false)"
+    class="mt-2"
+    @item:added="(item) => trackNewItems(item, true)"
+    @item:removed="(item) => trackNewItems(item, false)"
   />
 </ClientOnly>
 
@@ -82,8 +90,8 @@ An array of items containing a `label` and `value`. You may also specify:
     v-model="mySelections"
     :items="items"
     enable-item-creation
-    @added="(item) => trackNewItems(item, true)"
-    @removed="(item) => trackNewItems(item, false)"
+    @item:added="(item) => trackNewItems(item, true)"
+    @item:removed="(item) => trackNewItems(item, false)"
   />
 </template>
 
@@ -229,8 +237,8 @@ See [autosuggest](#autosuggest) for more details.
 `KMultiselect` works as regular inputs do using v-model for data binding:
 
 <ClientOnly>
-  <KLabel>Value:</KLabel> {{ myVal }}
-  <KMultiselect v-model="myVal" :items="deepClone(defaultItems)" />
+  <KLabel>Value:</KLabel> <pre class="json ma-0">{{ JSON.stringify(myVal) }}</pre>
+  <KMultiselect v-model="myVal" :items="deepClone(defaultItems)" class="mt-2" />
   <br>
   <KButton @click="clearIt">Clear</KButton>
 </ClientOnly>
@@ -295,12 +303,13 @@ When using `autosuggest`, you **MUST** use `v-model` otherwise the Multiselect c
 :::
 
 <ClientOnly>
-  <KLabel>Value:</KLabel> {{ myAutoVal }}
+  <KLabel>Value:</KLabel> <pre class="json ma-0">{{ JSON.stringify(myAutoVal) }}</pre>
   <KMultiselect
     v-model="myAutoVal"
     autosuggest
     :items="itemsForAutosuggest"
     :loading="loading"
+    class="mt-2"
     @query-change="onQueryChange"
   >
     <template v-slot:item-template="{ item }">

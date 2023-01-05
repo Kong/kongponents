@@ -125,7 +125,6 @@
                 }"
                 @focus="onInputFocus"
                 @keyup="(evt: any) => triggerFocus(evt, isToggled)"
-                @keyup.enter="(evt: any) => handleAddItem(evt)"
                 @mouseenter="() => isHovered = true"
                 @mouseleave="() => isHovered = false"
                 @update:model-value="onQueryChange"
@@ -157,7 +156,14 @@
                 </template>
               </KMultiselectItem>
               <KMultiselectItem
-                v-if="!sortedItems.length && !$slots.empty"
+                v-if="enableItemCreation && uniqueFilterStr"
+                key="k-multiselect-new-item"
+                class="k-multiselect-empty-item"
+                :item="{ label: `${filterStr} (New value)`, value: 'add_item' }"
+                @selected="handleAddItem"
+              />
+              <KMultiselectItem
+                v-if="!sortedItems.length && !$slots.empty && !enableItemCreation"
                 key="k-multiselect-empty-state"
                 class="k-multiselect-empty-item"
                 :item="{ label: 'No results found', value: 'no_results' }"
@@ -167,7 +173,7 @@
                     No results found
                   </div>
                   <div class="select-item-desc">
-                    {{ enableItemCreation ? 'You can still add this value by pressing “enter”' : 'Please adjust the criteria and try again' }}
+                    Please adjust the criteria and try again
                   </div>
                 </template>
               </KMultiselectItem>
@@ -359,7 +365,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['selected', 'added', 'removed', 'input', 'change', 'update:modelValue', 'query-change'])
+const emit = defineEmits(['selected', 'item:added', 'item:removed', 'input', 'change', 'update:modelValue', 'query-change'])
 
 const defaultKPopAttributes = {
   hideCaret: true,
@@ -383,6 +389,22 @@ const selectionsMaxHeight = computed((): number => {
   return props.selectedRowCount * SELECTED_ITEMS_SINGLE_LINE_HEIGHT
 })
 const filterStr = ref('')
+// whether or not filter string matches an existing item's label
+const uniqueFilterStr = computed((): boolean => {
+  if (!filterStr.value) {
+    return false
+  }
+
+  if (unfilteredItems.value.filter((item: MultiselectItem) => item.label === filterStr.value).length) {
+    return false
+  }
+
+  if (addedItems.value.filter((item: MultiselectItem) => item.label === filterStr.value).length) {
+    return false
+  }
+
+  return true
+})
 const popper = ref(null)
 const unfilteredItems: Ref<MultiselectItem[]> = ref([])
 const addedItems: Ref<MultiselectItem[]> = ref([])
@@ -601,7 +623,7 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
     // if it's an added item, remove it from list when it is deselected
     if (selectionIsAdded) {
       addedItems.value = addedItems.value.filter(anItem => anItem.value !== item.value)
-      emit('removed', item)
+      emit('item:removed', item)
     }
   } else { // newly selected item
     selectedItem.selected = true
@@ -628,10 +650,9 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
 }
 
 // add an item with `enter`
-const handleAddItem = (evt: any): void => {
-  evt.stopPropagation()
-  if (!props.enableItemCreation || !filterStr.value) {
-    // do nothing if not enabled or no label
+const handleAddItem = (): void => {
+  if (!props.enableItemCreation || !filterStr.value || !uniqueFilterStr.value) {
+    // do nothing if not enabled or no label or label already exists
     return
   }
 
@@ -640,7 +661,7 @@ const handleAddItem = (evt: any): void => {
     value: props.testMode ? `test-multiselect-added-item-${addedItems.value.length + 1}` : uuidv1(),
     key: `${filterStr.value.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${addedItems.value.length + 1}`,
   }
-  emit('added', item)
+  emit('item:added', item)
 
   handleItemSelect(item, true)
   filterStr.value = ''
@@ -669,6 +690,11 @@ const clearSelection = (): void => {
     anItem.selected = false
     anItem.key = anItem?.key?.replace(/-selected/gi, '')
   })
+  addedItems.value.forEach(anItem => {
+    // we must emit that we are removing each item before we actually clear them since this is our only reference
+    emit('item:removed', anItem)
+  })
+  addedItems.value = []
   selectedItems.value = []
   visibleSelectedItemsStaging.value = []
   invisibleSelectedItemsStaging.value = []
