@@ -1,3 +1,10 @@
+## [8.14.3](https://github.com/Kong/kongponents/compare/v8.14.2...v8.14.3) (2023-01-05)
+
+
+### Bug Fixes
+
+* **kicon:** machine icon [khcp-5705] ([#1034](https://github.com/Kong/kongponents/issues/1034)) ([6e88f16](https://github.com/Kong/kongponents/commit/6e88f169746cb9c10b682dd59d2a7a5db2785053))
+
 ## [8.14.2](https://github.com/Kong/kongponents/compare/v8.14.1...v8.14.2) (2023-01-03)
 
 
