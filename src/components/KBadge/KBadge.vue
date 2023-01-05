@@ -135,6 +135,9 @@ const props = defineProps({
     default: '',
   },
 
+  /**
+   * The color to apply to the border of badges with custom appearance
+   */
   borderColor: {
     type: String,
     required: false,
