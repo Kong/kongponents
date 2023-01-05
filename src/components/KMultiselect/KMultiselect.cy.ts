@@ -167,6 +167,49 @@ describe('KMultiselect', () => {
     cy.getTestId('k-multiselect-selections').should('contain.text', labels[0])
   })
 
+  it('allows adding an item with enableItemCreation', () => {
+    const labels = ['Label 1', 'Label 2']
+    const vals = ['label1', 'label2']
+    const newItem = 'Rock me'
+
+    mount(KMultiselect, {
+      props: {
+        testMode: true,
+        items: [{
+          label: labels[0],
+          value: vals[0],
+        }, {
+          label: labels[1],
+          value: vals[1],
+        }],
+        enableItemCreation: true,
+      },
+    })
+
+    cy.get('.k-multiselect-input').click()
+
+    cy.getTestId(`k-multiselect-item-${vals[0]}`).should('contain.text', labels[0])
+    cy.getTestId(`k-multiselect-item-${vals[1]}`).should('contain.text', labels[1])
+
+    cy.get('input').type(newItem)
+    cy.get('input').type('{enter}')
+    // search is cleared
+    cy.get('input').should('not.contain.text', newItem)
+    // item displays in selections
+    cy.getTestId('k-multiselect-selections').should('contain.text', newItem)
+    // item displays when searching
+    cy.get('input').type(newItem)
+    cy.get('.k-multiselect-item .k-multiselect-item-label').should('contain.text', newItem)
+    // item gone when dismissed
+    cy.getTestId('k-multiselect-selections').get('.k-badge-dismiss-button').first().click()
+    // removed from selections
+    cy.getTestId('k-multiselect-selections').should('not.to.exist')
+    // gone when searching
+    cy.get('input').clear()
+    cy.get('input').type(newItem)
+    cy.get('.k-multiselect-item .k-multiselect-item-label').should('not.contain.text', newItem)
+  })
+
   it('ignores clicks on disabled item', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
