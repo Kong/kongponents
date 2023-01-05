@@ -173,9 +173,9 @@ const isTruncated = computed(() => offsetWidth.value < scrollWidth.value)
 
 const badgeCustomStyles = computed(() => {
   const styles = {} as {
-    backgroundColor: string
-    borderColor: string
-    color: string
+    backgroundColor?: string
+    borderColor?: string
+    color?: string
   }
 
   if (props.backgroundColor) {
