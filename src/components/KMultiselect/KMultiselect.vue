@@ -441,12 +441,7 @@ const createKPopAttributes = computed(() => {
 const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
 
 const widthValue = computed(() => {
-  let w = ''
-  if (!props.width) {
-    w = '300'
-  } else {
-    w = props.width
-  }
+  const w = props.width ? props.width : '300'
 
   return getSizeFromString(w)
 })
@@ -546,7 +541,7 @@ const handleMultipleItemsSelect = (items: MultiselectItem[]) => {
     let selectedItem = unfilteredItems.value.filter(anItem => anItem.value === itemToSelect.value)?.[0] || null
 
     // if it wasn't in unfilteredItems, check newly added items if enabled
-    if (selectedItem === null && props.enableItemCreation) {
+    if (props.enableItemCreation && selectedItem === null) {
       selectedItem = addedItems.value.filter(anItem => anItem.value === itemToSelect.value)?.[0] || null
     }
 

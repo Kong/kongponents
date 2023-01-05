@@ -566,8 +566,8 @@ You can use the `empty` slot to customize the look of the dropdown list when the
 | `selected`          | an item is clicked | array of selected item objects |
 | `update:modelValue` | selections are changed | array of selected item values |
 | `change`            | selections are changed | last item selected/deselected Object or null |
-| `added`             | enableItemCreation is true and an item is added | item object being added to selections |
-| `removed`           | enableItemCreation is true and an added item is deselected | item object being removed from selections |
+| `item:added`             | enableItemCreation is true and an item is added | item object being added to selections |
+| `item:removed`           | enableItemCreation is true and an added item is deselected | item object being removed from selections |
 | `query-change`      | filter string is changed | `query` String |
 
 <script lang="ts">
