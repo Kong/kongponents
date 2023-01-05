@@ -86,9 +86,13 @@ The Badge has two shapes that can be changed with a `shape` property.
 <KBadge appearance="warning" shape="rectangular">Rectangular</KBadge>
 ```
 
-### color, background-color
+### color
 
-Using the `custom` appearance in conjunction with `color` and `background-color`:
+Using the `custom` appearance in conjunction with `color`
+
+### backgroundColor
+
+Using the `custom` appearance in conjunction with `background-color`:
 
 <KBadge color="var(--yellow-500)" background-color="var(--yellow-200)" class="mr-2">Custom</KBadge>
 <KBadge color="var(--red-100)" background-color="var(--red-400)" class="mr-2">Badge</KBadge>
@@ -103,7 +107,7 @@ Using the `custom` appearance in conjunction with `color` and `background-color`
 <KBadge color="#dfe6e9" background-color="#636e72">Something</KBadge>
 <KBadge color="var(--red-500)" background-color="var(--red-300)">Long Badge 236bfb09-fe79-4cc9-99be-9361d6b1db64 aa07575b-bcd3-4bb2-bfd7-998224e3d31e 364b78fc-dba3-4b94-9134-388515496de5</KBadge>
 ```
-### border-color
+### borderColor
 
 Use this prop in conjunction with the `is-bordered` and `appearance="custom"` props to customize the color of the badge border.
 
@@ -129,7 +133,7 @@ Use this prop in conjunction with the `is-bordered` and `appearance="custom"` pr
 </KBadge>
 ```
 
-### hover-color
+### hoverColor
 
 Use this prop in conjunction with the `dismissable` and `appearance="custom"` props to customize the color of the dismiss button when hovered.
 
@@ -237,38 +241,90 @@ If you want to show the tooltip regardless of whether the badge text is truncate
 | `--KBadgeDangerBackground`        |                                         |
 -->
 
-An example of theming the danger badge:
+An example of theming a custom badge:
 
 > Note: We are scoping the overrides to a wrapper in this example
 
 <div class="KBadge-wrapper">
-  <KBadge appearance="danger">DANGER - RADIOACTIVE MATERIAL</KBadge>
+  <KBadge
+    appearance="custom"
+    background-color="var(--grey-200)"
+    border-color="var(--grey-500)"
+    color="var(--grey-500)"
+    is-bordered
+  >
+    <div class="d-flex aling-items-center">
+      <KIcon
+        class="mr-2"
+        icon="bot"
+        height="10"
+      />
+      <p class="ma-0">
+        ARTIFICIAL INTELLIGENCE
+      </p>
+    </div>
+  </KBadge>
 </div>
+
+
 
 ```html
 <template>
-  <div class="KBadge-wrapper">
-    <KBadge appearance="danger">DANGER - RADIOACTIVE MATERIAL</KBadge>
-  </div>
+<div class="KBadge-wrapper">
+  <KBadge
+    appearance="custom"
+    background-color="var(--grey-200)"
+    border-color="var(--grey-500)"
+    color="var(--grey-500)"
+    is-bordered
+  >
+    <div class="d-flex aling-items-center">
+      <KIcon
+        class="mr-2"
+        icon="bot"
+        height="10"
+      />
+      <p class="ma-0">
+        ARTIFICIAL INTELLIGENCE
+      </p>
+    </div>
+  </KBadge>
+</div>
 </template>
 
 <style>
 .KBadge-wrapper {
-  --KBadgeBorderRadius: 3px;
-  --KBadgePaddingX: var(--spacing-xxs);
-  --KBadgeDangerBackground: purple;
-  --KBadgeDangerColor: lime;
+  --KBadgeBorderRadius: 22px;
+  --KBadgeFontSize: var(--type-sm);
+  --KBadgePaddingX: var(--spacing-sm);
+  --KBadgePaddingY: var(--spacing-xs);
   --KBadgeMaxWidth: auto;
+
+  p {
+    line-height: 24px;
+  }
+
+  .kong-icon-bot {
+    height: 24px;
+  }
 }
 </style>
 ```
 
 <style lang="scss">
 .KBadge-wrapper {
-  --KBadgeBorderRadius: 3px;
-  --KBadgePaddingX: var(--spacing-xxs);
-  --KBadgeDangerBackground: rgb(222, 53, 11);
-  --KBadgeDangerColor: white;
+  --KBadgeBorderRadius: 22px;
+  --KBadgeFontSize: var(--type-sm);
+  --KBadgePaddingX: var(--spacing-sm);
+  --KBadgePaddingY: var(--spacing-xs);
   --KBadgeMaxWidth: auto;
+
+  p {
+    line-height: 24px;
+  }
+
+  .kong-icon-bot {
+    height: 24px;
+  }
 }
 </style>
