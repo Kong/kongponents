@@ -44,15 +44,6 @@ Use the `isBordered` prop for bordered badges. The border color matches the text
 <KBadge appearance="danger" is-bordered class="mr-2">DANGER</KBadge>
 <KBadge appearance="info" is-bordered class="mr-2">INFO</KBadge>
 <KBadge is-bordered class="mr-2">DEFAULT</KBadge>
-<KBadge
-  appearance="custom"
-  background-color="var(--purple-100)"
-  border-color="var(--purple-400)"
-  color="var(--purple-400)"
-  is-bordered
->
-  CUSTOM
-</KBadge>
 
 ```html
 <KBadge appearance="success" is-bordered>SUCCESS</KBadge>
@@ -60,15 +51,6 @@ Use the `isBordered` prop for bordered badges. The border color matches the text
 <KBadge appearance="danger" is-bordered>DANGER</KBadge>
 <KBadge appearance="info" is-bordered>INFO</KBadge>
 <KBadge is-bordered>DEFAULT</KBadge>
-<KBadge
-  appearance="custom"
-  background-color="var(--purple-100)"
-  border-color="var(--purple-400)"
-  color="var(--purple-400)"
-  is-bordered
->
-  CUSTOM
-</KBadge>
 ```
 
 ### shape
@@ -88,11 +70,11 @@ The Badge has two shapes that can be changed with a `shape` property.
 
 ### color
 
-Using the `custom` appearance in conjunction with `color`
+Use this prop to modify the badge text color
 
 ### backgroundColor
 
-Using the `custom` appearance in conjunction with `background-color`:
+Use this prop to modify the background color of the badge
 
 <KBadge color="var(--yellow-500)" background-color="var(--yellow-200)" class="mr-2">Custom</KBadge>
 <KBadge color="var(--red-100)" background-color="var(--red-400)" class="mr-2">Badge</KBadge>
@@ -109,7 +91,7 @@ Using the `custom` appearance in conjunction with `background-color`:
 ```
 ### borderColor
 
-Use this prop in conjunction with the `is-bordered` and `appearance="custom"` props to customize the color of the badge border.
+Use this prop in conjunction with the `is-bordered` to customize the color of the badge border.
 
 <KBadge
   appearance="custom"
