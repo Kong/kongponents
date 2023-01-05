@@ -145,6 +145,15 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+
+  /**
+   * The color to apply to the dismiss button on hover
+   */
+  hoverColor: {
+    type: String,
+    required: false,
+    default: '',
+  },
 })
 
 const emit = defineEmits(['dismissed'])
@@ -264,6 +273,36 @@ watch(badgeText, () => {
     &.is-bordered {
       border-style: solid;
       border-width: 1px;
+    }
+  }
+
+  &.k-badge-custom {
+    color: v-bind('$props.color');
+    background-color: v-bind('$props.backgroundColor');
+    border-color: v-bind('$props.borderColor');
+
+    &.is-bordered {
+      border-style: solid;
+      border-width: 1px;
+    }
+
+    .k-badge-dismiss-button {
+      .kong-icon.kong-icon-close path {
+        stroke: v-bind('$props.color');
+      }
+
+      &:hover {
+        background-color:v-bind('$props.hoverColor');
+      }
+    }
+
+    &:focus {
+      // fall back to backgroundColor if hoverColor is not provided
+      background-color: v-bind('$props.hoverColor || $props.backgroundColor') !important;
+
+      .k-badge-dismiss-button {
+        background-color: v-bind('$props.hoverColor');
+      }
     }
   }
 

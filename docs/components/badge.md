@@ -45,6 +45,7 @@ Use the `isBordered` prop for bordered badges. The border color matches the text
 <KBadge appearance="info" is-bordered class="mr-2">INFO</KBadge>
 <KBadge is-bordered class="mr-2">DEFAULT</KBadge>
 <KBadge
+  appearance="custom"
   background-color="var(--purple-100)"
   border-color="var(--purple-400)"
   color="var(--purple-400)"
@@ -60,6 +61,7 @@ Use the `isBordered` prop for bordered badges. The border color matches the text
 <KBadge appearance="info" is-bordered>INFO</KBadge>
 <KBadge is-bordered>DEFAULT</KBadge>
 <KBadge
+  appearance="custom"
   background-color="var(--purple-100)"
   border-color="var(--purple-400)"
   color="var(--purple-400)"
@@ -84,7 +86,7 @@ The Badge has two shapes that can be changed with a `shape` property.
 <KBadge appearance="warning" shape="rectangular">Rectangular</KBadge>
 ```
 
-### color, background-color, border-color
+### color, background-color
 
 Using the `custom` appearance in conjunction with `color` and `background-color`:
 
@@ -93,15 +95,6 @@ Using the `custom` appearance in conjunction with `color` and `background-color`
 <KBadge color="var(--blue-200)" background-color="var(--blue-500)" class="mr-2">Hello</KBadge>
 <KBadge color="#dfe6e9" background-color="#636e72" class="mr-2">Something</KBadge>
 <KBadge color="var(--red-500)" background-color="var(--red-300)" class="mr-2">Long Badge 236bfb09-fe79-4cc9-99be-9361d6b1db64 aa07575b-bcd3-4bb2-bfd7-998224e3d31e 364b78fc-dba3-4b94-9134-388515496de5</KBadge>
-<KBadge
-  background-color="var(--blue-100)"
-  border-color="var(--blue-400)"
-  color="var(--blue-400)"
-  is-bordered
->
-  Production Server
-</KBadge>
-
 
 ```html
 <KBadge color="var(--yellow-400)" background-color="var(--yellow-300)">Custom</KBadge>
@@ -109,13 +102,60 @@ Using the `custom` appearance in conjunction with `color` and `background-color`
 <KBadge color="var(--blue-200)" background-color="var(--blue-500)">Hello</KBadge>
 <KBadge color="#dfe6e9" background-color="#636e72">Something</KBadge>
 <KBadge color="var(--red-500)" background-color="var(--red-300)">Long Badge 236bfb09-fe79-4cc9-99be-9361d6b1db64 aa07575b-bcd3-4bb2-bfd7-998224e3d31e 364b78fc-dba3-4b94-9134-388515496de5</KBadge>
+```
+### border-color
+
+Use this prop in conjunction with the `is-bordered` and `appearance="custom"` props to customize the color of the badge border.
+
 <KBadge
-  background-color="var(--blue-100)"
-  border-color="var(--blue-400)"
-  color="var(--blue-400)"
+  appearance="custom"
+  background-color="var(--purple-100)"
+  border-color="var(--purple-400)"
+  color="var(--purple-400)"
   is-bordered
 >
-  Production Server
+  Organization Admin
+</KBadge>
+
+```html
+<KBadge
+  appearance="custom"
+  background-color="var(--purple-100)"
+  border-color="var(--purple-400)"
+  color="var(--purple-400)"
+  is-bordered
+>
+  Organization Admin
+</KBadge>
+```
+
+### hover-color
+
+Use this prop in conjunction with the `dismissable` and `appearance="custom"` props to customize the color of the dismiss button when hovered.
+
+<KBadge
+  appearance="custom"
+  background-color="var(--teal-100)"
+  border-color="var(--teal-400)"
+  color="var(--teal-400)"
+  dismissable
+  hover-color="var(--teal-200)"
+  is-bordered
+>
+  Production
+</KBadge>
+
+```html
+<KBadge
+  appearance="custom"
+  background-color="var(--teal-100)"
+  border-color="var(--teal-400)"
+  color="var(--teal-400)"
+  dismissable
+  hover-color="var(--teal-200)"
+  is-bordered
+>
+  Production
 </KBadge>
 ```
 
