@@ -91,7 +91,7 @@ Use this prop to modify the background color of the badge
 ```
 ### borderColor
 
-Use this prop in conjunction with the `is-bordered` to customize the color of the badge border.
+Use this prop in conjunction with the `is-bordered` prop to customize the color of the badge border.
 
 <KBadge
   appearance="custom"
@@ -117,7 +117,7 @@ Use this prop in conjunction with the `is-bordered` to customize the color of th
 
 ### hoverColor
 
-Use this prop in conjunction with the `dismissable` and `appearance="custom"` props to customize the color of the dismiss button when hovered.
+Use this prop in conjunction with the `dismissable` prop to customize the color of the dismiss button when hovered.
 
 <KBadge
   appearance="custom"
