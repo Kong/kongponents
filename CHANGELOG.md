@@ -1,3 +1,10 @@
+## [8.15.2](https://github.com/Kong/kongponents/compare/v8.15.1...v8.15.2) (2023-01-06)
+
+
+### Bug Fixes
+
+* **styles:** unscope and fix styles for slotted usage [KHCP-5730] ([#1038](https://github.com/Kong/kongponents/issues/1038)) ([0ac9576](https://github.com/Kong/kongponents/commit/0ac95769f48d1614c97413cf3f8ad1c75da9a2d7))
+
 ## [8.15.1](https://github.com/Kong/kongponents/compare/v8.15.0...v8.15.1) (2023-01-06)
 
 
