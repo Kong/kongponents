@@ -159,6 +159,7 @@
                 v-if="enableItemCreation && uniqueFilterStr"
                 key="k-multiselect-new-item"
                 class="k-multiselect-empty-item"
+                data-testid="k-multiselect-add-item"
                 :item="{ label: `${filterStr} (New value)`, value: 'add_item' }"
                 @selected="handleAddItem"
               />
@@ -166,6 +167,7 @@
                 v-if="!sortedItems.length && !$slots.empty && !enableItemCreation"
                 key="k-multiselect-empty-state"
                 class="k-multiselect-empty-item"
+                data-testid="k-multiselect-empty-item"
                 :item="{ label: 'No results found', value: 'no_results' }"
               >
                 <template #content>

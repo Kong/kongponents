@@ -190,9 +190,13 @@ describe('KMultiselect', () => {
 
     cy.getTestId(`k-multiselect-item-${vals[0]}`).should('contain.text', labels[0])
     cy.getTestId(`k-multiselect-item-${vals[1]}`).should('contain.text', labels[1])
-
+    // no adding a label that already exists
+    cy.get('input').type(labels[0])
+    cy.getTestId('k-multiselect-add-item').should('not.exist')
+    cy.get('input').clear()
+    // add new item
     cy.get('input').type(newItem)
-    cy.get('input').type('{enter}')
+    cy.getTestId('k-multiselect-add-item').should('contain.text', newItem).click()
     // search is cleared
     cy.get('input').should('not.contain.text', newItem)
     // item displays in selections
@@ -200,6 +204,8 @@ describe('KMultiselect', () => {
     // item displays when searching
     cy.get('input').type(newItem)
     cy.get('.k-multiselect-item .k-multiselect-item-label').should('contain.text', newItem)
+    // no adding a label that already exists
+    cy.getTestId('k-multiselect-add-item').should('not.exist')
     // item gone when dismissed
     cy.getTestId('k-multiselect-selections').get('.k-badge-dismiss-button').first().click()
     // removed from selections
@@ -207,7 +213,7 @@ describe('KMultiselect', () => {
     // gone when searching
     cy.get('input').clear()
     cy.get('input').type(newItem)
-    cy.get('.k-multiselect-item .k-multiselect-item-label').should('not.contain.text', newItem)
+    cy.get('.k-multiselect-item .selected .k-multiselect-item-label').should('not.exist')
   })
 
   it('ignores clicks on disabled item', () => {
