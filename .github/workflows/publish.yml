@@ -28,7 +28,7 @@ jobs:
         - run-tests
       # Only run the publish action (including semantic-release) if files in the /src/ directory changed.
       # Should only run if files in the `src/` directory were changed
-      if: needs.get-changed-files.outputs.component-files-changed == 'true'
+      if: needs.get-changed-files.outputs.component-files-changed == 'true' || needs.get-changed-files.outputs.package-json-yarn-lock-files-changed == 'true'
       runs-on: ubuntu-latest
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -79,7 +79,7 @@ jobs:
     name: No Build and Publish needed
     needs:
       - get-changed-files
-    if: needs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed == 'false'
+    if: needs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed == 'false' && needs.get-changed-files.outputs.package-json-yarn-lock-files-changed == 'false'
     runs-on: ubuntu-latest
     steps:
       - name: Skip new release

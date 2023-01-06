@@ -12,6 +12,9 @@ on:
       components-or-docs-or-cypress-files-changed:
         description: Check if src or docs (`src` or `docs` directories) files have changed
         value: ${{ jobs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed }}
+      package-json-yarn-lock-files-changed:
+        description: Check if package.json or yarn.lock files changed
+        value: ${{ jobs.get-changed-files.outputs.package-json-yarn-lock-files-changed }}
 
 jobs:
   get-changed-files:
@@ -21,6 +24,7 @@ jobs:
       component-files-changed: ${{ steps.component-files-changed.outputs.any_modified }}
       docs-files-changed: ${{ steps.docs-files-changed.outputs.any_modified }}
       components-or-docs-or-cypress-files-changed: ${{ steps.components-or-docs-or-cypress-files-changed.outputs.any_modified }}
+      package-json-yarn-lock-files-changed: ${{ steps.package-json-yarn-lock-files-changed.outputs.any_modified }}
 
     steps:
       - uses: actions/checkout@v3
@@ -52,3 +56,12 @@ jobs:
             src/**
             docs/**
             cypress/**
+
+      - name: Check if package.json or yarn.lock files changed
+        uses: tj-actions/changed-files@v34
+        id: package-json-yarn-lock-files-changed
+        # Return 'true' for any directories listed here that changed
+        with:
+          files: |
+            package.json
+            yarn.lock
