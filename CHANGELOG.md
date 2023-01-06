@@ -1,3 +1,10 @@
+## [8.15.1](https://github.com/Kong/kongponents/compare/v8.15.0...v8.15.1) (2023-01-06)
+
+
+### Bug Fixes
+
+* **ci:** release workflow ([#1037](https://github.com/Kong/kongponents/issues/1037)) ([a6e325a](https://github.com/Kong/kongponents/commit/a6e325a3f760f862c48e9036978968301b54648e))
+
 # [8.15.0](https://github.com/Kong/kongponents/compare/v8.14.3...v8.15.0) (2023-01-06)
 
 
