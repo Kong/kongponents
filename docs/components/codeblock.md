@@ -226,16 +226,19 @@ Sets the display theme of the component.
 The code passed into the component will be displayed on a single line.
 
 ::: tip NOTE
-Line numbers will not be displayed and the code will not be searchable when this prop is enabled.
+Please keep the following in mind when using `isSingleLine`:
+- Line numbers will not be displayed
+- Code will not be searchable
+- Long code snippets will be truncated to allow for responsive design
+- Multi-line code snippets will have `\n` stripped out to allow displaying the code on a single line. Code copied by clicking the copy button will contain any `\n` in the original code.
 :::
 
 <ClientOnly>
   <KCodeBlock
     id="code-block-is-single-line"
     :code="cert"
-    language="plaintext"
-    theme="dark"
     is-single-line
+    language="plaintext"
   />
 </ClientOnly>
 
@@ -243,9 +246,8 @@ Line numbers will not be displayed and the code will not be searchable when this
 <KCodeBlock
   id="code-block-is-single-line"
   :code="cert"
-  language="plaintext"
-  theme="dark"
   is-single-line
+  language="plaintext"
 />
 ```
 

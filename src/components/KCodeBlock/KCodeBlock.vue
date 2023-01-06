@@ -1221,14 +1221,9 @@ $dark-focusColor: var(--green-500, color(green-500));
         }
       }
     }
-  }
 
-  .k-code-block-copy-button {
-    top: var(--spacing-xxs, 4px);
-
-    &.k-button {
-      color: var(--steel-300, color(steel-300));
-      background-color: var(--black-500, color(black-500));
+    + .k-code-block-copy-button {
+      top: var(--spacing-xxs, 4px);
     }
   }
 }
