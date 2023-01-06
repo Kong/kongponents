@@ -144,77 +144,78 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+// Must leave this block unscoped as it sometimes causes issues with slotted/nested styles
 @import '@/styles/variables';
 @import '@/styles/functions';
 
-li.k-dropdown-item {
-  display: flex;
-  align-items: center;
-  font-size: 16px;
-  line-height: 1;
+.k-dropdown-menu {
+  li.k-dropdown-item {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    line-height: 1;
 
-  &.has-divider {
-    $k-dropdown-item-divider-container-height: 24px; // set to the same value as --spacing-lg without the units
-    $k-dropdown-item-divider-position: -13px; // this should be negative (<container-height> / 2 + 1)
-    position: relative;
-    margin-top: $k-dropdown-item-divider-container-height;
+    &.has-divider {
+      $k-dropdown-item-divider-container-height: 24px; // set to the same value as --spacing-lg without the units
+      $k-dropdown-item-divider-position: -13px; // this should be negative (<container-height> / 2 + 1)
+      position: relative;
+      margin-top: $k-dropdown-item-divider-container-height;
 
-    &:before {
-      position: absolute;
-      top: $k-dropdown-item-divider-position;
-      display: block;
-      width: 100%;
-      height: 1px;
-      content: '';
-      background: var(--grey-200);
+      &:before {
+        position: absolute;
+        top: $k-dropdown-item-divider-position;
+        display: block;
+        width: 100%;
+        height: 1px;
+        content: '';
+        background: var(--grey-200);
+      }
     }
-  }
 
-  svg {
-    margin-right: 12px;
-  }
+    svg {
+      margin-right: 12px;
+    }
 
-  &:hover {
-    background-color: var(--grey-100);
-  }
+    &:hover {
+      background-color: var(--grey-100);
+    }
 
-  .k-dropdown-item-trigger {
-    width: 100%;
-    padding: var(--spacing-md) var(--spacing-lg);
-    color: var(--black-70);
-    text-align: left;
-    text-decoration: none;
+    .k-dropdown-item-trigger {
+      width: 100%;
+      padding: var(--spacing-md) var(--spacing-lg);
+      color: var(--black-70);
+      text-align: left;
+      text-decoration: none;
 
-    &:disabled,
-    &.disabled {
-      color: var(--grey-400) !important;
-      cursor: not-allowed !important;
+      &:disabled,
+      &.disabled {
+        color: var(--grey-400) !important;
+        cursor: not-allowed !important;
 
-      &:hover {
-        background-color: var(--grey-200) !important;
+        &:hover {
+          background-color: var(--grey-200) !important;
+        }
       }
     }
   }
-}
-</style>
 
-<style lang="scss">
-.k-dropdown-item {
-  a, button {
-    &.k-dropdown-item-trigger {
-      text-decoration: none !important;
+  .k-dropdown-item {
+    a, button {
+      &.k-dropdown-item-trigger {
+        text-decoration: none !important;
+      }
     }
-  }
 
-  &.danger {
-    button:not(:disabled),
-    a:not(:disabled) {
-      color: var(--red-500);
-      transition: all 300ms;
-
-      &:hover {
+    &.danger {
+      button:not(:disabled),
+      a:not(:disabled) {
         color: var(--red-500);
+        transition: all 300ms;
+
+        &:hover {
+          color: var(--red-500);
+        }
       }
     }
   }
