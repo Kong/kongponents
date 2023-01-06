@@ -1,3 +1,10 @@
+# [8.15.0](https://github.com/Kong/kongponents/compare/v8.14.3...v8.15.0) (2023-01-06)
+
+
+### Features
+
+* **kbadge:** add borderColor prop ([#994](https://github.com/Kong/kongponents/issues/994)) ([38b1c77](https://github.com/Kong/kongponents/commit/38b1c7704f006c25592855473b9ec21c83db723f))
+
 ## [8.14.3](https://github.com/Kong/kongponents/compare/v8.14.2...v8.14.3) (2023-01-05)
 
 
