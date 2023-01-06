@@ -191,6 +191,7 @@ export default defineComponent({
     })
 
     onMounted(() => {
+      console.log('LOCAL KONGPONENTS')
       if (props.items) {
         const selectionArr = props.items.filter(item => item.selected)
         if (selectionArr.length) {
