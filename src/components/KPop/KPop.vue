@@ -452,7 +452,8 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+// Must leave this block unscoped as it sometimes causes issues with slotted/nested styles
 @import '@/styles/variables';
 @import '@/styles/functions';
 

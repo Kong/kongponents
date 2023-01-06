@@ -149,73 +149,73 @@ export default defineComponent({
 @import '@/styles/variables';
 @import '@/styles/functions';
 
-.k-dropdown-menu {
-  li.k-dropdown-item {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    line-height: 1;
+li.k-dropdown-item {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  line-height: 1;
 
-    &.has-divider {
-      $k-dropdown-item-divider-container-height: 24px; // set to the same value as --spacing-lg without the units
-      $k-dropdown-item-divider-position: -13px; // this should be negative (<container-height> / 2 + 1)
-      position: relative;
-      margin-top: $k-dropdown-item-divider-container-height;
+  &.has-divider {
+    $k-dropdown-item-divider-container-height: 24px; // set to the same value as --spacing-lg without the units
+    $k-dropdown-item-divider-position: -13px; // this should be negative (<container-height> / 2 + 1)
+    position: relative;
+    margin-top: $k-dropdown-item-divider-container-height;
 
-      &:before {
-        position: absolute;
-        top: $k-dropdown-item-divider-position;
-        display: block;
-        width: 100%;
-        height: 1px;
-        content: '';
-        background: var(--grey-200);
-      }
-    }
-
-    svg {
-      margin-right: 12px;
-    }
-
-    &:hover {
-      background-color: var(--grey-100);
-    }
-
-    .k-dropdown-item-trigger {
+    &:before {
+      position: absolute;
+      top: $k-dropdown-item-divider-position;
+      display: block;
       width: 100%;
-      padding: var(--spacing-md) var(--spacing-lg);
-      color: var(--black-70);
-      text-align: left;
-      text-decoration: none;
-
-      &:disabled,
-      &.disabled {
-        color: var(--grey-400) !important;
-        cursor: not-allowed !important;
-
-        &:hover {
-          background-color: var(--grey-200) !important;
-        }
-      }
+      height: 1px;
+      content: '';
+      background: var(--grey-200);
     }
   }
 
-  .k-dropdown-item {
-    a, button {
-      &.k-dropdown-item-trigger {
-        text-decoration: none !important;
+  svg {
+    margin-right: 12px;
+  }
+
+  &:hover {
+    background-color: var(--grey-100);
+  }
+
+  .k-dropdown-item-trigger,
+  // Override .btn-link styles
+  .k-dropdown-item-trigger.btn-link {
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-lg);
+    color: var(--black-70);
+    text-align: left;
+    text-decoration: none;
+
+    &:disabled,
+    &.disabled {
+      color: var(--grey-400) !important;
+      cursor: not-allowed !important;
+
+      &:hover {
+        background-color: var(--grey-200) !important;
       }
     }
+  }
+}
 
-    &.danger {
-      button:not(:disabled),
-      a:not(:disabled) {
+.k-dropdown-item {
+  a, button {
+    &.k-dropdown-item-trigger {
+      text-decoration: none !important;
+    }
+  }
+
+  &.danger {
+    button:not(:disabled),
+    a:not(:disabled) {
+      color: var(--red-500);
+      transition: all 300ms;
+
+      &:hover {
         color: var(--red-500);
-        transition: all 300ms;
-
-        &:hover {
-          color: var(--red-500);
-        }
       }
     }
   }

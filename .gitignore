@@ -13,6 +13,7 @@ cypress/videos
 .idea
 .husky
 
-docs/.vitepress/.temp/
-docs/.vitepress/.cache/
-docs/.vitepress/dist/
+docs/.vitepress/.temp
+docs/.vitepress/.cache
+docs/.vitepress/cache
+docs/.vitepress/dist
