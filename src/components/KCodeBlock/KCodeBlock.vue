@@ -794,10 +794,10 @@ $dark-focusColor: var(--green-500, color(green-500));
   display: grid;
   grid-template-columns: var(--maxLineNumberWidth) 1fr;
   gap: var(--spacing-sm, spacing(sm));
-  min-height: 44px;
+  min-height: 56px;
   max-height: var(--KCodeBlockMaxHeight, none);
   overflow: auto;
-  padding: var(--spacing-xs, spacing(xs)) 0 var(--spacing-xs, spacing(xs)) var(--spacing-sm, spacing(sm));
+  padding: var(--spacing-md, spacing(md)) 0 var(--spacing-md, spacing(md)) var(--spacing-sm, spacing(sm));
   margin-top: 0;
   margin-bottom: 0;
   background-color: var(--KCodeBlockBackgroundColor, $light-backgroundColor);
@@ -1196,7 +1196,7 @@ $dark-focusColor: var(--green-500, color(green-500));
 .k-code-block-content {
   pre.k-highlighted-code-block.is-single-line {
     display: flex;
-    min-height: 46px;
+    padding: var(--spacing-sm, spacing(sm)) 0 var(--spacing-sm, spacing(sm)) var(--spacing-sm, spacing(sm));
 
     code {
       white-space: nowrap;
@@ -1223,7 +1223,7 @@ $dark-focusColor: var(--green-500, color(green-500));
     }
 
     + .k-code-block-copy-button {
-      top: var(--spacing-xxs, 4px);
+      top: var(--spacing-xs, 4px);
     }
   }
 }
