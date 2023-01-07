@@ -137,7 +137,7 @@ When importing type declarations or interfaces, you can use a relative path inst
 import { StepperState } from './KStepState.vue'
 ```
 
-This repository utilizes [`tsc-alias`](https://www.npmjs.com/package/tsc-alias) to replace these paths during the build; however, so either method is acceptable.
+This repository utilizes [`tsc-alias`](https://www.npmjs.com/package/tsc-alias) to replace these paths during the build; however, either method is acceptable.
 
 ### Style guidelines
 
