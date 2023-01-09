@@ -1195,13 +1195,15 @@ $dark-focusColor: var(--green-500, color(green-500));
 .k-code-block-content {
   pre.k-highlighted-code-block.is-single-line {
     display: flex;
-    padding: var(--spacing-sm, spacing(sm)) var(--spacing-xxl, spacing(xxl)) var(--spacing-sm, spacing(sm)) var(--spacing-sm, spacing(sm));
+    padding: var(--spacing-sm, spacing(sm)) var(--spacing-xxl, spacing(xxl)) 0 0;
 
     code {
       white-space: nowrap;
       overflow: auto;
       line-height: 29px;
       margin-right: 20px;
+      padding-bottom: var(--spacing-xs, spacing(xs));
+      padding-left: var(--spacing-sm, spacing(sm));
     }
 
     + .k-code-block-copy-button {
