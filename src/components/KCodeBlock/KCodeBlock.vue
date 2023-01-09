@@ -271,7 +271,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch, PropType, toRef } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch, PropType } from 'vue'
 
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
@@ -413,7 +413,6 @@ const codeBlockCopyButton = ref<typeof KButton | null>(null)
 const numberOfMatches = ref(0)
 const matchingLineNumbers = ref<number[]>([])
 const currentLineIndex = ref<null | number>(null)
-const codeRef = toRef(props, 'code')
 
 const totalLines = computed(() => {
   let length: number
@@ -448,7 +447,7 @@ const filteredCode = computed(function() {
     })
     .join('\n')
 })
-const finalCode = computed(() => props.isSingleLine ? codeRef.value?.replace('\n', '') : props.code)
+const finalCode = computed(() => props.isSingleLine ? props.code?.replace('\n', '') : props.code)
 
 watch(() => props.code, async function() {
   // Waits one Vue tick in which the code block is re-rendered. Only then does it make sense to emit the corresponding event. Otherwise, consuming components applying syntax highlighting would have to do this because if syntax highlighting is applied before re-rendering is done, re-rendering will effectively undo the syntax highlighting.
