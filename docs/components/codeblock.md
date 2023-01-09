@@ -89,7 +89,6 @@ The code passed into the component will be displayed on a single line.
 Please keep the following in mind when using `isSingleLine`:
 - Line numbers will not be displayed
 - Code will not be searchable
-- Long code snippets will be truncated to allow for responsive design
 - Multi-line code snippets will have `\n` stripped out to allow displaying the code on a single line. Code copied by clicking the copy button will contain any `\n` in the original code.
 :::
 

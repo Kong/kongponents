@@ -1195,30 +1195,13 @@ $dark-focusColor: var(--green-500, color(green-500));
 .k-code-block-content {
   pre.k-highlighted-code-block.is-single-line {
     display: flex;
-    padding: var(--spacing-sm, spacing(sm)) 0 var(--spacing-sm, spacing(sm)) var(--spacing-sm, spacing(sm));
+    padding: var(--spacing-sm, spacing(sm)) var(--spacing-xxl, spacing(xxl)) var(--spacing-sm, spacing(sm)) var(--spacing-sm, spacing(sm));
 
     code {
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      overflow: auto;
       line-height: 29px;
       margin-right: 20px;
-    }
-
-    &.show-copy-button {
-      code {
-        @media (max-width: $viewport-sm) {
-          max-width: 50ch;
-        }
-
-        @media (min-width: $viewport-sm) {
-          max-width: 70ch;
-        }
-
-        @media (min-width: $viewport-lg) {
-          max-width: 78ch;
-        }
-      }
     }
 
     + .k-code-block-copy-button {
