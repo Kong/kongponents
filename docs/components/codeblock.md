@@ -77,6 +77,39 @@ Shows an actions bar with a search input and related action buttons.
 />
 ```
 
+### isSingleLine
+
+* **Type**: `boolean`
+* **Required**: no
+* **Default**: `false`
+
+The code passed into the component will be displayed on a single line.
+
+::: tip NOTE
+Please keep the following in mind when using `isSingleLine`:
+- Line numbers will not be displayed
+- Code will not be searchable
+- Multi-line code snippets will have `\n` stripped out to allow displaying the code on a single line. Code copied by clicking the copy button will contain any `\n` in the original code.
+:::
+
+<ClientOnly>
+  <KCodeBlock
+    id="code-block-is-single-line"
+    :code="cert"
+    is-single-line
+    language="plaintext"
+  />
+</ClientOnly>
+
+```html
+<KCodeBlock
+  id="code-block-is-single-line"
+  :code="cert"
+  is-single-line
+  language="plaintext"
+/>
+```
+
 ### isProcessing
 
 * **Type**: `boolean`
@@ -399,4 +432,27 @@ const code = `{
     "./types"
   ]
 }`
+
+const cert = `-----BEGIN CERTIFICATE-----
+MIIDlDCCAn6gAwIBAgIBATALBgkqhkiG9w0BAQ0wNDEyMAkGA1UEBhMCVVMwJQYD
+VQQDHh4AawBvAG4AbgBlAGMAdAAtAGQAZQBmAGEAdQBsAHQwHhcNMjMwMTAzMTg1
+NDQxWhcNMzMwMTAzMTg1NDQxWjA0MTIwCQYDVQQGEwJVUzAlBgNVBAMeHgBrAG8A
+bgBuAGUAYwB0AC0AZABlAGYAYQB1AGwAdDCCASIwDQYJKoZIhvcNAQEBBQADggEP
+ADCCAQoCggEBAJ1dzsZKtwFniWQaxIEqrs2EH95fWQ4Jie+79jJL1unRJJu5oDnR
+5ontJZhPFSDdGZ1ZXhjQXIzaUk3BoFn7Zel7X25hzUdlKHoOTPf/KA7+isdvS89j
+nGoC5vHtXQmgzNFRdCjeKDOmfa/Arff7+41SNTT+DNitZun+V3diePoatotOT3tv
+puNqc5EjHLEGOdBwxSkO7qCvzsqOcFyBshT8AzFKU8aapErlILOIJKJIYHoAkS/A
+cUfm/MNNMzPBBI3p1jZKXnWCwXMWUi8jZvsALYwn8E65GE07jW2O+n9hWzC43yTu
+DYW0U8vcoTsdPmsZByIFDfERaxavQiEuhf0CAwEAAaOBtDCBsTASBgNVHRMBAf8E
+CDAGAQH/AgEDMAsGA1UdDwQEAwIABjAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYB
+BQUHAwIwFwYJKwYBBAGCNxQCBAoMCGNlcnRUeXBlMCMGCSsGAQQBgjcVAgQWBBQB
+AQEBAQEBAQEBAQEBAQEBAQEBATAcBgkrBgEEAYI3FQcEDzANBgUpAQEBAQIBCgIB
+FDATBgkrBgEEAYI3FQEEBgIEABQACjALBgkqhkiG9w0BAQ0DggEBABGVFc6DTlx7
+SuKgT3OhQS94VyECnJjyk2eR6/MaZYvgw0Iz8nOyg7xTtj7DKl/uyHdJWwYn5R70
++YGF7GGbkk6rkRuHEVT+dhyYwO9fKzBZkLNnzdp900VSmTubx4j6WN0+gmQS0dLW
+uyBQdUiKvE/ZTjWHUAIYb3244VRRHBRLs3s40f2mJjBZ3Zm6XUxGtsnYudWOh4cv
+nYKRWqogwSBtKPYAe115DLDULxe86Cu5neYTt5/kU7VjnLxhOhguWTIrGMSV0Jle
+Rl1IG8evLu2zWxN3wb451/Kf5lRFLUjfjuLD8tHMlpwVIxoHct9GuKV4W14cf2Q/
+cWMCwpGsAAE=
+-----END CERTIFICATE-----`
 </script>

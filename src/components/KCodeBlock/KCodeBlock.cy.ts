@@ -172,4 +172,10 @@ describe('KCodeBlock', () => {
     cy.get('.k-code-block').trigger('keydown', { code: 'F3' })
     cy.get('.k-line-is-highlighted-match .k-line-anchor').invoke('attr', 'href').should('equal', `#${id}-L2`)
   })
+
+  it('has the `is-single-line` class when props.isSingleLine is true', () => {
+    renderComponent({ id: 'code-block', isSingleLine: true })
+
+    cy.get('pre.k-highlighted-code-block').should('have.class', 'is-single-line')
+  })
 })

@@ -9,7 +9,7 @@
     tabindex="0"
   >
     <div
-      v-if="isSearchable"
+      v-if="isSearchable && !isSingleLine"
       class="k-code-block-actions"
     >
       <p
@@ -192,41 +192,57 @@
         v-if="isShowingFilteredCode"
         class="k-filtered-code-block"
         data-testid="k-code-block-filtered-code-block"
-      ><span class="k-line-number-rows">
+      >
         <span
-          v-for="line in matchingLineNumbers"
-          :key="line"
-          class="k-line"
+          v-if="!isSingleLine"
+          class="k-line-number-rows"
         >
-          <a
-            :id="`${linePrefix}-L${line}`"
-            class="k-line-anchor"
-            :href="props.showLineNumberLinks ? `#${linePrefix}-L${line}` : undefined"
-          >{{ line }}</a>
+          <span
+            v-for="line in matchingLineNumbers"
+            :key="line"
+            class="k-line"
+          >
+            <a
+              :id="`${linePrefix}-L${line}`"
+              class="k-line-anchor"
+              :href="props.showLineNumberLinks ? `#${linePrefix}-L${line}` : undefined"
+            >{{ line }}</a>
+          </span>
         </span>
-      </span><code v-html="filteredCode" /></pre>
+        <code v-html="filteredCode" />
+      </pre>
 
       <pre
         v-else
         class="k-highlighted-code-block"
+        :class="{
+          'is-single-line': isSingleLine,
+          'show-copy-button': showCopyButton
+        }"
         data-testid="k-code-block-highlighted-code-block"
-      ><span class="k-line-number-rows">
+      >
         <span
-          v-for="line in totalLines"
-          :key="line"
-          class="k-line"
-          :class="{
-            'k-line-is-match': matchingLineNumbers.includes(line),
-            'k-line-is-highlighted-match': currentLineIndex !== null && line === matchingLineNumbers[currentLineIndex],
-          }"
+          v-if="!isSingleLine"
+          class="k-line-number-rows"
         >
-          <a
-            :id="`${linePrefix}-L${line}`"
-            class="k-line-anchor"
-            :href="props.showLineNumberLinks ? `#${linePrefix}-L${line}` : undefined"
-          >{{ line }}</a>
+          <span
+            v-for="line in totalLines"
+            :key="line"
+            class="k-line"
+            :class="{
+              'k-line-is-match': matchingLineNumbers.includes(line),
+              'k-line-is-highlighted-match': currentLineIndex !== null && line === matchingLineNumbers[currentLineIndex],
+            }"
+          >
+            <a
+              :id="`${linePrefix}-L${line}`"
+              class="k-line-anchor"
+              :href="props.showLineNumberLinks ? `#${linePrefix}-L${line}` : undefined"
+            >{{ line }}</a>
+          </span>
         </span>
-      </span><code v-html="props.code" /></pre>
+        <code v-html="finalCode" />
+      </pre>
       <!-- eslint-enable vue/no-v-html -->
 
       <KButton
@@ -356,6 +372,15 @@ const props = defineProps({
     required: false,
     default: 'light',
   },
+
+  /**
+   * Displays the code on a single line. **Default: `false`**.
+   */
+  isSingleLine: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
 })
 
 const emit = defineEmits<{
@@ -389,7 +414,17 @@ const numberOfMatches = ref(0)
 const matchingLineNumbers = ref<number[]>([])
 const currentLineIndex = ref<null | number>(null)
 
-const totalLines = computed(() => Array.from({ length: props.code.split('\n').length }, (_, index) => index + 1))
+const totalLines = computed(() => {
+  let length: number
+
+  if (props.code?.includes('\n') && props.code.split('\n')?.length) {
+    length = props.code.split('\n').length
+  } else {
+    length = 1
+  }
+
+  return Array.from({ length }, (_, index) => index + 1)
+})
 const maxLineNumberWidth = computed(() => totalLines.value[totalLines.value.length - 1].toString().length + 'ch')
 const linePrefix = computed(() => props.id.toLowerCase().replace(/\s+/g, '-'))
 const isProcessing = computed(() => props.isProcessing || isProcessingInternally.value)
@@ -412,6 +447,7 @@ const filteredCode = computed(function() {
     })
     .join('\n')
 })
+const finalCode = computed(() => props.isSingleLine ? props.code?.replace('\n', '') : props.code)
 
 watch(() => props.code, async function() {
   // Waits one Vue tick in which the code block is re-rendered. Only then does it make sense to emit the corresponding event. Otherwise, consuming components applying syntax highlighting would have to do this because if syntax highlighting is applied before re-rendering is done, re-rendering will effectively undo the syntax highlighting.
@@ -571,7 +607,7 @@ function updateMatchingLineNumbers() {
   regExpError.value = null
 
   // Avoids searching when one can expect a very large number of results. The numbers here are determined purely by gut feel and not by any scientific reasoning. Feel free to tweak them.
-  const isSmallEnoughForCostlySearch = query.value.length >= 3 || props.code.length < 1000
+  const isSmallEnoughForCostlySearch = query.value.length >= 3 || props.code?.length < 1000
   const shouldPerformSearch = query.value.length > 0 && (isRegExpMode.value || (!isRegExpMode.value && isSmallEnoughForCostlySearch))
   let totalMatchingLineNumbers: number[] = []
 
@@ -757,10 +793,10 @@ $dark-focusColor: var(--green-500, color(green-500));
   display: grid;
   grid-template-columns: var(--maxLineNumberWidth) 1fr;
   gap: var(--spacing-sm, spacing(sm));
-  min-height: 44px;
+  min-height: 56px;
   max-height: var(--KCodeBlockMaxHeight, none);
   overflow: auto;
-  padding: var(--spacing-xs, spacing(xs)) 0 var(--spacing-xs, spacing(xs)) var(--spacing-sm, spacing(sm));
+  padding: var(--spacing-md, spacing(md)) 0 var(--spacing-md, spacing(md)) var(--spacing-sm, spacing(sm));
   margin-top: 0;
   margin-bottom: 0;
   background-color: var(--KCodeBlockBackgroundColor, $light-backgroundColor);
@@ -1134,6 +1170,8 @@ $dark-focusColor: var(--green-500, color(green-500));
 </style>
 
 <style lang="scss">
+@import '@/styles/variables';
+
 .k-matched-term {
   font-weight: 900;
   color: var(--teal-500, color(teal-500));
@@ -1152,5 +1190,25 @@ $dark-focusColor: var(--green-500, color(green-500));
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.k-code-block-content {
+  pre.k-highlighted-code-block.is-single-line {
+    display: flex;
+    padding: var(--spacing-sm, spacing(sm)) var(--spacing-xxl, spacing(xxl)) 0 0;
+
+    code {
+      white-space: nowrap;
+      overflow: auto;
+      line-height: 29px;
+      margin-right: 20px;
+      padding-bottom: var(--spacing-xs, spacing(xs));
+      padding-left: var(--spacing-sm, spacing(sm));
+    }
+
+    + .k-code-block-copy-button {
+      top: var(--spacing-xs, 4px);
+    }
+  }
 }
 </style>
