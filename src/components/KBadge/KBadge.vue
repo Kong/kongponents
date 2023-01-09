@@ -172,14 +172,14 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['clicked', 'dismissed'])
+const emit = defineEmits(['click', 'dismissed'])
 
 const badgeText = ref(null)
 const isDismissed = ref(false)
 
 const handleClick = (): void => {
   if (props.clickable) {
-    emit('clicked')
+    emit('click')
   }
 }
 

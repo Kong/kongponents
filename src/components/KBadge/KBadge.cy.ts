@@ -120,7 +120,7 @@ describe('KBadge', () => {
 
     cy.get('.k-badge').click()
     // emit clicked event
-    cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'clicked')
+    cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'click')
   })
 
   it('handles custom colors', () => {

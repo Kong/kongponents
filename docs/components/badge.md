@@ -147,17 +147,17 @@ Use this prop in conjunction with the `dismissable` and `clickable` props to cus
 
 ### clickable
 
-Use this prop if you want the badge to be clickable. The hover color of the badge is determined by the badge type and uses the same theming variables as the badge text. Clicking the badge will trigger a `clicked` event.
+Use this prop if you want the badge to be clickable. The hover color of the badge is determined by the badge type and uses the same theming variables as the badge text. Clicking the badge will trigger a `click` event.
 
 <KLabel>{{ myClicks }} clicks</KLabel>
 <br>
-<KBadge clickable @clicked="myClicks++">Click me!</KBadge>
+<KBadge clickable @click="myClicks++">Click me!</KBadge>
 
 ```html
 <KLabel>{{ myClicks }} clicks</KLabel>
 <KBadge
   clickable
-  @clicked="myClicks++"
+  @click="myClicks++"
 >
   Click me!
 </KBadge>
@@ -212,7 +212,7 @@ If you want to show the tooltip regardless of whether the badge text is truncate
 
 | Event                 | Action              |
 | :--------             | :------------------ |
-| `clicked`             | When `clickable` is true and you click the badge |
+| `click`               | When `clickable` is true and you click the badge |
 | `dismissed`           | When `dismissable` is true and you click the dismiss button |
 
 ## Theming
