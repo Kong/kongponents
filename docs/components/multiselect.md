@@ -19,9 +19,12 @@
 
 ### items
 
-An array of items containing a `label` and `value`. You may also specify:
-- a certain items are `selected` by default
-- a certain items are `disabled`
+An array of items containing a `label` and `value`.
+
+You may also specify:
+- a certain item is `selected` by default
+- a certain item is `disabled`
+- a certain item is `added` (see [`enableItemCreation`](#enableitemcreation) for more information)
 
 <ClientOnly>
   <KMultiselect :items="deepClone(defaultItemsWithDisabled)" />
@@ -61,7 +64,7 @@ An array of items containing a `label` and `value`. You may also specify:
 
 `KMultiselect` can offer users the ability to add custom items to the list by typing the item they want to and then clicking the `... (New value)` item at the bottom of the list, which will also automatically select it.
 
-Newly created items will have a `label` consisting of the user input and a randomly generated id for the `value` to ensure uniqueness. This action triggers an `item:added` event containing the added item data.
+Newly created items will have a `label` consisting of the user input and a randomly generated id for the `value` to ensure uniqueness. It will also have an attribute `added` set to `true`. This action triggers an `item:added` event containing the added item data.
 
 Deselecting the item will completely remove it from the list and trigger a `item:removed` event containing the removed item's data.
 
@@ -575,9 +578,80 @@ You can use the `empty` slot to customize the look of the dropdown list when the
 | `selected`          | an item is clicked | array of selected item objects |
 | `update:modelValue` | selections are changed | array of selected item values |
 | `change`            | selections are changed | last item selected/deselected Object or null |
-| `item:added`             | enableItemCreation is true and an item is added | item object being added to selections |
-| `item:removed`           | enableItemCreation is true and an added item is deselected | item object being removed from selections |
+| `item:added`        | enableItemCreation is true and an item is added | item object being added to selections |
+| `item:removed`      | enableItemCreation is true and an added item is deselected | item object being removed from selections |
 | `query-change`      | filter string is changed | `query` String |
+
+An example of hooking into events to modify newly created items (`enableItemCreation`) as they are added.
+
+<ClientOnly>
+  <KLabel>myItems:</KLabel> <pre class="json ma-0">{{ JSON.stringify(myEventItems) }}</pre>
+  <KMultiselect
+    :items="myEventItems"
+    enable-item-creation
+    @item:added="item => handleAddedItem(item, true)"
+    @item:removed="item => handleAddedItem(item, false)"
+    @selected="handleSelection"
+  />
+</ClientOnly>
+
+```html
+<template>
+  <KMultiselect
+    :items="myItems"
+    enable-item-creation
+    @item:added="item => handleAddedItem(item, true)"
+    @item:removed="item => handleAddedItem(item, false)"
+    @selected="handleSelection"
+  />
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const myItems = ref([
+  {
+    label: '200',
+    value: 200
+  },
+  {
+    label: '400',
+    value: 400
+  },
+  {
+    label: '401',
+    value: 401
+  },
+  {
+    label: '404',
+    value: 404
+  },
+  {
+    label: '500',
+    value: 500
+  },
+])
+
+const handleAddedItem = (item, added) => {
+  if (added) { // addition
+    item.added = true
+    // mutate added items in some way
+    item.value = `${item.label}-overridden`
+    myItems.value.push(item)
+  } else { // removal
+    myItems.value = myItems.value.filter(anItem => anItem.value !== item.value)
+  }
+}
+
+const handleSelection = (selectedItems) => {
+  // updated selected state
+  myItems.value.forEach(item => {
+    const itemSelected = selectedItems.filter(sItem => sItem.value === item.value).length
+    item.selected = itemSelected ? true : false
+  })
+}
+</script>
+```
 
 <script lang="ts">
 import { defineComponent } from 'vue'
@@ -749,6 +823,26 @@ export default defineComponent({
         label: 'A long & truncated item',
         value: 'long'
       }],
+      myEventItems: [{
+        label: '200',
+        value: 200
+      },
+      {
+        label: '400',
+        value: 400
+      },
+      {
+        label: '401',
+        value: 401
+      },
+      {
+        label: '404',
+        value: 404
+      },
+      {
+        label: '500',
+        value: 500
+      }],
       defaultItemsForAutosuggest: [],
       itemsForAutosuggest: [],
       loading: false,
@@ -826,7 +920,24 @@ export default defineComponent({
             .map(item => Object.assign({}, item));
         this.loadingForDebounced = false;
       }, 200);
-    }, 400)
+    }, 400),
+    handleAddedItem (item, added) {
+      if (added) { // addition
+        item.added = true
+        // mutate added items in some way
+        item.value = `${item.label}-overridden`
+        this.myEventItems.push(item)
+      } else { // removal
+        this.myEventItems = this.myEventItems.filter(anItem => anItem.value !== item.value)
+      }
+    },
+    handleSelection (selectedItems) {
+      // updated selected state
+      this.myEventItems.forEach(item => {
+        const itemSelected = selectedItems.filter(sItem => sItem.value === item.value).length
+        item.selected = itemSelected ? true : false
+      })
+    }
   },
   computed: {
     defaultItemsLongList () {

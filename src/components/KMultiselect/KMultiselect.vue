@@ -243,11 +243,27 @@ export interface MultiselectItem {
   key?: string
   selected?: boolean
   disabled?: boolean
+  added?: boolean
 }
 
 export interface MultiselectFilterFnParams {
   items: MultiselectItem[]
   query: string
+}
+
+// functions used in prop validators
+const getValues = (items: MultiselectItem[]) => {
+  const vals:string[] = []
+  items.forEach((item: MultiselectItem) => vals.push(item.value))
+
+  return vals
+}
+
+const itemValuesAreUnique = (items: MultiselectItem[]): boolean => {
+  const vals = getValues(items)
+  const uniqueValues = new Set(vals)
+
+  return vals.length === uniqueValues.size
 }
 
 export default {
@@ -321,7 +337,7 @@ const props = defineProps({
     type: Array as PropType<MultiselectItem[]>,
     default: () => [],
     // Items must have a label & value
-    validator: (items: MultiselectItem[]) => !items.length || items.every(i => i.label !== undefined && i.value !== undefined),
+    validator: (items: MultiselectItem[]) => !items.length || (items.every(i => i.label !== undefined && i.value !== undefined) && itemValuesAreUnique(items)),
   },
   /**
    * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
@@ -401,15 +417,10 @@ const uniqueFilterStr = computed((): boolean => {
     return false
   }
 
-  if (addedItems.value.filter((item: MultiselectItem) => item.label === filterStr.value).length) {
-    return false
-  }
-
   return true
 })
 const popper = ref(null)
 const unfilteredItems: Ref<MultiselectItem[]> = ref([])
-const addedItems: Ref<MultiselectItem[]> = ref([])
 const sortedItems: Ref<MultiselectItem[]> = ref([])
 const selectedItems = ref<MultiselectItem[]>([])
 const visibleSelectedItemsStaging = ref<MultiselectItem[]>([])
@@ -509,7 +520,7 @@ const getPlaceholderText = (isOpen?: boolean): string => {
 
 const filteredItems = computed(() => {
   // For autosuggest, items don't need to be filtered internally
-  return props.autosuggest ? unfilteredItems.value.concat(addedItems.value) : props.filterFunc({ items: unfilteredItems.value.concat(addedItems.value), query: filterStr.value })
+  return props.autosuggest ? unfilteredItems.value : props.filterFunc({ items: unfilteredItems.value, query: filterStr.value })
 })
 
 const handleFilterClick = (evt: any) => {
@@ -562,12 +573,7 @@ const stageSelections = () => {
 // handles programmatic selections
 const handleMultipleItemsSelect = (items: MultiselectItem[]) => {
   items.forEach(itemToSelect => {
-    let selectedItem = unfilteredItems.value.filter(anItem => anItem.value === itemToSelect.value)?.[0] || null
-
-    // if it wasn't in unfilteredItems, check newly added items if enabled
-    if (props.enableItemCreation && selectedItem === null) {
-      selectedItem = addedItems.value.filter(anItem => anItem.value === itemToSelect.value)?.[0] || null
-    }
+    const selectedItem = unfilteredItems.value.filter(anItem => anItem.value === itemToSelect.value)?.[0] || null
 
     selectedItem.selected = true
     selectedItem.key = selectedItem?.key?.includes('-selected') ? selectedItem.key : `${selectedItem.key}-selected`
@@ -587,8 +593,7 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
   let selectedItem = isNew ? item : unfilteredItems.value.filter(anItem => anItem.value === item.value)?.[0] || null
 
   // if it wasn't in unfilteredItems, check newly added items if enabled
-  if (selectedItem === null && props.enableItemCreation) {
-    selectedItem = addedItems.value.filter(anItem => anItem.value === item.value)?.[0] || null
+  if (props.enableItemCreation && selectedItem?.added) {
     selectionIsAdded = true
   }
 
@@ -624,7 +629,7 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
 
     // if it's an added item, remove it from list when it is deselected
     if (selectionIsAdded) {
-      addedItems.value = addedItems.value.filter(anItem => anItem.value !== item.value)
+      unfilteredItems.value = unfilteredItems.value.filter(anItem => anItem.value !== item.value)
       emit('item:removed', item)
     }
   } else { // newly selected item
@@ -634,7 +639,8 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
     visibleSelectedItemsStaging.value.push(selectedItem)
     // track it if it's a newly added item
     if (isNew) {
-      addedItems.value.push(selectedItem)
+      selectedItem.added = true
+      unfilteredItems.value.push(selectedItem)
     }
 
     if (props.expandSelected) {
@@ -658,10 +664,11 @@ const handleAddItem = (): void => {
     return
   }
 
+  const pos = unfilteredItems.value.length + 1
   const item:MultiselectItem = {
     label: filterStr.value + '',
-    value: props.testMode ? `test-multiselect-added-item-${addedItems.value.length + 1}` : uuidv1(),
-    key: `${filterStr.value.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${addedItems.value.length + 1}`,
+    value: props.testMode ? `test-multiselect-added-item-${pos}` : uuidv1(),
+    key: `${filterStr.value.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
   }
   emit('item:added', item)
 
@@ -691,12 +698,14 @@ const clearSelection = (): void => {
   unfilteredItems.value.forEach(anItem => {
     anItem.selected = false
     anItem.key = anItem?.key?.replace(/-selected/gi, '')
+
+    if (anItem.added) {
+      // we must emit that we are removing each item before we actually clear them since this is our only reference
+      emit('item:removed', anItem)
+    }
   })
-  addedItems.value.forEach(anItem => {
-    // we must emit that we are removing each item before we actually clear them since this is our only reference
-    emit('item:removed', anItem)
-  })
-  addedItems.value = []
+  // clear added entries
+  unfilteredItems.value = unfilteredItems.value.filter(anItem => !anItem.added)
   selectedItems.value = []
   visibleSelectedItemsStaging.value = []
   invisibleSelectedItemsStaging.value = []
