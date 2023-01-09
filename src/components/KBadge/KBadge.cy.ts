@@ -102,10 +102,11 @@ describe('KBadge', () => {
     })
 
     cy.getTestId('k-badge-dismiss-button').should('exist')
-    cy.getTestId('k-badge-dismiss-button').click()
-    cy.get('.k-badge').should('not.exist')
-    // emit dismissed event
-    cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'dismissed')
+    cy.getTestId('k-badge-dismiss-button').click().then(() => {
+      // emit dismissed event
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'dismissed')
+      cy.get('.k-badge').should('not.exist')
+    })
   })
 
   it('renders clickable badge', () => {
@@ -118,9 +119,10 @@ describe('KBadge', () => {
       },
     })
 
-    cy.get('.k-badge').click()
-    // emit clicked event
-    cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'click')
+    cy.get('.k-badge').click().then(() => {
+      // emit clicked event
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'click')
+    })
   })
 
   it('handles custom colors', () => {
