@@ -1,3 +1,10 @@
+# [8.16.0](https://github.com/Kong/kongponents/compare/v8.15.2...v8.16.0) (2023-01-09)
+
+
+### Features
+
+* **codeBlock:** add useSingleLine prop ([#1027](https://github.com/Kong/kongponents/issues/1027)) ([202df96](https://github.com/Kong/kongponents/commit/202df96101846516417bdbd0c83bef7eacb31d61))
+
 ## [8.15.2](https://github.com/Kong/kongponents/compare/v8.15.1...v8.15.2) (2023-01-06)
 
 
