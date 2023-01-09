@@ -117,7 +117,7 @@ Use this prop in conjunction with the `is-bordered` prop to customize the color 
 
 ### hoverColor
 
-Use this prop in conjunction with the `dismissable` prop to customize the color of the dismiss button when hovered.
+Use this prop in conjunction with the `dismissable` and `clickable` props to customize the color of the badge/dismiss button when hovered.
 
 <KBadge
   appearance="custom"
@@ -145,10 +145,28 @@ Use this prop in conjunction with the `dismissable` prop to customize the color 
 </KBadge>
 ```
 
+### clickable
+
+Use this prop if you want the badge to be clickable. The hover color of the badge is determined by the badge type and uses the same theming variables as the badge text. Clicking the badge will trigger a `clicked` event.
+
+<KLabel>{{ myClicks }} clicks</KLabel>
+<br>
+<KBadge clickable @clicked="myClicks++">Click me!</KBadge>
+
+```html
+<KLabel>{{ myClicks }} clicks</KLabel>
+<KBadge
+  clickable
+  @clicked="myClicks++"
+>
+  Click me!
+</KBadge>
+```
+
 ### dismissable
 
 Use this prop if you want the badge to be dismissable. If the badge text is long enough to need truncation, the label will truncate; the dismiss button is always visible.
-The color of the dismiss button is determined by the badge type and uses the same theming variables as the badge text.
+The color of the dismiss button is determined by the badge type and uses the same theming variables as the badge text. Clicking the dismiss button will trigger a `dismissed` event.
 
 <KBadge dismissable class="mr-2">Close me</KBadge>
 <KBadge dismissable shape="rectangular">No, close me!</KBadge>
@@ -189,6 +207,13 @@ If you want to show the tooltip regardless of whether the badge text is truncate
 ```html
 <KBadge appearance="success">SUCCESS</KBadge>
 ```
+
+## Events
+
+| Event                 | Action              |
+| :--------             | :------------------ |
+| `clicked`             | When `clickable` is true and you click the badge |
+| `dismissed`           | When `dismissable` is true and you click the dismiss button |
 
 ## Theming
 
@@ -248,8 +273,6 @@ An example of theming a custom badge:
   </KBadge>
 </div>
 
-
-
 ```html
 <template>
 <div class="KBadge-wrapper">
@@ -292,6 +315,12 @@ An example of theming a custom badge:
 }
 </style>
 ```
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const myClicks = ref(0)
+</script>
 
 <style lang="scss">
 .KBadge-wrapper {
