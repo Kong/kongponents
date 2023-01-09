@@ -24,7 +24,7 @@ An array of items containing a `label` and `value`.
 You may also specify:
 - a certain item is `selected` by default
 - a certain item is `disabled`
-- a certain item is `added` (see [`enableItemCreation`](#enableitemcreation) for more information)
+- a certain item is `custom` (see [`enableItemCreation`](#enableitemcreation) for more information)
 
 <ClientOnly>
   <KMultiselect :items="deepClone(defaultItemsWithDisabled)" />
@@ -64,7 +64,7 @@ You may also specify:
 
 `KMultiselect` can offer users the ability to add custom items to the list by typing the item they want to and then clicking the `... (New value)` item at the bottom of the list, which will also automatically select it.
 
-Newly created items will have a `label` consisting of the user input and a randomly generated id for the `value` to ensure uniqueness. It will also have an attribute `added` set to `true`. This action triggers an `item:added` event containing the added item data.
+Newly created items will have a `label` consisting of the user input and a randomly generated id for the `value` to ensure uniqueness. It will also have an attribute `custom` set to `true`. This action triggers an `item:added` event containing the added item data.
 
 Deselecting the item will completely remove it from the list and trigger a `item:removed` event containing the removed item's data.
 
@@ -589,6 +589,7 @@ An example of hooking into events to modify newly created items (`enableItemCrea
   <KMultiselect
     :items="myEventItems"
     enable-item-creation
+    class="mt-2"
     @item:added="item => handleAddedItem(item, true)"
     @item:removed="item => handleAddedItem(item, false)"
     @selected="handleSelection"
@@ -634,7 +635,7 @@ const myItems = ref([
 
 const handleAddedItem = (item, added) => {
   if (added) { // addition
-    item.added = true
+    item.custom = true
     // mutate added items in some way
     item.value = `${item.label}-overridden`
     myItems.value.push(item)
@@ -923,7 +924,7 @@ export default defineComponent({
     }, 400),
     handleAddedItem (item, added) {
       if (added) { // addition
-        item.added = true
+        item.custom = true
         // mutate added items in some way
         item.value = `${item.label}-overridden`
         this.myEventItems.push(item)

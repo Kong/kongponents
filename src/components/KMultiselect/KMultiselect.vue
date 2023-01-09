@@ -243,7 +243,7 @@ export interface MultiselectItem {
   key?: string
   selected?: boolean
   disabled?: boolean
-  added?: boolean
+  custom?: boolean
 }
 
 export interface MultiselectFilterFnParams {
@@ -593,7 +593,7 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
   let selectedItem = isNew ? item : unfilteredItems.value.filter(anItem => anItem.value === item.value)?.[0] || null
 
   // if it wasn't in unfilteredItems, check newly added items if enabled
-  if (props.enableItemCreation && selectedItem?.added) {
+  if (props.enableItemCreation && selectedItem?.custom) {
     selectionIsAdded = true
   }
 
@@ -639,7 +639,7 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
     visibleSelectedItemsStaging.value.push(selectedItem)
     // track it if it's a newly added item
     if (isNew) {
-      selectedItem.added = true
+      selectedItem.custom = true
       unfilteredItems.value.push(selectedItem)
     }
 
@@ -699,13 +699,13 @@ const clearSelection = (): void => {
     anItem.selected = false
     anItem.key = anItem?.key?.replace(/-selected/gi, '')
 
-    if (anItem.added) {
+    if (anItem.custom) {
       // we must emit that we are removing each item before we actually clear them since this is our only reference
       emit('item:removed', anItem)
     }
   })
   // clear added entries
-  unfilteredItems.value = unfilteredItems.value.filter(anItem => !anItem.added)
+  unfilteredItems.value = unfilteredItems.value.filter(anItem => !anItem.custom)
   selectedItems.value = []
   visibleSelectedItemsStaging.value = []
   invisibleSelectedItemsStaging.value = []
