@@ -24,7 +24,6 @@ An array of items containing a `label` and `value`.
 You may also specify:
 - a certain item is `selected` by default
 - a certain item is `disabled`
-- a certain item is `custom` (see [`enableItemCreation`](#enableitemcreation) for more information)
 
 <ClientOnly>
   <KMultiselect :items="deepClone(defaultItemsWithDisabled)" />
@@ -62,14 +61,14 @@ You may also specify:
 
 ### enableItemCreation
 
-`KMultiselect` can offer users the ability to add custom items to the list by typing the item they want to and then clicking the `... (New value)` item at the bottom of the list, which will also automatically select it.
+`KMultiselect` can offer users the ability to add custom items to the list by typing the item they want to and then clicking the `... (Add new value)` item at the bottom of the list, which will also automatically select it.
 
 Newly created items will have a `label` consisting of the user input and a randomly generated id for the `value` to ensure uniqueness. It will also have an attribute `custom` set to `true`. This action triggers an `item:added` event containing the added item data.
 
 Deselecting the item will completely remove it from the list and underlying data, and trigger a `item:removed` event containing the removed item's data.
 
 :::tip NOTE
-You cannot add an item if the `label` matches the `label` of a pre-existing item. In that scenario the `... (New value)` item will not be displayed.
+You cannot add an item if the `label` matches the `label` of a pre-existing item. In that scenario the `... (Add new value)` item will not be displayed.
 :::
 
 <ClientOnly>
