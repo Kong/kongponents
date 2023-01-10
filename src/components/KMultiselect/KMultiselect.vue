@@ -158,11 +158,18 @@
               <KMultiselectItem
                 v-if="enableItemCreation && uniqueFilterStr"
                 key="k-multiselect-new-item"
-                class="k-multiselect-empty-item"
+                class="k-multiselect-new-item"
                 data-testid="k-multiselect-add-item"
-                :item="{ label: `${filterStr} (New value)`, value: 'add_item' }"
+                :item="{ label: `${filterStr} (Add new value)`, value: 'add_item' }"
                 @selected="handleAddItem"
-              />
+              >
+                <template #content>
+                  <div class="select-item-description">
+                    {{ filterStr }}
+                    <span class="select-item-new-indicator">(Add new value)</span>
+                  </div>
+                </template>
+              </KMultiselectItem>
               <KMultiselectItem
                 v-if="!sortedItems.length && !$slots.empty && !enableItemCreation"
                 key="k-multiselect-empty-state"
@@ -966,6 +973,16 @@ onMounted(() => {
       }
     }
   }
+
+  .k-multiselect-new-item {
+    word-break: break-word;
+
+    .select-item-new-indicator {
+      font-weight: 600;
+      font-style: italic;
+    }
+  }
+
 }
 </style>
 

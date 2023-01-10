@@ -99,6 +99,7 @@ const handleClick = (): void => {
       font-weight: 500;
       line-height: 20px;
       color: var(--grey-600);
+      word-break: break-word;
 
       :deep(.select-item-label) {
         margin-bottom: 4px;
