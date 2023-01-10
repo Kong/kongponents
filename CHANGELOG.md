@@ -1,3 +1,10 @@
+# [8.17.0](https://github.com/Kong/kongponents/compare/v8.16.0...v8.17.0) (2023-01-10)
+
+
+### Features
+
+* **kbadge:** add clickable prop [khcp-5737] ([#1040](https://github.com/Kong/kongponents/issues/1040)) ([c34dfd4](https://github.com/Kong/kongponents/commit/c34dfd49684657861083d7d85d7ee8931d3d68e4))
+
 # [8.16.0](https://github.com/Kong/kongponents/compare/v8.15.2...v8.16.0) (2023-01-09)
 
 
