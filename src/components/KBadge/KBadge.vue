@@ -5,11 +5,10 @@
     class="k-badge d-inline-flex"
     :class="[ `k-badge-${appearance}`, `k-badge-${shape}`, {
       'is-bordered': isBordered,
-      'clickable': clickable
+      'clickable': isClickable
     } ]"
     :style="badgeCustomStyles"
     :tabindex="hidden ? -1 : 0"
-    @click="handleClick"
   >
     <component
       :is="truncationTooltip && (forceTooltip || isTruncated) ? 'KTooltip' : 'div'"
@@ -45,7 +44,7 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, useAttrs } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
@@ -98,13 +97,6 @@ const props = defineProps({
    * or not the badge text is truncated.
    */
   forceTooltip: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Badge responds to clicks
-   */
-  clickable: {
     type: Boolean,
     default: false,
   },
@@ -172,16 +164,13 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['click', 'dismissed'])
+const emit = defineEmits(['dismissed'])
+
+const attrs = useAttrs()
+const isClickable = computed((): boolean => !!attrs.onClick)
 
 const badgeText = ref(null)
 const isDismissed = ref(false)
-
-const handleClick = (): void => {
-  if (props.clickable) {
-    emit('click')
-  }
-}
 
 const handleDismiss = (): void => {
   isDismissed.value = true
@@ -317,6 +306,11 @@ watch(badgeText, () => {
     cursor: pointer;
   }
 
+  a &,
+  &.clickable {
+    user-select: none;
+  }
+
   .k-badge-text {
     align-self: center;
     width: var(--KBadgeWidth, auto);
@@ -363,6 +357,8 @@ watch(badgeText, () => {
       }
     }
 
+    a &:hover,
+    a:focus &,
     &.clickable:hover,
     &:focus {
       // fall back to backgroundColor if hoverColor is not provided
@@ -385,6 +381,8 @@ watch(badgeText, () => {
       }
     }
 
+    a &:hover,
+    a:focus &,
     &.clickable:hover,
     &:focus {
       background-color: var(--KBadgeDefaultButtonHoverColor, var(--blue-200, color(blue-200)));
@@ -406,6 +404,8 @@ watch(badgeText, () => {
       }
     }
 
+    a &:hover,
+    a:focus &,
     &.clickable:hover,
     &:focus {
       background-color: var(--KBadgeSuccessButtonHoverColor, var(--green-200, color(green-200)));
@@ -427,6 +427,8 @@ watch(badgeText, () => {
       }
     }
 
+    a &:hover,
+    a:focus &,
     &.clickable:hover,
     &:focus {
       background-color: var(--KBadgeDangerButtonHoverColor, var(--red-200, color(red-200)));
@@ -448,6 +450,8 @@ watch(badgeText, () => {
       }
     }
 
+    a &:hover,
+    a:focus &,
     &.clickable:hover,
     &:focus {
       background-color: var(--KBadgeInfoButtonHoverColor, var(--blue-300, color(blue-300)));
@@ -469,6 +473,8 @@ watch(badgeText, () => {
       }
     }
 
+    a &:hover,
+    a:focus &,
     &.clickable:hover,
     &:focus {
       background-color: var(--KBadgeWarningButtonHoverColor, var(--yellow-200, color(yellow-200)));

@@ -117,7 +117,7 @@ Use this prop in conjunction with the `is-bordered` prop to customize the color 
 
 ### hoverColor
 
-Use this prop in conjunction with the `dismissable` and `clickable` props to customize the color of the badge/dismiss button when hovered.
+Use this prop in conjunction with the `dismissable` prop to customize the color of the badge/dismiss button when hovered.
 
 <KBadge
   appearance="custom"
@@ -145,20 +145,18 @@ Use this prop in conjunction with the `dismissable` and `clickable` props to cus
 </KBadge>
 ```
 
-### clickable
+The `hoverColor` is also utilized if you wrap the `KBadge` with an anchor tag, or add a `@click` listener directly to the component.
 
-Use this prop if you want the badge to be clickable. The hover color of the badge is determined by the badge type and uses the same theming variables as the badge text. Clicking the badge will trigger a `click` event.
+<a href="#"><KBadge appearance="success">Anchor Tag</KBadge></a>
 
-<KLabel>{{ myClicks }} clicks</KLabel>
-<br>
-<KBadge clickable @click="myClicks++">Click me!</KBadge>
+<KLabel>{{ myClicks }} clicks</KLabel><br>
+<KBadge @click="myClicks++">Click me!</KBadge>
 
 ```html
-<KLabel>{{ myClicks }} clicks</KLabel>
-<KBadge
-  clickable
-  @click="myClicks++"
->
+<a href="#"><KBadge appearance="success">Anchor Tag</KBadge></a>
+
+<KLabel>{{ myClicks }} clicks</KLabel><br>
+<KBadge @click="myClicks++">
   Click me!
 </KBadge>
 ```
@@ -320,6 +318,10 @@ An example of theming a custom badge:
 import { ref } from 'vue'
 
 const myClicks = ref(0)
+
+const testClick = () => {
+  console.log('you clicked')
+}
 </script>
 
 <style lang="scss">
