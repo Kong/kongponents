@@ -5,7 +5,7 @@
     :class="{ 'allow-pointer-events': allowPointerEvents }"
   >
     <KButton
-      v-for="option in nOptions"
+      v-for="option in normalizedOptions"
       :key="`${option.value}-option`"
       :appearance="getAppearance(option)"
       class="justify-content-center"
@@ -34,6 +34,10 @@ export interface SegmentedControlOption {
   disabled?: boolean
 }
 
+const itemsHaveRequiredProps = (items: SegmentedControlOption[]): boolean => {
+  return items.every(i => i.value !== undefined)
+}
+
 // functions used in prop validators
 const getValues = (items: SegmentedControlOption[]) => {
   const vals:string[] = []
@@ -49,12 +53,6 @@ const itemValuesAreUnique = (items: SegmentedControlOption[]): boolean => {
   return vals.length === uniqueValues.size
 }
 
-const validateItems = (items: SegmentedControlOption[] | string[]): boolean => {
-  const nItems = normalizeItems(items)
-
-  return itemValuesAreUnique(nItems)
-}
-
 const normalizeItems = (items: SegmentedControlOption[] | string[]): SegmentedControlOption[] => {
   return items.map((item:SegmentedControlOption | string) => {
     return {
@@ -63,6 +61,14 @@ const normalizeItems = (items: SegmentedControlOption[] | string[]): SegmentedCo
       disabled: typeof item === 'string' ? false : item.disabled,
     } as SegmentedControlOption
   })
+}
+
+const validateItems = (items: SegmentedControlOption[] | string[]): boolean => {
+  const isStringArray = typeof items[0] === 'string'
+  const nItems = normalizeItems(items)
+  const isValid = itemValuesAreUnique(nItems)
+
+  return isStringArray ? isValid && itemsHaveRequiredProps(items as SegmentedControlOption[]) : isValid
 }
 
 export default defineComponent({
@@ -90,7 +96,7 @@ export default defineComponent({
   emits: ['update:modelValue', 'click'],
   setup(props, { emit }) {
     const selectedValue = ref(props.modelValue)
-    const nOptions = ref(normalizeItems(props.options))
+    const normalizedOptions = ref(normalizeItems(props.options))
 
     const getAppearance = (option: SegmentedControlOption): 'primary' | 'secondary' => {
       return props.modelValue === option.value ? 'primary' : 'secondary'
@@ -106,7 +112,7 @@ export default defineComponent({
     }
 
     return {
-      nOptions,
+      normalizedOptions,
       selectedValue,
       getAppearance,
       getDisabled,
