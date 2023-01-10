@@ -66,7 +66,7 @@ You may also specify:
 
 Newly created items will have a `label` consisting of the user input and a randomly generated id for the `value` to ensure uniqueness. It will also have an attribute `custom` set to `true`. This action triggers an `item:added` event containing the added item data.
 
-Deselecting the item will completely remove it from the list and trigger a `item:removed` event containing the removed item's data.
+Deselecting the item will completely remove it from the list and underlying data, and trigger a `item:removed` event containing the removed item's data.
 
 :::tip NOTE
 You cannot add an item if the `label` matches the `label` of a pre-existing item. In that scenario the `... (New value)` item will not be displayed.
@@ -99,7 +99,7 @@ You cannot add an item if the `label` matches the `label` of a pre-existing item
 </template>
 
 <script setup lang="ts">
-  const mySelections = ref([])
+  const mySelections = ref(['cats','bunnies'])
   const addedItems = ref([])
 
   const trackNewItems = (item, added) => {
