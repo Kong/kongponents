@@ -3,7 +3,10 @@
     v-if="!isDismissed"
     :aria-hidden="hidden ? true : undefined"
     class="k-badge d-inline-flex"
-    :class="[ `k-badge-${appearance}`, `k-badge-${shape}`, { 'is-bordered': isBordered } ]"
+    :class="[ `k-badge-${appearance}`, `k-badge-${shape}`, {
+      'is-bordered': isBordered,
+      'clickable': isClickable
+    } ]"
     :style="badgeCustomStyles"
     :tabindex="hidden ? -1 : 0"
   >
@@ -41,7 +44,7 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, useAttrs } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
@@ -97,7 +100,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-
+  /**
+   * Adds a dismiss button to the badge
+   */
   dismissable: {
     type: Boolean,
     default: false,
@@ -161,10 +166,13 @@ const props = defineProps({
 
 const emit = defineEmits(['dismissed'])
 
+const attrs = useAttrs()
+const isClickable = computed((): boolean => !!attrs.onClick)
+
 const badgeText = ref(null)
 const isDismissed = ref(false)
 
-const handleDismiss = () => {
+const handleDismiss = (): void => {
   isDismissed.value = true
   emit('dismissed')
 }
@@ -279,36 +287,6 @@ watch(badgeText, () => {
     }
   }
 
-  &.k-badge-custom {
-    color: v-bind('$props.color');
-    background-color: v-bind('$props.backgroundColor');
-    border-color: v-bind('$props.borderColor');
-
-    &.is-bordered {
-      border-style: solid;
-      border-width: 1px;
-    }
-
-    .k-badge-dismiss-button {
-      .kong-icon.kong-icon-close path {
-        stroke: v-bind('$props.color');
-      }
-
-      &:hover {
-        background-color:v-bind('$props.hoverColor');
-      }
-    }
-
-    &:focus {
-      // fall back to backgroundColor if hoverColor is not provided
-      background-color: v-bind('$props.hoverColor || $props.backgroundColor') !important;
-
-      .k-badge-dismiss-button {
-        background-color: v-bind('$props.hoverColor');
-      }
-    }
-  }
-
   &.k-badge-rectangular {
     border-radius: var(--KBadgeBorderRadius, 4px);
 
@@ -322,6 +300,15 @@ watch(badgeText, () => {
 
   &.k-badge-rounded {
     border-radius: var(--KBadgeBorderRadius, 25px);
+  }
+
+  &.clickable {
+    cursor: pointer;
+  }
+
+  a &,
+  &.clickable {
+    user-select: none;
   }
 
   .k-badge-text {
@@ -350,6 +337,39 @@ watch(badgeText, () => {
 @import '@/styles/functions';
 
 .k-badge {
+   &.k-badge-custom {
+    color: v-bind('$props.color');
+    background-color: v-bind('$props.backgroundColor');
+    border-color: v-bind('$props.borderColor');
+
+    &.is-bordered {
+      border-style: solid;
+      border-width: 1px;
+    }
+
+    .k-badge-dismiss-button {
+      .kong-icon.kong-icon-close path {
+        stroke: v-bind('$props.color');
+      }
+
+      &:hover {
+        background-color:v-bind('$props.hoverColor');
+      }
+    }
+
+    a &:hover,
+    a:focus &,
+    &.clickable:hover,
+    &:focus {
+      // fall back to backgroundColor if hoverColor is not provided
+      background-color: v-bind('$props.hoverColor || $props.backgroundColor') !important;
+
+      .k-badge-dismiss-button {
+        background-color: v-bind('$props.hoverColor');
+      }
+    }
+  }
+
   &.k-badge-default {
     .k-badge-dismiss-button {
       .kong-icon.kong-icon-close path {
@@ -361,6 +381,9 @@ watch(badgeText, () => {
       }
     }
 
+    a &:hover,
+    a:focus &,
+    &.clickable:hover,
     &:focus {
       background-color: var(--KBadgeDefaultButtonHoverColor, var(--blue-200, color(blue-200)));
 
@@ -381,6 +404,9 @@ watch(badgeText, () => {
       }
     }
 
+    a &:hover,
+    a:focus &,
+    &.clickable:hover,
     &:focus {
       background-color: var(--KBadgeSuccessButtonHoverColor, var(--green-200, color(green-200)));
 
@@ -401,6 +427,9 @@ watch(badgeText, () => {
       }
     }
 
+    a &:hover,
+    a:focus &,
+    &.clickable:hover,
     &:focus {
       background-color: var(--KBadgeDangerButtonHoverColor, var(--red-200, color(red-200)));
 
@@ -421,6 +450,9 @@ watch(badgeText, () => {
       }
     }
 
+    a &:hover,
+    a:focus &,
+    &.clickable:hover,
     &:focus {
       background-color: var(--KBadgeInfoButtonHoverColor, var(--blue-300, color(blue-300)));
 
@@ -441,6 +473,9 @@ watch(badgeText, () => {
       }
     }
 
+    a &:hover,
+    a:focus &,
+    &.clickable:hover,
     &:focus {
       background-color: var(--KBadgeWarningButtonHoverColor, var(--yellow-200, color(yellow-200)));
 
