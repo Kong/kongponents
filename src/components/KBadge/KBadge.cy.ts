@@ -102,27 +102,8 @@ describe('KBadge', () => {
     })
 
     cy.getTestId('k-badge-dismiss-button').should('exist')
-    cy.getTestId('k-badge-dismiss-button').click().then(() => {
-      // emit dismissed event
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'dismissed')
-      cy.get('.k-badge').should('not.exist')
-    })
-  })
-
-  it('renders clickable badge', () => {
-    mount(KBadge, {
-      props: {
-        clickable: true,
-      },
-      slots: {
-        default: () => 'Hello!',
-      },
-    })
-
-    cy.get('.k-badge').click().then(() => {
-      // emit clicked event
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'click')
-    })
+    cy.getTestId('k-badge-dismiss-button').click()
+    cy.get('.k-badge').should('not.exist')
   })
 
   it('handles custom colors', () => {

@@ -210,7 +210,6 @@ If you want to show the tooltip regardless of whether the badge text is truncate
 
 | Event                 | Action              |
 | :--------             | :------------------ |
-| `click`               | When `clickable` is true and you click the badge |
 | `dismissed`           | When `dismissable` is true and you click the dismiss button |
 
 ## Theming
