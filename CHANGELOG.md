@@ -1,3 +1,10 @@
+## [8.18.1](https://github.com/Kong/kongponents/compare/v8.18.0...v8.18.1) (2023-01-11)
+
+
+### Bug Fixes
+
+* **kbadge:** dismissable should not trigger [@click](https://github.com/click) [MA-1213] ([#1045](https://github.com/Kong/kongponents/issues/1045)) ([8ad8e38](https://github.com/Kong/kongponents/commit/8ad8e386ce39e885f1317ec0e3062f0e9a2c01a7))
+
 # [8.18.0](https://github.com/Kong/kongponents/compare/v8.17.0...v8.18.0) (2023-01-11)
 
 
