@@ -1,3 +1,10 @@
+# [8.18.0](https://github.com/Kong/kongponents/compare/v8.17.0...v8.18.0) (2023-01-11)
+
+
+### Features
+
+* **kmultiselect:** allow item creation [khcp-5569] ([#1035](https://github.com/Kong/kongponents/issues/1035)) ([99b51a2](https://github.com/Kong/kongponents/commit/99b51a26308655876dc553edaa30e8ec681315bc))
+
 # [8.17.0](https://github.com/Kong/kongponents/compare/v8.16.0...v8.17.0) (2023-01-10)
 
 
