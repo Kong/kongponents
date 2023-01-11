@@ -6,8 +6,8 @@
     :aria-controls="$slots.default ? popoverId : undefined"
     :aria-expanded="$slots.default ? (!!isOpen || undefined) : undefined"
     :role="$slots.default ? 'button' : null"
-    @keydown.enter="(e: any) => handleClick(e)"
-    @keydown.esc="hidePopper"
+    @keyup.enter.stop.prevent="showPopper"
+    @keyup.esc="hidePopper"
   >
     <slot>
       <KButton
