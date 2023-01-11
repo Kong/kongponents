@@ -150,7 +150,7 @@ The `hoverColor` is also utilized if you wrap the `KBadge` with an anchor tag, o
 <a href="#"><KBadge appearance="success">Anchor Tag</KBadge></a>
 
 <KLabel>{{ myClicks }} clicks</KLabel><br>
-<KBadge @click="myClicks++">Click me!</KBadge>
+<KBadge dismissable @click="myClicks++">Click me!</KBadge>
 
 ```html
 <a href="#"><KBadge appearance="success">Anchor Tag</KBadge></a>
