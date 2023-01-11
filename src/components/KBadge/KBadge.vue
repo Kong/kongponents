@@ -32,6 +32,7 @@
       :is-rounded="shape === 'rounded'"
       :tabindex="hidden ? -1 : 0"
       @click="handleDismiss"
+      @click.stop
     >
       <KIcon
         :color="color"
