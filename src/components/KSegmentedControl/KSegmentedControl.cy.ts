@@ -26,7 +26,7 @@ describe('KSegmentedControl', () => {
       },
       slots: {
         'option-label': `<template #option-label="params">
-            Hello {{ params.option }}
+            Hello {{ params.option.label }}
             </template>
           `,
       },
