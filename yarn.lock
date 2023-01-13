@@ -6749,9 +6749,9 @@ svg-tags@^1.0.0:
   integrity sha512-ovssysQTa+luh7A5Weu3Rta6FJlFBBbInjOh722LIt6klpU2/HtdUbszju/G4devcvk8PGt7FCLv5wftu3THUA==
 
 swrv@^1.0.0:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/swrv/-/swrv-1.0.2.tgz#5c5c51d3f2faa8f5782439d685b274c7960f0a62"
-  integrity sha512-5ilwKjhzq95wVZxx/+7Jbd+b3Csscl1C9uGiGt/TFIiXORB2LbgvyeLFpzjVMPdhPfIKBHKUpKqfJ/KCsJ/x5g==
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/swrv/-/swrv-1.0.3.tgz#b1af4f55a77d74336d29956924cb1b61f564490f"
+  integrity sha512-sl+eLEE+aPPjhP1E8gQ75q3RPRyw5Gd/kROnrTFo3+LkCeLskv7F+uAl5W97wgJkzitobL6FLsRPVm0DgIgN8A==
 
 tabbable@^6.0.1:
   version "6.0.1"
