@@ -793,6 +793,23 @@ $dark-focusColor: var(--green-500, color(green-500));
   padding: var(--spacing-md, spacing(md)) 0 0 var(--spacing-sm, spacing(sm));
 }
 
+.k-code-block pre.is-single-line {
+  grid-template-columns: auto;
+  padding: var(--spacing-sm, spacing(sm)) var(--spacing-xxl, spacing(xxl)) 0 0;
+
+  code {
+    line-height: 29px;
+    margin-right: 20px;
+    overflow-x: auto;
+    padding-bottom: var(--spacing-xs, spacing(xs));
+    padding-left: var(--spacing-sm, spacing(sm));
+  }
+
+  + .k-code-block-copy-button {
+    top: var(--spacing-xs, spacing(xs));
+  }
+}
+
 .k-code-block.theme-dark pre {
   background-color: var(--KCodeBlockBackgroundColor, $dark-backgroundColor);
 }
@@ -1161,8 +1178,6 @@ $dark-focusColor: var(--green-500, color(green-500));
 </style>
 
 <style lang="scss">
-@import '@/styles/variables';
-
 .k-matched-term {
   color: var(--teal-500, color(teal-500));
   font-weight: 900;
@@ -1181,25 +1196,5 @@ $dark-focusColor: var(--green-500, color(green-500));
   align-items: center;
   display: inline-flex;
   justify-content: center;
-}
-
-.k-code-block-content {
-  pre.k-highlighted-code-block.is-single-line {
-    grid-template-columns: auto;
-    padding: var(--spacing-sm, spacing(sm)) var(--spacing-xxl, spacing(xxl)) 0 0;
-
-    code {
-      line-height: 29px;
-      margin-right: 20px;
-      overflow-x: auto;
-      padding-bottom: var(--spacing-xs, spacing(xs));
-      padding-left: var(--spacing-sm, spacing(sm));
-      white-space: nowrap;
-    }
-
-    + .k-code-block-copy-button {
-      top: var(--spacing-xs, spacing(xs));
-    }
-  }
 }
 </style>
