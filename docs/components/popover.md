@@ -177,19 +177,19 @@ Here are the different options:
 
 ```html
 <template>
-<select v-model="selectedPosition">
-  <option
-    v-for="p in positions"
-    :key="p"
-    :value="p">{{ p }}</option>
-</select>
+  <select v-model="selectedPosition">
+    <option
+      v-for="p in positions"
+      :key="p"
+      :value="p">{{ p }}</option>
+  </select>
 
-<KPop title="Cool header" trigger="hover" :placement="selectedPosition">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    I am placed on the {{ selectedPosition }}!
-  </template>
-</KPop>
+  <KPop title="Cool header" trigger="hover" :placement="selectedPosition">
+    <KButton>button</KButton>
+    <template v-slot:content>
+      I am placed on the {{ selectedPosition }}!
+    </template>
+  </KPop>
 </template>
 
 <script lang="ts">
