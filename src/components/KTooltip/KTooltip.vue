@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref } from 'vue'
-import KPop from '@/components/KPop/KPop.vue'
+import KPop, { placements } from '@/components/KPop/KPop.vue'
 
 export default defineComponent({
   name: 'KTooltip',
@@ -44,14 +44,13 @@ export default defineComponent({
     },
 
     /**
-     * Define which side the tooltip displays<br>
-     * 'top' | 'bottom' | 'left' | 'right'
+     * Define which side the tooltip displays
      */
     placement: {
       type: String,
       default: 'bottom',
       validator: (value: string):boolean => {
-        return ['top', 'bottom', 'left', 'right'].includes(value)
+        return Object.keys(placements).includes(value)
       },
     },
     /**
