@@ -33,12 +33,16 @@ Here you can pass in the text to display in the toolip.
 ### placement
 
 This is where the tooltip will appear - by default it appears on top.
+
 Here are the different options:
 
-- `top`
-- `bottom`
-- `left`
-- `right`
+<ul>
+  <li
+    v-for="p in ['auto', 'top', 'topStart', 'topEnd', 'left', 'leftStart', 'leftEnd', 'right', 'rightStart', 'rightEnd', 'bottom', 'bottomStart', 'bottomEnd']"
+    :key="p">
+    <code>{{ p }}</code>
+  </li>
+</ul>
 
 <div class="d-flex justify-content-around">
   <KTooltip placement="bottom" label="A label that appears on the bottom">
@@ -110,10 +114,10 @@ You can set the maximum width of a Tooltip with the `maxWidth` property. `maxWid
 
 ## Theming
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KTooltipBackground`| Background color
-| `--KTooltipColor`| Color of text
+| Variable               | Purpose          |
+| :--------------------- | :--------------- |
+| `--KTooltipBackground` | Background color |
+| `--KTooltipColor`      | Color of text    |
 
 Example:
 
