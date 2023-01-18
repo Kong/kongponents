@@ -843,6 +843,7 @@ $margin: 6px;
 
       // AM / PM highlights
       .vc-am-pm {
+        background-color: color(grey-200);
         color: $text-color-darker;
         button {
           &:active,
