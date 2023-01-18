@@ -703,6 +703,11 @@ $margin: 6px;
       border: 0;
     }
 
+    // disabled day
+    .vc-day-content.is-disabled {
+      pointer-events: none;
+    }
+
     // Day text within hover selection or post-selection
     .vc-highlights + .vc-day-content {
       font-weight: 600;
@@ -814,14 +819,19 @@ $margin: 6px;
     .vc-time-picker {
       // Time Range
       .vc-select select {
+        background-color: color(grey-200);
         color: $text-color-darker;
         &:hover {
           color: $text-color-darker;
         }
         &:focus {
           color: $text-color-darker;
-          background-color: color(gray-200);
-          border: 2px solid var(--white);
+          background-color: color(grey-200);
+          border: 2px solid color(grey-200);
+
+          + .vc-select-arrow {
+            color: color(grey-500);
+          }
         }
       }
       .vc-time-month, .vc-time-day, .vc-time-year {
