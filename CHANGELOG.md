@@ -1,3 +1,10 @@
+## [8.18.3](https://github.com/Kong/kongponents/compare/v8.18.2...v8.18.3) (2023-01-18)
+
+
+### Bug Fixes
+
+* **ktooltip:** add more placement options from kpop [KHCP-5756] ([#1055](https://github.com/Kong/kongponents/issues/1055)) ([fb3c93d](https://github.com/Kong/kongponents/commit/fb3c93d918210e69079cd3c92ea35571857b975b))
+
 ## [8.18.2](https://github.com/Kong/kongponents/compare/v8.18.1...v8.18.2) (2023-01-13)
 
 
