@@ -1,7 +1,7 @@
 import { mount } from 'cypress/vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 
-const positions = ['top', 'right', 'bottom', 'left']
+const positions = ['top', 'topStart', 'topEnd', 'left', 'leftStart', 'leftEnd', 'right', 'rightStart', 'rightEnd', 'bottom', 'bottomStart', 'bottomEnd']
 
 /**
  * ALL TESTS MUST USE testMode: true
@@ -11,7 +11,7 @@ const positions = ['top', 'right', 'bottom', 'left']
  *   testMode: true
  * }
  */
-const rendersCorrectPosition = (variant) => {
+const rendersCorrectPosition = (variant: string) => {
   it(`renders tooltip to the ${variant} side`, () => {
     mount(KTooltip, {
       props: {
