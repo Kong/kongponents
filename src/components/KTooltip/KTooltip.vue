@@ -25,73 +25,61 @@
   </KPop>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, ref } from 'vue'
+<script setup lang="ts">
+import { computed, ref } from 'vue'
 import KPop, { placements } from '@/components/KPop/KPop.vue'
 
-export default defineComponent({
-  name: 'KTooltip',
-  components: { KPop },
-  inheritAttrs: false,
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Text to show in tooltip
      */
-    label: {
-      type: String,
-      required: false,
-      default: '',
-    },
+  label: {
+    type: String,
+    required: false,
+    default: '',
+  },
 
-    /**
+  /**
      * Define which side the tooltip displays
      */
-    placement: {
-      type: String,
-      default: 'bottom',
-      validator: (value: string):boolean => {
-        return Object.keys(placements).includes(value)
-      },
+  placement: {
+    type: String,
+    default: 'bottom',
+    validator: (value: string):boolean => {
+      return Object.keys(placements).includes(value)
     },
-    /**
+  },
+  /**
      * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
      */
-    positionFixed: {
-      type: Boolean,
-      default: false,
-    },
-    /**
+  positionFixed: {
+    type: Boolean,
+    default: false,
+  },
+  /**
      * Set the max-width of the ktooltip
      */
-    maxWidth: {
-      type: String,
-      default: 'auto',
-    },
-    /**
+  maxWidth: {
+    type: String,
+    default: 'auto',
+  },
+  /**
      * Test mode - for testing only, strips out generated ids
      */
-    testMode: {
-      type: Boolean,
-      default: false,
-    },
+  testMode: {
+    type: Boolean,
+    default: false,
   },
+})
 
-  setup(props) {
-    const className = ref('')
-    const computedClass = computed((): any => {
-      return {
-        top: 'mb-2',
-        right: 'ml-2',
-        bottom: 'mt-2',
-        left: 'mr-2',
-      }[props.placement]
-    })
-
-    return {
-      className,
-      computedClass,
-    }
-  },
+const className = ref('')
+const computedClass = computed((): any => {
+  return {
+    top: 'mb-2',
+    right: 'ml-2',
+    bottom: 'mt-2',
+    left: 'mr-2',
+  }[props.placement]
 })
 </script>
 
