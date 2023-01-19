@@ -1,7 +1,7 @@
 <template>
   <label
     class="k-radio"
-    :class="$attrs.class"
+    :class="`k-radio-${type} ${$attrs.class ? $attrs.class : ''}`"
   >
     <input
       :checked="isSelected"
@@ -10,17 +10,37 @@
       type="radio"
       @click="handleClick"
     >
-    <span
-      v-if="hasLabel"
-      class="k-radio-label"
+    <div
+      v-if="hasLabel && type === 'card' && $slots.before"
+      class="k-radio-content-before"
     >
-      <slot>{{ label }}</slot>
-    </span>
+      <slot name="before" />
+    </div>
+    <template
+      v-if="hasLabel"
+    >
+      <template v-if="type === 'default'">
+        <span class="k-radio-label">
+          <slot>{{ label }}</slot>
+        </span>
+      </template>
+      <template v-if="type === 'card'">
+        <span class="k-radio-label">
+          {{ label }}
+        </span>
+      </template>
+    </template>
     <div
       v-if="hasLabel && (description || $slots.description)"
       class="k-radio-description"
     >
       <slot name="description">{{ description }}</slot>
+    </div>
+    <div
+      v-if="hasLabel && type === 'card' && $slots.after"
+      class="k-radio-content-after"
+    >
+      <slot name="after" />
     </div>
   </label>
 </template>
@@ -61,12 +81,21 @@ export default defineComponent({
       type: [String, Number, Boolean, Object],
       required: true,
     },
+    type: {
+      type: String,
+      default: 'default',
+      validator: (value: string): boolean => {
+        return ['default', 'card'].includes(value)
+      },
+    },
   },
   emits: ['change', 'update:modelValue'],
   setup(props, { slots, emit, attrs }) {
     const hasLabel = computed((): boolean => !!(props.label || slots.default))
 
-    const isSelected = computed((): boolean => props.selectedValue === props.modelValue)
+    const isSelected = computed(
+      (): boolean => props.selectedValue === props.modelValue,
+    )
 
     const handleClick = (): void => {
       emit('change', props.selectedValue)
@@ -102,14 +131,48 @@ export default defineComponent({
 
 .k-radio-description {
   padding-top: var(--spacing-xxs);
-  padding-left: var(--spacing-lg);
   font-size: var(--type-sm, type(sm));
   line-height: 20px;
   color: var(--black-45, rgba(0, 0, 0, 0.45));
 }
 
-.k-radio-label:has(+ .k-radio-description) {
-  font-weight: 600;
+// default radio input styling
+.k-radio-default {
+  .k-radio-description {
+    padding-left: var(--spacing-lg);
+  }
+
+  .k-radio-label:has(+ .k-radio-description) {
+    font-weight: 600;
+  }
 }
 
+// card radio input styling
+.k-radio-card {
+  align-items: center;
+  border: 1px solid color(grey-300);
+  border-radius: var(--spacing-xxs);
+  cursor: pointer;
+  display: flex;
+  padding: 16px;
+  flex-direction: column;
+
+  .k-input {
+    display: none;
+  }
+
+  .k-radio-label {
+    color: color(black-500);
+    font-size: var(--type-sm, type(sm));
+    font-weight: 500;
+  }
+
+  .k-radio-content-before {
+    margin-bottom:  var(--spacing-sm);
+  }
+
+  .k-radio-content-after {
+    margin-top:  var(--spacing-sm);
+  }
+}
 </style>
