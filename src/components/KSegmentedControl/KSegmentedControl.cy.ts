@@ -10,11 +10,11 @@ describe('KSegmentedControl', () => {
       },
     })
 
-    cy.get('.segmented-control button').eq(0).should('contain.text', 'I am segment')
-    cy.get('.segmented-control button').eq(0).should('have.class', 'secondary')
+    cy.get('.k-segmented-control button').eq(0).should('contain.text', 'I am segment')
+    cy.get('.k-segmented-control button').eq(0).should('have.class', 'secondary')
 
-    cy.get('.segmented-control button').eq(1).should('contain.text', 'So am I')
-    cy.get('.segmented-control button').eq(1).should('have.class', 'primary')
+    cy.get('.k-segmented-control button').eq(1).should('contain.text', 'So am I')
+    cy.get('.k-segmented-control button').eq(1).should('have.class', 'primary')
   })
 
   it('renders slotted button text & appearance', () => {
@@ -26,17 +26,17 @@ describe('KSegmentedControl', () => {
       },
       slots: {
         'option-label': `<template #option-label="params">
-            Hello {{ params.option }}
+            Hello {{ params.option.label }}
             </template>
           `,
       },
     })
 
-    cy.get('.segmented-control button').eq(0).should('contain.text', 'Hello ' + options[0])
-    cy.get('.segmented-control button').eq(0).should('have.class', 'secondary')
+    cy.get('.k-segmented-control button').eq(0).should('contain.text', 'Hello ' + options[0])
+    cy.get('.k-segmented-control button').eq(0).should('have.class', 'secondary')
 
-    cy.get('.segmented-control button').eq(1).should('contain.text', 'Hello ' + options[1])
-    cy.get('.segmented-control button').eq(1).should('have.class', 'primary')
+    cy.get('.k-segmented-control button').eq(1).should('contain.text', 'Hello ' + options[1])
+    cy.get('.k-segmented-control button').eq(1).should('have.class', 'primary')
   })
 
   it('disables an item if option is set to disabled', () => {
@@ -61,8 +61,8 @@ describe('KSegmentedControl', () => {
       },
     })
 
-    cy.get('.segmented-control button').eq(0).invoke('attr', 'disabled').should('not.exist')
-    cy.get('.segmented-control button').eq(1).invoke('attr', 'disabled').should('eq', 'disabled')
-    cy.get('.segmented-control button').eq(2).invoke('attr', 'disabled').should('not.exist')
+    cy.get('.k-segmented-control button').eq(0).invoke('attr', 'disabled').should('not.exist')
+    cy.get('.k-segmented-control button').eq(1).invoke('attr', 'disabled').should('eq', 'disabled')
+    cy.get('.k-segmented-control button').eq(2).invoke('attr', 'disabled').should('not.exist')
   })
 })
