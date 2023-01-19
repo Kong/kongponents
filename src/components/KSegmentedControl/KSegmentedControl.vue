@@ -1,7 +1,7 @@
 
 <template>
   <div
-    class="k-segmented-control segmented-control d-flex"
+    class="k-segmented-control d-flex"
     :class="{ 'allow-pointer-events': allowPointerEvents }"
   >
     <KButton
@@ -126,7 +126,7 @@ export default defineComponent({
 @import '@/styles/variables';
 @import '@/styles/functions';
 
-.segmented-control {
+.k-segmented-control {
   gap: var(--KSegmentedControlGap, 0px);
 
   :deep(.k-button) {
