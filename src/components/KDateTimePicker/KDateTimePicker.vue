@@ -691,6 +691,7 @@ $margin: 6px;
 .k-datetime-picker {
   $highlight-color: color(blue-200);
   $selected-color: color(blue-500);
+  $text-color-lighter: color(grey-200);
   $text-color: color(grey-500);
   $text-color-darker: color(grey-600);
 
@@ -819,15 +820,15 @@ $margin: 6px;
     .vc-time-picker {
       // Time Range
       .vc-select select {
-        background-color: color(grey-200);
+        background-color: $text-color-lighter;
         color: $text-color-darker;
         &:hover {
           color: $text-color-darker;
         }
         &:focus {
           color: $text-color-darker;
-          background-color: color(grey-200);
-          border: 2px solid color(grey-200);
+          background-color: $text-color-lighter;
+          border: 2px solid $text-color-lighter;
 
           + .vc-select-arrow {
             color: color(grey-500);
@@ -843,7 +844,7 @@ $margin: 6px;
 
       // AM / PM highlights
       .vc-am-pm {
-        background-color: color(grey-200);
+        background-color: $text-color-lighter;
         color: $text-color-darker;
         button {
           &:active,
