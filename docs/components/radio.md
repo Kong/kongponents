@@ -48,6 +48,10 @@ export default defineComponent({
 
 Use `v-model` to bind the `checked` state of the underlying `<input />`. The `v-model` binds to the `modelValue` prop of the component and sets the current checked state of the input. You can read more about passing values via `v-model` [here](https://vuejs.org/guide/components/events.html#usage-with-v-model).
 
+### selectedValue - required
+
+The value of the `KRadio` option that will be emitted by the `change` and `update:modelValue` events.
+
 ### label
 
 Will place label text to the right of the radio. Can also be [slotted](#slots).
@@ -68,9 +72,59 @@ Will place description text under the radio label (required). Can also be [slott
 
 <KRadio :selected-value="true" v-model="radio" label="Label Example" description="Some subheader text" />
 
-### selectedValue
+### type
 
-The value of the `KRadio` option that will be emitted by the `change` and `update:modelValue` events.
+Controlls apperance of radio input element. Accpted values: `default`(default) and `card`.
+
+<KCard>
+  <template v-slot:body>
+    <div class="d-flex">
+      <KRadio type="card" label="Foo" description="This subheader" selected-value="foo" v-model="cardRadio">
+        <template v-slot:before>
+          <img src="/img/kong-logomark.png" alt="Kong logo" />
+        </template>
+      </KRadio>
+      <KRadio type="card" label="Bar" description="That subheader" selected-value="bar" v-model="cardRadio">
+        <template v-slot:before>
+          <img src="/img/kong-logomark.png" style="transform: rotate(180deg);" alt="Kong logo" />
+        </template>
+      </KRadio>
+    </div>
+    <div class="mt-3">Selected: {{ cardRadio }}</div>
+  </template>
+</KCard>
+
+```html
+<template>
+  <KRadio type="card" label="Foo" description="This subheader" selected-value="foo" v-model="cardRadio">
+    <template v-slot:before>
+      🦍
+    </template>
+  </KRadio>
+  <KRadio type="card" label="Bar" description="That subheader" selected-value="barv-model="cardRadio">
+    <template v-slot:before>
+      🦍
+    </template>
+  </KRadio>
+  <div class="mt-3">Selected: {{ cardRadio }}</div>
+</template>
+
+<script lang="ts">
+import { defineComponent, reactive, toRefs } from 'vue'
+
+export default defineComponent({
+  setup() {
+    const data = reactive({
+      cardRadio: '',
+    })
+
+    return {
+      ...toRefs(data),
+    }
+  }
+})
+</script>
+```
 
 ### HTML attributes
 
@@ -82,13 +136,13 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 
 <KCard>
   <template v-slot:body>
-    <KRadio v-model="radioState" disabled>Disabled radio</KRadio>
+    <KRadio v-model="radioState" :selected-value="true" disabled>Disabled radio</KRadio>
   </template>
 </KCard>
 
 ## Slots
 
-- `default` - Anything passed in to the default slot will replace the label prop text
+- `default` - Available only when `type` prop is `default`. Anything passed in to the default slot will replace the `label` prop text.
 
 <KCard>
   <template v-slot:body>
@@ -103,6 +157,36 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 ```html
 <KRadio v-model="selected" :selected-value="true">
   Label goes here. The radio is {{ selected ? 'selected' : 'not selected' }}
+</KRadio>
+```
+
+-  `before` - Available only when `type` prop is `card`. Will place content above the title and description (if provided).
+-  `after` - Available only when `type` prop is `card`. Will place content below the title and description (if provided).
+
+<KCard>
+  <template v-slot:body>
+    <div class="d-flex">
+      <KRadio type="card" label="Foo" description="Some subheader" v-model="selected" :selected-value="true">
+        <template v-slot:before>
+          <img src="/img/kong-logomark.png" alt="Kong logo" />
+        </template>
+        <template v-slot:after>
+          <KBadge appearance="info">Info</KBadge>
+        </template>
+      </KRadio>
+    </div>
+  </template>
+</KCard>
+
+
+```html
+<KRadio type="card" label="Foo" description="Some subheader" v-model="selected" :selected-value="true">
+  <template v-slot:before>
+    🦍
+  </template>
+  <template v-slot:after>
+    <KBadge appearance="info">Info</KBadge>
+  </template>
 </KRadio>
 ```
 
@@ -152,7 +236,8 @@ export default defineComponent({
       objB: { name: 'b' },
       radio: true,
       radioState: true,
-      selected: false
+      selected: false,
+      cardRadio: ''
     })
 
     return {
