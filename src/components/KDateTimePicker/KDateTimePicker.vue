@@ -583,10 +583,7 @@ $margin: 6px;
   }
 
   .timepicker-input {
-    --KButtonOutlineColor: var(--grey-500);
-    --KButtonOutlineBorder: var(--grey-300);
-    --KButtonOutlineActive: var(--white);
-    --KButtonOutlineHoverBorder: var(--blue-200);
+    border: none;
     // Prevent overflowing the container
     max-width: 100%;
     padding: var(--spacing-sm) var(--spacing-sm) !important;
@@ -812,7 +809,7 @@ $margin: 6px;
       .vc-weeks {
         margin-top: color(spacing-sm);
         .vc-weekday {
-          color: $text-color-darker;
+          color: $text-color;
         }
       }
     }
