@@ -604,7 +604,6 @@ $margin: 6px;
     &:active {
       // Styling button as input via mixin
       @include input-focus;
-      // background-color: var(--KInputBackground, var(--white, color(white))) !important;
     }
     .timepicker-display {
       color: var(--black-70);
