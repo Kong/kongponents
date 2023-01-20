@@ -45,79 +45,72 @@
   </label>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
+<script setup lang="ts">
+import { computed, useAttrs, useSlots } from 'vue'
 
-export default defineComponent({
-  name: 'KRadio',
-  inheritAttrs: false,
-  props: {
-    /**
-     * Sets whether or not radio is selected
-     */
-    modelValue: {
-      type: [String, Number, Boolean, Object],
-      default: 'on',
-      required: true,
-    },
-    /**
-     * Overrides default label text
-     */
-    label: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Overrides default description text
-     */
-    description: {
-      type: String,
-      default: '',
-    },
-    /**
-     * The value emitted from the radio on change if selected
-     */
-    selectedValue: {
-      type: [String, Number, Boolean, Object],
-      required: true,
-    },
-    type: {
-      type: String,
-      default: 'default',
-      validator: (value: string): boolean => {
-        return ['default', 'card'].includes(value)
-      },
+const props = defineProps({
+  /**
+   * Sets whether or not radio is selected
+   */
+  modelValue: {
+    type: [String, Number, Boolean, Object],
+    default: 'on',
+    required: true,
+  },
+  /**
+   * Overrides default label text
+   */
+  label: {
+    type: String,
+    default: '',
+  },
+  /**
+   * Overrides default description text
+   */
+  description: {
+    type: String,
+    default: '',
+  },
+  /**
+   * The value emitted from the radio on change if selected
+   */
+  selectedValue: {
+    type: [String, Number, Boolean, Object],
+    required: true,
+  },
+  type: {
+    type: String,
+    default: 'default',
+    validator: (value: string): boolean => {
+      return ['default', 'card'].includes(value)
     },
   },
-  emits: ['change', 'update:modelValue'],
-  setup(props, { slots, emit, attrs }) {
-    const hasLabel = computed((): boolean => !!(props.label || slots.default))
+})
 
-    const isSelected = computed(
-      (): boolean => props.selectedValue === props.modelValue,
-    )
+const slots = useSlots()
 
-    const handleClick = (): void => {
-      emit('change', props.selectedValue)
-      emit('update:modelValue', props.selectedValue)
-    }
+const hasLabel = computed((): boolean => !!(props.label || slots.default))
 
-    const modifiedAttrs = computed(() => {
-      const $attrs = { ...attrs }
+const isSelected = computed(
+  (): boolean => props.selectedValue === props.modelValue,
+)
 
-      // delete classes because we bind them to the parent
-      delete $attrs.class
+const emit = defineEmits(['change', 'update:modelValue'])
 
-      return $attrs
-    })
+const handleClick = (): void => {
+  emit('change', props.selectedValue)
+  emit('update:modelValue', props.selectedValue)
+}
 
-    return {
-      hasLabel,
-      isSelected,
-      modifiedAttrs,
-      handleClick,
-    }
-  },
+const attrs = useAttrs()
+
+const modifiedAttrs = computed(() => {
+  const $attrs = { ...attrs }
+
+  // delete classes because we bind them to the parent
+  delete $attrs.class
+
+  return $attrs
 })
 </script>
 
