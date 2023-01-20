@@ -583,6 +583,8 @@ $margin: 6px;
   }
 
   .timepicker-input {
+    --KButtonOutlineColor: var(--grey-500);
+    --KButtonOutlineActive: var(--white);
     border: none;
     // Prevent overflowing the container
     max-width: 100%;
@@ -602,6 +604,7 @@ $margin: 6px;
     &:active {
       // Styling button as input via mixin
       @include input-focus;
+      // background-color: var(--KInputBackground, var(--white, color(white))) !important;
     }
     .timepicker-display {
       color: var(--black-70);
