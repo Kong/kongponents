@@ -1,16 +1,16 @@
 
 <template>
   <div
-    class="segmented-control d-flex"
-    :class="{ 'allow-pointer-events': allowPointerEvents}"
+    class="k-segmented-control d-flex"
+    :class="{ 'allow-pointer-events': allowPointerEvents }"
   >
     <KButton
-      v-for="option in options"
-      :key="String(label(option))"
-      :appearance="appearance(option)"
+      v-for="option in normalizedOptions"
+      :key="`${option.value}-option`"
+      :appearance="getAppearance(option)"
       class="justify-content-center"
-      :disabled="disabled(option)"
-      :name="value(option)"
+      :disabled="getDisabled(option)"
+      :name="option.value"
       size="small"
       @click="handleClick"
     >
@@ -18,7 +18,7 @@
         name="option-label"
         :option="option"
       >
-        {{ label(option) }}
+        {{ option.label }}
       </slot>
     </KButton>
   </div>
@@ -34,6 +34,43 @@ export interface SegmentedControlOption {
   disabled?: boolean
 }
 
+const itemsHaveRequiredProps = (items: SegmentedControlOption[]): boolean => {
+  return items.every(i => i.value !== undefined)
+}
+
+// functions used in prop validators
+const getValues = (items: SegmentedControlOption[]) => {
+  const vals:string[] = []
+  items.forEach((item: SegmentedControlOption) => vals.push(item.value + ''))
+
+  return vals
+}
+
+const itemValuesAreUnique = (items: SegmentedControlOption[]): boolean => {
+  const vals = getValues(items)
+  const uniqueValues = new Set(vals)
+
+  return vals.length === uniqueValues.size
+}
+
+const normalizeItems = (items: SegmentedControlOption[] | string[]): SegmentedControlOption[] => {
+  return items.map((item:SegmentedControlOption | string) => {
+    return {
+      label: typeof item === 'string' ? item : (item.label || (item.value + '')),
+      value: typeof item === 'string' ? item : item.value,
+      disabled: typeof item === 'string' ? false : item.disabled,
+    } as SegmentedControlOption
+  })
+}
+
+const validateItems = (items: SegmentedControlOption[] | string[]): boolean => {
+  const isStringArray = typeof items[0] === 'string'
+  const nItems = normalizeItems(items)
+  const isValid = itemValuesAreUnique(nItems)
+
+  return isStringArray ? isValid && itemsHaveRequiredProps(items as SegmentedControlOption[]) : isValid
+}
+
 export default defineComponent({
   name: 'KSegmentedControl',
   components: { KButton },
@@ -45,6 +82,7 @@ export default defineComponent({
     options: {
       type: Array as PropType<SegmentedControlOption[] | string[]>,
       required: true,
+      validator: (items: SegmentedControlOption[] | string[]) => !items.length || validateItems(items),
     },
     isDisabled: {
       type: Boolean,
@@ -58,27 +96,14 @@ export default defineComponent({
   emits: ['update:modelValue', 'click'],
   setup(props, { emit }) {
     const selectedValue = ref(props.modelValue)
+    const normalizedOptions = ref(normalizeItems(props.options))
 
-    // Have to allow passing a `string` or `SegmentedControlOption` for each method
-
-    const label = (option: SegmentedControlOption | string): string | number | boolean | SegmentedControlOption => {
-      return typeof option === 'string' ? option : option.label || option.value || option
+    const getAppearance = (option: SegmentedControlOption): 'primary' | 'secondary' => {
+      return props.modelValue === option.value ? 'primary' : 'secondary'
     }
 
-    const value = (option: SegmentedControlOption | string): string | number | boolean | SegmentedControlOption => {
-      return typeof option === 'string' ? option : option.value || option.label || option
-    }
-
-    const appearance = (option: SegmentedControlOption | string): 'primary' | 'secondary' => {
-      return props.modelValue === value(option) ? 'primary' : 'secondary'
-    }
-
-    const disabled = (option: SegmentedControlOption | string): boolean => {
-      if (typeof option === 'object') {
-        return !!option.disabled
-      }
-
-      return props.isDisabled
+    const getDisabled = (option: SegmentedControlOption): boolean => {
+      return !!option.disabled || props.isDisabled
     }
 
     const handleClick = (evt: any): void => {
@@ -87,11 +112,10 @@ export default defineComponent({
     }
 
     return {
+      normalizedOptions,
       selectedValue,
-      label,
-      value,
-      appearance,
-      disabled,
+      getAppearance,
+      getDisabled,
       handleClick,
     }
   },
@@ -102,7 +126,7 @@ export default defineComponent({
 @import '@/styles/variables';
 @import '@/styles/functions';
 
-.segmented-control {
+.k-segmented-control {
   gap: var(--KSegmentedControlGap, 0px);
 
   :deep(.k-button) {

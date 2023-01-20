@@ -605,11 +605,9 @@ $margin: 6px;
     &:active {
       // Styling button as input via mixin
       @include input-focus;
-      > .kong-icon path {
-        fill: var(--grey-600);
-      }
     }
     .timepicker-display {
+      color: var(--black-70);
       flex-wrap: wrap;
       div {
         width: auto;
@@ -655,7 +653,7 @@ $margin: 6px;
             font-weight: 400;
             &.selected-option {
               font-weight: 500;
-              color: white;
+              color: var(--white);
               background-color: var(--blue-500);
             }
             &:nth-child(3n) {
@@ -693,6 +691,7 @@ $margin: 6px;
 .k-datetime-picker {
   $highlight-color: color(blue-200);
   $selected-color: color(blue-500);
+  $text-color-lighter: color(grey-200);
   $text-color: color(grey-500);
   $text-color-darker: color(grey-600);
 
@@ -705,14 +704,21 @@ $margin: 6px;
       border: 0;
     }
 
+    // disabled day
+    .vc-day-content.is-disabled {
+      pointer-events: none;
+    }
+
     // Day text within hover selection or post-selection
     .vc-highlights + .vc-day-content {
       font-weight: 600;
-      color: var(--white);
-
       &:focus {
         background-color: $selected-color;
       }
+    }
+
+    .vc-highlights:has(.vcal-day-start, .vcal-day-end, .vcal-day-drag-start, .vcal-day-drag-end) + .vc-day-content {
+      color: var(--white);
     }
 
     .vc-nav-popover-container {
@@ -792,8 +798,10 @@ $margin: 6px;
       }
       .vc-header {
         // Month + Year
+        margin-bottom: 10px;
         .vc-title {
           color: $text-color;
+          font-size: var(--type-md);
           &:hover,
           &:active {
             color: $text-color-darker;
@@ -804,7 +812,7 @@ $margin: 6px;
       .vc-weeks {
         margin-top: color(spacing-sm);
         .vc-weekday {
-          color: $text-color;
+          color: $text-color-darker;
         }
       }
     }
@@ -812,25 +820,31 @@ $margin: 6px;
     .vc-time-picker {
       // Time Range
       .vc-select select {
+        background-color: $text-color-lighter;
         color: $text-color-darker;
         &:hover {
           color: $text-color-darker;
         }
         &:focus {
           color: $text-color-darker;
-          background-color: color(gray-200);
-          border: 2px solid var(--white);
+          background-color: $text-color-lighter;
+          border: 2px solid $text-color-lighter;
+
+          + .vc-select-arrow {
+            color: color(grey-500);
+          }
         }
       }
       .vc-time-month, .vc-time-day, .vc-time-year {
-        color: $text-color;
+        color: $text-color-darker;
       }
       .vc-month, .vc-day {
-        color: $text-color;
+        color: $text-color-darker;
       }
 
       // AM / PM highlights
       .vc-am-pm {
+        background-color: $text-color-lighter;
         color: $text-color-darker;
         button {
           &:active,
@@ -860,7 +874,6 @@ $margin: 6px;
       // Date Range - Post selection
       .vc-highlight.vcal-day-start,
       .vc-highlight.vcal-day-end {
-        color: white !important;
         background-color: $selected-color;
       }
       .vc-highlight.vcal-day-base,
@@ -871,14 +884,13 @@ $margin: 6px;
       // Date Range - during selection
       .vcal-day-drag-start,
       .vcal-day-drag-end {
-        color: white;
         background-color: $selected-color;
         border: 2px solid color(blue-400);
       }
       .vc-day-content {
         &:hover {
           color: $selected-color;
-          background-color: white;
+          background-color: var(--white);
           border: 2px solid color(blue-400);
         }
       }

@@ -1,3 +1,11 @@
+## [8.18.4](https://github.com/Kong/kongponents/compare/v8.18.3...v8.18.4) (2023-01-19)
+
+
+### Bug Fixes
+
+* **kdatetimepicker:** update styling according to mocks [KHCP-5697] ([#1056](https://github.com/Kong/kongponents/issues/1056)) ([294de77](https://github.com/Kong/kongponents/commit/294de7781dddd9a81c1e7436fccb31d7d37783e4))
+* **ksegmentedcontrol:** add option validation ([#1043](https://github.com/Kong/kongponents/issues/1043)) ([3fee4b4](https://github.com/Kong/kongponents/commit/3fee4b496e7c3abc0e16fac24b5354165d29fb05))
+
 ## [8.18.3](https://github.com/Kong/kongponents/compare/v8.18.2...v8.18.3) (2023-01-18)
 
 
