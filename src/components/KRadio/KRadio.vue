@@ -11,7 +11,7 @@
       @click="handleClick"
     >
     <div
-      v-if="hasLabel && type === 'card' && $slots.before"
+      v-if="type === 'card' && $slots.before"
       class="k-radio-content-before"
     >
       <slot name="before" />
@@ -37,7 +37,7 @@
       <slot name="description">{{ description }}</slot>
     </div>
     <div
-      v-if="hasLabel && type === 'card' && $slots.after"
+      v-if="type === 'card' && $slots.after"
       class="k-radio-content-after"
     >
       <slot name="after" />
@@ -125,6 +125,13 @@ export default defineComponent({
 @import '@/styles/variables';
 @import '@/styles/functions';
 
+$text-color-default: var(--black-45, rgba(0, 0, 0, 0.45));
+$text-color-card: color(black-500);
+$border-color-card: color(grey-300);
+$background-color-card-checked: color(blue-100);
+$border-color-card-checked: color(blue-300);
+$background-color-card-disabled: color(grey-200);
+
 .k-radio-label {
   font-size: var(--type-sm, type(sm));
 }
@@ -133,7 +140,7 @@ export default defineComponent({
   padding-top: var(--spacing-xxs);
   font-size: var(--type-sm, type(sm));
   line-height: 20px;
-  color: var(--black-45, rgba(0, 0, 0, 0.45));
+  color: $text-color-default;
 }
 
 // default radio input styling
@@ -150,7 +157,8 @@ export default defineComponent({
 // card radio input styling
 .k-radio-card {
   align-items: center;
-  border: 1px solid color(grey-300);
+  background-color: color(white);
+  border: 1px solid $border-color-card;
   border-radius: var(--spacing-xxs);
   cursor: pointer;
   display: flex;
@@ -162,7 +170,7 @@ export default defineComponent({
   }
 
   .k-radio-label {
-    color: color(black-500);
+    color: $text-color-card;
     font-size: var(--type-sm, type(sm));
     font-weight: 500;
   }
@@ -173,6 +181,32 @@ export default defineComponent({
 
   .k-radio-content-after {
     margin-top:  var(--spacing-sm);
+  }
+
+  &:has(.k-input:disabled) {
+    background-color: $background-color-card-disabled;
+    cursor: not-allowed;
+    opacity: 0.6;
+
+    &:hover {
+      border-color: $border-color-card;
+    }
+  }
+
+  &:hover {
+    background-color: $background-color-card-checked;
+    border-color: $border-color-card-checked;
+  }
+
+  &:has(.k-input:checked) {
+    background-color: $background-color-card-checked;
+    border-color: $border-color-card-checked;
+    -webkit-box-shadow: 0px 4px 20px var(--black-10);
+    box-shadow: 0px 4px 20px var(--black-10);
+  }
+
+  &:has(.k-input:checked:disabled) {
+    border-color: $border-color-card-checked;
   }
 }
 </style>
