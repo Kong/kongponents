@@ -1,3 +1,10 @@
+## [8.18.6](https://github.com/Kong/kongponents/compare/v8.18.5...v8.18.6) (2023-01-21)
+
+
+### Bug Fixes
+
+* package as module ([#1063](https://github.com/Kong/kongponents/issues/1063)) ([d71c66b](https://github.com/Kong/kongponents/commit/d71c66b7c0352623a783d1947cfcf3df6fea7c6b))
+
 ## [8.18.5](https://github.com/Kong/kongponents/compare/v8.18.4...v8.18.5) (2023-01-20)
 
 
