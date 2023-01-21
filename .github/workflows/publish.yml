@@ -69,7 +69,7 @@ jobs:
     name: No Component Tests needed
     needs:
       - get-changed-files
-    if: needs.get-changed-files.outputs.component-files-changed == 'false'
+    if: needs.get-changed-files.outputs.component-files-changed == 'false' && needs.get-changed-files.outputs.package-json-yarn-lock-files-changed == 'false'
     runs-on: ubuntu-latest
     steps:
       - name: Skip component tests
