@@ -1,3 +1,10 @@
+## [8.18.7](https://github.com/Kong/kongponents/compare/v8.18.6...v8.18.7) (2023-01-23)
+
+
+### Bug Fixes
+
+* **kpop:** stop document click event propagation only when the event is about to hide the popper ([#1066](https://github.com/Kong/kongponents/issues/1066)) ([cb5580d](https://github.com/Kong/kongponents/commit/cb5580de4177cfad7a52ad1e37bfec5436c9cd6e))
+
 ## [8.18.6](https://github.com/Kong/kongponents/compare/v8.18.5...v8.18.6) (2023-01-21)
 
 
