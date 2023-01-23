@@ -74,19 +74,19 @@ Will place description text under the radio label (required). Can also be [slott
 
 ### type
 
-Controlls apperance of radio input element. Accpted values: `default`(default) and `card`.
+Controls appearance of radio input element. Accepted values: `default`(default) and `card`.
 
 <KCard>
   <template v-slot:body>
     <div class="d-flex">
       <KRadio type="card" label="Foo" description="This subheader" selected-value="foo" v-model="cardRadio">
-        <template v-slot:before>
+        <template v-slot:header>
           <img src="/img/kong-logomark.png" alt="Kong logo" />
         </template>
       </KRadio>
       <KRadio type="card" label="Bar" description="That subheader" selected-value="bar" v-model="cardRadio">
-        <template v-slot:before>
-          <img src="/img/kong-logomark.png" style="transform: rotate(180deg);" alt="Kong logo" />
+        <template v-slot:header>
+          <img src="/img/kong-logomark.png" alt="Kong logo" />
         </template>
       </KRadio>
     </div>
@@ -97,13 +97,13 @@ Controlls apperance of radio input element. Accpted values: `default`(default) a
 ```html
 <template>
   <KRadio type="card" label="Foo" description="This subheader" selected-value="foo" v-model="cardRadio">
-    <template v-slot:before>
-      🦍
+    <template v-slot:header>
+      <img src="/img/kong-logo.png" alt="Kong logo" />
     </template>
   </KRadio>
   <KRadio type="card" label="Bar" description="That subheader" selected-value="barv-model="cardRadio">
-    <template v-slot:before>
-      🦍
+    <template v-slot:header>
+      <img src="/img/kong-logo.png" alt="Kong logo" />
     </template>
   </KRadio>
   <div class="mt-3">Selected: {{ cardRadio }}</div>
@@ -160,17 +160,17 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 </KRadio>
 ```
 
--  `before` - Available only when `type` prop is `card`. Will place content above the title and description (if provided).
--  `after` - Available only when `type` prop is `card`. Will place content below the title and description (if provided).
+-  `header` - Available only when `type` prop is `card`. Will place content above the title and description (if provided).
+-  `footer` - Available only when `type` prop is `card`. Will place content below the title and description (if provided).
 
 <KCard>
   <template v-slot:body>
     <div class="d-flex">
       <KRadio type="card" label="Foo" description="Some subheader" v-model="selected" :selected-value="true">
-        <template v-slot:before>
+        <template v-slot:header>
           <img src="/img/kong-logomark.png" alt="Kong logo" />
         </template>
-        <template v-slot:after>
+        <template v-slot:footer>
           <KBadge appearance="info">Info</KBadge>
         </template>
       </KRadio>
@@ -181,8 +181,8 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 
 ```html
 <KRadio type="card" label="Foo" description="Some subheader" v-model="selected" :selected-value="true">
-  <template v-slot:before>
-    🦍
+  <template v-slot:header>
+    <img src="/img/kong-logo.png" alt="Kong logo" />
   </template>
   <template v-slot:after>
     <KBadge appearance="info">Info</KBadge>
