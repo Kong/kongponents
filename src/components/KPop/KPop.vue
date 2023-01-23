@@ -405,22 +405,27 @@ export default defineComponent({
       this.updatePopper()
     },
     handleClick(e) {
-      e.stopPropagation()
+      const hidePopperAndStopPropagation = () => {
+        // Stop event propagation only when the click event is about to hide popper
+        e.stopPropagation()
+        this.hidePopper()
+      }
+
       if (this.reference && this.reference.contains(e.target)) {
         if (this.isOpen) {
-          this.hidePopper()
+          hidePopperAndStopPropagation()
         } else {
           this.createInstance()
         }
       } else if (this.$refs.popper && this.$refs.popper.contains(e.target) && this.onPopoverClick) {
         const isOpen = this.onPopoverClick()
         if (isOpen !== undefined) {
-          isOpen ? this.showPopper() : this.hidePopper()
+          isOpen ? this.showPopper() : hidePopperAndStopPropagation()
         }
       } else if (this.$refs.popper && this.$refs.popper.contains(e.target)) {
         this.showPopper()
       } else if (this.isOpen) {
-        this.hidePopper()
+        hidePopperAndStopPropagation()
       }
     },
     bindEvents() {
