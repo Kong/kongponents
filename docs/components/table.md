@@ -1043,7 +1043,7 @@ You can use the `.k-table-cell-title` and `.k-table-cell-description` classes wi
     hidePaginationWhenOptional
     >
     <template v-slot:name="{row}">
-      <img class="mr-1" src="/img/kong-logomark.png" :alt="row.img.alt">
+      <img class="mr-2" src="/img/kong-logomark.png" :alt="row.img.alt">
       <div class="d-flex flex-column">
         <span class="k-table-cell-title">{{row.name}}</span>
         <span class="k-table-cell-description truncate">{{row.description}}</span>
@@ -1055,14 +1055,14 @@ You can use the `.k-table-cell-title` and `.k-table-cell-description` classes wi
 ```html
 <template>
   <KTable
-    :cell-attrs="cellAttrsFn"
-    :enable-client-sort="true"
+    :cellAttrs="cellAttrsFn"
+    :enableClientSort="true"
     :fetcher="fetcher"
     :headers="headers"
-    hide-pagination-when-optional
+    hidePaginationWhenOptional
   >
     <template #name="{row}">
-      <img :alt="row.img.alt" class="mr-1" :src="row.img.src">
+      <img :alt="row.img.alt" class="mr-2" :src="row.img.src">
       <div class="d-flex flex-column">
         <span class="k-table-cell-title">{{ row.name }}</span>
         <span class="k-table-cell-description">{{ row.description }}</span>
