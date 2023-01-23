@@ -1030,7 +1030,7 @@ export default {
 
 Here is another example of how to use cell slot to completely customize content inside the cell.
 
-::: tip NOTE
+::: tip TIP
 You can use the `.k-table-cell-title` and `.k-table-cell-description` classes within the slot as shown in the example below to leverage preconfigured styles, should you need to make a multi-row layout. Or you could use your custom styles.
 :::
 
@@ -1045,8 +1045,8 @@ You can use the `.k-table-cell-title` and `.k-table-cell-description` classes wi
     <template v-slot:name="{row}">
       <img class="mr-2" src="/img/kong-logomark.png" :alt="row.img.alt">
       <div class="d-flex flex-column">
-        <span class="k-table-cell-title">{{row.name}}</span>
-        <span class="k-table-cell-description truncate">{{row.description}}</span>
+        <div class="k-table-cell-title">{{row.name}}</div>
+        <div class="k-table-cell-description truncate">{{row.description}}</div>
       </div>
     </template>
   </KTable>
@@ -1064,8 +1064,8 @@ You can use the `.k-table-cell-title` and `.k-table-cell-description` classes wi
     <template #name="{row}">
       <img :alt="row.img.alt" class="mr-2" :src="row.img.src">
       <div class="d-flex flex-column">
-        <span class="k-table-cell-title">{{ row.name }}</span>
-        <span class="k-table-cell-description">{{ row.description }}</span>
+        <div class="k-table-cell-title">{{ row.name }}</div>
+        <div class="k-table-cell-description">{{ row.description }}</div>
       </div>
     </template>
   </KTable>
@@ -1078,8 +1078,7 @@ export default {
       headers: [
         { label: 'Name', key: 'name', sortable: true },
         { label: 'ID', key: 'id' },
-        { label: 'Enabled', key: 'enabled' },
-        { key: 'actions', hideLabel: true },
+        { label: 'Enabled', key: 'enabled' }
       ],
     }
   },
@@ -1563,8 +1562,7 @@ export default defineComponent({
       cellSlotHeaders: [
         { label: 'Name', key: 'name', sortable: true },
         { label: 'ID', key: 'id' },
-        { label: 'Enabled', key: 'enabled' },
-        { key: 'actions', hideLabel: true }
+        { label: 'Enabled', key: 'enabled' }
       ]
     }
   },
