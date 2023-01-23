@@ -1089,7 +1089,7 @@ export default {
           {
             name: 'Basic Auth',
             img: {
-              src: '🦍',
+              src: '/img/kong-logo.png',
               alt: 'Basic Auth Icon',
             },
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
@@ -1099,7 +1099,7 @@ export default {
           {
             name: 'Website Desktop',
             img: {
-              src: '🦍',
+              src: '/img/kong-logo.png',
               alt: 'Website Desktop Icon',
             },
             description: 'Ut enim ad minim veniam',
@@ -1109,7 +1109,7 @@ export default {
           {
             name: 'Android App',
             img: {
-              src: '🦍',
+              src: '/img/kong-logo.png',
               alt: 'Android App Icon',
             },
             description: 'Excepteur sint occaecat cupidatat non proident',
