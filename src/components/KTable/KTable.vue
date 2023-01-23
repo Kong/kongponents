@@ -1069,7 +1069,7 @@ export default defineComponent({
         font-size: var(--type-md)
       }
       .k-table-cell-description {
-        color: color(grey-600);
+        color: color(grey-500);
         font-weight: 400;
         font-size: var(--type-md);
       }
