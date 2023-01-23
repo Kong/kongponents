@@ -1,3 +1,10 @@
+## [8.18.8](https://github.com/Kong/kongponents/compare/v8.18.7...v8.18.8) (2023-01-23)
+
+
+### Bug Fixes
+
+* trigger ci ([9d33281](https://github.com/Kong/kongponents/commit/9d332818a209d127d9e464cfc25a0cb0f9e8b9e7))
+
 ## [8.18.7](https://github.com/Kong/kongponents/compare/v8.18.6...v8.18.7) (2023-01-23)
 
 
