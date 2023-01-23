@@ -11,36 +11,28 @@
       @click="handleClick"
     >
     <div
-      v-if="type === 'card' && $slots.before"
-      class="k-radio-content-before"
+      v-if="!isTypeDefault && hasHeader"
+      class="k-radio-content-header"
     >
-      <slot name="before" />
+      <slot name="header" />
     </div>
-    <template
+    <span
       v-if="hasLabel"
+      class="k-radio-label"
     >
-      <template v-if="type === 'default'">
-        <span class="k-radio-label">
-          <slot>{{ label }}</slot>
-        </span>
-      </template>
-      <template v-if="type === 'card'">
-        <span class="k-radio-label">
-          {{ label }}
-        </span>
-      </template>
-    </template>
+      <slot>{{ label }}</slot>
+    </span>
     <div
-      v-if="hasLabel && (description || $slots.description)"
+      v-if="hasLabel && (description || hasDescription)"
       class="k-radio-description"
     >
       <slot name="description">{{ description }}</slot>
     </div>
     <div
-      v-if="type === 'card' && $slots.after"
-      class="k-radio-content-after"
+      v-if="!isTypeDefault && hasFooter"
+      class="k-radio-content-footer"
     >
-      <slot name="after" />
+      <slot name="footer" />
     </div>
   </label>
 </template>
@@ -90,10 +82,13 @@ const props = defineProps({
 const slots = useSlots()
 
 const hasLabel = computed((): boolean => !!(props.label || slots.default))
+const hasDescription = computed((): boolean => !!(props.description || slots.description))
+const hasHeader = computed((): boolean => !!(slots.header))
+const hasFooter = computed((): boolean => !!(slots.footer))
 
-const isSelected = computed(
-  (): boolean => props.selectedValue === props.modelValue,
-)
+const isSelected = computed((): boolean => props.selectedValue === props.modelValue)
+
+const isTypeDefault = computed((): boolean => props.type === 'default')
 
 const emit = defineEmits(['change', 'update:modelValue'])
 
@@ -168,11 +163,11 @@ $background-color-card-disabled: color(grey-200);
     font-weight: 500;
   }
 
-  .k-radio-content-before {
+  .k-radio-content-header {
     margin-bottom:  var(--spacing-sm);
   }
 
-  .k-radio-content-after {
+  .k-radio-content-footer {
     margin-top:  var(--spacing-sm);
   }
 
