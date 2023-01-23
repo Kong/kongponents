@@ -1063,6 +1063,16 @@ export default defineComponent({
         margin-top: calc(-1 * var(--KButtonPaddingY, var(--spacing-xs)));
         margin-bottom: calc(-1 * var(--KButtonPaddingY, var(--spacing-xs)));
       }
+      .k-table-cell-title {
+        color: color(grey-600);
+        font-weight: 600;
+        font-size: var(--type-md)
+      }
+      .k-table-cell-description {
+        color: color(grey-600);
+        font-weight: 400;
+        font-size: var(--type-md);
+      }
     }
   }
 }
