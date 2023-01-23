@@ -1,3 +1,24 @@
+## [8.18.7](https://github.com/Kong/kongponents/compare/v8.18.6...v8.18.7) (2023-01-23)
+
+
+### Bug Fixes
+
+* **kpop:** stop document click event propagation only when the event is about to hide the popper ([#1066](https://github.com/Kong/kongponents/issues/1066)) ([cb5580d](https://github.com/Kong/kongponents/commit/cb5580de4177cfad7a52ad1e37bfec5436c9cd6e))
+
+## [8.18.6](https://github.com/Kong/kongponents/compare/v8.18.5...v8.18.6) (2023-01-21)
+
+
+### Bug Fixes
+
+* package as module ([#1063](https://github.com/Kong/kongponents/issues/1063)) ([d71c66b](https://github.com/Kong/kongponents/commit/d71c66b7c0352623a783d1947cfcf3df6fea7c6b))
+
+## [8.18.5](https://github.com/Kong/kongponents/compare/v8.18.4...v8.18.5) (2023-01-20)
+
+
+### Bug Fixes
+
+* **kdatetimepicker:** minor styling touchups [KHCP-5697] ([#1062](https://github.com/Kong/kongponents/issues/1062)) ([0911a38](https://github.com/Kong/kongponents/commit/0911a382742bc65bda5b83e624ec594b9b22612d))
+
 ## [8.18.4](https://github.com/Kong/kongponents/compare/v8.18.3...v8.18.4) (2023-01-19)
 
 

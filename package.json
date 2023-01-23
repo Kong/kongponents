@@ -2,6 +2,7 @@
   "name": "@kong/kongponents",
   "version": "0.0.0-development",
   "description": "Kong Component library",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/Kong/kongponents.git"
