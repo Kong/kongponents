@@ -29,9 +29,15 @@
   </label>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 import { computed, useAttrs, useSlots } from 'vue'
 
+export default {
+  inheritAttrs: false,
+}
+</script>
+
+<script setup lang="ts">
 const props = defineProps({
   /**
    * Sets whether or not radio is selected
