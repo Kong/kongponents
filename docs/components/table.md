@@ -1028,7 +1028,7 @@ export default {
 </script>
 ```
 
-#### Built-in cell styles
+#### Built-in slot styles
 
 Here is another example of how to use slot to completely customize content inside the cell.
 
