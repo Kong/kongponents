@@ -4,6 +4,7 @@ dist
 bin
 dist-ssr
 *.local
+bundle-analyzer
 
 cypress/screenshots
 cypress/videos
