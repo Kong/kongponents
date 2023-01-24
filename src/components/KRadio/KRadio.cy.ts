@@ -38,6 +38,23 @@ describe('KRadio', () => {
     })
   })
 
+  it('renders the default slot content when type prop is card', () => {
+    const slotText = 'Hello world'
+    mount(KRadio, {
+      props: {
+        modelValue: false,
+        selectedValue: true,
+        type: 'card',
+        label: 'Some label',
+      },
+      slots: {
+        default: () => slotText,
+      },
+    })
+
+    cy.get('.k-radio-card').should('contain.text', slotText)
+  })
+
   it('renders input element hidden when type prop is card', () => {
     mount(KRadio, {
       props: {
@@ -50,7 +67,7 @@ describe('KRadio', () => {
     cy.get('input').should('not.be.visible')
   })
 
-  it('should be checkable by click within entire label element when type prop is card', () => {
+  it('emits checked value on click within entire label element when type prop is card', () => {
     mount(KRadio, {
       props: {
         modelValue: false,
@@ -59,12 +76,19 @@ describe('KRadio', () => {
       },
     })
 
-    cy.get('label').click().then(() => {
-      cy.get('input').should('be.checked')
-    })
+    cy.get('label')
+      .click()
+      .then(() => {
+        cy.get('input').should('be.checked')
+        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'change')
+        cy.wrap(Cypress.vueWrapper.emitted()).should(
+          'have.property',
+          'update:modelValue',
+        )
+      })
   })
 
-  it('should not be checkable when disabled and type prop is card', () => {
+  it('should not be selectable when disabled and type prop is card', () => {
     mount(KRadio, {
       props: {
         modelValue: false,
