@@ -1028,6 +1028,117 @@ export default {
 </script>
 ```
 
+#### Built-in slot styles
+
+Here is another example of how to use slot to completely customize content inside the cell.
+
+::: tip TIP
+You can choose utilize the `.k-table-cell-title` and `.k-table-cell-description` classes within the slot as shown in the example below to leverage preconfigured multi-line styles. 
+:::
+
+<div>
+  <KTable
+    :headers="cellSlotHeaders"
+    :fetcher="cellSlotFetcher"
+    :cellAttrs="cellSlotAttrs"
+    :enableClientSort="true"
+    hidePaginationWhenOptional
+    >
+    <template v-slot:name="{row}">
+      <img class="mr-2" src="/img/kong-logomark.png" :alt="row.img.alt">
+      <div class="d-flex flex-column">
+        <div class="k-table-cell-title">{{row.name}}</div>
+        <div class="k-table-cell-description truncate">{{row.description}}</div>
+      </div>
+    </template>
+  </KTable>
+</div>
+
+```html
+<template>
+  <KTable
+    :cellAttrs="cellAttrsFn"
+    :enableClientSort="true"
+    :fetcher="fetcher"
+    :headers="headers"
+    hidePaginationWhenOptional
+  >
+    <template #name="{row}">
+      <img :alt="row.img.alt" class="mr-2" :src="row.img.src">
+      <div class="d-flex flex-column">
+        <div class="k-table-cell-title">{{ row.name }}</div>
+        <div class="k-table-cell-description">{{ row.description }}</div>
+      </div>
+    </template>
+  </KTable>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      headers: [
+        { label: 'Name', key: 'name', sortable: true },
+        { label: 'ID', key: 'id' },
+        { label: 'Enabled', key: 'enabled' }
+      ],
+    }
+  },
+  methods: {
+    fetcher() {
+      return {
+        data: [
+          {
+            name: 'Basic Auth',
+            img: {
+              src: '/img/kong-logo.png',
+              alt: 'Basic Auth Icon',
+            },
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+            id: '517526354743085',
+            enabled: 'true',
+          },
+          {
+            name: 'Website Desktop',
+            img: {
+              src: '/img/kong-logo.png',
+              alt: 'Website Desktop Icon',
+            },
+            description: 'Ut enim ad minim veniam',
+            id: '328027447731198',
+            enabled: 'false',
+          },
+          {
+            name: 'Android App',
+            img: {
+              src: '/img/kong-logo.png',
+              alt: 'Android App Icon',
+            },
+            description: 'Excepteur sint occaecat cupidatat non proident',
+            id: '405383051040955',
+            enabled: 'true',
+          },
+        ],
+      }
+    },
+    cellAttrsFn({ headerKey }) {
+      if (headerKey === 'name') {
+        return { class: 'custom-layout-cell' }
+      }
+    },
+  },
+}
+</script>
+
+<style lang="scss">
+.k-table {
+  td.custom-layout-cell {
+    display: flex;
+  }
+}
+</style>
+```
+
 ### State Slots
 
 KTable has built-in state management for loading, empty, and error states. You can either use the props described in
@@ -1449,6 +1560,11 @@ export default defineComponent({
         { label: 'Version', key: 'version', sortable: false },
         { label: 'Connected', key: 'connected', sortable: false },
         { label: 'Last Seen', key: 'last_seen', sortable: false }
+      ],
+      cellSlotHeaders: [
+        { label: 'Name', key: 'name', sortable: true },
+        { label: 'ID', key: 'id' },
+        { label: 'Enabled', key: 'enabled' }
       ]
     }
   },
@@ -1475,7 +1591,6 @@ export default defineComponent({
         }, 500);
       });
     },
-
     async fetcher(payload) {
       const params = {
         _limit: payload.pageSize,
@@ -1485,7 +1600,6 @@ export default defineComponent({
       }
       return params
     },
-
     tableOptionsFetcher () {
       return {
         data: [
@@ -1507,11 +1621,9 @@ export default defineComponent({
         ]
       }
     },
-
     emptyFetcher () {
       return { data: [] }
     },
-
     tableOptionsLinkFetcher () {
       return {
         data: [
@@ -1523,7 +1635,6 @@ export default defineComponent({
         ]
       }
     },
-
     tableOptionsRowAttrsFetcher () {
       return {
         data: [
@@ -1545,7 +1656,6 @@ export default defineComponent({
         ]
       }
     },
-
     tableOptionsCellAttrsFetcher() {
       return {
         data: [
@@ -1572,7 +1682,6 @@ export default defineComponent({
         ]
       }
     },
-
     sortHandlerFn({ key, prevKey, sortColumnOrder, data}) {
       return data.sort((a, b) => {
         if (key === 'last_seen') {
@@ -1596,7 +1705,6 @@ export default defineComponent({
         }
       })
     },
-
     sortHandlerFnFetcher() {
       return {
         data: [
@@ -1643,7 +1751,6 @@ export default defineComponent({
         ]
       }
     },
-
     actionRow (e, row, type) {
       this.eventType = e.type
       this.row = row
@@ -1708,7 +1815,6 @@ export default defineComponent({
         },
       }
     },
-
     async generateOffsetPaginationTableData(pgSize) {
       const pageSize = pgSize || this.offsetPaginationPageSize
       const data = []
@@ -1742,7 +1848,6 @@ export default defineComponent({
 
       this.offsetPaginationData = offsetObj
     },
-
     async offsetPaginationFetcher({ pageSize, offset }) {
       if (pageSize !== this.offsetPaginationPageSize) {
         this.offsetPaginationPageSize = pageSize
@@ -1753,6 +1858,44 @@ export default defineComponent({
         ? this.offsetPaginationData[offset]
         : Object.values(this.offsetPaginationData)[0]
     },
+    cellSlotFetcher () {
+      return {
+        data: [
+          {
+            name:'Basic Auth',
+            img: {
+              alt: 'Basic Auth Icon'
+            },
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+            id: '517526354743085',
+            enabled: 'true'
+          },
+          {
+            name: 'Website Desktop',
+            img: {
+              alt: 'Website Desktop Icon'
+            },
+            description: 'Ut enim ad minim veniam',
+            id: '328027447731198',
+            enabled: 'false'
+          },
+          {
+            name: 'Android App',
+            img: {
+              alt: 'Android App Icon'
+            },
+            description: 'Excepteur sint occaecat cupidatat non proident',
+            id: '405383051040955',
+            enabled: 'true'
+          }
+        ]
+      }
+    },
+    cellSlotAttrs ({ headerKey }) {
+      if (headerKey === 'name') {
+        return { class: 'custom-layout-cell' }
+      }
+    }
   },
   mounted() {
     this.generateOffsetPaginationTableData()
@@ -1767,13 +1910,7 @@ export default defineComponent({
   th, tr, td {
     border: unset;
   }
-}
 
-.table-wrapper {
-  --KTableHover: lavender;
-}
-
-.k-table {
   tr.enabled:hover {
     --KTableHover: var(--green-200, #ccffe1);
   }
@@ -1781,5 +1918,22 @@ export default defineComponent({
   tr.disabled:hover {
     --KTableHover: var(--yellow-100, #fff9e6);
   }
+  
+  td.custom-layout-cell {
+    display: flex;
+
+    img {
+      width: 30px;
+      object-fit: contain;
+    }
+
+    .k-table-cell-description {
+      max-width: 240px;
+    }
+  }
+}
+
+.table-wrapper {
+  --KTableHover: lavender;
 }
 </style>

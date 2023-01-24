@@ -358,7 +358,7 @@ const props = defineProps({
    */
   filterFunc: {
     type: Function,
-    default: (params: MultiselectFilterFnParams) => params.items.filter((item: MultiselectItem) => item.label.toLowerCase().includes(params.query.toLowerCase())),
+    default: (params: MultiselectFilterFnParams) => params.items.filter((item: MultiselectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase())),
   },
   /**
    * A flag for autosuggest mode
