@@ -143,6 +143,128 @@ To set the default state (collapsed or expanded) without binding to v-model you 
   I am expanded by default
 </KCollapse>
 ```
+### type
+
+Values: `tags` or `default`. Use this optional prop to specific render the tags(`KBadge`) content.  The trigger icon will automatically appear when the content width is longer than the parent container. If type is setted to tags, only tags related props: `tags`, `tagsAppearance`, and `noCollapse` will take effect.
+
+<KCard title="Tags">
+  <template v-slot:body>
+    <KCollapse
+      type="tags"
+      :tags="complexTags"
+      >
+    </KCollapse>
+  </template>
+</KCard>
+
+```html
+<KCollapse
+  type="tags"
+  :tags="['tag-001', 'tag-002', 'tag-003', 
+  'tag-004', 'tag-005','tag-006', 
+  'BasicAuth', 'WebsiteDesktop', 'AndroidApp', 
+  'iOSApp', 'LinuxVirtualMachine']"
+  >
+</KCollapse>
+```
+
+### tags
+
+Use this prop to provide the tags content of an array.
+
+<KCard title="Tags">
+  <template v-slot:body>
+    <KCollapse
+      type="tags"
+      :tags="['tag-001', 'tag-002', 'tag-003']"
+      >
+    </KCollapse>
+  </template>
+</KCard>
+
+```html
+<KCollapse
+  type="tags"
+  :tags="['tag-001', 'tag-002', 'tag-003']"
+  >
+</KCollapse>
+```
+
+### tagsAppearance
+
+Values: `light` or `default`. Use this optional prop to set the display appearance of the tags.
+
+<KCard title="Tags">
+  <template v-slot:body>
+    <KCollapse
+      type="tags"
+      :tags="complexTags"
+      tags-appearance="light"
+      >
+    </KCollapse>
+  </template>
+</KCard>
+
+```html
+<KCollapse
+  type="tags"
+  :tags="complexTags"
+  tags-appearance="light"
+  >
+</KCollapse>
+```
+
+### noCollapse
+
+Boolean value used to disable the collapse effect on tags.
+
+<KCard title="Tags">
+  <template v-slot:body>
+    <KCollapse
+      type="tags"
+      :tags="complexTags"
+      :no-collapse="true"
+      >
+    </KCollapse>
+  </template>
+</KCard>
+
+```html
+<KCollapse
+  type="tags"
+  :tags="complexTags"
+  :no-collapse="true"
+  >
+</KCollapse>
+```
+
+## Examples
+
+### Rendering tags inside a `KTable`
+
+<KTable :fetcher="tableOptionsFetcher" :headers="tableOptionsHeaders" >
+  <template v-slot:tags="{rowValue}">
+    <KCollapse
+      type="tags"
+      :tags="rowValue"
+      >
+    </KCollapse>
+  </template>
+</KTable>
+
+```html
+<KTable :fetcher="tableOptionsFetcher" :headers="tableOptionsHeaders" >
+  <template v-slot:tags="{rowValue}">
+    <KCollapse
+      type="tags"
+      :tags="rowValue"
+      >
+    </KCollapse>
+  </template>
+</KTable>
+```
+
+
 
 ## Slots
 
@@ -262,9 +384,39 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   data() {
     return {
-      myIsCollapsed: true
+      myIsCollapsed: true,
+      tableOptionsHeaders: [
+        { label: 'Name', key: 'name' },
+        { label: 'ID', key: 'id' },
+        { label: 'Tags', key: 'tags' },
+        { key: 'actions', hideLabel: true }
+      ],
+      complexTags: ['tag-001', 'tag-002', 'tag-003', 'tag-004', 'tag-005','tag-006', 'BasicAuth', 'WebsiteDesktop', 'AndroidApp', 'iOSApp', 'LinuxVirtualMachine']
     }
   },
+  methods: {
+    tableOptionsFetcher () {
+      return {
+        data: [
+          {
+            name: 'Basic Auth',
+            id: '517526354743085',
+            tags: ['tag-001', 'tag-002', 'tag-003', 'tag-004', 'tag-005','tag-006'],
+          },
+          {
+            name: 'Website Desktop',
+            id: '328027447731198',
+            tags: ['tag-001', 'tag-002', 'tag-003'],
+
+          },
+          {
+            name: 'Android App',
+            id: '405383051040955',
+          }
+        ]
+      }
+    },
+  }
 })
 </script>
 

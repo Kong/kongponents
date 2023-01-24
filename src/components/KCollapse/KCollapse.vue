@@ -1,6 +1,14 @@
 <template>
   <div class="k-collapse w-100">
+    <div v-if="type === 'tags'">
+      <KCollapseItem
+        :no-collapse="noCollapse"
+        :tags="tags"
+        :tags-appearance="tagsAppearance"
+      />
+    </div>
     <div
+      v-else
       class="k-collapse-heading mb-3"
       :class="{
         'd-flex': trailingTrigger,
@@ -78,13 +86,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, watch } from 'vue'
+import { defineComponent, computed, ref, watch, PropType } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
+import KCollapseItem from '@/components/KCollapse/KCollapseItem.vue'
 
 export default defineComponent({
   name: 'KCollapse',
   components: {
     KIcon,
+    KCollapseItem,
   },
   props: {
     // Is the KCollapse collapsed? Defaults to true
@@ -110,6 +120,25 @@ export default defineComponent({
       validator: (value: string): boolean => {
         return ['leading', 'trailing'].includes(value)
       },
+    },
+    type: {
+      type: String as PropType<'default' | 'tags'>,
+      required: false,
+      default: 'default',
+    },
+    tags: {
+      type: Array,
+      default: () => [],
+    },
+    tagsAppearance: {
+      type: String as PropType<'default' | 'light'>,
+      required: false,
+      default: 'default',
+    },
+    noCollapse: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   emits: ['toggled', 'update:modelValue'],
