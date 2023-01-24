@@ -1031,7 +1031,7 @@ export default {
 Here is another example of how to use slot to completely customize content inside the cell.
 
 ::: tip TIP
-You can use the `.k-table-cell-title` and `.k-table-cell-description` classes within the slot as shown in the example below to leverage preconfigured styles, should you need to make a multi-row layout. Or you could use your custom styles.
+You can choose utilize the `.k-table-cell-title` and `.k-table-cell-description` classes within the slot as shown in the example below to leverage preconfigured multi-line styles. 
 :::
 
 <div>
