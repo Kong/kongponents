@@ -87,36 +87,38 @@ const updateToggleVisibility = () => {
 const handleMoreToggleClick = () => {
   expanded.value = props.noCollapse || !expanded.value
 }
-const getTagLabel = (tag) => {
+const getTagLabel = (tag: any) => {
   if (typeof tag === 'object' && tag !== null && 'label' in tag) {
     return tag.label
   }
   return tag
 }
-const getTagForeground = (tag) => {
+const getTagForeground = (tag: any) => {
   if (typeof tag === 'object' && tag !== null && 'foreground' in tag) {
     return tag.foreground
   }
   return undefined
 }
-const getTagBackground = (tag) => {
+const getTagBackground = (tag: any) => {
   if (typeof tag === 'object' && tag !== null && 'background' in tag) {
     return tag.background
   }
   return undefined
 }
-const getTagIsBordered = (tag) => {
+const getTagIsBordered = (tag: any) => {
   if (typeof tag === 'object' && tag !== null && 'isBordered' in tag) {
     return tag.isBordered
   }
   return undefined
 }
 onMounted(() => {
+  // @ts-ignore
   resizeObserver.value = new ResizeObserver(updateToggleVisibility).observe(tagsContainer.value)
   updateToggleVisibility()
 })
 onBeforeUnmount(() => {
   if (resizeObserver.value) {
+    // @ts-ignore
     resizeObserver.value.unobserve(tagsContainer.value)
   }
 })
