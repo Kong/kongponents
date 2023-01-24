@@ -155,8 +155,8 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 
 <KCard>
   <template #body>
-    <KRadio v-model="selected" :selected-value="true">
-      Label goes here. The radio is {{ selected ? 'selected' : 'not selected' }}
+    <KRadio v-model="isStateOn" :selected-value="true">
+      Label goes here. The radio is {{ isStateOn ? 'selected' : 'not selected' }}
     </KRadio>
   </template>
 </KCard>
@@ -164,10 +164,10 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 ```html
 <KRadio
   label="This will be replaced with a slot"
-  v-model="selected"
+  v-model="isStateOn"
   :selected-value="true"
 >
-  Label goes here. The radio is {{ selected ? "selected" : "not selected" }}
+  Label goes here. The radio is {{ isStateOn ? "selected" : "not selected" }}
 </KRadio>
 ```
 
@@ -175,7 +175,7 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 
 <KCard>
   <template #body>
-    <KRadio label="Some label" description="This will be replaced with a slot" v-model="selected" :selected-value="true">
+    <KRadio label="Some label" description="This will be replaced with a slot" v-model="isStateOn" :selected-value="true">
       <template #description>
         Description goes here
       </template>
@@ -185,7 +185,7 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 
 ```html
 <KRadio
-  v-model="selected"
+  v-model="isStateOn"
   description="This will be replaced with a slot"
   label="Some label"
   :selected-value="true"
@@ -219,7 +219,7 @@ An Example of changing the background color of KRadio to lime might look like:
 ```html
 <template>
   <div class="KRadio-wrapper">
-    <KRadio v-model="selected" :selected-value="true" />
+    <KRadio v-model="isStateOn" :selected-value="true" />
   </div>
 </template>
 
@@ -240,7 +240,7 @@ export default defineComponent({
       objB: { name: 'b' },
       radio: true,
       radioState: true,
-      selected: false,
+      isStateOn: false,
       cardRadio: ''
     })
 
