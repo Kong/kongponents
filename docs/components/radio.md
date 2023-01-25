@@ -24,21 +24,21 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, reactive, toRefs } from "vue";
+import { defineComponent, reactive, toRefs } from "vue";
 
-  export default defineComponent({
-    setup() {
-      const data = reactive({
-        objA: { name: "a" },
-        objB: { name: "b" },
-        radio: true,
-      });
+export default defineComponent({
+  setup() {
+    const data = reactive({
+      objA: { name: "a" },
+      objB: { name: "b" },
+      radio: true,
+    });
 
-      return {
-        ...toRefs(data),
-      };
-    },
-  });
+    return {
+      ...toRefs(data),
+    };
+  },
+});
 </script>
 ```
 
@@ -128,19 +128,19 @@ You can choose to utilize the `.k-radio-label` and `.k-radio-description` classe
 </template>
 
 <script lang="ts">
-  import { defineComponent, reactive, toRefs } from "vue";
+import { defineComponent, reactive, toRefs } from "vue";
 
-  export default defineComponent({
-    setup() {
-      const data = reactive({
-        cardRadio: "",
-      });
+export default defineComponent({
+  setup() {
+    const data = reactive({
+      cardRadio: "",
+    });
 
-      return {
-        ...toRefs(data),
-      };
-    },
-  });
+    return {
+      ...toRefs(data),
+    };
+  },
+});
 </script>
 ```
 
@@ -235,9 +235,9 @@ An Example of changing the background color of KRadio to lime might look like:
 </template>
 
 <style>
-  .KRadio-wrapper {
-    --KRadioPrimary: lime;
-  }
+.KRadio-wrapper {
+  --KRadioPrimary: lime;
+}
 </style>
 ```
 
