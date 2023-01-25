@@ -29,8 +29,8 @@ import { defineComponent, reactive, toRefs } from "vue";
 export default defineComponent({
   setup() {
     const data = reactive({
-      objA: { name: "a" },
-      objB: { name: "b" },
+      objA: { name: 'a' },
+      objB: { name: 'b' },
       radio: true,
     });
 
