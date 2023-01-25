@@ -24,21 +24,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
+  import { defineComponent, reactive, toRefs } from "vue";
 
-export default defineComponent({
-  setup() {
-    const data = reactive({
-      objA: { name: 'a' },
-      objB: { name: 'b' },
-      radio: true,
-    })
+  export default defineComponent({
+    setup() {
+      const data = reactive({
+        objA: { name: "a" },
+        objB: { name: "b" },
+        radio: true,
+      });
 
-    return {
-      ...toRefs(data),
-    }
-  }
-})
+      return {
+        ...toRefs(data),
+      };
+    },
+  });
 </script>
 ```
 
@@ -67,7 +67,12 @@ Will place label text to the right of the radio. Can also be [slotted](#slots).
 Will place description text under the radio label. Can also be [slotted](#slots).
 
 ```html
-<KRadio :selected-value="true" v-model="radio" label="Label Example" description="Some subheader text" />
+<KRadio
+  :selected-value="true"
+  v-model="radio"
+  label="Label Example"
+  description="Some subheader text"
+/>
 ```
 
 <KRadio :selected-value="true" v-model="radio" label="Label Example" description="Some subheader text" />
@@ -75,6 +80,8 @@ Will place description text under the radio label. Can also be [slotted](#slots)
 ### type
 
 Controls appearance of radio input element. Accepted values:
+
+- `radio` (default)
 - `card`
 
 ::: warning NOTE
@@ -119,19 +126,19 @@ You can choose to utilize the `.k-radio-label` and `.k-radio-description` classe
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
+  import { defineComponent, reactive, toRefs } from "vue";
 
-export default defineComponent({
-  setup() {
-    const data = reactive({
-      cardRadio: '',
-    })
+  export default defineComponent({
+    setup() {
+      const data = reactive({
+        cardRadio: "",
+      });
 
-    return {
-      ...toRefs(data),
-    }
-  }
-})
+      return {
+        ...toRefs(data),
+      };
+    },
+  });
 </script>
 ```
 
@@ -140,7 +147,9 @@ export default defineComponent({
 Any valid attribute will be added to the input. You can read more about `$attrs` [here](https://vuejs.org/api/composition-api-setup.html#setup-context).
 
 ```html
-<KRadio v-model="checked" :selected-value="true" disabled>Disabled radio</KRadio>
+<KRadio v-model="checked" :selected-value="true" disabled>
+  Disabled radio
+</KRadio>
 ```
 
 <KCard>
@@ -203,10 +212,10 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 
 ## Theming
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KRadioPrimary`| Radio primary background & border color
-| `--KRadioDisabled`| Radio disabled background color
+| Variable           | Purpose                                 |
+| :----------------- | :-------------------------------------- |
+| `--KRadioPrimary`  | Radio primary background & border color |
+| `--KRadioDisabled` | Radio disabled background color         |
 
 An Example of changing the background color of KRadio to lime might look like:
 
@@ -224,9 +233,9 @@ An Example of changing the background color of KRadio to lime might look like:
 </template>
 
 <style>
-.KRadio-wrapper {
-  --KRadioPrimary: lime;
-}
+  .KRadio-wrapper {
+    --KRadioPrimary: lime;
+  }
 </style>
 ```
 
