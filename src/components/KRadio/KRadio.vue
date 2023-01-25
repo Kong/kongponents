@@ -15,7 +15,7 @@
       v-if="isTypeDefault && hasLabel"
       class="k-radio-label"
     >
-      <slot>{{ label }}</slot>
+      <slot name="default">{{ label }}</slot>
     </span>
     <div
       v-if="isTypeDefault && hasLabel && hasDescription"
