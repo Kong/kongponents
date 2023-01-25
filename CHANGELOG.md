@@ -1,3 +1,17 @@
+## [8.19.1](https://github.com/Kong/kongponents/compare/v8.19.0...v8.19.1) (2023-01-24)
+
+
+### Bug Fixes
+
+* **selects:** optional chain prop items ([#1070](https://github.com/Kong/kongponents/issues/1070)) ([67d996b](https://github.com/Kong/kongponents/commit/67d996b3b09f95862713c85b17942e3e940c9bc9))
+
+# [8.19.0](https://github.com/Kong/kongponents/compare/v8.18.8...v8.19.0) (2023-01-24)
+
+
+### Features
+
+* **ktable:** add styling for multi-row layout [KHCP-5819] ([#1067](https://github.com/Kong/kongponents/issues/1067)) ([40a93e2](https://github.com/Kong/kongponents/commit/40a93e23796693a02d933aeea0c5b32c4764d1e8))
+
 ## [8.18.8](https://github.com/Kong/kongponents/compare/v8.18.7...v8.18.8) (2023-01-23)
 
 

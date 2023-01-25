@@ -40,6 +40,12 @@ Perform a full build of all Kongponents and the Docs site
 yarn build
 ```
 
+Perform a full build of all Kongponents and output a `/bundle-analyzer/stats-treemap.html` to view the output.
+
+```sh
+yarn build:visualize
+```
+
 ## CLI
 
 It is **highly recommended** to utilize the included CLI when creating new Kongponents as it will scaffold all the necessary files.

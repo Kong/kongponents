@@ -319,7 +319,7 @@ export default defineComponent({
      */
     filterFunc: {
       type: Function,
-      default: (params: SelectFilterFnParams) => params.items.filter((item: SelectItem) => item.label.toLowerCase().includes(params.query.toLowerCase())),
+      default: (params: SelectFilterFnParams) => params.items.filter((item: SelectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase())),
     },
     /**
      * Control whether the input for `select` and `dropdown` appearances supports filtering.
