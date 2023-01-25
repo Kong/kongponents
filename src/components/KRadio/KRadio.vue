@@ -2,7 +2,7 @@
   <label
     :checked="isSelected"
     class="k-radio"
-    :class="`${isTypeDefault ? 'k-radio-default' : `k-radio-${type}`} ${$attrs.class ? $attrs.class : ''}`"
+    :class="[isTypeDefault ? 'k-radio-default' : `k-radio-${type}`, $attrs.class ? $attrs.class : '']"
   >
     <input
       :checked="isSelected"
@@ -73,9 +73,9 @@ const props = defineProps({
    */
   type: {
     type: String,
-    default: '',
+    default: 'radio',
     validator: (value: string): boolean => {
-      return ['', 'card'].includes(value)
+      return ['radio', 'card'].includes(value)
     },
   },
 })
@@ -87,7 +87,7 @@ const hasDescription = computed((): boolean => !!(props.description || slots.des
 
 const isSelected = computed((): boolean => props.selectedValue === props.modelValue)
 
-const isTypeDefault = computed((): boolean => props.type === '')
+const isTypeDefault = computed((): boolean => props.type === 'radio')
 
 const emit = defineEmits(['change', 'update:modelValue'])
 
@@ -119,7 +119,7 @@ $background-color-card-checked: color(blue-100);
 $border-color-card-checked: color(blue-300);
 $background-color-card-disabled: color(grey-200);
 
-@mixin disabled {
+@mixin kRadioDisabled {
   background-color: $background-color-card-disabled;
   cursor: not-allowed;
   opacity: 0.6;
@@ -130,14 +130,14 @@ $background-color-card-disabled: color(grey-200);
   }
 }
 
-@mixin checked {
+@mixin kRadioChecked {
   background-color: $background-color-card-checked;
   border-color: $border-color-card-checked;
   -webkit-box-shadow: 0px 4px 20px var(--black-10);
   box-shadow: 0px 4px 20px var(--black-10);
 }
 
-@mixin checkedAndDisabled {
+@mixin kRadioCheckedAndDisabled {
   &:hover {
     background-color: $background-color-card-checked;
     border-color: $border-color-card-checked;
@@ -195,12 +195,12 @@ $background-color-card-disabled: color(grey-200);
     }
 
     &:has(.k-input:disabled) {
-      @include disabled;
+      @include kRadioDisabled;
     }
 
     // Mozila disabled state handling
     &[disabled=""], &[disabled="true"] {
-      @include disabled;
+      @include kRadioDisabled;
     }
 
     &:hover {
@@ -209,21 +209,21 @@ $background-color-card-disabled: color(grey-200);
     }
 
     &:has(.k-input:checked) {
-      @include checked;
+      @include kRadioChecked;
     }
 
     // Mozila checked state handling
     &[checked=""], &[checked="true"] {
-      @include checked;
+      @include kRadioChecked;
     }
 
     &:has(.k-input:checked:disabled) {
-      @include checkedAndDisabled;
+      @include kRadioCheckedAndDisabled;
     }
 
     // Mozila checked AND disabled state handling
     &[checked=""][disabled=""], &[checked="true"][disabled="true"] {
-      @include checkedAndDisabled;
+      @include kRadioCheckedAndDisabled;
     }
   }
 }
