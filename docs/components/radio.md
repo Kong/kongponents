@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue";
+import { defineComponent, reactive, toRefs } from 'vue'
 
 export default defineComponent({
   setup() {
@@ -32,13 +32,13 @@ export default defineComponent({
       objA: { name: 'a' },
       objB: { name: 'b' },
       radio: true,
-    });
+    })
 
     return {
       ...toRefs(data),
-    };
-  },
-});
+    }
+  }
+})
 </script>
 ```
 
@@ -128,7 +128,7 @@ You can choose to utilize the `.k-radio-label` and `.k-radio-description` classe
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue";
+import { defineComponent, reactive, toRefs } from 'vue'
 
 export default defineComponent({
   setup() {
@@ -138,9 +138,9 @@ export default defineComponent({
 
     return {
       ...toRefs(data),
-    };
-  },
-});
+    }
+  }
+})
 </script>
 ```
 
