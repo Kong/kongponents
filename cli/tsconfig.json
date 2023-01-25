@@ -1,17 +1,22 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
+    "target": "esnext",
+    "module": "esnext",
+    "baseUrl": ".",
     "rootDir": ".",
     "outDir": "../bin",
+    "moduleResolution": "node",
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "types": [
-      "node"
+      "@types/inquirer",
+      "@types/node",
+      "@types/node-emoji"
     ]
   },
   "include": [

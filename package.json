@@ -32,7 +32,7 @@
     "copy:css-variables": "copyfiles -f src/styles/_variables.scss dist",
     "build": "yarn build:cli && yarn stylelint && yarn lint && yarn build:kongponents && yarn build:docs",
     "commit": "cz",
-    "create-kongponent": "node ./bin/index.js",
+    "create-kongponent": "node --experimental-specifier-resolution=node ./bin/index.js",
     "dev": "vite",
     "docs:build": "vitepress build docs",
     "docs:dev": "vitepress dev docs",
