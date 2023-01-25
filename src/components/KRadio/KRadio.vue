@@ -24,7 +24,7 @@
       <slot name="description">{{ description }}</slot>
     </div>
     <div v-if="!isTypeDefault && hasLabel">
-      <slot />
+      <slot name="default" />
     </div>
   </label>
 </template>
