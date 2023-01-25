@@ -85,11 +85,13 @@ Controls appearance of radio input element. Accepted values:
 - `card`
 
 ::: warning NOTE
-`label` and `description` props, as well as `description` slot are ignored when `type` prop is `card`. You can only define content of a card via default slot.
+The `label` and `description` props, as well as the `description` slot, are ignored when `type` prop is `card`. 
+
+You can only define content of a card via the `default` slot.
 :::
 
 ::: tip TIP
-You can choose to utilize the `.k-radio-label` and `.k-radio-description` classes within the slot as shown in the example below to leverage preconfigured styles.
+You can choose to utilize the `.k-radio-label` and `.k-radio-description` classes within the `default` slot as shown in the example below to leverage preconfigured styles.
 :::
 
 <KCard>
