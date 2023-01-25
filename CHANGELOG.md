@@ -1,3 +1,10 @@
+# [8.20.0](https://github.com/Kong/kongponents/compare/v8.19.1...v8.20.0) (2023-01-25)
+
+
+### Features
+
+* **kradio:** add support for card style component [KHCP-5660] ([#1059](https://github.com/Kong/kongponents/issues/1059)) ([cf9caa9](https://github.com/Kong/kongponents/commit/cf9caa9d79a4cfd5d6af19bc47639343b8d63264))
+
 ## [8.19.1](https://github.com/Kong/kongponents/compare/v8.19.0...v8.19.1) (2023-01-24)
 
 
