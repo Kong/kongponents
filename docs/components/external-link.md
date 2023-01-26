@@ -1,6 +1,6 @@
 # External Link
 
-**KExternalLink** - a link with an icon
+**KExternalLink** - a component to render an anchor tag (that opens in a new window) with an icon
 
 <KCard>
     <template v-slot:body>
@@ -36,11 +36,27 @@ Must be a valid URL
 
 ```html
 <KExternalLink href="https://kongponents">
-  Will produce error
+  Won't be rendered
 </KExternalLink>
 ```
 
 :::
+
+### hideIcon
+
+If true, icon won't be rendered.
+
+<KCard>
+    <template v-slot:body>
+      <KExternalLink href="https://kongponents.konghq.com/" hideIcon>Kongponents</KExternalLink>
+    </template>
+</KCard>
+
+```html
+<KExternalLink hideIcon href="https://kongponents.konghq.com/">
+  Kongponents
+</KExternalLink>
+```
 
 ## Slots
 
