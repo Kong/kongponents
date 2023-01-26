@@ -5,11 +5,13 @@
     :href="href"
     rel="noopener"
     target="_blank"
+    @mouseleave="isMouseOver = false"
+    @mouseover="isMouseOver = true"
   >
     <slot />
     <KIcon
       v-if="!hideIcon"
-      color="var(--blue-500)"
+      :color="iconColor"
       icon="externalLink"
       size="12"
     />
@@ -33,7 +35,7 @@ const isValidUrl = (url: string): boolean => {
 
 <script setup lang="ts">
 // eslint-disable-next-line import/first
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const props = defineProps({
   href: {
@@ -48,6 +50,9 @@ const props = defineProps({
 })
 
 const isHrefValid = computed((): boolean => !!isValidUrl(props.href))
+
+const isMouseOver = ref(false)
+const iconColor = computed((): string => isMouseOver.value ? 'var(--KExternalLinkColorHover, var(--blue-600))' : 'var(--KExternalLinkColor, var(--blue-500))')
 </script>
 
 <style lang="scss" scoped>
@@ -56,10 +61,14 @@ const isHrefValid = computed((): boolean => !!isValidUrl(props.href))
 
 .k-external-link {
   align-items: center;
-  color: color(blue-500);
+  color: var(--KExternalLinkColor, color(blue-500));
   display: inline-flex;
   font-weight: 400;
   text-decoration: none;
+
+  &:hover {
+    color: var(--KExternalLinkColorHover, color(blue-600));
+  }
 
   .kong-icon {
     margin-left: var(--spacing-xs);
