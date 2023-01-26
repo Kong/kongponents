@@ -61,3 +61,45 @@ If true, icon won't be rendered.
 ## Slots
 
 - `default` - link text
+
+## Theming
+
+| Variable                    | Purpose                                     |
+| :-------------------------- | :------------------------------------------ |
+| `--KExternalLinkColor`      | KExternalLinkColor text color               |
+| `--KExternalLinkColorHover` | KExternalLinkColor text color on mouse over |
+
+An Example of changing the text color of KExternalLink to gold might look
+like:
+
+<KCard>
+  <template v-slot:body>
+    <div class="KExternalLink-wrapper">
+      <KExternalLink href="https://kongponents.konghq.com/">Kongponents</KExternalLink>
+    </div>
+  </template>
+</KCard>
+
+```html
+<template>
+  <div class="KExternalLink-wrapper">
+    <KExternalLink href="https://kongponents.konghq.com/">
+      Kongponents
+    </KExternalLink>
+  </div>
+</template>
+
+<style lang="scss">
+.KExternalLink-wrapper {
+  --KExternalLinkColor: gold;
+  --KExternalLinkColorHover: yellow;
+}
+</style>
+```
+
+<style lang="scss">
+.KExternalLink-wrapper {
+  --KExternalLinkColor: gold;
+  --KExternalLinkColorHover: yellow;
+}
+</style>
