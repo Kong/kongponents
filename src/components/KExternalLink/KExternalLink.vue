@@ -1,6 +1,6 @@
 <template>
   <a
-    v-if="href"
+    v-if="isHrefValid"
     class="k-external-link"
     :href="href"
     rel="noopener"
@@ -16,27 +16,38 @@
   </a>
 </template>
 
+<script lang="ts">
+const isValidUrl = (url: string): boolean => {
+  try {
+    // eslint-disable-next-line no-new
+    new URL(url)
+
+    // No error was thrown, so return true
+    return true
+  } catch {
+    // Invalid URL
+    return false
+  }
+}
+</script>
+
 <script setup lang="ts">
-defineProps({
+// eslint-disable-next-line import/first
+import { computed } from 'vue'
+
+const props = defineProps({
   href: {
     type: String,
     required: true,
-    validator: function(value:string) {
-      const urlPattern = new RegExp('^(https?:\\/\\/)?' + // protocol
-    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-    '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-    '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-    '(\\#[-a-z\\d_]*)?$', 'i') // fragment locator
-
-      return !!urlPattern.test(value)
-    },
+    validator: (value: string) => { return isValidUrl(value) },
   },
   hideIcon: {
     type: Boolean,
     default: false,
   },
 })
+
+const isHrefValid = computed((): boolean => !!isValidUrl(props.href))
 </script>
 
 <style lang="scss" scoped>
@@ -46,12 +57,12 @@ defineProps({
 .k-external-link {
   align-items: center;
   color: color(blue-500);
-  display: flex;
+  display: inline-flex;
   font-weight: 400;
   text-decoration: none;
 
   .kong-icon {
-    margin-left: auto;
+    margin-left: var(--spacing-xs);
   }
 }
 </style>
