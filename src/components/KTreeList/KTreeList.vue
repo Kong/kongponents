@@ -210,8 +210,8 @@ onMounted(() => {
 
 <style lang="scss">
 .k-tree-list .k-tree-draggable {
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 .k-tree-list > .k-tree-draggable > .k-tree-item-container {
   &:before {

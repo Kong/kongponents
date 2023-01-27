@@ -313,13 +313,13 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .k-modal-backdrop {
-  position: fixed;
-  top: 0;
-  right: 0;
+  background-color: var(--KModalBackdrop, rgba(11, 23, 45, .6));
   bottom: 0;
   left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
   z-index: 1100;
-  background-color: var(--KModalBackdrop, rgba(11, 23, 45, .6));
 }
 
 // Allow modal backdrop to scroll if viewport is shorter than modal
@@ -332,94 +332,94 @@ export default defineComponent({
   --KModalPadding: var(--spacing-xl, spacing(xl));
 
   .k-modal-dialog {
-    position: relative;
-    z-index: 9999;
-    width: auto;
-    max-width: var(--KModalMaxWidth, 500px);
-    padding: var(--KModalPadding);
-    margin: 50px auto;
-    overflow: hidden;
     background: #fff;
     border: var(--KModalBorder);
     border-radius: 3px;
     box-shadow: 0px 0px 12px 0px var(--black-10, color(black-10));
+    margin: 50px auto;
+    max-width: var(--KModalMaxWidth, 500px);
+    overflow: hidden;
+    padding: var(--KModalPadding);
+    position: relative;
+    width: auto;
+    z-index: 9999;
 
     .close-button {
       position: absolute;
-      top: var(--spacing-lg);
       right: var(--spacing-lg);
+      top: var(--spacing-lg);
       // 1 more than .k-modal-dialog
       z-index: 10000;
 
       .k-button {
-        padding: var(--spacing-xs);
         margin-top: -8px;
+        padding: var(--spacing-xs);
       }
     }
   }
 
   .k-modal-content {
-    position: relative;
     display: flex;
     flex-direction: column;
+    position: relative;
 
     .k-modal-header-image {
-      margin-top: calc(#{var(--KModalPadding)} * -1);
-      margin-right: calc(#{var(--KModalPadding)} * -1);
       margin-bottom: var(--spacing-xl, spacing(xl));
       margin-left: calc(#{var(--KModalPadding)} * -1);
+      margin-right: calc(#{var(--KModalPadding)} * -1);
+      margin-top: calc(#{var(--KModalPadding)} * -1);
     }
 
     .k-modal-header {
-      display: flex;
       align-items: center;
-      justify-content: flex-start;
+      color: var(--KModalHeaderColor, var(--black-500, color(black-500)));
+      display: flex;
       font-size: var(--KModalHeaderSize, 20px);
       font-weight: var(--KModalHeaderWeight, 600);
-      color: var(--KModalHeaderColor, var(--black-500, color(black-500)));
+      justify-content: flex-start;
 
       &.header-centered {
-        margin-right: auto;
         margin-left: auto;
+        margin-right: auto;
         text-align: center;
       }
 
       &.header-left {
-        margin-right: auto;
         margin-left: 0;
+        margin-right: auto;
         text-align: left;
       }
 
       &.header-right {
-        margin-right: 0;
         margin-left: auto;
+        margin-right: 0;
         text-align: right;
       }
     }
 
     .k-modal-body {
-      position: relative;
+      color: var(--KModalColor, var(--grey-500, color(grey-500)));
       flex: 1 1 auto;
-      margin-bottom: var(--KModalBottomMargin, var(--spacing-lg, spacing(lg)));
       font-size: var(--KModalFontSize, 13px);
       line-height: 20px;
-      color: var(--KModalColor, var(--grey-500, color(grey-500)));
+      margin-bottom: var(--KModalBottomMargin, var(--spacing-lg, spacing(lg)));
+      position: relative;
 
       &.content-centered {
-        margin-right: auto;
         margin-left: auto;
+        margin-right: auto;
         text-align: center;
       }
 
       &.content-left {
-        margin-right: auto;
         margin-left: 0;
+        margin-right: auto;
         text-align: left;
       }
 
       &.content-right {
-        margin-right: 0;
         margin-left: auto;
+        margin-right: 0;
         text-align: right;
       }
     }

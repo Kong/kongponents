@@ -122,21 +122,21 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .k-menu-item {
-  position: relative;
-  padding-left: 2px;
-  margin: 0;
+  color: var(--grey-500);
   font-size: 13px;
   font-weight: 400;
   line-height: 24px;
-  color: var(--grey-500);
-  white-space: nowrap;
   list-style: none;
+  margin: 0;
+  padding-left: 2px;
+  position: relative;
+  white-space: nowrap;
 }
 
 .span-icon-container {
-  width: 24px;
   height: 24px;
   margin-left: auto;
+  width: 24px;
 }
 
 .title-dark {
@@ -144,35 +144,35 @@ export default defineComponent({
 }
 
 .k-menu-item .menu-button {
-  padding-right: 24px;
-  padding-left: 19px;
   cursor: pointer !important;
+  padding-left: 19px;
+  padding-right: 24px;
   &:hover {
     color: var(--grey-600);
   }
 }
 
 .menu-content {
-  padding-right: 24px;
-  padding-left: 19px;
   color: var(--grey-500);
+  padding-left: 19px;
+  padding-right: 24px;
 }
 
 .k-button.menu-button {
-  width: 100%;
+  color: var(--KButtonOutlineColor, var(--grey-500));
   font-family: var(--font-family-sans);
   font-size: 13px;
   font-weight: 400 !important;
   line-height: 24px;
-  color: var(--KButtonOutlineColor, var(--grey-500));
+  width: 100%;
   &:focus {
     box-shadow: 0 0 0 1px var(--blue-200);
   }
 }
 
 .k-button.medium {
-  padding-top: 8px;
   padding-bottom: 8px;
+  padding-top: 8px;
 }
 .k-menu-item.expando-item > button + div + hr,
 .last-menu-item,

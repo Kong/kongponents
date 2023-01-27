@@ -98,31 +98,31 @@ export default defineComponent({
 
 .k-tabs {
   ul {
+    border-bottom: 1px solid var(--KTabsBottomBorderColor, var(--grey-300, color(grey-300)));
     display: flex;
-    padding-left: 0;
-    margin-bottom: 0;
     font-size: 18px;
     line-height: 20px;
     list-style: none;
-    border-bottom: 1px solid var(--KTabsBottomBorderColor, var(--grey-300, color(grey-300)));
+    margin-bottom: 0;
+    padding-left: 0;
 
     .tab-item {
-      position: relative;
-      padding: var(--spacing-md, spacing(md));
       cursor: pointer;
+      padding: var(--spacing-md, spacing(md));
+      position: relative;
 
       &:not(:first-of-type) { margin-left: var(--spacing-xs, spacing(xs)); }
 
       &:not(:last-of-type) { margin-right: var(--spacing-xs, spacing(xs)); }
 
       &:after {
-        position: absolute;
         bottom: -2px;
-        left: 0;
-        display: block;
-        width: 100%;
-        height: 2px;
         content: '';
+        display: block;
+        height: 2px;
+        left: 0;
+        position: absolute;
+        width: 100%;
       }
 
       &.active,
@@ -133,11 +133,11 @@ export default defineComponent({
     }
 
     .tab-link {
-      display: block;
       color: var(--KTabsColor, var(--black-45, color(black-45)));
+      display: block;
       &:hover {
-        text-decoration: none;
         border: none;
+        text-decoration: none;
       }
     }
   }

@@ -1,8 +1,8 @@
 .form-group {
   $borderColor: var(--KInputBorder, var(--grey-300, color(grey--grey-300)));
   display: block;
-  width: 100%;
   margin-bottom: var(--lg, spacing(lg));
+  width: 100%;
 
   hr {
     border-color: $borderColor;
@@ -12,8 +12,8 @@
 
 .k-input + .help,
 .k-input-wrapper + .help {
-  display: block;
-  margin: var(--spacing-xs, spacing(xs)) 0 0;
-  font-size: var(--type-sm, type(sm));
   color: var(--black-45, color(black-45));
+  display: block;
+  font-size: var(--type-sm, type(sm));
+  margin: var(--spacing-xs, spacing(xs)) 0 0;
 }

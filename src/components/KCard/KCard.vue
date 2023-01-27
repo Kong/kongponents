@@ -156,9 +156,9 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .kong-card {
-  padding: var(--KCardPaddingY, var(--spacing-lg)) var(--KCardPaddingX, var(--spacing-lg));
   background-color: var(--KCardBackground, var(--white, color(white)));
   border-radius: var(--KCardBorderRadius, 3px);
+  padding: var(--KCardPaddingY, var(--spacing-lg)) var(--KCardPaddingX, var(--spacing-lg));
   transition: box-shadow 0.2s ease-in-out;
 
   &.noBorder {
@@ -187,18 +187,18 @@ export default defineComponent({
   }
 
   .k-card-status-hat {
-    display: flex;
     align-items: center;
-    font-size: var(--type-xs);
     color: var(--grey-600);
+    display: flex;
+    font-size: var(--type-xs);
   }
 
   .k-card-title h4 {
-    padding: 0;
-    margin: 0;
+    color: var(--KCardTitleColor, var(--black-500));
     font-size: var(--KCardTitleFontSize, 20px);
     font-weight: 600;
-    color: var(--KCardTitleColor, var(--black-500));
+    margin: 0;
+    padding: 0;
   }
 
   .k-card-actions  {
@@ -206,10 +206,10 @@ export default defineComponent({
   }
 
   .k-card-body {
-    width: 100%;
+    color: var(--grey-600);
     font-size: 13px;
     line-height: 20px;
-    color: var(--grey-600);
+    width: 100%;
   }
 
   .k-card-content .k-table td,
@@ -219,8 +219,8 @@ export default defineComponent({
   }
 
   .k-card-notifications {
-    margin-top: auto;
     margin-left: auto;
+    margin-top: auto;
   }
 }
 </style>

@@ -65,33 +65,33 @@ $borderColor: #e6e6e6;
   width: 100%;
 }
 .skeleton-card-column {
-  width: var(--KSkeletonCardWidth, calc(33% - 16px));
   margin-bottom: 16px;
+  width: var(--KSkeletonCardWidth, calc(33% - 16px));
 }
 .skeleton-card {
+  border: 1px solid $borderColor;
+  border-radius: 3px;
   display: flex;
   flex-direction: column;
   min-height: 324px;
-  padding: 16px;
   overflow: hidden;
-  border: 1px solid $borderColor;
-  border-radius: 3px;
+  padding: 16px;
   .skeleton-card-header {
     display: flex;
-    width: 100%;
     margin-bottom: 16px;
+    width: 100%;
   }
   .skeleton-card-content {
     display: flex;
     justify-content: space-between;
   }
   .skeleton-card-footer {
-    display: flex;
     align-self: flex-end;
+    display: flex;
     justify-content: space-between;
-    width: 100%;
-    padding-top: 16px;
     margin-top: auto;
+    padding-top: 16px;
+    width: 100%;
   }
 }
 </style>

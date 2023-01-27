@@ -150,25 +150,25 @@ export default defineComponent({
 @import '@/styles/functions';
 
 li.k-dropdown-item {
-  display: flex;
   align-items: center;
+  display: flex;
   font-size: 16px;
   line-height: 1;
 
   &.has-divider {
     $k-dropdown-item-divider-container-height: 24px; // set to the same value as --spacing-lg without the units
     $k-dropdown-item-divider-position: -13px; // this should be negative (<container-height> / 2 + 1)
-    position: relative;
     margin-top: $k-dropdown-item-divider-container-height;
+    position: relative;
 
     &:before {
+      background: var(--grey-200);
+      content: '';
+      display: block;
+      height: 1px;
       position: absolute;
       top: $k-dropdown-item-divider-position;
-      display: block;
       width: 100%;
-      height: 1px;
-      content: '';
-      background: var(--grey-200);
     }
   }
 
@@ -183,11 +183,11 @@ li.k-dropdown-item {
   .k-dropdown-item-trigger,
   // Override .btn-link styles
   .k-dropdown-item-trigger.btn-link {
-    width: 100%;
-    padding: var(--spacing-md) var(--spacing-lg);
     color: var(--black-70);
+    padding: var(--spacing-md) var(--spacing-lg);
     text-align: left;
     text-decoration: none;
+    width: 100%;
 
     &:disabled,
     &.disabled {

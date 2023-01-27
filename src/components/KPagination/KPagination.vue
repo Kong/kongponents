@@ -361,17 +361,17 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .card-pagination-bar {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: space-between;
   margin-top: 4px;
 }
 
 .pagination-text {
-  min-width: 115px;
+  color: var(--grey-500);
   font-size: 14px;
   font-weight: 500;
-  color: var(--grey-500);
+  min-width: 115px;
 
   &-pages {
     color: black;
@@ -382,15 +382,15 @@ export default defineComponent({
   --KButtonBtnLink: var(--KPaginationPageSizeColor, var(--blue-400));
   --KButtonOutlineBorder: var(--KPaginationPageSizeColor, var(--blue-400));
   --KButtonFontSize: var(--type-sm);
+  color: var(--blue-400);
   font-weight: 600;
   line-height: 20px;
-  color: var(--blue-400);
 }
 
 .pagination-button-container {
   display: flex;
-  text-align: center;
   list-style: none;
+  text-align: center;
 
   a {
     display: block;
@@ -400,17 +400,17 @@ export default defineComponent({
 
   .pagination-button {
     align-self: center;
-    min-width: 32px;
-    height: 32px;
-    margin: 0 6px;
-    font-size: 12px;
-    font-weight: initial;
-    line-height: 20px;
-    color: var(--KPaginationColor, var(--grey-500));
-    cursor: pointer;
     background-color: white;
     border: 1px solid var(--KPaginationBorderColor, var(--grey-300));
     border-radius: 4px;
+    color: var(--KPaginationColor, var(--grey-500));
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: initial;
+    height: 32px;
+    line-height: 20px;
+    margin: 0 6px;
+    min-width: 32px;
 
      &:not(.square) {
       background-color: var(--KPaginationBackgroundColor, white);
@@ -425,24 +425,24 @@ export default defineComponent({
     }
 
     &.placeholder {
-      display: flex;
       align-items: center;
-      justify-content: center;
       color: var(--KPaginationColor, var(--grey-500));
       cursor: initial;
+      display: flex;
+      justify-content: center;
     }
 
     &:focus:not(.placeholder),
     &:hover:not(.placeholder) {
-      color: var(--KPaginationActiveColor, var(--blue-500));
       border-color: var(--KPaginationActiveColor, var(--blue-500));
       border-radius: 4px;
+      color: var(--KPaginationActiveColor, var(--blue-500));
     }
 
     &.disabled:focus:not(.placeholder),
     &.disabled:hover:not(.placeholder) {
-      color: var(--black-45);
       border-color: var(--grey-200);
+      color: var(--black-45);
     }
 
     &.disabled {
@@ -452,11 +452,11 @@ export default defineComponent({
     }
 
     &.active {
-      color: var(--KPaginationActiveColor, var(--blue-500));
       background-color: var(--KPaginationActiveBackgroundColor, var(--blue-100));
       background-color: var(--blue-100);
       border-color: var(--KPaginationActiveBorderColor, var(--blue-200));
       border-radius: 4px;
+      color: var(--KPaginationActiveColor, var(--blue-500));
       outline: none;
 
       a {

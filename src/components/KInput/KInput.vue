@@ -254,15 +254,15 @@ export default defineComponent({
 }
 
 .help {
-  display: block;
-  margin: var(--spacing-xs, spacing(xs)) 0 0;
-  font-size: var(--type-sm, type(sm));
   color: var(--black-45, color(black-45));
+  display: block;
+  font-size: var(--type-sm, type(sm));
+  margin: var(--spacing-xs, spacing(xs)) 0 0;
 }
 
 .has-error {
-  font-weight: 500;
   color: var(--red-500);
+  font-weight: 500;
 }
 
 .k-input-wrapper {
@@ -272,23 +272,23 @@ export default defineComponent({
 
   & .k-input-label-wrapper-large .has-error,
   & .k-input-large + .has-error {
-    margin-top: 4px;
     font-size: 12px;
     line-height: 15px;
+    margin-top: 4px;
   }
 
   & .k-input-label-wrapper-medium .has-error,
   & .k-input-medium + .has-error {
-    margin-top: 3px;
     font-size: 11px;
     line-height: 13px;
+    margin-top: 3px;
   }
 
   & .k-input-label-wrapper-small .has-error,
   & .k-input-small + .has-error {
-    margin-top: 2px;
     font-size: 11px;
     line-height: 11px;
+    margin-top: 2px;
   }
 
   .text-on-input label:not(.disabled):not(.readonly).hovered,

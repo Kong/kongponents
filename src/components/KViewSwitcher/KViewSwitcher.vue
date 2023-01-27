@@ -79,21 +79,21 @@ export default defineComponent({
   }
 
   .icon {
+    height: 24px;
     position: relative;
     width: 24px;
-    height: 24px;
 
     i {
-      position: absolute;
-      top: var(--top, 4px);
-      left: var(--left, 4px);
-      display: block;
-      width: var(--width, 7px);
-      height: var(--height, 7px);
+      animation: var(--name, var(--dots-name, none)) var(--duration, var(--dots-duration, .5s)) var(--easing, var(--dots-easing, linear)) forwards var(--delay, var(--dots-delay, 0s));
       background-color: var(--grey-500);
       border-radius: 2px;
+      display: block;
+      height: var(--height, 7px);
+      left: var(--left, 4px);
+      position: absolute;
+      top: var(--top, 4px);
       transition: background-color 200ms ease;
-      animation: var(--name, var(--dots-name, none)) var(--duration, var(--dots-duration, .5s)) var(--easing, var(--dots-easing, linear)) forwards var(--delay, var(--dots-delay, 0s));
+      width: var(--width, 7px);
     }
 
     .dots i {

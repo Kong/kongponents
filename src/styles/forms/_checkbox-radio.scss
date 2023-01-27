@@ -8,21 +8,21 @@ input.form-control {
 
   &[type="checkbox"],
   &[type="radio"] {
-    display: inline-block;
-    vertical-align: middle;
-    padding: 0;
-    border: 1px solid $borderColor;
-    background-color: #fff;
-    box-sizing: border-box;
     // Override browser defaults
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    background-color: #fff;
+    border: 1px solid $borderColor;
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 0;
+    -webkit-print-color-adjust: exact;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    -webkit-print-color-adjust: exact;
+    vertical-align: middle;
 
     &:disabled {
       opacity: 1;
@@ -33,30 +33,30 @@ input.form-control {
   }
 
   &[type="checkbox"] {
-    height: 20px;
-    width: 20px;
-    color: $primaryCheckboxColor;
     border: none;
     border-radius: 3px;
+    color: $primaryCheckboxColor;
+    height: 20px;
     margin: 0 6px 0 0;
     outline: none;
+    width: 20px;
 
     &:not(:checked) {
       border: 1px solid $primaryCheckboxColor;
     }
 
     &:checked {
-      background-image: url("data:image/svg+xml,%3Csvg width='13' height='11' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10.633 0L12 1.397 3.583 10 0 6.337 1.367 4.94l2.216 2.265z' fill='%23FFF' fill-rule='nonzero'/%3E%3C/svg%3E");
-      border-color: $primaryCheckboxColor;
       background-color: currentColor;
+      background-image: url("data:image/svg+xml,%3Csvg width='13' height='11' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10.633 0L12 1.397 3.583 10 0 6.337 1.367 4.94l2.216 2.265z' fill='%23FFF' fill-rule='nonzero'/%3E%3C/svg%3E");
       background-position: center;
       background-repeat: no-repeat;
+      border-color: $primaryCheckboxColor;
     }
 
     &:checked::-ms-check {
-      color: #fff;
-      border: 1px solid $primaryCheckboxColor;
       background-color: $primaryCheckboxColor;
+      border: 1px solid $primaryCheckboxColor;
+      color: #fff;
     }
 
     &:hover,
@@ -65,8 +65,8 @@ input.form-control {
     }
 
     &:focus {
-      outline: none;
       border-color: $primaryCheckboxColor;
+      outline: none;
     }
 
     &:disabled:not(:checked) {
@@ -81,29 +81,29 @@ input.form-control {
   }
 
   &[type="radio"] {
-    display: inline-flex;
-    justify-content: center;
     align-items: center;
-    height: 20px;
-    width: 20px;
-    color: $primaryRadioColor;
     border: 2px solid $borderColor;
     border-radius: 100%;
+    color: $primaryRadioColor;
+    display: inline-flex;
+    height: 20px;
+    justify-content: center;
     margin: 0 6px 0 0;
+    width: 20px;
 
     &:checked {
-      border-color: currentColor;
       background-color: #fff;
-      background-size: 100% 100%;
       background-position: center;
       background-repeat: no-repeat;
+      background-size: 100% 100%;
+      border-color: currentColor;
       &:after {
+        background-color: currentColor;
+        border-radius: 100%;
         content: "";
         display: flex;
         height: 10px;
         width: 10px;
-        background-color: currentColor;
-        border-radius: 100%;
       }
     }
 

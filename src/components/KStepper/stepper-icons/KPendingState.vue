@@ -39,9 +39,9 @@ export default defineComponent({
   animation: rotate 2s linear infinite;
 
   circle {
+    animation: dash 1.5s ease-in-out infinite;
     stroke: var(--KStepPendingColor, var(--teal-300));
     stroke-linecap: round;
-    animation: dash 1.5s ease-in-out infinite;
   }
 }
 

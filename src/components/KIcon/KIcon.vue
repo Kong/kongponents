@@ -278,8 +278,8 @@ export default defineComponent({
 
 // unscoped, so the svg <g> element can be accessed from the imported file
 .kong-icon.kong-icon-spinner svg g {
+  animation: spin 1.2s infinite linear;
   transform-box: fill-box;
   transform-origin: 50% 50%;
-  animation: spin 1.2s infinite linear;
 }
 </style>

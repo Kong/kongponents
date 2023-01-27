@@ -92,11 +92,11 @@ export default defineComponent({
 }
 
 .k-checkbox-description {
-  padding-top: var(--spacing-xxs);
-  padding-left: var(--spacing-lg);
+  color: var(--black-45, rgba(0, 0, 0, 0.45));
   font-size: var(--type-sm, type(sm));
   line-height: 20px;
-  color: var(--black-45, rgba(0, 0, 0, 0.45));
+  padding-left: var(--spacing-lg);
+  padding-top: var(--spacing-xxs);
 }
 
 .k-checkbox-label:has(+ .k-checkbox-description) {

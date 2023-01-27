@@ -307,12 +307,12 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .k-alert {
-  position: relative;
-  display: flex;
-  padding: 14px;
-  word-break: break-word; // Word-wrapping in Safari
-  overflow-wrap: anywhere;
   border-radius: 4px;
+  display: flex;
+  overflow-wrap: anywhere;
+  padding: 14px;
+  position: relative;
+  word-break: break-word; // Word-wrapping in Safari
 
   a {
     color: var(--blue-600, color(blue-600));
@@ -320,11 +320,11 @@ export default defineComponent({
   }
 
   & > div .k-alert-msg {
-    padding: 2px 0;
-    margin-left: 2px;
     font-size: var(--type-md, type(md));
     font-weight: 400;
     line-height: 24px;
+    margin-left: 2px;
+    padding: 2px 0;
 
     &.k-alert-subtext {
       font-size: var(--type-sm, type(sm));
@@ -336,39 +336,39 @@ export default defineComponent({
   }
 
   .k-alert-description-text {
+    color: var(--grey-500);
     display: block;
-    padding-top: var(--spacing-xxs);
     font-size: 13px;
     font-weight: 400;
     line-height: 24px;
-    color: var(--grey-500);
+    padding-top: var(--spacing-xxs);
   }
 
   // Action Buttons
   .k-alert-action {
-    position: relative;
     display: inline-flex;
     height: 100%;
-    margin-top: auto;
     margin-bottom: auto;
     margin-left: auto;
+    margin-top: auto;
+    position: relative;
   }
 
   .close {
-    position: absolute;
-    top: 0;
-    right: var(--spacing-xs);
-    bottom: 0;
-    cursor: pointer;
     background-color: transparent;
     border: 0;
+    bottom: 0;
+    cursor: pointer;
     opacity: 0.5;
+    position: absolute;
+    right: var(--spacing-xs);
+    top: 0;
     transition: all 200ms ease;
 
     &:hover,
     &:active {
-      text-decoration: none;
       opacity: 1;
+      text-decoration: none;
     }
   }
 
@@ -381,8 +381,8 @@ export default defineComponent({
     }
   }
   &.large {
-    min-height: 80px;
     border-radius: 2px;
+    min-height: 80px;
 
     .k-alert-icon-container-large {
       padding: var(--spacing-lg) 0;
@@ -391,10 +391,10 @@ export default defineComponent({
 
   // Variants
   &.is-fixed {
-    position: fixed;
-    top: 0;
-    right: 0;
     left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
   }
 
   &.is-bordered {
@@ -411,13 +411,13 @@ export default defineComponent({
   }
 
   &.has-right-border {
-    border-right: 3px solid;
     border-radius: 0;
+    border-right: 3px solid;
   }
 
   &.has-top-border {
-    border-top: 3px solid;
     border-radius: 0;
+    border-top: 3px solid;
   }
 
   &.has-bottom-border {
@@ -427,41 +427,41 @@ export default defineComponent({
 
   // Appearances - MUST FOLLOW VARIANTS
   &.info {
-    color: var(--KAlertInfoColor, var(--blue-600, color(blue-600)));
     background-color: var(--KAlertInfoBackground, var(--blue-200, color(blue-200)));
     border-color: var(--KAlertInfoBorder, var(--blue-300, color(blue-300)));
+    color: var(--KAlertInfoColor, var(--blue-600, color(blue-600)));
   }
 
   &.success {
-    color: var(--KAlertSuccessColor, var(--green-700, color(green-700)));
     background-color: var(--KAlertSuccessBackground, var(--green-100, color(green-100)));
     border-color: var(--KAlertSuccessBorder, var(--green-200, color(green-200)));
+    color: var(--KAlertSuccessColor, var(--green-700, color(green-700)));
   }
 
   &.danger {
-    color: var(--KAlertDangerColor, var(--red-700, color(red-700)));
     background-color: var(--KAlertDangerBackground, var(--red-100, color(red-100)));
     border-color: var(--KAlertDangerBorder, var(--red-300, color(red-300)));
+    color: var(--KAlertDangerColor, var(--red-700, color(red-700)));
   }
 
   &.warning {
-    color: var(--KAlertWarningColor, var(--yellow-600, color(yellow-600)));
     background-color: var(--KAlertWarningBackground, var(--yellow-100, color(yellow-100)));
     border-color: var(--KAlertWarningBorder, var(--yellow-200, color(yellow-200)));
+    color: var(--KAlertWarningColor, var(--yellow-600, color(yellow-600)));
   }
 
   // Types - MUST FOLLOW APPEARANCES
   &.is-banner {
-    padding: 0;
-    color: var(--grey-600);
     background-color: var(--white);
+    color: var(--grey-600);
+    padding: 0;
 
     .k-alert-ellipse {
+      border-radius: 100%;
       display: inline-block;
-      width: 6px;
       height: 6px;
       margin: auto 8px;
-      border-radius: 100%;
+      width: 6px;
 
       &.info {
         background-color: var(--blue-400);
@@ -481,9 +481,9 @@ export default defineComponent({
     }
 
     .button > div .k-alert-msg.k-alert-text {
-      padding-left: 0;
       font-size: var(--type-md, type(md));
       line-height: 24px;
+      padding-left: 0;
     }
 
     & > div.k-alert-msg-text {
@@ -493,8 +493,8 @@ export default defineComponent({
 }
 
 .toaster-item .k-alert .k-alert-msg {
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 </style>
 
@@ -523,9 +523,9 @@ export default defineComponent({
 
   .k-alert-action {
     & button {
-      height: 30px;
       font-size: 13px;
       font-weight: 400;
+      height: 30px;
       line-height: 13px;
 
       &:not(:first-of-type) {
@@ -536,8 +536,8 @@ export default defineComponent({
     &.info button.primary {
       --KButtonPrimaryBase: var(--blue-500);
       --KButtonPrimaryHover: var(--blue-200);
-      color: var(--blue-500);
       background-color: var(--blue-100);
+      color: var(--blue-500);
     }
 
     &.info button.outline {
@@ -545,15 +545,15 @@ export default defineComponent({
       --KButtonOutlineHoverBorder: var(--blue-600);
       --KButtonOutlineActive: var(--blue-100);
       --KButtonOutlineActiveBorder: var(--blue-500);
-      color: var(--blue-500);
       border: 1px solid var(--blue-400);
+      color: var(--blue-500);
     }
 
     &.warning button.primary {
       --KButtonPrimaryBase: var(--yellow-500);
       --KButtonPrimaryHover: var(--yellow-200);
-      color: var(--yellow-500);
       background-color: var(--yellow-100);
+      color: var(--yellow-500);
     }
 
     &.warning button.outline {
@@ -561,15 +561,15 @@ export default defineComponent({
       --KButtonOutlineHoverBorder: var(--yellow-500);
       --KButtonOutlineActive: var(--yellow-100);
       --KButtonOutlineActiveBorder: var(--yellow-500);
-      color: var(--yellow-500);
       border: 1px solid var(--yellow-300);
+      color: var(--yellow-500);
     }
 
     &.success button.primary {
       --KButtonPrimaryBase: var(--green-600);
       --KButtonPrimaryHover: var(--green-200);
-      color: var(--green-600);
       background-color: var(--green-100);
+      color: var(--green-600);
     }
 
     &.success button.outline {
@@ -577,15 +577,15 @@ export default defineComponent({
       --KButtonOutlineHoverBorder: var(--green-600);
       --KButtonOutlineActive: var(--green-100);
       --KButtonOutlineActiveBorder: var(--green-600);
-      color: var(--green-600);
       border: 1px solid var(--green-400);
+      color: var(--green-600);
     }
 
     &.danger button.primary {
       --KButtonPrimaryHover: var(--red-200);
       --KButtonPrimaryBase: var(--red-700);
-      color: var(--red-700);
       background-color: var(--red-100);
+      color: var(--red-700);
     }
 
     &.danger button.outline {

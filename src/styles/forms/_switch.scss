@@ -7,47 +7,47 @@ $color_checkbox_success: var(--KInputSwitchOn, var(--green-500, color(green-500)
 $transition: 0.2s linear;
 
 .k-switch {
-  display: inline-flex;
   align-items: center;
   cursor: pointer;
+  display: inline-flex;
   &.switch-with-icon .switch-control {
     width: 48px;
   }
   &.switch-with-icon .kong-icon {
     height: 20px;
-    width: 22px;
     left: 57px;
+    width: 22px;
   }
   &.switch-with-icon input:checked + .switch-control:after {
     left: 26px;
   }
   .switch-control {
-    position: relative;
+    background-color: var(--KInputSwitchBackground, var(--grey-400, color(grey-400)));
+    border-radius: 12px;
     display: block;
-    width: $width;
     height: $height;
     margin-right: 16px;
-    border-radius: 12px;
-    background-color: var(--KInputSwitchBackground, var(--grey-400, color(grey-400)));
+    position: relative;
     transition: $transition;
+    width: $width;
 
     &.has-label-left {
-      margin-right: 0;
       margin-left: 16px;
+      margin-right: 0;
     }
 
     // Toggle
     &:after {
+      background-color: var(--white, color(white));
+      border-radius: 50%;
+      content: "";
+      display: block;
+      height: 20px;
+      left: 2px;
       position: absolute;
       top: 2px;
-      left: 2px;
-      display: block;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background-color: var(--white, color(white));
-      content: "";
       transition: $transition;
+      width: 20px;
     }
   }
 

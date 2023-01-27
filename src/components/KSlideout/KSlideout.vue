@@ -84,37 +84,37 @@ export default defineComponent({
   --KCardPaddingX: 48px;
 
   .panel-background {
-    position: fixed;
-    top: 0;
-    right: 0;
+    background: var(--black-45, color(black-45));
     bottom: 0;
     left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
     z-index: 9999;
-    background: var(--black-45, color(black-45));
   }
 
   .panel {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 9999;
-    width: 100%;
-    max-width: 500px;
-    height: 100vh;
     background-color: var(--white, color(white));
+    height: 100vh;
+    max-width: 500px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
 
     .close-btn {
-      position: absolute;
-      top: 16px;
-      left:  16px;
-      width: 16px;
-      height: 16px;
-      padding: 0;
-      cursor: pointer;
       background: none;
       border: none;
+      cursor: pointer;
+      height: 16px;
+      left:  16px;
       outline: inherit;
+      padding: 0;
+      position: absolute;
+      top: 16px;
       transition: 200ms ease;
+      width: 16px;
     }
 
     .content {

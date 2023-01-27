@@ -152,20 +152,20 @@ export default defineComponent({
   box-sizing: border-box;
 
   > :deep(div) {
+    cursor: text;
     display: inline-flex;
     width: 100%;
-    cursor: text;
 
     > * {
-      width: 100%;
-      padding: var(--padding);
-      margin-top: 0; // prevent a shift
-      margin-left: calc(-1 * var(--spacing-xs)); // align the left side of content
-      overflow: hidden;
-      line-height: 1.25;
       border: 1px solid transparent;
       border-radius: 3px;
+      line-height: 1.25;
+      margin-left: calc(-1 * var(--spacing-xs)); // align the left side of content
+      margin-top: 0; // prevent a shift
+      overflow: hidden;
+      padding: var(--padding);
       transition: background-color 200ms ease;
+      width: 100%;
     }
 
     &:hover > * {
@@ -175,8 +175,8 @@ export default defineComponent({
 
   .k-input {
     display: inline-flex;
-    width: 100%;
     padding: var(--padding);
+    width: 100%;
 
     &:focus,
     &:hover {
