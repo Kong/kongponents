@@ -1,3 +1,10 @@
+## [8.21.2](https://github.com/Kong/kongponents/compare/v8.21.1...v8.21.2) (2023-01-27)
+
+
+### Bug Fixes
+
+* **codeBlock:** fix display styling ([#1075](https://github.com/Kong/kongponents/issues/1075)) ([997ebe8](https://github.com/Kong/kongponents/commit/997ebe8461e1de51b9c2fbb41336202f2dc99d20))
+
 ## [8.21.1](https://github.com/Kong/kongponents/compare/v8.21.0...v8.21.1) (2023-01-27)
 
 
