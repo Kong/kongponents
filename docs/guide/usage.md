@@ -80,3 +80,45 @@ export default defineComponent({
 this path instead: import '~@kong/kongponents/dist/style.css' */
 </style>
 ```
+
+## TypeScript interfaces
+
+:::tip NOTE
+This step is only a suggestion for apps that globally register Kongponents. If you import components individually in the components where they are being used, this is not needed.
+:::
+
+
+If you globally register components in your app (via the [Vue Plugin](#vue-plugin) or one-by-one) you should modify your host application to register the global components for TypeScript hinting throughout your app.
+
+
+In your host app, create an new declaration file `src/global-components.d.ts` with the following contents:
+
+```ts
+// Import the Kongponents GlobalComponents interface
+import '@kong/kongponents/dist/types/global-components'
+
+// Feel free to add your host app's other globally registered components as needed
+import type YourGlobalComponent from './components/YourGlobalComponent.vue'
+
+declare module '@vue/runtime-core' {
+  // Add all host app globally-registered components
+  export interface GlobalComponents {
+    YourGlobalComponent: typeof YourGlobalComponent
+  }
+}
+```
+
+Next, ensure the `tsconfig.json` of your host application is set up to properly include your `global-components.d.ts` file. It should look something like this:
+
+```json
+{
+  "compilerOptions": {
+    // your settings
+  },
+  "include": [
+    "src/**/*.ts"
+    // other include rules
+  ]
+}
+
+```

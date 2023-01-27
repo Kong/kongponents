@@ -81,28 +81,23 @@ Once ran, this will be the resulting file structure:
           └── {KongponentName}.vue
 ```
 
-## Edit the Doc file
+### Important: Add the new component type to the module export
 
-Each component has an associated file in the `/docs/components` directory. After scaffolding the new component file, a doc file should be present named the same as your new component. Below are the steps to add the file to the docs site and how to get started editing.
+You **must** manually add the new component type to the module export located at `src/global-components.ts`. Just add your new component to the bottom of the list.
 
-### Renaming the file (if needed)
+```ts{10}
+// src/global-components.ts
+import type * as components from './components'
 
-The docs markdown file should be named correctly if generated from the [`create-kongponent` CLI](#cli). If necessary, rename the file to correspond to what type of component it is. For documentation purposes page names should be based on what the component is vs its Kongponent `K` name.
-
-#### Examples
-
-- `kbutton.md` &rarr; `button.md`
-- `kcard.md` &rarr; `card.md`
-- `kdatetimepicker` &rarr; `datetime-picker.md`
-
-### Update the page title
-
-Update the first line of the doc to match the file name. This is what is displayed as the page title & in the sidebar.
-
-```md
-# {Name}
-
-**{KongponentName}** - description
+declare module '@vue/runtime-core' {
+  export interface GlobalComponents {
+    KAlert: typeof components.KAlert
+    KBadge: typeof components.KBadge
+    KBreadcrumbs: typeof components.KBreadcrumbs
+    KButton: typeof components.KButton
+    YourNewComponent: typeof components.YourNewComponent
+  }
+}
 ```
 
 ### Add the doc file to the sidebar
@@ -133,6 +128,30 @@ sidebar: {
     }
   ]
 }
+```
+
+## Edit the Doc file
+
+Each component has an associated file in the `/docs/components` directory. After scaffolding the new component file, a doc file should be present named the same as your new component. Below are the steps to add the file to the docs site and how to get started editing.
+
+### Renaming the file (if needed)
+
+The docs markdown file should be named correctly if generated from the [`create-kongponent` CLI](#cli). If necessary, rename the file to correspond to what type of component it is. For documentation purposes page names should be based on what the component is vs its Kongponent `K` name.
+
+#### Examples
+
+- `kbutton.md` &rarr; `button.md`
+- `kcard.md` &rarr; `card.md`
+- `kdatetimepicker` &rarr; `datetime-picker.md`
+
+### Update the page title
+
+Update the first line of the doc to match the file name. This is what is displayed as the page title & in the sidebar.
+
+```md
+# {Name}
+
+**{KongponentName}** - description
 ```
 
 ### Importing type declarations and interfaces
