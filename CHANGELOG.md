@@ -1,3 +1,11 @@
+## [8.21.1](https://github.com/Kong/kongponents/compare/v8.21.0...v8.21.1) (2023-01-27)
+
+
+### Bug Fixes
+
+* **cli:** automate type export ([4c5702a](https://github.com/Kong/kongponents/commit/4c5702a7b69859f5cf2281bf6d6b155df6ea3a05))
+* trigger release ([e963e5a](https://github.com/Kong/kongponents/commit/e963e5a7032e042569bd73385bb358ce5c07b789))
+
 # [8.21.0](https://github.com/Kong/kongponents/compare/v8.20.0...v8.21.0) (2023-01-27)
 
 
