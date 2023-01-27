@@ -15,3 +15,4 @@ export default {
 
 // Export all components
 export * from './components'
+export * from './global-components'
