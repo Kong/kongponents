@@ -1194,8 +1194,8 @@ $dark-focusColor: var(--green-500, color(green-500));
 
 .k-code-block-content {
   pre.k-highlighted-code-block.is-single-line {
-    display: flex;
     padding: var(--spacing-sm, spacing(sm)) var(--spacing-xxl, spacing(xxl)) 0 0;
+    grid-template-columns: auto;
 
     code {
       white-space: nowrap;
