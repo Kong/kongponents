@@ -1,5 +1,6 @@
 import type * as components from './components'
 
+// All Kongponents should be added to the list
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     KAlert: typeof components.KAlert
