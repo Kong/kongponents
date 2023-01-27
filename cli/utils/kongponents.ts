@@ -94,6 +94,37 @@ export async function createComponentFiles(name: string): Promise<void> {
     })
   }
 
+  spinner.start({
+    text: 'Adding the new Kongponent type to the GlobalComponent interface in src/global-components.ts...',
+  })
+
+  // Add the type to the GlobalComponent interface in src/global-components.ts
+  if (fs.existsSync('src/global-components.ts')) {
+    if (!fs.readFileSync('src/global-components.ts').includes(componentName)) {
+      // Add type to file
+      const newContent = fs.readFileSync('src/global-components.ts', 'utf8')
+        .replace(/\/\/ {%%NEW_KONGPONENT%%} \(do not remove comment\)/g, `${componentName}: typeof components.${componentName}
+    // {%%NEW_KONGPONENT%%} (do not remove comment)`)
+
+      // Rewrite file content
+      fs.writeFileSync('src/global-components.ts', newContent, 'utf8')
+
+      spinner.success({
+        text: `Added the ${pc.cyan(componentName)} type to the GlobalComponent interface in src/global-components.ts.`,
+      })
+    } else {
+      // File already includes export
+      spinner.error({
+        text: pc.red(`Warning: ${componentName} is already included in the interface in src/global-components.ts.`) + pc.yellow('\n  - Skipped adding the duplicate type to src/global-components.ts'),
+      })
+    }
+  } else {
+    // src/components/index.ts does not exist
+    spinner.error({
+      text: pc.red('Warning: src/global-components.ts does not exist.') + pc.yellow('\n  - You will need to manually add the new component type to the export module.'),
+    })
+  }
+
   //
   // DOCS FILES
   // =========================
@@ -171,8 +202,6 @@ export async function createComponentFiles(name: string): Promise<void> {
       })
 
       console.log(`${pc.bold('Note')}: You will need to manually add the new ${pc.cyan(kongponentDocFilename(name) + '.md')} file to \n      the VitePress sidebar in docs/.vitepress/config.ts.`)
-      console.log('')
-      console.log(`${pc.red(pc.bold('Important'))}: You will need to manually add the new ${pc.cyan(componentName)} type to \n           the module export in src/global-components.ts.`)
       // Empty line
       console.log('')
     }

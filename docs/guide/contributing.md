@@ -81,7 +81,11 @@ Once ran, this will be the resulting file structure:
           └── {KongponentName}.vue
 ```
 
-### Important: Add the new component type to the module export
+### Important: Type Exports
+
+:::tip TIP
+As long as you create the new Kongponent via `yarn create-package` this step is automated.
+:::
 
 You **must** manually add the new component type to the module export located at `src/global-components.ts`. Just add your new component to the bottom of the list.
 
