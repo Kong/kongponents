@@ -1,6 +1,7 @@
 {
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
   },
   "editor.formatOnPaste": true,
   "editor.trimAutoWhitespace": true,

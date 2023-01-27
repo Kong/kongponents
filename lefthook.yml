@@ -1,13 +1,10 @@
 # Reference:
 # https://github.com/evilmartians/lefthook/blob/master/docs/full_guide.md
 
-pre-commit:
-  commands:
-    stylelint:
-      run: yarn stylelint:fix && git add .
-
 pre-push:
   commands:
+    stylelint:
+      run: yarn stylelint
     eslint:
       run: yarn lint
 
