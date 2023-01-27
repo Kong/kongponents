@@ -41,7 +41,7 @@ const props = defineProps({
   href: {
     type: String,
     required: true,
-    validator: (value: string) => { return isValidUrl(value) },
+    validator: (value: string): boolean => !!isValidUrl(value),
   },
   hideIcon: {
     type: Boolean,
