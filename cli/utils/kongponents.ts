@@ -172,7 +172,7 @@ export async function createComponentFiles(name: string): Promise<void> {
 
       console.log(`${pc.bold('Note')}: You will need to manually add the new ${pc.cyan(kongponentDocFilename(name) + '.md')} file to \n      the VitePress sidebar in docs/.vitepress/config.ts.`)
       console.log('')
-      console.log(`${pc.red(pc.bold('Important'))}: You will need to manually add the new ${pc.cyan(componentName)} type to \n      the module export in src/global-components.ts.`)
+      console.log(`${pc.red(pc.bold('Important'))}: You will need to manually add the new ${pc.cyan(componentName)} type to \n           the module export in src/global-components.ts.`)
       // Empty line
       console.log('')
     }
