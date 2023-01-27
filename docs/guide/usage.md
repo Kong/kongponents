@@ -120,5 +120,4 @@ Next, ensure the `tsconfig.json` of your host application is set up to properly 
     // other include rules
   ]
 }
-
 ```
