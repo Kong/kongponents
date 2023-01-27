@@ -7,6 +7,7 @@
       v-if="!label"
       v-bind="modifiedAttrs"
       class="form-control k-input style-body-lg"
+      :class="[isResizable ? 'is-resizable' : undefined]"
       :cols="cols"
       :rows="rows"
       :value="getValue()"
@@ -30,6 +31,7 @@
           :id="textAreaId"
           :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
           class="form-control k-input style-body-lg"
+          :class="[isResizable ? 'is-resizable' : undefined]"
           :cols="cols"
           :rows="rows"
           :value="getValue()"
@@ -57,6 +59,7 @@
         :id="textAreaId"
         :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
         class="form-control k-input style-body-lg"
+        :class="[isResizable ? 'is-resizable' : undefined]"
         :cols="cols"
         :rows="rows"
         :value="getValue()"
@@ -132,6 +135,10 @@ export default defineComponent({
      * Test mode - for testing only, strips out generated ids
      */
     testMode: {
+      type: Boolean,
+      default: false,
+    },
+    isResizable: {
       type: Boolean,
       default: false,
     },
@@ -223,6 +230,10 @@ export default defineComponent({
   textarea.form-control {
     font-family: var(--font-family-sans);
     resize: none;
+
+    &.is-resizable {
+      resize: both;
+    }
 
     &:focus::placeholder {
       color: transparent;

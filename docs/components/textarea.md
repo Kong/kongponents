@@ -96,6 +96,16 @@ Boolean value to indicate whether the element has an error and should apply erro
 <KTextArea has-error />
 ```
 
+### isResizable
+
+Boolean value to allow manually resizing a textarea
+
+<KTextArea is-resizable />
+
+```html
+<KTextArea is-resizable />
+```
+
 ## v-model
 
 `KTextArea` works as regular texarea do using v-model for data binding:
