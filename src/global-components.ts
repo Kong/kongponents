@@ -2,25 +2,23 @@ import type * as components from './components'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    KClipboardProvider: typeof components.KClipboardProvider
-    KComponent: typeof components.KComponent
-    Komponent: typeof components.Komponent
-    KToggle: typeof components.KToggle
     KAlert: typeof components.KAlert
     KBadge: typeof components.KBadge
     KBreadcrumbs: typeof components.KBreadcrumbs
-    Krumbs: typeof components.Krumbs
     KButton: typeof components.KButton
     KCard: typeof components.KCard
     KCatalog: typeof components.KCatalog
     KCatalogItem: typeof components.KCatalogItem
     KCheckbox: typeof components.KCheckbox
+    KClipboardProvider: typeof components.KClipboardProvider
     KCodeBlock: typeof components.KCodeBlock
     KCollapse: typeof components.KCollapse
+    KComponent: typeof components.KComponent
     KDateTimePicker: typeof components.KDateTimePicker
-    KDropdownMenu: typeof components.KDropdownMenu
     KDropdownItem: typeof components.KDropdownItem
+    KDropdownMenu: typeof components.KDropdownMenu
     KEmptyState: typeof components.KEmptyState
+    KExternalLink: typeof components.KExternalLink
     KFileUpload: typeof components.KFileUpload
     KIcon: typeof components.KIcon
     KInlineEdit: typeof components.KInlineEdit
@@ -32,10 +30,13 @@ declare module '@vue/runtime-core' {
     KModal: typeof components.KModal
     KModalFullscreen: typeof components.KModalFullscreen
     KMultiselect: typeof components.KMultiselect
+    Komponent: typeof components.Komponent
+    Kooltip: typeof components.Kooltip
     KPagination: typeof components.KPagination
     KPop: typeof components.KPop
     KPrompt: typeof components.KPrompt
     KRadio: typeof components.KRadio
+    Krumbs: typeof components.Krumbs
     KSegmentedControl: typeof components.KSegmentedControl
     KSelect: typeof components.KSelect
     KSkeleton: typeof components.KSkeleton
@@ -46,10 +47,10 @@ declare module '@vue/runtime-core' {
     KTabs: typeof components.KTabs
     KTextArea: typeof components.KTextArea
     KToaster: typeof components.KToaster
-    ToastManager: typeof components.ToastManager
+    KToggle: typeof components.KToggle
     KTooltip: typeof components.KTooltip
-    Kooltip: typeof components.Kooltip
     KTreeList: typeof components.KTreeList
     KViewSwitcher: typeof components.KViewSwitcher
+    ToastManager: typeof components.ToastManager
   }
 }
