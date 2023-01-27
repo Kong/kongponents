@@ -45,6 +45,7 @@ export default defineConfig({
             { text: 'DateTime Picker', link: '/components/datetime-picker' },
             { text: 'Dropdown Menu', link: '/components/dropdown-menu' },
             { text: 'Empty State', link: '/components/empty-state' },
+            { text: 'External Link', link: '/components/external-link' },
             { text: 'File Upload', link: '/components/file-upload' },
             { text: 'Icon', link: '/components/icon' },
             { text: 'Inline Edit', link: '/components/inline-edit' },

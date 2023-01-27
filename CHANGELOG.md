@@ -1,3 +1,16 @@
+# [8.21.0](https://github.com/Kong/kongponents/compare/v8.20.0...v8.21.0) (2023-01-27)
+
+
+### Bug Fixes
+
+* **cli:** update cli for esm ([8005cc5](https://github.com/Kong/kongponents/commit/8005cc50ae60949417a3fa84c259f0d8405769b7))
+* **cli:** update cli for esm ([d2a85fc](https://github.com/Kong/kongponents/commit/d2a85fc848e3de656fb119030355553664423ed7))
+
+
+### Features
+
+* add external link component [KHCP-5745] ([#1073](https://github.com/Kong/kongponents/issues/1073)) ([55e55e6](https://github.com/Kong/kongponents/commit/55e55e660950bc5e59bb8f7e142b476c217aaac2))
+
 # [8.20.0](https://github.com/Kong/kongponents/compare/v8.19.1...v8.20.0) (2023-01-25)
 
 
