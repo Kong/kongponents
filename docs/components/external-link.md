@@ -48,12 +48,12 @@ If true, icon won't be rendered.
 
 <KCard>
     <template v-slot:body>
-      <KExternalLink href="https://kongponents.konghq.com/" hideIcon>Kongponents</KExternalLink>
+      <KExternalLink hide-icon href="https://kongponents.konghq.com/">Kongponents</KExternalLink>
     </template>
 </KCard>
 
 ```html
-<KExternalLink hideIcon href="https://kongponents.konghq.com/">
+<KExternalLink hide-icon href="https://kongponents.konghq.com/">
   Kongponents
 </KExternalLink>
 ```
@@ -64,12 +64,12 @@ If true, icon won't be rendered.
 
 ## Theming
 
-| Variable                    | Purpose                                     |
-| :-------------------------- | :------------------------------------------ |
-| `--KExternalLinkColor`      | KExternalLinkColor text color               |
-| `--KExternalLinkColorHover` | KExternalLinkColor text color on mouse over |
+| Variable                    | Purpose                           |
+| :-------------------------- | :-------------------------------- |
+| `--KExternalLinkColor`      | Text and icon color               |
+| `--KExternalLinkColorHover` | Text and icon color on mouse over |
 
-An Example of changing the text color of KExternalLink to gold might look
+An Example of changing the text color of KExternalLink to red might look
 like:
 
 <KCard>
@@ -91,15 +91,15 @@ like:
 
 <style lang="scss">
 .KExternalLink-wrapper {
-  --KExternalLinkColor: gold;
-  --KExternalLinkColorHover: yellow;
+  --KExternalLinkColor: red;
+  --KExternalLinkColorHover: brown;
 }
 </style>
 ```
 
 <style lang="scss">
 .KExternalLink-wrapper {
-  --KExternalLinkColor: gold;
-  --KExternalLinkColorHover: yellow;
+  --KExternalLinkColor: red;
+  --KExternalLinkColorHover: brown;
 }
 </style>
