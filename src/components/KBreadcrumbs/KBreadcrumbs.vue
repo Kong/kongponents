@@ -101,22 +101,22 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .k-breadcrumbs {
+  border-radius: 4px;
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  padding: 0;
-  margin-bottom: 16px;
   font-size: 15px;
   font-weight: 600 !important;
   line-height: 24px !important;
   list-style: none;
-  border-radius: 4px;
+  margin-bottom: 16px;
+  padding: 0;
 }
 
 .k-breadcrumbs .k-breadcrumbs-item :deep(.kong-icon) {
+  color: var(--grey-500);
   display: inline-flex;
   padding: 0 12px 0 var(--spacing-xs);
-  color: var(--grey-500);
   vertical-align: middle;
 
   &.k-breadcrumb-icon {
@@ -134,9 +134,9 @@ export default defineComponent({
   display: inline-flex;
 
   a {
+    color: var(--grey-500);
     display: inline-flex;
     font-size: 15px;
-    color: var(--grey-500);
     letter-spacing: 1px;
 
     &:hover,
@@ -155,8 +155,8 @@ export default defineComponent({
 }
 
 .truncate {
-  display: inline-block;
   align-items: center;
+  display: inline-block;
   justify-content: center;
 }
 </style>

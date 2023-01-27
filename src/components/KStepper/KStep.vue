@@ -80,12 +80,12 @@ export default defineComponent({
   }
 
   .k-step-container {
-    position: relative;
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding-bottom: var(--spacing-xxs);
     margin: auto;
+    padding-bottom: var(--spacing-xxs);
+    position: relative;
 
     .k-step-label {
       --KInputLabelColor: var(--grey-500);
@@ -105,13 +105,13 @@ export default defineComponent({
      * Divider styles
      */
     &::after {
+      background-color: var(--KStepDividerColorDefault, var(--grey-300));
+      content: "";
+      height: 2px;
+      left: calc(50% + calc(var(--KStepIconSize, 26px) / 1.5 + var(--divider-spacing)));
       position: absolute;
       top: calc(#{var(--KStepIconSize, var(--spacing-lg, spacing(lg)))} / 2);
-      left: calc(50% + calc(var(--KStepIconSize, 26px) / 1.5 + var(--divider-spacing)));
       width: calc(100% - var(--KStepIconSize, 26px) - calc(var(--divider-spacing) * 2));
-      height: 2px;
-      content: "";
-      background-color: var(--KStepDividerColorDefault, var(--grey-300));
     }
 
     &.completed::after {

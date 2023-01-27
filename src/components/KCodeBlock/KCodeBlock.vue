@@ -762,8 +762,8 @@ $dark-backgroundColor: var(--black-500, color(black-500));
 $dark-focusColor: var(--green-500, color(green-500));
 
 .k-code-block {
-  color: var(--KCodeBlockColor, $light-color);
   border-radius: var(--KCodeBlockBorderRadius, $borderRadius);
+  color: var(--KCodeBlockColor, $light-color);
 
   &.theme-light {
     --KButtonOutlineColor: var(--steel-500, color(steel-500));
@@ -778,9 +778,9 @@ $dark-focusColor: var(--green-500, color(green-500));
 
 .k-code-block pre,
 .k-code-block code {
+  color: var(--KCodeBlockColor, $light-color);
   font-family: var(--KCodeBlockFontFamilyMono, $fontFamilyMono);
   font-size: var(--KCodeBlockFontSize, $fontSize);
-  color: var(--KCodeBlockColor, $light-color);
   tab-size: var(--KCodeBlockTabSize, $tabSize);
 }
 
@@ -790,17 +790,17 @@ $dark-focusColor: var(--green-500, color(green-500));
 }
 
 .k-code-block pre {
-  display: grid;
-  grid-template-columns: var(--maxLineNumberWidth) 1fr;
-  gap: var(--spacing-sm, spacing(sm));
-  min-height: 56px;
-  max-height: var(--KCodeBlockMaxHeight, none);
-  overflow: auto;
-  padding: var(--spacing-md, spacing(md)) 0 var(--spacing-md, spacing(md)) var(--spacing-sm, spacing(sm));
-  margin-top: 0;
-  margin-bottom: 0;
   background-color: var(--KCodeBlockBackgroundColor, $light-backgroundColor);
   border-radius: var(--KCodeBlockBorderRadius, $borderRadius);
+  display: grid;
+  gap: var(--spacing-sm, spacing(sm));
+  grid-template-columns: var(--maxLineNumberWidth) 1fr;
+  margin-bottom: 0;
+  margin-top: 0;
+  max-height: var(--KCodeBlockMaxHeight, none);
+  min-height: 56px;
+  overflow: auto;
+  padding: var(--spacing-md, spacing(md)) 0 var(--spacing-md, spacing(md)) var(--spacing-sm, spacing(sm));
 }
 
 .k-code-block.theme-dark pre {
@@ -818,10 +818,10 @@ $dark-focusColor: var(--green-500, color(green-500));
 }
 
 .k-code-block-actions + .k-code-block-content > pre {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
   border-bottom-left-radius: $borderRadius;
   border-bottom-right-radius: $borderRadius;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .k-code-block code {
@@ -833,9 +833,9 @@ $dark-focusColor: var(--green-500, color(green-500));
 }
 
 .k-code-block:focus-visible {
+  box-shadow: 0 0 0 2px var(--KCodeBlockFocusColor, $light-focusColor);
   isolation: isolate;
   outline: none;
-  box-shadow: 0 0 0 2px var(--KCodeBlockFocusColor, $light-focusColor);
 }
 
 .k-code-block.theme-dark:focus-visible {
@@ -843,43 +843,43 @@ $dark-focusColor: var(--green-500, color(green-500));
 }
 
 .k-code-block-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-xxs, spacing(xxs));
   align-items: stretch;
-  justify-content: flex-end;
-  padding: var(--spacing-xs, spacing(xs)) var(--spacing-md, spacing(md));
   background-color: var(--grey-200, color(grey-200));
   border-bottom: 1px solid var(--grey-300, color(grey-300));
   border-top-left-radius: var(--KCodeBlockBorderRadius, $borderRadius);
   border-top-right-radius: var(--KCodeBlockBorderRadius, $borderRadius);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xxs, spacing(xxs));
+  justify-content: flex-end;
+  padding: var(--spacing-xs, spacing(xs)) var(--spacing-md, spacing(md));
 }
 
 .theme-dark .k-code-block-actions {
-  color: #fff;
   background-color: var(--black-500, color(black-500));
   border-bottom: 1px solid var(--steel-700, color(steel-700));
+  color: #fff;
 }
 
 .k-code-block-actions .k-button {
   align-self: stretch;
 
   &.action-active {
-    color: #fff;
-    border-color: var(--steel-500, color(steel-500));
     background-color: var(--steel-500, color(steel-500));
+    border-color: var(--steel-500, color(steel-500));
+    color: #fff;
   }
 }
 
 .theme-dark .k-code-block-actions .k-button {
-  color: var(--steel-300, color(steel-300));
-  border-color: var(--steel-300, color(steel-300));
   background-color: $dark-backgroundColor;
+  border-color: var(--steel-300, color(steel-300));
+  color: var(--steel-300, color(steel-300));
 
   &:hover {
-    color: $dark-backgroundColor;
-    border-color: var(--steel-400, color(steel-400));
     background-color: var(--steel-400, color(steel-400));
+    border-color: var(--steel-400, color(steel-400));
+    color: $dark-backgroundColor;
 
     &:disabled {
       background-color: $dark-backgroundColor;
@@ -887,23 +887,23 @@ $dark-focusColor: var(--green-500, color(green-500));
   }
 
   &.action-active {
-    color: $dark-backgroundColor;
-    border-color: var(--steel-300, color(steel-300));
     background-color: var(--steel-300, color(steel-300));
+    border-color: var(--steel-300, color(steel-300));
+    color: $dark-backgroundColor;
   }
 }
 
 .k-is-processing-icon {
-  display: inline-flex;
   align-items: center;
+  display: inline-flex;
   justify-content: center;
 }
 
 .k-search-actions {
+  align-items: stretch;
   display: inline-flex;
   flex-wrap: wrap;
   gap: var(--spacing-xxs, spacing(xxs));
-  align-items: stretch;
 }
 
 .k-is-processing-icon:not(.k-is-processing-icon-is-visible) {
@@ -915,16 +915,16 @@ $dark-focusColor: var(--green-500, color(green-500));
 }
 
 .k-search-container {
-  position: relative;
+  align-items: stretch;
+  background-color: var(--white, color(white));
+  border: 1px solid var(--KInputBorder, var(--grey-300, color(grey-300)));
+  border-radius: 3px;
   display: inline-flex;
   // Indicates the sizing requirements to the surrounding flex container and ensures the search container doesn’t get too small.
   flex-basis: 15ch;
   flex-grow: 1;
-  align-items: stretch;
   max-width: 250px;
-  background-color: var(--white, color(white));
-  border: 1px solid var(--KInputBorder, var(--grey-300, color(grey-300)));
-  border-radius: 3px;
+  position: relative;
   transition: border 0.1s ease;
 
   &:focus {
@@ -950,21 +950,21 @@ $dark-focusColor: var(--green-500, color(green-500));
 }
 
 .k-code-block-search-input {
-  flex-grow: 1;
-  width: 0;
-  height: 32px;
-  padding: 0 var(--spacing-xs, spacing(xs));
-  margin: 0;
-  font: inherit;
-  color: currentColor;
+  appearance: none;
   background-color: transparent;
   border: none;
-  appearance: none;
+  color: currentColor;
+  flex-grow: 1;
+  font: inherit;
+  height: 32px;
+  margin: 0;
+  padding: 0 var(--spacing-xs, spacing(xs));
+  width: 0;
 }
 
 .theme-dark .k-code-block-search-input {
-  color: #fff;
   background-color: var(--steel-700, color(steel-700));
+  color: #fff;
 }
 
 .k-code-block-search-input:focus,
@@ -977,8 +977,8 @@ $dark-focusColor: var(--green-500, color(green-500));
   align-self: center;
   // Sets the minimum width to 12 characters which is the length of the string “1234 results” which should be reasonably safe in order to avoid having layout elements jump around.
   min-width: 12ch;
-  text-align: right;
   padding-right: var(--spacing-sm, spacing(sm));
+  text-align: right;
 }
 
 .k-code-block-search-results:not(.k-code-block-search-results-has-query) {
@@ -991,47 +991,47 @@ $dark-focusColor: var(--green-500, color(green-500));
 
 .k-code-block-search-error,
 .k-code-block-search-results {
-  margin-top: 0;
   margin-bottom: 0;
+  margin-top: 0;
 }
 
 .k-code-block-search-error {
-  position: absolute;
-  top: 100%;
-  right: -1px;
-  left: -1px;
-  z-index: 1;
-  padding: 0 var(--spacing-xxs, spacing(xxs));
-  font-size: 13px;
-  color: var(--red-700, color(red-700));
   background-color: var(--white, color(white));
   border: 1px solid currentColor;
-  border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  color: var(--red-700, color(red-700));
+  font-size: 13px;
+  left: -1px;
+  padding: 0 var(--spacing-xxs, spacing(xxs));
+  position: absolute;
+  right: -1px;
+  top: 100%;
+  z-index: 1;
 }
 
 .k-search-icon {
-  padding: 0 var(--spacing-xxs, spacing(xxs));
   color: var(--grey-400, color(grey-400));
+  padding: 0 var(--spacing-xxs, spacing(xxs));
 }
 
 .k-clear-query-button {
-  display: inline-flex;
   align-items: center;
-  padding: 0 var(--spacing-xxs, spacing(xxs));
-  margin: 0;
-  font: inherit;
-  color: var(--grey-400, color(grey-400));
+  appearance: none;
   background-color: transparent;
   border: 1px solid transparent;
   border-radius: 3px;
-  appearance: none;
+  color: var(--grey-400, color(grey-400));
+  display: inline-flex;
+  font: inherit;
+  margin: 0;
+  padding: 0 var(--spacing-xxs, spacing(xxs));
 }
 
 .k-clear-query-button:focus {
   border-color: var(--KButtonOutlineBorder, $light-focusColor);
-  outline: none;
   box-shadow: 0 0 0 2px var(--white, color(white)), 0 0 0 4px var(--KButtonOutlineBorder, $light-focusColor);
+  outline: none;
 }
 
 .theme-dark .k-clear-query-button:focus {
@@ -1044,10 +1044,10 @@ $dark-focusColor: var(--green-500, color(green-500));
 }
 
 .k-code-block-copy-button {
-  position: absolute;
-  top: var(--spacing-xs, spacing(xs));
-  right: var(--spacing-md, spacing(md));
   display: block;
+  position: absolute;
+  right: var(--spacing-md, spacing(md));
+  top: var(--spacing-xs, spacing(xs));
   z-index: 1;
 
   &.k-button {
@@ -1063,9 +1063,9 @@ $dark-focusColor: var(--green-500, color(green-500));
 
     &:active,
     &:hover:active {
-      color: #fff;
       background-color: var(--steel-500, color(steel-500));
       border-color: var(--steel-500, color(steel-500));
+      color: #fff;
     }
   }
 }
@@ -1087,30 +1087,30 @@ $dark-focusColor: var(--green-500, color(green-500));
 
     &:active,
     &:hover:active {
-      color: $dark-backgroundColor;
       background-color: var(--steel-300, color(steel-300));
       border-color: var(--steel-300, color(steel-300));
+      color: $dark-backgroundColor;
     }
   }
 }
 
 .k-code-block-copy-button[data-tooltip-text]::after {
-  position: absolute;
-  top: 50%;
-  right: calc(100% + var(--spacing-xs, spacing(xs)));
-  padding: var(--spacing-xs, spacing(xs));
-  font-weight: normal;
-  color: var(--white, color(white));
-  white-space: nowrap;
-  content: attr(data-tooltip-text);
   background-color: var(--grey-600, color(grey-600));
   border-radius: 3px;
+  color: var(--white, color(white));
+  content: attr(data-tooltip-text);
+  font-weight: normal;
+  padding: var(--spacing-xs, spacing(xs));
+  position: absolute;
+  right: calc(100% + var(--spacing-xs, spacing(xs)));
+  top: 50%;
   transform: translateY(-50%);
+  white-space: nowrap;
 }
 
 .k-button-icon {
-  display: inline-flex;
   align-items: center;
+  display: inline-flex;
   justify-content: center;
 }
 
@@ -1138,12 +1138,12 @@ $dark-focusColor: var(--green-500, color(green-500));
 }
 
 .k-line-is-match::before {
-  position: absolute;
-  right: 0;
+  background-color: hsl(220, 18%, 35%, 0.1);
+  content: '\A0';
   left: 0;
   pointer-events: none;
-  content: '\A0';
-  background-color: hsl(220, 18%, 35%, 0.1);
+  position: absolute;
+  right: 0;
 }
 
 .theme-dark .k-line-is-match::before {
@@ -1173,8 +1173,8 @@ $dark-focusColor: var(--green-500, color(green-500));
 @import '@/styles/variables';
 
 .k-matched-term {
-  font-weight: 900;
   color: var(--teal-500, color(teal-500));
+  font-weight: 900;
 }
 
 .theme-dark .k-matched-term {
@@ -1182,28 +1182,28 @@ $dark-focusColor: var(--green-500, color(green-500));
 }
 
 .k-code-block .k-button.small {
-  padding-right: var(--spacing-xs, spacing(xs));
   padding-left: var(--spacing-xs, spacing(xs));
+  padding-right: var(--spacing-xs, spacing(xs));
 }
 
 .k-code-block .kong-icon {
-  display: inline-flex;
   align-items: center;
+  display: inline-flex;
   justify-content: center;
 }
 
 .k-code-block-content {
   pre.k-highlighted-code-block.is-single-line {
-    padding: var(--spacing-sm, spacing(sm)) var(--spacing-xxl, spacing(xxl)) 0 0;
     grid-template-columns: auto;
+    padding: var(--spacing-sm, spacing(sm)) var(--spacing-xxl, spacing(xxl)) 0 0;
 
     code {
-      white-space: nowrap;
-      overflow: auto;
       line-height: 29px;
       margin-right: 20px;
+      overflow: auto;
       padding-bottom: var(--spacing-xs, spacing(xs));
       padding-left: var(--spacing-sm, spacing(sm));
+      white-space: nowrap;
     }
 
     + .k-code-block-copy-button {

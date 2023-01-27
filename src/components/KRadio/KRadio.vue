@@ -150,10 +150,10 @@ $background-color-card-disabled: color(grey-200);
   }
 
   .k-radio-description {
-    padding-top: var(--spacing-xxs);
+    color: $text-color-default;
     font-size: var(--type-sm, type(sm));
     line-height: 20px;
-    color: $text-color-default;
+    padding-top: var(--spacing-xxs);
   }
 
   // default radio input styling

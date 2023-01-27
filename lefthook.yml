@@ -3,6 +3,8 @@
 
 pre-push:
   commands:
+    stylelint:
+      run: yarn stylelint
     eslint:
       run: yarn lint
 

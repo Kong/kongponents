@@ -14,20 +14,20 @@
   }
 
   label {
-    position: absolute;
-    top: -8px;
-    left: 13px;
-    width: auto;
-    padding: 2px 4px;
-    z-index: 1;
-    line-height: 1;
+    background-color: var(--KInputBackground, var(--white));
+    color: var(--KInputBorder, var(--grey-600));
+    display: inline-block;
     font-size: 11px;
     font-weight: 500;
-    color: var(--KInputBorder, var(--grey-600));
-    background-color: var(--KInputBackground, var(--white));
-    display: inline-block;
+    left: 13px;
+    line-height: 1;
     margin-bottom: 0;
+    padding: 2px 4px;
+    position: absolute;
+    top: -8px;
     transition: color 0.1s ease;
+    width: auto;
+    z-index: 1;
 
     &.hovered:not(.readonly) {
       color: var(--KInputHover, var(--blue-500));
@@ -48,16 +48,16 @@
 .k-input,
 .form-control {
   &:not([type="checkbox"]):not([type="radio"]) {
-    display: block;
-    width: 100%;
-    padding: 10px var(--spacing-md, spacing(md));
-    color: var(--KInputColor, var(--black-70, color(black-70)));
-    font-size: var(--type-md, type(md));
-    font-weight: 400;
-    line-height: 24px;
     border: none;
     border-radius: 3px;
     box-sizing: border-box;
+    color: var(--KInputColor, var(--black-70, color(black-70)));
+    display: block;
+    font-size: var(--type-md, type(md));
+    font-weight: 400;
+    line-height: 24px;
+    padding: 10px var(--spacing-md, spacing(md));
+    width: 100%;
     @include input-default;
 
     &.k-input-small {
@@ -115,25 +115,25 @@
   }
 
   &[type="search"] {
-    padding-left: 36px !important;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpath fill='%23000' fill-opacity='.45' fill-rule='evenodd' d='M6 12c-3.3137085 0-6-2.6862915-6-6s2.6862915-6 6-6 6 2.6862915 6 6c0 1.29583043-.410791 2.49571549-1.1092521 3.47653436l1.2305724 1.23057244 2.8232632 2.8338633c.3897175.3911808.3947266 1.0192147.005164 1.4087774-.3868655.3868655-1.014825.3873148-1.4087774-.005164l-2.8338633-2.8232632-1.23057244-1.2305724C8.49571549 11.589209 7.29583043 12 6 12zm4-6c0-2.209139-1.790861-4-4-4S2 3.790861 2 6s1.790861 4 4 4 4-1.790861 4-4z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
     background-position: 12px 50%;
+    background-repeat: no-repeat;
+    padding-left: 36px !important;
 
     /* Browser Overrides */
     &::-webkit-search-cancel-button {
       -webkit-appearance: none;
-      height: 16px;
-      width: 16px;
       background-image: url("data:image/svg+xml,%3Csvg%20width%3D%2712%27%20height%3D%2712%27%20viewBox%3D%270%200%2012%2012%27%20fill%3D%27none%27%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%3E%0A%3Cpath%20d%3D%27M9.60005%202.40021L1.80005%2010.2002%27%20stroke%3D%27%233C4557%27%20stroke-width%3D%271.5%27%20stroke-linecap%3D%27round%27%2F%3E%0A%3Cpath%20d%3D%27M9.60005%2010.2002L1.80005%202.40021%27%20stroke%3D%27%233C4557%27%20stroke-width%3D%271.5%27%20stroke-linecap%3D%27round%27%2F%3E%0A%3C%2Fsvg%3E");
       background-size: 16px 16px;
+      height: 16px;
+      width: 16px;
     }
   }
 }
 
 .k-input-wrapper textarea.form-control {
-  resize: none;
   padding: 17px 0 0 22px;
+  resize: none;
 
   &:focus {
     box-shadow: inset 0 0 0 2px var(--KInputFocus, var(--blue-400)) !important;
@@ -144,8 +144,8 @@
   .k-input,
   .k-input:hover,
   .k-input:focus {
-    outline: none !important;
     box-shadow: inset 0 0 0 1.5px var(--KInputError, var(--red-500, color(red-500))) !important;
+    outline: none !important;
     transition: color 0.1s ease;
 
     &.k-input-large {
@@ -165,7 +165,7 @@ select.k-input {
   &:not([type="checkbox"]):read-only,
   &:not([type="radio"]),
   &:not([type="radio"]):read-only {
-    height: 38px;
     background-color: var(--KInputSelectBackground, var(--white, color(white)));
+    height: 38px;
   }
 }

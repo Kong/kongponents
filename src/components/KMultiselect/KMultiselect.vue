@@ -877,11 +877,11 @@ onMounted(() => {
 
   // off screen area for checking selections before display
   .staging-area {
-    position: absolute;
     left: -99999px;
-    z-index: -1;
     pointer-events: none;
+    position: absolute;
     visibility: hidden;
+    z-index: -1;
   }
 
   .k-multiselect-selections {
@@ -889,21 +889,21 @@ onMounted(() => {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    padding-right: 23px;
     padding-left: 16px;
+    padding-right: 23px;
 
     &.scrollable {
       overflow-y: auto;
     }
 
     &.staging {
-      position: relative;
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
       box-sizing: border-box;
       height: auto;
-      padding-right: 23px;
       padding-left: 16px;
+      padding-right: 23px;
+      position: relative;
     }
 
     .hidden-selection-count {
@@ -918,26 +918,26 @@ onMounted(() => {
 
   .k-multiselect-icon {
     position: absolute;
-    top: 1px;
     right: 1px;
+    top: 1px;
 
     .k-multiselect-chevron-icon {
       position: relative;
-      top: 11px;
       right: 10px;
+      top: 11px;
     }
 
     .k-multiselect-clear-icon {
       position: absolute;
-      top: 8px;
       right: 10px;
+      top: 8px;
     }
   }
 
   .k-multiselect-trigger {
-    position: relative;
-    display: inline-block;
     border-radius: 3px;
+    display: inline-block;
+    position: relative;
     // mimic input's box shadow styling
     @include input-default;
 
@@ -958,8 +958,8 @@ onMounted(() => {
     }
 
     .k-multiselect-input {
-      position: relative;
       display: inline-block;
+      position: relative;
 
       &.is-readonly {
         // box-shadow: none !important;
@@ -978,8 +978,8 @@ onMounted(() => {
     word-break: break-word;
 
     .select-item-new-indicator {
-      font-weight: 600;
       font-style: italic;
+      font-weight: 600;
     }
   }
 
@@ -1002,15 +1002,15 @@ onMounted(() => {
       }
 
       input.k-input:not([type="checkbox"]):not([type="radio"]) {
-        position: relative;
-        left: 1px;
-        width: calc(100% - 4px);
+        // remove input's default box shadow
+        box-shadow: none !important;
         // slightly smaller than container so we can see
         // the container's box-shadow
         height: calc(100% - 2px);
+        left: 1px;
         margin: 1px;
-        // remove input's default box shadow
-        box-shadow: none !important;
+        position: relative;
+        width: calc(100% - 4px);
 
         &:hover,
         &:focus,
@@ -1028,13 +1028,13 @@ onMounted(() => {
 
   .k-multiselect-popover {
     box-sizing: border-box;
-    width: 100%;
     margin-top: 2px !important;
     overflow: auto !important; // Allow setting a maxHeight on the popover dropdown
+    width: 100%;
 
     &[x-placement^="top"] {
-      margin-top: 0 !important;
       margin-bottom: 2px !important;
+      margin-top: 0 !important;
     }
 
     &.k-multiselect-pop {
@@ -1054,8 +1054,8 @@ onMounted(() => {
     }
 
     a {
-      flex: 1;
       color: var(--black-70);
+      flex: 1;
 
       &:hover,
       &:active,

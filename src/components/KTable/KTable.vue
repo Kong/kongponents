@@ -879,8 +879,8 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .k-table-wrapper {
-  width: 100%;
   overflow: auto;
+  width: 100%;
 }
 
 .k-table-toolbar > :deep(*) {
@@ -888,24 +888,24 @@ export default defineComponent({
 }
 
 .k-table {
-  width: 100%;
-  max-width: 100%;
-  margin-top: 0;
   border-collapse: collapse;
+  margin-top: 0;
+  max-width: 100%;
+  width: 100%;
 
   th,
   td {
     padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
-    white-space: nowrap;
     vertical-align: middle;
+    white-space: nowrap;
   }
 
   thead {
-    position: sticky;
-    top: 0;
-    height: 60px;
     background-color: #ffffff;
     border-bottom: 1px solid var(--KTableBorder, var(--grey-200, color(grey-200)));
+    height: 60px;
+    position: sticky;
+    top: 0;
 
     &.is-scrolled {
       border-bottom: none;
@@ -915,18 +915,18 @@ export default defineComponent({
       position: relative;
 
       &:after {
-        position: absolute;
-        left: 0;
-        z-index: -1;
-        width: 100%;
+        box-shadow: none;
+        content: '';
         height: 100%;
+        left: 0;
+        opacity: 0;
         // Super-important to allow clicking on table rows in Safari.
         // This allows clicks to pass through the "invisible" :after layer
         pointer-events: none;
-        content: '';
-        box-shadow: none;
-        opacity: 0;
+        position: absolute;
         transition: opacity 0.2s ease-in-out;
+        width: 100%;
+        z-index: -1;
       }
 
       &.is-scrolled {
@@ -946,9 +946,9 @@ export default defineComponent({
     }
 
     th {
-      padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
       font-size: var(--KTableHeaderSize, var(--type-sm, type(sm)));
       font-weight: 600;
+      padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
       text-align: left;
 
       &.active-sort {
@@ -956,15 +956,15 @@ export default defineComponent({
       }
 
       .sr-only {
-        position: absolute;
-        width: 1px;
+        border-width: 0;
+        clip: rect(0, 0, 0, 0);
         height: 1px;
-        padding: 0;
         margin: -1px;
         overflow: hidden;
-        clip: rect(0, 0, 0, 0);
+        padding: 0;
+        position: absolute;
         white-space: nowrap;
-        border-width: 0;
+        width: 1px;
       }
 
       &.sortable {
@@ -1015,8 +1015,8 @@ export default defineComponent({
   }
 
   &.side-border {
-    border-spacing: 0 2px;
     border-collapse: separate;
+    border-spacing: 0 2px;
 
     tbody tr {
       border-bottom: none;
@@ -1060,18 +1060,18 @@ export default defineComponent({
     td {
       button,
       .k-button {
-        margin-top: calc(-1 * var(--KButtonPaddingY, var(--spacing-xs)));
         margin-bottom: calc(-1 * var(--KButtonPaddingY, var(--spacing-xs)));
+        margin-top: calc(-1 * var(--KButtonPaddingY, var(--spacing-xs)));
       }
       .k-table-cell-title {
         color: color(grey-600);
-        font-weight: 600;
-        font-size: var(--type-md)
+        font-size: var(--type-md);
+        font-weight: 600
       }
       .k-table-cell-description {
         color: color(grey-500);
-        font-weight: 400;
         font-size: var(--type-md);
+        font-weight: 400;
       }
     }
   }

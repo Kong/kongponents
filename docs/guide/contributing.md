@@ -285,7 +285,7 @@ This will trigger the Commitizen interactive prompt for building your commit mes
 
 A `commit-msg` hook is automatically setup that enforces commit message stands with `commitlint`.
 
-A `pre-push` hook is configured to run ESLint before pushing your changes to the remote repository.
+A `pre-push` hook is configured to run Stylelint and ESLint before pushing your changes to the remote repository.
 
 ## Recommended IDE Setup
 

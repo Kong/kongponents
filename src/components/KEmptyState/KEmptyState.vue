@@ -86,31 +86,31 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .empty-state-wrapper {
-  padding: 48px 0;
-  text-align: center;
   background-color: var(--KEmptyBackground, var(--white));
   border-radius: 4px;
+  padding: 48px 0;
+  text-align: center;
 
   .k-empty-state-title-header {
-    margin: 0 0 14px;
+    color: var(--KEmptyTitleColor, var(--black-500));
     font-size: 20px;
     font-weight: 600;
     line-height: 24px;
-    color: var(--KEmptyTitleColor, var(--black-500));
+    margin: 0 0 14px;
   }
 
   .k-empty-state-message {
-    max-width: 50%;
-    margin: 0 auto 14px;
+    color: var(--KEmptyContentColor, var(--black-400));
     font-size: 13px;
     line-height: 20px;
-    color: var(--KEmptyContentColor, var(--black-400));
+    margin: 0 auto 14px;
+    max-width: 50%;
   }
 
   .k-empty-state-cta {
     margin: 0;
-    margin-right: auto;
     margin-left: auto;
+    margin-right: auto;
   }
 }
 </style>

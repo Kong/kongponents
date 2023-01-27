@@ -66,19 +66,19 @@ const handleClick = (): void => {
   }
 
   button {
-    display: flex;
     align-items: center;
-    width: 100%;
-    padding-left: var(--spacing-xxs);
+    background-color: var(--white);
+    border: none;
+    border-radius: 4px;
+    color: var(--grey-500);
+    display: flex;
     font-family: var(--font-family-sans);
     font-size: var(--type-xs);
     font-weight: 400;
     line-height: 26px;
-    color: var(--grey-500);
+    padding-left: var(--spacing-xxs);
     text-align: left;
-    background-color: var(--white);
-    border: none;
-    border-radius: 4px;
+    width: 100%;
 
     &:not(:disabled) {
       cursor: pointer;
@@ -93,25 +93,25 @@ const handleClick = (): void => {
     }
 
     .k-multiselect-item-label {
-      width: auto;
-      padding: 8px;
+      color: var(--grey-600);
       font-size: 14px;
       font-weight: 500;
       line-height: 20px;
-      color: var(--grey-600);
+      padding: 8px;
+      width: auto;
       word-break: break-word;
 
       :deep(.select-item-label) {
-        margin-bottom: 4px;
+        color: var(--grey-600);
         font-size: 14px;
         font-weight: 600;
-        color: var(--grey-600);
+        margin-bottom: 4px;
       }
 
       :deep(.select-item-desc) {
+        color: var(--grey-500);
         font-size: 12px;
         font-weight: 400;
-        color: var(--grey-500);
       }
     }
     .selected-item-icon {
@@ -123,22 +123,22 @@ const handleClick = (): void => {
     }
 
     .k-multiselect-selected-icon-container {
-      width: 24px;
       height: 24px;
-      margin-top: auto;
       margin-bottom: auto;
       margin-left: auto;
+      margin-top: auto;
+      width: 24px;
     }
 
     &:not(:disabled):hover {
-      color: var(--grey-600);
       background-color: var(--grey-100);
+      color: var(--grey-600);
     }
 
     &.selected {
-      font-weight: 400;
-      color: var(--blue-500);
       background-color: var(--blue-100);
+      color: var(--blue-500);
+      font-weight: 400;
     }
   }
 }

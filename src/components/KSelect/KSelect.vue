@@ -646,12 +646,12 @@ export default defineComponent({
 .k-select {
   width: fit-content; // necessary for correct placement of popup
   .k-select-item-selection {
-    display: flex;
-    margin-bottom: 6px;
-    font-weight: 400;
-    color: var(--blue-500);
     background-color: var(--blue-100);
     border-radius: 4px;
+    color: var(--blue-500);
+    display: flex;
+    font-weight: 400;
+    margin-bottom: 6px;
 
     &.overlay-label-item-selection {
       position: relative;
@@ -666,23 +666,23 @@ export default defineComponent({
 
     .clear-selection-icon {
       height: 24px;
-      padding: 0;
-      margin-top: auto;
       margin-bottom: auto;
       margin-left: auto;
+      margin-top: auto;
+      padding: 0;
     }
   }
 
   .k-select-trigger:after {
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid;
+    content: "";
     display: inline-block;
-    width: 0;
     height: 0;
     margin-left: var(--spacing-xs, spacing(xs));
     vertical-align: middle;
-    content: "";
-    border-top: 6px solid;
-    border-right: 6px solid transparent;
-    border-left: 6px solid transparent;
+    width: 0;
   }
 }
 </style>
@@ -720,10 +720,10 @@ export default defineComponent({
 
   .k-select-input {
     @include input-default;
-    position: relative;
-    display: inline-block;
-    width: 100%;
     box-shadow: none !important;
+    display: inline-block;
+    position: relative;
+    width: 100%;
 
     &.is-readonly {
       @include input-readonly;
@@ -782,30 +782,30 @@ export default defineComponent({
     }
 
     .clear-selection-icon {
-      position: absolute;
-      top: 13px;
-      right: 30px;
-      z-index: 9;
       padding: 0;
+      position: absolute;
+      right: 30px;
+      top: 13px;
+      z-index: 9;
       &.overlay-label-clear {
         top: 36px;
       }
       .kong-icon-clear {
-        position: static;
         display: block;
+        position: static;
         transform: none;
       }
     }
   }
 
   div.k-select-input.select-input-container {
+    align-items: center;
+    border: 1px solid var(--grey-300);
+    border-radius: 3px;
+    cursor: pointer !important;
     display: flex;
     flex: 0 0 40%;
     flex-direction: row-reverse;
-    align-items: center;
-    cursor: pointer !important;
-    border: 1px solid var(--grey-300);
-    border-radius: 3px;
     transition: all 0.1s ease;
 
     .k-input-wrapper  {
@@ -850,13 +850,13 @@ export default defineComponent({
 
   .k-select-popover {
     box-sizing: border-box;
-    width: 100%;
     margin-top: 2px !important;
     overflow: auto !important; // Allow setting a maxHeight on the popover dropdown
+    width: 100%;
 
     &[x-placement^="top"] {
-      margin-top: 0 !important;
       margin-bottom: 2px !important;
+      margin-top: 0 !important;
     }
 
     &.k-select-pop-button {
@@ -880,18 +880,18 @@ export default defineComponent({
     .k-select-empty-item button,
     .k-select-empty-item button:focus,
     .k-select-empty-item button:hover {
-      font-style: italic;
       color: var(--grey-500);
+      font-style: italic;
     }
 
     ul {
-      padding: 0;
       margin: 0;
+      padding: 0;
     }
 
     a {
-      flex: 1;
       color: var(--black-70);
+      flex: 1;
 
       &:hover,
       &:active,
@@ -901,12 +901,12 @@ export default defineComponent({
     }
 
     .k-select-loading {
-      position: relative;
-      top: 0;
-      right: 0;
       display: block;
       height: 24px;
+      position: relative;
+      right: 0;
       text-align: center;
+      top: 0;
     }
   }
 }

@@ -288,10 +288,10 @@ export default defineComponent({
   position: relative;
 
   .k-file-upload-btn.k-button {
+    border-radius: 100px;
+    height: 29px;
     position: absolute;
     right: var(--type-xs);
-    height: 29px;
-    border-radius: 100px;
   }
 
   .k-file-upload-btn-with-label.k-button {
@@ -305,12 +305,12 @@ export default defineComponent({
   // To hide the button and thumbnail that appears in Safari and firefox after uploading a file
   :deep(.k-input-wrapper) input[type="file"]::-webkit-file-upload-button,
   :deep(.k-input-wrapper) input[type="file"]::file-selector-button {
-    position: absolute;
-    min-width: 100%;
-    min-height: 100%;
     cursor: inherit;
+    min-height: 100%;
+    min-width: 100%;
     opacity: 0;
     pointer-events: none;
+    position: absolute;
   }
 
   :deep(.k-input-wrapper) input[type="file"],
@@ -319,14 +319,14 @@ export default defineComponent({
   }
 
   .remove-button {
-    position: absolute;
-    top: 38px;
-    right: 118px;
-    height: var(--spacing-lg);
-    padding: var(--type-xxs) 6px;
-    cursor: pointer;
     background-color: transparent;
     border: none;
+    cursor: pointer;
+    height: var(--spacing-lg);
+    padding: var(--type-xxs) 6px;
+    position: absolute;
+    right: 118px;
+    top: 38px;
 
     &:hover,
     &:active {
@@ -340,23 +340,23 @@ export default defineComponent({
   }
 
   .image-upload-icon {
+    cursor: pointer;
+    left: var(--spacing-xs);
     position: absolute;
     top: var(--type-xxs);
-    left: var(--spacing-xs);
-    cursor: pointer;
   }
 
   .image-upload-description {
-    position: absolute;
-    top: var(--type-xs);
-    left: 44px;
-    overflow: hidden;
-    font-size: 13px;
-    line-height: 20px;
     color: var(--blue-500);
-    text-overflow: ellipsis;
-    white-space: nowrap;
     cursor: pointer;
+    font-size: 13px;
+    left: 44px;
+    line-height: 20px;
+    overflow: hidden;
+    position: absolute;
+    text-overflow: ellipsis;
+    top: var(--type-xs);
+    white-space: nowrap;
   }
 }
 </style>
@@ -380,10 +380,10 @@ export default defineComponent({
   }
 
   .display-name {
-    position: absolute;
-    left: 20px;
     color: var(--black-70);
+    left: 20px;
     pointer-events: none;
+    position: absolute;
   }
 
   .has-label {

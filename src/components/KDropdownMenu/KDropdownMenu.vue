@@ -216,15 +216,15 @@ export default defineComponent({
 .k-dropdown-menu {
   width: fit-content;
   .drodpown-trigger:after {
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid;
+    content: "";
     display: inline-block;
-    width: 0;
     height: 0;
     margin-left: var(--spacing-xs, spacing(xs));
     vertical-align: middle;
-    content: "";
-    border-top: 6px solid;
-    border-right: 6px solid transparent;
-    border-left: 6px solid transparent;
+    width: 0;
   }
 }
 </style>
@@ -239,13 +239,13 @@ export default defineComponent({
   border: 1px solid var(--black-10);
 
   ul {
-    padding: 0;
     margin: 0;
+    padding: 0;
   }
 
   a {
-    flex: 1;
     color: var(--black-70);
+    flex: 1;
 
     &:hover,
     &:active,
@@ -257,9 +257,9 @@ export default defineComponent({
 
 .selection-dropdown-menu {
   .dropdown-trigger .k-button {
+    border: 0;
     color: var(--grey-600);
     white-space: nowrap;
-    border: 0;
 
     &:focus {
       box-shadow: none;

@@ -76,29 +76,29 @@ export default defineComponent({
 @import '@/styles/variables';
 @import '@/styles/functions';
 .fullscreen-loading-container {
-  position: fixed;
-  top: 0;
-  right: 0;
+  align-items: center;
+  background: var(--white, color(white));
   bottom: 0;
-  left: 0;
-  z-index: 10500;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  left: 0;
   margin: var(--KSkeletonFullScreenMargin, 0);
-  background: var(--white, color(white));
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 10500;
 
   .progress {
-    max-width: 350px;
-    margin-top: 16px;
     background-color: var(--grey-200, color(grey-200));
     border-radius: 8px;
+    margin-top: 16px;
+    max-width: 350px;
 
     .progress-bar {
-      height: 5px;
       background-color: var(--KSkeletonFullScreenProgressColor, var(--blue-500, color(blue-500)));
       border-radius: 8px;
+      height: 5px;
     }
   }
 }

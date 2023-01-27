@@ -134,14 +134,14 @@ export default defineComponent({
     --KButtonPrimaryHover: var(--KKSegmentedControlSelectedBackground, var(--blue-100));
     --KButtonSecondaryBase: var(--KSegmentedControlUnselectedBackground, var(--white));
     --KButtonSecondaryHover: var(--KSegmentedControlUnselectedBackground, var(--white));
+    border-radius: 0;
+    color: var(--KSegmentedControlText, var(--blue-500));
     flex: 1;
     margin-left: -1px;
-    color: var(--KSegmentedControlText, var(--blue-500));
-    border-radius: 0;
 
     &.primary {
-      z-index: 1;
       border-color: var(--KSegmentedControlSelectedBorder, var(--blue-500));
+      z-index: 1;
     }
 
     &.secondary {
@@ -161,13 +161,13 @@ export default defineComponent({
     }
 
     &:focus {
-      z-index: 3;
       box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--KSegmentedControlSelectedBorder, var(--blue-500));
+      z-index: 3;
     }
 
     &:first-child {
-      margin-left: 0;
       border-radius: 3px 0 0 3px;
+      margin-left: 0;
     }
 
     &:last-child {
@@ -175,14 +175,14 @@ export default defineComponent({
     }
 
     &:only-child {
-      margin-left: 0;
       border-radius: 3px;
+      margin-left: 0;
     }
 
     &:disabled, &:disabled:hover {
-      z-index: 0;
       background-color: var(--KSegmentedControlUnselectedBackground, var(--white)) !important;
       border-color: rgba(color(grey-500), .4);
+      z-index: 0;
     }
   }
 

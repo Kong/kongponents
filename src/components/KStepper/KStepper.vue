@@ -48,12 +48,12 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .k-stepper {
-  position: relative;
   display: flex;
-  width: 100%;
-  max-width: 100%;
-  padding-inline-start: 0px;
-  overflow-x: auto;
   list-style: none;
+  max-width: 100%;
+  overflow-x: auto;
+  padding-inline-start: 0px;
+  position: relative;
+  width: 100%;
 }
 </style>

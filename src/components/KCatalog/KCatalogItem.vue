@@ -81,19 +81,19 @@ export default defineComponent({
     --lh: 20px;
     --max-lines: 5;
     --max-lines-less: 4;
+    line-height: var(--lh);
+    max-height: calc(var(--lh) * var(--max-lines));
+    overflow: hidden;
+    padding-right: 8px;
 
     position: relative;
-    max-height: calc(var(--lh) * var(--max-lines));
-    padding-right: 8px;
-    overflow: hidden;
-    line-height: var(--lh);
   }
 
   .multi-line-truncate::before {
-    position: absolute;
-    top: calc(var(--lh) * var(--max-lines-less));
-    right: 12px;
     content: "...";
+    position: absolute;
+    right: 12px;
+    top: calc(var(--lh) * var(--max-lines-less));
   }
 
   &:hover {

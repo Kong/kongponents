@@ -9,14 +9,14 @@ $sides: (top, right, bottom, left);
   margin-right: auto !important;
 }
 .my-auto {
-  margin-top: auto !important;
   margin-bottom: auto !important;
+  margin-top: auto !important;
 }
 .ma-auto {
+  margin-bottom: auto !important;
   margin-left: auto !important;
   margin-right: auto !important;
   margin-top: auto !important;
-  margin-bottom: auto !important;
 }
 
 .mx-0 {
@@ -24,14 +24,14 @@ $sides: (top, right, bottom, left);
   margin-right: 0px !important;
 }
 .my-0 {
-  margin-top: 0px !important;
   margin-bottom: 0px !important;
+  margin-top: 0px !important;
 }
 .ma-0 {
+  margin-bottom: 0px !important;
   margin-left: 0px !important;
   margin-right: 0px !important;
   margin-top: 0px !important;
-  margin-bottom: 0px !important;
 }
 
 .px-auto {
@@ -39,14 +39,14 @@ $sides: (top, right, bottom, left);
   padding-right: auto !important;
 }
 .py-auto {
-  padding-top: auto !important;
   padding-bottom: auto !important;
+  padding-top: auto !important;
 }
 .pa-auto {
+  padding-bottom: auto !important;
   padding-left: auto !important;
   padding-right: auto !important;
   padding-top: auto !important;
-  padding-bottom: auto !important;
 }
 
 .px-0 {
@@ -54,14 +54,14 @@ $sides: (top, right, bottom, left);
   padding-right: 0px !important;
 }
 .py-0 {
-  padding-top: 0px !important;
   padding-bottom: 0px !important;
+  padding-top: 0px !important;
 }
 .pa-0 {
-  padding-top: 0px !important;
   padding-bottom: 0px !important;
   padding-left: 0px !important;
   padding-right: 0px !important;
+  padding-top: 0px !important;
 }
 
 // Loop spacing and create margin classes
@@ -91,14 +91,14 @@ $sides: (top, right, bottom, left);
     margin-right: #{$space} !important;
   }
   .my-#{$i} {
-    margin-top: #{$space} !important;
     margin-bottom: #{$space} !important;
+    margin-top: #{$space} !important;
   }
   .ma-#{$i} {
+    margin-bottom: #{$space} !important;
     margin-left: #{$space} !important;
     margin-right: #{$space} !important;
     margin-top: #{$space} !important;
-    margin-bottom: #{$space} !important;
   }
 }
 
@@ -126,14 +126,14 @@ $sides: (top, right, bottom, left);
     padding-right: #{$space} !important;
   }
   .py-#{$i} {
-    padding-top: #{$space} !important;
     padding-bottom: #{$space} !important;
+    padding-top: #{$space} !important;
   }
   .pa-#{$i} {
+    padding-bottom: #{$space} !important;
     padding-left: #{$space} !important;
     padding-right: #{$space} !important;
     padding-top: #{$space} !important;
-    padding-bottom: #{$space} !important;
   }
 }
 
@@ -152,30 +152,30 @@ $sides: (top, right, bottom, left);
 /*  Text
 ========================================================================== */
 .truncate {
-  white-space: nowrap;
-  text-overflow: ellipsis;
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .multi-line-truncation {
+  -webkit-box-orient: vertical;
   display: -webkit-box;
   -webkit-line-clamp: var(--TMaxLineLimit, 3);
-  -webkit-box-orient: vertical;
   overflow: hidden;
 }
 .truncate-multi {
-  line-height: var(--TLineHeight, 24px);
   font-size: var(--TFontSize, 16px);
-  position: relative;
+  line-height: var(--TLineHeight, 24px);
   max-height: calc(var(--TLineHeight, 24px) * var(--TMaxLines, 5));
   overflow: hidden;
   // You cannot multiply {number}px * {number}px in Sass, so we are removing the "px" from the --TPadRight variable
   padding-right: calc(var(--TPosRight, 12px) * str-replace(var(--TPadRight, 8px), "px", "") + 4px) !important;
+  position: relative;
 
   .truncate-multi::before {
-    position: absolute;
     content: "...";
-    top: calc(var(--TLineHeight, 24px) * (var(--TMaxLines, 5) - 1) + var(--TFontSize, 16px) * 0.5);
+    position: absolute;
     right: var(--TPosRight, 12px);
+    top: calc(var(--TLineHeight, 24px) * (var(--TMaxLines, 5) - 1) + var(--TFontSize, 16px) * 0.5);
   }
 }
 .capitalize {
@@ -364,13 +364,13 @@ $sides: (top, right, bottom, left);
 }
 
 .k-visually-hidden {
-  position: absolute !important;
-  width: 1px !important;
+  border: 0 !important;
+  clip: rect(0, 0, 0, 0) !important;
   height: 1px !important;
-  padding: 0 !important;
   margin: -1px !important;
   overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
+  padding: 0 !important;
+  position: absolute !important;
   white-space: nowrap !important;
-  border: 0 !important;
+  width: 1px !important;
 }

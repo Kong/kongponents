@@ -62,8 +62,8 @@ export default defineComponent({
 $screen-lg: 1256px;
 $screen-md: 756px;
 .skeleton-table-wrapper {
-  width: 100%;
   overflow: hidden;
+  width: 100%;
   .skeleton-table-row {
     display: flex;
     flex-direction: row;
@@ -75,8 +75,8 @@ $screen-md: 756px;
           display: none;
         }
         &:nth-of-type(4) {
-          margin-right: 0;
           margin-left: auto;
+          margin-right: 0;
         }
       }
     }
@@ -86,9 +86,9 @@ $screen-md: 756px;
           display: none;
         }
         &:nth-of-type(2) {
-          width: 96px;
-          margin-right: 0;
           margin-left: auto;
+          margin-right: 0;
+          width: 96px;
         }
       }
     }

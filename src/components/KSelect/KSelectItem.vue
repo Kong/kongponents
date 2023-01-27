@@ -68,27 +68,27 @@ export default defineComponent({
 @import '@/styles/functions';
 
 .k-select-item {
-  margin-bottom: 4px;
   list-style: none !important;
+  margin-bottom: 4px;
 
   &:last-of-type {
     margin-bottom: 0 !important;
   }
 
   button {
-    display: flex;
     align-items: center;
-    width: 100%;
-    padding-left: var(--spacing-xxs);
+    background-color: var(--white);
+    border: none;
+    border-radius: 4px;
+    color: var(--grey-500);
+    display: flex;
     font-family: var(--font-family-sans);
     font-size: var(--type-xs);
     font-weight: 400;
     line-height: 26px;
-    color: var(--grey-500);
+    padding-left: var(--spacing-xxs);
     text-align: left;
-    background-color: var(--white);
-    border: none;
-    border-radius: 4px;
+    width: 100%;
 
     &:not(:disabled) {
       cursor: pointer;
@@ -103,24 +103,24 @@ export default defineComponent({
     }
 
     .k-select-item-label {
-      width: auto;
-      padding: 8px;
+      color: var(--grey-600);
       font-size: 14px;
       font-weight: 500;
       line-height: 20px;
-      color: var(--grey-600);
+      padding: 8px;
+      width: auto;
 
       :deep(.select-item-label) {
-        margin-bottom: 4px;
+        color: var(--grey-600);
         font-size: 14px;
         font-weight: 600;
-        color: var(--grey-600);
+        margin-bottom: 4px;
       }
 
       :deep(.select-item-desc) {
+        color: var(--grey-500);
         font-size: 14px;
         font-weight: 400;
-        color: var(--grey-500);
       }
     }
 
@@ -129,29 +129,29 @@ export default defineComponent({
     }
 
     .k-select-selected-icon-container {
-      width: 24px;
       height: 24px;
-      margin-top: auto;
       margin-bottom: auto;
       margin-left: auto;
+      margin-top: auto;
+      width: 24px;
 
       .kong-icon {
         position: relative;
-        top: 0;
         right: 0;
+        top: 0;
         transform: none;
       }
     }
 
     &:not(:disabled):hover {
-      color: var(--grey-600);
       background-color: var(--grey-100);
+      color: var(--grey-600);
     }
 
     &.selected {
-      font-weight: 400;
-      color: var(--blue-500);
       background-color: var(--blue-100);
+      color: var(--blue-500);
+      font-weight: 400;
     }
 
     &.danger {

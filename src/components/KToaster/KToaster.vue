@@ -59,42 +59,42 @@ export default defineComponent({
 $transition: all .3s;
 
 .toaster-container-outer {
+  bottom: 16px;
+  max-width: 300px;
   position: fixed;
   right: 16px;
-  bottom: 16px;
-  z-index: 10000;
-  width: auto;
-  max-width: 300px;
   transition: $transition;
+  width: auto;
+  z-index: 10000;
 }
 
 .toaster-item {
+  box-shadow: 0 0 12px rgba(0,0,0,.12);
   display: flex;
-  width: 100%;
   margin-bottom: 16px;
   overflow: hidden;
-  box-shadow: 0 0 12px rgba(0,0,0,.12);
   transition: $transition;
+  width: 100%;
 
   :deep(.k-alert) {
     --KAlertInfoBorder: var(--blue-500, color(blue-500));
     --KAlertSuccessBorder: var(--green-400, color(green-400));
     --KAlertWarningBorder: var(--yellow-300, color(yellow-300));
     --KAlertDangerBorder: var(--red-500, color(red-500));
+    background-color: #fff;
+    color: var(--black-70);
     display: flex;
     flex: 1;
     justify-content: space-between;
-    padding: 16px;
     margin-bottom: 0;
-    color: var(--black-70);
+    padding: 16px;
     text-align: left;
-    background-color: #fff;
 
     .close {
-      position: relative;
-      right: 0;
       order: 1;
       padding: 0 0 0 16px;
+      position: relative;
+      right: 0;
 
       &:focus,
       &:active {
@@ -104,10 +104,10 @@ $transition: all .3s;
   }
 
   .message {
-    max-width: 150ch;
     -webkit-hyphens: auto;
     -moz-hyphens: auto;
     hyphens: auto;
+    max-width: 150ch;
   }
 }
 

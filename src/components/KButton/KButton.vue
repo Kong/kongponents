@@ -201,24 +201,24 @@ export default defineComponent({
 }
 
 .k-button {
-  position: relative;
-  display: inline-flex;
-  gap: var(--spacing-xs, spacing(xs));
   align-items: center;
-  padding: var(--KButtonPaddingY, var(--spacing-sm, spacing(sm))) var(--KButtonPaddingX, var(--spacing-lg, spacing(lg)));
+  border: 1px solid transparent;
+  border-radius: var(--KButtonRadius, 3px);
+  color: var(--black-70, color(black-70));
+  cursor: pointer;
+  display: inline-flex;
   font-family: var(--font-family-sans, font(sans));
   font-size: var(--KButtonFontSize, var(--type-md, type(md)));
   font-weight: 600;
+  gap: var(--spacing-xs, spacing(xs));
   line-height: 1.25;
-  color: var(--black-70, color(black-70));
-  text-decoration: none;
-  vertical-align: middle;
-  cursor: pointer;
-  border: 1px solid transparent;
-  border-radius: var(--KButtonRadius, 3px);
-  transition: all .2s ease-in-out;
+  padding: var(--KButtonPaddingY, var(--spacing-sm, spacing(sm))) var(--KButtonPaddingX, var(--spacing-lg, spacing(lg)));
+  position: relative;
   // Remove tap color highlight on mobile Safari
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  text-decoration: none;
+  transition: all .2s ease-in-out;
+  vertical-align: middle;
 
   &:disabled,
   &[disabled] {
@@ -250,47 +250,47 @@ export default defineComponent({
   }
 
   &.icon-btn {
-    justify-content: center;
     height: 38px;
+    justify-content: center;
   }
 
   /* Size Variations */
   &.small {
-    padding: var(--spacing-xs, spacing(xs)) var(--spacing-md, spacing(md));
     font-size: var(--KButtonFontSize, 13px);
     line-height: 13px;
+    padding: var(--spacing-xs, spacing(xs)) var(--spacing-md, spacing(md));
   }
 
   &.medium {
-    padding: var(--spacing-sm, spacing(sm)) var(--spacing-lg, spacing(lg)) ;
     font-size: var(--KButtonFontSize, var(--type-md, type(md)));
     line-height: var(--type-md, type(md));
+    padding: var(--spacing-sm, spacing(sm)) var(--spacing-lg, spacing(lg)) ;
   }
 
   &.large {
-    padding: var(--spacing-md, spacing(md)) var(--spacing-xl, spacing(xl)) ;
     font-size: var(--KButtonFontSize, var(--type-md, type(md)));
     line-height: var(--type-md, type(md));
+    padding: var(--spacing-md, spacing(md)) var(--spacing-xl, spacing(xl)) ;
   }
 
   /* class to add for dropdown caret */
 
   :deep(.caret) {
     display: inline-block;
-    padding: 0;
     margin-left: 15px;
+    padding: 0;
     transition: 250ms ease;
   }
 
   &.is-active :deep(.caret) {
-    transition: 250ms ease;
     transform: rotate(-180deg);
+    transition: 250ms ease;
   }
 
   /* Apperance Variations */
   &.secondary {
-    color: var(--KButtonSecondaryColor, var(--blue-600, color(blue-600)));
     background-color: var(--KButtonSecondaryBase, var(--blue-200, color(blue-200)));
+    color: var(--KButtonSecondaryColor, var(--blue-600, color(blue-600)));
     &:hover:not(:disabled) {
       background-color: var(--KButtonSecondaryHover, var(--blue-300));
     }
@@ -302,15 +302,15 @@ export default defineComponent({
     }
     &:disabled,
     &[disabled] {
-      color: var(--grey-400) !important;
       // Use !important to override conflicting styles
       background-color: var(--grey-300) !important;
+      color: var(--grey-400) !important;
     }
   }
 
   &.primary {
-    color: var(--white, #fff);
     background-color: var(--KButtonPrimaryBase, var(--blue-500, color(blue-500)));
+    color: var(--white, #fff);
     &:hover:not(:disabled) {
       background-color: var(--KButtonPrimaryHover, var(--blue-600));
     }
@@ -322,13 +322,13 @@ export default defineComponent({
     }
     &:disabled,
     &[disabled] {
-      color: var(--grey-400) !important;
       background-color: var(--grey-300) !important;
+      color: var(--grey-400) !important;
     }
   }
   &.danger {
-    color: var(--white, #fff);
     background-color: var(--KButtonDangerBase, var(--red-500, color(red-500)));
+    color: var(--white, #fff);
     &:hover:not(:disabled) {
       $hover: rgba(color(red-700), .85);
       background-color: var(--KButtonDangerHover, $hover);
@@ -341,14 +341,14 @@ export default defineComponent({
     }
     &:disabled,
     &[disabled] {
-      color: var(--grey-400) !important;
       background-color: var(--grey-300) !important;
+      color: var(--grey-400) !important;
     }
   }
 
   &.creation {
-    color: var(--white, #fff);
     background-color: var(--KButtonCreationBase, var(--green-500, color(green-500)));
+    color: var(--white, #fff);
     &:hover:not(:disabled) {
       $hover: rgba(color(green-600), .85);
       background-color: var(--KButtonCreationHover, $hover);
@@ -361,15 +361,15 @@ export default defineComponent({
     }
     &:disabled,
     &[disabled] {
-      color: var(--grey-400) !important;
       background-color: var(--grey-300) !important;
+      color: var(--grey-400) !important;
     }
   }
 
   &.outline {
-    color: var(--KButtonOutlineColor, var(--blue-500, color(blue-500)));
     background-color: var(--white, color(white));
     border-color: var(--KButtonOutlineBorder, rgba(color(blue-500), .4));
+    color: var(--KButtonOutlineColor, var(--blue-500, color(blue-500)));
     outline-style: inherit;
     &:hover:not(:disabled) {
       border-color: var(--KButtonOutlineHoverBorder, rgba(color(blue-500), 1));
@@ -383,15 +383,15 @@ export default defineComponent({
     }
     &:disabled,
     &[disabled] {
-      color: var(--grey-400) !important;
       border-color: var(--grey-400) !important;
+      color: var(--grey-400) !important;
     }
   }
 
   &.btn-link {
-    padding: 0;
-    color: var(--KButtonBtnLink, var(--blue-500, color(blue-500)));
     background-color: transparent;
+    color: var(--KButtonBtnLink, var(--blue-500, color(blue-500)));
+    padding: 0;
 
     &:hover:not(:disabled) {
       text-decoration: underline;
@@ -403,11 +403,11 @@ export default defineComponent({
 
     &:focus-visible,
     &:focus-visible:disabled {
-      text-decoration: none;
       border-radius: unset;
       outline: auto 1px;
       outline: -webkit-focus-ring-color auto 1px;
       outline-offset: 3px;
+      text-decoration: none;
       transition: none;
     }
 
@@ -418,8 +418,8 @@ export default defineComponent({
   }
 
   &.btn-link-danger {
-    color: var(--KButtonLinkDanger, var(--red-500, color(red-500)));
     background-color: transparent;
+    color: var(--KButtonLinkDanger, var(--red-500, color(red-500)));
     &:hover:not(:disabled) {
       text-decoration: underline;
     }
