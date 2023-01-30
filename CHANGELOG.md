@@ -1,3 +1,10 @@
+## [8.21.3](https://github.com/Kong/kongponents/compare/v8.21.2...v8.21.3) (2023-01-30)
+
+
+### Bug Fixes
+
+* **ktreelist:** emit target when firing each of [@change](https://github.com/change) and [@child-change](https://github.com/child-change) in KTreeList [KHCP-5950] ([#1082](https://github.com/Kong/kongponents/issues/1082)) ([52a4ece](https://github.com/Kong/kongponents/commit/52a4ecefa1f1101bf31eda4ad20a5027ad944f9a))
+
 ## [8.21.2](https://github.com/Kong/kongponents/compare/v8.21.1...v8.21.2) (2023-01-27)
 
 
