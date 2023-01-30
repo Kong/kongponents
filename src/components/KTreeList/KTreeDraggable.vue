@@ -98,12 +98,14 @@ export const getMaximumDepth = ({ children = [] }): number => {
 
 <script setup lang="ts">
 export interface ChangeEvent {
-  items: TreeListItem[]
+  items: TreeListItem[],
+  target: TreeListItem
 }
 
 export interface ChildChangeEvent {
   parent: string,
-  children: TreeListItem[]
+  children: TreeListItem[],
+  target: TreeListItem
 }
 
 export interface DropEvent {
@@ -179,15 +181,17 @@ const getElementChildren = (item: TreeListItem): TreeListItem[] => {
   return item.children as TreeListItem[]
 }
 
-const handleChangeEvent = (): void => {
+const handleChangeEvent = (item: TreeListItem): void => {
   if (props.parentId) {
     emit('child-change', {
       parent: props.parentId,
       children: internalList.value,
+      target: item,
     })
   } else {
     emit('change', {
       items: internalList.value,
+      target: item,
     })
   }
 }

@@ -193,16 +193,17 @@ You can pass a `width` string for the entire tree. By default it will take the f
 ## Events
 
 - `@change` - emitted when there is a change to the root level items
-  - returns `items` - an array of tree items
+  - returns `items` - an array of tree items; `target` - the changed item
 - `@child-change` - emitted when an item is added or removed at the non-root level
-  - returns `parent` - id of the parent item; `children` - an array of tree items
+  - returns `parent` - id of the parent item; `children` - an array of tree items; `target` - the changed item
   - **Note:** two separate `child-change` events will fire if an item is moved from one parent to another
 - `@selected` - emitted when you click (and don't drag) an item; returns the selected item's data
 
 <div>
   <KLabel>Selected: </KLabel> {{ mySelection && mySelection.name || '' }}
   <br>
-  <KLabel>Items: </KLabel> {{ eventItems }}
+  <KLabel>Items:</KLabel>
+  <pre class="json hide-from-percy">{{ JSON.stringify(eventItems) }}</pre>
   <KTreeList
     :items="eventItems"
     class="mt-3"
@@ -229,7 +230,7 @@ You can pass a `width` string for the entire tree. By default it will take the f
 
   const mySelection = ref(null)
   const handleChildChange = (data) => {
-    const { parentId, children } = data
+    const { parentId, children, target } = data
     const changedParent = myItems.value.filter(item => item.id === parentId)?.[0]
     changedParent.children = children
   }
@@ -479,7 +480,7 @@ const reset = () => {
 }
 
 const handleChildChange = (data) => {
-  const { parentId, children } = data
+  const { parentId, children, target } = data
   const changedParent = eventItems.value.filter(item => item.id === parentId)?.[0]
   changedParent.children = children
 }

@@ -76,12 +76,14 @@ const treeListIsValid = (items: TreeListItem[]): boolean => {
 
 <script lang="ts" setup>
 export interface ChangeEvent {
-  items: TreeListItem[]
+  items: TreeListItem[],
+  target: TreeListItem
 }
 
 export interface ChildChangeEvent {
   parent: string,
-  children: TreeListItem[]
+  children: TreeListItem[],
+  target: TreeListItem
 }
 
 const props = defineProps({
