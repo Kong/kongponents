@@ -202,7 +202,8 @@ You can pass a `width` string for the entire tree. By default it will take the f
 <div>
   <KLabel>Selected: </KLabel> {{ mySelection && mySelection.name || '' }}
   <br>
-  <KLabel>Items: </KLabel> {{ eventItems }}
+  <KLabel>Items:</KLabel>
+  <pre class="json hide-from-percy">{{ JSON.stringify(eventItems) }}</pre>
   <KTreeList
     :items="eventItems"
     class="mt-3"
