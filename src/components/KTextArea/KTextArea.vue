@@ -232,6 +232,7 @@ export default defineComponent({
     resize: none;
 
     &.is-resizable {
+      min-height: 50px;
       resize: vertical;
     }
 
