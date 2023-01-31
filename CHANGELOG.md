@@ -1,3 +1,10 @@
+## [8.21.4](https://github.com/Kong/kongponents/compare/v8.21.3...v8.21.4) (2023-01-31)
+
+
+### Bug Fixes
+
+* **deps:** bump date-fns-tz from 1.3.7 to 1.3.8 ([#1084](https://github.com/Kong/kongponents/issues/1084)) ([eee46c4](https://github.com/Kong/kongponents/commit/eee46c4a3d0fdcd15713d3a12baec365b3406ad0))
+
 ## [8.21.3](https://github.com/Kong/kongponents/compare/v8.21.2...v8.21.3) (2023-01-30)
 
 
