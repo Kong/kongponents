@@ -104,7 +104,7 @@ export interface ChangeEvent {
 }
 
 export interface ChildChangeEvent {
-  parent: string,
+  parentId: string,
   children: TreeListItem[],
   target: TreeListItem
 }
@@ -186,14 +186,14 @@ const getElementChildren = (item: TreeListItem): TreeListItem[] => {
 const handleChangeEvent = (item: any): void => {
   if (props.parentId) {
     emit('child-change', {
-      parent: props.parentId,
+      parentId: props.parentId,
       children: internalList.value,
-      target: item?.added || item?.removed,
+      target: item?.added || item?.removed || item?.moved,
     })
   } else {
     emit('change', {
       items: internalList.value,
-      target: item?.added || item?.removed,
+      target: item?.added || item?.removed || item?.moved,
     })
   }
 }
