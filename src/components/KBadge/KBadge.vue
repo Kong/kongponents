@@ -301,6 +301,11 @@ watch(badgeText, () => {
 
   &.k-badge-rounded {
     border-radius: var(--KBadgeBorderRadius, 25px);
+
+    .k-badge-dismiss-button {
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+    }
   }
 
   &.clickable {
@@ -329,6 +334,7 @@ watch(badgeText, () => {
     margin: calc(-1 * var(--KBadgePaddingY, 2px)) calc(-1 * var(--KBadgePaddingX, 6px));
     margin-left: auto;
     padding: var(--spacing-xs);
+    transition: none;
   }
 }
 </style>
@@ -354,7 +360,7 @@ watch(badgeText, () => {
       }
 
       &:hover {
-        background-color:v-bind('$props.hoverColor');
+        background-color: v-bind('$props.hoverColor');
       }
     }
 
