@@ -325,8 +325,6 @@ watch(badgeText, () => {
   }
 
   .k-badge-dismiss-button {
-    // non-visual-button
-    background-color: transparent;
     border: none;
     cursor: pointer;
     font-weight: 400;
@@ -355,6 +353,7 @@ watch(badgeText, () => {
     }
 
     .k-badge-dismiss-button {
+      background-color: v-bind('$props.backgroundColor');
       .kong-icon.kong-icon-close path {
         stroke: v-bind('$props.color');
       }
@@ -370,15 +369,16 @@ watch(badgeText, () => {
     &:focus {
       // fall back to backgroundColor if hoverColor is not provided
       background-color: v-bind('$props.hoverColor || $props.backgroundColor') !important;
+    }
 
-      .k-badge-dismiss-button {
-        background-color: v-bind('$props.hoverColor');
-      }
+    &:has(.k-badge-dismiss-button:hover) {
+      background-color: v-bind('$props.backgroundColor') !important;
     }
   }
 
   &.k-badge-default {
     .k-badge-dismiss-button {
+      background-color: var(--KBadgeDefaultBackground, var(--blue-100, color(blue-100)));
       .kong-icon.kong-icon-close path {
         stroke: var(--KBadgeDefaultColor, var(--blue-500, color(blue-500)));
       }
@@ -393,15 +393,16 @@ watch(badgeText, () => {
     &.clickable:hover,
     &:focus {
       background-color: var(--KBadgeDefaultButtonHoverColor, var(--blue-200, color(blue-200)));
+    }
 
-      .k-badge-dismiss-button {
-        background-color: var(--KBadgeDefaultButtonHoverColor, var(--blue-200, color(blue-200)));
-      }
+    &:has(.k-badge-dismiss-button:hover) {
+      background-color: var(--KBadgeDefaultBackground, var(--blue-100, color(blue-100)));
     }
   }
 
   &.k-badge-success {
     .k-badge-dismiss-button {
+      background-color: var(--KBadgeSuccessBackground, var(--green-100, color(green-100)));
       .kong-icon.kong-icon-close path {
         stroke: var(--KBadgeSuccessColor, var(--green-700, color(green-700)));
       }
@@ -416,15 +417,16 @@ watch(badgeText, () => {
     &.clickable:hover,
     &:focus {
       background-color: var(--KBadgeSuccessButtonHoverColor, var(--green-200, color(green-200)));
+    }
 
-      .k-badge-dismiss-button {
-        background-color: var(--KBadgeSuccessButtonHoverColor, var(--green-200, color(green-200)));
-      }
+    &:has(.k-badge-dismiss-button:hover) {
+      background-color: var(--KBadgeSuccessBackground, var(--green-100, color(green-100)));
     }
   }
 
   &.k-badge-danger {
     .k-badge-dismiss-button {
+      background-color: var(--KBadgeDangerBackground, var(--red-100, color(red-100)));
       .kong-icon.kong-icon-close path {
         stroke: var(--KBadgeDangerColor, var(--red-700, color(red-700)));
       }
@@ -439,15 +441,16 @@ watch(badgeText, () => {
     &.clickable:hover,
     &:focus {
       background-color: var(--KBadgeDangerButtonHoverColor, var(--red-200, color(red-200)));
+    }
 
-      .k-badge-dismiss-button {
-        background-color: var(--KBadgeDangerButtonHoverColor, var(--red-200, color(red-200)));
-      }
+    &:has(.k-badge-dismiss-button:hover) {
+      background-color: var(--KBadgeDangerBackground, var(--red-100, color(red-100)));
     }
   }
 
   &.k-badge-info {
     .k-badge-dismiss-button {
+      background-color: var(--KBadgeInfoBackground, var(--blue-200, color(blue-200)));
       .kong-icon.kong-icon-close path {
         stroke: var(--KBadgeInfoColor, var(--blue-500, color(blue-500)));
       }
@@ -462,15 +465,16 @@ watch(badgeText, () => {
     &.clickable:hover,
     &:focus {
       background-color: var(--KBadgeInfoButtonHoverColor, var(--blue-300, color(blue-300)));
+    }
 
-      .k-badge-dismiss-button {
-        background-color: var(--KBadgeInfoButtonHoverColor, var(--blue-300, color(blue-300)));
-      }
+    &:has(.k-badge-dismiss-button:hover) {
+      background-color: var(--KBadgeInfoBackground, var(--blue-200, color(blue-200)));
     }
   }
 
   &.k-badge-warning {
     .k-badge-dismiss-button {
+      background-color: var(--KBadgeWarningBackground, var(--yellow-100, color(yellow-100)));
       .kong-icon.kong-icon-close path {
         stroke: var(--KBadgeWarningColor, var(--yellow-600, color(yellow-600)));
       }
@@ -485,10 +489,10 @@ watch(badgeText, () => {
     &.clickable:hover,
     &:focus {
       background-color: var(--KBadgeWarningButtonHoverColor, var(--yellow-200, color(yellow-200)));
+    }
 
-      .k-badge-dismiss-button {
-        background-color: var(--KBadgeWarningButtonHoverColor, var(--yellow-200, color(yellow-200)));
-      }
+    &:has(.k-badge-dismiss-button:hover) {
+      background-color: var(--KBadgeWarningBackground, var(--yellow-100, color(yellow-100)));
     }
   }
 }
