@@ -208,7 +208,7 @@ You can pass a `width` string for the entire tree. By default it will take the f
     :items="eventItems"
     class="mt-3"
     @selected="(item) => mySelection = item"
-    @changed="({ items }) => eventItems = items"
+    @change="({ items }) => eventItems = items"
     @child-change="handleChildChange"
   />
 </div>
@@ -220,7 +220,7 @@ You can pass a `width` string for the entire tree. By default it will take the f
   <KTreeList
     :items="myItems"
     @selected="(item) => mySelection = item"
-    @changed="({ items }) => myItems = items"
+    @change="({ items }) => myItems = items"
     @child-change="handleChildChange"
   />
 </template>
