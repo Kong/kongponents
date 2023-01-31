@@ -232,7 +232,7 @@ export default defineComponent({
     resize: none;
 
     &.is-resizable {
-      resize: both;
+      resize: vertical;
     }
 
     &:focus::placeholder {

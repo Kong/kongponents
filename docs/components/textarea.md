@@ -98,7 +98,7 @@ Boolean value to indicate whether the element has an error and should apply erro
 
 ### isResizable
 
-Boolean value to allow manually resizing a textarea
+Boolean value to allow vertically resizing a textarea
 
 <KTextArea is-resizable />
 
