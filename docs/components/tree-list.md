@@ -195,7 +195,7 @@ You can pass a `width` string for the entire tree. By default it will take the f
 - `@change` - emitted when there is a change to the root level items
   - returns `items` - an array of tree items; `target` - the changed item
 - `@child-change` - emitted when an item is added or removed at the non-root level
-  - returns `parent` - id of the parent item; `children` - an array of tree items; `target` - the changed item
+  - returns `parentId` - id of the parent item; `children` - an array of tree items; `target` - the changed item
   - **Note:** two separate `child-change` events will fire if an item is moved from one parent to another
 - `@selected` - emitted when you click (and don't drag) an item; returns the selected item's data
 
@@ -208,7 +208,7 @@ You can pass a `width` string for the entire tree. By default it will take the f
     :items="eventItems"
     class="mt-3"
     @selected="(item) => mySelection = item"
-    @changed="({ items }) => eventItems = items"
+    @change="({ items }) => eventItems = items"
     @child-change="handleChildChange"
   />
 </div>
@@ -220,7 +220,7 @@ You can pass a `width` string for the entire tree. By default it will take the f
   <KTreeList
     :items="myItems"
     @selected="(item) => mySelection = item"
-    @changed="({ items }) => myItems = items"
+    @change="({ items }) => myItems = items"
     @child-change="handleChildChange"
   />
 </template>

@@ -1,3 +1,10 @@
+## [8.21.5](https://github.com/Kong/kongponents/compare/v8.21.4...v8.21.5) (2023-01-31)
+
+
+### Bug Fixes
+
+* **ktreelist:** emit child-change event [khcp-5980] ([#1087](https://github.com/Kong/kongponents/issues/1087)) ([7660d2c](https://github.com/Kong/kongponents/commit/7660d2ce696fa2d465682ba909099286faafe102))
+
 ## [8.21.4](https://github.com/Kong/kongponents/compare/v8.21.3...v8.21.4) (2023-01-31)
 
 
