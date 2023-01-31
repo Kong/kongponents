@@ -51,11 +51,17 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
+    force: true,
     include: [
       'cypress',
       'vue',
       'focus-trap',
       'focus-trap-vue',
+    ],
+    entries: [
+      'src/components/**/*.vue',
+      'src/components/**/*.cy.ts',
+      'cypress/support/*.ts',
     ],
   },
 })
