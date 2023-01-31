@@ -50,20 +50,34 @@ Enable this prop to overlay the label on the input element's border. Defaults to
 <KTextArea label="Name" placeholder="I'm labelled!" :overlay-label="true" />
 ```
 
-### size
+### cols
 
-You can specify `rows`, `cols` for the textarea size.
+You can specify `cols` to adjust the horizontal size of the textarea
 
-<KTextArea label="Size" :rows="3" :cols="20" placeholder="I'm labelled and customized!" />
-<br>
-<KTextArea :rows="8" :cols="25" placeholder="rows:8, cols:25" />
+<KTextArea :cols="12" placeholder="cols:12" />
 
 ```html
-<template>
-  <KTextArea label="Size" :rows="3" :cols="20" placeholder="I'm labelled and customized!" />
-  <br>
-  <KTextArea :rows="8" :cols="25" placeholder="rows:8, cols:25" />
-</template>
+<KTextArea :cols="12" placeholder="cols:12" />
+```
+
+### rows
+
+You can specify `rows` to adjust the vertical size of the textarea
+
+<KTextArea :rows="12" placeholder="rows:12" />
+
+```html
+<KTextArea :rows="12" placeholder="rows:12" />
+```
+
+### isResizable
+
+Boolean value to allow vertically resizing using the drag handle in the right-hand corner of the textarea
+
+<KTextArea is-resizable />
+
+```html
+<KTextArea is-resizable />
 ```
 
 ### characterLimit
@@ -94,16 +108,6 @@ Boolean value to indicate whether the element has an error and should apply erro
 
 ```html
 <KTextArea has-error />
-```
-
-### isResizable
-
-Boolean value to allow vertically resizing a textarea
-
-<KTextArea is-resizable />
-
-```html
-<KTextArea is-resizable />
 ```
 
 ## v-model
