@@ -26,7 +26,7 @@ You may also specify:
 - a certain item is `disabled`
 
 :::tip TIP
-If an item is specified with `selected: true` and `disabled: true`, then the item will be selected, disabled in the dropdown list, and the dismiss button will be removed, meaning a user cannot remove the selected item.
+If an item is specified with `selected: true` and `disabled: true`, then the item will be selected, disabled in the dropdown list, and the dismiss button will be removed, meaning a user cannot remove the selected item. `disabledTooltipText` can be used to specify the description for this item.
 :::
 
 <ClientOnly>
@@ -43,7 +43,7 @@ If an item is specified with `selected: true` and `disabled: true`, then the ite
     value: 'dogs',
     selected: true,
     disabled: true,
-    disabledTooltipText: 'This selection is non-dismissible'
+    disabledTooltipText: 'This item is non-dismissible'
   }, {
     label: 'Bunnies',
     value: 'bunnies',
@@ -741,7 +741,7 @@ export default defineComponent({
         value: 'dogs',
         selected: true,
         disabled: true,
-        disabledTooltipText: 'This selection is non-dismissible'
+        disabledTooltipText: 'This item is non-dismissible'
       }, {
         label: 'Bunnies',
         value: 'bunnies',
@@ -798,7 +798,7 @@ export default defineComponent({
         value: 'dogs',
         selected: true,
         disabled: true,
-        disabledTooltipText: 'This selection is non-dismissible'
+        disabledTooltipText: 'This item is non-dismissible'
       }, {
         label: 'Bunnies',
         value: 'bunnies',
@@ -828,7 +828,7 @@ export default defineComponent({
         value: 'dogs',
         selected: true,
         disabled: true,
-        disabledTooltipText: 'This selection is non-dismissible'
+        disabledTooltipText: 'This item is non-dismissible'
       }, {
         label: 'Bunnies',
         value: 'bunnies'

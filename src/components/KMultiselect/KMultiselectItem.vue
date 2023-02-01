@@ -63,7 +63,7 @@ const props = defineProps({
   disabledTooltipText: {
     type: String,
     // Default tooltip text
-    default: 'This option is readonly',
+    default: 'This item is readonly',
   },
 })
 
@@ -143,6 +143,7 @@ const handleClick = (): void => {
 
       &.kong-icon.kong-icon-lock {
         padding-left: var(--spacing-xxs);
+        height: 14px;
       }
     }
 
