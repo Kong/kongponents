@@ -24,7 +24,10 @@ An array of items containing a `label` and `value`.
 You may also specify:
 - a certain item is `selected` by default
 - a certain item is `disabled`
-- if a certain item has `selected: true` and `disabled: true`, then KBadge for that item is not dismissable
+
+:::tip TIP
+If an item is specified with `selected: true` and `disabled: true`, then the item will be selected, disabled in the dropdown list, and the dismiss button will be removed, meaning a user cannot remove the selected item.
+:::
 
 <ClientOnly>
   <KMultiselect :items="deepClone(defaultItemsWithDisabled)" />

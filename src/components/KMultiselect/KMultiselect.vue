@@ -50,7 +50,11 @@
                 v-for="item, idx in visibleSelectedItems"
                 :key="`${item.key ? item.key : idx}-badge`"
                 class="mr-1"
-                :class="!expandSelected ? 'mt-2' : 'my-1'"
+                :class="{
+                  'my-1': expandSelected,
+                  'mt-2': !expandSelected,
+                  'resize-badge':(item.selected && item.disabled)
+                }"
                 :dismissable="!(item.selected && item.disabled)"
                 shape="rectangular"
                 :truncation-tooltip="item.label"
@@ -891,6 +895,10 @@ onMounted(() => {
     box-sizing: border-box;
     padding-left: 16px;
     padding-right: 23px;
+
+    .resize-badge {
+      padding: 5px;
+    }
 
     &.scrollable {
       overflow-y: auto;
