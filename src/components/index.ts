@@ -54,3 +54,4 @@ export { default as Kooltip } from './Kooltip' // KTooltip alias (backwards-comp
 export { default as KTreeList } from './KTreeList/KTreeList.vue'
 export { default as KViewSwitcher } from './KViewSwitcher/KViewSwitcher.vue'
 export { default as KExternalLink } from './KExternalLink/KExternalLink.vue'
+export { default as KTruncate } from './KTruncate/KTruncate.vue'
