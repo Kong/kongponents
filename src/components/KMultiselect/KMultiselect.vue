@@ -51,7 +51,7 @@
                 :key="`${item.key ? item.key : idx}-badge`"
                 class="mr-1"
                 :class="!expandSelected ? 'mt-2' : 'my-1'"
-                dismissable
+                :dismissable="!item.isReadonly"
                 shape="rectangular"
                 :truncation-tooltip="item.label"
                 @click.stop
@@ -211,7 +211,7 @@
           v-for="item, idx in visibleSelectedItemsStaging"
           :key="`${item.key ? item.key : idx}-badge`"
           class="mr-1 mt-2"
-          dismissable
+          :dismissable="!item.isReadonly"
           hidden
           shape="rectangular"
         >
@@ -251,6 +251,7 @@ export interface MultiselectItem {
   selected?: boolean
   disabled?: boolean
   custom?: boolean
+  isReadonly?: boolean // To be able to remove the KButton in the KBadge
 }
 
 export interface MultiselectFilterFnParams {

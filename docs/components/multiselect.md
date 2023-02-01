@@ -24,6 +24,7 @@ An array of items containing a `label` and `value`.
 You may also specify:
 - a certain item is `selected` by default
 - a certain item is `disabled`
+- a certain item is readonly by using `isReadonly` property
 
 <ClientOnly>
   <KMultiselect :items="deepClone(defaultItemsWithDisabled)" />
@@ -36,7 +37,8 @@ You may also specify:
     selected: true
   }, {
     label: 'Dogs',
-    value: 'dogs'
+    value: 'dogs',
+    isReadonly: true
   }, {
     label: 'Bunnies',
     value: 'bunnies',
@@ -265,7 +267,8 @@ export default defineComponent({
         selected: true
       }, {
         label: 'Dogs',
-        value: 'dogs'
+        value: 'dogs',
+        isReadonly: true
       }, {
         label: 'Bunnies',
         value: 'bunnies',
@@ -612,7 +615,8 @@ import { ref } from 'vue'
 const myItems = ref([
   {
     label: '200',
-    value: 200
+    value: 200,
+    isReadonly: true
   },
   {
     label: '400',
@@ -700,7 +704,8 @@ export default defineComponent({
         selected: true
       }, {
         label: 'Dogs',
-        value: 'dogs'
+        value: 'dogs',
+        isReadonly: true
       }, {
         label: 'Bunnies',
         value: 'bunnies',
@@ -725,7 +730,8 @@ export default defineComponent({
         selected: true
       }, {
         label: 'Dogs',
-        value: 'dogs'
+        value: 'dogs',
+        isReadonly: true
       }, {
         label: 'Bunnies',
         value: 'bunnies',
@@ -751,7 +757,8 @@ export default defineComponent({
         selected: true
       }, {
         label: 'Dogs',
-        value: 'dogs'
+        value: 'dogs',
+        isReadonly: true
       }, {
         label: 'Bunnies',
         value: 'bunnies',
@@ -778,7 +785,8 @@ export default defineComponent({
       }, {
         label: 'Dogs',
         value: 'dogs',
-        selected: true
+        selected: true,
+        isReadonly: true
       }, {
         label: 'Bunnies',
         value: 'bunnies',
@@ -805,7 +813,8 @@ export default defineComponent({
         value: 'cats'
       }, {
         label: 'Dogs',
-        value: 'dogs'
+        value: 'dogs',
+        isReadonly: true
       }, {
         label: 'Bunnies',
         value: 'bunnies'
@@ -825,7 +834,8 @@ export default defineComponent({
       }],
       myEventItems: [{
         label: '200',
-        value: 200
+        value: 200,
+        isReadonly: true
       },
       {
         label: '400',
