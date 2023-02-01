@@ -1,3 +1,10 @@
+# [8.22.0](https://github.com/Kong/kongponents/compare/v8.21.5...v8.22.0) (2023-02-01)
+
+
+### Features
+
+* **ktextarea:** add prop to allow resizing of textarea ([#1077](https://github.com/Kong/kongponents/issues/1077)) ([8c15c0f](https://github.com/Kong/kongponents/commit/8c15c0f27765e7637982f164feaf542fdc90c080))
+
 ## [8.21.5](https://github.com/Kong/kongponents/compare/v8.21.4...v8.21.5) (2023-01-31)
 
 
