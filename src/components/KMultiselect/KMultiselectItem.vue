@@ -16,11 +16,30 @@
         @click="handleClick"
       >
         <span class="k-multiselect-item-label mr-2">
-          <slot name="content">{{ item.label }}</slot>
+          <slot name="content">{{ item.label }}
+            <div
+              v-if="(item.selected && item.disabled)"
+              class="select-item-desc"
+            >
+              {{ item.disabledTooltipText }}
+            </div>
+          </slot>
         </span>
         <span class="k-multiselect-selected-icon-container">
+          <KTooltip
+            v-if="item.selected && item.disabled"
+            :label="item.disabledTooltipText || disabledTooltipText"
+            placement="left"
+          >
+            <KIcon
+              class="selected-item-icon"
+              color="var(--blue-200)"
+              icon="lock"
+              size="14"
+            />
+          </KTooltip>
           <KIcon
-            v-if="item.selected"
+            v-else-if="item.selected"
             class="selected-item-icon"
             color="var(--blue-200)"
             icon="check"
@@ -40,6 +59,11 @@ const props = defineProps({
     default: null,
     // Items must have a label and value
     validator: (item: Record<string, string | number | boolean>): boolean => item.label !== undefined && item.value !== undefined,
+  },
+  disabledTooltipText: {
+    type: String,
+    // Default tooltip text
+    default: 'This option is readonly',
   },
 })
 
@@ -105,29 +129,33 @@ const handleClick = (): void => {
         color: var(--grey-600);
         font-size: 14px;
         font-weight: 600;
-        margin-bottom: 4px;
+        margin-bottom: var(--spacing-xxs);
       }
 
       :deep(.select-item-desc) {
         color: var(--grey-500);
-        font-size: 12px;
+        font-size: var(--spacing-sm);
         font-weight: 400;
       }
     }
     .selected-item-icon {
-      height: 24px;
+      height: var(--spacing-lg);
+
+      &.kong-icon.kong-icon-lock {
+        padding-left: var(--spacing-xxs);
+      }
     }
 
     .kong-icon:not(.selected-item-icon) {
-      margin-right: 12px;
+      margin-right: var(--spacing-sm);
     }
 
     .k-multiselect-selected-icon-container {
-      height: 24px;
+      height: var(--spacing-lg);
       margin-bottom: auto;
       margin-left: auto;
       margin-top: auto;
-      width: 24px;
+      width: var(--spacing-lg);
     }
 
     &:not(:disabled):hover {
