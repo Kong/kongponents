@@ -81,7 +81,7 @@ export interface ChangeEvent {
 }
 
 export interface ChildChangeEvent {
-  parent: string,
+  parentId: string,
   children: TreeListItem[],
   target: TreeListItem
 }

@@ -55,6 +55,7 @@
         :level="level + 1"
         :max-depth="maxDepth"
         :parent-id="element.id"
+        @child-change="handleChildChangeEvent"
         @selected="handleSelectionEvent"
       >
         <template #[itemIcon]="slotProps">
@@ -103,7 +104,7 @@ export interface ChangeEvent {
 }
 
 export interface ChildChangeEvent {
-  parent: string,
+  parentId: string,
   children: TreeListItem[],
   target: TreeListItem
 }
@@ -181,19 +182,24 @@ const getElementChildren = (item: TreeListItem): TreeListItem[] => {
   return item.children as TreeListItem[]
 }
 
-const handleChangeEvent = (item: TreeListItem): void => {
+// item - VueDraggable object
+const handleChangeEvent = (item: any): void => {
   if (props.parentId) {
     emit('child-change', {
-      parent: props.parentId,
+      parentId: props.parentId,
       children: internalList.value,
-      target: item,
+      target: item?.added || item?.removed || item?.moved,
     })
   } else {
     emit('change', {
       items: internalList.value,
-      target: item,
+      target: item?.added || item?.removed || item?.moved,
     })
   }
+}
+
+const handleChildChangeEvent = (item: any): void => {
+  emit('child-change', item)
 }
 
 const handleSelectionEvent = (item: TreeListItem) => {
