@@ -132,4 +132,14 @@ describe('KTextArea', () => {
 
     cy.get('.char-limit').should('not.exist')
   })
+
+  it('should have `is-resizable` class when is-resizable prop is enabled', () => {
+    mount(KTextArea, {
+      props: {
+        isResizable: true,
+      },
+    })
+
+    cy.get('textarea').should('have.class', 'is-resizable')
+  })
 })
