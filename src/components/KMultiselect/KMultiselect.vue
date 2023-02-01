@@ -251,7 +251,7 @@ export interface MultiselectItem {
   selected?: boolean
   disabled?: boolean
   custom?: boolean
-  isReadonly?: boolean // To be able to remove the KButton in the KBadge
+  isReadonly?: boolean // To be able to remove the KButton in KBadge
 }
 
 export interface MultiselectFilterFnParams {
