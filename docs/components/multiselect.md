@@ -43,7 +43,7 @@ If an item is specified with `selected: true` and `disabled: true`, then the ite
     value: 'dogs',
     selected: true,
     disabled: true,
-    disabledTooltipText: 'This selection is dismissible'
+    disabledTooltipText: 'This selection is non-dismissible'
   }, {
     label: 'Bunnies',
     value: 'bunnies',
@@ -741,7 +741,7 @@ export default defineComponent({
         value: 'dogs',
         selected: true,
         disabled: true,
-        disabledTooltipText: 'This selection is dismissible'
+        disabledTooltipText: 'This selection is non-dismissible'
       }, {
         label: 'Bunnies',
         value: 'bunnies',
@@ -798,7 +798,7 @@ export default defineComponent({
         value: 'dogs',
         selected: true,
         disabled: true,
-        disabledTooltipText: 'This selection is dismissible'
+        disabledTooltipText: 'This selection is non-dismissible'
       }, {
         label: 'Bunnies',
         value: 'bunnies',
@@ -828,7 +828,7 @@ export default defineComponent({
         value: 'dogs',
         selected: true,
         disabled: true,
-        disabledTooltipText: 'This selection is dismissible'
+        disabledTooltipText: 'This selection is non-dismissible'
       }, {
         label: 'Bunnies',
         value: 'bunnies'
