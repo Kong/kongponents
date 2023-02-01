@@ -1,6 +1,6 @@
 <template>
   <div
-    :id="props.id"
+    :id="id"
     ref="codeBlock"
     class="k-code-block"
     :class="[`theme-${theme}`]"
@@ -46,13 +46,13 @@
 
         <label
           class="k-code-block-search-label"
-          :for="`${props.id}-search-input`"
+          :for="`${id}-search-input`"
         >
           <span class="k-visually-hidden">Search</span>
         </label>
 
         <input
-          :id="`${props.id}-search-input`"
+          :id="`${id}-search-input`"
           ref="codeBlockSearchInput"
           class="k-code-block-search-input"
           data-testid="k-code-block-search-input"
@@ -205,7 +205,7 @@
             <a
               :id="`${linePrefix}-L${line}`"
               class="k-line-anchor"
-              :href="props.showLineNumberLinks ? `#${linePrefix}-L${line}` : undefined"
+              :href="showLineNumberLinks ? `#${linePrefix}-L${line}` : undefined"
             >{{ line }}</a>
           </span>
         </span>
@@ -237,7 +237,7 @@
             <a
               :id="`${linePrefix}-L${line}`"
               class="k-line-anchor"
-              :href="props.showLineNumberLinks ? `#${linePrefix}-L${line}` : undefined"
+              :href="showLineNumberLinks ? `#${linePrefix}-L${line}` : undefined"
             >{{ line }}</a>
           </span>
         </span>
@@ -246,7 +246,7 @@
       <!-- eslint-enable vue/no-v-html -->
 
       <KButton
-        v-if="props.showCopyButton"
+        v-if="showCopyButton"
         ref="codeBlockCopyButton"
         appearance="outline"
         class="k-code-block-copy-button"
