@@ -142,8 +142,8 @@ const handleClick = (): void => {
       height: var(--spacing-lg);
 
       &.kong-icon.kong-icon-lock {
-        padding-left: var(--spacing-xxs);
         height: 14px;
+        padding-left: var(--spacing-xxs);
       }
     }
 
