@@ -434,10 +434,12 @@ export default defineComponent({
         popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses} k-select-pop-${props.appearance}`,
         width: String(inputWidth.value),
         maxWidth: String(inputWidth.value),
-        maxHeight: String(props.dropdownMaxHeight),
         disabled: (attrs.disabled !== undefined && String(attrs.disabled) !== 'false') || (attrs.readonly !== undefined && String(attrs.readonly) !== 'false'),
       }
     })
+
+    // Calculate the `.k-popover-content` max-height
+    const popoverContentMaxHeight = computed((): string => getSizeFromString(props.dropdownMaxHeight))
 
     // TypeScript complains if I bind the original object
     const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
@@ -618,6 +620,7 @@ export default defineComponent({
       modifiedAttrs,
       popper,
       boundKPopAttributes,
+      popoverContentMaxHeight,
       widthValue,
       widthStyle,
       filteredItems,
@@ -851,7 +854,6 @@ export default defineComponent({
   .k-select-popover {
     box-sizing: border-box;
     margin-top: 2px !important;
-    overflow: auto !important; // Allow setting a maxHeight on the popover dropdown
     width: 100%;
 
     &[x-placement^="top"] {
@@ -882,6 +884,11 @@ export default defineComponent({
     .k-select-empty-item button:hover {
       color: var(--grey-500);
       font-style: italic;
+    }
+
+    .k-popover-content {
+      max-height: v-bind('popoverContentMaxHeight');
+      overflow-y: auto; // Allow setting a maxHeight on the popover dropdown
     }
 
     ul {
