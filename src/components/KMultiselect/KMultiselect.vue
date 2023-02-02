@@ -479,10 +479,12 @@ const createKPopAttributes = computed(() => {
     popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses} k-multiselect-pop`,
     width: numericWidth.value + 'px',
     maxWidth: numericWidth.value + 'px',
-    maxHeight: String(props.dropdownMaxHeight),
     disabled: (attrs.disabled !== undefined && String(attrs.disabled) !== 'false') || (attrs.readonly !== undefined && String(attrs.readonly) !== 'false'),
   }
 })
+
+// Calculate the `.k-popover-content` max-height
+const popoverContentMaxHeight = computed((): string => getSizeFromString(props.dropdownMaxHeight))
 
 // TypeScript complains if I bind the original object
 const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
@@ -1043,7 +1045,6 @@ onMounted(() => {
   .k-multiselect-popover {
     box-sizing: border-box;
     margin-top: 2px !important;
-    overflow: auto !important; // Allow setting a maxHeight on the popover dropdown
     width: 100%;
 
     &[x-placement^="top"] {
@@ -1065,6 +1066,11 @@ onMounted(() => {
       .select-item-label {
         color: var(--grey-500);
       }
+    }
+
+    .k-popover-content {
+      max-height: v-bind('popoverContentMaxHeight');
+      overflow-y: auto; // Allow setting a maxHeight on the popover dropdown
     }
 
     a {
