@@ -13,6 +13,7 @@
     <component
       :is="truncationTooltip && (forceTooltip || isTruncated) ? 'KTooltip' : 'div'"
       class="k-badge-text truncate"
+      :position-fixed="truncationTooltip && (forceTooltip || isTruncated) ? true : undefined"
     >
       <template #content>
         {{ truncationTooltip }}
