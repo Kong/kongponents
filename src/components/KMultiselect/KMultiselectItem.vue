@@ -17,18 +17,12 @@
       >
         <span class="k-multiselect-item-label mr-2">
           <slot name="content">{{ item.label }}
-            <div
-              v-if="(item.selected && item.disabled)"
-              class="select-item-desc"
-            >
-              {{ item.disabledTooltipText }}
-            </div>
           </slot>
         </span>
         <span class="k-multiselect-selected-icon-container">
           <KTooltip
             v-if="item.selected && item.disabled"
-            :label="item.disabledTooltipText || disabledTooltipText"
+            :label="item.disabledTooltipText"
             placement="left"
           >
             <KIcon
@@ -59,11 +53,6 @@ const props = defineProps({
     default: null,
     // Items must have a label and value
     validator: (item: Record<string, string | number | boolean>): boolean => item.label !== undefined && item.value !== undefined,
-  },
-  disabledTooltipText: {
-    type: String,
-    // Default tooltip text
-    default: 'This item is readonly',
   },
 })
 

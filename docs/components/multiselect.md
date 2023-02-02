@@ -26,7 +26,7 @@ You may also specify:
 - a certain item is `disabled`
 
 :::tip TIP
-If an item is specified with `selected: true` and `disabled: true`, then the item will be selected, disabled in the dropdown list, and the dismiss button will be removed, meaning a user cannot remove the selected item. `disabledTooltipText` can be used to specify the description for this item.
+If an item is specified with `selected: true` and `disabled: true`, then the item will be selected, disabled in the dropdown list, and the dismiss button will be removed, meaning a user cannot remove the selected item.
 :::
 
 <ClientOnly>

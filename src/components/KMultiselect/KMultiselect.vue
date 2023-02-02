@@ -55,7 +55,7 @@
                   'mt-2': !expandSelected,
                   'resize-badge':(item.selected && item.disabled)
                 }"
-                :dismissable="!(item.selected && item.disabled)"
+                :dismissable="item.selected && !item.disabled"
                 shape="rectangular"
                 :truncation-tooltip="item.label"
                 @click.stop
@@ -215,7 +215,7 @@
           v-for="item, idx in visibleSelectedItemsStaging"
           :key="`${item.key ? item.key : idx}-badge`"
           class="mr-1 mt-2"
-          :dismissable="!(item.selected && item.disabled)"
+          :dismissable="item.selected && !item.disabled"
           hidden
           shape="rectangular"
         >
