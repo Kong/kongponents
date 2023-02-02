@@ -28,6 +28,7 @@
             <KIcon
               class="selected-item-icon"
               color="var(--blue-200)"
+              hide-title
               icon="lock"
               size="14"
             />

@@ -254,6 +254,7 @@ export interface MultiselectItem {
   key?: string
   selected?: boolean
   disabled?: boolean
+  disabledTooltipText?: string
   custom?: boolean
 }
 
@@ -830,6 +831,10 @@ watch(() => props.items, (newValue, oldValue) => {
     // Ensure each item has a `selected` property
     if (unfilteredItems.value[i].selected === undefined) {
       unfilteredItems.value[i].selected = false
+    }
+
+    if (unfilteredItems.value[i].selected === true && unfilteredItems.value[i].disabled === true && !unfilteredItems.value[i].disabledTooltipText) {
+      unfilteredItems.value[i].disabledTooltipText = 'This item cannot be removed'
     }
 
     unfilteredItems.value[i].key = `${unfilteredItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}` || `k-multiselect-item-label-${i}`
