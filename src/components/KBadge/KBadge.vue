@@ -235,6 +235,7 @@ watch(badgeText, () => {
   line-height: var(--KBadgeLineHeight, var(--type-md, type(md)));
   padding: var(--KBadgePaddingY, 2px) var(--KBadgePaddingX, 6px);
   text-align: center;
+  transition: all .2s ease-in-out;
   width: fit-content;
 
   // Appearances
@@ -302,6 +303,11 @@ watch(badgeText, () => {
 
   &.k-badge-rounded {
     border-radius: var(--KBadgeBorderRadius, 25px);
+
+    .k-badge-dismiss-button {
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+    }
   }
 
   &.clickable {
@@ -321,8 +327,6 @@ watch(badgeText, () => {
   }
 
   .k-badge-dismiss-button {
-    // non-visual-button
-    background-color: transparent;
     border: none;
     cursor: pointer;
     font-weight: 400;
@@ -339,6 +343,27 @@ watch(badgeText, () => {
 @import '@/styles/functions';
 
 .k-badge {
+  // default appearance colors local variables
+  $KBadgeDefaultBackground: var(--KBadgeDefaultBackground, var(--blue-100, color(blue-100)));
+  $KBadgeDefaultColor :var(--KBadgeDefaultColor, var(--blue-500, color(blue-500)));
+  $KBadgeDefaultButtonHoverColor : var(--KBadgeDefaultButtonHoverColor, var(--blue-200, color(blue-200)));
+  // success appearance colors local variables
+  $KBadgeSuccessBackground: var(--KBadgeSuccessBackground, var(--green-100, color(green-100)));
+  $KBadgeSuccessColor: var(--KBadgeSuccessColor, var(--green-700, color(green-700)));
+  $KBadgeSuccessButtonHoverColor: var(--KBadgeSuccessButtonHoverColor, var(--green-200, color(green-200)));
+  // danger appearance colors local variables
+  $KBadgeDangerBackground: var(--KBadgeDangerBackground, var(--red-100, color(red-100)));
+  $KBadgeDangerColor: var(--KBadgeDangerColor, var(--red-700, color(red-700)));
+  $KBadgeDangerButtonHoverColor: var(--KBadgeDangerButtonHoverColor, var(--red-200, color(red-200)));
+  // info appearance colors local variables
+  $KBadgeInfoBackground: var(--KBadgeInfoBackground, var(--blue-200, color(blue-200)));
+  $KBadgeInfoColor: var(--KBadgeInfoColor, var(--blue-500, color(blue-500)));
+  $KBadgeInfoButtonHoverColor: var(--KBadgeInfoButtonHoverColor, var(--blue-300, color(blue-300)));
+  // warning appearance colors local variables
+  $KBadgeWarningBackground: var(--KBadgeWarningBackground, var(--yellow-100, color(yellow-100)));
+  $KBadgeWarningColor: var(--KBadgeWarningColor, var(--yellow-600, color(yellow-600)));
+  $KBadgeWarningButtonHoverColor: var(--KBadgeWarningButtonHoverColor, var(--yellow-200, color(yellow-200)));
+
    &.k-badge-custom {
     background-color: v-bind('$props.backgroundColor');
     border-color: v-bind('$props.borderColor');
@@ -350,12 +375,13 @@ watch(badgeText, () => {
     }
 
     .k-badge-dismiss-button {
+      background-color: v-bind('$props.backgroundColor');
       .kong-icon.kong-icon-close path {
         stroke: v-bind('$props.color');
       }
 
       &:hover {
-        background-color:v-bind('$props.hoverColor');
+        background-color: v-bind('$props.hoverColor');
       }
     }
 
@@ -365,21 +391,22 @@ watch(badgeText, () => {
     &:focus {
       // fall back to backgroundColor if hoverColor is not provided
       background-color: v-bind('$props.hoverColor || $props.backgroundColor') !important;
+    }
 
-      .k-badge-dismiss-button {
-        background-color: v-bind('$props.hoverColor');
-      }
+    &:has(.k-badge-dismiss-button:hover) {
+      background-color: v-bind('$props.backgroundColor') !important;
     }
   }
 
   &.k-badge-default {
     .k-badge-dismiss-button {
+      background-color: $KBadgeDefaultBackground;
       .kong-icon.kong-icon-close path {
-        stroke: var(--KBadgeDefaultColor, var(--blue-500, color(blue-500)));
+        stroke: $KBadgeDefaultColor;
       }
 
       &:hover {
-        background-color: var(--KBadgeDefaultButtonHoverColor, var(--blue-200, color(blue-200)));
+        background-color: $KBadgeDefaultButtonHoverColor;
       }
     }
 
@@ -387,22 +414,23 @@ watch(badgeText, () => {
     a:focus &,
     &.clickable:hover,
     &:focus {
-      background-color: var(--KBadgeDefaultButtonHoverColor, var(--blue-200, color(blue-200)));
+      background-color: $KBadgeDefaultButtonHoverColor;
+    }
 
-      .k-badge-dismiss-button {
-        background-color: var(--KBadgeDefaultButtonHoverColor, var(--blue-200, color(blue-200)));
-      }
+    &:has(.k-badge-dismiss-button:hover) {
+      background-color: $KBadgeDefaultBackground;
     }
   }
 
   &.k-badge-success {
     .k-badge-dismiss-button {
+      background-color: $KBadgeSuccessBackground;
       .kong-icon.kong-icon-close path {
-        stroke: var(--KBadgeSuccessColor, var(--green-700, color(green-700)));
+        stroke: $KBadgeSuccessColor;
       }
 
       &:hover {
-        background-color: var(--KBadgeSuccessButtonHoverColor, var(--green-200, color(green-200)));
+        background-color: $KBadgeSuccessButtonHoverColor;
       }
     }
 
@@ -410,22 +438,23 @@ watch(badgeText, () => {
     a:focus &,
     &.clickable:hover,
     &:focus {
-      background-color: var(--KBadgeSuccessButtonHoverColor, var(--green-200, color(green-200)));
+      background-color: $KBadgeSuccessButtonHoverColor;
+    }
 
-      .k-badge-dismiss-button {
-        background-color: var(--KBadgeSuccessButtonHoverColor, var(--green-200, color(green-200)));
-      }
+    &:has(.k-badge-dismiss-button:hover) {
+      background-color: $KBadgeSuccessBackground;
     }
   }
 
   &.k-badge-danger {
     .k-badge-dismiss-button {
+      background-color: $KBadgeDangerBackground;
       .kong-icon.kong-icon-close path {
-        stroke: var(--KBadgeDangerColor, var(--red-700, color(red-700)));
+        stroke: $KBadgeDangerColor;
       }
 
       &:hover {
-        background-color: var(--KBadgeDangerButtonHoverColor, var(--red-200, color(red-200)));
+        background-color: $KBadgeDangerButtonHoverColor;
       }
     }
 
@@ -433,22 +462,23 @@ watch(badgeText, () => {
     a:focus &,
     &.clickable:hover,
     &:focus {
-      background-color: var(--KBadgeDangerButtonHoverColor, var(--red-200, color(red-200)));
+      background-color: $KBadgeDangerButtonHoverColor;
+    }
 
-      .k-badge-dismiss-button {
-        background-color: var(--KBadgeDangerButtonHoverColor, var(--red-200, color(red-200)));
-      }
+    &:has(.k-badge-dismiss-button:hover) {
+      background-color: $KBadgeDangerBackground;
     }
   }
 
   &.k-badge-info {
     .k-badge-dismiss-button {
+      background-color: $KBadgeInfoBackground;
       .kong-icon.kong-icon-close path {
-        stroke: var(--KBadgeInfoColor, var(--blue-500, color(blue-500)));
+        stroke: $KBadgeInfoColor;
       }
 
       &:hover {
-        background-color: var(--KBadgeInfoButtonHoverColor, var(--blue-300, color(blue-300)));
+        background-color: $KBadgeInfoButtonHoverColor;
       }
     }
 
@@ -456,22 +486,23 @@ watch(badgeText, () => {
     a:focus &,
     &.clickable:hover,
     &:focus {
-      background-color: var(--KBadgeInfoButtonHoverColor, var(--blue-300, color(blue-300)));
+      background-color: $KBadgeInfoButtonHoverColor;
+    }
 
-      .k-badge-dismiss-button {
-        background-color: var(--KBadgeInfoButtonHoverColor, var(--blue-300, color(blue-300)));
-      }
+    &:has(.k-badge-dismiss-button:hover) {
+      background-color: $KBadgeInfoBackground;
     }
   }
 
   &.k-badge-warning {
     .k-badge-dismiss-button {
+      background-color: $KBadgeWarningBackground;
       .kong-icon.kong-icon-close path {
-        stroke: var(--KBadgeWarningColor, var(--yellow-600, color(yellow-600)));
+        stroke: $KBadgeWarningColor;
       }
 
       &:hover {
-        background-color: var(--KBadgeWarningButtonHoverColor, var(--yellow-200, color(yellow-200)));
+        background-color: $KBadgeWarningButtonHoverColor;
       }
     }
 
@@ -479,11 +510,11 @@ watch(badgeText, () => {
     a:focus &,
     &.clickable:hover,
     &:focus {
-      background-color: var(--KBadgeWarningButtonHoverColor, var(--yellow-200, color(yellow-200)));
+      background-color: $KBadgeWarningButtonHoverColor;
+    }
 
-      .k-badge-dismiss-button {
-        background-color: var(--KBadgeWarningButtonHoverColor, var(--yellow-200, color(yellow-200)));
-      }
+    &:has(.k-badge-dismiss-button:hover) {
+      background-color: $KBadgeWarningBackground;
     }
   }
 }
