@@ -833,6 +833,7 @@ watch(() => props.items, (newValue, oldValue) => {
       unfilteredItems.value[i].selected = false
     }
 
+    // If an item is `selected` and `disabled`, provide fallback tooltip text if not provided
     if (unfilteredItems.value[i].selected === true && unfilteredItems.value[i].disabled === true && !unfilteredItems.value[i].disabledTooltipText) {
       unfilteredItems.value[i].disabledTooltipText = 'This item cannot be removed'
     }

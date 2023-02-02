@@ -28,7 +28,7 @@ You may also specify:
 :::tip TIP
 If an item is specified with `selected: true` and `disabled: true`, then the item will be selected, disabled in the dropdown list, and the dismiss button will be removed, meaning a user cannot remove the selected item.
 
-You can specify `disabledTooltipText` property to customize the disabled tooltip label. Defaults to `This item cannot be removed`.
+You can specify `disabledTooltipText` property to customize the disabled tooltip that appears when hovering over the lock icon. Defaults to `This item cannot be removed`.
 :::
 
 <ClientOnly>
