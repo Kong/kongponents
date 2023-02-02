@@ -1,3 +1,10 @@
+## [8.22.2](https://github.com/Kong/kongponents/compare/v8.22.1...v8.22.2) (2023-02-02)
+
+
+### Bug Fixes
+
+* **kmultiselect:** dismissable badge [khcp-5995] ([#1094](https://github.com/Kong/kongponents/issues/1094)) ([edc5e69](https://github.com/Kong/kongponents/commit/edc5e6944f128923dc05316e146626f48b2fb1df))
+
 ## [8.22.1](https://github.com/Kong/kongponents/compare/v8.22.0...v8.22.1) (2023-02-02)
 
 
