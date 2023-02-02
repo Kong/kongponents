@@ -1,3 +1,10 @@
+## [8.22.1](https://github.com/Kong/kongponents/compare/v8.22.0...v8.22.1) (2023-02-02)
+
+
+### Bug Fixes
+
+* **kbadge:** update hover behavior [KHCP-5973] ([#1088](https://github.com/Kong/kongponents/issues/1088)) ([b97f356](https://github.com/Kong/kongponents/commit/b97f3569c2c5c910e14f94d1da921ebf28484e02))
+
 # [8.22.0](https://github.com/Kong/kongponents/compare/v8.21.5...v8.22.0) (2023-02-01)
 
 
