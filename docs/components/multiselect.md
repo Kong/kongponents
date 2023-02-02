@@ -45,7 +45,7 @@ You can specify `disabledTooltipText` property to customize the disabled tooltip
     value: 'dogs',
     selected: true,
     disabled: true,
-    disabledTooltipText: 'This item is locked and can not be removed'
+    disabledTooltipText: 'This item is locked and cannot be removed'
   }, {
     label: 'Bunnies',
     value: 'bunnies',
@@ -743,7 +743,7 @@ export default defineComponent({
         value: 'dogs',
         selected: true,
         disabled: true,
-        disabledTooltipText: 'This item is locked and can not be removed'
+        disabledTooltipText: 'This item is locked and cannot be removed'
       }, {
         label: 'Bunnies',
         value: 'bunnies',
@@ -800,7 +800,7 @@ export default defineComponent({
         value: 'dogs',
         selected: true,
         disabled: true,
-        disabledTooltipText: 'This item is locked and can not be removed'
+        disabledTooltipText: 'This item is locked and cannot be removed'
       }, {
         label: 'Bunnies',
         value: 'bunnies',
@@ -830,7 +830,7 @@ export default defineComponent({
         value: 'dogs',
         selected: true,
         disabled: true,
-        disabledTooltipText: 'This item is locked and can not be removed'
+        disabledTooltipText: 'This item is locked and cannot be removed'
       }, {
         label: 'Bunnies',
         value: 'bunnies'
