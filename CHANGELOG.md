@@ -1,3 +1,31 @@
+## [8.22.3](https://github.com/Kong/kongponents/compare/v8.22.2...v8.22.3) (2023-02-03)
+
+
+### Bug Fixes
+
+* **kicon:** fix icn-danger-circle.svg ([#1101](https://github.com/Kong/kongponents/issues/1101)) ([b31bbf7](https://github.com/Kong/kongponents/commit/b31bbf7f191c66c863944a6c216dd8be4f802c57))
+
+## [8.22.2](https://github.com/Kong/kongponents/compare/v8.22.1...v8.22.2) (2023-02-02)
+
+
+### Bug Fixes
+
+* **kmultiselect:** dismissable badge [khcp-5995] ([#1094](https://github.com/Kong/kongponents/issues/1094)) ([edc5e69](https://github.com/Kong/kongponents/commit/edc5e6944f128923dc05316e146626f48b2fb1df))
+
+## [8.22.1](https://github.com/Kong/kongponents/compare/v8.22.0...v8.22.1) (2023-02-02)
+
+
+### Bug Fixes
+
+* **kbadge:** update hover behavior [KHCP-5973] ([#1088](https://github.com/Kong/kongponents/issues/1088)) ([b97f356](https://github.com/Kong/kongponents/commit/b97f3569c2c5c910e14f94d1da921ebf28484e02))
+
+# [8.22.0](https://github.com/Kong/kongponents/compare/v8.21.5...v8.22.0) (2023-02-01)
+
+
+### Features
+
+* **ktextarea:** add prop to allow resizing of textarea ([#1077](https://github.com/Kong/kongponents/issues/1077)) ([8c15c0f](https://github.com/Kong/kongponents/commit/8c15c0f27765e7637982f164feaf542fdc90c080))
+
 ## [8.21.5](https://github.com/Kong/kongponents/compare/v8.21.4...v8.21.5) (2023-01-31)
 
 

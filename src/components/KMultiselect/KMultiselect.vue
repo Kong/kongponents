@@ -50,8 +50,12 @@
                 v-for="item, idx in visibleSelectedItems"
                 :key="`${item.key ? item.key : idx}-badge`"
                 class="mr-1"
-                :class="!expandSelected ? 'mt-2' : 'my-1'"
-                dismissable
+                :class="{
+                  'my-1': expandSelected,
+                  'mt-2': !expandSelected,
+                  'resize-badge':(item.selected && item.disabled)
+                }"
+                :dismissable="item.selected && !item.disabled"
                 shape="rectangular"
                 :truncation-tooltip="item.label"
                 @click.stop
@@ -211,7 +215,7 @@
           v-for="item, idx in visibleSelectedItemsStaging"
           :key="`${item.key ? item.key : idx}-badge`"
           class="mr-1 mt-2"
-          dismissable
+          :dismissable="item.selected && !item.disabled"
           hidden
           shape="rectangular"
         >
@@ -250,6 +254,7 @@ export interface MultiselectItem {
   key?: string
   selected?: boolean
   disabled?: boolean
+  disabledTooltipText?: string
   custom?: boolean
 }
 
@@ -474,10 +479,12 @@ const createKPopAttributes = computed(() => {
     popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses} k-multiselect-pop`,
     width: numericWidth.value + 'px',
     maxWidth: numericWidth.value + 'px',
-    maxHeight: String(props.dropdownMaxHeight),
     disabled: (attrs.disabled !== undefined && String(attrs.disabled) !== 'false') || (attrs.readonly !== undefined && String(attrs.readonly) !== 'false'),
   }
 })
+
+// Calculate the `.k-popover-content` max-height
+const popoverContentMaxHeight = computed((): string => getSizeFromString(props.dropdownMaxHeight))
 
 // TypeScript complains if I bind the original object
 const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
@@ -828,6 +835,11 @@ watch(() => props.items, (newValue, oldValue) => {
       unfilteredItems.value[i].selected = false
     }
 
+    // If an item is `selected` and `disabled`, provide fallback tooltip text if not provided
+    if (unfilteredItems.value[i].selected === true && unfilteredItems.value[i].disabled === true && !unfilteredItems.value[i].disabledTooltipText) {
+      unfilteredItems.value[i].disabledTooltipText = 'This item cannot be removed'
+    }
+
     unfilteredItems.value[i].key = `${unfilteredItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}` || `k-multiselect-item-label-${i}`
     if (props.modelValue.includes(unfilteredItems.value[i].value) || unfilteredItems.value[i].selected) {
       const selectedItem = unfilteredItems.value[i]
@@ -891,6 +903,10 @@ onMounted(() => {
     box-sizing: border-box;
     padding-left: 16px;
     padding-right: 23px;
+
+    .resize-badge {
+      padding: 5px;
+    }
 
     &.scrollable {
       overflow-y: auto;
@@ -1029,7 +1045,6 @@ onMounted(() => {
   .k-multiselect-popover {
     box-sizing: border-box;
     margin-top: 2px !important;
-    overflow: auto !important; // Allow setting a maxHeight on the popover dropdown
     width: 100%;
 
     &[x-placement^="top"] {
@@ -1051,6 +1066,11 @@ onMounted(() => {
       .select-item-label {
         color: var(--grey-500);
       }
+    }
+
+    .k-popover-content {
+      max-height: v-bind('popoverContentMaxHeight');
+      overflow-y: auto; // Allow setting a maxHeight on the popover dropdown
     }
 
     a {

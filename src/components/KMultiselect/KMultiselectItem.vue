@@ -16,11 +16,25 @@
         @click="handleClick"
       >
         <span class="k-multiselect-item-label mr-2">
-          <slot name="content">{{ item.label }}</slot>
+          <slot name="content">{{ item.label }}
+          </slot>
         </span>
         <span class="k-multiselect-selected-icon-container">
+          <KTooltip
+            v-if="item.selected && item.disabled"
+            :label="item.disabledTooltipText"
+            placement="left"
+          >
+            <KIcon
+              class="selected-item-icon"
+              color="var(--blue-200)"
+              hide-title
+              icon="lock"
+              size="14"
+            />
+          </KTooltip>
           <KIcon
-            v-if="item.selected"
+            v-else-if="item.selected"
             class="selected-item-icon"
             color="var(--blue-200)"
             icon="check"
@@ -105,29 +119,34 @@ const handleClick = (): void => {
         color: var(--grey-600);
         font-size: 14px;
         font-weight: 600;
-        margin-bottom: 4px;
+        margin-bottom: var(--spacing-xxs);
       }
 
       :deep(.select-item-desc) {
         color: var(--grey-500);
-        font-size: 12px;
+        font-size: var(--spacing-sm);
         font-weight: 400;
       }
     }
     .selected-item-icon {
-      height: 24px;
+      height: var(--spacing-lg);
+
+      &.kong-icon.kong-icon-lock {
+        height: 14px;
+        padding-left: var(--spacing-xxs);
+      }
     }
 
     .kong-icon:not(.selected-item-icon) {
-      margin-right: 12px;
+      margin-right: var(--spacing-sm);
     }
 
     .k-multiselect-selected-icon-container {
-      height: 24px;
+      height: var(--spacing-lg);
       margin-bottom: auto;
       margin-left: auto;
       margin-top: auto;
-      width: 24px;
+      width: var(--spacing-lg);
     }
 
     &:not(:disabled):hover {

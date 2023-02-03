@@ -25,6 +25,12 @@ You may also specify:
 - a certain item is `selected` by default
 - a certain item is `disabled`
 
+:::tip TIP
+If an item is specified with `selected: true` and `disabled: true`, then the item will be selected, disabled in the dropdown list, and the dismiss button will be removed, meaning a user cannot remove the selected item.
+
+You can specify `disabledTooltipText` property to customize the disabled tooltip that appears when hovering over the lock icon. Defaults to `This item cannot be removed`.
+:::
+
 <ClientOnly>
   <KMultiselect :items="deepClone(defaultItemsWithDisabled)" />
 </ClientOnly>
@@ -36,7 +42,10 @@ You may also specify:
     selected: true
   }, {
     label: 'Dogs',
-    value: 'dogs'
+    value: 'dogs',
+    selected: true,
+    disabled: true,
+    disabledTooltipText: 'This item is locked and cannot be removed'
   }, {
     label: 'Bunnies',
     value: 'bunnies',
@@ -265,7 +274,9 @@ export default defineComponent({
         selected: true
       }, {
         label: 'Dogs',
-        value: 'dogs'
+        value: 'dogs',
+        selected: true,
+        disabled: true
       }, {
         label: 'Bunnies',
         value: 'bunnies',
@@ -612,7 +623,9 @@ import { ref } from 'vue'
 const myItems = ref([
   {
     label: '200',
-    value: 200
+    value: 200,
+    selected: true,
+    disabled: true
   },
   {
     label: '400',
@@ -700,7 +713,9 @@ export default defineComponent({
         selected: true
       }, {
         label: 'Dogs',
-        value: 'dogs'
+        value: 'dogs',
+        selected: true,
+        disabled: true
       }, {
         label: 'Bunnies',
         value: 'bunnies',
@@ -725,7 +740,10 @@ export default defineComponent({
         selected: true
       }, {
         label: 'Dogs',
-        value: 'dogs'
+        value: 'dogs',
+        selected: true,
+        disabled: true,
+        disabledTooltipText: 'This item is locked and cannot be removed'
       }, {
         label: 'Bunnies',
         value: 'bunnies',
@@ -751,7 +769,9 @@ export default defineComponent({
         selected: true
       }, {
         label: 'Dogs',
-        value: 'dogs'
+        value: 'dogs',
+        selected: true,
+        disabled: true
       }, {
         label: 'Bunnies',
         value: 'bunnies',
@@ -778,7 +798,9 @@ export default defineComponent({
       }, {
         label: 'Dogs',
         value: 'dogs',
-        selected: true
+        selected: true,
+        disabled: true,
+        disabledTooltipText: 'This item is locked and cannot be removed'
       }, {
         label: 'Bunnies',
         value: 'bunnies',
@@ -805,7 +827,10 @@ export default defineComponent({
         value: 'cats'
       }, {
         label: 'Dogs',
-        value: 'dogs'
+        value: 'dogs',
+        selected: true,
+        disabled: true,
+        disabledTooltipText: 'This item is locked and cannot be removed'
       }, {
         label: 'Bunnies',
         value: 'bunnies'
@@ -825,7 +850,9 @@ export default defineComponent({
       }],
       myEventItems: [{
         label: '200',
-        value: 200
+        value: 200,
+        selected: true,
+        disabled: true
       },
       {
         label: '400',
