@@ -177,10 +177,7 @@ $sides: (top, right, bottom, left);
     content: "...";
     position: absolute;
     right: var(--TPosRight, 12px);
-    top: calc(
-      var(--TLineHeight, 24px) * (var(--TMaxLines, 5) - 1) +
-        var(--TFontSize, 16px) * 0.5
-    );
+    top: calc(var(--TLineHeight, 24px) * (var(--TMaxLines, 5) - 1) + var(--TFontSize, 16px) * 0.5);
   }
 }
 .capitalize {

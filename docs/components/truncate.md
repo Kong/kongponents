@@ -2,98 +2,32 @@
 
 **KTruncate** - This should be a description of the Kongponent.
 
-<KTruncate />
+<KCard>
+  <template v-slot:body>
+    <KTruncate :rows="1">
+      <KBadge v-for="n in 25" :key="n">
+        Item {{ n }}
+      </KBadge>
+    </KTruncate>
+  </template>
+</KCard>
 
-```html
-<template>
-  <KTruncate />
-</template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  setup (props) {
-    // ... code goes here
-  }
-})
-</script>
-```
-
-## Props
-
-### examplePropName
-
-Description of `examplePropName`
-
-Actual component using examplePropName
-
-<KTruncate :examplePropName="true" />
-
-```html
-<KTruncate examplePropName="variation1" />
-<KTruncate examplePropName="variation2" />
-<KTruncate examplePropName="variation3" />
-```
-
-## Slots
-
-- `default` - default slot description
-- `slotName` - slot description
-
-```html
-<KTruncate>
-  here is some slot content
-</KTruncate>
-```
-
-## Events
-
-- `@changed` - Emitted when...
-
-## Theming
-
-| Variable | Purpose
-|:-------- |:-------
-| `--KTruncateBorderColor`| KTruncate border color
-
-An Example of changing the border color of KTruncate to lime might look
-like:
-
-> Note: We are scoping the overrides to a wrapper in this example
-
-<template>
-  <div class="KTruncate-wrapper">
-    <KTruncate />
-  </div>
-</template>
-
-```html
-<template>
-  <div class="KTruncate-wrapper">
-    <KTruncate />
-  </div>
-</template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  setup (props) {
-    // ... code goes here
-  }
-})
-</script>
+<KCard class="mt-5">
+  <template v-slot:body>
+    <KTruncate :rows="2" is-text-content>
+      <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    </KTruncate>
+  </template>
+</KCard>
 
 <style lang="scss">
 .KTruncate-wrapper {
-  --KTruncate-wrapperBorderColor: lime;
+  --KTruncateToggleColor: seagreen;
+  --KTruncateCollapseIconColor: white;
+  --KTruncateCollapseBackground: seagreen;
+  --KTruncateCollapseHover: mediumseagreen;
 }
 </style>
-```
 
-<style lang="scss">
-.KTruncate-wrapper {
-  --KTruncate-wrapperBorderColor: lime;
-}
-</style>
+
+## Blah
