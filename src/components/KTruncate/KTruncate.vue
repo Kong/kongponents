@@ -9,7 +9,10 @@
       class="container"
     >
       <slot name="default" />
-      <KToggle v-if="!isTextContent && expanded">
+      <div
+        v-if="!isTextContent && expanded"
+        data-testid="collapse-trigger-wrapper"
+      >
         <slot
           :collapse="handleToggleClick"
           name="collapse-trigger"
@@ -28,13 +31,16 @@
             />
           </KButton>
         </slot>
-      </KToggle>
+      </div>
     </div>
     <div
       v-if="!isTextContent && showToggle"
       class="d-flex h-100 align-items-end"
     >
-      <KToggle v-if="!expanded">
+      <div
+        v-if="!expanded"
+        data-testid="expand-trigger-wrapper"
+      >
         <slot
           :excess-elements-count="excessElementsCount"
           :expand="handleToggleClick"
@@ -48,15 +54,19 @@
             {{ excessElementsCount }}
           </KButton>
         </slot>
-      </KToggle>
+      </div>
     </div>
     <div
       v-if="isTextContent && (showToggle || expanded)"
       ref="textToggleControls"
       class="place-self-end mt-2"
     >
-      <KToggle v-if="!expanded">
+      <div
+        v-if="!expanded"
+        data-testid="expand-trigger-wrapper"
+      >
         <slot
+
           :expand="handleToggleClick"
           name="expand-trigger"
         >
@@ -68,8 +78,8 @@
             Show more
           </KButton>
         </slot>
-      </KToggle>
-      <KToggle v-if="expanded">
+      </div>
+      <div v-if="expanded">
         <slot
           :collapse="handleToggleClick"
           name="collapse-trigger"
@@ -82,7 +92,7 @@
             Show less
           </KButton>
         </slot>
-      </KToggle>
+      </div>
     </div>
   </div>
 </template>
