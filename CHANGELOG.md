@@ -1,3 +1,10 @@
+## [8.22.3](https://github.com/Kong/kongponents/compare/v8.22.2...v8.22.3) (2023-02-03)
+
+
+### Bug Fixes
+
+* **kicon:** fix icn-danger-circle.svg ([#1101](https://github.com/Kong/kongponents/issues/1101)) ([b31bbf7](https://github.com/Kong/kongponents/commit/b31bbf7f191c66c863944a6c216dd8be4f802c57))
+
 ## [8.22.2](https://github.com/Kong/kongponents/compare/v8.22.1...v8.22.2) (2023-02-02)
 
 
