@@ -1,10 +1,10 @@
 # Truncate
 
-**KTruncate** - This should be a description of the Kongponent.
+**KTruncate** - A Kongponent that limits content to a specific number of lines and provides controls to expand or collapse it.
 
 <KCard>
   <template v-slot:body>
-    <KTruncate :rows="1">
+    <KTruncate>
       <KBadge v-for="n in 25" :key="n">
         Item {{ n }}
       </KBadge>
@@ -12,22 +12,219 @@
   </template>
 </KCard>
 
-<KCard class="mt-5">
+```html
+<template>
+  <KTruncate>
+    <KBadge v-for="n in 25" :key="n">
+      Item {{ n }}
+    </KBadge>
+  </KTruncate>
+</template>
+```
+
+## Props
+
+### rows
+
+Number of rows to truncate content at. Default value is `1`.
+
+<KCard>
   <template v-slot:body>
-    <KTruncate :rows="2" is-text-content>
-      <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    <KTruncate :rows="2">
+      <KBadge v-for="n in 25" :key="n">
+        Item {{ n }}
+      </KBadge>
     </KTruncate>
   </template>
 </KCard>
 
+```html
+<template>
+  <KTruncate :rows="2">
+    <KBadge v-for="n in 25" :key="n">
+      Item {{ n }}
+    </KBadge>
+  </KTruncate>
+</template>
+```
+
+### isTextContent
+
+By default the component treats anything passed through the `default` slot as collection of HTML elements. Use this prop if you want to truncate text.
+
+<KCard>
+  <template v-slot:body>
+    <KTruncate is-text-content :rows="3">
+      <div>A good design decision to apply text truncation would be when displaying a large amount of textual content, such as a list of articles or product descriptions, in a limited space, such as a mobile screen or a small widget. By truncating the text to a short summary, it is possible to present the information in a more organized and readable manner, allowing the user to quickly scan and understand the main points of each item. The truncated text can also serve as a teaser, encouraging the user to click or tap to view the full content.</div>
+    </KTruncate>
+  </template>
+</KCard>
+
+```html
+<template>
+  <KTruncate is-text-content :rows="3">
+    <KBadge>
+      <div>A good design decision to apply text truncation would be 
+        when displaying a large amount of textual content, such as a list 
+        of articles or product descriptions, in a limited space, such as 
+        a mobile screen or a small widget. By truncating the text to a 
+        short summary, it is possible to present the information in a more 
+        organized and readable manner, allowing the user to quickly scan 
+        and understand the main points of each item. The truncated text 
+        can also serve as a teaser, encouraging the user to click or tap 
+        to view the full content.</div>
+    </KBadge>
+  </KTruncate>
+</template>
+```
+
+### isExpanded
+
+If passed `true`, the component will be rendered expanded by default.
+
+<KCard>
+  <template v-slot:body>
+    <KTruncate is-expanded>
+      <KBadge v-for="n in 25" :key="n">
+        Item {{ n }}
+      </KBadge>
+    </KTruncate>
+  </template>
+</KCard>
+
+```html
+<template>
+  <KTruncate is-expanded>
+    <KBadge v-for="n in 25" :key="n">
+      Item {{ n }}
+    </KBadge>
+  </KTruncate>
+</template>
+```
+
+## Slots
+
+### default
+
+Slot for content.
+
+To ensure the best experience with the component, please pass elements of equal height in the default slot. The component will base its guess for the height of the element on the height of each individual sibling, so passing elements of equal height will result in a more accurate and consistent output.
+
+:::tip TIP
+The component is reactive to it's dimensions changes. To see it in effect, try resizing your browser window and see the behavior of the example below.
+:::
+
+<KCard>
+  <template v-slot:body>
+    <KTruncate :rows="3">
+      <KBadge v-for="n in 30" :key="n">
+        Item {{ n }}
+      </KBadge>
+    </KTruncate>
+  </template>
+</KCard>
+
+### expand-trigger
+
+Slot for custom expand trigger element. Slot props:
+- `excessElementsCount` (type: `Number`) - Number of elements that overflow. **Note**: this slot prop is only available when not `isTextContent`
+- `expand` (type: `Function`) - Function to expand
+
+### collapse-trigger
+
+Slot for custom collapse trigger element. Slot props:
+
+- `collapse` (type: `Function`) - Function to collapse
+
+Example of using `expand-trigger` and `collapse-trigger` slots for creating custom toggle elements:
+
+<KCard>
+  <template v-slot:body>
+    <KTruncate>
+      <KBadge v-for="n in 25" :key="n">
+        Item {{ n }}
+      </KBadge>
+      <template #expand-trigger="{ excessElementsCount, expand }">
+        <span class="custom-trigger" @click="expand">Show {{ excessElementsCount }} more</span>
+      </template>
+      <template #collapse-trigger="{ collapse }">
+        <span class="custom-trigger" @click="collapse">Show less</span>
+      </template>
+    </KTruncate>
+  </template>
+</KCard>
+
+```html
+<template>
+  <KTruncate>
+    <KBadge v-for="n in 25" :key="n">
+      Item {{ n }}
+    </KBadge>
+    <template #expand-trigger="{ excessElementsCount, expand }">
+      <span @click="expand">Show {{ excessElementsCount }} more</span>
+    </template>
+    <template #collapse-trigger="{ collapse }">
+      <span @click="collapse">Show less</span>
+    </template>
+  </KTruncate>
+</template>
+```
+
+## Theming
+
+| Variable                        | Purpose                                   |
+| :------------------------------ | :---------------------------------------- |
+| `--KTruncateToggleColor`        | Toggle element text color                 |
+| `--KTruncateCollapseIconColor`  | Collapse toggle icon color                |
+| `--KTruncateCollapseBackground` | Collapse toggle background color          |
+| `--KTruncateCollapseHover`      | Collapse toggle background color on hover |
+
+An example of changing the border color of KTruncate to green might look
+like:
+
+<KCard>
+  <template v-slot:body>
+    <div class="KTruncate-wrapper">
+      <KTruncate>
+        <KBadge v-for="n in 25" :key="n" appearance="success">
+          Item {{ n }}
+        </KBadge>
+      </KTruncate>
+    </div>
+  </template>
+</KCard>
+
+```html
+<template>
+  <div class="KTruncate-wrapper">
+    <KTruncate>
+      <KBadge v-for="n in 25" :key="n" appearance="success">
+        Item {{ n }}
+      </KBadge>
+    </KTruncate>
+  </div>
+</template>
+
 <style lang="scss">
 .KTruncate-wrapper {
-  --KTruncateToggleColor: seagreen;
-  --KTruncateCollapseIconColor: white;
-  --KTruncateCollapseBackground: seagreen;
-  --KTruncateCollapseHover: mediumseagreen;
+  --KTruncateToggleColor: green;
+  --KTruncateCollapseIconColor: lightgreen;
+  --KTruncateCollapseBackground: green;
+  --KTruncateCollapseHover: seagreen;
 }
 </style>
+```
 
+<style lang="scss">
+.KTruncate-wrapper {
+  --KTruncateToggleColor: green;
+  --KTruncateCollapseIconColor: lightgreen;
+  --KTruncateCollapseBackground: green;
+  --KTruncateCollapseHover: seagreen;
+}
 
-## Blah
+.custom-trigger {
+  white-space: nowrap;
+  cursor: pointer;
+}
+</style>
