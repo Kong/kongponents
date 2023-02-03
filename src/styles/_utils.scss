@@ -168,14 +168,19 @@ $sides: (top, right, bottom, left);
   max-height: calc(var(--TLineHeight, 24px) * var(--TMaxLines, 5));
   overflow: hidden;
   // You cannot multiply {number}px * {number}px in Sass, so we are removing the "px" from the --TPadRight variable
-  padding-right: calc(var(--TPosRight, 12px) * str-replace(var(--TPadRight, 8px), "px", "") + 4px) !important;
+  padding-right: calc(
+    var(--TPosRight, 12px) * str-replace(var(--TPadRight, 8px), "px", "") + 4px
+  ) !important;
   position: relative;
 
   .truncate-multi::before {
     content: "...";
     position: absolute;
     right: var(--TPosRight, 12px);
-    top: calc(var(--TLineHeight, 24px) * (var(--TMaxLines, 5) - 1) + var(--TFontSize, 16px) * 0.5);
+    top: calc(
+      var(--TLineHeight, 24px) * (var(--TMaxLines, 5) - 1) +
+        var(--TFontSize, 16px) * 0.5
+    );
   }
 }
 .capitalize {
@@ -306,6 +311,15 @@ $sides: (top, right, bottom, left);
 }
 .align-self-stretch {
   align-self: stretch !important;
+}
+.place-self-start {
+  place-self: flex-start !important;
+}
+.place-self-center {
+  place-self: center !important;
+}
+.place-self-end {
+  place-self: flex-end !important;
 }
 
 /*  General

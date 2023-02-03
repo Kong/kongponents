@@ -9,7 +9,7 @@
       class="container"
     >
       <slot name="default" />
-      <KToggle v-if="expanded">
+      <KToggle v-if="!isTextContent && expanded">
         <slot
           :collapse="handleToggleClick"
           name="collapse-trigger"
@@ -31,7 +31,7 @@
       </KToggle>
     </div>
     <div
-      v-if="showToggle"
+      v-if="!isTextContent && showToggle"
       class="d-flex h-100 align-items-end"
     >
       <KToggle v-if="!expanded">
@@ -43,10 +43,43 @@
           <KButton
             appearance="btn-link"
             class="expand-trigger"
-            is-rounded
             @click="handleToggleClick"
           >
             {{ excessElementsCount }}
+          </KButton>
+        </slot>
+      </KToggle>
+    </div>
+    <div
+      v-if="isTextContent && (showToggle || expanded)"
+      ref="textToggleControls"
+      class="place-self-end mt-2"
+    >
+      <KToggle v-if="!expanded">
+        <slot
+          :expand="handleToggleClick"
+          name="expand-trigger"
+        >
+          <KButton
+            appearance="btn-link"
+            class="expand-trigger"
+            @click="handleToggleClick"
+          >
+            Show more
+          </KButton>
+        </slot>
+      </KToggle>
+      <KToggle v-if="expanded">
+        <slot
+          :collapse="handleToggleClick"
+          name="collapse-trigger"
+        >
+          <KButton
+            appearance="btn-link"
+            class="collapse-trigger"
+            @click="handleToggleClick"
+          >
+            Show less
           </KButton>
         </slot>
       </KToggle>
@@ -67,9 +100,13 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  isExpanded: {
+    type: Boolean,
+    default: false,
+  },
 })
 
-const expanded = ref<boolean>(false)
+const expanded = ref<boolean>(props.isExpanded)
 
 const showToggle = ref<boolean>(false)
 
@@ -77,6 +114,7 @@ const resizeObserver = ref()
 
 const container = ref<HTMLDivElement>()
 const wrapper = ref<HTMLDivElement>()
+const textToggleControls = ref<HTMLDivElement>()
 const wrapperHeight = ref<string>('0px')
 
 const excessElementsCount = ref<number>(0)
@@ -88,6 +126,10 @@ const excessElementsCount = ref<number>(0)
  * For example if rows is 2 and all elements are equal height if 22px, wrapper height will be set to 54px (2 * 22 + 10).
  */
 const setWrapperHeight = () => {
+  if (props.isTextContent) {
+    return
+  }
+
   if (container.value && container.value.children?.length) {
     const children = container.value.children as unknown as HTMLElement[]
     let tallestChildHeight = 0
@@ -100,16 +142,32 @@ const setWrapperHeight = () => {
   }
 }
 
+/**
+ * Determines whether expand/collapse toggle need to be shown.
+ * In other words, determines whether the content overflows.
+ * If the height of the content is greater than height of the wrapper element - content does overflow.
+ */
 const updateToggleVisibility = () => {
   setWrapperHeight()
   if (container.value && wrapper.value) {
-    showToggle.value = container.value.offsetHeight > wrapper.value.offsetHeight
+    // in case with text content, need to compare scrollHeight value
+    const containerHeightProperty = props.isTextContent ? container.value.scrollHeight : container.value.offsetHeight
+    const textToggleControlsHeight = textToggleControls.value ? textToggleControls.value.offsetHeight : 0
+    /**
+     * In case with text content, toggle controls element is rendered below content, so adds up to wrapper height.
+     * Therefore it's height need to be subtracted to determine the actual wrapper height.
+     */
+    showToggle.value = containerHeightProperty > (wrapper.value.offsetHeight - textToggleControlsHeight)
     countExcessElements()
   }
 }
 
 // Counts elements that are wrapped to the hidden rows and therefore are not visible.
 const countExcessElements = () => {
+  if (props.isTextContent) {
+    return
+  }
+
   excessElementsCount.value = 0
   if (container.value && wrapper.value) {
     const children = container.value.children as unknown as HTMLElement[]
@@ -134,9 +192,7 @@ const handleToggleClick = async () => {
 }
 
 onMounted(async () => {
-  if (!props.isTextContent) {
-    resizeObserver.value = new ResizeObserver(updateToggleVisibility).observe(container.value as HTMLDivElement)
-  }
+  resizeObserver.value = new ResizeObserver(updateToggleVisibility).observe(container.value as HTMLDivElement)
 })
 
 onBeforeUnmount(() => {
@@ -153,16 +209,23 @@ onBeforeUnmount(() => {
 .k-truncate {
   align-items: flex-start;
   display: flex;
-  height: v-bind('wrapperHeight');
   overflow: hidden;
   width: 100%;
 
+  .expand-trigger, .collapse-trigger {
+    --KButtonBtnLink: var(--KTruncateToggleColor, var(--blue-500, color(blue-500)));
+    --KButtonPrimaryBase: var(--KTruncateCollapseBackground, var(--blue-100, color(blue-100)));
+    --KButtonPrimaryHover: var(--KTruncateCollapseHover, var(--blue-200, color(blue-200)));
+    --KButtonPrimaryActive: var(--KTruncateCollapseHover, var(--blue-200, color(blue-200)));
+  }
+
   &.k-truncate-content {
+    height: v-bind('wrapperHeight');
+
     &.expanded {
       height: auto;
     }
     .container {
-      align-items: flex-start;
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
@@ -178,14 +241,30 @@ onBeforeUnmount(() => {
       }
     }
     .collapse-trigger {
-      --KButtonPrimaryBase: var(--KTruncateCollapseBackground, var(--blue-100, color(blue-100)));
-      --KButtonPrimaryHover: var(--KTruncateCollapseHover, var(--blue-200, color(blue-200)));
-      --KButtonPrimaryActive: var(--KTruncateCollapseHover, var(--blue-200, color(blue-200)));
       padding: var(--spacing-xxs);
 
       &:focus, &:active {
         box-shadow: none;
       }
+    }
+  }
+  &.k-truncate-text {
+    display: flex;
+    flex-direction: column;
+
+    .container {
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+      -webkit-line-clamp: v-bind('$props.rows');
+      overflow: hidden;
+    }
+    &.expanded {
+      .container {
+        display: block;
+      }
+    }
+    .expand-trigger, .collapse-trigger {
+      font-size: var(--type-xs);
     }
   }
 }
