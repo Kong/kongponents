@@ -1,6 +1,6 @@
 <template>
   <div
-    :id="props.id"
+    :id="id"
     ref="codeBlock"
     class="k-code-block"
     :class="[`theme-${theme}`]"
@@ -46,13 +46,13 @@
 
         <label
           class="k-code-block-search-label"
-          :for="`${props.id}-search-input`"
+          :for="`${id}-search-input`"
         >
           <span class="k-visually-hidden">Search</span>
         </label>
 
         <input
-          :id="`${props.id}-search-input`"
+          :id="`${id}-search-input`"
           ref="codeBlockSearchInput"
           class="k-code-block-search-input"
           data-testid="k-code-block-search-input"
@@ -205,7 +205,7 @@
             <a
               :id="`${linePrefix}-L${line}`"
               class="k-line-anchor"
-              :href="props.showLineNumberLinks ? `#${linePrefix}-L${line}` : undefined"
+              :href="showLineNumberLinks ? `#${linePrefix}-L${line}` : undefined"
             >{{ line }}</a>
           </span>
         </span>
@@ -237,7 +237,7 @@
             <a
               :id="`${linePrefix}-L${line}`"
               class="k-line-anchor"
-              :href="props.showLineNumberLinks ? `#${linePrefix}-L${line}` : undefined"
+              :href="showLineNumberLinks ? `#${linePrefix}-L${line}` : undefined"
             >{{ line }}</a>
           </span>
         </span>
@@ -246,7 +246,7 @@
       <!-- eslint-enable vue/no-v-html -->
 
       <KButton
-        v-if="props.showCopyButton"
+        v-if="showCopyButton"
         ref="codeBlockCopyButton"
         appearance="outline"
         class="k-code-block-copy-button"
@@ -414,17 +414,7 @@ const numberOfMatches = ref(0)
 const matchingLineNumbers = ref<number[]>([])
 const currentLineIndex = ref<null | number>(null)
 
-const totalLines = computed(() => {
-  let length: number
-
-  if (props.code?.includes('\n') && props.code.split('\n')?.length) {
-    length = props.code.split('\n').length
-  } else {
-    length = 1
-  }
-
-  return Array.from({ length }, (_, index) => index + 1)
-})
+const totalLines = computed(() => Array.from({ length: props.code.split('\n').length }, (_, index) => index + 1))
 const maxLineNumberWidth = computed(() => totalLines.value[totalLines.value.length - 1].toString().length + 'ch')
 const linePrefix = computed(() => props.id.toLowerCase().replace(/\s+/g, '-'))
 const isProcessing = computed(() => props.isProcessing || isProcessingInternally.value)
@@ -447,7 +437,7 @@ const filteredCode = computed(function() {
     })
     .join('\n')
 })
-const finalCode = computed(() => props.isSingleLine ? props.code?.replace('\n', '') : props.code)
+const finalCode = computed(() => props.isSingleLine ? props.code.replaceAll('\n', '') : props.code)
 
 watch(() => props.code, async function() {
   // Waits one Vue tick in which the code block is re-rendered. Only then does it make sense to emit the corresponding event. Otherwise, consuming components applying syntax highlighting would have to do this because if syntax highlighting is applied before re-rendering is done, re-rendering will effectively undo the syntax highlighting.
@@ -607,7 +597,7 @@ function updateMatchingLineNumbers() {
   regExpError.value = null
 
   // Avoids searching when one can expect a very large number of results. The numbers here are determined purely by gut feel and not by any scientific reasoning. Feel free to tweak them.
-  const isSmallEnoughForCostlySearch = query.value.length >= 3 || props.code?.length < 1000
+  const isSmallEnoughForCostlySearch = query.value.length >= 3 || props.code.length < 1000
   const shouldPerformSearch = query.value.length > 0 && (isRegExpMode.value || (!isRegExpMode.value && isSmallEnoughForCostlySearch))
   let totalMatchingLineNumbers: number[] = []
 
@@ -800,7 +790,24 @@ $dark-focusColor: var(--green-500, color(green-500));
   max-height: var(--KCodeBlockMaxHeight, none);
   min-height: 56px;
   overflow: auto;
-  padding: var(--spacing-md, spacing(md)) 0 var(--spacing-md, spacing(md)) var(--spacing-sm, spacing(sm));
+  padding: var(--spacing-md, spacing(md)) 0 0 var(--spacing-sm, spacing(sm));
+}
+
+.k-code-block pre.is-single-line {
+  grid-template-columns: auto;
+  padding: var(--spacing-sm, spacing(sm)) var(--spacing-xxl, spacing(xxl)) 0 0;
+
+  code {
+    line-height: 29px;
+    margin-right: 20px;
+    overflow-x: auto;
+    padding-bottom: var(--spacing-xs, spacing(xs));
+    padding-left: var(--spacing-sm, spacing(sm));
+  }
+
+  + .k-code-block-copy-button {
+    top: var(--spacing-xs, spacing(xs));
+  }
 }
 
 .k-code-block.theme-dark pre {
@@ -827,9 +834,10 @@ $dark-focusColor: var(--green-500, color(green-500));
 .k-code-block code {
   // This is an essential performance regression prevention in scenarios where the code block content is being syntax-highlighted using PrismJS (see https://github.com/PrismJS/prism/issues/2062). I’ve observed noticeable performance issues as recent as October 2022.
   display: block;
-
   // This element will act as a grid item whose minimum width is initially `auto` which in turn can cause the CSS box to overflow which is not desirable here.
   min-width: 0;
+  overflow-x: auto;
+  padding-bottom: var(--spacing-sm, spacing(sm));
 }
 
 .k-code-block:focus-visible {
@@ -1170,8 +1178,6 @@ $dark-focusColor: var(--green-500, color(green-500));
 </style>
 
 <style lang="scss">
-@import '@/styles/variables';
-
 .k-matched-term {
   color: var(--teal-500, color(teal-500));
   font-weight: 900;
@@ -1190,25 +1196,5 @@ $dark-focusColor: var(--green-500, color(green-500));
   align-items: center;
   display: inline-flex;
   justify-content: center;
-}
-
-.k-code-block-content {
-  pre.k-highlighted-code-block.is-single-line {
-    grid-template-columns: auto;
-    padding: var(--spacing-sm, spacing(sm)) var(--spacing-xxl, spacing(xxl)) 0 0;
-
-    code {
-      line-height: 29px;
-      margin-right: 20px;
-      overflow: auto;
-      padding-bottom: var(--spacing-xs, spacing(xs));
-      padding-left: var(--spacing-sm, spacing(sm));
-      white-space: nowrap;
-    }
-
-    + .k-code-block-copy-button {
-      top: var(--spacing-xs, 4px);
-    }
-  }
 }
 </style>
