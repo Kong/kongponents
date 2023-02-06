@@ -1,12 +1,12 @@
 <template>
   <div
-    ref="wrapper"
+    ref="kTruncateWrapper"
     class="k-truncate"
     :class="[expanded ? 'expanded' : '', `k-truncate-${isTextContent ? 'text' : 'content'}`]"
   >
     <div
-      ref="container"
-      class="container"
+      ref="kTruncateContainer"
+      class="k-truncate-container"
     >
       <slot name="default" />
       <div
@@ -66,7 +66,6 @@
         data-testid="expand-trigger-wrapper"
       >
         <slot
-
           :expand="handleToggleClick"
           name="expand-trigger"
         >
@@ -104,7 +103,7 @@ const props = defineProps({
   rows: {
     type: Number,
     default: 1,
-    validator: (value: Number) => value > 0,
+    validator: (value: Number): boolean => value > 0,
   },
   isTextContent: {
     type: Boolean,
@@ -122,8 +121,8 @@ const showToggle = ref<boolean>(false)
 
 const resizeObserver = ref()
 
-const container = ref<HTMLDivElement>()
-const wrapper = ref<HTMLDivElement>()
+const kTruncateContainer = ref<HTMLDivElement>()
+const kTruncateWrapper = ref<HTMLDivElement>()
 const textToggleControls = ref<HTMLDivElement>()
 const wrapperHeight = ref<string>('0px')
 
@@ -135,20 +134,20 @@ const excessElementsCount = ref<number>(0)
  * When rows prop > 1: wrapper hight will be rows count multiplied by height of the tallest child plus gap (10px).
  * For example if rows is 2 and all elements are equal height if 22px, wrapper height will be set to 54px (2 * 22 + 10).
  */
-const setWrapperHeight = () => {
+const setWrapperHeight = (): void => {
   if (props.isTextContent) {
     return
   }
 
-  if (container.value && container.value.children?.length) {
-    const children = container.value.children as unknown as HTMLElement[]
+  if (kTruncateContainer.value && kTruncateContainer.value.children?.length) {
+    const children = kTruncateContainer.value.children as unknown as HTMLElement[]
     let tallestChildHeight = 0
     for (let i = 0; i < children.length; i++) {
       // find height of tallest child
       tallestChildHeight = children[i].offsetHeight > tallestChildHeight ? children[i].offsetHeight : tallestChildHeight
     }
     const targetWrapperHeight = (props.rows === 1 ? 0 : (props.rows - 1) * 10) + (tallestChildHeight * props.rows)
-    wrapperHeight.value = container.value.offsetHeight > targetWrapperHeight ? `${targetWrapperHeight}px` : 'auto'
+    wrapperHeight.value = kTruncateContainer.value.offsetHeight > targetWrapperHeight ? `${targetWrapperHeight}px` : 'auto'
   }
 }
 
@@ -157,37 +156,37 @@ const setWrapperHeight = () => {
  * In other words, determines whether the content overflows.
  * If the height of the content is greater than height of the wrapper element - content does overflow.
  */
-const updateToggleVisibility = () => {
+const updateToggleVisibility = (): void => {
   setWrapperHeight()
-  if (container.value && wrapper.value) {
+  if (kTruncateContainer.value && kTruncateWrapper.value) {
     // in case with text content, need to compare scrollHeight value
-    const containerHeightProperty = props.isTextContent ? container.value.scrollHeight : container.value.offsetHeight
+    const containerHeightProperty = props.isTextContent ? kTruncateContainer.value.scrollHeight : kTruncateContainer.value.offsetHeight
     const textToggleControlsHeight = textToggleControls.value ? textToggleControls.value.offsetHeight : 0
     /**
      * In case with text content, toggle controls element is rendered below content, so adds up to wrapper height.
      * Therefore it's height need to be subtracted to determine the actual wrapper height.
      */
-    showToggle.value = containerHeightProperty > (wrapper.value.offsetHeight - textToggleControlsHeight)
+    showToggle.value = containerHeightProperty > (kTruncateWrapper.value.offsetHeight - textToggleControlsHeight)
     countExcessElements()
   }
 }
 
 // Counts elements that are wrapped to the hidden rows and therefore are not visible.
-const countExcessElements = () => {
+const countExcessElements = (): void => {
   if (props.isTextContent) {
     return
   }
 
   excessElementsCount.value = 0
-  if (container.value && wrapper.value) {
-    const children = container.value.children as unknown as HTMLElement[]
+  if (kTruncateContainer.value && kTruncateWrapper.value) {
+    const children = kTruncateContainer.value.children as unknown as HTMLElement[]
     for (let i = 0; i < children.length; i++) {
       /**
        * If element's offsetTop
-       * (offset from the nearest relatively positioned parent, which is .container)
+       * (offset from the nearest relatively positioned parent, which is .k-truncate-container)
        * is greater than the wrapper element height - means it's not visible
        */
-      if (children[i].offsetTop > wrapper.value.offsetHeight) {
+      if (children[i].offsetTop > kTruncateWrapper.value.offsetHeight) {
         excessElementsCount.value += 1
       }
     }
@@ -201,13 +200,13 @@ const handleToggleClick = async () => {
   updateToggleVisibility()
 }
 
-onMounted(async () => {
-  resizeObserver.value = new ResizeObserver(updateToggleVisibility).observe(container.value as HTMLDivElement)
+onMounted(() => {
+  resizeObserver.value = new ResizeObserver(updateToggleVisibility).observe(kTruncateContainer.value as HTMLDivElement)
 })
 
 onBeforeUnmount(() => {
   if (resizeObserver.value) {
-    resizeObserver.value.unobserve(container.value)
+    resizeObserver.value.unobserve(kTruncateContainer.value)
   }
 })
 </script>
@@ -235,7 +234,7 @@ onBeforeUnmount(() => {
     &.expanded {
       height: auto;
     }
-    .container {
+    .k-truncate-container {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
@@ -262,14 +261,14 @@ onBeforeUnmount(() => {
     display: flex;
     flex-direction: column;
 
-    .container {
+    .k-truncate-container {
       -webkit-box-orient: vertical;
       display: -webkit-box;
-      -webkit-line-clamp: v-bind('$props.rows');
+      -webkit-line-clamp: v-bind('props.rows');
       overflow: hidden;
     }
     &.expanded {
-      .container {
+      .k-truncate-container {
         display: block;
       }
     }
