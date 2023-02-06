@@ -113,6 +113,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  width: {
+    type: String,
+    default: '100%',
+  },
 })
 
 const expanded = ref<boolean>(props.isExpanded)
@@ -219,7 +223,6 @@ onBeforeUnmount(() => {
   align-items: flex-start;
   display: flex;
   overflow: hidden;
-  width: 100%;
 
   .expand-trigger,
   .collapse-trigger {
@@ -240,6 +243,7 @@ onBeforeUnmount(() => {
       flex-wrap: wrap;
       gap: 10px;
       position: relative;
+      width: v-bind('props.width');
     }
 
     .expand-trigger {
@@ -261,6 +265,7 @@ onBeforeUnmount(() => {
   &.k-truncate-text {
     display: flex;
     flex-direction: column;
+    width: v-bind('props.width');
 
     .k-truncate-container {
       -webkit-box-orient: vertical;
