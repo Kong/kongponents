@@ -42,9 +42,9 @@
         data-testid="expand-trigger-wrapper"
       >
         <slot
-          :excess-elements-count="truncatedCount"
           :expand="handleToggleClick"
           name="expand-trigger"
+          :truncated-count="truncatedCount"
         >
           <KButton
             appearance="btn-link"
