@@ -4,7 +4,7 @@
 
 <KCard>
   <template v-slot:body>
-    <KTruncate width="50%">
+    <KTruncate>
       <KBadge v-for="n in 25" :key="n">
         Item {{ n }}
       </KBadge>
