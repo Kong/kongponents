@@ -4,7 +4,7 @@
 
 <KCard>
   <template v-slot:body>
-    <KTruncate>
+    <KTruncate width="50%">
       <KBadge v-for="n in 25" :key="n">
         Item {{ n }}
       </KBadge>
@@ -98,6 +98,26 @@ When `true`, the component will not truncate the content and the collapse trigge
     <KBadge v-for="n in 25" :key="n">
       Item {{ n }}
     </KBadge>
+  </KTruncate>
+</template>
+```
+
+### width
+
+Width of container element that wraps content passed through the `default` slot. Works just like `width` property in CSS. Default value is `100%`.
+
+<KCard>
+  <template v-slot:body>
+    <KTruncate is-text-content :rows="2" width="50%">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </KTruncate>
+  </template>
+</KCard>
+
+```html
+<template>
+  <KTruncate is-text-content :rows="2" width="50%">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
   </KTruncate>
 </template>
 ```
