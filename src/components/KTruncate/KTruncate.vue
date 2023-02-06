@@ -223,6 +223,7 @@ onBeforeUnmount(() => {
   align-items: flex-start;
   display: flex;
   overflow: hidden;
+  width: v-bind('props.width');
 
   .expand-trigger,
   .collapse-trigger {
@@ -243,7 +244,6 @@ onBeforeUnmount(() => {
       flex-wrap: wrap;
       gap: 10px;
       position: relative;
-      width: v-bind('props.width');
     }
 
     .expand-trigger {
@@ -265,7 +265,6 @@ onBeforeUnmount(() => {
   &.k-truncate-text {
     display: flex;
     flex-direction: column;
-    width: v-bind('props.width');
 
     .k-truncate-container {
       -webkit-box-orient: vertical;
