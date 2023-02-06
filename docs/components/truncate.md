@@ -1,6 +1,6 @@
 # Truncate
 
-**KTruncate** - A Kongponent that limits content to a specific number of lines and provides controls to expand or collapse it.
+**KTruncate** - A Kongponent that limits content to a specific number of lines and provides controls to show or hide the truncated content.
 
 <KCard>
   <template v-slot:body>
@@ -26,7 +26,7 @@
 
 ### rows
 
-Number of rows to truncate content at. Default value is `1`.
+Number of rows to truncate content. Default value is `1`.
 
 <KCard>
   <template v-slot:body>
@@ -50,7 +50,7 @@ Number of rows to truncate content at. Default value is `1`.
 
 ### isTextContent
 
-By default the component treats anything passed through the `default` slot as collection of HTML elements. Use this prop if you want to truncate text.
+By default the component treats anything passed through the `default` slot as collection of HTML elements. Use this prop if you want to truncate elements that only contain text, such as one or more paragraph `<p>` tags.
 
 When this prop is set to `true`, the component applies different logic; truncation is achieved via the `-webkit-line-clamp` CSS property, rather than assessing the height of child elements to determine the row height.
 
@@ -80,7 +80,7 @@ When this prop is set to `true`, the component applies different logic; truncati
 
 ### isExpanded
 
-If passed `true`, the component will be rendered expanded by default.
+When `true`, the component will not truncate the content and the collapse trigger will be visible.
 
 <KCard>
   <template v-slot:body>
@@ -106,9 +106,9 @@ If passed `true`, the component will be rendered expanded by default.
 
 ### default
 
-Slot for content.
+The content to truncate.
 
-To ensure the best experience with the component, please pass elements of equal height in the default slot. The component will base its guess for the height of the element on the height of each individual sibling, so passing elements of equal height will result in a more accurate and consistent output.
+**Note:** when using KTruncate for truncating collection of HTML elements (not text), to ensure the best experience with the component, please pass elements of equal height in the default slot. The component will base its guess for the height of the element on the height of each individual sibling, so passing elements of equal height will result in a more accurate and consistent output.
 
 :::tip TIP
 The component is reactive to its dimensions changes. To see this in action, try resizing your browser window and notice the behavior of the example below.
@@ -127,6 +127,7 @@ The component is reactive to its dimensions changes. To see this in action, try 
 ### expand-trigger
 
 Slot for a custom expand trigger element. Slot props:
+
 - `truncatedCount` (type: `Number`) - Number of elements that overflow. **Note**: this slot prop is only available when not `isTextContent`
 - `expand` (type: `Function`) - Function to expand
 
