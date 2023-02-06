@@ -3,6 +3,7 @@
     ref="kTruncateWrapper"
     class="k-truncate"
     :class="[expanded ? 'expanded' : '', `k-truncate-${isTextContent ? 'text' : 'content'}`]"
+    :style="widthStyle"
   >
     <div
       ref="kTruncateContainer"
@@ -97,7 +98,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, ref, nextTick } from 'vue'
+import { onMounted, onBeforeUnmount, ref, nextTick, computed } from 'vue'
+import useUtilities from '@/composables/useUtilities'
+
+const { getSizeFromString } = useUtilities()
 
 const props = defineProps({
   rows: {
@@ -204,6 +208,12 @@ const handleToggleClick = async () => {
   updateToggleVisibility()
 }
 
+const widthStyle = computed((): Record<string, string> => {
+  return {
+    width: getSizeFromString(props.width),
+  }
+})
+
 onMounted(() => {
   resizeObserver.value = new ResizeObserver(updateToggleVisibility).observe(kTruncateContainer.value as HTMLDivElement)
 })
@@ -223,7 +233,6 @@ onBeforeUnmount(() => {
   align-items: flex-start;
   display: flex;
   overflow: hidden;
-  width: v-bind('props.width');
 
   .expand-trigger,
   .collapse-trigger {
