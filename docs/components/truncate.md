@@ -52,10 +52,13 @@ Number of rows to truncate content at. Default value is `1`.
 
 By default the component treats anything passed through the `default` slot as collection of HTML elements. Use this prop if you want to truncate text.
 
+When this prop is set tu true, component applies different logic - truncation is achieved through `-webkit-line-clamp` CSS property, rather than using height of child elements to determine the row height.
+
 <KCard>
   <template v-slot:body>
     <KTruncate is-text-content :rows="3">
-      <div>A good design decision to apply text truncation would be when displaying a large amount of textual content, such as a list of articles or product descriptions, in a limited space, such as a mobile screen or a small widget. By truncating the text to a short summary, it is possible to present the information in a more organized and readable manner, allowing the user to quickly scan and understand the main points of each item. The truncated text can also serve as a teaser, encouraging the user to click or tap to view the full content.</div>
+      <p>A good design decision to apply text truncation would be when displaying a <b>large amount of textual content</b>, such as a list of articles or product descriptions, in a limited space, such as a mobile screen or a small widget. By truncating the text to a short summary, it is possible to present the information in a more organized and readable manner, allowing the user to quickly scan and understand the main points of each item.</p>
+      <p>The truncated text can also serve as a teaser, encouraging the user to click or tap to view the full content.</p>
     </KTruncate>
   </template>
 </KCard>
@@ -63,17 +66,14 @@ By default the component treats anything passed through the `default` slot as co
 ```html
 <template>
   <KTruncate is-text-content :rows="3">
-    <KBadge>
-      <div>A good design decision to apply text truncation would be 
-        when displaying a large amount of textual content, such as a list 
-        of articles or product descriptions, in a limited space, such as 
-        a mobile screen or a small widget. By truncating the text to a 
-        short summary, it is possible to present the information in a more 
-        organized and readable manner, allowing the user to quickly scan 
-        and understand the main points of each item. The truncated text 
-        can also serve as a teaser, encouraging the user to click or tap 
-        to view the full content.</div>
-    </KBadge>
+    <p>A good design decision to apply text truncation would be 
+      when displaying a <b>large amount of textual content</b>, such as a list 
+      of articles or product descriptions, in a limited space, such as 
+      a mobile screen or a small widget. By truncating the text to a 
+      short summary, it is possible to present the information in a more 
+      organized and readable manner, allowing the user to quickly scan 
+      and understand the main points of each item.</p>
+      <p>The truncated text can also serve as a teaser, encouraging the user to click or tap to view the full content.</p>
   </KTruncate>
 </template>
 ```
