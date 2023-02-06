@@ -1,3 +1,10 @@
+## [8.22.4](https://github.com/Kong/kongponents/compare/v8.22.3...v8.22.4) (2023-02-06)
+
+
+### Bug Fixes
+
+* **kcodeblock:** minor code block issues ([#1085](https://github.com/Kong/kongponents/issues/1085)) ([8d5300a](https://github.com/Kong/kongponents/commit/8d5300ae9547fe6e45f7c6684fd59d2e9e763c39))
+
 ## [8.22.3](https://github.com/Kong/kongponents/compare/v8.22.2...v8.22.3) (2023-02-03)
 
 

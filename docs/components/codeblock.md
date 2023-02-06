@@ -429,7 +429,8 @@ const code = `{
   },
   "include": [
     "./src",
-    "./types"
+    "./types",
+    "./particularly-long-value-that-will-inadvertently-cause-scrolling-for-narrower-containers"
   ]
 }`
 
