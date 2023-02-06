@@ -42,7 +42,7 @@
         data-testid="expand-trigger-wrapper"
       >
         <slot
-          :excess-elements-count="excessElementsCount"
+          :excess-elements-count="truncatedCount"
           :expand="handleToggleClick"
           name="expand-trigger"
         >
@@ -51,7 +51,7 @@
             class="expand-trigger"
             @click="handleToggleClick"
           >
-            {{ excessElementsCount }}
+            {{ truncatedCount }}
           </KButton>
         </slot>
       </div>
@@ -126,7 +126,7 @@ const kTruncateWrapper = ref<HTMLDivElement>()
 const textToggleControls = ref<HTMLDivElement>()
 const wrapperHeight = ref<string>('0px')
 
-const excessElementsCount = ref<number>(0)
+const truncatedCount = ref<number>(0)
 
 /**
  * Sets wrapper height.
@@ -177,7 +177,7 @@ const countExcessElements = (): void => {
     return
   }
 
-  excessElementsCount.value = 0
+  truncatedCount.value = 0
   if (kTruncateContainer.value && kTruncateWrapper.value) {
     const children = kTruncateContainer.value.children as unknown as HTMLElement[]
     for (let i = 0; i < children.length; i++) {
@@ -187,7 +187,7 @@ const countExcessElements = (): void => {
        * is greater than the wrapper element height - means it's not visible
        */
       if (children[i].offsetTop > kTruncateWrapper.value.offsetHeight) {
-        excessElementsCount.value += 1
+        truncatedCount.value += 1
       }
     }
   }
@@ -221,7 +221,8 @@ onBeforeUnmount(() => {
   overflow: hidden;
   width: 100%;
 
-  .expand-trigger, .collapse-trigger {
+  .expand-trigger,
+  .collapse-trigger {
     --KButtonBtnLink: var(--KTruncateToggleColor, var(--blue-500, color(blue-500)));
     --KButtonPrimaryBase: var(--KTruncateCollapseBackground, var(--blue-100, color(blue-100)));
     --KButtonPrimaryHover: var(--KTruncateCollapseHover, var(--blue-200, color(blue-200)));
@@ -272,7 +273,8 @@ onBeforeUnmount(() => {
         display: block;
       }
     }
-    .expand-trigger, .collapse-trigger {
+    .expand-trigger,
+    .collapse-trigger {
       font-size: var(--type-xs);
     }
   }
