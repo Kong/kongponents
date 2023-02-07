@@ -1,4 +1,4 @@
 <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-  <title>Self-hosted Gateway</title>
+  <title>Cloud Hybrid</title>
   <path clip-rule="evenodd" d="M14.583 13.334h-.416V15h.416a4.583 4.583 0 1 0-.868-9.084A6.667 6.667 0 0 0 .833 8.333v.006H2.5v-.006a5 5 0 0 1 10 0v.042a2.917 2.917 0 1 1 2.083 4.959ZM.833 13.5a1 1 0 0 1 1-1h11.334a1 1 0 0 1 1 1v3.833a1 1 0 0 1-1 1H1.833a1 1 0 0 1-1-1V13.5Zm5.834 1.083H2.5v1.667h4.167v-1.667Zm3.333.834a.833.833 0 1 1-1.667 0 .833.833 0 0 1 1.667 0Zm2.5 0a.833.833 0 1 1-1.667 0 .833.833 0 0 1 1.667 0Z" fill="#A3BBCC" fill-rule="evenodd" />
 </svg>
