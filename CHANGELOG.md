@@ -1,3 +1,10 @@
+## [8.23.1](https://github.com/Kong/kongponents/compare/v8.23.0...v8.23.1) (2023-02-07)
+
+
+### Bug Fixes
+
+* **ktruncate:** fix render reactivity issue ([#1106](https://github.com/Kong/kongponents/issues/1106)) ([b9475ba](https://github.com/Kong/kongponents/commit/b9475bafe16b38052ce8c7f4591aa3938abe433f))
+
 # [8.23.0](https://github.com/Kong/kongponents/compare/v8.22.4...v8.23.0) (2023-02-07)
 
 
