@@ -128,9 +128,9 @@ There are 6 designated slots you can use to display content in the fullscreen mo
     <KButton appearance="primary" size="medium" @click="exampleIsOpen = false">Save</KButton>
   </template>
   <h3>Security</h3>
-  <KCatalog :fetcher="() => getItems(8)" />
+  <!-- <KCatalog :fetcher="() => getItems(8)" /> -->
   <h3>Authentication</h3>
-  <KCatalog :fetcher="() => getItems(16)" />
+  <!-- <KCatalog :fetcher="() => getItems(16)" /> -->
 </KModalFullscreen>
 
 ```html
@@ -157,9 +157,9 @@ There are 6 designated slots you can use to display content in the fullscreen mo
     <KButton appearance="primary" size="medium" @click="exampleIsOpen = false">Save</KButton>
   </template>
   <h3>Security</h3>
-  <KCatalog :fetcher="() => getItems(8)" />
+  <!-- <KCatalog :fetcher="() => getItems(8)" /> -->
   <h3>Authentication</h3>
-  <KCatalog :fetcher="() => getItems(16)" />
+  <!-- <KCatalog :fetcher="() => getItems(16)" /> -->
 </KModalFullscreen>
 ```
 
@@ -321,14 +321,14 @@ There are 6 designated slots you can use to display content in the fullscreen mo
 
 ## Theming
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KModalFullscreenMaxWidth` | Modal max width
-| `--KModalFullscreenHeaderColor` | Header text color
-| `--KModalFullscreenHeaderSize` | Header font size
-| `--KModalFullscreenHeaderWeight` | Header font weight
-| `--KModalFullscreenColor`| Main content text color
-| `--KModalFullscreenFontSize`| Main content text size
+| Variable                         | Purpose                 |
+| :------------------------------- | :---------------------- |
+| `--KModalFullscreenMaxWidth`     | Modal max width         |
+| `--KModalFullscreenHeaderColor`  | Header text color       |
+| `--KModalFullscreenHeaderSize`   | Header font size        |
+| `--KModalFullscreenHeaderWeight` | Header font weight      |
+| `--KModalFullscreenColor`        | Main content text color |
+| `--KModalFullscreenFontSize`     | Main content text size  |
 
 An Example of changing the the colors of KModalFullscreen might look like.
 > Note: We are scoping the overrides to a wrapper in this example

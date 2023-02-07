@@ -8,8 +8,8 @@ declare module '@vue/runtime-core' {
     KBreadcrumbs: typeof components.KBreadcrumbs
     KButton: typeof components.KButton
     KCard: typeof components.KCard
-    KCatalog: typeof components.KCatalog
-    KCatalogItem: typeof components.KCatalogItem
+    // KCatalog: typeof components.KCatalog
+    // KCatalogItem: typeof components.KCatalogItem
     KCheckbox: typeof components.KCheckbox
     KClipboardProvider: typeof components.KClipboardProvider
     KCodeBlock: typeof components.KCodeBlock
