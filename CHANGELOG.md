@@ -1,3 +1,10 @@
+# [8.23.0](https://github.com/Kong/kongponents/compare/v8.22.4...v8.23.0) (2023-02-07)
+
+
+### Features
+
+* add ktruncate component [KHCP-5895] ([#1097](https://github.com/Kong/kongponents/issues/1097)) ([50871c7](https://github.com/Kong/kongponents/commit/50871c768a08ee48cfff615b082d05589940c95f))
+
 ## [8.22.4](https://github.com/Kong/kongponents/compare/v8.22.3...v8.22.4) (2023-02-06)
 
 
