@@ -142,7 +142,7 @@ const truncatedCount = ref<number>(0)
  * When rows prop > 1: wrapper hight will be rows count multiplied by height of the tallest child plus gap (10px).
  * For example if rows is 2 and all elements are equal height if 22px, wrapper height will be set to 54px (2 * 22 + 10).
  */
-const setWrapperHeight = (): void => {
+const setWrapperHeight = async (): Promise<void> => {
   if (props.isTextContent) {
     return
   }
@@ -156,6 +156,9 @@ const setWrapperHeight = (): void => {
     }
     const targetWrapperHeight = (props.rows === 1 ? 0 : (props.rows - 1) * 10) + (tallestChildHeight * props.rows)
     wrapperHeight.value = kTruncateContainer.value.offsetHeight > targetWrapperHeight ? `${targetWrapperHeight}px` : 'auto'
+
+    await nextTick()
+    updateToggleVisibility()
   }
 }
 
@@ -165,7 +168,6 @@ const setWrapperHeight = (): void => {
  * If the height of the content is greater than height of the wrapper element - content does overflow.
  */
 const updateToggleVisibility = (): void => {
-  setWrapperHeight()
   if (kTruncateContainer.value && kTruncateWrapper.value) {
     // in case with text content, need to compare scrollHeight value
     const containerHeightProperty = props.isTextContent ? kTruncateContainer.value.scrollHeight : kTruncateContainer.value.offsetHeight
@@ -215,7 +217,8 @@ const widthStyle = computed((): Record<string, string> => {
 })
 
 onMounted(() => {
-  resizeObserver.value = new ResizeObserver(updateToggleVisibility).observe(kTruncateContainer.value as HTMLDivElement)
+  resizeObserver.value = new ResizeObserver(setWrapperHeight).observe(kTruncateContainer.value as HTMLDivElement)
+  updateToggleVisibility()
 })
 
 onBeforeUnmount(() => {
