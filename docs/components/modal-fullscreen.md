@@ -128,9 +128,9 @@ There are 6 designated slots you can use to display content in the fullscreen mo
     <KButton appearance="primary" size="medium" @click="exampleIsOpen = false">Save</KButton>
   </template>
   <h3>Security</h3>
-  <!-- <KCatalog :fetcher="() => getItems(8)" /> -->
+  <KCatalog :fetcher="() => getItems(8)" />
   <h3>Authentication</h3>
-  <!-- <KCatalog :fetcher="() => getItems(16)" /> -->
+  <KCatalog :fetcher="() => getItems(16)" />
 </KModalFullscreen>
 
 ```html
@@ -157,9 +157,9 @@ There are 6 designated slots you can use to display content in the fullscreen mo
     <KButton appearance="primary" size="medium" @click="exampleIsOpen = false">Save</KButton>
   </template>
   <h3>Security</h3>
-  <!-- <KCatalog :fetcher="() => getItems(8)" /> -->
+  <KCatalog :fetcher="() => getItems(8)" />
   <h3>Authentication</h3>
-  <!-- <KCatalog :fetcher="() => getItems(16)" /> -->
+  <KCatalog :fetcher="() => getItems(16)" />
 </KModalFullscreen>
 ```
 
