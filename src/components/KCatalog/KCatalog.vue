@@ -465,7 +465,7 @@ export default defineComponent({
     }
 
     // once `initData()` finishes fetch data
-    const catalogFetcherCacheKey = computed(() => {
+    const catalogFetcherCacheKey = computed((): string => {
       if (!props.fetcher || !hasInitialized.value) {
         return ''
       }
@@ -479,15 +479,15 @@ export default defineComponent({
       { revalidateOnFocus: false },
     )
 
-    const pageChangeHandler = ({ page: newPage }: Record<string, number>) => {
+    const pageChangeHandler = ({ page: newPage }: Record<string, number>): void => {
       page.value = newPage
     }
 
-    const pageSizeChangeHandler = ({ pageSize: newPageSize }: Record<string, number>) => {
+    const pageSizeChangeHandler = ({ pageSize: newPageSize }: Record<string, number>): void => {
       pageSize.value = newPageSize
     }
 
-    const getTestIdString = (message: string) => {
+    const getTestIdString = (message: string): string => {
       return message.toLowerCase().replace(/[^[a-z0-9]/gi, '-')
     }
 
