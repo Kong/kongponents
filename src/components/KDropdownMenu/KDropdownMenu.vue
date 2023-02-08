@@ -31,6 +31,7 @@
               <KButton
                 v-if="label || icon"
                 :appearance="appearance === 'selectionMenu' ? 'outline' : buttonAppearance"
+                :caret-color="caretColor"
                 class="k-dropdown-btn"
                 data-testid="k-dropdown-btn"
                 :disabled="disabled"
@@ -110,6 +111,10 @@ export default defineComponent({
     buttonAppearance: {
       type: String,
       default: 'primary',
+    },
+    caretColor: {
+      type: String,
+      default: undefined,
     },
     label: {
       type: String,

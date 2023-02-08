@@ -55,7 +55,7 @@
     <KIcon
       v-if="showCaret"
       :class="['caret']"
-      :color="iconColor"
+      :color="caretColor || iconColor"
       icon="chevronDown"
       size="16"
       view-box="2 2 15 15"
@@ -124,6 +124,10 @@ export default defineComponent({
     showCaret: {
       type: Boolean,
       default: false,
+    },
+    caretColor: {
+      type: String,
+      default: undefined,
     },
     isRounded: {
       type: Boolean,
