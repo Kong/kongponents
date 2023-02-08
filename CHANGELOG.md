@@ -1,3 +1,10 @@
+## [8.24.1](https://github.com/Kong/kongponents/compare/v8.24.0...v8.24.1) (2023-02-08)
+
+
+### Bug Fixes
+
+* **kdropdownmenu:** allow customizing caret color ([#1109](https://github.com/Kong/kongponents/issues/1109)) ([527b4b5](https://github.com/Kong/kongponents/commit/527b4b5f3d49cd4d36259a1da1ea3941f4e7b730))
+
 # [8.24.0](https://github.com/Kong/kongponents/compare/v8.23.1...v8.24.0) (2023-02-08)
 
 
