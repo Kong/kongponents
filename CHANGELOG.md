@@ -1,3 +1,10 @@
+# [8.24.0](https://github.com/Kong/kongponents/compare/v8.23.1...v8.24.0) (2023-02-08)
+
+
+### Features
+
+* **kicon:** add new cloud-hybrid icon ([#1107](https://github.com/Kong/kongponents/issues/1107)) ([0f2d5a9](https://github.com/Kong/kongponents/commit/0f2d5a9d6637d0545998f2934bd74b0688872f8a))
+
 ## [8.23.1](https://github.com/Kong/kongponents/compare/v8.23.0...v8.23.1) (2023-02-07)
 
 
