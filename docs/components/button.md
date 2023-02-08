@@ -76,6 +76,27 @@ Use this prop if you would like the KButton to display a dropdown caret to the r
 </KComponent>
 ```
 
+### caretColor
+
+::: tip NOTE
+Use this prop in conjunction with the `showCaret` prop
+:::
+
+Use this prop to customize the color of the caret
+
+<KButton
+  caret-color="var(--blue-300)"
+  show-caret
+>
+  Select Item
+</KButton>
+
+```html
+<KButton caret-color="var(--blue-300)" show-caret>
+  Select Item
+</KButton>
+```
+
 ### isRounded
 
 The buttons are rounded by default. This can be disabled by setting `isRounded` prop to `false`.

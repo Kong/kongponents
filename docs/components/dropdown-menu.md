@@ -141,6 +141,32 @@ Use this prop if you would like the trigger button to display the caret.
 />
 ```
 
+### caretColor
+
+::: tip NOTE
+Use this prop in conjunction with the `showCaret` prop
+:::
+
+Use this prop to customize the color of the caret
+
+<ClientOnly>
+  <KDropdownMenu
+    caret-color="var(--steel-300)"
+    label="Select Type"
+    :items="items"
+    show-caret
+  />
+</ClientOnly>
+
+```html
+<KDropdownMenu
+  caret-color="var(--steel-300)"
+  label="Select Type"
+  :items="items"
+  show-caret
+/>
+```
+
 ### icon
 
 A string for the `KIcon` to be displayed on the dropdown button with or in place of the button label.
