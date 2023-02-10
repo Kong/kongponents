@@ -1,3 +1,10 @@
+## [8.24.2](https://github.com/Kong/kongponents/compare/v8.24.1...v8.24.2) (2023-02-10)
+
+
+### Bug Fixes
+
+* escape html tags in code block ([#1111](https://github.com/Kong/kongponents/issues/1111)) ([c26f11a](https://github.com/Kong/kongponents/commit/c26f11add7410b95362f5675830b1ca0e5951087))
+
 ## [8.24.1](https://github.com/Kong/kongponents/compare/v8.24.0...v8.24.1) (2023-02-08)
 
 
