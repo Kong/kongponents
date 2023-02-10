@@ -437,7 +437,15 @@ const filteredCode = computed(function() {
     })
     .join('\n')
 })
-const finalCode = computed(() => props.isSingleLine ? props.code.replaceAll('\n', '') : props.code)
+
+// This is in the case where a user is trying to render
+// HTML code, and it would render the actual tags inside
+// of the code block.
+const escapeUnsafeCharacters = (unescapedCodeString: string): string => {
+  return unescapedCodeString.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;')
+}
+
+const finalCode = computed(() => props.isSingleLine ? escapeUnsafeCharacters(props.code).replaceAll('\n', '') : escapeUnsafeCharacters(props.code))
 
 watch(() => props.code, async function() {
   // Waits one Vue tick in which the code block is re-rendered. Only then does it make sense to emit the corresponding event. Otherwise, consuming components applying syntax highlighting would have to do this because if syntax highlighting is applied before re-rendering is done, re-rendering will effectively undo the syntax highlighting.
