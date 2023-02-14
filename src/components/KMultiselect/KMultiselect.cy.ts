@@ -401,4 +401,61 @@ describe('KMultiselect', () => {
     cy.getTestId('k-multiselect-selections').get('.k-badge-dismiss-button').first().click()
     cy.getTestId('k-multiselect-selections').should('not.exist')
   })
+
+  it('renders dropdown footer text when prop is passed', () => {
+    const labels = ['Label 1', 'Label 2', 'Label 3']
+    const vals = ['label1', 'label2', 'label3']
+    const dropdownFooterText = 'Dropdown footer text'
+
+    mount(KMultiselect, {
+      props: {
+        testMode: true,
+        items: [{
+          label: labels[0],
+          value: vals[0],
+        }, {
+          label: labels[1],
+          value: vals[1],
+        }, {
+          label: labels[2],
+          value: vals[2],
+        }],
+        dropdownFooterText,
+      },
+    })
+
+    cy.get('.k-multiselect-input').trigger('click')
+
+    cy.get('.k-multiselect-dropdown-footer-text').should('be.visible').should('contain.text', dropdownFooterText)
+  })
+
+  it('should allow slotting dropdown footer text', () => {
+    const labels = ['Label 1', 'Label 2', 'Label 3']
+    const vals = ['label1', 'label2', 'label3']
+    const dropdownFooterText = 'Dropdown footer text'
+
+    mount(KMultiselect, {
+      props: {
+        testMode: true,
+        items: [{
+          label: labels[0],
+          value: vals[0],
+        }, {
+          label: labels[1],
+          value: vals[1],
+        }, {
+          label: labels[2],
+          value: vals[2],
+        }],
+        dropdownFooterText: 'This is getting replaced',
+      },
+      slots: {
+        'dropdown-footer-text': dropdownFooterText,
+      },
+    })
+
+    cy.get('.k-multiselect-input').trigger('click')
+
+    cy.get('.k-multiselect-dropdown-footer-text').should('be.visible').should('contain.text', dropdownFooterText)
+  })
 })
