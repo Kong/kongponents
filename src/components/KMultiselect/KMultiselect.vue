@@ -138,7 +138,7 @@
           <template #content>
             <!-- use @click.stop so we don't close drop down when selecting/deselecting items -->
             <div
-              class="k-multiselect-list ma-0 pa-0"
+              class="k-multiselect-list ma-0 pa-0 p-relative"
               @blur="() => isFocused = false"
               @click.stop
               @focus="isFocused = true"
@@ -190,6 +190,14 @@
                   </div>
                 </template>
               </KMultiselectItem>
+              <div
+                v-if="$slots['dropdown-footer-text'] || dropdownFooterText"
+                class="k-multiselect-dropdown-footer-text p-sticky bottom-0"
+              >
+                <slot name="dropdown-footer-text">
+                  {{ dropdownFooterText }}
+                </slot>
+              </div>
             </div>
             <slot
               v-if="!loading && !sortedItems.length"
@@ -392,6 +400,13 @@ const props = defineProps({
   testMode: {
     type: Boolean,
     default: false,
+  },
+  /**
+     * Dropdown footer text
+     */
+  dropdownFooterText: {
+    type: String,
+    default: '',
   },
 })
 
@@ -999,6 +1014,12 @@ onMounted(() => {
     }
   }
 
+  .k-multiselect-dropdown-footer-text {
+    background-color: color(white);
+    border-top: 1px solid var(--grey-200);
+    color: color(grey-500);
+    padding: 8px;
+  }
 }
 </style>
 
