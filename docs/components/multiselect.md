@@ -505,6 +505,18 @@ export default {
 </script>
 ```
 
+### dropdownFooterText
+
+Adds text in the bottom of the dropdown, that sticks to the bottom - therefore stays visible even if the content is scrollable. Can also be [slotted](#slots).
+
+<ClientOnly>
+  <KMultiselect dropdownFooterText="Dropdown footer text" :items="deepClone(defaultItemsLongList)" />
+</ClientOnly>
+
+```html
+<KMultiselect dropdownFooterText="Dropdown footer text" :items="items" />
+```
+
 ## Attribute Binding
 
 You can pass any input attribute and it will get properly bound to the element.
@@ -581,16 +593,36 @@ export default defineComponent({
 
 You can use the `empty` slot to customize the look of the dropdown list when there is no options. See [autosuggest](#autosuggest) for an example of this slot.
 
+### Dropdown Footer Text
+
+Replaces text passed through `dropdownFooterText` param.
+
+<ClientOnly>
+  <KMultiselect dropdownFooterText="Dropdown footer text" :items="deepClone(defaultItemsLongList)">
+    <template #dropdown-footer-text>
+      Come as you are
+    </template>
+  </KMultiselect>
+</ClientOnly>
+
+```html
+<KMultiselect dropdownFooterText="I am irreplaceable" :items="items">
+  <template #dropdown-footer-text>
+    Come as you are
+  </template>
+</KMultiselect>
+```
+
 ## Events
 
-| Event               | Action       | Returns             |
-| :--------           | :----------- | :------------------ |
-| `selected`          | an item is clicked | array of selected item objects |
-| `update:modelValue` | selections are changed | array of selected item values |
-| `change`            | selections are changed | last item selected/deselected Object or null |
-| `item:added`        | enableItemCreation is true and an item is added | item object being added to selections |
-| `item:removed`      | enableItemCreation is true and an added item is deselected | item object being removed from selections |
-| `query-change`      | filter string is changed | `query` String |
+| Event               | Action                                                     | Returns                                      |
+| :------------------ | :--------------------------------------------------------- | :------------------------------------------- |
+| `selected`          | an item is clicked                                         | array of selected item objects               |
+| `update:modelValue` | selections are changed                                     | array of selected item values                |
+| `change`            | selections are changed                                     | last item selected/deselected Object or null |
+| `item:added`        | enableItemCreation is true and an item is added            | item object being added to selections        |
+| `item:removed`      | enableItemCreation is true and an added item is deselected | item object being removed from selections    |
+| `query-change`      | filter string is changed                                   | `query` String                               |
 
 An example of hooking into events to modify newly created items (`enableItemCreation`) as they are added.
 
