@@ -159,7 +159,7 @@
             </slot>
             <div
               v-else
-              class="k-select-list ma-0 pa-0"
+              class="k-select-list ma-0 pa-0 p-relative"
             >
               <KSelectItem
                 v-for="item in filteredItems"
@@ -181,6 +181,14 @@
                 class="k-select-empty-item"
                 :item="{ label: 'No results', value: 'no_results' }"
               />
+              <div
+                v-if="$slots['dropdown-footer-text'] || dropdownFooterText"
+                class="k-select-dropdown-footer-text p-sticky bottom-0"
+              >
+                <slot name="dropdown-footer-text">
+                  {{ dropdownFooterText }}
+                </slot>
+              </div>
             </div>
             <slot
               v-if="!loading && !filteredItems.length"
@@ -355,6 +363,13 @@ export default defineComponent({
     testMode: {
       type: Boolean,
       default: false,
+    },
+    /**
+     * Dropdown footer text
+     */
+    dropdownFooterText: {
+      type: String,
+      default: '',
     },
   },
   emits: ['selected', 'input', 'change', 'update:modelValue', 'query-change'],
@@ -914,6 +929,13 @@ export default defineComponent({
       right: 0;
       text-align: center;
       top: 0;
+    }
+
+    .k-select-dropdown-footer-text {
+      background-color: color(white);
+      border-top: 1px solid var(--grey-200);
+      color: color(grey-500);
+      padding: 8px;
     }
   }
 }
