@@ -514,7 +514,7 @@ Adds text in the bottom of the dropdown, that sticks to the bottom - therefore s
 </ClientOnly>
 
 ```html
-<KMultiselect dropdownFooterText="Dropdown footer text" :items="items" />
+<KMultiselect dropdown-footer-text="Dropdown footer text" :items="items" />
 ```
 
 ## Attribute Binding
