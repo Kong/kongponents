@@ -38,6 +38,7 @@ describe('KMultiselect', () => {
     cy.getTestId(`k-multiselect-item-${vals[1]}`).should('contain.text', labels[1])
     cy.getTestId(`k-multiselect-item-${vals[2]}`).should('contain.text', labels[2])
     cy.get('.k-multiselect-popover').should('be.visible')
+    cy.get('.k-multiselect-dropdown-footer-text').should('not.exist')
   })
 
   it('renders with selected items when focused', () => {
