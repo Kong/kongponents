@@ -607,7 +607,7 @@ Replaces text passed through `dropdownFooterText` param.
 </ClientOnly>
 
 ```html
-<KMultiselect dropdownFooterText="I am irreplaceable" :items="items">
+<KMultiselect dropdownFooterText="I am replaceable" :items="items">
   <template #dropdown-footer-text>
     Come as you are
   </template>

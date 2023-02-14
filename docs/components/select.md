@@ -588,7 +588,7 @@ Replaces text passed through `dropdownFooterText` param.
 </ClientOnly>
 
 ```html
-<KSelect width="250" dropdownFooterText="I am irreplaceable" :items="items">
+<KSelect width="250" dropdownFooterText="I am replaceable" :items="items">
   <template #dropdown-footer-text>
     Come as you are
   </template>
