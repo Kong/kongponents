@@ -533,6 +533,7 @@ You can pass any input attribute and it will get properly bound to the element.
 
 - `item-template` - The template for each item in the dropdown list
 - `empty` - Slot for the empty state in the dropdown list
+- `dropdown-footer-text` - Slot for footer text in the bottom of the dropdown
 
 ### Item Template
 
