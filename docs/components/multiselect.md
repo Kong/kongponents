@@ -510,7 +510,7 @@ export default {
 Adds text in the bottom of the dropdown, that sticks to the bottom - therefore stays visible even if the content is scrollable. Can also be [slotted](#slots).
 
 <ClientOnly>
-  <KMultiselect dropdownFooterText="Dropdown footer text" :items="deepClone(defaultItemsLongList)" />
+  <KMultiselect dropdown-footer-text="Dropdown footer text" :items="deepClone(defaultItemsLongList)" />
 </ClientOnly>
 
 ```html
