@@ -478,6 +478,18 @@ When `autosuggest` is enabled, you can use the `loading` prop to show a loading 
 By default, the loading indicator is a spinner icon, and you can implement your own indicator using the `loading` slot.
 See [autosuggest](#autosuggest) for an example.
 
+### dropdownFooterText
+
+Adds text in the bottom of the dropdown, that sticks to the bottom - therefore stays visible even if the content is scrollable. Can also be [slotted](#slots).
+
+<ClientOnly>
+  <KSelect width="250" dropdownFooterText="Dropdown footer text" :items="deepClone(defaultItemsLongList)" />
+</ClientOnly>
+
+```html
+<KSelect width="250" dropdownFooterText="Dropdown footer text" :items="items" />
+```
+
 ## Attribute Binding
 
 You can pass any input attribute and it will get properly bound to the element.
@@ -495,6 +507,7 @@ You can pass any input attribute and it will get properly bound to the element.
 - `item-template` - The template for each item in the dropdown list
 - `loading` - Slot for the loading indicator
 - `empty` - Slot for the empty state in the dropdown list
+- `dropdown-footer-text` - Slot for footer text in the bottom of the dropdown
 
 ### Item Template
 You can use the `item-template` slot to customize the look and feel of your items. Use slots to gain access to the `item` data.
@@ -562,14 +575,34 @@ You can use the `loading` slot to customize the loading indicator. Note that thi
 
 You can use the `empty` slot to customize the look of the dropdown list when there is no options. See [autosuggest](#autosuggest) for an example of this slot.
 
+### Dropdown Footer Text
+
+Replaces text passed through `dropdownFooterText` param.
+
+<ClientOnly>
+  <KSelect width="250" dropdownFooterText="I am irreplaceable" :items="deepClone(defaultItemsLongList)">
+    <template #dropdown-footer-text>
+      Come as you are
+    </template>
+  </KSelect>
+</ClientOnly>
+
+```html
+<KSelect width="250" dropdownFooterText="I am irreplaceable" :items="items">
+  <template #dropdown-footer-text>
+    Come as you are
+  </template>
+</KSelect>
+```
+
 ## Events
 
-| Event     | returns             |
-| :-------- | :------------------ |
-| `selected` | `selectedItem` Object |
-| `input` | `selectedItem` Object or null |
-| `change` | `selectedItem` Object or null |
-| `query-change` | `query` String |
+| Event          | returns                       |
+| :------------- | :---------------------------- |
+| `selected`     | `selectedItem` Object         |
+| `input`        | `selectedItem` Object or null |
+| `change`       | `selectedItem` Object or null |
+| `query-change` | `query` String                |
 
 <script lang="ts">
 import { defineComponent } from 'vue'
