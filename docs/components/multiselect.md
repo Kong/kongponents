@@ -221,6 +221,18 @@ Adds informational text to the bottom of the dropdown options which remains visi
 <KMultiselect dropdown-footer-text="Dropdown footer text" :items="items" />
 ```
 
+### dropdownFooterTextPosition
+
+By default, element containing text you pass through `dropdownFooterText` will remain visible even if the content is scrolled. You can use this prop should you need to change that. Accepted values: `sticky`(default) and `static`.
+
+<ClientOnly>
+  <KMultiselect dropdown-footer-text-position="static" dropdown-footer-text="Dropdown footer text" :items="deepClone(defaultItemsLongList)" />
+</ClientOnly>
+
+```html
+<KMultiselect dropdown-footer-text-position="static" dropdown-footer-text="Dropdown footer text" :items="items" />
+```
+
 ### positionFixed
 
 Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `true`. See [`KPop` docs](popover.html#positionfixed) for more information.
