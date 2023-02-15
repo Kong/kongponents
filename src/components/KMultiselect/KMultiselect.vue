@@ -138,7 +138,7 @@
           <template #content>
             <!-- use @click.stop so we don't close drop down when selecting/deselecting items -->
             <div
-              class="k-multiselect-list ma-0 pa-0 p-relative"
+              class="k-multiselect-list ma-0 pa-0"
               @blur="() => isFocused = false"
               @click.stop
               @focus="isFocused = true"
@@ -190,19 +190,19 @@
                   </div>
                 </template>
               </KMultiselectItem>
-              <div
-                v-if="$slots['dropdown-footer-text'] || dropdownFooterText"
-                class="k-multiselect-dropdown-footer-text p-sticky bottom-0"
-              >
-                <slot name="dropdown-footer-text">
-                  {{ dropdownFooterText }}
-                </slot>
-              </div>
             </div>
             <slot
               v-if="!loading && !sortedItems.length"
               name="empty"
             />
+            <div
+              v-if="$slots['dropdown-footer-text'] || dropdownFooterText"
+              class="k-multiselect-dropdown-footer-text p-sticky bottom-0"
+            >
+              <slot name="dropdown-footer-text">
+                {{ dropdownFooterText }}
+              </slot>
+            </div>
           </template>
         </KPop>
       </KToggle>
@@ -402,8 +402,8 @@ const props = defineProps({
     default: false,
   },
   /**
-     * Dropdown footer text
-     */
+  * Dropdown footer text
+  */
   dropdownFooterText: {
     type: String,
     default: '',
@@ -1014,11 +1014,17 @@ onMounted(() => {
     }
   }
 
+  .k-multiselect-list {
+    max-height: v-bind('popoverContentMaxHeight');
+    overflow-y: auto;
+  }
+
   .k-multiselect-dropdown-footer-text {
     background-color: color(white);
     border-top: 1px solid var(--grey-200);
     color: color(grey-500);
-    padding: 8px;
+    padding: var(--spacing-xs);
+    padding-bottom: 0;
   }
 }
 </style>
@@ -1087,11 +1093,6 @@ onMounted(() => {
       .select-item-label {
         color: var(--grey-500);
       }
-    }
-
-    .k-popover-content {
-      max-height: v-bind('popoverContentMaxHeight');
-      overflow-y: auto; // Allow setting a maxHeight on the popover dropdown
     }
 
     a {

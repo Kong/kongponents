@@ -159,7 +159,7 @@
             </slot>
             <div
               v-else
-              class="k-select-list ma-0 pa-0 p-relative"
+              class="k-select-list ma-0 pa-0"
             >
               <KSelectItem
                 v-for="item in filteredItems"
@@ -181,19 +181,19 @@
                 class="k-select-empty-item"
                 :item="{ label: 'No results', value: 'no_results' }"
               />
-              <div
-                v-if="$slots['dropdown-footer-text'] || dropdownFooterText"
-                class="k-select-dropdown-footer-text p-sticky bottom-0"
-              >
-                <slot name="dropdown-footer-text">
-                  {{ dropdownFooterText }}
-                </slot>
-              </div>
             </div>
             <slot
               v-if="!loading && !filteredItems.length"
               name="empty"
             />
+            <div
+              v-if="$slots['dropdown-footer-text'] || dropdownFooterText"
+              class="k-select-dropdown-footer-text"
+            >
+              <slot name="dropdown-footer-text">
+                {{ dropdownFooterText }}
+              </slot>
+            </div>
           </template>
         </KPop>
       </KToggle>
@@ -901,11 +901,6 @@ export default defineComponent({
       font-style: italic;
     }
 
-    .k-popover-content {
-      max-height: v-bind('popoverContentMaxHeight');
-      overflow-y: auto; // Allow setting a maxHeight on the popover dropdown
-    }
-
     ul {
       margin: 0;
       padding: 0;
@@ -931,11 +926,17 @@ export default defineComponent({
       top: 0;
     }
 
+    .k-select-list {
+      max-height: v-bind('popoverContentMaxHeight');
+      overflow-y: auto;
+    }
+
     .k-select-dropdown-footer-text {
       background-color: color(white);
       border-top: 1px solid var(--grey-200);
       color: color(grey-500);
-      padding: 8px;
+      padding: var(--spacing-xs);
+      padding-bottom: 0;
     }
   }
 }

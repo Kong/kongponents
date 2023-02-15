@@ -317,18 +317,6 @@ $sides: (top, right, bottom, left);
   place-self: flex-end !important;
 }
 
-/*  Position
-========================================================================== */
-.p-relative {
-  position: relative !important;
-}
-.p-absolute {
-  position: absolute !important;
-}
-.p-sticky {
-  position: sticky !important;
-}
-
 /*  General
 ========================================================================== */
 .cursor-pointer {
@@ -363,18 +351,6 @@ $sides: (top, right, bottom, left);
 }
 .h-screen {
   min-height: 100vh !important;
-}
-.top-0 {
-  top: 0 !important;
-}
-.right-0 {
-  right: 0 !important;
-}
-.bottom-0 {
-  bottom: 0 !important;
-}
-.left-0 {
-  left: 0 !important;
 }
 
 // remove button default styles for elements that act like buttons, but don't look like them
