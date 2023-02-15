@@ -227,6 +227,8 @@ export default defineComponent({
         // Add role
         svg.value.setAttribute('role', 'img')
 
+        console.log(setSize.value || width.value)
+        console.log(setSize.value || height.value)
         // Set size
         svg.value.setAttribute('width', setSize.value || width.value)
         svg.value.setAttribute('height', setSize.value || height.value)
