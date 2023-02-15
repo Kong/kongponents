@@ -209,6 +209,18 @@ You can pass a `dropdownMaxHeight` string for the dropdown. By default, the `dro
 <KMultiselect :items="items" dropdown-max-height="150" />
 ```
 
+### dropdownFooterText
+
+Adds informational text to the bottom of the dropdown options which remains visible even if the content is scrolled. Can also be [slotted](#slots).
+
+<ClientOnly>
+  <KMultiselect dropdown-footer-text="Dropdown footer text" :items="deepClone(defaultItemsLongList)" />
+</ClientOnly>
+
+```html
+<KMultiselect dropdown-footer-text="Dropdown footer text" :items="items" />
+```
+
 ### positionFixed
 
 Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `true`. See [`KPop` docs](popover.html#positionfixed) for more information.
@@ -521,6 +533,7 @@ You can pass any input attribute and it will get properly bound to the element.
 
 - `item-template` - The template for each item in the dropdown list
 - `empty` - Slot for the empty state in the dropdown list
+- `dropdown-footer-text` - Slot for footer text in the bottom of the dropdown
 
 ### Item Template
 
@@ -581,16 +594,36 @@ export default defineComponent({
 
 You can use the `empty` slot to customize the look of the dropdown list when there is no options. See [autosuggest](#autosuggest) for an example of this slot.
 
+### Dropdown Footer Text
+
+Slot the content of the dropdown footer text. This slot will override the `dropdownFooterText` prop if provided.
+
+<ClientOnly>
+  <KMultiselect dropdown-footer-text="Dropdown footer text" :items="deepClone(defaultItemsLongList)">
+    <template #dropdown-footer-text>
+      Come as you are
+    </template>
+  </KMultiselect>
+</ClientOnly>
+
+```html
+<KMultiselect dropdown-footer-text="I am replaceable" :items="items">
+  <template #dropdown-footer-text>
+    Come as you are
+  </template>
+</KMultiselect>
+```
+
 ## Events
 
-| Event               | Action       | Returns             |
-| :--------           | :----------- | :------------------ |
-| `selected`          | an item is clicked | array of selected item objects |
-| `update:modelValue` | selections are changed | array of selected item values |
-| `change`            | selections are changed | last item selected/deselected Object or null |
-| `item:added`        | enableItemCreation is true and an item is added | item object being added to selections |
-| `item:removed`      | enableItemCreation is true and an added item is deselected | item object being removed from selections |
-| `query-change`      | filter string is changed | `query` String |
+| Event               | Action                                                     | Returns                                      |
+| :------------------ | :--------------------------------------------------------- | :------------------------------------------- |
+| `selected`          | an item is clicked                                         | array of selected item objects               |
+| `update:modelValue` | selections are changed                                     | array of selected item values                |
+| `change`            | selections are changed                                     | last item selected/deselected Object or null |
+| `item:added`        | enableItemCreation is true and an item is added            | item object being added to selections        |
+| `item:removed`      | enableItemCreation is true and an added item is deselected | item object being removed from selections    |
+| `query-change`      | filter string is changed                                   | `query` String                               |
 
 An example of hooking into events to modify newly created items (`enableItemCreation`) as they are added.
 

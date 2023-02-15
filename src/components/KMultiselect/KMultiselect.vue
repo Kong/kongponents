@@ -195,6 +195,14 @@
               v-if="!loading && !sortedItems.length"
               name="empty"
             />
+            <div
+              v-if="$slots['dropdown-footer-text'] || dropdownFooterText"
+              class="k-multiselect-dropdown-footer-text"
+            >
+              <slot name="dropdown-footer-text">
+                {{ dropdownFooterText }}
+              </slot>
+            </div>
           </template>
         </KPop>
       </KToggle>
@@ -392,6 +400,13 @@ const props = defineProps({
   testMode: {
     type: Boolean,
     default: false,
+  },
+  /**
+  * Dropdown footer text
+  */
+  dropdownFooterText: {
+    type: String,
+    default: '',
   },
 })
 
@@ -999,6 +1014,19 @@ onMounted(() => {
     }
   }
 
+  .k-multiselect-list {
+    // allows setting a maxHeight on the popover dropdown
+    max-height: v-bind('popoverContentMaxHeight');
+    overflow-y: auto;
+  }
+
+  .k-multiselect-dropdown-footer-text {
+    background-color: color(white);
+    border-top: 1px solid var(--grey-200);
+    color: color(grey-500);
+    padding: var(--spacing-xs);
+    padding-bottom: 0;
+  }
 }
 </style>
 
@@ -1066,11 +1094,6 @@ onMounted(() => {
       .select-item-label {
         color: var(--grey-500);
       }
-    }
-
-    .k-popover-content {
-      max-height: v-bind('popoverContentMaxHeight');
-      overflow-y: auto; // Allow setting a maxHeight on the popover dropdown
     }
 
     a {
