@@ -1,3 +1,10 @@
+## [8.24.3](https://github.com/Kong/kongponents/compare/v8.24.2...v8.24.3) (2023-02-15)
+
+
+### Bug Fixes
+
+* **kprompt:** divider style ([#1118](https://github.com/Kong/kongponents/issues/1118)) ([8c670b9](https://github.com/Kong/kongponents/commit/8c670b93e0c60ffac551e1276397e47198a9e020))
+
 ## [8.24.2](https://github.com/Kong/kongponents/compare/v8.24.1...v8.24.2) (2023-02-10)
 
 
