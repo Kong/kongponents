@@ -232,10 +232,6 @@ export default defineComponent({
         svg.value.setAttribute('height', setSize.value || height.value)
         svg.value.setAttribute('viewBox', setViewbox.value)
 
-        console.log('role', svg.value.getAttribute('role'))
-        console.log('width', svg.value.getAttribute('width'))
-        console.log('height', svg.value.getAttribute('height'))
-
         // Set title
         setSvgTitle()
 
