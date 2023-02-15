@@ -7,8 +7,8 @@
   command = "yarn docs:build"
   publish = "docs/.vitepress/dist"
   environment = { NODE_VERSION = "18.12.1", YARN_FLAGS="--frozen-lockfile --ignore-optional" }
+[build.processing.html]
   minify = false
-  skip_processing = true
 
 # ##############################
 # 'main' branch
