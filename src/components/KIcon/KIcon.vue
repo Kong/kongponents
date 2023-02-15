@@ -227,12 +227,14 @@ export default defineComponent({
         // Add role
         svg.value.setAttribute('role', 'img')
 
-        console.log(setSize.value || width.value)
-        console.log(setSize.value || height.value)
         // Set size
         svg.value.setAttribute('width', setSize.value || width.value)
         svg.value.setAttribute('height', setSize.value || height.value)
         svg.value.setAttribute('viewBox', setViewbox.value)
+
+        console.log('role', svg.value.getAttribute('role'))
+        console.log('width', svg.value.getAttribute('width'))
+        console.log('height', svg.value.getAttribute('height'))
 
         // Set title
         setSvgTitle()
