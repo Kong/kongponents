@@ -147,7 +147,9 @@ Use this prop in conjunction with the `dismissable` prop to customize the color 
 
 The `hoverColor` is also utilized if you wrap the `KBadge` with an anchor tag, or add a `@click` listener directly to the component.
 
-<a href="#"><KBadge appearance="success">Anchor Tag</KBadge></a>
+<a href="#">
+  <KBadge appearance="success">Anchor Tag</KBadge>
+</a>
 
 <KLabel>{{ myClicks }} clicks</KLabel><br>
 <KBadge dismissable @click="myClicks++">Click me!</KBadge>
