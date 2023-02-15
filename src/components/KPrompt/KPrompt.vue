@@ -251,16 +251,17 @@ export default defineComponent({
     }
 
     .divider {
-      color: var(--grey-300);
+      border: none;
+      border-top: 1px solid var(--grey-300);
       /* subtract parents padding from margin to take full width of modal */
       /* use interpolation for the var in calc to not break postcss */
-      margin-left: calc(#{var(--spacing-lg)} * -1);
-      margin-right: calc(#{var(--spacing-lg)} * -1);
+      margin: 16px calc(#{var(--spacing-lg)} * -1) 0;
     }
 
     .k-modal-content {
       .k-modal-header.modal-header {
         display: flex;
+        padding-bottom: var(--spacing-xs);
         width: 100%;
 
         .close-button .k-button {
@@ -279,7 +280,7 @@ export default defineComponent({
           max-height: var(--KPromptMaxHeight, 300px);
           overflow-x: hidden;
           overflow-y: auto;
-          padding-bottom: var(--spacing-lg);
+          padding-bottom: var(--spacing-md);
           text-align: start;
           white-space: normal; // in case inside KTable
           width: 99%;
