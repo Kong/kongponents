@@ -927,6 +927,7 @@ export default defineComponent({
     }
 
     .k-select-list {
+      // allows setting a maxHeight on the popover dropdown
       max-height: v-bind('popoverContentMaxHeight');
       overflow-y: auto;
     }

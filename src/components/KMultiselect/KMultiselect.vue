@@ -197,7 +197,7 @@
             />
             <div
               v-if="$slots['dropdown-footer-text'] || dropdownFooterText"
-              class="k-multiselect-dropdown-footer-text p-sticky bottom-0"
+              class="k-multiselect-dropdown-footer-text"
             >
               <slot name="dropdown-footer-text">
                 {{ dropdownFooterText }}
@@ -1015,6 +1015,7 @@ onMounted(() => {
   }
 
   .k-multiselect-list {
+    // allows setting a maxHeight on the popover dropdown
     max-height: v-bind('popoverContentMaxHeight');
     overflow-y: auto;
   }
