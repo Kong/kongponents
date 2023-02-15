@@ -211,6 +211,18 @@ You can pass a `dropdownMaxHeight` string for the dropdown. By default, the `dro
 <KSelect width="250" :items="items" dropdown-max-height="150" />
 ```
 
+### dropdownFooterText
+
+Adds informational text to the bottom of the dropdown options which remains visible even if the content is scrolled. Can also be [slotted](#slots).
+
+<ClientOnly>
+  <KSelect dropdown-footer-text="Dropdown footer text" :items="deepClone(defaultItemsLongList)" />
+</ClientOnly>
+
+```html
+<KSelect dropdown-footer-text="Dropdown footer text" :items="items" />
+```
+
 ### positionFixed
 
 Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `true`. See [`KPop` docs](popover.html#positionfixed) for more information.
@@ -478,18 +490,6 @@ When `autosuggest` is enabled, you can use the `loading` prop to show a loading 
 By default, the loading indicator is a spinner icon, and you can implement your own indicator using the `loading` slot.
 See [autosuggest](#autosuggest) for an example.
 
-### dropdownFooterText
-
-Adds text in the bottom of the dropdown, that sticks to the bottom - therefore stays visible even if the content is scrollable. Can also be [slotted](#slots).
-
-<ClientOnly>
-  <KSelect width="250" dropdownFooterText="Dropdown footer text" :items="deepClone(defaultItemsLongList)" />
-</ClientOnly>
-
-```html
-<KSelect width="250" dropdownFooterText="Dropdown footer text" :items="items" />
-```
-
 ## Attribute Binding
 
 You can pass any input attribute and it will get properly bound to the element.
@@ -580,7 +580,7 @@ You can use the `empty` slot to customize the look of the dropdown list when the
 Replaces text passed through `dropdownFooterText` param.
 
 <ClientOnly>
-  <KSelect width="250" dropdownFooterText="I am irreplaceable" :items="deepClone(defaultItemsLongList)">
+  <KSelect dropdown-footer-text="I am irreplaceable" :items="deepClone(defaultItemsLongList)">
     <template #dropdown-footer-text>
       Come as you are
     </template>
@@ -588,7 +588,7 @@ Replaces text passed through `dropdownFooterText` param.
 </ClientOnly>
 
 ```html
-<KSelect width="250" dropdownFooterText="I am replaceable" :items="items">
+<KSelect dropdown-footer-text="I am replaceable" :items="items">
   <template #dropdown-footer-text>
     Come as you are
   </template>

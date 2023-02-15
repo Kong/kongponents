@@ -209,6 +209,18 @@ You can pass a `dropdownMaxHeight` string for the dropdown. By default, the `dro
 <KMultiselect :items="items" dropdown-max-height="150" />
 ```
 
+### dropdownFooterText
+
+Adds informational text to the bottom of the dropdown options which remains visible even if the content is scrolled. Can also be [slotted](#slots).
+
+<ClientOnly>
+  <KMultiselect dropdown-footer-text="Dropdown footer text" :items="deepClone(defaultItemsLongList)" />
+</ClientOnly>
+
+```html
+<KMultiselect dropdown-footer-text="Dropdown footer text" :items="items" />
+```
+
 ### positionFixed
 
 Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `true`. See [`KPop` docs](popover.html#positionfixed) for more information.
@@ -505,18 +517,6 @@ export default {
 </script>
 ```
 
-### dropdownFooterText
-
-Adds text in the bottom of the dropdown, that sticks to the bottom - therefore stays visible even if the content is scrollable. Can also be [slotted](#slots).
-
-<ClientOnly>
-  <KMultiselect dropdown-footer-text="Dropdown footer text" :items="deepClone(defaultItemsLongList)" />
-</ClientOnly>
-
-```html
-<KMultiselect dropdown-footer-text="Dropdown footer text" :items="items" />
-```
-
 ## Attribute Binding
 
 You can pass any input attribute and it will get properly bound to the element.
@@ -599,7 +599,7 @@ You can use the `empty` slot to customize the look of the dropdown list when the
 Replaces text passed through `dropdownFooterText` param.
 
 <ClientOnly>
-  <KMultiselect dropdownFooterText="Dropdown footer text" :items="deepClone(defaultItemsLongList)">
+  <KMultiselect dropdown-footer-text="Dropdown footer text" :items="deepClone(defaultItemsLongList)">
     <template #dropdown-footer-text>
       Come as you are
     </template>
@@ -607,7 +607,7 @@ Replaces text passed through `dropdownFooterText` param.
 </ClientOnly>
 
 ```html
-<KMultiselect dropdownFooterText="I am replaceable" :items="items">
+<KMultiselect dropdown-footer-text="I am replaceable" :items="items">
   <template #dropdown-footer-text>
     Come as you are
   </template>
