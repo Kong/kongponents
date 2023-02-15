@@ -596,7 +596,7 @@ You can use the `empty` slot to customize the look of the dropdown list when the
 
 ### Dropdown Footer Text
 
-Replaces text passed through `dropdownFooterText` param.
+Slot the content of the dropdown footer text. This slot will override the `dropdownFooterText` prop if provided.
 
 <ClientOnly>
   <KMultiselect dropdown-footer-text="Dropdown footer text" :items="deepClone(defaultItemsLongList)">
