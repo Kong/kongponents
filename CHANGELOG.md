@@ -1,3 +1,10 @@
+# [8.25.0](https://github.com/Kong/kongponents/compare/v8.24.3...v8.25.0) (2023-02-15)
+
+
+### Features
+
+* **kselect, kmultiselect:** add dropdown footer text param and slot in KSelect and KMultiselect [KHCP-6007] ([#1117](https://github.com/Kong/kongponents/issues/1117)) ([6ed4341](https://github.com/Kong/kongponents/commit/6ed43416c701e230796552ce62b8925d15884794))
+
 ## [8.24.3](https://github.com/Kong/kongponents/compare/v8.24.2...v8.24.3) (2023-02-15)
 
 
