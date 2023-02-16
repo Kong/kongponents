@@ -281,7 +281,7 @@ export default defineComponent({
 
   :deep(.caret) {
     display: inline-block;
-    margin-left: 15px;
+    margin-left: 8px;
     padding: 0;
     transition: 250ms ease;
   }
