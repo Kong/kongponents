@@ -223,7 +223,9 @@ Adds informational text to the bottom of the dropdown options which remains visi
 
 ### dropdownFooterTextPosition
 
-By default, the dropdown footer text will be stuck to the bottom of the dropdown and will always be visible even if the dropdown content is scrolled. If you want to override the behaviour and have the footer text at the end of the dropdown list, use the value `static`. This ensures the footer text is visible only when you scrolled to the bottom of the list. 
+By default, the dropdown footer text will be stuck to the bottom of the dropdown and will always be visible even if the dropdown content is scrolled. 
+
+If you want to override the behaviour and have the footer text at the end of the dropdown list, use the value `static`. This ensures the footer text is visible only when the user scrolls to view the bottom of the list. 
 
 Accepted values: `sticky` (default) and `static`
 
