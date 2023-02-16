@@ -216,11 +216,11 @@ You can pass a `dropdownMaxHeight` string for the dropdown. By default, the `dro
 Adds informational text to the bottom of the dropdown options which remains visible even if the content is scrolled. Can also be [slotted](#slots).
 
 <ClientOnly>
-  <KSelect dropdown-footer-text="Dropdown footer text" :items="deepClone(defaultItemsLongList)" />
+  <KSelect dropdown-footer-text="Sticky dropdown footer text" :items="deepClone(defaultItemsLongList)" width="250" />
 </ClientOnly>
 
 ```html
-<KSelect dropdown-footer-text="Dropdown footer text" :items="items" />
+<KSelect dropdown-footer-text="Sticky dropdown footer text" :items="items" width="250" />
 ```
 
 ### dropdownFooterTextPosition
@@ -232,11 +232,11 @@ If you want to override the behaviour and have the footer text at the end of the
 Accepted values: `sticky` (default) and `static`.
 
 <ClientOnly>
-  <KSelect dropdown-footer-text-position="static" dropdown-footer-text="Dropdown footer text" :items="deepClone(defaultItemsLongList)" />
+  <KSelect dropdown-footer-text-position="static" dropdown-footer-text="Static dropdown footer text" :items="deepClone(defaultItemsLongList)" width="250" />
 </ClientOnly>
 
 ```html
-<KSelect dropdown-footer-text-position="static" dropdown-footer-text="Dropdown footer text" :items="items" />
+<KSelect dropdown-footer-text-position="static" dropdown-footer-text="Static dropdown footer text" :items="items" width="250" />
 ```
 
 ### positionFixed
