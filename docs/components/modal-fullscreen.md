@@ -107,6 +107,7 @@ There are 6 designated slots you can use to display content in the fullscreen mo
 - `action-buttons` - contains action buttons which are right-aligned. If not used, provide default Cancel/Submit buttons
 - `body-header` - title to display in the body section
 - `body-header-description` - description text displayed beneath the `body-header`
+- `footer-content` - footer content. If provided, the footer will stick to the bottom of the fullscreen modal and the header behavior will change to static. The footer will contain duplicate of action buttons passed through the `action-buttons` slot. If no action buttons are provided, a default Submit button will be included (see example below).
 
 <KButton appearance="primary" @click="exampleIsOpen = true">Open Fullscreen Modal</KButton>
 
@@ -123,9 +124,8 @@ There are 6 designated slots you can use to display content in the fullscreen mo
   <template v-slot:body-header-description>
     Choose a plugin from our catalog to install for your organization. <a>View documentation</a>
   </template>
-  <template v-slot:action-buttons>
-    <KButton appearance="secondary" size="medium" @click="exampleIsOpen = false" class="mr-2">Back</KButton>
-    <KButton appearance="primary" size="medium" @click="exampleIsOpen = false">Save</KButton>
+  <template #footer-content>
+    This is footer
   </template>
   <h3>Security</h3>
   <KCatalog :fetcher="() => getItems(8)" />
@@ -152,9 +152,8 @@ There are 6 designated slots you can use to display content in the fullscreen mo
   <template v-slot:body-header-description>
     Choose a plugin from our catalog to install for your organization. <a>View documentation</a>
   </template>
-  <template v-slot:action-buttons>
-    <KButton appearance="secondary" size="medium" @click="exampleIsOpen = false">Back</KButton>
-    <KButton appearance="primary" size="medium" @click="exampleIsOpen = false">Save</KButton>
+  <template #footer-content>
+    This is footer
   </template>
   <h3>Security</h3>
   <KCatalog :fetcher="() => getItems(8)" />
@@ -179,20 +178,20 @@ There are 6 designated slots you can use to display content in the fullscreen mo
     <KButton size="medium" @click="sampleIsOpen = false" class="mr-2">Back</KButton>
     <KButton appearance="creation" size="medium" @click="sampleIsOpen = false">Save</KButton>
   </template>
-    <div>
-  <KStepper :steps="[
-      { label: 'I am visible', state: 'completed' },
-      { label: 'Scroll Up', state: 'completed' },
-      { label: 'I am hidden', state: 'pending' }
-    ]"
-  />
-  <KCodeBlock
-    id="code-block-default"
-    :code="code"
-    language="json"
-    is-searchable
-  />
-</div>
+  <div>
+    <KStepper :steps="[
+        { label: 'I am visible', state: 'completed' },
+        { label: 'Scroll Up', state: 'completed' },
+        { label: 'I am hidden', state: 'pending' }
+      ]"
+    />
+    <KCodeBlock
+      id="code-block-default"
+      :code="code"
+      language="json"
+      is-searchable
+    />
+  </div>
   <div class="ml-25">
     <KInputSwitch v-model="checked" label="This plugin is enabled" class="display-items" />
     <br><br>
@@ -321,14 +320,14 @@ There are 6 designated slots you can use to display content in the fullscreen mo
 
 ## Theming
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KModalFullscreenMaxWidth` | Modal max width
-| `--KModalFullscreenHeaderColor` | Header text color
-| `--KModalFullscreenHeaderSize` | Header font size
-| `--KModalFullscreenHeaderWeight` | Header font weight
-| `--KModalFullscreenColor`| Main content text color
-| `--KModalFullscreenFontSize`| Main content text size
+| Variable                         | Purpose                 |
+| :------------------------------- | :---------------------- |
+| `--KModalFullscreenMaxWidth`     | Modal max width         |
+| `--KModalFullscreenHeaderColor`  | Header text color       |
+| `--KModalFullscreenHeaderSize`   | Header font size        |
+| `--KModalFullscreenHeaderWeight` | Header font weight      |
+| `--KModalFullscreenColor`        | Main content text color |
+| `--KModalFullscreenFontSize`     | Main content text size  |
 
 An Example of changing the the colors of KModalFullscreen might look like.
 > Note: We are scoping the overrides to a wrapper in this example
