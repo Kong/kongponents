@@ -227,7 +227,7 @@ By default, the dropdown footer text will be stuck to the bottom of the dropdown
 
 If you want to override the behaviour and have the footer text at the end of the dropdown list, use the value `static`. This ensures the footer text is visible only when the user scrolls to view the bottom of the list. 
 
-Accepted values: `sticky` (default) and `static`
+Accepted values: `sticky` (default) and `static`.
 
 <ClientOnly>
   <KMultiselect dropdown-footer-text-position="static" dropdown-footer-text="Dropdown footer text" :items="deepClone(defaultItemsLongList)" />
