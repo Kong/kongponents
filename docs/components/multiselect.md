@@ -214,11 +214,27 @@ You can pass a `dropdownMaxHeight` string for the dropdown. By default, the `dro
 Adds informational text to the bottom of the dropdown options which remains visible even if the content is scrolled. Can also be [slotted](#slots).
 
 <ClientOnly>
-  <KMultiselect dropdown-footer-text="Dropdown footer text" :items="deepClone(defaultItemsLongList)" />
+  <KMultiselect dropdown-footer-text="Sticky dropdown footer text" :items="deepClone(defaultItemsLongList)" />
 </ClientOnly>
 
 ```html
-<KMultiselect dropdown-footer-text="Dropdown footer text" :items="items" />
+<KMultiselect dropdown-footer-text="Sticky dropdown footer text" :items="items" />
+```
+
+### dropdownFooterTextPosition
+
+By default, the dropdown footer text will be stuck to the bottom of the dropdown and will always be visible even if the dropdown content is scrolled. 
+
+If you want to override the behaviour and have the footer text at the end of the dropdown list, use the value `static`. This ensures the footer text is visible only when the user scrolls to view the bottom of the list. 
+
+Accepted values: `sticky` (default) and `static`.
+
+<ClientOnly>
+  <KMultiselect dropdown-footer-text-position="static" dropdown-footer-text="Static dropdown footer text" :items="deepClone(defaultItemsLongList)" />
+</ClientOnly>
+
+```html
+<KMultiselect dropdown-footer-text-position="static" dropdown-footer-text="Static dropdown footer text" :items="items" />
 ```
 
 ### positionFixed

@@ -198,7 +198,7 @@ $background-color-card-disabled: color(grey-200);
       @include kRadioDisabled;
     }
 
-    // Mozila disabled state handling
+    // Firefox disabled state handling
     &[disabled=""], &[disabled="true"] {
       @include kRadioDisabled;
     }
@@ -212,7 +212,7 @@ $background-color-card-disabled: color(grey-200);
       @include kRadioChecked;
     }
 
-    // Mozila checked state handling
+    // Firefox checked state handling
     &[checked=""], &[checked="true"] {
       @include kRadioChecked;
     }
@@ -221,7 +221,7 @@ $background-color-card-disabled: color(grey-200);
       @include kRadioCheckedAndDisabled;
     }
 
-    // Mozila checked AND disabled state handling
+    // Firefox checked AND disabled state handling
     &[checked=""][disabled=""], &[checked="true"][disabled="true"] {
       @include kRadioCheckedAndDisabled;
     }

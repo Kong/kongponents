@@ -189,6 +189,7 @@
             <div
               v-if="$slots['dropdown-footer-text'] || dropdownFooterText"
               class="k-select-dropdown-footer-text"
+              :class="`k-select-dropdown-footer-${dropdownFooterTextPosition}`"
             >
               <slot name="dropdown-footer-text">
                 {{ dropdownFooterText }}
@@ -234,6 +235,8 @@ export interface SelectFilterFnParams {
   items: SelectItem[]
   query: string
 }
+
+export type DropdownFooterTextPosition = 'sticky' | 'static'
 
 export default defineComponent({
   name: 'KSelect',
@@ -370,6 +373,14 @@ export default defineComponent({
     dropdownFooterText: {
       type: String,
       default: '',
+    },
+    /**
+     * Dropdown footer text position
+     * Accepted values: 'sticky' and 'static'
+     */
+    dropdownFooterTextPosition: {
+      type: String as PropType<DropdownFooterTextPosition>,
+      default: 'sticky',
     },
   },
   emits: ['selected', 'input', 'change', 'update:modelValue', 'query-change'],
@@ -714,6 +725,12 @@ export default defineComponent({
   box-shadow: 0 0 0 $whiteShadowSpred var(--white, color(white)), 0 0 0 $colorShadowSpread $color;
 }
 
+// allows setting a maxHeight on the popover dropdown
+@mixin kSelectPopoverMaxHeight {
+  max-height: v-bind('popoverContentMaxHeight');
+  overflow-y: auto;
+}
+
 .k-select {
   .k-select-item-selection {
     .clear-selection-icon {
@@ -926,10 +943,24 @@ export default defineComponent({
       top: 0;
     }
 
-    .k-select-list {
-      // allows setting a maxHeight on the popover dropdown
-      max-height: v-bind('popoverContentMaxHeight');
-      overflow-y: auto;
+    .k-popover-content {
+      @include kSelectPopoverMaxHeight;
+
+      // when dropdown footer text position is sticky
+      &:has(.k-select-dropdown-footer-text.k-select-dropdown-footer-sticky) {
+        max-height: none;
+
+        .k-select-list {
+          @include kSelectPopoverMaxHeight;
+        }
+      }
+
+      // Firefox workaround
+      // since :has() selector isn't supported in Firefox be default
+      .k-select-list ~ .k-select-dropdown-footer-sticky {
+        bottom: 0;
+        position: sticky;
+      }
     }
 
     .k-select-dropdown-footer-text {
