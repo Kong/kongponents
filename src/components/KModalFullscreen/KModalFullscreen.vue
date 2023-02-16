@@ -11,6 +11,7 @@
     <div
       ref="modalBodyContent"
       class="k-modal-fullscreen-dialog"
+      :class="{ 'has-footer': $slots['footer-content'] }"
       tabindex="0"
     >
       <div class="k-modal-fullscreen-body-header">
@@ -72,6 +73,26 @@
                 </KButton>
               </slot>
             </div>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+      <div
+        v-if="$slots['footer-content']"
+        class="k-modal-fullscreen-footer"
+      >
+        <slot name="footer-content" />
+        <div class="k-modal-fullscreen-action ml-3">
+          <div class="k-modal-fullscreen-action-buttons">
+            <slot name="action-buttons">
+              <KButton
+                :appearance="actionButtonAppearance"
+                class="proceed-button"
+                @click="proceed"
+              >
+                {{ actionButtonText }}
+              </KButton>
+            </slot>
           </div>
         </div>
       </div>
@@ -236,6 +257,17 @@ $fullscreen-modal-padding: 64px;
   @media only screen and (min-width: ($viewport-md + 1px)) {
     padding-top: $fullscreen-modal-padding;
   }
+
+  &.has-footer {
+    padding-bottom: $fullscreen-modal-padding * 2;
+
+    @media only screen and (min-width: ($viewport-md + 1px)) {
+      padding-bottom: $fullscreen-modal-padding;
+    }
+    .k-modal-fullscreen-header {
+      position: absolute;
+    }
+  }
 }
 
 .k-modal-fullscreen-header {
@@ -256,14 +288,21 @@ $fullscreen-modal-padding: 64px;
     font-weight: var(--KModalFullscreenHeaderWeight, 600);
     justify-content: space-between;
   }
+}
 
-  .k-modal-fullscreen-body {
-    flex: 1 1 auto;
-    font-size: var(--KModalFullscreenFontSize, 13px);
-    line-height: 20px;
-    position: relative;
-    text-align: center;
-  }
+.k-modal-fullscreen-footer {
+  align-items: center;
+  background-color: var(--white);
+  border-top: 1px solid var(--grey-300);
+  bottom: 0;
+  box-shadow: 0px 0px 20px color(black-10);
+  display: inline-flex;
+  justify-content: space-between;
+  padding: var(--spacing-lg) 0;
+  padding-left: var(--spacing-xl, spacing(xl));
+  position: fixed;
+  width: 100%;
+  z-index: 1009;
 }
 
 .k-modal-fullscreen-title {
