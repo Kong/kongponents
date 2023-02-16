@@ -954,6 +954,13 @@ export default defineComponent({
           @include kSelectPopoverMaxHeight;
         }
       }
+
+      // Firefox workaround
+      // since :has() selector isn't supported in Firefox be default
+      .k-select-list ~ .k-select-dropdown-footer-sticky {
+        bottom: 0;
+        position: sticky;
+      }
     }
 
     .k-select-dropdown-footer-text {

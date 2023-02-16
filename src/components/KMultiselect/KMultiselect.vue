@@ -1129,6 +1129,13 @@ onMounted(() => {
           @include kMultiselectPopoverMaxHeight;
         }
       }
+
+      // Firefox workaround
+      // since :has() selector isn't supported in Firefox be default
+      .k-multiselect-list ~ .k-multiselect-dropdown-footer-sticky {
+        bottom: 0;
+        position: sticky;
+      }
     }
   }
 }
