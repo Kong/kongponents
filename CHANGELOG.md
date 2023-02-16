@@ -1,3 +1,10 @@
+# [8.26.0](https://github.com/Kong/kongponents/compare/v8.25.1...v8.26.0) (2023-02-16)
+
+
+### Features
+
+* **kselect, kmultiselect:** dropdown footer text position prop [KHCP-6007] ([#1121](https://github.com/Kong/kongponents/issues/1121)) ([89f3392](https://github.com/Kong/kongponents/commit/89f3392760292d37833eabe0b939bd283089b87a))
+
 ## [8.25.1](https://github.com/Kong/kongponents/compare/v8.25.0...v8.25.1) (2023-02-16)
 
 
