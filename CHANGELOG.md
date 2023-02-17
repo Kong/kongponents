@@ -1,3 +1,10 @@
+## [8.26.1](https://github.com/Kong/kongponents/compare/v8.26.0...v8.26.1) (2023-02-16)
+
+
+### Bug Fixes
+
+* **kbutton:** adjust caret margin ([91e7d3b](https://github.com/Kong/kongponents/commit/91e7d3b2c58ea65e9ac83bae60cf0bf9c54e43f2))
+
 # [8.26.0](https://github.com/Kong/kongponents/compare/v8.25.1...v8.26.0) (2023-02-16)
 
 
