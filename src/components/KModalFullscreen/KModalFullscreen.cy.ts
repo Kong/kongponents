@@ -86,4 +86,20 @@ describe('KModalFullscreen', () => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'canceled')
     })
   })
+
+  it('renders proper content when using footer-content slot', () => {
+    const footerContentText = 'This is some footer text'
+
+    mount(KModalFullscreen, {
+      props: {
+        isVisible: true,
+        title: 'Test Me',
+      },
+      slots: {
+        'footer-content': footerContentText,
+      },
+    })
+
+    cy.get('.k-modal-fullscreen-footer').should('be.visible').should('contain', footerContentText)
+  })
 })
