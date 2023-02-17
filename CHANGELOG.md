@@ -1,3 +1,10 @@
+## [8.26.2](https://github.com/Kong/kongponents/compare/v8.26.1...v8.26.2) (2023-02-17)
+
+
+### Bug Fixes
+
+* **kdropdownmenu:** fix kpopover undefined class bug [KHCP-6209] ([#1128](https://github.com/Kong/kongponents/issues/1128)) ([de102bd](https://github.com/Kong/kongponents/commit/de102bd114f953ccae14e07fd15e39027aa8bdc1))
+
 ## [8.26.1](https://github.com/Kong/kongponents/compare/v8.26.0...v8.26.1) (2023-02-16)
 
 

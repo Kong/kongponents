@@ -139,7 +139,7 @@ export default defineComponent({
     // - target
     kpopAttributes: {
       type: Object,
-      default: () => ({}),
+      default: null,
     },
     items: {
       type: Array as PropType<Array<DropdownItem>>,
@@ -168,7 +168,7 @@ export default defineComponent({
       ...defaultKPopAttributes,
       ...props.kpopAttributes,
       width: props.width ? props.width : undefined,
-      popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses}`,
+      popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes?.popoverClasses || ''}`,
     }
 
     const selectedItem = ref({})
