@@ -1,3 +1,10 @@
+# [8.27.0](https://github.com/Kong/kongponents/compare/v8.26.2...v8.27.0) (2023-02-17)
+
+
+### Features
+
+* **kmodalfullscreen:** add footer content slot [KHCP-6093] ([#1125](https://github.com/Kong/kongponents/issues/1125)) ([2c8a86c](https://github.com/Kong/kongponents/commit/2c8a86ccfae82a47adbd45493a393802a0773f93))
+
 ## [8.26.2](https://github.com/Kong/kongponents/compare/v8.26.1...v8.26.2) (2023-02-17)
 
 
