@@ -29,6 +29,7 @@ describe('KModalFullscreen', () => {
     cy.get('.k-modal-fullscreen-body-header .body-header').should('contain', bodyHeader)
     cy.get('.k-modal-fullscreen-body-header .body-header-description').should('contain', bodyHeaderDescription)
     cy.get('.k-modal-fullscreen-body').should('contain', bodyText)
+    cy.get('.k-modal-fullscreen-footer').should('not.exist')
   })
 
   it('renders proper content when using action-buttons slot', () => {
@@ -85,5 +86,21 @@ describe('KModalFullscreen', () => {
     cy.get('body').type('{esc}').then(() => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'canceled')
     })
+  })
+
+  it('renders proper content when using footer-content slot', () => {
+    const footerContentText = 'This is some footer text'
+
+    mount(KModalFullscreen, {
+      props: {
+        isVisible: true,
+        title: 'Test Me',
+      },
+      slots: {
+        'footer-content': footerContentText,
+      },
+    })
+
+    cy.get('.k-modal-fullscreen-footer').should('be.visible').should('contain', footerContentText)
   })
 })

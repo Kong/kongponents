@@ -1,3 +1,29 @@
+# [8.28.0](https://github.com/Kong/kongponents/compare/v8.27.0...v8.28.0) (2023-02-17)
+
+
+### Bug Fixes
+
+* **kbreadcrumbs:** padding for left alignment ([299ca53](https://github.com/Kong/kongponents/commit/299ca535bfdd611bfb61fbd8bcd5d0f224c5d53c))
+
+
+### Features
+
+* **kicon:** add circle check [kcgw-10] ([#1129](https://github.com/Kong/kongponents/issues/1129)) ([ce8d917](https://github.com/Kong/kongponents/commit/ce8d9178567363d613bfae79fbb1561f555f935b))
+
+# [8.27.0](https://github.com/Kong/kongponents/compare/v8.26.2...v8.27.0) (2023-02-17)
+
+
+### Features
+
+* **kmodalfullscreen:** add footer content slot [KHCP-6093] ([#1125](https://github.com/Kong/kongponents/issues/1125)) ([2c8a86c](https://github.com/Kong/kongponents/commit/2c8a86ccfae82a47adbd45493a393802a0773f93))
+
+## [8.26.2](https://github.com/Kong/kongponents/compare/v8.26.1...v8.26.2) (2023-02-17)
+
+
+### Bug Fixes
+
+* **kdropdownmenu:** fix kpopover undefined class bug [KHCP-6209] ([#1128](https://github.com/Kong/kongponents/issues/1128)) ([de102bd](https://github.com/Kong/kongponents/commit/de102bd114f953ccae14e07fd15e39027aa8bdc1))
+
 ## [8.26.1](https://github.com/Kong/kongponents/compare/v8.26.0...v8.26.1) (2023-02-16)
 
 

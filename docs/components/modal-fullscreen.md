@@ -107,25 +107,25 @@ There are 6 designated slots you can use to display content in the fullscreen mo
 - `action-buttons` - contains action buttons which are right-aligned. If not used, provide default Cancel/Submit buttons
 - `body-header` - title to display in the body section
 - `body-header-description` - description text displayed beneath the `body-header`
+- `footer-content` - footer content. If provided, the footer will stick to the bottom of the fullscreen modal and the header behavior will change to static. The footer will contain duplicate of action buttons passed through the `action-buttons` slot. If no action buttons are provided, a default Submit button will be included (see example below).
 
 <KButton appearance="primary" @click="exampleIsOpen = true">Open Fullscreen Modal</KButton>
 
 <KModalFullscreen :isVisible="exampleIsOpen" title="Install Plugin" @canceled="exampleIsOpen = false">
-  <template v-slot:header-icon>
+  <template #header-icon>
     <KIcon icon="immunity" />
   </template>
-  <template v-slot:header-content>
+  <template #header-content>
     Install Plugin
   </template>
-  <template v-slot:body-header>
+  <template #body-header>
     Select a plugin
   </template>
-  <template v-slot:body-header-description>
+  <template #body-header-description>
     Choose a plugin from our catalog to install for your organization. <a>View documentation</a>
   </template>
-  <template v-slot:action-buttons>
-    <KButton appearance="secondary" size="medium" @click="exampleIsOpen = false" class="mr-2">Back</KButton>
-    <KButton appearance="primary" size="medium" @click="exampleIsOpen = false">Save</KButton>
+  <template #footer-content>
+    This is footer
   </template>
   <h3>Security</h3>
   <KCatalog :fetcher="() => getItems(8)" />
@@ -140,21 +140,20 @@ There are 6 designated slots you can use to display content in the fullscreen mo
   :isVisible="exampleIsOpen"
   title="Install Plugin"
   @canceled="exampleIsOpen = false">
-  <template v-slot:header-icon>
+  <template #header-icon>
     <KIcon icon="immunity" />
   </template>
-  <template v-slot:header-content>
+  <template #header-content>
     Install Plugin
   </template>
-  <template v-slot:body-header>
+  <template #body-header>
     Select a plugin
   </template>
-  <template v-slot:body-header-description>
+  <template #body-header-description>
     Choose a plugin from our catalog to install for your organization. <a>View documentation</a>
   </template>
-  <template v-slot:action-buttons>
-    <KButton appearance="secondary" size="medium" @click="exampleIsOpen = false">Back</KButton>
-    <KButton appearance="primary" size="medium" @click="exampleIsOpen = false">Save</KButton>
+  <template #footer-content>
+    This is footer
   </template>
   <h3>Security</h3>
   <KCatalog :fetcher="() => getItems(8)" />
@@ -166,33 +165,33 @@ There are 6 designated slots you can use to display content in the fullscreen mo
 <KButton appearance="primary" @click="sampleIsOpen = true">Open Form Modal</KButton>
 
 <KModalFullscreen :isVisible="sampleIsOpen" title="Install Plugin" @canceled="sampleIsOpen = false" @proceed="sampleIsOpen = false" cancelButtonAppearance="secondary" actionButtonText="Delete" actionButtonAppearance="danger">
-  <template v-slot:header-content>
+  <template #header-content>
     Install Plugin
   </template>
-   <template v-slot:body-header>
+   <template #body-header>
     <div class="ml-25">Configure a key auth plugin</div>
   </template>
-  <template v-slot:body-header-description>
+  <template #body-header-description>
     <div class="ml-25">Lorem ipsum factum. <a>View documentation</a></div>
   </template>
-  <template v-slot:action-buttons>
+  <template #action-buttons>
     <KButton size="medium" @click="sampleIsOpen = false" class="mr-2">Back</KButton>
     <KButton appearance="creation" size="medium" @click="sampleIsOpen = false">Save</KButton>
   </template>
-    <div>
-  <KStepper :steps="[
-      { label: 'I am visible', state: 'completed' },
-      { label: 'Scroll Up', state: 'completed' },
-      { label: 'I am hidden', state: 'pending' }
-    ]"
-  />
-  <KCodeBlock
-    id="code-block-default"
-    :code="code"
-    language="json"
-    is-searchable
-  />
-</div>
+  <div>
+    <KStepper :steps="[
+        { label: 'I am visible', state: 'completed' },
+        { label: 'Scroll Up', state: 'completed' },
+        { label: 'I am hidden', state: 'pending' }
+      ]"
+    />
+    <KCodeBlock
+      id="code-block-default"
+      :code="code"
+      language="json"
+      is-searchable
+    />
+  </div>
   <div class="ml-25">
     <KInputSwitch v-model="checked" label="This plugin is enabled" class="display-items" />
     <br><br>
@@ -252,16 +251,16 @@ There are 6 designated slots you can use to display content in the fullscreen mo
   cancelButtonAppearance="secondary"
   actionButtonText="Delete"
   actionButtonAppearance="danger">
-  <template v-slot:header-content>
+  <template #header-content>
     Install Plugin
   </template>
-   <template v-slot:body-header>
+   <template #body-header>
     <div class="ml-25">Configure a key auth plugin</div>
   </template>
-  <template v-slot:body-header-description>
+  <template #body-header-description>
     <div class="ml-25">Lorem ipsum factum. <a>View documentation</a></div>
   </template>
-  <template v-slot:action-buttons>
+  <template #action-buttons>
     <KButton size="medium" @click="sampleIsOpen = false">Back</KButton>
     <KButton appearance="creation" size="medium" @click="sampleIsOpen = false">Save</KButton>
   </template>
@@ -321,14 +320,14 @@ There are 6 designated slots you can use to display content in the fullscreen mo
 
 ## Theming
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KModalFullscreenMaxWidth` | Modal max width
-| `--KModalFullscreenHeaderColor` | Header text color
-| `--KModalFullscreenHeaderSize` | Header font size
-| `--KModalFullscreenHeaderWeight` | Header font weight
-| `--KModalFullscreenColor`| Main content text color
-| `--KModalFullscreenFontSize`| Main content text size
+| Variable                         | Purpose                 |
+| :------------------------------- | :---------------------- |
+| `--KModalFullscreenMaxWidth`     | Modal max width         |
+| `--KModalFullscreenHeaderColor`  | Header text color       |
+| `--KModalFullscreenHeaderSize`   | Header font size        |
+| `--KModalFullscreenHeaderWeight` | Header font weight      |
+| `--KModalFullscreenColor`        | Main content text color |
+| `--KModalFullscreenFontSize`     | Main content text size  |
 
 An Example of changing the the colors of KModalFullscreen might look like.
 > Note: We are scoping the overrides to a wrapper in this example

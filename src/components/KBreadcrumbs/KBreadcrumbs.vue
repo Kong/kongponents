@@ -122,7 +122,7 @@ export default defineComponent({
   &.k-breadcrumb-icon {
     align-items: center;
     justify-content: center;
-    padding: 0 var(--spacing-xs);
+    padding: 0 var(--spacing-xs) 0 0;
 
     &.has-no-text {
       padding-right: 0;
