@@ -1,3 +1,15 @@
+# [8.28.0](https://github.com/Kong/kongponents/compare/v8.27.0...v8.28.0) (2023-02-17)
+
+
+### Bug Fixes
+
+* **kbreadcrumbs:** padding for left alignment ([299ca53](https://github.com/Kong/kongponents/commit/299ca535bfdd611bfb61fbd8bcd5d0f224c5d53c))
+
+
+### Features
+
+* **kicon:** add circle check [kcgw-10] ([#1129](https://github.com/Kong/kongponents/issues/1129)) ([ce8d917](https://github.com/Kong/kongponents/commit/ce8d9178567363d613bfae79fbb1561f555f935b))
+
 # [8.27.0](https://github.com/Kong/kongponents/compare/v8.26.2...v8.27.0) (2023-02-17)
 
 
