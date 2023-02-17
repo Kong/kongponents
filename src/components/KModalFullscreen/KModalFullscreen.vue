@@ -100,140 +100,128 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, watch, ref, computed, onMounted, onUnmounted, onBeforeUnmount, nextTick } from 'vue'
+<script setup lang="ts">
+import { watch, ref, computed, onMounted, onUnmounted, onBeforeUnmount, nextTick } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 
-export default defineComponent({
-  name: 'KModalFullscreen',
-  components: { KButton, KIcon },
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Set the text of the title, if using title slot
      */
-    title: {
-      type: String,
-      required: true,
-    },
-    /**
+  title: {
+    type: String,
+    required: true,
+  },
+  /**
      * Set the title in the body
      */
-    bodyHeader: {
-      type: String,
-      default: '',
-    },
-    /**
+  bodyHeader: {
+    type: String,
+    default: '',
+  },
+  /**
      * Text to display as a description of the body's title
      */
-    bodyHeaderDescription: {
-      type: String,
-      default: '',
-    },
-    /**
+  bodyHeaderDescription: {
+    type: String,
+    default: '',
+  },
+  /**
       *  Pass whether or not the modal should be visible
       */
-    isVisible: {
-      type: Boolean,
-      default: false,
-    },
-    /**
+  isVisible: {
+    type: Boolean,
+    default: false,
+  },
+  /**
      * Set the text of the close/cancel button
      */
-    cancelButtonText: {
-      type: String,
-      default: 'Cancel',
-    },
-    /**
+  cancelButtonText: {
+    type: String,
+    default: 'Cancel',
+  },
+  /**
      * Set the text of the action/proceed button
      */
-    actionButtonText: {
-      type: String,
-      default: 'Save',
-    },
-    /**
+  actionButtonText: {
+    type: String,
+    default: 'Save',
+  },
+  /**
      * Set the appearance of the action/proceed button
      */
-    actionButtonAppearance: {
-      type: String,
-      default: 'primary',
-    },
-    /**
+  actionButtonAppearance: {
+    type: String,
+    default: 'primary',
+  },
+  /**
      * Set the appearance of the close/cancel button
      */
-    cancelButtonAppearance: {
-      type: String,
-      default: 'outline',
-    },
-    /**
+  cancelButtonAppearance: {
+    type: String,
+    default: 'outline',
+  },
+  /**
       *  Pass the type of icon for the header on the left
       */
-    iconString: {
-      type: String,
-      default: 'kong',
-    },
+  iconString: {
+    type: String,
+    default: 'kong',
   },
-  emits: ['canceled', 'proceed'],
-  setup(props, { emit }) {
-    const modalBodyContent = ref(null)
-    const isOpen = computed(() => {
-      return !!props.isVisible
-    })
+})
 
-    watch(() => props.isVisible, async () => {
-      if (isOpen.value) {
-        document.body.style.overflow = 'hidden'
+const emit = defineEmits(['canceled', 'proceed'])
 
-        await nextTick()
+const modalBodyContent = ref(null)
+const isOpen = computed(() => {
+  return !!props.isVisible
+})
 
-        if (modalBodyContent.value) {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          modalBodyContent.value.focus()
-        }
-      } else {
-        document.body.style.overflow = ''
-      }
-    })
+watch(() => props.isVisible, async () => {
+  if (isOpen.value) {
+    document.body.style.overflow = 'hidden'
 
-    const handleKeydown = (e: any) => {
-      if (props.isVisible) {
-        if (e.keyCode === 27) { // `esc` key
-          close()
-        } else if (e.keyCode === 13) { // `enter` key
-          proceed()
-        }
-      }
+    await nextTick()
+
+    if (modalBodyContent.value) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      modalBodyContent.value.focus()
     }
+  } else {
+    document.body.style.overflow = ''
+  }
+})
 
-    const close = () => {
-      emit('canceled')
+const handleKeydown = (e: any) => {
+  if (props.isVisible) {
+    if (e.keyCode === 27) { // `esc` key
+      close()
+    } else if (e.keyCode === 13) { // `enter` key
+      proceed()
     }
+  }
+}
 
-    const proceed = () => {
-      emit('proceed')
-    }
+const close = () => {
+  emit('canceled')
+}
 
-    onMounted(() => {
-      document.addEventListener('keydown', handleKeydown)
-    })
+const proceed = () => {
+  emit('proceed')
+}
 
-    onBeforeUnmount(() => {
-      document.removeEventListener('keydown', handleKeydown)
-    })
+onMounted(() => {
+  document.addEventListener('keydown', handleKeydown)
+})
 
-    onUnmounted(() => {
-      document.body.style.overflow = ''
-    })
+onBeforeUnmount(() => {
+  document.removeEventListener('keydown', handleKeydown)
+})
 
-    return {
-      isOpen,
-      modalBodyContent,
-      handleKeydown,
-      close,
-      proceed,
-    }
-  },
+onUnmounted(() => {
+  document.body.style.overflow = ''
 })
 </script>
 
