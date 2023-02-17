@@ -29,6 +29,7 @@ describe('KModalFullscreen', () => {
     cy.get('.k-modal-fullscreen-body-header .body-header').should('contain', bodyHeader)
     cy.get('.k-modal-fullscreen-body-header .body-header-description').should('contain', bodyHeaderDescription)
     cy.get('.k-modal-fullscreen-body').should('contain', bodyText)
+    cy.get('.k-modal-fullscreen-footer').should('not.exist')
   })
 
   it('renders proper content when using action-buttons slot', () => {
