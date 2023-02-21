@@ -331,4 +331,32 @@ describe('KSelect', () => {
 
     cy.get('.k-select-dropdown-footer-text').should('be.visible').should('contain.text', dropdownFooterText)
   })
+
+  it('renders grouping titles and groups items in correct order', () => {
+    const grouping1Title = 'Grouping 1'
+    const grouping2Title = 'Grouping 2'
+    const items = [
+      { label: 'Label 0', value: 'value0' },
+      { label: 'Label 1', value: 'value1', grouping: grouping1Title },
+      { label: 'Label 3', value: 'value3', grouping: grouping2Title },
+      { label: 'Label 2', value: 'value2', grouping: grouping1Title },
+      { label: 'Label 4', value: 'value4', grouping: grouping2Title },
+    ]
+
+    mount(KSelect, {
+      props: {
+        testMode: true,
+        items,
+      },
+    })
+
+    cy.getTestId('k-select-input').trigger('click')
+    cy.get('.k-select-item').eq(0).should('contain.text', items[0].label)
+    cy.get('.k-select-grouping-title').eq(0).should('contain.text', grouping1Title)
+    cy.get('.k-select-grouping-title').eq(1).should('contain.text', grouping2Title)
+    cy.get('.k-select-item').eq(1).should('contain.text', items[1].label)
+    cy.get('.k-select-item').eq(2).should('contain.text', items[3].label)
+    cy.get('.k-select-item').eq(3).should('contain.text', items[2].label)
+    cy.get('.k-select-item').eq(4).should('contain.text', items[4].label)
+  })
 })
