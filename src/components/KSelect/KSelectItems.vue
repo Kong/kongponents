@@ -13,8 +13,8 @@
     </template>
   </KSelectItem>
   <div
-    v-for="(grouping, n) in groupings"
-    :key="`${grouping}-${n}`"
+    v-for="grouping in groupings"
+    :key="`${grouping}-grouping`"
     class="mb-1"
   >
     <span class="d-block k-select-grouping-title">
