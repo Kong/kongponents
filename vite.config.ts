@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import path from 'path'
+import path, { join } from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
 
 // Include the rollup-plugin-visualizer if the BUILD_VISUALIZER env var is set to "true"
@@ -58,4 +58,13 @@ export default defineConfig({
       'focus-trap-vue',
     ],
   },
+  server: {
+    fs: {
+      // Allow serving files from one level up from the package root - IMPORTANT - to support the sandbox
+      allow: [join(__dirname, '..')],
+    },
+  },
+  // Change the root when utilizing the sandbox via USE_SANDBOX=true to use the `/sandbox/*` files
+  // During the build process, the `/sandbox/*` files are not used and we should default to the package root.
+  root: process.env.USE_SANDBOX ? './sandbox' : process.cwd(),
 })
