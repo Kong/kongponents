@@ -688,18 +688,6 @@ export default defineComponent({
         label: 'Bunnies',
         value: 'bunnies'
       }],
-      defaultItemsWithDisabled: [{
-        label: 'Cats',
-        value: 'cats',
-        selected: true
-      }, {
-        label: 'Dogs',
-        value: 'dogs',
-        disabled: true
-      }, {
-        label: 'Bunnies',
-        value: 'bunnies'
-      }],
       defaultItemsWithDisabledAndGroupings: [{
         label: 'Cats',
         value: 'cats',
@@ -823,8 +811,7 @@ export default defineComponent({
       for (let i = 0; i < 30; i++) {
         items.push({
           label: `Item ${i}`,
-          value: i,
-          ...(i > 5 && { grouping: `${i % 2 === 0 ? 'Even items greater than 5' : 'Odd items greater than 5'}` })
+          value: i
         })
       }
 
