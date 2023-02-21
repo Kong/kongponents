@@ -16,12 +16,12 @@ const router = createRouter({
         {
           path: 'alert',
           name: 'alert',
-          component: () => import('./pages/components/KAlert.vue'),
+          component: () => import('./pages/components/SandboxAlert.vue'),
         },
         {
           path: 'button',
           name: 'button',
-          component: () => import('./pages/components/KButton.vue'),
+          component: () => import('./pages/components/SandboxButton.vue'),
         },
       ],
     },
