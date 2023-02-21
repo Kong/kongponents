@@ -70,5 +70,6 @@ const getGroupingItems = (grouping: string) => props.items.filter(item => item.g
   font-weight: 600;
   margin-bottom: var(--spacing-xxs);
   padding: var(--spacing-xs);
+  user-select: none;
 }
 </style>
