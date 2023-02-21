@@ -65,6 +65,22 @@ You can specify `disabledTooltipText` property to customize the disabled tooltip
   }, {
     label: 'A long & truncated item',
     value: 'long'
+  }, {
+    label: 'Duck',
+    value: 'duck',
+    grouping: 'Birds'
+  }, {
+    label: 'Oriole',
+    value: 'oriole',
+    grouping: 'Birds'
+  }, {
+    label: 'Trout',
+    value: 'trout',
+    grouping: 'Fish'
+  }, {
+    label: 'Salmon',
+    value: 'salmon',
+    grouping: 'Fish'
   }]"
 />
 ```
