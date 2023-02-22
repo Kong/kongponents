@@ -13,15 +13,15 @@
     </template>
   </KMultiselectItem>
   <div
-    v-for="grouping in groupings"
-    :key="`${grouping}-grouping`"
+    v-for="group in groups"
+    :key="`${group}-group`"
     class="mb-1"
   >
-    <span class="d-block k-multiselect-grouping-title">
-      {{ grouping }}
+    <span class="d-block k-multiselect-group-title">
+      {{ group }}
     </span>
     <KMultiselectItem
-      v-for="(item, idx) in getGroupingItems(grouping)"
+      v-for="(item, idx) in getGroupItems(group)"
       :key="`${item.key ? item.key : idx}-item`"
       :item="item"
       @selected="handleItemSelect"
@@ -41,8 +41,8 @@ import { computed, PropType } from 'vue'
 import { MultiselectItem } from './KMultiselect.vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
 
-interface MultiselectItemWithGrouping extends MultiselectItem {
-  grouping: string
+interface MultiselectItemWithGroup extends MultiselectItem {
+  group: string
 }
 
 const props = defineProps({
@@ -58,14 +58,14 @@ const emit = defineEmits(['selected'])
 
 const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => emit('selected', item, isNew)
 
-const nonGroupedItems = computed((): MultiselectItem[] => props.items.filter(item => !item.grouping))
-const groupings = computed((): string[] => [...new Set((props.items.filter(item => item.grouping) as unknown as MultiselectItemWithGrouping[]).map(item => item.grouping))].sort((a, b) => a.localeCompare(b.toLowerCase())))
+const nonGroupedItems = computed((): MultiselectItem[] => props.items.filter(item => !item.group))
+const groups = computed((): string[] => [...new Set((props.items.filter(item => item.group) as unknown as MultiselectItemWithGroup[]).map(item => item.group))].sort((a, b) => a.localeCompare(b.toLowerCase())))
 
-const getGroupingItems = (grouping: string) => props.items.filter(item => item.grouping === grouping)
+const getGroupItems = (group: string) => props.items.filter(item => item.group === group)
 </script>
 
 <style lang="scss" scoped>
-.k-multiselect-grouping-title {
+.k-multiselect-group-title {
   font-weight: 600;
   margin-bottom: var(--spacing-xxs);
   padding: var(--spacing-xs);

@@ -264,7 +264,7 @@ export interface MultiselectItem {
   disabled?: boolean
   disabledTooltipText?: string
   custom?: boolean
-  grouping?: string
+  group?: string
 }
 
 export interface MultiselectFilterFnParams {
