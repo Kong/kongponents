@@ -1,3 +1,10 @@
+# [8.29.0](https://github.com/Kong/kongponents/compare/v8.28.1...v8.29.0) (2023-02-22)
+
+
+### Features
+
+* **kselect, kmultiselect:** add subheading support [KHCP-6147] ([#1130](https://github.com/Kong/kongponents/issues/1130)) ([e35ffb0](https://github.com/Kong/kongponents/commit/e35ffb040671a9f6cd56ddf2af550845b202ca08))
+
 ## [8.28.1](https://github.com/Kong/kongponents/compare/v8.28.0...v8.28.1) (2023-02-22)
 
 
