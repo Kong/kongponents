@@ -13,15 +13,15 @@
     </template>
   </KSelectItem>
   <div
-    v-for="grouping in groupings"
-    :key="`${grouping}-grouping`"
+    v-for="group in groups"
+    :key="`${group}-group`"
     class="mb-1"
   >
-    <span class="d-block k-select-grouping-title">
-      {{ grouping }}
+    <span class="d-block k-select-group-title">
+      {{ group }}
     </span>
     <KSelectItem
-      v-for="item in getGroupingItems(grouping)"
+      v-for="item in getGroupItems(group)"
       :key="item.key"
       :item="item"
       @selected="handleItemSelect"
@@ -41,8 +41,8 @@ import { computed, PropType } from 'vue'
 import { SelectItem } from './KSelect.vue'
 import KSelectItem from '@/components/KSelect/KSelectItem.vue'
 
-interface SelectItemWithGrouping extends SelectItem {
-  grouping: string
+interface SelectItemWithGroup extends SelectItem {
+  group: string
 }
 
 const props = defineProps({
@@ -59,14 +59,14 @@ const emit = defineEmits(['selected'])
 
 const handleItemSelect = (item: SelectItem) => emit('selected', item)
 
-const nonGroupedItems = computed((): SelectItem[] => props.items.filter(item => !item.grouping))
-const groupings = computed((): string[] => [...new Set((props.items.filter(item => item.grouping) as unknown as SelectItemWithGrouping[]).map(item => item.grouping))].sort((a, b) => a.localeCompare(b.toLowerCase())))
+const nonGroupedItems = computed((): SelectItem[] => props.items.filter(item => !item.group))
+const groups = computed((): string[] => [...new Set((props.items.filter(item => item.group) as unknown as SelectItemWithGroup[]).map(item => item.group))].sort((a, b) => a.localeCompare(b.toLowerCase())))
 
-const getGroupingItems = (grouping: string) => props.items.filter(item => item.grouping === grouping)
+const getGroupItems = (group: string) => props.items.filter(item => item.group === group)
 </script>
 
 <style lang="scss" scoped>
-.k-select-grouping-title {
+.k-select-group-title {
   font-weight: 600;
   margin-bottom: var(--spacing-xxs);
   padding: var(--spacing-xs);

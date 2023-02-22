@@ -17,10 +17,10 @@
 An array of items containing a `label` and `value`. You may also specify:
 - a certain item is `selected` by default
 - a certain item is `disabled`
-- certain items are grouped under a `grouping`
+- certain items are grouped under a `group`
 
 <ClientOnly>
-  <KSelect :items="deepClone(defaultItemsWithDisabledAndGroupings)" />
+  <KSelect :items="deepClone(defaultItemsWithDisabledAndGroups)" />
 </ClientOnly>
 
 ```html
@@ -38,19 +38,19 @@ An array of items containing a `label` and `value`. You may also specify:
   }, {
     label: 'Duck',
     value: 'duck',
-    grouping: 'Birds'
+    group: 'Birds'
   }, {
     label: 'Oriole',
     value: 'oriole',
-    grouping: 'Birds'
+    group: 'Birds'
   }, {
     label: 'Trout',
     value: 'trout',
-    grouping: 'Fish'
+    group: 'Fish'
   }, {
     label: 'Salmon',
     value: 'salmon',
-    grouping: 'Fish'
+    group: 'Fish'
   }]"
 />
 ```
@@ -382,7 +382,7 @@ const allItems = new Array(10).fill().map((_, i) => ({
   label: `Item ${i}`,
   description: `This is the description for item ${i}.`,
   value: `autosuggest-item-${i}`,
-  ...(i > 5 && { grouping: `${i % 2 === 0 ? 'Even items greater than 5' : 'Odd items greater than 5'}` })
+  ...(i > 5 && { group: `${i % 2 === 0 ? 'Even items greater than 5' : 'Odd items greater than 5'}` })
 }));
 export default {
   data() {
@@ -474,7 +474,7 @@ const allItems = new Array(10).fill().map((_, i) => ({
   label: `Item ${i}`,
   description: `This is the description for item ${i}.`,
   value: `autosuggest-item-${i}`,
-  ...(i > 5 && { grouping: `${i % 2 === 0 ? 'Even items greater than 5' : 'Odd items greater than 5'}` })
+  ...(i > 5 && { group: `${i % 2 === 0 ? 'Even items greater than 5' : 'Odd items greater than 5'}` })
 }));
 export default {
   data() {
@@ -668,7 +668,7 @@ const allItems = new Array(10).fill().map((_, i) => ({
   label: `Item ${i}`,
   description: `This is the description for item ${i}.`,
   value: `autosuggest-item-${i}`,
-  ...(i > 5 && { grouping: `${i % 2 === 0 ? 'Even items greater than 5' : 'Odd items greater than 5'}` })
+  ...(i > 5 && { group: `${i % 2 === 0 ? 'Even items greater than 5' : 'Odd items greater than 5'}` })
 }));
 
 export default defineComponent({
@@ -688,7 +688,7 @@ export default defineComponent({
         label: 'Bunnies',
         value: 'bunnies'
       }],
-      defaultItemsWithDisabledAndGroupings: [{
+      defaultItemsWithDisabledAndGroups: [{
         label: 'Cats',
         value: 'cats',
         selected: true
@@ -702,19 +702,19 @@ export default defineComponent({
       }, {
         label: 'Duck',
         value: 'duck',
-        grouping: 'Birds'
+        group: 'Birds'
       },{
         label: 'Salmon',
         value: 'salmon',
-        grouping: 'Fish'
+        group: 'Fish'
       }, {
         label: 'Oriole',
         value: 'oriole',
-        grouping: 'Birds'
+        group: 'Birds'
       }, {
         label: 'Trout',
         value: 'trout',
-        grouping: 'Fish'
+        group: 'Fish'
       }],
       defaultItemsUnselect: [{
         label: 'Cats',

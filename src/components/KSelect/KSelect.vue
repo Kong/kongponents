@@ -228,7 +228,7 @@ export interface SelectItem {
   key?: string
   selected?: boolean
   disabled?: boolean
-  grouping?: string
+  group?: string
 }
 
 export interface SelectFilterFnParams {
