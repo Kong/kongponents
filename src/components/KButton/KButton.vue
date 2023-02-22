@@ -160,7 +160,7 @@ export default defineComponent({
       } else if (props.appearance === 'outline') {
         return 'var(--KButtonOutlineColor, var(--blue-500, color(blue-500)))'
       } else if (props.appearance === 'btn-link') {
-        return 'var(--KButtonBtnLink, var(--blue-500, color(blue-500)))'
+        return 'var(--KButtonLink, var(--blue-500, color(blue-500)))'
       } else if (props.appearance === 'btn-link-danger') {
         return 'var(--KButtonLinkDanger, var(--red-500, color(red-500)))'
       }
@@ -394,7 +394,7 @@ export default defineComponent({
 
   &.btn-link {
     background-color: transparent;
-    color: var(--KButtonBtnLink, var(--blue-500, color(blue-500)));
+    color: var(--KButtonLink, var(--blue-500, color(blue-500)));
     padding: 0;
 
     &:hover:not(:disabled) {
