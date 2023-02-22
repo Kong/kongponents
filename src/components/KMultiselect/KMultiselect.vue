@@ -145,20 +145,18 @@
               @mouseenter="() => isHovered = true"
               @mouseleave="() => isHovered = false"
             >
-              <KMultiselectItem
-                v-for="item, idx in sortedItems"
-                :key="`${item.key ? item.key : idx}-item`"
-                :item="item"
+              <KMultiselectItems
+                :items="sortedItems"
                 @selected="handleItemSelect"
               >
-                <template #content>
+                <template #content="{ item }">
                   <slot
                     class="k-multiselect-item"
                     :item="item"
                     name="item-template"
                   />
                 </template>
-              </KMultiselectItem>
+              </KMultiselectItems>
               <KMultiselectItem
                 v-if="enableItemCreation && uniqueFilterStr"
                 key="k-multiselect-new-item"
@@ -255,6 +253,7 @@ import KInput from '@/components/KInput/KInput.vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
+import KMultiselectItems from '@/components/KMultiselect/KMultiselectItems.vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
 
 export interface MultiselectItem {
@@ -265,6 +264,7 @@ export interface MultiselectItem {
   disabled?: boolean
   disabledTooltipText?: string
   custom?: boolean
+  group?: string
 }
 
 export interface MultiselectFilterFnParams {

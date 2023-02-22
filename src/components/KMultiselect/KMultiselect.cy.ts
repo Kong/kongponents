@@ -459,4 +459,32 @@ describe('KMultiselect', () => {
 
     cy.get('.k-multiselect-dropdown-footer-text').should('be.visible').should('contain.text', dropdownFooterText)
   })
+
+  it('renders group titles and groups items in correct order', () => {
+    const group1Title = 'Group 1'
+    const group2Title = 'Group 2'
+    const items = [
+      { label: 'Label 0', value: 'value0' },
+      { label: 'Label 1', value: 'value1', group: group1Title },
+      { label: 'Label 3', value: 'value3', group: group2Title },
+      { label: 'Label 2', value: 'value2', group: group1Title },
+      { label: 'Label 4', value: 'value4', group: group2Title },
+    ]
+
+    mount(KMultiselect, {
+      props: {
+        testMode: true,
+        items,
+      },
+    })
+
+    cy.getTestId('k-multiselect-input').trigger('click')
+    cy.get('.k-multiselect-item').eq(0).should('contain.text', items[0].label)
+    cy.get('.k-multiselect-group-title').eq(0).should('contain.text', group1Title)
+    cy.get('.k-multiselect-group-title').eq(1).should('contain.text', group2Title)
+    cy.get('.k-multiselect-item').eq(1).should('contain.text', items[1].label)
+    cy.get('.k-multiselect-item').eq(2).should('contain.text', items[3].label)
+    cy.get('.k-multiselect-item').eq(3).should('contain.text', items[2].label)
+    cy.get('.k-multiselect-item').eq(4).should('contain.text', items[4].label)
+  })
 })

@@ -161,20 +161,18 @@
               v-else
               class="k-select-list ma-0 pa-0"
             >
-              <KSelectItem
-                v-for="item in filteredItems"
-                :key="item.key"
-                :item="item"
+              <KSelectItems
+                :items="filteredItems"
                 @selected="handleItemSelect"
               >
-                <template #content>
+                <template #content="{ item }">
                   <slot
                     class="select-item-label select-item-desc"
                     :item="item"
                     name="item-template"
                   />
                 </template>
-              </KSelectItem>
+              </KSelectItems>
               <KSelectItem
                 v-if="!filteredItems.length && !$slots.empty"
                 key="k-select-empty-state"
@@ -212,6 +210,7 @@ import KInput from '@/components/KInput/KInput.vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
+import KSelectItems from '@/components/KSelect/KSelectItems.vue'
 import KSelectItem from '@/components/KSelect/KSelectItem.vue'
 
 const { getSizeFromString } = useUtilities()
@@ -229,6 +228,7 @@ export interface SelectItem {
   key?: string
   selected?: boolean
   disabled?: boolean
+  group?: string
 }
 
 export interface SelectFilterFnParams {
@@ -246,6 +246,7 @@ export default defineComponent({
     KInput,
     KLabel,
     KPop,
+    KSelectItems,
     KSelectItem,
     KToggle,
   },
