@@ -1,3 +1,10 @@
+## [8.28.1](https://github.com/Kong/kongponents/compare/v8.28.0...v8.28.1) (2023-02-22)
+
+
+### Bug Fixes
+
+* **kbutton:** fix btn-link variables ([#1146](https://github.com/Kong/kongponents/issues/1146)) ([08d460b](https://github.com/Kong/kongponents/commit/08d460b02aa1c21337e77383e41a3cebfa704bda))
+
 # [8.28.0](https://github.com/Kong/kongponents/compare/v8.27.0...v8.28.0) (2023-02-17)
 
 
