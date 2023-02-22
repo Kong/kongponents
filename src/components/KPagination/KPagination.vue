@@ -379,7 +379,7 @@ export default defineComponent({
 }
 
 .page-size-select {
-  --KButtonBtnLink: var(--KPaginationPageSizeColor, var(--blue-400));
+  --KButtonLink: var(--KPaginationPageSizeColor, var(--blue-400));
   --KButtonOutlineBorder: var(--KPaginationPageSizeColor, var(--blue-400));
   --KButtonFontSize: var(--type-sm);
   color: var(--blue-400);

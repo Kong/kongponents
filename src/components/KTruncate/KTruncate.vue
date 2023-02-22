@@ -239,7 +239,7 @@ onBeforeUnmount(() => {
 
   .expand-trigger,
   .collapse-trigger {
-    --KButtonBtnLink: var(--KTruncateToggleColor, var(--blue-500, color(blue-500)));
+    --KButtonLink: var(--KTruncateToggleColor, var(--blue-500, color(blue-500)));
     --KButtonPrimaryBase: var(--KTruncateCollapseBackground, var(--blue-100, color(blue-100)));
     --KButtonPrimaryHover: var(--KTruncateCollapseHover, var(--blue-200, color(blue-200)));
     --KButtonPrimaryActive: var(--KTruncateCollapseHover, var(--blue-200, color(blue-200)));
