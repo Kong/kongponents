@@ -67,7 +67,7 @@ const getGroupItems = (group: string) => props.items.filter(item => item.group =
 
 <style lang="scss" scoped>
 .k-select-group-title {
-  color: color(black-300);
+  color: var(--black-300);
   font-size: var(--type-xs);
   font-weight: 600;
   margin-bottom: var(--spacing-xxs);
