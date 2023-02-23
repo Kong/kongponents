@@ -64,15 +64,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-
-export interface BreadcrumbItem {
-  to: object|string // router-link "to" object or href string
-  text?: string // anchor text
-  title?: string // anchor title
-  icon?: string // icon before anchor
-  key?: string // list item key
-  maxWidth?: string // maxWidth of item, overrides itemMaxWidth
-}
+import { BreadcrumbItem } from '@/types'
 
 export default defineComponent({
   name: 'KBreadcrumbs',

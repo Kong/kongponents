@@ -46,12 +46,13 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, watch, useAttrs } from 'vue'
+import { ref, computed, watch, useAttrs, PropType } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
+import { BadgeAppearance, BadgeAppearanceRecord, BadgeShapeRecord, BadgeShape } from '@/types'
 
-export const appearances = {
+export const appearances: BadgeAppearanceRecord = {
   default: 'default',
   success: 'success',
   danger: 'danger',
@@ -60,7 +61,7 @@ export const appearances = {
   custom: 'custom',
 }
 
-export const shapes = {
+export const shapes: BadgeShapeRecord = {
   rounded: 'rounded',
   rectangular: 'rectangular',
 }
@@ -79,7 +80,7 @@ const props = defineProps({
     * One of [danger, warning, success etc.]
     */
   appearance: {
-    type: String,
+    type: String as PropType<BadgeAppearance>,
     required: false,
     validator: (value: string): boolean => {
       return Object.keys({ ...appearances }).includes(value)
@@ -122,7 +123,7 @@ const props = defineProps({
   },
 
   shape: {
-    type: String,
+    type: String as PropType<BadgeShape>,
     required: false,
     validator: (value: string): boolean => {
       return Object.keys({ ...shapes }).includes(value)

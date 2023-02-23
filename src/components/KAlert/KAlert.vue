@@ -126,11 +126,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, PropType } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
+import { AlertAppearance, AlertDismissType, AlertAppearanceRecord, AlertSize, AlertType } from '@/types'
 
-export const appearances = {
+export const appearances: AlertAppearanceRecord = {
   info: 'info',
   success: 'success',
   danger: 'danger',
@@ -244,9 +245,9 @@ export default defineComponent({
       * One of [ info, danger, warning, success ]
       */
     appearance: {
-      type: String,
+      type: String as PropType<AlertAppearance>,
       default: 'info',
-      validator: (value: string): boolean => {
+      validator: (value: AlertAppearance): boolean => {
         return Object.values(appearances).includes(value)
       },
     },
@@ -254,7 +255,7 @@ export default defineComponent({
      * Set whether alert box is the default size or small for context (under form fields, etc),
      */
     size: {
-      type: String,
+      type: String as PropType<AlertSize>,
       default: '',
       validator: (value: string): boolean => {
         return ['', 'small', 'large'].includes(value)
@@ -264,7 +265,7 @@ export default defineComponent({
      * Set whether alert box has icon/button to dismiss or none
      */
     dismissType: {
-      type: String,
+      type: String as PropType<AlertDismissType>,
       default: 'none',
       validator: (value: string): boolean => {
         return ['none', 'icon', 'button'].includes(value)
@@ -274,7 +275,7 @@ export default defineComponent({
      * Set whether alert box is alert or banner
      */
     type: {
-      type: String,
+      type: String as PropType<AlertType>,
       default: 'alert',
       validator: (value: string): boolean => {
         return ['alert', 'banner'].includes(value)

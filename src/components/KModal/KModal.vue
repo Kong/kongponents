@@ -99,10 +99,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, nextTick, onMounted, onUnmounted, ref, watch, watchEffect } from 'vue'
+import { defineComponent, computed, nextTick, onMounted, onUnmounted, ref, watch, watchEffect, PropType } from 'vue'
 import { FocusTrap } from 'focus-trap-vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
+import { ButtonAppearance } from '@/types'
 
 export default defineComponent({
   name: 'KModal',
@@ -177,7 +178,7 @@ export default defineComponent({
      * Set the appearance of the action/proceed button
      */
     actionButtonAppearance: {
-      type: String,
+      type: String as PropType<ButtonAppearance>,
       default: 'primary',
     },
     /**
@@ -191,7 +192,7 @@ export default defineComponent({
      * Set the appearance of the close/cancel button
      */
     cancelButtonAppearance: {
-      type: String,
+      type: String as PropType<ButtonAppearance>,
       default: 'outline',
     },
     /**

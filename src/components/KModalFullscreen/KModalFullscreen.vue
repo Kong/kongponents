@@ -101,9 +101,10 @@
 </template>
 
 <script setup lang="ts">
-import { watch, ref, computed, onMounted, onUnmounted, onBeforeUnmount, nextTick } from 'vue'
+import { watch, ref, computed, onMounted, onUnmounted, onBeforeUnmount, nextTick, PropType } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
+import { ButtonAppearance } from '@/types'
 
 const props = defineProps({
   /**
@@ -152,14 +153,14 @@ const props = defineProps({
   * Set the appearance of the action/proceed button
   */
   actionButtonAppearance: {
-    type: String,
+    type: String as PropType<ButtonAppearance>,
     default: 'primary',
   },
   /**
   * Set the appearance of the close/cancel button
   */
   cancelButtonAppearance: {
-    type: String,
+    type: String as PropType<ButtonAppearance>,
     default: 'outline',
   },
   /**

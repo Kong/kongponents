@@ -28,12 +28,13 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import KAlert, { appearances } from '@/components/KAlert/KAlert.vue'
+import { AlertAppearance } from '@/types'
 
 export const toasterAppearances = appearances
 
 export interface Toast {
   key?: any // unique identifier of toaster
-  appearance?: string // 'success', 'info', 'warning', 'danger'
+  appearance?: AlertAppearance
   message: string // Text to display in toaster
   timer?: any
   timeoutMilliseconds?: number
