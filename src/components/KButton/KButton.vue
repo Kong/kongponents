@@ -64,19 +64,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, PropType } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
+import type { ButtonAppearance, ButtonAppearanceRecord, ButtonSize, ButtonSizeRecord } from '@/types'
 
-export const appearances = {
+export const appearances: ButtonAppearanceRecord = {
   primary: 'primary',
   secondary: 'secondary',
   danger: 'danger',
   creation: 'creation',
   outline: 'outline',
   btnLink: 'btn-link',
+  btnLinkDanger: 'btn-link-danger',
+  actionActive: 'action-active',
 }
 
-export const sizes = {
+export const sizes: ButtonSizeRecord = {
   small: 'small',
   medium: 'medium',
   large: 'large',
@@ -89,23 +92,23 @@ export default defineComponent({
   props: {
     /**
       * Base styling of the button
-      * One of ['primary, secondary, 'danger', 'creation', 'outline, btn-link' ]
+      * One of ['primary', 'secondary', 'danger', 'creation', 'outline', 'btn-link', 'btn-link-danger', 'action-active']
       */
     appearance: {
-      type: String,
+      type: String as PropType<ButtonAppearance>,
       default: 'outline',
-      validator: (value: string): boolean => {
+      validator: (value: ButtonAppearance): boolean => {
         return Object.values(appearances).indexOf(value) !== -1
       },
     },
     /**
       * Size variations
-      * One of ['default', 'small', 'medium', 'large' ]
+      * One of ['small', 'medium', 'large' ]
       */
     size: {
-      type: String,
+      type: String as PropType<ButtonSize>,
       default: 'medium',
-      validator: (value: string): boolean => {
+      validator: (value: ButtonSize): boolean => {
         return Object.values(sizes).indexOf(value) !== -1
       },
     },
