@@ -79,7 +79,12 @@
               :style="widthStyle"
               @keyup="evt => triggerFocus(evt, isToggled)"
             >
-              {{ selectButtonText }}
+              <slot
+                :item="selectedItem"
+                name="button-text"
+              >
+                {{ selectButtonText }}
+              </slot>
             </KButton>
           </div>
           <div
