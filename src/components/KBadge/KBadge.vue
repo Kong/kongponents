@@ -50,7 +50,7 @@ import { ref, computed, watch, useAttrs, PropType } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
-import { BadgeAppearance, BadgeAppearanceRecord, BadgeShapeRecord, BadgeShape } from '@/types'
+import type { BadgeAppearance, BadgeAppearanceRecord, BadgeShapeRecord, BadgeShape } from '@/types'
 
 export const appearances: BadgeAppearanceRecord = {
   default: 'default',

@@ -64,7 +64,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import { BreadcrumbItem } from '@/types'
+import type { BreadcrumbItem } from '@/types'
 
 export default defineComponent({
   name: 'KBreadcrumbs',

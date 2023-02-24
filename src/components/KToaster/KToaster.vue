@@ -28,7 +28,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import KAlert, { appearances } from '@/components/KAlert/KAlert.vue'
-import { AlertAppearance } from '@/types'
+import type { AlertAppearance } from '@/types'
 
 export const toasterAppearances = appearances
 

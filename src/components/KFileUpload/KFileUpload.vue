@@ -95,7 +95,7 @@ import KInput from '@/components/KInput/KInput.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import { v1 as uuidv1 } from 'uuid'
-import { ButtonAppearance } from '@/types'
+import type { ButtonAppearance } from '@/types'
 
 export default defineComponent({
   name: 'KFileUpload',

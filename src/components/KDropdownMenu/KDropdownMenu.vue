@@ -76,7 +76,7 @@ import Kooltip from '@/components/KTooltip/KTooltip.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
 import KDropdownItem from './KDropdownItem.vue'
-import { ButtonAppearance } from '@/types'
+import type { ButtonAppearance } from '@/types'
 
 export interface DropdownItem {
   label: string

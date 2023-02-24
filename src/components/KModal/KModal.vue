@@ -103,7 +103,7 @@ import { defineComponent, computed, nextTick, onMounted, onUnmounted, ref, watch
 import { FocusTrap } from 'focus-trap-vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import { ButtonAppearance } from '@/types'
+import type { ButtonAppearance } from '@/types'
 
 export default defineComponent({
   name: 'KModal',

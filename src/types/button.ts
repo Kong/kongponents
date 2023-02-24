@@ -1,4 +1,4 @@
-import { Replace } from '@/types/utils'
+import type { Replace } from '@/types/utils'
 
 export type ButtonAppearance = 'primary' | 'secondary' | 'danger' | 'creation' | 'outline' | 'btn-link' | 'btn-link-danger' | 'action-active'
 export type ButtonAppearanceRecord = Record<Replace<ButtonAppearance, '-', ''>, ButtonAppearance>
