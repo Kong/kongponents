@@ -206,7 +206,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, computed, watch, PropType, nextTick } from 'vue'
+import { ref, Ref, computed, watch, PropType, nextTick, useAttrs } from 'vue'
 import { v1 as uuidv1 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KButton from '@/components/KButton/KButton.vue'
@@ -218,13 +218,8 @@ import KToggle from '@/components/KToggle'
 import KSelectItems from '@/components/KSelect/KSelectItems.vue'
 import KSelectItem from '@/components/KSelect/KSelectItem.vue'
 
-const { getSizeFromString } = useUtilities()
-
-const defaultKPopAttributes = {
-  popoverClasses: 'k-select-popover mt-0',
-  popoverTimeout: 0,
-  placement: 'bottomStart',
-  hideCaret: true,
+export default {
+  inheritAttrs: false,
 }
 
 export interface SelectItem {
@@ -243,435 +238,406 @@ export interface SelectFilterFnParams {
 
 export type DropdownFooterTextPosition = 'sticky' | 'static'
 
-export default defineComponent({
-  name: 'KSelect',
-  components: {
-    KButton,
-    KIcon,
-    KInput,
-    KLabel,
-    KPop,
-    KSelectItems,
-    KSelectItem,
-    KToggle,
+</script>
+
+<script setup lang="ts">
+const { getSizeFromString } = useUtilities()
+
+const defaultKPopAttributes = {
+  popoverClasses: 'k-select-popover mt-0',
+  popoverTimeout: 0,
+  placement: 'bottomStart',
+  hideCaret: true,
+}
+
+const props = defineProps({
+  modelValue: {
+    type: [String, Number],
+    default: '',
   },
-  inheritAttrs: false,
-  props: {
-    modelValue: {
-      type: [String, Number],
-      default: '',
-    },
-    kpopAttributes: {
-      type: Object,
-      default: () => ({
-        popoverClasses: '',
-      }),
-    },
-    dropdownMaxHeight: {
-      type: String,
-      default: '300',
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    overlayLabel: {
-      type: Boolean,
-      default: false,
-    },
-    labelAttributes: {
-      type: Object,
-      default: () => ({}),
-    },
-    /**
+  kpopAttributes: {
+    type: Object,
+    default: () => ({
+      popoverClasses: '',
+    }),
+  },
+  dropdownMaxHeight: {
+    type: String,
+    default: '300',
+  },
+  label: {
+    type: String,
+    default: '',
+  },
+  overlayLabel: {
+    type: Boolean,
+    default: false,
+  },
+  labelAttributes: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
      * The width of the select and popover's min-width
      */
-    width: {
-      type: String,
-      default: '',
-    },
-    placeholder: {
-      type: String,
-      default: '',
-    },
-    /**
+  width: {
+    type: String,
+    default: '',
+  },
+  placeholder: {
+    type: String,
+    default: '',
+  },
+  /**
      * The display style, can be either dropdown, select, or button
      */
-    appearance: {
-      type: String,
-      default: 'dropdown',
-      validator: (value: string) => ['dropdown', 'select', 'button'].includes(value),
-    },
-    /**
+  appearance: {
+    type: String,
+    default: 'dropdown',
+    validator: (value: string) => ['dropdown', 'select', 'button'].includes(value),
+  },
+  /**
      * Override the text displayed on the button if `appearance` is `button` after an item
      * has been selected. By default display the selected item's label
      */
-    buttonText: {
-      type: String,
-      default: '',
-    },
-    /**
+  buttonText: {
+    type: String,
+    default: '',
+  },
+  /**
      * Items are JSON objects with required 'label' and 'value'
      * {
      *  label: 'Item 1',
      *  value: 'item1'
      * }
      */
-    items: {
-      type: Array as PropType<SelectItem[]>,
-      required: false,
-      default: () => [],
-      // Items must have a label & value
-      validator: (items: SelectItem[]) => !items.length || items.every(i => i.label !== undefined && i.value !== undefined),
-    },
-    /**
+  items: {
+    type: Array as PropType<SelectItem[]>,
+    required: false,
+    default: () => [],
+    // Items must have a label & value
+    validator: (items: SelectItem[]) => !items.length || items.every(i => i.label !== undefined && i.value !== undefined),
+  },
+  /**
      * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
      */
-    positionFixed: {
-      type: Boolean,
-      default: true,
-    },
-    /**
+  positionFixed: {
+    type: Boolean,
+    default: true,
+  },
+  /**
      * Override default filter functionality of case-insensitive search on label
      */
-    filterFunc: {
-      type: Function,
-      default: (params: SelectFilterFnParams) => params.items.filter((item: SelectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase())),
-    },
-    /**
+  filterFunc: {
+    type: Function,
+    default: (params: SelectFilterFnParams) => params.items.filter((item: SelectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase())),
+  },
+  /**
      * Control whether the input for `select` and `dropdown` appearances supports filtering.
      */
-    enableFiltering: {
-      type: Boolean,
-      default: null,
-    },
-    /**
+  enableFiltering: {
+    type: Boolean,
+    default: null,
+  },
+  /**
      * A flag for autosuggest mode
      */
-    autosuggest: {
-      type: Boolean,
-      default: false,
-    },
-    /**
+  autosuggest: {
+    type: Boolean,
+    default: false,
+  },
+  /**
      * Loading state in autosuggest
      */
-    loading: {
-      type: Boolean,
-      default: false,
-    },
-    /**
+  loading: {
+    type: Boolean,
+    default: false,
+  },
+  /**
      * A flag for clearing selection when appearance is 'select'
      */
-    clearable: {
-      type: Boolean,
-      default: false,
-    },
-    /**
+  clearable: {
+    type: Boolean,
+    default: false,
+  },
+  /**
      * Test mode - for testing only, strips out generated ids
      */
-    testMode: {
-      type: Boolean,
-      default: false,
-    },
-    /**
+  testMode: {
+    type: Boolean,
+    default: false,
+  },
+  /**
      * Dropdown footer text
      */
-    dropdownFooterText: {
-      type: String,
-      default: '',
-    },
-    /**
+  dropdownFooterText: {
+    type: String,
+    default: '',
+  },
+  /**
      * Dropdown footer text position
      * Accepted values: 'sticky' and 'static'
      */
-    dropdownFooterTextPosition: {
-      type: String as PropType<DropdownFooterTextPosition>,
-      default: 'sticky',
-    },
+  dropdownFooterTextPosition: {
+    type: String as PropType<DropdownFooterTextPosition>,
+    default: 'sticky',
   },
-  emits: ['selected', 'input', 'change', 'update:modelValue', 'query-change'],
-  setup(props, { attrs, emit }) {
-    const filterStr = ref('')
-    const selectedItem = ref<SelectItem|null>(null)
-    const selectId = computed((): string => props.testMode ? 'test-select-id-1234' : uuidv1())
-    const selectInputId = computed((): string => props.testMode ? 'test-select-input-id-1234' : uuidv1())
-    const selectTextId = computed((): string => props.testMode ? 'test-select-text-id-1234' : uuidv1())
-    const selectItems: Ref<SelectItem[]> = ref([])
-    const initialFocusTriggered: Ref<boolean> = ref(false)
-    const inputFocused: Ref<boolean> = ref(false)
-    const popper = ref(null)
-    // we need this so we can create a watcher for programmatic changes to the modelValue
-    const value = computed({
-      get(): string | number {
-        return props.modelValue
-      },
-      set(newValue: string | number): void {
-        const item = selectItems.value.filter((item: SelectItem) => item.value === newValue)
-        if (item.length) {
-          handleItemSelect(item[0])
-        } else if (!newValue) {
-          clearSelection()
-        }
-      },
-    })
-    const filterIsEnabled = computed((): boolean => {
-      if (props.autosuggest) {
-        return true
-      }
-      if (props.enableFiltering !== null) {
-        // filtering not allowed for `button` appearance
-        return props.appearance === 'button' ? false : props.enableFiltering
-      }
+})
 
-      if (props.appearance === 'dropdown') {
-        return true
-      }
+const emit = defineEmits(['selected', 'input', 'change', 'update:modelValue', 'query-change'])
 
-      return false
-    })
+const attrs = useAttrs()
 
-    const widthValue = computed(() => {
-      let w = ''
-      if (!props.width) {
-        w = '205'
-        if (props.appearance === 'button') {
-          w = '230'
-        }
-      } else {
-        w = props.width
-      }
-
-      return getSizeFromString(w)
-    })
-
-    const widthStyle = computed(() => {
-      return {
-        width: widthValue.value,
-      }
-    })
-
-    const modifiedAttrs = computed(() => {
-      const $attrs = { ...attrs }
-
-      // delete classes because we bind them to the parent
-      delete $attrs.class
-
-      return $attrs
-    })
-
-    const createKPopAttributes = computed(() => {
-      return {
-        ...defaultKPopAttributes,
-        ...props.kpopAttributes,
-        popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses} k-select-pop-${props.appearance}`,
-        width: String(inputWidth.value),
-        maxWidth: String(inputWidth.value),
-        disabled: (attrs.disabled !== undefined && String(attrs.disabled) !== 'false') || (attrs.readonly !== undefined && String(attrs.readonly) !== 'false'),
-      }
-    })
-
-    // Calculate the `.k-popover-content` max-height
-    const popoverContentMaxHeight = computed((): string => getSizeFromString(props.dropdownMaxHeight))
-
-    // TypeScript complains if I bind the original object
-    const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
-
-    const filteredItems = computed(() => {
-      // For autosuggest, items don't need to be filtered internally
-      return props.autosuggest ? selectItems.value : props.filterFunc({ items: selectItems.value, query: filterStr.value })
-    })
-
-    const placeholderText = computed((): string => {
-      if (props.placeholder) {
-        return props.placeholder
-      } else if (attrs.placeholder) {
-        return attrs.placeholder as string
-      }
-      if (props.appearance === 'button' || !filterIsEnabled.value) {
-        return 'Select an item'
-      }
-      return 'Filter...'
-    })
-
-    const selectButtonText = computed((): string => {
-      if (props.buttonText && selectedItem.value) {
-        return props.buttonText
-      } else if (selectedItem.value) {
-        return selectedItem.value.label
-      }
-      return placeholderText.value
-    })
-
-    const isClearVisible = computed((): boolean => props.appearance === 'select' && props.clearable && !!selectedItem.value)
-
-    const onInputKeypress = (event: Event) => {
-      // If filters are not enabled, ignore any keypresses
-      if (!filterIsEnabled.value) {
-        event.preventDefault()
-        return false
-      }
-    }
-
-    const handleItemSelect = (item: SelectItem) => {
-      selectItems.value.forEach(anItem => {
-        if (anItem.key === item.key) {
-          anItem.selected = true
-          anItem.key = anItem?.key?.includes('-selected') ? anItem.key : `${anItem.key}-selected`
-          anItem.key += '-selected'
-          selectedItem.value = anItem
-        } else if (anItem.selected) {
-          anItem.selected = false
-          anItem.key = anItem?.key?.replace(/-selected/gi, '')
-        } else {
-          anItem.selected = false
-        }
-      })
-      filterStr.value = props.appearance === 'dropdown' ? '' : item.label
-      emit('selected', item)
-      // this 'input' event must be emitted for v-model binding to work properly
-      emit('input', item.value)
-      emit('change', item)
-      emit('update:modelValue', item.value)
-    }
-
-    const clearSelection = (): void => {
-      selectItems.value.forEach(anItem => {
-        anItem.selected = false
-        anItem.key = anItem?.key?.replace(/-selected/gi, '')
-      })
-      selectedItem.value = null
-      if (props.appearance === 'select') {
-        filterStr.value = ''
-      }
-      // this 'input' event must be emitted for v-model binding to work properly
-      emit('input', null)
-      emit('change', null)
-      emit('update:modelValue', null)
-    }
-
-    const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
-      // Ignore `esc` key
-      if (evt.keyCode === 27) {
-        isToggled.value = false
-        return
-      }
-
-      const inputElem = document.getElementById(selectTextId.value)
-      if (!isToggled.value && inputElem) { // simulate click to trigger dropdown open
-        inputElem.click()
-      }
-    }
-
-    const onQueryChange = (query: string) => {
-      filterStr.value = query
-      emit('query-change', query)
-    }
-
-    const onInputFocus = (): void => {
-      inputFocused.value = true
-      if (!initialFocusTriggered.value) {
-        initialFocusTriggered.value = true
-        emit('query-change', '')
-      }
-    }
-
-    const onInputBlur = (): void => {
-      inputFocused.value = false
-    }
-
-    watch(value, (newVal, oldVal) => {
-      if (newVal !== oldVal) {
-        const item = selectItems.value.filter((item: SelectItem) => item.value === newVal)
-        if (item.length) {
-          handleItemSelect(item[0])
-        } else if (!newVal) {
-          clearSelection()
-        }
-      }
-    })
-
-    watch(() => props.items, (newValue, oldValue) => {
-      // Only trigger the watcher if items actually change
-      if (JSON.stringify(newValue) === JSON.stringify(oldValue)) {
-        return
-      }
-
-      selectItems.value = JSON.parse(JSON.stringify(props.items))
-      for (let i = 0; i < selectItems.value.length; i++) {
-        // Ensure each item has a `selected` property
-        if (selectItems.value[i].selected === undefined) {
-          selectItems.value[i].selected = false
-        }
-
-        selectItems.value[i].key = `${selectItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}` || `k-select-item-label-${i}`
-        if (selectItems.value[i].value === props.modelValue || selectItems.value[i].selected) {
-          selectItems.value[i].selected = true
-          selectedItem.value = selectItems.value[i]
-          selectItems.value[i].key += '-selected'
-
-          if (props.appearance === 'select' && !inputFocused.value) {
-            filterStr.value = selectedItem.value.label
-          }
-        }
-
-        if (selectedItem.value?.value === selectItems.value[i].value) {
-          selectItems.value[i].selected = true
-        }
-      }
-
-      // Trigger an update to the popper element to cause the popover to redraw
-      // This prevents the popover from displaying "detached" from the KSelect
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      if (popper.value && typeof popper.value.updatePopper === 'function') {
-        nextTick(() => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          popper.value.updatePopper()
-        })
-      }
-    }, { deep: true, immediate: true })
-
-    const inputWidth = ref(0)
-
-    const onPopoverOpen = () => {
-      const inputElem = document.getElementById(selectInputId.value)
-
-      if (inputElem) {
-        inputWidth.value = inputElem.offsetWidth
-      }
-    }
-
-    return {
-      filterStr,
-      selectedItem,
-      selectId,
-      selectInputId,
-      selectTextId,
-      selectItems,
-      modifiedAttrs,
-      popper,
-      boundKPopAttributes,
-      popoverContentMaxHeight,
-      widthValue,
-      widthStyle,
-      filteredItems,
-      placeholderText,
-      selectButtonText,
-      isClearVisible,
-      handleItemSelect,
-      clearSelection,
-      triggerFocus,
-      inputWidth,
-      filterIsEnabled,
-      onInputKeypress,
-      onQueryChange,
-      onInputFocus,
-      onInputBlur,
-      onPopoverOpen,
+const filterStr = ref('')
+const selectedItem = ref<SelectItem|null>(null)
+const selectId = computed((): string => props.testMode ? 'test-select-id-1234' : uuidv1())
+const selectInputId = computed((): string => props.testMode ? 'test-select-input-id-1234' : uuidv1())
+const selectTextId = computed((): string => props.testMode ? 'test-select-text-id-1234' : uuidv1())
+const selectItems: Ref<SelectItem[]> = ref([])
+const initialFocusTriggered: Ref<boolean> = ref(false)
+const inputFocused: Ref<boolean> = ref(false)
+const popper = ref(null)
+// we need this so we can create a watcher for programmatic changes to the modelValue
+const value = computed({
+  get(): string | number {
+    return props.modelValue
+  },
+  set(newValue: string | number): void {
+    const item = selectItems.value.filter((item: SelectItem) => item.value === newValue)
+    if (item.length) {
+      handleItemSelect(item[0])
+    } else if (!newValue) {
+      clearSelection()
     }
   },
 })
+const filterIsEnabled = computed((): boolean => {
+  if (props.autosuggest) {
+    return true
+  }
+  if (props.enableFiltering !== null) {
+    // filtering not allowed for `button` appearance
+    return props.appearance === 'button' ? false : props.enableFiltering
+  }
+
+  if (props.appearance === 'dropdown') {
+    return true
+  }
+
+  return false
+})
+
+const widthValue = computed(() => {
+  let w = ''
+  if (!props.width) {
+    w = '205'
+    if (props.appearance === 'button') {
+      w = '230'
+    }
+  } else {
+    w = props.width
+  }
+
+  return getSizeFromString(w)
+})
+
+const widthStyle = computed(() => {
+  return {
+    width: widthValue.value,
+  }
+})
+
+const modifiedAttrs = computed(() => {
+  const $attrs = { ...attrs }
+
+  // delete classes because we bind them to the parent
+  delete $attrs.class
+
+  return $attrs
+})
+
+const createKPopAttributes = computed(() => {
+  return {
+    ...defaultKPopAttributes,
+    ...props.kpopAttributes,
+    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses} k-select-pop-${props.appearance}`,
+    width: String(inputWidth.value),
+    maxWidth: String(inputWidth.value),
+    disabled: (attrs.disabled !== undefined && String(attrs.disabled) !== 'false') || (attrs.readonly !== undefined && String(attrs.readonly) !== 'false'),
+  }
+})
+
+// Calculate the `.k-popover-content` max-height
+const popoverContentMaxHeight = computed((): string => getSizeFromString(props.dropdownMaxHeight))
+
+// TypeScript complains if I bind the original object
+const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
+
+const filteredItems = computed(() => {
+  // For autosuggest, items don't need to be filtered internally
+  return props.autosuggest ? selectItems.value : props.filterFunc({ items: selectItems.value, query: filterStr.value })
+})
+
+const placeholderText = computed((): string => {
+  if (props.placeholder) {
+    return props.placeholder
+  } else if (attrs.placeholder) {
+    return attrs.placeholder as string
+  }
+  if (props.appearance === 'button' || !filterIsEnabled.value) {
+    return 'Select an item'
+  }
+  return 'Filter...'
+})
+
+const selectButtonText = computed((): string => {
+  if (props.buttonText && selectedItem.value) {
+    return props.buttonText
+  } else if (selectedItem.value) {
+    return selectedItem.value.label
+  }
+  return placeholderText.value
+})
+
+const isClearVisible = computed((): boolean => props.appearance === 'select' && props.clearable && !!selectedItem.value)
+
+const onInputKeypress = (event: Event) => {
+  // If filters are not enabled, ignore any keypresses
+  if (!filterIsEnabled.value) {
+    event.preventDefault()
+    return false
+  }
+}
+
+const handleItemSelect = (item: SelectItem) => {
+  selectItems.value.forEach(anItem => {
+    if (anItem.key === item.key) {
+      anItem.selected = true
+      anItem.key = anItem?.key?.includes('-selected') ? anItem.key : `${anItem.key}-selected`
+      anItem.key += '-selected'
+      selectedItem.value = anItem
+    } else if (anItem.selected) {
+      anItem.selected = false
+      anItem.key = anItem?.key?.replace(/-selected/gi, '')
+    } else {
+      anItem.selected = false
+    }
+  })
+  filterStr.value = props.appearance === 'dropdown' ? '' : item.label
+  emit('selected', item)
+  // this 'input' event must be emitted for v-model binding to work properly
+  emit('input', item.value)
+  emit('change', item)
+  emit('update:modelValue', item.value)
+}
+
+const clearSelection = (): void => {
+  selectItems.value.forEach(anItem => {
+    anItem.selected = false
+    anItem.key = anItem?.key?.replace(/-selected/gi, '')
+  })
+  selectedItem.value = null
+  if (props.appearance === 'select') {
+    filterStr.value = ''
+  }
+  // this 'input' event must be emitted for v-model binding to work properly
+  emit('input', null)
+  emit('change', null)
+  emit('update:modelValue', null)
+}
+
+const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
+  // Ignore `esc` key
+  if (evt.keyCode === 27) {
+    isToggled.value = false
+    return
+  }
+
+  const inputElem = document.getElementById(selectTextId.value)
+  if (!isToggled.value && inputElem) { // simulate click to trigger dropdown open
+    inputElem.click()
+  }
+}
+
+const onQueryChange = (query: string) => {
+  filterStr.value = query
+  emit('query-change', query)
+}
+
+const onInputFocus = (): void => {
+  inputFocused.value = true
+  if (!initialFocusTriggered.value) {
+    initialFocusTriggered.value = true
+    emit('query-change', '')
+  }
+}
+
+const onInputBlur = (): void => {
+  inputFocused.value = false
+}
+
+watch(value, (newVal, oldVal) => {
+  if (newVal !== oldVal) {
+    const item = selectItems.value.filter((item: SelectItem) => item.value === newVal)
+    if (item.length) {
+      handleItemSelect(item[0])
+    } else if (!newVal) {
+      clearSelection()
+    }
+  }
+})
+
+watch(() => props.items, (newValue, oldValue) => {
+  // Only trigger the watcher if items actually change
+  if (JSON.stringify(newValue) === JSON.stringify(oldValue)) {
+    return
+  }
+
+  selectItems.value = JSON.parse(JSON.stringify(props.items))
+  for (let i = 0; i < selectItems.value.length; i++) {
+    // Ensure each item has a `selected` property
+    if (selectItems.value[i].selected === undefined) {
+      selectItems.value[i].selected = false
+    }
+
+    selectItems.value[i].key = `${selectItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}` || `k-select-item-label-${i}`
+    if (selectItems.value[i].value === props.modelValue || selectItems.value[i].selected) {
+      selectItems.value[i].selected = true
+      selectedItem.value = selectItems.value[i]
+      selectItems.value[i].key += '-selected'
+
+      if (props.appearance === 'select' && !inputFocused.value) {
+        filterStr.value = selectedItem.value.label
+      }
+    }
+
+    if (selectedItem.value?.value === selectItems.value[i].value) {
+      selectItems.value[i].selected = true
+    }
+  }
+
+  // Trigger an update to the popper element to cause the popover to redraw
+  // This prevents the popover from displaying "detached" from the KSelect
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  if (popper.value && typeof popper.value.updatePopper === 'function') {
+    nextTick(() => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      popper.value.updatePopper()
+    })
+  }
+}, { deep: true, immediate: true })
+
+const inputWidth = ref(0)
+
+const onPopoverOpen = () => {
+  const inputElem = document.getElementById(selectInputId.value)
+
+  if (inputElem) {
+    inputWidth.value = inputElem.offsetWidth
+  }
+}
 </script>
 
 <style lang="scss" scoped>
