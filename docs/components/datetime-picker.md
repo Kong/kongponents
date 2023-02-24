@@ -17,6 +17,7 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
 <ClientOnly>
   <KDateTimePicker
     v-model="currentValue0"
+    clear-button
     placeholder="Please select a date"
     mode="date"
     width="250"
@@ -30,6 +31,7 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
   v-model="currentValue"
   @change="newVal => emitVal = newVal"
   :range="false"
+  clear-button
   placeholder="Please select a date"
   mode="date"
   width="250"
@@ -43,6 +45,7 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
 <ClientOnly>
   <KDateTimePicker
     v-model="currentValue1"
+    clear-button
     placeholder="Please select a date and time"
     mode="dateTime"
     :minute-increment="5"
@@ -55,6 +58,7 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
 <KDateTimePicker
   v-model="currentValue"
   @change="newVal => emitVal = newVal"
+  clear-button
   placeholder="Please select a date and time"
   mode="dateTime"
   :minute-increment="5"
@@ -69,6 +73,7 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 <ClientOnly>
   <KDateTimePicker
     v-model="currentValue2"
+    clear-button
     placeholder="Please select a date range"
     mode="date"
     :range="true"
@@ -80,6 +85,7 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 <KDateTimePicker
   v-model="currentValue"
   @change="newVal => emitVal = newVal"
+  clear-button
   placeholder="Please select a date range"
   mode="date"
   :range="true"
@@ -93,6 +99,7 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 <ClientOnly>
   <KDateTimePicker
     v-model="currentValue3"
+    clear-button
     placeholder="Please select a date and time"
     mode="dateTime"
     :minute-increment="5"
@@ -105,6 +112,7 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 <KDateTimePicker
   v-model="currentValue"
   @change="newVal => emitVal = newVal"
+  clear-button
   placeholder="Please select a date and time"
   mode="dateTime"
   :minute-increment="5"
@@ -331,6 +339,12 @@ currentValue = {
   end: today
 }
 ```
+
+### clearButton
+
+A `Boolean` to show/hide the Clear button.
+
+**default**: `false`
 
 ### icon
 
