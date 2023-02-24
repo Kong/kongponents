@@ -149,12 +149,23 @@
               :model-value="filterStr"
               :overlay-label="overlayLabel"
               :placeholder="selectedItem && appearance === 'select' && !filterIsEnabled ? selectedItem.label : placeholderText"
+              :type="$slots['selected-item'] ? 'hidden' : ''"
               @blur="onInputBlur"
               @focus="onInputFocus"
               @keypress="onInputKeypress"
               @keyup="(evt: any) => triggerFocus(evt, isToggled)"
               @update:model-value="onQueryChange"
             />
+            <div
+              v-if="$slots['selected-item']"
+              class="d-inline-flex w-100 custom-selected-item"
+              tabindex="0"
+            >
+              <slot
+                :item="selectedItem"
+                name="selected-item"
+              />
+            </div>
           </div>
           <template #content>
             <slot
@@ -703,6 +714,8 @@ const onPopoverOpen = () => {
   overflow-y: auto;
 }
 
+$kSelectChevronIconMarginRight: 10px;
+
 .k-select {
   .k-select-selected-item-label {
     align-self: center;
@@ -762,7 +775,7 @@ const onPopoverOpen = () => {
     }
 
     .kong-icon-chevronDown {
-      margin-right: 10px;
+      margin-right: $kSelectChevronIconMarginRight;
     }
 
     &.cursor-default {
@@ -808,6 +821,11 @@ const onPopoverOpen = () => {
         position: static;
         transform: none;
       }
+    }
+
+    .custom-selected-item {
+      flex: 0 0 calc(100% - (var(--spacing-md, spacing(md)) + $kSelectChevronIconMarginRight));
+      padding: 10px var(--spacing-md, spacing(md));
     }
   }
 
