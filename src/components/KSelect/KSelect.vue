@@ -21,11 +21,16 @@
         class="k-select-item-selection px-3 py-1"
         :class="{ 'overlay-label-item-selection': overlayLabel }"
       >
-        <div
-          class="selected-item-label"
+        <slot
+          :item="selectedItem"
+          name="selected-item"
         >
-          {{ selectedItem.label }}
-        </div>
+          <div
+            class="k-select-selected-item-label"
+          >
+            {{ selectedItem.label }}
+          </div>
+        </slot>
         <button
           class="clear-selection-icon cursor-pointer non-visual-button"
           @click="clearSelection"
@@ -81,7 +86,7 @@
             >
               <slot
                 :item="selectedItem"
-                name="button-text"
+                name="selected-item"
               >
                 {{ selectButtonText }}
               </slot>
@@ -415,6 +420,7 @@ const filterIsEnabled = computed((): boolean => {
   if (props.autosuggest) {
     return true
   }
+
   if (props.enableFiltering !== null) {
     // filtering not allowed for `button` appearance
     return props.appearance === 'button' ? false : props.enableFiltering
@@ -659,12 +665,6 @@ const onPopoverOpen = () => {
       top: -8px;
     }
 
-    .selected-item-label {
-      align-self: center;
-      font-size: 14px;
-      line-height: 16px;
-    }
-
     .clear-selection-icon {
       height: 24px;
       margin-bottom: auto;
@@ -704,6 +704,12 @@ const onPopoverOpen = () => {
 }
 
 .k-select {
+  .k-select-selected-item-label {
+    align-self: center;
+    font-size: 14px;
+    line-height: 16px;
+  }
+
   .k-select-item-selection {
     .clear-selection-icon {
       .kong-icon {
