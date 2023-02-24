@@ -62,6 +62,22 @@ describe('KDateTimePicker', () => {
 
     cy.getTestId(timepickerInput).should('exist')
     cy.getTestId(timepickerInput).find('.kong-icon').should('not.exist')
+    cy.getTestId(clearButton).should('not.exist')
+  })
+
+  it('renders with clear button', () => {
+    mount(KDateTimePicker, {
+      props: {
+        mode: 'date',
+        modelValue: today,
+        clearButton: true,
+        range: false,
+        icon: false,
+      },
+    })
+
+    cy.getTestId(timepickerInput).should('exist')
+    cy.getTestId(clearButton).should('exist')
   })
 
   it('renders a single date picker with placeholder message and correct width', () => {
@@ -73,6 +89,7 @@ describe('KDateTimePicker', () => {
         mode: 'date',
         modelValue: today,
         placeholder: placeholderText,
+        clearButton: true,
         range: false,
         width: width + '',
       },
@@ -142,6 +159,7 @@ describe('KDateTimePicker', () => {
     mount(KDateTimePicker, {
       props: {
         mode: 'date',
+        clearButton: true,
         modelValue: today,
         range: false,
       },
@@ -159,6 +177,7 @@ describe('KDateTimePicker', () => {
       props: {
         mode: 'date',
         modelValue: today,
+        clearButton: true,
         range: false,
       },
     })
