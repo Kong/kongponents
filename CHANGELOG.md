@@ -1,3 +1,10 @@
+## [8.29.1](https://github.com/Kong/kongponents/compare/v8.29.0...v8.29.1) (2023-02-24)
+
+
+### Bug Fixes
+
+* **kselect:** remove scrollbar when the last item is selected ([#1151](https://github.com/Kong/kongponents/issues/1151)) ([4134a00](https://github.com/Kong/kongponents/commit/4134a00f1d1900ef6e52d8d5cdce2372e38e1004))
+
 # [8.29.0](https://github.com/Kong/kongponents/compare/v8.28.1...v8.29.0) (2023-02-22)
 
 
