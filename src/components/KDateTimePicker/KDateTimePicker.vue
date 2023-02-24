@@ -302,8 +302,6 @@ export default defineComponent({
   },
   emits: ['change', 'update:modelValue'],
   setup(props, { emit }) {
-    console.log(props.clearButton)
-
     // https://vcalendar.io/datepicker.html#model-config
     const modelConfig = { type: 'number' }
     const calendarSelectAttributes = {
