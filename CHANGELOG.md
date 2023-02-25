@@ -1,3 +1,10 @@
+## [8.29.2](https://github.com/Kong/kongponents/compare/v8.29.1...v8.29.2) (2023-02-25)
+
+
+### Bug Fixes
+
+* **datetimepicker:** allow hiding of clear button [MA-1410] ([#1153](https://github.com/Kong/kongponents/issues/1153)) ([b94fcab](https://github.com/Kong/kongponents/commit/b94fcab181454b25f4cf1c73c84174c41fc6d269))
+
 ## [8.29.1](https://github.com/Kong/kongponents/compare/v8.29.0...v8.29.1) (2023-02-24)
 
 
