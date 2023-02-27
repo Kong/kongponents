@@ -23,7 +23,7 @@
       >
         <slot
           :item="selectedItem"
-          name="selected-item"
+          name="selected-item-template"
         >
           <div
             class="k-select-selected-item-label"
@@ -86,7 +86,7 @@
             >
               <slot
                 :item="selectedItem"
-                name="selected-item"
+                name="selected-item-template"
               >
                 {{ selectButtonText }}
               </slot>
@@ -141,7 +141,7 @@
               :class="{
                 'cursor-default prevent-pointer-events': !filterIsEnabled,
                 'input-placeholder-dark has-chevron': appearance === 'select',
-                'input-placeholder-transparent': appearance === 'select' && $slots['selected-item'] && (!filterIsEnabled || !isToggled.value),
+                'input-placeholder-transparent': appearance === 'select' && $slots['selected-item-template'] && (!filterIsEnabled || !isToggled.value),
                 'has-clear': isClearVisible,
                 'is-readonly': ($attrs.readonly !== undefined && String($attrs.readonly) !== 'false'),
                 'disabled': ($attrs.disabled !== undefined && String($attrs.disabled) !== 'false')
@@ -158,12 +158,12 @@
             />
             <transition name="fade">
               <div
-                v-if="appearance === 'select' && $slots['selected-item'] && (!filterIsEnabled || !isToggled.value)"
+                v-if="appearance === 'select' && $slots['selected-item-template'] && (!filterIsEnabled || !isToggled.value)"
                 class="d-inline-flex w-100 custom-selected-item"
               >
                 <slot
                   :item="selectedItem"
-                  name="selected-item"
+                  name="selected-item-template"
                 />
               </div>
             </transition>

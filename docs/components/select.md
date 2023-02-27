@@ -540,7 +540,7 @@ You can pass any input attribute and it will get properly bound to the element.
 ## Slots
 
 - `item-template` - The template for each item in the dropdown list
-- `selected-item` - Slot for customizing selected item appearance
+- `selected-item-template` - Slot for customizing selected item appearance
 - `loading` - Slot for the loading indicator
 - `empty` - Slot for the empty state in the dropdown list
 - `dropdown-footer-text` - Slot for footer text in the bottom of the dropdown
@@ -603,7 +603,7 @@ export default defineComponent({
 </script>
 ```
 
-### Selected Item
+### Selected Item Template
 
 Use this slot to customize appearance of selected item.
 
@@ -613,7 +613,7 @@ You can use the `.k-select-selected-item-label` class within the slot as shown i
 
 <ClientOnly>
   <KSelect autosuggest :items="deepClone(defaultItems)">
-    <template #selected-item="{ item }">
+    <template #selected-item-template="{ item }">
       <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
       <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
       <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
@@ -632,7 +632,7 @@ You can use the `.k-select-selected-item-label` class within the slot as shown i
 
 ```html
 <KSelect autosuggest :items="items">
-  <template #selected-item="{ item }">
+  <template #selected-item-template="{ item }">
     <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
     <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
     <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>

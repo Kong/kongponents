@@ -375,14 +375,14 @@ describe('KSelect', () => {
         }],
       },
       slots: {
-        'selected-item': selectedItemContent,
+        'selected-item-template': selectedItemContent,
       },
     })
 
     cy.get('.k-select-item-selection').should('contain.text', selectedItemContent)
   })
 
-  it.only('displays placeholder correctly when selected item slot is present', async () => {
+  it('displays placeholder correctly when selected item slot is present', async () => {
     const selectedItemContent = 'I am slotted baby!'
     const placeholderText = 'Placeholder text'
     const itemLabel = 'Label 1'
@@ -401,7 +401,7 @@ describe('KSelect', () => {
         }],
       },
       slots: {
-        'selected-item': selectedItemContent,
+        'selected-item-template': selectedItemContent,
       },
     })
 
