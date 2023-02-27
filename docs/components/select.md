@@ -540,6 +540,7 @@ You can pass any input attribute and it will get properly bound to the element.
 ## Slots
 
 - `item-template` - The template for each item in the dropdown list
+- `selected-item-template` - Slot for customizing selected item appearance
 - `loading` - Slot for the loading indicator
 - `empty` - Slot for the empty state in the dropdown list
 - `dropdown-footer-text` - Slot for footer text in the bottom of the dropdown
@@ -600,6 +601,52 @@ export default defineComponent({
   }
 })
 </script>
+```
+
+### Selected Item Template
+
+Use this slot to customize appearance of the selected item that appears when the `KSelect` dropdown is not activated.
+
+::: tip TIP
+You can use the `.k-select-selected-item-label` class within the slot to leverage preconfigured styles for selected item title which you're then free to customize.
+:::
+
+<ClientOnly>
+  <KSelect appearance="select" autosuggest :items="deepClone(defaultItems)">
+    <template #selected-item-template="{ item }">
+      <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
+      <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
+      <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
+      <span class="k-select-selected-item-label">{{ item?.label }}</span>
+    </template>
+    <template #item-template="{ item }">
+      <div class="d-inline-flex">
+        <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
+        <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
+        <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
+        <div class="select-item-label">{{ item.label }}</div>
+      </div>
+    </template>
+  </KSelect>
+</ClientOnly>
+
+```html
+<KSelect appearance="select" autosuggest :items="items">
+  <template #selected-item-template="{ item }">
+    <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
+    <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
+    <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
+    <span class="k-select-selected-item-label">{{ item?.label }}</span>
+  </template>
+  <template #item-template="{ item }">
+    <div class="d-inline-flex">
+      <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
+      <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
+      <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
+      <div class="select-item-label">{{ item.label }}</div>
+    </div>
+  </template>
+</KSelect>
 ```
 
 ### Loading
