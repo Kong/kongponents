@@ -156,15 +156,17 @@
               @keyup="(evt: any) => triggerFocus(evt, isToggled)"
               @update:model-value="onQueryChange"
             />
-            <div
-              v-if="$slots['selected-item'] && (!filterIsEnabled || !isToggled.value)"
-              class="d-inline-flex w-100 custom-selected-item"
-            >
-              <slot
-                :item="selectedItem"
-                name="selected-item"
-              />
-            </div>
+            <transition name="fade">
+              <div
+                v-if="$slots['selected-item'] && (!filterIsEnabled || !isToggled.value)"
+                class="d-inline-flex w-100 custom-selected-item"
+              >
+                <slot
+                  :item="selectedItem"
+                  name="selected-item"
+                />
+              </div>
+            </transition>
           </div>
           <template #content>
             <slot
@@ -793,10 +795,10 @@ const onPopoverOpen = () => {
 
     &.input-placeholder-transparent {
       input {
-        color: transparent;
+        color: transparent !important;
 
         &::placeholder {
-          color: transparent;
+          color: transparent !important;
         }
       }
     }
