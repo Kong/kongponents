@@ -51,7 +51,7 @@ describe('KSelect', () => {
       },
     })
 
-    cy.get('.selected-item-label').should('contain.text', selectedLabel)
+    cy.get('.k-select-selected-item-label').should('contain.text', selectedLabel)
   })
 
   it('renders with disabled item', () => {
@@ -178,7 +178,7 @@ describe('KSelect', () => {
     cy.getTestId(`k-select-item-${vals[1]}`).should('not.be.visible')
 
     cy.getTestId(`k-select-item-${vals[0]}`).eq(1).click({ force: true })
-    cy.get('.selected-item-label').should('contain.text', labels[0])
+    cy.get('.k-select-selected-item-label').should('contain.text', labels[0])
   })
 
   it('ignores clicks on disabled item', () => {
@@ -202,7 +202,7 @@ describe('KSelect', () => {
     cy.getTestId('k-select-input').click()
 
     cy.getTestId(`k-select-item-${vals[0]}`).eq(1).click({ force: true })
-    cy.get('.selected-item-label').should('not.exist')
+    cy.get('.k-select-selected-item-label').should('not.exist')
   })
 
   it('allows slotting content into the items', async () => {
@@ -358,5 +358,56 @@ describe('KSelect', () => {
     cy.get('.k-select-item').eq(2).should('contain.text', items[3].label)
     cy.get('.k-select-item').eq(3).should('contain.text', items[2].label)
     cy.get('.k-select-item').eq(4).should('contain.text', items[4].label)
+  })
+
+  it('allows slotting selected item content', async () => {
+    const selectedItemContent = 'I am slotted baby!'
+    const itemLabel = 'Label 1'
+    const itemValue = 'label1'
+
+    mount(KSelect, {
+      props: {
+        testMode: true,
+        items: [{
+          label: itemLabel,
+          value: itemValue,
+          selected: true,
+        }],
+      },
+      slots: {
+        'selected-item': selectedItemContent,
+      },
+    })
+
+    cy.get('.k-select-item-selection').should('contain.text', selectedItemContent)
+  })
+
+  it.only('displays placeholder correctly when selected item slot is present', async () => {
+    const selectedItemContent = 'I am slotted baby!'
+    const placeholderText = 'Placeholder text'
+    const itemLabel = 'Label 1'
+    const itemValue = 'label1'
+
+    mount(KSelect, {
+      props: {
+        testMode: true,
+        placeholder: placeholderText,
+        appearance: 'select',
+        autosuggest: true,
+        items: [{
+          label: itemLabel,
+          value: itemValue,
+          selected: true,
+        }],
+      },
+      slots: {
+        'selected-item': selectedItemContent,
+      },
+    })
+
+    cy.get('.k-select-input').should('contain.text', selectedItemContent)
+    cy.getTestId('k-select-input').trigger('click')
+    cy.get('.custom-selected-item').should('not.exist')
+    cy.get('input').invoke('attr', 'placeholder').should('contain', placeholderText)
   })
 })
