@@ -608,11 +608,11 @@ export default defineComponent({
 Use this slot to customize appearance of the selected item that appears when the `KSelect` dropdown is not activated.
 
 ::: tip TIP
-You can use the `.k-select-selected-item-label` class within the slot as shown in the example below to leverage preconfigured styles for selected item title which you're then free to customize.
+You can use the `.k-select-selected-item-label` class within the slot to leverage preconfigured styles for selected item title which you're then free to customize.
 :::
 
 <ClientOnly>
-  <KSelect autosuggest :items="deepClone(defaultItems)">
+  <KSelect appearance="select" autosuggest :items="deepClone(defaultItems)">
     <template #selected-item-template="{ item }">
       <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
       <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
@@ -631,7 +631,7 @@ You can use the `.k-select-selected-item-label` class within the slot as shown i
 </ClientOnly>
 
 ```html
-<KSelect autosuggest :items="items">
+<KSelect appearance="select" autosuggest :items="items">
   <template #selected-item-template="{ item }">
     <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
     <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
