@@ -540,10 +540,10 @@ You can pass any input attribute and it will get properly bound to the element.
 ## Slots
 
 - `item-template` - The template for each item in the dropdown list
+- `selected-item` - Slot for customizing selected item appearance
 - `loading` - Slot for the loading indicator
 - `empty` - Slot for the empty state in the dropdown list
 - `dropdown-footer-text` - Slot for footer text in the bottom of the dropdown
-- `button-text` - Slot for customizing KSelect button appearance
 
 ### Item Template
 You can use the `item-template` slot to customize the look and feel of your items. Use slots to gain access to the `item` data.
@@ -603,6 +603,52 @@ export default defineComponent({
 </script>
 ```
 
+### Selected Item
+
+Use this slot to customize appearance of selected item.
+
+::: tip TIP
+You can use the `.k-select-selected-item-label` class within the slot as shown in the example below to leverage preconfigured styles for selected item title which you're then free to customize.
+:::
+
+<ClientOnly>
+  <KSelect autosuggest :items="deepClone(defaultItems)">
+    <template #selected-item="{ item }">
+      <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
+      <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
+      <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
+      <span class="k-select-selected-item-label">{{ item.label }}</span>
+    </template>
+    <template #item-template="{ item }">
+      <div class="d-inline-flex">
+        <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
+        <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
+        <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
+        <div class="select-item-label">{{ item.label }}</div>
+      </div>
+    </template>
+  </KSelect>
+</ClientOnly>
+
+```html
+<KSelect autosuggest :items="items">
+  <template #selected-item="{ item }">
+    <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
+    <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
+    <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
+    {{ item.label }}
+  </template>
+  <template #item-template="{ item }">
+    <div class="d-inline-flex">
+      <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
+      <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
+      <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
+      <div class="select-item-label">{{ item.label }}</div>
+    </div>
+  </template>
+</KSelect>
+```
+
 ### Loading
 
 You can use the `loading` slot to customize the loading indicator. Note that this only applies when `autoggest` is `true`. See [autosuggest](#autosuggest) for an example of this slot.
@@ -627,48 +673,6 @@ Slot the content of the dropdown footer text. This slot will override the `dropd
 <KSelect dropdown-footer-text="I am replaceable" :items="items">
   <template #dropdown-footer-text>
     Come as you are
-  </template>
-</KSelect>
-```
-
-### Button Text
-
-Use this slot to overwrite `buttonText` prop, should you need to further customize KSelect button.
-
-<ClientOnly>
-  <KSelect appearance="button" button-text="I am overwritten" :items="deepClone(defaultItems)">
-    <template #button-text="{ item }">
-      <span class="mr-1" v-if="item.value === 'cats'">🐈</span>
-      <span class="mr-1" v-if="item.value === 'dogs'">🐕</span>
-      <span class="mr-1" v-if="item.value === 'bunnies'">🐇</span>
-      {{ item.label }}
-    </template>
-    <template #item-template="{ item }">
-      <div class="d-inline-flex">
-        <span class="mr-1" v-if="item.value === 'cats'">🐈</span>
-        <span class="mr-1" v-if="item.value === 'dogs'">🐕</span>
-        <span class="mr-1" v-if="item.value === 'bunnies'">🐇</span>
-        <div class="select-item-label">{{ item.label }}</div>
-      </div>
-    </template>
-  </KSelect>
-</ClientOnly>
-
-```html
-<KSelect appearance="button" button-text="I am overwritten" :items="items">
-  <template #button-text="{ item }">
-    <span class="mr-1" v-if="item.value === 'cats'">🐈</span>
-    <span class="mr-1" v-if="item.value === 'dogs'">🐕</span>
-    <span class="mr-1" v-if="item.value === 'bunnies'">🐇</span>
-    {{ item.label }}
-  </template>
-  <template #item-template="{ item }">
-    <div class="d-inline-flex">
-      <span class="mr-1" v-if="item.value === 'cats'">🐈</span>
-      <span class="mr-1" v-if="item.value === 'dogs'">🐕</span>
-      <span class="mr-1" v-if="item.value === 'bunnies'">🐇</span>
-      <div class="select-item-label">{{ item.label }}</div>
-    </div>
   </template>
 </KSelect>
 ```
