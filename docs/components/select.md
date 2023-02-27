@@ -605,7 +605,7 @@ export default defineComponent({
 
 ### Selected Item Template
 
-Use this slot to customize appearance of selected item.
+Use this slot to customize appearance of the selected item that appears when the `KSelect` dropdown is not activated.
 
 ::: tip TIP
 You can use the `.k-select-selected-item-label` class within the slot as shown in the example below to leverage preconfigured styles for selected item title which you're then free to customize.
