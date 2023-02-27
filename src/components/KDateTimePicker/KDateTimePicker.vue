@@ -107,6 +107,7 @@
       >
         <div class="d-flex justify-content-end">
           <KButton
+            v-if="clearButton"
             appearance="btn-link"
             class="action-btn"
             data-testid="k-datetime-picker-clear"
@@ -189,6 +190,11 @@ export default defineComponent({
     DatePicker,
   },
   props: {
+    clearButton: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     icon: {
       type: Boolean,
       required: false,
