@@ -141,7 +141,7 @@
               :class="{
                 'cursor-default prevent-pointer-events': !filterIsEnabled,
                 'input-placeholder-dark has-chevron': appearance === 'select',
-                'input-placeholder-transparent': $slots['selected-item'] && (!filterIsEnabled || !isToggled.value),
+                'input-placeholder-transparent': appearance === 'select' && $slots['selected-item'] && (!filterIsEnabled || !isToggled.value),
                 'has-clear': isClearVisible,
                 'is-readonly': ($attrs.readonly !== undefined && String($attrs.readonly) !== 'false'),
                 'disabled': ($attrs.disabled !== undefined && String($attrs.disabled) !== 'false')
@@ -158,7 +158,7 @@
             />
             <transition name="fade">
               <div
-                v-if="$slots['selected-item'] && (!filterIsEnabled || !isToggled.value)"
+                v-if="appearance === 'select' && $slots['selected-item'] && (!filterIsEnabled || !isToggled.value)"
                 class="d-inline-flex w-100 custom-selected-item"
               >
                 <slot
