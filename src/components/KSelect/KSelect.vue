@@ -141,6 +141,7 @@
               :class="{
                 'cursor-default prevent-pointer-events': !filterIsEnabled,
                 'input-placeholder-dark has-chevron': appearance === 'select',
+                'input-placeholder-transparent': $slots['selected-item'] && (!filterIsEnabled || !isToggled.value),
                 'has-clear': isClearVisible,
                 'is-readonly': ($attrs.readonly !== undefined && String($attrs.readonly) !== 'false'),
                 'disabled': ($attrs.disabled !== undefined && String($attrs.disabled) !== 'false')
@@ -149,7 +150,6 @@
               :model-value="filterStr"
               :overlay-label="overlayLabel"
               :placeholder="selectedItem && appearance === 'select' && !filterIsEnabled ? selectedItem.label : placeholderText"
-              :type="$slots['selected-item'] ? 'hidden' : ''"
               @blur="onInputBlur"
               @focus="onInputFocus"
               @keypress="onInputKeypress"
@@ -157,9 +157,8 @@
               @update:model-value="onQueryChange"
             />
             <div
-              v-if="$slots['selected-item']"
+              v-if="$slots['selected-item'] && (!filterIsEnabled || !isToggled.value)"
               class="d-inline-flex w-100 custom-selected-item"
-              tabindex="0"
             >
               <slot
                 :item="selectedItem"
@@ -714,8 +713,6 @@ const onPopoverOpen = () => {
   overflow-y: auto;
 }
 
-$kSelectChevronIconMarginRight: 10px;
-
 .k-select {
   .k-select-selected-item-label {
     align-self: center;
@@ -775,7 +772,7 @@ $kSelectChevronIconMarginRight: 10px;
     }
 
     .kong-icon-chevronDown {
-      margin-right: $kSelectChevronIconMarginRight;
+      margin-right: 10px;
     }
 
     &.cursor-default {
@@ -786,8 +783,22 @@ $kSelectChevronIconMarginRight: 10px;
       pointer-events: none;
     }
 
-    &.input-placeholder-dark::placeholder {
-      color: var(--KInputColor, var(--black-70, rgba(0, 0, 0, 0.7))) !important;
+    &.input-placeholder-dark {
+      input {
+        &::placeholder {
+          color: var(--KInputColor, var(--black-70, rgba(0, 0, 0, 0.7))) !important;
+        }
+      }
+    }
+
+    &.input-placeholder-transparent {
+      input {
+        color: transparent;
+
+        &::placeholder {
+          color: transparent;
+        }
+      }
     }
 
     .k-input.has-chevron {
@@ -824,8 +835,9 @@ $kSelectChevronIconMarginRight: 10px;
     }
 
     .custom-selected-item {
-      flex: 0 0 calc(100% - (var(--spacing-md, spacing(md)) + $kSelectChevronIconMarginRight));
       padding: 10px var(--spacing-md, spacing(md));
+      pointer-events: none;
+      position: absolute;
     }
   }
 
