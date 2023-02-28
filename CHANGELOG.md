@@ -1,3 +1,10 @@
+## [8.30.1](https://github.com/Kong/kongponents/compare/v8.30.0...v8.30.1) (2023-02-28)
+
+
+### Bug Fixes
+
+* **kmenu:** divider style ([#1161](https://github.com/Kong/kongponents/issues/1161)) ([fae9635](https://github.com/Kong/kongponents/commit/fae9635f2d6c3f8e874ee722066d1e38543bd76d))
+
 # [8.30.0](https://github.com/Kong/kongponents/compare/v8.29.2...v8.30.0) (2023-02-28)
 
 
