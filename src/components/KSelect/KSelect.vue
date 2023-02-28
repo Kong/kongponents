@@ -141,7 +141,7 @@
               :class="{
                 'cursor-default prevent-pointer-events': !filterIsEnabled,
                 'input-placeholder-dark has-chevron': appearance === 'select',
-                'input-placeholder-transparent': hasCustomSelectedItemSlot && (!filterIsEnabled || !isToggled.value),
+                'input-placeholder-transparent': hasCustomSelectedItem && (!filterIsEnabled || !isToggled.value),
                 'has-clear': isClearVisible,
                 'is-readonly': ($attrs.readonly !== undefined && String($attrs.readonly) !== 'false'),
                 'disabled': ($attrs.disabled !== undefined && String($attrs.disabled) !== 'false')
@@ -158,7 +158,7 @@
             />
             <transition name="fade">
               <div
-                v-if="hasCustomSelectedItemSlot && (!filterIsEnabled || !isToggled.value)"
+                v-if="hasCustomSelectedItem && (!filterIsEnabled || !isToggled.value)"
                 class="d-inline-flex w-100 custom-selected-item"
               >
                 <slot
@@ -534,7 +534,7 @@ const selectButtonText = computed((): string => {
 
 const isClearVisible = computed((): boolean => props.appearance === 'select' && props.clearable && !!selectedItem.value)
 
-const hasCustomSelectedItemSlot = computed((): boolean => !!(selectedItem.value && props.appearance === 'select' && (slots['selected-item-template'] || (props.reuseItemTemplate && slots['item-template']))))
+const hasCustomSelectedItem = computed((): boolean => !!(selectedItem.value && props.appearance === 'select' && (slots['selected-item-template'] || (props.reuseItemTemplate && slots['item-template']))))
 
 const onInputKeypress = (event: Event) => {
   // If filters are not enabled, ignore any keypresses
