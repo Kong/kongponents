@@ -141,7 +141,7 @@
               :class="{
                 'cursor-default prevent-pointer-events': !filterIsEnabled,
                 'input-placeholder-dark has-chevron': appearance === 'select',
-                'input-placeholder-transparent': appearance === 'select' && $slots['selected-item-template'] && (!filterIsEnabled || !isToggled.value),
+                'input-placeholder-transparent': hasCustomSelectedItemSlot && (!filterIsEnabled || !isToggled.value),
                 'has-clear': isClearVisible,
                 'is-readonly': ($attrs.readonly !== undefined && String($attrs.readonly) !== 'false'),
                 'disabled': ($attrs.disabled !== undefined && String($attrs.disabled) !== 'false')
@@ -158,13 +158,19 @@
             />
             <transition name="fade">
               <div
-                v-if="appearance === 'select' && $slots['selected-item-template'] && (!filterIsEnabled || !isToggled.value)"
+                v-if="hasCustomSelectedItemSlot && (!filterIsEnabled || !isToggled.value)"
                 class="d-inline-flex w-100 custom-selected-item"
               >
                 <slot
                   :item="selectedItem"
                   name="selected-item-template"
-                />
+                >
+                  <slot
+                    class="select-item-label select-item-desc"
+                    :item="selectedItem"
+                    name="item-template"
+                  />
+                </slot>
               </div>
             </transition>
           </div>
@@ -223,7 +229,7 @@
 </template>
 
 <script lang="ts">
-import { ref, Ref, computed, watch, PropType, nextTick, useAttrs } from 'vue'
+import { ref, Ref, computed, watch, PropType, nextTick, useAttrs, useSlots } from 'vue'
 import { v1 as uuidv1 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KButton from '@/components/KButton/KButton.vue'
@@ -399,11 +405,16 @@ const props = defineProps({
     type: String as PropType<DropdownFooterTextPosition>,
     default: 'sticky',
   },
+  reuseItemTemplate: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits(['selected', 'input', 'change', 'update:modelValue', 'query-change'])
 
 const attrs = useAttrs()
+const slots = useSlots()
 
 const filterStr = ref('')
 const selectedItem = ref<SelectItem|null>(null)
@@ -518,6 +529,8 @@ const selectButtonText = computed((): string => {
 })
 
 const isClearVisible = computed((): boolean => props.appearance === 'select' && props.clearable && !!selectedItem.value)
+
+const hasCustomSelectedItemSlot = computed((): boolean => !!(selectedItem.value && props.appearance === 'select' && (slots['selected-item-template'] || (props.reuseItemTemplate && slots['item-template']))))
 
 const onInputKeypress = (event: Event) => {
   // If filters are not enabled, ignore any keypresses
