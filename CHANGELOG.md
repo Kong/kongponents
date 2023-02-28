@@ -1,3 +1,10 @@
+# [8.30.0](https://github.com/Kong/kongponents/compare/v8.29.2...v8.30.0) (2023-02-28)
+
+
+### Features
+
+* **kselect:** add selected item slot [KHCP-6336] ([#1152](https://github.com/Kong/kongponents/issues/1152)) ([8081eee](https://github.com/Kong/kongponents/commit/8081eeef46620bd8fa4f4ac0a9c677f286f62fb8))
+
 ## [8.29.2](https://github.com/Kong/kongponents/compare/v8.29.1...v8.29.2) (2023-02-25)
 
 
