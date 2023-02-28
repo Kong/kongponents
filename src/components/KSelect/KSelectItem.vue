@@ -136,7 +136,7 @@ export default defineComponent({
       width: 24px;
 
       .kong-icon {
-        display: inline;
+        display: flex;
         position: relative;
         right: 0;
         top: 0;
