@@ -17,9 +17,10 @@
 An array of items containing a `label` and `value`. You may also specify:
 - a certain item is `selected` by default
 - a certain item is `disabled`
+- certain items are grouped under a `group`
 
 <ClientOnly>
-  <KSelect :items="deepClone(defaultItemsWithDisabled)" />
+  <KSelect :items="deepClone(defaultItemsWithDisabledAndGroups)" />
 </ClientOnly>
 
 ```html
@@ -34,6 +35,22 @@ An array of items containing a `label` and `value`. You may also specify:
   }, {
     label: 'Bunnies',
     value: 'bunnies'
+  }, {
+    label: 'Duck',
+    value: 'duck',
+    group: 'Birds'
+  }, {
+    label: 'Oriole',
+    value: 'oriole',
+    group: 'Birds'
+  }, {
+    label: 'Trout',
+    value: 'trout',
+    group: 'Fish'
+  }, {
+    label: 'Salmon',
+    value: 'salmon',
+    group: 'Fish'
   }]"
 />
 ```
@@ -216,11 +233,27 @@ You can pass a `dropdownMaxHeight` string for the dropdown. By default, the `dro
 Adds informational text to the bottom of the dropdown options which remains visible even if the content is scrolled. Can also be [slotted](#slots).
 
 <ClientOnly>
-  <KSelect dropdown-footer-text="Dropdown footer text" :items="deepClone(defaultItemsLongList)" />
+  <KSelect dropdown-footer-text="Sticky dropdown footer text" :items="deepClone(defaultItemsLongList)" width="250" />
 </ClientOnly>
 
 ```html
-<KSelect dropdown-footer-text="Dropdown footer text" :items="items" />
+<KSelect dropdown-footer-text="Sticky dropdown footer text" :items="items" width="250" />
+```
+
+### dropdownFooterTextPosition
+
+By default, the dropdown footer text will be stuck to the bottom of the dropdown and will always be visible even if the dropdown content is scrolled. 
+
+If you want to override the behaviour and have the footer text at the end of the dropdown list, use the value `static`. This ensures the footer text is visible only when the user scrolls to view the bottom of the list. 
+
+Accepted values: `sticky` (default) and `static`.
+
+<ClientOnly>
+  <KSelect dropdown-footer-text-position="static" dropdown-footer-text="Static dropdown footer text" :items="deepClone(defaultItemsLongList)" width="250" />
+</ClientOnly>
+
+```html
+<KSelect dropdown-footer-text-position="static" dropdown-footer-text="Static dropdown footer text" :items="items" width="250" />
 ```
 
 ### positionFixed
@@ -348,7 +381,8 @@ Loading and empty state content can be configured using the `loading` and `empty
 const allItems = new Array(10).fill().map((_, i) => ({
   label: `Item ${i}`,
   description: `This is the description for item ${i}.`,
-  value: `autosuggest-item-${i}`
+  value: `autosuggest-item-${i}`,
+  ...(i > 5 && { group: `${i % 2 === 0 ? 'Even items greater than 5' : 'Odd items greater than 5'}` })
 }));
 export default {
   data() {
@@ -439,7 +473,8 @@ function debounce(func, timeout) {
 const allItems = new Array(10).fill().map((_, i) => ({
   label: `Item ${i}`,
   description: `This is the description for item ${i}.`,
-  value: `autosuggest-item-${i}`
+  value: `autosuggest-item-${i}`,
+  ...(i > 5 && { group: `${i % 2 === 0 ? 'Even items greater than 5' : 'Odd items greater than 5'}` })
 }));
 export default {
   data() {
@@ -505,6 +540,7 @@ You can pass any input attribute and it will get properly bound to the element.
 ## Slots
 
 - `item-template` - The template for each item in the dropdown list
+- `selected-item-template` - Slot for customizing selected item appearance
 - `loading` - Slot for the loading indicator
 - `empty` - Slot for the empty state in the dropdown list
 - `dropdown-footer-text` - Slot for footer text in the bottom of the dropdown
@@ -565,6 +601,52 @@ export default defineComponent({
   }
 })
 </script>
+```
+
+### Selected Item Template
+
+Use this slot to customize appearance of the selected item that appears when the `KSelect` dropdown is not activated.
+
+::: tip TIP
+You can use the `.k-select-selected-item-label` class within the slot to leverage preconfigured styles for selected item title which you're then free to customize.
+:::
+
+<ClientOnly>
+  <KSelect appearance="select" autosuggest :items="deepClone(defaultItems)">
+    <template #selected-item-template="{ item }">
+      <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
+      <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
+      <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
+      <span class="k-select-selected-item-label">{{ item?.label }}</span>
+    </template>
+    <template #item-template="{ item }">
+      <div class="d-inline-flex">
+        <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
+        <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
+        <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
+        <div class="select-item-label">{{ item.label }}</div>
+      </div>
+    </template>
+  </KSelect>
+</ClientOnly>
+
+```html
+<KSelect appearance="select" autosuggest :items="items">
+  <template #selected-item-template="{ item }">
+    <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
+    <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
+    <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
+    <span class="k-select-selected-item-label">{{ item?.label }}</span>
+  </template>
+  <template #item-template="{ item }">
+    <div class="d-inline-flex">
+      <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
+      <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
+      <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
+      <div class="select-item-label">{{ item.label }}</div>
+    </div>
+  </template>
+</KSelect>
 ```
 
 ### Loading
@@ -632,7 +714,8 @@ function debounce(func, timeout) {
 const allItems = new Array(10).fill().map((_, i) => ({
   label: `Item ${i}`,
   description: `This is the description for item ${i}.`,
-  value: `autosuggest-item-${i}`
+  value: `autosuggest-item-${i}`,
+  ...(i > 5 && { group: `${i % 2 === 0 ? 'Even items greater than 5' : 'Odd items greater than 5'}` })
 }));
 
 export default defineComponent({
@@ -652,7 +735,7 @@ export default defineComponent({
         label: 'Bunnies',
         value: 'bunnies'
       }],
-      defaultItemsWithDisabled: [{
+      defaultItemsWithDisabledAndGroups: [{
         label: 'Cats',
         value: 'cats',
         selected: true
@@ -663,6 +746,22 @@ export default defineComponent({
       }, {
         label: 'Bunnies',
         value: 'bunnies'
+      }, {
+        label: 'Duck',
+        value: 'duck',
+        group: 'Birds'
+      },{
+        label: 'Salmon',
+        value: 'salmon',
+        group: 'Fish'
+      }, {
+        label: 'Oriole',
+        value: 'oriole',
+        group: 'Birds'
+      }, {
+        label: 'Trout',
+        value: 'trout',
+        group: 'Fish'
       }],
       defaultItemsUnselect: [{
         label: 'Cats',

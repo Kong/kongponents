@@ -26,5 +26,5 @@
 # Dependabot approvals
 # Allow Kongponents BOT to approve dependabot updates
 # These rules MUST remain at the bottom as the last entry
-package.json @kongponents-bot @adamdehaven @jillztom @kaiarrowood
-yarn.lock @kongponents-bot @adamdehaven @jillztom @kaiarrowood
+package.json @kongponents-bot @Kong/team-core-ui @adamdehaven @jillztom @kaiarrowood
+yarn.lock @kongponents-bot @Kong/team-core-ui @adamdehaven @jillztom @kaiarrowood

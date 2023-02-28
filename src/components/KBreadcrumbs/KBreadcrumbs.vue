@@ -64,15 +64,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-
-export interface BreadcrumbItem {
-  to: object|string // router-link "to" object or href string
-  text?: string // anchor text
-  title?: string // anchor title
-  icon?: string // icon before anchor
-  key?: string // list item key
-  maxWidth?: string // maxWidth of item, overrides itemMaxWidth
-}
+import type { BreadcrumbItem } from '@/types'
 
 export default defineComponent({
   name: 'KBreadcrumbs',
@@ -122,7 +114,7 @@ export default defineComponent({
   &.k-breadcrumb-icon {
     align-items: center;
     justify-content: center;
-    padding: 0 var(--spacing-xs);
+    padding: 0 var(--spacing-xs) 0 0;
 
     &.has-no-text {
       padding-right: 0;

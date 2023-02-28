@@ -1,3 +1,78 @@
+## [8.29.2](https://github.com/Kong/kongponents/compare/v8.29.1...v8.29.2) (2023-02-25)
+
+
+### Bug Fixes
+
+* **datetimepicker:** allow hiding of clear button [MA-1410] ([#1153](https://github.com/Kong/kongponents/issues/1153)) ([b94fcab](https://github.com/Kong/kongponents/commit/b94fcab181454b25f4cf1c73c84174c41fc6d269))
+
+## [8.29.1](https://github.com/Kong/kongponents/compare/v8.29.0...v8.29.1) (2023-02-24)
+
+
+### Bug Fixes
+
+* **kselect:** remove scrollbar when the last item is selected ([#1151](https://github.com/Kong/kongponents/issues/1151)) ([4134a00](https://github.com/Kong/kongponents/commit/4134a00f1d1900ef6e52d8d5cdce2372e38e1004))
+
+# [8.29.0](https://github.com/Kong/kongponents/compare/v8.28.1...v8.29.0) (2023-02-22)
+
+
+### Features
+
+* **kselect, kmultiselect:** add subheading support [KHCP-6147] ([#1130](https://github.com/Kong/kongponents/issues/1130)) ([e35ffb0](https://github.com/Kong/kongponents/commit/e35ffb040671a9f6cd56ddf2af550845b202ca08))
+
+## [8.28.1](https://github.com/Kong/kongponents/compare/v8.28.0...v8.28.1) (2023-02-22)
+
+
+### Bug Fixes
+
+* **kbutton:** fix btn-link variables ([#1146](https://github.com/Kong/kongponents/issues/1146)) ([08d460b](https://github.com/Kong/kongponents/commit/08d460b02aa1c21337e77383e41a3cebfa704bda))
+
+# [8.28.0](https://github.com/Kong/kongponents/compare/v8.27.0...v8.28.0) (2023-02-17)
+
+
+### Bug Fixes
+
+* **kbreadcrumbs:** padding for left alignment ([299ca53](https://github.com/Kong/kongponents/commit/299ca535bfdd611bfb61fbd8bcd5d0f224c5d53c))
+
+
+### Features
+
+* **kicon:** add circle check [kcgw-10] ([#1129](https://github.com/Kong/kongponents/issues/1129)) ([ce8d917](https://github.com/Kong/kongponents/commit/ce8d9178567363d613bfae79fbb1561f555f935b))
+
+# [8.27.0](https://github.com/Kong/kongponents/compare/v8.26.2...v8.27.0) (2023-02-17)
+
+
+### Features
+
+* **kmodalfullscreen:** add footer content slot [KHCP-6093] ([#1125](https://github.com/Kong/kongponents/issues/1125)) ([2c8a86c](https://github.com/Kong/kongponents/commit/2c8a86ccfae82a47adbd45493a393802a0773f93))
+
+## [8.26.2](https://github.com/Kong/kongponents/compare/v8.26.1...v8.26.2) (2023-02-17)
+
+
+### Bug Fixes
+
+* **kdropdownmenu:** fix kpopover undefined class bug [KHCP-6209] ([#1128](https://github.com/Kong/kongponents/issues/1128)) ([de102bd](https://github.com/Kong/kongponents/commit/de102bd114f953ccae14e07fd15e39027aa8bdc1))
+
+## [8.26.1](https://github.com/Kong/kongponents/compare/v8.26.0...v8.26.1) (2023-02-16)
+
+
+### Bug Fixes
+
+* **kbutton:** adjust caret margin ([91e7d3b](https://github.com/Kong/kongponents/commit/91e7d3b2c58ea65e9ac83bae60cf0bf9c54e43f2))
+
+# [8.26.0](https://github.com/Kong/kongponents/compare/v8.25.1...v8.26.0) (2023-02-16)
+
+
+### Features
+
+* **kselect, kmultiselect:** dropdown footer text position prop [KHCP-6007] ([#1121](https://github.com/Kong/kongponents/issues/1121)) ([89f3392](https://github.com/Kong/kongponents/commit/89f3392760292d37833eabe0b939bd283089b87a))
+
+## [8.25.1](https://github.com/Kong/kongponents/compare/v8.25.0...v8.25.1) (2023-02-16)
+
+
+### Bug Fixes
+
+* **deps:** bump focus-trap from 7.2.0 to 7.3.1 ([#1122](https://github.com/Kong/kongponents/issues/1122)) ([2712f90](https://github.com/Kong/kongponents/commit/2712f9066c469a0803f7d1784aa713eba0afa2e1))
+
 # [8.25.0](https://github.com/Kong/kongponents/compare/v8.24.3...v8.25.0) (2023-02-15)
 
 

@@ -145,20 +145,18 @@
               @mouseenter="() => isHovered = true"
               @mouseleave="() => isHovered = false"
             >
-              <KMultiselectItem
-                v-for="item, idx in sortedItems"
-                :key="`${item.key ? item.key : idx}-item`"
-                :item="item"
+              <KMultiselectItems
+                :items="sortedItems"
                 @selected="handleItemSelect"
               >
-                <template #content>
+                <template #content="{ item }">
                   <slot
                     class="k-multiselect-item"
                     :item="item"
                     name="item-template"
                   />
                 </template>
-              </KMultiselectItem>
+              </KMultiselectItems>
               <KMultiselectItem
                 v-if="enableItemCreation && uniqueFilterStr"
                 key="k-multiselect-new-item"
@@ -198,6 +196,7 @@
             <div
               v-if="$slots['dropdown-footer-text'] || dropdownFooterText"
               class="k-multiselect-dropdown-footer-text"
+              :class="`k-multiselect-dropdown-footer-${dropdownFooterTextPosition}`"
             >
               <slot name="dropdown-footer-text">
                 {{ dropdownFooterText }}
@@ -254,6 +253,7 @@ import KInput from '@/components/KInput/KInput.vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
+import KMultiselectItems from '@/components/KMultiselect/KMultiselectItems.vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
 
 export interface MultiselectItem {
@@ -264,12 +264,15 @@ export interface MultiselectItem {
   disabled?: boolean
   disabledTooltipText?: string
   custom?: boolean
+  group?: string
 }
 
 export interface MultiselectFilterFnParams {
   items: MultiselectItem[]
   query: string
 }
+
+export type DropdownFooterTextPosition = 'sticky' | 'static'
 
 // functions used in prop validators
 const getValues = (items: MultiselectItem[]) => {
@@ -407,6 +410,14 @@ const props = defineProps({
   dropdownFooterText: {
     type: String,
     default: '',
+  },
+  /**
+    * Dropdown footer text position
+    * Accepted values: 'sticky' and 'static'
+    */
+  dropdownFooterTextPosition: {
+    type: String as PropType<DropdownFooterTextPosition>,
+    default: 'sticky',
   },
 })
 
@@ -1014,12 +1025,6 @@ onMounted(() => {
     }
   }
 
-  .k-multiselect-list {
-    // allows setting a maxHeight on the popover dropdown
-    max-height: v-bind('popoverContentMaxHeight');
-    overflow-y: auto;
-  }
-
   .k-multiselect-dropdown-footer-text {
     background-color: color(white);
     border-top: 1px solid var(--grey-200);
@@ -1033,6 +1038,12 @@ onMounted(() => {
 <style lang="scss">
 @import '@/styles/variables';
 @import '@/styles/functions';
+
+// allows setting a maxHeight on the popover dropdown
+@mixin kMultiselectPopoverMaxHeight {
+  max-height: v-bind('popoverContentMaxHeight');
+  overflow-y: auto;
+}
 
 .k-multiselect {
   .k-multiselect-trigger {
@@ -1104,6 +1115,26 @@ onMounted(() => {
       &:active,
       &:focus {
         text-decoration: none;
+      }
+    }
+
+    .k-popover-content {
+      @include kMultiselectPopoverMaxHeight;
+
+      // when dropdown footer text position is sticky
+      &:has(.k-multiselect-dropdown-footer-text.k-multiselect-dropdown-footer-sticky) {
+        max-height: none;
+
+        .k-multiselect-list {
+          @include kMultiselectPopoverMaxHeight;
+        }
+      }
+
+      // Firefox workaround
+      // since :has() selector isn't supported in Firefox be default
+      .k-multiselect-list ~ .k-multiselect-dropdown-footer-sticky {
+        bottom: 0;
+        position: sticky;
       }
     }
   }

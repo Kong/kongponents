@@ -76,6 +76,7 @@ import Kooltip from '@/components/KTooltip/KTooltip.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
 import KDropdownItem from './KDropdownItem.vue'
+import type { ButtonAppearance } from '@/types'
 
 export interface DropdownItem {
   label: string
@@ -109,7 +110,7 @@ export default defineComponent({
       validator: (value: string) => ['menu', 'selectionMenu'].includes(value),
     },
     buttonAppearance: {
-      type: String,
+      type: String as PropType<ButtonAppearance>,
       default: 'primary',
     },
     caretColor: {
@@ -139,7 +140,7 @@ export default defineComponent({
     // - target
     kpopAttributes: {
       type: Object,
-      default: () => ({}),
+      default: null,
     },
     items: {
       type: Array as PropType<Array<DropdownItem>>,
@@ -168,7 +169,7 @@ export default defineComponent({
       ...defaultKPopAttributes,
       ...props.kpopAttributes,
       width: props.width ? props.width : undefined,
-      popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses}`,
+      popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes?.popoverClasses || ''}`,
     }
 
     const selectedItem = ref({})

@@ -11,6 +11,7 @@
     <div
       ref="modalBodyContent"
       class="k-modal-fullscreen-dialog"
+      :class="{ 'has-footer': $slots['footer-content'] }"
       tabindex="0"
     >
       <div class="k-modal-fullscreen-body-header">
@@ -75,144 +76,153 @@
           </div>
         </div>
       </div>
+      <!-- Footer -->
+      <div
+        v-if="$slots['footer-content']"
+        class="k-modal-fullscreen-footer"
+      >
+        <slot name="footer-content" />
+        <div class="k-modal-fullscreen-action ml-3">
+          <div class="k-modal-fullscreen-action-buttons">
+            <slot name="action-buttons">
+              <KButton
+                :appearance="actionButtonAppearance"
+                class="proceed-button"
+                @click="proceed"
+              >
+                {{ actionButtonText }}
+              </KButton>
+            </slot>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, watch, ref, computed, onMounted, onUnmounted, onBeforeUnmount, nextTick } from 'vue'
+<script setup lang="ts">
+import { watch, ref, computed, onMounted, onUnmounted, onBeforeUnmount, nextTick, PropType } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
+import type { ButtonAppearance } from '@/types'
 
-export default defineComponent({
-  name: 'KModalFullscreen',
-  components: { KButton, KIcon },
-  props: {
-    /**
-     * Set the text of the title, if using title slot
-     */
-    title: {
-      type: String,
-      required: true,
-    },
-    /**
-     * Set the title in the body
-     */
-    bodyHeader: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Text to display as a description of the body's title
-     */
-    bodyHeaderDescription: {
-      type: String,
-      default: '',
-    },
-    /**
-      *  Pass whether or not the modal should be visible
-      */
-    isVisible: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Set the text of the close/cancel button
-     */
-    cancelButtonText: {
-      type: String,
-      default: 'Cancel',
-    },
-    /**
-     * Set the text of the action/proceed button
-     */
-    actionButtonText: {
-      type: String,
-      default: 'Save',
-    },
-    /**
-     * Set the appearance of the action/proceed button
-     */
-    actionButtonAppearance: {
-      type: String,
-      default: 'primary',
-    },
-    /**
-     * Set the appearance of the close/cancel button
-     */
-    cancelButtonAppearance: {
-      type: String,
-      default: 'outline',
-    },
-    /**
-      *  Pass the type of icon for the header on the left
-      */
-    iconString: {
-      type: String,
-      default: 'kong',
-    },
+const props = defineProps({
+  /**
+  * Set the text of the title, if using title slot
+  */
+  title: {
+    type: String,
+    required: true,
   },
-  emits: ['canceled', 'proceed'],
-  setup(props, { emit }) {
-    const modalBodyContent = ref(null)
-    const isOpen = computed(() => {
-      return !!props.isVisible
-    })
-
-    watch(() => props.isVisible, async () => {
-      if (isOpen.value) {
-        document.body.style.overflow = 'hidden'
-
-        await nextTick()
-
-        if (modalBodyContent.value) {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          modalBodyContent.value.focus()
-        }
-      } else {
-        document.body.style.overflow = ''
-      }
-    })
-
-    const handleKeydown = (e: any) => {
-      if (props.isVisible) {
-        if (e.keyCode === 27) { // `esc` key
-          close()
-        } else if (e.keyCode === 13) { // `enter` key
-          proceed()
-        }
-      }
-    }
-
-    const close = () => {
-      emit('canceled')
-    }
-
-    const proceed = () => {
-      emit('proceed')
-    }
-
-    onMounted(() => {
-      document.addEventListener('keydown', handleKeydown)
-    })
-
-    onBeforeUnmount(() => {
-      document.removeEventListener('keydown', handleKeydown)
-    })
-
-    onUnmounted(() => {
-      document.body.style.overflow = ''
-    })
-
-    return {
-      isOpen,
-      modalBodyContent,
-      handleKeydown,
-      close,
-      proceed,
-    }
+  /**
+  * Set the title in the body
+  */
+  bodyHeader: {
+    type: String,
+    default: '',
   },
+  /**
+  * Text to display as a description of the body's title
+  */
+  bodyHeaderDescription: {
+    type: String,
+    default: '',
+  },
+  /**
+  *  Pass whether or not the modal should be visible
+  */
+  isVisible: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+  * Set the text of the close/cancel button
+  */
+  cancelButtonText: {
+    type: String,
+    default: 'Cancel',
+  },
+  /**
+  * Set the text of the action/proceed button
+  */
+  actionButtonText: {
+    type: String,
+    default: 'Save',
+  },
+  /**
+  * Set the appearance of the action/proceed button
+  */
+  actionButtonAppearance: {
+    type: String as PropType<ButtonAppearance>,
+    default: 'primary',
+  },
+  /**
+  * Set the appearance of the close/cancel button
+  */
+  cancelButtonAppearance: {
+    type: String as PropType<ButtonAppearance>,
+    default: 'outline',
+  },
+  /**
+  *  Pass the type of icon for the header on the left
+  */
+  iconString: {
+    type: String,
+    default: 'kong',
+  },
+})
+
+const emit = defineEmits(['canceled', 'proceed'])
+
+const modalBodyContent = ref(null)
+const isOpen = computed(() => {
+  return !!props.isVisible
+})
+
+watch(() => props.isVisible, async () => {
+  if (isOpen.value) {
+    document.body.style.overflow = 'hidden'
+
+    await nextTick()
+
+    if (modalBodyContent.value) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      modalBodyContent.value.focus()
+    }
+  } else {
+    document.body.style.overflow = ''
+  }
+})
+
+const handleKeydown = (e: any) => {
+  if (props.isVisible) {
+    if (e.keyCode === 27) { // `esc` key
+      close()
+    } else if (e.keyCode === 13) { // `enter` key
+      proceed()
+    }
+  }
+}
+
+const close = () => {
+  emit('canceled')
+}
+
+const proceed = () => {
+  emit('proceed')
+}
+
+onMounted(() => {
+  document.addEventListener('keydown', handleKeydown)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('keydown', handleKeydown)
+})
+
+onUnmounted(() => {
+  document.body.style.overflow = ''
 })
 </script>
 
@@ -236,6 +246,17 @@ $fullscreen-modal-padding: 64px;
   @media only screen and (min-width: ($viewport-md + 1px)) {
     padding-top: $fullscreen-modal-padding;
   }
+
+  &.has-footer {
+    padding-bottom: $fullscreen-modal-padding * 2;
+
+    @media only screen and (min-width: ($viewport-md + 1px)) {
+      padding-bottom: $fullscreen-modal-padding;
+    }
+    .k-modal-fullscreen-header {
+      position: absolute;
+    }
+  }
 }
 
 .k-modal-fullscreen-header {
@@ -256,14 +277,21 @@ $fullscreen-modal-padding: 64px;
     font-weight: var(--KModalFullscreenHeaderWeight, 600);
     justify-content: space-between;
   }
+}
 
-  .k-modal-fullscreen-body {
-    flex: 1 1 auto;
-    font-size: var(--KModalFullscreenFontSize, 13px);
-    line-height: 20px;
-    position: relative;
-    text-align: center;
-  }
+.k-modal-fullscreen-footer {
+  align-items: center;
+  background-color: var(--white);
+  border-top: 1px solid var(--grey-300);
+  bottom: 0;
+  box-shadow: 0px 0px 20px color(black-10);
+  display: inline-flex;
+  justify-content: space-between;
+  padding: var(--spacing-lg) 0;
+  padding-left: var(--spacing-xl, spacing(xl));
+  position: fixed;
+  width: 100%;
+  z-index: 1009;
 }
 
 .k-modal-fullscreen-title {

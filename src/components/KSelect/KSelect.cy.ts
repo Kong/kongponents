@@ -51,7 +51,7 @@ describe('KSelect', () => {
       },
     })
 
-    cy.get('.selected-item-label').should('contain.text', selectedLabel)
+    cy.get('.k-select-selected-item-label').should('contain.text', selectedLabel)
   })
 
   it('renders with disabled item', () => {
@@ -178,7 +178,7 @@ describe('KSelect', () => {
     cy.getTestId(`k-select-item-${vals[1]}`).should('not.be.visible')
 
     cy.getTestId(`k-select-item-${vals[0]}`).eq(1).click({ force: true })
-    cy.get('.selected-item-label').should('contain.text', labels[0])
+    cy.get('.k-select-selected-item-label').should('contain.text', labels[0])
   })
 
   it('ignores clicks on disabled item', () => {
@@ -202,7 +202,7 @@ describe('KSelect', () => {
     cy.getTestId('k-select-input').click()
 
     cy.getTestId(`k-select-item-${vals[0]}`).eq(1).click({ force: true })
-    cy.get('.selected-item-label').should('not.exist')
+    cy.get('.k-select-selected-item-label').should('not.exist')
   })
 
   it('allows slotting content into the items', async () => {
@@ -330,5 +330,84 @@ describe('KSelect', () => {
     cy.getTestId('k-select-input').trigger('click')
 
     cy.get('.k-select-dropdown-footer-text').should('be.visible').should('contain.text', dropdownFooterText)
+  })
+
+  it('renders group titles and groups items in correct order', () => {
+    const group1Title = 'Group 1'
+    const group2Title = 'Group 2'
+    const items = [
+      { label: 'Label 0', value: 'value0' },
+      { label: 'Label 1', value: 'value1', group: group1Title },
+      { label: 'Label 3', value: 'value3', group: group2Title },
+      { label: 'Label 2', value: 'value2', group: group1Title },
+      { label: 'Label 4', value: 'value4', group: group2Title },
+    ]
+
+    mount(KSelect, {
+      props: {
+        testMode: true,
+        items,
+      },
+    })
+
+    cy.getTestId('k-select-input').trigger('click')
+    cy.get('.k-select-item').eq(0).should('contain.text', items[0].label)
+    cy.get('.k-select-group-title').eq(0).should('contain.text', group1Title)
+    cy.get('.k-select-group-title').eq(1).should('contain.text', group2Title)
+    cy.get('.k-select-item').eq(1).should('contain.text', items[1].label)
+    cy.get('.k-select-item').eq(2).should('contain.text', items[3].label)
+    cy.get('.k-select-item').eq(3).should('contain.text', items[2].label)
+    cy.get('.k-select-item').eq(4).should('contain.text', items[4].label)
+  })
+
+  it('allows slotting selected item content', async () => {
+    const selectedItemContent = 'I am slotted baby!'
+    const itemLabel = 'Label 1'
+    const itemValue = 'label1'
+
+    mount(KSelect, {
+      props: {
+        testMode: true,
+        items: [{
+          label: itemLabel,
+          value: itemValue,
+          selected: true,
+        }],
+      },
+      slots: {
+        'selected-item-template': selectedItemContent,
+      },
+    })
+
+    cy.get('.k-select-item-selection').should('contain.text', selectedItemContent)
+  })
+
+  it('displays placeholder correctly when selected item slot is present', async () => {
+    const selectedItemContent = 'I am slotted baby!'
+    const placeholderText = 'Placeholder text'
+    const itemLabel = 'Label 1'
+    const itemValue = 'label1'
+
+    mount(KSelect, {
+      props: {
+        testMode: true,
+        placeholder: placeholderText,
+        appearance: 'select',
+        autosuggest: true,
+        items: [{
+          label: itemLabel,
+          value: itemValue,
+          selected: true,
+        }],
+      },
+      slots: {
+        'selected-item-template': selectedItemContent,
+      },
+    })
+
+    cy.get('.k-select-input').should('contain.text', selectedItemContent)
+    cy.getTestId('k-select-input').trigger('click')
+    cy.get('.custom-selected-item').should('not.exist')
+    cy.get('input').invoke('attr', 'placeholder').should('contain', placeholderText)
   })
 })
