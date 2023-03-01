@@ -10,8 +10,4 @@ html {
   padding: 0;
   width: 100%;
 }
-
-body {
-  padding: 20px;
-}
 </style>
