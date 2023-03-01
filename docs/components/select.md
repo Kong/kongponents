@@ -525,6 +525,36 @@ When `autosuggest` is enabled, you can use the `loading` prop to show a loading 
 By default, the loading indicator is a spinner icon, and you can implement your own indicator using the `loading` slot.
 See [autosuggest](#autosuggest) for an example.
 
+### reuseItemTemplate
+
+Use this prop to customize selected item element appearance by reusing content passed through [item-template](#item-template) slot. **Note:** this prop only applies when `appearance` prop is `select` (use [selected-item-template](#selected-item-template) slot in other cases).
+
+<ClientOnly>
+  <KSelect reuse-item-template appearance="select" :items="deepClone(defaultItems)">
+    <template #item-template="{ item }">
+      <div class="d-inline-flex">
+        <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
+        <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
+        <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
+        <div class="select-item-label">{{ item.label }}</div>
+      </div>
+    </template>
+  </KSelect>
+</ClientOnly>
+
+```html
+<KSelect reuse-item-template appearance="select" :items="items">
+  <template #item-template="{ item }">
+    <div class="d-inline-flex">
+      <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
+      <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
+      <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
+      <div class="select-item-label">{{ item.label }}</div>
+    </div>
+  </template>
+</KSelect>
+```
+
 ## Attribute Binding
 
 You can pass any input attribute and it will get properly bound to the element.
@@ -605,7 +635,7 @@ export default defineComponent({
 
 ### Selected Item Template
 
-Use this slot to customize appearance of the selected item that appears when the `KSelect` dropdown is not activated.
+Use this slot to customize appearance of the selected item that appears when the `KSelect` dropdown is not activated. If present, the slot content takes precedence over the [reuseItemTemplate](#reuseitemtemplate) prop.
 
 ::: tip TIP
 You can use the `.k-select-selected-item-label` class within the slot to leverage preconfigured styles for selected item title which you're then free to customize.
@@ -617,7 +647,7 @@ You can use the `.k-select-selected-item-label` class within the slot to leverag
       <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
       <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
       <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
-      <span class="k-select-selected-item-label">{{ item?.label }}</span>
+      {{ item.label }}
     </template>
     <template #item-template="{ item }">
       <div class="d-inline-flex">
@@ -636,7 +666,7 @@ You can use the `.k-select-selected-item-label` class within the slot to leverag
     <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
     <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
     <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
-    <span class="k-select-selected-item-label">{{ item.label }}</span>
+    {{ item.label }}
   </template>
   <template #item-template="{ item }">
     <div class="d-inline-flex">

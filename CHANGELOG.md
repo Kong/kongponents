@@ -1,3 +1,10 @@
+# [8.31.0](https://github.com/Kong/kongponents/compare/v8.30.2...v8.31.0) (2023-03-01)
+
+
+### Features
+
+* **kselect:** add reuse item template prop ([#1163](https://github.com/Kong/kongponents/issues/1163)) ([6751ebc](https://github.com/Kong/kongponents/commit/6751ebc34a366152f701b74fbcda2bd80d56b1a5))
+
 ## [8.30.2](https://github.com/Kong/kongponents/compare/v8.30.1...v8.30.2) (2023-02-28)
 
 
