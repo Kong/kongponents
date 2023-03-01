@@ -635,7 +635,7 @@ export default defineComponent({
 
 ### Selected Item Template
 
-Use this slot to customize appearance of the selected item that appears when the `KSelect` dropdown is not activated. If present, overwrites [reuseItemTemplate](#reuseitemtemplate) prop.
+Use this slot to customize appearance of the selected item that appears when the `KSelect` dropdown is not activated. If present, the slot content takes precedence over the [reuseItemTemplate](#reuseitemtemplate) prop.
 
 ::: tip TIP
 You can use the `.k-select-selected-item-label` class within the slot to leverage preconfigured styles for selected item title which you're then free to customize.
@@ -647,7 +647,7 @@ You can use the `.k-select-selected-item-label` class within the slot to leverag
       <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
       <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
       <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
-      {{ item?.label }}
+      {{ item.label }}
     </template>
     <template #item-template="{ item }">
       <div class="d-inline-flex">
@@ -666,7 +666,7 @@ You can use the `.k-select-selected-item-label` class within the slot to leverag
     <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
     <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
     <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
-    {{ item?.label }}
+    {{ item.label }}
   </template>
   <template #item-template="{ item }">
     <div class="d-inline-flex">

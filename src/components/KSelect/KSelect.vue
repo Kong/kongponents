@@ -166,7 +166,6 @@
                   name="selected-item-template"
                 >
                   <slot
-                    class="select-item-label select-item-desc"
                     :item="selectedItem"
                     name="item-template"
                   />
@@ -301,8 +300,8 @@ const props = defineProps({
     default: () => ({}),
   },
   /**
-  * The width of the select and popover's min-width
-  */
+   * The width of the select and popover's min-width
+   */
   width: {
     type: String,
     default: '',
@@ -312,28 +311,28 @@ const props = defineProps({
     default: '',
   },
   /**
-  * The display style, can be either dropdown, select, or button
-  */
+   * The display style, can be either dropdown, select, or button
+   */
   appearance: {
     type: String,
     default: 'dropdown',
     validator: (value: string) => ['dropdown', 'select', 'button'].includes(value),
   },
   /**
-  * Override the text displayed on the button if `appearance` is `button` after an item
-  * has been selected. By default display the selected item's label
-  */
+   * Override the text displayed on the button if `appearance` is `button` after an item
+   * has been selected. By default display the selected item's label
+   */
   buttonText: {
     type: String,
     default: '',
   },
   /**
-  * Items are JSON objects with required 'label' and 'value'
-  * {
-  *  label: 'Item 1',
-  *  value: 'item1'
-  * }
-  */
+   * Items are JSON objects with required 'label' and 'value'
+   * {
+   *  label: 'Item 1',
+   *  value: 'item1'
+   * }
+   */
   items: {
     type: Array as PropType<SelectItem[]>,
     required: false,
@@ -342,73 +341,73 @@ const props = defineProps({
     validator: (items: SelectItem[]) => !items.length || items.every(i => i.label !== undefined && i.value !== undefined),
   },
   /**
-  * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
-  */
+   * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
+   */
   positionFixed: {
     type: Boolean,
     default: true,
   },
   /**
-  * Override default filter functionality of case-insensitive search on label
-  */
+   * Override default filter functionality of case-insensitive search on label
+   */
   filterFunc: {
     type: Function,
     default: (params: SelectFilterFnParams) => params.items.filter((item: SelectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase())),
   },
   /**
-  * Control whether the input for `select` and `dropdown` appearances supports filtering.
-  */
+   * Control whether the input for `select` and `dropdown` appearances supports filtering.
+   */
   enableFiltering: {
     type: Boolean,
     default: null,
   },
   /**
-  * A flag for autosuggest mode
-  */
+   * A flag for autosuggest mode
+   */
   autosuggest: {
     type: Boolean,
     default: false,
   },
   /**
-  * Loading state in autosuggest
-  */
+   * Loading state in autosuggest
+   */
   loading: {
     type: Boolean,
     default: false,
   },
   /**
-  * A flag for clearing selection when appearance is 'select'
-  */
+   * A flag for clearing selection when appearance is `select`
+   */
   clearable: {
     type: Boolean,
     default: false,
   },
   /**
-  * Test mode - for testing only, strips out generated ids
-  */
+   * Test mode - for testing only, strips out generated ids
+   */
   testMode: {
     type: Boolean,
     default: false,
   },
   /**
-  * Dropdown footer text
-  */
+   * Dropdown footer text
+   */
   dropdownFooterText: {
     type: String,
     default: '',
   },
   /**
-  * Dropdown footer text position
-  * Accepted values: 'sticky' and 'static'
-  */
+   * Dropdown footer text position
+   * Accepted values: 'sticky' and 'static'
+   */
   dropdownFooterTextPosition: {
     type: String as PropType<DropdownFooterTextPosition>,
     default: 'sticky',
   },
   /**
-  * If true and item-template is passed, will display item-template content inside selected-slot-template
-  * Only applies when appearance prop is select.
-  */
+   * If true and item-template is passed, will display item-template content inside selected-slot-template
+   * Only applies when appearance prop is `select`.
+   */
   reuseItemTemplate: {
     type: Boolean,
     default: false,
