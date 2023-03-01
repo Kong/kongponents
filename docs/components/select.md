@@ -636,7 +636,7 @@ You can use the `.k-select-selected-item-label` class within the slot to leverag
     <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
     <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
     <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
-    <span class="k-select-selected-item-label">{{ item?.label }}</span>
+    <span class="k-select-selected-item-label">{{ item.label }}</span>
   </template>
   <template #item-template="{ item }">
     <div class="d-inline-flex">
