@@ -227,6 +227,30 @@ describe('KSelect', () => {
     cy.getTestId(`k-select-item-${itemValue}`).should('contain.text', itemSlotContent)
   })
 
+  it('reuses item template slot for selected item element when prop is true', async () => {
+    const itemSlotContent = 'I am slotted baby!'
+    const itemLabel = 'Label 1'
+    const itemValue = 'label1'
+
+    mount(KSelect, {
+      props: {
+        testMode: true,
+        appearance: 'select',
+        items: [{
+          label: itemLabel,
+          value: itemValue,
+          selected: true,
+        }],
+        reuseItemTemplate: true,
+      },
+      slots: {
+        'item-template': h('span', {}, itemSlotContent),
+      },
+    })
+
+    cy.get('.k-select-input').should('contain.text', itemSlotContent)
+  })
+
   it('works in autosuggest mode', () => {
     const onQueryChange = cy.spy().as('onQueryChange')
     mount(KSelect, {
@@ -387,6 +411,7 @@ describe('KSelect', () => {
     const placeholderText = 'Placeholder text'
     const itemLabel = 'Label 1'
     const itemValue = 'label1'
+    const itemSlotContent = 'I am overwritten by selected-item slot'
 
     mount(KSelect, {
       props: {
@@ -399,9 +424,11 @@ describe('KSelect', () => {
           value: itemValue,
           selected: true,
         }],
+        reuseItemTemplate: true,
       },
       slots: {
         'selected-item-template': selectedItemContent,
+        'item-template': itemSlotContent,
       },
     })
 
