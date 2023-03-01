@@ -10,4 +10,8 @@ html {
   padding: 0;
   width: 100%;
 }
+
+* {
+  box-sizing: border-box;
+}
 </style>
