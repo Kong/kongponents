@@ -5,7 +5,7 @@
       :to="{ name: 'home'}"
     >
       <h1>
-        <span class="hidden-on-mobile">Kongponents </span>Sandbox
+        Kongponents Sandbox
       </h1>
     </router-link>
     <div class="mobile-nav-container">
@@ -24,7 +24,7 @@
             :is-visible="isToggled.value"
             @close="toggle"
           >
-            <SandboxNav />
+            <SandboxNav @router-link-click="toggle" />
           </KSlideout>
         </div>
       </KToggle>
@@ -83,14 +83,6 @@ const isHomePage = computed((): boolean => route.name === 'home')
 
       @media only screen and (min-width: $viewport-md) {
         font-size: 24px;
-      }
-
-      .hidden-on-mobile {
-        display: none;
-
-        @media only screen and (min-width: $viewport-sm) {
-          display: inline;
-        }
       }
     }
 
