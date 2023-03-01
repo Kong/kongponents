@@ -263,6 +263,16 @@ You're free to play around with your component on the local instance of the docs
     ✨  Done in 0.04s.
     ```
 
+## Sandbox
+
+The sandbox mode in Kongponents provides developers with a controlled environment to test and ensure that no styles from the docs app leak through into the component library. This feature guarantees that the components look and function as intended, without any external interference.
+
+By using the sandbox mode, you can have confidence that components maintain their visual consistency, regardless of the context in which they are used.
+
+```sh
+yarn dev:sandbox
+```
+
 ## Committing Changes
 
 This repo uses [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
