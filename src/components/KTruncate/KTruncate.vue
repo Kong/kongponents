@@ -155,7 +155,7 @@ const setWrapperHeight = async (): Promise<void> => {
       // find height of tallest child
       tallestChildHeight = children[i].offsetHeight > tallestChildHeight ? children[i].offsetHeight : tallestChildHeight
     }
-    const targetWrapperHeight = (props.rows === 1 ? 0 : (props.rows - 1) * 10) + (tallestChildHeight * props.rows)
+    const targetWrapperHeight = (props.rows === 1 ? 0 : (props.rows - 1) * 10) + (tallestChildHeight * props.rows) + 6 // account for padding
     wrapperHeight.value = kTruncateContainer.value.offsetHeight > targetWrapperHeight ? `${targetWrapperHeight}px` : 'auto'
 
     await nextTick()
@@ -246,6 +246,7 @@ onBeforeUnmount(() => {
   align-items: flex-start;
   display: flex;
   overflow: hidden;
+  padding: 3px;
 
   .expand-trigger,
   .collapse-trigger {
