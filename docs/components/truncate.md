@@ -57,7 +57,7 @@ When this prop is set to `true`, the component applies different logic; truncati
 <KCard>
   <template v-slot:body>
     <KTruncate is-text-content :rows="3">
-      <p>A good design decision to apply text truncation would be when displaying a <b>large amount of textual content</b>, such as a list of articles or product descriptions, in a limited space, such as a mobile screen or a small widget. By truncating the text to a short summary, it is possible to present the information in a more organized and readable manner, allowing the user to quickly scan and understand the main points of each item.</p>
+      <p>A good design decision to apply <a href="https://kongponents.konghq.com/components/truncate.html#istextcontent">text truncation</a> would be when displaying a <b>large amount of textual content</b>, such as a list of articles or product descriptions, in a limited space, such as a mobile screen or a small widget. By truncating the text to a short summary, it is possible to present the information in a more organized and readable manner, allowing the user to quickly scan and understand the main points of each item.</p>
       <p>The truncated text can also serve as a teaser, encouraging the user to click or tap to view the full content.</p>
     </KTruncate>
   </template>
