@@ -1,3 +1,10 @@
+# [8.32.0](https://github.com/Kong/kongponents/compare/v8.31.0...v8.32.0) (2023-03-02)
+
+
+### Features
+
+* **sandbox:** basic styling [KHCP-6207] ([#1165](https://github.com/Kong/kongponents/issues/1165)) ([226fc52](https://github.com/Kong/kongponents/commit/226fc52efbb8d32fe9b160a447aa31ac44114a50))
+
 # [8.31.0](https://github.com/Kong/kongponents/compare/v8.30.2...v8.31.0) (2023-03-01)
 
 
