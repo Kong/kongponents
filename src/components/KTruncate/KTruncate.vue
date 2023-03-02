@@ -5,6 +5,30 @@
     :class="[expanded ? 'expanded' : '', `k-truncate-${isTextContent ? 'text' : 'content'}`]"
     :style="widthStyle"
   >
+    <!-- Order switched for ease when using keyboard navigation -->
+    <div
+      v-if="!isTextContent && showToggle"
+      class="d-flex h-100 align-items-end"
+    >
+      <div
+        v-if="!expanded"
+        data-testid="expand-trigger-wrapper"
+      >
+        <slot
+          :expand="handleToggleClick"
+          name="expand-trigger"
+          :truncated-count="truncatedCount"
+        >
+          <KButton
+            appearance="btn-link"
+            class="expand-trigger"
+            @click="handleToggleClick"
+          >
+            {{ truncatedCount }}
+          </KButton>
+        </slot>
+      </div>
+    </div>
     <div
       ref="kTruncateContainer"
       class="k-truncate-container"
@@ -30,29 +54,6 @@
               size="10"
               title="Show less"
             />
-          </KButton>
-        </slot>
-      </div>
-    </div>
-    <div
-      v-if="!isTextContent && showToggle"
-      class="d-flex h-100 align-items-end"
-    >
-      <div
-        v-if="!expanded"
-        data-testid="expand-trigger-wrapper"
-      >
-        <slot
-          :expand="handleToggleClick"
-          name="expand-trigger"
-          :truncated-count="truncatedCount"
-        >
-          <KButton
-            appearance="btn-link"
-            class="expand-trigger"
-            @click="handleToggleClick"
-          >
-            {{ truncatedCount }}
           </KButton>
         </slot>
       </div>
@@ -198,6 +199,15 @@ const countExcessElements = (): void => {
        */
       if (children[i].offsetTop > kTruncateWrapper.value.offsetHeight) {
         truncatedCount.value += 1
+        if (children[i].getAttribute('tabindex')) {
+          // set tabindex to -1 in truncated children
+          children[i].tabIndex = -1
+        }
+      } else {
+        if (children[i].getAttribute('tabindex')) {
+          // reset tabindex
+          children[i].tabIndex = 0
+        }
       }
     }
   }
@@ -246,6 +256,8 @@ onBeforeUnmount(() => {
   }
 
   &.k-truncate-content {
+    display: flex;
+    flex-direction: row-reverse;
     height: v-bind('wrapperHeight');
 
     &.expanded {
@@ -271,6 +283,11 @@ onBeforeUnmount(() => {
 
       &:focus, &:active {
         box-shadow: none;
+      }
+
+      &:focus-within {
+        background-color: var(--KTruncateCollapseHover, var(--blue-200, color(blue-200)));
+        outline: -webkit-focus-ring-color auto 1px;
       }
     }
   }
