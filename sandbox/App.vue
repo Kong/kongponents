@@ -11,7 +11,7 @@ html {
   width: 100%;
 }
 
-body {
-  padding: 20px;
+* {
+  box-sizing: border-box;
 }
 </style>
