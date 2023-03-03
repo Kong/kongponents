@@ -30,6 +30,36 @@ Here you can pass in the text to display in the toolip.
 </KTooltip>
 ```
 
+:::warning NOTE
+KTooltip won't be triggered if the element you pass through `default` slot has `disabled` attribute. You can get around that by wrapping your disabled element around an additional tag, like shown in the example below. 
+:::
+
+<KCard>
+  <template #body>
+    <div class="d-flex">
+      <KTooltip label="I won't pop up" class="mr-2">
+        <KButton disabled>❌</KButton>
+      </KTooltip>
+      <KTooltip label="I will pop up">
+        <div>
+          <KButton disabled>✅</KButton>
+        </div>
+      </KTooltip>
+    </div>
+  </template>
+</KCard>
+
+```html
+<KTooltip label="I won't show up">
+  <KButton disabled>❌</KButton>
+</KTooltip>
+<KTooltip label="I will pop up">
+  <div>
+    <KButton disabled>✅</KButton>
+  </div>
+</KTooltip>
+```
+
 ### placement
 
 This is where the tooltip will appear - by default it appears on top.
