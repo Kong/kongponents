@@ -962,6 +962,7 @@ onMounted(() => {
     position: absolute;
     right: 1px;
     top: 1px;
+    z-index: 1;
 
     .k-multiselect-chevron-icon {
       position: relative;
@@ -1002,6 +1003,7 @@ onMounted(() => {
     .k-multiselect-input {
       display: inline-block;
       position: relative;
+      width: 100%;
 
       &.is-readonly {
         // box-shadow: none !important;
