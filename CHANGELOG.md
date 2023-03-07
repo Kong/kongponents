@@ -1,3 +1,10 @@
+# [8.33.0](https://github.com/Kong/kongponents/compare/v8.32.1...v8.33.0) (2023-03-07)
+
+
+### Features
+
+* **ktable:** emit update:table-preferences ([#1175](https://github.com/Kong/kongponents/issues/1175)) ([0862c5b](https://github.com/Kong/kongponents/commit/0862c5bad2be8bb36b2c7817e6f6a926aad3f7de))
+
 ## [8.32.1](https://github.com/Kong/kongponents/compare/v8.32.0...v8.32.1) (2023-03-06)
 
 
