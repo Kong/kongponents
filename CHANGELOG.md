@@ -1,3 +1,10 @@
+## [8.33.1](https://github.com/Kong/kongponents/compare/v8.33.0...v8.33.1) (2023-03-07)
+
+
+### Bug Fixes
+
+* **ktruncate:** fix items floating to right issue [KHCP-6527] ([#1178](https://github.com/Kong/kongponents/issues/1178)) ([dab945f](https://github.com/Kong/kongponents/commit/dab945f6a067f264404ddf112f7b40d5937af19f))
+
 # [8.33.0](https://github.com/Kong/kongponents/compare/v8.32.1...v8.33.0) (2023-03-07)
 
 
