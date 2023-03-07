@@ -221,18 +221,17 @@ We support both single line truncation as well as multi-line. Multi-line truncat
 
 ## General Helpers
 
-| Class               | Properties                  |
-| :------------------ | :-------------------------- |
-| .capitalize         | text-transform: capitalize; |
-| .lowercase          | text-transform: lowercase;  |
-| .uppercase          | text-transform: uppercase;  |
-| .white-space-nowrap | white-space: nowrap;        |
-| .bold-500           | font-weight: 500;           |
-| .bold-600           | font-weight: 600;           |
-| .bold-700           | font-weight: 700;           |
-| .cursor-pointer     | cursor: pointer;            |
-| .overflow-hidden    | overflow: hidden;           |
-| .overflow-auto      | overflow: auto;             |
+| Class            | Properties                  |
+| :--------------- | :-------------------------- |
+| .capitalize      | text-transform: capitalize; |
+| .lowercase       | text-transform: lowercase;  |
+| .uppercase       | text-transform: uppercase;  |
+| .bold-500        | font-weight: 500;           |
+| .bold-600        | font-weight: 600;           |
+| .bold-700        | font-weight: 700;           |
+| .cursor-pointer  | cursor: pointer;            |
+| .overflow-hidden | overflow: hidden;           |
+| .overflow-auto   | overflow: auto;             |
 
 <style lang="scss" scoped>
 table:not(:first-of-type) td {

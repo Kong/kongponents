@@ -116,7 +116,6 @@
 
       <KButton
         v-if="dismissType === 'button'"
-        class="white-space-nowrap"
         size="small"
         @click="dismissAlert"
       >

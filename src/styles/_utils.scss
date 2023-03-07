@@ -178,9 +178,6 @@ $sides: (top, right, bottom, left);
     top: calc(var(--TLineHeight, 24px) * (var(--TMaxLines, 5) - 1) + var(--TFontSize, 16px) * 0.5);
   }
 }
-.white-space-nowrap {
-  white-space: nowrap !important;
-}
 .capitalize {
   text-transform: capitalize !important;
 }

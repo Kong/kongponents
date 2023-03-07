@@ -463,7 +463,7 @@ Descriptive text to be displayed below the main alert content.
     @closed="extraMsg = false"
   >
     <template #actionButtons>
-      <KButton class="white-space-nowrap" appearance="primary" size="small">Review</KButton>
+      <KButton appearance="primary" size="small">Review</KButton>
     </template>
   </KAlert>
 </div>
