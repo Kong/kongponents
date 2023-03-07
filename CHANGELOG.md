@@ -1,3 +1,11 @@
+## [8.32.1](https://github.com/Kong/kongponents/compare/v8.32.0...v8.32.1) (2023-03-06)
+
+
+### Bug Fixes
+
+* **kmultiselect:** fix input element width [KHCP-6460] ([#1171](https://github.com/Kong/kongponents/issues/1171)) ([3d3ee10](https://github.com/Kong/kongponents/commit/3d3ee10a80e854886d0c9f97a8212e3ee0c80df5))
+* **ktruncate:** a11y and interaction improvements [KHCP-6105] ([#1166](https://github.com/Kong/kongponents/issues/1166)) ([dd32e85](https://github.com/Kong/kongponents/commit/dd32e8503e36562b3de6fb5a1474b3ee6ca51659))
+
 # [8.32.0](https://github.com/Kong/kongponents/compare/v8.31.0...v8.32.0) (2023-03-02)
 
 
