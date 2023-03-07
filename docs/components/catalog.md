@@ -506,7 +506,7 @@ is triggered and will be resolved when the fetcher returns. You can override thi
   }"
 />
 
-```txt
+```
 Example URL
 
 https://kongponents.dev/api/components?_page=1&_limit=10
@@ -561,6 +561,16 @@ fetcher(payload) {
 
 - `kcatalog-empty-state-cta-clicked` - If using a CTA button in the empty state, this event is fired when clicked.
 - `kcatalog-error-cta-clicked` - If using a CTA button in the error state, this event is fired when clicked.
+- `@update:catalog-preferences` - Fired when the user changes the catalog's `pageSize`.
+
+Returns a payload that adheres to the `CatalogPreferences` interface:
+
+```ts
+interface CatalogPreferences {
+  /** The number of items to display per page */
+  pageSize?: number
+}
+```
 
 ## Theming
 

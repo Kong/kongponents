@@ -186,6 +186,7 @@ import KPagination from '@/components/KPagination/KPagination.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
 import KCatalogItem from './KCatalogItem.vue'
+import type { CatalogPreferences } from '@/types'
 
 const { useRequest, useDebounce } = useUtilities()
 
@@ -416,8 +417,8 @@ export default defineComponent({
       default: false,
     },
   },
-  emits: ['kcatalog-error-cta-clicked', 'kcatalog-empty-state-cta-clicked'],
-  setup(props, { slots }) {
+  emits: ['kcatalog-error-cta-clicked', 'kcatalog-empty-state-cta-clicked', 'update:catalog-preferences'],
+  setup(props, { emit, slots }) {
     const defaultFetcherProps = {
       page: 1,
       pageSize: 15,
@@ -491,6 +492,11 @@ export default defineComponent({
       return message.toLowerCase().replace(/[^[a-z0-9]/gi, '-')
     }
 
+    // Store the catalogPreferences in a computed property to utilize in the watcher
+    const catalogPreferences = computed((): CatalogPreferences => ({
+      pageSize: pageSize.value,
+    }))
+
     watch(() => props.searchInput, (newValue: string) => {
       search(newValue)
     }, { immediate: true })
@@ -498,6 +504,11 @@ export default defineComponent({
     watch(() => [query.value, page.value, pageSize.value], () => {
       revalidate()
     }, { immediate: true })
+
+    // Emit an event whenever the catalogPreferences are updated
+    watch(catalogPreferences, (catalogPrefs: CatalogPreferences) => {
+      emit('update:catalog-preferences', catalogPrefs)
+    })
 
     onMounted(() => {
       initData()

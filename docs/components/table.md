@@ -857,7 +857,7 @@ export default {
 
 `@update:table-preferences` - Fired when the user changes the table's `pageSize`, `sortColumnKey`, or `sortColumnOrder`.
 
-Returns an object that adheres to the `TablePreferences` interface:
+Returns a payload that adheres to the `TablePreferences` interface:
 
 ```ts
 interface TablePreferences {
@@ -1424,7 +1424,7 @@ The loading state is handled automatically. When the `fetcher` is called the int
 
 <KTable :fetcher="fetcher" :headers="headers" />
 
-```txt
+```
 Example URL
 
 https://kongponents.dev/api/components?_page=1&_limit=10&_sort=name&_order=desc
