@@ -518,7 +518,7 @@ export default defineComponent({
       validator: (val: string): boolean => ['true', 'loading', ''].includes(val),
     },
   },
-  emits: ['sort', 'ktable-error-cta-clicked', 'ktable-empty-state-cta-clicked', 'row-click', 'cell-click'],
+  emits: ['sort', 'ktable-error-cta-clicked', 'ktable-empty-state-cta-clicked', 'row-click', 'cell-click', 'pagination-page-size-changed'],
   setup(props, { attrs, emit, slots }) {
     const tableId = computed((): string => props.testMode ? 'test-table-id-1234' : uuidv1())
     const defaultFetcherProps = {
@@ -797,6 +797,7 @@ export default defineComponent({
       offset.value = null
       pageSize.value = newPageSize
       page.value = 1
+      emit('pagination-page-size-changed', newPageSize)
     }
     const scrollHandler = (event: any) => {
       if (event && event.target && event.target.scrollTop) {
