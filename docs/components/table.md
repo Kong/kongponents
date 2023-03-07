@@ -853,6 +853,23 @@ export default {
 </script>
 ```
 
+### Other Events
+
+`@update:table-preferences` - Fired when the user changes the table's `pageSize`, `sortColumnKey`, or `sortColumnOrder`.
+
+Returns a payload that adheres to the `TablePreferences` interface:
+
+```ts
+interface TablePreferences {
+  /** The number of items to display per page */
+  pageSize?: number
+  /** The column to sort by's `key` defined in the table headers */
+  sortColumnKey?: string
+  /** The order by which to sort the column, one of `asc` or `desc` */
+  sortColumnOrder?: 'asc' | 'desc'
+}
+```
+
 ## Slots
 
 ### Toolbar
@@ -1033,7 +1050,7 @@ export default {
 Here is another example of how to use slot to completely customize content inside the cell.
 
 ::: tip TIP
-You can choose utilize the `.k-table-cell-title` and `.k-table-cell-description` classes within the slot as shown in the example below to leverage preconfigured multi-line styles. 
+You can choose utilize the `.k-table-cell-title` and `.k-table-cell-description` classes within the slot as shown in the example below to leverage preconfigured multi-line styles.
 :::
 
 <div>
@@ -1407,7 +1424,7 @@ The loading state is handled automatically. When the `fetcher` is called the int
 
 <KTable :fetcher="fetcher" :headers="headers" />
 
-```txt
+```
 Example URL
 
 https://kongponents.dev/api/components?_page=1&_limit=10&_sort=name&_order=desc
@@ -1918,7 +1935,7 @@ export default defineComponent({
   tr.disabled:hover {
     --KTableHover: var(--yellow-100, #fff9e6);
   }
-  
+
   td.custom-layout-cell {
     display: flex;
 

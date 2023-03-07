@@ -202,6 +202,7 @@ import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
+import type { TablePreferences, TablePaginationType, TableHeader } from '@/types'
 
 /**
  * @deprecated defaultSorter
@@ -216,14 +217,6 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 }
 
 const { clientSideSorter, useDebounce, useRequest } = useUtilities()
-
-export interface TableHeader {
-  key: string
-  label: string
-  sortable?: boolean
-  hideLabel?: boolean
-  useSortHandlerFn?: boolean
-}
 
 export default defineComponent({
   name: 'KTable',
@@ -496,9 +489,9 @@ export default defineComponent({
       default: false,
     },
     paginationType: {
-      type: String as PropType<'default' | 'offset'>,
+      type: String as PropType<TablePaginationType>,
       default: 'default',
-      validator: (value: string) => ['default', 'offset'].includes(value),
+      validator: (type: TablePaginationType) => ['default', 'offset'].includes(type),
     },
     /**
      * A prop to pass to hide pagination for total table records is less than or equal to pagesize
@@ -518,7 +511,7 @@ export default defineComponent({
       validator: (val: string): boolean => ['true', 'loading', ''].includes(val),
     },
   },
-  emits: ['sort', 'ktable-error-cta-clicked', 'ktable-empty-state-cta-clicked', 'row-click', 'cell-click'],
+  emits: ['sort', 'ktable-error-cta-clicked', 'ktable-empty-state-cta-clicked', 'row-click', 'cell-click', 'update:table-preferences'],
   setup(props, { attrs, emit, slots }) {
     const tableId = computed((): string => props.testMode ? 'test-table-id-1234' : uuidv1())
     const defaultFetcherProps = {
@@ -807,6 +800,18 @@ export default defineComponent({
         }
       }
     }
+
+    // Store the tablePreferences in a computed property to utilize in the watcher
+    const tablePreferences = computed((): TablePreferences => ({
+      pageSize: pageSize.value,
+      sortColumnKey: sortColumnKey.value,
+      sortColumnOrder: sortColumnOrder.value as 'asc' | 'desc',
+    }))
+
+    // Emit an event whenever the tablePreferences are updated
+    watch(tablePreferences, (tablePrefs: TablePreferences) => {
+      emit('update:table-preferences', tablePrefs)
+    })
 
     const getNextOffsetHandler = (): void => {
       page.value++
