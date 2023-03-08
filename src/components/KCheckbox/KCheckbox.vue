@@ -57,7 +57,7 @@ export default defineComponent({
   },
   emits: ['input', 'change', 'update:modelValue'],
   setup(props, { slots, emit, attrs }) {
-    const hasLabel = computed<boolean>(() => !!(props.label || slots.default))
+    const hasLabel = computed((): boolean => !!(props.label || slots.default))
 
     const handleChange = (event: Event): void => {
       emit('change', (event.target as HTMLInputElement).checked)

@@ -278,7 +278,7 @@ import KIcon from '@/components/KIcon/KIcon.vue'
 import { copyTextToClipboard } from '@/utilities/copyTextToClipboard'
 import { debounce } from '@/utilities/debounce'
 import { Command, ShortcutManager } from '@/utilities/ShortcutManager'
-import { CodeBlockEventData, CommandKeywords, Theme } from '@/types/codeBlock'
+import type { CodeBlockEventData, CommandKeywords, Theme } from '@/types/code-block'
 
 const IS_MAYBE_MAC = window?.navigator?.platform?.toLowerCase().includes('mac')
 const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Options' : 'Alt'
@@ -406,12 +406,12 @@ const numberOfMatches = ref<number>(0)
 const matchingLineNumbers = ref<number[]>([])
 const currentLineIndex = ref<null | number>(null)
 
-const totalLines = computed<number[]>(() => Array.from({ length: props.code.split('\n').length }, (_, index) => index + 1))
-const maxLineNumberWidth = computed<string>(() => totalLines.value[totalLines.value.length - 1].toString().length + 'ch')
-const linePrefix = computed<string>(() => props.id.toLowerCase().replace(/\s+/g, '-'))
-const isProcessing = computed<boolean>(() => props.isProcessing || isProcessingInternally.value)
-const isShowingFilteredCode = computed<boolean>(() => isFilterMode.value && filteredCode.value !== '')
-const filteredCode = computed<string>(function() {
+const totalLines = computed((): number[] => Array.from({ length: props.code.split('\n').length }, (_, index) => index + 1))
+const maxLineNumberWidth = computed((): string => totalLines.value[totalLines.value.length - 1].toString().length + 'ch')
+const linePrefix = computed((): string => props.id.toLowerCase().replace(/\s+/g, '-'))
+const isProcessing = computed((): boolean => props.isProcessing || isProcessingInternally.value)
+const isShowingFilteredCode = computed((): boolean => isFilterMode.value && filteredCode.value !== '')
+const filteredCode = computed((): string => {
   if (query.value === '') {
     return ''
   }

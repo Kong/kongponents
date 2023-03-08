@@ -27,7 +27,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import KCard from '@/components/KCard/KCard.vue'
-import { CatalogItem } from '@/types'
+import type { CatalogItem } from '@/types'
 
 export default defineComponent({
   name: 'KCatalogItem',

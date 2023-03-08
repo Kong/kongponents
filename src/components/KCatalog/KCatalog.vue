@@ -218,7 +218,7 @@ export default defineComponent({
       type: String as PropType<CardSize>,
       default: 'medium',
       validator: (value: CardSize): boolean => {
-        return Object.values(cardSizeRecord).indexOf(value) !== -1
+        return Object.values(cardSizeRecord).includes(value)
       },
     },
     /**
@@ -439,16 +439,21 @@ export default defineComponent({
     const isCardLoading = ref<boolean>(true)
     const hasInitialized = ref<boolean>(false)
 
-    const hasToolbarSlot = computed<boolean>(() => !!slots.toolbar)
+    const hasToolbarSlot = computed((): boolean => !!slots.toolbar)
 
     // once `initData()` finishes fetch data
-    const catalogFetcherCacheKey = computed<string>(() => {
+    const catalogFetcherCacheKey = computed((): string => {
       if (!props.fetcher || !hasInitialized.value) {
         return ''
       }
 
       return `catalog-item_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}` as string
     })
+
+    // Store the catalogPreferences in a computed property to utilize in the watcher
+    const catalogPreferences = computed((): CatalogPreferences => ({
+      pageSize: pageSize.value,
+    }))
 
     const fetchData = async () => {
       isCardLoading.value = true
@@ -499,11 +504,6 @@ export default defineComponent({
     const getTestIdString = (message: string): string => {
       return message.toLowerCase().replace(/[^[a-z0-9]/gi, '-')
     }
-
-    // Store the catalogPreferences in a computed property to utilize in the watcher
-    const catalogPreferences = computed<CatalogPreferences>(() => ({
-      pageSize: pageSize.value,
-    }))
 
     watch(() => props.searchInput, (newValue: string) => {
       search(newValue)

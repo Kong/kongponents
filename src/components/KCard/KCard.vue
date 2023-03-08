@@ -77,7 +77,7 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 import { v1 as uuidv1 } from 'uuid'
-import { BorderVariant, BorderVariantRecord } from '@/types/card'
+import type { BorderVariant, BorderVariantRecord } from '@/types/card'
 
 const borderVariantRecord: BorderVariantRecord = {
   border: 'border',
@@ -112,7 +112,7 @@ export default defineComponent({
       type: String as PropType<BorderVariant>,
       default: 'border',
       validator: (value: BorderVariant): boolean => {
-        return Object.values(borderVariantRecord).indexOf(value) !== -1
+        return Object.values(borderVariantRecord).includes(value)
       },
     },
     /**
