@@ -77,7 +77,7 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 import { v1 as uuidv1 } from 'uuid'
-import type { BorderVariant, BorderVariantRecord } from '@/types/card'
+import type { BorderVariant, BorderVariantRecord } from '@/types'
 
 const borderVariantRecord: BorderVariantRecord = {
   border: 'border',
