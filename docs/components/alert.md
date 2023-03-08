@@ -697,20 +697,20 @@ Fixes KAlert to the top of the container.
 
 ## Theming
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KAlertInfoColor`| Info variant text  color
-| `--KAlertInfoBorder`| Info variant border
-| `--KAlertInfoBackground` | Info variant background color
-| `--KAlertSuccessColor`| Success variant text  color
-| `--KAlertSuccessBorder`| Success variant border
-| `--KAlertSuccessBackground` | Success variant background color
-| `--KAlertDangerColor`| Danger variant text  color
-| `--KAlertDangerBorder`| Danger variant border
-| `--KAlertDangerBackground` | Danger variant background color
-| `--KAlertWarningColor`| Warning variant text  color
-| `--KAlertWarningBorder`| Warning variant border
-| `--KAlertWarningBackground` | Warning variant background color
+| Variable                    | Purpose                          |
+| :-------------------------- | :------------------------------- |
+| `--KAlertInfoColor`         | Info variant text  color         |
+| `--KAlertInfoBorder`        | Info variant border              |
+| `--KAlertInfoBackground`    | Info variant background color    |
+| `--KAlertSuccessColor`      | Success variant text  color      |
+| `--KAlertSuccessBorder`     | Success variant border           |
+| `--KAlertSuccessBackground` | Success variant background color |
+| `--KAlertDangerColor`       | Danger variant text  color       |
+| `--KAlertDangerBorder`      | Danger variant border            |
+| `--KAlertDangerBackground`  | Danger variant background color  |
+| `--KAlertWarningColor`      | Warning variant text  color      |
+| `--KAlertWarningBorder`     | Warning variant border           |
+| `--KAlertWarningBackground` | Warning variant background color |
 
 \
 An Example of changing the success KAlert variant to lime instead of Kong's green might
