@@ -159,6 +159,24 @@ String to be displayed as error message if `hasError` prop is `true`.
 <KInput label="Large" size="large" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
 ```
 
+### iconPosition
+
+Controls position of the icon provided through the [slot](#slots).
+
+<KInput icon-position="right" placeholder="Search" model-value="search query">
+  <template #icon>
+    <KIcon icon="clear" />
+  </template>
+</KInput>
+
+```html
+<KInput icon-position="right" placeholder="Search" model-value="search query">
+  <template #icon>
+    <KIcon icon="clear" />
+  </template>
+</KInput>
+```
+
 ## Attribute Binding
 
 You can pass any input attribute and it will get properly bound to the element.
@@ -221,6 +239,52 @@ export default defineComponent({
 </script>
 ```
 
+## Slots
+
+- `icon` - slot for icon on the left or right of the input (position can be controlled through [prop](#iconposition))
+
+:::tip TIP
+Whether you choose to use KIcon Kongponent or your own SVG, the component stylings will adjust the icon size to match the size of the component.
+:::
+  
+<KInput placeholder="Search" size="small" class="mb-2">
+  <template #icon>
+    <KIcon icon="search" />
+  </template>
+</KInput>
+
+<KInput placeholder="Search" size="medium" class="mb-2">
+  <template #icon>
+    <KIcon icon="search" />
+  </template>
+</KInput>
+
+<KInput placeholder="Search" size="large">
+  <template #icon>
+    <KIcon icon="search" />
+  </template>
+</KInput>
+
+```html
+<KInput placeholder="Search" size="small">
+  <template #icon>
+    <KIcon icon="search" />
+  </template>
+</KInput>
+
+<KInput placeholder="Search" size="medium">
+  <template #icon>
+    <KIcon icon="search" />
+  </template>
+</KInput>
+
+<KInput placeholder="Search" size="large">
+  <template #icon>
+    <KIcon icon="search" />
+  </template>
+</KInput>
+```
+
 ## Events
 
 ### `input` and `update:modelValue`
@@ -274,16 +338,16 @@ Fired when the text starts or stops exceeding the limit, returns an object:
 
 ## Theming
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KInputColor` | Input text color
-| `--KInputBorder` | Input border / label color
-| `--KInputBackground` | Input and label background color
-| `--KInputHover` | Input border / label hover color
-| `--KInputFocus` | Input border / label focus color
-| `--KInputDisabledBackground` | Input disabled background color
-| `--KInputError` | Input error border color
-| `--KInputPlaceholderColor`| Placeholder text color
+| Variable                     | Purpose                          |
+| :--------------------------- | :------------------------------- |
+| `--KInputColor`              | Input text color                 |
+| `--KInputBorder`             | Input border / label color       |
+| `--KInputBackground`         | Input and label background color |
+| `--KInputHover`              | Input border / label hover color |
+| `--KInputFocus`              | Input border / label focus color |
+| `--KInputDisabledBackground` | Input disabled background color  |
+| `--KInputError`              | Input error border color         |
+| `--KInputPlaceholderColor`   | Placeholder text color           |
 
 An Example of changing the error border color of KInput to pink might look like:
 
