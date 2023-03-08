@@ -1,3 +1,10 @@
+## [8.33.2](https://github.com/Kong/kongponents/compare/v8.33.1...v8.33.2) (2023-03-08)
+
+
+### Bug Fixes
+
+* **kdropdownmenu:** divider display ([#1181](https://github.com/Kong/kongponents/issues/1181)) ([4643fea](https://github.com/Kong/kongponents/commit/4643feabf5d04e2cd1f23fe3ccc081b09131e648))
+
 ## [8.33.1](https://github.com/Kong/kongponents/compare/v8.33.0...v8.33.1) (2023-03-07)
 
 
