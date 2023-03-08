@@ -226,6 +226,7 @@ export default defineComponent({
   text-decoration: none;
   transition: all .2s ease-in-out;
   vertical-align: middle;
+  white-space: nowrap;
 
   &:disabled,
   &[disabled] {
