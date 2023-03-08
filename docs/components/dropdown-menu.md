@@ -409,6 +409,13 @@ There are 3 primary item types:
       Disabled button
     </KDropdownItem>
     <KDropdownItem
+      :item="{ label: 'You are here 2', to: { path: '/components/dropdown-menu.html' } }"
+      disabled
+      @click="clickHandler"
+    >
+      Disabled to link
+    </KDropdownItem>
+    <KDropdownItem
       has-divider
       is-dangerous
       class="d-inline-block"

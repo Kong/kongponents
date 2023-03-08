@@ -1,6 +1,7 @@
 import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KDropdownMenu from '@/components/KDropdownMenu/KDropdownMenu.vue'
+import KDropdownItem from '@/components/KDropdownMenu/KDropdownItem.vue'
 
 const defaultMenuItems = [
   { label: 'Props' },
@@ -142,5 +143,62 @@ describe('KDropdownMenu', () => {
 
     triggerBtn.should('contain.html', triggerSlotContent)
     cy.get('.k-dropdown-popover').should('contain.html', itemSlotContent)
+  })
+
+  it('correctly renders dividers on all item types', () => {
+    const itemSlotContent = `
+    <KDropdownItem has-divider :item="{ label: 'A link', to: { path: '/' } }" />
+    <KDropdownItem has-divider @click="() => {}">
+      A button
+    </KDropdownItem>
+    <KDropdownItem
+      has-divider
+      disabled
+      @click="() => {}"
+    >
+      Disabled button
+    </KDropdownItem>
+    <KDropdownItem
+      :item="{ label: 'You are here 2', to: { path: '/' } }"
+      has-divider
+      disabled
+      @click="() => {}"
+    >
+      Disabled link
+    </KDropdownItem>
+    <KDropdownItem
+      has-divider
+      is-dangerous
+      class="d-inline-block"
+    >
+      <a
+        href="http://www.google.com"
+        rel="noopener"
+        target="_blank"
+      >
+        Custom item
+      </a>
+    </KDropdownItem>`
+
+    mount(KDropdownMenu, {
+      components: {
+        KDropdownItem,
+      },
+      props: {
+        testMode: true,
+        label: 'Click me',
+      },
+      slots: {
+        items: itemSlotContent,
+        default: h('button', {}, 'hello'),
+      },
+    })
+
+    const triggerBtn = cy.getTestId('k-dropdown-trigger')
+    triggerBtn.click()
+    cy.getTestId('k-dropdown-list').should('be.visible')
+
+    cy.get('.k-dropdown-item').should('have.length', 5)
+    cy.get('.has-divider').should('have.length', 5)
   })
 })
