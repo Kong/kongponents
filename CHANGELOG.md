@@ -1,3 +1,10 @@
+## [8.33.3](https://github.com/Kong/kongponents/compare/v8.33.2...v8.33.3) (2023-03-08)
+
+
+### Bug Fixes
+
+* **ktable:** only emit table prefs when user changes ([#1183](https://github.com/Kong/kongponents/issues/1183)) ([f1172e6](https://github.com/Kong/kongponents/commit/f1172e652694f7c0a5c71ed4fcf3c79feb5b683c))
+
 ## [8.33.2](https://github.com/Kong/kongponents/compare/v8.33.1...v8.33.2) (2023-03-08)
 
 
