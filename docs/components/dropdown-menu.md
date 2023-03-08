@@ -356,7 +356,7 @@ There are 3 primary item types:
   <KDropdownMenu label="Variety">
     <template #items>
       <KDropdownItem :item="youAreHere" />
-      <KDropdownItem @click="clickHandler('Button clicked!')">
+      <KDropdownItem has-divider @click="clickHandler('Button clicked!')">
         A button
       </KDropdownItem>
       <KDropdownItem
@@ -399,7 +399,7 @@ There are 3 primary item types:
 <KDropdownMenu label="Variety">
   <template #items>
     <KDropdownItem :item="{ label: 'You are here', to: { path: '/components/dropdown-menu.html' } }" />
-    <KDropdownItem @click="clickHandler">
+    <KDropdownItem has-divider @click="clickHandler">
       A button
     </KDropdownItem>
     <KDropdownItem
