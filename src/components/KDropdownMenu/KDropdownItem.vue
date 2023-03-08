@@ -155,20 +155,31 @@ li.k-dropdown-item {
   font-size: 16px;
   line-height: 1;
 
-  &.has-divider {
-    $k-dropdown-item-divider-container-height: 24px; // set to the same value as --spacing-lg without the units
-    $k-dropdown-item-divider-position: -13px; // this should be negative (<container-height> / 2 + 1)
-    margin-top: $k-dropdown-item-divider-container-height;
-    position: relative;
+  &:not(:first-of-type) {
+    &.has-divider,
+    .has-divider {
+      $k-dropdown-item-divider-container-height: 24px; // set to the same value as --spacing-lg without the units
+      $k-dropdown-item-divider-position: -13px; // this should be negative (<container-height> / 2 + 1)
+      margin-top: $k-dropdown-item-divider-container-height;
+      position: relative;
 
-    &:before {
-      background: var(--grey-200);
-      content: '';
-      display: block;
-      height: 1px;
-      position: absolute;
-      top: $k-dropdown-item-divider-position;
-      width: 100%;
+      &:before {
+        background: var(--grey-200);
+        content: '';
+        display: block;
+        height: 1px;
+        position: absolute;
+        top: $k-dropdown-item-divider-position;
+        width: 100%;
+      }
+    }
+
+    .has-divider {
+      &:before {
+        // negative margins to take the full width if class
+        // is on a child of k-dropdown-item
+        margin-left: calc(var(--spacing-lg) * -1);
+      }
     }
   }
 
