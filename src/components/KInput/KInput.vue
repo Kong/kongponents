@@ -20,7 +20,7 @@
           :id="inputId"
           :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
           class="form-control k-input"
-          :class="`k-input-${size}`"
+          :class="[`k-input-${size}`, $slots['icon'] ? `has-icon icon-${iconPosition}` : '' ]"
           :value="getValue()"
           @blur="() => isFocused = false"
           @focus="() => isFocused = true"
@@ -53,7 +53,7 @@
         :id="inputId"
         :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
         class="form-control k-input"
-        :class="`k-input-${size}`"
+        :class="[`k-input-${size}`, $slots['icon'] ? `has-icon icon-${iconPosition}` : '' ]"
         :value="getValue()"
         @input="handleInput"
       >
@@ -71,7 +71,7 @@
       v-bind="modifiedAttrs"
       :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
       class="form-control k-input"
-      :class="`k-input-${size}`"
+      :class="[`k-input-${size}`, $slots['icon'] ? `has-icon icon-${iconPosition}` : '' ]"
       :value="getValue()"
       @input="handleInput"
     >
@@ -90,6 +90,13 @@
     >
       {{ help }}
     </p>
+
+    <div
+      v-if="$slots['icon']"
+      class="input-icon"
+    >
+      <slot name="icon" />
+    </div>
   </div>
 </template>
 
@@ -143,6 +150,11 @@ export default defineComponent({
       default: null,
       // Ensure the characterLimit is greater than zero
       validator: (limit: number):boolean => limit > 0,
+    },
+    iconPosition: {
+      type: String,
+      default: 'left',
+      validator: (value: string) => ['left', 'right'].includes(value),
     },
     /**
      * Test mode - for testing only, strips out generated ids
@@ -251,6 +263,94 @@ export default defineComponent({
 
 .form-control {
   box-shadow: none !important;
+
+  &.has-icon {
+    // input size medium
+    $kInputMediumSizingX: 10px;
+    $kInputMediumSizingY: var(--spacing-md, spacing(md));
+    $kInputMediumIconSize: 24px;
+
+    ~ .input-icon {
+      top: $kInputMediumSizingX;
+
+      :deep(svg) {
+        height: $kInputMediumIconSize;
+        width: $kInputMediumIconSize;
+      }
+    }
+
+    &.icon-left {
+      padding-left: calc($kInputMediumSizingY + var(--spacing-xs, spacing(xs)) + $kInputMediumIconSize) !important; // account for icon offset and width
+      ~ .input-icon {
+        left: $kInputMediumSizingY;
+      }
+    }
+
+    &.icon-right {
+      padding-right: calc($kInputMediumSizingY + var(--spacing-xs, spacing(xs)) + $kInputMediumIconSize) !important; // account for icon offset and width
+      ~ .input-icon {
+        right: $kInputMediumSizingY;
+      }
+    }
+
+    // input size small
+    $kInputSmallSizingX: var(--spacing-xs, spacing(xs));
+    $kInputSmallSizingY: var(--spacing-sm, spacing(sm));
+    $kInputSmallIconSize: 22px;
+
+    &.k-input-small {
+      ~ .input-icon {
+        top: $kInputSmallSizingX;
+
+        :deep(svg) {
+          height: $kInputSmallIconSize;
+          width: $kInputSmallIconSize;
+        }
+      }
+
+      &.icon-left {
+        padding-left: calc($kInputSmallSizingY + var(--spacing-xs, spacing(xs)) + $kInputSmallIconSize) !important; // account for icon offset and width
+        ~ .input-icon {
+          left: $kInputSmallSizingY;
+        }
+      }
+      &.icon-right {
+        padding-right: calc($kInputSmallSizingY + var(--spacing-xs, spacing(xs)) + $kInputSmallIconSize) !important; // account for icon offset and width
+        ~ .input-icon {
+          right: $kInputSmallSizingY;
+        }
+      }
+    }
+
+    // input size large
+    $kInputLargeSizingX: var(--spacing-md, spacing(md));
+    $kInputLargeSizingY: var(--spacing-lg, spacing(lg));
+    $kInputLargeIconSize: 26px;
+
+    &.k-input-large {
+      ~ .input-icon {
+        top: $kInputLargeSizingX;
+
+        :deep(svg) {
+          height: $kInputLargeIconSize;
+          width: $kInputLargeIconSize;
+        }
+      }
+
+      &.icon-left {
+        padding-left: calc($kInputLargeSizingY + var(--spacing-xs, spacing(xs)) + $kInputLargeIconSize) !important; // account for icon offset and width
+        ~ .input-icon {
+          left: $kInputLargeSizingY;
+        }
+      }
+      &.icon-right {
+        padding-right: calc($kInputLargeSizingY + var(--spacing-xs, spacing(xs)) + $kInputLargeIconSize) !important; // account for icon offset and width
+        ~ .input-icon {
+          right: $kInputLargeSizingY;
+        }
+      }
+    }
+  }
 }
 
 .help {
@@ -260,12 +360,21 @@ export default defineComponent({
   margin: var(--spacing-xs, spacing(xs)) 0 0;
 }
 
+.input-icon {
+  align-items: center;
+  display: inline-flex;
+  pointer-events: none;
+  position: absolute;
+}
+
 .has-error {
   color: var(--red-500);
   font-weight: 500;
 }
 
 .k-input-wrapper {
+  position: relative;
+
   input.k-input {
     -webkit-appearance: none;
   }
