@@ -163,14 +163,14 @@ String to be displayed as error message if `hasError` prop is `true`.
 
 Controls position of the icon provided through the [slot](#slots).
 
-<KInput icon-position="right" placeholder="Search" model-value="search query">
+<KInput icon-position="right" model-value="search query">
   <template #icon>
     <KIcon icon="clear" />
   </template>
 </KInput>
 
 ```html
-<KInput icon-position="right" placeholder="Search" model-value="search query">
+<KInput icon-position="right" model-value="search query">
   <template #icon>
     <KIcon icon="clear" />
   </template>
@@ -210,7 +210,7 @@ KInput works as regular inputs do using v-model for data binding:
 <KLabel>{{ myInput }}</KLabel>
 <div class="d-flex">
   <KInput v-model="myInput"/>
-  <KButton class="ml-2" @click="clearIt">Clear</KButton>
+  <KButton class="ml-2" @click="clearMyInput">Clear</KButton>
 </div>
 
 ```html
@@ -309,10 +309,10 @@ Fired when the text starts or stops exceeding the limit, returns an object:
 
 ```json
 {
-    value,          // current value
-    length,         // length of current value
-    characterLimit, // character limit
-    limitExceeded   // whether or not the limit has been exceeded
+  value,          // current value
+  length,         // length of current value
+  characterLimit, // character limit
+  limitExceeded   // whether or not the limit has been exceeded
 }
 ```
 
@@ -334,6 +334,44 @@ Fired when the text starts or stops exceeding the limit, returns an object:
     />
   </div>
 </KComponent>
+```
+
+### `icon:click`
+
+You can make icon passed through the [slot](#slots) clickable by binding to `@icon:click` event.
+
+<KInput v-model="iconEventInput" @icon:click="clearIconEventInput" icon-position="right" placeholder="Enter search query">
+  <template #icon>
+    <KIcon icon="clear" class="clear-search" />
+  </template>
+</KInput>
+
+```html
+<KInput @icon:click="clearSearch" v-model="searchQuery" icon-position="right" placeholder="Enter search query">
+  <template #icon>
+    <KIcon icon="clear" class="clear-search" />
+  </template>
+</KInput>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const searchQuery = ref('search query')
+
+const clearSearch = () => {
+  searchQuery.value = ''
+}
+</script>
+
+<style lang="scss">
+.clear-search {
+  &:hover {
+    path, circle {
+      stroke: darkgrey;
+    }
+  }
+}
+</style>
 ```
 
 ## Theming
@@ -372,12 +410,16 @@ export default defineComponent({
   data() {
     return {
       myInput: 'test',
+      iconEventInput: 'search query',
       inputText: ''
     }
   },
   methods: {
-    clearIt () {
+    clearMyInput () {
       this.myInput = ''
+    },
+    clearIconEventInput () {
+      this.iconEventInput = ''
     }
   }
 })
@@ -386,5 +428,13 @@ export default defineComponent({
 <style lang="scss">
 .custom-input {
   --KInputError: hotpink;
+}
+
+.clear-search {
+  &:hover {
+    path, circle {
+      stroke: darkgrey;
+    }
+  }
 }
 </style>
