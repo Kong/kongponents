@@ -102,34 +102,50 @@ export default defineComponent({
   .loader {
     :after {
       border-radius: 50%;
-      width: 183px;
       height: 183px;
+      width: 183px;
     }
+    -webkit-animation: spinnerAnimation 1.4s infinite linear;
+    animation: spinnerAnimation 1.4s infinite linear;
+    border-bottom: 10px solid var(--grey-200, color(grey-200));
+    border-left: 10px solid var(--KSkeletonFullScreenSpinnerColor, var(--blue-500, color(blue-500)));
     border-radius: 50%;
-    width: 183px;
+    border-right: 10px solid var(--grey-200, color(grey-200));
+    border-top: 10px solid var(--grey-200, color(grey-200));
+    font-size: 10px;
     height: 183px;
     margin: 60px auto;
-    font-size: 10px;
     position: relative;
-    text-indent: -9999em;
-    border-top: 1.1em solid var(--grey-200, color(grey-200));
-    border-right: 1.1em solid var(--grey-200, color(grey-200));
-    border-bottom: 1.1em solid var(--grey-200, color(grey-200));
-    border-left: 1.1em solid var(--KSkeletonFullScreenSpinnerColor, var(--blue-500, color(blue-500)));
+    -ms-transform: translateZ(0);
+    -webkit-transform: translateZ(0);
     transform: translateZ(0);
-    animation: spinnerAnimation 1.4s infinite linear;
+    width: 183px;
   }
 
-  @keyframes spinnerAnimation {
-    0% {
-      -webkit-transform: rotate(0deg);
-      transform: rotate(0deg);
-    }
-    100% {
-      -webkit-transform: rotate(360deg);
-      transform: rotate(360deg);
-    }
+@-webkit-keyframes spinnerAnimation {
+  0% {
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
   }
+  100% {
+    -ms-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes spinnerAnimation {
+  0% {
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -ms-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
 
 }
 </style>
