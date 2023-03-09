@@ -270,7 +270,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch, PropType } from 'vue'
 
 import KButton from '@/components/KButton/KButton.vue'
@@ -278,15 +278,7 @@ import KIcon from '@/components/KIcon/KIcon.vue'
 import { copyTextToClipboard } from '@/utilities/copyTextToClipboard'
 import { debounce } from '@/utilities/debounce'
 import { Command, ShortcutManager } from '@/utilities/ShortcutManager'
-
-export type CodeBlockEventData = {
-  preElement: HTMLElement
-  codeElement: HTMLElement
-  code: string
-  language: string
-  query: string
-  matchingLineNumbers: number[]
-}
+import type { CodeBlockEventData, CommandKeywords, Theme } from '@/types/code-block'
 
 const IS_MAYBE_MAC = window?.navigator?.platform?.toLowerCase().includes('mac')
 const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Options' : 'Alt'
@@ -368,7 +360,7 @@ const props = defineProps({
    * Controls the color scheme of the component. **Default: `light`**.
    */
   theme: {
-    type: String as PropType<'light' | 'dark'>,
+    type: String as PropType<Theme>,
     required: false,
     default: 'light',
   },
@@ -402,24 +394,24 @@ const emit = defineEmits<{
   (event: 'query-change', data: string): void
 }>()
 
-const query = ref(props.query)
-const isProcessingInternally = ref(false)
-const isRegExpMode = ref(false)
-const isFilterMode = ref(false)
+const query = ref<string>(props.query)
+const isProcessingInternally = ref<boolean>(false)
+const isRegExpMode = ref<boolean>(false)
+const isFilterMode = ref<boolean>(false)
 const regExpError = ref<Error | null>(null)
 const codeBlock = ref<HTMLElement | null>(null)
 const codeBlockSearchInput = ref<HTMLInputElement | null>(null)
 const codeBlockCopyButton = ref<typeof KButton | null>(null)
-const numberOfMatches = ref(0)
+const numberOfMatches = ref<number>(0)
 const matchingLineNumbers = ref<number[]>([])
 const currentLineIndex = ref<null | number>(null)
 
-const totalLines = computed(() => Array.from({ length: props.code.split('\n').length }, (_, index) => index + 1))
-const maxLineNumberWidth = computed(() => totalLines.value[totalLines.value.length - 1].toString().length + 'ch')
-const linePrefix = computed(() => props.id.toLowerCase().replace(/\s+/g, '-'))
-const isProcessing = computed(() => props.isProcessing || isProcessingInternally.value)
-const isShowingFilteredCode = computed(() => isFilterMode.value && filteredCode.value !== '')
-const filteredCode = computed(function() {
+const totalLines = computed((): number[] => Array.from({ length: props.code.split('\n').length }, (_, index) => index + 1))
+const maxLineNumberWidth = computed((): string => totalLines.value[totalLines.value.length - 1].toString().length + 'ch')
+const linePrefix = computed((): string => props.id.toLowerCase().replace(/\s+/g, '-'))
+const isProcessing = computed((): boolean => props.isProcessing || isProcessingInternally.value)
+const isShowingFilteredCode = computed((): boolean => isFilterMode.value && filteredCode.value !== '')
+const filteredCode = computed((): string => {
   if (query.value === '') {
     return ''
   }
@@ -476,8 +468,6 @@ watch(() => isShowingFilteredCode.value, async function() {
     updateMatchingLineNumbers()
   }
 })
-
-type CommandKeywords = 'toggleFilterMode' | 'toggleRegExpMode' | 'jumpToNextMatch' | 'jumpToPreviousMatch' | 'copyCode'
 
 /**
  * Maps shortcuts to their associated command keywords.
@@ -600,7 +590,7 @@ function handleSearchInputValue(inputValue: string): void {
   updateMatchingLineNumbers()
 }
 
-function updateMatchingLineNumbers() {
+function updateMatchingLineNumbers(): void {
   isProcessingInternally.value = true
   regExpError.value = null
 

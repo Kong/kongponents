@@ -855,6 +855,25 @@ export default {
 
 ### Other Events
 
+#### Sorting
+
+`@sort` - Fired when the user clicks on a sortable column heading
+
+Returns a payload that containing information about the sort action:
+
+```json
+{
+  /** The previous column to sort by's `key` defined in the table headers */
+  prevKey: string,
+  /** The current column to sort by's `key` defined in the table headers */
+  sortColumnKey: string,
+  /** The order by which to sort the column, one of `asc` or `desc` */
+  sortColumnOrder: 'asc' | 'desc'
+}
+```
+
+#### Table Preferences
+
 `@update:table-preferences` - Fired when the user changes the table's `pageSize`, `sortColumnKey`, or `sortColumnOrder`.
 
 Returns a payload that adheres to the `TablePreferences` interface:

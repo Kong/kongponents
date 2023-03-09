@@ -75,8 +75,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, PropType } from 'vue'
 import { v1 as uuidv1 } from 'uuid'
+import type { BorderVariant, BorderVariantRecord } from '@/types'
+
+const borderVariantRecord: BorderVariantRecord = {
+  border: 'border',
+  noBorder: 'noBorder',
+  borderTop: 'borderTop',
+}
 
 export default defineComponent({
   name: 'KCard',
@@ -102,8 +109,11 @@ export default defineComponent({
       * Options: [borderTop, noBorder]
       */
     borderVariant: {
-      type: String,
+      type: String as PropType<BorderVariant>,
       default: 'border',
+      validator: (value: BorderVariant): boolean => {
+        return Object.values(borderVariantRecord).includes(value)
+      },
     },
     /**
       * Sets if card has hover state<br>

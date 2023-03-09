@@ -781,6 +781,9 @@ export default defineComponent({
       } else if (props.paginationType !== 'offset') {
         revalidate()
       }
+
+      // Emit an event whenever one of the tablePreferences are updated
+      emitTablePreferences()
     }
     const pageChangeHandler = ({ page: newPage }: Record<string, number>) => {
       page.value = newPage
@@ -790,6 +793,9 @@ export default defineComponent({
       offset.value = null
       pageSize.value = newPageSize
       page.value = 1
+
+      // Emit an event whenever one of the tablePreferences are updated
+      emitTablePreferences()
     }
     const scrollHandler = (event: any) => {
       if (event && event.target && event.target.scrollTop) {
@@ -808,10 +814,10 @@ export default defineComponent({
       sortColumnOrder: sortColumnOrder.value as 'asc' | 'desc',
     }))
 
-    // Emit an event whenever the tablePreferences are updated
-    watch(tablePreferences, (tablePrefs: TablePreferences) => {
-      emit('update:table-preferences', tablePrefs)
-    })
+    const emitTablePreferences = (): void => {
+      // Emit an event whenever one of the tablePreferences are updated
+      emit('update:table-preferences', tablePreferences.value)
+    }
 
     const getNextOffsetHandler = (): void => {
       page.value++
