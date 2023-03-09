@@ -1,3 +1,10 @@
+## [8.33.4](https://github.com/Kong/kongponents/compare/v8.33.3...v8.33.4) (2023-03-09)
+
+
+### Bug Fixes
+
+* **deps:** bump focus-trap from 7.3.1 to 7.4.0 ([#1184](https://github.com/Kong/kongponents/issues/1184)) ([a2f4a80](https://github.com/Kong/kongponents/commit/a2f4a80d74c4ee7ccf3b81af2c14e47087c7d1de))
+
 ## [8.33.3](https://github.com/Kong/kongponents/compare/v8.33.2...v8.33.3) (2023-03-08)
 
 
