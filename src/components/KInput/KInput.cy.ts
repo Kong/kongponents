@@ -1,5 +1,6 @@
 import { mount } from 'cypress/vue'
 import KInput from '@/components/KInput/KInput.vue'
+import { h } from 'vue'
 
 /**
  * ALL TESTS MUST USE testMode: true
@@ -130,5 +131,36 @@ describe('KInput', () => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'input')
       cy.get('.k-input').should('have.value', newValue)
     })
+  })
+
+  it('should render icon prop', () => {
+    const icon = '$'
+    mount(KInput, {
+      props: {
+        testMode: true,
+      },
+      slots: {
+        icon: () => h('div', {}, icon),
+      },
+    })
+
+    cy.get('.input-icon').should('be.visible').should('contain.text', icon)
+  })
+
+  it('should render icon clickable when event listener is bound', () => {
+    const onIconClickSpy = cy.spy().as('onIconClickSpy')
+    mount(KInput, {
+      props: {
+        testMode: true,
+        // make it clickable
+        'onIcon:click': onIconClickSpy,
+      },
+      slots: {
+        icon: () => h('div', {}, '#'),
+      },
+    })
+
+    cy.get('.input-icon').should('be.visible').should('have.attr', 'role', 'button').should('have.attr', 'tabindex', '0').click()
+    cy.get('@onIconClickSpy').should('have.been.called')
   })
 })
