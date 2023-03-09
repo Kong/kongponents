@@ -8,7 +8,7 @@
 
 - `type`
 
-There are 6 different types of loading states that KSkeleton supports: `card`, `table`, `form`, `spinner`, `fullscreen-kong`, and a generic loading state. Defaults to a generic loading state. The following example shows a `form` type KSKeleton.
+There are 6 different types of loading states that KSkeleton supports: `card`, `table`, `form`, `spinner`, `fullscreen-kong`, `fullscreen-generic`, and a generic loading state. Defaults to a generic loading state. The following example shows a `form` type KSKeleton.
 
 <KSkeleton type="form" />
 
@@ -140,13 +140,13 @@ Defaults to `false`, you can use this prop to hide the progress indicator.
   <KSkeleton
     v-if="loadingNone"
     :delay-milliseconds="0"
-    hide-progress
     type="fullscreen-kong"
   />
+  <!-- Generic Spinner example -->
   <KSkeleton
     v-if="loading"
     :delay-milliseconds="0"
-    type="fullscreen-kong"
+    type="fullscreen-generic"
   />
 </div>
 
@@ -337,6 +337,7 @@ And another example:
 | :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--KSkeletonFullScreenMargin`        | Margin around full screen variant. Useful for when you want to show full screen loader under header or next to sidebar since the full screen component has fixed position. |
 | `--KSkeletonFullScreenProgressColor` | Progress bar fill color.                                                                                                                                                   |
+| `--KSkeletonFullScreenSpinnerColor` | Generic spinner icon fill color.                                                                                                                                                   |
 | `--KSkeletonCardWidth`               | Width of the card. Default is 33%                                                                                                                                          |
 
 ### Examples

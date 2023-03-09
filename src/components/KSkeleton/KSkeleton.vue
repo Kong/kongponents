@@ -37,6 +37,12 @@
       :progress="progress"
     />
 
+    <FullScreenGenericSpinner
+      v-else-if="type === 'fullscreen-generic'"
+      :hide-progress="hideProgress"
+      :progress="progress"
+    />
+
     <KIcon
       v-else-if="type === 'spinner'"
       color="#000"
@@ -55,6 +61,7 @@ import CardSkeleton from '@/components/KSkeleton/CardSkeleton.vue'
 import TableSkeleton from '@/components/KSkeleton/TableSkeleton.vue'
 import FormSkeleton from '@/components/KSkeleton/FormSkeleton.vue'
 import FullScreenKongSkeleton from '@/components/KSkeleton/FullScreenKongSkeleton.vue'
+import FullScreenGenericSpinner from '@/components/KSkeleton/FullScreenGenericSpinner.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 
 export default defineComponent({
@@ -65,6 +72,7 @@ export default defineComponent({
     TableSkeleton,
     FormSkeleton,
     FullScreenKongSkeleton,
+    FullScreenGenericSpinner,
     KIcon,
   },
   props: {
