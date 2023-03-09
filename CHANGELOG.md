@@ -1,3 +1,31 @@
+## [8.33.5](https://github.com/Kong/kongponents/compare/v8.33.4...v8.33.5) (2023-03-09)
+
+
+### Bug Fixes
+
+* **kdropdownmenu:** divider style ([#1186](https://github.com/Kong/kongponents/issues/1186)) ([8aff227](https://github.com/Kong/kongponents/commit/8aff227e1d32a9f80ca7a8bf9a9559d58342a9fa))
+
+## [8.33.4](https://github.com/Kong/kongponents/compare/v8.33.3...v8.33.4) (2023-03-09)
+
+
+### Bug Fixes
+
+* **deps:** bump focus-trap from 7.3.1 to 7.4.0 ([#1184](https://github.com/Kong/kongponents/issues/1184)) ([a2f4a80](https://github.com/Kong/kongponents/commit/a2f4a80d74c4ee7ccf3b81af2c14e47087c7d1de))
+
+## [8.33.3](https://github.com/Kong/kongponents/compare/v8.33.2...v8.33.3) (2023-03-08)
+
+
+### Bug Fixes
+
+* **ktable:** only emit table prefs when user changes ([#1183](https://github.com/Kong/kongponents/issues/1183)) ([f1172e6](https://github.com/Kong/kongponents/commit/f1172e652694f7c0a5c71ed4fcf3c79feb5b683c))
+
+## [8.33.2](https://github.com/Kong/kongponents/compare/v8.33.1...v8.33.2) (2023-03-08)
+
+
+### Bug Fixes
+
+* **kdropdownmenu:** divider display ([#1181](https://github.com/Kong/kongponents/issues/1181)) ([4643fea](https://github.com/Kong/kongponents/commit/4643feabf5d04e2cd1f23fe3ccc081b09131e648))
+
 ## [8.33.1](https://github.com/Kong/kongponents/compare/v8.33.0...v8.33.1) (2023-03-07)
 
 

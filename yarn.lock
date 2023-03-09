@@ -3404,9 +3404,9 @@ focus-trap-vue@^3.4.0:
   integrity sha512-VAI4gJgsjC8KcjDH+h4j2SxFY2XrXmm47a1EXti8gx311abybzqVhkS32Um7i+00J8RQD7hqL1Kfc26WpsMx0w==
 
 focus-trap@^7.1.0:
-  version "7.3.1"
-  resolved "https://registry.yarnpkg.com/focus-trap/-/focus-trap-7.3.1.tgz#417c98e5f1ab94e717d31f1bafa2da45dabcd65f"
-  integrity sha512-bX/u4FJ+F0Pp6b/8Q9W8Br/JaLJ7rrhOJAzai9JU8bh4BPdOjEATy4pxHcbBBxFjPN4d1oHy7/KqknEdOetm9w==
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/focus-trap/-/focus-trap-7.4.0.tgz#20f760a497f593b01d2e446168009c1f12ab0385"
+  integrity sha512-yI7FwUqU4TVb+7t6PaQ3spT/42r/KLEi8mtdGoQo2li/kFzmu9URmalTvw7xCCJtSOyhBxscvEAmvjeN9iHARg==
   dependencies:
     tabbable "^6.1.1"
 
@@ -6964,9 +6964,9 @@ ts-node@^10.8.1:
     yn "3.1.1"
 
 tsc-alias@^1.8.2:
-  version "1.8.2"
-  resolved "https://registry.yarnpkg.com/tsc-alias/-/tsc-alias-1.8.2.tgz#3cd24bba7333a5e05cb7db3ac206d7bcec079630"
-  integrity sha512-ukBkcNekOgwtnSWYLD5QsMX3yQWg7JviAs8zg3qJGgu4LGtY3tsV4G6vnqvOXIDkbC+XL9vbhObWSpRA5/6wbg==
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/tsc-alias/-/tsc-alias-1.8.3.tgz#fe0c8331edd69b94160b2b936752b114f8063cb5"
+  integrity sha512-/9JARcmXBrEqSuLjdSOqxY7/xI/AnvmBi4CU9/Ba2oX6Oq8vnd0OGSQTk+PIwqWJ5ZxskV0X/x15yzxCNTHU+g==
   dependencies:
     chokidar "^3.5.3"
     commander "^9.0.0"
