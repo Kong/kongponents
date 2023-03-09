@@ -1,3 +1,10 @@
+## [8.33.5](https://github.com/Kong/kongponents/compare/v8.33.4...v8.33.5) (2023-03-09)
+
+
+### Bug Fixes
+
+* **kdropdownmenu:** divider style ([#1186](https://github.com/Kong/kongponents/issues/1186)) ([8aff227](https://github.com/Kong/kongponents/commit/8aff227e1d32a9f80ca7a8bf9a9559d58342a9fa))
+
 ## [8.33.4](https://github.com/Kong/kongponents/compare/v8.33.3...v8.33.4) (2023-03-09)
 
 
