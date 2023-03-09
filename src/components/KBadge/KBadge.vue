@@ -322,7 +322,7 @@ watch(badgeText, () => {
 
   .k-badge-text {
     align-self: center;
-    max-width: var(--KBadgeMaxWidth, 200px);
+    max-width: var(--KBadgeMaxWidth, 'auto');
     min-width: var(--KBadgeMinWidth, 8px);
     width: var(--KBadgeWidth, auto);
   }
