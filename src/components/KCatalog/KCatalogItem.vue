@@ -27,11 +27,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import KCard from '@/components/KCard/KCard.vue'
-
-export interface CatalogItem {
-  title: string
-  description: string
-}
+import type { CatalogItem } from '@/types'
 
 export default defineComponent({
   name: 'KCatalogItem',
@@ -57,7 +53,7 @@ export default defineComponent({
   },
   emits: ['clicked'],
   setup(props, { emit }) {
-    const handleCardClick = (evt: Event, item: CatalogItem) => {
+    const handleCardClick = (evt: Event, item: CatalogItem): void => {
       emit('clicked', {
         evt,
         item,

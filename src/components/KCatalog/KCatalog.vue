@@ -186,9 +186,15 @@ import KPagination from '@/components/KPagination/KPagination.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
 import KCatalogItem from './KCatalogItem.vue'
-import type { CatalogPreferences } from '@/types'
+import type { CardSize, CardSizeRecord, CatalogPreferences } from '@/types'
 
 const { useRequest, useDebounce } = useUtilities()
+
+const cardSizeRecord: CardSizeRecord = {
+  large: 'large',
+  medium: 'medium',
+  small: 'small',
+}
 
 export default defineComponent({
   name: 'KCatalog',
@@ -209,10 +215,10 @@ export default defineComponent({
       default: false,
     },
     cardSize: {
-      type: String,
+      type: String as PropType<CardSize>,
       default: 'medium',
-      validator: (value: string): boolean => {
-        return ['small', 'medium', 'large'].includes(value)
+      validator: (value: CardSize): boolean => {
+        return Object.values(cardSizeRecord).includes(value)
       },
     },
     /**
@@ -426,13 +432,28 @@ export default defineComponent({
     }
 
     const data = ref<any[]>([])
-    const total = ref(0)
-    const filterQuery = ref('')
-    const page = ref(1)
-    const pageSize = ref(15)
-    const isCardLoading = ref(true)
-    const hasInitialized = ref(false)
+    const total = ref<number>(0)
+    const filterQuery = ref<string>('')
+    const page = ref<number>(1)
+    const pageSize = ref<number>(15)
+    const isCardLoading = ref<boolean>(true)
+    const hasInitialized = ref<boolean>(false)
+
     const hasToolbarSlot = computed((): boolean => !!slots.toolbar)
+
+    // once `initData()` finishes fetch data
+    const catalogFetcherCacheKey = computed((): string => {
+      if (!props.fetcher || !hasInitialized.value) {
+        return ''
+      }
+
+      return `catalog-item_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}` as string
+    })
+
+    // Store the catalogPreferences in a computed property to utilize in the watcher
+    const catalogPreferences = computed((): CatalogPreferences => ({
+      pageSize: pageSize.value,
+    }))
 
     const fetchData = async () => {
       isCardLoading.value = true
@@ -465,14 +486,6 @@ export default defineComponent({
       hasInitialized.value = true
     }
 
-    // once `initData()` finishes fetch data
-    const catalogFetcherCacheKey = computed(() => {
-      if (!props.fetcher || !hasInitialized.value) {
-        return ''
-      }
-
-      return `catalog-item_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}` as string
-    })
     const { query, search } = useDebounce('', 350)
     const { revalidate } = useRequest(
       () => catalogFetcherCacheKey.value,
@@ -480,22 +493,17 @@ export default defineComponent({
       { revalidateOnFocus: false },
     )
 
-    const pageChangeHandler = ({ page: newPage }: Record<string, number>) => {
+    const pageChangeHandler = ({ page: newPage }: Record<string, number>): void => {
       page.value = newPage
     }
 
-    const pageSizeChangeHandler = ({ pageSize: newPageSize }: Record<string, number>) => {
+    const pageSizeChangeHandler = ({ pageSize: newPageSize }: Record<string, number>): void => {
       pageSize.value = newPageSize
     }
 
-    const getTestIdString = (message: string) => {
+    const getTestIdString = (message: string): string => {
       return message.toLowerCase().replace(/[^[a-z0-9]/gi, '-')
     }
-
-    // Store the catalogPreferences in a computed property to utilize in the watcher
-    const catalogPreferences = computed((): CatalogPreferences => ({
-      pageSize: pageSize.value,
-    }))
 
     watch(() => props.searchInput, (newValue: string) => {
       search(newValue)
