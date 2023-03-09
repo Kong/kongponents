@@ -1,3 +1,10 @@
+# [8.34.0](https://github.com/Kong/kongponents/compare/v8.33.5...v8.34.0) (2023-03-09)
+
+
+### Features
+
+* **chore:** add types for kcard, kcatalog, kcheckbox, kcodeblock ([#1177](https://github.com/Kong/kongponents/issues/1177)) ([4ba5875](https://github.com/Kong/kongponents/commit/4ba5875393525302a27be811f55c0d7c90bee04d))
+
 ## [8.33.5](https://github.com/Kong/kongponents/compare/v8.33.4...v8.33.5) (2023-03-09)
 
 
