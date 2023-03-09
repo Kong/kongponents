@@ -93,7 +93,12 @@
 
     <div
       v-if="$slots['icon']"
+      ref="icon"
       class="input-icon"
+      :class="{ 'clickable': isIconClickable }"
+      :tabindex="isIconClickable ? 0 : -1"
+      @click="handleIconClick"
+      @keyup.enter="handleIconClick"
     >
       <slot name="icon" />
     </div>
@@ -101,7 +106,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, watch } from 'vue'
+import { defineComponent, computed, ref, watch, onMounted } from 'vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import { v1 as uuidv1 } from 'uuid'
 
@@ -239,6 +244,22 @@ export default defineComponent({
       return currValue.value || modelValueChanged.value ? currValue.value : props.modelValue
     }
 
+    const icon = ref<HTMLDivElement | null>(null)
+    const isIconClickable = computed((): boolean => !!attrs['onIcon:click'])
+    const handleIconClick = (e: any) => {
+      if (isIconClickable.value) {
+        // call event listener callback directly
+        const callback = attrs['onIcon:click'] as any
+        callback(e)
+      }
+    }
+
+    onMounted(() => {
+      if (icon.value && isIconClickable.value) {
+        icon.value.role = 'button'
+      }
+    })
+
     return {
       currValue,
       modelValueChanged,
@@ -252,6 +273,9 @@ export default defineComponent({
       modifiedAttrs,
       handleInput,
       getValue,
+      icon,
+      isIconClickable,
+      handleIconClick,
     }
   },
 })
@@ -365,6 +389,11 @@ export default defineComponent({
   display: inline-flex;
   pointer-events: none;
   position: absolute;
+
+  &.clickable {
+    cursor: pointer;
+    pointer-events: auto;
+  }
 }
 
 .has-error {
