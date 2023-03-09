@@ -2,7 +2,7 @@
   <li
     class="k-dropdown-item w-100"
     :class="{
-      'has-divider': type !== 'link' && hasDivider,
+      'has-divider': hasDivider,
       'disabled': type === 'default' && disabled,
       'danger': isDangerous,
       'k-dropdown-selected-option': selected
@@ -12,7 +12,7 @@
     <a
       v-if="type === 'link' && to && !!disabled"
       class="k-dropdown-item-trigger"
-      :class="{ 'disabled': disabled, 'has-divider': hasDivider }"
+      :class="{ 'disabled': disabled }"
       data-testid="k-dropdown-item-trigger"
       href="#"
       @click.prevent.stop=""
@@ -22,7 +22,7 @@
     <router-link
       v-else-if="type === 'link' && to"
       class="k-dropdown-item-trigger"
-      :class="{ 'disabled': disabled, 'has-divider': hasDivider }"
+      :class="{ 'disabled': disabled }"
       data-testid="k-dropdown-item-trigger"
       :to="!disabled ? to : routePath"
       @click="handleClick"
@@ -155,31 +155,20 @@ li.k-dropdown-item {
   font-size: 16px;
   line-height: 1;
 
-  &:not(:first-of-type) {
-    &.has-divider,
-    .has-divider {
-      $k-dropdown-item-divider-container-height: 24px; // set to the same value as --spacing-lg without the units
-      $k-dropdown-item-divider-position: -13px; // this should be negative (<container-height> / 2 + 1)
-      margin-top: $k-dropdown-item-divider-container-height;
-      position: relative;
+  &:not(:first-of-type).has-divider {
+    $k-dropdown-item-divider-container-height: 24px; // set to the same value as --spacing-lg without the units
+    $k-dropdown-item-divider-position: -13px; // this should be negative (<container-height> / 2 + 1)
+    margin-top: $k-dropdown-item-divider-container-height;
+    position: relative;
 
-      &:before {
-        background: var(--grey-200);
-        content: '';
-        display: block;
-        height: 1px;
-        position: absolute;
-        top: $k-dropdown-item-divider-position;
-        width: 100%;
-      }
-    }
-
-    .has-divider {
-      &:before {
-        // negative margins to take the full width if class
-        // is on a child of k-dropdown-item
-        margin-left: calc(var(--spacing-lg) * -1);
-      }
+    &:before {
+      background: var(--grey-200);
+      content: '';
+      display: block;
+      height: 1px;
+      position: absolute;
+      top: $k-dropdown-item-divider-position;
+      width: 100%;
     }
   }
 
