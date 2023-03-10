@@ -51,6 +51,9 @@ import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import type { BadgeAppearance, BadgeAppearanceRecord, BadgeShapeRecord, BadgeShape } from '@/types'
+import useUtilities from '@/composables/useUtilities'
+
+const { getSizeFromString } = useUtilities()
 
 export const appearances: BadgeAppearanceRecord = {
   default: 'default',
@@ -165,6 +168,15 @@ const props = defineProps({
     required: false,
     default: '',
   },
+
+  /**
+   * Max width to apply truncation at
+   * Is superseded by CSS variable if both provided
+   */
+  maxWidth: {
+    type: String,
+    default: '200px',
+  },
 })
 
 const emit = defineEmits(['dismissed'])
@@ -212,6 +224,8 @@ const badgeCustomStyles = computed(() => {
 
   return styles
 })
+
+const maxWidth = computed(() => getSizeFromString(props.maxWidth))
 
 watch(badgeText, () => {
   // prevent recursion loop
@@ -322,7 +336,7 @@ watch(badgeText, () => {
 
   .k-badge-text {
     align-self: center;
-    max-width: var(--KBadgeMaxWidth, 200px);
+    max-width: var(--KBadgeMaxWidth, v-bind(maxWidth));
     min-width: var(--KBadgeMinWidth, 8px);
     width: var(--KBadgeWidth, auto);
   }
