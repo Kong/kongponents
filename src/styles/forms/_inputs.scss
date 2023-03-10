@@ -45,6 +45,19 @@
   }
 }
 
+.k-input-wrapper textarea.k-input.form-control {
+  padding: 17px 0 0 22px;
+  resize: none;
+
+  @include textarea-default;
+  &:hover {
+    @include textarea-hover;
+  }
+  &:focus {
+    @include textarea-focus;
+  }
+}
+
 .k-input,
 .form-control {
   &:not([type="checkbox"]):not([type="radio"]) {
@@ -131,16 +144,13 @@
   }
 }
 
-.k-input-wrapper textarea.form-control {
-  padding: 17px 0 0 22px;
-  resize: none;
-
-  &:focus {
-    box-shadow: inset 0 0 0 2px var(--KInputFocus, var(--blue-400)) !important;
-  }
-}
-
 .k-input-wrapper.input-error {
+  textarea.k-input.form-control {
+    box-shadow: none !important;
+    outline: 1px solid var(--red-500) !important;
+    transition: color 0.1s ease;
+  }
+
   .k-input,
   .k-input:hover,
   .k-input:focus {

@@ -1,13 +1,12 @@
 <template>
   <div
     class="fullscreen-loading-container"
-    data-testid="full-screen-loader"
+    data-testid="full-screen-spinner-loader"
   >
     <div>
-      <img
-        alt="Loading"
-        :src="loaderImage"
-      >
+      <div
+        class="spinner-loader"
+      />
       <div
         v-if="!hideProgress"
         class="progress"
@@ -25,10 +24,9 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed, onMounted, onUnmounted } from 'vue'
-import loaderImage from './kong-loader.gif'
 
 export default defineComponent({
-  name: 'FullScreenKongSkeleton',
+  name: 'FullScreenGenericSpinner',
   props: {
     progress: {
       type: Number,
@@ -66,7 +64,6 @@ export default defineComponent({
       timer,
       progressInternal,
       progression,
-      loaderImage,
     }
   },
 })
@@ -78,7 +75,6 @@ export default defineComponent({
 @import '@/styles/functions';
 .fullscreen-loading-container {
   @include fullscreen-loading-container;
-
   .progress {
     background-color: var(--KSkeletonFullScreenProgressBackgroundColor, var(--grey-200, color(grey-200)));
     border-radius: 8px;
@@ -91,5 +87,43 @@ export default defineComponent({
       height: 5px;
     }
   }
+
+  .spinner-loader {
+    :after {
+      border-radius: 50%;
+      height: 183px;
+      width: 183px;
+    }
+    animation: spinnerAnimation 1.4s infinite linear;
+    border-bottom: 10px solid var(--grey-200, color(grey-200));
+    border-left: 10px solid var(--KSkeletonFullScreenSpinnerColor, var(--blue-500, color(blue-500)));
+    border-radius: 50%;
+    border-right: 10px solid var(--grey-200, color(grey-200));
+    border-top: 10px solid var(--grey-200, color(grey-200));
+    font-size: 10px;
+    height: 183px;
+    margin: 60px auto;
+    position: relative;
+    transform: translateZ(0);
+    width: 183px;
+  }
+
+@-webkit-keyframes spinnerAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes spinnerAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 }
 </style>

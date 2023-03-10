@@ -121,4 +121,18 @@ describe('KBadge', () => {
     cy.get('.k-badge').should('have.css', 'color').and('eq', 'rgb(255, 255, 255)')
     cy.get('.k-badge').should('have.css', 'background-color').and('eq', 'rgb(255, 0, 0)')
   })
+
+  it('it should apply maxWidth prop when provided', () => {
+    const maxWidth = '10px'
+    mount(KBadge, {
+      props: {
+        maxWidth,
+      },
+      slots: {
+        default: () => 'Hello!',
+      },
+    })
+
+    cy.get('.k-badge-text').should('have.css', 'max-width').and('eq', maxWidth)
+  })
 })
