@@ -64,5 +64,17 @@ describe('KSkeleton', () => {
 
       cy.get('[role="progressbar"]').should('be.visible')
     })
+
+    it('renders full screen generic loader with progress bar', () => {
+      mount(KSkeleton, {
+        props: {
+          type: 'fullscreen-generic',
+        },
+      })
+
+      cy.getTestId('full-screen-spinner-loader').should('be.visible')
+
+      cy.get('[role="progressbar"]').should('be.visible')
+    })
   })
 })
