@@ -161,7 +161,7 @@ String to be displayed as error message if `hasError` prop is `true`.
 
 ### iconPosition
 
-Controls position of the icon provided through the [slot](#slots).
+Controls position of the icon provided through the [slot](#slots). Accepted values: `left` (default) and `right`.
 
 <KInput icon-position="right" model-value="search query">
   <template #icon>
@@ -244,7 +244,7 @@ export default defineComponent({
 - `icon` - slot for icon on the left or right of the input (position can be controlled through [prop](#iconposition))
 
 :::tip TIP
-Whether you choose to use KIcon Kongponent or your own SVG, the component stylings will adjust the icon size to match the size of the component.
+Whether you choose to use `KIcon` Kongponent or your own SVG, the component's styles will adjust the icon size to match the size of the component.
 :::
   
 <KInput placeholder="Search" size="small" class="mb-2">
