@@ -20,7 +20,7 @@
           :id="inputId"
           :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
           class="form-control k-input"
-          :class="[`k-input-${size}`, $slots['icon'] ? `has-icon icon-${iconPosition}` : '' ]"
+          :class="{ [`k-input-${size}`]: size, [`has-icon icon-${iconPosition}`]: $slots['icon'] }"
           :value="getValue()"
           @blur="() => isFocused = false"
           @focus="() => isFocused = true"
@@ -53,7 +53,7 @@
         :id="inputId"
         :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
         class="form-control k-input"
-        :class="[`k-input-${size}`, $slots['icon'] ? `has-icon icon-${iconPosition}` : '' ]"
+        :class="{ [`k-input-${size}`]: size, [`has-icon icon-${iconPosition}`]: $slots['icon'] }"
         :value="getValue()"
         @input="handleInput"
       >
@@ -71,7 +71,7 @@
       v-bind="modifiedAttrs"
       :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
       class="form-control k-input"
-      :class="[`k-input-${size}`, $slots['icon'] ? `has-icon icon-${iconPosition}` : '' ]"
+      :class="{ [`k-input-${size}`]: size, [`has-icon icon-${iconPosition}`]: $slots['icon'] }"
       :value="getValue()"
       @input="handleInput"
     >
@@ -157,9 +157,9 @@ export default defineComponent({
       validator: (limit: number):boolean => limit > 0,
     },
     iconPosition: {
-      type: String as PropType<'left' | 'right'>,
-      default: 'left',
-      validator: (value: string) => ['left', 'right'].includes(value),
+      type: String as PropType<'start' | 'end'>,
+      default: 'start',
+      validator: (value: string) => ['start', 'end'].includes(value),
     },
     /**
      * Test mode - for testing only, strips out generated ids
@@ -306,14 +306,14 @@ export default defineComponent({
       }
     }
 
-    &.icon-left {
+    &.icon-start {
       padding-left: calc($kInputMediumSizingY + var(--spacing-xs, spacing(xs)) + $kInputMediumIconSize) !important; // account for icon offset and width
       ~ .input-icon {
         left: $kInputMediumSizingY;
       }
     }
 
-    &.icon-right {
+    &.icon-end {
       padding-right: calc($kInputMediumSizingY + var(--spacing-xs, spacing(xs)) + $kInputMediumIconSize) !important; // account for icon offset and width
       ~ .input-icon {
         right: $kInputMediumSizingY;
@@ -335,13 +335,13 @@ export default defineComponent({
         }
       }
 
-      &.icon-left {
+      &.icon-start {
         padding-left: calc($kInputSmallSizingY + var(--spacing-xs, spacing(xs)) + $kInputSmallIconSize) !important; // account for icon offset and width
         ~ .input-icon {
           left: $kInputSmallSizingY;
         }
       }
-      &.icon-right {
+      &.icon-end {
         padding-right: calc($kInputSmallSizingY + var(--spacing-xs, spacing(xs)) + $kInputSmallIconSize) !important; // account for icon offset and width
         ~ .input-icon {
           right: $kInputSmallSizingY;
@@ -364,13 +364,13 @@ export default defineComponent({
         }
       }
 
-      &.icon-left {
+      &.icon-start {
         padding-left: calc($kInputLargeSizingY + var(--spacing-xs, spacing(xs)) + $kInputLargeIconSize) !important; // account for icon offset and width
         ~ .input-icon {
           left: $kInputLargeSizingY;
         }
       }
-      &.icon-right {
+      &.icon-end {
         padding-right: calc($kInputLargeSizingY + var(--spacing-xs, spacing(xs)) + $kInputLargeIconSize) !important; // account for icon offset and width
         ~ .input-icon {
           right: $kInputLargeSizingY;

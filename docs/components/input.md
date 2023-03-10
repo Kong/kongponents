@@ -161,16 +161,16 @@ String to be displayed as error message if `hasError` prop is `true`.
 
 ### iconPosition
 
-Controls position of the icon provided through the [slot](#slots). Accepted values: `left` (default) and `right`.
+Controls position of the icon provided through the [slot](#slots). Accepted values: `start` (default) and `end`.
 
-<KInput icon-position="right" model-value="search query">
+<KInput icon-position="end" model-value="search query">
   <template #icon>
     <KIcon icon="clear" />
   </template>
 </KInput>
 
 ```html
-<KInput icon-position="right" model-value="search query">
+<KInput icon-position="end" model-value="search query">
   <template #icon>
     <KIcon icon="clear" />
   </template>
@@ -340,14 +340,14 @@ Fired when the text starts or stops exceeding the limit, returns an object:
 
 You can make the icon passed through the [slot](#slots) clickable by binding to the `@icon:click` event.
 
-<KInput v-model="iconEventInput" @icon:click="clearIconEventInput" icon-position="right" placeholder="Enter search query">
+<KInput v-model="iconEventInput" @icon:click="clearIconEventInput" icon-position="end" placeholder="Enter search query">
   <template #icon>
     <KIcon icon="clear" class="clear-search" />
   </template>
 </KInput>
 
 ```html
-<KInput @icon:click="clearSearch" v-model="searchQuery" icon-position="right" placeholder="Enter search query">
+<KInput @icon:click="clearSearch" v-model="searchQuery" icon-position="end" placeholder="Enter search query">
   <template #icon>
     <KIcon icon="clear" class="clear-search" />
   </template>
