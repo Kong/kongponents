@@ -336,6 +336,7 @@ And another example:
 | Variable                             | Purpose                                                                                                                                                                    |
 | :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--KSkeletonFullScreenMargin`        | Margin around full screen variant. Useful for when you want to show full screen loader under header or next to sidebar since the full screen component has fixed position. |
+| `--KSkeletonFullScreenProgressBackgroundColor` | Progress bar background color.                                                                                                                                                   |
 | `--KSkeletonFullScreenProgressColor` | Progress bar fill color.                                                                                                                                                   |
 | `--KSkeletonFullScreenSpinnerColor` | Generic spinner icon fill color.                                                                                                                                                   |
 | `--KSkeletonCardWidth`               | Width of the card. Default is 33%                                                                                                                                          |
