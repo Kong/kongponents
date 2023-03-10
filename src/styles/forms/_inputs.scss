@@ -147,10 +147,10 @@
 .k-input-wrapper.input-error {
   textarea.k-input.form-control {
     box-shadow: none !important;
-    outline: 1.5px solid var(--red-500) !important;
+    outline: 1px solid var(--red-500) !important;
     transition: color 0.1s ease;
   }
-  
+
   .k-input,
   .k-input:hover,
   .k-input:focus {
