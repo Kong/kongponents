@@ -202,10 +202,10 @@ If you want to show the tooltip regardless of whether the badge text is truncate
 
 Max width to apply truncation at. Works just like `width` property in CSS. Default value is `200px`. Is superseded by `--KBadgeMaxWidth` [CSS variable](#theming) if both present.
 
-<KBadge max-width="50px">Truncate early</KBadge>
+<KBadge max-width="50px" truncation-tooltip="Tooltip often">Truncate early</KBadge>
 
 ```html
-<KBadge max-width="50px">Truncate early</KBadge>
+<KBadge max-width="50px" truncation-tooltip="Tooltip often">Truncate early</KBadge>
 ```
 
 ## Slots
