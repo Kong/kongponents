@@ -58,14 +58,6 @@
   }
 }
 
-.k-input-wrapper.input-error {
-  textarea.k-input.form-control {
-    outline: 1.5px solid var(--red-500) !important;
-    box-shadow: none !important;
-    transition: color 0.1s ease;
-  }
-}
-
 .k-input,
 .form-control {
   &:not([type="checkbox"]):not([type="radio"]) {
@@ -153,6 +145,12 @@
 }
 
 .k-input-wrapper.input-error {
+  textarea.k-input.form-control {
+    box-shadow: none !important;
+    outline: 1.5px solid var(--red-500) !important;
+    transition: color 0.1s ease;
+  }
+  
   .k-input,
   .k-input:hover,
   .k-input:focus {
