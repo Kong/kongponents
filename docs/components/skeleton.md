@@ -164,7 +164,7 @@ Defaults to `false`, you can use this prop to hide the progress indicator.
 <KSkeleton
   v-if="loading"
   :delay-milliseconds="0"
-  type="fullscreen-kong"
+  type="fullscreen-generic"
 />
 ```
 
