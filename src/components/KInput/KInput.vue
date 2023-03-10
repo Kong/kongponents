@@ -106,7 +106,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, watch, onMounted } from 'vue'
+import { defineComponent, computed, ref, watch, onMounted, PropType } from 'vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import { v1 as uuidv1 } from 'uuid'
 
@@ -157,7 +157,7 @@ export default defineComponent({
       validator: (limit: number):boolean => limit > 0,
     },
     iconPosition: {
-      type: String,
+      type: String as PropType<'left' | 'right'>,
       default: 'left',
       validator: (value: string) => ['left', 'right'].includes(value),
     },
@@ -248,9 +248,12 @@ export default defineComponent({
     const isIconClickable = computed((): boolean => !!attrs['onIcon:click'])
     const handleIconClick = (e: any) => {
       if (isIconClickable.value) {
-        // call event listener callback directly
+        // call event listener callback function directly as a workaround
+        // adding 'icon:click' to emits will remove it from attributes so isIconClickable.value always returns false
         const callback = attrs['onIcon:click'] as any
-        callback(e)
+        if (typeof callback === 'function') {
+          callback(e)
+        }
       }
     }
 
