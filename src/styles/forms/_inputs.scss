@@ -46,6 +46,9 @@
 }
 
 .k-input-wrapper textarea.k-input.form-control {
+  padding: 17px 0 0 22px;
+  resize: none;
+
   @include textarea-default;
   &:hover {
     @include textarea-hover;
@@ -146,15 +149,6 @@
       height: 16px;
       width: 16px;
     }
-  }
-}
-
-.k-input-wrapper textarea.form-control {
-  padding: 17px 0 0 22px;
-  resize: none;
-
-  &:focus {
-    box-shadow: inset 0 0 0 2px var(--KInputFocus, var(--blue-400)) !important;
   }
 }
 
