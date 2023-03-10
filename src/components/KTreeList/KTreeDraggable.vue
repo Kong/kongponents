@@ -230,8 +230,17 @@ const checkMove = (target: any): boolean => {
   return true
 }
 
-const onStartDrag = (): void => {
+const onStartDrag = (draggedItem: any): void => {
+  const draggedItemId = draggedItem.item?._underlying_vm_?.id || ''
+  const listItem = internalList.value.find((item: TreeListItem) => item.id === draggedItemId)
+
   dragging.value = true
+
+  if (listItem) {
+    // trigger item selection on drag event
+    emit('selected', listItem)
+  }
+
   setDragCursor(true)
 }
 
