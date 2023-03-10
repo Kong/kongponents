@@ -198,6 +198,16 @@ If you want to show the tooltip regardless of whether the badge text is truncate
 <KBadge truncation-tooltip="But I'm tooltipping anyways" force-tooltip>Truncation unnecessary</KBadge>
 ```
 
+### maxWidth
+
+Max width to apply truncation at. Works just like `width` property in CSS. Default value is `200px`. Is superseded by `--KBadgeMaxWidth` [CSS variable](#theming) if both present.
+
+<KBadge max-width="50px">Truncate early</KBadge>
+
+```html
+<KBadge max-width="50px">Truncate early</KBadge>
+```
+
 ## Slots
 
 - `default` - innerHTML inside badge
@@ -210,22 +220,22 @@ If you want to show the tooltip regardless of whether the badge text is truncate
 
 ## Events
 
-| Event                 | Action              |
-| :--------             | :------------------ |
-| `dismissed`           | When `dismissable` is true and you click the dismiss button |
+| Event       | Action                                                      |
+| :---------- | :---------------------------------------------------------- |
+| `dismissed` | When `dismissable` is true and you click the dismiss button |
 
 ## Theming
 
-| Variable                          | Purpose                                 |
-| :---------------------            | :----------------------------           |
-| `--KBadgeBorderRadius`            |                                         |
-| `--KBadgeFontSize`                |                                         |
-| `--KBadgeLineHeight`              |                                         |
-| `--KBadgeMinWidth`                | Min width of badge text                 |
-| `--KBadgeMaxWidth`                | Max width of badge text                 |
-| `--KBadgeWidth`                   | Width of badge text                     |
-| `--KBadgePaddingY`                | Vertical top/bottom spacing             |
-| `--KBadgePaddingX`                | Horizontal left/right spacing           |
+| Variable               | Purpose                       |
+| :--------------------- | :---------------------------- |
+| `--KBadgeBorderRadius` |                               |
+| `--KBadgeFontSize`     |                               |
+| `--KBadgeLineHeight`   |                               |
+| `--KBadgeMinWidth`     | Min width of badge text       |
+| `--KBadgeMaxWidth`     | Max width of badge text       |
+| `--KBadgeWidth`        | Width of badge text           |
+| `--KBadgePaddingY`     | Vertical top/bottom spacing   |
+| `--KBadgePaddingX`     | Horizontal left/right spacing |
 
 <!-- Color variables have been deprecated in favor of props and should not be added back to the docs. -->
 <!--
