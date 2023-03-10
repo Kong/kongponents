@@ -1,3 +1,31 @@
+## [8.35.1](https://github.com/Kong/kongponents/compare/v8.35.0...v8.35.1) (2023-03-10)
+
+
+### Bug Fixes
+
+* **ktreelist:** item selection [khcp-6355] ([#1196](https://github.com/Kong/kongponents/issues/1196)) ([c7652ba](https://github.com/Kong/kongponents/commit/c7652baea22547be8ab533c2633c9cd6c15de6d1))
+
+# [8.35.0](https://github.com/Kong/kongponents/compare/v8.34.2...v8.35.0) (2023-03-10)
+
+
+### Features
+
+* **kbadge:** add maxWidth prop ([#1194](https://github.com/Kong/kongponents/issues/1194)) ([f04b271](https://github.com/Kong/kongponents/commit/f04b271fb2f8f20b0e9ccf7af367488e71d498b2))
+
+## [8.34.2](https://github.com/Kong/kongponents/compare/v8.34.1...v8.34.2) (2023-03-10)
+
+
+### Bug Fixes
+
+* **textarea:** update styles [khcp-6440] ([#1195](https://github.com/Kong/kongponents/issues/1195)) ([687c7fa](https://github.com/Kong/kongponents/commit/687c7fad27d0d3c42883e62400dd0d1dd5a8fcfb))
+
+## [8.34.1](https://github.com/Kong/kongponents/compare/v8.34.0...v8.34.1) (2023-03-10)
+
+
+### Bug Fixes
+
+* **ktable:** document `sort` event ([#1187](https://github.com/Kong/kongponents/issues/1187)) ([911d147](https://github.com/Kong/kongponents/commit/911d147224588af5c6228d9aff8985e826e34448))
+
 # [8.34.0](https://github.com/Kong/kongponents/compare/v8.33.5...v8.34.0) (2023-03-09)
 
 
