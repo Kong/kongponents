@@ -1,3 +1,10 @@
+## [8.35.1](https://github.com/Kong/kongponents/compare/v8.35.0...v8.35.1) (2023-03-10)
+
+
+### Bug Fixes
+
+* **ktreelist:** item selection [khcp-6355] ([#1196](https://github.com/Kong/kongponents/issues/1196)) ([c7652ba](https://github.com/Kong/kongponents/commit/c7652baea22547be8ab533c2633c9cd6c15de6d1))
+
 # [8.35.0](https://github.com/Kong/kongponents/compare/v8.34.2...v8.35.0) (2023-03-10)
 
 
