@@ -1,3 +1,10 @@
+## [8.34.1](https://github.com/Kong/kongponents/compare/v8.34.0...v8.34.1) (2023-03-10)
+
+
+### Bug Fixes
+
+* **ktable:** document `sort` event ([#1187](https://github.com/Kong/kongponents/issues/1187)) ([911d147](https://github.com/Kong/kongponents/commit/911d147224588af5c6228d9aff8985e826e34448))
+
 # [8.34.0](https://github.com/Kong/kongponents/compare/v8.33.5...v8.34.0) (2023-03-09)
 
 
