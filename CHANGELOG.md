@@ -1,3 +1,10 @@
+## [8.34.2](https://github.com/Kong/kongponents/compare/v8.34.1...v8.34.2) (2023-03-10)
+
+
+### Bug Fixes
+
+* **textarea:** update styles [khcp-6440] ([#1195](https://github.com/Kong/kongponents/issues/1195)) ([687c7fa](https://github.com/Kong/kongponents/commit/687c7fad27d0d3c42883e62400dd0d1dd5a8fcfb))
+
 ## [8.34.1](https://github.com/Kong/kongponents/compare/v8.34.0...v8.34.1) (2023-03-10)
 
 
