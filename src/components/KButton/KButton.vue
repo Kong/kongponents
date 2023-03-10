@@ -63,56 +63,35 @@
   </component>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
+<script setup lang="ts">
+import { computed, PropType, useSlots, useAttrs } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import type { ButtonAppearance, ButtonAppearanceRecord, ButtonSize, ButtonSizeRecord, MaybeIcon } from '@/types'
 
-export const appearances: ButtonAppearanceRecord = {
-  primary: 'primary',
-  secondary: 'secondary',
-  danger: 'danger',
-  creation: 'creation',
-  outline: 'outline',
-  btnLink: 'btn-link',
-  btnLinkDanger: 'btn-link-danger',
-  actionActive: 'action-active',
-}
-
-export const sizes: ButtonSizeRecord = {
-  small: 'small',
-  medium: 'medium',
-  large: 'large',
-}
-
-export default defineComponent({
-  name: 'KButton',
-  components: { KIcon },
-  inheritAttrs: false,
-  props: {
-    /**
+const props = defineProps({
+  /**
       * Base styling of the button
       * One of ['primary', 'secondary', 'danger', 'creation', 'outline', 'btn-link', 'btn-link-danger', 'action-active']
       */
-    appearance: {
-      type: String as PropType<ButtonAppearance>,
-      default: 'outline',
-      validator: (value: ButtonAppearance): boolean => {
-        return Object.values(appearances).indexOf(value) !== -1
-      },
+  appearance: {
+    type: String as PropType<ButtonAppearance>,
+    default: 'outline',
+    validator: (value: ButtonAppearance): boolean => {
+      return Object.values(appearances).indexOf(value) !== -1
     },
-    /**
+  },
+  /**
       * Size variations
       * One of ['small', 'medium', 'large' ]
       */
-    size: {
-      type: String as PropType<ButtonSize>,
-      default: 'medium',
-      validator: (value: ButtonSize): boolean => {
-        return Object.values(sizes).indexOf(value) !== -1
-      },
+  size: {
+    type: String as PropType<ButtonSize>,
+    default: 'medium',
+    validator: (value: ButtonSize): boolean => {
+      return Object.values(sizes).indexOf(value) !== -1
     },
-    /**
+  },
+  /**
      * Route object or path. If object will render <router-link>, if string
      will render <a>
      */
@@ -145,58 +124,100 @@ export default defineComponent({
       default: false,
     },
   },
+  type: {
+    type: String,
+    default: 'button',
+  },
+  showCaret: {
+    type: Boolean,
+    default: false,
+  },
+  caretColor: {
+    type: String,
+    default: undefined,
+  },
+  isRounded: {
+    type: Boolean,
+    default: true,
+  },
+  icon: {
+    type: String,
+    default: '',
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+})
 
-  setup(props, { attrs, slots }) {
-    const hasIcon = computed((): boolean => !!slots.icon)
+const slots = useSlots()
+const attrs = useAttrs()
 
-    const hasText = computed((): boolean => !!slots.default)
+const hasIcon = computed((): boolean => !!slots.icon)
 
-    const buttonType = computed((): string => props.to ? 'router-link' : 'button')
+const hasText = computed((): boolean => !!slots.default)
 
-    const iconColor = computed((): string => {
-      if (props.disabled) {
-        return 'var(--grey-400)'
-      } else if (['primary', 'danger', 'creation'].includes(props.appearance)) {
-        return 'white'
-      } else if (props.appearance === 'secondary') {
-        return 'var(--KButtonSecondaryColor, var(--blue-600, color(blue-600)))'
-      } else if (props.appearance === 'outline') {
-        return 'var(--KButtonOutlineColor, var(--blue-500, color(blue-500)))'
-      } else if (props.appearance === 'btn-link') {
-        return 'var(--KButtonLink, var(--blue-500, color(blue-500)))'
-      } else if (props.appearance === 'btn-link-danger') {
-        return 'var(--KButtonLinkDanger, var(--red-500, color(red-500)))'
-      }
-      return ''
-    })
+const buttonType = computed((): string => props.to ? 'router-link' : 'button')
 
-    /**
+const iconColor = computed((): string => {
+  if (props.disabled) {
+    return 'var(--grey-400)'
+  } else if (['primary', 'danger', 'creation'].includes(props.appearance)) {
+    return 'white'
+  } else if (props.appearance === 'secondary') {
+    return 'var(--KButtonSecondaryColor, var(--blue-600, color(blue-600)))'
+  } else if (props.appearance === 'outline') {
+    return 'var(--KButtonOutlineColor, var(--blue-500, color(blue-500)))'
+  } else if (props.appearance === 'btn-link') {
+    return 'var(--KButtonLink, var(--blue-500, color(blue-500)))'
+  } else if (props.appearance === 'btn-link-danger') {
+    return 'var(--KButtonLinkDanger, var(--red-500, color(red-500)))'
+  }
+  return ''
+})
+
+/**
      * Strips falsy `disabled` attribute, so it does not fall onto native <a> elements.
      * Vue 3 no longer removes attribute if the value is boolean false. Instead, it's set as attr="false".
      * So for <KButton :disabled="false" to="SOME_URL">, the rendered <a> element will have `disabled="false"`,
      * which is greyed out and cannot be interacted with.
      */
-    const strippedAttrs = computed((): typeof attrs => {
-      if (props.disabled !== undefined && props.disabled !== false) {
-        return attrs
-      }
+const strippedAttrs = computed((): typeof attrs => {
+  if (props.disabled !== undefined && props.disabled !== false) {
+    return attrs
+  }
 
-      const modifiedAttrs = Object.assign({}, attrs)
+  const modifiedAttrs = Object.assign({}, attrs)
 
-      delete modifiedAttrs.disabled
+  delete modifiedAttrs.disabled
 
-      return modifiedAttrs
-    })
-
-    return {
-      hasText,
-      hasIcon,
-      buttonType,
-      iconColor,
-      strippedAttrs,
-    }
-  },
+  return modifiedAttrs
 })
+
+</script>
+
+<script lang="ts">
+
+export const appearances: ButtonAppearanceRecord = {
+  primary: 'primary',
+  secondary: 'secondary',
+  danger: 'danger',
+  creation: 'creation',
+  outline: 'outline',
+  btnLink: 'btn-link',
+  btnLinkDanger: 'btn-link-danger',
+  actionActive: 'action-active',
+}
+
+export const sizes: ButtonSizeRecord = {
+  small: 'small',
+  medium: 'medium',
+  large: 'large',
+}
+
+export default {
+  inheritAttrs: false,
+}
 </script>
 
 <style lang="scss" scoped>
