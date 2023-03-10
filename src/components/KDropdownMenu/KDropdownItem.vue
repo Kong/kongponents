@@ -52,7 +52,7 @@
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
-import { DropdownItem } from './KDropdownMenu.vue'
+import { DropdownItem } from '@/types'
 
 export default defineComponent({
   name: 'KDropdownItem',
@@ -97,7 +97,7 @@ export default defineComponent({
   },
   emits: ['click', 'change'],
   setup(props, { emit }) {
-    const type = computed(() => {
+    const type = computed((): string => {
       if (props.item?.to) {
         return 'link'
       } else if (typeof props.onClick !== 'undefined' || props.selectionMenuChild) {
@@ -107,7 +107,7 @@ export default defineComponent({
       return 'default'
     })
 
-    const routePath = computed(() => {
+    const routePath = computed((): string => {
       // @ts-ignore
       if ($route) {
         // @ts-ignore
@@ -117,16 +117,16 @@ export default defineComponent({
       return ''
     })
 
-    const label = computed(() => {
+    const label = computed((): string => {
       return (props.item?.label) || ''
     })
 
-    const to = computed(() => {
+    const to = computed((): string | object | undefined => {
       return (props.item?.to) || undefined
     })
 
-    const handleClick = (evt: any): void => {
-      emit('click', evt)
+    const handleClick = (event: Event): void => {
+      emit('click', event)
 
       if (props.selectionMenuChild) {
         emit('change', props.item)
@@ -137,8 +137,8 @@ export default defineComponent({
       type,
       label,
       to,
-      handleClick,
       routePath,
+      handleClick,
     }
   },
 })

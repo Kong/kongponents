@@ -76,15 +76,7 @@ import Kooltip from '@/components/KTooltip/KTooltip.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
 import KDropdownItem from './KDropdownItem.vue'
-import type { ButtonAppearance } from '@/types'
-
-export interface DropdownItem {
-  label: string
-  // This follows the vue-router RawLocation interface type
-  to?: string | object
-  value?: string | number
-  selected?: boolean
-}
+import type { ButtonAppearance, DropdownItem, Appearance, AppearanceRecord } from '@/types'
 
 const defaultKPopAttributes = {
   hideCaret: true,
@@ -92,6 +84,11 @@ const defaultKPopAttributes = {
   popoverTimeout: 0,
   positionFixed: true,
   placement: 'bottomStart',
+}
+
+const appearanceRecord: AppearanceRecord = {
+  menu: 'menu',
+  selectionMenu: 'selectionMenu',
 }
 
 export default defineComponent({
@@ -105,9 +102,9 @@ export default defineComponent({
   },
   props: {
     appearance: {
-      type: String,
-      default: 'menu',
-      validator: (value: string) => ['menu', 'selectionMenu'].includes(value),
+      type: String as PropType<Appearance>,
+      default: appearanceRecord.menu,
+      validator: (value: Appearance) => Object.values(appearanceRecord).includes(value),
     },
     buttonAppearance: {
       type: String as PropType<ButtonAppearance>,
@@ -172,15 +169,16 @@ export default defineComponent({
       popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes?.popoverClasses || ''}`,
     }
 
-    const selectedItem = ref({})
-    const handleSelection = (item: DropdownItem) => {
+    const selectedItem = ref<DropdownItem>()
+
+    const handleSelection = (item: DropdownItem): void => {
       if (props.appearance !== 'selectionMenu') {
         return
       }
       selectedItem.value = item
     }
 
-    const handleTriggerToggle = (isToggled: Ref<boolean>, toggle: () => void, isOpen: boolean) => {
+    const handleTriggerToggle = (isToggled: Ref<boolean>, toggle: () => void, isOpen: boolean): boolean => {
       // avoid toggling twice for the same event
       if (isToggled.value !== isOpen) {
         toggle()
@@ -190,7 +188,7 @@ export default defineComponent({
       return isToggled.value
     }
 
-    watch(selectedItem, (newVal, oldVal) => {
+    watch(selectedItem, (newVal, oldVal): void => {
       if (newVal !== oldVal) {
         emit('change', newVal)
       }
@@ -199,6 +197,7 @@ export default defineComponent({
     onMounted(() => {
       if (props.items) {
         const selectionArr = props.items.filter(item => item.selected)
+
         if (selectionArr.length) {
           selectedItem.value = selectionArr[0]
         }
