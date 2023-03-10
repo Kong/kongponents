@@ -61,31 +61,32 @@
   </ul>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue'
+<script setup lang="ts">
+import { PropType } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import type { BreadcrumbItem } from '@/types'
 
-export default defineComponent({
-  name: 'KBreadcrumbs',
-  components: { KIcon },
-  inheritAttrs: false,
-  props: {
-    items: {
-      type: Array as PropType<BreadcrumbItem[]>,
-      default: [] as BreadcrumbItem[],
-      required: true,
-      validator: (items: BreadcrumbItem[]): boolean => {
-        return items && items.length > 0
-      },
-    },
-    itemMaxWidth: {
-      type: String,
-      required: false,
-      default: '38ch', // can handle a monospaced uuid
+defineProps({
+  items: {
+    type: Array as PropType<BreadcrumbItem[]>,
+    default: [] as BreadcrumbItem[],
+    required: true,
+    validator: (items: BreadcrumbItem[]): boolean => {
+      return items && items.length > 0
     },
   },
+  itemMaxWidth: {
+    type: String,
+    required: false,
+    default: '38ch', // can handle a monospaced uuid
+  },
 })
+</script>
+
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+}
 </script>
 
 <style lang="scss" scoped>
