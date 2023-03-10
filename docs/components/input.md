@@ -338,7 +338,7 @@ Fired when the text starts or stops exceeding the limit, returns an object:
 
 ### `icon:click`
 
-You can make icon passed through the [slot](#slots) clickable by binding to `@icon:click` event.
+You can make the icon passed through the [slot](#slots) clickable by binding to the `@icon:click` event.
 
 <KInput v-model="iconEventInput" @icon:click="clearIconEventInput" icon-position="right" placeholder="Enter search query">
   <template #icon>
