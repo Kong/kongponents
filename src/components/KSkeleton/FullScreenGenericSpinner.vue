@@ -1,11 +1,11 @@
 <template>
   <div
     class="fullscreen-loading-container"
-    data-testid="full-screen-loader"
+    data-testid="full-screen-spinner-loader"
   >
     <div>
       <div
-        class="loader"
+        class="spinner-loader"
       />
       <div
         v-if="!hideProgress"
@@ -71,23 +71,12 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/mixins';
 @import '@/styles/functions';
 .fullscreen-loading-container {
-  align-items: center;
-  background: var(--white, color(white));
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  left: 0;
-  margin: var(--KSkeletonFullScreenMargin, 0);
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 10500;
-
+  @include fullscreen-loading-container;
   .progress {
-    background-color: var(--grey-200, color(grey-200));
+    background-color: var(--KSkeletonFullScreenProgressBackgroundColor, var(--grey-200, color(grey-200)));
     border-radius: 8px;
     margin-top: 16px;
     max-width: 350px;
@@ -99,13 +88,12 @@ export default defineComponent({
     }
   }
 
-  .loader {
+  .spinner-loader {
     :after {
       border-radius: 50%;
       height: 183px;
       width: 183px;
     }
-    -webkit-animation: spinnerAnimation 1.4s infinite linear;
     animation: spinnerAnimation 1.4s infinite linear;
     border-bottom: 10px solid var(--grey-200, color(grey-200));
     border-left: 10px solid var(--KSkeletonFullScreenSpinnerColor, var(--blue-500, color(blue-500)));
@@ -116,33 +104,23 @@ export default defineComponent({
     height: 183px;
     margin: 60px auto;
     position: relative;
-    -ms-transform: translateZ(0);
-    -webkit-transform: translateZ(0);
     transform: translateZ(0);
     width: 183px;
   }
 
 @-webkit-keyframes spinnerAnimation {
   0% {
-    -ms-transform: rotate(0deg);
-    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
   100% {
-    -ms-transform: rotate(360deg);
-    -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
 @keyframes spinnerAnimation {
   0% {
-    -ms-transform: rotate(0deg);
-    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
   100% {
-    -ms-transform: rotate(360deg);
-    -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }

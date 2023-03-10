@@ -8,7 +8,7 @@
 
 - `type`
 
-There are 6 different types of loading states that KSkeleton supports: `card`, `table`, `form`, `spinner`, `fullscreen-kong`, `fullscreen-generic`, and a generic loading state. Defaults to a generic loading state. The following example shows a `form` type KSKeleton.
+There are 7 different types of loading states that KSkeleton supports: `card`, `table`, `form`, `spinner`, `fullscreen-kong`, `fullscreen-generic`, and a generic loading state. Defaults to a generic loading state. The following example shows a `form` type KSKeleton.
 
 <KSkeleton type="form" />
 

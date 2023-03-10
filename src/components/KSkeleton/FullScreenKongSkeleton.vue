@@ -74,23 +74,13 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/mixins';
 @import '@/styles/functions';
 .fullscreen-loading-container {
-  align-items: center;
-  background: var(--white, color(white));
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  left: 0;
-  margin: var(--KSkeletonFullScreenMargin, 0);
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 10500;
+  @include fullscreen-loading-container;
 
   .progress {
-    background-color: var(--grey-200, color(grey-200));
+    background-color: var(--KSkeletonFullScreenProgressBackgroundColor, var(--grey-200, color(grey-200)));
     border-radius: 8px;
     margin-top: 16px;
     max-width: 350px;
