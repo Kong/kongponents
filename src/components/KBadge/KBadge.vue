@@ -225,7 +225,7 @@ const badgeCustomStyles = computed(() => {
   return styles
 })
 
-const maxWidth = computed(() => getSizeFromString(props.maxWidth))
+const maxWidth = computed((): string => getSizeFromString(props.maxWidth))
 
 watch(badgeText, () => {
   // prevent recursion loop
