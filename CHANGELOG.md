@@ -1,3 +1,10 @@
+# [8.35.0](https://github.com/Kong/kongponents/compare/v8.34.2...v8.35.0) (2023-03-10)
+
+
+### Features
+
+* **kbadge:** add maxWidth prop ([#1194](https://github.com/Kong/kongponents/issues/1194)) ([f04b271](https://github.com/Kong/kongponents/commit/f04b271fb2f8f20b0e9ccf7af367488e71d498b2))
+
 ## [8.34.2](https://github.com/Kong/kongponents/compare/v8.34.1...v8.34.2) (2023-03-10)
 
 
