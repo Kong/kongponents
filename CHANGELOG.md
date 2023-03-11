@@ -1,3 +1,10 @@
+# [8.37.0](https://github.com/Kong/kongponents/compare/v8.36.0...v8.37.0) (2023-03-11)
+
+
+### Features
+
+* **kinput:** add icon slot [KHCP-6455] ([#1182](https://github.com/Kong/kongponents/issues/1182)) ([21a65e2](https://github.com/Kong/kongponents/commit/21a65e29c7c72fbae2db0c21b59fe8b921ff59e5))
+
 # [8.36.0](https://github.com/Kong/kongponents/compare/v8.35.1...v8.36.0) (2023-03-10)
 
 
