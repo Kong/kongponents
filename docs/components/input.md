@@ -159,6 +159,24 @@ String to be displayed as error message if `hasError` prop is `true`.
 <KInput label="Large" size="large" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
 ```
 
+### iconPosition
+
+Controls position of the icon provided through the [slot](#slots). Accepted values: `start` (default) and `end`.
+
+<KInput icon-position="end" model-value="search query">
+  <template #icon>
+    <KIcon icon="clear" />
+  </template>
+</KInput>
+
+```html
+<KInput icon-position="end" model-value="search query">
+  <template #icon>
+    <KIcon icon="clear" />
+  </template>
+</KInput>
+```
+
 ## Attribute Binding
 
 You can pass any input attribute and it will get properly bound to the element.
@@ -192,7 +210,7 @@ KInput works as regular inputs do using v-model for data binding:
 <KLabel>{{ myInput }}</KLabel>
 <div class="d-flex">
   <KInput v-model="myInput"/>
-  <KButton class="ml-2" @click="clearIt">Clear</KButton>
+  <KButton class="ml-2" @click="clearMyInput">Clear</KButton>
 </div>
 
 ```html
@@ -221,6 +239,52 @@ export default defineComponent({
 </script>
 ```
 
+## Slots
+
+- `icon` - slot for icon on the left or right of the input (position can be controlled through [prop](#iconposition))
+
+:::tip TIP
+Whether you choose to use `KIcon` Kongponent or your own SVG, the component's styles will adjust the icon size to match the size of the component.
+:::
+  
+<KInput placeholder="Search" size="small" class="mb-2">
+  <template #icon>
+    <KIcon icon="search" />
+  </template>
+</KInput>
+
+<KInput placeholder="Search" size="medium" class="mb-2">
+  <template #icon>
+    <KIcon icon="search" />
+  </template>
+</KInput>
+
+<KInput placeholder="Search" size="large">
+  <template #icon>
+    <KIcon icon="search" />
+  </template>
+</KInput>
+
+```html
+<KInput placeholder="Search" size="small">
+  <template #icon>
+    <KIcon icon="search" />
+  </template>
+</KInput>
+
+<KInput placeholder="Search" size="medium">
+  <template #icon>
+    <KIcon icon="search" />
+  </template>
+</KInput>
+
+<KInput placeholder="Search" size="large">
+  <template #icon>
+    <KIcon icon="search" />
+  </template>
+</KInput>
+```
+
 ## Events
 
 ### `input` and `update:modelValue`
@@ -245,10 +309,10 @@ Fired when the text starts or stops exceeding the limit, returns an object:
 
 ```json
 {
-    value,          // current value
-    length,         // length of current value
-    characterLimit, // character limit
-    limitExceeded   // whether or not the limit has been exceeded
+  value,          // current value
+  length,         // length of current value
+  characterLimit, // character limit
+  limitExceeded   // whether or not the limit has been exceeded
 }
 ```
 
@@ -272,18 +336,56 @@ Fired when the text starts or stops exceeding the limit, returns an object:
 </KComponent>
 ```
 
+### `icon:click`
+
+You can make the icon passed through the [slot](#slots) clickable by binding to the `@icon:click` event.
+
+<KInput v-model="iconEventInput" @icon:click="clearIconEventInput" icon-position="end" placeholder="Enter search query">
+  <template #icon>
+    <KIcon icon="clear" class="clear-search" />
+  </template>
+</KInput>
+
+```html
+<KInput @icon:click="clearSearch" v-model="searchQuery" icon-position="end" placeholder="Enter search query">
+  <template #icon>
+    <KIcon icon="clear" class="clear-search" />
+  </template>
+</KInput>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const searchQuery = ref('search query')
+
+const clearSearch = () => {
+  searchQuery.value = ''
+}
+</script>
+
+<style lang="scss">
+.clear-search {
+  &:hover {
+    path, circle {
+      stroke: darkgrey;
+    }
+  }
+}
+</style>
+```
+
 ## Theming
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KInputColor` | Input text color
-| `--KInputBorder` | Input border / label color
-| `--KInputBackground` | Input and label background color
-| `--KInputHover` | Input border / label hover color
-| `--KInputFocus` | Input border / label focus color
-| `--KInputDisabledBackground` | Input disabled background color
-| `--KInputError` | Input error border color
-| `--KInputPlaceholderColor`| Placeholder text color
+| Variable                     | Purpose                          |
+| :--------------------------- | :------------------------------- |
+| `--KInputColor`              | Input text color                 |
+| `--KInputBorder`             | Input border / label color       |
+| `--KInputBackground`         | Input and label background color |
+| `--KInputHover`              | Input border / label hover color |
+| `--KInputFocus`              | Input border / label focus color |
+| `--KInputDisabledBackground` | Input disabled background color  |
+| `--KInputError`              | Input error border color         |
+| `--KInputPlaceholderColor`   | Placeholder text color           |
 
 An Example of changing the error border color of KInput to pink might look like:
 
@@ -308,12 +410,16 @@ export default defineComponent({
   data() {
     return {
       myInput: 'test',
+      iconEventInput: 'search query',
       inputText: ''
     }
   },
   methods: {
-    clearIt () {
+    clearMyInput () {
       this.myInput = ''
+    },
+    clearIconEventInput () {
+      this.iconEventInput = ''
     }
   }
 })
@@ -322,5 +428,13 @@ export default defineComponent({
 <style lang="scss">
 .custom-input {
   --KInputError: hotpink;
+}
+
+.clear-search {
+  &:hover {
+    path, circle {
+      stroke: darkgrey;
+    }
+  }
 }
 </style>

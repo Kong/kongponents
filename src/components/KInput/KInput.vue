@@ -20,7 +20,7 @@
           :id="inputId"
           :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
           class="form-control k-input"
-          :class="`k-input-${size}`"
+          :class="{ [`k-input-${size}`]: size, [`has-icon icon-${iconPosition}`]: $slots['icon'] }"
           :value="getValue()"
           @blur="() => isFocused = false"
           @focus="() => isFocused = true"
@@ -53,7 +53,7 @@
         :id="inputId"
         :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
         class="form-control k-input"
-        :class="`k-input-${size}`"
+        :class="{ [`k-input-${size}`]: size, [`has-icon icon-${iconPosition}`]: $slots['icon'] }"
         :value="getValue()"
         @input="handleInput"
       >
@@ -71,7 +71,7 @@
       v-bind="modifiedAttrs"
       :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
       class="form-control k-input"
-      :class="`k-input-${size}`"
+      :class="{ [`k-input-${size}`]: size, [`has-icon icon-${iconPosition}`]: $slots['icon'] }"
       :value="getValue()"
       @input="handleInput"
     >
@@ -90,11 +90,23 @@
     >
       {{ help }}
     </p>
+
+    <div
+      v-if="$slots['icon']"
+      ref="icon"
+      class="input-icon"
+      :class="{ 'clickable': isIconClickable }"
+      :tabindex="isIconClickable ? 0 : -1"
+      @click="handleIconClick"
+      @keyup.enter="handleIconClick"
+    >
+      <slot name="icon" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, watch } from 'vue'
+import { defineComponent, computed, ref, watch, onMounted, PropType } from 'vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import { v1 as uuidv1 } from 'uuid'
 
@@ -143,6 +155,11 @@ export default defineComponent({
       default: null,
       // Ensure the characterLimit is greater than zero
       validator: (limit: number):boolean => limit > 0,
+    },
+    iconPosition: {
+      type: String as PropType<'start' | 'end'>,
+      default: 'start',
+      validator: (value: string) => ['start', 'end'].includes(value),
     },
     /**
      * Test mode - for testing only, strips out generated ids
@@ -227,6 +244,25 @@ export default defineComponent({
       return currValue.value || modelValueChanged.value ? currValue.value : props.modelValue
     }
 
+    const icon = ref<HTMLDivElement | null>(null)
+    const isIconClickable = computed((): boolean => !!attrs['onIcon:click'])
+    const handleIconClick = (e: any) => {
+      if (isIconClickable.value) {
+        // call event listener callback function directly as a workaround
+        // adding 'icon:click' to emits will remove it from attributes so isIconClickable.value always returns false
+        const callback = attrs['onIcon:click'] as any
+        if (typeof callback === 'function') {
+          callback(e)
+        }
+      }
+    }
+
+    onMounted(() => {
+      if (icon.value && isIconClickable.value) {
+        icon.value.role = 'button'
+      }
+    })
+
     return {
       currValue,
       modelValueChanged,
@@ -240,6 +276,9 @@ export default defineComponent({
       modifiedAttrs,
       handleInput,
       getValue,
+      icon,
+      isIconClickable,
+      handleIconClick,
     }
   },
 })
@@ -251,6 +290,94 @@ export default defineComponent({
 
 .form-control {
   box-shadow: none !important;
+
+  &.has-icon {
+    // input size medium
+    $kInputMediumSizingX: 10px;
+    $kInputMediumSizingY: var(--spacing-md, spacing(md));
+    $kInputMediumIconSize: 24px;
+
+    ~ .input-icon {
+      top: $kInputMediumSizingX;
+
+      :deep(svg) {
+        height: $kInputMediumIconSize;
+        width: $kInputMediumIconSize;
+      }
+    }
+
+    &.icon-start {
+      padding-left: calc($kInputMediumSizingY + var(--spacing-xs, spacing(xs)) + $kInputMediumIconSize) !important; // account for icon offset and width
+      ~ .input-icon {
+        left: $kInputMediumSizingY;
+      }
+    }
+
+    &.icon-end {
+      padding-right: calc($kInputMediumSizingY + var(--spacing-xs, spacing(xs)) + $kInputMediumIconSize) !important; // account for icon offset and width
+      ~ .input-icon {
+        right: $kInputMediumSizingY;
+      }
+    }
+
+    // input size small
+    $kInputSmallSizingX: var(--spacing-xs, spacing(xs));
+    $kInputSmallSizingY: var(--spacing-sm, spacing(sm));
+    $kInputSmallIconSize: 22px;
+
+    &.k-input-small {
+      ~ .input-icon {
+        top: $kInputSmallSizingX;
+
+        :deep(svg) {
+          height: $kInputSmallIconSize;
+          width: $kInputSmallIconSize;
+        }
+      }
+
+      &.icon-start {
+        padding-left: calc($kInputSmallSizingY + var(--spacing-xs, spacing(xs)) + $kInputSmallIconSize) !important; // account for icon offset and width
+        ~ .input-icon {
+          left: $kInputSmallSizingY;
+        }
+      }
+      &.icon-end {
+        padding-right: calc($kInputSmallSizingY + var(--spacing-xs, spacing(xs)) + $kInputSmallIconSize) !important; // account for icon offset and width
+        ~ .input-icon {
+          right: $kInputSmallSizingY;
+        }
+      }
+    }
+
+    // input size large
+    $kInputLargeSizingX: var(--spacing-md, spacing(md));
+    $kInputLargeSizingY: var(--spacing-lg, spacing(lg));
+    $kInputLargeIconSize: 26px;
+
+    &.k-input-large {
+      ~ .input-icon {
+        top: $kInputLargeSizingX;
+
+        :deep(svg) {
+          height: $kInputLargeIconSize;
+          width: $kInputLargeIconSize;
+        }
+      }
+
+      &.icon-start {
+        padding-left: calc($kInputLargeSizingY + var(--spacing-xs, spacing(xs)) + $kInputLargeIconSize) !important; // account for icon offset and width
+        ~ .input-icon {
+          left: $kInputLargeSizingY;
+        }
+      }
+      &.icon-end {
+        padding-right: calc($kInputLargeSizingY + var(--spacing-xs, spacing(xs)) + $kInputLargeIconSize) !important; // account for icon offset and width
+        ~ .input-icon {
+          right: $kInputLargeSizingY;
+        }
+      }
+    }
+  }
 }
 
 .help {
@@ -260,12 +387,26 @@ export default defineComponent({
   margin: var(--spacing-xs, spacing(xs)) 0 0;
 }
 
+.input-icon {
+  align-items: center;
+  display: inline-flex;
+  pointer-events: none;
+  position: absolute;
+
+  &.clickable {
+    cursor: pointer;
+    pointer-events: auto;
+  }
+}
+
 .has-error {
   color: var(--red-500);
   font-weight: 500;
 }
 
 .k-input-wrapper {
+  position: relative;
+
   input.k-input {
     -webkit-appearance: none;
   }
