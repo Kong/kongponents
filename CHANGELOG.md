@@ -1,3 +1,10 @@
+# [8.36.0](https://github.com/Kong/kongponents/compare/v8.35.1...v8.36.0) (2023-03-10)
+
+
+### Features
+
+* **kskeleton:** add a generic fullscreen spinner loader (TDX-2940) ([#1189](https://github.com/Kong/kongponents/issues/1189)) ([232ab3f](https://github.com/Kong/kongponents/commit/232ab3f4d0e1195abd6fabe21f95b78f7d685e29))
+
 ## [8.35.1](https://github.com/Kong/kongponents/compare/v8.35.0...v8.35.1) (2023-03-10)
 
 
