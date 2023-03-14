@@ -211,7 +211,7 @@ By default, we try to keep the KMultiselect display slim. This means that KMulti
 </ClientOnly>
 
 ```html
-<KMultiselect :selected-row-count="1"  collapsed-context :items="items" />
+<KMultiselect :selected-row-count="1" collapsed-context :items="items" />
 ```
 
 ### expandSelected
