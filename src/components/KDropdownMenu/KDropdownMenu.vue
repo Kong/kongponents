@@ -103,7 +103,7 @@ export default defineComponent({
   props: {
     appearance: {
       type: String as PropType<Appearance>,
-      default: appearanceRecord.menu,
+      default: 'menu',
       validator: (value: Appearance) => Object.values(appearanceRecord).includes(value),
     },
     buttonAppearance: {

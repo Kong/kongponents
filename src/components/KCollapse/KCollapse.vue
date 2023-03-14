@@ -112,7 +112,7 @@ export default defineComponent({
     triggerAlignment: {
       type: String as PropType<TriggerAlignment>,
       required: false,
-      default: triggerAlignmentRecord.trailing,
+      default: 'trailing',
       validator: (value: TriggerAlignment): boolean => {
         return Object.values(triggerAlignmentRecord).includes(value)
       },
