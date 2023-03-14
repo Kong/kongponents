@@ -202,6 +202,18 @@ Use this prop to customize the number of rows of selections to display when the 
 <KMultiselect :selected-row-count="1" :items="items" />
 ```
 
+### collapsedContext
+
+By default, we try to keep the KMultiselect display slim. This means that KMultiselect only takes up a single line when it doesn't have focus. You can set `collapsedContext` to `true` if you want to continue to see the selections even when KMultiselect doesn't have focus.
+
+<ClientOnly>
+  <KMultiselect :selected-row-count="1" collapsed-context :items="deepClone(defaultItemsCollapse)" />
+</ClientOnly>
+
+```html
+<KMultiselect :selected-row-count="1"  collapsed-context :items="items" />
+```
+
 ### expandSelected
 
 By default, we try to keep the KMultiselect display slim. This means that KMultiselect only takes up a single line when it doesn't have focus, and when focused, if the selected entries would display beyond the `selectedRowCount` we collapse them into the additional count badge. You can set `expandSelected` to `true` if you want to continue to see the selections even when KMultiselect doesn't have focus. Instead of collapsing additional selections into the additional count badge we will allow you to scroll through all of your selections.
@@ -240,9 +252,9 @@ Adds informational text to the bottom of the dropdown options which remains visi
 
 ### dropdownFooterTextPosition
 
-By default, the dropdown footer text will be stuck to the bottom of the dropdown and will always be visible even if the dropdown content is scrolled. 
+By default, the dropdown footer text will be stuck to the bottom of the dropdown and will always be visible even if the dropdown content is scrolled.
 
-If you want to override the behaviour and have the footer text at the end of the dropdown list, use the value `static`. This ensures the footer text is visible only when the user scrolls to view the bottom of the list. 
+If you want to override the behaviour and have the footer text at the end of the dropdown list, use the value `static`. This ensures the footer text is visible only when the user scrolls to view the bottom of the list.
 
 Accepted values: `sticky` (default) and `static`.
 

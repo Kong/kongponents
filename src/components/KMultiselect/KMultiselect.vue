@@ -38,11 +38,11 @@
             @click="handleFilterClick"
           >
             <div
-              v-if="selectedItems.length && (isToggled.value || expandSelected)"
+              v-if="selectedItems.length && (isToggled.value || expandSelected || collapsedContext)"
               :id="multiselectSelectedItemsId"
               :key="key"
               class="k-multiselect-selections"
-              :class="{ 'scrollable my-2': expandSelected }"
+              :class="{ 'scrollable my-2': expandSelected, 'mb-2': collapsedContext && !isToggled.value }"
               data-testid="k-multiselect-selections"
               :style="!expandSelected ? numericWidthStyle : nonSlimStyle"
             >
@@ -109,7 +109,7 @@
               :style="numericWidthStyle"
             >
               <KInput
-                v-if="!expandSelected || (expandSelected && (!selectedItems.length || isToggled.value))"
+                v-if="(!expandSelected && !collapsedContext) || ((expandSelected || collapsedContext) && (!selectedItems.length || isToggled.value))"
                 :id="multiselectTextId"
                 v-bind="modifiedAttrs"
                 autocapitalize="off"
@@ -339,6 +339,14 @@ const props = defineProps({
   selectedRowCount: {
     type: Number,
     default: 2,
+  },
+  /**
+   * Determines whether to show total selected count (false), or
+   * row(s) of selections when collapsed
+   */
+  collapsedContext: {
+    type: Boolean,
+    default: false,
   },
   /**
    * Determines whether or not to hide the selections when not focused,
