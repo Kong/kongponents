@@ -109,6 +109,18 @@
 import { defineComponent, computed, ref, watch, onMounted, PropType } from 'vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import { v1 as uuidv1 } from 'uuid'
+import type { IconPosition, Size, LabelAttributes, SizeRecord, IconPositionRecord } from '@/types'
+
+const sizeRecord: SizeRecord = {
+  large: 'large',
+  medium: 'medium',
+  small: 'small',
+}
+
+const iconPositionRecord: IconPositionRecord = {
+  end: 'end',
+  start: 'start',
+}
 
 export default defineComponent({
   name: 'KInput',
@@ -131,7 +143,7 @@ export default defineComponent({
       default: false,
     },
     labelAttributes: {
-      type: Object,
+      type: Object as PropType<LabelAttributes>,
       default: () => ({}),
     },
     help: {
@@ -139,8 +151,9 @@ export default defineComponent({
       default: '',
     },
     size: {
-      type: String,
+      type: String as PropType<Size>,
       default: 'medium',
+      validator: (value: Size) => Object.values(sizeRecord).includes(value),
     },
     hasError: {
       type: Boolean,
@@ -154,12 +167,12 @@ export default defineComponent({
       type: Number,
       default: null,
       // Ensure the characterLimit is greater than zero
-      validator: (limit: number):boolean => limit > 0,
+      validator: (limit: number): boolean => limit > 0,
     },
     iconPosition: {
-      type: String as PropType<'start' | 'end'>,
+      type: String as PropType<IconPosition>,
       default: 'start',
-      validator: (value: string) => ['start', 'end'].includes(value),
+      validator: (value: IconPosition) => Object.values(iconPositionRecord).includes(value),
     },
     /**
      * Test mode - for testing only, strips out generated ids
@@ -173,10 +186,12 @@ export default defineComponent({
   emits: ['input', 'update:modelValue', 'char-limit-exceeded'],
 
   setup(props, { attrs, emit }) {
-    const currValue = ref('') // We need this so that we don't lose the updated value on hover/blur event with label
-    const modelValueChanged = ref(false) // Determine if the original value was modified by the user
-    const isFocused = ref(false)
-    const isHovered = ref(false)
+    const currValue = ref<string>('') // We need this so that we don't lose the updated value on hover/blur event with label
+    const modelValueChanged = ref<boolean>(false) // Determine if the original value was modified by the user
+    const isFocused = ref<boolean>(false)
+    const isHovered = ref<boolean>(false)
+    const icon = ref<HTMLDivElement | null>(null)
+
     const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
     const isReadonly = computed((): boolean => attrs?.readonly !== undefined && String(attrs?.readonly) !== 'false')
     const inputId = computed((): string => attrs.id ? String(attrs.id) : props.testMode ? 'test-input-id-1234' : uuidv1())
@@ -186,7 +201,7 @@ export default defineComponent({
         return props.modelValue
       },
       set(newValue: string | number): void {
-        handleInput({ target: { value: newValue } })
+        updateInputValue(String(newValue))
       },
     })
 
@@ -202,15 +217,21 @@ export default defineComponent({
       return $attrs
     })
 
-    const charLimitExceeded = computed((): boolean => !!props.characterLimit && (currValue.value.toString().length || (!modelValueChanged.value && props.modelValue.toString().length)) > props.characterLimit)
+    const charLimitExceeded = computed((): boolean =>
+      !!props.characterLimit && (currValue.value.toString().length ||
+        (!modelValueChanged.value && props.modelValue.toString().length)) > props.characterLimit)
 
     const charLimitExceededError = computed((): string => {
       if (!charLimitExceeded.value) {
         return ''
       }
 
-      return modelValueChanged.value ? `${currValue.value.toString().length} / ${props.characterLimit}` : `${props.modelValue.toString().length} / ${props.characterLimit}`
+      return modelValueChanged.value
+        ? `${currValue.value.toString().length} / ${props.characterLimit}`
+        : `${props.modelValue.toString().length} / ${props.characterLimit}`
     })
+
+    const isIconClickable = computed((): boolean => !!attrs['onIcon:click'])
 
     watch(charLimitExceeded, (newVal, oldVal) => {
       if (newVal !== oldVal) {
@@ -225,18 +246,23 @@ export default defineComponent({
 
     watch(value, (newVal, oldVal) => {
       if (newVal !== oldVal) {
-        handleInput({ target: { value: newVal } })
+        updateInputValue(String(newVal))
       }
     })
 
-    const handleInput = ($event: any):void => {
+    const handleInput = (event: Event): void => {
       // avoid pass by ref
-      const val = JSON.parse(JSON.stringify($event?.target?.value))
+      const value = JSON.parse(JSON.stringify((event?.target as HTMLInputElement)?.value))
 
-      currValue.value = val
+      updateInputValue(value)
+    }
+
+    const updateInputValue = (value: string): void => {
+      currValue.value = value
       modelValueChanged.value = true
-      emit('input', val)
-      emit('update:modelValue', val)
+
+      emit('input', value)
+      emit('update:modelValue', value)
     }
 
     const getValue = (): string | number => {
@@ -244,15 +270,14 @@ export default defineComponent({
       return currValue.value || modelValueChanged.value ? currValue.value : props.modelValue
     }
 
-    const icon = ref<HTMLDivElement | null>(null)
-    const isIconClickable = computed((): boolean => !!attrs['onIcon:click'])
-    const handleIconClick = (e: any) => {
+    const handleIconClick = (event: Event): void => {
       if (isIconClickable.value) {
         // call event listener callback function directly as a workaround
         // adding 'icon:click' to emits will remove it from attributes so isIconClickable.value always returns false
-        const callback = attrs['onIcon:click'] as any
+        const callback = attrs['onIcon:click']
+
         if (typeof callback === 'function') {
-          callback(e)
+          callback(event)
         }
       }
     }
@@ -274,10 +299,10 @@ export default defineComponent({
       charLimitExceeded,
       charLimitExceededError,
       modifiedAttrs,
-      handleInput,
-      getValue,
       icon,
       isIconClickable,
+      handleInput,
+      getValue,
       handleIconClick,
     }
   },
