@@ -66,8 +66,7 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import type { ButtonAppearance, ButtonAppearanceRecord, ButtonSize, ButtonSizeRecord } from '@/types'
-import { IconNames } from '@/types'
+import type { ButtonAppearance, ButtonAppearanceRecord, ButtonSize, ButtonSizeRecord, IconNames } from '@/types'
 
 export const appearances: ButtonAppearanceRecord = {
   primary: 'primary',

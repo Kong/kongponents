@@ -44,7 +44,7 @@
 import { defineComponent, PropType } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import { IconNames } from '@/types'
+import type { IconNames } from '@/types'
 
 export default defineComponent({
   name: 'KEmptyState',

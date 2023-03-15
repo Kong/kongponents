@@ -37,7 +37,7 @@
 
 <script lang="ts">
 import { computed, PropType, useSlots } from 'vue'
-import { IconNames } from '@/types'
+import type { IconNames } from '@/types'
 import KIcon from '@/components/KIcon/KIcon.vue'
 
 export const itemsHaveRequiredProps = (items: TreeListItem[]): boolean => {

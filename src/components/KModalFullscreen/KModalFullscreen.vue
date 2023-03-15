@@ -104,8 +104,7 @@
 import { watch, ref, computed, onMounted, onUnmounted, onBeforeUnmount, nextTick, PropType } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import type { ButtonAppearance } from '@/types'
-import { IconNames } from '@/types'
+import type { ButtonAppearance, IconNames } from '@/types'
 
 const props = defineProps({
   /**

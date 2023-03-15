@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed, onMounted, nextTick, watch, PropType } from 'vue'
-import { IconNames } from '@/types'
+import type { IconNames } from '@/types'
 import * as allIcons from './icons'
 
 const icons: typeof allIcons = allIcons
