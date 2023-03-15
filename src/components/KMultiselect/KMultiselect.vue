@@ -321,6 +321,7 @@ const props = defineProps({
     // Items must have a label & value
     validator: (multiselectItems: MultiselectItem[]) =>
       !multiselectItems.length || (multiselectItems.every(i => i.label !== undefined && i.value !== undefined) &&
+            // eslint-disable-next-line vue/valid-define-props
             itemValuesAreUnique(multiselectItems)),
   },
   /**
