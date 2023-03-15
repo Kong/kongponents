@@ -204,13 +204,16 @@ Use this prop to customize the number of rows of selections to display when the 
 
 ### collapsedContext
 
-By default, we try to keep the KMultiselect display slim. This means that KMultiselect only takes up a single line when it doesn't have focus. You can set `collapsedContext` to `true` if you want to continue to see the selections even when KMultiselect doesn't have focus.
+By default, we try to keep the KMultiselect display slim. This means that KMultiselect only takes up a single line when it doesn't have focus. You can set `collapsedContext` to `true` if you want to continue to see the selections even when KMultiselect doesn't have focus. Note: the `selectedRowCount` determines the maximum number of rows the KMultiselect will take up when collapsed.
 
 <ClientOnly>
+  <KMultiselect collapsed-context :items="deepClone(defaultItemsManySelected)" />
+  <br>
   <KMultiselect :selected-row-count="1" collapsed-context :items="deepClone(defaultItemsCollapse)" />
 </ClientOnly>
 
 ```html
+<KMultiselect collapsed-context :items="items" />
 <KMultiselect :selected-row-count="1" collapsed-context :items="items" />
 ```
 
