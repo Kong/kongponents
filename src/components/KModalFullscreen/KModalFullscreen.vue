@@ -105,6 +105,7 @@ import { watch, ref, computed, onMounted, onUnmounted, onBeforeUnmount, nextTick
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import type { ButtonAppearance } from '@/types'
+import { IconNames } from '@/types'
 
 const props = defineProps({
   /**
@@ -167,7 +168,7 @@ const props = defineProps({
   *  Pass the type of icon for the header on the left
   */
   iconString: {
-    type: String,
+    type: String as PropType<IconNames>,
     default: 'kong',
   },
 })

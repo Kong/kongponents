@@ -17,6 +17,7 @@
     >
       <slot name="item-icon">
         <KIcon
+          v-if="isIcon(itemIcon)"
           :icon="itemIcon"
           :secondary-color="iconSecondaryColor"
           size="20"
@@ -36,6 +37,7 @@
 
 <script lang="ts">
 import { computed, PropType, useSlots } from 'vue'
+import { IconNames } from '@/types'
 import KIcon from '@/components/KIcon/KIcon.vue'
 
 export const itemsHaveRequiredProps = (items: TreeListItem[]): boolean => {
@@ -47,7 +49,7 @@ export const itemsHaveRequiredProps = (items: TreeListItem[]): boolean => {
 export interface TreeListItem {
   name: string
   id: string
-  icon?: string
+  icon?: IconNames | 'none'
   selected?: boolean
   children?: TreeListItem[]
 }
@@ -71,7 +73,8 @@ const emit = defineEmits<{
 const slots = useSlots()
 
 const hasIcon = computed(() => props.item.icon !== 'none' || slots['item-icon'])
-const itemIcon = computed(() => props.item.icon ? props.item.icon : 'documentList')
+const itemIcon = computed<IconNames | 'none'>(() => props.item.icon ? props.item.icon : 'documentList')
+const isIcon = (icon: IconNames | 'none'): icon is IconNames => icon !== 'none'
 
 const iconSecondaryColor = () => {
   if (itemIcon.value === 'documentList') {

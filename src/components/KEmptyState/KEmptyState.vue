@@ -41,9 +41,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
+import { IconNames } from '@/types'
 
 export default defineComponent({
   name: 'KEmptyState',
@@ -58,7 +59,7 @@ export default defineComponent({
       default: '50',
     },
     icon: {
-      type: String,
+      type: String as PropType<IconNames>,
       default: '',
     },
     ctaIsHidden: {

@@ -186,7 +186,7 @@ import KPagination from '@/components/KPagination/KPagination.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
 import KCatalogItem from './KCatalogItem.vue'
-import type { CardSize, CardSizeRecord, CatalogPreferences } from '@/types'
+import type { CardSize, CardSizeRecord, CatalogPreferences, IconNames } from '@/types'
 
 const { useRequest, useDebounce } = useUtilities()
 
@@ -267,14 +267,14 @@ export default defineComponent({
      * A prop to pass in a custom empty state action message
      */
     emptyStateActionButtonIcon: {
-      type: String,
+      type: String as PropType<IconNames>,
       default: '',
     },
     /**
      * A prop to pass in a custom empty state icon
      */
     emptyStateIcon: {
-      type: String,
+      type: String as PropType<IconNames>,
       default: '',
     },
     /**
@@ -330,7 +330,7 @@ export default defineComponent({
      * A prop to pass in a custom error state icon
      */
     errorStateIcon: {
-      type: String,
+      type: String as PropType<IconNames>,
       default: '',
     },
     /**

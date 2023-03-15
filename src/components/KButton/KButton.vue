@@ -67,6 +67,7 @@
 import { defineComponent, computed, PropType } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import type { ButtonAppearance, ButtonAppearanceRecord, ButtonSize, ButtonSizeRecord } from '@/types'
+import { IconNames } from '@/types'
 
 export const appearances: ButtonAppearanceRecord = {
   primary: 'primary',
@@ -137,7 +138,7 @@ export default defineComponent({
       default: true,
     },
     icon: {
-      type: String,
+      type: String as PropType<IconNames>,
       default: '',
     },
     disabled: {

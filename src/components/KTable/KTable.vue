@@ -202,7 +202,7 @@ import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
-import type { TablePreferences, TablePaginationType, TableHeader } from '@/types'
+import type { TablePreferences, TablePaginationType, TableHeader, IconNames } from '@/types'
 
 /**
  * @deprecated defaultSorter
@@ -336,14 +336,14 @@ export default defineComponent({
      * A prop to pass in a custom empty state action message
      */
     emptyStateActionButtonIcon: {
-      type: String,
+      type: String as PropType<IconNames>,
       default: '',
     },
     /**
      * A prop to pass in a custom empty state icon
      */
     emptyStateIcon: {
-      type: String,
+      type: String as PropType<IconNames>,
       default: '',
     },
     /**
@@ -399,7 +399,7 @@ export default defineComponent({
      * A prop to pass in a custom error state icon
      */
     errorStateIcon: {
-      type: String,
+      type: String as PropType<IconNames>,
       default: '',
     },
     /**

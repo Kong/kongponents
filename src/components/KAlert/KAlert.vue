@@ -129,7 +129,7 @@
 import { defineComponent, computed, PropType } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import type { AlertAppearance, AlertDismissType, AlertAppearanceRecord, AlertSize, AlertType } from '@/types'
+import type { AlertAppearance, AlertDismissType, AlertAppearanceRecord, AlertSize, AlertType, IconNames } from '@/types'
 
 export const appearances: AlertAppearanceRecord = {
   info: 'info',
@@ -216,7 +216,7 @@ export default defineComponent({
      * Set alert box type of icon
      */
     icon: {
-      type: String,
+      type: String as PropType<IconNames>,
       default: '',
     },
     /**
