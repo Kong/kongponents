@@ -12,6 +12,7 @@
       <span v-if="(label || $slots.label) && labelPosition === 'left'">
         <slot name="label">{{ label }}</slot>
       </span>
+
       <input
         :checked="modelValue"
         :disabled="disabled"
@@ -21,6 +22,7 @@
         @input="handleChange"
       >
       <div :class="['switch-control', labelPosition === 'right' ? 'has-label-right' : 'has-label-left' ]" />
+
       <span v-if="(label || $slots.label) && labelPosition === 'right'">
         <slot name="label">{{ label }}</slot>
       </span>
@@ -37,6 +39,7 @@
     <span v-if="(label || $slots.label) && labelPosition === 'left'">
       <slot name="label">{{ label }}</slot>
     </span>
+
     <input
       :checked="modelValue"
       :disabled="disabled ? disabled : undefined"
@@ -45,12 +48,15 @@
       @change="handleChange"
       @input="handleChange"
     >
+
     <div :class="['switch-control', labelPosition === 'right' ? 'has-label-right' : 'has-label-left' ]" />
+
     <KIcon
       v-if="enabledIcon && modelValue === true"
       color="var(--white)"
       icon="check"
     />
+
     <span v-if="(label || $slots.label) && labelPosition === 'right'">
       <slot name="label">{{ label }}</slot>
     </span>
@@ -58,9 +64,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, PropType } from 'vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
+import type { LabelPosition, LabelPositionRecord } from '@/types'
+
+const labelPositionRecord: LabelPositionRecord = {
+  left: 'left',
+  right: 'right',
+}
 
 export default defineComponent({
   name: 'KInputSwitch',
@@ -86,9 +98,9 @@ export default defineComponent({
      * Should the switch be positioned to the left or right of the label
      */
     labelPosition: {
-      type: String,
+      type: String as PropType<LabelPosition>,
       default: 'right',
-      validator: (position: string): boolean => ['left', 'right'].includes(position),
+      validator: (position: LabelPosition): boolean => Object.values(labelPositionRecord).includes(position),
     },
     disabled: {
       type: Boolean,
@@ -134,18 +146,18 @@ export default defineComponent({
       return modifiedAttrs
     })
 
-    const handleChange = (e: any): void => {
-      if (props.modelValue !== e.target.checked) {
-        emit('change', e.target.checked)
-        emit('input', e.target.checked)
-        emit('update:modelValue', e.target.checked)
+    const handleChange = (event: Event): void => {
+      if (props.modelValue !== (event.target as HTMLInputElement).checked) {
+        emit('change', (event.target as HTMLInputElement).checked)
+        emit('input', (event.target as HTMLInputElement).checked)
+        emit('update:modelValue', (event.target as HTMLInputElement).checked)
       }
     }
 
     return {
       toggleText,
-      handleChange,
       strippedAttrs,
+      handleChange,
     }
   },
 })

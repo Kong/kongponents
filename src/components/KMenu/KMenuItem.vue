@@ -23,6 +23,7 @@
           {{ item ? item.title : '' }}
         </slot>
       </span>
+
       <span
         v-if="expandable"
         class="span-icon-container"
@@ -34,6 +35,7 @@
         />
       </span>
     </KButton>
+
     <div
       v-if="expandable"
       class="menu-content"
@@ -48,6 +50,7 @@
         </div>
       </slot>
     </div>
+
     <div v-if="!lastMenuItem && (type === 'divider' || expandable)">
       <KMenuDivider />
     </div>
@@ -60,10 +63,12 @@ import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KMenuDivider from '@/components/KMenu/KMenuDivider.vue'
 import { v1 as uuidv1 } from 'uuid'
+import type { MenuItem, MenuType, MenuTypeRecord } from '@/types'
 
-export interface MenuItem {
-  title: string
-  description?: string
+const menuTypeRecord: MenuTypeRecord = {
+  divider: 'divider',
+  number: 'number',
+  string: 'string',
 }
 
 export default defineComponent({
@@ -79,9 +84,9 @@ export default defineComponent({
       default: false,
     },
     type: {
-      type: String,
+      type: String as PropType<MenuType>,
       default: 'string',
-      validator: (val: string): boolean => ['string', 'number', 'divider'].includes(val),
+      validator: (value: MenuType): boolean => Object.values(menuTypeRecord).includes(value),
     },
     lastMenuItem: {
       type: Boolean,
@@ -97,7 +102,8 @@ export default defineComponent({
   },
   emits: ['clicked'],
   setup(props, { emit, slots }) {
-    const isOpen = ref(false)
+    const isOpen = ref<boolean>(false)
+
     const menuItemId = computed((): string => props.testMode ? 'test-menuitem-id-1234' : uuidv1())
 
     const toggleMenuItem = (): void => {

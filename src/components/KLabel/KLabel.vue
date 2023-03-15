@@ -17,6 +17,7 @@
         size="16"
       />
     </KTooltip>
+
     <KTooltip
       v-else-if="info"
       v-bind="tooltipAttributes"
@@ -33,14 +34,16 @@
         view-box="0 0 16 16"
       />
     </KTooltip>
+
     <slot v-else />
   </label>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
+import type { TooltipAttributes } from '@/types'
 
 export default defineComponent({
   name: 'KLabel',
@@ -51,14 +54,14 @@ export default defineComponent({
   props: {
     help: {
       type: String,
-      default: undefined,
+      default: '',
     },
     info: {
       type: String,
-      default: undefined,
+      default: '',
     },
     tooltipAttributes: {
-      type: Object,
+      type: Object as PropType<TooltipAttributes>,
       default: () => ({}),
     },
     /**
