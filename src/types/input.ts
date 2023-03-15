@@ -7,7 +7,7 @@ export type IconPosition = 'start' | 'end'
 export type IconPositionRecord = Record<IconPosition, IconPosition>
 
 export interface LabelAttributes {
-  help: string;
-  info: string;
+  help: string
+  info: string
   tooltipAttributes: TooltipAttributes
 }
