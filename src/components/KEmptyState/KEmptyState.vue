@@ -44,7 +44,7 @@
 import { defineComponent, PropType } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import type { IconNames } from '@/types'
+import type { MaybeIcon } from '@/types'
 
 export default defineComponent({
   name: 'KEmptyState',
@@ -59,7 +59,7 @@ export default defineComponent({
       default: '50',
     },
     icon: {
-      type: String as PropType<IconNames>,
+      type: String as PropType<MaybeIcon>,
       default: '',
     },
     ctaIsHidden: {
