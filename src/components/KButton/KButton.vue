@@ -95,34 +95,9 @@ const props = defineProps({
      * Route object or path. If object will render <router-link>, if string
      will render <a>
      */
-    to: {
-      type: [Object, String],
-      default: null,
-    },
-    type: {
-      type: String,
-      default: 'button',
-    },
-    showCaret: {
-      type: Boolean,
-      default: false,
-    },
-    caretColor: {
-      type: String,
-      default: undefined,
-    },
-    isRounded: {
-      type: Boolean,
-      default: true,
-    },
-    icon: {
-      type: String as PropType<MaybeIcon>,
-      default: '',
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
+  to: {
+    type: [Object, String],
+    default: null,
   },
   type: {
     type: String,
@@ -141,7 +116,7 @@ const props = defineProps({
     default: true,
   },
   icon: {
-    type: String,
+    type: String as PropType<MaybeIcon>,
     default: '',
   },
   disabled: {
