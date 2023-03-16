@@ -63,11 +63,9 @@
               >
                 {{ item.label }}
               </KBadge>
-              <!-- Always render this badge even if it's hidden to ensure there will be enough space to show it -->
               <KBadge
-                v-if="!expandSelected"
+                v-if="!expandSelected && invisibleSelectedItems.length"
                 class="mt-2 hidden-selection-count"
-                :class="{ 'hidden': !invisibleSelectedItems.length }"
                 force-tooltip
                 shape="rectangular"
                 :truncation-tooltip="hiddenItemsTooltip"
@@ -206,6 +204,7 @@
         </KPop>
       </KToggle>
     </div>
+    <!-- Staging area -->
     <div
       v-if="!expandSelected"
       aria-hidden="true"
@@ -230,7 +229,6 @@
         </KBadge>
         <!-- Always render this badge even if it's hidden to ensure there will be enough space to show it -->
         <KBadge
-          v-if="!expandSelected"
           class="mt-2 hidden-selection-count"
           hidden
           shape="rectangular"
@@ -959,10 +957,6 @@ onMounted(() => {
     .hidden-selection-count {
       // match dismissable height
       --KBadgeLineHeight: 21px;
-
-      &.hidden {
-        visibility: hidden;
-      }
     }
   }
 
