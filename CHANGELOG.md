@@ -1,3 +1,11 @@
+## [8.40.2](https://github.com/Kong/kongponents/compare/v8.40.1...v8.40.2) (2023-03-16)
+
+
+### Bug Fixes
+
+* **kbreadcrumbs:** update setup syntax khcp-6493] ([#1199](https://github.com/Kong/kongponents/issues/1199)) ([264bce5](https://github.com/Kong/kongponents/commit/264bce5134cdd043910b41d5fbdb32ece19a9c8e))
+* **kbutton:** update setup syntax [khcp-6494] ([#1200](https://github.com/Kong/kongponents/issues/1200)) ([55d7d96](https://github.com/Kong/kongponents/commit/55d7d963bb21452e905460bebe604b7e1bb7cf99))
+
 ## [8.40.1](https://github.com/Kong/kongponents/compare/v8.40.0...v8.40.1) (2023-03-16)
 
 
