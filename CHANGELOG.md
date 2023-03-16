@@ -1,3 +1,11 @@
+## [8.40.4](https://github.com/Kong/kongponents/compare/v8.40.3...v8.40.4) (2023-03-16)
+
+
+### Bug Fixes
+
+* types [KHCP-6656] ([#1222](https://github.com/Kong/kongponents/issues/1222)) ([5ca5103](https://github.com/Kong/kongponents/commit/5ca5103523f72ed893ca630100c7adb3d827ed6b))
+* **types:** trigger release ([a7bfe24](https://github.com/Kong/kongponents/commit/a7bfe24cd421dc7504ed9e0254e3523fbc4da24a))
+
 ## [8.40.3](https://github.com/Kong/kongponents/compare/v8.40.2...v8.40.3) (2023-03-16)
 
 
