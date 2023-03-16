@@ -1,3 +1,10 @@
+## [8.40.3](https://github.com/Kong/kongponents/compare/v8.40.2...v8.40.3) (2023-03-16)
+
+
+### Bug Fixes
+
+* **kmultiselect:** display [khcp-6644] ([#1221](https://github.com/Kong/kongponents/issues/1221)) ([e001d93](https://github.com/Kong/kongponents/commit/e001d930340561a353566fda5faeeab2b4658421))
+
 ## [8.40.2](https://github.com/Kong/kongponents/compare/v8.40.1...v8.40.2) (2023-03-16)
 
 
