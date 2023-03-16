@@ -1,3 +1,4 @@
+// All exports from all type files should be exported here
 export * from './alert'
 export * from './badge'
 export * from './breadcrumbs'
