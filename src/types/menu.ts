@@ -7,6 +7,6 @@ export interface MenuItem {
 }
 
 export interface KMenuItemType extends MenuItem {
-  expandable: boolean
+  expandable?: boolean
   type: MenuType
 }
