@@ -1,3 +1,10 @@
+## [8.40.1](https://github.com/Kong/kongponents/compare/v8.40.0...v8.40.1) (2023-03-16)
+
+
+### Bug Fixes
+
+* **kalert:** update setup syntax [khcp-6492] ([#1198](https://github.com/Kong/kongponents/issues/1198)) ([1d689c7](https://github.com/Kong/kongponents/commit/1d689c7697b307269cd17f3bd4912bf862cc371e))
+
 # [8.40.0](https://github.com/Kong/kongponents/compare/v8.39.0...v8.40.0) (2023-03-16)
 
 
