@@ -229,7 +229,6 @@
         </KBadge>
         <!-- Always render this badge even if it's hidden to ensure there will be enough space to show it -->
         <KBadge
-          v-if="!expandSelected"
           class="mt-2 hidden-selection-count"
           hidden
           shape="rectangular"
