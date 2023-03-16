@@ -1,3 +1,10 @@
+# [8.39.0](https://github.com/Kong/kongponents/compare/v8.38.1...v8.39.0) (2023-03-16)
+
+
+### Features
+
+* type support for icons and file upload [KHCP-6343] ([#1217](https://github.com/Kong/kongponents/issues/1217)) ([cce8390](https://github.com/Kong/kongponents/commit/cce8390f240fa6c0af46555a9d2e5e619dba8875))
+
 ## [8.38.1](https://github.com/Kong/kongponents/compare/v8.38.0...v8.38.1) (2023-03-16)
 
 
