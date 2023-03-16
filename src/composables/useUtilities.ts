@@ -1,5 +1,3 @@
-/** @format */
-
 import { ref, Ref, computed, watchEffect } from 'vue'
 import useSWRV, { IConfig } from 'swrv'
 import { AxiosResponse, AxiosError } from 'axios'
