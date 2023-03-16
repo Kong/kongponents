@@ -1,3 +1,5 @@
+/** @format */
+
 import { ref, Ref, computed, watchEffect } from 'vue'
 import useSWRV, { IConfig } from 'swrv'
 import { AxiosResponse, AxiosError } from 'axios'
@@ -14,20 +16,31 @@ const swrvState = {
 }
 
 export default function useUtilities() {
-  const useRequest = <Data = unknown, Error = { message: string }> (key: IKey, fn?: fetcherFn<AxiosResponse<Data>>, config?: IConfig) => {
-    const useSwrvFn = typeof useSWRV === 'function'
-      ? useSWRV
-      : () => ({
-        data: {},
-        error: null,
-        isValidating: false,
-        mutate: () => ({}),
-      })
+  const useRequest = <Data = unknown, Error = { message: string }>(
+    key: IKey,
+    fn?: fetcherFn<AxiosResponse<Data>>,
+    config?: IConfig,
+  ) => {
+    const useSwrvFn =
+      typeof useSWRV === 'function'
+        ? useSWRV
+        : () => ({
+          data: {},
+          error: null,
+          isValidating: false,
+          mutate: () => ({}),
+        })
 
-    const { data: response, error, isValidating, mutate: revalidate } = useSwrvFn<
-    AxiosResponse<Data>,
-    AxiosError<Error>
-    >(key, fn, { revalidateDebounce: 500, dedupingInterval: 100, ...config })
+    const {
+      data: response,
+      error,
+      isValidating,
+      mutate: revalidate,
+    } = useSwrvFn<AxiosResponse<Data>, AxiosError<Error>>(key, fn, {
+      revalidateDebounce: 500,
+      dedupingInterval: 100,
+      ...config,
+    })
 
     const data = computed(() => {
       // @ts-ignore
@@ -43,30 +56,44 @@ export default function useUtilities() {
     }
   }
 
-  const useDebounce = (initialQuery: string, delay = 300) => {
+  /**
+   * useDebounce accepts a function and a default delay.
+   * It returns a debounced function with the default delay and a debounced function
+   * wrapper which can be used to generate a debounced function with any delay.
+   * @param fn the function to wrap
+   * @param defaultDelay the default delay in milliseconds to use
+   * @returns a debounced function with default delay and a debounced function wrapper
+   */
+  const useDebounce = <F extends (...args: any[]) => any>(
+    fn: F,
+    defaultDelay = 300,
+  ): [(...args: Parameters<F>) => void, (delay: number) => (...args: Parameters<F>) => void] => {
     let timeout: any
-    const query = ref(initialQuery)
 
-    function search(q: string) {
-      clearTimeout(timeout)
-      timeout = setTimeout(() => {
-        query.value = q
-      }, delay)
-    }
+    const wrapDebouncedWithDelay =
+      (delay: number) =>
+        (...args: Parameters<F>) => {
+          clearTimeout(timeout)
+          if (delay > 0) {
+            timeout = setTimeout(() => {
+              fn(...args)
+            }, delay)
+          } else {
+            timeout = undefined
+            fn(...args)
+          }
+        }
 
-    return {
-      query,
-      search,
-    }
+    return [wrapDebouncedWithDelay(defaultDelay), wrapDebouncedWithDelay]
   }
 
   /**
- * @param {String} key - the current key to sort by
- * @param {String} previousKey - the previous key used to sort by
- * @param {String} sortOrder - either ascending or descending
- * @param {Array} items - the list of items to sort
- * @return {Object} an object containing the previousKey and sortOrder
- */
+   * @param {String} key - the current key to sort by
+   * @param {String} previousKey - the previous key used to sort by
+   * @param {String} sortOrder - either ascending or descending
+   * @param {Array} items - the list of items to sort
+   * @return {Object} an object containing the previousKey and sortOrder
+   */
   const clientSideSorter = (key: string, previousKey: string, sortOrder: string, items: []) => {
     let comparator = null
 
@@ -130,9 +157,11 @@ export default function useUtilities() {
 
     watchEffect(() => {
       const hasData =
-      response.value?.data?.length ||
-      response.value?.data?.data?.length ||
-      (!response.value?.data?.data && typeof response.value?.data === 'object' && Object.keys(response.value?.data).length)
+        response.value?.data?.length ||
+        response.value?.data?.data?.length ||
+        (!response.value?.data?.data &&
+          typeof response.value?.data === 'object' &&
+          Object.keys(response.value?.data).length)
 
       if (response.value && hasData && isValidating.value) {
         state.value = swrvState.VALIDATING_HAS_DATA
@@ -187,7 +216,13 @@ export default function useUtilities() {
    * @returns A string to be used for the height of an element.
    */
   const getSizeFromString = (sizeStr: string): string => {
-    return sizeStr === 'auto' || sizeStr.endsWith('%') || sizeStr.endsWith('vw') || sizeStr.endsWith('vh') || sizeStr.endsWith('px') ? sizeStr : sizeStr + 'px'
+    return sizeStr === 'auto' ||
+      sizeStr.endsWith('%') ||
+      sizeStr.endsWith('vw') ||
+      sizeStr.endsWith('vh') ||
+      sizeStr.endsWith('px')
+      ? sizeStr
+      : sizeStr + 'px'
   }
 
   /**

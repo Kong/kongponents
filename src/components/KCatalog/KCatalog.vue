@@ -486,7 +486,9 @@ export default defineComponent({
       hasInitialized.value = true
     }
 
-    const { query, search } = useDebounce('', 350)
+    const query = ref('')
+    const [search] = useDebounce((q: string) => { query.value = q })
+
     const { revalidate } = useRequest(
       () => catalogFetcherCacheKey.value,
       () => fetchData(),

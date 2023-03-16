@@ -736,12 +736,20 @@ export default defineComponent({
 
       return `k-table_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}` as string
     })
-    const { query, search } = useDebounce('', 350)
-    const { revalidate } = useRequest(
+
+    const query = ref('')
+    const [searchDebounced, debounceSearch] = useDebounce((q: string) => { query.value = q }, 350)
+    const searchImmediately = debounceSearch(0) // generate a debounced function with zero delay (immediate)
+
+    const { revalidate: _revalidate } = useRequest(
       () => tableFetcherCacheKey.value,
       () => fetchData(),
-      { revalidateOnFocus: false },
+      { revalidateOnFocus: false, revalidateDebounce: 0 },
     )
+
+    const [revalidateDebounced, debounceRevalidate] = useDebounce(_revalidate, 500)
+    const revalidateImmediately = debounceRevalidate(0) // generate a debounced function with zero delay (immediate)
+
     const sortClickHandler = (header: TableHeader) => {
       const { key, useSortHandlerFn } = header
       const prevKey = sortColumnKey.value + '' // avoid pass by ref
@@ -779,7 +787,7 @@ export default defineComponent({
           defaultSorter(key, prevKey, sortColumnOrder.value, data.value)
         }
       } else if (props.paginationType !== 'offset') {
-        revalidate()
+        revalidateDebounced()
       }
 
       // Emit an event whenever one of the tablePreferences are updated
@@ -845,11 +853,19 @@ export default defineComponent({
     }
 
     watch(() => props.searchInput, (newValue) => {
-      search(newValue)
+      if (newValue === '') {
+        searchImmediately(newValue)
+      } else {
+        searchDebounced(newValue)
+      }
     }, { immediate: true })
 
-    watch(() => [query.value, page.value, pageSize.value], () => {
-      revalidate()
+    watch(() => [query.value, page.value, pageSize.value], ([newQuery, , , oldQuery]) => {
+      if (newQuery === '' && newQuery !== oldQuery) {
+        revalidateImmediately()
+      } else {
+        revalidateDebounced()
+      }
     }, { deep: true, immediate: true })
 
     onMounted(() => {
