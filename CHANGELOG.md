@@ -1,3 +1,10 @@
+## [8.38.1](https://github.com/Kong/kongponents/compare/v8.38.0...v8.38.1) (2023-03-16)
+
+
+### Bug Fixes
+
+* **kinputswitch:** fix position for enabledIcon in KInputSwitch with labelPosition left [KHCP-6412] ([#1197](https://github.com/Kong/kongponents/issues/1197)) ([cde5973](https://github.com/Kong/kongponents/commit/cde597317d69ab772dab1431079a382fa086781e))
+
 # [8.38.0](https://github.com/Kong/kongponents/compare/v8.37.0...v8.38.0) (2023-03-16)
 
 
