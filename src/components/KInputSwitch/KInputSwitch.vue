@@ -171,9 +171,16 @@ export default defineComponent({
 .k-input-switch {
   position: relative;
 
-  .kong-icon {
+  .has-label-left + .kong-icon{
+    margin-left: 8px;
+  }
+
+  .has-label-right + .kong-icon {
     left: 57px;
     position: absolute;
+  }
+
+  .kong-icon {
     top: 1px;
     transform: translateX(-54px);
   }

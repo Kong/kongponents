@@ -102,6 +102,19 @@ Display a check icon when switch is enabled
   enabled-icon
 />
 
+Display a check icon when switch is enabled with label positioned to the left
+
+```html
+<KInputSwitch v-model="enabledIconChecked" :label="enabledIconChecked ? 'Enabled' : 'Disabled'" labelPosition="left" enabled-icon />
+```
+
+<KInputSwitch
+  v-model="enabledIconChecked"
+  :label="enabledIconChecked ? 'Enabled' : 'Disabled'"
+  labelPosition="left"
+  enabled-icon
+/>
+
 ## Slots
 
 - `label`
