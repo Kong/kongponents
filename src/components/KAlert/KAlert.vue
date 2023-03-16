@@ -205,11 +205,11 @@ defineProps({
   /**
      * Set alert box type of icon
      */
-    icon: {
-      type: String as PropType<IconNames>,
-      default: '',
-    },
-    /**
+  icon: {
+    type: String as PropType<IconNames>,
+    default: '',
+  },
+  /**
      * Set alert box icon color
      */
   iconColor: {
