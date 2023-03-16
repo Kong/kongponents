@@ -1,3 +1,10 @@
+# [8.40.0](https://github.com/Kong/kongponents/compare/v8.39.0...v8.40.0) (2023-03-16)
+
+
+### Features
+
+* **kmultiselect:** collapsedContext [ma-1456] ([#1209](https://github.com/Kong/kongponents/issues/1209)) ([958d55f](https://github.com/Kong/kongponents/commit/958d55ffbe0c71c069fe1e57cd5c5fae31ebb94f))
+
 # [8.39.0](https://github.com/Kong/kongponents/compare/v8.38.1...v8.39.0) (2023-03-16)
 
 
