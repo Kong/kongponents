@@ -1,3 +1,11 @@
+# [8.38.0](https://github.com/Kong/kongponents/compare/v8.37.0...v8.38.0) (2023-03-16)
+
+
+### Features
+
+* **chore:** added types for collapse, datapicker and dropdown [KHCP-6342] ([#1193](https://github.com/Kong/kongponents/issues/1193)) ([12aaf5c](https://github.com/Kong/kongponents/commit/12aaf5cbbffef67ee383c00d55ae35e843d788f4))
+* **chore:** added types for input, input-switch, label and menu [KHCP-6344] ([#1210](https://github.com/Kong/kongponents/issues/1210)) ([3d33c7b](https://github.com/Kong/kongponents/commit/3d33c7b52b3e12499c7cfef7658c0fdb8e7e859b))
+
 # [8.37.0](https://github.com/Kong/kongponents/compare/v8.36.0...v8.37.0) (2023-03-11)
 
 
