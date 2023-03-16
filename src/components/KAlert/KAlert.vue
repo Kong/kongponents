@@ -129,7 +129,7 @@
 import { computed, PropType, useSlots } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import type { AlertAppearance, AlertDismissType, AlertAppearanceRecord, AlertSize, AlertType, IconNames } from '@/types'
+import type { AlertAppearance, AlertDismissType, AlertAppearanceRecord, AlertSize, AlertType } from '@/types'
 
 defineProps({
   /**
@@ -206,7 +206,7 @@ defineProps({
      * Set alert box type of icon
      */
   icon: {
-    type: String as PropType<IconNames>,
+    type: String,
     default: '',
   },
   /**

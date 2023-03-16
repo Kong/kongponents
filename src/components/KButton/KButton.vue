@@ -66,7 +66,7 @@
 <script setup lang="ts">
 import { computed, PropType, useSlots, useAttrs } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import type { ButtonAppearance, ButtonAppearanceRecord, ButtonSize, ButtonSizeRecord, MaybeIcon } from '@/types'
+import type { ButtonAppearance, ButtonAppearanceRecord, ButtonSize, ButtonSizeRecord } from '@/types'
 
 const props = defineProps({
   /**
@@ -116,7 +116,7 @@ const props = defineProps({
     default: true,
   },
   icon: {
-    type: String as PropType<MaybeIcon>,
+    type: String,
     default: '',
   },
   disabled: {

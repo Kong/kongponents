@@ -95,7 +95,7 @@ import KInput from '@/components/KInput/KInput.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import { v1 as uuidv1 } from 'uuid'
-import type { FileUploadType, IconNames, ButtonAppearance } from '@/types'
+import type { FileUploadType, ButtonAppearance } from '@/types'
 
 export default defineComponent({
   name: 'KFileUpload',
@@ -173,7 +173,7 @@ export default defineComponent({
       default: '26',
     },
     icon: {
-      type: String as PropType<IconNames>,
+      type: String,
       default: 'image',
     },
     /**

@@ -76,7 +76,7 @@ import Kooltip from '@/components/KTooltip/KTooltip.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
 import KDropdownItem from './KDropdownItem.vue'
-import type { ButtonAppearance, DropdownItem, Appearance, AppearanceRecord, MaybeIcon } from '@/types'
+import type { ButtonAppearance, DropdownItem, Appearance, AppearanceRecord } from '@/types'
 
 const defaultKPopAttributes = {
   hideCaret: true,
@@ -119,7 +119,7 @@ export default defineComponent({
       default: '',
     },
     icon: {
-      type: String as PropType<MaybeIcon>,
+      type: String,
       default: '',
     },
     showCaret: {
