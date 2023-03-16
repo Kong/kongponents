@@ -26,13 +26,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted, nextTick, watch, PropType } from 'vue'
-import type { IconNames } from '@/types'
+import { defineComponent, ref, computed, onMounted, nextTick, watch } from 'vue'
 import * as allIcons from './icons'
 
-const icons: typeof allIcons = allIcons
-
-const iconNames = Object.keys(icons) as IconNames[]
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+const icons: Array<string, any[]> = allIcons
+const iconNames = Object.keys(icons)
 
 const DEFAULTS = {
   size: '24',
@@ -47,8 +47,8 @@ export default defineComponent({
      * Checks for valid icon name
      */
     icon: {
-      type: String as PropType<IconNames>,
-      validator: (value: IconNames): boolean => {
+      type: String,
+      validator: (value: string): boolean => {
         return iconNames.includes(value)
       },
       required: true,

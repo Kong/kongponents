@@ -41,10 +41,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import type { MaybeIcon } from '@/types'
 
 export default defineComponent({
   name: 'KEmptyState',
@@ -59,7 +58,7 @@ export default defineComponent({
       default: '50',
     },
     icon: {
-      type: String as PropType<MaybeIcon>,
+      type: String,
       default: '',
     },
     ctaIsHidden: {

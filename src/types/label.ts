@@ -13,8 +13,8 @@ export type Placement = 'auto'
 | 'bottomEnd'
 
 export interface TooltipAttributes {
-  label: string
-  placement: Placement
-  positionFixed: boolean
-  maxWidth: string
+  label?: string
+  placement?: Placement
+  positionFixed?: boolean
+  maxWidth?: string
 }
