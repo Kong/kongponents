@@ -38,8 +38,8 @@
 
 <script setup lang="ts">
 import { computed, PropType } from 'vue'
-import { MultiselectItem } from './KMultiselect.vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
+import type { MultiselectItem } from '@/types'
 
 interface MultiselectItemWithGroup extends MultiselectItem {
   group: string
