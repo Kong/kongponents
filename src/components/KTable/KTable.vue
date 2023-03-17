@@ -738,8 +738,8 @@ export default defineComponent({
     })
 
     const query = ref('')
-    const [searchDebounced, debounceSearch] = useDebounce((q: string) => { query.value = q }, 350)
-    const searchImmediately = debounceSearch(0) // generate a debounced function with zero delay (immediate)
+    const { debouncedFn: debouncedSearch, generateDebouncedFn: generateDebouncedSearch } = useDebounce((q: string) => { query.value = q }, 350)
+    const search = generateDebouncedSearch(0) // generate a debounced function with zero delay (immediate)
 
     const { revalidate: _revalidate } = useRequest(
       () => tableFetcherCacheKey.value,
@@ -747,8 +747,8 @@ export default defineComponent({
       { revalidateOnFocus: false, revalidateDebounce: 0 },
     )
 
-    const [revalidateDebounced, debounceRevalidate] = useDebounce(_revalidate, 500)
-    const revalidateImmediately = debounceRevalidate(0) // generate a debounced function with zero delay (immediate)
+    const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebouncedRevalidate } = useDebounce(_revalidate, 500)
+    const revalidate = generateDebouncedRevalidate(0) // generate a debounced function with zero delay (immediate)
 
     const sortClickHandler = (header: TableHeader) => {
       const { key, useSortHandlerFn } = header
@@ -787,7 +787,7 @@ export default defineComponent({
           defaultSorter(key, prevKey, sortColumnOrder.value, data.value)
         }
       } else if (props.paginationType !== 'offset') {
-        revalidateDebounced()
+        debouncedRevalidate()
       }
 
       // Emit an event whenever one of the tablePreferences are updated
@@ -854,17 +854,17 @@ export default defineComponent({
 
     watch(() => props.searchInput, (newValue) => {
       if (newValue === '') {
-        searchImmediately(newValue)
+        search(newValue)
       } else {
-        searchDebounced(newValue)
+        debouncedSearch(newValue)
       }
     }, { immediate: true })
 
     watch(() => [query.value, page.value, pageSize.value], ([newQuery, , , oldQuery]) => {
       if (newQuery === '' && newQuery !== oldQuery) {
-        revalidateImmediately()
+        revalidate()
       } else {
-        revalidateDebounced()
+        debouncedRevalidate()
       }
     }, { deep: true, immediate: true })
 

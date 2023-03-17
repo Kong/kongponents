@@ -487,7 +487,7 @@ export default defineComponent({
     }
 
     const query = ref('')
-    const [search] = useDebounce((q: string) => { query.value = q })
+    const { debouncedFn: debouncedSearch } = useDebounce((q: string) => { query.value = q })
 
     const { revalidate } = useRequest(
       () => catalogFetcherCacheKey.value,
@@ -508,7 +508,7 @@ export default defineComponent({
     }
 
     watch(() => props.searchInput, (newValue: string) => {
-      search(newValue)
+      debouncedSearch(newValue)
     }, { immediate: true })
 
     watch(() => [query.value, page.value, pageSize.value], () => {

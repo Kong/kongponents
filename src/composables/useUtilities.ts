@@ -60,12 +60,15 @@ export default function useUtilities() {
    * wrapper which can be used to generate a debounced function with any delay.
    * @param fn the function to wrap
    * @param defaultDelay the default delay in milliseconds to use
-   * @returns a debounced function with default delay and a debounced function wrapper
+   * @returns a debounced function with default delay and a debounced function generator
    */
   const useDebounce = <F extends (...args: any[]) => any>(
     fn: F,
     defaultDelay = 300,
-  ): [(...args: Parameters<F>) => void, (delay: number) => (...args: Parameters<F>) => void] => {
+  ): {
+    debouncedFn: (...args: Parameters<F>) => void
+    generateDebouncedFn: (delay: number) => (...args: Parameters<F>) => void
+  } => {
     let timeout: any
 
     const wrapDebouncedWithDelay =
@@ -82,7 +85,10 @@ export default function useUtilities() {
           }
         }
 
-    return [wrapDebouncedWithDelay(defaultDelay), wrapDebouncedWithDelay]
+    return {
+      debouncedFn: wrapDebouncedWithDelay(defaultDelay),
+      generateDebouncedFn: wrapDebouncedWithDelay,
+    }
   }
 
   /**
