@@ -1,3 +1,10 @@
+## [8.40.5](https://github.com/Kong/kongponents/compare/v8.40.4...v8.40.5) (2023-03-18)
+
+
+### Bug Fixes
+
+* **kdropdownitem:** add hasDivider to KDropdownItem type [KHCP-6613] ([#1225](https://github.com/Kong/kongponents/issues/1225)) ([92ab0bb](https://github.com/Kong/kongponents/commit/92ab0bb1419926961923d18ce8f3488c622e255e))
+
 ## [8.40.4](https://github.com/Kong/kongponents/compare/v8.40.3...v8.40.4) (2023-03-16)
 
 
