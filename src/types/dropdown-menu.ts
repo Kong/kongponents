@@ -4,6 +4,7 @@ export interface DropdownItem {
   to?: string | object
   value?: string | number
   selected?: boolean
+  hasDivider?: boolean
 }
 
 export type Appearance = 'menu' | 'selectionMenu';
