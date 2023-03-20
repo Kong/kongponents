@@ -47,7 +47,7 @@
               :style="!expandSelected ? numericWidthStyle : nonSlimStyle"
             >
               <KBadge
-                v-for="(item, idx) in visibleSelectedItems"
+                v-for="item, idx in visibleSelectedItems"
                 :key="`${item.key ? item.key : idx}-badge`"
                 class="mr-1"
                 :class="{
@@ -218,7 +218,7 @@
         tabindex="-1"
       >
         <KBadge
-          v-for="(item, idx) in visibleSelectedItemsStaging"
+          v-for="item, idx in visibleSelectedItemsStaging"
           :key="`${item.key ? item.key : idx}-badge`"
           class="mr-1 mt-2"
           :dismissable="item.selected && !item.disabled"
@@ -239,16 +239,46 @@
     </div>
   </div>
 </template>
-<script>
 
+<script lang="ts">
+import { ref, Ref, computed, watch, PropType, nextTick, onMounted, useAttrs } from 'vue'
+import { v1 as uuidv1 } from 'uuid'
+import useUtilities from '@/composables/useUtilities'
+import KBadge from '@/components/KBadge/KBadge.vue'
+import KButton from '@/components/KButton/KButton.vue'
+import KIcon from '@/components/KIcon/KIcon.vue'
+import KInput from '@/components/KInput/KInput.vue'
+import KLabel from '@/components/KLabel/KLabel.vue'
+import KPop from '@/components/KPop/KPop.vue'
+import KToggle from '@/components/KToggle'
+import KMultiselectItems from '@/components/KMultiselect/KMultiselectItems.vue'
+import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
+import type { MultiselectItem, MultiselectFilterFnParams, DropdownFooterTextPosition } from '@/types'
+
+// functions used in prop validators
+const getValues = (items: MultiselectItem[]) => {
+  const vals:string[] = []
+  items.forEach((item: MultiselectItem) => vals.push(item.value))
+
+  return vals
+}
+
+const itemValuesAreUnique = (items: MultiselectItem[]): boolean => {
+  const vals = getValues(items)
+  const uniqueValues = new Set(vals)
+
+  return vals.length === uniqueValues.size
+}
+
+export default {
+  inheritAttrs: false,
+}
 </script>
 
 <script setup lang="ts">
-import type { DropdownFooterTextPosition, MultiselectFilterFnParams, MultiselectItem } from '@/types'
-import { computed, nextTick, onMounted, PropType, Ref, ref, useAttrs, watch } from 'vue'
-import useUtilities from '@/composables/useUtilities'
-import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
-import { v1 as uuidv1 } from 'uuid'
+const attrs = useAttrs()
+const { getSizeFromString, cloneDeep } = useUtilities()
+const SELECTED_ITEMS_SINGLE_LINE_HEIGHT = 34
 
 const props = defineProps({
   modelValue: {
@@ -319,10 +349,7 @@ const props = defineProps({
     type: Array as PropType<MultiselectItem[]>,
     default: () => [],
     // Items must have a label & value
-    validator: (multiselectItems: MultiselectItem[]) =>
-      !multiselectItems.length || (multiselectItems.every(i => i.label !== undefined && i.value !== undefined) &&
-            // eslint-disable-next-line vue/valid-define-props
-            itemValuesAreUnique(multiselectItems)),
+    validator: (items: MultiselectItem[]) => !items.length || (items.every(i => i.label !== undefined && i.value !== undefined) && itemValuesAreUnique(items)),
   },
   /**
    * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
@@ -336,8 +363,7 @@ const props = defineProps({
    */
   filterFunc: {
     type: Function,
-    default: (params: MultiselectFilterFnParams) =>
-      params.items.filter((item: MultiselectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase())),
+    default: (params: MultiselectFilterFnParams) => params.items.filter((item: MultiselectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase())),
   },
   /**
    * A flag for autosuggest mode
@@ -393,35 +419,15 @@ const defaultKPopAttributes = {
   popoverClasses: 'k-multiselect-popover mt-0',
 }
 
-// functions used in prop validators
-const getValues = (items: MultiselectItem[]): string[] => {
-  const values: string[] = []
-  items.forEach((item: MultiselectItem) => values.push(item.value))
-
-  return values
-}
-
-const itemValuesAreUnique = (items: MultiselectItem[]): boolean => {
-  const values = getValues(items)
-  const uniqueValues = new Set(values)
-
-  return values.length === uniqueValues.size
-}
-
-const attrs = useAttrs()
-const { getSizeFromString, cloneDeep } = useUtilities()
-const SELECTED_ITEMS_SINGLE_LINE_HEIGHT = 34
-
 // keys and ids
-const numericWidth = ref<number>(300)
-const key = ref<number>(0)
-const stagingKey = ref<number>(0)
+const key = ref(0)
+const stagingKey = ref(0)
 const multiselectId = computed((): string => props.testMode ? 'test-multiselect-id-1234' : uuidv1())
 const multiselectInputId = computed((): string => props.testMode ? 'test-multiselect-input-id-1234' : uuidv1())
 const multiselectTextId = computed((): string => props.testMode ? 'test-multiselect-text-id-1234' : uuidv1())
 const multiselectSelectedItemsId = computed((): string => props.testMode ? 'test-multiselect-selected-id-1234' : uuidv1())
 const multiselectSelectedItemsStagingId = computed((): string => props.testMode ? 'test-multiselect-selected-staging-id-1234' : uuidv1())
-const multiselectRef = ref<HTMLDivElement | null>(null)
+const multiselectRef = ref(null)
 const selectionBottomRef = ref(null)
 // filter and selection
 const selectionsMaxHeight = computed((): number => {
@@ -448,14 +454,13 @@ const visibleSelectedItemsStaging = ref<MultiselectItem[]>([])
 const invisibleSelectedItemsStaging = ref<MultiselectItem[]>([])
 const visibleSelectedItems = ref<MultiselectItem[]>([])
 const invisibleSelectedItems = ref<MultiselectItem[]>([])
+const hiddenItemsTooltip = computed(() => invisibleSelectedItems.value.map(item => item.label).join(', '))
 // state
-const initialFocusTriggered = ref<boolean>(false)
-const isHovered = ref<boolean>(false)
-const isFocused = ref<boolean>(false)
-
+const initialFocusTriggered: Ref<boolean> = ref(false)
+const isHovered = ref(false)
+const isFocused = ref(false)
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
 const isReadonly = computed((): boolean => attrs?.readonly !== undefined && String(attrs?.readonly) !== 'false')
-const hiddenItemsTooltip = computed((): string => invisibleSelectedItems.value.map(item => item.label).join(', '))
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const value = computed({
@@ -499,7 +504,7 @@ const popoverContentMaxHeight = computed((): string => getSizeFromString(props.d
 // TypeScript complains if I bind the original object
 const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
 
-const widthValue = computed((): string => {
+const widthValue = computed(() => {
   const w = props.width ? props.width : '300'
 
   return getSizeFromString(w)
@@ -547,13 +552,13 @@ const filteredItems = computed(() => {
   return props.autosuggest ? unfilteredItems.value : props.filterFunc({ items: unfilteredItems.value, query: filterStr.value })
 })
 
-const handleFilterClick = (event: Event) => {
+const handleFilterClick = (evt: any) => {
   if (attrs.disabled !== undefined && String(attrs.disabled) !== 'false') {
-    event.stopPropagation()
+    evt.stopPropagation()
   }
 }
 
-const handleToggle = (open: boolean, isToggled: Ref<boolean>, toggle: Function): void => {
+const handleToggle = (open: boolean, isToggled: Ref<boolean>, toggle: Function) => {
   if (open) {
     if (!isToggled.value) { // not already open
       filterStr.value = ''
@@ -583,10 +588,8 @@ const stageSelections = () => {
 
     if (elem) {
       const height = elem.clientHeight
-
       if (height > selectionsMaxHeight.value) {
         const item = visibleSelectedItemsStaging.value.pop()
-
         if (item) {
           invisibleSelectedItemsStaging.value.push(item)
         }
@@ -749,9 +752,9 @@ const onQueryChange = (query: string) => {
   emit('query-change', query)
 }
 
-const triggerFocus = (event: Event, isToggled: Ref<boolean>):void => {
+const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
   // `esc` key closes
-  if ((event as KeyboardEvent).key === 'Esc') {
+  if (evt.keyCode === 27) {
     isToggled.value = false
     return
   }
@@ -883,6 +886,7 @@ watch(() => props.items, (newValue, oldValue) => {
   }
 }, { deep: true, immediate: true })
 
+const numericWidth = ref<number>(300)
 onMounted(() => {
   // @ts-ignore
   numericWidth.value = multiselectRef.value?.clientWidth || 300
