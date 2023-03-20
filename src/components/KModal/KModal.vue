@@ -104,7 +104,6 @@ import { FocusTrap } from 'focus-trap-vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import type { ButtonAppearance, DismissButtonTheme, DismissButtonThemeRecord, TextAlign, TextAlignRecord } from '@/types'
-import { FocusTrapTabbableOptions } from 'focus-trap'
 
 const dismissButtonThemeRecord: DismissButtonThemeRecord = {
   dark: 'dark',
@@ -218,7 +217,7 @@ export default defineComponent({
      * Options to be passed to tabbable
      */
     tabbableOptions: {
-      type: Object as PropType<FocusTrapTabbableOptions>,
+      type: Object,
       default: () => ({}),
     },
     /**
@@ -239,22 +238,22 @@ export default defineComponent({
     })
 
     const dismissButtonColor = computed((): string => {
-      if (props.dismissButtonTheme === dismissButtonThemeRecord.light) {
+      if (props.dismissButtonTheme === 'light') {
         return 'var(--grey-400)'
       }
 
       return 'var(--grey-600)'
     })
 
-    const handleKeydown = (event: Event): void => {
-      if (props.isVisible && (event as KeyboardEvent).key === 'Esc') {
+    const handleKeydown = (e: any): void => {
+      if (props.isVisible && e.keyCode === 27) {
         close(true)
       }
     }
 
-    const close = (force = false, event?: Event): void => {
+    const close = (force = false, event?: any): void => {
       // Close if force === true or if the user clicks on .k-modal-backdrop
-      if (force || (event?.target as HTMLElement).classList?.contains('k-modal-backdrop')) {
+      if (force || event?.target?.classList?.contains('k-modal-backdrop')) {
         emit('canceled')
       }
     }
@@ -313,9 +312,9 @@ export default defineComponent({
     return {
       hasHeaderImage,
       dismissButtonColor,
-      focusTrap,
       close,
       proceed,
+      focusTrap,
       toggleFocusTrap,
     }
   },

@@ -7,5 +7,5 @@ export interface DropdownItem {
   hasDivider?: boolean
 }
 
-export type Appearance = 'menu' | 'selectionMenu';
+export type Appearance = 'menu' | 'selectionMenu'
 export type AppearanceRecord = Record<Appearance, Appearance>
