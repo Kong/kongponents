@@ -459,4 +459,48 @@ describe('KTable', () => {
       cy.getTestId('k-table-pagination').should('be.visible')
     })
   })
+
+  describe('misc', () => {
+    it('triggers the internal search and revalidate after clearing the search input', () => {
+      const fns = {
+        fetcher: ({ query }: { query: string }) => {
+          return { data: [{ query }] }
+        },
+      }
+
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      mount(KTable, {
+        propsData: {
+          testMode: 'true',
+          fetcher: fns.fetcher,
+          isLoading: false,
+          initialFetcherParams: { offset: 'abc' },
+          headers: options.headers,
+          pageSize: 15,
+          paginationPageSizes: [10, 15, 20],
+          hidePaginationWhenOptional: true,
+          paginationType: 'offset',
+          searchInput: '',
+        },
+      })
+
+      // wait for initial fetcher call
+      cy.get('@fetcher', { timeout: 1000 })
+        .should('have.callCount', 1) // fetcher's 1st call
+        .should('returned', { data: [{ query: '' }] })
+        .then(() => cy.wrap(Cypress.vueWrapper.setProps({ searchInput: 'some-keyword' })))
+
+      // fetcher call should be delayed (> 350ms for search func + 500ms for revalidate func)
+      cy.get('@fetcher', { timeout: 1000 }) // fetcher's 2nd call
+        .should('have.callCount', 2) // fetcher should be called once
+        .should('returned', { data: [{ query: 'some-keyword' }] })
+        .then(() => cy.wrap(Cypress.vueWrapper.setProps({ searchInput: '' })))
+
+      // fetcher should be called immediately (< 350ms for search func)
+      cy.get('@fetcher', { timeout: 350 })
+        .should('have.callCount', 3) // fetcher's 3rd call
+        .should('returned', { data: [{ query: '' }] })
+    })
+  })
 })
