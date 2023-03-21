@@ -854,18 +854,30 @@ export default defineComponent({
 
     watch(() => props.searchInput, (newValue) => {
       if (newValue === '') {
+        // Immediately triggers the search, ...
+        // 1) on the 1st time (input is empty)
+        // 2) after clearing the input
         search(newValue)
       } else {
+        // Triggers a debounced search
         debouncedSearch(newValue)
       }
     }, { immediate: true })
 
-    watch(() => [query.value, page.value, pageSize.value], ([newQuery, , , oldQuery]) => {
-      if (newQuery === '' && newQuery !== oldQuery) {
+    watch(query, (newQuery) => {
+      if (newQuery === '') {
+        // Immediately triggers the revalidate, ...
+        // 1) on the 1st time (query is empty)
+        // 2) after clearing the input (query becomes empty)
         revalidate()
       } else {
+        // Triggers a debounced revalidate
         debouncedRevalidate()
       }
+    }, { deep: true, immediate: true })
+
+    watch(() => [page.value, pageSize.value], () => {
+      debouncedRevalidate()
     }, { deep: true, immediate: true })
 
     onMounted(() => {
