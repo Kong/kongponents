@@ -2,7 +2,7 @@
 
 **KInput** provides a wrapper around general `text` input's and provides specific Kong styling and state treatments (error, focus, etc).
 
-<KInput class="w-100" placeholder="Placeholder text" />
+<KInput class="w-100" placeholder="Placeholder text" type="number" />
 
 ```html
 <KInput class="w-100" placeholder="Placeholder text" />
@@ -246,7 +246,7 @@ export default defineComponent({
 :::tip TIP
 Whether you choose to use `KIcon` Kongponent or your own SVG, the component's styles will adjust the icon size to match the size of the component.
 :::
-  
+
 <KInput placeholder="Search" size="small" class="mb-2">
   <template #icon>
     <KIcon icon="search" />
