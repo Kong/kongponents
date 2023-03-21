@@ -1,3 +1,10 @@
+## [8.40.6](https://github.com/Kong/kongponents/compare/v8.40.5...v8.40.6) (2023-03-21)
+
+
+### Bug Fixes
+
+* **kinput:** handle null/undefined values ([#1231](https://github.com/Kong/kongponents/issues/1231)) ([a0bc62c](https://github.com/Kong/kongponents/commit/a0bc62c08b85cf1090dcbe99585e0eb4f270ae02))
+
 ## [8.40.5](https://github.com/Kong/kongponents/compare/v8.40.4...v8.40.5) (2023-03-18)
 
 
