@@ -23,6 +23,31 @@ describe('KInput', () => {
     cy.get('input').should('have.value', text)
   })
 
+  it('renders `null` modelValue as empty string', () => {
+    // @ts-ignore - to allow passing an invalid modelValue
+    mount(KInput, {
+      props: {
+        testMode: true,
+        modelValue: null, // e.g. v-model
+      },
+    })
+
+    cy.get('input').should('not.have.value', 'null')
+    cy.get('input').should('have.value', '')
+  })
+
+  it('renders `undefined` modelValue as empty string', () => {
+    mount(KInput, {
+      props: {
+        testMode: true,
+        modelValue: undefined, // e.g. v-model
+      },
+    })
+
+    cy.get('input').should('not.have.value', 'undefined')
+    cy.get('input').should('have.value', '')
+  })
+
   it('renders label when value is passed', () => {
     const label = 'A label'
     mount(KInput, {
