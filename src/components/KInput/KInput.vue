@@ -201,7 +201,8 @@ export default defineComponent({
         return props.modelValue
       },
       set(newValue: string | number): void {
-        updateInputValue(String(newValue))
+        // @ts-ignore
+        handleInput({ target: { value: newValue } } as Event)
       },
     })
 
@@ -246,7 +247,8 @@ export default defineComponent({
 
     watch(value, (newVal, oldVal) => {
       if (newVal !== oldVal) {
-        updateInputValue(String(newVal))
+        // @ts-ignore
+        handleInput({ target: { value: newVal } } as Event)
       }
     })
 
