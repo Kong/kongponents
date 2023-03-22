@@ -351,6 +351,36 @@ describe('KMultiselect', () => {
     cy.getTestId('k-multiselect-selections').should('exist')
   })
 
+  it('always shows selections when collapsedContext is true', () => {
+    const labels = ['Label 1', 'Label 2']
+    const vals = ['label1', 'label2']
+
+    mount(KMultiselect, {
+      props: {
+        testMode: true,
+        collapsedContext: true,
+        items: [{
+          label: labels[0],
+          value: vals[0],
+          selected: true,
+        }, {
+          label: labels[1],
+          value: vals[1],
+          selected: true,
+        }],
+      },
+    })
+
+    cy.getTestId('k-multiselect-selections').should('exist')
+
+    cy.getTestId('k-multiselect-selections').should('contain.text', labels[0])
+    cy.getTestId('k-multiselect-selections').should('contain.text', labels[1])
+
+    cy.get('.k-multiselect-chevron-icon').click()
+
+    cy.getTestId('k-multiselect-selections').should('exist')
+  })
+
   it('can clear all selections when focused', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']

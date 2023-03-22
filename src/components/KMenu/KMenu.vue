@@ -20,11 +20,13 @@
         </template>
       </div>
     </slot>
+
     <div
       v-if="hasActionButton"
       class="clear-cta-button"
     >
       <KMenuDivider />
+
       <slot name="actionButton">
         <KButton
           @click="proceed"
@@ -39,15 +41,10 @@
 import { defineComponent, computed, PropType } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KMenuItem from '@/components/KMenu/KMenuItem.vue'
-import type { MenuItem } from './KMenuItem.vue'
 import KMenuDivider from '@/components/KMenu/KMenuDivider.vue'
+import type { KMenuItemType } from '@/types'
 
 const { getSizeFromString } = useUtilities()
-
-export interface KMenuItemType extends MenuItem {
-  expandable: boolean
-  type: 'string' | 'number' | 'divider'
-}
 
 export default defineComponent({
   name: 'KMenu',

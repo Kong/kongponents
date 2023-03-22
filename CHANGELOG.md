@@ -1,3 +1,76 @@
+## [8.40.6](https://github.com/Kong/kongponents/compare/v8.40.5...v8.40.6) (2023-03-21)
+
+
+### Bug Fixes
+
+* **kinput:** handle null/undefined values ([#1231](https://github.com/Kong/kongponents/issues/1231)) ([a0bc62c](https://github.com/Kong/kongponents/commit/a0bc62c08b85cf1090dcbe99585e0eb4f270ae02))
+
+## [8.40.5](https://github.com/Kong/kongponents/compare/v8.40.4...v8.40.5) (2023-03-18)
+
+
+### Bug Fixes
+
+* **kdropdownitem:** add hasDivider to KDropdownItem type [KHCP-6613] ([#1225](https://github.com/Kong/kongponents/issues/1225)) ([92ab0bb](https://github.com/Kong/kongponents/commit/92ab0bb1419926961923d18ce8f3488c622e255e))
+
+## [8.40.4](https://github.com/Kong/kongponents/compare/v8.40.3...v8.40.4) (2023-03-16)
+
+
+### Bug Fixes
+
+* types [KHCP-6656] ([#1222](https://github.com/Kong/kongponents/issues/1222)) ([5ca5103](https://github.com/Kong/kongponents/commit/5ca5103523f72ed893ca630100c7adb3d827ed6b))
+* **types:** trigger release ([a7bfe24](https://github.com/Kong/kongponents/commit/a7bfe24cd421dc7504ed9e0254e3523fbc4da24a))
+
+## [8.40.3](https://github.com/Kong/kongponents/compare/v8.40.2...v8.40.3) (2023-03-16)
+
+
+### Bug Fixes
+
+* **kmultiselect:** display [khcp-6644] ([#1221](https://github.com/Kong/kongponents/issues/1221)) ([e001d93](https://github.com/Kong/kongponents/commit/e001d930340561a353566fda5faeeab2b4658421))
+
+## [8.40.2](https://github.com/Kong/kongponents/compare/v8.40.1...v8.40.2) (2023-03-16)
+
+
+### Bug Fixes
+
+* **kbreadcrumbs:** update setup syntax khcp-6493] ([#1199](https://github.com/Kong/kongponents/issues/1199)) ([264bce5](https://github.com/Kong/kongponents/commit/264bce5134cdd043910b41d5fbdb32ece19a9c8e))
+* **kbutton:** update setup syntax [khcp-6494] ([#1200](https://github.com/Kong/kongponents/issues/1200)) ([55d7d96](https://github.com/Kong/kongponents/commit/55d7d963bb21452e905460bebe604b7e1bb7cf99))
+
+## [8.40.1](https://github.com/Kong/kongponents/compare/v8.40.0...v8.40.1) (2023-03-16)
+
+
+### Bug Fixes
+
+* **kalert:** update setup syntax [khcp-6492] ([#1198](https://github.com/Kong/kongponents/issues/1198)) ([1d689c7](https://github.com/Kong/kongponents/commit/1d689c7697b307269cd17f3bd4912bf862cc371e))
+
+# [8.40.0](https://github.com/Kong/kongponents/compare/v8.39.0...v8.40.0) (2023-03-16)
+
+
+### Features
+
+* **kmultiselect:** collapsedContext [ma-1456] ([#1209](https://github.com/Kong/kongponents/issues/1209)) ([958d55f](https://github.com/Kong/kongponents/commit/958d55ffbe0c71c069fe1e57cd5c5fae31ebb94f))
+
+# [8.39.0](https://github.com/Kong/kongponents/compare/v8.38.1...v8.39.0) (2023-03-16)
+
+
+### Features
+
+* type support for icons and file upload [KHCP-6343] ([#1217](https://github.com/Kong/kongponents/issues/1217)) ([cce8390](https://github.com/Kong/kongponents/commit/cce8390f240fa6c0af46555a9d2e5e619dba8875))
+
+## [8.38.1](https://github.com/Kong/kongponents/compare/v8.38.0...v8.38.1) (2023-03-16)
+
+
+### Bug Fixes
+
+* **kinputswitch:** fix position for enabledIcon in KInputSwitch with labelPosition left [KHCP-6412] ([#1197](https://github.com/Kong/kongponents/issues/1197)) ([cde5973](https://github.com/Kong/kongponents/commit/cde597317d69ab772dab1431079a382fa086781e))
+
+# [8.38.0](https://github.com/Kong/kongponents/compare/v8.37.0...v8.38.0) (2023-03-16)
+
+
+### Features
+
+* **chore:** added types for collapse, datapicker and dropdown [KHCP-6342] ([#1193](https://github.com/Kong/kongponents/issues/1193)) ([12aaf5c](https://github.com/Kong/kongponents/commit/12aaf5cbbffef67ee383c00d55ae35e843d788f4))
+* **chore:** added types for input, input-switch, label and menu [KHCP-6344] ([#1210](https://github.com/Kong/kongponents/issues/1210)) ([3d33c7b](https://github.com/Kong/kongponents/commit/3d33c7b52b3e12499c7cfef7658c0fdb8e7e859b))
+
 # [8.37.0](https://github.com/Kong/kongponents/compare/v8.36.0...v8.37.0) (2023-03-11)
 
 

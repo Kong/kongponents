@@ -125,182 +125,175 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
+<script setup lang="ts">
+import { computed, PropType, useSlots } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import type { AlertAppearance, AlertDismissType, AlertAppearanceRecord, AlertSize, AlertType } from '@/types'
 
+defineProps({
+  /**
+    * Message to show in alert
+    */
+  alertMessage: {
+    type: String,
+    default: '',
+  },
+  /**
+     * Set whether or not the alert box is shown.
+     */
+  isShowing: {
+    type: Boolean,
+    default: true,
+  },
+  /**
+     * Fixes alert to top
+     */
+  isFixed: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+     * Set whether or not alert has full border is visible
+     */
+  isBordered: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+     * Sets whether or not alert has left border
+     */
+  hasLeftBorder: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+     * Sets whether or not alert has right border
+     */
+  hasRightBorder: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+     * Sets whether or not alert has top border
+     */
+  hasTopBorder: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+     * Sets whether or not alert has bottom border
+     */
+  hasBottomBorder: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+     * Center text inside alert
+     */
+  isCentered: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+     * Set alert box icon size
+     */
+  iconSize: {
+    type: String,
+    default: '32',
+  },
+  /**
+     * Set alert box type of icon
+     */
+  icon: {
+    type: String,
+    default: '',
+  },
+  /**
+     * Set alert box icon color
+     */
+  iconColor: {
+    type: String,
+    default: '',
+  },
+  /**
+     * Alert message title
+     */
+  title: {
+    type: String,
+    default: '',
+  },
+  /**
+    * Alert message description
+    */
+  description: {
+    type: String,
+    default: '',
+  },
+  /**
+      * Base styling of the button<br>
+      * One of [ info, danger, warning, success ]
+      */
+  appearance: {
+    type: String as PropType<AlertAppearance>,
+    default: 'info',
+    validator: (value: AlertAppearance): boolean => {
+      return Object.values(appearances).includes(value)
+    },
+  },
+  /**
+     * Set whether alert box is the default size or small for context (under form fields, etc),
+     */
+  size: {
+    type: String as PropType<AlertSize>,
+    default: '',
+    validator: (value: string): boolean => {
+      return ['', 'small', 'large'].includes(value)
+    },
+  },
+  /**
+     * Set whether alert box has icon/button to dismiss or none
+     */
+  dismissType: {
+    type: String as PropType<AlertDismissType>,
+    default: 'none',
+    validator: (value: string): boolean => {
+      return ['none', 'icon', 'button'].includes(value)
+    },
+  },
+  /**
+     * Set whether alert box is alert or banner
+     */
+  type: {
+    type: String as PropType<AlertType>,
+    default: 'alert',
+    validator: (value: string): boolean => {
+      return ['alert', 'banner'].includes(value)
+    },
+  },
+})
+
+const emit = defineEmits(['closed', 'proceed'])
+
+const slots = useSlots()
+const hasActionButtons = computed((): boolean => !!slots.actionButtons)
+
+const dismissAlert = (): void => {
+  emit('closed')
+}
+
+const proceed = (): void => {
+  emit('proceed')
+}
+</script>
+
+<script lang="ts">
 export const appearances: AlertAppearanceRecord = {
   info: 'info',
   success: 'success',
   danger: 'danger',
   warning: 'warning',
 }
-
-export default defineComponent({
-  name: 'KAlert',
-  components: { KIcon, KButton },
-  props: {
-    /**
-    * Message to show in alert
-    */
-    alertMessage: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Set whether or not the alert box is shown.
-     */
-    isShowing: {
-      type: Boolean,
-      default: true,
-    },
-    /**
-     * Fixes alert to top
-     */
-    isFixed: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Set whether or not alert has full border is visible
-     */
-    isBordered: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Sets whether or not alert has left border
-     */
-    hasLeftBorder: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Sets whether or not alert has right border
-     */
-    hasRightBorder: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Sets whether or not alert has top border
-     */
-    hasTopBorder: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Sets whether or not alert has bottom border
-     */
-    hasBottomBorder: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Center text inside alert
-     */
-    isCentered: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Set alert box icon size
-     */
-    iconSize: {
-      type: String,
-      default: '32',
-    },
-    /**
-     * Set alert box type of icon
-     */
-    icon: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Set alert box icon color
-     */
-    iconColor: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Alert message title
-     */
-    title: {
-      type: String,
-      default: '',
-    },
-    /**
-    * Alert message description
-    */
-    description: {
-      type: String,
-      default: '',
-    },
-    /**
-      * Base styling of the button<br>
-      * One of [ info, danger, warning, success ]
-      */
-    appearance: {
-      type: String as PropType<AlertAppearance>,
-      default: 'info',
-      validator: (value: AlertAppearance): boolean => {
-        return Object.values(appearances).includes(value)
-      },
-    },
-    /**
-     * Set whether alert box is the default size or small for context (under form fields, etc),
-     */
-    size: {
-      type: String as PropType<AlertSize>,
-      default: '',
-      validator: (value: string): boolean => {
-        return ['', 'small', 'large'].includes(value)
-      },
-    },
-    /**
-     * Set whether alert box has icon/button to dismiss or none
-     */
-    dismissType: {
-      type: String as PropType<AlertDismissType>,
-      default: 'none',
-      validator: (value: string): boolean => {
-        return ['none', 'icon', 'button'].includes(value)
-      },
-    },
-    /**
-     * Set whether alert box is alert or banner
-     */
-    type: {
-      type: String as PropType<AlertType>,
-      default: 'alert',
-      validator: (value: string): boolean => {
-        return ['alert', 'banner'].includes(value)
-      },
-    },
-  },
-  emits: ['closed', 'proceed'],
-  setup(props, { slots, emit }) {
-    const hasActionButtons = computed((): boolean => !!slots.actionButtons)
-
-    const dismissAlert = (): void => {
-      emit('closed')
-    }
-
-    const proceed = (): void => {
-      emit('proceed')
-    }
-
-    return {
-      hasActionButtons,
-      dismissAlert,
-      proceed,
-    }
-  },
-})
 </script>
 
 <style lang="scss" scoped>

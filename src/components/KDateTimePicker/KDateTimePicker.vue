@@ -144,40 +144,15 @@ import KIcon from '@/components/KIcon/KIcon.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KSegmentedControl from '@/components/KSegmentedControl/KSegmentedControl.vue'
 import 'v-calendar/dist/style.css'
+import type { DateTimePickerState, TimeFrameSection, TimePeriod, TimeRange, Mode, ModeRecord, CSSProperties } from '@/types'
 
-export interface TimeRange {
-  start: Date | number,
-  end: Date | number,
-  timePeriodsKey?: string
-}
-
-export interface TimePeriod {
-  key: string // unique identifier
-  display: string
-  timeframeText: string
-  timeframeLength: () => string
-  start: () => Date
-  end: () => Date
-}
-
-export interface TimeFrameSection {
-  section: string
-  values: TimePeriod[]
-}
-
-export interface DateTimePickerState {
-  abbreviatedDisplay: string
-  fullRangeDisplay?: string
-  hidePopover: boolean
-  selectedRange: TimeRange
-  previouslySelectedRange: TimeRange,
-  selectedTimeframe: TimePeriod
-  previouslySelectedTimeframe: TimePeriod
-  tabName: string
-}
-
-export interface CSSProperties {
-  [key: `${string}`]: string
+const modeRecord: ModeRecord = {
+  date: 'date',
+  dateTime: 'dateTime',
+  relative: 'relative',
+  relativeDate: 'relativeDate',
+  relativeDateTime: 'relativeDateTime',
+  time: 'time',
 }
 
 export default defineComponent({
@@ -242,10 +217,10 @@ export default defineComponent({
      * - `relativeDateTime` relative time frames + datetime calendar
      */
     mode: {
-      type: String,
+      type: String as PropType<Mode>,
       required: true,
-      validator: (value: string): boolean => {
-        return ['date', 'time', 'dateTime', 'relative', 'relativeDate', 'relativeDateTime'].includes(value)
+      validator: (value: Mode): boolean => {
+        return Object.values(modeRecord).includes(value)
       },
     },
     /**
@@ -319,6 +294,8 @@ export default defineComponent({
       },
     }
 
+    const selectedCalendarRange = ref<TimeRange | Date | string>(props.modelValue)
+
     const hasCalendar = computed((): boolean => props.mode !== 'relative')
     const hasTimePeriods = computed((): boolean => props?.timePeriods?.length > 0)
     const showCalendar = computed((): boolean => state.tabName === 'custom' || !hasTimePeriods.value)
@@ -337,7 +314,16 @@ export default defineComponent({
       }
     })
 
-    const selectedCalendarRange = ref<TimeRange | Date | string>(props.modelValue)
+    const impliedMode = computed((): string => {
+      if (props.mode === 'relativeDateTime') {
+        return 'dateTime'
+      } else if (props.mode === 'relativeDate') {
+        return 'date'
+      } else {
+        // Values that are safe to be passed verbatim to v-calendar
+        return props.mode
+      }
+    })
 
     const localTz = Intl.DateTimeFormat().resolvedOptions().timeZone
 
@@ -494,17 +480,6 @@ export default defineComponent({
     const ucWord = (val: string): string => {
       return val.charAt(0).toUpperCase() + val.slice(1)
     }
-
-    const impliedMode = computed((): string => {
-      if (props.mode === 'relativeDateTime') {
-        return 'dateTime'
-      } else if (props.mode === 'relativeDate') {
-        return 'date'
-      } else {
-        // Values that are safe to be passed verbatim to v-calendar
-        return props.mode
-      }
-    })
 
     /**
      * Saves the internal state (range or single value) whenever

@@ -78,8 +78,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, watch } from 'vue'
+import { defineComponent, computed, ref, watch, PropType } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
+import type { TriggerAlignmentRecord, TriggerAlignment } from '@/types'
+
+const triggerAlignmentRecord: TriggerAlignmentRecord = {
+  trailing: 'trailing',
+  leading: 'leading',
+}
 
 export default defineComponent({
   name: 'KCollapse',
@@ -104,21 +110,21 @@ export default defineComponent({
       default: '',
     },
     triggerAlignment: {
-      type: String,
+      type: String as PropType<TriggerAlignment>,
       required: false,
       default: 'trailing',
-      validator: (value: string): boolean => {
-        return ['leading', 'trailing'].includes(value)
+      validator: (value: TriggerAlignment): boolean => {
+        return Object.values(triggerAlignmentRecord).includes(value)
       },
     },
   },
   emits: ['toggled', 'update:modelValue'],
   setup(props, { slots, emit }) {
-    const hasVisibleContent = computed((): boolean => !!slots['visible-content'])
-    const isCollapsed = ref(true)
-    const modelValueChanged = ref(false)
+    const isCollapsed = ref<boolean>(true)
+    const modelValueChanged = ref<boolean>(false)
 
-    const trailingTrigger = computed(() => props.triggerAlignment === 'trailing')
+    const trailingTrigger = computed((): boolean => props.triggerAlignment === triggerAlignmentRecord.trailing)
+    const hasVisibleContent = computed((): boolean => !!slots['visible-content'])
 
     // we need this so we can create a watcher for programmatic changes to the modelValue
     const modelComputed = computed({
@@ -128,6 +134,11 @@ export default defineComponent({
       set(newValue: boolean): void {
         toggleDisplay(newValue)
       },
+    })
+
+    const collapsedState = computed((): boolean => {
+      // Use the modelValue only if the value hasn't been changed
+      return modelValueChanged.value ? isCollapsed.value : props.modelValue
     })
 
     const toggleDisplay = (isToggled?: boolean): void => {
@@ -143,14 +154,10 @@ export default defineComponent({
       }
 
       modelValueChanged.value = true
+
       emit('toggled', isCollapsed.value)
       emit('update:modelValue', isCollapsed.value)
     }
-
-    const collapsedState = computed((): boolean => {
-      // Use the modelValue only if the value hasn't been changed
-      return modelValueChanged.value ? isCollapsed.value : props.modelValue
-    })
 
     // watch for programmatic changes to v-model
     watch(modelComputed, (newVal, oldVal) => {
@@ -162,8 +169,8 @@ export default defineComponent({
     return {
       hasVisibleContent,
       trailingTrigger,
-      toggleDisplay,
       collapsedState,
+      toggleDisplay,
     }
   },
 })

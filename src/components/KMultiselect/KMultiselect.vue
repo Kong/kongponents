@@ -38,11 +38,11 @@
             @click="handleFilterClick"
           >
             <div
-              v-if="selectedItems.length && (isToggled.value || expandSelected)"
+              v-if="selectedItems.length && (isToggled.value || expandSelected || collapsedContext)"
               :id="multiselectSelectedItemsId"
               :key="key"
               class="k-multiselect-selections"
-              :class="{ 'scrollable my-2': expandSelected }"
+              :class="{ 'scrollable my-2': expandSelected, 'mb-2': collapsedContext && !isToggled.value }"
               data-testid="k-multiselect-selections"
               :style="!expandSelected ? numericWidthStyle : nonSlimStyle"
             >
@@ -63,11 +63,9 @@
               >
                 {{ item.label }}
               </KBadge>
-              <!-- Always render this badge even if it's hidden to ensure there will be enough space to show it -->
               <KBadge
-                v-if="!expandSelected"
+                v-if="!expandSelected && invisibleSelectedItems.length"
                 class="mt-2 hidden-selection-count"
-                :class="{ 'hidden': !invisibleSelectedItems.length }"
                 force-tooltip
                 shape="rectangular"
                 :truncation-tooltip="hiddenItemsTooltip"
@@ -109,7 +107,7 @@
               :style="numericWidthStyle"
             >
               <KInput
-                v-if="!expandSelected || (expandSelected && (!selectedItems.length || isToggled.value))"
+                v-if="(!expandSelected && !collapsedContext) || ((expandSelected || collapsedContext) && (!selectedItems.length || isToggled.value))"
                 :id="multiselectTextId"
                 v-bind="modifiedAttrs"
                 autocapitalize="off"
@@ -206,6 +204,7 @@
         </KPop>
       </KToggle>
     </div>
+    <!-- Staging area -->
     <div
       v-if="!expandSelected"
       aria-hidden="true"
@@ -230,7 +229,6 @@
         </KBadge>
         <!-- Always render this badge even if it's hidden to ensure there will be enough space to show it -->
         <KBadge
-          v-if="!expandSelected"
           class="mt-2 hidden-selection-count"
           hidden
           shape="rectangular"
@@ -339,6 +337,14 @@ const props = defineProps({
   selectedRowCount: {
     type: Number,
     default: 2,
+  },
+  /**
+   * Determines whether to show total selected count (false), or
+   * row(s) of selections when collapsed
+   */
+  collapsedContext: {
+    type: Boolean,
+    default: false,
   },
   /**
    * Determines whether or not to hide the selections when not focused,
@@ -951,10 +957,6 @@ onMounted(() => {
     .hidden-selection-count {
       // match dismissable height
       --KBadgeLineHeight: 21px;
-
-      &.hidden {
-        visibility: hidden;
-      }
     }
   }
 
