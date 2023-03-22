@@ -152,7 +152,7 @@ export default defineComponent({
      * Controls whether the dismiss button is light or dark shade.
      */
     dismissButtonTheme: {
-      type: String,
+      type: String as PropType<DismissButtonTheme>,
       default: 'dark',
       validator: (val: DismissButtonTheme): boolean => Object.values(dismissButtonThemeRecord).includes(val),
     },
@@ -167,7 +167,7 @@ export default defineComponent({
      * Set the alignment for the title and content
      */
     textAlign: {
-      type: String,
+      type: String as PropType<TextAlign>,
       default: 'center',
       validator: (val: TextAlign): boolean => Object.values(textAlignRecord).includes(val),
     },
