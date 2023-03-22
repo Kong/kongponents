@@ -1,3 +1,10 @@
+## [8.41.1](https://github.com/Kong/kongponents/compare/v8.41.0...v8.41.1) (2023-03-22)
+
+
+### Bug Fixes
+
+* **deps:** upgrade vitepress ([#1234](https://github.com/Kong/kongponents/issues/1234)) ([90ab930](https://github.com/Kong/kongponents/commit/90ab930c7e52c529922ab0773bb0a251ad26590a))
+
 # [8.41.0](https://github.com/Kong/kongponents/compare/v8.40.7...v8.41.0) (2023-03-22)
 
 
