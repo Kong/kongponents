@@ -1,3 +1,10 @@
+# [8.41.0](https://github.com/Kong/kongponents/compare/v8.40.7...v8.41.0) (2023-03-22)
+
+
+### Features
+
+* **types:** add types for modal fullscreen multiselect pagination [KHCP-6345] ([#1216](https://github.com/Kong/kongponents/issues/1216)) ([c9d4e82](https://github.com/Kong/kongponents/commit/c9d4e822cfe6c61f198dd5f0a833c0041a68aa97))
+
 ## [8.40.7](https://github.com/Kong/kongponents/compare/v8.40.6...v8.40.7) (2023-03-22)
 
 
