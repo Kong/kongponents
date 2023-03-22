@@ -1,3 +1,10 @@
+## [8.40.7](https://github.com/Kong/kongponents/compare/v8.40.6...v8.40.7) (2023-03-22)
+
+
+### Bug Fixes
+
+* update useDebounce to fix delays in KTable after clearing the search ([#1220](https://github.com/Kong/kongponents/issues/1220)) ([a550695](https://github.com/Kong/kongponents/commit/a550695e9867d8db7d65ac6ea503475b2eff9384))
+
 ## [8.40.6](https://github.com/Kong/kongponents/compare/v8.40.5...v8.40.6) (2023-03-21)
 
 
