@@ -47,13 +47,15 @@
 
 <script setup lang="ts">
 import KIcon from '@/components/KIcon/KIcon.vue'
+import { PropType } from 'vue'
+import type { MultiselectItem } from '@/types'
 
 const props = defineProps({
   item: {
-    type: Object,
+    type: Object as PropType<MultiselectItem>,
     default: null,
     // Items must have a label and value
-    validator: (item: Record<string, string | number | boolean>): boolean => item.label !== undefined && item.value !== undefined,
+    validator: (item: MultiselectItem): boolean => item.label !== undefined && item.value !== undefined,
   },
 })
 

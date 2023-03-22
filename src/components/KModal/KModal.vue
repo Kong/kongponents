@@ -103,7 +103,18 @@ import { defineComponent, computed, nextTick, onMounted, onUnmounted, ref, watch
 import { FocusTrap } from 'focus-trap-vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import type { ButtonAppearance } from '@/types'
+import type { ButtonAppearance, DismissButtonTheme, DismissButtonThemeRecord, TextAlign, TextAlignRecord } from '@/types'
+
+const dismissButtonThemeRecord: DismissButtonThemeRecord = {
+  dark: 'dark',
+  light: 'light',
+}
+
+const textAlignRecord: TextAlignRecord = {
+  center: 'center',
+  left: 'left',
+  right: 'right',
+}
 
 export default defineComponent({
   name: 'KModal',
@@ -141,9 +152,9 @@ export default defineComponent({
      * Controls whether the dismiss button is light or dark shade.
      */
     dismissButtonTheme: {
-      type: String,
+      type: String as PropType<DismissButtonTheme>,
       default: 'dark',
-      validator: (val: string): boolean => ['light', 'dark'].includes(val),
+      validator: (val: DismissButtonTheme): boolean => Object.values(dismissButtonThemeRecord).includes(val),
     },
     /**
      * Set the text of the body content
@@ -156,9 +167,9 @@ export default defineComponent({
      * Set the alignment for the title and content
      */
     textAlign: {
-      type: String,
+      type: String as PropType<TextAlign>,
       default: 'center',
-      validator: (val: string): boolean => ['left', 'center', 'right'].includes(val),
+      validator: (val: TextAlign): boolean => Object.values(textAlignRecord).includes(val),
     },
     /**
       *  Pass whether or not the modal should be visible
@@ -221,6 +232,7 @@ export default defineComponent({
 
   setup(props, { emit, slots }) {
     const focusTrap = ref<InstanceType<typeof FocusTrap> | null>(null)
+
     const hasHeaderImage = computed((): boolean => {
       return !!slots['header-image']
     })

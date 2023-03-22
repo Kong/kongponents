@@ -253,24 +253,7 @@ import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
 import KMultiselectItems from '@/components/KMultiselect/KMultiselectItems.vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
-
-export interface MultiselectItem {
-  label: string
-  value: string
-  key?: string
-  selected?: boolean
-  disabled?: boolean
-  disabledTooltipText?: string
-  custom?: boolean
-  group?: string
-}
-
-export interface MultiselectFilterFnParams {
-  items: MultiselectItem[]
-  query: string
-}
-
-export type DropdownFooterTextPosition = 'sticky' | 'static'
+import type { MultiselectItem, MultiselectFilterFnParams, DropdownFooterTextPosition } from '@/types'
 
 // functions used in prop validators
 const getValues = (items: MultiselectItem[]) => {

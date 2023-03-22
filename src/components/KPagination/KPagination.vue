@@ -131,6 +131,7 @@ import { defineComponent, ref, Ref, computed, watch, PropType } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KSelect from '@/components/KSelect/KSelect.vue'
 import PaginationOffset from './PaginationOffset.vue'
+import type { PaginationType } from '@/types'
 
 export default defineComponent({
   name: 'KPagination',
@@ -174,9 +175,9 @@ export default defineComponent({
       default: false,
     },
     paginationType: {
-      type: String as PropType<'default' | 'offset'>,
+      type: String as PropType<PaginationType>,
       default: 'default',
-      validator: (value: string) => ['default', 'offset'].includes(value),
+      validator: (value: PaginationType) => ['default', 'offset'].includes(value),
     },
     offsetPrevButtonDisabled: {
       type: Boolean,
