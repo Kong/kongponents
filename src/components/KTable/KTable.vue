@@ -736,12 +736,20 @@ export default defineComponent({
 
       return `k-table_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}` as string
     })
-    const { query, search } = useDebounce('', 350)
-    const { revalidate } = useRequest(
+
+    const query = ref('')
+    const { debouncedFn: debouncedSearch, generateDebouncedFn: generateDebouncedSearch } = useDebounce((q: string) => { query.value = q }, 350)
+    const search = generateDebouncedSearch(0) // generate a debounced function with zero delay (immediate)
+
+    const { revalidate: _revalidate } = useRequest(
       () => tableFetcherCacheKey.value,
       () => fetchData(),
-      { revalidateOnFocus: false },
+      { revalidateOnFocus: false, revalidateDebounce: 0 },
     )
+
+    const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebouncedRevalidate } = useDebounce(_revalidate, 500)
+    const revalidate = generateDebouncedRevalidate(0) // generate a debounced function with zero delay (immediate)
+
     const sortClickHandler = (header: TableHeader) => {
       const { key, useSortHandlerFn } = header
       const prevKey = sortColumnKey.value + '' // avoid pass by ref
@@ -779,7 +787,7 @@ export default defineComponent({
           defaultSorter(key, prevKey, sortColumnOrder.value, data.value)
         }
       } else if (props.paginationType !== 'offset') {
-        revalidate()
+        debouncedRevalidate()
       }
 
       // Emit an event whenever one of the tablePreferences are updated
@@ -845,11 +853,31 @@ export default defineComponent({
     }
 
     watch(() => props.searchInput, (newValue) => {
-      search(newValue)
+      if (newValue === '') {
+        // Immediately triggers the search, ...
+        // 1) on the 1st time (input is empty)
+        // 2) after clearing the input
+        search(newValue)
+      } else {
+        // Triggers a debounced search
+        debouncedSearch(newValue)
+      }
     }, { immediate: true })
 
-    watch(() => [query.value, page.value, pageSize.value], () => {
-      revalidate()
+    watch(query, (newQuery) => {
+      if (newQuery === '') {
+        // Immediately triggers the revalidate, ...
+        // 1) on the 1st time (query is empty)
+        // 2) after clearing the input (query becomes empty)
+        revalidate()
+      } else {
+        // Triggers a debounced revalidate
+        debouncedRevalidate()
+      }
+    }, { deep: true, immediate: true })
+
+    watch(() => [page.value, pageSize.value], () => {
+      debouncedRevalidate()
     }, { deep: true, immediate: true })
 
     onMounted(() => {
