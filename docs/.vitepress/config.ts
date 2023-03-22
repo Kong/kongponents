@@ -31,7 +31,7 @@ export default defineConfig({
       '/components/': [
         {
           text: 'Components',
-          collapsible: true,
+          collapsed: false,
           items: [
             { text: 'Alert', link: '/components/alert' },
             { text: 'Badge', link: '/components/badge' },
@@ -77,7 +77,7 @@ export default defineConfig({
         },
         {
           text: 'Renderless',
-          collapsible: true,
+          collapsed: false,
           items: [
             { text: 'KClipboardProvider', link: '/components/renderless/clipboard-provider' },
             { text: 'KToggle', link: '/components/renderless/toggle' },
@@ -89,7 +89,7 @@ export default defineConfig({
       '/guide/': [
         {
           text: 'Guide',
-          collapsible: true,
+          collapsed: false,
           items: [
             { text: 'Getting Started', link: '/guide/' },
             { text: 'Usage', link: '/guide/usage' },
@@ -97,7 +97,7 @@ export default defineConfig({
         },
         {
           text: 'Styles',
-          collapsible: true,
+          collapsed: false,
           items: [
             { text: 'Theming', link: '/guide/styles/theming' },
             { text: 'Colors', link: '/guide/styles/colors' },
@@ -109,14 +109,14 @@ export default defineConfig({
         },
         {
           text: 'Migrations',
-          collapsible: true,
+          collapsed: false,
           items: [
             { text: 'Migration to Vue 3', link: '/guide/vue-3-migration-guide' },
           ]
         },
         {
           text: 'Contributing',
-          collapsible: true,
+          collapsed: false,
           items: [
             { text: 'Setup', link: '/guide/contributing' },
             { text: 'Adding Icons to KIcon', link: '/guide/adding-icons-to-kicon' },
