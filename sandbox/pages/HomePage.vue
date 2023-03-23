@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import SandboxNav from '../SandboxNav.vue'
+import SandboxNav from '../components/SandboxNav.vue'
 import { KToggle, KButton, KSlideout, KIcon } from '@/components'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
