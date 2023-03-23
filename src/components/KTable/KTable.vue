@@ -744,7 +744,7 @@ export default defineComponent({
     const { revalidate: _revalidate } = useRequest(
       () => tableFetcherCacheKey.value,
       () => fetchData(),
-      { revalidateOnFocus: false, revalidateDebounce: 3000 },
+      { revalidateOnFocus: false, revalidateDebounce: 0 },
     )
 
     const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebouncedRevalidate } = useDebounce(_revalidate, 500)
