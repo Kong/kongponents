@@ -647,7 +647,6 @@ export default defineComponent({
     })
 
     const fetchData = async () => {
-      console.warn('fetchData')
       const searchInput = props.searchInput
 
       isTableLoading.value = true
