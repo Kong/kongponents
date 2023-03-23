@@ -22,6 +22,12 @@ export default createRouter({
           component: () => import('./pages/components/SandboxButton.vue'),
         },
         {
+          path: 'catalog',
+          name: 'catalog',
+          meta: { title: 'Catalog Sandbox' },
+          component: () => import('./pages/components/SandboxCatalog.vue'),
+        },
+        {
           path: 'table',
           name: 'table',
           meta: { title: 'Table Sandbox' },

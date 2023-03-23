@@ -30,6 +30,7 @@ const links = computed((): SandboxNavItem[] => (
   [
     { name: 'KAlert', to: { name: 'alert' } },
     { name: 'KButton', to: { name: 'button' } },
+    { name: 'KCatalog', to: { name: 'catalog' } },
     { name: 'KTable', to: { name: 'table' } },
   ]
 ))

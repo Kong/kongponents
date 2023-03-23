@@ -511,13 +511,9 @@ export default defineComponent({
       debouncedSearch(newValue)
     }, { immediate: true })
 
-    watch(query, () => {
+    watch(() => [query.value, page.value, pageSize.value], () => {
       revalidate()
     }, { immediate: true })
-
-    watch([page, pageSize], () => {
-      revalidate()
-    })
 
     // Emit an event whenever the catalogPreferences are updated
     watch(catalogPreferences, (catalogPrefs: CatalogPreferences) => {
