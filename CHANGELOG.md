@@ -1,3 +1,10 @@
+## [8.41.2](https://github.com/Kong/kongponents/compare/v8.41.1...v8.41.2) (2023-03-23)
+
+
+### Bug Fixes
+
+* **table:** fetcher called twice on load [KHCP-6724] ([#1235](https://github.com/Kong/kongponents/issues/1235)) ([20411bb](https://github.com/Kong/kongponents/commit/20411bb3d3417cccfb3231c2a2e7785984c0e873))
+
 ## [8.41.1](https://github.com/Kong/kongponents/compare/v8.41.0...v8.41.1) (2023-03-22)
 
 
