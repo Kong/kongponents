@@ -1,7 +1,7 @@
 <template>
   <div class="sandbox-header">
     <router-link
-      class="sandbox-link"
+      class="home-link"
       :to="{ name: 'home'}"
     >
       <h1>
@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import SandboxNav from '../SandboxNav.vue'
+import SandboxNav from '../components/SandboxNav.vue'
 import { KToggle, KButton, KSlideout, KIcon } from '@/components'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
@@ -111,23 +111,6 @@ const isHomePage = computed((): boolean => route.name === 'home')
     }
   }
 
-  .sandbox-link {
-    color: var(--blue-500);
-    text-decoration: none;
-
-    &:hover {
-      color: var(--blue-600);
-    }
-
-    &:visited {
-      color: var(--blue-500);
-    }
-
-    &:visited:hover {
-      color: var(--blue-600);
-    }
-  }
-
 .sandbox-container {
   min-height: 50vh;
   width: 100%;
@@ -145,5 +128,10 @@ const isHomePage = computed((): boolean => route.name === 'home')
       text-align: center;
     }
   }
+}
+
+.home-link {
+  color: var(--blue-500);
+  text-decoration: none;
 }
 </style>
