@@ -484,11 +484,12 @@ describe('KTable', () => {
           searchInput: '',
         },
       })
-
-      // wait for initial fetcher call
-      cy.get('@fetcher', { timeout: 1000 })
+        .get('@fetcher')
         .should('have.callCount', 1) // fetcher's 1st call
         .should('returned', { data: [{ query: '' }] })
+        .wait(1000)
+        .get('@fetcher')
+        .should('have.callCount', 1) // ensure fetcher is NOT called twice on load
         .then(() => cy.wrap(Cypress.vueWrapper.setProps({ searchInput: 'some-keyword' })))
 
       // fetcher call should be delayed (> 350ms for search func + 500ms for revalidate func)

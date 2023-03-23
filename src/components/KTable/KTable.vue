@@ -647,6 +647,7 @@ export default defineComponent({
     })
 
     const fetchData = async () => {
+      console.warn('fetchData')
       const searchInput = props.searchInput
 
       isTableLoading.value = true
@@ -864,8 +865,9 @@ export default defineComponent({
       }
     }, { immediate: true })
 
-    watch(query, (newQuery) => {
-      if (newQuery === '') {
+    watch(() => [query.value, page.value, pageSize.value], ([newQuery, /* newPage */, /* newPageSize */, oldQuery]) => {
+      // Check if the new query is empty and ensure this watch() is triggered by query change
+      if (newQuery === '' && newQuery !== oldQuery) {
         // Immediately triggers the revalidate, ...
         // 1) on the 1st time (query is empty)
         // 2) after clearing the input (query becomes empty)
@@ -874,10 +876,6 @@ export default defineComponent({
         // Triggers a debounced revalidate
         debouncedRevalidate()
       }
-    }, { deep: true, immediate: true })
-
-    watch(() => [page.value, pageSize.value], () => {
-      debouncedRevalidate()
     }, { deep: true, immediate: true })
 
     onMounted(() => {
