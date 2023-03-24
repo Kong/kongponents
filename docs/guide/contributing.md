@@ -303,7 +303,7 @@ We recommend using [VSCode](https://code.visualstudio.com/) along with the [Vola
 
 ## Type interfaces for Vue components
 
-All types related to components must be included in the `/src/types/` folder in a corresponding component type file.
+All types related to components must be included in the `/src/types/` folder in a corresponding `{Kongponent-name}.ts` type file (without the `k` prefix).
 
 All files must be exported from the `/src/types/index.ts` file.
 
