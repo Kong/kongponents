@@ -301,6 +301,24 @@ A `pre-push` hook is configured to run Stylelint and ESLint before pushing your 
 
 We recommend using [VSCode](https://code.visualstudio.com/) along with the [Volar extension](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
 
-### Type Support For `.vue` Imports in TS
+## Type interfaces for Vue components
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+All types related to components must be included in the `/src/types/` folder in a corresponding `{Kongponent-name}.ts` type file (without the `k` prefix).
+
+All files must be exported from the `/src/types/index.ts` file.
+
+```bash
+── src/
+    └── types/
+     ├── {Kongponent-name}.ts
+     └── index.ts
+```
+When importing a type for use in a component, we use import with `type` prefix
+
+```ts
+import type { SomeType } from '@/types'
+```
+
+### Tips when typing Vue components
+- Instead of setting prop type as `String`, set it as String Literal Types e.g. when we want to set via prop a `mode`, we can set it as `light | dark | none` instead of `String`
+- Avoid using `Object` type as props, use an interface instead.
