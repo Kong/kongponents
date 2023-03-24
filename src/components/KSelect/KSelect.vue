@@ -856,6 +856,12 @@ const onPopoverOpen = () => {
       padding: 10px var(--spacing-md, spacing(md));
       pointer-events: none;
       position: absolute;
+
+      .select-item-label {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
     }
   }
 
