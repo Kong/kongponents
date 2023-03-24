@@ -304,3 +304,21 @@ We recommend using [VSCode](https://code.visualstudio.com/) along with the [Vola
 ### Type Support For `.vue` Imports in TS
 
 Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+
+### Types for vue components 
+
+All types related to component should be included in `types` folder. And exported in `index.ts` file.
+```bash
+── src/
+    └── types/
+     ├── {Kongponent-name}.ts
+     └── index.ts
+```
+When importing type to a component we use import with `type` prefix
+```ts
+import type { SomeType } from '@/types'
+```
+
+### Tips when typing vue component
+ - Use whenever possible ts String Literal Types instead of `String` for props.
+ - Avoid using `Object` type as props, use interface instead.
