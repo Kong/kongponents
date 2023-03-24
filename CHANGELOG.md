@@ -1,3 +1,10 @@
+## [8.41.3](https://github.com/Kong/kongponents/compare/v8.41.2...v8.41.3) (2023-03-24)
+
+
+### Bug Fixes
+
+* **kselect:** add white-space: nowrap; to item label [KHCP-6433] ([#1240](https://github.com/Kong/kongponents/issues/1240)) ([ef81956](https://github.com/Kong/kongponents/commit/ef81956fc8c232645b50f95add0aa91b697e1ec5))
+
 ## [8.41.2](https://github.com/Kong/kongponents/compare/v8.41.1...v8.41.2) (2023-03-23)
 
 
