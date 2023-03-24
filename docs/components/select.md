@@ -638,7 +638,7 @@ export default defineComponent({
 Use this slot to customize appearance of the selected item that appears when the `KSelect` dropdown is not activated. If present, the slot content takes precedence over the [reuseItemTemplate](#reuseitemtemplate) prop.
 
 ::: tip TIP
-You can use the `.selected-item-label` class within the slot to leverage preconfigured styles for selected item title which you're then free to customize.
+You can use the `.k-select-selected-item-label` class within the slot to leverage preconfigured styles for selected item title which you're then free to customize.
 :::
 
 <ClientOnly>
