@@ -87,6 +87,10 @@ export default defineComponent({
         cursor: pointer;
       }
     }
+
+    :deep(.k-tooltip) {
+      font-weight: 400;
+    }
   }
 }
 </style>
