@@ -1,3 +1,10 @@
+## [8.41.5](https://github.com/Kong/kongponents/compare/v8.41.4...v8.41.5) (2023-03-28)
+
+
+### Bug Fixes
+
+* **klabel:** tooltip font weight ([94b693c](https://github.com/Kong/kongponents/commit/94b693cb45e40185e83e71856fa122d6136999e8))
+
 ## [8.41.4](https://github.com/Kong/kongponents/compare/v8.41.3...v8.41.4) (2023-03-28)
 
 
