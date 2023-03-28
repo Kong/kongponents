@@ -1,3 +1,10 @@
+## [8.41.4](https://github.com/Kong/kongponents/compare/v8.41.3...v8.41.4) (2023-03-28)
+
+
+### Reverts
+
+* Revert "fix(kselect): add white-space: nowrap; to item label [KHCP-6433] (#1240)" (#1245) ([889f63b](https://github.com/Kong/kongponents/commit/889f63b74b8138cf6c63c1755577ab1b18d3b288)), closes [#1240](https://github.com/Kong/kongponents/issues/1240) [#1245](https://github.com/Kong/kongponents/issues/1245)
+
 ## [8.41.3](https://github.com/Kong/kongponents/compare/v8.41.2...v8.41.3) (2023-03-24)
 
 
