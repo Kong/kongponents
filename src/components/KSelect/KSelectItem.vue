@@ -107,10 +107,7 @@ export default defineComponent({
       font-size: 14px;
       font-weight: 500;
       line-height: 20px;
-      overflow: hidden;
       padding: 8px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
       width: auto;
 
       :deep(.select-item-label) {
@@ -118,9 +115,6 @@ export default defineComponent({
         font-size: 14px;
         font-weight: 600;
         margin-bottom: 4px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
       }
 
       :deep(.select-item-desc) {
