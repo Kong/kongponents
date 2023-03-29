@@ -18,9 +18,9 @@
         @keydown.enter.prevent="handleTabChange(tab.hash)"
         @keydown.space.prevent="handleTabChange(tab.hash)"
       >
-        <a class="tab-link">
+        <div class="tab-link">
           <slot :name="`${tab.hash.replace('#','')}-anchor`">{{ tab.title }}</slot>
-        </a>
+        </div>
       </li>
     </ul>
 
@@ -44,10 +44,7 @@
 <script lang="ts">
 import { defineComponent, ref, watch, PropType } from 'vue'
 
-export interface Tab {
-  hash: string
-  title: string
-}
+import type { Tab } from '@/types'
 
 export default defineComponent({
   name: 'KTabs',
@@ -134,7 +131,6 @@ export default defineComponent({
 
     .tab-link {
       color: var(--KTabsColor, var(--black-45, color(black-45)));
-      display: block;
       &:hover {
         border: none;
         text-decoration: none;
