@@ -18,9 +18,9 @@
         @keydown.enter.prevent="handleTabChange(tab.hash)"
         @keydown.space.prevent="handleTabChange(tab.hash)"
       >
-        <span class="tab-link">
+        <div class="tab-link">
           <slot :name="`${tab.hash.replace('#','')}-anchor`">{{ tab.title }}</slot>
-        </span>
+        </div>
       </li>
     </ul>
 
@@ -131,7 +131,6 @@ export default defineComponent({
 
     .tab-link {
       color: var(--KTabsColor, var(--black-45, color(black-45)));
-      display: block;
       &:hover {
         border: none;
         text-decoration: none;
