@@ -1,3 +1,10 @@
+## [8.41.6](https://github.com/Kong/kongponents/compare/v8.41.5...v8.41.6) (2023-03-29)
+
+
+### Bug Fixes
+
+* **ktabs:** using non-semantic anchor for tab items ([#1250](https://github.com/Kong/kongponents/issues/1250)) ([700c586](https://github.com/Kong/kongponents/commit/700c586ecc406da563da86b141ce76e85432b018))
+
 ## [8.41.5](https://github.com/Kong/kongponents/compare/v8.41.4...v8.41.5) (2023-03-28)
 
 
