@@ -44,7 +44,7 @@
 <script lang="ts">
 import { defineComponent, ref, watch, PropType } from 'vue'
 
-import type { Tab } from '@/types/tabs'
+import type { Tab } from '@/types'
 
 export default defineComponent({
   name: 'KTabs',
