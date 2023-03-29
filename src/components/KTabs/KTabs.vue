@@ -18,9 +18,9 @@
         @keydown.enter.prevent="handleTabChange(tab.hash)"
         @keydown.space.prevent="handleTabChange(tab.hash)"
       >
-        <a class="tab-link">
+        <span class="tab-link">
           <slot :name="`${tab.hash.replace('#','')}-anchor`">{{ tab.title }}</slot>
-        </a>
+        </span>
       </li>
     </ul>
 
