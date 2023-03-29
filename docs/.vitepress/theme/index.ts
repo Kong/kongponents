@@ -24,6 +24,7 @@ export default {
 
     // Stub the <router-link> component; it doesn't exist in VitePress
     ctx.app.component('RouterLink', RouterLink)
+    ctx.app.component('RouterView', () => ({ name: 'RouterView', template: '<!-- router-view -->' }))
 
     // Register all Kongponents
     ctx.app.use(Kongponents)

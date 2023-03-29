@@ -55,8 +55,11 @@ export default defineComponent({
 export interface Tab {
   hash: string
   title: string
+  route?: RouteLocationNamedRaw
 }
 ```
+
+When providing the `route` property on tabs, `KTabs` will automatically use `router-link` to create tabs with links.
 
 ```html
 <template>
@@ -218,6 +221,46 @@ export default defineComponent({
 </script>
 ```
 
+### Navigation using `router-link`s
+
+<KTabs
+  v-model:model-value="navTabs[0].hash"
+  :tabs="navTabs"
+/>
+
+```html
+<template>
+  <KTabs
+    v-model:model-value="activeTabHash"
+    :tabs="tabs"
+  />
+</template>
+
+<script lang="ts" setup>
+import { computed } from 'vue'
+// Importing `route` in your app may vary and is excluded in this example.
+
+const tabs = [
+  {
+    hash: '#pictures',
+    title: 'Pictures',
+    route: { name: 'picture-list-view' },
+  },
+  {
+    hash: '#movies',
+    title: 'Movies',
+    route: { name: 'movie-list-view' },
+  },
+]
+
+const activeTabHash = computed(() => {
+  const activeTab = tabs.value.find((tab) => tab.routeName === route.name)
+
+  return activeTab !== undefined ? activeTab.hash : tabs.value[0].hash
+})
+</script>
+```
+
 ## Theming
 
 | Variable | Purpose
@@ -284,6 +327,18 @@ export default {
         { hash: '#pictures', title: 'Pictures' },
         { hash: '#movies', title: 'Movies' },
         { hash: '#books', title: 'Books' },
+      ],
+      navTabs: [
+        {
+          hash: '#pictures',
+          title: 'Pictures',
+          route: { name: 'picture-list-view' },
+        },
+        {
+          hash: '#movies',
+          title: 'Movies',
+          route: { name: 'movie-list-view' },
+        },
       ],
     }
   }

@@ -4,26 +4,45 @@
       aria-label="Tabs"
       role="tablist"
     >
-      <li
+      <template
         v-for="(tab, i) in tabs"
-        :id="`${tab.hash.replace('#','')}-tab`"
         :key="tab.hash"
-        :aria-controls="`panel-${i}`"
-        :aria-selected="activeTab === tab.hash ? 'true' : 'false'"
-        class="tab-item"
-        :class="{ active: activeTab === tab.hash }"
-        role="tab"
-        tabindex="0"
-        @click="handleTabChange(tab.hash)"
-        @keydown.enter.prevent="handleTabChange(tab.hash)"
-        @keydown.space.prevent="handleTabChange(tab.hash)"
       >
-        <div class="tab-link">
-          <slot :name="`${tab.hash.replace('#','')}-anchor`">
-            {{ tab.title }}
-          </slot>
-        </div>
-      </li>
+        <router-link
+          v-if="tab.route !== undefined"
+          :id="`${tab.hash.replace('#','')}-tab`"
+          class="tab-item"
+          :class="{ active: activeTab === tab.hash }"
+          :to="tab.route"
+          @click="handleTabChange(tab.hash)"
+        >
+          <div class="tab-link">
+            <slot :name="`${tab.hash.replace('#','')}-anchor`">
+              {{ tab.title }}
+            </slot>
+          </div>
+        </router-link>
+
+        <li
+          v-else
+          :id="`${tab.hash.replace('#','')}-tab`"
+          :aria-controls="`panel-${i}`"
+          :aria-selected="activeTab === tab.hash ? 'true' : 'false'"
+          class="tab-item"
+          :class="{ active: activeTab === tab.hash }"
+          role="tab"
+          tabindex="0"
+          @click="handleTabChange(tab.hash)"
+          @keydown.enter.prevent="handleTabChange(tab.hash)"
+          @keydown.space.prevent="handleTabChange(tab.hash)"
+        >
+          <div class="tab-link">
+            <slot :name="`${tab.hash.replace('#','')}-anchor`">
+              {{ tab.title }}
+            </slot>
+          </div>
+        </li>
+      </template>
     </ul>
 
     <div
@@ -38,7 +57,9 @@
       <slot
         v-if="activeTab === tab.hash"
         :name="tab.hash.replace('#','')"
-      />
+      >
+        <router-view v-if="tab.route !== undefined" />
+      </slot>
     </div>
   </div>
 </template>
@@ -128,6 +149,10 @@ export default defineComponent({
       &:hover {
         border-bottom: 4px solid var(--KTabBottomBorderColor, var(--teal-300, color(teal-300)));
         .tab-link { color: var(--KTabsActiveColor, var(--black-500, color(black-500))); }
+      }
+
+      &:hover {
+        text-decoration: none;
       }
     }
 
