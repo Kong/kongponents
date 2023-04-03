@@ -148,6 +148,35 @@ KButton also supports the disabled attribute with both Button and Anchor types.
 <KButton to="http://google.com" appearance="btn-link" disabled>Disabled Native Anchor Link</KButton>
 ```
 
+:::warning NOTE
+Should you need to use a KTooltip component on a KButton with `disabled` attribute, don't forget to wrap an additional tag around your KButton, like shown in the example below. Otherwise KTooltip won't be triggered since elements with `disabled` attribute don't trigger pointer events.
+:::
+
+<KCard>
+  <template #body>
+    <div class="d-flex">
+      <KTooltip label="I won't pop up" class="mr-2">
+        <KButton disabled>❌</KButton>
+      </KTooltip>
+      <KTooltip label="I will pop up">
+        <span>
+          <KButton disabled>✅</KButton>
+        </span>
+      </KTooltip>
+    </div>
+  </template>
+</KCard>
+
+```html
+<KTooltip label="I won't show up">
+  <KButton disabled>❌</KButton>
+</KTooltip>
+<KTooltip label="I will pop up">
+  <span>
+    <KButton disabled>✅</KButton>
+  </span>
+</KTooltip>
+
 ## Slots
 
 ### Icon
@@ -182,31 +211,31 @@ KButton supports using an icon either before the text or without text. If you ar
 
 ## Theming
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KButtonPrimaryBase`| Primary background
-| `--KButtonPrimaryHover`| Primary hover state
-| `--KButtonPrimaryActive`| Primary active state
-| `--KButtonSecondaryBase`| Secondary background
-| `--KButtonSecondaryHover`| Secondary hover state
-| `--KButtonSecondaryActive`| Secondary active state
-| `--KButtonSecondaryFocus` | Secondary focus box shadow color
-| `--KButtonDangerBase`| Danger background
-| `--KButtonDangerHover`| Danger hover state
-| `--KButtonDangerActive`| Danger active state
-| `--KButtonCreationBase` | Creation background
-| `--KButtonCreationHover`| Creation hover state
-| `--KButtonCreationActive`| Creation active state
-| `--KButtonOutlineColor` | Outline text color
-| `--KButtonOutlineBorder`| Outline border
-| `--KButtonOutlineHoverBorder`| Outline hover state border
-| `--KButtonOutlineActive`| Outline active state
-| `--KButtonOutlineActiveBorder`| Outline active state border
-| `--KButtonLink`| Button link variant
-| `--KButtonLinkDanger`| Button Danger link variant
-| `--KButtonPaddingY`| Button vertical (top and bottom) padding
-| `--KButtonPaddingX`| Button horizontal (left and right) padding
-| `--KButtonRadius` | Button corner radius
+| Variable                       | Purpose                                    |
+| :----------------------------- | :----------------------------------------- |
+| `--KButtonPrimaryBase`         | Primary background                         |
+| `--KButtonPrimaryHover`        | Primary hover state                        |
+| `--KButtonPrimaryActive`       | Primary active state                       |
+| `--KButtonSecondaryBase`       | Secondary background                       |
+| `--KButtonSecondaryHover`      | Secondary hover state                      |
+| `--KButtonSecondaryActive`     | Secondary active state                     |
+| `--KButtonSecondaryFocus`      | Secondary focus box shadow color           |
+| `--KButtonDangerBase`          | Danger background                          |
+| `--KButtonDangerHover`         | Danger hover state                         |
+| `--KButtonDangerActive`        | Danger active state                        |
+| `--KButtonCreationBase`        | Creation background                        |
+| `--KButtonCreationHover`       | Creation hover state                       |
+| `--KButtonCreationActive`      | Creation active state                      |
+| `--KButtonOutlineColor`        | Outline text color                         |
+| `--KButtonOutlineBorder`       | Outline border                             |
+| `--KButtonOutlineHoverBorder`  | Outline hover state border                 |
+| `--KButtonOutlineActive`       | Outline active state                       |
+| `--KButtonOutlineActiveBorder` | Outline active state border                |
+| `--KButtonLink`                | Button link variant                        |
+| `--KButtonLinkDanger`          | Button Danger link variant                 |
+| `--KButtonPaddingY`            | Button vertical (top and bottom) padding   |
+| `--KButtonPaddingX`            | Button horizontal (left and right) padding |
+| `--KButtonRadius`              | Button corner radius                       |
 
 An Example of changing the primary KButton variant to purple instead of blue might
 look like.
