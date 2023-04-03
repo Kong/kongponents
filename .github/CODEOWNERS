@@ -4,12 +4,12 @@
 * @Kong/team-core-ui
 
 # Workflows & CI
-/.github/ @adamdehaven
-/lefthook.yml @adamdehaven
-/netlify.toml @adamdehaven
+/.github/ @adamdehaven @jillztom
+/lefthook.yml @adamdehaven @jillztom
+/netlify.toml @adamdehaven @jillztom
 
 # CLI
-/cli/ @adamdehaven
+/cli/ @adamdehaven @jillztom
 
 # Cypress
 /cypress/ @adamdehaven @kaiarrowood @jillztom
@@ -19,7 +19,7 @@
 /src/index.ts @adamdehaven @jillztom
 
 # Dev tools
-/.eslintrc.js @adamdehaven
+/.eslintrc.js @adamdehaven @jillztom
 /.gitignore @adamdehaven @jillztom @kaiarrowood
 /vite.config.ts @adamdehaven @jillztom
 
