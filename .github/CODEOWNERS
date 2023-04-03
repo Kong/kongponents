@@ -4,12 +4,12 @@
 * @Kong/team-core-ui
 
 # Workflows & CI
-/.github/ @adamdehaven
-/lefthook.yml @adamdehaven
-/netlify.toml @adamdehaven
+/.github/ @adamdehaven @jillztom
+/lefthook.yml @adamdehaven @jillztom
+/netlify.toml @adamdehaven @jillztom
 
 # CLI
-/cli/ @adamdehaven
+/cli/ @adamdehaven @jillztom
 
 # Cypress
 /cypress/ @adamdehaven @kaiarrowood @jillztom
