@@ -116,8 +116,10 @@ A string for the `KIcon` name to be displayed to the left of the button's conten
 If the disable state of the button can be changed, it is recommended to use the `icon` property instead of the slot, as using the prop will apply correct
 coloring to the icon depending on the `disabled` state of the button.
 
-<KButton class="mr-2" appearance="primary" icon="spinner">I'm a button</KButton>
-<KButton appearance="primary" icon="spinner" disabled>I'm a button</KButton>
+<div class="icon-prop-demo-section">
+  <KButton appearance="primary" icon="spinner">I'm a button</KButton>
+  <KButton appearance="primary" icon="spinner" disabled>I'm a button</KButton>
+</div>
 
 ```html
 <KButton appearance="primary" icon="spinner">I'm a button</KButton>
@@ -176,6 +178,7 @@ Should you need to use a KTooltip component on a KButton with `disabled` attribu
     <KButton disabled>✅</KButton>
   </span>
 </KTooltip>
+```
 
 ## Slots
 
@@ -266,6 +269,8 @@ should not look like buttons.
 ```
 
 <style scoped lang="scss">
+@import '@/styles/variables';
+
 .preview-code .preview div {
   display: flex;
   flex-wrap: wrap;
@@ -278,5 +283,16 @@ should not look like buttons.
   --KButtonPrimaryBase: #494ca2;
   --KButtonPrimaryHover: #6c6ebd;
   --KButtonPrimaryActive: #3c3f86;
+}
+.icon-prop-demo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 10px;
+  column-gap: 10px;
+
+  @media screen and (min-width: $viewport-sm) {
+    flex-direction: row;
+  }
 }
 </style>
