@@ -19,7 +19,7 @@
 /src/index.ts @adamdehaven @jillztom
 
 # Dev tools
-/.eslintrc.js @adamdehaven
+/.eslintrc.js @adamdehaven @jillztom
 /.gitignore @adamdehaven @jillztom @kaiarrowood
 /vite.config.ts @adamdehaven @jillztom
 
