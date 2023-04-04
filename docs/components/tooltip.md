@@ -41,9 +41,9 @@ KTooltip won't be triggered if the element you pass through `default` slot has `
         <KButton disabled>❌</KButton>
       </KTooltip>
       <KTooltip label="I will pop up">
-        <div>
+        <span>
           <KButton disabled>✅</KButton>
-        </div>
+        </span>
       </KTooltip>
     </div>
   </template>
@@ -54,9 +54,9 @@ KTooltip won't be triggered if the element you pass through `default` slot has `
   <KButton disabled>❌</KButton>
 </KTooltip>
 <KTooltip label="I will pop up">
-  <div>
+  <span>
     <KButton disabled>✅</KButton>
-  </div>
+  </span>
 </KTooltip>
 ```
 
