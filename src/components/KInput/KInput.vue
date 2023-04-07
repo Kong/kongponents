@@ -14,6 +14,10 @@
           :for="inputId"
         >
           <span>{{ label }}</span>
+          <span
+            v-if="isRequired"
+            class="is-required"
+          >*</span>
         </label>
         <input
           v-bind="modifiedAttrs"
@@ -45,6 +49,7 @@
       <KLabel
         :for="inputId"
         v-bind="labelAttributes"
+        :is-required="isRequired"
       >
         {{ label }}
       </KLabel>
@@ -194,6 +199,7 @@ export default defineComponent({
 
     const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
     const isReadonly = computed((): boolean => attrs?.readonly !== undefined && String(attrs?.readonly) !== 'false')
+    const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
     const inputId = computed((): string => attrs.id ? String(attrs.id) : props.testMode ? 'test-input-id-1234' : uuidv1())
     // we need this so we can create a watcher for programmatic changes to the modelValue
     const value = computed({
@@ -218,9 +224,20 @@ export default defineComponent({
       return $attrs
     })
 
-    const charLimitExceeded = computed((): boolean =>
-      !!props.characterLimit && (currValue.value.toString().length ||
-        (!modelValueChanged.value && props.modelValue.toString().length)) > props.characterLimit)
+    const charLimitExceeded = computed((): boolean => {
+      const currValLength = currValue.value.toString().length
+      const modelValLength = props.modelValue.toString().length
+
+      // default to length of currVal
+      let length = currValLength
+
+      // if there is a model value and it hasn't been modified yet, use that instead
+      if (!modelValueChanged.value && modelValLength) {
+        length = modelValLength
+      }
+
+      return !!props.characterLimit && length > props.characterLimit
+    })
 
     const charLimitExceededError = computed((): string => {
       if (!charLimitExceeded.value) {
@@ -297,6 +314,7 @@ export default defineComponent({
       isHovered,
       isDisabled,
       isReadonly,
+      isRequired,
       inputId,
       charLimitExceeded,
       charLimitExceededError,

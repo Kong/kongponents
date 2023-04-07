@@ -9,6 +9,7 @@
       v-bind="labelAttributes"
       :data-testid="labelAttributes['data-testid'] ? labelAttributes['data-testid'] : 'k-multiselect-label'"
       :for="multiselectId"
+      :is-required="isRequired"
     >
       {{ label }}
     </KLabel>
@@ -412,6 +413,7 @@ const props = defineProps({
 
 const emit = defineEmits(['selected', 'item:added', 'item:removed', 'input', 'change', 'update:modelValue', 'query-change'])
 
+const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const defaultKPopAttributes = {
   hideCaret: true,
   placement: 'bottomStart',

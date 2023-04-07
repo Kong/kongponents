@@ -9,6 +9,7 @@
       v-bind="labelAttributes"
       data-testid="k-select-label"
       :for="selectId"
+      :is-required="isRequired"
     >
       {{ label }}
     </KLabel>
@@ -419,6 +420,7 @@ const emit = defineEmits(['selected', 'input', 'change', 'update:modelValue', 'q
 const attrs = useAttrs()
 const slots = useSlots()
 
+const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const filterStr = ref('')
 const selectedItem = ref<SelectItem|null>(null)
 const selectId = computed((): string => props.testMode ? 'test-select-id-1234' : uuidv1())

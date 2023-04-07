@@ -242,9 +242,9 @@ Adds informational text to the bottom of the dropdown options which remains visi
 
 ### dropdownFooterTextPosition
 
-By default, the dropdown footer text will be stuck to the bottom of the dropdown and will always be visible even if the dropdown content is scrolled. 
+By default, the dropdown footer text will be stuck to the bottom of the dropdown and will always be visible even if the dropdown content is scrolled.
 
-If you want to override the behaviour and have the footer text at the end of the dropdown list, use the value `static`. This ensures the footer text is visible only when the user scrolls to view the bottom of the list. 
+If you want to override the behaviour and have the footer text at the end of the dropdown list, use the value `static`. This ensures the footer text is visible only when the user scrolls to view the bottom of the list.
 
 Accepted values: `sticky` (default) and `static`.
 
@@ -565,6 +565,21 @@ You can pass any input attribute and it will get properly bound to the element.
 
 ```html
 <KSelect disabled placeholder="type something" :items="[{ label: 'test', value: 'test' }]" />
+```
+
+### required
+
+KSelect will display an `*` to indicate a field is required if you set the `required` attribute and provide a `label`. See **KLabel's** [`isRequired`](/components/label#isrequired) prop for more information.
+
+<ClientOnly>
+  <KSelect label="Name" required :items="deepClone(defaultItems)" />
+  <br>
+  <KSelect label="Name" required overlay-label :items="deepClone(defaultItems)" />
+</ClientOnly>
+
+```html
+<KSelect label="Name" required :items="items" />
+<KSelect label="Name" required overlay-label :items="items" />
 ```
 
 ## Slots

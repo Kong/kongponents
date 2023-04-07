@@ -25,6 +25,10 @@
           :for="textAreaId"
         >
           <span>{{ label }}</span>
+          <span
+            v-if="isRequired"
+            class="is-required"
+          >*</span>
         </label>
         <textarea
           v-bind="modifiedAttrs"
@@ -51,6 +55,7 @@
       <KLabel
         :for="textAreaId"
         v-bind="labelAttributes"
+        :is-required="isRequired"
       >
         {{ label }}
       </KLabel>
@@ -145,6 +150,7 @@ export default defineComponent({
   },
   emits: ['input', 'update:modelValue', 'char-limit-exceeded'],
   setup(props, { attrs, emit }) {
+    const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
     const currValue = ref('') // We need this so that we don't lose the updated value on hover/blur event with label
     const isFocused = ref(false)
     const isHovered = ref(false)
@@ -202,6 +208,7 @@ export default defineComponent({
     }
 
     return {
+      isRequired,
       currValue,
       isFocused,
       isHovered,
