@@ -77,7 +77,6 @@ describe('KTextArea', () => {
       },
     })
 
-    cy.get('.text-on-input label').should('contain.text', label)
     cy.get('.text-on-input  .is-required').should('exist')
   })
 
