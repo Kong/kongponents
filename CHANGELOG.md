@@ -1,3 +1,10 @@
+## [8.42.1](https://github.com/Kong/kongponents/compare/v8.42.0...v8.42.1) (2023-04-07)
+
+
+### Reverts
+
+* Revert "feat(ktable): setup syntax [khcp-6519] (#1264)" (#1266) ([48d81f5](https://github.com/Kong/kongponents/commit/48d81f5004d9dabe6653fe39ca654a2d9d12d2c9)), closes [#1264](https://github.com/Kong/kongponents/issues/1264) [#1266](https://github.com/Kong/kongponents/issues/1266)
+
 # [8.42.0](https://github.com/Kong/kongponents/compare/v8.41.6...v8.42.0) (2023-04-07)
 
 
