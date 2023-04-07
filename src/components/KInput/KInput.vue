@@ -225,8 +225,8 @@ export default defineComponent({
     })
 
     const charLimitExceeded = computed((): boolean => {
-      const currValLength = currValue.value.toString().length
-      const modelValLength = props.modelValue.toString().length
+      const currValLength = currValue.value?.toString().length || 0
+      const modelValLength = props.modelValue?.toString().length || 0
 
       // default to length of currVal
       let length = currValLength

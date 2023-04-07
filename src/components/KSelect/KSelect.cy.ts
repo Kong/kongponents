@@ -126,9 +126,7 @@ describe('KSelect', () => {
       props: {
         testMode: true,
         label,
-        labelAttributes: {
-          help: 'some help text',
-        },
+        overlayLabel: true,
         items: [{
           label: 'Label 1',
           value: 'label1',
