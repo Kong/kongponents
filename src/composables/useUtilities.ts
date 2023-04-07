@@ -98,7 +98,7 @@ export default function useUtilities() {
    * @param {Array} items - the list of items to sort
    * @return {Object} an object containing the previousKey and sortOrder
    */
-  const clientSideSorter = (key: string, previousKey: string, sortOrder: string, items: Array<Record<string, any>>) => {
+  const clientSideSorter = (key: string, previousKey: string, sortOrder: string, items: []) => {
     let comparator = null
 
     const numberComparator = (a: number, b: number | string) => {
@@ -113,7 +113,7 @@ export default function useUtilities() {
     }
 
     if (key !== previousKey) {
-      comparator = (a: Record<string, any>, b: Record<string, any>) => {
+      comparator = (a: any, b: any) => {
         const transformer = (val: string | number) => {
           if (val === undefined || val === null) {
             return ''

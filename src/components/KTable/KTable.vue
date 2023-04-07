@@ -423,7 +423,7 @@ const props = defineProps({
      * A prop to pass in a an array of headers for the table
      */
   headers: {
-    type: Array as PropType<TableHeader[]>,
+    type: Array,
     default: () => [],
   },
   /**
@@ -505,7 +505,7 @@ const defaultFetcherProps = {
   sortColumnOrder: 'desc',
   offset: null,
 }
-const data = ref<Array<Record<string, any>>>([])
+const data = ref<[]>([])
 const tableHeaders: Ref<TableHeader[]> = ref([])
 const total = ref(0)
 const isScrolled = ref(false)
@@ -625,7 +625,7 @@ const fetchData = async () => {
     sortColumnOrder: sortColumnOrder.value,
     offset: offset.value,
   })
-  data.value = res.data as Array<Record<string, any>>
+  data.value = res.data
   total.value = props.paginationTotalItems || res.total || res.data?.length
 
   if (props.paginationType === 'offset') {
@@ -680,7 +680,7 @@ const initData = async () => {
 
   // get table headers
   if (props.headers && props.headers.length) {
-    tableHeaders.value = props.headers
+    tableHeaders.value = props.headers as TableHeader[]
   } else if (props.options && props.options.headers && props.options.headers.length) {
     tableHeaders.value = props.options.headers
   }
@@ -849,7 +849,7 @@ const { clientSideSorter } = useUtilities()
  * @param {Array} items - the list of items to sort
  * @return {Object} an object containing the previousKey and sortOrder
  */
-export const defaultSorter = (key: string, previousKey: string, sortOrder: string, items: Array<Record<string, any>>): Record<string, any> => {
+export const defaultSorter = (key: string, previousKey: string, sortOrder: string, items: []): Record<string, any> => {
   return clientSideSorter(key, previousKey, sortOrder, items)
 }
 </script>
