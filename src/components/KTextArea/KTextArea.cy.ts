@@ -64,6 +64,23 @@ describe('KTextArea', () => {
     cy.get('.text-on-input label').should('contain.text', labelText)
   })
 
+  it('renders an asterisk when `overlayLabel` is true and `required` attr is set', () => {
+    const label = 'A label'
+    mount(KTextArea, {
+      props: {
+        testMode: true,
+        label,
+        overlayLabel: true,
+      },
+      attrs: {
+        required: true,
+      },
+    })
+
+    cy.get('.text-on-input label').should('contain.text', label)
+    cy.get('.text-on-input  .is-required').should('exist')
+  })
+
   it('renders textarea when rows and cols are passed in', () => {
     mount(KTextArea, {
       props: {
@@ -91,7 +108,7 @@ describe('KTextArea', () => {
     cy.get('textarea').type(value2).then(() => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'input')
       const emitArray = Cypress.vueWrapper.emitted('input')
-      cy.wrap(String(emitArray[emitArray.length - 1])).should('eq', value2)
+      cy.wrap(String(emitArray?.[emitArray.length - 1])).should('eq', value2)
     })
     cy.get('textarea').should('have.value', value2)
   })
