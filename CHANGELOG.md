@@ -1,3 +1,10 @@
+## [8.42.2](https://github.com/Kong/kongponents/compare/v8.42.1...v8.42.2) (2023-04-10)
+
+
+### Bug Fixes
+
+* **semantic-release:** update version on publish [KHCP-6911] ([#1269](https://github.com/Kong/kongponents/issues/1269)) ([74a709c](https://github.com/Kong/kongponents/commit/74a709c4648b500ad487b89b735e2a8ebfefca32))
+
 ## [8.42.1](https://github.com/Kong/kongponents/compare/v8.42.0...v8.42.1) (2023-04-07)
 
 
