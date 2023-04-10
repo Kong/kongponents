@@ -569,7 +569,7 @@ You can pass any input attribute and it will get properly bound to the element.
 
 ### required
 
-KSelect will display an `*` to indicate a field is required if you set the `required` attribute and provide a `label`. See **KLabel's** [`isRequired`](/components/label#isrequired) prop for more information.
+KSelect will display an `*` to indicate a field is required if you set the `required` attribute and provide a `label`. See **KLabel's** [`required`](/components/label#required) prop for more information.
 
 :::tip NOTE
 Text passed in for the `label` will automatically strip any trailing `*` when used with the `required` attribute to try to prevent duplicate asterisks.
