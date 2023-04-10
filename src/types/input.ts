@@ -9,6 +9,6 @@ export type IconPositionRecord = Record<IconPosition, IconPosition>
 export interface LabelAttributes {
   help?: string
   info?: string
-  isRequired?: boolean
+  required?: boolean
   tooltipAttributes?: TooltipAttributes
 }
