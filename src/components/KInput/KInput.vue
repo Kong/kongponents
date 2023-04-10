@@ -49,7 +49,7 @@
       <KLabel
         :for="inputId"
         v-bind="labelAttributes"
-        :is-required="isRequired"
+        :required="isRequired"
       >
         {{ label }}
       </KLabel>

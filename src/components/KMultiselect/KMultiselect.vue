@@ -9,7 +9,7 @@
       v-bind="labelAttributes"
       :data-testid="labelAttributes['data-testid'] ? labelAttributes['data-testid'] : 'k-multiselect-label'"
       :for="multiselectId"
-      :is-required="isRequired"
+      :required="isRequired"
     >
       {{ label }}
     </KLabel>

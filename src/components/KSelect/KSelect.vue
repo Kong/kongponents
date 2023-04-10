@@ -9,7 +9,7 @@
       v-bind="labelAttributes"
       data-testid="k-select-label"
       :for="selectId"
-      :is-required="isRequired"
+      :required="isRequired"
     >
       {{ label }}
     </KLabel>

@@ -55,7 +55,7 @@
       <KLabel
         :for="textAreaId"
         v-bind="labelAttributes"
-        :is-required="isRequired"
+        :required="isRequired"
       >
         {{ label }}
       </KLabel>

@@ -38,14 +38,14 @@ Use the `info` prop to display information help text.
 <KLabel info="This is an example">Input Title</KLabel>
 ```
 
-### isRequired
+### required
 
-Use the `isRequired` prop to indicate requiredness of a field by displaying an `*` after the label.
+Use the `required` prop to indicate requiredness of a field by displaying an `*` after the label.
 
-<KLabel is-required>Name</KLabel>
+<KLabel required>Name</KLabel>
 
 ```html
-<KLabel is-required>Name</KLabel>
+<KLabel required>Name</KLabel>
 ```
 
 ### tooltipAttributes

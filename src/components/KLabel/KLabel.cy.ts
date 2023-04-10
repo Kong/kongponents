@@ -38,11 +38,11 @@ describe('KLabel', () => {
     cy.get('.k-input-label .label-tooltip').should('not.be.empty')
   })
 
-  it('renders an asterisk when `isRequired` is true', () => {
+  it('renders an asterisk when `required` is true', () => {
     mount(KLabel, {
       props: {
         testMode: true,
-        isRequired: true,
+        required: true,
       },
       slots: {
         default: () => 'Full Name',

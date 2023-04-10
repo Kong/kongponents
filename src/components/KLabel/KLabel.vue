@@ -12,7 +12,7 @@
     >
       <slot />
       <span
-        v-if="isRequired"
+        v-if="required"
         class="is-required"
       >*</span>
       <KIcon
@@ -32,7 +32,7 @@
     >
       <slot />
       <span
-        v-if="isRequired"
+        v-if="required"
         class="is-required"
       >*</span>
       <KIcon
@@ -46,7 +46,7 @@
     <span v-else>
       <slot />
       <span
-        v-if="isRequired"
+        v-if="required"
         class="is-required"
       >*</span>
     </span>
@@ -74,7 +74,7 @@ export default defineComponent({
       type: String,
       default: '',
     },
-    isRequired: {
+    required: {
       type: Boolean,
       default: false,
     },
