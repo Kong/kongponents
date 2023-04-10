@@ -24,7 +24,7 @@
           :class="{ focused: isFocused, hovered: isHovered }"
           :for="textAreaId"
         >
-          <span>{{ label }}</span>
+          <span>{{ strippedLabel }}</span>
           <span
             v-if="isRequired"
             class="is-required"
@@ -57,7 +57,7 @@
         v-bind="labelAttributes"
         :required="isRequired"
       >
-        {{ label }}
+        {{ strippedLabel }}
       </KLabel>
       <textarea
         v-bind="modifiedAttrs"
@@ -88,8 +88,9 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed, watch } from 'vue'
-import KLabel from '@/components/KLabel/KLabel.vue'
 import { v1 as uuidv1 } from 'uuid'
+import useUtilities from '@/composables/useUtilities'
+import KLabel from '@/components/KLabel/KLabel.vue'
 
 const CHARACTER_LIMIT = 2048
 
@@ -150,10 +151,13 @@ export default defineComponent({
   },
   emits: ['input', 'update:modelValue', 'char-limit-exceeded'],
   setup(props, { attrs, emit }) {
+    const { stripRequiredLabel } = useUtilities()
+
     const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
     const currValue = ref('') // We need this so that we don't lose the updated value on hover/blur event with label
     const isFocused = ref(false)
     const isHovered = ref(false)
+    const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
     // we need this so we can create a watcher for programmatic changes to the modelValue
     const value = computed({
       get(): string | number {
@@ -213,6 +217,7 @@ export default defineComponent({
       isFocused,
       isHovered,
       textAreaId,
+      strippedLabel,
       modifiedAttrs,
       charLimitExceeded,
       inputHandler,

@@ -13,7 +13,7 @@
           :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }"
           :for="inputId"
         >
-          <span>{{ label }}</span>
+          <span>{{ strippedLabel }}</span>
           <span
             v-if="isRequired"
             class="is-required"
@@ -51,7 +51,7 @@
         v-bind="labelAttributes"
         :required="isRequired"
       >
-        {{ label }}
+        {{ strippedLabel }}
       </KLabel>
       <input
         v-bind="modifiedAttrs"
@@ -112,9 +112,10 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref, watch, onMounted, PropType } from 'vue'
-import KLabel from '@/components/KLabel/KLabel.vue'
-import { v1 as uuidv1 } from 'uuid'
 import type { IconPosition, Size, LabelAttributes, SizeRecord, IconPositionRecord } from '@/types'
+import { v1 as uuidv1 } from 'uuid'
+import useUtilities from '@/composables/useUtilities'
+import KLabel from '@/components/KLabel/KLabel.vue'
 
 const sizeRecord: SizeRecord = {
   large: 'large',
@@ -196,11 +197,13 @@ export default defineComponent({
     const isFocused = ref<boolean>(false)
     const isHovered = ref<boolean>(false)
     const icon = ref<HTMLDivElement | null>(null)
+    const { stripRequiredLabel } = useUtilities()
 
     const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
     const isReadonly = computed((): boolean => attrs?.readonly !== undefined && String(attrs?.readonly) !== 'false')
     const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
     const inputId = computed((): string => attrs.id ? String(attrs.id) : props.testMode ? 'test-input-id-1234' : uuidv1())
+    const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
     // we need this so we can create a watcher for programmatic changes to the modelValue
     const value = computed({
       get(): string | number {
@@ -316,6 +319,7 @@ export default defineComponent({
       isReadonly,
       isRequired,
       inputId,
+      strippedLabel,
       charLimitExceeded,
       charLimitExceededError,
       modifiedAttrs,

@@ -4,7 +4,7 @@
 
 import useUtilities from '@/composables/useUtilities'
 
-const { clientSideSorter, getSizeFromString } = useUtilities()
+const { clientSideSorter, getSizeFromString, stripRequiredLabel } = useUtilities()
 
 describe('Client-side sorting (deprecated in favor of server-side sorting)', () => {
   it('clientSideSorter(): sorts the items by string', () => {
@@ -223,5 +223,30 @@ describe('getSizeFromString(): ', () => {
     const result = getSizeFromString(sizeStr)
 
     expect(result).equal(`${sizeStr}`)
+  })
+})
+
+describe('stripRequiredLabel(): ', () => {
+  it('does not change non-required fields', () => {
+    const label = 'Name**'
+    const result = stripRequiredLabel(label, false)
+
+    expect(result).equal(label)
+  })
+
+  it('correctly modifies required fields with space', () => {
+    const label = 'Name *'
+    const expected = 'Name'
+    const result = stripRequiredLabel(label, true)
+
+    expect(result).equal(expected)
+  })
+
+  it('correctly modifies required fields with no space', () => {
+    const label = 'Name*'
+    const expected = 'Name'
+    const result = stripRequiredLabel(label, true)
+
+    expect(result).equal(expected)
   })
 })
