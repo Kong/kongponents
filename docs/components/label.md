@@ -92,12 +92,12 @@ Use the `for` attribute to bind a label to an input element for accessibility.
 
 An example of theming the label might look like:
 
-<KLabel for="service" is-required class=custom-label>Service Name</KLabel>
+<KLabel for="service" required class=custom-label>Service Name</KLabel>
 <KInput id="service"/>
 
 ```html
 <template>
-  <KLabel for="service" is-required class=custom-label>Service Name</KLabel>
+  <KLabel for="service" required class=custom-label>Service Name</KLabel>
   <KInput id="service"/>
 </template>
 
