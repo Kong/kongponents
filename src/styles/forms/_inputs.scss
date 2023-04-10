@@ -14,7 +14,7 @@
   }
 
   .is-required {
-    color: var(--KLabelRequiredAsteriskColor, var(--KInputBorder));
+    color: var(--KLabelRequiredAsteriskColor, var(--KInputBorder, var(--grey-600)));
     font-size: 11px;
     font-weight: 500;
     margin-left: var(--spacing-xxs);
