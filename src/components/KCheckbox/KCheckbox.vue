@@ -17,7 +17,7 @@
       <slot>{{ label }}</slot>
     </span>
     <div
-      v-if="hasLabel && (description || $slots.description)"
+      v-if="showDescription"
       class="k-checkbox-description"
     >
       <slot name="description">{{ description }}</slot>
@@ -25,62 +25,67 @@
   </label>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
+<script lang="ts" setup>
+import { computed, useAttrs, useSlots } from 'vue'
 
-export default defineComponent({
-  name: 'KCheckbox',
-  inheritAttrs: false,
-  props: {
-    /**
-     * Sets whether or not checkbox is checked
-     */
-    modelValue: {
-      type: Boolean,
-      default: false,
-      required: true,
-    },
-    /**
-     * Overrides default label text
-     */
-    label: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Overrides default description text
-     */
-    description: {
-      type: String,
-      default: '',
-    },
+const props = defineProps({
+/**
+* Sets whether or not checkbox is checked
+*/
+  modelValue: {
+    type: Boolean,
+    default: false,
+    required: true,
   },
-  emits: ['input', 'change', 'update:modelValue'],
-  setup(props, { slots, emit, attrs }) {
-    const hasLabel = computed((): boolean => !!(props.label || slots.default))
-
-    const handleChange = (event: Event): void => {
-      emit('change', (event.target as HTMLInputElement).checked)
-      emit('input', (event.target as HTMLInputElement).checked)
-      emit('update:modelValue', (event.target as HTMLInputElement).checked)
-    }
-
-    const modifiedAttrs = computed(() => {
-      const $attrs = { ...attrs }
-
-      // delete classes because we bind them to the parent
-      delete $attrs.class
-
-      return $attrs
-    })
-
-    return {
-      hasLabel,
-      modifiedAttrs,
-      handleChange,
-    }
+  /**
+* Overrides default label text
+*/
+  label: {
+    type: String,
+    default: '',
+  },
+  /**
+* Overrides default description text
+*/
+  description: {
+    type: String,
+    default: '',
   },
 })
+
+const emit = defineEmits<{
+  (e: 'change', value: boolean): void;
+  (e: 'input', value: boolean): void;
+  (e: 'update:modelValue', value: boolean): void;
+}>()
+
+const slots = useSlots()
+const attrs = useAttrs()
+
+const hasLabel = computed((): boolean => !!(props.label || slots.default))
+
+const showDescription = computed((): boolean => hasLabel.value && (!!props.description || !!slots.description))
+
+const modifiedAttrs = computed(() => {
+  const $attrs = { ...attrs }
+
+  // delete classes because we bind them to the parent
+  delete $attrs.class
+
+  return $attrs
+})
+
+const handleChange = (event: Event): void => {
+  emit('change', (event.target as HTMLInputElement).checked)
+  emit('input', (event.target as HTMLInputElement).checked)
+  emit('update:modelValue', (event.target as HTMLInputElement).checked)
+}
+</script>
+
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+}
 </script>
 
 <style lang="scss" scoped>
