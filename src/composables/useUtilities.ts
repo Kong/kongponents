@@ -251,8 +251,8 @@ export default function useUtilities() {
    * @returns the stripped label
    */
   const stripRequiredLabel = (label: string, required: boolean): string => {
-    if (!required) {
-      return label
+    if (!required || !label) {
+      return label || ''
     }
 
     if (label.match(/( )?\*$/gi)) {
