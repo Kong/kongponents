@@ -83,12 +83,12 @@ Use the `for` attribute to bind a label to an input element for accessibility.
 | :-------------------------------- | :------------------------------- |
 | `--KInputLabelColor`              | Label text color                 |
 | `--KLabelRequiredAsteriskColor`   | Label required '*' color         |
-| `--KInputLabelFont`               |                                  |
-| `--KInputLabelSize`               |                                  |
+| `--KInputLabelFont`               | Label font                       |
+| `--KInputLabelSize`               | Label text size                  |
 | `--KInputLabelWeight`             | Label font weight                |
 | `--KInputCheckboxLabel`           | Checkbox/radio label color       |
-| `--KInputCheckboxLabelFont`       |                                  |
-| `--KInputCheckboxLabelSize`       |                                  |
+| `--KInputCheckboxLabelFont`       | Checkbox/radio font              |
+| `--KInputCheckboxLabelSize`       | Checkbox/radio text size         |
 
 An example of theming the label might look like:
 
