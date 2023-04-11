@@ -255,7 +255,7 @@ export default function useUtilities() {
       return label || ''
     }
 
-    if (label.match(/( )?\*$/gi)) {
+    if (/( )?\*$/gi.test(label)) {
       return label.replace(/\*$/gi, '').trim()
     }
 
