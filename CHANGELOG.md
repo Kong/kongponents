@@ -1,3 +1,10 @@
+# [8.44.0](https://github.com/Kong/kongponents/compare/v8.43.0...v8.44.0) (2023-04-11)
+
+
+### Features
+
+* **KCheckbox:** setup syntax [KHCP-6497] ([#1274](https://github.com/Kong/kongponents/issues/1274)) ([01fcc66](https://github.com/Kong/kongponents/commit/01fcc66ce753345bc57f9a8f69283094fbfd1831))
+
 # [8.43.0](https://github.com/Kong/kongponents/compare/v8.42.2...v8.43.0) (2023-04-11)
 
 
