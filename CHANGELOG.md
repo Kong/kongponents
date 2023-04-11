@@ -1,3 +1,10 @@
+# [8.43.0](https://github.com/Kong/kongponents/compare/v8.42.2...v8.43.0) (2023-04-11)
+
+
+### Features
+
+* **KCard:** setup syntax [KHCP-6495] ([#1270](https://github.com/Kong/kongponents/issues/1270)) ([de77081](https://github.com/Kong/kongponents/commit/de7708166a90fc19a9728f4bfa88a4d02d68f686)), closes [#1272](https://github.com/Kong/kongponents/issues/1272)
+
 ## [8.42.2](https://github.com/Kong/kongponents/compare/v8.42.1...v8.42.2) (2023-04-10)
 
 
