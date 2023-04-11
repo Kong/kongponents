@@ -1,77 +1,15 @@
-<script lang="ts" setup>
-import { v1 as uuidv1 } from 'uuid'
-import type { BorderVariant } from '@/types'
-import { computed, useSlots } from 'vue'
-
-interface IProps {
-  /**
-   * Title string if slot not used, also used for aria-label
-   */
-  title?: string;
-  /**
-     * Pass body string in if slot not used
-     */
-  body?: string;
-  /**
-     * Set top border or no border. If neither set default will have border<br>
-     * * Options: [borderTop, noBorder]
-     */
-  borderVariant?: BorderVariant;
-  /**
-   * Sets if card has hover state<br>
-   */
-  hasHover?: boolean;
-  hasShadow?: boolean;
-  /**
-   * Add small status text above the card title
-   */
-  status?: string;
-  /**
-   * Test mode - for testing only, strips out generated ids
-   */
-  testMode?: boolean;
-}
-
-const props = withDefaults(defineProps<IProps>(), {
-  title: '',
-  body: '',
-  borderVariant: 'border',
-  hasHover: false,
-  hasShadow: false,
-  status: '',
-  testMode: false,
-})
-
-const titleId = computed((): string => props.testMode ? 'test-title-id-1234' : uuidv1())
-
-const contentId = computed((): string => props.testMode ? 'test-content-id-1234' : uuidv1())
-
-const slots = useSlots()
-
-const useStatusHatLayout = computed((): boolean => !!(props.status || !!slots.statusHat))
-
-const showCardHeard = computed((): boolean => !!slots.actions || useStatusHatLayout.value ||
-  (!useStatusHatLayout.value && (!!props.title || !!slots.title)))
-
-const showCardTitleWithoutStatus = computed((): boolean => !useStatusHatLayout.value &&
-  (!!props.title || !!slots.title))
-
-const showCardTitleWithStatus = computed((): boolean => useStatusHatLayout.value &&
-  (!!props.title || !!slots.title))
-</script>
-
 <template>
   <section
     :aria-describedby="contentId || undefined"
     :aria-label="title ? title : undefined"
-    :aria-labelledby="!title && ($slots.title || slots.title) ? titleId : undefined"
+    :aria-labelledby="!title && slots.title ? titleId : undefined"
     class="kong-card"
     :class="[borderVariant, {'hover': hasHover, 'kcard-shadow': hasShadow }]"
   >
     <div
-      v-if="showCardHeard"
+      v-if="showCardHead"
       class="k-card-header d-flex mb-3"
-      :class="{ 'has-status': status || $slots.statusHat }"
+      :class="{ 'has-status': status || slots.statusHat }"
     >
       <div
         v-if="status || slots.statusHat"
@@ -135,6 +73,80 @@ const showCardTitleWithStatus = computed((): boolean => useStatusHatLayout.value
     </div>
   </section>
 </template>
+
+<script lang="ts" setup>
+import { v1 as uuidv1 } from 'uuid'
+import { BorderVariant, BorderVariantsArray } from '@/types'
+import { computed, PropType, useSlots } from 'vue'
+
+const props = defineProps({
+  /**
+   * Title string if slot not used, also used for aria-label
+   */
+  title: {
+    type: String,
+    default: '',
+  },
+  /**
+   * Pass body string in if slot not used
+   */
+  body: {
+    type: String,
+    default: '',
+  },
+  /**
+   * Set top border or no border. If neither set default will have border<br>
+   * * Options: [borderTop, noBorder]
+   */
+  borderVariant: {
+    type: String as PropType<BorderVariant>,
+    default: 'border',
+    validator: (value: BorderVariant): boolean => Object.values(BorderVariantsArray).includes(value),
+  },
+  /**
+   * Sets if card has hover state<br>
+   */
+  hasHover: {
+    type: Boolean,
+    default: false,
+  },
+  hasShadow: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * Add small status text above the card title
+   */
+  status: {
+    type: String,
+    default: '',
+  },
+  /**
+   * Test mode - for testing only, strips out generated ids
+   */
+  testMode: {
+    type: Boolean,
+    default: false,
+  },
+})
+
+const titleId = computed((): string => props.testMode ? 'test-title-id-1234' : uuidv1())
+
+const contentId = computed((): string => props.testMode ? 'test-content-id-1234' : uuidv1())
+
+const slots = useSlots()
+
+const useStatusHatLayout = computed((): boolean => !!(props.status || !!slots.statusHat))
+
+const showCardHead = computed((): boolean => !!slots.actions || useStatusHatLayout.value ||
+  (!useStatusHatLayout.value && (!!props.title || !!slots.title)))
+
+const showCardTitleWithoutStatus = computed((): boolean => !useStatusHatLayout.value &&
+  (!!props.title || !!slots.title))
+
+const showCardTitleWithStatus = computed((): boolean => useStatusHatLayout.value &&
+  (!!props.title || !!slots.title))
+</script>
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
