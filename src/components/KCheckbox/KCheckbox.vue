@@ -30,23 +30,23 @@ import { computed, useAttrs, useSlots } from 'vue'
 
 const props = defineProps({
   /**
-    * Sets whether or not checkbox is checked
-  */
+   * Sets whether or not checkbox is checked
+   */
   modelValue: {
     type: Boolean,
     default: false,
     required: true,
   },
   /**
-    * Overrides default label text
-  */
+   * Overrides default label text
+   */
   label: {
     type: String,
     default: '',
   },
   /**
-    * Overrides default description text
-  */
+   * Overrides default description text
+   */
   description: {
     type: String,
     default: '',
