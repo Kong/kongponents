@@ -2,18 +2,12 @@
   <div class="k-collapse w-100">
     <div
       class="k-collapse-heading mb-3"
-      :class="{
-        'd-flex': trailingTrigger,
-        'd-block': !trailingTrigger
-      }"
+      :class="trailingTrigger ? 'd-flex' : 'd-block'"
     >
       <div
         v-if="title"
         class="k-collapse-title"
-        :class="{
-          'mr-auto': trailingTrigger,
-          'mb-2': !trailingTrigger
-        }"
+        :class="trailingTrigger ? 'mr-auto' : 'mb-2'"
         data-testid="k-collapse-title"
       >
         {{ title }}
@@ -44,7 +38,7 @@
               >
                 <KIcon
                   class="k-collapse-trigger-chevron mr-1"
-                  :icon="collapsedState ? 'chevronRight' : 'chevronDown'"
+                  :icon="collapseIcon"
                   size="14"
                 />
                 <span>{{ triggerLabel }}</span>
@@ -53,7 +47,7 @@
                 v-else
                 class="k-collapse-trigger-icon k-collapse-trigger-chevron"
                 data-testid="k-collapse-trigger-icon"
-                :icon="collapsedState ? 'chevronRight' : 'chevronDown'"
+                :icon="collapseIcon"
               />
             </slot>
           </a>
@@ -77,102 +71,83 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, ref, watch, PropType } from 'vue'
+<script lang="ts" setup>
 import KIcon from '@/components/KIcon/KIcon.vue'
-import type { TriggerAlignmentRecord, TriggerAlignment } from '@/types'
+import { computed, PropType, ref, useSlots, watch } from 'vue'
+import { TriggerAlignment, TriggerAlignmentArray } from '@/types'
 
-const triggerAlignmentRecord: TriggerAlignmentRecord = {
-  trailing: 'trailing',
-  leading: 'leading',
+const props = defineProps({
+  // Is the KCollapse collapsed? Defaults to true-->
+  modelValue: {
+    type: Boolean,
+    required: false,
+    default: true,
+  },
+  title: {
+    type: String,
+    required: false,
+    default: '',
+  },
+  triggerLabel: {
+    type: String,
+    required: false,
+    default: '',
+  },
+  triggerAlignment: {
+    type: String as PropType<TriggerAlignment>,
+    required: false,
+    default: 'trailing',
+    validator: (value: TriggerAlignment): boolean => TriggerAlignmentArray.includes(value),
+  },
+})
+
+const emit = defineEmits<{
+  (e: 'toggled', value: boolean): void;
+  (e: 'update:modelValue', value: boolean): void;
+}>()
+
+const isCollapsed = ref<boolean>(true)
+const modelValueChanged = ref<boolean>(false)
+
+const slots = useSlots()
+
+const trailingTrigger = computed((): boolean => props.triggerAlignment === 'trailing')
+const hasVisibleContent = computed((): boolean => !!slots['visible-content'])
+
+// we need this so we can create a watcher for programmatic changes to the modelValue
+const modelComputed = computed({
+  get(): boolean {
+    return props.modelValue
+  },
+  set(newValue: boolean): void {
+    toggleDisplay(newValue)
+  },
+})
+
+// Use the modelValue only if the value hasn't been changed
+const collapsedState = computed((): boolean => modelValueChanged.value ? isCollapsed.value : props.modelValue)
+
+const collapseIcon = computed((): string => collapsedState.value ? 'chevronRight' : 'chevronDown')
+
+const toggleDisplay = (isToggled?: boolean): void => {
+  if (!modelValueChanged.value) {
+    // make sure we match modelValue first time in
+    isCollapsed.value = props.modelValue
+  }
+
+  isCollapsed.value = isToggled !== undefined ? isToggled : !isCollapsed.value
+
+  modelValueChanged.value = true
+
+  emit('toggled', isCollapsed.value)
+  emit('update:modelValue', isCollapsed.value)
 }
 
-export default defineComponent({
-  name: 'KCollapse',
-  components: {
-    KIcon,
-  },
-  props: {
-    // Is the KCollapse collapsed? Defaults to true
-    modelValue: {
-      type: Boolean,
-      required: false,
-      default: true,
-    },
-    title: {
-      type: String,
-      required: false,
-      default: '',
-    },
-    triggerLabel: {
-      type: String,
-      required: false,
-      default: '',
-    },
-    triggerAlignment: {
-      type: String as PropType<TriggerAlignment>,
-      required: false,
-      default: 'trailing',
-      validator: (value: TriggerAlignment): boolean => {
-        return Object.values(triggerAlignmentRecord).includes(value)
-      },
-    },
-  },
-  emits: ['toggled', 'update:modelValue'],
-  setup(props, { slots, emit }) {
-    const isCollapsed = ref<boolean>(true)
-    const modelValueChanged = ref<boolean>(false)
-
-    const trailingTrigger = computed((): boolean => props.triggerAlignment === triggerAlignmentRecord.trailing)
-    const hasVisibleContent = computed((): boolean => !!slots['visible-content'])
-
-    // we need this so we can create a watcher for programmatic changes to the modelValue
-    const modelComputed = computed({
-      get(): boolean {
-        return props.modelValue
-      },
-      set(newValue: boolean): void {
-        toggleDisplay(newValue)
-      },
-    })
-
-    const collapsedState = computed((): boolean => {
-      // Use the modelValue only if the value hasn't been changed
-      return modelValueChanged.value ? isCollapsed.value : props.modelValue
-    })
-
-    const toggleDisplay = (isToggled?: boolean): void => {
-      if (!modelValueChanged.value) {
-        // make sure we match modelValue first time in
-        isCollapsed.value = props.modelValue
-      }
-
-      if (isToggled !== undefined) {
-        isCollapsed.value = isToggled
-      } else {
-        isCollapsed.value = !isCollapsed.value
-      }
-
-      modelValueChanged.value = true
-
-      emit('toggled', isCollapsed.value)
-      emit('update:modelValue', isCollapsed.value)
-    }
-
-    // watch for programmatic changes to v-model
-    watch(modelComputed, (newVal, oldVal) => {
-      if (newVal !== oldVal) {
-        toggleDisplay(newVal)
-      }
-    })
-
-    return {
-      hasVisibleContent,
-      trailingTrigger,
-      collapsedState,
-      toggleDisplay,
-    }
-  },
+// watch for programmatic changes to v-model
+watch(modelComputed, (newVal, oldVal) => {
+  if (newVal !== oldVal) {
+    toggleDisplay(newVal)
+  }
 })
 </script>
 

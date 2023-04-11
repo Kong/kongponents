@@ -101,7 +101,7 @@ const props = defineProps({
   borderVariant: {
     type: String as PropType<BorderVariant>,
     default: 'border',
-    validator: (value: BorderVariant): boolean => Object.values(BorderVariantsArray).includes(value),
+    validator: (value: BorderVariant): boolean => BorderVariantsArray.includes(value),
   },
   /**
    * Sets if card has hover state<br>

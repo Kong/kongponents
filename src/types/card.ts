@@ -1,5 +1,5 @@
-export const BorderVariantsArray = ['borderTop', 'noBorder', 'border'] as const
+import { AnyElementOf } from '@/types/utils'
 
-export type AnyElementOf<T extends readonly string[]> = T[number];
+export const BorderVariantsArray = ['borderTop', 'noBorder', 'border'] as const
 
 export type BorderVariant = AnyElementOf<typeof BorderVariantsArray>
