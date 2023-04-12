@@ -1,3 +1,11 @@
+# [8.45.0](https://github.com/Kong/kongponents/compare/v8.44.0...v8.45.0) (2023-04-12)
+
+
+### Features
+
+* **kcatalog:** setup syntax [khcp-6496] ([#1265](https://github.com/Kong/kongponents/issues/1265)) ([50474e2](https://github.com/Kong/kongponents/commit/50474e2ee6b637062966d13950dfe2e083ff8a48))
+* **KCollapse:** setup syntax [KHCP-6498] ([#1275](https://github.com/Kong/kongponents/issues/1275)) ([67a9259](https://github.com/Kong/kongponents/commit/67a92597a6cf95765b6bab6a2ecfbc6541a0948d))
+
 # [8.44.0](https://github.com/Kong/kongponents/compare/v8.43.0...v8.44.0) (2023-04-11)
 
 
