@@ -1,4 +1,4 @@
-import { AnyElementOf } from '@/types/card'
+import { AnyElementOf } from '@/types'
 
 export interface DropdownItem {
   label: string
