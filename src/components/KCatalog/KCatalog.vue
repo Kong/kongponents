@@ -177,365 +177,337 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType, ref, computed, onMounted, watch } from 'vue'
+<script setup lang="ts">
+import { PropType, ref, computed, onMounted, watch, useSlots } from 'vue'
+import type { CatalogPreferences } from '@/types'
+import { CardSize, CardSizeArray } from '@/types'
 import useUtilities from '@/composables/useUtilities'
-import KButton from '@/components/KButton/KButton.vue'
-import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
-import KPagination from '@/components/KPagination/KPagination.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
+import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
+import KButton from '@/components/KButton/KButton.vue'
+import KPagination from '@/components/KPagination/KPagination.vue'
 import KCatalogItem from './KCatalogItem.vue'
-import type { CardSize, CardSizeRecord, CatalogPreferences } from '@/types'
 
 const { useRequest, useDebounce } = useUtilities()
 
-const cardSizeRecord: CardSizeRecord = {
-  large: 'large',
-  medium: 'medium',
-  small: 'small',
+const props = defineProps({
+  /**
+   * A prop to pass in to display skeleton to indicate loading
+   */
+  isLoading: {
+    type: Boolean,
+    default: false,
+  },
+  cardSize: {
+    type: String as PropType<CardSize>,
+    default: 'medium',
+    validator: (value: CardSize): boolean => CardSizeArray.includes(value),
+  },
+  /**
+   * Card catalog title
+   */
+  title: {
+    type: String,
+    default: '',
+  },
+  /**
+   * Disable truncation of the KCard's 'description'
+   */
+  noTruncation: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * A prop to pass in a custom empty state title
+   */
+  emptyStateTitle: {
+    type: String,
+    default: 'No Data',
+  },
+  /**
+   * A prop to pass in a custom empty state message
+   */
+  emptyStateMessage: {
+    type: String,
+    default: 'There is no data to display.',
+  },
+  /**
+   * A prop to pass in a custom empty state action route
+   */
+  emptyStateActionRoute: {
+    type: [Object, String],
+    default: '',
+  },
+  /**
+   * A prop to pass in a custom empty state action message
+   */
+  emptyStateActionMessage: {
+    type: String,
+    default: '',
+  },
+  /**
+   * A prop to pass in a custom empty state action message
+   */
+  emptyStateActionButtonIcon: {
+    type: String,
+    default: '',
+  },
+  /**
+   * A prop to pass in a custom empty state icon
+   */
+  emptyStateIcon: {
+    type: String,
+    default: '',
+  },
+  /**
+   * A prop to pass in a color for the empty state icon
+   */
+  emptyStateIconColor: {
+    type: String,
+    default: '',
+  },
+  /**
+   * A prop to pass in a size for the empty state icon
+   */
+  emptyStateIconSize: {
+    type: String,
+    default: '50',
+  },
+  /**
+   * A prop that enables the error state
+   */
+  hasError: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * A prop to pass in a custom error state title
+   */
+  errorStateTitle: {
+    type: String,
+    default: 'An error occurred',
+  },
+  /**
+   * A prop to pass in a custom error state message
+   */
+  errorStateMessage: {
+    type: String,
+    default: 'Data cannot be displayed due to an error.',
+  },
+  /**
+   * A prop to pass in a custom error state action route
+   */
+  errorStateActionRoute: {
+    type: [Object, String],
+    default: '',
+  },
+  /**
+   * A prop to pass in a custom error state action message
+   */
+  errorStateActionMessage: {
+    type: String,
+    default: '',
+  },
+  /**
+   * A prop to pass in a custom error state icon
+   */
+  errorStateIcon: {
+    type: String,
+    default: '',
+  },
+  /**
+   * A prop to pass in a color for the error state icon
+   */
+  errorStateIconColor: {
+    type: String,
+    default: '',
+  },
+  /**
+   * A prop to pass in a size for the error state icon
+   */
+  errorStateIconSize: {
+    type: String,
+    default: '50',
+  },
+  /**
+   * A prop to pass in a fetcher function to enable server-side pagination
+   */
+  fetcher: {
+    type: Function,
+    required: true,
+  },
+  /**
+   * A prop to pass in a an object of intial params for the initial fetcher function call
+   */
+  initialFetcherParams: {
+    type: Object,
+    default: null,
+  },
+  /**
+   * A prop to trigger a revalidate of the fetcher function. Modifying this value
+   * will trigger a manual refetch of the table data.
+   */
+  fetcherCacheKey: {
+    type: String,
+    default: '',
+  },
+  /**
+   * A prop to pass in a search string for server-side search
+   */
+  searchInput: {
+    type: String,
+    default: '',
+  },
+  /**
+   * A prop to pass in a the number of pagination neighbors used by the pagination component
+   */
+  paginationNeighbors: {
+    type: Number,
+    default: 1,
+  },
+  /**
+   * A prop to pass in an array of page sizes used by the pagination component
+   */
+  paginationPageSizes: {
+    type: Array as PropType<number[]>,
+    default: () => ([15, 30, 50, 75, 100]),
+    validator: (pageSizes: number[]): boolean => !!pageSizes.length && pageSizes.every(i => typeof i === 'number'),
+  },
+  /**
+   * A prop to pass the total number of items in the set for the pagination text
+   */
+  paginationTotalItems: {
+    type: Number,
+    default: null,
+  },
+  disablePaginationPageJump: {
+    type: Boolean,
+    default: false,
+  },
+  disablePagination: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * A prop to pass to hide pagination for total table records is less than or equal to pagesize
+   */
+  hidePaginationWhenOptional: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * for testing only, strips out generated ids and avoid loading state in tests.
+   * 'true' - no id's no loading
+   * 'loading' - no id's but allow loading
+   */
+  testMode: {
+    type: [String, Boolean],
+    default: false,
+  },
+})
+
+const emit = defineEmits(['kcatalog-error-cta-clicked', 'kcatalog-empty-state-cta-clicked', 'update:catalog-preferences'])
+
+const slots = useSlots()
+
+const defaultFetcherProps = {
+  page: 1,
+  pageSize: 15,
+  query: '',
 }
 
-export default defineComponent({
-  name: 'KCatalog',
-  components: {
-    KButton,
-    KCatalogItem,
-    KEmptyState,
-    KPagination,
-    KSkeleton,
-    KSkeletonBox,
-  },
-  props: {
-    /**
-     * A prop to pass in to display skeleton to indicate loading
-     */
-    isLoading: {
-      type: Boolean,
-      default: false,
-    },
-    cardSize: {
-      type: String as PropType<CardSize>,
-      default: 'medium',
-      validator: (value: CardSize): boolean => {
-        return Object.values(cardSizeRecord).includes(value)
-      },
-    },
-    /**
-     * Card catalog title
-     */
-    title: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Disable truncation of the KCard's 'description'
-     */
-    noTruncation: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * A prop to pass in a custom empty state title
-     */
-    emptyStateTitle: {
-      type: String,
-      default: 'No Data',
-    },
-    /**
-     * A prop to pass in a custom empty state message
-     */
-    emptyStateMessage: {
-      type: String,
-      default: 'There is no data to display.',
-    },
-    /**
-     * A prop to pass in a custom empty state action route
-     */
-    emptyStateActionRoute: {
-      type: [Object, String],
-      default: '',
-    },
-    /**
-     * A prop to pass in a custom empty state action message
-     */
-    emptyStateActionMessage: {
-      type: String,
-      default: '',
-    },
-    /**
-     * A prop to pass in a custom empty state action message
-     */
-    emptyStateActionButtonIcon: {
-      type: String,
-      default: '',
-    },
-    /**
-     * A prop to pass in a custom empty state icon
-     */
-    emptyStateIcon: {
-      type: String,
-      default: '',
-    },
-    /**
-     * A prop to pass in a color for the empty state icon
-     */
-    emptyStateIconColor: {
-      type: String,
-      default: '',
-    },
-    /**
-     * A prop to pass in a size for the empty state icon
-     */
-    emptyStateIconSize: {
-      type: String,
-      default: '50',
-    },
-    /**
-     * A prop that enables the error state
-     */
-    hasError: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * A prop to pass in a custom error state title
-     */
-    errorStateTitle: {
-      type: String,
-      default: 'An error occurred',
-    },
-    /**
-     * A prop to pass in a custom error state message
-     */
-    errorStateMessage: {
-      type: String,
-      default: 'Data cannot be displayed due to an error.',
-    },
-    /**
-     * A prop to pass in a custom error state action route
-     */
-    errorStateActionRoute: {
-      type: [Object, String],
-      default: '',
-    },
-    /**
-     * A prop to pass in a custom error state action message
-     */
-    errorStateActionMessage: {
-      type: String,
-      default: '',
-    },
-    /**
-     * A prop to pass in a custom error state icon
-     */
-    errorStateIcon: {
-      type: String,
-      default: '',
-    },
-    /**
-     * A prop to pass in a color for the error state icon
-     */
-    errorStateIconColor: {
-      type: String,
-      default: '',
-    },
-    /**
-     * A prop to pass in a size for the error state icon
-     */
-    errorStateIconSize: {
-      type: String,
-      default: '50',
-    },
-    /**
-     * A prop to pass in a fetcher function to enable server-side pagination
-     */
-    fetcher: {
-      type: Function,
-      required: true,
-    },
-    /**
-     * A prop to pass in a an object of intial params for the initial fetcher function call
-     */
-    initialFetcherParams: {
-      type: Object,
-      default: null,
-    },
-    /**
-     * A prop to trigger a revalidate of the fetcher function. Modifying this value
-     * will trigger a manual refetch of the table data.
-     */
-    fetcherCacheKey: {
-      type: String,
-      default: '',
-    },
-    /**
-     * A prop to pass in a search string for server-side search
-     */
-    searchInput: {
-      type: String,
-      default: '',
-    },
-    /**
-     * A prop to pass in a the number of pagination neighbors used by the pagination component
-     */
-    paginationNeighbors: {
-      type: Number,
-      default: 1,
-    },
-    /**
-     * A prop to pass in an array of page sizes used by the pagination component
-     */
-    paginationPageSizes: {
-      type: Array as PropType<number[]>,
-      default: () => ([15, 30, 50, 75, 100]),
-      validator: (pageSizes: number[]): boolean => !!pageSizes.length && pageSizes.every(i => typeof i === 'number'),
-    },
-    /**
-     * A prop to pass the total number of items in the set for the pagination text
-     */
-    paginationTotalItems: {
-      type: Number,
-      default: null,
-    },
-    disablePaginationPageJump: {
-      type: Boolean,
-      default: false,
-    },
-    disablePagination: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * A prop to pass to hide pagination for total table records is less than or equal to pagesize
-     */
-    hidePaginationWhenOptional: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * for testing only, strips out generated ids and avoid loading state in tests.
-     * 'true' - no id's no loading
-     * 'loading' - no id's but allow loading
-     */
-    testMode: {
-      type: [String, Boolean],
-      default: false,
-    },
-  },
-  emits: ['kcatalog-error-cta-clicked', 'kcatalog-empty-state-cta-clicked', 'update:catalog-preferences'],
-  setup(props, { emit, slots }) {
-    const defaultFetcherProps = {
-      page: 1,
-      pageSize: 15,
-      query: '',
-    }
+const data = ref<any[]>([])
+const total = ref<number>(0)
+const filterQuery = ref<string>('')
+const page = ref<number>(1)
+const pageSize = ref<number>(15)
+const isCardLoading = ref<boolean>(true)
+const hasInitialized = ref<boolean>(false)
 
-    const data = ref<any[]>([])
-    const total = ref<number>(0)
-    const filterQuery = ref<string>('')
-    const page = ref<number>(1)
-    const pageSize = ref<number>(15)
-    const isCardLoading = ref<boolean>(true)
-    const hasInitialized = ref<boolean>(false)
+const hasToolbarSlot = computed((): boolean => !!slots.toolbar)
 
-    const hasToolbarSlot = computed((): boolean => !!slots.toolbar)
+// once `initData()` finishes fetch data
+const catalogFetcherCacheKey = computed((): string => {
+  if (!props.fetcher || !hasInitialized.value) {
+    return ''
+  }
 
-    // once `initData()` finishes fetch data
-    const catalogFetcherCacheKey = computed((): string => {
-      if (!props.fetcher || !hasInitialized.value) {
-        return ''
-      }
+  return `catalog-item_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}` as string
+})
 
-      return `catalog-item_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}` as string
-    })
+// Store the catalogPreferences in a computed property to utilize in the watcher
+const catalogPreferences = computed((): CatalogPreferences => ({
+  pageSize: pageSize.value,
+}))
 
-    // Store the catalogPreferences in a computed property to utilize in the watcher
-    const catalogPreferences = computed((): CatalogPreferences => ({
-      pageSize: pageSize.value,
-    }))
+const fetchData = async () => {
+  isCardLoading.value = true
+  const searchInput = props.searchInput
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const res = await props.fetcher({
+    query: searchInput || filterQuery.value,
+    pageSize: pageSize.value,
+    page: page.value,
+  })
 
-    const fetchData = async () => {
-      isCardLoading.value = true
-      const searchInput = props.searchInput
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      const res = await props.fetcher({
-        query: searchInput || filterQuery.value,
-        pageSize: pageSize.value,
-        page: page.value,
-      })
+  data.value = res.data
+  total.value = props.paginationTotalItems || res.total || res.data.length
+  isCardLoading.value = false
 
-      data.value = res.data
-      total.value = props.paginationTotalItems || res.total || res.data.length
-      isCardLoading.value = false
+  return res
+}
 
-      return res
-    }
+const initData = async () => {
+  // set up fetcher props
+  const fetcherParams = {
+    ...defaultFetcherProps,
+    ...props.initialFetcherParams,
+  }
 
-    const initData = async () => {
-      // set up fetcher props
-      const fetcherParams = {
-        ...defaultFetcherProps,
-        ...props.initialFetcherParams,
-      }
+  page.value = fetcherParams.page
+  pageSize.value = fetcherParams.pageSize
+  filterQuery.value = fetcherParams.query
+  hasInitialized.value = true
+}
 
-      page.value = fetcherParams.page
-      pageSize.value = fetcherParams.pageSize
-      filterQuery.value = fetcherParams.query
-      hasInitialized.value = true
-    }
+const query = ref('')
+const { debouncedFn: debouncedSearch } = useDebounce((q: string) => { query.value = q })
 
-    const query = ref('')
-    const { debouncedFn: debouncedSearch } = useDebounce((q: string) => { query.value = q })
+const { revalidate } = useRequest(
+  () => catalogFetcherCacheKey.value,
+  () => fetchData(),
+  { revalidateOnFocus: false },
+)
 
-    const { revalidate } = useRequest(
-      () => catalogFetcherCacheKey.value,
-      () => fetchData(),
-      { revalidateOnFocus: false },
-    )
+const pageChangeHandler = ({ page: newPage }: Record<string, number>): void => {
+  page.value = newPage
+}
 
-    const pageChangeHandler = ({ page: newPage }: Record<string, number>): void => {
-      page.value = newPage
-    }
+const pageSizeChangeHandler = ({ pageSize: newPageSize }: Record<string, number>): void => {
+  pageSize.value = newPageSize
+}
 
-    const pageSizeChangeHandler = ({ pageSize: newPageSize }: Record<string, number>): void => {
-      pageSize.value = newPageSize
-    }
+const getTestIdString = (message: string): string => {
+  return message.toLowerCase().replace(/[^[a-z0-9]/gi, '-')
+}
 
-    const getTestIdString = (message: string): string => {
-      return message.toLowerCase().replace(/[^[a-z0-9]/gi, '-')
-    }
+watch(() => props.searchInput, (newValue: string) => {
+  debouncedSearch(newValue)
+}, { immediate: true })
 
-    watch(() => props.searchInput, (newValue: string) => {
-      debouncedSearch(newValue)
-    }, { immediate: true })
+watch(() => [query.value, page.value, pageSize.value], () => {
+  revalidate()
+}, { immediate: true })
 
-    watch(() => [query.value, page.value, pageSize.value], () => {
-      revalidate()
-    }, { immediate: true })
+// Emit an event whenever the catalogPreferences are updated
+watch(catalogPreferences, (catalogPrefs: CatalogPreferences) => {
+  emit('update:catalog-preferences', catalogPrefs)
+})
 
-    // Emit an event whenever the catalogPreferences are updated
-    watch(catalogPreferences, (catalogPrefs: CatalogPreferences) => {
-      emit('update:catalog-preferences', catalogPrefs)
-    })
-
-    onMounted(() => {
-      initData()
-    })
-
-    return {
-      data,
-      isCardLoading,
-      page,
-      pageChangeHandler,
-      pageSize,
-      pageSizeChangeHandler,
-      total,
-      getTestIdString,
-      hasToolbarSlot,
-    }
-  },
+onMounted(() => {
+  initData()
 })
 </script>
 
