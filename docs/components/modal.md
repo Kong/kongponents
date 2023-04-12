@@ -1,6 +1,10 @@
 # Modal
 
-The **KModal** component is used to show content on top of existing UI. Typically used when confirming changes or while during a delete action.
+::: info
+Are you looking for a modal with a close icon, left-aligned text, and divider lines at the top and bottom of the modal? Try [KPrompt](/components/prompt.html) instead.
+:::
+
+The **KModal** component is used for displaying general information to a user that must be acknowledged before continuing.
 
 <KButton appearance="primary" @click="defaultIsOpen = true">Open Modal</KButton>
 
