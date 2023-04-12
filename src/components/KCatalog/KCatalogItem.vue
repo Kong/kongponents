@@ -26,8 +26,8 @@
 
 <script setup lang="ts">
 import { PropType } from 'vue'
-import KCard from '@/components/KCard/KCard.vue'
 import type { CatalogItem } from '@/types'
+import KCard from '@/components/KCard/KCard.vue'
 
 defineProps({
   item: {
