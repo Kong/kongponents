@@ -1,5 +1,9 @@
 # Prompt
 
+::: info
+Are you looking for a modal with no close icon, centered text, and the ability to display an image in the header of the modal? Try [KModal](/components/modal.html) instead.
+:::
+
 The **KPrompt** component is used to display a dialog that prompts a user to take an action.
 
 <KButton appearance="primary" @click="defaultIsOpen = true">Prompt</KButton>
