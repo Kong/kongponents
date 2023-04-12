@@ -179,7 +179,8 @@
 
 <script setup lang="ts">
 import { PropType, ref, computed, onMounted, watch, useSlots } from 'vue'
-import type { CardSize, CardSizeRecord, CatalogPreferences } from '@/types'
+import type { CatalogPreferences } from '@/types'
+import { CardSize, CardSizeArray } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
@@ -201,9 +202,7 @@ const props = defineProps({
   cardSize: {
     type: String as PropType<CardSize>,
     default: 'medium',
-    validator: (value: CardSize): boolean => {
-      return Object.values(cardSizeRecord).includes(value)
-    },
+    validator: (value: CardSize): boolean => CardSizeArray.includes(value),
   },
   /**
    * Card catalog title
@@ -510,14 +509,6 @@ watch(catalogPreferences, (catalogPrefs: CatalogPreferences) => {
 onMounted(() => {
   initData()
 })
-</script>
-
-<script lang="ts">
-const cardSizeRecord: CardSizeRecord = {
-  large: 'large',
-  medium: 'medium',
-  small: 'small',
-}
 </script>
 
 <style lang="scss" scoped>
