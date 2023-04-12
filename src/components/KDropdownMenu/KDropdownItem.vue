@@ -49,99 +49,80 @@
   </li>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
-import KButton from '@/components/KButton/KButton.vue'
-import { DropdownItem } from '@/types'
+<script lang="ts" setup>
+import { DropdownItem, DropdownItemType } from '@/types'
+import { computed, PropType } from 'vue'
+import { useRoute } from 'vue-router'
 
-export default defineComponent({
-  name: 'KDropdownItem',
-  components: { KButton },
-  props: {
-    item: {
-      type: Object as PropType<DropdownItem>,
-      default: null,
-      // Items must have a label
-      validator: (item: DropdownItem) => item.label !== undefined,
-    },
-    /**
-     * Use this prop to add a divider above the item.
-     */
-    hasDivider: {
-      type: Boolean,
-      default: false,
-    },
-    isDangerous: {
-      type: Boolean,
-      default: false,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    selected: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Internal use only - for tracking selection in conjunction with items prop.
-     */
-    selectionMenuChild: {
-      type: Boolean,
-      default: false,
-    },
-    onClick: {
-      type: Function,
-      default: undefined,
-    },
+const props = defineProps({
+  item: {
+    type: Object as PropType<DropdownItem>,
+    default: null,
+    // Items must have a label
+    validator: (item: DropdownItem) => item.label !== undefined,
   },
-  emits: ['click', 'change'],
-  setup(props, { emit }) {
-    const type = computed((): string => {
-      if (props.item?.to) {
-        return 'link'
-      } else if (typeof props.onClick !== 'undefined' || props.selectionMenuChild) {
-        // checking attrs since we deleted click from listeners
-        return 'button'
-      }
-      return 'default'
-    })
-
-    const routePath = computed((): string => {
-      // @ts-ignore
-      if ($route) {
-        // @ts-ignore
-        return $route?.path
-      }
-
-      return ''
-    })
-
-    const label = computed((): string => {
-      return (props.item?.label) || ''
-    })
-
-    const to = computed((): string | object | undefined => {
-      return (props.item?.to) || undefined
-    })
-
-    const handleClick = (event: Event): void => {
-      emit('click', event)
-
-      if (props.selectionMenuChild) {
-        emit('change', props.item)
-      }
-    }
-
-    return {
-      type,
-      label,
-      to,
-      routePath,
-      handleClick,
-    }
+  /**
+   * Use this prop to add a divider above the item.
+   */
+  hasDivider: {
+    type: Boolean,
+    default: false,
+  },
+  isDangerous: {
+    type: Boolean,
+    default: false,
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  selected: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * Internal use only - for tracking selection in conjunction with items prop.
+   */
+  selectionMenuChild: {
+    type: Boolean,
+    default: false,
+  },
+  onClick: {
+    type: Function,
+    default: undefined,
   },
 })
+
+const emit = defineEmits<{
+  (e: 'click', val: Event): void;
+  (e: 'change', item: DropdownItem): void;
+}>()
+
+const route = useRoute()
+
+const type = computed((): DropdownItemType => {
+  if (props.item?.to) {
+    return 'link'
+  } else if (typeof props.onClick !== 'undefined' || props.selectionMenuChild) {
+    // checking attrs since we deleted click from listeners
+    return 'button'
+  }
+  return 'default'
+})
+
+const label = computed((): string => (props.item?.label) || '')
+
+const routePath = computed((): string => route ? route.path : '')
+
+const to = computed((): string | object | undefined => (props.item?.to) || undefined)
+
+const handleClick = (event: Event): void => {
+  emit('click', event)
+
+  if (props.selectionMenuChild) {
+    emit('change', props.item)
+  }
+}
 </script>
 
 <style lang="scss">
