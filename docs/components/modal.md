@@ -1,7 +1,7 @@
 # Modal
 
 ::: info
-Are you looking for a modal with a close icon, left-aligned text, and divider lines at the top and bottom of the modal? Try [KPrompt](/components/prompt.html) instead.
+Are you looking for a modal with a close icon, left-aligned text, right-aligned actions, and divider lines at the top and bottom of the modal? Try [KPrompt](/components/prompt.html) instead.
 :::
 
 The **KModal** component is used for displaying general information to a user that must be acknowledged before continuing.
