@@ -13,7 +13,7 @@
         @opened="() => handleTriggerToggle(isToggled, toggle, true)"
       >
         <component
-          :is="!!disabledTooltip ? 'Kooltip' : 'div'"
+          :is="tooltipComponent"
           class="k-dropdown-trigger dropdown-trigger"
           data-testid="k-dropdown-trigger"
           :label="disabledTooltip"
@@ -70,7 +70,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, PropType, Ref, ref, watch } from 'vue'
+import { computed, onMounted, PropType, Ref, ref, watch } from 'vue'
 import { Appearance, AppearanceArray, ButtonAppearance, DropdownItem } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
 import Kooltip from '@/components/KTooltip/KTooltip.vue'
@@ -143,6 +143,8 @@ const emit = defineEmits<{
   (e: 'toggleDropdown', value: boolean): void;
   (e: 'change', value: DropdownItem): void;
 }>()
+
+const tooltipComponent = computed(() => props.disabledTooltip ? Kooltip : 'div')
 
 const defaultKPopAttributes = {
   hideCaret: true,
