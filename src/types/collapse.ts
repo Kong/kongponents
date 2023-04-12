@@ -1,2 +1,5 @@
-export type TriggerAlignment = 'leading' | 'trailing'
-export type TriggerAlignmentRecord = Record<TriggerAlignment, TriggerAlignment>
+import { AnyElementOf } from '@/types/utils'
+
+export const TriggerAlignmentArray = ['leading', 'trailing'] as const
+
+export type TriggerAlignment = AnyElementOf<typeof TriggerAlignmentArray>
