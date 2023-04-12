@@ -3,7 +3,6 @@
 ---
 
 ![](https://github.com/Kong/kongponents/workflows/Node%20CI/badge.svg)
-[![](https://img.shields.io/codecov/c/github/Kong/kongponents.svg?style=flat-square)](https://codecov.io/github/Kong/kongponents)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 Kongponents is a Vue component library of frequently needed UI elements. They were developed to solve [Kong's](https://konghq.com) application needs, but are generic enough to use in any web application.
