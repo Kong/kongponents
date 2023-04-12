@@ -39,15 +39,27 @@
     &.hovered:not(.readonly) {
       color: var(--KInputHover, var(--blue-500));
       transition: color 0.1s ease;
+
+      .is-required {
+        color: var(--KInputHover, var(--blue-500));
+      }
     }
 
     &.focused:not(.readonly) {
       color: var(--KInputFocus, var(--blue-500));
       transition: color 0.1s ease;
+
+      .is-required {
+        color: var(--KInputFocus, var(--blue-500));
+      }
     }
 
     &.disabled {
       color: var(--grey-500);
+
+      .is-required {
+        color: var(--grey-500);
+      }
     }
   }
 }
