@@ -24,47 +24,37 @@
   </KCard>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import KCard from '@/components/KCard/KCard.vue'
+<script setup lang="ts">
+import { PropType } from 'vue'
 import type { CatalogItem } from '@/types'
+import KCard from '@/components/KCard/KCard.vue'
 
-export default defineComponent({
-  name: 'KCatalogItem',
-  components: {
-    KCard,
+defineProps({
+  item: {
+    type: Object as PropType<CatalogItem>,
+    default: () => ({}),
   },
-  props: {
-    item: {
-      type: Object as PropType<CatalogItem>,
-      default: () => ({}),
-    },
-    truncate: {
-      type: Boolean,
-      default: true,
-    },
-    /**
+  truncate: {
+    type: Boolean,
+    default: true,
+  },
+  /**
      * Test mode - for testing only, strips out generated ids
      */
-    testMode: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: ['clicked'],
-  setup(props, { emit }) {
-    const handleCardClick = (evt: Event, item: CatalogItem): void => {
-      emit('clicked', {
-        evt,
-        item,
-      })
-    }
-
-    return {
-      handleCardClick,
-    }
+  testMode: {
+    type: Boolean,
+    default: false,
   },
 })
+
+const emit = defineEmits(['clicked'])
+
+const handleCardClick = (evt: Event, item: CatalogItem): void => {
+  emit('clicked', {
+    evt,
+    item,
+  })
+}
 </script>
 
 <style lang="scss" scoped>
