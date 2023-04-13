@@ -92,6 +92,23 @@ describe('KInput', () => {
     cy.get('.text-on-input label').should('contain.text', label)
   })
 
+  it('renders an asterisk when `overlayLabel` is true and `required` attr is set', () => {
+    const label = 'A label'
+    mount(KInput, {
+      props: {
+        testMode: true,
+        label,
+        overlayLabel: true,
+      },
+      attrs: {
+        required: true,
+      },
+    })
+
+    cy.get('.text-on-input label').should('contain.text', label)
+    cy.get('.text-on-input  .is-required').should('exist')
+  })
+
   it('renders small when size is passed in', () => {
     mount(KInput, {
       props: {

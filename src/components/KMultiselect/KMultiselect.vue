@@ -9,8 +9,9 @@
       v-bind="labelAttributes"
       :data-testid="labelAttributes['data-testid'] ? labelAttributes['data-testid'] : 'k-multiselect-label'"
       :for="multiselectId"
+      :required="isRequired"
     >
-      {{ label }}
+      {{ strippedLabel }}
     </KLabel>
     <div
       :id="multiselectId"
@@ -277,7 +278,7 @@ export default {
 
 <script setup lang="ts">
 const attrs = useAttrs()
-const { getSizeFromString, cloneDeep } = useUtilities()
+const { getSizeFromString, cloneDeep, stripRequiredLabel } = useUtilities()
 const SELECTED_ITEMS_SINGLE_LINE_HEIGHT = 34
 
 const props = defineProps({
@@ -412,6 +413,8 @@ const props = defineProps({
 
 const emit = defineEmits(['selected', 'item:added', 'item:removed', 'input', 'change', 'update:modelValue', 'query-change'])
 
+const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
+const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const defaultKPopAttributes = {
   hideCaret: true,
   placement: 'bottomStart',

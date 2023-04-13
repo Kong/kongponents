@@ -38,6 +38,16 @@ Use the `info` prop to display information help text.
 <KLabel info="This is an example">Input Title</KLabel>
 ```
 
+### required
+
+Use the `required` prop to indicate requiredness of a field by displaying an `*` after the label.
+
+<KLabel required>Name</KLabel>
+
+```html
+<KLabel required>Name</KLabel>
+```
+
 ### tooltipAttributes
 
 Use the `tooltipAttributes` prop to configure the **KTooltip's** [props](/components/tooltip) if using the `help` or `info` props.
@@ -66,3 +76,42 @@ Use the `for` attribute to bind a label to an input element for accessibility.
 <KLabel for="service" help="A service is an API that you want to offer">Service Name</KLabel>
 <KInput id="service"/>
 ```
+
+## Theming
+
+| Variable                          | Purpose                          |
+| :-------------------------------- | :------------------------------- |
+| `--KInputLabelColor`              | Label text color                 |
+| `--KLabelRequiredAsteriskColor`   | Label required '*' color         |
+| `--KInputLabelFont`               | Label font                       |
+| `--KInputLabelSize`               | Label text size                  |
+| `--KInputLabelWeight`             | Label font weight                |
+| `--KInputCheckboxLabel`           | Checkbox/radio label color       |
+| `--KInputCheckboxLabelFont`       | Checkbox/radio font              |
+| `--KInputCheckboxLabelSize`       | Checkbox/radio text size         |
+
+An example of theming the label might look like:
+
+<KLabel for="service" required class=custom-label>Service Name</KLabel>
+<KInput id="service"/>
+
+```html
+<template>
+  <KLabel for="service" required class=custom-label>Service Name</KLabel>
+  <KInput id="service"/>
+</template>
+
+<style>
+.custom-label {
+  --KInputLabelColor: var(--purple-400);
+  --KLabelRequiredAsteriskColor: var(--red-500);
+}
+</style>
+```
+
+<style lang="scss">
+.custom-label {
+  --KInputLabelColor: var(--purple-400);
+  --KLabelRequiredAsteriskColor: var(--red-500);
+}
+</style>
