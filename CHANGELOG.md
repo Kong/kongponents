@@ -1,3 +1,10 @@
+# [8.47.0](https://github.com/Kong/kongponents/compare/v8.46.0...v8.47.0) (2023-04-13)
+
+
+### Features
+
+* **KDropdown:** refactor dropdown menu item ([#1283](https://github.com/Kong/kongponents/issues/1283)) ([172cda7](https://github.com/Kong/kongponents/commit/172cda767bccf6e6b74e1be6a591c65b0e58dbe7))
+
 # [8.46.0](https://github.com/Kong/kongponents/compare/v8.45.0...v8.46.0) (2023-04-13)
 
 
