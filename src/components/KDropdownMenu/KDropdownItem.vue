@@ -9,48 +9,19 @@
     }"
     :data-testid="`k-dropdown-item-${label.replace(/ /gi, '-')}`"
   >
-    <a
-      v-if="type === 'link' && to && !!disabled"
-      class="k-dropdown-item-trigger"
-      :class="{ 'disabled': disabled }"
+    <component
+      :is="availableComponents[componentType].tag"
       data-testid="k-dropdown-item-trigger"
-      href="#"
-      @click.prevent.stop=""
+      v-bind="availableComponents[componentType].attrs"
+      @click="availableComponents[componentType].onClick"
     >
       <slot>{{ label }}</slot>
-    </a>
-    <router-link
-      v-else-if="type === 'link' && to"
-      class="k-dropdown-item-trigger"
-      :class="{ 'disabled': disabled }"
-      data-testid="k-dropdown-item-trigger"
-      :to="!disabled ? to : routePath"
-      @click="handleClick"
-    >
-      <slot>{{ label }}</slot>
-    </router-link>
-    <KButton
-      v-else-if="type === 'button'"
-      class="k-dropdown-item-trigger btn-link k-button non-visual-button"
-      data-testid="k-dropdown-item-trigger"
-      :disabled="disabled"
-      :is-rounded="false"
-      @click="handleClick"
-    >
-      <slot>{{ label }}</slot>
-    </KButton>
-    <div
-      v-else
-      class="k-dropdown-item-trigger"
-      data-testid="k-dropdown-item-trigger"
-    >
-      <slot>{{ label }}</slot>
-    </div>
+    </component>
   </li>
 </template>
 
 <script lang="ts" setup>
-import { DropdownItem, DropdownItemType } from '@/types'
+import { DropdownItem, DropdownItemRenderedRecord, DropdownItemRenderedType, DropdownItemType } from '@/types'
 import { computed, PropType } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -123,6 +94,59 @@ const handleClick = (event: Event): void => {
     emit('change', props.item)
   }
 }
+
+const preventAndStopDefault = (event: Event): void => {
+  event.preventDefault()
+  event.stopPropagation()
+}
+
+const componentType = computed((): DropdownItemRenderedType => {
+  let result: DropdownItemRenderedType = 'div'
+
+  if (type.value === 'link' && !!to.value && !!props.disabled) {
+    result = 'link'
+  } else if (type.value === 'link' && to.value) {
+    result = 'router-link'
+  } else if (type.value === 'button') {
+    result = 'button'
+  }
+
+  return result
+})
+
+const availableComponents = computed((): DropdownItemRenderedRecord => ({
+  link: {
+    tag: 'a',
+    onClick: preventAndStopDefault,
+    attrs: {
+      class: `k-dropdown-item-trigger ${props.disabled ? 'disabled' : ''}`,
+      href: '#',
+    },
+  },
+  'router-link': {
+    tag: 'router-link',
+    onClick: handleClick,
+    attrs: {
+      class: `k-dropdown-item-trigger ${props.disabled ? 'disabled' : ''}`,
+      to: !props.disabled ? to.value : routePath.value,
+    },
+  },
+  button: {
+    tag: 'KButton',
+    onClick: handleClick,
+    attrs: {
+      class: 'k-dropdown-item-trigger btn-link k-button non-visual-button',
+      disabled: props.disabled,
+      isRounded: false,
+    },
+  },
+  div: {
+    tag: 'div',
+    attrs: {
+      class: 'k-dropdown-item-trigger',
+    },
+  },
+}))
 </script>
 
 <style lang="scss">

@@ -14,3 +14,19 @@ export const AppearanceArray = ['menu', 'selectionMenu'] as const
 export type Appearance = AnyElementOf<typeof AppearanceArray>
 
 export type DropdownItemType = 'link' | 'button' | 'default'
+
+export type DropdownItemRenderedType = 'link' | 'router-link' | 'button' | 'div'
+
+export interface DropdownItemRenderedComponent {
+  tag: string
+  onClick?: ((event: Event) => void)
+  attrs: {
+    class?: string
+    isRounded?: boolean
+    disabled?: boolean
+    to?: string | object
+    href?: string;
+  }
+}
+
+export type DropdownItemRenderedRecord = Record<DropdownItemRenderedType, DropdownItemRenderedComponent>
