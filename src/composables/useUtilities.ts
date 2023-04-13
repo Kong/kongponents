@@ -242,6 +242,26 @@ export default function useUtilities() {
     return JSON.parse(JSON.stringify(val))
   }
 
+  /**
+   * For the label of a `required` input.
+   * If the field is required and the label ends with an '*', strip it out.
+   *
+   * @param label the label to strip
+   * @param required whether or not the field is required
+   * @returns the stripped label
+   */
+  const stripRequiredLabel = (label: string, required: boolean): string => {
+    if (!required || !label) {
+      return label || ''
+    }
+
+    if (/( )?\*$/gi.test(label)) {
+      return label.replace(/\*$/gi, '').trim()
+    }
+
+    return label
+  }
+
   return {
     useRequest,
     useDebounce,
@@ -249,5 +269,6 @@ export default function useUtilities() {
     useSwrvStates,
     getSizeFromString,
     cloneDeep,
+    stripRequiredLabel,
   }
 }

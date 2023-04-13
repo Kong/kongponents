@@ -110,7 +110,33 @@ Boolean value to indicate whether the element has an error and should apply erro
 <KTextArea has-error />
 ```
 
-## v-model
+## Attribute Binding
+
+You can pass any input attribute and it will get properly bound to the element.
+
+<KTextArea label="Name" placeholder="I'm disabled!" disabled />
+
+```html
+<KTextArea label="Name" placeholder="I'm disabled!" disabled />
+```
+
+### required
+
+KTextArea will display an `*` to indicate a field is required if you set the `required` attribute and provide a `label`. See **KLabel's** [`required`](/components/label#required) prop for more information.
+
+:::tip NOTE
+Text passed in for the `label` will automatically strip any trailing `*` when used with the `required` attribute to try to prevent duplicate asterisks.
+:::
+
+<KTextArea label="Name" required />
+<KTextArea label="Name" overlay-label required />
+
+```html
+<KTextArea label="Name" required />
+<KTextArea label="Name" overlay-label required />
+```
+
+### v-model
 
 `KTextArea` works as regular texarea do using v-model for data binding:
 

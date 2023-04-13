@@ -9,8 +9,9 @@
       v-bind="labelAttributes"
       data-testid="k-select-label"
       :for="selectId"
+      :required="isRequired"
     >
-      {{ label }}
+      {{ strippedLabel }}
     </KLabel>
     <div
       :id="selectId"
@@ -146,7 +147,7 @@
                 'is-readonly': ($attrs.readonly !== undefined && String($attrs.readonly) !== 'false'),
                 'disabled': ($attrs.disabled !== undefined && String($attrs.disabled) !== 'false')
               }"
-              :label="label && overlayLabel ? label : undefined"
+              :label="label && overlayLabel ? strippedLabel : undefined"
               :model-value="filterStr"
               :overlay-label="overlayLabel"
               :placeholder="selectedItem && appearance === 'select' && !filterIsEnabled ? selectedItem.label : placeholderText"
@@ -263,7 +264,7 @@ export type DropdownFooterTextPosition = 'sticky' | 'static'
 </script>
 
 <script setup lang="ts">
-const { getSizeFromString } = useUtilities()
+const { getSizeFromString, stripRequiredLabel } = useUtilities()
 
 const defaultKPopAttributes = {
   popoverClasses: 'k-select-popover mt-0',
@@ -419,6 +420,8 @@ const emit = defineEmits(['selected', 'input', 'change', 'update:modelValue', 'q
 const attrs = useAttrs()
 const slots = useSlots()
 
+const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
+const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const filterStr = ref('')
 const selectedItem = ref<SelectItem|null>(null)
 const selectId = computed((): string => props.testMode ? 'test-select-id-1234' : uuidv1())

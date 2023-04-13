@@ -51,6 +51,7 @@ Use the `labelAttributes` prop to configure the **KLabel's** [props](/components
 ```html
 <KInput label="Name" :label-attributes="{   help: 'I use the KLabel `help` prop' }" />
 ```
+
 ### overlayLabel
 
 Enable this prop to overlay the label on the input element's border. Defaults to `false`.
@@ -201,6 +202,23 @@ You can pass any input attribute and it will get properly bound to the element.
 <KInput read-only model-value="read-only"/>
 <KInput type="search" model-value="search"/>
 <KInput type="email" model-value="error" class="input-error"/>
+```
+
+### required
+
+KInput will display an `*` to indicate a field is required if you set the `required` attribute and provide a `label`. See **KLabel's** [`required`](/components/label#required) prop for more information.
+
+:::tip NOTE
+Text passed in for the `label` will automatically strip any trailing `*` when used with the `required` attribute to try to prevent duplicate asterisks.
+:::
+
+<KInput label="Name" required />
+<br>
+<KInput label="Name" overlay-label required />
+
+```html
+<KInput label="Name" required />
+<KInput label="Name" overlay-label required />
 ```
 
 ### v-model

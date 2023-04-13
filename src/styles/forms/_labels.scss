@@ -7,6 +7,13 @@
   line-height: var(--KInputLabelLineHeight, var(--type-lg, type(lg)));
   margin-bottom: var(--KInputLabelMargin, var(--spacing-xs, spacing(xs)));
 
+  .is-required {
+    color: var(--KLabelRequiredAsteriskColor, var(--KInputLabelColor));
+    font-size: var(--KInputLabelSize, var(--type-sm, type(sm)));
+    font-weight: var(--KInputLabelWeight, 600);
+    margin-left: var(--spacing-xxs);
+  }
+
   .label-tooltip {
     align-items: center;
     display: flex;

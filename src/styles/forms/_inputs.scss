@@ -13,6 +13,13 @@
     transition: color 0.1s ease;
   }
 
+  .is-required {
+    color: var(--KLabelRequiredAsteriskColor, var(--KInputBorder, var(--grey-600)));
+    font-size: 11px;
+    font-weight: 500;
+    margin-left: var(--spacing-xxs);
+  }
+
   label {
     background-color: var(--KInputBackground, var(--white));
     color: var(--KInputBorder, var(--grey-600));
@@ -32,15 +39,27 @@
     &.hovered:not(.readonly) {
       color: var(--KInputHover, var(--blue-500));
       transition: color 0.1s ease;
+
+      .is-required {
+        color: var(--KInputHover, var(--blue-500));
+      }
     }
 
     &.focused:not(.readonly) {
       color: var(--KInputFocus, var(--blue-500));
       transition: color 0.1s ease;
+
+      .is-required {
+        color: var(--KInputFocus, var(--blue-500));
+      }
     }
 
     &.disabled {
       color: var(--grey-500);
+
+      .is-required {
+        color: var(--grey-500);
+      }
     }
   }
 }

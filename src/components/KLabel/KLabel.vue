@@ -11,6 +11,10 @@
       :test-mode="!!testMode || undefined"
     >
       <slot />
+      <span
+        v-if="required"
+        class="is-required"
+      >*</span>
       <KIcon
         hide-title
         icon="help"
@@ -27,6 +31,10 @@
       :test-mode="!!testMode || undefined"
     >
       <slot />
+      <span
+        v-if="required"
+        class="is-required"
+      >*</span>
       <KIcon
         hide-title
         icon="info"
@@ -35,7 +43,13 @@
       />
     </KTooltip>
 
-    <slot v-else />
+    <span v-else>
+      <slot />
+      <span
+        v-if="required"
+        class="is-required"
+      >*</span>
+    </span>
   </label>
 </template>
 
@@ -59,6 +73,10 @@ export default defineComponent({
     info: {
       type: String,
       default: '',
+    },
+    required: {
+      type: Boolean,
+      default: false,
     },
     tooltipAttributes: {
       type: Object as PropType<TooltipAttributes>,
