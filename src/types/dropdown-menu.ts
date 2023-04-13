@@ -1,3 +1,5 @@
+import { AnyElementOf } from '@/types'
+
 export interface DropdownItem {
   label: string
   // This follows the vue-router RawLocation interface type
@@ -7,5 +9,8 @@ export interface DropdownItem {
   hasDivider?: boolean
 }
 
-export type Appearance = 'menu' | 'selectionMenu'
-export type AppearanceRecord = Record<Appearance, Appearance>
+export const AppearanceArray = ['menu', 'selectionMenu'] as const
+
+export type Appearance = AnyElementOf<typeof AppearanceArray>
+
+export type DropdownItemType = 'link' | 'button' | 'default'

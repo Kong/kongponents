@@ -13,7 +13,7 @@
         @opened="() => handleTriggerToggle(isToggled, toggle, true)"
       >
         <component
-          :is="!!disabledTooltip ? 'Kooltip' : 'div'"
+          :is="tooltipComponent"
           class="k-dropdown-trigger dropdown-trigger"
           data-testid="k-dropdown-trigger"
           :label="disabledTooltip"
@@ -69,14 +69,82 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType, ref, watch, onMounted, Ref } from 'vue'
+<script lang="ts" setup>
+import { computed, onMounted, PropType, Ref, ref, watch } from 'vue'
+import { Appearance, AppearanceArray, ButtonAppearance, DropdownItem } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
 import Kooltip from '@/components/KTooltip/KTooltip.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
 import KDropdownItem from './KDropdownItem.vue'
-import type { ButtonAppearance, DropdownItem, Appearance, AppearanceRecord } from '@/types'
+
+const props = defineProps({
+  appearance: {
+    type: String as PropType<Appearance>,
+    default: 'menu',
+    validator: (value: Appearance) => AppearanceArray.includes(value),
+  },
+  buttonAppearance: {
+    type: String as PropType<ButtonAppearance>,
+    default: 'primary',
+  },
+  caretColor: {
+    type: String,
+    default: undefined,
+  },
+  label: {
+    type: String,
+    default: '',
+  },
+  icon: {
+    type: String,
+    default: '',
+  },
+  showCaret: {
+    type: Boolean,
+    default: false,
+  },
+  width: {
+    type: String,
+    default: '',
+  },
+  // kpopAttributes is used to pass properties directly to the wrapped KPop component.
+  // Commonly-overridden properties include:
+  // - placement
+  // - popoverClasses
+  // - target
+  kpopAttributes: {
+    type: Object,
+    default: null,
+  },
+  items: {
+    type: Array as PropType<Array<DropdownItem>>,
+    default: () => [],
+    validator: (items: DropdownItem[]) => !items.length || items.every(i => i.label !== undefined),
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  disabledTooltip: {
+    type: String,
+    default: '',
+  },
+  /**
+   * Test mode - for testing only, strips out generated ids
+   */
+  testMode: {
+    type: Boolean,
+    default: false,
+  },
+})
+
+const emit = defineEmits<{
+  (e: 'toggleDropdown', value: boolean): void;
+  (e: 'change', value: DropdownItem): void;
+}>()
+
+const tooltipComponent = computed(() => props.disabledTooltip ? Kooltip : 'div')
 
 const defaultKPopAttributes = {
   hideCaret: true,
@@ -86,131 +154,46 @@ const defaultKPopAttributes = {
   placement: 'bottomStart',
 }
 
-const appearanceRecord: AppearanceRecord = {
-  menu: 'menu',
-  selectionMenu: 'selectionMenu',
+const boundKPopAttributes = {
+  ...defaultKPopAttributes,
+  ...props.kpopAttributes,
+  width: props.width ? props.width : undefined,
+  popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes?.popoverClasses || ''}`,
 }
 
-export default defineComponent({
-  name: 'KDropdownMenu',
-  components: {
-    KButton,
-    KDropdownItem,
-    Kooltip,
-    KPop,
-    KToggle,
-  },
-  props: {
-    appearance: {
-      type: String as PropType<Appearance>,
-      default: 'menu',
-      validator: (value: Appearance) => Object.values(appearanceRecord).includes(value),
-    },
-    buttonAppearance: {
-      type: String as PropType<ButtonAppearance>,
-      default: 'primary',
-    },
-    caretColor: {
-      type: String,
-      default: undefined,
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    icon: {
-      type: String,
-      default: '',
-    },
-    showCaret: {
-      type: Boolean,
-      default: false,
-    },
-    width: {
-      type: String,
-      default: '',
-    },
-    // kpopAttributes is used to pass properties directly to the wrapped KPop component.
-    // Commonly-overridden properties include:
-    // - placement
-    // - popoverClasses
-    // - target
-    kpopAttributes: {
-      type: Object,
-      default: null,
-    },
-    items: {
-      type: Array as PropType<Array<DropdownItem>>,
-      default: () => [],
-      validator: (items: DropdownItem[]) => !items.length || items.every(i => i.label !== undefined),
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    disabledTooltip: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Test mode - for testing only, strips out generated ids
-     */
-    testMode: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: ['toggleDropdown', 'change'],
-  setup(props, { emit }) {
-    const boundKPopAttributes = {
-      ...defaultKPopAttributes,
-      ...props.kpopAttributes,
-      width: props.width ? props.width : undefined,
-      popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes?.popoverClasses || ''}`,
+const selectedItem = ref<DropdownItem>()
+
+const handleSelection = (item: DropdownItem): void => {
+  if (props.appearance !== 'selectionMenu') {
+    return
+  }
+  selectedItem.value = item
+}
+
+const handleTriggerToggle = (isToggled: Ref<boolean>, toggle: () => void, isOpen: boolean): boolean => {
+  // avoid toggling twice for the same event
+  if (isToggled.value !== isOpen) {
+    toggle()
+    emit('toggleDropdown', isToggled.value)
+  }
+
+  return isToggled.value
+}
+
+watch(selectedItem, (newVal, oldVal): void => {
+  if (newVal && newVal !== oldVal) {
+    emit('change', newVal)
+  }
+})
+
+onMounted(() => {
+  if (props.items) {
+    const selectionArr = props.items.filter(item => item.selected)
+
+    if (selectionArr.length) {
+      selectedItem.value = selectionArr[0]
     }
-
-    const selectedItem = ref<DropdownItem>()
-
-    const handleSelection = (item: DropdownItem): void => {
-      if (props.appearance !== 'selectionMenu') {
-        return
-      }
-      selectedItem.value = item
-    }
-
-    const handleTriggerToggle = (isToggled: Ref<boolean>, toggle: () => void, isOpen: boolean): boolean => {
-      // avoid toggling twice for the same event
-      if (isToggled.value !== isOpen) {
-        toggle()
-        emit('toggleDropdown', isToggled.value)
-      }
-
-      return isToggled.value
-    }
-
-    watch(selectedItem, (newVal, oldVal): void => {
-      if (newVal !== oldVal) {
-        emit('change', newVal)
-      }
-    })
-
-    onMounted(() => {
-      if (props.items) {
-        const selectionArr = props.items.filter(item => item.selected)
-
-        if (selectionArr.length) {
-          selectedItem.value = selectionArr[0]
-        }
-      }
-    })
-
-    return {
-      boundKPopAttributes,
-      selectedItem,
-      handleSelection,
-      handleTriggerToggle,
-    }
-  },
+  }
 })
 </script>
 
