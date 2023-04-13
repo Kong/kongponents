@@ -1,3 +1,15 @@
+# [8.46.0](https://github.com/Kong/kongponents/compare/v8.45.0...v8.46.0) (2023-04-13)
+
+
+### Bug Fixes
+
+* **inputs:** support required state [khcp-6528] ([#1263](https://github.com/Kong/kongponents/issues/1263)) ([d928cb1](https://github.com/Kong/kongponents/commit/d928cb163cd27c22ff0e623797b6388a75ef8929))
+
+
+### Features
+
+* **modals:** doc differences prompt vs modal ([#1279](https://github.com/Kong/kongponents/issues/1279)) ([d3a90a3](https://github.com/Kong/kongponents/commit/d3a90a30d25e0a75b65270b8b077f1722b745a9e))
+
 # [8.45.0](https://github.com/Kong/kongponents/compare/v8.44.0...v8.45.0) (2023-04-12)
 
 
