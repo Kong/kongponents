@@ -101,7 +101,7 @@ const preventAndStopDefault = (event: Event): void => {
 }
 
 const componentType = computed((): DropdownItemRenderedType => {
-  let result: DropdownItemRenderedType = 'default'
+  let result: DropdownItemRenderedType = 'div'
 
   if (type.value === 'link' && !!to.value && !!props.disabled) {
     result = 'link'
@@ -140,9 +140,8 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
       isRounded: false,
     },
   },
-  default: {
+  div: {
     tag: 'div',
-    onClick: undefined,
     attrs: {
       class: 'k-dropdown-item-trigger',
     },
