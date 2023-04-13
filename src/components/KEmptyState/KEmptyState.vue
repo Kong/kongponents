@@ -44,8 +44,7 @@
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const props = defineProps({
+defineProps({
   isError: {
     type: Boolean,
     default: false,
