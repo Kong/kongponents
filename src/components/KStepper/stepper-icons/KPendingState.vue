@@ -17,16 +17,11 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'KPendingState',
-  props: {
-    title: {
-      type: String,
-      default: 'Pending',
-    },
+<script lang="ts" setup>
+defineProps({
+  title: {
+    type: String,
+    default: 'Pending',
   },
 })
 </script>

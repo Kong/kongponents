@@ -13,35 +13,26 @@
   </ol>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import type { StepperState } from './KStepState.vue'
+<script lang="ts" setup>
+import { PropType } from 'vue'
 import KStep from '@/components/KStepper/KStep.vue'
+import { StepItem } from '@/types'
 
-export interface StepItem {
-  label: string
-  state?: StepperState
-}
-
-export default defineComponent({
-  name: 'KStepper',
-  components: { KStep },
-  props: {
-    /**
-     * Array of steps to display
-     */
-    steps: {
-      type: Array as PropType<StepItem[]>,
-      required: true,
-      validator: (items: StepItem[]) => !items.length || items.every(i => i.label !== undefined),
-    },
-    /**
-     * Maximum width of each step's label
-     */
-    maxLabelWidth: {
-      type: String,
-      default: '',
-    },
+defineProps({
+  /**
+   * Array of steps to display
+   */
+  steps: {
+    type: Array as PropType<StepItem[]>,
+    required: true,
+    validator: (items: StepItem[]) => !items.length || items.every(i => i.label !== undefined),
+  },
+  /**
+   * Maximum width of each step's label
+   */
+  maxLabelWidth: {
+    type: String,
+    default: '',
   },
 })
 </script>

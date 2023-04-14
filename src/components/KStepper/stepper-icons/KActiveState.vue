@@ -15,16 +15,11 @@
   </svg>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'KActiveState',
-  props: {
-    title: {
-      type: String,
-      default: 'Active',
-    },
+<script lang="ts" setup>
+defineProps({
+  title: {
+    type: String,
+    default: 'Active',
   },
 })
 </script>

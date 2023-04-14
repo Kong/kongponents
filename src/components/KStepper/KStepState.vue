@@ -15,8 +15,7 @@ import KCompletedState from '@/components/KStepper/stepper-icons/KCompletedState
 import KDefaultState from '@/components/KStepper/stepper-icons/KDefaultState.vue'
 import KErrorState from '@/components/KStepper/stepper-icons/KErrorState.vue'
 import KPendingState from '@/components/KStepper/stepper-icons/KPendingState.vue'
-
-export type StepperState = '' | 'active' | 'default' | 'pending' | 'completed' | 'error'
+import { StepperState } from '@/types'
 
 export default defineComponent({
   name: 'KStepState',
