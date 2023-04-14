@@ -1,3 +1,10 @@
+# [8.48.0](https://github.com/Kong/kongponents/compare/v8.47.0...v8.48.0) (2023-04-14)
+
+
+### Features
+
+* **KEmptyState:** switch to setup syntax [KHCP-6501] ([#1284](https://github.com/Kong/kongponents/issues/1284)) ([e470482](https://github.com/Kong/kongponents/commit/e4704821e89b12a1fbb31aacf9c69777278d98dd))
+
 # [8.47.0](https://github.com/Kong/kongponents/compare/v8.46.0...v8.47.0) (2023-04-13)
 
 
