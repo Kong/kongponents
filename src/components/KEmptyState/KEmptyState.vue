@@ -40,43 +40,38 @@
   </section>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 
-export default defineComponent({
-  name: 'KEmptyState',
-  components: { KButton, KIcon },
-  props: {
-    isError: {
-      type: Boolean,
-      default: false,
-    },
-    iconSize: {
-      type: String,
-      default: '50',
-    },
-    icon: {
-      type: String,
-      default: '',
-    },
-    ctaIsHidden: {
-      type: Boolean,
-      default: false,
-    },
-    ctaText: {
-      type: String,
-      default: '',
-    },
-    handleClick: {
-      type: Function,
-      default: null,
-    },
-    iconColor: {
-      type: String,
-      default: '',
-    },
+defineProps({
+  isError: {
+    type: Boolean,
+    default: false,
+  },
+  iconSize: {
+    type: String,
+    default: '50',
+  },
+  icon: {
+    type: String,
+    default: '',
+  },
+  ctaIsHidden: {
+    type: Boolean,
+    default: false,
+  },
+  ctaText: {
+    type: String,
+    default: '',
+  },
+  handleClick: {
+    type: Function,
+    default: null,
+  },
+  iconColor: {
+    type: String,
+    default: '',
   },
 })
 </script>
