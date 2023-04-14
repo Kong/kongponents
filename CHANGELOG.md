@@ -1,3 +1,10 @@
+# [8.50.0](https://github.com/Kong/kongponents/compare/v8.49.0...v8.50.0) (2023-04-14)
+
+
+### Features
+
+* **ktable:** setup syntax [khcp-6519] ([#1267](https://github.com/Kong/kongponents/issues/1267)) ([9821bea](https://github.com/Kong/kongponents/commit/9821beae0bfa845839ac0f3a21db3f3f121b0e33))
+
 # [8.49.0](https://github.com/Kong/kongponents/compare/v8.48.0...v8.49.0) (2023-04-14)
 
 
