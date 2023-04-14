@@ -24,102 +24,52 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, PropType } from 'vue'
+<script lang="ts" setup>
+import { ref, PropType } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
+import { SegmentedControlOption } from '@/types/segmented-control'
+// need to be imported as const from separate file due to an error "defineProps are referencing locally declared variables"
+import { normalizeItems, validateItems } from '@/utilities'
 
-export interface SegmentedControlOption {
-  label?: string
-  value: string | number | boolean
-  disabled?: boolean
-}
-
-const itemsHaveRequiredProps = (items: SegmentedControlOption[]): boolean => {
-  return items.every(i => i.value !== undefined)
-}
-
-// functions used in prop validators
-const getValues = (items: SegmentedControlOption[]) => {
-  const vals:string[] = []
-  items.forEach((item: SegmentedControlOption) => vals.push(item.value + ''))
-
-  return vals
-}
-
-const itemValuesAreUnique = (items: SegmentedControlOption[]): boolean => {
-  const vals = getValues(items)
-  const uniqueValues = new Set(vals)
-
-  return vals.length === uniqueValues.size
-}
-
-const normalizeItems = (items: SegmentedControlOption[] | string[]): SegmentedControlOption[] => {
-  return items.map((item:SegmentedControlOption | string) => {
-    return {
-      label: typeof item === 'string' ? item : (item.label || (item.value + '')),
-      value: typeof item === 'string' ? item : item.value,
-      disabled: typeof item === 'string' ? false : item.disabled,
-    } as SegmentedControlOption
-  })
-}
-
-const validateItems = (items: SegmentedControlOption[] | string[]): boolean => {
-  const isStringArray = typeof items[0] === 'string'
-  const nItems = normalizeItems(items)
-  const isValid = itemValuesAreUnique(nItems)
-
-  return isStringArray ? isValid && itemsHaveRequiredProps(items as SegmentedControlOption[]) : isValid
-}
-
-export default defineComponent({
-  name: 'KSegmentedControl',
-  components: { KButton },
-  props: {
-    modelValue: {
-      type: [String, Number, Boolean],
-      required: true,
-    },
-    options: {
-      type: Array as PropType<SegmentedControlOption[] | string[]>,
-      required: true,
-      validator: (items: SegmentedControlOption[] | string[]) => !items.length || validateItems(items),
-    },
-    isDisabled: {
-      type: Boolean,
-      default: false,
-    },
-    allowPointerEvents: {
-      type: Boolean,
-      default: false,
-    },
+const props = defineProps({
+  modelValue: {
+    type: [String, Number, Boolean],
+    required: true,
   },
-  emits: ['update:modelValue', 'click'],
-  setup(props, { emit }) {
-    const selectedValue = ref(props.modelValue)
-    const normalizedOptions = ref(normalizeItems(props.options))
-
-    const getAppearance = (option: SegmentedControlOption): 'primary' | 'secondary' => {
-      return props.modelValue === option.value ? 'primary' : 'secondary'
-    }
-
-    const getDisabled = (option: SegmentedControlOption): boolean => {
-      return !!option.disabled || props.isDisabled
-    }
-
-    const handleClick = (evt: any): void => {
-      emit('click', evt.target?.name)
-      emit('update:modelValue', evt.target?.name)
-    }
-
-    return {
-      normalizedOptions,
-      selectedValue,
-      getAppearance,
-      getDisabled,
-      handleClick,
-    }
+  options: {
+    type: Array as PropType<SegmentedControlOption[] | string[]>,
+    required: true,
+    validator: (items: SegmentedControlOption[] | string[]) => !items.length || validateItems(items),
+  },
+  isDisabled: {
+    type: Boolean,
+    default: false,
+  },
+  allowPointerEvents: {
+    type: Boolean,
+    default: false,
   },
 })
+
+const emit = defineEmits<{
+  (e: 'click', event: string): void;
+  (e: 'update:modelValue', event: string): void;
+}>()
+
+const normalizedOptions = ref(normalizeItems(props.options))
+
+const getAppearance = (option: SegmentedControlOption): 'primary' | 'secondary' => {
+  return props.modelValue === option.value ? 'primary' : 'secondary'
+}
+
+const getDisabled = (option: SegmentedControlOption): boolean => {
+  return !!option.disabled || props.isDisabled
+}
+
+const handleClick = (evt: any): void => {
+  emit('click', evt.target?.name)
+  emit('update:modelValue', evt.target?.name)
+}
 </script>
 
 <style lang="scss" scoped>
