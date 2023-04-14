@@ -505,7 +505,7 @@ const defaultFetcherProps = {
   sortColumnOrder: 'desc',
   offset: null,
 }
-const data = ref<[]>([])
+const data = ref<Record<string, any>[]>([])
 const tableHeaders: Ref<TableHeader[]> = ref([])
 const total = ref(0)
 const isScrolled = ref(false)
@@ -625,7 +625,7 @@ const fetchData = async () => {
     sortColumnOrder: sortColumnOrder.value,
     offset: offset.value,
   })
-  data.value = res.data
+  data.value = res.data as Record<string, any>[]
   total.value = props.paginationTotalItems || res.total || res.data?.length
 
   if (props.paginationType === 'offset') {
@@ -849,7 +849,7 @@ const { clientSideSorter } = useUtilities()
  * @param {Array} items - the list of items to sort
  * @return {Object} an object containing the previousKey and sortOrder
  */
-export const defaultSorter = (key: string, previousKey: string, sortOrder: string, items: []): Record<string, any> => {
+export const defaultSorter = (key: string, previousKey: string, sortOrder: string, items: Record<string, any>[]): Record<string, any> => {
   return clientSideSorter(key, previousKey, sortOrder, items)
 }
 </script>
