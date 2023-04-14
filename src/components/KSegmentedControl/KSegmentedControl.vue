@@ -24,12 +24,52 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
 import { ref, PropType } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import { SegmentedControlOption } from '@/types/segmented-control'
-// need to be imported as const from separate file due to an error "defineProps are referencing locally declared variables"
-import { normalizeItems, validateItems } from '@/utilities'
+
+const itemsHaveRequiredProps = (items: SegmentedControlOption[]): boolean => {
+  return items.every(i => i.value !== undefined)
+}
+
+// functions used in prop validators
+const getValues = (items: SegmentedControlOption[]) => {
+  const vals:string[] = []
+  items.forEach((item: SegmentedControlOption) => vals.push(item.value + ''))
+
+  return vals
+}
+
+const itemValuesAreUnique = (items: SegmentedControlOption[]): boolean => {
+  const vals = getValues(items)
+  const uniqueValues = new Set(vals)
+
+  return vals.length === uniqueValues.size
+}
+
+const normalizeItems = (items: SegmentedControlOption[] | string[]): SegmentedControlOption[] => {
+  return items.map((item:SegmentedControlOption | string) => {
+    return {
+      label: typeof item === 'string' ? item : (item.label || (item.value + '')),
+      value: typeof item === 'string' ? item : item.value,
+      disabled: typeof item === 'string' ? false : item.disabled,
+    } as SegmentedControlOption
+  })
+}
+
+const validateItems = (items: SegmentedControlOption[] | string[]): boolean => {
+  const isStringArray = typeof items[0] === 'string'
+  const nItems = normalizeItems(items)
+  const isValid = itemValuesAreUnique(nItems)
+
+  return isStringArray ? isValid && itemsHaveRequiredProps(items as SegmentedControlOption[]) : isValid
+}
+
+export default {}
+</script>
+
+<script lang="ts" setup>
 
 const props = defineProps({
   modelValue: {
