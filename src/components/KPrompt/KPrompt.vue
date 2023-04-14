@@ -94,144 +94,133 @@
   </KModal>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, computed, onMounted, onBeforeUnmount } from 'vue'
+<script lang="ts" setup>
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KModal from '@/components/KModal/KModal.vue'
 
-export default defineComponent({
-  name: 'KPrompt',
-  components: { KButton, KIcon, KInput, KModal },
-  props: {
-    title: {
-      type: String,
-      default: '',
-    },
-    type: {
-      type: String,
-      default: 'info',
-      validator: (val: string): boolean => ['info', 'warning', 'danger'].includes(val),
-    },
-    message: {
-      type: String,
-      default: '',
-    },
-    actionButtonText: {
-      type: String,
-      default: 'OK',
-    },
-    cancelButtonText: {
-      type: String,
-      default: 'Cancel',
-    },
-    /**
-     * Boolean to disable action buttons while a submission is occurring. Display
-     * spinner on action button.
-     */
-    actionPending: {
-      type: Boolean,
-      default: false,
-    },
-    isVisible: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Use this prop to require a confirmation string be typed correctly
-     * before the submit button will be enabled.
-     */
-    confirmationText: {
-      type: String,
-      default: '',
-    },
-    preventProceedOnEnter: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Options to be passed to tabbable
-     */
-    tabbableOptions: {
-      type: Object,
-      default: () => ({}),
-    },
+const props = defineProps({
+  title: {
+    type: String,
+    default: '',
   },
-  emits: ['canceled', 'proceed'],
-  setup(props, { emit }) {
-    const confirmationInput = ref('')
-
-    const close = (): void => {
-      confirmationInput.value = ''
-      emit('canceled')
-    }
-
-    const proceed = (evt: any): void => {
-      if (disableProceedButton.value) return
-
-      confirmationInput.value = ''
-      emit('proceed', evt)
-    }
-
-    const handleKeydown = (e: any) => {
-      if (props.isVisible) {
-        if (e.keyCode === 27) { // 'esc' key
-          close()
-        } else if (e.keyCode === 13) { // 'enter' key
-          if (!props.preventProceedOnEnter) {
-            proceed(e)
-          }
-        }
-      }
-    }
-
-    const capitalize = (str = ''): string => {
-      const capitalizeRegEx = /(?:^|[\s-:'"])\w/g
-      return str.replace(capitalizeRegEx, (a) => a.toUpperCase())
-    }
-
-    const displayTitle = computed((): string => {
-      if (props.title) {
-        if (props.type === 'warning') {
-          return 'Warning: ' + props.title
-        }
-
-        return props.title
-      } else if (props.type === 'info') {
-        return 'Information'
-      }
-
-      return capitalize(props.type)
-    })
-
-    const disableProceedButton = computed((): boolean => {
-      if (props.actionPending) {
-        return true
-      }
-      if (!props.confirmationText.length) {
-        return false
-      }
-      return props.confirmationText !== confirmationInput.value
-    })
-
-    onMounted(() => {
-      document.addEventListener('keydown', handleKeydown)
-    })
-
-    onBeforeUnmount(() => {
-      document.removeEventListener('keydown', handleKeydown)
-    })
-
-    return {
-      confirmationInput,
-      displayTitle,
-      disableProceedButton,
-      handleKeydown,
-      close,
-      proceed,
-    }
+  type: {
+    type: String,
+    default: 'info',
+    validator: (val: string): boolean => ['info', 'warning', 'danger'].includes(val),
   },
+  message: {
+    type: String,
+    default: '',
+  },
+  actionButtonText: {
+    type: String,
+    default: 'OK',
+  },
+  cancelButtonText: {
+    type: String,
+    default: 'Cancel',
+  },
+  /**
+   * Boolean to disable action buttons while a submission is occurring. Display
+   * spinner on action button.
+   */
+  actionPending: {
+    type: Boolean,
+    default: false,
+  },
+  isVisible: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * Use this prop to require a confirmation string be typed correctly
+   * before the submit button will be enabled.
+   */
+  confirmationText: {
+    type: String,
+    default: '',
+  },
+  preventProceedOnEnter: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * Options to be passed to tabbable
+   */
+  tabbableOptions: {
+    type: Object,
+    default: () => ({}),
+  },
+})
+const emit = defineEmits<{
+  (e: 'canceled'): void;
+  (e: 'proceed', event: any): void;
+}>()
+
+const confirmationInput = ref('')
+
+const close = (): void => {
+  confirmationInput.value = ''
+  emit('canceled')
+}
+
+const proceed = (evt: any): void => {
+  if (disableProceedButton.value) return
+
+  confirmationInput.value = ''
+  emit('proceed', evt)
+}
+
+const handleKeydown = (e: any) => {
+  if (props.isVisible) {
+    if (e.keyCode === 27) { // 'esc' key
+      close()
+    } else if (e.keyCode === 13) { // 'enter' key
+      if (!props.preventProceedOnEnter) {
+        proceed(e)
+      }
+    }
+  }
+}
+
+const capitalize = (str = ''): string => {
+  const capitalizeRegEx = /(?:^|[\s-:'"])\w/g
+  return str.replace(capitalizeRegEx, (a) => a.toUpperCase())
+}
+
+const displayTitle = computed((): string => {
+  if (props.title) {
+    if (props.type === 'warning') {
+      return 'Warning: ' + props.title
+    }
+
+    return props.title
+  } else if (props.type === 'info') {
+    return 'Information'
+  }
+
+  return capitalize(props.type)
+})
+
+const disableProceedButton = computed((): boolean => {
+  if (props.actionPending) {
+    return true
+  }
+  if (!props.confirmationText.length) {
+    return false
+  }
+  return props.confirmationText !== confirmationInput.value
+})
+
+onMounted(() => {
+  document.addEventListener('keydown', handleKeydown)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('keydown', handleKeydown)
 })
 </script>
 
