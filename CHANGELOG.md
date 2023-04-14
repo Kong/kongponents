@@ -1,3 +1,10 @@
+# [8.49.0](https://github.com/Kong/kongponents/compare/v8.48.0...v8.49.0) (2023-04-14)
+
+
+### Features
+
+* **KPrompt:** switch to setup syntax [KHCP-6512] ([#1285](https://github.com/Kong/kongponents/issues/1285)) ([d28409b](https://github.com/Kong/kongponents/commit/d28409b077a4f7bb88d5356195def085532ba7f2))
+
 # [8.48.0](https://github.com/Kong/kongponents/compare/v8.47.0...v8.48.0) (2023-04-14)
 
 
