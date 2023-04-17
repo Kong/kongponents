@@ -1,3 +1,10 @@
+## [8.50.1](https://github.com/Kong/kongponents/compare/v8.50.0...v8.50.1) (2023-04-17)
+
+
+### Bug Fixes
+
+* **deps:** externalize vue-router ([#1289](https://github.com/Kong/kongponents/issues/1289)) ([252e709](https://github.com/Kong/kongponents/commit/252e709e972908a06a769dc870211c004a9e68e5))
+
 # [8.50.0](https://github.com/Kong/kongponents/compare/v8.49.0...v8.50.0) (2023-04-14)
 
 

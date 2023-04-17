@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "8.50.0",
+  "version": "8.50.1",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -63,7 +63,8 @@
   },
   "peerDependencies": {
     "axios": "^0.27.2",
-    "vue": ">= 3.2.37"
+    "vue": ">= 3.2.37",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.7",
