@@ -5,7 +5,7 @@ export default defineConfig({
   component: {
     env: {
       FAIL_FAST_ENABLED: true,
-      FAIL_FAST_STRATEGY: 'spec',
+      FAIL_FAST_STRATEGY: 'run',
     },
     devServer: {
       framework: 'vue',
