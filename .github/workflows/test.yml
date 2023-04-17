@@ -94,13 +94,13 @@ jobs:
           git config user.email "konnectx-engineers+kongponents-bot@konghq.com"
           git config user.name "Kong UI Bot"
 
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-
           preid="pr.${{ github.event.pull_request.number }}.$(git rev-parse --short ${{ github.event.pull_request.head.sha }})"
           tag="pr-${{ github.event.pull_request.number }}"
           echo "preid=${preid}"
 
           git checkout ${{ github.head_ref }}
+
+          echo "//registry.npmjs.org/:_authToken=${secrets.NPM_TOKEN}" > .npmrc
 
           yarn version --prerelease --preid ${preid} --allow-branch ${{ github.head_ref }} --no-git-tag-version  --yes --amend
 
