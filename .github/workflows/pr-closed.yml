@@ -30,7 +30,7 @@ jobs:
 
           prNumber="${{github.event.number}}"
 
-          pkgName="@kong/kong-auth-elements"
+          pkgName="@kong/kongponents"
 
           npm dist-tag rm "${pkgName}" "pr-${prNumber}" || true
 
