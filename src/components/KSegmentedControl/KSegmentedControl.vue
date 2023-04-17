@@ -25,14 +25,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, PropType } from 'vue'
+import { ref, PropType } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
-
-export interface SegmentedControlOption {
-  label?: string
-  value: string | number | boolean
-  disabled?: boolean
-}
+import { SegmentedControlOption } from '@/types/segmented-control'
 
 const itemsHaveRequiredProps = (items: SegmentedControlOption[]): boolean => {
   return items.every(i => i.value !== undefined)
@@ -71,55 +66,50 @@ const validateItems = (items: SegmentedControlOption[] | string[]): boolean => {
   return isStringArray ? isValid && itemsHaveRequiredProps(items as SegmentedControlOption[]) : isValid
 }
 
-export default defineComponent({
-  name: 'KSegmentedControl',
-  components: { KButton },
-  props: {
-    modelValue: {
-      type: [String, Number, Boolean],
-      required: true,
-    },
-    options: {
-      type: Array as PropType<SegmentedControlOption[] | string[]>,
-      required: true,
-      validator: (items: SegmentedControlOption[] | string[]) => !items.length || validateItems(items),
-    },
-    isDisabled: {
-      type: Boolean,
-      default: false,
-    },
-    allowPointerEvents: {
-      type: Boolean,
-      default: false,
-    },
+export default {}
+</script>
+
+<script lang="ts" setup>
+
+const props = defineProps({
+  modelValue: {
+    type: [String, Number, Boolean],
+    required: true,
   },
-  emits: ['update:modelValue', 'click'],
-  setup(props, { emit }) {
-    const selectedValue = ref(props.modelValue)
-    const normalizedOptions = ref(normalizeItems(props.options))
-
-    const getAppearance = (option: SegmentedControlOption): 'primary' | 'secondary' => {
-      return props.modelValue === option.value ? 'primary' : 'secondary'
-    }
-
-    const getDisabled = (option: SegmentedControlOption): boolean => {
-      return !!option.disabled || props.isDisabled
-    }
-
-    const handleClick = (evt: any): void => {
-      emit('click', evt.target?.name)
-      emit('update:modelValue', evt.target?.name)
-    }
-
-    return {
-      normalizedOptions,
-      selectedValue,
-      getAppearance,
-      getDisabled,
-      handleClick,
-    }
+  options: {
+    type: Array as PropType<SegmentedControlOption[] | string[]>,
+    required: true,
+    validator: (items: SegmentedControlOption[] | string[]) => !items.length || validateItems(items),
+  },
+  isDisabled: {
+    type: Boolean,
+    default: false,
+  },
+  allowPointerEvents: {
+    type: Boolean,
+    default: false,
   },
 })
+
+const emit = defineEmits<{
+  (e: 'click', event: string): void;
+  (e: 'update:modelValue', event: string): void;
+}>()
+
+const normalizedOptions = ref(normalizeItems(props.options))
+
+const getAppearance = (option: SegmentedControlOption): 'primary' | 'secondary' => {
+  return props.modelValue === option.value ? 'primary' : 'secondary'
+}
+
+const getDisabled = (option: SegmentedControlOption): boolean => {
+  return !!option.disabled || props.isDisabled
+}
+
+const handleClick = (evt: any): void => {
+  emit('click', evt.target?.name)
+  emit('update:modelValue', evt.target?.name)
+}
 </script>
 
 <style lang="scss" scoped>
