@@ -26,8 +26,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import KPop, { placements } from '@/components/KPop/KPop.vue'
+import { computed, PropType, ref } from 'vue'
+import KPop from '@/components/KPop/KPop.vue'
+import { PopPlacementsArray, PopPlacements } from '@/types'
 
 const props = defineProps({
   /**
@@ -43,10 +44,10 @@ const props = defineProps({
      * Define which side the tooltip displays
      */
   placement: {
-    type: String,
+    type: String as PropType<PopPlacements>,
     default: 'bottom',
-    validator: (value: string):boolean => {
-      return Object.keys(placements).includes(value)
+    validator: (value: PopPlacements):boolean => {
+      return PopPlacementsArray.includes(value)
     },
   },
   /**
@@ -73,13 +74,24 @@ const props = defineProps({
 })
 
 const className = ref('')
-const computedClass = computed((): any => {
-  return {
-    top: 'mb-2',
-    right: 'ml-2',
-    bottom: 'mt-2',
-    left: 'mr-2',
-  }[props.placement]
+const computedClass = computed((): string => {
+  let result = ''
+  switch (props.placement) {
+    case 'top':
+      result = 'mb-2'
+      break
+    case 'right':
+      result = 'ml-2'
+      break
+    case 'bottom':
+      result = 'mt-2'
+      break
+    case 'left':
+      result = 'mr-2'
+      break
+  }
+
+  return result
 })
 </script>
 

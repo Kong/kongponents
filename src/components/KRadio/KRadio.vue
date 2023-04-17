@@ -30,7 +30,8 @@
 </template>
 
 <script lang="ts">
-import { computed, useAttrs, useSlots } from 'vue'
+import { computed, useAttrs, useSlots, PropType } from 'vue'
+import { RadioTypes, RadioTypesArray } from '@/types'
 
 export default {
   inheritAttrs: false,
@@ -38,6 +39,7 @@ export default {
 </script>
 
 <script setup lang="ts">
+
 const props = defineProps({
   /**
    * Sets whether or not radio is selected
@@ -72,11 +74,9 @@ const props = defineProps({
    * Controls appearance of radio input element
    */
   type: {
-    type: String,
+    type: String as PropType<RadioTypes>,
     default: 'radio',
-    validator: (value: string): boolean => {
-      return ['radio', 'card'].includes(value)
-    },
+    validator: (value: RadioTypes): boolean => RadioTypesArray.includes(value),
   },
 })
 
@@ -89,7 +89,10 @@ const isSelected = computed((): boolean => props.selectedValue === props.modelVa
 
 const isTypeDefault = computed((): boolean => props.type === 'radio')
 
-const emit = defineEmits(['change', 'update:modelValue'])
+const emit = defineEmits<{
+  (e: 'change', value: string | boolean | number | object): void;
+  (e: 'update:modelValue', value: string | boolean | number | object): void;
+}>()
 
 const handleClick = (): void => {
   emit('change', props.selectedValue)

@@ -114,29 +114,14 @@
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import { v1 as uuidv1 } from 'uuid'
 import Popper from 'popper.js'
 import useUtilities from '@/composables/useUtilities'
 import KButton from '@/components/KButton/KButton.vue'
+import { PopPlacements, PopPlacementsArray, PopTrigger, PopTriggerArray } from '@/types'
 
 const { getSizeFromString } = useUtilities()
-
-export const placements = {
-  auto: 'auto',
-  top: 'top',
-  topStart: 'top-start',
-  topEnd: 'top-end',
-  left: 'left',
-  leftStart: 'left-start',
-  leftEnd: 'left-end',
-  right: 'right',
-  rightStart: 'right-start',
-  rightEnd: 'right-end',
-  bottom: 'bottom',
-  bottomStart: 'bottom-start',
-  bottomEnd: 'bottom-end',
-}
 
 export default defineComponent({
   name: 'KPop',
@@ -177,10 +162,8 @@ export default defineComponent({
      * 'top' | 'bottom' | 'left' | 'right'
      */
     placement: {
-      type: String,
-      validator: (value: string): boolean => {
-        return Object.keys(placements).includes(value)
-      },
+      type: String as PropType<PopPlacements>,
+      validator: (value: PopPlacements): boolean => PopPlacementsArray.includes(value),
       default: 'auto',
     },
     /**
@@ -188,11 +171,9 @@ export default defineComponent({
      * 'click' | 'hover'
      */
     trigger: {
-      type: String,
+      type: String as PropType<PopTrigger>,
       default: 'click',
-      validator: (value: string): boolean => {
-        return ['click', 'hover'].includes(value)
-      },
+      validator: (value: PopTrigger): boolean => PopTriggerArray.includes(value),
     },
     /**
      * The width of the Popover body
@@ -374,9 +355,11 @@ export default defineComponent({
       // destroy any previous poppers before creating new one
       this.destroy()
       this.showPopper()
-      const placement = placements[this.placement] ? placements[this.placement] : 'auto'
+      const placement = this.placement || 'auto'
       const popperEl = this.$refs.popper
-      const theTarget = this.target && !this.isSvg && !!document.querySelector(this.target) ? document.querySelector(this.target) : document.getElementById(this.targetId)
+      const theTarget = (this.target && !this.isSvg && !!document.querySelector(this.target))
+        ? document.querySelector(this.target)
+        : document.getElementById(this.targetId)
 
       if (theTarget) {
         theTarget.appendChild(popperEl)

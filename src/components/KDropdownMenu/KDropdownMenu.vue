@@ -71,7 +71,7 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, PropType, Ref, ref, watch } from 'vue'
-import { Appearance, AppearanceArray, ButtonAppearance, DropdownItem } from '@/types'
+import { Appearance, AppearanceArray, ButtonAppearance, DropdownItem, PopPlacements } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
 import Kooltip from '@/components/KTooltip/KTooltip.vue'
 import KPop from '@/components/KPop/KPop.vue'
@@ -151,7 +151,7 @@ const defaultKPopAttributes = {
   popoverClasses: 'k-dropdown-popover mt-1',
   popoverTimeout: 0,
   positionFixed: true,
-  placement: 'bottomStart',
+  placement: 'bottomStart' as PopPlacements,
 }
 
 const boundKPopAttributes = {
