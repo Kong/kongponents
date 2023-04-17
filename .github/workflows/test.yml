@@ -65,14 +65,14 @@ jobs:
         if: failure()
         with:
           name: cypress-screenshots
-          path: cypress/screenshots/
+          path: cypress/screenshots
 
       - name: Upload Cypress videos (always)
         uses: actions/upload-artifact@v3
-        if: always()
+        if: failure()
         with:
           name: cypress-videos
-          path: cypress/videos/
+          path: cypress/videos
 
       - name: Build components and docs
         run: yarn build

@@ -55,7 +55,7 @@ const largeDataSet = [
  */
 
 describe('KCatalog', () => {
-  function getItems(count) {
+  function getItems(count: number) {
     const myItems = []
 
     for (let i = 0; i < count; i++) {
