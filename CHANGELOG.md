@@ -1,3 +1,10 @@
+# [8.51.0](https://github.com/Kong/kongponents/compare/v8.50.1...v8.51.0) (2023-04-17)
+
+
+### Features
+
+* **KSegmentedControl:** switch to setup syntax [KHCP-6514] ([#1286](https://github.com/Kong/kongponents/issues/1286)) ([c4a602a](https://github.com/Kong/kongponents/commit/c4a602aabaa1090731c6e143909215a7e3391a2e))
+
 ## [8.50.1](https://github.com/Kong/kongponents/compare/v8.50.0...v8.50.1) (2023-04-17)
 
 
