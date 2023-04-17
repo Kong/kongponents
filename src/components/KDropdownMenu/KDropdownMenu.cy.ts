@@ -145,7 +145,7 @@ describe('KDropdownMenu', () => {
     cy.get('.k-dropdown-popover').should('contain.html', itemSlotContent)
   })
 
-  it('correctly renders dividers on all item types', () => {
+  it.only('correctly renders dividers on all item types', () => {
     const itemSlotContent = `
     <KDropdownItem has-divider :item="{ label: 'A link', to: { path: '/' } }" />
     <KDropdownItem has-divider @click="() => {}">
@@ -181,16 +181,19 @@ describe('KDropdownMenu', () => {
     </KDropdownItem>`
 
     mount(KDropdownMenu, {
-      components: {
-        KDropdownItem,
-      },
       props: {
         testMode: true,
         label: 'Click me',
+        class: 'test-dropdown',
       },
       slots: {
         items: itemSlotContent,
         default: h('button', {}, 'hello'),
+      },
+      global: {
+        components: {
+          KDropdownItem,
+        },
       },
     })
 
@@ -198,7 +201,7 @@ describe('KDropdownMenu', () => {
     triggerBtn.click()
     cy.getTestId('k-dropdown-list').should('be.visible')
 
-    cy.get('.k-dropdown-item').should('have.length', 5)
-    cy.get('.has-divider').should('have.length', 5)
+    cy.getTestId('k-dropdown-list').eq(0).find('.k-dropdown-item').should('have.length', 5)
+    cy.getTestId('k-dropdown-list').eq(0).find('.has-divider').should('have.length', 5)
   })
 })
