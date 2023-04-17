@@ -157,8 +157,8 @@ const props = defineProps({
   },
 })
 const emit = defineEmits<{
-  (e: 'canceled'): void;
-  (e: 'proceed', event: Event): void;
+  (e: 'canceled'): void
+  (e: 'proceed', event: Event): void
 }>()
 
 const confirmationInput = ref('')

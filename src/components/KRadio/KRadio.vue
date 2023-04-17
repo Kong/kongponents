@@ -39,7 +39,6 @@ export default {
 </script>
 
 <script setup lang="ts">
-
 const props = defineProps({
   /**
    * Sets whether or not radio is selected
@@ -90,8 +89,8 @@ const isSelected = computed((): boolean => props.selectedValue === props.modelVa
 const isTypeDefault = computed((): boolean => props.type === 'radio')
 
 const emit = defineEmits<{
-  (e: 'change', value: string | boolean | number | object): void;
-  (e: 'update:modelValue', value: string | boolean | number | object): void;
+  (e: 'change', value: string | boolean | number | object): void
+  (e: 'update:modelValue', value: string | boolean | number | object): void
 }>()
 
 const handleClick = (): void => {

@@ -265,7 +265,6 @@ export type DropdownFooterTextPosition = 'sticky' | 'static'
 </script>
 
 <script setup lang="ts">
-
 const { getSizeFromString, stripRequiredLabel } = useUtilities()
 
 const defaultKPopAttributes = {

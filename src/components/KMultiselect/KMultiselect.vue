@@ -277,7 +277,6 @@ export default {
 </script>
 
 <script setup lang="ts">
-
 const attrs = useAttrs()
 const { getSizeFromString, cloneDeep, stripRequiredLabel } = useUtilities()
 const SELECTED_ITEMS_SINGLE_LINE_HEIGHT = 34
