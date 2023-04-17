@@ -2,15 +2,16 @@ import { defineConfig } from 'cypress'
 import failFast from 'cypress-fail-fast/plugin'
 
 export default defineConfig({
-  env: {
-    FAIL_FAST_ENABLED: true,
-  },
   component: {
+    env: {
+      FAIL_FAST_ENABLED: true,
+      FAIL_FAST_STRATEGY: 'spec',
+    },
     devServer: {
       framework: 'vue',
       bundler: 'vite',
     },
-    setupNodeEvents(on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions) {
+    setupNodeEvents(on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions): Cypress.PluginConfigOptions {
       failFast(on, config)
 
       return config
