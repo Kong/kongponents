@@ -1,3 +1,10 @@
+## [8.51.1](https://github.com/Kong/kongponents/compare/v8.51.0...v8.51.1) (2023-04-18)
+
+
+### Bug Fixes
+
+* **KMultiselect:** fix collapsed item count [MA-1506] ([#1297](https://github.com/Kong/kongponents/issues/1297)) ([547c405](https://github.com/Kong/kongponents/commit/547c405bf4545418285a19af5a2ee89ba8eccd06))
+
 # [8.51.0](https://github.com/Kong/kongponents/compare/v8.50.1...v8.51.0) (2023-04-17)
 
 
