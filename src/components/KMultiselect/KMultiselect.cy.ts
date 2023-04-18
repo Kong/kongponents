@@ -321,6 +321,65 @@ describe('KMultiselect', () => {
     })
   })
 
+  it('counts invisible selected items correctly', () => {
+    const allItems = Array.from(new Array(100)).map((_, i) => ({
+      label: `Item ${i}`,
+      value: `${i}`,
+    }))
+
+    const onQueryChange = cy.spy().as('onQueryChange')
+
+    const selected = (Array.from(new Array(10)).map((_, i) => `${i}`))
+
+    const items = (allItems.slice(0, 10))
+
+    mount(KMultiselect, {
+      props: {
+        testMode: true,
+        autosuggest: true,
+        collapsedContext: true,
+        selectedRowCount: 1,
+        modelValue: selected,
+        loading: false,
+        items,
+        onQueryChange,
+      },
+    })
+
+    cy.get('[data-testid="k-multiselect-trigger"]')
+      .click('topRight')
+      .then(() => {
+        cy.get('[data-testid="k-multiselect-selections"] > div .k-badge-text')
+          .last()
+          .should(($el) => {
+            const text = $el.text()
+
+            expect(text.trim()).to.equal('+7')
+          })
+      })
+      .then(() => {
+        cy.get('input').focus()
+      })
+      .then(() => {
+        cy.get('@onQueryChange').should('have.been.calledWith', '')
+        Cypress.vueWrapper.setProps({
+          items: allItems.slice(5, 20),
+        })
+      })
+      .then(() => {
+        cy.get('input').type('{esc}')
+      })
+      .then(() => {
+        cy.get('[data-testid="k-multiselect-selections"] > div .k-badge-text')
+          .last()
+          .should(($el) => {
+            const text = $el.text()
+
+            expect(text.trim()).to.equal('+7')
+          })
+      })
+  })
+
   it('always shows selections when expandSelected is true', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
