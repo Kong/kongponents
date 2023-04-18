@@ -455,6 +455,7 @@ const sortedItems: Ref<MultiselectItem[]> = ref([])
 const selectedItems = ref<MultiselectItem[]>([])
 const visibleSelectedItemsStaging = ref<MultiselectItem[]>([])
 const invisibleSelectedItemsStaging = ref<MultiselectItem[]>([])
+const invisibleSelectedItemsStagingSet = new Set<string>()
 const visibleSelectedItems = ref<MultiselectItem[]>([])
 const invisibleSelectedItems = ref<MultiselectItem[]>([])
 const hiddenItemsTooltip = computed(() => invisibleSelectedItems.value.map(item => item.label).join(', '))
@@ -593,7 +594,8 @@ const stageSelections = () => {
       const height = elem.clientHeight
       if (height > selectionsMaxHeight.value) {
         const item = visibleSelectedItemsStaging.value.pop()
-        if (item) {
+        if (item && !invisibleSelectedItemsStagingSet.has(item.value)) {
+          invisibleSelectedItemsStagingSet.add(item.value)
           invisibleSelectedItemsStaging.value.push(item)
         }
       }
@@ -644,7 +646,7 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
     // remove item from visibility arrays
     if (visibleSelectedItemsStaging.value.filter(anItem => anItem.value === item.value).length) {
       visibleSelectedItemsStaging.value = visibleSelectedItemsStaging.value.filter(anItem => anItem.value !== item.value)
-    } else if (invisibleSelectedItemsStaging.value.filter(anItem => anItem.value === item.value).length) {
+    } else if (invisibleSelectedItemsStagingSet.delete(item.value)) {
       invisibleSelectedItemsStaging.value = invisibleSelectedItemsStaging.value.filter(anItem => anItem.value !== item.value)
     }
     // deselect item
@@ -656,6 +658,7 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
       const itemToShow = invisibleSelectedItemsStaging.value.pop()
       if (itemToShow) {
         visibleSelectedItemsStaging.value.push(itemToShow)
+        invisibleSelectedItemsStagingSet.delete(itemToShow.value)
       }
     }
 
@@ -741,6 +744,7 @@ const clearSelection = (): void => {
   selectedItems.value = []
   visibleSelectedItemsStaging.value = []
   invisibleSelectedItemsStaging.value = []
+  invisibleSelectedItemsStagingSet.clear()
   filterStr.value = ''
   stageSelections()
 
@@ -796,8 +800,9 @@ watch(stagingKey, () => {
       const height = elem.clientHeight
       if (height > selectionsMaxHeight.value) {
         const item = visibleSelectedItemsStaging.value.pop()
-        if (item) {
+        if (item && !invisibleSelectedItemsStagingSet.has(item.value)) {
           invisibleSelectedItemsStaging.value.push(item)
+          invisibleSelectedItemsStagingSet.add(item.value)
         }
         stagingKey.value++
       } else {

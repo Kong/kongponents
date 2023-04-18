@@ -33,6 +33,12 @@ export default createRouter({
           meta: { title: 'Table Sandbox' },
           component: () => import('./pages/SandboxTable.vue'),
         },
+        {
+          path: 'multiselect',
+          name: 'multiselect',
+          meta: { title: 'Multiselect Sandbox' },
+          component: () => import('./pages/SandboxMultiselect.vue'),
+        },
       ],
     },
   ],
