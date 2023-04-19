@@ -523,7 +523,7 @@ const nextPageClicked = ref(false)
 const hasToolbarSlot = computed((): boolean => !!slots.toolbar)
 
 /**
- * To avoid requiring the consuming app to type cast if they want to use row,
+ * To avoid requiring the consuming app to typecast if they want to use `row`,
  * we will strip the types to something generic before we put it in the slot for use.
  * @param row The object to strip the type from
  */
