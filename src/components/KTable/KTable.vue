@@ -528,7 +528,7 @@ const hasToolbarSlot = computed((): boolean => !!slots.toolbar)
  * @param row The object to strip the type from
  */
 const getGeneric = (row: Record<string, any>) => {
-  return row as unknown as Object
+  return row as unknown as any
 }
 
 /**
