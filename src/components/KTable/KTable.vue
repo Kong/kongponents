@@ -625,7 +625,7 @@ const fetchData = async () => {
     sortColumnOrder: sortColumnOrder.value,
     offset: offset.value,
   })
-  data.value = res.data as Record<string, any>[]
+  data.value = res.data as any[]
   total.value = props.paginationTotalItems || res.total || res.data?.length
 
   if (props.paginationType === 'offset') {
