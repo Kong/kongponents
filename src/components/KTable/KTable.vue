@@ -159,7 +159,7 @@
             >
               <slot
                 :name="value.key"
-                :row="row"
+                :row="getGeneric(row)"
                 :row-key="rowIndex"
                 :row-value="row[value.key]"
               >
@@ -521,6 +521,15 @@ const isClickable = ref(false)
 const hasInitialized = ref(false)
 const nextPageClicked = ref(false)
 const hasToolbarSlot = computed((): boolean => !!slots.toolbar)
+
+/**
+ * To avoid requiring the consuming app to type cast if they want to use row,
+ * we will strip the types to something generic before we put it in the slot for use.
+ * @param row The object to strip the type from
+ */
+const getGeneric = (row: Record<string, any>) => {
+  return row as unknown as Object
+}
 
 /**
  * Grabs listeners from attrs matching a prefix to attach the
