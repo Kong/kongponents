@@ -94,7 +94,7 @@ jobs:
           yarn version --prerelease --preid ${preid} --allow-branch ${{ github.head_ref }} --no-git-tag-version  --yes --amend
 
           npm_instructions=""
-          rm .npmrc
+
           pkg=$(npm publish  --no-git-checks --access public --report-summary --tag "${tag}" | grep "+ "| sed 's/+ //')
 
           if [[ -z "${pkg}" ]]; then
