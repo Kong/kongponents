@@ -94,7 +94,14 @@ jobs:
           yarn version --prerelease --preid ${preid} --allow-branch ${{ github.head_ref }} --no-git-tag-version  --yes --amend
 
           npm_instructions=""
+
           pkg=$(npm publish  --no-git-checks --access public --report-summary --tag "${tag}" | grep "+ "| sed 's/+ //')
+
+          if [[ -z "${pkg}" ]]; then
+            echo "Error publishing package"
+            exit -1
+          fi
+
           npm_instructions="@$(echo ${pkg}|cut -d'@' -f2)@${tag}"
 
           echo "npm_instructions<<EOF" >> $GITHUB_ENV
