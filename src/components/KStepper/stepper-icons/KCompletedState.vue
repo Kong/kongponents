@@ -26,16 +26,11 @@
   </svg>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'KCompletedState',
-  props: {
-    title: {
-      type: String,
-      default: 'Completed',
-    },
+<script lang="ts" setup>
+defineProps({
+  title: {
+    type: String,
+    default: 'Completed',
   },
 })
 </script>

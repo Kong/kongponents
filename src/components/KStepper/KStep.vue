@@ -22,44 +22,35 @@
   </li>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
+<script lang="ts" setup>
+import { computed, PropType } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KStepState from '@/components/KStepper/KStepState.vue'
-import type { StepperState } from './KStepState.vue'
+import { StepperState } from '@/types'
 
 const { getSizeFromString } = useUtilities()
 
-export default defineComponent({
-  name: 'KStep',
-  components: { KLabel, KStepState },
-  props: {
-    label: {
-      type: String,
-      required: true,
-    },
-    state: {
-      type: String as PropType<StepperState>,
-      default: 'default',
-      validator: (value: StepperState) => ['default', 'active', 'pending', 'completed', 'error'].includes(value),
-    },
-    maxLabelWidth: {
-      type: String,
-      default: '170',
-    },
+const props = defineProps({
+  label: {
+    type: String,
+    required: true,
   },
-  setup(props) {
-    const labelStyle = computed(() => {
-      return {
-        maxWidth: getSizeFromString(props.maxLabelWidth),
-      }
-    })
+  state: {
+    type: String as PropType<StepperState>,
+    default: 'default',
+    validator: (value: StepperState) => ['default', 'active', 'pending', 'completed', 'error'].includes(value),
+  },
+  maxLabelWidth: {
+    type: String,
+    default: '170',
+  },
+})
 
-    return {
-      labelStyle,
-    }
-  },
+const labelStyle = computed(() => {
+  return {
+    maxWidth: getSizeFromString(props.maxLabelWidth),
+  }
 })
 </script>
 

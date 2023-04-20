@@ -21,16 +21,11 @@
   </svg>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'KErrorState',
-  props: {
-    title: {
-      type: String,
-      default: 'Error',
-    },
+<script lang="ts" setup>
+defineProps({
+  title: {
+    type: String,
+    default: 'Error',
   },
 })
 </script>
