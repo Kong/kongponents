@@ -15,44 +15,33 @@
             'w-100': cell === columns, // take the rest of the space
             'skeleton-cell': true
           }"
-          :width="calcWidth(cell, columns)"
+          :width="calcWidth(cell, columns || 6)"
         />
       </slot>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
 import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
 
-export default defineComponent({
-  name: 'TableSkeleton',
-  components: {
-    KSkeletonBox,
+defineProps({
+  rows: {
+    type: Number,
+    default: 6,
   },
-  props: {
-    rows: {
-      type: Number,
-      default: 6,
-    },
-    columns: {
-      type: Number,
-      default: 6,
-    },
-  },
-  setup() {
-    const calcWidth = (cell: any, columns: number): string => {
-      if ([3, 4].indexOf(cell) === -1 && cell !== columns) return '10'
-      if ([3, 4].indexOf(cell) > -1 || cell === columns) return '6'
-      return ''
-    }
-
-    return {
-      calcWidth,
-    }
+  columns: {
+    type: Number,
+    default: 6,
   },
 })
+
+const calcWidth = (cell: any, columns: number): string => {
+  if ([3, 4].indexOf(cell) === -1 && cell !== columns) return '10'
+  if ([3, 4].indexOf(cell) > -1 || cell === columns) return '6'
+  return ''
+}
+
 </script>
 
 <style lang="scss" scoped>

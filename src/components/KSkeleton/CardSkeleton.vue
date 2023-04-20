@@ -37,18 +37,13 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
 import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
 
-export default defineComponent({
-  name: 'CardSkeleton',
-  components: { KSkeletonBox },
-  props: {
-    cardCount: {
-      type: Number,
-      default: 1,
-    },
+defineProps({
+  cardCount: {
+    type: Number,
+    default: 1,
   },
 })
 </script>
