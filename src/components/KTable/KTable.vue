@@ -522,6 +522,11 @@ const hasInitialized = ref(false)
 const nextPageClicked = ref(false)
 const hasToolbarSlot = computed((): boolean => !!slots.toolbar)
 
+/**
+ * Utilize a helper function to generate the column slot name.
+ * This helps TypeScript infer the slot name in the template section so that the slot props can be resolved.
+ * @param {string} columnKey The column.key
+ */
 const getColumnSlotName = (columnKey: string): TableColumnSlotName => {
   return `column-${columnKey}`
 }
