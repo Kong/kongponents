@@ -16,3 +16,11 @@ export interface TableHeader {
   hideLabel?: boolean
   useSortHandlerFn?: boolean
 }
+
+/**
+ * Provide a type interface for KTable `column-*` slot names.
+ *
+ * This helps TypeScript infer the slot name in the template section so that
+ * the slot props can be resolved.
+ */
+export type TableColumnSlotName = `column-${string}`

@@ -121,8 +121,8 @@
             >
               <span class="d-flex align-items-center">
                 <slot
-                  :column="column"
-                  :name="`column-${column.key}`"
+                  :column="getGeneric(column)"
+                  :name="getColumnSlotName(column.key)"
                 >
                   <span :class="{'sr-only': column.hideLabel}">
                     {{ column.label ? column.label : column.key }}
@@ -159,7 +159,7 @@
             >
               <slot
                 :name="value.key"
-                :row="row"
+                :row="getGeneric(row)"
                 :row-key="rowIndex"
                 :row-value="row[value.key]"
               >
@@ -202,7 +202,7 @@ import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
-import type { TablePreferences, TablePaginationType, TableHeader } from '@/types'
+import type { TablePreferences, TablePaginationType, TableHeader, TableColumnSlotName } from '@/types'
 
 const { useDebounce, useRequest } = useUtilities()
 
@@ -521,6 +521,24 @@ const isClickable = ref(false)
 const hasInitialized = ref(false)
 const nextPageClicked = ref(false)
 const hasToolbarSlot = computed((): boolean => !!slots.toolbar)
+
+/**
+ * Utilize a helper function to generate the column slot name.
+ * This helps TypeScript infer the slot name in the template section so that the slot props can be resolved.
+ * @param {string} columnKey The column.key
+ */
+const getColumnSlotName = (columnKey: string): TableColumnSlotName => {
+  return `column-${columnKey}`
+}
+
+/**
+ * To avoid requiring the consuming app to typecast if they want to use `row` or `column`
+ * we strip the types to something generic before we put it in the slot for use.
+ * @param obj The object to strip the type from
+ */
+const getGeneric = (obj: Record<string, any>): any => {
+  return obj as unknown as any
+}
 
 /**
  * Grabs listeners from attrs matching a prefix to attach the
