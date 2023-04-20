@@ -362,9 +362,9 @@ $fullscreen-modal-padding: 64px;
   padding-top: 0;
 
   .body-header {
-    font-size: 32px;
+    font-size: var(--type-xxxl, type(xxxl));
     font-weight: 600;
-    line-height: 32px;
+    line-height: var(--type-xxxl, type(xxxl));
     margin-bottom: -4px;
   }
 
@@ -372,7 +372,7 @@ $fullscreen-modal-padding: 64px;
     color: var(--grey-600);
     font-size: 14px;
     font-weight: 400;
-    line-height: 22px;
+    line-height: var(--type-xl, type(xl));
     margin-top: var(--spacing-md);
   }
 }
