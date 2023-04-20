@@ -273,9 +273,14 @@ $fullscreen-modal-padding: 64px;
   .k-modal-fullscreen-header-description {
     color: var(--KModalFullscreenHeaderColor, var(--black-500, color(black-500)));
     display: flex;
+    flex-direction: column;
     font-size: var(--KModalFullscreenHeaderSize, 20px);
     font-weight: var(--KModalFullscreenHeaderWeight, 600);
     justify-content: space-between;
+
+    @media only screen and (min-width: ($viewport-md)) {
+      flex-direction: row;
+    }
   }
 }
 
@@ -296,12 +301,20 @@ $fullscreen-modal-padding: 64px;
 
 .k-modal-fullscreen-title {
   display: inline-flex;
-  margin-left: 36px;
+  justify-content: center;
+  margin-bottom: var(--spacing-xs, spacing(xs));
   position: relative;
+
+  @media only screen and (min-width: ($viewport-md)) {
+    justify-content: flex-start;
+    margin-bottom: 0;
+    margin-left: 36px;
+  }
 }
 
 .k-modal-fullscreen-action {
   display: inline-flex;
+  justify-content: center;
   margin-right: var(--spacing-xl, spacing(xl));
 
   & button,
@@ -311,6 +324,10 @@ $fullscreen-modal-padding: 64px;
     height: 40px;
     line-height: 13px;
     margin-left: var(--spacing-md, spacing(md));
+  }
+
+  @media only screen and (min-width: ($viewport-md)) {
+    justify-content: flex-end;
   }
 }
 
@@ -377,11 +394,13 @@ $fullscreen-modal-padding: 64px;
 }
 
 .k-modal-fullscreen-action-buttons {
-  margin-left: auto;
-
   button,
   :deep(button) {
     margin-left: var(--spacing-md, spacing(md));
+  }
+
+  @media only screen and (min-width: ($viewport-md)) {
+    margin-left: auto;
   }
 }
 </style>
