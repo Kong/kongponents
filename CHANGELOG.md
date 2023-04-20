@@ -1,3 +1,10 @@
+# [8.52.0](https://github.com/Kong/kongponents/compare/v8.51.1...v8.52.0) (2023-04-20)
+
+
+### Features
+
+* **KStepper:** switch to setup syntax [KHCP-6518] ([#1287](https://github.com/Kong/kongponents/issues/1287)) ([160950d](https://github.com/Kong/kongponents/commit/160950d1372bc404abac02e0c089a3bf0efb7627))
+
 ## [8.51.1](https://github.com/Kong/kongponents/compare/v8.51.0...v8.51.1) (2023-04-18)
 
 
