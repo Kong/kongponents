@@ -121,7 +121,7 @@
             >
               <span class="d-flex align-items-center">
                 <slot
-                  :column="column"
+                  :column="getGeneric(column)"
                   :name="`column-${column.key}`"
                 >
                   <span :class="{'sr-only': column.hideLabel}">
@@ -523,12 +523,12 @@ const nextPageClicked = ref(false)
 const hasToolbarSlot = computed((): boolean => !!slots.toolbar)
 
 /**
- * To avoid requiring the consuming app to typecast if they want to use `row`,
- * we will strip the types to something generic before we put it in the slot for use.
- * @param row The object to strip the type from
+ * To avoid requiring the consuming app to typecast if they want to use `row` or `column`
+ * we strip the types to something generic before we put it in the slot for use.
+ * @param obj The object to strip the type from
  */
-const getGeneric = (row: Record<string, any>) => {
-  return row as unknown as any
+const getGeneric = (obj: Record<string, any>): any => {
+  return obj as unknown as any
 }
 
 /**
