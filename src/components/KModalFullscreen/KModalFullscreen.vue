@@ -243,14 +243,14 @@ $fullscreen-modal-padding: 64px;
   width: 100vw;
   z-index: 9999;
 
-  @media only screen and (min-width: ($viewport-md + 1px)) {
+  @media (min-width: ($viewport-md + 1px)) {
     padding-top: $fullscreen-modal-padding;
   }
 
   &.has-footer {
     padding-bottom: $fullscreen-modal-padding * 2;
 
-    @media only screen and (min-width: ($viewport-md + 1px)) {
+    @media (min-width: ($viewport-md + 1px)) {
       padding-bottom: $fullscreen-modal-padding;
     }
     .k-modal-fullscreen-header {
@@ -278,7 +278,7 @@ $fullscreen-modal-padding: 64px;
     font-weight: var(--KModalFullscreenHeaderWeight, 600);
     justify-content: space-between;
 
-    @media only screen and (min-width: ($viewport-md)) {
+    @media (min-width: ($viewport-md)) {
       flex-direction: row;
     }
   }
@@ -305,7 +305,7 @@ $fullscreen-modal-padding: 64px;
   margin-bottom: var(--spacing-xs, spacing(xs));
   position: relative;
 
-  @media only screen and (min-width: ($viewport-md)) {
+  @media (min-width: ($viewport-md)) {
     justify-content: flex-start;
     margin-bottom: 0;
     margin-left: 36px;
@@ -326,7 +326,7 @@ $fullscreen-modal-padding: 64px;
     margin-left: var(--spacing-md, spacing(md));
   }
 
-  @media only screen and (min-width: ($viewport-md)) {
+  @media (min-width: ($viewport-md)) {
     justify-content: flex-end;
   }
 }
@@ -337,12 +337,12 @@ $fullscreen-modal-padding: 64px;
   padding-left: var(--spacing-lg);
   padding-right: var(--spacing-lg);
 
-  @media only screen and (min-width: ($viewport-md + 1px)) {
+  @media (min-width: ($viewport-md + 1px)) {
     padding-left: 120px;
     padding-right: 120px;
   }
 
-  @media only screen and (min-width: ($screen-md + 1px)) {
+  @media (min-width: ($screen-md + 1px)) {
     padding-left: 230px;
     padding-right: 230px;
   }
@@ -350,7 +350,7 @@ $fullscreen-modal-padding: 64px;
 
 .k-modal-fullscreen-body {
   padding-bottom: var(--spacing-lg);
-  @media only screen and (min-width: ($viewport-md + 1px)) {
+  @media (min-width: ($viewport-md + 1px)) {
     padding-bottom: $fullscreen-modal-padding;
   }
 }
@@ -399,7 +399,7 @@ $fullscreen-modal-padding: 64px;
     margin-left: var(--spacing-md, spacing(md));
   }
 
-  @media only screen and (min-width: ($viewport-md)) {
+  @media (min-width: ($viewport-md)) {
     margin-left: auto;
   }
 }
