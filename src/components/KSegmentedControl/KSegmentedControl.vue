@@ -106,8 +106,10 @@ const getDisabled = (option: SegmentedControlOption): boolean => {
   return !!option.disabled || props.isDisabled
 }
 
-const handleClick = (evt: any): void => {
+const handleClick = (evt: PointerEvent): void => {
+  // @ts-ignore
   emit('click', evt.target?.name)
+  // @ts-ignore
   emit('update:modelValue', evt.target?.name)
 }
 </script>

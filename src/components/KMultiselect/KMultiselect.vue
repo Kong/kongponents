@@ -254,7 +254,7 @@ import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
 import KMultiselectItems from '@/components/KMultiselect/KMultiselectItems.vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
-import type { MultiselectItem, MultiselectFilterFnParams, DropdownFooterTextPosition } from '@/types'
+import type { MultiselectItem, MultiselectFilterFnParams, DropdownFooterTextPosition, PopPlacements } from '@/types'
 
 // functions used in prop validators
 const getValues = (items: MultiselectItem[]) => {
@@ -417,7 +417,7 @@ const isRequired = computed((): boolean => attrs.required !== undefined && Strin
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const defaultKPopAttributes = {
   hideCaret: true,
-  placement: 'bottomStart',
+  placement: 'bottomStart' as PopPlacements,
   popoverTimeout: 0,
   popoverClasses: 'k-multiselect-popover mt-0',
 }

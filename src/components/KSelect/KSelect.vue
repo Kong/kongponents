@@ -240,6 +240,7 @@ import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
 import KSelectItems from '@/components/KSelect/KSelectItems.vue'
 import KSelectItem from '@/components/KSelect/KSelectItem.vue'
+import { PopPlacements } from '@/types'
 
 export default {
   inheritAttrs: false,
@@ -269,7 +270,7 @@ const { getSizeFromString, stripRequiredLabel } = useUtilities()
 const defaultKPopAttributes = {
   popoverClasses: 'k-select-popover mt-0',
   popoverTimeout: 0,
-  placement: 'bottomStart',
+  placement: 'bottomStart' as PopPlacements,
   hideCaret: true,
 }
 

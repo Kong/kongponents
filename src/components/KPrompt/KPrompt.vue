@@ -95,11 +95,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, PropType } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KModal from '@/components/KModal/KModal.vue'
+import { PromptVariants, PromptVariantsArray } from '@/types'
 
 const props = defineProps({
   title: {
@@ -107,9 +108,9 @@ const props = defineProps({
     default: '',
   },
   type: {
-    type: String,
+    type: String as PropType<PromptVariants>,
     default: 'info',
-    validator: (val: string): boolean => ['info', 'warning', 'danger'].includes(val),
+    validator: (val: PromptVariants): boolean => PromptVariantsArray.includes(val),
   },
   message: {
     type: String,
@@ -156,8 +157,8 @@ const props = defineProps({
   },
 })
 const emit = defineEmits<{
-  (e: 'canceled'): void;
-  (e: 'proceed', event: any): void;
+  (e: 'canceled'): void
+  (e: 'proceed', event: Event): void
 }>()
 
 const confirmationInput = ref('')
@@ -167,18 +168,18 @@ const close = (): void => {
   emit('canceled')
 }
 
-const proceed = (evt: any): void => {
+const proceed = (evt: Event): void => {
   if (disableProceedButton.value) return
 
   confirmationInput.value = ''
   emit('proceed', evt)
 }
 
-const handleKeydown = (e: any) => {
+const handleKeydown = (e: KeyboardEvent) => {
   if (props.isVisible) {
-    if (e.keyCode === 27) { // 'esc' key
+    if (e.key === 'Escape') {
       close()
-    } else if (e.keyCode === 13) { // 'enter' key
+    } else if (e.key === 'Enter') {
       if (!props.preventProceedOnEnter) {
         proceed(e)
       }
