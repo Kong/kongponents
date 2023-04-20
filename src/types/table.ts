@@ -16,3 +16,5 @@ export interface TableHeader {
   hideLabel?: boolean
   useSortHandlerFn?: boolean
 }
+
+export type TableColumnSlotName = `column-${string}`

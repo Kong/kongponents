@@ -122,7 +122,7 @@
               <span class="d-flex align-items-center">
                 <slot
                   :column="getGeneric(column)"
-                  :name="`column-${column.key}`"
+                  :name="getColumnSlotName(column.key)"
                 >
                   <span :class="{'sr-only': column.hideLabel}">
                     {{ column.label ? column.label : column.key }}
@@ -202,7 +202,7 @@ import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
-import type { TablePreferences, TablePaginationType, TableHeader } from '@/types'
+import type { TablePreferences, TablePaginationType, TableHeader, TableColumnSlotName } from '@/types'
 
 const { useDebounce, useRequest } = useUtilities()
 
@@ -521,6 +521,10 @@ const isClickable = ref(false)
 const hasInitialized = ref(false)
 const nextPageClicked = ref(false)
 const hasToolbarSlot = computed((): boolean => !!slots.toolbar)
+
+const getColumnSlotName = (columnKey: string): TableColumnSlotName => {
+  return `column-${columnKey}`
+}
 
 /**
  * To avoid requiring the consuming app to typecast if they want to use `row` or `column`
