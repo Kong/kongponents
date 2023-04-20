@@ -1,3 +1,15 @@
+# [8.53.0](https://github.com/Kong/kongponents/compare/v8.52.0...v8.53.0) (2023-04-20)
+
+
+### Bug Fixes
+
+* **KTable:** loosen types passed to slots in KTable ([#1299](https://github.com/Kong/kongponents/issues/1299)) ([3c7a1bc](https://github.com/Kong/kongponents/commit/3c7a1bc6443a41c79bff3f63d898ec2d71b11797))
+
+
+### Features
+
+* **KPop, KPrompt, KRadio, KSegmentedControl:** add types [KHCP-6971] ([#1292](https://github.com/Kong/kongponents/issues/1292)) ([06079a2](https://github.com/Kong/kongponents/commit/06079a299442de6cabb437ae3a9aba86e590e85b))
+
 # [8.52.0](https://github.com/Kong/kongponents/compare/v8.51.1...v8.52.0) (2023-04-20)
 
 
