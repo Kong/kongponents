@@ -1,3 +1,15 @@
+# [8.54.0](https://github.com/Kong/kongponents/compare/v8.53.1...v8.54.0) (2023-04-21)
+
+
+### Bug Fixes
+
+* **kmodalfullscreen:** fix header layout on small screen ([#1303](https://github.com/Kong/kongponents/issues/1303)) ([ca05eb5](https://github.com/Kong/kongponents/commit/ca05eb5b7dbe94c3ffba72cc78b82e26cd8a991c))
+
+
+### Features
+
+* **KSkeleton:** switch to setup syntax [KHCP-6516] ([#1302](https://github.com/Kong/kongponents/issues/1302)) ([9b589f7](https://github.com/Kong/kongponents/commit/9b589f74ddc5b74ff7bc8b620a18f74103673b37))
+
 ## [8.53.1](https://github.com/Kong/kongponents/compare/v8.53.0...v8.53.1) (2023-04-21)
 
 
