@@ -10,11 +10,18 @@ export interface TablePreferences {
 export type TablePaginationType = 'default' | 'offset'
 
 export interface TableHeader {
-  key: string
-  label: string
-  sortable?: boolean
-  hideLabel?: boolean
-  useSortHandlerFn?: boolean
+  key: string;
+  label: string;
+  sortable?: boolean;
+  hideLabel?: boolean;
+  useSortHandlerFn?: boolean;
+  customIconPath?: string;
+  customIconHeight?: string;
+  customIconWidth?: string;
+  kIcon?: string;
+  kIconSize?: string;
+  kIconColor?: string;
+  kIconSecondaryColor?: string;
 }
 
 /**

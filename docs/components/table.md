@@ -415,6 +415,14 @@ Pass in an array of header objects for the table.
 | `sortable` | boolean | Enables or disables server-side sorting for the column (`false` by default)
 | `hideLabel`| boolean | Hides or displays the column label (useful for actions columns)
 | `useSortHandlerFn` | boolean | Uses the function passed in the [sortHandlerFn](#sorthandlerfn) prop to sort the column data instead of the default client sorter function
+| `customIconPath` | string | The path to a custom icon image source
+| `customIconHeight` | string | The height of the custom icon
+| `customIconWidth` | string | The width of the custom icon
+| `kIcon` | string | The string referencing a KIcon key from the list
+| `kIconSize` | string | The size of the KIcon
+| `kIconColor` | string | The color of the KIcon
+| `kIconSecondaryColor` | string | The secondary color of the KIcon
+
 
 ::: tip NOTE
 `sortable` columns emit a `sort` event when clicked, returns:
@@ -429,6 +437,18 @@ Pass in an array of header objects for the table.
 
 :::
 
+Example table with header icons:
+
+<KTable
+  :fetcher="tableOptionsHeaderIcons"
+  :headers="tableOptionsHeaderIconsHeaders"
+  disable-pagination
+>
+  <template #id="{ row }">
+    <span class="truncate-item">{{ row.id }}</span>
+  </template>
+</KTable>
+
 Example headers array:
 
 ```html
@@ -437,11 +457,35 @@ Example headers array:
     data() {
       return {
         headers: [
-          { key: 'name', label: 'Name', sortable: true },
-          { key: 'email', label: 'Email', sortable: true },
-          { key: 'department', label: 'department', sortable: true },
-          { key: 'start_date', label: 'Start Date', sortable: true },
-          { key: 'actions', label: '', sortable: false, hideLabel: true },
+          {
+            label: 'Project',
+            key: 'project',
+            sortable: true,
+            customIconPath: '/img/icon-jira.png',
+            customIconHeight: '18',
+            customIconWidth: '18',
+          },
+          {
+            label: 'ID',
+            key: 'id',
+            sortable: true,
+            kIcon: 'bot',
+            kIconColor: 'var(--teal-300)',
+          },
+          {
+            label: 'Team Owner',
+            key: 'team_owner',
+            sortable: true,
+            kIcon: 'team',
+            kIconColor: 'var(--blue-500)',
+            kIconSecondaryColor: 'var(--green-400)',
+          },
+          {
+            label: 'PM',
+            key: 'project_manager',
+            sortable: true,
+            kIcon: 'teamMember',
+          }
         ]
       }
     }
@@ -1585,6 +1629,12 @@ export default defineComponent({
         { label: 'Company', key: 'company' },
         { label: 'Description', key: 'description' }
       ],
+      tableOptionsHeaderIconsHeaders: [
+        { label: 'Project', key: 'project', sortable: true, customIconPath: '/img/icon-jira.png', customIconHeight: '18', customIconWidth: '18' },
+        { label: 'ID', key: 'id', sortable: true, kIcon: 'bot', kIconColor: 'var(--teal-300)' },
+        { label: 'Team Owner', key: 'team_owner', sortable: true, kIcon: 'team', kIconColor: 'var(--blue-500)', kIconSecondaryColor: 'var(--green-400)' },
+        { label: 'PM', key: 'project_manager', sortable: true, kIcon: 'teamMember' }
+      ],
       sortHandlerFnHeaders: [
         { label: 'Host', key: 'hostname', sortable: true },
         { label: 'Version', key: 'version', sortable: true },
@@ -1654,6 +1704,42 @@ export default defineComponent({
             id: '405383051040955',
             enabled: 'true'
           }
+        ]
+      }
+    },
+    tableOptionsHeaderIcons() {
+      return {
+        data: [
+          {
+            project: 'Weather Project',
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d11',
+            team_owner: 'Meteorology',
+            project_manager: 'Ollie Williams',
+          },
+          {
+            project: 'CERN Project',
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d01',
+            team_owner: 'LHC R&D',
+            project_manager: 'Fabiola Gianotti',
+          },
+          {
+            project: 'NASA Project',
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919a21',
+            team_owner: 'JPL',
+            project_manager: 'Wernher von Braun',
+          },
+          {
+            project: 'Cookie Project',
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919b67',
+            team_owner: 'Bakery Team',
+            project_manager: 'Jim Henson',
+          },
+          {
+            project: 'Technology Project',
+            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919t64',
+            team_owner: 'MIT',
+            project_manager: 'Sally Kornbluth',
+          },
         ]
       }
     },
@@ -1966,6 +2052,14 @@ export default defineComponent({
     .k-table-cell-description {
       max-width: 240px;
     }
+  }
+
+  .truncate-item {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    width: 10ch;
   }
 }
 

@@ -460,6 +460,84 @@ describe('KTable', () => {
     })
   })
 
+  describe('headers', () => {
+    const headerIconsData = [
+      {
+        project: 'Weather Project',
+        id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d11',
+        team_owner: 'Meteorology',
+      },
+      {
+        project: 'CERN Project',
+        id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d01',
+        team_owner: 'LHC R&D',
+      },
+      {
+        project: 'NASA Project',
+        id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919a21',
+        team_owner: 'JPL',
+      },
+      {
+        project: 'Cookie Project',
+        id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919b67',
+        team_owner: 'Bakery Team',
+      },
+      {
+        project: 'Technology Project',
+        id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919t64',
+        team_owner: 'MIT',
+      },
+    ]
+    const fetcher = () => new Promise((resolve) => resolve({ data: headerIconsData }))
+    const customIconHeaders = [
+      {
+        label: 'Project',
+        key: 'project',
+        sortable: true,
+        customIconPath: '/img/icon-jira.png',
+        customIconHeight: '18',
+        customIconWidth: '18',
+      },
+      { label: 'ID', key: 'id', sortable: true },
+      { label: 'Owner', key: 'team_owner', sortable: true },
+    ]
+    const kIconHeaders = [
+      {
+        label: 'Service',
+        key: 'service',
+        sortable: true,
+        kIcon: 'serviceHub',
+        kIconColor: 'var(--blue-500)',
+        kIconSecondaryColor: 'var(--green-400)',
+      },
+      { label: 'ID', key: 'id', sortable: true },
+      { label: 'Owner', key: 'team_owner', sortable: true },
+    ]
+
+    it('displays a custom icon when customIconPath prop is used', () => {
+      mount(KTable, {
+        props: {
+          testMode: true,
+          fetcher,
+          headers: customIconHeaders,
+        },
+      })
+
+      cy.get('.k-table th:first-of-type img').should('have.class', 'header-icon')
+    })
+    it('displays a kIcon when kIcon prop is used', () => {
+      mount(KTable, {
+        props: {
+          testMode: true,
+          fetcher,
+          headers: kIconHeaders,
+        },
+      })
+
+      cy.get('.k-table th:first-of-type span').should('have.class', 'header-k-icon')
+    })
+  })
+
   describe('misc', () => {
     it('triggers the internal search and revalidate after clearing the search input', () => {
       const fns = {

@@ -124,6 +124,21 @@
                   :column="getGeneric(column)"
                   :name="getColumnSlotName(column.key)"
                 >
+                  <img
+                    v-if="column.customIconPath"
+                    class="header-icon mr-2"
+                    :height="column.customIconHeight || '20'"
+                    :src="column.customIconPath"
+                    :width="column.customIconWidth || '20'"
+                  >
+                  <KIcon
+                    v-else-if="column.kIcon"
+                    class="header-k-icon mr-2"
+                    :color="column.kIconColor"
+                    :icon="column.kIcon"
+                    :secondary-color="column.kIconSecondaryColor"
+                    :size="column.kIconSize || '16'"
+                  />
                   <span :class="{'sr-only': column.hideLabel}">
                     {{ column.label ? column.label : column.key }}
                   </span>
@@ -1041,8 +1056,6 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
   thead {
     th {
       .caret {
-        position: relative;
-        top: 2px;
         transform: rotate(0deg);
       }
 
