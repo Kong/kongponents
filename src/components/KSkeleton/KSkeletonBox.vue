@@ -5,24 +5,19 @@
   />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'KSkeletonBox',
-  props: {
-    width: {
-      type: String,
-      default: '1',
-      validator: function(val: string) {
-        return ['1', '2', '5', '6', '10', '25', '50', '75', '100'].includes(val)
-      },
+<script lang="ts" setup>
+defineProps({
+  width: {
+    type: String,
+    default: '1',
+    validator: function(val: string) {
+      return ['1', '2', '5', '6', '10', '25', '50', '75', '100'].includes(val)
     },
-    height: {
-      type: String,
-      default: '1',
-      validator: (val: string) => ['1', '2'].includes(val),
-    },
+  },
+  height: {
+    type: String,
+    default: '1',
+    validator: (val: string) => ['1', '2'].includes(val),
   },
 })
 </script>

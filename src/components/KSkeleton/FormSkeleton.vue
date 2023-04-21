@@ -43,14 +43,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
 import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
-
-export default defineComponent({
-  name: 'FormSkeleton',
-  components: { KSkeletonBox },
-})
 </script>
 
 <style lang="scss" scoped>

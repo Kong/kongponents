@@ -22,51 +22,42 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, computed, onMounted, onUnmounted } from 'vue'
+<script lang="ts" setup>
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 
-export default defineComponent({
-  name: 'FullScreenGenericSpinner',
-  props: {
-    progress: {
-      type: Number,
-      default: null,
-    },
-    hideProgress: {
-      type: Boolean,
-      default: false,
-    },
+const props = defineProps({
+  progress: {
+    type: Number,
+    default: null,
   },
-  setup(props) {
-    const timer = ref(0)
-    const progressInternal = ref(0)
-    const progression = computed(() => props.progress !== null ? props.progress : progressInternal.value)
-
-    onMounted(() => {
-      // If progress is user determined, don't fire interval to simulate progress
-      if (props.progress) {
-        return
-      }
-      timer.value = setInterval(() => {
-        if (progressInternal.value >= 100) {
-          clearInterval(timer.value)
-          progressInternal.value = 100
-        }
-        progressInternal.value = Math.min(progressInternal.value + Math.ceil((Math.random() * 10) * 30), 100)
-      }, 200)
-    })
-
-    onUnmounted(() => {
-      clearInterval(timer.value)
-    })
-
-    return {
-      timer,
-      progressInternal,
-      progression,
-    }
+  hideProgress: {
+    type: Boolean,
+    default: false,
   },
 })
+
+const timer = ref(0)
+const progressInternal = ref(0)
+const progression = computed(() => props.progress !== null ? props.progress : progressInternal.value)
+
+onMounted(() => {
+  // If progress is user determined, don't fire interval to simulate progress
+  if (props.progress) {
+    return
+  }
+  timer.value = setInterval(() => {
+    if (progressInternal.value >= 100) {
+      clearInterval(timer.value)
+      progressInternal.value = 100
+    }
+    progressInternal.value = Math.min(progressInternal.value + Math.ceil((Math.random() * 10) * 30), 100)
+  }, 200)
+})
+
+onUnmounted(() => {
+  clearInterval(timer.value)
+})
+
 </script>
 
 <style lang="scss" scoped>
