@@ -1,3 +1,10 @@
+## [8.53.1](https://github.com/Kong/kongponents/compare/v8.53.0...v8.53.1) (2023-04-21)
+
+
+### Bug Fixes
+
+* **kpop:** camel case placement ([#1308](https://github.com/Kong/kongponents/issues/1308)) ([110ecd6](https://github.com/Kong/kongponents/commit/110ecd67488d1818e8c50a9d01290481e11b1bcc))
+
 # [8.53.0](https://github.com/Kong/kongponents/compare/v8.52.0...v8.53.0) (2023-04-20)
 
 
