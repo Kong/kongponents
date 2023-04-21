@@ -243,14 +243,14 @@ $fullscreen-modal-padding: 64px;
   width: 100vw;
   z-index: 9999;
 
-  @media (min-width: ($viewport-md + 1px)) {
+  @media (min-width: ($viewport-md)) {
     padding-top: $fullscreen-modal-padding;
   }
 
   &.has-footer {
     padding-bottom: $fullscreen-modal-padding * 2;
 
-    @media (min-width: ($viewport-md + 1px)) {
+    @media (min-width: ($viewport-md)) {
       padding-bottom: $fullscreen-modal-padding;
     }
     .k-modal-fullscreen-header {
@@ -337,12 +337,12 @@ $fullscreen-modal-padding: 64px;
   padding-left: var(--spacing-lg);
   padding-right: var(--spacing-lg);
 
-  @media (min-width: ($viewport-md + 1px)) {
+  @media (min-width: ($viewport-md)) {
     padding-left: 120px;
     padding-right: 120px;
   }
 
-  @media (min-width: ($screen-md + 1px)) {
+  @media (min-width: ($screen-md)) {
     padding-left: 230px;
     padding-right: 230px;
   }
@@ -350,7 +350,7 @@ $fullscreen-modal-padding: 64px;
 
 .k-modal-fullscreen-body {
   padding-bottom: var(--spacing-lg);
-  @media (min-width: ($viewport-md + 1px)) {
+  @media (min-width: ($viewport-md)) {
     padding-bottom: $fullscreen-modal-padding;
   }
 }
