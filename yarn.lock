@@ -6279,10 +6279,10 @@ rollup-plugin-visualizer@^5.9.0:
     source-map "^0.7.4"
     yargs "^17.5.1"
 
-rollup@^3.18.0:
-  version "3.20.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-3.20.0.tgz#ce7bd88449a776b9f75bf4e35959e25fbd3f51b1"
-  integrity sha512-YsIfrk80NqUDrxrjWPXUa7PWvAfegZEXHuPsEZg58fGCdjL1I9C1i/NaG+L+27kxxwkrG/QEDEQc8s/ynXWWGQ==
+rollup@^3.20.2:
+  version "3.20.7"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-3.20.7.tgz#4f045dfb388abe08dd159f8cd286dcaca1e80b28"
+  integrity sha512-P7E2zezKSLhWnTz46XxjSmInrbOCiul1yf+kJccMxT56vxjHwCbDfoLbiqFgu+WQoo9ij2PkraYaBstgB2prBA==
   optionalDependencies:
     fsevents "~2.3.2"
 
@@ -7254,14 +7254,13 @@ verror@1.10.0:
     extsprintf "^1.2.0"
 
 vite@^4.0.3, vite@^4.2.1:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-4.2.2.tgz#014c30e5163844f6e96d7fe18fbb702236516dc6"
-  integrity sha512-PcNtT5HeDxb3QaSqFYkEum8f5sCVe0R3WK20qxgIvNBZPXU/Obxs/+ubBMeE7nLWeCo2LDzv+8hRYSlcaSehig==
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-4.3.1.tgz#9badb1377f995632cdcf05f32103414db6fbb95a"
+  integrity sha512-EPmfPLAI79Z/RofuMvkIS0Yr091T2ReUoXQqc5ppBX/sjFRhHKiPPF/R46cTdoci/XgeQpB23diiJxq5w30vdg==
   dependencies:
     esbuild "^0.17.5"
     postcss "^8.4.21"
-    resolve "^1.22.1"
-    rollup "^3.18.0"
+    rollup "^3.20.2"
   optionalDependencies:
     fsevents "~2.3.2"
 
