@@ -1,3 +1,10 @@
+# [8.55.0](https://github.com/Kong/kongponents/compare/v8.54.0...v8.55.0) (2023-04-21)
+
+
+### Features
+
+* **KSelect:** switch to setup syntax for Select item [KHCP-6515] ([#1310](https://github.com/Kong/kongponents/issues/1310)) ([8574300](https://github.com/Kong/kongponents/commit/85743009616b4c37f7d30c18187c22d9219a17bc))
+
 # [8.54.0](https://github.com/Kong/kongponents/compare/v8.53.1...v8.54.0) (2023-04-21)
 
 
