@@ -418,7 +418,7 @@ Pass in an array of header objects for the table.
 | `customIconPath` | string | The path to a custom icon image source
 | `customIconHeight` | string | The height of the custom icon
 | `customIconWidth` | string | The width of the custom icon
-| `kIcon` | string | The string referencing a KIcon key from the list
+| `kIcon` | string | The string referencing a KIcon key from the [list of icons](/components/icon.html#icon-1)
 | `kIconSize` | string | The size of the KIcon
 | `kIconColor` | string | The color of the KIcon
 | `kIconSecondaryColor` | string | The secondary color of the KIcon
