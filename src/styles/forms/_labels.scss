@@ -1,6 +1,6 @@
 .k-input-label {
   color: var(--KInputLabelColor, var(--black-85));
-  display: inline-block;
+  display: inline-flex;
   font-family: var(--KInputLabelFont, var(--font-family-sans, font(sans)));
   font-size: var(--KInputLabelSize, var(--type-sm, type(sm)));
   font-weight: var(--KInputLabelWeight, 600);
