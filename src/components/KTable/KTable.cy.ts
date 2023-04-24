@@ -525,6 +525,7 @@ describe('KTable', () => {
 
       cy.get('.k-table th:first-of-type img').should('have.class', 'header-icon')
     })
+
     it('displays a kIcon when kIcon prop is used', () => {
       mount(KTable, {
         props: {
