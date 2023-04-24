@@ -240,28 +240,18 @@ import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
 import KSelectItems from '@/components/KSelect/KSelectItems.vue'
 import KSelectItem from '@/components/KSelect/KSelectItem.vue'
-import { PopPlacements } from '@/types'
+import {
+  PopPlacements,
+  SelectItem,
+  SelectFilterFnParams,
+  SelectDropdownFooterTextPosition,
+  SelectAppearance,
+  SelectAppearanceArray,
+} from '@/types'
 
 export default {
   inheritAttrs: false,
 }
-
-export interface SelectItem {
-  label: string
-  value: string | number
-  key?: string
-  selected?: boolean
-  disabled?: boolean
-  group?: string
-}
-
-export interface SelectFilterFnParams {
-  items: SelectItem[]
-  query: string
-}
-
-export type DropdownFooterTextPosition = 'sticky' | 'static'
-
 </script>
 
 <script setup lang="ts">
@@ -316,9 +306,9 @@ const props = defineProps({
    * The display style, can be either dropdown, select, or button
    */
   appearance: {
-    type: String,
+    type: String as PropType<SelectAppearance>,
     default: 'dropdown',
-    validator: (value: string) => ['dropdown', 'select', 'button'].includes(value),
+    validator: (value: SelectAppearance) => SelectAppearanceArray.includes(value),
   },
   /**
    * Override the text displayed on the button if `appearance` is `button` after an item
@@ -403,7 +393,7 @@ const props = defineProps({
    * Accepted values: 'sticky' and 'static'
    */
   dropdownFooterTextPosition: {
-    type: String as PropType<DropdownFooterTextPosition>,
+    type: String as PropType<SelectDropdownFooterTextPosition>,
     default: 'sticky',
   },
   /**
@@ -416,7 +406,13 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['selected', 'input', 'change', 'update:modelValue', 'query-change'])
+const emit = defineEmits<{
+  (e: 'selected', item: SelectItem): void
+  (e: 'input', value: string | number | null): void
+  (e: 'change', item: SelectItem | null): void
+  (e: 'update:modelValue', value: string | number | null): void
+  (e: 'query-change', value: string): void
+}>()
 
 const attrs = useAttrs()
 const slots = useSlots()
@@ -537,7 +533,8 @@ const selectButtonText = computed((): string => {
 
 const isClearVisible = computed((): boolean => props.appearance === 'select' && props.clearable && !!selectedItem.value)
 
-const hasCustomSelectedItem = computed((): boolean => !!(selectedItem.value && props.appearance === 'select' && (slots['selected-item-template'] || (props.reuseItemTemplate && slots['item-template']))))
+const hasCustomSelectedItem = computed((): boolean => !!(selectedItem.value && props.appearance === 'select' &&
+  (slots['selected-item-template'] || (props.reuseItemTemplate && slots['item-template']))))
 
 const onInputKeypress = (event: Event) => {
   // If filters are not enabled, ignore any keypresses

@@ -6,18 +6,19 @@
 </template>
 
 <script lang="ts" setup>
+import { PropType } from 'vue'
+import { SkeletonBoxHeight, SkeletonBoxHeightArray, SkeletonBoxWidth, SkeletonBoxWidthArray } from '@/types'
+
 defineProps({
   width: {
-    type: String,
+    type: String as PropType<SkeletonBoxWidth>,
     default: '1',
-    validator: function(val: string) {
-      return ['1', '2', '5', '6', '10', '25', '50', '75', '100'].includes(val)
-    },
+    validator: (val: SkeletonBoxWidth) => SkeletonBoxWidthArray.includes(val),
   },
   height: {
-    type: String,
+    type: String as PropType<SkeletonBoxHeight>,
     default: '1',
-    validator: (val: string) => ['1', '2'].includes(val),
+    validator: (val: SkeletonBoxHeight) => SkeletonBoxHeightArray.includes(val),
   },
 })
 </script>

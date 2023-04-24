@@ -1,32 +1,45 @@
 <template>
   <div class="k-step-state px-3">
-    <KActiveState v-if="state === 'active'" />
-    <KCompletedState v-else-if="state === 'completed'" />
-    <KErrorState v-else-if="state === 'error'" />
-    <KPendingState v-else-if="state === 'pending'" />
-    <KDefaultState v-else />
+    <component :is="renderedComponent" />
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue'
+<script lang="ts" setup>
+import { computed, PropType } from 'vue'
 import KActiveState from '@/components/KStepper/stepper-icons/KActiveState.vue'
 import KCompletedState from '@/components/KStepper/stepper-icons/KCompletedState.vue'
 import KDefaultState from '@/components/KStepper/stepper-icons/KDefaultState.vue'
 import KErrorState from '@/components/KStepper/stepper-icons/KErrorState.vue'
 import KPendingState from '@/components/KStepper/stepper-icons/KPendingState.vue'
-import { StepperState } from '@/types'
+import { StepperState, StepperStateArray } from '@/types'
 
-export default defineComponent({
-  name: 'KStepState',
-  components: { KActiveState, KCompletedState, KDefaultState, KErrorState, KPendingState },
-  props: {
-    state: {
-      type: String as PropType<StepperState>,
-      default: 'default',
-      validator: (value: StepperState) => ['default', 'active', 'pending', 'completed', 'error'].includes(value),
-    },
+const props = defineProps({
+  state: {
+    type: String as PropType<StepperState | ''>,
+    default: 'default',
+    validator: (value: StepperState) => StepperStateArray.includes(value),
   },
+})
+
+const renderedComponent = computed(() => {
+  let c = KDefaultState
+
+  switch (props.state) {
+    case 'active':
+      c = KActiveState
+      break
+    case 'completed':
+      c = KCompletedState
+      break
+    case 'error':
+      c = KErrorState
+      break
+    case 'pending':
+      c = KPendingState
+      break
+  }
+
+  return c
 })
 </script>
 

@@ -27,7 +27,7 @@ import { computed, PropType } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KStepState from '@/components/KStepper/KStepState.vue'
-import { StepperState } from '@/types'
+import { StepperState, StepperStateArray } from '@/types'
 
 const { getSizeFromString } = useUtilities()
 
@@ -37,9 +37,9 @@ const props = defineProps({
     required: true,
   },
   state: {
-    type: String as PropType<StepperState>,
+    type: String as PropType<StepperState | ''>,
     default: 'default',
-    validator: (value: StepperState) => ['default', 'active', 'pending', 'completed', 'error'].includes(value),
+    validator: (value: StepperState) => StepperStateArray.includes(value),
   },
   maxLabelWidth: {
     type: String,
