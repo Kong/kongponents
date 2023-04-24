@@ -1,3 +1,10 @@
+## [8.55.1](https://github.com/Kong/kongponents/compare/v8.55.0...v8.55.1) (2023-04-24)
+
+
+### Bug Fixes
+
+* **klabel:** tooltip trigger ([#1316](https://github.com/Kong/kongponents/issues/1316)) ([4c331b0](https://github.com/Kong/kongponents/commit/4c331b0eaa58800aeda96c254aee6bb37306b369))
+
 # [8.55.0](https://github.com/Kong/kongponents/compare/v8.54.0...v8.55.0) (2023-04-21)
 
 
