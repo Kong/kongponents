@@ -38,40 +38,34 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, onUnmounted } from 'vue'
+<script lang="ts" setup>
+import { onMounted, onUnmounted } from 'vue'
 import KCard from '@/components/KCard/KCard.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 
-export default defineComponent({
-  name: 'KSlideout',
-  components: { KCard, KIcon },
-  props: {
-    isVisible: {
-      type: Boolean,
-      default: false,
-    },
+const props = defineProps({
+  isVisible: {
+    type: Boolean,
+    default: false,
   },
-  emits: ['close'],
-  setup(props, { emit }) {
-    const handleClose = (e: any, forceClose = false): void => {
-      if ((props.isVisible && e.keyCode === 27) || forceClose) {
-        emit('close')
-      }
-    }
+})
 
-    onMounted(() => {
-      document.addEventListener('keydown', handleClose)
-    })
+const emit = defineEmits<{
+  (e: 'close'): void
+}>()
 
-    onUnmounted(() => {
-      document.removeEventListener('keydown', handleClose)
-    })
+const handleClose = (e: any, forceClose = false): void => {
+  if ((props.isVisible && e.keyCode === 27) || forceClose) {
+    emit('close')
+  }
+}
 
-    return {
-      handleClose,
-    }
-  },
+onMounted(() => {
+  document.addEventListener('keydown', handleClose)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('keydown', handleClose)
 })
 </script>
 
