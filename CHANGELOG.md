@@ -1,3 +1,10 @@
+# [8.56.0](https://github.com/Kong/kongponents/compare/v8.55.1...v8.56.0) (2023-04-25)
+
+
+### Features
+
+* **KSlideout:** switch to setup syntax [KHCP-6517] ([#1311](https://github.com/Kong/kongponents/issues/1311)) ([d921fae](https://github.com/Kong/kongponents/commit/d921faeab8b212804e6a0d22e01f69ed3b537684))
+
 ## [8.55.1](https://github.com/Kong/kongponents/compare/v8.55.0...v8.55.1) (2023-04-24)
 
 
