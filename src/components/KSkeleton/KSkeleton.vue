@@ -54,8 +54,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
+<script lang="ts" setup>
+import { onMounted, ref } from 'vue'
 import Skeleton from '@/components/KSkeleton/SkeletonBase.vue'
 import CardSkeleton from '@/components/KSkeleton/CardSkeleton.vue'
 import TableSkeleton from '@/components/KSkeleton/TableSkeleton.vue'
@@ -64,73 +64,57 @@ import FullScreenKongSkeleton from '@/components/KSkeleton/FullScreenKongSkeleto
 import FullScreenGenericSpinner from '@/components/KSkeleton/FullScreenGenericSpinner.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 
-export default defineComponent({
-  name: 'KSkeleton',
-  components: {
-    Skeleton,
-    CardSkeleton,
-    TableSkeleton,
-    FormSkeleton,
-    FullScreenKongSkeleton,
-    FullScreenGenericSpinner,
-    KIcon,
+const props = defineProps({
+  delayMilliseconds: {
+    type: Number,
+    required: false,
+    default: 0,
   },
-  props: {
-    delayMilliseconds: {
-      type: Number,
-      required: false,
-      default: 0,
-    },
-    type: {
-      type: String,
-      default: '',
-      validator: (val: string): boolean => [
-        'table',
-        'card',
-        'form',
-        'spinner',
-        'fullscreen-kong',
-        '', // default Skeleton.vue
-      ].includes(val),
-    },
-    progress: {
-      type: Number,
-      required: false,
-      default: null,
-    },
-    hideProgress: {
-      type: Boolean,
-      default: false,
-    },
-    cardCount: {
-      type: Number,
-      default: 1,
-    },
-    tableColumns: {
-      type: Number,
-      required: false,
-      default: 6,
-    },
-    tableRows: {
-      type: Number,
-      required: false,
-      default: 6,
-    },
+  type: {
+    type: String,
+    default: '',
+    validator: (val: string): boolean => [
+      'table',
+      'card',
+      'form',
+      'spinner',
+      'fullscreen-kong',
+      '', // default Skeleton.vue
+    ].includes(val),
   },
-  setup(props) {
-    const isVisible = ref(false)
-
-    onMounted(() => {
-      setTimeout(() => {
-        isVisible.value = true
-      }, props.delayMilliseconds)
-    })
-
-    return {
-      isVisible,
-    }
+  progress: {
+    type: Number,
+    required: false,
+    default: null,
+  },
+  hideProgress: {
+    type: Boolean,
+    default: false,
+  },
+  cardCount: {
+    type: Number,
+    default: 1,
+  },
+  tableColumns: {
+    type: Number,
+    required: false,
+    default: 6,
+  },
+  tableRows: {
+    type: Number,
+    required: false,
+    default: 6,
   },
 })
+
+const isVisible = ref(false)
+
+onMounted(() => {
+  setTimeout(() => {
+    isVisible.value = true
+  }, props.delayMilliseconds)
+})
+
 </script>
 
 <style lang="scss">

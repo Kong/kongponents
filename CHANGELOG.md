@@ -1,3 +1,43 @@
+# [8.56.0](https://github.com/Kong/kongponents/compare/v8.55.1...v8.56.0) (2023-04-25)
+
+
+### Features
+
+* **KSlideout:** switch to setup syntax [KHCP-6517] ([#1311](https://github.com/Kong/kongponents/issues/1311)) ([d921fae](https://github.com/Kong/kongponents/commit/d921faeab8b212804e6a0d22e01f69ed3b537684))
+
+## [8.55.1](https://github.com/Kong/kongponents/compare/v8.55.0...v8.55.1) (2023-04-24)
+
+
+### Bug Fixes
+
+* **klabel:** tooltip trigger ([#1316](https://github.com/Kong/kongponents/issues/1316)) ([4c331b0](https://github.com/Kong/kongponents/commit/4c331b0eaa58800aeda96c254aee6bb37306b369))
+
+# [8.55.0](https://github.com/Kong/kongponents/compare/v8.54.0...v8.55.0) (2023-04-21)
+
+
+### Features
+
+* **KSelect:** switch to setup syntax for Select item [KHCP-6515] ([#1310](https://github.com/Kong/kongponents/issues/1310)) ([8574300](https://github.com/Kong/kongponents/commit/85743009616b4c37f7d30c18187c22d9219a17bc))
+
+# [8.54.0](https://github.com/Kong/kongponents/compare/v8.53.1...v8.54.0) (2023-04-21)
+
+
+### Bug Fixes
+
+* **kmodalfullscreen:** fix header layout on small screen ([#1303](https://github.com/Kong/kongponents/issues/1303)) ([ca05eb5](https://github.com/Kong/kongponents/commit/ca05eb5b7dbe94c3ffba72cc78b82e26cd8a991c))
+
+
+### Features
+
+* **KSkeleton:** switch to setup syntax [KHCP-6516] ([#1302](https://github.com/Kong/kongponents/issues/1302)) ([9b589f7](https://github.com/Kong/kongponents/commit/9b589f74ddc5b74ff7bc8b620a18f74103673b37))
+
+## [8.53.1](https://github.com/Kong/kongponents/compare/v8.53.0...v8.53.1) (2023-04-21)
+
+
+### Bug Fixes
+
+* **kpop:** camel case placement ([#1308](https://github.com/Kong/kongponents/issues/1308)) ([110ecd6](https://github.com/Kong/kongponents/commit/110ecd67488d1818e8c50a9d01290481e11b1bcc))
+
 # [8.53.0](https://github.com/Kong/kongponents/compare/v8.52.0...v8.53.0) (2023-04-20)
 
 

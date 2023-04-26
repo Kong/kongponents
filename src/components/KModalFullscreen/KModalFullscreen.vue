@@ -229,7 +229,7 @@ onUnmounted(() => {
 <style lang="scss" scoped>
 @import '@/styles/variables';
 @import '@/styles/functions';
-$screen-md: 992px;
+$kmodalfullscreen-viewport-md: 992px;
 $fullscreen-modal-padding: 64px;
 
 .k-modal-fullscreen-dialog {
@@ -243,14 +243,14 @@ $fullscreen-modal-padding: 64px;
   width: 100vw;
   z-index: 9999;
 
-  @media only screen and (min-width: ($viewport-md + 1px)) {
+  @media (min-width: $viewport-md) {
     padding-top: $fullscreen-modal-padding;
   }
 
   &.has-footer {
     padding-bottom: $fullscreen-modal-padding * 2;
 
-    @media only screen and (min-width: ($viewport-md + 1px)) {
+    @media (min-width: $viewport-md) {
       padding-bottom: $fullscreen-modal-padding;
     }
     .k-modal-fullscreen-header {
@@ -273,9 +273,14 @@ $fullscreen-modal-padding: 64px;
   .k-modal-fullscreen-header-description {
     color: var(--KModalFullscreenHeaderColor, var(--black-500, color(black-500)));
     display: flex;
+    flex-direction: column;
     font-size: var(--KModalFullscreenHeaderSize, 20px);
     font-weight: var(--KModalFullscreenHeaderWeight, 600);
     justify-content: space-between;
+
+    @media (min-width: $viewport-md) {
+      flex-direction: row;
+    }
   }
 }
 
@@ -296,12 +301,20 @@ $fullscreen-modal-padding: 64px;
 
 .k-modal-fullscreen-title {
   display: inline-flex;
-  margin-left: 36px;
+  justify-content: center;
+  margin-bottom: var(--spacing-xs, spacing(xs));
   position: relative;
+
+  @media (min-width: $viewport-md) {
+    justify-content: flex-start;
+    margin-bottom: 0;
+    margin-left: 36px;
+  }
 }
 
 .k-modal-fullscreen-action {
   display: inline-flex;
+  justify-content: center;
   margin-right: var(--spacing-xl, spacing(xl));
 
   & button,
@@ -312,6 +325,10 @@ $fullscreen-modal-padding: 64px;
     line-height: 13px;
     margin-left: var(--spacing-md, spacing(md));
   }
+
+  @media (min-width: $viewport-md) {
+    justify-content: flex-end;
+  }
 }
 
 .k-modal-fullscreen-body-header,
@@ -320,12 +337,12 @@ $fullscreen-modal-padding: 64px;
   padding-left: var(--spacing-lg);
   padding-right: var(--spacing-lg);
 
-  @media only screen and (min-width: ($viewport-md + 1px)) {
+  @media (min-width: $viewport-md) {
     padding-left: 120px;
     padding-right: 120px;
   }
 
-  @media only screen and (min-width: ($screen-md + 1px)) {
+  @media (min-width: $kmodalfullscreen-viewport-md) {
     padding-left: 230px;
     padding-right: 230px;
   }
@@ -333,7 +350,7 @@ $fullscreen-modal-padding: 64px;
 
 .k-modal-fullscreen-body {
   padding-bottom: var(--spacing-lg);
-  @media only screen and (min-width: ($viewport-md + 1px)) {
+  @media (min-width: $viewport-md) {
     padding-bottom: $fullscreen-modal-padding;
   }
 }
@@ -345,9 +362,9 @@ $fullscreen-modal-padding: 64px;
   padding-top: 0;
 
   .body-header {
-    font-size: 32px;
+    font-size: var(--type-xxxl, type(xxxl));
     font-weight: 600;
-    line-height: 32px;
+    line-height: var(--type-xxxl, type(xxxl));
     margin-bottom: -4px;
   }
 
@@ -355,7 +372,7 @@ $fullscreen-modal-padding: 64px;
     color: var(--grey-600);
     font-size: 14px;
     font-weight: 400;
-    line-height: 22px;
+    line-height: var(--type-xl, type(xl));
     margin-top: var(--spacing-md);
   }
 }
@@ -377,11 +394,13 @@ $fullscreen-modal-padding: 64px;
 }
 
 .k-modal-fullscreen-action-buttons {
-  margin-left: auto;
-
   button,
   :deep(button) {
     margin-left: var(--spacing-md, spacing(md));
+  }
+
+  @media (min-width: $viewport-md) {
+    margin-left: auto;
   }
 }
 </style>

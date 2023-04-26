@@ -2,54 +2,25 @@
   <label
     class="k-input-label"
   >
+    <slot />
+    <span
+      v-if="required"
+      class="is-required"
+    >*</span>
     <KTooltip
-      v-if="help"
+      v-if="help || info"
       v-bind="tooltipAttributes"
       class="label-tooltip"
-      :label="help"
+      :label="help || info"
       position-fixed
       :test-mode="!!testMode || undefined"
     >
-      <slot />
-      <span
-        v-if="required"
-        class="is-required"
-      >*</span>
       <KIcon
         hide-title
-        icon="help"
+        :icon="help ? 'help' : 'info'"
         size="16"
       />
     </KTooltip>
-
-    <KTooltip
-      v-else-if="info"
-      v-bind="tooltipAttributes"
-      class="label-tooltip"
-      :label="info"
-      position-fixed
-      :test-mode="!!testMode || undefined"
-    >
-      <slot />
-      <span
-        v-if="required"
-        class="is-required"
-      >*</span>
-      <KIcon
-        hide-title
-        icon="info"
-        size="16"
-        view-box="0 0 16 16"
-      />
-    </KTooltip>
-
-    <span v-else>
-      <slot />
-      <span
-        v-if="required"
-        class="is-required"
-      >*</span>
-    </span>
   </label>
 </template>
 
@@ -103,6 +74,7 @@ export default defineComponent({
       &.kong-icon-help,
       &.kong-icon-info {
         cursor: pointer;
+        height: 16px;
       }
     }
 

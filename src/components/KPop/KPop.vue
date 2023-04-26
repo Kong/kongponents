@@ -355,7 +355,7 @@ export default defineComponent({
       // destroy any previous poppers before creating new one
       this.destroy()
       this.showPopper()
-      const placement = this.placement || 'auto'
+      const placement = (this.placement || 'auto').replace(/[A-Z]/g, '-$&').toLowerCase()
       const popperEl = this.$refs.popper
       const theTarget = (this.target && !this.isSvg && !!document.querySelector(this.target))
         ? document.querySelector(this.target)

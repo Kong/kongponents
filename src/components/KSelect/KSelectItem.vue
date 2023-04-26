@@ -30,37 +30,32 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
 import KIcon from '@/components/KIcon/KIcon.vue'
+import { SelectItem } from './KSelect.vue'
+import { PropType } from 'vue'
 
-export default defineComponent({
-  name: 'SelectItem',
-  components: { KIcon },
-  props: {
-    item: {
-      type: Object,
-      default: null,
-      // Items must have a label and value
-      validator: (item: Record<string, number | string | boolean>): boolean => item.label !== undefined && item.value !== undefined,
-    },
-  },
-  emits: ['selected'],
-  setup(props, { emit }) {
-    const handleClick = (e: MouseEvent): void => {
-      if (props.item.disabled) {
-        // Clicking on a disabled item should not close the dropdown
-        e.stopPropagation()
-        return
-      }
-      emit('selected', props.item)
-    }
-
-    return {
-      handleClick,
-    }
+const props = defineProps({
+  item: {
+    type: Object as PropType<SelectItem>,
+    default: null,
+    // Items must have a label and value
+    validator: (item: SelectItem): boolean => item.label !== undefined && item.value !== undefined,
   },
 })
+
+const emit = defineEmits<{
+  (e: 'selected', value: SelectItem): void;
+}>()
+
+const handleClick = (e: MouseEvent): void => {
+  if (props.item.disabled) {
+    // Clicking on a disabled item should not close the dropdown
+    e.stopPropagation()
+    return
+  }
+  emit('selected', props.item)
+}
 </script>
 
 <style lang="scss" scoped>
