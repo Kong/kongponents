@@ -1,3 +1,10 @@
+## [8.56.1](https://github.com/Kong/kongponents/compare/v8.56.0...v8.56.1) (2023-04-26)
+
+
+### Bug Fixes
+
+* **deps:** update vue-tsc to 1.5.3 ([#1325](https://github.com/Kong/kongponents/issues/1325)) ([95cb821](https://github.com/Kong/kongponents/commit/95cb821b7db95b337e858d14e9ba906e9d3c0941))
+
 # [8.56.0](https://github.com/Kong/kongponents/compare/v8.55.1...v8.56.0) (2023-04-25)
 
 
