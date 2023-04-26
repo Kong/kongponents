@@ -83,7 +83,7 @@
               :is-rounded="false"
               show-caret
               :style="widthStyle"
-              @keyup="evt => triggerFocus(evt, isToggled)"
+              @keyup="(evt: any) => triggerFocus(evt, isToggled)"
             >
               <slot
                 :item="selectedItem"
@@ -107,7 +107,7 @@
             data-testid="k-select-input"
             role="listbox"
             style="position: relative;"
-            @click="evt => {
+            @click="(evt: any) => {
               if ($attrs.disabled !== undefined && String($attrs.disabled) !== 'false') {
                 evt.stopPropagation()
               }

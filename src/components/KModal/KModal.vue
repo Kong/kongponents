@@ -8,7 +8,7 @@
   >
     <div
       class="k-modal-backdrop modal-backdrop"
-      @click="(evt) => close(false, evt)"
+      @click="(evt: any) => close(false, evt)"
     >
       <FocusTrap
         ref="focusTrap"
