@@ -49,7 +49,7 @@
             { label: 'Relative', value: 'relative' },
             { label: 'Custom', value: 'custom' }
           ]"
-          @click="selected => tabName = selected"
+          @click="(selected: string) => tabName = selected"
         />
         <!-- Single date / time or range readout -->
         <p

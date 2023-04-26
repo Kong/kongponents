@@ -4,7 +4,7 @@
       <div
         v-if="isVisible"
         class="panel-background"
-        @click="event => handleClose(event, true)"
+        @click="(event: any) => handleClose(event, true)"
       />
     </transition>
     <transition
@@ -18,7 +18,7 @@
       >
         <button
           class="close-btn"
-          @click="event => handleClose(event, true)"
+          @click="(event: any) => handleClose(event, true)"
         >
           <KIcon
             icon="close"
