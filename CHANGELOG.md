@@ -1,3 +1,10 @@
+## [8.56.2](https://github.com/Kong/kongponents/compare/v8.56.1...v8.56.2) (2023-04-27)
+
+
+### Bug Fixes
+
+* **kpop:** fix default max width according to docs ([#1330](https://github.com/Kong/kongponents/issues/1330)) ([947aaba](https://github.com/Kong/kongponents/commit/947aabafd45caa8a7cb299631c8507414c5848f4))
+
 ## [8.56.1](https://github.com/Kong/kongponents/compare/v8.56.0...v8.56.1) (2023-04-26)
 
 
