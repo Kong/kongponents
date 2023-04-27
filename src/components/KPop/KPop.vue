@@ -187,7 +187,7 @@ export default defineComponent({
      */
     maxWidth: {
       type: String,
-      default: '350',
+      default: 'auto',
     },
     /**
      * The maxHeight of the Popover body - undocumented and only used within KSelect
