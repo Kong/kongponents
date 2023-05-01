@@ -204,7 +204,7 @@ import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
 import type { TablePreferences, TablePaginationType, TableHeader, TableColumnSlotName } from '@/types'
 
-const { useDebounce, useRequest } = useUtilities()
+const { useDebounce, useRequest, useSwrvStates } = useUtilities()
 
 const props = defineProps({
   /**
@@ -632,7 +632,7 @@ const tdlisteners = computed(() => {
 const fetchData = async () => {
   const searchInput = props.searchInput
 
-  isTableLoading.value = true
+  // isTableLoading.value = true
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const res = await props.fetcher({
@@ -674,7 +674,7 @@ const fetchData = async () => {
     total.value = props.options.data.length
   }
 
-  isTableLoading.value = false
+  // isTableLoading.value = false
   nextPageClicked.value = false
 
   return res
@@ -714,18 +714,44 @@ const tableFetcherCacheKey = computed(() => {
     return ''
   }
 
-  return `k-table_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}` as string
+  // return `k-table_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}` as string
+
+  // The dynamic (changing) cache key causes swrv to not be able to track the data in the cache it has already fetched
+  // TODO: We need a way to provide the cache with unique entries without relying on a random key
+  return `k-table_${props.fetcherCacheKey}` as string
 })
 
 const query = ref('')
 const { debouncedFn: debouncedSearch, generateDebouncedFn: generateDebouncedSearch } = useDebounce((q: string) => { query.value = q }, 350)
 const search = generateDebouncedSearch(0) // generate a debounced function with zero delay (immediate)
 
-const { revalidate: _revalidate } = useRequest(
+const { revalidate: _revalidate, data: fetcherData, error: fetcherError, isValidating: fetcherIsValidating } = useRequest(
   () => tableFetcherCacheKey.value,
   () => fetchData(),
   { revalidateOnFocus: false, revalidateDebounce: 0 },
 )
+
+const { state, swrvState } = useSwrvStates(fetcherData, fetcherError, fetcherIsValidating)
+
+watch(fetcherData, () => {
+  console.log('fetcherData', fetcherData.value)
+  if (fetcherData.value?.length && !data.value.length) {
+    data.value = fetcherData.value
+  }
+}, { deep: true, immediate: true })
+
+watch(state, () => {
+  console.log('state', state.value)
+
+  switch (state.value) {
+    case swrvState.PENDING:
+      isTableLoading.value = true
+      break
+    default:
+      isTableLoading.value = false
+      break
+  }
+}, { immediate: true })
 
 const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebouncedRevalidate } = useDebounce(_revalidate, 500)
 const revalidate = generateDebouncedRevalidate(0) // generate a debounced function with zero delay (immediate)
@@ -837,8 +863,10 @@ const getTestIdString = (message: string) => {
 
 watch(() => props.searchInput, (newValue) => {
   if (newValue === '') {
+    console.log('watch:search')
     search(newValue)
   } else {
+    console.log('watch:debouncedSearch')
     debouncedSearch(newValue)
   }
 }, { immediate: true })
@@ -847,6 +875,7 @@ watch(() => [query.value, page.value, pageSize.value], ([newQuery, /* newPage */
   if (newQuery === '' && newQuery !== oldQuery) {
     revalidate()
   } else {
+    console.log('watch:debouncedRevalidate')
     debouncedRevalidate()
   }
 }, { deep: true, immediate: true })
