@@ -716,7 +716,24 @@ const tableFetcherCacheKey = computed((): string => {
     return ''
   }
 
-  return `k-table_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}` as string
+  let sortKeyStr = ''
+  if (!props.enableClientSort) {
+    sortKeyStr = `${sortColumnKey.value}_${sortColumnOrder.value}`
+  }
+
+  let searchKeyStr = ''
+  if (query.value) {
+    searchKeyStr = `${query.value}`
+  }
+
+  let paginationKeyStr = ''
+  if (!props.disablePagination) {
+    paginationKeyStr = `${page.value}_${pageSize.value}`
+  }
+
+  // DO NOT CHANGE THIS STRING
+  // This key is set specifically to allow for proper caching with SWRV
+  return `k-table_${tableId.value}_${props.fetcherCacheKey}_${paginationKeyStr}_${searchKeyStr}_${sortKeyStr}` as string
 })
 
 const query = ref('')
