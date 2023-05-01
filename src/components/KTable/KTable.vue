@@ -204,7 +204,7 @@ import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
 import type { TablePreferences, TablePaginationType, TableHeader, TableColumnSlotName } from '@/types'
 
-const { useDebounce, useRequest } = useUtilities()
+const { useDebounce, useRequest, useSwrvStates } = useUtilities()
 
 const props = defineProps({
   /**
@@ -509,7 +509,6 @@ const data = ref<Record<string, any>[]>([])
 const tableHeaders: Ref<TableHeader[]> = ref([])
 const total = ref(0)
 const isScrolled = ref(false)
-const isTableLoading = ref(true)
 const page = ref(1)
 const pageSize = ref(15)
 const filterQuery = ref('')
@@ -631,8 +630,6 @@ const tdlisteners = computed(() => {
 
 const fetchData = async () => {
   const searchInput = props.searchInput
-
-  isTableLoading.value = true
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const res = await props.fetcher({
@@ -674,7 +671,6 @@ const fetchData = async () => {
     total.value = props.options.data.length
   }
 
-  isTableLoading.value = false
   nextPageClicked.value = false
 
   return res
@@ -703,13 +699,14 @@ const initData = async () => {
     tableHeaders.value = props.options.headers
   }
 
+  // trigger setting of tableFetcherCacheKey
   hasInitialized.value = true
 }
 
 const previousOffset = computed((): string | null => offsets.value[page.value - 1])
 
-// once `initData()` finishes fetch data
-const tableFetcherCacheKey = computed(() => {
+// once `initData()` finishes set this to trigger calling _revalidate() to fetch data
+const tableFetcherCacheKey = computed((): string => {
   if (!props.fetcher || !hasInitialized.value) {
     return ''
   }
@@ -721,11 +718,17 @@ const query = ref('')
 const { debouncedFn: debouncedSearch, generateDebouncedFn: generateDebouncedSearch } = useDebounce((q: string) => { query.value = q }, 350)
 const search = generateDebouncedSearch(0) // generate a debounced function with zero delay (immediate)
 
-const { revalidate: _revalidate } = useRequest(
+// ALL fetching is done through this useRequest / _revalidate
+// don't fire until tableFetcherCacheKey is set
+const { data: stateData, error: stateError, revalidate: _revalidate, isValidating: stateIsValidating } = useRequest(
   () => tableFetcherCacheKey.value,
   () => fetchData(),
   { revalidateOnFocus: false, revalidateDebounce: 0 },
 )
+
+const { state, swrvState } = useSwrvStates(stateData, stateError, stateIsValidating)
+// we want to tie it to 'pending' since 'validating' is triggered even when pulling from cache, which should result in no loader
+const isTableLoading = computed((): boolean => state.value === swrvState.PENDING)
 
 const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebouncedRevalidate } = useDebounce(_revalidate, 500)
 const revalidate = generateDebouncedRevalidate(0) // generate a debounced function with zero delay (immediate)

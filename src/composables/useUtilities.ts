@@ -23,9 +23,10 @@ export default function useUtilities() {
       typeof useSWRV === 'function'
         ? useSWRV
         : () => ({
-          data: {},
-          error: null,
-          isValidating: false,
+          // must return refs for consistent return types
+          data: ref({}),
+          error: ref(),
+          isValidating: ref(false),
           mutate: () => ({}),
         })
 
