@@ -1,3 +1,10 @@
+## [8.56.3](https://github.com/Kong/kongponents/compare/v8.56.2...v8.56.3) (2023-05-01)
+
+
+### Bug Fixes
+
+* **deps:** bump date-fns from 2.29.3 to 2.30.0 ([#1334](https://github.com/Kong/kongponents/issues/1334)) ([b1d1797](https://github.com/Kong/kongponents/commit/b1d17972c5b24dd409e0b709cf96ba1655b1338a))
+
 ## [8.56.2](https://github.com/Kong/kongponents/compare/v8.56.1...v8.56.2) (2023-04-27)
 
 
