@@ -602,6 +602,7 @@ $margin: 6px;
 
   .k-popover {
     max-height: 90vh;
+    max-width: 350px;
     overflow: hidden;
     padding: var(--spacing-sm);
     &[x-placement^=bottom] {
