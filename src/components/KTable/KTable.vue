@@ -731,9 +731,14 @@ const tableFetcherCacheKey = computed((): string => {
     paginationKeyStr = `${page.value}_${pageSize.value}`
   }
 
+  let identifierKey = tableId.value
+  if (props.fetcherCacheKey) {
+    identifierKey = props.fetcherCacheKey
+  }
+
   // DO NOT CHANGE THIS STRING
-  // This key is set specifically to allow for proper caching with SWRV
-  return `k-table_${tableId.value}_${props.fetcherCacheKey}_${paginationKeyStr}_${searchKeyStr}_${sortKeyStr}` as string
+  // This key is set specifically with these values to allow for proper caching with SWRV
+  return `k-table_${identifierKey}_${paginationKeyStr}_${searchKeyStr}_${sortKeyStr}` as string
 })
 
 const query = ref('')
