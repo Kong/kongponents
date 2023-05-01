@@ -149,7 +149,7 @@
 
         <tbody>
           <tr
-            v-for="(row, rowIndex) in data"
+            v-for="(row, rowIndex) in tableData"
             v-bind="rowAttrs(row)"
             :key="`k-table-${tableId}-row-${rowIndex}`"
             :role="isClickable ? 'link' : null"
@@ -209,7 +209,7 @@ import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
 import type { TablePreferences, TablePaginationType, TableHeader, TableColumnSlotName } from '@/types'
 
-const { useDebounce, useRequest, useSwrvStates } = useUtilities()
+const { useDebounce, useRequest, useSwrvStates, objectsAreEqual } = useUtilities()
 
 const props = defineProps({
   /**
@@ -511,6 +511,7 @@ const defaultFetcherProps = {
   offset: null,
 }
 const data = ref<Record<string, any>[]>([])
+const tableData = ref<Record<string, any>[]>([])
 const tableHeaders: Ref<TableHeader[]> = ref([])
 const total = ref(0)
 const isScrolled = ref(false)
@@ -648,6 +649,16 @@ const fetchData = async () => {
   data.value = res.data as Record<string, any>[]
   total.value = props.paginationTotalItems || res.total || res.data?.length
 
+  // get data
+  if (props.fetcher) {
+    if (props.enableClientSort && sortColumnKey.value && sortColumnOrder.value) {
+      defaultSorter(sortColumnKey.value, '', sortColumnOrder.value, data.value)
+    }
+  } else if (props.options && props.options.data && props.options.data.length) { // support legacy props
+    data.value = props.options.data
+    total.value = props.options.data.length
+  }
+
   if (props.paginationType === 'offset') {
     if (!res.pagination?.offset) {
       offset.value = null
@@ -664,16 +675,6 @@ const fetchData = async () => {
         offsets.value.push(res.pagination.offset)
       }
     }
-  }
-
-  // get data
-  if (props.fetcher) {
-    if (props.enableClientSort && sortColumnKey.value && sortColumnOrder.value) {
-      defaultSorter(sortColumnKey.value, '', sortColumnOrder.value, data.value)
-    }
-  } else if (props.options && props.options.data && props.options.data.length) {
-    data.value = props.options.data
-    total.value = props.options.data.length
   }
 
   nextPageClicked.value = false
@@ -880,6 +881,12 @@ watch(() => [query.value, page.value, pageSize.value], ([newQuery, /* newPage */
     debouncedRevalidate()
   }
 }, { deep: true, immediate: true })
+
+watch(data.value, (newValue) => {
+  if (!objectsAreEqual(data.value, newValue)) {
+    tableData.value = newValue
+  }
+})
 
 onMounted(() => {
   initData()

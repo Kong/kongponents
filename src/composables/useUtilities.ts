@@ -244,6 +244,20 @@ export default function useUtilities() {
   }
 
   /**
+ * Check if 2 objects are equal
+ * @param {Object} a first object to compare
+ * @param {Object} b second object to compare
+ * @returns {Boolean} whether or not the objects are equal
+ */
+  const objectsAreEqual = (a: Record<string, any>, b: Record<string, any>) => {
+    try {
+      return JSON.stringify(a) === JSON.stringify(b)
+    } catch (e) {
+      return false
+    }
+  }
+
+  /**
    * For the label of a `required` input.
    * If the field is required and the label ends with an '*', strip it out.
    *
@@ -270,6 +284,7 @@ export default function useUtilities() {
     useSwrvStates,
     getSizeFromString,
     cloneDeep,
+    objectsAreEqual,
     stripRequiredLabel,
   }
 }
