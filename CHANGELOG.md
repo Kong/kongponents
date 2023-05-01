@@ -1,3 +1,10 @@
+## [8.56.4](https://github.com/Kong/kongponents/compare/v8.56.3...v8.56.4) (2023-05-01)
+
+
+### Bug Fixes
+
+* revert datetimepicker popover to original width [MA-1654] ([#1339](https://github.com/Kong/kongponents/issues/1339)) ([1916319](https://github.com/Kong/kongponents/commit/1916319b426c5acc804c2f0ebd87948cfb0eb5bb))
+
 ## [8.56.3](https://github.com/Kong/kongponents/compare/v8.56.2...v8.56.3) (2023-05-01)
 
 
