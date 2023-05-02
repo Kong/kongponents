@@ -1,4 +1,5 @@
 import { AnyElementOf } from '@/types'
+import { Component } from 'vue'
 
 export interface DropdownItem {
   label: string
@@ -18,7 +19,7 @@ export type DropdownItemType = 'link' | 'button' | 'default'
 export type DropdownItemRenderedType = 'link' | 'router-link' | 'button' | 'div'
 
 export interface DropdownItemRenderedComponent {
-  tag: string
+  tag: string | Component
   onClick?: ((event: Event) => void)
   attrs: {
     class?: string
