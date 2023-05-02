@@ -22,6 +22,7 @@
 
 <script lang="ts" setup>
 import { DropdownItem, DropdownItemRenderedRecord, DropdownItemRenderedType, DropdownItemType } from '@/types'
+import KButton from '@/components/KButton/KButton.vue'
 import { computed, PropType } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -132,7 +133,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     },
   },
   button: {
-    tag: 'KButton',
+    tag: KButton,
     onClick: handleClick,
     attrs: {
       class: 'k-dropdown-item-trigger btn-link k-button non-visual-button',
