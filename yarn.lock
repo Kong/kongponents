@@ -2,24 +2,24 @@
 # yarn lockfile v1
 
 
-"@algolia/autocomplete-core@1.7.4":
-  version "1.7.4"
-  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-core/-/autocomplete-core-1.7.4.tgz#85ff36b2673654a393c8c505345eaedd6eaa4f70"
-  integrity sha512-daoLpQ3ps/VTMRZDEBfU8ixXd+amZcNJ4QSP3IERGyzqnL5Ch8uSRFt/4G8pUvW9c3o6GA4vtVv4I4lmnkdXyg==
+"@algolia/autocomplete-core@1.8.2":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-core/-/autocomplete-core-1.8.2.tgz#8d758c8652742e2761450d2b615a841fca24e10e"
+  integrity sha512-mTeshsyFhAqw/ebqNsQpMtbnjr+qVOSKXArEj4K0d7sqc8It1XD0gkASwecm9mF/jlOQ4Z9RNg1HbdA8JPdRwQ==
   dependencies:
-    "@algolia/autocomplete-shared" "1.7.4"
+    "@algolia/autocomplete-shared" "1.8.2"
 
-"@algolia/autocomplete-preset-algolia@1.7.4":
-  version "1.7.4"
-  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-preset-algolia/-/autocomplete-preset-algolia-1.7.4.tgz#610ee1d887962f230b987cba2fd6556478000bc3"
-  integrity sha512-s37hrvLEIfcmKY8VU9LsAXgm2yfmkdHT3DnA3SgHaY93yjZ2qL57wzb5QweVkYuEBZkT2PIREvRoLXC2sxTbpQ==
+"@algolia/autocomplete-preset-algolia@1.8.2":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-preset-algolia/-/autocomplete-preset-algolia-1.8.2.tgz#706e87f94c5f198c0e90502b97af09adeeddcc79"
+  integrity sha512-J0oTx4me6ZM9kIKPuL3lyU3aB8DEvpVvR6xWmHVROx5rOYJGQcZsdG4ozxwcOyiiu3qxMkIbzntnV1S1VWD8yA==
   dependencies:
-    "@algolia/autocomplete-shared" "1.7.4"
+    "@algolia/autocomplete-shared" "1.8.2"
 
-"@algolia/autocomplete-shared@1.7.4":
-  version "1.7.4"
-  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-shared/-/autocomplete-shared-1.7.4.tgz#78aea1140a50c4d193e1f06a13b7f12c5e2cbeea"
-  integrity sha512-2VGCk7I9tA9Ge73Km99+Qg87w0wzW4tgUruvWAn/gfey1ZXgmxZtyIRBebk35R1O8TbK77wujVtCnpsGpRy1kg==
+"@algolia/autocomplete-shared@1.8.2":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-shared/-/autocomplete-shared-1.8.2.tgz#e6972df5c6935a241f16e4909aa82902338e029d"
+  integrity sha512-b6Z/X4MczChMcfhk6kfRmBzPgjoPzuS9KGR4AFsiLulLNRAAqhP+xZTKtMnZGhLuc61I20d5WqlId02AZvcO6g==
 
 "@algolia/cache-browser-local-storage@4.14.2":
   version "4.14.2"
@@ -455,27 +455,27 @@
   optionalDependencies:
     "@commitlint/load" ">6.1.1"
 
-"@docsearch/css@3.3.3", "@docsearch/css@^3.3.3":
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/@docsearch/css/-/css-3.3.3.tgz#f9346c9e24602218341f51b8ba91eb9109add434"
-  integrity sha512-6SCwI7P8ao+se1TUsdZ7B4XzL+gqeQZnBc+2EONZlcVa0dVrk0NjETxozFKgMv0eEGH8QzP1fkN+A1rH61l4eg==
+"@docsearch/css@3.3.4", "@docsearch/css@^3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@docsearch/css/-/css-3.3.4.tgz#533719eac0aa3934318074e7e981e633727ad2fd"
+  integrity sha512-vDwCDoVXDgopw/hvr0zEADew2wWaGP8Qq0Bxhgii1Ewz2t4fQeyJwIRN/mWADeLFYPVkpz8TpEbxya/i6Tm0WA==
 
-"@docsearch/js@^3.3.3":
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/@docsearch/js/-/js-3.3.3.tgz#70725a7a8fe92d221fcf0593263b936389d3728f"
-  integrity sha512-2xAv2GFuHzzmG0SSZgf8wHX0qZX8n9Y1ZirKUk5Wrdc+vH9CL837x2hZIUdwcPZI9caBA+/CzxsS68O4waYjUQ==
+"@docsearch/js@^3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@docsearch/js/-/js-3.3.4.tgz#9ac4192f55535904a4c4235ee936ef11a109461c"
+  integrity sha512-Xd2saBziXJ1UuVpcDz94zAFEFAM6ap993agh0za2e3LDZLhaW993b1f9gyUL4e1CZLsR076tztG2un2gVncvpA==
   dependencies:
-    "@docsearch/react" "3.3.3"
+    "@docsearch/react" "3.3.4"
     preact "^10.0.0"
 
-"@docsearch/react@3.3.3":
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/@docsearch/react/-/react-3.3.3.tgz#907b6936a565f880b4c0892624b4f7a9f132d298"
-  integrity sha512-pLa0cxnl+G0FuIDuYlW+EBK6Rw2jwLw9B1RHIeS4N4s2VhsfJ/wzeCi3CWcs5yVfxLd5ZK50t//TMA5e79YT7Q==
+"@docsearch/react@3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@docsearch/react/-/react-3.3.4.tgz#d49cf9e5d939145c9fe688113c5bdf41975d8ae7"
+  integrity sha512-aeOf1WC5zMzBEi2SI6WWznOmIo9rnpN4p7a3zHXxowVciqlI4HsZGtOR9nFOufLeolv7HibwLlaM0oyUqJxasw==
   dependencies:
-    "@algolia/autocomplete-core" "1.7.4"
-    "@algolia/autocomplete-preset-algolia" "1.7.4"
-    "@docsearch/css" "3.3.3"
+    "@algolia/autocomplete-core" "1.8.2"
+    "@algolia/autocomplete-preset-algolia" "1.8.2"
+    "@docsearch/css" "3.3.4"
     algoliasearch "^4.0.0"
 
 "@esbuild/android-arm64@0.17.12":
@@ -1342,7 +1342,7 @@
     "@typescript-eslint/types" "5.59.2"
     eslint-visitor-keys "^3.3.0"
 
-"@vitejs/plugin-vue@^4.0.0", "@vitejs/plugin-vue@^4.1.0":
+"@vitejs/plugin-vue@^4.0.0", "@vitejs/plugin-vue@^4.2.1":
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/@vitejs/plugin-vue/-/plugin-vue-4.2.1.tgz#c3ccce9956e8cdca946f465188777e4e3e488f6a"
   integrity sha512-ZTZjzo7bmxTRTkb8GSTwkPOYDIP7pwuyV+RV53c9PYUouwcbkIZIvWvNWlX2b1dYZqtOv7D6iUAnJLVNGcLrSw==
@@ -6473,10 +6473,10 @@ shebang-regex@^3.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
 
-shiki@^0.14.1:
-  version "0.14.1"
-  resolved "https://registry.yarnpkg.com/shiki/-/shiki-0.14.1.tgz#9fbe082d0a8aa2ad63df4fbf2ee11ec924aa7ee1"
-  integrity sha512-+Jz4nBkCBe0mEDqo1eKRcCdjRtrCjozmcbTUjbPTX7OOJfEbTZzlUWlZtGe3Gb5oV1/jnojhG//YZc3rs9zSEw==
+shiki@^0.14.2:
+  version "0.14.2"
+  resolved "https://registry.yarnpkg.com/shiki/-/shiki-0.14.2.tgz#d51440800b701392b31ce2336036058e338247a1"
+  integrity sha512-ltSZlSLOuSY0M0Y75KA+ieRaZ0Trf5Wl3gutE7jzLuIcWxLp5i/uEnLoQWNvgKXQ5OMpGkJnVMRLAuzjc0LJ2A==
   dependencies:
     ansi-sequence-parser "^1.1.0"
     jsonc-parser "^3.2.0"
@@ -7301,7 +7301,7 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-vite@^4.0.3, vite@^4.3.1:
+vite@^4.0.3, vite@^4.3.3:
   version "4.3.3"
   resolved "https://registry.yarnpkg.com/vite/-/vite-4.3.3.tgz#26adb4aa01439fc4546c480ea547674d87289396"
   integrity sha512-MwFlLBO4udZXd+VBcezo3u8mC77YQk+ik+fbc0GZWGgzfbPP+8Kf0fldhARqvSYmtIWoAJ5BXPClUbMTlqFxrA==
@@ -7313,20 +7313,20 @@ vite@^4.0.3, vite@^4.3.1:
     fsevents "~2.3.2"
 
 vitepress@^1.0.0-alpha.61:
-  version "1.0.0-alpha.74"
-  resolved "https://registry.yarnpkg.com/vitepress/-/vitepress-1.0.0-alpha.74.tgz#2ef9017d65915f43a61280e92e41e44a1fce38ff"
-  integrity sha512-n5UHqsLJKaJ3V6BSiofS5ZVhtxzarNIn3/kyOzUp/vePmVbQyX/pZ6/MhZgNr0g5t4E55j7XM3AHf/Fo0hnrpw==
+  version "1.0.0-alpha.75"
+  resolved "https://registry.yarnpkg.com/vitepress/-/vitepress-1.0.0-alpha.75.tgz#fbd03ef80b3877d41d0abd369560b7ea1124c017"
+  integrity sha512-twpPZ/6UnDR8X0Nmj767KwKhXlTQQM9V/J1i2BP9ryO29/w4hpxBfEum6nvfpNhJ4H3h+cIhwzAK/e9crZ6HEQ==
   dependencies:
-    "@docsearch/css" "^3.3.3"
-    "@docsearch/js" "^3.3.3"
-    "@vitejs/plugin-vue" "^4.1.0"
+    "@docsearch/css" "^3.3.4"
+    "@docsearch/js" "^3.3.4"
+    "@vitejs/plugin-vue" "^4.2.1"
     "@vue/devtools-api" "^6.5.0"
     "@vueuse/core" "^10.1.0"
     body-scroll-lock "4.0.0-beta.0"
     mark.js "8.11.1"
     minisearch "^6.0.1"
-    shiki "^0.14.1"
-    vite "^4.3.1"
+    shiki "^0.14.2"
+    vite "^4.3.3"
     vue "^3.2.47"
 
 vscode-oniguruma@^1.7.0:
