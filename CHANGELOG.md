@@ -1,3 +1,10 @@
+## [8.56.5](https://github.com/Kong/kongponents/compare/v8.56.4...v8.56.5) (2023-05-02)
+
+
+### Bug Fixes
+
+* **kdropdownitem:** not registering KButton locally ([#1348](https://github.com/Kong/kongponents/issues/1348)) ([64fd7e8](https://github.com/Kong/kongponents/commit/64fd7e80d09ef0e9a7ac6d7a8c475e65db4ce756))
+
 ## [8.56.4](https://github.com/Kong/kongponents/compare/v8.56.3...v8.56.4) (2023-05-01)
 
 
