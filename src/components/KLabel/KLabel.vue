@@ -81,8 +81,8 @@ const hasTooltip = computed((): boolean => !!(props.info || props.help || slots.
       font-weight: 400;
 
       code {
-        background-color: var(--grey-500);
-        color: var(--white);
+        background-color: var(--grey-500, color(grey-500));
+        color: var(--white, #fff);
       }
     }
   }

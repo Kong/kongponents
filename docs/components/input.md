@@ -304,7 +304,7 @@ Whether you choose to use `KIcon` Kongponent or your own SVG, the component's st
 </KInput>
 ```
 
-If you want custom HTML in the input label's tooltip, use the slot.
+If you want to utilize HTML in the input label's tooltip, use the slot.
 
 <KInput label="My Tooltip">
   <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
