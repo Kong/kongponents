@@ -8,10 +8,9 @@
       class="is-required"
     >*</span>
     <KTooltip
-      v-if="help || info"
+      v-if="hasTooltip"
       v-bind="tooltipAttributes"
       class="label-tooltip"
-      :label="help || info"
       position-fixed
       :test-mode="!!testMode || undefined"
     >
@@ -20,48 +19,48 @@
         :icon="help ? 'help' : 'info'"
         size="16"
       />
+      <template #content>
+        <slot name="tooltip">{{ help || info }}</slot>
+      </template>
     </KTooltip>
   </label>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue'
+<script setup lang="ts">
+import { computed, PropType, useSlots } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import type { TooltipAttributes } from '@/types'
 
-export default defineComponent({
-  name: 'KLabel',
-  components: {
-    KIcon,
-    KTooltip,
+const props = defineProps({
+  help: {
+    type: String,
+    default: '',
   },
-  props: {
-    help: {
-      type: String,
-      default: '',
-    },
-    info: {
-      type: String,
-      default: '',
-    },
-    required: {
-      type: Boolean,
-      default: false,
-    },
-    tooltipAttributes: {
-      type: Object as PropType<TooltipAttributes>,
-      default: () => ({}),
-    },
-    /**
+  info: {
+    type: String,
+    default: '',
+  },
+  required: {
+    type: Boolean,
+    default: false,
+  },
+  tooltipAttributes: {
+    type: Object as PropType<TooltipAttributes>,
+    default: () => ({}),
+  },
+  /**
      * Test mode - for testing only, strips out generated ids
      */
-    testMode: {
-      type: Boolean,
-      default: false,
-    },
+  testMode: {
+    type: Boolean,
+    default: false,
   },
 })
+
+const slots = useSlots()
+
+const hasTooltip = computed((): boolean => !!(props.info || props.help || slots.tooltip))
 </script>
 
 <style lang="scss" scoped>
@@ -80,6 +79,11 @@ export default defineComponent({
 
     :deep(.k-tooltip) {
       font-weight: 400;
+
+      code {
+        background-color: var(--grey-500);
+        color: var(--white);
+      }
     }
   }
 }

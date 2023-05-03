@@ -52,6 +52,13 @@
         :required="isRequired"
       >
         {{ strippedLabel }}
+
+        <template
+          v-if="hasLabelTooltip"
+          #tooltip
+        >
+          <slot name="label-tooltip" />
+        </template>
       </KLabel>
       <input
         v-bind="modifiedAttrs"
@@ -111,7 +118,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, watch, onMounted, PropType } from 'vue'
+import { defineComponent, computed, ref, watch, onMounted, PropType, useSlots } from 'vue'
 import type { IconPosition, Size, LabelAttributes, SizeRecord, IconPositionRecord } from '@/types'
 import { v1 as uuidv1 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
@@ -198,12 +205,14 @@ export default defineComponent({
     const isHovered = ref<boolean>(false)
     const icon = ref<HTMLDivElement | null>(null)
     const { stripRequiredLabel } = useUtilities()
+    const slots = useSlots()
 
     const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
     const isReadonly = computed((): boolean => attrs?.readonly !== undefined && String(attrs?.readonly) !== 'false')
     const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
     const inputId = computed((): string => attrs.id ? String(attrs.id) : props.testMode ? 'test-input-id-1234' : uuidv1())
     const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
+    const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.help || props.labelAttributes?.info || slots['label-tooltip']))
     // we need this so we can create a watcher for programmatic changes to the modelValue
     const value = computed({
       get(): string | number {
@@ -318,6 +327,7 @@ export default defineComponent({
       isDisabled,
       isReadonly,
       isRequired,
+      hasLabelTooltip,
       inputId,
       strippedLabel,
       charLimitExceeded,
