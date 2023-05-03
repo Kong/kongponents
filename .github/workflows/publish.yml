@@ -44,7 +44,8 @@ jobs:
             git config --global user.email '95302551+kongponents-bot@users.noreply.github.com'
 
         - name: Create .npmrc
-          run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN_PUBLIC_PUBLISH}" > .npmrc
+          # Reference the env variable NPM_TOKEN here, not the secret
+          run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
 
         - name: Use Node.js
           uses: actions/setup-node@v3

@@ -22,7 +22,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
       - name: Create .npmrc
-        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN_PUBLIC_PUBLISH}" > .npmrc
+        # Reference the env variable NPM_TOKEN here, not the secret
+        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
 
       - name: Unpublish
         run: |
