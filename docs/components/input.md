@@ -260,7 +260,7 @@ export default defineComponent({
 ## Slots
 
 - `icon` - slot for icon on the left or right of the input (position can be controlled through [prop](#iconposition))
-- `label-tooltip` - slot for tooltip content if input has a label and label has tooltip (note: this slot is not available for `overlayLabel`)
+- `label-tooltip` - slot for tooltip content if input has a label and label has tooltip (note: this slot overrides `help`/`info` content specified in `label-attributes` and is not available with `overlayLabel`)
 
 :::tip TIP
 Whether you choose to use `KIcon` Kongponent or your own SVG, the component's styles will adjust the icon size to match the size of the component.
@@ -312,6 +312,20 @@ If you want to utilize HTML in the input label's tooltip, use the slot.
 
 ```html
 <KInput label="My Tooltip">
+  <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
+</KInput>
+```
+
+:::tip Note:
+By default, when using the `label-tooltip` slot the `info` `KIcon` will be shown, but you can get the `help` icon to display instead by setting the `label-attributes` `help` prop to any non-empty string value.
+:::
+
+<KInput label="My Tooltip" :label-attributes="{ help: 'true' }">
+  <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
+</KInput>
+
+```html
+<KInput label="My Tooltip" :label-attributes="{ help: 'true' }">
   <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
 </KInput>
 ```
