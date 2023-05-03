@@ -9,7 +9,7 @@ jobs:
     name: Unpublish or Deprecate NPM previews for PR
     runs-on: ubuntu-latest
     env:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN_PUBLIC_PUBLISH }}
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v3
@@ -22,7 +22,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
       - name: Create .npmrc
-        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN_PUBLIC_PUBLISH}" > .npmrc
 
       - name: Unpublish
         run: |
