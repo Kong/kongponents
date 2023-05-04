@@ -247,11 +247,11 @@ export default function useUtilities() {
   }
 
   /**
- * Check if 2 objects are equal
- * @param {Object} a first object to compare
- * @param {Object} b second object to compare
- * @returns {Boolean} whether or not the objects are equal
- */
+   * Check if 2 objects are equal
+   * @param {Object} a first object to compare
+   * @param {Object} b second object to compare
+   * @returns {Boolean} whether or not the objects are equal
+   */
   const objectsAreEqual = (a: Record<string, any>, b: Record<string, any>) => {
     try {
       return JSON.stringify(a) === JSON.stringify(b)

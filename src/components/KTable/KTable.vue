@@ -153,7 +153,7 @@
 
         <tbody>
           <tr
-            v-for="(row, rowIndex) in tableData"
+            v-for="(row, rowIndex) in data"
             v-bind="rowAttrs(row)"
             :key="`k-table-${tableId}-row-${rowIndex}`"
             :role="isClickable ? 'link' : null"
@@ -217,45 +217,45 @@ const { useDebounce, useRequest, useSwrvStates, objectsAreEqual } = useUtilities
 
 const props = defineProps({
   /**
-     * @deprecated in favor of the "fetcher" prop
-     * Object containing data which creates rows and columns.
-     * @param {Object} options - Options to initialize the component with
-     * @param {Array} options.headers - Array of Objects defining Table Headers
-     * @param {Array} options.data - Array of Objects defining column data
-     */
+   * @deprecated in favor of the "fetcher" prop
+   * Object containing data which creates rows and columns.
+   * @param {Object} options - Options to initialize the component with
+   * @param {Array} options.headers - Array of Objects defining Table Headers
+   * @param {Array} options.data - Array of Objects defining column data
+   */
   options: {
     type: Object,
     default: () => null,
     required: false,
   },
   /**
-     * Enable client side sort - only do this if using a fetcher
-     * that returns static data
-     */
+   * Enable client side sort - only do this if using a fetcher
+   * that returns static data
+   */
   enableClientSort: {
     type: Boolean,
     default: false,
   },
   /**
-     * Enables hover highlighting to table rows
-     */
+   * Enables hover highlighting to table rows
+   */
   hasHover: {
     type: Boolean,
     default: true,
   },
   /**
-     * @deprecated
-     * the sort order for the table.
-     */
+   * @deprecated
+   * the sort order for the table.
+   */
   sortOrder: {
     type: String,
     default: '',
     validator: (value: string): boolean => ['ascending', 'descending', ''].includes(value),
   },
   /**
-     * @deprecated
-     * the key of the column that's currently being sorted
-     */
+   * @deprecated
+   * the key of the column that's currently being sorted
+   */
   sortKey: {
     type: String,
     default: '',
@@ -265,149 +265,149 @@ const props = defineProps({
     default: () => ({}),
   },
   /**
-     * A function that conditionally specifies row attributes on each row
-     */
+   * A function that conditionally specifies row attributes on each row
+   */
   rowAttrs: {
     type: Function,
     default: () => ({}),
   },
   /**
-     * A prop that enables a side border with a themable color to it.
-     */
+   * A prop that enables a side border with a themable color to it.
+   */
   hasSideBorder: {
     type: Boolean,
     default: false,
   },
   /**
-     * A function that conditionally specifies cell attributes
-     */
+   * A function that conditionally specifies cell attributes
+   */
   cellAttrs: {
     type: Function,
     default: () => ({}),
   },
   /**
-     * A prop that enables a loading skeleton
-     */
+   * A prop that enables a loading skeleton
+   */
   isLoading: {
     type: Boolean,
     default: false,
   },
   /**
-     * A prop to pass in a custom empty state title
-     */
+   * A prop to pass in a custom empty state title
+   */
   emptyStateTitle: {
     type: String,
     default: 'No Data',
   },
   /**
-     * A prop to pass in a custom empty state message
-     */
+   * A prop to pass in a custom empty state message
+   */
   emptyStateMessage: {
     type: String,
     default: 'There is no data to display.',
   },
   /**
-     * A prop to pass in a custom empty state action route
-     */
+   * A prop to pass in a custom empty state action route
+   */
   emptyStateActionRoute: {
     type: [Object, String],
     default: '',
   },
   /**
-     * A prop to pass in a custom empty state action message
-     */
+   * A prop to pass in a custom empty state action message
+   */
   emptyStateActionMessage: {
     type: String,
     default: '',
   },
   /**
-     * A prop to pass in a custom empty state action message
-     */
+   * A prop to pass in a custom empty state action message
+   */
   emptyStateActionButtonIcon: {
     type: String,
     default: '',
   },
   /**
-     * A prop to pass in a custom empty state icon
-     */
+   * A prop to pass in a custom empty state icon
+   */
   emptyStateIcon: {
     type: String,
     default: '',
   },
   /**
-     * A prop to pass in a color for the empty state icon
-     */
+   * A prop to pass in a color for the empty state icon
+   */
   emptyStateIconColor: {
     type: String,
     default: '',
   },
   /**
-     * A prop to pass in a size for the empty state icon
-     */
+   * A prop to pass in a size for the empty state icon
+   */
   emptyStateIconSize: {
     type: String,
     default: '50',
   },
   /**
-     * A prop that enables the error state
-     */
+   * A prop that enables the error state
+   */
   hasError: {
     type: Boolean,
     default: false,
   },
   /**
-     * A prop to pass in a custom error state title
-     */
+   * A prop to pass in a custom error state title
+   */
   errorStateTitle: {
     type: String,
     default: 'An error occurred',
   },
   /**
-     * A prop to pass in a custom error state message
-     */
+   * A prop to pass in a custom error state message
+   */
   errorStateMessage: {
     type: String,
     default: 'Data cannot be displayed due to an error.',
   },
   /**
-     * A prop to pass in a custom error state action route
-     */
+   * A prop to pass in a custom error state action route
+   */
   errorStateActionRoute: {
     type: [Object, String],
     default: '',
   },
   /**
-     * A prop to pass in a custom error state action message
-     */
+   * A prop to pass in a custom error state action message
+   */
   errorStateActionMessage: {
     type: String,
     default: '',
   },
   /**
-     * A prop to pass in a custom error state icon
-     */
+   * A prop to pass in a custom error state icon
+   */
   errorStateIcon: {
     type: String,
     default: '',
   },
   /**
-     * A prop to pass in a color for the error state icon
-     */
+   * A prop to pass in a color for the error state icon
+   */
   errorStateIconColor: {
     type: String,
     default: '',
   },
   /**
-     * A prop to pass in a size for the error state icon
-     */
+   * A prop to pass in a size for the error state icon
+   */
   errorStateIconSize: {
     type: String,
     default: '50',
   },
   /**
-     * A prop to pass in a fetcher function to enable server-side search, sort
-     * and pagination
-     */
+   * A prop to pass in a fetcher function to enable server-side search, sort
+   * and pagination
+   */
   fetcher: {
     type: Function,
     default: undefined,
@@ -429,44 +429,44 @@ const props = defineProps({
     default: '',
   },
   /**
-     * A prop to pass in a search string for server-side search
-     */
+   * A prop to pass in a search string for server-side search
+   */
   searchInput: {
     type: String,
     default: '',
   },
   /**
-     * A prop to pass in a an array of headers for the table
-     */
+   * A prop to pass in a an array of headers for the table
+   */
   headers: {
     type: Array,
     default: () => [],
   },
   /**
-     * A prop to pass in a an object of intial params for the initial fetcher function call
-     */
+   * A prop to pass in a an object of intial params for the initial fetcher function call
+   */
   initialFetcherParams: {
     type: Object,
     default: null,
   },
   /**
-     * A prop to pass in a the number of pagination neighbors used by the pagination component
-     */
+   * A prop to pass in a the number of pagination neighbors used by the pagination component
+   */
   paginationNeighbors: {
     type: Number,
     default: 1,
   },
   /**
-     * A prop to pass in an array of page sizes used by the pagination component
-     */
+   * A prop to pass in an array of page sizes used by the pagination component
+   */
   paginationPageSizes: {
     type: Array as PropType<number[]>,
     default: () => ([15, 30, 50, 75, 100]),
     validator: (pageSizes: number[]): boolean => !!pageSizes.length && pageSizes.every(i => typeof i === 'number'),
   },
   /**
-     * A prop to pass the total number of items in the set for the pagination text
-     */
+   * A prop to pass the total number of items in the set for the pagination text
+   */
   paginationTotalItems: {
     type: Number,
     default: null,
@@ -489,17 +489,17 @@ const props = defineProps({
     validator: (type: TablePaginationType) => ['default', 'offset'].includes(type),
   },
   /**
-     * A prop to pass to hide pagination for total table records is less than or equal to pagesize
-     */
+   * A prop to pass to hide pagination for total table records is less than or equal to pagesize
+   */
   hidePaginationWhenOptional: {
     type: Boolean,
     default: false,
   },
   /**
-     * for testing only, strips out generated ids and avoid loading state in tests.
-     * 'true' - no id's no loading
-     * 'loading' - no id's but allow loading
-     */
+   * for testing only, strips out generated ids and avoid loading state in tests.
+   * 'true' - no id's no loading
+   * 'loading' - no id's but allow loading
+   */
   testMode: {
     type: String as PropType<'true' | 'loading'>,
     default: '',
@@ -522,7 +522,6 @@ const defaultFetcherProps = {
   offset: null,
 }
 const data = ref<Record<string, any>[]>([])
-const tableData = ref<Record<string, any>[]>([])
 const tableHeaders: Ref<TableHeader[]> = ref([])
 const total = ref(0)
 const isScrolled = ref(false)
@@ -898,12 +897,6 @@ watch(() => [query.value, page.value, pageSize.value], ([newQuery, /* newPage */
     debouncedRevalidate()
   }
 }, { deep: true, immediate: true })
-
-watch(() => data.value, (newValue) => {
-  if (!objectsAreEqual(data.value, newValue)) {
-    tableData.value = newValue
-  }
-})
 
 onMounted(() => {
   initData()
