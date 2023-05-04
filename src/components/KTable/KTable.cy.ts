@@ -100,7 +100,7 @@ const options = {
  * }
  */
 
-describe.skip('KTable', () => {
+describe('KTable', () => {
   describe('default', () => {
     it('renders link in action slot', () => {
       mount(KTable, {

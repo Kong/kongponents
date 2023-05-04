@@ -8,15 +8,6 @@
       <slot name="toolbar" />
     </div>
 
-    <KAlert
-      :alert-message="tableFetcherCacheKey"
-    />
-
-    <KAlert
-      :alert-message="state"
-      :appearance="state === swrvState.ERROR ? 'danger' : state === swrvState.VALIDATING || state === swrvState.VALIDATING_HAS_DATA ? 'success' : state === swrvState.PENDING ? 'warning' : 'info'"
-    />
-
     <KSkeleton
       v-if="(!testMode || testMode === 'loading') && (isTableLoading || isLoading) && !hasError"
       data-testid="k-table-skeleton"
