@@ -863,6 +863,7 @@ watch(fetcherData, () => {
 // however, if this is a manual revalidation (triggered by page change, query, etc), display loader when validating
 watch(state, () => {
   switch (state.value) {
+    case swrvState.VALIDATING:
     case swrvState.PENDING:
       isTableLoading.value = true
       break
