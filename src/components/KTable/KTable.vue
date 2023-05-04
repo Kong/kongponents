@@ -900,7 +900,7 @@ watch(() => [query.value, page.value, pageSize.value], ([newQuery, /* newPage */
 }, { deep: true, immediate: true })
 
 watch(() => data.value, (newValue) => {
-  if (!objectsAreEqual(tableData.value, newValue)) {
+  if (!objectsAreEqual(data.value, newValue)) {
     tableData.value = newValue
   }
 })
