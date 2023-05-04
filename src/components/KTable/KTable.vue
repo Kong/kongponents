@@ -213,7 +213,7 @@ import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
 import type { TablePreferences, TablePaginationType, TableHeader, TableColumnSlotName } from '@/types'
 
-const { useDebounce, useRequest, useSwrvStates, objectsAreEqual } = useUtilities()
+const { useDebounce, useRequest, useSwrvStates } = useUtilities()
 
 const props = defineProps({
   /**
