@@ -84,7 +84,7 @@ describe('KInput', () => {
         label,
       },
       slots: {
-        tooltip: () => h('div', {}, 'This is a tooltip'),
+        'label-tooltip': () => h('div', {}, 'This is a tooltip'),
       },
     })
 
