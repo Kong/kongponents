@@ -1,5 +1,6 @@
 import { mount } from 'cypress/vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
+import { h } from 'vue'
 
 /**
  * ALL TESTS MUST USE testMode: true
@@ -60,6 +61,20 @@ describe('KLabel', () => {
       },
       slots: {
         default: () => 'Full Name',
+      },
+    })
+
+    cy.get('.k-input-label .label-tooltip').should('not.be.empty')
+  })
+
+  it('renders a tooltip when `tooltip` slot is used', () => {
+    mount(KLabel, {
+      props: {
+        testMode: true,
+      },
+      slots: {
+        default: () => 'Full Name',
+        tooltip: () => h('div', {}, 'This is a tooltip'),
       },
     })
 
