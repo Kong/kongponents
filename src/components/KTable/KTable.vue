@@ -724,7 +724,7 @@ const tableFetcherCacheKey = computed((): string => {
   }
 
   if (props.fetcherCacheKey) {
-    identifierKey += `_${props.fetcherCacheKey}`
+    identifierKey += `-${props.fetcherCacheKey}`
   }
 
   return `k-table_${identifierKey}`
@@ -860,10 +860,14 @@ watch(fetcherData, () => {
 }, { deep: true, immediate: true })
 
 // we want to tie loader to 'pending' since 'validating' is triggered even when pulling from cache, which should result in no loader
+// however, if this is a manual revalidation (triggered by page change, query, etc), display loader when validating
 watch(state, () => {
   switch (state.value) {
     case swrvState.PENDING:
       isTableLoading.value = true
+      break
+    case swrvState.VALIDATING_HAS_DATA:
+      isRevalidating.value ? isTableLoading.value = true : isTableLoading.value = false
       break
     default:
       isTableLoading.value = false
@@ -880,13 +884,16 @@ watch(() => props.searchInput, (newValue) => {
   }
 }, { immediate: true })
 
+const isRevalidating = ref(false)
 // handles debounce of search request
-watch(() => [query.value, page.value, pageSize.value], ([newQuery, /* newPage */, /* newPageSize */, oldQuery]) => {
+watch(() => [query.value, page.value, pageSize.value], async ([newQuery, /* newPage */, /* newPageSize */, oldQuery]) => {
+  isRevalidating.value = true
   if (newQuery === '' && newQuery !== oldQuery) {
-    revalidate()
+    await revalidate()
   } else {
-    debouncedRevalidate()
+    await debouncedRevalidate()
   }
+  isRevalidating.value = false
 }, { deep: true, immediate: true })
 
 onMounted(() => {
