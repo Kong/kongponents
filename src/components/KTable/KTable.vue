@@ -414,10 +414,17 @@ const props = defineProps({
     required: true,
   },
   /**
-     * A prop to trigger a revalidate of the fetcher function. Modifying this value
-     * will trigger a manual refetch of the table data.
-     */
+   * A prop to trigger a revalidate of the fetcher function. Modifying this value
+   * will trigger a manual refetch of the table data.
+   */
   fetcherCacheKey: {
+    type: String,
+    default: '',
+  },
+  /**
+   * A prop used to uniquely identify this table in the swrv cache
+   */
+  cacheIdentifier: {
     type: String,
     default: '',
   },
@@ -721,29 +728,16 @@ const tableFetcherCacheKey = computed((): string => {
     return ''
   }
 
-  let sortKeyStr = ''
-  if (!props.enableClientSort) {
-    sortKeyStr = `${sortColumnKey.value}_${sortColumnOrder.value}`
-  }
-
-  let searchKeyStr = ''
-  if (query.value) {
-    searchKeyStr = `${query.value}`
-  }
-
-  let paginationKeyStr = ''
-  if (!props.disablePagination) {
-    paginationKeyStr = `${page.value}_${pageSize.value}`
-  }
-
   let identifierKey = tableId.value
-  if (props.fetcherCacheKey) {
-    identifierKey = props.fetcherCacheKey
+  if (props.cacheIdentifier) {
+    identifierKey = props.cacheIdentifier
   }
 
-  // DO NOT CHANGE THIS STRING
-  // This key is set specifically with these values to allow for proper caching with SWRV
-  return `k-table_${identifierKey}_${paginationKeyStr}_${searchKeyStr}_${sortKeyStr}` as string
+  if (props.fetcherCacheKey) {
+    identifierKey += `_${props.fetcherCacheKey}`
+  }
+
+  return `k-table_${identifierKey}`
 })
 
 const query = ref('')
@@ -752,15 +746,14 @@ const search = generateDebouncedSearch(0) // generate a debounced function with 
 
 // ALL fetching is done through this useRequest / _revalidate
 // don't fire until tableFetcherCacheKey is set
-const { data: stateData, error: stateError, revalidate: _revalidate, isValidating: stateIsValidating } = useRequest(
+const { data: fetcherData, error: fetcherError, revalidate: _revalidate, isValidating: fetcherIsValidating } = useRequest(
   () => tableFetcherCacheKey.value,
   () => fetchData(),
   { revalidateOnFocus: false, revalidateDebounce: 0 },
 )
 
-const { state, swrvState } = useSwrvStates(stateData, stateError, stateIsValidating)
-// we want to tie it to 'pending' since 'validating' is triggered even when pulling from cache, which should result in no loader
-const isTableLoading = computed((): boolean => state.value === swrvState.PENDING)
+const { state, swrvState } = useSwrvStates(fetcherData, fetcherError, fetcherIsValidating)
+const isTableLoading = ref(true)
 
 const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebouncedRevalidate } = useDebounce(_revalidate, 500)
 const revalidate = generateDebouncedRevalidate(0) // generate a debounced function with zero delay (immediate)
@@ -870,6 +863,25 @@ const getTestIdString = (message: string) => {
   return msg
 }
 
+watch(fetcherData, () => {
+  if (fetcherData.value?.length && !data.value.length) {
+    data.value = fetcherData.value
+  }
+}, { deep: true, immediate: true })
+
+// we want to tie loader to 'pending' since 'validating' is triggered even when pulling from cache, which should result in no loader
+watch(state, () => {
+  switch (state.value) {
+    case swrvState.PENDING:
+      isTableLoading.value = true
+      break
+    default:
+      isTableLoading.value = false
+      break
+  }
+}, { immediate: true })
+
+// handles debounce of search input
 watch(() => props.searchInput, (newValue) => {
   if (newValue === '') {
     search(newValue)
@@ -878,6 +890,7 @@ watch(() => props.searchInput, (newValue) => {
   }
 }, { immediate: true })
 
+// handles debounce of search request
 watch(() => [query.value, page.value, pageSize.value], ([newQuery, /* newPage */, /* newPageSize */, oldQuery]) => {
   if (newQuery === '' && newQuery !== oldQuery) {
     revalidate()

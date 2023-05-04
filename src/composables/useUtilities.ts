@@ -161,12 +161,15 @@ export default function useUtilities() {
     const state = ref(swrvState.PENDING)
 
     watchEffect(() => {
-      const hasData =
-        response.value?.data?.length ||
-        response.value?.data?.data?.length ||
-        (!response.value?.data?.data &&
-          typeof response.value?.data === 'object' &&
+      // TODO: Determine the proper "generic" way to determine if data exists
+      const hasData = response.value && !!(
+        Object.keys(response.value)?.length ||
+        response.value.data?.length ||
+        response.value.data?.data?.length ||
+        (!response.value.data?.data &&
+          typeof response.value.data === 'object' &&
           Object.keys(response.value?.data).length)
+      )
 
       if (response.value && hasData && isValidating.value) {
         state.value = swrvState.VALIDATING_HAS_DATA
