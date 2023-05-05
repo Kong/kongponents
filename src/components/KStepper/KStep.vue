@@ -37,7 +37,7 @@ const props = defineProps({
     required: true,
   },
   state: {
-    type: String as PropType<StepperState | ''>,
+    type: String as PropType<StepperState>,
     default: 'default',
     validator: (value: StepperState) => StepperStateArray.includes(value),
   },

@@ -12,7 +12,7 @@ export const SkeletonTypeArray = [
 
 export type SkeletonType = AnyElementOf<typeof SkeletonTypeArray>
 
-export const SkeletonBoxWidthArray = ['1', '2', '5', '6', '10', '25', '50', '75', '100', ''] as const
+export const SkeletonBoxWidthArray = ['1', '2', '5', '6', '10', '25', '50', '75', '100'] as const
 
 export type SkeletonBoxWidth = AnyElementOf<typeof SkeletonBoxWidthArray>
 

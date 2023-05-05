@@ -1,6 +1,6 @@
 import { AnyElementOf } from '@/types/utils'
 
-export interface SelectItem {
+export interface SelectItem extends Record<string, any> {
   label: string
   value: string | number
   key?: string

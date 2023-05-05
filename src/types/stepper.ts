@@ -6,5 +6,5 @@ export type StepperState = AnyElementOf<typeof StepperStateArray>
 
 export interface StepItem {
   label: string
-  state?: StepperState | ''
+  state?: StepperState
 }

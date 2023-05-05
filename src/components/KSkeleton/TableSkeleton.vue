@@ -37,10 +37,10 @@ defineProps({
   },
 })
 
-const calcWidth = (cell: any, columns: number): SkeletonBoxWidth => {
+const calcWidth = (cell: number, columns: number): SkeletonBoxWidth => {
   if ([3, 4].indexOf(cell) === -1 && cell !== columns) return '10'
   if ([3, 4].indexOf(cell) > -1 || cell === columns) return '6'
-  return ''
+  return '1'
 }
 
 </script>

@@ -15,31 +15,32 @@ import { StepperState, StepperStateArray } from '@/types'
 
 const props = defineProps({
   state: {
-    type: String as PropType<StepperState | ''>,
+    type: String as PropType<StepperState>,
     default: 'default',
+    required: false,
     validator: (value: StepperState) => StepperStateArray.includes(value),
   },
 })
 
 const renderedComponent = computed(() => {
-  let c = KDefaultState
+  let component = KDefaultState
 
   switch (props.state) {
     case 'active':
-      c = KActiveState
+      component = KActiveState
       break
     case 'completed':
-      c = KCompletedState
+      component = KCompletedState
       break
     case 'error':
-      c = KErrorState
+      component = KErrorState
       break
     case 'pending':
-      c = KPendingState
+      component = KPendingState
       break
   }
 
-  return c
+  return component
 })
 </script>
 
