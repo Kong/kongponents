@@ -304,8 +304,7 @@ describe('KTable', () => {
       cy.getTestId('k-table-error-state').should('contain.text', errorSlotContent)
     })
 
-    // TODO: figure out why this fails
-    it.skip('displays a loading state and not an empty state when pending response', () => {
+    it('displays a loading state and not an empty state when pending response', () => {
       const slowFetcher = () => {
         return new Promise((resolve) => setTimeout(resolve, 2500))
       }
@@ -377,7 +376,6 @@ describe('KTable', () => {
           fetcher: () => { return { data: options.data, total: options.data.length } },
           isLoading: false,
           headers: options.headers,
-          pageSize: 15,
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
         },
@@ -395,7 +393,6 @@ describe('KTable', () => {
           },
           isLoading: false,
           headers: options.headers,
-          pageSize: 15,
           paginationPageSizes: [12, 15, 20],
           hidePaginationWhenOptional: true,
         },
@@ -413,7 +410,6 @@ describe('KTable', () => {
           },
           isLoading: false,
           headers: options.headers,
-          pageSize: 15,
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
         },
@@ -429,7 +425,6 @@ describe('KTable', () => {
           fetcher: () => { return { data: options.data, offset: null } },
           isLoading: false,
           headers: options.headers,
-          pageSize: 15,
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
           initialFetcherParams: { offset: null },
@@ -450,7 +445,6 @@ describe('KTable', () => {
           isLoading: false,
           initialFetcherParams: { offset: 'abc' },
           headers: options.headers,
-          pageSize: 15,
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
           paginationType: 'offset',
@@ -478,7 +472,6 @@ describe('KTable', () => {
           isLoading: false,
           initialFetcherParams: { offset: 'abc' },
           headers: options.headers,
-          pageSize: 15,
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
           paginationType: 'offset',
