@@ -317,7 +317,7 @@ If you want to utilize HTML in the input label's tooltip, use the slot.
 ```
 
 :::tip Note:
-By default, when using the `label-tooltip` slot the `info` `KIcon` will be shown, but you can get the `help` icon to display instead by setting the `label-attributes` `help` prop to any non-empty string value.
+When utilizing the `label-tooltip` slot, the `info` `KIcon` will be shown by default. To utilize the the `help` icon instead, set the `label-attributes` `help` property to any non-empty string value.
 :::
 
 <KInput label="My Tooltip" :label-attributes="{ help: 'true' }">

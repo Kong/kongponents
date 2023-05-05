@@ -79,10 +79,10 @@ Use the `for` attribute to bind a label to an input element for accessibility.
 
 ## Slots
 
-- `tooltip` - Rather than using the `help` or `info` props, if you want to style the tooltip content you can use this slot.
+- `tooltip` - Rather than using the `help` or `info` props, if you need to utilize HTML in the tooltip, you may use the `tooltip` slot.
 
 :::tip Note:
-By default, when using the `tooltip` slot the `info` `KIcon` will be shown, but you can get the `help` icon to display instead by setting the `help` prop to any non-empty string value.
+When utilizing the `label-tooltip` slot, the `info` `KIcon` will be shown by default. To utilize the the `help` icon instead, set the `label-attributes` `help` property to any non-empty string value.
 :::
 
 <KLabel help="true">
