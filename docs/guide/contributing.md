@@ -226,6 +226,15 @@ You're free to play around with your component on the local instance of the docs
     ```sh
     yarn build:kongponents
     ```
+
+    :::tip Note
+    If you think you will be making multiple changes to the code, you can use the `--watch` flag to automatically rebuild when you save changes.
+
+    ```sh
+    yarn vite build --watch
+    ```
+    :::
+
 1. As the instructions above outline, next, inside your consuming application, run `yarn link "@kong/kongponents"`
 
     ```sh
@@ -237,6 +246,10 @@ You're free to play around with your component on the local instance of the docs
     ```
 
     Now that the dependency is linked, your local project will utilize the local build.
+
+    :::tip Note
+    You may need to clear the `vite` cache using the `--force` flag to pick up changes to Kongponents. You will also need to restart your Vite server after every rebuild of kongponents to pick up the changes.
+    :::
 
     :::tip TIP
     If your project utilizes Vite, you may need to dedupe your dependency tree to avoid errors when running locally. Inside your `vite.config.ts` file, insert the following configuration:
@@ -262,6 +275,8 @@ You're free to play around with your component on the local instance of the docs
     info You can now run `yarn unlink "@kong/kongponents"` in the projects where you no longer want to use this package.
     ✨  Done in 0.04s.
     ```
+
+1. At this point it is recommended you delete the `node_modules` folder in your consuming app and rerun `yarn install` to fully clear the linkage.
 
 ## Sandbox
 
