@@ -262,9 +262,12 @@ export default defineComponent({
 - `icon` - slot for icon on the left or right of the input (position can be controlled through [prop](#iconposition))
 - `label-tooltip` - slot for tooltip content if input has a label and label has tooltip (note: this slot overrides `help`/`info` content specified in `label-attributes` and is not available with `overlayLabel`)
 
+### `icon`
+
 :::tip TIP
 Whether you choose to use `KIcon` Kongponent or your own SVG, the component's styles will adjust the icon size to match the size of the component.
 :::
+
 
 <KInput placeholder="Search" size="small" class="mb-2">
   <template #icon>
@@ -303,6 +306,8 @@ Whether you choose to use `KIcon` Kongponent or your own SVG, the component's st
   </template>
 </KInput>
 ```
+
+### `label-tooltip`
 
 If you want to utilize HTML in the input label's tooltip, use the slot.
 
