@@ -44,12 +44,12 @@ If the label is omitted it can be handled with another component, like **KLabel*
 
 ### labelAttributes
 
-Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label) if using the `label` prop.
+Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label) if using the `label` prop. This example shows using the `label-attributes` to set up a tooltip, see the [slot](#slots) section if you want to slot HTML into the tooltip rather than use plain text.
 
 <KInput label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop', 'data-testid': 'test' }"/>
 
 ```html
-<KInput label="Name" :label-attributes="{   help: 'I use the KLabel `help` prop' }" />
+<KInput label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop' }" />
 ```
 
 ### overlayLabel
@@ -260,10 +260,14 @@ export default defineComponent({
 ## Slots
 
 - `icon` - slot for icon on the left or right of the input (position can be controlled through [prop](#iconposition))
+- `label-tooltip` - slot for tooltip content if input has a label and label has tooltip (note: this slot overrides `help`/`info` content specified in `label-attributes` and is not available with `overlayLabel`)
+
+### `icon`
 
 :::tip TIP
 Whether you choose to use `KIcon` Kongponent or your own SVG, the component's styles will adjust the icon size to match the size of the component.
 :::
+
 
 <KInput placeholder="Search" size="small" class="mb-2">
   <template #icon>
@@ -300,6 +304,34 @@ Whether you choose to use `KIcon` Kongponent or your own SVG, the component's st
   <template #icon>
     <KIcon icon="search" />
   </template>
+</KInput>
+```
+
+### `label-tooltip`
+
+If you want to utilize HTML in the input label's tooltip, use the slot.
+
+<KInput label="My Tooltip">
+  <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
+</KInput>
+
+```html
+<KInput label="My Tooltip">
+  <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
+</KInput>
+```
+
+:::tip Note:
+When utilizing the `label-tooltip` slot, the `info` `KIcon` will be shown by default. To utilize the the `help` icon instead, set the `label-attributes` `help` property to any non-empty string value.
+:::
+
+<KInput label="My Tooltip" :label-attributes="{ help: 'true' }">
+  <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
+</KInput>
+
+```html
+<KInput label="My Tooltip" :label-attributes="{ help: 'true' }">
+  <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
 </KInput>
 ```
 

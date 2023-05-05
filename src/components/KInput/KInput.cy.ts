@@ -74,9 +74,22 @@ describe('KInput', () => {
 
     cy.get('.k-input-label').should('contain.text', label)
     cy.get('.k-input-label .kong-icon-help').should('exist').and('be.visible')
+  })
 
-    // expect(wrapper.find('.k-input-label').element.innerHTML).toContain(labelText)
-    // expect(wrapper.find('.k-input-label .kong-icon-help').exists()).toBeTruthy()
+  it('renders label and tooltip with `label-tooltip` slot applied', () => {
+    const label = 'A label'
+    mount(KInput, {
+      props: {
+        testMode: true,
+        label,
+      },
+      slots: {
+        'label-tooltip': () => h('div', {}, 'This is a tooltip'),
+      },
+    })
+
+    cy.get('.k-input-label').should('contain.text', label)
+    cy.get('.k-input-label .kong-icon-info').should('exist').and('be.visible')
   })
 
   it('renders overlayed label when value is passed', () => {

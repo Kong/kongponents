@@ -77,18 +77,41 @@ Use the `for` attribute to bind a label to an input element for accessibility.
 <KInput id="service"/>
 ```
 
+## Slots
+
+- `tooltip` - Rather than using the `help` or `info` props, if you need to utilize HTML in the tooltip, you may use the `tooltip` slot.
+
+:::tip Note:
+When utilizing the `label-tooltip` slot, the `info` `KIcon` will be shown by default. To utilize the the `help` icon instead, set the `label-attributes` `help` property to any non-empty string value.
+:::
+
+<KLabel help="true">
+  My Tooltip
+  <template #tooltip>Brings all the <code>devs</code> to the yard</template>
+</KLabel>
+<KInput />
+
+```html
+<KLabel help="true">
+  My Tooltip
+  <template #tooltip>Brings all the <code>devs</code> to the yard</template>
+</KLabel>
+<KInput />
+```
+
+
 ## Theming
 
-| Variable                          | Purpose                          |
-| :-------------------------------- | :------------------------------- |
-| `--KInputLabelColor`              | Label text color                 |
-| `--KLabelRequiredAsteriskColor`   | Label required '*' color         |
-| `--KInputLabelFont`               | Label font                       |
-| `--KInputLabelSize`               | Label text size                  |
-| `--KInputLabelWeight`             | Label font weight                |
-| `--KInputCheckboxLabel`           | Checkbox/radio label color       |
-| `--KInputCheckboxLabelFont`       | Checkbox/radio font              |
-| `--KInputCheckboxLabelSize`       | Checkbox/radio text size         |
+| Variable                        | Purpose                    |
+| :------------------------------ | :------------------------- |
+| `--KInputLabelColor`            | Label text color           |
+| `--KLabelRequiredAsteriskColor` | Label required '*' color   |
+| `--KInputLabelFont`             | Label font                 |
+| `--KInputLabelSize`             | Label text size            |
+| `--KInputLabelWeight`           | Label font weight          |
+| `--KInputCheckboxLabel`         | Checkbox/radio label color |
+| `--KInputCheckboxLabelFont`     | Checkbox/radio font        |
+| `--KInputCheckboxLabelSize`     | Checkbox/radio text size   |
 
 An example of theming the label might look like:
 
