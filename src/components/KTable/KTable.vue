@@ -204,7 +204,7 @@ import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
 import type { TablePreferences, TablePaginationType, TableHeader, TableColumnSlotName } from '@/types'
 
-const { useDebounce, useRequest, useSwrvStates } = useUtilities()
+const { useDebounce, useRequest, useSwrvStates, objectsAreEqual } = useUtilities()
 
 const props = defineProps({
   /**
@@ -688,11 +688,12 @@ const initData = async () => {
     ...defaultFetcherProps,
     ...props.initialFetcherParams,
   }
-  page.value = fetcherParams.page
-  pageSize.value = fetcherParams.pageSize
-  filterQuery.value = fetcherParams.query
-  sortColumnKey.value = fetcherParams.sortColumnKey
-  sortColumnOrder.value = fetcherParams.sortColumnOrder
+  // don't allow overriding default settings with `undefined` values
+  page.value = fetcherParams.page ?? defaultFetcherProps.page
+  pageSize.value = fetcherParams.pageSize ?? defaultFetcherProps.pageSize
+  filterQuery.value = fetcherParams.query ?? defaultFetcherProps.query
+  sortColumnKey.value = fetcherParams.sortColumnKey ?? defaultFetcherProps.sortColumnKey
+  sortColumnOrder.value = fetcherParams.sortColumnOrder ?? defaultFetcherProps.sortColumnOrder
 
   if (props.paginationType === 'offset') {
     offset.value = fetcherParams.offset
@@ -886,14 +887,21 @@ watch(() => props.searchInput, (newValue) => {
 
 const isRevalidating = ref(false)
 // handles debounce of search request
-watch(() => [query.value, page.value, pageSize.value], async ([newQuery, /* newPage */, /* newPageSize */, oldQuery]) => {
-  isRevalidating.value = true
-  if (newQuery === '' && newQuery !== oldQuery) {
-    await revalidate()
-  } else {
-    await debouncedRevalidate()
+watch(() => [query.value, page.value, pageSize.value], async ([newQuery, newPage, newPageSize, oldQuery, oldPage, oldPageSize]) => {
+  const valuesDefined = oldPage && oldPageSize && oldQuery !== undefined
+  const newData = [newQuery, newPage, newPageSize]
+  const oldData = [oldQuery, oldPage, oldPageSize]
+
+  // don't revalidate until we have finished initializing and there is a change in value
+  if (hasInitialized.value && valuesDefined && !objectsAreEqual(newData, oldData)) {
+    isRevalidating.value = true
+    if (newQuery === '' && newQuery !== oldQuery) {
+      await revalidate()
+    } else {
+      await debouncedRevalidate()
+    }
+    isRevalidating.value = false
   }
-  isRevalidating.value = false
 }, { deep: true, immediate: true })
 
 onMounted(() => {
