@@ -1,3 +1,15 @@
+# [8.58.0](https://github.com/Kong/kongponents/compare/v8.57.0...v8.58.0) (2023-05-05)
+
+
+### Bug Fixes
+
+* **contributing:** docs clarification ([#1353](https://github.com/Kong/kongponents/issues/1353)) ([2184f00](https://github.com/Kong/kongponents/commit/2184f002df0fa28c38f95e4de572dee1fbc200ef))
+
+
+### Features
+
+* **KTextArea:** switch to setup syntax [KHCP-6521] ([#1354](https://github.com/Kong/kongponents/issues/1354)) ([2dd7ef9](https://github.com/Kong/kongponents/commit/2dd7ef9578eab6745e6011f21164a1d6310d1a7b))
+
 # [8.57.0](https://github.com/Kong/kongponents/compare/v8.56.5...v8.57.0) (2023-05-05)
 
 
