@@ -1,3 +1,10 @@
+# [8.57.0](https://github.com/Kong/kongponents/compare/v8.56.5...v8.57.0) (2023-05-05)
+
+
+### Features
+
+* **kinput:** slot tooltip [khcp-7093] ([#1351](https://github.com/Kong/kongponents/issues/1351)) ([9190645](https://github.com/Kong/kongponents/commit/91906454dd8f09453e0656bde1eee1e93abdc978))
+
 ## [8.56.5](https://github.com/Kong/kongponents/compare/v8.56.4...v8.56.5) (2023-05-02)
 
 
