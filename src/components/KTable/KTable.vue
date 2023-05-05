@@ -204,7 +204,7 @@ import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
 import type { TablePreferences, TablePaginationType, TableHeader, TableColumnSlotName } from '@/types'
 
-const { useDebounce, useRequest, useSwrvStates, objectsAreEqual } = useUtilities()
+const { useDebounce, useRequest, useSwrvStates } = useUtilities()
 
 const props = defineProps({
   /**
@@ -635,6 +635,7 @@ const tdlisteners = computed(() => {
   }
 })
 
+const isInitialFetch = ref(true)
 const fetchData = async () => {
   const searchInput = props.searchInput
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -679,11 +680,12 @@ const fetchData = async () => {
   }
 
   nextPageClicked.value = false
+  isInitialFetch.value = false
 
   return res
 }
 
-const initData = async () => {
+const initData = () => {
   const fetcherParams = {
     ...defaultFetcherProps,
     ...props.initialFetcherParams,
@@ -886,20 +888,21 @@ watch(() => props.searchInput, (newValue) => {
 }, { immediate: true })
 
 const isRevalidating = ref(false)
-// handles debounce of search request
-watch(() => [query.value, page.value, pageSize.value], async ([newQuery, newPage, newPageSize, oldQuery, oldPage, oldPageSize]) => {
-  const valuesDefined = oldPage && oldPageSize && oldQuery !== undefined
-  const newData = [newQuery, newPage, newPageSize]
-  const oldData = [oldQuery, oldPage, oldPageSize]
+watch(() => [query.value, page.value, pageSize.value], async (newData, oldData) => {
+  const oldQuery = oldData?.[0]
+  const newQuery = newData[0]
 
-  // don't revalidate until we have finished initializing and there is a change in value
-  if (hasInitialized.value && valuesDefined && !objectsAreEqual(newData, oldData)) {
+  // don't revalidate until we have finished initializing and made initial fetch
+  if (hasInitialized.value && !isInitialFetch.value) {
     isRevalidating.value = true
-    if (newQuery === '' && newQuery !== oldQuery) {
-      await revalidate()
-    } else {
+
+    if (newQuery !== '' && newQuery !== oldQuery) {
+      // handles debounce of search request
       await debouncedRevalidate()
+    } else {
+      await revalidate()
     }
+
     isRevalidating.value = false
   }
 }, { deep: true, immediate: true })

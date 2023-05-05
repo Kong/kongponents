@@ -71,20 +71,24 @@ export default function useUtilities() {
     generateDebouncedFn: (delay: number) => (...args: Parameters<F>) => void
   } => {
     let timeout: any
+    const wrapDebouncedWithDelay = (delay: number) => {
+      return async (...args: Parameters<F>) => {
+        clearTimeout(timeout)
 
-    const wrapDebouncedWithDelay =
-      (delay: number) =>
-        (...args: Parameters<F>) => {
-          clearTimeout(timeout)
-          if (delay > 0) {
-            timeout = setTimeout(() => {
-              fn(...args)
+        if (delay > 0) {
+          // use a promise to allow us to properly await the debounced fn call
+          await new Promise<void>(resolve => {
+            timeout = setTimeout(async () => {
+              await fn(...args)
+              resolve()
             }, delay)
-          } else {
-            timeout = undefined
-            fn(...args)
-          }
+          })
+        } else {
+          // no debounce, just await the fn
+          await fn(...args)
         }
+      }
+    }
 
     return {
       debouncedFn: wrapDebouncedWithDelay(defaultDelay),

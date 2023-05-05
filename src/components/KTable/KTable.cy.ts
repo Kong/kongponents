@@ -314,6 +314,7 @@ describe('KTable', () => {
           testMode: 'loading',
           fetcher: slowFetcher,
           headers: options.headers,
+          cacheIdentifier: 'loading-test',
           paginationPageSizes: [10, 20, 30, 40],
         },
       })
@@ -429,6 +430,7 @@ describe('KTable', () => {
           hidePaginationWhenOptional: true,
           initialFetcherParams: { offset: null },
           paginationType: 'offset',
+          cacheIdentifier: 'offset-pagination',
         },
       })
 
@@ -476,6 +478,7 @@ describe('KTable', () => {
           hidePaginationWhenOptional: true,
           paginationType: 'offset',
           searchInput: '',
+          cacheIdentifier: 'search-example',
         },
       })
         .get('@fetcher')
