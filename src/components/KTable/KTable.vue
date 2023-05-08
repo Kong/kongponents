@@ -889,7 +889,7 @@ watch(() => props.searchInput, (newValue) => {
 }, { immediate: true })
 
 const isRevalidating = ref<boolean>(false)
-watch(() => [query.value, page.value, pageSize.value], async (newData, oldData) => {
+watch([query, page, pageSize], async (newData, oldData) => {
   const oldQuery = oldData?.[0]
   const newQuery = newData[0]
 
