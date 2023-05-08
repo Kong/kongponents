@@ -23,9 +23,10 @@ export default function useUtilities() {
       typeof useSWRV === 'function'
         ? useSWRV
         : () => ({
-          data: {},
-          error: null,
-          isValidating: false,
+          // must return refs for consistent return types
+          data: ref({}),
+          error: ref(),
+          isValidating: ref(false),
           mutate: () => ({}),
         })
 
@@ -70,20 +71,24 @@ export default function useUtilities() {
     generateDebouncedFn: (delay: number) => (...args: Parameters<F>) => void
   } => {
     let timeout: any
+    const wrapDebouncedWithDelay = (delay: number) => {
+      return async (...args: Parameters<F>) => {
+        clearTimeout(timeout)
 
-    const wrapDebouncedWithDelay =
-      (delay: number) =>
-        (...args: Parameters<F>) => {
-          clearTimeout(timeout)
-          if (delay > 0) {
-            timeout = setTimeout(() => {
-              fn(...args)
+        if (delay > 0) {
+          // use a promise to allow us to properly await the debounced fn call
+          await new Promise<void>(resolve => {
+            timeout = setTimeout(async () => {
+              await fn(...args)
+              resolve()
             }, delay)
-          } else {
-            timeout = undefined
-            fn(...args)
-          }
+          })
+        } else {
+          // no debounce, just await the fn
+          await fn(...args)
         }
+      }
+    }
 
     return {
       debouncedFn: wrapDebouncedWithDelay(defaultDelay),
@@ -156,16 +161,18 @@ export default function useUtilities() {
     return { previousKey, sortOrder }
   }
 
-  const useSwrvStates = (response: Ref<any>, error: Ref<any>, isValidating: Ref<boolean>) => {
+  const useSwrvState = (response: Ref<any>, error: Ref<any>, isValidating: Ref<boolean>) => {
     const state = ref(swrvState.PENDING)
 
     watchEffect(() => {
-      const hasData =
-        response.value?.data?.length ||
-        response.value?.data?.data?.length ||
-        (!response.value?.data?.data &&
-          typeof response.value?.data === 'object' &&
+      const hasData = response.value && !!(
+        Object.keys(response.value)?.length ||
+        response.value.data?.length ||
+        response.value.data?.data?.length ||
+        (!response.value.data?.data &&
+          typeof response.value.data === 'object' &&
           Object.keys(response.value?.data).length)
+      )
 
       if (response.value && hasData && isValidating.value) {
         state.value = swrvState.VALIDATING_HAS_DATA
@@ -266,7 +273,7 @@ export default function useUtilities() {
     useRequest,
     useDebounce,
     clientSideSorter,
-    useSwrvStates,
+    useSwrvState,
     getSizeFromString,
     cloneDeep,
     stripRequiredLabel,

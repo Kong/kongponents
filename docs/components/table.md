@@ -321,14 +321,28 @@ Remember that the `fetcher` function is responsible for managing pagination/sort
   />
 </template>
 ```
+### cacheIdentifier
+
+The fetcher functionality makes use of [SWRV](https://docs-swrv.netlify.app/) to handle caching of response data. In order to take advantage of this caching, SWRV needs a way to identify which cache entry is associated with the table. 
+
+The identifier should be a string and will default to `''` if not provided. In that scenario, we will generate a random ID for the identifier every time the table is mounted.
+
+::: danger Danger
+This identifier must be unique across all `KTable` instances across the entire Vue app, otherwise there is a risk that SWRV will return the cached data of the wrong table.
+:::
 
 ### fetcherCacheKey
 
-The fetcher functionality makes use of [SWRV](https://docs-swrv.netlify.app/) to handle caching of response data. Whenever the cache key is changed the fetcher will automatically refire and repopulate the table data.
+Whenever the cache key is changed the fetcher will automatically be called and attempt to fetch new table data.
 
 ```html
 <template>
-  <KTable :fetcher="fetcher" :headers="headers" :fetcherCacheKey="cacheKey" />
+  <KTable
+    cache-identifier="fetcher-cache-key-example-table"
+    :fetcher-cache-key="String(cacheKey)"
+    :fetcher="fetcher"
+    :headers="headers"
+  />
 </template>
 
 <script>
@@ -408,13 +422,13 @@ Pass in a string of search input for server-side table filtering. See [the Serve
 
 Pass in an array of header objects for the table.
 
-| Parameter | Type | Description
-|:-------- |:------- |:-------
-| `key` | string | A unique key for the column
-| `label` | string | The label displayed on the table for the column
-| `sortable` | boolean | Enables or disables server-side sorting for the column (`false` by default)
-| `hideLabel`| boolean | Hides or displays the column label (useful for actions columns)
-| `useSortHandlerFn` | boolean | Uses the function passed in the [sortHandlerFn](#sorthandlerfn) prop to sort the column data instead of the default client sorter function
+| Parameter          | Type    | Description                                                                                                                                |
+| :----------------- | :------ | :----------------------------------------------------------------------------------------------------------------------------------------- |
+| `key`              | string  | A unique key for the column                                                                                                                |
+| `label`            | string  | The label displayed on the table for the column                                                                                            |
+| `sortable`         | boolean | Enables or disables server-side sorting for the column (`false` by default)                                                                |
+| `hideLabel`        | boolean | Hides or displays the column label (useful for actions columns)                                                                            |
+| `useSortHandlerFn` | boolean | Uses the function passed in the [sortHandlerFn](#sorthandlerfn) prop to sort the column data instead of the default client sorter function |
 
 ::: tip NOTE
 `sortable` columns emit a `sort` event when clicked, returns:
@@ -547,12 +561,12 @@ A prop to add custom properties to individual table cells or groups of cells. Th
 
 `cellAttrs` - This prop takes a function that returns an object comprising the attributes.
 
-| Parameter | Description
-|:-------- |:-------
-| `headerKey`| The header key of the column containing the cell
-| `row` | The contents of the row containing the cell
-| `rowIndex` | The zero-based index of the row containing the cell
-| `colIndex`| The zero-based index of the cell within a row
+| Parameter   | Description                                         |
+| :---------- | :-------------------------------------------------- |
+| `headerKey` | The header key of the column containing the cell    |
+| `row`       | The contents of the row containing the cell         |
+| `rowIndex`  | The zero-based index of the row containing the cell |
+| `colIndex`  | The zero-based index of the cell within a row       |
 
 <KTable :headers="tableOptionsCellAttrsHeaders" :fetcher="tableOptionsCellAttrsFetcher" :cellAttrs="cellAttrsFn" />
 
@@ -1456,6 +1470,7 @@ https://kongponents.dev/api/components?_page=1&_limit=10&_sort=name&_order=desc
   <template v-slot:body>
     <KInput placeholder="Search" v-model="search" type="search" />
     <KTable
+      cache-identifier="server-side-functions-table"
       :fetcher="fetcher"
       :initial-fetcher-params="{
         pageSize: 15,
@@ -1514,12 +1529,12 @@ fetcher(payload) {
 
 ## Theming
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KTableBorder`| Sets cell border color
-| `--KTableColor` | Font color
-| `--KTableHover`| Hover variant background color
-| `--KTableHeaderSize`| Font size of header th
+| Variable             | Purpose                        |
+| :------------------- | :----------------------------- |
+| `--KTableBorder`     | Sets cell border color         |
+| `--KTableColor`      | Font color                     |
+| `--KTableHover`      | Hover variant background color |
+| `--KTableHeaderSize` | Font size of header th         |
 
 \
 An Example of changing the hover background might look like.

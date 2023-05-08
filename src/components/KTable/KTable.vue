@@ -204,49 +204,49 @@ import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
 import type { TablePreferences, TablePaginationType, TableHeader, TableColumnSlotName } from '@/types'
 
-const { useDebounce, useRequest } = useUtilities()
+const { useDebounce, useRequest, useSwrvState } = useUtilities()
 
 const props = defineProps({
   /**
-     * @deprecated in favor of the "fetcher" prop
-     * Object containing data which creates rows and columns.
-     * @param {Object} options - Options to initialize the component with
-     * @param {Array} options.headers - Array of Objects defining Table Headers
-     * @param {Array} options.data - Array of Objects defining column data
-     */
+   * @deprecated in favor of the "fetcher" prop
+   * Object containing data which creates rows and columns.
+   * @param {Object} options - Options to initialize the component with
+   * @param {Array} options.headers - Array of Objects defining Table Headers
+   * @param {Array} options.data - Array of Objects defining column data
+   */
   options: {
     type: Object,
     default: () => null,
     required: false,
   },
   /**
-     * Enable client side sort - only do this if using a fetcher
-     * that returns static data
-     */
+   * Enable client side sort - only do this if using a fetcher
+   * that returns static data
+   */
   enableClientSort: {
     type: Boolean,
     default: false,
   },
   /**
-     * Enables hover highlighting to table rows
-     */
+   * Enables hover highlighting to table rows
+   */
   hasHover: {
     type: Boolean,
     default: true,
   },
   /**
-     * @deprecated
-     * the sort order for the table.
-     */
+   * @deprecated
+   * the sort order for the table.
+   */
   sortOrder: {
     type: String,
     default: '',
     validator: (value: string): boolean => ['ascending', 'descending', ''].includes(value),
   },
   /**
-     * @deprecated
-     * the key of the column that's currently being sorted
-     */
+   * @deprecated
+   * the key of the column that's currently being sorted
+   */
   sortKey: {
     type: String,
     default: '',
@@ -256,201 +256,208 @@ const props = defineProps({
     default: () => ({}),
   },
   /**
-     * A function that conditionally specifies row attributes on each row
-     */
+   * A function that conditionally specifies row attributes on each row
+   */
   rowAttrs: {
     type: Function,
     default: () => ({}),
   },
   /**
-     * A prop that enables a side border with a themable color to it.
-     */
+   * A prop that enables a side border with a themable color to it.
+   */
   hasSideBorder: {
     type: Boolean,
     default: false,
   },
   /**
-     * A function that conditionally specifies cell attributes
-     */
+   * A function that conditionally specifies cell attributes
+   */
   cellAttrs: {
     type: Function,
     default: () => ({}),
   },
   /**
-     * A prop that enables a loading skeleton
-     */
+   * A prop that enables a loading skeleton
+   */
   isLoading: {
     type: Boolean,
     default: false,
   },
   /**
-     * A prop to pass in a custom empty state title
-     */
+   * A prop to pass in a custom empty state title
+   */
   emptyStateTitle: {
     type: String,
     default: 'No Data',
   },
   /**
-     * A prop to pass in a custom empty state message
-     */
+   * A prop to pass in a custom empty state message
+   */
   emptyStateMessage: {
     type: String,
     default: 'There is no data to display.',
   },
   /**
-     * A prop to pass in a custom empty state action route
-     */
+   * A prop to pass in a custom empty state action route
+   */
   emptyStateActionRoute: {
     type: [Object, String],
     default: '',
   },
   /**
-     * A prop to pass in a custom empty state action message
-     */
+   * A prop to pass in a custom empty state action message
+   */
   emptyStateActionMessage: {
     type: String,
     default: '',
   },
   /**
-     * A prop to pass in a custom empty state action message
-     */
+   * A prop to pass in a custom empty state action message
+   */
   emptyStateActionButtonIcon: {
     type: String,
     default: '',
   },
   /**
-     * A prop to pass in a custom empty state icon
-     */
+   * A prop to pass in a custom empty state icon
+   */
   emptyStateIcon: {
     type: String,
     default: '',
   },
   /**
-     * A prop to pass in a color for the empty state icon
-     */
+   * A prop to pass in a color for the empty state icon
+   */
   emptyStateIconColor: {
     type: String,
     default: '',
   },
   /**
-     * A prop to pass in a size for the empty state icon
-     */
+   * A prop to pass in a size for the empty state icon
+   */
   emptyStateIconSize: {
     type: String,
     default: '50',
   },
   /**
-     * A prop that enables the error state
-     */
+   * A prop that enables the error state
+   */
   hasError: {
     type: Boolean,
     default: false,
   },
   /**
-     * A prop to pass in a custom error state title
-     */
+   * A prop to pass in a custom error state title
+   */
   errorStateTitle: {
     type: String,
     default: 'An error occurred',
   },
   /**
-     * A prop to pass in a custom error state message
-     */
+   * A prop to pass in a custom error state message
+   */
   errorStateMessage: {
     type: String,
     default: 'Data cannot be displayed due to an error.',
   },
   /**
-     * A prop to pass in a custom error state action route
-     */
+   * A prop to pass in a custom error state action route
+   */
   errorStateActionRoute: {
     type: [Object, String],
     default: '',
   },
   /**
-     * A prop to pass in a custom error state action message
-     */
+   * A prop to pass in a custom error state action message
+   */
   errorStateActionMessage: {
     type: String,
     default: '',
   },
   /**
-     * A prop to pass in a custom error state icon
-     */
+   * A prop to pass in a custom error state icon
+   */
   errorStateIcon: {
     type: String,
     default: '',
   },
   /**
-     * A prop to pass in a color for the error state icon
-     */
+   * A prop to pass in a color for the error state icon
+   */
   errorStateIconColor: {
     type: String,
     default: '',
   },
   /**
-     * A prop to pass in a size for the error state icon
-     */
+   * A prop to pass in a size for the error state icon
+   */
   errorStateIconSize: {
     type: String,
     default: '50',
   },
   /**
-     * A prop to pass in a fetcher function to enable server-side search, sort
-     * and pagination
-     */
+   * A prop to pass in a fetcher function to enable server-side search, sort
+   * and pagination
+   */
   fetcher: {
     type: Function,
     default: undefined,
     required: true,
   },
   /**
-     * A prop to trigger a revalidate of the fetcher function. Modifying this value
-     * will trigger a manual refetch of the table data.
-     */
+   * A prop to trigger a revalidate of the fetcher function. Modifying this value
+   * will trigger a manual refetch of the table data.
+   */
   fetcherCacheKey: {
     type: String,
     default: '',
   },
   /**
-     * A prop to pass in a search string for server-side search
-     */
+   * A prop used to uniquely identify this table in the swrv cache
+   */
+  cacheIdentifier: {
+    type: String,
+    default: '',
+  },
+  /**
+   * A prop to pass in a search string for server-side search
+   */
   searchInput: {
     type: String,
     default: '',
   },
   /**
-     * A prop to pass in a an array of headers for the table
-     */
+   * A prop to pass in a an array of headers for the table
+   */
   headers: {
     type: Array,
     default: () => [],
   },
   /**
-     * A prop to pass in a an object of intial params for the initial fetcher function call
-     */
+   * A prop to pass in a an object of intial params for the initial fetcher function call
+   */
   initialFetcherParams: {
     type: Object,
     default: null,
   },
   /**
-     * A prop to pass in a the number of pagination neighbors used by the pagination component
-     */
+   * A prop to pass in a the number of pagination neighbors used by the pagination component
+   */
   paginationNeighbors: {
     type: Number,
     default: 1,
   },
   /**
-     * A prop to pass in an array of page sizes used by the pagination component
-     */
+   * A prop to pass in an array of page sizes used by the pagination component
+   */
   paginationPageSizes: {
     type: Array as PropType<number[]>,
     default: () => ([15, 30, 50, 75, 100]),
     validator: (pageSizes: number[]): boolean => !!pageSizes.length && pageSizes.every(i => typeof i === 'number'),
   },
   /**
-     * A prop to pass the total number of items in the set for the pagination text
-     */
+   * A prop to pass the total number of items in the set for the pagination text
+   */
   paginationTotalItems: {
     type: Number,
     default: null,
@@ -473,17 +480,17 @@ const props = defineProps({
     validator: (type: TablePaginationType) => ['default', 'offset'].includes(type),
   },
   /**
-     * A prop to pass to hide pagination for total table records is less than or equal to pagesize
-     */
+   * A prop to pass to hide pagination for total table records is less than or equal to pagesize
+   */
   hidePaginationWhenOptional: {
     type: Boolean,
     default: false,
   },
   /**
-     * for testing only, strips out generated ids and avoid loading state in tests.
-     * 'true' - no id's no loading
-     * 'loading' - no id's but allow loading
-     */
+   * for testing only, strips out generated ids and avoid loading state in tests.
+   * 'true' - no id's no loading
+   * 'loading' - no id's but allow loading
+   */
   testMode: {
     type: String as PropType<'true' | 'loading'>,
     default: '',
@@ -509,7 +516,6 @@ const data = ref<Record<string, any>[]>([])
 const tableHeaders: Ref<TableHeader[]> = ref([])
 const total = ref(0)
 const isScrolled = ref(false)
-const isTableLoading = ref(true)
 const page = ref(1)
 const pageSize = ref(15)
 const filterQuery = ref('')
@@ -629,10 +635,9 @@ const tdlisteners = computed(() => {
   }
 })
 
+const isInitialFetch = ref(true)
 const fetchData = async () => {
   const searchInput = props.searchInput
-
-  isTableLoading.value = true
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const res = await props.fetcher({
@@ -645,6 +650,16 @@ const fetchData = async () => {
   })
   data.value = res.data as Record<string, any>[]
   total.value = props.paginationTotalItems || res.total || res.data?.length
+
+  // get data
+  if (props.fetcher) {
+    if (props.enableClientSort && sortColumnKey.value && sortColumnOrder.value) {
+      defaultSorter(sortColumnKey.value, '', sortColumnOrder.value, data.value)
+    }
+  } else if (props.options && props.options.data && props.options.data.length) { // support legacy props
+    data.value = props.options.data
+    total.value = props.options.data.length
+  }
 
   if (props.paginationType === 'offset') {
     if (!res.pagination?.offset) {
@@ -664,32 +679,23 @@ const fetchData = async () => {
     }
   }
 
-  // get data
-  if (props.fetcher) {
-    if (props.enableClientSort && sortColumnKey.value && sortColumnOrder.value) {
-      defaultSorter(sortColumnKey.value, '', sortColumnOrder.value, data.value)
-    }
-  } else if (props.options && props.options.data && props.options.data.length) {
-    data.value = props.options.data
-    total.value = props.options.data.length
-  }
-
-  isTableLoading.value = false
   nextPageClicked.value = false
+  isInitialFetch.value = false
 
   return res
 }
 
-const initData = async () => {
+const initData = () => {
   const fetcherParams = {
     ...defaultFetcherProps,
     ...props.initialFetcherParams,
   }
-  page.value = fetcherParams.page
-  pageSize.value = fetcherParams.pageSize
-  filterQuery.value = fetcherParams.query
-  sortColumnKey.value = fetcherParams.sortColumnKey
-  sortColumnOrder.value = fetcherParams.sortColumnOrder
+  // don't allow overriding default settings with `undefined` values
+  page.value = fetcherParams.page ?? defaultFetcherProps.page
+  pageSize.value = fetcherParams.pageSize ?? defaultFetcherProps.pageSize
+  filterQuery.value = fetcherParams.query ?? defaultFetcherProps.query
+  sortColumnKey.value = fetcherParams.sortColumnKey ?? defaultFetcherProps.sortColumnKey
+  sortColumnOrder.value = fetcherParams.sortColumnOrder ?? defaultFetcherProps.sortColumnOrder
 
   if (props.paginationType === 'offset') {
     offset.value = fetcherParams.offset
@@ -703,29 +709,45 @@ const initData = async () => {
     tableHeaders.value = props.options.headers
   }
 
+  // trigger setting of tableFetcherCacheKey
   hasInitialized.value = true
 }
 
 const previousOffset = computed((): string | null => offsets.value[page.value - 1])
 
-// once `initData()` finishes fetch data
-const tableFetcherCacheKey = computed(() => {
+// once `initData()` finishes, setting tableFetcherCacheKey to non-falsey value triggers fetch of data
+const tableFetcherCacheKey = computed((): string => {
   if (!props.fetcher || !hasInitialized.value) {
     return ''
   }
 
-  return `k-table_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}` as string
+  // Set the default identifier to a random string
+  let identifierKey: string = tableId.value
+  if (props.cacheIdentifier) {
+    identifierKey = props.cacheIdentifier
+  }
+
+  if (props.fetcherCacheKey) {
+    identifierKey += `-${props.fetcherCacheKey}`
+  }
+
+  return `k-table_${identifierKey}`
 })
 
 const query = ref('')
 const { debouncedFn: debouncedSearch, generateDebouncedFn: generateDebouncedSearch } = useDebounce((q: string) => { query.value = q }, 350)
 const search = generateDebouncedSearch(0) // generate a debounced function with zero delay (immediate)
 
-const { revalidate: _revalidate } = useRequest(
+// ALL fetching is done through this useRequest / _revalidate
+// don't fire until tableFetcherCacheKey is set
+const { data: fetcherData, error: fetcherError, revalidate: _revalidate, isValidating: fetcherIsValidating } = useRequest(
   () => tableFetcherCacheKey.value,
   () => fetchData(),
   { revalidateOnFocus: false, revalidateDebounce: 0 },
 )
+
+const { state, swrvState } = useSwrvState(fetcherData, fetcherError, fetcherIsValidating)
+const isTableLoading = ref<boolean>(true)
 
 const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebouncedRevalidate } = useDebounce(_revalidate, 500)
 const revalidate = generateDebouncedRevalidate(0) // generate a debounced function with zero delay (immediate)
@@ -835,6 +857,29 @@ const getTestIdString = (message: string) => {
   return msg
 }
 
+watch(fetcherData, (fetchedData: any) => {
+  if (fetchedData?.length && !data.value.length) {
+    data.value = fetchedData
+  }
+}, { deep: true, immediate: true })
+
+// we want to tie loader to 'pending' since 'validating' is triggered even when pulling from cache, which should result in no loader
+// however, if this is a manual revalidation (triggered by page change, query, etc), display loader when validating
+watch(state, () => {
+  switch (state.value) {
+    case swrvState.PENDING:
+      isTableLoading.value = true
+      break
+    case swrvState.VALIDATING_HAS_DATA:
+      isTableLoading.value = isRevalidating.value
+      break
+    default:
+      isTableLoading.value = false
+      break
+  }
+}, { immediate: true })
+
+// handles debounce of search input
 watch(() => props.searchInput, (newValue) => {
   if (newValue === '') {
     search(newValue)
@@ -843,11 +888,23 @@ watch(() => props.searchInput, (newValue) => {
   }
 }, { immediate: true })
 
-watch(() => [query.value, page.value, pageSize.value], ([newQuery, /* newPage */, /* newPageSize */, oldQuery]) => {
-  if (newQuery === '' && newQuery !== oldQuery) {
-    revalidate()
-  } else {
-    debouncedRevalidate()
+const isRevalidating = ref<boolean>(false)
+watch([query, page, pageSize], async (newData, oldData) => {
+  const oldQuery = oldData?.[0]
+  const newQuery = newData[0]
+
+  // don't revalidate until we have finished initializing and made initial fetch
+  if (hasInitialized.value && !isInitialFetch.value) {
+    isRevalidating.value = true
+
+    if (newQuery !== '' && newQuery !== oldQuery) {
+      // handles debounce of search request
+      await debouncedRevalidate()
+    } else {
+      await revalidate()
+    }
+
+    isRevalidating.value = false
   }
 }, { deep: true, immediate: true })
 
