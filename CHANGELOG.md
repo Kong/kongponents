@@ -1,3 +1,10 @@
+# [8.59.0](https://github.com/Kong/kongponents/compare/v8.58.0...v8.59.0) (2023-05-08)
+
+
+### Features
+
+* **KSelect, KStep, KSkelton, KSlideout:** improve types [KHCP-6972] ([#1317](https://github.com/Kong/kongponents/issues/1317)) ([c8fbe07](https://github.com/Kong/kongponents/commit/c8fbe07e578e118bac4d300af0dcb37b5d323b82))
+
 # [8.58.0](https://github.com/Kong/kongponents/compare/v8.57.0...v8.58.0) (2023-05-05)
 
 
