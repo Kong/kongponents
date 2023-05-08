@@ -165,7 +165,6 @@ export default function useUtilities() {
     const state = ref(swrvState.PENDING)
 
     watchEffect(() => {
-      // TODO: Determine the proper "generic" way to determine if data exists
       const hasData = response.value && !!(
         Object.keys(response.value)?.length ||
         response.value.data?.length ||
