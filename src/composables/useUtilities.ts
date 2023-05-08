@@ -161,7 +161,7 @@ export default function useUtilities() {
     return { previousKey, sortOrder }
   }
 
-  const useSwrvStates = (response: Ref<any>, error: Ref<any>, isValidating: Ref<boolean>) => {
+  const useSwrvState = (response: Ref<any>, error: Ref<any>, isValidating: Ref<boolean>) => {
     const state = ref(swrvState.PENDING)
 
     watchEffect(() => {
@@ -274,7 +274,7 @@ export default function useUtilities() {
     useRequest,
     useDebounce,
     clientSideSorter,
-    useSwrvStates,
+    useSwrvState,
     getSizeFromString,
     cloneDeep,
     stripRequiredLabel,

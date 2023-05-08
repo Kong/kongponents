@@ -204,7 +204,7 @@ import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
 import type { TablePreferences, TablePaginationType, TableHeader, TableColumnSlotName } from '@/types'
 
-const { useDebounce, useRequest, useSwrvStates } = useUtilities()
+const { useDebounce, useRequest, useSwrvState } = useUtilities()
 
 const props = defineProps({
   /**
@@ -715,7 +715,7 @@ const initData = () => {
 
 const previousOffset = computed((): string | null => offsets.value[page.value - 1])
 
-// once `initData()` finishes set this to trigger calling _revalidate() to fetch data
+// once `initData()` finishes, setting tableFetcherCacheKey to non-falsey value triggers fetch of data
 const tableFetcherCacheKey = computed((): string => {
   if (!props.fetcher || !hasInitialized.value) {
     return ''
@@ -746,7 +746,7 @@ const { data: fetcherData, error: fetcherError, revalidate: _revalidate, isValid
   { revalidateOnFocus: false, revalidateDebounce: 0 },
 )
 
-const { state, swrvState } = useSwrvStates(fetcherData, fetcherError, fetcherIsValidating)
+const { state, swrvState } = useSwrvState(fetcherData, fetcherError, fetcherIsValidating)
 const isTableLoading = ref<boolean>(true)
 
 const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebouncedRevalidate } = useDebounce(_revalidate, 500)
