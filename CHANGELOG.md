@@ -1,3 +1,10 @@
+# [8.60.0](https://github.com/Kong/kongponents/compare/v8.59.0...v8.60.0) (2023-05-08)
+
+
+### Features
+
+* **ktable:** loading state [khcp-7162] ([#1338](https://github.com/Kong/kongponents/issues/1338)) ([7d8197f](https://github.com/Kong/kongponents/commit/7d8197ff05e276b7e515bbc3eb74ac252deadb08))
+
 # [8.59.0](https://github.com/Kong/kongponents/compare/v8.58.0...v8.59.0) (2023-05-08)
 
 
