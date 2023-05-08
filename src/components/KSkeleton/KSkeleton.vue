@@ -55,7 +55,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, PropType, ref } from 'vue'
 import Skeleton from '@/components/KSkeleton/SkeletonBase.vue'
 import CardSkeleton from '@/components/KSkeleton/CardSkeleton.vue'
 import TableSkeleton from '@/components/KSkeleton/TableSkeleton.vue'
@@ -63,6 +63,7 @@ import FormSkeleton from '@/components/KSkeleton/FormSkeleton.vue'
 import FullScreenKongSkeleton from '@/components/KSkeleton/FullScreenKongSkeleton.vue'
 import FullScreenGenericSpinner from '@/components/KSkeleton/FullScreenGenericSpinner.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
+import { SkeletonType, SkeletonTypeArray } from '@/types'
 
 const props = defineProps({
   delayMilliseconds: {
@@ -71,16 +72,9 @@ const props = defineProps({
     default: 0,
   },
   type: {
-    type: String,
+    type: String as PropType<SkeletonType>,
     default: '',
-    validator: (val: string): boolean => [
-      'table',
-      'card',
-      'form',
-      'spinner',
-      'fullscreen-kong',
-      '', // default Skeleton.vue
-    ].includes(val),
+    validator: (val: SkeletonType): boolean => SkeletonTypeArray.includes(val),
   },
   progress: {
     type: Number,

@@ -38,7 +38,7 @@ const props = defineProps({
 
 const timer = ref(0)
 const progressInternal = ref(0)
-const progression = computed(() => props.progress !== null ? props.progress : progressInternal.value)
+const progression = computed((): number => props.progress !== null ? props.progress : progressInternal.value)
 
 onMounted(() => {
   // If progress is user determined, don't fire interval to simulate progress
