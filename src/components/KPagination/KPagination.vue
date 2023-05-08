@@ -453,7 +453,7 @@ export default defineComponent({
     }
 
     &.active {
-      background-color: var(--KPaginationActiveBackgroundColor, var(—-blue-100, color(blue-100)));
+      background-color: var(--KPaginationActiveBackgroundColor, var(--blue-100, color(blue-100)));
       border-color: var(--KPaginationActiveBorderColor, var(--blue-200));
       border-radius: 4px;
       color: var(--KPaginationActiveColor, var(--blue-500));
