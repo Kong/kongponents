@@ -31,6 +31,7 @@
     "build:visualize": "BUILD_VISUALIZER=true vite build -m production",
     "copy:css-variables": "copyfiles -f src/styles/_variables.scss dist",
     "build": "yarn build:cli && yarn stylelint && yarn lint && yarn build:kongponents && yarn build:docs",
+    "build:ci": "yarn build:kongponents && yarn build:docs",
     "commit": "cz",
     "create-kongponent": "node --experimental-specifier-resolution=node ./bin/index.js",
     "dev:sandbox": "USE_SANDBOX=true vite",
