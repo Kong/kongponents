@@ -325,13 +325,13 @@ Remember that the `fetcher` function is responsible for managing pagination/sort
 
 The fetcher functionality makes use of [SWRV](https://docs-swrv.netlify.app/) to handle caching of response data. In order to take advantage of this caching, SWRV needs a way to identify which cache entry is associated with the table.
 
-::: danger Warning
-This identifier must be unique across your entire application, otherwise there is a risk that SWRV will return the cached data of the wrong table by mistake.
+::: danger Danger
+This identifier must be unique across all `KTable` instances across the entire Vue app, otherwise there is a risk that SWRV will return the cached data of the wrong table.
 :::
 
 ### fetcherCacheKey
 
-Whenever the cache key is changed the fetcher will automatically refire and repopulate the table data.
+Whenever the cache key is changed the fetcher will automatically be called and attempt to fetch new table data.
 
 ```html
 <template>

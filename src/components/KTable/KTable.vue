@@ -721,7 +721,8 @@ const tableFetcherCacheKey = computed((): string => {
     return ''
   }
 
-  let identifierKey = tableId.value
+  // Set the default identifier to a random string
+  let identifierKey: string = tableId.value
   if (props.cacheIdentifier) {
     identifierKey = props.cacheIdentifier
   }
@@ -746,7 +747,7 @@ const { data: fetcherData, error: fetcherError, revalidate: _revalidate, isValid
 )
 
 const { state, swrvState } = useSwrvStates(fetcherData, fetcherError, fetcherIsValidating)
-const isTableLoading = ref(true)
+const isTableLoading = ref<boolean>(true)
 
 const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebouncedRevalidate } = useDebounce(_revalidate, 500)
 const revalidate = generateDebouncedRevalidate(0) // generate a debounced function with zero delay (immediate)
@@ -856,9 +857,9 @@ const getTestIdString = (message: string) => {
   return msg
 }
 
-watch(fetcherData, () => {
-  if (fetcherData.value?.length && !data.value.length) {
-    data.value = fetcherData.value
+watch(fetcherData, (fetchedData: any) => {
+  if (fetchedData?.length && !data.value.length) {
+    data.value = fetchedData
   }
 }, { deep: true, immediate: true })
 
@@ -870,7 +871,7 @@ watch(state, () => {
       isTableLoading.value = true
       break
     case swrvState.VALIDATING_HAS_DATA:
-      isRevalidating.value ? isTableLoading.value = true : isTableLoading.value = false
+      isTableLoading.value = isRevalidating.value
       break
     default:
       isTableLoading.value = false
@@ -887,7 +888,7 @@ watch(() => props.searchInput, (newValue) => {
   }
 }, { immediate: true })
 
-const isRevalidating = ref(false)
+const isRevalidating = ref<boolean>(false)
 watch(() => [query.value, page.value, pageSize.value], async (newData, oldData) => {
   const oldQuery = oldData?.[0]
   const newQuery = newData[0]
