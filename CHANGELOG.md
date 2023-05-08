@@ -1,3 +1,10 @@
+## [8.60.1](https://github.com/Kong/kongponents/compare/v8.60.0...v8.60.1) (2023-05-08)
+
+
+### Bug Fixes
+
+* **kpagination:** change order so background color styling is applied ([#1359](https://github.com/Kong/kongponents/issues/1359)) ([4a00231](https://github.com/Kong/kongponents/commit/4a00231e449af706bbcb0ee26d8ceca0d8a84af8))
+
 # [8.60.0](https://github.com/Kong/kongponents/compare/v8.59.0...v8.60.0) (2023-05-08)
 
 
