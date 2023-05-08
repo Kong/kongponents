@@ -54,26 +54,6 @@ jobs:
       - name: Lint
         run: yarn lint
 
-      - name: Run Cypress component tests
-        uses: cypress-io/github-action@v4
-        with:
-          install: false
-          command: yarn test
-
-      - name: Upload Cypress screenshots (on failure)
-        uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-
-      - name: Upload Cypress videos (always)
-        uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: cypress-videos
-          path: cypress/videos
-
       - name: Build components and docs
         run: yarn build
 
@@ -120,6 +100,26 @@ jobs:
              ${{env.npm_instructions}}
              ```
           GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
+
+      - name: Run Cypress component tests
+        uses: cypress-io/github-action@v4
+        with:
+          install: false
+          command: yarn test
+
+      - name: Upload Cypress screenshots (on failure)
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+      - name: Upload Cypress videos (always)
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-videos
+          path: cypress/videos
 
       # This step will be skipped if being ran from the publish action with PREVENT_PERCY_TESTS: 'true'
       - name: Trigger Percy visual regression test for docs
