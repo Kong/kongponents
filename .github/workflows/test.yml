@@ -55,7 +55,7 @@ jobs:
         run: yarn lint
 
       - name: Build components and docs
-        run: yarn build
+        run: yarn build:ci
 
       - name: Publish Previews
         if: github.event_name == 'pull_request'
