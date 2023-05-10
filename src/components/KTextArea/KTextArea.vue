@@ -58,6 +58,13 @@
         :required="isRequired"
       >
         {{ strippedLabel }}
+
+        <template
+          v-if="hasLabelTooltip"
+          #tooltip
+        >
+          <slot name="label-tooltip" />
+        </template>
       </KLabel>
       <textarea
         v-bind="modifiedAttrs"
@@ -87,8 +94,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watch, useAttrs } from 'vue'
-import { v1 as uuidv1 } from 'uuid'
+import { ref, computed, watch, useAttrs, useSlots } from 'vue'
+import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 
@@ -155,6 +162,7 @@ const emit = defineEmits<{
 }>()
 
 const attrs = useAttrs()
+const slots = useSlots()
 
 const { stripRequiredLabel } = useUtilities()
 
@@ -163,6 +171,7 @@ const currValue = ref('') // We need this so that we don't lose the updated valu
 const isFocused = ref(false)
 const isHovered = ref(false)
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
+const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.help || props.labelAttributes?.info || slots['label-tooltip']))
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const value = computed({
   get(): string | number {
@@ -173,7 +182,7 @@ const value = computed({
   },
 })
 
-const textAreaId = computed((): string => (attrs.id ? String(attrs.id) : props.testMode ? 'test-textArea-id-1234' : uuidv1()))
+const textAreaId = computed((): string => (attrs.id ? String(attrs.id) : props.testMode ? 'test-textArea-id-1234' : uuidv4()))
 
 const modifiedAttrs = computed(() => {
   const $attrs = { ...attrs }

@@ -12,6 +12,13 @@
       :required="isRequired"
     >
       {{ strippedLabel }}
+
+      <template
+        v-if="hasLabelTooltip"
+        #tooltip
+      >
+        <slot name="label-tooltip" />
+      </template>
     </KLabel>
     <div
       :id="multiselectId"
@@ -242,8 +249,8 @@
 </template>
 
 <script lang="ts">
-import { ref, Ref, computed, watch, PropType, nextTick, onMounted, useAttrs } from 'vue'
-import { v1 as uuidv1 } from 'uuid'
+import { ref, Ref, computed, watch, PropType, nextTick, onMounted, useAttrs, useSlots } from 'vue'
+import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KBadge from '@/components/KBadge/KBadge.vue'
 import KButton from '@/components/KButton/KButton.vue'
@@ -278,6 +285,8 @@ export default {
 
 <script setup lang="ts">
 const attrs = useAttrs()
+const slots = useSlots()
+
 const { getSizeFromString, cloneDeep, stripRequiredLabel } = useUtilities()
 const SELECTED_ITEMS_SINGLE_LINE_HEIGHT = 34
 
@@ -415,6 +424,7 @@ const emit = defineEmits(['selected', 'item:added', 'item:removed', 'input', 'ch
 
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
+const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.help || props.labelAttributes?.info || slots['label-tooltip']))
 const defaultKPopAttributes = {
   hideCaret: true,
   placement: 'bottomStart' as PopPlacements,
@@ -425,11 +435,11 @@ const defaultKPopAttributes = {
 // keys and ids
 const key = ref(0)
 const stagingKey = ref(0)
-const multiselectId = computed((): string => props.testMode ? 'test-multiselect-id-1234' : uuidv1())
-const multiselectInputId = computed((): string => props.testMode ? 'test-multiselect-input-id-1234' : uuidv1())
-const multiselectTextId = computed((): string => props.testMode ? 'test-multiselect-text-id-1234' : uuidv1())
-const multiselectSelectedItemsId = computed((): string => props.testMode ? 'test-multiselect-selected-id-1234' : uuidv1())
-const multiselectSelectedItemsStagingId = computed((): string => props.testMode ? 'test-multiselect-selected-staging-id-1234' : uuidv1())
+const multiselectId = computed((): string => props.testMode ? 'test-multiselect-id-1234' : uuidv4())
+const multiselectInputId = computed((): string => props.testMode ? 'test-multiselect-input-id-1234' : uuidv4())
+const multiselectTextId = computed((): string => props.testMode ? 'test-multiselect-text-id-1234' : uuidv4())
+const multiselectSelectedItemsId = computed((): string => props.testMode ? 'test-multiselect-selected-id-1234' : uuidv4())
+const multiselectSelectedItemsStagingId = computed((): string => props.testMode ? 'test-multiselect-selected-staging-id-1234' : uuidv4())
 const multiselectRef = ref(null)
 const selectionBottomRef = ref(null)
 // filter and selection
@@ -702,7 +712,7 @@ const handleAddItem = (): void => {
   const pos = unfilteredItems.value.length + 1
   const item:MultiselectItem = {
     label: filterStr.value + '',
-    value: props.testMode ? `test-multiselect-added-item-${pos}` : uuidv1(),
+    value: props.testMode ? `test-multiselect-added-item-${pos}` : uuidv4(),
     key: `${filterStr.value.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
   }
   emit('item:added', item)

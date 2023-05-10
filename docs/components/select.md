@@ -87,7 +87,7 @@ Enable this prop to overlay the label on the input element's border for `select`
 
 ### labelAttributes
 
-Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label) if using the `label` prop.
+Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label) if using the `label` prop. This example shows using the `label-attributes` to set up a tooltip, see the [slot](#slots) section if you want to slot HTML into the tooltip rather than use plain text.
 
 <ClientOnly>
   <KSelect label="Name" :label-attributes="{
@@ -588,13 +588,50 @@ Text passed in for the `label` will automatically strip any trailing `*` when us
 
 ## Slots
 
+- `label-tooltip` - slot for tooltip content if select has a label and label has tooltip (note: this slot overrides `help`/`info` content specified in `label-attributes`)
 - `item-template` - The template for each item in the dropdown list
 - `selected-item-template` - Slot for customizing selected item appearance
 - `loading` - Slot for the loading indicator
 - `empty` - Slot for the empty state in the dropdown list
 - `dropdown-footer-text` - Slot for footer text in the bottom of the dropdown
 
-### Item Template
+### `label-tooltip`
+
+If you want to utilize HTML in the select label's tooltip, use the slot.
+
+<ClientOnly>
+  <KSelect label="My Tooltip" :items="deepClone(defaultItems)">
+    <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
+  </KSelect>
+</ClientOnly>
+
+```html
+<KSelect label="My Tooltip" :items="items">
+  <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
+</KSelect>
+```
+
+:::tip Note:
+When utilizing the `label-tooltip` slot, the `info` `KIcon` will be shown by default. To utilize the the `help` icon instead, set the `label-attributes` `help` property to any non-empty string value.
+:::
+
+<ClientOnly>
+  <KSelect label="My Tooltip" :label-attributes="{ help: 'true' }" :items="deepClone(defaultItems)">
+    <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
+  </KSelect>
+</ClientOnly>
+
+```html
+<KSelect
+  label="My Tooltip"
+  :label-attributes="{ help: 'true' }"
+  :items="items"
+>
+  <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
+</KSelect>
+```
+
+### `item-template`
 You can use the `item-template` slot to customize the look and feel of your items. Use slots to gain access to the `item` data.
 
 ::: tip TIP
@@ -652,7 +689,7 @@ export default defineComponent({
 </script>
 ```
 
-### Selected Item Template
+### `selected-item-template`
 
 Use this slot to customize appearance of the selected item that appears when the `KSelect` dropdown is not activated. If present, the slot content takes precedence over the [reuseItemTemplate](#reuseitemtemplate) prop.
 
@@ -698,15 +735,15 @@ You can use the `.k-select-selected-item-label` class within the slot to leverag
 </KSelect>
 ```
 
-### Loading
+### `loading`
 
 You can use the `loading` slot to customize the loading indicator. Note that this only applies when `autoggest` is `true`. See [autosuggest](#autosuggest) for an example of this slot.
 
-### Empty State
+### `empty`
 
 You can use the `empty` slot to customize the look of the dropdown list when there is no options. See [autosuggest](#autosuggest) for an example of this slot.
 
-### Dropdown Footer Text
+### `dropdown-footer-text`
 
 Slot the content of the dropdown footer text. This slot will override the `dropdownFooterText` prop if provided.
 
