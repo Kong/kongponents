@@ -7,10 +7,7 @@
     >
       <slot
         name="toolbar"
-        :state="{
-          hasData,
-          state
-        }"
+        :state="stateData"
       />
     </div>
 
@@ -208,7 +205,7 @@ import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
-import type { TablePreferences, TablePaginationType, TableHeader, TableColumnSlotName } from '@/types'
+import type { TablePreferences, TablePaginationType, TableHeader, TableColumnSlotName, SwrvState, SwrvStateData } from '@/types'
 
 const { useDebounce, useRequest, useSwrvState } = useUtilities()
 
@@ -754,6 +751,10 @@ const { data: fetcherData, error: fetcherError, revalidate: _revalidate, isValid
 
 const { state, hasData, swrvState } = useSwrvState(fetcherData, fetcherError, fetcherIsValidating)
 const isTableLoading = ref<boolean>(true)
+const stateData = computed((): SwrvStateData => ({
+  hasData: hasData.value,
+  state: state.value as SwrvState,
+}))
 
 const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebouncedRevalidate } = useDebounce(_revalidate, 500)
 const revalidate = generateDebouncedRevalidate(0) // generate a debounced function with zero delay (immediate)
