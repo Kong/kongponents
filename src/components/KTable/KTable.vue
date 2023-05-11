@@ -5,7 +5,13 @@
       class="k-table-toolbar mb-5"
       data-testid="k-table-toolbar"
     >
-      <slot name="toolbar" />
+      <slot
+        name="toolbar"
+        :state="{
+          hasData,
+          state
+        }"
+      />
     </div>
 
     <KSkeleton
@@ -746,7 +752,7 @@ const { data: fetcherData, error: fetcherError, revalidate: _revalidate, isValid
   { revalidateOnFocus: false, revalidateDebounce: 0 },
 )
 
-const { state, swrvState } = useSwrvState(fetcherData, fetcherError, fetcherIsValidating)
+const { state, hasData, swrvState } = useSwrvState(fetcherData, fetcherError, fetcherIsValidating)
 const isTableLoading = ref<boolean>(true)
 
 const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebouncedRevalidate } = useDebounce(_revalidate, 500)

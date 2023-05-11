@@ -163,9 +163,10 @@ export default function useUtilities() {
 
   const useSwrvState = (response: Ref<any>, error: Ref<any>, isValidating: Ref<boolean>) => {
     const state = ref(swrvState.PENDING)
+    const hasData = ref(false)
 
     watchEffect(() => {
-      const hasData = response.value && !!(
+      hasData.value = response.value && !!(
         Object.keys(response.value)?.length ||
         response.value.data?.length ||
         response.value.data?.data?.length ||
@@ -174,7 +175,7 @@ export default function useUtilities() {
           Object.keys(response.value?.data).length)
       )
 
-      if (response.value && hasData && isValidating.value) {
+      if (response.value && hasData.value && isValidating.value) {
         state.value = swrvState.VALIDATING_HAS_DATA
 
         return
@@ -198,7 +199,7 @@ export default function useUtilities() {
         return
       }
 
-      if (response.value && !error.value && hasData) {
+      if (response.value && !error.value && hasData.value) {
         state.value = swrvState.SUCCESS_HAS_DATA
 
         return
@@ -216,6 +217,7 @@ export default function useUtilities() {
     })
 
     return {
+      hasData,
       state,
       swrvState,
     }
