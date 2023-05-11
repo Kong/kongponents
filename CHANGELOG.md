@@ -1,3 +1,10 @@
+# [8.62.0](https://github.com/Kong/kongponents/compare/v8.61.0...v8.62.0) (2023-05-11)
+
+
+### Features
+
+* **ktable:** provide swrv state in toolbar slot ([#1367](https://github.com/Kong/kongponents/issues/1367)) ([90231e2](https://github.com/Kong/kongponents/commit/90231e24b9810940f96157b69384c490dba5ea1f))
+
 # [8.61.0](https://github.com/Kong/kongponents/compare/v8.60.2...v8.61.0) (2023-05-11)
 
 
