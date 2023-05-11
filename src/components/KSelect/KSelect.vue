@@ -12,6 +12,13 @@
       :required="isRequired"
     >
       {{ strippedLabel }}
+
+      <template
+        v-if="hasLabelTooltip"
+        #tooltip
+      >
+        <slot name="label-tooltip" />
+      </template>
     </KLabel>
     <div
       :id="selectId"
@@ -230,7 +237,7 @@
 
 <script lang="ts">
 import { ref, Ref, computed, watch, PropType, nextTick, useAttrs, useSlots } from 'vue'
-import { v1 as uuidv1 } from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
@@ -419,11 +426,12 @@ const slots = useSlots()
 
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
+const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.help || props.labelAttributes?.info || slots['label-tooltip']))
 const filterStr = ref('')
 const selectedItem = ref<SelectItem|null>(null)
-const selectId = computed((): string => props.testMode ? 'test-select-id-1234' : uuidv1())
-const selectInputId = computed((): string => props.testMode ? 'test-select-input-id-1234' : uuidv1())
-const selectTextId = computed((): string => props.testMode ? 'test-select-text-id-1234' : uuidv1())
+const selectId = computed((): string => props.testMode ? 'test-select-id-1234' : uuidv4())
+const selectInputId = computed((): string => props.testMode ? 'test-select-input-id-1234' : uuidv4())
+const selectTextId = computed((): string => props.testMode ? 'test-select-text-id-1234' : uuidv4())
 const selectItems: Ref<SelectItem[]> = ref([])
 const initialFocusTriggered: Ref<boolean> = ref(false)
 const inputFocused: Ref<boolean> = ref(false)

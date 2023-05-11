@@ -32,7 +32,7 @@ If the label is omitted it can be handled with another component, like **KLabel*
 
 ### labelAttributes
 
-Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label) if using the `label` prop.
+Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label) if using the `label` prop. This example shows using the `label-attributes` to set up a tooltip, see the [slot](#slots) section if you want to slot HTML into the tooltip rather than use plain text.
 
 <KTextArea label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop' }" />
 
@@ -154,6 +154,39 @@ Text passed in for the `label` will automatically strip any trailing `*` when us
 </KComponent>
 ```
 
+## Slots
+
+- `label-tooltip` - slot for tooltip content if textarea has a label and label has tooltip (note: this slot overrides `help`/`info` content specified in `label-attributes`)
+
+If you want to utilize HTML in the textarea label's tooltip, use the slot.
+
+<KTextArea label="My Tooltip">
+  <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
+</KTextArea>
+
+```html
+<KTextArea label="My Tooltip">
+  <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
+</KTextArea>
+```
+
+:::tip Note:
+When utilizing the `label-tooltip` slot, the `info` `KIcon` will be shown by default. To utilize the the `help` icon instead, set the `label-attributes` `help` property to any non-empty string value.
+:::
+
+<KTextArea label="My Tooltip" :label-attributes="{ help: 'true' }">
+  <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
+</KTextArea>
+
+```html
+<KTextArea
+  label="My Tooltip"
+  :label-attributes="{ help: 'true' }"
+>
+  <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
+</KTextArea>
+```
+
 ## Events
 
 `KTextArea` has a couple of natural event bindings.
@@ -196,16 +229,16 @@ Text passed in for the `label` will automatically strip any trailing `*` when us
 
 ## Theming
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KInputColor` | Input text color
-| `--KInputBorder` | Input border / label color
-| `--KInputBackground` | Input and label background color
-| `--KInputHover` | Input border / label hover color
-| `--KInputFocus` | Input border / label focus color
-| `--KInputDisabledBackground` | Input disabled background color
-| `--KInputError` | Input error border color
-| `--KInputPlaceholderColor`| Placeholder text color
+| Variable                     | Purpose                          |
+| :--------------------------- | :------------------------------- |
+| `--KInputColor`              | Input text color                 |
+| `--KInputBorder`             | Input border / label color       |
+| `--KInputBackground`         | Input and label background color |
+| `--KInputHover`              | Input border / label hover color |
+| `--KInputFocus`              | Input border / label focus color |
+| `--KInputDisabledBackground` | Input disabled background color  |
+| `--KInputError`              | Input error border color         |
+| `--KInputPlaceholderColor`   | Placeholder text color           |
 
 An Example of changing the error border color of KInput to pink might look like:
 
