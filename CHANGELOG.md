@@ -1,3 +1,10 @@
+# [8.61.0](https://github.com/Kong/kongponents/compare/v8.60.2...v8.61.0) (2023-05-11)
+
+
+### Features
+
+* **inputs:** add label tooltip slot support ([#1364](https://github.com/Kong/kongponents/issues/1364)) ([175ecc0](https://github.com/Kong/kongponents/commit/175ecc081cd6f17b8f19a3511e6a69f3c82afb7d))
+
 ## [8.60.2](https://github.com/Kong/kongponents/compare/v8.60.1...v8.60.2) (2023-05-11)
 
 
