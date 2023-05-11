@@ -323,7 +323,7 @@ Remember that the `fetcher` function is responsible for managing pagination/sort
 ```
 ### cacheIdentifier
 
-The fetcher functionality makes use of [SWRV](https://docs-swrv.netlify.app/) to handle caching of response data. In order to take advantage of this caching, SWRV needs a way to identify which cache entry is associated with the table. 
+The fetcher functionality makes use of [SWRV](https://docs-swrv.netlify.app/) to handle caching of response data. In order to take advantage of this caching, SWRV needs a way to identify which cache entry is associated with the table.
 
 The identifier should be a string and will default to `''` if not provided. In that scenario, we will generate a random ID for the identifier every time the table is mounted.
 
@@ -907,14 +907,23 @@ interface TablePreferences {
 
 ### Toolbar
 
-The `toolbar` slot allows you to slot table controls rendered right above the `<table>` element such as a search input or other UI elements.
+The `toolbar` slot allows you to slot table controls rendered right above the `<table>` element such as a search input or other UI elements. It provides the [SWRV](https://docs-swrv.netlify.app/) `state` and `hasData` in the slot param.
+
+```ts
+{
+  state: {
+    hasData: boolean
+    state: string
+  }
+}
+```
 
 If utilizing multiple elements, we recommend adding `display: flex; width: 100%;` to the root slot tag.
 
 <KTable :fetcher="tableOptionsFetcher" :headers="tableOptionsHeaders" :hasHover="false">
-  <template #toolbar>
+  <template #toolbar="{ state }">
     <div class="d-flex w-100 justify-content-between">
-      <KInput placeholder="Search" />
+      <KInput v-if="state.hasData" placeholder="Search" />
       <KSelect appearance="select" :items="[{ label: 'First option', value: '1', selected: true }, { label: 'Another option', value: '2'}]" />
     </div>
   </template>
@@ -922,9 +931,9 @@ If utilizing multiple elements, we recommend adding `display: flex; width: 100%;
 
 ```html
 <KTable :fetcher="fetcher" :headers="headers">
-  <template #toolbar>
+  <template #toolbar="{ state }">
     <div class="d-flex w-100 justify-content-between">
-      <KInput placeholder="Search" />
+      <KInput v-if="state.hasData" placeholder="Search" />
       <KSelect appearance="select" :items="[{ label: 'Ascending', value: 'asc', selected: true }, { label: 'Descending', value: 'desc'}]" />
     </div>
   </template>

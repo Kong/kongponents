@@ -5,11 +5,14 @@
       class="k-table-toolbar mb-5"
       data-testid="k-table-toolbar"
     >
-      <slot name="toolbar" />
+      <slot
+        name="toolbar"
+        :state="stateData"
+      />
     </div>
 
     <KSkeleton
-      v-if="(!testMode || testMode === 'loading') && (isTableLoading || isLoading) && !hasError"
+      v-if="(!testMode || testMode === 'loading') && (isTableLoading || isLoading || isRevalidating) && !hasError"
       data-testid="k-table-skeleton"
       type="table"
     />
@@ -51,7 +54,7 @@
     </div>
 
     <div
-      v-else-if="!hasError && (!isTableLoading && !isLoading) && (data && !data.length)"
+      v-else-if="!hasError && (!isTableLoading && !isLoading && !isRevalidating) && (data && !data.length)"
       class="k-table-empty-state"
       data-testid="k-table-empty-state"
     >
@@ -202,7 +205,7 @@ import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
-import type { TablePreferences, TablePaginationType, TableHeader, TableColumnSlotName } from '@/types'
+import type { TablePreferences, TablePaginationType, TableHeader, TableColumnSlotName, SwrvState, SwrvStateData } from '@/types'
 
 const { useDebounce, useRequest, useSwrvState } = useUtilities()
 
@@ -746,8 +749,12 @@ const { data: fetcherData, error: fetcherError, revalidate: _revalidate, isValid
   { revalidateOnFocus: false, revalidateDebounce: 0 },
 )
 
-const { state, swrvState } = useSwrvState(fetcherData, fetcherError, fetcherIsValidating)
+const { state, hasData, swrvState } = useSwrvState(fetcherData, fetcherError, fetcherIsValidating)
 const isTableLoading = ref<boolean>(true)
+const stateData = computed((): SwrvStateData => ({
+  hasData: hasData.value,
+  state: state.value as SwrvState,
+}))
 
 const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebouncedRevalidate } = useDebounce(_revalidate, 500)
 const revalidate = generateDebouncedRevalidate(0) // generate a debounced function with zero delay (immediate)
