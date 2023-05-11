@@ -57,7 +57,7 @@
     </div>
 
     <div
-      v-else-if="!hasError && (!isTableLoading && !isLoading) && (data && !data.length && !hasData)"
+      v-else-if="!hasError && (!isTableLoading && !isLoading && !isRevalidating) && (data && !data.length && !hasData)"
       class="k-table-empty-state"
       data-testid="k-table-empty-state"
     >
