@@ -887,7 +887,7 @@ watch(state, () => {
 }, { immediate: true })
 
 // handles debounce of search input
-watch(() => props.searchInput, (newValue) => {
+watch(() => props.searchInput, (newValue: string) => {
   if (newValue === '') {
     search(newValue)
   } else {

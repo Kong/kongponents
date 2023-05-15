@@ -6,12 +6,16 @@
     role="button"
     tabindex="0"
     :test-mode="!!testMode || undefined"
-    @click="handleCardClick($event, item)"
+    @click="($event) => handleCardClick($event, item)"
   >
     <template #title>
       <slot name="cardTitle">
         {{ item ? item.title : '' }}
       </slot>
+    </template>
+
+    <template #actions>
+      <slot name="cardActions" />
     </template>
 
     <template #body>
