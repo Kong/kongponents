@@ -466,11 +466,20 @@ If utilizing multiple elements, we recommend adding `display: flex; width: 100%;
 </KCatalog>
 
 ```html
-<KCatalog :fetcher="fetcherXs">
+<KCatalog :fetcher="fetcher">
   <template #toolbar="{ state }">
     <div class="d-flex w-100 justify-content-between">
-      <KInput v-if="state.hasData" placeholder="Search" />
-      <KSelect appearance="select" :items="[{ label: 'First option', value: '1', selected: true }, { label: 'Another option', value: '2'}]" />
+      <KInput
+        v-if="state.hasData"
+        placeholder="Search"
+      />
+      <KSelect
+        appearance="select"
+        :items="[
+          { label: 'First option', value: '1', selected: true },
+          { label: 'Another option', value: '2'}
+        ]"
+      />
     </div>
   </template>
 </KCatalog>
