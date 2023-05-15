@@ -386,6 +386,7 @@ Both the `title` & `description` of the card items as well as the entire catalog
 
 - `body` - The body of the card catalog, if you do not want to use `KCatalogItem` components for the children.
 - `cardHeader` - Will slot the card title for each entry
+- `cardActions` - Will slot the card actions for each entry
 - `cardBody` - Will slot the card body for each entry
 
 If used in conjuction with a `fetcher` you have the option of using the returned `data` in the `body` slot.
@@ -410,7 +411,7 @@ If used in conjuction with a `fetcher` you have the option of using the returned
 </KCatalog>
 ```
 
-Use the `cardTitle` and `cardBody` slots to access `item` specific data.
+Use the `cardTitle`, `cardActions`, and `cardBody` slots to access `item` specific data.
 
 <KCatalog :fetcher="fetcherSm" title="Customized cards">
   <template v-slot:cardTitle="{ item }">

@@ -148,7 +148,10 @@
           </template>
 
           <template #cardActions>
-            <slot name="cardActions" />
+            <slot
+              :item="item"
+              name="cardActions"
+            />
           </template>
 
           <template #cardBody>
