@@ -124,6 +124,7 @@
       v-else
       class="k-catalog-page"
       :class="`k-card-${cardSize}`"
+      :data-tableid="catalogId"
     >
       <slot
         :data="data"
