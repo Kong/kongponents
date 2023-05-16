@@ -1,3 +1,10 @@
+# [8.65.0](https://github.com/Kong/kongponents/compare/v8.64.0...v8.65.0) (2023-05-16)
+
+
+### Features
+
+* **kradio,kcheckbox:** cleanup / support tooltip ([#1381](https://github.com/Kong/kongponents/issues/1381)) ([c74ba6e](https://github.com/Kong/kongponents/commit/c74ba6ea5435c92acb57c718675ab11aa0a2e23b))
+
 # [8.64.0](https://github.com/Kong/kongponents/compare/v8.63.0...v8.64.0) (2023-05-16)
 
 
