@@ -46,10 +46,16 @@ If the label is omitted it can be handled with another component, like **KLabel*
 
 Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label) if using the `label` prop. This example shows using the `label-attributes` to set up a tooltip, see the [slot](#slots) section if you want to slot HTML into the tooltip rather than use plain text.
 
-<KInput label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop', 'data-testid': 'test' }"/>
+<KInput label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop', 'data-testid': 'test' } "/>
 
 ```html
-<KInput label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop' }" />
+<KInput
+  label="Name"
+  :label-attributes="{
+    help: 'I use the KLabel `help` prop',
+    'data-testid': 'test'
+  }"
+/>
 ```
 
 ### overlayLabel

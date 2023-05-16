@@ -1,37 +1,62 @@
 <template>
-  <label
+  <div
     :checked="isSelected"
-    class="k-radio"
-    :class="[isTypeDefault ? 'k-radio-default' : `k-radio-${type}`, $attrs.class ? $attrs.class : '']"
+    class="k-radio d-inline-block"
+    :class="[
+      isTypeDefault ? 'k-radio-default' : `k-radio-${type}`,
+      $attrs.class ? $attrs.class : '',
+      { 'disabled': isDisabled }
+    ]"
   >
     <input
+      :id="inputId"
       :checked="isSelected"
       v-bind="modifiedAttrs"
       class="k-input"
       type="radio"
       @click="handleClick"
     >
-    <span
+
+    <KLabel
       v-if="isTypeDefault && hasLabel"
+      v-bind="labelAttributes"
       class="k-radio-label"
+      :class="{ 'd-inline': hasDescription }"
+      :for="inputId"
     >
-      <slot name="default">{{ label }}</slot>
-    </span>
-    <div
-      v-if="isTypeDefault && hasLabel && hasDescription"
-      class="k-radio-description"
+      <slot>{{ label }}</slot>
+
+      <div
+        v-if="hasDescription"
+        class="k-radio-description"
+      >
+        <slot name="description">
+          {{ description }}
+        </slot>
+      </div>
+
+      <template
+        v-if="hasTooltip"
+        #tooltip
+      >
+        <slot name="tooltip" />
+      </template>
+    </KLabel>
+
+    <label
+      v-else-if="$slots.default"
+      :for="inputId"
     >
-      <slot name="description">{{ description }}</slot>
-    </div>
-    <div v-if="!isTypeDefault && hasLabel">
       <slot name="default" />
-    </div>
-  </label>
+    </label>
+  </div>
 </template>
 
 <script lang="ts">
 import { computed, useAttrs, useSlots, PropType } from 'vue'
-import { RadioTypes, RadioTypesArray } from '@/types'
+import { v4 as uuidv4 } from 'uuid'
+import { RadioTypes, RadioTypesArray, LabelAttributes } from '@/types'
+import KLabel from '@/components/KLabel/KLabel.vue'
 
 export default {
   inheritAttrs: false,
@@ -55,6 +80,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  labelAttributes: {
+    type: Object as PropType<LabelAttributes>,
+    default: () => ({}),
+  },
   /**
    * Overrides default description text
    */
@@ -77,12 +106,22 @@ const props = defineProps({
     default: 'radio',
     validator: (value: RadioTypes): boolean => RadioTypesArray.includes(value),
   },
+  /**
+   * Test mode - for testing only, strips out generated ids
+   */
+  testMode: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const slots = useSlots()
 
+const inputId = computed((): string => attrs.id ? String(attrs.id) : props.testMode ? 'test-radio-input-id-1234' : uuidv4())
+const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
 const hasLabel = computed((): boolean => !!(props.label || slots.default))
 const hasDescription = computed((): boolean => !!(props.description || slots.description))
+const hasTooltip = computed((): boolean => !!slots.tooltip)
 
 const isSelected = computed((): boolean => props.selectedValue === props.modelValue)
 
@@ -148,7 +187,19 @@ $background-color-card-disabled: color(grey-200);
 
 .k-radio {
   .k-radio-label {
-    font-size: var(--type-sm, type(sm));
+    --KInputLabelWeight: 400;
+    --KInputLabelLineHeight: 20px;
+    --KInputLabelFont: Inter,Helvetica,Arial,sans-serif;
+    --KInputLabelMargin: 0;
+    --KInputLabelSize: var(--type-sm, type(sm));
+
+    vertical-align: middle;
+  }
+
+  &.disabled {
+    .k-radio-label {
+      color: var(--KInputRadioDisabled, var(--grey-400, color(grey-400)));
+    }
   }
 
   .k-radio-description {
@@ -160,13 +211,15 @@ $background-color-card-disabled: color(grey-200);
 
   // default radio input styling
   &.k-radio-default {
+    .k-radio-label:has(> .k-radio-description) {
+      --KInputLabelWeight: 600;
+    }
+
     .k-radio-description {
+      font-weight: 400;
       padding-left: var(--spacing-lg);
     }
 
-    .k-radio-label:has(+ .k-radio-description) {
-      font-weight: 600;
-    }
   }
 
   // card radio input styling

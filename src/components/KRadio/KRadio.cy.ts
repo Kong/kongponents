@@ -1,12 +1,21 @@
 import { mount } from 'cypress/vue'
 import KRadio from '@/components/KRadio/KRadio.vue'
 
+/**
+ * ALL TESTS MUST USE testMode
+ * We generate unique IDs for reference by aria properties. Test mode strips these out
+ * allowing for successful snapshot verification.
+ * props: {
+ *   testMode: true
+ * }
+ */
 describe('KRadio', () => {
   it('shows as not selected when modelValue is true', () => {
     mount(KRadio, {
       props: {
         modelValue: false,
         selectedValue: true,
+        testMode: true,
       },
     })
 
@@ -18,6 +27,7 @@ describe('KRadio', () => {
       props: {
         modelValue: true,
         selectedValue: true,
+        testMode: true,
       },
     })
 
@@ -29,12 +39,16 @@ describe('KRadio', () => {
       props: {
         modelValue: false,
         selectedValue: true,
+        testMode: true,
       },
     })
 
     cy.get('input').check().then(() => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'change')
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'update:modelValue')
+
+      cy.wrap(Cypress.vueWrapper.emitted('change')?.[0][0]).should('eq', true)
+      cy.wrap(Cypress.vueWrapper.emitted('update:modelValue')?.[0][0]).should('eq', true)
     })
   })
 
@@ -46,6 +60,7 @@ describe('KRadio', () => {
         selectedValue: true,
         type: 'card',
         label: 'Some label',
+        testMode: true,
       },
       slots: {
         default: () => slotText,
@@ -61,6 +76,8 @@ describe('KRadio', () => {
         modelValue: false,
         selectedValue: true,
         type: 'card',
+        label: 'Some label',
+        testMode: true,
       },
     })
 
@@ -73,6 +90,10 @@ describe('KRadio', () => {
         modelValue: false,
         selectedValue: true,
         type: 'card',
+        testMode: true,
+      },
+      slots: {
+        default: () => 'Hello',
       },
     })
 
@@ -81,10 +102,7 @@ describe('KRadio', () => {
       .then(() => {
         cy.get('input').should('be.checked')
         cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'change')
-        cy.wrap(Cypress.vueWrapper.emitted()).should(
-          'have.property',
-          'update:modelValue',
-        )
+        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'update:modelValue')
       })
   })
 
@@ -94,9 +112,13 @@ describe('KRadio', () => {
         modelValue: false,
         selectedValue: true,
         type: 'card',
+        testMode: true,
       },
       attrs: {
         disabled: true,
+      },
+      slots: {
+        default: () => 'Hello',
       },
     })
 

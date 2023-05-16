@@ -97,6 +97,7 @@ input.form-control {
       background-repeat: no-repeat;
       background-size: 100% 100%;
       border-color: currentColor;
+
       &:after {
         background-color: currentColor;
         border-radius: 100%;
@@ -104,6 +105,14 @@ input.form-control {
         display: flex;
         height: 10px;
         width: 10px;
+      }
+
+      &:disabled {
+        border-color: var(--KInputRadioDisabled, var(--grey-400, color(grey-400)));
+
+        &:after {
+          background-color: var(--KInputRadioDisabled, var(--grey-400, color(grey-400)));
+        }
       }
     }
 
