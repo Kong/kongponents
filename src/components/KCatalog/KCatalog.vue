@@ -13,11 +13,14 @@
       class="k-catalog-toolbar mb-5"
       data-testid="k-catalog-toolbar"
     >
-      <slot name="toolbar" />
+      <slot
+        name="toolbar"
+        :state="stateData"
+      />
     </div>
 
     <KSkeleton
-      v-if="(testMode === false || testMode === 'loading') && (isCardLoading || isLoading) && !hasError"
+      v-if="(!testMode || testMode === 'loading') && (isCatalogLoading || isLoading || isRevalidating) && !hasError"
       :card-count="4"
       class="k-skeleton-grid"
       data-testid="k-catalog-skeleton"
@@ -82,7 +85,7 @@
     </div>
 
     <div
-      v-else-if="!hasError && (!isCardLoading && !isLoading) && (data && !data.length)"
+      v-else-if="!hasError && (!isCatalogLoading && !isLoading && !isRevalidating) && (data && !data.length)"
       class="k-catalog-empty-state"
       data-testid="k-card-catalog-empty-state"
     >
@@ -121,6 +124,7 @@
       v-else
       class="k-catalog-page"
       :class="`k-card-${cardSize}`"
+      :data-tableid="catalogId"
     >
       <slot
         :data="data"
@@ -131,7 +135,7 @@
           :key="item.key ? item.key : `k-catalog-item-${idx}`"
           class="catalog-item"
           :data-testid="item.id ? item.id : `k-catalog-item-${idx}`"
-          :item="item"
+          :item="(item as CatalogItem)"
           :test-mode="!!testMode || undefined"
           :truncate="!noTruncation"
         >
@@ -142,6 +146,13 @@
             >
               {{ item.title }}
             </slot>
+          </template>
+
+          <template #cardActions>
+            <slot
+              :item="item"
+              name="cardActions"
+            />
           </template>
 
           <template #cardBody>
@@ -179,8 +190,8 @@
 
 <script setup lang="ts">
 import { PropType, ref, computed, onMounted, watch, useSlots } from 'vue'
-import type { CatalogPreferences } from '@/types'
-import { CardSize, CardSizeArray } from '@/types'
+import { v4 as uuidv4 } from 'uuid'
+import { CatalogItem, CatalogPreferences, SwrvState, SwrvStateData, CardSize, CardSizeArray } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
@@ -189,7 +200,7 @@ import KButton from '@/components/KButton/KButton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KCatalogItem from './KCatalogItem.vue'
 
-const { useRequest, useDebounce } = useUtilities()
+const { useRequest, useDebounce, useSwrvState } = useUtilities()
 
 const props = defineProps({
   /**
@@ -345,6 +356,13 @@ const props = defineProps({
     default: null,
   },
   /**
+   * A prop used to uniquely identify this catalog in the swrv cache
+   */
+  cacheIdentifier: {
+    type: String,
+    default: '',
+  },
+  /**
    * A prop to trigger a revalidate of the fetcher function. Modifying this value
    * will trigger a manual refetch of the table data.
    */
@@ -411,38 +429,28 @@ const emit = defineEmits(['kcatalog-error-cta-clicked', 'kcatalog-empty-state-ct
 
 const slots = useSlots()
 
+const catalogId = computed((): string => props.testMode ? 'test-catalog-id-1234' : uuidv4())
 const defaultFetcherProps = {
   page: 1,
   pageSize: 15,
   query: '',
 }
 
-const data = ref<any[]>([])
+const data = ref<CatalogItem[]>([])
 const total = ref<number>(0)
 const filterQuery = ref<string>('')
 const page = ref<number>(1)
 const pageSize = ref<number>(15)
-const isCardLoading = ref<boolean>(true)
 const hasInitialized = ref<boolean>(false)
-
 const hasToolbarSlot = computed((): boolean => !!slots.toolbar)
-
-// once `initData()` finishes fetch data
-const catalogFetcherCacheKey = computed((): string => {
-  if (!props.fetcher || !hasInitialized.value) {
-    return ''
-  }
-
-  return `catalog-item_${Math.floor(Math.random() * 1000)}_${props.fetcherCacheKey}` as string
-})
 
 // Store the catalogPreferences in a computed property to utilize in the watcher
 const catalogPreferences = computed((): CatalogPreferences => ({
   pageSize: pageSize.value,
 }))
 
+const isInitialFetch = ref(true)
 const fetchData = async () => {
-  isCardLoading.value = true
   const searchInput = props.searchInput
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -452,34 +460,66 @@ const fetchData = async () => {
     page: page.value,
   })
 
-  data.value = res.data
+  data.value = res.data as CatalogItem[]
   total.value = props.paginationTotalItems || res.total || res.data.length
-  isCardLoading.value = false
+
+  isInitialFetch.value = false
 
   return res
 }
 
-const initData = async () => {
+const initData = () => {
   // set up fetcher props
   const fetcherParams = {
     ...defaultFetcherProps,
     ...props.initialFetcherParams,
   }
 
-  page.value = fetcherParams.page
-  pageSize.value = fetcherParams.pageSize
-  filterQuery.value = fetcherParams.query
+  // don't allow overriding default settings with `undefined` values
+  page.value = fetcherParams.page ?? defaultFetcherProps.page
+  pageSize.value = fetcherParams.pageSize ?? defaultFetcherProps.pageSize
+  filterQuery.value = fetcherParams.query ?? defaultFetcherProps.query
+
+  // trigger setting of catalogFetcherCacheKey
   hasInitialized.value = true
 }
 
-const query = ref('')
-const { debouncedFn: debouncedSearch } = useDebounce((q: string) => { query.value = q })
+// once `initData()` finishes, setting catalogFetcherCacheKey to non-falsey value triggers fetch of data
+const catalogFetcherCacheKey = computed((): string => {
+  if (!props.fetcher || !hasInitialized.value) {
+    return ''
+  }
 
-const { revalidate } = useRequest(
+  // Set the default identifier to a random string
+  let identifierKey: string = catalogId.value
+  if (props.cacheIdentifier) {
+    identifierKey = props.cacheIdentifier
+  }
+
+  if (props.fetcherCacheKey) {
+    identifierKey += `-${props.fetcherCacheKey}`
+  }
+
+  return `k-catalog_${identifierKey}`
+})
+
+const query = ref('')
+const { debouncedFn: debouncedSearch } = useDebounce((q: string) => { query.value = q }, 350)
+
+// ALL fetching is done through this useRequest / revalidate
+// don't fire until catalog FetcherCacheKey is set
+const { data: fetcherData, error: fetcherError, revalidate, isValidating: fetcherIsValidating } = useRequest(
   () => catalogFetcherCacheKey.value,
   () => fetchData(),
-  { revalidateOnFocus: false },
+  { revalidateOnFocus: false, revalidateDebounce: 0 },
 )
+
+const { state, hasData, swrvState } = useSwrvState(fetcherData, fetcherError, fetcherIsValidating)
+const isCatalogLoading = ref<boolean>(true)
+const stateData = computed((): SwrvStateData => ({
+  hasData: hasData.value,
+  state: state.value as SwrvState,
+}))
 
 const pageChangeHandler = ({ page: newPage }: Record<string, number>): void => {
   page.value = newPage
@@ -487,19 +527,50 @@ const pageChangeHandler = ({ page: newPage }: Record<string, number>): void => {
 
 const pageSizeChangeHandler = ({ pageSize: newPageSize }: Record<string, number>): void => {
   pageSize.value = newPageSize
+  page.value = 1
 }
 
 const getTestIdString = (message: string): string => {
   return message.toLowerCase().replace(/[^[a-z0-9]/gi, '-')
 }
 
+watch(fetcherData, (fetchedData: any) => {
+  if (fetchedData?.length && !data.value.length) {
+    data.value = fetchedData
+  }
+}, { deep: true, immediate: true })
+
+// we want to tie loader to 'pending' since 'validating' is triggered even when pulling from cache, which should result in no loader
+// however, if this is a manual revalidation (triggered by page change, query, etc), display loader when validating
+watch(state, () => {
+  switch (state.value) {
+    case swrvState.PENDING:
+      isCatalogLoading.value = true
+      break
+    case swrvState.VALIDATING_HAS_DATA:
+      isCatalogLoading.value = isRevalidating.value
+      break
+    default:
+      isCatalogLoading.value = false
+      break
+  }
+}, { immediate: true })
+
 watch(() => props.searchInput, (newValue: string) => {
   debouncedSearch(newValue)
 }, { immediate: true })
 
-watch(() => [query.value, page.value, pageSize.value], () => {
-  revalidate()
-}, { immediate: true })
+const isRevalidating = ref<boolean>(false)
+watch([query, page, pageSize], async () => {
+  // don't revalidate until we have finished initializing and made initial fetch
+  if (hasInitialized.value && !isInitialFetch.value) {
+    isRevalidating.value = true
+
+    await revalidate()
+
+    isRevalidating.value = false
+  }
+}, { deep: true, immediate: true })
 
 // Emit an event whenever the catalogPreferences are updated
 watch(catalogPreferences, (catalogPrefs: CatalogPreferences) => {

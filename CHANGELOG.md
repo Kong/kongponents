@@ -1,3 +1,10 @@
+# [8.63.0](https://github.com/Kong/kongponents/compare/v8.62.0...v8.63.0) (2023-05-16)
+
+
+### Features
+
+* **kcatalog:** swrv caching [khcp-7309] ([#1377](https://github.com/Kong/kongponents/issues/1377)) ([4a9dad0](https://github.com/Kong/kongponents/commit/4a9dad0525531ed3383fb37a3f67ea8bf41fcfd2))
+
 # [8.62.0](https://github.com/Kong/kongponents/compare/v8.61.0...v8.62.0) (2023-05-11)
 
 
