@@ -117,16 +117,27 @@ will default to the following values:
 { pageSize: 15, page: 1 }
 ```
 
+### cacheIdentifier
+
+The fetcher functionality makes use of [SWRV](https://docs-swrv.netlify.app/) to handle caching of response data. In order to take advantage of this caching, SWRV needs a way to identify which cache entry is associated with the catalog.
+
+The identifier should be a string and will default to `''` if not provided. In that scenario, we will generate a random ID for the identifier every time the catalog is mounted.
+
+::: danger Danger
+This identifier must be unique across all `KCatalog` instances across the entire Vue app, otherwise there is a risk that SWRV will return the cached data of the wrong catalog.
+:::
+
 ### fetcherCacheKey
 
-The fetcher functionality makes use of [SWRV](https://docs-swrv.netlify.app/) to handle caching of response data. Whenever the cache key is changed the fetcher will automatically
-refire and repopulate the table data.
+Whenever the cache key is changed the fetcher will automatically be called and attempt to fetch new catalog data.
 
 ```html
 <template>
   <KCatalog
+    cache-identifier="fetcher-cache-key-example-catalog"
     :fetcher="fetcher"
-    :fetcherCacheKey="cacheKey" />
+    :fetcherCacheKey="cacheKey"
+  />
 </template>
 
 <script>
@@ -375,6 +386,7 @@ Both the `title` & `description` of the card items as well as the entire catalog
 
 - `body` - The body of the card catalog, if you do not want to use `KCatalogItem` components for the children.
 - `cardHeader` - Will slot the card title for each entry
+- `cardActions` - Will slot the card actions for each entry
 - `cardBody` - Will slot the card body for each entry
 
 If used in conjuction with a `fetcher` you have the option of using the returned `data` in the `body` slot.
@@ -399,7 +411,7 @@ If used in conjuction with a `fetcher` you have the option of using the returned
 </KCatalog>
 ```
 
-Use the `cardTitle` and `cardBody` slots to access `item` specific data.
+Use the `cardTitle`, `cardActions`, and `cardBody` slots to access `item` specific data.
 
 <KCatalog :fetcher="fetcherSm" title="Customized cards">
   <template v-slot:cardTitle="{ item }">
@@ -431,18 +443,47 @@ Use the `cardTitle` and `cardBody` slots to access `item` specific data.
 
 ### Toolbar
 
-The `toolbar` slot allows you to slot catalog controls rendered at the top of the `.k-card-catalog` element such as a search input or other UI elements.
+The `toolbar` slot allows you to slot catalog controls rendered at the top of the `.k-card-catalog` element such as a search input or other UI elements. It provides the [SWRV](https://docs-swrv.netlify.app/) `state` and `hasData` in the slot param.
+
+```ts
+{
+  state: {
+    hasData: boolean
+    state: string
+  }
+}
+```
 
 If utilizing multiple elements, we recommend adding `display: flex; width: 100%;` to the root slot tag.
 
 <KCatalog :fetcher="fetcherXs">
-  <template #toolbar>
+  <template #toolbar="{ state }">
     <div class="d-flex w-100 justify-content-between">
-      <KInput placeholder="Search" />
+      <KInput v-if="state.hasData" placeholder="Search" />
       <KSelect appearance="select" :items="[{ label: 'First option', value: '1', selected: true }, { label: 'Another option', value: '2'}]" />
     </div>
   </template>
 </KCatalog>
+
+```html
+<KCatalog :fetcher="fetcher">
+  <template #toolbar="{ state }">
+    <div class="d-flex w-100 justify-content-between">
+      <KInput
+        v-if="state.hasData"
+        placeholder="Search"
+      />
+      <KSelect
+        appearance="select"
+        :items="[
+          { label: 'First option', value: '1', selected: true },
+          { label: 'Another option', value: '2'}
+        ]"
+      />
+    </div>
+  </template>
+</KCatalog>
+```
 
 
 ### State Slots
@@ -498,6 +539,7 @@ is triggered and will be resolved when the fetcher returns. You can override thi
 :::
 
 <KCatalog
+  cache-identifier="server-side-functions-catalog"
   :fetcher="fetcher"
   :initial-fetcher-params="{
     pageSize: 15,
@@ -519,6 +561,7 @@ https://kongponents.dev/api/components?_page=1&_limit=10
   <template v-slot:body>
     <KInput placeholder="Search" v-model="search" type="search" />
     <KCatalog
+      cache-identifier="server-side-functions-catalog"
       :fetcher="fetcher"
       :initial-fetcher-params="{
         pageSize: 15,

@@ -241,6 +241,45 @@ describe('KCatalog', () => {
 
       cy.get('.multi-line-truncate').should('not.exist')
     })
+
+    it('triggers the internal search and revalidate after clearing the search input', () => {
+      const fns = {
+        fetcher: ({ query }: { query: string }) => {
+          return { data: [{ query }] }
+        },
+      }
+
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      mount(KCatalog, {
+        propsData: {
+          testMode: 'true',
+          fetcher: fns.fetcher,
+          isLoading: false,
+          paginationPageSizes: [10, 15, 20],
+          searchInput: '',
+          cacheIdentifier: 'search-example',
+        },
+      })
+        .get('@fetcher')
+        .should('have.callCount', 1) // fetcher's 1st call
+        .should('returned', { data: [{ query: '' }] })
+        .wait(1000)
+        .get('@fetcher')
+        .should('have.callCount', 1) // ensure fetcher is NOT called twice on load
+        .then(() => cy.wrap(Cypress.vueWrapper.setProps({ searchInput: 'some-keyword' })))
+
+      // fetcher call should be delayed (> 350ms for search func + 500ms for revalidate func)
+      cy.get('@fetcher', { timeout: 1000 }) // fetcher's 2nd call
+        .should('have.callCount', 2) // fetcher should be called once
+        .should('returned', { data: [{ query: 'some-keyword' }] })
+        .then(() => cy.wrap(Cypress.vueWrapper.setProps({ searchInput: '' })))
+
+      // fetcher should be called immediately (< 350ms for search func)
+      cy.get('@fetcher', { timeout: 350 })
+        .should('have.callCount', 3) // fetcher's 3rd call
+        .should('returned', { data: [{ query: '' }] })
+    })
   })
 
   describe('states', () => {
@@ -302,9 +341,11 @@ describe('KCatalog', () => {
 
     it('displays an error state (slot)', () => {
       const errorSlotContent = 'Look mah! I am erroneous! (except testMode)'
+
       mount(KCatalog, {
         props: {
           testMode: 'true',
+          fetcher: () => { return { data: [], total: 0 } },
           hasError: true,
         },
         slots: {
@@ -324,6 +365,7 @@ describe('KCatalog', () => {
         props: {
           testMode: 'loading',
           fetcher: slowFetcher,
+          cacheIdentifier: 'loading-test',
           paginationPageSizes: [10, 20, 30, 40],
         },
       })
@@ -383,7 +425,6 @@ describe('KCatalog', () => {
           testMode: 'true',
           fetcher: () => { return { data: getItems(5), total: 5 } },
           isLoading: false,
-          pageSize: 15,
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
         },
@@ -400,7 +441,6 @@ describe('KCatalog', () => {
             return { data: largeDataSet, total: 10 }
           },
           isLoading: false,
-          pageSize: 15,
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
         },
@@ -417,8 +457,8 @@ describe('KCatalog', () => {
             return { total: 25 }
           },
           isLoading: false,
-          pageSize: 15,
           hidePaginationWhenOptional: true,
+          cacheIdentifier: 'pagination-example',
         },
       })
 
