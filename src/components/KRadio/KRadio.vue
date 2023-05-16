@@ -107,8 +107,8 @@ const props = defineProps({
     validator: (value: RadioTypes): boolean => RadioTypesArray.includes(value),
   },
   /**
-     * Test mode - for testing only, strips out generated ids
-     */
+   * Test mode - for testing only, strips out generated ids
+   */
   testMode: {
     type: Boolean,
     default: false,
