@@ -1,32 +1,50 @@
 <template>
-  <label
+  <div
     class="k-checkbox"
-    :class="$attrs.class"
+    :class="[$attrs.class, { 'disabled': isDisabled }]"
   >
     <input
+      :id="inputId"
       :checked="modelValue"
       v-bind="modifiedAttrs"
       class="k-input"
       type="checkbox"
       @change="handleChange"
     >
-    <span
+
+    <KLabel
       v-if="hasLabel"
+      v-bind="labelAttributes"
       class="k-checkbox-label"
+      :class="{ 'd-inline': showDescription }"
+      :for="inputId"
     >
       <slot>{{ label }}</slot>
-    </span>
-    <div
-      v-if="showDescription"
-      class="k-checkbox-description"
-    >
-      <slot name="description">{{ description }}</slot>
-    </div>
-  </label>
+
+      <div
+        v-if="showDescription"
+        class="k-checkbox-description"
+      >
+        <slot name="description">
+          {{ description }}
+        </slot>
+      </div>
+
+      <template
+        v-if="hasTooltip"
+        #tooltip
+      >
+        <slot name="tooltip" />
+      </template>
+    </KLabel>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, useAttrs, useSlots } from 'vue'
+import { computed, useAttrs, useSlots, PropType } from 'vue'
+import { v4 as uuidv4 } from 'uuid'
+import { LabelAttributes } from '@/types'
+import KLabel from '@/components/KLabel/KLabel.vue'
 
 const props = defineProps({
   /**
@@ -44,12 +62,23 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  labelAttributes: {
+    type: Object as PropType<LabelAttributes>,
+    default: () => ({}),
+  },
   /**
    * Overrides default description text
    */
   description: {
     type: String,
     default: '',
+  },
+  /**
+     * Test mode - for testing only, strips out generated ids
+     */
+  testMode: {
+    type: Boolean,
+    default: false,
   },
 })
 
@@ -62,9 +91,12 @@ const emit = defineEmits<{
 const slots = useSlots()
 const attrs = useAttrs()
 
+const inputId = computed((): string => attrs.id ? String(attrs.id) : props.testMode ? 'test-radio-input-id-1234' : uuidv4())
 const hasLabel = computed((): boolean => !!(props.label || slots.default))
+const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
 
 const showDescription = computed((): boolean => hasLabel.value && (!!props.description || !!slots.description))
+const hasTooltip = computed((): boolean => !!slots.tooltip)
 
 const modifiedAttrs = computed(() => {
   const $attrs = { ...attrs }
@@ -93,19 +125,35 @@ export default {
 @import '@/styles/functions';
 
 .k-checkbox-label {
-  font-size: var(--type-sm, type(sm));
+  --KInputLabelWeight: 400;
+  --KInputLabelLineHeight: 20px;
+  --KInputLabelFont: Inter,Helvetica,Arial,sans-serif;
+  --KInputLabelMargin: 0;
+  --KInputLabelSize: var(--type-sm, type(sm));
+
+  vertical-align: middle;
 }
 
 .k-checkbox-description {
   color: var(--black-45, rgba(0, 0, 0, 0.45));
   font-size: var(--type-sm, type(sm));
+  font-weight: 400;
   line-height: 20px;
   padding-left: var(--spacing-lg);
   padding-top: var(--spacing-xxs);
 }
 
-.k-checkbox-label:has(+ .k-checkbox-description) {
-  font-weight: 600;
+.disabled {
+  .k-checkbox-label {
+    color: var(--KCheckboxDisabledChecked, var(--grey-400, color(grey-400)));
+  }
 }
+</style>
 
+<style lang="scss">
+.k-checkbox {
+  .k-checkbox-label:has(> .k-checkbox-description) {
+    font-weight: 600;
+  }
+}
 </style>

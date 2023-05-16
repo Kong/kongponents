@@ -12,7 +12,8 @@
 <template>
   <KCheckbox
     v-model="checked"
-    @change="handleToggle" />
+    @change="handleToggle"
+  />
 </template>
 
 <script lang="ts">
@@ -43,8 +44,8 @@ Use `v-model` to bind the `checked` state of the underlying `<input />`. The `v-
 
 <KCard>
   <template v-slot:body>
-    <KCheckbox v-model="defaultChecked">
-      {{ defaultChecked ? 'Checked!' : 'Unchecked' }}
+    <KCheckbox v-model="modelChecked">
+      {{ modelChecked ? 'Checked!' : 'Unchecked' }}
     </KCheckbox>
   </template>
 </KCard>
@@ -59,50 +60,67 @@ Use `v-model` to bind the `checked` state of the underlying `<input />`. The `v-
 
 Will place label text to the right of the checkbox. Can also be [slotted](#slots).
 
+<KCheckbox v-model="labelChecked" label="Label Example" />
+
 ```html
-<KCheckbox v-model="checked" label="Label Example" />
+<KCheckbox
+  v-model="checked"
+  label="Label Example"
+/>
 ```
 
-<KCheckbox v-model="checked" label="Label Example" />
+### labelAttributes
+
+ `KCheckbox` has an instance of `KLabel` for supporting tooltip text. Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label). This example shows using the `label-attributes` to set up a tooltip, see the [slot](#slots) section if you want to slot HTML into the tooltip rather than use plain text.
+
+<KCheckbox v-model="labelAChecked" label="Tooltips?" :label-attributes="{ help: 'I use the KLabel `help` prop' }" />
+
+```html
+<KCheckbox
+  v-model="checked"
+  label="Tooltips?"
+  :label-attributes="{ help: 'I use the KLabel `help` prop' }"
+/>
+```
 
 ### description
 
 Will place description text under the checkbox label (required). Can also be [slotted](#slots).
 
-```html
-<KCheckbox v-model="checked" label="Label Example" description="Some subheader text" />
-```
+<KCheckbox v-model="descriptionChecked" label="Label Example" description="Some subheader text" />
 
-<KCheckbox v-model="checked" label="Label Example" description="Some subheader text" />
+```html
+<KCheckbox
+  v-model="checked"
+  label="Label Example"
+  description="Some subheader text"
+/>
+```
 
 ### HTML attributes
 
 Any valid attribute will be added to the input. You can read more about `$attrs` [here](https://vuejs.org/api/composition-api-setup.html#setup-context).
 
+<KCard>
+  <template v-slot:body>
+    <div class="mb-2">
+      <KCheckbox v-model="disabled" label="Can't check this" disabled />
+    </div>
+    <div>
+      <KCheckbox v-model="disabledChecked" disabled />
+    </div>
+  </template>
+</KCard>
+
 ```html
 <KCheckbox v-model="checked" disabled />
 ```
 
-<KCard>
-  <template v-slot:body>
-    <KCheckbox v-model="checked" disabled />
-    <KCheckbox v-model="disabledChecked" disabled />
-  </template>
-</KCard>
-
 ## Slots
 
-- `default` - Anything passed in to the default slot will replace the label prop text
+### `default`
 
-```html
-<KCheckbox v-model="checkbox1">
-  Label goes here. The checkbox is {{ checkbox1 ? 'checked' : 'not checked' }}
-</KCheckbox>
-
-<KCheckbox v-model="checkbox2">
-  I agree to the <a :href="privacyPolicyURL">privacy policy</a>.
-</KCheckbox>
-```
+Anything passed in to the default slot will replace the label prop text
 
 <KCard>
   <template v-slot:body>
@@ -119,6 +137,79 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
   </template>
 </KCard>
 
+```html
+<KCheckbox v-model="checkbox1">
+  Label goes here. The checkbox is {{ checkbox1 ? 'checked' : 'not checked' }}
+</KCheckbox>
+
+<KCheckbox v-model="checkbox2">
+  I agree to the <a :href="privacyPolicyURL">privacy policy</a>.
+</KCheckbox>
+```
+
+### `description`
+
+Anything passed in to this slot will replace the `description` prop text
+
+<KCard>
+  <template #body>
+    <KCheckbox label="Some label" description="This will be replaced with a slot" v-model="slotsd" :selected-value="true">
+      <template #description>
+        Anything goes here
+      </template>
+    </KCheckbox>
+  </template>
+</KCard>
+
+```html
+<KCheckbox
+  v-model="checked"
+  :selected-value="true"
+  description="This will be replaced with a slot"
+  label="Some label"
+>
+  <template #description>
+    Anything goes here
+  </template>
+</KCheckbox>
+```
+
+### `tooltip`
+
+Provides a slot for tooltip content displayed after the checkbox label
+
+<KCheckbox v-model="slots3" :selected-value="true">
+  My tooltip
+  <template #tooltip>Brings all the <code>devs</code> to the yard</template>
+</KCheckbox>
+
+```html
+<KCheckbox v-model="checked" :selected-value="true">
+  My tooltip
+  <template #tooltip>Brings all the <code>devs</code> to the yard</template>
+</KCheckbox>
+```
+
+:::tip Note:
+When utilizing the `tooltip` slot, the `info` `KIcon` will be shown by default. To utilize the the `help` icon instead, set the `label-attributes` `help` property to any non-empty string value.
+:::
+
+<KCheckbox v-model="slots4" :selected-value="true" :label-attributes="{ help: 'true' }">
+  My tooltip
+  <template #tooltip>Brings all the <code>devs</code> to the yard</template>
+</KCheckbox>
+
+```html
+<KCheckbox
+  v-model="checked"
+  :selected-value="true"
+  :label-attributes="{ help: 'true' }"
+>
+  My tooltip
+  <template #tooltip>Brings all the <code>devs</code> to the yard</template>
+</KCheckbox>
+```
+
 ## Events
 
 `KCheckbox` has a couple of natural event bindings that all emit the same data.
@@ -129,11 +220,11 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 
 ## Theming
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KCheckboxPrimary`| KCheckbox checked background color
-| `--KCheckboxDisabled`| KCheckbox disabled background color
-| `--KCheckboxDisabledChecked`| KCheckbox disabled checked background color
+| Variable                     | Purpose                                     |
+| :--------------------------- | :------------------------------------------ |
+| `--KCheckboxPrimary`         | KCheckbox checked background color          |
+| `--KCheckboxDisabled`        | KCheckbox disabled background color         |
+| `--KCheckboxDisabledChecked` | KCheckbox disabled checked background color |
 
 An Example of changing the background color of KCheckbox to `blueviolet` might look like:
 
@@ -169,14 +260,19 @@ import { defineComponent, ref } from 'vue'
 export default defineComponent ({
   data () {
     return {
-      labelPropChecked1: false,
-      labelPropChecked2: false,
-      labelPropChecked3: false,
       defaultChecked: false,
+      modelChecked: false,
+      descriptionChecked: false,
+      labelChecked: false,
+      labelAChecked: false,
+      disabled: false,
       disabledChecked: true,
       themeChecked: true,
       slots1: true,
-      slots2: false
+      slots2: false,
+      slotsd: false,
+      slots3: false,
+      slots4: false
     }
   }
 })

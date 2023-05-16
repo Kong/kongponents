@@ -4,23 +4,23 @@
 
 <KCard>
   <template #body>
+    <div class="mb-3">Selected: {{ radioGroup }}</div>
     <div>
-      <KRadio name="test" :selected-value="true" v-model="radio">Boolean</KRadio>
-      <KRadio name="test" selected-value="string" v-model="radio">String</KRadio>
-      <KRadio name="test" :selected-value="objA" v-model="radio">Object A</KRadio>
-      <KRadio name="test" :selected-value="objB" v-model="radio">Object B</KRadio>
+      <KRadio name="test" :selected-value="true" v-model="radioGroup">Boolean</KRadio>
+      <KRadio name="test" selected-value="string" v-model="radioGroup">String</KRadio>
+      <KRadio name="test" :selected-value="objA" v-model="radioGroup">Object A</KRadio>
+      <KRadio name="test" :selected-value="objB" v-model="radioGroup">Object B</KRadio>
     </div>
-    <div class="mt-3">Selected: {{ radio }}</div>
   </template>
 </KCard>
 
 ```html
 <template>
-  <KRadio name="test" :selected-value="true" v-model="radio">Boolean</KRadio>
-  <KRadio name="test" selected-value="string" v-model="radio">String</KRadio>
-  <KRadio name="test" :selected-value="objA" v-model="radio">Object A</KRadio>
-  <KRadio name="test" :selected-value="objB" v-model="radio">Object B</KRadio>
-  <div class="mt-3">Selected: {{ radio }}</div>
+  <div class="mb-3">Selected: {{ radioGroup }}</div>
+  <KRadio name="test" :selected-value="true" v-model="radioGroup">Boolean</KRadio>
+  <KRadio name="test" selected-value="string" v-model="radioGroup">String</KRadio>
+  <KRadio name="test" :selected-value="objA" v-model="radioGroup">Object A</KRadio>
+  <KRadio name="test" :selected-value="objB" v-model="radioGroup">Object B</KRadio>
 </template>
 
 <script lang="ts">
@@ -31,7 +31,7 @@ export default defineComponent({
     const data = reactive({
       objA: { name: 'a' },
       objB: { name: 'b' },
-      radio: true,
+      radioGroup: 'string',
     })
 
     return {
@@ -56,26 +56,26 @@ The value of the `KRadio` option that will be emitted by the `change` and `updat
 
 Will place label text to the right of the radio. Can also be [slotted](#slots).
 
-```html
-<KRadio :selected-value="true" v-model="radio" label="Label Example" />
-```
+<KRadio v-model="checked" label="Label Example" :selected-value="true" />
 
-<KRadio :selected-value="true" v-model="radio" label="Label Example" />
+```html
+<KRadio v-model="checked" label="Label Example" :selected-value="true" />
+```
 
 ### description
 
 Will place description text under the radio label. Can also be [slotted](#slots).
 
+<KRadio v-model="radio" label="Label Example" description="Some subheader text" :selected-value="true" />
+
 ```html
 <KRadio
-  :selected-value="true"
   v-model="radio"
   label="Label Example"
   description="Some subheader text"
+  :selected-value="true"
 />
 ```
-
-<KRadio :selected-value="true" v-model="radio" label="Label Example" description="Some subheader text" />
 
 ### type
 
@@ -85,7 +85,7 @@ Controls appearance of radio input element. Accepted values:
 - `card`
 
 ::: warning NOTE
-The `label` and `description` props, as well as the `description` slot, are ignored when `type` prop is `card`. 
+The `label` and `description` props, as well as the `description` slot, are ignored when `type` prop is `card`.
 
 You can only define content of a card via the `default` slot.
 :::
@@ -144,21 +144,40 @@ export default defineComponent({
 </script>
 ```
 
+### labelAttributes
+
+ `KRadio` has an instance of `KLabel` for supporting tooltip text. Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label). This example shows using the `label-attributes` to set up a tooltip, see the [slot](#slots) section if you want to slot HTML into the tooltip rather than use plain text.
+
+<KRadio v-model="labelAChecked" label="Tooltips?" :label-attributes="{ help: 'I use the KLabel `help` prop' }" :selected-value="true" />
+
+```html
+<KRadio
+  v-model="checked"
+  label="Tooltips?"
+  :label-attributes="{ help: 'I use the KLabel `help` prop' }"
+  :selected-value="true"
+/>
+```
+
 ### HTML attributes
 
 Any valid attribute will be added to the input. You can read more about `$attrs` [here](https://vuejs.org/api/composition-api-setup.html#setup-context).
 
+<KCard>
+  <template #body>
+    <KRadio v-model="disabledChecked" :selected-value="true" disabled>Disabled radio</KRadio>
+  </template>
+</KCard>
+
 ```html
-<KRadio v-model="checked" :selected-value="true" disabled>
+<KRadio
+  v-model="checked"
+  :selected-value="true"
+  disabled
+>
   Disabled radio
 </KRadio>
 ```
-
-<KCard>
-  <template #body>
-    <KRadio v-model="radioState" :selected-value="true" disabled>Disabled radio</KRadio>
-  </template>
-</KCard>
 
 ## Slots
 
@@ -174,11 +193,11 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 
 ```html
 <KRadio
+  v-model="checked"
   label="This will be replaced with a slot"
-  v-model="isStateOn"
   :selected-value="true"
 >
-  Label goes here. The radio is {{ isStateOn ? "selected" : "not selected" }}
+  Label goes here. The radio is {{ checked ? "selected" : "not selected" }}
 </KRadio>
 ```
 
@@ -186,7 +205,7 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 
 <KCard>
   <template #body>
-    <KRadio label="Some label" description="This will be replaced with a slot" v-model="isStateOn" :selected-value="true">
+    <KRadio label="Some label" description="This will be replaced with a slot" v-model="slotChecked" :selected-value="true">
       <template #description>
         Description goes here
       </template>
@@ -196,12 +215,46 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 
 ```html
 <KRadio
-  v-model="isStateOn"
-  description="This will be replaced with a slot"
+  v-model="checked"
   label="Some label"
+  description="This will be replaced with a slot"
   :selected-value="true"
 >
   <template #description>Description goes here</template>
+</KRadio>
+```
+
+- `tooltip` - Provides a slot for tooltip content displayed after the radio label
+
+<KRadio v-model="tooltipChecked" :selected-value="true">
+  My tooltip
+  <template #tooltip>Brings all the <code>devs</code> to the yard</template>
+</KRadio>
+
+```html
+<KRadio v-model="checked" :selected-value="true">
+  My tooltip
+  <template #tooltip>Brings all the <code>devs</code> to the yard</template>
+</KRadio>
+```
+
+:::tip Note:
+When utilizing the `tooltip` slot, the `info` `KIcon` will be shown by default. To utilize the the `help` icon instead, set the `label-attributes` `help` property to any non-empty string value.
+:::
+
+<KRadio v-model="tooltipChecked2" :selected-value="true" :label-attributes="{ help: 'true' }">
+  My tooltip
+  <template #tooltip>Brings all the <code>devs</code> to the yard</template>
+</KRadio>
+
+```html
+<KRadio
+  v-model="checked"
+  :label-attributes="{ help: 'true' }"
+  :selected-value="true"
+>
+  My tooltip
+  <template #tooltip>Brings all the <code>devs</code> to the yard</template>
 </KRadio>
 ```
 
@@ -224,13 +277,13 @@ An Example of changing the background color of KRadio to lime might look like:
 > Note: We are scoping the overrides to a wrapper in this example
 
 <div class="KRadio-wrapper">
-  <KRadio v-model="radioState" :selected-value="true" />
+  <KRadio v-model="themeChecked" :selected-value="true" />
 </div>
 
 ```html
 <template>
   <div class="KRadio-wrapper">
-    <KRadio v-model="isStateOn" :selected-value="true" />
+    <KRadio v-model="checked" :selected-value="true" />
   </div>
 </template>
 
@@ -249,10 +302,17 @@ export default defineComponent({
     const data = reactive({
       objA: { name: 'a' },
       objB: { name: 'b' },
-      radio: true,
-      radioState: true,
+      radioGroup: 'string',
       isStateOn: false,
-      cardRadio: ''
+      cardRadio: '',
+      checked: false,
+      disabledChecked: true,
+      descriptionChecked: false,
+      labelAChecked: false,
+      slotChecked: false,
+      tooltipChecked: false,
+      tooltipChecked2: false,
+      themeChecked: true
     })
 
     return {
