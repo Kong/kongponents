@@ -44,7 +44,7 @@
     </KLabel>
 
     <label
-      v-else-if="hasLabel"
+      v-else-if="$slots.default"
       :for="inputId"
     >
       <slot name="default" />
