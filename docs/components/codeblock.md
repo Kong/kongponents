@@ -250,6 +250,64 @@ Sets the display theme of the component.
 />
 ```
 
+## Slots
+
+### secondary-actions
+
+Allows adding elements after the location of the copy button.
+
+<ClientOnly>
+  <KCodeBlock
+    id="code-block-slots-secondary-actions"
+    :code="code"
+    language="json"
+  >
+    <template #secondary-actions>
+      <KButton
+        appearance="outline"
+        size="small"
+        :is-rounded="false"
+        title="Copy as Kubernetes"
+      >
+        <KIcon
+          color="currentColor"
+          icon="copy"
+          size="18"
+          title="Copy as Kubernetes"
+        />
+        as k8s
+      </KButton>
+    </template>
+  </KCodeBlock>
+</ClientOnly>
+
+```html
+<KCodeBlock
+  id="code-block-slots-secondary-actions"
+  :code="code"
+  language="json"
+>
+  <template #secondary-actions>
+    <KButton
+      appearance="outline"
+      size="small"
+      :is-rounded="false"
+      title="Copy as Kubernetes"
+      @click="copyAsKubernetes"
+    >
+      <KIcon
+        color="currentColor"
+        icon="copy"
+        size="18"
+        title="Copy as Kubernetes"
+      />
+
+      as k8s
+    </KButton>
+  </template>
+</KCodeBlock>
+```
+
 ## Events
 
 ### code-block-render
