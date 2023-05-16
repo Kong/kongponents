@@ -1,3 +1,10 @@
+# [8.64.0](https://github.com/Kong/kongponents/compare/v8.63.0...v8.64.0) (2023-05-16)
+
+
+### Features
+
+* **kcodeblock:** adds secondary actions slot ([#1380](https://github.com/Kong/kongponents/issues/1380)) ([1590832](https://github.com/Kong/kongponents/commit/15908322685fa668f1c87beb9350aa70a9e2988a))
+
 # [8.63.0](https://github.com/Kong/kongponents/compare/v8.62.0...v8.63.0) (2023-05-16)
 
 
