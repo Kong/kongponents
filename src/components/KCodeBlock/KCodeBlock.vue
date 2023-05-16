@@ -245,33 +245,40 @@
       </pre>
       <!-- eslint-enable vue/no-v-html -->
 
-      <KButton
-        v-if="showCopyButton"
-        ref="codeBlockCopyButton"
-        appearance="outline"
-        class="k-code-block-copy-button"
-        data-testid="k-code-block-copy-button"
-        :is-rounded="false"
-        size="small"
-        :title="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
-        type="button"
-        @click="copyCode"
+      <div
+        v-if="showCopyButton || slots['secondary-actions']"
+        class="k-code-block-secondary-actions"
       >
-        <KIcon
-          color="currentColor"
-          icon="copy"
-          size="18"
+        <KButton
+          v-if="showCopyButton"
+          ref="codeBlockCopyButton"
+          appearance="outline"
+          class="k-code-block-copy-button"
+          data-testid="k-code-block-copy-button"
+          :is-rounded="false"
+          size="small"
           :title="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
-        />
+          type="button"
+          @click="copyCode"
+        >
+          <KIcon
+            color="currentColor"
+            icon="copy"
+            size="18"
+            :title="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
+          />
 
-        <span class="k-visually-hidden">Copy</span>
-      </KButton>
+          <span class="k-visually-hidden">Copy</span>
+        </KButton>
+
+        <slot name="secondary-actions" />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch, PropType } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, useSlots, watch, PropType } from 'vue'
 
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
@@ -393,6 +400,8 @@ const emit = defineEmits<{
    */
   (event: 'query-change', data: string): void
 }>()
+
+const slots = useSlots()
 
 const query = ref<string>(props.query)
 const isProcessingInternally = ref<boolean>(false)
@@ -870,6 +879,7 @@ $dark-focusColor: var(--green-500, color(green-500));
 .k-code-block-actions .k-button {
   align-self: stretch;
 
+  // TODO: This rule set should live in KButton.vue.
   &.action-active {
     background-color: var(--steel-500, color(steel-500));
     border-color: var(--steel-500, color(steel-500));
@@ -877,7 +887,8 @@ $dark-focusColor: var(--green-500, color(green-500));
   }
 }
 
-.theme-dark .k-code-block-actions .k-button {
+// TODO: This rule set should live in KButton.vue.
+.theme-dark .k-button {
   background-color: $dark-backgroundColor;
   border-color: var(--steel-300, color(steel-300));
   color: var(--steel-300, color(steel-300));
@@ -1049,55 +1060,13 @@ $dark-focusColor: var(--green-500, color(green-500));
   position: relative;
 }
 
-.k-code-block-copy-button {
-  display: block;
+.k-code-block-secondary-actions {
+  display: flex;
+  gap: var(--spacing-xxs, spacing(xxs));
   position: absolute;
   right: var(--spacing-md, spacing(md));
   top: var(--spacing-xs, spacing(xs));
   z-index: 1;
-
-  &.k-button {
-    @media (min-width: $viewport-md) {
-      background-color: transparent;
-      border-color: transparent;
-    }
-
-    &:hover {
-      background-color: var(--steel-100, color(steel-100));
-      border-color: transparent !important;
-    }
-
-    &:active,
-    &:hover:active {
-      background-color: var(--steel-500, color(steel-500));
-      border-color: var(--steel-500, color(steel-500));
-      color: #fff;
-    }
-  }
-}
-
-.theme-dark .k-code-block-copy-button {
-
-  &.k-button {
-    color: var(--steel-300, color(steel-300));
-
-    @media (max-width: ($viewport-md - 1px)) {
-      background-color: $dark-backgroundColor;
-      border-color: var(--steel-300, color(steel-300));
-    }
-
-    &:hover {
-      background-color: rgba(#fff, 0.1);
-      border-color: transparent !important;
-    }
-
-    &:active,
-    &:hover:active {
-      background-color: var(--steel-300, color(steel-300));
-      border-color: var(--steel-300, color(steel-300));
-      color: $dark-backgroundColor;
-    }
-  }
 }
 
 .k-code-block-copy-button[data-tooltip-text]::after {
@@ -1176,6 +1145,9 @@ $dark-focusColor: var(--green-500, color(green-500));
 </style>
 
 <style lang="scss">
+@import '@/styles/variables';
+@import '@/styles/functions';
+
 .k-matched-term {
   color: var(--teal-500, color(teal-500));
   font-weight: 900;
@@ -1194,5 +1166,49 @@ $dark-focusColor: var(--green-500, color(green-500));
   align-items: center;
   display: inline-flex;
   justify-content: center;
+}
+
+// TODO: KButton theming should live in KButton.vue.
+// TODO: Fix these styles not always providing a solid background color for the copy button allowing content to clip through it.
+.k-code-block-secondary-actions .k-button:not(.increase-specificity) {
+  @media (min-width: $viewport-md) {
+    background-color: transparent;
+    border-color: transparent;
+  }
+
+  &:hover {
+    background-color: var(--steel-100, color(steel-100));
+    border-color: transparent !important;
+  }
+
+  &:active,
+  &:hover:active {
+    background-color: var(--steel-500, color(steel-500));
+    border-color: var(--steel-500, color(steel-500));
+    color: #fff;
+  }
+}
+
+// TODO: KButton theming should live in KButton.vue.
+// TODO: Fix these styles not always providing a solid background color for the copy button allowing content to clip through it.
+.theme-dark .k-code-block-secondary-actions .k-button:not(.increase-specificity) {
+  color: var(--steel-300, color(steel-300));
+
+  @media (max-width: ($viewport-md - 1px)) {
+    background-color: var(--black-500, color(black-500));
+    border-color: var(--steel-300, color(steel-300));
+  }
+
+  &:hover {
+    background-color: rgba(#fff, 0.1);
+    border-color: transparent !important;
+  }
+
+  &:active,
+  &:hover:active {
+    background-color: var(--steel-300, color(steel-300));
+    border-color: var(--steel-300, color(steel-300));
+    color: var(--black-500, color(black-500));
+  }
 }
 </style>
