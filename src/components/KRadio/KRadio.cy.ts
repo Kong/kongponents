@@ -47,7 +47,7 @@ describe('KRadio', () => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'change')
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'update:modelValue')
 
-      cy.wrap(Cypress.vueWrapper.emitted('input')?.[0][0]).should('eq', true)
+      cy.wrap(Cypress.vueWrapper.emitted('change')?.[0][0]).should('eq', true)
       cy.wrap(Cypress.vueWrapper.emitted('update:modelValue')?.[0][0]).should('eq', true)
     })
   })
@@ -90,8 +90,10 @@ describe('KRadio', () => {
         modelValue: false,
         selectedValue: true,
         type: 'card',
-        label: 'Some label',
         testMode: true,
+      },
+      slots: {
+        default: () => 'Hello',
       },
     })
 
@@ -110,11 +112,13 @@ describe('KRadio', () => {
         modelValue: false,
         selectedValue: true,
         type: 'card',
-        label: 'Some label',
         testMode: true,
       },
       attrs: {
         disabled: true,
+      },
+      slots: {
+        default: () => 'Hello',
       },
     })
 
