@@ -261,7 +261,6 @@ Allows adding elements after the location of the copy button.
     id="code-block-slots-secondary-actions"
     :code="code"
     language="json"
-    style="--KCodeBlockMaxHeight: 200px"
   >
     <template #secondary-actions>
       <KButton
