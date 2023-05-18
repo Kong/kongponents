@@ -151,7 +151,7 @@ export default {
 
 <style lang="scss">
 .k-checkbox-description {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .k-checkbox {
