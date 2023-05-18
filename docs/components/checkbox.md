@@ -174,6 +174,31 @@ Anything passed in to this slot will replace the `description` prop text
 </KCheckbox>
 ```
 
+<KCard>
+  <template #body>
+    <KCheckbox label="Some label" description="This will be replaced with a slot" v-model="slots5" :selected-value="true">
+      <template #description>
+        Anything goes here
+      </template>
+      <template #tooltip>Brings all the <code>devs</code> to the yard</template>
+    </KCheckbox>
+  </template>
+</KCard>
+
+```html
+<KCheckbox
+  v-model="slots5"
+  :selected-value="true"
+  description="This will be replaced with a slot"
+  label="Some label"
+>
+  <template #description>
+    Anything goes here
+  </template>
+  <template #tooltip>Brings all the <code>devs</code> to the yard</template>
+</KCheckbox>
+```
+
 ### `tooltip`
 
 Provides a slot for tooltip content displayed after the checkbox label
@@ -272,7 +297,8 @@ export default defineComponent ({
       slots2: false,
       slotsd: false,
       slots3: false,
-      slots4: false
+      slots4: false,
+      slots5: false,
     }
   }
 })
