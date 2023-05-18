@@ -16,19 +16,10 @@
       v-if="hasLabel"
       v-bind="labelAttributes"
       class="k-checkbox-label"
-      :class="{ 'd-inline': showDescription }"
+      :class="{ 'has-desc': showDescription }"
       :for="inputId"
     >
       <slot>{{ label }}</slot>
-
-      <div
-        v-if="showDescription"
-        class="k-checkbox-description"
-      >
-        <slot name="description">
-          {{ description }}
-        </slot>
-      </div>
 
       <template
         v-if="hasTooltip"
@@ -37,6 +28,14 @@
         <slot name="tooltip" />
       </template>
     </KLabel>
+    <div
+      v-if="showDescription"
+      class="k-checkbox-description"
+    >
+      <slot name="description">
+        {{ description }}
+      </slot>
+    </div>
   </div>
 </template>
 
@@ -151,9 +150,19 @@ export default {
 </style>
 
 <style lang="scss">
+.k-checkbox-description {
+  font-weight: 600;
+}
+
 .k-checkbox {
-  .k-checkbox-label:has(> .k-checkbox-description) {
+  .k-checkbox-label.has-desc {
     font-weight: 600;
+  }
+  .has-desc {
+    .label-tooltip {
+      display: inline-block;
+      padding-top: 2px;
+    }
   }
 }
 </style>
