@@ -1,3 +1,10 @@
+## [8.65.2](https://github.com/Kong/kongponents/compare/v8.65.1...v8.65.2) (2023-05-18)
+
+
+### Bug Fixes
+
+* **checkbox:** fix label-tooltip[khcp-7391] ([#1388](https://github.com/Kong/kongponents/issues/1388)) ([2a1768d](https://github.com/Kong/kongponents/commit/2a1768d6ef9f0a5d048b35284cf1ade4d360604c))
+
 ## [8.65.1](https://github.com/Kong/kongponents/compare/v8.65.0...v8.65.1) (2023-05-18)
 
 
