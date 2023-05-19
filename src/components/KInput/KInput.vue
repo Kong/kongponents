@@ -117,230 +117,203 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, ref, watch, onMounted, PropType, useSlots } from 'vue'
-import type { IconPosition, Size, LabelAttributes, SizeRecord, IconPositionRecord } from '@/types'
+<script lang="ts" setup>
+import { computed, ref, watch, onMounted, PropType, useSlots, useAttrs } from 'vue'
+import { IconPosition, Size, LabelAttributes, SizeArray, IconPositionArray, LimitExceededData } from '@/types'
 import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 
-const sizeRecord: SizeRecord = {
-  large: 'large',
-  medium: 'medium',
-  small: 'small',
-}
-
-const iconPositionRecord: IconPositionRecord = {
-  end: 'end',
-  start: 'start',
-}
-
-export default defineComponent({
-  name: 'KInput',
-  components: { KLabel },
-  inheritAttrs: false,
-  props: {
-    modelValue: {
-      type: [String, Number],
-      default: '',
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    /**
+const props = defineProps({
+  modelValue: {
+    type: [String, Number],
+    default: '',
+  },
+  label: {
+    type: String,
+    default: '',
+  },
+  /**
      * Overlay the label on the input's border
      */
-    overlayLabel: {
-      type: Boolean,
-      default: false,
-    },
-    labelAttributes: {
-      type: Object as PropType<LabelAttributes>,
-      default: () => ({}),
-    },
-    help: {
-      type: String,
-      default: '',
-    },
-    size: {
-      type: String as PropType<Size>,
-      default: 'medium',
-      validator: (value: Size) => Object.values(sizeRecord).includes(value),
-    },
-    hasError: {
-      type: Boolean,
-      default: false,
-    },
-    errorMessage: {
-      type: String,
-      default: '',
-    },
-    characterLimit: {
-      type: Number,
-      default: null,
-      // Ensure the characterLimit is greater than zero
-      validator: (limit: number): boolean => limit > 0,
-    },
-    iconPosition: {
-      type: String as PropType<IconPosition>,
-      default: 'start',
-      validator: (value: IconPosition) => Object.values(iconPositionRecord).includes(value),
-    },
-    /**
+  overlayLabel: {
+    type: Boolean,
+    default: false,
+  },
+  labelAttributes: {
+    type: Object as PropType<LabelAttributes>,
+    default: () => ({}),
+  },
+  help: {
+    type: String,
+    default: '',
+  },
+  size: {
+    type: String as PropType<Size>,
+    default: 'medium',
+    validator: (value: Size) => SizeArray.includes(value),
+  },
+  hasError: {
+    type: Boolean,
+    default: false,
+  },
+  errorMessage: {
+    type: String,
+    default: '',
+  },
+  characterLimit: {
+    type: Number,
+    default: null,
+    // Ensure the characterLimit is greater than zero
+    validator: (limit: number): boolean => limit > 0,
+  },
+  iconPosition: {
+    type: String as PropType<IconPosition>,
+    default: 'start',
+    validator: (value: IconPosition) => IconPositionArray.includes(value),
+  },
+  /**
      * Test mode - for testing only, strips out generated ids
      */
-    testMode: {
-      type: Boolean,
-      default: false,
-    },
-  },
-
-  emits: ['input', 'update:modelValue', 'char-limit-exceeded'],
-
-  setup(props, { attrs, emit }) {
-    const currValue = ref<string>('') // We need this so that we don't lose the updated value on hover/blur event with label
-    const modelValueChanged = ref<boolean>(false) // Determine if the original value was modified by the user
-    const isFocused = ref<boolean>(false)
-    const isHovered = ref<boolean>(false)
-    const icon = ref<HTMLDivElement | null>(null)
-    const { stripRequiredLabel } = useUtilities()
-    const slots = useSlots()
-
-    const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
-    const isReadonly = computed((): boolean => attrs?.readonly !== undefined && String(attrs?.readonly) !== 'false')
-    const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
-    const inputId = computed((): string => attrs.id ? String(attrs.id) : props.testMode ? 'test-input-id-1234' : uuidv4())
-    const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
-    const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.help || props.labelAttributes?.info || slots['label-tooltip']))
-    // we need this so we can create a watcher for programmatic changes to the modelValue
-    const value = computed({
-      get(): string | number {
-        return props.modelValue
-      },
-      set(newValue: string | number): void {
-        // @ts-ignore
-        handleInput({ target: { value: newValue } } as Event)
-      },
-    })
-
-    const modifiedAttrs = computed(() => {
-      const $attrs = { ...attrs }
-
-      // delete classes because we bind them to the parent
-      delete $attrs.class
-      // use @input in template for v-model support
-      delete $attrs.input
-      delete $attrs.onInput
-
-      return $attrs
-    })
-
-    const charLimitExceeded = computed((): boolean => {
-      const currValLength = currValue.value?.toString().length || 0
-      const modelValLength = props.modelValue?.toString().length || 0
-
-      // default to length of currVal
-      let length = currValLength
-
-      // if there is a model value and it hasn't been modified yet, use that instead
-      if (!modelValueChanged.value && modelValLength) {
-        length = modelValLength
-      }
-
-      return !!props.characterLimit && length > props.characterLimit
-    })
-
-    const charLimitExceededError = computed((): string => {
-      if (!charLimitExceeded.value) {
-        return ''
-      }
-
-      return modelValueChanged.value
-        ? `${currValue.value.toString().length} / ${props.characterLimit}`
-        : `${props.modelValue.toString().length} / ${props.characterLimit}`
-    })
-
-    const isIconClickable = computed((): boolean => !!attrs['onIcon:click'])
-
-    watch(charLimitExceeded, (newVal, oldVal) => {
-      if (newVal !== oldVal) {
-        emit('char-limit-exceeded', {
-          value: currValue.value,
-          length: currValue.value.length,
-          characterLimit: props.characterLimit,
-          limitExceeded: newVal,
-        })
-      }
-    })
-
-    watch(value, (newVal, oldVal) => {
-      if (newVal !== oldVal) {
-        // @ts-ignore
-        handleInput({ target: { value: newVal } } as Event)
-      }
-    })
-
-    const handleInput = (event: Event): void => {
-      // avoid pass by ref
-      const value = JSON.parse(JSON.stringify((event?.target as HTMLInputElement)?.value))
-
-      updateInputValue(value)
-    }
-
-    const updateInputValue = (value: string): void => {
-      currValue.value = value
-      modelValueChanged.value = true
-
-      emit('input', value)
-      emit('update:modelValue', value)
-    }
-
-    const getValue = (): string | number => {
-      // Use the modelValue only if it was initialized to something and the value hasn't been changed
-      return currValue.value || modelValueChanged.value ? currValue.value : props.modelValue
-    }
-
-    const handleIconClick = (event: Event): void => {
-      if (isIconClickable.value) {
-        // call event listener callback function directly as a workaround
-        // adding 'icon:click' to emits will remove it from attributes so isIconClickable.value always returns false
-        const callback = attrs['onIcon:click']
-
-        if (typeof callback === 'function') {
-          callback(event)
-        }
-      }
-    }
-
-    onMounted(() => {
-      if (icon.value && isIconClickable.value) {
-        icon.value.role = 'button'
-      }
-    })
-
-    return {
-      currValue,
-      modelValueChanged,
-      isFocused,
-      isHovered,
-      isDisabled,
-      isReadonly,
-      isRequired,
-      hasLabelTooltip,
-      inputId,
-      strippedLabel,
-      charLimitExceeded,
-      charLimitExceededError,
-      modifiedAttrs,
-      icon,
-      isIconClickable,
-      handleInput,
-      getValue,
-      handleIconClick,
-    }
+  testMode: {
+    type: Boolean,
+    default: false,
   },
 })
+
+const emit = defineEmits<{
+  (e: 'input', val: string): void
+  (e: 'update:modelValue', val: string): void
+  (e: 'char-limit-exceeded', val: LimitExceededData): void
+}>()
+
+const currValue = ref<string>('') // We need this so that we don't lose the updated value on hover/blur event with label
+const modelValueChanged = ref<boolean>(false) // Determine if the original value was modified by the user
+const isFocused = ref<boolean>(false)
+const isHovered = ref<boolean>(false)
+const icon = ref<HTMLDivElement | null>(null)
+
+const { stripRequiredLabel } = useUtilities()
+const slots = useSlots()
+const attrs = useAttrs()
+
+const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
+const isReadonly = computed((): boolean => attrs?.readonly !== undefined && String(attrs?.readonly) !== 'false')
+const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
+const inputId = computed((): string => attrs.id ? String(attrs.id) : props.testMode ? 'test-input-id-1234' : uuidv4())
+const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
+const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.help || props.labelAttributes?.info || slots['label-tooltip']))
+// we need this so we can create a watcher for programmatic changes to the modelValue
+const value = computed({
+  get(): string | number {
+    return props.modelValue
+  },
+  set(newValue: string | number): void {
+    // @ts-ignore
+    handleInput({ target: { value: newValue } } as Event)
+  },
+})
+
+const modifiedAttrs = computed((): Record<string, any> => {
+  const $attrs = { ...attrs }
+
+  // delete classes because we bind them to the parent
+  delete $attrs.class
+  // use @input in template for v-model support
+  delete $attrs.input
+  delete $attrs.onInput
+
+  return $attrs
+})
+
+const charLimitExceeded = computed((): boolean => {
+  const currValLength = currValue.value?.toString().length || 0
+  const modelValLength = props.modelValue?.toString().length || 0
+
+  // default to length of currVal
+  let length = currValLength
+
+  // if there is a model value and it hasn't been modified yet, use that instead
+  if (!modelValueChanged.value && modelValLength) {
+    length = modelValLength
+  }
+
+  return !!props.characterLimit && length > props.characterLimit
+})
+
+const charLimitExceededError = computed((): string => {
+  if (!charLimitExceeded.value) {
+    return ''
+  }
+
+  return modelValueChanged.value
+    ? `${currValue.value.toString().length} / ${props.characterLimit}`
+    : `${props.modelValue.toString().length} / ${props.characterLimit}`
+})
+
+const isIconClickable = computed((): boolean => !!attrs['onIcon:click'])
+
+watch(charLimitExceeded, (newVal, oldVal) => {
+  if (newVal !== oldVal) {
+    emit('char-limit-exceeded', {
+      value: currValue.value,
+      length: currValue.value.length,
+      characterLimit: props.characterLimit,
+      limitExceeded: newVal,
+    })
+  }
+})
+
+watch(value, (newVal, oldVal) => {
+  if (newVal !== oldVal) {
+    // @ts-ignore
+    handleInput({ target: { value: newVal } } as Event)
+  }
+})
+
+const handleInput = (event: Event): void => {
+  // avoid pass by ref
+  const value = JSON.parse(JSON.stringify((event?.target as HTMLInputElement)?.value))
+
+  updateInputValue(value)
+}
+
+const updateInputValue = (value: string): void => {
+  currValue.value = value
+  modelValueChanged.value = true
+
+  emit('input', value)
+  emit('update:modelValue', value)
+}
+
+const getValue = (): string | number => {
+  // Use the modelValue only if it was initialized to something and the value hasn't been changed
+  return currValue.value || modelValueChanged.value ? currValue.value : props.modelValue
+}
+
+const handleIconClick = (event: Event): void => {
+  if (isIconClickable.value) {
+    // call event listener callback function directly as a workaround
+    // adding 'icon:click' to emits will remove it from attributes so isIconClickable.value always returns false
+    const callback = attrs['onIcon:click']
+
+    if (typeof callback === 'function') {
+      callback(event)
+    }
+  }
+}
+
+onMounted(() => {
+  if (icon.value && isIconClickable.value) {
+    icon.value.role = 'button'
+  }
+})
+</script>
+
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+}
 </script>
 
 <style lang="scss" scoped>
