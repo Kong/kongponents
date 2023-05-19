@@ -1,3 +1,10 @@
+# [8.67.0](https://github.com/Kong/kongponents/compare/v8.66.0...v8.67.0) (2023-05-19)
+
+
+### Features
+
+* **KInputSwitch:** switch to setup syntax [KHCP-6506] ([#1395](https://github.com/Kong/kongponents/issues/1395)) ([0cc59bd](https://github.com/Kong/kongponents/commit/0cc59bd5a55d4fe995b7998fe59fb2f07f79ed43))
+
 # [8.66.0](https://github.com/Kong/kongponents/compare/v8.65.2...v8.66.0) (2023-05-19)
 
 
