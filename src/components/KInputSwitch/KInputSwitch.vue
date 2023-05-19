@@ -63,104 +63,96 @@
   </label>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
+<script lang="ts" setup>
+import { computed, PropType, useAttrs } from 'vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import type { LabelPosition, LabelPositionRecord } from '@/types'
+import { LabelPosition, LabelPositionArray } from '@/types'
 
-const labelPositionRecord: LabelPositionRecord = {
-  left: 'left',
-  right: 'right',
-}
-
-export default defineComponent({
-  name: 'KInputSwitch',
-  components: { KTooltip, KIcon },
-  inheritAttrs: false,
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Sets whether or not toggle is checked
      */
-    modelValue: {
-      type: Boolean,
-      default: false,
-      required: true,
-    },
-    /**
+  modelValue: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
+  /**
      * Overrides default on/off label text
      */
-    label: {
-      type: String,
-      default: '',
-    },
-    /**
+  label: {
+    type: String,
+    default: '',
+  },
+  /**
      * Should the switch be positioned to the left or right of the label
      */
-    labelPosition: {
-      type: String as PropType<LabelPosition>,
-      default: 'right',
-      validator: (position: LabelPosition): boolean => Object.values(labelPositionRecord).includes(position),
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    /**
+  labelPosition: {
+    type: String as PropType<LabelPosition>,
+    default: 'right',
+    validator: (position: LabelPosition): boolean => LabelPositionArray.includes(position),
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  /**
      * Tooltip text to be displayed if the switch is disabled
      */
-    disabledTooltipText: {
-      type: String,
-      default: '',
-    },
-    /**
+  disabledTooltipText: {
+    type: String,
+    default: '',
+  },
+  /**
      * Sets whether or not to display a check icon if the switch is enabled
      */
-    enabledIcon: {
-      type: Boolean,
-      default: false,
-    },
+  enabledIcon: {
+    type: Boolean,
+    default: false,
   },
-  emits: ['change', 'input', 'update:modelValue'],
-  setup(props, { attrs, emit }) {
-    const toggleText = computed((): string => {
-      return props.modelValue ? 'on' : 'off'
-    })
+})
 
-    /**
+const emit = defineEmits<{
+  (e: 'change', val: boolean): void
+  (e: 'input', val: boolean): void
+  (e: 'update:modelValue', val: boolean): void
+}>()
+
+const attrs = useAttrs()
+
+/**
      * Strips falsy `disabled` attribute, so it does not fall onto native <a> elements.
      * Vue 3 no longer removes attribute if the value is boolean false. Instead, it's set as attr="false".
      * So for <KButton :disabled="false" to="SOME_URL">, the rendered <a> element will have `disabled="false"`,
      * which is greyed out and cannot be interacted with.
      */
-    const strippedAttrs = computed((): typeof attrs => {
-      if (props.disabled !== undefined && props.disabled !== false) {
-        return attrs
-      }
+const strippedAttrs = computed((): typeof attrs => {
+  if (props.disabled !== undefined && props.disabled !== false) {
+    return attrs
+  }
 
-      const modifiedAttrs = Object.assign({}, attrs)
+  const modifiedAttrs = Object.assign({}, attrs)
 
-      delete modifiedAttrs.class
-      delete modifiedAttrs.disabled
+  delete modifiedAttrs.class
+  delete modifiedAttrs.disabled
 
-      return modifiedAttrs
-    })
-
-    const handleChange = (event: Event): void => {
-      if (props.modelValue !== (event.target as HTMLInputElement).checked) {
-        emit('change', (event.target as HTMLInputElement).checked)
-        emit('input', (event.target as HTMLInputElement).checked)
-        emit('update:modelValue', (event.target as HTMLInputElement).checked)
-      }
-    }
-
-    return {
-      toggleText,
-      strippedAttrs,
-      handleChange,
-    }
-  },
+  return modifiedAttrs
 })
+
+const handleChange = (event: Event): void => {
+  if (props.modelValue !== (event.target as HTMLInputElement).checked) {
+    emit('change', (event.target as HTMLInputElement).checked)
+    emit('input', (event.target as HTMLInputElement).checked)
+    emit('update:modelValue', (event.target as HTMLInputElement).checked)
+  }
+}
+</script>
+
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+}
 </script>
 
 <style lang="scss" scoped>
