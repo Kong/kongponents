@@ -1,3 +1,10 @@
+## [8.67.1](https://github.com/Kong/kongponents/compare/v8.67.0...v8.67.1) (2023-05-23)
+
+
+### Bug Fixes
+
+* **kradio:** using !important on inline-block ([#1399](https://github.com/Kong/kongponents/issues/1399)) ([134b18b](https://github.com/Kong/kongponents/commit/134b18b96638b37c9858e3ee4f6fb506a6041a3c))
+
 # [8.67.0](https://github.com/Kong/kongponents/compare/v8.66.0...v8.67.0) (2023-05-19)
 
 
