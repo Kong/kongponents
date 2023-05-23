@@ -1,7 +1,7 @@
 <template>
   <div
     :checked="isSelected"
-    class="k-radio d-inline-block"
+    class="k-radio"
     :class="[
       isTypeDefault ? 'k-radio-default' : `k-radio-${type}`,
       $attrs.class ? $attrs.class : '',
@@ -186,6 +186,8 @@ $background-color-card-disabled: color(grey-200);
 }
 
 .k-radio {
+  display: inline-block;
+
   .k-radio-label {
     --KInputLabelWeight: 400;
     --KInputLabelLineHeight: 20px;
