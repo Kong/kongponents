@@ -73,11 +73,7 @@ jobs:
 
           yarn version --prerelease --preid ${preid} --allow-branch ${{ github.head_ref }} --no-git-tag-version --yes --amend
 
-          package_version=$(cat package.json \
-            | grep version \
-            | head -1 \
-            | awk -F: '{ print $2 }' \
-            | sed 's/[", ]//g')
+          package_version=$(jq -r ".version" package.json)
           package=@kong/kongponents@"${package_version}"
 
           npm show "${package}" >/dev/null 2>&1 && npm_show_status=0 || npm_show_status=1
