@@ -508,7 +508,7 @@ const emit = defineEmits<{
   (e: 'ktable-empty-state-cta-clicked'): void
   (e: 'update:table-preferences', preferences: TablePreferences): void
   (e: 'sort', value: { prevKey: string, sortColumnKey: string, sortColumnOrder: string }): void
-  (e: 'state', state: string): void
+  (e: 'state', value: { state: string, hasData: boolean }): void
 }>()
 
 const attrs = useAttrs()
@@ -762,7 +762,7 @@ const isTableLoading = ref<boolean>(true)
 const stateData = computed((): SwrvStateData => ({
   hasData: hasData.value,
   state: state.value as SwrvState,
-  emitState: isTableLoading.value ? 'loading' : fetcherError.value ? 'error' : !hasData.value ? 'empty' : 'has_data',
+  emitState: isTableLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success',
 }))
 
 const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebouncedRevalidate } = useDebounce(_revalidate, 500)
@@ -896,7 +896,10 @@ watch(state, () => {
 }, { immediate: true })
 
 watch(stateData, (newValue) => {
-  emit('state', newValue.emitState)
+  emit('state', {
+    state: newValue.emitState,
+    hasData: newValue.hasData,
+  })
 })
 
 // handles debounce of search input

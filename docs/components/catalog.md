@@ -624,11 +624,10 @@ interface CatalogPreferences {
 
 `@state` - Fired when the catalog state changes.
 
-Returns the state of the catalog, can be one of:
+Returns the `state` and `hasData` (boolean) of the catalog, `state` can be one of:
 - `loading` - when the catalog is fetching new catalog data
 - `error` - when the catalog fetch failed
-- `empty` - when fetching succeeded with no records returned
-- `has-data` - when fetching succed with records returned
+- `success` - when the catalog fetch completed successfully
 
 ## Theming
 

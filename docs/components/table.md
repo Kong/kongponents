@@ -907,11 +907,10 @@ interface TablePreferences {
 
 `@state` - Fired when the table state changes.
 
-Returns the state of the table, can be one of:
+Returns the `state` and `hasData` (boolean) of the table, `state` can be one of:
 - `loading` - when the table is fetching new table data
 - `error` - when the table fetch failed
-- `empty` - when fetching succeeded with no records returned
-- `has-data` - when fetching succed with records returned
+- `success` - when the table fetch completed successfully
 
 ## Slots
 
