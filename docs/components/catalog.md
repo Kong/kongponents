@@ -602,8 +602,13 @@ fetcher(payload) {
 
 ## Events
 
-- `kcatalog-empty-state-cta-clicked` - If using a CTA button in the empty state, this event is fired when clicked.
-- `kcatalog-error-cta-clicked` - If using a CTA button in the error state, this event is fired when clicked.
+### CTA Clicks
+
+- `@kcatalog-empty-state-cta-clicked` - If using a CTA button in the empty state, this event is fired when clicked.
+- `@kcatalog-error-cta-clicked` - If using a CTA button in the error state, this event is fired when clicked.
+
+### Catalog Preferences
+
 - `@update:catalog-preferences` - Fired when the user changes the catalog's `pageSize`.
 
 Returns a payload that adheres to the `CatalogPreferences` interface:
@@ -614,6 +619,16 @@ interface CatalogPreferences {
   pageSize?: number
 }
 ```
+
+### Catalog State
+
+`@state` - Fired when the catalog state changes.
+
+Returns the state of the catalog, can be one of:
+- `loading` - when the catalog is fetching new catalog data
+- `error` - when the catalog fetch failed
+- `empty` - when fetching succeeded with no records returned
+- `has-data` - when fetching succed with records returned
 
 ## Theming
 

@@ -501,7 +501,15 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['sort', 'ktable-error-cta-clicked', 'ktable-empty-state-cta-clicked', 'row-click', 'cell-click', 'update:table-preferences'])
+const emit = defineEmits<{
+  (e: 'cell-click', value: { data: any }): void
+  (e: 'row-click', value: { data: any }): void
+  (e: 'ktable-error-cta-clicked'): void
+  (e: 'ktable-empty-state-cta-clicked'): void
+  (e: 'update:table-preferences', preferences: TablePreferences): void
+  (e: 'sort', value: { prevKey: string, sortColumnKey: string, sortColumnOrder: string }): void
+  (e: 'state', state: string): void
+}>()
 
 const attrs = useAttrs()
 const slots = useSlots()
@@ -754,6 +762,7 @@ const isTableLoading = ref<boolean>(true)
 const stateData = computed((): SwrvStateData => ({
   hasData: hasData.value,
   state: state.value as SwrvState,
+  emitState: isTableLoading.value ? 'loading' : fetcherError.value ? 'error' : !hasData.value ? 'empty' : 'has_data',
 }))
 
 const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebouncedRevalidate } = useDebounce(_revalidate, 500)
@@ -885,6 +894,10 @@ watch(state, () => {
       break
   }
 }, { immediate: true })
+
+watch(stateData, (newValue) => {
+  emit('state', newValue.emitState)
+})
 
 // handles debounce of search input
 watch(() => props.searchInput, (newValue: string) => {

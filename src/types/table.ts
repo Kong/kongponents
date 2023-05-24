@@ -27,7 +27,10 @@ export type TableColumnSlotName = `column-${string}`
 
 export type SwrvState = 'VALIDATING' | 'VALIDATING_HAS_DATA' | 'PENDING' | 'SUCCESS' | 'SUCCESS_HAS_DATA' | 'ERROR' | 'STALE_IF_ERROR'
 
+export type EmitState = 'loading' | 'error' | 'empty' | 'has_data'
+
 export interface SwrvStateData {
   hasData: boolean
-  state: SwrvState
+  state: SwrvState,
+  emitState: EmitState
 }

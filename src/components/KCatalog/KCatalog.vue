@@ -425,7 +425,12 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['kcatalog-error-cta-clicked', 'kcatalog-empty-state-cta-clicked', 'update:catalog-preferences'])
+const emit = defineEmits<{
+  (e: 'kcatalog-error-cta-clicked'): void
+  (e: 'kcatalog-empty-state-cta-clicked'): void
+  (e: 'update:catalog-preferences', preferences: CatalogPreferences): void
+  (e: 'state', state: string): void
+}>()
 
 const slots = useSlots()
 
@@ -519,6 +524,7 @@ const isCatalogLoading = ref<boolean>(true)
 const stateData = computed((): SwrvStateData => ({
   hasData: hasData.value,
   state: state.value as SwrvState,
+  emitState: isCatalogLoading.value ? 'loading' : fetcherError.value ? 'error' : !hasData.value ? 'empty' : 'has_data',
 }))
 
 const pageChangeHandler = ({ page: newPage }: Record<string, number>): void => {
@@ -555,6 +561,10 @@ watch(state, () => {
       break
   }
 }, { immediate: true })
+
+watch(stateData, (newValue) => {
+  emit('state', newValue.emitState)
+})
 
 watch(() => props.searchInput, (newValue: string) => {
   debouncedSearch(newValue)
