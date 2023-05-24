@@ -1,3 +1,10 @@
+## [8.67.2](https://github.com/Kong/kongponents/compare/v8.67.1...v8.67.2) (2023-05-24)
+
+
+### Bug Fixes
+
+* **kradio:** fix card alignment ([#1403](https://github.com/Kong/kongponents/issues/1403)) ([a10c87d](https://github.com/Kong/kongponents/commit/a10c87d82128d740dedd2ce46dfc7fd1e413f4c5))
+
 ## [8.67.1](https://github.com/Kong/kongponents/compare/v8.67.0...v8.67.1) (2023-05-23)
 
 
