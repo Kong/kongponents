@@ -205,7 +205,7 @@ import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
-import type { TablePreferences, TablePaginationType, TableHeader, TableColumnSlotName, SwrvState, SwrvStateData } from '@/types'
+import type { TablePreferences, TablePaginationType, TableHeader, TableColumnSlotName, SwrvState, SwrvStateData, EmitState } from '@/types'
 
 const { useDebounce, useRequest, useSwrvState } = useUtilities()
 
@@ -508,7 +508,7 @@ const emit = defineEmits<{
   (e: 'ktable-empty-state-cta-clicked'): void
   (e: 'update:table-preferences', preferences: TablePreferences): void
   (e: 'sort', value: { prevKey: string, sortColumnKey: string, sortColumnOrder: string }): void
-  (e: 'state', value: { state: string, hasData: boolean }): void
+  (e: 'state', value: { state: EmitState, hasData: boolean }): void
 }>()
 
 const attrs = useAttrs()

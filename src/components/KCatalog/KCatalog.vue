@@ -191,7 +191,7 @@
 <script setup lang="ts">
 import { PropType, ref, computed, onMounted, watch, useSlots } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
-import { CatalogItem, CatalogPreferences, SwrvState, SwrvStateData, CardSize, CardSizeArray } from '@/types'
+import { CatalogItem, CatalogPreferences, SwrvState, SwrvStateData, CardSize, CardSizeArray, EmitState } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
@@ -429,7 +429,7 @@ const emit = defineEmits<{
   (e: 'kcatalog-error-cta-clicked'): void
   (e: 'kcatalog-empty-state-cta-clicked'): void
   (e: 'update:catalog-preferences', preferences: CatalogPreferences): void
-  (e: 'state', value: { state: string, hasData: boolean }): void
+  (e: 'state', value: { state: EmitState, hasData: boolean }): void
 }>()
 
 const slots = useSlots()
