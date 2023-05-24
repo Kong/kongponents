@@ -68,12 +68,12 @@
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
-    "@arkweid/lefthook": "^0.7.7",
     "@babel/types": "^7.20.0",
     "@commitlint/cli": "^16.3.0",
     "@commitlint/config-conventional": "^16.2.4",
     "@cypress/vite-dev-server": "^5.0.2",
     "@digitalroute/cz-conventional-changelog-for-jira": "^7.3.1",
+    "@evilmartians/lefthook": "^1.4.1",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
     "@types/inquirer": "^8.2.3",
