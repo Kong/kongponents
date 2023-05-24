@@ -236,7 +236,7 @@ $background-color-card-disabled: color(grey-200);
       display: none;
     }
 
-    > div {
+    > label {
       align-items: center;
       display: flex;
       flex-direction: column;
