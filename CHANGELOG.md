@@ -1,3 +1,10 @@
+## [8.67.3](https://github.com/Kong/kongponents/compare/v8.67.2...v8.67.3) (2023-05-25)
+
+
+### Bug Fixes
+
+* **types:** update types path ([#1404](https://github.com/Kong/kongponents/issues/1404)) ([32d030a](https://github.com/Kong/kongponents/commit/32d030ac8734e34515c97c0e9d2308f2821b99e4))
+
 ## [8.67.2](https://github.com/Kong/kongponents/compare/v8.67.1...v8.67.2) (2023-05-24)
 
 
