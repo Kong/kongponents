@@ -79,6 +79,7 @@ describe('KCatalog', () => {
       const total = 5
       mount(KCatalog, {
         props: {
+          cacheIdentifier: 'general-props',
           testMode: 'true',
           title,
           fetcher: () => {
@@ -98,6 +99,7 @@ describe('KCatalog', () => {
       mount(KCatalog, {
         props: {
           testMode: 'true',
+          cacheIdentifier: 'general-props1',
           fetcher: () => {
             return { data: getItems(1), total: 1 }
           },
@@ -117,6 +119,7 @@ describe('KCatalog', () => {
       mount(KCatalog, {
         props: {
           testMode: 'true',
+          cacheIdentifier: 'general-props1',
           fetcher: () => {
             return { data: getItems(1), total: 1 }
           },
@@ -137,6 +140,7 @@ describe('KCatalog', () => {
       mount(KCatalog, {
         props: {
           testMode: 'true',
+          cacheIdentifier: 'general-props0',
           isLoading: false,
           fetcher: () => { return { data: [], total: 0 } },
         },
@@ -169,6 +173,7 @@ describe('KCatalog', () => {
       mount(KCatalog, {
         props: {
           testMode: 'true',
+          cacheIdentifier: 'general-props1',
           fetcher: () => {
             return { data: getItems(1), total: 1 }
           },
@@ -189,6 +194,7 @@ describe('KCatalog', () => {
       mount(KCatalog, {
         props: {
           testMode: 'true',
+          cacheIdentifier: 'general-props',
           fetcher: () => {
             return { data: getItems(total), total }
           },
@@ -205,6 +211,7 @@ describe('KCatalog', () => {
       mount(KCatalog, {
         props: {
           testMode: 'true',
+          cacheIdentifier: 'general-props',
           fetcher: () => {
             return { data: getItems(total), total }
           },
@@ -219,6 +226,7 @@ describe('KCatalog', () => {
       mount(KCatalog, {
         props: {
           testMode: 'true',
+          cacheIdentifier: 'general-props-long',
           fetcher: () => {
             return { data: [longItem], total: 1 }
           },
@@ -232,6 +240,7 @@ describe('KCatalog', () => {
       mount(KCatalog, {
         props: {
           testMode: 'true',
+          cacheIdentifier: 'general-props-long',
           fetcher: () => {
             return { data: [longItem], total: 1 }
           },
@@ -289,6 +298,7 @@ describe('KCatalog', () => {
       mount(KCatalog, {
         props: {
           fetcher,
+          cacheIdentifier: 'pagination',
           pageSize: 4,
         },
       })
@@ -303,6 +313,7 @@ describe('KCatalog', () => {
       mount(KCatalog, {
         props: {
           testMode: 'true',
+          cacheIdentifier: 'pagination',
           fetcher,
           pageSize: 4,
         },
@@ -380,6 +391,7 @@ describe('KCatalog', () => {
       mount(KCatalog, {
         props: {
           testMode: 'true',
+          cacheIdentifier: 'pagination2',
           fetcher: () => {
             return { data: largeDataSet, total: 10 }
           },
@@ -395,6 +407,7 @@ describe('KCatalog', () => {
       mount(KCatalog, {
         props: {
           testMode: 'true',
+          cacheIdentifier: 'pagination2',
           fetcher: () => {
             return { data: largeDataSet, total: 10 }
           },
@@ -423,6 +436,7 @@ describe('KCatalog', () => {
       mount(KCatalog, {
         propsData: {
           testMode: 'true',
+          cacheIdentifier: 'pagination5',
           fetcher: () => { return { data: getItems(5), total: 5 } },
           isLoading: false,
           paginationPageSizes: [10, 15, 20],
@@ -437,6 +451,7 @@ describe('KCatalog', () => {
       mount(KCatalog, {
         propsData: {
           testMode: 'true',
+          cacheIdentifier: 'pagination',
           fetcher: () => {
             return { data: largeDataSet, total: 10 }
           },
