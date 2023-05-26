@@ -245,6 +245,7 @@ $background-color-card-disabled: color(grey-200);
       justify-content: center;
       // Apply padding to the label so the entire element is clickable
       padding: var(--spacing-md);
+      width: 100%;
     }
 
     &[disabled], &.disabled {
