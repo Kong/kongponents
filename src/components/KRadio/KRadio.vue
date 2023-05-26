@@ -237,6 +237,7 @@ $background-color-card-disabled: color(grey-200);
 
     > label {
       align-items: center;
+      cursor: pointer;
       display: flex;
       flex-direction: column;
       height: 100%;
@@ -259,6 +260,10 @@ $background-color-card-disabled: color(grey-200);
     // Firefox disabled state handling
     &[disabled=""], &[disabled="true"] {
       @include kRadioDisabled;
+
+      > label {
+        cursor: not-allowed;
+      }
     }
 
     &:hover {
