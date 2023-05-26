@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "8.67.3",
+  "version": "8.68.0",
   "description": "Kong Component library",
   "type": "module",
   "repository": {

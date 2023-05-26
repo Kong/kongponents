@@ -1,3 +1,10 @@
+# [8.68.0](https://github.com/Kong/kongponents/compare/v8.67.3...v8.68.0) (2023-05-26)
+
+
+### Features
+
+* **KTabs:** switch to setup syntax [KHCP-6520] ([#1408](https://github.com/Kong/kongponents/issues/1408)) ([eb5777c](https://github.com/Kong/kongponents/commit/eb5777c9c8dff5f58b58124cf010abc3b4711be1))
+
 ## [8.67.3](https://github.com/Kong/kongponents/compare/v8.67.2...v8.67.3) (2023-05-25)
 
 
