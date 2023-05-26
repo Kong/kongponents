@@ -88,8 +88,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, ref, PropType } from 'vue'
+<script lang="ts" setup>
+import { computed, ref, PropType } from 'vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KButton from '@/components/KButton/KButton.vue'
@@ -97,188 +97,166 @@ import KIcon from '@/components/KIcon/KIcon.vue'
 import { v1 as uuidv1 } from 'uuid'
 import type { FileUploadType, ButtonAppearance } from '@/types'
 
-export default defineComponent({
-  name: 'KFileUpload',
-
-  components: {
-    KLabel,
-    KInput,
-    KButton,
-    KIcon,
+const props = defineProps({
+  labelAttributes: {
+    type: Object,
+    default: () => ({}),
   },
-
-  props: {
-    labelAttributes: {
-      type: Object,
-      default: () => ({}),
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    /**
+  label: {
+    type: String,
+    default: '',
+  },
+  /**
      * Test mode - for testing only, strips out generated ids
      */
-    testMode: {
-      type: Boolean,
-      default: false,
-    },
-    help: {
-      type: String,
-      default: undefined,
-    },
-    buttonAppearance: {
-      type: String as PropType<ButtonAppearance>,
-      default: 'primary',
-    },
-    buttonText: {
-      type: String,
-      default: 'Select file',
-    },
-    fileModel: {
-      type: String,
-      default: undefined,
-    },
-    removable: {
-      type: Boolean,
-      default: true,
-    },
-    placeholder: {
-      type: String,
-      default: 'No file selected',
-    },
-    /**
+  testMode: {
+    type: Boolean,
+    default: false,
+  },
+  help: {
+    type: String,
+    default: undefined,
+  },
+  buttonAppearance: {
+    type: String as PropType<ButtonAppearance>,
+    default: 'primary',
+  },
+  buttonText: {
+    type: String,
+    default: 'Select file',
+  },
+  fileModel: {
+    type: String,
+    default: undefined,
+  },
+  removable: {
+    type: Boolean,
+    default: true,
+  },
+  placeholder: {
+    type: String,
+    default: 'No file selected',
+  },
+  /**
      * Set whether its file upload or image upload type
      */
-    type: {
-      type: String as PropType<FileUploadType>,
-      default: 'file',
-      validator: (value: FileUploadType): boolean => {
-        return ['file', 'image'].includes(value)
-      },
+  type: {
+    type: String as PropType<FileUploadType>,
+    default: 'file',
+    validator: (value: FileUploadType): boolean => {
+      return ['file', 'image'].includes(value)
     },
-    accept: {
-      type: Array as PropType<string[]>,
-      required: true,
-    },
-    maxFileSize: {
-      type: Number,
-      default: null,
-    },
-    /**
+  },
+  accept: {
+    type: Array as PropType<string[]>,
+    required: true,
+  },
+  maxFileSize: {
+    type: Number,
+    default: null,
+  },
+  /**
      * Set icon size
      */
-    iconSize: {
-      type: String,
-      default: '26',
-    },
-    icon: {
-      type: String,
-      default: 'image',
-    },
-    /**
+  iconSize: {
+    type: String,
+    default: '26',
+  },
+  icon: {
+    type: String,
+    default: 'image',
+  },
+  /**
      * Set icon color
      */
-    iconColor: {
-      type: String,
-      default: undefined,
-    },
-    hasError: {
-      type: Boolean,
-      default: false,
-    },
-    errorMessage: {
-      type: String,
-      default: 'Please check file size.',
-    },
+  iconColor: {
+    type: String,
+    default: undefined,
   },
-
-  emits: ['file-added', 'file-removed', 'error'],
-
-  setup(props, { emit }) {
-    const customInputId = computed((): string => props.testMode ? 'test-file-upload-id-1234' : uuidv1())
-    const maximumFileSize = computed((): Number => {
-      if (props.maxFileSize || props.maxFileSize === 0) {
-        return props.maxFileSize
-      }
-      return props.type === 'file' ? 5250000 : 1000000
-    })
-
-    const hasUploadError = ref(false)
-
-    // This holds the FileList
-    const fileInput = ref<File[]>([])
-    // To clear the input value after reset
-    const fileInputKey = ref(0)
-    // File fakepath
-    const fileValue = ref('')
-    // Array to store the previously selected FileList when user clicks reopen the file uploader and clicks on Cancel
-    const fileClone = ref<File[]>([])
-
-    const onFileChange = (evt: any): void => {
-      fileInput.value = evt.target?.files
-      fileValue.value = fileInput?.value[0]?.name
-
-      const fileSize = fileInput?.value[0]?.size
-
-      hasUploadError.value = fileSize > maximumFileSize.value
-
-      if (hasUploadError.value) {
-        fileInputKey.value++
-        emit('error', fileInput.value)
-      }
-
-      const inputElem = document.getElementById(customInputId.value) as HTMLInputElement
-
-      if (fileSize) {
-        // @ts-ignore
-        fileClone.value.push(fileInput.value)
-      } else {
-        // @ts-ignore
-        inputElem.files = fileClone.value[fileClone.value.length - 1]
-        // @ts-ignore
-        fileInput.value = inputElem.files
-        if (inputElem.files) {
-          fileValue.value = inputElem.files[inputElem.files.length - 1].name
-        }
-      }
-      emit('file-added', fileInput.value)
-    }
-
-    // When KButton for Select file is clicked
-    const updateFile = (): void => {
-      const inputEl = document.getElementById(customInputId.value)
-      if (inputEl) {
-        // Simulate button click to trigger input click
-        inputEl.click()
-      }
-    }
-
-    // When Cancel button is clicked
-    const resetInput = (): void => {
-      fileInput.value = []
-      fileValue.value = ''
-      fileClone.value = []
-      fileInputKey.value++
-      hasUploadError.value = false
-
-      emit('file-removed')
-    }
-
-    return {
-      fileInput,
-      customInputId,
-      resetInput,
-      onFileChange,
-      fileInputKey,
-      fileValue,
-      updateFile,
-      hasUploadError,
-      fileClone,
-      maximumFileSize,
-    }
+  hasError: {
+    type: Boolean,
+    default: false,
+  },
+  errorMessage: {
+    type: String,
+    default: 'Please check file size.',
   },
 })
+
+const emit = defineEmits<{
+  (e: 'file-added', val: File[]): void
+  (e: 'file-removed'): void
+  (e: 'error', val: File[]): void
+}>()
+
+const customInputId = computed((): string => props.testMode ? 'test-file-upload-id-1234' : uuidv1())
+const maximumFileSize = computed((): Number => {
+  if (props.maxFileSize || props.maxFileSize === 0) {
+    return props.maxFileSize
+  }
+  return props.type === 'file' ? 5250000 : 1000000
+})
+
+const hasUploadError = ref(false)
+
+// This holds the FileList
+const fileInput = ref<File[]>([])
+// To clear the input value after reset
+const fileInputKey = ref(0)
+// File fakepath
+const fileValue = ref('')
+// Array to store the previously selected FileList when user clicks reopen the file uploader and clicks on Cancel
+const fileClone = ref<File[]>([])
+
+const onFileChange = (evt: any): void => {
+  fileInput.value = evt.target?.files
+  fileValue.value = fileInput?.value[0]?.name
+
+  const fileSize = fileInput?.value[0]?.size
+
+  hasUploadError.value = fileSize > maximumFileSize.value
+
+  if (hasUploadError.value) {
+    fileInputKey.value++
+    emit('error', fileInput.value)
+  }
+
+  const inputElem = document.getElementById(customInputId.value) as HTMLInputElement
+
+  if (fileSize) {
+    // @ts-ignore
+    fileClone.value.push(fileInput.value)
+  } else {
+    // @ts-ignore
+    inputElem.files = fileClone.value[fileClone.value.length - 1]
+    // @ts-ignore
+    fileInput.value = inputElem.files
+    if (inputElem.files) {
+      fileValue.value = inputElem.files[inputElem.files.length - 1].name
+    }
+  }
+  emit('file-added', fileInput.value)
+}
+
+// When KButton for Select file is clicked
+const updateFile = (): void => {
+  const inputEl = document.getElementById(customInputId.value)
+  if (inputEl) {
+    // Simulate button click to trigger input click
+    inputEl.click()
+  }
+}
+
+// When Cancel button is clicked
+const resetInput = (): void => {
+  fileInput.value = []
+  fileValue.value = ''
+  fileClone.value = []
+  fileInputKey.value++
+  hasUploadError.value = false
+
+  emit('file-removed')
+}
 </script>
 
 <style lang="scss" scoped>
