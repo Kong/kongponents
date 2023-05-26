@@ -1,4 +1,3 @@
-
 <template>
   <KButton
     appearance="outline"
@@ -26,39 +25,32 @@
   </KButton>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 
-export default defineComponent({
-  name: 'KViewSwitcher',
-  components: { KButton },
-  props: {
-    view: {
-      type: String,
-      default: 'table',
-      required: true,
-      validator: (val: string): boolean => ['table', 'grid'].includes(val),
-    },
-  },
-  emits: ['view-changed'],
-  setup(props, { emit }) {
-    const isPaused = ref(true)
-
-    const toggleView = (): void => {
-      // Removed paused animations
-      isPaused.value = false
-
-      // Emit new view
-      emit('view-changed', props.view === 'table' ? 'grid' : 'table')
-    }
-
-    return {
-      isPaused,
-      toggleView,
-    }
+const props = defineProps({
+  view: {
+    type: String,
+    default: 'table',
+    required: true,
+    validator: (val: string): boolean => ['table', 'grid'].includes(val),
   },
 })
+
+const emit = defineEmits<{
+  (e: 'view-changed', val: string): void
+}>()
+
+const isPaused = ref(true)
+
+const toggleView = (): void => {
+  // Removed paused animations
+  isPaused.value = false
+
+  // Emit new view
+  emit('view-changed', props.view === 'table' ? 'grid' : 'table')
+}
 </script>
 
 <style lang="scss" scoped>
