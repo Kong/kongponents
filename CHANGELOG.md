@@ -1,3 +1,10 @@
+# [8.70.0](https://github.com/Kong/kongponents/compare/v8.69.0...v8.70.0) (2023-05-26)
+
+
+### Features
+
+* **KIcon:** switch to setup syntax [KHCP-6503] ([#1415](https://github.com/Kong/kongponents/issues/1415)) ([0af1e57](https://github.com/Kong/kongponents/commit/0af1e573979e87e2f400cb66066b4223deb6a4b2))
+
 # [8.69.0](https://github.com/Kong/kongponents/compare/v8.68.1...v8.69.0) (2023-05-26)
 
 
