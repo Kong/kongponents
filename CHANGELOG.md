@@ -1,3 +1,10 @@
+## [8.68.1](https://github.com/Kong/kongponents/compare/v8.68.0...v8.68.1) (2023-05-26)
+
+
+### Bug Fixes
+
+* **kradio:** allow type=card entire element to be clickable ([#1409](https://github.com/Kong/kongponents/issues/1409)) ([b2a5d5b](https://github.com/Kong/kongponents/commit/b2a5d5b8eaf889a911df1ea7d599978f53a5f188))
+
 # [8.68.0](https://github.com/Kong/kongponents/compare/v8.67.3...v8.68.0) (2023-05-26)
 
 
