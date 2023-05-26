@@ -35,56 +35,47 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
 import KIcon from '@/components/KIcon/KIcon.vue'
 
-export default defineComponent({
-  name: 'PaginationOffset',
-  components: {
-    KIcon,
+const props = defineProps({
+  prevButtonDisabled: {
+    type: Boolean,
+    default: false,
   },
-  props: {
-    prevButtonDisabled: {
-      type: Boolean,
-      default: false,
-    },
-    nextButtonDisabled: {
-      type: Boolean,
-      default: false,
-    },
-    /**
+  nextButtonDisabled: {
+    type: Boolean,
+    default: false,
+  },
+  /**
      * Test mode - for testing only, strips out generated ids
      */
-    testMode: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: ['getPrevOffset', 'getNextOffset'],
-  setup(props, { emit }) {
-    const getNextOffset = (): void => {
-      if (props.nextButtonDisabled) {
-        return
-      }
-
-      emit('getNextOffset')
-    }
-
-    const getPrevOffset = (): void => {
-      if (props.prevButtonDisabled) {
-        return
-      }
-
-      emit('getPrevOffset')
-    }
-
-    return {
-      getPrevOffset,
-      getNextOffset,
-    }
+  testMode: {
+    type: Boolean,
+    default: false,
   },
 })
+
+const emit = defineEmits<{
+  (e: 'getPrevOffset'): void
+  (e: 'getNextOffset'): void
+}>()
+
+const getNextOffset = (): void => {
+  if (props.nextButtonDisabled) {
+    return
+  }
+
+  emit('getNextOffset')
+}
+
+const getPrevOffset = (): void => {
+  if (props.prevButtonDisabled) {
+    return
+  }
+
+  emit('getPrevOffset')
+}
 </script>
 
 <style lang="scss" scoped>
