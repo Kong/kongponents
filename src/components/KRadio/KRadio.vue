@@ -13,6 +13,7 @@
       :checked="isSelected"
       v-bind="modifiedAttrs"
       class="k-input"
+      :disabled="isDisabled"
       type="radio"
       @click="handleClick"
     >
@@ -230,7 +231,6 @@ $background-color-card-disabled: color(grey-200);
     border: 1px solid $border-color-card;
     border-radius: var(--spacing-xxs);
     cursor: pointer;
-    padding: var(--spacing-md);
 
     .k-input {
       display: none;
@@ -238,10 +238,20 @@ $background-color-card-disabled: color(grey-200);
 
     > label {
       align-items: center;
+      cursor: pointer;
       display: flex;
       flex-direction: column;
       height: 100%;
       justify-content: center;
+      // Apply padding to the label so the entire element is clickable
+      padding: var(--spacing-md);
+      width: 100%;
+    }
+
+    &[disabled], &.disabled {
+      > label {
+        cursor: not-allowed;
+      }
     }
 
     .k-radio-label {
