@@ -1,3 +1,11 @@
+# [8.69.0](https://github.com/Kong/kongponents/compare/v8.68.1...v8.69.0) (2023-05-26)
+
+
+### Features
+
+* **KFileUpload:** switch to setup syntax [KHCP-6502] ([#1410](https://github.com/Kong/kongponents/issues/1410)) ([182b18e](https://github.com/Kong/kongponents/commit/182b18e24b87a6eac9b2c1a3785efa87afa58726))
+* **KViewSwitcher:** switch to setup syntax [KHCP-6524] ([#1411](https://github.com/Kong/kongponents/issues/1411)) ([65a189f](https://github.com/Kong/kongponents/commit/65a189fa7da0bada5fe0e4d00944dfbf6aaa714c))
+
 ## [8.68.1](https://github.com/Kong/kongponents/compare/v8.68.0...v8.68.1) (2023-05-26)
 
 
