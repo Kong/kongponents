@@ -43,51 +43,45 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, watch, PropType } from 'vue'
-
+<script lang="ts" setup>
+import { ref, watch, PropType } from 'vue'
 import type { Tab } from '@/types'
 
-export default defineComponent({
-  name: 'KTabs',
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Array of Tab objects [{hash: '#tab1', title: 'tab1'}, {hash: '#tab2', title: 'tab2'}]
      */
-    tabs: {
-      type: Array as PropType<Tab[]>,
-      required: true,
-    },
-    /**
+  tabs: {
+    type: Array as PropType<Tab[]>,
+    required: true,
+  },
+  /**
      * A set tab hash to use as default
      */
-    modelValue: {
-      type: String,
-      default: '',
-      validator: (val: string): boolean => val === '' || (val.includes('#') && !val.includes(' ')),
-    },
+  modelValue: {
+    type: String,
+    default: '',
+    validator: (val: string): boolean => val === '' || (val.includes('#') && !val.includes(' ')),
   },
-  emits: ['update:modelValue', 'changed'],
-  setup(props, { emit }) {
-    const activeTab = ref(props.modelValue ? props.modelValue : props.tabs[0].hash)
+})
 
-    const handleTabChange = (tab: string): void => {
-      activeTab.value = tab
-      emit('changed', tab)
-      emit('update:modelValue', tab)
-    }
+const emit = defineEmits<{
+  (e: 'update:modelValue', val: string): void
+  (e: 'changed', val: string): void
+}>()
 
-    watch(() => props.modelValue, (newTabHash) => {
-      activeTab.value = newTabHash
-      emit('changed', newTabHash)
-      emit('update:modelValue', newTabHash)
-    })
+const activeTab = ref(props.modelValue ? props.modelValue : props.tabs[0].hash)
 
-    return {
-      activeTab,
-      handleTabChange,
-    }
-  },
+const handleTabChange = (tab: string): void => {
+  activeTab.value = tab
+  emit('changed', tab)
+  emit('update:modelValue', tab)
+}
+
+watch(() => props.modelValue, (newTabHash) => {
+  activeTab.value = newTabHash
+  emit('changed', newTabHash)
+  emit('update:modelValue', newTabHash)
 })
 </script>
 
