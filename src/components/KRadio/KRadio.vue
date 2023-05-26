@@ -13,6 +13,7 @@
       :checked="isSelected"
       v-bind="modifiedAttrs"
       class="k-input"
+      :disabled="isDisabled"
       type="radio"
       @click="handleClick"
     >
@@ -246,6 +247,12 @@ $background-color-card-disabled: color(grey-200);
       padding: var(--spacing-md);
     }
 
+    &[disabled], &.disabled {
+      > label {
+        cursor: not-allowed;
+      }
+    }
+
     .k-radio-label {
       color: $text-color-card;
       font-size: var(--type-sm, type(sm));
@@ -260,10 +267,6 @@ $background-color-card-disabled: color(grey-200);
     // Firefox disabled state handling
     &[disabled=""], &[disabled="true"] {
       @include kRadioDisabled;
-
-      > label {
-        cursor: not-allowed;
-      }
     }
 
     &:hover {
