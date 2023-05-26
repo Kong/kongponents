@@ -230,7 +230,6 @@ $background-color-card-disabled: color(grey-200);
     border: 1px solid $border-color-card;
     border-radius: var(--spacing-xxs);
     cursor: pointer;
-    padding: var(--spacing-md);
 
     .k-input {
       display: none;
@@ -242,6 +241,8 @@ $background-color-card-disabled: color(grey-200);
       flex-direction: column;
       height: 100%;
       justify-content: center;
+      // Apply padding to the label so the entire element is clickable
+      padding: var(--spacing-md);
     }
 
     .k-radio-label {
