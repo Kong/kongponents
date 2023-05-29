@@ -25,33 +25,22 @@
   </transition-group>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import KAlert, { appearances } from '@/components/KAlert/KAlert.vue'
-import type { AlertAppearance } from '@/types'
+<script lang="ts" setup>
+import { PropType } from 'vue'
+import KAlert from '@/components/KAlert/KAlert.vue'
+import type { Toast } from '@/types'
 
-export const toasterAppearances = appearances
-
-export interface Toast {
-  key?: any // unique identifier of toaster
-  appearance?: AlertAppearance
-  message: string // Text to display in toaster
-  timer?: any
-  timeoutMilliseconds?: number
-}
-
-export default defineComponent({
-  name: 'KToaster',
-  components: { KAlert },
-  props: {
-    toasterState: {
-      type: Array as PropType<Toast[]>,
-      default: [] as Toast[],
-      required: true,
-    },
+defineProps({
+  toasterState: {
+    type: Array as PropType<Toast[]>,
+    default: [] as Toast[],
+    required: true,
   },
-  emits: ['close'],
 })
+
+defineEmits<{
+  (e: 'close', val: any): void
+}>()
 </script>
 
 <style lang="scss" scoped>
