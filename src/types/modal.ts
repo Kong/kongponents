@@ -1,5 +1,7 @@
-export type DismissButtonTheme = 'light' | 'dark'
-export type DismissButtonThemeRecord = Record<DismissButtonTheme, DismissButtonTheme>
+import { AnyElementOf } from '@/types/utils'
 
-export type TextAlign = 'left' | 'center' | 'right'
-export type TextAlignRecord = Record<TextAlign, TextAlign>
+export const DismissButtonThemeArray = ['light', 'dark'] as const
+export type DismissButtonTheme = AnyElementOf<typeof DismissButtonThemeArray>
+
+export const TextAlignArray = ['left', 'center', 'right'] as const
+export type TextAlign = AnyElementOf<typeof TextAlignArray>
