@@ -189,8 +189,8 @@
         :total-count="total"
         @get-next-offset="getNextOffsetHandler"
         @get-prev-offset="getPrevOffsetHandler"
-        @page-changed="pageChangeHandler"
-        @page-size-changed="pageSizeChangeHandler"
+        @page-changed="() => pageChangeHandler"
+        @page-size-changed="() => pageSizeChangeHandler"
       />
     </section>
   </div>
@@ -205,7 +205,7 @@ import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
-import type { TablePreferences, TablePaginationType, TableHeader, TableColumnSlotName, SwrvState, SwrvStateData, EmitState } from '@/types'
+import type { TablePreferences, TablePaginationType, TableHeader, TableColumnSlotName, SwrvState, SwrvStateData, TableState } from '@/types'
 
 const { useDebounce, useRequest, useSwrvState } = useUtilities()
 
@@ -508,7 +508,7 @@ const emit = defineEmits<{
   (e: 'ktable-empty-state-cta-clicked'): void
   (e: 'update:table-preferences', preferences: TablePreferences): void
   (e: 'sort', value: { prevKey: string, sortColumnKey: string, sortColumnOrder: string }): void
-  (e: 'state', value: { state: EmitState, hasData: boolean }): void
+  (e: 'state', value: { state: TableState, hasData: boolean }): void
 }>()
 
 const attrs = useAttrs()
@@ -762,9 +762,8 @@ const isTableLoading = ref<boolean>(true)
 const stateData = computed((): SwrvStateData => ({
   hasData: hasData.value,
   state: state.value as SwrvState,
-  emitState: isTableLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success',
 }))
-
+const tableState = computed((): TableState => isTableLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success')
 const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebouncedRevalidate } = useDebounce(_revalidate, 500)
 const revalidate = generateDebouncedRevalidate(0) // generate a debounced function with zero delay (immediate)
 
@@ -895,10 +894,10 @@ watch(state, () => {
   }
 }, { immediate: true })
 
-watch(stateData, (newValue) => {
+watch([stateData, tableState], (newData) => {
   emit('state', {
-    state: newValue.emitState,
-    hasData: newValue.hasData,
+    state: newData?.[1],            // newData[tableState]
+    hasData: newData?.[0]?.hasData, // newData[stateData].hasData
   })
 })
 
