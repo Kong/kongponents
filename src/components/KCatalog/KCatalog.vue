@@ -191,7 +191,7 @@
 <script setup lang="ts">
 import { PropType, ref, computed, onMounted, watch, useSlots } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
-import { CatalogItem, CatalogPreferences, SwrvState, SwrvStateData, CardSize, CardSizeArray, TableState } from '@/types'
+import { CatalogItem, CatalogPreferences, SwrvState, SwrvStateData, CardSize, CardSizeArray, CatalogState } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
@@ -429,7 +429,7 @@ const emit = defineEmits<{
   (e: 'kcatalog-error-cta-clicked'): void
   (e: 'kcatalog-empty-state-cta-clicked'): void
   (e: 'update:catalog-preferences', preferences: CatalogPreferences): void
-  (e: 'state', value: { state: TableState, hasData: boolean }): void
+  (e: 'state', value: { state: CatalogState, hasData: boolean }): void
 }>()
 
 const slots = useSlots()
@@ -525,7 +525,7 @@ const stateData = computed((): SwrvStateData => ({
   hasData: hasData.value,
   state: state.value as SwrvState,
 }))
-const catalogState = computed((): TableState => isCatalogLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success')
+const catalogState = computed((): CatalogState => isCatalogLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success')
 
 const pageChangeHandler = ({ page: newPage }: Record<string, number>): void => {
   page.value = newPage
