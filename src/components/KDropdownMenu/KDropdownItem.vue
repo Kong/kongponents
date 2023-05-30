@@ -209,10 +209,6 @@ li.k-dropdown-item {
 
 .k-dropdown-item {
   a, button {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-
     &.k-dropdown-item-trigger {
       text-decoration: none !important;
     }
