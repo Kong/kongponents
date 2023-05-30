@@ -1,3 +1,10 @@
+## [8.71.1](https://github.com/Kong/kongponents/compare/v8.71.0...v8.71.1) (2023-05-30)
+
+
+### Bug Fixes
+
+* **select:** clicking empty item submits the form ([#1420](https://github.com/Kong/kongponents/issues/1420)) ([db5566c](https://github.com/Kong/kongponents/commit/db5566c112759f3a8be3779d4fa431dac5db3c7e))
+
 # [8.71.0](https://github.com/Kong/kongponents/compare/v8.70.0...v8.71.0) (2023-05-30)
 
 
