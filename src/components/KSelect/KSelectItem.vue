@@ -12,6 +12,7 @@
       <button
         :class="{ selected: item.selected }"
         :disabled="item.disabled === true ? true : undefined"
+        type="button"
         :value="item.value"
       >
         <span class="k-select-item-label mr-2">
