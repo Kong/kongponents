@@ -1,17 +1,10 @@
-
 <template>
   <div class="k-menu-item-divider">
     <hr>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'KMenuDivider',
-})
-</script>
+<script lang="ts" setup></script>
 
 <style lang="scss" scoped>
 @import '@/styles/variables';

@@ -1,5 +1,7 @@
-export type MenuType = 'string' | 'number' | 'divider'
-export type MenuTypeRecord = Record<MenuType, MenuType>
+import { AnyElementOf } from '@/types/utils'
+
+export const MenuTypeArray = ['string', 'number', 'divider'] as const
+export type MenuType = AnyElementOf<typeof MenuTypeArray>
 
 export interface MenuItem {
   title: string

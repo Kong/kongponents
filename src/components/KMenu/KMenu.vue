@@ -37,8 +37,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
+<script lang="ts" setup>
+import { computed, PropType, useSlots } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KMenuItem from '@/components/KMenu/KMenuItem.vue'
 import KMenuDivider from '@/components/KMenu/KMenuDivider.vue'
@@ -46,52 +46,45 @@ import type { KMenuItemType } from '@/types'
 
 const { getSizeFromString } = useUtilities()
 
-export default defineComponent({
-  name: 'KMenu',
-  components: { KMenuItem, KMenuDivider },
-  props: {
-    items: {
-      type: Array as PropType<KMenuItemType[]>,
-      required: false,
-      default: () => [],
-    },
-    actionButton: {
-      type: String,
-      default: '',
-    },
-    width: {
-      type: String,
-      default: '284',
-    },
-    /**
+const props = defineProps({
+  items: {
+    type: Array as PropType<KMenuItemType[]>,
+    required: false,
+    default: () => [],
+  },
+  actionButton: {
+    type: String,
+    default: '',
+  },
+  width: {
+    type: String,
+    default: '284',
+  },
+  /**
      * Test mode - for testing only, strips out generated ids
      */
-    testMode: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: ['proceed'],
-  setup(props, { emit, slots }) {
-    const widthStyle = computed((): Record<string, string> => {
-      return {
-        width: getSizeFromString(props.width),
-      }
-    })
-
-    const hasActionButton = computed((): boolean => !!slots.actionButton)
-
-    const proceed = (): void => {
-      emit('proceed')
-    }
-
-    return {
-      widthStyle,
-      hasActionButton,
-      proceed,
-    }
+  testMode: {
+    type: Boolean,
+    default: false,
   },
 })
+
+const emit = defineEmits<{
+  (e: 'proceed'): void
+}>()
+
+const slots = useSlots()
+const widthStyle = computed((): Record<string, string> => {
+  return {
+    width: getSizeFromString(props.width),
+  }
+})
+
+const hasActionButton = computed((): boolean => !!slots.actionButton)
+
+const proceed = (): void => {
+  emit('proceed')
+}
 </script>
 
 <style lang="scss" scoped>

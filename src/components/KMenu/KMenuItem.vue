@@ -57,70 +57,58 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, computed, PropType } from 'vue'
+<script lang="ts" setup>
+import { ref, computed, PropType, useSlots } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KMenuDivider from '@/components/KMenu/KMenuDivider.vue'
 import { v1 as uuidv1 } from 'uuid'
-import type { MenuItem, MenuType, MenuTypeRecord } from '@/types'
+import type { MenuItem, MenuType } from '@/types'
+import { MenuTypeArray } from '@/types'
 
-const menuTypeRecord: MenuTypeRecord = {
-  divider: 'divider',
-  number: 'number',
-  string: 'string',
-}
-
-export default defineComponent({
-  name: 'KMenuItem',
-  components: { KButton, KIcon, KMenuDivider },
-  props: {
-    item: {
-      type: Object as PropType<MenuItem>,
-      default: null,
-    },
-    expandable: {
-      type: Boolean,
-      default: false,
-    },
-    type: {
-      type: String as PropType<MenuType>,
-      default: 'string',
-      validator: (value: MenuType): boolean => Object.values(menuTypeRecord).includes(value),
-    },
-    lastMenuItem: {
-      type: Boolean,
-      default: false,
-    },
-    /**
+const props = defineProps({
+  item: {
+    type: Object as PropType<MenuItem>,
+    default: null,
+  },
+  expandable: {
+    type: Boolean,
+    default: false,
+  },
+  type: {
+    type: String as PropType<MenuType>,
+    default: 'string',
+    validator: (value: MenuType): boolean => MenuTypeArray.includes(value),
+  },
+  lastMenuItem: {
+    type: Boolean,
+    default: false,
+  },
+  /**
      * Test mode - for testing only, strips out generated ids
      */
-    testMode: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: ['clicked'],
-  setup(props, { emit, slots }) {
-    const isOpen = ref<boolean>(false)
-
-    const menuItemId = computed((): string => props.testMode ? 'test-menuitem-id-1234' : uuidv1())
-
-    const toggleMenuItem = (): void => {
-      if (props.expandable) {
-        isOpen.value = !isOpen.value
-      } else {
-        emit('clicked', (slots.itemTitle || props.item))
-      }
-    }
-
-    return {
-      isOpen,
-      menuItemId,
-      toggleMenuItem,
-    }
+  testMode: {
+    type: Boolean,
+    default: false,
   },
 })
+const emit = defineEmits<{
+  (e: 'clicked', val: MenuItem | any): void
+}>()
+
+const slots = useSlots()
+
+const isOpen = ref<boolean>(false)
+
+const menuItemId = computed((): string => props.testMode ? 'test-menuitem-id-1234' : uuidv1())
+
+const toggleMenuItem = (): void => {
+  if (props.expandable) {
+    isOpen.value = !isOpen.value
+  } else {
+    emit('clicked', (slots.itemTitle || props.item))
+  }
+}
 </script>
 
 <style lang="scss" scoped>
