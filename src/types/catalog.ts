@@ -15,3 +15,5 @@ export interface CatalogItem extends Record<string, any> {
   description: string
   key?: string
 }
+
+export type CatalogState = 'loading' | 'error' | 'success'
