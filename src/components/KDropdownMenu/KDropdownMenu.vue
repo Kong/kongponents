@@ -146,7 +146,7 @@ const emit = defineEmits<{
   (e: 'change', value: DropdownItem): void;
 }>()
 
-const hidePopover = ref<true | undefined>()
+const hidePopover = ref<boolean>(false)
 
 const tooltipComponent = computed(() => props.disabledTooltip ? Kooltip : 'div')
 
@@ -180,7 +180,7 @@ const handleCloseDropdown = async (): Promise<void> => {
   // reset the hidePopover value so it's ready for the next time the dropdown is opened
   // need nextTick to ensure the popover is hidden before resetting the value
   await nextTick(() => {
-    hidePopover.value = undefined
+    hidePopover.value = false
   })
 }
 

@@ -16,13 +16,6 @@
       @click="availableComponents[componentType].onClick"
     >
       <slot>{{ label }}</slot>
-      <KButton
-        v-if="$slots.action"
-        class="btn-link k-button non-visual-button"
-        @click="handleActionClick"
-      >
-        <slot name="action" />
-      </KButton>
     </component>
   </li>
 </template>
@@ -75,7 +68,6 @@ const props = defineProps({
 const emit = defineEmits<{
   (e: 'click', val: Event): void;
   (e: 'change', item: DropdownItem): void;
-  (e: 'action:click', item: Event): void;
 }>()
 
 const route = useRoute()
@@ -156,11 +148,6 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     },
   },
 }))
-
-const handleActionClick = (event: Event): void => {
-  emit('action:click', event)
-  preventAndStopDefault(event)
-}
 </script>
 
 <style lang="scss">
