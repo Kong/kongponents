@@ -16,6 +16,13 @@
       @click="availableComponents[componentType].onClick"
     >
       <slot>{{ label }}</slot>
+      <KButton
+        v-if="$slots.action"
+        class="btn-link k-button non-visual-button"
+        @click="handleActionClick"
+      >
+        <slot name="action" />
+      </KButton>
     </component>
   </li>
 </template>
@@ -68,6 +75,7 @@ const props = defineProps({
 const emit = defineEmits<{
   (e: 'click', val: Event): void;
   (e: 'change', item: DropdownItem): void;
+  (e: 'action:click', item: Event): void;
 }>()
 
 const route = useRoute()
@@ -148,6 +156,11 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     },
   },
 }))
+
+const handleActionClick = (event: Event): void => {
+  emit('action:click', event)
+  preventAndStopDefault(event)
+}
 </script>
 
 <style lang="scss">
@@ -158,11 +171,11 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
 li.k-dropdown-item {
   align-items: center;
   display: flex;
-  font-size: 16px;
+  font-size: var(--type-md);
   line-height: 1;
 
   &:not(:first-of-type).has-divider {
-    $k-dropdown-item-divider-container-height: 24px; // set to the same value as --spacing-lg without the units
+    $k-dropdown-item-divider-container-height: var(--spacing-lg); // set to the same value as --spacing-lg without the units
     $k-dropdown-item-divider-position: -13px; // this should be negative (<container-height> / 2 + 1)
     margin-top: $k-dropdown-item-divider-container-height;
     position: relative;
@@ -179,7 +192,7 @@ li.k-dropdown-item {
   }
 
   svg {
-    margin-right: 12px;
+    margin-right: var(--spacing-sm);
   }
 
   &:hover {
@@ -209,6 +222,10 @@ li.k-dropdown-item {
 
 .k-dropdown-item {
   a, button {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+
     &.k-dropdown-item-trigger {
       text-decoration: none !important;
     }

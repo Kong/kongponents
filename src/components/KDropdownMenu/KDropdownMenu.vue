@@ -7,6 +7,7 @@
       <KPop
         v-bind="boundKPopAttributes"
         data-testid="k-dropdown-menu-popover"
+        :hide-popover="hidePopover"
         :on-popover-click="() => handleTriggerToggle(isToggled, toggle, false)"
         :test-mode="!!testMode || undefined"
         @closed="() => handleTriggerToggle(isToggled, toggle, false)"
@@ -49,6 +50,7 @@
             data-testid="k-dropdown-list"
           >
             <slot
+              :close-dropdown="handleCloseDropdown"
               :handle-selection="handleSelection"
               :items="items"
               name="items"
@@ -70,7 +72,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, PropType, Ref, ref, watch } from 'vue'
+import { computed, onMounted, PropType, Ref, ref, watch, nextTick } from 'vue'
 import { Appearance, AppearanceArray, ButtonAppearance, DropdownItem, PopPlacements } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
 import Kooltip from '@/components/KTooltip/KTooltip.vue'
@@ -144,6 +146,8 @@ const emit = defineEmits<{
   (e: 'change', value: DropdownItem): void;
 }>()
 
+const hidePopover = ref<true | undefined>()
+
 const tooltipComponent = computed(() => props.disabledTooltip ? Kooltip : 'div')
 
 const defaultKPopAttributes = {
@@ -168,6 +172,16 @@ const handleSelection = (item: DropdownItem): void => {
     return
   }
   selectedItem.value = item
+}
+
+const handleCloseDropdown = (): void => {
+  hidePopover.value = true
+
+  // reset the hidePopover value so it's ready for the next time the dropdown is opened
+  // need nextTick to ensure the popover is hidden before resetting the value
+  nextTick(() => {
+    hidePopover.value = undefined
+  })
 }
 
 const handleTriggerToggle = (isToggled: Ref<boolean>, toggle: () => void, isOpen: boolean): boolean => {
