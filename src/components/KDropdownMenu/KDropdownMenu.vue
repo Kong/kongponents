@@ -174,12 +174,12 @@ const handleSelection = (item: DropdownItem): void => {
   selectedItem.value = item
 }
 
-const handleCloseDropdown = (): void => {
+const handleCloseDropdown = async (): Promise<void> => {
   hidePopover.value = true
 
   // reset the hidePopover value so it's ready for the next time the dropdown is opened
   // need nextTick to ensure the popover is hidden before resetting the value
-  nextTick(() => {
+  await nextTick(() => {
     hidePopover.value = undefined
   })
 }
