@@ -344,7 +344,7 @@ For an example of using the items slot see the [`KDropdownItem`](#KDropdownItem)
 
 **KDropdownMenu** generates a **KDropdownItem** for each object in the `items` prop array. At the most basic level, **KDropdownItem** is a wrapper around each item to display it correctly inside `KDropdownMenu`. You can use the `items` slot of the `KDropdownMenu` to manually create your own menu items.
 
-### Props
+### Properties
 
 - `item` - the properties the router-link is built from, it expects a `label` and optionally a `to` (for a router-link item) or `value` (for a `selectionMenu` item).
 - `disabled` - a boolean (defaults to `false`), whether or not to disable the item.
@@ -361,9 +361,7 @@ There are 3 primary item types:
 - `link`
   - the generic type generated using the `items` prop on `KDropdownMenu`
   - the generic type generated using the `item` prop on `KDropdownItem`
-  - with or without custom action trigger (see [slots](#action) for reference)
 - `button` - this item is generated if a handler is specified for the `@click` event on a `KDropdownItem`
-  - with or without custom action trigger (see [slots](#action) for reference)
 - `custom` - no special handling, you completely control the content
 
 <ClientOnly>
@@ -388,18 +386,15 @@ There are 3 primary item types:
       </KDropdownItem>
       <KDropdownItem
         @click="clickHandler('Button clicked!')"
-        @action:click="closeDropdown"
       >
         Button w/ action
-        <template #action>
-          <KButton
-            appearance="btn-link"
-            class="remove-icon"
-            @click="clickHandler('Button action clicked!')"
-          >
-            <KIcon icon="trash" />
-          </KButton>
-        </template>
+        <KButton
+          appearance="btn-link"
+          class="remove-icon"
+          @click.stop="() => { clickHandler('Button action clicked!'); closeDropdown() }"
+        >
+          <KIcon icon="trash" />
+        </KButton>
       </KDropdownItem>
       <KDropdownItem
         has-divider
@@ -446,17 +441,14 @@ There are 3 primary item types:
     </KDropdownItem>
     <KDropdownItem
       @click="clickHandler"
-      @action:click="closeDropdown"
     >
       Button w/ action
-      <template #action>
-        <KButton
-          appearance="btn-link"
-          @click="actionClickHandler"
-        >
-          <KIcon icon="trash" />
-        </KButton>
-      </template>
+      <KButton
+        appearance="btn-link"
+        @click.stop="() => { actionClickHandler(); closeDropdown(); }"
+      >
+        <KIcon icon="trash" />
+      </KButton>
     </KDropdownItem>
     <KDropdownItem
       has-divider
@@ -481,43 +473,13 @@ There are 3 primary item types:
 </KDropdownMenu>
 ```
 
-### Slots
-
-#### action
-
-Slot for any action triggers that you would want to keep separate from your items. Mouse events dispatched by contents of this slot will not be propagated to the item that wraps it, so you can handle item clicks and action clicks separately (see example above for reference).
-
-Clicks on this slot content also don't trigger dropdown close, so you can handle it yourself using `closeDropdown` slop prop exposed by [`items`](#items-1) slot.
-
-```html
-<KDropdownItem
-  @click="clickHandler"
-  @action:click="closeDropdown"
->
-  Button w/ action
-  <template #action>
-    <KButton
-      appearance="btn-link"
-      @click="actionClickHandler"
-    >
-      <KIcon icon="trash" />
-    </KButton>
-  </template>
-</KDropdownItem>
-```
-
-:::warning NOTE
-This slot is only provided by `KDropdownItem` component, not the `KDropdownMenu` itself.
-:::
-
 ### Events
 
-| Event             | Description                                                                                                              |
-| :---------------- | :----------------------------------------------------------------------------------------------------------------------- |
-| `@click`          | Fires when a `button` type menu item is clicked                                                                          |
-| `@change`         | Fires when items within a `selectionMenu` are clicked; returns the selected menu item object or `null`                   |
-| `@toggleDropdown` | Fires when the button to toggle the menu is clicked; returns `true` if the menu is open, or `false`                      |
-| `@action:click`   | Emitted only by by the `KDropdownItem` component. Fires when content passed through [`action`](#action) slot is clicked. |
+| Event             | Description                                                                                            |
+| :---------------- | :----------------------------------------------------------------------------------------------------- |
+| `@click`          | Fires when a `button` type menu item is clicked                                                        |
+| `@change`         | Fires when items within a `selectionMenu` are clicked; returns the selected menu item object or `null` |
+| `@toggleDropdown` | Fires when the button to toggle the menu is clicked; returns `true` if the menu is open, or `false`    |
 
 <script lang="ts">
 import { defineComponent } from 'vue'
