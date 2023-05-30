@@ -126,234 +126,205 @@
   </nav>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, Ref, computed, watch, PropType } from 'vue'
+<script lang="ts" setup>
+import { ref, Ref, computed, watch, PropType } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KSelect from '@/components/KSelect/KSelect.vue'
 import PaginationOffset from './PaginationOffset.vue'
 import type { PaginationType } from '@/types'
+import { PageSizeChangedData, PageChangedData } from '@/types'
 
-export default defineComponent({
-  name: 'KPagination',
-  components: {
-    KIcon,
-    KSelect,
-    PaginationOffset,
+const props = defineProps({
+  items: {
+    type: Array,
+    default: () => [],
   },
-  props: {
-    items: {
-      type: Array,
-      default: () => [],
-    },
-    totalCount: {
-      type: Number,
-      default: 0,
-    },
-    pageSizes: {
-      type: Array as PropType<number[]>,
-      default: () => [15, 30, 50, 75, 100],
-      validator: (pageSizes: number[]): boolean => !!pageSizes.length && pageSizes.every(i => typeof i === 'number'),
-    },
-    initialPageSize: {
-      type: Number,
-      default: null,
-    },
-    neighbors: {
-      type: Number,
-      default: 1,
-    },
-    searchTriggered: {
-      type: Boolean,
-      default: false,
-    },
-    currentPage: {
-      type: Number,
-      default: null,
-    },
-    disablePageJump: {
-      type: Boolean,
-      default: false,
-    },
-    paginationType: {
-      type: String as PropType<PaginationType>,
-      default: 'default',
-      validator: (value: PaginationType) => ['default', 'offset'].includes(value),
-    },
-    offsetPrevButtonDisabled: {
-      type: Boolean,
-      default: false,
-    },
-    offsetNextButtonDisabled: {
-      type: Boolean,
-      default: false,
-    },
-    /**
+  totalCount: {
+    type: Number,
+    default: 0,
+  },
+  pageSizes: {
+    type: Array as PropType<number[]>,
+    default: () => [15, 30, 50, 75, 100],
+    validator: (pageSizes: number[]): boolean => !!pageSizes.length && pageSizes.every(i => typeof i === 'number'),
+  },
+  initialPageSize: {
+    type: Number,
+    default: null,
+  },
+  neighbors: {
+    type: Number,
+    default: 1,
+  },
+  searchTriggered: {
+    type: Boolean,
+    default: false,
+  },
+  currentPage: {
+    type: Number,
+    default: null,
+  },
+  disablePageJump: {
+    type: Boolean,
+    default: false,
+  },
+  paginationType: {
+    type: String as PropType<PaginationType>,
+    default: 'default',
+    validator: (value: PaginationType) => ['default', 'offset'].includes(value),
+  },
+  offsetPrevButtonDisabled: {
+    type: Boolean,
+    default: false,
+  },
+  offsetNextButtonDisabled: {
+    type: Boolean,
+    default: false,
+  },
+  /**
      * Test mode - for testing only, strips out generated ids
      */
-    testMode: {
-      type: Boolean,
-      default: false,
-    },
+  testMode: {
+    type: Boolean,
+    default: false,
   },
-  emits: ['pageChanged', 'pageSizeChanged', 'getNextOffset', 'getPrevOffset'],
-  setup(props, { emit }) {
-    const currPage: Ref<number> = ref(props.currentPage ? props.currentPage : 1)
-    const currentPageSize: Ref<number> = ref(props.initialPageSize ? props.initialPageSize : props.pageSizes[0])
-    const pageCount: Ref<number> = ref(Math.ceil(props.totalCount / currentPageSize.value))
-    const pageSizeOptions = props.pageSizes.map((size, i) => ({
-      label: `${size}`,
-      key: `size-${i}`,
-      value: size,
-    }))
-    const pageSizeText = ref('')
+})
 
-    const getVisiblePages = (currPage: number, pageCount: number, firstDetached: boolean, lastDetached: boolean): number | number[] => {
-      if (props.disablePageJump) {
-        return 0
-      }
-      let pages = [...Array(pageCount).keys()].map((n) => n + 1)
-      const visiblePages = 5 + 2 * props.neighbors
-      // All pages fit on one screen
-      if (pages.length <= visiblePages) {
-        return pages
-      }
-      if (!firstDetached) {
-        // First pages
-        pages = pages.filter((n) => n <= props.neighbors * 2 + 3)
-      } else if (firstDetached && lastDetached) {
-        // Middle pages (if they do not fit on one screen)
-        pages = pages.filter(
-          (n) =>
-            n > currPage - props.neighbors - 1 &&
+const emit = defineEmits<{
+  (e: 'pageChanged', val: PageChangedData): void
+  (e: 'pageSizeChanged', val: PageSizeChangedData): void
+  (e: 'getNextOffset'): void
+  (e: 'getPrevOffset'): void
+}>()
+
+const currPage: Ref<number> = ref(props.currentPage ? props.currentPage : 1)
+const currentPageSize: Ref<number> = ref(props.initialPageSize ? props.initialPageSize : props.pageSizes[0])
+const pageCount: Ref<number> = ref(Math.ceil(props.totalCount / currentPageSize.value))
+const pageSizeOptions = props.pageSizes.map((size, i) => ({
+  label: `${size}`,
+  key: `size-${i}`,
+  value: size,
+}))
+const pageSizeText = ref('')
+
+const getVisiblePages = (currPage: number, pageCount: number, firstDetached: boolean, lastDetached: boolean): number | number[] => {
+  if (props.disablePageJump) {
+    return 0
+  }
+  let pages = [...Array(pageCount).keys()].map((n) => n + 1)
+  const visiblePages = 5 + 2 * props.neighbors
+  // All pages fit on one screen
+  if (pages.length <= visiblePages) {
+    return pages
+  }
+  if (!firstDetached) {
+    // First pages
+    pages = pages.filter((n) => n <= props.neighbors * 2 + 3)
+  } else if (firstDetached && lastDetached) {
+    // Middle pages (if they do not fit on one screen)
+    pages = pages.filter(
+      (n) =>
+        n > currPage - props.neighbors - 1 &&
             n < currPage + props.neighbors + 1,
-        )
-      } else if (firstDetached && !lastDetached) {
-        // Last pages
-        pages = pages.filter((n) => n > pageCount - props.neighbors * 2 - 3)
-      }
-      return pages
-    }
+    )
+  } else if (firstDetached && !lastDetached) {
+    // Last pages
+    pages = pages.filter((n) => n > pageCount - props.neighbors * 2 - 3)
+  }
+  return pages
+}
 
-    const backDisabled = ref(currPage.value === 1)
-    const forwardDisabled = ref(currPage.value === pageCount.value)
+const backDisabled = ref(currPage.value === 1)
+const forwardDisabled = ref(currPage.value === pageCount.value)
 
-    const startCount = computed((): number => (currPage.value - 1) * currentPageSize.value + 1)
-    const endCount = computed((): number => {
-      const calculatedEndCount = startCount.value - 1 + currentPageSize.value
-      return calculatedEndCount > props.totalCount
-        ? props.totalCount
-        : calculatedEndCount
-    })
-    const pagesString = computed((): string => `${startCount.value} to ${endCount.value}`)
-    const pageCountString = computed((): string => ` of ${props.totalCount}`)
-    const currentlySelectedPage = computed((): number => props.currentPage ? props.currentPage : currPage.value)
-    const firstDetached = ref(false)
-    const lastDetached = ref(pageCount.value > 5 + 2 * props.neighbors)
-    const pagesVisible = ref(getVisiblePages(
-      currentlySelectedPage.value,
-      pageCount.value,
-      false,
-      pageCount.value > 5 + 2 * props.neighbors,
-    ))
+const startCount = computed((): number => (currPage.value - 1) * currentPageSize.value + 1)
+const endCount = computed((): number => {
+  const calculatedEndCount = startCount.value - 1 + currentPageSize.value
+  return calculatedEndCount > props.totalCount
+    ? props.totalCount
+    : calculatedEndCount
+})
+const pagesString = computed((): string => `${startCount.value} to ${endCount.value}`)
+const pageCountString = computed((): string => ` of ${props.totalCount}`)
+const currentlySelectedPage = computed((): number => props.currentPage ? props.currentPage : currPage.value)
+const firstDetached = ref(false)
+const lastDetached = ref(pageCount.value > 5 + 2 * props.neighbors)
+const pagesVisible = ref(getVisiblePages(
+  currentlySelectedPage.value,
+  pageCount.value,
+  false,
+  pageCount.value > 5 + 2 * props.neighbors,
+))
 
-    const pageForward = ():void => {
-      if (forwardDisabled.value) return
+const pageForward = ():void => {
+  if (forwardDisabled.value) return
 
-      currPage.value++
-      updatePage()
-    }
+  currPage.value++
+  updatePage()
+}
 
-    const pageBack = ():void => {
-      if (backDisabled.value) return
+const pageBack = ():void => {
+  if (backDisabled.value) return
 
-      currPage.value--
-      updatePage()
-    }
+  currPage.value--
+  updatePage()
+}
 
-    const changePage = (page: number):void => {
-      currPage.value = page
-      updatePage()
-    }
+const changePage = (page: number):void => {
+  currPage.value = page
+  updatePage()
+}
 
-    const updatePage = (): void => {
-      const lastEntry = (currPage.value - 1) * currentPageSize.value + currentPageSize.value
-      forwardDisabled.value = lastEntry >= props.totalCount
-      backDisabled.value = currPage.value === 1
-      // The view will hold
-      // Selected page, first page, last page, 2 placeholders and 2 * neighbors
-      const visiblePages = 5 + 2 * props.neighbors
-      if (pageCount.value <= visiblePages) {
-        // All pages will fit in screen
-        firstDetached.value = false
-        lastDetached.value = false
-      } else {
-        firstDetached.value = currPage.value >= props.neighbors + 4
-        lastDetached.value = currPage.value <= pageCount.value - props.neighbors - 3
-      }
-      pagesVisible.value = getVisiblePages(currPage.value, pageCount.value, firstDetached.value, lastDetached.value)
-      emit('pageChanged', {
-        page: currPage.value,
-        pageCount: pageCount.value,
-        firstItem: startCount.value,
-        lastItem: endCount.value,
-        visibleItems: props.items.slice(startCount.value - 1, endCount.value),
-      })
-    }
+const updatePage = (): void => {
+  const lastEntry = (currPage.value - 1) * currentPageSize.value + currentPageSize.value
+  forwardDisabled.value = lastEntry >= props.totalCount
+  backDisabled.value = currPage.value === 1
+  // The view will hold
+  // Selected page, first page, last page, 2 placeholders and 2 * neighbors
+  const visiblePages = 5 + 2 * props.neighbors
+  if (pageCount.value <= visiblePages) {
+    // All pages will fit in screen
+    firstDetached.value = false
+    lastDetached.value = false
+  } else {
+    firstDetached.value = currPage.value >= props.neighbors + 4
+    lastDetached.value = currPage.value <= pageCount.value - props.neighbors - 3
+  }
+  pagesVisible.value = getVisiblePages(currPage.value, pageCount.value, firstDetached.value, lastDetached.value)
+  emit('pageChanged', {
+    page: currPage.value,
+    pageCount: pageCount.value,
+    firstItem: startCount.value,
+    lastItem: endCount.value,
+    visibleItems: props.items.slice(startCount.value - 1, endCount.value),
+  })
+}
 
-    const updatePageSize = (event: any): void => {
-      currentPageSize.value = event.value
-      pageSizeText.value = currentPageSize.value + ' items per page'
-      pageCount.value = Math.ceil(props.totalCount / currentPageSize.value)
-      emit('pageSizeChanged', {
-        pageSize: currentPageSize.value,
-        pageCount: pageCount.value,
-      })
-      if (props.currentPage !== 1) {
-        changePage(1)
-      }
-    }
+const updatePageSize = (event: any): void => {
+  currentPageSize.value = event.value
+  pageSizeText.value = currentPageSize.value + ' items per page'
+  pageCount.value = Math.ceil(props.totalCount / currentPageSize.value)
+  emit('pageSizeChanged', {
+    pageSize: currentPageSize.value,
+    pageCount: pageCount.value,
+  })
+  if (props.currentPage !== 1) {
+    changePage(1)
+  }
+}
 
-    const getNextOffset = (): void => {
-      emit('getNextOffset')
-    }
+const getNextOffset = (): void => {
+  emit('getNextOffset')
+}
 
-    const getPrevOffset = (): void => {
-      emit('getPrevOffset')
-    }
+const getPrevOffset = (): void => {
+  emit('getPrevOffset')
+}
 
-    watch(() => props.currentPage, (newVal, oldVal) => {
-      if (newVal !== oldVal) {
-        changePage(newVal)
-      }
-    })
-
-    return {
-      kpopAttrs: {
-        placement: 'top',
-      },
-      currentPageSize,
-      pageCount,
-      pageSizeOptions,
-      backDisabled,
-      forwardDisabled,
-      pageSizeText,
-      pagesVisible,
-      firstDetached,
-      lastDetached,
-      startCount,
-      endCount,
-      pagesString,
-      pageCountString,
-      currentlySelectedPage,
-      pageForward,
-      pageBack,
-      changePage,
-      updatePage,
-      updatePageSize,
-      getNextOffset,
-      getPrevOffset,
-    }
-  },
+watch(() => props.currentPage, (newVal, oldVal) => {
+  if (newVal !== oldVal) {
+    changePage(newVal)
+  }
 })
 </script>
 
