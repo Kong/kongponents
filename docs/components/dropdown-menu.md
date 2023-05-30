@@ -384,13 +384,10 @@ There are 3 primary item types:
       >
         Disabled to link
       </KDropdownItem>
-      <KDropdownItem
-        @click="clickHandler('Button clicked!')"
-      >
+      <KDropdownItem @click="clickHandler('Button clicked!')" class="dropdown-with-remove-action">
         Button w/ action
         <KButton
           appearance="btn-link"
-          class="remove-icon"
           @click.stop="() => { clickHandler('Button action clicked!'); closeDropdown() }"
         >
           <KIcon icon="trash" />
@@ -529,7 +526,13 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.remove-icon {
+.dropdown-with-remove-action {
+  button {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
   svg {
     margin-right: 0 !important;
   }
