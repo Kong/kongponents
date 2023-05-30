@@ -31,7 +31,7 @@ import * as allIcons from './icons'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-const icons: Array<string, any[]> = allIcons
+const icons: Record<string, any> = allIcons
 
 const DEFAULTS = {
   size: '24',

@@ -1,5 +1,6 @@
-import KToaster, { toasterAppearances, Toast } from './KToaster.vue'
+import KToaster from './KToaster.vue'
 import { createApp, h, ref, Ref } from 'vue'
+import { Toast, toasterAppearances } from '@/types'
 
 const APPEARANCES = Object.keys(toasterAppearances)
 

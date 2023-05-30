@@ -1,3 +1,13 @@
+# [8.71.0](https://github.com/Kong/kongponents/compare/v8.70.0...v8.71.0) (2023-05-30)
+
+
+### Features
+
+* **KMenu:** switch to setup syntax [KHCP-6508] ([#1412](https://github.com/Kong/kongponents/issues/1412)) ([89b3756](https://github.com/Kong/kongponents/commit/89b375608011a0e50701837c65f06c813b8eef3e))
+* **KModal:** switch to setup syntax [KHCP-6509] ([#1413](https://github.com/Kong/kongponents/issues/1413)) ([fca7254](https://github.com/Kong/kongponents/commit/fca7254806cab1f754c960f050c3c6c34cb0252e))
+* **KPagination:** switch to setup syntax [KHCP-6510] ([#1414](https://github.com/Kong/kongponents/issues/1414)) ([d78dbd4](https://github.com/Kong/kongponents/commit/d78dbd420413077397150ed1913addc0a3c2d177))
+* **KToaster:** switch to setup syntax [KHCP-6522] ([#1418](https://github.com/Kong/kongponents/issues/1418)) ([320ea8e](https://github.com/Kong/kongponents/commit/320ea8e1bc6342b5681bbe7596377dad0559209b))
+
 # [8.70.0](https://github.com/Kong/kongponents/compare/v8.69.0...v8.70.0) (2023-05-26)
 
 
