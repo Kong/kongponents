@@ -151,6 +151,14 @@ describe('KDropdownMenu', () => {
     <KDropdownItem has-divider @click="() => {}">
       A button
     </KDropdownItem>
+    <KDropdownItem has-divider @click="() => {}">
+      A button w/ action item
+      <template #action>
+        <KButton data-testid="action-item" @click="() => {}">
+          Click me
+        </KButton>
+      </template>
+    </KDropdownItem>
     <KDropdownItem
       has-divider
       disabled
@@ -201,7 +209,9 @@ describe('KDropdownMenu', () => {
     triggerBtn.click()
     cy.getTestId('k-dropdown-list').should('be.visible')
 
-    cy.getTestId('k-dropdown-list').eq(0).find('.k-dropdown-item').should('have.length', 5)
-    cy.getTestId('k-dropdown-list').eq(0).find('.has-divider').should('have.length', 5)
+    cy.getTestId('k-dropdown-list').eq(0).find('.k-dropdown-item').should('have.length', 6)
+    cy.getTestId('k-dropdown-list').eq(0).find('.has-divider').should('have.length', 6)
+
+    cy.getTestId('action-item').should('be.visible')
   })
 })
