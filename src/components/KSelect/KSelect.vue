@@ -130,7 +130,7 @@
               <KIcon
                 color="var(--grey-500)"
                 icon="clear"
-                size="18"
+                :size="iconSize"
               />
             </KButton>
             <KIcon
@@ -138,7 +138,7 @@
               :class="{ 'overlay-label-chevron': overlayLabel }"
               color="var(--grey-500)"
               icon="chevronDown"
-              size="18"
+              :size="iconSize"
             />
             <KInput
               :id="selectTextId"
@@ -167,7 +167,7 @@
             <transition name="fade">
               <div
                 v-if="hasCustomSelectedItem && (!filterIsEnabled || !isToggled.value)"
-                class="d-inline-flex w-100 custom-selected-item"
+                class="custom-selected-item"
               >
                 <slot
                   :item="selectedItem"
@@ -436,6 +436,8 @@ const selectItems: Ref<SelectItem[]> = ref([])
 const initialFocusTriggered: Ref<boolean> = ref(false)
 const inputFocused: Ref<boolean> = ref(false)
 const popper = ref(null)
+const iconSize = '18px'
+
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const value = computed({
   get(): string | number {
@@ -450,6 +452,7 @@ const value = computed({
     }
   },
 })
+
 const filterIsEnabled = computed((): boolean => {
   if (props.autosuggest) {
     return true
@@ -730,6 +733,8 @@ const onPopoverOpen = () => {
 @import '@/styles/mixins';
 @import '@/styles/functions';
 
+$chevronDownIconMargin: 10px;
+
 @mixin boxShadow($color, $whiteShadowSpred: 2px, $colorShadowSpread: 4px) {
   box-shadow: 0 0 0 $whiteShadowSpred var(--white, color(white)), 0 0 0 $colorShadowSpread $color;
 }
@@ -799,7 +804,7 @@ const onPopoverOpen = () => {
     }
 
     .kong-icon-chevronDown {
-      margin-right: 10px;
+      margin-right: $chevronDownIconMargin;
     }
 
     &.cursor-default {
@@ -862,9 +867,13 @@ const onPopoverOpen = () => {
     }
 
     .custom-selected-item {
+      display: inline-flex;
       padding: 10px var(--spacing-md, spacing(md));
       pointer-events: none;
       position: absolute;
+      // offset chevron icon width and margin
+      right: calc(v-bind('iconSize') + $chevronDownIconMargin);
+      width: calc(100% - (v-bind('iconSize')) - $chevronDownIconMargin);
     }
   }
 
