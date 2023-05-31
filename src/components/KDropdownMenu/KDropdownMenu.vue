@@ -236,7 +236,7 @@ onMounted(() => {
 @import '@/styles/functions';
 
 .k-popover.k-dropdown-popover {
-  --KPopPaddingY: var(--spacing-sm, 12px);
+  --KPopPaddingY: var(--spacing-sm, spacing(sm));
   --KPopPaddingX: 0;
   border: 1px solid var(--black-10, rgba(0, 0, 0, 0.1));
 

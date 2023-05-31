@@ -162,7 +162,7 @@ li.k-dropdown-item {
   line-height: 1;
 
   &:not(:first-of-type).has-divider {
-    $k-dropdown-item-divider-container-height: var(--spacing-lg, 24px); // set to the same value as --spacing-lg without the units
+    $k-dropdown-item-divider-container-height: var(--spacing-lg, spacing(lg)); // set to the same value as --spacing-lg without the units
     $k-dropdown-item-divider-position: -13px; // this should be negative (<container-height> / 2 + 1)
     margin-top: $k-dropdown-item-divider-container-height;
     position: relative;
@@ -179,7 +179,7 @@ li.k-dropdown-item {
   }
 
   svg {
-    margin-right: var(--spacing-sm, 12px);
+    margin-right: var(--spacing-sm, spacing(sm));
   }
 
   &:hover {
@@ -190,7 +190,7 @@ li.k-dropdown-item {
   // Override .btn-link styles
   .k-dropdown-item-trigger.btn-link {
     color: var(--black-70, rgba(0, 0, 0, 0.7));
-    padding: var(--spacing-md, 12px) var(--spacing-lg, 24px);
+    padding: var(--spacing-md, spacing(md)) var(--spacing-lg, spacing(lg));
     text-align: left;
     text-decoration: none;
     width: 100%;
