@@ -205,7 +205,17 @@ import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
-import type { TablePreferences, TablePaginationType, TableHeader, TableColumnSlotName, SwrvState, SwrvStateData } from '@/types'
+import type {
+  TablePreferences,
+  TablePaginationType,
+  TableHeader,
+  TableColumnSlotName,
+  SwrvState,
+  SwrvStateData,
+  TableState,
+  PageChangedData,
+  PageSizeChangedData,
+} from '@/types'
 
 const { useDebounce, useRequest, useSwrvState } = useUtilities()
 
@@ -501,7 +511,15 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['sort', 'ktable-error-cta-clicked', 'ktable-empty-state-cta-clicked', 'row-click', 'cell-click', 'update:table-preferences'])
+const emit = defineEmits<{
+  (e: 'cell-click', value: { data: any }): void
+  (e: 'row-click', value: { data: any }): void
+  (e: 'ktable-error-cta-clicked'): void
+  (e: 'ktable-empty-state-cta-clicked'): void
+  (e: 'update:table-preferences', preferences: TablePreferences): void
+  (e: 'sort', value: { prevKey: string, sortColumnKey: string, sortColumnOrder: string }): void
+  (e: 'state', value: { state: TableState, hasData: boolean }): void
+}>()
 
 const attrs = useAttrs()
 const slots = useSlots()
@@ -755,7 +773,7 @@ const stateData = computed((): SwrvStateData => ({
   hasData: hasData.value,
   state: state.value as SwrvState,
 }))
-
+const tableState = computed((): TableState => isTableLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success')
 const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebouncedRevalidate } = useDebounce(_revalidate, 500)
 const revalidate = generateDebouncedRevalidate(0) // generate a debounced function with zero delay (immediate)
 
@@ -802,11 +820,11 @@ const sortClickHandler = (header: TableHeader) => {
   emitTablePreferences()
 }
 
-const pageChangeHandler = ({ page: newPage }: Record<string, number>) => {
+const pageChangeHandler = ({ page: newPage }: PageChangedData) => {
   page.value = newPage
 }
 
-const pageSizeChangeHandler = ({ pageSize: newPageSize }: Record<string, number>) => {
+const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangedData) => {
   offsets.value = [null]
   offset.value = null
   pageSize.value = newPageSize
@@ -885,6 +903,13 @@ watch(state, () => {
       break
   }
 }, { immediate: true })
+
+watch([stateData, tableState], (newData) => {
+  emit('state', {
+    state: newData?.[1],            // newData[tableState]
+    hasData: newData?.[0]?.hasData, // newData[stateData].hasData
+  })
+})
 
 // handles debounce of search input
 watch(() => props.searchInput, (newValue: string) => {

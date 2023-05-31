@@ -1,3 +1,17 @@
+## [8.72.1](https://github.com/Kong/kongponents/compare/v8.72.0...v8.72.1) (2023-05-31)
+
+
+### Bug Fixes
+
+* **ktable:** pagination event handlers ([#1424](https://github.com/Kong/kongponents/issues/1424)) ([c90f500](https://github.com/Kong/kongponents/commit/c90f500121f9987fade33031dfecb4f194600032))
+
+# [8.72.0](https://github.com/Kong/kongponents/compare/v8.71.1...v8.72.0) (2023-05-30)
+
+
+### Features
+
+* **kcatalog,ktable:** emit state ([#1405](https://github.com/Kong/kongponents/issues/1405)) ([a329edb](https://github.com/Kong/kongponents/commit/a329edbc5827587c69f350583819096506044b62))
+
 ## [8.71.1](https://github.com/Kong/kongponents/compare/v8.71.0...v8.71.1) (2023-05-30)
 
 

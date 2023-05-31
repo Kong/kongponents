@@ -180,8 +180,8 @@
           :page-sizes="paginationPageSizes"
           :test-mode="!!testMode || undefined"
           :total-count="total"
-          @page-changed="pageChangeHandler"
-          @page-size-changed="pageSizeChangeHandler"
+          @page-changed="() => pageChangeHandler"
+          @page-size-changed="() => pageSizeChangeHandler"
         />
       </div>
     </div>
@@ -191,7 +191,7 @@
 <script setup lang="ts">
 import { PropType, ref, computed, onMounted, watch, useSlots } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
-import { CatalogItem, CatalogPreferences, SwrvState, SwrvStateData, CardSize, CardSizeArray } from '@/types'
+import { CatalogItem, CatalogPreferences, SwrvState, SwrvStateData, CardSize, CardSizeArray, CatalogState } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
@@ -425,7 +425,12 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['kcatalog-error-cta-clicked', 'kcatalog-empty-state-cta-clicked', 'update:catalog-preferences'])
+const emit = defineEmits<{
+  (e: 'kcatalog-error-cta-clicked'): void
+  (e: 'kcatalog-empty-state-cta-clicked'): void
+  (e: 'update:catalog-preferences', preferences: CatalogPreferences): void
+  (e: 'state', value: { state: CatalogState, hasData: boolean }): void
+}>()
 
 const slots = useSlots()
 
@@ -520,6 +525,7 @@ const stateData = computed((): SwrvStateData => ({
   hasData: hasData.value,
   state: state.value as SwrvState,
 }))
+const catalogState = computed((): CatalogState => isCatalogLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success')
 
 const pageChangeHandler = ({ page: newPage }: Record<string, number>): void => {
   page.value = newPage
@@ -555,6 +561,13 @@ watch(state, () => {
       break
   }
 }, { immediate: true })
+
+watch([stateData, catalogState], (newData) => {
+  emit('state', {
+    state: newData?.[1], // newData[catalogState]
+    hasData: newData?.[0]?.hasData, // newData[stateData].hasData
+  })
+})
 
 watch(() => props.searchInput, (newValue: string) => {
   debouncedSearch(newValue)
