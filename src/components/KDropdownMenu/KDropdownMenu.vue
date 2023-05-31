@@ -236,9 +236,9 @@ onMounted(() => {
 @import '@/styles/functions';
 
 .k-popover.k-dropdown-popover {
-  --KPopPaddingY: var(--spacing-sm);
+  --KPopPaddingY: var(--spacing-sm, 12px);
   --KPopPaddingX: 0;
-  border: 1px solid var(--black-10);
+  border: 1px solid var(--black-10, rgba(0, 0, 0, 0.1));
 
   ul {
     margin: 0;
@@ -246,7 +246,7 @@ onMounted(() => {
   }
 
   a {
-    color: var(--black-70);
+    color: var(--black-70, rgba(0, 0, 0, 0.7));
     flex: 1;
 
     &:hover,
@@ -260,7 +260,7 @@ onMounted(() => {
 .selection-dropdown-menu {
   .dropdown-trigger .k-button {
     border: 0;
-    color: var(--grey-600);
+    color: var(--grey-600, #3c4557);
     white-space: nowrap;
 
     &:focus {
@@ -268,15 +268,15 @@ onMounted(() => {
     }
 
     &:active:disabled {
-      background-color: var(--white);
+      background-color: var(--white, #ffffff);
     }
 
     &.is-active {
-      background-color: var(--grey-100);
+      background-color: var(--grey-100, #f8f8fa);
     }
 
     // Set dropdown icon color
-    --KButtonOutlineColor: var(--grey-500);
+    --KButtonOutlineColor: var(--grey-500, #6f7787);
   }
 
   .k-popover.k-dropdown-popover {
@@ -288,7 +288,7 @@ onMounted(() => {
       }
 
       &.k-dropdown-selected-option {
-        background-color: var(--blue-100);
+        background-color: var(--blue-100, #f2f6fe);
 
         .non-visual-button {
           font-weight: 500 !important;
