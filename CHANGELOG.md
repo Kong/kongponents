@@ -1,3 +1,10 @@
+# [8.73.0](https://github.com/Kong/kongponents/compare/v8.72.1...v8.73.0) (2023-05-31)
+
+
+### Features
+
+* **kdropdownmenu:** add slot prop method to close dropdown [KCGW-84] ([#1423](https://github.com/Kong/kongponents/issues/1423)) ([3ad70b5](https://github.com/Kong/kongponents/commit/3ad70b521f1687712ecd16c9b6fe8eeacc04ecfa))
+
 ## [8.72.1](https://github.com/Kong/kongponents/compare/v8.72.0...v8.72.1) (2023-05-31)
 
 
