@@ -189,8 +189,8 @@
         :total-count="total"
         @get-next-offset="getNextOffsetHandler"
         @get-prev-offset="getPrevOffsetHandler"
-        @page-changed="() => pageChangeHandler"
-        @page-size-changed="() => pageSizeChangeHandler"
+        @page-changed="pageChangeHandler"
+        @page-size-changed="pageSizeChangeHandler"
       />
     </section>
   </div>
@@ -205,7 +205,17 @@ import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
-import type { TablePreferences, TablePaginationType, TableHeader, TableColumnSlotName, SwrvState, SwrvStateData, TableState } from '@/types'
+import type {
+  TablePreferences,
+  TablePaginationType,
+  TableHeader,
+  TableColumnSlotName,
+  SwrvState,
+  SwrvStateData,
+  TableState,
+  PageChangedData,
+  PageSizeChangedData,
+} from '@/types'
 
 const { useDebounce, useRequest, useSwrvState } = useUtilities()
 
@@ -810,11 +820,11 @@ const sortClickHandler = (header: TableHeader) => {
   emitTablePreferences()
 }
 
-const pageChangeHandler = ({ page: newPage }: Record<string, number>) => {
+const pageChangeHandler = ({ page: newPage }: PageChangedData) => {
   page.value = newPage
 }
 
-const pageSizeChangeHandler = ({ pageSize: newPageSize }: Record<string, number>) => {
+const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangedData) => {
   offsets.value = [null]
   offset.value = null
   pageSize.value = newPageSize
