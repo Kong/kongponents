@@ -1,3 +1,10 @@
+## [8.73.1](https://github.com/Kong/kongponents/compare/v8.73.0...v8.73.1) (2023-05-31)
+
+
+### Bug Fixes
+
+* **k-select:** fix custom select item width ([#1425](https://github.com/Kong/kongponents/issues/1425)) ([b77a860](https://github.com/Kong/kongponents/commit/b77a860201542c8f2e04ff2ff7ccb0583fd845f9))
+
 # [8.73.0](https://github.com/Kong/kongponents/compare/v8.72.1...v8.73.0) (2023-05-31)
 
 
