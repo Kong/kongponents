@@ -158,17 +158,17 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
 li.k-dropdown-item {
   align-items: center;
   display: flex;
-  font-size: 16px;
+  font-size: var(--type-md, 16px);
   line-height: 1;
 
   &:not(:first-of-type).has-divider {
-    $k-dropdown-item-divider-container-height: 24px; // set to the same value as --spacing-lg without the units
+    $k-dropdown-item-divider-container-height: var(--spacing-lg, spacing(lg)); // set to the same value as --spacing-lg without the units
     $k-dropdown-item-divider-position: -13px; // this should be negative (<container-height> / 2 + 1)
     margin-top: $k-dropdown-item-divider-container-height;
     position: relative;
 
     &:before {
-      background: var(--grey-200);
+      background: var(--grey-200, #f1f1f5);
       content: '';
       display: block;
       height: 1px;
@@ -179,29 +179,29 @@ li.k-dropdown-item {
   }
 
   svg {
-    margin-right: 12px;
+    margin-right: var(--spacing-sm, spacing(sm));
   }
 
   &:hover {
-    background-color: var(--grey-100);
+    background-color: var(--grey-100, #f8f8fa);
   }
 
   .k-dropdown-item-trigger,
   // Override .btn-link styles
   .k-dropdown-item-trigger.btn-link {
-    color: var(--black-70);
-    padding: var(--spacing-md) var(--spacing-lg);
+    color: var(--black-70, rgba(0, 0, 0, 0.7));
+    padding: var(--spacing-md, spacing(md)) var(--spacing-lg, spacing(lg));
     text-align: left;
     text-decoration: none;
     width: 100%;
 
     &:disabled,
     &.disabled {
-      color: var(--grey-400) !important;
+      color: var(--grey-400, #b6b6bd) !important;
       cursor: not-allowed !important;
 
       &:hover {
-        background-color: var(--grey-200) !important;
+        background-color: var(--grey-200, #f1f1f5) !important;
       }
     }
   }
@@ -217,11 +217,11 @@ li.k-dropdown-item {
   &.danger {
     button:not(:disabled),
     a:not(:disabled) {
-      color: var(--red-500);
+      color: var(--red-500, #d44324);
       transition: all 300ms;
 
       &:hover {
-        color: var(--red-500);
+        color: var(--red-500, #d44324);
       }
     }
   }

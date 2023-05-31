@@ -7,6 +7,7 @@
       <KPop
         v-bind="boundKPopAttributes"
         data-testid="k-dropdown-menu-popover"
+        :hide-popover="hidePopover"
         :on-popover-click="() => handleTriggerToggle(isToggled, toggle, false)"
         :test-mode="!!testMode || undefined"
         @closed="() => handleTriggerToggle(isToggled, toggle, false)"
@@ -49,6 +50,7 @@
             data-testid="k-dropdown-list"
           >
             <slot
+              :close-dropdown="handleCloseDropdown"
               :handle-selection="handleSelection"
               :items="items"
               name="items"
@@ -70,7 +72,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, PropType, Ref, ref, watch } from 'vue'
+import { computed, onMounted, PropType, Ref, ref, watch, nextTick } from 'vue'
 import { Appearance, AppearanceArray, ButtonAppearance, DropdownItem, PopPlacements } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
 import Kooltip from '@/components/KTooltip/KTooltip.vue'
@@ -144,6 +146,8 @@ const emit = defineEmits<{
   (e: 'change', value: DropdownItem): void;
 }>()
 
+const hidePopover = ref<boolean>(false)
+
 const tooltipComponent = computed(() => props.disabledTooltip ? Kooltip : 'div')
 
 const defaultKPopAttributes = {
@@ -168,6 +172,16 @@ const handleSelection = (item: DropdownItem): void => {
     return
   }
   selectedItem.value = item
+}
+
+const handleCloseDropdown = async (): Promise<void> => {
+  hidePopover.value = true
+
+  // reset the hidePopover value so it's ready for the next time the dropdown is opened
+  // need nextTick to ensure the popover is hidden before resetting the value
+  await nextTick(() => {
+    hidePopover.value = false
+  })
 }
 
 const handleTriggerToggle = (isToggled: Ref<boolean>, toggle: () => void, isOpen: boolean): boolean => {
@@ -222,9 +236,9 @@ onMounted(() => {
 @import '@/styles/functions';
 
 .k-popover.k-dropdown-popover {
-  --KPopPaddingY: var(--spacing-sm);
+  --KPopPaddingY: var(--spacing-sm, spacing(sm));
   --KPopPaddingX: 0;
-  border: 1px solid var(--black-10);
+  border: 1px solid var(--black-10, rgba(0, 0, 0, 0.1));
 
   ul {
     margin: 0;
@@ -232,7 +246,7 @@ onMounted(() => {
   }
 
   a {
-    color: var(--black-70);
+    color: var(--black-70, rgba(0, 0, 0, 0.7));
     flex: 1;
 
     &:hover,
@@ -246,7 +260,7 @@ onMounted(() => {
 .selection-dropdown-menu {
   .dropdown-trigger .k-button {
     border: 0;
-    color: var(--grey-600);
+    color: var(--grey-600, #3c4557);
     white-space: nowrap;
 
     &:focus {
@@ -254,15 +268,15 @@ onMounted(() => {
     }
 
     &:active:disabled {
-      background-color: var(--white);
+      background-color: var(--white, #ffffff);
     }
 
     &.is-active {
-      background-color: var(--grey-100);
+      background-color: var(--grey-100, #f8f8fa);
     }
 
     // Set dropdown icon color
-    --KButtonOutlineColor: var(--grey-500);
+    --KButtonOutlineColor: var(--grey-500, #6f7787);
   }
 
   .k-popover.k-dropdown-popover {
@@ -274,7 +288,7 @@ onMounted(() => {
       }
 
       &.k-dropdown-selected-option {
-        background-color: var(--blue-100);
+        background-color: var(--blue-100, #f2f6fe);
 
         .non-visual-button {
           font-weight: 500 !important;

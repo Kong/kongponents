@@ -299,8 +299,9 @@ Text to display on hover if dropdown is disabled.
 
 There are 2 supported slots:
 
-- `default` - The trigger element for opening/closing the menu.
-- `items` - For an example of using the items slot see the [`KDropdownItem`](#KDropdownItem) section.
+#### default
+
+The trigger element for opening/closing the menu.
 
 <ClientOnly>
   <KDropdownMenu :items="deepClone(defaultItemsUnselected)">
@@ -328,6 +329,17 @@ There are 2 supported slots:
 </KDropdownMenu>
 ```
 
+#### items
+
+You can customize the appearance of dropdown items using this slot.
+
+Slot props:
+- `closeDropdown`
+  - type: `Function`
+  - Function that triggers dropdown close.
+
+For an example of using the items slot see the [`KDropdownItem`](#KDropdownItem) section.
+
 ## KDropdownItem
 
 **KDropdownMenu** generates a **KDropdownItem** for each object in the `items` prop array. At the most basic level, **KDropdownItem** is a wrapper around each item to display it correctly inside `KDropdownMenu`. You can use the `items` slot of the `KDropdownMenu` to manually create your own menu items.
@@ -354,7 +366,7 @@ There are 3 primary item types:
 
 <ClientOnly>
   <KDropdownMenu label="Variety">
-    <template #items>
+    <template #items="{ closeDropdown }">
       <KDropdownItem :item="youAreHere" />
       <KDropdownItem has-divider @click="clickHandler('Button clicked!')">
         A button
@@ -371,6 +383,15 @@ There are 3 primary item types:
         @click="clickHandler"
       >
         Disabled to link
+      </KDropdownItem>
+      <KDropdownItem @click="clickHandler('Button clicked!')" class="dropdown-with-remove-action">
+        Button w/ action
+        <KButton
+          appearance="btn-link"
+          @click.stop="() => { clickHandler('Button action clicked!'); closeDropdown() }"
+        >
+          <KIcon icon="trash" />
+        </KButton>
       </KDropdownItem>
       <KDropdownItem
         has-divider
@@ -397,7 +418,7 @@ There are 3 primary item types:
 
 ```html
 <KDropdownMenu label="Variety">
-  <template #items>
+  <template #items="{ closeDropdown }">
     <KDropdownItem :item="{ label: 'You are here', to: { path: '/components/dropdown-menu.html' } }" />
     <KDropdownItem has-divider @click="clickHandler">
       A button
@@ -414,6 +435,17 @@ There are 3 primary item types:
       @click="clickHandler"
     >
       Disabled to link
+    </KDropdownItem>
+    <KDropdownItem
+      @click="clickHandler"
+    >
+      Button w/ action
+      <KButton
+        appearance="btn-link"
+        @click.stop="() => { actionClickHandler(); closeDropdown(); }"
+      >
+        <KIcon icon="trash" />
+      </KButton>
     </KDropdownItem>
     <KDropdownItem
       has-divider
@@ -440,11 +472,11 @@ There are 3 primary item types:
 
 ### Events
 
-| Event     | Description         |
-| :-------- | :------------------ |
-| `@click` | Fires when a `button` type menu item is clicked |
-| `@change` | Fires when items within a `selectionMenu` are clicked; returns the selected menu item object or `null` |
-| `@toggleDropdown` | Fires when the button to toggle the menu is clicked; returns `true` if the menu is open, or `false` |
+| Event             | Description                                                                                            |
+| :---------------- | :----------------------------------------------------------------------------------------------------- |
+| `@click`          | Fires when a `button` type menu item is clicked                                                        |
+| `@change`         | Fires when items within a `selectionMenu` are clicked; returns the selected menu item object or `null` |
+| `@toggleDropdown` | Fires when the button to toggle the menu is clicked; returns `true` if the menu is open, or `false`    |
 
 <script lang="ts">
 import { defineComponent } from 'vue'
@@ -492,3 +524,23 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss">
+.dropdown-with-remove-action {
+  button {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  svg {
+    margin-right: 0 !important;
+  }
+
+  &:hover {
+    svg path {
+      fill: var(--red-500);
+    }
+  }
+}
+</style>
