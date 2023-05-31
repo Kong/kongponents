@@ -132,6 +132,67 @@ If you want to keep your `v-model` in sync so that you can programatically chang
 <KButton @click="defaultTab = '#tab2'">Activate Tab 2</KButton>
 ```
 
+### hasPanels
+
+A `boolean` that determines whether all tabs should have corresponding "panel" (the tab content) containers. Defaults to `true`.
+
+A use-case for setting the `hasPanels` prop to `false` would be if you want the KTabs UI without the default behavior of hiding/showing tab content below. Instead, your host app could provide custom functionality such as navigating to a different page on click.
+
+Here's an example of utilizing the `hasPanels` prop with a nested `<router-view>` component:
+
+<KTabs :has-panels="false" :tabs="tabs">
+  <template
+    v-for="tab in tabs"
+    :key="`${tab.hash}-anchor`"
+    #[`${item.hash}-anchor`]
+  >
+    <router-link :to="{ name: tab.hash }">
+      {{ tab.title }}
+    </router-link>
+  </template>
+</KTabs>
+
+```html
+<KTabs
+  :has-panels="false"
+  :tabs="tabs"
+  :model-value="(tabs.find(item => (router.currentRoute?.value.name ?? '').toString().startsWith(item.hash)) ?? tabs[0]).hash"
+>
+  <template
+    v-for="tab in tabs"
+    :key="`${tab.hash}-anchor`"
+    #[`${item.hash}-anchor`]
+  >
+    <router-link :to="{ name: tab.hash }">
+      {{ tab.title }}
+    </router-link>
+  </template>
+</KTabs>
+
+<router-view v-slot="{ Component, route }">
+  <component
+    :is="Component"
+    :key="route.path"
+  />
+</router-view>
+
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const tabs = [
+  {
+    hash: 'list',
+    title: 'List',
+  },
+  {
+    hash: 'details',
+    title: 'Details',
+  },
+]
+</script>
+```
+
 ## Slots
 
 In order to actually see your tabbed content you must slot it using the tab hash property without the hash mark.
