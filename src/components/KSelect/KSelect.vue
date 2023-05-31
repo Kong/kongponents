@@ -436,7 +436,7 @@ const selectItems: Ref<SelectItem[]> = ref([])
 const initialFocusTriggered: Ref<boolean> = ref(false)
 const inputFocused: Ref<boolean> = ref(false)
 const popper = ref(null)
-const iconSize = '18px'
+const iconSize = 18
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const value = computed({
@@ -872,8 +872,8 @@ $chevronDownIconMargin: 10px;
       pointer-events: none;
       position: absolute;
       // offset chevron icon width and margin
-      right: calc(v-bind('iconSize') + $chevronDownIconMargin);
-      width: calc(100% - (v-bind('iconSize')) - $chevronDownIconMargin);
+      right: calc(v-bind('`${iconSize}px`') + $chevronDownIconMargin);
+      width: calc(100% - (v-bind('`${iconSize}px`')) - $chevronDownIconMargin);
     }
   }
 
