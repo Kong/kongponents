@@ -532,11 +532,11 @@ Use this prop to customize selected item element appearance by reusing content p
 <ClientOnly>
   <KSelect reuse-item-template appearance="select" :items="deepClone(defaultItems)">
     <template #item-template="{ item }">
-      <div class="d-inline-flex">
+      <div class="d-inline-flex w-100">
         <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
         <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
         <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
-        <div class="select-item-label">{{ item.label }}</div>
+        <div class="select-item-label truncate">{{ item.label }}</div>
       </div>
     </template>
   </KSelect>
@@ -545,11 +545,11 @@ Use this prop to customize selected item element appearance by reusing content p
 ```html
 <KSelect reuse-item-template appearance="select" :items="items">
   <template #item-template="{ item }">
-    <div class="d-inline-flex">
+    <div class="d-inline-flex w-100">
       <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
       <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
       <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
-      <div class="select-item-label">{{ item.label }}</div>
+      <div class="select-item-label truncate">{{ item.label }}</div>
     </div>
   </template>
 </KSelect>
