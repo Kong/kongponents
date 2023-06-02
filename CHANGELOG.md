@@ -1,3 +1,10 @@
+## [8.73.2](https://github.com/Kong/kongponents/compare/v8.73.1...v8.73.2) (2023-06-02)
+
+
+### Bug Fixes
+
+* **kmultiselect:** width calc ([#1428](https://github.com/Kong/kongponents/issues/1428)) ([d3e4a20](https://github.com/Kong/kongponents/commit/d3e4a20cbd7c2b7969ce96728fa983d2a6bf197d))
+
 ## [8.73.1](https://github.com/Kong/kongponents/compare/v8.73.0...v8.73.1) (2023-05-31)
 
 
