@@ -1,6 +1,7 @@
 import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KTable from '@/components/KTable/KTable.vue'
+import { offsetPaginationHeaders, offsetPaginationFetcher } from '../../../mocks/KTableMockData'
 
 const largeDataSet = [
   {
@@ -146,6 +147,148 @@ describe('KTable', () => {
       })
 
       cy.get('.k-table').should('have.class', 'has-hover')
+    })
+  })
+
+  describe('data revalidates and changes as expected', () => {
+    it('when clicking a specific page number for non-offset pagination', () => {
+      mount(KTable, {
+        propsData: {
+          testMode: 'true',
+          initialFetcherParams: {
+            page: 1,
+            pageSize: 1,
+          },
+          fetcher: () => {
+            return {
+              data: options.data,
+              total: options.data.length,
+            }
+          },
+          isLoading: false,
+          headers: options.headers,
+          paginationPageSizes: [1],
+          hidePaginationWhenOptional: false,
+        },
+      })
+
+      cy.getTestId('k-table-pagination').should('be.visible')
+      cy.getTestId('k-select-input').click()
+      cy.getTestId('k-select-item-1').click({ multiple: true, force: true })
+      cy.getTestId('next-btn').find('a').click()
+      cy.get('.pagination-button.active').should('contain.text', 2 + '')
+      cy.get('.k-table').find('tr').should('have.length', 4)
+    })
+
+    it('when clicking arrows for offset based pagination', () => {
+      mount(KTable, {
+        propsData: {
+          testMode: 'true',
+          fetcher: offsetPaginationFetcher,
+          isLoading: false,
+          headers: offsetPaginationHeaders,
+          paginationType: 'offset',
+        },
+      })
+
+      cy.getTestId('k-table-pagination').should('be.visible')
+      cy.getTestId('k-select-input').click()
+      cy.getTestId('k-select-item-15').click({ multiple: true, force: true })
+      cy.getTestId('next-btn').should('exist')
+      cy.get('.k-table').find('tr').should('have.length', 16)
+    })
+
+    it('when page size is changed', () => {
+      mount(KTable, {
+        propsData: {
+          testMode: 'true',
+          fetcher: () => {
+            return {
+              data: largeDataSet,
+            }
+          },
+          isLoading: false,
+          headers: options.headers,
+          paginationPageSizes: [1, 2, 3, 4],
+          hidePaginationWhenOptional: false,
+        },
+      })
+
+      cy.getTestId('k-table-pagination').should('be.visible')
+      cy.getTestId('k-select-input').click()
+      cy.getTestId('k-select-item-3').click({ multiple: true, force: true })
+      cy.getTestId('next-btn').find('a').click()
+      cy.get('.pagination-button.active').should('contain.text', 2 + '')
+      cy.get('.k-table').find('tr').should('have.length', 13)
+    })
+
+    it('when sort key or sort direction is changed and NOT using clientSideSort', () => {
+      const sortHandlerFnHeaders = [
+        { label: 'Host', key: 'hostname', sortable: true },
+        { label: 'Version', key: 'version', sortable: true },
+        { label: 'Connected', key: 'connected', sortable: true },
+        { label: 'Last Seen', key: 'last_seen', sortable: true, useSortHandlerFn: true },
+      ]
+      const sortHandlerFnFetcher = () => {
+        return {
+          data: [
+            {
+              id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+              version: '2.8.2.0-enterprise-edition',
+              hostname: '59e591ae3776',
+              last_ping: 1649855072,
+              connected: 'Connected',
+              last_seen: 'Just now',
+            },
+            {
+              id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+              version: '2.7.0.0-enterprise-edition',
+              hostname: '19e591ae3776',
+              last_ping: 1649362660,
+              connected: 'Connected',
+              last_seen: '3 hours ago',
+            },
+            {
+              id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+              version: '2.8.1.0-enterprise-edition',
+              hostname: '79e591ae3776',
+              last_ping: 1649355460,
+              connected: 'Connected',
+              last_seen: '5 hours ago',
+            },
+            {
+              id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+              version: '2.8.0.0-enterprise-edition',
+              hostname: '99e591ae3776',
+              last_ping: 1648855072,
+              connected: 'Disconnected',
+              last_seen: '6 days ago',
+            },
+            {
+              id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+              version: '2.6.0.0-enterprise-edition',
+              hostname: '89e591ae3776',
+              last_ping: 1648155072,
+              connected: 'Disconnected',
+              last_seen: '14 days ago',
+            },
+          ],
+        }
+      }
+      mount(KTable, {
+        propsData: {
+          testMode: 'true',
+          fetcher: sortHandlerFnFetcher,
+          isLoading: false,
+          headers: sortHandlerFnHeaders,
+        },
+      })
+
+      cy.getTestId('k-table-pagination').should('be.visible')
+      cy.getTestId('k-table-pagination').find('.kong-icon-chevronDown').click()
+      cy.get('.k-table').find('tr').should('have.length', 6)
+      cy.get('.k-table').find('.kong-icon-chevronDown').last().click()
+      cy.get('.k-table').find('td:nth-child(4)').first().should('has.text', 'Just now')
     })
   })
 
