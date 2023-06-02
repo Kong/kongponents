@@ -1,3 +1,10 @@
+## [8.73.3](https://github.com/Kong/kongponents/compare/v8.73.2...v8.73.3) (2023-06-02)
+
+
+### Bug Fixes
+
+* **kpagination:** kpopAttrs not being defined but used ([#1427](https://github.com/Kong/kongponents/issues/1427)) ([3eb0fd5](https://github.com/Kong/kongponents/commit/3eb0fd5903da64819fe15bac7b294233b2216f45))
+
 ## [8.73.2](https://github.com/Kong/kongponents/compare/v8.73.1...v8.73.2) (2023-06-02)
 
 
