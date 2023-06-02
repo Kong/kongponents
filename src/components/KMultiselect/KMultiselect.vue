@@ -440,7 +440,7 @@ const multiselectInputId = computed((): string => props.testMode ? 'test-multise
 const multiselectTextId = computed((): string => props.testMode ? 'test-multiselect-text-id-1234' : uuidv4())
 const multiselectSelectedItemsId = computed((): string => props.testMode ? 'test-multiselect-selected-id-1234' : uuidv4())
 const multiselectSelectedItemsStagingId = computed((): string => props.testMode ? 'test-multiselect-selected-staging-id-1234' : uuidv4())
-const multiselectRef = ref(null)
+const multiselectRef = ref<HTMLDivElement | null>(null)
 const selectionBottomRef = ref(null)
 // filter and selection
 const selectionsMaxHeight = computed((): number => {
@@ -905,9 +905,13 @@ watch(() => props.items, (newValue, oldValue) => {
 }, { deep: true, immediate: true })
 
 const numericWidth = ref<number>(300)
-onMounted(() => {
-  // @ts-ignore
+const setNumericWidth = (): void => {
   numericWidth.value = multiselectRef.value?.clientWidth || 300
+}
+
+const resizeObserver = ref()
+onMounted(() => {
+  resizeObserver.value = new ResizeObserver(setNumericWidth).observe(multiselectRef.value as HTMLDivElement)
 })
 </script>
 
