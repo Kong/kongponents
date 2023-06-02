@@ -1,3 +1,10 @@
+## [8.73.4](https://github.com/Kong/kongponents/compare/v8.73.3...v8.73.4) (2023-06-02)
+
+
+### Bug Fixes
+
+* **ktable:** add missing test coverage for data changes as expected [KHCP-7560] ([#1429](https://github.com/Kong/kongponents/issues/1429)) ([b39ba76](https://github.com/Kong/kongponents/commit/b39ba76de1cd9b4b2ead8b3eb675c2b891b068ab))
+
 ## [8.73.3](https://github.com/Kong/kongponents/compare/v8.73.2...v8.73.3) (2023-06-02)
 
 
