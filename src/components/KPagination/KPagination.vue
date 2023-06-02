@@ -207,9 +207,9 @@ const pageSizeOptions = props.pageSizes.map((size, i) => ({
 }))
 const pageSizeText = ref('')
 
-const getVisiblePages = (currPage: number, pageCount: number, firstDetached: boolean, lastDetached: boolean): number | number[] => {
+const getVisiblePages = (currPage: number, pageCount: number, firstDetached: boolean, lastDetached: boolean): number[] => {
   if (props.disablePageJump) {
-    return 0
+    return []
   }
   let pages = [...Array(pageCount).keys()].map((n) => n + 1)
   const visiblePages = 5 + 2 * props.neighbors
