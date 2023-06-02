@@ -249,7 +249,7 @@
 </template>
 
 <script lang="ts">
-import { ref, Ref, computed, watch, PropType, nextTick, onMounted, useAttrs, useSlots } from 'vue'
+import { ref, Ref, computed, watch, PropType, nextTick, onMounted, onBeforeUnmount, useAttrs, useSlots } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KBadge from '@/components/KBadge/KBadge.vue'
@@ -912,6 +912,12 @@ const setNumericWidth = (): void => {
 const resizeObserver = ref()
 onMounted(() => {
   resizeObserver.value = new ResizeObserver(setNumericWidth).observe(multiselectRef.value as HTMLDivElement)
+})
+
+onBeforeUnmount(() => {
+  if (resizeObserver.value) {
+    resizeObserver.value.unobserve(multiselectRef.value)
+  }
 })
 </script>
 
