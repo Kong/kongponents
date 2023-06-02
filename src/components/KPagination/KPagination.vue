@@ -134,6 +134,10 @@ import PaginationOffset from './PaginationOffset.vue'
 import type { PaginationType } from '@/types'
 import { PageSizeChangedData, PageChangedData } from '@/types'
 
+const kpopAttrs = {
+  placement: 'top',
+}
+
 const props = defineProps({
   items: {
     type: Array,
