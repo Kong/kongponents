@@ -136,17 +136,17 @@ const buttonType = computed((): string => props.to ? 'router-link' : 'button')
 
 const iconColor = computed((): string => {
   if (props.disabled) {
-    return 'var(--grey-400)'
+    return 'var(--grey-400)' // crma
   } else if (['primary', 'danger', 'creation'].includes(props.appearance)) {
     return 'white'
   } else if (props.appearance === 'secondary') {
-    return 'var(--KButtonSecondaryColor, var(--blue-600, color(blue-600)))'
+    return 'var(--kui-color-text-primary, $kui-color-text-primary)' // previously blue-600
   } else if (props.appearance === 'outline') {
-    return 'var(--KButtonOutlineColor, var(--blue-500, color(blue-500)))'
+    return 'var(--kui-color-text-primary, $kui-color-text-primary)' // previously blue-500
   } else if (props.appearance === 'btn-link') {
-    return 'var(--KButtonLink, var(--blue-500, color(blue-500)))'
+    return 'var(--kui-color-text-primary, $kui-color-text-primary)' // previously blue-500
   } else if (props.appearance === 'btn-link-danger') {
-    return 'var(--KButtonLinkDanger, var(--red-500, color(red-500)))'
+    return 'var(--kui-color-text-danger, $kui-color-text-danger)' // previously red-500
   }
   return ''
 })
@@ -196,26 +196,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// KButton design system tokenization exercise
+// nciv = no change in value
+// font-line-ratio = "use line-height-X for font-size-X" pattern
+// crma = couldn't replace, missing alternative
+
 @import '@/styles/variables';
 @import '@/styles/functions';
 
-@mixin boxShadow($color, $whiteShadowSpred: 2px, $colorShadowSpread: 4px) {
-  box-shadow: 0 0 0 $whiteShadowSpred var(--white, color(white)), 0 0 0 $colorShadowSpread $color;
+@mixin boxShadow($color, $whiteShadowSpread: 2px, $colorShadowSpread: 4px) { // absolute value
+  box-shadow: 0 0 0 $whiteShadowSpread var(--kui-color-background, $kui-color-background), 0 0 0 $colorShadowSpread $color; // nciv
 }
 
 .k-button {
   align-items: center;
-  border: 1px solid transparent;
-  border-radius: var(--KButtonRadius, 3px);
-  color: var(--black-70, color(black-70));
+  border: var(--kui-border-width-10, $kui-border-width-1) solid var(--kui-color-border-transparent, $kui-color-border-transparent); // nciv
+  border-radius: var(--kui-border-radius-4, $kui-border-radius-4); // previously 3px, rounded up
+  color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest); // previously black-70
   cursor: pointer;
   display: inline-flex;
-  font-family: var(--font-family-sans, font(sans));
-  font-size: var(--KButtonFontSize, var(--type-md, type(md)));
-  font-weight: 600;
-  gap: var(--spacing-xs, spacing(xs));
-  line-height: 1.25;
-  padding: var(--KButtonPaddingY, var(--spacing-sm, spacing(sm))) var(--KButtonPaddingX, var(--spacing-lg, spacing(lg)));
+  font-family: var(--kui-font-family-text, $kui-font-family-text); // nciv
+  font-size: var(--kui-font-size-30, $kui-font-size-30); // nciv
+  font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold); // nciv
+  gap: var(--kui-space-20, $kui-space-20); // nciv
+  line-height: var(--kui-line-height-30, $kui-line-height-30); // previously 1.25, font-line-ratio
+  padding: var(--kui-space-50, $kui-space-50) var(--kui-space-80, $kui-space-80); // nciv
   position: relative;
   // Remove tap color highlight on mobile Safari
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
@@ -254,35 +259,35 @@ export default {
   }
 
   &.icon-btn {
-    height: 38px;
+    height: 38px; // absolute value
     justify-content: center;
   }
 
   /* Size Variations */
   &.small {
-    font-size: var(--KButtonFontSize, 13px);
-    line-height: 13px;
-    padding: var(--spacing-xs, spacing(xs)) var(--spacing-md, spacing(md));
+    font-size: var(--kui-font-size-20, kui-font-size-20); // previously 13px, rounded down
+    line-height: var(--kui-line-height-10, $kui-line-height-10); // previously 13px, rounded down to closest value
+    padding: var(--kui-space-20, $kui-space-20) // nciv
   }
 
   &.medium {
-    font-size: var(--KButtonFontSize, var(--type-md, type(md)));
-    line-height: var(--type-md, type(md));
-    padding: var(--spacing-sm, spacing(sm)) var(--spacing-lg, spacing(lg)) ;
+    font-size: var(--kui-font-size-40, $kui-font-size-40); // nciv
+    line-height: var(--kui-line-height-40, $kui-line-heigh-40); // previously 16px, font-line-ratio
+    padding: var(--kui-space-50, $kui-space-50) var(--kui-space-80, $kui-space-80); // nciv
   }
 
   &.large {
-    font-size: var(--KButtonFontSize, var(--type-md, type(md)));
-    line-height: var(--type-md, type(md));
-    padding: var(--spacing-md, spacing(md)) var(--spacing-xl, spacing(xl)) ;
+    font-size: var(--kui-font-size-40, $kui-font-size-40); // nciv
+    line-height: var(--kui-line-height-40, $kui-line-heigh-40); // previously 16px, font-line-ratio
+    padding: var(--kui-space-60, $kui-space-60) var(--kui-space-110, $kui-space-110); // nciv
   }
 
   /* class to add for dropdown caret */
 
   :deep(.caret) {
     display: inline-block;
-    margin-left: 8px;
-    padding: 0;
+    margin-left: var(--kui-space-40, $kui-space-40); // nciv
+    padding: var(--kui-space-0, $kui-space-0); // nciv
     transition: 250ms ease;
   }
 
@@ -293,109 +298,107 @@ export default {
 
   /* Apperance Variations */
   &.secondary {
-    background-color: var(--KButtonSecondaryBase, var(--blue-200, color(blue-200)));
-    color: var(--KButtonSecondaryColor, var(--blue-600, color(blue-600)));
+    background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker); // previously blue-200
+    color: var(--kui-color-text-primary, $kui-color-text-primary); // previously blue-600
     &:hover:not(:disabled) {
-      background-color: var(--KButtonSecondaryHover, var(--blue-300));
+      background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak); // previously blue-300
     }
     &:active {
-      background-color: var(--KButtonSecondaryActive, var(--blue-300, color(blue-300)));
+      background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak); // previously blue-300
     }
     &:focus {
-      @include boxShadow(var(--KButtonSecondaryBase, var(--blue-300, color(blue-300))));
+      @include boxShadow(var(--kui-color-background-primary-weak, $kui-color-background-primary-weak)); // previously blue-300
     }
     &:disabled,
     &[disabled] {
       // Use !important to override conflicting styles
-      background-color: var(--grey-300) !important;
-      color: var(--grey-400) !important;
+      background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) !important; // previously grey-300
+      color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak) !important; // previously grey-400, missing value, should not resolve
     }
   }
 
   &.primary {
-    background-color: var(--KButtonPrimaryBase, var(--blue-500, color(blue-500)));
-    color: var(--white, #fff);
+    background-color: var(--kui-color-background-primary, $kui-color-background-primary); // previously blue-500
+    color: var(--kui-color-text-inverse, $kui-color-text-inverse); // nciv
     &:hover:not(:disabled) {
-      background-color: var(--KButtonPrimaryHover, var(--blue-600));
+      background-color: var(--kui-color-background-primary-strong, $kui-color-background-primary-strong); // previously blue-600
     }
     &:active {
-      background-color: var(--KButtonPrimaryActive, var(--blue-600, color(blue-600)));
+      background-color: var(--kui-color-background-primary-strong, $kui-color-background-primary-strong); // previously blue-600
     }
     &:focus {
-      @include boxShadow(var(--KButtonPrimaryBase, var(--blue-500, color(blue-500))));
+      @include boxShadow(var(--kui-color-background-primary, $kui-color-background-primary)); // previously blue-500
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300) !important;
-      color: var(--grey-400) !important;
+      background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) !important; // previously grey-300
+      color: var(--grey-400) !important; // crma
     }
   }
   &.danger {
-    background-color: var(--KButtonDangerBase, var(--red-500, color(red-500)));
-    color: var(--white, #fff);
+    background-color: var(--kui-color-background-danger, $kui-color-background-danger); // previously red-500
+    color: var(--kui-color-text-inverse, $kui-color-text-inverse); // nciv
     &:hover:not(:disabled) {
-      $hover: rgba(color(red-700), .85);
-      background-color: var(--KButtonDangerHover, $hover);
+      background-color: var(--kui-color-background-danger-strong, $kui-color-background-danger-strong); // previously red-700
     }
     &:active {
-      background-color: var(--KButtonDangerActive, var(--red-700, color(red-700)));
+      background-color: var(--kui-color-background-danger-strong, $kui-color-background-danger-strong); // previously red-700
     }
     &:focus {
-      @include boxShadow(var(--KButtonDangerBase, var(--red-700, color(red-700))));
+      @include boxShadow(var(--kui-color-background-danger-strong, $kui-color-background-danger-strong)); // previously red-700
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300) !important;
-      color: var(--grey-400) !important;
+      background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) !important; // previously grey-300
+      color: var(--grey-400) !important; // crma
     }
   }
 
   &.creation {
-    background-color: var(--KButtonCreationBase, var(--green-500, color(green-500)));
-    color: var(--white, #fff);
+    background-color: var(--KButtonCreationBase, var(--green-500, color(green-500))); // crma
+    color: var(--kui-color-text-inverse, $kui-color-text-inverse); // nciv
     &:hover:not(:disabled) {
-      $hover: rgba(color(green-600), .85);
-      background-color: var(--KButtonCreationHover, $hover);
+      background-color: var(--KButtonCreationHover, rgba(color(green-600), .85)); // crma
     }
     &:active {
-      background-color: var(--KButtonCreationActive, var(--green-600, color(green-600)));
+      background-color: var(--KButtonCreationActive, var(--green-600, color(green-600))); // crma
     }
     &:focus {
-      @include boxShadow(var(--KButtonCreationBase, var(--green-600, color(green-600))));
+      @include boxShadow(var(--KButtonCreationBase, var(--green-600, color(green-600)))); // crma
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300) !important;
-      color: var(--grey-400) !important;
+      background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) !important; // previously grey-300
+      color: var(--grey-400) !important; // crma
     }
   }
 
   &.outline {
-    background-color: var(--white, color(white));
-    border-color: var(--KButtonOutlineBorder, rgba(color(blue-500), .4));
-    color: var(--KButtonOutlineColor, var(--blue-500, color(blue-500)));
+    background-color: var(--kui-color-background, $kui-color-background); // nciv
+    border-color: var(--kui-color-border-primary, $kui-color-border-primary); // previously blue-500
+    color: var(--kui-color-text-primary, $kui-color-text-primary); // previously blue-500
     outline-style: inherit;
     &:hover:not(:disabled) {
-      border-color: var(--KButtonOutlineHoverBorder, rgba(color(blue-500), 1));
+      border-color: var(--kui-color-border-primary, $kui-color-border-primary); // previously blue-500
     }
     &:active {
-      background-color: var(--KButtonOutlineActive, var(--blue-100, color(blue-100)));
-      border-color: var(--KButtonOutlineActiveBorder, rgba(color(blue-500), 1));
+      background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker); // previously blue-100
+      border-color: var(--kui-color-border-primary, $kui-color-border-primary); // previously blue-500
     }
     &:focus {
-      @include boxShadow(var(--KButtonOutlineBorder, var(--blue-500, color(blue-500))));
+      @include boxShadow(var(--kui-color-background-primary, $kui-color-background-primary)); // previously blue-500
     }
     &:disabled,
     &[disabled] {
-      border-color: var(--grey-400) !important;
-      color: var(--grey-400) !important;
+      background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) !important; // previously grey-300
+      color: var(--grey-400) !important; // crma
     }
   }
 
   &.btn-link {
-    background-color: transparent;
-    color: var(--KButtonLink, var(--blue-500, color(blue-500)));
-    padding: 0;
+    background-color: var(--kui-color-background-transparent, $kui-color-background-transparent); // nciv
+    color: var(--kui-color-text-primary, $kui-color-text-primary); // previously blue-500
+    padding: var(--kui-space-0, $kui-space-0); // nciv
 
     &:hover:not(:disabled) {
       text-decoration: underline;
@@ -408,32 +411,32 @@ export default {
     &:focus-visible,
     &:focus-visible:disabled {
       border-radius: unset;
-      outline: auto 1px;
-      outline: -webkit-focus-ring-color auto 1px;
-      outline-offset: 3px;
+      outline: auto var(--kui-border-width-10, $kui-border-width-10); // nciv
+      outline: -webkit-focus-ring-color auto var(--kui-border-width-10, $kui-border-width-10); // nciv
+      outline-offset: 3px; // absolute value
       text-decoration: none;
       transition: none;
     }
 
     &:disabled,
     &[disabled] {
-      color: var(--grey-400) !important;
+      color: var(--grey-400) !important; // crma
     }
   }
 
   &.btn-link-danger {
     background-color: transparent;
-    color: var(--KButtonLinkDanger, var(--red-500, color(red-500)));
+    color: var(--kui-color-text-danger, $kui-color-text-danger); // previously red-500
     &:hover:not(:disabled) {
       text-decoration: underline;
     }
     &:focus {
-      @include boxShadow(var(--red-700, color(red-700)), 0, 2px);
+      @include boxShadow(var(--kui-color-background-danger-strong, $kui-color-background-danger-strong), 0, 2px); // previously red-700
     }
   }
 
   &.rounded {
-    border-radius: 100px;
+    border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle); // previously 100px
   }
 }
 </style>
