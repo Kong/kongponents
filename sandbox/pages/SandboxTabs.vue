@@ -23,7 +23,7 @@
   <hr>
   <br>
 
-  <h2><code>hasPanels: false</code></h2>
+  <h2>Dynamic Router View</h2>
   <KTabs
     :has-panels="false"
     :tabs="items"
