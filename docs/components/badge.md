@@ -19,12 +19,14 @@ The Badge component can take the following appearance values:
 - `danger`
 - `info`
 - `default`
+- `neutral`
 - `custom`
 
 <KBadge appearance="success" class="mr-2">SUCCESS</KBadge>
 <KBadge appearance="warning" class="mr-2">WARNING</KBadge>
 <KBadge appearance="danger" class="mr-2">DANGER</KBadge>
 <KBadge appearance="info" class="mr-2">INFO</KBadge>
+<KBadge appearance="neutral" class="mr-2">NEUTRAL</KBadge>
 <KBadge>DEFAULT</KBadge>
 
 ```html
@@ -32,6 +34,7 @@ The Badge component can take the following appearance values:
 <KBadge appearance="warning">WARNING</KBadge>
 <KBadge appearance="danger">DANGER</KBadge>
 <KBadge appearance="info">INFO</KBadge>
+<KBadge appearance="neutral">NEUTRAL</KBadge>
 <KBadge>DEFAULT</KBadge>
 ```
 
@@ -43,6 +46,7 @@ Use the `isBordered` prop for bordered badges. The border color matches the text
 <KBadge appearance="warning" is-bordered class="mr-2">WARNING</KBadge>
 <KBadge appearance="danger" is-bordered class="mr-2">DANGER</KBadge>
 <KBadge appearance="info" is-bordered class="mr-2">INFO</KBadge>
+<KBadge appearance="neutral" is-bordered class="mr-2">NEUTRAL</KBadge>
 <KBadge is-bordered class="mr-2">DEFAULT</KBadge>
 
 ```html
@@ -50,6 +54,7 @@ Use the `isBordered` prop for bordered badges. The border color matches the text
 <KBadge appearance="warning" is-bordered>WARNING</KBadge>
 <KBadge appearance="danger" is-bordered>DANGER</KBadge>
 <KBadge appearance="info" is-bordered>INFO</KBadge>
+<KBadge appearance="neutral" is-bordered>NEUTRAL</KBadge>
 <KBadge is-bordered>DEFAULT</KBadge>
 ```
 
