@@ -43,12 +43,12 @@
       </router-link>
     </template>
   </KTabs>
-  <RouterView
+  <router-view
     v-slot="{route}"
   >
     <h3>Router View content</h3>
     <p>{{ route.path }}{{ route.hash }}</p>
-  </RouterView>
+  </router-view>
 </template>
 
 <script setup lang="ts">
