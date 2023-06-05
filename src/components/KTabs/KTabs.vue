@@ -19,19 +19,12 @@
         @keydown.space.prevent="handleTabChange(tab.hash)"
       >
         <div
-          v-if="hasPanels"
-          class="tab-link"
+          :class="['tab-link', hasPanels ? 'has-panels' : '']"
         >
           <slot :name="`${tab.hash.replace('#','')}-anchor`">
             {{ tab.title }}
           </slot>
         </div>
-        <slot
-          v-else
-          :name="`${tab.hash.replace('#','')}-anchor`"
-        >
-          {{ tab.title }}
-        </slot>
       </li>
     </ul>
 
@@ -110,7 +103,6 @@ watch(() => props.modelValue, (newTabHash) => {
 .k-tabs {
   ul {
     border-bottom: 1px solid var(--KTabsBottomBorderColor, var(--grey-300, color(grey-300)));
-    color: var(--KTabsColor, var(--black-45, color(black-45)));
     display: flex;
     font-size: 18px;
     line-height: 20px;
@@ -122,9 +114,10 @@ watch(() => props.modelValue, (newTabHash) => {
       cursor: pointer;
       position: relative;
 
-      ::v-deep(*) {
+      .tab-link.has-panels,
+      .tab-link:not(.has-panels) :deep(> *) {
         display: inline-block;
-        color: inherit;
+        color: var(--KTabsColor, var(--black-45, color(black-45)));
         font-size: inherit;
         padding: var(--spacing-md, spacing(md));
         text-decoration: none;
@@ -148,6 +141,11 @@ watch(() => props.modelValue, (newTabHash) => {
       &:hover {
         border-bottom: 4px solid var(--KTabBottomBorderColor, var(--teal-300, color(teal-300)));
         color: var(--KTabsActiveColor, var(--black-500, color(black-500)));
+
+        .tab-link.has-panels,
+        .tab-link:not(.has-panels) :deep(> *) {
+          color: var(--KTabsActiveColor, var(--black-500, color(black-500)));
+        }
       }
     }
   }
