@@ -116,8 +116,8 @@ watch(() => props.modelValue, (newTabHash) => {
 
       .tab-link.has-panels,
       .tab-link:not(.has-panels) :deep(> *) {
-        display: inline-block;
         color: var(--KTabsColor, var(--black-45, color(black-45)));
+        display: inline-block;
         font-size: inherit;
         padding: var(--spacing-md, spacing(md));
         text-decoration: none;
