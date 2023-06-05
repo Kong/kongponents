@@ -151,29 +151,53 @@ Here's an example where we display the active tab hash:
   <p>Active hash: {{ activeTabHash }} </p>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
+<script setup lang="ts">
+import { ref } from 'vue'
 
-export default defineComponent({
-  setup () {
-    const tabs = [
-      { hash: '#pictures', title: 'Pictures' },
-      { hash: '#movies', title: 'Movies' },
-      { hash: '#books', title: 'Books' },
-    ]
+const tabs = [
+  { hash: '#pictures', title: 'Pictures' },
+  { hash: '#movies', title: 'Movies' },
+  { hash: '#books', title: 'Books' },
+]
 
-    const activeTabHash = ref<string>(tabs.value[0].hash)
+const activeTabHash = ref<string>(tabs.value[0].hash)
 
-    const tabChanged = (hash: string) => {
-      activeTabHash.value = hash
-    }
-
-    return {
-      tabs,
-    }
-  }
-})
+const tabChanged = (hash: string) => {
+  activeTabHash.value = hash
+}
 </script>
+```
+
+#### Dynamic RouterView
+
+Here's an example (code only) of utlizing a dynamic `router-view` component within the host app:
+
+```html
+<KTabs
+  :has-panels="false"
+  :tabs="tabs"
+>
+  <template
+    v-for="tab in tabs"
+    :key="`${tab.hash}-anchor`"
+    #[`${tab.hash}-anchor`]
+  >
+    <router-link
+      :to="{
+        name: tab.hash.split('?').shift(),
+        hash: `#${tab.hash.split('?').pop()}`,
+      }"
+    >
+      {{ tab.title }}
+    </router-link>
+  </template>
+</KTabs>
+<router-view
+  v-slot="{ route }"
+>
+  <h3>Router View content</h3>
+  <p>{{ route.path }}{{ route.hash }}</p>
+</router-view>
 ```
 
 ## Slots
@@ -215,22 +239,12 @@ The tab control defaults to the `tab.title` string. You may use the `#{tab.hash}
   </KTabs>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  setup () {
-    const tabs = [
-      { hash: '#pictures', title: 'Pictures' },
-      { hash: '#movies', title: 'Movies' },
-      { hash: '#books', title: 'Books' },
-    ]
-
-    return {
-      tabs,
-    }
-  }
-})
+<script setup lang="ts">
+const tabs = [
+  { hash: '#pictures', title: 'Pictures' },
+  { hash: '#movies', title: 'Movies' },
+  { hash: '#books', title: 'Books' },
+]
 </script>
 ```
 
@@ -253,22 +267,12 @@ In order provide the tab panel content (when the `hasPanels` prop is set to `tru
   </KTabs>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  setup () {
-    const tabs = [
-      { hash: '#pictures', title: 'Pictures' },
-      { hash: '#movies', title: 'Movies' },
-      { hash: '#books', title: 'Books' },
-    ]
-
-    return {
-      tabs,
-    }
-  }
-})
+<script setup lang="ts">
+const tabs = [
+  { hash: '#pictures', title: 'Pictures' },
+  { hash: '#movies', title: 'Movies' },
+  { hash: '#books', title: 'Books' },
+]
 </script>
 ```
 
