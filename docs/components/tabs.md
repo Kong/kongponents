@@ -136,85 +136,120 @@ If you want to keep your `v-model` in sync so that you can programatically chang
 
 A `boolean` that determines whether all tabs should have corresponding "panel" (the tab content) containers. Defaults to `true`.
 
-A use-case for setting the `hasPanels` prop to `false` would be if you want the KTabs UI without the default behavior of hiding/showing tab content below. Instead, your host app could provide custom functionality such as navigating to a different page on click.
+In some scenarios, you may want to implement the KTabs UI controls without utilizing the corresponding panel containers.
 
-Here's an example of utilizing the `hasPanels` prop with a nested `<router-view>` component:
+For example, you could set the `hasPanels` prop to `false` and then your host app could provide custom functionality such as navigating to a different page or `router-view` on click.
 
-<KTabs :has-panels="false" :tabs="tabs">
-  <template
-    v-for="tab in tabs"
-    :key="`${tab.hash}-anchor`"
-    #[`${item.hash}-anchor`]
-  >
-    <router-link :to="{ name: tab.hash }">
-      {{ tab.title }}
-    </router-link>
-  </template>
-</KTabs>
+Here's an example where we display the active tab hash:
+
+<KTabs :tabs="slottedTabs" :has-panels="false" @changed="hasPanelsChanged" />
+<p>Active hash: {{ hasPanelsActiveHash }} </p>
 
 ```html
-<KTabs
-  :has-panels="false"
-  :tabs="tabs"
-  :model-value="(tabs.find(item => (router.currentRoute?.value.name ?? '').toString().startsWith(item.hash)) ?? tabs[0]).hash"
->
-  <template
-    v-for="tab in tabs"
-    :key="`${tab.hash}-anchor`"
-    #[`${item.hash}-anchor`]
-  >
-    <router-link :to="{ name: tab.hash }">
-      {{ tab.title }}
-    </router-link>
-  </template>
-</KTabs>
+<template>
+  <KTabs :tabs="tabs" :has-panels="false" @changed="tabChanged" />
+  <p>Active hash: {{ activeTabHash }} </p>
+</template>
 
-<router-view v-slot="{ Component, route }">
-  <component
-    :is="Component"
-    :key="route.path"
-  />
-</router-view>
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
 
-<script setup lang="ts">
-import { useRouter } from 'vue-router'
+export default defineComponent({
+  setup () {
+    const tabs = [
+      { hash: '#pictures', title: 'Pictures' },
+      { hash: '#movies', title: 'Movies' },
+      { hash: '#books', title: 'Books' },
+    ]
 
-const router = useRouter()
-const tabs = [
-  {
-    hash: 'list',
-    title: 'List',
-  },
-  {
-    hash: 'details',
-    title: 'Details',
-  },
-]
+    const activeTabHash = ref<string>(tabs.value[0].hash)
+
+    const tabChanged = (hash: string) => {
+      activeTabHash.value = hash
+    }
+
+    return {
+      tabs,
+    }
+  }
+})
 </script>
 ```
 
 ## Slots
 
-In order to actually see your tabbed content you must slot it using the tab hash property without the hash mark.
+### Anchor Content
+
+The tab control defaults to the `tab.title` string. You may use the `#{tab.hash}-anchor` slot to customize the content of the tab control.
 
 <KTabs :tabs="slottedTabs">
-  <template v-slot:pictures>
-    <p>Wow look Pictures!</p>
+  <template #pictures-anchor>
+    Custom Pictures Tab
   </template>
-  <template v-slot:movies>
-    <p>Wow look Movies!</p>
+  <template #pictures><p>Wow look <b>Pictures!</b></p></template>
+  <template #movies-anchor>
+    I love movies
   </template>
-  <template v-slot:books>
-    <p>Wow look Books!</p>
+  <template #movies><p>Wow look <b>Movies!</b></p></template>
+  <template #books-anchor>
+    Need a book?
   </template>
+  <template #books><p>Wow look <b>Books!</b></p></template>
 </KTabs>
 
 ```html
 <template>
   <KTabs :tabs="tabs">
-    <template v-slot:pictures>Wow look Pictures!</template>
-    <template v-slot:movies>Wow look Movies!</template>
-    <template v-slot:books>Wow look Books!</template>
+    <template #pictures-anchor>
+      Custom Pictures Tab
+    </template>
+    <template #pictures><p>Wow look <b>Pictures!</b></p></template>
+    <template #movies-anchor>
+      I love movies
+    </template>
+    <template #movies><p>Wow look <b>Movies!</b></p></template>
+    <template #books-anchor>
+      Need a book?
+    </template>
+    <template #books><p>Wow look <b>Books!</b></p></template>
+  </KTabs>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  setup () {
+    const tabs = [
+      { hash: '#pictures', title: 'Pictures' },
+      { hash: '#movies', title: 'Movies' },
+      { hash: '#books', title: 'Books' },
+    ]
+
+    return {
+      tabs,
+    }
+  }
+})
+</script>
+```
+
+### Panel Content
+
+In order provide the tab panel content (when the `hasPanels` prop is set to `true`) you must slot the content in the named slot, defined by the `tab.hash` string, without the `#`.
+
+<KTabs :tabs="slottedTabs">
+  <template #pictures><p>Wow look <b>Pictures!</b></p></template>
+  <template #movies><p>Wow look <b>Movies!</b></p></template>
+  <template #books><p>Wow look <b>Books!</b></p></template>
+</KTabs>
+
+```html
+<template>
+  <KTabs :tabs="tabs">
+    <template #pictures><p>Wow look <b>Pictures!</b></p></template>
+    <template #movies><p>Wow look <b>Movies!</b></p></template>
+    <template #books><p>Wow look <b>Books!</b></p></template>
   </KTabs>
 </template>
 
@@ -346,6 +381,12 @@ export default {
         { hash: '#movies', title: 'Movies' },
         { hash: '#books', title: 'Books' },
       ],
+      hasPanelsActiveHash: '#pictures'
+    }
+  },
+  methods: {
+    hasPanelsChanged(hash) {
+      this.hasPanelsActiveHash = hash
     }
   }
 }

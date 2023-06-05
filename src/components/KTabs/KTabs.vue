@@ -114,13 +114,21 @@ watch(() => props.modelValue, (newTabHash) => {
       cursor: pointer;
       position: relative;
 
-      .tab-link.has-panels,
-      .tab-link:not(.has-panels) :deep(> *) {
-        color: var(--KTabsColor, var(--black-45, color(black-45)));
+      .tab-link {
         display: inline-block;
         font-size: inherit;
         padding: var(--spacing-md, spacing(md));
         text-decoration: none;
+
+        a,
+        :deep(a) {
+          text-decoration: none;
+        }
+      }
+
+      .tab-link,
+      .tab-link:not(.has-panels) :deep(> *) {
+        color: var(--KTabsColor, var(--black-45, color(black-45)));
       }
 
       &:not(:first-of-type) { margin-left: var(--spacing-xs, spacing(xs)); }
@@ -142,7 +150,7 @@ watch(() => props.modelValue, (newTabHash) => {
         border-bottom: 4px solid var(--KTabBottomBorderColor, var(--teal-300, color(teal-300)));
         color: var(--KTabsActiveColor, var(--black-500, color(black-500)));
 
-        .tab-link.has-panels,
+        .tab-link,
         .tab-link:not(.has-panels) :deep(> *) {
           color: var(--KTabsActiveColor, var(--black-500, color(black-500)));
         }
