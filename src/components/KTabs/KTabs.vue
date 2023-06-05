@@ -19,7 +19,7 @@
         @keydown.space.prevent="handleTabChange(tab.hash)"
       >
         <div
-          :class="['tab-link', hasPanels ? 'has-panels' : '']"
+          :class="['tab-link', { 'has-panels': hasPanels }]"
         >
           <slot :name="`${tab.hash.replace('#','')}-anchor`">
             {{ tab.title }}

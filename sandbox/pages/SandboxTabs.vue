@@ -1,5 +1,29 @@
 <template>
-  <h2>Link Style</h2>
+  <h2>Default behavior</h2>
+  <KTabs
+    :tabs="items"
+  >
+    <template
+      v-for="item in items"
+      :key="`${item.hash}-anchor`"
+      #[`${item.hash}-anchor`]
+    >
+      {{ item.title }}
+    </template>
+    <template
+      v-for="item in items"
+      :key="`${item.hash}`"
+      #[`${item.hash}`]
+    >
+      {{ item.title }}
+    </template>
+  </KTabs>
+
+  <br>
+  <hr>
+  <br>
+
+  <h2><code>hasPanels: false</code></h2>
   <KTabs
     :has-panels="false"
     :tabs="items"
@@ -19,33 +43,12 @@
       </router-link>
     </template>
   </KTabs>
-  <hr>
   <RouterView
     v-slot="{route}"
   >
-    {{ route.path }}{{ route.hash }}
+    <h3>Router View content</h3>
+    <p>{{ route.path }}{{ route.hash }}</p>
   </RouterView>
-
-  <hr>
-  <h2>Button Style</h2>
-  <KTabs
-    :tabs="items"
-  >
-    <template
-      v-for="item in items"
-      :key="`${item.hash}-anchor`"
-      #[`${item.hash}-anchor`]
-    >
-      {{ item.title }}
-    </template>
-    <template
-      v-for="item in items"
-      :key="`${item.hash}`"
-      #[`${item.hash}`]
-    >
-      {{ item.title }}
-    </template>
-  </KTabs>
 </template>
 
 <script setup lang="ts">
