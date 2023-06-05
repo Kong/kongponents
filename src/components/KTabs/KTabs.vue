@@ -18,11 +18,20 @@
         @keydown.enter.prevent="handleTabChange(tab.hash)"
         @keydown.space.prevent="handleTabChange(tab.hash)"
       >
-        <div class="tab-link">
+        <div
+          v-if="hasPanels"
+          class="tab-link"
+        >
           <slot :name="`${tab.hash.replace('#','')}-anchor`">
             {{ tab.title }}
           </slot>
         </div>
+        <slot
+          v-else
+          :name="`${tab.hash.replace('#','')}-anchor`"
+        >
+          {{ tab.title }}
+        </slot>
       </li>
     </ul>
 
@@ -42,10 +51,6 @@
         />
       </div>
     </template>
-    <slot
-      v-else
-      name="default"
-    />
   </div>
 </template>
 
@@ -105,6 +110,7 @@ watch(() => props.modelValue, (newTabHash) => {
 .k-tabs {
   ul {
     border-bottom: 1px solid var(--KTabsBottomBorderColor, var(--grey-300, color(grey-300)));
+    color: var(--KTabsColor, var(--black-45, color(black-45)));
     display: flex;
     font-size: 18px;
     line-height: 20px;
@@ -114,8 +120,15 @@ watch(() => props.modelValue, (newTabHash) => {
 
     .tab-item {
       cursor: pointer;
-      padding: var(--spacing-md, spacing(md));
       position: relative;
+
+      ::v-deep(*) {
+        display: inline-block;
+        color: inherit;
+        font-size: inherit;
+        padding: var(--spacing-md, spacing(md));
+        text-decoration: none;
+      }
 
       &:not(:first-of-type) { margin-left: var(--spacing-xs, spacing(xs)); }
 
@@ -134,21 +147,7 @@ watch(() => props.modelValue, (newTabHash) => {
       &.active,
       &:hover {
         border-bottom: 4px solid var(--KTabBottomBorderColor, var(--teal-300, color(teal-300)));
-
-        .tab-link,
-        .tab-link a {
-          color: var(--KTabsActiveColor, var(--black-500, color(black-500)));
-        }
-      }
-    }
-
-    .tab-link,
-    .tab-link a {
-      color: var(--KTabsColor, var(--black-45, color(black-45)));
-
-      &:hover {
-        border: none;
-        text-decoration: none;
+        color: var(--KTabsActiveColor, var(--black-500, color(black-500)));
       }
     }
   }
