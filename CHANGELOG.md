@@ -1,3 +1,10 @@
+# [8.74.0](https://github.com/Kong/kongponents/compare/v8.73.5...v8.74.0) (2023-06-06)
+
+
+### Features
+
+* **ktabs:** hide panels [KHCP-7542] ([#1426](https://github.com/Kong/kongponents/issues/1426)) ([0ea9b6f](https://github.com/Kong/kongponents/commit/0ea9b6f42cf6003aed6250e85d5f0383f08416c6))
+
 ## [8.73.5](https://github.com/Kong/kongponents/compare/v8.73.4...v8.73.5) (2023-06-06)
 
 
