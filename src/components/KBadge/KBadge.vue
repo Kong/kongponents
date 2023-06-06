@@ -62,6 +62,7 @@ export const appearances: BadgeAppearanceRecord = {
   info: 'info',
   warning: 'warning',
   custom: 'custom',
+  neutral: 'neutral',
 }
 
 export const shapes: BadgeShapeRecord = {
@@ -304,6 +305,16 @@ watch(badgeText, () => {
       border-width: 1px;
     }
   }
+  &.k-badge-neutral {
+    background-color: var(--grey-200, color(grey-200));
+    border-color: var(--grey-500, color(grey-500));
+    color: var(--grey-500, color(grey-500));
+
+    &.is-bordered {
+      border-style: solid;
+      border-width: 1px;
+    }
+  }
 
   &.k-badge-rectangular {
     border-radius: var(--KBadgeBorderRadius, 4px);
@@ -378,6 +389,10 @@ watch(badgeText, () => {
   $KBadgeWarningBackground: var(--KBadgeWarningBackground, var(--yellow-100, color(yellow-100)));
   $KBadgeWarningColor: var(--KBadgeWarningColor, var(--yellow-600, color(yellow-600)));
   $KBadgeWarningButtonHoverColor: var(--KBadgeWarningButtonHoverColor, var(--yellow-200, color(yellow-200)));
+  // neutral appearance colors local variables
+  $KBadgeNeutralBackground: var(--grey-200, color(grey-200));
+  $KBadgeNeutralColor: var(--grey-500, color(grey-500));
+  $KBadgeNeutralButtonHoverColor: var(--grey-300, color(grey-300));
 
    &.k-badge-custom {
     background-color: v-bind('$props.backgroundColor');
@@ -530,6 +545,30 @@ watch(badgeText, () => {
 
     &:has(.k-badge-dismiss-button:hover) {
       background-color: $KBadgeWarningBackground;
+    }
+  }
+
+  &.k-badge-neutral {
+    .k-badge-dismiss-button {
+      background-color: $KBadgeNeutralBackground;
+      .kong-icon.kong-icon-close path {
+        stroke: $KBadgeNeutralColor;
+      }
+
+      &:hover {
+        background-color: $KBadgeNeutralButtonHoverColor;
+      }
+    }
+
+    a &:hover,
+    a:focus &,
+    &.clickable:hover,
+    &:focus {
+      background-color: $KBadgeNeutralButtonHoverColor;
+    }
+
+    &:has(.k-badge-dismiss-button:hover) {
+      background-color: $KBadgeNeutralBackground;
     }
   }
 }
