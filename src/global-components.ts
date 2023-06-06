@@ -54,6 +54,7 @@ declare module '@vue/runtime-core' {
     KViewSwitcher: typeof components.KViewSwitcher
     ToastManager: typeof components.ToastManager
     KTruncate: typeof components.KTruncate
+    KMethod: typeof components.KMethod
     // {%%NEW_KONGPONENT%%} (do not remove comment)
   }
 }
