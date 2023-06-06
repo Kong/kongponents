@@ -4,6 +4,7 @@
     class="k-method"
     :class="`method-${method}`"
     :color="color || methodBadgeColors[method].color"
+    max-width="auto"
     :shape="appearance === 'rectangular' ? 'rectangular' : 'rounded'"
   >
     {{ methodLabel }}
