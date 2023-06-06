@@ -246,6 +246,12 @@ onMounted(async () => {
 })
 </script>
 
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+}
+</script>
+
 <style lang="scss" scoped>
 .kong-icon {
   display: inline-block;
