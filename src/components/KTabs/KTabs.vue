@@ -22,7 +22,7 @@
           :class="['tab-link', { 'has-panels': hasPanels }]"
         >
           <slot :name="`${tab.hash.replace('#','')}-anchor`">
-            {{ tab.title }}
+            <span>{{ tab.title }}</span>
           </slot>
         </div>
       </li>
@@ -115,9 +115,7 @@ watch(() => props.modelValue, (newTabHash) => {
       position: relative;
 
       .tab-link {
-        display: inline-block;
         font-size: inherit;
-        padding: var(--spacing-md, spacing(md));
         text-decoration: none;
 
         a,
@@ -129,6 +127,12 @@ watch(() => props.modelValue, (newTabHash) => {
       .tab-link,
       .tab-link:not(.has-panels) :deep(> *) {
         color: var(--KTabsColor, var(--black-45, color(black-45)));
+      }
+
+      .tab-link.has-panels,
+      .tab-link:not(.has-panels) :deep(> *) {
+        display: inline-block;
+        padding: var(--spacing-md, spacing(md));
       }
 
       &:not(:first-of-type) { margin-left: var(--spacing-xs, spacing(xs)); }
@@ -147,11 +151,9 @@ watch(() => props.modelValue, (newTabHash) => {
 
       &.active,
       &:hover {
-        border-bottom: 4px solid var(--KTabBottomBorderColor, var(--teal-300, color(teal-300)));
-        color: var(--KTabsActiveColor, var(--black-500, color(black-500)));
-
-        .tab-link,
+        .tab-link.has-panels,
         .tab-link:not(.has-panels) :deep(> *) {
+          border-bottom: 4px solid var(--KTabBottomBorderColor, var(--teal-300, color(teal-300)));
           color: var(--KTabsActiveColor, var(--black-500, color(black-500)));
         }
       }
