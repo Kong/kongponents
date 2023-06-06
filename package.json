@@ -34,7 +34,7 @@
     "build:ci": "yarn build:kongponents && yarn build:docs",
     "commit": "cz",
     "create-kongponent": "node --experimental-specifier-resolution=node ./bin/index.js",
-    "dev:sandbox": "USE_SANDBOX=true vite",
+    "sandbox:dev": "USE_SANDBOX=true vite",
     "docs:build": "vitepress build docs",
     "docs:dev": "vitepress dev docs",
     "docs:serve": "vitepress serve docs",

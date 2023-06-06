@@ -8,38 +8,42 @@
         v-for="(tab, i) in tabs"
         :id="`${tab.hash.replace('#','')}-tab`"
         :key="tab.hash"
-        :aria-controls="`panel-${i}`"
-        :aria-selected="activeTab === tab.hash ? 'true' : 'false'"
+        :aria-controls="hasPanels ? `panel-${i}` : undefined"
+        :aria-selected="hasPanels ? (activeTab === tab.hash ? 'true' : 'false') : undefined"
         class="tab-item"
         :class="{ active: activeTab === tab.hash }"
-        role="tab"
+        :role="hasPanels ? 'tab' : undefined"
         tabindex="0"
         @click="handleTabChange(tab.hash)"
         @keydown.enter.prevent="handleTabChange(tab.hash)"
         @keydown.space.prevent="handleTabChange(tab.hash)"
       >
-        <div class="tab-link">
+        <div
+          :class="['tab-link', { 'has-panels': hasPanels }]"
+        >
           <slot :name="`${tab.hash.replace('#','')}-anchor`">
-            {{ tab.title }}
+            <span>{{ tab.title }}</span>
           </slot>
         </div>
       </li>
     </ul>
 
-    <div
-      v-for="(tab, i) in tabs"
-      :id="`panel-${i}`"
-      :key="tab.hash"
-      :aria-labelledby="`${tab.hash.replace('#','')}-tab`"
-      class="tab-container"
-      role="tabpanel"
-      tabindex="0"
-    >
-      <slot
-        v-if="activeTab === tab.hash"
-        :name="tab.hash.replace('#','')"
-      />
-    </div>
+    <template v-if="hasPanels">
+      <div
+        v-for="(tab, i) in tabs"
+        :id="`panel-${i}`"
+        :key="tab.hash"
+        :aria-labelledby="`${tab.hash.replace('#','')}-tab`"
+        class="tab-container"
+        role="tabpanel"
+        tabindex="0"
+      >
+        <slot
+          v-if="activeTab === tab.hash"
+          :name="tab.hash.replace('#','')"
+        />
+      </div>
+    </template>
   </div>
 </template>
 
@@ -49,19 +53,26 @@ import type { Tab } from '@/types'
 
 const props = defineProps({
   /**
-     * Array of Tab objects [{hash: '#tab1', title: 'tab1'}, {hash: '#tab2', title: 'tab2'}]
-     */
+   * Array of Tab objects [{hash: '#tab1', title: 'tab1'}, {hash: '#tab2', title: 'tab2'}]
+   */
   tabs: {
     type: Array as PropType<Tab[]>,
     required: true,
   },
   /**
-     * A set tab hash to use as default
-     */
+   * A set tab hash to use as default
+   */
   modelValue: {
     type: String,
     default: '',
     validator: (val: string): boolean => val === '' || (val.includes('#') && !val.includes(' ')),
+  },
+  /**
+   * Render the tab's corresponding panel container
+   */
+  hasPanels: {
+    type: Boolean,
+    default: true,
   },
 })
 
@@ -101,8 +112,28 @@ watch(() => props.modelValue, (newTabHash) => {
 
     .tab-item {
       cursor: pointer;
-      padding: var(--spacing-md, spacing(md));
       position: relative;
+
+      .tab-link {
+        font-size: inherit;
+        text-decoration: none;
+
+        a,
+        :deep(a) {
+          text-decoration: none;
+        }
+      }
+
+      .tab-link,
+      .tab-link:not(.has-panels) :deep(> *) {
+        color: var(--KTabsColor, var(--black-45, color(black-45)));
+      }
+
+      .tab-link.has-panels,
+      .tab-link:not(.has-panels) :deep(> *) {
+        display: inline-block;
+        padding: var(--spacing-md, spacing(md));
+      }
 
       &:not(:first-of-type) { margin-left: var(--spacing-xs, spacing(xs)); }
 
@@ -120,16 +151,11 @@ watch(() => props.modelValue, (newTabHash) => {
 
       &.active,
       &:hover {
-        border-bottom: 4px solid var(--KTabBottomBorderColor, var(--teal-300, color(teal-300)));
-        .tab-link { color: var(--KTabsActiveColor, var(--black-500, color(black-500))); }
-      }
-    }
-
-    .tab-link {
-      color: var(--KTabsColor, var(--black-45, color(black-45)));
-      &:hover {
-        border: none;
-        text-decoration: none;
+        .tab-link.has-panels,
+        .tab-link:not(.has-panels) :deep(> *) {
+          border-bottom: 4px solid var(--KTabBottomBorderColor, var(--teal-300, color(teal-300)));
+          color: var(--KTabsActiveColor, var(--black-500, color(black-500)));
+        }
       }
     }
   }

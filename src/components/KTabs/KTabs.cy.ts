@@ -1,4 +1,5 @@
 import { mount } from 'cypress/vue'
+import { h } from 'vue'
 import KTabs from '@/components/KTabs/KTabs.vue'
 
 const TABS = [
@@ -39,6 +40,87 @@ describe('KTabs', () => {
     cy.get('.tab-item').eq(1).click().then(() => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'changed')
       cy.wrap(Cypress.vueWrapper.emitted('changed')[0][0]).should('eq', '#movies')
+    })
+  })
+
+  it('hides the panel content when `hasPanels` is false', () => {
+    const picturesSlot = 'I love pictures'
+    const moviesSlot = 'I love pictures'
+    const booksSlot = 'I love pictures'
+
+    mount(KTabs, {
+      props: {
+        tabs: TABS,
+        hasPanels: false,
+      },
+      slots: {
+        pictures: h('div', {}, picturesSlot),
+        movies: h('div', {}, moviesSlot),
+        books: h('div', {}, booksSlot),
+      },
+    })
+
+    cy.get('.tab-item').eq(0).click().then(() => {
+      cy.get('#panel-0').should('not.exist')
+      cy.get('.tab-container').should('not.exist')
+    })
+    cy.get('.tab-item').eq(1).click().then(() => {
+      cy.get('#panel-1').should('not.exist')
+      cy.get('.tab-container').should('not.exist')
+    })
+    cy.get('.tab-item').eq(2).click().then(() => {
+      cy.get('#panel-2').should('not.exist')
+      cy.get('.tab-container').should('not.exist')
+    })
+  })
+
+  describe('slots', () => {
+    it('provides the #hash slot content', () => {
+      const picturesSlot = 'I love pictures'
+      const moviesSlot = 'I love pictures'
+      const booksSlot = 'I love pictures'
+
+      mount(KTabs, {
+        props: {
+          tabs: TABS,
+        },
+        slots: {
+          pictures: h('div', {}, picturesSlot),
+          movies: h('div', {}, moviesSlot),
+          books: h('div', {}, booksSlot),
+        },
+      })
+
+      cy.get('.tab-item').eq(0).click().then(() => {
+        cy.get('#panel-0').should('contain.text', picturesSlot)
+      })
+      cy.get('.tab-item').eq(1).click().then(() => {
+        cy.get('#panel-1').should('contain.text', moviesSlot)
+      })
+      cy.get('.tab-item').eq(2).click().then(() => {
+        cy.get('#panel-2').should('contain.text', booksSlot)
+      })
+    })
+
+    it('provides the anchor slot content', () => {
+      const picturesSlot = 'I love pictures'
+      const moviesSlot = 'I love pictures'
+      const booksSlot = 'I love pictures'
+
+      mount(KTabs, {
+        props: {
+          tabs: TABS,
+        },
+        slots: {
+          'pictures-anchor': h('div', {}, picturesSlot),
+          'movies-anchor': h('div', {}, moviesSlot),
+          'books-anchor': h('div', {}, booksSlot),
+        },
+      })
+
+      cy.get('#pictures-tab .tab-link').should('contain.text', picturesSlot)
+      cy.get('#movies-tab .tab-link').should('contain.text', moviesSlot)
+      cy.get('#books-tab .tab-link').should('contain.text', booksSlot)
     })
   })
 })
