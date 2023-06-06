@@ -306,9 +306,9 @@ watch(badgeText, () => {
     }
   }
   &.k-badge-neutral {
-    background-color: var(--KBadgeNeutralBackground, var(--grey-200, color(grey-200)));
-    border-color: var(--KBadgeNeutralBorder, var(--grey-500, color(grey-500)));
-    color: var(--KBadgeNeutralColor, var(--grey-500, color(grey-500)));
+    background-color: var(--grey-200, color(grey-200));
+    border-color: var(--grey-500, color(grey-500));
+    color: var(--grey-500, color(grey-500));
 
     &.is-bordered {
       border-style: solid;
@@ -390,9 +390,9 @@ watch(badgeText, () => {
   $KBadgeWarningColor: var(--KBadgeWarningColor, var(--yellow-600, color(yellow-600)));
   $KBadgeWarningButtonHoverColor: var(--KBadgeWarningButtonHoverColor, var(--yellow-200, color(yellow-200)));
   // neutral appearance colors local variables
-  $KBadgeNeutralBackground: var(--KBadgeNeutralBackground, var(--grey-200, color(grey-200)));
-  $KBadgeNeutralColor: var(--KBadgeNeutralColor, var(--grey-500, color(grey-500)));
-  $KBadgeNeutralButtonHoverColor: var(--KBadgeNeutralButtonHoverColor, var(--grey-300, color(grey-300)));
+  $KBadgeNeutralBackground: var(--grey-200, color(grey-200));
+  $KBadgeNeutralColor: var(--grey-500, color(grey-500));
+  $KBadgeNeutralButtonHoverColor: var(--grey-300, color(grey-300));
 
    &.k-badge-custom {
     background-color: v-bind('$props.backgroundColor');
