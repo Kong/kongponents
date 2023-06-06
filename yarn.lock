@@ -7356,7 +7356,7 @@ vue-tsc@^1.5.4:
     "@volar/vue-typescript" "1.6.0"
     semver "^7.3.8"
 
-vue@^3.2.45, vue@^3.2.47:
+vue@3.2.47, vue@^3.2.47:
   version "3.2.47"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.2.47.tgz#3eb736cbc606fc87038dbba6a154707c8a34cff0"
   integrity sha512-60188y/9Dc9WVrAZeUVSDxRQOZ+z+y5nO2ts9jWXSTkMvayiWxCWOWtBQoYjLeccfXkiiPZWAHcV+WTPhkqJHQ==
