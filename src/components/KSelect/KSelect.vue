@@ -436,7 +436,7 @@ const selectItems: Ref<SelectItem[]> = ref([])
 const initialFocusTriggered: Ref<boolean> = ref(false)
 const inputFocused: Ref<boolean> = ref(false)
 const popper = ref(null)
-const iconSize = 18
+const iconSize = '18'
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const value = computed({
