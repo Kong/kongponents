@@ -1,3 +1,15 @@
+# [8.76.0](https://github.com/Kong/kongponents/compare/v8.75.0...v8.76.0) (2023-06-06)
+
+
+### Features
+
+* trigger release ([18f00c6](https://github.com/Kong/kongponents/commit/18f00c6e1fdc684d86887752e5422cd9185c4ff1))
+
+
+### Reverts
+
+* downgrade Vue to 3.2.x ([#1438](https://github.com/Kong/kongponents/issues/1438)) ([e4d355e](https://github.com/Kong/kongponents/commit/e4d355e72e8c8ed0b6a28913ee954b370c8423bf))
+
 # [8.75.0](https://github.com/Kong/kongponents/compare/v8.74.0...v8.75.0) (2023-06-06)
 
 
