@@ -1,3 +1,10 @@
+# [8.75.0](https://github.com/Kong/kongponents/compare/v8.74.0...v8.75.0) (2023-06-06)
+
+
+### Features
+
+* **kbadge:** add appearance neutral variant [KHCP-7612] ([#1432](https://github.com/Kong/kongponents/issues/1432)) ([cea8d5e](https://github.com/Kong/kongponents/commit/cea8d5ea88ff965f515f80fdb20d519030d1b0a2))
+
 # [8.74.0](https://github.com/Kong/kongponents/compare/v8.73.5...v8.74.0) (2023-06-06)
 
 
