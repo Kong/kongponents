@@ -1,3 +1,10 @@
+## [8.73.5](https://github.com/Kong/kongponents/compare/v8.73.4...v8.73.5) (2023-06-06)
+
+
+### Bug Fixes
+
+* **kicon:** restore inheritAttrs setting ([#1437](https://github.com/Kong/kongponents/issues/1437)) ([41b30e6](https://github.com/Kong/kongponents/commit/41b30e62de59383d4e6db011910042baa288435b))
+
 ## [8.73.4](https://github.com/Kong/kongponents/compare/v8.73.3...v8.73.4) (2023-06-02)
 
 
