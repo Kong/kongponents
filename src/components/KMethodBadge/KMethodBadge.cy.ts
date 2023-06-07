@@ -1,38 +1,39 @@
 import { mount } from 'cypress/vue'
-import KMethod, { methods } from '@/components/KMethod/KMethod.vue'
+import KMethodBadge from '@/components/KMethodBadge/KMethodBadge.vue'
+import { MethodsArray } from '@/types'
 
 const rendersCorrectMethod = (method: string) => {
-  it(`renders KMethod for ${method.toUpperCase()} method`, () => {
-    mount(KMethod, {
+  it(`renders KMethodBadge for ${method.toUpperCase()} method`, () => {
+    mount(KMethodBadge, {
       props: {
         method,
       },
     })
 
-    cy.get('.k-method').should('have.class', `method-${method}`)
+    cy.get('.k-method-badge').should('have.class', `method-${method}`)
   })
 }
 
-describe('KMethod', () => {
-  methods.map(method => rendersCorrectMethod(method))
+describe('KMethodBadge', () => {
+  MethodsArray.map(method => rendersCorrectMethod(method))
 
   it('displays label prop correctly', () => {
     const labelText = 'METHOD'
 
-    mount(KMethod, {
+    mount(KMethodBadge, {
       props: {
         method: 'custom',
         label: labelText,
       },
     })
 
-    cy.get('.k-method').should('contain', labelText)
+    cy.get('.k-method-badge').should('contain', labelText)
   })
 
   it('displays input switch and allows toggling on/off when isToggle is true', () => {
     const toggleValue = false
 
-    mount(KMethod, {
+    mount(KMethodBadge, {
       props: {
         method: 'custom',
         isToggle: true,
@@ -41,7 +42,7 @@ describe('KMethod', () => {
       },
     })
 
-    cy.get('.k-method').should('be.visible').click()
+    cy.get('.k-method-badge').should('be.visible').click()
     cy.get('@onModelValueUpdate').should('have.been.calledOnceWith', !toggleValue)
   })
 })

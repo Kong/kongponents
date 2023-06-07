@@ -2,7 +2,7 @@
   <KBadge
     :background-color="backgroundColor || methodBadgeColors[method].backgroundColor"
     :border-color="borderColor || methodBadgeColors[method].borderColor"
-    class="k-method"
+    class="k-method-badge"
     :class="[ `method-${method}`, isToggle ? 'k-method-toggle' : '']"
     :color="color || methodBadgeColors[method].color"
     :is-bordered="isToggle"
@@ -22,11 +22,8 @@
 
 <script lang="ts">
 import { PropType, computed, ref, watch } from 'vue'
-import type { Method, MethodAppearance } from '@/types'
-
-export const methods: Method[] = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options', 'trace', 'connect', 'custom']
-
-export const shapes: MethodAppearance[] = ['rounded', 'rectangular']
+import { MethodsArray, ShapesArray } from '@/types'
+import type { Method, MethodShape, MethodBadgeColors } from '@/types'
 </script>
 
 <script setup lang="ts">
@@ -34,16 +31,16 @@ const props = defineProps({
   method: {
     type: String as PropType<Method>,
     required: true,
-    validator: (value: string): boolean => {
-      return methods.includes(value as Method)
+    validator: (value: Method): boolean => {
+      return MethodsArray.includes(value as Method)
     },
     default: 'post',
   },
   shape: {
-    type: String as PropType<MethodAppearance>,
+    type: String as PropType<MethodShape>,
     required: false,
-    validator: (value: string): boolean => {
-      return shapes.includes(value as MethodAppearance)
+    validator: (value: MethodShape): boolean => {
+      return ShapesArray.includes(value as MethodShape)
     },
     default: 'rounded',
   },
@@ -86,12 +83,6 @@ const modelValue = ref<boolean>(props.value)
 const methodLabel = computed((): string => {
   return props.label || props.method.toUpperCase()
 })
-
-interface MethodBadgeColors {
-  color: string
-  backgroundColor: string
-  borderColor: string
-}
 
 const methodBadgeColors = computed((): Record<string, MethodBadgeColors> => {
   return {
