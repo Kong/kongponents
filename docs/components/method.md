@@ -37,7 +37,7 @@ This prop is required.
 ```html
 <template>
   <KMethod 
-    v-for="method in ['get', 'post', 'put', 'patch', 'delete', 'head', 'options', 'trace', 'connect', 'custom']" 
+    v-for="method in ['get', 'post', 'put', 'patch', 'delete', 'head', 'options', 'trace', 'connect', 'custom']"
     :key="method" 
     :method="method" 
   />
@@ -54,18 +54,18 @@ KMethod automatically displays method passed through [`method`](#method-1) prop 
 <KMethod method="custom" label="XYZ" />
 ```
 
-### appearance
+### shape
 
-Appearance of badge. Accepted values are `rounded` (default) and `rectangular`.
+Appearance of badge. Accepted values are `rounded` (default), `rectangular`.
 
 <div class="methods-container">
   <KMethod method="options" />
-  <KMethod method="options" appearance="rectangular" />
+  <KMethod method="options" shape="rectangular" />
 </div>
 
 ```html
-<KMethod method="options" appearance="rounded" />
-<KMethod method="options" appearance="rectangular" />
+<KMethod method="options" shape="rounded" />
+<KMethod method="options" shape="rectangular" />
 ```
 
 ### color
@@ -82,9 +82,41 @@ Prop for setting method badge background color.
 <KMethod method="custom" label="XYZ" color="#FFFF00" background-color="orange" />
 ```
 
+### borderColor
+
+Prop for setting method badge border color (KMethod only has border when [`isToggle` prop](#istoggle) is `true`).
+
+### isToggle
+
+When `true`, the KMethod will come with a switch input. You can use `v-model` to bind the value to the switch.
+
+<KCard>
+  <template #body>
+    <div class="mb-2">Toggled: {{ toggleValue }}</div>
+    <KMethod method="post" is-toggle v-model="toggleValue" />
+  </template>
+</KCard>
+
+```html
+<KMethod method="post" is-toggle v-model="getMethodEnabled" />
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const getMethodEnabled = ref<boolean>(false)
+</script>
+```
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const toggleValue = ref<boolean>(false)
+</script>
+
 <style lang="scss">
 .methods-container {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 </style>
