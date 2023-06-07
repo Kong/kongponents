@@ -8,7 +8,7 @@
     :is-bordered="isToggle"
     max-width="auto"
     :shape="shape"
-    v-on="isToggle ? { click: toggleValue } : {}"
+    v-on="{ click: isToggle ? toggleValue : undefined }"
   >
     <span v-if="!isToggle">{{ methodLabel }}</span>
     <KInputSwitch
@@ -143,6 +143,10 @@ watch(() => props.modelValue, (value: boolean): void => {
 @import '@/styles/functions';
 
 .k-method-badge {
+  display: flex;
+  font-weight: 600;
+  justify-content: center;
+
   &.k-method-toggle {
     padding: var(--spacing-xxs, spacing(xxs));
     padding-left: var(--spacing-sm, spacing(sm));
