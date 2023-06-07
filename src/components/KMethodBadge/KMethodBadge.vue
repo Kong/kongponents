@@ -7,7 +7,7 @@
     :color="methodBadgeColors[method].color"
     :is-bordered="isToggle"
     max-width="auto"
-    :shape="shape"
+    :shape="isToggle ? 'rounded' : isRounded ? 'rounded' : 'rectangular'"
     v-on="{ click: isToggle ? toggleValue : undefined }"
   >
     <span v-if="!isToggle">{{ methodLabel }}</span>
@@ -22,8 +22,8 @@
 
 <script lang="ts">
 import { PropType, computed, ref, watch } from 'vue'
-import { MethodsArray, ShapesArray } from '@/types'
-import type { Method, MethodShape, MethodBadgeColors } from '@/types'
+import { MethodsArray } from '@/types'
+import type { Method, MethodBadgeColors } from '@/types'
 </script>
 
 <script setup lang="ts">
@@ -36,13 +36,10 @@ const props = defineProps({
     },
     default: 'custom',
   },
-  shape: {
-    type: String as PropType<MethodShape>,
+  isRounded: {
+    type: Boolean,
     required: false,
-    validator: (value: MethodShape): boolean => {
-      return ShapesArray.includes(value as MethodShape)
-    },
-    default: 'rounded',
+    default: false,
   },
   label: {
     type: String,

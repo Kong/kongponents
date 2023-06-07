@@ -9,4 +9,3 @@ export interface MethodBadgeColors {
 }
 
 export const MethodsArray = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options', 'trace', 'connect', 'custom'] as const
-export const ShapesArray = ['rounded', 'rectangular'] as const

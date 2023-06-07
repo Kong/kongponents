@@ -54,18 +54,18 @@ KMethodBadge automatically displays method passed through [`method`](#method-1) 
 <KMethodBadge method="custom" label="XYZ" />
 ```
 
-### shape
+### isRounded
 
-Appearance of badge. Accepted values are `rounded` (default), `rectangular`.
+When `true`, the badge is rounded.
 
 <div class="methods-container">
+  <KMethodBadge method="options" is-rounded />
   <KMethodBadge method="options" />
-  <KMethodBadge method="options" shape="rectangular" />
 </div>
 
 ```html
-<KMethodBadge method="options" shape="rounded" />
-<KMethodBadge method="options" shape="rectangular" />
+<KMethodBadge method="options" is-rounded />
+<KMethodBadge method="options" />
 ```
 ### isToggle
 
