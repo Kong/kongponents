@@ -34,7 +34,7 @@ const props = defineProps({
     validator: (value: Method): boolean => {
       return MethodsArray.includes(value as Method)
     },
-    default: 'post',
+    default: 'custom',
   },
   shape: {
     type: String as PropType<MethodShape>,
@@ -152,11 +152,11 @@ watch(modelValue, (value: boolean): void => {
 @import '@/styles/variables';
 @import '@/styles/functions';
 
-.k-method {
+.k-method-badge {
   &.k-method-toggle {
     padding: var(--spacing-xxs, spacing(xxs));
     padding-left: var(--spacing-sm, spacing(sm));
-    --KInputSwitchLabel: v-bind('methodBadgeColors[method].color')
+    --KInputSwitchLabel: v-bind('color || methodBadgeColors[method].color');
 
     :deep(.k-switch) {
       // disable pointer events to allow badge take care of toggling the value

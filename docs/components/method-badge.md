@@ -92,18 +92,18 @@ When `true`, the KMethodBadge will come with a switch input. You can use `v-mode
 
 <KCard>
   <template #body>
-    <div class="mb-2">Toggled: {{ toggleValue }}</div>
+    <div class="mb-2">Post method enabled: {{ toggleValue }}</div>
     <KMethodBadge method="post" is-toggle v-model="toggleValue" />
   </template>
 </KCard>
 
 ```html
-<KMethodBadge method="post" is-toggle v-model="getMethodEnabled" />
+<KMethodBadge method="post" is-toggle v-model="postMethodEnabled" />
 
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const getMethodEnabled = ref<boolean>(false)
+const postMethodEnabled = ref<boolean>(false)
 </script>
 ```
 
