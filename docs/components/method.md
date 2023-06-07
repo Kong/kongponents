@@ -1,6 +1,6 @@
 # Method
 
-**KMethod** is a component that provides pre-configured styles for displaying HTTP request methods like GET, POST, etc. It simplifies the process of showcasing different methods in a visually appealing and consistent manner.
+**KMethod** is a component that provides pre-configured styles for displaying HTTP request methods like `GET`, `POST`, etc. It simplifies the process of showcasing different methods in a visually appealing and consistent manner.
 
 <KMethod method="get"/>
 
@@ -37,7 +37,8 @@ This prop is required.
 ```html
 <template>
   <KMethod 
-    v-for="method in ['get', 'post', 'put', 'patch', 'delete', 'head', 'options', 'trace', 'connect', 'custom']" :key="method" 
+    v-for="method in ['get', 'post', 'put', 'patch', 'delete', 'head', 'options', 'trace', 'connect', 'custom']" 
+    :key="method" 
     :method="method" 
   />
 </template>
