@@ -67,25 +67,6 @@ Appearance of badge. Accepted values are `rounded` (default), `rectangular`.
 <KMethodBadge method="options" shape="rounded" />
 <KMethodBadge method="options" shape="rectangular" />
 ```
-
-### color
-
-KMethodBadge comes with all styles out of the box, however should you need to configure custom colors for any custom methods - you can use this prop for setting text color. Refer to [`backgroundColor` prop](#backgroundcolor) to see example.
-
-### backgroundColor
-
-Prop for setting method badge background color.
-
-<KMethodBadge method="custom" label="XYZ" color="#FFFF00" background-color="orange" />
-
-```html
-<KMethodBadge method="custom" label="XYZ" color="#FFFF00" background-color="orange" />
-```
-
-### borderColor
-
-Prop for setting method badge border color (KMethodBadge only has border when [`isToggle` prop](#istoggle) is `true`).
-
 ### isToggle
 
 When `true`, the KMethodBadge will come with a switch input. You can use `v-model` to bind the value to the switch.

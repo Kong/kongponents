@@ -1,19 +1,19 @@
 <template>
   <KBadge
-    :background-color="backgroundColor || methodBadgeColors[method].backgroundColor"
-    :border-color="borderColor || methodBadgeColors[method].borderColor"
+    :background-color="methodBadgeColors[method].backgroundColor"
+    :border-color="methodBadgeColors[method].borderColor"
     class="k-method-badge"
-    :class="[ `method-${method}`, isToggle ? 'k-method-toggle' : '']"
-    :color="color || methodBadgeColors[method].color"
+    :class="[ `method-${method}`, { 'k-method-toggle': isToggle }]"
+    :color="methodBadgeColors[method].color"
     :is-bordered="isToggle"
     max-width="auto"
-    :shape="shape === 'rectangular' ? 'rectangular' : 'rounded'"
+    :shape="shape"
     v-on="isToggle ? { click: toggleValue } : {}"
   >
     <span v-if="!isToggle">{{ methodLabel }}</span>
     <KInputSwitch
       v-if="isToggle"
-      v-model="modelValue"
+      v-model="switchValue"
       :label="methodLabel"
       label-position="left"
     />
@@ -49,27 +49,12 @@ const props = defineProps({
     required: false,
     default: '',
   },
-  color: {
-    type: String,
-    required: false,
-    default: '',
-  },
-  backgroundColor: {
-    type: String,
-    required: false,
-    default: '',
-  },
-  borderColor: {
-    type: String,
-    required: false,
-    default: '',
-  },
   isToggle: {
     type: Boolean,
     required: false,
     default: false,
   },
-  value: {
+  modelValue: {
     type: Boolean,
     required: false,
     default: false,
@@ -78,7 +63,8 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue'])
 
-const modelValue = ref<boolean>(props.value)
+// set initial value to prop value
+const switchValue = ref<boolean>(props.modelValue)
 
 const methodLabel = computed((): string => {
   return props.label || props.method.toUpperCase()
@@ -140,11 +126,15 @@ const methodBadgeColors = computed((): Record<string, MethodBadgeColors> => {
 })
 
 const toggleValue = () => {
-  modelValue.value = !modelValue.value
+  switchValue.value = !switchValue.value
 }
 
-watch(modelValue, (value: boolean): void => {
+watch(switchValue, (value: boolean): void => {
   emit('update:modelValue', value)
+})
+
+watch(() => props.modelValue, (value: boolean): void => {
+  switchValue.value = value
 })
 </script>
 
@@ -156,7 +146,7 @@ watch(modelValue, (value: boolean): void => {
   &.k-method-toggle {
     padding: var(--spacing-xxs, spacing(xxs));
     padding-left: var(--spacing-sm, spacing(sm));
-    --KInputSwitchLabel: v-bind('color || methodBadgeColors[method].color');
+    --KInputSwitchLabel: v-bind('methodBadgeColors[method].color');
 
     :deep(.k-switch) {
       // disable pointer events to allow badge take care of toggling the value
