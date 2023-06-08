@@ -53,6 +53,7 @@ export default defineConfig({
             { text: 'Input Switch', link: '/components/input-switch' },
             { text: 'Label', link: '/components/label' },
             { text: 'Menu', link: '/components/menu' },
+            { text: 'Method Badge', link: '/components/method-badge' },
             { text: 'Modal', link: '/components/modal' },
             { text: 'Modal Fullscreen', link: '/components/modal-fullscreen' },
             { text: 'Multiselect', link: '/components/multiselect' },
