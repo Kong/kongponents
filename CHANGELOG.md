@@ -1,3 +1,10 @@
+# [8.77.0](https://github.com/Kong/kongponents/compare/v8.76.0...v8.77.0) (2023-06-08)
+
+
+### Features
+
+* **kmethodbadge:** add kmethodbadge component [KHCP-7611] ([#1439](https://github.com/Kong/kongponents/issues/1439)) ([d004c88](https://github.com/Kong/kongponents/commit/d004c88f409ca7e0c70939f58d42a9ff8ffa6fea))
+
 # [8.76.0](https://github.com/Kong/kongponents/compare/v8.75.0...v8.76.0) (2023-06-06)
 
 
