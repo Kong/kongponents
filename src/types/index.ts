@@ -1,4 +1,4 @@
-// All exports from all type files should be referenced and exported here
+// All exports from all type files should be referenced and exported here.
 export * from './alert'
 export * from './badge'
 export * from './breadcrumbs'
