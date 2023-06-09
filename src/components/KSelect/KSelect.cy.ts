@@ -458,4 +458,51 @@ describe('KSelect', () => {
     cy.get('.custom-selected-item').should('not.exist')
     cy.get('input').invoke('attr', 'placeholder').should('contain', placeholderText)
   })
+
+  it.only('allows adding an item with enableItemCreation', () => {
+    const labels = ['Label 1', 'Label 2']
+    const vals = ['label1', 'label2']
+    const newItem = 'Rock me'
+
+    mount(KSelect, {
+      props: {
+        testMode: true,
+        items: [{
+          label: labels[0],
+          value: vals[0],
+        }, {
+          label: labels[1],
+          value: vals[1],
+        }],
+        enableItemCreation: true,
+      },
+    })
+
+    cy.get('.k-select-input').click()
+    cy.getTestId(`k-select-item-${vals[0]}`).should('contain.text', labels[0])
+    cy.getTestId(`k-select-item-${vals[1]}`).should('contain.text', labels[1])
+    // no adding a label that already exists
+    cy.get('input').type(labels[0])
+    cy.getTestId('k-select-add-item').should('not.exist')
+    cy.get('input').clear()
+    // add new item
+    cy.get('input').type(newItem)
+    cy.getTestId('k-select-add-item').should('contain.text', newItem).click()
+    // search is cleared
+    cy.get('input').should('not.contain.text', newItem)
+    // displays selected item correctly
+    cy.get('.k-select-item-selection').should('contain.text', newItem)
+    // item displays when searching
+    cy.get('input').type(newItem)
+    cy.get('.k-select-item .k-select-item-label').should('contain.text', newItem)
+    // no adding a label that already exists
+    cy.getTestId('k-select-add-item').should('not.exist')
+    // item gone when deselected
+    cy.get('.k-select-item-selection').get('.clear-selection-icon').click()
+    cy.get('.k-select-item-selection').should('not.to.exist')
+    // gone when searching
+    cy.get('input').clear()
+    cy.get('input').type(newItem)
+    cy.getTestId('k-select-add-item').should('be.visible').should('contain.text', newItem)
+  })
 })
