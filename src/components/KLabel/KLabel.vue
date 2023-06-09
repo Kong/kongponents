@@ -15,9 +15,10 @@
       :test-mode="!!testMode || undefined"
     >
       <KIcon
+        color="var(--black-25)"
         hide-title
-        :icon="help ? 'help' : 'info'"
-        size="16"
+        :icon="help ? 'help' : 'infoFilled'"
+        :size="help ? '16' : '14'"
       />
       <template #content>
         <slot name="tooltip">{{ help || info }}</slot>
