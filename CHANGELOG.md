@@ -1,3 +1,10 @@
+## [8.77.1](https://github.com/Kong/kongponents/compare/v8.77.0...v8.77.1) (2023-06-09)
+
+
+### Bug Fixes
+
+* pin vue version ([#1445](https://github.com/Kong/kongponents/issues/1445)) ([a9f20e2](https://github.com/Kong/kongponents/commit/a9f20e27ff8681b6c99fcb5270d51a7171febea7))
+
 # [8.77.0](https://github.com/Kong/kongponents/compare/v8.76.0...v8.77.0) (2023-06-08)
 
 
