@@ -459,7 +459,7 @@ describe('KSelect', () => {
     cy.get('input').invoke('attr', 'placeholder').should('contain', placeholderText)
   })
 
-  it.only('allows adding an item with enableItemCreation', () => {
+  it('allows adding an item with enableItemCreation', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
     const newItem = 'Rock me'
