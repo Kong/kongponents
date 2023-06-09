@@ -89,7 +89,7 @@ describe('KInput', () => {
     })
 
     cy.get('.k-input-label').should('contain.text', label)
-    cy.get('.k-input-label .kong-icon-info').should('exist').and('be.visible')
+    cy.get('.k-input-label .kong-icon-infoFilled').should('exist').and('be.visible')
   })
 
   it('renders overlayed label when value is passed', () => {
