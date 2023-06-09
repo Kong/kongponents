@@ -1,3 +1,10 @@
+# [8.78.0](https://github.com/Kong/kongponents/compare/v8.77.1...v8.78.0) (2023-06-09)
+
+
+### Features
+
+* **kicon:** add infoFilled icon for forms ([#1447](https://github.com/Kong/kongponents/issues/1447)) ([19fa797](https://github.com/Kong/kongponents/commit/19fa797d44a2a63b6d1d87b86004c6f2a8a8fead))
+
 ## [8.77.1](https://github.com/Kong/kongponents/compare/v8.77.0...v8.77.1) (2023-06-09)
 
 
