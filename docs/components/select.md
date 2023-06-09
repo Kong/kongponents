@@ -555,6 +555,56 @@ Use this prop to customize selected item element appearance by reusing content p
 </KSelect>
 ```
 
+### enableItemCreation
+
+`KSelect` offers users the ability to add custom item to the list by typing the item they want to and then clicking the `... (Add new value)` item at the bottom of the list, which will also automatically select it.
+
+Newly created item will have a `label` consisting of the user input and a randomly generated id for the `value` to ensure uniqueness. It will also have an attribute `custom` set to `true`. This action triggers an `item:added` event containing the added item data.
+
+Deselecting the item will completely remove it from the list and underlying data, and trigger a `item:removed` event containing the removed item's data.
+
+:::tip NOTE
+You cannot add an item if the `label` matches the `label` of a pre-existing item. In that scenario the `... (Add new value)` item will not be displayed.
+:::
+
+<ClientOnly>
+  <KLabel>Added Item:</KLabel> <pre class="json ma-0">{{ JSON.stringify(addedItems) }}</pre>
+  <KSelect
+    v-model="myVal"
+    :items="deepClone(defaultItems)"
+    enable-item-creation
+    class="mt-2"
+    @item:added="(item) => trackNewItems(item, true)"
+    @item:removed="(item) => trackNewItems(item, false)"
+  />
+</ClientOnly>
+
+```html
+<template>
+  <KLabel>Added Item:</KLabel> {{ addedItems }}
+  <KSelect
+    v-model="myVal"
+    :items="items"
+    enable-item-creation
+    @item:added="(item) => trackNewItems(item, true)"
+    @item:removed="(item) => trackNewItems(item, false)"
+  />
+</template>
+
+<script setup lang="ts">
+  const myVal = 'cats'
+  const addedItems = ref([])
+
+  const trackNewItems = (item, added) => {
+    if (added) {
+      addedItems.value.push(item)
+    } else {
+      addedItems.value = addedItems.value.filter(anItem => anItem.value !== item.value)
+    }
+  }
+</script>
+```
+
 ## Attribute Binding
 
 You can pass any input attribute and it will get properly bound to the element.
@@ -810,6 +860,7 @@ export default defineComponent({
       myItems: getItems(5),
       mySelect: '',
       myVal: 'cats',
+      addedItems: [],
       defaultItems: [{
         label: 'Cats',
         value: 'cats',
@@ -875,6 +926,13 @@ export default defineComponent({
     }
   },
   methods: {
+    trackNewItems (item, added) {
+      if (added) {
+        this.addedItems.push(item)
+      } else {
+        this.addedItems = this.addedItems.filter(anItem => anItem.value !== item.value)
+      }
+    },
     handleItemSelect (item) {
       this.mySelect = item.label
     },
