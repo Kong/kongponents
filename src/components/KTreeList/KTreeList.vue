@@ -39,9 +39,10 @@ import { computed, ref, watch, onMounted, PropType } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KTreeDraggable from '@/components/KTreeList/KTreeDraggable.vue'
 import { getMaximumDepth } from './KTreeDraggable.vue'
-import { TreeListItem, itemsHaveRequiredProps } from './KTreeItem.vue'
+import { itemsHaveRequiredProps } from './KTreeItem.vue'
+import { TreeListItem, ChangeEvent, ChildChangeEvent } from '@/types'
 
-const getIds = (items: TreeListItem[], ids: string[]) => {
+const getIds = (items: TreeListItem[], ids: string[]): string[] => {
   items.forEach((item: TreeListItem) => {
     ids.push(item.id)
 
@@ -75,17 +76,6 @@ const treeListIsValid = (items: TreeListItem[]): boolean => {
 </script>
 
 <script lang="ts" setup>
-export interface ChangeEvent {
-  items: TreeListItem[],
-  target: TreeListItem
-}
-
-export interface ChildChangeEvent {
-  parentId: string,
-  children: TreeListItem[],
-  target: TreeListItem
-}
-
 const props = defineProps({
   modelValue: {
     type: Array as PropType<TreeListItem[]>,
@@ -132,7 +122,7 @@ const value = computed({
 
 const { getSizeFromString } = useUtilities()
 
-const widthStyle = computed(() => {
+const widthStyle = computed((): Record<string, any> => {
   return {
     maxWidth: getSizeFromString(props.width),
   }

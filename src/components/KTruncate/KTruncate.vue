@@ -108,7 +108,7 @@ const props = defineProps({
   rows: {
     type: Number,
     default: 1,
-    validator: (value: Number): boolean => value > 0,
+    validator: (value: number): boolean => value > 0,
   },
   isTextContent: {
     type: Boolean,
@@ -213,7 +213,7 @@ const countExcessElements = (): void => {
   }
 }
 
-const handleToggleClick = async () => {
+const handleToggleClick = async (): Promise<void> => {
   expanded.value = !expanded.value
   // await for component to collapse/expand
   await nextTick()

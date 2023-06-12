@@ -26,23 +26,24 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { PropType, ref } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
+import { SwitcherType, SwitcherTypeArray } from '@/types'
 
 const props = defineProps({
   view: {
-    type: String,
+    type: String as PropType<SwitcherType>,
     default: 'table',
     required: true,
-    validator: (val: string): boolean => ['table', 'grid'].includes(val),
+    validator: (val: SwitcherType): boolean => SwitcherTypeArray.includes(val),
   },
 })
 
 const emit = defineEmits<{
-  (e: 'view-changed', val: string): void
+  (e: 'view-changed', val: SwitcherType): void
 }>()
 
-const isPaused = ref(true)
+const isPaused = ref<boolean>(true)
 
 const toggleView = (): void => {
   // Removed paused animations
