@@ -98,6 +98,7 @@ import { ref, computed, watch, useAttrs, useSlots } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
+import { TextAreaLimitExceed } from '@/types'
 
 const props = defineProps({
   modelValue: {
@@ -153,12 +154,7 @@ const props = defineProps({
 const emit = defineEmits<{
   (e: 'input', val: string): void
   (e: 'update:modelValue', val: string): void
-  (e: 'char-limit-exceeded', data: {
-    value: string,
-    length: number,
-    characterLimit: number,
-    limitExceeded: boolean,
-  }): void
+  (e: 'char-limit-exceeded', data: TextAreaLimitExceed): void
 }>()
 
 const attrs = useAttrs()
@@ -184,7 +180,7 @@ const value = computed({
 
 const textAreaId = computed((): string => (attrs.id ? String(attrs.id) : props.testMode ? 'test-textArea-id-1234' : uuidv4()))
 
-const modifiedAttrs = computed(() => {
+const modifiedAttrs = computed((): Record<string, any> => {
   const $attrs = { ...attrs }
 
   // delete classes because we bind them to the parent
@@ -195,7 +191,7 @@ const modifiedAttrs = computed(() => {
 
 const charLimitExceeded = computed((): boolean => !props.disableCharacterLimit && currValue.value.length > props.characterLimit)
 
-const inputHandler = (e: any) => {
+const inputHandler = (e: any): void => {
   // avoid pass by ref
   const val = JSON.parse(JSON.stringify(e?.target?.value))
   // this 'input' and 'update:modelValue' events must be emitted for v-model binding to work properly
