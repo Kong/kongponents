@@ -591,7 +591,6 @@ const onInputKeypress = (event: Event) => {
   }
 }
 
-// add an item with `enter`
 const handleAddItem = (): void => {
   if (!props.enableItemCreation || !filterStr.value || !uniqueFilterStr.value) {
     // do nothing if not enabled or no label or label already exists
