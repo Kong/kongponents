@@ -1,3 +1,11 @@
+# [8.79.0](https://github.com/Kong/kongponents/compare/v8.78.0...v8.79.0) (2023-06-12)
+
+
+### Features
+
+* **KInlineEdit:** switch to setup syntax [KHCP-6504] ([#1450](https://github.com/Kong/kongponents/issues/1450)) ([39a628d](https://github.com/Kong/kongponents/commit/39a628d0c14cf35f1ab5b10fe2e9415bb0a99b5b))
+* **kselect:** add enable-item-creation prop [KHCP-7555] ([#1448](https://github.com/Kong/kongponents/issues/1448)) ([48c0071](https://github.com/Kong/kongponents/commit/48c007150d204e72ab0daff792b5f06fb2d7ede0))
+
 # [8.78.0](https://github.com/Kong/kongponents/compare/v8.77.1...v8.78.0) (2023-06-09)
 
 
