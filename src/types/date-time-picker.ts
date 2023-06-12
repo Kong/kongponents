@@ -1,3 +1,5 @@
+import { AnyElementOf } from '@/types/utils'
+
 export interface TimeRange {
   start: Date | number,
   end: Date | number,
@@ -33,5 +35,5 @@ export interface CSSProperties {
   [key: string]: string
 }
 
-export type Mode = 'date'| 'time' | 'dateTime' | 'relative' | 'relativeDate'| 'relativeDateTime'
-export type ModeRecord = Record<Mode, Mode>
+export const ModeArray = ['date', 'time', 'dateTime', 'relative', 'relativeDate', 'relativeDateTime']
+export type Mode = AnyElementOf<typeof ModeArray>
