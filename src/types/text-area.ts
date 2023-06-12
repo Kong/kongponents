@@ -1,6 +1,6 @@
 export interface TextAreaLimitExceed {
-  value: string,
-  length: number,
-  characterLimit: number,
-  limitExceeded: boolean,
+  value: string
+  length: number
+  characterLimit: number
+  limitExceeded: boolean
 }
