@@ -1,3 +1,10 @@
+# [8.80.0](https://github.com/Kong/kongponents/compare/v8.79.0...v8.80.0) (2023-06-12)
+
+
+### Features
+
+* **KDateTimePicker:** switch to setup syntax [KHCP-6499] ([#1451](https://github.com/Kong/kongponents/issues/1451)) ([4a3dc64](https://github.com/Kong/kongponents/commit/4a3dc6427b90d7ae059bafe1d2af18898cae7aff))
+
 # [8.79.0](https://github.com/Kong/kongponents/compare/v8.78.0...v8.79.0) (2023-06-12)
 
 
