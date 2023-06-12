@@ -22,102 +22,96 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, computed, onMounted, nextTick } from 'vue'
+<script lang="ts" setup>
+import { ref, computed, onMounted, nextTick, useSlots } from 'vue'
 import { v1 as uuidv1 } from 'uuid'
+import { Styles } from '@/types'
 
-// Styles we want copied from the element
-const STYLES = {
-  fontSize: 'font-size',
-  fontWeight: 'font-weight',
-  fontFamily: 'font-family',
-  color: 'color',
-  margin: 'margin',
-  padding: 'padding',
+const props = defineProps({
+  /**
+   * Sets whether the initial value passed in should be ignored.
+   * Useful for times when you have placeholder text and don't want it passed
+   * in as a value
+   */
+  ignoreValue: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * An object of css styles to override those plucked from the slot element.
+   * Useful if you are styling the default content differently than how the
+   * input should display
+   */
+  styleOverrides: {
+    type: Object,
+    default: () => ({}),
+  },
+})
+
+const emit = defineEmits<{
+  (e: 'changed', value: string): void
+}>()
+
+const slots = useSlots()
+
+const input = ref(null)
+const inputUuid = computed((): string => 'editable-wrapper-' + uuidv1())
+const isEditing = ref(false)
+const inputText = ref('')
+const styles = ref({})
+
+const handleClick = async (e: any): Promise<void> => {
+  // If clicking the slot wrapper lets exit out as to not
+  // copy its styles to the input
+  if (e.target.id === 'element-content-wrapper') return
+
+  // Get current STYLES off of the element
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  styles.value = { ...getStyles(e.target), ...props.styleOverrides }
+  inputText.value = props.ignoreValue ? '' : e.target.textContent
+  isEditing.value = true
+
+  // Wait for Vue to update styles & text
+  await nextTick()
+
+  if (input.value) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    input.value.focus()
+  }
 }
 
-export default defineComponent({
-  name: 'KInlineEdit',
-  props: {
-    /**
-     * Sets whether the initial value passed in should be ignored.
-     * Useful for times when you have placeholder text and don't want it passed
-     * in as a value
-     */
-    ignoreValue: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * An object of css styles to override those plucked from the slot element.
-     * Useful if you are styling the default content differently than how the
-     * input should display
-     */
-    styleOverrides: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
-  emits: ['changed'],
-  setup(props, { emit, slots }) {
-    const input = ref(null)
-    const inputUuid = computed((): string => 'editable-wrapper-' + uuidv1())
-    const isEditing = ref(false)
-    const inputText = ref('')
-    const styles = ref({})
+const handleSave = (): void => {
+  isEditing.value = false
+  emit('changed', inputText.value)
+}
 
-    const handleClick = async (e: any): Promise<void> => {
-      // If clicking the slot wrapper lets exit out as to not
-      // copy its styles to the input
-      if (e.target.id === 'element-content-wrapper') return
+const getStyles = (element: HTMLElement) => {
+  const elementStyles = getComputedStyle(element)
 
-      // Get current STYLES off of the element
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      styles.value = { ...getStyles(e.target), ...props.styleOverrides }
-      inputText.value = props.ignoreValue ? '' : e.target.textContent
-      isEditing.value = true
+  return Object.keys(Styles).reduce((acc: string, cur: string) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    acc[cur] = elementStyles.getPropertyValue(Styles[cur])
 
-      // Wait for Vue to update styles & text
-      await nextTick()
+    return acc
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+  }, {})
+}
 
-      if (input.value) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        input.value.focus()
-      }
+const onEnter = (e: any): void => {
+  e?.target?.blur()
+}
+
+onMounted(() => {
+  try {
+    if (!slots.default) {
+      throw new Error('KInlineEdit expects a slotted HTML tag.')
     }
-
-    const handleSave = (): void => {
-      isEditing.value = false
-      emit('changed', inputText.value)
-    }
-
-    const getStyles = (element: HTMLElement) => {
-      const elementStyles = getComputedStyle(element)
-
-      return Object.keys(STYLES).reduce((acc: string, cur: string) => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        acc[cur] = elementStyles.getPropertyValue(STYLES[cur])
-
-        return acc
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-      }, {})
-    }
-
-    const onEnter = (e: any): void => {
-      e?.target?.blur()
-    }
-
-    onMounted(() => {
-      try {
-        if (!slots.default) {
-          throw new Error('KInlineEdit expects a slotted HTML tag.')
-        }
-      } catch (_) {
-        console.error(`KInlineEdit expects a slotted HTML tag.
+  } catch (_) {
+    console.error(`KInlineEdit expects a slotted HTML tag.
 
     Example usage:
 
@@ -126,20 +120,7 @@ export default defineComponent({
         ^^------add slotted tag
       </KInlineEdit>
     `)
-      }
-    })
-
-    return {
-      input,
-      inputUuid,
-      isEditing,
-      inputText,
-      styles,
-      handleClick,
-      handleSave,
-      onEnter,
-    }
-  },
+  }
 })
 </script>
 
