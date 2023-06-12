@@ -209,11 +209,26 @@
                 </template>
               </KSelectItems>
               <KSelectItem
-                v-if="!filteredItems.length && !$slots.empty"
+                v-if="!filteredItems.length && !$slots.empty && !enableItemCreation"
                 key="k-select-empty-state"
                 class="k-select-empty-item"
                 :item="{ label: 'No results', value: 'no_results' }"
               />
+              <KSelectItem
+                v-if="!filteredItems.length && uniqueFilterStr && !$slots.empty && enableItemCreation"
+                key="k-select-new-item"
+                class="k-select-new-item"
+                data-testid="k-select-add-item"
+                :item="{ label: `${filterStr} (Add new value)`, value: 'add_item' }"
+                @selected="handleAddItem"
+              >
+                <template #content>
+                  <div class="select-item-description">
+                    {{ filterStr }}
+                    <span class="select-item-new-indicator">(Add new value)</span>
+                  </div>
+                </template>
+              </KSelectItem>
             </div>
             <slot
               v-if="!loading && !filteredItems.length"
@@ -411,6 +426,13 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  /**
+   * Allow creating new items
+   */
+  enableItemCreation: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits<{
@@ -419,6 +441,8 @@ const emit = defineEmits<{
   (e: 'change', item: SelectItem | null): void
   (e: 'update:modelValue', value: string | number | null): void
   (e: 'query-change', value: string): void
+  (e: 'item:added', value: SelectItem): void
+  (e: 'item:removed', value: SelectItem): void
 }>()
 
 const attrs = useAttrs()
@@ -428,6 +452,18 @@ const isRequired = computed((): boolean => attrs.required !== undefined && Strin
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.help || props.labelAttributes?.info || slots['label-tooltip']))
 const filterStr = ref('')
+// whether or not filter string matches an existing item's label
+const uniqueFilterStr = computed((): boolean => {
+  if (!filterStr.value) {
+    return false
+  }
+
+  if (selectItems.value.filter((item: SelectItem) => item.label === filterStr.value).length) {
+    return false
+  }
+
+  return true
+})
 const selectedItem = ref<SelectItem|null>(null)
 const selectId = computed((): string => props.testMode ? 'test-select-id-1234' : uuidv4())
 const selectInputId = computed((): string => props.testMode ? 'test-select-input-id-1234' : uuidv4())
@@ -555,16 +591,44 @@ const onInputKeypress = (event: Event) => {
   }
 }
 
-const handleItemSelect = (item: SelectItem) => {
-  selectItems.value.forEach(anItem => {
+const handleAddItem = (): void => {
+  if (!props.enableItemCreation || !filterStr.value || !uniqueFilterStr.value) {
+    // do nothing if not enabled or no label or label already exists
+    return
+  }
+
+  const pos = selectItems.value.length + 1
+  const item: SelectItem = {
+    label: filterStr.value + '',
+    value: props.testMode ? `test-multiselect-added-item-${pos}` : uuidv4(),
+    key: `${filterStr.value.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
+    custom: true,
+  }
+
+  emit('item:added', item)
+
+  handleItemSelect(item, true)
+  filterStr.value = ''
+}
+
+const handleItemSelect = (item: SelectItem, isNew?: boolean) => {
+  if (isNew) {
+    // if it's a new item, we need to add it to the list
+    selectItems.value.push(item)
+  }
+
+  selectItems.value.forEach((anItem, i) => {
     if (anItem.key === item.key) {
       anItem.selected = true
       anItem.key = anItem?.key?.includes('-selected') ? anItem.key : `${anItem.key}-selected`
-      anItem.key += '-selected'
       selectedItem.value = anItem
     } else if (anItem.selected) {
       anItem.selected = false
       anItem.key = anItem?.key?.replace(/-selected/gi, '')
+      if (anItem.custom) {
+        selectItems.value.splice(i, 1)
+        emit('item:removed', anItem)
+      }
     } else {
       anItem.selected = false
     }
@@ -578,9 +642,13 @@ const handleItemSelect = (item: SelectItem) => {
 }
 
 const clearSelection = (): void => {
-  selectItems.value.forEach(anItem => {
+  selectItems.value.forEach((anItem, i) => {
     anItem.selected = false
     anItem.key = anItem?.key?.replace(/-selected/gi, '')
+    if (anItem.custom) {
+      selectItems.value.splice(i, 1)
+      emit('item:removed', anItem)
+    }
   })
   selectedItem.value = null
   if (props.appearance === 'select') {
@@ -960,6 +1028,15 @@ $chevronDownIconMargin: 10px;
     .k-select-empty-item button:hover {
       color: var(--grey-500);
       font-style: italic;
+    }
+
+    .k-select-new-item {
+      word-break: break-word;
+
+      .select-item-new-indicator {
+        font-style: italic;
+        font-weight: 600;
+      }
     }
 
     ul {
