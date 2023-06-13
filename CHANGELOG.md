@@ -1,3 +1,10 @@
+# [8.82.0](https://github.com/Kong/kongponents/compare/v8.81.0...v8.82.0) (2023-06-13)
+
+
+### Features
+
+* remove style tag [MA-1676] ([#1458](https://github.com/Kong/kongponents/issues/1458)) ([a0465f1](https://github.com/Kong/kongponents/commit/a0465f1a4a7aabe8a43609b4b724ced6a6011b64))
+
 # [8.81.0](https://github.com/Kong/kongponents/compare/v8.80.0...v8.81.0) (2023-06-13)
 
 
