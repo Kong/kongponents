@@ -210,8 +210,8 @@ export default {
 
 .k-button {
   align-items: center;
-  border: var(--kui-border-width-10, $kui-border-width-1) solid var(--kui-color-border-transparent, $kui-color-border-transparent); // nciv
-  border-radius: var(--kui-border-radius-4, $kui-border-radius-4); // previously 3px, rounded up
+  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-transparent, $kui-color-border-transparent); // nciv
+  border-radius: var(--kui-border-radius-20, $kui-border-radius-20); // previously 3px, rounded up
   color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest); // previously black-70
   cursor: pointer;
   display: inline-flex;
@@ -272,13 +272,13 @@ export default {
 
   &.medium {
     font-size: var(--kui-font-size-40, $kui-font-size-40); // nciv
-    line-height: var(--kui-line-height-40, $kui-line-heigh-40); // previously 16px, font-line-ratio
+    line-height: var(--kui-line-height-40, $kui-line-height-40); // previously 16px, font-line-ratio
     padding: var(--kui-space-50, $kui-space-50) var(--kui-space-80, $kui-space-80); // nciv
   }
 
   &.large {
     font-size: var(--kui-font-size-40, $kui-font-size-40); // nciv
-    line-height: var(--kui-line-height-40, $kui-line-heigh-40); // previously 16px, font-line-ratio
+    line-height: var(--kui-line-height-40, $kui-line-height-40); // previously 16px, font-line-ratio
     padding: var(--kui-space-60, $kui-space-60) var(--kui-space-110, $kui-space-110); // nciv
   }
 
@@ -436,7 +436,7 @@ export default {
   }
 
   &.rounded {
-    border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle); // previously 100px
+    border-radius: var(--kui-border-radius-40, $kui-border-radius-40); // previously 100px
   }
 }
 </style>
