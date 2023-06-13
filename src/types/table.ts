@@ -1,13 +1,19 @@
+import { AnyElementOf } from '@/types/utils'
+
+export type SortColumnOrder = 'asc' | 'desc'
+
 export interface TablePreferences {
   /** The number of items to display per page */
   pageSize?: number
   /** The column to sort by's `key` defined in the table headers */
   sortColumnKey?: string
   /** The order by which to sort the column, one of `asc` or `desc` */
-  sortColumnOrder?: 'asc' | 'desc'
+  sortColumnOrder?: SortColumnOrder
 }
 
-export type TablePaginationType = 'default' | 'offset'
+export const TablePaginationTypeArray = ['default', 'offset'] as const
+
+export type TablePaginationType = AnyElementOf<typeof TablePaginationTypeArray>
 
 export interface TableHeader {
   key: string
@@ -15,6 +21,11 @@ export interface TableHeader {
   sortable?: boolean
   hideLabel?: boolean
   useSortHandlerFn?: boolean
+}
+
+export interface TableOptions extends Record<string, any>{
+  data: any[]
+  headers: TableHeader[]
 }
 
 /**
@@ -26,3 +37,20 @@ export interface TableHeader {
 export type TableColumnSlotName = `column-${string}`
 
 export type TableState = 'loading' | 'error' | 'success'
+
+export const TableSortOrderArray = ['ascending', 'descending', ''] as const
+
+export type TableSortOrder = AnyElementOf<typeof TableSortOrderArray>
+
+export const TableTestModeArray = ['true', 'loading'] as const
+export type TableTestMode = AnyElementOf<typeof TableTestModeArray>
+
+export interface TableSortPayload {
+  prevKey: string
+  sortColumnKey: string
+  sortColumnOrder: string
+}
+export interface TableStatePayload {
+  state: TableState
+  hasData: boolean
+}
