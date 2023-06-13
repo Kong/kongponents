@@ -1,3 +1,10 @@
+# [8.81.0](https://github.com/Kong/kongponents/compare/v8.80.0...v8.81.0) (2023-06-13)
+
+
+### Features
+
+* added new insights icon [MA-1676] ([#1456](https://github.com/Kong/kongponents/issues/1456)) ([cff8b9b](https://github.com/Kong/kongponents/commit/cff8b9b3bca6c97736a47d865a74ccfd6933a05c))
+
 # [8.80.0](https://github.com/Kong/kongponents/compare/v8.79.0...v8.80.0) (2023-06-12)
 
 
