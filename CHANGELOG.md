@@ -1,3 +1,11 @@
+## [8.82.1](https://github.com/Kong/kongponents/compare/v8.82.0...v8.82.1) (2023-06-14)
+
+
+### Bug Fixes
+
+* **kselect:** value when `enableItemCreation` is true ([#1460](https://github.com/Kong/kongponents/issues/1460)) ([07eb8c6](https://github.com/Kong/kongponents/commit/07eb8c6873d60fe5b7f5ec32ac057450cbe1fed1))
+* **ktable/kcatalog:** pagination + search [khcp-7559] ([#1461](https://github.com/Kong/kongponents/issues/1461)) ([6655b7a](https://github.com/Kong/kongponents/commit/6655b7a44abbd6209a2f256e31da0b6fd0f78247))
+
 # [8.82.0](https://github.com/Kong/kongponents/compare/v8.81.0...v8.82.0) (2023-06-13)
 
 
