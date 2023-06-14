@@ -180,8 +180,8 @@
           :page-sizes="paginationPageSizes"
           :test-mode="!!testMode || undefined"
           :total-count="total"
-          @page-changed="() => pageChangeHandler"
-          @page-size-changed="() => pageSizeChangeHandler"
+          @page-changed="pageChangeHandler"
+          @page-size-changed="pageSizeChangeHandler"
         />
       </div>
     </div>
@@ -570,11 +570,22 @@ watch([stateData, catalogState], (newData) => {
 })
 
 watch(() => props.searchInput, (newValue: string) => {
+  if (page.value !== 1) {
+    page.value = 1
+  }
   debouncedSearch(newValue)
 }, { immediate: true })
 
 const isRevalidating = ref<boolean>(false)
-watch([query, page, pageSize], async () => {
+watch([query, page, pageSize], async (newData, oldData) => {
+  const oldQuery = oldData?.[0]
+  const newQuery = newData[0]
+  const newPage = newData[1]
+
+  if (newQuery !== oldQuery && newPage !== 1) {
+    page.value = 1
+  }
+
   // don't revalidate until we have finished initializing and made initial fetch
   if (hasInitialized.value && !isInitialFetch.value) {
     isRevalidating.value = true
