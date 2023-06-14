@@ -659,6 +659,7 @@ const tdlisteners = computed(() => {
 const isInitialFetch = ref(true)
 const fetchData = async () => {
   const searchInput = props.searchInput
+
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const res = await props.fetcher({
@@ -913,6 +914,10 @@ watch([stateData, tableState], (newData) => {
 
 // handles debounce of search input
 watch(() => props.searchInput, (newValue: string) => {
+  if (page.value !== 1) {
+    page.value = 1
+  }
+
   if (newValue === '') {
     search(newValue)
   } else {
@@ -924,6 +929,11 @@ const isRevalidating = ref<boolean>(false)
 watch([query, page, pageSize], async (newData, oldData) => {
   const oldQuery = oldData?.[0]
   const newQuery = newData[0]
+  const newPage = newData[1]
+
+  if (newQuery !== oldQuery && newPage !== 1) {
+    page.value = 1
+  }
 
   // don't revalidate until we have finished initializing and made initial fetch
   if (hasInitialized.value && !isInitialFetch.value) {
