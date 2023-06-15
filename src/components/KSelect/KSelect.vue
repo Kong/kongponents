@@ -697,14 +697,9 @@ watch(value, (newVal, oldVal) => {
       handleItemSelect(item[0])
     } else if (!newVal) {
       clearSelection()
-    } else if (props.enableItemCreation) {
-      nextTick(() => {
-        filterStr.value = `${newVal}`
-        handleAddItem()
-      })
     }
   }
-}, { immediate: true })
+})
 
 watch(() => props.items, (newValue, oldValue) => {
   // Only trigger the watcher if items actually change
