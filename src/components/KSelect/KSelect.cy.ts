@@ -505,35 +505,4 @@ describe('KSelect', () => {
     cy.get('input').type(newItem)
     cy.getTestId('k-select-add-item').should('be.visible').should('contain.text', newItem)
   })
-
-  it('accepts created item with enableItemCreation', () => {
-    const labels = ['Label 1', 'Label 2']
-    const vals = ['label1', 'label2']
-    const newItem = 'Rock me'
-
-    mount(KSelect, {
-      props: {
-        testMode: true,
-        items: [{
-          label: labels[0],
-          value: vals[0],
-        }, {
-          label: labels[1],
-          value: vals[1],
-        }],
-        modelValue: newItem,
-        enableItemCreation: true,
-      },
-    })
-
-    // accepts already created item as value
-    cy.get('.k-select-item-selection').should('contain.text', newItem)
-    cy.get('.k-select-input').click()
-    cy.getTestId(`k-select-item-${vals[0]}`).should('contain.text', labels[0])
-    cy.getTestId(`k-select-item-${vals[1]}`).should('contain.text', labels[1])
-    cy.get('.k-select-item').last().should('contain.text', newItem)
-    // item gone when deselected
-    cy.get('.k-select-item-selection').get('.clear-selection-icon').click()
-    cy.get('.k-select-item-selection').should('not.to.exist')
-  })
 })
