@@ -1,3 +1,10 @@
+## [8.82.2](https://github.com/Kong/kongponents/compare/v8.82.1...v8.82.2) (2023-06-15)
+
+
+### Reverts
+
+* Revert "fix(kselect): value when `enableItemCreation` is true (#1460)" (#1462) ([7075d6f](https://github.com/Kong/kongponents/commit/7075d6f7b8b12ce8f9cfc8fcbc126aca40fc2f55)), closes [#1460](https://github.com/Kong/kongponents/issues/1460) [#1462](https://github.com/Kong/kongponents/issues/1462)
+
 ## [8.82.1](https://github.com/Kong/kongponents/compare/v8.82.0...v8.82.1) (2023-06-14)
 
 
