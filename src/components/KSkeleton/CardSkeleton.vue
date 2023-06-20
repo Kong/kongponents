@@ -56,12 +56,13 @@ $borderColor: #e6e6e6;
 .skeleton-card-wrapper {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: var(--spacing-md, spacing(md));
+  justify-content: space-between;
   width: 100%;
 }
 .skeleton-card-column {
-  margin-bottom: 16px;
-  width: var(--KSkeletonCardWidth, calc(33% - 16px));
+  margin-bottom: var(--spacing-md, spacing(md));
+  width: var(--KSkeletonCardWidth, calc(33% - var(--spacing-md, spacing(md))));
 }
 .skeleton-card {
   border: 1px solid $borderColor;
@@ -70,10 +71,10 @@ $borderColor: #e6e6e6;
   flex-direction: column;
   min-height: 324px;
   overflow: hidden;
-  padding: 16px;
+  padding: var(--spacing-md, spacing(md));
   .skeleton-card-header {
     display: flex;
-    margin-bottom: 16px;
+    margin-bottom: var(--spacing-md, spacing(md));
     width: 100%;
   }
   .skeleton-card-content {
@@ -85,7 +86,7 @@ $borderColor: #e6e6e6;
     display: flex;
     justify-content: space-between;
     margin-top: auto;
-    padding-top: 16px;
+    padding-top: var(--spacing-md, spacing(md));
     width: 100%;
   }
 }
