@@ -1,3 +1,11 @@
+## [8.82.3](https://github.com/Kong/kongponents/compare/v8.82.2...v8.82.3) (2023-06-21)
+
+
+### Bug Fixes
+
+* **deps:** bump vue-draggable-next from 2.1.1 to 2.2.1 ([#1470](https://github.com/Kong/kongponents/issues/1470)) ([b75f018](https://github.com/Kong/kongponents/commit/b75f018f6de80621d716378129d45f31aa99b5ae))
+* **kcatalog:** fix loading skeleton cards width [KHCP-5907] ([#1468](https://github.com/Kong/kongponents/issues/1468)) ([110d08b](https://github.com/Kong/kongponents/commit/110d08be6f3d34d7d2e115eea671138bd0da0e5c))
+
 ## [8.82.2](https://github.com/Kong/kongponents/compare/v8.82.1...v8.82.2) (2023-06-15)
 
 
