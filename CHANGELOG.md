@@ -1,3 +1,10 @@
+## [8.82.4](https://github.com/Kong/kongponents/compare/v8.82.3...v8.82.4) (2023-06-21)
+
+
+### Bug Fixes
+
+* **ktooltip:** remove kpop default timeout ([#1472](https://github.com/Kong/kongponents/issues/1472)) ([83ca26f](https://github.com/Kong/kongponents/commit/83ca26f26e0bfcc9c55c982da330f078883ad250))
+
 ## [8.82.3](https://github.com/Kong/kongponents/compare/v8.82.2...v8.82.3) (2023-06-21)
 
 
