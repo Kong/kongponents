@@ -5,6 +5,7 @@
     :max-width="maxWidth"
     :placement="placement"
     :popover-classes="`k-tooltip ${computedClass} ${className}`"
+    :popover-timeout="0"
     :position-fixed="positionFixed"
     :test-mode="!!testMode || undefined"
     trigger="hover"
