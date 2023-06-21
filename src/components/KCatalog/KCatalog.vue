@@ -635,11 +635,6 @@ onMounted(() => {
   $cardHeight: 181px;
 
   .k-skeleton-grid {
-    --KSkeletonCardWidth: 25%;
-
-    .skeleton-card-column {
-      padding-right: 32px;
-    }
     .skeleton-card {
       height: $cardHeight;
     }
