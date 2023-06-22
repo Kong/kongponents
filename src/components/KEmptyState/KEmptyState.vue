@@ -12,7 +12,7 @@
         <KIcon
           :color="isError ? iconColor || 'var(--black-70)' : iconColor"
           :icon="icon ? icon : 'warning'"
-          :secondary-color="isError ? 'var(--yellow-400)' : undefined"
+          :secondary-color="isError ? iconSecondaryColor || 'var(--yellow-400, #fabe5f)' : iconSecondaryColor"
           :size="iconSize"
         />
       </div>
@@ -76,6 +76,10 @@ defineProps({
     default: null,
   },
   iconColor: {
+    type: String,
+    default: '',
+  },
+  iconSecondaryColor: {
     type: String,
     default: '',
   },
