@@ -16,7 +16,6 @@ concurrency:
 jobs:
   cleanup:
     name: Cleanup PR Previews
-    needs: prepare
     runs-on: ubuntu-latest
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN_PRIVATE_PUBLISH }}
