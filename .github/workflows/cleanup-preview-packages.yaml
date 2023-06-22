@@ -25,10 +25,7 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v3
 
-      - name: Setup PNPM with Dependencies
-        uses: ./.github/actions/setup-pnpm-with-dependencies/
-
-      - name: Prepare package matrix
+      - name: Prepare cleanup
         id: prepare
         run: |
           echo "openPRs=$(gh pr list --state open --json number|jq  -cM 'map(.number|tostring)')" >> $GITHUB_OUTPUT
