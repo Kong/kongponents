@@ -1,0 +1,34 @@
+name: Cleanup PR preview packages
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: '30 * * * 6,0'
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  cleanup:
+    name: Cleanup PR Previews
+    runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN_PRIVATE_PUBLISH }}
+      GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+
+      - name: Prepare cleanup
+        id: prepare
+        run: |
+          echo "openPRs=$(gh pr list --state open --json number|jq  -cM 'map(.number|tostring)')" >> $GITHUB_OUTPUT
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN_PUBLIC_PUBLISH }}" > .npmrc
+
+      - name: Cleanup PR preview
+        uses: Kong/public-shared-actions/pr-previews/cleanup@main
+        with:
+          package: "@kong/kongponents"
+          openPRs: ${{ steps.prepare.outputs.openPRs }}

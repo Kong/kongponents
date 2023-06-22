@@ -58,7 +58,7 @@ jobs:
         run: yarn build:ci
 
       - name: Publish Previews
-        if: github.event_name == 'pull_request'
+        if: ${{ github.event_name == 'pull_request' && github.actor != 'dependabot[bot]' }}
         run: |
           git config user.email "konnectx-engineers+kongponents-bot@konghq.com"
           git config user.name "Kong UI Bot"

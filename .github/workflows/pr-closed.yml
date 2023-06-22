@@ -5,8 +5,8 @@ on:
       - closed
 
 jobs:
-  unpublish:
-    name: Unpublish or Deprecate NPM previews for PR
+  remove-pr-preview-comment:
+    name: Remove PR preview comment from PR
     runs-on: ubuntu-latest
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN_PUBLIC_PUBLISH }}
@@ -20,39 +20,3 @@ jobs:
           header: pr_preview_consumption
           delete: true
           GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
-
-      - name: Create .npmrc
-        # Reference the env variable NPM_TOKEN here, not the secret
-        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-
-      - name: Unpublish
-        run: |
-          toUnpublish=()
-
-          prNumber="${{github.event.number}}"
-
-          pkgName="@kong/kongponents"
-
-          npm dist-tag rm "${pkgName}" "pr-${prNumber}" || true
-
-          for pkgVersion in $(npm view ${pkgName} --json|jq -r .versions|grep "\-pr.${prNumber}."|sed 's/,//'| sed 's/\"//g')
-          do
-            toUnpublish+=("${pkgName}@${pkgVersion}")
-          done
-
-          echo  "List: ${toUnpublish[*]}"|sed 's/ /\n/g'
-
-          for (( i=${#toUnpublish[@]}-1; i>=0; i-- ))
-          do
-            echo ""
-            echo "*** deprecating: ${toUnpublish[i]}"
-            npm deprecate --force "${toUnpublish[i]}" "Deprecated PR preview" || true
-          done
-
-
-          for (( i=${#toUnpublish[@]}-1; i>=0; i-- ))
-          do
-            echo ""
-            echo "unpublishing: ${toUnpublish[i]}"
-            npm unpublish --force "${toUnpublish[i]}" || true
-          done
