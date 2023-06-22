@@ -5,8 +5,8 @@ on:
       - closed
 
 jobs:
-  unpublish:
-    name: Unpublish or Deprecate NPM previews for PR
+  remove-pr-preview-comment:
+    name: Remove PR preview comment from PR
     runs-on: ubuntu-latest
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN_PUBLIC_PUBLISH }}
