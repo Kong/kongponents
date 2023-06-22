@@ -1,3 +1,11 @@
+# [8.83.0](https://github.com/Kong/kongponents/compare/v8.82.4...v8.83.0) (2023-06-22)
+
+
+### Features
+
+* cron job to cleanup PR preview versions published [KHCP-7461] ([#1476](https://github.com/Kong/kongponents/issues/1476)) ([5ffe77e](https://github.com/Kong/kongponents/commit/5ffe77e01ef0c6960ef376249671080ae11f4f31))
+* **KTabs, KTextArea, KToaster:** add types [KHCP-6974] ([#1452](https://github.com/Kong/kongponents/issues/1452)) ([79e8389](https://github.com/Kong/kongponents/commit/79e83894506a754287d9ded506e5282a03307146))
+
 ## [8.82.4](https://github.com/Kong/kongponents/compare/v8.82.3...v8.82.4) (2023-06-21)
 
 
