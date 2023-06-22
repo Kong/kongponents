@@ -29,6 +29,7 @@ jobs:
         id: prepare
         run: |
           echo "openPRs=$(gh pr list --state open --json number|jq  -cM 'map(.number|tostring)')" >> $GITHUB_OUTPUT
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN_PUBLIC_PUBLISH }}" > .npmrc
 
       - name: Cleanup PR preview
         uses: Kong/public-shared-actions/pr-previews/cleanup@main
