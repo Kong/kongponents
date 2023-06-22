@@ -1,6 +1,6 @@
 import KToaster from './KToaster.vue'
 import { createApp, h, ref, Ref } from 'vue'
-import { Toast, toasterAppearances } from '@/types'
+import { AlertAppearance, Toast, toasterAppearances } from '@/types'
 
 const APPEARANCES = Object.keys(toasterAppearances)
 
@@ -43,18 +43,18 @@ export default class ToastManager {
     createApp(Toast).mount(`#${this.id}`)
   }
 
-  setTimer(key: any, timeout: number) {
+  setTimer(key: any, timeout: number): number {
     return setTimeout(() => this.close(key), timeout)
   }
 
-  open(args: Record<string, any> | string) {
+  open(args: Record<string, any> | string): void {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const { key, timeoutMilliseconds, appearance, message } = args
 
-    const _key = key || (this.toasters.value.length) + new Date().getTime()
-    const _appearance = (appearance && APPEARANCES.indexOf(appearance) !== -1) ? appearance : this.appearance
-    const timer = this.setTimer(_key, timeoutMilliseconds || this.timeout)
+    const _key: any = key || (this.toasters.value.length) + new Date().getTime()
+    const _appearance: AlertAppearance = (appearance && APPEARANCES.indexOf(appearance) !== -1) ? appearance : this.appearance
+    const timer: number = this.setTimer(_key, timeoutMilliseconds || this.timeout)
 
     // Add toaster to state
     this.toasters.value.push({
@@ -66,13 +66,13 @@ export default class ToastManager {
     })
   }
 
-  close(key: any) {
-    const i = this.toasters.value?.findIndex(n => key === n.key)
+  close(key: any): void {
+    const i: number = this.toasters.value?.findIndex(n => key === n.key)
     clearTimeout(this.toasters.value[i]?.timer)
     this.toasters.value.splice(i, 1)
   }
 
-  closeAll() {
+  closeAll(): void {
     this.toasters.value.forEach(toast => clearTimeout(toast?.timer))
     this.toasters.value.length = 0
   }
