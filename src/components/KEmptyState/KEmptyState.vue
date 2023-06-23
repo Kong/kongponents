@@ -91,7 +91,7 @@ defineProps({
 .empty-state-wrapper {
   background-color: var(--KEmptyBackground, var(--white));
   border-radius: 4px;
-  padding: 48px 0;
+  padding: var(--spacing-xxl, spacing(xxl)) 0;
   text-align: center;
 
   > * + * {
