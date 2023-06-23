@@ -17,7 +17,7 @@
         />
       </div>
       <div
-        v-if="slots.title"
+        v-if="$slots.title"
         class="k-empty-state-title-header"
       >
         <slot name="title" />
@@ -25,7 +25,7 @@
     </div>
     <div class="empty-state-content">
       <div
-        v-if="slots.message"
+        v-if="$slots.message"
         class="k-empty-state-message"
       >
         <slot name="message" />
@@ -51,9 +51,6 @@
 <script lang="ts" setup>
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import { useSlots } from 'vue'
-
-const slots = useSlots()
 
 defineProps({
   isError: {
