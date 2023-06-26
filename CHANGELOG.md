@@ -1,3 +1,10 @@
+## [8.83.2](https://github.com/Kong/kongponents/compare/v8.83.1...v8.83.2) (2023-06-26)
+
+
+### Bug Fixes
+
+* **kdropdownmenu:** item truncation [khcp-7688] ([#1480](https://github.com/Kong/kongponents/issues/1480)) ([48fe80d](https://github.com/Kong/kongponents/commit/48fe80dee78d8e4ed48a3c2591e27fefe4924a8c))
+
 ## [8.83.1](https://github.com/Kong/kongponents/compare/v8.83.0...v8.83.1) (2023-06-26)
 
 
