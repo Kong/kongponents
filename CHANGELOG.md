@@ -1,3 +1,10 @@
+## [8.83.1](https://github.com/Kong/kongponents/compare/v8.83.0...v8.83.1) (2023-06-26)
+
+
+### Bug Fixes
+
+* change schedule to run every 6 hours [KHCP-7461] ([#1477](https://github.com/Kong/kongponents/issues/1477)) ([476be1d](https://github.com/Kong/kongponents/commit/476be1dc682c73498fcacd5e33c587482f7720d7))
+
 # [8.83.0](https://github.com/Kong/kongponents/compare/v8.82.4...v8.83.0) (2023-06-22)
 
 

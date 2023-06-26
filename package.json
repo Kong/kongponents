@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "8.83.0",
+  "version": "8.83.1",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -108,7 +108,7 @@
     "postcss-html": "^1.5.0",
     "rimraf": "^3.0.2",
     "rollup-plugin-visualizer": "^5.9.0",
-    "sass": "1.63.4",
+    "sass": "1.63.6",
     "semantic-release": "^19.0.5",
     "stylelint": "^14",
     "stylelint-config-html": "^1.1.0",
