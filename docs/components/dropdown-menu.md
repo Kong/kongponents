@@ -299,7 +299,7 @@ Text to display on hover if dropdown is disabled.
 
 There are 2 supported slots:
 
-#### default
+### default
 
 The trigger element for opening/closing the menu.
 
@@ -329,7 +329,7 @@ The trigger element for opening/closing the menu.
 </KDropdownMenu>
 ```
 
-#### items
+### items
 
 You can customize the appearance of dropdown items using this slot.
 
@@ -365,12 +365,14 @@ There are 3 primary item types:
 - `custom` - no special handling, you completely control the content
 
 <ClientOnly>
-  <KDropdownMenu label="Variety">
+  <KDropdownMenu label="Variety" width="250">
     <template #items="{ closeDropdown }">
       <KDropdownItem :item="youAreHere" />
-      <KDropdownItem has-divider @click="clickHandler('Button clicked!')">
-        A button
-      </KDropdownItem>
+      <KDropdownItem
+        :item="{ label: 'A button with a a long long long long long long looooooooooooooooooooooooooooooooooooooooooooooong name' }"
+        has-divider
+        @click="clickHandler('Button clicked!')"
+      />
       <KDropdownItem
         disabled
         @click="clickHandler"
@@ -417,12 +419,14 @@ There are 3 primary item types:
 </ClientOnly>
 
 ```html
-<KDropdownMenu label="Variety">
+<KDropdownMenu label="Variety" width="250">
   <template #items="{ closeDropdown }">
-    <KDropdownItem :item="{ label: 'You are here', to: { path: '/components/dropdown-menu.html' } }" />
-    <KDropdownItem has-divider @click="clickHandler">
-      A button
-    </KDropdownItem>
+    <KDropdownItem :item="youAreHere" />
+    <KDropdownItem
+      :item="{ label: 'A button with a a long long long long long long looooooooooooooooooooooooooooooooooooooooooooooong name' }"
+      has-divider
+      @click="clickHandler('Button clicked!')"
+    />
     <KDropdownItem
       disabled
       @click="clickHandler"

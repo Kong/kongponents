@@ -15,7 +15,13 @@
       v-bind="availableComponents[componentType].attrs"
       @click="availableComponents[componentType].onClick"
     >
-      <slot>{{ label }}</slot>
+      <span
+        class="truncate"
+        :title="label"
+      >
+
+        <slot>{{ label }}</slot>
+      </span>
     </component>
   </li>
 </template>
