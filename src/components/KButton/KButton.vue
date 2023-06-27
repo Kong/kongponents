@@ -197,30 +197,31 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
 
 @mixin boxShadow($color, $whiteShadowSpred: 2px, $colorShadowSpread: 4px) {
-  box-shadow: 0 0 0 $whiteShadowSpred var(--white, color(white)), 0 0 0 $colorShadowSpread $color;
+  box-shadow: 0 0 0 $whiteShadowSpred var(--white, var(--kui-color-background, $kui-color-background)), 0 0 0 $colorShadowSpread $color;
 }
 
 .k-button {
   align-items: center;
-  border: 1px solid transparent;
-  border-radius: var(--KButtonRadius, 3px);
-  color: var(--black-70, color(black-70));
+  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
+  border-radius: var(--KButtonRadius, var(--kui-border-radius-20, $kui-border-radius-20)); // round up: 3px -> 4px
+  color: var(--black-70, color(black-70)); // token tbd
   cursor: pointer;
   display: inline-flex;
-  font-family: var(--font-family-sans, font(sans));
-  font-size: var(--KButtonFontSize, var(--type-md, type(md)));
+  font-family: var(--font-family-sans, var(--kui-font-family-text, $kui-font-family-text));
+  font-size: var(--KButtonFontSize, var(--type-md, var(--kui-font-size-30, $kui-font-size-30)));
   font-weight: 600;
   gap: var(--spacing-xs, spacing(xs));
   line-height: 1.25;
   padding: var(--KButtonPaddingY, var(--spacing-sm, spacing(sm))) var(--KButtonPaddingX, var(--spacing-lg, spacing(lg)));
   position: relative;
   // Remove tap color highlight on mobile Safari
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  -webkit-tap-highlight-color: rgba($kui-color-background, 0);
   text-decoration: none;
-  transition: all .2s ease-in-out;
+  transition: all $tmp-animation-timing-2 ease-in-out;
   vertical-align: middle;
   white-space: nowrap;
 
@@ -283,12 +284,12 @@ export default {
     display: inline-block;
     margin-left: 8px;
     padding: 0;
-    transition: 250ms ease;
+    transition: $tmp-animation-timing-2 ease;
   }
 
   &.is-active :deep(.caret) {
     transform: rotate(-180deg);
-    transition: 250ms ease;
+    transition: $tmp-animation-timing-2 ease;
   }
 
   /* Apperance Variations */
