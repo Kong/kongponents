@@ -1,3 +1,11 @@
+## [8.83.3](https://github.com/Kong/kongponents/compare/v8.83.2...v8.83.3) (2023-06-27)
+
+
+### Bug Fixes
+
+* **kemptystate:** unnecessary spaces and gaps ([#1474](https://github.com/Kong/kongponents/issues/1474)) ([52f7644](https://github.com/Kong/kongponents/commit/52f7644b19d72bd54ed887b3edba1fe45854be02))
+* using correct env token to make it less confusing [KHCP-7461] ([#1482](https://github.com/Kong/kongponents/issues/1482)) ([1f0ddbe](https://github.com/Kong/kongponents/commit/1f0ddbe27ddb79463648ec11f63e07d277cac046))
+
 ## [8.83.2](https://github.com/Kong/kongponents/compare/v8.83.1...v8.83.2) (2023-06-26)
 
 
