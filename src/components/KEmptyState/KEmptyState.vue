@@ -6,7 +6,7 @@
     <div class="empty-state-title">
       <div
         v-if="isError || icon"
-        class="k-empty-state-icon card-icon mb-3"
+        class="k-empty-state-icon card-icon"
         :class="{ 'warning-icon': isError }"
       >
         <KIcon
@@ -16,18 +16,26 @@
           :size="iconSize"
         />
       </div>
-      <div class="k-empty-state-title-header mt-4 mb-4">
+      <div
+        v-if="$slots.title"
+        class="k-empty-state-title-header"
+      >
         <slot name="title" />
       </div>
     </div>
     <div class="empty-state-content">
-      <div class="k-empty-state-message mb-6">
+      <div
+        v-if="$slots.message"
+        class="k-empty-state-message"
+      >
         <slot name="message" />
       </div>
-      <div class="k-empty-state-cta">
+      <div
+        v-if="!ctaIsHidden && ctaText"
+        class="k-empty-state-cta"
+      >
         <slot name="cta">
           <KButton
-            v-if="!ctaIsHidden && ctaText"
             appearance="primary"
             size="small"
             @click.prevent="() => handleClick && handleClick()"
@@ -83,27 +91,38 @@ defineProps({
 .empty-state-wrapper {
   background-color: var(--KEmptyBackground, var(--white));
   border-radius: 4px;
-  padding: 48px 0;
+  padding: var(--spacing-xxl, spacing(xxl)) 0;
   text-align: center;
+
+  > * + * {
+    margin-top: var(--spacing-md, spacing(md));
+  }
 
   .k-empty-state-title-header {
     color: var(--KEmptyTitleColor, var(--black-500));
     font-size: 20px;
     font-weight: 600;
     line-height: 24px;
-    margin: 0 0 14px;
+  }
+
+  .empty-state-title > * + * {
+    margin-top: var(--spacing-xs, spacing(xs));
   }
 
   .k-empty-state-message {
     color: var(--KEmptyContentColor, var(--black-400));
     font-size: 13px;
     line-height: 20px;
-    margin: 0 auto 14px;
+    margin-left: auto;
+    margin-right: auto;
     max-width: 50%;
   }
 
+  .empty-state-content > * + * {
+    margin-top: var(--spacing-xl, spacing(xl));
+  }
+
   .k-empty-state-cta {
-    margin: 0;
     margin-left: auto;
     margin-right: auto;
   }
