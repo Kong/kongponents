@@ -1,3 +1,10 @@
+## [8.83.4](https://github.com/Kong/kongponents/compare/v8.83.3...v8.83.4) (2023-06-28)
+
+
+### Bug Fixes
+
+* **kemptystate:** `cta` slot ([#1486](https://github.com/Kong/kongponents/issues/1486)) ([fb4a1e0](https://github.com/Kong/kongponents/commit/fb4a1e02d00ebc85838de3b69e3a997efbf531e5))
+
 ## [8.83.3](https://github.com/Kong/kongponents/compare/v8.83.2...v8.83.3) (2023-06-27)
 
 
