@@ -7412,9 +7412,9 @@ vite@^4.0.3, vite@^4.3.9:
     fsevents "~2.3.2"
 
 vitepress@^1.0.0-alpha.61:
-  version "1.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/vitepress/-/vitepress-1.0.0-beta.2.tgz#b277b8d539c5697db274c0f98172809f9516a9bf"
-  integrity sha512-DBXYjtYbm3W1IPPJ2TiCaK/XK+o/2XmL2+jslOGKm+txcbmG0kbeB+vadC5tCUZA9NdA+9Ywj3M4548c7t/SDg==
+  version "1.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/vitepress/-/vitepress-1.0.0-beta.3.tgz#1c03bd3cff5193b888d202258d1dd0a60cfe52eb"
+  integrity sha512-GR5Pvr/o343NN1M4Na1shhDYZRrQbjmLq7WE0lla0H8iDPAsHE8agTHLWfu3FWx+3q2KA29sv16+0O9RQKGjlA==
   dependencies:
     "@docsearch/css" "^3.5.0"
     "@docsearch/js" "^3.5.0"
