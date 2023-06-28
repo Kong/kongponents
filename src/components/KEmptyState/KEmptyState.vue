@@ -30,12 +30,10 @@
       >
         <slot name="message" />
       </div>
-      <div
-        v-if="!ctaIsHidden && ctaText"
-        class="k-empty-state-cta"
-      >
+      <div class="k-empty-state-cta">
         <slot name="cta">
           <KButton
+            v-if="!ctaIsHidden && ctaText"
             appearance="primary"
             size="small"
             @click.prevent="() => handleClick && handleClick()"
