@@ -1,3 +1,10 @@
+## [8.83.5](https://github.com/Kong/kongponents/compare/v8.83.4...v8.83.5) (2023-06-28)
+
+
+### Bug Fixes
+
+* **kdropdownitem:** increase line-height to prevent cutoff in kdropdownitem [KHCP-7907] ([#1489](https://github.com/Kong/kongponents/issues/1489)) ([8fc9505](https://github.com/Kong/kongponents/commit/8fc9505886bae3daf81a120d00960390de69b2ce))
+
 ## [8.83.4](https://github.com/Kong/kongponents/compare/v8.83.3...v8.83.4) (2023-06-28)
 
 
