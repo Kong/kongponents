@@ -3,6 +3,7 @@
     "Vue.volar",
     "Vue.vscode-typescript-vue-plugin",
     "dbaeumer.vscode-eslint",
-    "stylelint.vscode-stylelint"
-  ]
+    "stylelint.vscode-stylelint",
+    "vunguyentuan.vscode-css-variables"
+  ],
 }
