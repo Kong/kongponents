@@ -36,5 +36,10 @@
     "**/*.css",
     "**/*.scss",
     "node_modules/@kong/design-tokens/dist/tokens/css/variables.css",
-  ]
+  ],
+  "scss.scannerExclude": [
+    "**/.git",
+    "**/bower_components",
+    "**/node_modules/!(@kong/design-tokens),"
+  ],
 }
