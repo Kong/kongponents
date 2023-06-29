@@ -208,7 +208,7 @@ export default {
   align-items: center;
   border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
   border-radius: var(--KButtonRadius, var(--kui-border-radius-20, $kui-border-radius-20));
-  color: var(--black-70, color(black-70)); // token tbd
+  color: var(--black-70, var(--kui-color-text, $kui-color-text));
   cursor: pointer;
   display: inline-flex;
   font-family: var(--font-family-sans, var(--kui-font-family-text, $kui-font-family-text));
