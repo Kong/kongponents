@@ -314,7 +314,11 @@ A `pre-push` hook is configured to run Stylelint and ESLint before pushing your 
 
 ## Recommended IDE Setup
 
-We recommend using [VSCode](https://code.visualstudio.com/) along with the [Volar extension](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+We recommend using [VSCode](https://code.visualstudio.com/) along with a few [suggested extensions](https://github.com/Kong/kongponents/blob/db8854954eebb0ab62de21263ab6a5ba9bab11eb/.vscode/settings.json) (VSCode should automatically open up a dialog window suggesting to instal recommended extensions when you open the project folder for the first time).
+
+:::warning NOTE
+To utilize all pre-configured VSCode workplace settings for this project, we recommend opening the containing workspace folder directly directly, instead of saving VSCode workplace.
+:::
 
 ## Type interfaces for Vue components
 

@@ -67,6 +67,7 @@
 import { computed, PropType, useSlots, useAttrs } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import type { ButtonAppearance, ButtonAppearanceRecord, ButtonSize, ButtonSizeRecord } from '@/types'
+import { KUI_COLOR_TEXT_NEUTRAL_WEAK, KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_PRIMARY_STRONGER, KUI_COLOR_TEXT_PRIMARY, KUI_COLOR_TEXT_DANGER } from '@kong/design-tokens'
 
 const props = defineProps({
   /**
@@ -136,27 +137,27 @@ const buttonType = computed((): string => props.to ? 'router-link' : 'button')
 
 const iconColor = computed((): string => {
   if (props.disabled) {
-    return 'var(--grey-400, var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak))'
+    return `var(--grey-400, var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK}))`
   } else if (['primary', 'danger', 'creation'].includes(props.appearance)) {
-    return 'white'
+    return `var(--kui-color-text-inverse, ${KUI_COLOR_TEXT_INVERSE})`
   } else if (props.appearance === 'secondary') {
-    return 'var(--KButtonSecondaryColor, var(--blue-600, var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger)))'
+    return `var(--KButtonSecondaryColor, var(--blue-600, var(--kui-color-text-primary-stronger, ${KUI_COLOR_TEXT_PRIMARY_STRONGER})))`
   } else if (props.appearance === 'outline') {
-    return 'var(--KButtonOutlineColor, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)))'
+    return `var(--KButtonOutlineColor, var(--blue-500, var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})))`
   } else if (props.appearance === 'btn-link') {
-    return 'var(--KButtonLink, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)))'
+    return `var(--KButtonLink, var(--blue-500, var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})))`
   } else if (props.appearance === 'btn-link-danger') {
-    return 'var(--KButtonLinkDanger, var(--red-500, var(--kui-color-text-danger, $kui-color-text-danger)))'
+    return `var(--KButtonLinkDanger, var(--red-500, var(--kui-color-text-danger, ${KUI_COLOR_TEXT_DANGER})))`
   }
   return ''
 })
 
 /**
-     * Strips falsy `disabled` attribute, so it does not fall onto native <a> elements.
-     * Vue 3 no longer removes attribute if the value is boolean false. Instead, it's set as attr="false".
-     * So for <KButton :disabled="false" to="SOME_URL">, the rendered <a> element will have `disabled="false"`,
-     * which is greyed out and cannot be interacted with.
-     */
+  * Strips falsy `disabled` attribute, so it does not fall onto native <a> elements.
+  * Vue 3 no longer removes attribute if the value is boolean false. Instead, it's set as attr="false".
+  * So for <KButton :disabled="false" to="SOME_URL">, the rendered <a> element will have `disabled="false"`,
+  * which is greyed out and cannot be interacted with.
+  */
 const strippedAttrs = computed((): typeof attrs => {
   if (props.disabled !== undefined && props.disabled !== false) {
     return attrs
@@ -200,8 +201,8 @@ export default {
 @import '@/styles/tmp-variables';
 @import '@/styles/functions';
 
-@mixin boxShadow($color, $whiteShadowSpred: 2px, $colorShadowSpread: 4px) {
-  box-shadow: 0 0 0 $whiteShadowSpred var(--white, var(--kui-color-background, $kui-color-background)), 0 0 0 $colorShadowSpread $color;
+@mixin boxShadow($color, $whiteShadowSpread: 2px, $colorShadowSpread: 4px) {
+  box-shadow: 0 0 0 $whiteShadowSpread var(--white, var(--kui-color-background, $kui-color-background)), 0 0 0 $colorShadowSpread $color;
 }
 
 .k-button {
@@ -309,7 +310,7 @@ export default {
     &[disabled] {
       // Use !important to override conflicting styles
       background-color: var(--grey-300, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) !important; // token value breaking change
-      color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important; // token value
+      color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
     }
   }
 
