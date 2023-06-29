@@ -207,7 +207,7 @@ export default {
 .k-button {
   align-items: center;
   border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
-  border-radius: var(--KButtonRadius, var(--kui-border-radius-20, $kui-border-radius-20)); // token value change: 3px -> 4px
+  border-radius: var(--KButtonRadius, var(--kui-border-radius-20, $kui-border-radius-20));
   color: var(--black-70, color(black-70)); // token tbd
   cursor: pointer;
   display: inline-flex;
@@ -215,7 +215,7 @@ export default {
   font-size: var(--KButtonFontSize, var(--type-md, var(--kui-font-size-30, $kui-font-size-30)));
   font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
   gap: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
-  line-height: var(--kui-line-height-30, $kui-line-height-30); // token value change: 1.25 -> 20px
+  line-height: var(--kui-line-height-30, $kui-line-height-30);
   padding: var(--KButtonPaddingY, var(--spacing-sm, var(--kui-space-50, $kui-space-50))) var(--KButtonPaddingX, var(--spacing-lg, var(--kui-space-80, $kui-space-80)));
   position: relative;
   // Remove tap color highlight on mobile Safari
@@ -261,20 +261,20 @@ export default {
 
   /* Size Variations */
   &.small {
-    font-size: var(--KButtonFontSize, var(--kui-font-size-20, $kui-font-size-20)); // token value change: 13px -> 12px
-    line-height: var(--kui-line-height-10, $kui-line-height-10); // token value change: 13px -> 12px
+    font-size: var(--KButtonFontSize, var(--kui-font-size-20, $kui-font-size-20));
+    line-height: var(--kui-line-height-10, $kui-line-height-10);
     padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40)) var(--spacing-md, var(--kui-space-60, $kui-space-60));
   }
 
   &.medium {
     font-size: var(--KButtonFontSize, var(--type-md, var(--kui-font-size-40, $kui-font-size-40)));
-    line-height: var(--type-md, var(--kui-line-height-10, $kui-line-height-10)); // token value change: 13px -> 12px
+    line-height: var(--type-md, var(--kui-line-height-10, $kui-line-height-10));
     padding: var(--spacing-sm, var(--kui-space-50, $kui-space-50)) var(--spacing-lg, var(--kui-space-80, $kui-space-80));
   }
 
   &.large {
     font-size: var(--KButtonFontSize, var(--type-md, var(--kui-font-size-40, $kui-font-size-40)));
-    line-height: var(--type-md, var(--kui-line-height-10, $kui-line-height-10)); // token value change: 13px -> 12px
+    line-height: var(--type-md, var(--kui-line-height-10, $kui-line-height-10));
     padding: var(--spacing-md, var(--kui-space-60, $kui-space-60)) var(--spacing-xl, var(--kui-space-90, $kui-space-90));
   }
 
@@ -297,18 +297,18 @@ export default {
     background-color: var(--KButtonSecondaryBase, var(--blue-200, var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker)));
     color: var(--KButtonSecondaryColor, var(--blue-600, var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger)));
     &:hover:not(:disabled) {
-      background-color: var(--KButtonSecondaryHover, var(--blue-300, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak))); // token value not 1:1
+      background-color: var(--KButtonSecondaryHover, var(--blue-300, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak)));
     }
     &:active {
-      background-color: var(--KButtonSecondaryActive, var(--blue-300, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak))); // token value not 1:1
+      background-color: var(--KButtonSecondaryActive, var(--blue-300, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak)));
     }
     &:focus {
-      @include boxShadow(var(--KButtonSecondaryBase, var(--blue-300, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak)))); // token value not 1:1
+      @include boxShadow(var(--KButtonSecondaryBase, var(--blue-300, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak))));
     }
     &:disabled,
     &[disabled] {
       // Use !important to override conflicting styles
-      background-color: var(--grey-300, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) !important; // token value not 1:1
+      background-color: var(--grey-300, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) !important;
       color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
     }
   }
@@ -323,20 +323,20 @@ export default {
       background-color: var(--KButtonPrimaryActive, var(--kui-color-background-primary-stronger, $kui-color-background-primary-stronger));
     }
     &:focus {
-      @include boxShadow(var(--KButtonPrimaryBase, var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary)))); // token value not 1:1
+      @include boxShadow(var(--KButtonPrimaryBase, var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary))));
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) !important; // token value not 1:1
+      background-color: var(--grey-300, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) !important;
       color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
     }
   }
 
   &.danger {
-    background-color: var(--KButtonDangerBase, var(--red-500, var(--kui-color-background-danger, $kui-color-background-danger))); // token value not 1:1, visual change
+    background-color: var(--KButtonDangerBase, var(--red-500, var(--kui-color-background-danger, $kui-color-background-danger)));
     color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
     &:hover:not(:disabled) {
-      background-color: var(--KButtonDangerHover, var(--kui-color-background-danger-strong, $kui-color-background-danger-strong)); // token value not 1:1, old token removed
+      background-color: var(--KButtonDangerHover, var(--kui-color-background-danger-strong, rgba($kui-color-background-danger-strong, .85)));
     }
     &:active {
       background-color: var(--KButtonDangerActive, var(--red-700, var(--kui-color-background-danger-strong, $kui-color-background-danger-strong)));
@@ -346,27 +346,27 @@ export default {
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) !important; // token value not 1:1
+      background-color: var(--grey-300, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) !important;
       color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
     }
   }
 
   &.creation {
-    background-color: var(--KButtonCreationBase, var(--green-500, color(green-500))); // token needed
+    background-color: var(--KButtonCreationBase, var(--green-500, $tmp-color-green-500));
     color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
     &:hover:not(:disabled) {
-      background-color: var(--KButtonCreationHover, rgba(color(green-600), .85)); // token needed
+      background-color: var(--KButtonCreationHover, rgba($tmp-color-green-600, .85));
     }
     &:active {
-      background-color: var(--KButtonCreationActive, var(--green-600, color(green-600))); // token needed
+      background-color: var(--KButtonCreationActive, var(--green-600, $tmp-color-green-600));
     }
     &:focus {
-      @include boxShadow(var(--KButtonCreationBase, var(--green-600, color(green-600)))); // token needed
+      @include boxShadow(var(--KButtonCreationBase, var(--green-600, $tmp-color-green-600)));
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) !important; // token value not 1:1
-      color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important; // token value
+      background-color: var(--grey-300, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) !important;
+      color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
     }
   }
 
@@ -376,11 +376,11 @@ export default {
     color: var(--KButtonOutlineColor, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
     outline-style: inherit;
     &:hover:not(:disabled) {
-      border-color: var(--KButtonOutlineHoverBorder, var(--kui-color-border-primary, $kui-color-border-primary)); // token value not 1:1, old token removed
+      border-color: var(--KButtonOutlineHoverBorder, var(--kui-color-border-primary, $kui-color-border-primary));
     }
     &:active {
       background-color: var(--KButtonOutlineActive, var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest)));
-      border-color: var(--KButtonOutlineActiveBorder, var(--kui-color-border-primary, $kui-color-border-primary)); // token value not 1:1, old token removed
+      border-color: var(--KButtonOutlineActiveBorder, var(--kui-color-border-primary, $kui-color-border-primary));
     }
     &:focus {
       @include boxShadow(var(--KButtonOutlineBorder, var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary))));
@@ -408,9 +408,9 @@ export default {
     &:focus-visible,
     &:focus-visible:disabled {
       border-radius: unset;
-      outline: auto 1px; // token needed for outline width?
-      outline: -webkit-focus-ring-color auto 1px; // token needed for outline width?
-      outline-offset: 3px; // token needed?
+      outline: auto 1px;
+      outline: -webkit-focus-ring-color auto 1px;
+      outline-offset: 3px;
       text-decoration: none;
       transition: none;
     }
@@ -423,7 +423,7 @@ export default {
 
   &.btn-link-danger {
     background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
-    color: var(--KButtonLinkDanger, var(--red-500, var(--kui-color-text-danger, $kui-color-text-danger))); // token value not 1:1
+    color: var(--KButtonLinkDanger, var(--red-500, var(--kui-color-text-danger, $kui-color-text-danger)));
     &:hover:not(:disabled) {
       text-decoration: underline;
     }
@@ -433,7 +433,7 @@ export default {
   }
 
   &.rounded {
-    border-radius: 100px; // token needed
+    border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
   }
 }
 </style>
