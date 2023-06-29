@@ -4,6 +4,7 @@
     "Vue.vscode-typescript-vue-plugin",
     "dbaeumer.vscode-eslint",
     "stylelint.vscode-stylelint",
-    "vunguyentuan.vscode-css-variables"
+    "vunguyentuan.vscode-css-variables",
+    "mrmlnc.vscode-scss"
   ],
 }

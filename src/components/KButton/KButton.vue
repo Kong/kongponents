@@ -71,9 +71,9 @@ import { KUI_COLOR_TEXT_NEUTRAL_WEAK, KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_PRI
 
 const props = defineProps({
   /**
-      * Base styling of the button
-      * One of ['primary', 'secondary', 'danger', 'creation', 'outline', 'btn-link', 'btn-link-danger', 'action-active']
-      */
+    * Base styling of the button
+    * One of ['primary', 'secondary', 'danger', 'creation', 'outline', 'btn-link', 'btn-link-danger', 'action-active']
+    */
   appearance: {
     type: String as PropType<ButtonAppearance>,
     default: 'outline',
@@ -82,9 +82,9 @@ const props = defineProps({
     },
   },
   /**
-      * Size variations
-      * One of ['small', 'medium', 'large' ]
-      */
+    * Size variations
+    * One of ['small', 'medium', 'large' ]
+    */
   size: {
     type: String as PropType<ButtonSize>,
     default: 'medium',
@@ -93,9 +93,8 @@ const props = defineProps({
     },
   },
   /**
-     * Route object or path. If object will render <router-link>, if string
-     will render <a>
-     */
+    * Route object or path. If object will render <router-link>, if string will render <a>
+    */
   to: {
     type: [Object, String],
     default: null,
@@ -216,7 +215,7 @@ export default {
   font-size: var(--KButtonFontSize, var(--type-md, var(--kui-font-size-30, $kui-font-size-30)));
   font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
   gap: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
-  line-height: var(--kui-line-height-30, $kui-line-height-30);
+  line-height: var(--kui-line-height-30, $kui-line-height-30); // token value change: 1.25 -> 20px
   padding: var(--KButtonPaddingY, var(--spacing-sm, var(--kui-space-50, $kui-space-50))) var(--KButtonPaddingX, var(--spacing-lg, var(--kui-space-80, $kui-space-80)));
   position: relative;
   // Remove tap color highlight on mobile Safari
@@ -298,18 +297,18 @@ export default {
     background-color: var(--KButtonSecondaryBase, var(--blue-200, var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker)));
     color: var(--KButtonSecondaryColor, var(--blue-600, var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger)));
     &:hover:not(:disabled) {
-      background-color: var(--KButtonSecondaryHover, var(--blue-300, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak))); // token value breaking change
+      background-color: var(--KButtonSecondaryHover, var(--blue-300, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak))); // token value not 1:1
     }
     &:active {
-      background-color: var(--KButtonSecondaryActive, var(--blue-300, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak))); // token value breaking change
+      background-color: var(--KButtonSecondaryActive, var(--blue-300, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak))); // token value not 1:1
     }
     &:focus {
-      @include boxShadow(var(--KButtonSecondaryBase, var(--blue-300, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak)))); // token value breaking change
+      @include boxShadow(var(--KButtonSecondaryBase, var(--blue-300, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak)))); // token value not 1:1
     }
     &:disabled,
     &[disabled] {
       // Use !important to override conflicting styles
-      background-color: var(--grey-300, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) !important; // token value breaking change
+      background-color: var(--grey-300, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) !important; // token value not 1:1
       color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
     }
   }
@@ -324,20 +323,20 @@ export default {
       background-color: var(--KButtonPrimaryActive, var(--kui-color-background-primary-stronger, $kui-color-background-primary-stronger));
     }
     &:focus {
-      @include boxShadow(var(--KButtonPrimaryBase, var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary)))); // token value breaking change
+      @include boxShadow(var(--KButtonPrimaryBase, var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary)))); // token value not 1:1
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) !important; // token value breaking change
-      color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important; // token value
+      background-color: var(--grey-300, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) !important; // token value not 1:1
+      color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
     }
   }
 
   &.danger {
-    background-color: var(--KButtonDangerBase, var(--red-500, var(--kui-color-background-danger, $kui-color-background-danger))); // token value breaking change
+    background-color: var(--KButtonDangerBase, var(--red-500, var(--kui-color-background-danger, $kui-color-background-danger))); // token value not 1:1, visual change
     color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
     &:hover:not(:disabled) {
-      background-color: var(--KButtonDangerHover, var(--kui-color-background-danger-strong, $kui-color-background-danger-strong)); // token value breaking change
+      background-color: var(--KButtonDangerHover, var(--kui-color-background-danger-strong, $kui-color-background-danger-strong)); // token value not 1:1, old token removed
     }
     &:active {
       background-color: var(--KButtonDangerActive, var(--red-700, var(--kui-color-background-danger-strong, $kui-color-background-danger-strong)));
@@ -347,8 +346,8 @@ export default {
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) !important; // token value breaking change
-      color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important; // token value
+      background-color: var(--grey-300, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) !important; // token value not 1:1
+      color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
     }
   }
 
@@ -366,22 +365,22 @@ export default {
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) !important; // token value breaking change
+      background-color: var(--grey-300, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) !important; // token value not 1:1
       color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important; // token value
     }
   }
 
   &.outline {
     background-color: var(--white, var(--kui-color-background, $kui-color-background));
-    border-color: var(--KButtonOutlineBorder, var(--kui-color-border-primary, $kui-color-border-primary));
+    border-color: var(--KButtonOutlineBorder, var(--kui-color-border-primary, rgba($kui-color-border-primary, .4)));
     color: var(--KButtonOutlineColor, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
     outline-style: inherit;
     &:hover:not(:disabled) {
-      border-color: var(--KButtonOutlineHoverBorder, var(--kui-color-border-primary, $kui-color-border-primary));
+      border-color: var(--KButtonOutlineHoverBorder, var(--kui-color-border-primary, $kui-color-border-primary)); // token value not 1:1, old token removed
     }
     &:active {
       background-color: var(--KButtonOutlineActive, var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest)));
-      border-color: var(--KButtonOutlineActiveBorder, var(--kui-color-border-primary, $kui-color-border-primary));
+      border-color: var(--KButtonOutlineActiveBorder, var(--kui-color-border-primary, $kui-color-border-primary)); // token value not 1:1, old token removed
     }
     &:focus {
       @include boxShadow(var(--KButtonOutlineBorder, var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary))));
@@ -389,7 +388,7 @@ export default {
     &:disabled,
     &[disabled] {
       border-color: var(--grey-400, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)) !important;
-      color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important; // token value
+      color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
     }
   }
 
@@ -418,13 +417,13 @@ export default {
 
     &:disabled,
     &[disabled] {
-      color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important; // token value
+      color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
     }
   }
 
   &.btn-link-danger {
     background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
-    color: var(--KButtonLinkDanger, var(--red-500, var(--kui-color-text-danger, $kui-color-text-danger))); // token value breaking change
+    color: var(--KButtonLinkDanger, var(--red-500, var(--kui-color-text-danger, $kui-color-text-danger))); // token value not 1:1
     &:hover:not(:disabled) {
       text-decoration: underline;
     }
