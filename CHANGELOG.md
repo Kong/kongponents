@@ -1,3 +1,10 @@
+# [8.84.0](https://github.com/Kong/kongponents/compare/v8.83.5...v8.84.0) (2023-06-30)
+
+
+### Features
+
+* **KTreeList, KTruncate, KViewSwitcher:** add types [KHCP-6974] ([#1453](https://github.com/Kong/kongponents/issues/1453)) ([9d8d460](https://github.com/Kong/kongponents/commit/9d8d46023f86801311159fa1f0fca4709ad1fa80))
+
 ## [8.83.5](https://github.com/Kong/kongponents/compare/v8.83.4...v8.83.5) (2023-06-28)
 
 
