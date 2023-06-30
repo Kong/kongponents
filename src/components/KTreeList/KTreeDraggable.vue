@@ -86,7 +86,7 @@ import { computed, ref, watch, onMounted, PropType } from 'vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KTreeItem from '@/components/KTreeList/KTreeItem.vue'
-import type { TreeListItem } from './KTreeItem.vue'
+import type { TreeListItem, ChangeEvent, ChildChangeEvent } from '@/types'
 
 /**
  * Recursive check to get the maximum depth of an object.
@@ -98,22 +98,6 @@ export const getMaximumDepth = ({ children = [] }): number => {
 </script>
 
 <script setup lang="ts">
-export interface ChangeEvent {
-  items: TreeListItem[],
-  target: TreeListItem
-}
-
-export interface ChildChangeEvent {
-  parentId: string,
-  children: TreeListItem[],
-  target: TreeListItem
-}
-
-export interface DropEvent {
-  item: TreeListItem,
-  parent: TreeListItem
-}
-
 const props = defineProps({
   items: {
     type: Array as PropType<TreeListItem[]>,
@@ -161,7 +145,7 @@ const draggableAttrs = {
   'drag-class': 'k-tree-item-grabbing',
   class: 'child-drop-zone',
 }
-const dragging = ref(false)
+const dragging = ref<boolean>(false)
 // using these vars to trick the TS compiler and avoid errors about circular refs in the <template>
 const itemIcon = 'item-icon'
 const itemLabel = 'item-label'
@@ -202,7 +186,7 @@ const handleChildChangeEvent = (item: any): void => {
   emit('child-change', item)
 }
 
-const handleSelectionEvent = (item: TreeListItem) => {
+const handleSelectionEvent = (item: TreeListItem): void => {
   emit('selected', item)
 }
 
@@ -252,7 +236,7 @@ const onStopDrag = (): void => {
 }
 
 // override cursor when dragging
-const setDragCursor = (value: boolean) => {
+const setDragCursor = (value: boolean): void => {
   // must be on html element to keep style applied no matter where they drag
   const html = document?.getElementsByTagName('html').item(0)
 

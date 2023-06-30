@@ -37,6 +37,7 @@
 <script lang="ts">
 import { computed, PropType, useSlots } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
+import { TreeListItem } from '@/types'
 
 export const itemsHaveRequiredProps = (items: TreeListItem[]): boolean => {
   return items.every(i => i.name !== undefined && i.id !== undefined && (!i.children?.length || itemsHaveRequiredProps(i.children)))
@@ -44,14 +45,6 @@ export const itemsHaveRequiredProps = (items: TreeListItem[]): boolean => {
 </script>
 
 <script lang="ts" setup>
-export interface TreeListItem {
-  name: string
-  id: string
-  icon?: string
-  selected?: boolean
-  children?: TreeListItem[]
-}
-
 const props = defineProps({
   item: {
     type: Object as PropType<TreeListItem>,
@@ -70,10 +63,10 @@ const emit = defineEmits<{
 
 const slots = useSlots()
 
-const hasIcon = computed(() => props.item.icon !== 'none' || slots['item-icon'])
-const itemIcon = computed(() => props.item.icon ? props.item.icon : 'documentList')
+const hasIcon = computed((): boolean => props.item.icon !== 'none' || !!slots['item-icon'])
+const itemIcon = computed((): string => props.item.icon ? props.item.icon : 'documentList')
 
-const iconSecondaryColor = () => {
+const iconSecondaryColor = (): string | undefined => {
   if (itemIcon.value === 'documentList') {
     return props.item.selected ? 'var(--KTreeListItemSelectedBorder, var(--teal-200))' : 'var(--KTreeListItemUnselectedBorder, var(--grey-200))'
   }
