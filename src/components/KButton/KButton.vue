@@ -213,7 +213,7 @@ export default {
   display: inline-flex;
   font-family: var(--font-family-sans, var(--kui-font-family-text, $kui-font-family-text));
   font-size: var(--KButtonFontSize, var(--type-md, var(--kui-font-size-30, $kui-font-size-30)));
-  font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
+  font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
   gap: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
   line-height: var(--kui-line-height-30, $kui-line-height-30);
   padding: var(--KButtonPaddingY, var(--spacing-sm, var(--kui-space-50, $kui-space-50))) var(--KButtonPaddingX, var(--spacing-lg, var(--kui-space-80, $kui-space-80)));
