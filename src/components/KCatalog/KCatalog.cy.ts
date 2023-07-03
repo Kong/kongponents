@@ -254,7 +254,7 @@ describe('KCatalog', () => {
     it('triggers the internal search and revalidate after clearing the search input', () => {
       const fns = {
         fetcher: ({ query }: { query: string }) => {
-          return { data: [{ query }] }
+          return { data: [{ query }], total: 1 }
         },
       }
 
