@@ -85,14 +85,14 @@ Use this prop in conjunction with the `showCaret` prop
 Use this prop to customize the color of the caret
 
 <KButton
-  caret-color="var(--blue-300)"
+  caret-color="lightblue"
   show-caret
 >
   Select Item
 </KButton>
 
 ```html
-<KButton caret-color="var(--blue-300)" show-caret>
+<KButton caret-color="lightblue" show-caret>
   Select Item
 </KButton>
 ```

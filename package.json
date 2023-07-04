@@ -74,6 +74,7 @@
     "@cypress/vite-dev-server": "^5.0.2",
     "@digitalroute/cz-conventional-changelog-for-jira": "^7.3.1",
     "@evilmartians/lefthook": "^1.4.1",
+    "@kong/design-tokens": "^1.2.0",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
     "@types/inquirer": "^8.2.3",
