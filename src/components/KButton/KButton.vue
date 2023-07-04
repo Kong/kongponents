@@ -292,7 +292,7 @@ export default {
     transition: $tmp-animation-timing-2 ease;
   }
 
-  /* Apperance Variations */
+  /* Appearance Variations */
   &.secondary {
     background-color: var(--KButtonSecondaryBase, var(--blue-200, var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker)));
     color: var(--KButtonSecondaryColor, var(--blue-600, var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger)));
