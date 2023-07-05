@@ -27,6 +27,13 @@ export default defineConfig({
   },
   css: {
     devSourcemap: true,
+    preprocessorOptions: {
+      scss: {
+        // Inject the @kong/design-tokens SCSS variables to make them available for all components.
+        // This is not needed in host applications.
+        additionalData: '@import "@kong/design-tokens/tokens/scss/variables";',
+      },
+    },
   },
   build: {
     lib: {
