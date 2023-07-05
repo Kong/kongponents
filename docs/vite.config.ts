@@ -23,4 +23,13 @@ export default defineConfig({
       'date-fns-tz': path.resolve(__dirname, '../node_modules/date-fns-tz/esm'),
     },
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // Inject the @kong/design-tokens SCSS variables since our docs site imports Kongponents locally (i.e. not compiled)
+        // This is not needed in host applications.
+        additionalData: '@import "@kong/design-tokens/tokens/scss/variables";',
+      },
+    },
+  },
 })
