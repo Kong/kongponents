@@ -29,7 +29,7 @@
           >
             <KIcon
               class="selected-item-icon"
-              color="var(--blue-200)"
+              :color="item.selected ? 'var(--blue-200)' : 'var(--grey-400)'"
               hide-title
               icon="lock"
               size="14"
