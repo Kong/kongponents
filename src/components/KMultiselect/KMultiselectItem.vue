@@ -22,7 +22,7 @@
         </span>
         <span class="k-multiselect-selected-icon-container">
           <component
-            :is="item.disabledTooltipText ? 'KTooltip' : 'div'"
+            :is="item.disabledTooltipText ? 'KTooltip' : 'span'"
             v-if="item.disabled"
             :label="item.disabledTooltipText ? item.disabledTooltipText : undefined"
             placement="left"
