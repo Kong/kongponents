@@ -203,7 +203,7 @@ const emit = defineEmits<{
 
 const currPage: Ref<number> = ref(props.currentPage ? props.currentPage : 1)
 const currentPageSize: Ref<number> = ref(props.initialPageSize ? props.initialPageSize : props.pageSizes[0])
-const pageCount: Ref<number> = ref(Math.ceil(props.totalCount / currentPageSize.value))
+const pageCount = computed((): number => Math.ceil(props.totalCount / currentPageSize.value))
 const pageSizeOptions = props.pageSizes.map((size, i) => ({
   label: `${size}`,
   key: `size-${i}`,
@@ -307,7 +307,6 @@ const updatePage = (): void => {
 const updatePageSize = (event: any): void => {
   currentPageSize.value = event.value
   pageSizeText.value = currentPageSize.value + ' items per page'
-  pageCount.value = Math.ceil(props.totalCount / currentPageSize.value)
   emit('pageSizeChanged', {
     pageSize: currentPageSize.value,
     pageCount: pageCount.value,
@@ -328,6 +327,18 @@ const getPrevOffset = (): void => {
 watch(() => props.currentPage, (newVal, oldVal) => {
   if (newVal !== oldVal) {
     changePage(newVal)
+  }
+})
+
+// recalc if the total number of items changed (which changed pageCount)
+watch(pageCount, (newVal, oldVal) => {
+  if (newVal !== oldVal) {
+    pagesVisible.value = getVisiblePages(
+      currentlySelectedPage.value,
+      newVal,
+      false,
+      newVal > 5 + 2 * props.neighbors,
+    )
   }
 })
 </script>
