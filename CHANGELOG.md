@@ -1,3 +1,10 @@
+## [8.84.2](https://github.com/Kong/kongponents/compare/v8.84.1...v8.84.2) (2023-07-05)
+
+
+### Bug Fixes
+
+* design token imports ([#1501](https://github.com/Kong/kongponents/issues/1501)) ([c812e85](https://github.com/Kong/kongponents/commit/c812e852c3033d1772a711c6ca77e0e54aec9fd3))
+
 ## [8.84.1](https://github.com/Kong/kongponents/compare/v8.84.0...v8.84.1) (2023-07-04)
 
 
