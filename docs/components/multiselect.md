@@ -890,7 +890,9 @@ export default defineComponent({
       },
       {
         label: 'Lions',
-        value: 'lions'
+        value: 'lions',
+        disabled: true,
+        disabledTooltipText: 'This item is disabled and cannot be selected'
       }, {
         label: 'Tigers',
         value: 'tigers',
@@ -954,8 +956,6 @@ export default defineComponent({
         label: 'Dogs',
         value: 'dogs',
         selected: true,
-        disabled: true,
-        disabledTooltipText: 'This item is locked and cannot be removed'
       }, {
         label: 'Bunnies',
         value: 'bunnies',
@@ -982,10 +982,7 @@ export default defineComponent({
         value: 'cats'
       }, {
         label: 'Dogs',
-        value: 'dogs',
-        selected: true,
-        disabled: true,
-        disabledTooltipText: 'This item is locked and cannot be removed'
+        value: 'dogs'
       }, {
         label: 'Bunnies',
         value: 'bunnies'

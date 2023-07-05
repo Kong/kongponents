@@ -21,9 +21,10 @@
           </slot>
         </span>
         <span class="k-multiselect-selected-icon-container">
-          <KTooltip
-            v-if="item.selected && item.disabled"
-            :label="item.disabledTooltipText"
+          <component
+            :is="item.disabledTooltipText ? 'KTooltip' : 'div'"
+            v-if="item.disabled"
+            :label="item.disabledTooltipText ? item.disabledTooltipText : undefined"
             placement="left"
           >
             <KIcon
@@ -33,7 +34,7 @@
               icon="lock"
               size="14"
             />
-          </KTooltip>
+          </component>
           <KIcon
             v-else-if="item.selected"
             class="selected-item-icon"
