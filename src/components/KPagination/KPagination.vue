@@ -127,7 +127,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, Ref, computed, ComputedRef, watch, PropType } from 'vue'
+import { ref, Ref, computed, watch, PropType } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KSelect from '@/components/KSelect/KSelect.vue'
 import PaginationOffset from './PaginationOffset.vue'
@@ -203,7 +203,7 @@ const emit = defineEmits<{
 
 const currPage: Ref<number> = ref(props.currentPage ? props.currentPage : 1)
 const currentPageSize: Ref<number> = ref(props.initialPageSize ? props.initialPageSize : props.pageSizes[0])
-const pageCount: ComputedRef<number> = computed((): number => Math.ceil(props.totalCount / currentPageSize.value))
+const pageCount = computed((): number => Math.ceil(props.totalCount / currentPageSize.value))
 const pageSizeOptions = props.pageSizes.map((size, i) => ({
   label: `${size}`,
   key: `size-${i}`,
