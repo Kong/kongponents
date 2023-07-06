@@ -1,3 +1,10 @@
+## [8.84.6](https://github.com/Kong/kongponents/compare/v8.84.5...v8.84.6) (2023-07-06)
+
+
+### Bug Fixes
+
+* **scss:** autocompletion ([#1505](https://github.com/Kong/kongponents/issues/1505)) ([47f58ff](https://github.com/Kong/kongponents/commit/47f58ffc1bedf46235889f5d7d89a5445209cd84))
+
 ## [8.84.5](https://github.com/Kong/kongponents/compare/v8.84.4...v8.84.5) (2023-07-06)
 
 
