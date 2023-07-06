@@ -13,6 +13,7 @@
       { 'has-bottom-border': hasBottomBorder },
       { 'is-centered': isCentered },
       { 'is-fixed': isFixed },
+      { 'is-alert': type === 'alert' },
       { 'is-banner': type === 'banner' }
     ]"
     role="alert"
@@ -29,7 +30,6 @@
       v-if="icon || $slots.icon"
       class="k-alert-icon-container"
       :class="{
-        'mr-3': type !== 'banner',
         'k-alert-icon-container-large': size === 'large'
       }"
     >
@@ -52,7 +52,7 @@
     >
       <div
         v-if="title || $slots.title"
-        class="k-alert-title bold-600"
+        class="k-alert-title"
       >
         <slot name="title">
           {{ title }}
@@ -330,6 +330,10 @@ export const appearances: AlertAppearanceRecord = {
     }
   }
 
+  .k-alert-title {
+    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+  }
+
   .k-alert-description-text {
     color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
     display: block;
@@ -446,6 +450,12 @@ export const appearances: AlertAppearanceRecord = {
   }
 
   // Types - MUST FOLLOW APPEARANCES
+  &.is-alert {
+    .k-alert-icon-container {
+      margin-right: var(--kui-space-50, $kui-space-50);
+    }
+  }
+
   &.is-banner {
     background-color: var(--white, var(--kui-color-background, $kui-color-background));
     color: var(--grey-600, var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest));
