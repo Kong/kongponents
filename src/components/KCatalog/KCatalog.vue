@@ -191,7 +191,17 @@
 <script setup lang="ts">
 import { PropType, ref, computed, onMounted, watch, useSlots } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
-import { CatalogItem, CatalogPreferences, SwrvState, SwrvStateData, CardSize, CardSizeArray, CatalogState } from '@/types'
+import {
+  CatalogItem,
+  CatalogPreferences,
+  SwrvState,
+  SwrvStateData,
+  CardSize,
+  CardSizeArray,
+  CatalogState,
+  PageChangedData,
+  PageSizeChangedData,
+} from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
@@ -466,7 +476,7 @@ const fetchData = async () => {
   })
 
   data.value = res.data as CatalogItem[]
-  total.value = props.paginationTotalItems || res.total || res.data.length
+  total.value = props.paginationTotalItems || res.total || res.data?.length
 
   isInitialFetch.value = false
 
@@ -509,7 +519,8 @@ const catalogFetcherCacheKey = computed((): string => {
 })
 
 const query = ref('')
-const { debouncedFn: debouncedSearch } = useDebounce((q: string) => { query.value = q }, 350)
+const { debouncedFn: debouncedSearch, generateDebouncedFn: generateDebouncedSearch } = useDebounce((q: string) => { query.value = q }, 350)
+const search = generateDebouncedSearch(0) // generate a debounced function with zero delay (immediate)
 
 // ALL fetching is done through this useRequest / revalidate
 // don't fire until catalog FetcherCacheKey is set
@@ -527,11 +538,11 @@ const stateData = computed((): SwrvStateData => ({
 }))
 const catalogState = computed((): CatalogState => isCatalogLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success')
 
-const pageChangeHandler = ({ page: newPage }: Record<string, number>): void => {
+const pageChangeHandler = ({ page: newPage }: PageChangedData): void => {
   page.value = newPage
 }
 
-const pageSizeChangeHandler = ({ pageSize: newPageSize }: Record<string, number>): void => {
+const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangedData): void => {
   pageSize.value = newPageSize
   page.value = 1
 }
@@ -573,7 +584,12 @@ watch(() => props.searchInput, (newValue: string) => {
   if (page.value !== 1) {
     page.value = 1
   }
-  debouncedSearch(newValue)
+
+  if (newValue === '') {
+    search(newValue)
+  } else {
+    debouncedSearch(newValue)
+  }
 }, { immediate: true })
 
 const isRevalidating = ref<boolean>(false)
