@@ -305,7 +305,7 @@ export const appearances: AlertAppearanceRecord = {
   border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
   display: flex;
   overflow-wrap: anywhere;
-  padding: var(--kui-space-50, $kui-space-50); // token value change: 14 px -> 12 px
+  padding: var(--kui-space-50, $kui-space-50);
   position: relative;
   word-break: break-word; // Word-wrapping in Safari
 
@@ -337,7 +337,7 @@ export const appearances: AlertAppearanceRecord = {
   .k-alert-description-text {
     color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
     display: block;
-    font-size: var(--kui-font-size-20, $kui-font-size-20); // token value change: 13 px -> 12 px
+    font-size: var(--kui-font-size-20, $kui-font-size-20);
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
     line-height: var(--kui-line-height-40, $kui-line-height-40);
     padding-top: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
@@ -405,7 +405,7 @@ export const appearances: AlertAppearanceRecord = {
   }
 
   &.has-left-border {
-    border-left: var(--kui-border-width-30, $kui-border-width-30) solid; // token value change: 3px -> 4px
+    border-left: var(--kui-border-width-30, $kui-border-width-30) solid;
     border-radius: var(--kui-border-radius-0, $kui-border-radius-0);
   }
 
@@ -416,11 +416,11 @@ export const appearances: AlertAppearanceRecord = {
 
   &.has-top-border {
     border-radius: var(--kui-border-radius-0, $kui-border-radius-0);
-    border-top: var(--kui-border-width-30, $kui-border-width-30) solid; // token value change: 3px -> 4px
+    border-top: var(--kui-border-width-30, $kui-border-width-30) solid;
   }
 
   &.has-bottom-border {
-    border-bottom: var(--kui-border-width-30, $kui-border-width-30) solid; // token value change: 3px -> 4px
+    border-bottom: var(--kui-border-width-30, $kui-border-width-30) solid;
     border-radius: var(--kui-border-radius-0, $kui-border-radius-0);
   }
 
@@ -432,9 +432,9 @@ export const appearances: AlertAppearanceRecord = {
   }
 
   &.success {
-    background-color: var(--KAlertSuccessBackground, var(--green-100, $tmp-color-green-100)); // token needed
-    border-color: var(--KAlertSuccessBorder, var(--green-200, $tmp-color-green-200)); // token needed
-    color: var(--KAlertSuccessColor, var(--green-700, $tmp-color-green-700)); // token needed
+    background-color: var(--KAlertSuccessBackground, var(--green-100, $tmp-color-green-100));
+    border-color: var(--KAlertSuccessBorder, var(--green-200, $tmp-color-green-200));
+    color: var(--KAlertSuccessColor, var(--green-700, $tmp-color-green-700));
   }
 
   &.danger {
@@ -444,9 +444,9 @@ export const appearances: AlertAppearanceRecord = {
   }
 
   &.warning {
-    background-color: var(--KAlertWarningBackground, var(--yellow-100, $tmp-color-yellow-100)); // token needed
-    border-color: var(--KAlertWarningBorder, var(--yellow-200, $tmp-color-yellow-200)); // token needed
-    color: var(--KAlertWarningColor, var(--yellow-600, $tmp-color-yellow-600)); // token needed
+    background-color: var(--KAlertWarningBackground, var(--yellow-100, $tmp-color-yellow-100));
+    border-color: var(--KAlertWarningBorder, var(--yellow-200, $tmp-color-yellow-200));
+    color: var(--KAlertWarningColor, var(--yellow-600, $tmp-color-yellow-600));
   }
 
   // Types - MUST FOLLOW APPEARANCES
@@ -473,11 +473,11 @@ export const appearances: AlertAppearanceRecord = {
       }
 
       &.success {
-        background-color: var(--green-400, $tmp-color-green-400); // token needed
+        background-color: var(--green-400, $tmp-color-green-400);
       }
 
       &.warning {
-        background-color: var(--yellow-400, $tmp-color-yellow-400); // token needed
+        background-color: var(--yellow-400, $tmp-color-yellow-400);
       }
 
       &.danger {
@@ -515,7 +515,7 @@ export const appearances: AlertAppearanceRecord = {
     }
 
     &.success svg {
-      stroke: var(--KAlertSuccessColor, var(--green-600, $tmp-color-green-600)); // token needed
+      stroke: var(--KAlertSuccessColor, var(--green-600, $tmp-color-green-600));
     }
 
     &.danger svg {
@@ -523,16 +523,16 @@ export const appearances: AlertAppearanceRecord = {
     }
 
     &.warning svg {
-      stroke: var(--KAlertWarningColor, var(--yellow-500, $tmp-color-yellow-500)); // token needed
+      stroke: var(--KAlertWarningColor, var(--yellow-500, $tmp-color-yellow-500));
     }
   }
 
   .k-alert-action {
     & button {
-      font-size: var(--kui-font-size-20, $kui-font-size-20); // token value change: 13px -> 12px
+      font-size: var(--kui-font-size-20, $kui-font-size-20);
       font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
       height: 30px;
-      line-height: var(--kui-line-height-10, $kui-line-height-10); // token value change: 13px -> 12px
+      line-height: var(--kui-line-height-10, $kui-line-height-10);
 
       &:not(:first-of-type) {
         margin-left: var(--spacing-sm, var(--kui-space-50, $kui-space-50));
@@ -556,35 +556,35 @@ export const appearances: AlertAppearanceRecord = {
     }
 
     &.warning button.primary {
-      --KButtonPrimaryBase: var(--yellow-500, $tmp-color-yellow-500); // token needed
-      --KButtonPrimaryHover: var(--yellow-200, $$tmp-color-yellow-200); // token needed
-      background-color: var(--yellow-100, $tmp-color-yellow-100); // token needed
-      color: var(--yellow-500, $tmp-color-yellow-500); // token needed
+      --KButtonPrimaryBase: var(--yellow-500, $tmp-color-yellow-500);
+      --KButtonPrimaryHover: var(--yellow-200, $$tmp-color-yellow-200);
+      background-color: var(--yellow-100, $tmp-color-yellow-100);
+      color: var(--yellow-500, $tmp-color-yellow-500);
     }
 
     &.warning button.outline {
-      --KButtonOutlineBorder: var(--yellow-500, $tmp-color-yellow-500); // token needed
-      --KButtonOutlineHoverBorder: var(--yellow-500, $tmp-color-yellow-500); // token needed
-      --KButtonOutlineActive: var(--yellow-100, $tmp-color-yellow-100); // token needed
-      --KButtonOutlineActiveBorder: var(--yellow-500, $tmp-color-yellow-500); // token needed
-      border: 1px solid var(--yellow-300, $tmp-color-yellow-300); // token needed
-      color: var(--yellow-500, $tmp-color-yellow-500); // token needed
+      --KButtonOutlineBorder: var(--yellow-500, $tmp-color-yellow-500);
+      --KButtonOutlineHoverBorder: var(--yellow-500, $tmp-color-yellow-500);
+      --KButtonOutlineActive: var(--yellow-100, $tmp-color-yellow-100);
+      --KButtonOutlineActiveBorder: var(--yellow-500, $tmp-color-yellow-500);
+      border: 1px solid var(--yellow-300, $tmp-color-yellow-300);
+      color: var(--yellow-500, $tmp-color-yellow-500);
     }
 
     &.success button.primary {
-      --KButtonPrimaryBase: var(--green-600, $tmp-color-green-600); // token needed
-      --KButtonPrimaryHover: var(--green-200, $tmp-color-green-200); // token needed
-      background-color: var(--green-100, $tmp-color-green-100); // token needed
-      color: var(--green-600, $tmp-color-green-600); // token needed
+      --KButtonPrimaryBase: var(--green-600, $tmp-color-green-600);
+      --KButtonPrimaryHover: var(--green-200, $tmp-color-green-200);
+      background-color: var(--green-100, $tmp-color-green-100);
+      color: var(--green-600, $tmp-color-green-600);
     }
 
     &.success button.outline {
-      --KButtonOutlineBorder: var(--green-600, $tmp-color-green-600); // token needed
-      --KButtonOutlineHoverBorder: var(--green-600, $tmp-color-green-600); // token needed
-      --KButtonOutlineActive: var(--green-100, $tmp-color-green-100); // token needed
-      --KButtonOutlineActiveBorder: var(--green-600, $tmp-color-green-600); // token needed
-      border: 1px solid var(--green-400, $tmp-color-green-400); // token needed
-      color: var(--green-600, $tmp-color-green-600); // token needed
+      --KButtonOutlineBorder: var(--green-600, $tmp-color-green-600);
+      --KButtonOutlineHoverBorder: var(--green-600, $tmp-color-green-600);
+      --KButtonOutlineActive: var(--green-100, $tmp-color-green-100);
+      --KButtonOutlineActiveBorder: var(--green-600, $tmp-color-green-600);
+      border: 1px solid var(--green-400, $tmp-color-green-400);
+      color: var(--green-600, $tmp-color-green-600);
     }
 
     &.danger button.primary {
