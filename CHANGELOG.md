@@ -1,3 +1,10 @@
+## [8.84.7](https://github.com/Kong/kongponents/compare/v8.84.6...v8.84.7) (2023-07-06)
+
+
+### Bug Fixes
+
+* **kcatalog:** flakey test [khcp-7022] ([#1495](https://github.com/Kong/kongponents/issues/1495)) ([8c0babd](https://github.com/Kong/kongponents/commit/8c0babda6b2fea19ff45b79802c41198298cd88d))
+
 ## [8.84.6](https://github.com/Kong/kongponents/compare/v8.84.5...v8.84.6) (2023-07-06)
 
 
