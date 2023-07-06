@@ -1,3 +1,10 @@
+## [8.84.4](https://github.com/Kong/kongponents/compare/v8.84.3...v8.84.4) (2023-07-06)
+
+
+### Bug Fixes
+
+* **kmultiselect:** always show lock [khcp-7963] ([#1503](https://github.com/Kong/kongponents/issues/1503)) ([13c4aac](https://github.com/Kong/kongponents/commit/13c4aac4240a6f8541cf19e5f5c5a7309af63c27))
+
 ## [8.84.3](https://github.com/Kong/kongponents/compare/v8.84.2...v8.84.3) (2023-07-05)
 
 
