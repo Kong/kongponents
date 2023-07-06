@@ -339,6 +339,9 @@ watch(pageCount, (newVal, oldVal) => {
       false,
       newVal > 5 + 2 * props.neighbors,
     )
+
+    forwardDisabled.value = currPage.value === newVal
+    lastDetached.value = newVal > 5 + 2 * props.neighbors
   }
 })
 </script>
