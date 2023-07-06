@@ -1,3 +1,10 @@
+## [8.84.5](https://github.com/Kong/kongponents/compare/v8.84.4...v8.84.5) (2023-07-06)
+
+
+### Bug Fixes
+
+* **kpagination:** cache issue [khcp-7908] ([#1504](https://github.com/Kong/kongponents/issues/1504)) ([4b3a49e](https://github.com/Kong/kongponents/commit/4b3a49efdbf60bcc6dcc54259357b840269efe7a))
+
 ## [8.84.4](https://github.com/Kong/kongponents/compare/v8.84.3...v8.84.4) (2023-07-06)
 
 
