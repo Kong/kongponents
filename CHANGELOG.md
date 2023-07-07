@@ -1,3 +1,10 @@
+# [8.85.0](https://github.com/Kong/kongponents/compare/v8.84.8...v8.85.0) (2023-07-07)
+
+
+### Features
+
+* **kalert:** introduce design tokens [KHCP-7693] ([#1506](https://github.com/Kong/kongponents/issues/1506)) ([33e8b8c](https://github.com/Kong/kongponents/commit/33e8b8c86da4853e095a6f7af7fad0199a08ca00))
+
 ## [8.84.8](https://github.com/Kong/kongponents/compare/v8.84.7...v8.84.8) (2023-07-07)
 
 
