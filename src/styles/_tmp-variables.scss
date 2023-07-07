@@ -1,7 +1,20 @@
 // This file includes temporary variables that may (or may not) become design tokens in the future
 // These variables are not exported by Kongponents and are only used locally
 
+// Animation timing
 $tmp-animation-timing-2: 0.2s;
 
+// Colors
+$tmp-color-green-100: #e8f8f5;
+$tmp-color-green-200: #c0f2d5;
+$tmp-color-green-400: #42d782;
 $tmp-color-green-500: #07a88d;
 $tmp-color-green-600: #008871;
+$tmp-color-green-700: #13755e;
+
+$tmp-color-yellow-100: #fff3d8;
+$tmp-color-yellow-200: #ffe6ba;
+$tmp-color-yellow-300: #ffd68c;
+$tmp-color-yellow-400: #fabe5f;
+$tmp-color-yellow-500: #c67c06;
+$tmp-color-yellow-600: #a05604;

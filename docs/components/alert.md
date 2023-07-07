@@ -456,7 +456,7 @@ Descriptive text to be displayed below the main alert content.
     alert-message="You’ve had 12 new mentions since you last logged in"
     description="across 3 services"
     icon="support"
-    icon-color="var(--purple-400)"
+    icon-color="darkorchid"
     type="banner"
     dismiss-type="button"
     size="large"
@@ -476,7 +476,7 @@ Descriptive text to be displayed below the main alert content.
   dismiss-type="button"
   type="banner"
   icon="support"
-  icon-color="var(--purple-400)"
+  icon-color="darkorchid"
   size="large"
   @closed="isShowing = false"
 >
@@ -499,7 +499,7 @@ You can specify a title for the alert in situations where the message is more wo
     @closed="extraMsg2 = false"
   >
     <template #icon>
-      <KIcon icon="errorFilled" color="var(--red-500)" size="16" />
+      <KIcon icon="errorFilled" color="salmon" size="16" />
     </template>
   </KAlert>
 </div>
@@ -513,7 +513,7 @@ You can specify a title for the alert in situations where the message is more wo
   @closed="isShowing = false"
 >
   <template #icon>
-    <KIcon icon="errorFilled" color="var(--red-500)" size="16" />
+    <KIcon icon="errorFilled" color="salmon" size="16" />
   </template>
 </KAlert>
 ```
@@ -609,7 +609,7 @@ Fixes KAlert to the top of the container.
     @closed="extraBtnSlot = false"
   >
     <template #icon>
-      <KIcon icon="lock" size="20" color="var(--yellow-400)" />
+      <KIcon icon="lock" size="20" color="green" />
     </template>
     <template #title>
       Look, Mah!
@@ -636,7 +636,7 @@ Fixes KAlert to the top of the container.
   @closed="isShowing = false"
 >
   <template #icon>
-    <KIcon icon="lock" size="20" color="var(--yellow-400)" />
+    <KIcon icon="lock" size="20" color="green" />
   </template>
   <template #title>
     Look, Mah!
