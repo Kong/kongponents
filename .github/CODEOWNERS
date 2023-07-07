@@ -31,5 +31,5 @@ yarn.lock @kongponents-bot @Kong/team-core-ui @adamdehaven @jillztom @kaiarrowoo
 
 # Design Tokens Implemented Kongponents
 # This is temporary codeowners until we introduce design tokens practices to the whole team
-/src/components/KButton @portikM @adamdehaven @jillztom
-/src/components/KAlert @portikM @adamdehaven @jillztom
+/src/components/KButton @adamdehaven @jillztom @portikM
+/src/components/KAlert @adamdehaven @jillztom @portikM
