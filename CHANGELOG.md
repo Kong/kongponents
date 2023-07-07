@@ -1,3 +1,10 @@
+## [8.84.8](https://github.com/Kong/kongponents/compare/v8.84.7...v8.84.8) (2023-07-07)
+
+
+### Bug Fixes
+
+* **KTruncate, KMultiselect:** add fix for ResizeObserver [KHCP-7734] ([#1508](https://github.com/Kong/kongponents/issues/1508)) ([ea47855](https://github.com/Kong/kongponents/commit/ea47855f7441fb224849df9dcd61c56b37ea0037))
+
 ## [8.84.7](https://github.com/Kong/kongponents/compare/v8.84.6...v8.84.7) (2023-07-06)
 
 
