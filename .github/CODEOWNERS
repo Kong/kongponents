@@ -23,13 +23,13 @@
 /.gitignore @adamdehaven @jillztom @kaiarrowood
 /vite.config.ts @adamdehaven @jillztom
 
+# Design Tokens Implemented Kongponents
+# This is temporary codeowners until we introduce design tokens practices to the whole team
+/src/components/KAlert @adamdehaven @jillztom @portikM
+/src/components/KButton @adamdehaven @jillztom @portikM
+
 # Dependabot approvals
 # Allow Kongponents BOT to approve dependabot updates
 # These rules MUST remain at the bottom as the last entry
 package.json @kongponents-bot @Kong/team-core-ui @adamdehaven @jillztom @kaiarrowood
 yarn.lock @kongponents-bot @Kong/team-core-ui @adamdehaven @jillztom @kaiarrowood
-
-# Design Tokens Implemented Kongponents
-# This is temporary codeowners until we introduce design tokens practices to the whole team
-/src/components/KButton @adamdehaven @jillztom @portikM
-/src/components/KAlert @adamdehaven @jillztom @portikM
