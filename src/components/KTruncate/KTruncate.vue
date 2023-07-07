@@ -227,7 +227,15 @@ const widthStyle = computed((): Record<string, string> => {
 })
 
 onMounted(() => {
-  resizeObserver.value = new ResizeObserver(setWrapperHeight).observe(kTruncateContainer.value as HTMLDivElement)
+  resizeObserver.value = new ResizeObserver(entries => {
+    window.requestAnimationFrame(() => {
+      if (!Array.isArray(entries) || !entries.length) {
+        return
+      }
+      setWrapperHeight()
+    })
+  })
+  resizeObserver.value.observe(kTruncateContainer.value as HTMLDivElement)
   updateToggleVisibility()
 })
 

@@ -911,7 +911,15 @@ const setNumericWidth = (): void => {
 
 const resizeObserver = ref()
 onMounted(() => {
-  resizeObserver.value = new ResizeObserver(setNumericWidth).observe(multiselectRef.value as HTMLDivElement)
+  resizeObserver.value = new ResizeObserver(entries => {
+    window.requestAnimationFrame(() => {
+      if (!Array.isArray(entries) || !entries.length) {
+        return
+      }
+      setNumericWidth()
+    })
+  })
+  resizeObserver.value.observe(multiselectRef.value as HTMLDivElement)
 })
 
 onBeforeUnmount(() => {
