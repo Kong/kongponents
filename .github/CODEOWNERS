@@ -26,6 +26,7 @@
 # Design Tokens Implemented Kongponents
 # This is temporary codeowners until we introduce design tokens practices to the whole team
 /src/components/KAlert @adamdehaven @jillztom @portikM
+/src/components/KBadge @adamdehaven @jillztom @portikM
 /src/components/KButton @adamdehaven @jillztom @portikM
 
 # Dependabot approvals

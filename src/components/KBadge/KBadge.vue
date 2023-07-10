@@ -240,99 +240,100 @@ watch(badgeText, () => {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
 
 .k-badge {
   display: inline-block;
-  font-family: var(--font-family-sans, font(sans));
-  font-size: var(--KBadgeFontSize, 12px);
-  font-weight: 400;
+  font-family: var(--font-family-sans, var(--kui-font-family-text, $kui-font-family-text));
+  font-size: var(--KBadgeFontSize, var(--kui-font-size-20, $kui-font-size-20));
+  font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
   height: auto;
-  line-height: var(--KBadgeLineHeight, var(--type-md, type(md)));
-  padding: var(--KBadgePaddingY, 2px) var(--KBadgePaddingX, 6px);
+  line-height: var(--KBadgeLineHeight, var(--type-md, var(--kui-line-height-20, $kui-line-height-20)));
+  padding: var(--KBadgePaddingY, var(--kui-space-10, $kui-space-10)) var(--KBadgePaddingX, var(--kui-space-30, $kui-space-30));
   text-align: center;
-  transition: all .2s ease-in-out;
+  transition: all $tmp-animation-timing-2 ease-in-out;
   width: fit-content;
 
   // Appearances
   &.k-badge-default {
-    background-color: var(--KBadgeDefaultBackground, var(--blue-100, color(blue-100)));
-    border-color: var(--KBadgeDefaultBorder, var(--blue-500, color(blue-500)));
-    color: var(--KBadgeDefaultColor, var(--blue-500, color(blue-500)));
+    background-color: var(--KBadgeDefaultBackground, var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest)));
+    border-color: var(--KBadgeDefaultBorder, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)));
+    color: var(--KBadgeDefaultColor, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
 
     &.is-bordered {
       border-style: solid;
-      border-width: 1px;
+      border-width: var(--kui-border-width-10, $kui-border-width-10);
     }
   }
   &.k-badge-success {
-    background-color: var(--KBadgeSuccessBackground, var(--green-100, color(green-100)));
-    border-color: var(--KBadgeSuccessBorder, var(--green-700, color(green-700)));
-    color: var(--KBadgeSuccessColor, var(--green-700, color(green-700)));
+    background-color: var(--KBadgeSuccessBackground, var(--green-100, $tmp-color-green-100)); // token needed
+    border-color: var(--KBadgeSuccessBorder, var(--green-700, $tmp-color-green-700)); // token needed
+    color: var(--KBadgeSuccessColor, var(--green-700, $tmp-color-green-700)); // token needed
 
     &.is-bordered {
       border-style: solid;
-      border-width: 1px;
+      border-width: var(--kui-border-width-10, $kui-border-width-10);
     }
   }
   &.k-badge-danger {
-    background-color: var(--KBadgeDangerBackground, var(--red-100, color(red-100)));
-    border-color: var(--KBadgeDangerBorder, var(--red-700, color(red-700)));
-    color: var(--KBadgeDangerColor, var(--red-700, color(red-700)));
+    background-color: var(--KBadgeDangerBackground, var(--red-100, var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest)));
+    border-color: var(--KBadgeDangerBorder, var(--red-700, var(--kui-color-border-danger, $kui-color-border-danger)));
+    color: var(--KBadgeDangerColor, var(--red-700, var(--kui-color-text-danger, $kui-color-text-danger)));
 
     &.is-bordered {
       border-style: solid;
-      border-width: 1px;
+      border-width: var(--kui-border-width-10, $kui-border-width-10);
     }
   }
   &.k-badge-info {
-    background-color: var(--KBadgeInfoBackground, var(--blue-200, color(blue-200)));
-    border-color: var(--KBadgeInfoBorder, var(--blue-500, color(blue-500)));
-    color: var(--KBadgeInfoColor, var(--blue-500, color(blue-500)));
+    background-color: var(--KBadgeInfoBackground, var(--blue-200, var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker)));
+    border-color: var(--KBadgeInfoBorder, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)));
+    color: var(--KBadgeInfoColor, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
 
     &.is-bordered {
       border-style: solid;
-      border-width: 1px;
+      border-width: var(--kui-border-width-10, $kui-border-width-10);
     }
   }
   &.k-badge-warning {
-    background-color: var(--KBadgeWarningBackground, var(--yellow-100, color(yellow-100)));
-    border-color: var(--KBadgeWarningBorder, var(--yellow-600, color(yellow-600)));
-    color: var(--KBadgeWarningColor, var(--yellow-600, color(yellow-600)));
+    background-color: var(--KBadgeWarningBackground, var(--yellow-100, $tmp-color-yellow-100)); // token needed
+    border-color: var(--KBadgeWarningBorder, var(--yellow-600, $tmp-color-yellow-600)); // token needed
+    color: var(--KBadgeWarningColor, var(--yellow-600, $tmp-color-yellow-600)); // token needed
 
     &.is-bordered {
       border-style: solid;
-      border-width: 1px;
+      border-width: var(--kui-border-width-10, $kui-border-width-10);
     }
   }
   &.k-badge-neutral {
-    background-color: var(--grey-200, color(grey-200));
-    border-color: var(--grey-500, color(grey-500));
-    color: var(--grey-500, color(grey-500));
+    background-color: var(--grey-200, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker));
+    border-color: var(--grey-500, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
+    color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
 
     &.is-bordered {
       border-style: solid;
-      border-width: 1px;
+      border-width: var(--kui-border-width-10, $kui-border-width-10);
     }
   }
 
   &.k-badge-rectangular {
-    border-radius: var(--KBadgeBorderRadius, 4px);
+    border-radius: var(--KBadgeBorderRadius, var(--kui-border-radius-20, $kui-border-radius-20));
 
     .k-badge-dismiss-button {
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: var(--KBadgeBorderRadius, 4px);
-      border-top-left-radius: 0;
-      border-top-right-radius: var(--KBadgeBorderRadius, 4px);
+      border-bottom-left-radius: var(--kui-border-radius-0, $kui-border-radius-0);
+      border-bottom-right-radius: var(--KBadgeBorderRadius, var(--kui-border-radius-20, $kui-border-radius-20));
+      border-top-left-radius: var(--kui-border-radius-0, $kui-border-radius-0);
+      border-top-right-radius: var(--KBadgeBorderRadius, var(--kui-border-radius-20, $kui-border-radius-20));
     }
   }
 
   &.k-badge-rounded {
-    border-radius: var(--KBadgeBorderRadius, 25px);
+    border-radius: var(--KBadgeBorderRadius, var(--kui-border-radius-round, $kui-border-radius-round)); // token value change
 
     .k-badge-dismiss-button {
-      border-bottom-left-radius: 0;
-      border-top-left-radius: 0;
+      border-bottom-left-radius: var(--kui-border-radius-0, $kui-border-radius-0);
+      border-top-left-radius: var(--kui-border-radius-0, $kui-border-radius-0);
     }
   }
 
@@ -355,44 +356,45 @@ watch(badgeText, () => {
   .k-badge-dismiss-button {
     border: none;
     cursor: pointer;
-    font-weight: 400;
+    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
     // ignore badge padding
-    margin: calc(-1 * var(--KBadgePaddingY, 2px)) calc(-1 * var(--KBadgePaddingX, 6px));
+    margin: calc(-1 * var(--KBadgePaddingY, var(--kui-space-10, $kui-space-10))) calc(-1 * var(--KBadgePaddingX, var(--kui-space-30, $kui-space-30)));
     margin-left: auto;
-    padding: var(--spacing-xs);
+    padding: var(--spacing-xs, var(--kui-space-20, $kui-space-20));
   }
 }
 </style>
 
 <style lang="scss">
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
 
 .k-badge {
   // default appearance colors local variables
-  $KBadgeDefaultBackground: var(--KBadgeDefaultBackground, var(--blue-100, color(blue-100)));
-  $KBadgeDefaultColor :var(--KBadgeDefaultColor, var(--blue-500, color(blue-500)));
-  $KBadgeDefaultButtonHoverColor : var(--KBadgeDefaultButtonHoverColor, var(--blue-200, color(blue-200)));
+  $KBadgeDefaultBackground: var(--KBadgeDefaultBackground, var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest)));
+  $KBadgeDefaultColor :var(--KBadgeDefaultColor, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
+  $KBadgeDefaultButtonHoverColor : var(--KBadgeDefaultButtonHoverColor, var(--blue-200, var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker)));
   // success appearance colors local variables
-  $KBadgeSuccessBackground: var(--KBadgeSuccessBackground, var(--green-100, color(green-100)));
-  $KBadgeSuccessColor: var(--KBadgeSuccessColor, var(--green-700, color(green-700)));
-  $KBadgeSuccessButtonHoverColor: var(--KBadgeSuccessButtonHoverColor, var(--green-200, color(green-200)));
+  $KBadgeSuccessBackground: var(--KBadgeSuccessBackground, var(--green-100, $tmp-color-green-100)); // token needed
+  $KBadgeSuccessColor: var(--KBadgeSuccessColor, var(--green-700, $tmp-color-green-700)); // token needed
+  $KBadgeSuccessButtonHoverColor: var(--KBadgeSuccessButtonHoverColor, var(--green-200, $tmp-color-green-200)); // token needed
   // danger appearance colors local variables
-  $KBadgeDangerBackground: var(--KBadgeDangerBackground, var(--red-100, color(red-100)));
-  $KBadgeDangerColor: var(--KBadgeDangerColor, var(--red-700, color(red-700)));
-  $KBadgeDangerButtonHoverColor: var(--KBadgeDangerButtonHoverColor, var(--red-200, color(red-200)));
+  $KBadgeDangerBackground: var(--KBadgeDangerBackground, var(--red-100, var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest)));
+  $KBadgeDangerColor: var(--KBadgeDangerColor, var(--red-700, var(--kui-color-text-danger, $kui-color-text-danger)));
+  $KBadgeDangerButtonHoverColor: var(--KBadgeDangerButtonHoverColor, var(--red-200, var(--kui-color-background-danger-weaker, $kui-color-background-danger-weaker)));
   // info appearance colors local variables
-  $KBadgeInfoBackground: var(--KBadgeInfoBackground, var(--blue-200, color(blue-200)));
-  $KBadgeInfoColor: var(--KBadgeInfoColor, var(--blue-500, color(blue-500)));
-  $KBadgeInfoButtonHoverColor: var(--KBadgeInfoButtonHoverColor, var(--blue-300, color(blue-300)));
+  $KBadgeInfoBackground: var(--KBadgeInfoBackground, var(--blue-200, var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker)));
+  $KBadgeInfoColor: var(--KBadgeInfoColor, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
+  $KBadgeInfoButtonHoverColor: var(--KBadgeInfoButtonHoverColor, var(--blue-300, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak)));
   // warning appearance colors local variables
-  $KBadgeWarningBackground: var(--KBadgeWarningBackground, var(--yellow-100, color(yellow-100)));
-  $KBadgeWarningColor: var(--KBadgeWarningColor, var(--yellow-600, color(yellow-600)));
-  $KBadgeWarningButtonHoverColor: var(--KBadgeWarningButtonHoverColor, var(--yellow-200, color(yellow-200)));
+  $KBadgeWarningBackground: var(--KBadgeWarningBackground, var(--yellow-100, $tmp-color-yellow-100)); // token needed
+  $KBadgeWarningColor: var(--KBadgeWarningColor, var(--yellow-600, $tmp-color-yellow-600)); // token needed
+  $KBadgeWarningButtonHoverColor: var(--KBadgeWarningButtonHoverColor, var(--yellow-200, $tmp-color-yellow-200)); // token needed
   // neutral appearance colors local variables
-  $KBadgeNeutralBackground: var(--grey-200, color(grey-200));
-  $KBadgeNeutralColor: var(--grey-500, color(grey-500));
-  $KBadgeNeutralButtonHoverColor: var(--grey-300, color(grey-300));
+  $KBadgeNeutralBackground: var(--grey-200, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker));
+  $KBadgeNeutralColor: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
+  $KBadgeNeutralButtonHoverColor: var(--grey-300, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak));
 
    &.k-badge-custom {
     background-color: v-bind('$props.backgroundColor');
@@ -401,7 +403,7 @@ watch(badgeText, () => {
 
     &.is-bordered {
       border-style: solid;
-      border-width: 1px;
+      border-width: var(--kui-border-width-10, $kui-border-width-10);
     }
 
     .k-badge-dismiss-button {

@@ -81,18 +81,18 @@ Use this prop to modify the badge text color
 
 Use this prop to modify the background color of the badge
 
-<KBadge color="var(--yellow-500)" background-color="var(--yellow-200)" class="mr-2">Custom</KBadge>
-<KBadge color="var(--red-100)" background-color="var(--red-400)" class="mr-2">Badge</KBadge>
-<KBadge color="var(--blue-200)" background-color="var(--blue-500)" class="mr-2">Hello</KBadge>
+<KBadge color="brown" background-color="yellow" class="mr-2">Custom</KBadge>
+<KBadge color="red" background-color="pink" class="mr-2">Badge</KBadge>
+<KBadge color="blue" background-color="lightblue" class="mr-2">Hello</KBadge>
 <KBadge color="#dfe6e9" background-color="#636e72" class="mr-2">Something</KBadge>
-<KBadge color="var(--red-500)" background-color="var(--red-300)">Long Badge 236bfb09-fe79-4cc9-99be-9361d6b1db64 aa07575b-bcd3-4bb2-bfd7-998224e3d31e 364b78fc-dba3-4b94-9134-388515496de5</KBadge>
+<KBadge color="pink" background-color="salmon">Long Badge 236bfb09-fe79-4cc9-99be-9361d6b1db64 aa07575b-bcd3-4bb2-bfd7-998224e3d31e 364b78fc-dba3-4b94-9134-388515496de5</KBadge>
 
 ```html
-<KBadge color="var(--yellow-400)" background-color="var(--yellow-300)">Custom</KBadge>
-<KBadge color="var(--red-100)" background-color="var(--red-400)">Badge</KBadge>
-<KBadge color="var(--blue-200)" background-color="var(--blue-500)">Hello</KBadge>
+<KBadge color="brown" background-color="yellow">Custom</KBadge>
+<KBadge color="red" background-color="pink">Badge</KBadge>
+<KBadge color="blue" background-color="lightblue">Hello</KBadge>
 <KBadge color="#dfe6e9" background-color="#636e72">Something</KBadge>
-<KBadge color="var(--red-500)" background-color="var(--red-300)">Long Badge 236bfb09-fe79-4cc9-99be-9361d6b1db64 aa07575b-bcd3-4bb2-bfd7-998224e3d31e 364b78fc-dba3-4b94-9134-388515496de5</KBadge>
+<KBadge color="pink" background-color="salmon">Long Badge 236bfb09-fe79-4cc9-99be-9361d6b1db64 aa07575b-bcd3-4bb2-bfd7-998224e3d31e 364b78fc-dba3-4b94-9134-388515496de5</KBadge>
 ```
 ### borderColor
 
