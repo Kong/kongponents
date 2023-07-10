@@ -94,8 +94,8 @@ jobs:
 
           npm_instructions="@$(echo ${pkg}|cut -d'@' -f2)@${tag}"
 
-          echo "npm_instructions<<EOF" >> $GITHUB_OUTPUT
-          echo -e "$npm_instructions" >> $GITHUB_OUTPUT
+          echo "npm_instructions<<EOF" >> $GITHUB_ENV
+          echo -e "$npm_instructions" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Provide preview link info
