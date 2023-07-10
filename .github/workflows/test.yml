@@ -94,10 +94,11 @@ jobs:
 
           npm_instructions="@$(echo ${pkg}|cut -d'@' -f2)@${tag}"
 
-          echo "npm_instructions<<EOF" >> $GITHUB_ENV
-          echo -e "$npm_instructions" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-          echo "npm_instructions=$npm_instructions" >> $GITHUB_OUTPUT
+          echo "npm_instructions<<EOF" >> "$GITHUB_OUTPUT"
+          echo -e "$npm_instructions" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+          echo "$npm_instructions"
 
       - name: Provide preview link info
         if: ${{ steps.package-preview.outputs.npm_instructions != '' }}
