@@ -96,7 +96,8 @@ jobs:
 
           echo "npm_instructions<<EOF" >> $GITHUB_ENV
           echo -e "$npm_instructions" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_ENV
+          echo "npm_instructions=$npm_instructions" >> $GITHUB_OUTPUT
 
       - name: Provide preview link info
         if: ${{ steps.package-preview.outputs.npm_instructions != '' }}
