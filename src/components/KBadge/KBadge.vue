@@ -50,7 +50,8 @@ import { ref, computed, watch, useAttrs, PropType } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
-import { BadgeAppearance, BadgeShape, appearances, shapes } from '@/types'
+import type { BadgeAppearance, BadgeShape } from '@/types'
+import { BadgeAppearances, BadgeShapes } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 
 const { getSizeFromString } = useUtilities()
@@ -72,7 +73,7 @@ const props = defineProps({
     type: String as PropType<BadgeAppearance>,
     required: false,
     validator: (value: string): boolean => {
-      return Object.keys({ ...appearances }).includes(value)
+      return Object.keys({ ...BadgeAppearances }).includes(value)
     },
     default: 'default',
   },
@@ -115,7 +116,7 @@ const props = defineProps({
     type: String as PropType<BadgeShape>,
     required: false,
     validator: (value: string): boolean => {
-      return Object.keys({ ...shapes }).includes(value)
+      return Object.keys({ ...BadgeShapes }).includes(value)
     },
     default: 'rounded',
   },

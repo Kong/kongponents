@@ -4,7 +4,7 @@ export type BadgeAppearanceRecord = Record<BadgeAppearance, BadgeAppearance>
 export type BadgeShape = 'rounded' | 'rectangular'
 export type BadgeShapeRecord = Record<BadgeShape, BadgeShape>
 
-export const appearances: BadgeAppearanceRecord = {
+export const BadgeAppearances: BadgeAppearanceRecord = {
   default: 'default',
   success: 'success',
   danger: 'danger',
@@ -14,7 +14,7 @@ export const appearances: BadgeAppearanceRecord = {
   neutral: 'neutral',
 }
 
-export const shapes: BadgeShapeRecord = {
+export const BadgeShapes: BadgeShapeRecord = {
   rounded: 'rounded',
   rectangular: 'rectangular',
 }
