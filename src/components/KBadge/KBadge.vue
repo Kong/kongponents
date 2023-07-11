@@ -253,9 +253,9 @@ watch(badgeText, () => {
     }
   }
   &.k-badge-success {
-    background-color: var(--KBadgeSuccessBackground, var(--green-100, $tmp-color-green-100)); // token needed
-    border-color: var(--KBadgeSuccessBorder, var(--green-700, $tmp-color-green-700)); // token needed
-    color: var(--KBadgeSuccessColor, var(--green-700, $tmp-color-green-700)); // token needed
+    background-color: var(--KBadgeSuccessBackground, var(--green-100, $tmp-color-green-100));
+    border-color: var(--KBadgeSuccessBorder, var(--green-700, $tmp-color-green-700));
+    color: var(--KBadgeSuccessColor, var(--green-700, $tmp-color-green-700));
 
     &.is-bordered {
       border-style: solid;
@@ -283,9 +283,9 @@ watch(badgeText, () => {
     }
   }
   &.k-badge-warning {
-    background-color: var(--KBadgeWarningBackground, var(--yellow-100, $tmp-color-yellow-100)); // token needed
-    border-color: var(--KBadgeWarningBorder, var(--yellow-600, $tmp-color-yellow-600)); // token needed
-    color: var(--KBadgeWarningColor, var(--yellow-600, $tmp-color-yellow-600)); // token needed
+    background-color: var(--KBadgeWarningBackground, var(--yellow-100, $tmp-color-yellow-100));
+    border-color: var(--KBadgeWarningBorder, var(--yellow-600, $tmp-color-yellow-600));
+    color: var(--KBadgeWarningColor, var(--yellow-600, $tmp-color-yellow-600));
 
     &.is-bordered {
       border-style: solid;
@@ -315,7 +315,7 @@ watch(badgeText, () => {
   }
 
   &.k-badge-rounded {
-    border-radius: var(--KBadgeBorderRadius, var(--kui-border-radius-round, $kui-border-radius-round)); // token value change
+    border-radius: var(--KBadgeBorderRadius, var(--kui-border-radius-round, $kui-border-radius-round));
 
     .k-badge-dismiss-button {
       border-bottom-left-radius: var(--kui-border-radius-0, $kui-border-radius-0);
@@ -363,9 +363,9 @@ watch(badgeText, () => {
   $KBadgeDefaultColor :var(--KBadgeDefaultColor, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
   $KBadgeDefaultButtonHoverColor : var(--KBadgeDefaultButtonHoverColor, var(--blue-200, var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker)));
   // success appearance colors local variables
-  $KBadgeSuccessBackground: var(--KBadgeSuccessBackground, var(--green-100, $tmp-color-green-100)); // token needed
-  $KBadgeSuccessColor: var(--KBadgeSuccessColor, var(--green-700, $tmp-color-green-700)); // token needed
-  $KBadgeSuccessButtonHoverColor: var(--KBadgeSuccessButtonHoverColor, var(--green-200, $tmp-color-green-200)); // token needed
+  $KBadgeSuccessBackground: var(--KBadgeSuccessBackground, var(--green-100, $tmp-color-green-100));
+  $KBadgeSuccessColor: var(--KBadgeSuccessColor, var(--green-700, $tmp-color-green-700));
+  $KBadgeSuccessButtonHoverColor: var(--KBadgeSuccessButtonHoverColor, var(--green-200, $tmp-color-green-200));
   // danger appearance colors local variables
   $KBadgeDangerBackground: var(--KBadgeDangerBackground, var(--red-100, var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest)));
   $KBadgeDangerColor: var(--KBadgeDangerColor, var(--red-700, var(--kui-color-text-danger, $kui-color-text-danger)));
@@ -375,9 +375,9 @@ watch(badgeText, () => {
   $KBadgeInfoColor: var(--KBadgeInfoColor, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
   $KBadgeInfoButtonHoverColor: var(--KBadgeInfoButtonHoverColor, var(--blue-300, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak)));
   // warning appearance colors local variables
-  $KBadgeWarningBackground: var(--KBadgeWarningBackground, var(--yellow-100, $tmp-color-yellow-100)); // token needed
-  $KBadgeWarningColor: var(--KBadgeWarningColor, var(--yellow-600, $tmp-color-yellow-600)); // token needed
-  $KBadgeWarningButtonHoverColor: var(--KBadgeWarningButtonHoverColor, var(--yellow-200, $tmp-color-yellow-200)); // token needed
+  $KBadgeWarningBackground: var(--KBadgeWarningBackground, var(--yellow-100, $tmp-color-yellow-100));
+  $KBadgeWarningColor: var(--KBadgeWarningColor, var(--yellow-600, $tmp-color-yellow-600));
+  $KBadgeWarningButtonHoverColor: var(--KBadgeWarningButtonHoverColor, var(--yellow-200, $tmp-color-yellow-200));
   // neutral appearance colors local variables
   $KBadgeNeutralBackground: var(--grey-200, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker));
   $KBadgeNeutralColor: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
