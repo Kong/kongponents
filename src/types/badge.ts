@@ -12,9 +12,9 @@ export const BadgeAppearances: BadgeAppearanceRecord = {
   warning: 'warning',
   custom: 'custom',
   neutral: 'neutral',
-}
+} as const
 
 export const BadgeShapes: BadgeShapeRecord = {
   rounded: 'rounded',
   rectangular: 'rectangular',
-}
+} as const
