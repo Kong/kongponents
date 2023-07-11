@@ -2,7 +2,7 @@
   <div
     v-if="!isDismissed"
     :aria-hidden="hidden ? true : undefined"
-    class="k-badge d-inline-flex"
+    class="k-badge"
     :class="[ `k-badge-${appearance}`, `k-badge-${shape}`, {
       'is-bordered': isBordered,
       'clickable': isClickable
@@ -12,7 +12,7 @@
   >
     <component
       :is="truncationTooltip && (forceTooltip || isTruncated) ? 'KTooltip' : 'div'"
-      class="k-badge-text truncate"
+      class="k-badge-text"
       :position-fixed="truncationTooltip && (forceTooltip || isTruncated) ? true : undefined"
     >
       <template #content>
@@ -20,7 +20,7 @@
       </template>
       <div
         ref="badgeText"
-        class="k-badge-text truncate"
+        class="k-badge-text"
       >
         <slot />
       </div>
@@ -28,7 +28,7 @@
     <KButton
       v-if="dismissable"
       :aria-hidden="hidden ? true : undefined"
-      class="k-badge-dismiss-button ml-1"
+      class="k-badge-dismiss-button"
       data-testid="k-badge-dismiss-button"
       :is-rounded="shape === 'rounded'"
       :tabindex="hidden ? -1 : 0"
@@ -242,9 +242,10 @@ watch(badgeText, () => {
 @import '@/styles/variables';
 @import '@/styles/tmp-variables';
 @import '@/styles/functions';
+@import '@/styles/mixins';
 
 .k-badge {
-  display: inline-block;
+  display: inline-flex;
   font-family: var(--font-family-sans, var(--kui-font-family-text, $kui-font-family-text));
   font-size: var(--KBadgeFontSize, var(--kui-font-size-20, $kui-font-size-20));
   font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
@@ -347,6 +348,7 @@ watch(badgeText, () => {
   }
 
   .k-badge-text {
+    @include truncate;
     align-self: center;
     max-width: var(--KBadgeMaxWidth, v-bind(maxWidth));
     min-width: var(--KBadgeMinWidth, 8px);
@@ -359,7 +361,7 @@ watch(badgeText, () => {
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
     // ignore badge padding
     margin: calc(-1 * var(--KBadgePaddingY, var(--kui-space-10, $kui-space-10))) calc(-1 * var(--KBadgePaddingX, var(--kui-space-30, $kui-space-30)));
-    margin-left: auto;
+    margin-left: var(--kui-space-10, $kui-space-10);
     padding: var(--spacing-xs, var(--kui-space-20, $kui-space-20));
   }
 }

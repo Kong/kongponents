@@ -85,3 +85,9 @@
   top: 0;
   z-index: 10500;
 }
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
