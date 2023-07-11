@@ -50,25 +50,10 @@ import { ref, computed, watch, useAttrs, PropType } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
-import type { BadgeAppearance, BadgeAppearanceRecord, BadgeShapeRecord, BadgeShape } from '@/types'
+import { BadgeAppearance, BadgeShape, appearances, shapes } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 
 const { getSizeFromString } = useUtilities()
-
-export const appearances: BadgeAppearanceRecord = {
-  default: 'default',
-  success: 'success',
-  danger: 'danger',
-  info: 'info',
-  warning: 'warning',
-  custom: 'custom',
-  neutral: 'neutral',
-}
-
-export const shapes: BadgeShapeRecord = {
-  rounded: 'rounded',
-  rectangular: 'rectangular',
-}
 
 // Must explicitly define components so KTooltip works in tests
 export default {
