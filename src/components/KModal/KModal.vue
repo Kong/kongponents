@@ -7,12 +7,14 @@
     role="dialog"
   >
     <div
+      ref="modalOuter"
       class="k-modal-backdrop modal-backdrop"
       @click="(evt: any) => close(false, evt)"
     >
       <FocusTrap
         ref="focusTrap"
         :active="false"
+        :fallback-focus="modalOuter?.$el"
         :tabbable-options="tabbableOptions"
       >
         <div class="k-modal-dialog modal-dialog">
@@ -216,6 +218,7 @@ const emit = defineEmits<{
 
 const slots = useSlots()
 const focusTrap = ref<InstanceType<typeof FocusTrap> | null>(null)
+const modalOuter = ref<{ $el: HTMLElement} | null>(null)
 
 const hasHeaderImage = computed((): boolean => {
   return !!slots['header-image']
