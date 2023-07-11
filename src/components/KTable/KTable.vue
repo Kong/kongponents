@@ -136,7 +136,7 @@
                   v-if="!disableSorting && !column.hideLabel && column.sortable"
                   aria-hidden="true"
                   class="caret ml-2"
-                  color="var(--KTableColor, var(--black-70, color(black-70)))"
+                  color="var(--KTableColor, var(--black-70, var(--kui-color-text, $kui-color-text)))"
                   icon="chevronDown"
                   size="12"
                 />
@@ -973,6 +973,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
 
 .k-table-wrapper {
@@ -992,17 +993,17 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
   th,
   td {
-    padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
+    padding: var(--spacing-sm, var(--kui-space-50, $kui-space-50)) var(--spacing-md, var(--kui-space-60, $kui-space-60));
     vertical-align: middle;
     white-space: nowrap;
   }
 
   thead {
-    background-color: #ffffff;
-    border-bottom: 1px solid var(--KTableBorder, var(--grey-200, color(grey-200)));
+    background-color: var(--kui-color-background, $kui-color-background);
+    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--KTableBorder, var(--grey-200, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
     height: 60px;
     position: sticky;
-    top: 0;
+    top: var(--kui-space-0, $kui-space-0);
 
     &.is-scrolled {
       border-bottom: none;
@@ -1015,13 +1016,13 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
         box-shadow: none;
         content: '';
         height: 100%;
-        left: 0;
+        left: var(--kui-space-0, $kui-space-0);
         opacity: 0;
         // Super-important to allow clicking on table rows in Safari.
         // This allows clicks to pass through the "invisible" :after layer
         pointer-events: none;
         position: absolute;
-        transition: opacity 0.2s ease-in-out;
+        transition: opacity $tmp-animation-timing-2 ease-in-out;
         width: 100%;
         z-index: -1;
       }
@@ -1030,35 +1031,30 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
         border-bottom: none;
 
         &:after {
-          box-shadow:
-            0px 0.2px 0.6px rgba(0, 0, 0, 0.031),
-            0px 0.6px 1.8px rgba(0, 0, 0, 0.045),
-            0px 1.5px 4.2px rgba(0, 0, 0, 0.059),
-            0px 5px 14px rgba(0, 0, 0, 0.09)
-          ;
+          box-shadow: $tmp-color-shadow; // token needed?
           opacity: 1;
-          transition: opacity 0.2s ease-in-out;
+          transition: opacity $tmp-animation-timing-2 ease-in-out;
         }
       }
     }
 
     th {
-      font-size: var(--KTableHeaderSize, var(--type-sm, type(sm)));
-      font-weight: 600;
-      padding: var(--spacing-sm, spacing(sm)) var(--spacing-md, spacing(md));
+      font-size: var(--KTableHeaderSize, var(--type-sm, var(--kui-font-size-20, $kui-font-size-20)));
+      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+      padding: var(--spacing-sm, var(--kui-space-50, $kui-space-50)) var(--spacing-md, var(--kui-space-60, $kui-space-60));
       text-align: left;
 
       &.active-sort {
-        color: var(--blue-500);
+        color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
       }
 
       .sr-only {
-        border-width: 0;
+        border-width: var(--kui-border-width-0, $kui-border-width-0);
         clip: rect(0, 0, 0, 0);
         height: 1px;
         margin: -1px;
         overflow: hidden;
-        padding: 0;
+        padding: var(--kui-space-0, $kui-space-0);
         position: absolute;
         white-space: nowrap;
         width: 1px;
@@ -1075,16 +1071,16 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
       height: 44px;
 
       &:not(:last-of-type) {
-        border-bottom: 1px solid var(--KTableBorder, var(--grey-200, color(grey-200)));
+        border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--KTableBorder, var(--grey-200, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
       }
     }
 
     td {
-      color: var(--KTableColor, var(--black-70, color(black-70)));
+      color: var(--KTableColor, var(--black-70, var(--kui-color-text, $kui-color-text)));
       white-space: nowrap;
 
       a {
-        color: var(--blue-500, color(blue-500));
+        color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
         text-decoration: none;
         &:hover {
           text-decoration: underline;
@@ -1096,8 +1092,8 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
   // Variants
   &.has-hover {
      tbody tr:hover {
-        background-color: var(--KTableHover, var(--blue-100, color(blue-100)));
-      }
+      background-color: var(--KTableHover, var(--blue-100, var(--kui-color-background-success-weakest, $kui-color-background-success-weakest)));
+    }
   }
 
   &.is-clickable {
@@ -1120,12 +1116,12 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
     }
 
     tbody tr td:first-child {
-      border-left: 3px solid var(--KTableBorder, var(--steel-200, color(steel-200)));
+      border-left: var(--kui-border-width-20, $kui-border-width-20) solid var(--KTableBorder, var(--steel-200, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak))); // token value change
     }
 
     &.has-hover {
       tbody tr:hover td:first-child {
-        border-left: 3px solid var(--KTableBorder, var(--steel-300, color(steel-300)));
+        border-left: var(--kui-border-width-20, $kui-border-width-20) solid var(--KTableBorder, var(--steel-300, $tmp-color-steel-300)); // token needed
       }
     }
   }
@@ -1141,7 +1137,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
     th {
       .caret {
         position: relative;
-        top: 2px;
+        top: var(--kui-space-10, $kui-space-10);
         transform: rotate(0deg);
       }
 
@@ -1157,18 +1153,18 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
     td {
       button,
       .k-button {
-        margin-bottom: calc(-1 * var(--KButtonPaddingY, var(--spacing-xs)));
-        margin-top: calc(-1 * var(--KButtonPaddingY, var(--spacing-xs)));
+        margin-bottom: calc(-1 * var(--KButtonPaddingY, var(--spacing-xs, var(--kui-space-40, $kui-space-40))));
+        margin-top: calc(-1 * var(--KButtonPaddingY, var(--spacing-xs, var(--kui-space-40, $kui-space-40))));
       }
       .k-table-cell-title {
-        color: color(grey-600);
-        font-size: var(--type-md);
-        font-weight: 600
+        color: var(--grey-600, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
+        font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
+        font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
       }
       .k-table-cell-description {
-        color: color(grey-500);
-        font-size: var(--type-md);
-        font-weight: 400;
+        color: var(--grey-500, var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong));
+        font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
+        font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
       }
     }
   }
