@@ -42,7 +42,7 @@ export default defineConfig({
       fileName: (format) => `kongponents.${format}.js`,
     },
     minify: true,
-    sourcemap: true,
+    sourcemap: !!process.env.BUILD_VISUALIZER,
     rollupOptions: {
       external: ['vue', 'vue-router'],
       output: {
