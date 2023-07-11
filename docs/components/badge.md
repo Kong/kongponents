@@ -22,12 +22,14 @@ The Badge component can take the following appearance values:
 - `neutral`
 - `custom`
 
-<KBadge appearance="success" class="mr-2">SUCCESS</KBadge>
-<KBadge appearance="warning" class="mr-2">WARNING</KBadge>
-<KBadge appearance="danger" class="mr-2">DANGER</KBadge>
-<KBadge appearance="info" class="mr-2">INFO</KBadge>
-<KBadge appearance="neutral" class="mr-2">NEUTRAL</KBadge>
-<KBadge>DEFAULT</KBadge>
+<div class="vertical-spacing">
+  <KBadge appearance="success">SUCCESS</KBadge>
+  <KBadge appearance="warning">WARNING</KBadge>
+  <KBadge appearance="danger">DANGER</KBadge>
+  <KBadge appearance="info">INFO</KBadge>
+  <KBadge appearance="neutral">NEUTRAL</KBadge>
+  <KBadge>DEFAULT</KBadge>
+</div>
 
 ```html
 <KBadge appearance="success">SUCCESS</KBadge>
@@ -42,12 +44,14 @@ The Badge component can take the following appearance values:
 
 Use the `isBordered` prop for bordered badges. The border color matches the text color by default.
 
-<KBadge appearance="success" is-bordered class="mr-2">SUCCESS</KBadge>
-<KBadge appearance="warning" is-bordered class="mr-2">WARNING</KBadge>
-<KBadge appearance="danger" is-bordered class="mr-2">DANGER</KBadge>
-<KBadge appearance="info" is-bordered class="mr-2">INFO</KBadge>
-<KBadge appearance="neutral" is-bordered class="mr-2">NEUTRAL</KBadge>
-<KBadge is-bordered class="mr-2">DEFAULT</KBadge>
+<div class="vertical-spacing">
+  <KBadge appearance="success" is-bordered>SUCCESS</KBadge>
+  <KBadge appearance="warning" is-bordered>WARNING</KBadge>
+  <KBadge appearance="danger" is-bordered>DANGER</KBadge>
+  <KBadge appearance="info" is-bordered>INFO</KBadge>
+  <KBadge appearance="neutral" is-bordered>NEUTRAL</KBadge>
+  <KBadge is-bordered>DEFAULT</KBadge>
+</div>
 
 ```html
 <KBadge appearance="success" is-bordered>SUCCESS</KBadge>
@@ -65,8 +69,10 @@ The Badge has two shapes that can be changed with a `shape` property.
 - `rounded` - Default
 - `rectangular`
 
-<KBadge appearance="warning" class="mr-2">Round</KBadge>
-<KBadge appearance="warning" shape="rectangular">Rectangular</KBadge>
+<div class="vertical-spacing">
+  <KBadge appearance="warning">Round</KBadge>
+  <KBadge appearance="warning" shape="rectangular">Rectangular</KBadge>
+</div>
 
 ```html
 <KBadge appearance="warning">Round</KBadge>
@@ -81,11 +87,13 @@ Use this prop to modify the badge text color
 
 Use this prop to modify the background color of the badge
 
-<KBadge color="brown" background-color="yellow" class="mr-2">Custom</KBadge>
-<KBadge color="red" background-color="pink" class="mr-2">Badge</KBadge>
-<KBadge color="blue" background-color="lightblue" class="mr-2">Hello</KBadge>
-<KBadge color="#dfe6e9" background-color="#636e72" class="mr-2">Something</KBadge>
-<KBadge color="pink" background-color="salmon">Long Badge 236bfb09-fe79-4cc9-99be-9361d6b1db64 aa07575b-bcd3-4bb2-bfd7-998224e3d31e 364b78fc-dba3-4b94-9134-388515496de5</KBadge>
+<div class="vertical-spacing">
+  <KBadge color="brown" background-color="yellow">Custom</KBadge>
+  <KBadge color="red" background-color="pink">Badge</KBadge>
+  <KBadge color="blue" background-color="lightblue">Hello</KBadge>
+  <KBadge color="#dfe6e9" background-color="#636e72">Something</KBadge>
+  <KBadge color="pink" background-color="salmon">Long Badge 236bfb09-fe79-4cc9-99be-9361d6b1db64 aa07575b-bcd3-4bb2-bfd7-998224e3d31e 364b78fc-dba3-4b94-9134-388515496de5</KBadge>
+</div>
 
 ```html
 <KBadge color="brown" background-color="yellow">Custom</KBadge>
@@ -100,9 +108,9 @@ Use this prop in conjunction with the `is-bordered` prop to customize the color 
 
 <KBadge
   appearance="custom"
-  background-color="var(--purple-100)"
-  border-color="var(--purple-400)"
-  color="var(--purple-400)"
+  background-color="plum"
+  border-color="purple"
+  color="purple"
   is-bordered
 >
   Organization Admin
@@ -111,9 +119,9 @@ Use this prop in conjunction with the `is-bordered` prop to customize the color 
 ```html
 <KBadge
   appearance="custom"
-  background-color="var(--purple-100)"
-  border-color="var(--purple-400)"
-  color="var(--purple-400)"
+  background-color="plum"
+  border-color="purple"
+  color="purple"
   is-bordered
 >
   Organization Admin
@@ -126,11 +134,11 @@ Use this prop in conjunction with the `dismissable` prop to customize the color 
 
 <KBadge
   appearance="custom"
-  background-color="var(--teal-100)"
-  border-color="var(--teal-400)"
-  color="var(--teal-400)"
+  background-color="aquamarine"
+  border-color="teal"
+  color="teal"
   dismissable
-  hover-color="var(--teal-200)"
+  hover-color="mediumturquoise"
   is-bordered
 >
   Production
@@ -139,11 +147,11 @@ Use this prop in conjunction with the `dismissable` prop to customize the color 
 ```html
 <KBadge
   appearance="custom"
-  background-color="var(--teal-100)"
-  border-color="var(--teal-400)"
-  color="var(--teal-400)"
+  background-color="aquamarine"
+  border-color="teal"
+  color="teal"
   dismissable
-  hover-color="var(--teal-200)"
+  hover-color="mediumturquoise"
   is-bordered
 >
   Production
@@ -173,8 +181,10 @@ The `hoverColor` is also utilized if you wrap the `KBadge` with an anchor tag, o
 Use this prop if you want the badge to be dismissable. If the badge text is long enough to need truncation, the label will truncate; the dismiss button is always visible.
 The color of the dismiss button is determined by the badge type and uses the same theming variables as the badge text. Clicking the dismiss button will trigger a `dismissed` event.
 
-<KBadge dismissable class="mr-2">Close me</KBadge>
-<KBadge dismissable shape="rectangular">No, close me!</KBadge>
+<div class="vertical-spacing">
+  <KBadge dismissable>Close me</KBadge>
+  <KBadge dismissable shape="rectangular">No, close me!</KBadge>
+</div>
 
 ```html
 <KBadge dismissable>Close me</KBadge>
@@ -185,8 +195,10 @@ The color of the dismiss button is determined by the badge type and uses the sam
 
 Use this prop if you would like to conditionally display a tooltip when the badge text is truncated.
 
-<KBadge class="mr-2" truncation-tooltip="Truncation unnecessary">Truncation unnecessary</KBadge>
-<KBadge truncation-tooltip="Hey! Let me see that awesome truncation">Hey! Let me see that awesome truncation</KBadge>
+<div class="vertical-spacing">
+  <KBadge truncation-tooltip="Truncation unnecessary">Truncation unnecessary</KBadge>
+  <KBadge truncation-tooltip="Hey! Let me see that awesome truncation">Hey! Let me see that awesome truncation</KBadge>
+</div>
 
 ```html
 <KBadge truncation-tooltip="Truncation unnecessary">Truncation unnecessary</KBadge>
@@ -269,18 +281,17 @@ An example of theming a custom badge:
 <div class="KBadge-wrapper">
   <KBadge
     appearance="custom"
-    background-color="var(--grey-200)"
-    border-color="var(--grey-500)"
-    color="var(--grey-500)"
+    background-color="lightgrey"
+    border-color="grey"
+    color="grey"
     is-bordered
   >
-    <div class="d-flex aling-items-center">
+    <div>
       <KIcon
-        class="mr-2"
         icon="bot"
         height="10"
       />
-      <p class="ma-0">
+      <p>
         ARTIFICIAL INTELLIGENCE
       </p>
     </div>
@@ -292,18 +303,17 @@ An example of theming a custom badge:
 <div class="KBadge-wrapper">
   <KBadge
     appearance="custom"
-    background-color="var(--grey-200)"
-    border-color="var(--grey-500)"
-    color="var(--grey-500)"
+    background-color="lightgrey"
+    border-color="grey"
+    color="grey"
     is-bordered
   >
-    <div class="d-flex aling-items-center">
+    <div>
       <KIcon
-        class="mr-2"
         icon="bot"
         height="10"
       />
-      <p class="ma-0">
+      <p>
         ARTIFICIAL INTELLIGENCE
       </p>
     </div>
@@ -313,18 +323,25 @@ An example of theming a custom badge:
 
 <style>
 .KBadge-wrapper {
-  --KBadgeBorderRadius: 22px;
+  --KBadgeBorderRadius: 100px;
   --KBadgeFontSize: var(--type-sm);
   --KBadgePaddingX: var(--spacing-sm);
   --KBadgePaddingY: var(--spacing-xs);
   --KBadgeMaxWidth: auto;
 
+  div {
+    display: flex;
+    align-items: center;
+  }
+
   p {
-    line-height: 24px;
+    font-size: 12px;
+    margin: 0;
   }
 
   .kong-icon-bot {
     height: 24px;
+    margin-right: 4px;
   }
 }
 </style>
@@ -342,18 +359,30 @@ const testClick = () => {
 
 <style lang="scss">
 .KBadge-wrapper {
-  --KBadgeBorderRadius: 22px;
+  --KBadgeBorderRadius: 100px;
   --KBadgeFontSize: var(--type-sm);
   --KBadgePaddingX: var(--spacing-sm);
   --KBadgePaddingY: var(--spacing-xs);
   --KBadgeMaxWidth: auto;
 
+  div {
+    display: flex;
+    align-items: center;
+  }
+
   p {
-    line-height: 24px;
+    font-size: 12px;
+    margin: 0;
   }
 
   .kong-icon-bot {
     height: 24px;
+    margin-right: 4px;
   }
+}
+
+.vertical-spacing {
+  display: flex;
+  column-gap: 4px;
 }
 </style>
