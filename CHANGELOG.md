@@ -1,3 +1,10 @@
+# [8.87.0](https://github.com/Kong/kongponents/compare/v8.86.1...v8.87.0) (2023-07-12)
+
+
+### Features
+
+* **kbreadcrumb:** custom divider [khcp-8029] ([#1517](https://github.com/Kong/kongponents/issues/1517)) ([ba3bcd4](https://github.com/Kong/kongponents/commit/ba3bcd4e5fef137f425b2cf87e83609b6e4d43ba))
+
 ## [8.86.1](https://github.com/Kong/kongponents/compare/v8.86.0...v8.86.1) (2023-07-12)
 
 
