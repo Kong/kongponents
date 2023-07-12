@@ -68,13 +68,10 @@ const handleCardClick = (evt: Event, item: CatalogItem): void => {
   justify-content: stretch;
 
   .multi-line-truncate {
-    --lh: 20px;
-    --max-lines: 5;
-    --max-lines-less: 4;
-    line-height: var(--lh);
-    max-height: calc(var(--lh) * var(--max-lines));
+    line-height: var(--lh, var(--kui-line-height-30, $kui-line-height-30));
+    max-height: calc(var(--lh, var(--kui-line-height-30, $kui-line-height-30)) * var(--max-lines, 5));
     overflow: hidden;
-    padding-right: 8px;
+    padding-right: var(--kui-space-40, $kui-space-40);
 
     position: relative;
   }
@@ -82,8 +79,9 @@ const handleCardClick = (evt: Event, item: CatalogItem): void => {
   .multi-line-truncate::before {
     content: "...";
     position: absolute;
-    right: 12px;
-    top: calc(var(--lh) * var(--max-lines-less));
+    right: var(--kui-space-50, $kui-space-50);
+    /* stylelint-disable-next-line */
+    top: calc(var(--lh, var(--kui-line-height-30, $kui-line-height-30)) * var(--max-lines-less, 4));
   }
 
   &:hover {
@@ -94,9 +92,9 @@ const handleCardClick = (evt: Event, item: CatalogItem): void => {
 
 <style lang="scss">
 .k-card-catalog-item.kong-card {
-  --KCardBorderRadius: 5px;
-  --KCardPaddingY: var(--spacing-lg);
-  --KCardPaddingX: var(--spacing-md);
+  --KCardBorderRadius: var(--kui-border-radius-20, #{$kui-border-radius-20});
+  --KCardPaddingY: var(--spacing-lg, var(--kui-space-80, #{$kui-space-80}));
+  --KCardPaddingX: var(--spacing-md, var(--kui-space-60, #{$kui-space-60}));
 
   .k-card-body {
     display: flex;
@@ -110,7 +108,7 @@ const handleCardClick = (evt: Event, item: CatalogItem): void => {
 
   &:hover {
     --KCardShadow: none;
-    --KCardBorder: 1px solid var(--blue-300);
+    --KCardBorder: var(--kui-border-width-10, #{$kui-border-width-10}) solid var(--blue-300, var(--kui-color-border-primary-weak, #{$kui-color-border-primary-weak}));
   }
 }
 </style>
