@@ -113,22 +113,22 @@ export default {
     .k-breadcrumb-divider,
     .k-breadcrumb-icon {
       align-self: center;
-      color: var(--grey-500);
+      color: var(--grey-500, color(grey-500));
       display: inline-flex;
     }
 
     .k-breadcrumb-divider {
-      padding: 0 12px 0 var(--spacing-xs);
+      padding: 0 var(--spacing-sm, spacing(sm)) 0 var(--spacing-xs, spacing(xs));
     }
 
     .k-breadcrumb-icon {
-      padding: 0 12px 0 0;
+      padding: 0 var(--spacing-sm, spacing(sm)) 0 0;
 
       &:deep(.kong-icon) {
         align-items: center;
         align-self: baseline;
         justify-content: center;
-        padding: 0 var(--spacing-xs) 0 0;
+        padding: 0 var(--spacing-xs, spacing(xs)) 0 0;
 
         &.has-no-text {
           padding-right: 0;
@@ -141,7 +141,7 @@ export default {
     display: inline-flex;
 
     a {
-      color: var(--grey-500);
+      color: var(--grey-500, color(grey-500));
       display: inline-flex;
       font-size: 15px;
       letter-spacing: 1px;
