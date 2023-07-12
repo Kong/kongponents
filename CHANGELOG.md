@@ -1,3 +1,10 @@
+# [8.88.0](https://github.com/Kong/kongponents/compare/v8.87.0...v8.88.0) (2023-07-12)
+
+
+### Features
+
+* **ktable:** introduce kui tokens [KHCP-7726] ([#1520](https://github.com/Kong/kongponents/issues/1520)) ([ab80596](https://github.com/Kong/kongponents/commit/ab80596e622069cb962becd19edc03f503bdb4e7))
+
 # [8.87.0](https://github.com/Kong/kongponents/compare/v8.86.1...v8.87.0) (2023-07-12)
 
 
