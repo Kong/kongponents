@@ -1,3 +1,11 @@
+# [8.86.0](https://github.com/Kong/kongponents/compare/v8.85.0...v8.86.0) (2023-07-12)
+
+
+### Features
+
+* **kbadge:** introduce kui tokens [KHCP-7694] ([#1511](https://github.com/Kong/kongponents/issues/1511)) ([86b7023](https://github.com/Kong/kongponents/commit/86b70236db4b733a5b46a34a7a0cc15f20e6ba96))
+* **sourcemaps:** dont generate sourcemap as part of npm package [KHCP-7565] ([#1516](https://github.com/Kong/kongponents/issues/1516)) ([2eb5819](https://github.com/Kong/kongponents/commit/2eb5819e6d0c650628bcf3339c978bc3ce2eec7d))
+
 # [8.85.0](https://github.com/Kong/kongponents/compare/v8.84.8...v8.85.0) (2023-07-07)
 
 
