@@ -480,7 +480,7 @@ const value = computed({
     return props.modelValue
   },
   set(newValue: string | number): void {
-    const item = selectItems.value.filter((item: SelectItem) => item.value === newValue)
+    const item = selectItems.value?.filter((item: SelectItem) => item.value === newValue)
     if (item.length) {
       handleItemSelect(item[0])
     } else if (!newValue) {
@@ -597,7 +597,7 @@ const handleAddItem = (): void => {
     return
   }
 
-  const pos = selectItems.value.length + 1
+  const pos = selectItems.value?.length + 1
   const item: SelectItem = {
     label: filterStr.value + '',
     value: props.testMode ? `test-multiselect-added-item-${pos}` : uuidv4(),
@@ -708,7 +708,7 @@ watch(() => props.items, (newValue, oldValue) => {
   }
 
   selectItems.value = JSON.parse(JSON.stringify(props.items))
-  for (let i = 0; i < selectItems.value.length; i++) {
+  for (let i = 0; i < selectItems.value?.length; i++) {
     // Ensure each item has a `selected` property
     if (selectItems.value[i].selected === undefined) {
       selectItems.value[i].selected = false
