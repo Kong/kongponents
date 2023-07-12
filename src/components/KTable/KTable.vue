@@ -136,7 +136,7 @@
                   v-if="!disableSorting && !column.hideLabel && column.sortable"
                   aria-hidden="true"
                   class="caret ml-2"
-                  color="var(--KTableColor, var(--black-70, var(--kui-color-text, $kui-color-text)))"
+                  :color="`var(--KTableColor, var(--black-70, var(--kui-color-text, ${KUI_COLOR_TEXT})))`"
                   icon="chevronDown"
                   size="12"
                 />
@@ -216,6 +216,7 @@ import type {
   PageChangedData,
   PageSizeChangedData,
 } from '@/types'
+import { KUI_COLOR_TEXT } from '@kong/design-tokens'
 
 const { useDebounce, useRequest, useSwrvState } = useUtilities()
 
@@ -987,7 +988,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
 .k-table {
   border-collapse: collapse;
-  margin-top: 0;
+  margin-top: var(--kui-space-0, $kui-space-0);
   max-width: 100%;
   width: 100%;
 
@@ -1092,7 +1093,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
   // Variants
   &.has-hover {
      tbody tr:hover {
-      background-color: var(--KTableHover, var(--blue-100, var(--kui-color-background-success-weakest, $kui-color-background-success-weakest)));
+      background-color: var(--KTableHover, var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest)));
     }
   }
 
@@ -1109,7 +1110,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
   &.side-border {
     border-collapse: separate;
-    border-spacing: 0 2px;
+    border-spacing: $tmp-border-spacing-0 $tmp-border-spacing-2; // token needed?
 
     tbody tr {
       border-bottom: none;
