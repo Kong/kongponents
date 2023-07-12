@@ -18,20 +18,20 @@
           'k-code-block-search-results-has-query': query !== '',
         }"
       >
-        <template v-if="query === '' && numberOfMatches === 0">
+        <template v-if="query === '' && matchingLineNumbers.length === 0">
           &nbsp;
         </template>
 
-        <template v-else-if="numberOfMatches === 0">
+        <template v-else-if="matchingLineNumbers.length === 0">
           No results
         </template>
 
         <template v-else-if="typeof currentLineIndex === 'number' && !isShowingFilteredCode">
-          {{ currentLineIndex + 1 }} of {{ numberOfMatches }}
+          {{ currentLineIndex + 1 }} of {{ matchingLineNumbers.length }}
         </template>
 
         <template v-else>
-          {{ numberOfMatches }} {{ numberOfMatches === 1 ? 'result' : 'results' }}
+          {{ matchingLineNumbers.length }} {{ matchingLineNumbers.length === 1 ? 'result' : 'results' }}
         </template>
       </p>
 
