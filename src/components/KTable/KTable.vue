@@ -1006,7 +1006,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
   thead {
     background-color: var(--kui-color-background, $kui-color-background);
-    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--KTableBorder, var(--grey-200, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak))); // token needed: kui-color-border-neutral-weaker
+    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--KTableBorder, var(--grey-200, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
     height: 60px;
     position: sticky;
     top: var(--kui-space-0, $kui-space-0);
@@ -1037,7 +1037,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
         border-bottom: none;
 
         &:after {
-          box-shadow: $tmp-color-shadow; // token needed?
+          box-shadow: $tmp-color-shadow;
           opacity: 1;
           transition: opacity $tmp-animation-timing-2 ease-in-out;
         }
@@ -1124,19 +1124,19 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
   &.side-border {
     border-collapse: separate;
-    border-spacing: $tmp-border-spacing-0 $tmp-border-spacing-2; // token needed?
+    border-spacing: $tmp-border-spacing-0 $tmp-border-spacing-2;
 
     tbody tr {
       border-bottom: none;
     }
 
     tbody tr td:first-child {
-      border-left: var(--kui-border-width-20, $kui-border-width-20) solid var(--KTableBorder, var(--steel-200, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak))); // token value change
+      border-left: var(--kui-border-width-20, $kui-border-width-20) solid var(--KTableBorder, var(--steel-200, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
     }
 
     &.has-hover {
       tbody tr:hover td:first-child {
-        border-left: var(--kui-border-width-20, $kui-border-width-20) solid var(--KTableBorder, var(--steel-300, $tmp-color-steel-300)); // token needed
+        border-left: var(--kui-border-width-20, $kui-border-width-20) solid var(--KTableBorder, var(--steel-300, $tmp-color-steel-300));
       }
     }
   }
