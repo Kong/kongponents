@@ -810,10 +810,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@kong/design-tokens@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.4.0.tgz#f115c5b428db257db17c85b7ebaf2f9c37668fea"
-  integrity sha512-tyezRQsnVDnQNRqkZ+4ZBDVYtlV1V315UkDMvuwqZr5pNoEGqjSEm7mcnx4cp614nYmlaBqTQtIuPLlYEmpn6w==
+"@kong/design-tokens@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.5.1.tgz#cb405333bb17d4c0d6210f0bd725328902c723fa"
+  integrity sha512-OiC6yMYI1lM1aGEcFHzRLN/i4hpumJ+x55Uz2DD679IJe6Cff/lMTeVpCEwXlDt75xsxuVSsCPOE7rLXM8Ck3w==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
