@@ -1,6 +1,6 @@
 <template>
   <KCard
-    class="grid-item d-flex flex-column overflow-hidden k-card-catalog-item"
+    class="k-card-catalog-item"
     :data-testid="item && item.title ? `${item.title.replace(/[^0-9a-z]/gi, '-')}-catalog-item` : 'catalog-item'"
     has-hover
     role="button"
@@ -66,13 +66,13 @@ const handleCardClick = (evt: Event, item: CatalogItem): void => {
   display: flex;
   flex-direction: column;
   justify-content: stretch;
+  overflow: hidden;
 
   .multi-line-truncate {
     line-height: var(--lh, var(--kui-line-height-30, $kui-line-height-30));
     max-height: calc(var(--lh, var(--kui-line-height-30, $kui-line-height-30)) * var(--max-lines, 5));
     overflow: hidden;
     padding-right: var(--kui-space-40, $kui-space-40);
-
     position: relative;
   }
 
