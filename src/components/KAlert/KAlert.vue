@@ -331,7 +331,7 @@ export const appearances: AlertAppearanceRecord = {
   }
 
   .k-alert-title {
-    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold) !important;
   }
 
   .k-alert-description-text {
@@ -452,7 +452,7 @@ export const appearances: AlertAppearanceRecord = {
   // Types - MUST FOLLOW APPEARANCES
   &.is-alert {
     .k-alert-icon-container {
-      margin-right: var(--kui-space-50, $kui-space-50);
+      margin-right: var(--kui-space-50, $kui-space-50) !important;
     }
   }
 

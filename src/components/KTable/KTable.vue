@@ -2,7 +2,7 @@
   <div class="k-table-container">
     <div
       v-if="hasToolbarSlot"
-      class="k-table-toolbar mb-5"
+      class="k-table-toolbar"
       data-testid="k-table-toolbar"
     >
       <slot
@@ -105,6 +105,7 @@
               v-for="(column, index) in tableHeaders"
               :key="`k-table-${tableId}-headers-${index}`"
               :aria-sort="!disableSorting && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
+              class="k-table-headers"
               :class="{
                 'sortable': !disableSorting && !column.hideLabel && column.sortable,
                 'active-sort': !disableSorting && !column.hideLabel && column.sortable && column.key === sortColumnKey,
@@ -122,7 +123,7 @@
                 }
               }"
             >
-              <span class="d-flex align-items-center">
+              <span class="k-table-headers-container">
                 <slot
                   :column="getGeneric(column)"
                   :name="getColumnSlotName(column.key)"
@@ -135,7 +136,7 @@
                 <KIcon
                   v-if="!disableSorting && !column.hideLabel && column.sortable"
                   aria-hidden="true"
-                  class="caret ml-2"
+                  class="caret"
                   :color="`var(--KTableColor, var(--black-70, var(--kui-color-text, ${KUI_COLOR_TEXT})))`"
                   icon="chevronDown"
                   size="12"
@@ -175,7 +176,7 @@
 
       <KPagination
         v-if="shouldShowPagination"
-        class="pa-1"
+        class="k-table-pagination"
         :current-page="page"
         data-testid="k-table-pagination"
         :disable-page-jump="disablePaginationPageJump"
@@ -982,8 +983,12 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
   width: 100%;
 }
 
-.k-table-toolbar > :deep(*) {
-  display: flex;
+.k-table-toolbar {
+  margin-bottom: var(--kui-space-80, $kui-space-80) !important;
+
+  & > :deep(*) {
+    display: flex;
+  }
 }
 
 .k-table {
@@ -1001,7 +1006,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
   thead {
     background-color: var(--kui-color-background, $kui-color-background);
-    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--KTableBorder, var(--grey-200, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
+    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--KTableBorder, var(--grey-200, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak))); // token needed: kui-color-border-neutral-weaker
     height: 60px;
     position: sticky;
     top: var(--kui-space-0, $kui-space-0);
@@ -1064,6 +1069,15 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
       &.sortable {
         cursor: pointer;
       }
+
+      .k-table-headers-container {
+        align-items: center !important;
+        display: flex !important;
+
+        .caret {
+          margin-left: var(--kui-space-40, $kui-space-40) !important;
+        }
+      }
     }
   }
 
@@ -1125,6 +1139,10 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
         border-left: var(--kui-border-width-20, $kui-border-width-20) solid var(--KTableBorder, var(--steel-300, $tmp-color-steel-300)); // token needed
       }
     }
+  }
+
+  .k-table-pagination {
+    padding: var(--kui-space-20, $kui-space-20) !important;
   }
 }
 </style>

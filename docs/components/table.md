@@ -545,11 +545,11 @@ export default {
 <style lang="scss">
 .k-table {
   tr.enabled:hover {
-    --KTableHover: var(--green-200, #ccffe1);
+    --KTableHover: #ccffe1;
   }
 
   tr.disabled:hover {
-    --KTableHover: var(--yellow-100, #fff9e6);
+    --KTableHover: #fff9e6;
   }
 }
 </style>
@@ -627,13 +627,13 @@ If you want to conditionally apply an event handler to `@row:click`, the value m
 
 If you always provide a function as the value for `@row:click` the table will not be able to correctly determine whether the row should be clickable without executing the callback.
 
-<h4><KIcon icon="check" size="22" color="var(--green-500)" style="vertical-align: sub;" class="mr-1" />Correct Usage</h4>
+<h4><KIcon icon="check" size="22" color="green" style="vertical-align: sub;" class="mr-1" />Correct Usage</h4>
 
 ```
 @row:click="isAllowedBool ? handleRowClick : undefined"
 ```
 
-<h4><KIcon icon="disabled" size="22" color="var(--red-500)" style="vertical-align: sub;" class="mr-1" />Incorrect Usage</h4>
+<h4><KIcon icon="disabled" size="22" color="red" style="vertical-align: sub;" class="mr-1" />Incorrect Usage</h4>
 
 ```
 @row:click="(evt, row) => isAllowedBool ? handleRowClick(evt, row) : undefined"
@@ -743,7 +743,7 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
           <template #icon>
             <KIcon
               icon="more"
-              color="var(--black-400)"
+              color="grey"
               size="16"
             />
           </template>
@@ -776,7 +776,7 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
           <template #icon>
             <KIcon
               icon="more"
-              color="var(--black-400)"
+              color="grey"
               size="16"
             />
           </template>
@@ -1012,7 +1012,7 @@ This example uses the [`KDropdownMenu`](/components/dropdown-menu) component as 
             <template #icon>
               <KIcon
                 icon="more"
-                color="var(--black-400)"
+                color="grey"
                 size="16"
               />
             </template>
@@ -1058,7 +1058,7 @@ This example uses the [`KDropdownMenu`](/components/dropdown-menu) component as 
             <template #icon>
               <KIcon
                 icon="more"
-                color="var(--black-400)"
+                color="grey"
                 size="16"
               />
             </template>
@@ -1981,11 +1981,11 @@ export default defineComponent({
   }
 
   tr.enabled:hover {
-    --KTableHover: var(--green-200, #ccffe1);
+    --KTableHover: #ccffe1;
   }
 
   tr.disabled:hover {
-    --KTableHover: var(--yellow-100, #fff9e6);
+    --KTableHover: #fff9e6;
   }
 
   td.custom-layout-cell {
