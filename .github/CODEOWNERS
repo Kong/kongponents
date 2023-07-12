@@ -28,6 +28,7 @@
 /src/components/KAlert @adamdehaven @jillztom @portikM
 /src/components/KBadge @adamdehaven @jillztom @portikM
 /src/components/KButton @adamdehaven @jillztom @portikM
+/src/components/KTable @adamdehaven @jillztom @portikM
 
 # Dependabot approvals
 # Allow Kongponents BOT to approve dependabot updates
