@@ -1,3 +1,10 @@
+## [8.86.1](https://github.com/Kong/kongponents/compare/v8.86.0...v8.86.1) (2023-07-12)
+
+
+### Bug Fixes
+
+* **kcodeblock:** not showing correct number of matching lines ([#1481](https://github.com/Kong/kongponents/issues/1481)) ([2a8b014](https://github.com/Kong/kongponents/commit/2a8b014d1daed48508330c7cb428c0698a9e1f89))
+
 # [8.86.0](https://github.com/Kong/kongponents/compare/v8.85.0...v8.86.0) (2023-07-12)
 
 
