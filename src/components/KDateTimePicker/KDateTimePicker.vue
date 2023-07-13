@@ -651,7 +651,7 @@ $margin: var(--kui-space-30, $kui-space-30);
 
       .datetime-picker-footer-container {
         display: flex !important;
-        justify-content: end !important;
+        justify-content: flex-end !important;
 
         // Apply / Clear buttons
         // TODO these overrides should be applied to Kongponents button
@@ -860,8 +860,8 @@ $margin: var(--kui-space-30, $kui-space-30);
               color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
             }
             &:active {
-              background-color: var(--blue-300, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak));
-              border-color: var(--blue-300, var(--kui-color-border-primary-weak, $kui-color-border-primary-weak));
+              background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak);
+              border-color: var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
               color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
             }
           }
@@ -882,12 +882,12 @@ $margin: var(--kui-space-30, $kui-space-30);
       .vcal-day-drag-start,
       .vcal-day-drag-end {
         background-color: $selected-color;
-        border: var(--kui-border-width-20, $kui-border-width-20) solid var(--blue-400, var(--kui-color-border-primary-weak, $kui-color-border-primary-weak));
+        border: var(--kui-border-width-20, $kui-border-width-20) solid $selected-color;
       }
       .vc-day-content {
         &:hover {
           background-color: var(--white, var(--kui-color-background, $kui-color-background));
-          border: var(--kui-border-width-20, $kui-border-width-20) solid var(--blue-400, var(--kui-color-border-primary-weak, $kui-color-border-primary-weak));
+          border: var(--kui-border-width-20, $kui-border-width-20) solid $selected-color;
           color: $selected-color;
         }
       }
