@@ -80,7 +80,6 @@ const handleCardClick = (evt: Event, item: CatalogItem): void => {
     content: "...";
     position: absolute;
     right: var(--kui-space-50, $kui-space-50);
-    /* stylelint-disable-next-line */
     top: calc(var(--lh, var(--kui-line-height-30, $kui-line-height-30)) * var(--max-lines-less, 4));
   }
 
