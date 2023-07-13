@@ -1,3 +1,11 @@
+## [8.89.1](https://github.com/Kong/kongponents/compare/v8.89.0...v8.89.1) (2023-07-13)
+
+
+### Bug Fixes
+
+* **kbadge:** fix import ([#1529](https://github.com/Kong/kongponents/issues/1529)) ([7b1ecee](https://github.com/Kong/kongponents/commit/7b1ecee86cdf0584c2413d0837b6a115895fb9f2))
+* **KModal:** fix focusTrap error [KHCP-7758] ([#1519](https://github.com/Kong/kongponents/issues/1519)) ([041eaac](https://github.com/Kong/kongponents/commit/041eaaca9ba45890d3c31bc58c4a8a2e1d955ee4))
+
 # [8.89.0](https://github.com/Kong/kongponents/compare/v8.88.0...v8.89.0) (2023-07-13)
 
 
