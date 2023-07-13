@@ -5,6 +5,8 @@
 $tmp-animation-timing-2: 0.2s;
 
 // Colors
+$tmp-color-white: #ffffff;
+
 $tmp-color-green-100: #e8f8f5;
 $tmp-color-green-200: #c0f2d5;
 $tmp-color-green-400: #42d782;
@@ -20,6 +22,9 @@ $tmp-color-yellow-500: #c67c06;
 $tmp-color-yellow-600: #a05604;
 
 $tmp-color-steel-300: #a3b6d9;
+
+// Borders
+$tmp-color-gray-weaker: #e0e4ea; // color-border-neutral-weaker
 
 // Shadows
 $tmp-color-shadow: 0px 0.2px 0.6px rgba(0, 0, 0, 0.031), 0px 0.6px 1.8px rgba(0, 0, 0, 0.045),
