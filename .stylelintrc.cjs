@@ -17,9 +17,14 @@ module.exports = {
         // Disable the following rules
         'custom-property-no-missing-var-function': null,
         'no-descending-specificity': null,
+        'no-extra-semicolons': null,
       }
     }
   ],
-  plugins: [ 'stylelint-order' ],
-  rules: { 'order/properties-alphabetical-order': true }
+  plugins: [
+    'stylelint-order',
+  ],
+  rules: {
+    'order/properties-alphabetical-order': true,
+  }
 }

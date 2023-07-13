@@ -540,66 +540,66 @@ export const appearances: AlertAppearanceRecord = {
     }
 
     &.info button.primary {
-      --KButtonPrimaryBase: var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary));
-      --KButtonPrimaryHover: var(--blue-200, var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker));
+      --KButtonPrimaryBase: var(--blue-500, var(--kui-color-background-primary, #{$kui-color-background-primary}));
+      --KButtonPrimaryHover: var(--blue-200, var(--kui-color-background-primary-weaker, #{$kui-color-background-primary-weaker}));
       background-color: var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
       color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
     }
 
     &.info button.outline {
-      --KButtonOutlineBorder: var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary));
-      --KButtonOutlineHoverBorder: var(--blue-600, var(--kui-color-border-primary-strong, $kui-color-border-primary-strong));
-      --KButtonOutlineActive: var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
-      --KButtonOutlineActiveBorder: var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary));
+      --KButtonOutlineBorder: var(--blue-500, var(--kui-color-border-primary, #{$kui-color-border-primary}));
+      --KButtonOutlineHoverBorder: var(--blue-600, var(--kui-color-border-primary-strong, #{$kui-color-border-primary-strong}));
+      --KButtonOutlineActive: var(--blue-100, var(--kui-color-background-primary-weakest, #{$kui-color-background-primary-weakest}));
+      --KButtonOutlineActiveBorder: var(--blue-500, var(--kui-color-border-primary, #{$kui-color-border-primary}));
       border: var(--kui-border-width-10, $kui-border-width-10) solid var(--blue-400, var(--kui-color-border-primary-weak, $kui-color-border-primary-weak));
       color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
     }
 
     &.warning button.primary {
-      --KButtonPrimaryBase: var(--yellow-500, $tmp-color-yellow-500);
-      --KButtonPrimaryHover: var(--yellow-200, $$tmp-color-yellow-200);
+      --KButtonPrimaryBase: var(--yellow-500, #{$tmp-color-yellow-500});
+      --KButtonPrimaryHover: var(--yellow-200, #{$tmp-color-yellow-200});
       background-color: var(--yellow-100, $tmp-color-yellow-100);
       color: var(--yellow-500, $tmp-color-yellow-500);
     }
 
     &.warning button.outline {
-      --KButtonOutlineBorder: var(--yellow-500, $tmp-color-yellow-500);
-      --KButtonOutlineHoverBorder: var(--yellow-500, $tmp-color-yellow-500);
-      --KButtonOutlineActive: var(--yellow-100, $tmp-color-yellow-100);
-      --KButtonOutlineActiveBorder: var(--yellow-500, $tmp-color-yellow-500);
+      --KButtonOutlineBorder: var(--yellow-500, #{$tmp-color-yellow-500});
+      --KButtonOutlineHoverBorder: var(--yellow-500, #{$tmp-color-yellow-500});
+      --KButtonOutlineActive: var(--yellow-100, #{$tmp-color-yellow-100});
+      --KButtonOutlineActiveBorder: var(--yellow-500, #{$tmp-color-yellow-500});
       border: var(--kui-border-width-10, $kui-border-width-10) solid var(--yellow-300, $tmp-color-yellow-300);
       color: var(--yellow-500, $tmp-color-yellow-500);
     }
 
     &.success button.primary {
-      --KButtonPrimaryBase: var(--green-600, $tmp-color-green-600);
-      --KButtonPrimaryHover: var(--green-200, $tmp-color-green-200);
+      --KButtonPrimaryBase: var(--green-600, #{$tmp-color-green-600});
+      --KButtonPrimaryHover: var(--green-200, #{$tmp-color-green-200});
       background-color: var(--green-100, $tmp-color-green-100);
       color: var(--green-600, $tmp-color-green-600);
     }
 
     &.success button.outline {
-      --KButtonOutlineBorder: var(--green-600, $tmp-color-green-600);
-      --KButtonOutlineHoverBorder: var(--green-600, $tmp-color-green-600);
-      --KButtonOutlineActive: var(--green-100, $tmp-color-green-100);
-      --KButtonOutlineActiveBorder: var(--green-600, $tmp-color-green-600);
+      --KButtonOutlineBorder: var(--green-600, #{$tmp-color-green-600});
+      --KButtonOutlineHoverBorder: var(--green-600, #{$tmp-color-green-600});
+      --KButtonOutlineActive: var(--green-100, #{$tmp-color-green-100});
+      --KButtonOutlineActiveBorder: var(--green-600, #{$tmp-color-green-600});
       border: var(--kui-border-width-10, $kui-border-width-10) solid var(--green-400, $tmp-color-green-400);
       color: var(--green-600, $tmp-color-green-600);
     }
 
     &.danger button.primary {
-      --KButtonPrimaryHover: var(--red-200, var(--kui-color-background-danger-weak, $kui-color-background-danger-weak));
-      --KButtonPrimaryBase: var(--red-700, var(--kui-color-background-danger-strong, $kui-color-background-danger-strong));
-      background-color: var(--red-100, var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest));
+      --KButtonPrimaryHover: var(--red-200, var(--kui-color-background-danger-weak, #{$kui-color-background-danger-weak}));
+      --KButtonPrimaryBase: var(--red-700, var(--kui-color-background-danger-strong, #{$kui-color-background-danger-strong}));
+      background-color: var(--red-100, var(--kui-color-background-danger-weakest, #{$kui-color-background-danger-weakest}));
       color: var(--red-700, var(--kui-color-text-danger, $kui-color-text-danger));
     }
 
     &.danger button.outline {
-      --KButtonOutlineBorder: var(--red-700, var(--kui-color-border-danger-strong, $kui-color-border-danger-strong));
-      --KButtonOutlineColor: var(--red-700, var(--kui-color-text-danger, $kui-color-text-danger));
-      --KButtonOutlineHoverBorder: var(--red-700, var(--kui-color-border-danger-strong, $kui-color-border-danger-strong));
-      --KButtonOutlineActive: var(--red-100, var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest));
-      --KButtonOutlineActiveBorder: var(--red-700, var(--kui-color-border-danger-strong, $kui-color-border-danger-strong));
+      --KButtonOutlineBorder: var(--red-700, var(--kui-color-border-danger-strong, #{$kui-color-border-danger-strong}));
+      --KButtonOutlineColor: var(--red-700, var(--kui-color-text-danger, #{$kui-color-text-danger}));
+      --KButtonOutlineHoverBorder: var(--red-700, var(--kui-color-border-danger-strong, #{$kui-color-border-danger-strong}));
+      --KButtonOutlineActive: var(--red-100, var(--kui-color-background-danger-weakest, #{$kui-color-background-danger-weakest}));
+      --KButtonOutlineActiveBorder: var(--red-700, var(--kui-color-border-danger-strong, #{$kui-color-border-danger-strong}));
       border: var(--kui-border-width-10, $kui-border-width-10) solid var(--red-500, var(--kui-color-border-danger-weak, $kui-color-border-danger-weak));
     }
   }

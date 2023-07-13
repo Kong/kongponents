@@ -10,7 +10,7 @@
 
     <div
       v-if="hasToolbarSlot"
-      class="k-catalog-toolbar mb-5"
+      class="k-catalog-toolbar"
       data-testid="k-catalog-toolbar"
     >
       <slot
@@ -28,7 +28,7 @@
     >
       <template #card-header>
         <KSkeletonBox
-          class="w-100 justify-content-center mb-3"
+          class="k-catalog-skeleton-header"
           width="6"
         />
       </template>
@@ -38,9 +38,8 @@
       </template>
 
       <template #card-footer>
-        <div class="d-flex justify-content-start">
+        <div class="k-catalog-skeleton-footer-container">
           <KSkeletonBox
-            class="mr-2"
             width="2"
           />
           <KSkeletonBox width="5" />
@@ -172,7 +171,7 @@
         data-testid="k-catalog-pagination"
       >
         <KPagination
-          class="pa-1"
+          class="k-catalog-pagination"
           :current-page="page"
           :disable-page-jump="disablePaginationPageJump"
           :initial-page-size="pageSize"
@@ -628,18 +627,22 @@ onMounted(() => {
 
 .k-card-catalog {
   .k-card-catalog-title {
-    color: var(--blue-600);
+    color: var(--blue-600, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
   }
 
   .k-catalog-page {
     display: grid;
-    grid-gap: var(--spacing-lg);
+    grid-gap: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
 
-.k-catalog-toolbar > :deep(*) {
-  display: flex;
+.k-catalog-toolbar {
+  margin-bottom: var(--kui-space-80, $kui-space-80) !important;
+
+  & > :deep(*) {
+    display: flex;
+  }
 }
 </style>
 
@@ -653,6 +656,18 @@ onMounted(() => {
   .k-skeleton-grid {
     .skeleton-card {
       height: $cardHeight;
+
+      .k-catalog-skeleton-header {
+        justify-content: center !important;
+        margin-bottom: var(--kui-space-50, $kui-space-50) !important;
+        width: 100% !important;
+      }
+
+      .k-catalog-skeleton-footer-container {
+        > :not(:last-child) {
+          margin-right: var(--kui-space-40, $kui-space-40) !important;
+        }
+      }
     }
   }
 
@@ -672,6 +687,10 @@ onMounted(() => {
 
   .card-pagination {
     grid-column: 1 / -1;
+  }
+
+  .k-catalog-pagination {
+    padding: var(--kui-space-20, $kui-space-20) !important;
   }
 }
 </style>
