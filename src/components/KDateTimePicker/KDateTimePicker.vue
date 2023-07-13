@@ -24,7 +24,7 @@
       >
         <KIcon
           v-if="icon"
-          class="mr-1"
+          class="calendar-icon"
           :color="`var(--grey-500, var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL}))`"
           icon="calendar"
           size="18"
@@ -43,7 +43,7 @@
         <KSegmentedControl
           v-if="hasTimePeriods && hasCalendar"
           v-model="state.tabName"
-          class="w-100 mb-4"
+          class="datetime-picker-toggle"
           data-testid="k-datetime-picker-toggle"
           :options="[
             { label: 'Relative', value: 'relative' },
@@ -73,17 +73,17 @@
         />
         <div
           v-else-if="hasTimePeriods"
-          class="d-flex flex-column"
+          class="relative-periods-container"
         >
           <div
             v-for="(item, index) in timePeriods"
             :key="`section-${String(item.section || index)}`"
-            class="timeframe-section d-flex flex-column"
+            class="timeframe-section"
           >
-            <div class="timeframe-section-title type-sm mt-2 mb-1">
+            <div class="timeframe-section-title">
               {{ item.section }}
             </div>
-            <div class="timeframe-buttons d-flex">
+            <div class="timeframe-buttons">
               <KButton
                 v-for="(timeFrame, itemIdx) in item.values"
                 :key="`time-${itemIdx}`"
@@ -105,7 +105,7 @@
         v-if="!state.hidePopover"
         #footer
       >
-        <div class="d-flex justify-content-end">
+        <div class="datetime-picker-footer-container">
           <KButton
             v-if="clearButton"
             appearance="btn-link"
@@ -542,6 +542,10 @@ $margin: var(--kui-space-30, $kui-space-30);
     // Styling button as input via mixin
     @include input-default;
 
+    .calendar-icon {
+      margin-right: var(--kui-space-20, $kui-space-20) !important;
+    }
+
     &.set-min-width {
       min-width: $timepicker-min-width;
     }
@@ -587,15 +591,32 @@ $margin: var(--kui-space-30, $kui-space-30);
     }
 
     .k-popover-content {
+      .datetime-picker-toggle {
+        margin-bottom: var(--kui-space-60, $kui-space-60) !important;
+        width: 100% !important;
+      }
+
       .range-display {
         margin: var(--kui-space-0, $kui-space-0) auto var(--kui-space-0, $kui-space-0);
       }
+
+      .relative-periods-container {
+        display: flex !important;
+        flex-direction: column !important;
+      }
+
       .timeframe-section {
+        display: flex !important;
+        flex-direction: column !important;
+
         .timeframe-section-title {
+          font-size: var(--kui-font-size-30, $kui-font-size-30) !important;
           font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-          margin-bottom: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+          margin-bottom: var(--spacing-xs, var(--kui-space-20, $kui-space-20)) !important;
+          margin-top: var(--kui-space-40, $kui-space-40) !important;
         }
         .timeframe-buttons {
+          display: flex !important;
           flex-wrap: wrap;
 
           .timeframe-btn {
@@ -627,12 +648,18 @@ $margin: var(--kui-space-30, $kui-space-30);
 
     .k-popover-footer {
       margin: var(--spacing-md, var(--kui-space-60, $kui-space-60)) auto var(--kui-space-0, $kui-space-0);
-      // Apply / Clear buttons
-      // TODO these overrides should be applied to Kongponents button
-      .action-btn {
-        padding: var(--kui-space-0, $kui-space-0) var(--spacing-md, var(--kui-space-60, $kui-space-60)) var(--spacing-xs, var(--kui-space-40, $kui-space-40));
-        &:focus {
-          box-shadow: none;
+
+      .datetime-picker-footer-container {
+        display: flex !important;
+        justify-content: end !important;
+
+        // Apply / Clear buttons
+        // TODO these overrides should be applied to Kongponents button
+        .action-btn {
+          padding: var(--kui-space-0, $kui-space-0) var(--spacing-md, var(--kui-space-60, $kui-space-60)) var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+          &:focus {
+            box-shadow: none;
+          }
         }
       }
     }
@@ -647,11 +674,11 @@ $margin: var(--kui-space-30, $kui-space-30);
 
 // v-calendar overrides
 .k-datetime-picker {
-  $highlight-color: var(--blue-200, var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker));
-  $selected-color: var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary));
-  $text-color-lighter: var(--grey-200, var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak));
-  $text-color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
-  $text-color-darker: var(--grey-600, var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong));
+  $highlight-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
+  $selected-color: var(--kui-color-background-primary, $kui-color-background-primary);
+  $text-color-lighter: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
+  $text-color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+  $text-color-darker: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
 
   .vc-container {
     border: var(--kui-border-width-0, $kui-border-width-0);
@@ -683,7 +710,7 @@ $margin: var(--kui-space-30, $kui-space-30);
 
     .vc-nav-popover-container {
       background-color: var(--white, var(--kui-color-background, $kui-color-background));
-      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
+      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
       color: $text-color;
 
       .vc-nav-container {
@@ -701,7 +728,7 @@ $margin: var(--kui-space-30, $kui-space-30);
 
           &:hover {
             background-color: var(--white, var(--kui-color-background, $kui-color-background));
-            color: var(--grey-600, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
+            color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
           }
           &:active,
           &:focus {
@@ -715,9 +742,9 @@ $margin: var(--kui-space-30, $kui-space-30);
             color: $text-color;
 
             &:hover {
-              background-color: var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
+              background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
               box-shadow: none;
-              color: var(--grey-600, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
+              color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
             }
             // Currently selected month
             &.is-current {
@@ -798,7 +825,7 @@ $margin: var(--kui-space-30, $kui-space-30);
           color: $text-color-darker;
 
           + .vc-select-arrow {
-            color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
+            color: var(--kui-color-text-neutral, $kui-color-text-neutral);
           }
         }
       }
