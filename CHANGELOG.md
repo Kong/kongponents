@@ -1,3 +1,10 @@
+# [8.90.0](https://github.com/Kong/kongponents/compare/v8.89.1...v8.90.0) (2023-07-13)
+
+
+### Features
+
+* **kdatetimepicker:** introduce kui tokens [KHCP-7702] ([#1531](https://github.com/Kong/kongponents/issues/1531)) ([7f4ed4e](https://github.com/Kong/kongponents/commit/7f4ed4e89bd42e76fc7f32c9b1b9ebcc63dfecaf))
+
 ## [8.89.1](https://github.com/Kong/kongponents/compare/v8.89.0...v8.89.1) (2023-07-13)
 
 
