@@ -814,14 +814,16 @@ $margin: var(--kui-space-30, $kui-space-30);
     .vc-time-picker {
       // Time Range
       .vc-select select {
-        background-color: $text-color-lighter;
+        background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+        border: var(--kui-border-width-20, $kui-border-width-20) solid $tmp-color-border-neutral-weaker;
         color: $text-color-darker;
+
         &:hover {
           color: $text-color-darker;
         }
         &:focus {
-          background-color: $text-color-lighter;
-          border: var(--kui-border-width-20, $kui-border-width-20) solid $text-color-lighter;
+          background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+          border: var(--kui-border-width-20, $kui-border-width-20) solid $tmp-color-border-neutral-weaker;
           color: $text-color-darker;
 
           + .vc-select-arrow {
@@ -838,7 +840,7 @@ $margin: var(--kui-space-30, $kui-space-30);
 
       // AM / PM highlights
       .vc-am-pm {
-        background-color: $text-color-lighter;
+        background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
         color: $text-color-darker;
 
         button {
