@@ -814,7 +814,7 @@ $margin: var(--kui-space-30, $kui-space-30);
       // Time Range
       .vc-select select {
         background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-        border: var(--kui-border-width-20, $kui-border-width-20) solid $tmp-color-border-neutral-weaker;
+        border: var(--kui-border-width-20, $kui-border-width-20) solid $tmp-color-gray-weaker;
         color: $text-color-darker;
 
         &:hover {
@@ -822,7 +822,7 @@ $margin: var(--kui-space-30, $kui-space-30);
         }
         &:focus {
           background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-          border: var(--kui-border-width-20, $kui-border-width-20) solid $tmp-color-border-neutral-weaker;
+          border: var(--kui-border-width-20, $kui-border-width-20) solid $tmp-color-gray-weaker;
           color: $text-color-darker;
 
           + .vc-select-arrow {
