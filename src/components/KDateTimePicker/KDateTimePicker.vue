@@ -676,7 +676,6 @@ $margin: var(--kui-space-30, $kui-space-30);
 .k-datetime-picker {
   $highlight-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
   $selected-color: var(--kui-color-background-primary, $kui-color-background-primary);
-  $text-color-lighter: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
   $text-color: var(--kui-color-text-neutral, $kui-color-text-neutral);
   $text-color-darker: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
 
