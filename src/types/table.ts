@@ -23,11 +23,6 @@ export interface TableHeader {
   useSortHandlerFn?: boolean
 }
 
-export interface TableOptions extends Record<string, any>{
-  data: any[]
-  headers: TableHeader[]
-}
-
 /**
  * Provide a type interface for KTable `column-*` slot names.
  *

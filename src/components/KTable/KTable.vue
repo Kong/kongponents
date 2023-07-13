@@ -217,9 +217,9 @@ import type {
   PageChangedData,
   PageSizeChangedData,
   SortColumnOrder,
-  TableOptions,
   TableSortOrder,
-  TableSortPayload, TableStatePayload,
+  TableSortPayload,
+  TableStatePayload,
   TableTestMode,
 } from '@/types'
 import {
@@ -227,7 +227,6 @@ import {
   TableSortOrderArray,
   TableTestModeArray,
 } from '@/types'
-import { RouteLocationRaw } from 'vue-router'
 import { KUI_COLOR_TEXT, KUI_ICON_SIZE_20 } from '@kong/design-tokens'
 
 const { useDebounce, useRequest, useSwrvState } = useUtilities()
@@ -241,7 +240,7 @@ const props = defineProps({
    * @param {Array} options.data - Array of Objects defining column data
    */
   options: {
-    type: Object as PropType<TableOptions>,
+    type: Object,
     default: () => null,
     required: false,
   },
@@ -327,7 +326,7 @@ const props = defineProps({
    * A prop to pass in a custom empty state action route
    */
   emptyStateActionRoute: {
-    type: [Object, String] as PropType<string | RouteLocationRaw>,
+    type: [Object, String],
     default: '',
   },
   /**
@@ -390,7 +389,7 @@ const props = defineProps({
    * A prop to pass in a custom error state action route
    */
   errorStateActionRoute: {
-    type: [Object, String] as PropType<string | RouteLocationRaw>,
+    type: [Object, String],
     default: '',
   },
   /**
@@ -456,7 +455,7 @@ const props = defineProps({
    * A prop to pass in an array of headers for the table
    */
   headers: {
-    type: Array as PropType<TableHeader[]>,
+    type: Array,
     default: () => [],
   },
   /**
@@ -543,7 +542,7 @@ const defaultFetcherProps = {
   page: 1,
   query: '',
   sortColumnKey: '',
-  sortColumnOrder: 'desc' as SortColumnOrder,
+  sortColumnOrder: 'desc',
   offset: null,
 }
 const data = ref<Record<string, any>[]>([])
@@ -730,7 +729,7 @@ const initData = () => {
   pageSize.value = fetcherParams.pageSize ?? defaultFetcherProps.pageSize
   filterQuery.value = fetcherParams.query ?? defaultFetcherProps.query
   sortColumnKey.value = fetcherParams.sortColumnKey ?? defaultFetcherProps.sortColumnKey
-  sortColumnOrder.value = fetcherParams.sortColumnOrder ?? defaultFetcherProps.sortColumnOrder
+  sortColumnOrder.value = fetcherParams.sortColumnOrder as SortColumnOrder ?? defaultFetcherProps.sortColumnOrder as SortColumnOrder
 
   if (props.paginationType === 'offset') {
     offset.value = fetcherParams.offset
@@ -739,7 +738,7 @@ const initData = () => {
 
   // get table headers
   if (props.headers && props.headers.length) {
-    tableHeaders.value = props.headers
+    tableHeaders.value = props.headers as TableHeader[]
   } else if (props.options && props.options.headers && props.options.headers.length) {
     tableHeaders.value = props.options.headers
   }
