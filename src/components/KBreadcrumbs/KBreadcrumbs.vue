@@ -114,9 +114,9 @@ export default {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  font-size: $kui-font-size-30;
-  font-weight: $kui-font-weight-medium;
-  line-height: $kui-line-height-40;
+  font-size: var(--kui-font-size-30, $kui-font-size-30);
+  font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
+  line-height: var(--kui-line-height-40, $kui-line-height-40);
   list-style: none;
   margin-bottom: 16px;
   padding: 0;
@@ -131,7 +131,7 @@ export default {
     }
 
     .k-breadcrumb-divider {
-      padding: 0 $kui-space-20;
+      padding: var(--kui-space-0, $kui-space-0) var(--kui-space-20, $kui-space-20);
     }
 
     .k-breadcrumb-icon {
