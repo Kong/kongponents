@@ -1,3 +1,10 @@
+## [8.91.1](https://github.com/Kong/kongponents/compare/v8.91.0...v8.91.1) (2023-07-14)
+
+
+### Bug Fixes
+
+* **KSelect:** add pre-check presence for selectItems.value  [KHCP-7756] ([#1523](https://github.com/Kong/kongponents/issues/1523)) ([e9e713b](https://github.com/Kong/kongponents/commit/e9e713b055ba28b38c6cb11646a4d60490692f27))
+
 # [8.91.0](https://github.com/Kong/kongponents/compare/v8.90.0...v8.91.0) (2023-07-14)
 
 
