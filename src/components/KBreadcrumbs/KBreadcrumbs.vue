@@ -13,14 +13,16 @@
         v-bind="getComponentAttrs(item).attrs"
         class="no-underline"
       >
-        <KIcon
-          v-if="item.icon"
-          :class="['k-breadcrumb-icon', { 'has-no-text': !item.text }]"
-          :color="KUI_COLOR_TEXT_DECORATIVE"
-          hide-title
-          :icon="item.icon"
-          size="16"
-        />
+        <slot name="icon">
+          <KIcon
+            v-if="item.icon"
+            :class="['k-breadcrumb-icon', { 'has-no-text': !item.text }]"
+            :color="KUI_COLOR_TEXT_DECORATIVE"
+            hide-title
+            :icon="item.icon"
+            :size="KUI_ICON_SIZE_30"
+          />
+        </slot>
         <span
           v-if="item.text"
           class="k-breadcrumb-text truncate"
@@ -49,7 +51,7 @@
 <script setup lang="ts">
 import { PropType } from 'vue'
 import type { BreadcrumbItem } from '@/types'
-import { KUI_COLOR_TEXT_DECORATIVE } from '@kong/design-tokens'
+import { KUI_COLOR_TEXT_DECORATIVE, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import KIcon from '@/components/KIcon/KIcon.vue'
 
 defineProps({
@@ -110,7 +112,7 @@ export default {
 @import '@/styles/functions';
 
 .k-breadcrumbs {
-  border-radius: 4px;
+  border-radius: var(--kui-border-radius-4, $kui-border-radius-4);
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
@@ -118,14 +120,14 @@ export default {
   font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
   line-height: var(--kui-line-height-40, $kui-line-height-40);
   list-style: none;
-  margin-bottom: 16px;
-  padding: 0;
+  margin-bottom: var(--kui-space-60, $kui-space-60);
+  padding: var(--kui-space-0, $kui-space-0);
 
   .k-breadcrumbs-item {
     .k-breadcrumb-divider,
     .k-breadcrumb-icon {
       align-self: center;
-      color: $kui-color-text-decorative;
+      color: var(--kui-color-text-decorative, $kui-color-text-decorative);
       display: inline-flex;
       line-height: 1;
     }
@@ -135,7 +137,7 @@ export default {
     }
 
     .k-breadcrumb-icon {
-      padding: 0 $kui-space-30 0 0;
+      padding: var(--kui-space-0, $kui-space-0) var(--kui-space-30, $kui-space-30) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0);
 
       &:deep(.kong-icon) {
         align-items: center;
@@ -143,22 +145,22 @@ export default {
         justify-content: center;
 
         &.has-no-text {
-          padding-right: 0;
+          padding-right: var(--kui-space-0, $kui-space-0);
         }
       }
     }
 
     .k-breadcrumb-text {
       &:hover {
-        color: $kui-color-text-neutral-stronger; /** $kui-color-text-selected */
+        color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger); /** TODO: $kui-color-text-selected */
       }
 
       &.non-link {
-        color: $kui-color-text;
+        color: var(--kui-color-text, $kui-color-text);
       }
 
       &.emphasis {
-        font-weight: $kui-font-weight-bold;
+        font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
         letter-spacing: -0.14px;
       }
     }
@@ -168,9 +170,9 @@ export default {
     display: inline-flex;
 
     a {
-      color: $kui-color-text-neutral;
+      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
       display: inline-flex;
-      font-size: $kui-font-size-30;
+      font-size: var(--kui-font-size-30, $kui-font-size-30);
 
       &:hover,
       &.no-underline {
