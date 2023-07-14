@@ -1,18 +1,19 @@
 import { mount } from 'cypress/vue'
 import KBreadcrumbs from '@/components/KBreadcrumbs/KBreadcrumbs.vue'
+import type { BreadcrumbItem } from '@/types'
 
 describe('KBreadcrumbs', () => {
   it('renders an icon breadcrumb', () => {
+    const items = [{
+      key: 'docs',
+      to: 'https://docs.konghq.com',
+      text: 'Go to Kong Docs',
+      icon: 'kong',
+    }] as BreadcrumbItem[]
+
     mount(KBreadcrumbs, {
       props: {
-        items: [
-          {
-            key: 'docs',
-            to: 'https://docs.konghq.com',
-            title: 'Go to Kong Docs',
-            icon: 'kong',
-          },
-        ],
+        items,
       },
     })
 
@@ -27,7 +28,7 @@ describe('KBreadcrumbs', () => {
           {
             key: 'docs',
             to: 'https://docs.konghq.com',
-            title: 'Go to Kong Docs',
+            text: 'Go to Kong Docs',
             icon: 'kong',
           },
         ],
@@ -45,12 +46,12 @@ describe('KBreadcrumbs', () => {
         items: [
           {
             key: 'docs',
-            title: 'Go to Kong Docs',
+            text: 'Go to Kong Docs',
             icon: 'kong',
           },
           {
             key: 'specific-doc',
-            title: 'My Doc',
+            text: 'My Doc',
           },
         ],
       },
@@ -70,7 +71,7 @@ describe('KBreadcrumbs', () => {
           {
             key: 'docs',
             to: 'https://docs.konghq.com',
-            title: 'Go to Kong Docs',
+            text: 'Go to Kong Docs',
             icon: 'kong',
           },
         ],
