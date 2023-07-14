@@ -4,54 +4,35 @@
     v-bind="$attrs"
   >
     <li
-      v-for="item in items"
+      v-for="(item, idx) in items"
       :key="item.key || item.text"
       class="k-breadcrumbs-item truncate"
     >
-      <router-link
-        v-if="typeof item.to === 'object'"
-        :class="{ 'no-underline': !item.text }"
-        :title="item.title"
-        :to="item.to"
+      <component
+        :is="getComponentAttrs(item).type"
+        v-bind="getComponentAttrs(item).attrs"
+        class="no-underline"
       >
         <KIcon
           v-if="item.icon"
           :class="['k-breadcrumb-icon', { 'has-no-text': !item.text }]"
-          color="var(--grey-500)"
+          :color="KUI_COLOR_TEXT_DECORATIVE"
           hide-title
           :icon="item.icon"
-          size="20"
+          size="16"
         />
         <span
           v-if="item.text"
           class="k-breadcrumb-text truncate"
+          :class="{ 'non-link': !item.to, 'emphasis': emphasis }"
           :style="{ maxWidth: item.maxWidth || itemMaxWidth }"
         >{{ item.text }}</span>
-      </router-link>
+      </component>
 
-      <a
-        v-else
-        :class="{ 'no-underline': !item.text }"
-        :href="item.to"
-        target="_blank"
-        :title="item.title"
+      <span
+        v-if="item.to || idx < items.length - 1"
+        class="k-breadcrumb-divider"
       >
-        <KIcon
-          v-if="item.icon"
-          :class="['k-breadcrumb-icon', { 'has-no-text': !item.text }]"
-          color="var(--grey-500)"
-          hide-title
-          :icon="item.icon"
-          size="20"
-        />
-        <span
-          v-if="item.text"
-          class="k-breadcrumb-text truncate"
-          :style="{ maxWidth: item.maxWidth || itemMaxWidth }"
-        >{{ item.text }}</span>
-      </a>
-
-      <span class="k-breadcrumb-divider">
         <slot name="divider">
           <KIcon
             color="var(--grey-500)"
@@ -67,8 +48,9 @@
 
 <script setup lang="ts">
 import { PropType } from 'vue'
-import KIcon from '@/components/KIcon/KIcon.vue'
 import type { BreadcrumbItem } from '@/types'
+import { KUI_COLOR_TEXT_DECORATIVE } from '@kong/design-tokens'
+import KIcon from '@/components/KIcon/KIcon.vue'
 
 defineProps({
   items: {
@@ -84,7 +66,37 @@ defineProps({
     required: false,
     default: '38ch', // can handle a monospaced uuid
   },
+  emphasis: {
+    type: Boolean,
+    default: false,
+  },
 })
+
+const getComponentAttrs = (item: BreadcrumbItem) => {
+  if (!item.to) {
+    return {
+      type: 'div',
+      attrs: {},
+    }
+  } else if (typeof item.to === 'object') {
+    return {
+      type: 'router-link',
+      attrs: {
+        title: item.title,
+        to: item.to,
+      },
+    }
+  } else {
+    return {
+      type: 'a',
+      attrs: {
+        href: item.to,
+        target: '_blank',
+        title: item.title,
+      },
+    }
+  }
+}
 </script>
 
 <script lang="ts">
@@ -102,9 +114,9 @@ export default {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  font-size: 15px;
-  font-weight: 600 !important;
-  line-height: 24px !important;
+  font-size: $kui-font-size-30;
+  font-weight: $kui-font-weight-medium;
+  line-height: $kui-line-height-40;
   list-style: none;
   margin-bottom: 16px;
   padding: 0;
@@ -113,27 +125,41 @@ export default {
     .k-breadcrumb-divider,
     .k-breadcrumb-icon {
       align-self: center;
-      color: var(--grey-500, color(grey-500));
+      color: $kui-color-text-decorative;
       display: inline-flex;
       line-height: 1;
     }
 
     .k-breadcrumb-divider {
-      padding: 0 var(--spacing-sm, spacing(sm)) 0 var(--spacing-xs, spacing(xs));
+      padding: 0 $kui-space-20;
     }
 
     .k-breadcrumb-icon {
-      padding: 0 var(--spacing-sm, spacing(sm)) 0 0;
+      padding: 0 $kui-space-30 0 0;
 
       &:deep(.kong-icon) {
         align-items: center;
         align-self: baseline;
         justify-content: center;
-        padding: 0 var(--spacing-xs, spacing(xs)) 0 0;
 
         &.has-no-text {
           padding-right: 0;
         }
+      }
+    }
+
+    .k-breadcrumb-text {
+      &:hover {
+        color: $kui-color-text-neutral-stronger; /** $kui-color-text-selected */
+      }
+
+      &.non-link {
+        color: $kui-color-text;
+      }
+
+      &.emphasis {
+        font-weight: $kui-font-weight-bold;
+        letter-spacing: -0.14px;
       }
     }
   }
@@ -142,22 +168,13 @@ export default {
     display: inline-flex;
 
     a {
-      color: var(--grey-500, color(grey-500));
+      color: $kui-color-text-neutral;
       display: inline-flex;
-      font-size: 15px;
-      letter-spacing: 1px;
+      font-size: $kui-font-size-30;
 
       &:hover,
       &.no-underline {
         text-decoration: none !important;
-      }
-
-      > .k-breadcrumb-text {
-        transition: all 0.2s ease-in-out;
-
-        &:hover {
-          text-decoration: underline;
-        }
       }
     }
   }
