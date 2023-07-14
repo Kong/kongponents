@@ -458,7 +458,7 @@ const uniqueFilterStr = computed((): boolean => {
     return false
   }
 
-  if (selectItems.value.filter((item: SelectItem) => item.label === filterStr.value).length) {
+  if (selectItems.value?.filter((item: SelectItem) => item.label === filterStr.value)?.length) {
     return false
   }
 
@@ -480,8 +480,8 @@ const value = computed({
     return props.modelValue
   },
   set(newValue: string | number): void {
-    const item = selectItems.value.filter((item: SelectItem) => item.value === newValue)
-    if (item.length) {
+    const item = selectItems.value?.filter((item: SelectItem) => item.value === newValue)
+    if (item?.length) {
       handleItemSelect(item[0])
     } else if (!newValue) {
       clearSelection()
@@ -597,7 +597,7 @@ const handleAddItem = (): void => {
     return
   }
 
-  const pos = selectItems.value.length + 1
+  const pos = (selectItems.value?.length || 0) + 1
   const item: SelectItem = {
     label: filterStr.value + '',
     value: props.testMode ? `test-multiselect-added-item-${pos}` : uuidv4(),
@@ -614,10 +614,10 @@ const handleAddItem = (): void => {
 const handleItemSelect = (item: SelectItem, isNew?: boolean) => {
   if (isNew) {
     // if it's a new item, we need to add it to the list
-    selectItems.value.push(item)
+    selectItems.value?.push(item)
   }
 
-  selectItems.value.forEach((anItem, i) => {
+  selectItems.value?.forEach((anItem, i) => {
     if (anItem.key === item.key) {
       anItem.selected = true
       anItem.key = anItem?.key?.includes('-selected') ? anItem.key : `${anItem.key}-selected`
@@ -626,7 +626,7 @@ const handleItemSelect = (item: SelectItem, isNew?: boolean) => {
       anItem.selected = false
       anItem.key = anItem?.key?.replace(/-selected/gi, '')
       if (anItem.custom) {
-        selectItems.value.splice(i, 1)
+        selectItems.value?.splice(i, 1)
         emit('item:removed', anItem)
       }
     } else {
@@ -642,11 +642,11 @@ const handleItemSelect = (item: SelectItem, isNew?: boolean) => {
 }
 
 const clearSelection = (): void => {
-  selectItems.value.forEach((anItem, i) => {
+  selectItems.value?.forEach((anItem, i) => {
     anItem.selected = false
     anItem.key = anItem?.key?.replace(/-selected/gi, '')
     if (anItem.custom) {
-      selectItems.value.splice(i, 1)
+      selectItems.value?.splice(i, 1)
       emit('item:removed', anItem)
     }
   })
@@ -692,8 +692,8 @@ const onInputBlur = (): void => {
 
 watch(value, (newVal, oldVal) => {
   if (newVal !== oldVal) {
-    const item = selectItems.value.filter((item: SelectItem) => item.value === newVal)
-    if (item.length) {
+    const item = selectItems.value?.filter((item: SelectItem) => item.value === newVal)
+    if (item?.length) {
       handleItemSelect(item[0])
     } else if (!newVal) {
       clearSelection()
@@ -708,7 +708,7 @@ watch(() => props.items, (newValue, oldValue) => {
   }
 
   selectItems.value = JSON.parse(JSON.stringify(props.items))
-  for (let i = 0; i < selectItems.value.length; i++) {
+  for (let i = 0; i < selectItems.value?.length; i++) {
     // Ensure each item has a `selected` property
     if (selectItems.value[i].selected === undefined) {
       selectItems.value[i].selected = false
