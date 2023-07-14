@@ -1,3 +1,10 @@
+# [8.91.0](https://github.com/Kong/kongponents/compare/v8.90.0...v8.91.0) (2023-07-14)
+
+
+### Features
+
+* **icon:** add mesh icon ([#1534](https://github.com/Kong/kongponents/issues/1534)) ([c37b866](https://github.com/Kong/kongponents/commit/c37b866cb20618ab7bc8eb23d85790fdb66fcd71))
+
 # [8.90.0](https://github.com/Kong/kongponents/compare/v8.89.1...v8.90.0) (2023-07-13)
 
 
