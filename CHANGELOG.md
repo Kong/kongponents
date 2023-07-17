@@ -1,3 +1,10 @@
+# [8.93.0](https://github.com/Kong/kongponents/compare/v8.92.0...v8.93.0) (2023-07-17)
+
+
+### Features
+
+* **kcard:** introduce kui tokens [KHCP-7692] ([#1538](https://github.com/Kong/kongponents/issues/1538)) ([def576f](https://github.com/Kong/kongponents/commit/def576fbbdc423151f14063887c519c210f124ce))
+
 # [8.92.0](https://github.com/Kong/kongponents/compare/v8.91.1...v8.92.0) (2023-07-17)
 
 
