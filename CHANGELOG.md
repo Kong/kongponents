@@ -1,3 +1,10 @@
+# [8.92.0](https://github.com/Kong/kongponents/compare/v8.91.1...v8.92.0) (2023-07-17)
+
+
+### Features
+
+* **kemptystate:** adds props.iconSecondaryColor ([#1475](https://github.com/Kong/kongponents/issues/1475)) ([10efe4b](https://github.com/Kong/kongponents/commit/10efe4b4843bd3ebae68202b88c4eb66d7c1ec65))
+
 ## [8.91.1](https://github.com/Kong/kongponents/compare/v8.91.0...v8.91.1) (2023-07-14)
 
 
