@@ -186,6 +186,26 @@ A string denoting the color of the icon to be displayed above the empty state me
 </KEmptyState>
 ```
 
+### iconSecondaryColor
+
+A string denoting the secondary color of the icon to be displayed above the empty state message.
+
+<KEmptyState cta-is-hidden icon="warning" icon-color="#0b172d" icon-secondary-color="#ffd68c">
+  <template #title>No users exist</template>
+  <template #message>
+      Adding new users will populate this table.
+  </template>
+</KEmptyState>
+
+```html
+<KEmptyState cta-is-hidden icon="warning" icon-color="#0b172d" icon-secondary-color="#ffd68c">
+  <template #title>No users exist</template>
+  <template #message>
+      Adding new users will populate this table.
+  </template>
+</KEmptyState>
+```
+
 ## Slots
 
 `KEmptyState` has 3 named slots used, `title`, `message`, and `cta`. You can use the props outlined about to control the text and click handler of the button or hide it altogether. You can also use the `cta` slot to pass anything you want!
