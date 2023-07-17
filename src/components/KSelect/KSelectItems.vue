@@ -67,11 +67,11 @@ const getGroupItems = (group: string) => props.items.filter(item => item.group =
 
 <style lang="scss" scoped>
 .k-select-group-title {
-  color: var(--black-300);
-  font-size: var(--type-xs);
-  font-weight: 600;
-  margin-bottom: var(--spacing-xxs);
-  padding: var(--spacing-xs);
+  color: var(--black-30, var(--kui-color-text-neutral, $kui-color-text-neutral));
+  font-size: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
+  font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+  margin-bottom: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
+  padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
   text-transform: uppercase;
   user-select: none;
 }
