@@ -91,3 +91,20 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+// this mixin is only meant to be used within non-visual-button mixin to avoid code duplication
+@mixin non-visual-button-rules {
+  background-color: var(--kui-color-background-transparent, $kui-color-background-transparent) !important;
+  border: none !important;
+  cursor: pointer !important;
+  font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular) !important;
+}
+
+@mixin non-visual-button {
+  @include non-visual-button-rules;
+
+  &:focus,
+  &:hover {
+    @include non-visual-button-rules;
+  }
+}

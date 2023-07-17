@@ -26,7 +26,7 @@
     >
       <div
         v-if="selectedItem && appearance === 'dropdown'"
-        class="k-select-item-selection px-3 py-1"
+        class="k-select-item-selection"
         :class="{ 'overlay-label-item-selection': overlayLabel }"
       >
         <slot
@@ -40,7 +40,7 @@
           </div>
         </slot>
         <button
-          class="clear-selection-icon cursor-pointer non-visual-button"
+          class="clear-selection-icon"
           @click="clearSelection"
           @keyup.enter="clearSelection"
         >
@@ -122,7 +122,7 @@
           >
             <KButton
               v-if="isClearVisible"
-              class="clear-selection-icon cursor-pointer non-visual-button"
+              class="clear-selection-icon"
               @click="clearSelection"
               @keyup.enter="clearSelection"
             >
@@ -146,7 +146,7 @@
               autocomplete="off"
               class="k-select-input"
               :class="{
-                'cursor-default prevent-pointer-events': !filterIsEnabled,
+                'no-filter': !filterIsEnabled,
                 'input-placeholder-dark has-chevron': appearance === 'select',
                 'input-placeholder-transparent': hasCustomSelectedItem && (!filterIsEnabled || !isToggled.value),
                 'has-clear': isClearVisible,
@@ -193,7 +193,7 @@
             </slot>
             <div
               v-else
-              class="k-select-list ma-0 pa-0"
+              class="k-select-list"
             >
               <KSelectItems
                 :items="filteredItems"
@@ -280,7 +280,7 @@ export default {
 const { getSizeFromString, stripRequiredLabel } = useUtilities()
 
 const defaultKPopAttributes = {
-  popoverClasses: 'k-select-popover mt-0',
+  popoverClasses: 'k-select-popover',
   popoverTimeout: 0,
   placement: 'bottomStart' as PopPlacements,
   hideCaret: true,
@@ -755,6 +755,7 @@ const onPopoverOpen = () => {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/mixins';
 @import '@/styles/functions';
 
 .k-select {
@@ -767,6 +768,7 @@ const onPopoverOpen = () => {
     display: flex;
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
     margin-bottom: var(--kui-space-30, $kui-space-30);
+    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-50, $kui-space-50) !important;
 
     &.overlay-label-item-selection {
       position: relative;
@@ -774,6 +776,8 @@ const onPopoverOpen = () => {
     }
 
     .clear-selection-icon {
+      @include non-visual-button;
+      cursor: pointer !important;
       height: 24px;
       margin-bottom: var(--kui-space-auto, $kui-space-auto);
       margin-left: var(--kui-space-auto, $kui-space-auto);
@@ -903,6 +907,11 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
       }
     }
 
+    .k-input.no-filter {
+      cursor: default !important;
+      pointer-events: none !important;
+    }
+
     .k-input.has-chevron {
       padding-right: var(--kui-space-100, $kui-space-100);
     }
@@ -921,6 +930,7 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
     }
 
     .clear-selection-icon {
+      @include non-visual-button;
       padding: var(--kui-space-0, $kui-space-0);
       position: absolute;
       right: calc($iconSize + $chevronDownIconMargin);
@@ -1065,6 +1075,11 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
 
     .k-popover-content {
       @include kSelectPopoverMaxHeight;
+
+      .k-select-list {
+        margin: var(--kui-space-0, kui-space-0) !important;
+        padding: var(--kui-space-0, kui-space-0) !important;
+      }
 
       // when dropdown footer text position is sticky
       &:has(.k-select-dropdown-footer-text.k-select-dropdown-footer-sticky) {

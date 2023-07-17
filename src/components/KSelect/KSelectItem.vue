@@ -6,7 +6,7 @@
     @click="handleClick"
   >
     <div
-      class="d-block"
+      class="k-select-item-container"
       role="option"
     >
       <button
@@ -15,7 +15,7 @@
         type="button"
         :value="item.value"
       >
-        <span class="k-select-item-label mr-2">
+        <span class="k-select-item-label">
           <slot name="content">{{ item.label }}</slot>
         </span>
         <span class="k-select-selected-icon-container">
@@ -67,6 +67,10 @@ const handleClick = (e: MouseEvent): void => {
   list-style: none !important;
   margin-bottom: var(--kui-space-20, $kui-space-20);
 
+  .k-select-item-container {
+    display: block !important;
+  }
+
   &:last-of-type {
     margin-bottom: var(--kui-space-0, $kui-space-0) !important;
   }
@@ -101,8 +105,9 @@ const handleClick = (e: MouseEvent): void => {
     .k-select-item-label {
       color: var(--grey-600, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
       font-size: var(--kui-font-size-30, $kui-font-size-30);
-      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
       line-height: var(--kui-line-height-30, $kui-line-height-30);
+      margin-right: var(--kui-space-40, $kui-space-40) !important;
       padding: var(--kui-space-40, $kui-space-40);
       width: auto;
 

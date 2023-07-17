@@ -15,9 +15,9 @@
   <div
     v-for="group in groups"
     :key="`${group}-group`"
-    class="mb-1"
+    class="k-select-group"
   >
-    <span class="d-block k-select-group-title">
+    <span class="k-select-group-title">
       {{ group }}
     </span>
     <KSelectItem
@@ -66,13 +66,18 @@ const getGroupItems = (group: string) => props.items.filter(item => item.group =
 </script>
 
 <style lang="scss" scoped>
-.k-select-group-title {
-  color: var(--black-30, var(--kui-color-text-neutral, $kui-color-text-neutral));
-  font-size: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
-  font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-  margin-bottom: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
-  padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
-  text-transform: uppercase;
-  user-select: none;
+.k-select-group {
+  margin-bottom: var(--kui-space-20, $kui-space-20) !important;
+
+  .k-select-group-title {
+    color: var(--black-30, var(--kui-color-text-neutral, $kui-color-text-neutral));
+    display: block !important;
+    font-size: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
+    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+    margin-bottom: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
+    padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+    text-transform: uppercase;
+    user-select: none;
+  }
 }
 </style>
