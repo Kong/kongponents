@@ -193,13 +193,16 @@ const showCardTitleWithStatus = computed((): boolean => useStatusHatLayout.value
     font-size: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
   }
 
-  .k-card-title h4 {
-    color: var(--KCardTitleColor, var(--kui-color-text, $kui-color-text));
-    font-size: var(--KCardTitleFontSize, var(--kui-font-size-60, $kui-font-size-60));
-    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-    margin: var(--kui-space-0, $kui-space-0);
+  .k-card-title {
     margin-bottom: var(--kui-space-50, $kui-space-50) !important;
-    padding: var(--kui-space-0, $kui-space-0);
+
+    h4 {
+      color: var(--KCardTitleColor, var(--kui-color-text, $kui-color-text));
+      font-size: var(--KCardTitleFontSize, var(--kui-font-size-60, $kui-font-size-60));
+      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+      margin: var(--kui-space-0, $kui-space-0);
+      padding: var(--kui-space-0, $kui-space-0);
+    }
   }
 
   .k-card-actions  {
