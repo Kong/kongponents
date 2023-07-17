@@ -8,7 +8,7 @@
   >
     <div
       v-if="showCardHead"
-      class="k-card-header d-flex mb-3"
+      class="k-card-header"
       :class="{ 'has-status': status || slots.statusHat }"
     >
       <div
@@ -24,7 +24,7 @@
       <div
         v-if="showCardTitleWithoutStatus"
         :id="title ? undefined : titleId"
-        class="k-card-title mb-3"
+        class="k-card-title"
       >
         <h4>
           <!-- @slot Use this slot to pass title content -->
@@ -43,7 +43,7 @@
     <div
       v-if="showCardTitleWithStatus"
       :id="title ? undefined : titleId"
-      class="k-card-title mb-3"
+      class="k-card-title"
     >
       <h4>
         <!-- @slot Use this slot to pass title content -->
@@ -53,7 +53,7 @@
       </h4>
     </div>
 
-    <div class="k-card-content d-flex">
+    <div class="k-card-content">
       <div
         :id="contentId"
         class="k-card-body"
@@ -66,7 +66,7 @@
 
       <div
         v-if="slots.notifications"
-        class="k-card-notifications ml-3"
+        class="k-card-notifications"
       >
         <slot name="notifications" />
       </div>
@@ -150,33 +150,36 @@ const showCardTitleWithStatus = computed((): boolean => useStatusHatLayout.value
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
 
 .kong-card {
-  background-color: var(--KCardBackground, var(--white, color(white)));
-  border-radius: var(--KCardBorderRadius, 3px);
-  padding: var(--KCardPaddingY, var(--spacing-lg)) var(--KCardPaddingX, var(--spacing-lg));
-  transition: box-shadow 0.2s ease-in-out;
+  background-color: var(--KCardBackground, var(--white, var(--kui-color-background, $kui-color-background)));
+  border-radius: var(--KCardBorderRadius, var(--kui-border-radius-20, $kui-border-radius-20));
+  padding: var(--KCardPaddingY, var(--spacing-lg, var(--kui-space-80, $kui-space-80))) var(--KCardPaddingX, var(--spacing-lg, var(--kui-space-80, $kui-space-80)));
+  transition: box-shadow $tmp-animation-timing-2 ease-in-out;
 
   &.noBorder {
     border: none;
   }
 
   &.border {
-    border: var(--KCardBorder, 1px solid var(--black-10, color(black-10)));
+    border: var(--KCardBorder, var(--kui-border-width-10, $kui-border-width-10) solid var(--black-10, $tmp-color-black-10));
     box-shadow: none;
   }
 
   &.borderTop {
-    border-top: var(--KCardBorder, 1px solid var(--black-10, color(black-10)));
+    border-top: var(--KCardBorder, var(--kui-border-width-10, $kui-border-width-10) solid var(--black-10, $tmp-color-black-10));
   }
 
   &.hover:hover, &.kcard-shadow {
-    box-shadow: var(--KCardShadow, 0 4px 8px var(--black-10, color(black-10)));
+    box-shadow: var(--KCardShadow, 0 4px 8px var(--black-10, $tmp-color-black-10));
   }
 
   .k-card-header {
     align-items: center;
+    display: flex !important;
+    margin-bottom: var(--kui-space-50, $kui-space-50) !important;
 
     &.has-status {
       align-items: flex-start;
@@ -185,39 +188,45 @@ const showCardTitleWithStatus = computed((): boolean => useStatusHatLayout.value
 
   .k-card-status-hat {
     align-items: center;
-    color: var(--grey-600);
+    color: var(--grey-600, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
     display: flex;
-    font-size: var(--type-xs);
+    font-size: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
   }
 
-  .k-card-title h4 {
-    color: var(--KCardTitleColor, var(--black-500));
-    font-size: var(--KCardTitleFontSize, 20px);
-    font-weight: 600;
-    margin: 0;
-    padding: 0;
+  .k-card-title {
+    margin-bottom: var(--kui-space-50, $kui-space-50) !important;
+
+    h4 {
+      color: var(--KCardTitleColor, var(--kui-color-text, $kui-color-text));
+      font-size: var(--KCardTitleFontSize, var(--kui-font-size-60, $kui-font-size-60));
+      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+      margin: var(--kui-space-0, $kui-space-0);
+      padding: var(--kui-space-0, $kui-space-0);
+    }
   }
 
   .k-card-actions  {
-    margin-left: auto;
+    margin-left: var(--kui-space-auto, $kui-space-auto);
   }
 
   .k-card-body {
-    color: var(--grey-600);
-    font-size: 13px;
-    line-height: 20px;
+    color: var(--grey-600, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
+    font-size: var(--kui-font-size-20, $kui-font-size-20);
+    line-height: var(--kui-line-height-20, $kui-line-height-20);
     width: 100%;
   }
 
-  .k-card-content .k-table td,
-  .k-card-content table td,
-  .k-card-content :deep(.k-table) td {
-    font-size: var(--type-md);
+  .k-card-content {
+    display: flex !important;
+
+    .k-table td, table td, :deep(.k-table) td {
+      font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
+    }
   }
 
   .k-card-notifications {
-    margin-left: auto;
-    margin-top: auto;
+    margin-left: var(--kui-space-50, $kui-space-50) !important;
+    margin-top: var(--kui-space-auto, $kui-space-auto);
   }
 }
 </style>
