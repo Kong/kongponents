@@ -3,7 +3,7 @@
     <transition name="fade">
       <div
         v-if="isVisible"
-        class="panel-background"
+        :class="{ 'panel-background': !overlayEnabled }"
         @click="(event: any) => handleClose(event, true)"
       />
     </transition>
@@ -13,10 +13,10 @@
       <div
         v-if="isVisible"
         class="panel"
-        :class="{ isVisible: 'is-visible' }"
+        :class="{ 'is-visible': isVisible, 'border-styles': overlayEnabled }"
       >
         <button
-          class="close-btn"
+          :class="closeBtnAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
           @click="(event: any) => handleClose(event, true)"
         >
           <KIcon
@@ -45,6 +45,19 @@ import { KUI_ICON_SIZE_50 } from '@kong/design-tokens'
 
 const props = defineProps({
   isVisible: {
+    type: Boolean,
+    default: false,
+  },
+  // controls close button alignment
+  closeBtnAlignment: {
+    type: String,
+    default: 'start',
+    validator: (value: string): boolean => {
+      return ['start', 'end'].includes(value)
+    },
+  },
+  // enable/disable overlay to be able to interact with the background content while the slideout is expanded
+  overlayEnabled: {
     type: Boolean,
     default: false,
   },
@@ -78,18 +91,10 @@ onUnmounted(() => {
   --KCardPaddingY: var(--kui-space-90, #{$kui-space-90});
   --KCardPaddingX: var(--kui-space-110, #{$kui-space-110});
 
-  .panel-background {
-    background: var(--black-45, $tmp-color-black-45);
-    bottom: 0;
-    left: 0;
-    position: fixed;
-    right: 0;
-    top: 0;
-    z-index: 9999;
-  }
-
   .panel {
-    background-color: var(--white, var(--kui-color-background, $kui-color-background));
+    background-color: var(--white, color(white));
+    display: flex;
+    flex-direction: column;
     height: 100vh;
     max-width: 500px;
     position: fixed;
@@ -98,17 +103,33 @@ onUnmounted(() => {
     width: 100%;
     z-index: 9999;
 
-    .close-btn {
+    .close-button-start {
+      align-self: flex-start;
       background: none;
       border: none;
       cursor: pointer;
-      height: 16px;
-      left:  16px;
+      display: flex;
+      height: auto;
+      margin-left: 16px;
       outline: inherit;
-      padding: var(--kui-space-0, $kui-space-0);
+      padding-top: 16px;
       position: absolute;
-      top: 16px;
-      transition: $tmp-animation-timing-2 ease;
+      transition: 200ms ease;
+      width: 16px;
+    }
+
+    .close-button-end {
+      align-self: flex-end;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      height: auto;
+      margin-right: 16px;
+      outline: inherit;
+      padding-top: 16px;
+      position: absolute;
+      transition: 200ms ease;
       width: 16px;
     }
 
@@ -121,6 +142,20 @@ onUnmounted(() => {
     }
   }
 }
+
+  .panel-background {
+    background: var(--black-45, color(black-45));
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 9999;
+  }
+
+  .border-styles {
+    border-left: 1px solid var(--grey-300)
+  }
 </style>
 
 <style lang="scss">
