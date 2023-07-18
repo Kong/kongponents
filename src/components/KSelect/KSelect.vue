@@ -1079,8 +1079,8 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
       @include kSelectPopoverMaxHeight;
 
       .k-select-list {
-        margin: var(--kui-space-0, kui-space-0) !important;
-        padding: var(--kui-space-0, kui-space-0) !important;
+        margin: var(--kui-space-0, $kui-space-0) !important;
+        padding: var(--kui-space-0, $kui-space-0) !important;
       }
 
       // when dropdown footer text position is sticky
