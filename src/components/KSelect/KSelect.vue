@@ -45,7 +45,7 @@
           @keyup.enter="clearSelection"
         >
           <KIcon
-            :color="`var(--blue-200, ${KUI_COLOR_TEXT_PRIMARY})`"
+            color="currentColor"
             icon="clear"
           />
         </button>
@@ -269,7 +269,7 @@ import {
   SelectAppearance,
   SelectAppearanceArray,
 } from '@/types'
-import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30, KUI_COLOR_TEXT_PRIMARY } from '@kong/design-tokens'
+import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 
 export default {
   inheritAttrs: false,
@@ -755,6 +755,7 @@ const onPopoverOpen = () => {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/mixins';
 @import '@/styles/functions';
 
@@ -777,6 +778,7 @@ const onPopoverOpen = () => {
 
     .clear-selection-icon {
       @include non-visual-button;
+      color: var(--blue-200, $tmp-color-blue-200);
       cursor: pointer !important;
       height: 24px;
       margin-bottom: var(--kui-space-auto, $kui-space-auto);

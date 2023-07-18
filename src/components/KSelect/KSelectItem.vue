@@ -22,7 +22,7 @@
           <KIcon
             v-if="item.selected"
             class="selected-item-icon"
-            :color="`var(--blue-200, ${KUI_COLOR_TEXT_PRIMARY})`"
+            color="currentColor"
             icon="check"
           />
         </span>
@@ -35,7 +35,6 @@
 import KIcon from '@/components/KIcon/KIcon.vue'
 import { SelectItem } from '@/types'
 import { PropType } from 'vue'
-import { KUI_COLOR_TEXT_PRIMARY } from '@kong/design-tokens'
 
 const props = defineProps({
   item: {
@@ -62,6 +61,7 @@ const handleClick = (e: MouseEvent): void => {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
 
 .k-select-item {
@@ -131,6 +131,7 @@ const handleClick = (e: MouseEvent): void => {
     }
 
     .k-select-selected-icon-container {
+      color: var(--blue-200, $tmp-color-blue-200);
       height: 24px;
       margin-bottom: var(--kui-space-auto, $kui-space-auto);
       margin-left: var(--kui-space-auto, $kui-space-auto);
