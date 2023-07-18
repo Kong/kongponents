@@ -324,13 +324,16 @@ export default {
   box-shadow: none !important;
 
   &.has-icon {
+    $kInputLineHeight: var(--kui-line-height-40, $kui-line-height-40);
+    // TODO: this block is repetitive and can be refactored into a mixin
     // input size medium
-    $kInputMediumSizingX: 10px;
-    $kInputMediumSizingY: var(--spacing-md, spacing(md));
-    $kInputMediumIconSize: 24px;
+    $kInputMediumSizingY: var(--kui-space-40, $kui-space-40);
+    $kInputMediumSizingX: var(--spacing-md, var(--kui-space-60, $kui-space-60));
+    $kInputMediumIconSize: var(--kui-icon-size-50, $kui-icon-size-50);
 
     ~ .input-icon {
-      top: $kInputMediumSizingX;
+      // (height of entire element (paddings + line height) - icon size) / 2
+      top: calc((($kInputMediumSizingY + $kInputMediumSizingY + $kInputLineHeight) - $kInputMediumIconSize) / 2);
 
       :deep(svg) {
         height: $kInputMediumIconSize;
@@ -339,27 +342,28 @@ export default {
     }
 
     &.icon-start {
-      padding-left: calc($kInputMediumSizingY + var(--spacing-xs, spacing(xs)) + $kInputMediumIconSize) !important; // account for icon offset and width
+      padding-left: calc($kInputMediumSizingX + var(--spacing-xs, var(--kui-space-40, $kui-space-40)) + $kInputMediumIconSize) !important; // account for icon offset and width
       ~ .input-icon {
-        left: $kInputMediumSizingY;
+        left: $kInputMediumSizingX;
       }
     }
 
     &.icon-end {
-      padding-right: calc($kInputMediumSizingY + var(--spacing-xs, spacing(xs)) + $kInputMediumIconSize) !important; // account for icon offset and width
+      padding-right: calc($kInputMediumSizingX + var(--spacing-xs, var(--kui-space-40, $kui-space-40)) + $kInputMediumIconSize) !important; // account for icon offset and width
       ~ .input-icon {
-        right: $kInputMediumSizingY;
+        right: $kInputMediumSizingX;
       }
     }
 
     // input size small
-    $kInputSmallSizingX: var(--spacing-xs, spacing(xs));
-    $kInputSmallSizingY: var(--spacing-sm, spacing(sm));
-    $kInputSmallIconSize: 22px;
+    $kInputSmallSizingY: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+    $kInputSmallSizingX: var(--spacing-sm, var(--kui-space-50, $kui-space-50));
+    $kInputSmallIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
 
     &.k-input-small {
       ~ .input-icon {
-        top: $kInputSmallSizingX;
+        // (height of entire element (paddings + line height) - icon size) / 2
+        top: calc((($kInputSmallSizingY + $kInputSmallSizingY + $kInputLineHeight) - $kInputSmallIconSize) / 2);
 
         :deep(svg) {
           height: $kInputSmallIconSize;
@@ -368,27 +372,28 @@ export default {
       }
 
       &.icon-start {
-        padding-left: calc($kInputSmallSizingY + var(--spacing-xs, spacing(xs)) + $kInputSmallIconSize) !important; // account for icon offset and width
+        padding-left: calc($kInputSmallSizingX + var(--spacing-xs, var(--kui-space-40, $kui-space-40)) + $kInputSmallIconSize) !important; // account for icon offset and width
         ~ .input-icon {
-          left: $kInputSmallSizingY;
+          left: $kInputSmallSizingX;
         }
       }
       &.icon-end {
-        padding-right: calc($kInputSmallSizingY + var(--spacing-xs, spacing(xs)) + $kInputSmallIconSize) !important; // account for icon offset and width
+        padding-right: calc($kInputSmallSizingX + var(--spacing-xs, var(--kui-space-40, $kui-space-40)) + $kInputSmallIconSize) !important; // account for icon offset and width
         ~ .input-icon {
-          right: $kInputSmallSizingY;
+          right: $kInputSmallSizingX;
         }
       }
     }
 
     // input size large
-    $kInputLargeSizingX: var(--spacing-md, spacing(md));
-    $kInputLargeSizingY: var(--spacing-lg, spacing(lg));
-    $kInputLargeIconSize: 26px;
+    $kInputLargeSizingY: var(--spacing-md, var(--kui-space-60, $kui-space-60));
+    $kInputLargeSizingX: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
+    $kInputLargeIconSize: var(--kui-icon-size-60, $kui-icon-size-60);
 
     &.k-input-large {
       ~ .input-icon {
-        top: $kInputLargeSizingX;
+        // (height of entire element (paddings + line height) - icon size) / 2
+        top: calc((($kInputLargeSizingY + $kInputLargeSizingY + $kInputLineHeight) - $kInputLargeIconSize) / 2);
 
         :deep(svg) {
           height: $kInputLargeIconSize;
@@ -397,15 +402,15 @@ export default {
       }
 
       &.icon-start {
-        padding-left: calc($kInputLargeSizingY + var(--spacing-xs, spacing(xs)) + $kInputLargeIconSize) !important; // account for icon offset and width
+        padding-left: calc($kInputLargeSizingX + var(--spacing-xs, var(--kui-space-40, $kui-space-40)) + $kInputLargeIconSize) !important; // account for icon offset and width
         ~ .input-icon {
-          left: $kInputLargeSizingY;
+          left: $kInputLargeSizingX;
         }
       }
       &.icon-end {
-        padding-right: calc($kInputLargeSizingY + var(--spacing-xs, spacing(xs)) + $kInputLargeIconSize) !important; // account for icon offset and width
+        padding-right: calc($kInputLargeSizingX + var(--spacing-xs, var(--kui-space-40, $kui-space-40)) + $kInputLargeIconSize) !important; // account for icon offset and width
         ~ .input-icon {
-          right: $kInputLargeSizingY;
+          right: $kInputLargeSizingX;
         }
       }
     }
@@ -413,10 +418,10 @@ export default {
 }
 
 .help {
-  color: var(--black-45, color(black-45));
+  color: var(--black-45, var(--kui-color-text, $kui-color-text));
   display: block;
-  font-size: var(--type-sm, type(sm));
-  margin: var(--spacing-xs, spacing(xs)) 0 0;
+  font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
+  margin: var(--spacing-xs, var(--kui-space-40, $kui-space-40)) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0);
 }
 
 .input-icon {
@@ -432,8 +437,8 @@ export default {
 }
 
 .has-error {
-  color: var(--red-500);
-  font-weight: 500;
+  color: var(--red-500, var(--kui-color-text-danger, $kui-color-text-danger));
+  font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
 }
 
 .k-input-wrapper {
@@ -445,28 +450,28 @@ export default {
 
   & .k-input-label-wrapper-large .has-error,
   & .k-input-large + .has-error {
-    font-size: 12px;
-    line-height: 15px;
-    margin-top: 4px;
+    font-size: var(--kui-font-size-20, $kui-font-size-20);
+    line-height: var(--kui-line-height-20, $kui-line-height-20);
+    margin-top: var(--kui-space-20, $kui-space-20);
   }
 
   & .k-input-label-wrapper-medium .has-error,
   & .k-input-medium + .has-error {
-    font-size: 11px;
-    line-height: 13px;
-    margin-top: 3px;
+    font-size: var(--kui-font-size-10, $kui-font-size-10);
+    line-height: var(--kui-line-height-10, $kui-line-height-10);
+    margin-top: var(--kui-space-10, $kui-space-10);
   }
 
   & .k-input-label-wrapper-small .has-error,
   & .k-input-small + .has-error {
-    font-size: 11px;
-    line-height: 11px;
-    margin-top: 2px;
+    font-size: var(--kui-font-size-10, $kui-font-size-10);
+    line-height: var(--kui-line-height-10, $kui-line-height-10);
+    margin-top: var(--kui-space-10, $kui-space-10);
   }
 
   .text-on-input label:not(.disabled):not(.readonly).hovered,
   .text-on-input label:not(.disabled):not(.readonly):hover {
-    color: var(--KInputHover, var(--blue-500));
+    color: var(--KInputHover, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
   }
 
   &.input-error {
@@ -474,7 +479,7 @@ export default {
     .text-on-input label:hover,
     .text-on-input label.focused,
     .text-on-input label:focus {
-      color: var(--red-500) !important;
+      color: var(--red-500, var(--kui-color-text-danger, $kui-color-text-danger)) !important;
     }
   }
 }
