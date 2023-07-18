@@ -106,7 +106,7 @@ const handleClick = (e: MouseEvent): void => {
     .k-select-item-label {
       color: var(--grey-600, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
       font-size: var(--kui-font-size-30, $kui-font-size-30);
-      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+      font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
       line-height: var(--kui-line-height-30, $kui-line-height-30);
       margin-right: var(--kui-space-40, $kui-space-40) !important;
       padding: var(--kui-space-40, $kui-space-40);
