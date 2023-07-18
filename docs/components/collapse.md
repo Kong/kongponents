@@ -97,7 +97,7 @@ If no label is provided, only a caret will be displayed.
 
 KCollapse can be controlled with `v-model`.
 
-<div class="mb-3">
+<div class="collapse-margin-bottom">
   <div>
     <KLabel>Is Collapsed:&nbsp;</KLabel>
     {{ myIsCollapsed }}
@@ -113,7 +113,7 @@ KCollapse can be controlled with `v-model`.
 </KCard>
 
 ```html
-<div class="mb-3">
+<div class="collapse-margin-bottom">
   <div>
     <KLabel>Is Collapsed:&nbsp;</KLabel>
     {{ myIsCollapsed }}
@@ -160,8 +160,8 @@ To set the default state (collapsed or expanded) without binding to v-model you 
   <template #body>
     <KCollapse title="Look Mah!">
       <template #trigger-content>
-        <div class="d-flex">
-          <KIcon icon="help" size="16" color="var(--blue-500)" class="mr-2" />
+        <div class="trigger-content-flex">
+          <KIcon icon="help" size="16" color="var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary))" class="icon-margin-right" />
           Toggle
         </div>
       </template>
@@ -176,8 +176,8 @@ To set the default state (collapsed or expanded) without binding to v-model you 
 ```html
 <KCollapse title="Look Mah!">
   <template #trigger-content>
-    <div class="d-flex">
-      <KIcon icon="help" color="var(--blue-500)" class="mr-2" />
+    <div class="trigger-content-flex">
+      <KIcon icon="help" color="var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary))" class="icon-margin-right" />
       Toggle
     </div>
   </template>
@@ -251,7 +251,7 @@ An example of theming the collapse:
 
 <style lang="scss">
 .k-collapse-wrapper {
-  --KCollapseTriggerColor: var(--red-500);
+  --KCollapseTriggerColor: var(--red-500, var(--kui-color-border-danger-weak, $kui-color-border-danger-weak));
 }
 </style>
 ```
@@ -268,8 +268,22 @@ export default defineComponent({
 })
 </script>
 
+<style lang="scss" scoped>
+.collapse-margin-bottom {
+  margin-bottom: var(--kui-space-50, $kui-space-50) !important;
+}
+</style>
+
 <style lang="scss">
 .k-collapse-wrapper {
-  --KCollapseTriggerColor: var(--red-500);
+  --KCollapseTriggerColor: var(--red-500, var(--kui-color-border-danger-weak, $kui-color-border-danger-weak));
+}
+
+.icon-margin-right {
+  margin-right: var(--kui-space-40, $kui-space-40) !important;
+}
+
+.trigger-content-flex {
+  display: flex !important;
 }
 </style>

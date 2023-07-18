@@ -165,11 +165,11 @@ watch(modelComputed, (newVal, oldVal) => {
     }
   }
   .k-collapse-title {
-    font-size: var(--type-lg);
-    font-weight: 600;
+    font-size: var(--type-lg, var(--kui-font-size-50, $kui-font-size-50));
+    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
 
     .k-collapse-title-margin-right {
-      margin-right: var(--kui-space-auto, $kui-space-auto);
+      margin-right: var(--kui-space-auto, $kui-space-auto) !important;
     }
 
     .k-collapse-title-margin-bottom {
@@ -185,10 +185,10 @@ watch(modelComputed, (newVal, oldVal) => {
     }
 
     .k-collapse-trigger-content {
-      color: var(--KCollapseTriggerColor, var(--blue-500));
+      color: var(--KCollapseTriggerColor, var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary)));
       display: inline-block !important;
-      font-size: var(--type-sm);
-      font-weight: 600;
+      font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
+      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
     }
   }
 }
@@ -206,13 +206,13 @@ watch(modelComputed, (newVal, oldVal) => {
         &.kong-icon {
           &.kong-icon-chevronDown svg path,
           &.kong-icon-chevronRight svg path {
-            stroke: var(--KCollapseTriggerColor, var(--blue-500));
+            stroke: var(--KCollapseTriggerColor, var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary)));
           }
         }
       }
 
       .k-collapse-trigger-icon.kong-icon {
-        padding-right: 0;
+        padding-right: var(--kui-space-0, $kui-space-0);
       }
 
       .k-collapse-trigger-label {

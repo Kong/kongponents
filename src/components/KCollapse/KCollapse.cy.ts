@@ -50,7 +50,7 @@ describe('KCollapse', () => {
     })
 
     cy.getTestId('k-collapse-trigger-label').should('contain.text', triggerLabel)
-    cy.get('.k-collapse-heading').should('have.class', 'd-block')
+    cy.get('.k-collapse-heading').should('have.class', 'k-collapse-heading-block')
   })
 
   it('correctly shows and hides content with trigger click', () => {
