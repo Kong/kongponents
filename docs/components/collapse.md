@@ -272,12 +272,6 @@ export default defineComponent({
 .collapse-margin-bottom {
   margin-bottom: var(--kui-space-50, $kui-space-50) !important;
 }
-</style>
-
-<style lang="scss">
-.k-collapse-wrapper {
-  --KCollapseTriggerColor: var(--red-500, var(--kui-color-border-danger-weak, $kui-color-border-danger-weak));
-}
 
 .icon-margin-right {
   margin-right: var(--kui-space-40, $kui-space-40) !important;
@@ -285,5 +279,11 @@ export default defineComponent({
 
 .trigger-content-flex {
   display: flex !important;
+}
+</style>
+
+<style lang="scss">
+.k-collapse-wrapper {
+  --KCollapseTriggerColor: var(--red-500, var(--kui-color-border-danger-weak, $kui-color-border-danger-weak));
 }
 </style>
