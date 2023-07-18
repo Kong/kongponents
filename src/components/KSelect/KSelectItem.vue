@@ -22,9 +22,9 @@
           <KIcon
             v-if="item.selected"
             class="selected-item-icon"
-            color="var(--blue-200)"
+            :color="`var(--blue-200, ${KUI_COLOR_TEXT_PRIMARY})`"
             icon="check"
-          /><!-- TODO: token needed -->
+          />
         </span>
       </button>
     </div>
@@ -35,6 +35,7 @@
 import KIcon from '@/components/KIcon/KIcon.vue'
 import { SelectItem } from '@/types'
 import { PropType } from 'vue'
+import { KUI_COLOR_TEXT_PRIMARY } from '@kong/design-tokens'
 
 const props = defineProps({
   item: {

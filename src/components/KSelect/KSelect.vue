@@ -45,9 +45,9 @@
           @keyup.enter="clearSelection"
         >
           <KIcon
-            color="var(--blue-200)"
+            :color="`var(--blue-200, ${KUI_COLOR_TEXT_PRIMARY})`"
             icon="clear"
-          /><!-- TODO: token needed -->
+          />
         </button>
       </div>
       <KToggle v-slot="{ toggle, isToggled }">
@@ -269,7 +269,7 @@ import {
   SelectAppearance,
   SelectAppearanceArray,
 } from '@/types'
-import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30, KUI_COLOR_TEXT_PRIMARY } from '@kong/design-tokens'
 
 export default {
   inheritAttrs: false,
