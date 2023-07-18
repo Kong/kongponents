@@ -1,3 +1,10 @@
+## [8.93.1](https://github.com/Kong/kongponents/compare/v8.93.0...v8.93.1) (2023-07-18)
+
+
+### Bug Fixes
+
+* **deps:** bump swrv from 1.0.3 to 1.0.4 ([#1541](https://github.com/Kong/kongponents/issues/1541)) ([e4e8585](https://github.com/Kong/kongponents/commit/e4e8585320f7baffdeff1b54f97fb9e4d4dbb77a))
+
 # [8.93.0](https://github.com/Kong/kongponents/compare/v8.92.0...v8.93.0) (2023-07-17)
 
 
