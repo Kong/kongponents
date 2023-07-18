@@ -4,6 +4,7 @@
       <div
         v-if="isVisible"
         :class="{ 'panel-background': !overlayEnabled }"
+        :style="topOffsetStyle"
         @click="(event: any) => handleClose(event, true)"
       />
     </transition>
@@ -14,6 +15,7 @@
         v-if="isVisible"
         class="panel"
         :class="{ 'is-visible': isVisible, 'border-styles': overlayEnabled }"
+        :style="topOffsetStyle"
       >
         <button
           :class="closeBtnAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
@@ -38,7 +40,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, computed } from 'vue'
 import KCard from '@/components/KCard/KCard.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import { KUI_ICON_SIZE_50 } from '@kong/design-tokens'
@@ -61,6 +63,11 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  // allows a host app to define the offset from the top of the page
+  topOffsetNumeric: {
+    type: Number,
+    default: 40,
+  },
 })
 
 const emit = defineEmits<{
@@ -72,6 +79,12 @@ const handleClose = (e: any, forceClose = false): void => {
     emit('close')
   }
 }
+
+const topOffsetStyle = computed(() => {
+  return {
+    top: props.topOffsetNumeric + 'px',
+  }
+})
 
 onMounted(() => {
   document.addEventListener('keydown', handleClose)
@@ -99,7 +112,6 @@ onUnmounted(() => {
     max-width: 500px;
     position: fixed;
     right: 0;
-    top: 0;
     width: 100%;
     z-index: 9999;
 
@@ -149,7 +161,6 @@ onUnmounted(() => {
     left: 0;
     position: fixed;
     right: 0;
-    top: 0;
     z-index: 9999;
   }
 
