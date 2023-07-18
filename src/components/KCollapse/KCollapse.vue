@@ -1,22 +1,20 @@
 <template>
-  <div class="k-collapse w-100">
+  <div class="k-collapse">
     <div
-      class="k-collapse-heading mb-3"
-      :class="trailingTrigger ? 'd-flex' : 'd-block'"
+      class="k-collapse-heading"
+      :class="trailingTrigger ? 'k-collapse-heading-flex' : 'k-collapse-heading-block'"
     >
       <div
         v-if="title"
         class="k-collapse-title"
-        :class="trailingTrigger ? 'mr-auto' : 'mb-2'"
+        :class="trailingTrigger ? 'k-collapse-title-margin-right' : 'k-collapse-title-margin-bottom'"
         data-testid="k-collapse-title"
       >
         {{ title }}
       </div>
       <div
         class="k-collapse-trigger"
-        :class="{
-          'ml-auto': trailingTrigger
-        }"
+        :class="{ 'k-collapse-trigger-margin-left': trailingTrigger }"
       >
         <slot
           :is-collapsed="collapsedState"
@@ -24,7 +22,7 @@
           :toggle="toggleDisplay"
         >
           <a
-            class="k-collapse-trigger-content d-inline-block"
+            class="k-collapse-trigger-content"
             data-testid="k-collapse-trigger-content"
             href="#"
             role="button"
@@ -37,7 +35,7 @@
                 data-testid="k-collapse-trigger-label"
               >
                 <KIcon
-                  class="k-collapse-trigger-chevron mr-1"
+                  class="k-collapse-trigger-chevron"
                   :icon="collapseIcon"
                   size="14"
                 />
@@ -56,14 +54,14 @@
     </div>
     <div
       v-if="hasVisibleContent"
-      class="k-collapse-visible-content w-100 mb-4"
+      class="k-collapse-visible-content"
       data-testid="k-collapse-visible-content"
     >
       <slot name="visible-content" />
     </div>
     <div
       v-show="!collapsedState"
-      class="k-collapse-hidden-content w-100"
+      class="k-collapse-hidden-content"
       data-testid="k-collapse-hidden-content"
     >
       <slot />
@@ -156,16 +154,39 @@ watch(modelComputed, (newVal, oldVal) => {
 @import '@/styles/functions';
 
 .k-collapse {
+  width: 100% !important;
+  .k-collapse-heading {
+    margin-bottom: var(--kui-space-50, $kui-space-50) !important;
+    .k-collapse-heading-flex {
+      display: flex !important;
+    }
+    .k-collapse-heading-block {
+      display: block !important;
+    }
+  }
   .k-collapse-title {
     font-size: var(--type-lg);
     font-weight: 600;
+
+    .k-collapse-title-margin-right {
+      margin-right: var(--kui-space-auto, $kui-space-auto);
+    }
+
+    .k-collapse-title-margin-bottom {
+      margin-bottom: var(--kui-space-40, $kui-space-40) !important;
+    }
   }
 
   .k-collapse-trigger {
     cursor: pointer;
 
+    .k-collapse-trigger-margin-left {
+      margin-left: var(--kui-space-auto, $kui-space-auto);
+    }
+
     .k-collapse-trigger-content {
       color: var(--KCollapseTriggerColor, var(--blue-500));
+      display: inline-block !important;
       font-size: var(--type-sm);
       font-weight: 600;
     }
@@ -180,12 +201,14 @@ watch(modelComputed, (newVal, oldVal) => {
 .k-collapse {
   .k-collapse-trigger {
     .k-collapse-trigger-content {
-      .k-collapse-trigger-chevron.kong-icon {
-        &.kong-icon-chevronDown svg path,
-        &.kong-icon-chevronRight svg path {
-          stroke: var(--KCollapseTriggerColor, var(--blue-500));
+      .k-collapse-trigger-chevron {
+        margin-right: var(--kui-space-20, $kui-space-20) !important;
+        &.kong-icon {
+          &.kong-icon-chevronDown svg path,
+          &.kong-icon-chevronRight svg path {
+            stroke: var(--KCollapseTriggerColor, var(--blue-500));
+          }
         }
-
       }
 
       .k-collapse-trigger-icon.kong-icon {
@@ -199,6 +222,15 @@ watch(modelComputed, (newVal, oldVal) => {
         }
       }
     }
+  }
+
+  .k-collapse-visible-content {
+    margin-bottom: var(--kui-space-60, $kui-space-60) !important;
+    width: 100% !important;
+  }
+
+  .k-collapse-hidden-content {
+    width: 100% !important;
   }
 }
 </style>
