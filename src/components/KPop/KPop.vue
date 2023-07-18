@@ -667,7 +667,7 @@ export default defineComponent({
 .fadeIn,
 .fade-leave-active,
 .fadeOut {
-  animation-duration: $tmp-animation-timing-3;
+  animation-duration: $tmp-animation-timing-2;
   animation-fill-mode: both;
 }
 .fade-enter-active,
