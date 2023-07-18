@@ -1,10 +1,13 @@
 // This file includes temporary variables that may (or may not) become design tokens in the future
 // These variables are not exported by Kongponents and are only used locally
 
-// Animation timing
-$tmp-animation-timing-2: 0.2s;
+/* Animation timing */
 
-// Colors
+$tmp-animation-timing-2: 0.2s;
+$tmp-animation-timing-3: 0.3s;
+
+/* Colors */
+
 $tmp-color-white: #ffffff;
 
 $tmp-color-green-100: #e8f8f5;
@@ -33,6 +36,10 @@ $tmp-color-gray-weaker: #e0e4ea; // color-border-neutral-weaker
 $tmp-color-shadow: 0px 0.2px 0.6px rgba(0, 0, 0, 0.031), 0px 0.6px 1.8px rgba(0, 0, 0, 0.045),
   0px 1.5px 4.2px rgba(0, 0, 0, 0.059), 0px 5px 14px rgba(0, 0, 0, 0.09);
 
-// Spacing
+/* Spacing */
+
 $tmp-border-spacing-0: 0px;
 $tmp-border-spacing-2: 2px;
+
+/* Border width */
+$tmp-border-width-10: 10px;
