@@ -58,13 +58,13 @@
         @child-change="handleChildChangeEvent"
         @selected="handleSelectionEvent"
       >
-        <template #item-icon="{ item }: any">
+        <template #[itemIcon]="{ item }: any">
           <slot
             :item="item"
             name="item-icon"
           />
         </template>
-        <template #item-label="{ item }: any">
+        <template #[itemLabel]="{ item }: any">
           <slot
             :item="item"
             name="item-label"
