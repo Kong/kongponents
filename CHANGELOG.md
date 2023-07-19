@@ -1,3 +1,12 @@
+# [8.97.0](https://github.com/Kong/kongponents/compare/v8.96.0...v8.97.0) (2023-07-19)
+
+
+### Features
+
+* **kcheckbox:** introduce kui tokens [KHCP-7699] ([#1550](https://github.com/Kong/kongponents/issues/1550)) ([78665d6](https://github.com/Kong/kongponents/commit/78665d606e80a6489bc34dfb810f6f5aab7db50f))
+* **kprompt:** introduce kui tokens [KHCP-7719] ([#1548](https://github.com/Kong/kongponents/issues/1548)) ([c7b9a44](https://github.com/Kong/kongponents/commit/c7b9a44cf4e357dc7b539df60380053c6d7eaa5e))
+* **ktextarea:** introduce kui tokens [KHCP-7728] ([#1549](https://github.com/Kong/kongponents/issues/1549)) ([72312b1](https://github.com/Kong/kongponents/commit/72312b1d7a8750c6ecceecf636422f8f53fd5392))
+
 # [8.96.0](https://github.com/Kong/kongponents/compare/v8.95.0...v8.96.0) (2023-07-19)
 
 
