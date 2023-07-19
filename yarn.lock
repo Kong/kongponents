@@ -759,9 +759,9 @@
   integrity sha512-Ag+9YM4ocKQx9AarydN0KY2j0ErMHNIocPDrVo8zAE44xLTjEtz81OdR68/cydGtk6m6jDb5Za3r2useMzYmSw==
 
 "@evilmartians/lefthook@^1.4.1":
-  version "1.4.5"
-  resolved "https://registry.yarnpkg.com/@evilmartians/lefthook/-/lefthook-1.4.5.tgz#07ab81f4f4682c9b780d946b432ddfd2c837f5c6"
-  integrity sha512-lZT4HTz86yRBgoKSh34vCiaiit6F2t858UAUFDRU7dLadllKOagDYKQ/qlDojLzA8QC0LxI/OYYk2fke71dAmQ==
+  version "1.4.6"
+  resolved "https://registry.yarnpkg.com/@evilmartians/lefthook/-/lefthook-1.4.6.tgz#33be1f51e3dfe7c595534261bd079c21e9fb4ed2"
+  integrity sha512-S64YYAu3siwUU8BXwoyIYzYO8TLa33HBne/AqF1FtoJBF/Kpq50cylsGge9eJaPmwyUlqDcjnDlCpeZnN0TgrQ==
 
 "@gar/promisify@^1.1.3":
   version "1.1.3"
