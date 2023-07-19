@@ -1,3 +1,10 @@
+# [8.94.0](https://github.com/Kong/kongponents/compare/v8.93.2...v8.94.0) (2023-07-19)
+
+
+### Features
+
+* **kpop:** introduce kui tokens [KHCP-7718] ([#1542](https://github.com/Kong/kongponents/issues/1542)) ([dc12d32](https://github.com/Kong/kongponents/commit/dc12d327a9696bffcbd1e5a4a6e25ecc065e5451))
+
 ## [8.93.2](https://github.com/Kong/kongponents/compare/v8.93.1...v8.93.2) (2023-07-19)
 
 
