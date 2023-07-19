@@ -443,7 +443,7 @@
     tunnel-agent "^0.6.0"
     uuid "^8.3.2"
 
-"@cypress/vite-dev-server@^5.0.2":
+"@cypress/vite-dev-server@^5.0.5":
   version "5.0.5"
   resolved "https://registry.yarnpkg.com/@cypress/vite-dev-server/-/vite-dev-server-5.0.5.tgz#46b4bb6443857f45825815220b9e7a34fc724403"
   integrity sha512-ZR6Smfe2Jpe7V//yrISgbe4CfLfjpMuqr9ryCmx7NV3XiKJVBMIYmDUQ0lVIR6m7JaHv0/rElM8dTA6R987olQ==
