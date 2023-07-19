@@ -1,3 +1,10 @@
+## [8.93.2](https://github.com/Kong/kongponents/compare/v8.93.1...v8.93.2) (2023-07-19)
+
+
+### Bug Fixes
+
+* **deps:** bump focus-trap from 7.5.1 to 7.5.2 ([#1532](https://github.com/Kong/kongponents/issues/1532)) ([9e3da93](https://github.com/Kong/kongponents/commit/9e3da93f190675757ce23077e564c9df0680954e))
+
 ## [8.93.1](https://github.com/Kong/kongponents/compare/v8.93.0...v8.93.1) (2023-07-18)
 
 
