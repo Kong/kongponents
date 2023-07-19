@@ -230,7 +230,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
-@import '@/styles/mixins';
 @import '@/styles/functions';
 
 .k-input-wrapper {
@@ -247,8 +246,10 @@ export default {
   }
 
   textarea.form-control {
-    @include text-lg;
     font-family: var(--font-family-sans, var(--kui-font-family-text, $kui-font-family-text));
+    font-size: var(--kui-font-size-40, $kui-font-size-40) !important;
+    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular) !important;
+    line-height: var(--kui-line-height-40, $kui-line-height-40) !important;
     resize: none;
 
     &.is-resizable {

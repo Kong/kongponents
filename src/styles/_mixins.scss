@@ -108,9 +108,3 @@
     @include non-visual-button-rules;
   }
 }
-
-@mixin text-lg {
-  font-size: var(--kui-font-size-40, $kui-font-size-40) !important;
-  font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular) !important;
-  line-height: var(--kui-line-height-40, $kui-line-height-40) !important;
-}
