@@ -139,7 +139,7 @@
                   class="caret"
                   :color="`var(--KTableColor, var(--black-70, var(--kui-color-text, ${KUI_COLOR_TEXT})))`"
                   icon="chevronDown"
-                  size="12"
+                  :size="KUI_ICON_SIZE_20"
                 />
               </span>
             </th>
@@ -217,7 +217,7 @@ import type {
   PageChangedData,
   PageSizeChangedData,
 } from '@/types'
-import { KUI_COLOR_TEXT } from '@kong/design-tokens'
+import { KUI_COLOR_TEXT, KUI_ICON_SIZE_20 } from '@kong/design-tokens'
 
 const { useDebounce, useRequest, useSwrvState } = useUtilities()
 
