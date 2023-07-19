@@ -13,7 +13,7 @@
             <KIcon
               v-if="type === 'warning'"
               class="warning-icon"
-              :color="`var(--white, ${KUI_COLOR_TEXT_INVERSE})`"
+              :color="`var(--white, var(--kui-color-text-inverse, ${KUI_COLOR_TEXT_INVERSE}))`"
               icon="warning"
               secondary-color="currentColor"
               :size="KUI_ICON_SIZE_40"
@@ -26,7 +26,7 @@
               @click="close"
             >
               <KIcon
-                :color="`var(--grey-600, ${KUI_COLOR_TEXT_NEUTRAL})`"
+                :color="`var(--grey-600, var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL}))`"
                 icon="close"
                 :size="KUI_ICON_SIZE_30"
               />
@@ -79,7 +79,7 @@
             <template #icon>
               <KIcon
                 v-if="actionPending"
-                :color="`var(--grey-400, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`"
+                :color="`var(--grey-400, var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK}))`"
                 icon="spinner"
                 :size="KUI_ICON_SIZE_30"
               />
