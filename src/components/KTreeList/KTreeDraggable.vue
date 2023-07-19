@@ -58,15 +58,15 @@
         @child-change="handleChildChangeEvent"
         @selected="handleSelectionEvent"
       >
-        <template #[itemIcon]="slotProps">
+        <template #item-icon="{ item }: any">
           <slot
-            v-bind="slotProps"
+            :item="item"
             name="item-icon"
           />
         </template>
-        <template #[itemLabel]="slotProps">
+        <template #item-label="{ item }: any">
           <slot
-            v-bind="slotProps"
+            :item="item"
             name="item-label"
           />
         </template>
