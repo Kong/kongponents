@@ -97,7 +97,7 @@ If no label is provided, only a caret will be displayed.
 
 KCollapse can be controlled with `v-model`.
 
-<div class="collapse-margin-bottom">
+<div class="collapse-parent-wrapper">
   <div>
     <KLabel>Is Collapsed:&nbsp;</KLabel>
     {{ myIsCollapsed }}
@@ -113,7 +113,7 @@ KCollapse can be controlled with `v-model`.
 </KCard>
 
 ```html
-<div class="collapse-margin-bottom">
+<div class="collapse-parent-wrapper">
   <div>
     <KLabel>Is Collapsed:&nbsp;</KLabel>
     {{ myIsCollapsed }}
@@ -160,8 +160,8 @@ To set the default state (collapsed or expanded) without binding to v-model you 
   <template #body>
     <KCollapse title="Look Mah!">
       <template #trigger-content>
-        <div class="trigger-content-flex">
-          <KIcon icon="help" size="16" color="var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary))" class="icon-margin-right" />
+        <div class="trigger-wrapper">
+          <KIcon icon="help" :size="KUI_ICON_SIZE_30" color="var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary))" class="icon-style" />
           Toggle
         </div>
       </template>
@@ -176,8 +176,8 @@ To set the default state (collapsed or expanded) without binding to v-model you 
 ```html
 <KCollapse title="Look Mah!">
   <template #trigger-content>
-    <div class="trigger-content-flex">
-      <KIcon icon="help" color="var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary))" class="icon-margin-right" />
+    <div class="trigger-wrapper">
+      <KIcon icon="help" color="var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary))" class="icon-style" />
       Toggle
     </div>
   </template>
@@ -258,6 +258,7 @@ An example of theming the collapse:
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 
 export default defineComponent({
   data() {
@@ -269,16 +270,28 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.collapse-margin-bottom {
+@mixin margin-spacing {
   margin-bottom: var(--kui-space-50, $kui-space-50) !important;
 }
 
-.icon-margin-right {
+@mixin icon-spacing {
   margin-right: var(--kui-space-40, $kui-space-40) !important;
 }
 
-.trigger-content-flex {
+@mixin display-type {
   display: flex !important;
+}
+
+.collapse-parent-wrapper {
+  @include margin-spacing;
+}
+
+.icon-style {
+  @include icon-spacing;
+}
+
+.trigger-wrapper {
+  @include display-type;
 }
 </style>
 

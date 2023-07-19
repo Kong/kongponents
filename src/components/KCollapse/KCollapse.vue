@@ -2,19 +2,19 @@
   <div class="k-collapse">
     <div
       class="k-collapse-heading"
-      :class="trailingTrigger ? 'k-collapse-heading-flex' : 'k-collapse-heading-block'"
+      :class="{ 'has-trailing-trigger': trailingTrigger }"
     >
       <div
         v-if="title"
         class="k-collapse-title"
-        :class="trailingTrigger ? 'k-collapse-title-margin-right' : 'k-collapse-title-margin-bottom'"
+        :class="{ 'has-trailing-trigger': trailingTrigger }"
         data-testid="k-collapse-title"
       >
         {{ title }}
       </div>
       <div
         class="k-collapse-trigger"
-        :class="{ 'k-collapse-trigger-margin-left': trailingTrigger }"
+        :class="{ 'has-trailing-trigger': trailingTrigger }"
       >
         <slot
           :is-collapsed="collapsedState"
@@ -37,7 +37,7 @@
                 <KIcon
                   class="k-collapse-trigger-chevron"
                   :icon="collapseIcon"
-                  size="14"
+                  :size="KUI_ICON_SIZE_20"
                 />
                 <span>{{ triggerLabel }}</span>
               </span>
@@ -73,6 +73,7 @@
 import KIcon from '@/components/KIcon/KIcon.vue'
 import { computed, PropType, ref, useSlots, watch } from 'vue'
 import { TriggerAlignment, TriggerAlignmentArray } from '@/types'
+import { KUI_ICON_SIZE_20 } from '@kong/design-tokens'
 
 const props = defineProps({
   // Is the KCollapse collapsed? Defaults to true-->
@@ -156,31 +157,27 @@ watch(modelComputed, (newVal, oldVal) => {
 .k-collapse {
   width: 100% !important;
   .k-collapse-heading {
+    display: block !important;
     margin-bottom: var(--kui-space-50, $kui-space-50) !important;
-    .k-collapse-heading-flex {
+
+    &.has-trailing-trigger {
       display: flex !important;
-    }
-    .k-collapse-heading-block {
-      display: block !important;
     }
   }
   .k-collapse-title {
     font-size: var(--type-lg, var(--kui-font-size-50, $kui-font-size-50));
     font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+    margin-bottom: var(--kui-space-40, $kui-space-40) !important;
 
-    .k-collapse-title-margin-right {
+    &.has-trailing-trigger {
       margin-right: var(--kui-space-auto, $kui-space-auto) !important;
-    }
-
-    .k-collapse-title-margin-bottom {
-      margin-bottom: var(--kui-space-40, $kui-space-40) !important;
     }
   }
 
   .k-collapse-trigger {
     cursor: pointer;
 
-    .k-collapse-trigger-margin-left {
+    &.has-trailing-trigger {
       margin-left: var(--kui-space-auto, $kui-space-auto);
     }
 
