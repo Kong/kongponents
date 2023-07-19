@@ -1,3 +1,11 @@
+# [8.95.0](https://github.com/Kong/kongponents/compare/v8.94.0...v8.95.0) (2023-07-19)
+
+
+### Features
+
+* **kinput:** introduce kui tokens [KHCP-7709] ([#1544](https://github.com/Kong/kongponents/issues/1544)) ([83ca0c4](https://github.com/Kong/kongponents/commit/83ca0c4093b9f8c5b9a10068ff5bc53e11d188f9))
+* **kselect:** introduce kui tokens [KHCP-7722] ([#1540](https://github.com/Kong/kongponents/issues/1540)) ([0e199cd](https://github.com/Kong/kongponents/commit/0e199cd49840e749cec72ab2317708db96bca2f4))
+
 # [8.94.0](https://github.com/Kong/kongponents/compare/v8.93.2...v8.94.0) (2023-07-19)
 
 
