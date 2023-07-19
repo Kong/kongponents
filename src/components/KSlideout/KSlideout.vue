@@ -3,7 +3,7 @@
     <transition name="fade">
       <div
         v-if="isVisible"
-        :class="{ 'panel-background': !overlayEnabled }"
+        :class="{ 'panel-background': overlayEnabled }"
         @click="(event: any) => handleClose(event, true)"
       />
     </transition>
@@ -13,7 +13,7 @@
       <div
         v-if="isVisible"
         class="panel"
-        :class="{ 'is-visible': isVisible, 'border-styles': overlayEnabled }"
+        :class="{ 'is-visible': isVisible, 'border-styles': !overlayEnabled }"
       >
         <button
           :class="closeButtonAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
@@ -59,7 +59,7 @@ const props = defineProps({
   // enable/disable overlay to be able to interact with the background content while the slideout is expanded
   overlayEnabled: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   // allows a host app to define the offset from the top of the page
   offsetTop: {
