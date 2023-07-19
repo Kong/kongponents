@@ -64,11 +64,11 @@ Below we demonstrate wrapping `KSlideout` in the [`KToggle`](/components/renderl
 
 Tells the component whether or not to render the open panel.
 
-### closeBtnAlignment
+### closeButtonAlignment
 
 Controls the close button alignment, defaults to `start`.
 
-### topOffsetStyle
+### offsetTop
 
 Allows a host app to define the offset from the top of the page, defaults to `0`.
 
@@ -79,7 +79,7 @@ Tells the component whether or not to enable / disable overlay, defaults to `tru
 <KToggle v-slot="{ isToggled, toggle }">
   <div>
     <KButton @click="toggle">Toggle Panel</KButton>
-    <KSlideout :is-visible="isToggled.value" @close="toggle" overlay-enabled closeBtnAlignment='end'>
+    <KSlideout :is-visible="isToggled.value" @close="toggle" overlay-enabled close-button-alignment="end">
       <div>
         <h2>Not only can you put any html in here like the paragraph below but you can also use other components</h2>
         <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
@@ -106,7 +106,7 @@ Tells the component whether or not to enable / disable overlay, defaults to `tru
 <KToggle v-slot="{ isToggled, toggle }">
   <div>
     <KButton @click="toggle">Toggle Panel</KButton>
-        <KSlideout :is-visible="isToggled.value" @close="toggle" overlay-enabled closeBtnAlignment='end'>
+        <KSlideout :is-visible="isToggled.value" @close="toggle" overlay-enabled close-button-alignment="end">
       <div>
         <h2>Not only can you put any html in here like the paragraph below but you can also use other components</h2>
         <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>

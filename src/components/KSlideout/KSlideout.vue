@@ -4,7 +4,6 @@
       <div
         v-if="isVisible"
         :class="{ 'panel-background': !overlayEnabled }"
-        :style="topOffsetStyle"
         @click="(event: any) => handleClose(event, true)"
       />
     </transition>
@@ -15,10 +14,9 @@
         v-if="isVisible"
         class="panel"
         :class="{ 'is-visible': isVisible, 'border-styles': overlayEnabled }"
-        :style="topOffsetStyle"
       >
         <button
-          :class="closeBtnAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
+          :class="closeButtonAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
           @click="(event: any) => handleClose(event, true)"
         >
           <KIcon
@@ -43,7 +41,7 @@
 import { onMounted, onUnmounted, computed } from 'vue'
 import KCard from '@/components/KCard/KCard.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import { KUI_ICON_SIZE_50 } from '@kong/design-tokens'
+import useUtilities from '@/composables/useUtilities'
 
 const props = defineProps({
   isVisible: {
@@ -51,7 +49,7 @@ const props = defineProps({
     default: false,
   },
   // controls close button alignment
-  closeBtnAlignment: {
+  closeButtonAlignment: {
     type: String,
     default: 'start',
     validator: (value: string): boolean => {
@@ -64,9 +62,9 @@ const props = defineProps({
     default: false,
   },
   // allows a host app to define the offset from the top of the page
-  topOffsetNumeric: {
+  offsetTop: {
     type: Number,
-    default: 40,
+    default: 0,
   },
 })
 
@@ -74,17 +72,14 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
+const { getSizeFromString } = useUtilities()
 const handleClose = (e: any, forceClose = false): void => {
   if ((props.isVisible && e.keyCode === 27) || forceClose) {
     emit('close')
   }
 }
 
-const topOffsetStyle = computed(() => {
-  return {
-    top: props.topOffsetNumeric + 'px',
-  }
-})
+const offsetTopValue = computed((): string => getSizeFromString(String(props.offsetTop)))
 
 onMounted(() => {
   document.addEventListener('keydown', handleClose)
@@ -112,6 +107,7 @@ onUnmounted(() => {
     max-width: 500px;
     position: fixed;
     right: 0;
+    top: v-bind('offsetTopValue');
     width: 100%;
     z-index: 9999;
 
@@ -161,6 +157,7 @@ onUnmounted(() => {
     left: 0;
     position: fixed;
     right: 0;
+    top: v-bind('offsetTopValue');
     z-index: 9999;
   }
 
