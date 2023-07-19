@@ -1,3 +1,15 @@
+# [8.96.0](https://github.com/Kong/kongponents/compare/v8.95.0...v8.96.0) (2023-07-19)
+
+
+### Bug Fixes
+
+* fix icon size in components with design tokens ([#1551](https://github.com/Kong/kongponents/issues/1551)) ([eb7ef39](https://github.com/Kong/kongponents/commit/eb7ef394bc1209ef49ae03c0ad77fd135759912f))
+
+
+### Features
+
+* upgrade to vue 3.3.x [KHCP-7567] ([#1547](https://github.com/Kong/kongponents/issues/1547)) ([de29381](https://github.com/Kong/kongponents/commit/de293814b1aadbe18ac8be837ea9b040fb097d3b))
+
 # [8.95.0](https://github.com/Kong/kongponents/compare/v8.94.0...v8.95.0) (2023-07-19)
 
 
