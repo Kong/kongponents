@@ -38,7 +38,7 @@
       <KIcon
         :color="color"
         icon="close"
-        size="10"
+        :size="KUI_ICON_SIZE_10"
         title="Remove"
       />
     </KButton>
@@ -53,6 +53,7 @@ import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import type { BadgeAppearance, BadgeShape } from '@/types'
 import { BadgeAppearances, BadgeShapes } from '@/types'
 import useUtilities from '@/composables/useUtilities'
+import { KUI_ICON_SIZE_10 } from '@kong/design-tokens'
 
 const { getSizeFromString } = useUtilities()
 

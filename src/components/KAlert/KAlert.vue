@@ -93,7 +93,7 @@
         :class="appearance"
         :color="appearance"
         icon="close"
-        size="14"
+        :size="KUI_ICON_SIZE_20"
       />
     </button>
 
@@ -130,6 +130,7 @@ import { computed, PropType, useSlots } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import type { AlertAppearance, AlertDismissType, AlertAppearanceRecord, AlertSize, AlertType } from '@/types'
+import { KUI_ICON_SIZE_20 } from '@kong/design-tokens'
 
 defineProps({
   /**

@@ -15,7 +15,7 @@
         class="k-button-icon"
         :color="iconColor"
         :icon="icon"
-        size="16"
+        :size="KUI_ICON_SIZE_30"
       />
     </slot>
 
@@ -25,7 +25,7 @@
       v-if="showCaret"
       :color="iconColor"
       icon="chevronDown"
-      size="16"
+      :size="KUI_ICON_SIZE_30"
       view-box="2 2 15 15"
     />
   </a>
@@ -46,7 +46,7 @@
         class="k-button-icon"
         :color="iconColor"
         :icon="icon"
-        size="16"
+        :size="KUI_ICON_SIZE_30"
       />
     </slot>
 
@@ -57,7 +57,7 @@
       :class="['caret']"
       :color="caretColor || iconColor"
       icon="chevronDown"
-      size="16"
+      :size="KUI_ICON_SIZE_30"
       view-box="2 2 15 15"
     />
   </component>
@@ -67,7 +67,14 @@
 import { computed, PropType, useSlots, useAttrs } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import type { ButtonAppearance, ButtonAppearanceRecord, ButtonSize, ButtonSizeRecord } from '@/types'
-import { KUI_COLOR_TEXT_NEUTRAL_WEAK, KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_PRIMARY_STRONGER, KUI_COLOR_TEXT_PRIMARY, KUI_COLOR_TEXT_DANGER } from '@kong/design-tokens'
+import {
+  KUI_COLOR_TEXT_NEUTRAL_WEAK,
+  KUI_COLOR_TEXT_INVERSE,
+  KUI_COLOR_TEXT_PRIMARY_STRONGER,
+  KUI_COLOR_TEXT_PRIMARY,
+  KUI_COLOR_TEXT_DANGER,
+  KUI_ICON_SIZE_30,
+} from '@kong/design-tokens'
 
 const props = defineProps({
   /**
