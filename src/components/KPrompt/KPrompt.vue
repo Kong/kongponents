@@ -13,9 +13,9 @@
             <KIcon
               v-if="type === 'warning'"
               class="mr-2"
-              color="var(--white)"
+              :color="`var(--white, ${KUI_COLOR_TEXT_INVERSE})`"
               icon="warning"
-              secondary-color="var(--yellow-400)"
+              :secondary-color="`var(--yellow-400, ${KUI_COLOR_TEXT_WARNING})`"
               size="20"
             />
             {{ displayTitle }}
@@ -27,7 +27,7 @@
               @click="close"
             >
               <KIcon
-                color="var(--grey-600)"
+                :color="`var(--grey-600, ${KUI_COLOR_TEXT_NEUTRAL})`"
                 icon="close"
                 size="15"
               />
@@ -81,7 +81,7 @@
             <template #icon>
               <KIcon
                 v-if="actionPending"
-                color="var(--grey-400)"
+                :color="`var(--grey-400, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`"
                 icon="spinner"
                 size="16"
               />
@@ -101,6 +101,7 @@ import KIcon from '@/components/KIcon/KIcon.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KModal from '@/components/KModal/KModal.vue'
 import { PromptVariants, PromptVariantsArray } from '@/types'
+import { KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_WARNING, KUI_COLOR_TEXT_NEUTRAL, KUI_COLOR_TEXT_NEUTRAL_WEAK } from '@kong/design-tokens'
 
 const props = defineProps({
   title: {
@@ -230,33 +231,34 @@ onBeforeUnmount(() => {
 @import '@/styles/functions';
 
 .k-prompt {
-  --KModalBottomMargin: var(--spacing-md);
+  --KModalBottomMargin: var(--spacing-md, var(--kui-space-60, #{$kui-space-60}));
 
   :deep(.k-modal-dialog.modal-dialog) {
-    padding: var(--spacing-lg);
-    padding-bottom: var(--spacing-md);
+    $kPromptModalPadding: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
+
+    padding: $kPromptModalPadding;
+    padding-bottom: var(--spacing-md, var(--kui-space-60, $kui-space-60));
 
     .close-button {
-      margin-left: auto;
+      margin-left: var(--kui-space-auto, $kui-space-auto);
     }
 
     .divider {
       border: none;
-      border-top: 1px solid var(--grey-300);
+      border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
       /* subtract parents padding from margin to take full width of modal */
-      /* use interpolation for the var in calc to not break postcss */
-      margin: 16px calc(#{var(--spacing-lg)} * -1) 0;
+      margin: var(--kui-space-60, $kui-space-60) calc($kPromptModalPadding * -1) var(--kui-space-0, $kui-space-0);
     }
 
     .k-modal-content {
       .k-modal-header.modal-header {
         display: flex;
-        padding-bottom: var(--spacing-xs);
+        padding-bottom: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
         width: 100%;
 
         .close-button .k-button {
-          margin-top: -8px;
-          padding: var(--spacing-xs);
+          margin-top: calc(-1 * var(--kui-space-40, $kui-space-40));
+          padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
         }
       }
 
@@ -264,23 +266,23 @@ onBeforeUnmount(() => {
         width: 100%;
 
         .k-prompt-body .k-prompt-body-content {
-          color: var(--grey-600);
-          font-size: var(--type-md);
-          line-height: 24px;
+          color: var(--grey-600, var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong));
+          font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
+          line-height: var(--kui-line-height-40, $kui-line-height-40);
           max-height: var(--KPromptMaxHeight, 300px);
           overflow-x: hidden;
           overflow-y: auto;
-          padding-bottom: var(--spacing-md);
+          padding-bottom: var(--spacing-md, var(--kui-space-60, $kui-space-60));
           text-align: start;
           white-space: normal; // in case inside KTable
           width: 99%;
 
-          @media screen and (min-width: $viewport-md) {
+          @media screen and (min-width: $kui-breakpoint-phablet) {
             max-height: var(--KPromptMaxHeight, 500px);
           }
 
           .k-prompt-confirm-text {
-            margin-top: var(--spacing-lg);
+            margin-top: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
             .k-input {
               width: 100%;
             }
