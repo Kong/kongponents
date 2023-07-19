@@ -7,29 +7,28 @@
     :title="displayTitle"
   >
     <template #header-content>
-      <div class="k-prompt-header w-100">
-        <div class="k-prompt-header-content d-flex align-items-center w-100">
+      <div class="k-prompt-header">
+        <div class="k-prompt-header-content">
           <slot name="header-content">
             <KIcon
               v-if="type === 'warning'"
-              class="mr-2"
-              color="var(--white)"
+              class="warning-icon"
+              :color="`var(--white, var(--kui-color-text-inverse, ${KUI_COLOR_TEXT_INVERSE}))`"
               icon="warning"
-              secondary-color="var(--yellow-400)"
-              size="20"
+              secondary-color="currentColor"
+              :size="KUI_ICON_SIZE_40"
             />
             {{ displayTitle }}
           </slot>
           <div class="close-button">
             <KButton
               aria-label="Close"
-              class="non-visual-button"
               @click="close"
             >
               <KIcon
-                color="var(--grey-600)"
+                :color="`var(--grey-600, var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL}))`"
                 icon="close"
-                size="15"
+                :size="KUI_ICON_SIZE_30"
               />
             </KButton>
           </div>
@@ -38,23 +37,22 @@
       </div>
     </template>
     <template #body-content>
-      <div class="k-prompt-body w-100">
-        <div class="k-prompt-body-content w-100">
+      <div class="k-prompt-body">
+        <div class="k-prompt-body-content">
           <slot name="body-content">
             {{ message }}
           </slot>
 
           <div
             v-if="confirmationText"
-            class="k-prompt-confirm-text w-100"
+            class="k-prompt-confirm-text"
           >
-            Type "<span class="bold-600">{{ confirmationText }}</span>" to confirm your action.
+            Type "<span class="confirm-text">{{ confirmationText }}</span>" to confirm your action.
 
             <KInput
               v-model="confirmationInput"
               autocapitalize="off"
               autocomplete="off"
-              class="mt-2"
               data-testid="confirmation-input"
             />
           </div>
@@ -67,7 +65,7 @@
         <slot name="action-buttons">
           <KButton
             appearance="outline"
-            class="k-prompt-cancel mr-2"
+            class="k-prompt-cancel"
             @click="close"
           >
             {{ cancelButtonText }}
@@ -81,9 +79,9 @@
             <template #icon>
               <KIcon
                 v-if="actionPending"
-                color="var(--grey-400)"
+                :color="`var(--grey-400, var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK}))`"
                 icon="spinner"
-                size="16"
+                :size="KUI_ICON_SIZE_30"
               />
             </template>
             {{ actionButtonText }}
@@ -101,6 +99,7 @@ import KIcon from '@/components/KIcon/KIcon.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KModal from '@/components/KModal/KModal.vue'
 import { PromptVariants, PromptVariantsArray } from '@/types'
+import { KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_NEUTRAL, KUI_COLOR_TEXT_NEUTRAL_WEAK, KUI_ICON_SIZE_30, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
 const props = defineProps({
   title: {
@@ -227,62 +226,92 @@ onBeforeUnmount(() => {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
+@import '@/styles/mixins';
 @import '@/styles/functions';
 
 .k-prompt {
-  --KModalBottomMargin: var(--spacing-md);
+  --KModalBottomMargin: var(--spacing-md, var(--kui-space-60, #{$kui-space-60}));
 
   :deep(.k-modal-dialog.modal-dialog) {
-    padding: var(--spacing-lg);
-    padding-bottom: var(--spacing-md);
+    $kPromptModalPadding: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
 
-    .close-button {
-      margin-left: auto;
+    padding: $kPromptModalPadding;
+    padding-bottom: var(--spacing-md, var(--kui-space-60, $kui-space-60));
+
+    .k-prompt-header {
+      width: 100% !important;
+
+      .k-prompt-header-content {
+        align-items: center !important;
+        display: flex !important;
+        width: 100% !important;
+
+        .warning-icon {
+          color: $tmp-color-yellow-400;
+          margin-right: var(--kui-space-40, $kui-space-40) !important;
+        }
+
+        .close-button {
+          margin-left: var(--kui-space-auto, $kui-space-auto);
+        }
+      }
     }
 
     .divider {
       border: none;
-      border-top: 1px solid var(--grey-300);
+      border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
       /* subtract parents padding from margin to take full width of modal */
-      /* use interpolation for the var in calc to not break postcss */
-      margin: 16px calc(#{var(--spacing-lg)} * -1) 0;
+      margin: var(--kui-space-60, $kui-space-60) calc($kPromptModalPadding * -1) var(--kui-space-0, $kui-space-0);
     }
 
     .k-modal-content {
       .k-modal-header.modal-header {
         display: flex;
-        padding-bottom: var(--spacing-xs);
+        padding-bottom: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
         width: 100%;
 
         .close-button .k-button {
-          margin-top: -8px;
-          padding: var(--spacing-xs);
+          @include non-visual-button;
+          margin-top: calc(-1 * var(--kui-space-40, $kui-space-40));
+          padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
         }
       }
 
       .k-modal-body.modal-body {
         width: 100%;
 
-        .k-prompt-body .k-prompt-body-content {
-          color: var(--grey-600);
-          font-size: var(--type-md);
-          line-height: 24px;
-          max-height: var(--KPromptMaxHeight, 300px);
-          overflow-x: hidden;
-          overflow-y: auto;
-          padding-bottom: var(--spacing-md);
-          text-align: start;
-          white-space: normal; // in case inside KTable
-          width: 99%;
+        .k-prompt-body {
+          width: 100% !important;
 
-          @media screen and (min-width: $viewport-md) {
-            max-height: var(--KPromptMaxHeight, 500px);
-          }
+          .k-prompt-body-content {
+            color: var(--grey-600, var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong));
+            font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
+            line-height: var(--kui-line-height-40, $kui-line-height-40);
+            max-height: var(--KPromptMaxHeight, 300px);
+            overflow-x: hidden;
+            overflow-y: auto;
+            padding-bottom: var(--spacing-md, var(--kui-space-60, $kui-space-60));
+            text-align: start;
+            white-space: normal; // in case inside KTable
+            width: 100% !important;
 
-          .k-prompt-confirm-text {
-            margin-top: var(--spacing-lg);
-            .k-input {
-              width: 100%;
+            @media screen and (min-width: $kui-breakpoint-phablet) {
+              max-height: var(--KPromptMaxHeight, 500px);
+            }
+
+            .k-prompt-confirm-text {
+              margin-top: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
+              width: 100% !important;
+
+              .confirm-text {
+                font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold) !important;
+              }
+
+              .k-input {
+                margin-top: var(--kui-space-40, $kui-space-40) !important;
+                width: 100%;
+              }
             }
           }
         }
@@ -291,6 +320,10 @@ onBeforeUnmount(() => {
       .k-modal-footer.modal-footer {
         .k-prompt-action-buttons {
           margin-left: auto;
+
+          .k-prompt-cancel {
+            margin-right: var(--kui-space-40, $kui-space-40) !important;
+          }
         }
       }
     }
