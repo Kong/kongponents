@@ -35,6 +35,7 @@
 /src/components/KPop @adamdehaven @jillztom @portikM
 /src/components/KSelect @adamdehaven @jillztom @portikM
 /src/components/KTable @adamdehaven @jillztom @portikM
+/src/components/KTextArea @adamdehaven @jillztom @portikM
 
 # Dependabot approvals
 # Allow Kongponents BOT to approve dependabot updates

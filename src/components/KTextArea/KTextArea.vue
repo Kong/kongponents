@@ -1,12 +1,12 @@
 <template>
   <div
-    class="k-input-wrapper mb-2"
+    class="k-input-wrapper"
     :class="[$attrs.class, {'input-error' : hasError || charLimitExceeded}]"
   >
     <textarea
       v-if="!label"
       v-bind="modifiedAttrs"
-      class="form-control k-input style-body-lg"
+      class="form-control k-input"
       :class="[isResizable ? 'is-resizable' : undefined]"
       :cols="cols"
       :rows="rows"
@@ -16,7 +16,7 @@
 
     <div
       v-else-if="label && overlayLabel"
-      class="mt-5"
+      class="k-textarea"
     >
       <div class="text-on-input">
         <label
@@ -34,7 +34,7 @@
           v-bind="modifiedAttrs"
           :id="textAreaId"
           :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
-          class="form-control k-input style-body-lg"
+          class="form-control k-input"
           :class="[isResizable ? 'is-resizable' : undefined]"
           :cols="cols"
           :rows="rows"
@@ -50,7 +50,7 @@
 
     <div
       v-else
-      class="mt-5"
+      class="k-textarea"
     >
       <KLabel
         :for="textAreaId"
@@ -70,7 +70,7 @@
         v-bind="modifiedAttrs"
         :id="textAreaId"
         :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
-        class="form-control k-input style-body-lg"
+        class="form-control k-input"
         :class="[isResizable ? 'is-resizable' : undefined]"
         :cols="cols"
         :rows="rows"
@@ -85,7 +85,7 @@
 
     <div
       v-if="!disableCharacterLimit"
-      class="char-limit type-sm color-black-45 mt-2"
+      class="char-limit"
       :class="{ 'over-char-limit': charLimitExceeded }"
     >
       {{ currValue.length || modelValue.length }} / {{ characterLimit }}
@@ -230,18 +230,25 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/mixins';
 @import '@/styles/functions';
 
 .k-input-wrapper {
   display: grid;
+  margin-bottom: var(--kui-space-40, $kui-space-40);
   width: fit-content;
+
+  .k-textarea {
+    margin-top: var(--kui-space-80, $kui-space-80) !important;
+  }
 
   textarea.k-input {
     -webkit-appearance: none;
   }
 
   textarea.form-control {
-    font-family: var(--font-family-sans);
+    @include text-lg;
+    font-family: var(--font-family-sans, var(--kui-font-family-text, $kui-font-family-text));
     resize: none;
 
     &.is-resizable {
@@ -255,16 +262,19 @@ export default {
   }
 
   .char-limit {
-    margin-left: auto;
+    color: var(--kui-color-text, $kui-color-text) !important;
+    font-size: var(--kui-font-size-30, $kui-font-size-30) !important;
+    margin-left: var(--kui-space-auto, $kui-space-auto);
+    margin-top: var(--kui-space-40, $kui-space-40) !important;
   }
 
   .over-char-limit {
-    color: var(--red-600);
+    color: var(--red-600, var(--kui-color-text-danger, $kui-color-text-danger));
   }
 
   .text-on-input label.hovered,
   .text-on-input label:hover {
-    color: var(--KInputHover, var(--blue-500));
+    color: var(--KInputHover, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
   }
 }
 </style>
