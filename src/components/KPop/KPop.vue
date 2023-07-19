@@ -34,7 +34,7 @@
         >
           <div
             v-if="$slots.title || title || $slots.actions"
-            class="k-popover-header d-flex"
+            class="k-popover-header"
           >
             <div
               v-if="$slots.title || title"
@@ -78,7 +78,7 @@
       >
         <div
           v-if="$slots.title || title || $slots.actions"
-          class="k-popover-header d-flex"
+          class="k-popover-header"
         >
           <div
             v-if="$slots.title || title"
@@ -286,7 +286,7 @@ export default defineComponent({
       }
     },
     popoverClassObj: function() {
-      return [this.popoverClasses, { 'hide-caret': this.hideCaret }, { 'pb-0': this.$slots.actions }]
+      return [this.popoverClasses, { 'hide-caret': this.hideCaret }, { 'has-actions': this.$slots.actions }]
     },
   },
   watch: {
@@ -443,18 +443,19 @@ export default defineComponent({
 <style lang="scss">
 // Must leave this block unscoped as it sometimes causes issues with slotted/nested styles
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
 
 .k-popover {
-  background-color: var(--KPopBackground, var(--white, color(white)));
-  border: 1px solid var(--KPopBorder, var(--black-10, color(black-10)));
-  border-radius: 3px;
-  -webkit-box-shadow: 0px 4px 20px var(--black-10);
-  box-shadow: 0px 4px 20px var(--black-10);
-  color: var(--KPopColor, var(--black-400, color(black-400)));
-  font-size: var(--KPopBodySize, var(--type-sm, type(sm)));
+  background-color: var(--KPopBackground, var(--white, var(--kui-color-background, $kui-color-background)));
+  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--KPopBorder, var(--black-10, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
+  border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
+  -webkit-box-shadow: 0px 4px 20px $tmp-color-black-10;
+  box-shadow: 0px 4px 20px $tmp-color-black-10;
+  color: var(--KPopColor, var(--black-400, var(--kui-color-text-neutral, $kui-color-text-neutral)));
+  font-size: var(--KPopBodySize, var(--type-sm, var(--kui-font-size-30, $kui-font-size-30)));
   max-width: none;
-  padding: var(--KPopPaddingY, 28px) var(--KPopPaddingX, var(--spacing-md, spacing(md)));
+  padding: var(--KPopPaddingY, var(--kui-space-80, $kui-space-80)) var(--KPopPaddingX, var(--spacing-md, var(--kui-space-60, $kui-space-60)));
   text-align: left;
   white-space: normal;
   z-index: 1000;
@@ -469,12 +470,13 @@ export default defineComponent({
 
   .k-popover-header {
     align-items: baseline;
-    margin-bottom: 28px;
+    display: flex !important;
+    margin-bottom: var(--kui-space-80, $kui-space-80);
 
     .k-popover-title {
-      color: var(--KPopColor, var(--black-500, color(black-500)));
-      font-size: var(--KPopHeaderSize, var(--type-md, type(md)));
-      font-weight: 600;
+      color: var(--KPopColor, var(--black-500, var(--kui-color-text, $kui-color-text)));
+      font-size: var(--KPopHeaderSize, var(--type-md, var(--kui-font-size-40, $kui-font-size-40)));
+      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
     }
 
     .k-popover-actions {
@@ -483,18 +485,19 @@ export default defineComponent({
   }
 
   .k-popover-content {
-    line-height: 20px;
+    line-height: var(--kui-line-height-30, $kui-line-height-30);
   }
 
   .k-popover-footer {
-    margin: 14px 0;
+    margin: var(--kui-space-50, $kui-space-50) var(--kui-space-0, $kui-space-0);
   }
 
+  // TODO: this block is repetitive and can be refactored inti a mixin
   &[x-placement^="bottom"] {
-    margin-top: var(--spacing-md, spacing(md));
+    margin-top: var(--spacing-md, var(--kui-space-50, $kui-space-50));
 
     &:after, &:before {
-      border: solid transparent;
+      border: solid var(--kui-color-border-transparent, $kui-color-border-transparent);
       bottom: 100%;
       content: " ";
       height: 0;
@@ -506,24 +509,24 @@ export default defineComponent({
 
     &:after {
       border-color: rgba(255, 255, 255, 0);
-      border-bottom-color: var(--KPopBackground, var(--white, color(white)));
+      border-bottom-color: var(--KPopBackground, var(--white, $tmp-color-white));
       border-width: 10px;
       margin-left: -10px;
     }
 
     &:before {
       border-color: rgba(250, 250, 250, 0);
-      border-bottom-color: var(--KPopBorder, var(--black-10, color(black-10)));
+      border-bottom-color: var(--KPopBorder, var(--black-10, $tmp-color-black-10));
       border-width: 11px;
       margin-left: -11px;
     }
   }
 
   &[x-placement^="top"] {
-    margin-bottom: var(--spacing-md, spacing(md));
+    margin-bottom: var(--spacing-md, var(--kui-space-60, $kui-space-60));
 
     &:after, &:before {
-      border: solid transparent;
+      border: solid var(--kui-color-border-transparent, $kui-color-border-transparent);
       content: " ";
       height: 0;
       left: 50%;
@@ -535,24 +538,24 @@ export default defineComponent({
 
     &:after {
       border-color: rgba(255, 255, 255, 0);
-      border-top-color: var(--KPopBackground, var(--white, color(white)));
+      border-top-color: var(--KPopBackground, var(--white, $tmp-color-white));
       border-width: 10px;
       margin-left: -10px;
     }
 
     &:before {
       border-color: rgba(250, 250, 250, 0);
-      border-top-color: var(--KPopBorder, var(--black-10, color(black-10)));
+      border-top-color: var(--KPopBorder, var(--black-10, $tmp-color-black-10));
       border-width: 11px;
       margin-left: -11px;
     }
   }
 
   &[x-placement^="left"] {
-    margin-right: var(--spacing-md, spacing(md));
+    margin-right: var(--spacing-md, var(--kui-space-60, $kui-space-60));
 
     &:after, &:before {
-      border: solid transparent;
+      border: solid var(--kui-color-border-transparent, $kui-color-border-transparent);
       content: " ";
       height: 0;
       left: 100%;
@@ -564,24 +567,24 @@ export default defineComponent({
 
     &:after {
       border-color: rgba(255, 255, 255, 0);
-      border-left-color: var(--KPopBackground, var(--white, color(white)));
+      border-left-color: var(--KPopBackground, var(--white, $tmp-color-white));
       border-width: 10px;
       margin-top: -10px;
     }
 
     &:before {
       border-color: rgba(250, 250, 250, 0);
-      border-left-color: var(--KPopBorder, var(--black-10, color(black-10)));
+      border-left-color: var(--KPopBorder, var(--black-10, $tmp-color-black-10));
       border-width: 11px;
       margin-top: -11px;
     }
   }
 
   &[x-placement^="right"] {
-    margin-left: var(--spacing-md, spacing(md));
+    margin-left: var(--spacing-md, var(--kui-space-60, $kui-space-60));
 
     &:after, &:before {
-      border: solid transparent;
+      border: solid var(--kui-color-border-transparent, $kui-color-border-transparent);
       content: " ";
       height: 0;
       pointer-events: none;
@@ -593,14 +596,14 @@ export default defineComponent({
 
     &:after {
       border-color: rgba(255, 255, 255, 0);
-      border-right-color: var(--KPopBackground, var(--white, color(white)));
+      border-right-color: var(--KPopBackground, var(--white, $tmp-color-white));
       border-width: 10px;
       margin-top: -10px;
     }
 
     &:before {
       border-color: rgba(250, 250, 250, 0);
-      border-right-color: var(--KPopBorder, var(--black-10, color(black-10)));
+      border-right-color: var(--KPopBorder, var(--black-10, $tmp-color-black-10));
       border-width: 11px;
       margin-top: -11px;
     }
@@ -632,13 +635,16 @@ export default defineComponent({
       display: none;
     }
   }
+
+  &.has-actions {
+    padding-bottom: var(--kui-space-0, $kui-space-0) !important;
+  }
 }
 </style>
 
 <style lang="scss">
+@import '@/styles/tmp-variables';
 // @keyframes animations need to be un-scoped
-
-$transition-speed: .3s !default;
 
 @keyframes fadeIn {
   from {
@@ -661,7 +667,7 @@ $transition-speed: .3s !default;
 .fadeIn,
 .fade-leave-active,
 .fadeOut {
-  animation-duration: $transition-speed;
+  animation-duration: $tmp-animation-timing-2;
   animation-fill-mode: both;
 }
 .fade-enter-active,

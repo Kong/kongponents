@@ -224,7 +224,7 @@ export default defineComponent({
 
 Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `false`.
 
-<div style="width: 300px; height: 125px; position: relative; overflow: hidden; z-index: 1; background-color: var(--red-100);">
+<div style="width: 300px; height: 125px; position: relative; overflow: hidden; z-index: 1; background-color: salmon;">
   <KPop
     title="Look Mah!"
     width="170"
@@ -238,7 +238,7 @@ Use fixed positioning of the popover to avoid content being clipped by parental 
 </div>
 
 ```html
-<div style="width: 300px; height: 125px; position: relative; overflow: hidden; z-index: 1; background-color: var(--red-100);">
+<div style="width: 300px; height: 125px; position: relative; overflow: hidden; z-index: 1; background-color: salmon;">
   <KPop
     title="Look Mah!"
     width="170"
@@ -252,7 +252,7 @@ Use fixed positioning of the popover to avoid content being clipped by parental 
 </div>
 ```
 
-<div style="width: 300px; height: 125px; position: relative; overflow: hidden; z-index: 1; background-color: var(--blue-100);">
+<div style="width: 300px; height: 125px; position: relative; overflow: hidden; z-index: 1; background-color: lightblue;">
   <KPop
     title="Look Mah!"
     width="170"
@@ -267,7 +267,7 @@ Use fixed positioning of the popover to avoid content being clipped by parental 
 </div>
 
 ```html
-<div style="width: 300px; height: 125px; position: relative; overflow: hidden; z-index: 1; background-color: var(--blue-100);">
+<div style="width: 300px; height: 125px; position: relative; overflow: hidden; z-index: 1; background-color: lightblue;">
   <KPop
     title="Look Mah!"
     width="170"
@@ -458,22 +458,22 @@ export default defineComponent({
 
 To support `<KPop>` being able to be used inside an svg tag, use the `isSvg` prop. This will wrap the content of the KPop in a `<foreignObject>` tag, so that normal HTML content can be injected into the popover.
 
-<svg style="cursor: pointer; height: 20px; width: 20px; margin-right: 16px;" v-for="light in [{ color: 'red', value: 'red-500'}, { color: 'yellow', value: 'yellow-200'}, { color: 'green', value: 'green-500'}]">
+<svg style="cursor: pointer; height: 20px; width: 20px; margin-right: 16px;" v-for="light in [{ color: 'red', value: 'red'}, { color: 'yellow', value: 'gold'}, { color: 'green', value: 'lime'}]">
   <KPop trigger="hover" :title="light.color" :is-svg="true" tag="svg" :popover-timeout="10">
     <template v-slot:content>
       <p>{{ light.color }} means {{ light.color == 'green' ? 'GO!' : (light.color == 'red' ? 'STOP!' : 'SLOW DOWN!') }}</p>
     </template>
-    <rect :fill="`var(--${light.value})`" width="20" height="20" rx="20" ry="20"></rect>
+    <rect :fill="`${light.value}`" width="20" height="20" rx="20" ry="20"></rect>
   </KPop>
 </svg>
 
 ```html
-<svg v-for="light in ['red', 'yellow', 'green']">
+<svg v-for="light in ['red', 'gold', 'lime']">
   <KPop trigger="hover" title="Light" :is-svg="true" tag="g" :popover-timeout="10">
     <template v-slot:content>
       <p>{{ light }} means {{ light == 'green' ? 'GO!' : (light == 'red' ? 'STOP!' : 'SLOW DOWN!') }}</p>
     </template>
-    <rect :fill="`var(--${light})`" width="20" height="20" rx="20" ry="20"></rect>
+    <rect :fill="`${light}`" width="20" height="20" rx="20" ry="20"></rect>
   </KPop>
 </svg>
 ```
@@ -597,7 +597,7 @@ Example:
   <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
   <template v-slot:content>
     <div style="justify-content: center;" class="d-flex">
-      <KIcon v-if="currentState == 'pending'" icon="spinner" color="var(--purple-300)" />
+      <KIcon v-if="currentState == 'pending'" icon="spinner" color="purple" />
       <div class="pl-2" style="line-height: 24px;">{{ message }}</div>
     </div>
   </template>
@@ -679,7 +679,7 @@ export default defineComponent({
   <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
   <template v-slot:content>
     <div style="justify-content: center;" class="d-flex">
-      <KIcon v-if="currentState == 'pending'" icon="spinner" color="var(--purple-300)" />
+      <KIcon v-if="currentState == 'pending'" icon="spinner" color="purple" />
       <div class="pl-2" style="line-height: 24px;">{{ message }}</div>
     </div>
   </template>
@@ -736,15 +736,15 @@ export default defineComponent({
 
 ## Theming
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KPopBackground`| Primary background color
-| `--KPopBorder`| Primary border color
-| `--KPopBodySize`| Font size of the body content
-| `--KPopColor`| Text color of the content
-| `--KPopHeaderSize`| Font size of the header content
-| `--KPopPaddingY`| Vertical top/bottom spacing
-| `--KPopPaddingX`| Horizontal left/right padding
+| Variable           | Purpose                         |
+| :----------------- | :------------------------------ |
+| `--KPopBackground` | Primary background color        |
+| `--KPopBorder`     | Primary border color            |
+| `--KPopBodySize`   | Font size of the body content   |
+| `--KPopColor`      | Text color of the content       |
+| `--KPopHeaderSize` | Font size of the header content |
+| `--KPopPaddingY`   | Vertical top/bottom spacing     |
+| `--KPopPaddingX`   | Horizontal left/right padding   |
 
 ## Browser Compatibility
 
