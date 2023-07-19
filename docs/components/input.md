@@ -2,7 +2,7 @@
 
 **KInput** provides a wrapper around general `text` input's and provides specific Kong styling and state treatments (error, focus, etc).
 
-<KInput class="w-100" placeholder="Placeholder text" type="number" />
+<KInput class="w-100" placeholder="Placeholder text" />
 
 ```html
 <KInput class="w-100" placeholder="Placeholder text" />

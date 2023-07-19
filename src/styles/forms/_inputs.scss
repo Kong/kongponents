@@ -79,6 +79,7 @@
 
 .k-input,
 .form-control {
+  // some properties are using kui design tokens because Kongponent styles relying on matching values
   &:not([type="checkbox"]):not([type="radio"]) {
     border: none;
     border-radius: 3px;
@@ -87,19 +88,21 @@
     display: block;
     font-size: var(--type-md, type(md));
     font-weight: 400;
-    line-height: 24px;
-    padding: 10px var(--spacing-md, spacing(md));
+    line-height: var(--kui-line-height-40, $kui-line-height-40);
+    padding: var(--kui-space-40, $kui-space-40) var(--spacing-md, var(--kui-space-60, $kui-space-60));
     width: 100%;
     @include input-default;
 
     &.k-input-small {
       font-size: var(--type-xs, type(xs));
-      padding: var(--spacing-xs, spacing(xs)) var(--spacing-sm, spacing(sm));
+      padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40))
+        var(--spacing-sm, var(--kui-space-50, $kui-space-50));
     }
 
     &.k-input-large {
       font-size: var(--type-md, type(md));
-      padding: var(--spacing-md, spacing(md)) var(--spacing-lg, spacing(lg));
+      padding: var(--spacing-md, var(--kui-space-60, $kui-space-60))
+        var(--spacing-lg, var(--kui-space-80, $kui-space-80));
     }
 
     &:hover {
