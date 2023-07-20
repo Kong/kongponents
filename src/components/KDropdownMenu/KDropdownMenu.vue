@@ -217,36 +217,26 @@ onMounted(() => {
 
 .k-dropdown-menu {
   width: fit-content;
-  .drodpown-trigger:after {
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 6px solid;
-    content: "";
-    display: inline-block;
-    height: 0;
-    margin-left: var(--spacing-xs, spacing(xs));
-    vertical-align: middle;
-    width: 0;
-  }
 }
 </style>
 
 <style lang="scss">
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
 
 .k-popover.k-dropdown-popover {
-  --KPopPaddingY: var(--spacing-sm, spacing(sm));
-  --KPopPaddingX: 0;
-  border: 1px solid var(--black-10, rgba(0, 0, 0, 0.1));
+  --KPopPaddingY: var(--spacing-sm, var(--kui-space-50, #{$kui-space-50}));
+  --KPopPaddingX: var(--kui-space-0, #{$kui-space-0});
+  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--black-10, $tmp-color-black-10);
 
   ul {
-    margin: 0;
-    padding: 0;
+    margin: var(--kui-space-0, $kui-space-0);
+    padding: var(--kui-space-0, $kui-space-0);
   }
 
   a {
-    color: var(--black-70, rgba(0, 0, 0, 0.7));
+    color: var(--black-70, var(--kui-color-text-neutral, $kui-color-text-neutral));
     flex: 1;
 
     &:hover,
@@ -259,8 +249,8 @@ onMounted(() => {
 
 .selection-dropdown-menu {
   .dropdown-trigger .k-button {
-    border: 0;
-    color: var(--grey-600, #3c4557);
+    border: var(--kui-border-width-0, $kui-border-width-0);
+    color: var(--grey-600, var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong));
     white-space: nowrap;
 
     &:focus {
@@ -268,15 +258,15 @@ onMounted(() => {
     }
 
     &:active:disabled {
-      background-color: var(--white, #ffffff);
+      background-color: var(--white, var(--kui-color-background, $kui-color-background));
     }
 
     &.is-active {
-      background-color: var(--grey-100, #f8f8fa);
+      background-color: var(--grey-100, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
     }
 
     // Set dropdown icon color
-    --KButtonOutlineColor: var(--grey-500, #6f7787);
+    --KButtonOutlineColor: var(--grey-500, var(--kui-color-text-neutral, #{$kui-color-text-neutral}));
   }
 
   .k-popover.k-dropdown-popover {
@@ -284,14 +274,14 @@ onMounted(() => {
 
     li {
       .non-visual-button {
-        font-weight: 400 !important;
+        font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular) !important;
       }
 
       &.k-dropdown-selected-option {
-        background-color: var(--blue-100, #f2f6fe);
+        background-color: var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
 
         .non-visual-button {
-          font-weight: 500 !important;
+          font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium) !important;
         }
       }
     }
