@@ -152,7 +152,7 @@ const tooltipComponent = computed(() => props.disabledTooltip ? Kooltip : 'div')
 
 const defaultKPopAttributes = {
   hideCaret: true,
-  popoverClasses: 'k-dropdown-popover mt-1',
+  popoverClasses: 'k-dropdown-popover',
   popoverTimeout: 0,
   positionFixed: true,
   placement: 'bottomStart' as PopPlacements,
@@ -226,9 +226,10 @@ onMounted(() => {
 @import '@/styles/functions';
 
 .k-popover.k-dropdown-popover {
+  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--black-10, $tmp-color-black-10);
+  margin-top: var(--kui-space-20, $kui-space-20) !important;
   --KPopPaddingY: var(--spacing-sm, var(--kui-space-50, #{$kui-space-50}));
   --KPopPaddingX: var(--kui-space-0, #{$kui-space-0});
-  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--black-10, $tmp-color-black-10);
 
   ul {
     margin: var(--kui-space-0, $kui-space-0);
@@ -236,7 +237,7 @@ onMounted(() => {
   }
 
   a {
-    color: var(--black-70, var(--kui-color-text-neutral, $kui-color-text-neutral));
+    color: var(--black-70, var(--kui-color-text, $kui-color-text));
     flex: 1;
 
     &:hover,

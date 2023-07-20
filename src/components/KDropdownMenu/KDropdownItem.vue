@@ -1,6 +1,6 @@
 <template>
   <li
-    class="k-dropdown-item w-100"
+    class="k-dropdown-item"
     :class="{
       'has-divider': hasDivider,
       'disabled': type === 'default' && disabled,
@@ -16,7 +16,7 @@
       @click="availableComponents[componentType].onClick"
     >
       <span
-        class="truncate"
+        class="k-dropdown-item-trigger-label"
         :title="label"
       >
 
@@ -142,7 +142,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     tag: KButton,
     onClick: handleClick,
     attrs: {
-      class: 'k-dropdown-item-trigger btn-link k-button non-visual-button',
+      class: 'k-dropdown-item-trigger k-button btn-link',
       disabled: props.disabled,
       isRounded: false,
     },
@@ -161,12 +161,14 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
 @import '@/styles/variables';
 @import '@/styles/tmp-variables';
 @import '@/styles/functions';
+@import '@/styles/mixins';
 
 li.k-dropdown-item {
   align-items: center;
   display: flex;
   font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
   line-height: var(--kui-line-height-40, $kui-line-height-40);
+  width: 100% !important;
 
   &:not(:first-of-type).has-divider {
     $k-dropdown-item-divider-container-height: var(--spacing-lg, var(--kui-space-80, $kui-space-80)); // set to the same value as --spacing-lg without the units
@@ -196,7 +198,7 @@ li.k-dropdown-item {
   .k-dropdown-item-trigger,
   // Override .btn-link styles
   .k-dropdown-item-trigger.btn-link {
-    color: var(--black-70, var(--kui-color-text-neutral, $kui-color-text-neutral));
+    color: var(--black-70, var(--kui-color-text, $kui-color-text));
     line-height: var(--type-lg, var(--kui-line-height-50, $kui-line-height-50));
     padding: var(--spacing-md, spacing(md)) var(--spacing-lg, spacing(lg));
     text-align: left;
@@ -218,8 +220,13 @@ li.k-dropdown-item {
 .k-dropdown-item {
   a, button {
     &.k-dropdown-item-trigger {
+      @include non-visual-button;
       line-height: var(--type-lg, var(--kui-line-height-50, $kui-line-height-50));
       text-decoration: none !important;
+
+      .k-dropdown-item-trigger-label {
+        @include truncate;
+      }
     }
   }
 
