@@ -1,4 +1,5 @@
-/** @description Checks whether provided string is a valid URL.
+/**
+ * @description Checks whether provided string is a valid URL.
  * @param {string} string
  * @return {boolean} Whether the string is a valid URL.
  */
