@@ -26,7 +26,7 @@ export interface DropdownItemRenderedComponent {
     isRounded?: boolean
     disabled?: boolean
     to?: string | object
-    href?: string;
+    href?: string
   }
 }
 

@@ -151,16 +151,16 @@ Use this prop to customize the color of the caret
 
 <ClientOnly>
   <KDropdownMenu
-    caret-color="var(--steel-300)"
+    caret-color="lightgreen"
     label="Select Type"
-    :items="items"
+    :items="deepClone(defaultItemsUnselected)"
     show-caret
   />
 </ClientOnly>
 
 ```html
 <KDropdownMenu
-  caret-color="var(--steel-300)"
+  caret-color="lightgreen"
   label="Select Type"
   :items="items"
   show-caret
@@ -225,7 +225,7 @@ Use the `kpopAttributes` prop to configure the **KPop** [props](/components/popo
             <template #icon>
               <KIcon
                 icon="more"
-                color="var(--black-400)"
+                color="blue"
                 size="16"
               />
             </template>
@@ -258,7 +258,7 @@ Use the `kpopAttributes` prop to configure the **KPop** [props](/components/popo
           <template #icon>
             <KIcon
               icon="more"
-              color="var(--black-400)"
+              color="blue"
               size="16"
             />
           </template>
@@ -409,7 +409,7 @@ There are 3 primary item types:
           <KIcon
             icon="externalLink"
             size="12"
-            color="var(--red-500)"
+            color="red"
             class="ml-2"
           />
         </a>
@@ -465,7 +465,7 @@ There are 3 primary item types:
         <KIcon
           icon="externalLink"
           size="12"
-          color="var(--red-500)"
+          color="red"
           class="ml-2"
         />
       </a>
@@ -543,7 +543,7 @@ export default defineComponent({
 
   &:hover {
     svg path {
-      fill: var(--red-500);
+      fill: red;
     }
   }
 }
