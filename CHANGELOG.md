@@ -1,3 +1,11 @@
+# [8.99.0](https://github.com/Kong/kongponents/compare/v8.98.0...v8.99.0) (2023-07-21)
+
+
+### Features
+
+* **kexternallink:** introduce kui tokens [KHCP-7705] ([#1559](https://github.com/Kong/kongponents/issues/1559)) ([e349d59](https://github.com/Kong/kongponents/commit/e349d59c31fcf0d4579b50d433114822dea7d959))
+* **kfileupload:** introduce kui tokens [KHCP-7706] ([#1558](https://github.com/Kong/kongponents/issues/1558)) ([59416b7](https://github.com/Kong/kongponents/commit/59416b785423580e061c6bb8e10c262fab26e406))
+
 # [8.98.0](https://github.com/Kong/kongponents/compare/v8.97.0...v8.98.0) (2023-07-21)
 
 
