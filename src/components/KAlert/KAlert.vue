@@ -130,7 +130,7 @@ import { computed, PropType, useSlots } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import type { AlertAppearance, AlertDismissType, AlertAppearanceRecord, AlertSize, AlertType } from '@/types'
-import { KUI_ICON_SIZE_20 } from '@kong/design-tokens'
+import { KUI_ICON_SIZE_20, KUI_ICON_SIZE_60 } from '@kong/design-tokens'
 
 defineProps({
   /**
@@ -201,7 +201,7 @@ defineProps({
      */
   iconSize: {
     type: String,
-    default: '32',
+    default: KUI_ICON_SIZE_60,
   },
   /**
      * Set alert box type of icon
@@ -355,7 +355,7 @@ export const appearances: AlertAppearanceRecord = {
   }
 
   .close {
-    background-color: transparent;
+    background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
     border: var(--kui-border-width-0, $kui-border-width-0);
     bottom: var(--kui-space-0, $kui-space-0);
     cursor: pointer;

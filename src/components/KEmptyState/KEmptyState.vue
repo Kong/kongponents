@@ -49,7 +49,7 @@
 <script lang="ts" setup>
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import { KUI_COLOR_TEXT_NEUTRAL_STRONGEST } from '@kong/design-tokens'
+import { KUI_COLOR_TEXT_NEUTRAL_STRONGEST, KUI_ICON_SIZE_80 } from '@kong/design-tokens'
 
 defineProps({
   isError: {
@@ -58,7 +58,7 @@ defineProps({
   },
   iconSize: {
     type: String,
-    default: '50',
+    default: KUI_ICON_SIZE_80,
   },
   icon: {
     type: String,

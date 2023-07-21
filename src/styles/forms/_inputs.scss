@@ -1,3 +1,4 @@
+// some properties in this file are using kui design tokens because Kongponent styles are relying on matching values
 @import "labels";
 
 .k-input-wrapper .text-on-input {
@@ -79,7 +80,6 @@
 
 .k-input,
 .form-control {
-  // some properties are using kui design tokens because Kongponent styles relying on matching values
   &:not([type="checkbox"]):not([type="radio"]) {
     border: none;
     border-radius: 3px;

@@ -224,7 +224,7 @@ Specify an icon to display to the left of the `placeholder text` if prop `type` 
 
 ### iconSize
 
-The size of the `icon` being displayed (default is `26`).
+The size of the `icon` being displayed (default is `24px`).
 
 ### iconColor
 
@@ -232,13 +232,13 @@ The color of the `icon` being displayed.
 
 <KCard class="mt-6">
   <template v-slot:body>
-    <KFileUpload type="image" label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedImageType}` }" :accept="acceptedImageType" class="image-with-label" placeholder="Customized icon, iconColor & iconSize!" icon="immunity" iconColor="gold" iconSize="30" />
+    <KFileUpload type="image" label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedImageType}` }" :accept="acceptedImageType" class="image-with-label" placeholder="Customized icon, iconColor & iconSize!" icon="immunity" iconColor="gold" iconSize="30px" />
   </template>
 </KCard>
 
 ```html
 <KFileUpload
-  type="image" icon="immunity" iconColor="gold" iconSize="30"
+  type="image" icon="immunity" iconColor="gold" iconSize="30px"
   placeholder="You can change the text here!"
 />
 ```
