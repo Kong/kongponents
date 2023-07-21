@@ -1,11 +1,11 @@
 <template>
   <div
-    class="k-file-upload w-100"
+    class="k-file-upload"
   >
     <KLabel
       v-if="label"
       v-bind="labelAttributes"
-      class="cursor-pointer"
+      class="k-file-upload-label"
       data-testid="k-file-upload-label"
       :for="customInputId"
     >
@@ -16,7 +16,7 @@
       :id="customInputId"
       :key="fileInputKey"
       :accept="accept"
-      class="w-100 upload-input"
+      class="upload-input"
       :class="{
         'image-upload': type === 'image'
       }"
@@ -77,7 +77,7 @@
     </KButton>
     <a
       v-if="type === 'file'"
-      class="cursor-pointer display-name"
+      class="display-name"
       :class="[label ? 'has-label' : 'has-no-label']"
       href="#"
       @click="updateFile"
@@ -266,12 +266,20 @@ const resetInput = (): void => {
 @import '@/styles/functions';
 
 .k-file-upload {
+  position: relative;
+  width: 100 !important;
   $kInputPaddingY: var(--kui-space-40, $kui-space-40);
   $kInputLabelMarginBottom: var(--KInputLabelMargin, var(--spacing-xs, var(--kui-space-40, $kui-space-40))); // matching KLabel margin bottom
   $kInputLabelLineHeight: var(--KInputLabelLineHeight, var(--type-lg, var(--kui-line-height-30, $kui-line-height-30))); // matching KLabel line height
   $kInputLineHeight: var(--kui-line-height-40, $kui-line-height-40); // matching KInput line height
 
-  position: relative;
+  .k-file-upload-label {
+    cursor: pointer !important;
+  }
+
+  .upload-input {
+    width: 100% !important;
+  }
 
   .k-file-upload-btn.k-button {
     border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
@@ -349,11 +357,6 @@ const resetInput = (): void => {
 
 <style lang="scss">
 .k-file-upload {
-  // duplicate variables because of scoped styles
-  $kInputPaddingY: var(--kui-space-40, $kui-space-40);
-  $kInputLabelMarginBottom: var(--KInputLabelMargin, var(--spacing-xs, var(--kui-space-40, $kui-space-40))); // matching KLabel margin bottom
-  $kInputLabelLineHeight: var(--KInputLabelLineHeight, var(--type-lg, var(--kui-line-height-30, $kui-line-height-30))); // matching KLabel line height
-
   .k-input {
     height: 44px;
 
@@ -372,17 +375,18 @@ const resetInput = (): void => {
 
   .display-name {
     color: var(--black-70, var(--kui-color-text, $kui-color-text));
+    cursor: pointer !important;
     left: var(--kui-space-70, $kui-space-70);
     pointer-events: none;
     position: absolute;
-  }
 
-  .has-label {
-    top: calc($kInputLabelLineHeight + $kInputLabelMarginBottom + $kInputPaddingY);
-  }
+    &.has-label {
+      top: var(--kui-space-100, $kui-space-100);
+    }
 
-  .has-no-label {
-    top: var(--kui-space-50, $kui-space-50);
+    &.has-no-label {
+      top: var(--kui-space-50, $kui-space-50);
+    }
   }
 }
 </style>
