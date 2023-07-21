@@ -61,4 +61,3 @@ const iconColor = computed((): string => isMouseOver.value ? `var(--KExternalLin
   }
 }
 </style>
-@/utilities/urls
