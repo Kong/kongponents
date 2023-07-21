@@ -21,7 +21,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { KUI_COLOR_TEXT_PRIMARY, KUI_COLOR_TEXT_PRIMARY_STRONG } from '@kong/design-tokens'
-import { isValidUrl } from '@/utilities/helpers'
+import { isValidUrl } from '@/utilities/urls'
 
 const props = defineProps({
   href: {
@@ -61,3 +61,4 @@ const iconColor = computed((): string => isMouseOver.value ? `var(--KExternalLin
   }
 }
 </style>
+@/utilities/urls
