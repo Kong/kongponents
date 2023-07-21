@@ -315,7 +315,7 @@ const resetInput = (): void => {
     border: none;
     cursor: pointer;
     height: var(--spacing-lg);
-    padding: $var(--kui-space-30, $kui-space-30);
+    padding: var(--kui-space-30, $kui-space-30);
     position: absolute;
     right: $tmp-spacing-120;
 
