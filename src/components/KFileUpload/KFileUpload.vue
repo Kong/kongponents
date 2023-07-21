@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="k-file-upload"
-  >
+  <div class="k-file-upload">
     <KLabel
       v-if="label"
       v-bind="labelAttributes"
@@ -108,8 +106,8 @@ const props = defineProps({
     default: '',
   },
   /**
-    * Test mode - for testing only, strips out generated ids
-    */
+  * Test mode - for testing only, strips out generated ids
+  */
   testMode: {
     type: Boolean,
     default: false,
@@ -139,8 +137,8 @@ const props = defineProps({
     default: 'No file selected',
   },
   /**
-    * Set whether its file upload or image upload type
-    */
+  * Set whether its file upload or image upload type
+  */
   type: {
     type: String as PropType<FileUploadType>,
     default: 'file',
@@ -157,8 +155,8 @@ const props = defineProps({
     default: null,
   },
   /**
-    * Set icon size
-    */
+  * Set icon size
+  */
   iconSize: {
     type: String,
     default: KUI_ICON_SIZE_50,
@@ -168,8 +166,8 @@ const props = defineProps({
     default: 'image',
   },
   /**
-    * Set icon color
-    */
+  * Set icon color
+  */
   iconColor: {
     type: String,
     default: undefined,
@@ -215,7 +213,7 @@ const onFileChange = (evt: any): void => {
 
   const fileSize = fileInput?.value[0]?.size
 
-  hasUploadError.value = fileSize as Number > maximumFileSize.value
+  hasUploadError.value = Number(fileSize) as Number > maximumFileSize.value
 
   if (hasUploadError.value) {
     fileInputKey.value++
@@ -313,12 +311,11 @@ const resetInput = (): void => {
   }
 
   .remove-button {
-    $kFileUploadRemoveButtonPadding: var(--kui-space-30, $kui-space-30);
     background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
     border: none;
     cursor: pointer;
     height: var(--spacing-lg);
-    padding: $kFileUploadRemoveButtonPadding;
+    padding: $var(--kui-space-30, $kui-space-30);
     position: absolute;
     right: $tmp-spacing-120;
 
