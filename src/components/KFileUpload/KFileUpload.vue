@@ -49,7 +49,7 @@
       v-if="fileValue && removable"
       appearance="primary"
       class="remove-button"
-      :class="type !== 'file' ? 'move-btn-right' : ''"
+      :class="[label ? 'k-file-upload-btn-with-label' : 'k-file-upload-btn-without-label', { 'move-btn-right': type !== 'file' }]"
       data-testid="remove-button"
       size="small"
       type="reset"
@@ -96,6 +96,7 @@ import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import { v1 as uuidv1 } from 'uuid'
 import type { FileUploadType, ButtonAppearance } from '@/types'
+import { KUI_ICON_SIZE_50 } from '@kong/design-tokens'
 
 const props = defineProps({
   labelAttributes: {
@@ -107,8 +108,8 @@ const props = defineProps({
     default: '',
   },
   /**
-     * Test mode - for testing only, strips out generated ids
-     */
+    * Test mode - for testing only, strips out generated ids
+    */
   testMode: {
     type: Boolean,
     default: false,
@@ -138,8 +139,8 @@ const props = defineProps({
     default: 'No file selected',
   },
   /**
-     * Set whether its file upload or image upload type
-     */
+    * Set whether its file upload or image upload type
+    */
   type: {
     type: String as PropType<FileUploadType>,
     default: 'file',
@@ -156,19 +157,19 @@ const props = defineProps({
     default: null,
   },
   /**
-     * Set icon size
-     */
+    * Set icon size
+    */
   iconSize: {
     type: String,
-    default: '26',
+    default: KUI_ICON_SIZE_50,
   },
   icon: {
     type: String,
     default: 'image',
   },
   /**
-     * Set icon color
-     */
+    * Set icon color
+    */
   iconColor: {
     type: String,
     default: undefined,
@@ -214,7 +215,7 @@ const onFileChange = (evt: any): void => {
 
   const fileSize = fileInput?.value[0]?.size
 
-  hasUploadError.value = fileSize > maximumFileSize.value
+  hasUploadError.value = fileSize as Number > maximumFileSize.value
 
   if (hasUploadError.value) {
     fileInputKey.value++
@@ -261,24 +262,30 @@ const resetInput = (): void => {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
 
 .k-file-upload {
+  $kInputPaddingY: var(--kui-space-40, $kui-space-40);
+  $kInputLabelMarginBottom: var(--KInputLabelMargin, var(--spacing-xs, var(--kui-space-40, $kui-space-40))); // matching KLabel margin bottom
+  $kInputLabelLineHeight: var(--KInputLabelLineHeight, var(--type-lg, var(--kui-line-height-30, $kui-line-height-30))); // matching KLabel line height
+  $kInputLineHeight: var(--kui-line-height-40, $kui-line-height-40); // matching KInput line height
+
   position: relative;
 
   .k-file-upload-btn.k-button {
-    border-radius: 100px;
+    border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
     height: 29px;
     position: absolute;
-    right: var(--type-xs);
+    right: var(--type-xs, var(--kui-space-40, $kui-space-40));
   }
 
   .k-file-upload-btn-with-label.k-button {
-    top: 35px;
+    top: calc($kInputLabelLineHeight + $kInputLabelMarginBottom + $kInputPaddingY);
   }
 
   .k-file-upload-btn-without-label.k-button {
-    top: 7px;
+    top: $kInputPaddingY;
   }
 
   // To hide the button and thumbnail that appears in Safari and firefox after uploading a file
@@ -298,43 +305,43 @@ const resetInput = (): void => {
   }
 
   .remove-button {
-    background-color: transparent;
+    $kFileUploadRemoveButtonPadding: var(--kui-space-30, $kui-space-30);
+    background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
     border: none;
     cursor: pointer;
     height: var(--spacing-lg);
-    padding: var(--type-xxs) 6px;
+    padding: $kFileUploadRemoveButtonPadding;
     position: absolute;
-    right: 118px;
-    top: 38px;
+    right: $tmp-spacing-120;
 
     &:hover,
     &:active {
-      background-color: transparent !important;
-      box-shadow: 0 0 0 2px var(--white, #ffffff), 0 0 0 4px var(--KButtonPrimaryBase, var(--blue-500, #1155cb));
+      background-color: var(--kui-color-background-transparent, $kui-color-background-transparent) !important;
+      box-shadow: 0 0 0 2px var(--white, var(--kui-color-background, $kui-color-background)), 0 0 0 4px var(--KButtonPrimaryBase, var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary)));
     }
   }
 
   .move-btn-right {
-    right: 10px;
+    right: var(--kui-space-40, $kui-space-40);
   }
 
   .image-upload-icon {
     cursor: pointer;
-    left: var(--spacing-xs);
+    left: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
     position: absolute;
-    top: var(--type-xxs);
+    top: var(--type-xxs, var(--kui-space-20, $kui-space-20));
   }
 
   .image-upload-description {
-    color: var(--blue-500);
+    color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
     cursor: pointer;
-    font-size: 13px;
-    left: 44px;
-    line-height: 20px;
+    font-size: var(--kui-font-size-20, $kui-font-size-20);
+    left: var(--kui-space-100, $kui-space-100);
+    line-height: var(--kui-line-height-20, $kui-line-height-20);
     overflow: hidden;
     position: absolute;
     text-overflow: ellipsis;
-    top: var(--type-xs);
+    top: var(--kui-space-50, $kui-space-50);
     white-space: nowrap;
   }
 }
@@ -342,6 +349,11 @@ const resetInput = (): void => {
 
 <style lang="scss">
 .k-file-upload {
+  // duplicate variables because of scoped styles
+  $kInputPaddingY: var(--kui-space-40, $kui-space-40);
+  $kInputLabelMarginBottom: var(--KInputLabelMargin, var(--spacing-xs, var(--kui-space-40, $kui-space-40))); // matching KLabel margin bottom
+  $kInputLabelLineHeight: var(--KInputLabelLineHeight, var(--type-lg, var(--kui-line-height-30, $kui-line-height-30))); // matching KLabel line height
+
   .k-input {
     height: 44px;
 
@@ -351,7 +363,7 @@ const resetInput = (): void => {
   }
 
   input[type=file]{
-    color:transparent;
+    color: transparent;
 
     &:hover {
       cursor: pointer;
@@ -359,18 +371,18 @@ const resetInput = (): void => {
   }
 
   .display-name {
-    color: var(--black-70);
-    left: 20px;
+    color: var(--black-70, var(--kui-color-text, $kui-color-text));
+    left: var(--kui-space-70, $kui-space-70);
     pointer-events: none;
     position: absolute;
   }
 
   .has-label {
-    top: 40px;
+    top: calc($kInputLabelLineHeight + $kInputLabelMarginBottom + $kInputPaddingY);
   }
 
   .has-no-label {
-    top: var(--type-xs);
+    top: var(--kui-space-50, $kui-space-50);
   }
 }
 </style>

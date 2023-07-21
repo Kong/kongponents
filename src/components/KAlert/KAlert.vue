@@ -355,7 +355,7 @@ export const appearances: AlertAppearanceRecord = {
   }
 
   .close {
-    background-color: transparent;
+    background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
     border: var(--kui-border-width-0, $kui-border-width-0);
     bottom: var(--kui-space-0, $kui-space-0);
     cursor: pointer;

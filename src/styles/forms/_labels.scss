@@ -1,11 +1,12 @@
+// some properties in this file are using kui design tokens because Kongponent styles are relying on matching values
 .k-input-label {
   color: var(--KInputLabelColor, var(--black-85));
   display: inline-flex;
   font-family: var(--KInputLabelFont, var(--font-family-sans, font(sans)));
-  font-size: var(--KInputLabelSize, var(--type-sm, type(sm)));
+  font-size: var(--KInputLabelSize, var(--type-sm, var(--kui-font-size-30, $kui-font-size-30)));
   font-weight: var(--KInputLabelWeight, 600);
-  line-height: var(--KInputLabelLineHeight, var(--type-lg, type(lg)));
-  margin-bottom: var(--KInputLabelMargin, var(--spacing-xs, spacing(xs)));
+  line-height: var(--KInputLabelLineHeight, var(--type-lg, var(--kui-line-height-30, $kui-line-height-30)));
+  margin-bottom: var(--KInputLabelMargin, var(--spacing-xs, var(--kui-space-40, $kui-space-40)));
 
   .is-required {
     color: var(--KLabelRequiredAsteriskColor, var(--KInputLabelColor));
