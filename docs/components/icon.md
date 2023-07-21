@@ -28,7 +28,7 @@ The name of the icon. This required prop will only recognize icons from the foll
             :class="{ hasBg: isToggled.value }"
           >
             <KIcon
-            size="24"
+            size="24px"
             :icon="icon" />
             <span>{{ icon }}</span>
           </div>
@@ -60,7 +60,7 @@ The `State icons` do not support the `color` prop.
           :class="{ hasBg: isToggled.value }"
         >
           <KIcon
-          size="96"
+          size="96px"
           :icon="icon" />
           <span>{{ icon }}</span>
         </div>
@@ -89,10 +89,10 @@ The `State icons` do not support the `color` prop.
 
 This prop takes a string that will replace the SVG default height and width. If height and width is not present by default `24` is applied.
 
-<KIcon icon="gear" size="50" />
+<KIcon icon="gear" size="48px" />
 
 ```html
-<KIcon icon="gear" size="50" />
+<KIcon icon="gear" size="48px" />
 ```
 
 ### color
@@ -109,10 +109,10 @@ Overrides the default svg color.
 
 Overrides the secondary svg color (if one exists).
 
-<KIcon icon="warning" color="var(--black-70)" secondaryColor="var(--yellow-400)" />
+<KIcon icon="warning" color="blue" secondaryColor="yellow" />
 
 ```html
-<KIcon icon="warning" color="var(--black-70)" secondaryColor="var(--yellow-400)" />
+<KIcon icon="warning" color="blue" secondaryColor="yellow" />
 ```
 
 ::: tip NOTE
@@ -158,7 +158,7 @@ You can read more about the viewBox attribute
 
 - `svgElements` - Used to add svg customization elements
 
-<KIcon icon="check" size="50" color="url('#linear-gradient')" class="mr-2">
+<KIcon icon="check" size="48px" color="url('#linear-gradient')" class="mr-2">
   <template v-slot:svgElements>
     <defs>
       <linearGradient id="linear-gradient" x1="0" x2="1">
@@ -170,7 +170,7 @@ You can read more about the viewBox attribute
   </template>
 </KIcon>
 
-<KIcon icon="search" size="50" color="url('#linear-gradient2')" class="mr-2">
+<KIcon icon="search" size="48px" color="url('#linear-gradient2')" class="mr-2">
   <template v-slot:svgElements>
     <defs>
       <linearGradient id="linear-gradient2" gradientTransform="rotate(90)">
@@ -181,7 +181,7 @@ You can read more about the viewBox attribute
   </template>
 </KIcon>
 
-<KIcon icon="cogwheel" size="50" color="dark-grey">
+<KIcon icon="cogwheel" size="48px" color="dark-grey">
   <template v-slot:svgElements>
     <animateTransform
       attributeName="transform"
@@ -195,7 +195,7 @@ You can read more about the viewBox attribute
 </KIcon>
 
 ```html
-<KIcon icon="check" size="50" color="url('#linear-gradient')">
+<KIcon icon="check" size="48px" color="url('#linear-gradient')">
   <template v-slot:svgElements>
     <defs>
       <linearGradient id="linear-gradient" x1="0" x2="1">
@@ -207,7 +207,7 @@ You can read more about the viewBox attribute
   </template>
 </KIcon>
 
-<KIcon icon="search" size="50" color="url('#linear-gradient2')">
+<KIcon icon="search" size="48px" color="url('#linear-gradient2')">
   <template v-slot:svgElements>
     <defs>
       <linearGradient id="linear-gradient2" gradientTransform="rotate(90)">
@@ -218,7 +218,7 @@ You can read more about the viewBox attribute
   </template>
 </KIcon>
 
-<KIcon icon="cogwheel" size="50" color="dark-grey">
+<KIcon icon="cogwheel" size="48px" color="dark-grey">
   <template v-slot:svgElements>
     <animateTransform
       attributeName="transform"
@@ -253,7 +253,7 @@ Check out the [contributing](/guide/adding-icons-to-kicon) docs to learn about a
     display: flex;
     align-items: center;
     &.hasBg .kong-icon {
-      background-color: var(--blue-200);
+      background-color: blue;
     }
   }
   span {
@@ -268,7 +268,7 @@ Check out the [contributing](/guide/adding-icons-to-kicon) docs to learn about a
     display: flex;
     align-items: center;
     &.hasBg .kong-icon {
-      background-color: var(--blue-200);
+      background-color: blue;
     }
   }
   span {
