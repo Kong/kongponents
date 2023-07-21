@@ -1,3 +1,10 @@
+# [8.98.0](https://github.com/Kong/kongponents/compare/v8.97.0...v8.98.0) (2023-07-21)
+
+
+### Features
+
+* **kdropdownmenu:** introduce kui tokens [KHCP-7703] ([#1557](https://github.com/Kong/kongponents/issues/1557)) ([8b050d4](https://github.com/Kong/kongponents/commit/8b050d4959ec6edb2797384acaaf5be4fa871f32))
+
 # [8.97.0](https://github.com/Kong/kongponents/compare/v8.96.0...v8.97.0) (2023-07-19)
 
 
