@@ -164,16 +164,16 @@ export default {
   position: relative;
 
   .has-label-left + .kong-icon{
-    margin-left: 8px;
+    margin-left: var(--kui-space-40, $kui-space-40);
   }
 
   .has-label-right + .kong-icon {
-    left: 57px;
+    left: var(--kui-space-120, $kui-space-120);
     position: absolute;
   }
 
   .kong-icon {
-    top: 1px;
+    top: var(--kui-space-0, $kui-space-0);
     transform: translateX(-54px);
   }
 }
