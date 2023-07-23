@@ -24,7 +24,6 @@
           >
             <KButton
               aria-label="Close"
-              class="non-visual-button"
               @click="close(true)"
             >
               <KIcon
@@ -37,7 +36,7 @@
           <div class="k-modal-content modal-content">
             <div
               v-if="hasHeaderImage"
-              class="k-modal-header-image d-flex"
+              class="k-modal-header-image"
             >
               <slot name="header-image" />
             </div>
@@ -49,8 +48,7 @@
                 'header-left': textAlign === 'left',
                 'header-centered': textAlign === 'center',
                 'header-right': textAlign === 'right',
-                'mb-5': !hasHeaderImage,
-                'mb-4': hasHeaderImage
+                'has-header-image': hasHeaderImage
               }"
               role="heading"
             >
@@ -70,7 +68,7 @@
                 {{ content }}
               </slot>
             </div>
-            <div class="k-modal-footer modal-footer d-flex">
+            <div class="k-modal-footer modal-footer">
               <slot name="footer-content">
                 <KButton
                   v-if="!hideCancelButton"
@@ -302,6 +300,7 @@ onUnmounted(() => {
 @import '@/styles/variables';
 @import '@/styles/tmp-variables';
 @import '@/styles/functions';
+@import '@/styles/mixins';
 
 .k-modal-backdrop {
   background-color: var(--KModalBackdrop, $tmp-color-backdrop);
@@ -342,6 +341,7 @@ onUnmounted(() => {
       .k-button {
         margin-top: calc(-1 * var(--kui-space-40, $kui-space-40));
         padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+        @include non-visual-button;
       }
     }
   }
@@ -352,6 +352,7 @@ onUnmounted(() => {
     position: relative;
 
     .k-modal-header-image {
+      display: flex !important;
       margin-bottom: var(--spacing-xl, var(--kui-space-90, $kui-space-90));
       margin-left: calc(#{var(--KModalPadding)} * -1);
       margin-right: calc(#{var(--KModalPadding)} * -1);
@@ -365,6 +366,7 @@ onUnmounted(() => {
       font-size: var(--KModalHeaderSize, var(--kui-font-size-60, $kui-font-size-60));
       font-weight: var(--KModalHeaderWeight, var(--kui-font-weight-semibold, $kui-font-weight-semibold));
       justify-content: flex-start;
+      margin-bottom: var(--kui-space-80, $kui-space-80) !important;
 
       &.header-centered {
         margin-left: var(--kui-space-auto, $kui-space-auto);
@@ -382,6 +384,10 @@ onUnmounted(() => {
         margin-left: var(--kui-space-auto, $kui-space-auto);
         margin-right: var(--kui-space-0, $kui-space-0);
         text-align: right;
+      }
+
+      &.has-header-image {
+        margin-bottom: var(--kui-space-60, $kui-space-60) !important;
       }
     }
 
@@ -412,8 +418,12 @@ onUnmounted(() => {
       }
     }
 
-    .k-modal-footer .k-modal-action-buttons {
-      margin-left: var(--kui-space-auto, $kui-space-auto);
+    .k-modal-footer {
+      display: flex !important;
+
+      .k-modal-action-buttons {
+        margin-left: var(--kui-space-auto, $kui-space-auto);
+      }
     }
   }
 }
