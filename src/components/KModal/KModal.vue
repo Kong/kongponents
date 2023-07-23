@@ -29,7 +29,7 @@
               <KIcon
                 :color="dismissButtonColor"
                 icon="close"
-                size="15"
+                :size="KUI_ICON_SIZE_30"
               />
             </KButton>
           </div>
@@ -104,7 +104,7 @@ import { FocusTrap } from 'focus-trap-vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import { ButtonAppearance, DismissButtonTheme, DismissButtonThemeArray, TextAlign, TextAlignArray } from '@/types'
-import { KUI_COLOR_TEXT_NEUTRAL_STRONGER, KUI_COLOR_TEXT_NEUTRAL_WEAK } from '@kong/design-tokens'
+import { KUI_ICON_SIZE_30, KUI_COLOR_TEXT_NEUTRAL_STRONGER, KUI_COLOR_TEXT_NEUTRAL_WEAK } from '@kong/design-tokens'
 
 const props = defineProps({
   /**
