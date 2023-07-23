@@ -1,6 +1,6 @@
 import { App } from 'vue'
 import * as components from './components' // Import all components
-// import './styles/styles.scss' // Import all styles
+import './styles/styles.scss' // Import all styles
 
 // Export install function
 export default {
