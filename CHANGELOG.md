@@ -1,3 +1,10 @@
+## [8.102.1](https://github.com/Kong/kongponents/compare/v8.102.0...v8.102.1) (2023-07-24)
+
+
+### Bug Fixes
+
+* **kbreadcrumbs:** divider line height ([#1571](https://github.com/Kong/kongponents/issues/1571)) ([7bf3f9a](https://github.com/Kong/kongponents/commit/7bf3f9a2fec2d541be217f6f67b3da809111d7b1))
+
 # [8.102.0](https://github.com/Kong/kongponents/compare/v8.101.0...v8.102.0) (2023-07-24)
 
 
