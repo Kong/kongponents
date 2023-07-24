@@ -228,6 +228,7 @@ onUnmounted(() => {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
 $kmodalfullscreen-viewport-md: 992px;
 $fullscreen-modal-padding: 64px;
@@ -260,7 +261,7 @@ $fullscreen-modal-padding: 64px;
 }
 
 .k-modal-fullscreen-header {
-  background-color: var(--white);
+  background-color: var(--white, var(--kui-color-background, $kui-color-background));
   border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
   display: flex;
   flex-direction: column;
@@ -289,7 +290,7 @@ $fullscreen-modal-padding: 64px;
   background-color: var(--white, var(--kui-color-background, $kui-color-background));
   border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
   bottom: var(--kui-space-0, $kui-space-0);
-  box-shadow: 0px 0px 20px color(black-10, $tmp-color-black-10);
+  box-shadow: 0px 0px 20px var(black-10, $tmp-color-black-10);
   display: inline-flex;
   justify-content: space-between;
   padding: var(--spacing-lg, var(--kui-space-80, $kui-space-80)) var(--kui-space-0, $kui-space-0);
@@ -308,7 +309,7 @@ $fullscreen-modal-padding: 64px;
   @media (min-width: $kui-breakpoint-phablet) {
     justify-content: flex-start;
     margin-bottom: var(--kui-space-0, $kui-space-0);
-    margin-left: 36px;
+    margin-left: var(--kui-space-90, $kui-space-90); // This was 36px, switched it to 32px
   }
 }
 
@@ -322,7 +323,7 @@ $fullscreen-modal-padding: 64px;
   & :deep(button) {
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-    height: 40px;
+    height: var(--kui-space-100, $kui-space-100);
     line-height: var(--kui-line-height-10, $kui-line-height-10);
     margin-left: var(--spacing-md, var(--kui-space-60, $kui-space-60));
   }
@@ -366,7 +367,7 @@ $fullscreen-modal-padding: 64px;
     font-size: var(--type-xxxl, var(--kui-line-height-60, $kui-line-height-60));
     font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
     line-height: var(--type-xxxl, var(--kui-line-height-60, $kui-line-height-60));
-    margin-bottom: -4px;
+    margin-bottom: calc(-1 * var(--kui-space-20, $kui-space-20));
   }
 
   .body-header-description {
