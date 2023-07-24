@@ -1,8 +1,8 @@
 <template>
   <div
     v-if="isVisible"
-    class="d-flex flex-wrap k-skeleton-container"
-    :class="{ 'w-100': type !== 'spinner', 'opacity-0': !isVisible }"
+    class="k-skeleton-container"
+    :class="{ 'is-spinner': type !== 'spinner' }"
   >
     <CardSkeleton
       v-if="type === 'card'"
@@ -115,15 +115,12 @@ onMounted(() => {
 @import '@/styles/variables';
 @import '@/styles/functions';
 
-.k-skeleton-container.opacity-0 .box {
-  opacity: 0;
-}
+.k-skeleton-container {
+  display: flex !important;
+  flex-wrap: wrap !important;
 
-.k-skeleton-container.opacity-0 :deep(.kong-icon) {
-  display: none;
-}
-
-.k-skeleton-container.opacity-0.mr-2 {
-  margin-right: 0 !important;
+  &.is-spinner {
+    width: 100% !important;
+  }
 }
 </style>
