@@ -1,4 +1,3 @@
-
 <template>
   <div
     class="k-segmented-control d-flex"

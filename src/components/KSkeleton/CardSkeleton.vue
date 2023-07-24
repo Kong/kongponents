@@ -1,4 +1,3 @@
-
 <template>
   <div class="skeleton-card-wrapper">
     <div
