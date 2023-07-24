@@ -97,7 +97,7 @@ If no label is provided, only a caret will be displayed.
 
 KCollapse can be controlled with `v-model`.
 
-<div class="mb-3">
+<div class="collapse-wrapper">
   <div>
     <KLabel>Is Collapsed:&nbsp;</KLabel>
     {{ myIsCollapsed }}
@@ -113,7 +113,7 @@ KCollapse can be controlled with `v-model`.
 </KCard>
 
 ```html
-<div class="mb-3">
+<div class="collapse-wrapper">
   <div>
     <KLabel>Is Collapsed:&nbsp;</KLabel>
     {{ myIsCollapsed }}
@@ -160,8 +160,8 @@ To set the default state (collapsed or expanded) without binding to v-model you 
   <template #body>
     <KCollapse title="Look Mah!">
       <template #trigger-content>
-        <div class="d-flex">
-          <KIcon icon="help" size="16" color="var(--blue-500)" class="mr-2" />
+        <div class="trigger-wrapper">
+          <KIcon icon="help" :size="KUI_ICON_SIZE_30" class="icon-style" />
           Toggle
         </div>
       </template>
@@ -176,8 +176,8 @@ To set the default state (collapsed or expanded) without binding to v-model you 
 ```html
 <KCollapse title="Look Mah!">
   <template #trigger-content>
-    <div class="d-flex">
-      <KIcon icon="help" color="var(--blue-500)" class="mr-2" />
+    <div class="trigger-wrapper">
+      <KIcon icon="help" class="icon-style" />
       Toggle
     </div>
   </template>
@@ -251,13 +251,14 @@ An example of theming the collapse:
 
 <style lang="scss">
 .k-collapse-wrapper {
-  --KCollapseTriggerColor: var(--red-500);
+  --KCollapseTriggerColor: red;
 }
 </style>
 ```
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 
 export default defineComponent({
   data() {
@@ -268,8 +269,23 @@ export default defineComponent({
 })
 </script>
 
+<style lang="scss" scoped>
+.collapse-wrapper {
+  margin-bottom: var(--kui-space-50, $kui-space-50) !important;
+}
+
+.icon-style {
+  margin-right: var(--kui-space-40, $kui-space-40) !important;
+  color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary))
+}
+
+.trigger-wrapper {
+  display: flex !important;
+}
+</style>
+
 <style lang="scss">
 .k-collapse-wrapper {
-  --KCollapseTriggerColor: var(--red-500);
+  --KCollapseTriggerColor: red;
 }
 </style>

@@ -1,22 +1,20 @@
 <template>
-  <div class="k-collapse w-100">
+  <div class="k-collapse">
     <div
-      class="k-collapse-heading mb-3"
-      :class="trailingTrigger ? 'd-flex' : 'd-block'"
+      class="k-collapse-heading"
+      :class="{ 'has-trailing-trigger': trailingTrigger }"
     >
       <div
         v-if="title"
         class="k-collapse-title"
-        :class="trailingTrigger ? 'mr-auto' : 'mb-2'"
+        :class="{ 'has-trailing-trigger': trailingTrigger }"
         data-testid="k-collapse-title"
       >
         {{ title }}
       </div>
       <div
         class="k-collapse-trigger"
-        :class="{
-          'ml-auto': trailingTrigger
-        }"
+        :class="{ 'has-trailing-trigger': trailingTrigger }"
       >
         <slot
           :is-collapsed="collapsedState"
@@ -24,7 +22,7 @@
           :toggle="toggleDisplay"
         >
           <a
-            class="k-collapse-trigger-content d-inline-block"
+            class="k-collapse-trigger-content"
             data-testid="k-collapse-trigger-content"
             href="#"
             role="button"
@@ -37,9 +35,9 @@
                 data-testid="k-collapse-trigger-label"
               >
                 <KIcon
-                  class="k-collapse-trigger-chevron mr-1"
+                  class="k-collapse-trigger-chevron"
                   :icon="collapseIcon"
-                  size="14"
+                  :size="KUI_ICON_SIZE_20"
                 />
                 <span>{{ triggerLabel }}</span>
               </span>
@@ -56,14 +54,14 @@
     </div>
     <div
       v-if="hasVisibleContent"
-      class="k-collapse-visible-content w-100 mb-4"
+      class="k-collapse-visible-content"
       data-testid="k-collapse-visible-content"
     >
       <slot name="visible-content" />
     </div>
     <div
       v-show="!collapsedState"
-      class="k-collapse-hidden-content w-100"
+      class="k-collapse-hidden-content"
       data-testid="k-collapse-hidden-content"
     >
       <slot />
@@ -75,6 +73,7 @@
 import KIcon from '@/components/KIcon/KIcon.vue'
 import { computed, PropType, ref, useSlots, watch } from 'vue'
 import { TriggerAlignment, TriggerAlignmentArray } from '@/types'
+import { KUI_ICON_SIZE_20 } from '@kong/design-tokens'
 
 const props = defineProps({
   // Is the KCollapse collapsed? Defaults to true-->
@@ -156,18 +155,37 @@ watch(modelComputed, (newVal, oldVal) => {
 @import '@/styles/functions';
 
 .k-collapse {
+  width: 100% !important;
+  .k-collapse-heading {
+    display: block !important;
+    margin-bottom: var(--kui-space-50, $kui-space-50) !important;
+
+    &.has-trailing-trigger {
+      display: flex !important;
+    }
+  }
   .k-collapse-title {
-    font-size: var(--type-lg);
-    font-weight: 600;
+    font-size: var(--type-lg, var(--kui-font-size-50, $kui-font-size-50));
+    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+    margin-bottom: var(--kui-space-40, $kui-space-40) !important;
+
+    &.has-trailing-trigger {
+      margin-right: var(--kui-space-auto, $kui-space-auto) !important;
+    }
   }
 
   .k-collapse-trigger {
     cursor: pointer;
 
+    &.has-trailing-trigger {
+      margin-left: var(--kui-space-auto, $kui-space-auto);
+    }
+
     .k-collapse-trigger-content {
-      color: var(--KCollapseTriggerColor, var(--blue-500));
-      font-size: var(--type-sm);
-      font-weight: 600;
+      color: var(--KCollapseTriggerColor, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
+      display: inline-block !important;
+      font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
+      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
     }
   }
 }
@@ -180,16 +198,18 @@ watch(modelComputed, (newVal, oldVal) => {
 .k-collapse {
   .k-collapse-trigger {
     .k-collapse-trigger-content {
-      .k-collapse-trigger-chevron.kong-icon {
-        &.kong-icon-chevronDown svg path,
-        &.kong-icon-chevronRight svg path {
-          stroke: var(--KCollapseTriggerColor, var(--blue-500));
+      .k-collapse-trigger-chevron {
+        margin-right: var(--kui-space-20, $kui-space-20) !important;
+        &.kong-icon {
+          &.kong-icon-chevronDown svg path,
+          &.kong-icon-chevronRight svg path {
+            stroke: var(--KCollapseTriggerColor, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
+          }
         }
-
       }
 
       .k-collapse-trigger-icon.kong-icon {
-        padding-right: 0;
+        padding-right: var(--kui-space-0, $kui-space-0);
       }
 
       .k-collapse-trigger-label {
@@ -199,6 +219,15 @@ watch(modelComputed, (newVal, oldVal) => {
         }
       }
     }
+  }
+
+  .k-collapse-visible-content {
+    margin-bottom: var(--kui-space-60, $kui-space-60) !important;
+    width: 100% !important;
+  }
+
+  .k-collapse-hidden-content {
+    width: 100% !important;
   }
 }
 </style>
