@@ -1,3 +1,11 @@
+# [8.103.0](https://github.com/Kong/kongponents/compare/v8.102.1...v8.103.0) (2023-07-24)
+
+
+### Features
+
+* **kcollapse:** replace utility classes ([#1543](https://github.com/Kong/kongponents/issues/1543)) ([3ee1916](https://github.com/Kong/kongponents/commit/3ee1916f4bbc9985d58d4786c88e51f26b273512))
+* **kmodal:** introduce kui tokens [KHCP-7714] ([#1568](https://github.com/Kong/kongponents/issues/1568)) ([d436507](https://github.com/Kong/kongponents/commit/d436507912442b09a0e500df71db211d8786b384))
+
 ## [8.102.1](https://github.com/Kong/kongponents/compare/v8.102.0...v8.102.1) (2023-07-24)
 
 
