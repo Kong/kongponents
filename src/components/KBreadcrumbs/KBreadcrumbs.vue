@@ -152,7 +152,7 @@ export default {
 
     .k-breadcrumb-text {
       &:hover {
-        color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger); /** TODO: $kui-color-text-selected */
+        color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger); /** TODO: use $kui-color-text-selected token, once it is added */
       }
 
       &.non-link {
