@@ -16,8 +16,20 @@ export default defineConfig({
       'v-calendar/dist/style.css': path.resolve(__dirname, '../node_modules/v-calendar/dist/style.css'),
       // We must alias `v-calendar` here for the docs build to specifically utilize the esm build
       'v-calendar': path.resolve(__dirname, '../node_modules/v-calendar/dist/v-calendar.es.js'),
+      // We must alias `@kong/design-tokens` imports to specifically utilize the esm build
+      '@kong/design-tokens/tokens/scss/variables': path.resolve(__dirname, '../node_modules/@kong/design-tokens/dist/tokens/scss/variables.scss'),
+      '@kong/design-tokens': path.resolve(__dirname, '../node_modules/@kong/design-tokens/dist/tokens/js/'),
       // We must alias `date-fns-tz` here for the docs build to specifically utilize the esm build
       'date-fns-tz': path.resolve(__dirname, '../node_modules/date-fns-tz/esm'),
+    },
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // Inject the @kong/design-tokens SCSS variables since our docs site imports Kongponents locally (i.e. not compiled)
+        // This is not needed in host applications.
+        additionalData: '@import "@kong/design-tokens/tokens/scss/variables";',
+      },
     },
   },
 })

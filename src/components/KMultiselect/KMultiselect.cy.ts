@@ -162,9 +162,9 @@ describe('KMultiselect', () => {
     cy.get('input').type(labels[0])
 
     cy.getTestId(`k-multiselect-item-${vals[0]}`).should('contain.text', labels[0])
-    cy.getTestId(`k-multiselect-item-${vals[1]}`).should('not.be.visible')
+    cy.getTestId(`k-multiselect-item-${vals[1]}`).should('not.exist')
 
-    cy.getTestId(`k-multiselect-item-${vals[0]}`).eq(1).click()
+    cy.getTestId(`k-multiselect-item-${vals[0]}`).eq(0).click()
     cy.getTestId('k-multiselect-selections').should('contain.text', labels[0])
   })
 
@@ -273,7 +273,7 @@ describe('KMultiselect', () => {
 
     cy.get('.k-multiselect-input').click()
 
-    cy.getTestId(`k-multiselect-item-${vals[0]}`).eq(1).click()
+    cy.getTestId(`k-multiselect-item-${vals[0]}`).click()
     cy.getTestId('k-multiselect-selections').should('not.exist')
   })
 

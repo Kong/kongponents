@@ -196,9 +196,9 @@ describe('KSelect', () => {
     cy.get('input').type(labels[0])
 
     cy.getTestId(`k-select-item-${vals[0]}`).should('contain.text', labels[0])
-    cy.getTestId(`k-select-item-${vals[1]}`).should('not.be.visible')
+    cy.getTestId(`k-select-item-${vals[1]}`).should('not.exist')
 
-    cy.getTestId(`k-select-item-${vals[0]}`).eq(1).click({ force: true })
+    cy.getTestId(`k-select-item-${vals[0]}`).eq(0).click({ force: true })
     cy.get('.k-select-selected-item-label').should('contain.text', labels[0])
   })
 
@@ -222,7 +222,7 @@ describe('KSelect', () => {
 
     cy.getTestId('k-select-input').click()
 
-    cy.getTestId(`k-select-item-${vals[0]}`).eq(1).click({ force: true })
+    cy.getTestId(`k-select-item-${vals[0]}`).click({ force: true })
     cy.get('.k-select-selected-item-label').should('not.exist')
   })
 

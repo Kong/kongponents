@@ -1,6 +1,6 @@
 <template>
   <li
-    class="k-dropdown-item w-100"
+    class="k-dropdown-item"
     :class="{
       'has-divider': hasDivider,
       'disabled': type === 'default' && disabled,
@@ -16,7 +16,7 @@
       @click="availableComponents[componentType].onClick"
     >
       <span
-        class="truncate"
+        class="k-dropdown-item-trigger-label"
         :title="label"
       >
 
@@ -142,7 +142,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     tag: KButton,
     onClick: handleClick,
     attrs: {
-      class: 'k-dropdown-item-trigger btn-link k-button non-visual-button',
+      class: 'k-dropdown-item-trigger k-button btn-link',
       disabled: props.disabled,
       isRounded: false,
     },
@@ -159,22 +159,25 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
 <style lang="scss">
 // Must leave this block unscoped as it sometimes causes issues with slotted/nested styles
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
+@import '@/styles/mixins';
 
 li.k-dropdown-item {
   align-items: center;
   display: flex;
-  font-size: var(--type-md, 16px);
-  line-height: 1;
+  font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
+  line-height: var(--kui-line-height-40, $kui-line-height-40);
+  width: 100% !important;
 
   &:not(:first-of-type).has-divider {
-    $k-dropdown-item-divider-container-height: var(--spacing-lg, spacing(lg)); // set to the same value as --spacing-lg without the units
+    $k-dropdown-item-divider-container-height: var(--spacing-lg, var(--kui-space-80, $kui-space-80)); // set to the same value as --spacing-lg without the units
     $k-dropdown-item-divider-position: -13px; // this should be negative (<container-height> / 2 + 1)
     margin-top: $k-dropdown-item-divider-container-height;
     position: relative;
 
     &:before {
-      background: var(--grey-200, #f1f1f5);
+      background: var(--grey-200, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
       content: '';
       display: block;
       height: 1px;
@@ -185,18 +188,18 @@ li.k-dropdown-item {
   }
 
   svg {
-    margin-right: var(--spacing-sm, spacing(sm));
+    margin-right: var(--spacing-sm, var(--kui-space-50, $kui-space-50));
   }
 
   &:hover {
-    background-color: var(--grey-100, #f8f8fa);
+    background-color: var(--grey-100, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
   }
 
   .k-dropdown-item-trigger,
   // Override .btn-link styles
   .k-dropdown-item-trigger.btn-link {
-    color: var(--black-70, rgba(0, 0, 0, 0.7));
-    line-height: var(--type-lg, type(lg));
+    color: var(--black-70, var(--kui-color-text, $kui-color-text));
+    line-height: var(--type-lg, var(--kui-line-height-50, $kui-line-height-50));
     padding: var(--spacing-md, spacing(md)) var(--spacing-lg, spacing(lg));
     text-align: left;
     text-decoration: none;
@@ -204,11 +207,11 @@ li.k-dropdown-item {
 
     &:disabled,
     &.disabled {
-      color: var(--grey-400, #b6b6bd) !important;
+      color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
       cursor: not-allowed !important;
 
       &:hover {
-        background-color: var(--grey-200, #f1f1f5) !important;
+        background-color: var(--grey-200, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest)) !important;
       }
     }
   }
@@ -217,19 +220,24 @@ li.k-dropdown-item {
 .k-dropdown-item {
   a, button {
     &.k-dropdown-item-trigger {
-      line-height: var(--type-lg, type(lg));
+      @include non-visual-button;
+      line-height: var(--type-lg, var(--kui-line-height-50, $kui-line-height-50));
       text-decoration: none !important;
+
+      .k-dropdown-item-trigger-label {
+        @include truncate;
+      }
     }
   }
 
   &.danger {
     button:not(:disabled),
     a:not(:disabled) {
-      color: var(--red-500, #d44324);
-      transition: all 300ms;
+      color: var(--red-500, var(--kui-color-text-danger, $kui-color-text-danger));
+      transition: all $tmp-animation-timing-2;
 
       &:hover {
-        color: var(--red-500, #d44324);
+        color: var(--red-500, var(--kui-color-text-danger, $kui-color-text-danger));
       }
     }
   }

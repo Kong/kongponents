@@ -23,6 +23,29 @@
 /.gitignore @adamdehaven @jillztom @kaiarrowood
 /vite.config.ts @adamdehaven @jillztom
 
+# Design Tokens Implemented Kongponents
+# This is temporary codeowners until we introduce design tokens practices to the whole team
+/src/components/KAlert @adamdehaven @jillztom @portikM
+/src/components/KBadge @adamdehaven @jillztom @portikM
+/src/components/KButton @adamdehaven @jillztom @portikM
+/src/components/KCard @adamdehaven @jillztom @portikM
+/src/components/KCatalog @adamdehaven @jillztom @portikM
+/src/components/KCheckbox @adamdehaven @jillztom @portikM
+/src/components/KDateTimePicker @adamdehaven @jillztom @portikM
+/src/components/KDropdownMenu @adamdehaven @jillztom @portikM
+/src/components/KEmptyState @adamdehaven @jillztom @portikM
+/src/components/KExternalLink @adamdehaven @jillztom @portikM
+/src/components/KFileUpload @adamdehaven @jillztom @portikM
+/src/components/KInput @adamdehaven @jillztom @portikM
+/src/components/KInputSwitch @adamdehaven @jillztom @portikM
+/src/components/KLabel @adamdehaven @jillztom @portikM
+/src/components/KPop @adamdehaven @jillztom @portikM
+/src/components/KPrompt @adamdehaven @jillztom @portikM
+/src/components/KRadio @adamdehaven @jillztom @portikM
+/src/components/KSelect @adamdehaven @jillztom @portikM
+/src/components/KTable @adamdehaven @jillztom @portikM
+/src/components/KTextArea @adamdehaven @jillztom @portikM
+
 # Dependabot approvals
 # Allow Kongponents BOT to approve dependabot updates
 # These rules MUST remain at the bottom as the last entry

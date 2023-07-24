@@ -911,7 +911,17 @@ const setNumericWidth = (): void => {
 
 const resizeObserver = ref()
 onMounted(() => {
-  resizeObserver.value = new ResizeObserver(setNumericWidth).observe(multiselectRef.value as HTMLDivElement)
+  resizeObserver.value = new ResizeObserver(entries => {
+    // Wrapper 'window.requestAnimationFrame' is needed for disabling "ResizeObserver loop limit exceeded" error in DD
+    window.requestAnimationFrame(() => {
+      if (!Array.isArray(entries) || !entries.length) {
+        return
+      }
+      // Actual code
+      setNumericWidth()
+    })
+  })
+  resizeObserver.value.observe(multiselectRef.value as HTMLDivElement)
 })
 
 onBeforeUnmount(() => {

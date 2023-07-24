@@ -7,7 +7,7 @@
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "baseUrl": ".",

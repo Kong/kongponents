@@ -6,7 +6,7 @@
     @click="handleClick"
   >
     <div
-      class="d-block"
+      class="k-select-item-container"
       role="option"
     >
       <button
@@ -15,14 +15,14 @@
         type="button"
         :value="item.value"
       >
-        <span class="k-select-item-label mr-2">
+        <span class="k-select-item-label">
           <slot name="content">{{ item.label }}</slot>
         </span>
         <span class="k-select-selected-icon-container">
           <KIcon
             v-if="item.selected"
             class="selected-item-icon"
-            color="var(--blue-200)"
+            color="currentColor"
             icon="check"
           />
         </span>
@@ -61,28 +61,33 @@ const handleClick = (e: MouseEvent): void => {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
 
 .k-select-item {
   list-style: none !important;
-  margin-bottom: 4px;
+  margin-bottom: var(--kui-space-20, $kui-space-20);
+
+  .k-select-item-container {
+    display: block !important;
+  }
 
   &:last-of-type {
-    margin-bottom: 0 !important;
+    margin-bottom: var(--kui-space-0, $kui-space-0) !important;
   }
 
   button {
     align-items: center;
-    background-color: var(--white);
+    background-color: var(--white, var(--kui-color-background, $kui-color-background));
     border: none;
-    border-radius: 4px;
-    color: var(--grey-500);
+    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+    color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
     display: flex;
-    font-family: var(--font-family-sans);
-    font-size: var(--type-xs);
-    font-weight: 400;
-    line-height: 26px;
-    padding-left: var(--spacing-xxs);
+    font-family: var(--font-family-sans, var(--kui-font-family-text, $kui-font-family-text));
+    font-size: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
+    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+    line-height: var(--kui-line-height-40, $kui-line-height-40);
+    padding-left: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
     text-align: left;
     width: 100%;
 
@@ -99,60 +104,62 @@ const handleClick = (e: MouseEvent): void => {
     }
 
     .k-select-item-label {
-      color: var(--grey-600);
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 20px;
-      padding: 8px;
+      color: var(--grey-600, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
+      font-size: var(--kui-font-size-30, $kui-font-size-30);
+      font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
+      line-height: var(--kui-line-height-30, $kui-line-height-30);
+      margin-right: var(--kui-space-40, $kui-space-40) !important;
+      padding: var(--kui-space-40, $kui-space-40);
       width: auto;
 
       :deep(.select-item-label) {
-        color: var(--grey-600);
-        font-size: 14px;
-        font-weight: 600;
-        margin-bottom: 4px;
+        color: var(--grey-600, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
+        font-size: var(--kui-font-size-30, $kui-font-size-30);
+        font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+        margin-bottom: var(--kui-space-20, $kui-space-20);
       }
 
       :deep(.select-item-desc) {
-        color: var(--grey-500);
-        font-size: 14px;
-        font-weight: 400;
+        color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
+        font-size: var(--kui-font-size-30, $kui-font-size-30);
+        font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
       }
     }
 
     .kong-icon:not(.selected-item-icon) {
-      margin-right: 12px;
+      margin-right: var(--kui-space-50, $kui-space-50);
     }
 
     .k-select-selected-icon-container {
+      color: var(--blue-200, $tmp-color-blue-200);
       height: 24px;
-      margin-bottom: auto;
-      margin-left: auto;
-      margin-top: auto;
+      margin-bottom: var(--kui-space-auto, $kui-space-auto);
+      margin-left: var(--kui-space-auto, $kui-space-auto);
+      margin-top: var(--kui-space-auto, $kui-space-auto);
       width: 24px;
 
       .kong-icon {
         display: flex;
         position: relative;
-        right: 0;
-        top: 0;
+        right: var(--kui-space-0, $kui-space-0);
+        top: var(--kui-space-0, $kui-space-0);
         transform: none;
       }
     }
 
     &:not(:disabled):hover {
-      background-color: var(--grey-100);
-      color: var(--grey-600);
+      background-color: var(--grey-100, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
+      color: var(--grey-600, var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong));
     }
 
     &.selected {
-      background-color: var(--blue-100);
-      color: var(--blue-500);
-      font-weight: 400;
+      background-color: var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
+      color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
+      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
     }
 
     &.danger {
-      color: var(--red-500);
+      color: var(--red-500, var(--kui-color-text-danger, $kui-color-text-danger));
     }
   }
 }

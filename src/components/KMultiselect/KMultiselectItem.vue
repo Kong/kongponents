@@ -21,19 +21,20 @@
           </slot>
         </span>
         <span class="k-multiselect-selected-icon-container">
-          <KTooltip
-            v-if="item.selected && item.disabled"
-            :label="item.disabledTooltipText"
+          <component
+            :is="item.disabledTooltipText ? 'KTooltip' : 'span'"
+            v-if="item.disabled"
+            :label="item.disabledTooltipText ? item.disabledTooltipText : undefined"
             placement="left"
           >
             <KIcon
               class="selected-item-icon"
-              color="var(--blue-200)"
+              :color="item.selected ? 'var(--blue-200)' : 'var(--grey-400)'"
               hide-title
               icon="lock"
               size="14"
             />
-          </KTooltip>
+          </component>
           <KIcon
             v-else-if="item.selected"
             class="selected-item-icon"

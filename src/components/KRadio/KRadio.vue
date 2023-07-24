@@ -22,7 +22,7 @@
       v-if="isTypeDefault && hasLabel"
       v-bind="labelAttributes"
       class="k-radio-label"
-      :class="{ 'd-inline': hasDescription }"
+      :class="{ 'has-description': hasDescription }"
       :for="inputId"
     >
       <slot>{{ label }}</slot>
@@ -152,14 +152,15 @@ const modifiedAttrs = computed(() => {
 
 <style lang="scss">
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
 
-$text-color-default: var(--black-45, rgba(0, 0, 0, 0.45));
-$text-color-card: color(black-500);
-$border-color-card: color(grey-300);
-$background-color-card-checked: color(blue-100);
-$border-color-card-checked: color(blue-300);
-$background-color-card-disabled: color(grey-200);
+$text-color-default: var(--black-45, var(--kui-color-text, $kui-color-text));
+$text-color-card: var(--kui-color-text, $kui-color-text);
+$border-color-card: var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+$background-color-card-checked: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+$border-color-card-checked: var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
+$background-color-card-disabled: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
 
 @mixin kRadioDisabled {
   background-color: $background-color-card-disabled;
@@ -175,8 +176,7 @@ $background-color-card-disabled: color(grey-200);
 @mixin kRadioChecked {
   background-color: $background-color-card-checked;
   border-color: $border-color-card-checked;
-  -webkit-box-shadow: 0px 4px 20px var(--black-10);
-  box-shadow: 0px 4px 20px var(--black-10);
+  box-shadow: 0px 4px 20px var(--black-10, $tmp-color-black-10);
 }
 
 @mixin kRadioCheckedAndDisabled {
@@ -190,46 +190,45 @@ $background-color-card-disabled: color(grey-200);
   display: inline-block;
 
   .k-radio-label {
-    --KInputLabelWeight: 400;
-    --KInputLabelLineHeight: 20px;
-    --KInputLabelFont: Inter,Helvetica,Arial,sans-serif;
-    --KInputLabelMargin: 0;
-    --KInputLabelSize: var(--type-sm, type(sm));
-
+    --KInputLabelWeight: var(--kui-font-weight-regular, #{$kui-font-weight-regular});
+    --KInputLabelLineHeight: var(--kui-line-height-30, #{$kui-line-height-30});
+    --KInputLabelFont: var(--kui-font-family-text, #{$kui-font-family-text});
+    --KInputLabelMargin: var(--kui-space-0, #{$kui-space-0});
+    --KInputLabelSize: var(--type-sm, var(--kui-font-size-30, #{$kui-font-size-30}));
+    display: inline !important;
     vertical-align: middle;
   }
 
   &.disabled {
     .k-radio-label {
-      color: var(--KInputRadioDisabled, var(--grey-400, color(grey-400)));
+      color: var(--KInputRadioDisabled, var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)));
     }
   }
 
   .k-radio-description {
     color: $text-color-default;
-    font-size: var(--type-sm, type(sm));
-    line-height: 20px;
-    padding-top: var(--spacing-xxs);
+    font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
+    line-height: var(--kui-line-height-30, $kui-line-height-30);
+    padding-top: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
   }
 
   // default radio input styling
   &.k-radio-default {
     .k-radio-label:has(> .k-radio-description) {
-      --KInputLabelWeight: 600;
+      --KInputLabelWeight: var(--kui-font-weight-semibold, #{$kui-font-weight-semibold});
     }
 
     .k-radio-description {
-      font-weight: 400;
-      padding-left: var(--spacing-lg);
+      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+      padding-left: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
     }
-
   }
 
   // card radio input styling
   &.k-radio-card {
-    background-color: color(white);
-    border: 1px solid $border-color-card;
-    border-radius: var(--spacing-xxs);
+    background-color: var(--kui-color-background, $kui-color-background);
+    border: var(--kui-border-width-10, $kui-border-width-10) solid $border-color-card;
+    border-radius: var(--spacing-xxs, var(--kui-border-radius-20, $kui-border-radius-20));
     cursor: pointer;
 
     .k-input {
@@ -244,7 +243,7 @@ $background-color-card-disabled: color(grey-200);
       height: 100%;
       justify-content: center;
       // Apply padding to the label so the entire element is clickable
-      padding: var(--spacing-md);
+      padding: var(--spacing-md, var(--kui-space-60, $kui-space-60));
       width: 100%;
     }
 
@@ -256,8 +255,8 @@ $background-color-card-disabled: color(grey-200);
 
     .k-radio-label {
       color: $text-color-card;
-      font-size: var(--type-sm, type(sm));
-      font-weight: 500;
+      font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
+      font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
       text-align: center;
     }
 

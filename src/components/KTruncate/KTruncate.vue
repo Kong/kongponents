@@ -108,7 +108,7 @@ const props = defineProps({
   rows: {
     type: Number,
     default: 1,
-    validator: (value: Number): boolean => value > 0,
+    validator: (value: number): boolean => value > 0,
   },
   isTextContent: {
     type: Boolean,
@@ -213,7 +213,7 @@ const countExcessElements = (): void => {
   }
 }
 
-const handleToggleClick = async () => {
+const handleToggleClick = async (): Promise<void> => {
   expanded.value = !expanded.value
   // await for component to collapse/expand
   await nextTick()
@@ -227,7 +227,17 @@ const widthStyle = computed((): Record<string, string> => {
 })
 
 onMounted(() => {
-  resizeObserver.value = new ResizeObserver(setWrapperHeight).observe(kTruncateContainer.value as HTMLDivElement)
+  resizeObserver.value = new ResizeObserver(entries => {
+    // Wrapper 'window.requestAnimationFrame' is needed for disabling "ResizeObserver loop limit exceeded" error in DD
+    window.requestAnimationFrame(() => {
+      if (!Array.isArray(entries) || !entries.length) {
+        return
+      }
+      // Actual code
+      setWrapperHeight()
+    })
+  })
+  resizeObserver.value.observe(kTruncateContainer.value as HTMLDivElement)
   updateToggleVisibility()
 })
 

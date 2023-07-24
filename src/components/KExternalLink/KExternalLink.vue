@@ -18,24 +18,10 @@
   </a>
 </template>
 
-<script lang="ts">
-const isValidUrl = (url: string): boolean => {
-  try {
-    // eslint-disable-next-line no-new
-    new URL(url)
-
-    // No error was thrown, so return true
-    return true
-  } catch {
-    // Invalid URL
-    return false
-  }
-}
-</script>
-
 <script setup lang="ts">
-// eslint-disable-next-line import/first
 import { computed, ref } from 'vue'
+import { KUI_COLOR_TEXT_PRIMARY, KUI_COLOR_TEXT_PRIMARY_STRONG } from '@kong/design-tokens'
+import { isValidUrl } from '@/utilities/urls'
 
 const props = defineProps({
   href: {
@@ -52,7 +38,7 @@ const props = defineProps({
 const isHrefValid = computed((): boolean => !!isValidUrl(props.href))
 
 const isMouseOver = ref(false)
-const iconColor = computed((): string => isMouseOver.value ? 'var(--KExternalLinkColorHover, var(--blue-600))' : 'var(--KExternalLinkColor, var(--blue-500))')
+const iconColor = computed((): string => isMouseOver.value ? `var(--KExternalLinkColorHover, var(--blue-600, var(--kui-color-text-primary-strong, ${KUI_COLOR_TEXT_PRIMARY_STRONG})))` : `var(--KExternalLinkColor, var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY}))`)
 </script>
 
 <style lang="scss" scoped>
@@ -61,17 +47,17 @@ const iconColor = computed((): string => isMouseOver.value ? 'var(--KExternalLin
 
 .k-external-link {
   align-items: center;
-  color: var(--KExternalLinkColor, color(blue-500));
+  color: var(--KExternalLinkColor, var(--kui-color-text-primary, $kui-color-text-primary));
   display: inline-flex;
-  font-weight: 400;
+  font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
   text-decoration: none;
 
   &:hover {
-    color: var(--KExternalLinkColorHover, color(blue-600));
+    color: var(--KExternalLinkColorHover, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
   }
 
   .kong-icon {
-    margin-left: var(--spacing-xs);
+    margin-left: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
   }
 }
 </style>

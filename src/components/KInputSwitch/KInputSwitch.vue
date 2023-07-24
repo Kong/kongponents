@@ -53,7 +53,7 @@
 
     <KIcon
       v-if="enabledIcon && modelValue === true"
-      color="var(--white)"
+      :color="`var(--white, var(--kui-color-text-inverse, ${KUI_COLOR_TEXT_INVERSE}))`"
       icon="check"
     />
 
@@ -68,26 +68,27 @@ import { computed, PropType, useAttrs } from 'vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import { LabelPosition, LabelPositionArray } from '@/types'
+import { KUI_COLOR_TEXT_INVERSE } from '@kong/design-tokens'
 
 const props = defineProps({
   /**
-     * Sets whether or not toggle is checked
-     */
+  * Sets whether or not toggle is checked
+  */
   modelValue: {
     type: Boolean,
     default: false,
     required: true,
   },
   /**
-     * Overrides default on/off label text
-     */
+  * Overrides default on/off label text
+  */
   label: {
     type: String,
     default: '',
   },
   /**
-     * Should the switch be positioned to the left or right of the label
-     */
+  * Should the switch be positioned to the left or right of the label
+  */
   labelPosition: {
     type: String as PropType<LabelPosition>,
     default: 'right',
@@ -98,15 +99,15 @@ const props = defineProps({
     default: false,
   },
   /**
-     * Tooltip text to be displayed if the switch is disabled
-     */
+  * Tooltip text to be displayed if the switch is disabled
+  */
   disabledTooltipText: {
     type: String,
     default: '',
   },
   /**
-     * Sets whether or not to display a check icon if the switch is enabled
-     */
+  * Sets whether or not to display a check icon if the switch is enabled
+  */
   enabledIcon: {
     type: Boolean,
     default: false,
@@ -122,11 +123,11 @@ const emit = defineEmits<{
 const attrs = useAttrs()
 
 /**
-     * Strips falsy `disabled` attribute, so it does not fall onto native <a> elements.
-     * Vue 3 no longer removes attribute if the value is boolean false. Instead, it's set as attr="false".
-     * So for <KButton :disabled="false" to="SOME_URL">, the rendered <a> element will have `disabled="false"`,
-     * which is greyed out and cannot be interacted with.
-     */
+* Strips falsy `disabled` attribute, so it does not fall onto native <a> elements.
+* Vue 3 no longer removes attribute if the value is boolean false. Instead, it's set as attr="false".
+* So for <KButton :disabled="false" to="SOME_URL">, the rendered <a> element will have `disabled="false"`,
+* which is greyed out and cannot be interacted with.
+*/
 const strippedAttrs = computed((): typeof attrs => {
   if (props.disabled !== undefined && props.disabled !== false) {
     return attrs
@@ -164,16 +165,16 @@ export default {
   position: relative;
 
   .has-label-left + .kong-icon{
-    margin-left: 8px;
+    margin-left: var(--kui-space-40, $kui-space-40);
   }
 
   .has-label-right + .kong-icon {
-    left: 57px;
+    left: var(--kui-space-120, $kui-space-120);
     position: absolute;
   }
 
   .kong-icon {
-    top: 1px;
+    top: var(--kui-space-0, $kui-space-0);
     transform: translateX(-54px);
   }
 }

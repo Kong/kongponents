@@ -9,7 +9,6 @@
     </transition>
     <transition
       name="slide"
-      tag="div"
     >
       <div
         v-if="isVisible"

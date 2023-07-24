@@ -1,3 +1,245 @@
+## [8.102.1](https://github.com/Kong/kongponents/compare/v8.102.0...v8.102.1) (2023-07-24)
+
+
+### Bug Fixes
+
+* **kbreadcrumbs:** divider line height ([#1571](https://github.com/Kong/kongponents/issues/1571)) ([7bf3f9a](https://github.com/Kong/kongponents/commit/7bf3f9a2fec2d541be217f6f67b3da809111d7b1))
+
+# [8.102.0](https://github.com/Kong/kongponents/compare/v8.101.0...v8.102.0) (2023-07-24)
+
+
+### Features
+
+* **klabel:** introduce kui tokens [KHCP-7711] ([#1570](https://github.com/Kong/kongponents/issues/1570)) ([727e9af](https://github.com/Kong/kongponents/commit/727e9afbbdadf0829e14496926a213602637d64d))
+
+# [8.101.0](https://github.com/Kong/kongponents/compare/v8.100.0...v8.101.0) (2023-07-24)
+
+
+### Features
+
+* **kradio:** introduce kui tokens [KHCP-7720] ([#1569](https://github.com/Kong/kongponents/issues/1569)) ([3da92d4](https://github.com/Kong/kongponents/commit/3da92d47cd36cb5b6c2843722d9bdbfa50a18ebd))
+
+# [8.100.0](https://github.com/Kong/kongponents/compare/v8.99.0...v8.100.0) (2023-07-24)
+
+
+### Features
+
+* **kinputswitch:** introduce kui tokens [KHCP-7710] ([#1561](https://github.com/Kong/kongponents/issues/1561)) ([3c27cee](https://github.com/Kong/kongponents/commit/3c27cee018c393f16411b94ced69ca6ce18d1364))
+
+# [8.99.0](https://github.com/Kong/kongponents/compare/v8.98.0...v8.99.0) (2023-07-21)
+
+
+### Features
+
+* **kexternallink:** introduce kui tokens [KHCP-7705] ([#1559](https://github.com/Kong/kongponents/issues/1559)) ([e349d59](https://github.com/Kong/kongponents/commit/e349d59c31fcf0d4579b50d433114822dea7d959))
+* **kfileupload:** introduce kui tokens [KHCP-7706] ([#1558](https://github.com/Kong/kongponents/issues/1558)) ([59416b7](https://github.com/Kong/kongponents/commit/59416b785423580e061c6bb8e10c262fab26e406))
+
+# [8.98.0](https://github.com/Kong/kongponents/compare/v8.97.0...v8.98.0) (2023-07-21)
+
+
+### Features
+
+* **kdropdownmenu:** introduce kui tokens [KHCP-7703] ([#1557](https://github.com/Kong/kongponents/issues/1557)) ([8b050d4](https://github.com/Kong/kongponents/commit/8b050d4959ec6edb2797384acaaf5be4fa871f32))
+
+# [8.97.0](https://github.com/Kong/kongponents/compare/v8.96.0...v8.97.0) (2023-07-19)
+
+
+### Features
+
+* **kcheckbox:** introduce kui tokens [KHCP-7699] ([#1550](https://github.com/Kong/kongponents/issues/1550)) ([78665d6](https://github.com/Kong/kongponents/commit/78665d606e80a6489bc34dfb810f6f5aab7db50f))
+* **kprompt:** introduce kui tokens [KHCP-7719] ([#1548](https://github.com/Kong/kongponents/issues/1548)) ([c7b9a44](https://github.com/Kong/kongponents/commit/c7b9a44cf4e357dc7b539df60380053c6d7eaa5e))
+* **ktextarea:** introduce kui tokens [KHCP-7728] ([#1549](https://github.com/Kong/kongponents/issues/1549)) ([72312b1](https://github.com/Kong/kongponents/commit/72312b1d7a8750c6ecceecf636422f8f53fd5392))
+
+# [8.96.0](https://github.com/Kong/kongponents/compare/v8.95.0...v8.96.0) (2023-07-19)
+
+
+### Bug Fixes
+
+* fix icon size in components with design tokens ([#1551](https://github.com/Kong/kongponents/issues/1551)) ([eb7ef39](https://github.com/Kong/kongponents/commit/eb7ef394bc1209ef49ae03c0ad77fd135759912f))
+
+
+### Features
+
+* upgrade to vue 3.3.x [KHCP-7567] ([#1547](https://github.com/Kong/kongponents/issues/1547)) ([de29381](https://github.com/Kong/kongponents/commit/de293814b1aadbe18ac8be837ea9b040fb097d3b))
+
+# [8.95.0](https://github.com/Kong/kongponents/compare/v8.94.0...v8.95.0) (2023-07-19)
+
+
+### Features
+
+* **kinput:** introduce kui tokens [KHCP-7709] ([#1544](https://github.com/Kong/kongponents/issues/1544)) ([83ca0c4](https://github.com/Kong/kongponents/commit/83ca0c4093b9f8c5b9a10068ff5bc53e11d188f9))
+* **kselect:** introduce kui tokens [KHCP-7722] ([#1540](https://github.com/Kong/kongponents/issues/1540)) ([0e199cd](https://github.com/Kong/kongponents/commit/0e199cd49840e749cec72ab2317708db96bca2f4))
+
+# [8.94.0](https://github.com/Kong/kongponents/compare/v8.93.2...v8.94.0) (2023-07-19)
+
+
+### Features
+
+* **kpop:** introduce kui tokens [KHCP-7718] ([#1542](https://github.com/Kong/kongponents/issues/1542)) ([dc12d32](https://github.com/Kong/kongponents/commit/dc12d327a9696bffcbd1e5a4a6e25ecc065e5451))
+
+## [8.93.2](https://github.com/Kong/kongponents/compare/v8.93.1...v8.93.2) (2023-07-19)
+
+
+### Bug Fixes
+
+* **deps:** bump focus-trap from 7.5.1 to 7.5.2 ([#1532](https://github.com/Kong/kongponents/issues/1532)) ([9e3da93](https://github.com/Kong/kongponents/commit/9e3da93f190675757ce23077e564c9df0680954e))
+
+## [8.93.1](https://github.com/Kong/kongponents/compare/v8.93.0...v8.93.1) (2023-07-18)
+
+
+### Bug Fixes
+
+* **deps:** bump swrv from 1.0.3 to 1.0.4 ([#1541](https://github.com/Kong/kongponents/issues/1541)) ([e4e8585](https://github.com/Kong/kongponents/commit/e4e8585320f7baffdeff1b54f97fb9e4d4dbb77a))
+
+# [8.93.0](https://github.com/Kong/kongponents/compare/v8.92.0...v8.93.0) (2023-07-17)
+
+
+### Features
+
+* **kcard:** introduce kui tokens [KHCP-7692] ([#1538](https://github.com/Kong/kongponents/issues/1538)) ([def576f](https://github.com/Kong/kongponents/commit/def576fbbdc423151f14063887c519c210f124ce))
+
+# [8.92.0](https://github.com/Kong/kongponents/compare/v8.91.1...v8.92.0) (2023-07-17)
+
+
+### Features
+
+* **kemptystate:** adds props.iconSecondaryColor ([#1475](https://github.com/Kong/kongponents/issues/1475)) ([10efe4b](https://github.com/Kong/kongponents/commit/10efe4b4843bd3ebae68202b88c4eb66d7c1ec65))
+
+## [8.91.1](https://github.com/Kong/kongponents/compare/v8.91.0...v8.91.1) (2023-07-14)
+
+
+### Bug Fixes
+
+* **KSelect:** add pre-check presence for selectItems.value  [KHCP-7756] ([#1523](https://github.com/Kong/kongponents/issues/1523)) ([e9e713b](https://github.com/Kong/kongponents/commit/e9e713b055ba28b38c6cb11646a4d60490692f27))
+
+# [8.91.0](https://github.com/Kong/kongponents/compare/v8.90.0...v8.91.0) (2023-07-14)
+
+
+### Features
+
+* **icon:** add mesh icon ([#1534](https://github.com/Kong/kongponents/issues/1534)) ([c37b866](https://github.com/Kong/kongponents/commit/c37b866cb20618ab7bc8eb23d85790fdb66fcd71))
+
+# [8.90.0](https://github.com/Kong/kongponents/compare/v8.89.1...v8.90.0) (2023-07-13)
+
+
+### Features
+
+* **kdatetimepicker:** introduce kui tokens [KHCP-7702] ([#1531](https://github.com/Kong/kongponents/issues/1531)) ([7f4ed4e](https://github.com/Kong/kongponents/commit/7f4ed4e89bd42e76fc7f32c9b1b9ebcc63dfecaf))
+
+## [8.89.1](https://github.com/Kong/kongponents/compare/v8.89.0...v8.89.1) (2023-07-13)
+
+
+### Bug Fixes
+
+* **kbadge:** fix import ([#1529](https://github.com/Kong/kongponents/issues/1529)) ([7b1ecee](https://github.com/Kong/kongponents/commit/7b1ecee86cdf0584c2413d0837b6a115895fb9f2))
+* **KModal:** fix focusTrap error [KHCP-7758] ([#1519](https://github.com/Kong/kongponents/issues/1519)) ([041eaac](https://github.com/Kong/kongponents/commit/041eaaca9ba45890d3c31bc58c4a8a2e1d955ee4))
+
+# [8.89.0](https://github.com/Kong/kongponents/compare/v8.88.0...v8.89.0) (2023-07-13)
+
+
+### Features
+
+* **kcatalog:** introduce kui tokens [KHCP-7698] ([#1526](https://github.com/Kong/kongponents/issues/1526)) ([2a64616](https://github.com/Kong/kongponents/commit/2a6461686ca03795022ac7af3ff6d054258ad185))
+
+# [8.88.0](https://github.com/Kong/kongponents/compare/v8.87.0...v8.88.0) (2023-07-12)
+
+
+### Features
+
+* **ktable:** introduce kui tokens [KHCP-7726] ([#1520](https://github.com/Kong/kongponents/issues/1520)) ([ab80596](https://github.com/Kong/kongponents/commit/ab80596e622069cb962becd19edc03f503bdb4e7))
+
+# [8.87.0](https://github.com/Kong/kongponents/compare/v8.86.1...v8.87.0) (2023-07-12)
+
+
+### Features
+
+* **kbreadcrumb:** custom divider [khcp-8029] ([#1517](https://github.com/Kong/kongponents/issues/1517)) ([ba3bcd4](https://github.com/Kong/kongponents/commit/ba3bcd4e5fef137f425b2cf87e83609b6e4d43ba))
+
+## [8.86.1](https://github.com/Kong/kongponents/compare/v8.86.0...v8.86.1) (2023-07-12)
+
+
+### Bug Fixes
+
+* **kcodeblock:** not showing correct number of matching lines ([#1481](https://github.com/Kong/kongponents/issues/1481)) ([2a8b014](https://github.com/Kong/kongponents/commit/2a8b014d1daed48508330c7cb428c0698a9e1f89))
+
+# [8.86.0](https://github.com/Kong/kongponents/compare/v8.85.0...v8.86.0) (2023-07-12)
+
+
+### Features
+
+* **kbadge:** introduce kui tokens [KHCP-7694] ([#1511](https://github.com/Kong/kongponents/issues/1511)) ([86b7023](https://github.com/Kong/kongponents/commit/86b70236db4b733a5b46a34a7a0cc15f20e6ba96))
+* **sourcemaps:** dont generate sourcemap as part of npm package [KHCP-7565] ([#1516](https://github.com/Kong/kongponents/issues/1516)) ([2eb5819](https://github.com/Kong/kongponents/commit/2eb5819e6d0c650628bcf3339c978bc3ce2eec7d))
+
+# [8.85.0](https://github.com/Kong/kongponents/compare/v8.84.8...v8.85.0) (2023-07-07)
+
+
+### Features
+
+* **kalert:** introduce design tokens [KHCP-7693] ([#1506](https://github.com/Kong/kongponents/issues/1506)) ([33e8b8c](https://github.com/Kong/kongponents/commit/33e8b8c86da4853e095a6f7af7fad0199a08ca00))
+
+## [8.84.8](https://github.com/Kong/kongponents/compare/v8.84.7...v8.84.8) (2023-07-07)
+
+
+### Bug Fixes
+
+* **KTruncate, KMultiselect:** add fix for ResizeObserver [KHCP-7734] ([#1508](https://github.com/Kong/kongponents/issues/1508)) ([ea47855](https://github.com/Kong/kongponents/commit/ea47855f7441fb224849df9dcd61c56b37ea0037))
+
+## [8.84.7](https://github.com/Kong/kongponents/compare/v8.84.6...v8.84.7) (2023-07-06)
+
+
+### Bug Fixes
+
+* **kcatalog:** flakey test [khcp-7022] ([#1495](https://github.com/Kong/kongponents/issues/1495)) ([8c0babd](https://github.com/Kong/kongponents/commit/8c0babda6b2fea19ff45b79802c41198298cd88d))
+
+## [8.84.6](https://github.com/Kong/kongponents/compare/v8.84.5...v8.84.6) (2023-07-06)
+
+
+### Bug Fixes
+
+* **scss:** autocompletion ([#1505](https://github.com/Kong/kongponents/issues/1505)) ([47f58ff](https://github.com/Kong/kongponents/commit/47f58ffc1bedf46235889f5d7d89a5445209cd84))
+
+## [8.84.5](https://github.com/Kong/kongponents/compare/v8.84.4...v8.84.5) (2023-07-06)
+
+
+### Bug Fixes
+
+* **kpagination:** cache issue [khcp-7908] ([#1504](https://github.com/Kong/kongponents/issues/1504)) ([4b3a49e](https://github.com/Kong/kongponents/commit/4b3a49efdbf60bcc6dcc54259357b840269efe7a))
+
+## [8.84.4](https://github.com/Kong/kongponents/compare/v8.84.3...v8.84.4) (2023-07-06)
+
+
+### Bug Fixes
+
+* **kmultiselect:** always show lock [khcp-7963] ([#1503](https://github.com/Kong/kongponents/issues/1503)) ([13c4aac](https://github.com/Kong/kongponents/commit/13c4aac4240a6f8541cf19e5f5c5a7309af63c27))
+
+## [8.84.3](https://github.com/Kong/kongponents/compare/v8.84.2...v8.84.3) (2023-07-05)
+
+
+### Bug Fixes
+
+* **kpagination:** cache issue [khcp-7908] ([#1502](https://github.com/Kong/kongponents/issues/1502)) ([d9b579f](https://github.com/Kong/kongponents/commit/d9b579ff2d399df75d0aba55a79efc2becf37e13))
+
+## [8.84.2](https://github.com/Kong/kongponents/compare/v8.84.1...v8.84.2) (2023-07-05)
+
+
+### Bug Fixes
+
+* design token imports ([#1501](https://github.com/Kong/kongponents/issues/1501)) ([c812e85](https://github.com/Kong/kongponents/commit/c812e852c3033d1772a711c6ca77e0e54aec9fd3))
+
+## [8.84.1](https://github.com/Kong/kongponents/compare/v8.84.0...v8.84.1) (2023-07-04)
+
+
+### Bug Fixes
+
+* **deps:** bump focus-trap from 7.4.3 to 7.5.1 ([#1497](https://github.com/Kong/kongponents/issues/1497)) ([3ef855f](https://github.com/Kong/kongponents/commit/3ef855f7d436ec6d05d0c2b65427a8566dba441c))
+
+# [8.84.0](https://github.com/Kong/kongponents/compare/v8.83.5...v8.84.0) (2023-06-30)
+
+
+### Features
+
+* **KTreeList, KTruncate, KViewSwitcher:** add types [KHCP-6974] ([#1453](https://github.com/Kong/kongponents/issues/1453)) ([9d8d460](https://github.com/Kong/kongponents/commit/9d8d46023f86801311159fa1f0fca4709ad1fa80))
+
 ## [8.83.5](https://github.com/Kong/kongponents/compare/v8.83.4...v8.83.5) (2023-06-28)
 
 

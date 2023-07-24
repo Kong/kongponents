@@ -2,7 +2,7 @@
 
 **KInput** provides a wrapper around general `text` input's and provides specific Kong styling and state treatments (error, focus, etc).
 
-<KInput class="w-100" placeholder="Placeholder text" type="number" />
+<KInput class="w-100" placeholder="Placeholder text" />
 
 ```html
 <KInput class="w-100" placeholder="Placeholder text" />
@@ -46,7 +46,11 @@ If the label is omitted it can be handled with another component, like **KLabel*
 
 Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label) if using the `label` prop. This example shows using the `label-attributes` to set up a tooltip, see the [slot](#slots) section if you want to slot HTML into the tooltip rather than use plain text.
 
-<KInput label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop', 'data-testid': 'test' } "/>
+You can add `tooltipAttributes` to configure the **KTooltip's** [props](/components/tooltip.md)
+
+<KInput label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop', 'data-testid': 'test', tooltipAttributes: {
+maxWidth: '150px'
+} } "/>
 
 ```html
 <KInput
@@ -54,6 +58,9 @@ Use the `labelAttributes` prop to configure the **KLabel's** [props](/components
   :label-attributes="{
     help: 'I use the KLabel `help` prop',
     'data-testid': 'test'
+    tooltipAttributes: {
+        maxWidth: '150px'
+    }
   }"
 />
 ```

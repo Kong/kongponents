@@ -9,7 +9,6 @@
   "editor.insertSpaces": true,
   "editor.detectIndentation": false,
   "eslint.codeActionsOnSave.mode": "problems",
-  "eslint.packageManager": "yarn",
   "eslint.format.enable": true,
   "eslint.validate": [
     "typescript",
@@ -32,5 +31,14 @@
     "scss",
     "sass",
     "vue"
+  ],
+  "cssVariables.lookupFiles": [
+    "**/*.css",
+    "**/*.scss",
+    "node_modules/@kong/design-tokens/dist/tokens/css/custom-properties.css"
+  ],
+  "scss.scannerExclude": [
+    "**/.git",
+    "**/bower_components"
   ]
 }

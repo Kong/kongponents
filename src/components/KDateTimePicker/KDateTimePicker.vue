@@ -24,13 +24,13 @@
       >
         <KIcon
           v-if="icon"
-          class="mr-1"
-          color="var(--grey-500)"
+          class="calendar-icon"
+          :color="`var(--grey-500, var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL}))`"
           icon="calendar"
-          size="18"
+          :size="KUI_ICON_SIZE_30"
         />
         <div
-          class="timepicker-display type-md d-flex"
+          class="timepicker-display"
           data-testid="k-datetime-picker-display"
           v-html="state.abbreviatedDisplay"
         />
@@ -43,7 +43,7 @@
         <KSegmentedControl
           v-if="hasTimePeriods && hasCalendar"
           v-model="state.tabName"
-          class="w-100 mb-4"
+          class="datetime-picker-toggle"
           data-testid="k-datetime-picker-toggle"
           :options="[
             { label: 'Relative', value: 'relative' },
@@ -73,17 +73,17 @@
         />
         <div
           v-else-if="hasTimePeriods"
-          class="d-flex flex-column"
+          class="relative-periods-container"
         >
           <div
             v-for="(item, index) in timePeriods"
             :key="`section-${String(item.section || index)}`"
-            class="timeframe-section d-flex flex-column"
+            class="timeframe-section"
           >
-            <div class="timeframe-section-title type-sm mt-2 mb-1">
+            <div class="timeframe-section-title">
               {{ item.section }}
             </div>
-            <div class="timeframe-buttons d-flex">
+            <div class="timeframe-buttons">
               <KButton
                 v-for="(timeFrame, itemIdx) in item.values"
                 :key="`time-${itemIdx}`"
@@ -105,7 +105,7 @@
         v-if="!state.hidePopover"
         #footer
       >
-        <div class="d-flex justify-content-end">
+        <div class="datetime-picker-footer-container">
           <KButton
             v-if="clearButton"
             appearance="btn-link"
@@ -146,6 +146,7 @@ import KSegmentedControl from '@/components/KSegmentedControl/KSegmentedControl.
 import 'v-calendar/dist/style.css'
 import type { DateTimePickerState, TimeFrameSection, TimePeriod, TimeRange, Mode, CSSProperties } from '@/types'
 import { ModeArray } from '@/types'
+import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 
 const props = defineProps({
   clearButton: {
@@ -518,7 +519,7 @@ onMounted(() => {
 @import '@/styles/mixins';
 
 $timepicker-min-width: 360px;
-$margin: 6px;
+$margin: var(--kui-space-30, $kui-space-30);
 
 .k-datetime-picker {
   max-width: 100%; // Prevent overflowing the container
@@ -531,15 +532,19 @@ $margin: 6px;
   }
 
   .timepicker-input {
-    --KButtonOutlineColor: var(--grey-500);
-    --KButtonOutlineActive: var(--white);
+    --KButtonOutlineColor: var(--grey-500, var(--kui-color-text-neutral, #{$kui-color-text-neutral}));
+    --KButtonOutlineActive: var(--white, var(--kui-color-background, #{$kui-color-background}));
     border: none;
-    font-weight: 500;
+    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular); // token value change
     // Prevent overflowing the container
     max-width: 100%;
-    padding: var(--spacing-sm) var(--spacing-sm) !important;
+    padding: var(--spacing-sm, var(--kui-space-50, $kui-space-50)) !important;
     // Styling button as input via mixin
     @include input-default;
+
+    .calendar-icon {
+      margin-right: var(--kui-space-20, $kui-space-20) !important;
+    }
 
     &.set-min-width {
       min-width: $timepicker-min-width;
@@ -554,12 +559,16 @@ $margin: 6px;
       @include input-focus;
     }
     .timepicker-display {
-      color: var(--black-70);
+      color: var(--black-70, var(--kui-color-text, $kui-color-text));
+      display: flex !important;
       flex-wrap: wrap;
+      font-size: var(--kui-font-size-40, $kui-font-size-40) !important;
+
       div {
-        line-height: 1.3;
-        margin: 0;
-        padding: 0;
+        font-size: var(--kui-font-size-40, $kui-font-size-40);
+        line-height: var(--kui-line-height-30, $kui-line-height-30);
+        margin: var(--kui-space-0, $kui-space-0);
+        padding: var(--kui-space-0, $kui-space-0);
         text-align: left;
         white-space: nowrap;
         width: auto;
@@ -571,40 +580,62 @@ $margin: 6px;
     max-height: 90vh;
     max-width: 350px;
     overflow: hidden;
-    padding: var(--spacing-sm);
+    padding: var(--spacing-sm, var(--kui-space-50, $kui-space-50));
+
     &[x-placement^=bottom] {
-      margin-top: 2px;
+      margin-top: var(--kui-space-10, $kui-space-10);
     }
+
     &[x-placement^=top] {
-      margin-bottom: 2px;
+      margin-bottom: var(--kui-space-10, $kui-space-10);
     }
+
     .k-popover-content {
-      .range-display {
-        margin: 0 auto 0;
+      .datetime-picker-toggle {
+        margin-bottom: var(--kui-space-60, $kui-space-60) !important;
+        width: 100% !important;
       }
+
+      .range-display {
+        margin: var(--kui-space-0, $kui-space-0) auto var(--kui-space-0, $kui-space-0);
+      }
+
+      .relative-periods-container {
+        display: flex !important;
+        flex-direction: column !important;
+      }
+
       .timeframe-section {
+        display: flex !important;
+        flex-direction: column !important;
+
         .timeframe-section-title {
-          font-weight: 600;
-          margin-bottom: var(--spacing-xs);
+          font-size: var(--kui-font-size-30, $kui-font-size-30) !important;
+          font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+          margin-bottom: var(--spacing-xs, var(--kui-space-20, $kui-space-20)) !important;
+          margin-top: var(--kui-space-40, $kui-space-40) !important;
         }
         .timeframe-buttons {
+          display: flex !important;
           flex-wrap: wrap;
+
           .timeframe-btn {
             // Only 2 of 3 columns will have a right margin; subtract margin / 2
             flex: 0 calc(33% - 3px);
-            font-size: var(--type-sm);
-            font-weight: 400;
+            font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
+            font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
             justify-content: center;
             margin-bottom: $margin;
             margin-right: $margin;
-            padding: var(--spacing-sm) var(--spacing-md);
+            padding: var(--spacing-sm, var(--kui-space-50, $kui-space-50)) var(--spacing-md, var(--kui-space-60, $kui-space-60));
+
             &.selected-option {
-              background-color: var(--blue-500);
-              color: var(--white);
-              font-weight: 500;
+              background-color: var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary));
+              color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
+              font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular); // token value change
             }
             &:nth-child(3n) {
-              margin-right: 0px;
+              margin-right: var(--kui-space-0, $kui-space-0);
             }
             // TODO this override should be applied to Kongponents button
             &:focus {
@@ -616,13 +647,19 @@ $margin: 6px;
     }
 
     .k-popover-footer {
-      margin: var(--spacing-md) auto 0;
-      // Apply / Clear buttons
-      // TODO these overrides should be applied to Kongponents button
-      .action-btn {
-        padding: 0 var(--spacing-md) var(--spacing-xs);
-        &:focus {
-          box-shadow: none;
+      margin: var(--spacing-md, var(--kui-space-60, $kui-space-60)) auto var(--kui-space-0, $kui-space-0);
+
+      .datetime-picker-footer-container {
+        display: flex !important;
+        justify-content: flex-end !important;
+
+        // Apply / Clear buttons
+        // TODO these overrides should be applied to Kongponents button
+        .action-btn {
+          padding: var(--kui-space-0, $kui-space-0) var(--spacing-md, var(--kui-space-60, $kui-space-60)) var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+          &:focus {
+            box-shadow: none;
+          }
         }
       }
     }
@@ -632,23 +669,24 @@ $margin: 6px;
 
 <style lang="scss">
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
 
 // v-calendar overrides
 .k-datetime-picker {
-  $highlight-color: color(blue-200);
-  $selected-color: color(blue-500);
-  $text-color-lighter: color(grey-200);
-  $text-color: color(grey-500);
-  $text-color-darker: color(grey-600);
+  $highlight-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
+  $selected-color: var(--kui-color-background-primary, $kui-color-background-primary);
+  $text-color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+  $text-color-darker: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
 
   .vc-container {
-    border: 0;
+    border: var(--kui-border-width-0, $kui-border-width-0);
+
     .vc-time-icon {
       display: none;
     }
     .vc-bordered {
-      border: 0;
+      border: var(--kui-border-width-0, $kui-border-width-0);
     }
 
     // disabled day
@@ -658,39 +696,42 @@ $margin: 6px;
 
     // Day text within hover selection or post-selection
     .vc-highlights + .vc-day-content {
-      font-weight: 600;
+      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+
       &:focus {
         background-color: $selected-color;
       }
     }
 
     .vc-highlights:has(.vcal-day-start, .vcal-day-end, .vcal-day-drag-start, .vcal-day-drag-end) + .vc-day-content {
-      color: var(--white);
+      color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
     }
 
     .vc-nav-popover-container {
-      background-color: var(--white);
-      border: 1px solid color(grey-300);
+      background-color: var(--white, var(--kui-color-background, $kui-color-background));
+      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
       color: $text-color;
 
       .vc-nav-container {
         .vc-nav-arrow {
-          background-color: var(--white);
+          background-color: var(--white, var(--kui-color-background, $kui-color-background));
+
           &:active,
           &:focus {
-            border: 2px solid var(--white);
+            border: var(--kui-border-width-20, $kui-border-width-20) solid var(--white, $tmp-color-white); // token needed
           }
         }
         // Calendar year
         .vc-nav-header .vc-nav-title {
           color: $text-color;
+
           &:hover {
-            background-color: var(--white);
-            color: color(grey-600);
+            background-color: var(--white, var(--kui-color-background, $kui-color-background));
+            color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
           }
           &:active,
           &:focus {
-            border: 2px solid var(--white);
+            border: var(--kui-border-width-20, $kui-border-width-20) solid var(--white, $tmp-color-white); // token needed
           }
         }
 
@@ -698,25 +739,26 @@ $margin: 6px;
         .vc-nav-items {
           .vc-nav-item {
             color: $text-color;
+
             &:hover {
-              background-color: color(blue-100);
+              background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
               box-shadow: none;
-              color: color(grey-600);
+              color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
             }
             // Currently selected month
             &.is-current {
-              border-color: transparent;
+              border-color: var(--kui-color-border-transparent, $kui-color-border-transparent);
             }
             // Month that has focus (tab navigation supported)
             &.is-active {
               background-color: $selected-color;
               box-shadow: none;
-              color: var(--white);
-              font-weight: 600;
+              color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
+              font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
             }
             // Disabled month
             &.is-disabled {
-              color: var(--grey-400);
+              color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled));
               cursor: not-allowed;
               opacity: 1;
             }
@@ -726,9 +768,10 @@ $margin: 6px;
     }
 
     .vc-time-picker {
-      border-top: 1px solid var(--white) !important;
+      border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--white, $tmp-color-white) !important; // token needed
+
       &:last-of-type {
-        padding-bottom: 0;
+        padding-bottom: var(--kui-space-0, $kui-space-0);
       }
       .vc-date .vc-weekday,
       .vc-date .vc-month,
@@ -741,14 +784,16 @@ $margin: 6px;
       // Minimize top padding
       .vc-arrows-container,
       .vc-header {
-        padding: 2px 16px 0;
+        padding: var(--kui-space-10, $kui-space-10) var(--kui-space-60, $kui-space-60) var(--kui-space-0, $kui-space-0);
       }
+
       .vc-header {
         // Month + Year
-        margin-bottom: 10px;
+        margin-bottom: var(--kui-space-40, $kui-space-40);
+
         .vc-title {
           color: $text-color;
-          font-size: var(--type-md);
+          font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
           &:hover,
           &:active {
             color: $text-color-darker;
@@ -757,7 +802,8 @@ $margin: 6px;
       }
       // Calendar content (weekday headings and full month)
       .vc-weeks {
-        margin-top: color(spacing-sm);
+        margin-top: var(--spacing-sm, var(--kui-space-50, $kui-space-50));
+
         .vc-weekday {
           color: $text-color;
         }
@@ -767,18 +813,20 @@ $margin: 6px;
     .vc-time-picker {
       // Time Range
       .vc-select select {
-        background-color: $text-color-lighter;
+        background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+        border: var(--kui-border-width-20, $kui-border-width-20) solid $tmp-color-gray-weaker;
         color: $text-color-darker;
+
         &:hover {
           color: $text-color-darker;
         }
         &:focus {
-          background-color: $text-color-lighter;
-          border: 2px solid $text-color-lighter;
+          background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+          border: var(--kui-border-width-20, $kui-border-width-20) solid $tmp-color-gray-weaker;
           color: $text-color-darker;
 
           + .vc-select-arrow {
-            color: color(grey-500);
+            color: var(--kui-color-text-neutral, $kui-color-text-neutral);
           }
         }
       }
@@ -791,28 +839,30 @@ $margin: 6px;
 
       // AM / PM highlights
       .vc-am-pm {
-        background-color: $text-color-lighter;
+        background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
         color: $text-color-darker;
+
         button {
           &:active,
           &:hover {
             color: $text-color-darker;
           }
           &:focus {
-            border: 2px solid transparent;
+            border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
           }
           &.active {
             background-color: $selected-color;
+
             &:hover,
             &:focus {
               background-color: $selected-color;
               border-color: $selected-color;
-              color: var(--white);
+              color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
             }
             &:active {
-              background-color: color(blue-300);
-              border-color: color(blue-300);
-              color: var(--white);
+              background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak);
+              border-color: var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
+              color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
             }
           }
         }
@@ -832,12 +882,12 @@ $margin: 6px;
       .vcal-day-drag-start,
       .vcal-day-drag-end {
         background-color: $selected-color;
-        border: 2px solid color(blue-400);
+        border: var(--kui-border-width-20, $kui-border-width-20) solid $selected-color;
       }
       .vc-day-content {
         &:hover {
-          background-color: var(--white);
-          border: 2px solid color(blue-400);
+          background-color: var(--white, var(--kui-color-background, $kui-color-background));
+          border: var(--kui-border-width-20, $kui-border-width-20) solid $selected-color;
           color: $selected-color;
         }
       }
