@@ -231,6 +231,6 @@ export default defineComponent({
     font-size: 13px;
     font-weight: 300;
     line-height: 14px;
-    color: var(--grey-400, var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak));
+    color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
   }
 </style>

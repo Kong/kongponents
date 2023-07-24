@@ -40,7 +40,7 @@
             :color="`var(--grey-500, var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK}))`"
             hide-title
             icon="chevronRight"
-            size="15"
+            :size="KUI_ICON_SIZE_30"
           />
         </slot>
       </span>
