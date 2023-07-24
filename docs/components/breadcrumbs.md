@@ -6,7 +6,7 @@
 
 ### items
 
-An array of Breadcrumb items.
+An array of Breadcrumb items. Items that are not links, displayed at the end will not be followed by a divider.
 
 <KCard>
   <template #body>
@@ -41,6 +41,16 @@ An array of Breadcrumb items.
     to: { path: '/components/breadcrumbs.html' },
     title: 'Go to Button',
     text: 'Breadcrumbs'
+  },
+  {
+    key: 'not-here',
+    title: 'You are not Here',
+    text: 'You are not Here'
+  },
+  {
+    key: 'here',
+    title: 'You are Here',
+    text: 'You are Here'
   }]
 </script>
 ```
@@ -97,6 +107,23 @@ Maximum width of each breadcrumb item for truncating to ellipsis.
 />
 ```
 
+### emphasis
+
+Emphasize the breadcrumbs by making them bolder.
+
+<KCard>
+  <template #body>
+    <KBreadcrumbs :items="contextualBreadcrumbs" emphasis />
+  </template>
+</KCard>
+
+```html
+<KBreadcrumbs
+  :items="breadcrumbItems"
+  emphasis
+/>
+```
+
 ## Slots
 
 ### divider
@@ -140,6 +167,16 @@ export default defineComponent({
           to: { path: '/components/breadcrumbs.html' },
           title: 'Go to Button',
           text: 'Breadcrumbs'
+        },
+        {
+          key: 'not-here',
+          title: 'You are not Here',
+          text: 'You are not Here'
+        },
+        {
+          key: 'here',
+          title: 'You are Here',
+          text: 'You are Here'
         }
       ],
       externalBreadcrumbItems: [
@@ -172,6 +209,17 @@ export default defineComponent({
           title: 'f67a3ead-dfb9-4ef9-8cda-6646bc4db950',
           text: 'f67a3ead-dfb9-4ef9-8cda-6646bc4db950'
         }
+      ],
+      contextualBreadcrumbs: [
+        {
+          to: { path: '/' },
+          title: 'Services',
+          text: 'Services'
+        },
+        {
+          title: 'My Service',
+          text: 'My Service'
+        },
       ]
     }
   }
@@ -183,6 +231,6 @@ export default defineComponent({
     font-size: 13px;
     font-weight: 300;
     line-height: 14px;
-    color: var(--grey-400);
+    color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
   }
 </style>

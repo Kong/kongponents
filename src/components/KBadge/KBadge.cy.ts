@@ -1,8 +1,8 @@
 import { mount } from 'cypress/vue'
 import KBadge from '@/components/KBadge/KBadge.vue'
-import { BadgeAppearances } from '@/types'
+import { BadgeAppearance, BadgeAppearances } from '@/types'
 
-const rendersCorrectAppearance = (variant: string) => {
+const rendersCorrectAppearance = (variant: BadgeAppearance) => {
   it(`renders KBadge with the ${variant} appearance`, () => {
     mount(KBadge, {
       props: {
@@ -22,7 +22,7 @@ const rendersCorrectAppearance = (variant: string) => {
 
 describe('KBadge', () => {
   // Loop through BadgeAppearances
-  Object.keys(BadgeAppearances).map(a => rendersCorrectAppearance(a))
+  Object.keys(BadgeAppearances).map(a => rendersCorrectAppearance(a as BadgeAppearance))
 
   it('renders with borders', () => {
     mount(KBadge, {
