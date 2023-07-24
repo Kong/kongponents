@@ -1,7 +1,5 @@
 <template>
-  <label
-    class="k-input-label"
-  >
+  <label class="k-input-label">
     <slot />
     <span
       v-if="required"
@@ -15,10 +13,10 @@
       :test-mode="!!testMode || undefined"
     >
       <KIcon
-        color="var(--black-25)"
+        :color="`var(--black-25, var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK}))`"
         hide-title
         :icon="help ? 'help' : 'infoFilled'"
-        :size="help ? '16' : '14'"
+        :size="KUI_ICON_SIZE_30"
       />
       <template #content>
         <slot name="tooltip">{{ help || info }}</slot>
@@ -32,6 +30,7 @@ import { computed, PropType, useSlots } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import type { TooltipAttributes } from '@/types'
+import { KUI_COLOR_TEXT_NEUTRAL_WEAK, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 
 const props = defineProps({
   help: {
@@ -51,8 +50,8 @@ const props = defineProps({
     default: () => ({}),
   },
   /**
-     * Test mode - for testing only, strips out generated ids
-     */
+  * Test mode - for testing only, strips out generated ids
+  */
   testMode: {
     type: Boolean,
     default: false,
@@ -79,11 +78,11 @@ const hasTooltip = computed((): boolean => !!(props.info || props.help || slots.
     }
 
     :deep(.k-tooltip) {
-      font-weight: 400;
+      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
 
       code {
-        background-color: var(--grey-500, color(grey-500));
-        color: var(--white, #fff);
+        background-color: var(--grey-500, var(--kui-color-background-neutral, $kui-color-background-neutral));
+        color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
       }
     }
   }
