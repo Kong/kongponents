@@ -17,7 +17,7 @@
           <KIcon
             v-if="item.icon"
             :class="['k-breadcrumb-icon', { 'has-no-text': !item.text }]"
-            :color="KUI_COLOR_TEXT_DECORATIVE"
+            :color="`var(--kui-color-text-decorative, ${KUI_COLOR_TEXT_DECORATIVE})`"
             hide-title
             :icon="item.icon"
             :size="KUI_ICON_SIZE_30"
@@ -112,7 +112,7 @@ export default {
 @import '@/styles/functions';
 
 .k-breadcrumbs {
-  border-radius: var(--kui-border-radius-4, $kui-border-radius-4);
+  border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
