@@ -176,7 +176,6 @@ $background-color-card-disabled: var(--kui-color-background-neutral-weakest, $ku
 @mixin kRadioChecked {
   background-color: $background-color-card-checked;
   border-color: $border-color-card-checked;
-  -webkit-box-shadow: 0px 4px 20px var(--black-10, $tmp-color-black-10);
   box-shadow: 0px 4px 20px var(--black-10, $tmp-color-black-10);
 }
 
