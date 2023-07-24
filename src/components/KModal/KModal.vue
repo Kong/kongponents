@@ -24,20 +24,19 @@
           >
             <KButton
               aria-label="Close"
-              class="non-visual-button"
               @click="close(true)"
             >
               <KIcon
                 :color="dismissButtonColor"
                 icon="close"
-                size="15"
+                :size="KUI_ICON_SIZE_30"
               />
             </KButton>
           </div>
           <div class="k-modal-content modal-content">
             <div
               v-if="hasHeaderImage"
-              class="k-modal-header-image d-flex"
+              class="k-modal-header-image"
             >
               <slot name="header-image" />
             </div>
@@ -49,8 +48,7 @@
                 'header-left': textAlign === 'left',
                 'header-centered': textAlign === 'center',
                 'header-right': textAlign === 'right',
-                'mb-5': !hasHeaderImage,
-                'mb-4': hasHeaderImage
+                'has-header-image': hasHeaderImage
               }"
               role="heading"
             >
@@ -70,7 +68,7 @@
                 {{ content }}
               </slot>
             </div>
-            <div class="k-modal-footer modal-footer d-flex">
+            <div class="k-modal-footer modal-footer">
               <slot name="footer-content">
                 <KButton
                   v-if="!hideCancelButton"
@@ -106,105 +104,106 @@ import { FocusTrap } from 'focus-trap-vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import { ButtonAppearance, DismissButtonTheme, DismissButtonThemeArray, TextAlign, TextAlignArray } from '@/types'
+import { KUI_ICON_SIZE_30, KUI_COLOR_TEXT_NEUTRAL_STRONGER, KUI_COLOR_TEXT_NEUTRAL_WEAK } from '@kong/design-tokens'
 
 const props = defineProps({
   /**
-     * Set the text of the title, if using title slot, this text is for the aria-label
-     */
+  * Set the text of the title, if using title slot, this text is for the aria-label
+  */
   title: {
     type: String,
     required: true,
   },
   /**
-     * Title is required for aria-labelling, toggle if the title is visible on the modal
-     */
+  * Title is required for aria-labelling, toggle if the title is visible on the modal
+  */
   hideTitle: {
     type: Boolean,
     default: false,
   },
   /**
-     * The dismiss icon is visible by default when using the `header-image` slot.
-     * Set to true to hide the 'x' dismiss button
-     */
+  * The dismiss icon is visible by default when using the `header-image` slot.
+  * Set to true to hide the 'x' dismiss button
+  */
   hideDismissIcon: {
     type: Boolean,
     default: false,
   },
   /**
-     * Controls whether the dismiss button is light or dark shade.
-     */
+  * Controls whether the dismiss button is light or dark shade.
+  */
   dismissButtonTheme: {
     type: String as PropType<DismissButtonTheme>,
     default: 'dark',
     validator: (val: DismissButtonTheme): boolean => DismissButtonThemeArray.includes(val),
   },
   /**
-     * Set the text of the body content
-     */
+  * Set the text of the body content
+  */
   content: {
     type: String,
     default: '',
   },
   /**
-     * Set the alignment for the title and content
-     */
+  * Set the alignment for the title and content
+  */
   textAlign: {
     type: String as PropType<TextAlign>,
     default: 'center',
     validator: (val: TextAlign): boolean => TextAlignArray.includes(val),
   },
   /**
-      *  Pass whether or not the modal should be visible
-      */
+  * Pass whether or not the modal should be visible
+  */
   isVisible: {
     type: Boolean,
     default: false,
   },
   /**
-     * Set the text of the action/proceed button
-     */
+  * Set the text of the action/proceed button
+  */
   actionButtonText: {
     type: String,
     default: 'Submit',
   },
   /**
-     * Set the appearance of the action/proceed button
-     */
+  * Set the appearance of the action/proceed button
+  */
   actionButtonAppearance: {
     type: String as PropType<ButtonAppearance>,
     default: 'primary',
   },
   /**
-     * Set the text of the close/cancel button
-     */
+  * Set the text of the close/cancel button
+  */
   cancelButtonText: {
     type: String,
     default: 'Cancel',
   },
   /**
-     * Set the appearance of the close/cancel button
-     */
+  * Set the appearance of the close/cancel button
+  */
   cancelButtonAppearance: {
     type: String as PropType<ButtonAppearance>,
     default: 'outline',
   },
   /**
-     * Set to not render the cancel button
-     */
+  * Set to not render the cancel button
+  */
   hideCancelButton: {
     type: Boolean,
     default: false,
   },
   /**
-     * Options to be passed to tabbable
-     */
+  * Options to be passed to tabbable
+  */
   tabbableOptions: {
     type: Object,
     default: () => ({}),
   },
   /**
-     * Test mode - for testing only, strips out generated ids
-     */
+  * Test mode - for testing only, strips out generated ids
+  */
   testMode: {
     type: Boolean,
     default: false,
@@ -226,10 +225,10 @@ const hasHeaderImage = computed((): boolean => {
 
 const dismissButtonColor = computed((): string => {
   if (props.dismissButtonTheme === 'light') {
-    return 'var(--grey-400)'
+    return `var(--grey-400, var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK}))`
   }
 
-  return 'var(--grey-600)'
+  return `var(--grey-600, var(--kui-color-text-neutral-stronger, ${KUI_COLOR_TEXT_NEUTRAL_STRONGER}))`
 })
 
 const handleKeydown = (e: any): void => {
@@ -299,15 +298,14 @@ onUnmounted(() => {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
+@import '@/styles/mixins';
 
 .k-modal-backdrop {
-  background-color: var(--KModalBackdrop, rgba(11, 23, 45, .6));
-  bottom: 0;
-  left: 0;
+  background-color: var(--KModalBackdrop, $tmp-color-backdrop);
+  inset: var(--kui-space-0, $kui-space-0);
   position: fixed;
-  right: 0;
-  top: 0;
   z-index: 1100;
 }
 
@@ -318,14 +316,14 @@ onUnmounted(() => {
 
 .k-modal {
   // use a var to ensure correct sizing of .k-modal-header-image
-  --KModalPadding: var(--spacing-xl, spacing(xl));
+  --KModalPadding: var(--spacing-xl, var(--kui-space-90, #{$kui-space-90}));
 
   .k-modal-dialog {
-    background: #fff;
-    border: var(--KModalBorder);
-    border-radius: 3px;
-    box-shadow: 0px 0px 12px 0px var(--black-10, color(black-10));
-    margin: 50px auto;
+    background: var(--kui-color-background, $kui-color-background);
+    border: var(--KModalBorder, initial);
+    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+    box-shadow: 0px 0px 12px 0px var(--black-10, $tmp-color-black-10);
+    margin: var(--kui-space-110, $kui-space-110) var(--kui-space-auto, $kui-space-auto);
     max-width: var(--KModalMaxWidth, 500px);
     overflow: hidden;
     padding: var(--KModalPadding);
@@ -335,14 +333,15 @@ onUnmounted(() => {
 
     .close-button {
       position: absolute;
-      right: var(--spacing-lg);
-      top: var(--spacing-lg);
+      right: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
+      top: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
       // 1 more than .k-modal-dialog
       z-index: 10000;
 
       .k-button {
-        margin-top: -8px;
-        padding: var(--spacing-xs);
+        margin-top: calc(-1 * var(--kui-space-40, $kui-space-40));
+        padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+        @include non-visual-button;
       }
     }
   }
@@ -353,7 +352,8 @@ onUnmounted(() => {
     position: relative;
 
     .k-modal-header-image {
-      margin-bottom: var(--spacing-xl, spacing(xl));
+      display: flex !important;
+      margin-bottom: var(--spacing-xl, var(--kui-space-90, $kui-space-90));
       margin-left: calc(#{var(--KModalPadding)} * -1);
       margin-right: calc(#{var(--KModalPadding)} * -1);
       margin-top: calc(#{var(--KModalPadding)} * -1);
@@ -361,60 +361,69 @@ onUnmounted(() => {
 
     .k-modal-header {
       align-items: center;
-      color: var(--KModalHeaderColor, var(--black-500, color(black-500)));
+      color: var(--KModalHeaderColor, var(--black-500, var(--kui-color-text, $kui-color-text)));
       display: flex;
-      font-size: var(--KModalHeaderSize, 20px);
-      font-weight: var(--KModalHeaderWeight, 600);
+      font-size: var(--KModalHeaderSize, var(--kui-font-size-60, $kui-font-size-60));
+      font-weight: var(--KModalHeaderWeight, var(--kui-font-weight-semibold, $kui-font-weight-semibold));
       justify-content: flex-start;
+      margin-bottom: var(--kui-space-80, $kui-space-80) !important;
 
       &.header-centered {
-        margin-left: auto;
-        margin-right: auto;
+        margin-left: var(--kui-space-auto, $kui-space-auto);
+        margin-right: var(--kui-space-auto, $kui-space-auto);
         text-align: center;
       }
 
       &.header-left {
-        margin-left: 0;
-        margin-right: auto;
+        margin-left: var(--kui-space-0, $kui-space-0);
+        margin-right: var(--kui-space-auto, $kui-space-auto);
         text-align: left;
       }
 
       &.header-right {
-        margin-left: auto;
-        margin-right: 0;
+        margin-left: var(--kui-space-auto, $kui-space-auto);
+        margin-right: var(--kui-space-0, $kui-space-0);
         text-align: right;
+      }
+
+      &.has-header-image {
+        margin-bottom: var(--kui-space-60, $kui-space-60) !important;
       }
     }
 
     .k-modal-body {
-      color: var(--KModalColor, var(--grey-500, color(grey-500)));
+      color: var(--KModalColor, var(--grey-500, var(--black-500, var(--kui-color-text, $kui-color-text))));
       flex: 1 1 auto;
-      font-size: var(--KModalFontSize, 13px);
-      line-height: 20px;
-      margin-bottom: var(--KModalBottomMargin, var(--spacing-lg, spacing(lg)));
+      font-size: var(--KModalFontSize, var(--kui-font-size-30, $kui-font-size-30));
+      line-height: var(--kui-line-height-30, $kui-line-height-30);
+      margin-bottom: var(--KModalBottomMargin, var(--spacing-lg, var(--kui-space-80, $kui-space-80)));
       position: relative;
 
       &.content-centered {
-        margin-left: auto;
-        margin-right: auto;
+        margin-left: var(--kui-space-auto, $kui-space-auto);
+        margin-right: var(--kui-space-auto, $kui-space-auto);
         text-align: center;
       }
 
       &.content-left {
-        margin-left: 0;
-        margin-right: auto;
+        margin-left: var(--kui-space-0, $kui-space-0);
+        margin-right: var(--kui-space-auto, $kui-space-auto);
         text-align: left;
       }
 
       &.content-right {
-        margin-left: auto;
-        margin-right: 0;
+        margin-left: var(--kui-space-auto, $kui-space-auto);
+        margin-right: var(--kui-space-0, $kui-space-0);
         text-align: right;
       }
     }
 
-    .k-modal-footer .k-modal-action-buttons {
-      margin-left: auto;
+    .k-modal-footer {
+      display: flex !important;
+
+      .k-modal-action-buttons {
+        margin-left: var(--kui-space-auto, $kui-space-auto);
+      }
     }
   }
 }

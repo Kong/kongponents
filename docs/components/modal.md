@@ -264,15 +264,15 @@ There are 4 designated slots you can use to display content in the modal.
 .slot-image-content {
   height: 260px;
   width: 650px;
-  background-color: var(--purple-300);
+  background-color: blueviolet;
 }
 </style>
 ```
 
 ## Events
 
-| Event     | Description             |
-| :-------- | :------------------ |
+| Event       | Description                                 |
+| :---------- | :------------------------------------------ |
 | `cancelled` | Emitted when cancel/close button is clicked |
 
 ## Usage
@@ -316,16 +316,16 @@ Notice that even though we are using the `header-content` slot we still specify 
 
 ## Theming
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KModalBackdrop` | Backgdrop color
-| `--KModalMaxWidth` | Modal max width
-| `--KModalBorder` | Modal border
-| `--KModalHeaderColor` | Header text color
-| `--KModalHeaderSize` | Header font size
-| `--KModalHeaderWeight` | Header font weight
-| `--KModalColor`| Main content text color
-| `--KModalFontSize`| Main content text size
+| Variable               | Purpose                 |
+| :--------------------- | :---------------------- |
+| `--KModalBackdrop`     | Backgdrop color         |
+| `--KModalMaxWidth`     | Modal max width         |
+| `--KModalBorder`       | Modal border            |
+| `--KModalHeaderColor`  | Header text color       |
+| `--KModalHeaderSize`   | Header font size        |
+| `--KModalHeaderWeight` | Header font weight      |
+| `--KModalColor`        | Main content text color |
+| `--KModalFontSize`     | Main content text size  |
 
 An Example of changing the the colors of KModal might look like.
 > Note: We are scoping the overrides to a wrapper in this example
@@ -392,6 +392,6 @@ export default defineComponent({
 .slot-image-content {
   height: 260px;
   width: 650px;
-  background-color: var(--purple-300);
+  background-color: blueviolet;
 }
 </style>
