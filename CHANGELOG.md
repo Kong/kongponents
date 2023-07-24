@@ -1,3 +1,10 @@
+# [8.102.0](https://github.com/Kong/kongponents/compare/v8.101.0...v8.102.0) (2023-07-24)
+
+
+### Features
+
+* **klabel:** introduce kui tokens [KHCP-7711] ([#1570](https://github.com/Kong/kongponents/issues/1570)) ([727e9af](https://github.com/Kong/kongponents/commit/727e9afbbdadf0829e14496926a213602637d64d))
+
 # [8.101.0](https://github.com/Kong/kongponents/compare/v8.100.0...v8.101.0) (2023-07-24)
 
 
