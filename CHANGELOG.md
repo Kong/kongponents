@@ -1,3 +1,10 @@
+# [8.101.0](https://github.com/Kong/kongponents/compare/v8.100.0...v8.101.0) (2023-07-24)
+
+
+### Features
+
+* **kradio:** introduce kui tokens [KHCP-7720] ([#1569](https://github.com/Kong/kongponents/issues/1569)) ([3da92d4](https://github.com/Kong/kongponents/commit/3da92d47cd36cb5b6c2843722d9bdbfa50a18ebd))
+
 # [8.100.0](https://github.com/Kong/kongponents/compare/v8.99.0...v8.100.0) (2023-07-24)
 
 
