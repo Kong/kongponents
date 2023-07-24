@@ -1,3 +1,10 @@
+# [8.105.0](https://github.com/Kong/kongponents/compare/v8.104.0...v8.105.0) (2023-07-24)
+
+
+### Features
+
+* **kmethodbadge:** introduce kui tokens [KHCP-7713] ([#1560](https://github.com/Kong/kongponents/issues/1560)) ([ce562c1](https://github.com/Kong/kongponents/commit/ce562c1ce6ea64ced50c87ef5f9e5d87eff32a86))
+
 # [8.104.0](https://github.com/Kong/kongponents/compare/v8.103.0...v8.104.0) (2023-07-24)
 
 
