@@ -97,7 +97,7 @@ If no label is provided, only a caret will be displayed.
 
 KCollapse can be controlled with `v-model`.
 
-<div class="collapse-parent-wrapper">
+<div class="collapse-wrapper">
   <div>
     <KLabel>Is Collapsed:&nbsp;</KLabel>
     {{ myIsCollapsed }}
@@ -113,7 +113,7 @@ KCollapse can be controlled with `v-model`.
 </KCard>
 
 ```html
-<div class="collapse-parent-wrapper">
+<div class="collapse-wrapper">
   <div>
     <KLabel>Is Collapsed:&nbsp;</KLabel>
     {{ myIsCollapsed }}
@@ -161,7 +161,7 @@ To set the default state (collapsed or expanded) without binding to v-model you 
     <KCollapse title="Look Mah!">
       <template #trigger-content>
         <div class="trigger-wrapper">
-          <KIcon icon="help" :size="KUI_ICON_SIZE_30" color="var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary))" class="icon-style" />
+          <KIcon icon="help" :size="KUI_ICON_SIZE_30" class="icon-style" />
           Toggle
         </div>
       </template>
@@ -177,7 +177,7 @@ To set the default state (collapsed or expanded) without binding to v-model you 
 <KCollapse title="Look Mah!">
   <template #trigger-content>
     <div class="trigger-wrapper">
-      <KIcon icon="help" color="var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary))" class="icon-style" />
+      <KIcon icon="help" class="icon-style" />
       Toggle
     </div>
   </template>
@@ -251,7 +251,7 @@ An example of theming the collapse:
 
 <style lang="scss">
 .k-collapse-wrapper {
-  --KCollapseTriggerColor: var(--red-500, var(--kui-color-border-danger-weak, $kui-color-border-danger-weak));
+  --KCollapseTriggerColor: red;
 }
 </style>
 ```
@@ -270,33 +270,22 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@mixin margin-spacing {
+.collapse-wrapper {
   margin-bottom: var(--kui-space-50, $kui-space-50) !important;
 }
 
-@mixin icon-spacing {
-  margin-right: var(--kui-space-40, $kui-space-40) !important;
-}
-
-@mixin display-type {
-  display: flex !important;
-}
-
-.collapse-parent-wrapper {
-  @include margin-spacing;
-}
-
 .icon-style {
-  @include icon-spacing;
+  margin-right: var(--kui-space-40, $kui-space-40) !important;
+  color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary))
 }
 
 .trigger-wrapper {
-  @include display-type;
+  display: flex !important;
 }
 </style>
 
 <style lang="scss">
 .k-collapse-wrapper {
-  --KCollapseTriggerColor: var(--red-500, var(--kui-color-border-danger-weak, $kui-color-border-danger-weak));
+  --KCollapseTriggerColor: red;
 }
 </style>
