@@ -115,6 +115,7 @@ export default {
       align-self: center;
       color: var(--grey-500, color(grey-500));
       display: inline-flex;
+      line-height: 1;
     }
 
     .k-breadcrumb-divider {
