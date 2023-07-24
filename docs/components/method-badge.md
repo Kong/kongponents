@@ -28,7 +28,7 @@ Method the component should display. Supported methods:
 This prop is required.
 
 <div class="methods-container">
-  <KMethodBadge 
+  <KMethodBadge
     v-for="method in ['get', 'post', 'put', 'patch', 'delete', 'head', 'options', 'trace', 'connect', 'custom']" :key="method" 
     :method="method"
   />

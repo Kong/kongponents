@@ -1,11 +1,9 @@
 <template>
   <KBadge
     :background-color="methodBadgeColors[method].backgroundColor"
-    :border-color="methodBadgeColors[method].borderColor"
     class="k-method-badge"
     :class="[ `method-${method}`, { 'k-method-toggle': isToggle }]"
     :color="methodBadgeColors[method].color"
-    :is-bordered="isToggle"
     max-width="auto"
     :shape="isToggle ? 'rounded' : isRounded ? 'rounded' : 'rectangular'"
     v-on="{ click: isToggle ? toggleValue : undefined }"
@@ -95,52 +93,42 @@ const methodBadgeColors = computed((): Record<string, MethodBadgeColors> => {
     get: {
       color: `var(--petrol-200, var(--kui-method-color-text-get, ${KUI_METHOD_COLOR_TEXT_GET}))`,
       backgroundColor: `var(--petrol-100, var(--kui-method-color-background-get, ${KUI_METHOD_COLOR_BACKGROUND_GET}))`,
-      borderColor: `var(--petrol-200, var(--kui-method-color-text-get, ${KUI_METHOD_COLOR_TEXT_GET}))`, // TODO: token needed
     },
     post: {
       color: `var(--green-700, var(--kui-method-color-text-post, ${KUI_METHOD_COLOR_TEXT_POST}))`,
       backgroundColor: `var(--green-100, var(--kui-method-color-background-post, ${KUI_METHOD_COLOR_BACKGROUND_POST}))`,
-      borderColor: `var(--green-700, var(--kui-method-color-text-post, ${KUI_METHOD_COLOR_TEXT_POST}))`, // TODO: token needed
     },
     put: {
       color: `var(--yellow-600, var(--kui-method-color-text-put, ${KUI_METHOD_COLOR_TEXT_PUT}))`,
       backgroundColor: `var(--yellow-100, var(--kui-method-color-background-put, ${KUI_METHOD_COLOR_BACKGROUND_PUT}))`,
-      borderColor: `var(--yellow-600, var(--kui-method-color-text-put, ${KUI_METHOD_COLOR_TEXT_PUT}))`, // TODO: token needed
     },
     patch: {
       color: `var(--teal-500, var(--kui-method-color-text-patch, ${KUI_METHOD_COLOR_TEXT_PATCH}))`,
       backgroundColor: `var(--teal-100, var(--kui-method-color-background-patch, ${KUI_METHOD_COLOR_BACKGROUND_PATCH}))`,
-      borderColor: `var(--teal-500, var(--kui-method-color-text-patch, ${KUI_METHOD_COLOR_TEXT_PATCH}))`, // TODO: token needed
     },
     delete: {
       color: `var(--red-700, var(--kui-method-color-text-delete, ${KUI_METHOD_COLOR_TEXT_DELETE}))`,
       backgroundColor: `var(--red-100, var(--kui-method-color-background-delete, ${KUI_METHOD_COLOR_BACKGROUND_DELETE}))`,
-      borderColor: `var(--red-700, var(--kui-method-color-text-delete, ${KUI_METHOD_COLOR_TEXT_DELETE}))`, // TODO: token needed
     },
     head: {
       color: `var(--yellow-600, var(--kui-method-color-text-head, ${KUI_METHOD_COLOR_TEXT_HEAD}))`,
       backgroundColor: `var(--yellow-200, var(--kui-method-color-background-head, ${KUI_METHOD_COLOR_BACKGROUND_HEAD}))`,
-      borderColor: `var(--yellow-600, var(--kui-method-color-text-head, ${KUI_METHOD_COLOR_TEXT_HEAD}))`, // TODO: token needed
     },
     options: {
       color: `var(--steel-700, var(--kui-method-color-text-options, ${KUI_METHOD_COLOR_TEXT_OPTIONS}))`,
       backgroundColor: `var(--steel-200, var(--kui-method-color-background-options, ${KUI_METHOD_COLOR_BACKGROUND_OPTIONS}))`,
-      borderColor: `var(--steel-700, var(--kui-method-color-text-options, ${KUI_METHOD_COLOR_TEXT_OPTIONS}))`, // TODO: token needed
     },
     trace: {
       color: `var(--white, var(--kui-method-color-text-trace, ${KUI_METHOD_COLOR_TEXT_TRACE}))`,
       backgroundColor: `var(--steel-500, var(--kui-method-color-background-trace, ${KUI_METHOD_COLOR_BACKGROUND_TRACE}))`,
-      borderColor: `var(--steel-700, var(--kui-method-color-text-trace, ${KUI_METHOD_COLOR_TEXT_TRACE}))`, // TODO: token needed
     },
     connect: {
       color: `var(--purple-400, var(--kui-method-color-text-connect, ${KUI_METHOD_COLOR_TEXT_CONNECT}))`,
       backgroundColor: `var(--purple-100, var(--kui-method-color-background-connect, ${KUI_METHOD_COLOR_BACKGROUND_CONNECT}))`,
-      borderColor: `var(--purple-400, var(--kui-method-color-text-connect, ${KUI_METHOD_COLOR_TEXT_CONNECT}))`, // TODO: token needed
     },
     custom: {
       color: `var(--white, var(--kui-color-text-inverse, ${KUI_COLOR_TEXT_INVERSE}))`,
       backgroundColor: `var(--steel-500, var(--kui-color-background-neutral-strong, ${KUI_COLOR_BACKGROUND_NEUTRAL_STRONG}))`,
-      borderColor: `var(--steel-700, var(--kui-method-color-text-options, ${KUI_METHOD_COLOR_TEXT_OPTIONS}))`, // TODO: token needed (kui-color-border-neutral-strongest)
     },
   }
 })
