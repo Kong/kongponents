@@ -1,3 +1,10 @@
+# [8.104.0](https://github.com/Kong/kongponents/compare/v8.103.0...v8.104.0) (2023-07-24)
+
+
+### Features
+
+* **kbreadcrumb:** style updates [khcp-8029] ([#1535](https://github.com/Kong/kongponents/issues/1535)) ([6d5975e](https://github.com/Kong/kongponents/commit/6d5975e7bd6cd037adb2dc08d1cd3992433518c0))
+
 # [8.103.0](https://github.com/Kong/kongponents/compare/v8.102.1...v8.103.0) (2023-07-24)
 
 
