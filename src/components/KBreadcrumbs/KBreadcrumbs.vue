@@ -6,7 +6,7 @@
     <li
       v-for="(item, idx) in items"
       :key="item.key || item.text"
-      class="k-breadcrumbs-item truncate"
+      class="k-breadcrumbs-item"
     >
       <component
         :is="getComponentAttrs(item).type"
@@ -25,7 +25,7 @@
         </slot>
         <span
           v-if="item.text"
-          class="k-breadcrumb-text truncate"
+          class="k-breadcrumb-text"
           :class="{ 'non-link': !item.to, 'emphasis': emphasis }"
           :style="{ maxWidth: item.maxWidth || itemMaxWidth }"
         >{{ item.text }}</span>
@@ -37,7 +37,7 @@
       >
         <slot name="divider">
           <KIcon
-            color="var(--grey-500)"
+            :color="`var(--grey-500, var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK}))`"
             hide-title
             icon="chevronRight"
             size="15"
@@ -51,7 +51,7 @@
 <script setup lang="ts">
 import { PropType } from 'vue'
 import type { BreadcrumbItem } from '@/types'
-import { KUI_COLOR_TEXT_DECORATIVE, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { KUI_COLOR_TEXT_DECORATIVE, KUI_ICON_SIZE_30, KUI_COLOR_TEXT_NEUTRAL_WEAK } from '@kong/design-tokens'
 import KIcon from '@/components/KIcon/KIcon.vue'
 
 defineProps({
@@ -110,6 +110,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/variables';
 @import '@/styles/functions';
+@import '@/styles/mixins';
 
 .k-breadcrumbs {
   border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
@@ -124,6 +125,8 @@ export default {
   padding: var(--kui-space-0, $kui-space-0);
 
   .k-breadcrumbs-item {
+    @include truncate;
+
     .k-breadcrumb-divider,
     .k-breadcrumb-icon {
       align-self: center;
@@ -151,6 +154,8 @@ export default {
     }
 
     .k-breadcrumb-text {
+      @include truncate;
+
       &:hover {
         color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger); /** TODO: use $kui-color-text-selected token, once it is added */
       }
