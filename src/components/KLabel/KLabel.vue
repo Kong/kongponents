@@ -50,8 +50,8 @@ const props = defineProps({
     default: () => ({}),
   },
   /**
-  * Test mode - for testing only, strips out generated ids
-  */
+   * Test mode - for testing only, strips out generated ids
+   */
   testMode: {
     type: Boolean,
     default: false,
