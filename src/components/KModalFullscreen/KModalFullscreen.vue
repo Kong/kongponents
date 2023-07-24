@@ -335,7 +335,7 @@ $fullscreen-modal-padding: 64px;
 
 .k-modal-fullscreen-body-header,
 .k-modal-fullscreen-body {
-  color: var(--KModalFullscreenColor, var(--black-500, color(black-500)));
+  color: var(--KModalFullscreenColor, var(--black-500, var(--kui-color-text, $kui-color-text)));
   padding-left: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
   padding-right: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
 
