@@ -182,7 +182,7 @@ watch(modelComputed, (newVal, oldVal) => {
     }
 
     .k-collapse-trigger-content {
-      color: var(--KCollapseTriggerColor, var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary)));
+      color: var(--KCollapseTriggerColor, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
       display: inline-block !important;
       font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
       font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
@@ -203,7 +203,7 @@ watch(modelComputed, (newVal, oldVal) => {
         &.kong-icon {
           &.kong-icon-chevronDown svg path,
           &.kong-icon-chevronRight svg path {
-            stroke: var(--KCollapseTriggerColor, var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary)));
+            stroke: var(--KCollapseTriggerColor, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
           }
         }
       }
