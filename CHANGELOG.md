@@ -1,3 +1,10 @@
+# [8.100.0](https://github.com/Kong/kongponents/compare/v8.99.0...v8.100.0) (2023-07-24)
+
+
+### Features
+
+* **kinputswitch:** introduce kui tokens [KHCP-7710] ([#1561](https://github.com/Kong/kongponents/issues/1561)) ([3c27cee](https://github.com/Kong/kongponents/commit/3c27cee018c393f16411b94ced69ca6ce18d1364))
+
 # [8.99.0](https://github.com/Kong/kongponents/compare/v8.98.0...v8.99.0) (2023-07-21)
 
 
