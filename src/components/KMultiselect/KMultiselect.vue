@@ -1189,7 +1189,7 @@ onBeforeUnmount(() => {
       // Firefox workaround
       // since :has() selector isn't supported in Firefox be default
       .k-multiselect-list ~ .k-multiselect-dropdown-footer-sticky {
-        bottom: var(--kui-space-0, $kui-space-0);
+        bottom: 0;
         position: sticky;
       }
     }
