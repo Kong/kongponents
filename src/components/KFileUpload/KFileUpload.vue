@@ -314,7 +314,7 @@ const resetInput = (): void => {
     background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
     border: none;
     cursor: pointer;
-    height: var(--spacing-lg);
+    height: var(--spacing-lg, '24px');
     padding: var(--kui-space-30, $kui-space-30);
     position: absolute;
     right: $tmp-spacing-120;

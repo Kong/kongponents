@@ -39,7 +39,7 @@
         >
           <div
             ref="multiselectRef"
-            class="k-multiselect-trigger w-100"
+            class="k-multiselect-trigger"
             :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }"
             data-testid="k-multiselect-trigger"
             role="listbox"
@@ -50,17 +50,16 @@
               :id="multiselectSelectedItemsId"
               :key="key"
               class="k-multiselect-selections"
-              :class="{ 'scrollable my-2': expandSelected, 'mb-2': collapsedContext && !isToggled.value }"
+              :class="{ 'scrollable': expandSelected, 'collapsed': collapsedContext && !isToggled.value }"
               data-testid="k-multiselect-selections"
               :style="!expandSelected ? numericWidthStyle : nonSlimStyle"
             >
               <KBadge
                 v-for="item, idx in visibleSelectedItems"
                 :key="`${item.key ? item.key : idx}-badge`"
-                class="mr-1"
+                class="k-multiselect-selection-badge"
                 :class="{
-                  'my-1': expandSelected,
-                  'mt-2': !expandSelected,
+                  'expand-selected': expandSelected,
                   'resize-badge':(item.selected && item.disabled)
                 }"
                 :dismissable="item.selected && !item.disabled"
@@ -73,7 +72,7 @@
               </KBadge>
               <KBadge
                 v-if="!expandSelected && invisibleSelectedItems.length"
-                class="mt-2 hidden-selection-count"
+                class="hidden-selection-count"
                 force-tooltip
                 shape="rectangular"
                 :truncation-tooltip="hiddenItemsTooltip"
@@ -89,15 +88,15 @@
             <div class="k-multiselect-icon">
               <KButton
                 v-if="!loading && selectedItems.length && isToggled.value"
-                class="non-visual-button pa-0 k-multiselect-clear-icon"
+                class="k-multiselect-clear-icon"
                 data-testid="k-multiselect-clear-icon"
                 @click="clearSelection"
                 @keyup.enter="clearSelection"
               >
                 <KIcon
-                  color="var(--grey-500)"
+                  :color="`var(--grey-500, var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL}))`"
                   icon="close"
-                  size="12"
+                  :size="KUI_ICON_SIZE_20"
                   title="Clear all selections"
                 />
               </KButton>
@@ -105,9 +104,9 @@
                 v-else
                 class="k-multiselect-chevron-icon"
                 :class="{ 'in-selection-box': selectedItems.length }"
-                color="var(--grey-500)"
+                :color="`var(--grey-500, var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL}))`"
                 :icon="loading ? 'spinner' : 'chevronDown'"
-                size="18"
+                :size="KUI_ICON_SIZE_30"
               />
             </div>
             <div
@@ -121,7 +120,7 @@
                 autocapitalize="off"
                 autocomplete="off"
                 class="k-multiselect-input input-placeholder-dark"
-                :class="{ 'mt-1': isToggled.value && selectedItems.length, 'is-readonly': isReadonly }"
+                :class="{ 'is-toggled': isToggled.value && selectedItems.length, 'is-readonly': isReadonly }"
                 data-testid="k-multiselect-input"
                 :model-value="filterStr"
                 :placeholder="getPlaceholderText(isToggled.value)"
@@ -144,7 +143,7 @@
           <template #content>
             <!-- use @click.stop so we don't close drop down when selecting/deselecting items -->
             <div
-              class="k-multiselect-list ma-0 pa-0"
+              class="k-multiselect-list"
               @blur="() => isFocused = false"
               @click.stop
               @focus="isFocused = true"
@@ -228,7 +227,7 @@
         <KBadge
           v-for="item, idx in visibleSelectedItemsStaging"
           :key="`${item.key ? item.key : idx}-badge`"
-          class="mr-1 mt-2"
+          class="k-multiselect-selection-badge"
           :dismissable="item.selected && !item.disabled"
           hidden
           shape="rectangular"
@@ -237,7 +236,7 @@
         </KBadge>
         <!-- Always render this badge even if it's hidden to ensure there will be enough space to show it -->
         <KBadge
-          class="mt-2 hidden-selection-count"
+          class="hidden-selection-count"
           hidden
           shape="rectangular"
         >
@@ -262,6 +261,7 @@ import KToggle from '@/components/KToggle'
 import KMultiselectItems from '@/components/KMultiselect/KMultiselectItems.vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
 import type { MultiselectItem, MultiselectFilterFnParams, DropdownFooterTextPosition, PopPlacements } from '@/types'
+import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_20, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 
 // functions used in prop validators
 const getValues = (items: MultiselectItem[]) => {
@@ -429,7 +429,7 @@ const defaultKPopAttributes = {
   hideCaret: true,
   placement: 'bottomStart' as PopPlacements,
   popoverTimeout: 0,
-  popoverClasses: 'k-multiselect-popover mt-0',
+  popoverClasses: 'k-multiselect-popover',
 }
 
 // keys and ids
@@ -954,15 +954,21 @@ onBeforeUnmount(() => {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    padding-left: 16px;
-    padding-right: 23px;
+    padding-left: var(--kui-space-60, $kui-space-60);
+    padding-right: var(--kui-space-80, $kui-space-80);
 
     .resize-badge {
-      padding: 5px;
+      padding: var(--kui-space-20, $kui-space-20);
     }
 
     &.scrollable {
+      margin-bottom: var(--kui-space-40, $kui-space-40) !important;
+      margin-top: var(--kui-space-40, $kui-space-40) !important;
       overflow-y: auto;
+    }
+
+    &.collapsed {
+      margin-bottom: var(--kui-space-40, $kui-space-40) !important;
     }
 
     &.staging {
@@ -970,14 +976,25 @@ onBeforeUnmount(() => {
       -moz-box-sizing: border-box;
       box-sizing: border-box;
       height: auto;
-      padding-left: 16px;
-      padding-right: 23px;
+      padding-left: var(--kui-space-60, $kui-space-60);
+      padding-right: var(--kui-space-80, $kui-space-80);
       position: relative;
     }
 
     .hidden-selection-count {
       // match dismissable height
-      --KBadgeLineHeight: 21px;
+      --KBadgeLineHeight: var(--kui-line-height-30, #{$kui-line-height-30});
+      margin-top: var(--kui-space-40, $kui-space-40) !important;
+    }
+
+    .k-multiselect-selection-badge {
+      margin-right: var(--kui-space-20, $kui-space-20) !important;
+      margin-top: var(--kui-space-40, $kui-space-40) !important;
+
+      &.expand-selected {
+        margin-bottom: var(--kui-space-20, $kui-space-20) !important;
+        margin-top: var(--kui-space-20, $kui-space-20) !important;
+      }
     }
   }
 
@@ -994,6 +1011,8 @@ onBeforeUnmount(() => {
     }
 
     .k-multiselect-clear-icon {
+      @include non-visual-button;
+      padding: var(--kui-space-0, $kui-space-0) !important;
       position: absolute;
       right: 10px;
       top: 8px;
@@ -1001,9 +1020,10 @@ onBeforeUnmount(() => {
   }
 
   .k-multiselect-trigger {
-    border-radius: 3px;
+    border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
     display: inline-block;
     position: relative;
+    width: 100% !important;
     // mimic input's box shadow styling
     @include input-default;
 
@@ -1034,11 +1054,20 @@ onBeforeUnmount(() => {
 
         :deep(.k-input) {
           &:not([type=checkbox]):not([type=radio]), .form-control:not([type=checkbox]):not([type=radio]) {
-            background-color: transparent !important;
+            background-color: var(--kui-color-background-transparent, $kui-color-background-transparent) !important;
           }
         }
       }
+
+      &.is-toggled {
+        margin-top: var(--kui-space-20, $kui-space-20) !important;
+      }
     }
+  }
+
+  .k-multiselect-list {
+    margin: var(--kui-space-0, $kui-space-0) !important;
+    padding: var(--kui-space-0, kui-space-0) !important;
   }
 
   .k-multiselect-new-item {
@@ -1046,23 +1075,25 @@ onBeforeUnmount(() => {
 
     .select-item-new-indicator {
       font-style: italic;
-      font-weight: 600;
+      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
     }
   }
 
   .k-multiselect-dropdown-footer-text {
-    background-color: color(white);
-    border-top: 1px solid var(--grey-200);
-    color: color(grey-500);
-    padding: var(--spacing-xs);
-    padding-bottom: 0;
+    background-color: var(--kui-color-background, $kui-color-background);
+    border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-200, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
+    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+    padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+    padding-bottom: var(--kui-border-width-0);
   }
 }
 </style>
 
 <style lang="scss">
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
+@import '@/styles/mixins';
 
 // allows setting a maxHeight on the popover dropdown
 @mixin kMultiselectPopoverMaxHeight {
@@ -1078,7 +1109,7 @@ onBeforeUnmount(() => {
       }
 
       &.input-placeholder-dark::placeholder {
-        color: var(--KInputColor, var(--black-70, rgba(0, 0, 0, 0.7))) !important;
+        color: var(--KInputColor, var(--black-70, var(--kui-color-text, $kui-space-40))) !important;
       }
 
       input.k-input:not([type="checkbox"]):not([type="radio"]) {
@@ -1108,32 +1139,32 @@ onBeforeUnmount(() => {
 
   .k-multiselect-popover {
     box-sizing: border-box;
-    margin-top: 2px !important;
+    margin-top: var(--kui-space-0, $kui-space-0) !important;
     width: 100%;
 
     &[x-placement^="top"] {
-      margin-bottom: 2px !important;
-      margin-top: 0 !important;
+      margin-bottom: var(--kui-space-10, $kui-space-10) !important;
+      margin-top: var(--kui-space-0, $kui-space-0) !important;
     }
 
     &.k-multiselect-pop {
-      --KPopPaddingY: var(--spacing-xs);
-      --KPopPaddingX: var(--spacing-xs);
-      border: 1px solid var(--black-10);
+      --KPopPaddingY: var(--spacing-xs, var(--kui-space-40, #{$kui-space-40}));
+      --KPopPaddingX: var(--spacing-xs, var(--kui-space-40, #{$kui-space-40}));
+      border: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-black-10;
     }
 
     .k-multiselect-empty-item button,
     .k-multiselect-empty-item button:focus,
     .k-multiselect-empty-item button:hover {
-      color: var(--grey-500);
+      color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
 
       .select-item-label {
-        color: var(--grey-500);
+        color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
       }
     }
 
     a {
-      color: var(--black-70);
+      color: var(--black-70, var(--kui-color-text, $kui-color-text));
       flex: 1;
 
       &:hover,
