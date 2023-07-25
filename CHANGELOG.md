@@ -1,3 +1,10 @@
+# [8.106.0](https://github.com/Kong/kongponents/compare/v8.105.0...v8.106.0) (2023-07-25)
+
+
+### Features
+
+* **kicon:** introduce kui tokens [KHCP-7707] ([#1562](https://github.com/Kong/kongponents/issues/1562)) ([c69c411](https://github.com/Kong/kongponents/commit/c69c4115fb9d8a9e939e8ca1c442ab2c16afafb5))
+
 # [8.105.0](https://github.com/Kong/kongponents/compare/v8.104.0...v8.105.0) (2023-07-24)
 
 
