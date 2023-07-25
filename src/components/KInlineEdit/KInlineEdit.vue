@@ -126,10 +126,11 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
 
 .k-inline-edit {
-  --padding: var(--spacing-xxs) var(--spacing-xs);
+  --padding: var(--spacing-xxs, var(--kui-space-20, #{$kui-space-20})) var(--spacing-xs, var(--kui-space-40, #{$kui-space-40}));
   box-sizing: border-box;
 
   > :deep(div) {
@@ -138,19 +139,19 @@ onMounted(() => {
     width: 100%;
 
     > * {
-      border: 1px solid transparent;
-      border-radius: 3px;
+      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
+      border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
       line-height: 1.25;
-      margin-left: calc(-1 * var(--spacing-xs)); // align the left side of content
-      margin-top: 0; // prevent a shift
+      margin-left: calc(-1 * var(--spacing-xs, var(--kui-space-40, $kui-space-40))); // align the left side of content
+      margin-top: var(--kui-space-0, $kui-space-0); // prevent a shift
       overflow: hidden;
       padding: var(--padding);
-      transition: background-color 200ms ease;
+      transition: background-color $tmp-animation-timing-2 ease;
       width: 100%;
     }
 
     &:hover > * {
-      background-color: var(--grey-200);
+      background-color: var(--grey-200, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
     }
   }
 
@@ -161,7 +162,7 @@ onMounted(() => {
 
     &:focus,
     &:hover {
-      background-color: var(--white);
+      background-color: var(--white, var(--kui-color-background, $kui-color-background));
     }
   }
 }

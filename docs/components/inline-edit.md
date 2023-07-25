@@ -43,7 +43,7 @@ If true, will not set the value of the input when enabled/clicked. This is usefu
 Styles to set when the input is active. Useful when styling the default state differently.
 
 <KComponent :data="{ inlineText: '' }" v-slot="{ data }">
-  <KInlineEdit :ignore-value="data.inlineText.length === 0" :style-overrides="{color: 'var(--black-85)'}" @changed="newVal => data.inlineText = newVal"><p :class="data.inlineText.length > 0 ? 'color-black-85' :'color-black-45 text-italic'">{{ data.inlineText || 'cool placeholder' }}</p></KInlineEdit>
+  <KInlineEdit :ignore-value="data.inlineText.length === 0" :style-overrides="{color: 'black'}" @changed="newVal => data.inlineText = newVal"><p :class="{ 'decorated-text': data.inlineText.length > 0 }">{{ data.inlineText || 'cool placeholder' }}</p></KInlineEdit>
 </KComponent>
 
 > The `KComponent` component is used in this example to create state.
@@ -52,13 +52,19 @@ Styles to set when the input is active. Useful when styling the default state di
 <KComponent :data="{ inlineText: '' }" v-slot="{ data }">
   <KInlineEdit
     :ignore-value="data.inlineText.length === 0"
-    :style-overrides="{ color: 'var(--black-85)' }"
+    :style-overrides="{ color: 'black' }"
     @changed="newVal => data.inlineText = newVal">
-    <p :class="data.inlineText.length > 0 ? 'color-black-85' :'color-black-45 text-italic'">
+    <p :class="{ 'decorated-text': data.inlineText.length > 0 }">
       {{ data.inlineText || 'cool placeholder' }}
     </p>
   </KInlineEdit>
 </KComponent>
+
+<style>
+.decorated-text { 
+  font-style: italic; 
+}
+</style>
 ```
 
 ## Events
@@ -147,5 +153,7 @@ export default {
 </script>
 
 <style>
-.text-italic { font-style: italic; }
+.decorated-text { 
+  font-style: italic; 
+}
 </style>
