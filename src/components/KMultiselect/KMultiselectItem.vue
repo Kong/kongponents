@@ -100,7 +100,7 @@ const handleClick = (): void => {
     font-family: var(--font-family-sans, var(--kui-font-family-text, $kui-font-family-text));
     font-size: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-    line-height: var(--kui-line-height-40, $kui-line-height-40);
+    line-height: var(--kui-line-height-20, $kui-line-height-20);
     padding-left: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
     text-align: left;
     width: 100%;
