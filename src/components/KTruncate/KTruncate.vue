@@ -136,7 +136,7 @@ const kTruncateContainer = ref<HTMLDivElement>()
 const kTruncateWrapper = ref<HTMLDivElement>()
 const textToggleControls = ref<HTMLDivElement>()
 const wrapperHeight = ref<string>('0px')
-const gap = KUI_SPACE_40
+const gap = KUI_SPACE_40 // set value to variable because it's used in styles and in script
 
 const truncatedCount = ref<number>(0)
 
