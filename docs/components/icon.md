@@ -87,7 +87,7 @@ The `State icons` do not support the `color` prop.
 
 ### size
 
-This prop takes a string that will replace the SVG default height and width. If height and width is not present by default `24` is applied.
+This prop takes a string that will replace the SVG default height and width. If this is not specified, and height and width are not present either by default `24px` is applied.
 
 <KIcon icon="gear" size="48px" />
 
