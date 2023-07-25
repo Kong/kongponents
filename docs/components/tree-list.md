@@ -19,10 +19,10 @@ The value provided to `v-model` should adhere to all the same constraints of the
 :::
 
 <div>
-  <KTreeList class="mt-2" v-model="myList" />
+  <KTreeList class="tree-wrapper" v-model="myList" />
   <br>
   <KButton @click="reset">Reset</KButton>
-  <div class="mt-6"><b>Value:</b> <pre class="json hide-from-percy">{{ JSON.stringify(myList) }}</pre></div>
+  <div class="value-wrapper"><b>Value:</b> <pre class="json hide-from-percy">{{ JSON.stringify(myList) }}</pre></div>
 </div>
 
 ```html
@@ -171,7 +171,7 @@ You can pass a `width` string for the entire tree. By default it will take the f
     {{ item.id === 'cats' ? '😸' : item.id === 'bunnies' ? '🐰' : '🐶' }}
   </template>
   <template #item-label="{ item }">
-    <span class="color-purple-400">
+    <span class="slot-color-purple-400">
     Animal: {{ item.name }}
     </span>
   </template>
@@ -183,7 +183,7 @@ You can pass a `width` string for the entire tree. By default it will take the f
     {{ item.id === 'cats' ? '😸' : item.id === 'bunnies' ? '🐰' : '🐶' }}
   </template>
   <template #item-label="{ item }">
-    <span class="color-purple-400">
+    <span class="slot-color-purple-400">
     Animal: {{ item.name }}
     </span>
   </template>
@@ -206,7 +206,7 @@ You can pass a `width` string for the entire tree. By default it will take the f
   <pre class="json hide-from-percy">{{ JSON.stringify(eventItems) }}</pre>
   <KTreeList
     :items="eventItems"
-    class="mt-3"
+    class="tree-wrapper-2"
     @selected="(item) => mySelection = item"
     @change="({ items }) => eventItems = items"
     @child-change="handleChildChange"
@@ -239,14 +239,14 @@ You can pass a `width` string for the entire tree. By default it will take the f
 
 ## Theming
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KTreeListItemText` | Text color for the item name
-| `--KTreeListItemSelectedBorder` | Border color of a selected item and color of indicator bar when dragging an item
-| `--KTreeListItemSelectedBackground` | Background color of a selected item
-| `--KTreeListItemUnselectedBorder` | Border color of an unselected item and color of connecting line between parents and children
-| `--KTreeListItemUnselectedBackground` | Background color of an unselected item
-| `--KTreeListDropZoneHeight` | Number of pixels between tree items
+| Variable                              | Purpose                                                                                      |
+| :------------------------------------ | :------------------------------------------------------------------------------------------- |
+| `--KTreeListItemText`                 | Text color for the item name                                                                 |
+| `--KTreeListItemSelectedBorder`       | Border color of a selected item and color of indicator bar when dragging an item             |
+| `--KTreeListItemSelectedBackground`   | Background color of a selected item                                                          |
+| `--KTreeListItemUnselectedBorder`     | Border color of an unselected item and color of connecting line between parents and children |
+| `--KTreeListItemUnselectedBackground` | Background color of an unselected item                                                       |
+| `--KTreeListDropZoneHeight`           | Number of pixels between tree items                                                          |
 
 An example of changing the theming might look like this:
 
@@ -259,11 +259,11 @@ An example of changing the theming might look like this:
 
 <style>
 .themed-tree {
-  --KTreeListItemText: var(--purple-400);
-  --KTreeListItemSelectedBorder: var(--yellow-300);
-  --KTreeListItemSelectedBackground: var(--yellow-200);
-  --KTreeListItemUnselectedBorder: var(--purple-300);
-  --KTreeListItemUnselectedBackground: var(--purple-100);
+  --KTreeListItemText: #473cfb;
+  --KTreeListItemSelectedBorder: #ffd68c;
+  --KTreeListItemSelectedBackground: #ffe6ba;
+  --KTreeListItemUnselectedBorder: #9396fc;
+  --KTreeListItemUnselectedBackground: #eaf4fb;
   --KTreeListDropZoneHeight: 8px;
 }
 </style>
@@ -491,12 +491,28 @@ const handleChildChange = (data) => {
   line-height: 1.4;
 }
 
+.tree-wrapper {
+  margin-top: 8px;
+}
+
+.tree-wrapper-2 {
+  margin-top: 12px;
+}
+
+.value-wrapper {
+  margin-top: 32px;
+}
+
+.slot-color-purple-400 {
+  color: #473cfb;
+}
+
 .themed-tree {
-  --KTreeListItemText: var(--purple-400);
-  --KTreeListItemSelectedBorder: var(--yellow-300);
-  --KTreeListItemSelectedBackground: var(--yellow-200);
-  --KTreeListItemUnselectedBorder: var(--purple-300);
-  --KTreeListItemUnselectedBackground: var(--purple-100);
+  --KTreeListItemText: #473cfb;
+  --KTreeListItemSelectedBorder: #ffd68c;
+  --KTreeListItemSelectedBackground: #ffe6ba;
+  --KTreeListItemUnselectedBorder: #9396fc;
+  --KTreeListItemUnselectedBackground: #eaf4fb;
   --KTreeListDropZoneHeight: 8px;
 }
 </style>
