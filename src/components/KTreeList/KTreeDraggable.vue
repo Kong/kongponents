@@ -327,7 +327,7 @@ onMounted(() => {
     &:before {
       border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid $border;
       border-left: var(--kui-border-width-10, $kui-border-width-10) solid $border;
-      border-radius: 0 0 0 5px;
+      border-radius: var(--kui-border-radius-0, $kui-border-radius-0) var(--kui-border-radius-0, $kui-border-radius-0) var(--kui-border-radius-0, $kui-border-radius-0) 5px;
       content: "";
       height: calc(var(--KTreeListDropZoneHeight, $defaultDropZoneHeight) + 20px);
       left: $barLeft;
