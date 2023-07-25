@@ -15,9 +15,9 @@
   <div
     v-for="group in groups"
     :key="`${group}-group`"
-    class="mb-1"
+    class="k-multiselect-group-container"
   >
-    <span class="d-block k-multiselect-group-title">
+    <span class="k-multiselect-group-title">
       {{ group }}
     </span>
     <KMultiselectItem
@@ -65,12 +65,17 @@ const getGroupItems = (group: string) => props.items.filter(item => item.group =
 </script>
 
 <style lang="scss" scoped>
+.k-multiselect-group-container {
+  margin-bottom: var(--kui-space-20, $kui-space-20) !important;
+}
+
 .k-multiselect-group-title {
-  color: var(--black-300);
-  font-size: var(--type-xs);
-  font-weight: 600;
-  margin-bottom: var(--spacing-xxs);
-  padding: var(--spacing-xs);
+  color: var(--black-300, var(--kui-color-text, $kui-color-text));
+  display: block !important;
+  font-size: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
+  font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+  margin-bottom: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
+  padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
   text-transform: uppercase;
   user-select: none;
 }

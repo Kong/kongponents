@@ -6,7 +6,7 @@
     role="listitem"
   >
     <div
-      class="d-block"
+      class="k-multiselect-item-container"
       role="option"
     >
       <button
@@ -16,7 +16,7 @@
         :value="item.value"
         @click="handleClick"
       >
-        <span class="k-multiselect-item-label mr-2">
+        <span class="k-multiselect-item-label">
           <slot name="content">{{ item.label }}
           </slot>
         </span>
@@ -29,16 +29,17 @@
           >
             <KIcon
               class="selected-item-icon"
-              :color="item.selected ? 'var(--blue-200)' : 'var(--grey-400)'"
+              :class="{ 'is-item-selected': item.selected }"
+              :color="item.selected ? 'currentColor' : `var(--grey-400, var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK}))`"
               hide-title
               icon="lock"
-              size="14"
+              :size="KUI_ICON_SIZE_20"
             />
           </component>
           <KIcon
             v-else-if="item.selected"
             class="selected-item-icon"
-            color="var(--blue-200)"
+            color="currentColor"
             icon="check"
           />
         </span>
@@ -51,6 +52,7 @@
 import KIcon from '@/components/KIcon/KIcon.vue'
 import { PropType } from 'vue'
 import type { MultiselectItem } from '@/types'
+import { KUI_COLOR_TEXT_NEUTRAL_WEAK, KUI_ICON_SIZE_20 } from '@kong/design-tokens'
 
 const props = defineProps({
   item: {
@@ -74,27 +76,32 @@ const handleClick = (): void => {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
 
 .k-multiselect-item {
-  margin-bottom: 4px;
+  margin-bottom: var(--kui-space-20, $kui-space-20);
 
   &:last-of-type {
-    margin-bottom: 0 !important;
+    margin-bottom:var(--kui-space-0, $kui-space-0) !important;
+  }
+
+  .k-multiselect-item-container {
+    display: block !important
   }
 
   button {
     align-items: center;
-    background-color: var(--white);
+    background-color: var(--white, var(--kui-color-background, $kui-color-background));
     border: none;
-    border-radius: 4px;
-    color: var(--grey-500);
+    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+    color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
     display: flex;
-    font-family: var(--font-family-sans);
-    font-size: var(--type-xs);
-    font-weight: 400;
-    line-height: 26px;
-    padding-left: var(--spacing-xxs);
+    font-family: var(--font-family-sans, var(--kui-font-family-text, $kui-font-family-text));
+    font-size: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
+    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+    line-height: var(--kui-line-height-40, $kui-line-height-40);
+    padding-left: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
     text-align: left;
     width: 100%;
 
@@ -106,62 +113,67 @@ const handleClick = (): void => {
       cursor: not-allowed;
 
       .k-multiselect-item-label {
+        margin-right: var(--kui-space-40, $kui-space-40) !important;
         opacity: 0.6;
       }
     }
 
     .k-multiselect-item-label {
-      color: var(--grey-600);
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 20px;
-      padding: 8px;
+      color: var(--grey-600, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
+      font-size: var(--kui-font-size-30, $kui-font-size-30);
+      font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
+      line-height: var(--kui-line-height-30, $kui-line-height-30);
+      padding: var(--kui-space-40, $kui-space-40);
       width: auto;
       word-break: break-word;
 
       :deep(.select-item-label) {
-        color: var(--grey-600);
-        font-size: 14px;
-        font-weight: 600;
-        margin-bottom: var(--spacing-xxs);
+        color: var(--grey-600, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
+        font-size: var(--kui-font-size-30, $kui-font-size-30);
+        font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+        margin-bottom: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
       }
 
       :deep(.select-item-desc) {
-        color: var(--grey-500);
-        font-size: var(--spacing-sm);
-        font-weight: 400;
+        color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
+        font-size: var(--spacing-sm, var(--kui-space-50, $kui-space-50));
+        font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
       }
     }
     .selected-item-icon {
-      height: var(--spacing-lg);
+      height: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
 
       &.kong-icon.kong-icon-lock {
         height: 14px;
-        padding-left: var(--spacing-xxs);
+        padding-left: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
+      }
+
+      &.is-item-selected {
+        color: $tmp-color-blue-200;
       }
     }
 
     .kong-icon:not(.selected-item-icon) {
-      margin-right: var(--spacing-sm);
+      margin-right: var(--spacing-sm, var(--kui-space-50, $kui-space-50));
     }
 
     .k-multiselect-selected-icon-container {
       height: var(--spacing-lg);
-      margin-bottom: auto;
-      margin-left: auto;
-      margin-top: auto;
+      margin-bottom: var(--kui-space-auto, $kui-space-auto);
+      margin-left:  var(--kui-space-auto, $kui-space-auto);
+      margin-top:  var(--kui-space-auto, $kui-space-auto);
       width: var(--spacing-lg);
     }
 
     &:not(:disabled):hover {
-      background-color: var(--grey-100);
-      color: var(--grey-600);
+      background-color: var(--grey-100, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
+      color: var(--grey-600, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
     }
 
     &.selected {
-      background-color: var(--blue-100);
-      color: var(--blue-500);
-      font-weight: 400;
+      background-color: var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
+      color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
+      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
     }
   }
 }
