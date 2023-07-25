@@ -171,7 +171,7 @@ You can pass a `width` string for the entire tree. By default it will take the f
     {{ item.id === 'cats' ? '😸' : item.id === 'bunnies' ? '🐰' : '🐶' }}
   </template>
   <template #item-label="{ item }">
-    <span class="slot-color-purple-400">
+    <span class="slot-color-purple">
     Animal: {{ item.name }}
     </span>
   </template>
@@ -183,7 +183,7 @@ You can pass a `width` string for the entire tree. By default it will take the f
     {{ item.id === 'cats' ? '😸' : item.id === 'bunnies' ? '🐰' : '🐶' }}
   </template>
   <template #item-label="{ item }">
-    <span class="slot-color-purple-400">
+    <span class="slot-color-purple">
     Animal: {{ item.name }}
     </span>
   </template>
@@ -503,7 +503,7 @@ const handleChildChange = (data) => {
   margin-top: 32px;
 }
 
-.slot-color-purple-400 {
+.slot-color-purple {
   color: #473cfb;
 }
 
