@@ -201,18 +201,22 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-.k-tree-list .k-tree-draggable {
-  margin: 0;
-  padding: 0;
-}
-.k-tree-list > .k-tree-draggable > .k-tree-item-container {
-  &:before {
-    display: none;
+.k-tree-list {
+  .k-tree-draggable {
+    margin: $kui-space-0;
+    padding: $kui-space-0;
   }
-  &:after {
-    display: none;
+
+  & > .k-tree-draggable > .k-tree-item-container {
+    &:before {
+      display: none;
+    }
+    &:after {
+      display: none;
+    }
   }
 }
+
 // override cursor as grabbing when an item is being dragged
 .k-tree-list-grabbing *,
 .k-tree-item-grabbing * {
