@@ -231,7 +231,7 @@ You can pass a `width` string for the entire tree. By default it will take the f
   const mySelection = ref(null)
   const handleChildChange = (data) => {
     const { parentId, children, target } = data
-    const changedParent = myItems.value.filter(item => item.id === parentId)?.[0]
+    const changedParent = myItems.value.find(item => item.id === parentId)
     changedParent.children = children
   }
 </script>
@@ -481,7 +481,7 @@ const reset = () => {
 
 const handleChildChange = (data) => {
   const { parentId, children, target } = data
-  const changedParent = eventItems.value.filter(item => item.id === parentId)?.[0]
+  const changedParent = eventItems.value.find(item => item.id === parentId)
   changedParent.children = children
 }
 </script>
