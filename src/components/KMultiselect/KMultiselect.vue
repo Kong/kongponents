@@ -1066,8 +1066,8 @@ onBeforeUnmount(() => {
   }
 
   .k-multiselect-list {
-    margin: var(--kui-space-0) !important;
-    padding: var(--kui-space-0) !important;
+    margin: var(--kui-space-0, $kui-space-0) !important;
+    padding: var(--kui-space-0, kui-space-0) !important;
   }
 
   .k-multiselect-new-item {
