@@ -35,7 +35,7 @@
               v-if="element.icon !== 'none'"
               :icon="element.icon ? element.icon : 'documentList'"
               :secondary-color="iconSecondaryColor(element)"
-              size="24"
+              :size="KUI_ICON_SIZE_50"
             />
           </slot>
         </template>
@@ -84,9 +84,10 @@
  */
 import { computed, ref, watch, onMounted, PropType } from 'vue'
 import { VueDraggableNext } from 'vue-draggable-next'
+import type { TreeListItem, ChangeEvent, ChildChangeEvent } from '@/types'
+import { KUI_ICON_SIZE_50 } from '@kong/design-tokens'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KTreeItem from '@/components/KTreeList/KTreeItem.vue'
-import type { TreeListItem, ChangeEvent, ChildChangeEvent } from '@/types'
 
 /**
  * Recursive check to get the maximum depth of an object.
@@ -152,7 +153,9 @@ const itemLabel = 'item-label'
 
 const iconSecondaryColor = (item: TreeListItem): string | undefined => {
   if (item.icon === 'documentList' || !item.icon) {
-    return item.selected ? 'var(--KTreeListItemSelectedBorder, var(--teal-200))' : 'var(--KTreeListItemUnselectedBorder, var(--grey-200))'
+    return item.selected
+      ? 'var(--KTreeListItemSelectedBorder, $tmp-color-teal-200)'
+      : 'var(--KTreeListItemUnselectedBorder, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker))'
   }
 
   return undefined
@@ -269,8 +272,8 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
 @import '@/styles/functions';
+@import '@/styles/tmp-variables';
 
 .k-tree-draggable {
   $defaultDropZoneHeight: 6px;
@@ -289,9 +292,9 @@ onMounted(() => {
     // the bar under the last child
     .has-no-children:last-of-type .child-drop-zone:last-of-type,
     &.has-no-children .child-drop-zone:last-of-type {
-      background-color: var(--KTreeListItemSelectedBorder, var(--teal-200));
-      border-radius: 100px;
-      margin-left: 0;
+      background-color: var(--KTreeListItemSelectedBorder, $tmp-color-teal-200);
+      border-radius: $kui-border-radius-round;
+      margin-left: $kui-space-0;
       min-height: 4px;
     }
 
@@ -305,6 +308,7 @@ onMounted(() => {
     display: none;
   }
 
+  // no tokens for these two since the math requires them to be static
   $indent: 16px;
   $bar: 12px;
   .k-tree-draggable {
@@ -313,7 +317,7 @@ onMounted(() => {
   }
 
   .k-tree-item-container {
-    $border: var(--KTreeListItemUnselectedBorder, var(--grey-200));
+    $border: var(--KTreeListItemUnselectedBorder, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker));
     $barLeft: -($bar);
     $dropZoneHalved: calc(var(--KTreeListDropZoneHeight, $defaultDropZoneHeight) / 2);
     margin: $dropZoneHalved 0 0 $dropZoneHalved;
@@ -321,8 +325,8 @@ onMounted(() => {
 
     // child connecting lines
     &:before {
-      border-bottom: 1px solid $border;
-      border-left: 1px solid $border;
+      border-bottom: $kui-border-width-10 solid $border;
+      border-left: $kui-border-width-10 solid $border;
       border-radius: 0 0 0 5px;
       content: "";
       height: calc(var(--KTreeListDropZoneHeight, $defaultDropZoneHeight) + 20px);
@@ -333,7 +337,7 @@ onMounted(() => {
     }
     // connects siblings
     &:after {
-      border-left: 1px solid $border;
+      border-left: $kui-border-width-10 solid $border;
       content: "";
       height: 100%;
       left: $barLeft;
