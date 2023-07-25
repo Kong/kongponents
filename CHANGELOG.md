@@ -1,3 +1,10 @@
+# [8.108.0](https://github.com/Kong/kongponents/compare/v8.107.0...v8.108.0) (2023-07-25)
+
+
+### Features
+
+* **kmodalfullscreen:** introduce kui tokens [KHCP-7715] ([#1574](https://github.com/Kong/kongponents/issues/1574)) ([02c48f7](https://github.com/Kong/kongponents/commit/02c48f7566b71e69c6a79cd98fb52cb4bf724870))
+
 # [8.107.0](https://github.com/Kong/kongponents/compare/v8.106.1...v8.107.0) (2023-07-25)
 
 
