@@ -136,6 +136,7 @@ export default {
     }
 
     .k-breadcrumb-divider {
+      color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
       padding: var(--kui-space-0, $kui-space-0) var(--kui-space-20, $kui-space-20);
     }
 
