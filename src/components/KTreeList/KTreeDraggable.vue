@@ -154,7 +154,7 @@ const itemLabel = 'item-label'
 const iconSecondaryColor = (item: TreeListItem): string | undefined => {
   if (item.icon === 'documentList' || !item.icon) {
     return item.selected
-      ? 'var(--KTreeListItemSelectedBorder, $tmp-color-teal-200)'
+      ? 'var(--KTreeListItemSelectedBorder, currentColor)'
       : `var(--KTreeListItemUnselectedBorder, var(--kui-color-border-disabled, ${KUI_COLOR_BORDER_DISABLED}))`
   }
 

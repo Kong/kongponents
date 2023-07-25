@@ -70,7 +70,7 @@ const itemIcon = computed((): string => props.item.icon ? props.item.icon : 'doc
 const iconSecondaryColor = (): string | undefined => {
   if (itemIcon.value === 'documentList') {
     return props.item.selected
-      ? 'var(--KTreeListItemSelectedBorder, $tmp-color-teal-200)'
+      ? 'var(--KTreeListItemSelectedBorder, currentColor)'
       : `var(--KTreeListItemUnselectedBorder, var(--kui-color-border-disabled, ${KUI_COLOR_BORDER_DISABLED}))`
   }
 
@@ -97,13 +97,17 @@ const handleClick = () => {
   text-decoration: none;
 
   .k-tree-item-icon {
-    line-height: 1;
+    line-height: var(--kui-line-height-20, $kui-line-height-20);
     margin-right: var(--kui-space-40, $kui-space-40) !important;
   }
 
   &.selected {
     background-color: var(--KTreeListItemSelectedBackground, $tmp-color-teal-100);
     border-color: var(--KTreeListItemSelectedBorder, $tmp-color-teal-200);
+
+    .k-tree-item-icon { /** so we can use currentColor in script section */
+      color: var(--KTreeListItemSelectedBorder, $tmp-color-teal-200);
+    }
   }
 
   &:hover {
