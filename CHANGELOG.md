@@ -1,3 +1,10 @@
+## [8.106.1](https://github.com/Kong/kongponents/compare/v8.106.0...v8.106.1) (2023-07-25)
+
+
+### Bug Fixes
+
+* **kbreadcrumbs:** default divider color ([#1580](https://github.com/Kong/kongponents/issues/1580)) ([1546cfc](https://github.com/Kong/kongponents/commit/1546cfc08266ef0df4013e029bfd9180719fd0fa))
+
 # [8.106.0](https://github.com/Kong/kongponents/compare/v8.105.0...v8.106.0) (2023-07-25)
 
 
