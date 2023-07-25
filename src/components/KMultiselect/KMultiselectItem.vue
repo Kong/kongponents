@@ -158,11 +158,11 @@ const handleClick = (): void => {
     }
 
     .k-multiselect-selected-icon-container {
-      height: var(--spacing-lg);
+      height: var(--spacing-lg, '24px');
       margin-bottom: var(--kui-space-auto, $kui-space-auto);
       margin-left:  var(--kui-space-auto, $kui-space-auto);
       margin-top:  var(--kui-space-auto, $kui-space-auto);
-      width: var(--spacing-lg);
+      width: var(--spacing-lg, '24px');
     }
 
     &:not(:disabled):hover {
