@@ -245,13 +245,13 @@ like:
 }
 
 .custom-trigger {
-  color: var(--blue-500);
+  color: blue;
   text-decoration: underline;
   white-space: nowrap;
-  margin-left: var(--spacing-xxs);
+  margin-left: 4px;
 
   &:hover {
-    color: var(--blue-600);
+    color: darkblue;
   }
 }
 </style>

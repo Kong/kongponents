@@ -8,7 +8,7 @@
     <!-- Order switched for ease when using keyboard navigation -->
     <div
       v-if="!isTextContent && showToggle"
-      class="d-flex h-100 align-items-end"
+      class="k-truncate-expand-controls"
     >
       <div
         v-if="!expanded"
@@ -49,9 +49,9 @@
             @click="handleToggleClick"
           >
             <KIcon
-              color="var(--KTruncateCollapseIconColor, var(--blue-500, color(blue-500)))"
+              :color="`var(--KTruncateCollapseIconColor, var(--blue-500, var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})))`"
               icon="chevronUp"
-              size="10"
+              :size="KUI_ICON_SIZE_10"
               title="Show less"
             />
           </KButton>
@@ -61,7 +61,7 @@
     <div
       v-if="isTextContent && (showToggle || expanded)"
       ref="textToggleControls"
-      class="place-self-end mt-2"
+      class="k-truncate-collapse-controls"
     >
       <div
         v-if="!expanded"
@@ -101,6 +101,8 @@
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount, ref, nextTick, computed } from 'vue'
 import useUtilities from '@/composables/useUtilities'
+import KIcon from '@/components/KIcon/KIcon.vue'
+import { KUI_COLOR_TEXT_PRIMARY, KUI_ICON_SIZE_10, KUI_SPACE_40 } from '@kong/design-tokens'
 
 const { getSizeFromString } = useUtilities()
 
@@ -134,14 +136,15 @@ const kTruncateContainer = ref<HTMLDivElement>()
 const kTruncateWrapper = ref<HTMLDivElement>()
 const textToggleControls = ref<HTMLDivElement>()
 const wrapperHeight = ref<string>('0px')
+const gap = KUI_SPACE_40
 
 const truncatedCount = ref<number>(0)
 
 /**
  * Sets wrapper height.
  * When rows prop === 1: sets wrapper height equal to height of the tallest child.
- * When rows prop > 1: wrapper hight will be rows count multiplied by height of the tallest child plus gap (10px).
- * For example if rows is 2 and all elements are equal height if 22px, wrapper height will be set to 54px (2 * 22 + 10).
+ * When rows prop > 1: wrapper hight will be rows count multiplied by height of the tallest child plus gap.
+ * For example if rows is 2 and all elements are equal height if 22px, wrapper height will be set to 54px (2 * 22 + gap).
  */
 const setWrapperHeight = async (): Promise<void> => {
   if (props.isTextContent) {
@@ -150,12 +153,13 @@ const setWrapperHeight = async (): Promise<void> => {
 
   if (kTruncateContainer.value && kTruncateContainer.value.children?.length) {
     const children = kTruncateContainer.value.children as unknown as HTMLElement[]
+    const gapNumber = Number(String(gap).replace(/px/gi, ''))
     let tallestChildHeight = 0
     for (let i = 0; i < children.length; i++) {
       // find height of tallest child
       tallestChildHeight = children[i].offsetHeight > tallestChildHeight ? children[i].offsetHeight : tallestChildHeight
     }
-    const targetWrapperHeight = (props.rows === 1 ? 0 : (props.rows - 1) * 10) + (tallestChildHeight * props.rows) + 6 // account for padding
+    const targetWrapperHeight = (props.rows === 1 ? 0 : (props.rows - 1) * gapNumber) + (tallestChildHeight * props.rows) + 6 // account for padding
     wrapperHeight.value = kTruncateContainer.value.offsetHeight > targetWrapperHeight ? `${targetWrapperHeight}px` : 'auto'
 
     await nextTick()
@@ -256,14 +260,20 @@ onBeforeUnmount(() => {
   align-items: flex-start;
   display: flex;
   overflow: hidden;
-  padding: 3px;
+  padding: var(--kui-space-20, $kui-space-20);
+
+  .k-truncate-expand-controls {
+    align-items: flex-end !important;
+    display: flex !important;
+    height: 100% !important;
+  }
 
   .expand-trigger,
   .collapse-trigger {
-    --KButtonLink: var(--KTruncateToggleColor, var(--blue-500, color(blue-500)));
-    --KButtonPrimaryBase: var(--KTruncateCollapseBackground, var(--blue-100, color(blue-100)));
-    --KButtonPrimaryHover: var(--KTruncateCollapseHover, var(--blue-200, color(blue-200)));
-    --KButtonPrimaryActive: var(--KTruncateCollapseHover, var(--blue-200, color(blue-200)));
+    --KButtonLink: var(--KTruncateToggleColor, var(--blue-500, var(--kui-color-text-primary, #{$kui-color-text-primary})));
+    --KButtonPrimaryBase: var(--KTruncateCollapseBackground, var(--blue-100, var(--kui-color-background-primary-weakest, #{$kui-color-background-primary-weakest})));
+    --KButtonPrimaryHover: var(--KTruncateCollapseHover, var(--blue-200, var(--kui-color-background-primary-weaker, #{$kui-color-background-primary-weaker})));
+    --KButtonPrimaryActive: var(--KTruncateCollapseHover, var(--blue-200, var(--kui-color-background-primary-weaker, #{$kui-color-background-primary-weaker})));
   }
 
   &.k-truncate-content {
@@ -277,13 +287,13 @@ onBeforeUnmount(() => {
     .k-truncate-container {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: v-bind('gap');
       margin-right: auto;
       position: relative;
     }
 
     .expand-trigger {
-      font-size: var(--type-xs);
+      font-size: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
 
       &::before {
         content: '+';
@@ -291,14 +301,14 @@ onBeforeUnmount(() => {
       }
     }
     .collapse-trigger {
-      padding: var(--spacing-xxs);
+      padding: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
 
       &:focus, &:active {
         box-shadow: none;
       }
 
       &:focus-within {
-        background-color: var(--KTruncateCollapseHover, var(--blue-200, color(blue-200)));
+        background-color: var(--KTruncateCollapseHover, var(--blue-200, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest)));
         outline: -webkit-focus-ring-color auto 1px;
       }
     }
@@ -320,8 +330,13 @@ onBeforeUnmount(() => {
     }
     .expand-trigger,
     .collapse-trigger {
-      font-size: var(--type-xs);
+      font-size: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
     }
+  }
+
+  .k-truncate-collapse-controls {
+    margin-top: var(--kui-space-40, $kui-space-40) !important;
+    place-self: flex-end !important;
   }
 }
 </style>
