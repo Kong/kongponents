@@ -37,7 +37,7 @@
 <script lang="ts">
 import { computed, PropType, useSlots } from 'vue'
 import { TreeListItem } from '@/types'
-import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
+import { KUI_ICON_SIZE_40, KUI_COLOR_BORDER_DISABLED } from '@kong/design-tokens'
 import KIcon from '@/components/KIcon/KIcon.vue'
 
 export const itemsHaveRequiredProps = (items: TreeListItem[]): boolean => {
@@ -71,7 +71,7 @@ const iconSecondaryColor = (): string | undefined => {
   if (itemIcon.value === 'documentList') {
     return props.item.selected
       ? 'var(--KTreeListItemSelectedBorder, $tmp-color-teal-200)'
-      : 'var(--KTreeListItemUnselectedBorder, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker))'
+      : `var(--KTreeListItemUnselectedBorder, var(--kui-color-border-disabled, ${KUI_COLOR_BORDER_DISABLED}))`
   }
 
   return undefined
@@ -89,7 +89,7 @@ const handleClick = () => {
 .k-tree-item {
   align-items: center;
   background-color: var(--KTreeListItemUnselectedBackground, var(--kui-color-background, $kui-color-background));
-  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--KTreeListItemUnselectedBorder, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker));
+  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--KTreeListItemUnselectedBorder, var(--kui-color-border-disabled, $kui-color-border-disabled));
   border-radius: $kui-border-radius-40;
   color: var(--KTreeListItemText, var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest));
   display: flex;

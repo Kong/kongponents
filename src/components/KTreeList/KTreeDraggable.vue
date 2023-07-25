@@ -85,7 +85,7 @@
 import { computed, ref, watch, onMounted, PropType } from 'vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 import type { TreeListItem, ChangeEvent, ChildChangeEvent } from '@/types'
-import { KUI_ICON_SIZE_50 } from '@kong/design-tokens'
+import { KUI_ICON_SIZE_50, KUI_COLOR_BORDER_DISABLED } from '@kong/design-tokens'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KTreeItem from '@/components/KTreeList/KTreeItem.vue'
 
@@ -155,7 +155,7 @@ const iconSecondaryColor = (item: TreeListItem): string | undefined => {
   if (item.icon === 'documentList' || !item.icon) {
     return item.selected
       ? 'var(--KTreeListItemSelectedBorder, $tmp-color-teal-200)'
-      : 'var(--KTreeListItemUnselectedBorder, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker))'
+      : `var(--KTreeListItemUnselectedBorder, var(--kui-color-border-disabled, ${KUI_COLOR_BORDER_DISABLED}))`
   }
 
   return undefined
@@ -317,7 +317,7 @@ onMounted(() => {
   }
 
   .k-tree-item-container {
-    $border: var(--KTreeListItemUnselectedBorder, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker));
+    $border: var(--KTreeListItemUnselectedBorder, var(--kui-color-border-disabled, $kui-color-border-disabled));
     $barLeft: -($bar);
     $dropZoneHalved: calc(var(--KTreeListDropZoneHeight, $defaultDropZoneHeight) / 2);
     margin: $dropZoneHalved 0 0 $dropZoneHalved;
