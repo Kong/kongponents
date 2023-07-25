@@ -1000,22 +1000,22 @@ onBeforeUnmount(() => {
 
   .k-multiselect-icon {
     position: absolute;
-    right: var(--kui-space-10, $kui-space-10);
-    top: var(--kui-space-10, $kui-space-10);
+    right: 1px;
+    top: 1px;
     z-index: 1;
 
     .k-multiselect-chevron-icon {
       position: relative;
-      right: var(--kui-space-40, $kui-space-40);
-      top: var(--kui-space-40, $kui-space-40);
+      right: 10px;
+      top: 11px;
     }
 
     .k-multiselect-clear-icon {
       @include non-visual-button;
       padding: var(--kui-space-0, $kui-space-0) !important;
       position: absolute;
-      right: var(--kui-space-40, $kui-space-40);
-      top: var(--kui-space-40, $kui-space-40);
+      right: 10px;
+      top: 8px;
     }
   }
 
@@ -1140,7 +1140,6 @@ onBeforeUnmount(() => {
   .k-multiselect-popover {
     box-sizing: border-box;
     margin-top: var(--kui-space-0, $kui-space-0) !important;
-    margin-top: var(--kui-space-10, $kui-space-10) !important;
     width: 100%;
 
     &[x-placement^="top"] {
