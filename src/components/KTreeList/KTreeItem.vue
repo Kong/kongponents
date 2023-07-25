@@ -89,16 +89,16 @@ const handleClick = () => {
 .k-tree-item {
   align-items: center;
   background-color: var(--KTreeListItemUnselectedBackground, var(--kui-color-background, $kui-color-background));
-  border: $kui-border-width-10 solid var(--KTreeListItemUnselectedBorder, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker));
+  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--KTreeListItemUnselectedBorder, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker));
   border-radius: $kui-border-radius-40;
   color: var(--KTreeListItemText, var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest));
   display: flex;
-  padding: $kui-space-20;
+  padding: var(--kui-space-20, $kui-space-20);
   text-decoration: none;
 
   .k-tree-item-icon {
     line-height: 1;
-    margin-right: $kui-space-40 !important;
+    margin-right: var(--kui-space-40, $kui-space-40) !important;
   }
 
   &.selected {
