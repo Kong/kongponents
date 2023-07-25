@@ -1,3 +1,10 @@
+# [8.109.0](https://github.com/Kong/kongponents/compare/v8.108.0...v8.109.0) (2023-07-25)
+
+
+### Features
+
+* **ktruncate:** introduce kui tokens [KHCP-7732] ([#1582](https://github.com/Kong/kongponents/issues/1582)) ([c7539c8](https://github.com/Kong/kongponents/commit/c7539c86dc3ee088e16d3360db462d6596607d20))
+
 # [8.108.0](https://github.com/Kong/kongponents/compare/v8.107.0...v8.108.0) (2023-07-25)
 
 
