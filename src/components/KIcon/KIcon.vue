@@ -28,20 +28,21 @@
 <script lang="ts" setup>
 import { ref, computed, onMounted, nextTick, watch, useAttrs, useSlots } from 'vue'
 import * as allIcons from './icons'
+import { KUI_ICON_SIZE_50 } from '@kong/design-tokens'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 const icons: Record<string, any> = allIcons
 
 const DEFAULTS = {
-  size: '24',
+  size: KUI_ICON_SIZE_50,
   viewBox: '0 0 24 24',
 }
 
 const props = defineProps({
   /**
-     * Checks for valid icon name
-     */
+  * Checks for valid icon name
+  */
   icon: {
     type: String,
     validator: (value: string): boolean => {
@@ -50,15 +51,15 @@ const props = defineProps({
     required: true,
   },
   /**
-     * Optional - Overrides default height and width with equal value
-     */
+  * Optional - Overrides default height and width with equal value
+  */
   size: {
     type: String,
     default: '',
   },
   /**
-     * Optional - Sets Fill color
-     */
+  * Optional - Sets Fill color
+  */
   color: {
     type: String,
     default: null,
@@ -68,29 +69,29 @@ const props = defineProps({
     default: null,
   },
   /**
-     * Optional - Defines viewbox dimensions
-     */
+  * Optional - Defines viewbox dimensions
+  */
   viewBox: {
     type: String,
     default: '',
   },
   /**
-     * Optional - Replaces default title attribute
-     */
+  * Optional - Replaces default title attribute
+  */
   title: {
     type: String,
     default: '',
   },
   /**
-     * Optional - Prevents title from being shown on hover. Used by KTooltip
-     */
+  * Optional - Prevents title from being shown on hover. Used by KTooltip
+  */
   hideTitle: {
     type: Boolean,
     default: false,
   },
   /**
-     * If testMode enabled use the icon name for the title so we can test
-     */
+  * If testMode enabled use the icon name for the title so we can test
+  */
   testMode: {
     type: Boolean,
     default: false,
