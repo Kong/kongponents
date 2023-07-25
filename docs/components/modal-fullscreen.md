@@ -169,13 +169,13 @@ There are 6 designated slots you can use to display content in the fullscreen mo
     Install Plugin
   </template>
    <template #body-header>
-    <div class="ml-25">Configure a key auth plugin</div>
+    <div class="horizontal-spacing">Configure a key auth plugin</div>
   </template>
   <template #body-header-description>
-    <div class="ml-25">Lorem ipsum factum. <a>View documentation</a></div>
+    <div class="horizontal-spacing">Lorem ipsum factum. <a>View documentation</a></div>
   </template>
   <template #action-buttons>
-    <KButton size="medium" @click="sampleIsOpen = false" class="mr-2">Back</KButton>
+    <KButton size="medium" @click="sampleIsOpen = false" class="button-spacing">Back</KButton>
     <KButton appearance="creation" size="medium" @click="sampleIsOpen = false">Save</KButton>
   </template>
   <div>
@@ -192,7 +192,7 @@ There are 6 designated slots you can use to display content in the fullscreen mo
       is-searchable
     />
   </div>
-  <div class="ml-25">
+  <div class="horizontal-spacing">
     <KInputSwitch v-model="checked" label="This plugin is enabled" class="display-items" />
     <br><br>
     <div>
@@ -255,16 +255,16 @@ There are 6 designated slots you can use to display content in the fullscreen mo
     Install Plugin
   </template>
    <template #body-header>
-    <div class="ml-25">Configure a key auth plugin</div>
+    <div class="horizontal-spacing">Configure a key auth plugin</div>
   </template>
   <template #body-header-description>
-    <div class="ml-25">Lorem ipsum factum. <a>View documentation</a></div>
+    <div class="horizontal-spacing">Lorem ipsum factum. <a>View documentation</a></div>
   </template>
   <template #action-buttons>
     <KButton size="medium" @click="sampleIsOpen = false">Back</KButton>
     <KButton appearance="creation" size="medium" @click="sampleIsOpen = false">Save</KButton>
   </template>
-  <div class="ml-25">
+  <div class="horizontal-spacing">
     <KInputSwitch v-model="checked" label="This plugin is enabled" class="display-items" />
     <br><br>
     <div class="wrapper display-items">
@@ -472,15 +472,19 @@ export default {
   --KModalFullscreenColor: green;
 }
 
-.ml-25 {
+.horizontal-spacing {
   margin-left: 25%;
 }
 
+.button-spacing {
+  margin-right: $kui-space-40;
+}
+
 .k-switch {
-  border-top: 1px solid #eaecef;
-  padding-top: 26px;
-  border-bottom: 1px solid #eaecef;
-  padding-bottom: 26px;
+  border-top: $kui-border-width-10 solid #eaecef;
+  padding-top: $kui-space-80;
+  border-bottom: $kui-border-width-10 solid #eaecef;
+  padding-bottom: $kui-space-80;
 }
 
 .display {
@@ -500,20 +504,20 @@ export default {
   input {
     width: 100%;
     height: 80%;
-    border-radius: 4px;
-    border: 1px solid var(--grey-300);
-    background-color: var(--white);
-    text-indent: 10px;
+    border-radius: $kui-border-radius-20;
+    border: $kui-border-width-10 solid var(--grey-300, $kui-color-border-neutral-weak);
+    background-color: var(--white, $kui-color-background);
+    text-indent: $kui-space-40;
   }
 
   label {
     position: absolute;
     top: -10px;
     left: 15px;
-    padding: 5px;
-    background-color: var(--white);
-    color: var(--grey-500);
-    font-size: 11px;
+    padding: $kui-space-20;
+    background-color: var(--white, $kui-color-background);
+    color: var(--grey-500, $kui-color-text-neutral);
+    font-size: $kui-font-size-10;
   }
 }
 </style>
