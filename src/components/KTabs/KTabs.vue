@@ -98,6 +98,7 @@ watch(() => props.modelValue, (newTabHash) => {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
 
 .k-tabs {
@@ -105,7 +106,7 @@ watch(() => props.modelValue, (newTabHash) => {
     border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--KTabsBottomBorderColor, var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
     display: flex;
     font-size: var(--kui-font-size-50, $kui-font-size-50);
-    line-height: var(--kui-line-height-30, $kui-line-height-30);
+    line-height: var(--kui-line-height-50, $kui-line-height-50);
     list-style: none;
     margin-bottom: var(--kui-space-0, $kui-space-0);
     padding-left: var(--kui-space-0, $kui-space-0);
@@ -153,7 +154,7 @@ watch(() => props.modelValue, (newTabHash) => {
       &:hover {
         .tab-link.has-panels,
         .tab-link:not(.has-panels) :deep(> *) {
-          border-bottom: var(--kui-border-width-30, $kui-border-width-30) solid var(--KTabBottomBorderColor, var(--teal-300, var(--kui-color-text-decorative, $kui-color-text-decorative)));
+          border-bottom: var(--kui-border-width-30, $kui-border-width-30) solid var(--KTabBottomBorderColor, var(--teal-300, $tmp-color-aqua-50)); // teal-300 is now aqua-50
           color: var(--KTabsActiveColor, var(--black-500, var(--kui-color-text, $kui-color-text)));
         }
       }
