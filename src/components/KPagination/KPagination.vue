@@ -24,7 +24,9 @@
               @click.prevent="pageBack"
             >
               <KIcon
-                :color="backDisabled ? `var(--KPaginationDisabledColor, var(--grey-500, var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})))` : `var(--KPaginationColor, var(--blue-400, var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})))`"
+                class="pagination-arrow-icon"
+                :class="{ 'is-direction-disabled': backDisabled }"
+                color="currentColor"
                 icon="arrowLeft"
                 :size="KUI_ICON_SIZE_30"
                 view-box="0 0 16 14"
@@ -90,7 +92,9 @@
               @click.prevent="pageForward"
             >
               <KIcon
-                :color="forwardDisabled ? `var(--KPaginationDisabledColor, var(--grey-500, var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})))` : `var(--KPaginationColor, var(--blue-400, var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})))`"
+                class="pagination-arrow-icon"
+                :class="{ 'is-direction-disabled': forwardDisabled }"
+                color="currentColor"
                 icon="arrowRight"
                 :size="KUI_ICON_SIZE_30"
                 view-box="0 0 16 14"
@@ -133,7 +137,7 @@ import KSelect from '@/components/KSelect/KSelect.vue'
 import PaginationOffset from './PaginationOffset.vue'
 import type { PaginationType } from '@/types'
 import { PageSizeChangedData, PageChangedData } from '@/types'
-import { KUI_COLOR_TEXT_NEUTRAL, KUI_COLOR_TEXT_PRIMARY, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 
 const kpopAttrs = {
   placement: 'top',
@@ -402,6 +406,14 @@ watch(pageCount, (newVal, oldVal) => {
     line-height: var(--kui-line-height-20, $kui-line-height-20);
     margin: var(--kui-space-0, $kui-space-0) var(--kui-space-30, $kui-space-30);
     min-width: 32px;
+
+    .pagination-arrow-icon {
+      color: var(--KPaginationColor, var(--blue-400, var(--kui-color-text-primary, $kui-color-text-primary)));
+
+      &.is-direction-disabled {
+        color: var(--KPaginationDisabledColor, var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-primary)))
+      }
+    }
 
      &:not(.square) {
       background-color: var(--KPaginationBackgroundColor, var(--kui-color-background, $kui-color-background));
