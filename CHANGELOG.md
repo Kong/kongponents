@@ -1,3 +1,10 @@
+# [8.107.0](https://github.com/Kong/kongponents/compare/v8.106.1...v8.107.0) (2023-07-25)
+
+
+### Features
+
+* **kmultiselect:** introduce kui tokens [KHCP-7716] ([#1579](https://github.com/Kong/kongponents/issues/1579)) ([6dd8b60](https://github.com/Kong/kongponents/commit/6dd8b6080d90dbb9ca92818a12a71c625822acfb))
+
 ## [8.106.1](https://github.com/Kong/kongponents/compare/v8.106.0...v8.106.1) (2023-07-25)
 
 
