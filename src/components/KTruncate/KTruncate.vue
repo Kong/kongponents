@@ -153,7 +153,7 @@ const setWrapperHeight = async (): Promise<void> => {
 
   if (kTruncateContainer.value && kTruncateContainer.value.children?.length) {
     const children = kTruncateContainer.value.children as unknown as HTMLElement[]
-    const gapNumber = Number(String(gap).replace(/px/gi, ''))
+    const gapNumber = Number(String(gap).replace(/px$/gi, ''))
     let tallestChildHeight = 0
     for (let i = 0; i < children.length; i++) {
       // find height of tallest child
