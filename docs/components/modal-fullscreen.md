@@ -477,14 +477,14 @@ export default {
 }
 
 .button-spacing {
-  margin-right: var(--kui-space-40, $kui-space-40) !important;
+  margin-right: $kui-space-40;
 }
 
 .k-switch {
-  border-top: var(--kui-border-width-10, $kui-border-width-10) solid #eaecef;
-  padding-top: var(--kui-space-80, $kui-space-80);
-  border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid #eaecef;
-  padding-bottom: var(--kui-space-80, $kui-space-80);
+  border-top: $kui-border-width-10 solid #eaecef;
+  padding-top: $kui-space-80;
+  border-bottom: $kui-border-width-10 solid #eaecef;
+  padding-bottom: $kui-space-80;
 }
 
 .display {
@@ -504,20 +504,20 @@ export default {
   input {
     width: 100%;
     height: 80%;
-    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
-    background-color: var(--white, var(--kui-color-background, $kui-color-background));
-    text-indent: var(--kui-space-40, $kui-space-40);
+    border-radius: $kui-border-radius-20;
+    border: $kui-border-width-10 solid var(--grey-300, $kui-color-border-neutral-weak);
+    background-color: var(--white, $kui-color-background);
+    text-indent: $kui-space-40;
   }
 
   label {
     position: absolute;
     top: -10px;
     left: 15px;
-    padding: var(--kui-space-20, $kui-space-20);
-    background-color: var(--white, var(--kui-color-background, $kui-color-background));
-    color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
-    font-size: var(--kui-font-size-10, $kui-font-size-10);
+    padding: $kui-space-20;
+    background-color: var(--white, $kui-color-background);
+    color: var(--grey-500, $kui-color-text-neutral);
+    font-size: $kui-font-size-10;
   }
 }
 </style>

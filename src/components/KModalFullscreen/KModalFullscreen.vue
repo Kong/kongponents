@@ -235,12 +235,12 @@ $fullscreen-modal-padding: 64px;
 
 .k-modal-fullscreen-dialog {
   background: var(--white, var(--kui-color-background, $kui-color-background));
-  bottom: var(--kui-space-0, $kui-space-0);
-  left: var(--kui-space-0, $kui-space-0);
+  bottom: 0;
+  left: 0;
   padding-top: $fullscreen-modal-padding * 2;
   position: fixed;
-  right: var(--kui-space-0, $kui-space-0);
-  top: var(--kui-space-0, $kui-space-0);
+  right: 0;
+  top: 0;
   width: 100vw;
   z-index: 9999;
 
@@ -267,7 +267,7 @@ $fullscreen-modal-padding: 64px;
   flex-direction: column;
   padding: var(--spacing-lg, var(--kui-space-80, $kui-space-80)) var(--kui-space-0, $kui-space-0);
   position: fixed;
-  top: var(--kui-space-0, $kui-space-0);
+  top: 0;
   width: 100%;
   z-index: 1009;
 
@@ -289,7 +289,7 @@ $fullscreen-modal-padding: 64px;
   align-items: center;
   background-color: var(--white, var(--kui-color-background, $kui-color-background));
   border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
-  bottom: var(--kui-space-0, $kui-space-0);
+  bottom: 0;
   box-shadow: 0px 0px 20px var(black-10, $tmp-color-black-10);
   display: inline-flex;
   justify-content: space-between;
@@ -323,8 +323,8 @@ $fullscreen-modal-padding: 64px;
   & :deep(button) {
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-    height: var(--kui-space-100, $kui-space-100);
-    line-height: var(--kui-line-height-10, $kui-line-height-10);
+    height: 40px;
+    line-height: var(--kui-line-height-20, $kui-line-height-20);
     margin-left: var(--spacing-md, var(--kui-space-60, $kui-space-60));
   }
 
