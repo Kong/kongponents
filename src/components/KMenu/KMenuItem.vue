@@ -39,7 +39,7 @@
     <div
       v-if="expandable"
       class="menu-content"
-      :class="isOpen ? 'is-open' : 'is-close'"
+      :class="isOpen ? 'is-open' : 'is-closed'"
     >
       <slot name="itemBody">
         <div v-if="(type === 'string' || type === 'divider') && expandable">
@@ -157,14 +157,14 @@ const toggleMenuItem = (): void => {
     display: flex !important;
   }
 
-  &.is-close {
+  &.is-closed {
     display: none !important;
   }
 }
 
 .k-button.menu-button {
   color: var(--KButtonOutlineColor, var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral)));
-  font-family: var(--font-family-sans);
+  font-family: var(--font-family-sans, var(--kui-font-family-text, $kui-font-family-text));
   font-size: var(--kui-font-size-20, $kui-font-size-20);
   font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular) !important;
   line-height: var(--kui-line-height-40, $kui-line-height-40);
