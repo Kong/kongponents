@@ -222,7 +222,7 @@ export default defineComponent({
 
 div.menu-content div {
   white-space: normal;
-  margin-right: 22px;
+  margin-right: $kui-space-70;
   text-align: justify;
 }
 </style>
