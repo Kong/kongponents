@@ -99,7 +99,7 @@ describe('KBreadcrumbs', () => {
         ],
       },
       slots: {
-        'docs-icon': customIcon,
+        'icon-docs': customIcon,
       },
     })
 

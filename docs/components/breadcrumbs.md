@@ -148,17 +148,17 @@ Content to be displayed between breadcrumb items, defaults to a chevron.
 </KBreadcrumbs>
 ```
 
-### breadcrumb-icon
+### `icon-${key}`
 
 You can slot individual breadcrumb icon content. Each breadcrumb will have an icon slot named after the item `key` or index (if no `key` provided).
 
 <KCard>
   <template #body>
     <KBreadcrumbs :items="iconBreadcrumbs">
-      <template #home-icon>
+      <template #icon-home>
         <KIcon icon="immunity" color="#169fcc" size="16" class="breadcrumb-icon" />
       </template>
-      <template #breadcrumb-1-icon>
+      <template #icon-breadcrumb-1>
         <KIcon icon="graduationHat" color="#473cfb" size="16" class="breadcrumb-icon" />
       </template>
     </KBreadcrumbs>
@@ -168,10 +168,10 @@ You can slot individual breadcrumb icon content. Each breadcrumb will have an ic
 ```html
 <template>
   <KBreadcrumbs :items="breadcrumbItems">
-    <template #home-icon>
+    <template #icon-home>
       <KIcon icon="immunity" color="#169fcc" size="16" />
     </template>
-    <template #breadcrumb-1-icon>
+    <template #icon-breadcrumb-1>
       <KIcon icon="graduationHat" color="#473cfb" size="16" />
     </template>
   </KBreadcrumbs>
