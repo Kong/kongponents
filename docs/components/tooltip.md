@@ -36,8 +36,8 @@ KTooltip won't be triggered if the element you pass through `default` slot has `
 
 <KCard>
   <template #body>
-    <div class="k-tooltip">
-      <KTooltip label="I won't pop up" class="k-tooltip-label">
+    <div class="my-tooltip">
+      <KTooltip label="I won't pop up" class="my-tooltip-label">
         <KButton disabled>❌</KButton>
       </KTooltip>
       <KTooltip label="I will pop up">
@@ -49,6 +49,15 @@ KTooltip won't be triggered if the element you pass through `default` slot has `
   </template>
 </KCard>
 
+<style>
+.my-tooltip {
+  display: flex !important;
+}
+.my-tooltip-label {
+  margin-right: 4px !important;
+}
+</style>
+
 ```html
 <KTooltip label="I won't show up">
   <KButton disabled>❌</KButton>
@@ -58,15 +67,6 @@ KTooltip won't be triggered if the element you pass through `default` slot has `
     <KButton disabled>✅</KButton>
   </span>
 </KTooltip>
-
-<style>
-.k-tooltip {
-  display: flex !important;
-}
-.k-tooltip-label {
-  margin-right: $kui-space-10 !important;
-}
-</style>
 ```
 
 ### placement
@@ -83,7 +83,7 @@ Here are the different options:
   </li>
 </ul>
 
-<div class="k-tooltip">
+<div class="custom-tooltip">
   <KTooltip placement="bottom" label="A label that appears on the bottom">
     <KButton>bottom</KButton>
   </KTooltip>
@@ -98,17 +98,17 @@ Here are the different options:
   </KTooltip>
 </div>
 
-```html
-<KTooltip placement="bottom" label="A label that appears on the bottom">
-  <KButton>Sample Button</KButton>
-</KTooltip>
-
 <style>
-.k-tooltip {
+.custom-tooltip {
   display: flex !important;
   justify-content: space-around !important;
 }
 </style>
+
+```html
+<KTooltip placement="bottom" label="A label that appears on the bottom">
+  <KButton>Sample Button</KButton>
+</KTooltip>
 ```
 
 ### positionFixed
@@ -145,7 +145,7 @@ You can set the maximum width of a Tooltip with the `maxWidth` property. `maxWid
 <KTooltip label="Video Games">
   <KButton>&nbsp;✌🏻</KButton>
   <template v-slot:content>
-    <span><b>yoyo</b> <span class="color-red-500">kooltip</span></span>
+    <span><b>yoyo</b> <em>kooltip</em></span>
   </template>
 </KTooltip>
 
@@ -153,7 +153,7 @@ You can set the maximum width of a Tooltip with the `maxWidth` property. `maxWid
 <KTooltip>
   <KButton>&nbsp;✌🏻</KButton>
   <template v-slot:content>
-    <span><b>yoyo</b> <span class="color-red-500">kooltip</span></span>
+    <span><b>yoyo</b> <em>kooltip</em></span>
   </template>
 </KTooltip>
 ```
