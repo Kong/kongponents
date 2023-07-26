@@ -30,7 +30,7 @@ defineProps({
 
 .k-step-state-icon {
   circle {
-    stroke: var(--KStepActiveColor, var(--teal-300));
+    stroke: var(--KStepActiveColor, var(--kui-color-text-decorative, $kui-color-text-decorative));
   }
 }
 </style>

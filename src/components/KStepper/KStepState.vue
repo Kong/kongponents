@@ -1,5 +1,5 @@
 <template>
-  <div class="k-step-state px-3">
+  <div class="k-step-state">
     <component :is="renderedComponent" />
   </div>
 </template>
@@ -46,7 +46,9 @@ const renderedComponent = computed(() => {
 
 <style lang="scss" scoped>
 .k-step-state {
-  background: var(--KStepBackgroundColor, var(--white));
+  background: var(--KStepBackgroundColor, var(--white, var(--kui-color-background, $kui-color-background)));
+  padding-left: var(--kui-space-50, $kui-space-50) !important;
+  padding-right: var(--kui-space-50, $kui-space-50) !important;
 }
 </style>
 

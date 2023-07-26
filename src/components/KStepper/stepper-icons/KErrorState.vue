@@ -36,11 +36,11 @@ defineProps({
 
 .k-step-state-icon {
   .k-step-icon-primary {
-    fill: var(--KStepErrorColor, var(--red-500));
+    fill: var(--KStepErrorColor, var(--red-500, var(--kui-color-text-danger, $kui-color-text-danger)));
   }
 
   .k-step-icon-secondary {
-    fill: var(--KStepErrorSecondaryColor, var(--white));
+    fill: var(--KStepErrorSecondaryColor, var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse)));
   }
 }
 </style>
