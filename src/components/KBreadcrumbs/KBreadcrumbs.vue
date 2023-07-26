@@ -5,7 +5,7 @@
   >
     <li
       v-for="(item, idx) in items"
-      :key="item.key || item.text"
+      :key="getBreadcrumbKey(item, idx)"
       class="k-breadcrumbs-item"
     >
       <component
@@ -13,16 +13,18 @@
         v-bind="getComponentAttrs(item).attrs"
         class="no-underline"
       >
-        <slot name="icon">
-          <KIcon
-            v-if="item.icon"
-            :class="['k-breadcrumb-icon', { 'has-no-text': !item.text }]"
-            :color="`var(--kui-color-text-decorative, ${KUI_COLOR_TEXT_DECORATIVE})`"
-            hide-title
-            :icon="item.icon"
-            :size="KUI_ICON_SIZE_30"
-          />
-        </slot>
+        <div class="k-breadcrumb-icon-wrapper">
+          <slot :name="`${getBreadcrumbKey(item, idx)}-icon`">
+            <KIcon
+              v-if="item.icon"
+              :class="['k-breadcrumb-icon', { 'has-no-text': !item.text }]"
+              :color="`var(--kui-color-text-decorative, ${KUI_COLOR_TEXT_DECORATIVE})`"
+              hide-title
+              :icon="item.icon"
+              :size="KUI_ICON_SIZE_30"
+            />
+          </slot>
+        </div>
         <span
           v-if="item.text"
           class="k-breadcrumb-text"
@@ -99,6 +101,14 @@ const getComponentAttrs = (item: BreadcrumbItem) => {
     }
   }
 }
+
+const getBreadcrumbKey = (item: BreadcrumbItem, idx: number): string => {
+  if (item.key) {
+    return item.key
+  } else {
+    return `breadcrumb-${idx}`
+  }
+}
 </script>
 
 <script lang="ts">
@@ -123,6 +133,10 @@ export default {
   list-style: none;
   margin-bottom: var(--kui-space-60, $kui-space-60);
   padding: var(--kui-space-0, $kui-space-0);
+
+  .k-breadcrumb-icon-wrapper {
+    display: inline-flex;
+  }
 
   .k-breadcrumbs-item {
     @include truncate;
