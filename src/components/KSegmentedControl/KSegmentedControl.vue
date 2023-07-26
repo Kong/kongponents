@@ -128,8 +128,8 @@ const handleClick = (evt: PointerEvent): void => {
     margin-left: -1px;
     --KButtonPrimaryBase: var(--KSegmentedControlSelectedBackground, var(--blue-100, var(--kui-color-background-primary-weakest, #{$kui-color-background-primary-weakest})));
     --KButtonPrimaryHover: var(--KKSegmentedControlSelectedBackground, var(--blue-100, var(--kui-color-background-primary-weakest, #{$kui-color-background-primary-weakest})));
-    --KButtonSecondaryBase: var(--KSegmentedControlUnselectedBackground, var(--white, var(--kui-color-background, $kui-color-background)));
-    --KButtonSecondaryHover: var(--KSegmentedControlUnselectedBackground, var(--white, var(--kui-color-background, $kui-color-background)));
+    --KButtonSecondaryBase: var(--KSegmentedControlUnselectedBackground, var(--white, var(--kui-color-background, #{kui-color-background})));
+    --KButtonSecondaryHover: var(--KSegmentedControlUnselectedBackground, var(--white, var(--kui-color-background, #{kui-color-background})));
 
     &.primary {
       border-color: var(--KSegmentedControlSelectedBorder, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)));
@@ -173,7 +173,7 @@ const handleClick = (evt: PointerEvent): void => {
 
     &:disabled, &:disabled:hover {
       background-color: var(--KSegmentedControlUnselectedBackground, var(--white, var(--kui-color-background, $kui-color-background))) !important;
-      border-color: rgba($kui-color-text-neutral, .4);
+      border-color: rgba($kui-color-border-neutral-weak, .4);
       z-index: 0;
     }
   }
