@@ -1,7 +1,7 @@
 <template>
   <KButton
     appearance="outline"
-    class="k-view-switcher view-switch-button non-visual-button"
+    class="k-view-switcher view-switch-button"
     :class="[view, { paused: isPaused }]"
     :is-rounded="false"
     size="small"
@@ -56,14 +56,17 @@ const toggleView = (): void => {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
+@import '@/styles/mixins';
 
 // Originally forked and modified from https://codepen.io/aaroniker/pen/dyoKeMP
 .view-switch-button {
-  --KButtonPaddingY: 6px;
-  --KButtonPaddingX: 6px;
-  --KButtonSecondaryHover: var(--white);
-  --KButtonSecondaryHoverBorder: var(--blue-300);
+  @include non-visual-button;
+  --KButtonPaddingY: var(--kui-space-30, #{$kui-space-30});
+  --KButtonPaddingX: var(--kui-space-30, #{$kui-space-30});
+  --KButtonSecondaryHover: var(--white, var(--kui-color-background, #{$kui-color-background}));
+  --KButtonSecondaryHoverBorder: var(--blue-300, var(--kui-color-border-primary-weak, #{$kui-color-border-primary-weak}));
   --KButtonSecondaryFocus: none;
   transform: scale(var(--scale, 1)) translateZ(0);
 
@@ -78,14 +81,14 @@ const toggleView = (): void => {
 
     i {
       animation: var(--name, var(--dots-name, none)) var(--duration, var(--dots-duration, .5s)) var(--easing, var(--dots-easing, linear)) forwards var(--delay, var(--dots-delay, 0s));
-      background-color: var(--grey-500);
-      border-radius: 2px;
+      background-color: var(--grey-500, var(--kui-color-background-neutral, $kui-color-background-neutral));
+      border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
       display: block;
       height: var(--height, 7px);
       left: var(--left, 4px);
       position: absolute;
       top: var(--top, 4px);
-      transition: background-color 200ms ease;
+      transition: background-color $tmp-animation-timing-2 ease;
       width: var(--width, 7px);
     }
 
@@ -141,7 +144,7 @@ const toggleView = (): void => {
 
     .lines {
       --name: var(--lines-name, none);
-      --duration: var(--lines-duration, 0.15s);
+      --duration: var(--lines-duration, $tmp-animation-timing-2);
       --easing: var(--lines-easing, linear);
       --delay: var(--lines-delay, 0s);
 
