@@ -78,7 +78,7 @@ Tells the component whether or not to enable / disable overlay, defaults to `tru
 
 <KToggle v-slot="{ isToggled, toggle }">
   <div>
-    <KButton @click="toggle">Toggle Panel</KButton>
+    <KButton @click="toggle">Toggle Panel With Disabled Overlay</KButton>
     <KSlideout :is-visible="isToggled.value" @close="toggle" :overlay-enabled="false" close-button-alignment="end">
       <div>
         <h2>Not only can you put any html in here like the paragraph below but you can also use other components</h2>
@@ -129,9 +129,149 @@ Tells the component whether or not to enable / disable overlay, defaults to `tru
   </div>
 </KToggle>
 ```
+### hasOnlyTitle
+
+Determines whether the header will display only `Title` or has other attributes like `Badge`, `Icon` etc, defaults to `false`.
+
+### title
+
+This prop takes a string that will be displayed as the `Title`.
+
+<KToggle v-slot="{ isToggled, toggle }">
+  <div>
+    <KButton @click="toggle">Toggle Panel With Only Title</KButton>
+    <KSlideout :is-visible="isToggled.value" @close="toggle" :overlay-enabled="false" close-button-alignment="end" :has-only-title="true" title="I only have a Title">
+      <div>
+        <h2>Not only can you put any html in here like the paragraph below but you can also use other components</h2>
+        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
+        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
+        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
+        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
+        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
+      </div>
+      <KButton appearance="primary">Buttons</KButton>
+      <KCard class="mt-2">
+        <template v-slot:body>
+          Something in a KCard
+        </template>
+      </KCard>
+      <KAlert
+        appearance="info"
+        alert-message="Or even an alert!"
+        class="mt-2" />
+    </KSlideout>
+  </div>
+</KToggle>
+
+```html
+<KToggle v-slot="{ isToggled, toggle }">
+  <div>
+    <KButton @click="toggle">Toggle Panel With Only Title</KButton>
+    <KSlideout :is-visible="isToggled.value" @close="toggle" :overlay-enabled="false" close-button-alignment="end" :has-only-title="true" title="I only have a Title">
+      <div>
+        <h2>Not only can you put any html in here like the paragraph below but you can also use other components</h2>
+        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
+        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
+        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
+        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
+        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
+      </div>
+      <KButton appearance="primary">Buttons</KButton>
+      <KCard class="mt-2">
+        <template v-slot:body>
+          Something in a KCard
+        </template>
+      </KCard>
+      <KAlert
+        appearance="info"
+        alert-message="Or even an alert!"
+        class="mt-2" />
+    </KSlideout>
+  </div>
+</KToggle>
+```
+
+### badgeValue
+
+This prop takes a string that will be displayed as the value for the `Badge`.
+
+### badgeAppearance
+
+Determines the appearance values for the Badge, defaults to `warning`.
+
+### badgeShape
+
+Determines the shape of the Badge, defaults to `rectangular`.
+
+### iconType
+
+Determines the icon type that is placed next to Title, defaults to `copy`.
+
+### iconColor
+
+Determines the icon color that is placed next to Title, defaults to `blue`.
+
+### iconSize
+
+Determines the icon size that is placed next to Title, defaults to `16`.
+
+<KToggle v-slot="{ isToggled, toggle }">
+  <div>
+    <KButton @click="toggle">Toggle Panel With Badge/Title/Icon</KButton>
+    <KSlideout :is-visible="isToggled.value" @close="toggle" :overlay-enabled="false" close-button-alignment="end" badge-value="401" title="GET/account/kong.admin.servicekjagfabxncbadrtyu">
+      <div>
+        <h2>Not only can you put any html in here like the paragraph below but you can also use other components</h2>
+        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
+        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
+        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
+        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
+        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
+      </div>
+      <KButton appearance="primary">Buttons</KButton>
+      <KCard class="mt-2">
+        <template v-slot:body>
+          Something in a KCard
+        </template>
+      </KCard>
+      <KAlert
+        appearance="info"
+        alert-message="Or even an alert!"
+        class="mt-2" />
+    </KSlideout>
+  </div>
+</KToggle>
+
+```html
+<KToggle v-slot="{ isToggled, toggle }">
+  <div>
+    <KButton @click="toggle">Toggle Panel With Badge/Title/Icon</KButton>
+    <KSlideout :is-visible="isToggled.value" @close="toggle" :overlay-enabled="false" close-button-alignment="end" badge-value="401" title="GET/account/kong.admin.servicekjagfabxncbadrtyu">
+      <div>
+        <h2>Not only can you put any html in here like the paragraph below but you can also use other components</h2>
+        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
+        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
+        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
+        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
+        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
+      </div>
+      <KButton appearance="primary">Buttons</KButton>
+      <KCard class="mt-2">
+        <template v-slot:body>
+          Something in a KCard
+        </template>
+      </KCard>
+      <KAlert
+        appearance="info"
+        alert-message="Or even an alert!"
+        class="mt-2" />
+    </KSlideout>
+  </div>
+</KToggle>
+```
+
 ## Slots
 
-There is one default slot which is used to place content into the slideout panel.
+- `default` - used to place content into the slideout panel
 
 ```html
 <KSlideout :is-visible="isToggled" @close="toggle">
@@ -142,12 +282,12 @@ There is one default slot which is used to place content into the slideout panel
 </KSlideout>
 ```
 
+- `badgeContent` - used to customize `badge` inside the header
+- `titleContent` - used to customize `title` inside the header
+- `iconContent` - used to customize `icon` inside the header
+
 ## Events
 
-- `@close` - Emitted when the close button is clicked, anything outside the panel is clicked, or the `esc` key is pressed.
+- `close` - Emitted when the close button is clicked, anything outside the panel is clicked, or the `esc` key is pressed.
 
-<style lang="scss" scoped>
-.vertical-spacing {
-  margin-top: $kui-space-40;
-}
-</style>
+- `kclipboard-icon-clicked` - Emitted when the `icon` next to `title` is clicked.
