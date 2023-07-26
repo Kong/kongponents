@@ -36,8 +36,8 @@ KTooltip won't be triggered if the element you pass through `default` slot has `
 
 <KCard>
   <template #body>
-    <div class="d-flex">
-      <KTooltip label="I won't pop up" class="mr-2">
+    <div class="my-tooltip">
+      <KTooltip label="I won't pop up" class="my-tooltip-label">
         <KButton disabled>❌</KButton>
       </KTooltip>
       <KTooltip label="I will pop up">
@@ -48,6 +48,15 @@ KTooltip won't be triggered if the element you pass through `default` slot has `
     </div>
   </template>
 </KCard>
+
+<style>
+.my-tooltip {
+  display: flex !important;
+}
+.my-tooltip-label {
+  margin-right: 4px !important;
+}
+</style>
 
 ```html
 <KTooltip label="I won't show up">
@@ -74,7 +83,7 @@ Here are the different options:
   </li>
 </ul>
 
-<div class="d-flex justify-content-around">
+<div class="custom-tooltip">
   <KTooltip placement="bottom" label="A label that appears on the bottom">
     <KButton>bottom</KButton>
   </KTooltip>
@@ -88,6 +97,13 @@ Here are the different options:
     <KButton>right</KButton>
   </KTooltip>
 </div>
+
+<style>
+.custom-tooltip {
+  display: flex !important;
+  justify-content: space-around !important;
+}
+</style>
 
 ```html
 <KTooltip placement="bottom" label="A label that appears on the bottom">
@@ -129,7 +145,7 @@ You can set the maximum width of a Tooltip with the `maxWidth` property. `maxWid
 <KTooltip label="Video Games">
   <KButton>&nbsp;✌🏻</KButton>
   <template v-slot:content>
-    <span><b>yoyo</b> <span class="color-red-500">kooltip</span></span>
+    <span><b>yoyo</b> <em>kooltip</em></span>
   </template>
 </KTooltip>
 
@@ -137,7 +153,7 @@ You can set the maximum width of a Tooltip with the `maxWidth` property. `maxWid
 <KTooltip>
   <KButton>&nbsp;✌🏻</KButton>
   <template v-slot:content>
-    <span><b>yoyo</b> <span class="color-red-500">kooltip</span></span>
+    <span><b>yoyo</b> <em>kooltip</em></span>
   </template>
 </KTooltip>
 ```
@@ -164,15 +180,15 @@ Example:
 
 <style>
 .tooltip-blue {
-  --KTooltipBackground: var(--blue-300);
-  --KTooltipColor: var(--blue-500);
+  --KTooltipBackground: var(--blue-300, #{$kui-color-background-primary-weaker});
+  --KTooltipColor: var(--blue-500, #{$kui-color-text-primary});
 }
 </style>
 ```
 
 <style>
 .tooltip-blue {
-  --KTooltipBackground: var(--blue-500);
-  --KTooltipColor: var(--blue-200);
+  --KTooltipBackground: var(--blue-500, #{$kui-color-background-primary});
+  --KTooltipColor: var(--blue-200, #bdd3f9);
 }
 </style>

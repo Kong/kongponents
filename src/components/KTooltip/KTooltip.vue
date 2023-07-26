@@ -33,8 +33,8 @@ import { PopPlacementsArray, PopPlacements } from '@/types'
 
 const props = defineProps({
   /**
-     * Text to show in tooltip
-     */
+  * Text to show in tooltip
+  */
   label: {
     type: String,
     required: false,
@@ -42,8 +42,8 @@ const props = defineProps({
   },
 
   /**
-     * Define which side the tooltip displays
-     */
+  * Define which side the tooltip displays
+  */
   placement: {
     type: String as PropType<PopPlacements>,
     default: 'bottom',
@@ -52,22 +52,22 @@ const props = defineProps({
     },
   },
   /**
-     * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
-     */
+  * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
+  */
   positionFixed: {
     type: Boolean,
     default: false,
   },
   /**
-     * Set the max-width of the ktooltip
-     */
+  * Set the max-width of the ktooltip
+  */
   maxWidth: {
     type: String,
     default: 'auto',
   },
   /**
-     * Test mode - for testing only, strips out generated ids
-     */
+  * Test mode - for testing only, strips out generated ids
+  */
   testMode: {
     type: Boolean,
     default: false,
@@ -79,16 +79,16 @@ const computedClass = computed((): string => {
   let result = ''
   switch (props.placement) {
     case 'top':
-      result = 'mb-2'
+      result = 'k-tooltip-top'
       break
     case 'right':
-      result = 'ml-2'
+      result = 'k-tooltip-right'
       break
     case 'bottom':
-      result = 'mt-2'
+      result = 'k-tooltip-bottom'
       break
     case 'left':
-      result = 'mr-2'
+      result = 'k-tooltip-left'
       break
   }
 
@@ -101,13 +101,29 @@ const computedClass = computed((): string => {
 @import '@/styles/functions';
 
 .k-tooltip.k-popover {
-  --KPopColor: var(--KTooltipColor, var(--white, color(white)));
-  --KPopBackground: var(--KTooltipBackground, var(--black-400, color(black-400)));
-  --KPopBodySize: var(--type-sm);
-  --KPopPaddingX: var(--spacing-xs);
-  --KPopPaddingY: var(--spacing-xs);
+  --KPopColor: var(--KTooltipColor, var(--white, var(--kui-color-text-inverse, #{$kui-color-text-inverse})));
+  --KPopBackground: var(--KTooltipBackground, var(--black-400, var(--kui-color-background-neutral-stronger, #{$kui-color-background-neutral-stronger})));
+  --KPopBodySize: var(--type-sm, var(--kui-font-size-30, #{$kui-font-size-30}));
+  --KPopPaddingX: var(--spacing-xs, var(--kui-space-40, #{$kui-space-40}));
+  --KPopPaddingY: var(--spacing-xs, var(--kui-space-40, #{$kui-space-40}));
   --KPopBorder: none;
   pointer-events: none;
   z-index: 9999;
+}
+
+.k-tooltip-top {
+  margin-bottom: var(--kui-space-10, $kui-space-10) !important;
+}
+
+.k-tooltip-right {
+  margin-left: var(--kui-space-10, $kui-space-10) !important;
+}
+
+.k-tooltip-bottom {
+  margin-top: var(--kui-space-10, $kui-space-10) !important;
+}
+
+.k-tooltip-left {
+  margin-right: var(--kui-space-10, $kui-space-10) !important;
 }
 </style>
