@@ -36,8 +36,8 @@ KTooltip won't be triggered if the element you pass through `default` slot has `
 
 <KCard>
   <template #body>
-    <div class="d-flex">
-      <KTooltip label="I won't pop up" class="mr-2">
+    <div class="k-tooltip">
+      <KTooltip label="I won't pop up" class="k-tooltip-label">
         <KButton disabled>❌</KButton>
       </KTooltip>
       <KTooltip label="I will pop up">
@@ -58,6 +58,15 @@ KTooltip won't be triggered if the element you pass through `default` slot has `
     <KButton disabled>✅</KButton>
   </span>
 </KTooltip>
+
+<style>
+.k-tooltip {
+  display: flex !important;
+}
+.k-tooltip-label {
+  margin-right: $kui-space-10 !important;
+}
+</style>
 ```
 
 ### placement
@@ -74,7 +83,7 @@ Here are the different options:
   </li>
 </ul>
 
-<div class="d-flex justify-content-around">
+<div class="k-tooltip">
   <KTooltip placement="bottom" label="A label that appears on the bottom">
     <KButton>bottom</KButton>
   </KTooltip>
@@ -93,6 +102,13 @@ Here are the different options:
 <KTooltip placement="bottom" label="A label that appears on the bottom">
   <KButton>Sample Button</KButton>
 </KTooltip>
+
+<style>
+.k-tooltip {
+  display: flex !important;
+  justify-content: space-around !important;
+}
+</style>
 ```
 
 ### positionFixed
@@ -164,15 +180,15 @@ Example:
 
 <style>
 .tooltip-blue {
-  --KTooltipBackground: var(--blue-300);
-  --KTooltipColor: var(--blue-500);
+  --KTooltipBackground: var(--blue-300, #{$kui-color-background-primary-weaker});
+  --KTooltipColor: var(--blue-500, #{$kui-color-text-primary});
 }
 </style>
 ```
 
 <style>
 .tooltip-blue {
-  --KTooltipBackground: var(--blue-500);
-  --KTooltipColor: var(--blue-200);
+  --KTooltipBackground: var(--blue-500, #{$kui-color-background-primary});
+  --KTooltipColor: var(--blue-200, #bdd3f9);
 }
 </style>
