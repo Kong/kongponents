@@ -1,3 +1,10 @@
+# [8.112.0](https://github.com/Kong/kongponents/compare/v8.111.0...v8.112.0) (2023-07-26)
+
+
+### Features
+
+* **ksegmentedcontrol:** introduce kui tokens [KHCP-7721] ([#1588](https://github.com/Kong/kongponents/issues/1588)) ([ee661c1](https://github.com/Kong/kongponents/commit/ee661c12f8eb97c576f7d7b1e194fada8164d787))
+
 # [8.111.0](https://github.com/Kong/kongponents/compare/v8.110.0...v8.111.0) (2023-07-26)
 
 
