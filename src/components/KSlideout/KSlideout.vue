@@ -3,7 +3,7 @@
     <transition name="fade">
       <div
         v-if="isVisible"
-        :class="{ 'panel-background': overlayEnabled }"
+        :class="{ 'panel-background': hasOverlay }"
         @click="(event: any) => handleClose(event, true)"
       />
     </transition>
@@ -13,7 +13,7 @@
       <div
         v-if="isVisible"
         class="panel"
-        :class="{ 'is-visible': isVisible, 'border-styles': !overlayEnabled }"
+        :class="{ 'is-visible': isVisible, 'border-styles': !hasOverlay }"
       >
         <!-- If there is title prop, display the header content -->
         <div
@@ -22,7 +22,7 @@
         >
           <slot name="badgeContent">
             <KBadge
-              v-if="!hasOnlyTitle"
+              v-if="!titleOnly"
               :appearance="badgeAppearance"
               class="badge-with-title"
               :shape="badgeShape"
@@ -34,7 +34,7 @@
           <slot name="titleContent">
             <p
               class="k-slideout-title"
-              :class="{ 'title-spacing': hasOnlyTitle}"
+              :class="{ 'title-spacing': titleOnly}"
             >
               {{ title }}
             </p>
@@ -47,7 +47,7 @@
                 @click="handleClick"
               >
                 <KIcon
-                  v-if="!hasOnlyTitle"
+                  v-if="!titleOnly"
                   :color="iconColor"
                   :icon="iconType"
                   :size="iconSize"
@@ -63,8 +63,7 @@
             <KIcon
               color="var(--grey-600)"
               icon="close"
-              size="24"
-              view-box="0 0 24 24"
+              :size="KUI_ICON_SIZE_50"
             />
           </button>
         </div>
@@ -77,7 +76,6 @@
           <KIcon
             icon="close"
             :size="KUI_ICON_SIZE_50"
-            view-box="0 0 24 24"
           />
         </button>
         <div class="content">
@@ -99,6 +97,7 @@ import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
 import type { BadgeAppearance, BadgeShape } from '@/types'
 import { BadgeAppearances, BadgeShapes } from '@/types'
+import { KUI_ICON_SIZE_50 } from '@kong/design-tokens'
 
 const props = defineProps({
   isVisible: {
@@ -114,7 +113,7 @@ const props = defineProps({
     },
   },
   // enable/disable overlay to be able to interact with the background content while the slideout is expanded
-  overlayEnabled: {
+  hasOverlay: {
     type: Boolean,
     default: true,
   },
@@ -123,7 +122,7 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
-  hasOnlyTitle: {
+  titleOnly: {
     type: Boolean,
     default: false,
   },
@@ -204,21 +203,21 @@ onUnmounted(() => {
   .k-slideout-header-content {
     display: flex;
     .k-slideout-title {
-      color: var(--black-400, #3C4557);
+      color: var(--black-400, var(--kui-color-text-neutral, $kui-color-text-neutral));
       flex:1;
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 24px;
+      font-size: var(--kui-font-size-40, $kui-font-size-40);
+      font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
+      line-height: var(--kui-line-height-40, $kui-line-height-40);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       &.title-spacing {
-        margin-left: 12px;
+        margin-left: var(--kui-space-50, $kui-space-50);
       }
     }
   }
   .panel {
-    background-color: var(--white, color(white));
+    background-color: var(--white, var(--kui-color-background, $kui-color-background));
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -236,11 +235,11 @@ onUnmounted(() => {
       cursor: pointer;
       display: flex;
       height: auto;
-      margin-left: 16px;
+      margin-left: var(--kui-space-60, $kui-space-60);
       outline: inherit;
-      padding-top: 16px;
+      padding-top: var(--kui-space-60, $kui-space-60);
       position: absolute;
-      transition: 200ms ease;
+      transition: $tmp-animation-timing-2 ease;
       width: 16px;
     }
 
@@ -251,9 +250,9 @@ onUnmounted(() => {
       cursor: pointer;
       display: flex;
       height: auto;
-      margin-right: 16px;
+      margin-right: var(--kui-space-60, $kui-space-60);
       outline: inherit;
-      padding-top: 16px;
+      padding-top: var(--kui-space-60, $kui-space-60);
       position: absolute;
       transition: 200ms ease;
       width: 16px;
@@ -262,8 +261,8 @@ onUnmounted(() => {
     .badge-with-title {
       align-self: center;
       height: 20px;
-      margin-left: 10px;
-      margin-right: 6px;
+      margin-left: var(--kui-space-40, $kui-space-40);
+      margin-right: var(--kui-space-30, $kui-space-30);
     }
 
     .icon-with-title {
@@ -272,9 +271,9 @@ onUnmounted(() => {
     }
 
     .close-button-with-title {
-      margin-left: 16px;
-      margin-right: 16px;
-      margin-top: 6px;
+      margin-left: var(--kui-space-60, $kui-space-60);
+      margin-right: var(--kui-space-60, $kui-space-60);
+      margin-top: var(--kui-space-30, $kui-space-30);
     }
 
     .content {
@@ -288,7 +287,7 @@ onUnmounted(() => {
 }
 
   .panel-background {
-    background: var(--black-45, color(black-45));
+    background: var(--black-45, $tmp-color-black-45);
     bottom: 0;
     left: 0;
     position: fixed;
@@ -298,7 +297,7 @@ onUnmounted(() => {
   }
 
   .border-styles {
-    border-left: 1px solid var(--grey-300)
+    border-left: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
   }
 </style>
 
