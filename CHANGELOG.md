@@ -1,3 +1,10 @@
+# [8.111.0](https://github.com/Kong/kongponents/compare/v8.110.0...v8.111.0) (2023-07-26)
+
+
+### Features
+
+* **kmenu:** introduce kui tokens [KHCP-7712] ([#1584](https://github.com/Kong/kongponents/issues/1584)) ([e8dffc2](https://github.com/Kong/kongponents/commit/e8dffc2b8ae32d75b344778851cb5bfd4f68b1d0))
+
 # [8.110.0](https://github.com/Kong/kongponents/compare/v8.109.0...v8.110.0) (2023-07-26)
 
 
