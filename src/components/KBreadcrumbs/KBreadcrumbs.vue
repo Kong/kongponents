@@ -14,7 +14,7 @@
         class="no-underline"
       >
         <div class="k-breadcrumb-icon-wrapper">
-          <slot :name="`${getBreadcrumbKey(item, idx)}-icon`">
+          <slot :name="`icon-${getBreadcrumbKey(item, idx)}`">
             <KIcon
               v-if="item.icon"
               :class="['k-breadcrumb-icon', { 'has-no-text': !item.text }]"
