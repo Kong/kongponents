@@ -89,6 +89,7 @@ const proceed = (): void => {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
 
 .k-menu {
@@ -101,7 +102,7 @@ const proceed = (): void => {
 
 .clear-cta-button > :deep(button.k-button) {
   border: none;
-  color: var(--blue-300, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak));
+  color: var(--blue-300, $tmp-color-blue-300);
   font-size: var(--kui-font-size-20, $kui-font-size-20);
   font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
   line-height: var(--kui-line-height-20, $kui-line-height-20);
