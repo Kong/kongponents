@@ -38,17 +38,18 @@
       <div class="k-search-container">
         <KIcon
           class="k-search-icon"
-          :color="theme === 'light' ? 'var(--steel-500)' : 'var(--steel-400)'"
+          :class="[`theme-${theme}`]"
+          color="currentColor"
           data-testid="k-code-block-search-icon"
           icon="search"
-          size="20"
+          :size="KUI_ICON_SIZE_40"
         />
 
         <label
           class="k-code-block-search-label"
           :for="`${id}-search-input`"
         >
-          <span class="k-visually-hidden">Search</span>
+          <span class="visually-hidden">Search</span>
         </label>
 
         <input
@@ -69,8 +70,8 @@
 
         <KIcon
           class="k-is-processing-icon"
-          :class="{ 'k-is-processing-icon-is-visible': isProcessing }"
-          :color="theme === 'light' ? 'var(--steel-500)' : 'var(--steel-400)'"
+          :class="[`theme-${theme}`, { 'k-is-processing-icon-is-visible': isProcessing }]"
+          color="currentColor"
           data-testid="k-code-block-is-processing-icon"
           icon="spinner"
         />
@@ -84,14 +85,15 @@
           type="button"
           @click="clearQuery"
         >
-          <span class="k-visually-hidden">Clear query</span>
+          <span class="visually-hidden">Clear query</span>
 
           <KIcon
             class="k-clear-icon"
-            :color="theme === 'light' ? 'var(--steel-500)' : 'var(--steel-400)'"
+            :class="[`theme-${theme}`]"
+            color="currentColor"
             data-testid="k-code-block-clear-icon"
             icon="clear"
-            size="20"
+            :size="KUI_ICON_SIZE_40"
           />
         </button>
       </div>
@@ -108,7 +110,7 @@
           type="button"
           @click="toggleRegExpMode"
         >
-          <span class="k-visually-hidden">RegExp mode enabled</span>
+          <span class="visually-hidden">RegExp mode enabled</span>
 
           .*
         </KButton>
@@ -130,12 +132,12 @@
               class="k-button-icon"
               color="currentColor"
               icon="filter"
-              size="16"
+              :size="KUI_ICON_SIZE_30"
               :title="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
             />
           </template>
 
-          <span class="k-visually-hidden">Filter mode enabled</span>
+          <span class="visually-hidden">Filter mode enabled</span>
         </KButton>
 
         <KButton
@@ -153,12 +155,12 @@
               class="k-button-icon"
               color="currentColor"
               icon="chevronUp"
-              size="16"
+              :size="KUI_ICON_SIZE_30"
               title="Previous match (Shift+F3)"
             />
           </template>
 
-          <span class="k-visually-hidden">Previous match</span>
+          <span class="visually-hidden">Previous match</span>
         </KButton>
 
         <KButton
@@ -176,12 +178,12 @@
               class="k-button-icon"
               color="currentColor"
               icon="chevronDown"
-              size="16"
+              :size="KUI_ICON_SIZE_30"
               title="Next match (F3)"
             />
           </template>
 
-          <span class="k-visually-hidden">Next match</span>
+          <span class="visually-hidden">Next match</span>
         </KButton>
       </div>
     </div>
@@ -264,11 +266,11 @@
           <KIcon
             color="currentColor"
             icon="copy"
-            size="18"
+            :size="KUI_ICON_SIZE_30"
             :title="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
           />
 
-          <span class="k-visually-hidden">Copy</span>
+          <span class="visually-hidden">Copy</span>
         </KButton>
 
         <slot name="secondary-actions" />
@@ -286,6 +288,7 @@ import { copyTextToClipboard } from '@/utilities/copyTextToClipboard'
 import { debounce } from '@/utilities/debounce'
 import { Command, ShortcutManager } from '@/utilities/ShortcutManager'
 import type { CodeBlockEventData, CommandKeywords, Theme } from '@/types/code-block'
+import { KUI_ICON_SIZE_30, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
 const IS_MAYBE_MAC = window?.navigator?.platform?.toLowerCase().includes('mac')
 const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Options' : 'Alt'
@@ -740,32 +743,34 @@ async function copyCode(): Promise<void> {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
+@import '@/styles/mixins';
 
 // shared
-$borderRadius: 8px;
-$fontSize: var(--type-xs, type(xs));
-$fontFamilyMono: var(--font-family-mono, font(mono));
+$borderRadius: var(--kui-border-radius-40, $kui-border-radius-40);
+$fontSize: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
+$fontFamilyMono: var(--font-family-mono, var(--kui-font-family-code, $kui-font-family-code));
 $tabSize: 2;
 
 // theme-light
-$light-color: var(--steel-700, color(blue-700));
-$light-backgroundColor: var(--grey-100, color(grey-100));
-$light-focusColor: var(--blue-500, color(blue-500));
+$light-color: var(--steel-700, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
+$light-backgroundColor: var(--grey-100, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
+$light-focusColor: var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary));
 
 // theme-dark
-$dark-color: var(--green-200, color(green-200));
-$dark-backgroundColor: var(--black-500, color(black-500));
-$dark-focusColor: var(--green-500, color(green-500));
+$dark-color: var(--green-200, $tmp-color-green-200);
+$dark-backgroundColor: var(--black-500, var(--kui-color-background-neutral-strongest, $kui-color-background-neutral-strongest));
+$dark-focusColor: var(--green-500, $tmp-color-green-500);
 
 .k-code-block {
   border-radius: var(--KCodeBlockBorderRadius, $borderRadius);
   color: var(--KCodeBlockColor, $light-color);
 
   &.theme-light {
-    --KButtonOutlineColor: var(--steel-500, color(steel-500));
-    --KButtonOutlineBorder: var(--steel-500, color(steel-500));
-    --KButtonOutlineHoverBorder: var(--steel-700, color(steel-700));
+    --KButtonOutlineColor: var(--steel-500, var(--kui-color-text-neutral, #{$kui-color-text-neutral}));
+    --KButtonOutlineBorder: var(--steel-500, #{$tmp-color-steel-500});
+    --KButtonOutlineHoverBorder: var(--steel-700, #{$tmp-color-steel-700});
   }
 
   &.theme-dark {
@@ -790,30 +795,30 @@ $dark-focusColor: var(--green-500, color(green-500));
   background-color: var(--KCodeBlockBackgroundColor, $light-backgroundColor);
   border-radius: var(--KCodeBlockBorderRadius, $borderRadius);
   display: grid;
-  gap: var(--spacing-sm, spacing(sm));
+  gap: var(--spacing-sm, var(--kui-space-50, $kui-space-50));
   grid-template-columns: var(--maxLineNumberWidth) 1fr;
-  margin-bottom: 0;
-  margin-top: 0;
+  margin-bottom: var(--kui-space-0, $kui-space-0);
+  margin-top: var(--kui-space-0, $kui-space-0);
   max-height: var(--KCodeBlockMaxHeight, none);
   min-height: 56px;
   overflow: auto;
-  padding: var(--spacing-md, spacing(md)) 0 0 var(--spacing-sm, spacing(sm));
+  padding: var(--spacing-md, var(--kui-space-60, $kui-space-60)) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0) var(--spacing-sm, var(--kui-space-50, $kui-space-50));
 }
 
 .k-code-block pre.is-single-line {
   grid-template-columns: auto;
-  padding: var(--spacing-sm, spacing(sm)) var(--spacing-xxl, spacing(xxl)) 0 0;
+  padding: var(--spacing-sm, var(--kui-space-50, $kui-space-50)) var(--spacing-xxl, var(--kui-space-110, $kui-space-110)) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0);
 
   code {
-    line-height: 29px;
-    margin-right: 20px;
+    line-height: var(--kui-line-height-50, $kui-line-height-50);
+    margin-right: var(--kui-space-70, $kui-space-70);
     overflow-x: auto;
-    padding-bottom: var(--spacing-xs, spacing(xs));
-    padding-left: var(--spacing-sm, spacing(sm));
+    padding-bottom: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+    padding-left: var(--spacing-sm, var(--kui-space-50, $kui-space-50));
   }
 
   + .k-code-block-copy-button {
-    top: var(--spacing-xs, spacing(xs));
+    top: var(--spacing-xs, 8px);
   }
 }
 
@@ -834,8 +839,8 @@ $dark-focusColor: var(--green-500, color(green-500));
 .k-code-block-actions + .k-code-block-content > pre {
   border-bottom-left-radius: $borderRadius;
   border-bottom-right-radius: $borderRadius;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  border-top-left-radius: var(--kui-border-radius-0, $kui-border-radius-0);
+  border-top-right-radius: var(--kui-border-radius-0, $kui-border-radius-0);
 }
 
 .k-code-block code {
@@ -844,7 +849,7 @@ $dark-focusColor: var(--green-500, color(green-500));
   // This element will act as a grid item whose minimum width is initially `auto` which in turn can cause the CSS box to overflow which is not desirable here.
   min-width: 0;
   overflow-x: auto;
-  padding-bottom: var(--spacing-sm, spacing(sm));
+  padding-bottom: var(--spacing-sm, var(--kui-space-50, $kui-space-50));
 }
 
 .k-code-block:focus-visible {
@@ -859,21 +864,21 @@ $dark-focusColor: var(--green-500, color(green-500));
 
 .k-code-block-actions {
   align-items: stretch;
-  background-color: var(--grey-200, color(grey-200));
-  border-bottom: 1px solid var(--grey-300, color(grey-300));
+  background-color: var(--grey-200, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
+  border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
   border-top-left-radius: var(--KCodeBlockBorderRadius, $borderRadius);
   border-top-right-radius: var(--KCodeBlockBorderRadius, $borderRadius);
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-xxs, spacing(xxs));
+  gap: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
   justify-content: flex-end;
-  padding: var(--spacing-xs, spacing(xs)) var(--spacing-md, spacing(md));
+  padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40)) var(--spacing-md, var(--kui-space-60, $kui-space-60));
 }
 
 .theme-dark .k-code-block-actions {
-  background-color: var(--black-500, color(black-500));
-  border-bottom: 1px solid var(--steel-700, color(steel-700));
-  color: #fff;
+  background-color: var(--black-500, var(--kui-color-background-neutral-strongest, $kui-color-background-neutral-strongest));
+  border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--steel-700, $tmp-color-steel-700);
+  color: var(--kui-color-text-inverse, $kui-color-text-inverse);
 }
 
 .k-code-block-actions .k-button {
@@ -881,21 +886,21 @@ $dark-focusColor: var(--green-500, color(green-500));
 
   // TODO: This rule set should live in KButton.vue.
   &.action-active {
-    background-color: var(--steel-500, color(steel-500));
-    border-color: var(--steel-500, color(steel-500));
-    color: #fff;
+    background-color: var(--steel-500, var(--kui-color-background-neutral, $kui-color-background-neutral));
+    border-color: var(--steel-500, $tmp-color-steel-500);
+    color: var(--kui-color-text-inverse, $kui-color-text-inverse);;
   }
 }
 
 // TODO: This rule set should live in KButton.vue.
 .theme-dark .k-button {
   background-color: $dark-backgroundColor;
-  border-color: var(--steel-300, color(steel-300));
-  color: var(--steel-300, color(steel-300));
+  border-color: var(--steel-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
+  color: var(--steel-300, var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak));
 
   &:hover {
-    background-color: var(--steel-400, color(steel-400));
-    border-color: var(--steel-400, color(steel-400));
+    background-color: var(--steel-400, $tmp-color-steel-400);
+    border-color: var(--steel-400, $tmp-color-steel-400);
     color: $dark-backgroundColor;
 
     &:disabled {
@@ -904,8 +909,8 @@ $dark-focusColor: var(--green-500, color(green-500));
   }
 
   &.action-active {
-    background-color: var(--steel-300, color(steel-300));
-    border-color: var(--steel-300, color(steel-300));
+    background-color: var(--steel-300, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak));
+    border-color: var(--steel-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
     color: $dark-backgroundColor;
   }
 }
@@ -914,13 +919,21 @@ $dark-focusColor: var(--green-500, color(green-500));
   align-items: center;
   display: inline-flex;
   justify-content: center;
+
+  .theme-light {
+    color: var(--steel-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
+  }
+
+  .theme-dark {
+    color: var(--steel-400, $tmp-color-steel-400);
+  }
 }
 
 .k-search-actions {
   align-items: stretch;
   display: inline-flex;
   flex-wrap: wrap;
-  gap: var(--spacing-xxs, spacing(xxs));
+  gap: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
 }
 
 .k-is-processing-icon:not(.k-is-processing-icon-is-visible) {
@@ -933,37 +946,37 @@ $dark-focusColor: var(--green-500, color(green-500));
 
 .k-search-container {
   align-items: stretch;
-  background-color: var(--white, color(white));
-  border: 1px solid var(--KInputBorder, var(--grey-300, color(grey-300)));
-  border-radius: 3px;
+  background-color: var(--white, var(--kui-color-background, $kui-color-background));
+  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--KInputBorder, var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
+  border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
   display: inline-flex;
   // Indicates the sizing requirements to the surrounding flex container and ensures the search container doesn’t get too small.
   flex-basis: 15ch;
   flex-grow: 1;
   max-width: 250px;
   position: relative;
-  transition: border 0.1s ease;
+  transition: border $tmp-animation-timing-2 ease;
 
   &:focus {
-    border: 1px solid var(--KInputBorder, var(--grey-300, color(grey-300)));
+    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--KInputBorder, var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
   }
 }
 
 .theme-dark .k-search-container {
-  background-color: var(--steel-700, color(steel-700));
+  background-color: var(--steel-700, var(--kui-color-background-neutral-stronger, $kui-color-background-neutral-stronger));
   border: none;
 }
 
 .k-search-container:hover {
-  border-color: var(--KInputHover, var(--steel-200, color(steel-200)));
+  border-color: var(--KInputHover, var(--steel-200, $tmp-color-steel-200));
 }
 
 .k-search-container:focus-within {
-  border-color: var(--KInputFocus, var(--steel-400, color(steel-400)));
+  border-color: var(--KInputFocus, var(--steel-400, $tmp-color-steel-400));
 }
 
 .theme-dark .k-search-container:focus-within {
-  border-color: var(--KInputFocus, var(--steel-300, color(steel-300)));
+  border-color: var(--KInputFocus, var(--steel-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
 }
 
 .k-code-block-search-input {
@@ -974,14 +987,14 @@ $dark-focusColor: var(--green-500, color(green-500));
   flex-grow: 1;
   font: inherit;
   height: 32px;
-  margin: 0;
-  padding: 0 var(--spacing-xs, spacing(xs));
+  margin: var(--kui-space-0, $kui-space-0);
+  padding: var(--kui-space-0, $kui-space-0) var(--spacing-xs, var(--kui-space-40, $kui-space-40));
   width: 0;
 }
 
 .theme-dark .k-code-block-search-input {
-  background-color: var(--steel-700, color(steel-700));
-  color: #fff;
+  background-color: var(--steel-700, var(--kui-color-background-neutral-stronger, $kui-color-background-neutral-stronger));
+  color: var(--kui-color-text-inverse, $kui-color-text-inverse);
 }
 
 .k-code-block-search-input:focus,
@@ -994,33 +1007,33 @@ $dark-focusColor: var(--green-500, color(green-500));
   align-self: center;
   // Sets the minimum width to 12 characters which is the length of the string “1234 results” which should be reasonably safe in order to avoid having layout elements jump around.
   min-width: 12ch;
-  padding-right: var(--spacing-sm, spacing(sm));
+  padding-right: var(--spacing-sm, var(--kui-space-50, $kui-space-50));
   text-align: right;
 }
 
 .k-code-block-search-results:not(.k-code-block-search-results-has-query) {
-  color: var(--grey-500, color(grey-500));
+  color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
 }
 
 .theme-dark .k-code-block-search-results:not(.k-code-block-search-results-has-query) {
-  color: var(--steel-300, color(steel-300));
+  color: var(--steel-300, var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak));
 }
 
 .k-code-block-search-error,
 .k-code-block-search-results {
-  margin-bottom: 0;
-  margin-top: 0;
+  margin-bottom: var(--kui-space-0, $kui-space-0);
+  margin-top: var(--kui-space-0, $kui-space-0);
 }
 
 .k-code-block-search-error {
-  background-color: var(--white, color(white));
-  border: 1px solid currentColor;
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
-  color: var(--red-700, color(red-700));
-  font-size: 13px;
+  background-color: var(--white, var(--kui-color-background, $kui-color-background));
+  border: var(--kui-border-width-10, $kui-border-width-10) solid currentColor;
+  border-bottom-left-radius: var(--kui-border-radius-10, $kui-border-radius-10);
+  border-bottom-right-radius: var(--kui-border-radius-10, $kui-border-radius-10);
+  color: var(--red-700, var(--kui-color-text-danger, $kui-color-text-danger));
+  font-size: var(--kui-font-size-20, $kui-font-size-20);
   left: -1px;
-  padding: 0 var(--spacing-xxs, spacing(xxs));
+  padding: var(--kui-space-0, $kui-space-0) var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
   position: absolute;
   right: -1px;
   top: 100%;
@@ -1028,32 +1041,50 @@ $dark-focusColor: var(--green-500, color(green-500));
 }
 
 .k-search-icon {
-  color: var(--grey-400, color(grey-400));
-  padding: 0 var(--spacing-xxs, spacing(xxs));
+  color: var(--grey-400, var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak));
+  padding: var(--kui-space-0, $kui-space-0) var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
+
+  .theme-light {
+    color: var(--steel-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
+  }
+
+  .theme-dark {
+    color: var(--steel-400, var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak));
+  }
 }
 
 .k-clear-query-button {
   align-items: center;
   appearance: none;
-  background-color: transparent;
-  border: 1px solid transparent;
-  border-radius: 3px;
-  color: var(--grey-400, color(grey-400));
+  background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
+  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
+  border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
+  color: var(--grey-400, var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak));
   display: inline-flex;
   font: inherit;
-  margin: 0;
-  padding: 0 var(--spacing-xxs, spacing(xxs));
+  margin: var(--kui-space-0, $kui-space-0);
+  padding: var(--kui-space-0, $kui-space-0) var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
+
+  .k-clear-icon {
+    .theme-light {
+      color: var(--steel-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
+    }
+
+    .theme-dark {
+      color: var(--steel-400, var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak));
+    }
+  }
 }
 
 .k-clear-query-button:focus {
   border-color: var(--KButtonOutlineBorder, $light-focusColor);
-  box-shadow: 0 0 0 2px var(--white, color(white)), 0 0 0 4px var(--KButtonOutlineBorder, $light-focusColor);
+  box-shadow: 0 0 0 2px var(--white, var(--kui-color-background, $kui-color-background)), 0 0 0 4px var(--KButtonOutlineBorder, $light-focusColor);
   outline: none;
 }
 
 .theme-dark .k-clear-query-button:focus {
   border-color: var(--KButtonOutlineBorder, $dark-focusColor);
-  box-shadow: 0 0 0 2px var(--white, color(white)), 0 0 0 4px var(--KButtonOutlineBorder, $dark-focusColor);
+  box-shadow: 0 0 0 2px var(--white, var(--kui-color-background, $kui-color-background)), 0 0 0 4px var(--KButtonOutlineBorder, $dark-focusColor);
 }
 
 .k-code-block-content {
@@ -1062,22 +1093,22 @@ $dark-focusColor: var(--green-500, color(green-500));
 
 .k-code-block-secondary-actions {
   display: flex;
-  gap: var(--spacing-xxs, spacing(xxs));
+  gap: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
   position: absolute;
-  right: var(--spacing-md, spacing(md));
-  top: var(--spacing-xs, spacing(xs));
+  right: var(--spacing-md, 16px);
+  top: var(--spacing-xs, 8px);
   z-index: 1;
 }
 
 .k-code-block-copy-button[data-tooltip-text]::after {
-  background-color: var(--grey-600, color(grey-600));
-  border-radius: 3px;
-  color: var(--white, color(white));
+  background-color: var(--grey-600, var(--kui-color-background-neutral-stronger, $kui-color-background-neutral-stronger));
+  border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
+  color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
   content: attr(data-tooltip-text);
   font-weight: normal;
-  padding: var(--spacing-xs, spacing(xs));
+  padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
   position: absolute;
-  right: calc(100% + var(--spacing-xs, spacing(xs)));
+  right: calc(100% + var(--spacing-xs, 8px));
   top: 50%;
   transform: translateY(-50%);
   white-space: nowrap;
@@ -1098,12 +1129,12 @@ $dark-focusColor: var(--green-500, color(green-500));
 
 .k-line-number-rows,
 .k-line-number-rows a {
-  color: var(--steel-500, color(steel-500));
+  color: var(--steel-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
 }
 
 .theme-dark .k-line-number-rows,
 .theme-dark .k-line-number-rows a {
-  color: var(--steel-300, color(steel-300));
+  color: var(--steel-300, var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak));
 }
 
 .k-line {
@@ -1113,7 +1144,7 @@ $dark-focusColor: var(--green-500, color(green-500));
 }
 
 .k-line-is-match::before {
-  background-color: hsl(220, 18%, 35%, 0.1);
+  background-color: $tmp-color-black-10;
   content: '\A0';
   left: 0;
   pointer-events: none;
@@ -1122,16 +1153,16 @@ $dark-focusColor: var(--green-500, color(green-500));
 }
 
 .theme-dark .k-line-is-match::before {
-  background-color: hsl(220, 18%, 35%, 0.3);
+  background-color: $tmp-color-white-10;
 }
 
 .k-line-is-highlighted-match::before {
-  background-color: hsl(220, 18%, 35%, 0.2);
-  border-left: 5px solid var(--KCodeBlockMatchHighlightColor, $light-focusColor);
+  background-color: $tmp-color-black-20;
+  border-left: var(--kui-border-width-30, $kui-border-width-30) solid var(--KCodeBlockMatchHighlightColor, $light-focusColor);
 }
 
 .theme-dark .k-line-is-highlighted-match::before {
-  border-left: 5px solid var(--KCodeBlockMatchHighlightColor, $dark-focusColor);
+  border-left: var(--kui-border-width-30, $kui-border-width-30) solid var(--KCodeBlockMatchHighlightColor, $dark-focusColor);
 }
 
 .k-line-anchor:not([href]) {
@@ -1139,28 +1170,33 @@ $dark-focusColor: var(--green-500, color(green-500));
 }
 
 .k-line-anchor[href]:hover {
-  color: var(--grey-600);
+  color: var(--grey-600, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
   text-decoration: underline;
+}
+
+.visually-hidden {
+  @include visually-hidden;
 }
 </style>
 
 <style lang="scss">
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
 
 .k-code-block {
   .k-matched-term {
-    color: var(--teal-500, color(teal-500));
-    font-weight: 900;
+    color: var(--teal-500, var(--kui-color-text-decorative, $kui-color-text-decorative));
+    font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
   }
 
   .theme-dark .k-matched-term {
-    color: var(--green-500, color(green-500));
+    color: var(--green-500, var(--kui-color-text-success, $kui-color-text-success));
   }
 
   .k-button.small {
-    padding-left: var(--spacing-xs, spacing(xs));
-    padding-right: var(--spacing-xs, spacing(xs));
+    padding-left: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+    padding-right: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
   }
 
   .kong-icon {
@@ -1173,43 +1209,43 @@ $dark-focusColor: var(--green-500, color(green-500));
   // TODO: Fix these styles not always providing a solid background color for the copy button allowing content to clip through it.
   .k-button:not(.increase-specificity) {
     @media (min-width: $viewport-md) {
-      background-color: transparent;
-      border-color: transparent;
+      background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
+      border-color: var(--kui-color-border-transparent, $kui-color-border-transparent);
     }
 
     &:hover {
-      background-color: var(--steel-100, color(steel-100));
-      border-color: transparent !important;
+      background-color: var(--steel-100, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
+      border-color: var(--kui-color-border-transparent, $kui-color-border-transparent) !important;
     }
 
     &:active,
     &:hover:active {
-      background-color: var(--steel-500, color(steel-500));
-      border-color: var(--steel-500, color(steel-500));
-      color: #fff;
+      background-color: var(--steel-500, var(--kui-color-background-neutral, $kui-color-background-neutral));
+      border-color: var(--steel-500, $tmp-color-steel-500);
+      color: var(--kui-color-text-inverse, $kui-color-text-inverse);
     }
   }
 
   // TODO: If and once KButton has `props.theme` support, these styles should live in KButton.vue.
   // TODO: Fix these styles not always providing a solid background color for the copy button allowing content to clip through it.
   .theme-dark .k-button:not(.increase-specificity) {
-    color: var(--steel-300, color(steel-300));
+    color: var(--steel-300, var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak));
 
     @media (max-width: ($viewport-md - 1px)) {
-      background-color: var(--black-500, color(black-500));
-      border-color: var(--steel-300, color(steel-300));
+      background-color: var(--black-500, var(--kui-color-background-neutral-strongest, $kui-color-background-neutral-strongest));
+      border-color: var(--steel-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
     }
 
     &:hover {
-      background-color: rgba(#fff, 0.1);
-      border-color: transparent !important;
+      background-color: $tmp-color-white-10;
+      border-color: var(--kui-color-border-transparent, $kui-color-border-transparent) !important;
     }
 
     &:active,
     &:hover:active {
-      background-color: var(--steel-300, color(steel-300));
-      border-color: var(--steel-300, color(steel-300));
-      color: var(--black-500, color(black-500));
+      background-color: var(--steel-300, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak));
+      border-color: var(--steel-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
+      color: var(--black-500, var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest));
     }
   }
 }

@@ -24,7 +24,11 @@ $tmp-color-yellow-400: #fabe5f;
 $tmp-color-yellow-500: #c67c06;
 $tmp-color-yellow-600: #a05604;
 
+$tmp-color-steel-200: #dae3f2;
 $tmp-color-steel-300: #a3b6d9;
+$tmp-color-steel-400: #7d91b3;
+$tmp-color-steel-500: #5c7299;
+$tmp-color-steel-700: #273c61;
 
 $tmp-color-blue-200: #bdd3f9;
 $tmp-color-blue-300: #8ab3fa;
@@ -36,8 +40,11 @@ $tmp-color-teal-300: #169fcc;
 
 // Opaque colors
 $tmp-color-black-10: rgba(0, 0, 0, 0.1);
+$tmp-color-black-20: rgba(0, 0, 0, 0.2);
 $tmp-color-black-45: rgba(0, 0, 0, 0.45);
 $tmp-color-black-60: rgba(0, 0, 0, 0.6);
+
+$tmp-color-white-10: rgba(255, 255, 255, 0.1);
 
 // Borders
 $tmp-color-gray-weaker: #e0e4ea; // color-border-neutral-weaker
