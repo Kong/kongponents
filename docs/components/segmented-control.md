@@ -106,8 +106,8 @@ You can customize each option's content using the `option-label` slot. The optio
     @click="x => data.selected = x"
   >
     <template #option-label="{ option }">
-      <div class="d-inline-block">
-        <div class="mb-2">
+      <div class="k-segmented-control-option">
+        <div class="k-segmented-control-value">
           {{ option.value === 'dog' ? '🐶' : option.value === 'cat' ? '😸' : '🐰' }}
         </div>
         {{ option.label }}
@@ -135,8 +135,8 @@ You can customize each option's content using the `option-label` slot. The optio
     @click="x => data.selected = x"
   >
     <template #option-label="{option}">
-      <div class="d-inline-block">
-        <div class="mb-2">
+      <div class="k-segmented-control-option">
+        <div class="k-segmented-control-value">
           {{ option.value === 'dog' ? '🐶' : option.value === 'cat' ? '😸' : '🐰' }}
         </div>
         {{ option.label }}
@@ -144,6 +144,15 @@ You can customize each option's content using the `option-label` slot. The optio
     </template>
   </KSegmentedControl>
 </KComponent>
+
+<style>
+.k-segmented-control-option {
+  display: inline-block !important;
+}
+.k-segmented-control-value {
+    margin-bottom: $kui-space-10 !important;
+}
+</style>
 ```
 
 ## Events
@@ -151,7 +160,7 @@ You can customize each option's content using the `option-label` slot. The optio
 You can bind normal DOM events to `KSegmentedControl`
 
 <KComponent :data="{ selected: 'On' }" v-slot="{ data }">
-  <KSegmentedControl class="mt-2" :options="['On','Off']" v-model="data.selected" @click="x => sayHello(x) || (data.selected = x)" />
+  <KSegmentedControl class="k-segmented-control" :options="['On','Off']" v-model="data.selected" @click="x => sayHello(x) || (data.selected = x)" />
 </KComponent>
 
 <script lang="ts">
@@ -168,7 +177,7 @@ export default defineComponent({
 
 ```html
 <KComponent :data="{ selected: 'On' }" v-slot="{ data }">
-  <KSegmentedControl :options="['On','Off']" v-model="data.selected" @click="state => sayHello(state, data)" />
+  <KSegmentedControl class="k-segmented-control" :options="['On','Off']" v-model="data.selected" @click="state => sayHello(state, data)" />
 </KComponent>
 
 <script lang="ts">
@@ -183,18 +192,24 @@ export default defineComponent({
   }
 })
 </script>
+
+<style>
+.k-segmented-control {
+  margin-top: $kui-space-10 !important;
+}
+</style>
 ```
 
 ## Theming
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KSegmentedControlText` | Option text color
-| `--KSegmentedControlSelectedBackground` | Option background color when selected
-| `--KSegmentedControlSelectedBorder` | Option border color when selected
-| `--KSegmentedControlUnselectedBackground` | Option background color when not selected
-| `--KSegmentedControlUnselectedBorder` | Option border color when not selected
-| `--KSegmentedControlGap` | Gap between the options
+| Variable                                  | Purpose                                   |
+| :---------------------------------------- | :---------------------------------------- |
+| `--KSegmentedControlText`                 | Option text color                         |
+| `--KSegmentedControlSelectedBackground`   | Option background color when selected     |
+| `--KSegmentedControlSelectedBorder`       | Option border color when selected         |
+| `--KSegmentedControlUnselectedBackground` | Option background color when not selected |
+| `--KSegmentedControlUnselectedBorder`     | Option border color when not selected     |
+| `--KSegmentedControlGap`                  | Gap between the options                   |
 
 An Example of changing the KSegmentedControl to a purple theme instead of blue might look like:
 
@@ -221,24 +236,24 @@ An Example of changing the KSegmentedControl to a purple theme instead of blue m
 
 <style>
 .purple-segment {
-  --KSegmentedControlText: var(--purple-400);
-  --KSegmentedControlSelectedBackground: var(--white);
-  --KSegmentedControlSelectedBorder: var(--purple-300);
-  --KSegmentedControlUnselectedBackground: var(--blue-100);
-  --KSegmentedControlUnselectedBorder: var(--purple-200);
-  --KSegmentedControlGap: 12px;
+  --KSegmentedControlText: var(--purple-400, #{$kui-method-color-text-connect});
+  --KSegmentedControlSelectedBackground: var(--white, #{$kui-color-background});
+  --KSegmentedControlSelectedBorder: var(--purple-300, #9396fc);
+  --KSegmentedControlUnselectedBackground: var(--blue-100, #{$kui-color-background-primary-weakest});
+  --KSegmentedControlUnselectedBorder: var(--purple-200, #bec0fd);
+  --KSegmentedControlGap: var(--spacing-sm, #{$kui-space-50});
 }
 </style>
 ```
 
 <style scoped lang="scss">
 .purple-segment {
-  --KSegmentedControlText: var(--purple-400);
-  --KSegmentedControlSelectedBackground: var(--white);
-  --KSegmentedControlSelectedBorder: var(--purple-300);
-  --KSegmentedControlUnselectedBackground: var(--blue-100);
-  --KSegmentedControlUnselectedBorder: var(--purple-200);
-  --KSegmentedControlGap: 12px;
+  --KSegmentedControlText: var(--purple-400, #{$kui-method-color-text-connect});
+  --KSegmentedControlSelectedBackground: var(--white, #{$kui-color-background});
+  --KSegmentedControlSelectedBorder: var(--purple-300, #9396fc);
+  --KSegmentedControlUnselectedBackground: var(--blue-100, #{$kui-color-background-primary-weakest});
+  --KSegmentedControlUnselectedBorder: var(--purple-200, #bec0fd);
+  --KSegmentedControlGap: var(--spacing-sm, #{$kui-space-50});
 }
 </style>
 
