@@ -1,3 +1,10 @@
+# [8.114.0](https://github.com/Kong/kongponents/compare/v8.113.0...v8.114.0) (2023-07-26)
+
+
+### Features
+
+* **ktooltip:** introduce kui tokens [KHCP-7730] ([#1591](https://github.com/Kong/kongponents/issues/1591)) ([ed0df6b](https://github.com/Kong/kongponents/commit/ed0df6bbd4bb3c9709902b50e8d6793471f924d8))
+
 # [8.113.0](https://github.com/Kong/kongponents/compare/v8.112.0...v8.113.0) (2023-07-26)
 
 
