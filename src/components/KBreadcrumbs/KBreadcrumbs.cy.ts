@@ -85,6 +85,28 @@ describe('KBreadcrumbs', () => {
     cy.get('.k-breadcrumbs .k-breadcrumb-divider').should('contain.text', customDivider)
   })
 
+  it('renders custom icon when using slot', () => {
+    const customIcon = 'custom_icon'
+
+    mount(KBreadcrumbs, {
+      props: {
+        items: [
+          {
+            key: 'docs',
+            to: 'https://docs.konghq.com',
+            text: 'Go to Kong Docs',
+          },
+        ],
+      },
+      slots: {
+        'icon-docs': customIcon,
+      },
+    })
+
+    cy.get('.k-breadcrumbs').find('li').its('length').should('eq', 1)
+    cy.get('.k-breadcrumbs .k-breadcrumb-icon-wrapper').should('contain.text', customIcon)
+  })
+
   it('renders breadcrumb links without needing a router', () => {
     mount(KBreadcrumbs, {
       props: {

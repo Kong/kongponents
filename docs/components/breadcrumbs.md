@@ -148,6 +148,50 @@ Content to be displayed between breadcrumb items, defaults to a chevron.
 </KBreadcrumbs>
 ```
 
+### `icon-${key}`
+
+You can slot individual breadcrumb icon content. Each breadcrumb will have an icon slot named after the item `key` or index (if no `key` provided).
+
+<KCard>
+  <template #body>
+    <KBreadcrumbs :items="iconBreadcrumbs">
+      <template #icon-home>
+        <KIcon icon="immunity" color="#169fcc" size="16" class="breadcrumb-icon" />
+      </template>
+      <template #icon-breadcrumb-1>
+        <KIcon icon="graduationHat" color="#473cfb" size="16" class="breadcrumb-icon" />
+      </template>
+    </KBreadcrumbs>
+  </template>
+</KCard>
+
+```html
+<template>
+  <KBreadcrumbs :items="breadcrumbItems">
+    <template #icon-home>
+      <KIcon icon="immunity" color="#169fcc" size="16" />
+    </template>
+    <template #icon-breadcrumb-1>
+      <KIcon icon="graduationHat" color="#473cfb" size="16" />
+    </template>
+  </KBreadcrumbs>
+</template>
+
+<script lang="ts" setup>
+  const breadcrumbItems = [{
+    key: 'home',
+    to: { path: '/' },
+    title: 'Go Home',
+    text: 'Home',
+  },
+  {
+    to: { path: '/components/breadcrumbs.html' },
+    title: 'Go to Breadcrumbs',
+    text: 'Breadcrumbs'
+  }]
+</script>
+```
+
 <script lang="ts">
 import { defineComponent } from 'vue'
 
@@ -163,9 +207,9 @@ export default defineComponent({
           icon: 'kong'
         },
         {
-          key: 'button',
+          key: 'breadcrumbs',
           to: { path: '/components/breadcrumbs.html' },
-          title: 'Go to Button',
+          title: 'Go to Breadcrumbs',
           text: 'Breadcrumbs'
         },
         {
@@ -220,6 +264,20 @@ export default defineComponent({
           title: 'My Service',
           text: 'My Service'
         },
+      ],
+      iconBreadcrumbs: [
+        {
+          key: 'home',
+          to: { path: '/' },
+          title: 'Go Home',
+          text: 'Home',
+          icon: 'kong'
+        },
+        {
+          to: { path: '/components/breadcrumbs.html' },
+          title: 'Go to Breadcrumbs',
+          text: 'Breadcrumbs'
+        }
       ]
     }
   }
@@ -231,6 +289,11 @@ export default defineComponent({
     font-size: 13px;
     font-weight: 300;
     line-height: 14px;
-    color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
+    color: #afb7c5;
+  }
+
+  .breadcrumb-icon {
+    align-self: center;
+    margin-right: 8px;
   }
 </style>
