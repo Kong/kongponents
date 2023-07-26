@@ -75,8 +75,8 @@ onUnmounted(() => {
 @import '@/styles/functions';
 
 .k-slideout {
-  --KCardPaddingY: var(--kui-space-90, $kui-space-90);
-  --KCardPaddingX: var(--kui-space-110, $kui-space-110);
+  --KCardPaddingY: var(--kui-space-90, #{$kui-space-90});
+  --KCardPaddingX: var(--kui-space-110, #{$kui-space-110});
 
   .panel-background {
     background: var(--black-45, $tmp-color-black-45);
@@ -105,10 +105,10 @@ onUnmounted(() => {
       height: 16px;
       left:  16px;
       outline: inherit;
-      padding: 0;
+      padding: var(--kui-space-0, $kui-space-0);
       position: absolute;
       top: 16px;
-      transition: 200ms ease;
+      transition: $tmp-animation-timing-2 ease;
       width: 16px;
     }
 
