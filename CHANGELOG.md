@@ -1,3 +1,10 @@
+# [8.110.0](https://github.com/Kong/kongponents/compare/v8.109.0...v8.110.0) (2023-07-26)
+
+
+### Features
+
+* **ktreelist:** tokenization [khcp-7731] ([#1583](https://github.com/Kong/kongponents/issues/1583)) ([a830931](https://github.com/Kong/kongponents/commit/a830931e2a9028d4871e0d690a4af1ea250b9d5e))
+
 # [8.109.0](https://github.com/Kong/kongponents/compare/v8.108.0...v8.109.0) (2023-07-25)
 
 
