@@ -1,13 +1,12 @@
 <template>
   <div
-    class="k-segmented-control d-flex"
+    class="k-segmented-control"
     :class="{ 'allow-pointer-events': allowPointerEvents }"
   >
     <KButton
       v-for="option in normalizedOptions"
       :key="`${option.value}-option`"
       :appearance="getAppearance(option)"
-      class="justify-content-center"
       :disabled="getDisabled(option)"
       :name="option.value"
       size="small"
@@ -118,28 +117,30 @@ const handleClick = (evt: PointerEvent): void => {
 @import '@/styles/functions';
 
 .k-segmented-control {
-  gap: var(--KSegmentedControlGap, 0px);
+  display: flex !important;
+  gap: var(--KSegmentedControlGap, var(--kui-space-0, $kui-space-0));
 
   :deep(.k-button) {
-    --KButtonPrimaryBase: var(--KSegmentedControlSelectedBackground, var(--blue-100));
-    --KButtonPrimaryHover: var(--KKSegmentedControlSelectedBackground, var(--blue-100));
-    --KButtonSecondaryBase: var(--KSegmentedControlUnselectedBackground, var(--white));
-    --KButtonSecondaryHover: var(--KSegmentedControlUnselectedBackground, var(--white));
-    border-radius: 0;
-    color: var(--KSegmentedControlText, var(--blue-500));
+    border-radius: var(--kui-border-radius-0, $kui-border-radius-0);
+    color: var(--KSegmentedControlText, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
     flex: 1;
+    justify-content: center !important;
     margin-left: -1px;
+    --KButtonPrimaryBase: var(--KSegmentedControlSelectedBackground, var(--blue-100, var(--kui-color-background-primary-weakest, #{$kui-color-background-primary-weakest})));
+    --KButtonPrimaryHover: var(--KKSegmentedControlSelectedBackground, var(--blue-100, var(--kui-color-background-primary-weakest, #{$kui-color-background-primary-weakest})));
+    --KButtonSecondaryBase: var(--KSegmentedControlUnselectedBackground, var(--white, var(--kui-color-background, $kui-color-background)));
+    --KButtonSecondaryHover: var(--KSegmentedControlUnselectedBackground, var(--white, var(--kui-color-background, $kui-color-background)));
 
     &.primary {
-      border-color: var(--KSegmentedControlSelectedBorder, var(--blue-500));
+      border-color: var(--KSegmentedControlSelectedBorder, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)));
       z-index: 1;
     }
 
     &.secondary {
-      border-color: var(--KSegmentedControlUnselectedBorder, rgba(color(blue-500), .4));
+      border-color: var(--KSegmentedControlUnselectedBorder, rgba($kui-color-border-primary, .4));
 
       &:hover {
-        border-color: var(--KSegmentedControlSelectedBorder, var(--blue-500));
+        border-color: var(--KSegmentedControlSelectedBorder, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)));
       }
     }
 
@@ -152,27 +153,27 @@ const handleClick = (evt: PointerEvent): void => {
     }
 
     &:focus {
-      box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--KSegmentedControlSelectedBorder, var(--blue-500));
+      box-shadow: 0 0 0 2px var(--white, var(--kui-color-background, $kui-color-background)), 0 0 0 4px var(--KSegmentedControlSelectedBorder, var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary)));
       z-index: 3;
     }
 
     &:first-child {
-      border-radius: 3px 0 0 3px;
-      margin-left: 0;
+      border-radius: var(--kui-border-radius-10, $kui-border-radius-10) var(--kui-border-radius-0, $kui-border-radius-0) var(--kui-border-radius-0, $kui-border-radius-0) var(--kui-border-radius-10, $kui-border-radius-10);
+      margin-left: var(--kui-space-0, $kui-space-0);
     }
 
     &:last-child {
-      border-radius: 0 3px 3px 0;
+      border-radius: var(--kui-border-radius-0, $kui-border-radius-0) var(--kui-border-radius-10, $kui-border-radius-10) var(--kui-border-radius-10, $kui-border-radius-10) var(--kui-border-radius-0, $kui-border-radius-0);
     }
 
     &:only-child {
-      border-radius: 3px;
-      margin-left: 0;
+      border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
+      margin-left: var(--kui-space-0, $kui-space-0);
     }
 
     &:disabled, &:disabled:hover {
-      background-color: var(--KSegmentedControlUnselectedBackground, var(--white)) !important;
-      border-color: rgba(color(grey-500), .4);
+      background-color: var(--KSegmentedControlUnselectedBackground, var(--white, var(--kui-color-background, $kui-color-background))) !important;
+      border-color: rgba($kui-color-text-neutral, .4);
       z-index: 0;
     }
   }
