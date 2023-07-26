@@ -1,3 +1,10 @@
+# [8.113.0](https://github.com/Kong/kongponents/compare/v8.112.0...v8.113.0) (2023-07-26)
+
+
+### Features
+
+* **kbreadcrumb:** add icon slot ([#1589](https://github.com/Kong/kongponents/issues/1589)) ([597b887](https://github.com/Kong/kongponents/commit/597b887101032a5511c22323316c808393863ac0))
+
 # [8.112.0](https://github.com/Kong/kongponents/compare/v8.111.0...v8.112.0) (2023-07-26)
 
 
