@@ -102,13 +102,7 @@ const getComponentAttrs = (item: BreadcrumbItem) => {
   }
 }
 
-const getBreadcrumbKey = (item: BreadcrumbItem, idx: number): string => {
-  if (item.key) {
-    return item.key
-  } else {
-    return `breadcrumb-${idx}`
-  }
-}
+const getBreadcrumbKey = (item: BreadcrumbItem, idx: number): string => item.key || `breadcrumb-${idx}`
 </script>
 
 <script lang="ts">
