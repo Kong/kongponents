@@ -364,9 +364,9 @@ $fullscreen-modal-padding: 64px;
   padding-top: var(--kui-space-0, $kui-space-0);
 
   .body-header {
-    font-size: var(--type-xxxl, var(--kui-line-height-60, $kui-line-height-60));
+    font-size: var(--type-xxxl, var(--kui-font-size-80, $kui-font-size-80));
     font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-    line-height: var(--type-xxxl, var(--kui-line-height-60, $kui-line-height-60));
+    line-height: var(--type-xxxl, var(--kui-line-height-80, $kui-line-height-80));
     margin-bottom: calc(-1 * var(--kui-space-20, $kui-space-20));
   }
 
@@ -390,7 +390,7 @@ $fullscreen-modal-padding: 64px;
 .header-content {
   border-left: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
   display: inline-block;
-  line-height: var(--kui-space-80, $kui-space-80);
+  line-height: var(--kui-line-height-40, $kui-line-height-40);
   margin-bottom: var(--kui-space-auto, $kui-space-auto) !important;
   margin-top: var(--kui-space-auto, $kui-space-auto) !important;
   padding-left: var(--kui-space-30, $kui-space-30);

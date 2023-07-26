@@ -1084,7 +1084,7 @@ onBeforeUnmount(() => {
     border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-200, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
     color: var(--kui-color-text-neutral, $kui-color-text-neutral);
     padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
-    padding-bottom: var(--kui-border-width-0);
+    padding-bottom: var(--kui-space-0);
   }
 }
 </style>
@@ -1109,7 +1109,7 @@ onBeforeUnmount(() => {
       }
 
       &.input-placeholder-dark::placeholder {
-        color: var(--KInputColor, var(--black-70, var(--kui-color-text, $kui-space-40))) !important;
+        color: var(--KInputColor, var(--black-70, var(--kui-color-text, $kui-color-text))) !important;
       }
 
       input.k-input:not([type="checkbox"]):not([type="radio"]) {
