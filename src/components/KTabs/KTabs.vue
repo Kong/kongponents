@@ -136,9 +136,13 @@ watch(() => props.modelValue, (newTabHash) => {
         padding: var(--spacing-md, var(--kui-space-60, $kui-space-60));
       }
 
-      &:not(:first-of-type) { margin-left: var(--spacing-xs, var(--kui-space-40, $kui-space-40)); }
+      &:not(:first-of-type) {
+        margin-left: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+      }
 
-      &:not(:last-of-type) { margin-right: var(--spacing-xs, var(--kui-space-40, $kui-space-40)); }
+      &:not(:last-of-type) {
+        margin-right: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+      }
 
       &:after {
         bottom: -2px;
