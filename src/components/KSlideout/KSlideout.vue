@@ -21,7 +21,7 @@
         >
           <KIcon
             icon="close"
-            size="24"
+            :size="KUI_ICON_SIZE_50"
             view-box="0 0 24 24"
           />
         </button>
@@ -41,6 +41,7 @@
 import { onMounted, onUnmounted } from 'vue'
 import KCard from '@/components/KCard/KCard.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
+import { KUI_ICON_SIZE_50 } from '@kong/design-tokens'
 
 const props = defineProps({
   isVisible: {
@@ -70,14 +71,15 @@ onUnmounted(() => {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
 
 .k-slideout {
-  --KCardPaddingY: 32px;
-  --KCardPaddingX: 48px;
+  --KCardPaddingY: var(--kui-space-90, #{$kui-space-90});
+  --KCardPaddingX: var(--kui-space-110, #{$kui-space-110});
 
   .panel-background {
-    background: var(--black-45, color(black-45));
+    background: var(--black-45, $tmp-color-black-45);
     bottom: 0;
     left: 0;
     position: fixed;
@@ -87,7 +89,7 @@ onUnmounted(() => {
   }
 
   .panel {
-    background-color: var(--white, color(white));
+    background-color: var(--white, var(--kui-color-background, $kui-color-background));
     height: 100vh;
     max-width: 500px;
     position: fixed;
@@ -103,10 +105,10 @@ onUnmounted(() => {
       height: 16px;
       left:  16px;
       outline: inherit;
-      padding: 0;
+      padding: var(--kui-space-0, $kui-space-0);
       position: absolute;
       top: 16px;
-      transition: 200ms ease;
+      transition: $tmp-animation-timing-2 ease;
       width: 16px;
     }
 

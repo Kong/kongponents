@@ -17,7 +17,7 @@ Below we demonstrate wrapping `KSlideout` in the [`KToggle`](/components/renderl
         <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
       </div>
       <KButton appearance="primary">Buttons</KButton>
-      <KCard class="mt-2">
+      <KCard class="vertical-spacing">
         <template v-slot:body>
           Something in a KCard
         </template>
@@ -25,7 +25,7 @@ Below we demonstrate wrapping `KSlideout` in the [`KToggle`](/components/renderl
       <KAlert
         appearance="info"
         alert-message="Or even an alert!"
-        class="mt-2" />
+        class="vertical-spacing" />
     </KSlideout>
   </div>
 </KToggle>
@@ -44,7 +44,7 @@ Below we demonstrate wrapping `KSlideout` in the [`KToggle`](/components/renderl
         <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
       </div>
       <KButton appearance="primary">Buttons</KButton>
-      <KCard class="mt-2">
+      <KCard class="vertical-spacing">
         <template v-slot:body>
           Something in a KCard
         </template>
@@ -52,7 +52,7 @@ Below we demonstrate wrapping `KSlideout` in the [`KToggle`](/components/renderl
       <KAlert
         appearance="info"
         alert-message="Or even an alert!"
-        class="mt-2" />
+        class="vertical-spacing" />
     </KSlideout>
   </div>
 </KToggle>
@@ -80,3 +80,9 @@ There is one default slot which is used to place content into the slideout panel
 ## Events
 
 - `@close` - Emitted when the close button is clicked, anything outside the panel is clicked, or the `esc` key is pressed.
+
+<style lang="scss" scoped>
+.vertical-spacing {
+  margin-top: $kui-space-40;
+}
+</style>
