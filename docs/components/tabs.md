@@ -115,7 +115,7 @@ If you want to keep your `v-model` in sync so that you can programatically chang
 
 <hr />
 
-<KButton @click="defaultProgrammaticTab = '#tab1'" class="mr-2">Activate Tab 1</KButton>
+<KButton @click="defaultProgrammaticTab = '#tab1'" class="horizontal-spacing">Activate Tab 1</KButton>
 <KButton @click="defaultProgrammaticTab = '#tab2'">Activate Tab 2</KButton>
 
 ```html
@@ -395,6 +395,12 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.horizontal-spacing {
+  margin-right: $kui-space-40;
+}
+</style>
 
 <style lang="scss">
 .KTabs-wrapper {

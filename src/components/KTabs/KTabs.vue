@@ -98,17 +98,18 @@ watch(() => props.modelValue, (newTabHash) => {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
+@import '@/styles/tmp-variables';
 @import '@/styles/functions';
 
 .k-tabs {
   ul {
-    border-bottom: 1px solid var(--KTabsBottomBorderColor, var(--grey-300, color(grey-300)));
+    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--KTabsBottomBorderColor, var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
     display: flex;
-    font-size: 18px;
-    line-height: 20px;
+    font-size: var(--kui-font-size-50, $kui-font-size-50);
+    line-height: var(--kui-line-height-50, $kui-line-height-50);
     list-style: none;
-    margin-bottom: 0;
-    padding-left: 0;
+    margin-bottom: var(--kui-space-0, $kui-space-0);
+    padding-left: var(--kui-space-0, $kui-space-0);
 
     .tab-item {
       cursor: pointer;
@@ -126,18 +127,22 @@ watch(() => props.modelValue, (newTabHash) => {
 
       .tab-link,
       .tab-link:not(.has-panels) :deep(> *) {
-        color: var(--KTabsColor, var(--black-45, color(black-45)));
+        color: var(--KTabsColor, var(--black-45, var(--kui-color-text, $kui-color-text)));
       }
 
       .tab-link.has-panels,
       .tab-link:not(.has-panels) :deep(> *) {
         display: inline-block;
-        padding: var(--spacing-md, spacing(md));
+        padding: var(--spacing-md, var(--kui-space-60, $kui-space-60));
       }
 
-      &:not(:first-of-type) { margin-left: var(--spacing-xs, spacing(xs)); }
+      &:not(:first-of-type) {
+        margin-left: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+      }
 
-      &:not(:last-of-type) { margin-right: var(--spacing-xs, spacing(xs)); }
+      &:not(:last-of-type) {
+        margin-right: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+      }
 
       &:after {
         bottom: -2px;
@@ -153,8 +158,8 @@ watch(() => props.modelValue, (newTabHash) => {
       &:hover {
         .tab-link.has-panels,
         .tab-link:not(.has-panels) :deep(> *) {
-          border-bottom: 4px solid var(--KTabBottomBorderColor, var(--teal-300, color(teal-300)));
-          color: var(--KTabsActiveColor, var(--black-500, color(black-500)));
+          border-bottom: var(--kui-border-width-30, $kui-border-width-30) solid var(--KTabBottomBorderColor, var(--teal-300, $tmp-color-aqua-50)); // teal-300 is now aqua-50
+          color: var(--KTabsActiveColor, var(--black-500, var(--kui-color-text, $kui-color-text)));
         }
       }
     }
