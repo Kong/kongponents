@@ -11,6 +11,7 @@ $tmp-color-white: #ffffff;
 
 $tmp-color-green-100: #e8f8f5;
 $tmp-color-green-200: #c0f2d5;
+$tmp-color-green-300: #84e5ae;
 $tmp-color-green-400: #42d782;
 $tmp-color-green-500: #07a88d;
 $tmp-color-green-600: #008871;
@@ -39,11 +40,8 @@ $tmp-color-black-60: rgba(0, 0, 0, 0.6);
 $tmp-color-gray-weaker: #e0e4ea; // color-border-neutral-weaker
 
 // Shadows & backdrops
-$tmp-color-shadow:
-  0px 0.2px 0.6px rgba(0, 0, 0, 0.031),
-  0px 0.6px 1.8px rgba(0, 0, 0, 0.045),
-  0px 1.5px 4.2px rgba(0, 0, 0, 0.059),
-  0px 5px 14px rgba(0, 0, 0, 0.09);
+$tmp-color-shadow: 0px 0.2px 0.6px rgba(0, 0, 0, 0.031), 0px 0.6px 1.8px rgba(0, 0, 0, 0.045),
+  0px 1.5px 4.2px rgba(0, 0, 0, 0.059), 0px 5px 14px rgba(0, 0, 0, 0.09);
 $tmp-color-backdrop: rgba(11, 23, 45, 0.6);
 
 /* Spacing */
