@@ -44,6 +44,7 @@ defineEmits<{
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/tmp-variables';
 @import '@/styles/styles';
 
 $transition: all .3s;
@@ -61,31 +62,30 @@ $transition: all .3s;
 .toaster-item {
   box-shadow: 0 0 12px rgba(0,0,0,.12);
   display: flex;
-  margin-bottom: 16px;
+  margin-bottom: var(--kui-space-60, $kui-space-60);
   overflow: hidden;
   transition: $transition;
   width: 100%;
 
   :deep(.k-alert) {
-    --KAlertInfoBorder: var(--blue-500, color(blue-500));
-    --KAlertSuccessBorder: var(--green-400, color(green-400));
-    --KAlertWarningBorder: var(--yellow-300, color(yellow-300));
-    --KAlertDangerBorder: var(--red-500, color(red-500));
-    background-color: #fff;
-    color: var(--black-70);
+    --KAlertInfoBorder: var(--blue-500, var(--kui-color-border-primary, #{$kui-color-border-primary}));
+    --KAlertSuccessBorder: var(--green-400, #{$tmp-color-green-400});
+    --KAlertWarningBorder: var(--yellow-300, #{$tmp-color-yellow-300});
+    --KAlertDangerBorder: var(--red-500, var(--kui-color-border-danger-weak, #{$kui-color-border-danger-weak}));
+    background-color: var(--white, var(--kui-color-background, $kui-color-background));
+    color: var(--black-70, var(--kui-color-text, $kui-color-text));
     display: flex;
     flex: 1;
     justify-content: space-between;
-    margin-bottom: 0;
-    padding: 16px;
+    margin-bottom: var(--kui-space-0, $kui-space-0);
+    padding: var(--kui-space-60, $kui-space-60);
     text-align: left;
 
     .close {
       order: 1;
-      padding: 0 0 0 16px;
+      padding: var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0) var(--kui-space-60, $kui-space-60);
       position: relative;
       right: 0;
-
       &:focus,
       &:active {
         outline: none;
