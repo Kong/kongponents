@@ -15,57 +15,28 @@
         class="panel"
         :class="{ 'is-visible': isVisible, 'border-styles': !hasOverlay }"
       >
-        <!-- If there is title prop, display the header content -->
+        <!-- If there is title prop or header slot, display the header content -->
         <div
-          v-if="title"
+          v-if="title || hasTitle"
           class="k-slideout-header-content"
         >
-          <slot name="badgeContent">
-            <KBadge
-              v-if="!titleOnly"
-              :appearance="badgeAppearance"
-              class="badge-with-title"
-              :shape="badgeShape"
-            >
-              {{ badgeValue }}
-            </KBadge>
-          </slot>
-
-          <slot name="titleContent">
+          <slot name="header">
             <p
               class="k-slideout-title"
-              :class="{ 'title-spacing': titleOnly}"
             >
               {{ title }}
             </p>
+            <button
+              class="close-button-with-title"
+              @click="(event: any) => handleClose(event, true)"
+            >
+              <KIcon
+                color="var(--grey-600)"
+                icon="close"
+                :size="KUI_ICON_SIZE_50"
+              />
+            </button>
           </slot>
-
-          <slot name="iconContent">
-            <KClipboardProvider>
-              <span
-                class="icon-with-title"
-                @click="handleClick"
-              >
-                <KIcon
-                  v-if="!titleOnly"
-                  :color="iconColor"
-                  :icon="iconType"
-                  :size="iconSize"
-                />
-              </span>
-            </KClipboardProvider>
-          </slot>
-
-          <button
-            class="close-button-with-title"
-            @click="(event: any) => handleClose(event, true)"
-          >
-            <KIcon
-              color="var(--grey-600)"
-              icon="close"
-              :size="KUI_ICON_SIZE_50"
-            />
-          </button>
         </div>
 
         <button
@@ -74,6 +45,7 @@
           @click="(event: any) => handleClose(event, true)"
         >
           <KIcon
+            color="var(--grey-600)"
             icon="close"
             :size="KUI_ICON_SIZE_50"
           />
@@ -91,12 +63,10 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, onUnmounted, computed, PropType } from 'vue'
+import { onMounted, onUnmounted, computed, useSlots } from 'vue'
 import KCard from '@/components/KCard/KCard.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
-import type { BadgeAppearance, BadgeShape } from '@/types'
-import { BadgeAppearances, BadgeShapes } from '@/types'
 import { KUI_ICON_SIZE_50 } from '@kong/design-tokens'
 
 const props = defineProps({
@@ -119,55 +89,21 @@ const props = defineProps({
   },
   // allows a host app to define the offset from the top of the page
   offsetTop: {
-    type: Number,
-    default: 0,
-  },
-  titleOnly: {
-    type: Boolean,
-    default: false,
+    type: String,
+    default: '0',
   },
   title: {
     type: String,
     default: '',
   },
-  badgeValue: {
-    type: String,
-    default: '',
-  },
-  badgeAppearance: {
-    type: String as PropType<BadgeAppearance>,
-    required: false,
-    validator: (value: string): boolean => {
-      return Object.keys({ ...BadgeAppearances }).includes(value)
-    },
-    default: 'warning',
-  },
-  badgeShape: {
-    type: String as PropType<BadgeShape>,
-    required: false,
-    validator: (value: string): boolean => {
-      return Object.keys({ ...BadgeShapes }).includes(value)
-    },
-    default: 'rectangular',
-  },
-  iconType: {
-    type: String,
-    default: 'copy',
-  },
-  iconColor: {
-    type: String,
-    default: 'var(--blue-500)',
-  },
-  iconSize: {
-    type: String,
-    default: '16',
-  },
 })
 
 const emit = defineEmits<{
   (e: 'close'): void
-  (e: 'kclipboard-icon-clicked', value: string): void
 }>()
+
+const slots = useSlots()
+const hasTitle = computed((): boolean => !!slots.title)
 
 const { getSizeFromString } = useUtilities()
 const handleClose = (e: any, forceClose = false): void => {
@@ -176,11 +112,7 @@ const handleClose = (e: any, forceClose = false): void => {
   }
 }
 
-const handleClick = (): void => {
-  emit('kclipboard-icon-clicked', props.title)
-}
-
-const offsetTopValue = computed((): string => getSizeFromString(String(props.offsetTop)))
+const offsetTopValue = computed((): string => getSizeFromString(props.offsetTop))
 
 onMounted(() => {
   document.addEventListener('keydown', handleClose)
@@ -208,12 +140,10 @@ onUnmounted(() => {
       font-size: var(--kui-font-size-40, $kui-font-size-40);
       font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
       line-height: var(--kui-line-height-40, $kui-line-height-40);
+      margin-left: var(--kui-space-50, $kui-space-50);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      &.title-spacing {
-        margin-left: var(--kui-space-50, $kui-space-50);
-      }
     }
   }
   .panel {
@@ -254,20 +184,8 @@ onUnmounted(() => {
       outline: inherit;
       padding-top: var(--kui-space-60, $kui-space-60);
       position: absolute;
-      transition: 200ms ease;
+      transition: $tmp-animation-timing-2 ease;
       width: 16px;
-    }
-
-    .badge-with-title {
-      align-self: center;
-      height: 20px;
-      margin-left: var(--kui-space-40, $kui-space-40);
-      margin-right: var(--kui-space-30, $kui-space-30);
-    }
-
-    .icon-with-title {
-      align-self: center;
-      cursor: pointer;
     }
 
     .close-button-with-title {
