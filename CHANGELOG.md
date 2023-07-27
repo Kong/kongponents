@@ -1,3 +1,11 @@
+# [8.116.0](https://github.com/Kong/kongponents/compare/v8.115.0...v8.116.0) (2023-07-27)
+
+
+### Features
+
+* **kslideout:** introduce kui tokens ([#1586](https://github.com/Kong/kongponents/issues/1586)) ([4c5bca4](https://github.com/Kong/kongponents/commit/4c5bca4aebf8b8cbb928f083b21bc1a1583f2030))
+* **ktabs:** introduce kui tokens [khcp-7727] ([#1585](https://github.com/Kong/kongponents/issues/1585)) ([eec9283](https://github.com/Kong/kongponents/commit/eec92831fcdc25143effa239e2568c468b66a88b))
+
 # [8.115.0](https://github.com/Kong/kongponents/compare/v8.114.0...v8.115.0) (2023-07-27)
 
 
