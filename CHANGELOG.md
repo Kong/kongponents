@@ -1,3 +1,10 @@
+# [8.115.0](https://github.com/Kong/kongponents/compare/v8.114.0...v8.115.0) (2023-07-27)
+
+
+### Features
+
+* **ktoaster:** introduce kui tokens [KHCP-7729] ([#1595](https://github.com/Kong/kongponents/issues/1595)) ([6c3cca4](https://github.com/Kong/kongponents/commit/6c3cca47e9a08a241173e21883a80d6173ba7e4a))
+
 # [8.114.0](https://github.com/Kong/kongponents/compare/v8.113.0...v8.114.0) (2023-07-26)
 
 
