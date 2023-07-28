@@ -176,12 +176,15 @@ const offsetTopValue = computed((): string => getSizeFromString(props.offsetTop)
       cursor: pointer;
       display: flex;
       height: auto;
-      margin-left: var(--kui-space-60, $kui-space-60);
+      margin-left: var(--kui-space-50, $kui-space-50);
+      margin-top: var(--kui-space-60, $kui-space-60);
       outline: inherit;
-      padding-top: var(--kui-space-60, $kui-space-60);
       position: absolute;
       transition: $tmp-animation-timing-2 ease;
-      width: 16px;
+
+      &:focus{
+        box-shadow: 0 0 0 2px var(--KButtonOutlineBorder, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)))
+      }
     }
 
     .close-button-end {
@@ -191,12 +194,15 @@ const offsetTopValue = computed((): string => getSizeFromString(props.offsetTop)
       cursor: pointer;
       display: flex;
       height: auto;
-      margin-right: var(--kui-space-60, $kui-space-60);
+      margin-right: var(--kui-space-50, $kui-space-50);
+      margin-top: var(--kui-space-60, $kui-space-60);
       outline: inherit;
-      padding-top: var(--kui-space-60, $kui-space-60);
       position: absolute;
       transition: $tmp-animation-timing-2 ease;
-      width: 16px;
+
+      &:focus{
+        box-shadow: 0 0 0 2px var(--KButtonOutlineBorder, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)))
+      }
     }
 
     .close-button-with-title {
