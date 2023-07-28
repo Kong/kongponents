@@ -29,7 +29,7 @@
               @click="(event: any) => emit('close')"
             >
               <KIcon
-                :color="`var(--kui-color-background-neutral-stronger, ${KUI_COLOR_BACKGROUND_NEUTRAL_STRONGER})`"
+                :color="`var(--kui-color-text-neutral-stronger, ${KUI_COLOR_TEXT_NEUTRAL_STRONGER})`"
 
                 icon="close"
                 :size="KUI_ICON_SIZE_50"
@@ -44,7 +44,7 @@
           @click="(event: any) => emit('close')"
         >
           <KIcon
-            :color="`var(--kui-color-background-neutral-stronger, ${KUI_COLOR_BACKGROUND_NEUTRAL_STRONGER})`"
+            :color="`var(--kui-color-text-neutral-stronger, ${KUI_COLOR_TEXT_NEUTRAL_STRONGER})`"
 
             icon="close"
             :size="KUI_ICON_SIZE_50"
@@ -67,7 +67,7 @@ import { computed, useSlots, ref } from 'vue'
 import KCard from '@/components/KCard/KCard.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
-import { KUI_ICON_SIZE_50, KUI_COLOR_BACKGROUND_NEUTRAL_STRONGER } from '@kong/design-tokens'
+import { KUI_ICON_SIZE_50, KUI_COLOR_TEXT_NEUTRAL_STRONGER } from '@kong/design-tokens'
 import { onClickOutside } from '@vueuse/core'
 
 const props = defineProps({
