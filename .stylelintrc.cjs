@@ -23,13 +23,8 @@ module.exports = {
   ],
   plugins: [
     'stylelint-order',
-    '@kong/design-tokens/stylelint-plugin'
   ],
   rules: {
-    'order/properties-alphabetical-order': true,
-    '@kong/design-tokens/use-proper-token': [true, {
-      disableFix: true,
-      severity: "warning"
-    }]
+    'order/properties-alphabetical-order': true
   }
 }
