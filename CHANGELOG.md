@@ -1,3 +1,10 @@
+## [8.116.2](https://github.com/Kong/kongponents/compare/v8.116.1...v8.116.2) (2023-07-28)
+
+
+### Bug Fixes
+
+* **style:** line height for truncate ([#1600](https://github.com/Kong/kongponents/issues/1600)) ([6fc886d](https://github.com/Kong/kongponents/commit/6fc886dee7d1be714b3988d1aa6c92b61f761af7))
+
 ## [8.116.1](https://github.com/Kong/kongponents/compare/v8.116.0...v8.116.1) (2023-07-28)
 
 
