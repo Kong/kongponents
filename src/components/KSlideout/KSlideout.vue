@@ -153,6 +153,7 @@ onUnmounted(() => {
     flex-direction: column;
     height: 100vh;
     max-width: 500px;
+    overflow-y: auto;
     position: fixed;
     right: 0;
     top: v-bind('offsetTopValue');
@@ -197,7 +198,6 @@ onUnmounted(() => {
 
     .content {
       height: 100%;
-      overflow: auto;
       -ms-overflow-style: none;  // IE 10+
       scrollbar-width: none;  // Firefox
       &::-webkit-scrollbar { display: none; }
