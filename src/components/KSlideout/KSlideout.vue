@@ -2,8 +2,8 @@
   <div class="k-slideout">
     <transition name="fade">
       <div
-        v-if="isVisible && hasOverlay"
-        class="panel-background"
+        v-if="isVisible"
+        :class="hasOverlay ? 'panel-background' : 'panel-background-transparent'"
         @click="(event: any) => handleClose(event, true)"
       />
     </transition>
@@ -29,7 +29,8 @@
               @click="(event: any) => handleClose(event, true)"
             >
               <KIcon
-                color="var(--grey-600)"
+                :color="`var(--kui-color-background-neutral-stronger, ${KUI_COLOR_BACKGROUND_NEUTRAL_STRONGER})`"
+
                 icon="close"
                 :size="KUI_ICON_SIZE_50"
               />
@@ -43,7 +44,8 @@
           @click="(event: any) => handleClose(event, true)"
         >
           <KIcon
-            color="var(--grey-600)"
+            :color="`var(--kui-color-background-neutral-stronger, ${KUI_COLOR_BACKGROUND_NEUTRAL_STRONGER})`"
+
             icon="close"
             :size="KUI_ICON_SIZE_50"
           />
@@ -61,11 +63,11 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, onUnmounted, computed, useSlots } from 'vue'
+import { onMounted, onUnmounted, computed, useSlots, ref } from 'vue'
 import KCard from '@/components/KCard/KCard.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
-import { KUI_ICON_SIZE_50 } from '@kong/design-tokens'
+import { KUI_ICON_SIZE_50, KUI_COLOR_BACKGROUND_NEUTRAL_STRONGER } from '@kong/design-tokens'
 
 const props = defineProps({
   isVisible: {
@@ -102,10 +104,8 @@ const emit = defineEmits<{
 
 const slots = useSlots()
 const hasTitle = computed((): boolean => !!slots.title)
-
 const { getSizeFromString } = useUtilities()
 const handleClose = (e: any, forceClose = false): void => {
-  console.log(e)
   if ((props.isVisible && e.keyCode === 27) || forceClose) {
     emit('close')
   }
@@ -115,10 +115,12 @@ const offsetTopValue = computed((): string => getSizeFromString(props.offsetTop)
 
 onMounted(() => {
   document.addEventListener('keydown', handleClose)
+  document.addEventListener('click', handleClose)
 })
 
 onUnmounted(() => {
   document.removeEventListener('keydown', handleClose)
+  document.removeEventListener('click', handleClose)
 })
 </script>
 
@@ -211,6 +213,16 @@ onUnmounted(() => {
     right: 0;
     top: v-bind('offsetTopValue');
     z-index: 9999;
+  }
+
+  .panel-background-transparent {
+    background: transparent;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: v-bind('offsetTopValue');
+    // z-index: 1;
   }
 
   .border-styles {
