@@ -1,3 +1,10 @@
+## [8.116.1](https://github.com/Kong/kongponents/compare/v8.116.0...v8.116.1) (2023-07-28)
+
+
+### Bug Fixes
+
+* **kcard:** body line-height in table cells ([#1596](https://github.com/Kong/kongponents/issues/1596)) ([5eef39b](https://github.com/Kong/kongponents/commit/5eef39b4fd7413620b961b884bb10387a17c3ef5))
+
 # [8.116.0](https://github.com/Kong/kongponents/compare/v8.115.0...v8.116.0) (2023-07-27)
 
 
