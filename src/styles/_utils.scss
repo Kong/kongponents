@@ -152,10 +152,10 @@ $sides: (top, right, bottom, left);
 /*  Text
 ========================================================================== */
 .truncate {
+  line-height: initial;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  line-height: initial;
 }
 .multi-line-truncation {
   -webkit-box-orient: vertical;
