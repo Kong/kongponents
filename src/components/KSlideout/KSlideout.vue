@@ -2,8 +2,8 @@
   <div class="k-slideout">
     <transition name="fade">
       <div
-        v-if="isVisible"
-        :class="{ 'panel-background': hasOverlay }"
+        v-if="isVisible && hasOverlay"
+        class="panel-background"
         @click="(event: any) => handleClose(event, true)"
       />
     </transition>
@@ -21,9 +21,7 @@
           class="k-slideout-header-content"
         >
           <slot name="header">
-            <p
-              class="k-slideout-title"
-            >
+            <p class="k-slideout-title">
               {{ title }}
             </p>
             <button
@@ -107,6 +105,7 @@ const hasTitle = computed((): boolean => !!slots.title)
 
 const { getSizeFromString } = useUtilities()
 const handleClose = (e: any, forceClose = false): void => {
+  console.log(e)
   if ((props.isVisible && e.keyCode === 27) || forceClose) {
     emit('close')
   }
