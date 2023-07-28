@@ -63,7 +63,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, onUnmounted, computed, useSlots, ref } from 'vue'
+import { onMounted, onUnmounted, computed, useSlots } from 'vue'
 import KCard from '@/components/KCard/KCard.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
