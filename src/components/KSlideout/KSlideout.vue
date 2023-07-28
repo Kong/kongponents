@@ -61,7 +61,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, useSlots, ref } from 'vue'
+import { computed, useSlots, ref, onMounted, onUnmounted } from 'vue'
 import KCard from '@/components/KCard/KCard.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
@@ -114,6 +114,20 @@ onClickOutside(
     }
   },
 )
+
+const handleClose = (e: any, forceClose = false): void => {
+  if ((props.isVisible && e.keyCode === 27) || forceClose) {
+    emit('close')
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('keydown', handleClose)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('keydown', handleClose)
+})
 
 const offsetTopValue = computed((): string => getSizeFromString(props.offsetTop))
 
@@ -223,6 +237,7 @@ const offsetTopValue = computed((): string => getSizeFromString(props.offsetTop)
 
   .border-styles {
     border-left: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
+    box-shadow: #0000000d -2px 0px 5px;
   }
 </style>
 
