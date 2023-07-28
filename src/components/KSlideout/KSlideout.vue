@@ -4,7 +4,6 @@
       <div
         v-if="isVisible"
         :class="hasOverlay ? 'panel-background' : 'panel-background-transparent'"
-        @click="(event: any) => handleClose(event, true)"
       />
     </transition>
     <transition
@@ -12,6 +11,7 @@
     >
       <div
         v-if="isVisible"
+        ref="slideOutRef"
         class="panel"
         :class="{ 'is-visible': isVisible, 'border-styles': !hasOverlay }"
       >
@@ -26,7 +26,7 @@
             </p>
             <button
               class="close-button-with-title"
-              @click="(event: any) => handleClose(event, true)"
+              @click="(event: any) => emit('close')"
             >
               <KIcon
                 :color="`var(--kui-color-background-neutral-stronger, ${KUI_COLOR_BACKGROUND_NEUTRAL_STRONGER})`"
@@ -41,7 +41,7 @@
         <button
           v-else
           :class="closeButtonAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
-          @click="(event: any) => handleClose(event, true)"
+          @click="(event: any) => emit('close')"
         >
           <KIcon
             :color="`var(--kui-color-background-neutral-stronger, ${KUI_COLOR_BACKGROUND_NEUTRAL_STRONGER})`"
@@ -63,11 +63,12 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, onUnmounted, computed, useSlots } from 'vue'
+import { computed, useSlots, ref } from 'vue'
 import KCard from '@/components/KCard/KCard.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
 import { KUI_ICON_SIZE_50, KUI_COLOR_BACKGROUND_NEUTRAL_STRONGER } from '@kong/design-tokens'
+import { onClickOutside } from '@vueuse/core'
 
 const props = defineProps({
   isVisible: {
@@ -105,23 +106,19 @@ const emit = defineEmits<{
 const slots = useSlots()
 const hasTitle = computed((): boolean => !!slots.title)
 const { getSizeFromString } = useUtilities()
-const handleClose = (e: any, forceClose = false): void => {
-  if ((props.isVisible && e.keyCode === 27) || forceClose) {
-    emit('close')
-  }
-}
+const slideOutRef = ref(null)
+
+onClickOutside(
+  slideOutRef,
+  (event) => {
+    if (event.isTrusted) {
+      emit('close')
+    }
+  },
+)
 
 const offsetTopValue = computed((): string => getSizeFromString(props.offsetTop))
 
-onMounted(() => {
-  document.addEventListener('keydown', handleClose)
-  document.addEventListener('click', handleClose)
-})
-
-onUnmounted(() => {
-  document.removeEventListener('keydown', handleClose)
-  document.removeEventListener('click', handleClose)
-})
 </script>
 
 <style lang="scss" scoped>
@@ -198,6 +195,7 @@ onUnmounted(() => {
 
     .content {
       height: 100%;
+      // overflow: auto;
       -ms-overflow-style: none;  // IE 10+
       scrollbar-width: none;  // Firefox
       &::-webkit-scrollbar { display: none; }
@@ -222,7 +220,7 @@ onUnmounted(() => {
     position: fixed;
     right: 0;
     top: v-bind('offsetTopValue');
-    // z-index: 1;
+    z-index: -1;
   }
 
   .border-styles {
