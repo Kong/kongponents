@@ -30,7 +30,6 @@
             >
               <KIcon
                 :color="`var(--kui-color-text-neutral-stronger, ${KUI_COLOR_TEXT_NEUTRAL_STRONGER})`"
-
                 icon="close"
                 :size="KUI_ICON_SIZE_50"
               />
@@ -45,7 +44,6 @@
         >
           <KIcon
             :color="`var(--kui-color-text-neutral-stronger, ${KUI_COLOR_TEXT_NEUTRAL_STRONGER})`"
-
             icon="close"
             :size="KUI_ICON_SIZE_50"
           />

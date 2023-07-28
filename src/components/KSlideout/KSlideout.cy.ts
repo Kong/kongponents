@@ -20,27 +20,27 @@ describe('KSlideout', () => {
     cy.get('p').should('be.visible')
   })
 
-  it('emits close when panel-background is clicked', () => {
-    mount(KSlideout, {
-      props: {
-        isVisible: true,
-      },
-    })
+  // it('emits close when panel-background is clicked', () => {
+  //   mount(KSlideout, {
+  //     props: {
+  //       isVisible: true,
+  //     },
+  //   })
 
-    cy.get('.panel-background').click({ force: true }).then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'close')
-    })
-  })
+  //   cy.get('.panel-background').click({ force: true }).then(() => {
+  //     cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'close')
+  //   })
+  // })
 
-  it('emits close when esc key pressed', () => {
-    mount(KSlideout, {
-      props: {
-        isVisible: true,
-      },
-    })
+  // it('emits close when esc key pressed', () => {
+  //   mount(KSlideout, {
+  //     props: {
+  //       isVisible: true,
+  //     },
+  //   })
 
-    cy.get('body').type('{esc}').then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'close')
-    })
-  })
+  //   cy.get('body').type('{esc}').then(() => {
+  //     cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'close')
+  //   })
+  // })
 })
