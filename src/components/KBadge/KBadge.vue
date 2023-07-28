@@ -233,8 +233,8 @@ watch(badgeText, () => {
 
 .k-badge {
   display: inline-flex;
-  font-family: var(--font-family-sans, var(--kui-font-family-text, $kui-font-family-text));
-  font-size: var(--KBadgeFontSize, var(--kui-font-size-20, #{$kui-font-size-20}));
+  font-family: var(--font-family-sans, var(--kui-font-family-text, #{$kui-font-family-text}));
+  font-size: var(--KBadgeFontSize, var(--kui-font-size-20, $kui-font-size-20));
   font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
   height: auto;
   line-height: var(--KBadgeLineHeight, var(--type-md, var(--kui-line-height-20, $kui-line-height-20)));
