@@ -221,6 +221,7 @@ const showCardTitleWithStatus = computed((): boolean => useStatusHatLayout.value
 
     .k-table td, table td, :deep(.k-table) td {
       font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
+      line-height: var(--kui-line-height-40, $kui-line-height-40);
     }
   }
 
