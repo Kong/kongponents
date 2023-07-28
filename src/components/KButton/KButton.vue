@@ -218,7 +218,7 @@ export default {
   color: var(--black-70, var(--kui-color-text, $kui-color-text));
   cursor: pointer;
   display: inline-flex;
-  font-family: var(--font-family-sans, var(--kui-font-family-text, $kui-font-family-text));
+  font-family: var(--font-family-sans, var(--kui-font-family-text, #{$kui-font-family-text}));
   font-size: var(--KButtonFontSize, var(--type-md, var(--kui-font-size-30, $kui-font-size-30)));
   font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
   gap: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
