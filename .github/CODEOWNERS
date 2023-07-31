@@ -20,13 +20,10 @@
 
 # Dev tools
 /.eslintrc.js @adamdehaven @jillztom
-/.gitignore @adamdehaven @jillztom @kaiarrowood
-/vite.config.ts @adamdehaven @jillztom
-
-# Linting configs
-/.eslintrc.cjs @adamdehaven @jillztom
 /.stylelintrc.cjs @adamdehaven @jillztom @portikM
 /deprecated-classes.cjs @adamdehaven @jillztom @portikM
+/.gitignore @adamdehaven @jillztom @kaiarrowood
+/vite.config.ts @adamdehaven @jillztom
 
 # Design Tokens Implemented Kongponents
 # This is temporary codeowners until we introduce design tokens practices to the whole team
