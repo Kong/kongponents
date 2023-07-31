@@ -1,3 +1,10 @@
+## [8.118.1](https://github.com/Kong/kongponents/compare/v8.118.0...v8.118.1) (2023-07-31)
+
+
+### Bug Fixes
+
+* update fcont family scss vars ([#1603](https://github.com/Kong/kongponents/issues/1603)) ([9537340](https://github.com/Kong/kongponents/commit/9537340d897d502520be7ace817e5bb659155948))
+
 # [8.118.0](https://github.com/Kong/kongponents/compare/v8.117.0...v8.118.0) (2023-07-31)
 
 
