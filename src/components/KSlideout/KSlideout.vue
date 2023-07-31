@@ -13,39 +13,40 @@
         class="panel"
         :class="{ 'is-visible': isVisible, 'border-styles': !hasOverlay }"
       >
-        <!-- title slot -->
-        <div
-          v-if="title || hasTitle"
-          class="k-slideout-header-content"
-        >
-          <slot name="title">
+        <div class="k-slideout-header-content">
+          <div
+            v-if="hasBeforeTitle"
+            class="k-slideout-before-title"
+          >
+            <slot name="beforeTitle" />
+          </div>
+
+          <!-- title -->
+          <div class="k-slideout-main-title">
             <p class="k-slideout-title">
               {{ title }}
             </p>
-          </slot>
-        </div>
+          </div>
 
-        <!-- header custom slot -->
-        <div v-if="hasHeader">
-          <slot name="header" />
-        </div>
-
-        <!-- cancelButton slot -->
-        <slot
-          v-if="hasCancelButton"
-          name="cancelButton"
-        >
-          <button
-            :class="closeButtonAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
-            @click="(event: any) => emit('close')"
+          <div
+            v-if="hasAfterTitle"
+            class="k-slideout-after-title"
           >
-            <KIcon
-              :color="`var(--kui-color-text-neutral-stronger, ${KUI_COLOR_TEXT_NEUTRAL_STRONGER})`"
-              icon="close"
-              :size="KUI_ICON_SIZE_50"
-            />
-          </button>
-        </slot>
+            <slot name="afterTitle" />
+          </div>
+        </div>
+
+        <!-- cancelButton -->
+        <button
+          :class="closeButtonAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
+          @click="(event: any) => emit('close')"
+        >
+          <KIcon
+            :color="`var(--kui-color-text-neutral-stronger, ${KUI_COLOR_TEXT_NEUTRAL_STRONGER})`"
+            icon="close"
+            :size="KUI_ICON_SIZE_50"
+          />
+        </button>
 
         <div class="content">
           <KCard border-variant="noBorder">
@@ -101,9 +102,8 @@ const emit = defineEmits<{
 }>()
 
 const slots = useSlots()
-const hasTitle = computed((): boolean => !!slots.title)
-const hasHeader = computed((): boolean => !!slots.header)
-const hasCancelButton = computed((): boolean => !!slots.cancelButton)
+const hasBeforeTitle = computed((): boolean => !!slots.beforeTitle)
+const hasAfterTitle = computed((): boolean => !!slots.afterTitle)
 const { getSizeFromString } = useUtilities()
 const slideOutRef = ref(null)
 
@@ -145,17 +145,24 @@ const offsetTopValue = computed((): string => getSizeFromString(props.offsetTop)
 
   .k-slideout-header-content {
     display: flex;
-    .k-slideout-title {
-      color: var(--black-400, var(--kui-color-text-neutral, $kui-color-text-neutral));
-      flex:1;
-      font-size: var(--kui-font-size-40, $kui-font-size-40);
-      font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
-      line-height: var(--kui-line-height-40, $kui-line-height-40);
-      margin-left: var(--kui-space-50, $kui-space-50);
-      margin-right: var(--kui-space-100, $kui-space-100);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    .k-slideout-before-title,
+    .k-slideout-after-title {
+      margin-top: var(--kui-space-60, $kui-space-60);
+    }
+    .k-slideout-main-title {
+      .k-slideout-title {
+        color: var(--black-400, var(--kui-color-text-neutral, $kui-color-text-neutral));
+        flex:1;
+        font-size: var(--kui-font-size-40, $kui-font-size-40);
+        font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
+        line-height: var(--kui-line-height-40, $kui-line-height-40);
+        margin-left: var(--kui-space-50, $kui-space-50);
+        margin-right: var(--kui-space-100, $kui-space-100);
+        margin-top: var(--kui-space-60, $kui-space-60);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
     }
   }
   .panel {
@@ -179,7 +186,7 @@ const offsetTopValue = computed((): string => getSizeFromString(props.offsetTop)
       display: flex;
       height: auto;
       margin-left: var(--kui-space-50, $kui-space-50);
-      margin-top: var(--kui-space-60, $kui-space-60);
+      margin-top: var(--kui-space-50, $kui-space-50);
       outline: inherit;
       position: absolute;
       transition: $tmp-animation-timing-2 ease;
@@ -197,7 +204,7 @@ const offsetTopValue = computed((): string => getSizeFromString(props.offsetTop)
       display: flex;
       height: auto;
       margin-right: var(--kui-space-50, $kui-space-50);
-      margin-top: var(--kui-space-60, $kui-space-60);
+      margin-top: var(--kui-space-50, $kui-space-50);
       outline: inherit;
       position: absolute;
       transition: $tmp-animation-timing-2 ease;
