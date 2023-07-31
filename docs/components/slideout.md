@@ -68,7 +68,7 @@ Controls the close button alignment, can be `start` (default) or `end`.
 
 ### offsetTop
 
-Allows a host app to define the offset from the top of the page, defaults to `0px`.
+Allows a host app to define the offset from the top of the page, it takes a `number` and that number uses `px` as the unit, defaults to `0px`.
 
 ### hasOverlay
 
@@ -179,7 +179,8 @@ This prop takes a string that will be displayed as the title of the slide-out.
 </KSlideout>
 ```
 
-- `header` - used to customize the header
+- `before-title` - used to customize the header to add content before title
+- `after-title` - used to customize the header to add content after title
 
 ## Events
 

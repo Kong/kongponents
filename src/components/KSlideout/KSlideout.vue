@@ -18,12 +18,15 @@
             v-if="hasBeforeTitle"
             class="k-slideout-before-title"
           >
-            <slot name="beforeTitle" />
+            <slot name="before-title" />
           </div>
 
           <!-- title -->
           <div class="k-slideout-main-title">
-            <p class="k-slideout-title">
+            <p
+              class="k-slideout-title"
+              data-testid="k-slideout-title"
+            >
               {{ title }}
             </p>
           </div>
@@ -32,13 +35,14 @@
             v-if="hasAfterTitle"
             class="k-slideout-after-title"
           >
-            <slot name="afterTitle" />
+            <slot name="after-title" />
           </div>
         </div>
 
         <!-- cancelButton -->
         <button
           :class="closeButtonAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
+          :data-testid="closeButtonAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
           @click="(event: any) => emit('close')"
         >
           <KIcon
@@ -88,8 +92,8 @@ const props = defineProps({
   },
   // allows a host app to define the offset from the top of the page
   offsetTop: {
-    type: String,
-    default: '0',
+    type: Number,
+    default: 0,
   },
   title: {
     type: String,
@@ -102,8 +106,8 @@ const emit = defineEmits<{
 }>()
 
 const slots = useSlots()
-const hasBeforeTitle = computed((): boolean => !!slots.beforeTitle)
-const hasAfterTitle = computed((): boolean => !!slots.afterTitle)
+const hasBeforeTitle = computed((): boolean => !!slots['before-title'])
+const hasAfterTitle = computed((): boolean => !!slots['after-title'])
 const { getSizeFromString } = useUtilities()
 const slideOutRef = ref(null)
 
@@ -130,7 +134,7 @@ onUnmounted(() => {
   document.removeEventListener('keydown', handleClose)
 })
 
-const offsetTopValue = computed((): string => getSizeFromString(props.offsetTop))
+const offsetTopValue = computed((): string => getSizeFromString(String(props.offsetTop)))
 
 </script>
 
