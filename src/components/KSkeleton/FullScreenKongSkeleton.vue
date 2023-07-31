@@ -70,14 +70,14 @@ onUnmounted(() => {
   @include fullscreen-loading-container;
 
   .progress {
-    background-color: var(--KSkeletonFullScreenProgressBackgroundColor, var(--grey-200, color(grey-200)));
-    border-radius: 8px;
-    margin-top: 16px;
+    background-color: var(--KSkeletonFullScreenProgressBackgroundColor, var(--grey-200, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest)));
+    border-radius: var(--kui-border-radius-40, kui-border-radius-40);
+    margin-top: var(--kui-space-60, $kui-space-60);
     max-width: 350px;
 
     .progress-bar {
-      background-color: var(--KSkeletonFullScreenProgressColor, var(--blue-500, color(blue-500)));
-      border-radius: 8px;
+      background-color: var(--KSkeletonFullScreenProgressColor, var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary)));
+      border-radius: var(--kui-border-radius-40, kui-border-radius-40);
       height: 5px;
     }
   }

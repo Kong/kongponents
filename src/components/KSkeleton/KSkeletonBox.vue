@@ -1,6 +1,6 @@
 <template>
   <div
-    class="box mr-1"
+    class="box"
     :class="{[`width-${width}`]: true, [`height-${height}`]: true }"
   />
 </template>
@@ -39,8 +39,9 @@ defineProps({
     )
     repeat;
   background-size: 400% 100%;
-  border-radius: 3px;
+  border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
   display: inline-flex;
+  margin-right: var(--kui-space-20, $kui-space-20) !important;
   transition: 1s;
   // Provided box widths
   &.width {

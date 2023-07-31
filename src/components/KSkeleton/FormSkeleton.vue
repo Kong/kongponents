@@ -54,7 +54,7 @@ import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
 .skeleton-form-wrapper {
   width: 100%;
   .skeleton-form-row {
-    margin-bottom: 32px;
+    margin-bottom: var(--kui-space-90, $kui-space-90);
   }
 }
 </style>

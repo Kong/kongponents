@@ -215,10 +215,10 @@ KSkeleton package uses a component to render the placeholder content `<KSkeleton
 
 ### Box Props
 
-| Prop   | Allowed Values                                              | Description                                  |
-| :----- | :---------------------------------------------------------- | -------------------------------------------- |
-| width  | '1' (default), '2', '5', '6', '10', '50', '75', '100'       | Width of the skeleton box in relative units. Values 10, 50, 75, 100 are percentage based. |
-| height | '1' (default), '2'                                          | Height of the skeleton box in relative units |
+| Prop   | Allowed Values                                        | Description                                                                               |
+| :----- | :---------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| width  | '1' (default), '2', '5', '6', '10', '50', '75', '100' | Width of the skeleton box in relative units. Values 10, 50, 75, 100 are percentage based. |
+| height | '1' (default), '2'                                    | Height of the skeleton box in relative units                                              |
 
 <KSkeletonBox />
 <KSkeletonBox width="2" height="2"/>
@@ -333,13 +333,13 @@ And another example:
 
 ## Theming
 
-| Variable                             | Purpose                                                                                                                                                                    |
-| :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--KSkeletonFullScreenMargin`        | Margin around full screen variant. Useful for when you want to show full screen loader under header or next to sidebar since the full screen component has fixed position. |
-| `--KSkeletonFullScreenProgressBackgroundColor` | Progress bar background color.                                                                                                                                                   |
-| `--KSkeletonFullScreenProgressColor` | Progress bar fill color.                                                                                                                                                   |
-| `--KSkeletonFullScreenSpinnerColor` | Generic spinner icon fill color.                                                                                                                                                   |
-| `--KSkeletonCardWidth`               | Width of the card. Default is 33%                                                                                                                                          |
+| Variable                                       | Purpose                                                                                                                                                                    |
+| :--------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--KSkeletonFullScreenMargin`                  | Margin around full screen variant. Useful for when you want to show full screen loader under header or next to sidebar since the full screen component has fixed position. |
+| `--KSkeletonFullScreenProgressBackgroundColor` | Progress bar background color.                                                                                                                                             |
+| `--KSkeletonFullScreenProgressColor`           | Progress bar fill color.                                                                                                                                                   |
+| `--KSkeletonFullScreenSpinnerColor`            | Generic spinner icon fill color.                                                                                                                                           |
+| `--KSkeletonCardWidth`                         | Width of the card. Default is 33%                                                                                                                                          |
 
 ### Examples
 
@@ -418,7 +418,7 @@ export default defineComponent({
 <style>
 .k-skeleton-full-screen-margin {
   --KSkeletonFullScreenMargin: 58px 0 0;
-  --KSkeletonFullScreenProgressColor: var(--black-70);
+  --KSkeletonFullScreenProgressColor: grey;
 }
 .k-skeleton-modified {
   --KSkeletonCardWidth: calc(33% - 16px);

@@ -9,15 +9,16 @@
         <div class="skeleton-card-header">
           <slot name="card-header">
             <KSkeletonBox
+              class="card-header-content-1"
               height="2"
               width="25"
             />
             <KSkeletonBox
-              class="ml-2"
+              class="card-header-content-2"
               height="2"
               width="75"
             />
-            <hr class="mb-0">
+            <hr>
           </slot>
         </div>
         <div class="skeleton-card-content">
@@ -55,26 +56,34 @@ $borderColor: #e6e6e6;
 .skeleton-card-wrapper {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-md, spacing(md));
+  gap: var(--spacing-md, var(--kui-space-60, $kui-space-60));
   justify-content: space-between;
   width: 100%;
 }
 .skeleton-card-column {
-  margin-bottom: var(--spacing-md, spacing(md));
-  width: var(--KSkeletonCardWidth, calc(33% - var(--spacing-md, spacing(md))));
+  margin-bottom: var(--spacing-md, var(--kui-space-60, $kui-space-60));
+  width: var(--KSkeletonCardWidth, calc(33% - var(--spacing-md, var(--kui-space-60, $kui-space-60))));
 }
 .skeleton-card {
-  border: 1px solid $borderColor;
-  border-radius: 3px;
+  border: var(--kui-border-width-10, $kui-border-width-10) solid $borderColor;
+  border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
   display: flex;
   flex-direction: column;
   min-height: 324px;
   overflow: hidden;
-  padding: var(--spacing-md, spacing(md));
+  padding: var(--spacing-md, var(--kui-space-60, $kui-space-60));
   .skeleton-card-header {
     display: flex;
-    margin-bottom: var(--spacing-md, spacing(md));
+    margin-bottom: var(--spacing-md, var(--kui-space-60, $kui-space-60));
     width: 100%;
+
+    .card-header-content-2 {
+      margin-left: var(--kui-space-40, $kui-space-40) !important;
+    }
+
+    hr {
+      margin-bottom: var(--kui-space-0, $kui-space-0) !important;
+    }
   }
   .skeleton-card-content {
     display: flex;
@@ -84,8 +93,8 @@ $borderColor: #e6e6e6;
     align-self: flex-end;
     display: flex;
     justify-content: space-between;
-    margin-top: auto;
-    padding-top: var(--spacing-md, spacing(md));
+    margin-top: var(--kui-space-auto, $kui-space-auto);
+    padding-top: var(--spacing-md, var(--kui-space-60, $kui-space-60));
     width: 100%;
   }
 }

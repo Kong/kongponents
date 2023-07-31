@@ -9,11 +9,7 @@
         <KSkeletonBox
           v-for="cell in columns"
           :key="cell"
-          :class="{
-            'mr-6': cell !== columns,
-            'w-100': cell === columns, // take the rest of the space
-            'skeleton-cell': true
-          }"
+          class="skeleton-cell"
           :width="calcWidth(cell, columns || 6)"
         />
       </slot>
@@ -48,24 +44,37 @@ const calcWidth = (cell: number, columns: number): SkeletonBoxWidth => {
 @import '@/styles/variables';
 @import '@/styles/functions';
 
-$screen-lg: 1256px;
-$screen-md: 756px;
+$screen-lg: $kui-breakpoint-tablet;
+$screen-md: $kui-breakpoint-phablet;
+
 .skeleton-table-wrapper {
   overflow: hidden;
   width: 100%;
+
   .skeleton-table-row {
     display: flex;
     flex-direction: row;
-    margin-bottom: 32px;
+    margin-bottom: var(--kui-space-90, $kui-space-90);
     /** Hide columns on smaller screens */
+
+    .skeleton-cell {
+      // 'mr-6': cell !== columns
+      margin-right: var(--kui-space-90, $kui-space-90) !important;
+
+      &:last-child {
+        margin-right: var(--kui-space-0, $kui-space-0) !important;
+        width: 100% !important;
+      }
+    }
+
     @media only screen and (max-width: $screen-lg) {
       .skeleton-cell {
         &:nth-of-type(n + 5) {
           display: none;
         }
         &:nth-of-type(4) {
-          margin-left: auto;
-          margin-right: 0;
+          margin-left: var(--kui-space-auto, $kui-space-auto);
+          margin-right: var(--kui-space-0, $kui-space-0);
         }
       }
     }
@@ -75,8 +84,8 @@ $screen-md: 756px;
           display: none;
         }
         &:nth-of-type(2) {
-          margin-left: auto;
-          margin-right: 0;
+          margin-left: var(--kui-space-auto, $kui-space-auto);
+          margin-right: var(--kui-space-0, $kui-space-0);
           width: 96px;
         }
       }

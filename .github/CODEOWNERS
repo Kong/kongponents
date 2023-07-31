@@ -27,6 +27,7 @@
 # This is temporary codeowners until we introduce design tokens practices to the whole team
 /src/components/KAlert @adamdehaven @jillztom @portikM
 /src/components/KBadge @adamdehaven @jillztom @portikM
+/src/components/KBreadcrumbs @adamdehaven @jillztom @portikM
 /src/components/KButton @adamdehaven @jillztom @portikM
 /src/components/KCard @adamdehaven @jillztom @portikM
 /src/components/KCatalog @adamdehaven @jillztom @portikM
@@ -56,6 +57,7 @@
 /src/components/KSelect @adamdehaven @jillztom @portikM
 /src/components/KSlideout @adamdehaven @jillztom @portikM
 /src/components/KStepper @adamdehaven @jillztom @portikM
+/src/components/KSkeleton @adamdehaven @jillztom @portikM
 /src/components/KTable @adamdehaven @jillztom @portikM
 /src/components/KTabs @adamdehaven @jillztom @portikM
 /src/components/KTextArea @adamdehaven @jillztom @portikM
