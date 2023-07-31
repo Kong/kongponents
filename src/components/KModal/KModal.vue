@@ -354,8 +354,11 @@ onUnmounted(() => {
     .k-modal-header-image {
       display: flex !important;
       margin-bottom: var(--spacing-xl, var(--kui-space-90, $kui-space-90));
+      /* stylelint-disable-next-line custom-property-no-missing-var-function */
       margin-left: calc(#{var(--KModalPadding)} * -1);
+      /* stylelint-disable-next-line custom-property-no-missing-var-function */
       margin-right: calc(#{var(--KModalPadding)} * -1);
+      /* stylelint-disable-next-line custom-property-no-missing-var-function */
       margin-top: calc(#{var(--KModalPadding)} * -1);
     }
 
