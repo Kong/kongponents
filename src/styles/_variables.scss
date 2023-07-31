@@ -83,8 +83,8 @@ $type-sizes: (
   xxs: 10px,
 );
 $fonts: (
-  sans: sans-serif,
-  mono: monospace,
+  sans: 'Inter', Roboto, Helvetica, sans-serif,
+  mono: 'JetBrains Mono', Consolas, monospace,
 );
 
 // Set up CSS variables as a mixin so consuming packages can import if they desire and add to scoped styles
