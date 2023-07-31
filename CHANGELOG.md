@@ -1,3 +1,10 @@
+# [8.118.0](https://github.com/Kong/kongponents/compare/v8.117.0...v8.118.0) (2023-07-31)
+
+
+### Features
+
+* **kviewswitcher:** introduce kui tokens [KHCP-7733] ([#1593](https://github.com/Kong/kongponents/issues/1593)) ([6080e41](https://github.com/Kong/kongponents/commit/6080e415b880cf3b851ab0e1caeb65669256c6b3))
+
 # [8.117.0](https://github.com/Kong/kongponents/compare/v8.116.2...v8.117.0) (2023-07-31)
 
 
