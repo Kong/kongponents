@@ -140,6 +140,7 @@ const offsetTopValue = computed((): string => getSizeFromString(props.offsetTop)
       font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
       line-height: var(--kui-line-height-40, $kui-line-height-40);
       margin-left: var(--kui-space-50, $kui-space-50);
+      margin-right: var(--kui-space-100, $kui-space-100);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -192,12 +193,6 @@ const offsetTopValue = computed((): string => getSizeFromString(props.offsetTop)
       &:focus{
         box-shadow: 0 0 0 2px var(--KButtonOutlineBorder, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)))
       }
-    }
-
-    .close-button-with-title {
-      margin-left: var(--kui-space-60, $kui-space-60);
-      margin-right: var(--kui-space-60, $kui-space-60);
-      margin-top: var(--kui-space-30, $kui-space-30);
     }
 
     .content {
