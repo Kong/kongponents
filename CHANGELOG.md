@@ -1,3 +1,11 @@
+# [8.119.0](https://github.com/Kong/kongponents/compare/v8.118.1...v8.119.0) (2023-07-31)
+
+
+### Features
+
+* **kcodeblock:** introduce kui tokens [KHCP-7700] ([#1590](https://github.com/Kong/kongponents/issues/1590)) ([5813d72](https://github.com/Kong/kongponents/commit/5813d724b78f54d88d31cf652da8a60f37867fee))
+* **kskeleton:** introduce kui tokens [KHCP-7723] ([#1572](https://github.com/Kong/kongponents/issues/1572)) ([7d59176](https://github.com/Kong/kongponents/commit/7d59176442b1c62905da0e1b1c60a2024a19c1bf))
+
 ## [8.118.1](https://github.com/Kong/kongponents/compare/v8.118.0...v8.118.1) (2023-07-31)
 
 
