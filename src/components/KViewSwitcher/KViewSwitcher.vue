@@ -144,7 +144,7 @@ const toggleView = (): void => {
 
     .lines {
       --name: var(--lines-name, none);
-      --duration: var(--lines-duration, $tmp-animation-timing-2);
+      --duration: var(--lines-duration, #{$tmp-animation-timing-2});
       --easing: var(--lines-easing, linear);
       --delay: var(--lines-delay, 0s);
 
