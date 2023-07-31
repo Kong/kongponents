@@ -24,6 +24,7 @@
 /vite.config.ts @adamdehaven @jillztom
 
 # Linting configs
+/.eslintrc.cjs @adamdehaven @jillztom
 /.stylelintrc.cjs @adamdehaven @jillztom @portikM
 /deprecated-classes.cjs @adamdehaven @jillztom @portikM
 
