@@ -6,37 +6,47 @@
         :class="hasOverlay ? 'panel-background' : 'panel-background-transparent'"
       />
     </transition>
-    <transition
-      name="slide"
-    >
+    <transition name="slide">
       <div
         v-if="isVisible"
         ref="slideOutRef"
         class="panel"
         :class="{ 'is-visible': isVisible, 'border-styles': !hasOverlay }"
       >
-        <!-- If there is title prop or header slot, display the header content -->
+        <!-- title slot -->
         <div
           v-if="title || hasTitle"
           class="k-slideout-header-content"
         >
-          <slot name="header">
+          <slot name="title">
             <p class="k-slideout-title">
               {{ title }}
             </p>
           </slot>
         </div>
 
-        <button
-          :class="closeButtonAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
-          @click="(event: any) => emit('close')"
+        <!-- header custom slot -->
+        <div v-if="hasHeader">
+          <slot name="header" />
+        </div>
+
+        <!-- cancelButton slot -->
+        <slot
+          v-if="hasCancelButton"
+          name="cancelButton"
         >
-          <KIcon
-            :color="`var(--kui-color-text-neutral-stronger, ${KUI_COLOR_TEXT_NEUTRAL_STRONGER})`"
-            icon="close"
-            :size="KUI_ICON_SIZE_50"
-          />
-        </button>
+          <button
+            :class="closeButtonAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
+            @click="(event: any) => emit('close')"
+          >
+            <KIcon
+              :color="`var(--kui-color-text-neutral-stronger, ${KUI_COLOR_TEXT_NEUTRAL_STRONGER})`"
+              icon="close"
+              :size="KUI_ICON_SIZE_50"
+            />
+          </button>
+        </slot>
+
         <div class="content">
           <KCard border-variant="noBorder">
             <template #body>
@@ -92,6 +102,8 @@ const emit = defineEmits<{
 
 const slots = useSlots()
 const hasTitle = computed((): boolean => !!slots.title)
+const hasHeader = computed((): boolean => !!slots.header)
+const hasCancelButton = computed((): boolean => !!slots.cancelButton)
 const { getSizeFromString } = useUtilities()
 const slideOutRef = ref(null)
 
