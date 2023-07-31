@@ -23,6 +23,10 @@
 /.gitignore @adamdehaven @jillztom @kaiarrowood
 /vite.config.ts @adamdehaven @jillztom
 
+# Linting configs
+/.stylelintrc.cjs @adamdehaven @jillztom @portikM
+/deprecated-classes.cjs @adamdehaven @jillztom @portikM
+
 # Design Tokens Implemented Kongponents
 # This is temporary codeowners until we introduce design tokens practices to the whole team
 /src/components/KAlert @adamdehaven @jillztom @portikM
