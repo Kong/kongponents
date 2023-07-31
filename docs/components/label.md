@@ -126,15 +126,15 @@ An example of theming the label might look like:
 
 <style>
 .custom-label {
-  --KInputLabelColor: var(--purple-400);
-  --KLabelRequiredAsteriskColor: var(--red-500);
+  --KInputLabelColor: blue;
+  --KLabelRequiredAsteriskColor: red;
 }
 </style>
 ```
 
 <style lang="scss">
 .custom-label {
-  --KInputLabelColor: var(--purple-400);
-  --KLabelRequiredAsteriskColor: var(--red-500);
+  --KInputLabelColor: blue;
+  --KLabelRequiredAsteriskColor: red;
 }
 </style>

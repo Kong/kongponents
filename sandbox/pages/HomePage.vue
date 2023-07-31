@@ -131,7 +131,7 @@ const isHomePage = computed((): boolean => route.name === 'home')
 }
 
 .home-link {
-  color: var(--blue-500);
+  color: $kui-color-text-primary;
   text-decoration: none;
 }
 </style>

@@ -34,10 +34,10 @@ const colorValue = computed((): string => getComputedStyle(document.body).getPro
   padding: 24px 0;
 
   .swatch {
-    width: 40px;
-    height: 40px;
-    border: 1px solid var(--grey-200);
+    border: 1px solid $kui-color-border-neutral-weak;
     border-radius: 4px;
+    height: 40px;
+    width: 40px;
   }
 
   .description {
@@ -53,8 +53,8 @@ const colorValue = computed((): string => getComputedStyle(document.body).getPro
       }
 
       &:last-of-type {
-        color: var(--vp-c-text, var(--black-70));
-        font-size: var(--type-sm);
+        color: var(--vp-c-text, $kui-color-text);
+        font-size: $kui-font-size-30;
       }
     }
   }

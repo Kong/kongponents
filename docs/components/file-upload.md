@@ -316,10 +316,10 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 pre.emitted-value {
-  font-size: var(--type-sm);
+  font-size: 12px;
   white-space: pre-wrap;
-  background-color: var(--grey-200);
-  padding: var(--type-xxs);
+  background-color: lightgrey;
+  padding: 10px;
   height: 200px;
   overflow: hidden;
 }
@@ -328,7 +328,7 @@ pre.emitted-value {
 <style lang="scss">
 .k-file-upload {
   .image-upload-icon.kong-icon-image svg rect {
-    fill: var(--blue-500);
+    fill: lightblue;
   }
 }
 .image-with-label {

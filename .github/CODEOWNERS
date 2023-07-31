@@ -68,6 +68,7 @@
 /src/components/KTreeList @adamdehaven @jillztom @portikM
 /src/components/KTruncate @adamdehaven @jillztom @portikM
 /src/components/KViewSwitcher @adamdehaven @jillztom @portikM
+/src/styles/_utils.scss @adamdehaven @jillztom @portikM
 
 # Dependabot approvals
 # Allow Kongponents BOT to approve dependabot updates

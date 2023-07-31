@@ -57,12 +57,12 @@ export default defineComponent({
     border-bottom: 1px solid #efefef;
   }
   p {
-    margin: 0;
-    color: var(--black-70);
-    background-color: var(--grey-100);
-    border: 1px solid var(--grey-300);
+    background-color: $kui-color-background-neutral-weakest;
+    border: 1px solid $kui-color-border-neutral-weak;
     border-radius: 5px;
-    padding: var(--spacing-xs);
+    color: $kui-color-text;
+    margin: 0;
+    padding: $kui-space-40;
   }
   .label {
     margin-bottom: 4px;
@@ -70,8 +70,8 @@ export default defineComponent({
       font-weight: 600;
     }
     span {
-      font-size: var(--type-sm);
-      color: var(--vp-c-text, var(--black-70));
+      color: var(--vp-c-text, $kui-color-text);
+      font-size: $kui-font-size-30;
     }
   }
 }
