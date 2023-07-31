@@ -41,11 +41,11 @@ defineProps({
 
 .k-step-state-icon {
   .k-step-icon-primary {
-    fill: var(--KStepCompletedColor, var(--teal-300));
+    fill: var(--KStepCompletedColor, var(--kui-color-text-decorative, $kui-color-text-decorative));
   }
 
   .k-step-icon-secondary {
-    stroke: var(--KStepCompletedSecondaryColor, var(--white));
+    stroke: var(--KStepCompletedSecondaryColor, var(--kui-color-text-inverse, $kui-color-text-inverse));
   }
 }
 </style>
