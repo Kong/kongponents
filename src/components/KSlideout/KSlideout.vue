@@ -213,7 +213,6 @@ const offsetTopValue = computed((): string => getSizeFromString(props.offsetTop)
 
     .content {
       height: 100%;
-      // overflow: auto;
       -ms-overflow-style: none;  // IE 10+
       scrollbar-width: none;  // Firefox
       &::-webkit-scrollbar { display: none; }
@@ -243,7 +242,7 @@ const offsetTopValue = computed((): string => getSizeFromString(props.offsetTop)
 
   .border-styles {
     border-left: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
-    box-shadow: #0000000d -2px 0px 5px;
+    box-shadow: -2px 0px 5px var(--black-5, $tmp-color-black-5);
   }
 </style>
 
