@@ -60,7 +60,7 @@ $colors: (
   black-300: #6f7787,
   black-400: #3c4557,
   black-500: #0b172d,
-  white: #ffffff,
+  white: #ffffff
 );
 $spacing: (
   xxs: 4px,
@@ -70,7 +70,7 @@ $spacing: (
   lg: 24px,
   xl: 32px,
   xxl: 48px,
-  xxxl: 64px,
+  xxxl: 64px
 );
 $type-sizes: (
   xxxl: 32px,
@@ -80,11 +80,11 @@ $type-sizes: (
   md: 16px,
   sm: 14px,
   xs: 12px,
-  xxs: 10px,
+  xxs: 10px
 );
 $fonts: (
-  sans: 'Inter', Roboto, Helvetica, sans-serif,
-  mono: 'JetBrains Mono', Consolas, monospace,
+  sans: "'Inter', Roboto, Helvetica, sans-serif",
+  mono: "'JetBrains Mono', Consolas, monospace"
 );
 
 // Set up CSS variables as a mixin so consuming packages can import if they desire and add to scoped styles
