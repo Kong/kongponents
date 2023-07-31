@@ -14,14 +14,15 @@ module.exports = {
         'unit-disallowed-list': [
           ['rem', 'em'],
         ],
-        // Only allow @kong/design-tokens or Kongponents theming CSS custom properties
-        // TODO: Remove `K` pattern here when theming properties are removed in the breaking release
-        'custom-property-pattern': [
-          "^(kui-|K).+$",
-          {
-            message: "Expected custom property \"%s\" to be sourced from @kong/design-tokens with prefix '--kui-' or have prefix '--K' as a local theming variable",
-          }
-        ],
+        // TODO: Enable once all deprecated CSS custom properties have been removed in breaking version.
+        //
+        // Only allow @kong/design-tokens CSS custom properties
+        // 'custom-property-pattern': [
+        //   "^(kui).+$",
+        //   {
+        //     message: "Expected custom property \"%s\" to be sourced from @kong/design-tokens with prefix '--kui-'",
+        //   }
+        // ],
         'custom-property-no-missing-var-function': true,
         // Disable the following rules
         'no-descending-specificity': null,
