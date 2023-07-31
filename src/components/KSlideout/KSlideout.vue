@@ -24,21 +24,10 @@
             <p class="k-slideout-title">
               {{ title }}
             </p>
-            <button
-              class="close-button-with-title"
-              @click="(event: any) => emit('close')"
-            >
-              <KIcon
-                :color="`var(--kui-color-text-neutral-stronger, ${KUI_COLOR_TEXT_NEUTRAL_STRONGER})`"
-                icon="close"
-                :size="KUI_ICON_SIZE_50"
-              />
-            </button>
           </slot>
         </div>
 
         <button
-          v-else
           :class="closeButtonAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
           @click="(event: any) => emit('close')"
         >
