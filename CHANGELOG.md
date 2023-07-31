@@ -1,3 +1,10 @@
+# [8.117.0](https://github.com/Kong/kongponents/compare/v8.116.2...v8.117.0) (2023-07-31)
+
+
+### Features
+
+* **kpagination:** introduce kui tokens [KHCP-7717] ([#1581](https://github.com/Kong/kongponents/issues/1581)) ([e35a6ab](https://github.com/Kong/kongponents/commit/e35a6ab532b84689d37a2c52801e8da8a9c63360))
+
 ## [8.116.2](https://github.com/Kong/kongponents/compare/v8.116.1...v8.116.2) (2023-07-28)
 
 
