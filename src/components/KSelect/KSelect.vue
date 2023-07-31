@@ -935,7 +935,7 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
       @include non-visual-button;
       padding: var(--kui-space-0, $kui-space-0);
       position: absolute;
-      right: calc($iconSize + $chevronDownIconMargin);
+      right: 24px;
       z-index: 9;
 
       .kong-icon-clear {
@@ -951,7 +951,7 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
       pointer-events: none;
       position: absolute;
       // offset chevron icon width and margin
-      right: calc($iconSize + $chevronDownIconMargin);
+      right: 24px;
       width: calc(100% - $iconSize - $chevronDownIconMargin);
     }
   }
@@ -1070,9 +1070,9 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
       display: block;
       height: 24px;
       position: relative;
-      right: var(--kui-space-0, $kui-space-0);
+      right: 0;
       text-align: center;
-      top: var(--kui-space-0, $kui-space-0);
+      top: 0;
     }
 
     .k-popover-content {
@@ -1095,7 +1095,7 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
       // Firefox workaround
       // since :has() selector isn't supported in Firefox be default
       .k-select-list ~ .k-select-dropdown-footer-sticky {
-        bottom: var(--kui-space-0, $kui-space-0);
+        bottom: 0;
         position: sticky;
       }
     }

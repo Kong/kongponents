@@ -327,7 +327,7 @@ export const appearances: AlertAppearanceRecord = {
     }
 
     p:last-of-type {
-      margin-bottom: var(--kui-space-0, $kui-space-0);
+      margin-bottom: 0;
     }
   }
 
@@ -357,12 +357,12 @@ export const appearances: AlertAppearanceRecord = {
   .close {
     background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
     border: var(--kui-border-width-0, $kui-border-width-0);
-    bottom: var(--kui-space-0, $kui-space-0);
+    bottom: 0;
     cursor: pointer;
     opacity: 0.5;
     position: absolute;
-    right: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
-    top: var(--kui-space-0, $kui-space-0);
+    right: var(--spacing-xs, 8px);
+    top: 0;
     transition: all $tmp-animation-timing-2 ease;
 
     &:hover,
@@ -391,10 +391,10 @@ export const appearances: AlertAppearanceRecord = {
 
   // Variants
   &.is-fixed {
-    left: var(--kui-space-0, $kui-space-0);
+    left: 0;
     position: fixed;
-    right: var(--kui-space-0, $kui-space-0);
-    top: var(--kui-space-0, $kui-space-0);
+    right: 0;
+    top: 0;
   }
 
   &.is-bordered {

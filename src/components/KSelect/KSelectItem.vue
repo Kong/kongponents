@@ -141,8 +141,8 @@ const handleClick = (e: MouseEvent): void => {
       .kong-icon {
         display: flex;
         position: relative;
-        right: var(--kui-space-0, $kui-space-0);
-        top: var(--kui-space-0, $kui-space-0);
+        right: 0;
+        top: 0;
         transform: none;
       }
     }

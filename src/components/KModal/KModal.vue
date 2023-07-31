@@ -304,7 +304,7 @@ onUnmounted(() => {
 
 .k-modal-backdrop {
   background-color: var(--KModalBackdrop, $tmp-color-backdrop);
-  inset: var(--kui-space-0, $kui-space-0);
+  inset: 0;
   position: fixed;
   z-index: 1100;
 }
@@ -333,8 +333,8 @@ onUnmounted(() => {
 
     .close-button {
       position: absolute;
-      right: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
-      top: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
+      right: var(--spacing-lg, 24px);
+      top: var(--spacing-lg, 24px);
       // 1 more than .k-modal-dialog
       z-index: 10000;
 

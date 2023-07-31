@@ -125,7 +125,7 @@ const getPrevOffset = (): void => {
       }
 
       &.active {
-        background-color: var(--blue-100, var(--kui-color-border-primary-weakest, $kui-color-border-primary-weakest));
+        background-color: var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
         border-color: var(--blue-200, var(--kui-color-border-primary-weak, $kui-color-border-primary-weak));
         border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
         color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));

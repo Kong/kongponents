@@ -69,8 +69,8 @@ const handleCardClick = (evt: Event, item: CatalogItem): void => {
   overflow: hidden;
 
   .multi-line-truncate {
-    line-height: var(--lh, var(--kui-line-height-30, $kui-line-height-30));
-    max-height: calc(var(--lh, var(--kui-line-height-30, $kui-line-height-30)) * var(--max-lines, 5));
+    line-height: var(--lh, 20px);
+    max-height: calc(var(--lh, 20px) * var(--max-lines, 5));
     overflow: hidden;
     padding-right: var(--kui-space-40, $kui-space-40);
     position: relative;
@@ -79,8 +79,8 @@ const handleCardClick = (evt: Event, item: CatalogItem): void => {
   .multi-line-truncate::before {
     content: "...";
     position: absolute;
-    right: var(--kui-space-50, $kui-space-50);
-    top: calc(var(--lh, var(--kui-line-height-30, $kui-line-height-30)) * var(--max-lines-less, 4));
+    right: 12px;
+    top: calc(var(--lh, 20px) * var(--max-lines-less, 4));
   }
 
   &:hover {
