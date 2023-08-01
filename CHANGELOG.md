@@ -1,3 +1,10 @@
+# [8.120.0](https://github.com/Kong/kongponents/compare/v8.119.0...v8.120.0) (2023-08-01)
+
+
+### Features
+
+* **KTable:** add types [KHCP-6973] ([#1457](https://github.com/Kong/kongponents/issues/1457)) ([461aec6](https://github.com/Kong/kongponents/commit/461aec6451de4f010cd7959673ebff53a37073a3))
+
 # [8.119.0](https://github.com/Kong/kongponents/compare/v8.118.1...v8.119.0) (2023-07-31)
 
 
