@@ -327,7 +327,7 @@ export const appearances: AlertAppearanceRecord = {
     }
 
     p:last-of-type {
-      margin-bottom: 0;
+      margin-bottom: var(--kui-space-0, $kui-space-0);
     }
   }
 

@@ -31,25 +31,25 @@ const colorValue = computed((): string => getComputedStyle(document.body).getPro
 <style lang="scss">
 .color-swatch-container {
   display: flex;
-  padding: 24px 0;
+  padding: $kui-space-80 $kui-space-0;
 
   .swatch {
-    border: 1px solid $kui-color-border-neutral-weak;
-    border-radius: 4px;
+    border: $kui-border-width-10 solid $kui-color-border-neutral-weak;
+    border-radius: $kui-border-radius-20;
     height: 40px;
     width: 40px;
   }
 
   .description {
     flex: 1;
-    margin-left: 16px;
+    margin-left: $kui-space-60;
 
     span {
       display: block;
 
       &:first-of-type {
-        font-weight: 600;
-        margin-bottom: 4px;
+        font-weight: $kui-font-weight-semibold;
+        margin-bottom: $kui-space-20;
       }
 
       &:last-of-type {

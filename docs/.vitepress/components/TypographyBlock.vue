@@ -52,22 +52,22 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .typography-block {
-  padding: 24px 0;
+  padding: $kui-space-80 $kui-space-0;
   &:not(:last-child) {
-    border-bottom: 1px solid #efefef;
+    border-bottom: $kui-border-width-10 solid $kui-color-border;
   }
   p {
     background-color: $kui-color-background-neutral-weakest;
-    border: 1px solid $kui-color-border-neutral-weak;
-    border-radius: 5px;
+    border: $kui-border-width-10 solid $kui-color-border-neutral-weak;
+    border-radius: $kui-border-radius-20;
     color: $kui-color-text;
-    margin: 0;
+    margin: $kui-space-0;
     padding: $kui-space-40;
   }
   .label {
-    margin-bottom: 4px;
+    margin-bottom: $kui-space-20;
     strong {
-      font-weight: 600;
+      font-weight: $kui-font-weight-semibold;
     }
     span {
       color: var(--vp-c-text, $kui-color-text);
