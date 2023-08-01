@@ -1,3 +1,10 @@
+## [8.121.1](https://github.com/Kong/kongponents/compare/v8.121.0...v8.121.1) (2023-08-01)
+
+
+### Bug Fixes
+
+* **slideout:** Header updates [khcp-7919] ([#1539](https://github.com/Kong/kongponents/issues/1539)) ([9f23472](https://github.com/Kong/kongponents/commit/9f234728364ef89d1d05f39042a6f0ece25e7bfa))
+
 # [8.121.0](https://github.com/Kong/kongponents/compare/v8.120.0...v8.121.0) (2023-08-01)
 
 
