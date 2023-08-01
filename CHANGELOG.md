@@ -1,3 +1,10 @@
+# [8.121.0](https://github.com/Kong/kongponents/compare/v8.120.0...v8.121.0) (2023-08-01)
+
+
+### Features
+
+* token cleanup [KHCP-8461] ([#1604](https://github.com/Kong/kongponents/issues/1604)) ([94aa2d2](https://github.com/Kong/kongponents/commit/94aa2d2433c624c734be33bd760692b3dbbd4f5f))
+
 # [8.120.0](https://github.com/Kong/kongponents/compare/v8.119.0...v8.120.0) (2023-08-01)
 
 
