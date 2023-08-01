@@ -12,6 +12,7 @@
         ref="slideOutRef"
         class="panel"
         :class="{ 'is-visible': isVisible, 'border-styles': !hasOverlay }"
+        data-testid="slideout-panel"
       >
         <div class="k-slideout-header-content">
           <div
@@ -26,6 +27,7 @@
             <p
               class="k-slideout-title"
               data-testid="k-slideout-title"
+              :title="title"
             >
               {{ title }}
             </p>

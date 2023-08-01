@@ -50,6 +50,26 @@ describe('KSlideout', () => {
     cy.getTestId('close-button-end').should('be.visible')
   })
 
+  it('emits close when panel-background is clicked', () => {
+    mount(KSlideout, {
+      props: {
+        isVisible: true,
+        onClose: cy.spy().as('onCloseSpy'),
+      },
+    }).then(({ wrapper }) => wrapper)
+      .as('vueWrapper')
+
+    cy.get('@vueWrapper').then((wrapper: any) => wrapper.findComponent(KSlideout)
+      .vm.$emit('close', true))
+
+    cy.get('@onCloseSpy').should('have.been.called')
+
+    cy.get('.panel-background').click({ force: true })
+      .then(() => {
+        cy.get('@onCloseSpy').should('have.been.called')
+      })
+  })
+
   it('emits close when esc key pressed', () => {
     mount(KSlideout, {
       props: {
