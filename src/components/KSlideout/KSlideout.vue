@@ -3,28 +3,57 @@
     <transition name="fade">
       <div
         v-if="isVisible"
-        class="panel-background"
-        @click="(event: any) => handleClose(event, true)"
+        :class="hasOverlay ? 'panel-background' : 'panel-background-transparent'"
       />
     </transition>
-    <transition
-      name="slide"
-    >
+    <transition name="slide">
       <div
         v-if="isVisible"
+        ref="slideOutRef"
         class="panel"
-        :class="{ isVisible: 'is-visible' }"
+        :class="{ 'is-visible': isVisible, 'border-styles': !hasOverlay }"
+        data-testid="slideout-panel"
       >
+        <div class="k-slideout-header-content">
+          <div
+            v-if="hasBeforeTitle"
+            class="k-slideout-before-title"
+          >
+            <slot name="before-title" />
+          </div>
+
+          <!-- title -->
+          <div class="k-slideout-main-title">
+            <p
+              class="k-slideout-title"
+              data-testid="k-slideout-title"
+              :title="title"
+            >
+              {{ title }}
+            </p>
+          </div>
+
+          <div
+            v-if="hasAfterTitle"
+            class="k-slideout-after-title"
+          >
+            <slot name="after-title" />
+          </div>
+        </div>
+
+        <!-- cancelButton -->
         <button
-          class="close-btn"
-          @click="(event: any) => handleClose(event, true)"
+          :class="closeButtonAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
+          :data-testid="closeButtonAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
+          @click="(event: any) => emit('close')"
         >
           <KIcon
+            :color="`var(--kui-color-text-neutral-stronger, ${KUI_COLOR_TEXT_NEUTRAL_STRONGER})`"
             icon="close"
             :size="KUI_ICON_SIZE_50"
-            view-box="0 0 24 24"
           />
         </button>
+
         <div class="content">
           <KCard border-variant="noBorder">
             <template #body>
@@ -38,21 +67,60 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, onUnmounted } from 'vue'
+import { computed, useSlots, ref, onMounted, onUnmounted } from 'vue'
 import KCard from '@/components/KCard/KCard.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import { KUI_ICON_SIZE_50 } from '@kong/design-tokens'
+import useUtilities from '@/composables/useUtilities'
+import { KUI_ICON_SIZE_50, KUI_COLOR_TEXT_NEUTRAL_STRONGER } from '@kong/design-tokens'
+import { onClickOutside } from '@vueuse/core'
 
 const props = defineProps({
   isVisible: {
     type: Boolean,
     default: false,
   },
+  // controls close button alignment
+  closeButtonAlignment: {
+    type: String,
+    default: 'start',
+    validator: (value: string): boolean => {
+      return ['start', 'end'].includes(value)
+    },
+  },
+  // enable/disable overlay to be able to interact with the background content while the slideout is expanded
+  hasOverlay: {
+    type: Boolean,
+    default: true,
+  },
+  // allows a host app to define the offset from the top of the page
+  offsetTop: {
+    type: Number,
+    default: 0,
+  },
+  title: {
+    type: String,
+    default: '',
+  },
 })
 
 const emit = defineEmits<{
   (e: 'close'): void
 }>()
+
+const slots = useSlots()
+const hasBeforeTitle = computed((): boolean => !!slots['before-title'])
+const hasAfterTitle = computed((): boolean => !!slots['after-title'])
+const { getSizeFromString } = useUtilities()
+const slideOutRef = ref(null)
+
+onClickOutside(
+  slideOutRef,
+  (event) => {
+    if (event.isTrusted) {
+      emit('close')
+    }
+  },
+)
 
 const handleClose = (e: any, forceClose = false): void => {
   if ((props.isVisible && e.keyCode === 27) || forceClose) {
@@ -67,6 +135,9 @@ onMounted(() => {
 onUnmounted(() => {
   document.removeEventListener('keydown', handleClose)
 })
+
+const offsetTopValue = computed((): string => getSizeFromString(String(props.offsetTop)))
+
 </script>
 
 <style lang="scss" scoped>
@@ -78,49 +149,110 @@ onUnmounted(() => {
   --KCardPaddingY: var(--kui-space-90, #{$kui-space-90});
   --KCardPaddingX: var(--kui-space-110, #{$kui-space-110});
 
-  .panel-background {
-    background: var(--black-45, $tmp-color-black-45);
-    bottom: 0;
-    left: 0;
-    position: fixed;
-    right: 0;
-    top: 0;
-    z-index: 9999;
+  .k-slideout-header-content {
+    display: flex;
+    .k-slideout-before-title,
+    .k-slideout-after-title {
+      margin-top: var(--kui-space-60, $kui-space-60);
+    }
+    .k-slideout-main-title {
+      .k-slideout-title {
+        color: var(--black-400, var(--kui-color-text-neutral, $kui-color-text-neutral));
+        flex:1;
+        font-size: var(--kui-font-size-40, $kui-font-size-40);
+        font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
+        line-height: var(--kui-line-height-40, $kui-line-height-40);
+        margin-left: var(--kui-space-50, $kui-space-50);
+        margin-right: var(--kui-space-100, $kui-space-100);
+        margin-top: var(--kui-space-60, $kui-space-60);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
   }
-
   .panel {
     background-color: var(--white, var(--kui-color-background, $kui-color-background));
+    display: flex;
+    flex-direction: column;
     height: 100vh;
     max-width: 500px;
+    overflow-y: auto;
     position: fixed;
     right: 0;
-    top: 0;
+    top: v-bind('offsetTopValue');
     width: 100%;
     z-index: 9999;
 
-    .close-btn {
+    .close-button-start {
+      align-self: flex-start;
       background: none;
       border: none;
       cursor: pointer;
-      height: 16px;
-      left:  16px;
+      display: flex;
+      height: auto;
+      margin-left: var(--kui-space-50, $kui-space-50);
+      margin-top: var(--kui-space-50, $kui-space-50);
       outline: inherit;
-      padding: var(--kui-space-0, $kui-space-0);
       position: absolute;
-      top: 16px;
       transition: $tmp-animation-timing-2 ease;
-      width: 16px;
+
+      &:focus{
+        box-shadow: 0 0 0 2px var(--KButtonOutlineBorder, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)))
+      }
+    }
+
+    .close-button-end {
+      align-self: flex-end;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      height: auto;
+      margin-right: var(--kui-space-50, $kui-space-50);
+      margin-top: var(--kui-space-50, $kui-space-50);
+      outline: inherit;
+      position: absolute;
+      transition: $tmp-animation-timing-2 ease;
+
+      &:focus{
+        box-shadow: 0 0 0 2px var(--KButtonOutlineBorder, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)))
+      }
     }
 
     .content {
       height: 100%;
-      overflow: auto;
       -ms-overflow-style: none;  // IE 10+
       scrollbar-width: none;  // Firefox
       &::-webkit-scrollbar { display: none; }
     }
   }
 }
+
+  .panel-background {
+    background: var(--black-45, $tmp-color-black-45);
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: v-bind('offsetTopValue');
+    z-index: 9999;
+  }
+
+  .panel-background-transparent {
+    background: transparent;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: v-bind('offsetTopValue');
+    z-index: -1;
+  }
+
+  .border-styles {
+    border-left: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
+    box-shadow: -2px 0px 5px var(--black-5, $tmp-color-black-5);
+  }
 </style>
 
 <style lang="scss">
