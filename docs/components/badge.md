@@ -324,9 +324,9 @@ An example of theming a custom badge:
 <style>
 .KBadge-wrapper {
   --KBadgeBorderRadius: 100px;
-  --KBadgeFontSize: var(--type-sm);
-  --KBadgePaddingX: var(--spacing-sm);
-  --KBadgePaddingY: var(--spacing-xs);
+  --KBadgeFontSize: 14px;
+  --KBadgePaddingX: 12px;
+  --KBadgePaddingY: 8px;
   --KBadgeMaxWidth: auto;
 
   div {
@@ -360,9 +360,9 @@ const testClick = () => {
 <style lang="scss">
 .KBadge-wrapper {
   --KBadgeBorderRadius: 100px;
-  --KBadgeFontSize: var(--type-sm);
-  --KBadgePaddingX: var(--spacing-sm);
-  --KBadgePaddingY: var(--spacing-xs);
+  --KBadgeFontSize: 14px;
+  --KBadgePaddingX: 12px;
+  --KBadgePaddingY: 8px;
   --KBadgeMaxWidth: auto;
 
   div {

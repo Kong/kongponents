@@ -141,7 +141,7 @@ const handleClick = (): void => {
       }
     }
     .selected-item-icon {
-      height: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
+      height: var(--spacing-lg, 24px);
 
       &.kong-icon.kong-icon-lock {
         height: 14px;

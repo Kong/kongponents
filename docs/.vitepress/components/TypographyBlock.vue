@@ -52,26 +52,26 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .typography-block {
-  padding: 24px 0;
+  padding: $kui-space-80 $kui-space-0;
   &:not(:last-child) {
-    border-bottom: 1px solid #efefef;
+    border-bottom: $kui-border-width-10 solid $kui-color-border;
   }
   p {
-    margin: 0;
-    color: var(--black-70);
-    background-color: var(--grey-100);
-    border: 1px solid var(--grey-300);
-    border-radius: 5px;
-    padding: var(--spacing-xs);
+    background-color: $kui-color-background-neutral-weakest;
+    border: $kui-border-width-10 solid $kui-color-border-neutral-weak;
+    border-radius: $kui-border-radius-20;
+    color: $kui-color-text;
+    margin: $kui-space-0;
+    padding: $kui-space-40;
   }
   .label {
-    margin-bottom: 4px;
+    margin-bottom: $kui-space-20;
     strong {
-      font-weight: 600;
+      font-weight: $kui-font-weight-semibold;
     }
     span {
-      font-size: var(--type-sm);
-      color: var(--vp-c-text, var(--black-70));
+      color: var(--vp-c-text, $kui-color-text);
+      font-size: $kui-font-size-30;
     }
   }
 }

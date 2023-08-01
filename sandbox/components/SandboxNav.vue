@@ -55,7 +55,7 @@ ul {
   a {
     background: #eee;
     border-radius: 4px;
-    color: var(--blue-500);
+    color: $kui-color-text-primary;
     display: flex;
     font-weight: 500;
     padding: 8px 16px;
@@ -64,15 +64,15 @@ ul {
 
     &:hover {
       background: #ccc;
-      color: var(--blue-700);
+      color: $kui-color-text-primary-stronger;
     }
 
     &.router-link-active {
-      background: var(--blue-500);
+      background: $kui-color-background-primary;
       color: #fff;
 
       &:hover {
-        background: var(--blue-500);
+        background: $kui-color-background-primary;
         color: #fff;
       }
     }

@@ -1,3 +1,5 @@
+const deprecatedUtilityClasses = require('./deprecated-classes.cjs')
+
 module.exports = {
   root: true,
   parserOptions: {
@@ -34,6 +36,8 @@ module.exports = {
     'vue/attributes-order': ['error', {
       alphabetical: true,
     }],
+    // Disallow Kongponents utility classes
+    'vue/no-restricted-class': ['error', ...deprecatedUtilityClasses],
   },
   overrides: [
     {

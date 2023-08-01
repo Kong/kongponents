@@ -10,11 +10,11 @@ body {
 }
 
 pre.json {
-  font-size: var(--type-sm);
+  background-color: $kui-color-background-neutral-weaker;
+  border-radius: $kui-border-radius-40;
+  font-size: $kui-font-size-30;
+  padding: $kui-space-60;
   white-space: pre-wrap;
-  padding: 16px;
-  background-color: var(--grey-200);
-  border-radius: 8px;
 }
 
 .VPContent {

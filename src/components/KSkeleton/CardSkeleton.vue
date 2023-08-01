@@ -62,7 +62,7 @@ $borderColor: #e6e6e6;
 }
 .skeleton-card-column {
   margin-bottom: var(--spacing-md, var(--kui-space-60, $kui-space-60));
-  width: var(--KSkeletonCardWidth, calc(33% - var(--spacing-md, var(--kui-space-60, $kui-space-60))));
+  width: var(--KSkeletonCardWidth, calc(33% - var(--spacing-md, 16px)));
 }
 .skeleton-card {
   border: var(--kui-border-width-10, $kui-border-width-10) solid $borderColor;

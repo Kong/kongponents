@@ -169,12 +169,12 @@ export default {
   }
 
   .has-label-right + .kong-icon {
-    left: var(--kui-space-120, $kui-space-120);
+    left: 56px;
     position: absolute;
   }
 
   .kong-icon {
-    top: var(--kui-space-0, $kui-space-0);
+    top: 0;
     transform: translateX(-54px);
   }
 }

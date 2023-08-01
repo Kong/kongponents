@@ -31,30 +31,30 @@ const colorValue = computed((): string => getComputedStyle(document.body).getPro
 <style lang="scss">
 .color-swatch-container {
   display: flex;
-  padding: 24px 0;
+  padding: $kui-space-80 $kui-space-0;
 
   .swatch {
-    width: 40px;
+    border: $kui-border-width-10 solid $kui-color-border-neutral-weak;
+    border-radius: $kui-border-radius-20;
     height: 40px;
-    border: 1px solid var(--grey-200);
-    border-radius: 4px;
+    width: 40px;
   }
 
   .description {
     flex: 1;
-    margin-left: 16px;
+    margin-left: $kui-space-60;
 
     span {
       display: block;
 
       &:first-of-type {
-        font-weight: 600;
-        margin-bottom: 4px;
+        font-weight: $kui-font-weight-semibold;
+        margin-bottom: $kui-space-20;
       }
 
       &:last-of-type {
-        color: var(--vp-c-text, var(--black-70));
-        font-size: var(--type-sm);
+        color: var(--vp-c-text, $kui-color-text);
+        font-size: $kui-font-size-30;
       }
     }
   }

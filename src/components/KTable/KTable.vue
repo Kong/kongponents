@@ -1019,7 +1019,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
     border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--KTableBorder, var(--grey-200, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
     height: 60px;
     position: sticky;
-    top: var(--kui-space-0, $kui-space-0);
+    top: 0;
 
     &.is-scrolled {
       border-bottom: none;
@@ -1032,7 +1032,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
         box-shadow: none;
         content: '';
         height: 100%;
-        left: var(--kui-space-0, $kui-space-0);
+        left: 0;
         opacity: 0;
         // Super-important to allow clicking on table rows in Safari.
         // This allows clicks to pass through the "invisible" :after layer
@@ -1166,7 +1166,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
     th {
       .caret {
         position: relative;
-        top: var(--kui-space-10, $kui-space-10);
+        top: 2px;
         transform: rotate(0deg);
       }
 

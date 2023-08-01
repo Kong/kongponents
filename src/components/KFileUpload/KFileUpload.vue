@@ -283,15 +283,15 @@ const resetInput = (): void => {
     border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
     height: 29px;
     position: absolute;
-    right: var(--type-xs, var(--kui-space-40, $kui-space-40));
+    right: 8px;
   }
 
   .k-file-upload-btn-with-label.k-button {
-    top: calc($kInputLabelLineHeight + $kInputLabelMarginBottom + $kInputPaddingY);
+    top: 36px;
   }
 
   .k-file-upload-btn-without-label.k-button {
-    top: $kInputPaddingY;
+    top: 8px;
   }
 
   // To hide the button and thumbnail that appears in Safari and firefox after uploading a file
@@ -317,7 +317,7 @@ const resetInput = (): void => {
     height: var(--spacing-lg, '24px');
     padding: var(--kui-space-30, $kui-space-30);
     position: absolute;
-    right: $tmp-spacing-120;
+    right: 120px;
 
     &:hover,
     &:active {
@@ -327,26 +327,26 @@ const resetInput = (): void => {
   }
 
   .move-btn-right {
-    right: var(--kui-space-40, $kui-space-40);
+    right: 8px;
   }
 
   .image-upload-icon {
     cursor: pointer;
-    left: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+    left: 8px;
     position: absolute;
-    top: var(--type-xxs, var(--kui-space-20, $kui-space-20));
+    top: 4px;
   }
 
   .image-upload-description {
     color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
     cursor: pointer;
     font-size: var(--kui-font-size-20, $kui-font-size-20);
-    left: var(--kui-space-100, $kui-space-100);
+    left: 40px;
     line-height: var(--kui-line-height-20, $kui-line-height-20);
     overflow: hidden;
     position: absolute;
     text-overflow: ellipsis;
-    top: var(--kui-space-50, $kui-space-50);
+    top: 12px;
     white-space: nowrap;
   }
 }
@@ -373,16 +373,16 @@ const resetInput = (): void => {
   .display-name {
     color: var(--black-70, var(--kui-color-text, $kui-color-text));
     cursor: pointer !important;
-    left: var(--kui-space-70, $kui-space-70);
+    left: 20px;
     pointer-events: none;
     position: absolute;
 
     &.has-label {
-      top: var(--kui-space-100, $kui-space-100);
+      top: 40px;
     }
 
     &.has-no-label {
-      top: var(--kui-space-50, $kui-space-50);
+      top: 12px;
     }
   }
 }
