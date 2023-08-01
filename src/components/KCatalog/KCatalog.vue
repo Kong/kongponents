@@ -137,6 +137,7 @@
           :item="(item as CatalogItem)"
           :test-mode="!!testMode || undefined"
           :truncate="!noTruncation"
+          @click="$emit('card:click', item)"
         >
           <template #cardTitle>
             <slot
@@ -435,6 +436,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
+  (e: 'card:click', item: CatalogItem): void
   (e: 'kcatalog-error-cta-clicked'): void
   (e: 'kcatalog-empty-state-cta-clicked'): void
   (e: 'update:catalog-preferences', preferences: CatalogPreferences): void

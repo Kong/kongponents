@@ -51,10 +51,10 @@ defineProps({
   },
 })
 
-const emit = defineEmits(['clicked'])
+const emit = defineEmits(['card:click'])
 
 const handleCardClick = (evt: Event, item: CatalogItem): void => {
-  emit('clicked', {
+  emit('card:click', {
     evt,
     item,
   })
