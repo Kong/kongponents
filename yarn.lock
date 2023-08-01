@@ -701,9 +701,9 @@
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
 "@kong/design-tokens@^1.7.1":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.8.0.tgz#0e8a3e4e1da8c1afbd172163aff82c3aa3446d63"
-  integrity sha512-al+FQaLcNaEr6SNxQfaWKt8VB4AEjJHQLYjiZUjw/YrUb1M2ERA5PV0fBkB3lDz+sh8O2BhoQo7cFrR7StEepw==
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.9.0.tgz#ebdce87c460e6095428ca37792d90e9540527f7d"
+  integrity sha512-y68F8uUxLQZDRqN8365TPVsYPNPS9jGTlsap8A6N2MkYHYZ75Qnewl7cK6M+YUbG9AUx1YE64vt1yQe5+/Ydzg==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
