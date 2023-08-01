@@ -216,6 +216,16 @@ import type {
   TableState,
   PageChangedData,
   PageSizeChangedData,
+  SortColumnOrder,
+  TableSortOrder,
+  TableSortPayload,
+  TableStatePayload,
+  TableTestMode,
+} from '@/types'
+import {
+  TablePaginationTypeArray,
+  TableSortOrderArray,
+  TableTestModeArray,
 } from '@/types'
 import { KUI_COLOR_TEXT, KUI_ICON_SIZE_20 } from '@kong/design-tokens'
 
@@ -254,9 +264,9 @@ const props = defineProps({
    * the sort order for the table.
    */
   sortOrder: {
-    type: String,
+    type: String as PropType<TableSortOrder>,
     default: '',
-    validator: (value: string): boolean => ['ascending', 'descending', ''].includes(value),
+    validator: (value: TableSortOrder): boolean => TableSortOrderArray.includes(value),
   },
   /**
    * @deprecated
@@ -442,21 +452,21 @@ const props = defineProps({
     default: '',
   },
   /**
-   * A prop to pass in a an array of headers for the table
+   * A prop to pass in an array of headers for the table
    */
   headers: {
     type: Array,
     default: () => [],
   },
   /**
-   * A prop to pass in a an object of intial params for the initial fetcher function call
+   * A prop to pass in an object of intial params for the initial fetcher function call
    */
   initialFetcherParams: {
     type: Object,
     default: null,
   },
   /**
-   * A prop to pass in a the number of pagination neighbors used by the pagination component
+   * A prop to pass in the number of pagination neighbors used by the pagination component
    */
   paginationNeighbors: {
     type: Number,
@@ -492,7 +502,7 @@ const props = defineProps({
   paginationType: {
     type: String as PropType<TablePaginationType>,
     default: 'default',
-    validator: (type: TablePaginationType) => ['default', 'offset'].includes(type),
+    validator: (type: TablePaginationType) => TablePaginationTypeArray.includes(type),
   },
   /**
    * A prop to pass to hide pagination for total table records is less than or equal to pagesize
@@ -507,9 +517,9 @@ const props = defineProps({
    * 'loading' - no id's but allow loading
    */
   testMode: {
-    type: String as PropType<'true' | 'loading'>,
-    default: '',
-    validator: (val: string): boolean => ['true', 'loading', ''].includes(val),
+    type: String as PropType<TableTestMode>,
+    default: undefined,
+    validator: (val: TableTestMode): boolean => TableTestModeArray.includes(val),
   },
 })
 
@@ -519,8 +529,8 @@ const emit = defineEmits<{
   (e: 'ktable-error-cta-clicked'): void
   (e: 'ktable-empty-state-cta-clicked'): void
   (e: 'update:table-preferences', preferences: TablePreferences): void
-  (e: 'sort', value: { prevKey: string, sortColumnKey: string, sortColumnOrder: string }): void
-  (e: 'state', value: { state: TableState, hasData: boolean }): void
+  (e: 'sort', value: TableSortPayload): void
+  (e: 'state', value: TableStatePayload): void
 }>()
 
 const attrs = useAttrs()
@@ -543,7 +553,7 @@ const page = ref(1)
 const pageSize = ref(15)
 const filterQuery = ref('')
 const sortColumnKey = ref('')
-const sortColumnOrder = ref('desc')
+const sortColumnOrder = ref<SortColumnOrder>('desc')
 const offset: Ref<string | null> = ref(null)
 const offsets: Ref<Array<any>> = ref([])
 const isClickable = ref(false)
@@ -598,7 +608,7 @@ const pluckListeners = (prefix: any, attrs: any): any => {
   }
 }
 
-const tdlisteners = computed(() => {
+const tdlisteners = computed((): any => {
   return (entity: any, rowData: any) => {
     const rowListeners = pluckListeners('onRow:', attrs)(rowData, 'row')
     const cellListeners = pluckListeners('onCell:', attrs)(entity, 'cell')
@@ -719,7 +729,7 @@ const initData = () => {
   pageSize.value = fetcherParams.pageSize ?? defaultFetcherProps.pageSize
   filterQuery.value = fetcherParams.query ?? defaultFetcherProps.query
   sortColumnKey.value = fetcherParams.sortColumnKey ?? defaultFetcherProps.sortColumnKey
-  sortColumnOrder.value = fetcherParams.sortColumnOrder ?? defaultFetcherProps.sortColumnOrder
+  sortColumnOrder.value = fetcherParams.sortColumnOrder as SortColumnOrder ?? defaultFetcherProps.sortColumnOrder as SortColumnOrder
 
   if (props.paginationType === 'offset') {
     offset.value = fetcherParams.offset
@@ -780,7 +790,7 @@ const tableState = computed((): TableState => isTableLoading.value ? 'loading' :
 const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebouncedRevalidate } = useDebounce(_revalidate, 500)
 const revalidate = generateDebouncedRevalidate(0) // generate a debounced function with zero delay (immediate)
 
-const sortClickHandler = (header: TableHeader) => {
+const sortClickHandler = (header: TableHeader): void => {
   const { key, useSortHandlerFn } = header
   const prevKey = sortColumnKey.value + '' // avoid pass by ref
 
@@ -837,7 +847,7 @@ const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangedData) =
   emitTablePreferences()
 }
 
-const scrollHandler = (event: any) => {
+const scrollHandler = (event: any): void => {
   if (event && event.target && event.target.scrollTop) {
     if (event.target.scrollTop > 1) {
       isScrolled.value = true
@@ -873,13 +883,13 @@ const getPrevOffsetHandler = (): void => {
 //  - hide if total <= min pagesize
 // if using offset-based pagination with hidePaginationWhenOptional
 //  - hide if neither previous/next offset exists and current data set count is <= min pagesize
-const shouldShowPagination = computed(() => {
-  return props.fetcher && !props.disablePagination &&
+const shouldShowPagination = computed((): boolean => {
+  return !!(props.fetcher && !props.disablePagination &&
         !(props.paginationType !== 'offset' && props.hidePaginationWhenOptional && total.value <= props.paginationPageSizes[0]) &&
-        !(props.paginationType === 'offset' && props.hidePaginationWhenOptional && !previousOffset.value && !offset.value && data.value.length <= props.paginationPageSizes[0])
+        !(props.paginationType === 'offset' && props.hidePaginationWhenOptional && !previousOffset.value && !offset.value && data.value.length <= props.paginationPageSizes[0]))
 })
 
-const getTestIdString = (message: string) => {
+const getTestIdString = (message: string): string => {
   const msg = message.toLowerCase().replace(/[^[a-z0-9]/gi, '-')
 
   return msg
