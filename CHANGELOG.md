@@ -1,3 +1,10 @@
+# [8.122.0](https://github.com/Kong/kongponents/compare/v8.121.1...v8.122.0) (2023-08-02)
+
+
+### Features
+
+* **kcatalog:** emit on card click ([#1608](https://github.com/Kong/kongponents/issues/1608)) ([8cbe88c](https://github.com/Kong/kongponents/commit/8cbe88c45c473c8b33e62ae42b53bc39b30867f5))
+
 ## [8.121.1](https://github.com/Kong/kongponents/compare/v8.121.0...v8.121.1) (2023-08-01)
 
 
