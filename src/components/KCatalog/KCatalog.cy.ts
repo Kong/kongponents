@@ -302,7 +302,7 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.get('.k-card-large .catalog-item').first().click().then(() => {
+      cy.get('.k-card-catalog .catalog-item').first().click().then(() => {
         // Check for emitted event
         cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'card:click')
       })
