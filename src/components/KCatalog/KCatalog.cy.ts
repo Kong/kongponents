@@ -289,6 +289,24 @@ describe('KCatalog', () => {
         .should('have.callCount', 3) // fetcher's 3rd call
         .should('returned', { data: [{ query: '' }], total: 1 })
     })
+
+    it('emits an event when card is clicked', () => {
+      mount(KCatalog, {
+        props: {
+          testMode: 'true',
+          cacheIdentifier: 'general-props-long',
+          fetcher: () => {
+            return { data: [longItem], total: 1 }
+          },
+          noTruncation: true,
+        },
+      })
+
+      cy.get('.k-card-catalog .catalog-item').first().click().then(() => {
+        // Check for emitted event
+        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'card:click')
+      })
+    })
   })
 
   describe('states', () => {

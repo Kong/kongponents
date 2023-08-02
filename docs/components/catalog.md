@@ -602,6 +602,10 @@ fetcher(payload) {
 
 ## Events
 
+### @card:click
+
+Emitted when a `KCatalogItem` is clicked, the payload is the clicked item's object.
+
 ### CTA Clicks
 
 - `@kcatalog-empty-state-cta-clicked` - If using a CTA button in the empty state, this event is fired when clicked.
