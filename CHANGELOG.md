@@ -1,3 +1,10 @@
+## [8.122.1](https://github.com/Kong/kongponents/compare/v8.122.0...v8.122.1) (2023-08-07)
+
+
+### Bug Fixes
+
+* **k-dropdown-item:** line height ([3e95d0c](https://github.com/Kong/kongponents/commit/3e95d0c9466400661ed0c1f49b27f0a039e89378))
+
 # [8.122.0](https://github.com/Kong/kongponents/compare/v8.121.1...v8.122.0) (2023-08-02)
 
 
