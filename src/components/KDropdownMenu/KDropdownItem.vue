@@ -199,7 +199,7 @@ li.k-dropdown-item {
   // Override .btn-link styles
   .k-dropdown-item-trigger.btn-link {
     color: var(--black-70, var(--kui-color-text, $kui-color-text));
-    line-height: var(--type-lg, var(--kui-line-height-50, $kui-line-height-50));
+    line-height: var(--kui-line-height-40, $kui-line-height-40);
     padding: var(--spacing-md, spacing(md)) var(--spacing-lg, spacing(lg));
     text-align: left;
     text-decoration: none;
@@ -221,7 +221,7 @@ li.k-dropdown-item {
   a, button {
     &.k-dropdown-item-trigger {
       @include non-visual-button;
-      line-height: var(--type-lg, var(--kui-line-height-50, $kui-line-height-50));
+      line-height: var(--kui-line-height-40, $kui-line-height-40);
       text-decoration: none !important;
 
       .k-dropdown-item-trigger-label {
