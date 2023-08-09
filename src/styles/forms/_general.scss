@@ -1,19 +1,19 @@
 .form-group {
-  $borderColor: var(--KInputBorder, var(--grey-300, color(grey--grey-300)));
+  $borderColor: var(--KInputBorder, var(--grey-300, #e7e7ec));
   display: block;
-  margin-bottom: var(--lg, spacing(lg));
+  margin-bottom: var(--lg, 24px);
   width: 100%;
 
   hr {
     border-color: $borderColor;
-    margin: var(--xl, spacing(xl)) 0;
+    margin: var(--xl, 32px) 0;
   }
 }
 
 .k-input + .help,
 .k-input-wrapper + .help {
-  color: var(--black-45, color(black-45));
+  color: var(--black-45, rgba(0, 0, 0, 0.45));
   display: block;
-  font-size: var(--type-sm, type(sm));
-  margin: var(--spacing-xs, spacing(xs)) 0 0;
+  font-size: var(--type-sm, 14px);
+  margin: var(--spacing-xs, 8px) 0 0;
 }

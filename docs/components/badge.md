@@ -22,7 +22,7 @@ The Badge component can take the following appearance values:
 - `neutral`
 - `custom`
 
-<div class="horizontal-spacing">
+<div class="horizontal-spacing-container">
   <KBadge appearance="success">SUCCESS</KBadge>
   <KBadge appearance="warning">WARNING</KBadge>
   <KBadge appearance="danger">DANGER</KBadge>
@@ -44,7 +44,7 @@ The Badge component can take the following appearance values:
 
 Use the `isBordered` prop for bordered badges. The border color matches the text color by default.
 
-<div class="horizontal-spacing">
+<div class="horizontal-spacing-container">
   <KBadge appearance="success" is-bordered>SUCCESS</KBadge>
   <KBadge appearance="warning" is-bordered>WARNING</KBadge>
   <KBadge appearance="danger" is-bordered>DANGER</KBadge>
@@ -69,7 +69,7 @@ The Badge has two shapes that can be changed with a `shape` property.
 - `rounded` - Default
 - `rectangular`
 
-<div class="horizontal-spacing">
+<div class="horizontal-spacing-container">
   <KBadge appearance="warning">Round</KBadge>
   <KBadge appearance="warning" shape="rectangular">Rectangular</KBadge>
 </div>
@@ -87,7 +87,7 @@ Use this prop to modify the badge text color
 
 Use this prop to modify the background color of the badge
 
-<div class="horizontal-spacing">
+<div class="horizontal-spacing-container">
   <KBadge color="brown" background-color="yellow">Custom</KBadge>
   <KBadge color="red" background-color="pink">Badge</KBadge>
   <KBadge color="blue" background-color="lightblue">Hello</KBadge>
@@ -181,7 +181,7 @@ The `hoverColor` is also utilized if you wrap the `KBadge` with an anchor tag, o
 Use this prop if you want the badge to be dismissable. If the badge text is long enough to need truncation, the label will truncate; the dismiss button is always visible.
 The color of the dismiss button is determined by the badge type and uses the same theming variables as the badge text. Clicking the dismiss button will trigger a `dismissed` event.
 
-<div class="horizontal-spacing">
+<div class="horizontal-spacing-container">
   <KBadge dismissable>Close me</KBadge>
   <KBadge dismissable shape="rectangular">No, close me!</KBadge>
 </div>
@@ -195,7 +195,7 @@ The color of the dismiss button is determined by the badge type and uses the sam
 
 Use this prop if you would like to conditionally display a tooltip when the badge text is truncated.
 
-<div class="horizontal-spacing">
+<div class="horizontal-spacing-container">
   <KBadge truncation-tooltip="Truncation unnecessary">Truncation unnecessary</KBadge>
   <KBadge truncation-tooltip="Hey! Let me see that awesome truncation">Hey! Let me see that awesome truncation</KBadge>
 </div>
@@ -381,7 +381,7 @@ const testClick = () => {
   }
 }
 
-.horizontal-spacing {
+.horizontal-spacing-container {
   display: flex;
   column-gap: 4px;
 }

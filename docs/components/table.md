@@ -602,7 +602,7 @@ export default {
        */
       return {
         class: {
-          'truncate': headerKey === 'description' || headerKey === 'name',
+          'truncated-keys': headerKey === 'description' || headerKey === 'name',
         },
         'datatest-id': `row-${rowIndex + 1}-col-${headerKey}`,
         style: {
@@ -614,6 +614,15 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.truncated-keys {
+  line-height: initial;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+</style>
 ```
 
 ## Events
@@ -627,13 +636,13 @@ If you want to conditionally apply an event handler to `@row:click`, the value m
 
 If you always provide a function as the value for `@row:click` the table will not be able to correctly determine whether the row should be clickable without executing the callback.
 
-<h4><KIcon icon="check" size="22" color="green" style="vertical-align: sub;" class="mr-1" />Correct Usage</h4>
+<h4><KIcon icon="check" size="22" color="green" style="vertical-align: sub;" class="horizontal-spacing" />Correct Usage</h4>
 
 ```
 @row:click="isAllowedBool ? handleRowClick : undefined"
 ```
 
-<h4><KIcon icon="disabled" size="22" color="red" style="vertical-align: sub;" class="mr-1" />Incorrect Usage</h4>
+<h4><KIcon icon="disabled" size="22" color="red" style="vertical-align: sub;" class="horizontal-spacing" />Incorrect Usage</h4>
 
 ```
 @row:click="(evt, row) => isAllowedBool ? handleRowClick(evt, row) : undefined"
@@ -655,7 +664,7 @@ To avoid firing row clicks by accident, the row click handler ignores events com
     <a @click="linkHander">{{rowValue.label}}</a>
   </template>
   <template v-slot:actions>
-    <div class="float-right">
+    <div>
       <KButton appearance="secondary" @click="buttonHandler">
         Fire Button Handler!
       </KButton>
@@ -679,7 +688,7 @@ To avoid firing row clicks by accident, the row click handler ignores events com
     <a @click="linkHander">{{rowValue.label}}</a>
   </template>
   <template v-slot:actions>
-    <div class="float-right">
+    <div>
       <!-- .stop not needed on @click because we ignore clicks from buttons -->
       <KButton
         appearance="secondary"
@@ -734,7 +743,7 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
     <a @click="linkHander">{{rowValue.label}}</a>
   </template>
   <template v-slot:wrapped>
-    <div>Row click event <div class="d-inline-block" @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div></div>
+    <div>Row click event <div class="eventful-row" @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div></div>
   </template>
   <template v-slot:other>
     <div>
@@ -750,7 +759,7 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
         </KButton>
         <template v-slot:content>
           <div @click.stop>Clicking me does nothing!</div>
-          <div class="d-inline-block" @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div>
+          <div @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div>
         </template>
       </KPop>
     </div>
@@ -931,7 +940,7 @@ If utilizing multiple elements, we recommend adding `display: flex; width: 100%;
 
 <KTable :fetcher="tableOptionsFetcher" :headers="tableOptionsHeaders" :hasHover="false">
   <template #toolbar="{ state }">
-    <div class="d-flex w-100 justify-content-between">
+    <div class="toolbar-container">
       <KInput v-if="state.hasData" placeholder="Search" />
       <KSelect appearance="select" :items="[{ label: 'First option', value: '1', selected: true }, { label: 'Another option', value: '2'}]" />
     </div>
@@ -941,12 +950,19 @@ If utilizing multiple elements, we recommend adding `display: flex; width: 100%;
 ```html
 <KTable :fetcher="fetcher" :headers="headers">
   <template #toolbar="{ state }">
-    <div class="d-flex w-100 justify-content-between">
+    <div class="toolbar-container">
       <KInput v-if="state.hasData" placeholder="Search" />
       <KSelect appearance="select" :items="[{ label: 'Ascending', value: 'asc', selected: true }, { label: 'Descending', value: 'desc'}]" />
     </div>
   </template>
 </KTable>
+
+<style lang="scss">
+.toolbar-container {
+  display: flex;
+  justify-content: space-between;
+}
+</style>
 ```
 
 ### Column Header and Cell
@@ -1005,9 +1021,8 @@ This example uses the [`KDropdownMenu`](/components/dropdown-menu) component as 
       <KDropdownMenu>
         <template #default>
           <KButton
-            appearance="secondary"
+            appearance="btn-link"
             size="small"
-            class="non-visual-button"
           >
             <template #icon>
               <KIcon
@@ -1051,9 +1066,8 @@ This example uses the [`KDropdownMenu`](/components/dropdown-menu) component as 
       <KDropdownMenu>
         <template #default>
           <KButton
-            appearance="secondary"
+            appearance="btn-link"
             size="small"
-            class="non-visual-button"
           >
             <template #icon>
               <KIcon
@@ -1113,10 +1127,10 @@ You can choose utilize the `.k-table-cell-title` and `.k-table-cell-description`
     hidePaginationWhenOptional
     >
     <template v-slot:name="{row}">
-      <img class="mr-2" src="/img/kong-logomark.png" :alt="row.img.alt">
-      <div class="d-flex flex-column">
+      <img class="horizontal-spacing" src="/img/kong-logomark.png" :alt="row.img.alt">
+      <div>
         <div class="k-table-cell-title">{{row.name}}</div>
-        <div class="k-table-cell-description truncate">{{row.description}}</div>
+        <div class="k-table-cell-description">{{row.description}}</div>
       </div>
     </template>
   </KTable>
@@ -1133,7 +1147,7 @@ You can choose utilize the `.k-table-cell-title` and `.k-table-cell-description`
   >
     <template #name="{row}">
       <img :alt="row.img.alt" class="mr-2" :src="row.img.src">
-      <div class="d-flex flex-column">
+      <div>
         <div class="k-table-cell-title">{{ row.name }}</div>
         <div class="k-table-cell-description">{{ row.description }}</div>
       </div>
@@ -1219,7 +1233,7 @@ the section below or completely slot in your own content.
   <template v-slot:body>
     <KTable :fetcher="emptyFetcher" :headers="headers">
       <template v-slot:empty-state>
-        <div class="w-100" style="text-align: center;">
+        <div style="text-align: center;">
           <KIcon icon="warning" />
           <div>No Content!!!</div>
         </div>
@@ -1266,7 +1280,8 @@ If using a CTA button, a `@ktable-empty-state-cta-clicked` event is fired when c
 
 #### Default Empty State Messaging
 
-<KCard class="my-2">
+<br/>
+<KCard>
   <template v-slot:body>
     <KTable :fetcher="() => { return { data: [] } }" />
   </template>
@@ -1284,7 +1299,8 @@ If using a CTA button, a `@ktable-empty-state-cta-clicked` event is fired when c
 
 #### Empty State Full Example
 
-<KCard class="my-2">
+<br/>
+<KCard>
   <template v-slot:body>
     <KTable
       :fetcher="() => { return { data: [] } }"
@@ -1361,7 +1377,8 @@ If using a CTA button, a `ktable-error-cta-clicked` event is fired when clicked.
 
 #### Default Error State Messaging
 
-<KCard class="my-2">
+<br/>
+<KCard>
   <template v-slot:body>
     <KTable :fetcher="() => { return { data: [] } }" :hasError="true" />
   </template>
@@ -1379,7 +1396,8 @@ If using a CTA button, a `ktable-error-cta-clicked` event is fired when clicked.
 
 #### Error State Full Example
 
-<KCard class="my-2">
+<br/>
+<KCard>
   <template v-slot:body>
     <KTable
       :fetcher="() => { return { data: [] } }"
@@ -1443,7 +1461,7 @@ If using a CTA button, a `ktable-error-cta-clicked` event is fired when clicked.
 
 Set the `isLoading` prop to `true` to enable the loading state.
 
-<KCard class="pb-0 mt-2">
+<KCard>
   <template v-slot:body>
     <KTable
       :fetcher="() => { return { data: [] } }"
@@ -1875,7 +1893,7 @@ export default defineComponent({
        */
       return {
         class: {
-          'truncate': headerKey === 'description' || headerKey === 'name',
+          'truncated-keys': headerKey === 'description' || headerKey === 'name',
         },
         'datatest-id': `row-${rowIndex + 1}-col-${headerKey}`,
         style: {
@@ -2004,5 +2022,32 @@ export default defineComponent({
 
 .table-wrapper {
   --KTableHover: lavender;
+}
+
+.horizontal-spacing {
+  margin-right: $kui-space-40;
+}
+
+.truncated-keys {
+  line-height: initial;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.k-table-cell-description {
+  line-height: initial;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.eventful-row {
+  display: inline-block;
+}
+
+.toolbar-container {
+  display: flex;
+  justify-content: space-between;
 }
 </style>

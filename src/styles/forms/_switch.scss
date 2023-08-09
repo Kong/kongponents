@@ -3,7 +3,7 @@
 
 $width: 44px;
 $height: 24px;
-$color_checkbox_success: var(--KInputSwitchOn, var(--green-500, color(green-500)));
+$color_checkbox_success: var(--KInputSwitchOn, var(--green-500, #07a88d));
 $transition: 0.2s linear;
 
 .k-switch {
@@ -22,7 +22,7 @@ $transition: 0.2s linear;
     left: 26px;
   }
   .switch-control {
-    background-color: var(--KInputSwitchBackground, var(--grey-400, color(grey-400)));
+    background-color: var(--KInputSwitchBackground, var(--grey-400, #b6b6bd));
     border-radius: 12px;
     display: block;
     height: $height;
@@ -38,7 +38,7 @@ $transition: 0.2s linear;
 
     // Toggle
     &:after {
-      background-color: var(--white, color(white));
+      background-color: var(--white, #ffffff);
       border-radius: 50%;
       content: "";
       display: block;
@@ -72,6 +72,6 @@ $transition: 0.2s linear;
   }
 
   span {
-    color: var(--KInputSwitchLabel, var(--black-70, color(black-70)));
+    color: var(--KInputSwitchLabel, var(--black-70, rgba(0, 0, 0, 0.7)));
   }
 }

@@ -100,8 +100,8 @@ You cannot add an item if the `label` matches the `label` of a pre-existing item
 :::
 
 <ClientOnly>
-  <KLabel>Value:</KLabel> <pre class="json ma-0">{{ JSON.stringify(mySelections) }}</pre>
-  <KLabel>Added Items:</KLabel> <pre class="json ma-0">{{ JSON.stringify(addedItems) }}</pre>
+  <KLabel>Value:</KLabel> <pre class="json">{{ JSON.stringify(mySelections) }}</pre>
+  <KLabel>Added Items:</KLabel> <pre class="json">{{ JSON.stringify(addedItems) }}</pre>
   <KMultiselect
     v-model="mySelections"
     :items="deepClone(defaultItems)"
@@ -310,7 +310,7 @@ See [autosuggest](#autosuggest) for more details.
 `KMultiselect` works as regular inputs do using v-model for data binding:
 
 <ClientOnly>
-  <KLabel>Value:</KLabel> <pre class="json ma-0">{{ JSON.stringify(myVal) }}</pre>
+  <KLabel>Value:</KLabel> <pre class="json">{{ JSON.stringify(myVal) }}</pre>
   <KMultiselect v-model="myVal" :items="deepClone(defaultItems)" class="mt-2" />
   <br>
   <KButton @click="clearIt">Clear</KButton>
@@ -378,7 +378,7 @@ When using `autosuggest`, you **MUST** use `v-model` otherwise the Multiselect c
 :::
 
 <ClientOnly>
-  <KLabel>Value:</KLabel> <pre class="json ma-0">{{ JSON.stringify(myAutoVal) }}</pre>
+  <KLabel>Value:</KLabel> <pre class="json">{{ JSON.stringify(myAutoVal) }}</pre>
   <KMultiselect
     v-model="myAutoVal"
     autosuggest
@@ -735,7 +735,7 @@ Slot the content of the dropdown footer text. This slot will override the `dropd
 An example of hooking into events to modify newly created items (`enableItemCreation`) as they are added.
 
 <ClientOnly>
-  <KLabel>myItems:</KLabel> <pre class="json ma-0">{{ JSON.stringify(myEventItems) }}</pre>
+  <KLabel>myItems:</KLabel> <pre class="json">{{ JSON.stringify(myEventItems) }}</pre>
   <KMultiselect
     :items="myEventItems"
     enable-item-creation
@@ -1135,3 +1135,9 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss">
+.json {
+  inset: 0 !important;
+}
+</style>

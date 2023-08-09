@@ -10,7 +10,7 @@
 
   .is-required {
     color: var(--KLabelRequiredAsteriskColor, var(--KInputLabelColor));
-    font-size: var(--KInputLabelSize, var(--type-sm, type(sm)));
+    font-size: var(--KInputLabelSize, var(--type-sm, 14px));
     font-weight: var(--KInputLabelWeight, 600);
     margin-left: var(--spacing-xxs);
   }
@@ -28,9 +28,9 @@
 .k-inputCheckbox,
 .k-inputRadio {
   &.k-input-label {
-    color: var(--KInputCheckboxLabel, var(--black-70, color(black-70)));
+    color: var(--KInputCheckboxLabel, var(--black-70, rgba(0, 0, 0, 0.7)));
     font-family: var(--KInputCheckboxLabelFont, var(--font-family-sans, font(sans)));
-    font-size: var(--KInputCheckboxLabelSize, var(--type-md, type(md)));
+    font-size: var(--KInputCheckboxLabelSize, var(--type-md, 16px));
     font-weight: normal;
     margin-bottom: 0;
   }

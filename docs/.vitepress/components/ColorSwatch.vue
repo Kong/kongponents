@@ -5,8 +5,8 @@
       class="swatch" />
     <div class="description">
       <span>{{ colorName }}</span>
-      <code class="mb-2">--{{ colorName }}</code><br>
-      <code class="mb-2">{{ colorValue }}</code><br>
+      <code class="color-name-value">--{{ colorName }}</code><br>
+      <code class="color-name-value">{{ colorValue }}</code><br>
       <code>.color-{{ colorName }}</code>
     </div>
   </div>
@@ -56,6 +56,10 @@ const colorValue = computed((): string => getComputedStyle(document.body).getPro
         color: var(--vp-c-text, $kui-color-text);
         font-size: $kui-font-size-30;
       }
+    }
+
+    .color-name-value {
+      margin-bottom: $kui-space-40;
     }
   }
 }

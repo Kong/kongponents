@@ -415,12 +415,12 @@ Use the `cardTitle`, `cardActions`, and `cardBody` slots to access `item` specif
 
 <KCatalog :fetcher="fetcherSm" title="Customized cards">
   <template v-slot:cardTitle="{ item }">
-    <div class="color-blue-500">
+    <div class="custom-title">
       {{ item.title }}
     </div>
   </template>
   <template v-slot:cardBody="{ item }">
-    <span class="color-purple-400">
+    <span class="custom-description">
     {{ item.description }}
     </span>
   </template>
@@ -429,12 +429,12 @@ Use the `cardTitle`, `cardActions`, and `cardBody` slots to access `item` specif
 ```html
 <KCatalog :fetcher="fetcher" title="Customized cards">
   <template v-slot:cardTitle="{ item }">
-    <div class="color-blue-500">
+    <div>
       {{ item.title }}
     </div>
   </template>
   <template v-slot:cardBody="{ item }">
-    <span class="color-purple-400">
+    <span>
     {{ item.description }}
     </span>
   </template>
@@ -458,7 +458,7 @@ If utilizing multiple elements, we recommend adding `display: flex; width: 100%;
 
 <KCatalog :fetcher="fetcherXs">
   <template #toolbar="{ state }">
-    <div class="d-flex w-100 justify-content-between">
+    <div class="toolbar-container">
       <KInput v-if="state.hasData" placeholder="Search" />
       <KSelect appearance="select" :items="[{ label: 'First option', value: '1', selected: true }, { label: 'Another option', value: '2'}]" />
     </div>
@@ -468,7 +468,7 @@ If utilizing multiple elements, we recommend adding `display: flex; width: 100%;
 ```html
 <KCatalog :fetcher="fetcher">
   <template #toolbar="{ state }">
-    <div class="d-flex w-100 justify-content-between">
+    <div class="toolbar-container">
       <KInput
         v-if="state.hasData"
         placeholder="Search"
@@ -483,6 +483,13 @@ If utilizing multiple elements, we recommend adding `display: flex; width: 100%;
     </div>
   </template>
 </KCatalog>
+
+<style lang="scss">
+.toolbar-container {
+  display: flex;
+  justify-content: space-between;
+}
+</style>
 ```
 
 
@@ -498,7 +505,7 @@ the section above or completely slot in your own content.
   <template v-slot:body>
     <KCatalog :fetcher="emptyFetcher">
       <template v-slot:empty-state>
-        <div class="w-100" style="text-align: center;">
+        <div style="text-align: center;">
           <KIcon icon="warning" />
           <div>No Content!!!</div>
         </div>
@@ -729,3 +736,18 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.custom-title {
+  color: $kui-color-text-primary;
+}
+
+.custom-description {
+  color: $kui-color-text-neutral;
+}
+
+.toolbar-container {
+  display: flex;
+  justify-content: space-between;
+}
+</style>

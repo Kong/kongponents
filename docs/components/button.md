@@ -22,12 +22,14 @@ The Button component can take 1 of 6 appearance values:
 - `creation`
 - `btn-link`
 
-<KButton class="mr-2 mb-2" appearance="primary">Primary</KButton>
-<KButton class="mr-2 mb-2" appearance="secondary">Secondary</KButton>
-<KButton class="mr-2 mb-2" appearance="outline">Outline</KButton>
-<KButton class="mr-2 mb-2" appearance="danger">Danger</KButton>
-<KButton class="mr-2 mb-2" appearance="creation">Creation</KButton>
-<KButton class="mr-2 mb-2" appearance="btn-link">btn-link</KButton>
+<div class="spacing-container">
+  <KButton appearance="primary">Primary</KButton>
+  <KButton appearance="secondary">Secondary</KButton>
+  <KButton appearance="outline">Outline</KButton>
+  <KButton appearance="danger">Danger</KButton>
+  <KButton appearance="creation">Creation</KButton>
+  <KButton appearance="btn-link">btn-link</KButton>
+</div>
 
 ```html
 <KButton appearance="primary">Primary</KButton>
@@ -46,11 +48,15 @@ We support `small`, `medium`, and `large` sizes, default to `medium`.
 - `medium`
 - `large`
 
-<KButton class="mr-2" appearance="secondary" size="small">Small</KButton>
-
-<KButton class="mr-2" appearance="secondary" size="medium">Medium</KButton>
-
-<KButton appearance="secondary" size="large">Large</KButton>
+<div class="spacing-container">
+  <div>
+    <KButton appearance="secondary" size="small">Small</KButton>
+  </div>
+  <div>
+    <KButton appearance="secondary" size="medium">Medium</KButton>
+  </div>
+  <KButton appearance="secondary" size="large">Large</KButton>
+</div>
 
 ```html
 <KButton appearance="secondary" size="small">Small</KButton>
@@ -101,8 +107,10 @@ Use this prop to customize the color of the caret
 
 The buttons are rounded by default. This can be disabled by setting `isRounded` prop to `false`.
 
-<KButton class="mr-2" appearance="primary" :isRounded="false">I'm a button</KButton>
-<KButton appearance="primary" >I'm a button</KButton>
+<div class="spacing-container">
+  <KButton appearance="primary" :isRounded="false">I'm a button</KButton>
+  <KButton appearance="primary" >I'm a button</KButton>
+</div>
 
 ```html
 <KButton appearance="primary" :isRounded="false">I'm a button</KButton>
@@ -156,8 +164,8 @@ Should you need to use a KTooltip component on a KButton with `disabled` attribu
 
 <KCard>
   <template #body>
-    <div class="d-flex">
-      <KTooltip label="I won't pop up" class="mr-2">
+    <div class="spacing-container">
+      <KTooltip label="I won't pop up">
         <KButton disabled>❌</KButton>
       </KTooltip>
       <KTooltip label="I will pop up">
@@ -186,17 +194,19 @@ Should you need to use a KTooltip component on a KButton with `disabled` attribu
 
 KButton supports using an icon either before the text or without text. If you are using the slot you must maintain the icon color yourself when the button is enabled or disabled.
 
-<KButton class="mr-2" appearance="secondary">
-  <template v-slot:icon>
-    <KIcon icon="externalLink" color="var(--KButtonSecondaryColor, #003694)"/>
-  </template>
-  With Text
-</KButton>
-<KButton appearance="secondary" size="small">
-  <template v-slot:icon>
-    <KIcon icon="gear" color="var(--KButtonSecondaryColor, #003694)"/>
-  </template>
-</KButton>
+<div class="spacing-container">
+  <KButton appearance="secondary">
+    <template v-slot:icon>
+      <KIcon icon="externalLink" color="var(--KButtonSecondaryColor, #003694)"/>
+    </template>
+    With Text
+  </KButton>
+  <KButton appearance="secondary" size="small">
+    <template v-slot:icon>
+      <KIcon icon="gear" color="var(--KButtonSecondaryColor, #003694)"/>
+    </template>
+  </KButton>
+</div>
 
 ```html
 <KButton appearance="secondary">
@@ -259,15 +269,6 @@ look like.
 </style>
 ```
 
-There is also a `.non-visual-button` utility class that can be used for buttons that
-should not look like buttons.
-
-<KButton class="non-visual-button">Click Me</KButton>
-
-```html
-<KButton class="non-visual-button">Click Me</KButton>
-```
-
 <style scoped lang="scss">
 @import '@/styles/variables';
 
@@ -294,5 +295,9 @@ should not look like buttons.
   @media screen and (min-width: $viewport-sm) {
     flex-direction: row;
   }
+}
+.spacing-container {
+  display: flex;
+  gap: $kui-space-40;
 }
 </style>

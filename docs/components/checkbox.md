@@ -103,7 +103,7 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 
 <KCard>
   <template v-slot:body>
-    <div class="mb-2">
+    <div class="vertical-spacing">
       <KCheckbox v-model="disabled" label="Can't check this" disabled />
     </div>
     <div>
@@ -124,7 +124,7 @@ Anything passed in to the default slot will replace the label prop text
 
 <KCard>
   <template v-slot:body>
-    <div class="mb-2">
+    <div class="vertical-spacing">
       <KCheckbox v-model="slots1">
         Label goes here. The checkbox is {{ slots1 ? 'checked' : 'not checked' }}
       </KCheckbox>
@@ -276,6 +276,10 @@ An Example of changing the background color of KCheckbox to `blueviolet` might l
 <style lang="scss">
 .KCheckbox-wrapper {
   --KCheckboxPrimary: blueviolet;
+}
+
+.vertical-spacing {
+  margin-bottom: $kui-space-40;
 }
 </style>
 

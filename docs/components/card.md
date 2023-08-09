@@ -49,7 +49,7 @@ Example composing `KCard` with other Kongponents to make another component:
 <KCard :hasHover="true">
   <template v-slot:body>
     <KAlert alert-message="Welcome to Kong!" />
-    <div class="mx-4">
+    <div>
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <h2>Kong Enterprise Edition</h2>
         <KButton appearance="outline" to="https://docs.konghq.com/enterprise" target="_blank">
@@ -67,7 +67,7 @@ Example composing `KCard` with other Kongponents to make another component:
 <KCard :hasHover="true">
   <template v-slot:body>
     <KAlert alert-message="Welcome to Kong!" />
-    <div class="mx-4">
+    <div>
       <div>
         <h2>Kong Enterprise Edition</h2>
         <KButton appearance="outline" to="https://docs.konghq.com/enterprise" target="_blank">
@@ -125,10 +125,10 @@ Sets top border or no border. If neither set default will have border
 
 Set if card should have shadow state (shadow) on hover
 
-<KCard title="hasHover" class="mb-2" body="This card only has a shadow on hover" has-hover />
+<KCard title="hasHover" body="This card only has a shadow on hover" has-hover />
 
 ```html
-<KCard title="hasHover" class="mb-2" body="This card only has a shadow on hover" has-hover />
+<KCard title="hasHover" body="This card only has a shadow on hover" has-hover />
 ```
 
 ### hasShadow
@@ -145,31 +145,27 @@ Set if the card should always have shadow state (shadow)
 
 Cards can be arranged with flex box.
 
-<div class="d-flex flex-row">
+<div class="card-flex-container">
   <KCard
     title="Left"
-    class="w-auto"
     body="This card only has a title"
   />
   <KCard
     title="Center"
-    class="w-auto mx-5"
     body="This card always has a icon button"
   >
     <template v-slot:actions>
       <KButton size="small" appearance="outline">
         <KIcon
-            icon="gearFilled"
-            size="16"
-            view-box="0 0 16 16"
-            class="pr-0"
-          />
+          icon="gearFilled"
+          size="16"
+          view-box="0 0 16 16"
+        />
       </KButton>
     </template>
   </KCard>
   <KCard
     title="Right"
-    class="w-auto"
     body="This card always has a button"
   >
     <template v-slot:actions>
@@ -179,26 +175,33 @@ Cards can be arranged with flex box.
 </div>
 
 ```html
-<div class="d-flex flex-row">
-  <KCard title="Left" class="w-auto" body="This card only has a title" />
-  <KCard title="Center" class="w-auto mx-5" body="This card always has a icon button">
+<div class="">
+  <KCard title="Left" body="This card only has a title" />
+  <KCard title="Center" body="This card always has a icon button">
     <template v-slot:actions>
       <KButton>
         <KIcon
-            icon="gearFilled"
-            size="16"
-            view-box="0 0 16 16"
-            class="pr-0"
-          />
+          icon="gearFilled"
+          size="16"
+          view-box="0 0 16 16"
+        />
       </KButton>
     </template>
   </KCard>
-  <KCard title="Right" class="w-auto" body="This card always has a button">
+  <KCard title="Right" body="This card always has a button">
     <template v-slot:actions>
       <KButton>View All</KButton>
     </template>
   </KCard>
 </div>
+
+<style lang="scss">
+.card-flex-container {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+}
+</style>
 ```
 
 ## Slots
@@ -214,9 +217,10 @@ Cards can be arranged with flex box.
   <template v-slot:statusHat>
     <KIcon
       icon="check"
+      class="horizontal-spacing"
       color="#07A88D"
-      class="mr-2"
-      size="24" />
+      size="24"
+    />
       Approved
   </template>
   <template v-slot:title>Look Mah!</template>
@@ -236,7 +240,6 @@ Cards can be arranged with flex box.
     <KIcon
       icon="check"
       color="#07A88D"
-      class="mr-2"
       size="24" />
       Approved
   </template>
@@ -254,14 +257,14 @@ Cards can be arranged with flex box.
 
 ## Theming
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KCardPaddingY`| Vertical top/bottom spacing
-| `--KCardPaddingX` | Horizontal left/right padding
+| Variable              | Purpose                        |
+| :-------------------- | :----------------------------- |
+| `--KCardPaddingY`     | Vertical top/bottom spacing    |
+| `--KCardPaddingX`     | Horizontal left/right padding  |
 | `--KCardBorderRadius` |
-| `--KCardBorder`| Replaces border size & color
-| `--KCardShadow`| Replaces shadow size and color
-| `--KCardBackground`|
+| `--KCardBorder`       | Replaces border size & color   |
+| `--KCardShadow`       | Replaces shadow size and color |
+| `--KCardBackground`   |
 
 \
 An Example of changing the background might look like.
@@ -305,5 +308,13 @@ An Example of changing the background might look like.
   --KCardShadow: 0 4px 8px lavender;
   --KCardBorder: 2px solid purple;
   --KCardBorderRadius: 12px;
+}
+.horizontal-spacing {
+  margin-right: $kui-space-40;
+}
+.card-flex-container {
+  display: flex;
+  flex-direction: row;
+  gap: $kui-space-40;
 }
 </style>

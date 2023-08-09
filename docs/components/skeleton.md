@@ -22,7 +22,7 @@ The number of milliseconds to wait before showing the skeleton state. Defaults t
 
 <KComponent :data="{ isLoading: false }" v-slot="{ data }">
   <div>
-    <KButton class="mb-2" @click="()=>(data.isLoading=!data.isLoading)">Toggle loading - {{data.isLoading?'on':'off'}}</KButton>
+    <KButton class="vertical-spacing" @click="()=>(data.isLoading=!data.isLoading)">Toggle loading - {{data.isLoading?'on':'off'}}</KButton>
       <div v-if="!data.isLoading">
         <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
       </div>
@@ -33,7 +33,7 @@ The number of milliseconds to wait before showing the skeleton state. Defaults t
 ```html
 <KComponent :data="{ isLoading: false }" v-slot="{ data }">
   <div>
-    <KButton class="mb-2" @click="()=>(data.isLoading=!data.isLoading)">Toggle loading - {{data.isLoading?'on':'off'}}</KButton>
+    <KButton @click="()=>(data.isLoading=!data.isLoading)">Toggle loading - {{data.isLoading?'on':'off'}}</KButton>
       <div v-if="!data.isLoading">
         <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
       </div>
@@ -135,7 +135,7 @@ Used for controlling the progress indicator.
 Defaults to `false`, you can use this prop to hide the progress indicator.
 
 <div>
-  <KButton class="mr-2" @click="clickNoProgress()">Click for no progress indicator</KButton>
+  <KButton class="horizontal-spacing" @click="clickNoProgress()">Click for no progress indicator</KButton>
   <KButton @click="clicked()">Click for default progress behavior</KButton>
   <KSkeleton
     v-if="loadingNone"
@@ -238,8 +238,8 @@ For example, here is a card skeleton with different arrangement of placeholders:
 
 <KSkeleton class="k-skeleton-modified" type="card" :card-count="3">
   <template v-slot:card-header>
-    <div class="w-100">
-      <div class="justify-content-center pb-3">
+    <div class="skeleton-header-container">
+      <div>
         <KSkeletonBox width="5" />
       </div>
       <hr>
@@ -249,8 +249,8 @@ For example, here is a card skeleton with different arrangement of placeholders:
     <KSkeletonBox width="100"/>
   </template>
   <template v-slot:card-footer>
-    <div class="w-100">
-      <div class="d-flex justify-content-center">
+    <div class="skeleton-header-container">
+      <div>
         <KSkeletonBox width="5" />
       </div>
     </div>
@@ -260,16 +260,16 @@ For example, here is a card skeleton with different arrangement of placeholders:
 ```html
 <KSkeleton type="card" :card-count="3">
   <template v-slot:card-header>
-    <div class="w-100">
-      <div class="d-flex justify-content-center pb-2">
+    <div>
+      <div>
         <KSkeletonBox width="5" />
       </div>
       <hr>
     </div>
   </template>
   <template v-slot:card-footer>
-    <div class="w-100">
-      <div class="d-flex justify-content-center pb-2">
+    <div>
+      <div>
         <KSkeletonBox width="5" />
       </div>
     </div>
@@ -282,14 +282,14 @@ And another example:
 <KSkeleton type="card">
   <template v-slot:card-header>
     <div>
-      <div class="d-flex justify-content-center pb-2">
+      <div>
         <KSkeletonBox width="5" />
       </div>
       <hr>
     </div>
   </template>
   <template v-slot:card-content>
-    <div class="d-block">
+    <div>
       <template v-for="i in 8">
         <KSkeletonBox width="5" />
         <KSkeletonBox width="5" />
@@ -308,14 +308,14 @@ And another example:
   <KSkeleton type="card">
     <template v-slot:card-header>
       <div>
-        <div class="d-flex justify-content-center pb-2">
+        <div>
           <KSkeletonBox width="5" />
         </div>
         <hr>
       </div>
     </template>
     <template v-slot:card-content>
-      <div class="d-block">
+      <div>
         <template v-for="i in 8">
           <KSkeletonBox width="5" />
           <KSkeletonBox width="5" />
@@ -345,13 +345,13 @@ And another example:
 
 To reveal the header on this docs page during full page loader, click the button below.
 
-<div class="mt-4 k-skeleton-full-screen-margin">
+<div class="k-skeleton-full-screen-margin">
   <KButton @click="clickedTheming()">themed full screen loader</KButton>
   <KSkeleton v-if="loadingTheming" type="fullscreen-kong" :delay-milliseconds="0" />
 </div>
 
 ```html
-<div class="mt-4 k-skeleton-full-screen-margin">
+<div class="k-skeleton-full-screen-margin">
   <KButton @click="clickedTheming()">themed full screen loader</KButton>
   <KSkeleton v-if="loadingTheming" type="fullscreen-kong" :delay-milliseconds="0" />
 </div>
@@ -422,5 +422,8 @@ export default defineComponent({
 }
 .k-skeleton-modified {
   --KSkeletonCardWidth: calc(33% - 16px);
+}
+.skeleton-header-container {
+  width: 100%;
 }
 </style>

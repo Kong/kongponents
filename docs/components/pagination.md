@@ -227,9 +227,10 @@ Pass in a boolean value for whether or not the offset-based Next button should b
 
 ### Example
 
+<br/>
 <KComponent :data="{ names: ['Alice', 'Bob', 'Charlie', 'Derek', 'Ellie', 'Frank', 'George', 'Helen', 'Ingrid'], visibleNames: ['Alice', 'Bob', 'Charlie'], page: 1}" v-slot="{ data }">
   <div>
-    <KCard title="Cool names list" class="mb-4">
+    <KCard title="Cool names list">
       <template #body>
         <div v-for="name in data.visibleNames">
         {{name}}
@@ -285,16 +286,16 @@ export default defineComponent({
 
 ## Theming
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KPaginationColor`| KPagination button text color
-| `--KPaginationBackgroundColor`| KPagination button background color
-| `--KPaginationBorderColor`| KPagination button border color
-| `--KPaginationPageSizeColor`| KPagination page size button text color
-| `--KPaginationActiveColor`| KPagination active button text color
-| `--KPaginationActiveBackgroundColor`| KPagination active button background color
-| `--KPaginationActiveBorderColor`| KPagination active button border color
-| `--KPaginationDisabledColor`| KPagination disabled button text color
+| Variable                             | Purpose                                    |
+| :----------------------------------- | :----------------------------------------- |
+| `--KPaginationColor`                 | KPagination button text color              |
+| `--KPaginationBackgroundColor`       | KPagination button background color        |
+| `--KPaginationBorderColor`           | KPagination button border color            |
+| `--KPaginationPageSizeColor`         | KPagination page size button text color    |
+| `--KPaginationActiveColor`           | KPagination active button text color       |
+| `--KPaginationActiveBackgroundColor` | KPagination active button background color |
+| `--KPaginationActiveBorderColor`     | KPagination active button border color     |
+| `--KPaginationDisabledColor`         | KPagination disabled button text color     |
 
 
 An Example of changing the border color of KPagination to lime might look like:

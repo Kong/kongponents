@@ -169,7 +169,6 @@ describe('KDropdownMenu', () => {
     <KDropdownItem
       has-divider
       is-dangerous
-      class="d-inline-block"
     >
       <a
         href="http://www.google.com"

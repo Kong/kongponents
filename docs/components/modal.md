@@ -163,12 +163,12 @@ Can be `dark` (default) or `light`. You might want to use this if displaying dar
       </div>
     </template>
     <template v-slot:header-content>
-      <KIcon icon="kong" class="mr-2" />
+      <KIcon icon="kong" class="horizontal-spacing" />
       Welcome!
     </template>
     <template v-slot:body-content>Get set up with the 2-step quickstart to see live data pushed through a gateway service within minutes.</template>
     <template v-slot:action-buttons>
-      <KButton appearance="btn-link" class="mr-2" @click="slottedIsOpen2 = false">Skip</KButton>
+      <KButton appearance="btn-link" class="horizontal-spacing" @click="slottedIsOpen2 = false">Skip</KButton>
       <KButton
         appearance="primary"
         @click="() => slottedIsOpen2 = false">Onboard me!</KButton>
@@ -191,12 +191,12 @@ Can be `dark` (default) or `light`. You might want to use this if displaying dar
     </div>
   </template>
   <template v-slot:header-content>
-    <KIcon icon="kong" class="mr-2" />
+    <KIcon icon="kong" />
     Welcome!
   </template>
   <template v-slot:body-content>Get set up with the quickstart to see live data pushed through a gateway service within minutes.</template>
   <template v-slot:action-buttons>
-    <KButton appearance="btn-link" class="mr-2" @click="isVisible = false">Skip</KButton>
+    <KButton appearance="btn-link" @click="isVisible = false">Skip</KButton>
     <KButton
       appearance="primary"
       @click="() => isVisible = false">Onboard me!</KButton>
@@ -229,11 +229,11 @@ There are 4 designated slots you can use to display content in the modal.
   >
     <template v-slot:header-image>
       <div class="slot-image-content">
-        <h4 class="mx-7 my-4">I'm slotted baby!</h4>
+        <h4>I'm slotted baby!</h4>
       </div>
     </template>
     <template v-slot:action-buttons>
-      <KButton appearance="btn-link" class="mr-2" @click="slottedIsOpen3 = false">Pass</KButton>
+      <KButton appearance="btn-link" class="horizontal-spacing" @click="slottedIsOpen3 = false">Pass</KButton>
       <KButton appearance="primary" @click="slottedIsOpen3 = false">I sure do!</KButton>
     </template>
   </KModal>
@@ -250,11 +250,11 @@ There are 4 designated slots you can use to display content in the modal.
   >
     <template v-slot:header-image>
       <div class="slot-image-content">
-        <h4 class="mx-7 my-4">I'm slotted baby!</h4>
+        <h4>I'm slotted baby!</h4>
       </div>
     </template>
     <template v-slot:action-buttons>
-      <KButton appearance="btn-link" class="mr-2" @click="slottedIsOpen3 = false">Pass</KButton>
+      <KButton appearance="btn-link" @click="slottedIsOpen3 = false">Pass</KButton>
       <KButton appearance="primary" @click="slottedIsOpen3 = false">I sure do!</KButton>
     </template>
   </KModal>
@@ -284,12 +284,12 @@ Notice that even though we are using the `header-content` slot we still specify 
 
 <KModal :isVisible="slottedIsOpen" actionButtonText="Delete" actionButtonAppearance="danger" @canceled="slottedIsOpen = false" title="Delete Item">
   <template v-slot:header-content>
-    <KIcon icon="dangerCircle" color="red" class="mr-2" />
+    <KIcon icon="dangerCircle" color="red" class="horizontal-spacing" />
     Delete Item
   </template>
   <template v-slot:body-content>Are you sure you want to delete this item? This action can not be undone.</template>
   <template v-slot:action-buttons>
-    <KButton appearance="outline" class="mr-2" @click="slottedIsOpen = false">Back</KButton>
+    <KButton appearance="outline" class="horizontal-spacing" @click="slottedIsOpen = false">Back</KButton>
     <KButton appearance="danger" @click="slottedIsOpen = false">Delete</KButton>
   </template>
 </KModal>
@@ -303,12 +303,12 @@ Notice that even though we are using the `header-content` slot we still specify 
   title="Delete Item"
 >
   <template v-slot:header-content>
-    <KIcon icon="dangerCircle" color="red" class="mr-2" />
+    <KIcon icon="dangerCircle" color="red" />
     Delete Item
   </template>
   <template v-slot:body-content>Are you sure you want to delete this item? This action can not be undone.</template>
   <template v-slot:action-buttons>
-    <KButton appearance="outline" class="mr-2" @click="slottedIsOpen = false">Back</KButton>
+    <KButton appearance="outline" @click="slottedIsOpen = false">Back</KButton>
     <KButton appearance="danger" @click="slottedIsOpen = false">Delete</KButton>
   </template>
 </KModal>

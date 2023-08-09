@@ -19,8 +19,11 @@ The name of the icon. This required prop will only recognize icons from the foll
     <div>
       <KButton
         appearance="outline"
-        class="mb-4"
-        @click="toggle">Toggle viewbox {{ isToggled.value ? 'off' : 'on' }}</KButton>
+        @click="toggle"
+        class="toggle-viewbox-button"
+      >
+          Toggle viewbox {{ isToggled.value ? 'off' : 'on' }}
+      </KButton>
       <div class="icon-row">
         <div v-for="icon in $icons" :class="{ displayHidden: stateIcons.includes(String(icon)) }">
           <div v-if="!stateIcons.includes(String(icon))"
@@ -52,8 +55,11 @@ The `State icons` do not support the `color` prop.
     <div>
       <KButton
         appearance="outline"
-        class="mb-4"
-        @click="toggle">Toggle viewbox {{ isToggled.value ? 'off' : 'on' }}</KButton>
+        class="toggle-viewbox-button"
+        @click="toggle"
+      >
+        Toggle viewbox {{ isToggled.value ? 'off' : 'on' }}
+      </KButton>
       <div class="state-icon-row">
         <div v-for="icon in displayStateIcons"
           class="icon-cell"
@@ -128,8 +134,10 @@ e.g. `<path id="preserveColor" d="M9 11v2H7v-2h2zm0-8v6.5H7V3h2z" fill="#FFF"/>`
 
 The title to be announced by screenreaders and displayed on hover. If not provided, a default title will be used.
 
-<KIcon icon="warning" class="mr-2"/>
-<KIcon icon="warning" title="Custom Title" />
+<div class="spacing-container">
+  <KIcon icon="warning" />
+  <KIcon icon="warning" title="Custom Title" />
+</div>
 
 ```html
 <KIcon icon="warning" />
@@ -158,41 +166,43 @@ You can read more about the viewBox attribute
 
 - `svgElements` - Used to add svg customization elements
 
-<KIcon icon="check" size="48px" color="url('#linear-gradient')" class="mr-2">
-  <template v-slot:svgElements>
-    <defs>
-      <linearGradient id="linear-gradient" x1="0" x2="1">
-        <stop offset="0%" stop-color="#16BDCC" />
-        <stop offset="30%" stop-color="#16BDCC" />
-        <stop offset="100%" stop-color="#1BC263" />
-      </linearGradient>
-    </defs>
-  </template>
-</KIcon>
+<div class="spacing-container">
+  <KIcon icon="check" size="48px" color="url('#linear-gradient')">
+    <template v-slot:svgElements>
+      <defs>
+        <linearGradient id="linear-gradient" x1="0" x2="1">
+          <stop offset="0%" stop-color="#16BDCC" />
+          <stop offset="30%" stop-color="#16BDCC" />
+          <stop offset="100%" stop-color="#1BC263" />
+        </linearGradient>
+      </defs>
+    </template>
+  </KIcon>
 
-<KIcon icon="search" size="48px" color="url('#linear-gradient2')" class="mr-2">
-  <template v-slot:svgElements>
-    <defs>
-      <linearGradient id="linear-gradient2" gradientTransform="rotate(90)">
-        <stop offset="10%"  stop-color="gold" />
-        <stop offset="90%" stop-color="red" />
-      </linearGradient>
-    </defs>
-  </template>
-</KIcon>
+  <KIcon icon="search" size="48px" color="url('#linear-gradient2')">
+    <template v-slot:svgElements>
+      <defs>
+        <linearGradient id="linear-gradient2" gradientTransform="rotate(90)">
+          <stop offset="10%"  stop-color="gold" />
+          <stop offset="90%" stop-color="red" />
+        </linearGradient>
+      </defs>
+    </template>
+  </KIcon>
 
-<KIcon icon="cogwheel" size="48px" color="dark-grey">
-  <template v-slot:svgElements>
-    <animateTransform
-      attributeName="transform"
-      type="rotate"
-      from="0 0 0"
-      to="360 0 0"
-      dur="5s"
-      repeatCount="indefinite"
-    />
-  </template>
-</KIcon>
+  <KIcon icon="cogwheel" size="48px" color="dark-grey">
+    <template v-slot:svgElements>
+      <animateTransform
+        attributeName="transform"
+        type="rotate"
+        from="0 0 0"
+        to="360 0 0"
+        dur="5s"
+        repeatCount="indefinite"
+      />
+    </template>
+  </KIcon>
+</div>
 
 ```html
 <KIcon icon="check" size="48px" color="url('#linear-gradient')">
@@ -274,5 +284,13 @@ Check out the [contributing](/guide/adding-icons-to-kicon) docs to learn about a
   span {
     margin: 0 8px 8px;
   }
+}
+.spacing-container {
+  display: flex;
+  gap: $kui-space-40;
+}
+
+.toggle-viewbox-button {
+  margin-bottom: $kui-space-60;
 }
 </style>

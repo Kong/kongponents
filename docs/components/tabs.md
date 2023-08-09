@@ -320,12 +320,12 @@ export default defineComponent({
 
 ## Theming
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KTabsBottomBorderColor`| Border between the tabs and the tab content
-| `--KTabBottomBorderColor`| Border on the bottom of each tab
-| `--KTabsActiveColor`| Active color of tab and underline
-| `--KTabsColor`| Default text color of the tab items
+| Variable                   | Purpose                                     |
+| :------------------------- | :------------------------------------------ |
+| `--KTabsBottomBorderColor` | Border between the tabs and the tab content |
+| `--KTabBottomBorderColor`  | Border on the bottom of each tab            |
+| `--KTabsActiveColor`       | Active color of tab and underline           |
+| `--KTabsColor`             | Default text color of the tab items         |
 
 \
 An Example of changing the primary KButton variant to green instead of blue might

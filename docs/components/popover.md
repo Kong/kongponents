@@ -596,9 +596,9 @@ Example:
 <KPop @opened="loadSomething" @closed="onClose">
   <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
   <template v-slot:content>
-    <div style="justify-content: center;" class="d-flex">
+    <div style="justify-content: center;" class="loading-container">
       <KIcon v-if="currentState == 'pending'" icon="spinner" color="purple" />
-      <div class="pl-2" style="line-height: 24px;">{{ message }}</div>
+      <div style="line-height: 24px;">{{ message }}</div>
     </div>
   </template>
 </KPop>
@@ -678,9 +678,9 @@ export default defineComponent({
 <KPop @opened="loadSomething" @closed="onClose">
   <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
   <template v-slot:content>
-    <div style="justify-content: center;" class="d-flex">
+    <div style="justify-content: center;">
       <KIcon v-if="currentState == 'pending'" icon="spinner" color="purple" />
-      <div class="pl-2" style="line-height: 24px;">{{ message }}</div>
+      <div style="line-height: 24px;">{{ message }}</div>
     </div>
   </template>
 </KPop>
@@ -754,9 +754,13 @@ You will have to manually polyfill this functionality if you choose to support I
 :::
 
 <style scoped>
-  select {
-    height: 38px;
-    background-color: #fff !important;
-    width: 250px;
-  }
+select {
+  height: 38px;
+  background-color: #fff !important;
+  width: 250px;
+}
+
+.loading-container {
+  display: flex;
+}
 </style>

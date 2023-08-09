@@ -72,10 +72,13 @@ The label for the select.
 Enable this prop to overlay the label on the input element's border for `select` and `dropdown` appearances. Defaults to `false`.
 
 <ClientOnly>
-  <KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" class="mt-5" />
-  <KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" appearance="select" :items="deepClone(defaultItemsUnselect)" class="mt-5" />
-  <KSelect label="Disabled" disabled placeholder="I'm disabled!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" class="mt-5" />
-  <KSelect label="Readonly" readonly placeholder="I'm readonly!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" class="mt-5" />
+  <KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" />
+  <br/>
+  <KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" appearance="select" :items="deepClone(defaultItemsUnselect)" />
+  <br/>
+  <KSelect label="Disabled" disabled placeholder="I'm disabled!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" />
+  <br/>
+  <KSelect label="Readonly" readonly placeholder="I'm readonly!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" />
 </ClientOnly>
 
 ```html
@@ -267,7 +270,7 @@ Use this prop to control whether or not the `KSelect` component with an `appeara
 `button` style `appearance` does not have filter support because it is a button.
 
 <ClientOnly>
-  <KSelect :items="deepClone(defaultItemsUnselect)" :enable-filtering="false" class="mb-2" />
+  <KSelect :items="deepClone(defaultItemsUnselect)" :enable-filtering="false" class="vertical-spacing" />
   <KSelect :items="deepClone(defaultItemsUnselect)" appearance="select" :enable-filtering="true" />
 </ClientOnly>
 
@@ -532,11 +535,11 @@ Use this prop to customize selected item element appearance by reusing content p
 <ClientOnly>
   <KSelect reuse-item-template appearance="select" :items="deepClone(defaultItems)">
     <template #item-template="{ item }">
-      <div class="d-inline-flex w-100">
-        <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
-        <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
-        <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
-        <div class="select-item-label truncate">{{ item.label }}</div>
+      <div class="item-template-container">
+        <span v-if="item.value === 'cats'">🐈</span>
+        <span v-if="item.value === 'dogs'">🐕</span>
+        <span v-if="item.value === 'bunnies'">🐇</span>
+        <div class="select-item-label">{{ item.label }}</div>
       </div>
     </template>
   </KSelect>
@@ -545,11 +548,11 @@ Use this prop to customize selected item element appearance by reusing content p
 ```html
 <KSelect reuse-item-template appearance="select" :items="items">
   <template #item-template="{ item }">
-    <div class="d-inline-flex w-100">
-      <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
-      <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
-      <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
-      <div class="select-item-label truncate">{{ item.label }}</div>
+    <div>
+      <span v-if="item.value === 'cats'">🐈</span>
+      <span v-if="item.value === 'dogs'">🐕</span>
+      <span v-if="item.value === 'bunnies'">🐇</span>
+      <div class="select-item-label">{{ item.label }}</div>
     </div>
   </template>
 </KSelect>
@@ -568,7 +571,7 @@ You cannot add an item if the `label` matches the `label` of a pre-existing item
 :::
 
 <ClientOnly>
-  <KLabel>Added Item:</KLabel> <pre class="json ma-0">{{ JSON.stringify(addedItems) }}</pre>
+  <KLabel>Added Item:</KLabel> <pre class="json">{{ JSON.stringify(addedItems) }}</pre>
   <KSelect
     v-model="myVal"
     :items="deepClone(defaultItems)"
@@ -750,16 +753,16 @@ You can use the `.k-select-selected-item-label` class within the slot to leverag
 <ClientOnly>
   <KSelect appearance="select" autosuggest :items="deepClone(defaultItems)">
     <template #selected-item-template="{ item }">
-      <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
-      <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
-      <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
+      <span class="horizontal-spacing" v-if="item.value === 'cats'">🐈</span>
+      <span class="horizontal-spacing" v-if="item.value === 'dogs'">🐕</span>
+      <span class="horizontal-spacing" v-if="item.value === 'bunnies'">🐇</span>
       {{ item.label }}
     </template>
     <template #item-template="{ item }">
-      <div class="d-inline-flex">
-        <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
-        <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
-        <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
+      <div class="item-template-container">
+        <span v-if="item.value === 'cats'">🐈</span>
+        <span v-if="item.value === 'dogs'">🐕</span>
+        <span v-if="item.value === 'bunnies'">🐇</span>
         <div class="select-item-label">{{ item.label }}</div>
       </div>
     </template>
@@ -769,16 +772,16 @@ You can use the `.k-select-selected-item-label` class within the slot to leverag
 ```html
 <KSelect appearance="select" autosuggest :items="items">
   <template #selected-item-template="{ item }">
-    <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
-    <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
-    <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
+    <span v-if="item.value === 'cats'">🐈</span>
+    <span v-if="item.value === 'dogs'">🐕</span>
+    <span v-if="item.value === 'bunnies'">🐇</span>
     {{ item.label }}
   </template>
   <template #item-template="{ item }">
-    <div class="d-inline-flex">
-      <span class="mr-2" v-if="item.value === 'cats'">🐈</span>
-      <span class="mr-2" v-if="item.value === 'dogs'">🐕</span>
-      <span class="mr-2" v-if="item.value === 'bunnies'">🐇</span>
+    <div>
+      <span v-if="item.value === 'cats'">🐈</span>
+      <span v-if="item.value === 'dogs'">🐕</span>
+      <span v-if="item.value === 'bunnies'">🐇</span>
       <div class="select-item-label">{{ item.label }}</div>
     </div>
   </template>
@@ -1011,3 +1014,22 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss">
+.json {
+  inset: 0 !important;
+}
+
+.item-template-container {
+  width: 100%;
+  display: inline-flex;
+  gap: $kui-space-40;
+}
+
+.select-item-label {
+  line-height: initial;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+</style>

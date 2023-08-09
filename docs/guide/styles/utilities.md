@@ -236,7 +236,7 @@ We support both single line truncation as well as multi-line. Multi-line truncat
 <style lang="scss" scoped>
 table:not(:first-of-type) td {
   &:first-of-type { color: #6b46c1; }
-  &:last-of-type { color: var(--blue-700); }
+  &:last-of-type { color: var(--blue-700, #0a2b66); }
 }
 .multi-line-truncation {
   --TMaxLineLimit: 5;

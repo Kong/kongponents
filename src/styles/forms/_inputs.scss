@@ -5,17 +5,17 @@
   position: relative;
 
   .hovered:not(.readonly) {
-    color: var(--KInputHover, var(--blue-500));
+    color: var(--KInputHover, var(--blue-500, #1155cb));
     transition: color 0.1s ease;
   }
 
   .focused:not(.readonly) {
-    color: var(--KInputFocus, var(--blue-500));
+    color: var(--KInputFocus, var(--blue-500, #1155cb));
     transition: color 0.1s ease;
   }
 
   .is-required {
-    color: var(--KLabelRequiredAsteriskColor, var(--KInputBorder, var(--grey-600)));
+    color: var(--KLabelRequiredAsteriskColor, var(--KInputBorder, var(--grey-600, #3c4557)));
     font-size: 11px;
     font-weight: 500;
     margin-left: var(--spacing-xxs);
@@ -23,7 +23,7 @@
 
   label {
     background-color: var(--KInputBackground, var(--white));
-    color: var(--KInputBorder, var(--grey-600));
+    color: var(--KInputBorder, var(--grey-600, #3c4557));
     display: inline-block;
     font-size: 11px;
     font-weight: 500;
@@ -38,28 +38,28 @@
     z-index: 1;
 
     &.hovered:not(.readonly) {
-      color: var(--KInputHover, var(--blue-500));
+      color: var(--KInputHover, var(--blue-500, #1155cb));
       transition: color 0.1s ease;
 
       .is-required {
-        color: var(--KInputHover, var(--blue-500));
+        color: var(--KInputHover, var(--blue-500, #1155cb));
       }
     }
 
     &.focused:not(.readonly) {
-      color: var(--KInputFocus, var(--blue-500));
+      color: var(--KInputFocus, var(--blue-500, #1155cb));
       transition: color 0.1s ease;
 
       .is-required {
-        color: var(--KInputFocus, var(--blue-500));
+        color: var(--KInputFocus, var(--blue-500, #1155cb));
       }
     }
 
     &.disabled {
-      color: var(--grey-500);
+      color: var(--grey-500, #6f7787);
 
       .is-required {
-        color: var(--grey-500);
+        color: var(--grey-500, #6f7787);
       }
     }
   }
@@ -84,9 +84,9 @@
     border: none;
     border-radius: 3px;
     box-sizing: border-box;
-    color: var(--KInputColor, var(--black-70, color(black-70)));
+    color: var(--KInputColor, var(--black-70, rgba(0, 0, 0, 0.7)));
     display: block;
-    font-size: var(--type-md, type(md));
+    font-size: var(--type-md, 16px);
     font-weight: 400;
     line-height: var(--kui-line-height-40, $kui-line-height-40);
     padding: var(--kui-space-40, $kui-space-40) var(--spacing-md, var(--kui-space-60, $kui-space-60));
@@ -94,13 +94,13 @@
     @include input-default;
 
     &.k-input-small {
-      font-size: var(--type-xs, type(xs));
+      font-size: var(--type-xs, 12px);
       padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40))
         var(--spacing-sm, var(--kui-space-50, $kui-space-50));
     }
 
     &.k-input-large {
-      font-size: var(--type-md, type(md));
+      font-size: var(--type-md, 16px);
       padding: var(--spacing-md, var(--kui-space-60, $kui-space-60))
         var(--spacing-lg, var(--kui-space-80, $kui-space-80));
     }
@@ -109,7 +109,7 @@
       @include input-hover;
 
       &.k-input-large {
-        box-shadow: inset 0 0 0 2px var(--KInputHover, var(--blue-200)) !important;
+        box-shadow: inset 0 0 0 2px var(--KInputHover, var(--blue-200, #bdd3f9)) !important;
         transition: all 0.1s ease;
       }
     }
@@ -139,7 +139,7 @@
 
     /* Browser Overrides */
     &::placeholder {
-      color: var(--KInputPlaceholderColor, var(--black-45, color(black-45)));
+      color: var(--KInputPlaceholderColor, var(--black-45, rgba(0, 0, 0, 0.45)));
       font-weight: 400;
       opacity: 1;
     }
@@ -169,25 +169,25 @@
 .k-input-wrapper.input-error {
   textarea.k-input.form-control {
     box-shadow: none !important;
-    outline: 1px solid var(--red-500) !important;
+    outline: 1px solid var(--red-500, #d44324) !important;
     transition: color 0.1s ease;
   }
 
   .k-input,
   .k-input:hover,
   .k-input:focus {
-    box-shadow: inset 0 0 0 1.5px var(--KInputError, var(--red-500, color(red-500))) !important;
+    box-shadow: inset 0 0 0 1.5px var(--KInputError, var(--red-500, #d44324)) !important;
     outline: none !important;
     transition: color 0.1s ease;
 
     &.k-input-large {
-      box-shadow: inset 0 0 0 2px var(--KInputError, var(--red-500, color(red-500))) !important;
+      box-shadow: inset 0 0 0 2px var(--KInputError, var(--red-500, #d44324)) !important;
       transition: color 0.1s ease;
     }
   }
 
   .text-on-input label {
-    color: var(--KInputError, var(--red-500, color(red-500)));
+    color: var(--KInputError, var(--red-500, #d44324));
     transition: color 0.1s ease;
   }
 }
@@ -197,7 +197,7 @@ select.k-input {
   &:not([type="checkbox"]):read-only,
   &:not([type="radio"]),
   &:not([type="radio"]):read-only {
-    background-color: var(--KInputSelectBackground, var(--white, color(white)));
+    background-color: var(--KInputSelectBackground, var(--white, #ffffff));
     height: 38px;
   }
 }

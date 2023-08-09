@@ -4,7 +4,7 @@
 
 <KCard>
   <template #body>
-    <div class="mb-3">Selected: {{ radioGroup }}</div>
+    <div class="vertical-spacing">Selected: {{ radioGroup }}</div>
     <div>
       <KRadio name="test" :selected-value="true" v-model="radioGroup">Boolean</KRadio>
       <KRadio name="test" selected-value="string" v-model="radioGroup">String</KRadio>
@@ -16,7 +16,7 @@
 
 ```html
 <template>
-  <div class="mb-3">Selected: {{ radioGroup }}</div>
+  <div>Selected: {{ radioGroup }}</div>
   <KRadio name="test" :selected-value="true" v-model="radioGroup">Boolean</KRadio>
   <KRadio name="test" selected-value="string" v-model="radioGroup">String</KRadio>
   <KRadio name="test" :selected-value="objA" v-model="radioGroup">Object A</KRadio>
@@ -96,35 +96,35 @@ You can choose to utilize the `.k-radio-label` and `.k-radio-description` classe
 
 <KCard>
   <template #body>
-    <div class="d-flex">
+    <div class="vertical-spacing">
       <KRadio type="card" selected-value="foo" v-model="cardRadio">
-        <img class="mb-2" src="/img/kong-logomark.png" alt="Kong logo" />
+        <img class="vertical-spacing" src="/img/kong-logomark.png" alt="Kong logo" />
         <div class="k-radio-label">Foo</div>
         <div class="k-radio-description">This subheader</div>
       </KRadio>
       <KRadio type="card" selected-value="bar" v-model="cardRadio">
-        <img class="mb-2" src="/img/kong-logomark.png" alt="Kong logo" />
+        <img class="vertical-spacing" src="/img/kong-logomark.png" alt="Kong logo" />
         <div class="k-radio-label">Bar</div>
         <div class="k-radio-description">That subheader</div>
       </KRadio>
     </div>
-    <div class="mt-3">Selected: {{ cardRadio }}</div>
+    <div>Selected: {{ cardRadio }}</div>
   </template>
 </KCard>
 
 ```html
 <template>
   <KRadio type="card" selected-value="foo" v-model="cardRadio">
-    <img class="mb-2" src="/img/kong-logo.png" alt="Kong logo" />
+    <img src="/img/kong-logo.png" alt="Kong logo" />
     <div class="k-radio-label">Foo</div>
     <div class="k-radio-description">This subheader</div>
   </KRadio>
   <KRadio type="card" selected-value="bar" v-model="cardRadio">
-    <img class="mb-2" src="/img/kong-logo.png" alt="Kong logo" />
+    <img src="/img/kong-logo.png" alt="Kong logo" />
     <div class="k-radio-label">Bar</div>
     <div class="k-radio-description">That subheader</div>
   </KRadio>
-  <div class="mt-3">Selected: {{ cardRadio }}</div>
+  <div>Selected: {{ cardRadio }}</div>
 </template>
 
 <script lang="ts">

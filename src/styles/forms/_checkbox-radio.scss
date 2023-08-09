@@ -2,9 +2,9 @@
 
 input.k-input,
 input.form-control {
-  $borderColor: var(--KInputBorder, var(--grey-300, color(grey-300)));
-  $primaryCheckboxColor: var(--KCheckboxPrimary, var(--blue-500, color(blue-500)));
-  $primaryRadioColor: var(--KRadioPrimary, var(--blue-500, color(blue-500)));
+  $borderColor: var(--KInputBorder, var(--grey-300, #e7e7ec));
+  $primaryCheckboxColor: var(--KCheckboxPrimary, var(--blue-500, #1155cb));
+  $primaryRadioColor: var(--KRadioPrimary, var(--blue-500, #1155cb));
 
   &[type="checkbox"],
   &[type="radio"] {
@@ -70,13 +70,13 @@ input.form-control {
     }
 
     &:disabled:not(:checked) {
-      background-color: var(--KInputCheckboxDisabled, var(--grey-100, color(grey-100)));
-      border: 1px solid var(--KCheckboxDisabledChecked, var(--grey-400, color(grey-400)));
+      background-color: var(--KInputCheckboxDisabled, var(--grey-100, #f8f8fa));
+      border: 1px solid var(--KCheckboxDisabledChecked, var(--grey-400, #b6b6bd));
       border-radius: 2px;
     }
     &:disabled:checked {
-      background-color: var(--KCheckboxDisabledChecked, var(--grey-400, color(grey-400)));
-      // border: 1px solid var(--KCheckboxDisabledChecked, var(--grey-400, color(grey-400)));;
+      background-color: var(--KCheckboxDisabledChecked, var(--grey-400, #b6b6bd));
+      // border: 1px solid var(--KCheckboxDisabledChecked, var(--grey-400, #b6b6bd));;
     }
   }
 
@@ -108,10 +108,10 @@ input.form-control {
       }
 
       &:disabled {
-        border-color: var(--KInputRadioDisabled, var(--grey-400, color(grey-400)));
+        border-color: var(--KInputRadioDisabled, var(--grey-400, #b6b6bd));
 
         &:after {
-          background-color: var(--KInputRadioDisabled, var(--grey-400, color(grey-400)));
+          background-color: var(--KInputRadioDisabled, var(--grey-400, #b6b6bd));
         }
       }
     }
@@ -123,7 +123,7 @@ input.form-control {
     }
 
     &:disabled {
-      background-color: var(--KInputRadioDisabled, var(--grey-200, color(grey-200)));
+      background-color: var(--KInputRadioDisabled, var(--grey-200, #f1f1f5));
     }
   }
 }

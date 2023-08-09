@@ -35,7 +35,8 @@ KFileUpload has two supported types: `file` (default) and `image`.
 />
 ```
 
-<KCard class="mt-6">
+<br/>
+<KCard>
   <template v-slot:body>
     <KFileUpload type="image" label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedImageType}` }" class="image-with-label" icon="image" :accept="['image/*']" placeholder="Upload new image (Max 4 MB)" />
   </template>
@@ -71,7 +72,8 @@ Use the `labelAttributes` prop to configure the **KLabel's** [props](/components
 />
 ```
 
-<KCard class="mt-6">
+<br/>
+<KCard>
   <template v-slot:body>
     <KFileUpload type="image" label="Upload Image File" :label-attributes="{ help: `Accepted file types: ${acceptedImageType}` }" class="image-with-label" icon="image" :accept="acceptedImageType" placeholder="Upload new image (Max 1 MB)" />
   </template>
@@ -134,7 +136,8 @@ String to be displayed as error message if `hasError` prop is `true`.
 
 Use the `placeholder` prop to display placeholder text. The `placeholder text` is `blue` to indicate the field is `clickable`.
 
-<KCard class="mt-6">
+<br/>
+<KCard>
   <template v-slot:body>
     <KFileUpload type="image" label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedImageType}` }" class="image-with-label" :accept="acceptedImageType" placeholder="You can change the text here!" icon="kong" >
     </KFileUpload>
@@ -169,7 +172,8 @@ A `cancel` button can be displayed, by default this is set to `true`. This butto
 />
 ```
 
-<KCard class="mt-6">
+<br/>
+<KCard>
   <template v-slot:body>
     <KFileUpload type="image" label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedImageType}` }" :removable="false" class="image-with-label" :accept="acceptedImageType" placeholder="No cancel button!" icon="kong" >
     </KFileUpload>
@@ -230,7 +234,8 @@ The size of the `icon` being displayed (default is `24px`).
 
 The color of the `icon` being displayed.
 
-<KCard class="mt-6">
+<br/>
+<KCard>
   <template v-slot:body>
     <KFileUpload type="image" label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedImageType}` }" :accept="acceptedImageType" class="image-with-label" placeholder="Customized icon, iconColor & iconSize!" icon="immunity" iconColor="gold" iconSize="30px" />
   </template>
@@ -277,7 +282,8 @@ All of the above 3 events will emit a `JavaScript Array` of type `FileList`. Thi
 />
 ```
 
-<div class="mt-6">Emitted value:
+<br/>
+<div>Emitted value:
   <pre v-if="fileData.length" class="emitted-value">{{ `File Data:` }}
     <div v-for="(file) in fileData">
       <span>lastModified: {{file.lastModified}}</span>
