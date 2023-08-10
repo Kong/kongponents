@@ -288,6 +288,7 @@ Check out the [contributing](/guide/adding-icons-to-kicon) docs to learn about a
 .spacing-container {
   display: flex;
   gap: $kui-space-40;
+  flex-direction: row;
 }
 
 .toggle-viewbox-button {
