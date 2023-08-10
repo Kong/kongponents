@@ -235,14 +235,14 @@ export default defineComponent({
   margin-right: 4px !important;
 }
 .success.k-button {
-  --KButtonPrimaryBase: var(--green-400, #42d782);
-  --KButtonPrimaryHover: var(--green-300, #84e5ae);
-  --KButtonPrimaryActive: var(--green-500, #07a88d)
+  --KButtonPrimaryBase: #42d782;
+  --KButtonPrimaryHover: #84e5ae;
+  --KButtonPrimaryActive: #07a88d;
 }
 .warning.k-button {
-  --KButtonPrimaryBase: var(--yellow-300, #ffd68c);
-  --KButtonPrimaryHover: var(--yellow-200, #ffe6ba);
-  --KButtonPrimaryActive: var(--yellow-200, #ffe6ba);
-  color: var(--black-70, $kui-color-text) !important;
+  --KButtonPrimaryBase: #ffd68c;
+  --KButtonPrimaryHover: #ffe6ba;
+  --KButtonPrimaryActive: #ffe6ba;
+  color: $kui-color-text !important;
 }
 </style>

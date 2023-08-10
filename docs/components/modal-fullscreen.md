@@ -505,8 +505,8 @@ export default {
     width: 100%;
     height: 80%;
     border-radius: $kui-border-radius-20;
-    border: $kui-border-width-10 solid var(--grey-300, $kui-color-border-neutral-weak);
-    background-color: var(--white, $kui-color-background);
+    border: $kui-border-width-10 solid $kui-color-border-neutral-weak;
+    background-color: $kui-color-background;
     text-indent: $kui-space-40;
   }
 
@@ -515,8 +515,8 @@ export default {
     top: -10px;
     left: 15px;
     padding: $kui-space-20;
-    background-color: var(--white, $kui-color-background);
-    color: var(--grey-500, $kui-color-text-neutral);
+    background-color: $kui-color-background;
+    color: $kui-color-text-neutral;
     font-size: $kui-font-size-10;
   }
 }
