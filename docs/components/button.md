@@ -23,12 +23,24 @@ The Button component can take 1 of 6 appearance values:
 - `btn-link`
 
 <div class="spacing-container">
-  <KButton appearance="primary">Primary</KButton>
-  <KButton appearance="secondary">Secondary</KButton>
-  <KButton appearance="outline">Outline</KButton>
-  <KButton appearance="danger">Danger</KButton>
-  <KButton appearance="creation">Creation</KButton>
-  <KButton appearance="btn-link">btn-link</KButton>
+  <div>
+    <KButton appearance="primary">Primary</KButton>
+  </div>
+  <div>
+    <KButton appearance="secondary">Secondary</KButton>
+  </div>
+  <div>
+    <KButton appearance="outline">Outline</KButton>
+  </div>
+  <div>
+    <KButton appearance="danger">Danger</KButton>
+  </div>
+  <div>
+    <KButton appearance="creation">Creation</KButton>
+  </div>
+  <div>
+    <KButton appearance="btn-link">btn-link</KButton>
+  </div>
 </div>
 
 ```html
@@ -55,7 +67,9 @@ We support `small`, `medium`, and `large` sizes, default to `medium`.
   <div>
     <KButton appearance="secondary" size="medium">Medium</KButton>
   </div>
-  <KButton appearance="secondary" size="large">Large</KButton>
+  <div>
+    <KButton appearance="secondary" size="large">Large</KButton>
+  </div>
 </div>
 
 ```html
@@ -108,8 +122,12 @@ Use this prop to customize the color of the caret
 The buttons are rounded by default. This can be disabled by setting `isRounded` prop to `false`.
 
 <div class="spacing-container">
-  <KButton appearance="primary" :isRounded="false">I'm a button</KButton>
-  <KButton appearance="primary" >I'm a button</KButton>
+  <div>
+    <KButton appearance="primary" :isRounded="false">I'm a button</KButton>
+  </div>
+  <div>
+    <KButton appearance="primary" >I'm a button</KButton>
+  </div>
 </div>
 
 ```html
@@ -195,17 +213,21 @@ Should you need to use a KTooltip component on a KButton with `disabled` attribu
 KButton supports using an icon either before the text or without text. If you are using the slot you must maintain the icon color yourself when the button is enabled or disabled.
 
 <div class="spacing-container">
-  <KButton appearance="secondary">
-    <template v-slot:icon>
-      <KIcon icon="externalLink" color="var(--KButtonSecondaryColor, #003694)"/>
-    </template>
-    With Text
-  </KButton>
-  <KButton appearance="secondary" size="small">
-    <template v-slot:icon>
-      <KIcon icon="gear" color="var(--KButtonSecondaryColor, #003694)"/>
-    </template>
-  </KButton>
+  <div>
+    <KButton appearance="secondary">
+      <template v-slot:icon>
+        <KIcon icon="externalLink" color="var(--KButtonSecondaryColor, #003694)"/>
+      </template>
+      With Text
+    </KButton>
+  </div>
+  <div>
+    <KButton appearance="secondary" size="small">
+      <template v-slot:icon>
+        <KIcon icon="gear" color="var(--KButtonSecondaryColor, #003694)"/>
+      </template>
+    </KButton>
+  </div>
 </div>
 
 ```html
