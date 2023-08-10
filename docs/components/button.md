@@ -296,5 +296,6 @@ look like.
   display: flex;
   gap: $kui-space-40;
   flex-direction: row;
+  align-items: baseline;
 }
 </style>
