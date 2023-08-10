@@ -1,3 +1,10 @@
+## [8.122.2](https://github.com/Kong/kongponents/compare/v8.122.1...v8.122.2) (2023-08-10)
+
+
+### Reverts
+
+* Revert "chore(deps-dev): bump vitepress from 1.0.0-beta.7 to 1.0.0-rc.4 (#1619)" (#1622) ([06bb90e](https://github.com/Kong/kongponents/commit/06bb90ed8096bbd374cd8b4c4aa86ecc7edac114)), closes [#1619](https://github.com/Kong/kongponents/issues/1619) [#1622](https://github.com/Kong/kongponents/issues/1622)
+
 ## [8.122.1](https://github.com/Kong/kongponents/compare/v8.122.0...v8.122.1) (2023-08-07)
 
 
