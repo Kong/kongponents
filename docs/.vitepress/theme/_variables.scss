@@ -2,13 +2,13 @@
 // https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
 
 :root {
-  --vp-c-brand: var(--blue-500, #1456cb);
-  --vp-c-brand-light: var(--blue-400, #3972d5);
-  --vp-c-brand-lighter: var(--blue-300, #8ab3fa);
-  --vp-c-brand-dark: var(--blue-600, #003694);
-  --vp-c-brand-darker: var(--blue-700, #0a2b66);
+  --vp-c-brand: #1155cb;
+  --vp-c-brand-light: #3972d5;
+  --vp-c-brand-lighter: #8ab3fa;
+  --vp-c-brand-dark: #003694;
+  --vp-c-brand-darker: #0a2b66;
   // Homepage site name color
   --kongponents-theme-background-gradient: linear-gradient(120deg, #169fcc, #42d782);
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: var(--kongponents-theme-background-gradient, var(--vp-c-brand, #1456cb));
+  --vp-home-hero-name-background: var(--kongponents-theme-background-gradient, #1456cb);
 }

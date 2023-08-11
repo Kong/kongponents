@@ -1,8 +1,8 @@
 // Theme overrides; all should be nested inside of the `.vp-doc` class
 .vp-doc {
-  --vp-custom-block-info-border: var(--blue-600, #003694);
-  --vp-custom-block-info-text: var(--blue-500, #1155cb);
-  --vp-custom-block-info-bg: var(--blue-100, #f2f6fe);
+  --vp-custom-block-info-border: #003694;
+  --vp-custom-block-info-text: #1155cb;
+  --vp-custom-block-info-bg: #f2f6fe;
 
   .kong-card li + li {
     margin-top: 0;

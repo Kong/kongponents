@@ -53,7 +53,7 @@ const colorValue = computed((): string => getComputedStyle(document.body).getPro
       }
 
       &:last-of-type {
-        color: var(--vp-c-text, $kui-color-text);
+        color: $kui-color-text;
         font-size: $kui-font-size-30;
       }
     }

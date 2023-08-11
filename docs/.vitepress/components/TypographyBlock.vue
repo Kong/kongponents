@@ -70,7 +70,7 @@ export default defineComponent({
       font-weight: $kui-font-weight-semibold;
     }
     span {
-      color: var(--vp-c-text, $kui-color-text);
+      color: $kui-color-text;
       font-size: $kui-font-size-30;
     }
   }
