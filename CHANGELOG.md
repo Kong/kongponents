@@ -1,3 +1,10 @@
+## [8.122.3](https://github.com/Kong/kongponents/compare/v8.122.2...v8.122.3) (2023-08-14)
+
+
+### Bug Fixes
+
+* **labels:** font size ([#1627](https://github.com/Kong/kongponents/issues/1627)) ([c4b3f5e](https://github.com/Kong/kongponents/commit/c4b3f5e058251c38005614aaef9f7d0cadb1b582))
+
 ## [8.122.2](https://github.com/Kong/kongponents/compare/v8.122.1...v8.122.2) (2023-08-10)
 
 
