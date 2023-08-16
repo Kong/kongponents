@@ -145,7 +145,8 @@ them and placing them inside `KToggle`'s default slot.
 
 ### Collapse/Expand
 
-<KCard class="mt-2" style="min-height: 100px;">
+<br/>
+<KCard style="min-height: 100px;">
   <template v-slot:body>
     <KToggle v-slot="{isToggled, toggle}">
       <div>
@@ -173,7 +174,8 @@ them and placing them inside `KToggle`'s default slot.
 
 #### Toggle with Animation
 
-<KCard class="mt-2" style="min-height: 100px;">
+<br/>
+<KCard style="min-height: 100px;">
   <template v-slot:body>
     <KToggle v-slot="{isToggled, toggle}">
       <div>

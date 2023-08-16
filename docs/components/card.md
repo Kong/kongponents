@@ -56,7 +56,7 @@ Example composing `KCard` with other Kongponents to make another component:
           Docs
         </KButton>
       </div>
-      <div class="mt-2">
+      <div>
         <p>Kong Enterprise adds features, functionality, and performance to Kong. This documentation doesn’t cover the general practices that are common to both Kong and Kong Enterprise—learn the basics in Kong documentation.</p>
       </div>
     </div>
@@ -74,7 +74,7 @@ Example composing `KCard` with other Kongponents to make another component:
           Docs
         </KButton>
       </div>
-      <div class="mt-2">
+      <div>
         <p>Kong Enterprise adds features, functionality, and performance to Kong. This documentation doesn’t cover the general practices that are common to both Kong and Kong Enterprise—learn the basics in Kong documentation.</p>
       </div>
     </div>

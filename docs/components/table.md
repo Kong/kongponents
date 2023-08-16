@@ -1146,7 +1146,7 @@ You can choose utilize the `.k-table-cell-title` and `.k-table-cell-description`
     hidePaginationWhenOptional
   >
     <template #name="{row}">
-      <img :alt="row.img.alt" class="mr-2" :src="row.img.src">
+      <img :alt="row.img.alt" :src="row.img.src">
       <div>
         <div class="k-table-cell-title">{{ row.name }}</div>
         <div class="k-table-cell-description">{{ row.description }}</div>

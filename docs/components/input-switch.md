@@ -180,7 +180,7 @@ To listen for changes to the `KInputSwitch` value, you can bind to the `@input`,
 <KComponent :data="{eventsSwitchEnabled2: true, changeCount: 0}" v-slot="{ data }">
   <div>
     <KInputSwitch v-model="data.eventsSwitchEnabled2" @change="e => (data.changeCount++)" label="Toggle Me" />
-    <div class="mt-2">You've toggled me {{ data.changeCount }} time(s)</div>
+    <div>You've toggled me {{ data.changeCount }} time(s)</div>
   </div>
 </KComponent>
 

@@ -106,7 +106,6 @@ You cannot add an item if the `label` matches the `label` of a pre-existing item
     v-model="mySelections"
     :items="deepClone(defaultItems)"
     enable-item-creation
-    class="mt-2"
     @item:added="(item) => trackNewItems(item, true)"
     @item:removed="(item) => trackNewItems(item, false)"
   />
@@ -311,7 +310,7 @@ See [autosuggest](#autosuggest) for more details.
 
 <ClientOnly>
   <KLabel>Value:</KLabel> <pre class="json">{{ JSON.stringify(myVal) }}</pre>
-  <KMultiselect v-model="myVal" :items="deepClone(defaultItems)" class="mt-2" />
+  <KMultiselect v-model="myVal" :items="deepClone(defaultItems)" />
   <br>
   <KButton @click="clearIt">Clear</KButton>
 </ClientOnly>
@@ -384,7 +383,6 @@ When using `autosuggest`, you **MUST** use `v-model` otherwise the Multiselect c
     autosuggest
     :items="itemsForAutosuggest"
     :loading="loading"
-    class="mt-2"
     @query-change="onQueryChange"
   >
     <template v-slot:item-template="{ item }">
@@ -739,7 +737,6 @@ An example of hooking into events to modify newly created items (`enableItemCrea
   <KMultiselect
     :items="myEventItems"
     enable-item-creation
-    class="mt-2"
     @item:added="item => handleAddedItem(item, true)"
     @item:removed="item => handleAddedItem(item, false)"
     @selected="handleSelection"

@@ -193,13 +193,13 @@ KButton supports using an icon either before the text or without text. If you ar
 <div class="spacing-container">
   <KButton appearance="secondary">
     <template v-slot:icon>
-      <KIcon icon="externalLink" color="var(--KButtonSecondaryColor, #003694)"/>
+      <KIcon icon="externalLink" color="#003694"/>
     </template>
     With Text
   </KButton>
   <KButton appearance="secondary" size="small">
     <template v-slot:icon>
-      <KIcon icon="gear" color="var(--KButtonSecondaryColor, #003694)"/>
+      <KIcon icon="gear" color="#003694"/>
     </template>
   </KButton>
 </div>

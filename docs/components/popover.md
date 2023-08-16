@@ -598,7 +598,7 @@ Example:
   <template v-slot:content>
     <div style="justify-content: center;" class="loading-container">
       <KIcon v-if="currentState == 'pending'" icon="spinner" color="purple" />
-      <div style="line-height: 24px;">{{ message }}</div>
+      <div>{{ message }}</div>
     </div>
   </template>
 </KPop>
@@ -680,7 +680,7 @@ export default defineComponent({
   <template v-slot:content>
     <div style="justify-content: center;">
       <KIcon v-if="currentState == 'pending'" icon="spinner" color="purple" />
-      <div style="line-height: 24px;">{{ message }}</div>
+      <div>{{ message }}</div>
     </div>
   </template>
 </KPop>

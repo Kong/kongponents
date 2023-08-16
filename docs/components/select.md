@@ -576,7 +576,6 @@ You cannot add an item if the `label` matches the `label` of a pre-existing item
     v-model="myVal"
     :items="deepClone(defaultItems)"
     enable-item-creation
-    class="mt-2"
     @item:added="(item) => trackNewItems(item, true)"
     @item:removed="(item) => trackNewItems(item, false)"
   />
