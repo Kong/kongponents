@@ -1,12 +1,12 @@
 .form-group {
   $borderColor: var(--KInputBorder, var(--grey-300, #e7e7ec));
   display: block;
-  margin-bottom: var(--lg, 24px);
+  margin-bottom: 24px;
   width: 100%;
 
   hr {
     border-color: $borderColor;
-    margin: var(--xl, 32px) 0;
+    margin: 32px 0;
   }
 }
 
