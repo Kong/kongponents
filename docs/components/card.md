@@ -175,25 +175,23 @@ Cards can be arranged with flex box.
 </div>
 
 ```html
-<div class="">
-  <KCard title="Left" body="This card only has a title" />
-  <KCard title="Center" body="This card always has a icon button">
-    <template v-slot:actions>
-      <KButton>
-        <KIcon
-          icon="gearFilled"
-          size="16"
-          view-box="0 0 16 16"
-        />
-      </KButton>
-    </template>
-  </KCard>
-  <KCard title="Right" body="This card always has a button">
-    <template v-slot:actions>
-      <KButton>View All</KButton>
-    </template>
-  </KCard>
-</div>
+<KCard title="Left" body="This card only has a title" />
+<KCard title="Center" body="This card always has a icon button">
+  <template v-slot:actions>
+    <KButton>
+      <KIcon
+        icon="gearFilled"
+        size="16"
+        view-box="0 0 16 16"
+      />
+    </KButton>
+  </template>
+</KCard>
+<KCard title="Right" body="This card always has a button">
+  <template v-slot:actions>
+    <KButton>View All</KButton>
+  </template>
+</KCard>
 
 <style lang="scss">
 .card-flex-container {
