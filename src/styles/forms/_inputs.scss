@@ -18,7 +18,7 @@
     color: var(--KLabelRequiredAsteriskColor, var(--KInputBorder, var(--grey-600, #3c4557)));
     font-size: 11px;
     font-weight: 500;
-    margin-left: var(--spacing-xxs);
+    margin-left: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
   }
 
   label {
@@ -86,7 +86,7 @@
     box-sizing: border-box;
     color: var(--KInputColor, var(--black-70, rgba(0, 0, 0, 0.7)));
     display: block;
-    font-size: var(--type-md, 16px);
+    font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
     font-weight: 400;
     line-height: var(--kui-line-height-40, $kui-line-height-40);
     padding: var(--kui-space-40, $kui-space-40) var(--spacing-md, var(--kui-space-60, $kui-space-60));
@@ -94,13 +94,13 @@
     @include input-default;
 
     &.k-input-small {
-      font-size: var(--type-xs, 12px);
+      font-size: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
       padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40))
         var(--spacing-sm, var(--kui-space-50, $kui-space-50));
     }
 
     &.k-input-large {
-      font-size: var(--type-md, 16px);
+      font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
       padding: var(--spacing-md, var(--kui-space-60, $kui-space-60))
         var(--spacing-lg, var(--kui-space-80, $kui-space-80));
     }

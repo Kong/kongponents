@@ -14,6 +14,7 @@
 .k-input-wrapper + .help {
   color: var(--black-45, rgba(0, 0, 0, 0.45));
   display: block;
-  font-size: var(--type-sm, 14px);
-  margin: var(--spacing-xs, 8px) 0 0;
+  font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
+  margin: var(--spacing-xs, var(--kui-space-40, $kui-space-40)) var(--kui-space-0, $kui-space-0)
+    var(--kui-space-0, $kui-space-0);
 }

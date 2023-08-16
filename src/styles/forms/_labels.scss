@@ -4,15 +4,15 @@
   display: inline-flex;
   font-family: var(--KInputLabelFont, var(--font-family-sans, var(--kui-font-family-text, $kui-font-family-text)));
   font-size: var(--KInputLabelSize, var(--type-sm, var(--kui-font-size-30, $kui-font-size-30)));
-  font-weight: var(--KInputLabelWeight, 600);
+  font-weight: var(--KInputLabelWeight, var(--kui-font-weight-semibold, $kui-font-weight-semibold));
   line-height: var(--KInputLabelLineHeight, var(--type-lg, var(--kui-line-height-30, $kui-line-height-30)));
   margin-bottom: var(--KInputLabelMargin, var(--spacing-xs, var(--kui-space-40, $kui-space-40)));
 
   .is-required {
     color: var(--KLabelRequiredAsteriskColor, var(--KInputLabelColor));
-    font-size: var(--KInputLabelSize, var(--type-sm, 14px));
-    font-weight: var(--KInputLabelWeight, 600);
-    margin-left: var(--spacing-xxs);
+    font-size: var(--KInputLabelSize, var(--type-sm, var(--kui-font-size-30, $kui-font-size-30)));
+    font-weight: var(--KInputLabelWeight, var(--kui-font-weight-semibold, $kui-font-weight-semibold));
+    margin-left: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
   }
 
   .label-tooltip {
@@ -21,7 +21,7 @@
   }
 
   .kong-icon {
-    margin-left: var(--spacing-xxs);
+    margin-left: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
   }
 }
 
@@ -33,8 +33,8 @@
       --KInputCheckboxLabelFont,
       var(--font-family-sans, var(--kui-font-family-text, $kui-font-family-text))
     );
-    font-size: var(--KInputCheckboxLabelSize, var(--type-md, 16px));
+    font-size: var(--KInputCheckboxLabelSize, var(--type-md, var(--kui-font-size-40, $kui-font-size-40)));
     font-weight: normal;
-    margin-bottom: 0;
+    margin-bottom: var(--kui-space-0, $kui-space-0);
   }
 }
