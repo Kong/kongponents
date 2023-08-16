@@ -473,6 +473,13 @@ const props = defineProps({
     default: 1,
   },
   /**
+   * Can be used to update the current page from a source external to KTable (e.g. in response to a browser history navigation). Behaves exactly as interactions with the built-in pagination do.
+   */
+  paginationPageNumber: {
+    type: Number,
+    default: null,
+  },
+  /**
    * A prop to pass in an array of page sizes used by the pagination component
    */
   paginationPageSizes: {
@@ -961,6 +968,12 @@ watch([query, page, pageSize], async (newData, oldData) => {
     isRevalidating.value = false
   }
 }, { deep: true, immediate: true })
+
+watch(() => props.paginationPageNumber, () => {
+  if (props.paginationPageNumber !== page.value) {
+    page.value = props.paginationPageNumber
+  }
+})
 
 onMounted(() => {
   initData()

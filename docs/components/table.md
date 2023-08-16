@@ -485,6 +485,10 @@ If not provided the fetcher response should return a top-level property `total` 
 
 Pass in a number of pagination neighbors to be used by the pagination component. See more detail in the [Pagination](/components/pagination.html#neighbors) docs.
 
+### paginationPageNumber
+
+Can be used to update the current page from a source external to KTable (e.g. in response to a browser history navigation). Behaves exactly as interactions with the built-in pagination do.
+
 ### paginationPageSizes
 
 Pass in an array of page sizes for the page size dropdown. If not provided will default to the following:
