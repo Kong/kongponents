@@ -2569,9 +2569,9 @@ csstype@^3.1.1:
   integrity sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==
 
 cypress-fail-fast@^7.0.1:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/cypress-fail-fast/-/cypress-fail-fast-7.0.1.tgz#9aa0cdbdf92b7ea3712588635f8b35e8f5f10f16"
-  integrity sha512-v68bfFTjPrn3+i+mEFmxC6Z2ble9+k8xIeEGeZJQS0HU8A9Q3oE1LEEv1SAqgyaYL06PKw4ifHw/aydO6rNFaw==
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/cypress-fail-fast/-/cypress-fail-fast-7.0.2.tgz#1396b3f686e0a7b29b4706cf844bc68f0c0c233f"
+  integrity sha512-/Gr3LGZUydYYNeYaZxVdqC2/uvTKv52ii372y+covWtb3tcs/GjJCpfEnFzpq17YRS2Nn2hrC/rEgALCIk6OOQ==
   dependencies:
     chalk "4.1.2"
 
