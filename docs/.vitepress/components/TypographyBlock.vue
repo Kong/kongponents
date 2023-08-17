@@ -12,7 +12,7 @@
     <div class="example">
       <strong>Sample:</strong>
       <p
-        class="mt-2"
+        class="example-description"
         :class="[`${prefix}${variableName}`, fontType === 'mono' && 'mono', styleClasses]">
         Kong is a Lua application running in Nginx
       </p>
@@ -70,8 +70,13 @@ export default defineComponent({
       font-weight: $kui-font-weight-semibold;
     }
     span {
-      color: var(--vp-c-text, $kui-color-text);
+      color: $kui-color-text;
       font-size: $kui-font-size-30;
+    }
+  }
+  .example {
+    .example-description {
+      margin-top: $kui-space-20;
     }
   }
 }

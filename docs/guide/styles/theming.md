@@ -20,21 +20,21 @@ Take a look at individual components to see what properties are themable. Two ex
 
 ### `KInput` Example
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KInputBackground`| Default background
-| `--KInputBorder`| Default border
-| `--KInputColor`| Default font color
-| `--KInputFocus`| Focus color
-| `--KInputDisabledBackground`| Disabled background
-| `--KInputError`| Error border
-| `--KInputPlaceholderColor`| Placeholder text color
+| Variable                     | Purpose                |
+| :--------------------------- | :--------------------- |
+| `--KInputBackground`         | Default background     |
+| `--KInputBorder`             | Default border         |
+| `--KInputColor`              | Default font color     |
+| `--KInputFocus`              | Focus color            |
+| `--KInputDisabledBackground` | Disabled background    |
+| `--KInputError`              | Error border           |
+| `--KInputPlaceholderColor`   | Placeholder text color |
 
 ::: tip TIP
 Add the `input-error` class to add error styling
 :::
 
-<KInput id="theme-page-kinput" class="input-error w-50" type="email" value="error" label="This input has a custom error border color" />
+<KInput id="theme-page-kinput" class="input-error" type="email" value="error" label="This input has a custom error border color" />
 
 ```html{6-8}
 <template>
@@ -50,11 +50,11 @@ Add the `input-error` class to add error styling
 
 ### `KPop` Example
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KPopBackground`| Default background
-| `--KPopBorder`| Default border
-| `--KPopColor`| Default font color
+| Variable           | Purpose            |
+| :----------------- | :----------------- |
+| `--KPopBackground` | Default background |
+| `--KPopBorder`     | Default border     |
+| `--KPopColor`      | Default font color |
 
 You can also scope the CSS variable to a single component by providing a parent selector. Here's an Example of changing the color of KPopover text
 

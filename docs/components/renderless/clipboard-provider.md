@@ -4,7 +4,7 @@
 
 <KCard>
   <template v-slot:body>
-    <KInput :model-value="dataToCopy" @input="newValue => dataToCopy = newValue" type="text" class="mb-2 w-100" />
+    <KInput :model-value="dataToCopy" @input="newValue => dataToCopy = newValue" type="text" class="vertical-spacing" />
     <KClipboardProvider v-slot="{ copyToClipboard }">
       <KButton @click="() => { if (copyToClipboard(dataToCopy)) $toaster.open(`Copied: '${dataToCopy}'`) }">
         copy to clipboard
@@ -15,7 +15,7 @@
 
 ```html
 <template>
-  <KInput :model-value="dataToCopy" @input="newValue => dataToCopy = newValue" type="text" class="mb-2 w-100" />
+  <KInput :model-value="dataToCopy" @input="newValue => dataToCopy = newValue" type="text" />
   <KClipboardProvider v-slot="{ copyToClipboard }">
     <KButton @click="() => { if (copyToClipboard(dataToCopy)) alert(`Copied '${dataToCopy}'`) }">
       copy to clipboard
@@ -65,3 +65,9 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss">
+.vertical-spacing {
+  margin-bottom: $kui-space-40;
+}
+</style>

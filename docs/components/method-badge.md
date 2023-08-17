@@ -73,7 +73,7 @@ When `true`, the KMethodBadge will come with a switch input. You can use `v-mode
 
 <KCard>
   <template #body>
-    <div class="mb-2">Post method enabled: {{ toggleValue }}</div>
+    <div class="vertical-spacing">Post method enabled: {{ toggleValue }}</div>
     <KMethodBadge method="post" is-toggle v-model="toggleValue" />
   </template>
 </KCard>

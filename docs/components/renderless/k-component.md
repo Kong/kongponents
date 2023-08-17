@@ -39,9 +39,9 @@ The state that the component should begin with.
 
 ## Slot Props
 
-| Props       | Type     | Description                     |
-| :---------- | :------- | :------------------------------ |
-| `data` | Object  | reactive component state |
+| Props  | Type   | Description              |
+| :----- | :----- | :----------------------- |
+| `data` | Object | reactive component state |
 
 ## Usage
 
@@ -50,7 +50,8 @@ them and placing them inside `KComponent`'s default slot.
 
 ### Select
 
-<KCard class="mt-2" style="min-height: 100px;">
+<br/>
+<KCard style="min-height: 100px;">
   <template v-slot:body>
     <KComponent :data="{ selected: '' }" v-slot="{ data }">
       <div>
@@ -69,7 +70,7 @@ them and placing them inside `KComponent`'s default slot.
 </KCard>
 
 ```html
-<KCard class="mt-2" style="min-height: 100px;">
+<KCard style="min-height: 100px;">
   <template v-slot:body>
     <KComponent :data="{ selected: '' }" v-slot="{ data }">
       <div>

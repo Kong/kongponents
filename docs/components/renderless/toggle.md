@@ -40,10 +40,10 @@ The toggled state that the component should begin with.
 
 ### Slot Props
 
-| Props       | Type     | Description                     |
-| :---------- | :------- | :------------------------------ |
-| `isToggled` | Ref(Boolean)  | the component is toggled or not |
-| `toggle`    | Function | function to toggle!             |
+| Props       | Type         | Description                     |
+| :---------- | :----------- | :------------------------------ |
+| `isToggled` | Ref(Boolean) | the component is toggled or not |
+| `toggle`    | Function     | function to toggle!             |
 
 You can trigger the `toggle` function to switch the state in any way you'd like.
 For instance, here we are toggling the state on `mouseover` and toggling back on
@@ -113,7 +113,8 @@ them and placing them inside `KToggle`'s default slot.
 
 ### KModal
 
-<KCard class="mt-3">
+<br/>
+<KCard>
   <template v-slot:body>
     <KToggle v-slot="{ isToggled, toggle }">
       <div>
@@ -144,16 +145,16 @@ them and placing them inside `KToggle`'s default slot.
 
 ### Collapse/Expand
 
-<KCard class="mt-2" style="min-height: 100px;">
+<br/>
+<KCard style="min-height: 100px;">
   <template v-slot:body>
     <KToggle v-slot="{isToggled, toggle}">
       <div>
-        <KButton @click="toggle">
+        <KButton @click="toggle" class="vertical-spacing">
           {{ isToggled.value ? 'collapse' : 'expand' }}
         </KButton>
         <KAlert
           v-if="isToggled.value"
-          class="mt-3"
           alertMessage="Every day, once a day, give yourself a present." />
       </div>
     </KToggle>
@@ -166,24 +167,24 @@ them and placing them inside `KToggle`'s default slot.
     <KButton @click="toggle">
       {{ isToggled.value ? 'collapse' : 'expand' }}
     </KButton>
-    <KAlert v-if="isToggled.value" class="mt-3" alertMessage="Every day, once a day, give yourself a present." />
+    <KAlert v-if="isToggled.value" alertMessage="Every day, once a day, give yourself a present." />
   </div>
 </KToggle>
 ```
 
 #### Toggle with Animation
 
-<KCard class="mt-2" style="min-height: 100px;">
+<br/>
+<KCard style="min-height: 100px;">
   <template v-slot:body>
     <KToggle v-slot="{isToggled, toggle}">
       <div>
-        <KButton @click="toggle">
+        <KButton @click="toggle" class="vertical-spacing">
           {{ isToggled.value ? 'collapse' : 'expand' }}
         </KButton>
         <transition name="expand">
           <KAlert
             v-if="isToggled.value"
-            class="mt-3"
             alertMessage="Every day, once a day, give yourself a present." />
         </transition>
       </div>
@@ -198,7 +199,7 @@ them and placing them inside `KToggle`'s default slot.
           {{ isToggled.value ? 'collapse' : 'expand' }}
         </KButton>
         <transition name="expand">
-          <KAlert v-if="isToggled.value" class="mt-3" alertMessage="Every day, once a day, give yourself a present." />
+          <KAlert v-if="isToggled.value" alertMessage="Every day, once a day, give yourself a present." />
         </transition>
       </div>
 </KToggle>

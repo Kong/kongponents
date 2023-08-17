@@ -128,19 +128,7 @@ An HTML element must be passed in the slot. An error will be thrown if not passe
 
 ## Theming
 
-:lipstick: To theme, reference [KInput](/components/input.html#theming). The input takes up 100% of its parent container. To change, add a class or width styling to the wrapping component.
-
-<KComponent :data="{ inlineText: 'Im 50%!' }" v-slot="{ data }">
-  <KInlineEdit class="w-50" @changed="newVal => data.inlineText = newVal"><h3>{{ data.inlineText }}</h3></KInlineEdit>
-</KComponent>
-
-```html
-<KInlineEdit
-  class="w-50"
-  @changed="newVal => text = newVal">
-  <h3>{{ text }}</h3>
-</KInlineEdit>
-```
+Reference [KInput theming](/components/input.html#theming). The input takes up 100% of its parent container.
 
 <script>
 export default {

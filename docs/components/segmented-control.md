@@ -236,24 +236,24 @@ An Example of changing the KSegmentedControl to a purple theme instead of blue m
 
 <style>
 .purple-segment {
-  --KSegmentedControlText: var(--purple-400, #{$kui-method-color-text-connect});
-  --KSegmentedControlSelectedBackground: var(--white, #{$kui-color-background});
-  --KSegmentedControlSelectedBorder: var(--purple-300, #9396fc);
-  --KSegmentedControlUnselectedBackground: var(--blue-100, #{$kui-color-background-primary-weakest});
-  --KSegmentedControlUnselectedBorder: var(--purple-200, #bec0fd);
-  --KSegmentedControlGap: var(--spacing-sm, #{$kui-space-50});
+  --KSegmentedControlText: #473cfb;
+  --KSegmentedControlSelectedBackground: white;
+  --KSegmentedControlSelectedBorder: #9396fc;
+  --KSegmentedControlUnselectedBackground: #f2f6fe;
+  --KSegmentedControlUnselectedBorder: #0364ac;
+  --KSegmentedControlGap: 12px;
 }
 </style>
 ```
 
 <style scoped lang="scss">
 .purple-segment {
-  --KSegmentedControlText: var(--purple-400, #{$kui-method-color-text-connect});
-  --KSegmentedControlSelectedBackground: var(--white, #{$kui-color-background});
-  --KSegmentedControlSelectedBorder: var(--purple-300, #9396fc);
-  --KSegmentedControlUnselectedBackground: var(--blue-100, #{$kui-color-background-primary-weakest});
-  --KSegmentedControlUnselectedBorder: var(--purple-200, #bec0fd);
-  --KSegmentedControlGap: var(--spacing-sm, #{$kui-space-50});
+  --KSegmentedControlText: #473cfb;
+  --KSegmentedControlSelectedBackground: white;
+  --KSegmentedControlSelectedBorder: #9396fc;
+  --KSegmentedControlUnselectedBackground: #f2f6fe;
+  --KSegmentedControlUnselectedBorder: #0364ac;
+  --KSegmentedControlGap: 12px;
 }
 </style>
 

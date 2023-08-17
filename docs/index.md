@@ -42,7 +42,7 @@ features:
 /* Homepage Components button */
 .VPContent.is-home .VPButton.medium.alt[href^="/components/"] {
   color: #fff;
-  border-color: var(--green-500, #07a88d);
-  background-color: var(--green-500, #07a88d);
+  border-color: #07a88d;
+  background-color: #07a88d;
 }
 </style>

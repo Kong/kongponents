@@ -2,10 +2,10 @@
 
 **KInput** provides a wrapper around general `text` input's and provides specific Kong styling and state treatments (error, focus, etc).
 
-<KInput class="w-100" placeholder="Placeholder text" />
+<KInput placeholder="Placeholder text" />
 
 ```html
-<KInput class="w-100" placeholder="Placeholder text" />
+<KInput placeholder="Placeholder text" />
 ```
 
 ## Props
@@ -24,11 +24,11 @@ To set the value of the input element without using `v-model`, you can set the `
 
 String to be used as the input label.
 
-<KInput label="Name" placeholder="I'm labelled!" class="mb-2" />
+<KInput label="Name" placeholder="I'm labelled!" class="vertical-spacing" />
 <KInput label="Disabled" disabled placeholder="I'm disabled!" />
 
 ```html
-<KInput label="Name" placeholder="I'm labelled!" class="mb-2" />
+<KInput label="Name" placeholder="I'm labelled!" />
 <KInput label="Disabled" disabled placeholder="I'm disabled!" />
 ```
 
@@ -70,8 +70,9 @@ maxWidth: '150px'
 Enable this prop to overlay the label on the input element's border. Defaults to `false`.
 Make sure that if you are using the built in label you specify the `--KInputBackground` theming variable. This variable is used for the background of the label as well as the input element.
 
-<KInput label="Name" placeholder="I'm labelled!" :overlay-label="true" class="mt-5" />
-<KInput label="Disabled" disabled placeholder="I'm disabled!" :overlay-label="true" class="mt-5" />
+<KInput label="Name" placeholder="I'm labelled!" :overlay-label="true" class="vertical-spacing" />
+<br/>
+<KInput label="Disabled" disabled placeholder="I'm disabled!" :overlay-label="true" />
 
 ```html
 <KInput label="Name" placeholder="I'm labelled!" :overlay-label="true" />
@@ -82,13 +83,13 @@ Make sure that if you are using the built in label you specify the `--KInputBack
 
 You can specify `small`, `medium` (default), or `large` for the size.
 
-<KInput label="Small" size="small" class="mb-2" />
-<KInput label="Medium" class="mb-2" />
+<KInput label="Small" size="small" class="vertical-spacing" />
+<KInput label="Medium" class="vertical-spacing" />
 <KInput label="Large" size="large" />
 
 ```html
-<KInput label="Small" size="small" class="mb-2" />
-<KInput label="Medium" class="mb-2" />
+<KInput label="Small" size="small" />
+<KInput label="Medium" />
 <KInput label="Large" size="large" />
 ```
 
@@ -118,10 +119,10 @@ You also have the option of using the `.help` utility class. This is meant to be
 
 Use this prop to specify a character limit for the input. See the [`@char-limit-exceeded` event](#char-limit-exceeded) for more details.
 
-<KInput model-value="This field has too many characters" :character-limit="10" class="w-100" placeholder="Placeholder text" />
+<KInput model-value="This field has too many characters" :character-limit="10" placeholder="Placeholder text" />
 
 ```html
-<KInput model-value="This field has too many characters" :character-limit="10" class="w-100" placeholder="Placeholder text" />
+<KInput model-value="This field has too many characters" :character-limit="10" placeholder="Placeholder text" />
 ```
 
 The character counter will only display below the input if the `characterLimit` is exceeded.
@@ -147,29 +148,29 @@ Boolean value to indicate whether the element has an error and should apply erro
 
 String to be displayed as error message if `hasError` prop is `true`.
 
-<KInput class="w-100" hasError errorMessage="Service name should not contain '_'" />
+<KInput hasError errorMessage="Service name should not contain '_'" />
 
 ```html
-<KInput class="w-100" hasError errorMessage="Service name should not contain '_'"/>
+<KInput hasError errorMessage="Service name should not contain '_'"/>
 ```
 
-<KInput label="Small" size="small" class="mb-2" help="Additional files can be uploaded from HomePage." hasError errorMessage="Service name should not contain '_'"/>
-<KInput label="Medium" class="mb-2" hasError errorMessage="Service name should not contain '_'" />
+<KInput label="Small" size="small" class="vertical-spacing" help="Additional files can be uploaded from HomePage." hasError errorMessage="Service name should not contain '_'"/>
+<KInput label="Medium" class="vertical-spacing" hasError errorMessage="Service name should not contain '_'" />
 <KInput label="Large" size="large" hasError errorMessage="Service name should not contain '_'" />
 
 ```html
-<KInput label="Small" size="small" class="mb-2" hasError errorMessage="Service name should not contain '_'" />
-<KInput label="Medium" class="mb-2" hasError errorMessage="Service name should not contain '_'" />
+<KInput label="Small" size="small" hasError errorMessage="Service name should not contain '_'" />
+<KInput label="Medium" hasError errorMessage="Service name should not contain '_'" />
 <KInput label="Large" size="large" hasError errorMessage="Service name should not contain '_'" />
 ```
 
-<KInput label="Small" size="small" class="mb-2" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
-<KInput label="Medium" class="mb-2" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
+<KInput label="Small" size="small" class="vertical-spacing" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
+<KInput label="Medium" class="vertical-spacing" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
 <KInput label="Large" size="large" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
 
 ```html
-<KInput label="Small" size="small" class="mb-2" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
-<KInput label="Medium" class="mb-2" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
+<KInput label="Small" size="small" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
+<KInput label="Medium" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
 <KInput label="Large" size="large" hasError errorMessage="Service name should not contain '_'" :overlay-label="true" />
 ```
 
@@ -195,14 +196,14 @@ Controls position of the icon provided through the [slot](#slots). Accepted valu
 
 You can pass any input attribute and it will get properly bound to the element.
 
-<KInput class="mb-2" placeholder="placeholder" />
-<KInput class="mb-2" type="password" model-value="123" />
-<KInput class="mb-2" type="number" model-value="1"/>
-<KInput class="mb-2" type="email" model-value="john.doe@konghq.com"/>
-<KInput class="mb-2" disabled model-value="disabled"/>
-<KInput class="mb-2" readonly model-value="readonly"/>
-<KInput class="mb-2" type="search" model-value="search"/>
-<KInput class="mb-2 input-error" type="email" model-value="error"/>
+<KInput class="vertical-spacing" placeholder="placeholder" />
+<KInput class="vertical-spacing" type="password" model-value="123" />
+<KInput class="vertical-spacing" type="number" model-value="1"/>
+<KInput class="vertical-spacing" type="email" model-value="john.doe@konghq.com"/>
+<KInput class="vertical-spacing" disabled model-value="disabled"/>
+<KInput class="vertical-spacing" readonly model-value="readonly"/>
+<KInput class="vertical-spacing" type="search" model-value="search"/>
+<KInput class="vertical-spacing input-error" type="email" model-value="error"/>
 
 > Note: Add the `input-error` class to add custom error styling
 
@@ -239,16 +240,16 @@ Text passed in for the `label` will automatically strip any trailing `*` when us
 KInput works as regular inputs do using v-model for data binding:
 
 <KLabel>{{ myInput }}</KLabel>
-<div class="d-flex">
-  <KInput v-model="myInput"/>
-  <KButton class="ml-2" @click="clearMyInput">Clear</KButton>
+<div class="input-container">
+  <KInput class="horizontal-spacing" v-model="myInput"/>
+  <KButton @click="clearMyInput">Clear</KButton>
 </div>
 
 ```html
 <KLabel>{{ myInput }}</KLabel>
-<div class="d-flex">
+<div>
   <KInput v-model="myInput"/>
-  <KButton class="ml-2" @click="clearIt">Clear</KButton>
+  <KButton @click="clearIt">Clear</KButton>
 </div>
 
 <script lang="ts">
@@ -282,13 +283,13 @@ Whether you choose to use `KIcon` Kongponent or your own SVG, the component's st
 :::
 
 
-<KInput placeholder="Search" size="small" class="mb-2">
+<KInput placeholder="Search" size="small" class="vertical-spacing">
   <template #icon>
     <KIcon icon="search" />
   </template>
 </KInput>
 
-<KInput placeholder="Search" size="medium" class="mb-2">
+<KInput placeholder="Search" size="medium" class="vertical-spacing">
   <template #icon>
     <KIcon icon="search" />
   </template>
@@ -499,5 +500,13 @@ export default defineComponent({
       stroke: darkgrey;
     }
   }
+}
+
+.input-container {
+  display: flex;
+}
+
+.vertical-spacing {
+  margin-bottom: $kui-space-40;
 }
 </style>

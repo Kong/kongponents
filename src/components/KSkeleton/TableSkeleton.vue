@@ -58,7 +58,6 @@ $screen-md: $kui-breakpoint-phablet;
     /** Hide columns on smaller screens */
 
     .skeleton-cell {
-      // 'mr-6': cell !== columns
       margin-right: var(--kui-space-90, $kui-space-90) !important;
 
       &:last-child {

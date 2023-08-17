@@ -161,7 +161,7 @@ To set the default state (collapsed or expanded) without binding to v-model you 
     <KCollapse title="Look Mah!">
       <template #trigger-content>
         <div class="trigger-wrapper">
-          <KIcon icon="help" :size="KUI_ICON_SIZE_30" class="icon-style" />
+          <KIcon icon="help" color="currentColor" :size="KUI_ICON_SIZE_30" class="icon-style" />
           Toggle
         </div>
       </template>
@@ -222,9 +222,9 @@ We provide the `isCollapsed` Vue 'ref' and the `toggle()` function as slot props
 
 ## Theming
 
-| Variable                       | Purpose                                     |
-| :---------------------         | :-------------------------------            |
-| `KCollapseTriggerColor`        | Color of trigger text/icon                  |
+| Variable                | Purpose                    |
+| :---------------------- | :------------------------- |
+| `KCollapseTriggerColor` | Color of trigger text/icon |
 
 An example of theming the collapse:
 
@@ -271,12 +271,12 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .collapse-wrapper {
-  margin-bottom: var(--kui-space-50, $kui-space-50) !important;
+  margin-bottom: $kui-space-50 !important;
 }
 
 .icon-style {
-  margin-right: var(--kui-space-40, $kui-space-40) !important;
-  color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary))
+  margin-right: $kui-space-40 !important;
+  color: $kui-color-text-primary;
 }
 
 .trigger-wrapper {

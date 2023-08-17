@@ -209,28 +209,28 @@ There are 3 designated slots you can use to display content in the modal.
 
 <KPrompt :is-visible="slotsIsOpen" @canceled="slotsIsOpen = false" @proceed="slotsIsOpen = false">
   <template v-slot:header-content>
-    <KIcon icon="immunity" color="#7F01FE" class="mr-2" size="20" />
+    <KIcon icon="immunity" color="#7F01FE" class="horizontal-spacing" size="20" />
     Look Mah!
   </template>
   <template v-slot:body-content>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.
   </template>
   <template v-slot:action-buttons>
-    <KButton appearance="outline" @click="slotsIsOpen = false" class="non-visual-button">Close</KButton>
+    <KButton appearance="outline" @click="slotsIsOpen = false">Close</KButton>
   </template>
 </KPrompt>
 
 ```html
 <KPrompt :is-visible="slotsIsOpen" @canceled="slotsIsOpen = false" @proceed="slotsIsOpen = false">
   <template v-slot:header-content>
-    <KIcon icon="immunity" color="#7F01FE" class="mr-2" size="20" />
+    <KIcon icon="immunity" color="#7F01FE" size="20" />
     Look Mah!
   </template>
   <template v-slot:body-content>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.
   </template>
   <template v-slot:action-buttons>
-    <KButton appearance="outline" @click="slotsIsOpen = false" class="non-visual-button">Close</KButton>
+    <KButton appearance="outline" @click="slotsIsOpen = false">Close</KButton>
   </template>
 </KPrompt>
 ```
@@ -242,9 +242,9 @@ There are 3 designated slots you can use to display content in the modal.
 
 ## Theming
 
-| Variable | Purpose
-|:-------- |:-------
-| `--KPromptMaxHeight` | Max height of body content in prompt
+| Variable             | Purpose                              |
+| :------------------- | :----------------------------------- |
+| `--KPromptMaxHeight` | Max height of body content in prompt |
 
 <script lang="ts">
 import { defineComponent } from 'vue'

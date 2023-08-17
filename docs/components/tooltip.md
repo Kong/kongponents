@@ -180,15 +180,15 @@ Example:
 
 <style>
 .tooltip-blue {
-  --KTooltipBackground: var(--blue-300, #{$kui-color-background-primary-weaker});
-  --KTooltipColor: var(--blue-500, #{$kui-color-text-primary});
+  --KTooltipBackground: blue;
+  --KTooltipColor: lightblue;
 }
 </style>
 ```
 
 <style>
 .tooltip-blue {
-  --KTooltipBackground: var(--blue-500, #{$kui-color-background-primary});
-  --KTooltipColor: var(--blue-200, #bdd3f9);
+  --KTooltipBackground: blue;
+  --KTooltipColor: lightblue;
 }
 </style>

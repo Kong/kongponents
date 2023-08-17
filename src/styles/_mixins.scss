@@ -22,50 +22,50 @@
 }
 
 @mixin input-default {
-  background-color: var(--KInputBackground, var(--white, color(white)));
-  box-shadow: inset 0 0 0 1px var(--KInputBorder, var(--grey-300)) !important;
+  background-color: var(--KInputBackground, var(--white, #ffffff));
+  box-shadow: inset 0 0 0 1px var(--KInputBorder, var(--grey-300, #e7e7ec)) !important;
   transition: color 0.1s ease, box-shadow 0.1s ease;
 }
 
 @mixin input-focus {
-  box-shadow: inset 0 0 0 1px var(--KInputFocus, var(--blue-400)) !important;
+  box-shadow: inset 0 0 0 1px var(--KInputFocus, var(--blue-400, #3972d5)) !important;
   outline: none !important;
   transition: all 0.1s ease;
 }
 
 @mixin textarea-default {
-  background-color: var(--KInputBackground, var(--white, color(white)));
+  background-color: var(--KInputBackground, var(--white, #ffffff));
   box-shadow: none !important;
-  outline: 1px solid var(--KInputBorder, var(--grey-300)) !important;
+  outline: 1px solid var(--KInputBorder, var(--grey-300, #e7e7ec)) !important;
   transition: color 0.1s ease, box-shadow 0.1s ease;
 }
 
 @mixin textarea-hover {
   box-shadow: none !important;
-  outline: 1px solid var(--KInputHover, var(--blue-200)) !important;
+  outline: 1px solid var(--KInputHover, var(--blue-200, #bdd3f9)) !important;
   transition: all 0.1s ease;
 }
 
 @mixin textarea-focus {
   box-shadow: none !important;
-  outline: 1px solid var(--blue-400) !important;
+  outline: 1px solid var(--blue-400, #3972d5) !important;
   transition: all 0.1s ease;
 }
 
 @mixin input-hover {
-  box-shadow: inset 0 0 0 1px var(--KInputHover, var(--blue-200)) !important;
+  box-shadow: inset 0 0 0 1px var(--KInputHover, var(--blue-200, #bdd3f9)) !important;
   transition: all 0.1s ease;
 }
 
 @mixin input-readonly {
-  background-color: var(--KInputReadonlyBackground, var(--grey-100, color(grey-100)));
-  box-shadow: inset 0 0 0 1px var(--KInputBorder, var(--grey-300)) !important;
+  background-color: var(--KInputReadonlyBackground, var(--grey-100, #f8f8fa));
+  box-shadow: inset 0 0 0 1px var(--KInputBorder, var(--grey-300, #e7e7ec)) !important;
   transition: all 0.1s ease;
 }
 
 @mixin input-disabled {
-  background-color: var(--KInputDisabledBackground, var(--grey-100, color(grey-100)));
-  box-shadow: inset 0 0 0 1px var(--KInputBorder, var(--grey-300)) !important;
+  background-color: var(--KInputDisabledBackground, var(--grey-100, #f8f8fa));
+  box-shadow: inset 0 0 0 1px var(--KInputBorder, var(--grey-300, #e7e7ec)) !important;
   cursor: not-allowed;
   font-style: italic;
   transition: all 0.1s ease;
@@ -73,7 +73,7 @@
 
 @mixin fullscreen-loading-container {
   align-items: center;
-  background: var(--white, color(white));
+  background: var(--white, #ffffff);
   bottom: 0;
   display: flex;
   flex-direction: column;

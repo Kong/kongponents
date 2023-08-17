@@ -211,16 +211,14 @@ Use the `kpopAttributes` prop to configure the **KPop** [props](/components/popo
     <template #actions>
       <KDropdownMenu
         :kpop-attributes="{
-          popoverClasses: 'mt-5',
           maxWidth: '100'
         }"
         :items="deepClone(defaultItemsUnselected)"
       >
         <template #default>
           <KButton
-            appearance="secondary"
+            appearance="btn-link"
             size="small"
-            class="non-visual-button"
           >
             <template #icon>
               <KIcon
@@ -244,16 +242,15 @@ Use the `kpopAttributes` prop to configure the **KPop** [props](/components/popo
   <template #actions>
     <KDropdownMenu
       :kpop-attributes="{
-        popoverClasses: 'mt-5',
+        popoverClasses: 'some-class',
         maxWidth: '100'
       }"
       :items="deepClone(defaultItemsUnselected)"
     >
       <template #default>
         <KButton
-          appearance="secondary"
+          appearance="btn-link"
           size="small"
-          class="non-visual-button"
         >
           <template #icon>
             <KIcon
@@ -398,19 +395,17 @@ There are 3 primary item types:
       <KDropdownItem
         has-divider
         is-dangerous
-        class="d-inline-block"
       >
         <a
           href="http://www.google.com"
           rel="noopener"
           target="_blank"
         >
-          External link
+          <span class="horizontal-spacing">External link</span>
           <KIcon
             icon="externalLink"
             size="12"
             color="red"
-            class="ml-2"
           />
         </a>
       </KDropdownItem>
@@ -454,7 +449,6 @@ There are 3 primary item types:
     <KDropdownItem
       has-divider
       is-dangerous
-      class="d-inline-block"
     >
       <a
         href="http://www.google.com"
@@ -466,7 +460,6 @@ There are 3 primary item types:
           icon="externalLink"
           size="12"
           color="red"
-          class="ml-2"
         />
       </a>
     </KDropdownItem>
@@ -546,5 +539,9 @@ export default defineComponent({
       fill: red;
     }
   }
+}
+
+.horizontal-spacing {
+  margin-right: $kui-space-40;
 }
 </style>

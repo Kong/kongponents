@@ -24,7 +24,7 @@ The URL that the hyperlink points to.
 
 Must be a valid URL
 
-<h4><KIcon icon="check" size="22" color="green" style="vertical-align: sub;" class="mr-1" />Correct Usage</h4>
+<h4><KIcon icon="check" size="22" color="green" style="vertical-align: sub;" class="horizontal-spacing" />Correct Usage</h4>
 
 ```html
 <KExternalLink href="https://kongponents.konghq.com/">
@@ -32,7 +32,7 @@ Must be a valid URL
 </KExternalLink>
 ```
 
-<h4><KIcon icon="disabled" size="22" color="red" style="vertical-align: sub;" class="mr-1" />Incorrect Usage</h4>
+<h4><KIcon icon="disabled" size="22" color="red" style="vertical-align: sub;" class="horizontal-spacing" />Incorrect Usage</h4>
 
 ```html
 <KExternalLink href="https://kongponents">
@@ -101,5 +101,9 @@ like:
 .KExternalLink-wrapper {
   --KExternalLinkColor: red;
   --KExternalLinkColorHover: brown;
+}
+
+.horizontal-spacing {
+  margin-right: $kui-space-40;
 }
 </style>

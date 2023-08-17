@@ -200,7 +200,7 @@ li.k-dropdown-item {
   .k-dropdown-item-trigger.btn-link {
     color: var(--black-70, var(--kui-color-text, $kui-color-text));
     line-height: var(--kui-line-height-40, $kui-line-height-40);
-    padding: var(--spacing-md, spacing(md)) var(--spacing-lg, spacing(lg));
+    padding: var(--spacing-md, var(--kui-space-60, $kui-space-60)) var(--spacing-lg, var(--kui-space-80, $kui-space-80));
     text-align: left;
     text-decoration: none;
     width: 100%;
