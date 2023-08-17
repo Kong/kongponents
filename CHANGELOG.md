@@ -1,3 +1,10 @@
+## [8.122.4](https://github.com/Kong/kongponents/compare/v8.122.3...v8.122.4) (2023-08-17)
+
+
+### Bug Fixes
+
+* remove utility classes from docs [KHCP-8146] ([#1620](https://github.com/Kong/kongponents/issues/1620)) ([9839038](https://github.com/Kong/kongponents/commit/9839038d1cf761ac83628a967011695dca2893bc))
+
 ## [8.122.3](https://github.com/Kong/kongponents/compare/v8.122.2...v8.122.3) (2023-08-14)
 
 
