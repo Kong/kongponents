@@ -40,9 +40,10 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, useAttrs, useSlots, PropType } from 'vue'
+import type { PropType } from 'vue'
+import { computed, useAttrs, useSlots } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
-import { LabelAttributes } from '@/types'
+import type { LabelAttributes } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
 
 const props = defineProps({

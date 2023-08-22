@@ -76,8 +76,10 @@
 
 <script lang="ts" setup>
 import { v1 as uuidv1 } from 'uuid'
-import { BorderVariant, BorderVariantsArray } from '@/types'
-import { computed, PropType, useSlots } from 'vue'
+import type { BorderVariant } from '@/types'
+import { BorderVariantsArray } from '@/types'
+import type { PropType } from 'vue'
+import { computed, useSlots } from 'vue'
 
 const props = defineProps({
   /**

@@ -99,11 +99,14 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, nextTick, onMounted, onUnmounted, ref, watch, watchEffect, PropType, useSlots } from 'vue'
+import type { PropType } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch, watchEffect, useSlots } from 'vue'
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { FocusTrap } from 'focus-trap-vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import { ButtonAppearance, DismissButtonTheme, DismissButtonThemeArray, TextAlign, TextAlignArray } from '@/types'
+import type { ButtonAppearance, DismissButtonTheme, TextAlign } from '@/types'
+import { DismissButtonThemeArray, TextAlignArray } from '@/types'
 import { KUI_ICON_SIZE_30, KUI_COLOR_TEXT_NEUTRAL_STRONGER, KUI_COLOR_TEXT_NEUTRAL_WEAK } from '@kong/design-tokens'
 
 const props = defineProps({

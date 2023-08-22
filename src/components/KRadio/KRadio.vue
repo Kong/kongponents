@@ -54,9 +54,11 @@
 </template>
 
 <script lang="ts">
-import { computed, useAttrs, useSlots, PropType } from 'vue'
+import type { PropType } from 'vue'
+import { computed, useAttrs, useSlots } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
-import { RadioTypes, RadioTypesArray, LabelAttributes } from '@/types'
+import type { RadioTypes, LabelAttributes } from '@/types'
+import { RadioTypesArray } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
 
 export default {

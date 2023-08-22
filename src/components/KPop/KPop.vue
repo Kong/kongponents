@@ -114,12 +114,14 @@
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import { defineComponent, PropType } from 'vue'
+import type { PropType } from 'vue'
+import { defineComponent } from 'vue'
 import { v1 as uuidv1 } from 'uuid'
 import Popper from 'popper.js'
 import useUtilities from '@/composables/useUtilities'
 import KButton from '@/components/KButton/KButton.vue'
-import { PopPlacements, PopPlacementsArray, PopTrigger, PopTriggerArray } from '@/types'
+import type { PopPlacements, PopTrigger } from '@/types'
+import { PopPlacementsArray, PopTriggerArray } from '@/types'
 
 const { getSizeFromString } = useUtilities()
 

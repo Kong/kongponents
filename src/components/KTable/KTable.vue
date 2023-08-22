@@ -198,7 +198,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, Ref, watch, computed, onMounted, PropType, useAttrs, useSlots } from 'vue'
+import type { Ref, PropType } from 'vue'
+import { ref, watch, computed, onMounted, useAttrs, useSlots } from 'vue'
 import { v1 as uuidv1 } from 'uuid'
 import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'

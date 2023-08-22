@@ -27,9 +27,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, PropType, ref } from 'vue'
+import type { PropType } from 'vue'
+import { computed, ref } from 'vue'
 import KPop from '@/components/KPop/KPop.vue'
-import { PopPlacementsArray, PopPlacements } from '@/types'
+import type { PopPlacements } from '@/types'
+import { PopPlacementsArray } from '@/types'
 
 const props = defineProps({
   /**

@@ -1,4 +1,4 @@
-import { AnyElementOf } from '@/types/utils'
+import type { AnyElementOf } from '@/types/utils'
 
 export const MenuTypeArray = ['string', 'number', 'divider'] as const
 export type MenuType = AnyElementOf<typeof MenuTypeArray>

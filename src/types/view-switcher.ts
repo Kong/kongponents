@@ -1,4 +1,4 @@
-import { AnyElementOf } from '@/types/utils'
+import type { AnyElementOf } from '@/types/utils'
 
 export const SwitcherTypeArray = ['table', 'grid'] as const
 

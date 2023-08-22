@@ -33,8 +33,8 @@
 
 <script lang="ts" setup>
 import KIcon from '@/components/KIcon/KIcon.vue'
-import { SelectItem } from '@/types'
-import { PropType } from 'vue'
+import type { SelectItem } from '@/types'
+import type { PropType } from 'vue'
 
 const props = defineProps({
   item: {

@@ -1,5 +1,5 @@
-import { TooltipAttributes } from '@/types/label'
-import { AnyElementOf } from '@/types/utils'
+import type { TooltipAttributes } from '@/types/label'
+import type { AnyElementOf } from '@/types/utils'
 
 export const SizeArray = ['small', 'medium', 'large'] as const
 export type Size = AnyElementOf<typeof SizeArray>

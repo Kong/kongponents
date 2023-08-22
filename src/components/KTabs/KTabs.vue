@@ -48,7 +48,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, PropType } from 'vue'
+import type { PropType } from 'vue'
+import { ref, watch } from 'vue'
 import type { Tab } from '@/types'
 
 const props = defineProps({

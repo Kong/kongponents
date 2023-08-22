@@ -6,8 +6,9 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType } from 'vue'
-import { SkeletonBoxHeight, SkeletonBoxHeightArray, SkeletonBoxWidth, SkeletonBoxWidthArray } from '@/types'
+import type { PropType } from 'vue'
+import type { SkeletonBoxHeight, SkeletonBoxWidth } from '@/types'
+import { SkeletonBoxHeightArray, SkeletonBoxWidthArray } from '@/types'
 
 defineProps({
   width: {

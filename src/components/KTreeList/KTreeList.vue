@@ -35,12 +35,13 @@
  *  <template #[itemLabel]="slotProps">
  *  lines switch to `v-slot:` notation and Save to let linter clear -->
  */
-import { computed, ref, watch, onMounted, PropType } from 'vue'
+import type { PropType } from 'vue'
+import { computed, ref, watch, onMounted } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KTreeDraggable from '@/components/KTreeList/KTreeDraggable.vue'
 import { getMaximumDepth } from './KTreeDraggable.vue'
 import { itemsHaveRequiredProps } from './KTreeItem.vue'
-import { TreeListItem, ChangeEvent, ChildChangeEvent } from '@/types'
+import type { TreeListItem, ChangeEvent, ChildChangeEvent } from '@/types'
 
 const getIds = (items: TreeListItem[], ids: string[]): string[] => {
   items.forEach((item: TreeListItem) => {

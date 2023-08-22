@@ -23,9 +23,10 @@
 </template>
 
 <script lang="ts">
-import { ref, PropType } from 'vue'
+import type { PropType } from 'vue'
+import { ref } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
-import { SegmentedControlOption } from '@/types/segmented-control'
+import type { SegmentedControlOption } from '@/types/segmented-control'
 
 const itemsHaveRequiredProps = (items: SegmentedControlOption[]): boolean => {
   return items.every(i => i.value !== undefined)

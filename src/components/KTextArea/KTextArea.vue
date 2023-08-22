@@ -98,7 +98,7 @@ import { ref, computed, watch, useAttrs, useSlots } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
-import { TextAreaLimitExceed } from '@/types'
+import type { TextAreaLimitExceed } from '@/types'
 
 const props = defineProps({
   modelValue: {

@@ -280,13 +280,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, useSlots, watch, PropType } from 'vue'
+import type { PropType } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, useSlots, watch } from 'vue'
 
-import KButton from '@/components/KButton/KButton.vue'
+import type KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import { copyTextToClipboard } from '@/utilities/copyTextToClipboard'
 import { debounce } from '@/utilities/debounce'
-import { Command, ShortcutManager } from '@/utilities/ShortcutManager'
+import type { Command } from '@/utilities/ShortcutManager'
+import { ShortcutManager } from '@/utilities/ShortcutManager'
 import type { CodeBlockEventData, CommandKeywords, Theme } from '@/types/code-block'
 import { KUI_ICON_SIZE_30, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 

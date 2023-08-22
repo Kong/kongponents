@@ -93,12 +93,14 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted, onBeforeUnmount, PropType } from 'vue'
+import type { PropType } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KModal from '@/components/KModal/KModal.vue'
-import { PromptVariants, PromptVariantsArray } from '@/types'
+import type { PromptVariants } from '@/types'
+import { PromptVariantsArray } from '@/types'
 import { KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_NEUTRAL, KUI_COLOR_TEXT_NEUTRAL_WEAK, KUI_ICON_SIZE_30, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
 const props = defineProps({

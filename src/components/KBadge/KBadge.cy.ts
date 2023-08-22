@@ -1,6 +1,7 @@
 import { mount } from 'cypress/vue'
 import KBadge from '@/components/KBadge/KBadge.vue'
-import { BadgeAppearance, BadgeAppearances } from '@/types'
+import type { BadgeAppearance } from '@/types'
+import { BadgeAppearances } from '@/types'
 
 const rendersCorrectAppearance = (variant: BadgeAppearance) => {
   it(`renders KBadge with the ${variant} appearance`, () => {

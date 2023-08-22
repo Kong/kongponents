@@ -51,7 +51,7 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from 'vue'
+import type { PropType } from 'vue'
 import type { BreadcrumbItem } from '@/types'
 import { KUI_COLOR_TEXT_DECORATIVE, KUI_ICON_SIZE_30, KUI_COLOR_TEXT_NEUTRAL_WEAK } from '@kong/design-tokens'
 import KIcon from '@/components/KIcon/KIcon.vue'

@@ -1,4 +1,4 @@
-import { EnhanceAppContext } from 'vitepress'
+import type { EnhanceAppContext } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import Kongponents from '../../../src'
 // Import component-specific files

@@ -1,5 +1,5 @@
-import { AnyElementOf } from '@/types'
-import { Component } from 'vue'
+import type { AnyElementOf } from '@/types'
+import type { Component } from 'vue'
 
 export interface DropdownItem {
   label: string

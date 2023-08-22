@@ -1,5 +1,5 @@
 import { mount } from 'cypress/vue'
-import { App, ComputedOptions } from 'vue'
+import type { App, ComputedOptions } from 'vue'
 import Chainable = Cypress.Chainable
 import 'cypress-fail-fast'
 // Import Kongponent styles

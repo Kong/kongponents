@@ -5,13 +5,15 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, PropType } from 'vue'
+import type { PropType } from 'vue'
+import { computed } from 'vue'
 import KActiveState from '@/components/KStepper/stepper-icons/KActiveState.vue'
 import KCompletedState from '@/components/KStepper/stepper-icons/KCompletedState.vue'
 import KDefaultState from '@/components/KStepper/stepper-icons/KDefaultState.vue'
 import KErrorState from '@/components/KStepper/stepper-icons/KErrorState.vue'
 import KPendingState from '@/components/KStepper/stepper-icons/KPendingState.vue'
-import { StepperState, StepperStateArray } from '@/types'
+import type { StepperState } from '@/types'
+import { StepperStateArray } from '@/types'
 
 const props = defineProps({
   state: {

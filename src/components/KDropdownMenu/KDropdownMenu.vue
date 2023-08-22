@@ -72,8 +72,10 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, PropType, Ref, ref, watch, nextTick } from 'vue'
-import { Appearance, AppearanceArray, ButtonAppearance, DropdownItem, PopPlacements } from '@/types'
+import type { PropType, Ref } from 'vue'
+import { computed, onMounted, ref, watch, nextTick } from 'vue'
+import type { Appearance, ButtonAppearance, DropdownItem, PopPlacements } from '@/types'
+import { AppearanceArray } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
 import Kooltip from '@/components/KTooltip/KTooltip.vue'
 import KPop from '@/components/KPop/KPop.vue'
