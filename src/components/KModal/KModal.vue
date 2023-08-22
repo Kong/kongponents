@@ -101,7 +101,8 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import { computed, nextTick, onMounted, onUnmounted, ref, watch, watchEffect, useSlots } from 'vue'
-import type { FocusTrap } from 'focus-trap-vue'
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { FocusTrap } from 'focus-trap-vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import type { ButtonAppearance, DismissButtonTheme, TextAlign } from '@/types'
