@@ -1,3 +1,10 @@
+## [8.122.5](https://github.com/Kong/kongponents/compare/v8.122.4...v8.122.5) (2023-08-22)
+
+
+### Bug Fixes
+
+* **tsconfig:** extend vue/tsconfig ([#1641](https://github.com/Kong/kongponents/issues/1641)) ([677c4f4](https://github.com/Kong/kongponents/commit/677c4f450e6b9442871fac3edb83b8f552f2fd49))
+
 ## [8.122.4](https://github.com/Kong/kongponents/compare/v8.122.3...v8.122.4) (2023-08-17)
 
 
