@@ -131,12 +131,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, Ref, computed, watch, PropType } from 'vue'
+import type { Ref, PropType } from 'vue'
+import { ref, computed, watch } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KSelect from '@/components/KSelect/KSelect.vue'
 import PaginationOffset from './PaginationOffset.vue'
-import type { PaginationType } from '@/types'
-import { PageSizeChangedData, PageChangedData } from '@/types'
+import type { PaginationType, PageSizeChangedData, PageChangedData } from '@/types'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 
 const kpopAttrs = {

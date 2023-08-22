@@ -26,7 +26,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, PropType, useSlots } from 'vue'
+import type { PropType } from 'vue'
+import { computed, useSlots } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import type { TooltipAttributes } from '@/types'

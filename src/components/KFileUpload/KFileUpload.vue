@@ -87,7 +87,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, PropType } from 'vue'
+import type { PropType } from 'vue'
+import { computed, ref } from 'vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KButton from '@/components/KButton/KButton.vue'

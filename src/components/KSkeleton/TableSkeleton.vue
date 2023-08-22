@@ -19,7 +19,7 @@
 
 <script lang="ts" setup>
 import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
-import { SkeletonBoxWidth } from '@/types'
+import type { SkeletonBoxWidth } from '@/types'
 
 defineProps({
   rows: {

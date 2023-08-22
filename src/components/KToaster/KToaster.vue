@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType } from 'vue'
+import type { PropType } from 'vue'
 import KAlert from '@/components/KAlert/KAlert.vue'
 import type { Toast } from '@/types'
 

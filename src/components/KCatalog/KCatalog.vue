@@ -189,18 +189,21 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, ref, computed, onMounted, watch, useSlots } from 'vue'
+import type { PropType } from 'vue'
+import { ref, computed, onMounted, watch, useSlots } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
-import {
+import type {
   CatalogItem,
   CatalogPreferences,
   SwrvState,
   SwrvStateData,
   CardSize,
-  CardSizeArray,
   CatalogState,
   PageChangedData,
   PageSizeChangedData,
+} from '@/types'
+import {
+  CardSizeArray,
 } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'

@@ -16,7 +16,7 @@ module.exports = {
     'standard',
   ],
   rules: {
-    quotes: ['error', 'single', { avoidEscape: true }],
+    quotes: ['error', 'single', {avoidEscape: true}],
     'no-multi-spaces': 'error',
     'no-trailing-spaces': 'error',
     'no-empty': 'off',
@@ -38,29 +38,25 @@ module.exports = {
     }],
     // Disallow Kongponents utility classes
     'vue/no-restricted-class': ['error', ...deprecatedUtilityClasses],
+    '@typescript-eslint/no-explicit-any': 'off',
+    // Avoids false errors like “'NodeListOf' is not defined”.
+    'no-undef': 'off',
+    // Turns off some non-TypeScript rules in favor of their specific TypeScript rules to avoid false negatives:
+    indent: 'off',
+    '@typescript-eslint/indent': ['error', 2],
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/space-before-function-paren': ['error', {
+      anonymous: 'never',
+      named: 'never',
+      asyncArrow: 'always',
+    }],
+    // Ensures ESLint understands that `defineEmits<{ ... }>()` does _not_ fail this rule.
+    'func-call-spacing': 'off',
+    '@typescript-eslint/func-call-spacing': 'error',
+    '@typescript-eslint/consistent-type-imports': ['error', {
+      prefer: 'type-imports',
+      fixStyle: 'separate-type-imports',
+    }],
   },
-  overrides: [
-    {
-      files: ['*.ts', '*.vue'],
-      rules: {
-        '@typescript-eslint/no-explicit-any': 'off',
-        // Avoids false errors like “'NodeListOf' is not defined”.
-        'no-undef': 'off',
-        // Turns off some non-TypeScript rules in favor of their specific TypeScript rules to avoid false negatives:
-        indent: 'off',
-        '@typescript-eslint/indent': ['error', 2],
-        'no-unused-vars': 'off',
-        '@typescript-eslint/no-unused-vars': 'error',
-        'space-before-function-paren': 'off',
-        '@typescript-eslint/space-before-function-paren': ['error', {
-          anonymous: 'never',
-          named: 'never',
-          asyncArrow: 'always',
-        }],
-        // Ensures ESLint understands that `defineEmits<{ ... }>()` does _not_ fail this rule.
-        'func-call-spacing': 'off',
-        '@typescript-eslint/func-call-spacing': 'error',
-      },
-    },
-  ],
 }

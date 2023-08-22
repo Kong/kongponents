@@ -35,8 +35,9 @@
 </template>
 
 <script lang="ts">
-import { computed, PropType, useSlots } from 'vue'
-import { TreeListItem } from '@/types'
+import type { PropType } from 'vue'
+import { computed, useSlots } from 'vue'
+import type { TreeListItem } from '@/types'
 import { KUI_ICON_SIZE_40, KUI_COLOR_BORDER_DISABLED } from '@kong/design-tokens'
 import KIcon from '@/components/KIcon/KIcon.vue'
 

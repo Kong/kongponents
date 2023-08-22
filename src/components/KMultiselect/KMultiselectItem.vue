@@ -50,7 +50,7 @@
 
 <script setup lang="ts">
 import KIcon from '@/components/KIcon/KIcon.vue'
-import { PropType } from 'vue'
+import type { PropType } from 'vue'
 import type { MultiselectItem } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL_WEAK, KUI_ICON_SIZE_20 } from '@kong/design-tokens'
 

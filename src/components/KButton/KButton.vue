@@ -64,7 +64,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, PropType, useSlots, useAttrs } from 'vue'
+import type { PropType } from 'vue'
+import { computed, useSlots, useAttrs } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import type { ButtonAppearance, ButtonAppearanceRecord, ButtonSize, ButtonSizeRecord } from '@/types'
 import {

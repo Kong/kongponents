@@ -1,4 +1,4 @@
-import ToastManager from './components/KToaster/ToastManager'
+import type ToastManager from './components/KToaster/ToastManager'
 
 declare module 'vue' {
   interface ComponentCustomProperties {

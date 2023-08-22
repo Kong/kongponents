@@ -1,7 +1,8 @@
 import pc from 'picocolors'
 import fs from 'fs'
 import { pascalCase, sleep, kongponentSrcPath, titleCaseComponentName, kongponentDocFilename } from './'
-import { createSpinner, Spinner } from 'nanospinner'
+import type { Spinner } from 'nanospinner'
+import { createSpinner } from 'nanospinner'
 
 /**
  * @description Create new files for Kongponent
