@@ -16,7 +16,9 @@ module.exports = {
     'standard',
   ],
   rules: {
-    quotes: ['error', 'single', {avoidEscape: true}],
+    quotes: ['error', 'single', {
+      avoidEscape: true,
+    }],
     'no-multi-spaces': 'error',
     'no-trailing-spaces': 'error',
     'no-empty': 'off',
