@@ -84,7 +84,7 @@ describe('KCodeBlock', () => {
     const expectedMatchedTerms = ['key']
     const expectedNumberOfMatches = 3
 
-    cy.get('[data-testid="k-code-block-filter-mode-button"]').trigger('click')
+    cy.get('[data-testid="k-code-block-filter-mode-button"]').click({ force: true })
 
     const searchInput = cy.get('[data-testid="k-code-block-search-input"]')
     searchInput.type('key')
@@ -104,7 +104,7 @@ describe('KCodeBlock', () => {
     const expectedNumberOfMatchesForRegExp = 2
 
     const regExpModeButton = cy.get('[data-testid="k-code-block-regexp-mode-button"]')
-    regExpModeButton.trigger('click')
+    regExpModeButton.click()
 
     searchInput.clear()
     searchInput.type('key[12]')
