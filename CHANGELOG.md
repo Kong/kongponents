@@ -1,3 +1,10 @@
+## [8.122.6](https://github.com/Kong/kongponents/compare/v8.122.5...v8.122.6) (2023-08-23)
+
+
+### Bug Fixes
+
+* **ktable:** allow users to select table cell text ([#1644](https://github.com/Kong/kongponents/issues/1644)) ([9aa685b](https://github.com/Kong/kongponents/commit/9aa685b7feb58026416d9015dd7e74688c6206b1))
+
 ## [8.122.5](https://github.com/Kong/kongponents/compare/v8.122.4...v8.122.5) (2023-08-22)
 
 
