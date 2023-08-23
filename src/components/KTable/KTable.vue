@@ -1123,11 +1123,6 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
   }
 
   &.is-clickable {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-
     tbody tr {
       cursor: pointer;
     }
