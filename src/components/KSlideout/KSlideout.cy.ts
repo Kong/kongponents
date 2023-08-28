@@ -81,4 +81,18 @@ describe('KSlideout', () => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'close')
     })
   })
+
+  it('does not emit close event when persist prop is true', () => {
+    mount(KSlideout, {
+      props: {
+        isVisible: true,
+        preventCloseOnBlur: true,
+      },
+    }).then(({ wrapper }) => wrapper)
+      .as('vueWrapper')
+
+    cy.get('html').click(0, 0).then(() => {
+      cy.wrap(Cypress.vueWrapper.emitted()).should('not.have.property', 'close')
+    })
+  })
 })

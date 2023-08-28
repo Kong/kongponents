@@ -97,6 +97,10 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
+  preventCloseOnBlur: {
+    type: Boolean,
+    default: false,
+  },
   title: {
     type: String,
     default: '',
@@ -116,7 +120,7 @@ const slideOutRef = ref(null)
 onClickOutside(
   slideOutRef,
   (event) => {
-    if (event.isTrusted) {
+    if (event.isTrusted && !props.preventCloseOnBlur) {
       emit('close')
     }
   },
