@@ -1,3 +1,10 @@
+## [8.122.7](https://github.com/Kong/kongponents/compare/v8.122.6...v8.122.7) (2023-08-28)
+
+
+### Bug Fixes
+
+* **kcodeblock:** missing KButton import ([#1654](https://github.com/Kong/kongponents/issues/1654)) ([6083da9](https://github.com/Kong/kongponents/commit/6083da94a3203f2d55fcca256287ca10e157ee71))
+
 ## [8.122.6](https://github.com/Kong/kongponents/compare/v8.122.5...v8.122.6) (2023-08-23)
 
 
