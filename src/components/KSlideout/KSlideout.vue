@@ -97,7 +97,7 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
-  // clicking on the overlay or b
+  // clicking on the overlay or background should not close the slideout
   preventCloseOnBlur: {
     type: Boolean,
     default: false,
