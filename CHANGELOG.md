@@ -1,3 +1,10 @@
+## [8.122.9](https://github.com/Kong/kongponents/compare/v8.122.8...v8.122.9) (2023-08-29)
+
+
+### Bug Fixes
+
+* making lefthook working, removing commitLint workflow [KHCP-8829] ([#1662](https://github.com/Kong/kongponents/issues/1662)) ([de017a9](https://github.com/Kong/kongponents/commit/de017a92c8609c57fb25260ceba0b0a3f5d9a341))
+
 ## [8.122.8](https://github.com/Kong/kongponents/compare/v8.122.7...v8.122.8) (2023-08-29)
 
 
