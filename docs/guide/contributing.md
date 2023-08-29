@@ -304,9 +304,9 @@ This will trigger the Commitizen interactive prompt for building your commit mes
 
 ### Enforcing Commit Format
 
-[Lefthook](https://github.com/evilmartians/lefthook) is used to manage Git Hooks within the repo. See see the current `/lefthook.yml` here:
+[Lefthook](https://github.com/evilmartians/lefthook) is used to manage Git Hooks within the repo. See see the current `/lefthook.yaml` here:
 
-<<< @/../lefthook.yml{yaml}
+<<< @/../lefthook.yaml{yaml}
 
 A `commit-msg` hook is automatically setup that enforces commit message stands with `commitlint`.
 
