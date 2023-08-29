@@ -97,6 +97,7 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
+  // clicking on the overlay or b
   preventCloseOnBlur: {
     type: Boolean,
     default: false,
