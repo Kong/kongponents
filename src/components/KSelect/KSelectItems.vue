@@ -58,12 +58,12 @@ const emit = defineEmits<{
 
 const handleItemSelect = (item: SelectItem) => emit('selected', item)
 
-const nonGroupedItems = computed((): SelectItem[] => props.items.filter(item => !item.group))
+const nonGroupedItems = computed((): SelectItem[] => props.items?.filter(item => !item.group))
 const groups = computed((): string[] =>
-  [...new Set((props.items.filter(item => item.group) as unknown as SelectItemWithGroup[])
+  [...new Set((props.items?.filter(item => item.group) as unknown as SelectItemWithGroup[])
     .map(item => item.group))].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())))
 
-const getGroupItems = (group: string) => props.items.filter(item => item.group === group)
+const getGroupItems = (group: string) => props.items?.filter(item => item.group === group)
 </script>
 
 <style lang="scss" scoped>
