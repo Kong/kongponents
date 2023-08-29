@@ -1,3 +1,10 @@
+## [8.122.8](https://github.com/Kong/kongponents/compare/v8.122.7...v8.122.8) (2023-08-29)
+
+
+### Bug Fixes
+
+* **KSelect:** add optional chaining for props.items [KHCP-8828] ([#1663](https://github.com/Kong/kongponents/issues/1663)) ([55f54a0](https://github.com/Kong/kongponents/commit/55f54a051fda2b54a9a97eba312aeb2170517446))
+
 ## [8.122.7](https://github.com/Kong/kongponents/compare/v8.122.6...v8.122.7) (2023-08-28)
 
 
