@@ -73,7 +73,7 @@
     "@commitlint/config-conventional": "^16.2.4",
     "@cypress/vite-dev-server": "^5.0.5",
     "@digitalroute/cz-conventional-changelog-for-jira": "^7.3.1",
-    "@evilmartians/lefthook": "^1.4.1",
+    "@evilmartians/lefthook": "^1.4.9",
     "@kong/design-tokens": "^1.9.0",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
