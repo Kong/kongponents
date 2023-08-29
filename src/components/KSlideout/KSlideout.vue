@@ -92,7 +92,7 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  // allows a host app to define the offset from the top of the page
+  // allows a host app to define the offset from the top of the page 
   offsetTop: {
     type: Number,
     default: 0,
