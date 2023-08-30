@@ -1,3 +1,10 @@
+# [8.123.0](https://github.com/Kong/kongponents/compare/v8.122.9...v8.123.0) (2023-08-30)
+
+
+### Features
+
+* **kslideout:** add persistence prop ([#1655](https://github.com/Kong/kongponents/issues/1655)) ([bacc706](https://github.com/Kong/kongponents/commit/bacc7068ccdb89d3ed6f1eaff03ee6edf8ef4094))
+
 ## [8.122.9](https://github.com/Kong/kongponents/compare/v8.122.8...v8.122.9) (2023-08-29)
 
 
