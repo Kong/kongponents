@@ -2,12 +2,21 @@
 // https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
 
 :root {
-  --vp-c-brand: #1155cb;
-  --vp-c-brand-light: #3972d5;
-  --vp-c-brand-lighter: #8ab3fa;
-  --vp-c-brand-dark: #003694;
-  --vp-c-brand-darker: #0a2b66;
+  --vp-button-brand-bg: #{$kui-color-background-primary};
+  --vp-button-brand-hover-bg: #{$kui-color-background-primary-strong};
+
   // Homepage site name color
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: linear-gradient(120deg, #169fcc, #42d782);
+
+  // Code block
+  --vp-code-block-bg: #{$kui-color-background-neutral-strongest};
+  --vp-code-line-number-color: #{$kui-color-text-neutral};
+  --vp-code-block-divider-color: #{$kui-color-background-neutral-stronger};
+  // copy button
+  --vp-code-copy-code-border-color: rgba(128, 128, 128, 1); // grey to match default icon color
+  --vp-code-copy-code-bg: #{$kui-color-background-neutral-stronger};
+  --vp-code-copy-code-hover-border-color: rgba(128, 128, 128, 1); // grey to match default icon color
+  --vp-code-copy-code-hover-bg: #{$kui-color-background-neutral-stronger};
+  --vp-code-copy-code-active-text: rgba(128, 128, 128, 1); // grey to match default icon color
 }
