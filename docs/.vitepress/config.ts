@@ -23,6 +23,7 @@ export default defineConfig({
   lastUpdated: true,
   markdown: {
     lineNumbers: true,
+    theme: 'material-theme-palenight'
   },
   appearance: false, // Disable dark mode (If enabled, we'd first need to update Kongponent CSS to handle accordingly)
   themeConfig: {
