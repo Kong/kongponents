@@ -201,24 +201,24 @@ $transition: $tmp-animation-timing-2 linear;
   }
 
   .switch-control {
-    background-color: var(--KInputSwitchBackground, var(--grey-400, #b6b6bd));
+    background-color: $tmp-color-green-500;
     border-radius: 12px;
     display: block;
     height: $height;
-    margin-right: 16px;
+    margin-right: var(--kui-space-60, $kui-space-60);
     position: relative;
     transition: $transition;
     width: $width;
 
     &.has-label-left {
-      margin-left: 16px;
-      margin-right: 0;
+      margin-left: var(--kui-space-60, $kui-space-60);
+      margin-right: var(--kui-space-0, $kui-space-0);
     }
 
     // Toggle
     &:after {
-      background-color: var(--white, #ffffff);
-      border-radius: 50%;
+      background-color: var(--kui-color-background, $kui-color-background);
+      border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
       content: "";
       display: block;
       height: 20px;
@@ -251,7 +251,7 @@ $transition: $tmp-animation-timing-2 linear;
   }
 
   span {
-    color: var(--KInputSwitchLabel, var(--black-70, rgba(0, 0, 0, 0.7)));
+    color: var(--kui-color-text, $kui-color-text);
   }
 }
 </style>
