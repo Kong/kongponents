@@ -23,11 +23,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, PropType } from 'vue'
+import type { PropType } from 'vue'
+import { computed } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KStepState from '@/components/KStepper/KStepState.vue'
-import { StepperState, StepperStateArray } from '@/types'
+import type { StepperState } from '@/types'
+import { StepperStateArray } from '@/types'
 
 const { getSizeFromString } = useUtilities()
 

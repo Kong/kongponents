@@ -1,4 +1,4 @@
-import { AnyElementOf } from '@/types/utils'
+import type { AnyElementOf } from '@/types/utils'
 
 export interface CatalogPreferences {
   /** The number of items to display per page */

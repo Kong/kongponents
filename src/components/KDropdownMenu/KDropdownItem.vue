@@ -27,9 +27,10 @@
 </template>
 
 <script lang="ts" setup>
-import { DropdownItem, DropdownItemRenderedRecord, DropdownItemRenderedType, DropdownItemType } from '@/types'
+import type { DropdownItem, DropdownItemRenderedRecord, DropdownItemRenderedType, DropdownItemType } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
-import { computed, PropType } from 'vue'
+import type { PropType } from 'vue'
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 const props = defineProps({

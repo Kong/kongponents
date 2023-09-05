@@ -37,7 +37,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, PropType } from 'vue'
+import type { PropType } from 'vue'
+import { computed } from 'vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
 import type { MultiselectItem } from '@/types'
 
@@ -58,10 +59,10 @@ const emit = defineEmits(['selected'])
 
 const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => emit('selected', item, isNew)
 
-const nonGroupedItems = computed((): MultiselectItem[] => props.items.filter(item => !item.group))
-const groups = computed((): string[] => [...new Set((props.items.filter(item => item.group) as unknown as MultiselectItemWithGroup[]).map(item => item.group))].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())))
+const nonGroupedItems = computed((): MultiselectItem[] => props.items?.filter(item => !item.group))
+const groups = computed((): string[] => [...new Set((props.items?.filter(item => item.group) as unknown as MultiselectItemWithGroup[]).map(item => item.group))].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())))
 
-const getGroupItems = (group: string) => props.items.filter(item => item.group === group)
+const getGroupItems = (group: string) => props.items?.filter(item => item.group === group)
 </script>
 
 <style lang="scss" scoped>

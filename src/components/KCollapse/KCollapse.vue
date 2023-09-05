@@ -71,8 +71,10 @@
 
 <script lang="ts" setup>
 import KIcon from '@/components/KIcon/KIcon.vue'
-import { computed, PropType, ref, useSlots, watch } from 'vue'
-import { TriggerAlignment, TriggerAlignmentArray } from '@/types'
+import type { PropType } from 'vue'
+import { computed, ref, useSlots, watch } from 'vue'
+import type { TriggerAlignment } from '@/types'
+import { TriggerAlignmentArray } from '@/types'
 import { KUI_ICON_SIZE_20 } from '@kong/design-tokens'
 
 const props = defineProps({

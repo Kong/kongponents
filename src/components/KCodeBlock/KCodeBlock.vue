@@ -253,7 +253,6 @@
       >
         <KButton
           v-if="showCopyButton"
-          ref="codeBlockCopyButton"
           appearance="outline"
           class="k-code-block-copy-button"
           data-testid="k-code-block-copy-button"
@@ -280,13 +279,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, useSlots, watch, PropType } from 'vue'
+import type { PropType } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, useSlots, watch } from 'vue'
 
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import { copyTextToClipboard } from '@/utilities/copyTextToClipboard'
 import { debounce } from '@/utilities/debounce'
-import { Command, ShortcutManager } from '@/utilities/ShortcutManager'
+import type { Command } from '@/utilities/ShortcutManager'
+import { ShortcutManager } from '@/utilities/ShortcutManager'
 import type { CodeBlockEventData, CommandKeywords, Theme } from '@/types/code-block'
 import { KUI_ICON_SIZE_30, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
@@ -413,7 +414,6 @@ const isFilterMode = ref<boolean>(false)
 const regExpError = ref<Error | null>(null)
 const codeBlock = ref<HTMLElement | null>(null)
 const codeBlockSearchInput = ref<HTMLInputElement | null>(null)
-const codeBlockCopyButton = ref<typeof KButton | null>(null)
 const numberOfMatches = ref<number>(0)
 const matchingLineNumbers = ref<number[]>([])
 const currentLineIndex = ref<null | number>(null)
@@ -726,9 +726,8 @@ function jumpToMatch(direction: number): void {
   }
 }
 
-async function copyCode(): Promise<void> {
-  const buttonComponent = codeBlockCopyButton.value as typeof KButton
-  const button = buttonComponent.$el as HTMLButtonElement
+async function copyCode(event: Event): Promise<void> {
+  const button = (event.target as Element).closest('button') as HTMLButtonElement
 
   const hasCopiedCodeSuccessfully = await copyTextToClipboard(props.code)
   if (hasCopiedCodeSuccessfully) {

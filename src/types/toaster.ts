@@ -1,4 +1,4 @@
-import { AlertAppearance, AlertAppearanceRecord } from '@/types/alert'
+import type { AlertAppearance, AlertAppearanceRecord } from '@/types/alert'
 import { appearances } from '@/components/KAlert/KAlert.vue'
 
 export interface Toast {

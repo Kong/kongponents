@@ -1,3 +1,45 @@
+# [8.123.0](https://github.com/Kong/kongponents/compare/v8.122.9...v8.123.0) (2023-08-30)
+
+
+### Features
+
+* **kslideout:** add persistence prop ([#1655](https://github.com/Kong/kongponents/issues/1655)) ([bacc706](https://github.com/Kong/kongponents/commit/bacc7068ccdb89d3ed6f1eaff03ee6edf8ef4094))
+
+## [8.122.9](https://github.com/Kong/kongponents/compare/v8.122.8...v8.122.9) (2023-08-29)
+
+
+### Bug Fixes
+
+* making lefthook working, removing commitLint workflow [KHCP-8829] ([#1662](https://github.com/Kong/kongponents/issues/1662)) ([de017a9](https://github.com/Kong/kongponents/commit/de017a92c8609c57fb25260ceba0b0a3f5d9a341))
+
+## [8.122.8](https://github.com/Kong/kongponents/compare/v8.122.7...v8.122.8) (2023-08-29)
+
+
+### Bug Fixes
+
+* **KSelect:** add optional chaining for props.items [KHCP-8828] ([#1663](https://github.com/Kong/kongponents/issues/1663)) ([55f54a0](https://github.com/Kong/kongponents/commit/55f54a051fda2b54a9a97eba312aeb2170517446))
+
+## [8.122.7](https://github.com/Kong/kongponents/compare/v8.122.6...v8.122.7) (2023-08-28)
+
+
+### Bug Fixes
+
+* **kcodeblock:** missing KButton import ([#1654](https://github.com/Kong/kongponents/issues/1654)) ([6083da9](https://github.com/Kong/kongponents/commit/6083da94a3203f2d55fcca256287ca10e157ee71))
+
+## [8.122.6](https://github.com/Kong/kongponents/compare/v8.122.5...v8.122.6) (2023-08-23)
+
+
+### Bug Fixes
+
+* **ktable:** allow users to select table cell text ([#1644](https://github.com/Kong/kongponents/issues/1644)) ([9aa685b](https://github.com/Kong/kongponents/commit/9aa685b7feb58026416d9015dd7e74688c6206b1))
+
+## [8.122.5](https://github.com/Kong/kongponents/compare/v8.122.4...v8.122.5) (2023-08-22)
+
+
+### Bug Fixes
+
+* **tsconfig:** extend vue/tsconfig ([#1641](https://github.com/Kong/kongponents/issues/1641)) ([677c4f4](https://github.com/Kong/kongponents/commit/677c4f450e6b9442871fac3edb83b8f552f2fd49))
+
 ## [8.122.4](https://github.com/Kong/kongponents/compare/v8.122.3...v8.122.4) (2023-08-17)
 
 

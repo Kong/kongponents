@@ -38,7 +38,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, PropType, useSlots } from 'vue'
+import type { PropType } from 'vue'
+import { computed, useSlots } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KMenuItem from '@/components/KMenu/KMenuItem.vue'
 import KMenuDivider from '@/components/KMenu/KMenuDivider.vue'

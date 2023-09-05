@@ -101,7 +101,8 @@
 </template>
 
 <script setup lang="ts">
-import { watch, ref, computed, onMounted, onUnmounted, onBeforeUnmount, nextTick, PropType } from 'vue'
+import type { PropType } from 'vue'
+import { watch, ref, computed, onMounted, onUnmounted, onBeforeUnmount, nextTick } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import type { ButtonAppearance } from '@/types'

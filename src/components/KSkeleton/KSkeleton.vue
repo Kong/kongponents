@@ -55,7 +55,8 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, PropType, ref } from 'vue'
+import type { PropType } from 'vue'
+import { onMounted, ref } from 'vue'
 import Skeleton from '@/components/KSkeleton/SkeletonBase.vue'
 import CardSkeleton from '@/components/KSkeleton/CardSkeleton.vue'
 import TableSkeleton from '@/components/KSkeleton/TableSkeleton.vue'
@@ -63,7 +64,8 @@ import FormSkeleton from '@/components/KSkeleton/FormSkeleton.vue'
 import FullScreenKongSkeleton from '@/components/KSkeleton/FullScreenKongSkeleton.vue'
 import FullScreenGenericSpinner from '@/components/KSkeleton/FullScreenGenericSpinner.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import { SkeletonType, SkeletonTypeArray } from '@/types'
+import type { SkeletonType } from '@/types'
+import { SkeletonTypeArray } from '@/types'
 
 const props = defineProps({
   delayMilliseconds: {

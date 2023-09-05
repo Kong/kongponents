@@ -118,8 +118,10 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watch, onMounted, PropType, useSlots, useAttrs } from 'vue'
-import { IconPosition, Size, LabelAttributes, SizeArray, IconPositionArray, LimitExceededData } from '@/types'
+import type { PropType } from 'vue'
+import { computed, ref, watch, onMounted, useSlots, useAttrs } from 'vue'
+import type { IconPosition, Size, LabelAttributes, LimitExceededData } from '@/types'
+import { SizeArray, IconPositionArray } from '@/types'
 import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'

@@ -1,6 +1,8 @@
 import KToaster from './KToaster.vue'
-import { createApp, h, ref, Ref } from 'vue'
-import { AlertAppearance, Toast, toasterAppearances } from '@/types'
+import type { Ref } from 'vue'
+import { createApp, h, ref } from 'vue'
+import type { AlertAppearance, Toast } from '@/types'
+import { toasterAppearances } from '@/types'
 
 const APPEARANCES = Object.keys(toasterAppearances)
 

@@ -26,9 +26,11 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, ref } from 'vue'
+import type { PropType } from 'vue'
+import { ref } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
-import { SwitcherType, SwitcherTypeArray } from '@/types'
+import type { SwitcherType } from '@/types'
+import { SwitcherTypeArray } from '@/types'
 
 const props = defineProps({
   view: {

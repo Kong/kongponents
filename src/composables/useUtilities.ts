@@ -1,7 +1,9 @@
-import { ref, Ref, computed, watchEffect } from 'vue'
-import useSWRV, { IConfig } from 'swrv'
-import { AxiosResponse, AxiosError } from 'axios'
-import { IKey, fetcherFn } from 'swrv/dist/types'
+import type { Ref } from 'vue'
+import { ref, computed, watchEffect } from 'vue'
+import type { IConfig } from 'swrv'
+import useSWRV from 'swrv'
+import type { AxiosResponse, AxiosError } from 'axios'
+import type { IKey, fetcherFn } from 'swrv/dist/types'
 
 const swrvState = {
   VALIDATING: 'VALIDATING',

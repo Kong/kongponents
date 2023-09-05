@@ -118,6 +118,38 @@ Tells the component whether or not to enable / disable overlay when the slideout
 </KToggle>
 ```
 
+### preventCloseOnBlur
+
+Persists the slideout, ignoring clicks outside of the panel. Defaults to `false`.
+
+<KToggle v-slot="{ isToggled, toggle }">
+  <div>
+    <KButton @click="toggle">Toggle persistent Panel</KButton>
+    <KSlideout :is-visible="isToggled.value" @close="toggle" :has-overlay="false"
+    prevent-close-on-blur close-button-alignment="end" title="GET/account/kong.docs.dev">
+      <div>
+        <h2>Lorem ipsum turkey bacon</h2>
+        <p>This panel can only be closed via Escape key, or the Close button in the upper right.</p>
+      </div>
+    </KSlideout>
+  </div>
+</KToggle>
+
+```html
+<KToggle v-slot="{ isToggled, toggle }">
+  <div>
+    <KButton @click="toggle">Toggle persistent Panel</KButton>
+    <KSlideout :is-visible="isToggled.value" @close="toggle" :has-overlay="false"
+    prevent-close-on-blur close-button-alignment="end" title="GET/account/kong.docs.dev">
+      <div>
+        <h2>Lorem ipsum turkey bacon</h2>
+        <p>This panel can only be closed via Escape key, or the Close button in the upper right.</p>
+      </div>
+    </KSlideout>
+  </div>
+</KToggle>
+```
+
 ### title
 
 This prop takes a string that will be displayed as the title of the slide-out.

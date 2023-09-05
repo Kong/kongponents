@@ -82,7 +82,8 @@
  *  <template #[itemLabel]="slotProps">
  *  lines switch to `v-slot:` notation and Save to let linter clear -->
  */
-import { computed, ref, watch, onMounted, PropType } from 'vue'
+import type { PropType } from 'vue'
+import { computed, ref, watch, onMounted } from 'vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 import type { TreeListItem, ChangeEvent, ChildChangeEvent } from '@/types'
 import { KUI_ICON_SIZE_50, KUI_COLOR_BORDER_DISABLED } from '@kong/design-tokens'

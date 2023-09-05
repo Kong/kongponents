@@ -46,7 +46,8 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, watch, useAttrs, PropType } from 'vue'
+import type { PropType } from 'vue'
+import { ref, computed, watch, useAttrs } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'

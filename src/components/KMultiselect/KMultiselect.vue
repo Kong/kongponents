@@ -248,7 +248,8 @@
 </template>
 
 <script lang="ts">
-import { ref, Ref, computed, watch, PropType, nextTick, onMounted, onBeforeUnmount, useAttrs, useSlots } from 'vue'
+import type { Ref, PropType } from 'vue'
+import { ref, computed, watch, nextTick, onMounted, onBeforeUnmount, useAttrs, useSlots } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KBadge from '@/components/KBadge/KBadge.vue'

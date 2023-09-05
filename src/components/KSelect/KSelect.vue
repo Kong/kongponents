@@ -250,7 +250,8 @@
 </template>
 
 <script lang="ts">
-import { ref, Ref, computed, watch, PropType, nextTick, useAttrs, useSlots } from 'vue'
+import type { Ref, PropType } from 'vue'
+import { ref, computed, watch, nextTick, useAttrs, useSlots } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KButton from '@/components/KButton/KButton.vue'
@@ -261,12 +262,14 @@ import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
 import KSelectItems from '@/components/KSelect/KSelectItems.vue'
 import KSelectItem from '@/components/KSelect/KSelectItem.vue'
-import {
+import type {
   PopPlacements,
   SelectItem,
   SelectFilterFnParams,
   SelectDropdownFooterTextPosition,
   SelectAppearance,
+} from '@/types'
+import {
   SelectAppearanceArray,
 } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'

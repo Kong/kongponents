@@ -135,7 +135,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, PropType, reactive, ref, watch } from 'vue'
+import type { PropType } from 'vue'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { format } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
 import { DatePicker } from 'v-calendar'

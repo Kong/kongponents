@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from 'vue'
+import type { PropType } from 'vue'
 import type { CatalogItem } from '@/types'
 import KCard from '@/components/KCard/KCard.vue'
 

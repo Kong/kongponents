@@ -58,7 +58,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, PropType, useSlots } from 'vue'
+import type { PropType } from 'vue'
+import { ref, computed, useSlots } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import KMenuDivider from '@/components/KMenu/KMenuDivider.vue'

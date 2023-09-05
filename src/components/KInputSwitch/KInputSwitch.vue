@@ -64,10 +64,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, PropType, useAttrs } from 'vue'
+import type { PropType } from 'vue'
+import { computed, useAttrs } from 'vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import { LabelPosition, LabelPositionArray } from '@/types'
+import type { LabelPosition } from '@/types'
+import { LabelPositionArray } from '@/types'
 import { KUI_COLOR_TEXT_INVERSE } from '@kong/design-tokens'
 
 const props = defineProps({
