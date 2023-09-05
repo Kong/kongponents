@@ -160,11 +160,11 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
-@import "@/styles/tmp-variables";
+@import '@/styles/tmp-variables';
 
-$width: 44px;
-$height: 24px;
-$transition: $tmp-animation-timing-2 linear;
+$kInputSwitchWidth: 44px;
+$kInputSwitchHeight: 24px;
+$kInputSwitchTransition: $tmp-animation-timing-2 linear;
 
 .k-switch {
   align-items: center;
@@ -204,11 +204,11 @@ $transition: $tmp-animation-timing-2 linear;
     background-color: $tmp-color-green-500;
     border-radius: 12px;
     display: block;
-    height: $height;
+    height: $kInputSwitchHeight;
     margin-right: var(--kui-space-60, $kui-space-60);
     position: relative;
-    transition: $transition;
-    width: $width;
+    transition: $kInputSwitchTransition;
+    width: $kInputSwitchWidth;
 
     &.has-label-left {
       margin-left: var(--kui-space-60, $kui-space-60);
@@ -225,7 +225,7 @@ $transition: $tmp-animation-timing-2 linear;
       left: 2px;
       position: absolute;
       top: 2px;
-      transition: $transition;
+      transition: $kInputSwitchTransition;
       width: 20px;
     }
   }
@@ -245,7 +245,7 @@ $transition: $tmp-animation-timing-2 linear;
     &:checked + .switch-control {
       background-color: $tmp-color-green-500;
       &:after {
-        left: calc($width / 2);
+        left: calc($kInputSwitchWidth / 2);
       }
     }
   }
