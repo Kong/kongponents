@@ -120,3 +120,135 @@
   white-space: nowrap !important;
   width: 1px !important;
 }
+
+@mixin checkbox-radio-input {
+  // Override browser defaults
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: var(--kui-color-background, $kui-color-background);
+  border: var(--kui-border-width-10, $kui-border-width-10) solid
+    var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+  box-sizing: border-box;
+  display: inline-block;
+  padding: var(--kui-space-0, $kui-space-0);
+  -webkit-print-color-adjust: exact;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+
+  &:disabled {
+    opacity: 1;
+
+    &:hover {
+      border-color: var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+    }
+  }
+}
+
+@mixin checkbox-input {
+  @include checkbox-radio-input;
+
+  // background-color: red;
+  border: none;
+  border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+  color: var(--kui-color-text-primary, $kui-color-text-primary);
+  height: 20px;
+  margin: var(--kui-space-0, $kui-space-0) var(--kui-space-30, $kui-space-30) var(--kui-space-0, $kui-space-0)
+    var(--kui-space-0, $kui-space-0);
+  outline: none;
+  width: 20px;
+
+  &:not(:checked) {
+    border: var(--kui-border-width-10, $kui-border-width-10) solid
+      var(--kui-color-border-primary, $kui-color-border-primary);
+  }
+
+  &:checked {
+    background-color: currentColor;
+    background-image: url("data:image/svg+xml,%3Csvg width='13' height='11' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10.633 0L12 1.397 3.583 10 0 6.337 1.367 4.94l2.216 2.265z' fill='%23FFF' fill-rule='nonzero'/%3E%3C/svg%3E");
+    background-position: center;
+    background-repeat: no-repeat;
+    border-color: var(--kui-color-border-primary, $kui-color-border-primary);
+  }
+
+  &:checked::-ms-check {
+    background-color: var(--kui-color-background-primary, $kui-color-background-primary);
+    border: var(--kui-border-width-10, $kui-border-width-10) solid
+      var(--kui-color-border-primary, $kui-color-border-primary);
+    color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+  }
+
+  &:hover,
+  &:active {
+    border-color: var(--kui-color-border-primary, $kui-color-border-primary);
+  }
+
+  &:focus {
+    border-color: var(--kui-color-border-primary, $kui-color-border-primary);
+    outline: none;
+  }
+
+  &:disabled:not(:checked) {
+    background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
+    border: var(--kui-border-width-10, $kui-border-width-10) solid
+      var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+    border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
+  }
+  &:disabled:checked {
+    background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+  }
+}
+
+@mixin radio-input {
+  @include checkbox-radio-input;
+
+  align-items: center;
+  border: var(--kui-border-width-20, $kui-border-width-20) solid
+    var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+  border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
+  color: var(--kui-color-text-primary, $kui-color-text-primary);
+  display: inline-flex;
+  height: 20px;
+  justify-content: center;
+  margin: var(--kui-space-0, $kui-space-0) var(--kui-space-30, $kui-space-30) var(--kui-space-0, $kui-space-0)
+    var(--kui-space-0, $kui-space-0);
+  width: 20px;
+
+  &:checked {
+    background-color: var(--kui-color-background, $kui-color-background);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border-color: currentColor;
+
+    &:after {
+      background-color: currentColor;
+      border-radius: 100%;
+      content: "";
+      display: flex;
+      height: 10px;
+      width: 10px;
+    }
+
+    &:disabled {
+      border-color: var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+
+      &:after {
+        background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+      }
+    }
+  }
+
+  // IE11
+  &:checked::-ms-check {
+    border: var(--kui-border-width-20, $kui-border-width-20) solid currentColor;
+    color: currentColor;
+  }
+
+  &:disabled {
+    background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
+  }
+}

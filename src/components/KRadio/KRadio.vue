@@ -152,10 +152,20 @@ const modifiedAttrs = computed(() => {
 })
 </script>
 
+<style lang="scss" scoped>
+@import '@/styles/mixins';
+
+.k-radio {
+  .k-input {
+    @include radio-input;
+  }
+}
+</style>
+
 <style lang="scss">
 @import '@/styles/variables';
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
+@import '@/styles/mixins';
 
 $text-color-default: var(--black-45, var(--kui-color-text, $kui-color-text));
 $text-color-card: var(--kui-color-text, $kui-color-text);
