@@ -160,13 +160,19 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
-@import '@/styles/functions';
+@import "@/styles/tmp-variables";
 
-.k-switch,
-.k-input-switch {
+$width: 44px;
+$height: 24px;
+$transition: $tmp-animation-timing-2 linear;
+
+.k-switch {
+  align-items: center;
+  cursor: pointer;
+  display: inline-flex;
   position: relative;
 
-  .has-label-left + .kong-icon{
+  .has-label-left + .kong-icon {
     margin-left: var(--kui-space-40, $kui-space-40);
   }
 
@@ -178,6 +184,74 @@ export default {
   .kong-icon {
     top: 0;
     transform: translateX(-54px);
+  }
+
+  &.switch-with-icon .switch-control {
+    width: 48px;
+  }
+
+  &.switch-with-icon .kong-icon {
+    height: 20px;
+    left: 57px;
+    width: 22px;
+  }
+
+  &.switch-with-icon input:checked + .switch-control:after {
+    left: 26px;
+  }
+
+  .switch-control {
+    background-color: var(--KInputSwitchBackground, var(--grey-400, #b6b6bd));
+    border-radius: 12px;
+    display: block;
+    height: $height;
+    margin-right: 16px;
+    position: relative;
+    transition: $transition;
+    width: $width;
+
+    &.has-label-left {
+      margin-left: 16px;
+      margin-right: 0;
+    }
+
+    // Toggle
+    &:after {
+      background-color: var(--white, #ffffff);
+      border-radius: 50%;
+      content: "";
+      display: block;
+      height: 20px;
+      left: 2px;
+      position: absolute;
+      top: 2px;
+      transition: $transition;
+      width: 20px;
+    }
+  }
+
+  &[disabled]:not(:disabled) {
+    cursor: not-allowed;
+    .switch-control,
+    input {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+  }
+
+  // Hide default checkbox
+  input {
+    display: none;
+    &:checked + .switch-control {
+      background-color: $tmp-color-green-500;
+      &:after {
+        left: calc($width / 2);
+      }
+    }
+  }
+
+  span {
+    color: var(--KInputSwitchLabel, var(--black-70, rgba(0, 0, 0, 0.7)));
   }
 }
 </style>
