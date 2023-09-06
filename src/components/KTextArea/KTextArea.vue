@@ -290,7 +290,7 @@ export default {
     textarea.k-input.form-control {
       box-shadow: none !important;
       outline: 1px solid var(--red-500, #d44324) !important;
-      transition: color 0.1s ease;
+      transition: color $tmp-animation-timing-2 ease;
     }
   }
 }

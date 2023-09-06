@@ -488,18 +488,18 @@ export default {
     .k-input:focus {
       box-shadow: inset 0 0 0 1.5px var(--KInputError, var(--red-500, #d44324)) !important;
       outline: none !important;
-      transition: color 0.1s ease;
+      transition: color $tmp-animation-timing-2 ease;
 
       &.k-input-large {
         box-shadow: inset 0 0 0 2px var(--KInputError, var(--red-500, #d44324)) !important;
-        transition: color 0.1s ease;
+        transition: color $tmp-animation-timing-2 ease;
       }
     }
 
     .text-on-input {
       label {
         color: var(--KInputError, var(--red-500, #d44324));
-        transition: color 0.1s ease;
+        transition: color $tmp-animation-timing-2 ease;
       }
 
       label.hovered,
