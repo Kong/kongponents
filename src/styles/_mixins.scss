@@ -36,7 +36,7 @@
 @mixin textarea-default {
   background-color: var(--KInputBackground, var(--white, #ffffff));
   box-shadow: none !important;
-  outline: 1px solid var(--KInputBorder, var(--grey-300, #e7e7ec)) !important;
+  // outline: 1px solid var(--KInputBorder, var(--grey-300, #e7e7ec)) !important;
   transition: color 0.1s ease, box-shadow 0.1s ease;
 }
 
@@ -121,7 +121,7 @@
   width: 1px !important;
 }
 
-@mixin checkbox-radio-input {
+@mixin input-checkbox-radio {
   // Override browser defaults
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -148,8 +148,8 @@
   }
 }
 
-@mixin checkbox-input {
-  @include checkbox-radio-input;
+@mixin input-type-checkbox {
+  @include input-checkbox-radio;
 
   // background-color: red;
   border: none;
@@ -202,8 +202,8 @@
   }
 }
 
-@mixin radio-input {
-  @include checkbox-radio-input;
+@mixin input-type-radio {
+  @include input-checkbox-radio;
 
   align-items: center;
   border: var(--kui-border-width-20, $kui-border-width-20) solid
@@ -250,5 +250,142 @@
 
   &:disabled {
     background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
+  }
+}
+
+@mixin input-type-input {
+  &:not([type="checkbox"]):not([type="radio"]) {
+    border: none;
+    border-radius: 3px;
+    box-sizing: border-box;
+    color: var(--KInputColor, var(--black-70, rgba(0, 0, 0, 0.7)));
+    display: block;
+    font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
+    font-weight: 400;
+    line-height: var(--kui-line-height-40, $kui-line-height-40);
+    padding: var(--kui-space-40, $kui-space-40) var(--spacing-md, var(--kui-space-60, $kui-space-60));
+    width: 100%;
+    @include input-default;
+
+    &.k-input-small {
+      font-size: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
+      padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40))
+        var(--spacing-sm, var(--kui-space-50, $kui-space-50));
+    }
+
+    &.k-input-large {
+      font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
+      padding: var(--spacing-md, var(--kui-space-60, $kui-space-60))
+        var(--spacing-lg, var(--kui-space-80, $kui-space-80));
+    }
+
+    &:hover {
+      @include input-hover;
+
+      &.k-input-large {
+        box-shadow: inset 0 0 0 2px var(--KInputHover, var(--blue-200, #bdd3f9)) !important;
+        transition: all 0.1s ease;
+      }
+    }
+
+    &:focus {
+      @include input-focus;
+
+      &.k-input-large {
+        box-shadow: inset 0 0 0 2px var(--KInputFocus, var(--blue-400)) !important;
+        transition: all 0.1s ease;
+      }
+    }
+
+    &:not([type="checkbox"]):not([type="radio"]):not([type="file"]):read-only {
+      @include input-readonly;
+    }
+
+    &:disabled {
+      @include input-disabled;
+    }
+
+    &:invalid,
+    &:-moz-submit-invalid,
+    &:-moz-ui-invalid {
+      box-shadow: none;
+    }
+
+    /* Browser Overrides */
+    &::placeholder {
+      color: var(--KInputPlaceholderColor, var(--black-45, rgba(0, 0, 0, 0.45)));
+      font-weight: 400;
+      opacity: 1;
+    }
+
+    &::-ms-clear {
+      display: none;
+    }
+  }
+}
+
+// in new next major version support for overlay label will be removed
+// so this mixin is just holding the legacy code for a bit
+@mixin overlay-label-input {
+  position: relative;
+
+  .hovered:not(.readonly) {
+    color: var(--KInputHover, var(--blue-500, #1155cb));
+    transition: color 0.1s ease;
+  }
+
+  .focused:not(.readonly) {
+    color: var(--KInputFocus, var(--blue-500, #1155cb));
+    transition: color 0.1s ease;
+  }
+
+  .is-required {
+    color: var(--KLabelRequiredAsteriskColor, var(--KInputBorder, var(--grey-600, #3c4557)));
+    font-size: 11px;
+    font-weight: 500;
+    margin-left: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
+  }
+
+  label {
+    background-color: var(--KInputBackground, var(--white));
+    color: var(--KInputBorder, var(--grey-600, #3c4557));
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    left: 13px;
+    line-height: 1;
+    margin-bottom: 0;
+    padding: 2px 4px;
+    position: absolute;
+    top: -8px;
+    transition: color 0.1s ease;
+    width: auto;
+    z-index: 1;
+
+    &.hovered:not(.readonly) {
+      color: var(--KInputHover, var(--blue-500, #1155cb));
+      transition: color 0.1s ease;
+
+      .is-required {
+        color: var(--KInputHover, var(--blue-500, #1155cb));
+      }
+    }
+
+    &.focused:not(.readonly) {
+      color: var(--KInputFocus, var(--blue-500, #1155cb));
+      transition: color 0.1s ease;
+
+      .is-required {
+        color: var(--KInputFocus, var(--blue-500, #1155cb));
+      }
+    }
+
+    &.disabled {
+      color: var(--grey-500, #6f7787);
+
+      .is-required {
+        color: var(--grey-500, #6f7787);
+      }
+    }
   }
 }

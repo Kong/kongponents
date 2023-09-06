@@ -230,7 +230,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
-@import '@/styles/functions';
+@import '@/styles/mixins';
 
 .k-input-wrapper {
   display: grid;
@@ -241,15 +241,15 @@ export default {
     margin-top: var(--kui-space-80, $kui-space-80) !important;
   }
 
-  textarea.k-input {
-    -webkit-appearance: none;
-  }
+  textarea.k-input.form-control {
+    @include input-type-input;
 
-  textarea.form-control {
+    -webkit-appearance: none;
     font-family: var(--font-family-sans, var(--kui-font-family-text, $kui-font-family-text));
     font-size: var(--kui-font-size-40, $kui-font-size-40) !important;
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular) !important;
     line-height: var(--kui-line-height-40, $kui-line-height-40) !important;
+    padding: 17px 0 0 22px;
     resize: none;
 
     &.is-resizable {
@@ -259,6 +259,14 @@ export default {
 
     &:focus::placeholder {
       color: transparent;
+    }
+
+    @include textarea-default;
+    &:hover {
+      @include textarea-hover;
+    }
+    &:focus {
+      @include textarea-focus;
     }
   }
 
@@ -276,6 +284,14 @@ export default {
   .text-on-input label.hovered,
   .text-on-input label:hover {
     color: var(--KInputHover, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
+  }
+
+  &.input-error {
+    textarea.k-input.form-control {
+      box-shadow: none !important;
+      outline: 1px solid var(--red-500, #d44324) !important;
+      transition: color 0.1s ease;
+    }
   }
 }
 </style>

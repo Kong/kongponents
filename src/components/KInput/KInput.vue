@@ -320,9 +320,11 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
-@import '@/styles/functions';
+@import '@/styles/mixins';
 
-.form-control {
+.form-control, .k-input {
+  @include input-type-input;
+
   box-shadow: none !important;
 
   &.has-icon {
@@ -471,17 +473,41 @@ export default {
     margin-top: var(--kui-space-10, $kui-space-10);
   }
 
-  .text-on-input label:not(.disabled):not(.readonly).hovered,
-  .text-on-input label:not(.disabled):not(.readonly):hover {
-    color: var(--KInputHover, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
+  .text-on-input {
+    @include overlay-label-input;
+
+    label:not(.disabled):not(.readonly).hovered,
+    label:not(.disabled):not(.readonly):hover {
+      color: var(--KInputHover, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
+    }
   }
 
   &.input-error {
-    .text-on-input label.hovered,
-    .text-on-input label:hover,
-    .text-on-input label.focused,
-    .text-on-input label:focus {
-      color: var(--red-500, var(--kui-color-text-danger, $kui-color-text-danger)) !important;
+    .k-input,
+    .k-input:hover,
+    .k-input:focus {
+      box-shadow: inset 0 0 0 1.5px var(--KInputError, var(--red-500, #d44324)) !important;
+      outline: none !important;
+      transition: color 0.1s ease;
+
+      &.k-input-large {
+        box-shadow: inset 0 0 0 2px var(--KInputError, var(--red-500, #d44324)) !important;
+        transition: color 0.1s ease;
+      }
+    }
+
+    .text-on-input {
+      label {
+        color: var(--KInputError, var(--red-500, #d44324));
+        transition: color 0.1s ease;
+      }
+
+      label.hovered,
+      label:hover,
+      label.focused,
+      label:focus {
+        color: var(--red-500, var(--kui-color-text-danger, $kui-color-text-danger)) !important;
+      }
     }
   }
 }

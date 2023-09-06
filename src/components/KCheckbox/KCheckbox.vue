@@ -126,7 +126,7 @@ export default {
 
 .k-checkbox {
   .k-input {
-    @include checkbox-input;
+    @include input-type-checkbox;
   }
 
   .k-checkbox-label {

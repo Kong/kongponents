@@ -157,7 +157,7 @@ const modifiedAttrs = computed(() => {
 
 .k-radio {
   .k-input {
-    @include radio-input;
+    @include input-type-checkbox;
   }
 }
 </style>
