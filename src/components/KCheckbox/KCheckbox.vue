@@ -130,12 +130,10 @@ export default {
   }
 
   .k-checkbox-label {
-    --KInputLabelWeight: var(--kui-font-weight-regular, #{$kui-font-weight-regular});
-    --KInputLabelLineHeight: var(--kui-line-height-30, #{$kui-line-height-30});
-    --KInputLabelFont: var(--kui-font-family-text, #{$kui-font-family-text});
-    --KInputLabelMargin: var(--kui-space-0, #{$kui-space-0});
-    --KInputLabelSize: var(--type-sm, var(--kui-font-size-30, #{$kui-font-size-30}));
-
+    font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
+    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+    line-height: var(--kui-line-height-30, $kui-line-height-30);
+    margin: var(--kui-space-0, $kui-space-0);
     vertical-align: middle;
   }
 
