@@ -1,7 +1,7 @@
 # Settings in the [build] context are global and are applied to all contexts
 # unless otherwise overridden by more specific contexts.
 #
-# Defaulting to the settings for the `main` branch
+# Defaulting to the settings for the `main` branch (this covers `alpha` and `beta`)
 [build]
   base = "/"
   command = "yarn docs:build"

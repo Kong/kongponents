@@ -4,6 +4,8 @@ on:
   pull_request:
     branches:
       - main
+      - alpha
+      - beta
 
   # Allow calling manually from GitHub
   workflow_dispatch:
@@ -59,7 +61,8 @@ jobs:
 
       - name: Publish Package Preview
         id: package-preview
-        if: ${{ github.event_name == 'pull_request' && github.actor != 'dependabot[bot]' }}
+        # Do not run for `alpha` or `beta` branches
+        if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]' && github.actor != 'renovate[bot]' && !contains(github.head_ref || github.ref_name, 'alpha') && !contains(github.head_ref || github.ref_name, 'beta')
         run: |
           git config user.email "konnectx-engineers+kongponents-bot@konghq.com"
           git config user.name "Kong UI Bot"
