@@ -10,13 +10,13 @@ on:
 jobs:
   get-changed-files:
     name: Get Changed Files
-    uses: ./.github/workflows/get-changed-files.yml
+    uses: ./.github/workflows/get-changed-files.yaml
 
   run-tests:
     name: Tests
     needs:
       - get-changed-files
-    uses: ./.github/workflows/test.yml
+    uses: ./.github/workflows/test.yaml
     # Must pass in secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
     secrets:
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
