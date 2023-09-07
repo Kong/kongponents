@@ -1,0 +1,53 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":semanticCommits",
+    ":automergeRequireAllStatusChecks",
+    ":automergePatch",
+    ":automergeMinor"
+  ],
+  "dependencyDashboard": true,
+  "rangeStrategy": "bump",
+  "platformAutomerge": true,
+  "labels": [
+    "dependencies",
+    "renovate-bot"
+  ],
+  "schedule": [
+    "every weekday"
+  ],
+  "timezone": "America/New_York",
+  "automergeSchedule": [
+    "every weekday"
+  ],
+  "npmrcMerge": true,
+  "encrypted": {
+    "npmToken": "wcFMA/xDdHCJBTolAQ//XFopBP9S7JuWKQTwVozdJvlVb+riW/S+U84WkQf66rxeJAqSnM3WgOK5PszWD7a84zb6FpOsr1YZTwVXBmkZBsQGQ4XUGCM+42Fs2etKSQHfUCLLGO3HDMAnz0s1Y2F3U6TbZzb2nsXwSNwyXHKSC6jK+wRvmUMs1z4uSQjhsldlb1q358oiIY7DSS2x9HzplltxSFeV2TfJdq3/AEwgPAJuaAV1+cAxiFAP2hwCY7goOTSx0OC39LHApiZgCoEJPYgdIbOtLyu5qmExenu1JUBNrt+3SNN9p7vXZiNcFcdIkZHoDmlwWdMyxOupqoxBvvlzTIVqqz16LA2k1s1P6e9SigKLv470v5KmnyMiXOk0h0GrR+fMnrq6GveZ7R9PToek1yRCwX4SAeAzLABFz4F3O2UXXQqQG/Q6SxmaGOcidIDEdXvbJ3NIcYbwPhPg0X12/vvFdDQpeSTJlOVlsy0+WIyENkfjtHN7WshzqTy2tGGacZWKeK7+qbjJAV7hKw366UlKhDHDSyRCa6zaHIIujEB/JKNgjhb/wiNy8LWzxyFhA8m/djjvnFlldzod+VbR3gM5aW1LXEEAlgzy3gfDQu0QaAhliqw5+Bx36zB20NXKTVcqZYKoa12p8mFoxGZmtMcunw0ZYHFQY6Ml+Yi4w81fMSwJh8OSYPVE0kLSbwE5f2wH72CFWu9XW4+y7yPhHhff+GRnmDkkyJSX8F4XI+OQJhNMJX0sJmO2X/RiKfz0IOLVP3YMj/NT9CUmdcAdyljjmvD1z9yZ/GNoe4XRa1I9kDN5SM782yJ8mlQlzxMX3JBaoyj5vz5GIKZdsg"
+  },
+  "stabilityDays": 14,
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        "^@kong\/",
+        "^@kong-ui\/",
+        "^@kong-ui-public\/"
+      ],
+      "stabilityDays": 0
+    },
+    {
+      "automerge": true,
+      "groupName": "all non-major dependencies with stable version",
+      "groupSlug": "all-minor-patch",
+      "matchCurrentVersion": "!/^0/",
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "stabilityDays": 10
+    }
+  ]
+}
