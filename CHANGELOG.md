@@ -1,3 +1,10 @@
+## [8.123.1](https://github.com/Kong/kongponents/compare/v8.123.0...v8.123.1) (2023-09-07)
+
+
+### Bug Fixes
+
+* **multi-select:** optimize overflow detection for selected items container ([#1677](https://github.com/Kong/kongponents/issues/1677)) ([973fa81](https://github.com/Kong/kongponents/commit/973fa818f3d97925cb7e412aadc95af7c7500d0a))
+
 # [8.123.0](https://github.com/Kong/kongponents/compare/v8.122.9...v8.123.0) (2023-08-30)
 
 
