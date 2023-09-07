@@ -68,7 +68,7 @@ const slots = useSlots()
 const hasIcon = computed((): boolean => props.item.icon !== 'none' || !!slots['item-icon'])
 const itemIcon = computed((): string => props.item.icon ? props.item.icon : 'documentList')
 
-const iconSecondaryColor = (): string | undefined => {
+const iconSecondaryColor = computed((): string | undefined => {
   if (itemIcon.value === 'documentList') {
     return props.item.selected
       ? 'var(--KTreeListItemSelectedBorder, currentColor)'
@@ -76,7 +76,7 @@ const iconSecondaryColor = (): string | undefined => {
   }
 
   return undefined
-}
+})
 
 const handleClick = () => {
   emit('selected', props.item)
