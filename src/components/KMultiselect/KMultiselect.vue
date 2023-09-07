@@ -604,10 +604,19 @@ const stageSelections = () => {
     if (elem) {
       const height = elem.clientHeight
       if (height > selectionsMaxHeight.value) {
-        const item = visibleSelectedItemsStaging.value.pop()
-        if (item && !invisibleSelectedItemsStagingSet.has(item.value)) {
-          invisibleSelectedItemsStagingSet.add(item.value)
-          invisibleSelectedItemsStaging.value.push(item)
+        // populate as much items as possible by checking the offsetTop
+        const overflowedElements = Array.from(elem.querySelectorAll('.k-multiselect-selection-badge'))
+          .filter(badge => (badge as HTMLElement).offsetTop >= selectionsMaxHeight.value)
+
+        // if there are overflowed items, move them to the invisibleSelectedItemsStaging array
+        const cutPoint = visibleSelectedItemsStaging.value.length - overflowedElements.length
+        const overflowedItems = visibleSelectedItemsStaging.value.splice(cutPoint, overflowedElements.length)
+
+        for (const item of overflowedItems) {
+          if (!invisibleSelectedItemsStagingSet.has(item.value)) {
+            invisibleSelectedItemsStagingSet.add(item.value)
+            invisibleSelectedItemsStaging.value.push(item)
+          }
         }
       }
       stagingKey.value++
@@ -888,9 +897,9 @@ watch(() => props.items, (newValue, oldValue) => {
         visibleSelectedItemsStaging.value.push(selectedItem)
       }
     }
-
-    stageSelections()
   }
+
+  stageSelections()
 
   // Trigger an update to the popper element to cause the popover to redraw
   // This prevents the popover from displaying "detached" from the KSelect
