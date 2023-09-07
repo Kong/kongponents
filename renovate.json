@@ -7,6 +7,9 @@
     ":automergePatch",
     ":automergeMinor"
   ],
+  "baseBranches": [
+    "main"
+  ],
   "dependencyDashboard": true,
   "rangeStrategy": "bump",
   "platformAutomerge": true,
