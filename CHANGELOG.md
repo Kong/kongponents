@@ -1,3 +1,10 @@
+## [8.123.2](https://github.com/Kong/kongponents/compare/v8.123.1...v8.123.2) (2023-09-07)
+
+
+### Bug Fixes
+
+* **deps:** update vitepress and vue-tsc ([#1679](https://github.com/Kong/kongponents/issues/1679)) ([c675a1a](https://github.com/Kong/kongponents/commit/c675a1a1c4de7ff5fd7103224f6bb100ec2d1066))
+
 ## [8.123.1](https://github.com/Kong/kongponents/compare/v8.123.0...v8.123.1) (2023-09-07)
 
 
