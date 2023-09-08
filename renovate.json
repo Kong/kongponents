@@ -1,56 +1,5 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base",
-    ":semanticCommits",
-    ":automergeRequireAllStatusChecks",
-    ":automergePatch",
-    ":automergeMinor"
-  ],
-  "baseBranches": [
-    "main"
-  ],
-  "dependencyDashboard": true,
-  "rangeStrategy": "bump",
-  "platformAutomerge": true,
-  "labels": [
-    "dependencies",
-    "renovate-bot"
-  ],
-  "schedule": [
-    "every weekday"
-  ],
-  "timezone": "America/New_York",
-  "automergeSchedule": [
-    "every weekday"
-  ],
-  "npmrcMerge": true,
-  "minimumReleaseAge": "14 days",
-  "packageRules": [
-    {
-      "automerge": true,
-      "groupName": "all non-major dependencies with stable version",
-      "groupSlug": "all-minor-patch",
-      "matchCurrentVersion": "!/^0/",
-      "matchPackagePatterns": [
-        "*"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
-      "minimumReleaseAge": "10 days"
-    },
-    {
-      "automerge": true,
-      "groupName": "all kong scoped dependencies",
-      "groupSlug": "all-kong-scopes",
-      "matchPackagePatterns": [
-        "^@kong\/",
-        "^@kong-ui\/",
-        "^@kong-ui-public\/"
-      ],
-      "minimumReleaseAge": "2 hours"
-    }
+    "github>Kong/public-shared-renovate:kong-frontend-config.json"
   ]
 }
