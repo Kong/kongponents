@@ -470,15 +470,15 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
-"@digitalroute/cz-conventional-changelog-for-jira@^7.3.1":
-  version "7.5.1"
-  resolved "https://registry.yarnpkg.com/@digitalroute/cz-conventional-changelog-for-jira/-/cz-conventional-changelog-for-jira-7.5.1.tgz#e9d8eb99e41906b6fbf057771207f0a33029c170"
-  integrity sha512-LB/cglMCftFbNCaVcXE4CgZp7qD3ZgOzXkia6535Yb55BHpaxbREslTFRz+fJFSU2fPBfVseaUvdaOCTCp0WQQ==
+"@digitalroute/cz-conventional-changelog-for-jira@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@digitalroute/cz-conventional-changelog-for-jira/-/cz-conventional-changelog-for-jira-8.0.1.tgz#c8793635a09dd9c9ca6dd3976b01d64d6254d414"
+  integrity sha512-I7uNQ2R5LnDYVhQ01sfNvaxqe1PutXyDl8Kltj4L8uDa1LTYqQgWWp3yEj3XYDNjhUjsAheHW0lsmF1oiAjWVg==
   dependencies:
-    "@ryansonshine/commitizen" "^4.2.8"
-    "@ryansonshine/cz-conventional-changelog" "^3.3.4"
     boxen "^5.1.2"
     chalk "^2.4.1"
+    commitizen "^4.2.6"
+    cz-conventional-changelog "^3.3.0"
     inquirer "^8.2.4"
     lodash.map "^4.5.1"
     longest "^2.0.1"
@@ -1011,40 +1011,6 @@
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.4.0.tgz#0e1bdf8d021e7ea58affade33d9d607e11365915"
   integrity sha512-NMrDy6EWh9TPdSRiHmHH2ye1v5U0gBD7pRYwSwJvomx7Bm4GG04vu63dYiVzebLOx2obPpJugew06xVP0Nk7hA==
-
-"@ryansonshine/commitizen@^4.2.6", "@ryansonshine/commitizen@^4.2.8":
-  version "4.2.8"
-  resolved "https://registry.yarnpkg.com/@ryansonshine/commitizen/-/commitizen-4.2.8.tgz#18c7e1b81a2cb1cefc9c8da0b9a5c6d3bcf5ab3c"
-  integrity sha512-umjePm6tYbki25Mp34ijQSGqMBqj5R1e4BTwTGD2zaZA5k3k0lx4MQJhh0g7QyIhzvkuoZvD0f4MG0gj8ABjBg==
-  dependencies:
-    "@ryansonshine/cz-conventional-changelog" "^3.3.4"
-    cachedir "^2.3.0"
-    dedent "^0.7.0"
-    detect-indent "^6.1.0"
-    find-node-modules "^2.1.2"
-    find-root "^1.1.0"
-    fs-extra "^9.1.0"
-    glob "^7.2.0"
-    inquirer "^8.2.2"
-    is-utf8 "^0.2.1"
-    lodash "^4.17.21"
-    minimist "^1.2.6"
-    strip-bom "^4.0.0"
-    strip-json-comments "^3.1.1"
-
-"@ryansonshine/cz-conventional-changelog@^3.3.4":
-  version "3.3.4"
-  resolved "https://registry.yarnpkg.com/@ryansonshine/cz-conventional-changelog/-/cz-conventional-changelog-3.3.4.tgz#6495871025c1dd6af25eba92c49cf0433593f047"
-  integrity sha512-t9DRpWeUXPs4YpQt0Yu50qlvOLax/OKBQwpygr00hjIXPG7HAiGS9BYc+V8W7riri3cIE5D4bmt7V9Drk1jp8Q==
-  dependencies:
-    "@ryansonshine/commitizen" "^4.2.6"
-    chalk "^2.4.1"
-    conventional-commit-types "^3.0.0"
-    lodash.map "^4.5.1"
-    longest "^2.0.1"
-    word-wrap "^1.0.3"
-  optionalDependencies:
-    "@commitlint/load" ">6.1.1"
 
 "@semantic-release/changelog@^6.0.1":
   version "6.0.3"
@@ -2375,7 +2341,7 @@ commander@^9.0.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-9.4.1.tgz#d1dd8f2ce6faf93147295c0df13c7c21141cfbdd"
   integrity sha512-5EEkTNyHNGFPD2H+c/dXXfQZYa/scCKasxWcXJaWnNJ99pnQN9Vnmqow+p+PlFPE63Q6mThaZws1T+HxfpgtPw==
 
-commitizen@^4.0.3, commitizen@^4.2.5:
+commitizen@^4.0.3, commitizen@^4.2.5, commitizen@^4.2.6:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/commitizen/-/commitizen-4.3.0.tgz#0d056c542a2d2b1f9b9aba981aa32575b2849924"
   integrity sha512-H0iNtClNEhT0fotHvGV3E9tDejDeS04sN1veIebsKYGMuGscFaswRoYJKmT3eW85eIJAs0F28bG2+a/9wCOfPw==
@@ -2668,7 +2634,7 @@ cypress@^12.17.1:
     untildify "^4.0.0"
     yauzl "^2.10.0"
 
-cz-conventional-changelog@3.3.0:
+cz-conventional-changelog@3.3.0, cz-conventional-changelog@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/cz-conventional-changelog/-/cz-conventional-changelog-3.3.0.tgz#9246947c90404149b3fe2cf7ee91acad3b7d22d2"
   integrity sha512-U466fIzU5U22eES5lTNiNbZ+d8dfcHcssH4o7QsdWaCcRs/feIPCxKYSWkYBNs5mny7MvEfwpTLWjvbm94hecw==
@@ -2758,7 +2724,7 @@ decamelize@^5.0.0:
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-5.0.1.tgz#db11a92e58c741ef339fb0a2868d8a06a9a7b1e9"
   integrity sha512-VfxadyCECXgQlkoEAjeghAr5gY3Hf+IKjKb+X8tGVDtveCjN+USwprd2q3QXBR9T1+x2DG0XZF5/w+7HAtSaXA==
 
-dedent@0.7.0, dedent@^0.7.0:
+dedent@0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/dedent/-/dedent-0.7.0.tgz#2495ddbaf6eb874abb0e1be9df22d2e5a544326c"
   integrity sha512-Q6fKUPqnAHAyhiUgFU7BUzLiv0kd8saH9al7tnu5Q/okj6dnupxyTgFIBjVzJATdfIAm9NAsvXNzjaKa+bxVyA==
@@ -2845,7 +2811,7 @@ detect-file@^1.0.0:
   resolved "https://registry.yarnpkg.com/detect-file/-/detect-file-1.0.0.tgz#f0d66d03672a825cb1b73bdb3fe62310c8e552b7"
   integrity sha512-DtCOLG98P007x7wiiOmfI0fi3eIKyWiLTGJ2MDnVi/E04lWGbf+JzrRHMm0rgIIZJGtHpKpbVgLWHrv8xXpc3Q==
 
-detect-indent@6.1.0, detect-indent@^6.1.0:
+detect-indent@6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-6.1.0.tgz#592485ebbbf6b3b1ab2be175c8393d04ca0d57e6"
   integrity sha512-reYkTUJAZb9gUuZ2RvVCNhVHdg62RHnJ7WJl8ftMi4diZ6NWlciOzQN88pUhSELEwflJht4oQDv0F0BMlwaYtA==
@@ -3603,7 +3569,7 @@ find-node-modules@^2.1.2:
     findup-sync "^4.0.0"
     merge "^2.1.1"
 
-find-root@1.1.0, find-root@^1.1.0:
+find-root@1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/find-root/-/find-root-1.1.0.tgz#abcfc8ba76f708c42a97b3d685b7e9450bfb9ce4"
   integrity sha512-NKfW6bec6GfKc0SGx1e07QZY9PE99u0Bft/0rzSD5k3sO/vwkVUpDUKVm5Gpp5Ue3YfShPFTX2070tDs5kB9Ng==
@@ -3913,7 +3879,7 @@ glob-parent@^6.0.2:
   dependencies:
     is-glob "^4.0.3"
 
-glob@7.2.3, glob@^7.0.5, glob@^7.1.3, glob@^7.1.4, glob@^7.2.0:
+glob@7.2.3, glob@^7.0.5, glob@^7.1.3, glob@^7.1.4:
   version "7.2.3"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.2.3.tgz#b8df0fb802bbfa8e89bd1d938b4e16578ed44f2b"
   integrity sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==
@@ -4349,7 +4315,7 @@ inquirer@8.2.5:
     through "^2.3.6"
     wrap-ansi "^7.0.0"
 
-inquirer@^8.2.2, inquirer@^8.2.4:
+inquirer@^8.2.4:
   version "8.2.6"
   resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-8.2.6.tgz#733b74888195d8d400a67ac332011b5fae5ea562"
   integrity sha512-M1WuAmb7pn9zdFRtQYk26ZBoY043Sse0wVDdk4Bppr+JOXyQYybdtvK+l9wUibhtjdjvtoiNy8tk+EgsYIUqKg==
@@ -7119,7 +7085,7 @@ strip-ansi@^7.0.1:
   dependencies:
     ansi-regex "^6.0.1"
 
-strip-bom@4.0.0, strip-bom@^4.0.0:
+strip-bom@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/strip-bom/-/strip-bom-4.0.0.tgz#9c3505c1db45bcedca3d9cf7a16f5c5aa3901878"
   integrity sha512-3xurFv5tEgii33Zi8Jtp55wEIILR9eh34FAW00PZf+JnSsTmV/ioewSgQl97JHvgjoRGwPShsWm+IdrxB35d0w==
