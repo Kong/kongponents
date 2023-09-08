@@ -709,10 +709,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@kong/design-tokens@^1.9.1":
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.10.1.tgz#7cafade22606a35dc9dd9b3b221005563fe34c93"
-  integrity sha512-Iy2E1cfWUBK+l21PfXPSZKEyZl52w1eWwEvOCnHAfowoBC2+RaaSgscDEmWHtnfofMBdmdkQ8YRmgd6pW74n/w==
+"@kong/design-tokens@^1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.10.2.tgz#2b9dc88bba73c2968ea1d06ba7b348910444cf10"
+  integrity sha512-14LZsxQmhbpAxqDRREkHcQEiYg/I1mRMcI1p1aHRK5bY9rcEQkWmiuNXPRHhEpG+8/n099g1HwAaKFmJBwYwRg==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
