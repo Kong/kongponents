@@ -69,8 +69,8 @@
   },
   "devDependencies": {
     "@babel/types": "^7.20.0",
-    "@commitlint/cli": "^16.3.0",
-    "@commitlint/config-conventional": "^16.2.4",
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
     "@cypress/vite-dev-server": "^5.0.5",
     "@digitalroute/cz-conventional-changelog-for-jira": "^7.3.1",
     "@evilmartians/lefthook": "^1.4.9",
