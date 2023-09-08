@@ -1,3 +1,10 @@
+## [8.123.3](https://github.com/Kong/kongponents/compare/v8.123.2...v8.123.3) (2023-09-08)
+
+
+### Bug Fixes
+
+* renovate config ([#1688](https://github.com/Kong/kongponents/issues/1688)) ([0e0ef2b](https://github.com/Kong/kongponents/commit/0e0ef2b06971c097e953c32f93c8fecf46f1ef96))
+
 ## [8.123.2](https://github.com/Kong/kongponents/compare/v8.123.1...v8.123.2) (2023-09-07)
 
 
