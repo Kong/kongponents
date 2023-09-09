@@ -103,7 +103,7 @@
     "eslint-plugin-vue": "^8.7.1",
     "inquirer": "^8.2.4",
     "nanospinner": "^1.1.0",
-    "node-emoji": "^1.11.0",
+    "node-emoji": "^2.1.0",
     "picocolors": "^1.0.0",
     "postcss-cli": "^9.1.0",
     "postcss-custom-properties": "^12.1.8",
