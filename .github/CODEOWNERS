@@ -6,7 +6,8 @@
 # Workflows & CI
 /.github/ @adamdehaven @jillztom
 /lefthook.yaml @adamdehaven @jillztom
-/netlify.toml @adamdehaven @jillztom
+/netlify.toml @adamdehaven @jillztom @ValeryG
+/renovate.json @adamdehaven @jillztom @ValeryG
 
 # CLI
 /cli/ @adamdehaven @jillztom
