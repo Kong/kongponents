@@ -1,3 +1,11 @@
+## [8.123.4](https://github.com/Kong/kongponents/compare/v8.123.3...v8.123.4) (2023-09-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency date-fns-tz to v2 ([#1712](https://github.com/Kong/kongponents/issues/1712)) ([35bb517](https://github.com/Kong/kongponents/commit/35bb517b0b66692bd9062f7333a630ffb0e263e3))
+* **deps:** update dependency uuid to v9 ([#1713](https://github.com/Kong/kongponents/issues/1713)) ([d9d2d6c](https://github.com/Kong/kongponents/commit/d9d2d6cab1148877be34551892bd095d4fddb2e1))
+
 ## [8.123.3](https://github.com/Kong/kongponents/compare/v8.123.2...v8.123.3) (2023-09-08)
 
 

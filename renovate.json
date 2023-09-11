@@ -2,7 +2,7 @@
   "extends": [
     "github>Kong/public-shared-renovate:kong-frontend-config"
   ],
-  "baseBranches": [
-    "alpha"
+  "ignoreDeps": [
+    "v-calendar"
   ]
 }
