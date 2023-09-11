@@ -1,5 +1,6 @@
 {
   "extends": [
     "github>Kong/public-shared-renovate:kong-frontend-config.json"
-  ]
+  ],
+  "baseBranches": ["alpha"]
 }

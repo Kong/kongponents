@@ -31,13 +31,10 @@ declare module '@vue/runtime-core' {
     KModal: typeof components.KModal
     KModalFullscreen: typeof components.KModalFullscreen
     KMultiselect: typeof components.KMultiselect
-    Komponent: typeof components.Komponent
-    Kooltip: typeof components.Kooltip
     KPagination: typeof components.KPagination
     KPop: typeof components.KPop
     KPrompt: typeof components.KPrompt
     KRadio: typeof components.KRadio
-    Krumbs: typeof components.Krumbs
     KSegmentedControl: typeof components.KSegmentedControl
     KSelect: typeof components.KSelect
     KSkeleton: typeof components.KSkeleton

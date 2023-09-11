@@ -106,13 +106,13 @@ export default defineConfig({
             { text: 'Typography', link: '/guide/styles/typography' },
             { text: 'Forms', link: '/guide/styles/forms' },
             { text: 'Utilities', link: '/guide/styles/utilities' },
-            { text: 'Standalone Usage', link: '/guide/styles/standalone-usage' },
           ]
         },
         {
           text: 'Migrations',
           collapsed: false,
           items: [
+            { text: 'Migrating to v9', link: '/guide/migrating-to-version-9' },
             { text: 'Migration to Vue 3', link: '/guide/vue-3-migration-guide' },
           ]
         },
@@ -133,6 +133,10 @@ export default defineConfig({
       {
         text: `v8.x`,
         items: [
+          {
+            text: 'v9-alpha',
+            link: 'https://alpha--kongponents.netlify.app',
+          },
           {
             text: 'v7.x',
             link: 'https://legacy.kongponents.konghq.com',

@@ -31,7 +31,7 @@ Here you can pass in the text to display in the toolip.
 ```
 
 :::warning NOTE
-KTooltip won't be triggered if the element you pass through `default` slot has `disabled` attribute. You can get around that by wrapping your disabled element around an additional tag, like shown in the example below. 
+KTooltip won't be triggered if the element you pass through `default` slot has `disabled` attribute. You can get around that by wrapping your disabled element around an additional tag, like shown in the example below.
 :::
 
 <KCard>
@@ -145,7 +145,7 @@ You can set the maximum width of a Tooltip with the `maxWidth` property. `maxWid
 <KTooltip label="Video Games">
   <KButton>&nbsp;✌🏻</KButton>
   <template v-slot:content>
-    <span><b>yoyo</b> <em>kooltip</em></span>
+    <span><b>yoyo</b> <em>ktooltip</em></span>
   </template>
 </KTooltip>
 
@@ -153,7 +153,7 @@ You can set the maximum width of a Tooltip with the `maxWidth` property. `maxWid
 <KTooltip>
   <KButton>&nbsp;✌🏻</KButton>
   <template v-slot:content>
-    <span><b>yoyo</b> <em>kooltip</em></span>
+    <span><b>yoyo</b> <em>ktooltip</em></span>
   </template>
 </KTooltip>
 ```
