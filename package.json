@@ -64,7 +64,7 @@
   "peerDependencies": {
     "axios": "^0.27.2",
     "vue": ">= 3.3.0",
-    "vue-router": "^4.1.6"
+    "vue-router": "^4.2.4"
   },
   "devDependencies": {
     "@babel/types": "^7.20.0",
@@ -170,10 +170,10 @@
     ]
   },
   "engines": {
-    "node": ">=16.19.0"
+    "node": ">=v16.20.2"
   },
   "volta": {
-    "node": "18.12.1",
+    "node": "18.17.1",
     "yarn": "1.22.17"
   },
   "config": {
