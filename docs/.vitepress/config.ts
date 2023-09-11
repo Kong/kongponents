@@ -131,11 +131,11 @@ export default defineConfig({
       { text: 'Guide', link: '/guide/', activeMatch: '/guide/' },
       { text: 'Components', link: '/components/alert', activeMatch: '/components/' },
       {
-        text: `v8.x`,
+        text: `v9-alpha`,
         items: [
           {
-            text: 'v9-alpha',
-            link: 'https://alpha--kongponents.netlify.app',
+            text: 'v8.x',
+            link: 'https://kongponents.konghq.com',
           },
           {
             text: 'v7.x',
