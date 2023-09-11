@@ -5,7 +5,7 @@ module.exports = {
   description: 'Kong UI Components & Style Guide',
   themeConfig: {
     repo: 'kong/kongponents',
-    logo: 'https://2tjosk2rxzc21medji3nfn1g-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/kong-logomark-color-64px.png',
+    logo: '/img/kong-logomark.png',
     docsDir: 'docs',
     editLinks: true,
     searchPlaceholder: 'Search...',
@@ -13,6 +13,10 @@ module.exports = {
       {
         text: 'v7.x',
         items: [
+          {
+            text: 'v9-alpha',
+            link: 'https://alpha--kongponents.netlify.app',
+          },
           {
             text: 'v8.x',
             link: 'https://kongponents.konghq.com',
@@ -113,8 +117,8 @@ module.exports = {
     ]
   },
   head: [
-    ['link', { rel: 'icon', href: 'https://2tjosk2rxzc21medji3nfn1g-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/kong-logomark-color-64px.png' }],
-    ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:400,500,700' }]
+    ['link', {rel: 'icon', href: 'https://2tjosk2rxzc21medji3nfn1g-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/kong-logomark-color-64px.png'}],
+    ['link', {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:400,500,700'}]
   ],
   plugins: [
     "@kawarimidoll/tailwind",

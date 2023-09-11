@@ -1,0 +1,95 @@
+{
+  "hash": "5c16029e",
+  "browserHash": "2ee67170",
+  "optimized": {
+    "vue": {
+      "src": "../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "file": "vue.js",
+      "fileHash": "2a7d24a8",
+      "needsInterop": false
+    },
+    "vitepress > @vue/devtools-api": {
+      "src": "../../../../node_modules/@vue/devtools-api/lib/esm/index.js",
+      "file": "vitepress___@vue_devtools-api.js",
+      "fileHash": "61b48926",
+      "needsInterop": false
+    },
+    "@kong/design-tokens": {
+      "src": "../../../../node_modules/@kong/design-tokens/dist/tokens/js/index.mjs",
+      "file": "@kong_design-tokens.js",
+      "fileHash": "7882dcbd",
+      "needsInterop": false
+    },
+    "uuid": {
+      "src": "../../../../node_modules/uuid/dist/esm-browser/index.js",
+      "file": "uuid.js",
+      "fileHash": "dfefc27e",
+      "needsInterop": false
+    },
+    "date-fns": {
+      "src": "../../../../node_modules/date-fns/esm/index.js",
+      "file": "date-fns.js",
+      "fileHash": "6d24a00e",
+      "needsInterop": false
+    },
+    "date-fns-tz": {
+      "src": "../../../../node_modules/date-fns-tz/esm/index.js",
+      "file": "date-fns-tz.js",
+      "fileHash": "a8fe213f",
+      "needsInterop": false
+    },
+    "v-calendar": {
+      "src": "../../../../node_modules/v-calendar/dist/v-calendar.es.js",
+      "file": "v-calendar.js",
+      "fileHash": "bb5ff168",
+      "needsInterop": false
+    },
+    "vue-router": {
+      "src": "../../../../node_modules/vue-router/dist/vue-router.mjs",
+      "file": "vue-router.js",
+      "fileHash": "3d47f5fe",
+      "needsInterop": false
+    },
+    "focus-trap-vue": {
+      "src": "../../../../node_modules/focus-trap-vue/dist/focus-trap-vue.esm-browser.js",
+      "file": "focus-trap-vue.js",
+      "fileHash": "7198f8d4",
+      "needsInterop": false
+    },
+    "popper.js": {
+      "src": "../../../../node_modules/popper.js/dist/esm/popper.js",
+      "file": "popper__js.js",
+      "fileHash": "6a4dffa4",
+      "needsInterop": false
+    },
+    "@vueuse/core": {
+      "src": "../../../../node_modules/@vueuse/core/index.mjs",
+      "file": "@vueuse_core.js",
+      "fileHash": "cd334ab9",
+      "needsInterop": false
+    },
+    "swrv": {
+      "src": "../../../../node_modules/swrv/esm/index.js",
+      "file": "swrv.js",
+      "fileHash": "7d9621e7",
+      "needsInterop": false
+    },
+    "vue-draggable-next": {
+      "src": "../../../../node_modules/vue-draggable-next/dist/vue-draggable-next.esm-bundler.js",
+      "file": "vue-draggable-next.js",
+      "fileHash": "5ce08c8c",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-J4VLYDXT": {
+      "file": "chunk-J4VLYDXT.js"
+    },
+    "chunk-V634PGSD": {
+      "file": "chunk-V634PGSD.js"
+    },
+    "chunk-UXIASGQL": {
+      "file": "chunk-UXIASGQL.js"
+    }
+  }
+}

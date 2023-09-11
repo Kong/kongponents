@@ -1,0 +1,61 @@
+;FFMETADATA1
+[CHAPTER]
+TIMEBASE=1/1000
+START=1255
+END=1363
+title=KTooltip renders tooltip to the top side
+[CHAPTER]
+TIMEBASE=1/1000
+START=1451
+END=1473
+title=KTooltip renders tooltip to the topStart side
+[CHAPTER]
+TIMEBASE=1/1000
+START=1481
+END=1496
+title=KTooltip renders tooltip to the topEnd side
+[CHAPTER]
+TIMEBASE=1/1000
+START=1495
+END=1512
+title=KTooltip renders tooltip to the left side
+[CHAPTER]
+TIMEBASE=1/1000
+START=1513
+END=1530
+title=KTooltip renders tooltip to the leftStart side
+[CHAPTER]
+TIMEBASE=1/1000
+START=1531
+END=1549
+title=KTooltip renders tooltip to the leftEnd side
+[CHAPTER]
+TIMEBASE=1/1000
+START=1551
+END=1569
+title=KTooltip renders tooltip to the right side
+[CHAPTER]
+TIMEBASE=1/1000
+START=1570
+END=1588
+title=KTooltip renders tooltip to the rightStart side
+[CHAPTER]
+TIMEBASE=1/1000
+START=1589
+END=1607
+title=KTooltip renders tooltip to the rightEnd side
+[CHAPTER]
+TIMEBASE=1/1000
+START=1608
+END=1626
+title=KTooltip renders tooltip to the bottom side
+[CHAPTER]
+TIMEBASE=1/1000
+START=1628
+END=1645
+title=KTooltip renders tooltip to the bottomStart side
+[CHAPTER]
+TIMEBASE=1/1000
+START=1645
+END=1663
+title=KTooltip renders tooltip to the bottomEnd side
