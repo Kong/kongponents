@@ -1,6 +1,11 @@
 {
   "extends": [
-    "github>Kong/public-shared-renovate:kong-frontend-config.json"
+    "github>Kong/public-shared-renovate:kong-frontend-config"
   ],
-  "baseBranches": ["alpha"]
+  "baseBranches": [
+    "alpha"
+  ],
+  "ignoreDeps": [
+    "v-calendar"
+  ]
 }
