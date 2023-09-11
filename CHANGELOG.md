@@ -1,3 +1,10 @@
+## [8.123.5](https://github.com/Kong/kongponents/compare/v8.123.4...v8.123.5) (2023-09-11)
+
+
+### Bug Fixes
+
+* **release:** trigger release ([609a1b8](https://github.com/Kong/kongponents/commit/609a1b80efff216ae1001c4aee8d4bee1112b9c9))
+
 ## [8.123.4](https://github.com/Kong/kongponents/compare/v8.123.3...v8.123.4) (2023-09-11)
 
 
