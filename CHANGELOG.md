@@ -1,3 +1,21 @@
+# [9.0.0-alpha.1](https://github.com/Kong/kongponents/compare/v8.123.4...v9.0.0-alpha.1) (2023-09-11)
+
+
+### Bug Fixes
+
+* **release:** trigger release ([609a1b8](https://github.com/Kong/kongponents/commit/609a1b80efff216ae1001c4aee8d4bee1112b9c9))
+
+
+### Features
+
+* kongponents major reskin [KHCP-8873] ([19f7d46](https://github.com/Kong/kongponents/commit/19f7d46b51ae51341807bd4cd37fa2dffb55772a))
+
+
+### BREAKING CHANGES
+
+* Breaking style changes. Component removals. Deprecated prop removals. See
+https://kongponents.konghq.com/guide/migrating-to-version-9.html
+
 ## [8.123.4](https://github.com/Kong/kongponents/compare/v8.123.3...v8.123.4) (2023-09-11)
 
 
