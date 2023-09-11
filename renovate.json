@@ -1,5 +1,8 @@
 {
   "extends": [
     "github>Kong/public-shared-renovate:kong-frontend-config.json"
+  ],
+  "ignoreDeps": [
+    "v-calendar"
   ]
 }
