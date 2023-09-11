@@ -2,11 +2,17 @@
 
 This guide is primarily for users of Kongponents `v8` who want to browse the breaking changes they may encounter when upgrading to Kongponents `v9`.
 
-This is not something you have to read from top to bottom before trying out the new version of Kongponents.
+This is not something you have to read from top to bottom before trying out the new version.
+
+If you notice any breaking changes we missed, we invite you to [open an issue](https://github.com/Kong/kongponents/issues).
+
+## General Breaking Changes
+
+### Styles
+
+Kongponents styles are no longer designed to be utilized standalone, separately from the Vue components. Any standalone imports of the exported styles or Sass variables and/or mixins are no longer supported.
 
 ## Breaking Component Changes
-
-If you notice other breaking changes we missed, we invite you to [open an issue](https://github.com/Kong/kongponents/issues).
 
 ### KAlert
 
@@ -142,9 +148,3 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KView Switcher
 
-
-## Other Breaking Changes
-
-### Styles
-
-Kongponents styles are no longer designed to be utilized standalone, separately from the Vue components.
