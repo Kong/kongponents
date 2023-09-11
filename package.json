@@ -111,7 +111,7 @@
     "rimraf": "^5.0.1",
     "rollup-plugin-visualizer": "^5.9.0",
     "sass": "^1.63.6",
-    "semantic-release": "^19.0.5",
+    "semantic-release": "^21.1.1",
     "stylelint": "^15.10.2",
     "stylelint-config-html": "^1.1.0",
     "stylelint-config-recommended-scss": "^8.0.0",
