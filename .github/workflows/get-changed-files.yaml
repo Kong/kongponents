@@ -19,7 +19,7 @@ on:
 jobs:
   get-changed-files:
     name: Check changed files
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     outputs:
       component-files-changed: ${{ steps.component-files-changed.outputs.any_modified }}
       docs-files-changed: ${{ steps.docs-files-changed.outputs.any_modified }}
