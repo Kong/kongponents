@@ -140,7 +140,7 @@ export default {
   .k-checkbox-description {
     color: var(--black-45, var(--kui-color-text, $kui-color-text));
     font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
-    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
     line-height: var(--kui-line-height-30, $kui-line-height-30);
     padding-left: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
     padding-top: var(--spacing-xxs, var(--kui-space-20, kui-space-20));
@@ -151,15 +151,7 @@ export default {
       color: var(--KCheckboxDisabledChecked, var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)));
     }
   }
-}
-</style>
 
-<style lang="scss">
-.k-checkbox-description {
-  font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-}
-
-.k-checkbox {
   .k-checkbox-label.has-desc {
     font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
   }

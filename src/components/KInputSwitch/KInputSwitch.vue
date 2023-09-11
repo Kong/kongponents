@@ -201,7 +201,7 @@ $kInputSwitchTransition: $tmp-animation-timing-2 linear;
   }
 
   .switch-control {
-    background-color: $tmp-color-green-500;
+    background-color: var(--KInputSwitchBackground, var(--grey-400, $kui-color-background-neutral-weak));
     border-radius: 12px;
     display: block;
     height: $kInputSwitchHeight;

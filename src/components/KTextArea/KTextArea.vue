@@ -281,9 +281,12 @@ export default {
     color: var(--red-600, var(--kui-color-text-danger, $kui-color-text-danger));
   }
 
-  .text-on-input label.hovered,
-  .text-on-input label:hover {
-    color: var(--KInputHover, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
+  .text-on-input {
+    label.hovered, label:hover {
+      color: var(--KInputHover, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
+    }
+
+     @include overlay-label-input;
   }
 
   &.input-error {
